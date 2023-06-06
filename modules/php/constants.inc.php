@@ -56,10 +56,28 @@ const OPTION_HELPER_PLAYABLE = 110;
  * State constants
  */
 const ST_GAME_SETUP = 1;
-const ST_SETUP_BRANCH = 2;
+const ST_DECK_SELECTION = 2;
+const ST_SETUP = 3; // tempest setup + deck shuffle + alterer position
+const ST_NEW_DAY = 5; // Mana draw, if day 1 = 7 + 3 mana
 
-const ST_CLEANUP = 88;
-const ST_BREAK_PHASE = 89;
+const ST_ASSIGNMENT = 6;
+// Atomic action
+const ST_PLAY_CARD = 10;
+const ST_ACTIVATE_ECHO = 11;
+const ST_ACTIVATE_ALTERER = 12;
+const ST_ACTIVATE_PERMANENT = 13;
+
+// Targeting
+const ST_TARGET = 14;
+
+// Effets
+const ST_EFFECT_BOOST = 20; // gain X / who
+const ST_EFFECT_TOKEN = 21; // invoke a token
+const ST_EFFECT_NEW_TURN = 22;
+
+const ST_PRE_RESOLUTION_PHASE = 83; // some effects give choice before counting
+const ST_RESOLUTION_PHASE = 84; // resolution of the tempest
+const ST_END_OF_DAY = 85; // clean up !! may need some choice
 const ST_RESOLVE_STACK = 90;
 const ST_RESOLVE_CHOICE = 91;
 const ST_IMPOSSIBLE_MANDATORY_ACTION = 92;
