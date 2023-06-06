@@ -1,0 +1,8 @@
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+/.remote-sync.json
+node_modules/
+.vscode
+deploy.sh

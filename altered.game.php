@@ -32,8 +32,20 @@ spl_autoload_register($swdNamespaceAutoload, true, true);
 
 require_once APP_GAMEMODULE_PATH . 'module/table/table.game.php';
 
+use ALT\Managers\Meeples;
+use ALT\Managers\Cards;
+use ALT\Managers\Players;
+use ALT\Managers\Scores;
+use ALT\Core\Globals;
+use ALT\Helpers\Log;
+use ALT\Core\Preferences;
+use ALT\Core\Stats;
+use ALT\Core\Engine;
+
 class Altered extends Table
 {
+  public static $instance = null;
+
   function __construct()
   {
     parent::__construct();
@@ -43,6 +55,11 @@ class Altered extends Table
     ]);
     Engine::boot();
     //   Stats::checkExistence();
+  }
+
+  public static function get()
+  {
+    return self::$instance;
   }
 
   protected function getGameName()
@@ -275,6 +292,7 @@ class Altered extends Table
 
   function upgradeTableDb($from_version)
   {
+    //test
   }
 
   /////////////////////////////////////////////////////////////

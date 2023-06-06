@@ -37,8 +37,8 @@ class Engine
    */
   protected function ensureSeqRootNode()
   {
-    if (!self::$tree instanceof \ARK\Core\Engine\SeqNode) {
-      self::$tree = new \ARK\Core\Engine\SeqNode([], [self::$tree]);
+    if (!self::$tree instanceof \ALT\Core\Engine\SeqNode) {
+      self::$tree = new \ALT\Core\Engine\SeqNode([], [self::$tree]);
       self::save();
     }
   }
@@ -71,7 +71,7 @@ class Engine
       $childs[] = self::buildTree($child);
     }
 
-    $className = '\ARK\Core\Engine\\' . ucfirst($type) . 'Node';
+    $className = 'ALT\\Core\Engine\\' . ucfirst($type) . 'Node';
     unset($t['childs']);
     return new $className($t, $childs);
   }

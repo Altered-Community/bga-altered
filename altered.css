@@ -20,7 +20,7 @@
     HTML template (altered_altered.tpl), and to HTML elements you create dynamically
     (in altered.js).
     
-    Usually, you are using CSS to:
+    Usually, you are using CSS to :
     
     1°) define the overall layout of your game
         (ex: place the board on the top left, place player's hand beside, place the deck on the right, ...).
