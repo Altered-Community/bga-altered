@@ -1,5 +1,5 @@
 <?php
-namespace ARK;
+namespace ALT;
 use ALT\Core\Globals;
 use ALT\Managers\Players;
 use ALT\Managers\Meeples;
