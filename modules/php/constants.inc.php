@@ -60,12 +60,15 @@ const ST_DECK_SELECTION = 2;
 const ST_SETUP = 3; // tempest setup + deck shuffle + alterer position
 const ST_NEW_DAY = 5; // Mana draw, if day 1 = 7 + 3 mana
 
-const ST_ASSIGNMENT = 6;
+const ST_BEFORE_ASSIGNMENT = 6;
+const ST_ASSIGNMENT = 7;
+const ST_CHOOSE_ASSIGNMENT = 8;
+
 // Atomic action
 const ST_PLAY_CARD = 10;
-const ST_ACTIVATE_ECHO = 11;
-const ST_ACTIVATE_ALTERER = 12;
-const ST_ACTIVATE_PERMANENT = 13;
+// const ST_ACTIVATE_ECHO = 11;
+// const ST_ACTIVATE_ALTERER = 12;
+// const ST_ACTIVATE_PERMANENT = 13;
 
 // Targeting
 const ST_TARGET = 14;
