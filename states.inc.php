@@ -21,7 +21,7 @@ $machinestates = [
     'description' => '',
     'type' => 'manager',
     'action' => 'stGameSetup',
-    'transitions' => ['' => ST_SETUP],
+    'transitions' => ['' => ST_DECK_SELECTION],
   ],
 
   ST_GENERIC_NEXT_PLAYER => [

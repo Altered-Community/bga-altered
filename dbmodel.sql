@@ -18,11 +18,30 @@ CREATE TABLE IF NOT EXISTS `meeples` (
 
 -- Store cards
 CREATE TABLE IF NOT EXISTS `cards` (
-  `card_id` varchar(100)  NOT NULL,
+  `card_id` int(100) unsigned NOT NULL AUTO_INCREMENT,
   `card_location` varchar(32) NOT NULL,
   `card_state` int(10) DEFAULT 0,
   `player_id` int(10) NULL,
   `extra_datas` JSON NULL,
+  `type` varchar(32) NOT NULL,
+  `tapped` int(1) DEFAULT 0,
+  `costHand` int(1) DEFAULT 99,
+  `costMemory` int(1) DEFAULT 99,
+  `name` => VARCHAR(50), --  obj for translation
+  `rarity` int(1) DEFAULT 0,
+  `equinoxId` VARCHAR(100),
+  `mountain` int(3) NULL,
+  `forest` int(3) NULL ,
+  `water` int(3)NULL ,
+  `boostEffect` JSON NULL, --['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
+  `faction`VARCHAR(20),
+  `effectEcho`JSON NULL,
+  `effectHand` JSON NULL, --played from hand
+  `effectMemory` JSON NULL, -- played from memory
+  `effectPassive` JSON NULL, -- [[listener type => action]]: listener type to distinguish
+  `costModifier` JSON NULL, -- ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
+  `initialProperties`JSON NULL, 
+  `properties` JSON NULL -- will superseed original properties if needed
   PRIMARY KEY (`card_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -30,6 +30,7 @@ trait DebugTrait
 
   function vt()
   {
+    Globals::setupNewGame([], []);
   }
 
   function tv()

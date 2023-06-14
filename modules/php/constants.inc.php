@@ -38,20 +38,6 @@ const OPTION_CONFIRM_TIMER = 3;
 
 const OPTION_CONFIRM_UNDOABLE = 104;
 
-const OPTION_REMOVE_SNAKE_IMAGES = 105;
-const OPTION_REMOVE_SNAKE_IMAGES_DISABLED = 0;
-const OPTION_REMOVE_SNAKE_IMAGES_ENABLED = 1;
-
-const OPTION_REDUCED_COSTS = 106;
-
-const OPTION_FOLDER_COSTS = 107;
-
-const OPTION_ENCLOSURE_SIZE = 108;
-
-const OPTION_BUILDING_BORDERS = 109;
-
-const OPTION_HELPER_PLAYABLE = 110;
-
 /*
  * State constants
  */
@@ -133,13 +119,28 @@ const SPECIAL_EFFECT = 'SPECIAL_EFFECT';
 const ACTIVE = 1;
 const INACTIVE = 0;
 
-const SPONSOR_CARD_WITH_ICON_BONUS = ['S215_BreedingCooperation', 'S218_BreedingProgram'];
-
 const INFTY = 100;
-const CORNER = ['x' => 0, 'y' => 11];
+const MOUNTAIN = 'mountain';
+const FOREST = 'forest';
+const OCEAN = 'ocean';
 
 // Ability
 const SPRINT = 'Sprint';
+
+const STORM_CARDS = [
+  [[MOUNTAIN], [FOREST, OCEAN]],
+  [[FOREST], [MOUNTAIN, OCEAN]],
+  [[OCEAN], [MOUNTAIN, FOREST]],
+  [[MOUNTAIN], [FOREST]],
+  [[OCEAN], [FOREST]],
+  [[OCEAN], [MOUNTAIN]],
+];
+
+const STORM_GENERIC = [[MOUNTAIN, FOREST, OCEAN]];
+
+const RARITY_BASE = 0;
+const RARITY_RARE = 1;
+const RARITY_UNIQUE = 2;
 
 /******************
  ****** STATS ******
