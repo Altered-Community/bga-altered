@@ -10,13 +10,13 @@ use ALT\Core\Notifications;
  * Players manager : allows to easily access players ...
  *  a player is an instance of Player class
  */
-class Players extends \ARK\Helpers\DB_Manager
+class Players extends \ALT\Helpers\DB_Manager
 {
   protected static $table = 'player';
   protected static $primary = 'player_id';
   protected static function cast($row)
   {
-    return new \ARK\Models\Player($row);
+    return new \ALT\Models\Player($row);
   }
 
   public function setupNewGame($players, $options)

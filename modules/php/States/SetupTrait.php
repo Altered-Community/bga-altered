@@ -17,10 +17,10 @@ trait SetupTrait
    */
   protected function setupNewGame($players, $options = [])
   {
-    // Globals::setupNewGame($players, $options);
-    // Players::setupNewGame($players, $options);
+    Globals::setupNewGame($players, $options);
+    Players::setupNewGame($players, $options);
     // Preferences::setupNewGame($players, $this->player_preferences);
-    // ZooCards::setupNewGame($players, $options);
+    // Cards::setupNewGame($players, $options);
     // Meeples::setupNewGame($players, $options);
     // Stats::checkExistence();
 

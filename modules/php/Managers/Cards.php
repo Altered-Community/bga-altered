@@ -14,8 +14,30 @@ class Cards extends \ALT\Helpers\Pieces
 {
   protected static $table = 'cards';
   protected static $prefix = 'card_';
-  protected static $customFields = ['player_id', 'extra_datas'];
-  protected static $autoIncrement = false;
+  protected static $customFields = [
+    'player_id',
+    'extra_datas',
+    'type',
+    'tapped',
+    'costHand',
+    'costMemory',
+    'card_name',
+    'rarity',
+    'equinoxId',
+    'mountain',
+    'forest',
+    'water',
+    'boostEffect',
+    'faction',
+    'effectEcho',
+    'effectHand',
+    'effectMemory',
+    'effectPassive',
+    'costModifier',
+    'initial_properties',
+    'properties',
+  ];
+  protected static $autoIncrement = true;
   protected static $autoremovePrefix = false;
   protected static $autoreshuffle = true;
   protected static $autoreshuffleCustom = ['deck' => 'discard'];
@@ -57,8 +79,14 @@ class Cards extends \ALT\Helpers\Pieces
   public static function setupNewGame($players, $options)
   {
     // Load list of cards
-    // include dirname(__FILE__) . '/../Cards/list.inc.php';
-
+    include dirname(__FILE__) . '/../Cards/cards.inc.php';
+    $toCreate = [];
+    foreach ($players as $pId) {
+      $card = $cards['phoenixianCaptain'];
+      $card['player_id'] = $pId;
+      $card['location'] = 'deck';
+      $toCreate[] = $card;
+    }
     // $baseProjects = [];
     // foreach ($cardIds as $cId) {
     //     $card = self::getCardInstance($cId);
@@ -91,7 +119,8 @@ class Cards extends \ALT\Helpers\Pieces
     // }
 
     // // Create the cards
-    // self::create($cards, null);
+    // throw new \feException(print_r($toCreate));
+    self::create($toCreate, null);
     // self::shuffle('deck');
     // self::shuffle('scoringDeck');
   }

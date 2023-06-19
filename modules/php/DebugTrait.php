@@ -5,7 +5,7 @@ use ALT\Managers\Players;
 use ALT\Managers\Meeples;
 use ALT\Managers\Fences;
 use ALT\Managers\ActionCards;
-use ALT\Managers\ZooCards;
+use ALT\Managers\Cards;
 use ALT\Core\Engine;
 use ALT\Core\Game;
 use ALT\Models\PlayerBoard;
@@ -30,7 +30,8 @@ trait DebugTrait
 
   function vt()
   {
-    Globals::setupNewGame([], []);
+    // Globals::setupNewGame([], []);
+    Cards::setupNewGame(Players::getAll()->getIds(), []);
   }
 
   function tv()

@@ -24,7 +24,7 @@ class Card extends \ALT\Helpers\DB_Model
     'tapped' => ['tapped', 'bool'],
     'costHand' => ['costHand', 'int'],
     'costMemory' => ['costMemory', 'int'],
-    'name' => ['name', 'str'], // obj?
+    'name' => ['card_name', 'str'], // obj?
     'rarity' => ['rarity', 'int'],
     'equinoxId' => ['equinoxId', 'int'],
     'mountain' => ['mountain', 'int'],
@@ -41,15 +41,6 @@ class Card extends \ALT\Helpers\DB_Model
     // attributs persistants
     'initialProperties' => ['initial_properties', 'obj'],
     'properties' => ['properties', 'obj'], // will superseed original properties if needed
-    // 'untargetable' => ['untargetable', 'bool'],
-    // 'fleeting' => ['fleeting', 'bool'],
-    // 'tenacious' => ['tenacious', 'bool'],
-    // 'persistent' => ['persistent', 'bool'],
-    // 'velocity' => ['velocity', 'bool'],
-    // 'steadfast' => ['steadfast', 'bool'], // cannot fleet
-    // 'asleep' => ['asleep', 'bool'],
-    // 'huge' => ['huge', 'bool'],
-    // 'immobile' => ['immobile', 'bool'],
   ];
 
   protected $staticAttributes = [

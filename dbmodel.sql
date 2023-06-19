@@ -27,24 +27,33 @@ CREATE TABLE IF NOT EXISTS `cards` (
   `tapped` int(1) DEFAULT 0,
   `costHand` int(1) DEFAULT 99,
   `costMemory` int(1) DEFAULT 99,
-  `name` => VARCHAR(50), --  obj for translation
+  `card_name` VARCHAR(50) NULL, 
   `rarity` int(1) DEFAULT 0,
   `equinoxId` VARCHAR(100),
   `mountain` int(3) NULL,
   `forest` int(3) NULL ,
   `water` int(3)NULL ,
-  `boostEffect` JSON NULL, --['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
+  `boostEffect` JSON NULL, 
   `faction`VARCHAR(20),
   `effectEcho`JSON NULL,
-  `effectHand` JSON NULL, --played from hand
-  `effectMemory` JSON NULL, -- played from memory
-  `effectPassive` JSON NULL, -- [[listener type => action]]: listener type to distinguish
-  `costModifier` JSON NULL, -- ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
-  `initialProperties`JSON NULL, 
-  `properties` JSON NULL -- will superseed original properties if needed
+  `effectHand` JSON NULL, 
+  `effectMemory` JSON NULL, 
+  `effectPassive` JSON NULL, 
+  `costModifier` JSON NULL,
+  `initial_properties`JSON NULL, 
+  `properties` JSON NULL, 
   PRIMARY KEY (`card_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- `boostEffect` JSON NULL, --['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
+--   `faction`VARCHAR(20),
+--   `effectEcho`JSON NULL,
+--   `effectHand` JSON NULL, --played from hand
+--   `effectMemory` JSON NULL, -- played from memory
+--   `effectPassive` JSON NULL, -- [[listener type => action]]: listener type to distinguish
+--   `costModifier` JSON NULL, -- ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
+--   `initialProperties`JSON NULL, 
+--   `altered_properties` JSON NULL -- will superseed original properties if needed
 
 -- Additional player's info
 -- ALTER TABLE `player` ADD `map_id` varchar(10);
