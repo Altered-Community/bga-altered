@@ -35,6 +35,6 @@ $cards = [
     'rarity' => RARITY_RARE,
     'water' => 2,
     'faction' => 'toto',
-    'effectHand' => ['titi'],
+    'effectHand' => ['titi' => 'truc'],
   ],
 ];

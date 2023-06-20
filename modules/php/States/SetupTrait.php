@@ -20,11 +20,11 @@ trait SetupTrait
     Globals::setupNewGame($players, $options);
     Players::setupNewGame($players, $options);
     // Preferences::setupNewGame($players, $this->player_preferences);
-    // Cards::setupNewGame($players, $options);
+    Cards::setupNewGame($players, $options);
     // Meeples::setupNewGame($players, $options);
     // Stats::checkExistence();
 
-    // Globals::setFirstPlayer($this->getNextPlayerTable()[0]);
+    Globals::setFirstPlayer($this->getNextPlayerTable()[0]);
 
     $this->setGameStateInitialValue('logging', false);
     $this->activeNextPlayer();

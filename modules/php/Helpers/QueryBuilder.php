@@ -75,7 +75,12 @@ class QueryBuilder extends \APP_DbObject
     foreach ($rows as $row) {
       $rowValues = [];
       foreach ($row as $val) {
-        $rowValues[] = $val === null ? 'NULL' : "'" . mysql_escape_string($val) . "'";
+        $rowValues[] =
+          $val === null
+            ? 'NULL'
+            : (is_array($val)
+              ? "'" . \addslashes(\json_encode($val)) . "'"
+              : "'" . mysql_escape_string($val) . "'");
       }
       $vals[] = '(' . implode(',', $rowValues) . ')';
       $ids[] =
