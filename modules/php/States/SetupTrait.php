@@ -30,6 +30,13 @@ trait SetupTrait
     $this->activeNextPlayer();
   }
 
+  protected function stDeckSetup()
+  {
+    // Temp for the moment as no deck selection yet
+
+    $this->gamestate->nextState('');
+  }
+
   protected function setupPlayer($player, $notif = false)
   {
     $pId = $player->getId();

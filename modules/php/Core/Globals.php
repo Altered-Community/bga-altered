@@ -20,6 +20,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'firstPlayer' => 'int',
 
     'storm' => 'obj',
+    'day' => 'int',
   ];
 
   protected static $table = 'global_variables';
@@ -156,5 +157,6 @@ class Globals extends \ALT\Helpers\DB_Manager
       $storm[$i + 1] = STORM_CARDS[$stormKeys[$i]];
     }
     self::setStorm($storm);
+    self::setDay(0);
   }
 }

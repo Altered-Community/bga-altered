@@ -74,7 +74,12 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function isPlayed()
   {
-    return $this->location == 'inPlay';
+    return $this->location == 'stormLeft' || $this->location == 'stormRight' || $this->location == 'memory';
+  }
+
+  public function isMana()
+  {
+    return $this->location = 'mana';
   }
 
   public function getPlayer($checkPlayed = false)

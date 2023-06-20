@@ -73,6 +73,13 @@ class Player extends \ALT\Helpers\DB_Model
     return Actions::isDoable($action, $ctx, $this);
   }
 
+  public function draw($nb, $fromLocation = 'deck', $toLocation = 'hand')
+  {
+    $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
+    // TODO: notif
+    return $cards;
+  }
+
   ////////////////////////////////////////
   //  ____       _   _
   // / ___|  ___| |_| |_ ___ _ __ ___
@@ -96,11 +103,11 @@ class Player extends \ALT\Helpers\DB_Model
   }
 
   ///////////////////////////////////////////////////
-  //  _____              ____              _
-  // |__  /___   ___    / ___|__ _ _ __ __| |___
-  //   / // _ \ / _ \  | |   / _` | '__/ _` / __|
-  //  / /| (_) | (_) | | |__| (_| | | | (_| \__ \
-  // /____\___/ \___/   \____\__,_|_|  \__,_|___/
+  //    ____              _
+  //   / ___|__ _ _ __ __| |___
+  //   | |   / _` | '__/ _` / __|
+  //   | |__| (_| | | | (_| \__ \
+  //   \____\__,_|_|  \__,_|___/
   ///////////////////////////////////////////////////
   public function getHand($type = null)
   {

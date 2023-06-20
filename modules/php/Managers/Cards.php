@@ -7,6 +7,7 @@ use ALT\Helpers\FlowConvertor;
 use ALT\Helpers\Utils;
 use ALT\Helpers\Log;
 use ALT\Managers\Players;
+use ALT\Models\Card;
 
 /* Class to manage all the cards for Altered */
 
@@ -58,8 +59,8 @@ class Cards extends \ALT\Helpers\Pieces
     //     'F' => 'FinalScoring',
     // ];
     // $prefix = $prefixes[$t[0][0]];
-    $className = "\ALT\Cards\\$prefix\\$id";
-    return new $className($data);
+    // $className = "\ALT\Cards\\$prefix\\$id";
+    return new Card($data);
   }
 
   public static function getUiData()
@@ -80,48 +81,17 @@ class Cards extends \ALT\Helpers\Pieces
   {
     // Load list of cards
     include dirname(__FILE__) . '/../Cards/cards.inc.php';
+
     $toCreate = [];
-    foreach ($players as $pId) {
-      $card = $cards['phoenixianCaptain'];
-      $card['player_id'] = $pId;
-      $card['location'] = 'deck';
-      $toCreate[] = $card;
+    foreach ($players as $pId => $player) {
+      foreach ($cards as $cId => $card) {
+        $card['player_id'] = $pId;
+        $toCreate[] = $card;
+      }
     }
-    // $baseProjects = [];
-    // foreach ($cardIds as $cId) {
-    //     $card = self::getCardInstance($cId);
-    //     if (!$card->isSupported($players, $options)) {
-    //         continue;
-    //     }
 
-    //     $type = $card->getType();
-    //     $location = 'deck';
-    //     if ($type == CARD_BASE_PROJECT) {
-    //         $baseProjects[] = $cId;
-    //         $location = 'projectDeck';
-    //     } elseif ($type == CARD_SCORING) {
-    //         $location = 'scoringDeck';
-    //     }
-
-    //     $cards[$cId] = [
-    //         'id' => $cId,
-    //         'location' => $location,
-    //     ];
-    // }
-
-    // // Draw base projects on association board (projects_base_X)
-    // shuffle($baseProjects);
-    // $nbBaseProjects = count($players) == 4 ? 4 : 3;
-
-    // for ($i = 0; $i < $nbBaseProjects; $i++) {
-    //     $value = array_pop($baseProjects);
-    //     $cards[$value]['location'] = 'base_' . $i;
-    // }
-
-    // // Create the cards
-    // throw new \feException(print_r($toCreate));
     self::create($toCreate, null);
-    // self::shuffle('deck');
+    self::shuffle('deck');
     // self::shuffle('scoringDeck');
   }
 

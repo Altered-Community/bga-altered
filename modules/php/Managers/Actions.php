@@ -10,6 +10,9 @@ use ALT\Core\Globals;
 class Actions
 {
   static $classes = [
+    // new day
+    MANA => 'Mana',
+
     GAIN => 'Gain',
     // PAY => 'Pay',
     ACTIVATE_CARD => 'ActivateCard',

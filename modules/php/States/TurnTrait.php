@@ -24,6 +24,23 @@ trait TurnTrait
     }
   }
 
+  /********************* NEW DAY************************ */
+
+  function stNewDay()
+  {
+    $nCards = 2;
+    $day = Globals::incDay(1);
+    if ($day == 1) {
+      $nCards = 7;
+    }
+    // on first day, 7 cards are picked, else 2
+    foreach (Players::getAll() as $pId => $player) {
+      // put in specific location as they must be choosen
+      $player->draw($nCards, 'deck', 'choice');
+    }
+    // init of custom turn order (or break method of AN)
+  }
+
   /**
    * State function when starting a turn
    *  useful to intercept for some cards that happens at that moment
