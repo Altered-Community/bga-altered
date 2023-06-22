@@ -21,25 +21,19 @@ var debug = isDebug ? console.info.bind(window.console) : function () {};
 define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui', 'ebg/counter'], function (dojo, declare) {
   return declare('bgagame.altered', ebg.core.gamegui, {
     constructor: function () {
-      console.log('altered constructor');
+      this._activeStates = [];
+      this._notifications = [
+        ['clearTurn', 200],
+        ['refreshUI', 200],
+        ['refreshHand', 200],
+        ['pDiscardMana', null],
+        ['discardMana', null, (notif) => notif.args.player_id == this.player_id],
+      ];
 
-      // Here, you can init the global variables of your user interface
-      // Example:
-      // this.myGlobalValue = 0;
+      // Fix mobile viewport (remove CSS zoom)
+      this.default_viewport = 'width=740';
+      this.cardStatuses = {};
     },
-
-    /*
-            setup:
-            
-            This method must set up the game user interface according to current game situation specified
-            in parameters.
-            
-            The method is called each time the game interface is displayed to a player, ie:
-            _ when the game starts
-            _ when a player refreshes the game page (F5)
-            
-            "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
-        */
 
     setup: function (gamedatas) {
       console.log('Starting game setup');
@@ -66,7 +60,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui', 'ebg/counter'], functi
     //                  You can use this method to perform some user interface changes at this moment.
     //
     onEnteringState: function (stateName, args) {
-      console.log('Entering state: ' + stateName);
+      debug('Entering state: ' + stateName, args);
 
       switch (stateName) {
         /* Example:

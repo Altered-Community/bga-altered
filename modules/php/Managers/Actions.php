@@ -11,13 +11,14 @@ class Actions
 {
   static $classes = [
     // new day
-    MANA => 'Mana',
+    // MANA => 'Mana',
+    CHOOSE_ASSIGNMENT => 'ChooseAssignment',
 
-    GAIN => 'Gain',
+    // GAIN => 'Gain',
     // PAY => 'Pay',
-    ACTIVATE_CARD => 'ActivateCard',
-    SPECIAL_EFFECT => 'SpecialEffect',
-    CHOOSE_ACTION_CARD => 'ChooseActionCard',
+    // ACTIVATE_CARD => 'ActivateCard',
+    // SPECIAL_EFFECT => 'SpecialEffect',
+    // CHOOSE_ACTION_CARD => 'ChooseActionCard',
   ];
 
   public static function get($actionId, $ctx = null)

@@ -44,15 +44,17 @@ const OPTION_CONFIRM_UNDOABLE = 104;
 const ST_GAME_SETUP = 1;
 const ST_DECK_SELECTION = 2;
 const ST_SETUP = 3; // tempest setup + deck shuffle + alterer position
-const ST_NEW_DAY = 4; // Mana draw, if day 1 = 7 + 3 mana
-const ST_NEW_DAY_BONUS = 5;
+const ST_FIRST_DAY_MULTI = 4;
+const ST_FIRST_DAY_MANA = 5;
+const ST_NEW_DAY = 6; // Mana draw, if day 1 = 7 + 3 mana
+const ST_NEW_DAY_BONUS = 7;
 
-const ST_BEFORE_ASSIGNMENT = 6;
-const ST_ASSIGNMENT = 7;
-const ST_CHOOSE_ASSIGNMENT = 8;
+const ST_BEFORE_ASSIGNMENT = 8;
+const ST_ASSIGNMENT = 9;
+const ST_CHOOSE_ASSIGNMENT = 10;
 
 // Atomic action
-const ST_PLAY_CARD = 10;
+const ST_PLAY_CARD = 11;
 // const ST_ACTIVATE_ECHO = 11;
 // const ST_ACTIVATE_ALTERER = 12;
 // const ST_ACTIVATE_PERMANENT = 13;
@@ -99,7 +101,7 @@ const AFTER_FINISHING_ACTION = 'afterFinishing';
 const ACTIVATE_CARD = 'ACTIVATE_CARD';
 const SPECIAL_EFFECT = 'SPECIAL_EFFECT';
 const MANA = 'MANA';
-// const CHOOSE_ACTION_CARD = 'CHOOSE_ACTION_CARD';
+const CHOOSE_ASSIGNMENT = 'CHOOSE_ASSIGNMENT';
 const GAIN = 'GAIN';
 // const ADVANCE_BREAK = 'ADVANCE_BREAK';
 // const PAY = 'PAY';

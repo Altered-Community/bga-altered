@@ -18,9 +18,12 @@ class Globals extends \ALT\Helpers\DB_Manager
     'customTurnOrders' => 'obj', // DO NOT MODIFY, USED FOR CUSTOM TURN ORDER FEATURE
 
     'firstPlayer' => 'int',
+    'skippedPlayers' => 'obj',
 
     'storm' => 'obj',
     'day' => 'int',
+
+    'firstDayManaSelection' => 'obj',
   ];
 
   protected static $table = 'global_variables';

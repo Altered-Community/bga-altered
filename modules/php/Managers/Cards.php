@@ -115,6 +115,13 @@ class Cards extends \ALT\Helpers\Pieces
       });
   }
 
+  public static function getManaChoice($pId)
+  {
+    return self::getFilteredQuery($pId, 'choice')
+      ->orderBy(['card_state', 'ASC'])
+      ->get();
+  }
+
   /**
    * Check whether a player played a specific card
    */
@@ -122,6 +129,11 @@ class Cards extends \ALT\Helpers\Pieces
   {
     $card = ZooCards::getSingle($id, false);
     return !is_null($card) && $card->isPlayed() && $card->getPId() == $pId;
+  }
+
+  public static function discard($cardIds, $discard = 'discard')
+  {
+    return self::move($cardIds, $discard);
   }
 
   ///////////////////////////////////////

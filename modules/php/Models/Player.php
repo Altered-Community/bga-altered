@@ -116,6 +116,11 @@ class Player extends \ALT\Helpers\DB_Model
     });
   }
 
+  public function getManaChoice()
+  {
+    return Cards::getManaChoice($this->id);
+  }
+
   public function getPlayedCards($type = null)
   {
     return Cards::getPlayedCards($this->id, $type);

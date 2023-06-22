@@ -65,9 +65,7 @@ class Log extends \APP_DbObject
   // Log the start of engine to allow "restart turn"
   public function startEngine()
   {
-    if (!Globals::isSolo()) {
-      self::checkpoint();
-    }
+    self::checkpoint();
 
     return self::addEntry(['type' => 'engine']);
   }

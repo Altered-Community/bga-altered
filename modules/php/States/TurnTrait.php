@@ -33,7 +33,7 @@ trait TurnTrait
     if ($day == 1) {
       $nCards = 7;
     }
-    // on first day, 7 cards are picked, else 2
+    // draw and pick 2
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
       $player->draw($nCards, 'deck', 'choice');
@@ -45,46 +45,45 @@ trait TurnTrait
    * State function when starting a turn
    *  useful to intercept for some cards that happens at that moment
    */
-  function stBeforeStartOfTurn()
+  function stBeforeAssignment()
   {
-    if (Globals::isEndTriggered() && Globals::getEndRemainingPlayers() == []) {
-      $this->endOfGameInit();
-    } else {
-      // if it happened in break, one more turn for all players
-      Players::checkEndOfGame();
-      $this->initCustomDefaultTurnOrder('labor', \ST_TURNACTION, ST_BREAK_MULTIACTIVE, true);
-    }
+    $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_RESOLUTION_PHASE, true);
   }
 
   /**
    * Activate next player
    */
-  function stTurnAction()
+  function stAssignment()
   {
     $player = Players::getActive();
-    self::giveExtraTime($player->getId());
 
-    if (Globals::isEndTriggered() && Globals::getEndRemainingPlayers() == []) {
-      $this->endOfGameInit();
+    // check if a player skipped his turn
+    $skipped = Globals::getSkippedPlayers();
+    if (in_array($player->getId(), $skipped)) {
+      // Everyone is out of round => end it
+      $remaining = array_diff(Players::getAll()->getIds(), $skipped);
+      if (empty($remaining)) {
+        $this->endCustomOrder('assignment');
+      } else {
+        $this->nextPlayerCustomOrder('assignment');
+      }
       return;
     }
 
-    Stats::incTurns($player);
+    self::giveExtraTime($player->getId());
+
+    // Stats::incTurns($player);
     $node = [
       'childs' => [
         [
-          'action' => CHOOSE_ACTION_CARD,
-          'pId' => $player->getId(),
-        ],
-        [
-          'action' => VENOM_PAY,
+          'action' => CHOOSE_ASSIGNMENT,
           'pId' => $player->getId(),
         ],
       ],
     ];
 
     // Inserting leaf Action card
-    Engine::setup($node, ['method' => 'stEndOfTurn']);
+    Engine::setup($node, ['order' => 'assignment']);
     Engine::proceed();
   }
 

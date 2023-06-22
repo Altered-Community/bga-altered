@@ -31,7 +31,8 @@ trait DebugTrait
   function vt()
   {
     // Globals::setupNewGame([], []);
-    Cards::setupNewGame(Players::getAll()->getIds(), []);
+    // Cards::setupNewGame(Players::getAll()->getIds(), []);
+    $this->actFirstDayMana([4, 6, 9, 11]);
   }
 
   function tv()
