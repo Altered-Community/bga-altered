@@ -127,7 +127,7 @@ class Cards extends \ALT\Helpers\Pieces
    */
   public static function hasPlayedCard($pId, $id)
   {
-    $card = ZooCards::getSingle($id, false);
+    $card = self::getSingle($id, false);
     return !is_null($card) && $card->isPlayed() && $card->getPId() == $pId;
   }
 

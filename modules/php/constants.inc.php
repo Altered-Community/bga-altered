@@ -128,6 +128,14 @@ const MOUNTAIN = 'mountain';
 const FOREST = 'forest';
 const OCEAN = 'ocean';
 
+const ADVENTURER = 'adventurer';
+const HERO = 'hero';
+const PERMANENT = 'permanent';
+const SPELL = 'spell';
+
+const HAND = 'hand';
+const MEMORY = 'memory';
+
 // Ability
 const SPRINT = 'Sprint';
 

@@ -130,12 +130,12 @@ class Altered extends Table
   {
     $pId = self::getCurrentPId();
     return [
-        // 'prefs' => Preferences::getUiData($pId),
-        // 'players' => Players::getUiData($pId),
-        // 'cards' => ZooCards::getUiData(),
-        // 'buildings' => Buildings::getUiData(),
-        // 'meeples' => Meeples::getUiData(),
-      ];
+      // 'prefs' => Preferences::getUiData($pId),
+      'players' => Players::getUiData($pId),
+      // 'cards' => ZooCards::getUiData(),
+      // 'buildings' => Buildings::getUiData(),
+      // 'meeples' => Meeples::getUiData(),
+    ];
   }
 
   function getGameProgression()

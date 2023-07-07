@@ -28,21 +28,16 @@ class Player extends \ALT\Helpers\DB_Model
     'score' => ['player_score', 'int'],
     'scoreAux' => ['player_score_aux', 'int'],
     'zombie' => 'player_zombie',
-
-    // 'money' => ['money', 'int'],
-    // 'reputation' => ['reputation', 'int'],
-    // 'appeal' => ['appeal', 'int'],
-    // 'conservation' => ['conservation', 'int'],
-    // 'xToken' => ['xtoken', 'int'],
-    // 'mapId' => 'map_id',
   ];
 
   public function getUiData($currentPlayerId = null)
   {
     $data = parent::getUiData();
     $current = $this->id == $currentPlayerId;
-    // $data['hand'] = $current ? $this->getHand()->ui() : [];
-    // $data['handCount'] = $this->getHand()->count();
+    $data['mana'] = $this->getMana();
+    $data['totalMana'] = $this->getTotalMana();
+    $data['hand'] = $current ? $this->getHand()->ui() : [];
+    $data['handCount'] = $this->getHand()->count();
     // $data['scoringHand'] =
     //     $current || Globals::isEnd() ? $this->getScoringHand()->ui() : [];
     // $data['scoringHandCount'] = $this->getScoringHand()->count();
@@ -90,6 +85,7 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function pay($n, $notif = true, $source = null)
   {
+    throw new \feException('pay todo');
     if ($this->money < $n) {
       throw new \BgaVisibleSystemException('You don\'t have enough money to pay. Should not happen');
     }
@@ -129,5 +125,20 @@ class Player extends \ALT\Helpers\DB_Model
   public function hasPlayedCard($id)
   {
     return Cards::hasPlayedCard($this->id, $id);
+  }
+
+  public function getMana()
+  {
+    return $this->getTotalMana() -
+      count(
+        Cards::getFiltered($this->id, MANA)->filter(function ($card) {
+          return $card->isTapped();
+        })
+      );
+  }
+
+  public function getTotalMana()
+  {
+    return count(Cards::getFiltered($this->id, MANA));
   }
 }

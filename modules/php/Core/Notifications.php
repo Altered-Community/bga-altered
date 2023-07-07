@@ -85,6 +85,33 @@ class Notifications
     );
   }
 
+  public static function moveToHand(
+    $player,
+    $cards,
+    $privateMsg = null,
+    $publicMsg = null,
+    $args = [],
+    $privateArgs = null
+  ) {
+    self::notifyAll(
+      'moveToHand',
+      $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) in his hand'),
+      $args + [
+        'player' => $player,
+        'n' => count($cards),
+      ]
+    );
+    self::notify(
+      $player,
+      'pMoveToHand',
+      $privateMsg ?? clienttranslate('You put ${card_names} in hand'),
+      ($privateArgs ?? $args) + [
+        'player' => $player,
+        'cards' => $cards->toArray(),
+      ]
+    );
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)

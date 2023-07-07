@@ -28,6 +28,8 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui', 'ebg/counter'], functi
         ['refreshHand', 200],
         ['pDiscardMana', null],
         ['discardMana', null, (notif) => notif.args.player_id == this.player_id],
+        ['pMoveToHand', null],
+        ['moveToHand', null, (notif) => notif.args.player_id == this.player_id],
       ];
 
       // Fix mobile viewport (remove CSS zoom)
@@ -37,6 +39,7 @@ define(['dojo', 'dojo/_base/declare', 'ebg/core/gamegui', 'ebg/counter'], functi
 
     setup: function (gamedatas) {
       console.log('Starting game setup');
+      debug(gamedatas);
 
       // Setting up player boards
       for (var player_id in gamedatas.players) {

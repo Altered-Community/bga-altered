@@ -162,10 +162,14 @@ trait SetupTrait
         if (count($cardIds) != 4) {
           throw new \BgaUserException('4 cards should be put as mana. Should not happen');
         }
+        $remainingIds = array_diff($player->getManaChoice()->getIds(), $cardIds);
 
         $cards = Cards::getMany($cardIds);
         Cards::discard($cardIds, MANA);
         Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} places ${n} cards as mana'));
+
+        Cards::move($remainingIds, 'hand');
+        Notifications::moveToHand($player, Cards::getMany($remainingIds));
       }
 
       $this->gamestate->nextState('done');

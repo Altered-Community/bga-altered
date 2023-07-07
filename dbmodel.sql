@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `cards` (
   `effectMemory` JSON NULL, 
   `effectPassive` JSON NULL, 
   `costModifier` JSON NULL,
+   `effectTap` JSON NULL, 
   `initial_properties`JSON NULL, 
   `properties` JSON NULL, 
   PRIMARY KEY (`card_id`)

@@ -24,20 +24,11 @@ class ChooseAssignment extends \ALT\Models\Action
   public function argsChooseAssignment()
   {
     $player = Players::getActive();
-    // $isHypnosis = $this->isHypnosis();
-    // $forcedCardId = $this->getCtxArg('cardId');
-    // $forcedStrength = $this->getCtxArg('strength');
-    // $canGainXToken = $this->getCtxArg('canGainXToken') ?? true;
-
-    // // What action cards are we talking about
-    // if ($isHypnosis) {
-    //   $cards = ActionCards::getMany($this->getCtxArg('hypnosisCards'));
-    // } elseif (!is_null($forcedCardId)) {
-    //   // This case is used for Multiplier and animal effect Action
-    //   $cards = ActionCards::getMany([$forcedCardId]);
-    // } else {
-    //   $cards = $player->getActionCards();
-    // }
+    // calculate
+    // 1. hand cards
+    // 2. Memory cards (callback effect)
+    // 3. Echo
+    // 4. Permanent/tap effect
 
     // $data = [
     //   'cards' => $cards
@@ -77,6 +68,14 @@ class ChooseAssignment extends \ALT\Models\Action
     // $data['canGainXToken'] = $canGainXToken;
     // return $data;
     return [];
+  }
+
+  public function actChooseAssignment($card, $type)
+  {
+    // select card
+    // pay cost
+    // move card (if needed)
+    // insert linked flow
   }
 
   // public function actChooseActionCard($cardId, $strength)

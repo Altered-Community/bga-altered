@@ -37,6 +37,7 @@ class Card extends \ALT\Helpers\DB_Model
     'effectMemory' => ['effectMemory', 'obj'], // played from memory
     'effectPassive' => ['effectPassive', 'obj'], // [[listener type => action]]: listener type to distinguish
     'costModifier' => ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
+    'effectTap' => ['effectTap', 'obj'],
     'extraDatas' => ['extra_datas', 'obj'],
     // attributs persistants
     'initialProperties' => ['initial_properties', 'obj'],
@@ -47,11 +48,6 @@ class Card extends \ALT\Helpers\DB_Model
     // ['prerequisites', 'obj'],
     // ['continents', 'obj'],
   ];
-
-  public function getIcons()
-  {
-    return [];
-  }
 
   public function isSupported($players, $options)
   {
@@ -69,6 +65,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getUiData()
   {
+    // TODO: update
     return $this->jsonSerialize(); // Static datas are already in js file
   }
 
@@ -91,10 +88,37 @@ class Card extends \ALT\Helpers\DB_Model
     return Players::get($this->pId);
   }
 
-  public function canBePlayed($player, $icons, $nCanIgnore = 0)
+  public function canBePlayed($player)
   {
-    $status = $this->checkConditions($player, $icons, $nCanIgnore);
-    return $status['valid'];
+    $cost = $this->getCost();
+    $mana = $player->getMana();
+    return $cost <= $mana;
+  }
+
+  // Magic getter to test DB Field & properties field
+  public function __call($method, $args)
+  {
+    if (preg_match('/^([gs]et|inc|is)([A-Z])(.*)$/', $method, $match)) {
+      // Sanity check : does the name correspond to a declared variable ?
+      $name = mb_strtolower($match[2]) . $match[3];
+      // TODO put management of properties
+      if (\array_key_exists($name, $this->attributes['properties'])) {
+        if ($match[1] == 'get') {
+          if (count($args) > 0 && is_array($this->attributes['properties'][$name])) {
+            // Handle json field
+            return $this->attributes['properties'][$name][$args[0]] ?? null;
+          } else {
+            // Basic getters
+            return $this->attributes['properties'][$name];
+          }
+        } elseif ($match[1] == 'is') {
+          // Boolean getter
+          return (bool) ($this->attributes['properties'][$name] != 0);
+        }
+      }
+    } else {
+      return parent::$method($args);
+    }
   }
 
   // /**
@@ -107,5 +131,18 @@ class Card extends \ALT\Helpers\DB_Model
   public function isListeningTo($event)
   {
     return false;
+  }
+
+  public function getCost()
+  {
+    // TODO: manage cost modifiers
+    switch ($this->getLocation()) {
+      case HAND:
+        return $this->getCostHand();
+        break;
+      case MEMORY:
+        return $this->getCostMemory();
+        break;
+    }
   }
 }
