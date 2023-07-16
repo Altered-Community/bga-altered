@@ -85,14 +85,21 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function pay($n, $notif = true, $source = null)
   {
-    throw new \feException('pay todo');
-    if ($this->money < $n) {
+    if (self::getMana() < $n) {
       throw new \BgaVisibleSystemException('You don\'t have enough money to pay. Should not happen');
     }
 
-    parent::incMoney(-$n);
+    $mana = Cards::getFilteredQuery($this->id, MANA)
+      ->where('tapped', 0)
+      ->get();
+    $updated = [];
+    for ($i = 0; $i < $n; $i++) {
+      $card = array_pop($mana);
+      $card->setTapped(true);
+      $updated[] = $card->getId();
+    }
     if ($notif) {
-      Notifications::payMoney($this, $n, $this->money, $source);
+      Notifications::payMana($this, $n, $this->getMana(), Cards::getMany($updated), $source);
     }
 
     return $this->money;
@@ -125,6 +132,21 @@ class Player extends \ALT\Helpers\DB_Model
   public function hasPlayedCard($id)
   {
     return Cards::hasPlayedCard($this->id, $id);
+  }
+
+  public function getMemoryCards()
+  {
+    return Cards::getMemoryCards($this->id);
+  }
+
+  public function getHero()
+  {
+    return Cards::getPlayedCards($this->id, HERO);
+  }
+
+  public function getPermanents()
+  {
+    return Cards::getPlayedCards($this->id, PERMANENT);
   }
 
   public function getMana()

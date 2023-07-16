@@ -2,12 +2,14 @@
 namespace ALT\Actions;
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
+use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Managers\ActionCards;
 use ALT\Core\Engine;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Models\Player;
 
 class ChooseAssignment extends \ALT\Models\Action
 {
@@ -24,11 +26,36 @@ class ChooseAssignment extends \ALT\Models\Action
   public function argsChooseAssignment()
   {
     $player = Players::getActive();
+    $handCards = $player->getHand();
+    $memoryCards = $player->getMemoryCards();
+    $actions = ['hand' => [], 'memory' => [], 'echo' => [], 'hero' => [], 'permanent' => []];
+
     // calculate
     // 1. hand cards
+    $actions['hand'] = $handCards->filter(function ($card) use ($player) {
+      return $card->canBePlayed($player);
+    });
+
     // 2. Memory cards (callback effect)
+    $actions['memory'] = $memoryCards->filter(function ($card) use ($player) {
+      return $card->canBePlayed($player);
+    });
+
     // 3. Echo
+    $action['echo'] = $memoryCards->filter(function ($card) {
+      return !is_null($card->getEffectEcho());
+    });
+
     // 4. Permanent/tap effect
+    // $action['hero'] = !$player
+    //   ->getHero()
+    //   ->first()
+    //   ->isTapped()
+    //   ? $player->getHero()
+    //   : null;
+    $actions['permanent'] = $player->getPermanents()->filter(function ($card) {
+      return !$card->isTapped() && true; // permanentEffect TODO
+    });
 
     // $data = [
     //   'cards' => $cards
@@ -67,13 +94,23 @@ class ChooseAssignment extends \ALT\Models\Action
     // $data['xtoken'] = $player->countXTokens();
     // $data['canGainXToken'] = $canGainXToken;
     // return $data;
-    return [];
+    return ['_private' => ['active' => $actions]];
   }
 
-  public function actChooseAssignment($card, $type)
+  public function actChooseAssignment($cardId, $location, $to = null)
   {
-    // select card
-    // pay cost
+    self::checkAction('actChooseAssignment');
+    $player = Players::getActive();
+    $card = Cards::get($cardId);
+    if ($card->getPId() != $player->getId()) {
+      throw new \BgaVisibleSystemException('You do not own this card');
+    }
+
+    if (in_array($location, [HAND, MEMORY])) {
+      // Pay cost
+      $player->pay($card->getCost());
+      $card->move($to);
+    }
     // move card (if needed)
     // insert linked flow
   }

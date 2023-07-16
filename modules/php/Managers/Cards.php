@@ -105,6 +105,20 @@ class Cards extends \ALT\Helpers\Pieces
     });
   }
 
+  public static function getMemoryCards($pId, $type = null)
+  {
+    return self::getFiltered($pId, MEMORY)->filter(function ($card) use ($type) {
+      return $type == null || $card->getType() == $type;
+    });
+  }
+
+  public static function getStormCards($pId, $type = null)
+  {
+    return self::getFiltered($pId, 'storm%')->filter(function ($card) use ($type) {
+      return $type == null || $card->getType() == $type;
+    });
+  }
+
   public static function getHand($pId, $type = null)
   {
     return self::getFilteredQuery($pId, 'hand')

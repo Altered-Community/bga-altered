@@ -112,6 +112,24 @@ class Notifications
     );
   }
 
+  public static function payMana($player, $amount, $total, $cards, $source)
+  {
+    if ($source === null) {
+      $msg = clienttranslate('${player_name} pays ${amount} mana');
+    } else {
+      $msg = clienttranslate('${player_name} pays ${amount} mana for ${source}');
+    }
+
+    self::notifyAll('payMana', $msg, [
+      'i18n' => ['source'],
+      'player' => $player,
+      'source' => $source,
+      'amount' => $amount,
+      'total' => $total,
+      'cards' => $cards->toArray(),
+    ]);
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)
