@@ -1,0 +1,97 @@
+.altered-player-board-resizable {
+    order: 3;
+    margin: 5px 0px;
+    width: 1200px;
+    height: 604px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background: #ffffff36;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+
+        background-image: url("img/mats/01.jpg");
+        background-size: 100% 100%;
+    }
+    & ~ .altered-player-board-resizable::before {
+        background-image: url("img/mats/02.jpg");
+    }
+
+    &.above {
+        .player-board-bottom {
+            order: 1;
+        }
+        .player-board-middle {
+            order: 2;
+        }
+        .player-board-top {
+            order: 3;
+        }
+    }
+
+    .player-board-top,
+    .player-board-middle,
+    .player-board-bottom {
+        width: 100%;
+        display: flex;
+        height: $cardHeight + 2 * $boardMargin + 2 * 5px;
+
+        & > div {
+            height: $cardHeight + 2 * $boardMargin;
+            margin: 5px;
+            background: rgba(255, 255, 255, 0.568);
+            border: 2px solid black;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .player-board-top {
+        .player-board-alterer {
+            width: $cardWidth + 2 * $boardMargin;
+            flex-shrink: 0;
+        }
+
+        .player-board-storm {
+            flex-grow: 1;
+        }
+    }
+
+    .player-board-middle {
+        .player-board-memory {
+            flex-grow: 1;
+        }
+
+        .player-board-permanents {
+            width: 2 * ($cardWidth + 2 * $boardMargin);
+            flex-shrink: 0;
+        }
+    }
+
+    .player-board-bottom {
+        .player-board-mana {
+            flex-grow: 1;
+        }
+
+        .player-board-deck {
+            width: $cardWidth + 2 * $boardMargin;
+            flex-shrink: 0;
+        }
+        .player-board-discard {
+            width: $cardWidth + 2 * $boardMargin;
+            flex-shrink: 0;
+        }
+    }
+}

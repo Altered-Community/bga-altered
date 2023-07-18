@@ -1,0 +1,20 @@
+.player-name {
+    svg {
+        width: 25px;
+        height: 21px;
+        cursor: pointer;
+        vertical-align: bottom;
+        margin-left: 3px;
+    }
+}
+
+.player_score {
+    .player_score_value {
+        display: none;
+    }
+}
+
+.player-info {
+    display: flex;
+    justify-content: space-between;
+}

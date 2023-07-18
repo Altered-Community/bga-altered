@@ -1,0 +1,37 @@
+#altered-main-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    .altered-player-board-resizable.above {
+        order: 1;
+    }
+
+    #storm-container {
+        order: 2;
+        margin: 5px 0px;
+        width: 1299px;
+        height: 186px;
+
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: 1fr;
+
+        .storm-card {
+            grid-column-end: span 2;
+            background-image: url("img/storm.jpg");
+            background-size: 500% 100%;
+            border-radius: 7px;
+
+            @for $i from 0 to 6 {
+                &[data-id="#{$i}"] {
+                    background-position-x: $i * 100% / 4;
+                }
+            }
+
+            &[data-flipped="1"] {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}

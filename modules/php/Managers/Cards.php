@@ -65,6 +65,7 @@ class Cards extends \ALT\Helpers\Pieces
 
   public static function getUiData()
   {
+    return [];
   }
 
   ///////////////////////////////////

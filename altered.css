@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
@@ -12,61 +13,737 @@
  * Altered stylesheet
  *
  */
+@import url(https://fonts.googleapis.com/css?family=Permanent+Marker);
+@import url(https://fonts.googleapis.com/css?family=Caveat);
+html {
+  background: #2d211a; }
+
+/*! nouislider - 14.6.0 - 6/27/2020 */
+.noUi-target, .noUi-target * {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -ms-touch-action: none;
+  touch-action: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.noUi-target {
+  position: relative; }
+
+.noUi-base, .noUi-connects {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1; }
+
+.noUi-connects {
+  overflow: hidden;
+  z-index: 0; }
+
+.noUi-connect, .noUi-origin {
+  will-change: transform;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  -ms-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -webkit-transform-style: preserve-3d;
+  transform-origin: 0 0;
+  transform-style: flat; }
+
+.noUi-connect {
+  height: 100%;
+  width: 100%; }
+
+.noUi-origin {
+  height: 10%;
+  width: 10%; }
+
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
+  left: 0;
+  right: auto; }
+
+.noUi-vertical .noUi-origin {
+  width: 0; }
+
+.noUi-horizontal .noUi-origin {
+  height: 0; }
+
+.noUi-handle {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute; }
+
+.noUi-touch-area {
+  height: 100%;
+  width: 100%; }
+
+.noUi-state-tap .noUi-connect, .noUi-state-tap .noUi-origin {
+  -webkit-transition: transform .3s;
+  transition: transform .3s; }
+
+.noUi-state-drag * {
+  cursor: inherit !important; }
+
+.noUi-horizontal {
+  height: 18px; }
+
+.noUi-horizontal .noUi-handle {
+  width: 34px;
+  height: 28px;
+  right: -17px;
+  top: -6px; }
+
+.noUi-vertical {
+  width: 18px; }
+
+.noUi-vertical .noUi-handle {
+  width: 28px;
+  height: 34px;
+  right: -6px;
+  top: -17px; }
+
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
+  left: -17px;
+  right: auto; }
+
+.noUi-target {
+  background: #FAFAFA;
+  border-radius: 4px;
+  border: 1px solid #D3D3D3;
+  box-shadow: inset 0 1px 1px #F0F0F0,0 3px 6px -5px #BBB; }
+
+.noUi-connects {
+  border-radius: 3px; }
+
+.noUi-connect {
+  background: #3FB8AF; }
+
+.noUi-draggable {
+  cursor: ew-resize; }
+
+.noUi-vertical .noUi-draggable {
+  cursor: ns-resize; }
+
+.noUi-handle {
+  border: 1px solid #D9D9D9;
+  border-radius: 3px;
+  background: #FFF;
+  cursor: default;
+  box-shadow: inset 0 0 1px #FFF,inset 0 1px 7px #EBEBEB,0 3px 6px -3px #BBB; }
+
+.noUi-active {
+  box-shadow: inset 0 0 1px #FFF,inset 0 1px 7px #DDD,0 3px 6px -3px #BBB; }
+
+.noUi-handle:after, .noUi-handle:before {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 14px;
+  width: 1px;
+  background: #E8E7E6;
+  left: 14px;
+  top: 6px; }
+
+.noUi-handle:after {
+  left: 17px; }
+
+.noUi-vertical .noUi-handle:after, .noUi-vertical .noUi-handle:before {
+  width: 14px;
+  height: 1px;
+  left: 6px;
+  top: 14px; }
+
+.noUi-vertical .noUi-handle:after {
+  top: 17px; }
+
+[disabled] .noUi-connect {
+  background: #B8B8B8; }
+
+[disabled] .noUi-handle, [disabled].noUi-handle, [disabled].noUi-target {
+  cursor: not-allowed; }
+
+.noUi-pips, .noUi-pips * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.noUi-pips {
+  position: absolute;
+  color: #999; }
+
+.noUi-value {
+  position: absolute;
+  white-space: nowrap;
+  text-align: center; }
+
+.noUi-value-sub {
+  color: #ccc;
+  font-size: 10px; }
+
+.noUi-marker {
+  position: absolute;
+  background: #CCC; }
+
+.noUi-marker-sub {
+  background: #AAA; }
+
+.noUi-marker-large {
+  background: #AAA; }
+
+.noUi-pips-horizontal {
+  padding: 10px 0;
+  height: 80px;
+  top: 100%;
+  left: 0;
+  width: 100%; }
+
+.noUi-value-horizontal {
+  -webkit-transform: translate(-50%, 50%);
+  transform: translate(-50%, 50%); }
+
+.noUi-rtl .noUi-value-horizontal {
+  -webkit-transform: translate(50%, 50%);
+  transform: translate(50%, 50%); }
+
+.noUi-marker-horizontal.noUi-marker {
+  margin-left: -1px;
+  width: 2px;
+  height: 5px; }
+
+.noUi-marker-horizontal.noUi-marker-sub {
+  height: 10px; }
+
+.noUi-marker-horizontal.noUi-marker-large {
+  height: 15px; }
+
+.noUi-pips-vertical {
+  padding: 0 10px;
+  height: 100%;
+  top: 0;
+  left: 100%; }
+
+.noUi-value-vertical {
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  padding-left: 25px; }
+
+.noUi-rtl .noUi-value-vertical {
+  -webkit-transform: translate(0, 50%);
+  transform: translate(0, 50%); }
+
+.noUi-marker-vertical.noUi-marker {
+  width: 5px;
+  height: 2px;
+  margin-top: -1px; }
+
+.noUi-marker-vertical.noUi-marker-sub {
+  width: 10px; }
+
+.noUi-marker-vertical.noUi-marker-large {
+  width: 15px; }
+
+.noUi-tooltip {
+  display: block;
+  position: absolute;
+  border: 1px solid #D9D9D9;
+  border-radius: 3px;
+  background: #fff;
+  color: #000;
+  padding: 5px;
+  text-align: center;
+  white-space: nowrap; }
+
+.noUi-horizontal .noUi-tooltip {
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  left: 50%;
+  bottom: 120%; }
+
+.noUi-vertical .noUi-tooltip {
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  top: 50%;
+  right: 120%; }
+
+.noUi-horizontal .noUi-origin > .noUi-tooltip {
+  -webkit-transform: translate(50%, 0);
+  transform: translate(50%, 0);
+  left: auto;
+  bottom: 10px; }
+
+.noUi-vertical .noUi-origin > .noUi-tooltip {
+  -webkit-transform: translate(0, -18px);
+  transform: translate(0, -18px);
+  top: auto;
+  right: 28px; }
+
+.altered-icon {
+  background: url("img/icons.png");
+  background-repeat: no-repeat; }
+
+.altered-meeple {
+  display: inline-block;
+  vertical-align: middle; }
+
+.action-button .icon-container ~ .altered-meeple {
+  margin-left: 0.5em; }
+
+#altered-main-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center; }
+  #altered-main-container .altered-player-board-resizable.above {
+    order: 1; }
+  #altered-main-container #storm-container {
+    order: 2;
+    margin: 5px 0px;
+    width: 1299px;
+    height: 186px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 1fr; }
+    #altered-main-container #storm-container .storm-card {
+      grid-column-end: span 2;
+      background-image: url("img/storm.jpg");
+      background-size: 500% 100%;
+      border-radius: 7px; }
+      #altered-main-container #storm-container .storm-card[data-id="0"] {
+        background-position-x: 0%; }
+      #altered-main-container #storm-container .storm-card[data-id="1"] {
+        background-position-x: 25%; }
+      #altered-main-container #storm-container .storm-card[data-id="2"] {
+        background-position-x: 50%; }
+      #altered-main-container #storm-container .storm-card[data-id="3"] {
+        background-position-x: 75%; }
+      #altered-main-container #storm-container .storm-card[data-id="4"] {
+        background-position-x: 100%; }
+      #altered-main-container #storm-container .storm-card[data-id="5"] {
+        background-position-x: 125%; }
+      #altered-main-container #storm-container .storm-card[data-flipped="1"] {
+        transform: rotate(180deg); }
+
+.altered-player-board-resizable {
+  order: 3;
+  margin: 5px 0px;
+  width: 1200px;
+  height: 604px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background: #ffffff36;
+  position: relative;
+  display: flex;
+  flex-flow: column; }
+  .altered-player-board-resizable::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("img/mats/01.jpg");
+    background-size: 100% 100%; }
+  .altered-player-board-resizable ~ .altered-player-board-resizable::before {
+    background-image: url("img/mats/02.jpg"); }
+  .altered-player-board-resizable.above .player-board-bottom {
+    order: 1; }
+  .altered-player-board-resizable.above .player-board-middle {
+    order: 2; }
+  .altered-player-board-resizable.above .player-board-top {
+    order: 3; }
+  .altered-player-board-resizable .player-board-top,
+  .altered-player-board-resizable .player-board-middle,
+  .altered-player-board-resizable .player-board-bottom {
+    width: 100%;
+    display: flex;
+    height: 200px; }
+    .altered-player-board-resizable .player-board-top > div,
+    .altered-player-board-resizable .player-board-middle > div,
+    .altered-player-board-resizable .player-board-bottom > div {
+      height: 190px;
+      margin: 5px;
+      background: rgba(255, 255, 255, 0.568);
+      border: 2px solid black;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+  .altered-player-board-resizable .player-board-top .player-board-alterer {
+    width: 120px;
+    flex-shrink: 0; }
+  .altered-player-board-resizable .player-board-top .player-board-storm {
+    flex-grow: 1; }
+  .altered-player-board-resizable .player-board-middle .player-board-memory {
+    flex-grow: 1; }
+  .altered-player-board-resizable .player-board-middle .player-board-permanents {
+    width: 240px;
+    flex-shrink: 0; }
+  .altered-player-board-resizable .player-board-bottom .player-board-mana {
+    flex-grow: 1; }
+  .altered-player-board-resizable .player-board-bottom .player-board-deck {
+    width: 120px;
+    flex-shrink: 0; }
+  .altered-player-board-resizable .player-board-bottom .player-board-discard {
+    width: 120px;
+    flex-shrink: 0; }
+
+.player-name svg {
+  width: 25px;
+  height: 21px;
+  cursor: pointer;
+  vertical-align: bottom;
+  margin-left: 3px; }
+
+.player_score .player_score_value {
+  display: none; }
+
+.player-info {
+  display: flex;
+  justify-content: space-between; }
+
+#player_board_config {
+  position: relative;
+  border-image: none; }
+
+#player_config {
+  padding-bottom: 8px; }
+  #player_config .player_config_row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 0px;
+    border-bottom: 1px solid #80502e; }
+    #player_config .player_config_row:last-child {
+      border-bottom: none;
+      padding-bottom: 0px; }
+  #player_config #help-mode-switch .checkbox {
+    display: none; }
+  #player_config #help-mode-switch .label {
+    background-color: #2c3037;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    height: 26px;
+    width: 50px;
+    margin-right: 4px; }
+  #player_config #help-mode-switch .label .ball {
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 22px;
+    width: 22px;
+    transform: translateX(0px);
+    transition: transform 0.2s linear, color 0.7s linear; }
+  #player_config #help-mode-switch .checkbox:checked + .label .ball {
+    transform: translateX(24px); }
+  #player_config #help-mode-switch svg {
+    width: 27px; }
+  #player_config #show-settings {
+    height: 40px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; }
+    #player_config #show-settings:hover {
+      color: grey; }
+    #player_config #show-settings svg {
+      width: auto;
+      height: 40px; }
+  #player_config #show-settings .fa-primary {
+    transform-origin: 216px 255px;
+    transition: transform 1s; }
+  #player_config #show-settings:hover .fa-primary {
+    transform: rotate(180deg); }
+  #player_config #open-scoreboard {
+    cursor: pointer; }
+    #player_config #open-scoreboard svg {
+      width: 60px;
+      height: 30px; }
+      #player_config #open-scoreboard svg path {
+        fill: #bcbdbd85;
+        fill-opacity: 1;
+        stroke: #000000;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: bevel;
+        stroke-miterlimit: 4;
+        stroke-dasharray: none;
+        stroke-opacity: 1; }
+    #player_config #open-scoreboard:hover svg {
+      opacity: 0.5; }
+
+#popin_showSettings_underlay {
+  background-color: black !important;
+  opacity: 0.6; }
 
 /*
-    This is the CSS stylesheet of your game User Interface.
-    
-    Styles defined on this file will be applied to the HTML elements you define in your
-    HTML template (altered_altered.tpl), and to HTML elements you create dynamically
-    (in altered.js).
-    
-    Usually, you are using CSS to :
-    
-    1°) define the overall layout of your game
-        (ex: place the board on the top left, place player's hand beside, place the deck on the right, ...).
+ * Controls in the top bar
+ */
+#settings-controls-container {
+  position: relative;
+  text-align: center;
+  width: 550px; }
+  #settings-controls-container #settings-controls-header {
+    display: flex;
+    align-items: stretch; }
+    #settings-controls-container #settings-controls-header div {
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
+      padding: 5px 8px;
+      background: #cca172;
+      flex-grow: 1;
+      cursor: pointer; }
+      #settings-controls-container #settings-controls-header div:last-child {
+        border-right: none; }
+      #settings-controls-container #settings-controls-header div.open {
+        background: none;
+        border-bottom: none; }
+  #settings-controls-container #settings-controls-wrapper .settings-section {
+    display: none; }
+    #settings-controls-container #settings-controls-wrapper .settings-section.open {
+      display: block; }
+  #settings-controls-container .row-data {
+    border: none;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid gray; }
+    #settings-controls-container .row-data .row-label {
+      width: 100%;
+      float: none;
+      color: black;
+      padding-bottom: 0px;
+      text-overflow: initial;
+      white-space: normal;
+      padding: 2px 4px 0px; }
+    #settings-controls-container .row-data .row-value {
+      width: 85%;
+      margin: 0; }
+      #settings-controls-container .row-data .row-value.slider {
+        width: calc(85% - 40px);
+        padding-right: 20px;
+        padding-left: 20px;
+        box-sizing: content-box; }
+    #settings-controls-container .row-data.row-data-switch .row-value {
+      padding: 6px 0px; }
+    #settings-controls-container .row-data label.switch {
+      display: block; }
+      #settings-controls-container .row-data label.switch input {
+        display: none; }
+      #settings-controls-container .row-data label.switch .slider {
+        margin: auto;
+        height: 27px;
+        width: 55px;
+        position: relative;
+        background-color: #a6a6a6;
+        cursor: pointer;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 34px; }
+        #settings-controls-container .row-data label.switch .slider::before {
+          content: "";
+          position: absolute;
+          background-color: #fff;
+          bottom: 4px;
+          height: 19px;
+          left: 4px;
+          width: 19px;
+          border-radius: 50%;
+          transition: 0.4s; }
+      #settings-controls-container .row-data label.switch input:checked + .slider {
+        background-color: #2196f3; }
+        #settings-controls-container .row-data label.switch input:checked + .slider::before {
+          left: 30px; }
+    [data-two-columns="1"] #settings-controls-container .row-data[data-id="columnSizes"] {
+      display: none; }
 
-    2°) create your CSS-sprites:
-        All images of your games should be gathered into a small number of image files. Then, using
-        background-image and background-position CSS properties, you create HTML blocks that can 
-        display these images correctly (see example below).
-    
-    3°) ... anything else:
-        It is really easy to add and remove CSS classes dynamically from your Javascript with
-        dojo.addClass and dojo.removeClass. It is also easy to check if an element has a class
-        (dojo.hasClass) or to get all elements with a specific class (dojo.query). This is why,
-        very often, using CSS classes for the logic of your user interface allow you to do complex
-        thing easily.
-        
-        
-     Note: on the production platform, this file will be compressed and comments will be removed.
-           Consequently, don't hesitate to put as many comments as necessary.
-*/
+#popin_showSettings {
+  background-color: #ebd5bd;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px black;
+  position: relative; }
+  #popin_showSettings .altered_popin_closeicon {
+    background-color: #a47a77;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    font-size: 90%;
+    color: white !important;
+    border: 1px solid #35302d;
+    z-index: 2; }
+    #popin_showSettings .altered_popin_closeicon:hover {
+      text-decoration: none;
+      color: #ccc !important;
+      transform: scale(1.1); }
+    #popin_showSettings .altered_popin_closeicon i {
+      margin-top: -2px; }
+  #popin_showSettings h2 {
+    font-family: MyriadPro-Semibold;
+    text-align: center;
+    font-size: 25px;
+    margin: 0px;
+    background: #b79570;
+    border-radius: 8px 8px 0px 0px;
+    padding: 11px 0px 3px;
+    border-bottom: 1px solid #734f2a; }
 
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important; }
 
-/* Note: you must not use any @import directive */
+#logs .log.notif_newUndoableStep {
+  margin-top: 0px; }
+  #logs .log.notif_newUndoableStep .roundedbox {
+    display: none;
+    text-align: center;
+    cursor: pointer;
+    background-color: #c4c2c2;
+    font-size: 12px;
+    padding: 2px 5px; }
+    #logs .log.notif_newUndoableStep .roundedbox::before, #logs .log.notif_newUndoableStep .roundedbox::after {
+      content: "\f0e2";
+      font: normal normal normal 12px/1 FontAwesome;
+      margin: 0px 10px; }
+  #logs .log.notif_newUndoableStep.selectable .roundedbox {
+    display: block; }
 
+.chatwindowlogs_zone .log.notif_newUndoableStep {
+  margin-bottom: -4px;
+  padding: 0px;
+  display: none !important; }
+  .chatwindowlogs_zone .log.notif_newUndoableStep.selectable {
+    display: block !important; }
+    .chatwindowlogs_zone .log.notif_newUndoableStep.selectable .roundedboxinner {
+      text-align: center;
+      cursor: pointer;
+      background-color: #c4c2c2;
+      font-size: 12px;
+      padding: 2px 5px; }
+      .chatwindowlogs_zone .log.notif_newUndoableStep.selectable .roundedboxinner::before, .chatwindowlogs_zone .log.notif_newUndoableStep.selectable .roundedboxinner::after {
+        content: "\f0e2";
+        font: normal normal normal 12px/1 FontAwesome;
+        margin: 0px 10px; }
+      .chatwindowlogs_zone .log.notif_newUndoableStep.selectable .roundedboxinner .msgtime {
+        display: none; }
 
-/********* You can start writing your CSS below this line: **********/
+.phantom {
+  visibility: hidden; }
 
+#pagemaintitletext {
+  position: relative; }
 
-/*
-    Example of CSS sprites (a black token and a white token, 20x20px each, embedded in the same "tokens.png" 40x20px image):
+#restartAction {
+  margin-left: 15px; }
 
-    .white_token {
-        background-image: url('img/tokens.png');
-        background-position: 0px 0px;
-    }
-    .black_token {
-        background-image: url('img/tokens.png');
-        background-position: -20px 0px;
-    }
-    .token {
-        width: 20px;
-        height: 20px;
-        background-repeat: none;
-    }
-*/
+#btnUndoLastStep {
+  background: #d97050; }
 
+[data-undobuttons="0"] #btnUndoLastStep {
+  display: none; }
 
+[data-undobuttons="2"] #btnRestartTurn {
+  display: none; }
 
+#pagesubtitle:not(:empty) {
+  padding: 3px 0px; }
 
+#last-round {
+  background: #92d3e6;
+  color: black;
+  margin: 5px -5px -5px;
+  text-align: center; }
+
+#btnRotateClockwise,
+#btnRotateCClockwise {
+  color: white;
+  font-size: 28px; }
+
+#btnRotateClockwise {
+  margin-right: 10px; }
+
+#btnRotateCClockwise {
+  margin: 0px 5px 0px 20px; }
+
+#customActions .bgabutton.disabled {
+  opacity: 0.5;
+  background: linear-gradient(rgba(189, 189, 189, 0.59), rgba(166, 165, 165, 0.45));
+  cursor: not-allowed;
+  pointer-events: all; }
+
+#customActions .bgabutton.selected {
+  background: linear-gradient(rgba(89, 219, 78, 0.87), rgba(87, 149, 59, 0.89)); }
+
+#page-title .ark-card {
+  position: absolute; }
+
+#maintitlebar_content .action-button ~ .action-button {
+  margin-left: 15px; }
+
+#btnConfirmChoice {
+  margin-left: 30px;
+  background: #d7ab29; }
+
+#ebd-body.help-mode .tooltipable {
+  cursor: help; }
+
+.help-marker {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  z-index: 900;
+  border: 1px solid black;
+  border-radius: 50%; }
+  .help-marker svg {
+    width: 20px;
+    height: 20px; }
+
+#ebd-body:not(.help-mode) .help-marker {
+  opacity: 0;
+  pointer-events: none; }
+
+#logs .log .timestamp {
+  color: black; }
+
+/* Cancelled notification messages */
+.log.cancel {
+  color: #c62828 !important;
+  text-decoration: line-through; }
+
+/* Desktop logs */
+.log.cancel .roundedbox {
+  background-color: rgba(240, 186, 117, 0.6) !important; }
+
+/* Mobile logs */
+.log.cancel.roundedbox {
+  background-color: #ef9a9a; }
+
+/* Hide the "You may note something for next time..." popup that would appear. */
+#turnBasedNotesIncent {
+  display: none; }
+
+#customActions .action-button.bgabutton,
+#customActions .bgabutton {
+  text-overflow: initial; }
+
+/*# sourceMappingURL=altered.css.map */

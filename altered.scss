@@ -1,0 +1,233 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * Altered implementation : © <Your name here> <Your email address here>
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ *
+ * altered.css
+ *
+ * Altered stylesheet
+ *
+ */
+
+html {
+    background: #2d211a;
+    // background-image: url("img/wood_background.jpg");
+    // background-size: cover;
+    // background-attachment: fixed;
+}
+
+@import "modules/css/nouislider";
+@import "modules/css/variables";
+@import "modules/css/cards";
+@import "modules/css/icons";
+@import "modules/css/meeples";
+@import "modules/css/central-board";
+@import "modules/css/player-board";
+@import "modules/css/player-panel";
+@import "modules/css/settings";
+@import "modules/css/modals";
+
+@import url(https://fonts.googleapis.com/css?family=Permanent+Marker);
+@import url(https://fonts.googleapis.com/css?family=Caveat);
+
+.notransition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+#logs .log.notif_newUndoableStep {
+    margin-top: 0px;
+
+    .roundedbox {
+        display: none;
+        text-align: center;
+        cursor: pointer;
+        background-color: #c4c2c2;
+        font-size: 12px;
+        padding: 2px 5px;
+
+        &::before,
+        &::after {
+            content: "\f0e2";
+            font: normal normal normal 12px/1 FontAwesome;
+            margin: 0px 10px;
+        }
+    }
+
+    &.selectable .roundedbox {
+        display: block;
+    }
+}
+
+.chatwindowlogs_zone .log.notif_newUndoableStep {
+    margin-bottom: -4px;
+    padding: 0px;
+    display: none !important;
+
+    &.selectable {
+        display: block !important;
+
+        .roundedboxinner {
+            text-align: center;
+            cursor: pointer;
+            background-color: #c4c2c2;
+            font-size: 12px;
+            padding: 2px 5px;
+
+            &::before,
+            &::after {
+                content: "\f0e2";
+                font: normal normal normal 12px/1 FontAwesome;
+                margin: 0px 10px;
+            }
+
+            .msgtime {
+                display: none;
+            }
+        }
+    }
+}
+
+// * {
+//   box-shadow: none !important;
+//   filter: none !important;
+// }
+
+.phantom {
+    visibility: hidden;
+}
+
+#pagemaintitletext {
+    position: relative;
+}
+
+#restartAction {
+    margin-left: 15px;
+}
+
+#btnUndoLastStep {
+    background: #d97050;
+}
+
+[data-undobuttons="0"] #btnUndoLastStep {
+    display: none;
+}
+[data-undobuttons="2"] #btnRestartTurn {
+    display: none;
+}
+
+#pagesubtitle:not(:empty) {
+    padding: 3px 0px;
+}
+
+#last-round {
+    background: #92d3e6;
+    color: black;
+    margin: 5px -5px -5px;
+    text-align: center;
+}
+
+#btnRotateClockwise,
+#btnRotateCClockwise {
+    color: white;
+    font-size: 28px;
+}
+#btnRotateClockwise {
+    margin-right: 10px;
+}
+#btnRotateCClockwise {
+    margin: 0px 5px 0px 20px;
+}
+
+#customActions .bgabutton.disabled {
+    opacity: 0.5;
+    background: linear-gradient(rgba(189, 189, 189, 0.59), rgba(166, 165, 165, 0.45));
+    cursor: not-allowed;
+    pointer-events: all;
+}
+
+#customActions .bgabutton.selected {
+    background: linear-gradient(rgba(89, 219, 78, 0.87), rgba(87, 149, 59, 0.89));
+}
+
+#page-title {
+    .ark-card {
+        position: absolute;
+    }
+}
+
+#maintitlebar_content {
+    .action-button ~ .action-button {
+        margin-left: 15px;
+    }
+}
+
+#btnConfirmChoice {
+    margin-left: 30px;
+    background: #d7ab29;
+}
+
+#ebd-body.help-mode {
+    .tooltipable {
+        cursor: help;
+    }
+}
+
+.help-marker {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    z-index: 900;
+    border: 1px solid black;
+    border-radius: 50%;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+#ebd-body:not(.help-mode) {
+    .help-marker {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+#logs .log .timestamp {
+    color: black;
+}
+
+/* Cancelled notification messages */
+.log.cancel {
+    color: #c62828 !important;
+    text-decoration: line-through;
+}
+
+/* Desktop logs */
+.log.cancel .roundedbox {
+    background-color: rgba(240, 186, 117, 0.6) !important;
+}
+
+/* Mobile logs */
+.log.cancel.roundedbox {
+    background-color: #ef9a9a;
+}
+
+/* Hide the "You may note something for next time..." popup that would appear. */
+#turnBasedNotesIncent {
+    display: none;
+}
+
+#customActions .action-button.bgabutton,
+#customActions .bgabutton {
+    text-overflow: initial;
+}

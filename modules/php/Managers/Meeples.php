@@ -5,13 +5,13 @@ use ALT\Core\Globals;
 use ALT\Helpers\UserException;
 use ALT\Helpers\Collection;
 
-/* Class to manage all the meeples for ArkNova */
+/* Class to manage all the meeples for altered */
 
 class Meeples extends \ALT\Helpers\Pieces
 {
   protected static $table = 'meeples';
   protected static $prefix = 'meeple_';
-  protected static $customFields = ['type', 'player_id', 'x', 'y'];
+  protected static $customFields = ['type', 'player_id'];
 
   protected static function cast($meeple)
   {

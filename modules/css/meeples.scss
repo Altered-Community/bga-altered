@@ -1,0 +1,10 @@
+.altered-meeple {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.action-button {
+    .icon-container ~ .altered-meeple {
+        margin-left: 0.5em;
+    }
+}

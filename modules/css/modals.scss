@@ -1,0 +1,44 @@
+#popin_showSettings {
+    background-color: #ebd5bd;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px black;
+    position: relative;
+
+    .altered_popin_closeicon {
+        background-color: #a47a77;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: -18px;
+        right: -18px;
+        font-size: 90%;
+        color: white !important;
+        border: 1px solid #35302d;
+        z-index: 2;
+
+        &:hover {
+            text-decoration: none;
+            color: #ccc !important;
+            transform: scale(1.1);
+        }
+
+        i {
+            margin-top: -2px;
+        }
+    }
+
+    h2 {
+        font-family: MyriadPro-Semibold;
+        text-align: center;
+        font-size: 25px;
+        margin: 0px;
+        background: #b79570;
+        border-radius: 8px 8px 0px 0px;
+        padding: 11px 0px 3px;
+        border-bottom: 1px solid #734f2a;
+    }
+}

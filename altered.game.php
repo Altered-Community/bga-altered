@@ -71,70 +71,18 @@ class Altered extends Table
     return 'altered';
   }
 
-  /*
-        setupNewGame:
-        
-        This method is called only once, when a new game is launched.
-        In this method, you must setup the game according to the game rules, so that
-        the game is ready to be played.
-    */
-  // protected function setupNewGame($players, $options = [])
-  // {
-  //   // Set the colors of the players with HTML color code
-  //   // The default below is red/green/blue/orange/brown
-  //   // The number of colors defined here must correspond to the maximum number of players allowed for the gams
-  //   $gameinfos = self::getGameinfos();
-  //   $default_colors = $gameinfos['player_colors'];
-
-  //   // Create players
-  //   // Note: if you added some extra field on "player" table in the database (dbmodel.sql), you can initialize it there.
-  //   $sql = 'INSERT INTO player (player_id, player_color, player_canal, player_name, player_avatar) VALUES ';
-  //   $values = [];
-  //   foreach ($players as $player_id => $player) {
-  //     $color = array_shift($default_colors);
-  //     $values[] =
-  //       "('" .
-  //       $player_id .
-  //       "','$color','" .
-  //       $player['player_canal'] .
-  //       "','" .
-  //       addslashes($player['player_name']) .
-  //       "','" .
-  //       addslashes($player['player_avatar']) .
-  //       "')";
-  //   }
-  //   $sql .= implode(',', $values);
-  //   self::DbQuery($sql);
-  //   self::reattributeColorsBasedOnPreferences($players, $gameinfos['player_colors']);
-  //   self::reloadPlayersBasicInfos();
-
-  //   /************ Start the game initialization *****/
-
-  //   // Init global values with their initial values
-  //   //self::setGameStateInitialValue( 'my_first_global_variable', 0 );
-
-  //   // Init game statistics
-  //   // (note: statistics used in this file must be defined in your stats.inc.php file)
-  //   //self::initStat( 'table', 'table_teststat1', 0 );    // Init a table statistics
-  //   //self::initStat( 'player', 'player_teststat1', 0 );  // Init a player statistics (for all players)
-
-  //   // TODO: setup the initial game situation here
-
-  //   // Activate first player (which is in general a good idea :) )
-  //   $this->activeNextPlayer();
-
-  //   /************ End of the game initialization *****/
-  // }
-
   public function getAllDatas()
   {
     $pId = self::getCurrentPId();
     return [
-      // 'prefs' => Preferences::getUiData($pId),
+      'prefs' => Preferences::getUiData($pId),
       'players' => Players::getUiData($pId),
-      // 'cards' => ZooCards::getUiData(),
+      'cards' => Cards::getUiData(),
       // 'buildings' => Buildings::getUiData(),
-      // 'meeples' => Meeples::getUiData(),
+      'meeples' => Meeples::getUiData(),
+
+      'storm' => Globals::getStorm(),
+      'day' => Globals::getDay(),
     ];
   }
 
@@ -155,15 +103,8 @@ class Altered extends Table
   ////////////   Custom Turn Order   ////////////
   ///////////////////////////////////////////////
   ///////////////////////////////////////////////
-  public function initCustomTurnOrder(
-    $key,
-    $order,
-    $callback,
-    $endCallback,
-    $loop = false,
-    $autoNext = true,
-    $args = []
-  ) {
+  public function initCustomTurnOrder($key, $order, $callback, $endCallback, $loop = false, $autoNext = true, $args = [])
+  {
     $turnOrders = Globals::getCustomTurnOrders();
     $turnOrders[$key] = [
       'order' => $order ?? Players::getTurnOrder(),
@@ -189,9 +130,7 @@ class Altered extends Table
   {
     $turnOrders = Globals::getCustomTurnOrders();
     if (!isset($turnOrders[$key])) {
-      throw new BgaVisibleSystemException(
-        'Asking for the next player of a custom turn order not initialized : ' . $key
-      );
+      throw new BgaVisibleSystemException('Asking for the next player of a custom turn order not initialized : ' . $key);
     }
 
     // Increase index and save
