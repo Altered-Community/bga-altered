@@ -57,43 +57,6 @@ class ChooseAssignment extends \ALT\Models\Action
       return !$card->isTapped() && true; // permanentEffect TODO
     });
 
-    // $data = [
-    //   'cards' => $cards
-    //     ->map(function ($card) use ($player, $forcedStrength, $canGainXToken) {
-    //       // Forced strength = 0 => must take a xtoken again
-    //       if ($forcedStrength === 0) {
-    //         return [0];
-    //       }
-
-    //       // Otherwise, cannot take xtoken if a forcedStrength is given
-    //       $strengths = $card->getPlayableStrengths($player);
-    //       if ($player->countXTokens() < 5 && is_null($forcedStrength) && $canGainXToken) {
-    //         $strengths[0] = 0; // Force 0 = gain X Token
-    //       }
-    //       return $strengths;
-    //     })
-    //     ->filter(function ($card) {
-    //       return !empty($card);
-    //     }),
-    //   'strengths' => $cards->map(function ($card) {
-    //     return $card->getCurrentStrength();
-    //   }),
-    //   'xtokens' => $player->countXTokens(),
-    // ];
-
-    // if (!is_null($forcedCardId)) {
-    //   $card = ActionCards::getSingle($forcedCardId);
-    //   $data['descSuffix'] = 'action';
-    //   $data['type'] = $card->getType();
-    //   $data['i18n'][] = 'type';
-    // } elseif ($isHypnosis) {
-    //   $data['descSuffix'] = 'hypnosis';
-    //   $data['pId'] = $this->getCtxArg('hypnosisPId');
-    // }
-
-    // $data['xtoken'] = $player->countXTokens();
-    // $data['canGainXToken'] = $canGainXToken;
-    // return $data;
     return ['_private' => ['active' => $actions]];
   }
 
@@ -109,10 +72,18 @@ class ChooseAssignment extends \ALT\Models\Action
     if (in_array($location, [HAND, MEMORY])) {
       // Pay cost
       $player->pay($card->getCost());
+      // left or right storm
       $card->move($to);
     }
-    // move card (if needed)
+    // notification
     // insert linked flow
+    Notifications::$effect = 'getEffect' . ucfirst($location);
+    $this->pushParallelChilds($card->$effect());
+  }
+
+  public function actEcho($cardId)
+  {
+    // echo management
   }
 
   // public function actChooseActionCard($cardId, $strength)
