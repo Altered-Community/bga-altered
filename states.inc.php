@@ -35,7 +35,8 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must select the deck you want to play'),
     'type' => 'multipleactiveplayer',
     'args' => 'argsDeckSelection',
-    'possibleactions' => ['actSelectDeck'],
+    'action' => 'stDeckSelection',
+    'possibleactions' => ['actDeckSelection'],
     'transitions' => ['done' => ST_SETUP, 'zombiePass' => ST_SETUP],
   ],
 
@@ -110,11 +111,11 @@ $machinestates = [
 
   ST_CHOOSE_ASSIGNMENT => [
     'name' => 'chooseAssignment',
-    'description' => clienttranslate('${player} must choose an action or pass'),
+    'description' => clienttranslate('${actplayer} must choose an action or pass'),
     'descriptionmyturn' => clienttranslate('${you} must choose an action or pass'),
     'args' => 'argsAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actAssignment', 'actRestart'],
+    'possibleactions' => ['actHand', 'actMemory', 'actEcho', 'actHero', 'actPermanent', 'actRestart'],
   ],
 
   ST_PLAY_CARD => [
@@ -163,9 +164,7 @@ $machinestates = [
   ST_CONFIRM_PARTIAL_TURN => [
     'name' => 'confirmPartialTurn',
     'description' => clienttranslate('${actplayer} must confirm the switch of player'),
-    'descriptionmyturn' => clienttranslate(
-      '${you} must confirm the switch of player. You will not be able to restart turn'
-    ),
+    'descriptionmyturn' => clienttranslate('${you} must confirm the switch of player. You will not be able to restart turn'),
     'type' => 'activeplayer',
     'args' => 'argsConfirmTurn',
     // 'action' => 'stConfirmPartialTurn',
@@ -187,9 +186,7 @@ $machinestates = [
 
   ST_IMPOSSIBLE_MANDATORY_ACTION => [
     'name' => 'impossibleAction',
-    'description' => clienttranslate(
-      '${actplayer} can\'t take the mandatory action and must restart his turn or exchange/cook'
-    ),
+    'description' => clienttranslate('${actplayer} can\'t take the mandatory action and must restart his turn or exchange/cook'),
     'descriptionmyturn' => clienttranslate(
       '${you} can\'t take the mandatory action. Restart your turn or exchange/cook to make it possible'
     ),

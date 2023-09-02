@@ -119,10 +119,10 @@ class Player extends \ALT\Helpers\DB_Model
     });
   }
 
-  public function getManaChoice()
-  {
-    return Cards::getManaChoice($this->id);
-  }
+  // public function getManaChoice()
+  // {
+  //   return Cards::getManaChoice($this->id);
+  // }
 
   public function getPlayedCards($type = null)
   {

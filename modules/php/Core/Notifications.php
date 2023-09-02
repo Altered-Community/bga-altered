@@ -58,41 +58,29 @@ class Notifications
     ]);
   }
 
-  public static function discardMana(
-    $player,
-    $cards,
-    $privateMsg = null,
-    $publicMsg = null,
-    $args = [],
-    $privateArgs = null
-  ) {
-    self::notifyAll(
-      'discardMana',
-      $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) as mana'),
-      $args + [
-        'player' => $player,
-        'n' => count($cards),
-      ]
-    );
+  public static function discardMana($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
+  {
+    // self::notifyAll(
+    //   'discardMana',
+    //   $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) as mana'),
+    //   $args + [
+    //     'player' => $player,
+    //     'n' => count($cards),
+    //   ]
+    // );
     self::notify(
       $player,
       'pDiscardMana',
       $privateMsg ?? clienttranslate('You discard ${card_names} to mana'),
       ($privateArgs ?? $args) + [
         'player' => $player,
-        'cards' => $cards->toArray(),
+        'cards' => $cards,
       ]
     );
   }
 
-  public static function moveToHand(
-    $player,
-    $cards,
-    $privateMsg = null,
-    $publicMsg = null,
-    $args = [],
-    $privateArgs = null
-  ) {
+  public static function moveToHand($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
+  {
     self::notifyAll(
       'moveToHand',
       $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) in his hand'),
@@ -127,6 +115,20 @@ class Notifications
       'amount' => $amount,
       'total' => $total,
       'cards' => $cards->toArray(),
+    ]);
+  }
+
+  public static function playCard($player, $card, $cost, $from, $to = null)
+  {
+    $msg = clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${to}');
+
+    self::notifyAll('playCard', $msg, [
+      'player' => $player,
+      'card' => $card,
+      'cost' => $cost,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
+      'to' => $to,
     ]);
   }
 
@@ -326,14 +328,10 @@ class Notifications
 
   public static function takeCardInRange($player, $card)
   {
-    self::notifyAll(
-      'snapCard',
-      clienttranslate('${player_name} takes ${card_names} in reputation range from the display'),
-      [
-        'player' => $player,
-        'cards' => [$card],
-      ]
-    );
+    self::notifyAll('snapCard', clienttranslate('${player_name} takes ${card_names} in reputation range from the display'), [
+      'player' => $player,
+      'cards' => [$card],
+    ]);
   }
 
   public static function sponsorMagnet($player, $cards)
@@ -358,37 +356,25 @@ class Notifications
 
   public static function discardCardsOnDisplay($player, $cards, $msg = null)
   {
-    self::notifyAll(
-      'discardCardsOnDisplay',
-      $msg ?? clienttranslate('${player_name} discards ${card_names} from display'),
-      [
-        'player' => $player,
-        'cards' => $cards->toArray(),
-      ]
-    );
+    self::notifyAll('discardCardsOnDisplay', $msg ?? clienttranslate('${player_name} discards ${card_names} from display'), [
+      'player' => $player,
+      'cards' => $cards->toArray(),
+    ]);
   }
 
   public static function discardPoolCardsBreak($cards)
   {
-    self::notifyAll(
-      'discardCardsOnDisplay',
-      \clienttranslate('Removing first two cards of the display: ${card_names}'),
-      [
-        'cards' => $cards->toArray(),
-      ]
-    );
+    self::notifyAll('discardCardsOnDisplay', \clienttranslate('Removing first two cards of the display: ${card_names}'), [
+      'cards' => $cards->toArray(),
+    ]);
   }
 
   public static function discardProject($card, $tokenIds)
   {
-    self::notifyAll(
-      'discardCardsOnDisplay',
-      clienttranslate('The rightmost project card is discarded: ${card_names}'),
-      [
-        'cards' => [$card],
-        'tokenIds' => $tokenIds,
-      ]
-    );
+    self::notifyAll('discardCardsOnDisplay', clienttranslate('The rightmost project card is discarded: ${card_names}'), [
+      'cards' => [$card],
+      'tokenIds' => $tokenIds,
+    ]);
   }
 
   public static function moveProjects($player, $card, $cards, $fromDisplay)
@@ -429,9 +415,7 @@ class Notifications
         ? clienttranslate(
           '${player_name} buys ${card_name} from display for ${amount_money} and places it using Flocking ability'
         )
-        : clienttranslate(
-          '${player_name} buys ${card_name} from display for ${amount_money} and places it in ${building_name}'
-        );
+        : clienttranslate('${player_name} buys ${card_name} from display for ${amount_money} and places it in ${building_name}');
     }
 
     self::notifyAll('buyAnimal', $msg, [
@@ -463,9 +447,7 @@ class Notifications
     );
     if ($bonuses[APPEAL] == 0) {
       unset($data['bonuses']);
-      $msg = clienttranslate(
-        '${player_name} releases ${card_name} into the wild and frees ${building_name} (no appeal lost)'
-      );
+      $msg = clienttranslate('${player_name} releases ${card_name} into the wild and frees ${building_name} (no appeal lost)');
     }
     self::notifyAll('releaseAnimal', $msg, $data);
   }
@@ -719,11 +701,7 @@ class Notifications
         \clienttranslate('${player_name} digs 1 card from their hand')
       );
     } else {
-      self::discardCardsOnDisplay(
-        $player,
-        $cardToDiscard,
-        clienttranslate('${player_name} digs ${card_names} from the display')
-      );
+      self::discardCardsOnDisplay($player, $cardToDiscard, clienttranslate('${player_name} digs ${card_names} from the display'));
     }
 
     if (!is_null($card)) {
@@ -917,14 +895,10 @@ class Notifications
   {
     $cards = [$card];
     // Public notif : slide card
-    self::notifyAll(
-      'pilferingCard',
-      clienttranslate('${player_name} gives 1 card to ${player_name2} from Pilfering effect'),
-      [
-        'player' => $player,
-        'player2' => $otherPlayer,
-      ]
-    );
+    self::notifyAll('pilferingCard', clienttranslate('${player_name} gives 1 card to ${player_name2} from Pilfering effect'), [
+      'player' => $player,
+      'player2' => $otherPlayer,
+    ]);
 
     self::notify($player, 'pDiscardCards', 'You give ${card_names} from the Pilfering effect', [
       'player' => $player,
@@ -976,12 +950,8 @@ class Notifications
     self::notifyAll(
       'wazaSpecial',
       $type == 'small'
-        ? \clienttranslate(
-          '${player_name} focuses on small animals and won\'t be able to play large animal from now on'
-        )
-        : \clienttranslate(
-          '${player_name} focuses on large animals and won\'t be able to play small animal from now on'
-        ),
+        ? \clienttranslate('${player_name} focuses on small animals and won\'t be able to play large animal from now on')
+        : \clienttranslate('${player_name} focuses on large animals and won\'t be able to play small animal from now on'),
       [
         'player' => $player,
         'type' => $type,
@@ -1042,80 +1012,80 @@ class Notifications
       unset($data['players']);
     }
 
-    if (isset($data['actionCard'])) {
-      $lvlMapping = [
-        1 => 'I',
-        2 => 'II',
-      ];
-      $card = $data['actionCard'];
-      $data['i18n'][] = 'action_card_name';
-      $data['action_card_name'] = $card->getName();
-      $data['action_card_level'] = $lvlMapping[$card->getLevel()];
-      $data['action_card_icon'] = '';
-      $data['action_card_type'] = $card->getType();
-      $data['preserve'][] = 'action_card_type';
-    }
+    // if (isset($data['actionCard'])) {
+    //   $lvlMapping = [
+    //     1 => 'I',
+    //     2 => 'II',
+    //   ];
+    //   $card = $data['actionCard'];
+    //   $data['i18n'][] = 'action_card_name';
+    //   $data['action_card_name'] = $card->getName();
+    //   $data['action_card_level'] = $lvlMapping[$card->getLevel()];
+    //   $data['action_card_icon'] = '';
+    //   $data['action_card_type'] = $card->getType();
+    //   $data['preserve'][] = 'action_card_type';
+    // }
 
-    if (isset($data['actionCards'])) {
-      $data['actionCards'] = $data['actionCards']->map(function ($card) {
-        return $card->getStrength();
-      });
-    }
+    // if (isset($data['actionCards'])) {
+    //   $data['actionCards'] = $data['actionCards']->map(function ($card) {
+    //     return $card->getStrength();
+    //   });
+    // }
 
-    // Useful for frontend formating
-    if (isset($data['strength'])) {
-      $data['strength_icon'] = '';
-    }
+    // // Useful for frontend formating
+    // if (isset($data['strength'])) {
+    //   $data['strength_icon'] = '';
+    // }
 
-    if (isset($data['building'])) {
-      $building = $data['building'];
-      $names = [
-        'pavilion' => clienttranslate('a pavilion'),
-        'kiosk' => clienttranslate('a Kiosk'),
-        LARGE_BIRD_AVIARY => clienttranslate('the Large Bird Aviary'),
-        PETTING_ZOO => clienttranslate('the Petting Zoo'),
-        REPTILE_HOUSE => clienttranslate('the Reptile House'),
-        'empty' => clienttranslate('no enclosure'),
-      ];
-      $name = $names[$building['type']] ?? [
-        'log' => clienttranslate('a size-${n} enclosure'),
-        'args' => ['n' => count(\BUILDINGS[$building['type']])],
-      ];
-      if (in_array($building['type'], \UNIQUE_BUILDINGS)) {
-        $name = \clienttranslate('a unique building');
-      }
+    // if (isset($data['building'])) {
+    //   $building = $data['building'];
+    //   $names = [
+    //     'pavilion' => clienttranslate('a pavilion'),
+    //     'kiosk' => clienttranslate('a Kiosk'),
+    //     LARGE_BIRD_AVIARY => clienttranslate('the Large Bird Aviary'),
+    //     PETTING_ZOO => clienttranslate('the Petting Zoo'),
+    //     REPTILE_HOUSE => clienttranslate('the Reptile House'),
+    //     'empty' => clienttranslate('no enclosure'),
+    //   ];
+    //   $name = $names[$building['type']] ?? [
+    //     'log' => clienttranslate('a size-${n} enclosure'),
+    //     'args' => ['n' => count(\BUILDINGS[$building['type']])],
+    //   ];
+    //   if (in_array($building['type'], \UNIQUE_BUILDINGS)) {
+    //     $name = \clienttranslate('a unique building');
+    //   }
 
-      $data['i18n'][] = 'building_name';
-      $data['building_name'] = $name;
-    }
+    //   $data['i18n'][] = 'building_name';
+    //   $data['building_name'] = $name;
+    // }
 
-    if (isset($data['building2'])) {
-      $building = $data['building2'];
-      $names = [
-        'pavilion' => clienttranslate('a pavilion'),
-        'kiosk' => clienttranslate('a Kiosk'),
-        LARGE_BIRD_AVIARY => clienttranslate('the Large Bird Aviary'),
-        PETTING_ZOO => clienttranslate('the Petting Zoo'),
-        REPTILE_HOUSE => clienttranslate('the Reptile House'),
-      ];
-      $data['i18n'][] = 'building_name2';
-      $data['building_name2'] = $names[$building['type']] ?? [
-        'log' => clienttranslate('a size-${n} enclosure'),
-        'args' => ['n' => count(\BUILDINGS[$building['type']])],
-      ];
-    }
+    // if (isset($data['building2'])) {
+    //   $building = $data['building2'];
+    //   $names = [
+    //     'pavilion' => clienttranslate('a pavilion'),
+    //     'kiosk' => clienttranslate('a Kiosk'),
+    //     LARGE_BIRD_AVIARY => clienttranslate('the Large Bird Aviary'),
+    //     PETTING_ZOO => clienttranslate('the Petting Zoo'),
+    //     REPTILE_HOUSE => clienttranslate('the Reptile House'),
+    //   ];
+    //   $data['i18n'][] = 'building_name2';
+    //   $data['building_name2'] = $names[$building['type']] ?? [
+    //     'log' => clienttranslate('a size-${n} enclosure'),
+    //     'args' => ['n' => count(\BUILDINGS[$building['type']])],
+    //   ];
+    // }
 
-    if (isset($data['resources'])) {
-      // Get an associative array $resource => $amount
-      $resources = Utils::reduceResources($data['resources']);
-      $data['resources_desc'] = Utils::resourcesToStr($resources);
-    }
+    // if (isset($data['resources'])) {
+    //   // Get an associative array $resource => $amount
+    //   $resources = Utils::reduceResources($data['resources']);
+    //   $data['resources_desc'] = Utils::resourcesToStr($resources);
+    // }
 
-    if (isset($data['resources2'])) {
-      // Get an associative array $resource => $amount
-      $resources2 = Utils::reduceResources($data['resources2']);
-      $data['resources2_desc'] = Utils::resourcesToStr($resources2);
-    }
+    // if (isset($data['resources2'])) {
+    //   // Get an associative array $resource => $amount
+    //   $resources2 = Utils::reduceResources($data['resources2']);
+    //   $data['resources2_desc'] = Utils::resourcesToStr($resources2);
+    // }
 
     if (isset($data['card'])) {
       $data['card_id'] = $data['card']->getId();

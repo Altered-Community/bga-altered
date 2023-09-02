@@ -60,25 +60,37 @@ class ChooseAssignment extends \ALT\Models\Action
     return ['_private' => ['active' => $actions]];
   }
 
-  public function actChooseAssignment($cardId, $location, $to = null)
+  public function actHand($cardId, $to = null)
   {
-    self::checkAction('actChooseAssignment');
+    self::checkAction('actHand');
+    $player = Players::getActive();
+    $this->playCardInStorm($cardId, HAND, $to);
+  }
+
+  public function playCardInStorm($cardId, $location, $to = null)
+  {
     $player = Players::getActive();
     $card = Cards::get($cardId);
     if ($card->getPId() != $player->getId()) {
-      throw new \BgaVisibleSystemException('You do not own this card');
+      throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
     }
 
-    if (in_array($location, [HAND, MEMORY])) {
-      // Pay cost
-      $player->pay($card->getCost());
-      // left or right storm
-      $card->move($to);
+    if ($card->getLocation() != $location) {
+      throw new \BgaVisibleSystemException('Location of the card is not ok. Should not happen');
     }
+
+    // Pay cost
+    $cost = $card->getCost();
+    $player->pay($cost);
+    // left or right storm
+    $card->move($to);
+
     // notification
+    Notifications::playCard($player, $card, $cost, $location, $to);
     // insert linked flow
-    Notifications::$effect = 'getEffect' . ucfirst($location);
+    $effect = 'getEffect' . ucfirst($location);
     $this->pushParallelChilds($card->$effect());
+    $this->resolveAction([$cardId, $to]);
   }
 
   public function actEcho($cardId)

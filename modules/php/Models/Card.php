@@ -105,7 +105,7 @@ class Card extends \ALT\Helpers\DB_Model
       // Sanity check : does the name correspond to a declared variable ?
       $name = mb_strtolower($match[2]) . $match[3];
       // TODO put management of properties
-      if (\array_key_exists($name, $this->attributes['properties'])) {
+      if (\array_key_exists($name, $this->attributes['properties']) && !is_null($this->attributes['properties'][$name])) {
         if ($match[1] == 'get') {
           if (count($args) > 0 && is_array($this->attributes['properties'][$name])) {
             // Handle json field
@@ -118,9 +118,11 @@ class Card extends \ALT\Helpers\DB_Model
           // Boolean getter
           return (bool) ($this->attributes['properties'][$name] != 0);
         }
+      } else {
+        return parent::__call($method, $args);
       }
     } else {
-      return parent::$method($args);
+      return parent::_call($method, $args);
     }
   }
 

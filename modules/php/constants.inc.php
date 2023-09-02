@@ -139,16 +139,10 @@ const MEMORY = 'memory';
 // Ability
 const SPRINT = 'Sprint';
 
-const STORM_CARDS = [
-  [[MOUNTAIN], [FOREST, OCEAN]],
-  [[FOREST], [MOUNTAIN, OCEAN]],
-  [[OCEAN], [MOUNTAIN, FOREST]],
-  [[MOUNTAIN], [FOREST]],
-  [[OCEAN], [FOREST]],
-  [[OCEAN], [MOUNTAIN]],
-];
+const STORM_CARDS = [[[MOUNTAIN], [FOREST, OCEAN]], [[FOREST], [MOUNTAIN, OCEAN]], [[OCEAN], [MOUNTAIN, FOREST]]];
 
 const STORM_GENERIC = [[MOUNTAIN, FOREST, OCEAN]];
+const STORM_BACK = 'storm_back';
 
 const RARITY_BASE = 0;
 const RARITY_RARE = 1;

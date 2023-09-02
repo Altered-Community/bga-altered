@@ -81,7 +81,7 @@ class Altered extends Table
       // 'buildings' => Buildings::getUiData(),
       'meeples' => Meeples::getUiData(),
 
-      'storm' => Globals::getStorm(),
+      'storm' => Globals::getStorm(true),
       'day' => Globals::getDay(),
     ];
   }

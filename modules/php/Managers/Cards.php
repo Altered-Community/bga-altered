@@ -87,12 +87,15 @@ class Cards extends \ALT\Helpers\Pieces
     foreach ($players as $pId => $player) {
       foreach ($cards as $cId => $card) {
         $card['player_id'] = $pId;
+        $card['location'] = 'deck_' . $pId;
         $toCreate[] = $card;
       }
     }
 
     self::create($toCreate, null);
-    self::shuffle('deck');
+    foreach ($players as $pId => $player) {
+      self::shuffle('deck_' . $pId);
+    }
     // self::shuffle('scoringDeck');
   }
 

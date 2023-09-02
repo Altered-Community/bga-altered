@@ -37,10 +37,8 @@ define([
         ['clearTurn', 200],
         ['refreshUI', 200],
         ['refreshHand', 200],
-        ['pDiscardMana', null],
+        ['pDiscardMana', 500],
         ['discardMana', null, (notif) => notif.args.player_id == this.player_id],
-        ['pMoveToHand', null],
-        ['moveToHand', null, (notif) => notif.args.player_id == this.player_id],
         ['payMana', 500],
       ];
 
@@ -597,9 +595,9 @@ define([
           log = this.formatString(_(log));
 
           if (args.card_name !== undefined && args.card_id !== undefined) {
-            let card = this.getCardInfos(args.card_id);
-            let uid = this.registerCustomTooltip(this.tplCard(card, true));
-            args.card_name = `<span class="ark-log-card-name" id="${uid}">${_(args.card_name)}</span>`;
+            // let card = this.getCardInfos(args.card_id);
+            // let uid = this.registerCustomTooltip(this.tplCard(card, true));
+            // args.card_name = `<span class="ark-log-card-name" id="${uid}">${_(args.card_name)}</span>`;
           }
 
           if (args.source !== undefined && args.sourceId !== undefined) {

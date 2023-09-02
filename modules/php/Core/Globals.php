@@ -22,6 +22,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     'storm' => 'obj',
     'day' => 'int',
+    'heroes' => 'obj',
 
     'firstDayManaSelection' => 'obj',
   ];
@@ -154,12 +155,26 @@ class Globals extends \ALT\Helpers\DB_Manager
   {
     // Storm
     // we pick 3 of the 6 available cards
-    $storm = [STORM_GENERIC, '', '', '', STORM_GENERIC];
+    $storm = [[STORM_GENERIC, true], '', '', '', [STORM_GENERIC, true]];
     $stormKeys = Utils::rand(array_keys(STORM_CARDS), 3);
     for ($i = 0; $i < 3; $i++) {
-      $storm[$i + 1] = STORM_CARDS[$stormKeys[$i]];
+      $storm[$i + 1] = [STORM_CARDS[$stormKeys[$i]], false];
     }
     self::setStorm($storm);
     self::setDay(0);
+  }
+
+  public static function getStorm($ui = false)
+  {
+    $storm = self::$data['storm'];
+    if ($ui === true) {
+      foreach ($storm as $i => &$s) {
+        if ($s[1] === false) {
+          $s[0] = STORM_BACK;
+        }
+      }
+    }
+
+    return $storm;
   }
 }

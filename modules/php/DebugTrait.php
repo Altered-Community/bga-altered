@@ -32,7 +32,7 @@ trait DebugTrait
   {
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
-    $this->actFirstDayMana([4, 6, 9, 11]);
+    $this->actFirstDayMana([1, 2, 7, 13]);
   }
 
   function tv()

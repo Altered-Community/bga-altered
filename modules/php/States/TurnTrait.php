@@ -36,7 +36,7 @@ trait TurnTrait
     // draw and pick 2
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
-      $player->draw($nCards, 'deck', 'choice');
+      $player->draw($nCards, 'deck', 'hand');
     }
     // init of custom turn order (or break method of AN)
   }

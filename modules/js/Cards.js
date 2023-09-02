@@ -252,40 +252,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      * Private notification for the player discarding the card :
      *  slide them and destroy them
      */
-    notif_pDiscardCards(n) {
-      debug('Notif: private discarding cards', n);
-      let counter = n.args.scoringCard ? 'scoringHandCount' : 'handCount';
-
-      if (this.isFastMode()) {
-        n.args.cards.forEach((card) => {
-          this.destroy($(`card-${card.id}`));
-        });
-        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
-        if (n.args.pilfering) this._playerCounters[n.args.pilfering][counter].incValue(n.args.cards.length);
-        if (n.args.bonuses) this.notif_getBonuses(n);
-        return;
-      }
-
-      Promise.all(
-        n.args.cards.map((card, i) => {
-          let target = n.args.pilfering ? $(`counter-${n.args.pilfering}-${counter}`) : this.getVisibleTitleContainer();
-          return this.slide(`card-${card.id}`, target, {
-            delay: 100 * i,
-            duration: 1000,
-            destroy: true,
-            phantom: false,
-          });
-        })
-      ).then(() => {
-        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
-        if (n.args.pilfering) this._playerCounters[n.args.pilfering][counter].incValue(n.args.cards.length);
-
-        if (n.args.bonuses) {
-          this.notif_getBonuses(n);
-        } else {
-          this.notifqueue.setSynchronousDuration(100);
-        }
-      });
+    notif_pDiscardMana(n) {
+      debug('Notif: private discarding to mana', n);
+      // TODO
     },
 
     /**
@@ -293,39 +262,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  ignore if current player is the one discarding card
      *  slide fakes cards from player panel to titlebar and decrease hand count
      */
-    notif_discardCards(n) {
+    notif_discardMana(n) {
       debug('Notif: public discarding cards', n);
-      if (n.args.player_id == this.player_id) {
-        return;
-      }
-
-      let counter = n.args.scoringCard ? 'scoringHandCount' : 'handCount';
-      let nCards = n.args.n;
-      if (this.isFastMode()) {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        if (n.args.bonuses) this.notif_getBonuses(n);
-        return;
-      }
-
-      Promise.all(
-        Array.from(Array(nCards), (x, i) => i).map((i) => {
-          return this.wait(100 * i).then(() => {
-            this.addZooCard({ id: i, fake: true }, `counter-${n.args.player_id}-${counter}`);
-            return this.slide(`card-${i}`, this.getVisibleTitleContainer(), {
-              duration: 1000,
-              destroy: true,
-              phantom: false,
-            });
-          });
-        })
-      ).then(() => {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        if (n.args.bonuses) {
-          this.notif_getBonuses(n);
-        } else {
-          this.notifqueue.setSynchronousDuration(200);
-        }
-      });
+      // TODO
     },
 
     /**

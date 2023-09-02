@@ -20,6 +20,7 @@ trait SetupTrait
     Globals::setupNewGame($players, $options);
     Players::setupNewGame($players, $options);
     // Preferences::setupNewGame($players, $this->player_preferences);
+    // Temp while we do not have API
     Cards::setupNewGame($players, $options);
     // Meeples::setupNewGame($players, $options);
     // Stats::checkExistence();
@@ -66,6 +67,12 @@ trait SetupTrait
     return [];
   }
 
+  function stDeckSelection()
+  {
+    // Temporary while we get decks
+    $this->gamestate->nextState('done');
+  }
+
   function actDeckSelection()
   {
     //self::checkAction('actDeckSelection');
@@ -82,7 +89,7 @@ trait SetupTrait
     // on first day, 7 cards are picked
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
-      $player->draw($nCards, 'deck', 'choice');
+      $player->draw($nCards, 'deck_' . $pId, 'hand');
       $pIds[] = $pId;
     }
     Globals::setFirstDayManaSelection([]);
@@ -95,7 +102,7 @@ trait SetupTrait
     $selection = Globals::getFirstDayManaSelection();
     $args = ['_private' => []];
     foreach (Players::getAll() as $pId => $player) {
-      $hand = $player->getManaChoice();
+      $hand = $player->getHand();
       $args['_private'][$pId] = [
         'n' => 4,
         'cards' => $hand->getIds(),
@@ -162,14 +169,17 @@ trait SetupTrait
         if (count($cardIds) != 4) {
           throw new \BgaUserException('4 cards should be put as mana. Should not happen');
         }
-        $remainingIds = array_diff($player->getManaChoice()->getIds(), $cardIds);
+        $remainingIds = array_diff($player->getHand()->getIds(), $cardIds);
 
         $cards = Cards::getMany($cardIds);
         Cards::discard($cardIds, MANA);
+        $cards = Cards::getMany($cardIds);
+        // throw new \feException($cards->first()->getId());
         Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} places ${n} cards as mana'));
 
-        Cards::move($remainingIds, 'hand');
-        Notifications::moveToHand($player, Cards::getMany($remainingIds));
+        // Change of rules, not needed anymore
+        // Cards::move($remainingIds, 'hand');
+        // Notifications::moveToHand($player, Cards::getMany($remainingIds));
       }
 
       $this->gamestate->nextState('done');
