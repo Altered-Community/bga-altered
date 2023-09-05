@@ -122,7 +122,7 @@ class Card extends \ALT\Helpers\DB_Model
         return parent::__call($method, $args);
       }
     } else {
-      return parent::_call($method, $args);
+      return parent::__call($method, $args);
     }
   }
 

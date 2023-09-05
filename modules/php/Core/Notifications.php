@@ -100,7 +100,7 @@ class Notifications
     );
   }
 
-  public static function payMana($player, $amount, $total, $cards, $source)
+  public static function payMana($player, $amount, $total, $cardIds, $source)
   {
     if ($source === null) {
       $msg = clienttranslate('${player_name} pays ${amount} mana');
@@ -114,7 +114,7 @@ class Notifications
       'source' => $source,
       'amount' => $amount,
       'total' => $total,
-      'cards' => $cards->toArray(),
+      'cardIds' => $cardIds,
     ]);
   }
 

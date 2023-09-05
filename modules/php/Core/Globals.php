@@ -23,6 +23,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'storm' => 'obj',
     'day' => 'int',
     'heroes' => 'obj',
+    'playedCards' => 'int',
 
     'firstDayManaSelection' => 'obj',
   ];
@@ -162,6 +163,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     }
     self::setStorm($storm);
     self::setDay(0);
+    self::setPlayedCards(0);
   }
 
   public static function getStorm($ui = false)

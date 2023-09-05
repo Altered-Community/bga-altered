@@ -64,6 +64,14 @@ class ChooseAssignment extends \ALT\Models\Action
   {
     self::checkAction('actHand');
     $player = Players::getActive();
+    $args = $this->argsChooseAssignment()['_private']['active']['hand'];
+    if (!in_array($to, STORMS)) {
+      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
+    }
+    if (!isset($args[$cardId])) {
+      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
+    }
+
     $this->playCardInStorm($cardId, HAND, $to);
   }
 
@@ -83,7 +91,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $cost = $card->getCost();
     $player->pay($cost);
     // left or right storm
-    $card->move($to);
+    $card->setLocation($to);
 
     // notification
     Notifications::playCard($player, $card, $cost, $location, $to);

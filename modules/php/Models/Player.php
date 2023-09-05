@@ -93,16 +93,20 @@ class Player extends \ALT\Helpers\DB_Model
       ->where('tapped', 0)
       ->get();
     $updated = [];
-    for ($i = 0; $i < $n; $i++) {
-      $card = array_pop($mana);
+    $i = 0;
+    foreach ($mana as $mId => $card) {
       $card->setTapped(true);
       $updated[] = $card->getId();
+      $i++;
+      if ($i == $n) {
+        break;
+      }
     }
     if ($notif) {
-      Notifications::payMana($this, $n, $this->getMana(), Cards::getMany($updated), $source);
+      Notifications::payMana($this, $n, $this->getMana(), Cards::getMany($updated)->getIds(), $source);
     }
 
-    return $this->money;
+    return;
   }
 
   ///////////////////////////////////////////////////

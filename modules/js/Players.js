@@ -291,5 +291,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.notifqueue.setSynchronousDuration(this.isFastMode() ? 0 : 100);
       });
     },
+
+    notif_payMana(n) {
+      debug('Notif: paying mana', n);
+      // TOOD
+    },
   });
 });

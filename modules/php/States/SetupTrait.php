@@ -83,10 +83,10 @@ trait SetupTrait
   function stFirstDay()
   {
     $day = Globals::incDay(1);
-    $nCards = 7;
+    $nCards = 6;
     $pIds = [];
 
-    // on first day, 7 cards are picked
+    // on first day, 6 cards are picked
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
       $player->draw($nCards, 'deck_' . $pId, 'hand');
@@ -104,7 +104,7 @@ trait SetupTrait
     foreach (Players::getAll() as $pId => $player) {
       $hand = $player->getHand();
       $args['_private'][$pId] = [
-        'n' => 4,
+        'n' => 3,
         'cards' => $hand->getIds(),
         'selection' => $selection[$pId] ?? null,
       ];
@@ -118,7 +118,7 @@ trait SetupTrait
     self::checkAction('actFirstDayMana');
     $player = Players::getCurrent();
 
-    if (count($cardIds) != 4) {
+    if (count($cardIds) != 3) {
       throw new \BgaUserException(clienttranslate('You must select 4 cards to put as mana'));
     }
     $args = $this->argsFirstDayMana();
@@ -166,7 +166,7 @@ trait SetupTrait
       $selection = Globals::getFirstDayManaSelection();
       foreach ($players as $pId => $player) {
         $cardIds = $selection[$pId];
-        if (count($cardIds) != 4) {
+        if (count($cardIds) != 3) {
           throw new \BgaUserException('4 cards should be put as mana. Should not happen');
         }
         $remainingIds = array_diff($player->getHand()->getIds(), $cardIds);

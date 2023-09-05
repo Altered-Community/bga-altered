@@ -32,11 +32,13 @@ trait DebugTrait
   {
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
-    $this->actFirstDayMana([1, 2, 7, 13]);
+    // $this->actFirstDayMana([49, 51, 62]);
+    $this->actTakeAtomicAction('actHand', [24, STORM_LEFT]);
   }
 
   function tv()
   {
+    Cards::get(24)->setTapped(true);
   }
 
   function score($cardId)
