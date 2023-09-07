@@ -88,6 +88,7 @@ class Cards extends \ALT\Helpers\Pieces
       foreach ($cards as $cId => $card) {
         $card['player_id'] = $pId;
         $card['location'] = 'deck_' . $pId;
+        $card['tapped'] = 0;
         $toCreate[] = $card;
       }
     }

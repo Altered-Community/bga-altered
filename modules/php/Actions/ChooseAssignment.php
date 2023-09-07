@@ -75,6 +75,21 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCardInStorm($cardId, HAND, $to);
   }
 
+  public function actMemory($cardId, $to = null)
+  {
+    self::checkAction('actMemory');
+    $player = Players::getActive();
+    $args = $this->argsChooseAssignment()['_private']['active']['memory'];
+    if (!in_array($to, STORMS)) {
+      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
+    }
+    if (!isset($args[$cardId])) {
+      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
+    }
+
+    $this->playCardInStorm($cardId, MEMORY, $to);
+  }
+
   public function playCardInStorm($cardId, $location, $to = null)
   {
     $player = Players::getActive();
@@ -95,9 +110,16 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // notification
     Notifications::playCard($player, $card, $cost, $location, $to);
+
+    // if played from memory, it gains fleeting
+    if ($location == MEMORY) {
+      $card->setProperty(FLEETING, true);
+      Notifications::gainToken(FLEETING, $card);
+    }
+
     // insert linked flow
     $effect = 'getEffect' . ucfirst($location);
-    $this->pushParallelChilds($card->$effect());
+    // $this->pushParallelChilds($card->$effect());
     $this->resolveAction([$cardId, $to]);
   }
 

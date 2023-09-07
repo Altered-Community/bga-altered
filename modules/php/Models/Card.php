@@ -150,4 +150,16 @@ class Card extends \ALT\Helpers\DB_Model
         break;
     }
   }
+
+  public function getProperty($variable)
+  {
+    return $this->properties[$variable] ?? null;
+  }
+
+  public function setProperty($variable, $value)
+  {
+    $this->properties[$variable] = $value;
+    $this->setProperties($this->properties);
+    // self::DB()->update(['extra_datas' => \addslashes(\json_encode($this->properties))], $this->id);
+  }
 }

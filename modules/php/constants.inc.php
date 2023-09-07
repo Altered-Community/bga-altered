@@ -141,7 +141,7 @@ const STORM_RIGHT = 'storm_right';
 const STORMS = [STORM_LEFT, STORM_RIGHT];
 
 // Ability
-const SPRINT = 'Sprint';
+const FLEETING = 'fleeting';
 
 const STORM_CARDS = [[[MOUNTAIN], [FOREST, OCEAN]], [[FOREST], [MOUNTAIN, OCEAN]], [[OCEAN], [MOUNTAIN, FOREST]]];
 

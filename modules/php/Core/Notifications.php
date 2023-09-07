@@ -120,7 +120,7 @@ class Notifications
 
   public static function playCard($player, $card, $cost, $from, $to = null)
   {
-    $msg = clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${to}');
+    $msg = clienttranslate('${player_name} plays ${card_name} (${from}) for ${cost} and places it in ${to}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -128,8 +128,18 @@ class Notifications
       'cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
+      'from' => $from,
       'to' => $to,
     ]);
+  }
+
+  public static function gainToken($power, $card, $silent = true)
+  {
+    $msg = '';
+    if (!$silent) {
+      $msg = clienttranslate('${card_name} gains ${power}');
+    }
+    self::notifyAll('gainToken', $msg, ['card' => $card, 'power' => $power]);
   }
 
   /*********** unchecked ******* */
