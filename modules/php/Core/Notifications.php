@@ -142,6 +142,14 @@ class Notifications
     self::notifyAll('gainToken', $msg, ['card' => $card, 'power' => $power]);
   }
 
+  public static function echoEffect($player, $card)
+  {
+    self::notifyAll('discard', clienttranslate('${player_name} activates echo effect of ${card_name} and discards it'), [
+      'player' => $player,
+      'card' => $card,
+    ]);
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)

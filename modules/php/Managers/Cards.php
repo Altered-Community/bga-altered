@@ -150,8 +150,11 @@ class Cards extends \ALT\Helpers\Pieces
     return !is_null($card) && $card->isPlayed() && $card->getPId() == $pId;
   }
 
-  public static function discard($cardIds, $discard = 'discard')
+  public static function discard($cardIds, $discard = 'discard', $pId = null)
   {
+    if (!is_null($pId)) {
+      $dicard = $discard . '_' . $pId;
+    }
     return self::move($cardIds, $discard);
   }
 

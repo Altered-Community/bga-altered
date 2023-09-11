@@ -47,6 +47,7 @@ trait TurnTrait
    */
   function stBeforeAssignment()
   {
+    Globals::setPlayedCards(0);
     $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_RESOLUTION_PHASE, true);
   }
 

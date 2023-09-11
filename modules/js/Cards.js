@@ -263,8 +263,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  slide fakes cards from player panel to titlebar and decrease hand count
      */
     notif_discardMana(n) {
-      debug('Notif: public discarding cards', n);
+      debug('Notif: public mana cards', n);
       // TODO
+    },
+
+    notif_discard(n) {
+      debug('Notif: public discarding cards', n);
+      // TODO (echo effect, etc.)
     },
 
     /**
