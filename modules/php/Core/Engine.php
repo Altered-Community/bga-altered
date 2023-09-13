@@ -98,9 +98,33 @@ class Engine
   public function proceed($confirmedPartial = false, $isUndo = false)
   {
     $node = self::$tree->getNextUnresolved();
+    $firstNode = self::$tree->getChilds();
     // Are we done ?
     if ($node == null) {
-      if (Globals::getEngineChoices() == 0 && !Players::getActive()->canUseMap(4)) {
+      // if no card was played nor action pass, insert again a choose assignment
+      if (Globals::getPlayedCards() == 0) {
+        foreach ($firstNode as $i => $node) {
+          if (
+            $node instanceof \ALT\Core\Engine\LeafNode &&
+            $node->getAction() == CHOOSE_ASSIGNMENT &&
+            $node->getResolutionArgs() != 'pass'
+          ) {
+            self::insertAtRoot(
+              $node = [
+                'childs' => [
+                  [
+                    'action' => CHOOSE_ASSIGNMENT,
+                  ],
+                ],
+              ]
+            );
+            self::proceed();
+            return;
+          }
+        }
+      }
+
+      if (Globals::getEngineChoices() == 0) {
         self::confirm(); // No choices were made => auto confirm
       } else {
         // Confirm/restart
