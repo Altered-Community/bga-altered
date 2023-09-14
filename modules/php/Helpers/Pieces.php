@@ -157,9 +157,7 @@ class Pieces extends DB_Manager
 
     $extra = $like ? '%' : '';
     if (preg_match("/^[A-Za-z0-9${extra}-][A-Za-z_0-9${extra}-]*$/", $location) == 0) {
-      throw new \BgaVisibleSystemException(
-        "Class Pieces: location must be alphanum and underscore non empty string '$location'"
-      );
+      throw new \BgaVisibleSystemException("Class Pieces: location must be alphanum and underscore non empty string '$location'");
     }
   }
 
@@ -350,7 +348,11 @@ class Pieces extends DB_Manager
   {
     $query = self::getSelectQuery()->wherePlayer($pId);
     if ($location != null) {
-      $query = $query->where(static::$prefix . 'location', strpos($location, '%') === false ? '=' : 'LIKE', $location);
+      if (is_array($location)) {
+        $query = $query->whereIn(static::$prefix . 'location', $location);
+      } else {
+        $query = $query->where(static::$prefix . 'location', strpos($location, '%') === false ? '=' : 'LIKE', $location);
+      }
     }
     if ($type != null) {
       if (is_array($type)) {
@@ -464,9 +466,7 @@ class Pieces extends DB_Manager
   {
     self::checkLocation($fromLocation);
     if (!array_key_exists($fromLocation, static::$autoreshuffleCustom)) {
-      throw new \BgaVisibleSystemException(
-        "Class Pieces:reformDeckFromDiscard: Unknown discard location for $fromLocation !"
-      );
+      throw new \BgaVisibleSystemException("Class Pieces:reformDeckFromDiscard: Unknown discard location for $fromLocation !");
     }
 
     $discard = static::$autoreshuffleCustom[$fromLocation];

@@ -28,7 +28,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $player = Players::getActive();
     $handCards = $player->getHand();
     $memoryCards = $player->getMemoryCards();
-    $actions = ['hand' => [], 'memory' => [], 'echo' => [], 'hero' => [], 'permanent' => []];
+    $actions = ['hand' => [], 'memory' => [], 'echo' => [], 'hero' => [], 'tap' => []];
 
     // calculate
     // 1. hand cards
@@ -47,15 +47,10 @@ class ChooseAssignment extends \ALT\Models\Action
     });
 
     // 4. Permanent/tap effect
-    // $action['hero'] = !$player
-    //   ->getHero()
-    //   ->first()
-    //   ->isTapped()
-    //   ? $player->getHero()
-    //   : null;
-    $actions['permanent'] = $player->getPermanents()->filter(function ($card) {
+    $actions['tap'] = $player->getPlayedCards()->filter(function ($card) {
       return !$card->isTapped() && !is_null($card->getEffectTap());
     });
+    // TODO: add hero
 
     return ['_private' => ['active' => $actions]];
   }
@@ -143,5 +138,33 @@ class ChooseAssignment extends \ALT\Models\Action
     // $this->pushParallelChilds($card->getEffectEcho());
 
     $this->resolveAction([$cardId, 'echo']);
+  }
+
+  public function actTap($cardId)
+  {
+    self::checkAction('actTap');
+    $player = Players::getActive();
+    $args = $this->argsChooseAssignment()['_private']['active']['tap'];
+
+    if (!isset($args[$cardId])) {
+      throw new \BgaVisibleSystemException('This card cannot be tapped. Should not happen');
+    }
+    $card = Cards::get($cardId);
+    $card->setTapped(true);
+    Notifications::tapEffect($player, $card);
+
+    // TODO: remove
+    // $this->pushParallelChilds($card->getEffectTap());
+    $this->resolveAction([$cardId, 'tap']);
+  }
+
+  public function actPass($silent = false)
+  {
+    self::checkAction('actPass');
+    $player = Players::getActive();
+    if (!$silent) {
+      Notifications::pass($player);
+    }
+    $this->resolveAction(['pass']);
   }
 }

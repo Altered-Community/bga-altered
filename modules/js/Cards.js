@@ -272,6 +272,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO (echo effect, etc.)
     },
 
+    notif_tap(n) {
+      debug('Notif: tapping card', n);
+      // TODO (tap card, etc.)
+    },
+
     /**
      * pilferingCard : slighty different => move card to other player panel and destroy it
      */

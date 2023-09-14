@@ -41,6 +41,7 @@ define([
         ['discardMana', null, (notif) => notif.args.player_id == this.player_id],
         ['payMana', 500],
         ['discard', 500],
+        ['tap', 500],
       ];
 
       // Fix mobile viewport (remove CSS zoom)

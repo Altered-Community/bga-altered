@@ -105,7 +105,7 @@ class Cards extends \ALT\Helpers\Pieces
    */
   public static function getPlayedCards($pId, $type = null)
   {
-    return self::getFiltered($pId, 'inPlay')->filter(function ($card) use ($type) {
+    return self::getFiltered($pId, IN_PLAY)->filter(function ($card) use ($type) {
       return $type == null || $card->getType() == $type;
     });
   }

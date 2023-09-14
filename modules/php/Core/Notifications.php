@@ -150,6 +150,19 @@ class Notifications
     ]);
   }
 
+  public static function tapEffect($player, $card)
+  {
+    self::notifyAll('tap', clienttranslate('${player_name} taps ${card_name} to activate it\'s effect'), [
+      'player' => $player,
+      'card' => $card,
+    ]);
+  }
+
+  public static function pass($player)
+  {
+    self::notifyAll('message', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)

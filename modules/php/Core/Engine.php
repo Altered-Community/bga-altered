@@ -103,24 +103,29 @@ class Engine
     if ($node == null) {
       // if no card was played nor action pass, insert again a choose assignment
       if (Globals::getPlayedCards() == 0) {
+        $found = false;
         foreach ($firstNode as $i => $node) {
           if (
             $node instanceof \ALT\Core\Engine\LeafNode &&
             $node->getAction() == CHOOSE_ASSIGNMENT &&
-            $node->getResolutionArgs() != 'pass'
+            ($node->getActionResolutionArgs()[0] ?? 'toto') == 'pass'
           ) {
-            self::insertAtRoot(
-              $node = [
-                'childs' => [
-                  [
-                    'action' => CHOOSE_ASSIGNMENT,
-                  ],
-                ],
-              ]
-            );
-            self::proceed();
-            return;
+            // throw new \feException(print_r($node));
+            $found = true;
           }
+        }
+        if ($found === false) {
+          self::insertAtRoot(
+            $node = [
+              'childs' => [
+                [
+                  'action' => CHOOSE_ASSIGNMENT,
+                ],
+              ],
+            ]
+          );
+          self::proceed();
+          return;
         }
       }
 

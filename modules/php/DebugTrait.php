@@ -34,9 +34,10 @@ trait DebugTrait
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([49, 51, 62]);
 
-    $this->actTakeAtomicAction('actHand', [24, STORM_LEFT]);
+    // $this->actTakeAtomicAction('actHand', [24, STORM_LEFT]);
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [29]);
+    $this->actTakeAtomicAction('actPass', []);
   }
 
   function tv()

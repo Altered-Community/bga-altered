@@ -136,9 +136,10 @@ const SPELL = 'spell';
 const HAND = 'hand';
 const MEMORY = 'memory';
 
-const STORM_LEFT = 'storm_left';
-const STORM_RIGHT = 'storm_right';
+const STORM_LEFT = 'stormLeft';
+const STORM_RIGHT = 'stormRight';
 const STORMS = [STORM_LEFT, STORM_RIGHT];
+const IN_PLAY = [STORM_LEFT, STORM_RIGHT, 'inPlay'];
 
 // Ability
 const FLEETING = 'fleeting';
