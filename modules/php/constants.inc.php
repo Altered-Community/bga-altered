@@ -153,6 +153,9 @@ const RARITY_BASE = 0;
 const RARITY_RARE = 1;
 const RARITY_UNIQUE = 2;
 
+const FACTION_BR = 'BR';
+const FACTION_MU = 'MU';
+
 /******************
  ****** STATS ******
  ******************/
