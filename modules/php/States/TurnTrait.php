@@ -30,9 +30,7 @@ trait TurnTrait
   {
     $nCards = 2;
     $day = Globals::incDay(1);
-    if ($day == 1) {
-      $nCards = 7;
-    }
+    Globals::setSkippedPlayers([]);
     // draw and pick 2
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
@@ -71,6 +69,7 @@ trait TurnTrait
       return;
     }
 
+    Globals::setPlayedCards(0);
     self::giveExtraTime($player->getId());
 
     // Stats::incTurns($player);
@@ -86,6 +85,22 @@ trait TurnTrait
     // Inserting leaf Action card
     Engine::setup($node, ['order' => 'assignment']);
     Engine::proceed();
+  }
+
+  /*******************************
+   ********************************
+   ********** DUSK *********
+   ********************************
+   *******************************/
+
+  function stBeforeDusk()
+  {
+    $this->initCustomDefaultTurnOrder('dusk', \ST_DUSK, ST_PRE_NIGHT, true);
+  }
+
+  function stDusk()
+  {
+    // Full automatique? automatic effect?
   }
 
   /*******************************

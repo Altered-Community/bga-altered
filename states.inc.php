@@ -96,7 +96,48 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stAssignment',
     'transitions' => [
-      'done' => ST_PRE_RESOLUTION_PHASE,
+      'done' => ST_PRE_DUSK_PHASE,
+    ],
+  ],
+
+  ST_PRE_DUSK_PHASE => [
+    'name' => 'beforeDusk',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stBeforeDusk',
+    'transitions' => [
+      'done' => ST_DUSK,
+    ],
+  ],
+
+  ST_DUSK => [
+    'name' => 'dusk',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stDusk',
+    'transitions' => [
+      'done' => ST_PRE_NIGHT,
+    ],
+  ],
+
+  ST_PRE_NIGHT => [
+    'name' => 'beforeNight',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stBeforeNight',
+    'transitions' => [
+      'done' => ST_NIGHT,
+    ],
+  ],
+
+  ST_NIGHT => [
+    'name' => 'beforeNight',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stBeforeNight',
+    'transitions' => [
+      'newTurn' => ST_NEW_DAY,
+      'endOfGame' => ST_PRE_END_OF_GAME,
     ],
   ],
 
@@ -158,7 +199,7 @@ $machinestates = [
     'args' => 'argsConfirmTurn',
     'action' => 'stConfirmTurn',
     'possibleactions' => ['actConfirmTurn', 'actRestart'],
-    'transitions' => ['endOfDay' => ST_END_OF_DAY],
+    'transitions' => ['endOfDay' => ''],
   ],
 
   ST_CONFIRM_PARTIAL_TURN => [
@@ -194,15 +235,6 @@ $machinestates = [
     'args' => 'argsImpossibleAction',
     'possibleactions' => ['actRestart'],
   ],
-
-  ////////////////////////////////////////////////////////////////////////////
-  //     _   _                  _         _        _   _
-  //    / \ | |_ ___  _ __ ___ (_) ___   / \   ___| |_(_) ___  _ __  ___
-  //   / _ \| __/ _ \| '_ ` _ \| |/ __| / _ \ / __| __| |/ _ \| '_ \/ __|
-  //  / ___ \ || (_) | | | | | | | (__ / ___ \ (__| |_| | (_) | | | \__ \
-  // /_/   \_\__\___/|_| |_| |_|_|\___/_/   \_\___|\__|_|\___/|_| |_|___/
-  //
-  ////////////////////////////////////////////////////////////////////////////
 
   // END OF GAME
   ST_PRE_END_OF_GAME => [

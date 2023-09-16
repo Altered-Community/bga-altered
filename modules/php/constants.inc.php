@@ -67,9 +67,10 @@ const ST_EFFECT_BOOST = 20; // gain X / who
 const ST_EFFECT_TOKEN = 21; // invoke a token
 const ST_EFFECT_NEW_TURN = 22;
 
-const ST_PRE_RESOLUTION_PHASE = 83; // some effects give choice before counting
-const ST_RESOLUTION_PHASE = 84; // resolution of the tempest
-const ST_END_OF_DAY = 85; // clean up !! may need some choice
+const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
+const ST_DUSK = 84; // resolution of the tempest
+const ST_PRE_NIGHT = 85;
+const ST_NIGHT = 86; // clean up !! may need some choice
 const ST_RESOLVE_STACK = 90;
 const ST_RESOLVE_CHOICE = 91;
 const ST_IMPOSSIBLE_MANDATORY_ACTION = 92;
