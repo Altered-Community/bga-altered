@@ -93,8 +93,14 @@ trait TurnTrait
    ********************************
    *******************************/
 
+  function stPreBeforeDusk()
+  {
+    $this->checkCardListeners('BeforeDusk', 'stBeforeDusk');
+  }
+
   function stBeforeDusk()
   {
+    // to see if we need that
     $this->initCustomDefaultTurnOrder('dusk', \ST_DUSK, ST_PRE_NIGHT, true);
   }
 

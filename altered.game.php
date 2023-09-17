@@ -177,6 +177,37 @@ class Altered extends Table
     }
   }
 
+  /********************************************
+   ******* GENERIC CARD LISTENERS CHECK ********
+   ********************************************/
+  /*
+   * A lot of time you want to loop through all the player to see if a card react or not
+   *  => this is achieved using custom turn order with an arg containing the eventType
+   *  => the custom order will call the genericPlayerCheckListeners that will getReaction from cards if any
+   */
+  public function checkCardListeners($typeEvent, $endCallback, $event = [], $order = null)
+  {
+    $event['type'] = $typeEvent;
+    $event['method'] = $typeEvent;
+    $this->initCustomTurnOrder($typeEvent, $order, 'genericPlayerCheckListeners', $endCallback, false, true, $event);
+  }
+
+  function genericPlayerCheckListeners($event)
+  {
+    $pId = Players::getActiveId();
+    $event['pId'] = $pId;
+    $reaction = PlayerCards::getReaction($event);
+
+    if (is_null($reaction)) {
+      // No reaction => just go to next player
+      $this->nextPlayerCustomOrder($event['type']);
+    } else {
+      // Reaction => boot up the Engine
+      Engine::setup($reaction, ['order' => $event['type']]);
+      Engine::proceed();
+    }
+  }
+
   //////////////////////////////////////////////////////////////////////////////
   //////////// Zombie
   ////////////
