@@ -5,19 +5,20 @@ class BR_Rare_MulanRespectedLeader extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'BR-36_Hua_Mulan_02';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'BR-36_Hua_Mulan_02',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_BR;
-    $this->name = clienttranslate('Mulan, Respected Leader');
-    $this->type = EXPLORER;
-    $this->subtype = 'Adventurer';
-    $this->rarity = RARITY_RARE;
-    $this->forest = 2;
-    $this->mountain = 4;
-    $this->water = 2;
-    $this->costHand = 3;
-    $this->costMemory = 3;
+      'faction' => FACTION_BR,
+      'name' => clienttranslate('Mulan, Respected Leader'),
+      'type' => EXPLORER,
+      'subtype' => 'Adventurer',
+      'rarity' => RARITY_RARE,
+      'forest' => 2,
+      'mountain' => 4,
+      'water' => 2,
+      'costHand' => 3,
+      'costMemory' => 3,
+    ];
   }
 }

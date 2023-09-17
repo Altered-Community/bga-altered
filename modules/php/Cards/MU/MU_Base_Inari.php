@@ -5,19 +5,20 @@ class MU_Base_Inari extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'MU-06_Inari_RGB_01';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'MU-06_Inari_RGB_01',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_MU;
-    $this->name = clienttranslate('Inari');
-    $this->type = EXPLORER;
-    $this->subtype = 'Divinity';
-    $this->rarity = RARITY_BASE;
-    $this->forest = 3;
-    $this->mountain = 1;
-    $this->water = 3;
-    $this->costHand = 3;
-    $this->costMemory = 3;
+      'faction' => FACTION_MU,
+      'name' => clienttranslate('Inari'),
+      'type' => EXPLORER,
+      'subtype' => 'Divinity',
+      'rarity' => RARITY_BASE,
+      'forest' => 3,
+      'mountain' => 1,
+      'water' => 3,
+      'costHand' => 3,
+      'costMemory' => 3,
+    ];
   }
 }

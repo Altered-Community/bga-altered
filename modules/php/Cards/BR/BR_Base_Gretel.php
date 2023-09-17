@@ -5,19 +5,20 @@ class BR_Base_Gretel extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'BR-07_Gretel_RGB_01';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'BR-07_Gretel_RGB_01',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_BR;
-    $this->name = clienttranslate('Gretel');
-    $this->type = EXPLORER;
-    $this->subtype = 'Adventurer';
-    $this->rarity = RARITY_BASE;
-    $this->forest = 0;
-    $this->mountain = 3;
-    $this->water = 3;
-    $this->costHand = 2;
-    $this->costMemory = 2;
+      'faction' => FACTION_BR,
+      'name' => clienttranslate('Gretel'),
+      'type' => EXPLORER,
+      'subtype' => 'Adventurer',
+      'rarity' => RARITY_BASE,
+      'forest' => 0,
+      'mountain' => 3,
+      'water' => 3,
+      'costHand' => 2,
+      'costMemory' => 2,
+    ];
   }
 }

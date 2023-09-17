@@ -22,6 +22,16 @@ $machinestates = [
     'type' => 'manager',
     'action' => 'stGameSetup',
     'transitions' => ['' => ST_DECK_SELECTION],
+    // 'transitions' => ['' => 50],
+  ],
+
+  // USEFUL FOR DEBUGGING GAME CREATION
+  50 => [
+    'name' => 'plop',
+    'description' => 'Foo',
+    'descriptionmyturn' => 'Foo',
+    'type' => 'activeplayer',
+    'transitions' => ['' => ST_DECK_SELECTION],
   ],
 
   ST_GENERIC_NEXT_PLAYER => [

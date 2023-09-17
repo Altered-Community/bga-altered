@@ -86,4 +86,54 @@ class Collection extends \ArrayObject
     \uasort($t, $callback);
     return new Collection($t);
   }
+
+  /*****
+   * Méthods for collection of object
+   */
+  public function where($field, $value)
+  {
+    return is_null($value)
+      ? $this
+      : $this->filter(function ($obj) use ($field, $value) {
+        $method = 'get' . ucfirst($field);
+        $objValue = $obj->$method();
+        return is_array($value)
+          ? in_array($objValue, $value)
+          : (strpos($value, '%') !== false
+            ? like_match($value, $objValue)
+            : $objValue == $value);
+      });
+  }
+
+  public function whereNull($field)
+  {
+    return $this->filter(function ($obj) use ($field) {
+      $method = 'get' . ucfirst($field);
+      $objValue = $obj->$method();
+      return is_null($objValue);
+    });
+  }
+
+  public function orderBy($field, $asc = 'ASC')
+  {
+    return $this->order(function ($a, $b) use ($field, $asc) {
+      $method = 'get' . ucfirst($field);
+      return $asc == 'ASC' ? $a->$method() - $b->$method() : $b->$method() - $a->$method();
+    });
+  }
+
+  public function update($field, $value)
+  {
+    $method = 'set' . ucfirst($field);
+    foreach ($this->getArrayCopy() as $obj) {
+      $obj->$method($value);
+    }
+    return $this;
+  }
+}
+
+function like_match($pattern, $subject)
+{
+  $pattern = str_replace('%', '.*', preg_quote($pattern, '/'));
+  return (bool) preg_match("/^{$pattern}$/i", $subject);
 }

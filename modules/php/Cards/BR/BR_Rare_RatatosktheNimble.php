@@ -5,19 +5,20 @@ class BR_Rare_RatatosktheNimble extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'BR-38_Ratatoskr_02';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'BR-38_Ratatoskr_02',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_BR;
-    $this->name = clienttranslate('Ratatosk, the Nimble');
-    $this->type = EXPLORER;
-    $this->subtype = 'Squirrel';
-    $this->rarity = RARITY_RARE;
-    $this->forest = 1;
-    $this->mountain = 1;
-    $this->water = 1;
-    $this->costHand = 1;
-    $this->costMemory = 1;
+      'faction' => FACTION_BR,
+      'name' => clienttranslate('Ratatosk, the Nimble'),
+      'type' => EXPLORER,
+      'subtype' => 'Squirrel',
+      'rarity' => RARITY_RARE,
+      'forest' => 1,
+      'mountain' => 1,
+      'water' => 1,
+      'costHand' => 1,
+      'costMemory' => 1,
+    ];
   }
 }

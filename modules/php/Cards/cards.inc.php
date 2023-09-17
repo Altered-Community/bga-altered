@@ -1,121 +1,5 @@
 <?php
 
-$cards = [
-  // 'eqType' => ['type' => , ....]
-  // 'location' => 'card_location',
-  // 'state' => ['card_state', 'int'],
-  // 'pId' => ['player_id', 'int'],
-  // 'type' => ['type', 'str'], // Token/hero/adventurer/spell
-  // 'tapped' => ['tapped', 'bool'],
-  // 'costHand' => ['costHand', 'int'],
-  // 'costMemory' => ['costMemory', 'int'],
-  // 'name' => ['name', 'str'], // obj?
-  // 'rarity' => ['rarity', 'int'],
-  // 'equinoxId' => ['equinoxId', 'int'],
-  // 'mountain' => ['mountain', 'int'],
-  // 'forest' => ['forest', 'int'],
-  // 'water' => ['water', 'int'],
-  // 'boostEffect' => ['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
-  // 'faction' => ['faction', 'str'],
-  // 'effectEcho' => ['effectEcho', 'obj'],
-  // 'effectHand' => ['effectHand', 'obj'], // played from hand
-  // 'effectMemory' => ['effectMemory', 'obj'], // played from memory
-  // 'effectPassive' => ['effectPassive', 'obj'], // [[listener type => action]]: listener type to distinguish
-  // 'costModifier' => ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
-  // 'extraDatas' => ['extra_datas', 'obj'],
-  // // attributs persistants
-  // 'initialProperties' => ['initial_properties', 'obj'],
-  // 'properties' => ['properties', 'obj'], // will superseed original properties if needed
-  'phoenixianCaptain' => [
-    'location' => 'deck',
-    'type' => 'adventurer',
-    'faction' => 'toto',
-    'properties' => [
-      'costHand' => 2,
-      'costMemory' => 1,
-      'card_name' => clienttranslate('Phoenixian Captain'),
-      'rarity' => RARITY_RARE,
-      'water' => 2,
-      'effectHand' => ['titi' => 'truc'],
-    ],
-    'nbr' => 2,
-  ],
-  'bigarredSquire' => [
-    'location' => 'deck',
-    'type' => 'adventurer',
-    'costHand' => 1,
-    'costMemory' => 3,
-    'card_name' => clienttranslate('Bigarred Squire'),
-    'rarity' => RARITY_BASE,
-    'mountain' => 1,
-    FOREST => 1,
-    'water' => 1,
-    'faction' => 'toto',
-    'effectMemory' => ['titi' => 'truc'],
-    'nbr' => 12,
-  ],
-  'bravosAlterunner' => [
-    'location' => 'deck',
-    'type' => 'adventurer',
-    'costHand' => 2,
-    'costMemory' => 2,
-    'card_name' => clienttranslate('Bravos'),
-    'rarity' => RARITY_BASE,
-    'mountain' => 3,
-    FOREST => 3,
-    'water' => 2,
-    'faction' => 'toto',
-    'effectHand' => ['fleeting' => 'truc'],
-    'effectMemory' => ['fleeting' => 'truc'],
-    'nbr' => 2,
-  ],
-  'gretel' => [
-    'location' => 'deck',
-    'type' => 'adventurer',
-    'costHand' => 3,
-    'costMemory' => 4,
-    'card_name' => clienttranslate('Gretel'),
-    'rarity' => RARITY_BASE,
-    'mountain' => 4,
-    FOREST => 2,
-    'water' => 2,
-    'faction' => 'toto',
-    'effectMemory' => ['boost' => '2', 'tenacious' => 0],
-    'effectEcho' => ['card-1'],
-    'nbr' => 15,
-  ],
-  'brer' => [
-    'location' => 'deck',
-    'type' => 'adventurer',
-    'costHand' => 3,
-    'costMemory' => 4,
-    'card_name' => clienttranslate('Brer'),
-    'rarity' => RARITY_RARE,
-    'mountain' => 2,
-    FOREST => 3,
-    'water' => 2,
-    'faction' => 'toto',
-    'effectHand' => ['dreameater' => 1],
-    'effectMemory' => ['boost' => 1],
-    'effectEcho' => ['dreameater' => 1],
-    'nbr' => 2,
-  ],
-  'kappa' => [
-    'location' => 'deck',
-    'type' => 'adventurer',
-    'costHand' => 2,
-    'costMemory' => 3,
-    'card_name' => clienttranslate('Kappa'),
-    'rarity' => RARITY_BASE,
-    'mountain' => 2,
-    FOREST => 3,
-    'water' => 1,
-    'faction' => 'toto',
-    'costModifier' => ['memory' => ['boost' => -2]],
-    'nbr' => 2,
-  ],
-];
-
 const PRECOS = [
   FACTION_BR => [
     'BR_Base_KojoandBooda' => 1,
@@ -127,7 +11,7 @@ const PRECOS = [
     'BR_Base_BravosSaboteur' => 3,
     'BR_Base_BravosBouncer' => 3,
     'BR_Base_Atlas' => 3,
-    'BR_PhysicalTraining' => 3,
+    'BR_Base_PhysicalTraining' => 3,
     'BR_Base_Intimidation' => 3,
     'BR_Rare_MulanRespectedLeader' => 1,
     'BR_Rare_SkilledTracer' => 1,

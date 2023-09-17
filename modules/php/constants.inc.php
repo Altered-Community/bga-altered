@@ -129,8 +129,8 @@ const MOUNTAIN = 'mountain';
 const FOREST = 'forest';
 const OCEAN = 'ocean';
 
-const ADVENTURER = 'adventurer';
-const HERO = 'hero';
+const ALTERATEUR = 'alterateur';
+const EXPLORER = 'explorer';
 const PERMANENT = 'permanent';
 const SPELL = 'spell';
 

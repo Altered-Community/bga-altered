@@ -20,34 +20,68 @@ class Card extends \ALT\Helpers\DB_Model
     'location' => 'card_location',
     'state' => ['card_state', 'int'],
     'pId' => ['player_id', 'int'],
-    'type' => ['type', 'str'], // Token/hero/adventurer/spell
-    'tapped' => ['tapped', 'bool'],
-    // 'costHand' => ['costHand', 'int'],
-    // 'costMemory' => ['costMemory', 'int'],
-    'name' => ['name', 'str'], // obj?
-    // 'rarity' => ['rarity', 'int'],
-    // 'equinoxId' => ['equinoxId', 'int'],
-    // 'mountain' => ['mountain', 'int'],
-    // 'forest' => ['forest', 'int'],
-    // 'water' => ['water', 'int'],
-    'boostEffect' => ['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
-    'faction' => ['faction', 'str'],
-    // 'effectEcho' => ['effectEcho', 'obj'],
-    // 'effectHand' => ['effectHand', 'obj'], // played from hand
-    // 'effectMemory' => ['effectMemory', 'obj'], // played from memory
-    // 'effectPassive' => ['effectPassive', 'obj'], // [[listener type => action]]: listener type to distinguish
-    // 'costModifier' => ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
-    // 'effectTap' => ['effectTap', 'obj'],
-    // 'extraDatas' => ['extra_datas', 'obj'],
+
     // attributs persistants
     'initialProperties' => ['initial_properties', 'obj'],
     'properties' => ['properties', 'obj'], // will superseed original properties if needed
   ];
 
-  protected $staticAttributes = [
-    // ['prerequisites', 'obj'],
-    // ['continents', 'obj'],
+  protected $staticAttributes = [];
+  protected $propertiesAttributes = [
+    'equinoxId' => 'int',
+    'faction' => 'str',
+    'name' => 'str', // obj?
+    'type' => 'str', // Token/hero/adventurer/spell
+
+    'rarity' => 'int',
+    'asset' => 'str',
+    'frame' => 'int',
+
+    'mountain' => 'int',
+    'forest' => 'int',
+    'water' => 'int',
+
+    'costModifier' => 'obj', // ['hand'=> action check, 'memory' => action check]
+    'costHand' => 'int',
+    'costMemory' => 'int',
+
+    'boostEffect' => 'obj', // ['mountain' => X, 'forest' => Y, ...]
+    'effectEcho' => 'obj',
+    'effectHand' => 'obj', // played from hand
+    'effectMemory' => 'obj', // played from memory
+    'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
+    'effectTap' => 'obj',
+
+    'tapped' => 'bool',
+
+    'extraDatas' => 'obj',
   ];
+
+  // 'eqType' => ['type' => , ....]
+  // 'location' => 'card_location',
+  // 'state' => ['card_state', 'int'],
+  // 'pId' => ['player_id', 'int'],
+  // 'type' => ['type', 'str'], // Token/hero/adventurer/spell
+  // 'tapped' => ['tapped', 'bool'],
+  // 'costHand' => ['costHand', 'int'],
+  // 'costMemory' => ['costMemory', 'int'],
+  // 'name' => ['name', 'str'], // obj?
+  // 'rarity' => ['rarity', 'int'],
+  // 'equinoxId' => ['equinoxId', 'int'],
+  // 'mountain' => ['mountain', 'int'],
+  // 'forest' => ['forest', 'int'],
+  // 'water' => ['water', 'int'],
+  // 'boostEffect' => ['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
+  // 'faction' => ['faction', 'str'],
+  // 'effectEcho' => ['effectEcho', 'obj'],
+  // 'effectHand' => ['effectHand', 'obj'], // played from hand
+  // 'effectMemory' => ['effectMemory', 'obj'], // played from memory
+  // 'effectPassive' => ['effectPassive', 'obj'], // [[listener type => action]]: listener type to distinguish
+  // 'costModifier' => ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
+  // 'extraDatas' => ['extra_datas', 'obj'],
+  // // attributs persistants
+  // 'initialProperties' => ['initial_properties', 'obj'],
+  // 'properties' => ['properties', 'obj'], // will superseed original properties if needed
 
   public function isSupported($players, $options)
   {
@@ -104,23 +138,42 @@ class Card extends \ALT\Helpers\DB_Model
     if (preg_match('/^([gs]et|inc|is)([A-Z])(.*)$/', $method, $match)) {
       // Sanity check : does the name correspond to a declared variable ?
       $name = mb_strtolower($match[2]) . $match[3];
+
       // TODO put management of properties
-      if (\array_key_exists($name, $this->attributes['properties']) && !is_null($this->attributes['properties'][$name])) {
+      if (\array_key_exists($name, $this->propertiesAttributes)) {
         if ($match[1] == 'get') {
-          if (count($args) > 0 && is_array($this->attributes['properties'][$name])) {
-            // Handle json field
-            return $this->attributes['properties'][$name][$args[0]] ?? null;
-          } else {
-            // Basic getters
-            return $this->attributes['properties'][$name];
+          $type = $this->propertiesAttributes[$name];
+          if (isset($this->properties[$name])) {
+            if (count($args) > 0 && $type == 'obj' && is_array($this->properties[$name])) {
+              return $this->properties[$name][$args[0]];
+            } else {
+              return $this->properties[$name];
+            }
+          }
+          // Default value
+          else {
+            if ($type == 'int') {
+              return 0;
+            }
+            if ($type == 'bool') {
+              return false;
+            }
+            if ($type == 'str') {
+              return '';
+            }
+            if ($type == 'obj') {
+              return [];
+            }
           }
         } elseif ($match[1] == 'is') {
           // Boolean getter
-          return (bool) ($this->attributes['properties'][$name] != 0);
+          return (bool) $this->properties[$name];
         } elseif ($match[1] == 'set') {
-          return $this->setProperty($args[0], $args[1]);
+          return $this->setProperties($args[0], $args[1]);
         }
-      } else {
+      }
+      // Default DB behavior
+      else {
         return parent::__call($method, $args);
       }
     } else {

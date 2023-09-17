@@ -10,10 +10,11 @@ use ALT\Core\Notifications;
  * Players manager : allows to easily access players ...
  *  a player is an instance of Player class
  */
-class Players extends \ALT\Helpers\DB_Manager
+class Players extends \ALT\Helpers\CachedDB_Manager
 {
   protected static $table = 'player';
   protected static $primary = 'player_id';
+  protected static $datas = null;
   protected static function cast($row)
   {
     return new \ALT\Models\Player($row);
@@ -73,20 +74,12 @@ class Players extends \ALT\Helpers\DB_Manager
     return (int) Game::get()->getCurrentPId();
   }
 
-  public function getAll()
-  {
-    return self::DB()->get(false);
-  }
-
   /*
    * get : returns the Player object for the given player ID
    */
-  public function get($pId = null)
+  public function get($id = null)
   {
-    $pId = $pId ?: self::getActiveId();
-    return self::DB()
-      ->where($pId)
-      ->getSingle();
+    return parent::get($id ?? self::getActiveId());
   }
 
   public function getActive()
@@ -123,7 +116,7 @@ class Players extends \ALT\Helpers\DB_Manager
    */
   public function count()
   {
-    return self::DB()->count();
+    return self::getAll()->count();
   }
 
   /*

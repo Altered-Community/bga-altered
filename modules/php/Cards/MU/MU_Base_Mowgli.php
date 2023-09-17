@@ -5,19 +5,20 @@ class MU_Base_Mowgli extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'MU-14_Mowgli_RGB_01';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'MU-14_Mowgli_RGB_01',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_MU;
-    $this->name = clienttranslate('Mowgli');
-    $this->type = EXPLORER;
-    $this->subtype = 'Ranger';
-    $this->rarity = RARITY_BASE;
-    $this->forest = 2;
-    $this->mountain = 2;
-    $this->water = 2;
-    $this->costHand = 2;
-    $this->costMemory = 2;
+      'faction' => FACTION_MU,
+      'name' => clienttranslate('Mowgli'),
+      'type' => EXPLORER,
+      'subtype' => 'Ranger',
+      'rarity' => RARITY_BASE,
+      'forest' => 2,
+      'mountain' => 2,
+      'water' => 2,
+      'costHand' => 2,
+      'costMemory' => 2,
+    ];
   }
 }

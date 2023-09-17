@@ -22,6 +22,7 @@ trait SetupTrait
     // Preferences::setupNewGame($players, $this->player_preferences);
     // Temp while we do not have API
     Cards::setupNewGame($players, $options);
+
     // Meeples::setupNewGame($players, $options);
     // Stats::checkExistence();
 

@@ -5,19 +5,20 @@ class BR_Base_Atlas extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'BR_20_Atlas_RGB_01';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'BR_20_Atlas_RGB_01',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_BR;
-    $this->name = clienttranslate('Atlas');
-    $this->type = EXPLORER;
-    $this->subtype = 'Titan';
-    $this->rarity = RARITY_BASE;
-    $this->forest = 3;
-    $this->mountain = 3;
-    $this->water = 3;
-    $this->costHand = 5;
-    $this->costMemory = 5;
+      'faction' => FACTION_BR,
+      'name' => clienttranslate('Atlas'),
+      'type' => EXPLORER,
+      'subtype' => 'Titan',
+      'rarity' => RARITY_BASE,
+      'forest' => 3,
+      'mountain' => 3,
+      'water' => 3,
+      'costHand' => 5,
+      'costMemory' => 5,
+    ];
   }
 }

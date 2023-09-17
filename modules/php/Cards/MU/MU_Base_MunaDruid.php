@@ -5,19 +5,20 @@ class MU_Base_MunaDruid extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'MU-20_TasakaalMeshrider_RGB_01';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'MU-20_TasakaalMeshrider_RGB_01',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_MU;
-    $this->name = clienttranslate('Muna Druid');
-    $this->type = EXPLORER;
-    $this->subtype = 'Druid';
-    $this->rarity = RARITY_BASE;
-    $this->forest = 3;
-    $this->mountain = 2;
-    $this->water = 2;
-    $this->costHand = 3;
-    $this->costMemory = 3;
+      'faction' => FACTION_MU,
+      'name' => clienttranslate('Muna Druid'),
+      'type' => EXPLORER,
+      'subtype' => 'Druid',
+      'rarity' => RARITY_BASE,
+      'forest' => 3,
+      'mountain' => 2,
+      'water' => 2,
+      'costHand' => 3,
+      'costMemory' => 3,
+    ];
   }
 }

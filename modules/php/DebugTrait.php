@@ -2,25 +2,20 @@
 namespace ALT;
 use ALT\Core\Globals;
 use ALT\Managers\Players;
-use ALT\Managers\Meeples;
-use ALT\Managers\Fences;
-use ALT\Managers\ActionCards;
 use ALT\Managers\Cards;
 use ALT\Core\Engine;
 use ALT\Core\Game;
-use ALT\Models\PlayerBoard;
 use ALT\Core\Notifications;
 use ALT\Helpers\Utils;
 use ALT\Helpers\Log;
 use ALT\Helpers\Collection;
-use ALT\Managers\Buildings;
-use ALT\Models\ZooCard;
 
 trait DebugTrait
 {
   function tp()
   {
-    Log::clearUndoableStepNotifications(true);
+    $players = self::loadPlayersBasicInfos();
+    Cards::setupNewGame($players, []);
   }
 
   function dv()

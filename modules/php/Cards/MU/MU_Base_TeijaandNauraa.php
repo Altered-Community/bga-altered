@@ -5,14 +5,15 @@ class MU_Base_TeijaandNauraa extends \ALT\Models\Card
 {
   public function __construct($row)
   {
-    parent::__construct($row);
-    $this->asset = 'MU-02_Teija-Nauraa_RGB_01';
-    $this->frameSize = 1;
+    $this->properties = [
+      'asset' => 'MU-02_Teija-Nauraa_RGB_01',
+      'frameSize' => 1,
 
-    $this->faction = FACTION_MU;
-    $this->name = clienttranslate('Teija and Nauraa');
-    $this->type = ALTERATEUR;
-    $this->subtype = 'Muna Hero';
-    $this->rarity = RARITY_BASE;
+      'faction' => FACTION_MU,
+      'name' => clienttranslate('Teija and Nauraa'),
+      'type' => ALTERATEUR,
+      'subtype' => 'Muna Hero',
+      'rarity' => RARITY_BASE,
+    ];
   }
 }

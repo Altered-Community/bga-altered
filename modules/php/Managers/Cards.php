@@ -15,29 +15,7 @@ class Cards extends \ALT\Helpers\Pieces
 {
   protected static $table = 'cards';
   protected static $prefix = 'card_';
-  protected static $customFields = [
-    'player_id',
-    // 'extra_datas',
-    'type',
-    'tapped',
-    // 'costHand',
-    // 'costMemory',
-    'name',
-    // 'rarity',
-    // 'equinoxId',
-    // 'mountain',
-    // 'forest',
-    // 'water',
-    'boostEffect',
-    'faction',
-    // 'effectEcho',
-    // 'effectHand',
-    // 'effectMemory',
-    // 'effectPassive',
-    // 'costModifier',
-    'initial_properties',
-    'properties',
-  ];
+  protected static $customFields = ['player_id', 'initial_properties', 'properties'];
   protected static $autoIncrement = true;
   protected static $autoremovePrefix = false;
   protected static $autoreshuffle = true;
@@ -50,16 +28,6 @@ class Cards extends \ALT\Helpers\Pieces
 
   public static function getCardInstance($id, $data = null)
   {
-    $t = explode('_', $id);
-    // First part before _ specify the type and the numbering
-    // $prefixes = [
-    //     'A' => 'Animals',
-    //     'S' => 'Sponsors',
-    //     'P' => 'Projects',
-    //     'F' => 'FinalScoring',
-    // ];
-    // $prefix = $prefixes[$t[0][0]];
-    // $className = "\ALT\Cards\\$prefix\\$id";
     return new Card($data);
   }
 
@@ -84,20 +52,29 @@ class Cards extends \ALT\Helpers\Pieces
     include dirname(__FILE__) . '/../Cards/cards.inc.php';
 
     $toCreate = [];
+    $i = 0;
     foreach ($players as $pId => $player) {
-      foreach ($cards as $cId => $card) {
-        $card['player_id'] = $pId;
-        $card['location'] = 'deck_' . $pId;
-        $card['tapped'] = 0;
-        $toCreate[] = $card;
+      $faction = $i == 0 ? FACTION_BR : FACTION_MU;
+      $deck = PRECOS[$faction];
+      foreach ($deck as $cardId => $n) {
+        // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
+        $className = "\\ALT\\Cards\\$faction\\$cardId";
+        $card = new $className(null);
+        $toCreate[] = [
+          'player_id' => $pId,
+          'location' => 'deck-' . $pId,
+          'n' => $n,
+          'properties' => $card->getProperties(),
+        ];
       }
+
+      $i++;
     }
 
     self::create($toCreate, null);
     foreach ($players as $pId => $player) {
-      self::shuffle('deck_' . $pId);
+      self::shuffle('deck-' . $pId);
     }
-    // self::shuffle('scoringDeck');
   }
 
   /**
