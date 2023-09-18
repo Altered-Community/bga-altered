@@ -16,7 +16,7 @@ class MU_Rare_Mowgli extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'forest' => 2,
       'mountain' => 2,
-      'water' => 2,
+      'ocean' => 2,
       'costHand' => 2,
       'costMemory' => 2,
     ];

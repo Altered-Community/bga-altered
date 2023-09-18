@@ -16,7 +16,7 @@ class MU_Base_MunaDruid extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 3,
       'mountain' => 2,
-      'water' => 2,
+      'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
     ];

@@ -16,7 +16,7 @@ class MU_Base_Inari extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 3,
       'mountain' => 1,
-      'water' => 3,
+      'ocean' => 3,
       'costHand' => 3,
       'costMemory' => 3,
     ];

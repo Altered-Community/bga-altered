@@ -16,7 +16,7 @@ class BR_Base_Gretel extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 0,
       'mountain' => 3,
-      'water' => 3,
+      'ocean' => 3,
       'costHand' => 2,
       'costMemory' => 2,
     ];

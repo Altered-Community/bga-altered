@@ -90,7 +90,7 @@ trait SetupTrait
     // on first day, 6 cards are picked
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
-      $player->draw($nCards, 'deck_' . $pId, 'hand');
+      $player->draw($nCards, 'deck-' . $pId, 'hand');
       $pIds[] = $pId;
     }
     Globals::setFirstDayManaSelection([]);
