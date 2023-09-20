@@ -45,36 +45,29 @@ class Cards extends \ALT\Helpers\Pieces
   //                      |_|
   ///////////////////////////////////
 
-  /* Creation of the cards */
-  public static function setupNewGame($players, $options)
+  public static function setupPrecoDeck($player)
   {
     // Load list of cards
-    include dirname(__FILE__) . '/../Cards/cards.inc.php';
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
 
     $toCreate = [];
-    $i = 0;
-    foreach ($players as $pId => $player) {
-      $faction = $i == 0 ? FACTION_BR : FACTION_MU;
-      $deck = PRECOS[$faction];
-      foreach ($deck as $cardId => $n) {
-        // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
-        $className = "\\ALT\\Cards\\$faction\\$cardId";
-        $card = new $className(null);
-        $toCreate[] = [
-          'player_id' => $pId,
-          'location' => 'deck-' . $pId,
-          'n' => $n,
-          'properties' => $card->getProperties(),
-        ];
-      }
-
-      $i++;
+    $pId = $player->getId();
+    $faction = $player->getFaction();
+    $deck = PRECOS[$faction];
+    foreach ($deck as $cardId => $n) {
+      // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
+      $className = "\\ALT\\Cards\\$faction\\$cardId";
+      $card = new $className(null);
+      $toCreate[] = [
+        'player_id' => $pId,
+        'location' => 'deck-' . $pId,
+        'n' => $n,
+        'properties' => $card->getProperties(),
+      ];
     }
 
     self::create($toCreate, null);
-    foreach ($players as $pId => $player) {
-      self::shuffle('deck-' . $pId);
-    }
+    self::shuffle('deck-' . $pId);
   }
 
   /**

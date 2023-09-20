@@ -37,6 +37,8 @@ define([
         ['clearTurn', 200],
         ['refreshUI', 200],
         ['refreshHand', 200],
+
+        ['setupPlayer', null],
         ['pDiscardMana', 500],
         ['discardMana', null, (notif) => notif.args.player_id == this.player_id],
         ['payMana', 500],
@@ -196,7 +198,13 @@ define([
       });
 
       for (let i = 0; i < 8; i++) {
-        $('storm-container').insertAdjacentHTML('beforeend', `<div class='storm-space' id='storm-${i}'></div>`);
+        $('storm-container').insertAdjacentHTML(
+          'beforeend',
+          `<div class='storm-space' id='storm-${i}'>
+            <div class='storm-slot' id='storm-${i}-opponent'></div>
+            <div class='storm-slot' id='storm-${i}-player'></div>
+          </div>`
+        );
       }
     },
 

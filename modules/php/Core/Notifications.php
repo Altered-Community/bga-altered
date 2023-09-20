@@ -50,6 +50,25 @@ class Notifications
     ]);
   }
 
+  public static function setupPreco($player, $meeples)
+  {
+    $factionNames = [
+      \FACTION_BR => clienttranslate('Bravos'),
+      \FACTION_MU => clienttranslate('Muna'),
+    ];
+
+    self::notifyAll(
+      'setupPlayer',
+      clienttranslate('${player_name} will play the faction ${faction_name} with their preco deck'),
+      [
+        'player' => $player,
+        'i18n' => ['faction_name'],
+        'faction_name' => $factionNames[$player->getFaction()],
+        'meeples' => $meeples,
+      ]
+    );
+  }
+
   /************* FIRST DAY ************/
   public static function updateFirstDayManaSelection($player, $args)
   {

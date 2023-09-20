@@ -95,6 +95,7 @@ trait SetupTrait
     foreach ($pIds as $i => $pId) {
       $selection[$pId] = $i == 0 ? \FACTION_BR : FACTION_MU;
     }
+    Globals::setDeckSelection($selection);
 
     $this->gamestate->nextState('done');
   }
@@ -119,6 +120,11 @@ trait SetupTrait
         $this->setupPrecoDeck($player, $deck);
       } else {
         throw new BgaVisibleSystemException('UNSUPPORTED DECK');
+        // API CALL ?
+        // Setup faction
+        // Create cards
+        // Create meeples
+        // Notify
       }
     }
 

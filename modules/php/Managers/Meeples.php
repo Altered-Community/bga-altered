@@ -43,8 +43,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
     $meeples = [];
     $meeples[] = ['type' => COMPANION, 'location' => 'storm-0', 'player_id' => $player->getId()];
     $meeples[] = ['type' => ALTERATEUR, 'location' => 'storm-7', 'player_id' => $player->getId()];
-
-    // return self::getMany(self::create($meeples));
+    return self::create($meeples);
   }
 
   public static function countMeeples($location, $type)

@@ -6,6 +6,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return Object.values(this.gamedatas.players);
     },
 
+    getPlayerFaction(pId) {
+      return this.gamedatas.players[pId].faction;
+    },
+
     isSolo() {
       return this.getPlayers().length == 1;
     },
@@ -63,7 +67,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerBoard(player) {
-      let above = player.order == 0 ? 'above' : '';
+      let above = player.order == 0 ? '' : 'above';
       return `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
         <div class='player-board-top'>
           <div class='player-board-alterer' id='board-alterer-${player.id}'>Alterer</div>
@@ -73,16 +77,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-board-memory' id='board-memory-${player.id}'>Memory</div>
           <div class='player-board-permanents' id='board-permanents-${player.id}'>Permanents</div>
         </div>
-        <div class='player-board-bottom'>
-          <div class='player-board-mana' id='board-mana-${player.id}'>Mana</div>
-          <div class='player-board-deck' id='board-deck-${player.id}'>Deck</div>
-          <div class='player-board-discard' id='board-discard-${player.id}'>Discard</div>
-        </div>
       </div>`;
     },
 
     tplPlayerPanel(player) {
       return `<div class='player-info'></div>`;
+    },
+
+    notif_setupPlayers(n) {
+      debug('Notif: setupPlayers TODOOOO', n);
     },
 
     ////////////////////////////////////////////////////

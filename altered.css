@@ -287,6 +287,29 @@ html {
 .altered-meeple {
   display: inline-block;
   vertical-align: middle; }
+  .altered-meeple[data-type="companion"], .altered-meeple[data-type="alterateur"] {
+    width: 45px;
+    height: 45px;
+    background-image: url("img/hero-tokens.jpg");
+    background-size: 600% 200%;
+    border-radius: 50%;
+    border: 1px solid black;
+    box-shadow: 0 0 4px 5px rgba(255, 219, 12, 0.8);
+    box-sizing: border-box; }
+    .altered-meeple[data-type="companion"][data-faction="AX"], .altered-meeple[data-type="alterateur"][data-faction="AX"] {
+      background-position-x: 0%; }
+    .altered-meeple[data-type="companion"][data-faction="BR"], .altered-meeple[data-type="alterateur"][data-faction="BR"] {
+      background-position-x: 20%; }
+    .altered-meeple[data-type="companion"][data-faction="LY"], .altered-meeple[data-type="alterateur"][data-faction="LY"] {
+      background-position-x: 40%; }
+    .altered-meeple[data-type="companion"][data-faction="MU"], .altered-meeple[data-type="alterateur"][data-faction="MU"] {
+      background-position-x: 60%; }
+    .altered-meeple[data-type="companion"][data-faction="OR"], .altered-meeple[data-type="alterateur"][data-faction="OR"] {
+      background-position-x: 80%; }
+    .altered-meeple[data-type="companion"][data-faction="YZ"], .altered-meeple[data-type="alterateur"][data-faction="YZ"] {
+      background-position-x: 100%; }
+  .altered-meeple[data-type="alterateur"] {
+    background-position-y: 100%; }
 
 .action-button .icon-container ~ .altered-meeple {
   margin-left: 0.5em; }
@@ -306,10 +329,21 @@ html {
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: 1fr; }
     #altered-main-container #storm-container .storm-card {
+      grid-row: 1 / span 1;
       grid-column-end: span 2;
       background-image: url("img/storm.jpg");
       background-size: 100% 600%;
       border-radius: 7px; }
+      #altered-main-container #storm-container .storm-card:nth-child(1) {
+        grid-column-start: 1; }
+      #altered-main-container #storm-container .storm-card:nth-child(2) {
+        grid-column-start: 3; }
+      #altered-main-container #storm-container .storm-card:nth-child(3) {
+        grid-column-start: 5; }
+      #altered-main-container #storm-container .storm-card:nth-child(4) {
+        grid-column-start: 7; }
+      #altered-main-container #storm-container .storm-card:nth-child(5) {
+        grid-column-start: 9; }
       #altered-main-container #storm-container .storm-card[data-id="0"] {
         background-position-y: 0%; }
       #altered-main-container #storm-container .storm-card[data-id="1"] {
@@ -326,12 +360,46 @@ html {
         background-position-y: 120%; }
       #altered-main-container #storm-container .storm-card[data-flipped="1"] {
         transform: rotate(180deg); }
+    #altered-main-container #storm-container .storm-space {
+      grid-column-end: span 1;
+      grid-row: 1 / span 1; }
+      #altered-main-container #storm-container .storm-space#storm-0 {
+        grid-column-start: 2; }
+      #altered-main-container #storm-container .storm-space#storm-1 {
+        grid-column-start: 3; }
+      #altered-main-container #storm-container .storm-space#storm-2 {
+        grid-column-start: 4; }
+      #altered-main-container #storm-container .storm-space#storm-3 {
+        grid-column-start: 5; }
+      #altered-main-container #storm-container .storm-space#storm-4 {
+        grid-column-start: 6; }
+      #altered-main-container #storm-container .storm-space#storm-5 {
+        grid-column-start: 7; }
+      #altered-main-container #storm-container .storm-space#storm-6 {
+        grid-column-start: 8; }
+      #altered-main-container #storm-container .storm-space#storm-7 {
+        grid-column-start: 9; }
+      #altered-main-container #storm-container .storm-space .storm-slot {
+        width: 100%;
+        height: 93px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        box-sizing: border-box;
+        padding: 5px; }
+        #altered-main-container #storm-container .storm-space .storm-slot:nth-child(2) {
+          align-items: start; }
+      #altered-main-container #storm-container .storm-space#storm-0 .storm-slot {
+        padding: 8px 17px 8px 5px; }
+      #altered-main-container #storm-container .storm-space#storm-7 .storm-slot {
+        padding: 8px 5px 8px 17px; }
 
 .altered-player-board-resizable {
   order: 3;
   margin: 5px 0px;
   width: 1200px;
-  height: 604px;
+  height: 404px;
   border: 2px solid white;
   border-radius: 10px;
   background: #ffffff36;
@@ -348,7 +416,7 @@ html {
     right: 0;
     bottom: 0;
     background-image: url("img/mats/01.jpg");
-    background-size: 100% 100%; }
+    background-size: cover; }
   .altered-player-board-resizable ~ .altered-player-board-resizable::before {
     background-image: url("img/mats/02.jpg"); }
   .altered-player-board-resizable.above .player-board-bottom {

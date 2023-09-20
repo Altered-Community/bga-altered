@@ -59,9 +59,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplMeeple(meeple) {
       let type = meeple.type.charAt(0).toLowerCase() + meeple.type.substr(1);
-      const PERSONAL = ['token', 'cylinder', 'worker'];
-      let color = PERSONAL.includes(type) ? ` data-color="${this.getPlayerColor(meeple.pId)}" ` : '';
-      return `<div class="altered-meeple altered-icon icon-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" data-state="${meeple.state}" ${color}></div>`;
+      const PERSONAL = ['companion', 'alterateur'];
+      let faction = PERSONAL.includes(type) ? ` data-faction="${this.getPlayerFaction(meeple.pId)}" ` : '';
+      return `<div class="altered-meeple altered-icon icon-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" data-state="${meeple.state}" ${faction}></div>`;
     },
 
     getPlayerColor(pId) {
@@ -69,10 +69,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     getMeepleContainer(meeple) {
-      let t = meeple.location.split('_');
-      // Workers in reserve
-      if (meeple.location == 'reserve') {
-        return $(`reserve-${meeple.pId}`);
+      let t = meeple.location.split('-');
+      if (t[0] == 'storm') {
+        let position = meeple.pId == this.player_id ? 'player' : 'opponent';
+        return $(`storm-${t[1]}-${position}`);
       }
 
       console.error('Trying to get container of a meeple', meeple);

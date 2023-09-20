@@ -1,6 +1,50 @@
 .altered-meeple {
     display: inline-block;
     vertical-align: middle;
+
+    &[data-type="companion"],
+    &[data-type="alterateur"] {
+        width: 45px;
+        height: 45px;
+        background-image: url("img/hero-tokens.jpg");
+        background-size: 600% 200%;
+        border-radius: 50%;
+        border: 1px solid black;
+        box-shadow: 0 0 4px 5px rgba(255, 219, 12, 0.8);
+        box-sizing: border-box;
+        &[data-faction="AX"] {
+            background-position-x: 0%;
+        }
+        &[data-faction="BR"] {
+            background-position-x: 20%;
+        }
+        &[data-faction="LY"] {
+            background-position-x: 40%;
+        }
+        &[data-faction="MU"] {
+            background-position-x: 60%;
+        }
+        &[data-faction="OR"] {
+            background-position-x: 80%;
+        }
+        &[data-faction="YZ"] {
+            background-position-x: 100%;
+        }
+
+        // animation: pulse-animation 2s infinite;
+
+        // @keyframes pulse-animation {
+        //     0% {
+        //         box-shadow: 0 0 0 0px rgba(255, 219, 12, 0.8);
+        //     }
+        //     100% {
+        //         box-shadow: 0 0 0 5px rgba(255, 219, 12, 0.1);
+        //     }
+        // }
+    }
+    &[data-type="alterateur"] {
+        background-position-y: 100%;
+    }
 }
 
 .action-button {
