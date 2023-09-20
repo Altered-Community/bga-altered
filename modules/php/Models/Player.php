@@ -170,6 +170,38 @@ class Player extends \ALT\Helpers\DB_Model
     return count(Cards::getFiltered($this->id, MANA));
   }
 
+  public function getBiomeInStorms()
+  {
+    $tokens = Meeples::getStormTokens($this->id);
+    $locations = [];
+    $storms = Globals::getStorm();
+
+    foreach ($tokens as $i => $token) {
+      $sId = explode('-', $token->getLocation())[1];
+
+      if ($sId == 0 || $sId == 7) {
+        $locations[$token->getType()] = [MOUNTAIN, FOREST, OCEAN];
+        continue;
+      }
+
+      $card = $storms[intdiv($sId + 1, 2)];
+      $storm = STORM_CARDS[$card['cardId']];
+
+      if ($card['rotated'] === true) {
+        $storm = array_reverse($storm);
+      }
+
+      $locations[$token->getType()] = $storm[$sId % 1];
+    }
+    return $locations;
+  }
+
+  public function advanceStorm($token, $biome)
+  {
+    // TODO
+    Notifications::message($this->getName() . ' advance' . $token . ' ' . $biome, []);
+  }
+
   /************** Expedition calculation *******/
   public function getBiomeStrength($expeditions, $includeModifiers = true)
   {

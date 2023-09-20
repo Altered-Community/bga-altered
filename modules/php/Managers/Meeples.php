@@ -4,6 +4,7 @@ use ALT\Core\Stats;
 use ALT\Core\Globals;
 use ALT\Helpers\UserException;
 use ALT\Helpers\Collection;
+use ALT\Models\Meeple;
 
 /* Class to manage all the meeples for altered */
 
@@ -13,16 +14,18 @@ class Meeples extends \ALT\Helpers\CachedPieces
   protected static $prefix = 'meeple_';
   protected static $customFields = ['type', 'player_id'];
   protected static $datas = null;
+  protected static $autoremovePrefix = false;
 
   protected static function cast($meeple)
   {
-    return [
-      'id' => (int) $meeple['id'],
-      'location' => $meeple['location'],
-      'pId' => $meeple['player_id'],
-      'type' => $meeple['type'],
-      'state' => $meeple['state'],
-    ];
+    return new Meeple($meeple);
+    // return [
+    //   'id' => (int) $meeple['id'],
+    //   'location' => $meeple['location'],
+    //   'pId' => $meeple['player_id'],
+    //   'type' => $meeple['type'],
+    //   'state' => $meeple['state'],
+    // ];
   }
   public static function getUiData()
   {
@@ -54,6 +57,11 @@ class Meeples extends \ALT\Helpers\CachedPieces
   public static function getOfType($location, $type)
   {
     return self::getFilteredQuery(null, $location, $type)->get();
+  }
+
+  public static function getStormTokens($pId)
+  {
+    return self::getFilteredQuery($pId, null, [COMPANION, ALTERATEUR])->get();
   }
 
   /**

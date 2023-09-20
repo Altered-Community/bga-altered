@@ -30,11 +30,12 @@ trait DebugTrait
     // $this->actFirstDayMana([17, 21, 22]);
     // $this->actFirstDayMana([4, 6, 7]);
 
-    Cards::get(3)->boost(1, 'test', true);
+    // Cards::get(3)->boost(1, 'test', true);
+    // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
     // $this->actTakeAtomicAction('actHand', [24, STORM_LEFT]);
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [29]);
-    // $this->actTakeAtomicAction('actPass', []);
+    $this->actTakeAtomicAction('actPass', []);
   }
 
   function tv()

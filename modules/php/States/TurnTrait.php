@@ -46,6 +46,7 @@ trait TurnTrait
   function stBeforeAssignment()
   {
     Globals::setPlayedCards(0);
+    Globals::setSkippedPlayers([]);
     $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_DUSK_PHASE, true);
   }
 
@@ -138,7 +139,30 @@ trait TurnTrait
       }
     }
 
-    // Get each expedition of token
+    foreach ($players as $pId => $player) {
+      $biomes = $player->getBiomeInStorms();
+      foreach ($biomes as $token => $biome) {
+        $move = null;
+        if ($token == ALTERATEUR) {
+          $expedition = STORM_LEFT;
+        } else {
+          $expedition = STORM_RIGHT;
+        }
+
+        foreach ($biome as $i => $b) {
+          if ($winners[$expedition][$b]['pId'] == $player->getId()) {
+            $move = $b;
+          }
+          if ($move !== null) {
+            break;
+          }
+        }
+        if ($move !== null) {
+          $player->advanceStorm($token, $b);
+        }
+      }
+    }
+    $this->gamestate->nextState('temp');
   }
 
   /*******************************

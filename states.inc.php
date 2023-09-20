@@ -126,6 +126,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stDusk',
     'transitions' => [
+      'temp' => ST_BEFORE_ASSIGNMENT,
       'done' => ST_PRE_NIGHT,
     ],
   ],

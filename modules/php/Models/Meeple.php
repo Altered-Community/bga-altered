@@ -6,7 +6,7 @@ namespace ALT\Models;
  * Meeple
  */
 
-class Meeple extends ALT\Helpers\DB_Model
+class Meeple extends \ALT\Helpers\DB_Model
 {
   protected $table = 'meeples';
   protected $primary = 'meeple_id';
