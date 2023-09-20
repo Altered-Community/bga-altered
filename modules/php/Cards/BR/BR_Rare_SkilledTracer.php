@@ -16,7 +16,7 @@ class BR_Rare_SkilledTracer extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'forest' => 4,
       'mountain' => 3,
-      'water' => 4,
+      'ocean' => 4,
       'costHand' => 2,
       'costMemory' => 2,
     ];

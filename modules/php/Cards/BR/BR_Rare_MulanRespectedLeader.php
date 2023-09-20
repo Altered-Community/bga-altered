@@ -16,7 +16,7 @@ class BR_Rare_MulanRespectedLeader extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'forest' => 2,
       'mountain' => 4,
-      'water' => 2,
+      'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
     ];

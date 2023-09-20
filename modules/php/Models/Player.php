@@ -28,6 +28,7 @@ class Player extends \ALT\Helpers\DB_Model
     'score' => ['player_score', 'int'],
     'scoreAux' => ['player_score_aux', 'int'],
     'zombie' => 'player_zombie',
+    'faction' => 'faction',
   ];
 
   public function getUiData($currentPlayerId = null)

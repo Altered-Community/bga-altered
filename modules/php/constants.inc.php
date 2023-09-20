@@ -145,10 +145,14 @@ const IN_PLAY = [STORM_LEFT, STORM_RIGHT, 'inPlay'];
 // Ability
 const FLEETING = 'fleeting';
 
-const STORM_CARDS = [[[MOUNTAIN], [FOREST, OCEAN]], [[FOREST], [MOUNTAIN, OCEAN]], [[OCEAN], [MOUNTAIN, FOREST]]];
-
-const STORM_GENERIC = [[MOUNTAIN, FOREST, OCEAN]];
-const STORM_BACK = 'storm_back';
+const STORM_CARDS = [
+  [[], [MOUNTAIN, FOREST, OCEAN]],
+  [[FOREST], [MOUNTAIN, OCEAN]],
+  [[MOUNTAIN], [FOREST, OCEAN]],
+  [[OCEAN], [MOUNTAIN, FOREST]],
+  [[MOUNTAIN, FOREST, OCEAN], []],
+];
+const STORM_BACK = 5;
 
 const RARITY_BASE = 0;
 const RARITY_RARE = 1;
@@ -156,6 +160,12 @@ const RARITY_UNIQUE = 2;
 
 const FACTION_BR = 'BR';
 const FACTION_MU = 'MU';
+const FACTIONS = [FACTION_BR, FACTION_MU];
+
+/*********************
+ ****** MEEPLES ******
+ ********************/
+const COMPANION = 'companion';
 
 /******************
  ****** STATS ******

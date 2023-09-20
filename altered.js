@@ -186,11 +186,11 @@ define([
     },
 
     setupBoard() {
-      let storm = [0, 2, 3, 4, 11];
-      storm.forEach((stormId, i) => {
+      let storm = this.gamedatas.storm;
+      storm.forEach((stormCard) => {
         $('storm-container').insertAdjacentHTML(
           'beforeend',
-          `<div class='storm-card' data-id='${stormId % 10}' data-flipped='${stormId >= 10 ? 1 : 0}'></div>`
+          `<div class='storm-card' data-id='${stormCard.cardId % 10}' data-flipped='${stormCard.rotated ? 1 : 0}'></div>`
         );
       });
 

@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `cards` (
 --   `altered_properties` JSON NULL -- will superseed original properties if needed
 
 -- Additional player's info
--- ALTER TABLE `player` ADD `map_id` varchar(10);
+ALTER TABLE `player` ADD `faction` varchar(10);
 
 -- CORE TABLES --
 CREATE TABLE IF NOT EXISTS `global_variables` (

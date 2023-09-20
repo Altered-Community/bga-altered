@@ -20,10 +20,6 @@ trait SetupTrait
     Globals::setupNewGame($players, $options);
     Players::setupNewGame($players, $options);
     // Preferences::setupNewGame($players, $this->player_preferences);
-    // Temp while we do not have API
-    Cards::setupNewGame($players, $options);
-
-    // Meeples::setupNewGame($players, $options);
     // Stats::checkExistence();
 
     Globals::setFirstPlayer($this->getNextPlayerTable()[0]);
@@ -32,128 +28,50 @@ trait SetupTrait
     $this->activeNextPlayer();
   }
 
-  function stDeckSetup()
-  {
-    // Temp for the moment as no deck selection yet
-
-    $this->gamestate->nextState('');
-  }
-
-  protected function setupPlayer($player, $notif = false)
-  {
-    $pId = $player->getId();
-    $meeples = Meeples::setupPlayer($pId);
-    // $cards = ActionCards::setupPlayer($pId);
-
-    // // Create buildings for map A
-    // $buildings = [];
-    // $mapId = $player->getMapId();
-    // Stats::setMap($player, $mapId == 'A' ? 100 : ((int) $mapId));
-    // if ($mapId == 'A') {
-    //   $buildings[] = Buildings::add($pId, 'size-3', ['x' => 0, 'y' => 9], 0);
-    //   $buildings[] = Buildings::add($pId, 'kiosk', ['x' => 0, 'y' => 7], 0);
-    //   Stats::incBuiltEnclosures($pId);
-    //   Stats::incBuiltKiosks($pId);
-    //   Stats::incCoveredHexes($pId, 4);
-    // }
-
-    // if ($notif) {
-    //   Notifications::setupPlayer($player, $mapId, $cards, $meeples, $buildings);
-    // }
-  }
-
-  // Deck selection
+  //////////////////////////////////////////////////////////////////
+  //    ____ _                                _           _
+  //   / ___| |__   ___   ___  ___  ___    __| | ___  ___| | __
+  //  | |   | '_ \ / _ \ / _ \/ __|/ _ \  / _` |/ _ \/ __| |/ /
+  //  | |___| | | | (_) | (_) \__ \  __/ | (_| |  __/ (__|   <
+  //   \____|_| |_|\___/ \___/|___/\___|  \__,_|\___|\___|_|\_\
+  //////////////////////////////////////////////////////////////////
   function argsDeckSelection()
   {
     return [];
   }
 
-  function stDeckSelection()
+  public function actSelectDeck($choice)
   {
-    // Temporary while we get decks
-    $this->gamestate->nextState('done');
-  }
-
-  function actDeckSelection()
-  {
-    //self::checkAction('actDeckSelection');
-    // TODO
-    $this->gamestate->nextState('done');
-  }
-
-  function stFirstDay()
-  {
-    $day = Globals::incDay(1);
-    $nCards = 6;
-    $pIds = [];
-
-    // on first day, 6 cards are picked
-    foreach (Players::getAll() as $pId => $player) {
-      // put in specific location as they must be choosen
-      $player->draw($nCards, 'deck_' . $pId, 'hand');
-      $pIds[] = $pId;
-    }
-    Globals::setFirstDayManaSelection([]);
-    $this->gamestate->setPlayersMultiactive($pIds, '', true);
-    $this->gamestate->nextState('');
-  }
-
-  function argsFirstDayMana()
-  {
-    $selection = Globals::getFirstDayManaSelection();
-    $args = ['_private' => []];
-    foreach (Players::getAll() as $pId => $player) {
-      $hand = $player->getHand();
-      $args['_private'][$pId] = [
-        'n' => 3,
-        'cards' => $hand->getIds(),
-        'selection' => $selection[$pId] ?? null,
-      ];
-    }
-
-    return $args;
-  }
-
-  public function actFirstDayMana($cardIds)
-  {
-    self::checkAction('actFirstDayMana');
-    $player = Players::getCurrent();
-
-    if (count($cardIds) != 3) {
-      throw new \BgaUserException(clienttranslate('You must select 4 cards to put as mana'));
-    }
-    $args = $this->argsFirstDayMana();
-    if (!empty(array_diff($cardIds, $args['_private'][$player->getId()]['cards']))) {
-      throw new \BgaUserException('You do not own this card. Should not happen');
-    }
-
-    $selection = Globals::getFirstDayManaSelection();
-    $selection[$player->getId()] = $cardIds;
-    Globals::setFirstDayManaSelection($selection);
-    Notifications::updateFirstDayManaSelection($player, self::argsFirstDayMana());
-
-    $this->updateActivePlayersFirstDaySelection();
-  }
-
-  public function actCancelFirstDayMana()
-  {
-    $this->gamestate->checkPossibleAction('actCancelFirstDayMana');
+    self::checkAction('actSelectDeck');
 
     $player = Players::getCurrent();
-    $selection = Globals::getFirstDayManaSelection();
+    $selection = Globals::getDeckSelection();
+    $selection[$player->getId()] = $choice;
+    Globals::setDeckSelection($selection);
+    // Notifications::updateInitialSelection($player, self::argsInitialSelection());
+
+    $this->updateActivePlayersDeckSelection();
+  }
+
+  public function actCancelDeckSelection()
+  {
+    $this->gamestate->checkPossibleAction('actCancelDeckSelection');
+
+    $player = Players::getCurrent();
+    $selection = Globals::getDeckSelection();
     unset($selection[$player->getId()]);
-    Globals::setFirstDayManaSelection($selection);
-    Notifications::updateFirstDayManaSelection($player, self::argsFirstDayMana());
+    Globals::setDeckSelection($selection);
+    // Notifications::updateInitialSelection($player, self::argsInitialSelection());
 
-    $this->updateActivePlayersFirstDaySelection();
+    $this->updateActivePlayersDeckSelection();
   }
 
-  public function updateActivePlayersFirstDaySelection()
+  public function updateActivePlayersDeckSelection()
   {
     // Compute players that still need to select their card
     // => use that instead of BGA framework feature because in some rare case a player
     //    might become inactive eventhough the selection failed (seen in Agricola and Rauha at least already)
-    $selection = Globals::getFirstDayManaSelection();
+    $selection = Globals::getDeckSelection();
     $players = Players::getAll();
     $ids = $players->getIds();
     $ids = array_diff($ids, array_keys($selection));
@@ -164,26 +82,54 @@ trait SetupTrait
     }
     // Everyone is done => discard cards and proceed
     else {
-      $selection = Globals::getFirstDayManaSelection();
-      foreach ($players as $pId => $player) {
-        $cardIds = $selection[$pId];
-        if (count($cardIds) != 3) {
-          throw new \BgaUserException('4 cards should be put as mana. Should not happen');
-        }
-        $remainingIds = array_diff($player->getHand()->getIds(), $cardIds);
-
-        $cards = Cards::getMany($cardIds);
-        Cards::discard($cardIds, MANA);
-        $cards = Cards::getMany($cardIds);
-        // throw new \feException($cards->first()->getId());
-        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} places ${n} cards as mana'));
-
-        // Change of rules, not needed anymore
-        // Cards::move($remainingIds, 'hand');
-        // Notifications::moveToHand($player, Cards::getMany($remainingIds));
-      }
-
       $this->gamestate->nextState('done');
     }
+  }
+
+  // TODO : REMOVE ONCE WE GOT API
+  function stDeckSelection()
+  {
+    // Temporary while we get decks
+    $selection = [];
+    $pIds = Players::getAll()->getIds();
+    foreach ($pIds as $i => $pId) {
+      $selection[$pId] = $i == 0 ? \FACTION_BR : FACTION_MU;
+    }
+
+    $this->gamestate->nextState('done');
+  }
+
+  /////////////////////////////////////////////////////////
+  //  ____       _                     _           _
+  // / ___|  ___| |_ _   _ _ __     __| | ___  ___| | __
+  // \___ \ / _ \ __| | | | '_ \   / _` |/ _ \/ __| |/ /
+  //  ___) |  __/ |_| |_| | |_) | | (_| |  __/ (__|   <
+  // |____/ \___|\__|\__,_| .__/   \__,_|\___|\___|_|\_\
+  //                      |_|
+  /////////////////////////////////////////////////////////
+
+  function stDeckSetup()
+  {
+    $selection = Globals::getDeckSelection();
+    foreach (Players::getAll() as $pId => $player) {
+      $deck = $selection[$pId];
+
+      // PRECOS
+      if (in_array($deck, FACTIONS)) {
+        $this->setupPrecoDeck($player, $deck);
+      } else {
+        throw new BgaVisibleSystemException('UNSUPPORTED DECK');
+      }
+    }
+
+    $this->gamestate->nextState('');
+  }
+
+  protected function setupPrecoDeck($player, $faction)
+  {
+    $player->setFaction($faction);
+    $meeples = Meeples::setupPlayer($player);
+    Cards::setupPrecoDeck($player);
+    Notifications::setupPreco($player, $meeples);
   }
 }

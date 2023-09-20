@@ -46,6 +46,7 @@ class Altered extends Table
 {
   use ALT\DebugTrait;
   use ALT\States\SetupTrait;
+  use ALT\States\FirstDayTrait;
   use ALT\States\EngineTrait;
   use ALT\States\TurnTrait;
   public static $instance = null;

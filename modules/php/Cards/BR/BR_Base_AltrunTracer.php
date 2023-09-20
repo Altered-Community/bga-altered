@@ -16,7 +16,7 @@ class BR_Base_AltrunTracer extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 3,
       'mountain' => 3,
-      'water' => 3,
+      'ocean' => 3,
       'costHand' => 2,
       'costMemory' => 2,
     ];

@@ -16,7 +16,7 @@ class MU_Base_Kitsune extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 1,
       'mountain' => 1,
-      'water' => 1,
+      'ocean' => 1,
       'costHand' => 1,
       'costMemory' => 1,
     ];

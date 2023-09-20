@@ -16,7 +16,7 @@ class MU_Base_Hesperide extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 3,
       'mountain' => 5,
-      'water' => 5,
+      'ocean' => 5,
       'costHand' => 3,
       'costMemory' => 3,
     ];

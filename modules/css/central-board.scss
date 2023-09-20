@@ -20,12 +20,12 @@
         .storm-card {
             grid-column-end: span 2;
             background-image: url("img/storm.jpg");
-            background-size: 500% 100%;
+            background-size: 100% 600%;
             border-radius: 7px;
 
-            @for $i from 0 to 6 {
+            @for $i from 0 to 7 {
                 &[data-id="#{$i}"] {
-                    background-position-x: $i * 100% / 4;
+                    background-position-y: $i * 100% / 5;
                 }
             }
 

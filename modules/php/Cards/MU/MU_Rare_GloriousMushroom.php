@@ -16,7 +16,7 @@ class MU_Rare_GloriousMushroom extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'forest' => 1,
       'mountain' => 1,
-      'water' => 1,
+      'ocean' => 1,
       'costHand' => 2,
       'costMemory' => 2,
     ];

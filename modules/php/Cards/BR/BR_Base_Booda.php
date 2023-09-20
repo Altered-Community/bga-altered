@@ -16,7 +16,7 @@ class BR_Base_Booda extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 2,
       'mountain' => 2,
-      'water' => 2,
+      'ocean' => 2,
     ];
   }
 }

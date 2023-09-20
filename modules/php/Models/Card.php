@@ -39,7 +39,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     'mountain' => 'int',
     'forest' => 'int',
-    'water' => 'int',
+    'ocean' => 'int',
 
     'costModifier' => 'obj', // ['hand'=> action check, 'memory' => action check]
     'costHand' => 'int',
@@ -70,7 +70,7 @@ class Card extends \ALT\Helpers\DB_Model
   // 'equinoxId' => ['equinoxId', 'int'],
   // 'mountain' => ['mountain', 'int'],
   // 'forest' => ['forest', 'int'],
-  // 'water' => ['water', 'int'],
+  // 'ocean' => ['ocean', 'int'],
   // 'boostEffect' => ['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
   // 'faction' => ['faction', 'str'],
   // 'effectEcho' => ['effectEcho', 'obj'],

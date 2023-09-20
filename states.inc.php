@@ -40,13 +40,13 @@ $machinestates = [
   ],
 
   ST_DECK_SELECTION => [
-    'name' => 'deckSelection',
+    'name' => 'selectDeck',
     'description' => clienttranslate('Waiting for others to choose their deck'),
     'descriptionmyturn' => clienttranslate('${you} must select the deck you want to play'),
     'type' => 'multipleactiveplayer',
     'args' => 'argsDeckSelection',
     'action' => 'stDeckSelection',
-    'possibleactions' => ['actDeckSelection'],
+    'possibleactions' => ['actSelectDeck', 'actCancelDeckSelection'],
     'transitions' => ['done' => ST_SETUP, 'zombiePass' => ST_SETUP],
   ],
 

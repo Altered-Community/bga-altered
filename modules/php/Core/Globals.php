@@ -26,6 +26,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'playedCards' => 'int',
 
     'firstDayManaSelection' => 'obj',
+    'deckSelection' => 'obj',
   ];
 
   protected static $table = 'global_variables';
@@ -155,13 +156,17 @@ class Globals extends \ALT\Helpers\DB_Manager
   public static function setupNewGame($players, $options)
   {
     // Storm
-    // we pick 3 of the 6 available cards
-    $storm = [[STORM_GENERIC, true], '', '', '', [STORM_GENERIC, true]];
-    $stormKeys = Utils::rand(array_keys(STORM_CARDS), 3);
+    $storm = [];
+    $storm[] = ['cardId' => 0, 'visible' => true, 'rotated' => false];
+    $stormKeys = [1, 2, 3];
+    shuffle($stormKeys);
     for ($i = 0; $i < 3; $i++) {
-      $storm[$i + 1] = [STORM_CARDS[$stormKeys[$i]], false];
+      $key = array_shift($stormKeys);
+      $storm[] = ['cardId' => $key, 'visible' => false, 'rotated' => bga_rand(0, 1) == 1];
     }
+    $storm[] = ['cardId' => 4, 'visible' => true, 'rotated' => false];
     self::setStorm($storm);
+
     self::setDay(0);
     self::setPlayedCards(0);
   }
@@ -169,11 +174,15 @@ class Globals extends \ALT\Helpers\DB_Manager
   public static function getStorm($ui = false)
   {
     $storm = self::$data['storm'];
-    if ($ui === true) {
-      foreach ($storm as $i => &$s) {
-        if ($s[1] === false) {
-          $s[0] = STORM_BACK;
+
+    // Hide hidden datas for UI
+    if ($ui) {
+      foreach ($storm as $i => &$stormCard) {
+        if (!$stormCard['visible']) {
+          $stormCard['cardId'] = STORM_BACK;
+          unset($stormCard['rotated']);
         }
+        unset($stormCard['visible']);
       }
     }
 

@@ -16,7 +16,7 @@ class BR_Base_BravosSaboteur extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 3,
       'mountain' => 3,
-      'water' => 1,
+      'ocean' => 1,
       'costHand' => 3,
       'costMemory' => 3,
     ];

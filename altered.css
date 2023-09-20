@@ -308,20 +308,22 @@ html {
     #altered-main-container #storm-container .storm-card {
       grid-column-end: span 2;
       background-image: url("img/storm.jpg");
-      background-size: 500% 100%;
+      background-size: 100% 600%;
       border-radius: 7px; }
       #altered-main-container #storm-container .storm-card[data-id="0"] {
-        background-position-x: 0%; }
+        background-position-y: 0%; }
       #altered-main-container #storm-container .storm-card[data-id="1"] {
-        background-position-x: 25%; }
+        background-position-y: 20%; }
       #altered-main-container #storm-container .storm-card[data-id="2"] {
-        background-position-x: 50%; }
+        background-position-y: 40%; }
       #altered-main-container #storm-container .storm-card[data-id="3"] {
-        background-position-x: 75%; }
+        background-position-y: 60%; }
       #altered-main-container #storm-container .storm-card[data-id="4"] {
-        background-position-x: 100%; }
+        background-position-y: 80%; }
       #altered-main-container #storm-container .storm-card[data-id="5"] {
-        background-position-x: 125%; }
+        background-position-y: 100%; }
+      #altered-main-container #storm-container .storm-card[data-id="6"] {
+        background-position-y: 120%; }
       #altered-main-container #storm-container .storm-card[data-flipped="1"] {
         transform: rotate(180deg); }
 

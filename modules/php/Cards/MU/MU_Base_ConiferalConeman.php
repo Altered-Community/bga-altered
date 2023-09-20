@@ -16,7 +16,7 @@ class MU_Base_ConiferalConeman extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 3,
       'mountain' => 3,
-      'water' => 3,
+      'ocean' => 3,
       'costHand' => 5,
       'costMemory' => 5,
     ];

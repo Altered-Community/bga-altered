@@ -16,7 +16,7 @@ class BR_Base_BravosBouncer extends \ALT\Models\Card
       'rarity' => RARITY_BASE,
       'forest' => 4,
       'mountain' => 2,
-      'water' => 4,
+      'ocean' => 4,
       'costHand' => 3,
       'costMemory' => 3,
     ];

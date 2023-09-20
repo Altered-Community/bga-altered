@@ -38,10 +38,11 @@ class Meeples extends \ALT\Helpers\CachedPieces
   //                      |_|
   ////////////////////////////////////
 
-  /* Creation of various meeples */
-  public static function setupNewGame($players, $options)
+  public static function setupPlayer($player)
   {
-    // $meeples = [];
+    $meeples = [];
+    $meeples[] = ['type' => COMPANION, 'location' => 'storm-0', 'player_id' => $player->getId()];
+    $meeples[] = ['type' => ALTERATEUR, 'location' => 'storm-7', 'player_id' => $player->getId()];
 
     // return self::getMany(self::create($meeples));
   }
