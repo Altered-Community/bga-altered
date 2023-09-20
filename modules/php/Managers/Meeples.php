@@ -46,4 +46,37 @@ class Meeples extends \ALT\Helpers\CachedPieces
 
     // return self::getMany(self::create($meeples));
   }
+
+  public static function countMeeples($location, $type)
+  {
+    return self::getOfType($location, $type)->count();
+  }
+
+  public static function getOfType($location, $type)
+  {
+    return self::getFilteredQuery(null, $location, $type)->get();
+  }
+
+  /**
+   * Generic base query
+   */
+  public function getFilteredQuery($pId = null, $location, $type)
+  {
+    $query = self::getSelectQuery();
+
+    if ($pId != null) {
+      $query = $query->wherePlayer($pId);
+    }
+    if ($location != null) {
+      $query = $query->where('meeple_location', $location);
+    }
+    if ($type != null) {
+      if (is_array($type)) {
+        $query = $query->whereIn('type', $type);
+      } else {
+        $query = $query->where('type', strpos($type, '%') === false ? '=' : 'LIKE', $type);
+      }
+    }
+    return $query;
+  }
 }

@@ -167,6 +167,16 @@ const FACTIONS = [FACTION_BR, FACTION_MU];
  ********************/
 const COMPANION = 'companion';
 
+/*********************
+ * ****** TOKENS *****
+ *********************/
+
+const TOKEN_BOOST = 'token_boost';
+const TOKEN_FLEETING = 'token_fleeting';
+const TOKEN_GIGANTIC = 'token_gigantic';
+const TOKEN_ANCHORED = 'token_anchored';
+const TOKEN_ASLEEP = 'token_asleep';
+
 /******************
  ****** STATS ******
  ******************/

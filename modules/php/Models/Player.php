@@ -39,6 +39,7 @@ class Player extends \ALT\Helpers\DB_Model
     $data['totalMana'] = $this->getTotalMana();
     $data['hand'] = $current ? $this->getHand()->ui() : [];
     $data['handCount'] = $this->getHand()->count();
+    $data['biomes'] = $this->getBiomeStrength(STORMS, true);
     // $data['scoringHand'] =
     //     $current || Globals::isEnd() ? $this->getScoringHand()->ui() : [];
     // $data['scoringHandCount'] = $this->getScoringHand()->count();
@@ -167,5 +168,28 @@ class Player extends \ALT\Helpers\DB_Model
   public function getTotalMana()
   {
     return count(Cards::getFiltered($this->id, MANA));
+  }
+
+  /************** Expedition calculation *******/
+  public function getBiomeStrength($expeditions, $includeModifiers = true)
+  {
+    $strengths = [];
+    $cards = $this->getPlayedCards();
+
+    foreach ($expeditions as $i => $exp) {
+      $strength = [OCEAN => 0, MOUNTAIN => 0, FOREST => 0]; // OCEAN/MOUNTAIN/FOREST
+      foreach ($cards as $c => $card) {
+        if ($card->getLocation() != $exp) {
+          continue;
+        }
+
+        $biome = $card->getBiomes($includeModifiers);
+        foreach ($biome as $bi => $value) {
+          $strength[$bi] += $value;
+        }
+      }
+      $strengths[$exp] = $strength;
+    }
+    return $strengths;
   }
 }

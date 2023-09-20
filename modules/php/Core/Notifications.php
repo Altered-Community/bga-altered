@@ -163,6 +163,16 @@ class Notifications
     self::notifyAll('message', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
   }
 
+  public static function boost($card, $source, $tokens)
+  {
+    self::notifyAll('boost', clienttranslate('${card_name} gains ${n} Boost from ${source}'), [
+      'card' => $card,
+      'tokens' => $tokens,
+      'n' => count($tokens),
+      'source' => $source,
+    ]);
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)
@@ -815,17 +825,6 @@ class Notifications
       clienttranslate('You get ${card_names} with Dominance'),
       clienttranslate('${player_name} add ${card_names} conservation project to its hand with Dominance'),
       ['cards' => $cards]
-    );
-  }
-
-  public static function boost($player, $type, $position, $cards)
-  {
-    self::actionCardCleanup(
-      $player,
-      $type,
-      $position,
-      $cards,
-      clienttranslate('${player_name} places ${card_type} at position ${position} (Boost effect)')
     );
   }
 

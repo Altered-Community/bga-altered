@@ -46,7 +46,7 @@ trait TurnTrait
   function stBeforeAssignment()
   {
     Globals::setPlayedCards(0);
-    $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_RESOLUTION_PHASE, true);
+    $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_DUSK_PHASE, true);
   }
 
   /**
@@ -101,12 +101,44 @@ trait TurnTrait
   function stBeforeDusk()
   {
     // to see if we need that
+    // not sure as Thai said effects are before dusk
     $this->initCustomDefaultTurnOrder('dusk', \ST_DUSK, ST_PRE_NIGHT, true);
   }
 
   function stDusk()
   {
-    // Full automatique? automatic effect?
+    // TODO: multiplayer not managed (create pairs and iterate on those)
+    $players = Players::getAll();
+    $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
+    $winners = [
+      STORM_LEFT => [
+        OCEAN => ['pId' => null, 'value' => -1],
+        MOUNTAIN => ['pId' => null, 'value' => -1],
+        FOREST => ['pId' => null, 'value' => -1],
+      ],
+      STORM_RIGHT => [
+        OCEAN => ['pId' => null, 'value' => -1],
+        MOUNTAIN => ['pId' => null, 'value' => -1],
+        FOREST => ['pId' => null, 'value' => -1],
+      ],
+    ];
+
+    // Winner calculation
+    foreach ($players as $pId => $player) {
+      $expeditions = $player->getBiomeStrength(STORMS, true);
+      foreach ($expeditions as $expedition => $biomes) {
+        foreach ($biomes as $biome => $value) {
+          if ($winners[$expedition][$biome]['value'] < $value) {
+            $winners[$expedition][$biome]['value'] = $value;
+            $winners[$expedition][$biome]['pId'] = $pId;
+          } elseif ($winners[$expedition][$biome]['value'] == $value) {
+            $winners[$expedition][$biome]['pId'] = null;
+          }
+        }
+      }
+    }
+
+    // Get each expedition of token
   }
 
   /*******************************

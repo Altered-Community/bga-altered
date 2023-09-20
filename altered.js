@@ -42,6 +42,7 @@ define([
         ['payMana', 500],
         ['discard', 500],
         ['tap', 500],
+        ['boost', 500],
       ];
 
       // Fix mobile viewport (remove CSS zoom)

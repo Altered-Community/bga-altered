@@ -27,12 +27,14 @@ trait DebugTrait
   {
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
-    // $this->actFirstDayMana([49, 51, 62]);
+    // $this->actFirstDayMana([17, 21, 22]);
+    // $this->actFirstDayMana([4, 6, 7]);
 
+    Cards::get(3)->boost(1, 'test', true);
     // $this->actTakeAtomicAction('actHand', [24, STORM_LEFT]);
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [29]);
-    $this->actTakeAtomicAction('actPass', []);
+    // $this->actTakeAtomicAction('actPass', []);
   }
 
   function tv()

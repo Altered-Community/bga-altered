@@ -277,6 +277,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO (tap card, etc.)
     },
 
+    notif_boost(n) {
+      debug('Notif: boosting card', n);
+      // TODO slide tokens + update counters
+    },
+
     /**
      * pilferingCard : slighty different => move card to other player panel and destroy it
      */

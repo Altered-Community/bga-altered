@@ -4,6 +4,8 @@ namespace ALT\Models;
 use ALT\Managers\Players;
 use ALT\Core\Game;
 use ALT\Core\Globals;
+use ALT\Managers\Meeples;
+use ALT\Core\Notifications;
 
 /*
  * Card
@@ -45,7 +47,7 @@ class Card extends \ALT\Helpers\DB_Model
     'costHand' => 'int',
     'costMemory' => 'int',
 
-    'boostEffect' => 'obj', // ['mountain' => X, 'forest' => Y, ...]
+    // 'boostEffect' => 'obj', // ['mountain' => X, 'forest' => Y, ...]
     'effectEcho' => 'obj',
     'effectHand' => 'obj', // played from hand
     'effectMemory' => 'obj', // played from memory
@@ -107,7 +109,7 @@ class Card extends \ALT\Helpers\DB_Model
   {
     return $this->location == 'stormLeft' ||
       $this->location == 'stormRight' ||
-      $this->location == 'memory' ||
+      // $this->location == 'memory' ||
       $this->location == 'inPlay';
   }
 
@@ -131,6 +133,18 @@ class Card extends \ALT\Helpers\DB_Model
     $mana = $player->getMana();
     return $cost <= $mana;
   }
+
+  public function hasToken($token)
+  {
+    return $this->countToken($token) > 0;
+  }
+
+  public function countToken($token)
+  {
+    return Meeples::countMeeples('card-' . $this->id, $token);
+  }
+
+  /********* DB ACCESS *********/
 
   // Magic getter to test DB Field & properties field
   public function __call($method, $args)
@@ -166,6 +180,9 @@ class Card extends \ALT\Helpers\DB_Model
             }
           }
         } elseif ($match[1] == 'is') {
+          if (!isset($this->properties[$name])) {
+            return false;
+          }
           // Boolean getter
           return (bool) $this->properties[$name];
         } elseif ($match[1] == 'set') {
@@ -179,6 +196,18 @@ class Card extends \ALT\Helpers\DB_Model
     } else {
       return parent::__call($method, $args);
     }
+  }
+
+  public function getProperty($variable)
+  {
+    return $this->properties[$variable] ?? null;
+  }
+
+  public function setProperty($variable, $value)
+  {
+    $this->properties[$variable] = $value;
+    $this->setProperties($this->properties);
+    // self::DB()->update(['extra_datas' => \addslashes(\json_encode($this->properties))], $this->id);
   }
 
   // /**
@@ -206,15 +235,32 @@ class Card extends \ALT\Helpers\DB_Model
     }
   }
 
-  public function getProperty($variable)
+  public function getBiomes($includeModifiers = false)
   {
-    return $this->properties[$variable] ?? null;
+    $biomes = [OCEAN => $this->getOcean(), MOUNTAIN => $this->getMountain(), FOREST => $this->getForest()];
+    if ($includeModifiers === true) {
+      // BOOST
+      $boost = $this->countToken(TOKEN_BOOST);
+      foreach ($biomes as $type => &$value) {
+        $value += $boost;
+      }
+
+      // GIGANTIC
+      // TODO
+    }
+    return $biomes;
   }
 
-  public function setProperty($variable, $value)
+  public function boost($n, $source = null, $notify = false)
   {
-    $this->properties[$variable] = $value;
-    $this->setProperties($this->properties);
-    // self::DB()->update(['extra_datas' => \addslashes(\json_encode($this->properties))], $this->id);
+    if (!in_array($this->getLocation(), STORMS)) {
+      throw new \BgaVisibleSystemException('Cannot be boosted, not in an expedition. Should not happen');
+    }
+
+    $tokens = Meeples::create([['type' => TOKEN_BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
+    if ($notify === true) {
+      Notifications::boost($this, $source, $tokens);
+    }
+    return $tokens;
   }
 }
