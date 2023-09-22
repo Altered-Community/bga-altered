@@ -45,6 +45,7 @@ trait TurnTrait
    */
   function stBeforeAssignment()
   {
+    // TODO: check victory
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
     $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_DUSK_PHASE, true);
@@ -96,6 +97,7 @@ trait TurnTrait
 
   function stPreBeforeDusk()
   {
+    // TODO: check victory
     $this->checkCardListeners('BeforeDusk', 'stBeforeDusk');
   }
 
@@ -143,11 +145,7 @@ trait TurnTrait
       $biomes = $player->getBiomeInStorms();
       foreach ($biomes as $token => $biome) {
         $move = null;
-        if ($token == ALTERATEUR) {
-          $expedition = STORM_LEFT;
-        } else {
-          $expedition = STORM_RIGHT;
-        }
+        $expedition = $token == ALTERATEUR ? STORM_LEFT : STORM_RIGHT;
 
         foreach ($biome as $i => $b) {
           if ($winners[$expedition][$b]['pId'] == $player->getId()) {
@@ -163,6 +161,24 @@ trait TurnTrait
       }
     }
     $this->gamestate->nextState('temp');
+  }
+
+  /************
+   ****NIGHT **
+   *************/
+
+  function stBeforeNight()
+  {
+    // TODO: check victory
+    $this->checkCardListeners('BeforeNight', 'stPreNight');
+  }
+
+  function stPreNight()
+  {
+    // Remove cards with Fleeting
+    // Move cards without anchored,asleep to reserve
+    // Remove Anchored / Asleep tokens
+    // if more than reserve slot ==> need choice
   }
 
   /*******************************

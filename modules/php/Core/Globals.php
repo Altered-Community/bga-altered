@@ -24,6 +24,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'day' => 'int',
     'heroes' => 'obj',
     'playedCards' => 'int',
+    'stormMoves' => 'obj',
 
     'firstDayManaSelection' => 'obj',
     'deckSelection' => 'obj',

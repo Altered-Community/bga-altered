@@ -299,5 +299,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif: paying mana', n);
       // TOOD
     },
+
+    notif_moveStormToken(n) {
+      debug('Notif : moving storm token', n);
+      // TODO
+    },
   });
 });

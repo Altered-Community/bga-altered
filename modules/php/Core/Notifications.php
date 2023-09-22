@@ -192,6 +192,15 @@ class Notifications
     ]);
   }
 
+  public static function moveStormToken($player, $biome, $token)
+  {
+    self::notifyAll(
+      'moveStomToken',
+      clienttranslate('${player_name} advances in ${token-type} expedition by winning in ${biome}'),
+      ['player' => $player, 'biome' => $biome, 'token-type' => $token->getType(), 'token' => $token]
+    );
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)

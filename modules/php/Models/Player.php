@@ -170,6 +170,25 @@ class Player extends \ALT\Helpers\DB_Model
     return count(Cards::getFiltered($this->id, MANA));
   }
 
+  public function getStormToken($type)
+  {
+    return Meeples::getStormTokens($this->id)
+      ->filter(function ($m) use ($type) {
+        return $m->getType() == $type;
+      })
+      ->first();
+  }
+
+  public function getCompanionToken()
+  {
+    return $this->getStormToken(COMPANION);
+  }
+
+  public function getAlterateurToken()
+  {
+    return $this->getStormToken(ALTERATEUR);
+  }
+
   public function getBiomeInStorms()
   {
     $tokens = Meeples::getStormTokens($this->id);
@@ -198,8 +217,19 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function advanceStorm($token, $biome)
   {
-    // TODO
-    Notifications::message($this->getName() . ' advance' . $token . ' ' . $biome, []);
+    $f = 'get' . ucfirst($token) . 'Token';
+    $tokenMeeple = $this->$f();
+    // TODO: manage immobile
+    $location = explode('-', $tokenMeeple->getLocation())[1];
+    // if alterateur we increase
+    $value = $token == ALTERATEUR ? 1 : -1;
+    $tokenMeeple->setLocation('storm-' . ($location + $value));
+    $moves = Globals::getStormMoves();
+    $moves[$this - id]++;
+    // needed to determine if tiebreaker is needed
+    Globals::setStormMoves($moves);
+
+    Notifications::moveStormToken($this, $biome, $this->$f());
   }
 
   /************** Expedition calculation *******/
@@ -214,7 +244,7 @@ class Player extends \ALT\Helpers\DB_Model
         if ($card->getLocation() != $exp) {
           continue;
         }
-
+        // TODO: manage Gigantic
         $biome = $card->getBiomes($includeModifiers);
         foreach ($biome as $bi => $value) {
           $strength[$bi] += $value;
