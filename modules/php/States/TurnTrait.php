@@ -160,7 +160,7 @@ trait TurnTrait
         }
       }
     }
-    $this->gamestate->nextState('temp');
+    $this->gamestate->nextState('done');
   }
 
   /************
@@ -169,16 +169,35 @@ trait TurnTrait
 
   function stBeforeNight()
   {
+    // TODO: awaiting FAQ answer
     // TODO: check victory
     $this->checkCardListeners('BeforeNight', 'stPreNight');
   }
 
   function stPreNight()
   {
-    // Remove cards with Fleeting
-    // Move cards without anchored,asleep to reserve
-    // Remove Anchored / Asleep tokens
-    // if more than reserve slot ==> need choice
+    $skipped = [];
+    foreach (Players::getAll() as $pId => $player) {
+      if ($player->nightCleanup() === false) {
+        $skipped[] = $pId;
+      }
+    }
+    Globals::setSkippedPlayers($skipped);
+
+    // ok for all players
+    if (count($skipped) == Players::getAll()->count()) {
+      // New day
+      $this->gamestate->jumpToState(ST_BEFORE_ASSIGNMENT);
+      // $this->gamestate->jumpToState(ST_NEW_DAY);temporary
+    } else {
+      throw new \feException('not done yet');
+      $this->gamestate->jumpToState(ST_NIGHT);
+    }
+  }
+
+  function stNight()
+  {
+    //TODO
   }
 
   /*******************************

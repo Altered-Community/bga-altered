@@ -201,6 +201,11 @@ class Notifications
     );
   }
 
+  public static function nightCleanup($player, $deleted, $movedToReserve)
+  {
+    self::notifyAll('nightCleanup', '', ['player' => $player, 'deleted' => $deleted, 'reserve' => $movedToReserve]);
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)

@@ -126,7 +126,6 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stDusk',
     'transitions' => [
-      'temp' => ST_BEFORE_ASSIGNMENT,
       'done' => ST_PRE_NIGHT,
     ],
   ],
@@ -138,14 +137,17 @@ $machinestates = [
     'action' => 'stBeforeNight',
     'transitions' => [
       'done' => ST_NIGHT,
+      'newDay' => ST_BEFORE_ASSIGNMENT,
+      // 'newDay' => ST_NEW_DAY, temporaty
     ],
   ],
 
   ST_NIGHT => [
-    'name' => 'beforeNight',
+    'name' => 'night',
     'description' => '',
-    'type' => 'game',
-    'action' => 'stBeforeNight',
+    'descriptionmyturn' => '',
+    'type' => 'activeplayer',
+    'action' => 'stNight',
     'transitions' => [
       'newTurn' => ST_NEW_DAY,
       'endOfGame' => ST_PRE_END_OF_GAME,

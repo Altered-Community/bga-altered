@@ -38,6 +38,7 @@ class Card extends \ALT\Helpers\DB_Model
     'rarity' => 'int',
     'asset' => 'str',
     'frame' => 'int',
+    'memorySlots' => 'int',
 
     'mountain' => 'int',
     'forest' => 'int',
@@ -142,6 +143,39 @@ class Card extends \ALT\Helpers\DB_Model
   public function countToken($token)
   {
     return Meeples::countMeeples('card-' . $this->id, $token);
+  }
+
+  public function discard()
+  {
+    $this->setLocation('discard');
+    $deleted = [];
+    foreach (Meeples::getInLocation('card-' . $this->id)->getIds() as $id) {
+      $deleted[] = Meeples::DB()->delete($id);
+    }
+    return $deleted;
+  }
+
+  public function moveToMemory()
+  {
+    $this->setLocation(MEMORY);
+    $deleted = [];
+    // throw new \feException(print_r(Meeples::getInLocation('card-2' . $this->id)->getIds()));
+    foreach (Meeples::getInLocation('card-' . $this->id)->getIds() as $id) {
+      $deleted[] = Meeples::DB()->delete($id);
+    }
+    return $deleted;
+  }
+
+  // deletes Token that must be removed at night
+  public function nightCleanup()
+  {
+    $tokIds = Meeples::getFilteredQuery(null, 'card-' . $this->id, [TOKEN_ASLEEP, TOKEN_ANCHORED])
+      ->get()
+      ->getIds();
+    foreach ($tokIds as $id) {
+      Meeples::DB()->delete($id);
+    }
+    return $tokIds;
   }
 
   /********* DB ACCESS *********/
@@ -251,6 +285,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $biomes;
   }
 
+  /********** EFFECTS **********/
   public function boost($n, $source = null, $notify = false)
   {
     if (!in_array($this->getLocation(), STORMS)) {

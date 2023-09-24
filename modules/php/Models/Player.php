@@ -147,7 +147,13 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getHero()
   {
-    return Cards::getPlayedCards($this->id, HERO);
+    return Cards::getFiltered($this->id, ALTERATEUR)->first();
+  }
+
+  public function getMemorySlots()
+  {
+    return 2;
+    return $this->getHero()->getMemorySlots();
   }
 
   public function getPermanents()
@@ -225,11 +231,38 @@ class Player extends \ALT\Helpers\DB_Model
     $value = $token == ALTERATEUR ? 1 : -1;
     $tokenMeeple->setLocation('storm-' . ($location + $value));
     $moves = Globals::getStormMoves();
-    $moves[$this - id]++;
+    $moves[$this->id] = $moves[$this->id] ?? 0 + 1;
     // needed to determine if tiebreaker is needed
     Globals::setStormMoves($moves);
 
     Notifications::moveStormToken($this, $biome, $this->$f());
+  }
+
+  public function nightCleanup()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $deleted = ['cards' => [], 'tokens' => []];
+      $movedToReserve = [];
+
+      // Remove card if Fleeting
+      if ($card->hasToken(TOKEN_FLEETING)) {
+        $deleted['tokens'] = array_merge($deleted['tokens'], $card->discard());
+        $deleted['cards'][] = $cId;
+      }
+
+      // Move card without anchored,asleep to memory
+      if (!$card->hasToken(TOKEN_ANCHORED) && !$card->hasToken(TOKEN_ASLEEP)) {
+        // move card to memory
+        $deleted['tokens'] = array_merge($deleted['tokens'], $card->moveToMemory());
+        $movedToReserve[] = $cId;
+      }
+
+      // Remove Anchored / Asleep tokens
+      $deleted['tokens'] = array_merge($deleted['tokens'], $card->nightCleanup());
+      Notifications::nightCleanup($this, $deleted, $movedToReserve);
+    }
+    // return true if choice is needed
+    return $this->getMemorySlots() < $this->getMemoryCards()->count();
   }
 
   /************** Expedition calculation *******/
