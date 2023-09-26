@@ -35,7 +35,8 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actHand', [24, STORM_LEFT]);
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [29]);
-    $this->actTakeAtomicAction('actPass', []);
+    // $this->actTakeAtomicAction('actPass', []);
+    $this->actNightChoice([3]);
   }
 
   function tv()

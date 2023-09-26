@@ -98,6 +98,19 @@ class Notifications
     );
   }
 
+  public static function discard($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
+  {
+    self::notifyAll(
+      'discard',
+      $publicMsg ?? clienttranslate('${player_name} discards ${n} card(s)'),
+      $args + [
+        'player' => $player,
+        'n' => count($cards),
+        'cards' => $cards,
+      ]
+    );
+  }
+
   public static function moveToHand($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
   {
     self::notifyAll(
@@ -204,6 +217,13 @@ class Notifications
   public static function nightCleanup($player, $deleted, $movedToReserve)
   {
     self::notifyAll('nightCleanup', '', ['player' => $player, 'deleted' => $deleted, 'reserve' => $movedToReserve]);
+  }
+
+  public static function updateNightSelection($player, $args)
+  {
+    self::notify($player, 'updateNightSelection', '', [
+      'args' => ['_private' => $args['_private'][$player->getId()]],
+    ]);
   }
 
   /*********** unchecked ******* */

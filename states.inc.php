@@ -144,13 +144,13 @@ $machinestates = [
 
   ST_NIGHT => [
     'name' => 'night',
-    'description' => '',
-    'descriptionmyturn' => '',
-    'type' => 'activeplayer',
-    'action' => 'stNight',
+    'description' => clienttranslate('Waiting for other players to select cards to discard'),
+    'descriptionmyturn' => '', // To manage in JS
+    'type' => 'multipleactiveplayer',
+    'args' => 'argsNight',
+    'possibleactions' => ['actNightChoice', 'actNightCancel'],
     'transitions' => [
-      'newTurn' => ST_NEW_DAY,
-      'endOfGame' => ST_PRE_END_OF_GAME,
+      'done' => ST_BEFORE_ASSIGNMENT,
     ],
   ],
 

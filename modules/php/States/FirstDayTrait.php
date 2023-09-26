@@ -51,7 +51,7 @@ trait FirstDayTrait
     $player = Players::getCurrent();
 
     if (count($cardIds) != 3) {
-      throw new \BgaUserException(clienttranslate('You must select 4 cards to put as mana'));
+      throw new \BgaUserException(clienttranslate('You must select 3 cards to put as mana'));
     }
     $args = $this->argsFirstDayMana();
     if (!empty(array_diff($cardIds, $args['_private'][$player->getId()]['cards']))) {
@@ -99,7 +99,7 @@ trait FirstDayTrait
       foreach ($players as $pId => $player) {
         $cardIds = $selection[$pId];
         if (count($cardIds) != 3) {
-          throw new \BgaUserException('4 cards should be put as mana. Should not happen');
+          throw new \BgaUserException('3 cards should be put as mana. Should not happen');
         }
         $remainingIds = array_diff($player->getHand()->getIds(), $cardIds);
 
