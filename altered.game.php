@@ -49,6 +49,8 @@ class Altered extends Table
   use ALT\States\FirstDayTrait;
   use ALT\States\EngineTrait;
   use ALT\States\TurnTrait;
+  use ALT\States\NightTrait;
+
   public static $instance = null;
 
   function __construct()
