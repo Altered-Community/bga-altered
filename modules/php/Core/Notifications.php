@@ -69,10 +69,10 @@ class Notifications
     );
   }
 
-  /************* FIRST DAY ************/
-  public static function updateFirstDayManaSelection($player, $args)
+  /************* NEW DAY ************/
+  public static function updateDayManaSelection($player, $args)
   {
-    self::notify($player, 'updateFirstDayManaSelection', '', [
+    self::notify($player, 'updateDayManaSelection', '', [
       'args' => ['_private' => $args['_private'][$player->getId()]],
     ]);
   }
@@ -130,6 +130,16 @@ class Notifications
         'cards' => $cards->toArray(),
       ]
     );
+  }
+
+  public static function newFirstPlayer($firstPlayer)
+  {
+    self::notifyAll('newFirstPlayer', clienttranslate('${player_name} becomes First player'), ['player' => $firstPlayer]);
+  }
+
+  public static function untap($cardIds)
+  {
+    self::notifyAll('untap', '', ['cardIds' => $cardIds]);
   }
 
   public static function payMana($player, $amount, $total, $cardIds, $source)

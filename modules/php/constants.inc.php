@@ -47,14 +47,15 @@ const ST_SETUP = 3; // tempest setup + deck shuffle + alterer position
 const ST_FIRST_DAY_MULTI = 4;
 const ST_FIRST_DAY_MANA = 5;
 const ST_NEW_DAY = 6; // Mana draw, if day 1 = 7 + 3 mana
-const ST_NEW_DAY_BONUS = 7;
+const ST_NEW_DAY_MULTI = 7;
+const ST_NEW_DAY_BONUS = 8;
 
-const ST_BEFORE_ASSIGNMENT = 8;
-const ST_ASSIGNMENT = 9;
-const ST_CHOOSE_ASSIGNMENT = 10;
+const ST_BEFORE_ASSIGNMENT = 9;
+const ST_ASSIGNMENT = 10;
+const ST_CHOOSE_ASSIGNMENT = 11;
 
 // Atomic action
-const ST_PLAY_CARD = 11;
+const ST_PLAY_CARD = 12;
 // const ST_ACTIVATE_ECHO = 11;
 // const ST_ACTIVATE_ALTERER = 12;
 // const ST_ACTIVATE_PERMANENT = 13;

@@ -282,6 +282,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO slide tokens + update counters
     },
 
+    notif_untap(n) {
+      debug('Notif: untapping card(s', n);
+      // TODO
+      // It can contain multiple cards!
+    },
+
     /**
      * pilferingCard : slighty different => move card to other player panel and destroy it
      */

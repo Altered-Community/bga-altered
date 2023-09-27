@@ -69,8 +69,8 @@ $machinestates = [
     'type' => 'multipleactiveplayer',
     'description' => clienttranslate('Waiting for other players to select cards to mana'),
     'descriptionmyturn' => clienttranslate('${you} must select 3 cards to discard as mana'),
-    'args' => 'argsFirstDayMana',
-    'possibleactions' => ['actFirstDayMana', 'actCancelFirstDayMana'],
+    'args' => 'argsNewDay',
+    'possibleactions' => ['actDayMana', 'actCancelDayMana'],
     'transitions' => ['done' => ST_BEFORE_ASSIGNMENT, 'zombiePass' => ST_BEFORE_ASSIGNMENT],
   ],
 
@@ -80,8 +80,18 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stNewDay',
     'transitions' => [
-      'done' => ST_BEFORE_ASSIGNMENT,
+      'done' => ST_NEW_DAY_MULTI,
     ],
+  ],
+
+  ST_NEW_DAY_MULTI => [
+    'name' => 'newDayMana',
+    'type' => 'multipleactiveplayer',
+    'description' => clienttranslate('Waiting for other players to select card to mana'),
+    'descriptionmyturn' => clienttranslate('${you} may select 1 card to discard as mana'),
+    'args' => 'argsNewDay',
+    'possibleactions' => ['actDayMana', 'actCancelNewDayMana', 'actPassNewDay'],
+    'transitions' => ['done' => ST_BEFORE_ASSIGNMENT, 'zombiePass' => ST_BEFORE_ASSIGNMENT],
   ],
 
   //////////////////////////////

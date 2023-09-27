@@ -39,8 +39,8 @@ trait NightTrait
     // ok for all players
     if (count($skipped) == Players::getAll()->count()) {
       // New day
-      $this->gamestate->jumpToState(ST_BEFORE_ASSIGNMENT);
-      // $this->gamestate->jumpToState(ST_NEW_DAY);temporary
+      // $this->gamestate->jumpToState(ST_BEFORE_ASSIGNMENT);
+      $this->gamestate->jumpToState(ST_NEW_DAY);
     } else {
       Globals::setNightSelection($skipped);
       $this->gamestate->setPlayersMultiactive($enabled, '', true);

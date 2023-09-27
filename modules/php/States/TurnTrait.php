@@ -26,18 +26,18 @@ trait TurnTrait
 
   /********************* NEW DAY************************ */
 
-  function stNewDay()
-  {
-    $nCards = 2;
-    $day = Globals::incDay(1);
-    Globals::setSkippedPlayers([]);
-    // draw and pick 2
-    foreach (Players::getAll() as $pId => $player) {
-      // put in specific location as they must be choosen
-      $player->draw($nCards, 'deck', 'hand');
-    }
-    // init of custom turn order (or break method of AN)
-  }
+  // function stNewDay()
+  // {
+  //   $nCards = 2;
+  //   $day = Globals::incDay(1);
+  //   Globals::setSkippedPlayers([]);
+  //   // draw and pick 2
+  //   foreach (Players::getAll() as $pId => $player) {
+  //     // put in specific location as they must be choosen
+  //     $player->draw($nCards, 'deck', 'hand');
+  //   }
+  //   // init of custom turn order (or break method of AN)
+  // }
 
   /**
    * State function when starting a turn

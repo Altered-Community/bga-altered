@@ -158,8 +158,9 @@ class Card extends \ALT\Helpers\DB_Model
   public function moveToMemory()
   {
     $this->setLocation(MEMORY);
+    $this->setTapped(false);
     $deleted = [];
-    // throw new \feException(print_r(Meeples::getInLocation('card-2' . $this->id)->getIds()));
+
     foreach (Meeples::getInLocation('card-' . $this->id)->getIds() as $id) {
       $deleted[] = Meeples::DB()->delete($id);
     }
@@ -220,7 +221,7 @@ class Card extends \ALT\Helpers\DB_Model
           // Boolean getter
           return (bool) $this->properties[$name];
         } elseif ($match[1] == 'set') {
-          return $this->setProperties($args[0], $args[1]);
+          return $this->setProperty($name, $args[0]);
         }
       }
       // Default DB behavior

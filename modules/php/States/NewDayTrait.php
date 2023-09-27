@@ -10,15 +10,29 @@ use ALT\Managers\Cards;
 use ALT\Managers\Meeples;
 use ALT\Helpers\Log;
 
-trait FirstDayTrait
+trait NewDayTrait
 {
   function stFirstDay()
   {
+    $this->newDayDraw(6);
+  }
+
+  function stNewDay()
+  {
+    // Change first player
+    Globals::setFirstPlayer(Players::getNextId(Globals::getFirstPlayer()));
+    Notifications::newFirstPlayer(Players::get(Globals::getFirstPlayer()));
+    // untap cards
+    Cards::untapAll();
+    $this->newDayDraw(2);
+  }
+
+  function newDayDraw($nCards)
+  {
     $day = Globals::incDay(1);
-    $nCards = 6;
     $pIds = [];
 
-    // on first day, 6 cards are picked
+    // on new day, x cards are picked
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
       $player->draw($nCards, 'deck-' . $pId, 'hand');
@@ -29,14 +43,14 @@ trait FirstDayTrait
     $this->gamestate->nextState('');
   }
 
-  function argsFirstDayMana()
+  function argsNewDay()
   {
     $selection = Globals::getFirstDayManaSelection();
     $args = ['_private' => []];
     foreach (Players::getAll() as $pId => $player) {
       $hand = $player->getHand();
       $args['_private'][$pId] = [
-        'n' => 3,
+        'n' => $this->gamestate->state()['name'] == 'newDayMana' ? 1 : 3,
         'cards' => $hand->getIds(),
         'selection' => $selection[$pId] ?? null,
       ];
@@ -45,41 +59,62 @@ trait FirstDayTrait
     return $args;
   }
 
-  public function actFirstDayMana($cardIds)
+  public function actDayMana($cardIds)
   {
-    self::checkAction('actFirstDayMana');
+    self::checkAction('actDayMana');
     $player = Players::getCurrent();
+    $args = $this->argsNewDay()['_private'][$player->getId()];
 
-    if (count($cardIds) != 3) {
-      throw new \BgaUserException(clienttranslate('You must select 3 cards to put as mana'));
+    if (count($cardIds) != $args['n']) {
+      throw new \BgaUserException(clienttranslate('You must select the correct number of cards to put as mana'));
     }
-    $args = $this->argsFirstDayMana();
-    if (!empty(array_diff($cardIds, $args['_private'][$player->getId()]['cards']))) {
+    if (!empty(array_diff($cardIds, $args['cards']))) {
       throw new \BgaUserException('You do not own this card. Should not happen');
     }
 
     $selection = Globals::getFirstDayManaSelection();
     $selection[$player->getId()] = $cardIds;
     Globals::setFirstDayManaSelection($selection);
-    Notifications::updateFirstDayManaSelection($player, self::argsFirstDayMana());
+    Notifications::updateDayManaSelection($player, self::argsNewDay());
 
-    $this->updateActivePlayersFirstDaySelection();
+    $this->updateActivePlayersNewDaySelection();
   }
 
   public function actCancelFirstDayMana()
   {
     $this->gamestate->checkPossibleAction('actCancelFirstDayMana');
 
+    $this->actCancelNewDayMana(false);
+  }
+
+  public function actCancelNewDayMana($check = true)
+  {
+    if ($check === true) {
+      $this->gamestate->checkPossibleAction('actCancelNewDayMana');
+    }
+
     $player = Players::getCurrent();
     $selection = Globals::getFirstDayManaSelection();
     unset($selection[$player->getId()]);
     Globals::setFirstDayManaSelection($selection);
-    Notifications::updateFirstDayManaSelection($player, self::argsFirstDayMana());
+    Notifications::updateDayManaSelection($player, self::argsNewDay());
 
-    $this->updateActivePlayersFirstDaySelection();
+    $this->updateActivePlayersNewDaySelection();
   }
 
-  public function updateActivePlayersFirstDaySelection()
+  public function actPassNewDay()
+  {
+    self::checkAction('actPassNewDay');
+    $player = Players::getCurrent();
+    $selection = Globals::getFirstDayManaSelection();
+    $selection[$player->getId()] = [];
+    Globals::setFirstDayManaSelection($selection);
+    Notifications::updateDayManaSelection($player, self::argsNewDay());
+
+    $this->updateActivePlayersNewDaySelection();
+  }
+
+  public function updateActivePlayersNewDaySelection()
   {
     // Compute players that still need to select their card
     // => use that instead of BGA framework feature because in some rare case a player
@@ -98,11 +133,13 @@ trait FirstDayTrait
       $selection = Globals::getFirstDayManaSelection();
       foreach ($players as $pId => $player) {
         $cardIds = $selection[$pId];
-        if (count($cardIds) != 3) {
-          throw new \BgaUserException('3 cards should be put as mana. Should not happen');
-        }
-        $remainingIds = array_diff($player->getHand()->getIds(), $cardIds);
 
+        // $remainingIds = array_diff($player->getHand()->getIds(), $cardIds);
+
+        if (empty($cardsIds)) {
+          // nothing to do if no card was discarded
+          continue;
+        }
         $cards = Cards::getMany($cardIds);
         Cards::discard($cardIds, MANA);
         $cards = Cards::getMany($cardIds);

@@ -46,7 +46,7 @@ class Altered extends Table
 {
   use ALT\DebugTrait;
   use ALT\States\SetupTrait;
-  use ALT\States\FirstDayTrait;
+  use ALT\States\NewDayTrait;
   use ALT\States\EngineTrait;
   use ALT\States\TurnTrait;
   use ALT\States\NightTrait;

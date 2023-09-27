@@ -128,6 +128,19 @@ class Cards extends \ALT\Helpers\Pieces
     return self::move($cardIds, $discard);
   }
 
+  // Used during new day
+  public static function untapAll()
+  {
+    $untapped = [];
+    foreach (self::getAll() as $cId => $card) {
+      if ($card->isTapped()) {
+        $card->setTapped(false);
+        $untapped[] = $cId;
+      }
+    }
+    Notifications::untap($untapped);
+  }
+
   ///////////////////////////////////////
   //  _____                 _
   // | ____|_   _____ _ __ | |_ ___

@@ -304,5 +304,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif : moving storm token', n);
       // TODO
     },
+
+    notif_newFirstPlayer(n) {
+      debug('Notif : change of first player', n);
+      // TODO
+    },
   });
 });
