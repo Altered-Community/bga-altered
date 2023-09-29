@@ -35,6 +35,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $data = parent::getUiData();
     $current = $this->id == $currentPlayerId;
+    $data['alterateur'] = $this->getAlterateur();
     $data['mana'] = $this->getMana();
     $data['totalMana'] = $this->getTotalMana();
     $data['hand'] = $current ? $this->getHand()->ui() : [];
@@ -52,6 +53,12 @@ class Player extends \ALT\Helpers\DB_Model
     // unset($data['xToken']);
 
     return $data;
+  }
+
+  public function getAlterateur()
+  {
+    $pId = $this->id;
+    return Cards::getInLocation("board-alterateur-$pId")->first();
   }
 
   public function getPref($prefId)

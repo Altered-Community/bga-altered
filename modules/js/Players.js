@@ -27,6 +27,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
         // Panels
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
+
+        // Cards
+        this.addCard(player.alterateur);
+        player.hand.forEach((card) => this.addCard(card));
       });
 
       this.setupPlayersCounters();
@@ -70,7 +74,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let above = player.order == 0 ? '' : 'above';
       return `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
         <div class='player-board-top'>
-          <div class='player-board-alterer' id='board-alterer-${player.id}'>Alterer</div>
+          <div class='player-board-alterer' id='board-alterateur-${player.id}'></div>
           <div class='player-board-storm' id='board-storm-${player.id}'>Storm</div>
         </div>
         <div class='player-board-middle'>

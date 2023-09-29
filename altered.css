@@ -280,6 +280,113 @@ html {
   top: auto;
   right: 28px; }
 
+:root {
+  --cardScale: 1; }
+
+#test-cards {
+  display: flex; }
+
+.altered-card-tooltip {
+  display: flex;
+  --cardScale: 3; }
+
+.altered-card {
+  width: calc(var(--cardScale) * 108px);
+  height: calc(var(--cardScale) * 150px);
+  border: 1px solid white;
+  box-shadow: 1px 1px 4px -1px white;
+  border-radius: 7px;
+  margin: 3px 5px;
+  position: relative; }
+  .altered-card .altered-card-wrapper {
+    width: 108px;
+    height: 150px;
+    transform: scale(var(--cardScale));
+    transform-origin: top left;
+    border-radius: 7px;
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat; }
+    .altered-card .altered-card-wrapper[data-asset="BR-01_Ekwu-Booda_RGB_01"] {
+      background-image: url("img/illustrations/BR-01_Ekwu-Booda_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-07_Gretel_RGB_01"] {
+      background-image: url("img/illustrations/BR-07_Gretel_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-17_GerichtVanBraast_RGB_01"] {
+      background-image: url("img/illustrations/BR-17_GerichtVanBraast_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-19_MiskiCalderon_RGB_01"] {
+      background-image: url("img/illustrations/BR-19_MiskiCalderon_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR_20_Atlas_RGB_01"] {
+      background-image: url("img/illustrations/BR_20_Atlas_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-24_AltrunTracer_RGB_01"] {
+      background-image: url("img/illustrations/BR-24_AltrunTracer_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-24_AltrunTracer_RGB_02"] {
+      background-image: url("img/illustrations/BR-24_AltrunTracer_RGB_02.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-30_SeiringarOldGuard_RGB_01"] {
+      background-image: url("img/illustrations/BR-30_SeiringarOldGuard_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-33_TheHighGround_RGB_01"] {
+      background-image: url("img/illustrations/BR-33_TheHighGround_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-36_Hua_Mulan_01"] {
+      background-image: url("img/illustrations/BR-36_Hua_Mulan_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-36_Hua_Mulan_02"] {
+      background-image: url("img/illustrations/BR-36_Hua_Mulan_02.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-38_Ratatoskr_01"] {
+      background-image: url("img/illustrations/BR-38_Ratatoskr_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-38_Ratatoskr_02"] {
+      background-image: url("img/illustrations/BR-38_Ratatoskr_02.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BRext1"] {
+      background-image: url("img/illustrations/BRext1.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-02_Teija-Nauraa_RGB_01"] {
+      background-image: url("img/illustrations/MU-02_Teija-Nauraa_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-06_Inari_RGB_01"] {
+      background-image: url("img/illustrations/MU-06_Inari_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU_06_MusubiHarvester_RGB_01"] {
+      background-image: url("img/illustrations/MU_06_MusubiHarvester_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-09_Kitsune_RGB_01"] {
+      background-image: url("img/illustrations/MU-09_Kitsune_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-14_Mowgli_RGB_01"] {
+      background-image: url("img/illustrations/MU-14_Mowgli_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-14_Mowgli_RGB_02"] {
+      background-image: url("img/illustrations/MU-14_Mowgli_RGB_02.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-20_TasakaalMeshrider_RGB_01"] {
+      background-image: url("img/illustrations/MU-20_TasakaalMeshrider_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-35_Mana_Web_RGB_01"] {
+      background-image: url("img/illustrations/MU-35_Mana_Web_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-36_Sneezer_Shroom_RGB_01"] {
+      background-image: url("img/illustrations/MU-36_Sneezer_Shroom_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-36_Sneezer_Shroom_RGB_02"] {
+      background-image: url("img/illustrations/MU-36_Sneezer_Shroom_RGB_02.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-42_Hesperide_RGB_01"] {
+      background-image: url("img/illustrations/MU-42_Hesperide_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-43_ConiferalConeman_RGB_01"] {
+      background-image: url("img/illustrations/MU-43_ConiferalConeman_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-49_Nurturing_Watering_Can_RGB_01"] {
+      background-image: url("img/illustrations/MU-49_Nurturing_Watering_Can_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-49_Nurturing_Watering_Can_RGB_02"] {
+      background-image: url("img/illustrations/MU-49_Nurturing_Watering_Can_RGB_02.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OR-33_Aegis Veteran_RGB_01"] {
+      background-image: url("img/illustrations/OR-33_Aegis Veteran_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper .card-frame {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-size: 600% 500%; }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="BR"] {
+        background-image: url("img/frames/BR.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
+        background-image: url("img/frames/MU.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
+        background-image: url("img/frames/LY.png"); }
+    .altered-card .altered-card-wrapper .card-name {
+      position: absolute;
+      top: 7px;
+      left: 18px;
+      right: 17px;
+      font-size: 8px;
+      color: white;
+      text-align: center; }
+
 .altered-icon {
   background: url("img/icons.png");
   background-repeat: no-repeat; }
@@ -399,7 +506,7 @@ html {
   order: 3;
   margin: 5px 0px;
   width: 1200px;
-  height: 404px;
+  height: 343px;
   border: 2px solid white;
   border-radius: 10px;
   background: #ffffff36;
@@ -430,11 +537,11 @@ html {
   .altered-player-board-resizable .player-board-bottom {
     width: 100%;
     display: flex;
-    height: 200px; }
+    height: 170px; }
     .altered-player-board-resizable .player-board-top > div,
     .altered-player-board-resizable .player-board-middle > div,
     .altered-player-board-resizable .player-board-bottom > div {
-      height: 190px;
+      height: 160px;
       margin: 5px;
       background: rgba(255, 255, 255, 0.568);
       border: 2px solid black;

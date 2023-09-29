@@ -44,8 +44,8 @@ class Meeples extends \ALT\Helpers\CachedPieces
   public static function setupPlayer($player)
   {
     $meeples = [];
-    $meeples[] = ['type' => COMPANION, 'location' => 'storm-0', 'player_id' => $player->getId()];
-    $meeples[] = ['type' => ALTERATEUR, 'location' => 'storm-7', 'player_id' => $player->getId()];
+    $meeples[] = ['type' => COMPANION, 'location' => 'storm-7', 'player_id' => $player->getId()];
+    $meeples[] = ['type' => ALTERATEUR, 'location' => 'storm-0', 'player_id' => $player->getId()];
     return self::create($meeples);
   }
 

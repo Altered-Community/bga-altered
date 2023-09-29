@@ -42,7 +42,7 @@ use ALT\Core\Preferences;
 use ALT\Core\Stats;
 use ALT\Core\Engine;
 
-class Altered extends Table
+class altered extends Table
 {
   use ALT\DebugTrait;
   use ALT\States\SetupTrait;

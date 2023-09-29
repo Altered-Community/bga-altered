@@ -60,7 +60,7 @@ class Cards extends \ALT\Helpers\Pieces
       $card = new $className(null);
       $toCreate[] = [
         'player_id' => $pId,
-        'location' => 'deck-' . $pId,
+        'location' => ($card->getType() == ALTERATEUR ? 'board-alterateur-' : 'deck-') . $pId,
         'n' => $n,
         'properties' => $card->getProperties(),
       ];

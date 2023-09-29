@@ -1,0 +1,65 @@
+:root {
+    --cardScale: 1;
+}
+
+#test-cards {
+    display: flex;
+}
+
+.altered-card-tooltip {
+    display: flex;
+    --cardScale: 3;
+}
+
+.altered-card {
+    width: calc(var(--cardScale) * 108px);
+    height: calc(var(--cardScale) * 150px);
+    border: 1px solid white;
+    box-shadow: 1px 1px 4px -1px white;
+    border-radius: 7px;
+    margin: 3px 5px;
+    position: relative;
+
+    .altered-card-wrapper {
+        width: 108px;
+        height: 150px;
+        transform: scale(var(--cardScale));
+        transform-origin: top left;
+        border-radius: 7px;
+        position: relative;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        @each $asset in $illustrations {
+            &[data-asset="#{$asset}"] {
+                background-image: url("img/illustrations/#{$asset}.jpg");
+            }
+        }
+
+        .card-frame {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-size: 600% 500%;
+
+            @each $faction in $factions {
+                &[data-faction="#{$faction}"] {
+                    background-image: url("img/frames/#{$faction}.png");
+                }
+            }
+        }
+
+        .card-name {
+            position: absolute;
+            top: 7px;
+            left: 18px;
+            right: 17px;
+            font-size: 8px;
+            color: white;
+            text-align: center;
+        }
+    }
+}

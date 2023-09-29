@@ -1,22 +1,27 @@
-const isObject = (obj) => {
-  return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
-};
-
 define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'], (dojo, declare) => {
   function isVisible(elem) {
     return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
   }
 
+  const isObject = (obj) => {
+    return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
+  };
+
+  const ALTERATEUR = 'alterateur';
+  const EXPLORER = 'explorer';
+  const PERMANENT = 'permanent';
+  const SPELL = 'spell';
+
   return declare('altered.cards', null, {
-    getCardInfos(cardId) {
-      let card = { id: cardId };
-      this.loadSaveCard(card);
-      return card;
-    },
-    getCardName(cardId) {
-      let card = this.getCardInfos(cardId);
-      return this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
-    },
+    // getCardInfos(cardId) {
+    //   let card = { id: cardId };
+    //   this.loadSaveCard(card);
+    //   return card;
+    // },
+    // getCardName(cardId) {
+    //   let card = this.getCardInfos(cardId);
+    //   return this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
+    // },
 
     setupCards() {
       // This function is refreshUI compatible
@@ -58,32 +63,26 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return;
       }
 
-      this.loadSaveCard(card);
+      // this.loadSaveCard(card);
       if (container === null) {
         container = this.getCardContainer(card);
       }
 
       let o = this.place('tplCard', card, container);
       if (o !== undefined) {
-        console.log(card.id);
-        this.addCustomTooltip(
-          o.id,
-          () => {
-            // let status = this.getCardStatus(card.id);
-            return `<div class='zoo-card-tooltip'>
-                ${this.tplZooCard(card, true)}
-              </div>`;
-          },
-          { midSize: false }
-        );
+        this.addCustomTooltip(o.id, () => this.tplCardTooltip(card), { midSize: false });
       }
     },
 
     getCardContainer(card) {
       let t = card.location.split('_');
-      if (card.location == 'hand') {
-        return $(`hand-${card.pId}`);
+      let type = card.properties.type;
+      if (type == ALTERATEUR) {
+        return $(card.location);
       }
+      // if (card.location == 'hand') {
+      //   return $(`hand-${card.pId}`);
+      // }
 
       return $('test-cards');
     },
@@ -331,12 +330,90 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
-    tplCard(card, tooltip = false) {
-      let uid = (tooltip ? 'tooltip_card-' : 'card-') + card.id;
+    tplCard(card) {
+      let type = card.properties.type;
+      if (type == ALTERATEUR) {
+        return this.tplAlterateurCard(card);
+      } else if (type == EXPLORER) {
+        return this.tplExplorerCard(card);
+      } else if (type == SPELL) {
+        return this.tplSpellCard(card);
+      } else if (type == PERMANENT) {
+        return this.tplPermanentCard(card);
+      }
 
-      return `<div id="${uid}" data-id='${card.id}' class='altered-card ${tooltip ? 'tooltip' : ''}'>
-        <div class='altered-card-wrapper'>
-          ${card.name}
+      console.error('No tpl yet', card);
+      return '';
+    },
+
+    tplCardTooltip(card) {
+      let type = card.properties.type;
+      // if (type == ALTERATEUR) {
+      //   return this.tplAlterateurCard(card);
+      // } else
+      if (type == EXPLORER) {
+        return this.tplExplorerCardTooltip(card);
+      }
+      //  else if (type == SPELL) {
+      //   return this.tplSpellCard(card);
+      // } else if (type == PERMANENT) {
+      //   return this.tplPermanentCard(card);
+      // }
+
+      return '';
+    },
+
+    tplAlterateurCard(card) {
+      return `<div id="${card.id}" class='altered-card card-alterateur'>
+        <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
+        </div>
+      </div>`;
+    },
+
+    tplExplorerCard(card) {
+      let p = card.properties;
+      return `<div id="${card.id}" class='altered-card card-explorer'>
+        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+          <div class='card-hand-cost'>${p.costHand}</div>
+          <div class='card-memory-cost'>${p.costMemory}</div>
+          <div class='card-forest'>${p.forest}</div>
+          <div class='card-mountain'>${p.mountain}</div>
+          <div class='card-ocean'>${p.ocean}</div>
+        </div>
+      </div>`;
+    },
+    tplExplorerCardTooltip(card) {
+      let p = card.properties;
+      return `<div id="${card.id}-tooltip" class='altered-card-tooltip'>
+        <div class='altered-card card-explorer'>
+          <div class='altered-card-wrapper' data-asset='${p.asset}'>
+            <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}'></div>
+            <div class='card-hand-cost'>${p.costHand}</div>
+            <div class='card-memory-cost'>${p.costMemory}</div>
+            <div class='card-name'>${_(p.name)}</div>
+            <div class='card-types'>${_(p.type)}</div>
+
+            <div class='card-forest'>${p.forest}</div>
+            <div class='card-mountain'>${p.mountain}</div>
+            <div class='card-ocean'>${p.ocean}</div>
+          </div>
+        </div>
+        <div class='tooltip-explanatin'>
+          More details here
+        </div>
+      </div>`;
+    },
+
+    tplSpellCard(card) {
+      return `<div id="${card.id}" class='altered-card card-spell'>
+        <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
+        </div>
+      </div>`;
+    },
+
+    tplPermanentCard(card) {
+      return `<div id="${card.id}" class='altered-card card-permanent'>
+        <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;
     },
