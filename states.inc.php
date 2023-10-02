@@ -136,11 +136,11 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stDusk',
     'transitions' => [
-      'done' => ST_PRE_NIGHT,
+      'done' => ST_BEFORE_NIGHT,
     ],
   ],
 
-  ST_PRE_NIGHT => [
+  ST_BEFORE_NIGHT => [
     'name' => 'beforeNight',
     'description' => '',
     'type' => 'game',
@@ -154,11 +154,8 @@ $machinestates = [
 
   ST_NIGHT => [
     'name' => 'night',
-    'description' => clienttranslate('Waiting for other players to select cards to discard'),
-    'descriptionmyturn' => '', // To manage in JS
-    'type' => 'multipleactiveplayer',
-    'args' => 'argsNight',
-    'possibleactions' => ['actNightChoice', 'actNightCancel'],
+    'type' => 'game',
+    'action' => 'stNight',
     'transitions' => [
       'done' => ST_BEFORE_ASSIGNMENT,
     ],
@@ -182,11 +179,13 @@ $machinestates = [
     'possibleactions' => ['actHand', 'actMemory', 'actEcho', 'actTap', 'actPass', 'actRestart'],
   ],
 
-  ST_PLAY_CARD => [
-    // args will contain Id + effect, should be auto. Will trigger the cost (if any, etc.)
-    'name' => 'playCard',
-    'action' => 'stAtomicAction',
-    'type' => 'game',
+  ST_DISCARD => [
+    'name' => 'discard',
+    'description' => clienttranslate('${actplayer} must discard ${n} card(s) from ${source} to ${destination}'),
+    'descriptionmyturn' => clienttranslate('${you} must discard ${n} card(s) from ${source} to ${destination}'),
+    'args' => 'argsAtomicAction',
+    'possibleactions' => ['actDiscard', 'actRestart'],
+    'type' => 'activeplayer',
   ],
 
   ST_TARGET => [

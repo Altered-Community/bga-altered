@@ -14,6 +14,8 @@ class MU_Base_TeijaandNauraa extends \ALT\Models\Card
       'type' => ALTERATEUR,
       'subtype' => 'Muna Hero',
       'rarity' => RARITY_BASE,
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
     ];
   }
 }

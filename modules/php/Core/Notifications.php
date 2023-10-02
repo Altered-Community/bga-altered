@@ -236,6 +236,27 @@ class Notifications
     ]);
   }
 
+  public static function drawCards($player, $cards, $privateMsg = null, $publicMsg = null, $args = [])
+  {
+    self::notifyAll(
+      'drawCards',
+      $publicMsg ?? clienttranslate('${player_name} draws ${n} card(s) from its deck'),
+      $args + [
+        'player' => $player,
+        'n' => count($cards),
+      ]
+    );
+    self::notify(
+      $player,
+      'pDrawCards',
+      $privateMsg ?? clienttranslate('You draw ${card_names} from your deck'),
+      $args + [
+        'player' => $player,
+        'cards' => is_array($cards) ? $cards : $cards->toArray(),
+      ]
+    );
+  }
+
   /*********** unchecked ******* */
   // Remove extra information from cards
   protected function filterCardDatas($card)
@@ -386,27 +407,6 @@ class Notifications
   //  | |__| (_| | | | (_| \__ \
   //   \____\__,_|_|  \__,_|___/
   ////////////////////////////////
-
-  public static function drawCards($player, $cards, $privateMsg = null, $publicMsg = null, $args = [])
-  {
-    self::notifyAll(
-      'drawCards',
-      $publicMsg ?? clienttranslate('${player_name} draws ${n} card(s) from the deck'),
-      $args + [
-        'player' => $player,
-        'n' => count($cards),
-      ]
-    );
-    self::notify(
-      $player,
-      'pDrawCards',
-      $privateMsg ?? clienttranslate('You draw ${card_names} from the deck'),
-      $args + [
-        'player' => $player,
-        'cards' => is_array($cards) ? $cards : $cards->toArray(),
-      ]
-    );
-  }
 
   public static function initialDraw($player, $cards, $scoringCards)
   {

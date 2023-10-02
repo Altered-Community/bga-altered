@@ -39,6 +39,7 @@ class Card extends \ALT\Helpers\DB_Model
     'asset' => 'str',
     'frame' => 'int',
     'memorySlots' => 'int',
+    'permanentSlots' => 'int',
 
     'mountain' => 'int',
     'forest' => 'int',

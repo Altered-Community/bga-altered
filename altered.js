@@ -48,6 +48,8 @@ define([
         ['moveStormToken', 500],
         ['newFirstPlayer', 500],
         ['untap', 500],
+        ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
+        ['pDrawCards', 500],
       ];
 
       // Fix mobile viewport (remove CSS zoom)

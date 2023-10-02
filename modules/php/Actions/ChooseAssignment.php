@@ -101,6 +101,9 @@ class ChooseAssignment extends \ALT\Models\Action
     $cost = $card->getCost();
     $player->pay($cost);
     // left or right storm
+    if ($card->getType() == PERMANENT) {
+      $to = PERMANENT;
+    }
     $card->setLocation($to);
 
     // notification

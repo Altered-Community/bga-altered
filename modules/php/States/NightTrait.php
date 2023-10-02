@@ -18,113 +18,63 @@ trait NightTrait
 
   function stBeforeNight()
   {
-    // TODO: awaiting FAQ answer
     // TODO: check victory
     $this->checkCardListeners('BeforeNight', 'stPreNight');
   }
 
   function stPreNight()
   {
-    $skipped = [];
-    $enabled = [];
-    foreach (Players::getAll() as $pId => $player) {
-      if ($player->nightCleanup() === false) {
-        $skipped[$pId] = [];
+    Globals::setSkippedPlayers([]);
+    Globals::setPlayedCards(1);
+    $this->initCustomDefaultTurnOrder('nightPhase', \ST_NIGHT, ST_NEW_DAY, true);
+  }
+
+  public function stNight()
+  {
+    $player = Players::getActive();
+    // check if a player skipped his turn
+    $skipped = Globals::getSkippedPlayers();
+
+    if (in_array($player->getId(), $skipped)) {
+      // Everyone has discarded
+      $remaining = array_diff(Players::getAll()->getIds(), $skipped);
+      if (empty($remaining)) {
+        $this->endCustomOrder('nightPhase');
       } else {
-        $enabled[] = $pId;
+        $this->nextPlayerCustomOrder('nightPhase');
       }
-    }
-    Globals::setSkippedPlayers($skipped);
-
-    // ok for all players
-    if (count($skipped) == Players::getAll()->count()) {
-      // New day
-      // $this->gamestate->jumpToState(ST_BEFORE_ASSIGNMENT);
-      $this->gamestate->jumpToState(ST_NEW_DAY);
-    } else {
-      Globals::setNightSelection($skipped);
-      $this->gamestate->setPlayersMultiactive($enabled, '', true);
-      $this->gamestate->jumpToState(ST_NIGHT);
-    }
-  }
-
-  function argsNight()
-  {
-    $selection = Globals::getNightSelection();
-    foreach (Players::getAll() as $pId => $player) {
-      $memory = $player->getMemoryCards();
-      $args['_private'][$pId] = [
-        'n' => $memory->count() - $player->getMemorySlots(),
-        'cards' => $memory->getIds(),
-        'selection' => $selection[$pId] ?? null,
-      ];
+      return;
     }
 
-    return $args;
-  }
+    // if the player has no need to discard
+    $toDiscard = $player->nightCleanup();
 
-  public function actNightChoice($cardIds)
-  {
-    self::checkAction('actNightChoice');
-    $player = Players::getCurrent();
-    $args = $this->argsNight();
-
-    if (count($cardIds) != $args['_private'][$player->getId()]['n']) {
-      throw new \BgaUserException(clienttranslate('You must select the correct number of cards to discard'));
-    }
-    if (!empty(array_diff($cardIds, $args['_private'][$player->getId()]['cards']))) {
-      throw new \BgaUserException('You do not own this card. Should not happen');
+    if ($toDiscard === false) {
+      $skipped[] = $player->getId();
+      Globals::setSkippedPlayers($skipped);
+      $this->nextPlayerCustomOrder('nightPhase');
+      return;
     }
 
-    $selection = Globals::getNightSelection();
-    $selection[$player->getId()] = $cardIds;
-    Globals::setNightSelection($selection);
-    Notifications::updateNightSelection($player, self::argsNight());
+    self::giveExtraTime($player->getId(), 20);
 
-    $this->updateActivePlayersNightSelection();
-  }
+    // Stats::incTurns($player);
+    $node = [
+      'childs' => [
+        [
+          'action' => DISCARD,
+          'pId' => $player->getId(),
+          'args' => [
+            'source' => MEMORY,
+            'destination' => 'discard',
+            'n' => $player->getMemoryCards()->count() - $player->getMemorySlots(),
+          ],
+        ],
+      ],
+    ];
 
-  public function actCancelNight()
-  {
-    $this->gamestate->checkPossibleAction('actCancelNight');
-
-    $player = Players::getCurrent();
-    $selection = Globals::getNightSelection();
-    unset($selection[$player->getId()]);
-    Globals::setNightSelection($selection);
-    Notifications::updateNightSelection($player, self::argsNight());
-
-    $this->updateActivePlayersNightSelection();
-  }
-
-  public function updateActivePlayersNightSelection()
-  {
-    // Compute players that still need to select their card
-    // => use that instead of BGA framework feature because in some rare case a player
-    //    might become inactive eventhough the selection failed (seen in Agricola and Rauha at least already)
-    $selection = Globals::getNightSelection();
-    $players = Players::getAll();
-    $ids = $players->getIds();
-    $ids = array_diff($ids, array_keys($selection));
-
-    // At least one player need to make a choice
-    if (!empty($ids)) {
-      $this->gamestate->setPlayersMultiactive($ids, 'done', true);
-    }
-    // Everyone is done => discard cards and proceed
-    else {
-      $selection = Globals::getNightSelection();
-      foreach ($players as $pId => $player) {
-        $cardIds = $selection[$pId];
-
-        $cards = Cards::getMany($cardIds);
-        Cards::discard($cardIds);
-        $cards = Cards::getMany($cardIds);
-        // throw new \feException($cards->first()->getId());
-        Notifications::discard($player, $cards, null, clienttranslate('${player_name} discards ${n} cards from the reserve'));
-      }
-
-      $this->gamestate->nextState('done');
-    }
+    // Inserting leaf Action card
+    Engine::setup($node, ['order' => 'nightPhase']);
+    Engine::proceed();
   }
 }

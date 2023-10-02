@@ -14,6 +14,8 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
       'type' => ALTERATEUR,
       'subtype' => 'Bravos Hero',
       'rarity' => RARITY_BASE,
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
     ];
   }
 }

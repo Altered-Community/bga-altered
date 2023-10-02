@@ -146,23 +146,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $order;
   }
 
-  public function checkEndOfGamePlayer($player)
+  public function checkVictory()
   {
-    if (Globals::getEndRemainingPlayers() != []) {
-      return true;
-    }
-    if (Globals::isSolo()) {
-      return false;
-    }
-
-    $score = $player->updateScore();
-    if ($score >= 100) {
-      Notifications::endOfGame();
-      Globals::setEndRemainingPlayers(self::getAll()->getIds());
-      Globals::setEndTriggered(true);
-      Stats::incEndGameTriggered($player);
-      return true;
-    }
+    // check if one or multiple players crossed their tokens
+    // if 2, check how much they advanced in the phase
+    // if still equal => tiebreaker mode
 
     return false;
   }

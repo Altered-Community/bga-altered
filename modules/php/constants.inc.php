@@ -55,7 +55,8 @@ const ST_ASSIGNMENT = 10;
 const ST_CHOOSE_ASSIGNMENT = 11;
 
 // Atomic action
-const ST_PLAY_CARD = 12;
+const ST_DISCARD = 12;
+// const ST_PLAY_CARD = 12;
 // const ST_ACTIVATE_ECHO = 11;
 // const ST_ACTIVATE_ALTERER = 12;
 // const ST_ACTIVATE_PERMANENT = 13;
@@ -70,7 +71,7 @@ const ST_EFFECT_NEW_TURN = 22;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
-const ST_PRE_NIGHT = 85;
+const ST_BEFORE_NIGHT = 85;
 const ST_NIGHT = 86; // clean up !! may need some choice
 const ST_RESOLVE_STACK = 90;
 const ST_RESOLVE_CHOICE = 91;
@@ -105,6 +106,7 @@ const SPECIAL_EFFECT = 'SPECIAL_EFFECT';
 const MANA = 'MANA';
 const CHOOSE_ASSIGNMENT = 'CHOOSE_ASSIGNMENT';
 const GAIN = 'GAIN';
+const DISCARD = 'DISCARD';
 // const ADVANCE_BREAK = 'ADVANCE_BREAK';
 // const PAY = 'PAY';
 // const CLEANUP = 'CLEANUP';
@@ -141,7 +143,7 @@ const MEMORY = 'memory';
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';
 const STORMS = [STORM_LEFT, STORM_RIGHT];
-const IN_PLAY = [STORM_LEFT, STORM_RIGHT, 'inPlay'];
+const IN_PLAY = [STORM_LEFT, STORM_RIGHT, PERMANENT];
 
 // Ability
 const FLEETING = 'fleeting';

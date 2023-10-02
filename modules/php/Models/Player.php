@@ -80,7 +80,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function draw($nb, $fromLocation = 'deck', $toLocation = 'hand')
   {
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
-    // TODO: notif
+    Notifications::drawCards($this, $cards);
     return $cards;
   }
 
@@ -152,15 +152,16 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::getMemoryCards($this->id);
   }
 
-  public function getHero()
-  {
-    return Cards::getFiltered($this->id, ALTERATEUR)->first();
-  }
-
   public function getMemorySlots()
   {
     return 2;
-    return $this->getHero()->getMemorySlots();
+    return $this->getAlterateur()->getMemorySlots();
+  }
+
+  public function getPermanentSlots()
+  {
+    return 2;
+    return $this->getAlterateur()->getPermanentSlots();
   }
 
   public function getPermanents()

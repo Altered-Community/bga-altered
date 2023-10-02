@@ -266,6 +266,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO
     },
 
+    /**
+     * Private notification for the player drawing the card :
+     */
+    notif_pDrawCards(n) {
+      debug('Notif: private drawing cards', n);
+      // TODO
+    },
+
+    /**
+     * Public notification when drawing cards:
+     *  ignore if current player is the one drawing card
+     */
+    notif_drawCards(n) {
+      debug('Notif: public mana cards', n);
+      // TODO
+    },
+
     notif_discard(n) {
       debug('Notif: public discarding cards', n);
       // TODO (echo effect, etc.)

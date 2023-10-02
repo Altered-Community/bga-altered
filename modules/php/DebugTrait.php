@@ -28,7 +28,7 @@ trait DebugTrait
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([17, 21, 22]);
-    $this->actDayMana([20]);
+    // $this->actDayMana([20]);
 
     // Cards::get(3)->boost(1, 'test', true);
     // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
@@ -36,7 +36,7 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [29]);
     // $this->actTakeAtomicAction('actPass', []);
-    // $this->actNightChoice([3]);
+    $this->actTakeAtomicAction('actDiscard', [[3]]);
   }
 
   function tv()

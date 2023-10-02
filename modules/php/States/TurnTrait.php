@@ -105,7 +105,7 @@ trait TurnTrait
   {
     // to see if we need that
     // not sure as Thai said effects are before dusk
-    $this->initCustomDefaultTurnOrder('dusk', \ST_DUSK, ST_PRE_NIGHT, true);
+    $this->initCustomDefaultTurnOrder('dusk', \ST_DUSK, ST_BEFORE_NIGHT, true);
   }
 
   function stDusk()

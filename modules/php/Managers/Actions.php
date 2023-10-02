@@ -5,7 +5,7 @@ use ALT\Core\Engine;
 use ALT\Managers\Players;
 use ALT\Core\Globals;
 
-/* Class to manage all the cards for Altered */
+/* Class to manage all the actions for Altered */
 
 class Actions
 {
@@ -13,6 +13,7 @@ class Actions
     // new day
     // MANA => 'Mana',
     CHOOSE_ASSIGNMENT => 'ChooseAssignment',
+    DISCARD => 'Discard',
 
     // GAIN => 'Gain',
     // PAY => 'Pay',
