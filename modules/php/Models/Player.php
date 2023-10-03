@@ -203,6 +203,13 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getStormToken(ALTERATEUR);
   }
 
+  public function checkVictory()
+  {
+    $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];
+    $alterateurPos = explode('-', $this->getAlterateurToken()->getLocation())[1];
+    return [$companionPos - $alterateurPos < 0, Globals::getStormMoves()[$this->id] ?? 0];
+  }
+
   public function getBiomeInStorms()
   {
     $tokens = Meeples::getStormTokens($this->id);

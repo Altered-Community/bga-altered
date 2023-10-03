@@ -45,7 +45,11 @@ trait TurnTrait
    */
   function stBeforeAssignment()
   {
-    // TODO: check victory
+    if (Players::checkVictory()) {
+      return;
+    }
+
+    Globals::setStormMoves([]);
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
     $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_DUSK_PHASE, true);
@@ -97,7 +101,11 @@ trait TurnTrait
 
   function stPreBeforeDusk()
   {
-    // TODO: check victory
+    if (Players::checkVictory()) {
+      return;
+    }
+
+    Globals::setStormMoves([]);
     $this->checkCardListeners('BeforeDusk', 'stBeforeDusk');
   }
 
@@ -237,26 +245,10 @@ trait TurnTrait
 
   function stPreEndOfGame()
   {
-    foreach (Players::getAll() as $pId => $player) {
-      foreach ($player->getPlayedCards(CARD_SPONSOR) as $cId => $card) {
-        $card->score();
-      }
-      foreach ($player->getScoringHand() as $cId => $card) {
-        $card->score();
-      }
+    throw new \feException('winner');
 
-      // Make sure to call Players::get() because score was modified but it's cached in $player
-      $score = Players::get($pId)->updateScore(true);
-    }
-
-    Log::clearUndoableStepNotifications(true);
-    if (Globals::isSolo() && Globals::getSoloChallenge() > 0) {
-      // new setup for solo challenge
-      $this->setupNextGame();
-    } else {
-      Globals::setEnd(true);
-      $this->gamestate->nextState('');
-    }
+    // TODO: API call
+    $this->gamestate->nextState('');
   }
 
   /*

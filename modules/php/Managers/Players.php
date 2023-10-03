@@ -148,9 +148,37 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
   public function checkVictory()
   {
+    $isVictory = false;
+    $maxMoves = 0;
+    $tiebreaker = false;
+    $victor = -1;
+    // TODO: multiplayer mode
+
     // check if one or multiple players crossed their tokens
-    // if 2, check how much they advanced in the phase
-    // if still equal => tiebreaker mode
+    foreach (Players::getAll() as $pId => $player) {
+      list($vic, $moves) = $player->checkVictory();
+      if ($vic === true) {
+        if ($moves > $maxMoves) {
+          $victor = $pId;
+          $maxMoves = $moves;
+          $tiebreaker = false;
+          $isVictory = true;
+        } elseif ($moves == $maxMoves) {
+          $tiebreaker = true;
+          $isVictory = true;
+        }
+      }
+    }
+
+    // players have moved the same number in the phase
+    if ($tiebreaker === true) {
+      Globals::setTiebreakermode(true);
+    } elseif ($victor != -1) {
+      // we have a winner => end of game
+      Players::get($victor)->setScore(99);
+      Game::get()->jumpToOrCall(ST_PRE_END_OF_GAME);
+      return true;
+    }
 
     return false;
   }

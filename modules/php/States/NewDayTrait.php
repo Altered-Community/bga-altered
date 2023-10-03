@@ -19,6 +19,11 @@ trait NewDayTrait
 
   function stNewDay()
   {
+    if (Players::checkVictory()) {
+      return;
+    }
+
+    Globals::setStormMoves([]);
     // Change first player
     Globals::setFirstPlayer(Players::getNextId(Globals::getFirstPlayer()));
     Notifications::newFirstPlayer(Players::get(Globals::getFirstPlayer()));

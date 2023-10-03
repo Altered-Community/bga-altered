@@ -18,7 +18,14 @@ trait NightTrait
 
   function stBeforeNight()
   {
-    // TODO: check victory
+    if (Players::checkVictory()) {
+      return;
+    }
+
+    Globals::setStormMoves([]);
+    foreach (Players::getAll() as $pId => $player) {
+      $player->nightCleanup();
+    }
     $this->checkCardListeners('BeforeNight', 'stPreNight');
   }
 
@@ -47,7 +54,7 @@ trait NightTrait
     }
 
     // if the player has no need to discard
-    $toDiscard = $player->nightCleanup();
+    $toDiscard = $player->getMemorySlots() < $player->getMemoryCards()->count();
 
     if ($toDiscard === false) {
       $skipped[] = $player->getId();
