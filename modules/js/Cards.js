@@ -370,10 +370,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // } else
       if (type == EXPLORER) {
         return this.tplExplorerCardTooltip(card);
+      } else if (type == SPELL) {
+        return this.tplSpellCardTooltip(card);
       }
-      //  else if (type == SPELL) {
-      //   return this.tplSpellCard(card);
-      // } else if (type == PERMANENT) {
+      //else if (type == PERMANENT) {
       //   return this.tplPermanentCard(card);
       // }
 
@@ -387,32 +387,56 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
+    getBiomesUISizes(card) {
+      let p = card.properties;
+      let biomes = [p.forest, p.mountain, p.ocean];
+      biomes.sort();
+      let mid = biomes[1];
+      if (mid == 0) mid = biomes[2];
+
+      let sizes = {};
+      ['forest', 'mountain', 'ocean'].forEach((biome) => {
+        let v = p[biome];
+        let size = null;
+        if (v == 0) size = 0;
+        else if (v < mid) size = 1;
+        else if (v == mid) size = 2;
+        else if (v > mid) size = 3;
+        sizes[biome] = size;
+      });
+
+      return sizes;
+    },
+
     tplExplorerCard(card) {
       let p = card.properties;
+      let sizes = this.getBiomesUISizes(card);
       return `<div id="${card.id}" class='altered-card card-explorer'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
-          <div class='card-memory-cost'>${p.costMemory}</div>
-          <div class='card-forest'>${p.forest}</div>
-          <div class='card-mountain'>${p.mountain}</div>
-          <div class='card-ocean'>${p.ocean}</div>
+          <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
+          <div class='card-forest' data-size='${sizes.forest}'>${p.forest}</div>
+          <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
+          <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
         </div>
       </div>`;
     },
     tplExplorerCardTooltip(card) {
       let p = card.properties;
+      let sizes = this.getBiomesUISizes(card);
       return `<div id="${card.id}-tooltip" class='altered-card-tooltip'>
         <div class='altered-card card-explorer'>
           <div class='altered-card-wrapper' data-asset='${p.asset}'>
-            <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}'></div>
+            <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
+                data-rarity='${p.rarity}' data-type='explorer'></div>
             <div class='card-hand-cost'>${p.costHand}</div>
             <div class='card-memory-cost'>${p.costMemory}</div>
             <div class='card-name'>${_(p.name)}</div>
             <div class='card-types'>${_(p.type)}</div>
 
-            <div class='card-forest'>${p.forest}</div>
-            <div class='card-mountain'>${p.mountain}</div>
-            <div class='card-ocean'>${p.ocean}</div>
+            <div class='card-forest' data-size='${sizes.forest}'>${p.forest}</div>
+            <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
+            <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
           </div>
         </div>
         <div class='tooltip-explanatin'>
@@ -422,8 +446,29 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     tplSpellCard(card) {
+      let p = card.properties;
       return `<div id="${card.id}" class='altered-card card-spell'>
-        <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+          <div class='card-hand-cost'>${p.costHand}</div>
+          <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
+        </div>
+      </div>`;
+    },
+    tplSpellCardTooltip(card) {
+      let p = card.properties;
+      return `<div id="${card.id}-tooltip" class='altered-card-tooltip'>
+        <div class='altered-card card-spell'>
+          <div class='altered-card-wrapper' data-asset='${p.asset}'>
+            <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
+                data-rarity='${p.rarity}' data-type='spell'></div>
+            <div class='card-hand-cost'>${p.costHand}</div>
+            <div class='card-memory-cost'>${p.costMemory}</div>
+            <div class='card-name'>${_(p.name)}</div>
+            <div class='card-types'>${_(p.type)}</div>
+          </div>
+        </div>
+        <div class='tooltip-explanatin'>
+          More details here
         </div>
       </div>`;
     },

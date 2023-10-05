@@ -7,7 +7,7 @@ class MU_Base_MunaDruid extends \ALT\Models\Card
   {
     $this->properties = [
       'asset' => 'MU-20_TasakaalMeshrider_RGB_01',
-      'frameSize' => 1,
+      'frameSize' => 3,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Muna Druid'),
