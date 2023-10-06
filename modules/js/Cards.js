@@ -77,7 +77,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     getCardContainer(card) {
       let t = card.location.split('_');
       let type = card.properties.type;
-      if (type == ALTERATEUR) {
+      if (card.location == 'hand') {
+        return $(`hand-${card.pId}`);
+      } else if (type == ALTERATEUR) {
         return $(card.location);
       }
       // if (card.location == 'hand') {

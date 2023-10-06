@@ -324,3 +324,114 @@
         }
     }
 }
+
+#floating-hand-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transition: transform 0.8s;
+    z-index: 1000;
+    --cardScale: 0.4;
+    &:not(.active) {
+        display: none;
+    }
+    &[data-open] {
+        transform: translateY(0px);
+    }
+
+    transform: translateY(calc(100% - var(--cardScale) * 140px));
+    box-shadow: 0 0 10px 1px #ff0;
+    background-color: rgba(40, 39, 36, 0.78);
+    border-top: 1px solid #7c5d45;
+    border-right: 1px solid #7c5d45;
+    border-top-right-radius: 8px;
+
+    #floating-hand-button-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: flex-start;
+        // .mobile_version & {
+        //     justify-content: flex-start;
+        // }
+        z-index: 2;
+        transition: top 0.8s;
+
+        #floating-hand-button {
+            border: 1px solid black;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px black;
+            background-color: gray;
+            margin: 0px 5px;
+            margin-top: -38px;
+            cursor: pointer;
+            transform: translateY(0);
+            transition:
+                transform 0.4s,
+                margin 0.4s;
+            &:hover {
+                transform: translateY(-10px);
+            }
+
+            .icon-hand {
+                width: 40px;
+                height: 40px;
+                margin: 4px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 32px;
+
+                i {
+                    display: none;
+                }
+            }
+        }
+    }
+    &[data-open="hand"] #floating-hand-button-container #floating-hand-button {
+        margin-top: -58px;
+        margin-bottom: 20px;
+        .icon-hand {
+            background: none;
+
+            i {
+                display: block;
+            }
+        }
+
+        &:hover {
+            .icon-hand {
+                font-size: 34px;
+            }
+        }
+    }
+
+    #floating-hand {
+        width: 100%;
+        height: 100%;
+        margin-top: calc(-1 * var(--cardScale) * 12px);
+        padding-top: calc(var(--cardScale) * 12px);
+        min-width: calc(var(--cardScale) * 375px);
+
+        .player-board-hand {
+            display: flex;
+            max-width: 99vw;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+
+            .ark-card {
+                margin: 4px;
+                flex-shrink: 0;
+
+                &.selected {
+                    margin: 2px;
+                }
+
+                &:hover {
+                    z-index: 4;
+                }
+            }
+        }
+    }
+}

@@ -36,43 +36,35 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.setupPlayersCounters();
     },
 
-    // onChangeHandLocationSetting(v) {
-    //   let hand = $(`hand-${this.player_id}`);
-    //   let scoringHand = $(`scoring-hand-${this.player_id}`);
-    //   if (hand) {
-    //     let container = this.isFloatingHand() ? 'floating-hand' : `player-board-cards-${this.player_id}`;
-    //     $(container).insertAdjacentElement('beforeend', hand);
-    //     $(container).insertAdjacentElement('beforeend', scoringHand);
-    //     $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
-    //     hand.style.order = v == 1 ? 1 : 4;
+    onChangeHandLocationSetting(v) {
+      let hand = $(`hand-${this.player_id}`);
+      if (hand) {
+        let container = this.isFloatingHand() ? 'floating-hand' : `player-board-resizable-${this.player_id}`;
+        $(container).insertAdjacentElement('beforeend', hand);
+        $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
+        hand.style.order = v == 1 ? 1 : 4;
 
-    //     if (v == 3) {
-    //       this.openHand();
-    //     }
-    //   }
+        if (v == 3) {
+          this.openHand();
+        }
+      }
 
-    //   this.ensureNoSortableHandOnTouchDevice();
-    // },
+      // this.ensureNoSortableHandOnTouchDevice();
+    },
 
     updateHandCards() {
-      return; // TODO
       if (this.isSpectator) return;
       this.empty(`hand-${this.player_id}`);
       let hand = this.gamedatas.players[this.player_id].hand;
       hand.forEach((card) => {
-        this.addZooCard(card);
-      });
-
-      this.empty(`scoring-hand-${this.player_id}`);
-      let scoringHand = this.gamedatas.players[this.player_id].scoringHand;
-      scoringHand.forEach((card) => {
-        this.addZooCard(card);
+        this.addCard(card);
       });
     },
 
     tplPlayerBoard(player) {
       let above = player.order == 0 ? '' : 'above';
-      return `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
+      return (
+        `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
         <div class='player-board-top'>
           <div class='player-board-alterer' id='board-alterateur-${player.id}'></div>
           <div class='player-board-storm' id='board-storm-${player.id}'>Storm</div>
@@ -81,7 +73,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-board-memory' id='board-memory-${player.id}'>Memory</div>
           <div class='player-board-permanents' id='board-permanents-${player.id}'>Permanents</div>
         </div>
-      </div>`;
+        ` +
+        (player.id == this.player_id ? `<div class='player-board-hand' id='hand-${player.id}'></div>` : '') +
+        `
+      </div>`
+      );
     },
 
     tplPlayerPanel(player) {

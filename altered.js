@@ -71,7 +71,7 @@ define([
         ////////////////////
         ///    LAYOUT    ///
         handLocation: {
-          default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 0),
+          default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 3),
           name: _('Hand of cards'),
           type: 'select',
           values: {
@@ -137,10 +137,9 @@ define([
     },
 
     openHand() {
-      // TODO
-      // if (this.isFloatingHand()) {
-      //   $('floating-hand-wrapper').dataset.open = 'hand';
-      // }
+      if (this.isFloatingHand()) {
+        $('floating-hand-wrapper').dataset.open = 'hand';
+      }
     },
 
     /**
@@ -655,21 +654,14 @@ define([
            </div>`,
       });
 
-      // let handWrapper = $('floating-hand-wrapper');
-      // $('floating-hand-button').addEventListener('click', () => {
-      //   if (handWrapper.dataset.open && handWrapper.dataset.open == 'hand') {
-      //     delete handWrapper.dataset.open;
-      //   } else {
-      //     handWrapper.dataset.open = 'hand';
-      //   }
-      // });
-      // $('floating-scoring-hand-button').addEventListener('click', () => {
-      //   if (handWrapper.dataset.open && handWrapper.dataset.open == 'scoringHand') {
-      //     delete handWrapper.dataset.open;
-      //   } else {
-      //     handWrapper.dataset.open = 'scoringHand';
-      //   }
-      // });
+      let handWrapper = $('floating-hand-wrapper');
+      $('floating-hand-button').addEventListener('click', () => {
+        if (handWrapper.dataset.open && handWrapper.dataset.open == 'hand') {
+          delete handWrapper.dataset.open;
+        } else {
+          handWrapper.dataset.open = 'hand';
+        }
+      });
     },
 
     tplInfoPanel() {
