@@ -1,5 +1,5 @@
 define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
-  // const PLAYER_COUNTERS = ['appeal', 'reputation', 'conservation', 'money', 'handCount', 'scoringHandCount', 'xtoken', 'income'];
+  const PLAYER_COUNTERS = ['mana', 'totalMana', 'handCount'];
 
   return declare('altered.players', null, {
     getPlayers() {
@@ -81,7 +81,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerPanel(player) {
-      return `<div class='player-info'></div>`;
+      return `<div class='player-info'>
+        <div class='mana-counter-holder'>
+          <span class="mana-counter" id="counter-${player.id}-mana"></span> 
+          / 
+          <span class="mana-counter" id="counter-${player.id}-totalMana"></span>
+          <span class="player-mana-icon">MANA</span>
+        </div>
+
+        <div class='handCount-holder'>
+          <span class="player-handCount" id="counter-${player.id}-handCount"></span>
+          <span class="player-handCount-icon">HAND</span>
+        </div>
+      </div>`;
     },
 
     notif_setupPlayers(n) {
@@ -100,86 +112,49 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
      * Create all the counters for player panels
      */
     setupPlayersCounters() {
-      return; // TODO
       this._playerCounters = {};
-      this._playerCountersMeeples = {};
-      this._scoreCounters = {};
+      // this._playerCountersMeeples = {};
       this.forEachPlayer((player) => {
         this._playerCounters[player.id] = {};
-        this._playerCountersMeeples[player.id] = {};
-        ALL_PLAYER_COUNTERS.forEach((res) => {
+        PLAYER_COUNTERS.forEach((res) => {
           let v = player[res];
           this._playerCounters[player.id][res] = this.createCounter(`counter-${player.id}-${res}`, v);
 
-          if (COUNTER_MEEPLES.includes(res)) {
-            this._playerCountersMeeples[player.id][res] = this.addMeeple({
-              id: `${res}-${player.id}`,
-              pId: player.id,
-              type: 'cylinder',
-              location: `${res}_${v}`,
-            });
-          }
+          // if (COUNTER_MEEPLES.includes(res)) {
+          //   this._playerCountersMeeples[player.id][res] = this.addMeeple({
+          //     id: `${res}-${player.id}`,
+          //     pId: player.id,
+          //     type: 'cylinder',
+          //     location: `${res}_${v}`,
+          //   });
+          // }
         });
-        this._scoreCounters[player.id] = this.createCounter('player_new_score_' + player.id, player.newScore);
-
-        // DUPLICATED CYLINDER FOR CONSERVATION
-        this._playerCountersMeeples[player.id]['conservation-duplicate'] = this.addMeeple({
-          id: `conservation-duplicate-${player.id}`,
-          pId: player.id,
-          type: 'cylinder',
-          location: `conservation-duplicate_${player.conservation}`,
-        });
-
-        // Worker counter
-        if ($(`counter-${player.id}-worker`)) {
-          this._playerCounters[player.id]['worker'] = this.createCounter(`counter-${player.id}-worker`, 0);
-        }
       });
-      this.updatePlayersCounters(false);
     },
 
     /**
      * Update all the counters in player panels according to gamedatas, useful for reloading
      */
     updatePlayersCounters(anim = true) {
-      return; // TODO
-
       this.forEachPlayer((player) => {
         PLAYER_COUNTERS.forEach((res) => {
           let value = player[res];
           this._playerCounters[player.id][res].goTo(value, anim);
 
           // Slide meeples
-          if (COUNTER_MEEPLES.includes(res)) {
-            let meeple = this._playerCountersMeeples[player.id][res];
-            let container = this.getMeepleContainer({ location: `${res}_${value}`, pId: player.id });
-            if (meeple.parentNode != container) {
-              if (anim) {
-                this.slide(meeple, container);
-              } else {
-                dojo.place(meeple, container);
-              }
-            }
-
-            // DUPLICATED CONSERVATION
-            if (res == 'conservation') {
-              meeple = this._playerCountersMeeples[player.id]['conservation-duplicate'];
-              container = this.getMeepleContainer({ location: `conservation-duplicate_${value}`, pId: player.id });
-              if (meeple.parentNode != container) {
-                if (anim) {
-                  this.slide(meeple, container);
-                } else {
-                  dojo.place(meeple, container);
-                }
-              }
-            }
-          }
+          // if (COUNTER_MEEPLES.includes(res)) {
+          //   let meeple = this._playerCountersMeeples[player.id][res];
+          //   let container = this.getMeepleContainer({ location: `${res}_${value}`, pId: player.id });
+          //   if (meeple.parentNode != container) {
+          //     if (anim) {
+          //       this.slide(meeple, container);
+          //     } else {
+          //       dojo.place(meeple, container);
+          //     }
+          //   }
+          // }
         });
       });
-
-      this.updateWorkerCounters(anim);
-      this.updateDuplicateConservationBoard();
-      this.updatePlayersIconsSummaries();
     },
 
     /**

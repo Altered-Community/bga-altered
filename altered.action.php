@@ -52,6 +52,33 @@ class action_altered extends APP_GameAction
     self::ajaxResponse();
   }
 
+  public function actNewDayManaSelection()
+  {
+    self::setAjaxMode();
+    $cardIds = self::getArg('cardIds', AT_json, true);
+    $this->validateJSonAlphaNum($cardIds, 'cardIds');
+    $this->game->actNewDayManaSelection($cardIds);
+    self::ajaxResponse();
+  }
+
+  public function actCancelNewDayManaSelection()
+  {
+    self::setAjaxMode();
+    $this->game->actCancelNewDayManaSelection();
+    self::ajaxResponse();
+  }
+
+  public function actPassNewDayManaSelection()
+  {
+    self::setAjaxMode();
+    $this->game->actPassNewDayManaSelection();
+    self::ajaxResponse();
+  }
+
+  //////////////////
+  ///// ENGINE  /////
+  //////////////////
+
   public function actConfirmTurn()
   {
     self::setAjaxMode();
@@ -112,5 +139,27 @@ class action_altered extends APP_GameAction
     $choiceId = self::getArg('id', AT_int, true);
     $result = $this->game->actAnytimeAction($choiceId);
     self::ajaxResponse();
+  }
+
+  //////////////////
+  ///// UTILS  /////
+  //////////////////
+  public function validateJSonAlphaNum($value, $argName = 'unknown')
+  {
+    if (is_array($value)) {
+      foreach ($value as $key => $v) {
+        $this->validateJSonAlphaNum($key, $argName);
+        $this->validateJSonAlphaNum($v, $argName);
+      }
+      return true;
+    }
+    if (is_int($value)) {
+      return true;
+    }
+    $bValid = preg_match('/^[_0-9a-zA-Z- ]*$/', $value) === 1;
+    if (!$bValid) {
+      throw new feException("Bad value for: $argName", true, true, FEX_bad_input_argument);
+    }
+    return true;
   }
 }

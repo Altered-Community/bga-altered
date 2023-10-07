@@ -297,6 +297,23 @@ html {
   .altered-card .help-marker {
     left: auto;
     right: 2px; }
+  .altered-card.unselectable {
+    cursor: not-allowed;
+    filter: grayscale(80%);
+    -webkit-transform: translateZ(0);
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden; }
+  .altered-card.selectable {
+    cursor: pointer; }
+    .altered-card.selectable:hover {
+      transform: scale(1.1); }
+  .altered-card.selected {
+    border: 2px solid red;
+    margin: 2px 4px;
+    box-shadow: 0px 0px 10px 0px red; }
+  .altered-card.selectedToMana {
+    border-color: #1059c5;
+    box-shadow: 0px 0px 10px 0px #319cda; }
   .altered-card .altered-card-wrapper {
     width: 324px;
     height: 450px;
@@ -364,6 +381,8 @@ html {
       background-image: url("img/illustrations/MU-49_Nurturing_Watering_Can_RGB_02.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="OR-33_Aegis Veteran_RGB_01"] {
       background-image: url("img/illustrations/OR-33_Aegis Veteran_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="back"] {
+      background-image: url("img/back-main.jpg"); }
     .altered-card .altered-card-wrapper .card-frame {
       position: absolute;
       z-index: 2;
@@ -478,7 +497,7 @@ html {
       .altered-card .altered-card-wrapper .card-forest[data-size="3"],
       .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
       .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
-        width: 60px; }
+        width: 80px; }
     .altered-card .altered-card-wrapper .card-forest {
       top: 100px;
       background: #abb648;
@@ -828,6 +847,12 @@ html {
 .player-info {
   display: flex;
   justify-content: space-between; }
+  .player-info .mana-counter-holder {
+    font-family: "Jali Greek Variable";
+    font-size: 20px;
+    text-align: center; }
+  .player-info .altered-card {
+    position: absolute; }
 
 #player_board_config {
   position: relative;

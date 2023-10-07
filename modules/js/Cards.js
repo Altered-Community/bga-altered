@@ -177,28 +177,27 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     notif_pDrawCards(n) {
       debug('Notif: private drawing cards', n);
-      this.closeChooseCardsModal();
-      let counter = n.args.scoringCard ? 'scoringHandCount' : 'handCount';
+      // this.closeChooseCardsModal();
+      let counter = 'handCount';
 
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
-          this.addZooCard(card);
+          this.addCard(card);
         });
-        this.updateCardCosts();
         this._playerCounters[this.player_id][counter].incValue(n.args.cards.length);
-        if (n.args.pilfering) this._playerCounters[n.args.pilfering][counter].incValue(-n.args.cards.length);
+        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
         return;
       }
 
       Promise.all(
         n.args.cards.map((card, i) => {
           return this.wait(100 * i).then(() => {
-            this.addZooCard(card);
+            this.addCard(card);
 
             let to = null;
             let container = this.getCardContainer(card);
             if (!isVisible(container)) to = $('floating-hand-button');
-            let source = n.args.pilfering ? $(`counter-${n.args.pilfering}-${counter}`) : this.getVisibleTitleContainer();
+            let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : this.getVisibleTitleContainer();
 
             return this.slide(`card-${card.id}`, container, {
               from: source,
@@ -209,9 +208,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         })
       ).then(() => {
         this._playerCounters[this.player_id][counter].incValue(n.args.cards.length);
-        if (n.args.pilfering) this._playerCounters[n.args.pilfering][counter].incValue(-n.args.cards.length);
+        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
 
-        this.updateCardCosts();
         this.notifqueue.setSynchronousDuration(100);
       });
     },
@@ -223,8 +221,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     notif_drawCards(n) {
       debug('Notif: public drawing cards', n);
-      this.closeChooseCardsModal();
-      let counter = n.args.scoringCard ? 'scoringHandCount' : 'handCount';
+      // this.closeChooseCardsModal();
+      let counter = 'handCount';
 
       let nCards = n.args.n;
       if (this.isFastMode()) {
@@ -235,8 +233,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       Promise.all(
         Array.from(Array(nCards), (x, i) => i).map((i) => {
           return this.wait(100 * i).then(() => {
-            this.addZooCard({ id: i, fake: true }, this.getVisibleTitleContainer());
-            return this.slide(`card-${i}`, `counter-${n.args.player_id}-${counter}`, {
+            this.addCard({ id: -i, fake: true }, this.getVisibleTitleContainer());
+            return this.slide(`card-${-i}`, `counter-${n.args.player_id}-${counter}`, {
               duration: 1000,
               destroy: true,
               phantom: false,
@@ -253,9 +251,47 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      * Private notification for the player discarding the card :
      *  slide them and destroy them
      */
-    notif_pDiscardMana(n) {
-      debug('Notif: private discarding to mana', n);
-      // TODO
+    notif_pDiscardCards(n) {
+      debug('Notif: private discarding cards', n);
+      let counter = 'handCount';
+
+      if (this.isFastMode()) {
+        n.args.cards.forEach((card) => {
+          this.destroy($(`card-${card.id}`));
+        });
+        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
+        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
+        if (n.args.toMana) {
+          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
+          this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
+        }
+        return;
+      }
+
+      Promise.all(
+        n.args.cards.map((card, i) => {
+          let target = n.args.stealing
+            ? $(`counter-${n.args.stealing}-${counter}`)
+            : n.args.toMana
+            ? $(`counter-${this.player_id}-mana`)
+            : this.getVisibleTitleContainer();
+          return this.slide(`card-${card.id}`, target, {
+            delay: 100 * i,
+            duration: 1000,
+            destroy: true,
+            phantom: false,
+          });
+        })
+      ).then(() => {
+        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
+        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
+        if (n.args.toMana) {
+          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
+          this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
+        }
+
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     /**
@@ -263,32 +299,111 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  ignore if current player is the one discarding card
      *  slide fakes cards from player panel to titlebar and decrease hand count
      */
-    notif_discardMana(n) {
-      debug('Notif: public mana cards', n);
-      // TODO
-    },
-
-    /**
-     * Private notification for the player drawing the card :
-     */
-    notif_pDrawCards(n) {
-      debug('Notif: private drawing cards', n);
-      // TODO
-    },
-
-    /**
-     * Public notification when drawing cards:
-     *  ignore if current player is the one drawing card
-     */
-    notif_drawCards(n) {
-      debug('Notif: public mana cards', n);
-      // TODO
-    },
-
-    notif_discard(n) {
+    notif_discardCards(n) {
       debug('Notif: public discarding cards', n);
-      // TODO (echo effect, etc.)
+      if (n.args.player_id == this.player_id) {
+        return;
+      }
+
+      let counter = 'handCount';
+      let nCards = n.args.n;
+      if (this.isFastMode()) {
+        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
+        if (n.args.toMana) {
+          this._playerCounters[this.player_id]['mana'].incValue(-nCards);
+          this._playerCounters[this.player_id]['totalMana'].incValue(-nCards);
+        }
+        return;
+      }
+
+      Promise.all(
+        Array.from(Array(nCards), (x, i) => i).map((i) => {
+          return this.wait(100 * i).then(() => {
+            this.addCard({ id: -i, fake: true }, `counter-${n.args.player_id}-${counter}`);
+            return this.slide(
+              `card-${-i}`,
+              n.args.toMana ? $(`counter-${n.args.player_id}-mana`) : this.getVisibleTitleContainer(),
+              {
+                duration: 1000,
+                destroy: true,
+                phantom: false,
+              }
+            );
+          });
+        })
+      ).then(() => {
+        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
+        if (n.args.toMana) {
+          this._playerCounters[n.args.player_id]['mana'].incValue(nCards);
+          this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
+        }
+
+        this.notifqueue.setSynchronousDuration(200);
+      });
     },
+
+    /**
+     * stealingCard : slighty different => move card to other player panel and destroy it
+     */
+    notif_stealingCard(n) {
+      if (n.args.player_id == this.player_id || n.args.player_id2 == this.player_id) {
+        return;
+      }
+
+      let counter = 'handCount';
+      let nCards = 1;
+      if (this.isFastMode()) {
+        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
+        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
+        return;
+      }
+
+      this.addCard({ id: 1, fake: true }, `counter-${n.args.player_id}-${counter}`);
+      this.slide(`card-1`, `counter-${n.args.player_id2}-${counter}`, {
+        duration: 1000,
+        destroy: true,
+        phantom: false,
+      }).then(() => {
+        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
+        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
+        this.notifqueue.setSynchronousDuration(200);
+      });
+    },
+
+    /**
+     * Public notification when discarding cards from the display
+     *
+    notif_discardCardsOnDisplay(n) {
+      debug('Notif: discarding cards on the display', n);
+
+      // Remove tokens on the card
+      if (n.args.tokenIds) {
+        n.args.tokenIds.forEach((mId) => {
+          $(`meeple-${mId}`).remove();
+        });
+      }
+
+      if (this.isFastMode()) {
+        n.args.cards.forEach((card) => {
+          this.destroy($(`card-${card.id}`));
+        });
+        return;
+      }
+
+      Promise.all(
+        n.args.cards.map((card, i) => {
+          return this.slide(`card-${card.id}`, this.getVisibleTitleContainer(), {
+            delay: 100 * i,
+            duration: 1000,
+            destroy: true,
+            phantom: false,
+          });
+        })
+      ).then(() => {
+        this.notifqueue.setSynchronousDuration(100);
+      });
+    },
+    */
 
     notif_tap(n) {
       debug('Notif: tapping card', n);
@@ -306,34 +421,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // It can contain multiple cards!
     },
 
-    /**
-     * pilferingCard : slighty different => move card to other player panel and destroy it
-     */
-    notif_pilferingCard(n) {
-      if (n.args.player_id == this.player_id || n.args.player_id2 == this.player_id) {
-        return;
-      }
-
-      let counter = 'handCount';
-      let nCards = 1;
-      if (this.isFastMode()) {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
-        return;
-      }
-
-      this.addZooCard({ id: 1, fake: true }, `counter-${n.args.player_id}-${counter}`);
-      this.slide(`card-1`, `counter-${n.args.player_id2}-${counter}`, {
-        duration: 1000,
-        destroy: true,
-        phantom: false,
-      }).then(() => {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
-        this.notifqueue.setSynchronousDuration(200);
-      });
-    },
-
     //////////////////////////////////////////////
     //  _____ ____  _
     // |_   _|  _ \| |
@@ -344,8 +431,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplFakeCard(card) {
       let uid = 'card-' + card.id;
-      return `<div id="${uid}" class='ark-card zoo-card fake-card'>
-        <div class='ark-card-wrapper'></div>
+      return `<div id="${uid}" class='altered-card fake-card'>
+        <div class='altered-card-wrapper' data-asset='back'>
+        </div>
       </div>`;
     },
 
@@ -383,7 +471,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     tplAlterateurCard(card) {
-      return `<div id="${card.id}" class='altered-card card-alterateur'>
+      return `<div id="card-${card.id}" class='altered-card card-alterateur'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;
@@ -413,7 +501,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplExplorerCard(card) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(card);
-      return `<div id="${card.id}" class='altered-card card-explorer'>
+      return `<div id="card-${card.id}" class='altered-card card-explorer'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
@@ -426,7 +514,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplExplorerCardTooltip(card) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(card);
-      return `<div id="${card.id}-tooltip" class='altered-card-tooltip'>
+      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
         <div class='altered-card card-explorer'>
           <div class='altered-card-wrapper' data-asset='${p.asset}'>
             <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
@@ -449,7 +537,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplSpellCard(card) {
       let p = card.properties;
-      return `<div id="${card.id}" class='altered-card card-spell'>
+      return `<div id="card-${card.id}" class='altered-card card-spell'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
@@ -458,7 +546,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     tplSpellCardTooltip(card) {
       let p = card.properties;
-      return `<div id="${card.id}-tooltip" class='altered-card-tooltip'>
+      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
         <div class='altered-card card-spell'>
           <div class='altered-card-wrapper' data-asset='${p.asset}'>
             <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
@@ -476,7 +564,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     tplPermanentCard(card) {
-      return `<div id="${card.id}" class='altered-card card-permanent'>
+      return `<div id="card-${card.id}" class='altered-card card-permanent'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;

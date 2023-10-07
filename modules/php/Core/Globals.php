@@ -27,7 +27,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'stormMoves' => 'obj',
     'tiebreakerMode' => 'bool',
 
-    'firstDayManaSelection' => 'obj',
+    'newDayManaSelection' => 'obj',
     'nightSelection' => 'obj',
     'deckSelection' => 'obj',
   ];

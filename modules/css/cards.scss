@@ -20,6 +20,86 @@
         right: 2px;
     }
 
+    &.unselectable {
+        cursor: not-allowed;
+        // }
+        // [data-filter="0"] &.unselectable {
+        filter: grayscale(80%);
+        -webkit-transform: translateZ(0);
+        -webkit-perspective: 1000;
+        -webkit-backface-visibility: hidden;
+    }
+
+    &.selectable {
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &.selected {
+        border: 2px solid red;
+        margin: 2px 4px;
+        box-shadow: 0px 0px 10px 0px red;
+    }
+
+    &.selectedToMana {
+        border-color: #1059c5;
+        box-shadow: 0px 0px 10px 0px #319cda;
+    }
+
+    // &.selectedToKeep {
+    //     border-color: #5ec15e;
+    //     box-shadow: 0px 0px 10px 0px #2be32b;
+
+    //     .ark-card-wrapper::before {
+    //         content: "\f00c";
+    //         position: absolute;
+    //         left: 100px;
+    //         right: 100px;
+    //         top: 100px;
+    //         bottom: 250px;
+    //         background: #e1e1e1c4;
+    //         z-index: 10;
+    //         font: normal normal normal 14px/1 FontAwesome;
+    //         font-size: 140px;
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //         color: green;
+    //         border-radius: 20px;
+    //     }
+    // }
+
+    // &.selectedToDiscard {
+    //     border: 2px solid red;
+    //     margin: 2px 4px;
+    //     box-shadow: 0px 0px 10px 0px red;
+
+    //     // [data-filter="0"] & .ark-card-wrapper {
+    //     filter: grayscale(1);
+    //     -webkit-transform: translateZ(0);
+    //     -webkit-perspective: 1000;
+    //     -webkit-backface-visibility: hidden;
+    //     // }
+
+    //     .ark-card-wrapper::before {
+    //         content: "\f1f8";
+    //         position: absolute;
+    //         left: 0;
+    //         right: 0;
+    //         top: 0;
+    //         bottom: 0;
+    //         background: #d1d1d1be;
+    //         z-index: 10;
+    //         font: normal normal normal 14px/1 FontAwesome;
+    //         font-size: 140px;
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //     }
+    // }
+
     .altered-card-wrapper {
         width: 324px;
         height: 450px;
@@ -35,6 +115,9 @@
             &[data-asset="#{$asset}"] {
                 background-image: url("img/illustrations/#{$asset}.jpg");
             }
+        }
+        &[data-asset="back"] {
+            background-image: url("img/back-main.jpg");
         }
 
         .card-frame {
@@ -219,7 +302,7 @@
                 width: 40px;
             }
             &[data-size="3"] {
-                width: 60px;
+                width: 80px;
             }
         }
 

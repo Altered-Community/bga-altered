@@ -17,4 +17,14 @@
 .player-info {
     display: flex;
     justify-content: space-between;
+
+    .mana-counter-holder {
+        font-family: "Jali Greek Variable";
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .altered-card {
+        position: absolute;
+    }
 }
