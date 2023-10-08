@@ -32,16 +32,17 @@ trait DebugTrait
 
     // Cards::get(3)->boost(1, 'test', true);
     // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
-    // $this->actTakeAtomicAction('actHand', [24, STORM_LEFT]);
+    $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [29]);
     // $this->actTakeAtomicAction('actPass', []);
-    $this->actTakeAtomicAction('actDiscard', [[3]]);
+    // $this->actTakeAtomicAction('actDiscard', [[3]]);
   }
 
   function tv()
   {
-    Cards::get(24)->setTapped(true);
+    // Cards::get(24)->setTapped(true);
+    Cards::get(3)->setEffectHand([[FLEETING => 1]]);
   }
 
   function score($cardId)

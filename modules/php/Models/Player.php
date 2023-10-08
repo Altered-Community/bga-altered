@@ -99,8 +99,11 @@ class Player extends \ALT\Helpers\DB_Model
     }
 
     $mana = Cards::getFilteredQuery($this->id, MANA)
-      ->where('tapped', 0)
-      ->get();
+      ->get()
+      ->filter(function ($c) {
+        return !$c->isTapped();
+      });
+
     $updated = [];
     $i = 0;
     foreach ($mana as $mId => $card) {
@@ -260,13 +263,13 @@ class Player extends \ALT\Helpers\DB_Model
       $movedToReserve = [];
 
       // Remove card if Fleeting
-      if ($card->hasToken(TOKEN_FLEETING)) {
+      if ($card->hasToken(FLEETING)) {
         $deleted['tokens'] = array_merge($deleted['tokens'], $card->discard());
         $deleted['cards'][] = $cId;
       }
 
       // Move card without anchored,asleep to memory
-      if (!$card->hasToken(TOKEN_ANCHORED) && !$card->hasToken(TOKEN_ASLEEP)) {
+      if (!$card->hasToken(ANCHORED) && !$card->hasToken(SLEEP)) {
         // move card to memory
         $deleted['tokens'] = array_merge($deleted['tokens'], $card->moveToMemory());
         $movedToReserve[] = $cId;
