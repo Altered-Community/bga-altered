@@ -100,7 +100,7 @@ class Gain extends \ALT\Models\Action
     // Increase resource and notify
     list($resource, $amount) = $this->getGain();
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
-    Notifications::gainToken(FLEETING, $card, $tokens, false);
+    Notifications::gainToken($resource, $card, $tokens, false);
 
     $this->checkAfterListeners($player, ['gain' => $args]);
     $this->resolveAction();
