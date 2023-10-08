@@ -69,44 +69,69 @@ class Notifications
     );
   }
 
-  /************* NEW DAY ************/
-  public static function updateDayManaSelection($player, $args)
+  /////////////////////////////////////////////////
+  //  _   _                 ____
+  // | \ | | _____      __ |  _ \  __ _ _   _
+  // |  \| |/ _ \ \ /\ / / | | | |/ _` | | | |
+  // | |\  |  __/\ V  V /  | |_| | (_| | |_| |
+  // |_| \_|\___| \_/\_/   |____/ \__,_|\__, |
+  //                                    |___/
+  /////////////////////////////////////////////////
+
+  public static function updateNewDayManaSelection($player, $args)
   {
-    self::notify($player, 'updateDayManaSelection', '', [
+    self::notify($player, 'updateNewDayManaSelection', '', [
       'args' => ['_private' => $args['_private'][$player->getId()]],
     ]);
   }
 
   public static function discardMana($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
   {
-    // self::notifyAll(
-    //   'discardMana',
-    //   $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) as mana'),
-    //   $args + [
-    //     'player' => $player,
-    //     'n' => count($cards),
-    //   ]
-    // );
-    self::notify(
+    self::discardCards(
       $player,
-      'pDiscardMana',
-      $privateMsg ?? clienttranslate('You discard ${card_names} to mana'),
-      ($privateArgs ?? $args) + [
-        'player' => $player,
-        'cards' => $cards,
-      ]
+      $cards,
+      $privateMsg ?? clienttranslate('You place ${card_names} as mana'),
+      $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) as mana'),
+      array_merge(['toMana' => true], $args),
+      $privateArgs
     );
   }
 
-  public static function discard($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
+  public static function newFirstPlayer($firstPlayer)
+  {
+    self::notifyAll('newFirstPlayer', clienttranslate('${player_name} becomes First player'), ['player' => $firstPlayer]);
+  }
+
+  public static function untap($cardIds)
+  {
+    self::notifyAll('untap', '', ['cardIds' => $cardIds]);
+  }
+
+  /////////////////////////////////
+  //    ____              _
+  //   / ___|__ _ _ __ __| |___
+  //  | |   / _` | '__/ _` / __|
+  //  | |__| (_| | | | (_| \__ \
+  //   \____\__,_|_|  \__,_|___/
+  /////////////////////////////////
+
+  public static function discardCards($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
   {
     self::notifyAll(
-      'discard',
+      'discardCards',
       $publicMsg ?? clienttranslate('${player_name} discards ${n} card(s)'),
       $args + [
         'player' => $player,
         'n' => count($cards),
-        'cards' => $cards,
+      ]
+    );
+    self::notify(
+      $player,
+      'pDiscardCards',
+      $privateMsg ?? clienttranslate('You discard ${card_names}'),
+      ($privateArgs ?? $args) + [
+        'player' => $player,
+        'cards' => $cards->toArray(),
       ]
     );
   }
@@ -124,7 +149,7 @@ class Notifications
     self::notify(
       $player,
       'pMoveToHand',
-      $privateMsg ?? clienttranslate('You put ${card_names} in hand'),
+      $privateMsg ?? clienttranslateupdateNewDayManaSelection('You put ${card_names} in hand'),
       ($privateArgs ?? $args) + [
         'player' => $player,
         'cards' => $cards->toArray(),
@@ -132,15 +157,34 @@ class Notifications
     );
   }
 
-  public static function newFirstPlayer($firstPlayer)
+  public static function drawCards($player, $cards, $privateMsg = null, $publicMsg = null, $args = [])
   {
-    self::notifyAll('newFirstPlayer', clienttranslate('${player_name} becomes First player'), ['player' => $firstPlayer]);
+    self::notifyAll(
+      'drawCards',
+      $publicMsg ?? clienttranslate('${player_name} draws ${n} card(s) from its deck'),
+      $args + [
+        'player' => $player,
+        'n' => count($cards),
+      ]
+    );
+    self::notify(
+      $player,
+      'pDrawCards',
+      $privateMsg ?? clienttranslate('You draw ${card_names} from your deck'),
+      $args + [
+        'player' => $player,
+        'cards' => is_array($cards) ? $cards : $cards->toArray(),
+      ]
+    );
   }
 
-  public static function untap($cardIds)
-  {
-    self::notifyAll('untap', '', ['cardIds' => $cardIds]);
-  }
+  /////////////////////////////////////////
+  //     _        _   _
+  //    / \   ___| |_(_) ___  _ __  ___
+  //   / _ \ / __| __| |/ _ \| '_ \/ __|
+  //  / ___ \ (__| |_| | (_) | | | \__ \
+  // /_/   \_\___|\__|_|\___/|_| |_|___/
+  /////////////////////////////////////////
 
   public static function payMana($player, $amount, $total, $cardIds, $source)
   {
@@ -234,27 +278,6 @@ class Notifications
     self::notify($player, 'updateNightSelection', '', [
       'args' => ['_private' => $args['_private'][$player->getId()]],
     ]);
-  }
-
-  public static function drawCards($player, $cards, $privateMsg = null, $publicMsg = null, $args = [])
-  {
-    self::notifyAll(
-      'drawCards',
-      $publicMsg ?? clienttranslate('${player_name} draws ${n} card(s) from its deck'),
-      $args + [
-        'player' => $player,
-        'n' => count($cards),
-      ]
-    );
-    self::notify(
-      $player,
-      'pDrawCards',
-      $privateMsg ?? clienttranslate('You draw ${card_names} from your deck'),
-      $args + [
-        'player' => $player,
-        'cards' => is_array($cards) ? $cards : $cards->toArray(),
-      ]
-    );
   }
 
   /*********** unchecked ******* */

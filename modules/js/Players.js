@@ -1,5 +1,5 @@
 define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
-  // const PLAYER_COUNTERS = ['appeal', 'reputation', 'conservation', 'money', 'handCount', 'scoringHandCount', 'xtoken', 'income'];
+  const PLAYER_COUNTERS = ['mana', 'totalMana', 'handCount'];
 
   return declare('altered.players', null, {
     getPlayers() {
@@ -36,43 +36,35 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.setupPlayersCounters();
     },
 
-    // onChangeHandLocationSetting(v) {
-    //   let hand = $(`hand-${this.player_id}`);
-    //   let scoringHand = $(`scoring-hand-${this.player_id}`);
-    //   if (hand) {
-    //     let container = this.isFloatingHand() ? 'floating-hand' : `player-board-cards-${this.player_id}`;
-    //     $(container).insertAdjacentElement('beforeend', hand);
-    //     $(container).insertAdjacentElement('beforeend', scoringHand);
-    //     $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
-    //     hand.style.order = v == 1 ? 1 : 4;
+    onChangeHandLocationSetting(v) {
+      let hand = $(`hand-${this.player_id}`);
+      if (hand) {
+        let container = this.isFloatingHand() ? 'floating-hand' : `player-board-resizable-${this.player_id}`;
+        $(container).insertAdjacentElement('beforeend', hand);
+        $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
+        hand.style.order = v == 1 ? 1 : 4;
 
-    //     if (v == 3) {
-    //       this.openHand();
-    //     }
-    //   }
+        if (v == 3) {
+          this.openHand();
+        }
+      }
 
-    //   this.ensureNoSortableHandOnTouchDevice();
-    // },
+      // this.ensureNoSortableHandOnTouchDevice();
+    },
 
     updateHandCards() {
-      return; // TODO
       if (this.isSpectator) return;
       this.empty(`hand-${this.player_id}`);
       let hand = this.gamedatas.players[this.player_id].hand;
       hand.forEach((card) => {
-        this.addZooCard(card);
-      });
-
-      this.empty(`scoring-hand-${this.player_id}`);
-      let scoringHand = this.gamedatas.players[this.player_id].scoringHand;
-      scoringHand.forEach((card) => {
-        this.addZooCard(card);
+        this.addCard(card);
       });
     },
 
     tplPlayerBoard(player) {
       let above = player.order == 0 ? '' : 'above';
-      return `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
+      return (
+        `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
         <div class='player-board-top'>
           <div class='player-board-alterer' id='board-alterateur-${player.id}'></div>
           <div class='player-board-storm' id='board-storm-${player.id}'>Storm</div>
@@ -81,11 +73,27 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-board-memory' id='board-memory-${player.id}'>Memory</div>
           <div class='player-board-permanents' id='board-permanents-${player.id}'>Permanents</div>
         </div>
-      </div>`;
+        ` +
+        (player.id == this.player_id ? `<div class='player-board-hand' id='hand-${player.id}'></div>` : '') +
+        `
+      </div>`
+      );
     },
 
     tplPlayerPanel(player) {
-      return `<div class='player-info'></div>`;
+      return `<div class='player-info'>
+        <div class='mana-counter-holder'>
+          <span class="mana-counter" id="counter-${player.id}-mana"></span> 
+          / 
+          <span class="mana-counter" id="counter-${player.id}-totalMana"></span>
+          <span class="player-mana-icon">MANA</span>
+        </div>
+
+        <div class='handCount-holder'>
+          <span class="player-handCount" id="counter-${player.id}-handCount"></span>
+          <span class="player-handCount-icon">HAND</span>
+        </div>
+      </div>`;
     },
 
     notif_setupPlayers(n) {
@@ -104,86 +112,49 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
      * Create all the counters for player panels
      */
     setupPlayersCounters() {
-      return; // TODO
       this._playerCounters = {};
-      this._playerCountersMeeples = {};
-      this._scoreCounters = {};
+      // this._playerCountersMeeples = {};
       this.forEachPlayer((player) => {
         this._playerCounters[player.id] = {};
-        this._playerCountersMeeples[player.id] = {};
-        ALL_PLAYER_COUNTERS.forEach((res) => {
+        PLAYER_COUNTERS.forEach((res) => {
           let v = player[res];
           this._playerCounters[player.id][res] = this.createCounter(`counter-${player.id}-${res}`, v);
 
-          if (COUNTER_MEEPLES.includes(res)) {
-            this._playerCountersMeeples[player.id][res] = this.addMeeple({
-              id: `${res}-${player.id}`,
-              pId: player.id,
-              type: 'cylinder',
-              location: `${res}_${v}`,
-            });
-          }
+          // if (COUNTER_MEEPLES.includes(res)) {
+          //   this._playerCountersMeeples[player.id][res] = this.addMeeple({
+          //     id: `${res}-${player.id}`,
+          //     pId: player.id,
+          //     type: 'cylinder',
+          //     location: `${res}_${v}`,
+          //   });
+          // }
         });
-        this._scoreCounters[player.id] = this.createCounter('player_new_score_' + player.id, player.newScore);
-
-        // DUPLICATED CYLINDER FOR CONSERVATION
-        this._playerCountersMeeples[player.id]['conservation-duplicate'] = this.addMeeple({
-          id: `conservation-duplicate-${player.id}`,
-          pId: player.id,
-          type: 'cylinder',
-          location: `conservation-duplicate_${player.conservation}`,
-        });
-
-        // Worker counter
-        if ($(`counter-${player.id}-worker`)) {
-          this._playerCounters[player.id]['worker'] = this.createCounter(`counter-${player.id}-worker`, 0);
-        }
       });
-      this.updatePlayersCounters(false);
     },
 
     /**
      * Update all the counters in player panels according to gamedatas, useful for reloading
      */
     updatePlayersCounters(anim = true) {
-      return; // TODO
-
       this.forEachPlayer((player) => {
         PLAYER_COUNTERS.forEach((res) => {
           let value = player[res];
           this._playerCounters[player.id][res].goTo(value, anim);
 
           // Slide meeples
-          if (COUNTER_MEEPLES.includes(res)) {
-            let meeple = this._playerCountersMeeples[player.id][res];
-            let container = this.getMeepleContainer({ location: `${res}_${value}`, pId: player.id });
-            if (meeple.parentNode != container) {
-              if (anim) {
-                this.slide(meeple, container);
-              } else {
-                dojo.place(meeple, container);
-              }
-            }
-
-            // DUPLICATED CONSERVATION
-            if (res == 'conservation') {
-              meeple = this._playerCountersMeeples[player.id]['conservation-duplicate'];
-              container = this.getMeepleContainer({ location: `conservation-duplicate_${value}`, pId: player.id });
-              if (meeple.parentNode != container) {
-                if (anim) {
-                  this.slide(meeple, container);
-                } else {
-                  dojo.place(meeple, container);
-                }
-              }
-            }
-          }
+          // if (COUNTER_MEEPLES.includes(res)) {
+          //   let meeple = this._playerCountersMeeples[player.id][res];
+          //   let container = this.getMeepleContainer({ location: `${res}_${value}`, pId: player.id });
+          //   if (meeple.parentNode != container) {
+          //     if (anim) {
+          //       this.slide(meeple, container);
+          //     } else {
+          //       dojo.place(meeple, container);
+          //     }
+          //   }
+          // }
         });
       });
-
-      this.updateWorkerCounters(anim);
-      this.updateDuplicateConservationBoard();
-      this.updatePlayersIconsSummaries();
     },
 
     /**

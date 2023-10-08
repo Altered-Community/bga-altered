@@ -54,25 +54,17 @@ $machinestates = [
     'name' => 'deckSetup',
     'type' => 'game',
     'action' => 'stDeckSetup',
-    'transitions' => ['' => ST_FIRST_DAY_MULTI],
+    'transitions' => ['' => ST_NEW_DAY],
   ],
 
-  ST_FIRST_DAY_MULTI => [
-    'name' => 'multiactiveDay',
-    'type' => 'game',
-    'action' => 'stFirstDay',
-    'transitions' => ['' => ST_FIRST_DAY_MANA],
-  ],
-
-  ST_FIRST_DAY_MANA => [
-    'name' => 'firstDayMana',
-    'type' => 'multipleactiveplayer',
-    'description' => clienttranslate('Waiting for other players to select cards to mana'),
-    'descriptionmyturn' => clienttranslate('${you} must select 3 cards to discard as mana'),
-    'args' => 'argsNewDay',
-    'possibleactions' => ['actDayMana', 'actCancelDayMana'],
-    'transitions' => ['done' => ST_BEFORE_ASSIGNMENT, 'zombiePass' => ST_BEFORE_ASSIGNMENT],
-  ],
+  /////////////////////////////////////////////////
+  //  _   _                 ____
+  // | \ | | _____      __ |  _ \  __ _ _   _
+  // |  \| |/ _ \ \ /\ / / | | | |/ _` | | | |
+  // | |\  |  __/\ V  V /  | |_| | (_| | |_| |
+  // |_| \_|\___| \_/\_/   |____/ \__,_|\__, |
+  //                                    |___/
+  /////////////////////////////////////////////////
 
   ST_NEW_DAY => [
     'name' => 'newDay',
@@ -85,12 +77,14 @@ $machinestates = [
   ],
 
   ST_NEW_DAY_MULTI => [
-    'name' => 'newDayMana',
+    'name' => 'newDayManaSelection',
     'type' => 'multipleactiveplayer',
     'description' => clienttranslate('Waiting for other players to select card to mana'),
     'descriptionmyturn' => clienttranslate('${you} may select 1 card to discard as mana'),
-    'args' => 'argsNewDay',
-    'possibleactions' => ['actDayMana', 'actCancelNewDayMana', 'actPassNewDay'],
+    'descriptionfirstday' => clienttranslate('Waiting for other players to select cards to mana'),
+    'descriptionmyturnfirstday' => clienttranslate('${you} must select 3 cards to discard as mana'),
+    'args' => 'argsNewDayManaSelection',
+    'possibleactions' => ['actNewDayManaSelection', 'actCancelNewDayManaSelection', 'actPassNewDayManaSelection'],
     'transitions' => ['done' => ST_BEFORE_ASSIGNMENT, 'zombiePass' => ST_BEFORE_ASSIGNMENT],
   ],
 

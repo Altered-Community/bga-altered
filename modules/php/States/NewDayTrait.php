@@ -12,29 +12,34 @@ use ALT\Helpers\Log;
 
 trait NewDayTrait
 {
-  function stFirstDay()
-  {
-    $this->newDayDraw(6);
-  }
-
+  // Clear previous stuff and draw new cards
   function stNewDay()
   {
     if (Players::checkVictory()) {
       return;
     }
 
-    Globals::setStormMoves([]);
-    // Change first player
-    Globals::setFirstPlayer(Players::getNextId(Globals::getFirstPlayer()));
-    Notifications::newFirstPlayer(Players::get(Globals::getFirstPlayer()));
-    // untap cards
-    Cards::untapAll();
-    $this->newDayDraw(2);
-  }
-
-  function newDayDraw($nCards)
-  {
     $day = Globals::incDay(1);
+    $nCards = 0;
+
+    // First day
+    if ($day == 1) {
+      $nCards = 6;
+    }
+    // Normal new day
+    else {
+      $nCards = 2;
+      Globals::setStormMoves([]);
+      Cards::untapAll();
+
+      // Change first player
+      $currentFirstPId = Globals::getFirstPlayer();
+      $newFirstPId = Players::getNextId($currentFirstPId);
+      Globals::setFirstPlayer($newFirstPId);
+      Notifications::newFirstPlayer(Players::get($newFirstPId));
+    }
+
+    // Draw cards and make everyone active
     $pIds = [];
 
     // on new day, x cards are picked
@@ -43,19 +48,27 @@ trait NewDayTrait
       $player->draw($nCards, 'deck-' . $pId, 'hand');
       $pIds[] = $pId;
     }
-    Globals::setFirstDayManaSelection([]);
+
+    Globals::setNewDayManaSelection([]);
     $this->gamestate->setPlayersMultiactive($pIds, '', true);
     $this->gamestate->nextState('');
   }
 
-  function argsNewDay()
+  // Choose card(s) to put as mana
+  function argsNewDayManaSelection()
   {
-    $selection = Globals::getFirstDayManaSelection();
-    $args = ['_private' => []];
+    $isFirstDay = Globals::getDay() == 1;
+    $selection = Globals::getNewDayManaSelection();
+    $args = [
+      'descSuffix' => $isFirstDay ? 'firstday' : '',
+      'canPass' => $isFirstDay,
+      '_private' => [],
+    ];
+
     foreach (Players::getAll() as $pId => $player) {
       $hand = $player->getHand();
       $args['_private'][$pId] = [
-        'n' => $this->gamestate->state()['name'] == 'newDayMana' ? 1 : 3,
+        'n' => $isFirstDay ? 3 : 1,
         'cards' => $hand->getIds(),
         'selection' => $selection[$pId] ?? null,
       ];
@@ -64,67 +77,63 @@ trait NewDayTrait
     return $args;
   }
 
-  public function actDayMana($cardIds)
+  public function actNewDayManaSelection($cardIds)
   {
-    self::checkAction('actDayMana');
+    self::checkAction('actNewDayManaSelection');
     $player = Players::getCurrent();
-    $args = $this->argsNewDay()['_private'][$player->getId()];
+    $args = $this->argsNewDayManaSelection()['_private'][$player->getId()];
 
     if (count($cardIds) != $args['n']) {
       throw new \BgaUserException(clienttranslate('You must select the correct number of cards to put as mana'));
     }
     if (!empty(array_diff($cardIds, $args['cards']))) {
-      throw new \BgaUserException('You do not own this card. Should not happen');
+      throw new \BgaUserException('Invalid card to select. Should not happen');
     }
 
-    $selection = Globals::getFirstDayManaSelection();
+    $selection = Globals::getNewDayManaSelection();
     $selection[$player->getId()] = $cardIds;
-    Globals::setFirstDayManaSelection($selection);
-    Notifications::updateDayManaSelection($player, self::argsNewDay());
+    Globals::setNewDayManaSelection($selection);
+    Notifications::updateNewDayManaSelection($player, self::argsNewDayManaSelection());
 
-    $this->updateActivePlayersNewDaySelection();
+    $this->updateActivePlayersNewDayManaSelection();
   }
 
-  public function actCancelFirstDayMana()
+  public function actCancelNewDayManaSelection()
   {
-    $this->gamestate->checkPossibleAction('actCancelFirstDayMana');
+    $this->gamestate->checkPossibleAction('actCancelNewDayManaSelection');
 
-    $this->actCancelNewDayMana(false);
+    $player = Players::getCurrent();
+    $selection = Globals::getNewDayManaSelection();
+    unset($selection[$player->getId()]);
+    Globals::setNewDayManaSelection($selection);
+    Notifications::updateNewDayManaSelection($player, self::argsNewDayManaSelection());
+
+    $this->updateActivePlayersNewDayManaSelection();
   }
 
-  public function actCancelNewDayMana($check = true)
+  public function actPassNewDayManaSelection()
   {
-    if ($check === true) {
-      $this->gamestate->checkPossibleAction('actCancelNewDayMana');
+    self::checkAction('actPassNewDayManaSelection');
+    $args = $this->argsNewDay();
+    if (!$args['canPass']) {
+      throw new \BgaUserException('You cant pass. Should not happen');
     }
 
     $player = Players::getCurrent();
-    $selection = Globals::getFirstDayManaSelection();
-    unset($selection[$player->getId()]);
-    Globals::setFirstDayManaSelection($selection);
-    Notifications::updateDayManaSelection($player, self::argsNewDay());
-
-    $this->updateActivePlayersNewDaySelection();
-  }
-
-  public function actPassNewDay()
-  {
-    self::checkAction('actPassNewDay');
-    $player = Players::getCurrent();
-    $selection = Globals::getFirstDayManaSelection();
+    $selection = Globals::getNewDayManaSelection();
     $selection[$player->getId()] = [];
-    Globals::setFirstDayManaSelection($selection);
+    Globals::setNewDayManaSelection($selection);
     Notifications::updateDayManaSelection($player, self::argsNewDay());
 
-    $this->updateActivePlayersNewDaySelection();
+    $this->updateActivePlayersNewDayManaSelection();
   }
 
-  public function updateActivePlayersNewDaySelection()
+  public function updateActivePlayersNewDayManaSelection()
   {
     // Compute players that still need to select their card
     // => use that instead of BGA framework feature because in some rare case a player
     //    might become inactive eventhough the selection failed (seen in Agricola and Rauha at least already)
-    $selection = Globals::getFirstDayManaSelection();
+    $selection = Globals::getNewDayManaSelection();
     $players = Players::getAll();
     $ids = $players->getIds();
     $ids = array_diff($ids, array_keys($selection));
@@ -135,25 +144,16 @@ trait NewDayTrait
     }
     // Everyone is done => discard cards and proceed
     else {
-      $selection = Globals::getFirstDayManaSelection();
+      $selection = Globals::getNewDayManaSelection();
       foreach ($players as $pId => $player) {
         $cardIds = $selection[$pId];
-
-        // $remainingIds = array_diff($player->getHand()->getIds(), $cardIds);
-
-        if (empty($cardsIds)) {
-          // nothing to do if no card was discarded
+        if (empty($cardIds)) {
           continue;
         }
-        $cards = Cards::getMany($cardIds);
+
         Cards::discard($cardIds, MANA);
         $cards = Cards::getMany($cardIds);
-        // throw new \feException($cards->first()->getId());
-        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} places ${n} cards as mana'));
-
-        // Change of rules, not needed anymore
-        // Cards::move($remainingIds, 'hand');
-        // Notifications::moveToHand($player, Cards::getMany($remainingIds));
+        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
       }
 
       $this->gamestate->nextState('done');

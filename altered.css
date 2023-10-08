@@ -297,6 +297,23 @@ html {
   .altered-card .help-marker {
     left: auto;
     right: 2px; }
+  .altered-card.unselectable {
+    cursor: not-allowed;
+    filter: grayscale(80%);
+    -webkit-transform: translateZ(0);
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden; }
+  .altered-card.selectable {
+    cursor: pointer; }
+    .altered-card.selectable:hover {
+      transform: scale(1.1); }
+  .altered-card.selected {
+    border: 2px solid red;
+    margin: 2px 4px;
+    box-shadow: 0px 0px 10px 0px red; }
+  .altered-card.selectedToMana {
+    border-color: #1059c5;
+    box-shadow: 0px 0px 10px 0px #319cda; }
   .altered-card .altered-card-wrapper {
     width: 324px;
     height: 450px;
@@ -364,6 +381,8 @@ html {
       background-image: url("img/illustrations/MU-49_Nurturing_Watering_Can_RGB_02.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="OR-33_Aegis Veteran_RGB_01"] {
       background-image: url("img/illustrations/OR-33_Aegis Veteran_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="back"] {
+      background-image: url("img/back-main.jpg"); }
     .altered-card .altered-card-wrapper .card-frame {
       position: absolute;
       z-index: 2;
@@ -478,7 +497,7 @@ html {
       .altered-card .altered-card-wrapper .card-forest[data-size="3"],
       .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
       .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
-        width: 60px; }
+        width: 80px; }
     .altered-card .altered-card-wrapper .card-forest {
       top: 100px;
       background: #abb648;
@@ -558,6 +577,81 @@ html {
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
     top: 150px;
     border-top-right-radius: 4px; }
+
+#floating-hand-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  transition: transform 0.8s;
+  z-index: 1000;
+  --cardScale: 0.4;
+  transform: translateY(calc(100% - var(--cardScale) * 140px));
+  box-shadow: 0 0 10px 1px #ff0;
+  background-color: rgba(40, 39, 36, 0.78);
+  border-top: 1px solid #7c5d45;
+  border-right: 1px solid #7c5d45;
+  border-top-right-radius: 8px; }
+  #floating-hand-wrapper:not(.active) {
+    display: none; }
+  #floating-hand-wrapper[data-open] {
+    transform: translateY(0px); }
+  #floating-hand-wrapper #floating-hand-button-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-start;
+    z-index: 2;
+    transition: top 0.8s; }
+    #floating-hand-wrapper #floating-hand-button-container #floating-hand-button {
+      border: 1px solid black;
+      border-radius: 50%;
+      box-shadow: 2px 2px 5px black;
+      background-color: gray;
+      margin: 0px 5px;
+      margin-top: -38px;
+      cursor: pointer;
+      transform: translateY(0);
+      transition: transform 0.4s, margin 0.4s; }
+      #floating-hand-wrapper #floating-hand-button-container #floating-hand-button:hover {
+        transform: translateY(-10px); }
+      #floating-hand-wrapper #floating-hand-button-container #floating-hand-button .icon-hand {
+        width: 40px;
+        height: 40px;
+        margin: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px; }
+        #floating-hand-wrapper #floating-hand-button-container #floating-hand-button .icon-hand i {
+          display: none; }
+  #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button {
+    margin-top: -58px;
+    margin-bottom: 20px; }
+    #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button .icon-hand {
+      background: none; }
+      #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button .icon-hand i {
+        display: block; }
+    #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button:hover .icon-hand {
+      font-size: 34px; }
+  #floating-hand-wrapper #floating-hand {
+    width: 100%;
+    height: 100%;
+    margin-top: calc(-1 * var(--cardScale) * 12px);
+    padding-top: calc(var(--cardScale) * 12px);
+    min-width: calc(var(--cardScale) * 375px); }
+    #floating-hand-wrapper #floating-hand .player-board-hand {
+      display: flex;
+      max-width: 99vw;
+      flex-wrap: wrap;
+      justify-content: flex-start; }
+      #floating-hand-wrapper #floating-hand .player-board-hand .ark-card {
+        margin: 4px;
+        flex-shrink: 0; }
+        #floating-hand-wrapper #floating-hand .player-board-hand .ark-card.selected {
+          margin: 2px; }
+        #floating-hand-wrapper #floating-hand .player-board-hand .ark-card:hover {
+          z-index: 4; }
 
 .altered-icon {
   background: url("img/icons.png");
@@ -753,6 +847,12 @@ html {
 .player-info {
   display: flex;
   justify-content: space-between; }
+  .player-info .mana-counter-holder {
+    font-family: "Jali Greek Variable";
+    font-size: 20px;
+    text-align: center; }
+  .player-info .altered-card {
+    position: absolute; }
 
 #player_board_config {
   position: relative;

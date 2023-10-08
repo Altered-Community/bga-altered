@@ -37,10 +37,15 @@ define([
         ['clearTurn', 200],
         ['refreshUI', 200],
         ['refreshHand', 200],
+        ['updateNewDayManaSelection', 200],
+
+        ['pDrawCards', null],
+        ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
+        ['pDiscardCards', null],
+        ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
+        // ['discardCardsOnDisplay', null],
 
         ['setupPlayer', null],
-        ['pDiscardMana', 500],
-        ['discardMana', null, (notif) => notif.args.player_id == this.player_id],
         ['payMana', 500],
         ['discard', 500],
         ['tap', 500],
@@ -48,8 +53,6 @@ define([
         ['moveStormToken', 500],
         ['newFirstPlayer', 500],
         ['untap', 500],
-        ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
-        ['pDrawCards', 500],
       ];
 
       // Fix mobile viewport (remove CSS zoom)
@@ -71,7 +74,7 @@ define([
         ////////////////////
         ///    LAYOUT    ///
         handLocation: {
-          default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 0),
+          default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 3),
           name: _('Hand of cards'),
           type: 'select',
           values: {
@@ -137,10 +140,9 @@ define([
     },
 
     openHand() {
-      // TODO
-      // if (this.isFloatingHand()) {
-      //   $('floating-hand-wrapper').dataset.open = 'hand';
-      // }
+      if (this.isFloatingHand()) {
+        $('floating-hand-wrapper').dataset.open = 'hand';
+      }
     },
 
     /**
@@ -300,6 +302,9 @@ define([
     clearPossible() {
       dojo.empty('pagesubtitle');
 
+      dojo.query('.selectedToDiscard').removeClass('selectedToDiscard');
+      dojo.query('.selectedToKeep').removeClass('selectedToKeep');
+
       let toRemove = [];
       toRemove.forEach((eltId) => {
         if ($(eltId)) $(eltId).remove();
@@ -403,45 +408,44 @@ define([
       if (this[methodName] !== undefined) this[methodName](args.args);
     },
 
-    //////////////////////////////
-    //  ____  _             _
-    // / ___|| |_ __ _ _ __| |_
-    // \___ \| __/ _` | '__| __|
-    //  ___) | || (_| | |  | |_
-    // |____/ \__\__,_|_|   \__|
-    //////////////////////////////
+    //////////////////////////////////////////////////////
+    //  _   _                 ____
+    // | \ | | _____      __ |  _ \  __ _ _   _
+    // |  \| |/ _ \ \ /\ / / | | | |/ _` | | | |
+    // | |\  |  __/\ V  V /  | |_| | (_| | |_| |
+    // |_| \_|\___| \_/\_/   |____/ \__,_|\__, |
+    //                                    |___/
+    //////////////////////////////////////////////////////
 
-    notif_setupPlayer(n) {
-      debug('Notif: finish setup of player', n);
+    onEnteringStateNewDayManaSelection(args) {
+      if (!args._private) return;
+      this.openHand();
 
-      // let player = this.gamedatas.players[n.args.player_id];
+      // Already made a selection => allow to cancel it
+      if (args._private.selection != null) {
+        this.addSecondaryActionButton('actCancelNewDayManaSelection', _('Cancel'), () =>
+          this.takeAction('actCancelNewDayManaSelection', {}, false)
+        );
+        args._private.selection.forEach((cardId) => {
+          $(`card-${cardId}`).classList.add('selectedToMana');
+        });
+      }
+      // No selection yet => let the user click on it
+      else {
+        this.onSelectNCards(args._private.cards, {
+          n: args._private.n,
+          class: 'selectedToMana',
+          confirmText: _('Confirm Mana'),
+          callback: (selectedElements, ignoredElements) =>
+            this.takeAction('actNewDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
+        });
+      }
+    },
 
-      // // Action Cards
-      // player.actionCards = n.args.action_cards;
-      // this.updateActionCards();
-
-      // // Map
-      // let container = $(`player-board-${player.id}`);
-      // let previousMap = container.querySelector('.zoo-map');
-      // if (previousMap) previousMap.remove();
-
-      // player.mapId = n.args.mapId;
-      // $(`icons-summary-map-${player.id}`).insertAdjacentHTML(
-      //   'afterend',
-      //   this.tplZooMap(MAPS_DATA[player.mapId], player),
-      // );
-      // this.activateShowBuildingHelperButtons();
-      // this.setupChangeBoardArrows(player.id);
-
-      // // Meeples
-      // n.args.meeples.forEach((meeple) => this.addMeeple(meeple));
-
-      // // Buildings (for map A)
-      // n.args.buildings.forEach((building) => this.addBuilding(building));
-
-      // // Worker counter
-      // this._playerCounters[player.id]['worker'] = this.createCounter(`counter-${player.id}-worker`, 0);
-      // this.updateWorkerCounters();
+    notif_updateNewDayManaSelection(n) {
+      this.clearPossible();
+      this.updatePageTitle();
+      this.onEnteringStateNewDayManaSelection(n.args.args);
     },
 
     ////////////////////////////////////////
@@ -655,21 +659,14 @@ define([
            </div>`,
       });
 
-      // let handWrapper = $('floating-hand-wrapper');
-      // $('floating-hand-button').addEventListener('click', () => {
-      //   if (handWrapper.dataset.open && handWrapper.dataset.open == 'hand') {
-      //     delete handWrapper.dataset.open;
-      //   } else {
-      //     handWrapper.dataset.open = 'hand';
-      //   }
-      // });
-      // $('floating-scoring-hand-button').addEventListener('click', () => {
-      //   if (handWrapper.dataset.open && handWrapper.dataset.open == 'scoringHand') {
-      //     delete handWrapper.dataset.open;
-      //   } else {
-      //     handWrapper.dataset.open = 'scoringHand';
-      //   }
-      // });
+      let handWrapper = $('floating-hand-wrapper');
+      $('floating-hand-button').addEventListener('click', () => {
+        if (handWrapper.dataset.open && handWrapper.dataset.open == 'hand') {
+          delete handWrapper.dataset.open;
+        } else {
+          handWrapper.dataset.open = 'hand';
+        }
+      });
     },
 
     tplInfoPanel() {
