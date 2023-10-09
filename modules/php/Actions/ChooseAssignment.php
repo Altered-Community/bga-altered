@@ -34,15 +34,22 @@ class ChooseAssignment extends \ALT\Models\Action
     $actions = ['play' => [], 'echo' => [], 'tap' => []];
 
     // 1. Play cards
-    $actions['play'] = $handCards->merge($memoryCards)
+    $actions['play'] = $handCards
+      ->merge($memoryCards)
       ->filter(function ($card) use ($player) {
         return $card->canBePlayed($player);
       })
       ->map(function ($card) {
         $type = $card->getType();
-        if ($type == PERMANENT) return [PERMANENT];
-        if ($type == SPELL) return [MEMORY];
-        if ($type == EXPLORER) return [STORM_LEFT, STORM_RIGHT];
+        if ($type == PERMANENT) {
+          return [PERMANENT];
+        }
+        if ($type == SPELL) {
+          return [MEMORY];
+        }
+        if ($type == EXPLORER) {
+          return [STORM_LEFT, STORM_RIGHT];
+        }
         return [];
       });
 
@@ -52,7 +59,6 @@ class ChooseAssignment extends \ALT\Models\Action
         return !is_null($card->getEffectEcho());
       })
       ->getIds();
-
 
     // 3. Permanent/tap effect
     $actions['tap'] = $player->getPlayedCards()->filter(function ($card) {
@@ -75,6 +81,7 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     $this->playCard($cardId, $location);
+    $this->resolveAction([$cardId, $location]);
   }
 
   public function playCard($cardId, $location)
@@ -91,6 +98,7 @@ class ChooseAssignment extends \ALT\Models\Action
     // Move card
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
+    Globals::incPlayedCards();
 
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
@@ -102,17 +110,15 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     // insert linked flow
-    // $effect = 'getEffect' . ucfirst($location);
-    // Globals::incPlayedCards();
-    // list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
+    $effect = 'getEffect' . ucfirst($fromLocation);
+    list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
 
     // if (!isset($power['args']['cardId'])) {
     //   $power['args']['cardId'] = $cardId;
     // }
     // throw new \feException(print_r($power));
 
-    // TODO: remove
-    // $this->pushParallelChilds($power);
+    $this->pushParallelChilds($power);
   }
 
   public function actEcho($cardId)

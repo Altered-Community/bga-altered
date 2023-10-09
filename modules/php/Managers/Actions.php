@@ -17,8 +17,8 @@ class Actions
     // MANA => 'Mana',
     CHOOSE_ASSIGNMENT => 'ChooseAssignment',
     DISCARD => 'Discard',
-
     GAIN => 'Gain',
+    TARGET => 'Target',
     // PAY => 'Pay',
     // ACTIVATE_CARD => 'ActivateCard',
     // SPECIAL_EFFECT => 'SpecialEffect',
@@ -110,7 +110,6 @@ class Actions
     Engine::resolveAction(['actionName' => $actionName, 'args' => $args], $checkpoint, $ctx, $automatic);
     Engine::proceed();
   }
-
 
   public static function stAction($actionId, $ctx)
   {

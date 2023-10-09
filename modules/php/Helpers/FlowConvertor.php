@@ -95,10 +95,18 @@ abstract class FlowConvertor
       if ($args['income'] ?? false) {
         $data['args']['income'] = true;
       }
-      if (!isset($args['cardId']) && !is_null($args['sourceId'])) {
+      if (!isset($args['cardId']) && !is_null($args['sourceId'] ?? null)) {
         $data['args']['cardId'] = $args['sourceId'];
       }
       return $data;
+    } elseif ($type == TARGET_ALL_EXPLORER) {
+      // target will trigger a sequential node, with the args
+      $childs = [];
+      $childs[] = ['action' => TARGET, 'args' => []];
+      foreach ($n as $action => $am) {
+        $childs[] = self::getFlowSingleBonusAux($action, $am);
+      }
+      return ['node' => NODE_SEQ, 'childs' => $childs];
     }
     // // Addition worker => same as "Full Throated" animal effect
     // elseif ($type == \BONUS_WORKER) {

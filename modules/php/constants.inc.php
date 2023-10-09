@@ -107,6 +107,7 @@ const MANA = 'MANA';
 const CHOOSE_ASSIGNMENT = 'CHOOSE_ASSIGNMENT';
 const GAIN = 'GAIN';
 const DISCARD = 'DISCARD';
+const TARGET = 'TARGET';
 // const ADVANCE_BREAK = 'ADVANCE_BREAK';
 // const PAY = 'PAY';
 // const CLEANUP = 'CLEANUP';
@@ -123,6 +124,9 @@ const DISCARD = 'DISCARD';
 // const BUY_SPONSOR = 'BUY_SPONSOR';
 // const VENOM_PAY = 'VENOM_PAY';
 // const WAZA_SPECIAL = 'WAZA_SPECIAL';
+
+////////////// Flow convertor constants
+const TARGET_ALL_EXPLORER = 'target_all_explorer';
 
 const ACTIVE = 1;
 const INACTIVE = 0;
@@ -162,6 +166,10 @@ const RARITY_UNIQUE = 2;
 const FACTION_BR = 'BR';
 const FACTION_MU = 'MU';
 const FACTIONS = [FACTION_BR, FACTION_MU];
+
+const OPPONENT = 'opponent';
+const ME = 'me';
+const ALL = 'all';
 
 /*********************
  ****** MEEPLES ******
