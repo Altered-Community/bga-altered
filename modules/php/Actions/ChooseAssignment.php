@@ -10,6 +10,7 @@ use ALT\Managers\ActionCards;
 use ALT\Core\Engine;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
+use ALT\Helpers\FlowConvertor;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
 
@@ -96,15 +97,22 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // if played from memory, it gains fleeting
     if ($fromLocation == MEMORY) {
-      $card->setProperty(FLEETING, true);
-      Notifications::gainToken(FLEETING, $card);
+      $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
+      Notifications::gainToken(FLEETING, $card, $token);
     }
 
     // insert linked flow
     $effect = 'getEffect' . ucfirst($location);
     Globals::incPlayedCards();
+    list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
+
+    // if (!isset($power['args']['cardId'])) {
+    //   $power['args']['cardId'] = $cardId;
+    // }
+    // throw new \feException(print_r($power));
+
     // TODO: remove
-    // $this->pushParallelChilds($card->$effect());
+    $this->pushParallelChilds($power);
   }
 
   public function actEcho($cardId)

@@ -171,7 +171,7 @@ class Card extends \ALT\Helpers\DB_Model
   // deletes Token that must be removed at night
   public function nightCleanup()
   {
-    $tokIds = Meeples::getFilteredQuery(null, 'card-' . $this->id, [TOKEN_ASLEEP, TOKEN_ANCHORED])
+    $tokIds = Meeples::getFilteredQuery(null, 'card-' . $this->id, [ASLEEP, ANCHORED])
       ->get()
       ->getIds();
     foreach ($tokIds as $id) {
@@ -276,7 +276,7 @@ class Card extends \ALT\Helpers\DB_Model
     $biomes = [OCEAN => $this->getOcean(), MOUNTAIN => $this->getMountain(), FOREST => $this->getForest()];
     if ($includeModifiers === true) {
       // BOOST
-      $boost = $this->countToken(TOKEN_BOOST);
+      $boost = $this->countToken(BOOST);
       foreach ($biomes as $type => &$value) {
         $value += $boost;
       }
@@ -294,7 +294,7 @@ class Card extends \ALT\Helpers\DB_Model
       throw new \BgaVisibleSystemException('Cannot be boosted, not in an expedition. Should not happen');
     }
 
-    $tokens = Meeples::create([['type' => TOKEN_BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
+    $tokens = Meeples::create([['type' => BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
     if ($notify === true) {
       Notifications::boost($this, $source, $tokens);
     }

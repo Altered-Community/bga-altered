@@ -222,13 +222,13 @@ class Notifications
     ]);
   }
 
-  public static function gainToken($power, $card, $silent = true)
+  public static function gainToken($power, $card, $meeple, $silent = true)
   {
     $msg = '';
     if (!$silent) {
       $msg = clienttranslate('${card_name} gains ${power}');
     }
-    self::notifyAll('gainToken', $msg, ['card' => $card, 'power' => $power]);
+    self::notifyAll('gainToken', $msg, ['card' => $card, 'power' => $power, 'i18n' => ['power'], 'meeple' => $meeple]);
   }
 
   public static function echoEffect($player, $card)

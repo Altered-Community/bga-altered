@@ -174,6 +174,12 @@ $machinestates = [
     'possibleactions' => ['actPlay', 'actEcho', 'actTap', 'actPass', 'actRestart'],
   ],
 
+  ST_GAIN => [
+    'name' => 'gain',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
   ST_DISCARD => [
     'name' => 'discard',
     'description' => clienttranslate('${actplayer} must discard ${n} card(s) from ${source} to ${destination}'),

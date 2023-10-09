@@ -56,7 +56,7 @@ const ST_CHOOSE_ASSIGNMENT = 11;
 
 // Atomic action
 const ST_DISCARD = 12;
-// const ST_PLAY_CARD = 12;
+const ST_GAIN = 13;
 // const ST_ACTIVATE_ECHO = 11;
 // const ST_ACTIVATE_ALTERER = 12;
 // const ST_ACTIVATE_PERMANENT = 13;
@@ -136,6 +136,7 @@ const ALTERATEUR = 'alterateur';
 const EXPLORER = 'explorer';
 const PERMANENT = 'permanent';
 const SPELL = 'spell';
+const EVERYONE_ELSE = 'everyone-else';
 
 const HAND = 'hand';
 const MEMORY = 'memory';
@@ -144,9 +145,6 @@ const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';
 const STORMS = [STORM_LEFT, STORM_RIGHT];
 const IN_PLAY = [STORM_LEFT, STORM_RIGHT, PERMANENT];
-
-// Ability
-const FLEETING = 'fleeting';
 
 const STORM_CARDS = [
   [[], [MOUNTAIN, FOREST, OCEAN]],
@@ -171,14 +169,13 @@ const FACTIONS = [FACTION_BR, FACTION_MU];
 const COMPANION = 'companion';
 
 /*********************
- * ****** TOKENS *****
+ * ****** ABILITIES *****
  *********************/
-
-const TOKEN_BOOST = 'token_boost';
-const TOKEN_FLEETING = 'token_fleeting';
-const TOKEN_GIGANTIC = 'token_gigantic';
-const TOKEN_ANCHORED = 'token_anchored';
-const TOKEN_ASLEEP = 'token_asleep';
+const FLEETING = 'fleeting';
+const BOOST = 'boost';
+const GIGANTIC = 'gigantic';
+const ANCHORED = 'anchored';
+const ASLEEP = 'asleep';
 
 /******************
  ****** STATS ******

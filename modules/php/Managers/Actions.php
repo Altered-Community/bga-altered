@@ -17,7 +17,7 @@ class Actions
     CHOOSE_ASSIGNMENT => 'ChooseAssignment',
     DISCARD => 'Discard',
 
-    // GAIN => 'Gain',
+    GAIN => 'Gain',
     // PAY => 'Pay',
     // ACTIVATE_CARD => 'ActivateCard',
     // SPECIAL_EFFECT => 'SpecialEffect',
