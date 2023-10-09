@@ -1,4 +1,5 @@
 <?php
+
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
@@ -81,7 +82,6 @@ class altered extends Table
       'prefs' => Preferences::getUiData($pId),
       'players' => Players::getUiData($pId),
       'cards' => Cards::getUiData(),
-      // 'buildings' => Buildings::getUiData(),
       'meeples' => Meeples::getUiData(),
 
       'storm' => Globals::getStorm(true),

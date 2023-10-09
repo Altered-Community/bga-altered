@@ -75,6 +75,82 @@
 
         .player-board-storm {
             flex-grow: 1;
+
+            .total-biomes {
+                position: absolute;
+                width: 100px;
+                left: -102px;
+                display: flex;
+                flex-flow: column;
+                align-items: flex-end;
+                z-index: -1;
+
+                .total-forest,
+                .total-mountain,
+                .total-ocean {
+                    font-family: "Haptic Pro";
+                    padding: 0px 10px;
+                    color: white;
+                    box-shadow: 0px 0px 3px 1px black;
+                    text-shadow: 0px 0px 6px black;
+
+                    height: 50px;
+                    width: 30px;
+                    margin-bottom: 2px;
+
+                    font-size: 32px;
+                    line-height: 58px;
+                    font-weight: bold;
+                    text-align: right;
+
+                    &[data-size="0"] {
+                        width: 15px;
+                        opacity: 0.5;
+                    }
+                    &[data-size="1"] {
+                        width: 20px;
+                    }
+                    &[data-size="3"] {
+                        width: 40px;
+                    }
+                }
+
+                .total-forest {
+                    background: #abb648;
+                    border-radius: 14px 0 0 4px;
+                }
+                .total-mountain {
+                    background: #af7b51;
+                    border-radius: 4px 0 0 4px;
+                }
+                .total-ocean {
+                    background: #6b93c0;
+                    border-radius: 4px 0 0 14px;
+                }
+            }
+
+            &:nth-of-type(3) {
+                .total-biomes {
+                    left: calc(100% + 2px);
+                    align-items: flex-start;
+
+                    .total-forest,
+                    .total-mountain,
+                    .total-ocean {
+                        text-align: left;
+                    }
+                }
+
+                .total-forest {
+                    border-radius: 0 14px 4px 0;
+                }
+                .total-mountain {
+                    border-radius: 0 4px 4px 0px;
+                }
+                .total-ocean {
+                    border-radius: 0 4px 14px 0;
+                }
+            }
         }
     }
 

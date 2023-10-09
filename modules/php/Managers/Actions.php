@@ -4,8 +4,9 @@ namespace ALT\Managers;
 
 use ALT\Core\Game;
 use ALT\Core\Engine;
+use ALT\Core\Notifications;
+use ALT\Helpers\Log;
 use ALT\Managers\Players;
-use ALT\Core\Globals;
 
 /* Class to manage all the actions for Altered */
 

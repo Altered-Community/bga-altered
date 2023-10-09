@@ -44,7 +44,7 @@ define([
         ['pDiscardCards', null],
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
-        ['playCard', 1200],
+        ['playCard', null],
 
         ['setupPlayer', null],
         ['payMana', 500],
@@ -277,14 +277,12 @@ define([
     notif_refreshUI(n) {
       debug('Notif: refreshing UI', n);
 
-      // TODO
-      // ['meeples', 'players', 'cards', 'buildings', 'break', 'conservationBonuses', 'endOfGame'].forEach((value) => {
-      //   this.gamedatas[value] = n.args.datas[value];
-      // });
-      // this.setupCards();
-      // this.setupMeeples();
-      // this.setupBuildings();
-      // this.updatePlayersCounters();
+      ['meeples', 'players', 'cards'].forEach((value) => {
+        this.gamedatas[value] = n.args.datas[value];
+      });
+      this.setupCards();
+      this.setupMeeples();
+      this.updatePlayersCounters();
     },
 
     notif_refreshHand(n) {

@@ -44,7 +44,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         console.log(oCard);
         if (
           !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
-          !oCard.parentNode.classList.contains('player-board-hand')
+          !oCard.parentNode.classList.contains('player-board-hand') &&
+          !oCard.parentNode.classList.contains('player-board-alterer')
         ) {
           this.destroy(oCard);
         }
@@ -413,17 +414,22 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_playCard(n) {
       debug('Notif: playing a card', n);
-
-      // Slide the card
-      let id = `card-${n.args.card.id}`;
-      if (!$(id)) {
-        this.addCard(n.args.card, 'page-title');
-      }
-      let container = this.getCardContainer(n.args.card);
-      this.slide(id, container);
+      // Update counters
       this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
       this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+
+      // Slide the card
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+      if (!$(id)) {
+        this.addCard(card, 'page-title');
+      }
+      let container = this.getCardContainer(card);
+      this.slide(id, container).then(() => {
+        this.updateBiomeTotals(card.pId);
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     notif_tap(n) {
@@ -498,8 +504,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
-    getBiomesUISizes(card) {
-      let p = card.properties;
+    getBiomesUISizes(p) {
       let biomes = [p.forest, p.mountain, p.ocean];
       biomes.sort();
       let mid = biomes[1];
@@ -521,7 +526,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplExplorerCard(card) {
       let p = card.properties;
-      let sizes = this.getBiomesUISizes(card);
+      let sizes = this.getBiomesUISizes(p);
       return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-explorer'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
@@ -534,7 +539,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     tplExplorerCardTooltip(card) {
       let p = card.properties;
-      let sizes = this.getBiomesUISizes(card);
+      let sizes = this.getBiomesUISizes(p);
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
         <div class='altered-card card-explorer'>
           <div class='altered-card-wrapper' data-asset='${p.asset}'>

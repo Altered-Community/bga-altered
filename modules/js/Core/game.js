@@ -733,7 +733,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
     slide(mobileElt, targetElt, options = {}) {
       let config = Object.assign(
         {
-          duration: 800,
+          duration: 1000,
           delay: 0,
           destroy: false,
           attach: true,

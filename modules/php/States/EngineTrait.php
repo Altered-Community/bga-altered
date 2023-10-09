@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\States;
+
 use ALT\Core\Globals;
 use ALT\Core\Engine;
 use ALT\Core\Game;
@@ -130,7 +132,8 @@ trait EngineTrait
   {
     self::checkAction($actionName);
     $action = $this->getCurrentAtomicAction();
-    Actions::takeAction($action, $actionName, $args, Engine::getNextUnresolved());
+    $ctx = Engine::getNextUnresolved();
+    Actions::takeAction($action, $actionName, $args, $ctx);
   }
 
   /**

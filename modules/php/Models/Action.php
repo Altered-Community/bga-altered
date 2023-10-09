@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Models;
+
 use ALT\Core\Engine;
 use ALT\Core\Game;
 use ALT\Core\Globals;
@@ -12,6 +14,7 @@ use ALT\Helpers\FlowConvertor;
 /*
  * Action: base class to handle atomic action
  */
+
 class Action
 {
   protected $ctx = null; // Contain ctx information : current node of flow tree
@@ -65,6 +68,11 @@ class Action
   /**
    * Syntaxic sugar
    */
+  public function getCtx()
+  {
+    return $this->ctx;
+  }
+
   public function getCtxArgs()
   {
     if ($this->ctx == null) {

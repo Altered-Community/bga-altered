@@ -102,9 +102,9 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     // insert linked flow
-    $effect = 'getEffect' . ucfirst($location);
-    Globals::incPlayedCards();
-    list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
+    // $effect = 'getEffect' . ucfirst($location);
+    // Globals::incPlayedCards();
+    // list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
 
     // if (!isset($power['args']['cardId'])) {
     //   $power['args']['cardId'] = $cardId;
@@ -112,7 +112,7 @@ class ChooseAssignment extends \ALT\Models\Action
     // throw new \feException(print_r($power));
 
     // TODO: remove
-    $this->pushParallelChilds($power);
+    // $this->pushParallelChilds($power);
   }
 
   public function actEcho($cardId)

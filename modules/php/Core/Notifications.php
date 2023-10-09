@@ -284,30 +284,14 @@ class Notifications
   }
 
   /*********** unchecked ******* */
-  // Remove extra information from cards
-  protected function filterCardDatas($card)
-  {
-    return [
-      'id' => $card['id'],
-      'location' => $card['location'],
-      'pId' => $card['pId'],
-    ];
-  }
   public static function refreshUI($datas)
   {
     // // Keep only the thing that matters
     $fDatas = [
       'players' => $datas['players'],
       'cards' => $datas['cards'],
-      'buildings' => $datas['buildings'],
       'meeples' => $datas['meeples'],
-      'break' => $datas['break'],
-      'conservationBonuses' => $datas['conservationBonuses'],
     ];
-
-    foreach ($fDatas['cards'] as $i => $card) {
-      $fDatas['cards'][$i] = self::filterCardDatas($card);
-    }
     foreach ($fDatas['players'] as &$player) {
       $player['hand'] = []; // Hide hand !
     }
@@ -319,9 +303,6 @@ class Notifications
 
   public static function refreshHand($player, $hand)
   {
-    foreach ($hand as &$card) {
-      $card = self::filterCardDatas($card);
-    }
     self::notify($player, 'refreshHand', '', [
       'player' => $player,
       'hand' => $hand,

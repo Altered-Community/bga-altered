@@ -63,12 +63,25 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplPlayerBoard(player) {
       let above = player.order == 0 ? '' : 'above';
+      let pId = player.id;
       return (
-        `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
+        `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${pId}'>
         <div class='player-board-top'>
-          <div class='player-board-storm' id='board-stormLeft-${player.id}'></div>
-          <div class='player-board-alterer' id='board-alterateur-${player.id}'></div>
-          <div class='player-board-storm' id='board-stormRight-${player.id}'></div>
+          <div class='player-board-storm' id='board-stormLeft-${pId}'>
+            <div class="total-biomes">
+              <div class='total-forest'></div>
+              <div class='total-mountain'></div>
+              <div class='total-ocean'></div>
+            </div>
+          </div>
+          <div class='player-board-alterer' id='board-alterateur-${pId}'></div>
+          <div class='player-board-storm' id='board-stormRight-${pId}'>
+            <div class="total-biomes">
+              <div class='total-forest'></div>
+              <div class='total-mountain'></div>
+              <div class='total-ocean'></div>
+            </div>
+          </div>
         </div>
         <div class='player-board-middle'>
           <div class='player-board-memory' id='board-memory-${player.id}'>Memory</div>
@@ -154,6 +167,30 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           //     }
           //   }
           // }
+        });
+
+        this.updateBiomeTotals(player.id);
+      });
+    },
+
+    updateBiomeTotals(pId) {
+      // Update the total for each biome and each side
+      ['stormLeft', 'stormRight'].forEach((storm) => {
+        let p = { forest: 0, mountain: 0, ocean: 0 };
+        let container = $(`board-${storm}-${pId}`);
+        [...container.querySelectorAll('.altered-card')].forEach((oCard) => {
+          ['forest', 'mountain', 'ocean'].forEach((biome) => {
+            let o = oCard.querySelector(`.card-${biome}`);
+            if (o) p[biome] += +o.innerHTML;
+          });
+        });
+
+        // Update
+        let sizes = this.getBiomesUISizes(p);
+        ['forest', 'mountain', 'ocean'].forEach((biome) => {
+          let o = container.querySelector(`.total-${biome}`);
+          o.innerHTML = p[biome];
+          o.dataset.size = sizes[biome];
         });
       });
     },
