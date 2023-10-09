@@ -468,6 +468,10 @@ html {
         background: #a82249;
         box-shadow: 0px 0px 5px #ce3f65;
         border: 1px solid #ce3f65; }
+      .altered-card .altered-card-wrapper .card-memory-cost[data-faction="BR"] {
+        background: #5f1f16;
+        box-shadow: 0px 0px 5px #aa212e;
+        border: 1px solid #aa212e; }
     .altered-card .altered-card-wrapper .card-forest,
     .altered-card .altered-card-wrapper .card-mountain,
     .altered-card .altered-card-wrapper .card-ocean {
@@ -815,6 +819,15 @@ html {
       display: flex;
       align-items: center;
       justify-content: center; }
+      .altered-player-board-resizable .player-board-top > div.selectable,
+      .altered-player-board-resizable .player-board-middle > div.selectable,
+      .altered-player-board-resizable .player-board-bottom > div.selectable {
+        border: 2px dashed black;
+        cursor: pointer; }
+        .altered-player-board-resizable .player-board-top > div.selectable:hover,
+        .altered-player-board-resizable .player-board-middle > div.selectable:hover,
+        .altered-player-board-resizable .player-board-bottom > div.selectable:hover {
+          border: 2px solid red; }
   .altered-player-board-resizable .player-board-top .player-board-alterer {
     width: 120px;
     flex-shrink: 0; }

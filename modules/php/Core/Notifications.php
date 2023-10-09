@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Core;
+
 use ALT\Managers\Players;
 use ALT\Helpers\Utils;
 use ALT\Helpers\Collection;
@@ -204,9 +206,10 @@ class Notifications
     ]);
   }
 
-  public static function playCard($player, $card, $cost, $from, $to = null)
+  public static function playCard($player, $card, $cost, $fromLocation, $location)
   {
-    $msg = clienttranslate('${player_name} plays ${card_name} (${from}) for ${cost} and places it in ${to}');
+    $msg = $fromLocation == MEMORY ? clienttranslate('${player_name} plays ${card_name} from Memory for ${cost} and places it in ${location}') :
+      clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -214,8 +217,8 @@ class Notifications
       'cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
-      'from' => $from,
-      'to' => $to,
+      'location' => $location,
+      'i18n' => ['location'],
     ]);
   }
 
@@ -1298,5 +1301,3 @@ class Notifications
     }
   }
 }
-
-?>

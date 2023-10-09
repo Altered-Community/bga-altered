@@ -24,24 +24,16 @@ trait TurnTrait
     }
   }
 
-  /********************* NEW DAY************************ */
-
-  // function stNewDay()
-  // {
-  //   $nCards = 2;
-  //   $day = Globals::incDay(1);
-  //   Globals::setSkippedPlayers([]);
-  //   // draw and pick 2
-  //   foreach (Players::getAll() as $pId => $player) {
-  //     // put in specific location as they must be choosen
-  //     $player->draw($nCards, 'deck', 'hand');
-  //   }
-  //   // init of custom turn order (or break method of AN)
-  // }
+  ///////////////////////////////
+  //  ____  _             _
+  // / ___|| |_ __ _ _ __| |_
+  // \___ \| __/ _` | '__| __|
+  //  ___) | || (_| | |  | |_
+  // |____/ \__\__,_|_|   \__|
+  ///////////////////////////////
 
   /**
    * State function when starting a turn
-   *  useful to intercept for some cards that happens at that moment
    */
   function stBeforeAssignment()
   {
@@ -93,11 +85,13 @@ trait TurnTrait
     Engine::proceed();
   }
 
-  /*******************************
-   ********************************
-   ********** DUSK *********
-   ********************************
-   *******************************/
+  ////////////////////////////
+  //  ____            _
+  // |  _ \ _   _ ___| | __
+  // | | | | | | / __| |/ /
+  // | |_| | |_| \__ \   <
+  // |____/ \__,_|___/_|\_\
+  ////////////////////////////
 
   function stPreBeforeDusk()
   {
@@ -171,97 +165,127 @@ trait TurnTrait
     $this->gamestate->nextState('done');
   }
 
-  /*******************************
-   ********************************
-   ********** END OF TURN *********
-   ********************************
-   *******************************/
+  ////////////////////////////////
+  //  _   _ _       _     _
+  // | \ | (_) __ _| |__ | |_
+  // |  \| | |/ _` | '_ \| __|
+  // | |\  | | (_| | | | | |_
+  // |_| \_|_|\__, |_| |_|\__|
+  //          |___/
+  ////////////////////////////////
 
-  /**
-   * End of turn : replenish and check break
-   */
-  function stEndOfTurn()
+  function stBeforeNight()
   {
-    Globals::setUsedVenom(false);
-    Globals::setVenomPaid(false);
-    Globals::setVenomTriggered(false);
-    Globals::setEffectMap4(false);
+    if (Players::checkVictory()) {
+      return;
+    }
+
+    Globals::setStormMoves([]);
+    foreach (Players::getAll() as $pId => $player) {
+      $player->nightCleanup();
+    }
+    $this->checkCardListeners('BeforeNight', 'stPreNight');
+  }
+
+  function stPreNight()
+  {
+    Globals::setSkippedPlayers([]);
+    Globals::setPlayedCards(1);
+    $this->initCustomDefaultTurnOrder('nightPhase', \ST_NIGHT, ST_NEW_DAY, true);
+  }
+
+  public function stNight()
+  {
     $player = Players::getActive();
+    // check if a player skipped his turn
+    $skipped = Globals::getSkippedPlayers();
 
-    // Solo mode: move one cube to the right
-    if (Globals::isSolo()) {
-      $this->stEndOfSoloTurn();
+    if (in_array($player->getId(), $skipped)) {
+      // Everyone has discarded
+      $remaining = array_diff(Players::getAll()->getIds(), $skipped);
+      if (empty($remaining)) {
+        $this->endCustomOrder('nightPhase');
+      } else {
+        $this->nextPlayerCustomOrder('nightPhase');
+      }
+      return;
     }
 
-    // Replenish pool of cards
-    ZooCards::fillPool();
-    Players::checkEndOfGamePlayer($player);
+    // if the player has no need to discard
+    $toDiscard = $player->getMemorySlots() < $player->getMemoryCards()->count();
 
-    if (Globals::isEndTriggered()) {
-      $remaining = Globals::getEndRemainingPlayers();
-      $remaining = array_diff($remaining, [$player->getId()]);
-      Globals::setEndRemainingPlayers($remaining);
+    if ($toDiscard === false) {
+      $skipped[] = $player->getId();
+      Globals::setSkippedPlayers($skipped);
+      $this->nextPlayerCustomOrder('nightPhase');
+      return;
     }
 
-    if (Globals::isMustBreak()) {
-      Globals::setFirstPlayer(Players::getNextId(Players::getActiveId())); // for next start of order.
-      Globals::setBreakPlayer(Players::getActiveId());
-      Globals::setMustBreak(false);
-      $this->endCustomOrder('labor');
-    } elseif (Globals::isEndTriggered() && Globals::getEndRemainingPlayers() == []) {
-      $this->endOfGameInit();
-    } else {
-      $this->nextPlayerCustomOrder('labor');
-    }
-  }
+    self::giveExtraTime($player->getId(), 20);
 
-  function endOfGameInit()
-  {
-    if (Globals::getEndFinalScoringDone() !== true) {
-      // Trigger discard state
-      Engine::setup(
+    // Stats::incTurns($player);
+    $node = [
+      'childs' => [
         [
-          'action' => DISCARD_SCORING,
-          'pId' => 'all',
-          'args' => ['current' => Players::getActive()->getId()],
+          'action' => DISCARD,
+          'pId' => $player->getId(),
+          'args' => [
+            'source' => MEMORY,
+            'destination' => 'discard',
+            'n' => $player->getMemoryCards()->count() - $player->getMemorySlots(),
+          ],
         ],
-        ''
-      );
-      Engine::proceed();
-    } else {
-      // Goto scoring state
-      $this->gamestate->jumpToState(\ST_PRE_END_OF_GAME);
-    }
-    return;
+      ],
+    ];
+
+    // Inserting leaf Action card
+    Engine::setup($node, ['order' => 'nightPhase']);
+    Engine::proceed();
   }
 
-  function stEndOfSoloTurn()
-  {
-    list($token, $mustBreak) = Meeples::endSoloTurn();
-    Notifications::slideMeeples([$token]);
-    Globals::setMustBreak($mustBreak);
-    // Globals::setMustBreak(true);
-  }
+  /////////////////////////
+  //  _____           _
+  // | ____|_ __   __| |
+  // |  _| | '_ \ / _` |
+  // | |___| | | | (_| |
+  // |_____|_| |_|\__,_|
+  /////////////////////////
 
-  function stPreEndOfGame()
-  {
-    throw new \feException('winner');
+  // /**
+  //  * End of turn : replenish and check break
+  //  */
+  // function stEndOfTurn()
+  // {
+  //   Globals::setUsedVenom(false);
+  //   Globals::setVenomPaid(false);
+  //   Globals::setVenomTriggered(false);
+  //   Globals::setEffectMap4(false);
+  //   $player = Players::getActive();
 
-    // TODO: API call
-    $this->gamestate->nextState('');
-  }
+  //   // Solo mode: move one cube to the right
+  //   if (Globals::isSolo()) {
+  //     $this->stEndOfSoloTurn();
+  //   }
 
-  /*
-  function stLaunchEndOfGame()
-  {
-    foreach (ZooCards::getAllCardsWithMethod('EndOfGame') as $card) {
-      $card->onEndOfGame();
-    }
-    Globals::setTurn(15);
-    Globals::setLiveScoring(true);
-    Scores::update(true);
-    Notifications::seed(Globals::getGameSeed());
-    $this->gamestate->jumpToState(\ST_END_GAME);
-  }
-  */
+  //   // Replenish pool of cards
+  //   ZooCards::fillPool();
+  //   Players::checkEndOfGamePlayer($player);
+
+  //   if (Globals::isEndTriggered()) {
+  //     $remaining = Globals::getEndRemainingPlayers();
+  //     $remaining = array_diff($remaining, [$player->getId()]);
+  //     Globals::setEndRemainingPlayers($remaining);
+  //   }
+
+  //   if (Globals::isMustBreak()) {
+  //     Globals::setFirstPlayer(Players::getNextId(Players::getActiveId())); // for next start of order.
+  //     Globals::setBreakPlayer(Players::getActiveId());
+  //     Globals::setMustBreak(false);
+  //     $this->endCustomOrder('labor');
+  //   } elseif (Globals::isEndTriggered() && Globals::getEndRemainingPlayers() == []) {
+  //     $this->endOfGameInit();
+  //   } else {
+  //     $this->nextPlayerCustomOrder('labor');
+  //   }
+  // }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
@@ -170,7 +171,7 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must choose an action or pass'),
     'args' => 'argsAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actHand', 'actMemory', 'actEcho', 'actTap', 'actPass', 'actRestart'],
+    'possibleactions' => ['actPlay', 'actEcho', 'actTap', 'actPass', 'actRestart'],
   ],
 
   ST_DISCARD => [

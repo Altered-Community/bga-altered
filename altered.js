@@ -44,6 +44,7 @@ define([
         ['pDiscardCards', null],
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
+        ['playCard', 1200],
 
         ['setupPlayer', null],
         ['payMana', 500],
@@ -560,12 +561,47 @@ define([
     },
 
     ///////////////////////////////////////
-    //  _____  __  __           _
-    // | ____|/ _|/ _| ___  ___| |_ ___
-    // |  _| | |_| |_ / _ \/ __| __/ __|
-    // | |___|  _|  _|  __/ (__| |_\__ \
-    // |_____|_| |_|  \___|\___|\__|___/
+    //     _        _   _
+    //    / \   ___| |_(_) ___  _ __  ___
+    //   / _ \ / __| __| |/ _ \| '_ \/ __|
+    //  / ___ \ (__| |_| | (_) | | | \__ \
+    // /_/   \_\___|\__|_|\___/|_| |_|___/
     ///////////////////////////////////////
+    onEnteringStateChooseAssignment(args) {
+      let t = args._private;
+      if (t.play) {
+        Object.keys(t.play).forEach((cardId) => {
+          this.onClick(`card-${cardId}`, () =>
+            this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
+              play: t.play,
+              cardId,
+            })
+          );
+        });
+      }
+    },
+
+    onEnteringStateChooseAssignmentLocation(args) {
+      this.addCancelStateBtn();
+      this.onEnteringStateChooseAssignment({ _private: { play: args.play } });
+      let cardId = args.cardId;
+      $(`card-${cardId}`).classList.add('selected');
+
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actPlay', [cardId, location]);
+      };
+
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+        permanent: _('Permanent'),
+        memory: _('Memory'),
+      };
+      args.play[cardId].forEach((location, i) => {
+        this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
+        this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+      });
+    },
 
     ////////////////////////////////////////////////////////////
     // _____                          _   _   _

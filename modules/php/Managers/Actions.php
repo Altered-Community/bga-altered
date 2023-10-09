@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Managers;
+
 use ALT\Core\Game;
 use ALT\Core\Engine;
 use ALT\Managers\Players;
@@ -79,17 +81,35 @@ class Actions
     return array_merge($args, ['optionalAction' => $ctx->isOptional()]);
   }
 
-  public static function takeAction($actionId, $actionName, $args, $ctx)
+  public static function takeAction($actionId, $actionName, $args, &$ctx, $automatic = false)
   {
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
       throw new \BgaUserException(self::getErrorMessage($actionId));
     }
 
+    // Check action
+    if (!$automatic) {
+      Game::get()->checkAction($actionName);
+      $stepId = Log::step();
+      Notifications::newUndoableStep($player, $stepId);
+    } else {
+      Game::get()->gamestate->checkPossibleAction($actionName);
+    }
+
+    // Run action
     $action = self::get($actionId, $ctx);
     $methodName = $actionName; //'act' . self::$classes[$actionId];
     $action->$methodName(...$args);
+
+    // Resolve action
+    $automatic = $ctx->isAutomatic($player);
+    $checkpoint = false; // TODO
+    $ctx = $action->getCtx();
+    Engine::resolveAction(['actionName' => $actionName, 'args' => $args], $checkpoint, $ctx, $automatic);
+    Engine::proceed();
   }
+
 
   public static function stAction($actionId, $ctx)
   {
@@ -112,7 +132,12 @@ class Actions
     $action = self::get($actionId, $ctx);
     $methodName = 'st' . $action->getClassName();
     if (\method_exists($action, $methodName)) {
-      $action->$methodName();
+      $result = $action->$methodName();
+      if (!is_null($result)) {
+        $actionName = 'act' . $action->getClassName();
+        self::takeAction($actionId, $actionName, $result, $ctx, true);
+        return true; // We are changing state
+      }
     }
   }
 

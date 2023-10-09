@@ -55,6 +55,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            &.selectable {
+                border: 2px dashed black;
+                cursor: pointer;
+
+                &:hover {
+                    border: 2px solid red;
+                }
+            }
         }
     }
 

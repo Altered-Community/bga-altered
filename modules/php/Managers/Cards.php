@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Managers;
+
 use ALT\Core\Globals;
 use ALT\Core\Game;
 use ALT\Core\Notifications;
@@ -33,7 +35,7 @@ class Cards extends \ALT\Helpers\Pieces
 
   public static function getUiData()
   {
-    return [];
+    return self::getAll()->where('location', IN_PLAY)->toArray();
   }
 
   ///////////////////////////////////

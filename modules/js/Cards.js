@@ -40,8 +40,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         return card.id;
       });
-      document.querySelectorAll('.ark-card.zoo-card').forEach((oCard) => {
-        if (!cardIds.includes(oCard.getAttribute('data-id')) && !oCard.parentNode.classList.contains('player-board-hand')) {
+      document.querySelectorAll('.altered-card').forEach((oCard) => {
+        console.log(oCard);
+        if (
+          !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
+          !oCard.parentNode.classList.contains('player-board-hand')
+        ) {
           this.destroy(oCard);
         }
       });
@@ -79,6 +83,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let type = card.properties.type;
       if (card.location == 'hand') {
         return $(`hand-${card.pId}`);
+      } else if (['stormLeft', 'stormRight', 'memory', 'permanent'].includes(card.location)) {
+        return $(`board-${card.location}-${card.pId}`);
       } else if (type == ALTERATEUR) {
         return $(card.location);
       }
@@ -405,6 +411,21 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     */
 
+    notif_playCard(n) {
+      debug('Notif: playing a card', n);
+
+      // Slide the card
+      let id = `card-${n.args.card.id}`;
+      if (!$(id)) {
+        this.addCard(n.args.card, 'page-title');
+      }
+      let container = this.getCardContainer(n.args.card);
+      this.slide(id, container);
+      this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
+      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+      this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+    },
+
     notif_tap(n) {
       debug('Notif: tapping card', n);
       // TODO (tap card, etc.)
@@ -471,7 +492,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     tplAlterateurCard(card) {
-      return `<div id="card-${card.id}" class='altered-card card-alterateur'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-alterateur'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;
@@ -501,7 +522,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplExplorerCard(card) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(card);
-      return `<div id="card-${card.id}" class='altered-card card-explorer'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-explorer'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
@@ -537,7 +558,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplSpellCard(card) {
       let p = card.properties;
-      return `<div id="card-${card.id}" class='altered-card card-spell'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-spell'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
@@ -564,7 +585,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     tplPermanentCard(card) {
-      return `<div id="card-${card.id}" class='altered-card card-permanent'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-permanent'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;

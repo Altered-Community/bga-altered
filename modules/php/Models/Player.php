@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Models;
+
 use ALT\Core\Stats;
 use ALT\Core\Notifications;
 use ALT\Core\Preferences;
@@ -92,30 +94,19 @@ class Player extends \ALT\Helpers\DB_Model
   // |____/ \___|\__|\__\___|_|  |___/
   ////////////////////////////////////////
 
-  public function pay($n, $notif = true, $source = null)
+  public function payMana($n, $notif = true, $source = null)
   {
-    if (self::getMana() < $n) {
+    $cards = $this->getManaCards(false)->limit($n);
+    if ($cards->count() < $n) {
       throw new \BgaVisibleSystemException('You don\'t have enough money to pay. Should not happen');
     }
 
-    $mana = Cards::getFilteredQuery($this->id, MANA)
-      ->where('tapped', 0)
-      ->get();
-    $updated = [];
-    $i = 0;
-    foreach ($mana as $mId => $card) {
+    foreach ($cards as $card) {
       $card->setTapped(true);
-      $updated[] = $card->getId();
-      $i++;
-      if ($i == $n) {
-        break;
-      }
     }
-    if ($notif) {
-      Notifications::payMana($this, $n, $this->getMana(), Cards::getMany($updated)->getIds(), $source);
-    }
-
-    return;
+    // if ($notif) {
+    //   Notifications::payMana($this, $n, $this->getMana(), $source);
+    // }
   }
 
   ///////////////////////////////////////////////////
@@ -169,19 +160,22 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::getPlayedCards($this->id, PERMANENT);
   }
 
+  public function getManaCards($tapped = null)
+  {
+    return Cards::getFiltered($this->id, MANA)->filter(function ($card) use ($tapped) {
+      return is_null($tapped) || ($tapped === true && $card->isTapped()) || ($tapped === false && !$card->isTapped());
+    });
+  }
+
+
   public function getMana()
   {
-    return $this->getTotalMana() -
-      count(
-        Cards::getFiltered($this->id, MANA)->filter(function ($card) {
-          return $card->isTapped();
-        })
-      );
+    return $this->getManaCards(false)->count();
   }
 
   public function getTotalMana()
   {
-    return count(Cards::getFiltered($this->id, MANA));
+    return $this->getManaCards()->count();
   }
 
   public function getStormToken($type)

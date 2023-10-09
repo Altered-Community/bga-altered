@@ -66,12 +66,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return (
         `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${player.id}'>
         <div class='player-board-top'>
+          <div class='player-board-storm' id='board-stormLeft-${player.id}'></div>
           <div class='player-board-alterer' id='board-alterateur-${player.id}'></div>
-          <div class='player-board-storm' id='board-storm-${player.id}'>Storm</div>
+          <div class='player-board-storm' id='board-stormRight-${player.id}'></div>
         </div>
         <div class='player-board-middle'>
           <div class='player-board-memory' id='board-memory-${player.id}'>Memory</div>
-          <div class='player-board-permanents' id='board-permanents-${player.id}'>Permanents</div>
+          <div class='player-board-permanents' id='board-permanent-${player.id}'>Permanents</div>
         </div>
         ` +
         (player.id == this.player_id ? `<div class='player-board-hand' id='hand-${player.id}'></div>` : '') +

@@ -49,7 +49,7 @@ class altered extends Table
   use ALT\States\NewDayTrait;
   use ALT\States\EngineTrait;
   use ALT\States\TurnTrait;
-  use ALT\States\NightTrait;
+  use ALT\States\EndGameTrait;
 
   public static $instance = null;
 

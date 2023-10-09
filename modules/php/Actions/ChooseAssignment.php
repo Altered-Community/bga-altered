@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -28,25 +30,30 @@ class ChooseAssignment extends \ALT\Models\Action
     $player = Players::getActive();
     $handCards = $player->getHand();
     $memoryCards = $player->getMemoryCards();
-    $actions = ['hand' => [], 'memory' => [], 'echo' => [], 'hero' => [], 'tap' => []];
+    $actions = ['play' => [], 'echo' => [], 'tap' => []];
 
-    // calculate
-    // 1. hand cards
-    $actions['hand'] = $handCards->filter(function ($card) use ($player) {
-      return $card->canBePlayed($player);
-    });
+    // 1. Play cards
+    $actions['play'] = $handCards->merge($memoryCards)
+      ->filter(function ($card) use ($player) {
+        return $card->canBePlayed($player);
+      })
+      ->map(function ($card) {
+        $type = $card->getType();
+        if ($type == PERMANENT) return [PERMANENT];
+        if ($type == SPELL) return [MEMORY];
+        if ($type == EXPLORER) return [STORM_LEFT, STORM_RIGHT];
+        return [];
+      });
 
-    // 2. Memory cards (callback effect)
-    $actions['memory'] = $memoryCards->filter(function ($card) use ($player) {
-      return $card->canBePlayed($player);
-    });
+    // 2. Echo
+    $actions['echo'] = $memoryCards
+      ->filter(function ($card) {
+        return !is_null($card->getEffectEcho());
+      })
+      ->getIds();
 
-    // 3. Echo
-    $actions['echo'] = $memoryCards->filter(function ($card) {
-      return !is_null($card->getEffectEcho());
-    });
 
-    // 4. Permanent/tap effect
+    // 3. Permanent/tap effect
     $actions['tap'] = $player->getPlayedCards()->filter(function ($card) {
       return !$card->isTapped() && !is_null($card->getEffectTap());
     });
@@ -55,37 +62,21 @@ class ChooseAssignment extends \ALT\Models\Action
     return ['_private' => ['active' => $actions]];
   }
 
-  public function actHand($cardId, $to = null)
+  public function actPlay($cardId, $location)
   {
-    self::checkAction('actHand');
-    $player = Players::getActive();
-    $args = $this->argsChooseAssignment()['_private']['active']['hand'];
-    if (!in_array($to, STORMS)) {
-      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
-    }
-    if (!isset($args[$cardId])) {
+    $args = $this->argsChooseAssignment()['_private']['active']['play'];
+    $locations = $args[$cardId] ?? null;
+    if (is_null($locations)) {
       throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
     }
-
-    $this->playCardInStorm($cardId, HAND, $to);
-  }
-
-  public function actMemory($cardId, $to = null)
-  {
-    self::checkAction('actMemory');
-    $player = Players::getActive();
-    $args = $this->argsChooseAssignment()['_private']['active']['memory'];
-    if (!in_array($to, STORMS)) {
+    if (!in_array($location, $locations)) {
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
-    if (!isset($args[$cardId])) {
-      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
-    }
 
-    $this->playCardInStorm($cardId, MEMORY, $to);
+    $this->playCard($cardId, $location);
   }
 
-  public function playCardInStorm($cardId, $location, $to = null)
+  public function playCard($cardId, $location)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -93,24 +84,18 @@ class ChooseAssignment extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
     }
 
-    if ($card->getLocation() != $location) {
-      throw new \BgaVisibleSystemException('Location of the card is not ok. Should not happen');
-    }
-
     // Pay cost
     $cost = $card->getCost();
-    $player->pay($cost);
-    // left or right storm
-    if ($card->getType() == PERMANENT) {
-      $to = PERMANENT;
-    }
-    $card->setLocation($to);
+    $player->payMana($cost);
+    // Move card
+    $fromLocation = $card->getLocation();
+    $card->setLocation($location);
 
     // notification
-    Notifications::playCard($player, $card, $cost, $location, $to);
+    Notifications::playCard($player, $card, $cost, $fromLocation, $location);
 
     // if played from memory, it gains fleeting
-    if ($location == MEMORY) {
+    if ($fromLocation == MEMORY) {
       $card->setProperty(FLEETING, true);
       Notifications::gainToken(FLEETING, $card);
     }
@@ -120,7 +105,6 @@ class ChooseAssignment extends \ALT\Models\Action
     Globals::incPlayedCards();
     // TODO: remove
     // $this->pushParallelChilds($card->$effect());
-    $this->resolveAction([$cardId, $to]);
   }
 
   public function actEcho($cardId)

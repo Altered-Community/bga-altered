@@ -273,6 +273,11 @@
                 box-shadow: 0px 0px 5px #ce3f65;
                 border: 1px solid #ce3f65;
             }
+            &[data-faction="BR"] {
+                background: #5f1f16;
+                box-shadow: 0px 0px 5px #aa212e;
+                border: 1px solid #aa212e;
+            }
         }
 
         .card-forest,
