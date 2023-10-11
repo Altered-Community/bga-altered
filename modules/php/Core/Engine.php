@@ -432,6 +432,20 @@ class Engine
     }
   }
 
+  public function updateBrotherArgs($args)
+  {
+    $node = self::getNextUnresolved();
+    foreach ($node->getParent()->getChilds() as $n => &$brother) {
+      if ($brother == $node) {
+        continue;
+      }
+      $newBrother = $brother->toArray();
+      $newBrother['args'] = $newBrother['args'] + $args;
+      $brother = $brother->replace(self::buildTree($newBrother));
+    }
+    self::save();
+  }
+
   /**
    * Confirm the full resolution of current flow
    */

@@ -90,9 +90,9 @@ class Meeples extends \ALT\Helpers\CachedPieces
   public function createOnCard($type, $cardId, $pId, $nbr = 1)
   {
     if ($nbr == 1) {
-      return self::singleCreate(['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId]);
+      return [self::singleCreate(['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId])];
     } else {
-      return self::singleCreate(['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId]);
+      return self::create([['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId, 'nbr' => $nbr]]);
     }
   }
 }

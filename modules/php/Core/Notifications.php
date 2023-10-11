@@ -208,8 +208,10 @@ class Notifications
 
   public static function playCard($player, $card, $cost, $fromLocation, $location)
   {
-    $msg = $fromLocation == MEMORY ? clienttranslate('${player_name} plays ${card_name} from Memory for ${cost} and places it in ${location}') :
-      clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
+    $msg =
+      $fromLocation == MEMORY
+        ? clienttranslate('${player_name} plays ${card_name} from Memory for ${cost} and places it in ${location}')
+        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -222,13 +224,19 @@ class Notifications
     ]);
   }
 
-  public static function gainToken($power, $card, $meeple, $silent = true)
+  public static function gainToken($power, $card, $meeples, $silent = true)
   {
     $msg = '';
     if (!$silent) {
-      $msg = clienttranslate('${card_name} gains ${power}');
+      $msg = clienttranslate('${card_name} gains ${n} ${power}');
     }
-    self::notifyAll('gainToken', $msg, ['card' => $card, 'power' => $power, 'i18n' => ['power'], 'meeple' => $meeple]);
+    self::notifyAll('gainToken', $msg, [
+      'card' => $card,
+      'power' => $power,
+      'i18n' => ['power'],
+      'meeples' => $meeples,
+      'n' => count($meeples),
+    ]);
   }
 
   public static function echoEffect($player, $card)

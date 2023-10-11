@@ -81,6 +81,7 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     $this->playCard($cardId, $location);
+    $this->resolveAction([$cardId, $location]);
   }
 
   public function playCard($cardId, $location)
@@ -97,6 +98,7 @@ class ChooseAssignment extends \ALT\Models\Action
     // Move card
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
+    Globals::incPlayedCards();
 
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
@@ -108,17 +110,15 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     // insert linked flow
-    // $effect = 'getEffect' . ucfirst($location);
-    // Globals::incPlayedCards();
-    // list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
+    $effect = 'getEffect' . ucfirst($fromLocation);
+    list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
 
     // if (!isset($power['args']['cardId'])) {
     //   $power['args']['cardId'] = $cardId;
     // }
     // throw new \feException(print_r($power));
 
-    // TODO: remove
-    // $this->pushParallelChilds($power);
+    $this->pushParallelChilds($power);
   }
 
   public function actEcho($cardId)

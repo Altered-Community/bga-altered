@@ -325,22 +325,22 @@ define([
         this.changePageTitle(base + 'skippable');
       }
 
-      if (args.args && args.args.source) {
-        if (this.gamedatas.gamestate.descriptionmyturn.search('{source}') === -1) {
-          if (args.args.sourceId) {
-            let card = this.getCardInfos(args.args.sourceId);
-            let uid = this.registerCustomTooltip(this.tplCard(card, true));
+      // if (args.args && args.args.source) {
+      //   if (this.gamedatas.gamestate.descriptionmyturn.search('{source}') === -1) {
+      //     if (args.args.sourceId) {
+      //       let card = this.getCardInfos(args.args.sourceId);
+      //       let uid = this.registerCustomTooltip(this.tplCard(card, true));
 
-            $('pagemaintitletext').insertAdjacentHTML(
-              'beforeend',
-              ` (<span class="ark-log-card-name" id="${uid}">${_(args.args.source)}</span>)`
-            );
-            this.attachRegisteredTooltips();
-          } else {
-            $('pagemaintitletext').insertAdjacentHTML('beforeend', ` (${_(args.args.source)})`);
-          }
-        }
-      }
+      //       $('pagemaintitletext').insertAdjacentHTML(
+      //         'beforeend',
+      //         ` (<span class="ark-log-card-name" id="${uid}">${_(args.args.source)}</span>)`
+      //       );
+      //       this.attachRegisteredTooltips();
+      //     } else {
+      //       $('pagemaintitletext').insertAdjacentHTML('beforeend', ` (${_(args.args.source)})`);
+      //     }
+      //   }
+      // }
 
       if (this._activeStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
 
@@ -657,9 +657,9 @@ define([
           }
 
           if (args.source !== undefined && args.sourceId !== undefined) {
-            let card = this.getCardInfos(args.card_id);
-            let uid = this.registerCustomTooltip(this.tplCard(card, true));
-            args.source = `<span class="ark-log-card-name" id="${uid}">${_(args.source)}</span>`;
+            // let card = this.getCardInfos(args.card_id);
+            // let uid = this.registerCustomTooltip(this.tplCard(card, true));
+            // args.source = `<span class="ark-log-card-name" id="${uid}">${_(args.source)}</span>`;
           }
         }
       } catch (e) {
