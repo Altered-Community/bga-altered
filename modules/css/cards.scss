@@ -135,6 +135,10 @@
                 }
             }
 
+            &[data-type="alterateur"] {
+                background-position: 0% 50%;
+            }
+
             &[data-type="explorer"] {
                 // BASE
                 &[data-rarity="0"] {
@@ -335,6 +339,9 @@
     --cardScale: 1;
 
     .altered-card {
+        border: none;
+        box-shadow: none;
+
         .altered-card-wrapper {
             .card-name {
                 position: absolute;
@@ -347,6 +354,19 @@
                 text-align: center;
                 font-family: "Jali Greek Variable";
                 font-weight: bold;
+            }
+
+            .card-typeline {
+                position: absolute;
+                z-index: 2;
+                top: 46px;
+                left: 48px;
+                right: 50px;
+                font-size: 13px;
+                color: black;
+                text-align: center;
+                font-family: "Jali Greek Variable";
+                font-style: italic;
             }
 
             .card-hand-cost,
@@ -408,6 +428,61 @@
             .card-ocean {
                 top: 150px;
                 border-top-right-radius: 4px;
+            }
+
+            .card-text {
+                position: absolute;
+                z-index: 2;
+                top: 317px;
+                bottom: 31px;
+                left: 20px;
+                right: 20px;
+                font-family: "Jali Greek Variable";
+                color: black;
+
+                .card-reminders {
+                    font-style: italic;
+                }
+
+                .card-qrcode-container {
+                    float: right;
+                    width: 70px;
+                    height: 100%;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: end;
+                    shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px);
+
+                    .card-qrcode {
+                        display: block;
+                        width: 66px;
+                        height: 66px;
+                        background-image: url("img/qrcode.png");
+                        background-size: 80%;
+                        background-repeat: no-repeat;
+                        margin-bottom: -4px;
+                        margin-right: -4px;
+                        background-position: center center;
+                    }
+                }
+            }
+        }
+
+        &.card-alterateur {
+            .card-name {
+                top: 27px;
+                font-style: italic;
+            }
+            .card-typeline {
+                top: 51px;
+                font-style: italic;
+                font-weight: bold;
+            }
+            .card-text {
+                top: 311px;
+                bottom: 31px;
+                left: 25px;
+                right: 21px;
             }
         }
     }

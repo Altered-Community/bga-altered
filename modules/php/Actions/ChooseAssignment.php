@@ -34,15 +34,22 @@ class ChooseAssignment extends \ALT\Models\Action
     $actions = ['play' => [], 'echo' => [], 'tap' => []];
 
     // 1. Play cards
-    $actions['play'] = $handCards->merge($memoryCards)
+    $actions['play'] = $handCards
+      ->merge($memoryCards)
       ->filter(function ($card) use ($player) {
         return $card->canBePlayed($player);
       })
       ->map(function ($card) {
         $type = $card->getType();
-        if ($type == PERMANENT) return [PERMANENT];
-        if ($type == SPELL) return [MEMORY];
-        if ($type == EXPLORER) return [STORM_LEFT, STORM_RIGHT];
+        if ($type == PERMANENT) {
+          return [PERMANENT];
+        }
+        if ($type == SPELL) {
+          return [MEMORY];
+        }
+        if ($type == EXPLORER) {
+          return [STORM_LEFT, STORM_RIGHT];
+        }
         return [];
       });
 
@@ -52,7 +59,6 @@ class ChooseAssignment extends \ALT\Models\Action
         return !is_null($card->getEffectEcho());
       })
       ->getIds();
-
 
     // 3. Permanent/tap effect
     $actions['tap'] = $player->getPlayedCards()->filter(function ($card) {

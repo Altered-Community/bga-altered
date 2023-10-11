@@ -397,6 +397,8 @@ html {
         background-image: url("img/frames/MU.png"); }
       .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
         background-image: url("img/frames/LY.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-type="alterateur"] {
+        background-position: 0% 50%; }
       .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="1"] {
         background-position: 40% 0%; }
       .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="2"] {
@@ -519,68 +521,123 @@ html {
 .altered-card-tooltip {
   display: flex;
   --cardScale: 1; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-name {
-    position: absolute;
-    z-index: 2;
-    top: 26px;
-    left: 48px;
-    right: 50px;
-    font-size: 17px;
-    color: white;
-    text-align: center;
-    font-family: "Jali Greek Variable";
-    font-weight: bold; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost,
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
-    background: none;
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    text-shadow: none;
-    box-shadow: none;
+  .altered-card-tooltip .altered-card {
     border: none;
-    line-height: inherit; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost {
-    top: 21px;
-    left: 27px;
-    font-size: 25px; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
-    top: 39px;
-    left: 49px;
-    font-size: 25px; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest,
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain,
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
-    left: 22px;
-    height: 25px;
-    width: 25px;
-    border-radius: 11px;
-    font-size: 21px;
-    line-height: 29px;
-    font-weight: normal; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="0"],
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
-      width: 15px;
-      background: transparent; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="1"],
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
-      width: 15px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="3"],
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
-      width: 35px; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest {
-    top: 96px;
-    border-bottom-right-radius: 4px; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain {
-    top: 123px;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px; }
-  .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
-    top: 150px;
-    border-top-right-radius: 4px; }
+    box-shadow: none; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-name {
+      position: absolute;
+      z-index: 2;
+      top: 26px;
+      left: 48px;
+      right: 50px;
+      font-size: 17px;
+      color: white;
+      text-align: center;
+      font-family: "Jali Greek Variable";
+      font-weight: bold; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-typeline {
+      position: absolute;
+      z-index: 2;
+      top: 46px;
+      left: 48px;
+      right: 50px;
+      font-size: 13px;
+      color: black;
+      text-align: center;
+      font-family: "Jali Greek Variable";
+      font-style: italic; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost,
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
+      background: none;
+      width: auto;
+      height: auto;
+      border-radius: 0;
+      text-shadow: none;
+      box-shadow: none;
+      border: none;
+      line-height: inherit; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost {
+      top: 21px;
+      left: 27px;
+      font-size: 25px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
+      top: 39px;
+      left: 49px;
+      font-size: 25px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest,
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain,
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
+      left: 22px;
+      height: 25px;
+      width: 25px;
+      border-radius: 11px;
+      font-size: 21px;
+      line-height: 29px;
+      font-weight: normal; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="0"],
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
+        width: 15px;
+        background: transparent; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="1"],
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
+        width: 15px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="3"],
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
+        width: 35px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest {
+      top: 96px;
+      border-bottom-right-radius: 4px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain {
+      top: 123px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
+      top: 150px;
+      border-top-right-radius: 4px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-text {
+      position: absolute;
+      z-index: 2;
+      top: 317px;
+      bottom: 31px;
+      left: 20px;
+      right: 20px;
+      font-family: "Jali Greek Variable";
+      color: black; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-reminders {
+        font-style: italic; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container {
+        float: right;
+        width: 70px;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: end;
+        shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px); }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
+          display: block;
+          width: 66px;
+          height: 66px;
+          background-image: url("img/qrcode.png");
+          background-size: 80%;
+          background-repeat: no-repeat;
+          margin-bottom: -4px;
+          margin-right: -4px;
+          background-position: center center; }
+    .altered-card-tooltip .altered-card.card-alterateur .card-name {
+      top: 27px;
+      font-style: italic; }
+    .altered-card-tooltip .altered-card.card-alterateur .card-typeline {
+      top: 51px;
+      font-style: italic;
+      font-weight: bold; }
+    .altered-card-tooltip .altered-card.card-alterateur .card-text {
+      top: 311px;
+      bottom: 31px;
+      left: 25px;
+      right: 21px; }
 
 #floating-hand-wrapper {
   position: fixed;
@@ -1123,125 +1180,144 @@ html {
     border-bottom: 1px solid #734f2a; }
 
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-BlackItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-BlackItalic.ttf") format("truetype");
   font-weight: 900;
   font-style: italic;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-Bold.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-Black.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-Light.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-Semibold.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-Semibold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-SemiboldItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-SemiboldItalic.ttf") format("truetype");
   font-weight: 600;
   font-style: italic;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-Regular.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-BoldItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-BoldItalic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-Extrabold.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-Extrabold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-ExtraboldItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-ExtraboldItalic.ttf") format("truetype");
   font-weight: bold;
   font-style: italic;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-RegularItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-RegularItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro Semilight';
+  font-family: "Haptic Pro Semilight";
   src: url("img/fonts/HapticPro/HapticPro-SemilightItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-SemilightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro';
+  font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-LightItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-LightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro Semilight';
+  font-family: "Haptic Pro Semilight";
   src: url("img/fonts/HapticPro/HapticPro-Semilight.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-Semilight.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro Compressed';
+  font-family: "Haptic Pro Compressed";
   src: url("img/fonts/HapticProComp/HapticProComp-Light.woff2") format("woff2"), url("img/fonts/HapticProComp/HapticProComp-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro Compressed';
+  font-family: "Haptic Pro Compressed";
   src: url("img/fonts/HapticProComp/HapticProComp-Bold.woff2") format("woff2"), url("img/fonts/HapticProComp/HapticProComp-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro Compressed';
+  font-family: "Haptic Pro Compressed";
   src: url("img/fonts/HapticProComp/HapticProComp-Black.woff2") format("woff2"), url("img/fonts/HapticProComp/HapticProComp-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Haptic Pro Compressed';
+  font-family: "Haptic Pro Compressed";
   src: url("img/fonts/HapticProComp/HapticProComp-Regular.woff2") format("woff2"), url("img/fonts/HapticProComp/HapticProComp-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Jali Greek Variable';
+  font-family: "Jali Greek Variable";
   src: url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.woff2") format("woff2"), url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap; }
 @font-face {
-  font-family: 'Jali Greek Variable';
+  font-family: "Jali Greek Variable";
   src: url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.woff2") format("woff2"), url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
   font-display: swap; }
+.effect-reference,
+.effect-reference-emphasis {
+  font-family: "Jali Greek Variable";
+  font-weight: bold; }
+  .effect-reference.effect-reference-emphasis,
+  .effect-reference-emphasis.effect-reference-emphasis {
+    text-decoration: underline; }
+
+.mana-cost {
+  font-family: "Haptic Pro";
+  display: inline-block;
+  background: black;
+  border-radius: 50%;
+  color: white;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  margin: 0 0.2em; }
+
 .notransition {
   -webkit-transition: none !important;
   -moz-transition: none !important;

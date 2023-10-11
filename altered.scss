@@ -31,192 +31,234 @@ html {
 @import "modules/css/settings";
 @import "modules/css/modals";
 
-
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-BlackItalic.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-BlackItalic.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-BlackItalic.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-BlackItalic.ttf") format("truetype");
     font-weight: 900;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-Bold.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-Bold.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-Bold.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-Bold.ttf") format("truetype");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-Black.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-Black.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-Black.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-Black.ttf") format("truetype");
     font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-Light.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-Light.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-Light.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-Semibold.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-Semibold.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-Semibold.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-Semibold.ttf") format("truetype");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-SemiboldItalic.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-SemiboldItalic.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-SemiboldItalic.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-SemiboldItalic.ttf") format("truetype");
     font-weight: 600;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-Regular.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-Regular.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-Regular.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-BoldItalic.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-BoldItalic.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-BoldItalic.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-BoldItalic.ttf") format("truetype");
     font-weight: bold;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-Extrabold.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-Extrabold.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-Extrabold.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-Extrabold.ttf") format("truetype");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-ExtraboldItalic.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-ExtraboldItalic.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-ExtraboldItalic.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-ExtraboldItalic.ttf") format("truetype");
     font-weight: bold;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-RegularItalic.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-RegularItalic.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-RegularItalic.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-RegularItalic.ttf") format("truetype");
     font-weight: normal;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro Semilight';
-    src: url('img/fonts/HapticPro/HapticPro-SemilightItalic.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-SemilightItalic.ttf') format('truetype');
+    font-family: "Haptic Pro Semilight";
+    src:
+        url("img/fonts/HapticPro/HapticPro-SemilightItalic.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-SemilightItalic.ttf") format("truetype");
     font-weight: 300;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro';
-    src: url('img/fonts/HapticPro/HapticPro-LightItalic.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-LightItalic.ttf') format('truetype');
+    font-family: "Haptic Pro";
+    src:
+        url("img/fonts/HapticPro/HapticPro-LightItalic.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-LightItalic.ttf") format("truetype");
     font-weight: 300;
     font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro Semilight';
-    src: url('img/fonts/HapticPro/HapticPro-Semilight.woff2') format('woff2'),
-        url('img/fonts/HapticPro/HapticPro-Semilight.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-
-
-@font-face {
-    font-family: 'Haptic Pro Compressed';
-    src: url('img/fonts/HapticProComp/HapticProComp-Light.woff2') format('woff2'),
-        url('img/fonts/HapticProComp/HapticProComp-Light.ttf') format('truetype');
+    font-family: "Haptic Pro Semilight";
+    src:
+        url("img/fonts/HapticPro/HapticPro-Semilight.woff2") format("woff2"),
+        url("img/fonts/HapticPro/HapticPro-Semilight.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro Compressed';
-    src: url('img/fonts/HapticProComp/HapticProComp-Bold.woff2') format('woff2'),
-        url('img/fonts/HapticProComp/HapticProComp-Bold.ttf') format('truetype');
+    font-family: "Haptic Pro Compressed";
+    src:
+        url("img/fonts/HapticProComp/HapticProComp-Light.woff2") format("woff2"),
+        url("img/fonts/HapticProComp/HapticProComp-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Haptic Pro Compressed";
+    src:
+        url("img/fonts/HapticProComp/HapticProComp-Bold.woff2") format("woff2"),
+        url("img/fonts/HapticProComp/HapticProComp-Bold.ttf") format("truetype");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro Compressed';
-    src: url('img/fonts/HapticProComp/HapticProComp-Black.woff2') format('woff2'),
-        url('img/fonts/HapticProComp/HapticProComp-Black.ttf') format('truetype');
+    font-family: "Haptic Pro Compressed";
+    src:
+        url("img/fonts/HapticProComp/HapticProComp-Black.woff2") format("woff2"),
+        url("img/fonts/HapticProComp/HapticProComp-Black.ttf") format("truetype");
     font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Haptic Pro Compressed';
-    src: url('img/fonts/HapticProComp/HapticProComp-Regular.woff2') format('woff2'),
-        url('img/fonts/HapticProComp/HapticProComp-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-
-@font-face {
-    font-family: 'Jali Greek Variable';
-    src: url('img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.woff2') format('woff2'),
-        url('img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.ttf') format('truetype');
+    font-family: "Haptic Pro Compressed";
+    src:
+        url("img/fonts/HapticProComp/HapticProComp-Regular.woff2") format("woff2"),
+        url("img/fonts/HapticProComp/HapticProComp-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Jali Greek Variable';
-    src: url('img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.woff2') format('woff2'),
-        url('img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.ttf') format('truetype');
+    font-family: "Jali Greek Variable";
+    src:
+        url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.woff2") format("woff2"),
+        url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Jali Greek Variable";
+    src:
+        url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.woff2") format("woff2"),
+        url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.ttf") format("truetype");
     font-weight: normal;
     font-style: italic;
     font-display: swap;
 }
 
+// FORMATTING
+.effect-reference,
+.effect-reference-emphasis {
+    font-family: "Jali Greek Variable";
+    font-weight: bold;
+    &.effect-reference-emphasis {
+        text-decoration: underline;
+    }
+}
+.mana-cost {
+    font-family: "Haptic Pro";
+    display: inline-block;
+    background: black;
+    border-radius: 50%;
+    color: white;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    margin: 0 0.2em;
+}
+
+// .tundra .dijitTooltipContainer {
+//     background: black;
+//     border-color: white;
+//     border-radius: 6px;
+//     box-shadow: 1px 1px 6px 1px black;
+//     color: white;
+// }
 
 .notransition {
     -webkit-transition: none !important;

@@ -631,8 +631,10 @@ define([
         str = str.replaceAll(regex, this.formatIcon(name, '<span>$1</span>'));
         str = str.replaceAll(new RegExp('<' + name + '>', 'g'), this.formatIcon(name));
       });
-      str = str.replace(/__([^_]+)__/g, '<span class="action-card-name-reference">$1</span>');
-      str = str.replace(/\*\*([^\*]+)\*\*/g, '<b>$1</b>');
+      // str = str.replace(/__([^_]+)__/g, '<span class="action-card-name-reference">$1</span>');
+      str = str.replace(/\[\[([^\]]+)\]\]/g, '<span class="effect-reference-emphasis">$1</span>');
+      str = str.replace(/\[([^\]]+)\]/g, '<span class="effect-reference">$1</span>');
+      str = str.replace(/\{([0-9]+)\}/g, '<span class="mana-cost">$1</span>');
 
       return str;
     },

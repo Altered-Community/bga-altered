@@ -482,10 +482,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCardTooltip(card) {
       let type = card.properties.type;
-      // if (type == ALTERATEUR) {
-      //   return this.tplAlterateurCard(card);
-      // } else
-      if (type == EXPLORER) {
+      if (type == ALTERATEUR) {
+        return this.tplAlterateurCardTooltip(card);
+      } else if (type == EXPLORER) {
         return this.tplExplorerCardTooltip(card);
       } else if (type == SPELL) {
         return this.tplSpellCardTooltip(card);
@@ -500,6 +499,33 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplAlterateurCard(card) {
       return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-alterateur'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
+        </div>
+      </div>`;
+    },
+    tplAlterateurCardTooltip(card) {
+      let p = card.properties;
+      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+        <div class='altered-card card-alterateur'>
+          <div class='altered-card-wrapper' data-asset='${p.asset}'>
+            <div class='card-frame' data-faction='${p.faction}' data-type='alterateur'></div>
+            <div class='card-name'>${_(p.name)}</div>
+            <div class='card-typeline'>${_(p.typeline)}</div>
+
+            <div class='card-text'>
+              <div class='card-qrcode-container'>
+                <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              </div>
+              <div class='card-effect'>
+                ${this.formatString(_(p.effectDesc))}
+              </div>
+              <div class='card-reminders'>
+              ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='tooltip-explanatin'>
+          More details here
         </div>
       </div>`;
     },
@@ -548,11 +574,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-hand-cost'>${p.costHand}</div>
             <div class='card-memory-cost'>${p.costMemory}</div>
             <div class='card-name'>${_(p.name)}</div>
-            <div class='card-types'>${_(p.type)}</div>
+            <div class='card-typeline'>${_(p.typeline)}</div>
 
             <div class='card-forest' data-size='${sizes.forest}'>${p.forest}</div>
             <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
             <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
+
+            <div class='card-text'>
+              <div class='card-qrcode-container'>
+                <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              </div>
+              <div class='card-effect'>
+                ${this.formatString(_(p.effectDesc))}
+              </div>
+              <div class='card-reminders'>
+              ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
+              </div>
+            </div>
           </div>
         </div>
         <div class='tooltip-explanatin'>
@@ -580,7 +618,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-hand-cost'>${p.costHand}</div>
             <div class='card-memory-cost'>${p.costMemory}</div>
             <div class='card-name'>${_(p.name)}</div>
-            <div class='card-types'>${_(p.type)}</div>
+            <div class='card-typeline'>${_(p.typeline)}</div>
+
+            <div class='card-text'>
+              <div class='card-qrcode-container'>
+                <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              </div>
+              <div class='card-effect'>
+                ${this.formatString(_(p.effectDesc))}
+              </div>
+              <div class='card-reminders'>
+              ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
+              </div>
+            </div>
           </div>
         </div>
         <div class='tooltip-explanatin'>
