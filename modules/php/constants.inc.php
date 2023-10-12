@@ -128,6 +128,7 @@ const TARGET = 'TARGET';
 ////////////// Flow convertor constants
 const TARGET_ALL_EXPLORER = 'target_all_explorer';
 const TARGET_ALL_EXPLORER_2 = 'target_all_explorer_2';
+const SABOTAGE = 'sabotage';
 
 const ACTIVE = 1;
 const INACTIVE = 0;

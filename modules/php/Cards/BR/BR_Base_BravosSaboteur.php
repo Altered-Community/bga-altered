@@ -24,6 +24,7 @@ class BR_Base_BravosSaboteur extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectHand' => [[SABOTAGE => 1]],
     ];
   }
 }

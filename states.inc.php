@@ -185,14 +185,15 @@ $machinestates = [
     'description' => clienttranslate('${actplayer} must discard ${n} card(s) from ${source} to ${destination}'),
     'descriptionmyturn' => clienttranslate('${you} must discard ${n} card(s) from ${source} to ${destination}'),
     'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
     'possibleactions' => ['actDiscard', 'actRestart'],
     'type' => 'activeplayer',
   ],
 
   ST_TARGET => [
     'name' => 'target',
-    'description' => clienttranslate('${actplayer} must target ${n} cards}'),
-    'descriptionmyturn' => clienttranslate('${you} must target ${n} cards'),
+    'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
+    'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',

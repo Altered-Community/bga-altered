@@ -35,6 +35,11 @@ class Target extends \ALT\Models\Action
     }
   }
 
+  public function stTarget()
+  {
+    // TODO: if nothing to target, autopass the whole seq node
+  }
+
   public function argsTarget()
   {
     $player = Players::getCurrent();
@@ -79,7 +84,7 @@ class Target extends \ALT\Models\Action
 
     return [
       'total' => $this->getCtxArg('total') ?? 1,
-      'n' => $this->getCtxArg('n'),
+      'n' => $this->getCtxArg('n') ?? 1,
       'cards' => $cards->getIds(),
       'canPass' => $this->getCtxArg('optional') ?? false,
     ];

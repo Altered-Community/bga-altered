@@ -42,6 +42,7 @@ define([
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
         ['pDiscardCards', null],
+        ['publicDiscard', 200],
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
         ['playCard', null],

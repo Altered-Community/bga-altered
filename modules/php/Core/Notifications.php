@@ -138,6 +138,19 @@ class Notifications
     );
   }
 
+  public static function publicDiscard($player, $cards, $publicMsg = null, $args = [])
+  {
+    self::notifyAll(
+      'publicDiscard',
+      $publicMsg ?? clienttranslate('${player_name} discards ${card_names} (${n} card(s)'),
+      $args + [
+        'player' => $player,
+        'n' => count($cards),
+        'cards' => $cards->toArray(),
+      ]
+    );
+  }
+
   public static function moveToHand($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
   {
     self::notifyAll(

@@ -117,6 +117,14 @@ abstract class FlowConvertor
         $childs[] = self::getFlowSingleBonusAux($newType, $newN);
       }
       return ['node' => NODE_SEQ, 'childs' => $childs];
+    } elseif ($type == SABOTAGE) {
+      return [
+        'type' => NODE_SEQ,
+        'childs' => [
+          ['action' => TARGET, 'args' => ['optional' => true, 'targetLocation' => [MEMORY]]],
+          ['action' => DISCARD, 'args' => []],
+        ],
+      ];
     }
     // // Addition worker => same as "Full Throated" animal effect
     // elseif ($type == \BONUS_WORKER) {

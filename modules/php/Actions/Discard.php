@@ -23,10 +23,19 @@ class Discard extends \ALT\Models\Action
     return clienttranslate('Discard TODO');
   }
 
+  public function stDiscard()
+  {
+    if (!is_null($this->getCtxArg('cardId') ?? null)) {
+      $this->actDiscard([$this->getCtxArg('cardId')], true);
+    }
+  }
+
   public function argsDiscard()
   {
     $player = Players::getCurrent();
-    if ($this->getCtxArg('source') == HAND) {
+    if (!is_null($this->getCtxArg('cardId'))) {
+      $cards = [];
+    } elseif ($this->getCtxArg('source') == HAND) {
       $cards = $player->getHand()->getIds();
     } elseif ($this->getCtxArg('source') == MEMORY) {
       $cards = $player->getMemoryCards()->getIds();
@@ -35,8 +44,8 @@ class Discard extends \ALT\Models\Action
     }
     return [
       'n' => $this->getCtxArg('n') ?? 1,
-      'source' => $this->getCtxArg('source'),
-      'destination' => $this->getCtxArg('destination'),
+      'source' => $this->getCtxArg('source') ?? '',
+      'destination' => $this->getCtxArg('destination') ?? '',
       '_private' => [
         'active' => [
           'cards' => $cards,
@@ -45,30 +54,34 @@ class Discard extends \ALT\Models\Action
     ];
   }
 
-  public function actDiscard($cardIds)
+  public function actDiscard($cardIds, $automatic = false)
   {
-    self::checkAction('actDiscard');
     $player = Players::getActive();
     $args = $this->argsDiscard();
 
-    if (count($cardIds) != $args['n']) {
-      throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
-    }
+    if ($automatic === false) {
+      self::checkAction('actDiscard');
 
-    if (!empty(array_diff($cardIds, $args['_private']['active']['cards']))) {
-      throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
+      if (count($cardIds) != $args['n']) {
+        throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
+      }
+
+      if (!empty(array_diff($cardIds, $args['_private']['active']['cards']))) {
+        throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
+      }
     }
 
     Cards::discard($cardIds);
     $cards = Cards::getMany($cardIds, $args['destination']);
+
     // throw new \feException($cards->first()->getId());
-    Notifications::discard(
-      $player,
-      $cards,
-      null,
-      clienttranslate('${player_name} discards ${n} cards from the ${source} to ${destination}'),
-      ['source' => $args['source'], 'destination' => $args['destination']]
-    );
+
+    $msg = clienttranslate('${player_name} discards ${n} cards from the ${source} to ${destination}');
+    if ($automatic === true) {
+      $msg = clienttranslate('${player_name} discards ${n} card(s)');
+    }
+
+    Notifications::publicDiscard($player, $cards, $msg, ['source' => $args['source'], 'destination' => $args['destination']]);
     $this->resolveAction([$cardIds]);
   }
 }
