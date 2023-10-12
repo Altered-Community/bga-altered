@@ -280,9 +280,6 @@ class Card extends \ALT\Helpers\DB_Model
       foreach ($biomes as $type => &$value) {
         $value += $boost;
       }
-
-      // GIGANTIC
-      // TODO
     }
     return $biomes;
   }
