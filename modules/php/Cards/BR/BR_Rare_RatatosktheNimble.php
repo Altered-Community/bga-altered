@@ -26,6 +26,7 @@ class BR_Rare_RatatosktheNimble extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costMemory' => 1,
+      'effectMemory' => [[BOOST => 3]],
     ];
   }
 }

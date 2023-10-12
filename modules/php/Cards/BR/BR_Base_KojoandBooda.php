@@ -19,6 +19,8 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'At Dawn, if you are first player — Create a [Booda 2/2/2] Cat token in the Companion Expedition.'
       ),
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
     ];
   }
 }

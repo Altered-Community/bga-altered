@@ -21,6 +21,8 @@ class MU_Base_TeijaandNauraa extends \ALT\Models\Card
       'reminders' => clienttranslate(
         'Boosts are +1/+1/+1 counters. Remove them when the boosted Character leaves the Expedition Zone.'
       ),
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
     ];
   }
 }

@@ -440,7 +440,7 @@ class Engine
         continue;
       }
       $newBrother = $brother->toArray();
-      $newBrother['args'] = $newBrother['args'] + $args;
+      $newBrother['args'] = $newBrother['args'] + array_pop($args);
       $brother = $brother->replace(self::buildTree($newBrother));
     }
     self::save();

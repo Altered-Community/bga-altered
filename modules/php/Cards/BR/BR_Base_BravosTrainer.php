@@ -26,6 +26,7 @@ class BR_Base_BravosTrainer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectMemory' => [[TARGET_ALL_EXPLORER => [[BOOST => 2]]]],
     ];
   }
 }

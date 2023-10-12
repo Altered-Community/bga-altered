@@ -167,7 +167,6 @@ class Player extends \ALT\Helpers\DB_Model
     });
   }
 
-
   public function getMana()
   {
     return $this->getManaCards(false)->count();
@@ -243,6 +242,8 @@ class Player extends \ALT\Helpers\DB_Model
     $moves[$this->id] = $moves[$this->id] ?? 0 + 1;
     // needed to determine if tiebreaker is needed
     Globals::setStormMoves($moves);
+
+    // TODO: do we need to reveal storm?
 
     Notifications::moveStormToken($this, $biome, $this->$f());
   }

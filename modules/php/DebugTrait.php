@@ -37,13 +37,14 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actEcho', [29]);
     // $this->actTakeAtomicAction('actPass', []);
     // $this->actTakeAtomicAction('actDiscard', [[3]]);
-    $this->actTakeAtomicAction('actTarget', [9]);
+    $this->actTakeAtomicAction('actTarget', [[9, 18]]);
   }
 
   function tv()
   {
     // Cards::get(24)->setTapped(true);
-    Cards::get(3)->setEffectHand([[TARGET_ALL_EXPLORER => [BOOST => 2]]]);
+    // Cards::get(3)->setEffectHand([[TARGET_ALL_EXPLORER_2 => [[BOOST => 2], [BOOST => 2]]]]);
+    Cards::get(3)->setEffectHand([[FLEETING => 1]]);
   }
 
   function score($cardId)

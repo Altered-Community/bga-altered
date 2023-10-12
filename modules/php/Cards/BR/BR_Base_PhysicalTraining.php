@@ -23,6 +23,8 @@ class BR_Base_PhysicalTraining extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectMemory' => [[TARGET_ALL_EXPLORER => [[BOOST => 3]]]],
+      'effectHand' => [[TARGET_ALL_EXPLORER => [[BOOST => 3]]]],
     ];
   }
 }

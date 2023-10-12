@@ -20,7 +20,6 @@ class Target extends \ALT\Models\Action
   }
 
   // !!!!!!!!!!!!!! Target must have a brother
-  // !!!!!!!!!!!!!! 2 targets must be in 2 different seq nodes
 
   public function getDescription()
   {
@@ -82,22 +81,37 @@ class Target extends \ALT\Models\Action
       'total' => $this->getCtxArg('total') ?? 1,
       'n' => $this->getCtxArg('n'),
       'cards' => $cards->getIds(),
+      'canPass' => $this->getCtxArg('optional') ?? false,
     ];
   }
 
-  public function actTarget($cardId)
+  public function actTarget($cardIds)
   {
     self::checkAction('actTarget');
     $player = Players::getActive();
     $args = $this->argsTarget();
 
-    if (!in_array($cardId, $args['cards'])) {
+    if (!empty(array_diff($cardIds, $args['cards']))) {
       throw new \BgaVisibleSystemException('You cannot target this card. Should not happen');
     }
 
-    Engine::updateBrotherArgs(['cardId' => $cardId]);
+    if (count($cardIds) > $args['n']) {
+      throw new \BgaVisibleSystemException('You selected too many cards. Should not happen');
+    }
+
+    if (!$args['canPass'] && count($args['cards']) < $args['n'] && count($cardIds) != count($args['cards'])) {
+      throw new \BgaVisibleSystemException('You selected not enough cards. Should not happen');
+    } elseif (!$args['canPass'] && count($cardIds) < $args['n']) {
+      throw new \BgaVisibleSystemException('You selected not enough cards. Should not happen');
+    }
+
+    $brotherArgs = [];
+    foreach ($cardIds as $cardId) {
+      $brotherArgs[] = ['cardId' => $cardId];
+    }
+    Engine::updateBrotherArgs($brotherArgs);
 
     Notifications::message('targeted');
-    $this->resolveAction([$cardId]);
+    $this->resolveAction([$cardIds]);
   }
 }

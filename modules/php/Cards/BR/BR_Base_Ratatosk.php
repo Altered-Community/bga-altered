@@ -26,6 +26,7 @@ class BR_Base_Ratatosk extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costMemory' => 1,
+      'effectMemory' => [[BOOST => 2]],
     ];
   }
 }

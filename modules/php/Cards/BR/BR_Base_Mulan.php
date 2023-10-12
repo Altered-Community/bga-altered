@@ -26,6 +26,7 @@ class BR_Base_Mulan extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectMemory' => [[BOOST => 2]],
     ];
   }
 }

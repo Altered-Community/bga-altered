@@ -45,7 +45,11 @@ class ChooseAssignment extends \ALT\Models\Action
           return [PERMANENT];
         }
         if ($type == SPELL) {
-          return [MEMORY];
+          if ($card->getLocation() == MEMORY) {
+            return [DISCARD];
+          } else {
+            return [MEMORY];
+          }
         }
         if ($type == EXPLORER) {
           return [STORM_LEFT, STORM_RIGHT];

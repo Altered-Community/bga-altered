@@ -107,6 +107,16 @@ abstract class FlowConvertor
         $childs[] = self::getFlowSingleBonusAux($action, $am);
       }
       return ['node' => NODE_SEQ, 'childs' => $childs];
+    } elseif ($type == TARGET_ALL_EXPLORER_2) {
+      // target will trigger a sequential node, with the args
+      $childs = [];
+      $childs[] = ['action' => TARGET, 'args' => ['n' => 2]];
+      foreach ($n as $id => $newNode) {
+        $newType = array_keys($newNode)[0];
+        $newN = $newNode[$newType];
+        $childs[] = self::getFlowSingleBonusAux($newType, $newN);
+      }
+      return ['node' => NODE_SEQ, 'childs' => $childs];
     }
     // // Addition worker => same as "Full Throated" animal effect
     // elseif ($type == \BONUS_WORKER) {
