@@ -25,8 +25,7 @@ class BR_Base_Atlas extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 5,
       'costMemory' => 5,
-      'effectHand' => [[GIGANTIC => 1]],
-      'effectMemory' => [[GIGANTIC => 1]],
+      'gigantic' => true,
     ];
   }
 }

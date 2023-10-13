@@ -295,7 +295,7 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($expeditions as $i => $exp) {
       $strength = [OCEAN => 0, MOUNTAIN => 0, FOREST => 0]; // OCEAN/MOUNTAIN/FOREST
       foreach ($cards as $c => $card) {
-        if ($card->getLocation() != $exp && !$card->hasToken(GIGANTIC)) {
+        if ($card->getLocation() != $exp && !$card->hasToken(GIGANTIC) && !$card->isGigantic()) {
           continue;
         }
 
