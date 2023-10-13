@@ -210,7 +210,7 @@ class Player extends \ALT\Helpers\DB_Model
     $storms = Globals::getStorm();
 
     foreach ($tokens as $i => $token) {
-      $sId = explode('-', $token->getLocation())[1];
+      $sId = $token->getLocationArg();
 
       if ($sId == 0 || $sId == 7) {
         $locations[$token->getType()] = [MOUNTAIN, FOREST, OCEAN];
@@ -220,7 +220,7 @@ class Player extends \ALT\Helpers\DB_Model
       $card = $storms[intdiv($sId + 1, 2)];
       $storm = STORM_CARDS[$card['cardId']];
 
-      if ($card['rotated'] === true) {
+      if ($card['rotated']) {
         $storm = array_reverse($storm);
       }
 
@@ -231,21 +231,32 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function advanceStorm($token, $biome)
   {
-    $f = 'get' . ucfirst($token) . 'Token';
-    $tokenMeeple = $this->$f();
+    $getToken = 'get' . ucfirst($token) . 'Token';
+    $tokenMeeple = $this->$getToken();
     // TODO: manage immobile
-    $location = explode('-', $tokenMeeple->getLocation())[1];
+    $location = $tokenMeeple->getLocationArg();
     // if alterateur we increase
-    $value = $token == ALTERATEUR ? 1 : -1;
-    $tokenMeeple->setLocation('storm-' . ($location + $value));
+    $delta = $token == ALTERATEUR ? 1 : -1;
+    $sId = $location + $delta;
+    // Set new location
+    $tokenMeeple->setLocation('storm-' . $sId);
+
+    // needed to determine if tiebreaker is needed
     $moves = Globals::getStormMoves();
     $moves[$this->id] = $moves[$this->id] ?? 0 + 1;
-    // needed to determine if tiebreaker is needed
     Globals::setStormMoves($moves);
 
-    // TODO: do we need to reveal storm?
+    // Do we need to reveal storm?
+    $revealed = null;
+    $storms = Globals::getStorm();
+    $stormIndex = intdiv($sId + 1, 2);
+    if (!$storms[$stormIndex]['visible']) {
+      $storms[$stormIndex]['visible'] = true;
+      $revealed = $storms[$stormIndex];
+      Globals::setStorm($storms);
+    }
 
-    Notifications::moveStormToken($this, $biome, $this->$f());
+    Notifications::moveStormToken($this, $biome, $tokenMeeple, $stormIndex, $revealed);
   }
 
   public function nightCleanup()
@@ -261,7 +272,7 @@ class Player extends \ALT\Helpers\DB_Model
       }
 
       // Move card without anchored,asleep to memory
-      if (!$card->hasToken(ANCHORED) && !$card->hasToken(SLEEP)) {
+      if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
         // move card to memory
         $deleted['tokens'] = array_merge($deleted['tokens'], $card->moveToMemory());
         $movedToReserve[] = $cId;

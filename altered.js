@@ -32,7 +32,7 @@ define([
 ], function (dojo, declare, Sortable) {
   return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
     constructor: function () {
-      this._activeStates = [];
+      this._inactiveStates = [];
       this._notifications = [
         ['clearTurn', 200],
         ['refreshUI', 200],
@@ -46,13 +46,13 @@ define([
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
+        ['moveStormToken', null],
 
         ['setupPlayer', null],
         ['payMana', 500],
         ['discard', 500],
         ['tap', 500],
         ['boost', 500],
-        ['moveStormToken', 500],
         ['newFirstPlayer', 500],
         ['untap', 500],
       ];
@@ -199,10 +199,12 @@ define([
 
     setupBoard() {
       let storm = this.gamedatas.storm;
-      storm.forEach((stormCard) => {
+      storm.forEach((stormCard, i) => {
         $('storm-container').insertAdjacentHTML(
           'beforeend',
-          `<div class='storm-card' data-id='${stormCard.cardId % 10}' data-flipped='${stormCard.rotated ? 1 : 0}'></div>`
+          `<div class='storm-card-container' id='storm-card-container-${i}'>
+            <div class='storm-card' data-id='${stormCard.cardId % 10}' data-flipped='${stormCard.rotated ? 1 : 0}'></div>
+          </div>`
         );
       });
 
@@ -343,7 +345,7 @@ define([
       //   }
       // }
 
-      if (this._activeStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
+      if (!this._inactiveStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
 
       if (args.args && args.args.optionalAction && !args.args.automaticAction) {
         this.addSecondaryActionButton(
@@ -578,6 +580,10 @@ define([
           );
         });
       }
+
+      this.addDangerActionButton('btnPass', _('Pass'), () => {
+        this.takeAtomicAction('actPass', []);
+      });
     },
 
     onEnteringStateChooseAssignmentLocation(args) {
@@ -626,13 +632,23 @@ define([
 
     formatString(str) {
       const ICONS = ['APPEAL'];
-
       ICONS.forEach((name) => {
         const regex = new RegExp('<' + name + ':([^>]+)>', 'g');
         str = str.replaceAll(regex, this.formatIcon(name, '<span>$1</span>'));
         str = str.replaceAll(new RegExp('<' + name + '>', 'g'), this.formatIcon(name));
       });
+
+      const MARKERS = {
+        J: 'played',
+        M: 'played-from-hand',
+      };
+      Object.keys(MARKERS).forEach((marker) => {
+        let name = MARKERS[marker];
+        const regex = new RegExp('{' + marker + '}', 'g');
+        str = str.replaceAll(regex, this.formatIcon(name));
+      });
       // str = str.replace(/__([^_]+)__/g, '<span class="action-card-name-reference">$1</span>');
+      str = str.replace(/\[G\](.+)\[\/G\]/g, '<span class="rare-marker">$1</span>');
       str = str.replace(/\[\[([^\]]+)\]\]/g, '<span class="effect-reference-emphasis">$1</span>');
       str = str.replace(/\[([^\]]+)\]/g, '<span class="effect-reference">$1</span>');
       str = str.replace(/\{([0-9]+)\}/g, '<span class="mana-cost">$1</span>');

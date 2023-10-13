@@ -626,6 +626,19 @@ html {
           margin-bottom: -4px;
           margin-right: -4px;
           background-position: center center; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="3"] ~ .card-text {
+      top: 280px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="4"] ~ .card-text {
+      top: 260px; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper .card-echo {
+      position: absolute;
+      z-index: 2;
+      top: 371px;
+      bottom: 29px;
+      left: 20px;
+      right: 84px;
+      font-family: "Jali Greek Variable";
+      color: black; }
     .altered-card-tooltip .altered-card.card-alterateur .card-name {
       top: 27px;
       font-style: italic; }
@@ -718,6 +731,9 @@ html {
   background: url("img/icons.png");
   background-repeat: no-repeat; }
 
+.icon-container {
+  display: inline-block; }
+
 .altered-meeple {
   display: inline-block;
   vertical-align: middle; }
@@ -762,41 +778,45 @@ html {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: 1fr; }
-    #altered-main-container #storm-container .storm-card {
+    #altered-main-container #storm-container .storm-card-container {
       grid-row: 1 / span 1;
-      grid-column-end: span 2;
-      background-image: url("img/storm.jpg");
-      background-size: 100% 600%;
-      border-radius: 7px; }
-      #altered-main-container #storm-container .storm-card:nth-child(1) {
+      grid-column-end: span 2; }
+      #altered-main-container #storm-container .storm-card-container:nth-child(1) {
         grid-column-start: 1; }
-      #altered-main-container #storm-container .storm-card:nth-child(2) {
+      #altered-main-container #storm-container .storm-card-container:nth-child(2) {
         grid-column-start: 3; }
-      #altered-main-container #storm-container .storm-card:nth-child(3) {
+      #altered-main-container #storm-container .storm-card-container:nth-child(3) {
         grid-column-start: 5; }
-      #altered-main-container #storm-container .storm-card:nth-child(4) {
+      #altered-main-container #storm-container .storm-card-container:nth-child(4) {
         grid-column-start: 7; }
-      #altered-main-container #storm-container .storm-card:nth-child(5) {
+      #altered-main-container #storm-container .storm-card-container:nth-child(5) {
         grid-column-start: 9; }
-      #altered-main-container #storm-container .storm-card[data-id="0"] {
-        background-position-y: 0%; }
-      #altered-main-container #storm-container .storm-card[data-id="1"] {
-        background-position-y: 20%; }
-      #altered-main-container #storm-container .storm-card[data-id="2"] {
-        background-position-y: 40%; }
-      #altered-main-container #storm-container .storm-card[data-id="3"] {
-        background-position-y: 60%; }
-      #altered-main-container #storm-container .storm-card[data-id="4"] {
-        background-position-y: 80%; }
-      #altered-main-container #storm-container .storm-card[data-id="5"] {
-        background-position-y: 100%; }
-      #altered-main-container #storm-container .storm-card[data-id="6"] {
-        background-position-y: 120%; }
-      #altered-main-container #storm-container .storm-card[data-flipped="1"] {
-        transform: rotate(180deg); }
+      #altered-main-container #storm-container .storm-card-container .storm-card {
+        width: 260px;
+        height: 186px;
+        background-image: url("img/storm.jpg");
+        background-size: 100% 600%;
+        border-radius: 7px; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="0"] {
+          background-position-y: 0%; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="1"] {
+          background-position-y: 20%; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="2"] {
+          background-position-y: 40%; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="3"] {
+          background-position-y: 60%; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="4"] {
+          background-position-y: 80%; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="5"] {
+          background-position-y: 100%; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="6"] {
+          background-position-y: 120%; }
+        #altered-main-container #storm-container .storm-card-container .storm-card[data-flipped="1"] {
+          transform: rotate(180deg); }
     #altered-main-container #storm-container .storm-space {
       grid-column-end: span 1;
-      grid-row: 1 / span 1; }
+      grid-row: 1 / span 1;
+      z-index: 2; }
       #altered-main-container #storm-container .storm-space#storm-0 {
         grid-column-start: 2; }
       #altered-main-container #storm-container .storm-space#storm-1 {
@@ -1179,6 +1199,54 @@ html {
     padding: 11px 0px 3px;
     border-bottom: 1px solid #734f2a; }
 
+.effect-reference,
+.effect-reference-emphasis {
+  font-family: "Jali Greek Variable";
+  font-weight: bold; }
+  .effect-reference.effect-reference-emphasis,
+  .effect-reference-emphasis.effect-reference-emphasis {
+    text-decoration: underline; }
+
+.mana-cost {
+  font-family: "Haptic Pro";
+  display: inline-block;
+  background: black;
+  border-radius: 50%;
+  color: white;
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  margin: 0 0.2em; }
+
+.rare-marker {
+  color: gold; }
+
+.flip-container {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px; }
+  .flip-container .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    transform: rotateY(0deg); }
+    .flip-container .flip-inner .flip-front,
+    .flip-container .flip-inner .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      /* Safari */
+      backface-visibility: hidden;
+      transform: rotateY(0deg); }
+    .flip-container .flip-inner .flip-back {
+      transform: rotateY(180deg); }
+  .flip-container.flipped .flip-inner {
+    transform: rotateY(180deg); }
+
 @font-face {
   font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-BlackItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-BlackItalic.ttf") format("truetype");
@@ -1299,25 +1367,6 @@ html {
   font-weight: normal;
   font-style: italic;
   font-display: swap; }
-.effect-reference,
-.effect-reference-emphasis {
-  font-family: "Jali Greek Variable";
-  font-weight: bold; }
-  .effect-reference.effect-reference-emphasis,
-  .effect-reference-emphasis.effect-reference-emphasis {
-    text-decoration: underline; }
-
-.mana-cost {
-  font-family: "Haptic Pro";
-  display: inline-block;
-  background: black;
-  border-radius: 50%;
-  color: white;
-  width: 1em;
-  height: 1em;
-  text-align: center;
-  margin: 0 0.2em; }
-
 .notransition {
   -webkit-transition: none !important;
   -moz-transition: none !important;

@@ -150,7 +150,7 @@ trait TurnTrait
         $expedition = $token == ALTERATEUR ? STORM_LEFT : STORM_RIGHT;
 
         foreach ($biome as $i => $b) {
-          if ($winners[$expedition][$b]['pId'] == $player->getId()) {
+          if ($winners[$expedition][$b]['pId'] == $pId) {
             $move = $b;
           }
           if ($move !== null) {
@@ -158,7 +158,7 @@ trait TurnTrait
           }
         }
         if ($move !== null) {
-          $player->advanceStorm($token, $b);
+          $player->advanceStorm($token, $move);
         }
       }
     }

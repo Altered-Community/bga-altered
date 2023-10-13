@@ -1,0 +1,33 @@
+.flip-container {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+
+    .flip-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 1s;
+        transform: rotateY(0deg);
+
+        .flip-front,
+        .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            transform: rotateY(0deg);
+        }
+
+        .flip-back {
+            transform: rotateY(180deg);
+        }
+    }
+
+    &.flipped .flip-inner {
+        transform: rotateY(180deg);
+    }
+}

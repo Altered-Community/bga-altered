@@ -466,6 +466,24 @@
                     }
                 }
             }
+
+            .card-frame[data-frame="3"] ~ .card-text {
+                top: 280px;
+            }
+            .card-frame[data-frame="4"] ~ .card-text {
+                top: 260px;
+            }
+
+            .card-echo {
+                position: absolute;
+                z-index: 2;
+                top: 371px;
+                bottom: 29px;
+                left: 20px;
+                right: 84px;
+                font-family: "Jali Greek Variable";
+                color: black;
+            }
         }
 
         &.card-alterateur {

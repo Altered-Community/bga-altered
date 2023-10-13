@@ -283,12 +283,20 @@ class Notifications
     ]);
   }
 
-  public static function moveStormToken($player, $biome, $token)
+  public static function moveStormToken($player, $biome, $tokenMeeple, $stormIndex, $revealed)
   {
     self::notifyAll(
-      'moveStomToken',
-      clienttranslate('${player_name} advances in ${token-type} expedition by winning in ${biome}'),
-      ['player' => $player, 'biome' => $biome, 'token-type' => $token->getType(), 'token' => $token]
+      'moveStormToken',
+      clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biome}'),
+      [
+        'i18n' => ['biome', 'expedition'],
+        'player' => $player,
+        'biome' => $biome,
+        'expedition' => $tokenMeeple->getType(),
+        'token' => $tokenMeeple,
+        'stormIndex' => $stormIndex,
+        'revealed' => $revealed,
+      ]
     );
   }
 

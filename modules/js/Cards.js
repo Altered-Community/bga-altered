@@ -593,8 +593,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 ${this.formatString(_(p.effectDesc))}
               </div>
               <div class='card-reminders'>
-              ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
+                ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
               </div>
+            </div>
+            <div class='card-echo'>
+              ${p.echoDesc ? this.formatString(_(p.echoDesc)) : ''}
             </div>
           </div>
         </div>

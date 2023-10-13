@@ -3,7 +3,6 @@ namespace ALT\Core;
 use ALT\Managers\Players;
 use ALT\Managers\Actions;
 use ALT\Managers\Scores;
-use ALT\Managers\ZooCards;
 use ALT\Helpers\Log;
 use ALT\Helpers\QueryBuilder;
 use ALT\Helpers\UserException;
@@ -98,43 +97,34 @@ class Engine
   public function proceed($confirmedPartial = false, $isUndo = false)
   {
     $node = self::$tree->getNextUnresolved();
-    $firstNode = self::$tree->getChilds();
+
     // Are we done ?
     if ($node == null) {
-      // if no card was played nor action pass, insert again a choose assignment
-      if (Globals::getPlayedCards() == 0) {
-        $found = false;
-        foreach ($firstNode as $i => $node) {
-          if (
-            $node instanceof \ALT\Core\Engine\LeafNode &&
-            $node->getAction() == CHOOSE_ASSIGNMENT &&
-            ($node->getActionResolutionArgs()[0] ?? 'toto') == 'pass'
-          ) {
-            // throw new \feException(print_r($node));
-            $found = true;
-          }
+      // TODO : make more robust
+      $player = Players::getActive();
+      $skipped = Globals::getSkippedPlayers();
+      // if card was played or action passed, we are done
+      if (Globals::getPlayedCards() != 0 || in_array($player->getId(), $skipped)) {
+        if (Globals::getEngineChoices() == 0) {
+          self::confirm(); // No choices were made => auto confirm
+        } else {
+          // Confirm/restart
+          Game::get()->gamestate->jumpToState(ST_CONFIRM_TURN);
         }
-        if ($found === false) {
-          self::insertAtRoot(
-            $node = [
-              'childs' => [
-                [
-                  'action' => CHOOSE_ASSIGNMENT,
-                ],
-              ],
-            ]
-          );
-          self::proceed();
-          return;
-        }
+        return;
       }
 
-      if (Globals::getEngineChoices() == 0) {
-        self::confirm(); // No choices were made => auto confirm
-      } else {
-        // Confirm/restart
-        Game::get()->gamestate->jumpToState(ST_CONFIRM_TURN);
-      }
+      // otherwise, insert again a choose assignment
+      self::insertAtRoot(
+        $node = [
+          'childs' => [
+            [
+              'action' => CHOOSE_ASSIGNMENT,
+            ],
+          ],
+        ]
+      );
+      self::proceed();
       return;
     }
 

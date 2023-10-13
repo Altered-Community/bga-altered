@@ -100,7 +100,7 @@ class Actions
 
     // Run action
     $action = self::get($actionId, $ctx);
-    $methodName = $actionName; //'act' . self::$classes[$actionId];
+    $methodName = $actionName;
     $action->$methodName(...$args);
 
     // Resolve action

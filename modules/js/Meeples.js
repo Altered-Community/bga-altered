@@ -171,5 +171,21 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif: discard a token', n);
       this.slideResources(n.args.meeples, { destroy: true, to: this.getVisibleTitleContainer(), phantom: false });
     },
+
+    notif_moveStormToken(n) {
+      debug('Notif: moving a token in the storm', n);
+      let slideIt = () => this.slideResources([n.args.token]);
+
+      let card = n.args.revealed;
+      if (card) {
+        let oCard = $(`storm-card-container-${n.args.stormIndex}`).querySelector('.storm-card');
+        this.flipAndReplace(
+          oCard,
+          `<div class='storm-card' data-id='${card.cardId % 10}' data-flipped='${card.rotated ? 1 : 0}'></div>`
+        ).then(slideIt);
+      } else {
+        slideIt();
+      }
+    },
   });
 });

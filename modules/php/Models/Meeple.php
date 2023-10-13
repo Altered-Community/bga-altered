@@ -17,4 +17,9 @@ class Meeple extends \ALT\Helpers\DB_Model
     'type' => 'type',
     'pId' => 'player_id',
   ];
+
+  public function getLocationArg()
+  {
+    return explode('-', $this->getLocation())[1];
+  }
 }

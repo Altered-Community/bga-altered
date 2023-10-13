@@ -165,7 +165,6 @@ class ChooseAssignment extends \ALT\Models\Action
 
   public function actPass($silent = false)
   {
-    self::checkAction('actPass');
     $player = Players::getActive();
     $skipped = Globals::getSkippedPlayers();
     $skipped[] = $player->getId();
@@ -173,6 +172,5 @@ class ChooseAssignment extends \ALT\Models\Action
     if (!$silent) {
       Notifications::pass($player);
     }
-    $this->resolveAction(['pass']);
   }
 }
