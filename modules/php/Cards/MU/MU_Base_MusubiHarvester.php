@@ -5,6 +5,7 @@ class MU_Base_MusubiHarvester extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_MU_2_1_19',
       'asset' => 'MU_06_MusubiHarvester_RGB_01',

@@ -5,6 +5,7 @@ class BR_Base_Atlas extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_2_1_10',
       'asset' => 'BR_20_Atlas_RGB_01',

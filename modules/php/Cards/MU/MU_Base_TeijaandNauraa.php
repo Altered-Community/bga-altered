@@ -5,6 +5,7 @@ class MU_Base_TeijaandNauraa extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_MU_1_1_17',
       'asset' => 'MU-02_Teija-Nauraa_RGB_01',

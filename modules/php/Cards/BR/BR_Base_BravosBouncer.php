@@ -5,6 +5,7 @@ class BR_Base_BravosBouncer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_2_1_9',
       'asset' => 'BR-30_SeiringarOldGuard_RGB_01',

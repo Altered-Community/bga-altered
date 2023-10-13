@@ -5,6 +5,7 @@ class BR_Base_BravosTrainer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_2_1_6',
       'asset' => 'OR-33_Aegis Veteran_RGB_01',

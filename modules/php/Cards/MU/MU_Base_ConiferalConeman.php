@@ -5,6 +5,7 @@ class MU_Base_ConiferalConeman extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_MU_2_1_25',
       'asset' => 'MU-43_ConiferalConeman_RGB_01',

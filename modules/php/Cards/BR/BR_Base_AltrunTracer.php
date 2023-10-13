@@ -5,6 +5,7 @@ class BR_Base_AltrunTracer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_2_1_4',
       'asset' => 'BR-24_AltrunTracer_RGB_01',

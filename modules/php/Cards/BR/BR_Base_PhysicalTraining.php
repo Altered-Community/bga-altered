@@ -5,6 +5,7 @@ class BR_Base_PhysicalTraining extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_3_1_11',
       'asset' => 'BR-17_GerichtVanBraast_RGB_01',

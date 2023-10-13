@@ -13,6 +13,18 @@ use ALT\Models\Card;
 
 /* Class to manage all the cards for Altered */
 
+function slugify($text)
+{
+  $text = preg_replace('~[^\pL\d]+~u', '', $text);
+  $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+  $text = preg_replace('~[^-\w]+~', '', $text);
+  $text = trim($text, '');
+  if (empty($text)) {
+    return 'n-a';
+  }
+  return $text;
+}
+
 class Cards extends \ALT\Helpers\Pieces
 {
   protected static $table = 'cards';
@@ -30,12 +42,21 @@ class Cards extends \ALT\Helpers\Pieces
 
   public static function getCardInstance($id, $data = null)
   {
-    return new Card($data);
+    // TODO : remove once stable
+    $p = json_decode($data['properties'], true);
+    $faction = $p['faction'];
+    $rarity = $p['rarity'] == 0 ? 'base' : 'rare';
+    $slug = slugify($p['name']);
+    $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
+    return new $className($data);
+    // return new Card($data);
   }
 
   public static function getUiData()
   {
-    return self::getAll()->where('location', IN_PLAY)->toArray();
+    return self::getAll()
+      ->where('location', IN_PLAY)
+      ->toArray();
   }
 
   ///////////////////////////////////
@@ -60,9 +81,17 @@ class Cards extends \ALT\Helpers\Pieces
       // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
       $className = "\\ALT\\Cards\\$faction\\$cardId";
       $card = new $className(null);
+      $location = "deck-$pId";
+      if ($card->getType() == ALTERATEUR) {
+        $location = "board-alterateur-$pId";
+      }
+      if (in_array($cardId, TOKENS)) {
+        $location = "tokens-$pId";
+      }
+
       $toCreate[] = [
         'player_id' => $pId,
-        'location' => ($card->getType() == ALTERATEUR ? 'board-alterateur-' : 'deck-') . $pId,
+        'location' => $location,
         'n' => $n,
         'properties' => $card->getProperties(),
       ];

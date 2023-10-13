@@ -5,6 +5,7 @@ class MU_Base_ResilienceTraining extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_MU_3_1_26',
       'asset' => 'MU-35_Mana_Web_RGB_01',

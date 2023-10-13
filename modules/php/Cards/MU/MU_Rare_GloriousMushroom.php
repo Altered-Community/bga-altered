@@ -5,6 +5,7 @@ class MU_Rare_GloriousMushroom extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_MU_2_2_30',
       'asset' => 'MU-36_Sneezer_Shroom_RGB_02',

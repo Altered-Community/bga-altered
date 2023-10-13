@@ -5,6 +5,7 @@ class BR_Rare_MulanRespectedLeader extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_2_2_13',
       'asset' => 'BR-36_Hua_Mulan_02',

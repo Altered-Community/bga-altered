@@ -5,6 +5,7 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_1_1_2',
       'asset' => 'BR-01_Ekwu-Booda_RGB_01',

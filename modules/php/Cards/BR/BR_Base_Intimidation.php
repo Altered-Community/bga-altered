@@ -5,6 +5,7 @@ class BR_Base_Intimidation extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_3_1_12',
       'asset' => 'BR-33_TheHighGround_RGB_01',

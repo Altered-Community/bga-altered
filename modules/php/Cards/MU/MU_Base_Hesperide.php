@@ -5,6 +5,7 @@ class MU_Base_Hesperide extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_MU_2_1_24',
       'asset' => 'MU-42_Hesperide_RGB_01',

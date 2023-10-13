@@ -5,6 +5,7 @@ class BR_Base_Ratatosk extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_2_1_3',
       'asset' => 'BR-38_Ratatoskr_01',

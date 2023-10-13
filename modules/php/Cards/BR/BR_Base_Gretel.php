@@ -5,6 +5,7 @@ class BR_Base_Gretel extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
     $this->properties = [
       'uid' => 'USA2023_BR_2_1_5',
       'asset' => 'BR-07_Gretel_RGB_01',
