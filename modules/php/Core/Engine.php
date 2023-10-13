@@ -100,11 +100,13 @@ class Engine
 
     // Are we done ?
     if ($node == null) {
-      // TODO : make more robust
       $player = Players::getActive();
       $skipped = Globals::getSkippedPlayers();
       // if card was played or action passed, we are done
-      if (Globals::getPlayedCards() != 0 || in_array($player->getId(), $skipped)) {
+      if (
+        (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array($player->getId(), $skipped))) ||
+        Globals::getDayPhase() === false
+      ) {
         if (Globals::getEngineChoices() == 0) {
           self::confirm(); // No choices were made => auto confirm
         } else {

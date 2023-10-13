@@ -44,6 +44,7 @@ trait TurnTrait
     Globals::setStormMoves([]);
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
+    Globals::setDayPhase(true);
     $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_DUSK_PHASE, true);
   }
 
@@ -60,6 +61,7 @@ trait TurnTrait
       // Everyone is out of round => end it
       $remaining = array_diff(Players::getAll()->getIds(), $skipped);
       if (empty($remaining)) {
+        Globals::setDayPhase(false);
         $this->endCustomOrder('assignment');
       } else {
         $this->nextPlayerCustomOrder('assignment');
