@@ -312,6 +312,12 @@ class Notifications
     ]);
   }
 
+  /*** tools****/
+  public static function silentKill($tokens)
+  {
+    self::notifyAll('silentKill', '', ['tokens' => $tokens]);
+  }
+
   /*********** unchecked ******* */
   public static function refreshUI($datas)
   {

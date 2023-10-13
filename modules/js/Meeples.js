@@ -187,5 +187,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         slideIt();
       }
     },
+
+    notif_silentKill(n) {
+      debug('Silent kill of meeples', n);
+      // TODO
+    },
   });
 });

@@ -154,7 +154,7 @@ class Cards extends \ALT\Helpers\Pieces
   public static function discard($cardIds, $discard = 'discard', $pId = null)
   {
     if (!is_null($pId)) {
-      $dicard = $discard . '_' . $pId;
+      $discard = $discard . '_' . $pId;
     }
     return self::move($cardIds, $discard);
   }

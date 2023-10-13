@@ -74,7 +74,12 @@ class Discard extends \ALT\Models\Action
     Cards::discard($cardIds);
     $cards = Cards::getMany($cardIds, $args['destination']);
 
-    // throw new \feException($cards->first()->getId());
+    $deleted = [];
+    foreach ($cardIds as $cardId) {
+      foreach (Meeples::getInLocation('card-' . $cardId)->getIds() as $id) {
+        $deleted[] = Meeples::DB()->delete($id);
+      }
+    }
 
     $msg = clienttranslate('${player_name} discards ${n} cards from the ${source} to ${destination}');
     if ($automatic === true) {
@@ -82,6 +87,10 @@ class Discard extends \ALT\Models\Action
     }
 
     Notifications::publicDiscard($player, $cards, $msg, ['source' => $args['source'], 'destination' => $args['destination']]);
+    if (!empty($deleted)) {
+      Notifications::silentKill($deleted);
+    }
+
     $this->resolveAction([$cardIds]);
   }
 }

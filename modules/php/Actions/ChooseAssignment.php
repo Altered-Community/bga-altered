@@ -108,7 +108,10 @@ class ChooseAssignment extends \ALT\Models\Action
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
 
     // if played from memory, it gains fleeting
-    if ($fromLocation == MEMORY) {
+    if ($location == DISCARD) {
+      $deleted = $card->discard();
+      Notifications::silentKill($deleted);
+    } elseif ($fromLocation == MEMORY) {
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainToken(FLEETING, $card, $token);
     }
