@@ -92,7 +92,7 @@ class Cards extends \ALT\Helpers\Pieces
       $toCreate[] = [
         'player_id' => $pId,
         'location' => $location,
-        'n' => $n,
+        'nbr' => $n,
         'properties' => $card->getProperties(),
       ];
     }
