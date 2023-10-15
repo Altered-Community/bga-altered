@@ -432,7 +432,9 @@ class Engine
         continue;
       }
       $newBrother = $brother->toArray();
-      $newBrother['args'] = $newBrother['args'] + array_pop($args);
+      if (count($args) != 0) {
+        $newBrother['args'] = $newBrother['args'] + array_pop($args);
+      }
       $brother = $brother->replace(self::buildTree($newBrother));
     }
     self::save();

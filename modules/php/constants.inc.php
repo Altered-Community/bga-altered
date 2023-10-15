@@ -128,6 +128,8 @@ const TARGET = 'TARGET';
 ////////////// Flow convertor constants
 const TARGET_ALL_EXPLORER = 'target_all_explorer';
 const TARGET_ALL_EXPLORER_2 = 'target_all_explorer_2';
+const TARGET_ALL_ALL_1_4 = 'target_all_all_1_4';
+const DISCARD_HAND = 'discard_hand'; // Discard to hand
 const SABOTAGE = 'sabotage';
 
 const ACTIVE = 1;

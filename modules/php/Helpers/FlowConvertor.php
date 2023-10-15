@@ -117,6 +117,17 @@ abstract class FlowConvertor
         $childs[] = self::getFlowSingleBonusAux($newType, $newN);
       }
       return ['node' => NODE_SEQ, 'childs' => $childs];
+    } elseif ($type == TARGET_ALL_ALL_1_4) {
+      // Target all characters or permanent, 1 card, 4 less, memory
+      // target will trigger a sequential node, with the args
+      $childs = [];
+      $childs[] = ['action' => TARGET, 'args' => ['targetType' => [EXPLORER, PERMANENT], 'handCost' => 5]];
+      foreach ($n as $id => $newNode) {
+        $newType = array_keys($newNode)[0];
+        $newN = $newNode[$newType];
+        $childs[] = self::getFlowSingleBonusAux($newType, $newN);
+      }
+      return ['node' => NODE_SEQ, 'childs' => $childs];
     } elseif ($type == SABOTAGE) {
       return [
         'type' => NODE_SEQ,
@@ -125,6 +136,10 @@ abstract class FlowConvertor
           ['action' => DISCARD, 'args' => []],
         ],
       ];
+    } elseif ($type == DISCARD_HAND) {
+      return ['action' => DISCARD, 'args' => ['destination' => HAND]];
+    } elseif ($type == DISCARD) {
+      return ['action' => DISCARD, 'args' => ['n' => $n]];
     }
     // // Addition worker => same as "Full Throated" animal effect
     // elseif ($type == \BONUS_WORKER) {

@@ -58,6 +58,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     'tapped' => 'bool',
     'gigantic' => 'bool',
+    'fleeting' => 'bool',
 
     'extraDatas' => 'obj',
   ];
