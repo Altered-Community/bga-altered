@@ -196,6 +196,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       // TODO
     },
 
+    notif_looseToken(n) {
+      debug('Loose of meeples', n);
+      // TODO
+    },
+
+    notif_gainToken(n) {
+      debug('Gain of meeples', n);
+      // TODO
+    },
+
     notif_newFirstPlayer(n) {
       debug('Notif: new first played and untap cards', n);
 

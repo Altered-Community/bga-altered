@@ -44,7 +44,7 @@ trait DebugTrait
   {
     // Cards::get(24)->setTapped(true);
     // Cards::get(3)->setEffectHand([[TARGET_ALL_EXPLORER_2 => [[BOOST => 2], [BOOST => 2]]]]);
-    Cards::get(11)->setEffectHand([[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1], [DISCARD => ME]]]]);
+    Cards::get(12)->setEffectMemory([[BOOST => 2], [LOOSE => [FLEETING => 1]]]);
   }
 
   function score($cardId)

@@ -206,6 +206,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
     },
 
+    notif_updateBiomes(n) {
+      debug('Notif: updating biomes', n);
+      this.updateBiomeTotals(n.args.pId, n.args.biomes);
+    },
+
     /**
      * Use this tpl for any counters that represent qty of meeples in "reserve", eg xtokens
      */

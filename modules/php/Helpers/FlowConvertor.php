@@ -143,6 +143,20 @@ abstract class FlowConvertor
       return ['action' => DISCARD, 'args' => ['destination' => HAND]];
     } elseif ($type == DISCARD) {
       return ['action' => DISCARD, 'args' => ['n' => $n]];
+    } elseif ($type == LOOSE) {
+      $data = [
+        'action' => LOOSE,
+        'args' => [],
+      ];
+
+      foreach ($n as $res => $amount) {
+        $data['args'][$res] = $data['args'][$res] ?? 0 + $amount;
+      }
+
+      if (!isset($args['cardId']) && !is_null($args['sourceId'] ?? null)) {
+        $data['args']['cardId'] = $args['sourceId'];
+      }
+      return $data;
     }
     // // Addition worker => same as "Full Throated" animal effect
     // elseif ($type == \BONUS_WORKER) {

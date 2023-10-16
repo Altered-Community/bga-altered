@@ -148,6 +148,11 @@ class Card extends \ALT\Helpers\DB_Model
     return Meeples::countMeeples('card-' . $this->id, $token);
   }
 
+  public function getOfType($type)
+  {
+    return Meeples::getOfType('card-' . $this->id, $type);
+  }
+
   public function discard()
   {
     $this->setLocation('discard');

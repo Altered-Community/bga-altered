@@ -50,6 +50,9 @@ define([
         ['playCard', null],
         ['moveStormToken', null],
         ['silentKill', 200],
+        ['looseToken', 200],
+        ['gainToken', 200],
+        ['updateBiomes', 100],
 
         ['setupPlayer', null],
         ['payMana', 500],

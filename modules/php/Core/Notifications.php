@@ -240,6 +240,11 @@ class Notifications
     ]);
   }
 
+  public static function updateBiomes($player)
+  {
+    self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
+  }
+
   public static function gainToken($power, $card, $meeples, $silent = true)
   {
     $msg = '';
@@ -247,6 +252,21 @@ class Notifications
       $msg = clienttranslate('${card_name} gains ${n} ${power}');
     }
     self::notifyAll('gainToken', $msg, [
+      'card' => $card,
+      'power' => $power,
+      'i18n' => ['power'],
+      'meeples' => $meeples,
+      'n' => count($meeples),
+    ]);
+  }
+
+  public static function looseToken($power, $card, $meeples, $silent = true)
+  {
+    $msg = '';
+    if (!$silent) {
+      $msg = clienttranslate('${card_name} looses ${n} ${power}');
+    }
+    self::notifyAll('looseToken', $msg, [
       'card' => $card,
       'power' => $power,
       'i18n' => ['power'],

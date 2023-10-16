@@ -7,37 +7,16 @@ use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 
-class Gain extends \ALT\Models\Action
+class Loose extends \ALT\Models\Action
 {
   public function getState()
   {
-    return ST_GAIN;
+    return ST_LOOSE;
   }
 
   public function getDescription()
   {
-    $player = $this->getPlayer();
-    $gain = $this->getGain();
-    $desc = Utils::resourcesToStr([$gain[0] => $gain[1]], true);
-
-    if ($player->getId() == Players::getActiveId()) {
-      return [
-        'log' => clienttranslate('Gain ${resources_desc}'),
-        'args' => [
-          'resources_desc' => $desc,
-        ],
-      ];
-    }
-    // The reward is for someone else
-    else {
-      return [
-        'log' => clienttranslate('Let ${player_name} gain ${resources_desc}'),
-        'args' => [
-          'player_name' => $player->getName(),
-          'resources_desc' => $desc,
-        ],
-      ];
-    }
+    return [];
   }
 
   public function isAutomatic($player = null)
@@ -48,8 +27,6 @@ class Gain extends \ALT\Models\Action
   public function isIndependent($player = null)
   {
     return true;
-    // list($resource, $amount) = $this->getGain();
-    // return in_array($resource, [MONEY, XTOKEN]);
   }
 
   public function getPlayer()
@@ -69,7 +46,7 @@ class Gain extends \ALT\Models\Action
     return Cards::get($cardId);
   }
 
-  public function getGain()
+  public function getLoose()
   {
     $args = $this->getCtxArgs();
     foreach ($args as $resource => $amount) {
@@ -78,7 +55,7 @@ class Gain extends \ALT\Models\Action
       }
 
       if (!in_array($resource, [BOOST, ANCHORED, FLEETING, GIGANTIC, ANCHORED])) {
-        die('GAIN: unrecognized resource' . $resource);
+        die('LOOSE: unrecognized resource' . $resource);
       }
 
       return [$resource, $amount];
@@ -86,7 +63,7 @@ class Gain extends \ALT\Models\Action
     die('GAIN: resource not found');
   }
 
-  public function stGain()
+  public function stLoose()
   {
     $player = $this->getPlayer();
     $args = $this->getCtxArgs();
@@ -96,14 +73,26 @@ class Gain extends \ALT\Models\Action
       $source = Cards::getSingle($sourceId);
     }
     $card = $this->getCard();
+    $deleted = [];
 
     // Increase resource and notify
-    list($resource, $amount) = $this->getGain();
-    $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
-    Notifications::gainToken($resource, $card, $tokens, false);
-    Notifications::updateBiomes($card->getPlayer());
+    list($resource, $amount) = $this->getLoose();
+    $meeples = $card->getOfType($resource);
 
-    $this->checkAfterListeners($player, ['gain' => $args]);
+    foreach ($meeples as $mId => $m) {
+      if ($amount == 0) {
+        break;
+      }
+      Meeples::DB()->delete($mId);
+      $deleted[] = $mId;
+      $amount--;
+    }
+
+    if (count($deleted) > 0) {
+      Notifications::looseToken($resource, $card, $deleted, false);
+    }
+
+    $this->checkAfterListeners($player, ['loose' => $args]);
     $this->resolveAction();
   }
 }

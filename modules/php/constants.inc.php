@@ -57,12 +57,8 @@ const ST_CHOOSE_ASSIGNMENT = 11;
 // Atomic action
 const ST_DISCARD = 12;
 const ST_GAIN = 13;
-// const ST_ACTIVATE_ECHO = 11;
-// const ST_ACTIVATE_ALTERER = 12;
-// const ST_ACTIVATE_PERMANENT = 13;
-
-// Targeting
 const ST_TARGET = 14;
+const ST_LOOSE = 15;
 
 // Effets
 const ST_EFFECT_BOOST = 20; // gain X / who
@@ -108,6 +104,7 @@ const CHOOSE_ASSIGNMENT = 'CHOOSE_ASSIGNMENT';
 const GAIN = 'GAIN';
 const DISCARD = 'DISCARD';
 const TARGET = 'TARGET';
+const LOOSE = 'LOOSE';
 // const ADVANCE_BREAK = 'ADVANCE_BREAK';
 // const PAY = 'PAY';
 // const CLEANUP = 'CLEANUP';

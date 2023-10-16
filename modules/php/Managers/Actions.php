@@ -19,6 +19,7 @@ class Actions
     DISCARD => 'Discard',
     GAIN => 'Gain',
     TARGET => 'Target',
+    LOOSE => 'Loose',
     // PAY => 'Pay',
     // ACTIVATE_CARD => 'ActivateCard',
     // SPECIAL_EFFECT => 'SpecialEffect',
