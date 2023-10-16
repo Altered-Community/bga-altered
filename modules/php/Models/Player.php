@@ -253,19 +253,19 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function nightCleanup()
   {
-    foreach ($this->getPlayedCards() as $cId => $card) {
-      $deletedCards = [];
-      $deteledTokens = [];
-      $movedToReserve = [];
+    $deletedCards = [];
+    $deletedTokens = [];
+    $movedToReserve = [];
 
+    foreach ($this->getPlayedCards() as $cId => $card) {
       // Remove card if Fleeting
       if ($card->hasToken(FLEETING)) {
-        $deletedTokens = array_merge($deleteTokens, $card->discard());
+        $deletedTokens = array_merge($deletedTokens, $card->discard());
         $deletedCards[] = $cId;
       }
 
       // Move card without anchored,asleep to memory
-      if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
+      if (!in_array($cId, $deletedCards) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
         // move card to memory
         $deletedTokens = array_merge($deletedTokens, $card->moveToMemory());
         $movedToReserve[] = $cId;
@@ -273,8 +273,9 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Remove Anchored / Asleep tokens
       $deletedTokens = array_merge($deletedTokens, $card->nightCleanup());
-      Notifications::nightCleanup($this, $deletedCards, $deteledTokens, $movedToReserve);
     }
+    Notifications::nightCleanup($this, Cards::getMany($deletedCards), $deletedTokens, Cards::getMany($movedToReserve));
+
     // return true if choice is needed
     return $this->getMemorySlots() < $this->getMemoryCards()->count();
   }

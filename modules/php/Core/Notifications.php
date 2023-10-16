@@ -305,12 +305,16 @@ class Notifications
 
   public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve)
   {
-    self::notifyAll('nightCleanup', clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to memory'), [
-      'player' => $player,
-      'cards' => $deletedCards,
-      'cards2' => $movedToReserve,
-      'meeples' => $deletedTokens,
-    ]);
+    self::notifyAll(
+      'nightCleanup',
+      clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to reserve'),
+      [
+        'player' => $player,
+        'cards' => $deletedCards->toArray(),
+        'cards2' => $movedToReserve->toArray(),
+        'meeples' => $deletedTokens,
+      ]
+    );
   }
 
   public static function updateNightSelection($player, $args)
