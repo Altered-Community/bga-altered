@@ -213,7 +213,7 @@ class Player extends \ALT\Helpers\DB_Model
       $sId = $token->getLocationArg();
 
       if ($sId == 0 || $sId == 7) {
-        $locations[$token->getType()] = [MOUNTAIN, FOREST, OCEAN];
+        $locations[$token->getType()] = [FOREST, MOUNTAIN, OCEAN];
         continue;
       }
 

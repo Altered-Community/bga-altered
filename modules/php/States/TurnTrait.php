@@ -110,6 +110,7 @@ trait TurnTrait
     $this->initCustomDefaultTurnOrder('dusk', \ST_DUSK, ST_BEFORE_NIGHT, true);
   }
 
+  // Move companion and hero
   function stDusk()
   {
     // TODO: multiplayer not managed (create pairs and iterate on those)
@@ -117,14 +118,14 @@ trait TurnTrait
     $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
     $winners = [
       STORM_LEFT => [
-        OCEAN => ['pId' => null, 'value' => -1],
-        MOUNTAIN => ['pId' => null, 'value' => -1],
         FOREST => ['pId' => null, 'value' => -1],
+        MOUNTAIN => ['pId' => null, 'value' => -1],
+        OCEAN => ['pId' => null, 'value' => -1],
       ],
       STORM_RIGHT => [
-        OCEAN => ['pId' => null, 'value' => -1],
-        MOUNTAIN => ['pId' => null, 'value' => -1],
         FOREST => ['pId' => null, 'value' => -1],
+        MOUNTAIN => ['pId' => null, 'value' => -1],
+        OCEAN => ['pId' => null, 'value' => -1],
       ],
     ];
 
@@ -143,6 +144,7 @@ trait TurnTrait
       }
     }
 
+    // For each player, check whether hero and/or companion move forward
     foreach ($players as $pId => $player) {
       $biomes = $player->getBiomeInStorms();
       foreach ($biomes as $token => $biome) {
