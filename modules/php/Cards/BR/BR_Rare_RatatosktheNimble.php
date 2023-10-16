@@ -17,7 +17,7 @@ class BR_Rare_RatatosktheNimble extends \ALT\Models\Card
       'subtype' => 'Squirrel',
       'typeline' => 'Explorer Rare - Squirrel',
       'rarity' => RARITY_RARE,
-      'effectDesc' => clienttranslate('{S} I gain <3> boosts.'),
+      'effectDesc' => clienttranslate('{S} I gain [G]3[/G] boosts.'),
 
       'reminders' => clienttranslate(
         'Boosts are +1/+1/+1 counters. Remove them when the boosted Character leaves the Expedition Zone.'

@@ -17,7 +17,7 @@ class BR_Rare_MulanRespectedLeader extends \ALT\Models\Card
       'subtype' => 'Adventurer',
       'typeline' => 'Explorer Rare - Adventurer',
       'rarity' => RARITY_RARE,
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts <and lose [[Fleeting]].>'),
+      'effectDesc' => clienttranslate('{S} I gain 2 boosts [G]and lose [[Fleeting]].[/G]'),
 
       'reminders' => clienttranslate(
         'Boosts are +1/+1/+1 counters. Remove them when the boosted Character leaves the Expedition Zone.'
