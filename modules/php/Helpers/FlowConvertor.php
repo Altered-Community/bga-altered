@@ -121,7 +121,10 @@ abstract class FlowConvertor
       // Target all characters or permanent, 1 card, 4 less, memory
       // target will trigger a sequential node, with the args
       $childs = [];
-      $childs[] = ['action' => TARGET, 'args' => ['targetType' => [EXPLORER, PERMANENT], 'handCost' => 5]];
+      $childs[] = [
+        'action' => TARGET,
+        'args' => ['targetType' => [EXPLORER, PERMANENT], 'targetLocation' => ['played', MEMORY], 'handCost' => 5],
+      ];
       foreach ($n as $id => $newNode) {
         $newType = array_keys($newNode)[0];
         $newN = $newNode[$newType];

@@ -616,6 +616,23 @@ define([
       });
     },
 
+    onEnteringStateTarget(args) {
+
+    this.onSelectNCards(args.cards, {
+          n: args.n,
+          class: 'selectable',
+          confirmText: _('Target'),
+          callback: (selectedElements, ignoredElements) =>
+            this.takeAtomicAction('actTarget', [selectedElements] ),
+        });
+     
+
+      // if not mandatory, player can pass
+      if (args.canPass) {
+        this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAtomicAction('actTargetPass', {}));
+      }
+    },
+
     ////////////////////////////////////////////////////////////
     // _____                          _   _   _
     // |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _

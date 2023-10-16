@@ -119,4 +119,16 @@ class Target extends \ALT\Models\Action
     Notifications::message('targeted');
     $this->resolveAction([$cardIds]);
   }
+
+  public function actTargetPass()
+  {
+    self::checkAction('actTarget');
+    $player = Players::getActive();
+    if (($this->getCtxArg('optional') ?? 'toto') !== true) {
+      throw new \BgaVisibleSystemException('This action cannot be passed.Should not happen');
+    }
+    // TODO: how to exclude after nodes
+    // TODO: Change intimidation
+    $this->resolveAction([PASS]);
+  }
 }

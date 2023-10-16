@@ -351,6 +351,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_publicDiscard(n) {
       debug('Public discard', n);
       // TOOD
+      // !! how to manage when we send the card to the hand?
     },
 
     /**

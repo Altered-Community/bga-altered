@@ -197,7 +197,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actTarget', 'actRestart'],
+    'possibleactions' => ['actTarget', 'actTargetPass', 'actRestart'],
   ],
 
   ////////////////////////////////////
