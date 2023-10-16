@@ -19,6 +19,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     'firstPlayer' => 'int',
     'skippedPlayers' => 'obj',
+    'dayPhase' => 'bool',
 
     'storm' => 'obj',
     'day' => 'int',
@@ -172,6 +173,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     self::setDay(0);
     self::setPlayedCards(0);
+    self::setDayPhase(false);
   }
 
   public static function getStorm($ui = false)

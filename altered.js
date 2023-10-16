@@ -47,6 +47,7 @@ define([
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
         ['moveStormToken', null],
+        ['silentKill', 200],
 
         ['setupPlayer', null],
         ['payMana', 500],

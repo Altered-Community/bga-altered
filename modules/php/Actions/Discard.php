@@ -28,6 +28,9 @@ class Discard extends \ALT\Models\Action
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
       $this->actDiscard([$this->getCtxArg('cardId')], true);
     }
+    if (!is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
+      $this->actDiscard([$this->getCtx()->getSourceId()], true);
+    }
   }
 
   public function argsDiscard()
@@ -45,7 +48,7 @@ class Discard extends \ALT\Models\Action
     return [
       'n' => $this->getCtxArg('n') ?? 1,
       'source' => $this->getCtxArg('source') ?? '',
-      'destination' => $this->getCtxArg('destination') ?? '',
+      'destination' => $this->getCtxArg('destination') ?? 'discard',
       '_private' => [
         'active' => [
           'cards' => $cards,
@@ -71,17 +74,28 @@ class Discard extends \ALT\Models\Action
       }
     }
 
-    Cards::discard($cardIds);
-    $cards = Cards::getMany($cardIds, $args['destination']);
+    Cards::discard($cardIds, $args['destination']);
+    $cards = Cards::getMany($cardIds);
 
-    // throw new \feException($cards->first()->getId());
+    $deleted = [];
+    foreach ($cardIds as $cardId) {
+      foreach (Meeples::getInLocation('card-' . $cardId)->getIds() as $id) {
+        $deleted[] = Meeples::DB()->delete($id);
+      }
+    }
 
     $msg = clienttranslate('${player_name} discards ${n} cards from the ${source} to ${destination}');
-    if ($automatic === true) {
+    if ($args['destination'] == HAND) {
+      $msg = clienttranslate('${player_name} puts ${n} cards to players\' hand');
+    } elseif ($automatic === true) {
       $msg = clienttranslate('${player_name} discards ${n} card(s)');
     }
 
     Notifications::publicDiscard($player, $cards, $msg, ['source' => $args['source'], 'destination' => $args['destination']]);
+    if (!empty($deleted)) {
+      Notifications::silentKill($deleted);
+    }
+
     $this->resolveAction([$cardIds]);
   }
 }

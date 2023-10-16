@@ -48,8 +48,8 @@ class Cards extends \ALT\Helpers\Pieces
     $rarity = $p['rarity'] == 0 ? 'base' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    return new $className($data);
-    // return new Card($data);
+    // return new $className($data);
+    return new Card($data);
   }
 
   public static function getUiData()
@@ -92,7 +92,7 @@ class Cards extends \ALT\Helpers\Pieces
       $toCreate[] = [
         'player_id' => $pId,
         'location' => $location,
-        'n' => $n,
+        'nbr' => $n,
         'properties' => $card->getProperties(),
       ];
     }
@@ -154,7 +154,7 @@ class Cards extends \ALT\Helpers\Pieces
   public static function discard($cardIds, $discard = 'discard', $pId = null)
   {
     if (!is_null($pId)) {
-      $dicard = $discard . '_' . $pId;
+      $discard = $discard . '_' . $pId;
     }
     return self::move($cardIds, $discard);
   }
