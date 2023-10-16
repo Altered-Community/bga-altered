@@ -60,7 +60,7 @@ class Loose extends \ALT\Models\Action
 
       return [$resource, $amount];
     }
-    die('GAIN: resource not found');
+    die('LOOSE: resource not found');
   }
 
   public function stLoose()
@@ -90,6 +90,7 @@ class Loose extends \ALT\Models\Action
 
     if (count($deleted) > 0) {
       Notifications::looseToken($resource, $card, $deleted, false);
+      Notifications::updateBiomes($card->getPlayer());
     }
 
     $this->checkAfterListeners($player, ['loose' => $args]);

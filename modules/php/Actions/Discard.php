@@ -92,6 +92,8 @@ class Discard extends \ALT\Models\Action
     }
 
     Notifications::publicDiscard($player, $cards, $msg, ['source' => $args['source'], 'destination' => $args['destination']]);
+    Notifications::updateBiomes($card->getPlayer());
+
     if (!empty($deleted)) {
       Notifications::silentKill($deleted);
     }
