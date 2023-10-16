@@ -41,7 +41,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return card.id;
       });
       document.querySelectorAll('.altered-card').forEach((oCard) => {
-        console.log(oCard);
         if (
           !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
           !oCard.parentNode.classList.contains('player-board-hand') &&
@@ -432,7 +431,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
-        this.updateBiomeTotals(card.pId);
+        this.updateBiomeTotals(card.pId, n.args.biomes);
         this.notifqueue.setSynchronousDuration(100);
       });
     },
@@ -451,6 +450,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: untapping card(s', n);
       // TODO
       // It can contain multiple cards!
+    },
+
+    notif_nightCleanup(n) {
+      debug('Notif: cleaning up played cards', n);
+      let pId = n.args.player_id;
+      n.args.cards.forEach((card) => (card.discard = true));
+
+      Promises.all(
+        [...n.args.cards, ...n.args.cards2].map((card, i) => {
+          return this.wait(100 * i).then(() =>
+            this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`)
+          );
+        })
+      ).then(() => {
+        // TODO : remove meeples
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     //////////////////////////////////////////////

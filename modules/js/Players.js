@@ -1,5 +1,5 @@
 define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
-  const PLAYER_COUNTERS = ['mana', 'totalMana', 'handCount'];
+  const PLAYER_COUNTERS = ['mana', 'totalMana', 'handCount', 'deckCount'];
 
   return declare('altered.players', null, {
     getPlayers() {
@@ -29,7 +29,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
 
         // Cards
-        this.addCard(player.alterateur);
         player.hand.forEach((card) => this.addCard(card));
       });
 
@@ -84,7 +83,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
         </div>
         <div class='player-board-middle'>
-          <div class='player-board-memory' id='board-memory-${player.id}'>Memory</div>
+          <div class='player-board-discard' id='board-discard-${player.id}'></div>
+          <div class='player-board-deck' id='board-deck-${player.id}'>
+            <div class='deck-counter-holder'>
+              <div class='deck-counter' id="counter-${player.id}-deckCount"></div>
+            </div>
+          </div>
+          <div class='player-board-memory' id='board-memory-${player.id}'></div>
           <div class='player-board-permanents' id='board-permanent-${player.id}'>Permanents</div>
         </div>
         ` +
@@ -95,7 +100,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerPanel(player) {
-      return `<div class='player-info'>
+      return `<div class="altered-first-player-holder" id="firstPlayer-${player.id}"></div>
+      <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span> 
           / 
@@ -173,17 +179,22 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
     },
 
-    updateBiomeTotals(pId) {
+    updateBiomeTotals(pId, biomes = null) {
+      if (biomes !== null) {
+        this.gamedatas.players[pId].biomes = biomes;
+      }
+
       // Update the total for each biome and each side
       ['stormLeft', 'stormRight'].forEach((storm) => {
-        let p = { forest: 0, mountain: 0, ocean: 0 };
+        // let p = { forest: 0, mountain: 0, ocean: 0 };
         let container = $(`board-${storm}-${pId}`);
-        [...container.querySelectorAll('.altered-card')].forEach((oCard) => {
-          ['forest', 'mountain', 'ocean'].forEach((biome) => {
-            let o = oCard.querySelector(`.card-${biome}`);
-            if (o) p[biome] += +o.innerHTML;
-          });
-        });
+        // [...container.querySelectorAll('.altered-card')].forEach((oCard) => {
+        //   ['forest', 'mountain', 'ocean'].forEach((biome) => {
+        //     let o = oCard.querySelector(`.card-${biome}`);
+        //     if (o) p[biome] += +o.innerHTML;
+        //   });
+        // });
+        p = this.gamedatas.players[pId].biomes[storm];
 
         // Update
         let sizes = this.getBiomesUISizes(p);
@@ -315,11 +326,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_moveStormToken(n) {
       debug('Notif : moving storm token', n);
-      // TODO
-    },
-
-    notif_newFirstPlayer(n) {
-      debug('Notif : change of first player', n);
       // TODO
     },
   });

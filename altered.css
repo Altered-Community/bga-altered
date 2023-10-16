@@ -321,7 +321,7 @@ html {
     transform-origin: top left;
     border-radius: 21px;
     position: relative;
-    background-size: contain;
+    background-size: 100% 100%;
     background-repeat: no-repeat; }
     .altered-card .altered-card-wrapper[data-asset="BR-01_Ekwu-Booda_RGB_01"] {
       background-image: url("img/illustrations/BR-01_Ekwu-Booda_RGB_01.jpg"); }
@@ -523,122 +523,125 @@ html {
   --cardScale: 1; }
   .altered-card-tooltip .altered-card {
     border: none;
-    box-shadow: none; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-name {
-      position: absolute;
-      z-index: 2;
-      top: 26px;
-      left: 48px;
-      right: 50px;
-      font-size: 17px;
-      color: white;
-      text-align: center;
-      font-family: "Jali Greek Variable";
-      font-weight: bold; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-typeline {
-      position: absolute;
-      z-index: 2;
-      top: 46px;
-      left: 48px;
-      right: 50px;
-      font-size: 13px;
-      color: black;
-      text-align: center;
-      font-family: "Jali Greek Variable";
-      font-style: italic; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost,
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
-      background: none;
-      width: auto;
-      height: auto;
-      border-radius: 0;
-      text-shadow: none;
-      box-shadow: none;
-      border: none;
-      line-height: inherit; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost {
-      top: 21px;
-      left: 27px;
-      font-size: 25px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
-      top: 39px;
-      left: 49px;
-      font-size: 25px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest,
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain,
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
-      left: 22px;
-      height: 25px;
-      width: 25px;
-      border-radius: 11px;
-      font-size: 21px;
-      line-height: 29px;
-      font-weight: normal; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="0"],
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
-        width: 15px;
-        background: transparent; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="1"],
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
-        width: 15px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="3"],
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
-        width: 35px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest {
-      top: 96px;
-      border-bottom-right-radius: 4px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain {
-      top: 123px;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
-      top: 150px;
-      border-top-right-radius: 4px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-text {
-      position: absolute;
-      z-index: 2;
-      top: 317px;
-      bottom: 31px;
-      left: 20px;
-      right: 20px;
-      font-family: "Jali Greek Variable";
-      color: black; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-reminders {
+    box-shadow: none;
+    border-radius: 0; }
+    .altered-card-tooltip .altered-card .altered-card-wrapper {
+      border-radius: 0; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-name {
+        position: absolute;
+        z-index: 2;
+        top: 26px;
+        left: 48px;
+        right: 50px;
+        font-size: 17px;
+        color: white;
+        text-align: center;
+        font-family: "Jali Greek Variable";
+        font-weight: bold; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-typeline {
+        position: absolute;
+        z-index: 2;
+        top: 46px;
+        left: 48px;
+        right: 50px;
+        font-size: 13px;
+        color: black;
+        text-align: center;
+        font-family: "Jali Greek Variable";
         font-style: italic; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container {
-        float: right;
-        width: 70px;
-        height: 100%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: end;
-        shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
-          display: block;
-          width: 66px;
-          height: 66px;
-          background-image: url("img/qrcode.png");
-          background-size: 80%;
-          background-repeat: no-repeat;
-          margin-bottom: -4px;
-          margin-right: -4px;
-          background-position: center center; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="3"] ~ .card-text {
-      top: 280px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="4"] ~ .card-text {
-      top: 260px; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper .card-echo {
-      position: absolute;
-      z-index: 2;
-      top: 371px;
-      bottom: 29px;
-      left: 20px;
-      right: 84px;
-      font-family: "Jali Greek Variable";
-      color: black; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost,
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
+        background: none;
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        text-shadow: none;
+        box-shadow: none;
+        border: none;
+        line-height: inherit; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost {
+        top: 21px;
+        left: 27px;
+        font-size: 25px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
+        top: 39px;
+        left: 49px;
+        font-size: 25px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest,
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain,
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
+        left: 22px;
+        height: 25px;
+        width: 25px;
+        border-radius: 11px;
+        font-size: 21px;
+        line-height: 29px;
+        font-weight: normal; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="0"],
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
+          width: 15px;
+          background: transparent; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="1"],
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
+          width: 15px; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="3"],
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
+          width: 35px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest {
+        top: 96px;
+        border-bottom-right-radius: 4px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain {
+        top: 123px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
+        top: 150px;
+        border-top-right-radius: 4px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-text {
+        position: absolute;
+        z-index: 2;
+        top: 317px;
+        bottom: 31px;
+        left: 20px;
+        right: 20px;
+        font-family: "Jali Greek Variable";
+        color: black; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-reminders {
+          font-style: italic; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container {
+          float: right;
+          width: 70px;
+          height: 100%;
+          display: flex;
+          align-items: flex-end;
+          justify-content: end;
+          shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px); }
+          .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
+            display: block;
+            width: 66px;
+            height: 66px;
+            background-image: url("img/qrcode.png");
+            background-size: 80%;
+            background-repeat: no-repeat;
+            margin-bottom: -4px;
+            margin-right: -4px;
+            background-position: center center; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="3"] ~ .card-text {
+        top: 280px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="4"] ~ .card-text {
+        top: 260px; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-echo {
+        position: absolute;
+        z-index: 2;
+        top: 371px;
+        bottom: 29px;
+        left: 20px;
+        right: 84px;
+        font-family: "Jali Greek Variable";
+        color: black; }
     .altered-card-tooltip .altered-card.card-alterateur .card-name {
       top: 27px;
       font-style: italic; }
@@ -733,6 +736,12 @@ html {
 
 .icon-container {
   display: inline-block; }
+
+.icon-first-player {
+  background-image: url("img/icons/first-player.png");
+  background-size: 100%;
+  width: 40px;
+  height: 40px; }
 
 .altered-meeple {
   display: inline-block;
@@ -968,18 +977,37 @@ html {
       border-radius: 0 4px 4px 0px; }
     .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-ocean {
       border-radius: 0 4px 14px 0; }
+  .altered-player-board-resizable .player-board-middle .player-board-deck {
+    width: 120px;
+    flex-shrink: 0; }
+    .altered-player-board-resizable .player-board-middle .player-board-deck .deck-counter-holder {
+      width: 110px;
+      height: 150px;
+      background: url("img/back-main.jpg");
+      background-size: 100% 100%;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .altered-player-board-resizable .player-board-middle .player-board-deck .deck-counter-holder .deck-counter {
+        font-family: "Haptic Pro";
+        color: black;
+        background: #ffffffa0;
+        font-size: 30px;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        box-shadow: 0px 0px 13px white;
+        text-align: center;
+        line-height: 50px;
+        text-shadow: 0px 0px 3px white; }
+  .altered-player-board-resizable .player-board-middle .player-board-discard {
+    width: 120px;
+    flex-shrink: 0; }
   .altered-player-board-resizable .player-board-middle .player-board-memory {
     flex-grow: 1; }
   .altered-player-board-resizable .player-board-middle .player-board-permanents {
     width: 240px;
-    flex-shrink: 0; }
-  .altered-player-board-resizable .player-board-bottom .player-board-mana {
-    flex-grow: 1; }
-  .altered-player-board-resizable .player-board-bottom .player-board-deck {
-    width: 120px;
-    flex-shrink: 0; }
-  .altered-player-board-resizable .player-board-bottom .player-board-discard {
-    width: 120px;
     flex-shrink: 0; }
 
 .player-name svg {
@@ -988,6 +1016,13 @@ html {
   cursor: pointer;
   vertical-align: bottom;
   margin-left: 3px; }
+
+.altered-first-player-holder {
+  position: absolute;
+  height: 40px;
+  right: 49px;
+  top: 7px;
+  width: 40px; }
 
 .player_score .player_score_value {
   display: none; }

@@ -37,22 +37,12 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $data = parent::getUiData();
     $current = $this->id == $currentPlayerId;
-    $data['alterateur'] = $this->getAlterateur();
+    $data['deckCount'] = Cards::countInLocation('deck-' . $this->id);
     $data['mana'] = $this->getMana();
     $data['totalMana'] = $this->getTotalMana();
     $data['hand'] = $current ? $this->getHand()->ui() : [];
     $data['handCount'] = $this->getHand()->count();
-    $data['biomes'] = $this->getBiomeStrength(STORMS, true);
-    // $data['scoringHand'] =
-    //     $current || Globals::isEnd() ? $this->getScoringHand()->ui() : [];
-    // $data['scoringHandCount'] = $this->getScoringHand()->count();
-    // $data['actionCards'] = $this->getActionCards()->ui();
-    // $data['icons'] = $this->countCardIcons();
-    // $data['income'] = $this->getMoneyIncome();
-    // $data['newScore'] = $this->getNewScore();
-
-    // $data['xtoken'] = $this->getXToken();
-    // unset($data['xToken']);
+    $data['biomes'] = $this->getBiomeStrength();
 
     return $data;
   }
@@ -79,8 +69,10 @@ class Player extends \ALT\Helpers\DB_Model
     return Actions::isDoable($action, $ctx, $this);
   }
 
-  public function draw($nb, $fromLocation = 'deck', $toLocation = 'hand')
+  public function draw($nb, $fromLocation = null, $toLocation = null)
   {
+    $fromLocation = $fromLocation ?? 'deck-' . $this->id;
+    $toLocation = $toLocation ?? 'hand';
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
     Notifications::drawCards($this, $cards);
     return $cards;
@@ -262,32 +254,33 @@ class Player extends \ALT\Helpers\DB_Model
   public function nightCleanup()
   {
     foreach ($this->getPlayedCards() as $cId => $card) {
-      $deleted = ['cards' => [], 'tokens' => []];
+      $deletedCards = [];
+      $deteledTokens = [];
       $movedToReserve = [];
 
       // Remove card if Fleeting
       if ($card->hasToken(FLEETING)) {
-        $deleted['tokens'] = array_merge($deleted['tokens'], $card->discard());
-        $deleted['cards'][] = $cId;
+        $deletedTokens = array_merge($deleteTokens, $card->discard());
+        $deletedCards[] = $cId;
       }
 
       // Move card without anchored,asleep to memory
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
         // move card to memory
-        $deleted['tokens'] = array_merge($deleted['tokens'], $card->moveToMemory());
+        $deletedTokens = array_merge($deletedTokens, $card->moveToMemory());
         $movedToReserve[] = $cId;
       }
 
       // Remove Anchored / Asleep tokens
-      $deleted['tokens'] = array_merge($deleted['tokens'], $card->nightCleanup());
-      Notifications::nightCleanup($this, $deleted, $movedToReserve);
+      $deletedTokens = array_merge($deletedTokens, $card->nightCleanup());
+      Notifications::nightCleanup($this, $deletedCards, $deteledTokens, $movedToReserve);
     }
     // return true if choice is needed
     return $this->getMemorySlots() < $this->getMemoryCards()->count();
   }
 
   /************** Expedition calculation *******/
-  public function getBiomeStrength($expeditions, $includeModifiers = true)
+  public function getBiomeStrength($expeditions = STORMS, $includeModifiers = true)
   {
     $strengths = [];
     $cards = $this->getPlayedCards();

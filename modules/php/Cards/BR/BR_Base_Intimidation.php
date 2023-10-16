@@ -15,7 +15,7 @@ class BR_Base_Intimidation extends \ALT\Models\Card
       'name' => clienttranslate('Intimidation'),
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Spell Base - ',
+      'typeline' => 'Spell Base',
       'rarity' => RARITY_BASE,
       'effectDesc' => clienttranslate(
         '[[Fleeting]].  Return target Character or Permanent of hand cost {4} or less to its owner\'s hand.'

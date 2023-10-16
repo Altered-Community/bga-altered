@@ -27,6 +27,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           this.destroy(oMeeple);
         }
       });
+      if (!$(`meeple-firstPlayer`)) {
+        this.addMeeple({ id: 'firstPlayer', type: 'first-player' }, $(`firstPlayer-${this.gamedatas.firstPlayer}`));
+      }
       this.updatePlayersCounters();
     },
 
@@ -191,6 +194,22 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_silentKill(n) {
       debug('Silent kill of meeples', n);
       // TODO
+    },
+
+    notif_newFirstPlayer(n) {
+      debug('Notif: new first played and untap cards', n);
+
+      this.forEachPlayer((player) => {
+        let total = this._playerCounters[player.id]['totalMana'].getValue();
+        this._playerCounters[player.id]['mana'].toValue(total);
+      });
+
+      // TODO : untap card
+
+      // Slide first player
+      let pId = n.args.player_id;
+      this.gamedatas.firstPlayer = pId;
+      this.slideResources([{ id: 'firstPlayer' }], { target: $(`firstPlayer-${pId}`) });
     },
   });
 });

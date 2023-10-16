@@ -101,7 +101,9 @@ class Notifications
 
   public static function newFirstPlayer($firstPlayer)
   {
-    self::notifyAll('newFirstPlayer', clienttranslate('${player_name} becomes First player'), ['player' => $firstPlayer]);
+    self::notifyAll('newFirstPlayer', clienttranslate('${player_name} becomes First player'), [
+      'player' => $firstPlayer,
+    ]);
   }
 
   public static function untap($cardIds)
@@ -232,6 +234,7 @@ class Notifications
       'cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
+      'biomes' => $player->getBiomeStrength(),
       'location' => $location,
       'i18n' => ['location'],
     ]);
@@ -300,9 +303,14 @@ class Notifications
     );
   }
 
-  public static function nightCleanup($player, $deleted, $movedToReserve)
+  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve)
   {
-    self::notifyAll('nightCleanup', '', ['player' => $player, 'deleted' => $deleted, 'reserve' => $movedToReserve]);
+    self::notifyAll('nightCleanup', clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to memory'), [
+      'player' => $player,
+      'cards' => $deletedCards,
+      'cards2' => $movedToReserve,
+      'meeples' => $deletedTokens,
+    ]);
   }
 
   public static function updateNightSelection($player, $args)

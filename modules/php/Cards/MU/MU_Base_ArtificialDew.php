@@ -15,7 +15,7 @@ class MU_Base_ArtificialDew extends \ALT\Models\Card
       'name' => clienttranslate('Artificial Dew'),
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Spell Base - ',
+      'typeline' => 'Spell Base',
       'rarity' => RARITY_BASE,
       'effectDesc' => clienttranslate('Up to 2 target Characters gain 1 boost.'),
 

@@ -15,7 +15,7 @@ class MU_Rare_ExhilaratingDew extends \ALT\Models\Card
       'name' => clienttranslate('Exhilarating Dew'),
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Spell Rare - ',
+      'typeline' => 'Spell Rare',
       'rarity' => RARITY_RARE,
       'effectDesc' => clienttranslate('[[Fleeting]].  Up to two target Characters gain 2 boosts.'),
 

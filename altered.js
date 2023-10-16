@@ -38,6 +38,8 @@ define([
         ['refreshUI', 200],
         ['refreshHand', 200],
         ['updateNewDayManaSelection', 200],
+        ['nightCleanup', null],
+        ['newFirstPlayer', null],
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -442,6 +444,11 @@ define([
           callback: (selectedElements, ignoredElements) =>
             this.takeAction('actNewDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
         });
+      }
+
+      // if not first day, player can pass
+      if (args.canPass) {
+        this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
       }
     },
 

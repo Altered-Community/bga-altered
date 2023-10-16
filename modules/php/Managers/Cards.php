@@ -56,6 +56,8 @@ class Cards extends \ALT\Helpers\Pieces
   {
     return self::getAll()
       ->where('location', IN_PLAY)
+      ->merge(self::getInLocation(MEMORY))
+      ->merge(self::getInLocation('board-alterateur-%'))
       ->toArray();
   }
 

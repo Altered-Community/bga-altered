@@ -15,7 +15,7 @@ class MU_Base_ResilienceTraining extends \ALT\Models\Card
       'name' => clienttranslate('Resilience Training'),
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Spell Base - ',
+      'typeline' => 'Spell Base',
       'rarity' => RARITY_BASE,
       'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes [[Anchored]].'),
 

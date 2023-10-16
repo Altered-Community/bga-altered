@@ -148,21 +148,21 @@ trait TurnTrait
 
     // For each player, check whether hero and/or companion move forward
     foreach ($players as $pId => $player) {
-      $biomes = $player->getBiomeInStorms();
-      foreach ($biomes as $token => $biome) {
+      $biomesByStorm = $player->getBiomeInStorms();
+      foreach ($biomesByStorm as $side => $biomes) {
         $move = null;
-        $expedition = $token == ALTERATEUR ? STORM_LEFT : STORM_RIGHT;
+        $expedition = $side == ALTERATEUR ? STORM_LEFT : STORM_RIGHT;
 
-        foreach ($biome as $i => $b) {
-          if ($winners[$expedition][$b]['pId'] == $pId) {
-            $move = $b;
+        foreach ($biomes as $i => $biome) {
+          if ($winners[$expedition][$biome]['pId'] == $pId) {
+            $move = $biome;
           }
           if ($move !== null) {
             break;
           }
         }
         if ($move !== null) {
-          $player->advanceStorm($token, $move);
+          $player->advanceStorm($side, $move);
         }
       }
     }
@@ -216,9 +216,10 @@ trait TurnTrait
     }
 
     // if the player has no need to discard
-    $toDiscard = $player->getMemorySlots() < $player->getMemoryCards()->count();
+    $nExceededMemory = $player->getMemoryCards()->count() - $player->getMemorySlots();
+    $needToDiscard = $nExceededMemory > 0;
 
-    if ($toDiscard === false) {
+    if (!$needToDiscard) {
       $skipped[] = $player->getId();
       Globals::setSkippedPlayers($skipped);
       $this->nextPlayerCustomOrder('nightPhase');
@@ -236,7 +237,7 @@ trait TurnTrait
           'args' => [
             'source' => MEMORY,
             'destination' => 'discard',
-            'n' => $player->getMemoryCards()->count() - $player->getMemorySlots(),
+            'n' => $nExceededMemory,
           ],
         ],
       ],
@@ -246,50 +247,4 @@ trait TurnTrait
     Engine::setup($node, ['order' => 'nightPhase']);
     Engine::proceed();
   }
-
-  /////////////////////////
-  //  _____           _
-  // | ____|_ __   __| |
-  // |  _| | '_ \ / _` |
-  // | |___| | | | (_| |
-  // |_____|_| |_|\__,_|
-  /////////////////////////
-
-  // /**
-  //  * End of turn : replenish and check break
-  //  */
-  // function stEndOfTurn()
-  // {
-  //   Globals::setUsedVenom(false);
-  //   Globals::setVenomPaid(false);
-  //   Globals::setVenomTriggered(false);
-  //   Globals::setEffectMap4(false);
-  //   $player = Players::getActive();
-
-  //   // Solo mode: move one cube to the right
-  //   if (Globals::isSolo()) {
-  //     $this->stEndOfSoloTurn();
-  //   }
-
-  //   // Replenish pool of cards
-  //   ZooCards::fillPool();
-  //   Players::checkEndOfGamePlayer($player);
-
-  //   if (Globals::isEndTriggered()) {
-  //     $remaining = Globals::getEndRemainingPlayers();
-  //     $remaining = array_diff($remaining, [$player->getId()]);
-  //     Globals::setEndRemainingPlayers($remaining);
-  //   }
-
-  //   if (Globals::isMustBreak()) {
-  //     Globals::setFirstPlayer(Players::getNextId(Players::getActiveId())); // for next start of order.
-  //     Globals::setBreakPlayer(Players::getActiveId());
-  //     Globals::setMustBreak(false);
-  //     $this->endCustomOrder('labor');
-  //   } elseif (Globals::isEndTriggered() && Globals::getEndRemainingPlayers() == []) {
-  //     $this->endOfGameInit();
-  //   } else {
-  //     $this->nextPlayerCustomOrder('labor');
-  //   }
-  // }
 }

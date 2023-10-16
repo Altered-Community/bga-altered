@@ -15,7 +15,7 @@ class BR_Base_PhysicalTraining extends \ALT\Models\Card
       'name' => clienttranslate('Physical Training'),
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Spell Base - ',
+      'typeline' => 'Spell Base',
       'rarity' => RARITY_BASE,
       'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
 

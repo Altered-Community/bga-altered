@@ -84,6 +84,7 @@ class altered extends Table
       'cards' => Cards::getUiData(),
       'meeples' => Meeples::getUiData(),
 
+      'firstPlayer' => Globals::getFirstPlayer(),
       'storm' => Globals::getStorm(true),
       'day' => Globals::getDay(),
     ];

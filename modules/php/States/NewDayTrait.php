@@ -45,7 +45,7 @@ trait NewDayTrait
     // on new day, x cards are picked
     foreach (Players::getAll() as $pId => $player) {
       // put in specific location as they must be choosen
-      $player->draw($nCards, 'deck-' . $pId, 'hand');
+      $player->draw($nCards);
       $pIds[] = $pId;
     }
 
@@ -61,7 +61,7 @@ trait NewDayTrait
     $selection = Globals::getNewDayManaSelection();
     $args = [
       'descSuffix' => $isFirstDay ? 'firstday' : '',
-      'canPass' => $isFirstDay,
+      'canPass' => !$isFirstDay,
       '_private' => [],
     ];
 
@@ -114,7 +114,7 @@ trait NewDayTrait
   public function actPassNewDayManaSelection()
   {
     self::checkAction('actPassNewDayManaSelection');
-    $args = $this->argsNewDay();
+    $args = $this->argsNewDayManaSelection();
     if (!$args['canPass']) {
       throw new \BgaUserException('You cant pass. Should not happen');
     }
@@ -123,7 +123,7 @@ trait NewDayTrait
     $selection = Globals::getNewDayManaSelection();
     $selection[$player->getId()] = [];
     Globals::setNewDayManaSelection($selection);
-    Notifications::updateDayManaSelection($player, self::argsNewDay());
+    Notifications::updateNewDayManaSelection($player, self::argsNewDayManaSelection());
 
     $this->updateActivePlayersNewDayManaSelection();
   }
