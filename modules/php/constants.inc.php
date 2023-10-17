@@ -59,6 +59,7 @@ const ST_DISCARD = 12;
 const ST_GAIN = 13;
 const ST_TARGET = 14;
 const ST_LOOSE = 15;
+const ST_SPELL_CLEANUP = 16;
 
 // Effets
 const ST_EFFECT_BOOST = 20; // gain X / who
@@ -105,6 +106,8 @@ const GAIN = 'GAIN';
 const DISCARD = 'DISCARD';
 const TARGET = 'TARGET';
 const LOOSE = 'LOOSE';
+const SPELL_CLEANUP = 'SPELL_CLEANUP';
+
 // const ADVANCE_BREAK = 'ADVANCE_BREAK';
 // const PAY = 'PAY';
 // const CLEANUP = 'CLEANUP';
@@ -145,6 +148,7 @@ const EVERYONE_ELSE = 'everyone-else';
 
 const HAND = 'hand';
 const MEMORY = 'memory';
+const LIMBO = 'limbo';
 
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';

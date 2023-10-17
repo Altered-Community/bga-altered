@@ -206,6 +206,12 @@ $machinestates = [
     'possibleactions' => ['actTarget', 'actTargetPass', 'actRestart'],
   ],
 
+  ST_SPELL_CLEANUP => [
+    'name' => 'spellCleanup',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

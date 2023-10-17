@@ -360,6 +360,11 @@ class Notifications
     ]);
   }
 
+  public static function spellCleanup($card, $deleted)
+  {
+    self::notifyAll('spellCleanup', '', ['card' => $card, 'deleted' => $deleted]);
+  }
+
   /*** tools****/
   public static function silentKill($tokens)
   {

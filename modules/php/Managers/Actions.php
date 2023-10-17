@@ -20,6 +20,7 @@ class Actions
     GAIN => 'Gain',
     TARGET => 'Target',
     LOOSE => 'Loose',
+    SPELL_CLEANUP => 'SpellCleanup',
     // PAY => 'Pay',
     // ACTIVATE_CARD => 'ActivateCard',
     // SPECIAL_EFFECT => 'SpecialEffect',

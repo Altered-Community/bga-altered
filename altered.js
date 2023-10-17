@@ -53,6 +53,7 @@ define([
         ['looseToken', 200],
         ['gainToken', 200],
         ['updateBiomes', 100],
+        ['spellCleanup', 100],
 
         ['setupPlayer', null],
         ['payMana', 500],
@@ -612,6 +613,7 @@ define([
         stormRight: _('Companion side'),
         permanent: _('Permanent'),
         memory: _('Memory'),
+        limbo: _('Spell'), // TODO: fix board to have limbo div
       };
       args.play[cardId].forEach((location, i) => {
         this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));

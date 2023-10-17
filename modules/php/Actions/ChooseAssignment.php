@@ -45,11 +45,7 @@ class ChooseAssignment extends \ALT\Models\Action
           return [PERMANENT];
         }
         if ($type == SPELL) {
-          if ($card->getLocation() == MEMORY) {
-            return [DISCARD];
-          } else {
-            return [MEMORY];
-          }
+          return [LIMBO];
         }
         if ($type == EXPLORER) {
           return [STORM_LEFT, STORM_RIGHT];
@@ -119,13 +115,16 @@ class ChooseAssignment extends \ALT\Models\Action
     // insert linked flow
     $effect = 'getEffect' . ucfirst($fromLocation);
     list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
-
     // if (!isset($power['args']['cardId'])) {
     //   $power['args']['cardId'] = $cardId;
     // }
     // throw new \feException(print_r($power));
 
     $this->pushParallelChilds($power);
+
+    if ($card->getType() == SPELL) {
+      Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()]]);
+    }
   }
 
   public function actEcho($cardId)

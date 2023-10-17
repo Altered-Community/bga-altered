@@ -24,8 +24,8 @@ class BR_Base_Intimidation extends \ALT\Models\Card
       'reminders' => clienttranslate('Fleeting: After my effect resolves, banish me.'),
       'costHand' => 2,
       'costMemory' => 2,
-      'effectHand' => [[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1], [DISCARD => ME]]]],
-      'effectMemory' => [[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1], [DISCARD => ME]]]],
+      'effectHand' => [[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1]]]],
+      'effectMemory' => [[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1]]]],
     ];
   }
 }
