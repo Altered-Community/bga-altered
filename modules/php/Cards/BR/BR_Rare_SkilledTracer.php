@@ -25,6 +25,8 @@ class BR_Rare_SkilledTracer extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectHand' => [[FLEETING => 1]],
+      'effectMemory' => [[FLEETING => 1]],
     ];
   }
 }
