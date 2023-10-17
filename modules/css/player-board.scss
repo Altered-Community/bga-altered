@@ -19,11 +19,12 @@
         top: 0;
         right: 0;
         bottom: 0;
-
-        background-image: url("img/mats/01.jpg");
         background-size: cover;
     }
-    & ~ .altered-player-board-resizable::before {
+    &[data-faction="MU"]::before {
+        background-image: url("img/mats/04.jpg");
+    }
+    &[data-faction="BR"]::before {
         background-image: url("img/mats/02.jpg");
     }
 

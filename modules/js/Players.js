@@ -64,7 +64,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let above = player.order == 0 ? '' : 'above';
       let pId = player.id;
       return (
-        `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${pId}'>
+        `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${pId}' data-faction='${player.faction}'>
         <div class='player-board-top'>
           <div class='player-board-storm' id='board-stormLeft-${pId}'>
             <div class="total-biomes">

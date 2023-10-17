@@ -892,9 +892,10 @@ html {
     top: 0;
     right: 0;
     bottom: 0;
-    background-image: url("img/mats/01.jpg");
     background-size: cover; }
-  .altered-player-board-resizable ~ .altered-player-board-resizable::before {
+  .altered-player-board-resizable[data-faction="MU"]::before {
+    background-image: url("img/mats/04.jpg"); }
+  .altered-player-board-resizable[data-faction="BR"]::before {
     background-image: url("img/mats/02.jpg"); }
   .altered-player-board-resizable.above .player-board-bottom {
     order: 1; }
