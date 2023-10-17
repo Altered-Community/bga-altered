@@ -287,8 +287,6 @@ html {
   display: flex; }
 
 .altered-card {
-  width: calc(var(--cardScale) * 324px);
-  height: calc(var(--cardScale) * 450px);
   border: 1px solid white;
   box-shadow: 1px 1px 4px -1px white;
   border-radius: 7px;
@@ -315,11 +313,6 @@ html {
     border-color: #1059c5;
     box-shadow: 0px 0px 10px 0px #319cda; }
   .altered-card .altered-card-wrapper {
-    width: 324px;
-    height: 450px;
-    transform: scale(var(--cardScale));
-    transform-origin: top left;
-    border-radius: 21px;
     position: relative;
     background-size: 100% 100%;
     background-repeat: no-repeat; }
@@ -383,150 +376,163 @@ html {
       background-image: url("img/illustrations/OR-33_Aegis Veteran_RGB_01.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="back"] {
       background-image: url("img/back-main.jpg"); }
-    .altered-card .altered-card-wrapper .card-frame {
-      position: absolute;
-      z-index: 2;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-size: 600% 500%; }
-      .altered-card .altered-card-wrapper .card-frame[data-faction="BR"] {
-        background-image: url("img/frames/BR.png"); }
-      .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
-        background-image: url("img/frames/MU.png"); }
-      .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
-        background-image: url("img/frames/LY.png"); }
-      .altered-card .altered-card-wrapper .card-frame[data-type="alterateur"] {
-        background-position: 0% 50%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="1"] {
-        background-position: 40% 0%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="2"] {
-        background-position: 60% 0%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="3"] {
-        background-position: 0% 0%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="4"] {
-        background-position: 20% 0%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="1"] {
-        background-position: 0% 25%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="2"] {
-        background-position: 20% 25%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="3"] {
-        background-position: 80% 0%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="4"] {
-        background-position: 100% 0%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="1"] {
-        background-position: 80% 25%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="2"] {
-        background-position: 100% 25%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="3"] {
-        background-position: 40% 25%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="4"] {
-        background-position: 60% 25%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="1"] {
-        background-position: 100% 75%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="2"] {
-        background-position: 0% 100%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="3"] {
-        background-position: 60% 75%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="4"] {
-        background-position: 80% 75%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="1"] {
-        background-position: 60% 100%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="2"] {
-        background-position: 80% 100%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="3"] {
-        background-position: 20% 100%; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="4"] {
-        background-position: 40% 100%; }
-    .altered-card .altered-card-wrapper .card-hand-cost,
-    .altered-card .altered-card-wrapper .card-memory-cost {
+
+.altered-card.mini-card {
+  width: 106.92px;
+  height: 148.5px; }
+  .altered-card.mini-card .altered-card-wrapper {
+    border-radius: 7px;
+    width: 100%;
+    height: 100%; }
+    .altered-card.mini-card .altered-card-wrapper .card-hand-cost,
+    .altered-card.mini-card .altered-card-wrapper .card-memory-cost {
       position: absolute;
       z-index: 3;
       color: white;
       text-align: center;
       font-family: "Haptic Pro";
       font-weight: bold;
-      font-size: 34px;
-      line-height: 59px;
+      font-size: 13px;
+      line-height: 23px;
       background: #579ccc;
-      top: 10px;
-      left: 10px;
-      width: 50px;
-      height: 50px;
+      top: 2px;
+      left: 2px;
+      width: 19px;
+      height: 19px;
       border-radius: 50%;
       text-shadow: 0px 0px 5px black;
       box-shadow: 0px 0px 5px black;
       border: 1px solid black; }
-    .altered-card .altered-card-wrapper .card-memory-cost {
+    .altered-card.mini-card .altered-card-wrapper .card-memory-cost {
       z-index: 2;
-      top: 35px;
-      left: 45px; }
-      .altered-card .altered-card-wrapper .card-memory-cost[data-faction="MU"] {
+      top: 13px;
+      left: 17px; }
+      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="MU"] {
         background: #2a7533;
         box-shadow: 0px 0px 5px #396a3f;
         border: 1px solid #396a3f; }
-      .altered-card .altered-card-wrapper .card-memory-cost[data-faction="LY"] {
+      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="LY"] {
         background: #a82249;
         box-shadow: 0px 0px 5px #ce3f65;
         border: 1px solid #ce3f65; }
-      .altered-card .altered-card-wrapper .card-memory-cost[data-faction="BR"] {
+      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="BR"] {
         background: #5f1f16;
         box-shadow: 0px 0px 5px #aa212e;
         border: 1px solid #aa212e; }
-    .altered-card .altered-card-wrapper .card-forest,
-    .altered-card .altered-card-wrapper .card-mountain,
-    .altered-card .altered-card-wrapper .card-ocean {
+    .altered-card.mini-card .altered-card-wrapper .card-forest,
+    .altered-card.mini-card .altered-card-wrapper .card-mountain,
+    .altered-card.mini-card .altered-card-wrapper .card-ocean {
       z-index: 1;
       position: absolute;
-      left: 22px;
+      left: 7px;
       font-family: "Haptic Pro";
-      padding-left: 12px;
+      padding-left: 4px;
       color: white;
-      box-shadow: 0px 0px 14px 2px black;
+      box-shadow: 0px 0px 6px 2px black;
       text-shadow: 0px 0px 6px black;
-      border-radius: 17px;
-      height: 50px;
-      width: 60px;
-      font-size: 40px;
-      line-height: 61px;
+      border-radius: 6px;
+      height: 17px;
+      width: 20px;
+      font-size: 13px;
+      line-height: 21px;
       font-weight: bold; }
-      .altered-card .altered-card-wrapper .card-forest[data-size="0"],
-      .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
-      .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
-        width: 35px;
+      .altered-card.mini-card .altered-card-wrapper .card-forest[data-size="0"],
+      .altered-card.mini-card .altered-card-wrapper .card-mountain[data-size="0"],
+      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="0"] {
+        width: 11px;
         background: transparent; }
-      .altered-card .altered-card-wrapper .card-forest[data-size="1"],
-      .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
-      .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
-        width: 40px; }
-      .altered-card .altered-card-wrapper .card-forest[data-size="3"],
-      .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
-      .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
-        width: 80px; }
-    .altered-card .altered-card-wrapper .card-forest {
-      top: 100px;
+      .altered-card.mini-card .altered-card-wrapper .card-forest[data-size="1"],
+      .altered-card.mini-card .altered-card-wrapper .card-mountain[data-size="1"],
+      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="1"] {
+        width: 13px; }
+      .altered-card.mini-card .altered-card-wrapper .card-forest[data-size="3"],
+      .altered-card.mini-card .altered-card-wrapper .card-mountain[data-size="3"],
+      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="3"] {
+        width: 27px; }
+    .altered-card.mini-card .altered-card-wrapper .card-forest {
+      top: 37px;
       background: #abb648;
-      border-bottom-right-radius: 8px; }
-    .altered-card .altered-card-wrapper .card-mountain {
-      top: 160px;
+      border-bottom-right-radius: 2px; }
+    .altered-card.mini-card .altered-card-wrapper .card-mountain {
+      top: 57px;
       background: #af7b51;
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px; }
-    .altered-card .altered-card-wrapper .card-ocean {
-      top: 220px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px; }
+    .altered-card.mini-card .altered-card-wrapper .card-ocean {
+      top: 77px;
       background: #6b93c0;
-      border-top-right-radius: 8px; }
+      border-top-right-radius: 2px; }
 
 .altered-card-tooltip {
   display: flex;
   --cardScale: 1; }
   .altered-card-tooltip .altered-card {
+    width: calc(var(--cardScale) * 324px);
+    height: calc(var(--cardScale) * 450px);
     border: none;
     box-shadow: none;
     border-radius: 0; }
     .altered-card-tooltip .altered-card .altered-card-wrapper {
-      border-radius: 0; }
+      width: 324px;
+      height: 450px;
+      transform: scale(var(--cardScale));
+      transform-origin: top left; }
+      .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame {
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-size: 600% 500%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="BR"] {
+          background-image: url("img/frames/BR.png"); }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
+          background-image: url("img/frames/MU.png"); }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
+          background-image: url("img/frames/LY.png"); }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="alterateur"] {
+          background-position: 0% 50%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="1"] {
+          background-position: 40% 0%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="2"] {
+          background-position: 60% 0%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="3"] {
+          background-position: 0% 0%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="4"] {
+          background-position: 20% 0%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="1"] {
+          background-position: 0% 25%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="2"] {
+          background-position: 20% 25%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="3"] {
+          background-position: 80% 0%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="4"] {
+          background-position: 100% 0%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="1"] {
+          background-position: 80% 25%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="2"] {
+          background-position: 100% 25%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="3"] {
+          background-position: 40% 25%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="4"] {
+          background-position: 60% 25%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="1"] {
+          background-position: 100% 75%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="2"] {
+          background-position: 0% 100%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="3"] {
+          background-position: 60% 75%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="4"] {
+          background-position: 80% 75%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="1"] {
+          background-position: 60% 100%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="2"] {
+          background-position: 80% 100%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="3"] {
+          background-position: 20% 100%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="4"] {
+          background-position: 40% 100%; }
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-name {
         position: absolute;
         z-index: 2;
@@ -551,14 +557,13 @@ html {
         font-style: italic; }
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost,
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
-        background: none;
-        width: auto;
-        height: auto;
-        border-radius: 0;
-        text-shadow: none;
-        box-shadow: none;
-        border: none;
-        line-height: inherit; }
+        position: absolute;
+        z-index: 3;
+        color: white;
+        text-align: center;
+        font-family: "Haptic Pro";
+        font-weight: bold;
+        font-size: 34px; }
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost {
         top: 21px;
         left: 27px;
@@ -570,13 +575,19 @@ html {
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest,
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain,
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
+        z-index: 1;
+        position: absolute;
         left: 22px;
+        font-family: "Haptic Pro";
+        padding-left: 12px;
+        color: white;
+        box-shadow: 0px 0px 14px 2px black;
+        text-shadow: 0px 0px 6px black;
+        border-radius: 11px;
         height: 25px;
         width: 25px;
-        border-radius: 11px;
         font-size: 21px;
-        line-height: 29px;
-        font-weight: normal; }
+        line-height: 29px; }
         .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="0"],
         .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
         .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
@@ -591,13 +602,16 @@ html {
         .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
           width: 35px; }
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest {
+        background: #abb648;
         top: 96px;
         border-bottom-right-radius: 4px; }
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain {
+        background: #af7b51;
         top: 123px;
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px; }
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
+        background: #6b93c0;
         top: 150px;
         border-top-right-radius: 4px; }
       .altered-card-tooltip .altered-card .altered-card-wrapper .card-text {
@@ -878,9 +892,10 @@ html {
     top: 0;
     right: 0;
     bottom: 0;
-    background-image: url("img/mats/01.jpg");
     background-size: cover; }
-  .altered-player-board-resizable ~ .altered-player-board-resizable::before {
+  .altered-player-board-resizable[data-faction="MU"]::before {
+    background-image: url("img/mats/04.jpg"); }
+  .altered-player-board-resizable[data-faction="BR"]::before {
     background-image: url("img/mats/02.jpg"); }
   .altered-player-board-resizable.above .player-board-bottom {
     order: 1; }
@@ -1003,7 +1018,14 @@ html {
         text-shadow: 0px 0px 3px white; }
   .altered-player-board-resizable .player-board-middle .player-board-discard {
     width: 120px;
-    flex-shrink: 0; }
+    flex-shrink: 0;
+    position: relative; }
+    .altered-player-board-resizable .player-board-middle .player-board-discard .altered-card {
+      position: absolute;
+      filter: grayscale(80%);
+      -webkit-transform: translateZ(0);
+      -webkit-perspective: 1000;
+      -webkit-backface-visibility: hidden; }
   .altered-player-board-resizable .player-board-middle .player-board-memory {
     flex-grow: 1; }
   .altered-player-board-resizable .player-board-middle .player-board-permanents {
@@ -1254,7 +1276,15 @@ html {
   margin: 0 0.2em; }
 
 .rare-marker {
-  color: gold; }
+  color: #9f794a; }
+
+.inline-icon {
+  display: inline-block;
+  vertical-align: middle; }
+  .inline-icon svg {
+    height: 1em;
+    width: auto;
+    fill: currentColor; }
 
 .flip-container {
   background-color: transparent;

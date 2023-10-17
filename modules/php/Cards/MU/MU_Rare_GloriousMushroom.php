@@ -17,7 +17,7 @@ class MU_Rare_GloriousMushroom extends \ALT\Models\Card
       'subtype' => 'Plant',
       'typeline' => 'Explorer Rare - Plant',
       'rarity' => RARITY_RARE,
-      'effectDesc' => clienttranslate('{J} I become [[Anchored]].  <At Dawn — I gain 1 boost.>'),
+      'effectDesc' => clienttranslate('{J} I become [[Anchored]].  [G]At Dawn — I gain 1 boost.[/G]'),
 
       'reminders' => clienttranslate('Anchored: At Night, I don\'t go to Reserve and I lose Anchored.'),
       'forest' => 1,

@@ -186,6 +186,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // this.closeChooseCardsModal();
       let counter = 'handCount';
 
+      this._playerCounters[this.player_id]['deckCount'].incValue(-n.args.cards.length);
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
           this.addCard(card);
@@ -203,7 +204,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             let to = null;
             let container = this.getCardContainer(card);
             if (!isVisible(container)) to = $('floating-hand-button');
-            let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : this.getVisibleTitleContainer();
+            let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${this.player_id}`);
 
             return this.slide(`card-${card.id}`, container, {
               from: source,
@@ -231,15 +232,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let counter = 'handCount';
 
       let nCards = n.args.n;
+      this._playerCounters[n.args.player_id]['deckCount'].incValue(-nCards);
       if (this.isFastMode()) {
-        this._playerCounters[this.player_id][counter].incValue(nCards);
+        this._playerCounters[n.args.player_id][counter].incValue(nCards);
         return;
       }
 
       Promise.all(
         Array.from(Array(nCards), (x, i) => i).map((i) => {
           return this.wait(100 * i).then(() => {
-            this.addCard({ id: -i, fake: true }, this.getVisibleTitleContainer());
+            this.addCard({ id: -i, fake: true }, $(`board-deck-${n.args.player_id}`));
             return this.slide(`card-${-i}`, `counter-${n.args.player_id}-${counter}`, {
               duration: 1000,
               destroy: true,
@@ -448,7 +450,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_untap(n) {
-      debug('Notif: untapping card(s', n);
+      debug('Notif: untapping card(s)', n);
       // TODO
       // It can contain multiple cards!
     },
@@ -519,7 +521,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     tplAlterateurCard(card) {
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-alterateur'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-alterateur'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;
@@ -575,7 +577,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplExplorerCard(card) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-explorer'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-explorer'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
@@ -626,7 +628,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplSpellCard(card) {
       let p = card.properties;
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-spell'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-spell'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
@@ -665,7 +667,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     tplPermanentCard(card) {
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card card-permanent'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-permanent'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;

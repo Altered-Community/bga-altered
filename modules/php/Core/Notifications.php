@@ -106,9 +106,63 @@ class Notifications
     ]);
   }
 
+  //////////////////////////////////////////////////////
+  //  ____            _      _   _ _       _     _
+  // |  _ \ _   _ ___| | __ | \ | (_) __ _| |__ | |_
+  // | | | | | | / __| |/ / |  \| | |/ _` | '_ \| __|
+  // | |_| | |_| \__ \   <  | |\  | | (_| | | | | |_
+  // |____/ \__,_|___/_|\_\ |_| \_|_|\__, |_| |_|\__|
+  //                                 |___/
+  //////////////////////////////////////////////////////
+
+  public static function moveStormToken($player, $biome, $tokenMeeple, $stormIndex, $revealed)
+  {
+    self::notifyAll(
+      'moveStormToken',
+      clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biome}'),
+      [
+        'i18n' => ['biome', 'expedition'],
+        'player' => $player,
+        'biome' => $biome,
+        'expedition' => $tokenMeeple->getType(),
+        'token' => $tokenMeeple,
+        'stormIndex' => $stormIndex,
+        'revealed' => $revealed,
+      ]
+    );
+  }
+
+  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve)
+  {
+    $msg = clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to reserve');
+    if (empty($deletedCards)) {
+      if (empty($movedToReserve)) {
+        $msg = '';
+      } else {
+        $msg = clienttranslate('${player_name} moves ${card_names2} to reserve');
+      }
+    } elseif (empty($movedToReserve)) {
+      $msg = clienttranslate('${player_name} discards ${card_names}');
+    }
+
+    self::notifyAll('nightCleanup', $msg, [
+      'player' => $player,
+      'cards' => $deletedCards->toArray(),
+      'cards2' => $movedToReserve->toArray(),
+      'meeples' => $deletedTokens,
+    ]);
+  }
+
   public static function untap($cardIds)
   {
     self::notifyAll('untap', '', ['cardIds' => $cardIds]);
+  }
+
+  public static function updateNightSelection($player, $args)
+  {
+    self::notify($player, 'updateNightSelection', '', [
+      'args' => ['_private' => $args['_private'][$player->getId()]],
+    ]);
   }
 
   /////////////////////////////////
@@ -303,44 +357,6 @@ class Notifications
       'tokens' => $tokens,
       'n' => count($tokens),
       'source' => $source,
-    ]);
-  }
-
-  public static function moveStormToken($player, $biome, $tokenMeeple, $stormIndex, $revealed)
-  {
-    self::notifyAll(
-      'moveStormToken',
-      clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biome}'),
-      [
-        'i18n' => ['biome', 'expedition'],
-        'player' => $player,
-        'biome' => $biome,
-        'expedition' => $tokenMeeple->getType(),
-        'token' => $tokenMeeple,
-        'stormIndex' => $stormIndex,
-        'revealed' => $revealed,
-      ]
-    );
-  }
-
-  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve)
-  {
-    self::notifyAll(
-      'nightCleanup',
-      clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to reserve'),
-      [
-        'player' => $player,
-        'cards' => $deletedCards->toArray(),
-        'cards2' => $movedToReserve->toArray(),
-        'meeples' => $deletedTokens,
-      ]
-    );
-  }
-
-  public static function updateNightSelection($player, $args)
-  {
-    self::notify($player, 'updateNightSelection', '', [
-      'args' => ['_private' => $args['_private'][$player->getId()]],
     ]);
   }
 

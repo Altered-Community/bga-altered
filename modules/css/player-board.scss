@@ -19,11 +19,12 @@
         top: 0;
         right: 0;
         bottom: 0;
-
-        background-image: url("img/mats/01.jpg");
         background-size: cover;
     }
-    & ~ .altered-player-board-resizable::before {
+    &[data-faction="MU"]::before {
+        background-image: url("img/mats/04.jpg");
+    }
+    &[data-faction="BR"]::before {
         background-image: url("img/mats/02.jpg");
     }
 
@@ -187,6 +188,15 @@
         .player-board-discard {
             width: $cardWidth + 2 * $boardMargin;
             flex-shrink: 0;
+            position: relative;
+
+            .altered-card {
+                position: absolute;
+                filter: grayscale(80%);
+                -webkit-transform: translateZ(0);
+                -webkit-perspective: 1000;
+                -webkit-backface-visibility: hidden;
+            }
         }
 
         .player-board-memory {
