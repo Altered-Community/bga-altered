@@ -83,7 +83,7 @@ class Gain extends \ALT\Models\Action
 
       return [$resource, $amount];
     }
-    die('GAIN: resource not found');
+    die('GAIN: resource not found' . $resource);
   }
 
   public function stGain()
