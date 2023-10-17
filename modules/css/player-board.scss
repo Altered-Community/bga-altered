@@ -188,6 +188,15 @@
         .player-board-discard {
             width: $cardWidth + 2 * $boardMargin;
             flex-shrink: 0;
+            position: relative;
+
+            .altered-card {
+                position: absolute;
+                filter: grayscale(80%);
+                -webkit-transform: translateZ(0);
+                -webkit-perspective: 1000;
+                -webkit-backface-visibility: hidden;
+            }
         }
 
         .player-board-memory {

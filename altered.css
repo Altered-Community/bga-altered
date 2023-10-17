@@ -1018,7 +1018,14 @@ html {
         text-shadow: 0px 0px 3px white; }
   .altered-player-board-resizable .player-board-middle .player-board-discard {
     width: 120px;
-    flex-shrink: 0; }
+    flex-shrink: 0;
+    position: relative; }
+    .altered-player-board-resizable .player-board-middle .player-board-discard .altered-card {
+      position: absolute;
+      filter: grayscale(80%);
+      -webkit-transform: translateZ(0);
+      -webkit-perspective: 1000;
+      -webkit-backface-visibility: hidden; }
   .altered-player-board-resizable .player-board-middle .player-board-memory {
     flex-grow: 1; }
   .altered-player-board-resizable .player-board-middle .player-board-permanents {
@@ -1270,6 +1277,14 @@ html {
 
 .rare-marker {
   color: #9f794a; }
+
+.inline-icon {
+  display: inline-block;
+  vertical-align: middle; }
+  .inline-icon svg {
+    height: 1em;
+    width: auto;
+    fill: currentColor; }
 
 .flip-container {
   background-color: transparent;

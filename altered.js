@@ -620,15 +620,12 @@ define([
     },
 
     onEnteringStateTarget(args) {
-
-    this.onSelectNCards(args.cards, {
-          n: args.n,
-          class: 'selectable',
-          confirmText: _('Target'),
-          callback: (selectedElements, ignoredElements) =>
-            this.takeAtomicAction('actTarget', [selectedElements] ),
-        });
-     
+      this.onSelectNCards(args.cards, {
+        n: args.n,
+        class: 'selectable',
+        confirmText: _('Target'),
+        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
+      });
 
       // if not mandatory, player can pass
       if (args.canPass) {
@@ -669,11 +666,14 @@ define([
       const MARKERS = {
         J: 'played',
         M: 'played-from-hand',
+        S: 'played-from-memory',
       };
       Object.keys(MARKERS).forEach((marker) => {
-        let name = MARKERS[marker];
+        let svgId = MARKERS[marker] + '-svg';
+        let viewBox = $(svgId).getAttribute('viewBox');
         const regex = new RegExp('{' + marker + '}', 'g');
-        str = str.replaceAll(regex, this.formatIcon(name));
+        // str = str.replace(regex, this.formatIcon(name));
+        str = str.replace(regex, `<div class='inline-icon'><svg viewBox="${viewBox}"><use href="#${svgId}" /></svg></div>`);
       });
       // str = str.replace(/__([^_]+)__/g, '<span class="action-card-name-reference">$1</span>');
       str = str.replace(/\[G\](.+)\[\/G\]/g, '<span class="rare-marker">$1</span>');
