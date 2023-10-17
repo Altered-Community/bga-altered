@@ -7,8 +7,6 @@
 }
 
 .altered-card {
-    width: calc(var(--cardScale) * 324px);
-    height: calc(var(--cardScale) * 450px);
     border: 1px solid white;
     box-shadow: 1px 1px 4px -1px white;
     border-radius: 7px;
@@ -22,8 +20,6 @@
 
     &.unselectable {
         cursor: not-allowed;
-        // }
-        // [data-filter="0"] &.unselectable {
         filter: grayscale(80%);
         -webkit-transform: translateZ(0);
         -webkit-perspective: 1000;
@@ -101,11 +97,6 @@
     // }
 
     .altered-card-wrapper {
-        width: 324px;
-        height: 450px;
-        transform: scale(var(--cardScale));
-        transform-origin: top left;
-        border-radius: 21px;
         position: relative;
 
         background-size: 100% 100%;
@@ -119,126 +110,24 @@
         &[data-asset="back"] {
             background-image: url("img/back-main.jpg");
         }
+    }
+}
 
-        .card-frame {
-            position: absolute;
-            z-index: 2;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            background-size: 600% 500%;
+//  __  __ _       _
+// |  \/  (_)_ __ (_)
+// | |\/| | | '_ \| |
+// | |  | | | | | | |
+// |_|  |_|_|_| |_|_|
+//
+$miniCardScale: 0.33;
+.altered-card.mini-card {
+    width: $miniCardScale * 324px;
+    height: $miniCardScale * 450px;
 
-            @each $faction in $factions {
-                &[data-faction="#{$faction}"] {
-                    background-image: url("img/frames/#{$faction}.png");
-                }
-            }
-
-            &[data-type="alterateur"] {
-                background-position: 0% 50%;
-            }
-
-            &[data-type="explorer"] {
-                // BASE
-                &[data-rarity="0"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
-                        background-position: 40% 0%;
-                    }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
-                        background-position: 60% 0%;
-                    }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
-                        background-position: 0% 0%;
-                    }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
-                        background-position: 20% 0%;
-                    }
-                }
-                // RARE
-                &[data-rarity="1"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
-                        background-position: 0% 25%;
-                    }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
-                        background-position: 20% 25%;
-                    }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
-                        background-position: 80% 0%;
-                    }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
-                        background-position: 100% 0%;
-                    }
-                }
-                // UNIQUE
-                &[data-rarity="2"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
-                        background-position: 80% 25%;
-                    }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
-                        background-position: 100% 25%;
-                    }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
-                        background-position: 40% 25%;
-                    }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
-                        background-position: 60% 25%;
-                    }
-                }
-            }
-            &[data-type="spell"] {
-                // BASE
-                &[data-rarity="0"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
-                        background-position: 100% 75%;
-                    }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
-                        background-position: 0% 100%;
-                    }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
-                        background-position: 60% 75%;
-                    }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
-                        background-position: 80% 75%;
-                    }
-                }
-                // RARE
-                &[data-rarity="1"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
-                        background-position: 60% 100%;
-                    }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
-                        background-position: 80% 100%;
-                    }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
-                        background-position: 20% 100%;
-                    }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
-                        background-position: 40% 100%;
-                    }
-                }
-            }
-        }
+    .altered-card-wrapper {
+        border-radius: 7px;
+        width: 100%;
+        height: 100%;
 
         .card-hand-cost,
         .card-memory-cost {
@@ -248,14 +137,13 @@
             text-align: center;
             font-family: "Haptic Pro";
             font-weight: bold;
-
-            font-size: 34px;
-            line-height: 59px;
+            font-size: 13px;
+            line-height: 23px;
             background: #579ccc;
-            top: 10px;
-            left: 10px;
-            width: 50px;
-            height: 50px;
+            top: 2px;
+            left: 2px;
+            width: 19px;
+            height: 19px;
             border-radius: 50%;
             text-shadow: 0px 0px 5px black;
             box-shadow: 0px 0px 5px black;
@@ -264,8 +152,8 @@
 
         .card-memory-cost {
             z-index: 2;
-            top: 35px;
-            left: 45px;
+            top: 13px;
+            left: 17px;
 
             &[data-faction="MU"] {
                 background: #2a7533;
@@ -289,62 +177,194 @@
         .card-ocean {
             z-index: 1;
             position: absolute;
-            left: 22px;
+            left: 7px;
             font-family: "Haptic Pro";
-            padding-left: 12px;
+            padding-left: 4px;
             color: white;
-            box-shadow: 0px 0px 14px 2px black;
+            box-shadow: 0px 0px 6px 2px black;
             text-shadow: 0px 0px 6px black;
 
-            border-radius: 17px;
-            height: 50px;
-            width: 60px;
-            font-size: 40px;
-            line-height: 61px;
+            border-radius: 6px;
+            height: 17px;
+            width: 20px;
+            font-size: 13px;
+            line-height: 21px;
             font-weight: bold;
 
             &[data-size="0"] {
-                width: 35px;
+                width: 11px;
                 background: transparent;
             }
             &[data-size="1"] {
-                width: 40px;
+                width: 13px;
             }
             &[data-size="3"] {
-                width: 80px;
+                width: 27px;
             }
         }
 
         .card-forest {
-            top: 100px;
+            top: 37px;
             background: #abb648;
-            border-bottom-right-radius: 8px;
+            border-bottom-right-radius: 2px;
         }
         .card-mountain {
-            top: 160px;
+            top: 57px;
             background: #af7b51;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
         }
         .card-ocean {
-            top: 220px;
+            top: 77px;
             background: #6b93c0;
-            border-top-right-radius: 8px;
+            border-top-right-radius: 2px;
         }
     }
 }
+
+//  _____           _ _   _
+// |_   _|__   ___ | | |_(_)_ __
+//   | |/ _ \ / _ \| | __| | '_ \
+//   | | (_) | (_) | | |_| | |_) |
+//   |_|\___/ \___/|_|\__|_| .__/
+//                         |_|
 
 .altered-card-tooltip {
     display: flex;
     --cardScale: 1;
 
     .altered-card {
+        width: calc(var(--cardScale) * 324px);
+        height: calc(var(--cardScale) * 450px);
         border: none;
         box-shadow: none;
         border-radius: 0;
 
         .altered-card-wrapper {
-            border-radius: 0;
+            width: 324px;
+            height: 450px;
+            transform: scale(var(--cardScale));
+            transform-origin: top left;
+
+            .card-frame {
+                position: absolute;
+                z-index: 2;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                background-size: 600% 500%;
+
+                @each $faction in $factions {
+                    &[data-faction="#{$faction}"] {
+                        background-image: url("img/frames/#{$faction}.png");
+                    }
+                }
+
+                &[data-type="alterateur"] {
+                    background-position: 0% 50%;
+                }
+
+                &[data-type="explorer"] {
+                    // BASE
+                    &[data-rarity="0"] {
+                        // Small frame, no ECHO
+                        &[data-frame="1"] {
+                            background-position: 40% 0%;
+                        }
+                        // Bigger frame, no ECHO
+                        &[data-frame="2"] {
+                            background-position: 60% 0%;
+                        }
+                        // Small frame, with ECHO
+                        &[data-frame="3"] {
+                            background-position: 0% 0%;
+                        }
+                        // Bigger frame, with ECHO
+                        &[data-frame="4"] {
+                            background-position: 20% 0%;
+                        }
+                    }
+                    // RARE
+                    &[data-rarity="1"] {
+                        // Small frame, no ECHO
+                        &[data-frame="1"] {
+                            background-position: 0% 25%;
+                        }
+                        // Bigger frame, no ECHO
+                        &[data-frame="2"] {
+                            background-position: 20% 25%;
+                        }
+                        // Small frame, with ECHO
+                        &[data-frame="3"] {
+                            background-position: 80% 0%;
+                        }
+                        // Bigger frame, with ECHO
+                        &[data-frame="4"] {
+                            background-position: 100% 0%;
+                        }
+                    }
+                    // UNIQUE
+                    &[data-rarity="2"] {
+                        // Small frame, no ECHO
+                        &[data-frame="1"] {
+                            background-position: 80% 25%;
+                        }
+                        // Bigger frame, no ECHO
+                        &[data-frame="2"] {
+                            background-position: 100% 25%;
+                        }
+                        // Small frame, with ECHO
+                        &[data-frame="3"] {
+                            background-position: 40% 25%;
+                        }
+                        // Bigger frame, with ECHO
+                        &[data-frame="4"] {
+                            background-position: 60% 25%;
+                        }
+                    }
+                }
+                &[data-type="spell"] {
+                    // BASE
+                    &[data-rarity="0"] {
+                        // Small frame, no ECHO
+                        &[data-frame="1"] {
+                            background-position: 100% 75%;
+                        }
+                        // Bigger frame, no ECHO
+                        &[data-frame="2"] {
+                            background-position: 0% 100%;
+                        }
+                        // Small frame, with ECHO
+                        &[data-frame="3"] {
+                            background-position: 60% 75%;
+                        }
+                        // Bigger frame, with ECHO
+                        &[data-frame="4"] {
+                            background-position: 80% 75%;
+                        }
+                    }
+                    // RARE
+                    &[data-rarity="1"] {
+                        // Small frame, no ECHO
+                        &[data-frame="1"] {
+                            background-position: 60% 100%;
+                        }
+                        // Bigger frame, no ECHO
+                        &[data-frame="2"] {
+                            background-position: 80% 100%;
+                        }
+                        // Small frame, with ECHO
+                        &[data-frame="3"] {
+                            background-position: 20% 100%;
+                        }
+                        // Bigger frame, with ECHO
+                        &[data-frame="4"] {
+                            background-position: 40% 100%;
+                        }
+                    }
+                }
+            }
 
             .card-name {
                 position: absolute;
@@ -374,14 +394,13 @@
 
             .card-hand-cost,
             .card-memory-cost {
-                background: none;
-                width: auto;
-                height: auto;
-                border-radius: 0;
-                text-shadow: none;
-                box-shadow: none;
-                border: none;
-                line-height: inherit;
+                position: absolute;
+                z-index: 3;
+                color: white;
+                text-align: center;
+                font-family: "Haptic Pro";
+                font-weight: bold;
+                font-size: 34px;
             }
 
             .card-hand-cost {
@@ -399,13 +418,20 @@
             .card-forest,
             .card-mountain,
             .card-ocean {
+                z-index: 1;
+                position: absolute;
                 left: 22px;
+                font-family: "Haptic Pro";
+                padding-left: 12px;
+                color: white;
+                box-shadow: 0px 0px 14px 2px black;
+                text-shadow: 0px 0px 6px black;
+
+                border-radius: 11px;
                 height: 25px;
                 width: 25px;
-                border-radius: 11px;
                 font-size: 21px;
                 line-height: 29px;
-                font-weight: normal;
 
                 &[data-size="0"] {
                     width: 15px;
@@ -420,15 +446,18 @@
             }
 
             .card-forest {
+                background: #abb648;
                 top: 96px;
                 border-bottom-right-radius: 4px;
             }
             .card-mountain {
+                background: #af7b51;
                 top: 123px;
                 border-top-right-radius: 4px;
                 border-bottom-right-radius: 4px;
             }
             .card-ocean {
+                background: #6b93c0;
                 top: 150px;
                 border-top-right-radius: 4px;
             }
