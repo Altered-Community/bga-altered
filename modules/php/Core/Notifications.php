@@ -365,6 +365,16 @@ class Notifications
     self::notifyAll('spellCleanup', '', ['card' => $card, 'deleted' => $deleted]);
   }
 
+  public static function invokeToken($player, $card)
+  {
+    self::notifyAll('invokeToken', clienttranslate('${player_name} invokes ${card_name} in ${location}'), [
+      'player' => $player,
+      'location' => $card->getLocation(),
+      'card' => $card,
+      'i18n' => ['token_type'],
+    ]);
+  }
+
   /*** tools****/
   public static function silentKill($tokens)
   {

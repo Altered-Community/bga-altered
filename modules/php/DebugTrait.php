@@ -38,14 +38,16 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actPass', []);
     // $this->actTakeAtomicAction('actDiscard', [[3]]);
     // $this->actTakeAtomicAction('actTarget', [[17]]);
-    throw new \feException(Cards::get(11)->countToken(FLEETING));
+    $this->actTakeAtomicAction('actInvokeToken', [STORM_LEFT]);
+
+    // throw new \feException(Cards::get(11)->countToken(FLEETING));
   }
 
   function tv()
   {
     // Cards::get(24)->setTapped(true);
     // Cards::get(3)->setEffectHand([[TARGET_ALL_EXPLORER_2 => [[BOOST => 2], [BOOST => 2]]]]);
-    Cards::get(11)->setEffectHand([[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1]]]]);
+    Cards::get(11)->setEffectHand([['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR|BR_Base_Booda']]]);
   }
 
   function score($cardId)

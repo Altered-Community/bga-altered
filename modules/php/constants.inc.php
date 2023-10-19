@@ -60,6 +60,7 @@ const ST_GAIN = 13;
 const ST_TARGET = 14;
 const ST_LOOSE = 15;
 const ST_SPELL_CLEANUP = 16;
+const ST_INVOKE_TOKEN = 17;
 
 // Effets
 const ST_EFFECT_BOOST = 20; // gain X / who
@@ -107,6 +108,7 @@ const DISCARD = 'DISCARD';
 const TARGET = 'TARGET';
 const LOOSE = 'LOOSE';
 const SPELL_CLEANUP = 'SPELL_CLEANUP';
+const INVOKE_TOKEN = 'INVOKE_TOKEN';
 
 // const ADVANCE_BREAK = 'ADVANCE_BREAK';
 // const PAY = 'PAY';

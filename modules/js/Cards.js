@@ -460,6 +460,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO
     },
 
+    notif_invokeToken(n) {
+      debug('Notif: invoe token', n);
+      // TODO
+    },
+
     notif_nightCleanup(n) {
       debug('Notif: cleaning up played cards', n);
       let pId = n.args.player_id;

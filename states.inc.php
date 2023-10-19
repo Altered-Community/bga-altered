@@ -212,6 +212,16 @@ $machinestates = [
     'action' => 'stAtomicAction',
   ],
 
+  ST_INVOKE_TOKEN => [
+    'name' => 'invokeToken',
+    'description' => clienttranslate('${actplayer} may invoke ${tokenType}'),
+    'descriptionmyturn' => clienttranslate('${you} may invoke ${tokenType}'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actRestart'],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

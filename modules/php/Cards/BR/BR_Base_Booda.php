@@ -21,6 +21,9 @@ class BR_Base_Booda extends \ALT\Models\Card
         'I am a [token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone — Remove me from the game).'
       ),
 
+      'handCost' => '',
+      'memoryCost' => '',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

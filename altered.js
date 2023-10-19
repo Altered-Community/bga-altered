@@ -54,6 +54,7 @@ define([
         ['gainToken', 200],
         ['updateBiomes', 100],
         ['spellCleanup', 100],
+        ['invokeToken', 100],
 
         ['setupPlayer', null],
         ['payMana', 500],
