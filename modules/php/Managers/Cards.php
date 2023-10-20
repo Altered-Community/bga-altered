@@ -90,6 +90,10 @@ class Cards extends \ALT\Helpers\Pieces
       if (in_array($cardId, TOKENS)) {
         $location = "tokens-$pId";
       }
+      // we do not create token as they will be created on the fly
+      if ($card->isToken()) {
+        continue;
+      }
 
       $toCreate[] = [
         'player_id' => $pId,

@@ -20,9 +20,10 @@ class BR_Base_Booda extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'I am a [token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone — Remove me from the game).'
       ),
+      'token' => true,
 
-      'handCost' => '',
-      'memoryCost' => '',
+      'costHand' => '',
+      'costMemory' => '',
 
       'forest' => 2,
       'mountain' => 2,

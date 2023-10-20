@@ -268,11 +268,19 @@ class Player extends \ALT\Helpers\DB_Model
       if (!in_array($cId, $deletedCards) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
         // move card to memory
         $deletedTokens = array_merge($deletedTokens, $card->moveToMemory());
-        $movedToReserve[] = $cId;
+        if ($card->isToken()) {
+          // delete the card as it's a token
+          $deletedCards[] = $cId;
+          Cards::DB()->delete($cId);
+        } else {
+          $movedToReserve[] = $cId;
+        }
       }
 
       // Remove Anchored / Asleep tokens
-      $deletedTokens = array_merge($deletedTokens, $card->nightCleanup());
+      if (!in_array($cId, $deletedCards)) {
+        $deletedTokens = array_merge($deletedTokens, $card->nightCleanup());
+      }
     }
     Notifications::nightCleanup($this, Cards::getMany($deletedCards), $deletedTokens, Cards::getMany($movedToReserve));
 
