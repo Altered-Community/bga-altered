@@ -61,6 +61,7 @@ const ST_TARGET = 14;
 const ST_LOOSE = 15;
 const ST_SPELL_CLEANUP = 16;
 const ST_INVOKE_TOKEN = 17;
+const ST_ACTIVATE_CARD = 18;
 
 // Effets
 const ST_EFFECT_BOOST = 20; // gain X / who

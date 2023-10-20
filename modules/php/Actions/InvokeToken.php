@@ -19,8 +19,6 @@ class InvokeToken extends \ALT\Models\Action
     return ST_INVOKE_TOKEN;
   }
 
-  // !!!!!!!!!!!!!! Target must have a brother
-
   public function getDescription()
   {
     return clienttranslate('Invoke a token');
@@ -45,14 +43,24 @@ class InvokeToken extends \ALT\Models\Action
   public function getToken()
   {
     $tokenType = $this->getCtxArg('tokenType');
-    $infos = explode('|', $tokenType);
-    $className = "\\ALT\\Cards\\$infos[0]\\$infos[1]";
+    $infos = explode('_', $tokenType);
+    $className = "\\ALT\\Cards\\$infos[0]\\$tokenType";
     return new $className(null);
   }
 
-  public function actInvokeToken($location)
+  public function stInvokeToken()
   {
-    self::checkAction('actInvokeToken');
+    $args = $this->argsInvokeToken();
+    if (count($args['locations']) == 1) {
+      $this->actInvokeToken($args['locations'][0]);
+    }
+  }
+
+  public function actInvokeToken($location, $auto = false)
+  {
+    if ($auto === false) {
+      self::checkAction('actInvokeToken');
+    }
     $player = Players::getActive();
     $args = $this->argsInvokeToken();
 

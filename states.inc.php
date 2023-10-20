@@ -222,6 +222,14 @@ $machinestates = [
     'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actRestart'],
   ],
 
+  ST_ACTIVATE_CARD => [
+    'name' => 'activateCard',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

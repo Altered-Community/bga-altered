@@ -22,8 +22,7 @@ class Actions
     LOOSE => 'Loose',
     SPELL_CLEANUP => 'SpellCleanup',
     INVOKE_TOKEN => 'InvokeToken',
-    // PAY => 'Pay',
-    // ACTIVATE_CARD => 'ActivateCard',
+    ACTIVATE_CARD => 'ActivateCard',
     // SPECIAL_EFFECT => 'SpecialEffect',
     // CHOOSE_ACTION_CARD => 'ChooseActionCard',
   ];

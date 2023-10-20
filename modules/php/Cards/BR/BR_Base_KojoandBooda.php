@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Core\Globals;
 
 class BR_Base_KojoandBooda extends \ALT\Models\Card
 {
@@ -23,5 +24,15 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
       'memorySlots' => 2,
       'permanentSlots' => 2,
     ];
+  }
+
+  public function isListeningTo($event)
+  {
+    return Globals::getFirstPlayer() == $this->pId && $event['type'] == 'Dawn';
+  }
+
+  public function onDawn($player, $args)
+  {
+    return ['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR_Base_KojoandBooda', 'targetLocation' => [STORM_RIGHT]]];
   }
 }

@@ -201,8 +201,7 @@ class altered extends Table
     $pId = Players::getActiveId();
     $event['pId'] = $pId;
     $reaction = null;
-    // TODO: a adapter
-    // $reaction = PlayerCards::getReaction($event);
+    $reaction = Cards::getReaction($event);
 
     if (is_null($reaction)) {
       // No reaction => just go to next player

@@ -194,13 +194,6 @@ class Action
     $this->pushParallelChilds($reaction);
   }
 
-  protected function checkIconsListeners($icons, $player)
-  {
-    list($immediateReaction, $afterReaction) = Cards::getIconsReaction($icons, $player, true);
-    $this->pushParallelChilds($immediateReaction);
-    $this->pushAfterFinishingChilds($afterReaction);
-  }
-
   public function checkAfterListeners($player, $args = [], $duringActionListener = true)
   {
     if ($duringActionListener) {

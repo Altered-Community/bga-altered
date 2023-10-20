@@ -191,12 +191,19 @@ class Cards extends \ALT\Helpers\Pieces
    */
   public function getListeningCards($event)
   {
-    return self::getInLocation('inPlay')
-      //->merge(self::getInLocation('hand')) Removing hand cards as shouldn't have listeners on hand
+    return self::getListeningCardsObject()
       ->filter(function ($card) use ($event) {
         return $card->isListeningTo($event);
       })
       ->getIds();
+  }
+
+  public function getListeningCardsObject()
+  {
+    return self::getInLocation(STORM_LEFT)
+      ->merge(self::getInLocation(STORM_RIGHT))
+      ->merge(self::getInLocation(PERMANENT))
+      ->merge(self::getInLocation('board-alterateur%'));
   }
 
   /**
@@ -229,50 +236,11 @@ class Cards extends \ALT\Helpers\Pieces
   }
 
   /**
-   * Get reaction to icons
-   */
-  public function getIconsReaction($icons, $player, $splitImmediateAndAfter = false)
-  {
-    $cards = self::getInLocation('inPlay')->filter(function ($card) {
-      return \method_exists($card, 'getIconsReaction');
-    });
-    $immediateChilds = [];
-    $afterChilds = [];
-    foreach ($cards as $card) {
-      $bonuses = $card->getIconsReaction($icons, $player->getId() == $card->getPId());
-      if (empty($bonuses)) {
-        continue;
-      }
-
-      // $child = [
-      //     'action' => ACTIVATE_CARD,
-      //     'pId' => $player->getId(),
-      //     'args' => [
-      //         'cardId' => $card->getId(),
-      //         'event' => [
-      //             'icons' => $icons,
-      //             'method' => 'playIcons',
-      //         ],
-      //     ],
-      // ];
-
-      // if ($card->getId() == 'S214_ExpertOnAfrica') {
-      //     $child['afterFinishing'] = true;
-      //     $afterChilds[] = $child;
-      // } else {
-      //     $immediateChilds[] = $child;
-      // }
-    }
-
-    return $splitImmediateAndAfter ? [$immediateChilds, $afterChilds] : array_merge($immediateChilds, $afterChilds);
-  }
-
-  /**
    * Go trough all played cards to apply effects
    */
   public function getAllCardsWithMethod($methodName)
   {
-    return self::getInLocation('inPlay')->filter(function ($card) use ($methodName) {
+    return self::getListeningCardsObject()->filter(function ($card) use ($methodName) {
       return \method_exists($card, 'on' . $methodName) ||
         \method_exists($card, 'onPlayer' . $methodName) ||
         \method_exists($card, 'onOpponent' . $methodName);
@@ -325,35 +293,7 @@ class Cards extends \ALT\Helpers\Pieces
     $listened = true;
     $isPlayerEvent = $player->getId() == $card->getPId();
 
-    if ($methodName == 'playIcons') {
-      // list($immediate, $after) = FlowConvertor::getFlow(
-      //     $card->getIconsReaction($args['icons'], $isPlayerEvent)
-      // );
-      // $res =
-      //     count($immediate) > 1
-      //         ? [
-      //             'type' => \NODE_PARALLEL,
-      //             'childs' => $immediate,
-      //         ]
-      //         : (empty($immediate)
-      //             ? $after[0] ?? null
-      //             : $immediate[0]);
-    } elseif ($methodName == 'getIncome') {
-      // $income = $card->getIncome();
-      // foreach ($income as &$bonus) {
-      //     $bonus['income'] = true;
-      // }
-      // list($immediate, $after) = FlowConvertor::getFlow($income);
-      // $res =
-      //     count($immediate) > 1
-      //         ? [
-      //             'type' => \NODE_PARALLEL,
-      //             'childs' => $immediate,
-      //         ]
-      //         : (empty($immediate)
-      //             ? $after[0] ?? null
-      //             : $immediate[0]);
-    } elseif ($player != null && $isPlayerEvent && \method_exists($card, 'onPlayer' . $methodName)) {
+    if ($player != null && $isPlayerEvent && \method_exists($card, 'onPlayer' . $methodName)) {
       $n = 'onPlayer' . $methodName;
       $res = $card->$n($player, $args);
     } elseif ($player != null && !$isPlayerEvent && \method_exists($card, 'onOpponent' . $methodName)) {
