@@ -129,8 +129,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         let oCard = $(`card-${cardId}`);
         if (!oCard) {
           let card = { id: cardId };
-          this.loadSaveCard(card);
-          this.addZooCard(card, container);
+          // this.loadSaveCard(card);
+          // this.addZooCard(card, container);
           oCard = $(`card-${cardId}`);
         }
         elements[cardId] = oCard;
