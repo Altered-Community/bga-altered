@@ -69,12 +69,12 @@ class Player extends \ALT\Helpers\DB_Model
     return Actions::isDoable($action, $ctx, $this);
   }
 
-  public function draw($nb, $fromLocation = null, $toLocation = null)
+  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null)
   {
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
-    Notifications::drawCards($this, $cards);
+    Notifications::drawCards($this, $cards, $source);
     return $cards;
   }
 

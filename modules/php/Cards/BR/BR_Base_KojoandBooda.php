@@ -33,6 +33,6 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
 
   public function onDawn($player, $args)
   {
-    return ['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR_Base_KojoandBooda', 'targetLocation' => [STORM_RIGHT]]];
+    return ['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR_Base_Booda', 'targetLocation' => [STORM_RIGHT]]];
   }
 }

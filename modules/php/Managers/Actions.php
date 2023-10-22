@@ -23,6 +23,7 @@ class Actions
     SPELL_CLEANUP => 'SpellCleanup',
     INVOKE_TOKEN => 'InvokeToken',
     ACTIVATE_CARD => 'ActivateCard',
+    DRAW => 'Draw',
     // SPECIAL_EFFECT => 'SpecialEffect',
     // CHOOSE_ACTION_CARD => 'ChooseActionCard',
   ];

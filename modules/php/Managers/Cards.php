@@ -232,7 +232,11 @@ class Cards extends \ALT\Helpers\Pieces
       return null;
     }
 
-    return $childs;
+    return [
+      'type' => NODE_PARALLEL,
+      'pId' => $event['pId'],
+      'childs' => $childs,
+    ];
   }
 
   /**
