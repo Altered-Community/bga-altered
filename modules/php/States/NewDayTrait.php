@@ -155,11 +155,8 @@ trait NewDayTrait
         $cards = Cards::getMany($cardIds);
         Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
       }
-      if (Globals::getDay() > 1) {
-        $this->checkCardListeners('Dawn', ST_BEFORE_ASSIGNMENT);
-      } else {
-        $this->gamestate->nextState('done');
-      }
+
+      $this->checkCardListeners('Dawn', ST_BEFORE_ASSIGNMENT);
     }
   }
 }
