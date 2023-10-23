@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_Hesperide extends \ALT\Models\Card
 {
@@ -17,13 +18,14 @@ class MU_Base_Hesperide extends \ALT\Models\Card
       'subtype' => 'Plant',
       'typeline' => 'Explorer Base - Plant',
       'rarity' => RARITY_BASE,
-      'effectDesc' => clienttranslate('{M} [Gift] — Target opponent draws a card.'),
+      'effectDesc' => clienttranslate('{M} [Gift] — Target opponent draws a card.TOTO'),
 
       'forest' => 3,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectHand' => FT::ACTION(DRAW, ['players' => OPPONENT]),
     ];
   }
 }

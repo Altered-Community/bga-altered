@@ -88,7 +88,8 @@ class LeafNode extends AbstractNode
     if (isset($this->infos['action'])) {
       return Actions::getState($this->infos['action'], $this);
     }
-    var_dump(\ALT\Core\Engine::$tree->toArray());
+    throw new \feException(print_r($this->infos));
+    throw new \feException(print_r(\ALT\Core\Engine::$tree->toArray()));
     throw new \BgaVisibleSystemException('Trying to get state on a leaf without state nor action');
   }
 

@@ -49,8 +49,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     $rarity = $p['rarity'] == 0 ? 'base' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    return new $className($data);
-    // return new Card($data);
+    // return new $className($data); // no DB call
+    return new Card($data); // information from DB
   }
 
   public static function getUiData()

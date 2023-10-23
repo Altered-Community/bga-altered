@@ -120,18 +120,18 @@ class ChooseAssignment extends \ALT\Models\Action
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }
-
     // insert effect flow
     $effect = $card->getEffectPlayed();
-    if (is_null($effect) && $fromLocation == HAND) {
+    if (empty($effect) && $fromLocation == HAND) {
       $effect = $card->getEffectHand();
     }
-    if (is_null($effect) && $fromLocation == MEMORY) {
+
+    if (empty($effect) && $fromLocation == MEMORY) {
       $effect = $card->getEffectMemory();
     }
-    if (!is_null($effect)) {
-      $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
 
+    if (!empty($effect)) {
+      $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
       $this->insertAsChild($effect);
     }
 

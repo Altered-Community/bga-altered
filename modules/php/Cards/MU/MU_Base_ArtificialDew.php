@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_ArtificialDew extends \ALT\Models\Card
 {
@@ -24,6 +25,7 @@ class MU_Base_ArtificialDew extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
     ];
   }
 }

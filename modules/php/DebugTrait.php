@@ -47,7 +47,8 @@ trait DebugTrait
   {
     // Cards::get(24)->setTapped(true);
     // Cards::get(3)->setEffectHand([[TARGET_ALL_EXPLORER_2 => [[BOOST => 2], [BOOST => 2]]]]);
-    Cards::get(4)->setEffectPlayed(FT::GAIN(Cards::get(4), FLEETING));
+    // Cards::get(49)->setEffectPlayed(FT::ACTION(DRAW, ['players' => OPPONENT]));
+    Cards::get(1)->isListeningTo([]);
   }
 
   function score($cardId)
