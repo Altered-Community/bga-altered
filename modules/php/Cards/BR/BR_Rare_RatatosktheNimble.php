@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Rare_RatatosktheNimble extends \ALT\Models\Card
 {
@@ -27,7 +28,7 @@ class BR_Rare_RatatosktheNimble extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costMemory' => 1,
-      'effectMemory' => [[BOOST => 3]],
+      'effectMemory' => FT::GAIN($this, BOOST, 3),
     ];
   }
 }

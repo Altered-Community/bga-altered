@@ -123,14 +123,15 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // insert effect flow
     $effect = $card->getEffectPlayed();
-    if (empty($effect) && $fromLocation == HAND) {
+    if (is_null($effect) && $fromLocation == HAND) {
       $effect = $card->getEffectHand();
     }
-    if (empty($effect) && $fromLocation == MEMORY) {
+    if (is_null($effect) && $fromLocation == MEMORY) {
       $effect = $card->getEffectMemory();
     }
-    if (!empty($effect)) {
+    if (!is_null($effect)) {
       $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
+
       $this->insertAsChild($effect);
     }
 

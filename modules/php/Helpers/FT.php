@@ -40,6 +40,11 @@ abstract class FT
     return self::ACTION(GAIN, ['cardId' => $card->getId(), 'type' => $token, 'n' => $n]);
   }
 
+  public static function LOOSE($card, $token, $n = 1)
+  {
+    return self::ACTION(LOOSE, ['cardId' => $card->getId(), 'type' => $token, 'n' => $n]);
+  }
+
   public static function RETURN_TO_HAND()
   {
     return self::ACTION(DISCARD, ['target' => HAND]);

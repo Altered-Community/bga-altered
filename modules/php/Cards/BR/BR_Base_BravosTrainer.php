@@ -1,6 +1,8 @@
 <?php
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Base_BravosTrainer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -27,7 +29,7 @@ class BR_Base_BravosTrainer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costMemory' => 2,
-      'effectMemory' => [[TARGET_ALL_EXPLORER => [[BOOST => 2]]]],
+      'effectMemory' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['n' => 2, 'type' => BOOST])]),
     ];
   }
 }

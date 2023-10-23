@@ -7,7 +7,7 @@ use ALT\Core\Engine;
 use ALT\Core\Game;
 use ALT\Core\Notifications;
 use ALT\Helpers\Utils;
-use ALT\Helpers\Log;
+use ALT\Helpers\FT;
 use ALT\Helpers\Collection;
 
 trait DebugTrait
@@ -47,7 +47,7 @@ trait DebugTrait
   {
     // Cards::get(24)->setTapped(true);
     // Cards::get(3)->setEffectHand([[TARGET_ALL_EXPLORER_2 => [[BOOST => 2], [BOOST => 2]]]]);
-    Cards::get(11)->setEffectHand([['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR|BR_Base_Booda']]]);
+    Cards::get(4)->setEffectPlayed(FT::GAIN(Cards::get(4), FLEETING));
   }
 
   function score($cardId)

@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Base_AltrunTracer extends \ALT\Models\Card
 {
@@ -25,8 +26,7 @@ class BR_Base_AltrunTracer extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costMemory' => 2,
-      'effectHand' => [[FLEETING => 1]],
-      'effectMemory' => [[FLEETING => 1]],
+      'effectPlayed' => FT::GAIN($this, FLEETING),
     ];
   }
 }

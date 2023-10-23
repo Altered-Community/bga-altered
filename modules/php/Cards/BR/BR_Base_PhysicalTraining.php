@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Base_PhysicalTraining extends \ALT\Models\Card
 {
@@ -24,8 +25,7 @@ class BR_Base_PhysicalTraining extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costMemory' => 2,
-      'effectMemory' => [[TARGET_ALL_EXPLORER => [[BOOST => 3]]]],
-      'effectHand' => [[TARGET_ALL_EXPLORER => [[BOOST => 3]]]],
+      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
     ];
   }
 }
