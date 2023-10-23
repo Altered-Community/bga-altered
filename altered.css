@@ -292,9 +292,6 @@ html {
   border-radius: 7px;
   margin: 3px 5px;
   position: relative; }
-  .altered-card .help-marker {
-    left: auto;
-    right: 2px; }
   .altered-card.unselectable {
     cursor: not-allowed;
     filter: grayscale(80%);
@@ -380,6 +377,27 @@ html {
 .altered-card.mini-card {
   width: 106.92px;
   height: 148.5px; }
+  .altered-card.mini-card .help-marker {
+    left: calc(50% - 11px);
+    top: -10px; }
+  .altered-card.mini-card .altered-meeple {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 6;
+    visibility: hidden; }
+  .altered-card.mini-card .altered-card-statuses {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 7; }
+    .altered-card.mini-card .altered-card-statuses .card-status {
+      width: 1em;
+      height: 1em;
+      padding: 0.25em;
+      background: #222222;
+      border-radius: 50%;
+      color: white; }
   .altered-card.mini-card .altered-card-wrapper {
     border-radius: 7px;
     width: 100%;
@@ -668,6 +686,12 @@ html {
       bottom: 31px;
       left: 25px;
       right: 21px; }
+  .altered-card-tooltip .tooltip-explanation {
+    max-width: 200px;
+    padding: 5px;
+    font-family: "Jali Greek Variable"; }
+    .altered-card-tooltip .tooltip-explanation:empty {
+      display: none; }
 
 #floating-hand-wrapper {
   position: fixed;
@@ -783,6 +807,11 @@ html {
       background-position-x: 100%; }
   .altered-meeple[data-type="alterateur"] {
     background-position-y: 100%; }
+  .altered-meeple[data-type="fleeting"] {
+    background-image: url("img/icons/fleeting.png");
+    background-size: 100% 100%;
+    width: 30px;
+    height: 30px; }
 
 .action-button .icon-container ~ .altered-meeple {
   margin-left: 0.5em; }

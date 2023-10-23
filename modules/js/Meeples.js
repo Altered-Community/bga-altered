@@ -36,7 +36,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     addMeeple(meeple, location = null) {
       if ($('meeple-' + meeple.id)) return;
 
-      let o = this.place('tplMeeple', meeple, location == null ? this.getMeepleContainer(meeple) : location);
+      let container = location == null ? this.getMeepleContainer(meeple) : location;
+      let o = this.place('tplMeeple', meeple, container);
+      this.updateStatusIfCard(container);
       let tooltipDesc = this.getMeepleTooltip(meeple);
       if (tooltipDesc != null) {
         this.addCustomTooltip(o.id, tooltipDesc.map((t) => this.formatString(t)).join('<br/>'));
@@ -47,16 +49,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     getMeepleTooltip(meeple) {
       let type = meeple.type;
-      // if (type == 'Venom') {
-      //   return [
-      //     _('Venom token.'),
-      //     _('After using an Action card with Venom token, discard the token.'),
-      //     _(
-      //       'If you did not discard a Venom token during your turn, and there is still a Venom token on at least one of your Action cards, pay <MONEY:2>.'
-      //     ),
-      //     _('In the next break remove all Venom tokens.'),
-      //   ];
-      // }
+      if (type == 'first-player') {
+        return [_('First player')];
+      }
+      if (type == 'fleeting') {
+        return [_('Fleeting: if I would be send to reserve, banish me instead.')];
+      }
       return null;
     },
 
@@ -76,6 +74,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       if (t[0] == 'storm') {
         let position = meeple.pId == this.player_id ? 'player' : 'opponent';
         return $(`storm-${t[1]}-${position}`);
+      } else if ($(meeple.location)) {
+        return $(meeple.location);
       }
 
       console.error('Trying to get container of a meeple', meeple);
@@ -87,21 +87,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
      */
     slideResources(meeples, configFn, syncNotif = true) {
       let fakeId = -1; // Used for virtual meeple that will get destroyed after animation (eg SCORE)
-      let needUpdateForActionCards = false;
-      let workerMoved = false;
       let promises = meeples.map((resource, i) => {
-        if (resource.type == 'worker') workerMoved = true;
-
         // Get config for this slide
         let config = typeof configFn === 'function' ? configFn(resource, i) : Object.assign({}, configFn);
         if (resource.destroy) {
           resource.id = fakeId--;
           config.destroy = true;
-        }
-
-        // Need update for action cards summaries ?
-        if (['Multiplier', 'Constriction', 'Venom'].includes(resource.type)) {
-          needUpdateForActionCards = true;
         }
 
         // Default delay if not specified
@@ -119,9 +110,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           if (!$('meeple-' + resource.id)) {
             this.addMeeple(resource);
           }
+          let parent = $('meeple-' + resource.id).parentNode;
 
           // Slide it
-          return this.slide('meeple-' + resource.id, target, config);
+          return new Promise((resolve, reject) => {
+            this.slide('meeple-' + resource.id, target, config).then(() => {
+              this.updateStatusIfCard(target);
+              resolve();
+            });
+            this.updateStatusIfCard(parent);
+          });
         };
 
         if (this.isFastMode()) {
@@ -133,12 +131,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
 
       let endCallback = () => {
-        if (workerMoved) {
-          this.updateWorkerCounters();
-        }
-        if (needUpdateForActionCards) {
-          this.updateActionCardsSummaries();
-        }
         if (syncNotif) {
           this.notifqueue.setSynchronousDuration(this.isFastMode() ? 0 : 10);
         }
