@@ -83,7 +83,7 @@ class Loose extends \ALT\Models\Action
       if ($amount == 0) {
         break;
       }
-      Meeples::DB()->delete($mId);
+      Meeples::delete($mId);
       $deleted[] = $mId;
       $amount--;
     }
