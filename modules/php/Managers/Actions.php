@@ -12,46 +12,15 @@ use ALT\Managers\Players;
 
 class Actions
 {
-  static $classes = [
-    // new day
-    // MANA => 'Mana',
-    CHOOSE_ASSIGNMENT => 'ChooseAssignment',
-    DISCARD => 'Discard',
-    GAIN => 'Gain',
-    TARGET => 'Target',
-    LOOSE => 'Loose',
-    SPELL_CLEANUP => 'SpellCleanup',
-    INVOKE_TOKEN => 'InvokeToken',
-    ACTIVATE_CARD => 'ActivateCard',
-    DRAW => 'Draw',
-    // SPECIAL_EFFECT => 'SpecialEffect',
-    // CHOOSE_ACTION_CARD => 'ChooseActionCard',
-  ];
+  static $classes = [CHOOSE_ASSIGNMENT, DISCARD, GAIN, TARGET, LOOSE, SPELL_CLEANUP, INVOKE_TOKEN, ACTIVATE_CARD, DRAW];
 
-  public static function get($actionId, $ctx = null)
+  public static function get($actionId, &$ctx = null)
   {
-    if (!\array_key_exists($actionId, self::$classes)) {
-      // throw new \feException(print_r(debug_print_backtrace()));
-      // throw new \feException(print_r(Globals::getEngine()));
+    if (!in_array($actionId, self::$classes)) {
       throw new \BgaVisibleSystemException('Trying to get an atomic action not defined in Actions.php : ' . $actionId);
     }
-    $name = '\ALT\Actions\\' . self::$classes[$actionId];
+    $name = '\ALT\Actions\\' . $actionId;
     return new $name($ctx);
-  }
-
-  public static function getActionOfState($stateId, $throwErrorIfNone = true)
-  {
-    foreach (array_keys(self::$classes) as $actionId) {
-      if (self::getState($actionId, null) == $stateId) {
-        return $actionId;
-      }
-    }
-
-    if ($throwErrorIfNone) {
-      throw new \BgaVisibleSystemException('Trying to fetch args of a non-declared atomic action in state ' . $stateId);
-    } else {
-      return null;
-    }
   }
 
   public static function isDoable($actionId, $ctx, $player)

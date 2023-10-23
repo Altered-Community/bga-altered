@@ -1,10 +1,40 @@
 <?php
 namespace ALT\Helpers;
-use ALT\Managers\ZooCards;
-use ALT\Managers\ActionCards;
 
 abstract class Utils extends \APP_DbObject
 {
+  public static function SEQ(...$childs)
+  {
+    return [
+      'type' => NODE_SEQ,
+      'childs' => $childs,
+    ];
+  }
+  public static function OR(...$childs)
+  {
+    return [
+      'type' => NODE_OR,
+      'childs' => $childs,
+    ];
+  }
+  public static function PAR(...$childs)
+  {
+    return [
+      'type' => NODE_PARALLEL,
+      'childs' => $childs,
+    ];
+  }
+  public static function ACTION($actionName, $args, $node = [])
+  {
+    $node['action'] = $actionName;
+    $node['args'] = $args;
+    return $node;
+  }
+  public static function GAIN($token, $n = 1)
+  {
+    return ACTION(GAIN, ['type' => $token, 'n' => $n]);
+  }
+
   public static function filter(&$data, $filter)
   {
     $data = array_values(array_filter($data, $filter));

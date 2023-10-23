@@ -35,8 +35,8 @@ trait EngineTrait
    */
   function getCurrentAtomicAction()
   {
-    $stateId = $this->gamestate->state_id();
-    return Actions::getActionOfState($stateId);
+    $node = Engine::getNextUnresolved();
+    return $node->getAction();
   }
 
   /**

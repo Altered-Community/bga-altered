@@ -1319,8 +1319,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           cancelBtn: true,
           callback: null,
           updateCallback: null,
+          upTo: false,
           optional: false,
-          canPass: false,
           passCallback: null,
           btnContainer: 'customActions',
           class: '',
@@ -1333,8 +1333,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       let updateStatus = () => {
         if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
         if (
-          ((config.optional === false && selectedElements.length == config.n) ||
-            (config.optional === true && selectedElements.length <= config.n)) &&
+          ((config.upTo === false && selectedElements.length == config.n) ||
+            (config.upTo === true && selectedElements.length <= config.n)) &&
           config.confirmBtn
         ) {
           let otherElems = elemIds.filter((id) => !selectedElements.includes(id));
@@ -1378,7 +1378,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       };
 
       if ($('btnPass')) $('btnPass').remove();
-      if (config.canPass) {
+      if (config.optional) {
         this.addSecondaryActionButton('btnPass', _('Pass action'), () => config.passCallback(), config.btnContainer);
       }
 

@@ -25,7 +25,7 @@ function slugify($text)
   return $text;
 }
 
-class Cards extends \ALT\Helpers\Pieces
+class Cards extends \ALT\Helpers\CachedPieces
 {
   protected static $table = 'cards';
   protected static $prefix = 'card_';
@@ -34,6 +34,7 @@ class Cards extends \ALT\Helpers\Pieces
   protected static $autoremovePrefix = false;
   protected static $autoreshuffle = true;
   protected static $autoreshuffleCustom = ['deck' => 'discard'];
+  protected static $datas = null;
 
   protected static function cast($card)
   {
@@ -58,6 +59,7 @@ class Cards extends \ALT\Helpers\Pieces
       ->where('location', IN_PLAY)
       ->merge(self::getInLocation(MEMORY))
       ->merge(self::getInLocation('board-alterateur-%'))
+      ->merge(self::getInLocation('limbo'))
       ->toArray();
   }
 
@@ -112,40 +114,27 @@ class Cards extends \ALT\Helpers\Pieces
    */
   public static function getPlayedCards($pId, $type = null)
   {
-    return self::getFiltered($pId, IN_PLAY)->filter(function ($card) use ($type) {
-      return $type == null || $card->getType() == $type;
-    });
+    return self::getFiltered($pId, IN_PLAY, $type);
   }
 
   public static function getMemoryCards($pId, $type = null)
   {
-    return self::getFiltered($pId, MEMORY)->filter(function ($card) use ($type) {
-      return $type == null || $card->getType() == $type;
-    });
+    return self::getFiltered($pId, MEMORY, $type);
   }
 
   public static function getStormCards($pId, $type = null)
   {
-    return self::getFiltered($pId, 'storm%')->filter(function ($card) use ($type) {
-      return $type == null || $card->getType() == $type;
-    });
+    return self::getFiltered($pId, 'storm%', $type);
   }
 
   public static function getHand($pId, $type = null)
   {
-    return self::getFilteredQuery($pId, 'hand')
-      ->orderBy(['card_state', 'ASC'])
-      ->get()
-      ->filter(function ($card) use ($type) {
-        return $type == null || $card->getType() == $type;
-      });
+    return self::getFiltered($pId, 'hand', $type)->orderBy('state', 'ASC');
   }
 
   public static function getManaChoice($pId)
   {
-    return self::getFilteredQuery($pId, 'choice')
-      ->orderBy(['card_state', 'ASC'])
-      ->get();
+    return self::getFilteredQuery($pId, 'choice')->orderBy('state', 'ASC');
   }
 
   /**

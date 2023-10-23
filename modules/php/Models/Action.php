@@ -87,18 +87,26 @@ class Action
   {
     return $this->getCtxArgs()[$v] ?? null;
   }
-  // Useful for the 5 actions corresponding to action cards
-  public function getStrength()
+
+  protected $args = []; // Contain default expected value for args
+  public function getArg($v)
   {
-    return $this->getCtxArg('strength');
+    $t = $this->getCtxArg($v) ?? ($this->args[$v] ?? null);
+    if (is_null($t)) {
+      throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v);
+    }
+    return $t;
   }
-  public function getLevel()
+
+  public function getSourceId()
   {
-    return $this->getCtxArg('lvl');
+    return $this->ctx->getSourceId();
   }
-  public function isUpgraded()
+
+  public function getSource()
   {
-    return $this->getLevel() == 2;
+    $sourceId = $this->ctx->getSourceId();
+    return is_null($sourceId) ? null : Cards::get($sourceId);
   }
 
   public function resolveAction($args = [], $checkpoint = false)
@@ -114,6 +122,9 @@ class Action
    */
   public function insertAsChild($flow)
   {
+    if (empty($flow)) {
+      return;
+    }
     Engine::insertAsChild($flow, $this->ctx);
   }
 
@@ -156,17 +167,6 @@ class Action
     }
     $this->pushParallelChilds($immediate);
     $this->pushAfterFinishingChilds($after);
-  }
-
-  public static function checkAction($action, $byPassActiveCheck = false)
-  {
-    if ($byPassActiveCheck) {
-      Game::get()->gamestate->checkPossibleAction($action);
-    } else {
-      Game::get()->checkAction($action);
-      $stepId = Log::step();
-      Notifications::newUndoableStep(Players::getCurrent(), $stepId);
-    }
   }
 
   public function getClassName()

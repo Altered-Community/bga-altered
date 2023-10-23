@@ -207,5 +207,14 @@
             width: 2 * ($cardWidth + 2 * $boardMargin);
             flex-shrink: 0;
         }
+
+        .player-board-limbo {
+            width: $cardWidth + 2 * $boardMargin;
+            flex-shrink: 0;
+            position: relative;
+            &:empty:not(.selectable) {
+                display: none;
+            }
+        }
     }
 }

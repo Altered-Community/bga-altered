@@ -54,42 +54,31 @@ class Gain extends \ALT\Models\Action
 
   public function getPlayer()
   {
-    $args = $this->getCtxArgs();
-    $pId = $args['pId'] ?? Players::getActiveId();
+    $pId = $this->getCtxArg('pId') ?? Players::getActiveId();
     return Players::get($pId);
   }
 
   public function getCard()
   {
-    $args = $this->getCtxArgs();
-    $cardId = $args['cardId'] ?? null;
-    if ($cardId === null) {
+    $cardId = $this->getCtxArg('cardId');
+    if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args. Should not happen');
     }
-    return Cards::get($cardId);
+    return Cards::getSingle($cardId);
   }
+
+  protected $args = [
+    'n' => 1,
+  ];
 
   public function getGain()
   {
-    $args = $this->getCtxArgs();
-    foreach ($args as $resource => $amount) {
-      if (in_array($resource, ['cardId', 'pId', 'sourceId', 'source'])) {
-        continue;
-      }
-
-      if (!in_array($resource, [BOOST, ANCHORED, FLEETING, GIGANTIC, ANCHORED])) {
-        die('GAIN: unrecognized resource' . $resource);
-      }
-
-      return [$resource, $amount];
-    }
-    die('GAIN: resource not found' . $resource);
+    return [$this->getArg('type'), $this->getArg('n')];
   }
 
   public function stGain()
   {
     $player = $this->getPlayer();
-    $args = $this->getCtxArgs();
     $source = $this->ctx->getSource() ?? null;
     $sourceId = $this->ctx->getSourceId() ?? null;
     if (is_null($source) && !is_null($sourceId)) {
@@ -100,10 +89,11 @@ class Gain extends \ALT\Models\Action
     // Increase resource and notify
     list($resource, $amount) = $this->getGain();
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
-    Notifications::gainToken($resource, $card, $tokens, false);
+    Notifications::gainMeeple($resource, $card, $tokens, false);
     Notifications::updateBiomes($card->getPlayer());
 
-    $this->checkAfterListeners($player, ['gain' => $args]);
+    $this->checkAfterListeners($player, ['gain' => $this->getCtxArgs()]);
+
     $this->resolveAction();
   }
 }

@@ -1061,6 +1061,12 @@ html {
   .altered-player-board-resizable .player-board-middle .player-board-permanents {
     width: 240px;
     flex-shrink: 0; }
+  .altered-player-board-resizable .player-board-middle .player-board-limbo {
+    width: 120px;
+    flex-shrink: 0;
+    position: relative; }
+    .altered-player-board-resizable .player-board-middle .player-board-limbo:empty:not(.selectable) {
+      display: none; }
 
 .player-name svg {
   width: 25px;

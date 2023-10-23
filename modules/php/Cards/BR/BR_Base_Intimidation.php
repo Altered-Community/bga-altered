@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Base_Intimidation extends \ALT\Models\Card
 {
@@ -24,8 +25,10 @@ class BR_Base_Intimidation extends \ALT\Models\Card
       'reminders' => clienttranslate('Fleeting: After my effect resolves, banish me.'),
       'costHand' => 2,
       'costMemory' => 2,
-      'effectHand' => [[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1]]]],
-      'effectMemory' => [[FLEETING => 1], [TARGET_ALL_ALL_1_4 => [[DISCARD_HAND => 1]]]],
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET, ['maxHandCost' => 4, 'effect' => FT::RETURN_TO_HAND()])
+      ),
     ];
   }
 }

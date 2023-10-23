@@ -50,10 +50,10 @@ class Card extends \ALT\Helpers\DB_Model
     'costHand' => 'int',
     'costMemory' => 'int',
 
-    // 'boostEffect' => 'obj', // ['mountain' => X, 'forest' => Y, ...]
-    'effectEcho' => 'obj',
+    'effectPlayed' => 'obj', // Played, no mater from hand or memory
     'effectHand' => 'obj', // played from hand
     'effectMemory' => 'obj', // played from memory
+    'effectEcho' => 'obj',
     'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
     'effectTap' => 'obj',
 

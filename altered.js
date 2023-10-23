@@ -34,6 +34,7 @@ define([
     constructor: function () {
       this._inactiveStates = [];
       this._notifications = [
+        ['midMessage', 1200],
         ['clearTurn', 200],
         ['refreshUI', 200],
         ['refreshHand', 200],
@@ -62,7 +63,6 @@ define([
         ['discard', 500],
         ['tap', 500],
         ['boost', 500],
-        ['newFirstPlayer', 500],
         ['untap', 500],
       ];
 
@@ -70,6 +70,7 @@ define([
       this.default_viewport = 'width=740';
       this.cardStatuses = {};
     },
+    notif_midMessage(n) {},
 
     getSettingsSections() {
       return {
@@ -615,7 +616,7 @@ define([
         stormRight: _('Companion side'),
         permanent: _('Permanent'),
         memory: _('Memory'),
-        limbo: _('Spell'), // TODO: fix board to have limbo div
+        limbo: _('Spell'),
       };
       args.play[cardId].forEach((location, i) => {
         this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
@@ -624,17 +625,13 @@ define([
     },
 
     onEnteringStateTarget(args) {
-      this.onSelectNCards(args.cards, {
+      this.onSelectNCards(args.cardIds, {
         n: args.n,
         class: 'selectable',
-        confirmText: _('Target'),
+        confirmText: _('Confirm target'),
+        upTo: args.upTo,
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
       });
-
-      // if not mandatory, player can pass
-      if (args.canPass) {
-        this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAtomicAction('actTargetPass', {}));
-      }
     },
 
     ////////////////////////////////////////////////////////////

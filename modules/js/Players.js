@@ -91,6 +91,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
           <div class='player-board-memory' id='board-memory-${player.id}'></div>
           <div class='player-board-permanents' id='board-permanent-${player.id}'>Permanents</div>
+          <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
         </div>
         ` +
         (player.id == this.player_id ? `<div class='player-board-hand' id='hand-${player.id}'></div>` : '') +

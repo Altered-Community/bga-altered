@@ -299,7 +299,7 @@ class Notifications
     self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
   }
 
-  public static function gainToken($power, $card, $meeples, $silent = true)
+  public static function gainMeeple($power, $card, $meeples, $silent = true)
   {
     $n = count($meeples);
     $msg = '';
@@ -312,6 +312,15 @@ class Notifications
       'i18n' => ['power'],
       'meeples' => $meeples,
       'n' => $n,
+    ]);
+  }
+
+  public static function targetCards($player, $cards, $source)
+  {
+    self::notifyAll('midMessage', clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect'), [
+      'player' => $player,
+      'cards' => $cards,
+      'card' => $source,
     ]);
   }
 

@@ -69,6 +69,15 @@ class ChooseAssignment extends \ALT\Models\Action
     return ['_private' => ['active' => $actions]];
   }
 
+  ///////////////////////////
+  //  ____  _
+  // |  _ \| | __ _ _   _
+  // | |_) | |/ _` | | | |
+  // |  __/| | (_| | |_| |
+  // |_|   |_|\__,_|\__, |
+  //                |___/
+  ///////////////////////////
+
   public function actPlay($cardId, $location)
   {
     $args = $this->argsChooseAssignment()['_private']['active']['play'];
@@ -109,28 +118,37 @@ class ChooseAssignment extends \ALT\Models\Action
       Notifications::silentKill($deleted);
     } elseif ($fromLocation == MEMORY) {
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
-      Notifications::gainToken(FLEETING, $card, $token);
+      Notifications::gainMeeple(FLEETING, $card, $token);
     }
 
-    // insert linked flow
-    $effect = 'getEffect' . ucfirst($fromLocation);
-    list($power) = FlowConvertor::getFlow($card->$effect(), null, null, $cardId);
-    // if (!isset($power['args']['cardId'])) {
-    //   $power['args']['cardId'] = $cardId;
-    // }
-    // throw new \feException(print_r($power));
-
-    $this->pushParallelChilds($power);
+    // insert effect flow
+    $effect = $card->getEffectPlayed();
+    if (empty($effect) && $fromLocation == HAND) {
+      $effect = $card->getEffectHand();
+    }
+    if (empty($effect) && $fromLocation == MEMORY) {
+      $effect = $card->getEffectMemory();
+    }
+    if (!empty($effect)) {
+      $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
+      $this->insertAsChild($effect);
+    }
 
     if ($card->getType() == SPELL) {
       Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()]]);
     }
   }
 
+  /////////////////////////////
+  //  _____     _
+  // | ____|___| |__   ___
+  // |  _| / __| '_ \ / _ \
+  // | |__| (__| | | | (_) |
+  // |_____\___|_| |_|\___/
+  /////////////////////////////
+
   public function actEcho($cardId)
   {
-    // echo management
-    self::checkAction('actEcho');
     $player = Players::getActive();
     $args = $this->argsChooseAssignment()['_private']['active']['echo'];
 
@@ -143,13 +161,18 @@ class ChooseAssignment extends \ALT\Models\Action
     Notifications::echoEffect($player, $card);
     // TODO: remove
     // $this->pushParallelChilds($card->getEffectEcho());
-
-    $this->resolveAction([$cardId, 'echo']);
   }
 
+  ////////////////////////
+  //  _____
+  // |_   _|_ _ _ __
+  //   | |/ _` | '_ \
+  //   | | (_| | |_) |
+  //   |_|\__,_| .__/
+  //           |_|
+  ////////////////////////
   public function actTap($cardId)
   {
-    self::checkAction('actTap');
     $player = Players::getActive();
     $args = $this->argsChooseAssignment()['_private']['active']['tap'];
 
@@ -162,17 +185,21 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // TODO: remove
     // $this->pushParallelChilds($card->getEffectTap());
-    $this->resolveAction([$cardId, 'tap']);
   }
 
-  public function actPass($silent = false)
+  ////////////////////////////
+  //  ____
+  // |  _ \ __ _ ___ ___
+  // | |_) / _` / __/ __|
+  // |  __/ (_| \__ \__ \
+  // |_|   \__,_|___/___/
+  ////////////////////////////
+  public function actPass()
   {
     $player = Players::getActive();
     $skipped = Globals::getSkippedPlayers();
     $skipped[] = $player->getId();
     Globals::setSkippedPlayers($skipped);
-    if (!$silent) {
-      Notifications::pass($player);
-    }
+    Notifications::pass($player);
   }
 }

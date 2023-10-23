@@ -289,4 +289,12 @@ class altered extends Table
   {
     return self::_($text);
   }
+
+  public function checkAction($actionName, $bThrowException = true)
+  {
+    $doable = parent::checkAction($actionName, false);
+    if (!$doable && $bThrowException) {
+      throw new feException(_('This game action is impossible right now') . $actionName, true, true, FEX_game_action_no_allowed);
+    }
+  }
 }

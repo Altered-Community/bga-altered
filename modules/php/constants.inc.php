@@ -101,34 +101,16 @@ const AFTER_FINISHING_ACTION = 'afterFinishing';
  * Atomic action
  */
 
-const ACTIVATE_CARD = 'ACTIVATE_CARD';
-const SPECIAL_EFFECT = 'SPECIAL_EFFECT';
-const MANA = 'MANA';
-const CHOOSE_ASSIGNMENT = 'CHOOSE_ASSIGNMENT';
-const GAIN = 'GAIN';
-const DISCARD = 'DISCARD';
-const TARGET = 'TARGET';
-const LOOSE = 'LOOSE';
-const SPELL_CLEANUP = 'SPELL_CLEANUP';
-const INVOKE_TOKEN = 'INVOKE_TOKEN';
-const DRAW = 'DRAW';
-
-// const ADVANCE_BREAK = 'ADVANCE_BREAK';
-// const PAY = 'PAY';
-// const CLEANUP = 'CLEANUP';
-// const DISCARD = 'DISCARD';
-// const UPGRADE_CARD = 'UPGRADE_CARD';
-// const DISCARD_SCORING = 'DISCARD_SCORING';
-// const DISCARD_SCORING_MULTI = 'DISCARD_SCORING_MULTI';
-// const RELEASE = 'RELEASE';
-// const TAKE_BONUS = 'TAKE_BONUS';
-// const REMOVE_BONUS = 'REMOVE_BONUS';
-// const MOVE_ANIMALS = 'MOVE_ANIMALS';
-// const GAIN_UNIVERSITY = 'GAIN_UNIVERSITY';
-// const GAIN_PARTNER_ZOO = 'GAIN_PARTNER_ZOO';
-// const BUY_SPONSOR = 'BUY_SPONSOR';
-// const VENOM_PAY = 'VENOM_PAY';
-// const WAZA_SPECIAL = 'WAZA_SPECIAL';
+const ACTIVATE_CARD = 'ActivateCard';
+const SPECIAL_EFFECT = 'SpecialEffect';
+const CHOOSE_ASSIGNMENT = 'ChooseAssignment';
+const GAIN = 'Gain';
+const DISCARD = 'Discard';
+const TARGET = 'Target';
+const LOOSE = 'Loose';
+const SPELL_CLEANUP = 'SpellCleanup';
+const INVOKE_TOKEN = 'InvokeToken';
+const DRAW = 'Draw';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_EXPLORER = 'target_all_explorer';
@@ -154,6 +136,7 @@ const EVERYONE_ELSE = 'everyone-else';
 const HAND = 'hand';
 const MEMORY = 'memory';
 const LIMBO = 'limbo';
+const MANA = 'mana';
 
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';

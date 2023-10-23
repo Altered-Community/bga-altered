@@ -197,7 +197,7 @@ class Engine
   {
     $state = $node->getState();
     $args = $node->getArgs();
-    $actionId = Actions::getActionOfState($state, false);
+    $actionId = $node->getAction();
     // Do some pre-action code if needed and if we are not undoing to an irreversible node
     if (!$isUndo || !$node->isIrreversible(Players::get($node->getPId()))) {
       Actions::stPreAction($actionId, $node);

@@ -83,7 +83,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let type = card.properties.type;
       if (card.location == 'hand') {
         return $(`hand-${card.pId}`);
-      } else if (['stormLeft', 'stormRight', 'memory', 'permanent'].includes(card.location)) {
+      } else if (['stormLeft', 'stormRight', 'memory', 'permanent', 'limbo'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
       } else if (type == ALTERATEUR) {
         return $(card.location);
@@ -128,6 +128,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       cardIds.forEach((cardId) => {
         let oCard = $(`card-${cardId}`);
         if (!oCard) {
+          console.error(cardId);
           let card = { id: cardId };
           // this.loadSaveCard(card);
           // this.addZooCard(card, container);
@@ -644,6 +645,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
         </div>
+        <div class='altered-card-statuses'></div>
       </div>`;
     },
     tplSpellCardTooltip(card) {
