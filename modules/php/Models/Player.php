@@ -260,7 +260,7 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($this->getPlayedCards() as $cId => $card) {
       // Remove card if Fleeting
       if ($card->hasToken(FLEETING)) {
-        $deletedTokens = array_merge($deletedTokens, $card->discard());
+        $deletedTokens = array_merge($deletedTokens, $card->discard()->getIds());
         $deletedCards[] = $cId;
       }
 

@@ -45,6 +45,13 @@
     &[data-type="alterateur"] {
         background-position-y: 100%;
     }
+
+    &[data-type="fleeting"] {
+        background-image: url("img/icons/fleeting.png");
+        background-size: 100% 100%;
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .action-button {

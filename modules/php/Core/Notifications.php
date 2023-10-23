@@ -301,16 +301,17 @@ class Notifications
 
   public static function gainToken($power, $card, $meeples, $silent = true)
   {
+    $n = count($meeples);
     $msg = '';
     if (!$silent) {
-      $msg = clienttranslate('${card_name} gains ${n} ${power}');
+      $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
     }
-    self::notifyAll('gainToken', $msg, [
+    self::notifyAll('addMeeples', $msg, [
       'card' => $card,
       'power' => $power,
       'i18n' => ['power'],
       'meeples' => $meeples,
-      'n' => count($meeples),
+      'n' => $n,
     ]);
   }
 

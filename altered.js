@@ -41,6 +41,8 @@ define([
         ['nightCleanup', null],
         ['newFirstPlayer', null],
 
+        ['addMeeples', null],
+
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
         ['pDiscardCards', null],
@@ -51,7 +53,6 @@ define([
         ['moveStormToken', null],
         ['silentKill', 200],
         ['looseToken', 200],
-        ['gainToken', 200],
         ['updateBiomes', 100],
         ['spellCleanup', 100],
         ['invokeToken', 100],
@@ -658,6 +659,12 @@ define([
           </div>`;
     },
 
+    formatSvgIcon(name) {
+      let svgId = name + '-svg';
+      let viewBox = $(svgId).getAttribute('viewBox');
+      return `<div class='inline-icon'><svg viewBox="${viewBox}"><use href="#${svgId}" /></svg></div>`;
+    },
+
     formatString(str) {
       const ICONS = ['APPEAL'];
       ICONS.forEach((name) => {
@@ -666,17 +673,14 @@ define([
         str = str.replaceAll(new RegExp('<' + name + '>', 'g'), this.formatIcon(name));
       });
 
-      const MARKERS = {
+      const MARKERS_MAP = {
         J: 'played',
         M: 'played-from-hand',
         S: 'played-from-memory',
       };
-      Object.keys(MARKERS).forEach((marker) => {
-        let svgId = MARKERS[marker] + '-svg';
-        let viewBox = $(svgId).getAttribute('viewBox');
+      Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');
-        // str = str.replace(regex, this.formatIcon(name));
-        str = str.replace(regex, `<div class='inline-icon'><svg viewBox="${viewBox}"><use href="#${svgId}" /></svg></div>`);
+        str = str.replace(regex, this.formatSvgIcon(MARKERS_MAP[marker]));
       });
       // str = str.replace(/__([^_]+)__/g, '<span class="action-card-name-reference">$1</span>');
       str = str.replace(/\[G\](.+)\[\/G\]/g, '<span class="rare-marker">$1</span>');

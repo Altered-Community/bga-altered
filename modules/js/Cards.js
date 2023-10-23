@@ -456,7 +456,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_spellCleanup(n) {
-      debug ('Notif: spell cleanup', n);
+      debug('Notif: spell cleanup', n);
       // TODO
     },
 
@@ -470,14 +470,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let pId = n.args.player_id;
       n.args.cards.forEach((card) => (card.discard = true));
 
+      n.args.meeples.forEach((meepleId) => {
+        $(`meeple-${meepleId}`).remove();
+      });
+
       Promise.all(
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
-          return this.wait(100 * i).then(() =>
-            this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`)
-          );
+          return this.wait(200 * i).then(() => {
+            this.updateCardStatuses(card.id);
+            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`);
+          });
         })
       ).then(() => {
-        // TODO : remove meeples
         this.notifqueue.setSynchronousDuration(100);
       });
     },
@@ -558,9 +562,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             </div>
           </div>
         </div>
-        <div class='tooltip-explanatin'>
-          More details here
-        </div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
 
@@ -595,6 +597,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
           <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
         </div>
+        <div class='altered-card-statuses'></div>
       </div>`;
     },
     tplExplorerCardTooltip(card) {
@@ -630,9 +633,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             </div>
           </div>
         </div>
-        <div class='tooltip-explanatin'>
-          More details here
-        </div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
 
@@ -670,9 +671,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             </div>
           </div>
         </div>
-        <div class='tooltip-explanatin'>
-          More details here
-        </div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
 
@@ -683,59 +682,55 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
-    getAbilityDesc(ability, n, card) {
-      let descs = {};
-
-      let desc = descs[ability];
-      let result = {
-        title: desc[0],
-        desc: n == 1 && desc.length > 2 ? desc[2] : desc[1],
-      };
-
-      if (n !== null) {
-        result.title = this.fsr(result.title, { i18n: ['n'], n });
-        result.desc = this.fsr(result.desc, { i18n: ['n'], n, icon: this.formatIcon(`action-card-${n}`) });
-      } else {
-        result.desc = this.formatString(result.desc);
-      }
-      return result;
+    getMeeplesOnCard(cardId) {
+      return [...$(`card-${cardId}`).querySelectorAll('.altered-meeple:not(.phantom)')];
     },
 
-    notif_buyAnimal(n) {
-      debug('Notif: buying an animal', n);
-
-      // Pay appeal in case of release
-      if (n.args.release) {
-        this.animatePlayerCounter(n.args.player_id, 'appeal', -n.args.amount);
-      }
-      // Or pay money in case of buy
-      else {
-        this.animatePlayerCounter(n.args.player_id, 'money', -n.args.amount);
-      }
-
-      // Slide the card
-      let id = `card-${n.args.card.id}`;
-      if (!$(id)) {
-        this.addZooCard(n.args.card, 'page-title');
-      }
-      let container = this.getCardContainer(n.args.card);
-      let config = {};
-      if (!isVisible(container)) config.to = $(`overall_player_board_${n.args.card.pId}`);
-      this.slide(id, container, config);
-      if (!n.args.fromDisplay) {
-        this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
-      }
-
-      // Update enclosure
-      let building = n.args.building;
-      if (building) {
-        let buildingId = `building-${building.id}`;
-        $(buildingId).dataset.state = building.state;
-      }
-
-      // Update icons summaries
-      this.gamedatas.players[n.args.player_id].icons = n.args.icons;
-      this.updatePlayersIconsSummaries();
+    updateStatusIfCard(elt) {
+      if ($(elt).classList.contains('altered-card')) this.updateCardStatuses($(elt).dataset.id);
     },
+
+    updateCardStatuses(cardId) {
+      let container = $(`card-${cardId}`).querySelector('.altered-card-statuses');
+      container.innerHTML = '';
+
+      const ICONS = ['fleeting', 'anchored', 'sleeping'];
+      this.getMeeplesOnCard(cardId).forEach((meeple) => {
+        let type = meeple.dataset.type;
+        if (!ICONS.includes(type)) return;
+
+        container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
+      });
+    },
+
+    getCardTooltipExplanation(card) {
+      let explanation = '';
+      this.getMeeplesOnCard(card.id).forEach((oMeeple) => {
+        let tooltipDesc = this.getMeepleTooltip({ type: oMeeple.dataset.type });
+        if (tooltipDesc != null) {
+          explanation += tooltipDesc.map((t) => this.formatString(t)).join('<br/>');
+        }
+      });
+
+      return explanation;
+    },
+
+    // getAbilityDesc(ability, n, card) {
+    //   let descs = {};
+
+    //   let desc = descs[ability];
+    //   let result = {
+    //     title: desc[0],
+    //     desc: n == 1 && desc.length > 2 ? desc[2] : desc[1],
+    //   };
+
+    //   if (n !== null) {
+    //     result.title = this.fsr(result.title, { i18n: ['n'], n });
+    //     result.desc = this.fsr(result.desc, { i18n: ['n'], n, icon: this.formatIcon(`action-card-${n}`) });
+    //   } else {
+    //     result.desc = this.formatString(result.desc);
+    //   }
+    //   return result;
+    // },
   });
 });
