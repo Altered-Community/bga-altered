@@ -470,14 +470,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let pId = n.args.player_id;
       n.args.cards.forEach((card) => (card.discard = true));
 
+      n.args.meeples.forEach((meepleId) => {
+        $(`meeple-${meepleId}`).remove();
+      });
+
       Promise.all(
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
-          return this.wait(100 * i).then(() =>
-            this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`)
-          );
+          return this.wait(200 * i).then(() => {
+            this.updateCardStatuses(card.id);
+            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`);
+          });
         })
       ).then(() => {
-        // TODO : remove meeples
         this.notifqueue.setSynchronousDuration(100);
       });
     },

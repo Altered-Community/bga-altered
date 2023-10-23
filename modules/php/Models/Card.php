@@ -157,10 +157,8 @@ class Card extends \ALT\Helpers\DB_Model
   public function discard()
   {
     $this->setLocation('discard');
-    $deleted = [];
-    foreach (Meeples::getInLocation('card-' . $this->id)->getIds() as $id) {
-      $deleted[] = Meeples::DB()->delete($id);
-    }
+    $deleted = Meeples::getInLocation('card-' . $this->id);
+    Meeples::delete($deleted->getIds());
     return $deleted;
   }
 

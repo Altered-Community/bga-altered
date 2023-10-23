@@ -430,6 +430,31 @@ class CachedPieces extends DB_Manager
     self::move($id, $location, $pos - 1);
   }
 
+  /*********************************
+   ******** DELETE PIECES **********
+   ********************************/
+  function delete($ids)
+  {
+    if (!is_array($ids)) {
+      $ids = [$ids];
+    }
+    if (empty($ids)) {
+      return [];
+    }
+
+    self::checkIdArray($ids);
+    $pieces = self::getMany($ids);
+    self::DB()
+      ->delete()
+      ->whereIn(static::$prefix . 'id', $ids)
+      ->run();
+    foreach ($ids as $id) {
+      unset(static::$datas[$id]);
+    }
+
+    return $pieces;
+  }
+
   /************************************
    ******** CREATE NEW PIECES **********
    ************************************/
