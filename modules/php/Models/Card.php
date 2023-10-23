@@ -168,9 +168,7 @@ class Card extends \ALT\Helpers\DB_Model
     $this->setTapped(false);
     $deleted = [];
 
-    foreach (Meeples::getInLocation('card-' . $this->id)->getIds() as $id) {
-      $deleted[] = Meeples::DB()->delete($id);
-    }
+    $deleted[] = Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds());
     return $deleted;
   }
 
@@ -180,9 +178,7 @@ class Card extends \ALT\Helpers\DB_Model
     $tokIds = Meeples::getFilteredQuery(null, 'card-' . $this->id, [ASLEEP, ANCHORED])
       ->get()
       ->getIds();
-    foreach ($tokIds as $id) {
-      Meeples::DB()->delete($id);
-    }
+    $deleted[] = Meeples::delete($tokIds);
     return $tokIds;
   }
 

@@ -79,9 +79,7 @@ class Discard extends \ALT\Models\Action
 
     $deleted = [];
     foreach ($cardIds as $cardId) {
-      foreach (Meeples::getInLocation('card-' . $cardId)->getIds() as $id) {
-        $deleted[] = Meeples::DB()->delete($id);
-      }
+      $deleted[] = array_merge($deleted, Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds()));
     }
 
     $msg = clienttranslate('${player_name} discards ${n} cards from the ${source} to ${destination}');
