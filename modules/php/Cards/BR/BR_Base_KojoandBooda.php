@@ -28,6 +28,7 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
 
   public function isListeningTo($event)
   {
+    // To remove
     return Globals::getFirstPlayer() == $this->pId && $event['type'] == 'Dawn';
   }
 

@@ -18,7 +18,7 @@ class MU_Base_Hesperide extends \ALT\Models\Card
       'subtype' => 'Plant',
       'typeline' => 'Explorer Base - Plant',
       'rarity' => RARITY_BASE,
-      'effectDesc' => clienttranslate('{M} [Gift] — Target opponent draws a card.TOTO'),
+      'effectDesc' => clienttranslate('{M} [Gift] — Target opponent draws a card.'),
 
       'forest' => 3,
       'mountain' => 5,
