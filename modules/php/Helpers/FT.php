@@ -37,12 +37,12 @@ abstract class FT
 
   public static function GAIN($card, $token, $n = 1)
   {
-    return self::ACTION(GAIN, ['cardId' => $card->getId(), 'type' => $token, 'n' => $n]);
+    return self::ACTION(GAIN, ['cardId' => $card->getId() ?? ME, 'type' => $token, 'n' => $n]);
   }
 
   public static function LOOSE($card, $token, $n = 1)
   {
-    return self::ACTION(LOOSE, ['cardId' => $card->getId(), 'type' => $token, 'n' => $n]);
+    return self::ACTION(LOOSE, ['cardId' => $card->getId() ?? ME, 'type' => $token, 'n' => $n]);
   }
 
   public static function RETURN_TO_HAND()

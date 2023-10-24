@@ -38,12 +38,15 @@ class Loose extends \ALT\Models\Action
 
   public function getCard()
   {
-    $args = $this->getCtxArgs();
-    $cardId = $args['cardId'] ?? null;
-    if ($cardId === null) {
+    $cardId = $this->getCtxArg('cardId');
+    if ($cardId == ME) {
+      $cardId = $this->ctx->getSourceId() ?? null;
+    }
+
+    if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args. Should not happen');
     }
-    return Cards::get($cardId);
+    return Cards::getSingle($cardId);
   }
 
   protected $args = [

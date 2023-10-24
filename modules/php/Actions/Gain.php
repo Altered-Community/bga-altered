@@ -61,6 +61,10 @@ class Gain extends \ALT\Models\Action
   public function getCard()
   {
     $cardId = $this->getCtxArg('cardId');
+    if ($cardId == ME) {
+      $cardId = $this->ctx->getSourceId() ?? null;
+    }
+
     if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args. Should not happen');
     }
