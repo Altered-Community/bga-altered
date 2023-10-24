@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Rare_ExhilaratingDew extends \ALT\Models\Card
 {
@@ -22,6 +23,10 @@ class MU_Rare_ExhilaratingDew extends \ALT\Models\Card
       'reminders' => clienttranslate('Fleeting: After my effect resolves, banish me.'),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])])
+      ),
     ];
   }
 }

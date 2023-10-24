@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_SneezerShroom extends \ALT\Models\Card
 {
@@ -25,6 +26,7 @@ class MU_Base_SneezerShroom extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::GAIN($this, ANCHORED),
     ];
   }
 }

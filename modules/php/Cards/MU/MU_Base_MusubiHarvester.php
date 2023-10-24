@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_MusubiHarvester extends \ALT\Models\Card
 {
@@ -25,6 +26,7 @@ class MU_Base_MusubiHarvester extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 1,
       'costMemory' => 1,
+      'effectPlayed' => FT::GAIN($this, ANCHORED),
     ];
   }
 }
