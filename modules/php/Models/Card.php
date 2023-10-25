@@ -6,6 +6,7 @@ use ALT\Core\Game;
 use ALT\Core\Globals;
 use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
+use ALT\Helpers\Conditions;
 
 /*
  * Card
@@ -182,6 +183,30 @@ class Card extends \ALT\Helpers\DB_Model
     return $tokIds;
   }
 
+  public function getReactions($event)
+  {
+    $passive = $this->getEffectPassive();
+    $effects = [];
+    // manage player events?
+    if (empty($passive)) {
+      return [null, null];
+    }
+
+    if (!isset($passive[$event['type'] ?? 'none'])) {
+      return [null, null];
+    }
+
+    $power = $passive[$event['type']];
+    $cond = $power['condition'] ?? null;
+    // structured : ['Dawn'=>['condition' =>, 'output'=>]]
+    if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
+      return [null, null];
+    }
+    // throw new \feException('testing listener');
+
+    return [$power['payment'] ?? [], $power['output']];
+  }
+
   /********* DB ACCESS *********/
 
   // Magic getter to test DB Field & properties field
@@ -257,7 +282,7 @@ class Card extends \ALT\Helpers\DB_Model
    **/
   public function isListeningTo($event)
   {
-    return false;
+    return in_array($event['type'], array_keys($this->getEffectPassive()));
   }
 
   public function getCost()

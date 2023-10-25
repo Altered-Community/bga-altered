@@ -23,6 +23,13 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
       ),
       'memorySlots' => 2,
       'permanentSlots' => 2,
+      'effectPassive' => [
+        'Dawn' => [
+          'condition' => 'isFirstPlayer',
+          'payment' => null,
+          'output' => ['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR_Base_Booda', 'targetLocation' => [STORM_RIGHT]]],
+        ],
+      ],
     ];
   }
 

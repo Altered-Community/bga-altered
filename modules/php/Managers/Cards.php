@@ -182,7 +182,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     return self::getListeningCardsObject()
       ->filter(function ($card) use ($event) {
-        return $card->isListeningTo($event);
+        return $card->getPId() == $event['pId'] && $card->isListeningTo($event);
       })
       ->getIds();
   }
@@ -285,29 +285,47 @@ class Cards extends \ALT\Helpers\CachedPieces
     $res = null;
     $listened = true;
     $isPlayerEvent = $player->getId() == $card->getPId();
+    $node = ['type' => NODE_SEQ, 'optional' => true, 'childs' => []];
 
-    if ($player != null && $isPlayerEvent && \method_exists($card, 'onPlayer' . $methodName)) {
-      $n = 'onPlayer' . $methodName;
-      $res = $card->$n($player, $args);
-    } elseif ($player != null && !$isPlayerEvent && \method_exists($card, 'onOpponent' . $methodName)) {
-      $n = 'onOpponent' . $methodName;
-      $res = $card->$n($player, $args);
-    } elseif (\method_exists($card, 'on' . $methodName)) {
-      $n = 'on' . $methodName;
-      $res = $card->$n($player, $args);
-    } else {
+    if ($isPlayerEvent === false) {
+      return null;
+    }
+
+    list($payment, $output) = $card->getReactions($args);
+
+    if (is_null($output) || empty($output)) {
       $listened = false;
     }
+
+    // if ($player != null && $isPlayerEvent && \method_exists($card, 'onPlayer' . $methodName)) {
+    //   $n = 'onPlayer' . $methodName;
+    //   $res = $card->$n($player, $args);
+    // } elseif ($player != null && !$isPlayerEvent && \method_exists($card, 'onOpponent' . $methodName)) {
+    //   $n = 'onOpponent' . $methodName;
+    //   $res = $card->$n($player, $args);
+    // } elseif (\method_exists($card, 'on' . $methodName)) {
+    //   $n = 'on' . $methodName;
+    //   $res = $card->$n($player, $args);
+    // } else {
+    //   $listened = false;
+    // }
 
     if ($throwErrorIfNone && !$listened) {
       throw new \BgaVisibleSystemException(
         'Trying to apply effect of a card without corresponding listener : ' . $methodName . ' ' . $card->getId()
       );
     }
-    if (!is_null($res)) {
-      Utils::tagTree($res, ['sourceId' => $card->getId()]);
+
+    if (!is_null($payment) && !empty($payment)) {
+      Utils::tagTree($payment, ['sourceId' => $card->getId()]);
+      $node['childs'][] = $payment;
     }
 
-    return $res;
+    if (!is_null($output) && !empty($output)) {
+      Utils::tagTree($output, ['sourceId' => $card->getId()]);
+      $node['childs'][] = $output;
+    }
+
+    return $node;
   }
 }
