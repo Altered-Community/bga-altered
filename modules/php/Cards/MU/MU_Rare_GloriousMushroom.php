@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Rare_GloriousMushroom extends \ALT\Models\Card
 {
@@ -25,6 +26,8 @@ class MU_Rare_GloriousMushroom extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPassive' => ['Dawn' => ['output' => FT::GAIN($this, BOOST)]],
     ];
   }
 }
