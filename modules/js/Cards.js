@@ -178,6 +178,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       this.onSelectN(config);
     },
 
+    onEnteringStateDiscard(args) {
+      this.onSelectNCards(args._private.cards, {
+        n: args.n,
+        class: 'selectable',
+        confirmText: _('Confirm discard'),
+        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
+      });
+    },
+
     /**
      * Private notification for the player drawing the card :
      *  create the cards and slide them in hand
@@ -355,6 +364,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Public discard', n);
       // TOOD
       // !! how to manage when we send the card to the hand?
+      let pId = n.args.player_id;
+      
+      Promise.all(
+        [...n.args.cards].map((card, i) => {
+          return this.wait(200 * i).then(() => {
+            if (card.location == 'hand')
+              return;
+
+            return this.slide(`card-${card.id}`,  `board-${card.location}-${pId}`);
+          });
+        })
+      ).then(() => {
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     /**
@@ -505,6 +528,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.notifqueue.setSynchronousDuration(100);
       });
     },
+
+  
 
     //////////////////////////////////////////////
     //  _____ ____  _
