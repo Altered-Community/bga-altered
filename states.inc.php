@@ -186,6 +186,12 @@ $machinestates = [
     'action' => 'stAtomicAction',
   ],
 
+  ST_DRAW => [
+    'name' => 'draw',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
   ST_DISCARD => [
     'name' => 'discard',
     'description' => clienttranslate('${actplayer} must discard ${n} card(s) from ${source} to ${destination}'),

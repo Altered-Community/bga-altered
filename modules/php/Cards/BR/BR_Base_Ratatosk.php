@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Base_Ratatosk extends \ALT\Models\Card
 {
@@ -27,7 +28,7 @@ class BR_Base_Ratatosk extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costMemory' => 1,
-      'effectMemory' => [[BOOST => 2]],
+      'effectMemory' => FT::GAIN($this, BOOST, 2),
     ];
   }
 }

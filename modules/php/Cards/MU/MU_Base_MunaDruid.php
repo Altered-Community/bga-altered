@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_MunaDruid extends \ALT\Models\Card
 {
@@ -27,6 +28,7 @@ class MU_Base_MunaDruid extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectEcho' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }
 }

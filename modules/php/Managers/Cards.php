@@ -49,8 +49,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     $rarity = $p['rarity'] == 0 ? 'base' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    return new $className($data);
-    // return new Card($data);
+    // return new $className($data); // no DB call
+    return new Card($data); // information from DB
   }
 
   public static function getUiData()
@@ -216,16 +216,16 @@ class Cards extends \ALT\Helpers\CachedPieces
         ],
       ];
     }
-
     if (empty($childs) && $returnNullIfEmpty) {
       return null;
     }
 
-    return [
-      'type' => NODE_PARALLEL,
-      'pId' => $event['pId'],
-      'childs' => $childs,
-    ];
+    // return [
+    //   'type' => NODE_PARALLEL,
+    //   'pId' => $event['pId'],
+    //   'childs' => $childs,
+    // ];
+    return $childs;
   }
 
   /**
@@ -285,29 +285,47 @@ class Cards extends \ALT\Helpers\CachedPieces
     $res = null;
     $listened = true;
     $isPlayerEvent = $player->getId() == $card->getPId();
+    $node = ['type' => NODE_SEQ, 'optional' => true, 'childs' => []];
 
-    if ($player != null && $isPlayerEvent && \method_exists($card, 'onPlayer' . $methodName)) {
-      $n = 'onPlayer' . $methodName;
-      $res = $card->$n($player, $args);
-    } elseif ($player != null && !$isPlayerEvent && \method_exists($card, 'onOpponent' . $methodName)) {
-      $n = 'onOpponent' . $methodName;
-      $res = $card->$n($player, $args);
-    } elseif (\method_exists($card, 'on' . $methodName)) {
-      $n = 'on' . $methodName;
-      $res = $card->$n($player, $args);
-    } else {
+    list($payment, $output) = $card->getReactions($args);
+
+    if (is_null($output) || empty($output)) {
       $listened = false;
     }
 
+    // if ($player != null && $isPlayerEvent && \method_exists($card, 'onPlayer' . $methodName)) {
+    //   $n = 'onPlayer' . $methodName;
+    //   $res = $card->$n($player, $args);
+    // } elseif ($player != null && !$isPlayerEvent && \method_exists($card, 'onOpponent' . $methodName)) {
+    //   $n = 'onOpponent' . $methodName;
+    //   $res = $card->$n($player, $args);
+    // } elseif (\method_exists($card, 'on' . $methodName)) {
+    //   $n = 'on' . $methodName;
+    //   $res = $card->$n($player, $args);
+    // } else {
+    //   $listened = false;
+    // }
+
     if ($throwErrorIfNone && !$listened) {
+      throw new \feException(print_r(debug_print_backtrace()));
       throw new \BgaVisibleSystemException(
         'Trying to apply effect of a card without corresponding listener : ' . $methodName . ' ' . $card->getId()
       );
     }
-    if (!is_null($res)) {
-      Utils::tagTree($res, ['sourceId' => $card->getId()]);
+
+    if (!is_null($payment) && !empty($payment)) {
+      Utils::tagTree($payment, ['sourceId' => $card->getId()]);
+      $node['childs'][] = $payment;
     }
 
-    return $res;
+    if (!is_null($output) && !empty($output)) {
+      Utils::tagTree($output, ['sourceId' => $card->getId()]);
+      if (is_null($payment) || empty($payment)) {
+        return $output;
+      }
+      $node['childs'][] = $output;
+    }
+
+    return $node;
   }
 }

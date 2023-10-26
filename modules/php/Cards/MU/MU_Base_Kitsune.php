@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_Kitsune extends \ALT\Models\Card
 {
@@ -24,6 +25,7 @@ class MU_Base_Kitsune extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costMemory' => 1,
+      'effectHand' => FT::ACTION(DRAW, []),
     ];
   }
 }

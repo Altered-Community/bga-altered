@@ -1,6 +1,8 @@
 <?php
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Base_BravosSaboteur extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -25,7 +27,7 @@ class BR_Base_BravosSaboteur extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 3,
       'costMemory' => 3,
-      'effectHand' => [[SABOTAGE => 1]],
+      'effectHand' => FT::ACTION(TARGET, ['targetLocation' => [MEMORY], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
     ];
   }
 }

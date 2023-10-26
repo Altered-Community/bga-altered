@@ -67,10 +67,6 @@ class ActivateCard extends \ALT\Models\Action
 
   public function isIndependent($player = null)
   {
-    if ($this->getCtxArgs()['event']['method'] == 'getIncome') {
-      return false;
-    }
-
     $flowTree = $this->getFlowTree($player);
     return is_null($flowTree) ? false : $flowTree->isIndependent($player);
   }

@@ -120,15 +120,16 @@ class ChooseAssignment extends \ALT\Models\Action
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }
-
     // insert effect flow
     $effect = $card->getEffectPlayed();
     if (empty($effect) && $fromLocation == HAND) {
       $effect = $card->getEffectHand();
     }
+
     if (empty($effect) && $fromLocation == MEMORY) {
       $effect = $card->getEffectMemory();
     }
+
     if (!empty($effect)) {
       $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
       $this->insertAsChild($effect);
@@ -159,8 +160,11 @@ class ChooseAssignment extends \ALT\Models\Action
     $card = Cards::get($cardId);
     Cards::discard($cardId, 'discard', $player->getId());
     Notifications::echoEffect($player, $card);
-    // TODO: remove
-    // $this->pushParallelChilds($card->getEffectEcho());
+
+    $effect = $card->getEffectEcho();
+    if (!empty($effect)) {
+      $this->insertAsChild($effect);
+    }
   }
 
   ////////////////////////
@@ -183,8 +187,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $card->setTapped(true);
     Notifications::tapEffect($player, $card);
 
-    // TODO: remove
-    // $this->pushParallelChilds($card->getEffectTap());
+    $effect = $card->getEffectTap();
+    if (!empty($effect)) {
+      $this->insertAsChild($effect);
+    }
   }
 
   ////////////////////////////

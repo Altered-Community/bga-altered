@@ -48,8 +48,6 @@ class Gain extends \ALT\Models\Action
   public function isIndependent($player = null)
   {
     return true;
-    // list($resource, $amount) = $this->getGain();
-    // return in_array($resource, [MONEY, XTOKEN]);
   }
 
   public function getPlayer()
@@ -61,6 +59,10 @@ class Gain extends \ALT\Models\Action
   public function getCard()
   {
     $cardId = $this->getCtxArg('cardId');
+    if ($cardId == ME) {
+      $cardId = $this->ctx->getSourceId() ?? null;
+    }
+
     if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args. Should not happen');
     }
@@ -89,10 +91,10 @@ class Gain extends \ALT\Models\Action
     // Increase resource and notify
     list($resource, $amount) = $this->getGain();
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
-    Notifications::gainMeeple($resource, $card, $tokens, false);
+    Notifications::gainMeeple($resource, $card, $tokens, $source, false);
     Notifications::updateBiomes($card->getPlayer());
 
-    $this->checkAfterListeners($player, ['gain' => $this->getCtxArgs()]);
+    $this->checkAfterListeners($player, ['gain' => $this->getCtxArgs(), 'sourceId' => $sourceId]);
 
     $this->resolveAction();
   }

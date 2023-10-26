@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Rare_MulanRespectedLeader extends \ALT\Models\Card
 {
@@ -27,7 +28,7 @@ class BR_Rare_MulanRespectedLeader extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
-      'effectMemory' => [[BOOST => 2], [LOOSE => [FLEETING => 1]]],
+      'effectMemory' => FT::SEQ([FT::GAIN($this, BOOST, 2), FT::LOOSE($this, FLEETING)]),
     ];
   }
 }

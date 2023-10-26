@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_ResilienceTraining extends \ALT\Models\Card
 {
@@ -22,6 +23,7 @@ class MU_Base_ResilienceTraining extends \ALT\Models\Card
       'reminders' => clienttranslate('Anchored: At Night, I don\'t go to Reserve and I lose Anchored.'),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }
 }

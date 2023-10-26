@@ -66,14 +66,14 @@ class Draw extends \ALT\Models\Action
     } elseif ($who == ALL) {
       $players = Players::getAll();
     } else {
-      $players = [Players::getNext()];
+      $players = [Players::getNext(Players::getActive())];
     }
 
     foreach ($players as $player) {
       $player->draw($n);
+      $this->checkAfterListeners($player, ['draw' => $n]);
     }
 
-    $this->checkAfterListeners($players, ['draw' => $n]);
     $this->resolveAction();
   }
 }

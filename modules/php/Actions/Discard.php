@@ -63,7 +63,7 @@ class Discard extends \ALT\Models\Action
     $args = $this->argsDiscard();
 
     if ($automatic === false) {
-      self::checkAction('actDiscard');
+      // self::checkAction('actDiscard');
 
       if (count($cardIds) != $args['n']) {
         throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
@@ -79,7 +79,7 @@ class Discard extends \ALT\Models\Action
 
     $deleted = [];
     foreach ($cardIds as $cardId) {
-      $deleted[] = array_merge($deleted, Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds()));
+      $deleted[] = array_merge($deleted, Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds()));
     }
 
     $msg = clienttranslate('${player_name} discards ${n} cards from the ${source} to ${destination}');
@@ -104,6 +104,6 @@ class Discard extends \ALT\Models\Action
       Notifications::silentKill($deleted);
     }
 
-    $this->resolveAction([$cardIds]);
+    // $this->resolveAction([$cardIds]);
   }
 }

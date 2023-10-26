@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_Hesperide extends \ALT\Models\Card
 {
@@ -24,6 +25,7 @@ class MU_Base_Hesperide extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectHand' => FT::ACTION(DRAW, ['players' => OPPONENT]),
     ];
   }
 }

@@ -6,6 +6,7 @@ use ALT\Core\Game;
 use ALT\Core\Globals;
 use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
+use ALT\Helpers\Conditions;
 
 /*
  * Card
@@ -257,7 +258,49 @@ class Card extends \ALT\Helpers\DB_Model
    **/
   public function isListeningTo($event)
   {
-    return false;
+    $passive = $this->getEffectPassive();
+
+    if (
+      !in_array($event['type'] ?? 'none', array_keys($passive)) &&
+      !in_array($event['action'] ?? 'none', array_keys($passive))
+    ) {
+      return false;
+    }
+
+    $power = $passive[$event['action'] ?? $event['type']];
+    $cond = $power['condition'] ?? null;
+
+    if (!is_null($cond)) {
+      // throw new \feException(Conditions::$cond($this, $event));
+      return Conditions::$cond($this, $event);
+    }
+    return true;
+  }
+
+  public function getReactions($event)
+  {
+    $passive = $this->getEffectPassive();
+    $effects = [];
+    // manage player events?
+    if (empty($passive)) {
+      return [null, null];
+    }
+
+    if (!isset($passive[$event['type'] ?? 'none']) && !isset($passive[$event['action'] ?? 'none'])) {
+      return [null, null];
+    }
+
+    $power = $passive[$event['action'] ?? $event['type']];
+    $cond = $power['condition'] ?? null;
+    // structured : ['Dawn'=>['condition' =>, 'output'=>]]
+    if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
+      return [null, null];
+    }
+
+    // put the source as the card triggering itself
+    $power['output']['sourceId'] = $this->id;
+
+    return [$power['payment'] ?? [], $power['output']];
   }
 
   public function getCost()

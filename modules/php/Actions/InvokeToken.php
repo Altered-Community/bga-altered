@@ -52,7 +52,7 @@ class InvokeToken extends \ALT\Models\Action
   {
     $args = $this->argsInvokeToken();
     if (count($args['locations']) == 1) {
-      $this->actInvokeToken($args['locations'][0]);
+      $this->actInvokeToken($args['locations'][0], true);
     }
   }
 

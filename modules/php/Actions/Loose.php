@@ -38,29 +38,24 @@ class Loose extends \ALT\Models\Action
 
   public function getCard()
   {
-    $args = $this->getCtxArgs();
-    $cardId = $args['cardId'] ?? null;
-    if ($cardId === null) {
+    $cardId = $this->getCtxArg('cardId');
+    if ($cardId == ME) {
+      $cardId = $this->ctx->getSourceId() ?? null;
+    }
+
+    if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args. Should not happen');
     }
-    return Cards::get($cardId);
+    return Cards::getSingle($cardId);
   }
+
+  protected $args = [
+    'n' => 1,
+  ];
 
   public function getLoose()
   {
-    $args = $this->getCtxArgs();
-    foreach ($args as $resource => $amount) {
-      if (in_array($resource, ['cardId', 'pId', 'sourceId', 'source'])) {
-        continue;
-      }
-
-      if (!in_array($resource, [BOOST, ANCHORED, FLEETING, GIGANTIC, ANCHORED])) {
-        die('LOOSE: unrecognized resource' . $resource);
-      }
-
-      return [$resource, $amount];
-    }
-    die('LOOSE: resource not found');
+    return [$this->getArg('type'), $this->getArg('n')];
   }
 
   public function stLoose()
@@ -83,10 +78,10 @@ class Loose extends \ALT\Models\Action
       if ($amount == 0) {
         break;
       }
-      Meeples::delete($mId);
       $deleted[] = $mId;
       $amount--;
     }
+    Meeples::delete($deleted);
 
     if (count($deleted) > 0) {
       Notifications::looseToken($resource, $card, $deleted, false);
