@@ -8,6 +8,14 @@ abstract class Conditions
 {
   public static function isFirstPlayer($card, $event)
   {
-    return $card->getPId() == Globals::getFirstPlayer();
+    return $event['pId'] == $card->getPId() && $card->getPId() == Globals::getFirstPlayer();
+  }
+
+  public static function boostedByOtherCard($card, $event)
+  {
+    if ($event['sourceId'] != $card->getId() && $event['gain']['type'] == BOOST && $event['gain']['cardId'] == $card->getId()) {
+      return true;
+    }
+    return false;
   }
 }

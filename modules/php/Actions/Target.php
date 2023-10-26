@@ -111,6 +111,7 @@ class Target extends \ALT\Models\Action
     foreach ($cardIds as $cardId) {
       $node = $this->getArg('effect');
       $node['args']['cardId'] = $cardId;
+      $node['sourceId'] = $this->getSourceId();
       $this->pushParallelChild($node);
     }
 

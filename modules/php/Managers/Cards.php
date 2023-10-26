@@ -182,7 +182,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     return self::getListeningCardsObject()
       ->filter(function ($card) use ($event) {
-        return $card->getPId() == $event['pId'] && $card->isListeningTo($event);
+        return $card->isListeningTo($event);
       })
       ->getIds();
   }
@@ -216,16 +216,16 @@ class Cards extends \ALT\Helpers\CachedPieces
         ],
       ];
     }
-
     if (empty($childs) && $returnNullIfEmpty) {
       return null;
     }
 
-    return [
-      'type' => NODE_PARALLEL,
-      'pId' => $event['pId'],
-      'childs' => $childs,
-    ];
+    // return [
+    //   'type' => NODE_PARALLEL,
+    //   'pId' => $event['pId'],
+    //   'childs' => $childs,
+    // ];
+    return $childs;
   }
 
   /**
@@ -287,10 +287,6 @@ class Cards extends \ALT\Helpers\CachedPieces
     $isPlayerEvent = $player->getId() == $card->getPId();
     $node = ['type' => NODE_SEQ, 'optional' => true, 'childs' => []];
 
-    if ($isPlayerEvent === false) {
-      return null;
-    }
-
     list($payment, $output) = $card->getReactions($args);
 
     if (is_null($output) || empty($output)) {
@@ -311,6 +307,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     // }
 
     if ($throwErrorIfNone && !$listened) {
+      throw new \feException(print_r(debug_print_backtrace()));
       throw new \BgaVisibleSystemException(
         'Trying to apply effect of a card without corresponding listener : ' . $methodName . ' ' . $card->getId()
       );
@@ -323,6 +320,9 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!is_null($output) && !empty($output)) {
       Utils::tagTree($output, ['sourceId' => $card->getId()]);
+      if (is_null($payment) || empty($payment)) {
+        return $output;
+      }
       $node['childs'][] = $output;
     }
 

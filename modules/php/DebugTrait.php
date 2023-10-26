@@ -36,9 +36,9 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [29]);
     // $this->actTakeAtomicAction('actPass', []);
-    // $this->actTakeAtomicAction('actDiscard', [[3]]);
+    $this->actTakeAtomicAction('actDiscard', [[9]]);
     // $this->actTakeAtomicAction('actTarget', [[17]]);
-    $this->actTakeAtomicAction('actInvokeToken', [STORM_LEFT]);
+    // $this->actTakeAtomicAction('actInvokeToken', [STORM_LEFT]);
 
     // throw new \feException(Cards::get(11)->countToken(FLEETING));
   }

@@ -48,8 +48,6 @@ class Gain extends \ALT\Models\Action
   public function isIndependent($player = null)
   {
     return true;
-    // list($resource, $amount) = $this->getGain();
-    // return in_array($resource, [MONEY, XTOKEN]);
   }
 
   public function getPlayer()
@@ -96,7 +94,7 @@ class Gain extends \ALT\Models\Action
     Notifications::gainMeeple($resource, $card, $tokens, false);
     Notifications::updateBiomes($card->getPlayer());
 
-    $this->checkAfterListeners($player, ['gain' => $this->getCtxArgs()]);
+    $this->checkAfterListeners($player, ['gain' => $this->getCtxArgs(), 'sourceId' => $sourceId]);
 
     $this->resolveAction();
   }

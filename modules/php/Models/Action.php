@@ -191,7 +191,8 @@ class Action
     );
 
     $reaction = Cards::getReaction($event);
-    $this->pushParallelChilds($reaction);
+    // throw new \feException(print_r($reaction));
+    $this->pushAfterFinishingChilds($reaction);
   }
 
   public function checkAfterListeners($player, $args = [], $duringActionListener = true)
@@ -199,8 +200,9 @@ class Action
     if ($duringActionListener) {
       $this->checkListeners($this->getClassName(), $player, $args);
     }
-    $this->checkListeners('ImmediatelyAfter' . $this->getClassName(), $player, $args);
-    $this->checkListeners('After' . $this->getClassName(), $player, $args);
+    // removed, not sure it's consistent in Altered
+    // $this->checkListeners('ImmediatelyAfter' . $this->getClassName(), $player, $args);
+    // $this->checkListeners('After' . $this->getClassName(), $player, $args);
   }
 
   public function checkModifiers($method, &$data, $name, $player, $args = [])

@@ -1,6 +1,7 @@
 <?php
 namespace ALT\Cards\BR;
 use ALT\Core\Globals;
+use ALT\Helpers\FT;
 
 class BR_Base_KojoandBooda extends \ALT\Models\Card
 {
@@ -26,21 +27,13 @@ class BR_Base_KojoandBooda extends \ALT\Models\Card
       'effectPassive' => [
         'Dawn' => [
           'condition' => 'isFirstPlayer',
-          'payment' => null,
-          'output' => ['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR_Base_Booda', 'targetLocation' => [STORM_RIGHT]]],
+          'output' => [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'BR_Base_Booda', 'targetLocation' => [STORM_RIGHT]],
+          ],
         ],
       ],
     ];
-  }
-
-  public function isListeningTo($event)
-  {
-    // To remove
-    return Globals::getFirstPlayer() == $this->pId && $event['type'] == 'Dawn';
-  }
-
-  public function onDawn($player, $args)
-  {
-    return ['action' => INVOKE_TOKEN, 'args' => ['tokenType' => 'BR_Base_Booda', 'targetLocation' => [STORM_RIGHT]]];
   }
 }

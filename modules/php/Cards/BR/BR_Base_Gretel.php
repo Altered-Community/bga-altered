@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Base_Gretel extends \ALT\Models\Card
 {
@@ -24,6 +25,14 @@ class BR_Base_Gretel extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costMemory' => 2,
+
+      // // test
+      // 'effectPassive' => [
+      //   'Gain' => [
+      //     'condition' => 'boostedByOtherCard',
+      //     'output' => FT::GAIN($this, BOOST),
+      //   ],
+      // ],
     ];
   }
 }
