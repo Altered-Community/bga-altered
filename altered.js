@@ -40,6 +40,7 @@ define([
         ['refreshHand', 200],
         ['updateNewDayManaSelection', 200],
         ['nightCleanup', null],
+        ['cleanupCards', null],
         ['newFirstPlayer', null],
 
         ['addMeeples', null],

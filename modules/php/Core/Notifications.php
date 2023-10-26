@@ -132,16 +132,22 @@ class Notifications
     );
   }
 
-  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve)
+  public static function cleanupCards($player, $cards)
+  {
+    $msg = clienttranslate('All remaining cards of ${player_name} loose Anchored and Asleep');
+    self::notifyAll('cleanupCards', $msg, ['player' => $player, 'cardIds' => $cards]);
+  }
+
+  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve, $deletedCardTokens)
   {
     $msg = clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to reserve');
-    if (empty($deletedCards)) {
-      if (empty($movedToReserve)) {
+    if ($deletedCards->empty()) {
+      if ($movedToReserve->empty()) {
         $msg = '';
       } else {
         $msg = clienttranslate('${player_name} moves ${card_names2} to reserve');
       }
-    } elseif (empty($movedToReserve)) {
+    } elseif ($movedToReserve->empty()) {
       $msg = clienttranslate('${player_name} discards ${card_names}');
     }
 
@@ -149,6 +155,7 @@ class Notifications
       'player' => $player,
       'cards' => $deletedCards->toArray(),
       'cards2' => $movedToReserve->toArray(),
+      'cards3' => $deletedCardTokens->toArray(),
       'meeples' => $deletedTokens,
     ]);
   }

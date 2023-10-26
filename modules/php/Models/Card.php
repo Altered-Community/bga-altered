@@ -167,19 +167,19 @@ class Card extends \ALT\Helpers\DB_Model
   {
     $this->setLocation(MEMORY);
     $this->setTapped(false);
-    $deleted = [];
+    $deleted = Meeples::getInLocation('card-' . $this->id)->getIds();
+    if (!empty($deleted)) {
+      Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds());
+    }
 
-    $deleted[] = Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds());
     return $deleted;
   }
 
   // deletes Token that must be removed at night
   public function nightCleanup()
   {
-    $tokIds = Meeples::getFilteredQuery(null, 'card-' . $this->id, [ASLEEP, ANCHORED])
-      ->get()
-      ->getIds();
-    $deleted[] = Meeples::delete($tokIds);
+    $tokIds = Meeples::getFiltered(null, 'card-' . $this->id, [ASLEEP, ANCHORED])->getIds();
+    Meeples::delete($tokIds);
     return $tokIds;
   }
 

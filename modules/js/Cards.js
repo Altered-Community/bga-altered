@@ -482,7 +482,26 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`);
           });
         })
-      ).then(() => {
+      ).then(Promise.all([...n.args.cards3].map((card, i) => {
+        return this.wait(200 * i).then(() => {
+          return $(`card-${card.id}`).remove();
+        });
+      })))
+        .then(() => {
+        this.notifqueue.setSynchronousDuration(100);
+      });
+    },
+
+    notif_cleanupCards(n) {
+      debug('Notif: updating status of all cleaned up cards', n);
+      Promise.all(
+        [...n.args.cardIds].map((cardId, i) => {
+          return this.wait(200 * i).then(() => {
+            this.updateCardStatuses(cardId);
+          });
+        })
+      )
+        .then(() => {
         this.notifqueue.setSynchronousDuration(100);
       });
     },

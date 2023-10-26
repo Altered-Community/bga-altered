@@ -10,7 +10,7 @@ use ALT\Managers\Cards;
 use ALT\Managers\Meeples;
 use ALT\Core\Globals;
 use ALT\Core\Engine;
-use ALT\Helpers\Utils;
+use ALT\Helpers\Collection;
 
 /*
  * Player: all utility functions concerning a player
@@ -253,36 +253,43 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function nightCleanup()
   {
-    $deletedCards = [];
+    $deletedCards = new Collection();
+    $deletedCardTokens = new Collection();
     $deletedTokens = [];
+    $cleanupCards = [];
     $movedToReserve = [];
 
     foreach ($this->getPlayedCards() as $cId => $card) {
       // Remove card if Fleeting
       if ($card->hasToken(FLEETING)) {
         $deletedTokens = array_merge($deletedTokens, $card->discard()->getIds());
-        $deletedCards[] = $cId;
+        $deletedCards[] = $card;
+        continue;
       }
 
       // Move card without anchored,asleep to memory
-      if (!in_array($cId, $deletedCards) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
+      if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
         // move card to memory
         $deletedTokens = array_merge($deletedTokens, $card->moveToMemory());
         if ($card->isToken()) {
           // delete the card as it's a token
-          $deletedCards[] = $cId;
-          Cards::DB()->delete($cId);
+          $deletedCardTokens[] = $card;
+          Cards::delete($cId);
         } else {
           $movedToReserve[] = $cId;
         }
+        continue;
       }
 
       // Remove Anchored / Asleep tokens
-      if (!in_array($cId, $deletedCards)) {
-        $deletedTokens = array_merge($deletedTokens, $card->nightCleanup());
-      }
+      $deletedTokens = array_merge($deletedTokens, $card->nightCleanup());
+      $cleanupCards[] = $cId;
     }
-    Notifications::nightCleanup($this, Cards::getMany($deletedCards), $deletedTokens, Cards::getMany($movedToReserve));
+    // throw new \feException(print_r($deletedTokens));
+    Notifications::nightCleanup($this, $deletedCards, $deletedTokens, Cards::getMany($movedToReserve), $deletedCardTokens);
+    if (!empty($cleanupCards)) {
+      Notifications::cleanupCards($this, $cleanupCards);
+    }
 
     // return true if choice is needed
     return $this->getMemorySlots() < $this->getMemoryCards()->count();
