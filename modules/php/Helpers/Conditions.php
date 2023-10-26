@@ -18,4 +18,11 @@ abstract class Conditions
     }
     return false;
   }
+
+  public static function firstCharacterPlayed($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $event['cardType'] == EXPLORER &&
+      ($card->getExtraDatas()['userPower'] ?? false) == false;
+  }
 }

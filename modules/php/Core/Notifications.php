@@ -307,8 +307,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-            ? clienttranslate('${card_name} gains ${power} (${card_name}\'s effect)')
-            : clienttranslate('${card_name} gains ${n} ${power} (${card_name}\'s effect)');
+            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -318,7 +318,7 @@ class Notifications
       'power' => $power,
       'i18n' => ['power'],
       'meeples' => $meeples,
-      'card' => $source,
+      'card2' => $source,
       'n' => $n,
     ]);
   }
@@ -1308,6 +1308,13 @@ class Notifications
       $data['card_name'] = $data['card']->getName();
       $data['i18n'][] = 'card_name';
       $data['preserve'][] = 'card_id';
+    }
+
+    if (isset($data['card2'])) {
+      $data['card_id2'] = $data['card2']->getId();
+      $data['card_name2'] = $data['card2']->getName();
+      $data['i18n'][] = 'card_name2';
+      $data['preserve'][] = 'card_id2';
     }
 
     if (isset($data['cards'])) {

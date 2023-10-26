@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Base_TeijaandNauraa extends \ALT\Models\Card
 {
@@ -24,6 +25,12 @@ class MU_Base_TeijaandNauraa extends \ALT\Models\Card
       ),
       'memorySlots' => 2,
       'permanentSlots' => 2,
+      'effectPassive' => [
+        'ChooseAssignment' => [
+          'condition' => 'firstCharacterPlayed',
+          'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
+        ],
+      ],
     ];
   }
 }

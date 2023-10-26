@@ -27,6 +27,11 @@ class MU_Base_SneezerShroom extends \ALT\Models\Card
       'costHand' => 2,
       'costMemory' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPassive' => [
+        'Dawn' => [
+          'output' => FT::GAIN($this, BOOST),
+        ],
+      ],
     ];
   }
 }

@@ -45,6 +45,7 @@ trait TurnTrait
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
     Globals::setDayPhase(true);
+    // TODO: update cards with extra datas set
     $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_DUSK_PHASE, true);
   }
 

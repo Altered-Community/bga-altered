@@ -259,7 +259,7 @@ class Card extends \ALT\Helpers\DB_Model
   public function isListeningTo($event)
   {
     $passive = $this->getEffectPassive();
-
+    // throw new \feException(print_r($event));
     if (
       !in_array($event['type'] ?? 'none', array_keys($passive)) &&
       !in_array($event['action'] ?? 'none', array_keys($passive))

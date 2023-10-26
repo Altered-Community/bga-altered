@@ -61,6 +61,8 @@ class Gain extends \ALT\Models\Action
     $cardId = $this->getCtxArg('cardId');
     if ($cardId == ME) {
       $cardId = $this->ctx->getSourceId() ?? null;
+    } elseif ($cardId == EFFECT) {
+      $cardId = $this->getCtx()->toArray()['event']['playedCard'] ?? null;
     }
 
     if (is_null($cardId)) {

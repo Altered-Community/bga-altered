@@ -12,7 +12,18 @@ use ALT\Managers\Players;
 
 class Actions
 {
-  static $classes = [CHOOSE_ASSIGNMENT, DISCARD, GAIN, TARGET, LOOSE, SPELL_CLEANUP, INVOKE_TOKEN, ACTIVATE_CARD, DRAW];
+  static $classes = [
+    CHOOSE_ASSIGNMENT,
+    DISCARD,
+    GAIN,
+    TARGET,
+    LOOSE,
+    SPELL_CLEANUP,
+    INVOKE_TOKEN,
+    ACTIVATE_CARD,
+    DRAW,
+    SPECIAL_EFFECT,
+  ];
 
   public static function get($actionId, &$ctx = null)
   {
