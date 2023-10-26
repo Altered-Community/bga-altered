@@ -299,18 +299,26 @@ class Notifications
     self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
   }
 
-  public static function gainMeeple($power, $card, $meeples, $silent = true)
+  public static function gainMeeple($power, $card, $meeples, $source = null, $silent = true)
   {
     $n = count($meeples);
     $msg = '';
     if (!$silent) {
-      $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
+      if (!is_null($source)) {
+        $msg =
+          $n == 1
+            ? clienttranslate('${card_name} gains ${power} (${card_name}\'s effect)')
+            : clienttranslate('${card_name} gains ${n} ${power} (${card_name}\'s effect)');
+      } else {
+        $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
+      }
     }
     self::notifyAll('addMeeples', $msg, [
       'card' => $card,
       'power' => $power,
       'i18n' => ['power'],
       'meeples' => $meeples,
+      'card' => $source,
       'n' => $n,
     ]);
   }
