@@ -44,6 +44,8 @@ define([
         ['newFirstPlayer', null],
 
         ['addMeeples', null],
+        ['looseMeeples', null],
+
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -55,7 +57,6 @@ define([
         ['moveStormToken', null],
         ['moveToHand', null],
         ['silentKill', 200],
-        ['looseToken', 200],
         ['updateBiomes', 100],
         ['spellCleanup', 100],
         ['invokeToken', 100],

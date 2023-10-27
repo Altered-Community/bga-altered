@@ -316,7 +316,7 @@ class Notifications
       'card' => $card,
       'power' => $power,
       'i18n' => ['power'],
-      'meeples' => $meeples->toArray(),
+      'meeples' => is_array($meeples) ? $meeples : $meeples->toArray(),
       'card2' => $source,
       'n' => $n,
     ]);
@@ -331,17 +331,17 @@ class Notifications
     ]);
   }
 
-  public static function looseToken($power, $card, $meeples, $silent = true)
+  public static function looseMeeples($power, $card, $meeples, $silent = true)
   {
     $msg = '';
     if (!$silent) {
       $msg = clienttranslate('${card_name} looses ${n} ${power}');
     }
-    self::notifyAll('looseToken', $msg, [
+    self::notifyAll('looseMeeples', $msg, [
       'card' => $card,
       'power' => $power,
       'i18n' => ['power'],
-      'meeples' => $meeples,
+      'meeples' => $meeples->toArray(),
       'n' => count($meeples),
     ]);
   }
@@ -400,7 +400,7 @@ class Notifications
   /*** tools****/
   public static function silentKill($tokens)
   {
-    self::notifyAll('silentKill', '', ['tokens' => $tokens]);
+    self::notifyAll('silentKill', '', ['tokens' => $tokens->toArray()]);
   }
 
   /*********** unchecked ******* */
