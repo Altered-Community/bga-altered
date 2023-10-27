@@ -217,7 +217,7 @@ class CachedPieces extends DB_Manager
     }
 
     if (count($result) != count($ids) && $raiseExceptionIfNotEnough) {
-      // throw new \feException(print_r(\debug_print_backtrace()));
+      throw new \feException(print_r(\debug_print_backtrace()));
       throw new \feException('Class Pieces: getMany, some pieces have not been found !' . json_encode($ids));
     }
 

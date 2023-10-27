@@ -60,6 +60,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->merge(self::getInLocation(MEMORY))
       ->merge(self::getInLocation('board-alterateur-%'))
       ->merge(self::getInLocation('limbo'))
+      ->merge(self::getInLocation('discard'))
       ->toArray();
   }
 

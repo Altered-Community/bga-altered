@@ -33,6 +33,7 @@ trait EndGameTrait
 
   function stPreEndOfGame()
   {
+    // TODO remove in alpha
     throw new \feException('winner');
 
     // TODO: API call
