@@ -330,16 +330,16 @@ class Card extends \ALT\Helpers\DB_Model
   }
 
   /********** EFFECTS **********/
-  public function boost($n, $source = null, $notify = false)
-  {
-    if (!in_array($this->getLocation(), STORMS)) {
-      throw new \BgaVisibleSystemException('Cannot be boosted, not in an expedition. Should not happen');
-    }
+  // public function boost($n, $source = null, $notify = false)
+  // {
+  //   if (!in_array($this->getLocation(), STORMS)) {
+  //     throw new \BgaVisibleSystemException('Cannot be boosted, not in an expedition. Should not happen');
+  //   }
 
-    $tokens = Meeples::create([['type' => BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
-    if ($notify === true) {
-      Notifications::boost($this, $source, $tokens);
-    }
-    return $tokens;
-  }
+  //   $tokens = Meeples::create([['type' => BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
+  //   if ($notify === true) {
+  //     Notifications::boost($this, $source, $tokens);
+  //   }
+  //   return $tokens;
+  // }
 }

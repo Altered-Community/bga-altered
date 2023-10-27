@@ -64,7 +64,7 @@ define([
         ['payMana', 500],
         ['discard', 500],
         ['tap', 500],
-        ['boost', 500],
+        // ['boost', 500],
         ['untap', 500],
       ];
 

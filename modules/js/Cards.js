@@ -468,10 +468,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO (tap card, etc.)
     },
 
-    notif_boost(n) {
-      debug('Notif: boosting card', n);
-      // TODO slide tokens + update counters
-    },
+    // notif_boost(n) {
+    //   debug('Notif: boosting card', n);
+    //   // TODO slide tokens + update counters
+    // },
 
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
@@ -481,7 +481,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_spellCleanup(n) {
       debug('Notif: spell cleanup', n);
-      // TODO
+      n.args.deleted.forEach((meepleId) => {
+        $(`meeple-${meepleId}`).remove();
+      });
+
+     // Slide the card
+     let card = n.args.card;
+     let id = `card-${card.id}`;
+     if (!$(id)) {
+       this.addCard(card, 'page-title');
+     }
+     let container = this.getCardContainer(card);
+     this.slide(id, container).then(() => {
+       this.notifqueue.setSynchronousDuration(100);
+     });
     },
 
     notif_invokeToken(n) {
