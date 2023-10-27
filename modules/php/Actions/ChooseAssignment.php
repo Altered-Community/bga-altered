@@ -64,7 +64,6 @@ class ChooseAssignment extends \ALT\Models\Action
     $actions['tap'] = $player->getPlayedCards()->filter(function ($card) {
       return !$card->isTapped() && !is_null($card->getEffectTap());
     });
-    // TODO: add hero
 
     return ['_private' => ['active' => $actions]];
   }
