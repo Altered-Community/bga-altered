@@ -61,6 +61,8 @@ trait EngineTrait
       $args['source'] = $source;
     }
 
+    $args['skippedPlayers'] = Globals::getSkippedPlayers();
+
     return $args;
   }
 
