@@ -76,7 +76,7 @@ class InvokeToken extends \ALT\Models\Action
       'properties' => $card->getProperties(),
     ]);
 
-    Notifications::invokeToken($player, $card);
+    Notifications::invokeToken($player, $card, $this->getSource());
     $this->resolveAction([$card->getId()]);
   }
 

@@ -498,8 +498,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_invokeToken(n) {
-      debug('Notif: invoe token', n);
-      // TODO
+      debug('Notif: invoke token', n);
+      // Slide the card
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+      // we slide it from the card triggering the effect
+      if (!$(id)) {
+        this.addCard(card, `card-${n.args.card2.id}`);
+      }
+      let container = this.getCardContainer(card);
+      this.slide(id, container).then(() => {
+        this.updateBiomeTotals(card.pId, n.args.biomes);
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     notif_nightCleanup(n) {
