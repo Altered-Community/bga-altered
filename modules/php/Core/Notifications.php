@@ -214,23 +214,15 @@ class Notifications
     );
   }
 
-  public static function moveToHand($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
+  public static function moveToHand($player, $cards, $publicMsg = null, $privateMsg = null, $args = [], $privateArgs = null)
   {
     self::notifyAll(
       'moveToHand',
       $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) in his hand'),
       $args + [
         'player' => $player,
-        'n' => count($cards),
-      ]
-    );
-    self::notify(
-      $player,
-      'pMoveToHand',
-      $privateMsg ?? clienttranslateupdateNewDayManaSelection('You put ${card_names} in hand'),
-      ($privateArgs ?? $args) + [
-        'player' => $player,
         'cards' => $cards->toArray(),
+        'n' => count($cards),
       ]
     );
   }

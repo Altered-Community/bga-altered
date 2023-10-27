@@ -53,6 +53,7 @@ define([
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
         ['moveStormToken', null],
+        ['moveToHand', null],
         ['silentKill', 200],
         ['looseToken', 200],
         ['updateBiomes', 100],

@@ -83,7 +83,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let type = card.properties.type;
       if (card.location == 'hand') {
         return $(`hand-${card.pId}`);
-      } else if (['stormLeft', 'stormRight', 'memory', 'permanent', 'limbo'].includes(card.location)) {
+      } else if (['stormLeft', 'stormRight', 'memory', 'permanent', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
       } else if (type == ALTERATEUR) {
         return $(card.location);
@@ -529,6 +529,35 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+      /**
+     * Public notification when someone take back a card in hand
+     *  slide it to hand if current player
+     *  slide it to player panel otherwise
+     *  inc hand count
+     *  multiple cards of multiple players can be moved like that
+     */
+      notif_moveToHand(n) {
+        debug('Moving cards to hand', n);
+        player_inc = {};
+          Promise.all([...n.args.cards].map((card) => {
+            isPlayer = this.player_id == card.pId;
+            player_inc[card.pId] = player_inc[card.pId] ?? 0 + 1;
+
+            return this.slide(`card-${card.id}`, isPlayer ? this.getCardContainer(card) : `counter-${card.pId}-handCount`, {
+              duration: 1000,
+              destroy: isPlayer ? false: true,
+              phantom: isPlayer ? true : false,
+          });
+        })).then( () => {
+          Object.keys(player_inc).forEach( (player) => {
+            this._playerCounters[player]['handCount'].incValue(player_inc[player]);
+          })
+        })
+        .then(() => {
+          this.notifqueue.setSynchronousDuration(100);
+        });
+      },
+  
   
 
     //////////////////////////////////////////////

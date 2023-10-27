@@ -57,6 +57,6 @@ abstract class FT
 
   public static function RETURN_TO_HAND()
   {
-    return self::ACTION(DISCARD, ['target' => HAND]);
+    return self::ACTION(DISCARD, ['destination' => HAND]);
   }
 }
