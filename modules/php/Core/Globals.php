@@ -17,6 +17,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     'anytimeRecursion' => 'int', // DO NOT MODIFY, USED IN ENGINE MODULE
     'customTurnOrders' => 'obj', // DO NOT MODIFY, USED FOR CUSTOM TURN ORDER FEATURE
 
+    'playerDecks' => 'obj',
+
     'firstPlayer' => 'int',
     'skippedPlayers' => 'obj',
     'dayPhase' => 'bool',

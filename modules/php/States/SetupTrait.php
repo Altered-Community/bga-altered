@@ -23,9 +23,11 @@ trait SetupTrait
     // Stats::checkExistence();
 
     Globals::setFirstPlayer($this->getNextPlayerTable()[0]);
+    Players::initializeDecks();
 
     $this->setGameStateInitialValue('logging', false);
-    $this->activeNextPlayer();
+    $this->gamestate->setAllPlayersMultiactive();
+    // $this->activeNextPlayer();
   }
 
   //////////////////////////////////////////////////////////////////
@@ -37,7 +39,15 @@ trait SetupTrait
   //////////////////////////////////////////////////////////////////
   function argsDeckSelection()
   {
-    return [];
+    $args = [
+      '_private' => [],
+    ];
+    $allDecks = Globals::getPlayerDecks();
+    foreach (Players::getAll() as $pId => $player) {
+      $args['_private'][$pId]['decks'] = $allDecks[$pId];
+    }
+
+    return $args;
   }
 
   public function actSelectDeck($choice)
@@ -86,18 +96,28 @@ trait SetupTrait
     }
   }
 
+  function actGetDeck($deckNumber)
+  {
+    self::checkAction('actGetDeck');
+    $player = Players::getCurrent();
+    if (!in_array($deckNumber, array_keys(Globals::getPlayerDecks()[$player->getId()]))) {
+      throw new \BgaVisibleSystemException('You do not have a deck with this number. Should not happen');
+    }
+    return $player->getDeck($deckNumber)->toArray();
+  }
+
   // TODO : REMOVE ONCE WE GOT API
   function stDeckSelection()
   {
-    // Temporary while we get decks
-    $selection = [];
-    $pIds = Players::getAll()->getIds();
-    foreach ($pIds as $i => $pId) {
-      $selection[$pId] = $i == 0 ? \FACTION_BR : FACTION_MU;
-    }
-    Globals::setDeckSelection($selection);
+    // // Temporary while we get decks
+    // $selection = [];
+    // $pIds = Players::getAll()->getIds();
+    // foreach ($pIds as $i => $pId) {
+    //   $selection[$pId] = $i == 0 ? \FACTION_BR : FACTION_MU;
+    // }
+    // Globals::setDeckSelection($selection);
 
-    $this->gamestate->nextState('done');
+    // $this->gamestate->nextState('done');
   }
 
   /////////////////////////////////////////////////////////
@@ -115,18 +135,31 @@ trait SetupTrait
     foreach (Players::getAll() as $pId => $player) {
       $deck = $selection[$pId];
 
-      // PRECOS
-      if (in_array($deck, FACTIONS)) {
-        $this->setupPrecoDeck($player, $deck);
-      } else {
-        throw new BgaVisibleSystemException('UNSUPPORTED DECK');
-        // API CALL ?
-        // Setup faction
-        // Create cards
-        // Create meeples
-        // Notify
-      }
+      // delete all other cards
+      $toDel = Cards::getFiltered($pId)
+        ->whereNot('location', 'deck-' . $deck)
+        ->filter(function ($card) use ($deck) {
+          return $card->getLocation() != 'board-alterateur-' . $deck;
+        });
+      Cards::delete($toDel->getIds());
+
+      // updating Cards
+      Cards::getFiltered($pId)
+        ->where('location', 'deck-' . $deck)
+        ->update('location', 'deck-' . $pId);
+      $alterateur = Cards::getFiltered($pId)
+        ->where('location', 'board-alterateur-' . $deck)
+        ->update('location', 'board-alterateur-' . $pId);
+
+      // faction setup
+      $player->setFaction(Globals::getPlayerDecks()[$pId][$deck]['faction']);
+      $meeples = Meeples::setupPlayer($player);
+      // shuffling of dec
+      Cards::shuffle('deck-' . $pId);
+      Notifications::setupPreco($player, $meeples, $alterateur);
     }
+
+    Notifications::setupCards(Cards::getUiData());
 
     $this->gamestate->nextState('');
   }

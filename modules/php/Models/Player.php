@@ -137,13 +137,11 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getMemorySlots()
   {
-    return 2;
     return $this->getAlterateur()->getMemorySlots();
   }
 
   public function getPermanentSlots()
   {
-    return 2;
     return $this->getAlterateur()->getPermanentSlots();
   }
 
@@ -186,6 +184,13 @@ class Player extends \ALT\Helpers\DB_Model
   public function getAlterateurToken()
   {
     return $this->getStormToken(ALTERATEUR);
+  }
+
+  public function getDeck($deckNumber)
+  {
+    return Cards::getFiltered($this->id, 'deck-' . $deckNumber)->merge(
+      Cards::getFiltered($this->id, 'board-alterateur-' . $deckNumber)
+    );
   }
 
   public function checkVictory()
@@ -316,5 +321,19 @@ class Player extends \ALT\Helpers\DB_Model
       $strengths[$exp] = $strength;
     }
     return $strengths;
+  }
+
+  /********* Deck setup ***********/
+  public function initializeDecks()
+  {
+    $i = 0;
+    $decks = [];
+    // call the API to get the various cards/decks
+
+    // Add the preconstructed decks last
+    $decks = array_merge($decks, Cards::setupPrecoDeck($this, $i, $decks));
+    $allDecks = Globals::getPlayerDecks();
+    $allDecks[$this->id] = $decks;
+    Globals::setPlayerDecks($allDecks);
   }
 }

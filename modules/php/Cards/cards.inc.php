@@ -1,5 +1,4 @@
 <?php
-const TOKENS = ['BR_Base_Booda'];
 
 const PRECOS = [
   FACTION_BR => [

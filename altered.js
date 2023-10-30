@@ -61,7 +61,7 @@ define([
         ['spellCleanup', 100],
         ['invokeToken', 100],
 
-        ['setupPlayer', null],
+        ['setupPlayer', 200],
         ['payMana', 500],
         ['discard', 500],
         ['tap', 500],
@@ -421,6 +421,18 @@ define([
       // Call appropriate method
       var methodName = 'onEnteringState' + stateName.charAt(0).toUpperCase() + stateName.slice(1);
       if (this[methodName] !== undefined) this[methodName](args.args);
+    },
+
+    onEnteringStateSelectDeck(args) {
+      if (!args._private) return;
+
+      decks = args._private.decks
+      decks.forEach((deckNum) => {
+        debug(deckNum);
+        this.addPrimaryActionButton('selectDeck' + deckNum.deckNum,'Deck n°' + deckNum.deckNum+ ' Faction ' + deckNum.faction , () =>
+          this.takeAction('actSelectDeck', {choice: deckNum.deckNum}, false)
+        );
+      });
     },
 
     //////////////////////////////////////////////////////

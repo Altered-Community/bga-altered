@@ -105,6 +105,21 @@ class Collection extends \ArrayObject
       });
   }
 
+  public function whereNot($field, $value)
+  {
+    return is_null($value)
+      ? $this
+      : $this->filter(function ($obj) use ($field, $value) {
+        $method = 'get' . ucfirst($field);
+        $objValue = $obj->$method();
+        return is_array($value)
+          ? !in_array($objValue, $value)
+          : (strpos($value, '%') !== false
+            ? !like_match($value, $objValue)
+            : $objValue != $value);
+      });
+  }
+
   public function whereNull($field)
   {
     return $this->filter(function ($obj) use ($field) {

@@ -44,15 +44,19 @@ class Notifications
     ]);
   }
 
-  public static function clearTurn($player, $notifIds)
+  public static function clearTurn($player, $notifIds, $silent = false)
   {
-    self::notifyAll('clearTurn', clienttranslate('${player_name} restarts their turn'), [
+    $msg = clienttranslate('${player_name} restarts their turn');
+    if ($silent === true) {
+      $msg = '';
+    }
+    self::notifyAll('clearTurn', $msg, [
       'player' => $player,
       'notifIds' => $notifIds,
     ]);
   }
 
-  public static function setupPreco($player, $meeples)
+  public static function setupPreco($player, $meeples, $alterateur)
   {
     $factionNames = [
       \FACTION_BR => clienttranslate('Bravos'),
@@ -66,9 +70,16 @@ class Notifications
         'player' => $player,
         'i18n' => ['faction_name'],
         'faction_name' => $factionNames[$player->getFaction()],
-        'meeples' => $meeples,
+        'player_data' => $player->getUiData(),
+        'meeples' => $meeples->toArray(),
+        'alterateur' => $alterateur->toArray(),
       ]
     );
+  }
+
+  public static function setupCards($cards)
+  {
+    self::notifyAll('setupCards', '', ['cardsTo' => $cards]);
   }
 
   /////////////////////////////////////////////////

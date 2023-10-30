@@ -36,6 +36,7 @@ class Card extends \ALT\Helpers\DB_Model
     'name' => 'str', // obj?
     'type' => 'str', // Token/hero/adventurer/spell
     'token' => 'bool',
+    'uid' => 'str',
 
     'rarity' => 'int',
     'asset' => 'str',

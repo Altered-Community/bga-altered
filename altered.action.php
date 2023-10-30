@@ -75,6 +75,30 @@ class action_altered extends APP_GameAction
     self::ajaxResponse();
   }
 
+  public function actGetDeck()
+  {
+    self::setAjaxMode();
+    $args = self::getArg('deckNumber', AT_int, true);
+
+    $result = $this->game->actGetDeck($deckNumber);
+    self::ajaxResponseWithResult($result);
+  }
+
+  public function actSelectDeck()
+  {
+    self::setAjaxMode();
+    $choice = self::getArg('choice', AT_int, true);
+    $this->game->actSelectDeck($choice);
+    self::ajaxResponse();
+  }
+
+  public function actCancelDeckSelection()
+  {
+    self::setAjaxMode();
+    $this->game->actCancelDeckSelection();
+    self::ajaxResponse();
+  }
+
   //////////////////
   ///// ENGINE  /////
   //////////////////
