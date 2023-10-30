@@ -34,7 +34,9 @@ trait EndGameTrait
   function stPreEndOfGame()
   {
     // TODO remove in alpha
-    throw new \feException('winner');
+    if ($this->getBgaEnvironment() == 'studio') {
+      throw new \feException('winner');
+    }
 
     // TODO: API call
     $this->gamestate->nextState('');

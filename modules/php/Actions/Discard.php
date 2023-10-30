@@ -88,6 +88,11 @@ class Discard extends \ALT\Models\Action
       $msg = clienttranslate('${player_name} discards ${n} card(s)');
     }
 
+    // deleting meeples first
+    if (!empty($deleted)) {
+      Notifications::silentKill($deleted);
+    }
+
     if ($args['destination'] == HAND) {
       Notifications::moveToHand($player, $cards, $msg, null, [
         'source' => $args['source'],
@@ -104,10 +109,6 @@ class Discard extends \ALT\Models\Action
       }
       $notified = $card->getPlayer()->getId();
       Notifications::updateBiomes($card->getPlayer());
-    }
-
-    if (!empty($deleted)) {
-      Notifications::silentKill($deleted);
     }
 
     $this->resolveAction([$cardIds]);

@@ -128,14 +128,14 @@ trait TurnTrait
     $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
     $winners = [
       STORM_LEFT => [
-        FOREST => ['pId' => null, 'value' => -1],
-        MOUNTAIN => ['pId' => null, 'value' => -1],
-        OCEAN => ['pId' => null, 'value' => -1],
+        FOREST => ['pId' => null, 'value' => 0],
+        MOUNTAIN => ['pId' => null, 'value' => 0],
+        OCEAN => ['pId' => null, 'value' => 0],
       ],
       STORM_RIGHT => [
-        FOREST => ['pId' => null, 'value' => -1],
-        MOUNTAIN => ['pId' => null, 'value' => -1],
-        OCEAN => ['pId' => null, 'value' => -1],
+        FOREST => ['pId' => null, 'value' => 0],
+        MOUNTAIN => ['pId' => null, 'value' => 0],
+        OCEAN => ['pId' => null, 'value' => 0],
       ],
     ];
 

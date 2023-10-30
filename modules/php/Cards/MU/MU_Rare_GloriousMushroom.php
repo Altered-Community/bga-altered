@@ -27,7 +27,7 @@ class MU_Rare_GloriousMushroom extends \ALT\Models\Card
       'costHand' => 2,
       'costMemory' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
-      'effectPassive' => ['Dawn' => ['output' => FT::GAIN($this, BOOST)]],
+      'effectPassive' => ['Dawn' => ['condition' => 'myTurn', 'output' => FT::GAIN($this, BOOST)]],
     ];
   }
 }

@@ -214,8 +214,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
       // Slide first player
       let pId = n.args.player_id;
+      
+      this.slideResources([{ id: 'firstPlayer' }], { from: $(`firstPlayer-${this.gamedatas.firstPlayer}`), target: $(`firstPlayer-${pId}`) });
       this.gamedatas.firstPlayer = pId;
-      this.slideResources([{ id: 'firstPlayer' }], { target: $(`firstPlayer-${pId}`) });
     },
   });
 });

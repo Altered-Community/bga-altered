@@ -26,4 +26,9 @@ abstract class Conditions
       $event['cardType'] == EXPLORER &&
       ($card->getExtraDatas()['userPower'] ?? false) == false;
   }
+
+  public static function myTurn($card, $event)
+  {
+    return $event['pId'] == $card->getPId();
+  }
 }

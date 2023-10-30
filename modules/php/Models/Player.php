@@ -265,8 +265,8 @@ class Player extends \ALT\Helpers\DB_Model
     $movedToReserve = [];
 
     foreach ($this->getPlayedCards() as $cId => $card) {
-      // Remove card if Fleeting
-      if ($card->hasToken(FLEETING)) {
+      // Remove card if Fleeting but is not anchored
+      if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED)) {
         $deletedTokens = array_merge($deletedTokens, $card->discard()->getIds());
         $deletedCards[] = $card;
         continue;

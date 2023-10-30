@@ -487,6 +487,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
      // Slide the card
      let card = n.args.card;
+     this.updateCardStatuses(card.id);
      let id = `card-${card.id}`;
      if (!$(id)) {
        this.addCard(card, 'page-title');
@@ -565,6 +566,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         player_inc = {};
           Promise.all([...n.args.cards].map((card) => {
             isPlayer = this.player_id == card.pId;
+            this.updateCardStatuses(card.id);
             player_inc[card.pId] = player_inc[card.pId] ?? 0 + 1;
 
             return this.slide(`card-${card.id}`, isPlayer ? this.getCardContainer(card) : `counter-${card.pId}-handCount`, {

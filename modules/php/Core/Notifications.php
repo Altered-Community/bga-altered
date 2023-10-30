@@ -411,7 +411,7 @@ class Notifications
   /*** tools****/
   public static function silentKill($tokens)
   {
-    self::notifyAll('silentKill', '', ['tokens' => $tokens->toArray()]);
+    self::notifyAll('silentKill', '', ['tokens' => is_array($tokens) ? $tokens : $tokens->toArray()]);
   }
 
   /*********** unchecked ******* */
