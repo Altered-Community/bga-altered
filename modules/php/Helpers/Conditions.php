@@ -21,8 +21,9 @@ abstract class Conditions
 
   public static function firstCharacterPlayed($card, $event)
   {
-    return $event['playCard'] === true && $card->getPId() == $event['pId'] && 
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
       $event['cardType'] == EXPLORER &&
-      ($card->getExtraDatas()['userPower'] ?? false) == false
+      ($card->getExtraDatas()['userPower'] ?? false) == false;
   }
 }
