@@ -197,7 +197,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];
     $alterateurPos = explode('-', $this->getAlterateurToken()->getLocation())[1];
-    return [$companionPos - $alterateurPos < 0, Globals::getStormMoves()[$this->id] ?? 0];
+    return [$companionPos - $alterateurPos <= 0, Globals::getStormMoves()[$this->id] ?? 0];
   }
 
   public function getBiomeInStorms()
