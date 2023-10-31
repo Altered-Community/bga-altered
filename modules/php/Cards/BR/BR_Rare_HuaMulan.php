@@ -24,7 +24,7 @@ class BR_Rare_HuaMulan extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
-      'effectMemory' => FT::SEQ([FT::GAIN($this, BOOST, 2), FT::LOOSE($this, FLEETING)]),
+      'effectMemory' => FT::SEQ(FT::GAIN($this, BOOST, 2), FT::LOOSE($this, FLEETING)),
     ];
   }
 }

@@ -18,6 +18,12 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'subtype' => '',
 
       'effectDesc' => clienttranslate('The first Character you play each day gains 1 boost.'),
+      'effectPassive' => [
+        'ChooseAssignment' => [
+          'condition' => 'firstCharacterPlayed',
+          'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
+        ],
+      ],
     ];
   }
 }
