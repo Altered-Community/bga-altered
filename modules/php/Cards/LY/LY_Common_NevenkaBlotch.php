@@ -7,7 +7,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '68',
-      'asset' => 'LY-03-Nevenka-Blotch-RGB', // MISSING
+      'asset' => 'LY-03-Nevenka-Blotch',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,

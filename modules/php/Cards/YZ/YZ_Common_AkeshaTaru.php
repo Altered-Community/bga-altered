@@ -7,7 +7,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '165',
-      'asset' => 'YZ-01-Akesha-Kone-RGB', // MISSING
+      'asset' => 'YZ-01-Akesha-Kone',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,

@@ -7,7 +7,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '128',
-      'asset' => 'OD-02-Sigimar-Wingspan-RGB', // MISSING
+      'asset' => 'OD-02-Sigimar-Wingspan',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,
