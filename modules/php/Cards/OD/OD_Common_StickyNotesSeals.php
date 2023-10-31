@@ -5,6 +5,8 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '150',
       'asset' => 'OD-33-Strength-in-Numbers-01',

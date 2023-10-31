@@ -5,6 +5,8 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '5',
       'asset' => 'AX-09-Tinkder-Bell-C',

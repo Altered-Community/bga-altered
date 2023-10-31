@@ -5,6 +5,8 @@ class AX_Common_AmeliaEarhart extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '9',
       'asset' => 'AX-11-AmeliaEarhart-C',

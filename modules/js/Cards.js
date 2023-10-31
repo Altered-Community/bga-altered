@@ -7,8 +7,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
   };
 
-  const ALTERATEUR = 'alterateur';
-  const EXPLORER = 'explorer';
+  const HERO = 'hero';
+  const CHARACTER = 'character';
   const PERMANENT = 'permanent';
   const SPELL = 'spell';
 
@@ -85,7 +85,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return $(`hand-${card.pId}`);
       } else if (['stormLeft', 'stormRight', 'memory', 'permanent', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
-      } else if (type == ALTERATEUR) {
+      } else if (type == HERO) {
         return $(card.location);
       }
       // if (card.location == 'hand') {
@@ -365,14 +365,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TOOD
       // !! how to manage when we send the card to the hand?
       let pId = n.args.player_id;
-      
+
       Promise.all(
         [...n.args.cards].map((card, i) => {
           return this.wait(200 * i).then(() => {
-            if (card.location == 'hand')
-              return;
+            if (card.location == 'hand') return;
 
-            return this.slide(`card-${card.id}`,  `board-${card.location}-${pId}`);
+            return this.slide(`card-${card.id}`, `board-${card.location}-${pId}`);
           });
         })
       ).then(() => {
@@ -485,17 +484,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         $(`meeple-${meepleId}`).remove();
       });
 
-     // Slide the card
-     let card = n.args.card;
-     this.updateCardStatuses(card.id);
-     let id = `card-${card.id}`;
-     if (!$(id)) {
-       this.addCard(card, 'page-title');
-     }
-     let container = this.getCardContainer(card);
-     this.slide(id, container).then(() => {
-       this.notifqueue.setSynchronousDuration(100);
-     });
+      // Slide the card
+      let card = n.args.card;
+      this.updateCardStatuses(card.id);
+      let id = `card-${card.id}`;
+      if (!$(id)) {
+        this.addCard(card, 'page-title');
+      }
+      let container = this.getCardContainer(card);
+      this.slide(id, container).then(() => {
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     notif_invokeToken(n) {
@@ -530,14 +529,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`);
           });
         })
-      ).then(Promise.all([...n.args.cards3].map((card, i) => {
-        return this.wait(200 * i).then(() => {
-          return $(`card-${card.id}`).remove();
-        });
-      })))
+      )
+        .then(
+          Promise.all(
+            [...n.args.cards3].map((card, i) => {
+              return this.wait(200 * i).then(() => {
+                return $(`card-${card.id}`).remove();
+              });
+            })
+          )
+        )
         .then(() => {
-        this.notifqueue.setSynchronousDuration(100);
-      });
+          this.notifqueue.setSynchronousDuration(100);
+        });
     },
 
     notif_cleanupCards(n) {
@@ -548,43 +552,43 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             this.updateCardStatuses(cardId);
           });
         })
-      )
-        .then(() => {
+      ).then(() => {
         this.notifqueue.setSynchronousDuration(100);
       });
     },
 
-      /**
+    /**
      * Public notification when someone take back a card in hand
      *  slide it to hand if current player
      *  slide it to player panel otherwise
      *  inc hand count
      *  multiple cards of multiple players can be moved like that
      */
-      notif_moveToHand(n) {
-        debug('Moving cards to hand', n);
-        player_inc = {};
-          Promise.all([...n.args.cards].map((card) => {
-            isPlayer = this.player_id == card.pId;
-            this.updateCardStatuses(card.id);
-            player_inc[card.pId] = player_inc[card.pId] ?? 0 + 1;
+    notif_moveToHand(n) {
+      debug('Moving cards to hand', n);
+      player_inc = {};
+      Promise.all(
+        [...n.args.cards].map((card) => {
+          isPlayer = this.player_id == card.pId;
+          this.updateCardStatuses(card.id);
+          player_inc[card.pId] = player_inc[card.pId] ?? 0 + 1;
 
-            return this.slide(`card-${card.id}`, isPlayer ? this.getCardContainer(card) : `counter-${card.pId}-handCount`, {
-              duration: 1000,
-              destroy: isPlayer ? false: true,
-              phantom: isPlayer ? true : false,
+          return this.slide(`card-${card.id}`, isPlayer ? this.getCardContainer(card) : `counter-${card.pId}-handCount`, {
+            duration: 1000,
+            destroy: isPlayer ? false : true,
+            phantom: isPlayer ? true : false,
           });
-        })).then( () => {
-          Object.keys(player_inc).forEach( (player) => {
+        })
+      )
+        .then(() => {
+          Object.keys(player_inc).forEach((player) => {
             this._playerCounters[player]['handCount'].incValue(player_inc[player]);
-          })
+          });
         })
         .then(() => {
           this.notifqueue.setSynchronousDuration(100);
         });
-      },
-  
-  
+    },
 
     //////////////////////////////////////////////
     //  _____ ____  _
@@ -604,10 +608,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCard(card) {
       let type = card.properties.type;
-      if (type == ALTERATEUR) {
-        return this.tplAlterateurCard(card);
-      } else if (type == EXPLORER) {
-        return this.tplExplorerCard(card);
+      if (type == HERO) {
+        return this.tplHeroCard(card);
+      } else if (type == CHARACTER) {
+        return this.tplCharacterCard(card);
       } else if (type == SPELL) {
         return this.tplSpellCard(card);
       } else if (type == PERMANENT) {
@@ -620,10 +624,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCardTooltip(card) {
       let type = card.properties.type;
-      if (type == ALTERATEUR) {
-        return this.tplAlterateurCardTooltip(card);
-      } else if (type == EXPLORER) {
-        return this.tplExplorerCardTooltip(card);
+      if (type == HERO) {
+        return this.tplHeroCardTooltip(card);
+      } else if (type == CHARACTER) {
+        return this.tplCharacterCardTooltip(card);
       } else if (type == SPELL) {
         return this.tplSpellCardTooltip(card);
       }
@@ -634,18 +638,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return '';
     },
 
-    tplAlterateurCard(card) {
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-alterateur'>
+    tplHeroCard(card) {
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-hero'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
       </div>`;
     },
-    tplAlterateurCardTooltip(card) {
+    tplHeroCardTooltip(card) {
       let p = card.properties;
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        <div class='altered-card card-alterateur'>
+        <div class='altered-card card-hero'>
           <div class='altered-card-wrapper' data-asset='${p.asset}'>
-            <div class='card-frame' data-faction='${p.faction}' data-type='alterateur'></div>
+            <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
             <div class='card-name'>${_(p.name)}</div>
             <div class='card-typeline'>${_(p.typeline)}</div>
 
@@ -654,10 +658,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
               </div>
               <div class='card-effect'>
-                ${this.formatString(_(p.effectDesc))}
+                ${this.formatString(_(p.effectDesc || ''))}
               </div>
               <div class='card-reminders'>
-              ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
+              ${p.reminders ? this.formatString(_(p.reminders)) : ''}
               </div>
             </div>
           </div>
@@ -686,10 +690,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return sizes;
     },
 
-    tplExplorerCard(card) {
+    tplCharacterCard(card) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-explorer'>
+      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-character'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
@@ -700,14 +704,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='altered-card-statuses'></div>
       </div>`;
     },
-    tplExplorerCardTooltip(card) {
+    tplCharacterCardTooltip(card) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        <div class='altered-card card-explorer'>
+        <div class='altered-card card-character'>
           <div class='altered-card-wrapper' data-asset='${p.asset}'>
             <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
-                data-rarity='${p.rarity}' data-type='explorer'></div>
+                data-rarity='${p.rarity}' data-type='character'></div>
             <div class='card-hand-cost'>${p.costHand}</div>
             <div class='card-memory-cost'>${p.costMemory}</div>
             <div class='card-name'>${_(p.name)}</div>
@@ -722,10 +726,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
               </div>
               <div class='card-effect'>
-                ${this.formatString(_(p.effectDesc))}
+                ${this.formatString(_(p.effectDesc) || '')}
               </div>
               <div class='card-reminders'>
-                ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
+                ${p.reminders ? this.formatString(_(p.reminders)) : ''}
               </div>
             </div>
             <div class='card-echo'>
@@ -764,10 +768,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
               </div>
               <div class='card-effect'>
-                ${this.formatString(_(p.effectDesc))}
+                ${this.formatString(_(p.effectDesc) || '')}
               </div>
               <div class='card-reminders'>
-              ${p.reminders ? '(' + this.formatString(_(p.reminders)) + ')' : ''}
+              ${p.reminders ? this.formatString(_(p.reminders)) : ''}
               </div>
             </div>
           </div>

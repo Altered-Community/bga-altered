@@ -3,7 +3,7 @@
     vertical-align: middle;
 
     &[data-type="companion"],
-    &[data-type="alterateur"] {
+    &[data-type="hero"] {
         width: 45px;
         height: 45px;
         background-image: url("img/hero-tokens.jpg");
@@ -42,7 +42,7 @@
         //     }
         // }
     }
-    &[data-type="alterateur"] {
+    &[data-type="hero"] {
         background-position-y: 100%;
     }
 

@@ -5,13 +5,28 @@ $cardWidth: 110px;
 $cardHeight: 150px;
 $boardMargin: 5px;
 
-$illustrations: "BR-01_Ekwu-Booda_RGB_01" "BR-07_Gretel_RGB_01" "BR-17_GerichtVanBraast_RGB_01"
-    "BR-19_MiskiCalderon_RGB_01" "BR_20_Atlas_RGB_01" "BR-24_AltrunTracer_RGB_01" "BR-24_AltrunTracer_RGB_02"
-    "BR-30_SeiringarOldGuard_RGB_01" "BR-33_TheHighGround_RGB_01" "BR-36_Hua_Mulan_01" "BR-36_Hua_Mulan_02"
-    "BR-38_Ratatoskr_01" "BR-38_Ratatoskr_02" "BRext1" "MU-02_Teija-Nauraa_RGB_01" "MU-06_Inari_RGB_01"
-    "MU_06_MusubiHarvester_RGB_01" "MU-09_Kitsune_RGB_01" "MU-14_Mowgli_RGB_01" "MU-14_Mowgli_RGB_02"
-    "MU-20_TasakaalMeshrider_RGB_01" "MU-35_Mana_Web_RGB_01" "MU-36_Sneezer_Shroom_RGB_01" "MU-36_Sneezer_Shroom_RGB_02"
-    "MU-42_Hesperide_RGB_01" "MU-43_ConiferalConeman_RGB_01" "MU-49_Nurturing_Watering_Can_RGB_01"
-    "MU-49_Nurturing_Watering_Can_RGB_02" "OR-33_Aegis Veteran_RGB_01";
+$illustrations: (
+    "AX": "AX-01-Sierra-Oddball-C" "AX-04-Kelon-Elemental-C" "AX-08-Foundry-Smelter-C" "AX-09-Tinkder-Bell-C"
+        "AX-09-Tinkder-Bell-R" "AX-10-JianLam-C" "AX-10-JianLam-R" "AX-11-AmeliaEarhart-C" "AX-19-Ganesha-C"
+        "AX-23-Parallax-Dialer-C" "AX-25-Recycling-Mill-C" "AX-25-Recycling-Mill-R" "AX-28-ArmoredJammer-C"
+        "AX-30-BrassbugQueen-C" "AX-31-Brassbug-C",
+    "BR": "BR-01-Ekwu-Booda-C" "BR-04-Ratatoskr-C" "BR-04-Ratatoskr-R" "BR-07-AltrunTracer-C" "BR-07-AltrunTracer-R"
+        "BR-08-Gretel-C" "BR-11-Chiron-C" "BR-12-Hua-Mulan-C" "BR-12-Hua-Mulan-R" "BR-15-MiskiCalderon-C"
+        "BR-17-SeiringarOldGuard-C" "BR-20-Atlas-C" "BR-26-GerichtVanBraast-C" "BR-28-TheHighGround-C" "BR-31-Booda-C",
+    "LY": "LY-03-Nevenka-Blotch" "LY-06-LyraLegerdemain-C" "LY-06-LyraLegerdemain-R" "LY-07-Hathor-C"
+        "LY-11-Esmeralda-C" "LY-11-Esmeralda-R" "LY-14-Kasirga-Wind-Dancer-C" "LY-16-Scheherezade-C" "LY-20-Asmodeus-C"
+        "LY-20-Asmodeus-R" "LY-24-Cloth-Cocoon-C" "LY-25-Loaded-Die-C" "LY-C7-Kasirga-Dealer-C" "LY-Mnemos-Skald-C",
+    "MU": "MU-02-Teija-Nauraa-C" "MU-05-Kitsune-C" "MU-06-MusubiHarvester-C" "MU-08-Sneezer-Shroom-C"
+        "MU-08-Sneezer-Shroom-R" "MU-11-Inari-C" "MU-12-Hesperide-C" "MU-13-TasakaalMeshrider-C" "MU-14-New-Cernunnos-C"
+        "MU-20-ConiferalConeman-C" "MU-20-ConiferalConeman-R" "MU-25-Mana-Web-C" "MU-27-Nurturing-Watering-Can-C"
+        "MU-27-Nurturing-Watering-Can-R",
+    "OD": "OD-02-Sigimar-Wingspan" "OD-05-AegisCadet-C" "OD-06-TrainingGrounds-C" "OD-09-FrogPrince-C" "OD-11-Ozma-C"
+        "OD-11-Ozma-R" "OD-14-Eskheret-ruun-Kurush-C" "OD-15-Caellach-C" "OD-15-Caellach-R" "OD-17-JeanneD-Arc-C"
+        "OD-17-JeanneD-Arc-R" "OD-23-Charge-C" "OD-30-Mesektet-C" "OD-31-AegisRecruit-C" "OD-32-AegisRecruit-C"
+        "OD-33-Strength-in-Numbers-C",
+    "YZ": "YZ-01-Akesha-Kone" "YZ-04-StedfastDisciple-C" "YZ-09-Nimue-C" "YZ-12-VanHelsing-C" "YZ-12-VanHelsing-R"
+        "YZ-13-Alice-C" "YZ-16-DorotyGale-C" "YZ-16-DorotyGale-R" "YZ-18-SakarMoonhealer-C" "YZ-21-Dottys-Tornado-C"
+        "YZ-22-UnjiriClairvoyant-C" "YZ-22-UnjiriClairvoyant-R" "YZ-40-Kadigiran-Phonomancer-C"
+);
 
-$factions: "BR" "MU" "LY";
+$factions: "AX" "BR" "LY" "MU" "OD" "YZ";

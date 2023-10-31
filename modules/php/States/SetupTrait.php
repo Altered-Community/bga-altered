@@ -139,7 +139,7 @@ trait SetupTrait
       $toDel = Cards::getFiltered($pId)
         ->whereNot('location', 'deck-' . $deck)
         ->filter(function ($card) use ($deck) {
-          return $card->getLocation() != 'board-alterateur-' . $deck;
+          return $card->getLocation() != 'board-hero-' . $deck;
         });
       Cards::delete($toDel->getIds());
 
@@ -147,16 +147,16 @@ trait SetupTrait
       Cards::getFiltered($pId)
         ->where('location', 'deck-' . $deck)
         ->update('location', 'deck-' . $pId);
-      $alterateur = Cards::getFiltered($pId)
-        ->where('location', 'board-alterateur-' . $deck)
-        ->update('location', 'board-alterateur-' . $pId);
+      $hero = Cards::getFiltered($pId)
+        ->where('location', 'board-hero-' . $deck)
+        ->update('location', 'board-hero-' . $pId);
 
       // faction setup
       $player->setFaction(Globals::getPlayerDecks()[$pId][$deck]['faction']);
       $meeples = Meeples::setupPlayer($player);
       // shuffling of dec
       Cards::shuffle('deck-' . $pId);
-      Notifications::setupPreco($player, $meeples, $alterateur);
+      Notifications::setupPreco($player, $meeples, $hero);
     }
 
     Notifications::setupCards(Cards::getUiData());

@@ -5,6 +5,8 @@ class YZ_Common_Alice extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '177',
       'asset' => 'YZ-13-Alice-C',

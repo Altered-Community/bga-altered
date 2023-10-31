@@ -73,7 +73,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               <div class='total-ocean'></div>
             </div>
           </div>
-          <div class='player-board-alterer' id='board-alterateur-${pId}'></div>
+          <div class='player-board-alterer' id='board-hero-${pId}'></div>
           <div class='player-board-storm' id='board-stormRight-${pId}'>
             <div class="total-biomes">
               <div class='total-forest'></div>
@@ -123,7 +123,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       $(`player-board-resizable-${n.args.player_id}`).setAttribute('data-faction', n.args.player_data.faction);
       this.updatePlayersCounters(false);
       this.updateHandCards();
-      n.args.alterateur.forEach((card) => {
+      n.args.hero.forEach((card) => {
         this.addCard(card);
       });
       n.args.meeples.forEach((meeple) => {

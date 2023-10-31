@@ -5,6 +5,8 @@ class BR_Common_Booda extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '67',
       'asset' => 'BR-31-Booda-C',

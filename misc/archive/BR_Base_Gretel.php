@@ -14,9 +14,9 @@ class BR_Base_Gretel extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Gretel'),
-      'type' => EXPLORER,
+      'type' => CHARACTER,
       'subtype' => 'Adventurer',
-      'typeline' => 'Explorer Base - Adventurer',
+      'typeline' => 'Character Base - Adventurer',
       'rarity' => RARITY_BASE,
       'effectDesc' => clienttranslate(''),
 

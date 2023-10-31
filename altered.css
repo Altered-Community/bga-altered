@@ -313,64 +313,180 @@ html {
     position: relative;
     background-size: 100% 100%;
     background-repeat: no-repeat; }
-    .altered-card .altered-card-wrapper[data-asset="BR-01_Ekwu-Booda_RGB_01"] {
-      background-image: url("img/illustrations/BR-01_Ekwu-Booda_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-07_Gretel_RGB_01"] {
-      background-image: url("img/illustrations/BR-07_Gretel_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-17_GerichtVanBraast_RGB_01"] {
-      background-image: url("img/illustrations/BR-17_GerichtVanBraast_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-19_MiskiCalderon_RGB_01"] {
-      background-image: url("img/illustrations/BR-19_MiskiCalderon_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR_20_Atlas_RGB_01"] {
-      background-image: url("img/illustrations/BR_20_Atlas_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-24_AltrunTracer_RGB_01"] {
-      background-image: url("img/illustrations/BR-24_AltrunTracer_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-24_AltrunTracer_RGB_02"] {
-      background-image: url("img/illustrations/BR-24_AltrunTracer_RGB_02.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-30_SeiringarOldGuard_RGB_01"] {
-      background-image: url("img/illustrations/BR-30_SeiringarOldGuard_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-33_TheHighGround_RGB_01"] {
-      background-image: url("img/illustrations/BR-33_TheHighGround_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-36_Hua_Mulan_01"] {
-      background-image: url("img/illustrations/BR-36_Hua_Mulan_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-36_Hua_Mulan_02"] {
-      background-image: url("img/illustrations/BR-36_Hua_Mulan_02.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-38_Ratatoskr_01"] {
-      background-image: url("img/illustrations/BR-38_Ratatoskr_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BR-38_Ratatoskr_02"] {
-      background-image: url("img/illustrations/BR-38_Ratatoskr_02.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="BRext1"] {
-      background-image: url("img/illustrations/BRext1.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-02_Teija-Nauraa_RGB_01"] {
-      background-image: url("img/illustrations/MU-02_Teija-Nauraa_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-06_Inari_RGB_01"] {
-      background-image: url("img/illustrations/MU-06_Inari_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU_06_MusubiHarvester_RGB_01"] {
-      background-image: url("img/illustrations/MU_06_MusubiHarvester_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-09_Kitsune_RGB_01"] {
-      background-image: url("img/illustrations/MU-09_Kitsune_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-14_Mowgli_RGB_01"] {
-      background-image: url("img/illustrations/MU-14_Mowgli_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-14_Mowgli_RGB_02"] {
-      background-image: url("img/illustrations/MU-14_Mowgli_RGB_02.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-20_TasakaalMeshrider_RGB_01"] {
-      background-image: url("img/illustrations/MU-20_TasakaalMeshrider_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-35_Mana_Web_RGB_01"] {
-      background-image: url("img/illustrations/MU-35_Mana_Web_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-36_Sneezer_Shroom_RGB_01"] {
-      background-image: url("img/illustrations/MU-36_Sneezer_Shroom_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-36_Sneezer_Shroom_RGB_02"] {
-      background-image: url("img/illustrations/MU-36_Sneezer_Shroom_RGB_02.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-42_Hesperide_RGB_01"] {
-      background-image: url("img/illustrations/MU-42_Hesperide_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-43_ConiferalConeman_RGB_01"] {
-      background-image: url("img/illustrations/MU-43_ConiferalConeman_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-49_Nurturing_Watering_Can_RGB_01"] {
-      background-image: url("img/illustrations/MU-49_Nurturing_Watering_Can_RGB_01.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="MU-49_Nurturing_Watering_Can_RGB_02"] {
-      background-image: url("img/illustrations/MU-49_Nurturing_Watering_Can_RGB_02.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="OR-33_Aegis Veteran_RGB_01"] {
-      background-image: url("img/illustrations/OR-33_Aegis Veteran_RGB_01.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-01-Sierra-Oddball-C"] {
+      background-image: url("img/illustrations/AX/AX-01-Sierra-Oddball-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-04-Kelon-Elemental-C"] {
+      background-image: url("img/illustrations/AX/AX-04-Kelon-Elemental-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-08-Foundry-Smelter-C"] {
+      background-image: url("img/illustrations/AX/AX-08-Foundry-Smelter-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-09-Tinkder-Bell-C"] {
+      background-image: url("img/illustrations/AX/AX-09-Tinkder-Bell-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-09-Tinkder-Bell-R"] {
+      background-image: url("img/illustrations/AX/AX-09-Tinkder-Bell-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-10-JianLam-C"] {
+      background-image: url("img/illustrations/AX/AX-10-JianLam-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-10-JianLam-R"] {
+      background-image: url("img/illustrations/AX/AX-10-JianLam-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-11-AmeliaEarhart-C"] {
+      background-image: url("img/illustrations/AX/AX-11-AmeliaEarhart-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-19-Ganesha-C"] {
+      background-image: url("img/illustrations/AX/AX-19-Ganesha-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-23-Parallax-Dialer-C"] {
+      background-image: url("img/illustrations/AX/AX-23-Parallax-Dialer-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-25-Recycling-Mill-C"] {
+      background-image: url("img/illustrations/AX/AX-25-Recycling-Mill-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-25-Recycling-Mill-R"] {
+      background-image: url("img/illustrations/AX/AX-25-Recycling-Mill-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-28-ArmoredJammer-C"] {
+      background-image: url("img/illustrations/AX/AX-28-ArmoredJammer-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-30-BrassbugQueen-C"] {
+      background-image: url("img/illustrations/AX/AX-30-BrassbugQueen-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="AX-31-Brassbug-C"] {
+      background-image: url("img/illustrations/AX/AX-31-Brassbug-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-01-Ekwu-Booda-C"] {
+      background-image: url("img/illustrations/BR/BR-01-Ekwu-Booda-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-04-Ratatoskr-C"] {
+      background-image: url("img/illustrations/BR/BR-04-Ratatoskr-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-04-Ratatoskr-R"] {
+      background-image: url("img/illustrations/BR/BR-04-Ratatoskr-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-07-AltrunTracer-C"] {
+      background-image: url("img/illustrations/BR/BR-07-AltrunTracer-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-07-AltrunTracer-R"] {
+      background-image: url("img/illustrations/BR/BR-07-AltrunTracer-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-08-Gretel-C"] {
+      background-image: url("img/illustrations/BR/BR-08-Gretel-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-11-Chiron-C"] {
+      background-image: url("img/illustrations/BR/BR-11-Chiron-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-12-Hua-Mulan-C"] {
+      background-image: url("img/illustrations/BR/BR-12-Hua-Mulan-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-12-Hua-Mulan-R"] {
+      background-image: url("img/illustrations/BR/BR-12-Hua-Mulan-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-15-MiskiCalderon-C"] {
+      background-image: url("img/illustrations/BR/BR-15-MiskiCalderon-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-17-SeiringarOldGuard-C"] {
+      background-image: url("img/illustrations/BR/BR-17-SeiringarOldGuard-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-20-Atlas-C"] {
+      background-image: url("img/illustrations/BR/BR-20-Atlas-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-26-GerichtVanBraast-C"] {
+      background-image: url("img/illustrations/BR/BR-26-GerichtVanBraast-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-28-TheHighGround-C"] {
+      background-image: url("img/illustrations/BR/BR-28-TheHighGround-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-31-Booda-C"] {
+      background-image: url("img/illustrations/BR/BR-31-Booda-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-03-Nevenka-Blotch"] {
+      background-image: url("img/illustrations/LY/LY-03-Nevenka-Blotch.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-06-LyraLegerdemain-C"] {
+      background-image: url("img/illustrations/LY/LY-06-LyraLegerdemain-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-06-LyraLegerdemain-R"] {
+      background-image: url("img/illustrations/LY/LY-06-LyraLegerdemain-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-07-Hathor-C"] {
+      background-image: url("img/illustrations/LY/LY-07-Hathor-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-11-Esmeralda-C"] {
+      background-image: url("img/illustrations/LY/LY-11-Esmeralda-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-11-Esmeralda-R"] {
+      background-image: url("img/illustrations/LY/LY-11-Esmeralda-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-14-Kasirga-Wind-Dancer-C"] {
+      background-image: url("img/illustrations/LY/LY-14-Kasirga-Wind-Dancer-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-16-Scheherezade-C"] {
+      background-image: url("img/illustrations/LY/LY-16-Scheherezade-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-20-Asmodeus-C"] {
+      background-image: url("img/illustrations/LY/LY-20-Asmodeus-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-20-Asmodeus-R"] {
+      background-image: url("img/illustrations/LY/LY-20-Asmodeus-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-24-Cloth-Cocoon-C"] {
+      background-image: url("img/illustrations/LY/LY-24-Cloth-Cocoon-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-25-Loaded-Die-C"] {
+      background-image: url("img/illustrations/LY/LY-25-Loaded-Die-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-C7-Kasirga-Dealer-C"] {
+      background-image: url("img/illustrations/LY/LY-C7-Kasirga-Dealer-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-Mnemos-Skald-C"] {
+      background-image: url("img/illustrations/LY/LY-Mnemos-Skald-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-02-Teija-Nauraa-C"] {
+      background-image: url("img/illustrations/MU/MU-02-Teija-Nauraa-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-05-Kitsune-C"] {
+      background-image: url("img/illustrations/MU/MU-05-Kitsune-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-06-MusubiHarvester-C"] {
+      background-image: url("img/illustrations/MU/MU-06-MusubiHarvester-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-08-Sneezer-Shroom-C"] {
+      background-image: url("img/illustrations/MU/MU-08-Sneezer-Shroom-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-08-Sneezer-Shroom-R"] {
+      background-image: url("img/illustrations/MU/MU-08-Sneezer-Shroom-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-11-Inari-C"] {
+      background-image: url("img/illustrations/MU/MU-11-Inari-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-12-Hesperide-C"] {
+      background-image: url("img/illustrations/MU/MU-12-Hesperide-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-13-TasakaalMeshrider-C"] {
+      background-image: url("img/illustrations/MU/MU-13-TasakaalMeshrider-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-14-New-Cernunnos-C"] {
+      background-image: url("img/illustrations/MU/MU-14-New-Cernunnos-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-20-ConiferalConeman-C"] {
+      background-image: url("img/illustrations/MU/MU-20-ConiferalConeman-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-20-ConiferalConeman-R"] {
+      background-image: url("img/illustrations/MU/MU-20-ConiferalConeman-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-25-Mana-Web-C"] {
+      background-image: url("img/illustrations/MU/MU-25-Mana-Web-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-27-Nurturing-Watering-Can-C"] {
+      background-image: url("img/illustrations/MU/MU-27-Nurturing-Watering-Can-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="MU-27-Nurturing-Watering-Can-R"] {
+      background-image: url("img/illustrations/MU/MU-27-Nurturing-Watering-Can-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-02-Sigimar-Wingspan"] {
+      background-image: url("img/illustrations/OD/OD-02-Sigimar-Wingspan.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-05-AegisCadet-C"] {
+      background-image: url("img/illustrations/OD/OD-05-AegisCadet-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-06-TrainingGrounds-C"] {
+      background-image: url("img/illustrations/OD/OD-06-TrainingGrounds-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-09-FrogPrince-C"] {
+      background-image: url("img/illustrations/OD/OD-09-FrogPrince-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-11-Ozma-C"] {
+      background-image: url("img/illustrations/OD/OD-11-Ozma-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-11-Ozma-R"] {
+      background-image: url("img/illustrations/OD/OD-11-Ozma-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-14-Eskheret-ruun-Kurush-C"] {
+      background-image: url("img/illustrations/OD/OD-14-Eskheret-ruun-Kurush-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-15-Caellach-C"] {
+      background-image: url("img/illustrations/OD/OD-15-Caellach-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-15-Caellach-R"] {
+      background-image: url("img/illustrations/OD/OD-15-Caellach-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-17-JeanneD-Arc-C"] {
+      background-image: url("img/illustrations/OD/OD-17-JeanneD-Arc-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-17-JeanneD-Arc-R"] {
+      background-image: url("img/illustrations/OD/OD-17-JeanneD-Arc-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-23-Charge-C"] {
+      background-image: url("img/illustrations/OD/OD-23-Charge-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-30-Mesektet-C"] {
+      background-image: url("img/illustrations/OD/OD-30-Mesektet-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-31-AegisRecruit-C"] {
+      background-image: url("img/illustrations/OD/OD-31-AegisRecruit-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-32-AegisRecruit-C"] {
+      background-image: url("img/illustrations/OD/OD-32-AegisRecruit-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="OD-33-Strength-in-Numbers-C"] {
+      background-image: url("img/illustrations/OD/OD-33-Strength-in-Numbers-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-01-Akesha-Kone"] {
+      background-image: url("img/illustrations/YZ/YZ-01-Akesha-Kone.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-04-StedfastDisciple-C"] {
+      background-image: url("img/illustrations/YZ/YZ-04-StedfastDisciple-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-09-Nimue-C"] {
+      background-image: url("img/illustrations/YZ/YZ-09-Nimue-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-12-VanHelsing-C"] {
+      background-image: url("img/illustrations/YZ/YZ-12-VanHelsing-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-12-VanHelsing-R"] {
+      background-image: url("img/illustrations/YZ/YZ-12-VanHelsing-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-13-Alice-C"] {
+      background-image: url("img/illustrations/YZ/YZ-13-Alice-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-16-DorotyGale-C"] {
+      background-image: url("img/illustrations/YZ/YZ-16-DorotyGale-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-16-DorotyGale-R"] {
+      background-image: url("img/illustrations/YZ/YZ-16-DorotyGale-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-18-SakarMoonhealer-C"] {
+      background-image: url("img/illustrations/YZ/YZ-18-SakarMoonhealer-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-21-Dottys-Tornado-C"] {
+      background-image: url("img/illustrations/YZ/YZ-21-Dottys-Tornado-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-22-UnjiriClairvoyant-C"] {
+      background-image: url("img/illustrations/YZ/YZ-22-UnjiriClairvoyant-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-22-UnjiriClairvoyant-R"] {
+      background-image: url("img/illustrations/YZ/YZ-22-UnjiriClairvoyant-R.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="YZ-40-Kadigiran-Phonomancer-C"] {
+      background-image: url("img/illustrations/YZ/YZ-40-Kadigiran-Phonomancer-C.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="back"] {
       background-image: url("img/back-main.jpg"); }
 
@@ -504,37 +620,43 @@ html {
         top: 0;
         bottom: 0;
         background-size: 600% 500%; }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="AX"] {
+          background-image: url("img/frames/AX.png"); }
         .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="BR"] {
           background-image: url("img/frames/BR.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
-          background-image: url("img/frames/MU.png"); }
         .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
           background-image: url("img/frames/LY.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="alterateur"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
+          background-image: url("img/frames/MU.png"); }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="OD"] {
+          background-image: url("img/frames/OD.png"); }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="YZ"] {
+          background-image: url("img/frames/YZ.png"); }
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="hero"] {
           background-position: 0% 50%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="1"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="1"] {
           background-position: 40% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="2"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="2"] {
           background-position: 60% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="3"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="3"] {
           background-position: 0% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="0"][data-frame="4"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="4"] {
           background-position: 20% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="1"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="1"] {
           background-position: 0% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="2"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="2"] {
           background-position: 20% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="3"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="3"] {
           background-position: 80% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="1"][data-frame="4"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="4"] {
           background-position: 100% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="1"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="1"] {
           background-position: 80% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="2"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="2"] {
           background-position: 100% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="3"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="3"] {
           background-position: 40% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="explorer"][data-rarity="2"][data-frame="4"] {
+        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="4"] {
           background-position: 60% 25%; }
         .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="1"] {
           background-position: 100% 75%; }
@@ -675,14 +797,14 @@ html {
         right: 84px;
         font-family: "Jali Greek Variable";
         color: black; }
-    .altered-card-tooltip .altered-card.card-alterateur .card-name {
+    .altered-card-tooltip .altered-card.card-hero .card-name {
       top: 27px;
       font-style: italic; }
-    .altered-card-tooltip .altered-card.card-alterateur .card-typeline {
+    .altered-card-tooltip .altered-card.card-hero .card-typeline {
       top: 51px;
       font-style: italic;
       font-weight: bold; }
-    .altered-card-tooltip .altered-card.card-alterateur .card-text {
+    .altered-card-tooltip .altered-card.card-hero .card-text {
       top: 311px;
       bottom: 31px;
       left: 25px;
@@ -785,7 +907,7 @@ html {
 .altered-meeple {
   display: inline-block;
   vertical-align: middle; }
-  .altered-meeple[data-type="companion"], .altered-meeple[data-type="alterateur"] {
+  .altered-meeple[data-type="companion"], .altered-meeple[data-type="hero"] {
     width: 45px;
     height: 45px;
     background-image: url("img/hero-tokens.jpg");
@@ -794,19 +916,19 @@ html {
     border: 1px solid black;
     box-shadow: 0 0 4px 5px rgba(255, 219, 12, 0.8);
     box-sizing: border-box; }
-    .altered-meeple[data-type="companion"][data-faction="AX"], .altered-meeple[data-type="alterateur"][data-faction="AX"] {
+    .altered-meeple[data-type="companion"][data-faction="AX"], .altered-meeple[data-type="hero"][data-faction="AX"] {
       background-position-x: 0%; }
-    .altered-meeple[data-type="companion"][data-faction="BR"], .altered-meeple[data-type="alterateur"][data-faction="BR"] {
+    .altered-meeple[data-type="companion"][data-faction="BR"], .altered-meeple[data-type="hero"][data-faction="BR"] {
       background-position-x: 20%; }
-    .altered-meeple[data-type="companion"][data-faction="LY"], .altered-meeple[data-type="alterateur"][data-faction="LY"] {
+    .altered-meeple[data-type="companion"][data-faction="LY"], .altered-meeple[data-type="hero"][data-faction="LY"] {
       background-position-x: 40%; }
-    .altered-meeple[data-type="companion"][data-faction="MU"], .altered-meeple[data-type="alterateur"][data-faction="MU"] {
+    .altered-meeple[data-type="companion"][data-faction="MU"], .altered-meeple[data-type="hero"][data-faction="MU"] {
       background-position-x: 60%; }
-    .altered-meeple[data-type="companion"][data-faction="OR"], .altered-meeple[data-type="alterateur"][data-faction="OR"] {
+    .altered-meeple[data-type="companion"][data-faction="OR"], .altered-meeple[data-type="hero"][data-faction="OR"] {
       background-position-x: 80%; }
-    .altered-meeple[data-type="companion"][data-faction="YZ"], .altered-meeple[data-type="alterateur"][data-faction="YZ"] {
+    .altered-meeple[data-type="companion"][data-faction="YZ"], .altered-meeple[data-type="hero"][data-faction="YZ"] {
       background-position-x: 100%; }
-  .altered-meeple[data-type="alterateur"] {
+  .altered-meeple[data-type="hero"] {
     background-position-y: 100%; }
   .altered-meeple[data-type="fleeting"] {
     background-image: url("img/icons/fleeting.png");

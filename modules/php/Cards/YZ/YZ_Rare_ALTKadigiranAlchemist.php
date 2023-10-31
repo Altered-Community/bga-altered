@@ -5,6 +5,8 @@ class YZ_Rare_ALTKadigiranAlchemist extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '195',
       'asset' => 'YZ-12-VanHelsing-R',

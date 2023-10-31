@@ -99,7 +99,7 @@ abstract class FlowConvertor
         $data['args']['cardId'] = $args['sourceId'];
       }
       return $data;
-    } elseif ($type == TARGET_ALL_EXPLORER) {
+    } elseif ($type == TARGET_ALL_CHARACTER) {
       // target will trigger a sequential node, with the args
       $childs = [];
       $childs[] = ['action' => TARGET, 'args' => []];
@@ -109,7 +109,7 @@ abstract class FlowConvertor
         $childs[] = self::getFlowSingleBonusAux($newType, $newN);
       }
       return ['node' => NODE_SEQ, 'childs' => $childs];
-    } elseif ($type == TARGET_ALL_EXPLORER_2) {
+    } elseif ($type == TARGET_ALL_CHARACTER_2) {
       // target will trigger a sequential node, with the args
       $childs = [];
       $childs[] = ['action' => TARGET, 'args' => ['n' => 2]];
@@ -125,7 +125,7 @@ abstract class FlowConvertor
       $childs = [];
       $childs[] = [
         'action' => TARGET,
-        'args' => ['targetType' => [EXPLORER, PERMANENT], 'handCost' => 5],
+        'args' => ['targetType' => [CHARACTER, PERMANENT], 'handCost' => 5],
       ];
       foreach ($n as $id => $newNode) {
         $newType = array_keys($newNode)[0];

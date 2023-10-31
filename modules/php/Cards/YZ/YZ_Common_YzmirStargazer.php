@@ -5,6 +5,8 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '169',
       'asset' => 'YZ-40-Kadigiran-Phonomancer-C',

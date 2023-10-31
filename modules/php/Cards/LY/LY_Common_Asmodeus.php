@@ -5,6 +5,8 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '86',
       'asset' => 'LY-20-Asmodeus-C',

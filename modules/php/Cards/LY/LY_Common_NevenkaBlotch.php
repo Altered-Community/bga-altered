@@ -5,6 +5,8 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '68',
       'asset' => 'LY-03-Nevenka-Blotch',

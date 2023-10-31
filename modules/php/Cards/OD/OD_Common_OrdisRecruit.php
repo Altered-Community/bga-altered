@@ -5,6 +5,8 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '162',
       'asset' => 'OD-31-AegisRecruit-R',

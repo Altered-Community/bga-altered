@@ -1,10 +1,13 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Rare_SneezerShroom extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '127',
       'asset' => 'MU-08-Sneezer-Shroom-R',

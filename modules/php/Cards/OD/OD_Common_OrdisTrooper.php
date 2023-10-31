@@ -5,6 +5,8 @@ class OD_Common_OrdisTrooper extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '129',
       'asset' => 'OD-05-AegisCadet-C',

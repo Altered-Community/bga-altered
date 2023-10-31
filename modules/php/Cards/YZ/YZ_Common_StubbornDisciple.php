@@ -5,6 +5,8 @@ class YZ_Common_StubbornDisciple extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '172',
       'asset' => 'YZ-04-SteadfastDisciple-C',

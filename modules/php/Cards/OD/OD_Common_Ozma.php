@@ -5,6 +5,8 @@ class OD_Common_Ozma extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '138',
       'asset' => 'OD-11-Ozma-C',

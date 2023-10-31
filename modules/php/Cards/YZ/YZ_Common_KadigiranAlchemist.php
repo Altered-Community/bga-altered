@@ -5,6 +5,8 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '175',
       'asset' => 'YZ-12-VanHelsing-C',

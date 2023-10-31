@@ -1,10 +1,13 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Common_ConiferalConeman extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '118',
       'asset' => 'MU-20-ConiferalConeman-C',

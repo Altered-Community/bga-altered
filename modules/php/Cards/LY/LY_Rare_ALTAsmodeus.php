@@ -5,6 +5,8 @@ class LY_Rare_ALTAsmodeus extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '96',
       'asset' => 'LY-20-Asmodeus-R',

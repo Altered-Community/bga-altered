@@ -47,10 +47,10 @@ class Player extends \ALT\Helpers\DB_Model
     return $data;
   }
 
-  public function getAlterateur()
+  public function getHero()
   {
     $pId = $this->id;
-    return Cards::getInLocation("board-alterateur-$pId")->first();
+    return Cards::getInLocation("board-hero-$pId")->first();
   }
 
   public function getPref($prefId)
@@ -137,12 +137,12 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getMemorySlots()
   {
-    return $this->getAlterateur()->getMemorySlots();
+    return $this->getHero()->getMemorySlots();
   }
 
   public function getPermanentSlots()
   {
-    return $this->getAlterateur()->getPermanentSlots();
+    return $this->getHero()->getPermanentSlots();
   }
 
   public function getPermanents()
@@ -181,23 +181,23 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getStormToken(COMPANION);
   }
 
-  public function getAlterateurToken()
+  public function getHeroToken()
   {
-    return $this->getStormToken(ALTERATEUR);
+    return $this->getStormToken(HERO);
   }
 
   public function getDeck($deckNumber)
   {
     return Cards::getFiltered($this->id, 'deck-' . $deckNumber)->merge(
-      Cards::getFiltered($this->id, 'board-alterateur-' . $deckNumber)
+      Cards::getFiltered($this->id, 'board-hero-' . $deckNumber)
     );
   }
 
   public function checkVictory()
   {
     $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];
-    $alterateurPos = explode('-', $this->getAlterateurToken()->getLocation())[1];
-    return [$companionPos - $alterateurPos <= 0, Globals::getStormMoves()[$this->id] ?? 0];
+    $heroPos = explode('-', $this->getHeroToken()->getLocation())[1];
+    return [$companionPos - $heroPos <= 0, Globals::getStormMoves()[$this->id] ?? 0];
   }
 
   public function getBiomeInStorms()
@@ -232,8 +232,8 @@ class Player extends \ALT\Helpers\DB_Model
     $tokenMeeple = $this->$getToken();
     // TODO: manage immobile
     $location = $tokenMeeple->getLocationArg();
-    // if alterateur we increase
-    $delta = $token == ALTERATEUR ? 1 : -1;
+    // if hero we increase
+    $delta = $token == HERO ? 1 : -1;
     $sId = $location + $delta;
     // Set new location
     $tokenMeeple->setLocation('storm-' . $sId);

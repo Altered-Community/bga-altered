@@ -5,6 +5,8 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '128',
       'asset' => 'OD-02-Sigimar-Wingspan',

@@ -5,6 +5,8 @@ class LY_Common_OuroborosDealer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '83',
       'asset' => 'LY-C7-Kasirga-Dealer-C',

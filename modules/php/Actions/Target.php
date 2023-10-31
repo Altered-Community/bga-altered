@@ -23,7 +23,7 @@ class Target extends \ALT\Models\Action
   {
     $targetType = $this->getArg('targetType');
 
-    if (count($targetType) == 1 && $targetType == EXPLORER) {
+    if (count($targetType) == 1 && $targetType == CHARACTER) {
       return clienttranslate('Target a character');
     } elseif (count($targetType) == 1 && $targetType == PERMANENT) {
       return clienttranslate('Target a permanent');
@@ -40,7 +40,7 @@ class Target extends \ALT\Models\Action
   protected $args = [
     'upTo' => false, // if n > 1, can the player select UP TO n cards or exactly n cards ?
     'targetPlayer' => ALL,
-    'targetType' => [EXPLORER], // must be an array
+    'targetType' => [CHARACTER], // must be an array
     'targetLocation' => IN_PLAY, //  must be an array reserve / inplay)
     'maxMemoryCost' => INFTY, // limitation
     'maxHandCost' => INFTY, // limitation

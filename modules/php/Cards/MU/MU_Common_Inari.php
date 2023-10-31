@@ -5,6 +5,8 @@ class MU_Common_Inari extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '106',
       'asset' => 'MU-11-Inari-C',

@@ -5,6 +5,8 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '1',
       'asset' => 'AX-01-Sierra-Oddball',

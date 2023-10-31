@@ -5,6 +5,8 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '156',
       'asset' => 'OD-11-Ozma-R',

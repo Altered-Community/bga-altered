@@ -5,6 +5,8 @@ class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '95',
       'asset' => 'LY-11-Esmeralda-R',

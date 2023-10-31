@@ -5,6 +5,8 @@ class AX_Common_KelonSurge extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '15',
       'asset' => 'AX-23-Parallax-Dialer-C',

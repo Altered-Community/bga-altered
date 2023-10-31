@@ -5,6 +5,8 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '145',
       'asset' => 'OD-17-JeanneD-Arc-C',

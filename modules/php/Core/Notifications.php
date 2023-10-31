@@ -56,7 +56,7 @@ class Notifications
     ]);
   }
 
-  public static function setupPreco($player, $meeples, $alterateur)
+  public static function setupPreco($player, $meeples, $hero)
   {
     $factionNames = [
       \FACTION_BR => clienttranslate('Bravos'),
@@ -72,7 +72,7 @@ class Notifications
         'faction_name' => $factionNames[$player->getFaction()],
         'player_data' => $player->getUiData(),
         'meeples' => $meeples->toArray(),
-        'alterateur' => $alterateur->toArray(),
+        'hero' => $hero->toArray(),
       ]
     );
   }

@@ -1,10 +1,13 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Rare_Ratatoskr extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '66',
       'asset' => 'BR-04-Ratatoskr-02',

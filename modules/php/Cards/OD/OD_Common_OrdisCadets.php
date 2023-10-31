@@ -5,6 +5,8 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '132',
       'asset' => 'OD-06-Training Grounds-C',

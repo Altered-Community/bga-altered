@@ -5,6 +5,8 @@ class BR_Common_Chiron extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '44',
       'asset' => 'BR-11-Chiron-C',

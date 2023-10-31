@@ -5,6 +5,8 @@ class YZ_Common_OffYouGo extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '185',
       'asset' => 'YZ-21-Dottys-Tornado-C',

@@ -109,8 +109,8 @@ const INVOKE_TOKEN = 'InvokeToken';
 const DRAW = 'Draw';
 
 ////////////// Flow convertor constants
-const TARGET_ALL_EXPLORER = 'target_all_explorer';
-const TARGET_ALL_EXPLORER_2 = 'target_all_explorer_2';
+const TARGET_ALL_CHARACTER = 'target_all_character';
+const TARGET_ALL_CHARACTER_2 = 'target_all_character_2';
 const TARGET_ALL_ALL_1_4 = 'target_all_all_1_4';
 const DISCARD_HAND = 'discard_hand'; // Discard to hand
 const SABOTAGE = 'sabotage';
@@ -124,8 +124,8 @@ const FOREST = 'forest';
 const OCEAN = 'ocean';
 const EFFECT = 'EFFECT';
 
-const ALTERATEUR = 'alterateur';
-const EXPLORER = 'explorer';
+const HERO = 'hero';
+const CHARACTER = 'character';
 const PERMANENT = 'permanent';
 const SPELL = 'spell';
 const EVERYONE_ELSE = 'everyone-else';
@@ -149,7 +149,7 @@ const STORM_CARDS = [
 ];
 const STORM_BACK = 5;
 
-const RARITY_BASE = 0;
+const RARITY_COMMON = 0;
 const RARITY_RARE = 1;
 const RARITY_UNIQUE = 2;
 

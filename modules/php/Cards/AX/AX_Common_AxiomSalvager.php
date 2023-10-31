@@ -5,6 +5,8 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '18',
       'asset' => 'AX-08-Foundry-Smelter-C',

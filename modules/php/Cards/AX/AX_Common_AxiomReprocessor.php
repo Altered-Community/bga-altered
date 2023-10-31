@@ -5,6 +5,8 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '24',
       'asset' => 'AX-25-Recycling-Mill-C',

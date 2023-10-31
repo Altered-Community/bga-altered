@@ -5,6 +5,8 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '165',
       'asset' => 'YZ-01-Akesha-Kone',

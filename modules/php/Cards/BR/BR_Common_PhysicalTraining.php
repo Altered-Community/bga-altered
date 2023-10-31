@@ -1,10 +1,13 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Common_PhysicalTraining extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '58',
       'asset' => 'BR-26-GerichtVanBraast-C',

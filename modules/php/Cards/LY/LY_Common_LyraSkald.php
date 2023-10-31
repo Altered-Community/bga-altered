@@ -5,6 +5,8 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '70',
       'asset' => 'LY-Mnemos-Skald-C',

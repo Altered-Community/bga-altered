@@ -23,7 +23,7 @@ abstract class Conditions
   {
     return $event['playCard'] === true &&
       $card->getPId() == $event['pId'] &&
-      $event['cardType'] == EXPLORER &&
+      $event['cardType'] == CHARACTER &&
       ($card->getExtraDatas()['userPower'] ?? false) == false;
   }
 

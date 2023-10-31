@@ -5,6 +5,8 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '21',
       'asset' => 'AX-28-ArmoredJammer-C',

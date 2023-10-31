@@ -60,7 +60,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplMeeple(meeple) {
       let type = meeple.type.charAt(0).toLowerCase() + meeple.type.substr(1);
-      const PERSONAL = ['companion', 'alterateur'];
+      const PERSONAL = ['companion', 'hero'];
       let faction = PERSONAL.includes(type) ? ` data-faction="${this.getPlayerFaction(meeple.pId)}" ` : '';
       return `<div class="altered-meeple altered-icon icon-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" data-state="${meeple.state}" ${faction}></div>`;
     },
@@ -156,7 +156,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
     },
 
-    
     notif_looseMeeples(n) {
       debug('Loose of meeples', n);
       this.slideResources(n.args.meeples, {
@@ -199,10 +198,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Silent kill of meeples', n);
       n.args.tokens.forEach((meepleId) => {
         $(`meeple-${meepleId}`).remove();
-      });    
+      });
     },
-
-
 
     notif_newFirstPlayer(n) {
       debug('Notif: new first player', n);
@@ -214,8 +211,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
       // Slide first player
       let pId = n.args.player_id;
-      
-      this.slideResources([{ id: 'firstPlayer' }], { from: $(`firstPlayer-${this.gamedatas.firstPlayer}`), target: $(`firstPlayer-${pId}`) });
+
+      this.slideResources([{ id: 'firstPlayer' }], {
+        from: $(`firstPlayer-${this.gamedatas.firstPlayer}`),
+        target: $(`firstPlayer-${pId}`),
+      });
       this.gamedatas.firstPlayer = pId;
     },
   });

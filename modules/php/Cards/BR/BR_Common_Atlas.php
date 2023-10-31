@@ -5,6 +5,8 @@ class BR_Common_Atlas extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '55',
       'asset' => 'BR-20-Atlas-C',

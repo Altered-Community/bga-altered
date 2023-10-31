@@ -1,10 +1,13 @@
 <?php
 namespace ALT\Cards\BR;
+use ALT\Helpers\FT;
 
 class BR_Common_HuaMulan extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '47',
       'asset' => 'BR-12-Hua-Mulan-C',

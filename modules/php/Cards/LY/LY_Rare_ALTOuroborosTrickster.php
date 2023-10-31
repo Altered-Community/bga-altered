@@ -5,6 +5,8 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '94',
       'asset' => 'LY-06-LyraLegerdemain-R',

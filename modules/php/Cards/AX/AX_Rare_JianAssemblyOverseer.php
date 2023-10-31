@@ -5,6 +5,8 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '29',
       'asset' => 'AX-10-JianLam-R',

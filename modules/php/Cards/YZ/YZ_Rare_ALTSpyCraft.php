@@ -5,6 +5,8 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '194',
       'asset' => 'YZ-22-UnjiriClairvoyant-R',

@@ -5,6 +5,8 @@ class LY_Common_AllIn extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '91',
       'asset' => 'LY-25-Loaded-Die-C',

@@ -117,7 +117,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $this->location == 'stormLeft' ||
       $this->location == 'stormRight' ||
       $this->location == 'inPlay' ||
-      $this->properties['type'] == ALTERATEUR;
+      $this->properties['type'] == HERO;
   }
 
   public function isMana()

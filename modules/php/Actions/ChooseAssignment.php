@@ -47,7 +47,7 @@ class ChooseAssignment extends \ALT\Models\Action
         if ($type == SPELL) {
           return [LIMBO];
         }
-        if ($type == EXPLORER) {
+        if ($type == CHARACTER) {
           return [STORM_LEFT, STORM_RIGHT];
         }
         return [];

@@ -97,11 +97,14 @@
         background-size: 100% 100%;
         background-repeat: no-repeat;
 
-        @each $asset in $illustrations {
-            &[data-asset="#{$asset}"] {
-                background-image: url("img/illustrations/#{$asset}.jpg");
+        @each $faction, $list in $illustrations {
+            @each $asset in $list {
+                &[data-asset="#{$asset}"] {
+                    background-image: url("img/illustrations/#{$faction}/#{$asset}.jpg");
+                }
             }
         }
+
         &[data-asset="back"] {
             background-image: url("img/back-main.jpg");
         }
@@ -286,11 +289,11 @@ $miniCardScale: 0.33;
                     }
                 }
 
-                &[data-type="alterateur"] {
+                &[data-type="hero"] {
                     background-position: 0% 50%;
                 }
 
-                &[data-type="explorer"] {
+                &[data-type="character"] {
                     // BASE
                     &[data-rarity="0"] {
                         // Small frame, no ECHO
@@ -543,7 +546,7 @@ $miniCardScale: 0.33;
             }
         }
 
-        &.card-alterateur {
+        &.card-hero {
             .card-name {
                 top: 27px;
                 font-style: italic;

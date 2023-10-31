@@ -159,7 +159,7 @@ trait TurnTrait
       $biomesByStorm = $player->getBiomeInStorms();
       foreach ($biomesByStorm as $side => $biomes) {
         $move = null;
-        $expedition = $side == ALTERATEUR ? STORM_LEFT : STORM_RIGHT;
+        $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
 
         foreach ($biomes as $i => $biome) {
           if ($winners[$expedition][$biome]['pId'] == $pId) {

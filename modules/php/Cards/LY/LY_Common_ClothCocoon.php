@@ -5,6 +5,8 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '88',
       'asset' => 'LY-24-Cloth-Cocoon-C',

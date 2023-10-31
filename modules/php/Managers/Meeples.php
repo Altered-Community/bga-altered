@@ -45,7 +45,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
   {
     $meeples = [];
     $meeples[] = ['type' => COMPANION, 'location' => 'storm-7', 'player_id' => $player->getId()];
-    $meeples[] = ['type' => ALTERATEUR, 'location' => 'storm-0', 'player_id' => $player->getId()];
+    $meeples[] = ['type' => HERO, 'location' => 'storm-0', 'player_id' => $player->getId()];
     return self::create($meeples);
   }
 
@@ -61,7 +61,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
 
   public static function getStormTokens($pId)
   {
-    return self::getFilteredQuery($pId, null, [COMPANION, ALTERATEUR])->get();
+    return self::getFilteredQuery($pId, null, [COMPANION, HERO])->get();
   }
 
   /**

@@ -5,6 +5,8 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '75',
       'asset' => 'LY-11-Esmeralda-C',

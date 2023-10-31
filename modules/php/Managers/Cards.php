@@ -46,11 +46,11 @@ class Cards extends \ALT\Helpers\CachedPieces
     // TODO : remove once stable
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];
-    $rarity = $p['rarity'] == 0 ? 'base' : 'rare';
+    $rarity = $p['rarity'] == 0 ? 'common' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    // return new $className($data); // no DB call
-    return new Card($data); // information from DB
+    return new $className($data); // no DB call
+    // return new Card($data); // information from DB
   }
 
   public static function getUiData()
@@ -58,7 +58,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     return self::getAll()
       ->where('location', IN_PLAY)
       ->merge(self::getInLocation(MEMORY))
-      ->merge(self::getInLocation('board-alterateur-%'))
+      ->merge(self::getInLocation('board-hero-%'))
       ->merge(self::getInLocation('limbo'))
       ->merge(self::getInLocation('discard'))
       ->toArray();
@@ -89,8 +89,8 @@ class Cards extends \ALT\Helpers\CachedPieces
         $className = "\\ALT\\Cards\\$faction\\$cardId";
         $card = new $className(null);
         $location = "deck-$deckNumber";
-        if ($card->getType() == ALTERATEUR) {
-          $location = "board-alterateur-$deckNumber";
+        if ($card->getType() == HERO) {
+          $location = "board-hero-$deckNumber";
           $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction, 'hero' => $card->getUid()];
         }
 
@@ -197,7 +197,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     return self::getInLocation(STORM_LEFT)
       ->merge(self::getInLocation(STORM_RIGHT))
       ->merge(self::getInLocation(PERMANENT))
-      ->merge(self::getInLocation('board-alterateur%'));
+      ->merge(self::getInLocation('board-hero%'));
   }
 
   /**

@@ -46,7 +46,7 @@ trait DebugTrait
   function tv()
   {
     // Cards::get(24)->setTapped(true);
-    // Cards::get(3)->setEffectHand([[TARGET_ALL_EXPLORER_2 => [[BOOST => 2], [BOOST => 2]]]]);
+    // Cards::get(3)->setEffectHand([[TARGET_ALL_CHARACTER_2 => [[BOOST => 2], [BOOST => 2]]]]);
     Cards::get(32)->setEffectPassive([
       'ChooseAssignment' => [
         'condition' => 'firstCharacterPlayed',

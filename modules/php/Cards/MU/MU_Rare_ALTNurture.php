@@ -1,10 +1,13 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Rare_ALTNurture extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '126',
       'asset' => 'MU-27-Nurturing-Watering-Can-R',

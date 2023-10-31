@@ -5,6 +5,8 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '180',
       'asset' => 'YZ-16-DorotyGale-C',

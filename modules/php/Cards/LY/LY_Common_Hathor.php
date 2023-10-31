@@ -5,6 +5,8 @@ class LY_Common_Hathor extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '69',
       'asset' => 'LY-07-Hathor-C',

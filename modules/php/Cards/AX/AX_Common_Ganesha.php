@@ -5,6 +5,8 @@ class AX_Common_Ganesha extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '12',
       'asset' => 'AX-19-Ganesha-C',

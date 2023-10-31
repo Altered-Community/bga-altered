@@ -5,6 +5,8 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '188',
       'asset' => 'YZ-04-StedfastDisciple-C',

@@ -5,6 +5,8 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
 {
   public function __construct($row)
   {
+    parent::__construct($row);
+
     $this->properties = [
       'uid' => '157',
       'asset' => 'OD-15-Caellach-R',
