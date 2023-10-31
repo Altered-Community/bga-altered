@@ -45,6 +45,14 @@ trait TurnTrait
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
     Globals::setDayPhase(true);
+    // Update cards with extra datas set
+    foreach (Cards::getAll() as $cId => $card) {
+      if (($card->getExtraDatas()['userPower'] ?? false) == true) {
+        $dat = $card->getExtraDatas();
+        $dat['userPower'] = false;
+        $card->setExtraDatas($dat);
+      }
+    }
     $this->initCustomDefaultTurnOrder('assignment', \ST_ASSIGNMENT, ST_PRE_DUSK_PHASE, true);
   }
 
@@ -120,14 +128,14 @@ trait TurnTrait
     $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
     $winners = [
       STORM_LEFT => [
-        FOREST => ['pId' => null, 'value' => -1],
-        MOUNTAIN => ['pId' => null, 'value' => -1],
-        OCEAN => ['pId' => null, 'value' => -1],
+        FOREST => ['pId' => null, 'value' => 0],
+        MOUNTAIN => ['pId' => null, 'value' => 0],
+        OCEAN => ['pId' => null, 'value' => 0],
       ],
       STORM_RIGHT => [
-        FOREST => ['pId' => null, 'value' => -1],
-        MOUNTAIN => ['pId' => null, 'value' => -1],
-        OCEAN => ['pId' => null, 'value' => -1],
+        FOREST => ['pId' => null, 'value' => 0],
+        MOUNTAIN => ['pId' => null, 'value' => 0],
+        OCEAN => ['pId' => null, 'value' => 0],
       ],
     ];
 

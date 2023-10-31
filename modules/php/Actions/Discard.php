@@ -73,23 +73,34 @@ class Discard extends \ALT\Models\Action
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
     }
-
     Cards::discard($cardIds, $args['destination']);
     $cards = Cards::getMany($cardIds);
 
     $deleted = [];
     foreach ($cardIds as $cardId) {
-      $deleted[] = array_merge($deleted, Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds()));
+      $deleted = array_merge($deleted, Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds())->getIds());
     }
 
-    $msg = clienttranslate('${player_name} discards ${n} cards from the ${source} to ${destination}');
+    $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source} to ${destination}');
     if ($args['destination'] == HAND) {
-      $msg = clienttranslate('${player_name} puts ${n} cards to players\' hand');
+      $msg = clienttranslate('${player_name} puts ${n} card(s) to players\' hand');
     } elseif ($automatic === true) {
       $msg = clienttranslate('${player_name} discards ${n} card(s)');
     }
 
-    Notifications::publicDiscard($player, $cards, $msg, ['source' => $args['source'], 'destination' => $args['destination']]);
+    // deleting meeples first
+    if (!empty($deleted)) {
+      Notifications::silentKill($deleted);
+    }
+
+    if ($args['destination'] == HAND) {
+      Notifications::moveToHand($player, $cards, $msg, null, [
+        'source' => $args['source'],
+        'destination' => $args['destination'],
+      ]);
+    } else {
+      Notifications::publicDiscard($player, $cards, $msg, ['source' => $args['source'], 'destination' => $args['destination']]);
+    }
 
     $notified = [];
     foreach ($cards as $cId => $card) {
@@ -100,10 +111,6 @@ class Discard extends \ALT\Models\Action
       Notifications::updateBiomes($card->getPlayer());
     }
 
-    if (!empty($deleted)) {
-      Notifications::silentKill($deleted);
-    }
-
-    // $this->resolveAction([$cardIds]);
+    $this->resolveAction([$cardIds]);
   }
 }

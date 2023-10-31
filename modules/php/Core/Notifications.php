@@ -44,15 +44,19 @@ class Notifications
     ]);
   }
 
-  public static function clearTurn($player, $notifIds)
+  public static function clearTurn($player, $notifIds, $silent = false)
   {
-    self::notifyAll('clearTurn', clienttranslate('${player_name} restarts their turn'), [
+    $msg = clienttranslate('${player_name} restarts their turn');
+    if ($silent === true) {
+      $msg = '';
+    }
+    self::notifyAll('clearTurn', $msg, [
       'player' => $player,
       'notifIds' => $notifIds,
     ]);
   }
 
-  public static function setupPreco($player, $meeples)
+  public static function setupPreco($player, $meeples, $alterateur)
   {
     $factionNames = [
       \FACTION_BR => clienttranslate('Bravos'),
@@ -66,9 +70,16 @@ class Notifications
         'player' => $player,
         'i18n' => ['faction_name'],
         'faction_name' => $factionNames[$player->getFaction()],
-        'meeples' => $meeples,
+        'player_data' => $player->getUiData(),
+        'meeples' => $meeples->toArray(),
+        'alterateur' => $alterateur->toArray(),
       ]
     );
+  }
+
+  public static function setupCards($cards)
+  {
+    self::notifyAll('setupCards', '', ['cardsTo' => $cards]);
   }
 
   /////////////////////////////////////////////////
@@ -132,16 +143,22 @@ class Notifications
     );
   }
 
-  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve)
+  public static function cleanupCards($player, $cards)
+  {
+    $msg = clienttranslate('All remaining cards of ${player_name} loose Anchored and Asleep');
+    self::notifyAll('cleanupCards', $msg, ['player' => $player, 'cardIds' => $cards]);
+  }
+
+  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve, $deletedCardTokens)
   {
     $msg = clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to reserve');
-    if (empty($deletedCards)) {
-      if (empty($movedToReserve)) {
+    if ($deletedCards->empty()) {
+      if ($movedToReserve->empty()) {
         $msg = '';
       } else {
         $msg = clienttranslate('${player_name} moves ${card_names2} to reserve');
       }
-    } elseif (empty($movedToReserve)) {
+    } elseif ($movedToReserve->empty()) {
       $msg = clienttranslate('${player_name} discards ${card_names}');
     }
 
@@ -149,6 +166,7 @@ class Notifications
       'player' => $player,
       'cards' => $deletedCards->toArray(),
       'cards2' => $movedToReserve->toArray(),
+      'cards3' => $deletedCardTokens->toArray(),
       'meeples' => $deletedTokens,
     ]);
   }
@@ -207,23 +225,15 @@ class Notifications
     );
   }
 
-  public static function moveToHand($player, $cards, $privateMsg = null, $publicMsg = null, $args = [], $privateArgs = null)
+  public static function moveToHand($player, $cards, $publicMsg = null, $privateMsg = null, $args = [], $privateArgs = null)
   {
     self::notifyAll(
       'moveToHand',
       $publicMsg ?? clienttranslate('${player_name} places ${n} card(s) in his hand'),
       $args + [
         'player' => $player,
-        'n' => count($cards),
-      ]
-    );
-    self::notify(
-      $player,
-      'pMoveToHand',
-      $privateMsg ?? clienttranslateupdateNewDayManaSelection('You put ${card_names} in hand'),
-      ($privateArgs ?? $args) + [
-        'player' => $player,
         'cards' => $cards->toArray(),
+        'n' => count($cards),
       ]
     );
   }
@@ -307,8 +317,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-            ? clienttranslate('${card_name} gains ${power} (${card_name}\'s effect)')
-            : clienttranslate('${card_name} gains ${n} ${power} (${card_name}\'s effect)');
+            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -317,8 +327,8 @@ class Notifications
       'card' => $card,
       'power' => $power,
       'i18n' => ['power'],
-      'meeples' => $meeples,
-      'card' => $source,
+      'meeples' => is_array($meeples) ? $meeples : $meeples->toArray(),
+      'card2' => $source,
       'n' => $n,
     ]);
   }
@@ -332,17 +342,17 @@ class Notifications
     ]);
   }
 
-  public static function looseToken($power, $card, $meeples, $silent = true)
+  public static function looseMeeples($power, $card, $meeples, $silent = true)
   {
     $msg = '';
     if (!$silent) {
       $msg = clienttranslate('${card_name} looses ${n} ${power}');
     }
-    self::notifyAll('looseToken', $msg, [
+    self::notifyAll('looseMeeples', $msg, [
       'card' => $card,
       'power' => $power,
       'i18n' => ['power'],
-      'meeples' => $meeples,
+      'meeples' => $meeples->toArray(),
       'n' => count($meeples),
     ]);
   }
@@ -368,35 +378,40 @@ class Notifications
     self::notifyAll('message', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
   }
 
-  public static function boost($card, $source, $tokens)
-  {
-    self::notifyAll('boost', clienttranslate('${card_name} gains ${n} Boost from ${source}'), [
-      'card' => $card,
-      'tokens' => $tokens,
-      'n' => count($tokens),
-      'source' => $source,
-    ]);
-  }
+  // public static function boost($card, $source, $tokens)
+  // {
+  //   self::notifyAll('boost', clienttranslate('${card_name} gains ${n} Boost from ${source}'), [
+  //     'card' => $card,
+  //     'tokens' => $tokens,
+  //     'n' => count($tokens),
+  //     'source' => $source,
+  //   ]);
+  // }
 
   public static function spellCleanup($card, $deleted)
   {
     self::notifyAll('spellCleanup', '', ['card' => $card, 'deleted' => $deleted]);
   }
 
-  public static function invokeToken($player, $card)
+  public static function invokeToken($player, $card, $source)
   {
-    self::notifyAll('invokeToken', clienttranslate('${player_name} invokes ${card_name} in ${location}'), [
-      'player' => $player,
-      'location' => $card->getLocation(),
-      'card' => $card,
-      'i18n' => ['token_type'],
-    ]);
+    self::notifyAll(
+      'invokeToken',
+      clienttranslate('${player_name} invokes ${card_name} in ${location} (${card_name2}\' effect)'),
+      [
+        'player' => $player,
+        'location' => $card->getLocation(),
+        'card' => $card,
+        'card2' => $source,
+        'i18n' => ['token_type'],
+      ]
+    );
   }
 
   /*** tools****/
   public static function silentKill($tokens)
   {
-    self::notifyAll('silentKill', '', ['tokens' => $tokens]);
+    self::notifyAll('silentKill', '', ['tokens' => is_array($tokens) ? $tokens : $tokens->toArray()]);
   }
 
   /*********** unchecked ******* */
@@ -1308,6 +1323,13 @@ class Notifications
       $data['card_name'] = $data['card']->getName();
       $data['i18n'][] = 'card_name';
       $data['preserve'][] = 'card_id';
+    }
+
+    if (isset($data['card2'])) {
+      $data['card_id2'] = $data['card2']->getId();
+      $data['card_name2'] = $data['card2']->getName();
+      $data['i18n'][] = 'card_name2';
+      $data['preserve'][] = 'card_id2';
     }
 
     if (isset($data['cards'])) {

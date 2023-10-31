@@ -64,7 +64,6 @@ class ChooseAssignment extends \ALT\Models\Action
     $actions['tap'] = $player->getPlayedCards()->filter(function ($card) {
       return !$card->isTapped() && !is_null($card->getEffectTap());
     });
-    // TODO: add hero
 
     return ['_private' => ['active' => $actions]];
   }
@@ -134,6 +133,9 @@ class ChooseAssignment extends \ALT\Models\Action
       $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
       $this->insertAsChild($effect);
     }
+
+    // TODO: put in in invoke
+    $this->checkAfterListeners($player, ['playCard' => true, 'playedCard' => $cardId, 'cardType' => $card->getType()]);
 
     if ($card->getType() == SPELL) {
       Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()]]);

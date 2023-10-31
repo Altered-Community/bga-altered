@@ -40,9 +40,12 @@ define([
         ['refreshHand', 200],
         ['updateNewDayManaSelection', 200],
         ['nightCleanup', null],
+        ['cleanupCards', null],
         ['newFirstPlayer', null],
 
         ['addMeeples', null],
+        ['looseMeeples', null],
+
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -52,17 +55,17 @@ define([
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
         ['moveStormToken', null],
+        ['moveToHand', null],
         ['silentKill', 200],
-        ['looseToken', 200],
         ['updateBiomes', 100],
         ['spellCleanup', 100],
         ['invokeToken', 100],
 
-        ['setupPlayer', null],
+        ['setupPlayer', 200],
         ['payMana', 500],
         ['discard', 500],
         ['tap', 500],
-        ['boost', 500],
+        // ['boost', 500],
         ['untap', 500],
       ];
 
@@ -418,6 +421,18 @@ define([
       // Call appropriate method
       var methodName = 'onEnteringState' + stateName.charAt(0).toUpperCase() + stateName.slice(1);
       if (this[methodName] !== undefined) this[methodName](args.args);
+    },
+
+    onEnteringStateSelectDeck(args) {
+      if (!args._private) return;
+
+      decks = args._private.decks
+      decks.forEach((deckNum) => {
+        debug(deckNum);
+        this.addPrimaryActionButton('selectDeck' + deckNum.deckNum,'Deck n°' + deckNum.deckNum+ ' Faction ' + deckNum.faction , () =>
+          this.takeAction('actSelectDeck', {choice: deckNum.deckNum}, false)
+        );
+      });
     },
 
     //////////////////////////////////////////////////////

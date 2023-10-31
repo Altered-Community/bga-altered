@@ -63,11 +63,7 @@ const ST_SPELL_CLEANUP = 16;
 const ST_INVOKE_TOKEN = 17;
 const ST_ACTIVATE_CARD = 18;
 const ST_DRAW = 19;
-
-// Effets
-const ST_EFFECT_BOOST = 20; // gain X / who
-const ST_EFFECT_TOKEN = 21; // invoke a token
-const ST_EFFECT_NEW_TURN = 22;
+const ST_SPECIAL_EFFECT = 20;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -126,6 +122,7 @@ const INFTY = 100;
 const MOUNTAIN = 'mountain';
 const FOREST = 'forest';
 const OCEAN = 'ocean';
+const EFFECT = 'EFFECT';
 
 const ALTERATEUR = 'alterateur';
 const EXPLORER = 'explorer';

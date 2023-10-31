@@ -36,6 +36,7 @@ class Card extends \ALT\Helpers\DB_Model
     'name' => 'str', // obj?
     'type' => 'str', // Token/hero/adventurer/spell
     'token' => 'bool',
+    'uid' => 'str',
 
     'rarity' => 'int',
     'asset' => 'str',
@@ -167,19 +168,19 @@ class Card extends \ALT\Helpers\DB_Model
   {
     $this->setLocation(MEMORY);
     $this->setTapped(false);
-    $deleted = [];
+    $deleted = Meeples::getInLocation('card-' . $this->id)->getIds();
+    if (!empty($deleted)) {
+      Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds());
+    }
 
-    $deleted[] = Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds());
     return $deleted;
   }
 
   // deletes Token that must be removed at night
   public function nightCleanup()
   {
-    $tokIds = Meeples::getFilteredQuery(null, 'card-' . $this->id, [ASLEEP, ANCHORED])
-      ->get()
-      ->getIds();
-    $deleted[] = Meeples::delete($tokIds);
+    $tokIds = Meeples::getFiltered(null, 'card-' . $this->id, [ASLEEP, ANCHORED])->getIds();
+    Meeples::delete($tokIds);
     return $tokIds;
   }
 
@@ -259,7 +260,7 @@ class Card extends \ALT\Helpers\DB_Model
   public function isListeningTo($event)
   {
     $passive = $this->getEffectPassive();
-
+    // throw new \feException(print_r($event));
     if (
       !in_array($event['type'] ?? 'none', array_keys($passive)) &&
       !in_array($event['action'] ?? 'none', array_keys($passive))
@@ -330,16 +331,16 @@ class Card extends \ALT\Helpers\DB_Model
   }
 
   /********** EFFECTS **********/
-  public function boost($n, $source = null, $notify = false)
-  {
-    if (!in_array($this->getLocation(), STORMS)) {
-      throw new \BgaVisibleSystemException('Cannot be boosted, not in an expedition. Should not happen');
-    }
+  // public function boost($n, $source = null, $notify = false)
+  // {
+  //   if (!in_array($this->getLocation(), STORMS)) {
+  //     throw new \BgaVisibleSystemException('Cannot be boosted, not in an expedition. Should not happen');
+  //   }
 
-    $tokens = Meeples::create([['type' => BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
-    if ($notify === true) {
-      Notifications::boost($this, $source, $tokens);
-    }
-    return $tokens;
-  }
+  //   $tokens = Meeples::create([['type' => BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
+  //   if ($notify === true) {
+  //     Notifications::boost($this, $source, $tokens);
+  //   }
+  //   return $tokens;
+  // }
 }

@@ -5,7 +5,7 @@ use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
-use ALT\Helpers\Utils;
+use ALT\Helpers\Collection;
 
 class Loose extends \ALT\Models\Action
 {
@@ -68,7 +68,7 @@ class Loose extends \ALT\Models\Action
       $source = Cards::getSingle($sourceId);
     }
     $card = $this->getCard();
-    $deleted = [];
+    $deleted = new Collection();
 
     // Increase resource and notify
     list($resource, $amount) = $this->getLoose();
@@ -78,13 +78,13 @@ class Loose extends \ALT\Models\Action
       if ($amount == 0) {
         break;
       }
-      $deleted[] = $mId;
+      $deleted[$mId] = $m;
       $amount--;
     }
-    Meeples::delete($deleted);
+    Meeples::delete($deleted->getIds());
 
     if (count($deleted) > 0) {
-      Notifications::looseToken($resource, $card, $deleted, false);
+      Notifications::looseMeeples($resource, $card, $deleted, false);
       Notifications::updateBiomes($card->getPlayer());
     }
 

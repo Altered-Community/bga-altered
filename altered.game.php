@@ -85,6 +85,7 @@ class altered extends Table
       'meeples' => Meeples::getUiData(),
 
       'firstPlayer' => Globals::getFirstPlayer(),
+      'skippedPlayers' => Globals::getSkippedPlayers(),
       'storm' => Globals::getStorm(true),
       'day' => Globals::getDay(),
     ];

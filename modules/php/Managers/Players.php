@@ -183,21 +183,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
-  public function checkEndOfGame()
+  public function initializeDecks()
   {
-    if (Globals::getEndRemainingPlayers() != []) {
-      return true;
-    }
-    if (Globals::isSolo()) {
-      return false;
-    }
-
     foreach (self::getAll() as $pId => $player) {
-      if (self::checkEndOfGamePlayer($player)) {
-        return true;
-      }
+      $player->initializeDecks();
     }
-
-    return false;
   }
 }

@@ -7,16 +7,16 @@ use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 
-class SpellCleanup extends \ALT\Models\Action
+class SpecialEffect extends \ALT\Models\Action
 {
   public function getState()
   {
-    return ST_SPELL_CLEANUP;
+    return ST_SPECIAL_EFFECT;
   }
 
   public function getDescription()
   {
-    return clienttranslate('Spell cleanup');
+    return '';
   }
 
   public function isAutomatic($player = null)
@@ -39,24 +39,22 @@ class SpellCleanup extends \ALT\Models\Action
     return Cards::get($cardId);
   }
 
-  public function stSpellCleanup()
+  public function stSpecialEffect()
   {
-    $player = $this->getPlayer();
-    $card = $this->getCard();
+    $effect = $this->getArg('effect');
+    $card = $this->getSource();
 
-    if ($card->getLocation() != LIMBO) {
-      $this->resolveAction();
-      return;
-    }
-    // Card must be discarded
-    if ($card->hasToken(FLEETING)) {
-      $deleted = $card->discard();
-    } else {
-      // moved to reserve
-      $deleted = $card->moveToMemory();
-    }
-    Notifications::spellCleanup($card, $deleted->getIds());
+    switch ($effect) {
+      case 'useCard':
+        $data = $card->getExtraDatas();
+        $data['userPower'] = true;
+        $card->setExtraDatas($data);
+        break;
 
-    $this->resolveAction();
+      default:
+        break;
+    }
+
+    $this->resolveAction([]);
   }
 }

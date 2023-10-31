@@ -60,6 +60,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->merge(self::getInLocation(MEMORY))
       ->merge(self::getInLocation('board-alterateur-%'))
       ->merge(self::getInLocation('limbo'))
+      ->merge(self::getInLocation('discard'))
       ->toArray();
   }
 
@@ -72,41 +73,45 @@ class Cards extends \ALT\Helpers\CachedPieces
   //                      |_|
   ///////////////////////////////////
 
-  public static function setupPrecoDeck($player)
+  public static function setupPrecoDeck($player, $deckNumber, $deckList)
   {
     // Load list of cards
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
 
     $toCreate = [];
     $pId = $player->getId();
-    $faction = $player->getFaction();
-    $deck = PRECOS[$faction];
-    foreach ($deck as $cardId => $n) {
-      // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
-      $className = "\\ALT\\Cards\\$faction\\$cardId";
-      $card = new $className(null);
-      $location = "deck-$pId";
-      if ($card->getType() == ALTERATEUR) {
-        $location = "board-alterateur-$pId";
-      }
-      if (in_array($cardId, TOKENS)) {
-        $location = "tokens-$pId";
-      }
-      // we do not create token as they will be created on the fly
-      if ($card->isToken()) {
-        continue;
-      }
+    // $faction = $player->getFaction();
+    // $deck = PRECOS[$faction];
+    foreach (FACTIONS as $faction) {
+      $deck = PRECOS[$faction];
+      foreach ($deck as $cardId => $n) {
+        // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
+        $className = "\\ALT\\Cards\\$faction\\$cardId";
+        $card = new $className(null);
+        $location = "deck-$deckNumber";
+        if ($card->getType() == ALTERATEUR) {
+          $location = "board-alterateur-$deckNumber";
+          $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction, 'hero' => $card->getUid()];
+        }
 
-      $toCreate[] = [
-        'player_id' => $pId,
-        'location' => $location,
-        'nbr' => $n,
-        'properties' => $card->getProperties(),
-      ];
+        // we do not create token as they will be created on the fly
+        if ($card->isToken()) {
+          continue;
+        }
+
+        $toCreate[] = [
+          'player_id' => $pId,
+          'location' => $location,
+          'nbr' => $n,
+          'properties' => $card->getProperties(),
+        ];
+      }
+      $deckNumber++;
     }
 
     self::create($toCreate, null);
-    self::shuffle('deck-' . $pId);
+    return $deckList;
+    // self::shuffle('deck-' . $pId);
   }
 
   /**

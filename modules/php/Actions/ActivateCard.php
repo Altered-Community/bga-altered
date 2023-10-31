@@ -100,6 +100,7 @@ class ActivateCard extends \ALT\Models\Action
     // Add tag about that card
     $flow = Utils::tagTree($flow, [
       'sourceId' => $this->getCtxArg('cardId'),
+      'event' => $this->getCtxArg('event'),
     ]);
 
     $node->replace(Engine::buildTree($flow));

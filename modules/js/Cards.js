@@ -83,7 +83,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let type = card.properties.type;
       if (card.location == 'hand') {
         return $(`hand-${card.pId}`);
-      } else if (['stormLeft', 'stormRight', 'memory', 'permanent', 'limbo'].includes(card.location)) {
+      } else if (['stormLeft', 'stormRight', 'memory', 'permanent', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
       } else if (type == ALTERATEUR) {
         return $(card.location);
@@ -176,6 +176,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       this.onSelectN(config);
+    },
+
+    onEnteringStateDiscard(args) {
+      this.onSelectNCards(args._private.cards, {
+        n: args.n,
+        class: 'selectable',
+        confirmText: _('Confirm discard'),
+        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
+      });
     },
 
     /**
@@ -355,6 +364,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Public discard', n);
       // TOOD
       // !! how to manage when we send the card to the hand?
+      let pId = n.args.player_id;
+      
+      Promise.all(
+        [...n.args.cards].map((card, i) => {
+          return this.wait(200 * i).then(() => {
+            if (card.location == 'hand')
+              return;
+
+            return this.slide(`card-${card.id}`,  `board-${card.location}-${pId}`);
+          });
+        })
+      ).then(() => {
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     /**
@@ -445,10 +468,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO (tap card, etc.)
     },
 
-    notif_boost(n) {
-      debug('Notif: boosting card', n);
-      // TODO slide tokens + update counters
-    },
+    // notif_boost(n) {
+    //   debug('Notif: boosting card', n);
+    //   // TODO slide tokens + update counters
+    // },
 
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
@@ -458,12 +481,37 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_spellCleanup(n) {
       debug('Notif: spell cleanup', n);
-      // TODO
+      n.args.deleted.forEach((meepleId) => {
+        $(`meeple-${meepleId}`).remove();
+      });
+
+     // Slide the card
+     let card = n.args.card;
+     this.updateCardStatuses(card.id);
+     let id = `card-${card.id}`;
+     if (!$(id)) {
+       this.addCard(card, 'page-title');
+     }
+     let container = this.getCardContainer(card);
+     this.slide(id, container).then(() => {
+       this.notifqueue.setSynchronousDuration(100);
+     });
     },
 
     notif_invokeToken(n) {
-      debug('Notif: invoe token', n);
-      // TODO
+      debug('Notif: invoke token', n);
+      // Slide the card
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+      // we slide it from the card triggering the effect
+      if (!$(id)) {
+        this.addCard(card, `card-${n.args.card2.id}`);
+      }
+      let container = this.getCardContainer(card);
+      this.slide(id, container).then(() => {
+        this.updateBiomeTotals(card.pId, n.args.biomes);
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     notif_nightCleanup(n) {
@@ -482,10 +530,61 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`);
           });
         })
-      ).then(() => {
+      ).then(Promise.all([...n.args.cards3].map((card, i) => {
+        return this.wait(200 * i).then(() => {
+          return $(`card-${card.id}`).remove();
+        });
+      })))
+        .then(() => {
         this.notifqueue.setSynchronousDuration(100);
       });
     },
+
+    notif_cleanupCards(n) {
+      debug('Notif: updating status of all cleaned up cards', n);
+      Promise.all(
+        [...n.args.cardIds].map((cardId, i) => {
+          return this.wait(200 * i).then(() => {
+            this.updateCardStatuses(cardId);
+          });
+        })
+      )
+        .then(() => {
+        this.notifqueue.setSynchronousDuration(100);
+      });
+    },
+
+      /**
+     * Public notification when someone take back a card in hand
+     *  slide it to hand if current player
+     *  slide it to player panel otherwise
+     *  inc hand count
+     *  multiple cards of multiple players can be moved like that
+     */
+      notif_moveToHand(n) {
+        debug('Moving cards to hand', n);
+        player_inc = {};
+          Promise.all([...n.args.cards].map((card) => {
+            isPlayer = this.player_id == card.pId;
+            this.updateCardStatuses(card.id);
+            player_inc[card.pId] = player_inc[card.pId] ?? 0 + 1;
+
+            return this.slide(`card-${card.id}`, isPlayer ? this.getCardContainer(card) : `counter-${card.pId}-handCount`, {
+              duration: 1000,
+              destroy: isPlayer ? false: true,
+              phantom: isPlayer ? true : false,
+          });
+        })).then( () => {
+          Object.keys(player_inc).forEach( (player) => {
+            this._playerCounters[player]['handCount'].incValue(player_inc[player]);
+          })
+        })
+        .then(() => {
+          this.notifqueue.setSynchronousDuration(100);
+        });
+      },
+  
+  
 
     //////////////////////////////////////////////
     //  _____ ____  _

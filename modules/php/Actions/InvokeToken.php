@@ -76,19 +76,7 @@ class InvokeToken extends \ALT\Models\Action
       'properties' => $card->getProperties(),
     ]);
 
-    Notifications::invokeToken($player, $card);
+    Notifications::invokeToken($player, $card, $this->getSource());
     $this->resolveAction([$card->getId()]);
-  }
-
-  public function actTargetPass()
-  {
-    self::checkAction('actTarget');
-    $player = Players::getActive();
-    if (($this->getCtxArg('optional') ?? 'toto') !== true) {
-      throw new \BgaVisibleSystemException('This action cannot be passed.Should not happen');
-    }
-    // TODO: how to exclude after nodes
-    // TODO: Change intimidation
-    $this->resolveAction([PASS]);
   }
 }

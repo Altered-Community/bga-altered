@@ -117,8 +117,20 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       </div>`;
     },
 
-    notif_setupPlayers(n) {
+    notif_setupPlayer(n) {
       debug('Notif: setupPlayers TODOOOO', n);
+      this.gamedatas.players[n.args.player_id] = n.args.player_data;
+      $(`player-board-resizable-${n.args.player_id}`).setAttribute('data-faction', n.args.player_data.faction);
+      this.updatePlayersCounters(false);
+      this.updateHandCards();
+      n.args.alterateur.forEach((card) => {
+        this.addCard(card);
+      });
+      n.args.meeples.forEach((meeple) => {
+        if (!$(`meeple-${meeple.id}`)) {
+          this.addMeeple(meeple);
+        }
+      });
     },
 
     ////////////////////////////////////////////////////

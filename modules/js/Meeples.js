@@ -100,6 +100,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         config.delay = 0;
         // Use meepleContainer if target not specified
         let target = config.target ? config.target : this.getMeepleContainer(resource);
+        let from = config.from ? config.from : this.getMeepleContainer(resource);
         if (!isVisible(target)) {
           config.to = $(`overall_player_board_${resource.pId}`);
         }
@@ -116,6 +117,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           return new Promise((resolve, reject) => {
             this.slide('meeple-' + resource.id, target, config).then(() => {
               this.updateStatusIfCard(target);
+              if (from != target) {
+                this.updateStatusIfCard(from);
+              }
               resolve();
             });
             this.updateStatusIfCard(parent);
@@ -152,6 +156,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
     },
 
+    
+    notif_looseMeeples(n) {
+      debug('Loose of meeples', n);
+      this.slideResources(n.args.meeples, {
+        target: this.getVisibleTitleContainer(),
+      });
+    },
+
     notif_slideMeeples(n) {
       debug('Notif: sliding meeples', n);
       this.slideResources(n.args.meeples).then(() => this.updateCardCosts());
@@ -185,18 +197,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_silentKill(n) {
       debug('Silent kill of meeples', n);
-      // TODO
+      n.args.tokens.forEach((meepleId) => {
+        $(`meeple-${meepleId}`).remove();
+      });    
     },
 
-    notif_looseToken(n) {
-      debug('Loose of meeples', n);
-      // TODO
-    },
 
-    notif_gainToken(n) {
-      debug('Gain of meeples', n);
-      // TODO
-    },
 
     notif_newFirstPlayer(n) {
       debug('Notif: new first player', n);
@@ -208,8 +214,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
       // Slide first player
       let pId = n.args.player_id;
+      
+      this.slideResources([{ id: 'firstPlayer' }], { from: $(`firstPlayer-${this.gamedatas.firstPlayer}`), target: $(`firstPlayer-${pId}`) });
       this.gamedatas.firstPlayer = pId;
-      this.slideResources([{ id: 'firstPlayer' }], { target: $(`firstPlayer-${pId}`) });
     },
   });
 });
