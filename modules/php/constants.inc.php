@@ -156,9 +156,13 @@ const RARITY_BASE = 0;
 const RARITY_RARE = 1;
 const RARITY_UNIQUE = 2;
 
+const FACTION_AX = 'AX';
 const FACTION_BR = 'BR';
+const FACTION_LY = 'LY';
 const FACTION_MU = 'MU';
-const FACTIONS = [FACTION_BR, FACTION_MU];
+const FACTION_OD = 'OD';
+const FACTION_YZ = 'YZ';
+const FACTIONS = [FACTION_AX, FACTION_BR, FACTION_LY, FACTION_MU, FACTION_OD, FACTION_YZ];
 
 const OPPONENT = 'opponent';
 const ME = 'me';

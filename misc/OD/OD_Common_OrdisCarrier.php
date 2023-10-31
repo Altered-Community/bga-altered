@@ -7,17 +7,17 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '153',
-      'asset' => 'OR-44_Mesektet_RGB_01',
+      'asset' => 'OD-30-Mesektet-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Ordis Carrier'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => PERMANENT,
       'subtype' => '',
-      'typeline' => '',
-      'rarity' => RARITY_COMMON,
 
-      'effectDesc' => clienttranslate('At Dawn�� Create a [1/1/1 Ordis Recruit] Soldier token in your Companion Expedition.'),
+      'effectDesc' => clienttranslate('At Dawn - Create a [1/1/1 Ordis Recruit] Soldier token in your Companion Expedition.'),
       'costHand' => 3,
       'costMemory' => 3,
     ];

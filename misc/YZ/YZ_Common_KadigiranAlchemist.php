@@ -7,15 +7,15 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '175',
-      'asset' => 'YZ-16_VanHelsing_RGB_01',
+      'asset' => 'YZ-12-VanHelsing-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Kadigiran Alchemist'),
+      'typeline' => clienttranslate('Common - Mage'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Mage',
-      'typeline' => 'Common - Mage',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{M} I gain 2 boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),

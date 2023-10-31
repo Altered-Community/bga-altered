@@ -7,15 +7,16 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '188',
-      'asset' => 'YZext8',
+      'asset' => 'YZ-04-StedfastDisciple-C',
+
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate("Kraken's Wrath"),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate(
         '[[Fleeting]].  Send to Reserve up to 3 Characters with a cumulated hand cost of {5} or less.'

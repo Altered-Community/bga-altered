@@ -7,15 +7,15 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '140',
-      'asset' => 'Z-SLUSH_OR-24_EskheretRuunKurush_RGB_01',
+      'asset' => 'OD-14-EskheretRuunKurush-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Ordis Spy'),
+      'typeline' => clienttranslate('Common - Citizen'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Citizen',
-      'typeline' => 'Common - Citizen',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{M} [Sabotage].'),
       'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),

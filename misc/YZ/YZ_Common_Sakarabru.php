@@ -7,15 +7,15 @@ class YZ_Common_Sakarabru extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '182',
-      'asset' => 'YZ-07_SakarMoonhealer_RGB_01',
+      'asset' => 'YZ-18-SakarMoonhealer-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Sakarabru'),
+      'typeline' => clienttranslate('Common - Divinity'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Divinity',
-      'typeline' => 'Common - Divinity',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{M} The Expedition opposing me moves one step back.'),
       'forest' => 4,

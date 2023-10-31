@@ -7,15 +7,15 @@ class OD_Common_OrdisTrooper extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '129',
-      'asset' => 'OR-19_AegisCadet_RGB_01',
+      'asset' => 'OD-05-AegisCadet-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Ordis Trooper'),
+      'typeline' => clienttranslate('Common - Soldier'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Soldier',
-      'typeline' => 'Common - Soldier',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 1,
       'mountain' => 1,

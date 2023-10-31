@@ -7,18 +7,18 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '30',
-      'asset' => 'AX-18_Tinkder_Bell_RGB_02',
+      'asset' => 'AX-09-Tinkder-Bell-R',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Tinker Bell'),
+      'typeline' => clienttranslate('Rare - Fairy'),
+      'rarity' => RARITY_RARE,
       'type' => CHARACTER,
       'subtype' => 'Fairy',
-      'typeline' => 'Rare - Fairy',
-      'rarity' => RARITY_RARE,
 
       'echoDesc' => clienttranslate(
-        '<{D} : Activate the {J} effect of target Permanent.> (Discard me from your Reserve to activate this effect)'
+        '[G]{D} : Activate the {J} effect of target Permanent.[/G] (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,
       'mountain' => 2,

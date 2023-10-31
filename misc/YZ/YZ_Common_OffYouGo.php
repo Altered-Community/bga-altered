@@ -7,15 +7,15 @@ class YZ_Common_OffYouGo extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '185',
-      'asset' => 'YZ-30_Dottys_Tornado_RGB_01',
+      'asset' => 'YZ-21-Dottys-Tornado-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Off You Go!'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('Send to Reserve target Character of hand cost {3} or less.'),
       'costHand' => 2,

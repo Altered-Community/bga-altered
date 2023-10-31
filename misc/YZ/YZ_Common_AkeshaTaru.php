@@ -7,15 +7,15 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '165',
-      'asset' => 'YZ-01_Akesha-Kone_RGB',
+      'asset' => 'YZ-01-Akesha-Kone-RGB', // MISSING
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Akesha & Taru'),
-      'type' => HERO,
-      'subtype' => 'Yzmir Hero',
-      'typeline' => '',
+      'typeline' => clienttranslate('Yzmir Hero'),
       'rarity' => RARITY_COMMON,
+      'type' => HERO,
+      'subtype' => '',
 
       'effectDesc' => clienttranslate('{2}, {T} : [After you]. This ability costs {2} less if you have the first player Token'),
     ];

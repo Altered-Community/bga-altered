@@ -7,15 +7,15 @@ class YZ_Common_LadyoftheLake extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '166',
-      'asset' => 'YZ-06_Nimue_RGB_01',
+      'asset' => 'YZ-09-Nimue-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Lady of the Lake'),
+      'typeline' => clienttranslate('Common - Spirit'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Spirit',
-      'typeline' => 'Common - Spirit',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 1,
       'mountain' => 1,

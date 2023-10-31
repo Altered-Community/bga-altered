@@ -7,17 +7,17 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '128',
-      'asset' => 'OR-02_Sigimar-Wingspan_RGB',
+      'asset' => 'OD-02-Sigimar-Wingspan-RGB', // MISSING
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Sigismar & Wingspan'),
-      'type' => HERO,
-      'subtype' => 'Ordis Hero',
-      'typeline' => '',
+      'typeline' => clienttranslate('Ordis Hero'),
       'rarity' => RARITY_COMMON,
+      'type' => HERO,
+      'subtype' => '',
 
-      'effectDesc' => clienttranslate('At Dawn � Create a [1/1/1 Ordis Recruit] Soldier token in your Hero Expedition.'),
+      'effectDesc' => clienttranslate('At Dawn - Create a [1/1/1 Ordis Recruit] Soldier token in your Hero Expedition.'),
     ];
   }
 }

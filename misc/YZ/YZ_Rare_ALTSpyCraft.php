@@ -7,18 +7,19 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '194',
-      'asset' => 'YZ-21_UnjiriClairvoyant_RGB_02',
+      'asset' => 'YZ-22-UnjiriClairvoyant-R',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('ALT Spy Craft'),
+      'typeline' => clienttranslate('Rare'),
+      'rarity' => RARITY_RARE,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Rare - ',
-      'rarity' => RARITY_RARE,
 
       'effectDesc' => clienttranslate('[Sabotage], [Resupply].'),
       'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),
+      'changedStats' => ['costMemory'],
       'costHand' => 2,
       'costMemory' => 2,
     ];

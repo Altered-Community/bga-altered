@@ -7,15 +7,15 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '47',
-      'asset' => 'BR-36_Hua_Mulan_01',
+      'asset' => 'BR-12-Hua-Mulan-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Hua Mulan'),
+      'typeline' => clienttranslate('Common - Adventurer'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Adventurer',
-      'typeline' => 'Common - Adventurer',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
@@ -24,6 +24,7 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectMemory' => FT::GAIN($this, BOOST, 2),
     ];
   }
 }

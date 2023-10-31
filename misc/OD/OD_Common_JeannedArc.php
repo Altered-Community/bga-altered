@@ -7,18 +7,18 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '145',
-      'asset' => "OR-14_JeanneD'Arc_RGB_01",
+      'asset' => 'OD-17-JeanneD-Arc-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate("Jeanne d'Arc"),
+      'typeline' => clienttranslate('Common - Soldier'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Soldier',
-      'typeline' => 'Common - Soldier',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition Zone�� Create a [1/1/1 Ordis Recruit] Soldier token in both of your Expeditions.'
+        'When I leave the Expedition Zone - Create a [1/1/1 Ordis Recruit] Soldier token in both of your Expeditions.'
       ),
       'forest' => 3,
       'mountain' => 3,

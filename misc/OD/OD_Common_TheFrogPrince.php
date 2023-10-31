@@ -7,15 +7,15 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '135',
-      'asset' => 'OR-09_FrogPrince_RGB_01',
+      'asset' => 'OD-09-FrogPrince-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('The Frog Prince'),
+      'typeline' => clienttranslate('Common - Bureaucrat'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Bureaucrat',
-      'typeline' => 'Common - Bureaucrat',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 3,
       'mountain' => 0,

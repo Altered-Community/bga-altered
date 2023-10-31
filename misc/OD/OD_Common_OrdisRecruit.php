@@ -7,18 +7,18 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '162',
-      'asset' => 'OR-41_AegisRecruit_RGB_02',
+      'asset' => 'OD-31-AegisRecruit-R',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Ordis Recruit'),
+      'typeline' => clienttranslate('Common - Token - Soldier'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Token - Soldier',
-      'typeline' => 'Common - Token - Soldier',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate(
-        '[Token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone � Remove me from the game).'
+        '[Token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone - Remove me from the game).'
       ),
       'forest' => 1,
       'mountain' => 1,

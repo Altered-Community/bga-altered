@@ -7,20 +7,21 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '58',
-      'asset' => 'BR-17_GerichtVanBraast_RGB_01',
+      'asset' => 'BR-26-GerichtVanBraast-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Physical Training'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
     ];
   }
 }

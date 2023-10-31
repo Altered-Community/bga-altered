@@ -7,17 +7,17 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '26',
-      'asset' => 'AX-49_Brassbug Queen_RGB_01',
+      'asset' => 'AX-30-BrassbugQueen-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Brassbug Hive'),
-      'type' => PERMANENT,
-      'subtype' => '',
       'typeline' => '',
       'rarity' => RARITY_COMMON,
+      'type' => PERMANENT,
+      'subtype' => '',
 
-      'effectDesc' => clienttranslate('{J} Create a [2/2/2 Brassbug] Robot token.  At Dawn�� Activate my {J} effect.'),
+      'effectDesc' => clienttranslate('{J} Create a [2/2/2 Brassbug] Robot token.  At Dawn - Activate my {J} effect.'),
       'costHand' => 5,
       'costMemory' => 5,
     ];

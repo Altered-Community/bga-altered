@@ -7,15 +7,15 @@ class YZ_Common_Alice extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '177',
-      'asset' => 'YZ-14_Alice_RGB_01',
+      'asset' => 'YZ-13-Alice-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Alice'),
+      'typeline' => clienttranslate('Common - Citizen'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Citizen',
-      'typeline' => 'Common - Citizen',
-      'rarity' => RARITY_COMMON,
 
       'echoDesc' => clienttranslate('{D} : [After You]. (Discard me from your Reserve to activate this effect)'),
       'forest' => 2,

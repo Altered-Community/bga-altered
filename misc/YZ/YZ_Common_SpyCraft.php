@@ -7,15 +7,15 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '191',
-      'asset' => 'YZ-21_UnjiriClairvoyant_RGB_01',
+      'asset' => 'YZ-22-UnjiriClairvoyant-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Spy Craft'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('[[Fleeting]].  [Sabotage], [Resupply].'),
       'reminders' => clienttranslate(

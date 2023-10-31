@@ -7,15 +7,15 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '37',
-      'asset' => 'BR-38_Ratatoskr_01',
+      'asset' => 'BR-04-Ratatoskr-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Ratatoskr'),
+      'typeline' => clienttranslate('Common - Squirrel'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Squirrel',
-      'typeline' => 'Common - Squirrel',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
@@ -24,6 +24,7 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costMemory' => 1,
+      'effectMemory' => FT::GAIN($this, BOOST, 2),
     ];
   }
 }

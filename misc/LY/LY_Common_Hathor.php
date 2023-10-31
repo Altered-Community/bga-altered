@@ -7,15 +7,15 @@ class LY_Common_Hathor extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '69',
-      'asset' => 'LY-15_Hathor_RGB_01',
+      'asset' => 'LY-07-Hathor-C',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Hathor'),
+      'typeline' => clienttranslate('Common - Divinity'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Divinity',
-      'typeline' => 'Common - Divinity',
-      'rarity' => RARITY_COMMON,
 
       'echoDesc' => clienttranslate(
         '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)'

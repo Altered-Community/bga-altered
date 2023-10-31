@@ -7,14 +7,15 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '115',
-      'asset' => 'MU-13_New_Cernunnos_RGB_01',
+      'asset' => 'MU-13-New-Cernunnos-C',
+
       'frameSize' => 1,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Cernunnos'),
       'type' => CHARACTER,
       'subtype' => 'Druid',
-      'typeline' => 'Common - Druid',
+      'typeline' => clienttranslate('Common - Druid'),
       'rarity' => RARITY_COMMON,
 
       'forest' => 4,

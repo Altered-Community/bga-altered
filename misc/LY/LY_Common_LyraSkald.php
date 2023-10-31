@@ -7,15 +7,15 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '70',
-      'asset' => 'LY-19_Mnemos_Skald_RGB_01',
+      'asset' => 'LY-Mnemos-Skald-C',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Lyra Skald'),
+      'typeline' => clienttranslate('Common - Artist'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Artist',
-      'typeline' => 'Common - Artist',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 3,
       'mountain' => 0,

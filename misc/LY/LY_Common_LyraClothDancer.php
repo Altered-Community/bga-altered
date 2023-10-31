@@ -7,15 +7,15 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '77',
-      'asset' => 'Z-SLUSH_LY-18_Kasirga_Wind-Dancer_RGB_01',
+      'asset' => 'LY-14-Kasirga-Wind-Dancer-C',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Lyra Cloth-Dancer'),
+      'typeline' => clienttranslate('Common - Artist'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Artist',
-      'typeline' => 'Common - Artist',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{M} Another target Character becomes [[Fleeting]].'),
       'reminders' => clienttranslate('(Fleeting: If I would be sent to Reserve, banish me instead.)'),

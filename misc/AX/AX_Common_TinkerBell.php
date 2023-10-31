@@ -7,15 +7,15 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '5',
-      'asset' => 'AX-18_Tinkder_Bell_RGB_01',
+      'asset' => 'AX-09-Tinkder-Bell-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Tinker Bell'),
+      'typeline' => clienttranslate('Common - Fairy'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Fairy',
-      'typeline' => 'Common - Fairy',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 3,
       'mountain' => 2,

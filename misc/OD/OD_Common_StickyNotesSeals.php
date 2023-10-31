@@ -7,15 +7,15 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '150',
-      'asset' => 'OR-31_Strength_in_Numbers_01',
+      'asset' => 'OD-33-Strength-in-Numbers-01',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Sticky Notes Seals'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate(
         '[[Fleeting]].  Choose one:  - Send to Reserve target Character of hand cost {4} or more.   - Discard target Permanent of hand cost {4} or more.'

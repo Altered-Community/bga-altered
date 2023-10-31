@@ -7,15 +7,15 @@ class BR_Common_BravosPathfinder extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '41',
-      'asset' => 'BR-07_Gretel_RGB_01',
+      'asset' => 'BR-08-Gretel-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Bravos Pathfinder'),
+      'typeline' => clienttranslate('Common - Adventurer'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Adventurer',
-      'typeline' => 'Common - Adventurer',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 0,
       'mountain' => 3,

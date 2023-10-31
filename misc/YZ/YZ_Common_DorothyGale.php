@@ -7,15 +7,15 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '180',
-      'asset' => 'YZ-13_DorotyGale_RGB_01',
+      'asset' => 'YZ-16-DorotyGale-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Dorothy Gale'),
+      'typeline' => clienttranslate('Common - Citizen'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Citizen',
-      'typeline' => 'Common - Citizen',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{M} Send to Reserve target Character.'),
       'forest' => 3,

@@ -7,15 +7,15 @@ class OD_Common_Charge extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '147',
-      'asset' => 'ALT_CORE_B_OD_23_C_FRAMELESS_T1',
+      'asset' => 'OD-23-Charge-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Charge!'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('[[Fleeting]].  Your Characters gain 1 boost.'),
       'reminders' => clienttranslate(

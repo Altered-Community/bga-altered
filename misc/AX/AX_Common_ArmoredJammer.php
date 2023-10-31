@@ -7,15 +7,15 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '21',
-      'asset' => 'AX-07-ArmoredJammer_RGB_01',
+      'asset' => 'AX-28-ArmoredJammer-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Armored Jammer'),
-      'type' => PERMANENT,
-      'subtype' => '',
       'typeline' => '',
       'rarity' => RARITY_COMMON,
+      'type' => PERMANENT,
+      'subtype' => '',
 
       'effectDesc' => clienttranslate('{J} [Sabotage].'),
       'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),

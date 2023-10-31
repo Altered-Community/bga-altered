@@ -7,15 +7,15 @@ class MU_Common_Inari extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '106',
-      'asset' => 'MU-06_Inari_RGB_01',
+      'asset' => 'MU-11-Inari-C',
       'frameSize' => 1,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Inari'),
+      'typeline' => clienttranslate('Common - Divinity'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Divinity',
-      'typeline' => 'Common - Divinity',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 3,
       'mountain' => 1,

@@ -7,15 +7,15 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '86',
-      'asset' => 'LY-21_Asmodeus_RGB_01',
+      'asset' => 'LY-20-Asmodeus-C',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Asmodeus'),
+      'typeline' => clienttranslate('Common - Demon'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Demon',
-      'typeline' => 'Common - Demon',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate(
         '{J} Roll a die. If the result is 4 or more, I gain [[Anchored]]. Otherwise, I gain 3 boosts.'

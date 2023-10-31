@@ -7,15 +7,15 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '97',
-      'asset' => 'MU-02_Teija-Nauraa_RGB_01',
+      'asset' => 'MU-02-Teija-Nauraa-C',
       'frameSize' => 1,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Teija & Nauraa'),
-      'type' => HERO,
-      'subtype' => 'Muna Hero',
-      'typeline' => '',
+      'typeline' => clienttranslate('Muna Hero'),
       'rarity' => RARITY_COMMON,
+      'type' => HERO,
+      'subtype' => '',
 
       'effectDesc' => clienttranslate('The first Character you play each day gains 1 boost.'),
     ];

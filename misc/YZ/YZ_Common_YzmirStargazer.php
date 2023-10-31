@@ -7,15 +7,15 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '169',
-      'asset' => 'YZ-40_Kadigiran_Phonomancer_RGB_01',
+      'asset' => 'YZ-40-Kadigiran-Phonomancer-C',
       'frameSize' => 1,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Yzmir Stargazer'),
+      'typeline' => clienttranslate('Common - Mage'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Mage',
-      'typeline' => 'Common - Mage',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 2,
       'mountain' => 1,

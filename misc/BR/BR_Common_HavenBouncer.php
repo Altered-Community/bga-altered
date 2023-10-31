@@ -7,15 +7,15 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '49',
-      'asset' => 'BR-19_MiskiCalderon_RGB_01',
+      'asset' => 'BR-15-MiskiCalderon-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Haven Bouncer'),
+      'typeline' => clienttranslate('Common - Adventurer'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Adventurer',
-      'typeline' => 'Common - Adventurer',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{M} [Sabotage].'),
       'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),
@@ -24,6 +24,7 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectHand' => FT::ACTION(TARGET, ['targetLocation' => [MEMORY], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
     ];
   }
 }

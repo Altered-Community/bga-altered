@@ -7,15 +7,15 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '75',
-      'asset' => 'Z-SLUSH_LY-38_Esmeralda_RGB_01',
+      'asset' => 'LY-11-Esmeralda-C',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Esmeralda'),
+      'typeline' => clienttranslate('Common - Artist'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Artist',
-      'typeline' => 'Common - Artist',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{M} [Resupply].'),
       'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),

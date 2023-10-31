@@ -7,15 +7,15 @@ class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '7',
-      'asset' => 'Z-SLUSH_AX-29_JianLam_RGB_01',
+      'asset' => 'AX-10-JianLam-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Jian, Assembly Overseer'),
+      'typeline' => clienttranslate('Common - Engineer'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Engineer',
-      'typeline' => 'Common - Engineer',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{J} If you control at least 2 Permanents, I gain 1 boost.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),

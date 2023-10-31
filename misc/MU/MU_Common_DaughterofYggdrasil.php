@@ -7,22 +7,23 @@ class MU_Common_DaughterofYggdrasil extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '109',
-      'asset' => 'MU-42_Hesperide_RGB_01',
+      'asset' => 'MU-12-Hesperide-C',
       'frameSize' => 1,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Daughter of Yggdrasil'),
+      'typeline' => clienttranslate('Common - Plant'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Plant',
-      'typeline' => 'Common - Plant',
-      'rarity' => RARITY_COMMON,
 
-      'effectDesc' => clienttranslate('{M} [Gift]�� Each opponent draws a card.'),
+      'effectDesc' => clienttranslate('{M} [Gift] - Each opponent draws a card.'),
       'forest' => 3,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectHand' => FT::ACTION(DRAW, ['players' => OPPONENT]),
     ];
   }
 }

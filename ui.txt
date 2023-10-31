@@ -1,0 +1,3 @@
+ - faire quelques captures d'écran en mobile
+ - faire un screen pour les settings users
+ - screen memoir44

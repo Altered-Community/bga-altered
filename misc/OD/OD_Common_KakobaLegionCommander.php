@@ -7,15 +7,16 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '143',
-      'asset' => 'OR-26_Caellach_RGB_01',
+      'asset' => 'OD-15-Caellach-C',
+
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Kakoba, Legion Commander'),
+      'typeline' => clienttranslate('Common - Soldier'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Soldier',
-      'typeline' => 'Common - Soldier',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{J} If you control at least 3 other Characters, I gain 2 boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),

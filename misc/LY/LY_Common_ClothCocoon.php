@@ -7,15 +7,15 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '88',
-      'asset' => 'LY-49_Cloth_Cocoon_01',
+      'asset' => 'LY-24-Cloth-Cocoon-C',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Cloth Cocoon'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate(
         '[[Fleeting]]. Choose one:  - Discard target [[Fleeting]], [[Anchored]] or [[Asleep]] Character.  - Discard target Permanent.'

@@ -7,17 +7,17 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '24',
-      'asset' => 'AX-45_Recycling_Mill_RGB_01',
+      'asset' => 'AX-25-Recycling-Mill-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Axiom Reprocessor'),
-      'type' => PERMANENT,
-      'subtype' => '',
       'typeline' => '',
       'rarity' => RARITY_COMMON,
+      'type' => PERMANENT,
+      'subtype' => '',
 
-      'effectDesc' => clienttranslate('At Dawn � [Resupply].'),
+      'effectDesc' => clienttranslate('At Dawn - [Resupply].'),
       'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),
       'costHand' => 4,
       'costMemory' => 4,

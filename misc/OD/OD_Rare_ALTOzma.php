@@ -7,19 +7,20 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '156',
-      'asset' => 'OR-37_Ozma_RGB_02',
+      'asset' => 'OD-11-Ozma-R',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('ALT Ozma'),
       'type' => CHARACTER,
       'subtype' => 'Citizen',
-      'typeline' => 'Rare - Citizen',
+      'typeline' => clienttranslate('Rare - Citizen'),
       'rarity' => RARITY_RARE,
 
       'echoDesc' => clienttranslate(
-        '<{D} : The next Character you play this turn costs {1} less.> (Discard me from your Reserve to activate this effect)'
+        '[G]{D} : The next Character you play this turn costs {1} less.[/G] (Discard me from your Reserve to activate this effect)'
       ),
+      'changedStats' => ['forest', 'ocean'],
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

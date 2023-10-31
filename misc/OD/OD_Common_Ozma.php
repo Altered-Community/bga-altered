@@ -7,15 +7,15 @@ class OD_Common_Ozma extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '138',
-      'asset' => 'OR-37_Ozma_RGB_01',
+      'asset' => 'OD-11-Ozma-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Ozma'),
+      'typeline' => clienttranslate('Common - Citizen'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Citizen',
-      'typeline' => 'Common - Citizen',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{J} If you control at least 3 other Characters, draw a card.'),
       'forest' => 1,

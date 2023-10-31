@@ -7,20 +7,22 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '120',
-      'asset' => 'MU-35_Mana_Web_RGB_01',
+      'asset' => 'MU-25-Mana-Web-C',
+
       'frameSize' => 1,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Meditation Training'),
+      'typeline' => clienttranslate('Common'),
+      'rarity' => RARITY_COMMON,
       'type' => SPELL,
       'subtype' => '',
-      'typeline' => 'Common - ',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes [[Anchored]].'),
       'reminders' => clienttranslate('(Anchored: At Night, I don\'t go to Reserve and I lose Anchored.)'),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }
 }

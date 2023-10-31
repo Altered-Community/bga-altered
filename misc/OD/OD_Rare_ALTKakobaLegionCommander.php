@@ -7,17 +7,17 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '157',
-      'asset' => 'OR-26_Caellach_RGB_02',
+      'asset' => 'OD-15-Caellach-R',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('ALT Kakoba, Legion Commander'),
+      'typeline' => clienttranslate('Rare - Soldier'),
+      'rarity' => RARITY_RARE,
       'type' => CHARACTER,
       'subtype' => 'Soldier',
-      'typeline' => 'Rare - Soldier',
-      'rarity' => RARITY_RARE,
 
-      'effectDesc' => clienttranslate('{J} If you control at least 3 other Characters, I gain <3> boosts.'),
+      'effectDesc' => clienttranslate('{J} If you control at least 3 other Characters, I gain [G]3[/G] boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
       'forest' => 2,
       'mountain' => 2,

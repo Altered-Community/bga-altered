@@ -7,15 +7,15 @@ class AX_Common_AmeliaEarhart extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '9',
-      'asset' => 'AX-17_AmeliaEarhart_RGB_01',
+      'asset' => 'AX-11-AmeliaEarhart-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Amelia Earhart'),
+      'typeline' => clienttranslate('Common - Pilot'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Pilot',
-      'typeline' => 'Common - Pilot',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 2,
       'mountain' => 2,

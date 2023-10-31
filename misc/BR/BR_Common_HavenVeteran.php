@@ -7,15 +7,15 @@ class BR_Common_HavenVeteran extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '52',
-      'asset' => 'BR-30_SeiringarOldGuard_RGB_01',
+      'asset' => 'BR-17-SeiringarOldGuard-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Haven Veteran'),
+      'typeline' => clienttranslate('Common - Blademaster'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Blademaster',
-      'typeline' => 'Common - Blademaster',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 4,
       'mountain' => 2,

@@ -7,15 +7,15 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '39',
-      'asset' => 'BR-24_AltrunTracer_RGB_01',
+      'asset' => 'BR-97-AltrunTracer-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,
       'name' => clienttranslate('Bravos Tracer'),
+      'typeline' => clienttranslate('Common - Adventurer'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Adventurer',
-      'typeline' => 'Common - Adventurer',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{J} I become [[Fleeting]].'),
       'reminders' => clienttranslate('(Fleeting: If I would be sent to Reserve, banish me instead.)'),
@@ -24,6 +24,7 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::GAIN($this, FLEETING),
     ];
   }
 }

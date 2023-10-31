@@ -7,15 +7,15 @@ class LY_Common_LyraChronicler extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '80',
-      'asset' => 'LY-37_Scheherezade_RGB_01',
+      'asset' => 'LY-16-Scheherezade-C',
       'frameSize' => 1,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Lyra Chronicler'),
+      'typeline' => clienttranslate('Common - Citizen'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Citizen',
-      'typeline' => 'Common - Citizen',
-      'rarity' => RARITY_COMMON,
 
       'forest' => 4,
       'mountain' => 0,

@@ -7,15 +7,15 @@ class AX_Common_Ganesha extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '12',
-      'asset' => 'AX-14_Ganesha_RGB_01',
+      'asset' => 'AX-19-Ganesha-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,
       'name' => clienttranslate('Ganesha'),
+      'typeline' => clienttranslate('Common - Divinity'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Divinity',
-      'typeline' => 'Common - Divinity',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{J} Create a [2/2/2 Brassbug] Robot token for each Permanent you control.'),
       'forest' => 5,

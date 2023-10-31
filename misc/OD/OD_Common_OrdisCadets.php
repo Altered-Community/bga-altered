@@ -7,15 +7,15 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '132',
-      'asset' => 'OR-27_Training Grounds_RGB_01',
+      'asset' => 'OD-06-Training Grounds-C',
       'frameSize' => 1,
 
-      'faction' => FACTION_OR,
+      'faction' => FACTION_OD,
       'name' => clienttranslate('Ordis Cadets'),
+      'typeline' => clienttranslate('Common - Soldier'),
+      'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Soldier',
-      'typeline' => 'Common - Soldier',
-      'rarity' => RARITY_COMMON,
 
       'effectDesc' => clienttranslate('{J} Create a [1/1/1 Ordis Recruit] Soldier token in my Expedition.'),
       'forest' => 1,

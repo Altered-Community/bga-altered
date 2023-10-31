@@ -7,14 +7,14 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
   {
     $this->properties = [
       'uid' => '112',
-      'asset' => 'MU-20_TasakaalMeshrider_RGB_01',
+      'asset' => 'MU-13-TasakaalMeshrider-C',
       'frameSize' => 1,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Muna Druid'),
       'type' => CHARACTER,
       'subtype' => 'Druid',
-      'typeline' => 'Common - Druid',
+      'typeline' => clienttranslate('Common - Druid'),
       'rarity' => RARITY_COMMON,
 
       'echoDesc' => clienttranslate(
@@ -25,6 +25,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectEcho' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }
 }
