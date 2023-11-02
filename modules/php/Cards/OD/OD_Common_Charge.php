@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_Charge extends \ALT\Models\Card
 {
@@ -25,6 +26,10 @@ class OD_Common_Charge extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)])
+      ),
     ];
   }
 }

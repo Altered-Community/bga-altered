@@ -93,6 +93,14 @@ class Target extends \ALT\Models\Action
     ];
   }
 
+  public function stTarget()
+  {
+    $args = $this->argsTarget();
+    if ($args['upTo'] == false && count($args['cardIds']) <= $args['n']) {
+      $this->actTarget($args['cardIds']);
+    }
+  }
+
   public function actTarget($cardIds)
   {
     $player = Players::getActive();
@@ -104,7 +112,11 @@ class Target extends \ALT\Models\Action
     if (count($cardIds) > $args['n']) {
       throw new \BgaVisibleSystemException('You selected too many cards. Should not happen');
     }
-    if (!$args['upTo'] && count($cardIds) < $args['n']) {
+    if (
+      !$args['upTo'] &&
+      ((count($args['cardIds']) >= $args['n'] && count($cardIds) < $args['n']) ||
+        (count($args['cardIds']) < $args['n'] && count($cardIds) != count($args['cardIds'])))
+    ) {
       throw new \BgaVisibleSystemException('You havent selected enough cards. Should not happen');
     }
 
