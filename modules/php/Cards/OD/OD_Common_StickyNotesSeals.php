@@ -9,7 +9,7 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '150',
-      'asset' => 'OD-33-Strength-in-Numbers-01',
+      'asset' => 'OD-33-Strength-in-Numbers-C',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,

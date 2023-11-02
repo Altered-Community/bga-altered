@@ -9,7 +9,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '132',
-      'asset' => 'OD-06-Training Grounds-C',
+      'asset' => 'OD-06-TrainingGrounds-C',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,

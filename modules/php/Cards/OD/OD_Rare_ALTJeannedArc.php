@@ -9,7 +9,7 @@ class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '158',
-      'asset' => 'OD-17-JeanneD-Arc-C',
+      'asset' => 'OD-17-JeanneD-Arc-R',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,

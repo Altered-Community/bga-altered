@@ -61,6 +61,10 @@ class Notifications
     $factionNames = [
       \FACTION_BR => clienttranslate('Bravos'),
       \FACTION_MU => clienttranslate('Muna'),
+      \FACTION_OD => clienttranslate('Ordis'),
+      \FACTION_AX => clienttranslate('Axiom'),
+      \FACTION_LY => clienttranslate('Lyra'),
+      \FACTION_YZ => clienttranslate('Yzmir'),
     ];
 
     self::notifyAll(

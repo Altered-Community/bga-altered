@@ -9,7 +9,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '140',
-      'asset' => 'OD-14-EskheretRuunKurush-C',
+      'asset' => 'OD-14-Eskheret-ruun-Kurush-C',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,
