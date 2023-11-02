@@ -10,7 +10,7 @@ class BR_Rare_Ratatoskr extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '66',
-      'asset' => 'BR-04-Ratatoskr-02',
+      'asset' => 'BR-04-Ratatoskr-R',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,

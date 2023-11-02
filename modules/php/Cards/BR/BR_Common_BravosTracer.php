@@ -10,7 +10,7 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '39',
-      'asset' => 'BR-97-AltrunTracer-C',
+      'asset' => 'BR-07-AltrunTracer-C',
       'frameSize' => 1,
 
       'faction' => FACTION_BR,

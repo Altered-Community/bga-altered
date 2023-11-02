@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\BR;
-
+use ALT\Helpers\FT;
 class BR_Common_Chiron extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -26,6 +26,8 @@ class BR_Common_Chiron extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectHand' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+      'effectMemory' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
     ];
   }
 }
