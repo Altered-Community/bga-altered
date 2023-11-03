@@ -11,7 +11,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
     $this->properties = [
       'uid' => '112',
       'asset' => 'MU-13-TasakaalMeshrider-C',
-      'frameSize' => 1,
+      'frameSize' => 0,
 
       'faction' => FACTION_MU,
       'name' => clienttranslate('Muna Druid'),
