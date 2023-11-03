@@ -19,6 +19,9 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate(
         '{T} : Target an allied Character, then roll a die.  - On 6, it becomes [[Anchored]].  - On 1, send it to Reserve.  - Otherwise, it gains 1 boost.'
       ),

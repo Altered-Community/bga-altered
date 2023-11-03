@@ -401,7 +401,7 @@ class Notifications
   {
     self::notifyAll(
       'invokeToken',
-      clienttranslate('${player_name} invokes ${card_name} in ${location} (${card_name2}\' effect)'),
+      clienttranslate('${player_name} invokes ${card_name} in ${location} (${card_name2}\'s effect)'),
       [
         'player' => $player,
         'location' => $card->getLocation(),

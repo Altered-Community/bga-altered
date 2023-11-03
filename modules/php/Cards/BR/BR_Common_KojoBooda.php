@@ -28,7 +28,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
           'output' => [
             'action' => INVOKE_TOKEN,
             'automatic' => true,
-            'args' => ['tokenType' => 'BR_Base_Booda', 'targetLocation' => [STORM_RIGHT]],
+            'args' => ['tokenType' => 'BR_Common_Booda', 'targetLocation' => [STORM_RIGHT]],
           ],
         ],
       ],

@@ -187,11 +187,25 @@ class Cards extends \ALT\Helpers\CachedPieces
    */
   public function getListeningCards($event)
   {
-    return self::getListeningCardsObject()
+    $cards = self::getListeningCardsObject()
       ->filter(function ($card) use ($event) {
         return $card->isListeningTo($event);
       })
       ->getIds();
+
+    // if we force other cards to be listened to
+    if (isset($event['cardsToListen'])) {
+      $cards = array_merge(
+        $cards,
+        Cards::getMany($event['cardsToListen'])
+          ->filter(function ($card) use ($event) {
+            return $card->isListeningTo($event);
+          })
+          ->getIds()
+      );
+    }
+
+    return $cards;
   }
 
   public function getListeningCardsObject()

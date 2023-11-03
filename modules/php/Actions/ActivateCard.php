@@ -22,7 +22,8 @@ class ActivateCard extends \ALT\Models\Action
 
   public function getFlow($player)
   {
-    return $this->getCard()->isPlayed()
+    return $this->getCard()->isPlayed() ||
+      in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
       ? Cards::applyEffect(
         $this->getCard(),
         $player,

@@ -19,6 +19,9 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate(
         'When you play a Permanent, you may exhaust me ({T}) to create a [2/2/2 Brassbug] Robot token.'
       ),

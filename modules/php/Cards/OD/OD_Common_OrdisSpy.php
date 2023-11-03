@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_OrdisSpy extends \ALT\Models\Card
 {

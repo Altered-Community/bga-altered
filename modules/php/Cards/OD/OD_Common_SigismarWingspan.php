@@ -19,6 +19,9 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate('At Dawn - Create a [1/1/1 Ordis Recruit] Soldier token in your Hero Expedition.'),
     ];
   }

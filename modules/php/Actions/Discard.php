@@ -73,12 +73,18 @@ class Discard extends \ALT\Models\Action
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
     }
+
+    foreach ($cardIds as $cardId) {
+      Cards::get($cardId)->checkLeaveExpeditionListener();
+    }
+
     Cards::discard($cardIds, $args['destination']);
     $cards = Cards::getMany($cardIds);
 
     $deleted = [];
     foreach ($cardIds as $cardId) {
-      $deleted = array_merge($deleted, Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds())->getIds());
+      $deleted = array_merge($deleted, Meeples::getInLocation('card-' . $cardId)->getIds());
+      Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds());
     }
 
     $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source} to ${destination}');

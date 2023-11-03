@@ -504,7 +504,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let id = `card-${card.id}`;
       // we slide it from the card triggering the effect
       if (!$(id)) {
-        this.addCard(card, `card-${n.args.card2.id}`);
+        this.addCard(card, n.args.card2.location == 'hand' ? 'page-title' :`card-${n.args.card2.id}`);
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {

@@ -297,7 +297,7 @@ class Player extends \ALT\Helpers\DB_Model
     }
 
     // return true if choice is needed
-    return $this->getMemorySlots() < $this->getMemoryCards()->count();
+    return array_merge($deletedCards->getIds(), $movedToReserve);
   }
 
   /************** Expedition calculation *******/

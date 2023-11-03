@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_JeannedArc extends \ALT\Models\Card
 {
@@ -27,6 +28,37 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 4,
       'costMemory' => 4,
+      'effectPassive' => [
+        'LeaveExpedition' => [
+          'output' => FT::SEQ(
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_RIGHT],
+            ]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_LEFT],
+            ])
+          ),
+        ],
+        'BeforeNight' => [
+          'condition' => 'myTurn',
+          'output' => FT::SEQ(
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_RIGHT],
+            ]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_LEFT],
+            ])
+          ),
+        ],
+      ],
     ];
   }
 }
