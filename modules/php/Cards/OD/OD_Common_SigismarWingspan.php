@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_SigismarWingspan extends \ALT\Models\Card
 {
@@ -23,6 +24,16 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'permanentSlots' => 2,
 
       'effectDesc' => clienttranslate('At Dawn - Create a [1/1/1 Ordis Recruit] Soldier token in your Hero Expedition.'),
+      'effectPassive' => [
+        'Dawn' => [
+          'condition' => 'myTurn',
+          'output' => FT::ACTION(INVOKE_TOKEN, [
+            'pId' => $this->getPId(),
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_LEFT],
+          ]),
+        ],
+      ],
     ];
   }
 }
