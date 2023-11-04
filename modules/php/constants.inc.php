@@ -64,6 +64,7 @@ const ST_INVOKE_TOKEN = 17;
 const ST_ACTIVATE_CARD = 18;
 const ST_DRAW = 19;
 const ST_SPECIAL_EFFECT = 20;
+const ST_CHECK_CONDITION = 21;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -107,6 +108,7 @@ const LOOSE = 'Loose';
 const SPELL_CLEANUP = 'SpellCleanup';
 const INVOKE_TOKEN = 'InvokeToken';
 const DRAW = 'Draw';
+const CHECK_CONDITION = 'CheckCondition';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

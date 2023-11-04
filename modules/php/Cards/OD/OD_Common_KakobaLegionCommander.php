@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
 {
@@ -27,6 +28,10 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'control3OtherCharacters',
+        'effect' => FT::GAIN(ME, BOOST, 2),
+      ]),
     ];
   }
 }

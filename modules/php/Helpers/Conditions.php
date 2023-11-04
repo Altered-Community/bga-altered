@@ -31,4 +31,15 @@ abstract class Conditions
   {
     return $event['pId'] == $card->getPId();
   }
+
+  public static function control3OtherCharacters($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getPlayedCards(CHARACTER)
+      ->filter(function ($c) use ($card) {
+        return $c->getId() != $card->getId();
+      })
+      ->count() >= 3;
+  }
 }

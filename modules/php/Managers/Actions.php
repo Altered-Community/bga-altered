@@ -23,6 +23,7 @@ class Actions
     ACTIVATE_CARD,
     DRAW,
     SPECIAL_EFFECT,
+    CHECK_CONDITION,
   ];
 
   public static function get($actionId, &$ctx = null)

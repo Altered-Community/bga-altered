@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
-
+use ALT\Helpers\FT;
 class OD_Common_OrdisCadets extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -25,6 +25,11 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
+        'pId' => $this->getPId(),
+        'tokenType' => 'OD_Common_OrdisRecruit',
+        'targetLocation' => ['source'],
+      ]),
     ];
   }
 }

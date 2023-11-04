@@ -85,6 +85,10 @@ class InvokeToken extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
     }
 
+    if ($location == 'source') {
+      $location = $this->getSource()->getLocation();
+    }
+
     $card = $this->getToken();
     $card = Cards::singleCreate([
       'player_id' => $player->getId(),
