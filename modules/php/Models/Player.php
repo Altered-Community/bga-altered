@@ -74,7 +74,17 @@ class Player extends \ALT\Helpers\DB_Model
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
-    Notifications::drawCards($this, $cards, $source);
+    if ($source !== null) {
+      Notifications::drawCards(
+        $this,
+        $cards,
+        clienttranslate('You draw ${card_names} from your deck (${card_name2}\'s effect)'),
+        clienttranslate('${player_name} draws ${n} card(s) from its deck (${card_name2}\'s effect)'),
+        ['card2' => $source]
+      );
+    } else {
+      Notifications::drawCards($this, $cards);
+    }
     return $cards;
   }
 

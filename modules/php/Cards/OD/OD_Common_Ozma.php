@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_Ozma extends \ALT\Models\Card
 {
@@ -25,6 +26,10 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'control3OtherCharacters',
+        'effect' => FT::ACTION(DRAW, ['players' => ME]),
+      ]),
     ];
   }
 }
