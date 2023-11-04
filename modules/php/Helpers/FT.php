@@ -20,6 +20,14 @@ abstract class FT
     ];
   }
 
+  public static function XOR(...$childs)
+  {
+    return [
+      'type' => NODE_XOR,
+      'childs' => $childs,
+    ];
+  }
+
   public static function PAR(...$childs)
   {
     return [
@@ -58,5 +66,10 @@ abstract class FT
   public static function RETURN_TO_HAND()
   {
     return self::ACTION(DISCARD, ['destination' => HAND]);
+  }
+
+  public static function DISCARD_TO_RESERVE()
+  {
+    return self::ACTION(DISCARD, ['destination' => MEMORY]);
   }
 }

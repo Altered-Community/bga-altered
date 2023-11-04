@@ -20,7 +20,15 @@ class Discard extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return clienttranslate('Discard TODO');
+    $location = $this->getCtxArg('destination') ?? 'discard';
+    $msg = clienttranslate('discard to ${location}');
+    if ($location == 'discard') {
+      $msg = clienttranslate('discard');
+    }
+    return [
+      'log' => $msg,
+      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard'],
+    ];
   }
 
   public function stDiscard()

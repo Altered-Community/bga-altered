@@ -19,24 +19,6 @@ class Target extends \ALT\Models\Action
     return ST_TARGET;
   }
 
-  public function getDescription()
-  {
-    $targetType = $this->getArg('targetType');
-
-    if (count($targetType) == 1 && $targetType == CHARACTER) {
-      return clienttranslate('Target a character');
-    } elseif (count($targetType) == 1 && $targetType == PERMANENT) {
-      return clienttranslate('Target a permanent');
-    } else {
-      return clienttranslate('Target a card');
-    }
-  }
-
-  public function isDoable($player)
-  {
-    return !empty($this->getTargetableCards($player));
-  }
-
   protected $args = [
     'upTo' => false, // if n > 1, can the player select UP TO n cards or exactly n cards ?
     'targetPlayer' => ALL,
@@ -48,6 +30,45 @@ class Target extends \ALT\Models\Action
     'minHandCost' => 0, // limitation
     'n' => 1, // number of targets
   ];
+
+  public function getDescription()
+  {
+    $targetType = $this->getArg('targetType');
+    $upTo = $this->getCtxArg('upTo') ?? false;
+    $msg = '';
+    if (count($targetType) == 1 && $targetType == [CHARACTER]) {
+      if ($upTo) {
+        $msg = clienttranslate('Target up to ${n} character(s) to ${effect}');
+      } else {
+        $msg = clienttranslate('Target ${n} character(s) to ${effect}');
+      }
+    } elseif (count($targetType) == 1 && $targetType == [PERMANENT]) {
+      if ($upTo) {
+        $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect}');
+      } else {
+        $msg = clienttranslate('Target ${n} permanent(s) to ${effect}');
+      }
+    } else {
+      if ($upTo) {
+        $msg = clienttranslate('Target up to ${n} card(s) to ${effect}');
+      } else {
+        $msg = clienttranslate('Target ${n} card(s) to ${effect}');
+      }
+    }
+
+    return [
+      'log' => $msg,
+      'args' => [
+        'n' => $this->getCtxArg('n') ?? 1,
+        'effect' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
+      ],
+    ];
+  }
+
+  public function isDoable($player)
+  {
+    return count($this->getTargetableCards($player)) != 0;
+  }
 
   public function getTargetableCards($player)
   {
@@ -129,5 +150,6 @@ class Target extends \ALT\Models\Action
 
     $cards = Cards::getMany($cardIds);
     Notifications::targetCards($player, $cards, $this->getSource());
+    $this->resolveAction([$cardIds]);
   }
 }

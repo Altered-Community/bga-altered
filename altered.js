@@ -498,8 +498,9 @@ define([
       // Add source if any
       let source = _(choice.source ? choice.source : '');
       if (choice.sourceId) {
-        let card = this.getCardInfos(choice.sourceId);
-        source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
+        // TODO?
+        // let card = this.getCardInfos(choice.sourceId);
+        // source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
       }
 
       if (source != '') {
