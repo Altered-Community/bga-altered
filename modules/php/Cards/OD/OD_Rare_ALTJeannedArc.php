@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
-
+use ALT\Helpers\FT;
 class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -28,6 +28,37 @@ class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 5,
       'costMemory' => 5,
+      'effectPassive' => [
+        'LeaveExpedition' => [
+          'output' => FT::SEQ(
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_RIGHT],
+            ]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_LEFT],
+            ])
+          ),
+        ],
+        'BeforeNight' => [
+          'condition' => 'myTurn',
+          'output' => FT::SEQ(
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_RIGHT],
+            ]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_LEFT],
+            ])
+          ),
+        ],
+      ],
     ];
   }
 }
