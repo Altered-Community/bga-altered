@@ -54,6 +54,7 @@ define([
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
+        ['echoEffect', 100],
         ['moveStormToken', null],
         ['moveToHand', null],
         ['silentKill', 200],

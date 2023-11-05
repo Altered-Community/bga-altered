@@ -363,7 +363,7 @@ class Notifications
 
   public static function echoEffect($player, $card)
   {
-    self::notifyAll('discard', clienttranslate('${player_name} activates echo effect of ${card_name} and discards it'), [
+    self::notifyAll('echoEffect', clienttranslate('${player_name} activates echo effect of ${card_name} and discards it'), [
       'player' => $player,
       'card' => $card,
     ]);

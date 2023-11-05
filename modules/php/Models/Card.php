@@ -329,12 +329,13 @@ class Card extends \ALT\Helpers\DB_Model
   public function getCost()
   {
     // TODO: manage cost modifiers
+    $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     switch ($this->getLocation()) {
       case HAND:
-        return $this->getCostHand();
+        return $this->getCostHand() - ($costReduction[$this->getType()] ?? 0);
         break;
       case MEMORY:
-        return $this->getCostMemory();
+        return $this->getCostMemory() - ($costReduction[$this->getType()] ?? 0);
         break;
     }
   }

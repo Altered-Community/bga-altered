@@ -33,6 +33,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'newDayManaSelection' => 'obj',
     'nightSelection' => 'obj',
     'deckSelection' => 'obj',
+    'costReduction' => 'obj', // pId => character => cost
   ];
 
   protected static $table = 'global_variables';

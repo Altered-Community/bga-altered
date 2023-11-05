@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Rare_ALTOzma extends \ALT\Models\Card
 {
@@ -34,6 +35,10 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
         'condition' => 'control3OtherCharacters',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
+      'effectEcho' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
+      ],
     ];
   }
 }

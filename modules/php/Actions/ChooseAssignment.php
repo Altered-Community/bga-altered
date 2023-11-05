@@ -103,6 +103,12 @@ class ChooseAssignment extends \ALT\Models\Action
     // Pay cost
     $cost = $card->getCost();
     $player->payMana($cost);
+    $costReduction = Globals::getCostReduction();
+    if (isset($costReduction[$player->getId()][$card->getType()])) {
+      unset($costReduction[$player->getId()][$card->getType()]);
+      Globals::setCostReduction($costReduction);
+    }
+
     // Move card
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
@@ -155,7 +161,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $player = Players::getActive();
     $args = $this->argsChooseAssignment()['_private']['active']['echo'];
 
-    if (!isset($args[$cardId])) {
+    if (!in_array($cardId, $args)) {
       throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
     }
 
@@ -165,6 +171,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $effect = $card->getEffectEcho();
     if (!empty($effect)) {
+      $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
       $this->insertAsChild($effect);
     }
   }

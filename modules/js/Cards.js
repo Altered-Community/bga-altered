@@ -462,6 +462,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    notif_echoEffect(n) {
+      debug('Notif : playing from echo');
+      // TODO
+    },
+
     notif_tap(n) {
       debug('Notif: tapping card', n);
       // TODO (tap card, etc.)

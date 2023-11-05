@@ -78,6 +78,8 @@ trait TurnTrait
     }
 
     Globals::setPlayedCards(0);
+    Globals::setCostReduction([]);
+
     self::giveExtraTime($player->getId());
 
     // Stats::incTurns($player);

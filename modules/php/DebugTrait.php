@@ -34,9 +34,9 @@ trait DebugTrait
     // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
     // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
-    // $this->actTakeAtomicAction('actEcho', [29]);
+    $this->actTakeAtomicAction('actEcho', [96]);
     // $this->actTakeAtomicAction('actPass', []);
-    $this->actTakeAtomicAction('actDiscard', [[9]]);
+    // $this->actTakeAtomicAction('actDiscard', [[9]]);
     // $this->actTakeAtomicAction('actTarget', [[17]]);
     // $this->actTakeAtomicAction('actInvokeToken', [STORM_LEFT]);
 
