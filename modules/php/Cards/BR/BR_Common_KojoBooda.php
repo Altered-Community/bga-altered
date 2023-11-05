@@ -19,6 +19,9 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate(
         'At Dawn, if you have the first player Token - Create a [Booda 2/2/2] Cat token in your Companion Expedition.'
       ),

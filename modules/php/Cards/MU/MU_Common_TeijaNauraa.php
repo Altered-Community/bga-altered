@@ -20,6 +20,9 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate('The first Character you play each day gains 1 boost.'),
       'effectPassive' => [
         'ChooseAssignment' => [
