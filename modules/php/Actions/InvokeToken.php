@@ -26,7 +26,7 @@ class InvokeToken extends \ALT\Models\Action
 
   public function argsInvokeToken()
   {
-    $player = Players::getCurrent();
+    $player = Players::getActive();
 
     $tokenType = $this->getCtxArg('tokenType');
     $targetLocations = $this->getCtxArg('targetLocation') ?? STORMS;

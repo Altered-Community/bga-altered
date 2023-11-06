@@ -50,6 +50,11 @@ class Draw extends \ALT\Models\Action
     return true;
   }
 
+  protected $args = [
+    'n' => 1,
+    'players' => ALL,
+  ];
+
   public function stDraw()
   {
     $n = $this->getCtxArg('n') ?? 1;

@@ -39,6 +39,8 @@ class SpecialEffect extends \ALT\Models\Action
     return Cards::get($cardId);
   }
 
+  protected $args = ['effect' => null, 'args' => []];
+
   public function stSpecialEffect()
   {
     $effect = $this->getArg('effect');
@@ -56,6 +58,7 @@ class SpecialEffect extends \ALT\Models\Action
         $reduction = Globals::getCostReduction();
         $reduction[$card->getPId()][$args['type']] = $reduction[$card->getPId()][$args['type']] ?? 0 + $args['reduction'];
         Globals::setCostReduction($reduction);
+        break;
       default:
         break;
     }

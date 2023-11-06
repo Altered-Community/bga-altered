@@ -43,7 +43,7 @@ class Discard extends \ALT\Models\Action
 
   public function argsDiscard()
   {
-    $player = Players::getCurrent();
+    $player = Players::getActive();
     if (!is_null($this->getCtxArg('cardId'))) {
       $cards = [];
     } elseif ($this->getCtxArg('source') == HAND) {
@@ -121,7 +121,7 @@ class Discard extends \ALT\Models\Action
       if (in_array($card->getPlayer()->getId(), $notified)) {
         continue;
       }
-      $notified = $card->getPlayer()->getId();
+      $notified[] = $card->getPlayer()->getId();
       Notifications::updateBiomes($card->getPlayer());
     }
 
