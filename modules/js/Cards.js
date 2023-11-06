@@ -702,9 +702,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
-          <div class='card-forest' data-size='${sizes.forest}'>${p.forest}</div>
-          <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
-          <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
+          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}'>${p.forest}</div>
+          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}'>${p.mountain}</div>
+          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}'>${p.ocean}</div>
         </div>
         <div class='altered-card-statuses'></div>
       </div>`;
@@ -804,13 +804,33 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let container = $(`card-${cardId}`).querySelector('.altered-card-statuses');
       container.innerHTML = '';
 
-      const ICONS = ['fleeting', 'anchored', 'sleeping'];
+      const ICONS = ['fleeting', 'anchored', 'sleeping', 'boost'];
+      let boost = 0;
       this.getMeeplesOnCard(cardId).forEach((meeple) => {
         let type = meeple.dataset.type;
         if (!ICONS.includes(type)) return;
 
+        if (type == 'boost') {
+          boost++;
+          return;
+        }
+
         container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
       });
+
+      
+        let p = {'forest': parseInt($(`card-${cardId}`).querySelector('.card-forest').getAttribute('data-initial')) + boost, 
+                    'mountain': parseInt($(`card-${cardId}`).querySelector('.card-mountain').getAttribute('data-initial')) + boost, 
+                    'ocean': parseInt($(`card-${cardId}`).querySelector('.card-ocean').getAttribute('data-initial')) + boost};
+        let sizes = this.getBiomesUISizes(p);
+        $(`card-${cardId}`).querySelector('.card-forest').setAttribute('data-size', sizes.forest);
+        $(`card-${cardId}`).querySelector('.card-forest').innerHTML = p.forest;
+        $(`card-${cardId}`).querySelector('.card-mountain').setAttribute('data-size', sizes.mountain);
+        $(`card-${cardId}`).querySelector('.card-mountain').innerHTML = p.mountain;
+        $(`card-${cardId}`).querySelector('.card-ocean').setAttribute('data-size', sizes.ocean);
+        $(`card-${cardId}`).querySelector('.card-ocean').innerHTML = p.ocean;
+
+
     },
 
     getCardTooltipExplanation(card) {
