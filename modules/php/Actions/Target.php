@@ -111,6 +111,7 @@ class Target extends \ALT\Models\Action
       'n' => $this->getArg('n'),
       'cardIds' => $cards->getIds(),
       'upTo' => $this->getArg('upTo'),
+      'description' => $this->getDescription(),
     ];
   }
 

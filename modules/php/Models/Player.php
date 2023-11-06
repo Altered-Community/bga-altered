@@ -278,7 +278,7 @@ class Player extends \ALT\Helpers\DB_Model
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED)) {
         $deletedTokens = array_merge($deletedTokens, $card->discard()->getIds());
-        $deletedCards[] = $card;
+        $deletedCards[$cId] = $card;
         continue;
       }
 
@@ -306,7 +306,6 @@ class Player extends \ALT\Helpers\DB_Model
       Notifications::cleanupCards($this, $cleanupCards);
     }
 
-    // return true if choice is needed
     return array_merge($deletedCards->getIds(), $movedToReserve);
   }
 

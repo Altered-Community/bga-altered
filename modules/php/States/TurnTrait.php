@@ -198,6 +198,7 @@ trait TurnTrait
     foreach (Players::getAll() as $pId => $player) {
       $cardLeft = array_merge($cardLeft, $player->nightCleanup());
     }
+
     $this->checkCardListeners('BeforeNight', 'stPreNight', ['cardsToListen' => $cardLeft]);
   }
 

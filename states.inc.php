@@ -216,8 +216,10 @@ $machinestates = [
 
   ST_TARGET => [
     'name' => 'target',
-    'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
-    'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
+    // 'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
+    // 'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
+    'description' => '${description}',
+    'descriptionmyturn' => '${description}',
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',

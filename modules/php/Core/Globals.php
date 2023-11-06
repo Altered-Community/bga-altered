@@ -28,7 +28,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'heroes' => 'obj',
     'playedCards' => 'int',
     'stormMoves' => 'obj',
-    'tiebreakerMode' => 'bool',
+    'tieBreakerMode' => 'bool',
 
     'newDayManaSelection' => 'obj',
     'nightSelection' => 'obj',
