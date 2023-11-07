@@ -210,8 +210,10 @@ trait DebugTrait
       $sql[] = "UPDATE stats SET stats_player_id=$studioPlayer WHERE stats_player_id=$pId";
 
       // Add game-specific SQL update the tables for your game
-      // $sql[] = "UPDATE meeples SET player_id=$studioPlayer WHERE player_id=$pId";
-      // $sql[] = "UPDATE cards SET player_id=$studioPlayer WHERE player_id=$pId";
+      $sql[] = "UPDATE meeples SET player_id=$studioPlayer WHERE player_id=$pId";
+      $sql[] = "UPDATE cards SET player_id=$studioPlayer WHERE player_id=$pId";
+      $sql[] = "UPDATE cards SET card_location='deck-$studioPlayer' WHERE card_location='deck-$pId'";
+      $sql[] = "UPDATE cards SET card_location='board-hero-$studioPlayer' WHERE card_location='board-hero-$pId'";
       // $sql[] = "UPDATE actioncards SET player_id=$studioPlayer WHERE player_id=$pId";
       // $sql[] = "UPDATE buildings SET player_id=$studioPlayer WHERE player_id=$pId";
       // $sql[] = "UPDATE user_preferences SET player_id=$studioPlayer WHERE player_id=$pId";

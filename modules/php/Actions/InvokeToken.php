@@ -98,6 +98,7 @@ class InvokeToken extends \ALT\Models\Action
     ]);
 
     Notifications::invokeToken($player, $card, $this->getSource());
+    Notifications::updateBiomes($player);
     $this->resolveAction([$card->getId()]);
   }
 }
