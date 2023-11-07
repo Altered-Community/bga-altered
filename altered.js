@@ -61,6 +61,7 @@ define([
         ['updateBiomes', 100],
         ['spellCleanup', 100],
         ['invokeToken', 100],
+        ['afterYou', 100],
 
         ['setupPlayer', 200],
         ['payMana', 500],

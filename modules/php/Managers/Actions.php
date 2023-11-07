@@ -24,6 +24,7 @@ class Actions
     DRAW,
     SPECIAL_EFFECT,
     CHECK_CONDITION,
+    AFTER_YOU,
   ];
 
   public static function get($actionId, &$ctx = null)

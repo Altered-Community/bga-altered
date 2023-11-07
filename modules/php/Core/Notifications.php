@@ -308,6 +308,16 @@ class Notifications
     ]);
   }
 
+  public static function afterYou($player, $cost)
+  {
+    self::notifyAll('afterYou', clienttranslate('${player_name} triggers After You effect and pays ${cost}'), [
+      'player' => $player,
+      'cost' => $cost,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
+    ]);
+  }
+
   public static function updateBiomes($player)
   {
     self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
