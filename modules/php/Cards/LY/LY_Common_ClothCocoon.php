@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\LY;
-
+use ALT\Helpers\FT;
 class LY_Common_ClothCocoon extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -25,6 +25,14 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
       'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 3,
       'costMemory' => 3,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET, [
+          'statuses' => [FLEETING, ANCHORED, ASLEEP],
+          'targetType' => [CHARACTER, PERMANENT],
+          'effect' => FT::ACTION(DISCARD, []),
+        ])
+      ),
     ];
   }
 }

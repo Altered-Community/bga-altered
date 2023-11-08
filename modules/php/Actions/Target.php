@@ -29,6 +29,7 @@ class Target extends \ALT\Models\Action
     'minMemoryCost' => 0, // limitation
     'minHandCost' => 0, // limitation
     'n' => 1, // number of targets
+    'statuses' => null, // does it has those statuses
   ];
 
   public function getDescription()
@@ -92,11 +93,18 @@ class Target extends \ALT\Models\Action
     $cards = $cards->filter(function ($c) {
       $handCost = $c->getCostHand();
       $memoryCost = $c->getCostMemory();
-
-      return $this->getArg('minHandCost') <= $handCost &&
+      $statuses = $this->getArg('statuses');
+      $costCheck =
+        $this->getArg('minHandCost') <= $handCost &&
         $handCost <= $this->getArg('maxHandCost') &&
         $this->getArg('minMemoryCost') <= $memoryCost &&
         $memoryCost <= $this->getArg('maxMemoryCost');
+
+      if (is_null($statuses) || $c->getType() == PERMANENT) {
+        return $costCheck;
+      } else {
+        return $costCheck && $c->hasToken($statuses);
+      }
     });
 
     return $cards;
