@@ -29,7 +29,7 @@ class Target extends \ALT\Models\Action
     'minMemoryCost' => 0, // limitation
     'minHandCost' => 0, // limitation
     'n' => 1, // number of targets
-    'statuses' => null, // does it has those statuses
+    'statuses' => 'disabled', // does it has those statuses
   ];
 
   public function getDescription()
@@ -100,7 +100,7 @@ class Target extends \ALT\Models\Action
         $this->getArg('minMemoryCost') <= $memoryCost &&
         $memoryCost <= $this->getArg('maxMemoryCost');
 
-      if (is_null($statuses) || $c->getType() == PERMANENT) {
+      if ($statuses == 'disabled' || $c->getType() == PERMANENT) {
         return $costCheck;
       } else {
         return $costCheck && $c->hasToken($statuses);

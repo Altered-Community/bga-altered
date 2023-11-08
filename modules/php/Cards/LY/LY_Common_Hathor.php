@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\LY;
+use ALT\Helpers\FT;
 
 class LY_Common_Hathor extends \ALT\Models\Card
 {
@@ -10,7 +11,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
     $this->properties = [
       'uid' => '69',
       'asset' => 'LY-07-Hathor-C',
-      'frameSize' => 1,
+      'frameSize' => 3,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('Hathor'),
@@ -27,6 +28,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectEcho' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [MEMORY], 'effect' => FT::RETURN_TO_HAND()]),
     ];
   }
 }
