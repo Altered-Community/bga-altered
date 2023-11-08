@@ -318,6 +318,16 @@ class Notifications
     ]);
   }
 
+  public static function roll($player, $rolls, $source)
+  {
+    self::notifyAll('roll', clienttranslate('${player_name} rolls ${roll_text} (${card_name2}\'s effect)'), [
+      'player' => $player,
+      'rolls' => $rolls,
+      'roll_text' => implode(', ', $rolls),
+      'card2' => $source,
+    ]);
+  }
+
   public static function updateBiomes($player)
   {
     self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);

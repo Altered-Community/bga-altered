@@ -210,6 +210,12 @@ $machinestates = [
     'action' => 'stAtomicAction',
   ],
 
+  ST_ROLL_DIE => [
+    'name' => 'rollDie',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
   ST_DISCARD => [
     'name' => 'discard',
     'description' => clienttranslate('${actplayer} must discard ${n} card(s) from ${source} to ${destination}'),

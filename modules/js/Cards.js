@@ -818,18 +818,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
       });
 
-      
-        let p = {'forest': parseInt($(`card-${cardId}`).querySelector('.card-forest').getAttribute('data-initial')) + boost, 
-                    'mountain': parseInt($(`card-${cardId}`).querySelector('.card-mountain').getAttribute('data-initial')) + boost, 
-                    'ocean': parseInt($(`card-${cardId}`).querySelector('.card-ocean').getAttribute('data-initial')) + boost};
-        let sizes = this.getBiomesUISizes(p);
-        $(`card-${cardId}`).querySelector('.card-forest').setAttribute('data-size', sizes.forest);
-        $(`card-${cardId}`).querySelector('.card-forest').innerHTML = p.forest;
-        $(`card-${cardId}`).querySelector('.card-mountain').setAttribute('data-size', sizes.mountain);
-        $(`card-${cardId}`).querySelector('.card-mountain').innerHTML = p.mountain;
-        $(`card-${cardId}`).querySelector('.card-ocean').setAttribute('data-size', sizes.ocean);
-        $(`card-${cardId}`).querySelector('.card-ocean').innerHTML = p.ocean;
-
+      if ($(`card-${cardId}`).querySelector('.card-forest') != null) {
+          let p = {'forest': parseInt($(`card-${cardId}`).querySelector('.card-forest').getAttribute('data-initial')) + boost, 
+                      'mountain': parseInt($(`card-${cardId}`).querySelector('.card-mountain').getAttribute('data-initial')) + boost, 
+                      'ocean': parseInt($(`card-${cardId}`).querySelector('.card-ocean').getAttribute('data-initial')) + boost};
+          let sizes = this.getBiomesUISizes(p);
+          $(`card-${cardId}`).querySelector('.card-forest').setAttribute('data-size', sizes.forest);
+          $(`card-${cardId}`).querySelector('.card-forest').innerHTML = p.forest;
+          $(`card-${cardId}`).querySelector('.card-mountain').setAttribute('data-size', sizes.mountain);
+          $(`card-${cardId}`).querySelector('.card-mountain').innerHTML = p.mountain;
+          $(`card-${cardId}`).querySelector('.card-ocean').setAttribute('data-size', sizes.ocean);
+          $(`card-${cardId}`).querySelector('.card-ocean').innerHTML = p.ocean;
+      }
 
     },
 

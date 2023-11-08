@@ -25,6 +25,7 @@ class Actions
     SPECIAL_EFFECT,
     CHECK_CONDITION,
     AFTER_YOU,
+    ROLL_DIE,
   ];
 
   public static function get($actionId, &$ctx = null)

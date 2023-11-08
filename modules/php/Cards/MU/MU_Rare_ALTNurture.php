@@ -21,7 +21,7 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
       'type' => SPELL,
       'subtype' => '',
 
-      'effectDesc' => clienttranslate('Up to two target Characters gain <2> boosts.'),
+      'effectDesc' => clienttranslate('Up to two target Characters gain [G]2[/G] boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
       'changedStats' => ['costHand', 'costMemory'],
       'costHand' => 3,

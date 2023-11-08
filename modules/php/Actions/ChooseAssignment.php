@@ -62,7 +62,10 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // 3. Permanent/tap effect
     $actions['tap'] = $player->getPlayedCards()->filter(function ($card) use ($player) {
-      return !$card->isTapped() && !is_null($card->getEffectTap()) && Engine::buildTree($card->getEffectTap())->isDoable($player);
+      return !$card->isTapped() &&
+        !is_null($card->getEffectTap()) &&
+        !empty($card->getEffectTap()) &&
+        Engine::buildTree($card->getEffectTap())->isDoable($player);
     });
 
     return ['_private' => ['active' => $actions]];
