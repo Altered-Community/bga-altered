@@ -69,7 +69,7 @@ class Player extends \ALT\Helpers\DB_Model
     return Actions::isDoable($action, $ctx, $this);
   }
 
-  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null)
+  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null, $publicMsg = null, $privateMsg = null)
   {
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
@@ -78,8 +78,8 @@ class Player extends \ALT\Helpers\DB_Model
       Notifications::drawCards(
         $this,
         $cards,
-        clienttranslate('You draw ${card_names} from your deck (${card_name2}\'s effect)'),
-        clienttranslate('${player_name} draws ${n} card(s) from its deck (${card_name2}\'s effect)'),
+        $publicMsg ?? clienttranslate('You draw ${card_names} from your deck (${card_name2}\'s effect)'),
+        $privateMsg ?? clienttranslate('${player_name} draws ${n} card(s) from its deck (${card_name2}\'s effect)'),
         ['card2' => $source]
       );
     } else {

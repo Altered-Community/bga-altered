@@ -67,6 +67,7 @@ const ST_SPECIAL_EFFECT = 20;
 const ST_CHECK_CONDITION = 21;
 const ST_AFTER_YOU = 23;
 const ST_ROLL_DIE = 24;
+const ST_RESUPPLY = 25;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -113,6 +114,7 @@ const DRAW = 'Draw';
 const CHECK_CONDITION = 'CheckCondition';
 const AFTER_YOU = 'AfterYou';
 const ROLL_DIE = 'RollDie';
+const RESUPPLY = 'Resupply';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';
