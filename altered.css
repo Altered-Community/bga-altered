@@ -500,6 +500,9 @@ html {
 .altered-card .altered-card-wrapper[data-asset=LY-Mnemos-Skald-C] {
   background-image: url("img/illustrations/LY/LY-Mnemos-Skald-C.jpg");
 }
+.altered-card .altered-card-wrapper[data-asset=LY-18-MadHatter-C] {
+  background-image: url("img/illustrations/LY/LY-18-MadHatter-C.jpg");
+}
 .altered-card .altered-card-wrapper[data-asset=MU-02-Teija-Nauraa-C] {
   background-image: url("img/illustrations/MU/MU-02-Teija-Nauraa-C.jpg");
 }
