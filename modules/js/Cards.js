@@ -362,8 +362,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_publicDiscard(n) {
       debug('Public discard', n);
-      // TOOD
-      // !! how to manage when we send the card to the hand?
       let pId = n.args.player_id;
 
       Promise.all(
@@ -371,7 +369,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           return this.wait(200 * i).then(() => {
             if (card.location == 'hand') return;
 
-            return this.slide(`card-${card.id}`, `board-${card.location}-${pId}`);
+            return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`);
           });
         })
       ).then(() => {

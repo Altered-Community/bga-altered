@@ -124,7 +124,7 @@ class ChooseAssignment extends \ALT\Models\Action
     if ($location == DISCARD) {
       $deleted = $card->discard();
       Notifications::silentKill($deleted);
-    } elseif ($fromLocation == MEMORY) {
+    } elseif ($fromLocation == MEMORY && $location != PERMANENT) {
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }
