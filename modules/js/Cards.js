@@ -789,6 +789,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-permanent'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
+        <div class='altered-card-statuses'></div>
       </div>`;
     },
 

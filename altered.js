@@ -610,6 +610,7 @@ define([
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
               cardId,
+              echo: t.echo.includes(parseInt(cardId))
             })
           );
         });
@@ -641,6 +642,10 @@ define([
         this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
         this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
       });
+
+      if (args.echo == true) {
+        this.addPrimaryActionButton('btnLocation' + 99, _('Echo effect'), () => this.takeAtomicAction('actEcho', [cardId]));
+      }
     },
 
     onEnteringStateTarget(args) {

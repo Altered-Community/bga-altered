@@ -115,9 +115,9 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function isPlayed()
   {
-    return $this->location == 'stormLeft' ||
-      $this->location == 'stormRight' ||
-      $this->location == 'inPlay' ||
+    return $this->location == STORM_LEFT ||
+      $this->location == STORM_RIGHT ||
+      $this->location == PERMANENT ||
       $this->properties['type'] == HERO;
   }
 

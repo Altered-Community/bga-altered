@@ -56,7 +56,7 @@ class ChooseAssignment extends \ALT\Models\Action
     // 2. Echo
     $actions['echo'] = $memoryCards
       ->filter(function ($card) {
-        return !is_null($card->getEffectEcho());
+        return !empty($card->getEffectEcho());
       })
       ->getIds();
 
