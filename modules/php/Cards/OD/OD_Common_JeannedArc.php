@@ -23,9 +23,9 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'When I leave the Expedition Zone - Create a [1/1/1 Ordis Recruit] Soldier token in both of your Expeditions.'
       ),
-      'forest' => 3,
-      'mountain' => 3,
-      'ocean' => 3,
+      'forest' => 2,
+      'mountain' => 2,
+      'ocean' => 2,
       'costHand' => 4,
       'costMemory' => 4,
       'effectPassive' => [

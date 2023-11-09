@@ -23,9 +23,9 @@ class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
         'When I leave the Expedition Zone - Create [G]two[/G] [1/1/1 Ordis Recruit] Soldier tokens in both of your Expeditions.'
       ),
       'changedStats' => ['costHand', 'costMemory'],
-      'forest' => 3,
-      'mountain' => 3,
-      'ocean' => 3,
+      'forest' => 2,
+      'mountain' => 2,
+      'ocean' => 2,
       'costHand' => 5,
       'costMemory' => 5,
       'effectPassive' => [
