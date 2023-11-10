@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\LY;
+use ALT\Helpers\FT;
 
 class LY_Common_LyraClothDancer extends \ALT\Models\Card
 {
@@ -26,6 +27,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectHand' => FT::ACTION(TARGET, ['excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)]),
     ];
   }
 }

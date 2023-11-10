@@ -30,6 +30,7 @@ class Target extends \ALT\Models\Action
     'minHandCost' => 0, // limitation
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
+    'excluseSelf' => false,
   ];
 
   public function getDescription()
@@ -88,9 +89,15 @@ class Target extends \ALT\Models\Action
     $targetType = $this->getArg('targetType');
     $targetLocation = $this->getArg('targetLocation');
     $cards = Cards::getFiltered($pIds, $targetLocation, $targetType);
+    $excludeSelf = $this->getArg('excludeSelf');
+    $sourceId = $this->getSourceId();
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId) {
+      if ($excludeSelf && $c->getId() == $sourceId) {
+        return false;
+      }
+
       $handCost = $c->getCostHand();
       $memoryCost = $c->getCostMemory();
       $statuses = $this->getArg('statuses');
