@@ -1,100 +1,115 @@
 #altered-main-container {
+    margin-top: calc(var(--boardScale) * -130px);
     display: flex;
-    flex-flow: column;
-    align-items: center;
+    justify-content: center;
 
-    .altered-player-board-resizable.above {
-        order: 1;
-    }
+    #altered-board-resizable {
+        width: calc(var(--boardScale) * 1530px);
+        height: calc(var(--boardScale) * 1158px);
 
-    #storm-container {
-        order: 2;
-        margin: 5px 0px;
-        width: 1299px;
-        height: 186px;
+        #altered-board {
+            transform: scale(var(--boardScale));
+            transform-origin: top left;
+            width: 1530px;
+            height: 1158px;
+            background-image: url("img/board.png");
+            background-size: 100%;
+            clip-path: polygon(0% 6%, 100% 6%, 100% 100%, 0% 100%);
 
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        grid-template-rows: 1fr;
-
-        .storm-card-container {
-            grid-row: 1 / span 1;
-            grid-column-end: span 2;
-            @for $i from 1 through 5 {
-                &:nth-child(#{$i}) {
-                    grid-column-start: 2 * $i - 1;
-                }
+            #altered-board-opponent,
+            #altered-board-me {
+                width: 1530px;
+                height: 486px;
             }
 
-            .storm-card {
-                width: 260px;
+            #storm-container {
+                width: 1299px;
                 height: 186px;
-                background-image: url("img/storm.jpg");
-                background-size: 100% 600%;
-                border-radius: 7px;
+                display: grid;
+                grid-template-columns: repeat(10, 1fr);
+                grid-template-rows: 1fr;
+                padding: 0px 121px;
 
-                @for $i from 0 to 7 {
-                    &[data-id="#{$i}"] {
-                        background-position-y: $i * 100% / 5;
+                .storm-card-container {
+                    grid-row: 1 / span 1;
+                    grid-column-end: span 2;
+                    @for $i from 1 through 5 {
+                        &:nth-child(#{$i}) {
+                            grid-column-start: 2 * $i - 1;
+                        }
+                    }
+
+                    .storm-card {
+                        width: 260px;
+                        height: 186px;
+                        background-image: url("img/storm.jpg");
+                        background-size: 100% 600%;
+                        border-radius: 7px;
+
+                        @for $i from 0 to 7 {
+                            &[data-id="#{$i}"] {
+                                background-position-y: $i * 100% / 5;
+                            }
+                        }
+
+                        &[data-flipped="1"] {
+                            transform: rotate(180deg);
+                        }
                     }
                 }
 
-                &[data-flipped="1"] {
-                    transform: rotate(180deg);
+                .storm-space {
+                    grid-column-end: span 1;
+                    grid-row: 1 / span 1;
+                    z-index: 2;
+
+                    &#storm-0 {
+                        grid-column-start: 2;
+                    }
+                    &#storm-1 {
+                        grid-column-start: 3;
+                    }
+                    &#storm-2 {
+                        grid-column-start: 4;
+                    }
+                    &#storm-3 {
+                        grid-column-start: 5;
+                    }
+                    &#storm-4 {
+                        grid-column-start: 6;
+                    }
+                    &#storm-5 {
+                        grid-column-start: 7;
+                    }
+                    &#storm-6 {
+                        grid-column-start: 8;
+                    }
+                    &#storm-7 {
+                        grid-column-start: 9;
+                    }
+
+                    .storm-slot {
+                        width: 100%;
+                        height: 93px;
+                        border-radius: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: end;
+                        box-sizing: border-box;
+                        padding: 5px;
+
+                        &:nth-child(2) {
+                            align-items: start;
+                        }
+                    }
+
+                    &#storm-0 .storm-slot {
+                        padding: 8px 17px 8px 5px;
+                    }
+                    &#storm-7 .storm-slot {
+                        padding: 8px 5px 8px 17px;
+                    }
                 }
-            }
-        }
-
-        .storm-space {
-            grid-column-end: span 1;
-            grid-row: 1 / span 1;
-            z-index: 2;
-
-            &#storm-0 {
-                grid-column-start: 2;
-            }
-            &#storm-1 {
-                grid-column-start: 3;
-            }
-            &#storm-2 {
-                grid-column-start: 4;
-            }
-            &#storm-3 {
-                grid-column-start: 5;
-            }
-            &#storm-4 {
-                grid-column-start: 6;
-            }
-            &#storm-5 {
-                grid-column-start: 7;
-            }
-            &#storm-6 {
-                grid-column-start: 8;
-            }
-            &#storm-7 {
-                grid-column-start: 9;
-            }
-
-            .storm-slot {
-                width: 100%;
-                height: 93px;
-                border-radius: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: end;
-                box-sizing: border-box;
-                padding: 5px;
-
-                &:nth-child(2) {
-                    align-items: start;
-                }
-            }
-
-            &#storm-0 .storm-slot {
-                padding: 8px 17px 8px 5px;
-            }
-            &#storm-7 .storm-slot {
-                padding: 8px 5px 8px 17px;
             }
         }
     }

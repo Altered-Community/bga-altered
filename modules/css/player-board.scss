@@ -1,220 +1,325 @@
-.altered-player-board-resizable {
-    order: 3;
-    margin: 5px 0px;
-    width: 1200px;
-    height: 343px;
-    border: 2px solid white;
-    border-radius: 10px;
-    background: #ffffff36;
+.altered-player-board {
+    width: 1530px;
+    height: 486px;
     position: relative;
-    display: flex;
-    flex-flow: column;
 
-    &::before {
-        content: "";
-        display: block;
+    .player-board-hero {
         position: absolute;
-        z-index: -1;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        background-size: cover;
-    }
-    &[data-faction="MU"]::before {
-        background-image: url("img/mats/04.jpg");
-    }
-    &[data-faction="BR"]::before {
-        background-image: url("img/mats/02.jpg");
+        width: $cardWidth + 2 * $boardMargin;
     }
 
-    &.above {
-        .player-board-bottom {
-            order: 1;
+    .player-board-storm {
+        position: absolute;
+        width: 436px;
+        height: $miniCardHeight + 2 * $boardMargin;
+        &.storm-left {
+            left: 262px;
         }
-        .player-board-middle {
-            order: 2;
+        &.storm-right {
+            left: 837px;
         }
-        .player-board-top {
-            order: 3;
-        }
-    }
 
-    .player-board-top,
-    .player-board-middle,
-    .player-board-bottom {
-        width: 100%;
-        display: flex;
-        height: $cardHeight + 2 * $boardMargin + 2 * 5px;
+        border: 2px solid transparent;
+        &.selectable {
+            border: 2px dashed black;
+            cursor: pointer;
 
-        & > div {
-            height: $cardHeight + 2 * $boardMargin;
-            margin: 5px;
-            background: rgba(255, 255, 255, 0.568);
-            border: 2px solid black;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &.selectable {
-                border: 2px dashed black;
-                cursor: pointer;
-
-                &:hover {
-                    border: 2px solid red;
-                }
+            &:hover {
+                border: 2px solid red;
             }
         }
-    }
 
-    .player-board-top {
-        .player-board-alterer {
-            width: $cardWidth + 2 * $boardMargin;
-            flex-shrink: 0;
+        .total-biomes {
+            position: absolute;
+            width: 77px;
+            left: -117px;
+            top: -4px;
+
+            .total-forest,
+            .total-mountain,
+            .total-ocean {
+                font-family: "Haptic Pro";
+                padding: 0px 10px;
+                color: #e6e4e4;
+                // box-shadow: 0px 0px 3px 1px black;
+                text-shadow: 0px 0px 6px black;
+
+                height: 50px;
+                width: 50px;
+                margin-bottom: 1px;
+
+                font-size: 32px;
+                line-height: 58px;
+                font-weight: bold;
+                text-align: center;
+
+                background-image: url("img/gems.png");
+                background-size: 200% 300%;
+            }
+
+            .total-forest {
+                // background: #abb648;
+                border-radius: 14px 0 0 4px;
+            }
+            .total-mountain {
+                // background: #af7b51;
+                border-radius: 4px 0 0 4px;
+                background-position-y: 50%;
+            }
+            .total-ocean {
+                // background: #6b93c0;
+                border-radius: 4px 0 0 14px;
+                background-position-y: 100%;
+            }
         }
 
-        .player-board-storm {
-            flex-grow: 1;
-
+        &.storm-right {
             .total-biomes {
-                position: absolute;
-                width: 100px;
-                left: -102px;
-                display: flex;
-                flex-flow: column;
-                align-items: flex-end;
-                z-index: -1;
-
-                .total-forest,
-                .total-mountain,
-                .total-ocean {
-                    font-family: "Haptic Pro";
-                    padding: 0px 10px;
-                    color: white;
-                    box-shadow: 0px 0px 3px 1px black;
-                    text-shadow: 0px 0px 6px black;
-
-                    height: 50px;
-                    width: 30px;
-                    margin-bottom: 2px;
-
-                    font-size: 32px;
-                    line-height: 58px;
-                    font-weight: bold;
-                    text-align: right;
-
-                    &[data-size="0"] {
-                        width: 15px;
-                        opacity: 0.5;
-                    }
-                    &[data-size="1"] {
-                        width: 20px;
-                    }
-                    &[data-size="3"] {
-                        width: 40px;
-                    }
-                }
-
-                .total-forest {
-                    background: #abb648;
-                    border-radius: 14px 0 0 4px;
-                }
-                .total-mountain {
-                    background: #af7b51;
-                    border-radius: 4px 0 0 4px;
-                }
-                .total-ocean {
-                    background: #6b93c0;
-                    border-radius: 4px 0 0 14px;
-                }
+                left: 480px;
             }
 
-            &:nth-of-type(3) {
-                .total-biomes {
-                    left: calc(100% + 2px);
-                    align-items: flex-start;
+            .total-forest,
+            .total-mountain,
+            .total-ocean {
+                background-position-x: 100%;
+            }
 
-                    .total-forest,
-                    .total-mountain,
-                    .total-ocean {
-                        text-align: left;
-                    }
+            .total-forest {
+                border-radius: 0 14px 4px 0;
+            }
+            .total-mountain {
+                border-radius: 0 4px 4px 0px;
+            }
+            .total-ocean {
+                border-radius: 0 4px 14px 0;
+            }
+        }
+    }
+
+    .player-board-deck {
+        width: $cardWidth + 2 * $boardMargin;
+        left: 247px;
+        position: absolute;
+
+        .altered-card {
+            position: absolute;
+            top: 0;
+        }
+
+        .deck-counter-holder {
+            width: $cardWidth;
+            height: $cardHeight;
+            // background: url("img/back-main.jpg");
+            // background-size: 100% 100%;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .deck-counter {
+                font-family: "Haptic Pro";
+                color: black;
+                background: #ffffffa0;
+                font-size: 30px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                box-shadow: 0px 0px 13px white;
+                text-align: center;
+                line-height: 50px;
+                text-shadow: 0px 0px 3px white;
+                font-size: 26px;
+            }
+        }
+    }
+
+    .player-board-mana-wrapper {
+        position: absolute;
+        left: 57px;
+        display: flex;
+        width: 60px;
+        height: 460px;
+
+        .player-board-mana-indicator {
+            height: 48px;
+            font-family: "Haptic Pro";
+            color: #e6e4e4;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+
+            h6 {
+                font-size: 10px;
+                margin-bottom: 4px;
+                font-weight: bold;
+                margin-top: 7px;
+            }
+        }
+
+        .player-board-mana-gauge {
+            display: flex;
+            padding: 2px 12px;
+            flex-grow: 1;
+            align-items: center;
+
+            .mana-gauge-slot {
+                width: 30px;
+                height: 20px;
+                background: #153038;
+                margin: 1px 0px;
+                border-top-left-radius: 2px 6px;
+                border-top-right-radius: 2px 6px;
+                border-bottom-left-radius: 2px 6px;
+                border-bottom-right-radius: 2px 6px;
+
+                .mana-gem {
+                    display: none;
+                    width: 30px;
+                    height: 20px;
+                    background: #00b2df;
+                    border-top-left-radius: 2px 6px;
+                    border-top-right-radius: 2px 6px;
+                    border-bottom-left-radius: 2px 6px;
+                    border-bottom-right-radius: 2px 6px;
                 }
 
-                .total-forest {
-                    border-radius: 0 14px 4px 0;
-                }
-                .total-mountain {
-                    border-radius: 0 4px 4px 0px;
-                }
-                .total-ocean {
-                    border-radius: 0 4px 14px 0;
+                &.available .mana-gem {
+                    display: block;
                 }
             }
         }
     }
 
-    .player-board-middle {
-        .player-board-deck {
-            width: $cardWidth + 2 * $boardMargin;
-            flex-shrink: 0;
+    .player-board-hand {
+        position: absolute;
+        width: 100%;
 
-            .deck-counter-holder {
-                width: $cardWidth;
-                height: $cardHeight;
-                background: url("img/back-main.jpg");
-                background-size: 100% 100%;
-                border-radius: 6px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                .deck-counter {
-                    font-family: "Haptic Pro";
-                    color: black;
-                    background: #ffffffa0;
-                    font-size: 30px;
-                    border-radius: 50%;
-                    width: 45px;
-                    height: 45px;
-                    box-shadow: 0px 0px 13px white;
-                    text-align: center;
-                    line-height: 50px;
-                    text-shadow: 0px 0px 3px white;
-                }
-            }
-        }
-        .player-board-discard {
-            width: $cardWidth + 2 * $boardMargin;
-            flex-shrink: 0;
-            position: relative;
-
-            .altered-card {
-                position: absolute;
-                filter: grayscale(80%);
-                -webkit-transform: translateZ(0);
-                -webkit-perspective: 1000;
-                -webkit-backface-visibility: hidden;
-            }
-        }
-
-        .player-board-memory {
-            flex-grow: 1;
-        }
-
-        .player-board-permanents {
-            width: 2 * ($cardWidth + 2 * $boardMargin);
-            flex-shrink: 0;
-        }
-
-        .player-board-limbo {
-            width: $cardWidth + 2 * $boardMargin;
-            flex-shrink: 0;
-            position: relative;
-            &:empty:not(.selectable) {
-                display: none;
-            }
+        .player-hand {
+            display: flex;
+            justify-content: center;
         }
     }
 }
+
+#altered-board-opponent .altered-player-board {
+    .player-board-hero {
+        top: 313px;
+        left: 711px;
+    }
+
+    .player-board-storm {
+        top: 316px;
+    }
+
+    .player-board-deck {
+        top: 145px;
+    }
+
+    .player-board-mana-wrapper {
+        top: 0px;
+        flex-flow: column;
+    }
+    .player-board-mana-gauge {
+        flex-flow: column-reverse;
+    }
+
+    .player-board-hand {
+        bottom: 315px;
+        .altered-card {
+            margin: 3px -10px;
+        }
+    }
+}
+
+#altered-board-me .altered-player-board {
+    .player-board-hero {
+        top: 18px;
+        left: 711px;
+    }
+
+    .player-board-storm {
+        top: 53px;
+
+        .total-biomes {
+            top: -30px;
+        }
+    }
+
+    .player-board-deck {
+        top: 195px;
+    }
+
+    .player-board-mana-wrapper {
+        top: 25px;
+        flex-flow: column-reverse;
+    }
+    .player-board-mana-gauge {
+        flex-flow: column;
+    }
+
+    .player-board-hand {
+        top: 320px;
+    }
+}
+
+.player-board-middle {
+    .player-board-discard {
+        width: $cardWidth + 2 * $boardMargin;
+        flex-shrink: 0;
+        position: relative;
+
+        .altered-card {
+            position: absolute;
+            filter: grayscale(80%);
+            -webkit-transform: translateZ(0);
+            -webkit-perspective: 1000;
+            -webkit-backface-visibility: hidden;
+        }
+    }
+
+    .player-board-memory {
+        flex-grow: 1;
+    }
+
+    .player-board-permanents {
+        width: 2 * ($cardWidth + 2 * $boardMargin);
+        flex-shrink: 0;
+    }
+
+    .player-board-limbo {
+        width: $cardWidth + 2 * $boardMargin;
+        flex-shrink: 0;
+        position: relative;
+        &:empty:not(.selectable) {
+            display: none;
+        }
+    }
+}
+
+// .player-board-top,
+// .player-board-middle,
+// .player-board-bottom {
+//     width: 100%;
+//     display: flex;
+//     height: $cardHeight + 2 * $boardMargin + 2 * 5px;
+
+//     & > div {
+//         height: $cardHeight + 2 * $boardMargin;
+//         margin: 5px;
+//         background: rgba(255, 255, 255, 0.568);
+//         border: 2px solid black;
+//         border-radius: 5px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+
+//         &.selectable {
+//             border: 2px dashed black;
+//             cursor: pointer;
+
+//             &:hover {
+//                 border: 2px solid red;
+//             }
+//         }
+//     }
+// }

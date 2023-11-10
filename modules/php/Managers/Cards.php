@@ -90,8 +90,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         $card = new $className(null);
         $location = "deck-$deckNumber";
         if ($card->getType() == HERO) {
-          $location = "board-hero-$deckNumber";
-          $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction, 'hero' => $card->getUid()];
+          $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction];
         }
 
         // we do not create token as they will be created on the fly

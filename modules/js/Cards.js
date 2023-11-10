@@ -37,13 +37,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (o.parentNode != $(container)) {
           dojo.place(o, container);
         }
+        if (!container.classList.contains('player-hand')) {
+          o.classList.add('mini-card');
+        }
 
         return card.id;
       });
       document.querySelectorAll('.altered-card').forEach((oCard) => {
         if (
           !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
-          !oCard.parentNode.classList.contains('player-board-hand') &&
+          !oCard.parentNode.classList.contains('player-hand') &&
           !oCard.parentNode.classList.contains('player-board-alterer')
         ) {
           this.destroy(oCard);
@@ -76,6 +79,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (o !== undefined) {
         this.addCustomTooltip(o.id, () => this.tplCardTooltip(card), { midSize: false });
       }
+    },
+
+    addFakeCard(container) {
+      let id = this._fakeIndex++;
+      container.insertAdjacentHTML(
+        'beforeend',
+        `<div id='card-${id}' class='altered-card card-back'>
+          <div class='altered-card-wrapper' data-asset='back'></div>
+        </div>`
+      );
+      return `card-${id}`;
     },
 
     getCardContainer(card) {
@@ -251,10 +265,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       Promise.all(
         Array.from(Array(nCards), (x, i) => i).map((i) => {
           return this.wait(100 * i).then(() => {
-            this.addCard({ id: -i, fake: true }, $(`board-deck-${n.args.player_id}`));
-            return this.slide(`card-${-i}`, `counter-${n.args.player_id}-${counter}`, {
+            let cardId = this.addFakeCard($(`board-deck-${n.args.player_id}`));
+            return this.slide(cardId, `hand-${n.args.player_id}`, {
               duration: 1000,
-              destroy: true,
               phantom: false,
             });
           });
@@ -280,8 +293,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
         if (n.args.toMana) {
-          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
+          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
         }
         return;
       }
@@ -291,7 +304,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           let target = n.args.stealing
             ? $(`counter-${n.args.stealing}-${counter}`)
             : n.args.toMana
-            ? $(`counter-${this.player_id}-mana`)
+            ? $(`counter-board-${this.player_id}-mana`)
             : this.getVisibleTitleContainer();
           return this.slide(`card-${card.id}`, target, {
             delay: 100 * i,
@@ -304,8 +317,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
         if (n.args.toMana) {
-          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
+          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
         }
 
         this.notifqueue.setSynchronousDuration(100);
@@ -328,19 +341,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (this.isFastMode()) {
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
         if (n.args.toMana) {
-          this._playerCounters[this.player_id]['mana'].incValue(-nCards);
           this._playerCounters[this.player_id]['totalMana'].incValue(-nCards);
+          this._playerCounters[this.player_id]['mana'].incValue(-nCards);
         }
         return;
       }
 
+      let oCards = [...$(`hand-${n.args.player_id}`).querySelectorAll('.altered-card')];
       Promise.all(
         Array.from(Array(nCards), (x, i) => i).map((i) => {
           return this.wait(100 * i).then(() => {
-            this.addCard({ id: -i, fake: true }, `counter-${n.args.player_id}-${counter}`);
             return this.slide(
-              `card-${-i}`,
-              n.args.toMana ? $(`counter-${n.args.player_id}-mana`) : this.getVisibleTitleContainer(),
+              oCards[i].id,
+              n.args.toMana ? $(`counter-board-${n.args.player_id}-mana`) : this.getVisibleTitleContainer(),
               {
                 duration: 1000,
                 destroy: true,
@@ -352,8 +365,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       ).then(() => {
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
         if (n.args.toMana) {
-          this._playerCounters[n.args.player_id]['mana'].incValue(nCards);
           this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
+          this._playerCounters[n.args.player_id]['mana'].incValue(nCards);
         }
 
         this.notifqueue.setSynchronousDuration(200);
@@ -455,6 +468,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (!$(id)) {
         this.addCard(card, 'page-title');
       }
+      $(id).classList.add('mini-card');
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
         this.updateBiomeTotals(card.pId, n.args.biomes);
@@ -638,34 +652,32 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return '';
     },
 
-    tplHeroCard(card) {
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-hero'>
-        <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
+    tplHeroCard(card, tooltip = false, mini = false) {
+      let p = card.properties;
+      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+          class='altered-card card-hero ${mini ? 'mini-card' : ''}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+          <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
+          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-typeline'>${_(p.typeline)}</div>
+
+          <div class='card-text'>
+            <div class='card-qrcode-container'>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+            </div>
+            <div class='card-effect'>
+              ${this.formatString(_(p.effectDesc || ''))}
+            </div>
+            <div class='card-reminders'>
+            ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+            </div>
+          </div>
         </div>
       </div>`;
     },
     tplHeroCardTooltip(card) {
-      let p = card.properties;
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        <div class='altered-card card-hero'>
-          <div class='altered-card-wrapper' data-asset='${p.asset}'>
-            <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
-            <div class='card-name'>${_(p.name)}</div>
-            <div class='card-typeline'>${_(p.typeline)}</div>
-
-            <div class='card-text'>
-              <div class='card-qrcode-container'>
-                <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
-              </div>
-              <div class='card-effect'>
-                ${this.formatString(_(p.effectDesc || ''))}
-              </div>
-              <div class='card-reminders'>
-              ${p.reminders ? this.formatString(_(p.reminders)) : ''}
-              </div>
-            </div>
-          </div>
-        </div>
+        ${this.tplHeroCard(card, true, false)}
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
@@ -690,92 +702,81 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return sizes;
     },
 
-    tplCharacterCard(card) {
+    tplCharacterCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-character'>
+      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+        class='altered-card card-character ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
+          <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
+              data-rarity='${p.rarity}' data-type='character'></div>
           <div class='card-hand-cost'>${p.costHand}</div>
           <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
+          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-typeline'>${_(p.typeline)}</div>
+
           <div class='card-forest' data-size='${sizes.forest}'>${p.forest}</div>
           <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
           <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
+
+          <div class='card-text'>
+            <div class='card-qrcode-container'>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+            </div>
+            <div class='card-effect'>
+              ${this.formatString(_(p.effectDesc) || '')}
+            </div>
+            <div class='card-reminders'>
+              ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+            </div>
+          </div>
+          <div class='card-echo'>
+            ${p.echoDesc ? this.formatString(_(p.echoDesc)) : ''}
+          </div>
         </div>
+
         <div class='altered-card-statuses'></div>
       </div>`;
     },
     tplCharacterCardTooltip(card) {
-      let p = card.properties;
-      let sizes = this.getBiomesUISizes(p);
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        <div class='altered-card card-character'>
-          <div class='altered-card-wrapper' data-asset='${p.asset}'>
-            <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
-                data-rarity='${p.rarity}' data-type='character'></div>
-            <div class='card-hand-cost'>${p.costHand}</div>
-            <div class='card-memory-cost'>${p.costMemory}</div>
-            <div class='card-name'>${_(p.name)}</div>
-            <div class='card-typeline'>${_(p.typeline)}</div>
-
-            <div class='card-forest' data-size='${sizes.forest}'>${p.forest}</div>
-            <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
-            <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
-
-            <div class='card-text'>
-              <div class='card-qrcode-container'>
-                <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
-              </div>
-              <div class='card-effect'>
-                ${this.formatString(_(p.effectDesc) || '')}
-              </div>
-              <div class='card-reminders'>
-                ${p.reminders ? this.formatString(_(p.reminders)) : ''}
-              </div>
-            </div>
-            <div class='card-echo'>
-              ${p.echoDesc ? this.formatString(_(p.echoDesc)) : ''}
-            </div>
-          </div>
-        </div>
+        ${this.tplCharacterCard(card, true, false)}
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
 
-    tplSpellCard(card) {
+    tplSpellCard(card, tooltip = false, mini = false) {
       let p = card.properties;
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-spell'>
+      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+        class='altered-card card-spell ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
+          <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
+              data-rarity='${p.rarity}' data-type='spell'></div>
           <div class='card-hand-cost'>${p.costHand}</div>
-          <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
+          <div class='card-memory-cost'>${p.costMemory}</div>
+          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-typeline'>${_(p.typeline)}</div>
+
+          <div class='card-text'>
+            <div class='card-qrcode-container'>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+            </div>
+            <div class='card-effect'>
+              ${this.formatString(_(p.effectDesc) || '')}
+            </div>
+            <div class='card-reminders'>
+            ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+            </div>
+          </div>
         </div>
+
         <div class='altered-card-statuses'></div>
       </div>`;
     },
     tplSpellCardTooltip(card) {
       let p = card.properties;
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        <div class='altered-card card-spell'>
-          <div class='altered-card-wrapper' data-asset='${p.asset}'>
-            <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
-                data-rarity='${p.rarity}' data-type='spell'></div>
-            <div class='card-hand-cost'>${p.costHand}</div>
-            <div class='card-memory-cost'>${p.costMemory}</div>
-            <div class='card-name'>${_(p.name)}</div>
-            <div class='card-typeline'>${_(p.typeline)}</div>
-
-            <div class='card-text'>
-              <div class='card-qrcode-container'>
-                <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
-              </div>
-              <div class='card-effect'>
-                ${this.formatString(_(p.effectDesc) || '')}
-              </div>
-              <div class='card-reminders'>
-              ${p.reminders ? this.formatString(_(p.reminders)) : ''}
-              </div>
-            </div>
-          </div>
-        </div>
+        ${this.tplSpellCard(card, true, false)}
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },

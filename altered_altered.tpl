@@ -1,10 +1,16 @@
 {OVERALL_GAME_HEADER}
 
 <div id="altered-main-container">
-    <div id="storm-container"></div>
-
-    <div id="test-cards"></div>
+  <div id="altered-board-resizable">
+    <div id="altered-board">
+      <div id="altered-board-opponent"></div>
+      <div id="storm-container"></div>
+      <div id="altered-board-me"></div>
+    </div>
+  </div>
 </div>
+
+<div id="test-cards"></div>
 
 <div id="floating-hand-wrapper">
   <div id="floating-hand-button-container">

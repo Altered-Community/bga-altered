@@ -23,7 +23,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
       // Add player board and player panel
       this.orderedPlayers.forEach((player, i) => {
-        this.place('tplPlayerBoard', player, 'altered-main-container');
+        let container = i == 0 ? 'altered-board-me' : 'altered-board-opponent';
+        this.place('tplPlayerBoard', player, container);
 
         // Panels
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
@@ -38,7 +39,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     onChangeHandLocationSetting(v) {
       let hand = $(`hand-${this.player_id}`);
       if (hand) {
-        let container = this.isFloatingHand() ? 'floating-hand' : `player-board-resizable-${this.player_id}`;
+        let container = this.isFloatingHand() ? 'floating-hand' : `player-board-hand-${this.player_id}`;
         $(container).insertAdjacentElement('beforeend', hand);
         $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
         hand.style.order = v == 1 ? 1 : 4;
@@ -61,28 +62,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerBoard(player) {
-      let above = player.order == 0 ? '' : 'above';
       let pId = player.id;
-      return (
-        `<div class='altered-player-board-resizable ${above}' id='player-board-resizable-${pId}' data-faction='${player.faction}'>
-        <div class='player-board-top'>
-          <div class='player-board-storm' id='board-stormLeft-${pId}'>
-            <div class="total-biomes">
-              <div class='total-forest'></div>
-              <div class='total-mountain'></div>
-              <div class='total-ocean'></div>
-            </div>
-          </div>
-          <div class='player-board-alterer' id='board-hero-${pId}'></div>
-          <div class='player-board-storm' id='board-stormRight-${pId}'>
-            <div class="total-biomes">
-              <div class='total-forest'></div>
-              <div class='total-mountain'></div>
-              <div class='total-ocean'></div>
-            </div>
-          </div>
-        </div>
-        <div class='player-board-middle'>
+      return `<div class='altered-player-board' id='player-board-${pId}' data-faction='${player.faction}'>
           <div class='player-board-discard' id='board-discard-${player.id}'></div>
           <div class='player-board-deck' id='board-deck-${player.id}'>
             <div class='deck-counter-holder'>
@@ -90,23 +71,46 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
             </div>
           </div>
           <div class='player-board-memory' id='board-memory-${player.id}'></div>
-          <div class='player-board-permanents' id='board-permanent-${player.id}'>Permanents</div>
           <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
-        </div>
-        ` +
-        (player.id == this.player_id ? `<div class='player-board-hand' id='hand-${player.id}'></div>` : '') +
-        `
-      </div>`
-      );
+          <div class='player-board-permanents' id='board-permanent-${player.id}'></div>
+
+          <div class='player-board-mana-wrapper'>
+            <div class='player-board-mana-gauge' id='mana-gauge-${pId}'></div>
+            <div class='player-board-mana-indicator'>
+              <h6>${_('Mana')}</h6>
+              <span class="mana-counter" id="counter-board-${pId}-mana"></span> 
+              / 
+              <span class="mana-counter" id="counter-board-${pId}-totalMana"></span>
+            </div>
+          </div>
+
+          <div class='player-board-storm storm-left' id='board-stormLeft-${pId}'>
+            <div class="total-biomes">
+              <div class='total-forest'></div>
+              <div class='total-mountain'></div>
+              <div class='total-ocean'></div>
+            </div>
+          </div>
+          <div class='player-board-hero' id='board-hero-${pId}'></div>
+          <div class='player-board-storm storm-right' id='board-stormRight-${pId}'>
+            <div class="total-biomes">
+              <div class='total-forest'></div>
+              <div class='total-mountain'></div>
+              <div class='total-ocean'></div>
+            </div>
+          </div>
+
+          <div class='player-board-hand' id='player-board-hand-${pId}'>
+            <div class='player-hand' id='hand-${player.id}'></div>
+          </div>
+        </div>`;
     },
 
     tplPlayerPanel(player) {
       return `<div class="altered-first-player-holder" id="firstPlayer-${player.id}"></div>
       <div class='player-info'>
         <div class='mana-counter-holder'>
-          <span class="mana-counter" id="counter-${player.id}-mana"></span> 
-          / 
-          <span class="mana-counter" id="counter-${player.id}-totalMana"></span>
+          <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${player.id}-totalMana"></span>
           <span class="player-mana-icon">MANA</span>
         </div>
 
@@ -148,20 +152,26 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this._playerCounters = {};
       // this._playerCountersMeeples = {};
       this.forEachPlayer((player) => {
-        this._playerCounters[player.id] = {};
-        PLAYER_COUNTERS.forEach((res) => {
-          let v = player[res];
-          this._playerCounters[player.id][res] = this.createCounter(`counter-${player.id}-${res}`, v);
+        let pId = player.id;
+        let c = {};
 
-          // if (COUNTER_MEEPLES.includes(res)) {
-          //   this._playerCountersMeeples[player.id][res] = this.addMeeple({
-          //     id: `${res}-${player.id}`,
-          //     pId: player.id,
-          //     type: 'cylinder',
-          //     location: `${res}_${v}`,
-          //   });
-          // }
-        });
+        // MANA
+        c.totalMana = this.createCounter([`counter-${pId}-totalMana`, `counter-board-${pId}-totalMana`], player.totalMana, (v) =>
+          this.onUpdateTotalManaCounter(pId, v)
+        );
+        c.mana = this.createCounter([`counter-${pId}-mana`, `counter-board-${pId}-mana`], player.mana, (v) =>
+          this.onUpdateManaCounter(pId, v)
+        );
+
+        // HAND
+        c.handCount = this.createCounter([`counter-${pId}-handCount`], player.handCount, (v) =>
+          this.onUpdateHandCountCounter(pId, v)
+        );
+
+        // DECK COUNT
+        c.deckCount = this.createCounter([`counter-${pId}-deckCount`], player.deckCount);
+
+        this._playerCounters[pId] = c;
       });
     },
 
@@ -173,23 +183,34 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         PLAYER_COUNTERS.forEach((res) => {
           let value = player[res];
           this._playerCounters[player.id][res].goTo(value, anim);
-
-          // Slide meeples
-          // if (COUNTER_MEEPLES.includes(res)) {
-          //   let meeple = this._playerCountersMeeples[player.id][res];
-          //   let container = this.getMeepleContainer({ location: `${res}_${value}`, pId: player.id });
-          //   if (meeple.parentNode != container) {
-          //     if (anim) {
-          //       this.slide(meeple, container);
-          //     } else {
-          //       dojo.place(meeple, container);
-          //     }
-          //   }
-          // }
         });
 
         this.updateBiomeTotals(player.id);
       });
+    },
+
+    onUpdateManaCounter(pId, v) {
+      debug('Changing mana :', pId, v);
+      let container = $(`mana-gauge-${pId}`);
+      [...container.querySelectorAll('.mana-gauge-slot')].forEach((slot, i) => slot.classList.toggle('available', i < v));
+    },
+
+    onUpdateTotalManaCounter(pId, v) {
+      debug('Changing total mana :', pId, v);
+      let container = $(`mana-gauge-${pId}`);
+      let slots = [...container.querySelectorAll('.mana-gauge-slot')];
+      for (let i = slots.length; i < v; i++) {
+        container.insertAdjacentHTML('beforeend', `<div class='mana-gauge-slot'><div class='mana-gem'></div></div>`);
+      }
+    },
+    onUpdateHandCountCounter(pId, v) {
+      debug('Changing hand count :', pId, v);
+      if (pId == this.player_id) return;
+      let container = $(`hand-${pId}`);
+      let cards = [...container.querySelectorAll('.altered-card')];
+      for (let i = cards.length; i < v; i++) {
+        this.addFakeCard(container);
+      }
     },
 
     updateBiomeTotals(pId, biomes = null) {

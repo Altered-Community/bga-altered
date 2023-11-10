@@ -14,7 +14,9 @@
  *
  */
 html {
-  background: #2d211a; }
+  background-image: url("img/background.jpg");
+  background-size: cover;
+  background-attachment: fixed; }
 
 /*! nouislider - 14.6.0 - 6/27/2020 */
 .noUi-target, .noUi-target * {
@@ -281,6 +283,9 @@ html {
   right: 28px; }
 
 :root {
+  --boardScale: 1; }
+
+:root {
   --cardScale: 0.33; }
 
 #test-cards {
@@ -490,24 +495,247 @@ html {
     .altered-card .altered-card-wrapper[data-asset="back"] {
       background-image: url("img/back-main.jpg"); }
 
-.altered-card.mini-card {
+.altered-card {
+  width: calc(var(--cardScale) * 324px);
+  height: calc(var(--cardScale) * 450px);
+  border: none;
+  box-shadow: none;
+  border-radius: calc(var(--cardScale) * 15px); }
+  .altered-card .altered-card-wrapper {
+    width: 324px;
+    height: 450px;
+    transform: scale(var(--cardScale));
+    transform-origin: top left;
+    border-radius: 15px; }
+    .altered-card .altered-card-wrapper .card-frame {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 15px;
+      background-size: 600% 500%; }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="AX"] {
+        background-image: url("img/frames/AX.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="BR"] {
+        background-image: url("img/frames/BR.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
+        background-image: url("img/frames/LY.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
+        background-image: url("img/frames/MU.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="OD"] {
+        background-image: url("img/frames/OD.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-faction="YZ"] {
+        background-image: url("img/frames/YZ.png"); }
+      .altered-card .altered-card-wrapper .card-frame[data-type="hero"] {
+        background-position: 0% 50%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="1"] {
+        background-position: 40% 0%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="2"] {
+        background-position: 60% 0%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="3"] {
+        background-position: 0% 0%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="4"] {
+        background-position: 20% 0%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="1"] {
+        background-position: 80% 50%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="2"] {
+        background-position: 100% 50%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="3"] {
+        background-position: 40% 50%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="4"] {
+        background-position: 60% 0%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="1"] {
+        background-position: 80% 100%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="2"] {
+        background-position: 100% 100%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="3"] {
+        background-position: 40% 100%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="4"] {
+        background-position: 60% 100%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="1"] {
+        background-position: 80% 25%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="2"] {
+        background-position: 100% 25%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="3"] {
+        background-position: 40% 25%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="4"] {
+        background-position: 60% 25%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="1"] {
+        background-position: 0% 100%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="2"] {
+        background-position: 20% 100%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="3"] {
+        background-position: 80% 75%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="4"] {
+        background-position: 100% 75%; }
+    .altered-card .altered-card-wrapper .card-name {
+      position: absolute;
+      z-index: 2;
+      top: 26px;
+      left: 48px;
+      right: 50px;
+      font-size: 17px;
+      color: white;
+      text-align: center;
+      font-family: "Jali Greek Variable";
+      font-weight: bold; }
+    .altered-card .altered-card-wrapper .card-typeline {
+      position: absolute;
+      z-index: 2;
+      top: 46px;
+      left: 48px;
+      right: 50px;
+      font-size: 13px;
+      color: black;
+      text-align: center;
+      font-family: "Jali Greek Variable";
+      font-style: italic; }
+    .altered-card .altered-card-wrapper .card-hand-cost,
+    .altered-card .altered-card-wrapper .card-memory-cost {
+      position: absolute;
+      z-index: 3;
+      color: white;
+      text-align: center;
+      font-family: "Haptic Pro";
+      font-weight: bold;
+      font-size: 34px; }
+    .altered-card .altered-card-wrapper .card-hand-cost {
+      top: 21px;
+      left: 27px;
+      font-size: 25px; }
+    .altered-card .altered-card-wrapper .card-memory-cost {
+      top: 39px;
+      left: 49px;
+      font-size: 25px; }
+    .altered-card .altered-card-wrapper .card-forest,
+    .altered-card .altered-card-wrapper .card-mountain,
+    .altered-card .altered-card-wrapper .card-ocean {
+      z-index: 1;
+      position: absolute;
+      left: 22px;
+      font-family: "Haptic Pro";
+      padding-left: 12px;
+      color: white;
+      box-shadow: 0px 0px 14px 2px black;
+      text-shadow: 0px 0px 6px black;
+      border-radius: 11px;
+      height: 25px;
+      width: 25px;
+      font-size: 21px;
+      line-height: 29px; }
+      .altered-card .altered-card-wrapper .card-forest[data-size="0"],
+      .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
+      .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
+        width: 15px;
+        background: transparent; }
+      .altered-card .altered-card-wrapper .card-forest[data-size="1"],
+      .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
+      .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
+        width: 15px; }
+      .altered-card .altered-card-wrapper .card-forest[data-size="3"],
+      .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
+      .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
+        width: 35px; }
+    .altered-card .altered-card-wrapper .card-forest {
+      background: #abb648;
+      top: 96px;
+      border-bottom-right-radius: 4px; }
+    .altered-card .altered-card-wrapper .card-mountain {
+      background: #af7b51;
+      top: 123px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px; }
+    .altered-card .altered-card-wrapper .card-ocean {
+      background: #6b93c0;
+      top: 150px;
+      border-top-right-radius: 4px; }
+    .altered-card .altered-card-wrapper .card-text {
+      position: absolute;
+      z-index: 2;
+      top: 317px;
+      bottom: 31px;
+      left: 20px;
+      right: 20px;
+      font-family: "Jali Greek Variable";
+      font-size: 13px;
+      color: black; }
+      .altered-card .altered-card-wrapper .card-text .card-reminders {
+        font-style: italic; }
+      .altered-card .altered-card-wrapper .card-text .card-qrcode-container {
+        float: right;
+        width: 70px;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: end;
+        shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px); }
+        .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
+          display: block;
+          width: 66px;
+          height: 66px;
+          background-image: url("img/qrcode.png");
+          background-size: 80%;
+          background-repeat: no-repeat;
+          margin-bottom: -4px;
+          margin-right: -4px;
+          background-position: center center; }
+    .altered-card .altered-card-wrapper .card-frame[data-frame="3"] ~ .card-text {
+      top: 280px; }
+    .altered-card .altered-card-wrapper .card-frame[data-frame="4"] ~ .card-text {
+      top: 260px; }
+    .altered-card .altered-card-wrapper .card-echo {
+      position: absolute;
+      z-index: 2;
+      top: 371px;
+      bottom: 29px;
+      left: 20px;
+      right: 84px;
+      font-family: "Jali Greek Variable";
+      color: black; }
+  .altered-card.card-hero .card-name {
+    top: 27px;
+    font-style: italic; }
+  .altered-card.card-hero .card-typeline {
+    top: 51px;
+    font-style: italic;
+    font-weight: bold; }
+  .altered-card.card-hero .card-text {
+    top: 311px;
+    bottom: 31px;
+    left: 25px;
+    right: 21px; }
+
+.altered-card.mini-card,
+.player-board-hero .altered-card {
   width: 106.92px;
-  height: 148.5px; }
-  .altered-card.mini-card .help-marker {
+  height: 106.92px; }
+  .altered-card.mini-card.card-hero,
+  .player-board-hero .altered-card.card-hero {
+    height: 148.5px; }
+    .altered-card.mini-card.card-hero .card-frame,
+    .player-board-hero .altered-card.card-hero .card-frame {
+      display: none; }
+  .altered-card.mini-card .help-marker,
+  .player-board-hero .altered-card .help-marker {
     left: calc(50% - 11px);
     top: -10px; }
-  .altered-card.mini-card .altered-meeple {
+  .altered-card.mini-card .altered-meeple,
+  .player-board-hero .altered-card .altered-meeple {
     position: absolute;
     top: 0;
     right: 0;
     z-index: 6;
     visibility: hidden; }
-  .altered-card.mini-card .altered-card-statuses {
+  .altered-card.mini-card .altered-card-statuses,
+  .player-board-hero .altered-card .altered-card-statuses {
     position: absolute;
     top: 2px;
     right: 2px;
     z-index: 7; }
-    .altered-card.mini-card .altered-card-statuses .card-status {
+    .altered-card.mini-card .altered-card-statuses .card-status,
+    .player-board-hero .altered-card .altered-card-statuses .card-status {
       width: 1em;
       height: 1em;
       padding: 0.25em;
@@ -515,12 +743,17 @@ html {
       border-radius: 50%;
       box-shadow: 0px 0px 5px white;
       color: white; }
-  .altered-card.mini-card .altered-card-wrapper {
-    border-radius: 7px;
+  .altered-card.mini-card .altered-card-wrapper,
+  .player-board-hero .altered-card .altered-card-wrapper {
+    border-radius: 10px;
     width: 100%;
-    height: 100%; }
+    height: 100%;
+    transform: none;
+    background-size: 100% auto; }
     .altered-card.mini-card .altered-card-wrapper .card-hand-cost,
-    .altered-card.mini-card .altered-card-wrapper .card-memory-cost {
+    .altered-card.mini-card .altered-card-wrapper .card-memory-cost,
+    .player-board-hero .altered-card .altered-card-wrapper .card-hand-cost,
+    .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost {
       position: absolute;
       z-index: 3;
       color: white;
@@ -530,36 +763,43 @@ html {
       font-size: 13px;
       line-height: 23px;
       background: #579ccc;
-      top: 2px;
-      left: 2px;
+      top: -4px;
+      left: -4px;
       width: 19px;
       height: 19px;
       border-radius: 50%;
       text-shadow: 0px 0px 5px black;
       box-shadow: 0px 0px 5px black;
       border: 1px solid black; }
-    .altered-card.mini-card .altered-card-wrapper .card-memory-cost {
+    .altered-card.mini-card .altered-card-wrapper .card-memory-cost,
+    .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost {
       z-index: 2;
-      top: 13px;
-      left: 17px; }
-      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="MU"] {
+      top: 7px;
+      left: 11px; }
+      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="MU"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost[data-faction="MU"] {
         background: #2a7533;
         box-shadow: 0px 0px 5px #396a3f;
         border: 1px solid #396a3f; }
-      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="LY"] {
+      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="LY"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost[data-faction="LY"] {
         background: #a82249;
         box-shadow: 0px 0px 5px #ce3f65;
         border: 1px solid #ce3f65; }
-      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="BR"] {
+      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="BR"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost[data-faction="BR"] {
         background: #5f1f16;
         box-shadow: 0px 0px 5px #aa212e;
         border: 1px solid #aa212e; }
     .altered-card.mini-card .altered-card-wrapper .card-forest,
     .altered-card.mini-card .altered-card-wrapper .card-mountain,
-    .altered-card.mini-card .altered-card-wrapper .card-ocean {
-      z-index: 1;
+    .altered-card.mini-card .altered-card-wrapper .card-ocean,
+    .player-board-hero .altered-card .altered-card-wrapper .card-forest,
+    .player-board-hero .altered-card .altered-card-wrapper .card-mountain,
+    .player-board-hero .altered-card .altered-card-wrapper .card-ocean {
+      z-index: 3;
       position: absolute;
-      left: 7px;
+      left: -6px;
       font-family: "Haptic Pro";
       padding-left: 4px;
       color: white;
@@ -573,242 +813,68 @@ html {
       font-weight: bold; }
       .altered-card.mini-card .altered-card-wrapper .card-forest[data-size="0"],
       .altered-card.mini-card .altered-card-wrapper .card-mountain[data-size="0"],
-      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="0"] {
-        width: 11px;
-        background: transparent; }
+      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="0"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-forest[data-size="0"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
+        width: 11px; }
       .altered-card.mini-card .altered-card-wrapper .card-forest[data-size="1"],
       .altered-card.mini-card .altered-card-wrapper .card-mountain[data-size="1"],
-      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="1"] {
+      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="1"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-forest[data-size="1"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
         width: 13px; }
       .altered-card.mini-card .altered-card-wrapper .card-forest[data-size="3"],
       .altered-card.mini-card .altered-card-wrapper .card-mountain[data-size="3"],
-      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="3"] {
+      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="3"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-forest[data-size="3"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
         width: 27px; }
-    .altered-card.mini-card .altered-card-wrapper .card-forest {
+    .altered-card.mini-card .altered-card-wrapper .card-forest,
+    .player-board-hero .altered-card .altered-card-wrapper .card-forest {
       top: 37px;
       background: #abb648;
       border-bottom-right-radius: 2px; }
-    .altered-card.mini-card .altered-card-wrapper .card-mountain {
+      .altered-card.mini-card .altered-card-wrapper .card-forest[data-size="0"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-forest[data-size="0"] {
+        background: #bdbeb5ee; }
+    .altered-card.mini-card .altered-card-wrapper .card-mountain,
+    .player-board-hero .altered-card .altered-card-wrapper .card-mountain {
       top: 57px;
       background: #af7b51;
       border-top-right-radius: 2px;
       border-bottom-right-radius: 2px; }
-    .altered-card.mini-card .altered-card-wrapper .card-ocean {
+      .altered-card.mini-card .altered-card-wrapper .card-mountain[data-size="0"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-mountain[data-size="0"] {
+        background: #ad9684ee; }
+    .altered-card.mini-card .altered-card-wrapper .card-ocean,
+    .player-board-hero .altered-card .altered-card-wrapper .card-ocean {
       top: 77px;
       background: #6b93c0;
       border-top-right-radius: 2px; }
+      .altered-card.mini-card .altered-card-wrapper .card-ocean[data-size="0"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
+        background: #a4b4c7ee; }
+    .altered-card.mini-card .altered-card-wrapper .card-text,
+    .altered-card.mini-card .altered-card-wrapper .card-echo,
+    .altered-card.mini-card .altered-card-wrapper .card-name,
+    .altered-card.mini-card .altered-card-wrapper .card-typeline,
+    .player-board-hero .altered-card .altered-card-wrapper .card-text,
+    .player-board-hero .altered-card .altered-card-wrapper .card-echo,
+    .player-board-hero .altered-card .altered-card-wrapper .card-name,
+    .player-board-hero .altered-card .altered-card-wrapper .card-typeline {
+      display: none; }
+    .altered-card.mini-card .altered-card-wrapper .card-frame,
+    .player-board-hero .altered-card .altered-card-wrapper .card-frame {
+      background: none;
+      border: 6px solid black;
+      border-radius: 10px; }
 
 .altered-card-tooltip {
   display: flex;
   --cardScale: 1; }
-  .altered-card-tooltip .altered-card {
-    width: calc(var(--cardScale) * 324px);
-    height: calc(var(--cardScale) * 450px);
-    border: none;
-    box-shadow: none;
-    border-radius: 0; }
-    .altered-card-tooltip .altered-card .altered-card-wrapper {
-      width: 324px;
-      height: 450px;
-      transform: scale(var(--cardScale));
-      transform-origin: top left; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame {
-        position: absolute;
-        z-index: 2;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-size: 600% 500%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="AX"] {
-          background-image: url("img/frames/AX.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="BR"] {
-          background-image: url("img/frames/BR.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
-          background-image: url("img/frames/LY.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
-          background-image: url("img/frames/MU.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="OD"] {
-          background-image: url("img/frames/OD.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-faction="YZ"] {
-          background-image: url("img/frames/YZ.png"); }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="hero"] {
-          background-position: 0% 50%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="1"] {
-          background-position: 40% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="2"] {
-          background-position: 60% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="3"] {
-          background-position: 0% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="4"] {
-          background-position: 20% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="1"] {
-          background-position: 0% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="2"] {
-          background-position: 20% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="3"] {
-          background-position: 80% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="1"][data-frame="4"] {
-          background-position: 100% 0%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="1"] {
-          background-position: 80% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="2"] {
-          background-position: 100% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="3"] {
-          background-position: 40% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="2"][data-frame="4"] {
-          background-position: 60% 25%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="1"] {
-          background-position: 100% 75%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="2"] {
-          background-position: 0% 100%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="3"] {
-          background-position: 60% 75%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="0"][data-frame="4"] {
-          background-position: 80% 75%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="1"] {
-          background-position: 60% 100%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="2"] {
-          background-position: 80% 100%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="3"] {
-          background-position: 20% 100%; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="4"] {
-          background-position: 40% 100%; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-name {
-        position: absolute;
-        z-index: 2;
-        top: 26px;
-        left: 48px;
-        right: 50px;
-        font-size: 17px;
-        color: white;
-        text-align: center;
-        font-family: "Jali Greek Variable";
-        font-weight: bold; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-typeline {
-        position: absolute;
-        z-index: 2;
-        top: 46px;
-        left: 48px;
-        right: 50px;
-        font-size: 13px;
-        color: black;
-        text-align: center;
-        font-family: "Jali Greek Variable";
-        font-style: italic; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost,
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
-        position: absolute;
-        z-index: 3;
-        color: white;
-        text-align: center;
-        font-family: "Haptic Pro";
-        font-weight: bold;
-        font-size: 34px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-hand-cost {
-        top: 21px;
-        left: 27px;
-        font-size: 25px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-memory-cost {
-        top: 39px;
-        left: 49px;
-        font-size: 25px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest,
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain,
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
-        z-index: 1;
-        position: absolute;
-        left: 22px;
-        font-family: "Haptic Pro";
-        padding-left: 12px;
-        color: white;
-        box-shadow: 0px 0px 14px 2px black;
-        text-shadow: 0px 0px 6px black;
-        border-radius: 11px;
-        height: 25px;
-        width: 25px;
-        font-size: 21px;
-        line-height: 29px; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="0"],
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
-          width: 15px;
-          background: transparent; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="1"],
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
-          width: 15px; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="3"],
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
-          width: 35px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest {
-        background: #abb648;
-        top: 96px;
-        border-bottom-right-radius: 4px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain {
-        background: #af7b51;
-        top: 123px;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean {
-        background: #6b93c0;
-        top: 150px;
-        border-top-right-radius: 4px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-text {
-        position: absolute;
-        z-index: 2;
-        top: 317px;
-        bottom: 31px;
-        left: 20px;
-        right: 20px;
-        font-family: "Jali Greek Variable";
-        color: black; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-reminders {
-          font-style: italic; }
-        .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container {
-          float: right;
-          width: 70px;
-          height: 100%;
-          display: flex;
-          align-items: flex-end;
-          justify-content: end;
-          shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px); }
-          .altered-card-tooltip .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
-            display: block;
-            width: 66px;
-            height: 66px;
-            background-image: url("img/qrcode.png");
-            background-size: 80%;
-            background-repeat: no-repeat;
-            margin-bottom: -4px;
-            margin-right: -4px;
-            background-position: center center; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="3"] ~ .card-text {
-        top: 280px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-frame[data-frame="4"] ~ .card-text {
-        top: 260px; }
-      .altered-card-tooltip .altered-card .altered-card-wrapper .card-echo {
-        position: absolute;
-        z-index: 2;
-        top: 371px;
-        bottom: 29px;
-        left: 20px;
-        right: 84px;
-        font-family: "Jali Greek Variable";
-        color: black; }
-    .altered-card-tooltip .altered-card.card-hero .card-name {
-      top: 27px;
-      font-style: italic; }
-    .altered-card-tooltip .altered-card.card-hero .card-typeline {
-      top: 51px;
-      font-style: italic;
-      font-weight: bold; }
-    .altered-card-tooltip .altered-card.card-hero .card-text {
-      top: 311px;
-      bottom: 31px;
-      left: 25px;
-      right: 21px; }
   .altered-card-tooltip .tooltip-explanation {
     max-width: 200px;
     padding: 5px;
@@ -939,224 +1005,316 @@ html {
 .action-button .icon-container ~ .altered-meeple {
   margin-left: 0.5em; }
 
-#altered-main-container {
-  display: flex;
-  flex-flow: column;
-  align-items: center; }
-  #altered-main-container .altered-player-board-resizable.above {
-    order: 1; }
-  #altered-main-container #storm-container {
-    order: 2;
-    margin: 5px 0px;
-    width: 1299px;
-    height: 186px;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: 1fr; }
-    #altered-main-container #storm-container .storm-card-container {
-      grid-row: 1 / span 1;
-      grid-column-end: span 2; }
-      #altered-main-container #storm-container .storm-card-container:nth-child(1) {
-        grid-column-start: 1; }
-      #altered-main-container #storm-container .storm-card-container:nth-child(2) {
-        grid-column-start: 3; }
-      #altered-main-container #storm-container .storm-card-container:nth-child(3) {
-        grid-column-start: 5; }
-      #altered-main-container #storm-container .storm-card-container:nth-child(4) {
-        grid-column-start: 7; }
-      #altered-main-container #storm-container .storm-card-container:nth-child(5) {
-        grid-column-start: 9; }
-      #altered-main-container #storm-container .storm-card-container .storm-card {
-        width: 260px;
-        height: 186px;
-        background-image: url("img/storm.jpg");
-        background-size: 100% 600%;
-        border-radius: 7px; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="0"] {
-          background-position-y: 0%; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="1"] {
-          background-position-y: 20%; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="2"] {
-          background-position-y: 40%; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="3"] {
-          background-position-y: 60%; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="4"] {
-          background-position-y: 80%; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="5"] {
-          background-position-y: 100%; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-id="6"] {
-          background-position-y: 120%; }
-        #altered-main-container #storm-container .storm-card-container .storm-card[data-flipped="1"] {
-          transform: rotate(180deg); }
-    #altered-main-container #storm-container .storm-space {
-      grid-column-end: span 1;
-      grid-row: 1 / span 1;
-      z-index: 2; }
-      #altered-main-container #storm-container .storm-space#storm-0 {
-        grid-column-start: 2; }
-      #altered-main-container #storm-container .storm-space#storm-1 {
-        grid-column-start: 3; }
-      #altered-main-container #storm-container .storm-space#storm-2 {
-        grid-column-start: 4; }
-      #altered-main-container #storm-container .storm-space#storm-3 {
-        grid-column-start: 5; }
-      #altered-main-container #storm-container .storm-space#storm-4 {
-        grid-column-start: 6; }
-      #altered-main-container #storm-container .storm-space#storm-5 {
-        grid-column-start: 7; }
-      #altered-main-container #storm-container .storm-space#storm-6 {
-        grid-column-start: 8; }
-      #altered-main-container #storm-container .storm-space#storm-7 {
-        grid-column-start: 9; }
-      #altered-main-container #storm-container .storm-space .storm-slot {
-        width: 100%;
-        height: 93px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: end;
-        box-sizing: border-box;
-        padding: 5px; }
-        #altered-main-container #storm-container .storm-space .storm-slot:nth-child(2) {
-          align-items: start; }
-      #altered-main-container #storm-container .storm-space#storm-0 .storm-slot {
-        padding: 8px 17px 8px 5px; }
-      #altered-main-container #storm-container .storm-space#storm-7 .storm-slot {
-        padding: 8px 5px 8px 17px; }
+#topbar {
+  margin-top: -66px;
+  transition: margin 0.5s; }
+  #topbar.visible {
+    margin-top: 0px; }
 
-.altered-player-board-resizable {
-  order: 3;
-  margin: 5px 0px;
-  width: 1200px;
-  height: 343px;
-  border: 2px solid white;
-  border-radius: 10px;
-  background: #ffffff36;
+#game_play_area {
+  margin-top: 0px; }
+
+#left-side-wrapper {
+  margin-top: 0px; }
+
+#page-title {
   position: relative;
+  z-index: 2; }
+
+.current_player_is_active #page-title,
+.gamestate_gameEnd #page-title,
+#page-title {
+  background: #2d2c3eeb;
+  color: white;
+  border-radius: 6px;
+  border: 1px solid #dbbc18; }
+  .current_player_is_active #page-title .bgabutton_gray,
+  .gamestate_gameEnd #page-title .bgabutton_gray,
+  #page-title .bgabutton_gray {
+    border: 1px solid white;
+    box-shadow: 0 0 0 white;
+    color: white;
+    text-shadow: none; }
+
+#right-side {
+  float: left;
+  margin-left: -240px;
+  margin-top: -7px;
+  width: 240px; }
+  #right-side #player_boards .player-board:nth-child(1) {
+    border-top-left-radius: 0px; }
+
+.player-board {
+  background-color: #0000008c;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 3px 8px rgba(96, 93, 93, 0.1);
+  clear: both;
+  padding: 5px 3px;
+  border: 1px solid #dfb719 !important;
+  color: white;
+  margin: 0px -1px;
+  margin-bottom: 5px; }
+
+#player_board_config {
+  position: relative;
+  border-image: none;
+  margin-top: -2px;
+  padding-bottom: 7px; }
+
+.mobile_version #right-side {
+  top: 8px;
+  transition: top 0.5s; }
+.mobile_version #topbar.visible ~ #leftright_page_wrapper #right-side {
+  top: 72px; }
+.mobile_version #player_boards {
   display: flex;
-  flex-flow: column; }
-  .altered-player-board-resizable::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover; }
-  .altered-player-board-resizable[data-faction="MU"]::before {
-    background-image: url("img/mats/04.jpg"); }
-  .altered-player-board-resizable[data-faction="BR"]::before {
-    background-image: url("img/mats/02.jpg"); }
-  .altered-player-board-resizable.above .player-board-bottom {
-    order: 1; }
-  .altered-player-board-resizable.above .player-board-middle {
-    order: 2; }
-  .altered-player-board-resizable.above .player-board-top {
+  flex-wrap: wrap; }
+  .mobile_version #player_boards .player-board {
+    order: 2;
+    clear: both;
+    float: none; }
+  .mobile_version #player_boards #player_board_config {
     order: 3; }
-  .altered-player-board-resizable .player-board-top,
-  .altered-player-board-resizable .player-board-middle,
-  .altered-player-board-resizable .player-board-bottom {
-    width: 100%;
-    display: flex;
-    height: 170px; }
-    .altered-player-board-resizable .player-board-top > div,
-    .altered-player-board-resizable .player-board-middle > div,
-    .altered-player-board-resizable .player-board-bottom > div {
-      height: 160px;
-      margin: 5px;
-      background: rgba(255, 255, 255, 0.568);
-      border: 2px solid black;
-      border-radius: 5px;
+.mobile_version #player_board_config {
+  margin-top: -5px;
+  padding-bottom: 10px;
+  border-top-right-radius: 0px; }
+
+#logs .log .roundedbox {
+  background-color: #0000008c;
+  color: white; }
+  #logs .log .roundedbox .replay_last_move_button {
+    color: white;
+    border-color: white; }
+    #logs .log .roundedbox .replay_last_move_button .icon32 {
+      filter: invert(100%); }
+
+#altered-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0f1b2200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  transition: background-color 0.6s; }
+  #altered-overlay.active {
+    background-color: #0f1b22c0;
+    pointer-events: all; }
+  #altered-overlay #altered-overlay-content {
+    font-family: "Jali Greek Variable";
+    padding-right: 250px; }
+    .mobile_version #altered-overlay #altered-overlay-content {
+      padding-right: 0px; }
+    #altered-overlay #altered-overlay-content h2 {
+      text-align: center;
+      color: gold;
+      font-size: 55px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #eb8a00 15%, #fcbd1a 50%, #eb8a00 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; }
+    #altered-overlay #altered-overlay-content p {
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      font-size: 25px;
+      margin-bottom: 40px; }
+    #altered-overlay #altered-overlay-content #overlay-hand-container {
+      max-width: calc(0.9 * (100vw - 250px));
+      --cardScale: 0.5; }
+      .mobile_version #altered-overlay #altered-overlay-content #overlay-hand-container {
+        max-width: 90vw; }
+      #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand {
+        display: flex;
+        flex-wrap: wrap; }
+    #altered-overlay #altered-overlay-content #overlay-deck-container {
+      max-width: calc(0.9 * (100vw - 250px));
+      --cardScale: 0.5;
       display: flex;
-      align-items: center;
-      justify-content: center; }
-      .altered-player-board-resizable .player-board-top > div.selectable,
-      .altered-player-board-resizable .player-board-middle > div.selectable,
-      .altered-player-board-resizable .player-board-bottom > div.selectable {
-        border: 2px dashed black;
-        cursor: pointer; }
-        .altered-player-board-resizable .player-board-top > div.selectable:hover,
-        .altered-player-board-resizable .player-board-middle > div.selectable:hover,
-        .altered-player-board-resizable .player-board-bottom > div.selectable:hover {
-          border: 2px solid red; }
-  .altered-player-board-resizable .player-board-top .player-board-alterer {
-    width: 120px;
-    flex-shrink: 0; }
-  .altered-player-board-resizable .player-board-top .player-board-storm {
-    flex-grow: 1; }
-    .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes {
+      flex-wrap: wrap; }
+      .mobile_version #altered-overlay #altered-overlay-content #overlay-deck-container {
+        max-width: 90vw; }
+
+#altered-main-container {
+  margin-top: calc(var(--boardScale) * -130px);
+  display: flex;
+  justify-content: center; }
+  #altered-main-container #altered-board-resizable {
+    width: calc(var(--boardScale) * 1530px);
+    height: calc(var(--boardScale) * 1158px); }
+    #altered-main-container #altered-board-resizable #altered-board {
+      transform: scale(var(--boardScale));
+      transform-origin: top left;
+      width: 1530px;
+      height: 1158px;
+      background-image: url("img/board.png");
+      background-size: 100%;
+      clip-path: polygon(0% 6%, 100% 6%, 100% 100%, 0% 100%); }
+      #altered-main-container #altered-board-resizable #altered-board #altered-board-opponent,
+      #altered-main-container #altered-board-resizable #altered-board #altered-board-me {
+        width: 1530px;
+        height: 486px; }
+      #altered-main-container #altered-board-resizable #altered-board #storm-container {
+        width: 1299px;
+        height: 186px;
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: 1fr;
+        padding: 0px 121px; }
+        #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container {
+          grid-row: 1 / span 1;
+          grid-column-end: span 2; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(1) {
+            grid-column-start: 1; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(2) {
+            grid-column-start: 3; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(3) {
+            grid-column-start: 5; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(4) {
+            grid-column-start: 7; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(5) {
+            grid-column-start: 9; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card {
+            width: 260px;
+            height: 186px;
+            background-image: url("img/storm.jpg");
+            background-size: 100% 600%;
+            border-radius: 7px; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="0"] {
+              background-position-y: 0%; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="1"] {
+              background-position-y: 20%; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="2"] {
+              background-position-y: 40%; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="3"] {
+              background-position-y: 60%; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="4"] {
+              background-position-y: 80%; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="5"] {
+              background-position-y: 100%; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="6"] {
+              background-position-y: 120%; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-flipped="1"] {
+              transform: rotate(180deg); }
+        #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space {
+          grid-column-end: span 1;
+          grid-row: 1 / span 1;
+          z-index: 2; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-0 {
+            grid-column-start: 2; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-1 {
+            grid-column-start: 3; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-2 {
+            grid-column-start: 4; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-3 {
+            grid-column-start: 5; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-4 {
+            grid-column-start: 6; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-5 {
+            grid-column-start: 7; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-6 {
+            grid-column-start: 8; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-7 {
+            grid-column-start: 9; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space .storm-slot {
+            width: 100%;
+            height: 93px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            box-sizing: border-box;
+            padding: 5px; }
+            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space .storm-slot:nth-child(2) {
+              align-items: start; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-0 .storm-slot {
+            padding: 8px 17px 8px 5px; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-7 .storm-slot {
+            padding: 8px 5px 8px 17px; }
+
+.altered-player-board {
+  width: 1530px;
+  height: 486px;
+  position: relative; }
+  .altered-player-board .player-board-hero {
+    position: absolute;
+    width: 120px; }
+  .altered-player-board .player-board-storm {
+    position: absolute;
+    width: 436px;
+    height: 120px;
+    border: 2px solid transparent; }
+    .altered-player-board .player-board-storm.storm-left {
+      left: 262px; }
+    .altered-player-board .player-board-storm.storm-right {
+      left: 837px; }
+    .altered-player-board .player-board-storm.selectable {
+      border: 2px dashed black;
+      cursor: pointer; }
+      .altered-player-board .player-board-storm.selectable:hover {
+        border: 2px solid red; }
+    .altered-player-board .player-board-storm .total-biomes {
       position: absolute;
-      width: 100px;
-      left: -102px;
-      display: flex;
-      flex-flow: column;
-      align-items: flex-end;
-      z-index: -1; }
-      .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-forest,
-      .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-mountain,
-      .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-ocean {
+      width: 77px;
+      left: -117px;
+      top: -4px; }
+      .altered-player-board .player-board-storm .total-biomes .total-forest,
+      .altered-player-board .player-board-storm .total-biomes .total-mountain,
+      .altered-player-board .player-board-storm .total-biomes .total-ocean {
         font-family: "Haptic Pro";
         padding: 0px 10px;
-        color: white;
-        box-shadow: 0px 0px 3px 1px black;
+        color: #e6e4e4;
         text-shadow: 0px 0px 6px black;
         height: 50px;
-        width: 30px;
-        margin-bottom: 2px;
+        width: 50px;
+        margin-bottom: 1px;
         font-size: 32px;
         line-height: 58px;
         font-weight: bold;
-        text-align: right; }
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-forest[data-size="0"],
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-mountain[data-size="0"],
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-ocean[data-size="0"] {
-          width: 15px;
-          opacity: 0.5; }
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-forest[data-size="1"],
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-mountain[data-size="1"],
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-ocean[data-size="1"] {
-          width: 20px; }
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-forest[data-size="3"],
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-mountain[data-size="3"],
-        .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-ocean[data-size="3"] {
-          width: 40px; }
-      .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-forest {
-        background: #abb648;
+        text-align: center;
+        background-image: url("img/gems.png");
+        background-size: 200% 300%; }
+      .altered-player-board .player-board-storm .total-biomes .total-forest {
         border-radius: 14px 0 0 4px; }
-      .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-mountain {
-        background: #af7b51;
-        border-radius: 4px 0 0 4px; }
-      .altered-player-board-resizable .player-board-top .player-board-storm .total-biomes .total-ocean {
-        background: #6b93c0;
-        border-radius: 4px 0 0 14px; }
-    .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-biomes {
-      left: calc(100% + 2px);
-      align-items: flex-start; }
-      .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-biomes .total-forest,
-      .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-biomes .total-mountain,
-      .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-biomes .total-ocean {
-        text-align: left; }
-    .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-forest {
+      .altered-player-board .player-board-storm .total-biomes .total-mountain {
+        border-radius: 4px 0 0 4px;
+        background-position-y: 50%; }
+      .altered-player-board .player-board-storm .total-biomes .total-ocean {
+        border-radius: 4px 0 0 14px;
+        background-position-y: 100%; }
+    .altered-player-board .player-board-storm.storm-right .total-biomes {
+      left: 480px; }
+    .altered-player-board .player-board-storm.storm-right .total-forest,
+    .altered-player-board .player-board-storm.storm-right .total-mountain,
+    .altered-player-board .player-board-storm.storm-right .total-ocean {
+      background-position-x: 100%; }
+    .altered-player-board .player-board-storm.storm-right .total-forest {
       border-radius: 0 14px 4px 0; }
-    .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-mountain {
+    .altered-player-board .player-board-storm.storm-right .total-mountain {
       border-radius: 0 4px 4px 0px; }
-    .altered-player-board-resizable .player-board-top .player-board-storm:nth-of-type(3) .total-ocean {
+    .altered-player-board .player-board-storm.storm-right .total-ocean {
       border-radius: 0 4px 14px 0; }
-  .altered-player-board-resizable .player-board-middle .player-board-deck {
+  .altered-player-board .player-board-deck {
     width: 120px;
-    flex-shrink: 0; }
-    .altered-player-board-resizable .player-board-middle .player-board-deck .deck-counter-holder {
+    left: 247px;
+    position: absolute; }
+    .altered-player-board .player-board-deck .altered-card {
+      position: absolute;
+      top: 0; }
+    .altered-player-board .player-board-deck .deck-counter-holder {
       width: 110px;
       height: 150px;
-      background: url("img/back-main.jpg");
-      background-size: 100% 100%;
       border-radius: 6px;
       display: flex;
       justify-content: center;
       align-items: center; }
-      .altered-player-board-resizable .player-board-middle .player-board-deck .deck-counter-holder .deck-counter {
+      .altered-player-board .player-board-deck .deck-counter-holder .deck-counter {
         font-family: "Haptic Pro";
         color: black;
         background: #ffffffa0;
@@ -1167,28 +1325,113 @@ html {
         box-shadow: 0px 0px 13px white;
         text-align: center;
         line-height: 50px;
-        text-shadow: 0px 0px 3px white; }
-  .altered-player-board-resizable .player-board-middle .player-board-discard {
-    width: 120px;
-    flex-shrink: 0;
-    position: relative; }
-    .altered-player-board-resizable .player-board-middle .player-board-discard .altered-card {
-      position: absolute;
-      filter: grayscale(80%);
-      -webkit-transform: translateZ(0);
-      -webkit-perspective: 1000;
-      -webkit-backface-visibility: hidden; }
-  .altered-player-board-resizable .player-board-middle .player-board-memory {
-    flex-grow: 1; }
-  .altered-player-board-resizable .player-board-middle .player-board-permanents {
-    width: 240px;
-    flex-shrink: 0; }
-  .altered-player-board-resizable .player-board-middle .player-board-limbo {
-    width: 120px;
-    flex-shrink: 0;
-    position: relative; }
-    .altered-player-board-resizable .player-board-middle .player-board-limbo:empty:not(.selectable) {
-      display: none; }
+        text-shadow: 0px 0px 3px white;
+        font-size: 26px; }
+  .altered-player-board .player-board-mana-wrapper {
+    position: absolute;
+    left: 57px;
+    display: flex;
+    width: 60px;
+    height: 460px; }
+    .altered-player-board .player-board-mana-wrapper .player-board-mana-indicator {
+      height: 48px;
+      font-family: "Haptic Pro";
+      color: #e6e4e4;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px; }
+      .altered-player-board .player-board-mana-wrapper .player-board-mana-indicator h6 {
+        font-size: 10px;
+        margin-bottom: 4px;
+        font-weight: bold;
+        margin-top: 7px; }
+    .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge {
+      display: flex;
+      padding: 2px 12px;
+      flex-grow: 1;
+      align-items: center; }
+      .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge .mana-gauge-slot {
+        width: 30px;
+        height: 20px;
+        background: #153038;
+        margin: 1px 0px;
+        border-top-left-radius: 2px 6px;
+        border-top-right-radius: 2px 6px;
+        border-bottom-left-radius: 2px 6px;
+        border-bottom-right-radius: 2px 6px; }
+        .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge .mana-gauge-slot .mana-gem {
+          display: none;
+          width: 30px;
+          height: 20px;
+          background: #00b2df;
+          border-top-left-radius: 2px 6px;
+          border-top-right-radius: 2px 6px;
+          border-bottom-left-radius: 2px 6px;
+          border-bottom-right-radius: 2px 6px; }
+        .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge .mana-gauge-slot.available .mana-gem {
+          display: block; }
+  .altered-player-board .player-board-hand {
+    position: absolute;
+    width: 100%; }
+    .altered-player-board .player-board-hand .player-hand {
+      display: flex;
+      justify-content: center; }
+
+#altered-board-opponent .altered-player-board .player-board-hero {
+  top: 313px;
+  left: 711px; }
+#altered-board-opponent .altered-player-board .player-board-storm {
+  top: 316px; }
+#altered-board-opponent .altered-player-board .player-board-deck {
+  top: 145px; }
+#altered-board-opponent .altered-player-board .player-board-mana-wrapper {
+  top: 0px;
+  flex-flow: column; }
+#altered-board-opponent .altered-player-board .player-board-mana-gauge {
+  flex-flow: column-reverse; }
+#altered-board-opponent .altered-player-board .player-board-hand {
+  bottom: 315px; }
+  #altered-board-opponent .altered-player-board .player-board-hand .altered-card {
+    margin: 3px -10px; }
+
+#altered-board-me .altered-player-board .player-board-hero {
+  top: 18px;
+  left: 711px; }
+#altered-board-me .altered-player-board .player-board-storm {
+  top: 53px; }
+  #altered-board-me .altered-player-board .player-board-storm .total-biomes {
+    top: -30px; }
+#altered-board-me .altered-player-board .player-board-deck {
+  top: 195px; }
+#altered-board-me .altered-player-board .player-board-mana-wrapper {
+  top: 25px;
+  flex-flow: column-reverse; }
+#altered-board-me .altered-player-board .player-board-mana-gauge {
+  flex-flow: column; }
+#altered-board-me .altered-player-board .player-board-hand {
+  top: 320px; }
+
+.player-board-middle .player-board-discard {
+  width: 120px;
+  flex-shrink: 0;
+  position: relative; }
+  .player-board-middle .player-board-discard .altered-card {
+    position: absolute;
+    filter: grayscale(80%);
+    -webkit-transform: translateZ(0);
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden; }
+.player-board-middle .player-board-memory {
+  flex-grow: 1; }
+.player-board-middle .player-board-permanents {
+  width: 240px;
+  flex-shrink: 0; }
+.player-board-middle .player-board-limbo {
+  width: 120px;
+  flex-shrink: 0;
+  position: relative; }
+  .player-board-middle .player-board-limbo:empty:not(.selectable) {
+    display: none; }
 
 .player-name svg {
   width: 25px;
@@ -1216,10 +1459,6 @@ html {
     text-align: center; }
   .player-info .altered-card {
     position: absolute; }
-
-#player_board_config {
-  position: relative;
-  border-image: none; }
 
 #player_config {
   padding-bottom: 8px; }
@@ -1274,23 +1513,22 @@ html {
     transition: transform 1s; }
   #player_config #show-settings:hover .fa-primary {
     transform: rotate(180deg); }
-  #player_config #open-scoreboard {
+  #player_config #show-topbar {
+    border: 1px solid white;
+    font-size: 40px;
+    width: 40px;
+    text-align: center;
+    height: 57px;
+    margin-top: -20px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-right: -10px;
     cursor: pointer; }
-    #player_config #open-scoreboard svg {
-      width: 60px;
-      height: 30px; }
-      #player_config #open-scoreboard svg path {
-        fill: #bcbdbd85;
-        fill-opacity: 1;
-        stroke: #000000;
-        stroke-width: 5;
-        stroke-linecap: round;
-        stroke-linejoin: bevel;
-        stroke-miterlimit: 4;
-        stroke-dasharray: none;
-        stroke-opacity: 1; }
-    #player_config #open-scoreboard:hover svg {
-      opacity: 0.5; }
+    #player_config #show-topbar i {
+      margin-top: 17px;
+      transition: transform 0.5s; }
+    #player_config #show-topbar.opened i {
+      transform: rotate(180deg); }
 
 #popin_showSettings_underlay {
   background-color: black !important;

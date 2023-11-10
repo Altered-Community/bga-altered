@@ -14,10 +14,9 @@
  */
 
 html {
-    background: #2d211a;
-    // background-image: url("img/wood_background.jpg");
-    // background-size: cover;
-    // background-attachment: fixed;
+    background-image: url("img/background.jpg");
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 @import "modules/css/nouislider";
@@ -25,6 +24,7 @@ html {
 @import "modules/css/cards";
 @import "modules/css/icons";
 @import "modules/css/meeples";
+@import "modules/css/layout";
 @import "modules/css/central-board";
 @import "modules/css/player-board";
 @import "modules/css/player-panel";

@@ -32,12 +32,13 @@ define([
 ], function (dojo, declare, Sortable) {
   return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
     constructor: function () {
-      this._inactiveStates = [];
+      this._inactiveStates = ['selectDeck', 'newDayManaSelection'];
       this._notifications = [
         ['midMessage', 1200],
         ['clearTurn', 200],
         ['refreshUI', 200],
         ['refreshHand', 200],
+        ['updateInitialDeckSelection', 200],
         ['updateNewDayManaSelection', 200],
         ['nightCleanup', null],
         ['cleanupCards', null],
@@ -45,7 +46,6 @@ define([
 
         ['addMeeples', null],
         ['looseMeeples', null],
-
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -72,6 +72,8 @@ define([
       // Fix mobile viewport (remove CSS zoom)
       this.default_viewport = 'width=740';
       this.cardStatuses = {};
+
+      this._fakeIndex = 1;
     },
     notif_midMessage(n) {},
 
@@ -88,15 +90,29 @@ define([
       return {
         ////////////////////
         ///    LAYOUT    ///
+        boardHeight: {
+          default: 100,
+          name: _('Board height'),
+          type: 'slider',
+          sliderConfig: {
+            step: 3,
+            padding: 0,
+            range: {
+              min: [30],
+              max: [120],
+            },
+          },
+          section: 'layout',
+        },
+
         handLocation: {
           default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 3),
           name: _('Hand of cards'),
           type: 'select',
           values: {
-            0: _('In a floating collapsible container'),
-            3: _('In a floating collapsible container, opened when entering the table'),
-            1: _('Above played cards'),
-            2: _('Below played cards'),
+            0: _('On the board'),
+            1: _('In a floating collapsible container'),
+            2: _('In a floating collapsible container, opened when entering the table'),
           },
           section: 'layout',
         },
@@ -151,7 +167,7 @@ define([
     },
 
     isFloatingHand() {
-      return [0, 3].includes(parseInt(this.settings.handLocation));
+      return [1, 2].includes(parseInt(this.settings.handLocation));
     },
 
     openHand() {
@@ -174,6 +190,11 @@ define([
       dojo.place("<div id='anytimeActions' style='display:inline-block;float:right'></div>", $('generalactions'), 'after');
       // Create a new div for "subtitle"
       dojo.place("<div id='pagesubtitle'></div>", 'maintitlebar_content');
+      // Create a new div for overlays
+      $('left-side-wrapper').insertAdjacentHTML(
+        'beforeend',
+        '<div id="altered-overlay"><div id="altered-overlay-content"></div></div>'
+      );
 
       this.setupInfoPanel();
       this.setupBoard();
@@ -183,6 +204,13 @@ define([
       this.setupMeeples();
       // this.setupSortableHand();
       this.inherited(arguments);
+    },
+
+    openOverlay() {
+      $('altered-overlay').classList.add('active');
+    },
+    closeOverlay() {
+      $('altered-overlay').classList.remove('active');
     },
 
     setupSortableHand() {
@@ -232,24 +260,24 @@ define([
       }
     },
 
-    onChangeSortableHandSetting(v) {
-      if (this._sortableHand) this._sortableHand.option('disabled', v == 1);
+    // onChangeSortableHandSetting(v) {
+    //   if (this._sortableHand) this._sortableHand.option('disabled', v == 1);
 
-      this.ensureNoSortableHandOnTouchDevice();
-    },
+    //   this.ensureNoSortableHandOnTouchDevice();
+    // },
 
-    ensureNoSortableHandOnTouchDevice() {
-      if (this.isTouchDevice && this.settings && this.settings.sortableHand == 0 && this.isFloatingHand() && this._sortableHand) {
-        this._sortableHand.option('disabled', true);
+    // ensureNoSortableHandOnTouchDevice() {
+    //   if (this.isTouchDevice && this.settings && this.settings.sortableHand == 0 && this.isFloatingHand() && this._sortableHand) {
+    //     this._sortableHand.option('disabled', true);
 
-        this.showMessage(
-          _(
-            "Sortable hand with floating hand on touchscreen is disabled because it's buggy on many devices (can't click on card to select them). Sorry for the inconvenience."
-          ),
-          'info'
-        );
-      }
-    },
+    //     this.showMessage(
+    //       _(
+    //         "Sortable hand with floating hand on touchscreen is disabled because it's buggy on many devices (can't click on card to select them). Sorry for the inconvenience."
+    //       ),
+    //       'info'
+    //     );
+    //   }
+    // },
 
     onLoadingComplete() {
       this.updateLayout();
@@ -423,16 +451,65 @@ define([
       if (this[methodName] !== undefined) this[methodName](args.args);
     },
 
+    ///////////////////////////////////////////////////////////
+    //  ____       _           _     ____            _
+    // / ___|  ___| | ___  ___| |_  |  _ \  ___  ___| | __
+    // \___ \ / _ \ |/ _ \/ __| __| | | | |/ _ \/ __| |/ /
+    //  ___) |  __/ |  __/ (__| |_  | |_| |  __/ (__|   <
+    // |____/ \___|_|\___|\___|\__| |____/ \___|\___|_|\_\
+    ///////////////////////////////////////////////////////////
+
     onEnteringStateSelectDeck(args) {
       if (!args._private) return;
 
-      decks = args._private.decks
-      decks.forEach((deckNum) => {
-        debug(deckNum);
-        this.addPrimaryActionButton('selectDeck' + deckNum.deckNum,'Deck n°' + deckNum.deckNum+ ' Faction ' + deckNum.faction , () =>
-          this.takeAction('actSelectDeck', {choice: deckNum.deckNum}, false)
+      decks = args._private.decks;
+      decks.forEach((deck) => {
+        this.addPrimaryActionButton('btnSelectDeck' + deck.deckNum, 'Deck n°' + deck.deckNum + ' Faction ' + deck.faction, () =>
+          this.takeAction('actSelectDeck', { choice: deck.deckNum }, false)
         );
       });
+
+      // Open deck container
+      if (!$('overlay-deck-container')) {
+        $('altered-overlay-content').innerHTML = '';
+        $('altered-overlay-content').insertAdjacentHTML(
+          'beforeend',
+          `
+          <h2>${_('Choose your deck')}</h2>
+          <div id='overlay-deck-container'></div>
+        `
+        );
+
+        decks.forEach((deck) => {
+          this.addCard(deck.hero, 'overlay-deck-container');
+          this.onClick(`card-${deck.hero.id}`, () => this.takeAction('actSelectDeck', { choice: deck.deckNum }, false));
+        });
+
+        this.openOverlay();
+      }
+
+      // Already made a selection => allow to cancel it
+      let deckNum = args._private.selection;
+      if (deckNum != null) {
+        let previousCard = $('overlay-deck-container').querySelector('.altered-card.selected');
+        if (previousCard) previousCard.classList.remove('selected');
+        let previousBtn = $('customActions').querySelector('.bgabutton.selected');
+        if (previousBtn) previousBtn.classList.remove('selected');
+
+        $(`btnSelectDeck${deckNum}`).classList.add('selected');
+        $(`card-${decks[deckNum].hero.id}`).classList.add('selected');
+      }
+    },
+
+    onLeavingStateSelectDeck() {
+      this.closeOverlay();
+      $('altered-overlay-content').innerHTML = '';
+    },
+
+    notif_updateInitialDeckSelection(n) {
+      this.clearPossible();
+      this.updatePageTitle();
+      this.onEnteringStateSelectDeck(n.args.args);
     },
 
     //////////////////////////////////////////////////////
@@ -446,6 +523,13 @@ define([
 
     onEnteringStateNewDayManaSelection(args) {
       if (!args._private) return;
+
+      // first day, handle differently
+      if (!args.canPass) {
+        this.onEnteringStateFirstNewDayManaSelection(args);
+        return;
+      }
+
       this.openHand();
 
       // Already made a selection => allow to cancel it
@@ -468,10 +552,52 @@ define([
         });
       }
 
-      // if not first day, player can pass
-      if (args.canPass) {
-        this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
+      this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
+    },
+
+    onEnteringStateFirstNewDayManaSelection(args) {
+      this.openHand();
+      if (!$('overlay-hand-container')) {
+        $('altered-overlay-content').innerHTML = '';
+        $('altered-overlay-content').insertAdjacentHTML(
+          'beforeend',
+          `
+          <h2>${_('Choose your starting hand')}</h2>
+          <p>${_('Discarded cards will join your mana pool')}</p>
+          <div id='overlay-hand-container'></div>
+        `
+        );
+
+        $('overlay-hand-container').insertAdjacentElement('beforeend', $(`hand-${this.player_id}`));
+        this.openOverlay();
       }
+      // TODO
+
+      // Already made a selection => allow to cancel it
+      if (args._private.selection != null) {
+        this.addSecondaryActionButton('actCancelNewDayManaSelection', _('Cancel'), () =>
+          this.takeAction('actCancelNewDayManaSelection', {}, false)
+        );
+        args._private.selection.forEach((cardId) => {
+          $(`card-${cardId}`).classList.add('selectedToMana');
+        });
+      }
+      // No selection yet => let the user click on it
+      else {
+        this.onSelectNCards(args._private.cards, {
+          n: args._private.n,
+          class: 'selectedToMana',
+          confirmText: _('Confirm Mana'),
+          callback: (selectedElements, ignoredElements) =>
+            this.takeAction('actNewDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
+        });
+      }
+    },
+
+    onLeavingStateNewDayManaSelection() {
+      this.closeOverlay();
+      this.onChangeHandLocationSetting();
+      $('altered-overlay-content').innerHTML = '';
     },
 
     notif_updateNewDayManaSelection(n) {
@@ -767,6 +893,11 @@ define([
           handWrapper.dataset.open = 'hand';
         }
       });
+
+      $('show-topbar').addEventListener('click', () => {
+        $('topbar').classList.toggle('visible');
+        $('show-topbar').classList.toggle('opened');
+      });
     },
 
     tplInfoPanel() {
@@ -789,6 +920,10 @@ define([
              </g>
            </svg>
          </div>
+
+         <div id="show-topbar">
+           <i class="fa fa-caret-down"></i>
+         </div>
        </div>
      </div>
    </div>
@@ -808,9 +943,23 @@ define([
       // $('floating-hand-wrapper').style.setProperty('--alteredZooCardScale', scale);
     },
 
+    onChangeBoardHeightSetting(val) {
+      this.updateLayout();
+    },
+
     updateLayout() {
       if (!this.settings) return;
       const ROOT = document.documentElement;
+
+      const WIDTH = $('altered-main-container').getBoundingClientRect()['width'];
+      const HEIGHT = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      const BOARD_WIDTH = 1401;
+      const BOARD_HEIGHT = 980;
+
+      let heightScale = ((this.settings.boardHeight / 100) * HEIGHT) / BOARD_HEIGHT,
+        widthScale = WIDTH / BOARD_WIDTH,
+        scale = Math.min(widthScale, heightScale);
+      ROOT.style.setProperty('--boardScale', scale);
     },
   });
 });

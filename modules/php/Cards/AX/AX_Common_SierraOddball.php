@@ -9,7 +9,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '1',
-      'asset' => 'AX-01-Sierra-Oddball',
+      'asset' => 'AX-01-Sierra-Oddball-C',
       'frameSize' => 1,
 
       'faction' => FACTION_AX,

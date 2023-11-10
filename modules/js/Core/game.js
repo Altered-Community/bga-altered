@@ -1201,16 +1201,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
     /**
      * Own counter implementation that works with replay
      */
-    createCounter(id, defaultValue = 0, linked = null) {
-      if (!$(id)) {
-        console.error('Counter : element does not exist', id);
-        return null;
-      }
+    createCounter(elts, defaultValue = 0, callback = null) {
+      if (!Array.isArray(elts)) elts = [elts];
+
+      let elements = [];
+      elts.forEach((id) => {
+        if (!$(id)) {
+          console.error('Counter : element does not exist', id);
+        } else {
+          elements.push($(id));
+        }
+      });
+
+      if (elements.length == 0) return null;
 
       let game = this;
       let o = {
-        span: $(id),
-        linked: linked ? $(linked) : null,
+        elements,
         targetValue: 0,
         currentValue: 0,
         speed: 100,
@@ -1220,8 +1227,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
         setValue(n) {
           this.currentValue = +n;
           this.targetValue = +n;
-          this.span.innerHTML = +n;
-          if (this.linked) this.linked.innerHTML = +n;
+          this.elements.forEach((span) => (span.innerHTML = +n));
+          if (callback) callback(+n);
         },
         toValue(n) {
           if (game.isFastMode()) {
@@ -1231,7 +1238,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
 
           this.targetValue = +n;
           if (this.currentValue != n) {
-            this.span.classList.add('counter_in_progress');
+            this.elements.forEach((span) => span.classList.add('counter_in_progress'));
             setTimeout(() => this.makeCounterProgress(), this.speed);
           }
         },
@@ -1245,14 +1252,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
         },
         makeCounterProgress() {
           if (this.currentValue == this.targetValue) {
-            setTimeout(() => this.span.classList.remove('counter_in_progress'), this.speed);
+            setTimeout(() => this.elements.forEach((span) => span.classList.remove('counter_in_progress')), this.speed);
+            if (callback) callback(this.targetValue);
             return;
           }
 
           let step = Math.ceil(Math.abs(this.targetValue - this.currentValue) / 5);
           this.currentValue += (this.currentValue < this.targetValue ? 1 : -1) * step;
-          this.span.innerHTML = this.currentValue;
-          if (this.linked) this.linked.innerHTML = this.currentValue;
+          this.elements.forEach((span) => (span.innerHTML = this.currentValue));
           setTimeout(() => this.makeCounterProgress(), this.speed);
         },
       };

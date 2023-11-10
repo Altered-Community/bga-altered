@@ -56,11 +56,12 @@ class Notifications
     ]);
   }
 
-  public static function setupPreco($player, $meeples, $hero)
+  public static function setupDeck($player, $meeples, $hero)
   {
     $factionNames = [
       \FACTION_BR => clienttranslate('Bravos'),
       \FACTION_MU => clienttranslate('Muna'),
+      \FACTION_OD => clienttranslate('Ordis'),
     ];
 
     self::notifyAll(
@@ -80,6 +81,13 @@ class Notifications
   public static function setupCards($cards)
   {
     self::notifyAll('setupCards', '', ['cardsTo' => $cards]);
+  }
+
+  public static function updateInitialDeckSelection($player, $args)
+  {
+    self::notify($player, 'updateInitialDeckSelection', '', [
+      'args' => ['_private' => $args['_private'][$player->getId()]],
+    ]);
   }
 
   /////////////////////////////////////////////////

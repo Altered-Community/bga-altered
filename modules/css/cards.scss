@@ -111,6 +111,319 @@
     }
 }
 
+//  _____      _ _
+// |  ___|   _| | |
+// | |_ | | | | | |
+// |  _|| |_| | | |
+// |_|   \__,_|_|_|
+
+.altered-card {
+    width: calc(var(--cardScale) * 324px);
+    height: calc(var(--cardScale) * 450px);
+    border: none;
+    box-shadow: none;
+    border-radius: calc(var(--cardScale) * 20px);
+
+    .altered-card-wrapper {
+        width: 324px;
+        height: 450px;
+        transform: scale(var(--cardScale));
+        transform-origin: top left;
+        border-radius: 15px;
+
+        .card-frame {
+            position: absolute;
+            z-index: 2;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background-size: 600% 500%;
+
+            @each $faction in $factions {
+                &[data-faction="#{$faction}"] {
+                    background-image: url("img/frames/#{$faction}.png");
+                }
+            }
+
+            &[data-type="hero"] {
+                background-position: 0% 50%;
+            }
+
+            &[data-type="character"] {
+                // BASE
+                &[data-rarity="0"] {
+                    // Small frame, no ECHO
+                    &[data-frame="1"] {
+                        background-position: 40% 0%;
+                    }
+                    // Bigger frame, no ECHO
+                    &[data-frame="2"] {
+                        background-position: 60% 0%;
+                    }
+                    // Small frame, with ECHO
+                    &[data-frame="3"] {
+                        background-position: 0% 0%;
+                    }
+                    // Bigger frame, with ECHO
+                    &[data-frame="4"] {
+                        background-position: 20% 0%;
+                    }
+                }
+                // RARE
+                &[data-rarity="1"] {
+                    // Small frame, no ECHO
+                    &[data-frame="1"] {
+                        background-position: 80% 50%;
+                    }
+                    // Bigger frame, no ECHO
+                    &[data-frame="2"] {
+                        background-position: 100% 50%;
+                    }
+                    // Small frame, with ECHO
+                    &[data-frame="3"] {
+                        background-position: 40% 50%;
+                    }
+                    // Bigger frame, with ECHO
+                    &[data-frame="4"] {
+                        background-position: 60% 0%;
+                    }
+                }
+                // UNIQUE
+                &[data-rarity="2"] {
+                    // Small frame, no ECHO
+                    &[data-frame="1"] {
+                        background-position: 80% 100%;
+                    }
+                    // Bigger frame, no ECHO
+                    &[data-frame="2"] {
+                        background-position: 100% 100%;
+                    }
+                    // Small frame, with ECHO
+                    &[data-frame="3"] {
+                        background-position: 40% 100%;
+                    }
+                    // Bigger frame, with ECHO
+                    &[data-frame="4"] {
+                        background-position: 60% 100%;
+                    }
+                }
+            }
+            &[data-type="spell"] {
+                // BASE
+                &[data-rarity="0"] {
+                    // Small frame, no ECHO
+                    &[data-frame="1"] {
+                        background-position: 80% 25%;
+                    }
+                    // Bigger frame, no ECHO
+                    &[data-frame="2"] {
+                        background-position: 100% 25%;
+                    }
+                    // Small frame, with ECHO
+                    &[data-frame="3"] {
+                        background-position: 40% 25%;
+                    }
+                    // Bigger frame, with ECHO
+                    &[data-frame="4"] {
+                        background-position: 60% 25%;
+                    }
+                }
+                // RARE
+                &[data-rarity="1"] {
+                    // Small frame, no ECHO
+                    &[data-frame="1"] {
+                        background-position: 0% 100%;
+                    }
+                    // Bigger frame, no ECHO
+                    &[data-frame="2"] {
+                        background-position: 20% 100%;
+                    }
+                    // Small frame, with ECHO
+                    &[data-frame="3"] {
+                        background-position: 80% 75%;
+                    }
+                    // Bigger frame, with ECHO
+                    &[data-frame="4"] {
+                        background-position: 100% 75%;
+                    }
+                }
+            }
+        }
+
+        .card-name {
+            position: absolute;
+            z-index: 2;
+            top: 26px;
+            left: 48px;
+            right: 50px;
+            font-size: 17px;
+            color: white;
+            text-align: center;
+            font-family: "Jali Greek Variable";
+            font-weight: bold;
+        }
+
+        .card-typeline {
+            position: absolute;
+            z-index: 2;
+            top: 46px;
+            left: 48px;
+            right: 50px;
+            font-size: 13px;
+            color: black;
+            text-align: center;
+            font-family: "Jali Greek Variable";
+            font-style: italic;
+        }
+
+        .card-hand-cost,
+        .card-memory-cost {
+            position: absolute;
+            z-index: 3;
+            color: white;
+            text-align: center;
+            font-family: "Haptic Pro";
+            font-weight: bold;
+            font-size: 34px;
+        }
+
+        .card-hand-cost {
+            top: 21px;
+            left: 27px;
+            font-size: 25px;
+        }
+
+        .card-memory-cost {
+            top: 39px;
+            left: 49px;
+            font-size: 25px;
+        }
+
+        .card-forest,
+        .card-mountain,
+        .card-ocean {
+            z-index: 1;
+            position: absolute;
+            left: 22px;
+            font-family: "Haptic Pro";
+            padding-left: 12px;
+            color: white;
+            box-shadow: 0px 0px 14px 2px black;
+            text-shadow: 0px 0px 6px black;
+
+            border-radius: 11px;
+            height: 25px;
+            width: 25px;
+            font-size: 21px;
+            line-height: 29px;
+
+            &[data-size="0"] {
+                width: 15px;
+                background: transparent;
+            }
+            &[data-size="1"] {
+                width: 15px;
+            }
+            &[data-size="3"] {
+                width: 35px;
+            }
+        }
+
+        .card-forest {
+            background: #abb648;
+            top: 96px;
+            border-bottom-right-radius: 4px;
+        }
+        .card-mountain {
+            background: #af7b51;
+            top: 123px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        .card-ocean {
+            background: #6b93c0;
+            top: 150px;
+            border-top-right-radius: 4px;
+        }
+
+        .card-text {
+            position: absolute;
+            z-index: 2;
+            top: 317px;
+            bottom: 31px;
+            left: 20px;
+            right: 20px;
+            font-family: "Jali Greek Variable";
+            font-size: 13px;
+            color: black;
+
+            .card-reminders {
+                font-style: italic;
+            }
+
+            .card-qrcode-container {
+                float: right;
+                width: 70px;
+                height: 100%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: end;
+                shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px);
+
+                .card-qrcode {
+                    display: block;
+                    width: 66px;
+                    height: 66px;
+                    background-image: url("img/qrcode.png");
+                    background-size: 80%;
+                    background-repeat: no-repeat;
+                    margin-bottom: -4px;
+                    margin-right: -4px;
+                    background-position: center center;
+                }
+            }
+        }
+
+        .card-frame[data-frame="3"] ~ .card-text {
+            top: 280px;
+        }
+        .card-frame[data-frame="4"] ~ .card-text {
+            top: 260px;
+        }
+
+        .card-echo {
+            position: absolute;
+            z-index: 2;
+            top: 371px;
+            bottom: 29px;
+            left: 20px;
+            right: 84px;
+            font-family: "Jali Greek Variable";
+            color: black;
+        }
+    }
+
+    &.card-hero {
+        .card-name {
+            top: 27px;
+            font-style: italic;
+        }
+        .card-typeline {
+            top: 51px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        .card-text {
+            top: 311px;
+            bottom: 31px;
+            left: 25px;
+            right: 21px;
+        }
+    }
+}
+
 //  __  __ _       _
 // |  \/  (_)_ __ (_)
 // | |\/| | | '_ \| |
@@ -118,9 +431,18 @@
 // |_|  |_|_|_| |_|_|
 //
 $miniCardScale: 0.33;
-.altered-card.mini-card {
+.altered-card.mini-card,
+.player-board-hero .altered-card {
     width: $miniCardScale * 324px;
-    height: $miniCardScale * 450px;
+    height: $miniCardScale * 324px;
+
+    &.card-hero {
+        height: $miniCardScale * 450px;
+
+        .card-frame {
+            display: none;
+        }
+    }
 
     .help-marker {
         left: calc(50% - 11px);
@@ -153,9 +475,11 @@ $miniCardScale: 0.33;
     }
 
     .altered-card-wrapper {
-        border-radius: 7px;
+        border-radius: 10px;
         width: 100%;
         height: 100%;
+        transform: none;
+        background-size: 100% auto;
 
         .card-hand-cost,
         .card-memory-cost {
@@ -168,8 +492,10 @@ $miniCardScale: 0.33;
             font-size: 13px;
             line-height: 23px;
             background: #579ccc;
-            top: 2px;
-            left: 2px;
+            // top: 2px;
+            // left: 2px;
+            top: -4px;
+            left: -4px;
             width: 19px;
             height: 19px;
             border-radius: 50%;
@@ -180,8 +506,10 @@ $miniCardScale: 0.33;
 
         .card-memory-cost {
             z-index: 2;
-            top: 13px;
-            left: 17px;
+            top: 7px;
+            left: 11px;
+            // top: 13px;
+            // left: 17px;
 
             &[data-faction="MU"] {
                 background: #2a7533;
@@ -203,9 +531,10 @@ $miniCardScale: 0.33;
         .card-forest,
         .card-mountain,
         .card-ocean {
-            z-index: 1;
+            z-index: 3;
             position: absolute;
-            left: 7px;
+            left: -6px;
+            // left: 7px;
             font-family: "Haptic Pro";
             padding-left: 4px;
             color: white;
@@ -221,7 +550,7 @@ $miniCardScale: 0.33;
 
             &[data-size="0"] {
                 width: 11px;
-                background: transparent;
+                // background: transparent;
             }
             &[data-size="1"] {
                 width: 13px;
@@ -235,17 +564,39 @@ $miniCardScale: 0.33;
             top: 37px;
             background: #abb648;
             border-bottom-right-radius: 2px;
+            &[data-size="0"] {
+                background: #bdbeb5ee;
+            }
         }
         .card-mountain {
             top: 57px;
             background: #af7b51;
             border-top-right-radius: 2px;
             border-bottom-right-radius: 2px;
+            &[data-size="0"] {
+                background: #ad9684ee;
+            }
         }
         .card-ocean {
             top: 77px;
             background: #6b93c0;
             border-top-right-radius: 2px;
+            &[data-size="0"] {
+                background: #a4b4c7ee;
+            }
+        }
+
+        .card-text,
+        .card-echo,
+        .card-name,
+        .card-typeline {
+            display: none;
+        }
+
+        .card-frame {
+            background: none;
+            border: 6px solid black;
+            border-radius: 10px;
         }
     }
 }
@@ -260,310 +611,6 @@ $miniCardScale: 0.33;
 .altered-card-tooltip {
     display: flex;
     --cardScale: 1;
-
-    .altered-card {
-        width: calc(var(--cardScale) * 324px);
-        height: calc(var(--cardScale) * 450px);
-        border: none;
-        box-shadow: none;
-        border-radius: 0;
-
-        .altered-card-wrapper {
-            width: 324px;
-            height: 450px;
-            transform: scale(var(--cardScale));
-            transform-origin: top left;
-
-            .card-frame {
-                position: absolute;
-                z-index: 2;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                background-size: 600% 500%;
-
-                @each $faction in $factions {
-                    &[data-faction="#{$faction}"] {
-                        background-image: url("img/frames/#{$faction}.png");
-                    }
-                }
-
-                &[data-type="hero"] {
-                    background-position: 0% 50%;
-                }
-
-                &[data-type="character"] {
-                    // BASE
-                    &[data-rarity="0"] {
-                        // Small frame, no ECHO
-                        &[data-frame="1"] {
-                            background-position: 40% 0%;
-                        }
-                        // Bigger frame, no ECHO
-                        &[data-frame="2"] {
-                            background-position: 60% 0%;
-                        }
-                        // Small frame, with ECHO
-                        &[data-frame="3"] {
-                            background-position: 0% 0%;
-                        }
-                        // Bigger frame, with ECHO
-                        &[data-frame="4"] {
-                            background-position: 20% 0%;
-                        }
-                    }
-                    // RARE
-                    &[data-rarity="1"] {
-                        // Small frame, no ECHO
-                        &[data-frame="1"] {
-                            background-position: 0% 25%;
-                        }
-                        // Bigger frame, no ECHO
-                        &[data-frame="2"] {
-                            background-position: 20% 25%;
-                        }
-                        // Small frame, with ECHO
-                        &[data-frame="3"] {
-                            background-position: 80% 0%;
-                        }
-                        // Bigger frame, with ECHO
-                        &[data-frame="4"] {
-                            background-position: 100% 0%;
-                        }
-                    }
-                    // UNIQUE
-                    &[data-rarity="2"] {
-                        // Small frame, no ECHO
-                        &[data-frame="1"] {
-                            background-position: 80% 25%;
-                        }
-                        // Bigger frame, no ECHO
-                        &[data-frame="2"] {
-                            background-position: 100% 25%;
-                        }
-                        // Small frame, with ECHO
-                        &[data-frame="3"] {
-                            background-position: 40% 25%;
-                        }
-                        // Bigger frame, with ECHO
-                        &[data-frame="4"] {
-                            background-position: 60% 25%;
-                        }
-                    }
-                }
-                &[data-type="spell"] {
-                    // BASE
-                    &[data-rarity="0"] {
-                        // Small frame, no ECHO
-                        &[data-frame="1"] {
-                            background-position: 100% 75%;
-                        }
-                        // Bigger frame, no ECHO
-                        &[data-frame="2"] {
-                            background-position: 0% 100%;
-                        }
-                        // Small frame, with ECHO
-                        &[data-frame="3"] {
-                            background-position: 60% 75%;
-                        }
-                        // Bigger frame, with ECHO
-                        &[data-frame="4"] {
-                            background-position: 80% 75%;
-                        }
-                    }
-                    // RARE
-                    &[data-rarity="1"] {
-                        // Small frame, no ECHO
-                        &[data-frame="1"] {
-                            background-position: 60% 100%;
-                        }
-                        // Bigger frame, no ECHO
-                        &[data-frame="2"] {
-                            background-position: 80% 100%;
-                        }
-                        // Small frame, with ECHO
-                        &[data-frame="3"] {
-                            background-position: 20% 100%;
-                        }
-                        // Bigger frame, with ECHO
-                        &[data-frame="4"] {
-                            background-position: 40% 100%;
-                        }
-                    }
-                }
-            }
-
-            .card-name {
-                position: absolute;
-                z-index: 2;
-                top: 26px;
-                left: 48px;
-                right: 50px;
-                font-size: 17px;
-                color: white;
-                text-align: center;
-                font-family: "Jali Greek Variable";
-                font-weight: bold;
-            }
-
-            .card-typeline {
-                position: absolute;
-                z-index: 2;
-                top: 46px;
-                left: 48px;
-                right: 50px;
-                font-size: 13px;
-                color: black;
-                text-align: center;
-                font-family: "Jali Greek Variable";
-                font-style: italic;
-            }
-
-            .card-hand-cost,
-            .card-memory-cost {
-                position: absolute;
-                z-index: 3;
-                color: white;
-                text-align: center;
-                font-family: "Haptic Pro";
-                font-weight: bold;
-                font-size: 34px;
-            }
-
-            .card-hand-cost {
-                top: 21px;
-                left: 27px;
-                font-size: 25px;
-            }
-
-            .card-memory-cost {
-                top: 39px;
-                left: 49px;
-                font-size: 25px;
-            }
-
-            .card-forest,
-            .card-mountain,
-            .card-ocean {
-                z-index: 1;
-                position: absolute;
-                left: 22px;
-                font-family: "Haptic Pro";
-                padding-left: 12px;
-                color: white;
-                box-shadow: 0px 0px 14px 2px black;
-                text-shadow: 0px 0px 6px black;
-
-                border-radius: 11px;
-                height: 25px;
-                width: 25px;
-                font-size: 21px;
-                line-height: 29px;
-
-                &[data-size="0"] {
-                    width: 15px;
-                    background: transparent;
-                }
-                &[data-size="1"] {
-                    width: 15px;
-                }
-                &[data-size="3"] {
-                    width: 35px;
-                }
-            }
-
-            .card-forest {
-                background: #abb648;
-                top: 96px;
-                border-bottom-right-radius: 4px;
-            }
-            .card-mountain {
-                background: #af7b51;
-                top: 123px;
-                border-top-right-radius: 4px;
-                border-bottom-right-radius: 4px;
-            }
-            .card-ocean {
-                background: #6b93c0;
-                top: 150px;
-                border-top-right-radius: 4px;
-            }
-
-            .card-text {
-                position: absolute;
-                z-index: 2;
-                top: 317px;
-                bottom: 31px;
-                left: 20px;
-                right: 20px;
-                font-family: "Jali Greek Variable";
-                color: black;
-
-                .card-reminders {
-                    font-style: italic;
-                }
-
-                .card-qrcode-container {
-                    float: right;
-                    width: 70px;
-                    height: 100%;
-                    display: flex;
-                    align-items: flex-end;
-                    justify-content: end;
-                    shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px);
-
-                    .card-qrcode {
-                        display: block;
-                        width: 66px;
-                        height: 66px;
-                        background-image: url("img/qrcode.png");
-                        background-size: 80%;
-                        background-repeat: no-repeat;
-                        margin-bottom: -4px;
-                        margin-right: -4px;
-                        background-position: center center;
-                    }
-                }
-            }
-
-            .card-frame[data-frame="3"] ~ .card-text {
-                top: 280px;
-            }
-            .card-frame[data-frame="4"] ~ .card-text {
-                top: 260px;
-            }
-
-            .card-echo {
-                position: absolute;
-                z-index: 2;
-                top: 371px;
-                bottom: 29px;
-                left: 20px;
-                right: 84px;
-                font-family: "Jali Greek Variable";
-                color: black;
-            }
-        }
-
-        &.card-hero {
-            .card-name {
-                top: 27px;
-                font-style: italic;
-            }
-            .card-typeline {
-                top: 51px;
-                font-style: italic;
-                font-weight: bold;
-            }
-            .card-text {
-                top: 311px;
-                bottom: 31px;
-                left: 25px;
-                right: 21px;
-            }
-        }
-    }
 
     .tooltip-explanation {
         &:empty {

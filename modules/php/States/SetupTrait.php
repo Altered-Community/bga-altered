@@ -37,14 +37,27 @@ trait SetupTrait
   //  | |___| | | | (_) | (_) \__ \  __/ | (_| |  __/ (__|   <
   //   \____|_| |_|\___/ \___/|___/\___|  \__,_|\___|\___|_|\_\
   //////////////////////////////////////////////////////////////////
+  function getDeckHero($deckNumber)
+  {
+    return Cards::getInLocation("deck-$deckNumber")
+      ->where('type', HERO)
+      ->first();
+  }
+
   function argsDeckSelection()
   {
     $args = [
       '_private' => [],
     ];
     $allDecks = Globals::getPlayerDecks();
+    $selection = Globals::getDeckSelection();
     foreach (Players::getAll() as $pId => $player) {
-      $args['_private'][$pId]['decks'] = $allDecks[$pId];
+      $decks = $allDecks[$pId];
+      foreach ($decks as &$deck) {
+        $deck['hero'] = $this->getDeckHero($deck['deckNum']);
+      }
+      $args['_private'][$pId]['decks'] = $decks;
+      $args['_private'][$pId]['selection'] = $selection[$pId] ?? null;
     }
 
     return $args;
@@ -52,13 +65,13 @@ trait SetupTrait
 
   public function actSelectDeck($choice)
   {
-    self::checkAction('actSelectDeck');
+    $this->gamestate->checkPossibleAction('actSelectDeck');
 
     $player = Players::getCurrent();
     $selection = Globals::getDeckSelection();
     $selection[$player->getId()] = $choice;
     Globals::setDeckSelection($selection);
-    // Notifications::updateInitialSelection($player, self::argsInitialSelection());
+    Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
 
     $this->updateActivePlayersDeckSelection();
   }
@@ -71,7 +84,7 @@ trait SetupTrait
     $selection = Globals::getDeckSelection();
     unset($selection[$player->getId()]);
     Globals::setDeckSelection($selection);
-    // Notifications::updateInitialSelection($player, self::argsInitialSelection());
+    Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
 
     $this->updateActivePlayersDeckSelection();
   }
@@ -136,27 +149,23 @@ trait SetupTrait
       $deck = $selection[$pId];
 
       // delete all other cards
-      $toDel = Cards::getFiltered($pId)
-        ->whereNot('location', 'deck-' . $deck)
-        ->filter(function ($card) use ($deck) {
-          return $card->getLocation() != 'board-hero-' . $deck;
-        });
+      $toDel = Cards::getFiltered($pId)->whereNot('location', "deck-$deckNumber");
       Cards::delete($toDel->getIds());
 
       // updating Cards
+      $hero = $this->getDeckHero($deckNumber);
+      $hero->setLocation("board-hero-$pId");
       Cards::getFiltered($pId)
-        ->where('location', 'deck-' . $deck)
-        ->update('location', 'deck-' . $pId);
-      $hero = Cards::getFiltered($pId)
-        ->where('location', 'board-hero-' . $deck)
-        ->update('location', 'board-hero-' . $pId);
+        ->where('location', "deck-$deckNumber")
+        ->update('location', "deck-$pId");
 
       // faction setup
       $player->setFaction(Globals::getPlayerDecks()[$pId][$deck]['faction']);
       $meeples = Meeples::setupPlayer($player);
+
       // shuffling of dec
-      Cards::shuffle('deck-' . $pId);
-      Notifications::setupPreco($player, $meeples, $hero);
+      Cards::shuffle("deck-$pId");
+      Notifications::setupDeck($player, $meeples, $hero);
     }
 
     Notifications::setupCards(Cards::getUiData());
