@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\LY;
+use ALT\Helpers\FT;
 
 class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
 {
@@ -26,6 +27,7 @@ class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }
