@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\YZ;
+use ALT\Helpers\FT;
 
 class YZ_Common_Alice extends \ALT\Models\Card
 {
@@ -25,6 +26,7 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectEcho' => FT::ACTION(AFTER_YOU, []),
     ];
   }
 }

@@ -61,12 +61,16 @@ class ChooseAssignment extends \ALT\Models\Action
       ->getIds();
 
     // 3. Permanent/tap effect
-    $actions['tap'] = $player->getPlayedCards()->filter(function ($card) use ($player) {
-      return !$card->isTapped() &&
-        !is_null($card->getEffectTap()) &&
-        !empty($card->getEffectTap()) &&
-        Engine::buildTree($card->getEffectTap())->isDoable($player);
-    });
+    $actions['tap'] = $player
+      ->getPlayedCards()
+      ->merge($player->getHeroCollection())
+      ->filter(function ($card) use ($player) {
+        return !$card->isTapped() &&
+          !is_null($card->getEffectTap()) &&
+          !empty($card->getEffectTap()) &&
+          Engine::buildTree($card->getEffectTap())->isDoable($player);
+      })
+      ->getIds();
 
     return ['_private' => ['active' => $actions]];
   }
@@ -192,7 +196,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $player = Players::getActive();
     $args = $this->argsChooseAssignment()['_private']['active']['tap'];
 
-    if (!isset($args[$cardId])) {
+    if (!in_array($cardId, $args)) {
       throw new \BgaVisibleSystemException('This card cannot be tapped. Should not happen');
     }
     $card = Cards::get($cardId);
@@ -201,6 +205,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $effect = $card->getEffectTap();
     if (!empty($effect)) {
+      $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
       $this->insertAsChild($effect);
     }
   }

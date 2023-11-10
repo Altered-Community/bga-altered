@@ -58,6 +58,12 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::getInLocation("board-hero-$pId")->first();
   }
 
+  public function getHeroCollection()
+  {
+    $pId = $this->id;
+    return Cards::getInLocation("board-hero-$pId");
+  }
+
   public function getPref($prefId)
   {
     return Preferences::get($this->id, $prefId);

@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\LY;
-
+use ALT\Helpers\FT;
 class LY_Common_OuroborosDealer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -26,6 +26,12 @@ class LY_Common_OuroborosDealer extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 4,
       'costMemory' => 4,
+      'effectHand' => FT::ACTION(ROLL_DIE, [
+        'effect' => [
+          '1-3' => FT::ACTION(RESUPPLY, []),
+          '4+' => FT::ACTION(DRAW, ['players' => ME]),
+        ],
+      ]),
     ];
   }
 }

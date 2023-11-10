@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\LY;
-
+use ALT\Helpers\FT;
 class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -29,6 +29,9 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::ACTION(ROLL_DIE, [
+        'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 3)],
+      ]),
     ];
   }
 }

@@ -7,6 +7,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 use ALT\Core\Engine;
+use ALT\Core\Game;
 
 class RollDie extends \ALT\Models\Action
 {
@@ -92,11 +93,18 @@ class RollDie extends \ALT\Models\Action
     }
     for ($i = 0; $i < $n; $i++) {
       $roll = bga_rand(1, 6);
+      if (Game::get()->getBgaEnvironment() == 'studio') {
+        $roll = 5;
+      }
       $rolls[] = $roll;
       $effect = $this->getGain($roll);
       if ($effect !== null) {
         $effect = Utils::updateTree($effect, 'die', $roll);
         $effect['sourceId'] = $source->getId();
+        $cardId = $this->getCtxArg('cardId') ?? null;
+        if (!is_null($cardId)) {
+          $effect['args']['cardId'] = $cardId;
+        }
         $effects[] = $effect;
       }
     }

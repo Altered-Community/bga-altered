@@ -333,13 +333,19 @@ class Notifications
     ]);
   }
 
-  public static function afterYou($player, $cost)
+  public static function afterYou($player, $cost, $source)
   {
-    self::notifyAll('afterYou', clienttranslate('${player_name} triggers After You effect and pays ${cost}'), [
+    if ($cost != 0) {
+      $msg = clienttranslate('${player_name} triggers After You effect and pays ${cost} (${card_name}\'s effect)');
+    } else {
+      $msg = clienttranslate('${player_name} triggers After You effect (${card_name}\'s effect)');
+    }
+    self::notifyAll('afterYou', $msg, [
       'player' => $player,
       'cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
+      'card' => $source,
     ]);
   }
 
