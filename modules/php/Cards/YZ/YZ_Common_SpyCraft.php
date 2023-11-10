@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\YZ;
+use ALT\Helpers\FT;
 
 class YZ_Common_SpyCraft extends \ALT\Models\Card
 {
@@ -25,6 +26,11 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costMemory' => 2,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET, ['targetLocation' => [MEMORY], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+        FT::ACTION(RESUPPLY, [])
+      ),
     ];
   }
 }
