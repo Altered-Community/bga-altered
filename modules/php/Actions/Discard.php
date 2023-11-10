@@ -20,7 +20,15 @@ class Discard extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return clienttranslate('Discard TODO');
+    $location = $this->getCtxArg('destination') ?? 'discard';
+    $msg = clienttranslate('discard to ${location}');
+    if ($location == 'discard') {
+      $msg = clienttranslate('discard');
+    }
+    return [
+      'log' => $msg,
+      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard'],
+    ];
   }
 
   public function stDiscard()
@@ -35,7 +43,7 @@ class Discard extends \ALT\Models\Action
 
   public function argsDiscard()
   {
-    $player = Players::getCurrent();
+    $player = Players::getActive();
     if (!is_null($this->getCtxArg('cardId'))) {
       $cards = [];
     } elseif ($this->getCtxArg('source') == HAND) {
@@ -73,12 +81,18 @@ class Discard extends \ALT\Models\Action
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
     }
+
+    foreach ($cardIds as $cardId) {
+      Cards::get($cardId)->checkLeaveExpeditionListener();
+    }
+
     Cards::discard($cardIds, $args['destination']);
     $cards = Cards::getMany($cardIds);
 
     $deleted = [];
     foreach ($cardIds as $cardId) {
-      $deleted = array_merge($deleted, Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds())->getIds());
+      $deleted = array_merge($deleted, Meeples::getInLocation('card-' . $cardId)->getIds());
+      Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds());
     }
 
     $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source} to ${destination}');
@@ -107,7 +121,7 @@ class Discard extends \ALT\Models\Action
       if (in_array($card->getPlayer()->getId(), $notified)) {
         continue;
       }
-      $notified = $card->getPlayer()->getId();
+      $notified[] = $card->getPlayer()->getId();
       Notifications::updateBiomes($card->getPlayer());
     }
 

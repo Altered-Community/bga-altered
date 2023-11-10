@@ -62,6 +62,9 @@ class Notifications
       \FACTION_BR => clienttranslate('Bravos'),
       \FACTION_MU => clienttranslate('Muna'),
       \FACTION_OD => clienttranslate('Ordis'),
+      \FACTION_AX => clienttranslate('Axiom'),
+      \FACTION_LY => clienttranslate('Lyra'),
+      \FACTION_YZ => clienttranslate('Yzmir'),
     ];
 
     self::notifyAll(
@@ -312,6 +315,26 @@ class Notifications
     ]);
   }
 
+  public static function afterYou($player, $cost)
+  {
+    self::notifyAll('afterYou', clienttranslate('${player_name} triggers After You effect and pays ${cost}'), [
+      'player' => $player,
+      'cost' => $cost,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
+    ]);
+  }
+
+  public static function roll($player, $rolls, $source)
+  {
+    self::notifyAll('roll', clienttranslate('${player_name} rolls ${roll_text} (${card_name2}\'s effect)'), [
+      'player' => $player,
+      'rolls' => $rolls,
+      'roll_text' => implode(', ', $rolls),
+      'card2' => $source,
+    ]);
+  }
+
   public static function updateBiomes($player)
   {
     self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
@@ -367,7 +390,7 @@ class Notifications
 
   public static function echoEffect($player, $card)
   {
-    self::notifyAll('discard', clienttranslate('${player_name} activates echo effect of ${card_name} and discards it'), [
+    self::notifyAll('echoEffect', clienttranslate('${player_name} activates echo effect of ${card_name} and discards it'), [
       'player' => $player,
       'card' => $card,
     ]);
@@ -405,7 +428,7 @@ class Notifications
   {
     self::notifyAll(
       'invokeToken',
-      clienttranslate('${player_name} invokes ${card_name} in ${location} (${card_name2}\' effect)'),
+      clienttranslate('${player_name} invokes ${card_name} in ${location} (${card_name2}\'s effect)'),
       [
         'player' => $player,
         'location' => $card->getLocation(),

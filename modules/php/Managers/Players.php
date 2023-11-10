@@ -172,7 +172,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
     // players have moved the same number in the phase
     if ($tiebreaker === true) {
-      Globals::setTiebreakermode(true);
+      Globals::setTieBreakerMode(true);
     } elseif ($victor != -1) {
       // we have a winner => end of game
       Players::get($victor)->setScore(99);

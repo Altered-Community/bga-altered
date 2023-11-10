@@ -69,12 +69,22 @@ class Player extends \ALT\Helpers\DB_Model
     return Actions::isDoable($action, $ctx, $this);
   }
 
-  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null)
+  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null, $publicMsg = null, $privateMsg = null)
   {
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
-    Notifications::drawCards($this, $cards, $source);
+    if ($source !== null) {
+      Notifications::drawCards(
+        $this,
+        $cards,
+        $publicMsg ?? clienttranslate('You draw ${card_names} from your deck (${card_name2}\'s effect)'),
+        $privateMsg ?? clienttranslate('${player_name} draws ${n} card(s) from its deck (${card_name2}\'s effect)'),
+        ['card2' => $source]
+      );
+    } else {
+      Notifications::drawCards($this, $cards);
+    }
     return $cards;
   }
 
@@ -265,10 +275,14 @@ class Player extends \ALT\Helpers\DB_Model
     $movedToReserve = [];
 
     foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->getType() == PERMANENT) {
+        continue;
+      }
+
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED)) {
         $deletedTokens = array_merge($deletedTokens, $card->discard()->getIds());
-        $deletedCards[] = $card;
+        $deletedCards[$cId] = $card;
         continue;
       }
 
@@ -296,8 +310,7 @@ class Player extends \ALT\Helpers\DB_Model
       Notifications::cleanupCards($this, $cleanupCards);
     }
 
-    // return true if choice is needed
-    return $this->getMemorySlots() < $this->getMemoryCards()->count();
+    return array_merge($deletedCards->getIds(), $movedToReserve);
   }
 
   /************** Expedition calculation *******/

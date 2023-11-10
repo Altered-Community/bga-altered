@@ -6,6 +6,7 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Core\Engine;
 
 class Draw extends \ALT\Models\Action
 {
@@ -50,6 +51,16 @@ class Draw extends \ALT\Models\Action
     return true;
   }
 
+  public function isIrreversible($player = null)
+  {
+    return true;
+  }
+
+  protected $args = [
+    'n' => 1,
+    'players' => ALL,
+  ];
+
   public function stDraw()
   {
     $n = $this->getCtxArg('n') ?? 1;
@@ -70,10 +81,10 @@ class Draw extends \ALT\Models\Action
     }
 
     foreach ($players as $player) {
-      $player->draw($n);
+      $player->draw($n, null, null, $source);
       $this->checkAfterListeners($player, ['draw' => $n]);
     }
 
-    $this->resolveAction();
+    $this->resolveAction(null, true);
   }
 }

@@ -23,6 +23,10 @@ class Actions
     ACTIVATE_CARD,
     DRAW,
     SPECIAL_EFFECT,
+    CHECK_CONDITION,
+    AFTER_YOU,
+    ROLL_DIE,
+    RESUPPLY,
   ];
 
   public static function get($actionId, &$ctx = null)

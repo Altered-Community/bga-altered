@@ -78,6 +78,8 @@ trait TurnTrait
     }
 
     Globals::setPlayedCards(0);
+    Globals::setCostReduction([]);
+
     self::giveExtraTime($player->getId());
 
     // Stats::incTurns($player);
@@ -191,12 +193,13 @@ trait TurnTrait
     if (Players::checkVictory()) {
       return;
     }
-
+    $cardLeft = [];
     Globals::setStormMoves([]);
     foreach (Players::getAll() as $pId => $player) {
-      $player->nightCleanup();
+      $cardLeft = array_merge($cardLeft, $player->nightCleanup());
     }
-    $this->checkCardListeners('BeforeNight', 'stPreNight');
+
+    $this->checkCardListeners('BeforeNight', 'stPreNight', ['cardsToListen' => $cardLeft]);
   }
 
   function stPreNight()

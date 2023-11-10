@@ -9,7 +9,7 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '162',
-      'asset' => 'OD-31-AegisRecruit-R',
+      'asset' => 'OD-31-AegisRecruit-C',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,
@@ -25,6 +25,9 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
+      'token' => true,
+      'costMemory' => '',
+      'costHand' => '',
     ];
   }
 }

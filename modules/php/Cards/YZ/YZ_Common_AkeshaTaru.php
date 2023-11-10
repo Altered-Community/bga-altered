@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\YZ;
+use ALT\Helpers\FT;
 
 class YZ_Common_AkeshaTaru extends \ALT\Models\Card
 {
@@ -19,7 +20,11 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
+      'memorySlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate('{2}, {T} : [After you]. This ability costs {2} less if you have the first player Token'),
+      'effectTap' => FT::ACTION(AFTER_YOU, ['pay' => 2, 'condition' => 'notFirstPlayer']),
     ];
   }
 }

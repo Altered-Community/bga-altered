@@ -93,6 +93,7 @@ class Action
   {
     $t = $this->getCtxArg($v) ?? ($this->args[$v] ?? null);
     if (is_null($t)) {
+      // throw new \feException(print_r(debug_print_backtrace()));
       throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v);
     }
     return $t;

@@ -378,6 +378,8 @@ html {
       background-image: url("img/illustrations/BR/BR-28-TheHighGround-C.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="BR-31-Booda-C"] {
       background-image: url("img/illustrations/BR/BR-31-Booda-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="BR-33-HavenTrainee-C"] {
+      background-image: url("img/illustrations/BR/BR-33-HavenTrainee-C.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="LY-03-Nevenka-Blotch"] {
       background-image: url("img/illustrations/LY/LY-03-Nevenka-Blotch.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="LY-06-LyraLegerdemain-C"] {
@@ -406,6 +408,8 @@ html {
       background-image: url("img/illustrations/LY/LY-C7-Kasirga-Dealer-C.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="LY-Mnemos-Skald-C"] {
       background-image: url("img/illustrations/LY/LY-Mnemos-Skald-C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="LY-18-MadHatter-C"] {
+      background-image: url("img/illustrations/LY/LY-18-MadHatter-C.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="MU-02-Teija-Nauraa-C"] {
       background-image: url("img/illustrations/MU/MU-02-Teija-Nauraa-C.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="MU-05-Kitsune-C"] {
@@ -500,7 +504,7 @@ html {
   height: calc(var(--cardScale) * 450px);
   border: none;
   box-shadow: none;
-  border-radius: calc(var(--cardScale) * 15px); }
+  border-radius: calc(var(--cardScale) * 20px); }
   .altered-card .altered-card-wrapper {
     width: 324px;
     height: 450px;

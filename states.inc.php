@@ -198,6 +198,30 @@ $machinestates = [
     'action' => 'stAtomicAction',
   ],
 
+  ST_CHECK_CONDITION => [
+    'name' => 'checkCondition',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
+  ST_AFTER_YOU => [
+    'name' => 'afterYou',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
+  ST_ROLL_DIE => [
+    'name' => 'rollDie',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
+  ST_RESUPPLY => [
+    'name' => 'resupply',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
   ST_DISCARD => [
     'name' => 'discard',
     'description' => clienttranslate('${actplayer} must discard ${n} card(s) from ${source} to ${destination}'),
@@ -210,8 +234,10 @@ $machinestates = [
 
   ST_TARGET => [
     'name' => 'target',
-    'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
-    'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
+    // 'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
+    // 'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
+    'description' => '${description}',
+    'descriptionmyturn' => '${description}',
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',

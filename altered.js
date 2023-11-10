@@ -54,12 +54,15 @@ define([
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
+        ['echoEffect', 100],
         ['moveStormToken', null],
         ['moveToHand', null],
         ['silentKill', 200],
         ['updateBiomes', 100],
         ['spellCleanup', 100],
         ['invokeToken', 100],
+        ['afterYou', 100],
+        ['roll', 100],
 
         ['setupPlayer', 200],
         ['payMana', 500],
@@ -624,8 +627,9 @@ define([
       // Add source if any
       let source = _(choice.source ? choice.source : '');
       if (choice.sourceId) {
-        let card = this.getCardInfos(choice.sourceId);
-        source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
+        // TODO?
+        // let card = this.getCardInfos(choice.sourceId);
+        // source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
       }
 
       if (source != '') {
@@ -732,6 +736,7 @@ define([
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
               cardId,
+              echo: t.echo.includes(parseInt(cardId))
             })
           );
         });
@@ -763,6 +768,10 @@ define([
         this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
         this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
       });
+
+      if (args.echo == true) {
+        this.addPrimaryActionButton('btnLocation' + 99, _('Echo effect'), () => this.takeAtomicAction('actEcho', [cardId]));
+      }
     },
 
     onEnteringStateTarget(args) {

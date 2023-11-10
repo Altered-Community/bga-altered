@@ -28,11 +28,12 @@ class Globals extends \ALT\Helpers\DB_Manager
     'heroes' => 'obj',
     'playedCards' => 'int',
     'stormMoves' => 'obj',
-    'tiebreakerMode' => 'bool',
+    'tieBreakerMode' => 'bool',
 
     'newDayManaSelection' => 'obj',
     'nightSelection' => 'obj',
     'deckSelection' => 'obj',
+    'costReduction' => 'obj', // pId => character => cost
   ];
 
   protected static $table = 'global_variables';

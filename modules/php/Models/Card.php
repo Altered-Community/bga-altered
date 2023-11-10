@@ -4,6 +4,7 @@ namespace ALT\Models;
 use ALT\Managers\Players;
 use ALT\Core\Game;
 use ALT\Core\Globals;
+use ALT\Core\Engine;
 use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
 use ALT\Helpers\Conditions;
@@ -114,9 +115,9 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function isPlayed()
   {
-    return $this->location == 'stormLeft' ||
-      $this->location == 'stormRight' ||
-      $this->location == 'inPlay' ||
+    return $this->location == STORM_LEFT ||
+      $this->location == STORM_RIGHT ||
+      $this->location == PERMANENT ||
       $this->properties['type'] == HERO;
   }
 
@@ -158,6 +159,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function discard()
   {
+    $this->checkLeaveExpeditionListener();
     $this->setLocation('discard');
     $deleted = Meeples::getInLocation('card-' . $this->id);
     Meeples::delete($deleted->getIds());
@@ -166,6 +168,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function moveToMemory()
   {
+    $this->checkLeaveExpeditionListener();
     $this->setLocation(MEMORY);
     $this->setTapped(false);
     $deleted = Meeples::getInLocation('card-' . $this->id)->getIds();
@@ -182,6 +185,25 @@ class Card extends \ALT\Helpers\DB_Model
     $tokIds = Meeples::getFiltered(null, 'card-' . $this->id, [ASLEEP, ANCHORED])->getIds();
     Meeples::delete($tokIds);
     return $tokIds;
+  }
+
+  public function checkLeaveExpeditionListener()
+  {
+    if (in_array($this->getLocation(), STORMS)) {
+      $event = ['type' => 'LeaveExpedition', 'method' => 'LeaveExpedition'];
+      if ($this->isListeningTo($event)) {
+        $event['cardsToListen'] = [$this->id];
+        Engine::pushAfterFinishingChilds([
+          [
+            'action' => ACTIVATE_CARD,
+            'args' => [
+              'cardId' => $this->id,
+              'event' => $event,
+            ],
+          ],
+        ]);
+      }
+    }
   }
 
   /********* DB ACCESS *********/
@@ -307,12 +329,13 @@ class Card extends \ALT\Helpers\DB_Model
   public function getCost()
   {
     // TODO: manage cost modifiers
+    $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     switch ($this->getLocation()) {
       case HAND:
-        return $this->getCostHand();
+        return $this->getCostHand() - ($costReduction[$this->getType()] ?? 0);
         break;
       case MEMORY:
-        return $this->getCostMemory();
+        return $this->getCostMemory() - ($costReduction[$this->getType()] ?? 0);
         break;
     }
   }

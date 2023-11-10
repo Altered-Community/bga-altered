@@ -367,5 +367,17 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif : moving storm token', n);
       // TODO
     },
+
+    notif_afterYou(n) {
+      debug ('Notif: after you passing', n);
+      // Update counters
+      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+      this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+    },
+
+    notif_roll(n) {
+      debug ('Notif: rolling dice', n);
+      // TODO
+    },
   });
 });

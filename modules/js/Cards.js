@@ -375,8 +375,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_publicDiscard(n) {
       debug('Public discard', n);
-      // TOOD
-      // !! how to manage when we send the card to the hand?
       let pId = n.args.player_id;
 
       Promise.all(
@@ -384,7 +382,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           return this.wait(200 * i).then(() => {
             if (card.location == 'hand') return;
 
-            return this.slide(`card-${card.id}`, `board-${card.location}-${pId}`);
+            return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`);
           });
         })
       ).then(() => {
@@ -476,6 +474,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    notif_echoEffect(n) {
+      debug('Notif : playing from echo');
+      // TODO
+    },
+
     notif_tap(n) {
       debug('Notif: tapping card', n);
       // TODO (tap card, etc.)
@@ -518,7 +521,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let id = `card-${card.id}`;
       // we slide it from the card triggering the effect
       if (!$(id)) {
-        this.addCard(card, `card-${n.args.card2.id}`);
+        this.addCard(card, n.args.card2.location == 'hand' ? 'page-title' : `card-${n.args.card2.id}`);
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
@@ -715,9 +718,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest' data-size='${sizes.forest}'>${p.forest}</div>
-          <div class='card-mountain' data-size='${sizes.mountain}'>${p.mountain}</div>
-          <div class='card-ocean' data-size='${sizes.ocean}'>${p.ocean}</div>
+          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}'>${p.forest}</div>
+          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}'>${p.mountain}</div>
+          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}'>${p.ocean}</div>
 
           <div class='card-text'>
             <div class='card-qrcode-container'>
@@ -785,6 +788,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-permanent'>
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
+        <div class='altered-card-statuses'></div>
       </div>`;
     },
 
@@ -800,13 +804,34 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let container = $(`card-${cardId}`).querySelector('.altered-card-statuses');
       container.innerHTML = '';
 
-      const ICONS = ['fleeting', 'anchored', 'sleeping'];
+      const ICONS = ['fleeting', 'anchored', 'sleeping', 'boost'];
+      let boost = 0;
       this.getMeeplesOnCard(cardId).forEach((meeple) => {
         let type = meeple.dataset.type;
         if (!ICONS.includes(type)) return;
 
+        if (type == 'boost') {
+          boost++;
+          return;
+        }
+
         container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
       });
+
+      if ($(`card-${cardId}`).querySelector('.card-forest') != null) {
+        let p = {
+          forest: parseInt($(`card-${cardId}`).querySelector('.card-forest').getAttribute('data-initial')) + boost,
+          mountain: parseInt($(`card-${cardId}`).querySelector('.card-mountain').getAttribute('data-initial')) + boost,
+          ocean: parseInt($(`card-${cardId}`).querySelector('.card-ocean').getAttribute('data-initial')) + boost,
+        };
+        let sizes = this.getBiomesUISizes(p);
+        $(`card-${cardId}`).querySelector('.card-forest').setAttribute('data-size', sizes.forest);
+        $(`card-${cardId}`).querySelector('.card-forest').innerHTML = p.forest;
+        $(`card-${cardId}`).querySelector('.card-mountain').setAttribute('data-size', sizes.mountain);
+        $(`card-${cardId}`).querySelector('.card-mountain').innerHTML = p.mountain;
+        $(`card-${cardId}`).querySelector('.card-ocean').setAttribute('data-size', sizes.ocean);
+        $(`card-${cardId}`).querySelector('.card-ocean').innerHTML = p.ocean;
+      }
     },
 
     getCardTooltipExplanation(card) {

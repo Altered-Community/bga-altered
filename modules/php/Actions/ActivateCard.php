@@ -22,7 +22,8 @@ class ActivateCard extends \ALT\Models\Action
 
   public function getFlow($player)
   {
-    return $this->getCard()->isPlayed()
+    return $this->getCard()->isPlayed() ||
+      in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
       ? Cards::applyEffect(
         $this->getCard(),
         $player,
@@ -56,6 +57,7 @@ class ActivateCard extends \ALT\Models\Action
   public function isDoable($player)
   {
     $flowTree = $this->getFlowTree($player);
+    // throw new \feException(print_r($flowTree));
     return is_null($flowTree) ? false : $flowTree->isDoable($player);
   }
 

@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
-
+use ALT\Helpers\FT;
 class OD_Common_StickyNotesSeals extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -9,7 +9,7 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '150',
-      'asset' => 'OD-33-Strength-in-Numbers-01',
+      'asset' => 'OD-33-Strength-in-Numbers-C',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,
@@ -25,6 +25,13 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
       'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 3,
       'costMemory' => 3,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::XOR(
+          FT::ACTION(TARGET, ['minHandCost' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
+          FT::ACTION(TARGET, ['minHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
+        )
+      ),
     ];
   }
 }

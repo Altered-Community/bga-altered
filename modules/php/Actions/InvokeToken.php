@@ -26,7 +26,7 @@ class InvokeToken extends \ALT\Models\Action
 
   public function argsInvokeToken()
   {
-    $player = Players::getCurrent();
+    $player = Players::getActive();
 
     $tokenType = $this->getCtxArg('tokenType');
     $targetLocations = $this->getCtxArg('targetLocation') ?? STORMS;
@@ -48,6 +48,16 @@ class InvokeToken extends \ALT\Models\Action
     return new $className(null);
   }
 
+  public function isAutomatic($player = null)
+  {
+    return count($this->argsInvokeToken()['locations']) == 1;
+  }
+
+  public function isIndependent($player = null)
+  {
+    return true;
+  }
+
   public function stInvokeToken()
   {
     $args = $this->argsInvokeToken();
@@ -56,16 +66,27 @@ class InvokeToken extends \ALT\Models\Action
     }
   }
 
+  public function getPlayer()
+  {
+    $args = $this->getCtxArgs();
+    $pId = $args['pId'] ?? Players::getActiveId();
+    return Players::get($pId);
+  }
+
   public function actInvokeToken($location, $auto = false)
   {
     if ($auto === false) {
       self::checkAction('actInvokeToken');
     }
-    $player = Players::getActive();
+    $player = $this->getPlayer();
     $args = $this->argsInvokeToken();
 
     if (!in_array($location, $args['locations'])) {
       throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
+    }
+
+    if ($location == 'source') {
+      $location = $this->getSource()->getLocation();
     }
 
     $card = $this->getToken();
@@ -77,6 +98,7 @@ class InvokeToken extends \ALT\Models\Action
     ]);
 
     Notifications::invokeToken($player, $card, $this->getSource());
+    Notifications::updateBiomes($player);
     $this->resolveAction([$card->getId()]);
   }
 }

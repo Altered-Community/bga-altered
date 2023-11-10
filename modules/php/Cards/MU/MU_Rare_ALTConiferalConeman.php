@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
 
 class MU_Rare_ALTConiferalConeman extends \ALT\Models\Card
 {
@@ -28,6 +29,7 @@ class MU_Rare_ALTConiferalConeman extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 4,
       'costMemory' => 4,
+      'effectPlayed' => FT::GAIN($this, ANCHORED),
     ];
   }
 }

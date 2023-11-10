@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_OrdisCarrier extends \ALT\Models\Card
 {
@@ -22,6 +23,16 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
       'effectDesc' => clienttranslate('At Dawn - Create a [1/1/1 Ordis Recruit] Soldier token in your Companion Expedition.'),
       'costHand' => 3,
       'costMemory' => 3,
+      'effectPassive' => [
+        'Dawn' => [
+          'condition' => 'myTurn',
+          'output' => FT::ACTION(INVOKE_TOKEN, [
+            'pId' => $this->getPId(),
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_RIGHT],
+          ]),
+        ],
+      ],
     ];
   }
 }

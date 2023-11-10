@@ -21,7 +21,7 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
 
       'forest' => 4,
       'mountain' => 4,
-      'ocean' => 3,
+      'ocean' => 4,
       'costHand' => 4,
       'costMemory' => 4,
     ];

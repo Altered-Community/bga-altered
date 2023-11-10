@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
 
 class OD_Common_OrdisSpy extends \ALT\Models\Card
 {
@@ -9,7 +10,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
 
     $this->properties = [
       'uid' => '140',
-      'asset' => 'OD-14-EskheretRuunKurush-C',
+      'asset' => 'OD-14-Eskheret-ruun-Kurush-C',
       'frameSize' => 1,
 
       'faction' => FACTION_OD,
@@ -26,6 +27,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectHand' => FT::ACTION(TARGET, ['targetLocation' => [MEMORY], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
     ];
   }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\LY;
+use ALT\Helpers\FT;
 
 class LY_Common_Asmodeus extends \ALT\Models\Card
 {
@@ -30,6 +31,9 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 6,
       'costMemory' => 6,
+      'effectPlayed' => FT::ACTION(ROLL_DIE, [
+        'effect' => ['1-3' => FT::GAIN(ME, BOOST, 3), '4+' => FT::GAIN(ME, ANCHORED)],
+      ]),
     ];
   }
 }

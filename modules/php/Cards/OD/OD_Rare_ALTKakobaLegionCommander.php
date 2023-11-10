@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Cards\OD;
-
+use ALT\Helpers\FT;
 class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -26,6 +26,10 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costMemory' => 3,
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'control3OtherCharacters',
+        'effect' => FT::GAIN(ME, BOOST, 3),
+      ]),
     ];
   }
 }

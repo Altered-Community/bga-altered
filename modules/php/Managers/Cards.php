@@ -49,8 +49,10 @@ class Cards extends \ALT\Helpers\CachedPieces
     $rarity = $p['rarity'] == 0 ? 'common' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    return new $className($data); // no DB call
-    // return new Card($data); // information from DB
+    if (true && Game::get()->getBgaEnvironment() == 'studio') {
+      return new $className($data); // no DB call
+    }
+    return new Card($data); // information from DB
   }
 
   public static function getUiData()
@@ -184,11 +186,25 @@ class Cards extends \ALT\Helpers\CachedPieces
    */
   public function getListeningCards($event)
   {
-    return self::getListeningCardsObject()
+    $cards = self::getListeningCardsObject()
       ->filter(function ($card) use ($event) {
         return $card->isListeningTo($event);
       })
       ->getIds();
+
+    // if we force other cards to be listened to
+    if (isset($event['cardsToListen'])) {
+      $cards = array_merge(
+        $cards,
+        Cards::getMany($event['cardsToListen'])
+          ->filter(function ($card) use ($event) {
+            return $card->isListeningTo($event);
+          })
+          ->getIds()
+      );
+    }
+
+    return $cards;
   }
 
   public function getListeningCardsObject()
