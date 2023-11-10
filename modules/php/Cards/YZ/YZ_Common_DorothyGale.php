@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\YZ;
+use ALT\Helpers\FT;
 
 class YZ_Common_DorothyGale extends \ALT\Models\Card
 {
@@ -25,6 +26,7 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 5,
       'costMemory' => 5,
+      'effectHand' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
     ];
   }
 }
