@@ -39,6 +39,7 @@ define([
         ['refreshUI', 200],
         ['refreshHand', 200],
         ['updateInitialDeckSelection', 200],
+        ['setupPlayer', 3000],
         ['updateNewDayManaSelection', 200],
         ['nightCleanup', null],
         ['cleanupCards', null],
@@ -64,7 +65,6 @@ define([
         ['afterYou', 100],
         ['roll', 100],
 
-        ['setupPlayer', 200],
         ['payMana', 500],
         ['discard', 500],
         ['tap', 500],
@@ -213,6 +213,7 @@ define([
       $('altered-overlay').classList.add('active');
     },
     closeOverlay() {
+      debug('testest');
       $('altered-overlay').classList.remove('active');
     },
 
@@ -487,9 +488,8 @@ define([
           this.addCard(deck.hero, 'overlay-deck-container');
           this.onClick(`card-${deck.hero.id}`, () => this.takeAction('actSelectDeck', { choice: deck.deckNum }, false));
         });
-
-        this.openOverlay();
       }
+      this.openOverlay();
 
       // Already made a selection => allow to cancel it
       let deckNum = args._private.selection;
@@ -736,7 +736,7 @@ define([
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
               cardId,
-              echo: t.echo.includes(parseInt(cardId))
+              echo: t.echo.includes(parseInt(cardId)),
             })
           );
         });

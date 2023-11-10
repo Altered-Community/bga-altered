@@ -122,19 +122,35 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_setupPlayer(n) {
-      debug('Notif: setupPlayers TODOOOO', n);
-      this.gamedatas.players[n.args.player_id] = n.args.player_data;
-      $(`player-board-resizable-${n.args.player_id}`).setAttribute('data-faction', n.args.player_data.faction);
-      this.updatePlayersCounters(false);
-      this.updateHandCards();
-      n.args.hero.forEach((card) => {
-        this.addCard(card);
+      debug('Notif: setupPlayer', n);
+      let pId = n.args.player_id;
+
+      // Update faction
+      let faction = n.args.faction;
+      this.gamedatas.players[pId].faction = faction;
+      $(`player-board-${pId}`).setAttribute('data-faction', faction);
+
+      // Slide hero
+      let hero = n.args.card;
+      this.addCard(hero, `hand-${pId}`);
+      // if (!$(`card-${hero.id}`)) {
+      // this.addCard(hero, `hand-${pId}`);
+      // } else if ($('overlay-deck-container')) {
+      //   // [...$('overlay-deck-container').querySelectorAll('.altered-card')].forEach((oCard) => {
+      //   //   if (oCard.dataset.id != hero.id) oCard.classList.add('phantom');
+      //   // });
+      // }
+
+      this.slide(`card-${hero.id}`, `board-hero-${pId}`).then(() => {
+        n.args.meeples.forEach((meeple) => {
+          this.addMeeple(meeple, `card-${hero.id}`);
+          debug(this.getMeepleContainer(meeple));
+          this.slide(`meeple-${meeple.id}`, this.getMeepleContainer(meeple));
+        });
       });
-      n.args.meeples.forEach((meeple) => {
-        if (!$(`meeple-${meeple.id}`)) {
-          this.addMeeple(meeple);
-        }
-      });
+
+      // Deck count
+      this._playerCounters[pId]['deckCount'].toValue(n.args.deckCount);
     },
 
     ////////////////////////////////////////////////////
@@ -190,13 +206,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     onUpdateManaCounter(pId, v) {
-      debug('Changing mana :', pId, v);
       let container = $(`mana-gauge-${pId}`);
       [...container.querySelectorAll('.mana-gauge-slot')].forEach((slot, i) => slot.classList.toggle('available', i < v));
     },
 
     onUpdateTotalManaCounter(pId, v) {
-      debug('Changing total mana :', pId, v);
       let container = $(`mana-gauge-${pId}`);
       let slots = [...container.querySelectorAll('.mana-gauge-slot')];
       for (let i = slots.length; i < v; i++) {
@@ -204,7 +218,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
     },
     onUpdateHandCountCounter(pId, v) {
-      debug('Changing hand count :', pId, v);
       if (pId == this.player_id) return;
       let container = $(`hand-${pId}`);
       let cards = [...container.querySelectorAll('.altered-card')];
@@ -369,14 +382,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     notif_afterYou(n) {
-      debug ('Notif: after you passing', n);
+      debug('Notif: after you passing', n);
       // Update counters
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
       this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
     },
 
     notif_roll(n) {
-      debug ('Notif: rolling dice', n);
+      debug('Notif: rolling dice', n);
       // TODO
     },
   });

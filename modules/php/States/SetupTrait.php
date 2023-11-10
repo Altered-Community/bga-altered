@@ -146,7 +146,7 @@ trait SetupTrait
   {
     $selection = Globals::getDeckSelection();
     foreach (Players::getAll() as $pId => $player) {
-      $deck = $selection[$pId];
+      $deckNumber = $selection[$pId];
 
       // delete all other cards
       $toDel = Cards::getFiltered($pId)->whereNot('location', "deck-$deckNumber");
@@ -160,7 +160,7 @@ trait SetupTrait
         ->update('location', "deck-$pId");
 
       // faction setup
-      $player->setFaction(Globals::getPlayerDecks()[$pId][$deck]['faction']);
+      $player->setFaction(Globals::getPlayerDecks()[$pId][$deckNumber]['faction']);
       $meeples = Meeples::setupPlayer($player);
 
       // shuffling of dec
@@ -168,7 +168,8 @@ trait SetupTrait
       Notifications::setupDeck($player, $meeples, $hero);
     }
 
-    Notifications::setupCards(Cards::getUiData());
+    // TODO : remove ???
+    //    Notifications::setupCards(Cards::getUiData());
 
     $this->gamestate->nextState('');
   }

@@ -56,6 +56,21 @@ class Notifications
     ]);
   }
 
+  ///////////////////////////////////////////////////////////
+  //  ____       _           _     ____            _
+  // / ___|  ___| | ___  ___| |_  |  _ \  ___  ___| | __
+  // \___ \ / _ \ |/ _ \/ __| __| | | | |/ _ \/ __| |/ /
+  //  ___) |  __/ |  __/ (__| |_  | |_| |  __/ (__|   <
+  // |____/ \___|_|\___|\___|\__| |____/ \___|\___|_|\_\
+  ///////////////////////////////////////////////////////////
+
+  public static function updateInitialDeckSelection($player, $args)
+  {
+    self::notify($player, 'updateInitialDeckSelection', '', [
+      'args' => ['_private' => $args['_private'][$player->getId()]],
+    ]);
+  }
+
   public static function setupDeck($player, $meeples, $hero)
   {
     $factionNames = [
@@ -69,29 +84,23 @@ class Notifications
 
     self::notifyAll(
       'setupPlayer',
-      clienttranslate('${player_name} will play the faction ${faction_name} with their preco deck'),
+      clienttranslate('${player_name} will play the faction ${faction_name} with the hero ${card_name}'),
       [
         'player' => $player,
         'i18n' => ['faction_name'],
         'faction_name' => $factionNames[$player->getFaction()],
-        'player_data' => $player->getUiData(),
+        'faction' => $player->getFaction(),
         'meeples' => $meeples->toArray(),
-        'hero' => $hero->toArray(),
+        'card' => $hero,
+        'deckCount' => $player->getDeckCount(),
       ]
     );
   }
 
-  public static function setupCards($cards)
-  {
-    self::notifyAll('setupCards', '', ['cardsTo' => $cards]);
-  }
-
-  public static function updateInitialDeckSelection($player, $args)
-  {
-    self::notify($player, 'updateInitialDeckSelection', '', [
-      'args' => ['_private' => $args['_private'][$player->getId()]],
-    ]);
-  }
+  // public static function setupCards($cards)
+  // {
+  //   self::notifyAll('setupCards', '', ['cardsTo' => $cards]);
+  // }
 
   /////////////////////////////////////////////////
   //  _   _                 ____

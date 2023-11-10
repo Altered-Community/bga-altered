@@ -37,7 +37,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $data = parent::getUiData();
     $current = $this->id == $currentPlayerId;
-    $data['deckCount'] = Cards::countInLocation('deck-' . $this->id);
+    $data['deckCount'] = $this->getDeckCount();
     $data['mana'] = $this->getMana();
     $data['totalMana'] = $this->getTotalMana();
     $data['hand'] = $current ? $this->getHand()->ui() : [];
@@ -45,6 +45,11 @@ class Player extends \ALT\Helpers\DB_Model
     $data['biomes'] = $this->getBiomeStrength();
 
     return $data;
+  }
+
+  public function getDeckCount()
+  {
+    return Cards::countInLocation("deck-$this->id");
   }
 
   public function getHero()

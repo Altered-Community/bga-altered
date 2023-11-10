@@ -1099,15 +1099,16 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #0f1b2200;
   display: flex;
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  transition: background-color 0.6s; }
+  transition: opacity 0.6s;
+  opacity: 0; }
   #altered-overlay.active {
     background-color: #0f1b22c0;
-    pointer-events: all; }
+    pointer-events: all;
+    opacity: 1; }
   #altered-overlay #altered-overlay-content {
     font-family: "Jali Greek Variable";
     padding-right: 250px; }

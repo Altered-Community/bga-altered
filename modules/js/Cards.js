@@ -793,6 +793,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     getMeeplesOnCard(cardId) {
+      if (!$(`card-${cardId}`)) return [];
       return [...$(`card-${cardId}`).querySelectorAll('.altered-meeple:not(.phantom)')];
     },
 
@@ -802,6 +803,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     updateCardStatuses(cardId) {
       let container = $(`card-${cardId}`).querySelector('.altered-card-statuses');
+      if (!container) return;
       container.innerHTML = '';
 
       const ICONS = ['fleeting', 'anchored', 'sleeping', 'boost'];
