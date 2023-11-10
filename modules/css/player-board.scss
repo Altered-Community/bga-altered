@@ -12,6 +12,9 @@
         position: absolute;
         width: 436px;
         height: $miniCardHeight + 2 * $boardMargin;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &.storm-left {
             left: 262px;
         }
@@ -95,6 +98,20 @@
             }
         }
     }
+
+    //     .player-board-discard {
+    //         width: $cardWidth + 2 * $boardMargin;
+    //         flex-shrink: 0;
+    //         position: relative;
+
+    //         .altered-card {
+    //             position: absolute;
+    //             filter: grayscale(80%);
+    //             -webkit-transform: translateZ(0);
+    //             -webkit-perspective: 1000;
+    //             -webkit-backface-visibility: hidden;
+    //         }
+    //     }
 
     .player-board-deck {
         width: $cardWidth + 2 * $boardMargin;
@@ -190,6 +207,36 @@
         }
     }
 
+    .player-board-grass {
+        position: absolute;
+        width: 1027px;
+        height: 165px;
+        left: 380px;
+        display: flex;
+
+        .player-board-reserve {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-grow: 1;
+        }
+        .player-board-limbo {
+        }
+
+        .player-board-separator {
+            width: 40px;
+            height: 185px;
+            background: url("img/separator-memory-permanent.jpg");
+            background-size: 100% 100%;
+        }
+        .player-board-permanents {
+            min-width: 298px;
+            background: url("img/permanent-slot.jpg");
+            background-size: auto 100%;
+            background-repeat: repeat-x;
+        }
+    }
+
     .player-board-hand {
         position: absolute;
         width: 100%;
@@ -229,6 +276,17 @@
             margin: 3px -10px;
         }
     }
+
+    .player-board-grass {
+        top: 129px;
+        .player-board-reserve {
+            align-items: flex-end;
+        }
+
+        .player-board-separator {
+            margin-bottom: -20px;
+        }
+    }
 }
 
 #altered-board-me .altered-player-board {
@@ -260,41 +318,52 @@
     .player-board-hand {
         top: 320px;
     }
-}
 
-.player-board-middle {
-    .player-board-discard {
-        width: $cardWidth + 2 * $boardMargin;
-        flex-shrink: 0;
-        position: relative;
-
-        .altered-card {
-            position: absolute;
-            filter: grayscale(80%);
-            -webkit-transform: translateZ(0);
-            -webkit-perspective: 1000;
-            -webkit-backface-visibility: hidden;
+    .player-board-grass {
+        top: 193px;
+        .player-board-reserve {
+            align-items: flex-start;
         }
-    }
 
-    .player-board-memory {
-        flex-grow: 1;
-    }
-
-    .player-board-permanents {
-        width: 2 * ($cardWidth + 2 * $boardMargin);
-        flex-shrink: 0;
-    }
-
-    .player-board-limbo {
-        width: $cardWidth + 2 * $boardMargin;
-        flex-shrink: 0;
-        position: relative;
-        &:empty:not(.selectable) {
-            display: none;
+        .player-board-separator {
+            margin-top: -20px;
         }
     }
 }
+
+// .player-board-middle {
+//     .player-board-discard {
+//         width: $cardWidth + 2 * $boardMargin;
+//         flex-shrink: 0;
+//         position: relative;
+
+//         .altered-card {
+//             position: absolute;
+//             filter: grayscale(80%);
+//             -webkit-transform: translateZ(0);
+//             -webkit-perspective: 1000;
+//             -webkit-backface-visibility: hidden;
+//         }
+//     }
+
+//     .player-board-memory {
+//         flex-grow: 1;
+//     }
+
+//     .player-board-permanents {
+//         width: 2 * ($cardWidth + 2 * $boardMargin);
+//         flex-shrink: 0;
+//     }
+
+//     .player-board-limbo {
+//         width: $cardWidth + 2 * $boardMargin;
+//         flex-shrink: 0;
+//         position: relative;
+//         &:empty:not(.selectable) {
+//             display: none;
+//         }
+//     }
+// }
 
 // .player-board-top,
 // .player-board-middle,

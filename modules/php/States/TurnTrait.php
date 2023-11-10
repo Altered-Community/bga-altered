@@ -125,6 +125,8 @@ trait TurnTrait
   // Move companion and hero
   function stDusk()
   {
+    Notifications::startDusk();
+
     // TODO: multiplayer not managed (create pairs and iterate on those)
     $players = Players::getAll();
     $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
@@ -176,6 +178,8 @@ trait TurnTrait
         }
       }
     }
+
+    Notifications::endDusk();
     $this->gamestate->nextState('done');
   }
 

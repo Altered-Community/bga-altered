@@ -188,33 +188,38 @@
     }
 }
 
-// #focus-storm-overlay {
-//     position: absolute;
-//     top: 0px;
-//     left: 0px;
-//     right: 0px;
-//     display: flex;
-//     flex-flow: column;
-//     bottom: 0;
+#focus-storm-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 100%;
+    display: flex;
+    flex-flow: column;
+    bottom: 0;
+    transition: right 0.8s;
+    &.active {
+        right: 0%;
+    }
 
-//     div {
-//         height: 438px;
-//     width: 100%;
-//     box-shadow: 0px 0px 30px 30px #000000b2;
-//     opacity: 1;
-//     background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
-//     }
+    #focus-storm-top {
+        height: calc(var(--boardScale) * 460px);
+        width: 100%;
+        opacity: 1;
+        box-shadow: 10px -10px 10px rgba(0, 0, 0, 0.8);
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
+    }
 
-//     div {
-//         height: 514px;
-//   width: 100%;
-//   margin-top: 73px;
-//   background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
-//     }
+    #focus-storm-middle {
+        height: calc(var(--boardScale) * 460px);
+        width: 100%;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
+        margin-top: calc(var(--boardScale) * 80px);
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
+    }
 
-//     div {
-//         width: 100%;
-//         background: rgba(0, 0, 0, 0.8);
-//         flex-grow: 1;
-//     }
-// }
+    #focus-storm-bottom {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        flex-grow: 1;
+    }
+}

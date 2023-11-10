@@ -218,5 +218,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
       this.gamedatas.firstPlayer = pId;
     },
+
+    notif_startDusk(n) {
+      debug('Notif: starting dusk phase');
+      $('focus-storm-overlay').classList.add('active');
+    },
+
+    notif_endDusk(n) {
+      debug('Notif: ending dusk phase');
+      $('focus-storm-overlay').classList.remove('active');
+    },
   });
 });

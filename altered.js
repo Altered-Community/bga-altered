@@ -44,6 +44,8 @@ define([
         ['nightCleanup', null],
         ['cleanupCards', null],
         ['newFirstPlayer', null],
+        ['startDusk', 1200],
+        ['endDusk', 1200],
 
         ['addMeeples', null],
         ['looseMeeples', null],
@@ -197,6 +199,15 @@ define([
       $('left-side-wrapper').insertAdjacentHTML(
         'beforeend',
         '<div id="altered-overlay"><div id="altered-overlay-content"></div></div>'
+      );
+      // Create a new div for storm overlays
+      $('left-side-wrapper').insertAdjacentHTML(
+        'beforeend',
+        `<div id="focus-storm-overlay">
+          <div id="focus-storm-top"></div>
+          <div id="focus-storm-middle"></div>
+          <div id="focus-storm-bottom"></div>          
+        </div>`
       );
 
       this.setupInfoPanel();

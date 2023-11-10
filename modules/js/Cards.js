@@ -97,8 +97,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let type = card.properties.type;
       if (card.location == 'hand') {
         return $(`hand-${card.pId}`);
-      } else if (['stormLeft', 'stormRight', 'memory', 'permanent', 'limbo', 'discard'].includes(card.location)) {
+      } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
+      }
+      // TODO REMOVE : legacy code
+      else if (card.location == 'memory') {
+        return $(`board-reserve-${card.pId}`);
       } else if (type == HERO) {
         return $(card.location);
       }
@@ -543,7 +547,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
           return this.wait(200 * i).then(() => {
             this.updateCardStatuses(card.id);
-            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-memory-${pId}`);
+            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`);
           });
         })
       )

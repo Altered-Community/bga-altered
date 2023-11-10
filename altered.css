@@ -875,6 +875,9 @@ html {
       background: none;
       border: 6px solid black;
       border-radius: 10px; }
+      .altered-card.mini-card .altered-card-wrapper .card-frame[data-rarity="1"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-frame[data-rarity="1"] {
+        border: 1px solid white; }
 
 .altered-card-tooltip {
   display: flex;
@@ -1002,6 +1005,16 @@ html {
     background-position-y: 100%; }
   .altered-meeple[data-type="fleeting"] {
     background-image: url("img/icons/fleeting.png");
+    background-size: 100% 100%;
+    width: 30px;
+    height: 30px; }
+  .altered-meeple[data-type="boost"] {
+    background-image: url("img/icons/boost.png");
+    background-size: 100% 100%;
+    width: 30px;
+    height: 30px; }
+  .altered-meeple[data-type="anchored"] {
+    background-image: url("img/icons/anchored.png");
     background-size: 100% 100%;
     width: 30px;
     height: 30px; }
@@ -1146,6 +1159,34 @@ html {
       .mobile_version #altered-overlay #altered-overlay-content #overlay-deck-container {
         max-width: 90vw; }
 
+#focus-storm-overlay {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 100%;
+  display: flex;
+  flex-flow: column;
+  bottom: 0;
+  transition: right 1s; }
+  #focus-storm-overlay.active {
+    right: 0%; }
+  #focus-storm-overlay #focus-storm-top {
+    height: calc(var(--boardScale) * 460px);
+    width: 100%;
+    opacity: 1;
+    box-shadow: 10px -10px 10px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
+  #focus-storm-overlay #focus-storm-middle {
+    height: calc(var(--boardScale) * 460px);
+    width: 100%;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
+    margin-top: calc(var(--boardScale) * 80px);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
+  #focus-storm-overlay #focus-storm-bottom {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    flex-grow: 1; }
+
 #altered-main-container {
   margin-top: calc(var(--boardScale) * -130px);
   display: flex;
@@ -1254,6 +1295,9 @@ html {
     position: absolute;
     width: 436px;
     height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid transparent; }
     .altered-player-board .player-board-storm.storm-left {
       left: 262px; }
@@ -1375,6 +1419,27 @@ html {
           border-bottom-right-radius: 2px 6px; }
         .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge .mana-gauge-slot.available .mana-gem {
           display: block; }
+  .altered-player-board .player-board-grass {
+    position: absolute;
+    width: 1027px;
+    height: 165px;
+    left: 380px;
+    display: flex; }
+    .altered-player-board .player-board-grass .player-board-reserve {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-grow: 1; }
+    .altered-player-board .player-board-grass .player-board-separator {
+      width: 40px;
+      height: 185px;
+      background: url("img/separator-memory-permanent.jpg");
+      background-size: 100% 100%; }
+    .altered-player-board .player-board-grass .player-board-permanents {
+      min-width: 298px;
+      background: url("img/permanent-slot.jpg");
+      background-size: auto 100%;
+      background-repeat: repeat-x; }
   .altered-player-board .player-board-hand {
     position: absolute;
     width: 100%; }
@@ -1398,6 +1463,12 @@ html {
   bottom: 315px; }
   #altered-board-opponent .altered-player-board .player-board-hand .altered-card {
     margin: 3px -10px; }
+#altered-board-opponent .altered-player-board .player-board-grass {
+  top: 129px; }
+  #altered-board-opponent .altered-player-board .player-board-grass .player-board-reserve {
+    align-items: flex-end; }
+  #altered-board-opponent .altered-player-board .player-board-grass .player-board-separator {
+    margin-bottom: -20px; }
 
 #altered-board-me .altered-player-board .player-board-hero {
   top: 18px;
@@ -1415,28 +1486,12 @@ html {
   flex-flow: column; }
 #altered-board-me .altered-player-board .player-board-hand {
   top: 320px; }
-
-.player-board-middle .player-board-discard {
-  width: 120px;
-  flex-shrink: 0;
-  position: relative; }
-  .player-board-middle .player-board-discard .altered-card {
-    position: absolute;
-    filter: grayscale(80%);
-    -webkit-transform: translateZ(0);
-    -webkit-perspective: 1000;
-    -webkit-backface-visibility: hidden; }
-.player-board-middle .player-board-memory {
-  flex-grow: 1; }
-.player-board-middle .player-board-permanents {
-  width: 240px;
-  flex-shrink: 0; }
-.player-board-middle .player-board-limbo {
-  width: 120px;
-  flex-shrink: 0;
-  position: relative; }
-  .player-board-middle .player-board-limbo:empty:not(.selectable) {
-    display: none; }
+#altered-board-me .altered-player-board .player-board-grass {
+  top: 193px; }
+  #altered-board-me .altered-player-board .player-board-grass .player-board-reserve {
+    align-items: flex-start; }
+  #altered-board-me .altered-player-board .player-board-grass .player-board-separator {
+    margin-top: -20px; }
 
 .player-name svg {
   width: 25px;

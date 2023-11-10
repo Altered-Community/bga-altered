@@ -70,9 +70,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               <div class='deck-counter' id="counter-${player.id}-deckCount"></div>
             </div>
           </div>
-          <div class='player-board-memory' id='board-memory-${player.id}'></div>
-          <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
-          <div class='player-board-permanents' id='board-permanent-${player.id}'></div>
+          <div class='player-board-grass'>
+            <div class='player-board-reserve' id='board-reserve-${player.id}'></div>
+            <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
+            <div class='player-board-separator'></div>
+            <div class='player-board-permanents' id='board-permanent-${player.id}'></div>
+          </div>
 
           <div class='player-board-mana-wrapper'>
             <div class='player-board-mana-gauge' id='mana-gauge-${pId}'></div>

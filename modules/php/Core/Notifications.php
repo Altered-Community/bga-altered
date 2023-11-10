@@ -145,6 +145,15 @@ class Notifications
   // |____/ \__,_|___/_|\_\ |_| \_|_|\__, |_| |_|\__|
   //                                 |___/
   //////////////////////////////////////////////////////
+  public static function startDusk()
+  {
+    self::notifyAll('startDusk', clienttranslate('End of the day: computing the progress on the storms'), []);
+  }
+
+  public static function endDusk()
+  {
+    self::notifyAll('endDusk', clienttranslate('Dusk phase is over, starting night phase'), []);
+  }
 
   public static function moveStormToken($player, $biome, $tokenMeeple, $stormIndex, $revealed)
   {

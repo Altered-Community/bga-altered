@@ -52,6 +52,18 @@
         width: 30px;
         height: 30px;
     }
+    &[data-type="boost"] {
+        background-image: url("img/icons/boost.png");
+        background-size: 100% 100%;
+        width: 30px;
+        height: 30px;
+    }
+    &[data-type="anchored"] {
+        background-image: url("img/icons/anchored.png");
+        background-size: 100% 100%;
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .action-button {

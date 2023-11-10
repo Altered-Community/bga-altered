@@ -597,6 +597,10 @@ $miniCardScale: 0.33;
             background: none;
             border: 6px solid black;
             border-radius: 10px;
+
+            &[data-rarity="1"] {
+                border: 1px solid white;
+            }
         }
     }
 }
