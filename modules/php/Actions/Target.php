@@ -30,7 +30,7 @@ class Target extends \ALT\Models\Action
     'minHandCost' => 0, // limitation
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
-    'excluseSelf' => false,
+    'excludeSelf' => false,
   ];
 
   public function getDescription()
