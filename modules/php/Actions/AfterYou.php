@@ -63,7 +63,7 @@ class AfterYou extends \ALT\Models\Action
     }
 
     Globals::incPlayedCards();
-    Notifications::afterYou($player, $cost);
+    Notifications::afterYou($player, $cost, $this->getSource());
     $this->resolveAction([$cost]);
   }
 }
