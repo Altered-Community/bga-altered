@@ -566,10 +566,12 @@ define([
         });
       }
 
-      this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
+      if (this.isCurrentPlayerActive())
+        this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
     },
 
     onEnteringStateFirstNewDayManaSelection(args) {
+      debug("onEnteringStateFirstNewDayManaSelection");
       this.openHand();
       if (!$('overlay-hand-container')) {
         $('altered-overlay-content').innerHTML = '';
