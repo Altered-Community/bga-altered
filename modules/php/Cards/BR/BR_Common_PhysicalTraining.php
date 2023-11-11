@@ -23,7 +23,7 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
       'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
     ];
   }

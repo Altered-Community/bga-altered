@@ -23,7 +23,7 @@ class MU_Common_Nurture extends \ALT\Models\Card
       'effectDesc' => clienttranslate('Up to two target Characters gain 1 boost.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
     ];
   }

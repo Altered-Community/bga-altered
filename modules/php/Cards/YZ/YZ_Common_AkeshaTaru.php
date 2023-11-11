@@ -20,7 +20,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
-      'memorySlots' => 2,
+      'reserveSlots' => 2,
       'permanentSlots' => 2,
 
       'effectDesc' => clienttranslate('{2}, {T} : [After you]. This ability costs {2} less if you have the first player Token'),

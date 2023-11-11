@@ -59,7 +59,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     return self::getAll()
       ->where('location', IN_PLAY)
-      ->merge(self::getInLocation(MEMORY))
+      ->merge(self::getInLocation(RESERVE))
       ->merge(self::getInLocation('board-hero-%'))
       ->merge(self::getInLocation('limbo'))
       ->merge(self::getInLocation('discard'))
@@ -123,9 +123,9 @@ class Cards extends \ALT\Helpers\CachedPieces
     return self::getFiltered($pId, IN_PLAY, $type);
   }
 
-  public static function getMemoryCards($pId, $type = null)
+  public static function getReserveCards($pId, $type = null)
   {
-    return self::getFiltered($pId, MEMORY, $type);
+    return self::getFiltered($pId, RESERVE, $type);
   }
 
   public static function getStormCards($pId, $type = null)

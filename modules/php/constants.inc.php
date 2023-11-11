@@ -139,7 +139,7 @@ const SPELL = 'spell';
 const EVERYONE_ELSE = 'everyone-else';
 
 const HAND = 'hand';
-const MEMORY = 'memory';
+const RESERVE = 'reserve';
 const LIMBO = 'limbo';
 const MANA = 'mana';
 

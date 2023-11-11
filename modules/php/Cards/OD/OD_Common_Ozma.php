@@ -25,7 +25,7 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 1,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'control3OtherCharacters',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),

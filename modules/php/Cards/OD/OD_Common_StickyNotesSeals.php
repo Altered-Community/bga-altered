@@ -24,7 +24,7 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
       ),
       'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::XOR(

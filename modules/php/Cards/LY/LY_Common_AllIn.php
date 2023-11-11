@@ -24,7 +24,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN('effect', BOOST, 'die')])],
       ]),

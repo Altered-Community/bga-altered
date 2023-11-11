@@ -279,7 +279,7 @@
         }
 
         .card-hand-cost,
-        .card-memory-cost {
+        .card-reserve-cost {
             position: absolute;
             z-index: 3;
             color: white;
@@ -295,7 +295,7 @@
             font-size: 25px;
         }
 
-        .card-memory-cost {
+        .card-reserve-cost {
             top: 39px;
             left: 49px;
             font-size: 25px;
@@ -482,7 +482,7 @@ $miniCardScale: 0.33;
         background-size: 100% auto;
 
         .card-hand-cost,
-        .card-memory-cost {
+        .card-reserve-cost {
             position: absolute;
             z-index: 3;
             color: white;
@@ -504,7 +504,7 @@ $miniCardScale: 0.33;
             border: 1px solid black;
         }
 
-        .card-memory-cost {
+        .card-reserve-cost {
             z-index: 2;
             top: 7px;
             left: 11px;

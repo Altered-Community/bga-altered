@@ -70,6 +70,6 @@ abstract class FT
 
   public static function DISCARD_TO_RESERVE()
   {
-    return self::ACTION(DISCARD, ['destination' => MEMORY]);
+    return self::ACTION(DISCARD, ['destination' => RESERVE]);
   }
 }

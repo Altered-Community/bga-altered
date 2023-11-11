@@ -23,7 +23,7 @@ class YZ_Common_LadyoftheLake extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 3,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

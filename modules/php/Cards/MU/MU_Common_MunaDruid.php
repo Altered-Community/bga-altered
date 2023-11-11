@@ -27,7 +27,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectEcho' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }

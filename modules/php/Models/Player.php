@@ -151,14 +151,14 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::hasPlayedCard($this->id, $id);
   }
 
-  public function getMemoryCards()
+  public function getReserveCards()
   {
-    return Cards::getMemoryCards($this->id);
+    return Cards::getReserveCards($this->id);
   }
 
-  public function getMemorySlots()
+  public function getReserveSlots()
   {
-    return $this->getHero()->getMemorySlots();
+    return $this->getHero()->getReserveSlots();
   }
 
   public function getPermanentSlots()
@@ -297,10 +297,10 @@ class Player extends \ALT\Helpers\DB_Model
         continue;
       }
 
-      // Move card without anchored,asleep to memory
+      // Move card without anchored,asleep to reserve
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
-        // move card to memory
-        $deletedTokens = array_merge($deletedTokens, $card->moveToMemory());
+        // move card to reserve
+        $deletedTokens = array_merge($deletedTokens, $card->moveToReserve());
         if ($card->isToken()) {
           // delete the card as it's a token
           $deletedCardTokens[] = $card;

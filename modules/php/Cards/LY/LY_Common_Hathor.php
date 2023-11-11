@@ -27,8 +27,8 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
-      'effectEcho' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [MEMORY], 'effect' => FT::RETURN_TO_HAND()]),
+      'costReserve' => 2,
+      'effectEcho' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [RESERVE], 'effect' => FT::RETURN_TO_HAND()]),
     ];
   }
 }

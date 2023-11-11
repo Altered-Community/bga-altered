@@ -28,8 +28,8 @@ class BR_Base_BravosTrainer extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
-      'costMemory' => 2,
-      'effectMemory' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['n' => 2, 'type' => BOOST])]),
+      'costReserve' => 2,
+      'effectReserve' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['n' => 2, 'type' => BOOST])]),
     ];
   }
 }

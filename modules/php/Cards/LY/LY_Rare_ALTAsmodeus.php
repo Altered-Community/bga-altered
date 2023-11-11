@@ -26,12 +26,12 @@ class LY_Rare_ALTAsmodeus extends \ALT\Models\Card
       'reminders' => clienttranslate(
         '(Anchored: At Night, I don\'t go to Reserve and I lose Anchored. Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'
       ),
-      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costMemory'],
+      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 3), '4+' => FT::GAIN(ME, ANCHORED)],
       ]),

@@ -24,7 +24,7 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes [[Anchored]].'),
       'reminders' => clienttranslate('(Anchored: At Night, I don\'t go to Reserve and I lose Anchored.)'),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }

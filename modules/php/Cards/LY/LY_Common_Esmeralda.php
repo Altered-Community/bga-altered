@@ -26,7 +26,7 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectHand' => FT::ACTION(RESUPPLY, []),
     ];
   }

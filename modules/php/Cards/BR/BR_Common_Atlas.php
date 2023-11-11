@@ -25,7 +25,7 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
       'gigantic' => true,
     ];
   }

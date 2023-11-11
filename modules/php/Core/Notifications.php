@@ -317,8 +317,8 @@ class Notifications
   public static function playCard($player, $card, $cost, $fromLocation, $location)
   {
     $msg =
-      $fromLocation == MEMORY
-        ? clienttranslate('${player_name} plays ${card_name} from Memory for ${cost} and places it in ${location}')
+      $fromLocation == RESERVE
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${location}')
         : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
 
     self::notifyAll('playCard', $msg, [

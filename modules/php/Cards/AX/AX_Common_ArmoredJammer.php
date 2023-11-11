@@ -22,7 +22,7 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{J} [Sabotage].'),
       'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

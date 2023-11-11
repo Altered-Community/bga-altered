@@ -24,7 +24,7 @@ class AX_Common_Ganesha extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
-      'costMemory' => 7,
+      'costReserve' => 7,
     ];
   }
 }

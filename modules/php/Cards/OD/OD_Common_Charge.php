@@ -25,7 +25,7 @@ class OD_Common_Charge extends \ALT\Models\Card
         '(Fleeting: After my effect resolves, banish me. Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'
       ),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)])

@@ -25,7 +25,7 @@ class MU_Common_Kitsune extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectHand' => FT::ACTION(DRAW, []),
     ];
   }

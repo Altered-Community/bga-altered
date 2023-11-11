@@ -25,9 +25,9 @@ class BR_Common_Chiron extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectHand' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
-      'effectMemory' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+      'effectReserve' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
     ];
   }
 }

@@ -28,7 +28,7 @@ class MU_Rare_SneezerShroom extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'effectPassive' => ['Dawn' => ['condition' => 'myTurn', 'output' => FT::GAIN($this, BOOST)]],
     ];

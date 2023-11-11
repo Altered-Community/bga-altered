@@ -59,7 +59,7 @@ class Resupply extends \ALT\Models\Action
     $player->draw(
       $n,
       'deck-' . $player->getId(),
-      MEMORY,
+      RESERVE,
       $source,
       clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
       clienttranslate('${player_name} places ${n} card(s) from its deck to Reserve (${card_name2}\'s effect)')

@@ -22,12 +22,12 @@ class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'When I leave the Expedition Zone - Create [G]two[/G] [1/1/1 Ordis Recruit] Soldier tokens in both of your Expeditions.'
       ),
-      'changedStats' => ['costHand', 'costMemory'],
+      'changedStats' => ['costHand', 'costReserve'],
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
       'effectPassive' => [
         'LeaveExpedition' => [
           'output' => FT::SEQ(

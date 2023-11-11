@@ -774,7 +774,7 @@ define([
         stormLeft: _('Hero side'),
         stormRight: _('Companion side'),
         permanent: _('Permanent'),
-        memory: _('Memory'),
+        reserve: _('Reserve'),
         limbo: _('Spell'),
       };
       args.play[cardId].forEach((location, i) => {
@@ -836,7 +836,7 @@ define([
       const MARKERS_MAP = {
         J: 'played',
         M: 'played-from-hand',
-        S: 'played-from-memory',
+        S: 'played-from-reserve',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');

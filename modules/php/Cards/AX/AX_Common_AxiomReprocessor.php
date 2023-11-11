@@ -22,7 +22,7 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'effectDesc' => clienttranslate('At Dawn - [Resupply].'),
       'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

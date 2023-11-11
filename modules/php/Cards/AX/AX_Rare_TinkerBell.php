@@ -26,7 +26,7 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

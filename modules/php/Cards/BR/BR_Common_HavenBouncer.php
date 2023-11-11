@@ -26,8 +26,8 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
-      'effectHand' => FT::ACTION(TARGET, ['targetLocation' => [MEMORY], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+      'costReserve' => 3,
+      'effectHand' => FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
     ];
   }
 }

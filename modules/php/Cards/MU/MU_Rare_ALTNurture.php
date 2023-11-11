@@ -23,9 +23,9 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
 
       'effectDesc' => clienttranslate('Up to two target Characters gain [G]2[/G] boosts.'),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
-      'changedStats' => ['costHand', 'costMemory'],
+      'changedStats' => ['costHand', 'costReserve'],
       'costHand' => 3,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])])

@@ -25,7 +25,7 @@ class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

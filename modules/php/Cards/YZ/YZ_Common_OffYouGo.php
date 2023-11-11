@@ -21,7 +21,7 @@ class YZ_Common_OffYouGo extends \ALT\Models\Card
 
       'effectDesc' => clienttranslate('Send to Reserve target Character of hand cost {3} or less.'),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),
     ];
   }

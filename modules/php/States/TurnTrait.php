@@ -231,8 +231,8 @@ trait TurnTrait
     }
 
     // if the player has no need to discard
-    $nExceededMemory = $player->getMemoryCards()->count() - $player->getMemorySlots();
-    $needToDiscard = $nExceededMemory > 0;
+    $nExceededReserve = $player->getReserveCards()->count() - $player->getReserveSlots();
+    $needToDiscard = $nExceededReserve > 0;
 
     if (!$needToDiscard) {
       $skipped[] = $player->getId();
@@ -250,9 +250,9 @@ trait TurnTrait
           'action' => DISCARD,
           'pId' => $player->getId(),
           'args' => [
-            'source' => MEMORY,
+            'source' => RESERVE,
             'destination' => 'discard',
-            'n' => $nExceededMemory,
+            'n' => $nExceededReserve,
           ],
         ],
       ],

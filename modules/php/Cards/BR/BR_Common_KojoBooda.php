@@ -19,7 +19,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
-      'memorySlots' => 2,
+      'reserveSlots' => 2,
       'permanentSlots' => 2,
 
       'effectDesc' => clienttranslate(

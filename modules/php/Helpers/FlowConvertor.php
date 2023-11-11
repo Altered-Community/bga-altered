@@ -137,7 +137,7 @@ abstract class FlowConvertor
       return [
         'type' => NODE_SEQ,
         'childs' => [
-          ['action' => TARGET, 'args' => ['optional' => true, 'targetLocation' => [MEMORY]]],
+          ['action' => TARGET, 'args' => ['optional' => true, 'targetLocation' => [RESERVE]]],
           ['action' => DISCARD, 'args' => []],
         ],
       ];

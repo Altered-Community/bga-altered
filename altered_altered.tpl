@@ -50,7 +50,7 @@
 </svg>
 
 <svg style="display:none" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg">
-  <symbol id="played-from-memory-svg" viewBox="0 0 50.5 28.5">
+  <symbol id="played-from-reserve-svg" viewBox="0 0 50.5 28.5">
     <path class="st0" d="M27.5,3.3V10l-4.1,2.7l4.1-0.5v0l7.7-1c0.5-0.1,0.8-0.6,0.6-1.1l-1.1-2.3l3.1-0.8l9.8,7.7l-9.7,7.6L35,21.5
       l0.9-2.2c0.2-0.5-0.1-1-0.7-1.1l-7.8-0.9v0l-4.1-0.5l4.1,2.7v6.8h15.7c4.1,0,7.4-3.3,7.4-7.4V3.3H27.5z"/>
     <path class="st0" d="M12.2,2.6c-9.3,0-8.9,7.1-8.8,8.2c0,0.1,0,0.2-0.1,0.3l-3.3,4.6c-0.2,0.2,0,0.6,0.2,0.6l2.3,0.4

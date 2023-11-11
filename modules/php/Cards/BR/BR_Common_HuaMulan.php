@@ -26,8 +26,8 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
-      'effectMemory' => FT::GAIN($this, BOOST, 2),
+      'costReserve' => 3,
+      'effectReserve' => FT::GAIN($this, BOOST, 2),
     ];
   }
 }

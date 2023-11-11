@@ -25,7 +25,7 @@ class LY_Common_OuroborosDealer extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
       'effectHand' => FT::ACTION(ROLL_DIE, [
         'effect' => [
           '1-3' => FT::ACTION(RESUPPLY, []),

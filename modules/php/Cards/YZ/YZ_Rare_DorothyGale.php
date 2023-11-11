@@ -20,12 +20,12 @@ class YZ_Rare_DorothyGale extends \ALT\Models\Card
       'subtype' => 'Citizen',
 
       'effectDesc' => clienttranslate('[G]{J}[/G] Send to Reserve target Character.'),
-      'changedStats' => ['costMemory'],
+      'changedStats' => ['costReserve'],
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

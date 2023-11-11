@@ -23,7 +23,7 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 3,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

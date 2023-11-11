@@ -22,7 +22,7 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
       'effectDesc' => clienttranslate('[G]{J} [Resupply].[/G]  At Dawn - Activate my {J} effect.'),
       'reminders' => clienttranslate('(Fleeting: If I would be sent to Reserve, banish me instead.)'),
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

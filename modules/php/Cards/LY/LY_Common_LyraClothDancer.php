@@ -26,7 +26,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectHand' => FT::ACTION(TARGET, ['excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)]),
     ];
   }

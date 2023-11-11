@@ -26,7 +26,7 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'token' => true,
-      'costMemory' => '',
+      'costReserve' => '',
       'costHand' => '',
     ];
   }

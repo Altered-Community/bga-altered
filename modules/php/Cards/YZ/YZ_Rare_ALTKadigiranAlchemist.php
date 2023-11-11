@@ -25,7 +25,7 @@ class YZ_Rare_ALTKadigiranAlchemist extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

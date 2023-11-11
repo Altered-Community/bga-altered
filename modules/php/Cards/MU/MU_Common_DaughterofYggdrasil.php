@@ -25,7 +25,7 @@ class MU_Common_DaughterofYggdrasil extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectHand' => FT::ACTION(DRAW, ['players' => OPPONENT]),
     ];
   }

@@ -28,8 +28,8 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
-      'costMemory' => 4,
-      'effectMemory' => FT::GAIN($this, BOOST, 2),
+      'costReserve' => 4,
+      'effectReserve' => FT::GAIN($this, BOOST, 2),
     ];
   }
 }

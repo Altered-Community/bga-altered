@@ -23,7 +23,7 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 2,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

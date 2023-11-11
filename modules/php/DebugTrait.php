@@ -33,7 +33,7 @@ trait DebugTrait
     // Cards::get(3)->boost(1, 'test', true);
     // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
     // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
-    // $this->actTakeAtomicAction('actMemory', [29, STORM_LEFT]);
+    // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actEcho', [226]);
     $this->actTakeAtomicAction('actTap', [236]);
     // $this->actTakeAtomicAction('actPass', []);

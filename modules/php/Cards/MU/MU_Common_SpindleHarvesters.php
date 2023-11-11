@@ -26,7 +26,7 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
     ];
   }

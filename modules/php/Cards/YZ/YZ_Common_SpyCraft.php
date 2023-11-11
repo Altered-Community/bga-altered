@@ -25,10 +25,10 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
         '(Fleeting: After my effect resolves, banish me. Sabotage: Banish up to one target card from a Reserve. Resupply: Put the top card of your deck in your Reserve.)'
       ),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::ACTION(TARGET, ['targetLocation' => [MEMORY], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+        FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
         FT::ACTION(RESUPPLY, [])
       ),
     ];

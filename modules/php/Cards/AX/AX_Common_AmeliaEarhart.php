@@ -23,7 +23,7 @@ class AX_Common_AmeliaEarhart extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

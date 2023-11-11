@@ -21,7 +21,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
 
       'effectDesc' => clienttranslate('{J} Create a [2/2/2 Brassbug] Robot token.  At Dawn - Activate my {J} effect.'),
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

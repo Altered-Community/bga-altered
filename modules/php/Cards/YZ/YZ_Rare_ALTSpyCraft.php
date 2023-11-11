@@ -21,9 +21,9 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
 
       'effectDesc' => clienttranslate('[Sabotage], [Resupply].'),
       'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),
-      'changedStats' => ['costMemory'],
+      'changedStats' => ['costReserve'],
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

@@ -25,7 +25,7 @@ class BR_Common_Intimidation extends \ALT\Models\Card
       ),
       'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['maxHandCost' => 4, 'effect' => FT::RETURN_TO_HAND()])

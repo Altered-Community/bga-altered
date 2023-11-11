@@ -25,7 +25,7 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectHand' => FT::GAIN($this, BOOST, 2),
     ];
   }

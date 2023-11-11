@@ -26,7 +26,7 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 2)],
       ]),

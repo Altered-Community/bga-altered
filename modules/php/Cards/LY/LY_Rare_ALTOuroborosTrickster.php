@@ -23,12 +23,12 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
         '{J} Roll a die. If the result is 4 or more, I gain [G]3[/G] boosts. Otherwise, I gain 1 boost.'
       ),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
-      'changedStats' => ['costMemory'],
+      'changedStats' => ['costReserve'],
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 3)],
       ]),

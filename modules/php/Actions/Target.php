@@ -24,9 +24,9 @@ class Target extends \ALT\Models\Action
     'targetPlayer' => ALL,
     'targetType' => [CHARACTER], // must be an array
     'targetLocation' => IN_PLAY, //  must be an array reserve / inplay)
-    'maxMemoryCost' => INFTY, // limitation
+    'maxReserveCost' => INFTY, // limitation
     'maxHandCost' => INFTY, // limitation
-    'minMemoryCost' => 0, // limitation
+    'minReserveCost' => 0, // limitation
     'minHandCost' => 0, // limitation
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
@@ -99,13 +99,13 @@ class Target extends \ALT\Models\Action
       }
 
       $handCost = $c->getCostHand();
-      $memoryCost = $c->getCostMemory();
+      $reserveCost = $c->getCostReserve();
       $statuses = $this->getArg('statuses');
       $costCheck =
         $this->getArg('minHandCost') <= $handCost &&
         $handCost <= $this->getArg('maxHandCost') &&
-        $this->getArg('minMemoryCost') <= $memoryCost &&
-        $memoryCost <= $this->getArg('maxMemoryCost');
+        $this->getArg('minReserveCost') <= $reserveCost &&
+        $reserveCost <= $this->getArg('maxReserveCost');
 
       if ($statuses == 'disabled' || $c->getType() == PERMANENT) {
         return $costCheck;

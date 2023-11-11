@@ -48,8 +48,8 @@ class Discard extends \ALT\Models\Action
       $cards = [];
     } elseif ($this->getCtxArg('source') == HAND) {
       $cards = $player->getHand()->getIds();
-    } elseif ($this->getCtxArg('source') == MEMORY) {
-      $cards = $player->getMemoryCards()->getIds();
+    } elseif ($this->getCtxArg('source') == RESERVE) {
+      $cards = $player->getReserveCards()->getIds();
     } else {
       $cards = $player->getPlayedCards()->getIds();
     }

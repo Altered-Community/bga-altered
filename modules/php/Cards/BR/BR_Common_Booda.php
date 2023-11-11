@@ -27,7 +27,7 @@ class BR_Common_Booda extends \ALT\Models\Card
       'ocean' => 2,
       'token' => true,
       'costHand' => '',
-      'costMemory' => '',
+      'costReserve' => '',
     ];
   }
 }

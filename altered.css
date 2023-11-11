@@ -597,7 +597,7 @@ html {
       font-family: "Jali Greek Variable";
       font-style: italic; }
     .altered-card .altered-card-wrapper .card-hand-cost,
-    .altered-card .altered-card-wrapper .card-memory-cost {
+    .altered-card .altered-card-wrapper .card-reserve-cost {
       position: absolute;
       z-index: 3;
       color: white;
@@ -609,7 +609,7 @@ html {
       top: 21px;
       left: 27px;
       font-size: 25px; }
-    .altered-card .altered-card-wrapper .card-memory-cost {
+    .altered-card .altered-card-wrapper .card-reserve-cost {
       top: 39px;
       left: 49px;
       font-size: 25px; }
@@ -755,9 +755,9 @@ html {
     transform: none;
     background-size: 100% auto; }
     .altered-card.mini-card .altered-card-wrapper .card-hand-cost,
-    .altered-card.mini-card .altered-card-wrapper .card-memory-cost,
+    .altered-card.mini-card .altered-card-wrapper .card-reserve-cost,
     .player-board-hero .altered-card .altered-card-wrapper .card-hand-cost,
-    .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost {
+    .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost {
       position: absolute;
       z-index: 3;
       color: white;
@@ -775,23 +775,23 @@ html {
       text-shadow: 0px 0px 5px black;
       box-shadow: 0px 0px 5px black;
       border: 1px solid black; }
-    .altered-card.mini-card .altered-card-wrapper .card-memory-cost,
-    .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost {
+    .altered-card.mini-card .altered-card-wrapper .card-reserve-cost,
+    .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost {
       z-index: 2;
       top: 7px;
       left: 11px; }
-      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="MU"],
-      .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost[data-faction="MU"] {
+      .altered-card.mini-card .altered-card-wrapper .card-reserve-cost[data-faction="MU"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost[data-faction="MU"] {
         background: #2a7533;
         box-shadow: 0px 0px 5px #396a3f;
         border: 1px solid #396a3f; }
-      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="LY"],
-      .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost[data-faction="LY"] {
+      .altered-card.mini-card .altered-card-wrapper .card-reserve-cost[data-faction="LY"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost[data-faction="LY"] {
         background: #a82249;
         box-shadow: 0px 0px 5px #ce3f65;
         border: 1px solid #ce3f65; }
-      .altered-card.mini-card .altered-card-wrapper .card-memory-cost[data-faction="BR"],
-      .player-board-hero .altered-card .altered-card-wrapper .card-memory-cost[data-faction="BR"] {
+      .altered-card.mini-card .altered-card-wrapper .card-reserve-cost[data-faction="BR"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost[data-faction="BR"] {
         background: #5f1f16;
         box-shadow: 0px 0px 5px #aa212e;
         border: 1px solid #aa212e; }
@@ -1443,7 +1443,7 @@ html {
     .altered-player-board .player-board-grass .player-board-separator {
       width: 40px;
       height: 185px;
-      background: url("img/separator-memory-permanent.jpg");
+      background: url("img/separator-reserve-permanent.jpg");
       background-size: 100% 100%; }
     .altered-player-board .player-board-grass .player-board-permanents {
       min-width: 298px;

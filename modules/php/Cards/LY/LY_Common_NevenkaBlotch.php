@@ -20,7 +20,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'type' => HERO,
       'subtype' => '',
 
-      'memorySlots' => 2,
+      'reserveSlots' => 2,
       'permanentSlots' => 2,
 
       'effectDesc' => clienttranslate(

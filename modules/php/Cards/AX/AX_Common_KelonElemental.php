@@ -24,7 +24,7 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

@@ -42,20 +42,20 @@ class Card extends \ALT\Helpers\DB_Model
     'rarity' => 'int',
     'asset' => 'str',
     'frame' => 'int',
-    'memorySlots' => 'int',
+    'reserveSlots' => 'int',
     'permanentSlots' => 'int',
 
     'mountain' => 'int',
     'forest' => 'int',
     'ocean' => 'int',
 
-    'costModifier' => 'obj', // ['hand'=> action check, 'memory' => action check]
+    'costModifier' => 'obj', // ['hand'=> action check, 'reserve' => action check]
     'costHand' => 'int',
-    'costMemory' => 'int',
+    'costReserve' => 'int',
 
-    'effectPlayed' => 'obj', // Played, no mater from hand or memory
+    'effectPlayed' => 'obj', // Played, no mater from hand or reserve
     'effectHand' => 'obj', // played from hand
-    'effectMemory' => 'obj', // played from memory
+    'effectReserve' => 'obj', // played from reserve
     'effectEcho' => 'obj',
     'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
     'effectTap' => 'obj',
@@ -74,7 +74,7 @@ class Card extends \ALT\Helpers\DB_Model
   // 'type' => ['type', 'str'], // Token/hero/adventurer/spell
   // 'tapped' => ['tapped', 'bool'],
   // 'costHand' => ['costHand', 'int'],
-  // 'costMemory' => ['costMemory', 'int'],
+  // 'costReserve' => ['costReserve', 'int'],
   // 'name' => ['name', 'str'], // obj?
   // 'rarity' => ['rarity', 'int'],
   // 'equinoxId' => ['equinoxId', 'int'],
@@ -85,9 +85,9 @@ class Card extends \ALT\Helpers\DB_Model
   // 'faction' => ['faction', 'str'],
   // 'effectEcho' => ['effectEcho', 'obj'],
   // 'effectHand' => ['effectHand', 'obj'], // played from hand
-  // 'effectMemory' => ['effectMemory', 'obj'], // played from memory
+  // 'effectReserve' => ['effectReserve', 'obj'], // played from reserve
   // 'effectPassive' => ['effectPassive', 'obj'], // [[listener type => action]]: listener type to distinguish
-  // 'costModifier' => ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
+  // 'costModifier' => ['costModifier', 'obj'], // ['hand'=> action check, 'reserve' => action check]
   // 'extraDatas' => ['extra_datas', 'obj'],
   // // attributs persistants
   // 'initialProperties' => ['initial_properties', 'obj'],
@@ -166,10 +166,10 @@ class Card extends \ALT\Helpers\DB_Model
     return $deleted;
   }
 
-  public function moveToMemory()
+  public function moveToReserve()
   {
     $this->checkLeaveExpeditionListener();
-    $this->setLocation(MEMORY);
+    $this->setLocation(RESERVE);
     $this->setTapped(false);
     $deleted = Meeples::getInLocation('card-' . $this->id)->getIds();
     if (!empty($deleted)) {
@@ -334,8 +334,8 @@ class Card extends \ALT\Helpers\DB_Model
       case HAND:
         return $this->getCostHand() - ($costReduction[$this->getType()] ?? 0);
         break;
-      case MEMORY:
-        return $this->getCostMemory() - ($costReduction[$this->getType()] ?? 0);
+      case RESERVE:
+        return $this->getCostReserve() - ($costReduction[$this->getType()] ?? 0);
         break;
     }
   }

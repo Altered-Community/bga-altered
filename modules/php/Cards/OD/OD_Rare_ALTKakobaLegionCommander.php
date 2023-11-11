@@ -25,7 +25,7 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'control3OtherCharacters',
         'effect' => FT::GAIN(ME, BOOST, 3),

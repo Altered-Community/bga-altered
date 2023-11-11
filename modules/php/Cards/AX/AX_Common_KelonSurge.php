@@ -24,7 +24,7 @@ class AX_Common_KelonSurge extends \ALT\Models\Card
       ),
       'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

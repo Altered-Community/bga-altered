@@ -30,12 +30,12 @@ class ChooseAssignment extends \ALT\Models\Action
   {
     $player = Players::getActive();
     $handCards = $player->getHand();
-    $memoryCards = $player->getMemoryCards();
+    $reserveCards = $player->getReserveCards();
     $actions = ['play' => [], 'echo' => [], 'tap' => []];
 
     // 1. Play cards
     $actions['play'] = $handCards
-      ->merge($memoryCards)
+      ->merge($reserveCards)
       ->filter(function ($card) use ($player) {
         return $card->canBePlayed($player);
       })
@@ -54,7 +54,7 @@ class ChooseAssignment extends \ALT\Models\Action
       });
 
     // 2. Echo
-    $actions['echo'] = $memoryCards
+    $actions['echo'] = $reserveCards
       ->filter(function ($card) {
         return !empty($card->getEffectEcho());
       })
@@ -124,11 +124,11 @@ class ChooseAssignment extends \ALT\Models\Action
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
 
-    // if played from memory, it gains fleeting
+    // if played from reserve, it gains fleeting
     if ($location == DISCARD) {
       $deleted = $card->discard();
       Notifications::silentKill($deleted);
-    } elseif ($fromLocation == MEMORY && $location != PERMANENT) {
+    } elseif ($fromLocation == RESERVE && $location != PERMANENT) {
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }
@@ -138,8 +138,8 @@ class ChooseAssignment extends \ALT\Models\Action
       $effect = $card->getEffectHand();
     }
 
-    if (empty($effect) && $fromLocation == MEMORY) {
-      $effect = $card->getEffectMemory();
+    if (empty($effect) && $fromLocation == RESERVE) {
+      $effect = $card->getEffectReserve();
     }
 
     if (!empty($effect)) {

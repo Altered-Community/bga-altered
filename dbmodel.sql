@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `cards` (
 --   `faction`VARCHAR(20),
 --   `effectEcho`JSON NULL,
 --   `effectHand` JSON NULL, --played from hand
---   `effectMemory` JSON NULL, -- played from memory
+--   `effectReserve` JSON NULL, -- played from reserve
 --   `effectPassive` JSON NULL, -- [[listener type => action]]: listener type to distinguish
---   `costModifier` JSON NULL, -- ['costModifier', 'obj'], // ['hand'=> action check, 'memory' => action check]
+--   `costModifier` JSON NULL, -- ['costModifier', 'obj'], // ['hand'=> action check, 'reserve' => action check]
 --   `initialProperties`JSON NULL, 
 --   `altered_properties` JSON NULL -- will superseed original properties if needed
 

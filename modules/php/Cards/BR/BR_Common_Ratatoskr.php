@@ -26,8 +26,8 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
-      'costMemory' => 1,
-      'effectMemory' => FT::GAIN($this, BOOST, 2),
+      'costReserve' => 1,
+      'effectReserve' => FT::GAIN($this, BOOST, 2),
     ];
   }
 }

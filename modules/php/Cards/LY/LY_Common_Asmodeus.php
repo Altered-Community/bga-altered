@@ -30,7 +30,7 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 6,
-      'costMemory' => 6,
+      'costReserve' => 6,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 3), '4+' => FT::GAIN(ME, ANCHORED)],
       ]),

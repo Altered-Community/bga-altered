@@ -26,7 +26,7 @@ class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
     ];
   }

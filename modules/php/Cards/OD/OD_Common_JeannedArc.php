@@ -27,7 +27,7 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
       'effectPassive' => [
         'LeaveExpedition' => [
           'output' => FT::SEQ(

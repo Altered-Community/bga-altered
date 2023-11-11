@@ -25,7 +25,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       ),
       'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

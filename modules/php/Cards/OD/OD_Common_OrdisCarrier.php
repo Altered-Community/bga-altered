@@ -22,7 +22,7 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
 
       'effectDesc' => clienttranslate('At Dawn - Create a [1/1/1 Ordis Recruit] Soldier token in your Companion Expedition.'),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectPassive' => [
         'Dawn' => [
           'condition' => 'myTurn',

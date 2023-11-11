@@ -25,7 +25,7 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 4,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
       'effectEcho' => FT::ACTION(AFTER_YOU, []),
     ];
   }

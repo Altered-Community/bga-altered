@@ -23,12 +23,12 @@ class MU_Rare_ALTConiferalConeman extends \ALT\Models\Card
 
       'effectDesc' => clienttranslate('{J} I become [[Anchored]]. '),
       'reminders' => clienttranslate('(Anchored: At Night, I don\'t go to Reserve and I lose Anchored.)'),
-      'changedStats' => ['costHand', 'costMemory'],
+      'changedStats' => ['costHand', 'costReserve'],
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
     ];
   }

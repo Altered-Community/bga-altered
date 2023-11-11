@@ -86,11 +86,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let id = this._fakeIndex++;
       container.insertAdjacentHTML(
         'beforeend',
-        `<div id='card-${id}' class='altered-card card-back'>
+        `<div id='card-f-${id}' class='altered-card card-back'>
           <div class='altered-card-wrapper' data-asset='back'></div>
         </div>`
       );
-      return `card-${id}`;
+      return `card-f-${id}`;
     },
 
     getCardContainer(card) {
@@ -102,7 +102,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return $(`board-${card.location}-${card.pId}`);
       }
       // TODO REMOVE : legacy code
-      else if (card.location == 'memory') {
+      else if (card.location == 'reserve') {
         return $(`board-reserve-${card.pId}`);
       } else if (type == HERO) {
         return $(card.location);
@@ -183,6 +183,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     onSelectNCards(cardIds, config, location = 'hand') {
       let elements = this.prepareCardsForSelection(cardIds, location);
+      debug (elements);
       config.elements = elements;
       let callback = config.confirmMsg
         ? (selectedElements) => {
@@ -527,6 +528,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // we slide it from the card triggering the effect
       if (!$(id)) {
         this.addCard(card, n.args.card2.location == 'hand' ? 'page-title' : `card-${n.args.card2.id}`);
+        $(id).classList.add('mini-card');
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
@@ -721,7 +723,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-type='character'></div>
           <div class='card-hand-cost'>${p.costHand}</div>
-          <div class='card-memory-cost' data-faction='${p.faction}'>${p.costMemory}</div>
+          <div class='card-reserve-cost' data-faction='${p.faction}'>${p.costReserve}</div>
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
@@ -763,7 +765,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-type='spell'></div>
           <div class='card-hand-cost'>${p.costHand}</div>
-          <div class='card-memory-cost'>${p.costMemory}</div>
+          <div class='card-reserve-cost'>${p.costReserve}</div>
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
