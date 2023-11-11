@@ -749,7 +749,7 @@ define([
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
               cardId,
-              echo: t.echo.includes(parseInt(cardId)),
+              echo: t.hasOwnProperty('echo') ? t.echo.includes(parseInt(cardId)) : false,
             })
           );
         });
