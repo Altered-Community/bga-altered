@@ -37,9 +37,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (o.parentNode != $(container)) {
           dojo.place(o, container);
         }
-        if (!container.classList.contains('player-hand')) {
-          o.classList.add('mini-card');
-        }
+
+        // Minimize card except in hand and in discard
+        let isFull = container.classList.contains('player-hand') || container.classList.contains('player-board-discard');
+        o.classList.toggle('mini-card', !isFull);
 
         return card.id;
       });
@@ -547,7 +548,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
           return this.wait(200 * i).then(() => {
             this.updateCardStatuses(card.id);
-            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`);
+            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`).then(() => {
+              if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+            });
           });
         })
       )

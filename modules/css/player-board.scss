@@ -99,19 +99,19 @@
         }
     }
 
-    //     .player-board-discard {
-    //         width: $cardWidth + 2 * $boardMargin;
-    //         flex-shrink: 0;
-    //         position: relative;
+    .player-board-discard {
+        width: $cardWidth + 2 * $boardMargin;
+        position: absolute;
+        left: 120px;
 
-    //         .altered-card {
-    //             position: absolute;
-    //             filter: grayscale(80%);
-    //             -webkit-transform: translateZ(0);
-    //             -webkit-perspective: 1000;
-    //             -webkit-backface-visibility: hidden;
-    //         }
-    //     }
+        .altered-card {
+            position: absolute;
+            filter: grayscale(80%);
+            -webkit-transform: translateZ(0);
+            -webkit-perspective: 1000;
+            -webkit-backface-visibility: hidden;
+        }
+    }
 
     .player-board-deck {
         width: $cardWidth + 2 * $boardMargin;
@@ -261,6 +261,9 @@
     .player-board-deck {
         top: 145px;
     }
+    .player-board-discard {
+        top: 145px;
+    }
 
     .player-board-mana-wrapper {
         top: 0px;
@@ -304,6 +307,9 @@
     }
 
     .player-board-deck {
+        top: 195px;
+    }
+    .player-board-discard {
         top: 195px;
     }
 
