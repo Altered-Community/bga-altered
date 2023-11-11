@@ -1167,7 +1167,7 @@ html {
   display: flex;
   flex-flow: column;
   bottom: 0;
-  transition: right 1s; }
+  transition: right 0.8s; }
   #focus-storm-overlay.active {
     right: 0%; }
   #focus-storm-overlay #focus-storm-top {
@@ -1349,6 +1349,16 @@ html {
       border-radius: 0 4px 4px 0px; }
     .altered-player-board .player-board-storm.storm-right .total-ocean {
       border-radius: 0 4px 14px 0; }
+  .altered-player-board .player-board-discard {
+    width: 120px;
+    position: absolute;
+    left: 120px; }
+    .altered-player-board .player-board-discard .altered-card {
+      position: absolute;
+      filter: grayscale(80%);
+      -webkit-transform: translateZ(0);
+      -webkit-perspective: 1000;
+      -webkit-backface-visibility: hidden; }
   .altered-player-board .player-board-deck {
     width: 120px;
     left: 247px;
@@ -1454,6 +1464,8 @@ html {
   top: 316px; }
 #altered-board-opponent .altered-player-board .player-board-deck {
   top: 145px; }
+#altered-board-opponent .altered-player-board .player-board-discard {
+  top: 145px; }
 #altered-board-opponent .altered-player-board .player-board-mana-wrapper {
   top: 0px;
   flex-flow: column; }
@@ -1478,6 +1490,8 @@ html {
   #altered-board-me .altered-player-board .player-board-storm .total-biomes {
     top: -30px; }
 #altered-board-me .altered-player-board .player-board-deck {
+  top: 195px; }
+#altered-board-me .altered-player-board .player-board-discard {
   top: 195px; }
 #altered-board-me .altered-player-board .player-board-mana-wrapper {
   top: 25px;

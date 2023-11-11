@@ -114,7 +114,7 @@ class Notifications
   public static function updateNewDayManaSelection($player, $args)
   {
     self::notify($player, 'updateNewDayManaSelection', '', [
-      'args' => ['_private' => $args['_private'][$player->getId()]],
+      'args' => ['canPass' => $args['canPass'], '_private' => $args['_private'][$player->getId()]],
     ]);
   }
 
