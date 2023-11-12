@@ -52,6 +52,7 @@ define([
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
+        ['publicDrawCards', null],
         ['pDiscardCards', null],
         ['publicDiscard', 200],
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -752,6 +753,13 @@ define([
               echo: t.hasOwnProperty('echo') ? t.echo.includes(parseInt(cardId)) : false,
             })
           );
+        });
+      }
+
+      if (t.tap) {
+        t.tap.forEach((cardId) => {
+          this.onClick(`card-${cardId}`, () => 
+           this.takeAtomicAction('actTap', [cardId]));
         });
       }
 

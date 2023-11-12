@@ -27,6 +27,10 @@ class YZ_Common_StubbornDisciple extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
+      'effectEcho' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1]],
+      ],
     ];
   }
 }

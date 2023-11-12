@@ -284,6 +284,47 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    notif_publicDrawCards(n) {
+      debug('Notif: public drawing cards', n);
+      // this.closeChooseCardsModal();
+      let counter = 'handCount';
+
+
+      this._playerCounters[n.args.player_id]['deckCount'].incValue(-n.args.cards.length);
+      if (this.isFastMode()) {
+        n.args.cards.forEach((card) => {
+          this.addCard(card);
+        });
+        this._playerCounters[n.args.player_id][counter].incValue(n.args.cards.length);
+        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
+        return;
+      }
+
+      Promise.all(
+        n.args.cards.map((card, i) => {
+          return this.wait(100 * i).then(() => {
+            this.addCard(card);
+
+            let to = null;
+            let container = this.getCardContainer(card);
+            if (!isVisible(container)) to = $('floating-hand-button');
+            let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${n.args.player_id}`);
+
+            return this.slide(`card-${card.id}`, container, {
+              from: source,
+              duration: 1000,
+              to,
+            });
+          });
+        })
+      ).then(() => {
+        this._playerCounters[n.args.player_id][counter].incValue(n.args.cards.length);
+        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
+
+        this.notifqueue.setSynchronousDuration(100);
+      });
+    },
+
     /**
      * Private notification for the player discarding the card :
      *  slide them and destroy them
@@ -634,14 +675,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCard(card) {
       let type = card.properties.type;
+      let miniZones = ['reserve', 'stormLeft', 'stormRight', 'permanent'];
+      let mini = miniZones.includes(card.location);
       if (type == HERO) {
         return this.tplHeroCard(card);
       } else if (type == CHARACTER) {
-        return this.tplCharacterCard(card);
+        return this.tplCharacterCard(card, false, mini);
       } else if (type == SPELL) {
-        return this.tplSpellCard(card);
+        return this.tplSpellCard(card, false, mini);
       } else if (type == PERMANENT) {
-        return this.tplPermanentCard(card);
+        return this.tplPermanentCard(card, false, mini);
       }
 
       console.error('No tpl yet', card);
@@ -667,7 +710,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplHeroCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-          class='altered-card card-hero ${mini ? 'mini-card' : ''}'>
+          class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
           <div class='card-name'>${_(p.name)}</div>

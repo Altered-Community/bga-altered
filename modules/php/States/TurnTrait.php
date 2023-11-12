@@ -201,6 +201,7 @@ trait TurnTrait
     Globals::setStormMoves([]);
     foreach (Players::getAll() as $pId => $player) {
       $cardLeft = array_merge($cardLeft, $player->nightCleanup());
+      Notifications::updateBiomes($player);
     }
 
     $this->checkCardListeners('BeforeNight', 'stPreNight', ['cardsToListen' => $cardLeft]);

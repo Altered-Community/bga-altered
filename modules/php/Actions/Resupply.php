@@ -62,7 +62,7 @@ class Resupply extends \ALT\Models\Action
       RESERVE,
       $source,
       clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
-      clienttranslate('${player_name} places ${n} card(s) from its deck to Reserve (${card_name2}\'s effect)')
+      clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)')
     );
     $this->checkAfterListeners($player, ['draw' => $n]);
 
