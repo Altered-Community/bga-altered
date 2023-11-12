@@ -48,13 +48,14 @@ trait DebugTrait
   {
     // Cards::get(24)->setTapped(true);
     // Cards::get(3)->setEffectHand([[TARGET_ALL_CHARACTER_2 => [[BOOST => 2], [BOOST => 2]]]]);
-    Cards::get(32)->setEffectPassive([
-      'ChooseAssignment' => [
-        'condition' => 'firstCharacterPlayed',
-        'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
-      ],
-    ]);
+    // Cards::get(32)->setEffectPassive([
+    //   'ChooseAssignment' => [
+    //     'condition' => 'firstCharacterPlayed',
+    //     'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
+    //   ],
+    // ]);
     // Cards::get(1)->isListeningTo([]);
+    throw new \feException(print_r(Players::get(2305528)->getBiomeInStorms()));
   }
 
   function score($cardId)

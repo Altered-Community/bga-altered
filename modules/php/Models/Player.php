@@ -246,8 +246,8 @@ class Player extends \ALT\Helpers\DB_Model
       if ($card['rotated']) {
         $storm = array_reverse($storm);
       }
-
-      $locations[$token->getType()] = $storm[$sId % 1];
+      $sId--;
+      $locations[$token->getType()] = $storm[$sId % 2];
     }
     return $locations;
   }
