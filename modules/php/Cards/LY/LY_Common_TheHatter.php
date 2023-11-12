@@ -11,7 +11,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
     $this->properties = [
       'uid' => '85',
       'asset' => 'LY-18-MadHatter-C',
-      'frameSize' => 1,
+      'frameSize' => 5,
 
       'faction' => FACTION_LY,
       'name' => clienttranslate('The Hatter'),

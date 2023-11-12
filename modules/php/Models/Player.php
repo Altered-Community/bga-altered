@@ -99,7 +99,7 @@ class Player extends \ALT\Helpers\DB_Model
         $public
       );
     } else {
-      Notifications::drawCards($this, $cards, null, null, null, $public);
+      Notifications::drawCards($this, $cards, null, null, [], $public);
     }
     return $cards;
   }

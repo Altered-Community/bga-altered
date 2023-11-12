@@ -749,8 +749,9 @@ define([
           this.onClick(`card-${cardId}`, () =>
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
+              echo : t.echo, 
               cardId,
-              echo: t.hasOwnProperty('echo') ? t.echo.includes(parseInt(cardId)) : false,
+              echoPossible: t.hasOwnProperty('echo') ? t.echo.includes(parseInt(cardId)) : false,
             })
           );
         });
@@ -770,7 +771,7 @@ define([
 
     onEnteringStateChooseAssignmentLocation(args) {
       this.addCancelStateBtn();
-      this.onEnteringStateChooseAssignment({ _private: { play: args.play } });
+      this.onEnteringStateChooseAssignment({ _private: { play: args.play, echo: args.echo } });
       let cardId = args.cardId;
       $(`card-${cardId}`).classList.add('selected');
 
@@ -790,7 +791,7 @@ define([
         this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
       });
 
-      if (args.echo == true) {
+      if (args.echoPossible == true) {
         this.addPrimaryActionButton('btnLocation' + 99, _('Echo effect'), () => this.takeAtomicAction('actEcho', [cardId]));
       }
     },
