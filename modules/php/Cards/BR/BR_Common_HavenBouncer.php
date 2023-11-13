@@ -27,7 +27,12 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectHand' => FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+      'effectHand' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetLocation' => [RESERVE],
+        'upTo' => true,
+        'effect' => FT::ACTION(DISCARD, []),
+      ]),
     ];
   }
 }
