@@ -171,7 +171,7 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must choose an action or pass'),
     'args' => 'argsAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actPlay', 'actEcho', 'actTap', 'actPass', 'actRestart'],
+    'possibleactions' => ['actPlay', 'actEcho', 'actTap', 'actPass', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_GAIN => [
@@ -228,7 +228,7 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must discard ${n} card(s) from ${source} to ${destination}'),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
-    'possibleactions' => ['actDiscard', 'actRestart'],
+    'possibleactions' => ['actDiscard', 'actConfirmTurn', 'actRestart'],
     'type' => 'activeplayer',
   ],
 
@@ -241,7 +241,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actTarget', 'actTargetPass', 'actRestart'],
+    'possibleactions' => ['actTarget', 'actTargetPass', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_SPELL_CLEANUP => [
@@ -257,7 +257,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actRestart'],
+    'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_ACTIVATE_CARD => [
