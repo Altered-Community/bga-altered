@@ -69,6 +69,7 @@ class Discard extends \ALT\Models\Action
   {
     $player = Players::getActive();
     $args = $this->argsDiscard();
+    $hand = false;
 
     if ($automatic === false) {
       // self::checkAction('actDiscard');
@@ -83,7 +84,11 @@ class Discard extends \ALT\Models\Action
     }
 
     foreach ($cardIds as $cardId) {
-      Cards::get($cardId)->checkLeaveExpeditionListener();
+      $card = Cards::get($cardId);
+      $card->checkLeaveExpeditionListener();
+      if ($card->getLocation == HAND) {
+        $hand = true;
+      }
     }
 
     Cards::discard($cardIds, $args['destination']);
@@ -113,7 +118,11 @@ class Discard extends \ALT\Models\Action
         'destination' => $args['destination'],
       ]);
     } else {
-      Notifications::publicDiscard($player, $cards, $msg, ['source' => $args['source'], 'destination' => $args['destination']]);
+      Notifications::publicDiscard($player, $cards, $msg, [
+        'source' => $args['source'],
+        'hand' => $hand,
+        'destination' => $args['destination'],
+      ]);
     }
 
     $notified = [];

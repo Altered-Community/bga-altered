@@ -328,6 +328,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     /**
      * Private notification for the player discarding the card :
      *  slide them and destroy them
+     * NOT USED
      */
     notif_pDiscardCards(n) {
       debug('Notif: private discarding cards', n);
@@ -376,6 +377,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      * Public notification when discarding cards:
      *  ignore if current player is the one discarding card
      *  slide fakes cards from player panel to titlebar and decrease hand count
+     * NOT USED
      */
     notif_discardCards(n) {
       debug('Notif: public discarding cards', n);
@@ -388,8 +390,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (this.isFastMode()) {
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
         if (n.args.toMana) {
-          this._playerCounters[this.player_id]['totalMana'].incValue(-nCards);
-          this._playerCounters[this.player_id]['mana'].incValue(-nCards);
+          this._playerCounters[this.player_id]['totalMana'].incValue(nCards);
+          this._playerCounters[this.player_id]['mana'].incValue(nCards);
         }
         return;
       }
@@ -428,6 +430,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         [...n.args.cards].map((card, i) => {
           return this.wait(200 * i).then(() => {
             if (card.location == 'hand') return;
+            if (n.args.hand == true) this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
 
             return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`);
           });
@@ -503,7 +506,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_playCard(n) {
       debug('Notif: playing a card', n);
       // Update counters
-      this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
+      if (n.args.fromLocation == 'hand') {
+        this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
+      }
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
       this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
 

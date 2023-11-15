@@ -341,7 +341,8 @@ class Notifications
       'mana' => $player->getMana(),
       'biomes' => $player->getBiomeStrength(),
       'location' => $location,
-      'i18n' => ['location'],
+      'fromLocation' => $fromLocation,
+      'i18n' => ['location', 'fromLocation'],
     ]);
   }
 
