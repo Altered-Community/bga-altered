@@ -52,19 +52,28 @@ class action_altered extends APP_GameAction
     self::ajaxResponse();
   }
 
+  public function actFirstDayManaSelection()
+  {
+    self::setAjaxMode();
+    $cardIds = self::getArg('cardIds', AT_json, true);
+    $this->validateJSonAlphaNum($cardIds, 'cardIds');
+    $this->game->actFirstDayManaSelection($cardIds);
+    self::ajaxResponse();
+  }
+
+  public function actCancelFirstDayManaSelection()
+  {
+    self::setAjaxMode();
+    $this->game->actCancelFirstDayManaSelection();
+    self::ajaxResponse();
+  }
+
   public function actNewDayManaSelection()
   {
     self::setAjaxMode();
     $cardIds = self::getArg('cardIds', AT_json, true);
     $this->validateJSonAlphaNum($cardIds, 'cardIds');
     $this->game->actNewDayManaSelection($cardIds);
-    self::ajaxResponse();
-  }
-
-  public function actCancelNewDayManaSelection()
-  {
-    self::setAjaxMode();
-    $this->game->actCancelNewDayManaSelection();
     self::ajaxResponse();
   }
 

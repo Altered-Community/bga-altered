@@ -34,6 +34,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   protected static $autoremovePrefix = false;
   protected static $autoreshuffle = true;
   protected static $autoreshuffleCustom = ['deck' => 'discard'];
+  protected static $autoreshuffleListener = ['obj' => 'ALT\Managers\Cards', 'method' => 'shuffleDeck'];
   protected static $datas = null;
 
   protected static function cast($card)
@@ -49,7 +50,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $rarity = $p['rarity'] == 0 ? 'common' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    if (false && Game::get()->getBgaEnvironment() == 'studio') {
+    if (true && Game::get()->getBgaEnvironment() == 'studio') {
       return new $className($data); // no DB call
     }
     return new Card($data); // information from DB
@@ -113,6 +114,12 @@ class Cards extends \ALT\Helpers\CachedPieces
     self::create($toCreate, null);
     return $deckList;
     // self::shuffle('deck-' . $pId);
+  }
+
+  public static function shuffleDeck($location)
+  {
+    $player = Players::get(explode('-', $location)[1]);
+    Notifications::shuffleDeck($player, $location, self::countInLocation($location));
   }
 
   /**

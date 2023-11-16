@@ -12,32 +12,11 @@ use ALT\Helpers\Log;
 
 trait NewDayTrait
 {
-  // Clear previous stuff and draw new cards
-  function stNewDay()
+  /****************** FIRST DAY*************/
+  function stFirstDay()
   {
-    if (Players::checkVictory()) {
-      return;
-    }
-
     $day = Globals::incDay(1);
-    $nCards = 0;
-
-    // First day
-    if ($day == 1) {
-      $nCards = 6;
-    }
-    // Normal new day
-    else {
-      $nCards = 2;
-      Globals::setStormMoves([]);
-      Cards::untapAll();
-
-      // Change first player
-      $currentFirstPId = Globals::getFirstPlayer();
-      $newFirstPId = Players::getNextId($currentFirstPId);
-      Globals::setFirstPlayer($newFirstPId);
-      Notifications::newFirstPlayer(Players::get($newFirstPId));
-    }
+    $nCards = 6;
 
     // Draw cards and make everyone active
     $pIds = [];
@@ -49,9 +28,152 @@ trait NewDayTrait
       $pIds[] = $pId;
     }
 
-    Globals::setNewDayManaSelection([]);
+    Globals::setFirstDayManaSelection([]);
     $this->gamestate->setPlayersMultiactive($pIds, '', true);
     $this->gamestate->nextState('');
+  }
+
+  // Choose card(s) to put as mana
+  function argsFirstDayManaSelection()
+  {
+    $selection = Globals::getFirstDayManaSelection();
+    $args = [
+      'canPass' => false,
+      '_private' => [],
+    ];
+
+    foreach (Players::getAll() as $pId => $player) {
+      $hand = $player->getHand();
+      $args['_private'][$pId] = [
+        'n' => 3,
+        'cards' => $hand->getIds(),
+        'selection' => $selection[$pId] ?? null,
+      ];
+    }
+
+    return $args;
+  }
+
+  public function actFirstDayManaSelection($cardIds)
+  {
+    self::checkAction('actFirstDayManaSelection');
+    $player = Players::getCurrent();
+    $args = $this->argsFirstDayManaSelection()['_private'][$player->getId()];
+
+    if (count($cardIds) != $args['n']) {
+      throw new \BgaUserException(clienttranslate('You must select the correct number of cards to put as mana'));
+    }
+    if (!empty(array_diff($cardIds, $args['cards']))) {
+      throw new \BgaUserException('Invalid card to select. Should not happen');
+    }
+
+    $selection = Globals::getFirstDayManaSelection();
+    $selection[$player->getId()] = $cardIds;
+    Globals::setFirstDayManaSelection($selection);
+    Notifications::updateFirstDayManaSelection($player, self::argsFirstDayManaSelection());
+
+    $this->updateActivePlayersFirstDayManaSelection();
+  }
+
+  public function actCancelFirstDayManaSelection()
+  {
+    $this->gamestate->checkPossibleAction('actCancelFirstDayManaSelection');
+
+    $player = Players::getCurrent();
+    $selection = Globals::getFirstDayManaSelection();
+    unset($selection[$player->getId()]);
+    Globals::setFirstDayManaSelection($selection);
+    Notifications::updateFirstDayManaSelection($player, self::argsFirstDayManaSelection());
+
+    $this->updateActivePlayersFirstDayManaSelection();
+  }
+
+  public function updateActivePlayersFirstDayManaSelection()
+  {
+    // Compute players that still need to select their card
+    // => use that instead of BGA framework feature because in some rare case a player
+    //    might become inactive eventhough the selection failed (seen in Agricola and Rauha at least already)
+    $selection = Globals::getFirstDayManaSelection();
+    $players = Players::getAll();
+    $ids = $players->getIds();
+    $ids = array_diff($ids, array_keys($selection));
+
+    // At least one player need to make a choice
+    if (!empty($ids)) {
+      $this->gamestate->setPlayersMultiactive($ids, 'done', true);
+    }
+    // Everyone is done => discard cards and proceed
+    else {
+      $selection = Globals::getFirstDayManaSelection();
+      foreach ($players as $pId => $player) {
+        $cardIds = $selection[$pId];
+        if (empty($cardIds)) {
+          continue;
+        }
+
+        Cards::discard($cardIds, MANA);
+        $cards = Cards::getMany($cardIds);
+        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+      }
+
+      $this->checkCardListeners('Dawn', ST_BEFORE_ASSIGNMENT);
+    }
+  }
+
+  /*************************** NEW DAY**********************/
+
+  // Clear previous stuff and draw new cards
+  function stNewDay()
+  {
+    if (Players::checkVictory()) {
+      return;
+    }
+
+    $day = Globals::incDay(1);
+    $nCards = 0;
+    Globals::setSkippedPlayers([]);
+
+    $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', ST_BEFORE_ASSIGNMENT, true);
+  }
+
+  public function stNewDayDraw()
+  {
+    $player = Players::getActive();
+
+    // check if a player skipped his turn
+    $skipped = Globals::getSkippedPlayers();
+    if (in_array($player->getId(), $skipped)) {
+      // Everyone is out of round => end it
+      $remaining = array_diff(Players::getAll()->getIds(), $skipped);
+      if (empty($remaining)) {
+        $this->endCustomOrder('newDay');
+      } else {
+        $this->nextPlayerCustomOrder('newDay');
+      }
+      return;
+    }
+
+    $skipped[] = $player->getId();
+    Globals::setSkippedPlayers($skipped);
+    self::giveExtraTime($player->getId());
+
+    // Stats::incTurns($player);
+    $node = [
+      'childs' => [
+        [
+          'pId' => $player->getId(),
+          'type' => NODE_SEQ,
+          'childs' => [
+            ['action' => DRAW, 'args' => ['n' => 2, 'players' => ME]],
+            ['action' => DISCARD, 'args' => ['canPass' => true, 'n' => 1, 'source' => HAND, 'destination' => MANA]],
+          ],
+        ],
+      ],
+    ];
+
+    // Inserting leaf Action card
+    Engine::setup($node, ['order' => 'newDay']);
+    Engine::proceed();
   }
 
   // Choose card(s) to put as mana
@@ -60,7 +182,6 @@ trait NewDayTrait
     $isFirstDay = Globals::getDay() == 1;
     $selection = Globals::getNewDayManaSelection();
     $args = [
-      'descSuffix' => $isFirstDay ? 'firstday' : '',
       'canPass' => !$isFirstDay,
       '_private' => [],
     ];

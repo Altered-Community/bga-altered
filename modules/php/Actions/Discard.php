@@ -18,6 +18,11 @@ class Discard extends \ALT\Models\Action
     return ST_DISCARD;
   }
 
+  public function isOptional()
+  {
+    return $this->getCtxArg('canPass') ?? false;
+  }
+
   public function getDescription()
   {
     $location = $this->getCtxArg('destination') ?? 'discard';
@@ -57,6 +62,7 @@ class Discard extends \ALT\Models\Action
       'n' => $this->getCtxArg('n') ?? 1,
       'source' => $this->getCtxArg('source') ?? '',
       'destination' => $this->getCtxArg('destination') ?? 'discard',
+      'descSuffix' => $this->isOptional() ? 'CanPass' : '',
       '_private' => [
         'active' => [
           'cards' => $cards,
@@ -86,7 +92,7 @@ class Discard extends \ALT\Models\Action
     foreach ($cardIds as $cardId) {
       $card = Cards::get($cardId);
       $card->checkLeaveExpeditionListener();
-      if ($card->getLocation == HAND) {
+      if ($card->getLocation() == HAND) {
         $hand = true;
       }
     }
@@ -117,6 +123,8 @@ class Discard extends \ALT\Models\Action
         'source' => $args['source'],
         'destination' => $args['destination'],
       ]);
+    } elseif ($args['destination'] == MANA) {
+      Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
     } else {
       Notifications::publicDiscard($player, $cards, $msg, [
         'source' => $args['source'],

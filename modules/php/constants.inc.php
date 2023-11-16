@@ -44,8 +44,8 @@ const OPTION_CONFIRM_UNDOABLE = 104;
 const ST_GAME_SETUP = 1;
 const ST_DECK_SELECTION = 2;
 const ST_SETUP = 3; // tempest setup + deck shuffle + alterer position
-const ST_FIRST_DAY_MULTI = 4;
-const ST_FIRST_DAY_MANA = 5;
+const ST_FIRST_DAY = 4;
+const ST_FIRST_DAY_MULTI = 5;
 const ST_NEW_DAY = 6; // Mana draw, if day 1 = 7 + 3 mana
 const ST_NEW_DAY_MULTI = 7;
 const ST_NEW_DAY_BONUS = 8;

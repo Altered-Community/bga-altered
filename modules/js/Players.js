@@ -36,6 +36,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
         // Cards
         player.hand.forEach((card) => this.addCard(card));
+        this.onClick('board-discard-' + player.id, () => this.setupDiscardDialog(player.id), false);
       });
 
       this.setupPlayersCounters();

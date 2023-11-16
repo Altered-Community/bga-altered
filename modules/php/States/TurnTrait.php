@@ -143,39 +143,87 @@ trait TurnTrait
       ],
     ];
 
-    // Winner calculation
-    foreach ($players as $pId => $player) {
-      $expeditions = $player->getBiomeStrength(STORMS, true);
-      foreach ($expeditions as $expedition => $biomes) {
-        foreach ($biomes as $biome => $value) {
-          if ($winners[$expedition][$biome]['value'] < $value) {
-            $winners[$expedition][$biome]['value'] = $value;
-            $winners[$expedition][$biome]['pId'] = $pId;
-          } elseif ($winners[$expedition][$biome]['value'] == $value) {
-            $winners[$expedition][$biome]['pId'] = null;
+    if (Globals::getTieBreakerMode() == false) {
+      // Winner calculation
+      foreach ($players as $pId => $player) {
+        $expeditions = $player->getBiomeStrength(STORMS, true);
+        foreach ($expeditions as $expedition => $biomes) {
+          foreach ($biomes as $biome => $value) {
+            if ($winners[$expedition][$biome]['value'] < $value) {
+              $winners[$expedition][$biome]['value'] = $value;
+              $winners[$expedition][$biome]['pId'] = $pId;
+            } elseif ($winners[$expedition][$biome]['value'] == $value) {
+              $winners[$expedition][$biome]['pId'] = null;
+            }
           }
         }
       }
-    }
 
-    // For each player, check whether hero and/or companion move forward
-    foreach ($players as $pId => $player) {
-      $biomesByStorm = $player->getBiomeInStorms();
-      foreach ($biomesByStorm as $side => $biomes) {
-        $move = null;
-        $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
+      // For each player, check whether hero and/or companion move forward
+      foreach ($players as $pId => $player) {
+        $biomesByStorm = $player->getBiomeInStorms();
+        foreach ($biomesByStorm as $side => $biomes) {
+          $move = null;
+          $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
 
-        foreach ($biomes as $i => $biome) {
-          if ($winners[$expedition][$biome]['pId'] == $pId) {
-            $move = $biome;
+          foreach ($biomes as $i => $biome) {
+            if ($winners[$expedition][$biome]['pId'] == $pId) {
+              $move = $biome;
+            }
+            if ($move !== null) {
+              break;
+            }
           }
           if ($move !== null) {
-            break;
+            $player->advanceStorm($side, $move);
           }
         }
-        if ($move !== null) {
-          $player->advanceStorm($side, $move);
+      }
+    } else {
+      // Tie breaker mode
+      $winners = [
+        FOREST => ['pId' => null, 'value' => 0],
+        MOUNTAIN => ['pId' => null, 'value' => 0],
+        OCEAN => ['pId' => null, 'value' => 0],
+      ];
+      foreach ($players as $pId => $player) {
+        $expeditions = $player->getBiomeStrength(STORMS, true);
+        foreach ([FOREST, OCEAN, MOUNTAIN] as $biome) {
+          $value = $expeditions[STORM_LEFT][$biome] + $expeditions[STORM_RIGHT][$biome];
+          if ($winners[$biome]['value'] < $value) {
+            $winners[$biome]['value'] = $value;
+            $winners[$biome]['pId'] = $pId;
+          } elseif ($winners[$biome]['value'] == $value) {
+            $winners[$biome]['pId'] = null;
+          }
         }
+      }
+      // throw new \feException(print_r($winners));
+
+      $pWin = [];
+      $max = 0;
+      $victor = null;
+      foreach ($winners as $biome => $info) {
+        if ($info['pId'] === null) {
+          continue;
+        }
+        $pWin[$info['pId']] = ($pWin[$info['pId']] ?? 0) + 1;
+        if ($pWin[$info['pId']] > $max) {
+          $max = $pWin[$info['pId']];
+          $victor = $info['pId'];
+        } elseif ($pWin[$info['pId']] == $max) {
+          $victor = null;
+        }
+      }
+
+      if (!is_null($victor)) {
+        $player = Players::get($victor);
+        Notifications::winTieBreaker($player, $pWin[$player->getId()]);
+        $player->setScore(99);
+        $this->jumpToOrCall(ST_PRE_END_OF_GAME);
+        return;
+      } else {
+        Notifications::message(clienttranslate('No winner is found. New tiebreaker round starts'));
       }
     }
 

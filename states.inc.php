@@ -55,7 +55,7 @@ $machinestates = [
     'name' => 'deckSetup',
     'type' => 'game',
     'action' => 'stDeckSetup',
-    'transitions' => ['' => ST_NEW_DAY],
+    'transitions' => ['' => ST_FIRST_DAY],
   ],
 
   /////////////////////////////////////////////////
@@ -67,26 +67,31 @@ $machinestates = [
   //                                    |___/
   /////////////////////////////////////////////////
 
+  ST_FIRST_DAY => [
+    'name' => 'firstDay',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stFirstDay',
+    'transitions' => [
+      'done' => ST_FIRST_DAY_MULTI,
+    ],
+  ],
+
+  ST_FIRST_DAY_MULTI => [
+    'name' => 'firstDayManaSelection',
+    'type' => 'multipleactiveplayer',
+    'description' => clienttranslate('Waiting for other players to select cards to discard as mana'),
+    'descriptionmyturn' => clienttranslate('${you} must select 3 cards to discard as mana'),
+    'args' => 'argsFirstDayManaSelection',
+    'possibleactions' => ['actFirstDayManaSelection', 'actCancelFirstDayManaSelection'],
+    'transitions' => ['done' => ST_BEFORE_ASSIGNMENT, 'zombiePass' => ST_BEFORE_ASSIGNMENT],
+  ],
+
   ST_NEW_DAY => [
     'name' => 'newDay',
     'description' => '',
     'type' => 'game',
     'action' => 'stNewDay',
-    'transitions' => [
-      'done' => ST_NEW_DAY_MULTI,
-    ],
-  ],
-
-  ST_NEW_DAY_MULTI => [
-    'name' => 'newDayManaSelection',
-    'type' => 'multipleactiveplayer',
-    'description' => clienttranslate('Waiting for other players to select card to mana'),
-    'descriptionmyturn' => clienttranslate('${you} may select 1 card to discard as mana'),
-    'descriptionfirstday' => clienttranslate('Waiting for other players to select cards to discard as mana'),
-    'descriptionmyturnfirstday' => clienttranslate('${you} must select 3 cards to discard as mana'),
-    'args' => 'argsNewDayManaSelection',
-    'possibleactions' => ['actNewDayManaSelection', 'actCancelNewDayManaSelection', 'actPassNewDayManaSelection'],
-    'transitions' => ['done' => ST_BEFORE_ASSIGNMENT, 'zombiePass' => ST_BEFORE_ASSIGNMENT],
   ],
 
   //////////////////////////////
@@ -226,9 +231,11 @@ $machinestates = [
     'name' => 'discard',
     'description' => clienttranslate('${actplayer} must discard ${n} card(s) from ${source} to ${destination}'),
     'descriptionmyturn' => clienttranslate('${you} must discard ${n} card(s) from ${source} to ${destination}'),
+    'descriptionCanPass' => clienttranslate('${actplayer} may discard ${n} card(s) from ${source} to ${destination}'),
+    'descriptionmyturnCanPass' => clienttranslate('${you} may discard ${n} card(s) from ${source} to ${destination}'),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
-    'possibleactions' => ['actDiscard', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actDiscard', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
     'type' => 'activeplayer',
   ],
 

@@ -334,10 +334,13 @@ class CachedPieces extends DB_Manager
       self::checkLocation($fromLocation);
     }
     self::checkLocation($toLocation);
+    $cards = self::getInLocation($fromLocation, $fromState);
 
-    return self::getInLocation($fromLocation, $fromState)
-      ->update('location', $location)
-      ->update('state', $state);
+    if (count(explode('-', $toLocation)) > 1) {
+      $cards = $cards->where('pId', explode('-', $toLocation)[1]);
+    }
+
+    return $cards->update('location', $toLocation)->update('state', $toState);
   }
 
   /**
@@ -364,9 +367,12 @@ class CachedPieces extends DB_Manager
       ->update('location', $toLocation)
       ->update('state', $state);
 
+    $genericFromLocation = explode('-', $fromLocation)[0];
+
     // No more pieces in deck & reshuffle is active => form another deck
     if (
-      array_key_exists($fromLocation, static::$autoreshuffleCustom) &&
+      (array_key_exists($fromLocation, static::$autoreshuffleCustom) ||
+        array_key_exists($genericFromLocation, static::$autoreshuffleCustom)) &&
       count($pieces) < $nbr &&
       static::$autoreshuffle &&
       $deckReform
@@ -389,17 +395,19 @@ class CachedPieces extends DB_Manager
    */
   public static function reformDeckFromDiscard($fromLocation)
   {
+    $genericFromLocation = explode('-', $fromLocation);
+    $locationShuffle = $genericFromLocation[0];
     self::checkLocation($fromLocation);
-    if (!array_key_exists($fromLocation, static::$autoreshuffleCustom)) {
-      throw new \BgaVisibleSystemException("Class Pieces:reformDeckFromDiscard: Unknown discard location for $fromLocation !");
+    if (!array_key_exists($locationShuffle, static::$autoreshuffleCustom)) {
+      throw new \BgaVisibleSystemException("Class Pieces:reformDeckFromDiscard: Unknown discard location for $locationShuffle !");
     }
 
-    $discard = static::$autoreshuffleCustom[$fromLocation];
+    $discard = static::$autoreshuffleCustom[$locationShuffle];
     self::checkLocation($discard);
     self::moveAllInLocation($discard, $fromLocation);
     self::shuffle($fromLocation);
     if (static::$autoreshuffleListener) {
-      $obj = static::$autoreshuffleListener['obj'];
+      $obj = new static::$autoreshuffleListener['obj']();
       $method = static::$autoreshuffleListener['method'];
       $obj->$method($fromLocation);
     }

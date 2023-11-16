@@ -111,9 +111,9 @@ class Notifications
   //                                    |___/
   /////////////////////////////////////////////////
 
-  public static function updateNewDayManaSelection($player, $args)
+  public static function updateFirstDayManaSelection($player, $args)
   {
-    self::notify($player, 'updateNewDayManaSelection', '', [
+    self::notify($player, 'updateFirstDayManaSelection', '', [
       'args' => ['canPass' => $args['canPass'], '_private' => $args['_private'][$player->getId()]],
     ]);
   }
@@ -377,6 +377,14 @@ class Notifications
     self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
   }
 
+  public static function winTieBreaker($player, $n)
+  {
+    self::notifyAll('winTieBreaker', clienttranslate('${player_name} wins the tiebreaker with ${n} attributes'), [
+      'player' => $player,
+      'n' => $n,
+    ]);
+  }
+
   public static function gainMeeple($power, $card, $meeples, $source = null, $silent = true)
   {
     $n = count($meeples);
@@ -446,15 +454,14 @@ class Notifications
     self::notifyAll('message', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
   }
 
-  // public static function boost($card, $source, $tokens)
-  // {
-  //   self::notifyAll('boost', clienttranslate('${card_name} gains ${n} Boost from ${source}'), [
-  //     'card' => $card,
-  //     'tokens' => $tokens,
-  //     'n' => count($tokens),
-  //     'source' => $source,
-  //   ]);
-  // }
+  public static function shuffleDeck($player, $location, $nCards)
+  {
+    self::notifyAll('shuffleDeck', clienttranslate('${player_name} exhauts its deck and shuffle the discard'), [
+      'player' => $player,
+      'location' => $location,
+      'n' => $nCards,
+    ]);
+  }
 
   public static function spellCleanup($card, $deleted)
   {
