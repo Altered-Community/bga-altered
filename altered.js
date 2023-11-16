@@ -40,7 +40,7 @@ define([
         ['refreshHand', 200],
         ['updateInitialDeckSelection', 200],
         ['setupPlayer', 3000],
-        ['updateNewDayManaSelection', 200],
+        ['updateFirstDayManaSelection', 200],
         ['nightCleanup', null],
         ['cleanupCards', null],
         ['newFirstPlayer', null],
@@ -541,7 +541,7 @@ define([
 
       // first day, handle differently
       if (!args.canPass) {
-        this.onEnteringStateFirstNewDayManaSelection(args);
+        this.onEnteringStateFirstDayManaSelection(args);
         return;
       }
 
@@ -571,8 +571,8 @@ define([
         this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
     },
 
-    onEnteringStateFirstNewDayManaSelection(args) {
-      debug("onEnteringStateFirstNewDayManaSelection");
+    onEnteringStateFirstDayManaSelection(args) {
+      debug("onEnteringStateFirstDayManaSelection");
       this.openHand();
       if (!$('overlay-hand-container')) {
         $('altered-overlay-content').innerHTML = '';
@@ -592,8 +592,8 @@ define([
 
       // Already made a selection => allow to cancel it
       if (args._private.selection != null) {
-        this.addSecondaryActionButton('actCancelNewDayManaSelection', _('Cancel'), () =>
-          this.takeAction('actCancelNewDayManaSelection', {}, false)
+        this.addSecondaryActionButton('actCancelFirstDayManaSelection', _('Cancel'), () =>
+          this.takeAction('actCancelFirstDayManaSelection', {}, false)
         );
         args._private.selection.forEach((cardId) => {
           $(`card-${cardId}`).classList.add('selectedToMana');
@@ -606,7 +606,7 @@ define([
           class: 'selectedToMana',
           confirmText: _('Confirm Mana'),
           callback: (selectedElements, ignoredElements) =>
-            this.takeAction('actNewDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
+            this.takeAction('actFirstDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
         });
       }
     },
@@ -617,10 +617,10 @@ define([
       $('altered-overlay-content').innerHTML = '';
     },
 
-    notif_updateNewDayManaSelection(n) {
+    notif_updateFirstDayManaSelection(n) {
       this.clearPossible();
       this.updatePageTitle();
-      this.onEnteringStateNewDayManaSelection(n.args.args);
+      this.onEnteringStateFirstDayManaSelection(n.args.args);
     },
 
     ////////////////////////////////////////

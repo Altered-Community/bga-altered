@@ -111,9 +111,9 @@ class Notifications
   //                                    |___/
   /////////////////////////////////////////////////
 
-  public static function updateNewDayManaSelection($player, $args)
+  public static function updateFirstDayManaSelection($player, $args)
   {
-    self::notify($player, 'updateNewDayManaSelection', '', [
+    self::notify($player, 'updateFirstDayManaSelection', '', [
       'args' => ['canPass' => $args['canPass'], '_private' => $args['_private'][$player->getId()]],
     ]);
   }
