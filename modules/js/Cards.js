@@ -114,6 +114,42 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return $('test-cards');
     },
 
+    setupDiscardDialog(player_id) {
+      this._discardModal = new customgame.modal('discardDisplay', {
+        class: 'altered_popin',
+        autoShow: false,
+        closeIcon: 'fa-times',
+        closeAction: 'hide',
+        verticalAlign: 'flex-start',
+        contentsTpl: `<div id='modal-discard'></div><div id='discard-cards-footer'></div>`,
+        scale: 0.9,
+        breakpoint: 800,
+      });
+      // this.addPrimaryActionButton('btnShowCards', _('Show cards'), () => this._cardsChoiceModal.show());
+      // container = $('choose-cards');
+      let dis = $(`board-discard-${player_id}`);
+      document.querySelectorAll(`#board-discard-${player_id} .altered-card`).forEach((oCard) => {
+        let o = oCard.cloneNode(true);
+        let id = o.id;
+        o.id += '_discard';
+        $('modal-discard').appendChild(o);
+
+        if (this.tooltips[id]) {
+          this.registerCustomTooltip(this.tooltips[id].getContent(), o.id);
+        }
+
+      });
+      this.attachRegisteredTooltips();
+      this._discardModal.show();
+    },
+
+    openDiscardModal(player_id) {
+      $(`modal-discard-${player_id}`).innerHTML = '';
+      let dis = $(`board-discard-${player_id}`);
+      $(`modal-discard-${player_id}`).appendChild(dis);
+      this._discardModals[player_id].show();
+    },
+
     /**
      * Prepare cards for selection : get cards corresponding to ids,
      *   and make other in the same "location" unselectable
@@ -528,7 +564,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_echoEffect(n) {
       debug('Notif : playing from echo');
-      // TODO
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+      if (!$(id)) {
+        this.addCard(card, 'page-title');
+      }
+      let container = this.getCardContainer(card);
+      $(id).classList.remove('mini-card');
+
+      this.slide(id, container).then(() => {
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     notif_tap(n) {
@@ -559,6 +605,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let id = `card-${card.id}`;
       if (!$(id)) {
         this.addCard(card, 'page-title');
+      }
+      if (card.location == 'discard') {
+        $(id).classList.remove('mini-card');
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {

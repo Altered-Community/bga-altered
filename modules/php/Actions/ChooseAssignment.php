@@ -173,7 +173,7 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     $card = Cards::get($cardId);
-    Cards::discard($cardId, 'discard', $player->getId());
+    Cards::discard($cardId, 'discard');
     Notifications::echoEffect($player, $card);
 
     $effect = $card->getEffectEcho();
