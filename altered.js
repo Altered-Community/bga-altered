@@ -575,7 +575,7 @@ define([
     },
 
     onEnteringStateFirstDayManaSelection(args) {
-      debug("onEnteringStateFirstDayManaSelection");
+      debug('onEnteringStateFirstDayManaSelection');
       this.openHand();
       if (!$('overlay-hand-container')) {
         $('altered-overlay-content').innerHTML = '';
@@ -752,7 +752,7 @@ define([
           this.onClick(`card-${cardId}`, () =>
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
-              echo : t.echo, 
+              echo: t.echo,
               cardId,
               echoPossible: t.hasOwnProperty('echo') ? t.echo.includes(parseInt(cardId)) : false,
             })
@@ -762,8 +762,7 @@ define([
 
       if (t.tap) {
         t.tap.forEach((cardId) => {
-          this.onClick(`card-${cardId}`, () => 
-           this.takeAtomicAction('actTap', [cardId]));
+          this.onClick(`card-${cardId}`, () => this.takeAtomicAction('actTap', [cardId]));
         });
       }
 
@@ -831,10 +830,39 @@ define([
           </div>`;
     },
 
+    // SVG ICONS AVAILABLE :
     formatSvgIcon(name) {
-      let svgId = name + '-svg';
-      let viewBox = $(svgId).getAttribute('viewBox');
-      return `<div class='inline-icon'><svg viewBox="${viewBox}"><use href="#${svgId}" /></svg></div>`;
+      let glyphs = {
+        anchored: 1,
+        artist: 5,
+        charge: 1,
+        discard: 2,
+        fleeting: 1,
+        forest: 1,
+        hand: 1,
+        infinity: 2,
+        mountain: 1,
+        ocean: 1,
+        permanent: 1,
+        played: 1,
+        'played-from-reserve': 9,
+        reserve: 8,
+        sleep: 1,
+        tap: 1,
+      };
+
+      let icon = `<i class='svgicon-${name}'>`;
+      let nGlyphs = glyphs[name];
+      if (nGlyphs > 1) {
+        for (let i = 1; i <= nGlyphs; i++) {
+          icon += `<span class="path${i}"></span>`;
+        }
+      }
+      icon += '</i>';
+      return icon;
+      // let svgId = name + '-svg';
+      // let viewBox = $(svgId).getAttribute('viewBox');
+      // return `<div class='inline-icon'><svg viewBox="${viewBox}"><use href="#${svgId}" /></svg></div>`;
     },
 
     formatString(str) {
@@ -847,12 +875,18 @@ define([
 
       const MARKERS_MAP = {
         J: 'played',
-        M: 'played-from-hand',
-        S: 'played-from-reserve',
+        M: ['hand', 'played'],
+        S: ['played-from-reserve'],
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');
-        str = str.replace(regex, this.formatSvgIcon(MARKERS_MAP[marker]));
+
+        let svgs = MARKERS_MAP[marker];
+        if (!Array.isArray(svgs)) svgs = [svgs];
+        let svgStr = '';
+        svgs.forEach((svg) => (svgStr += this.formatSvgIcon(svg)));
+
+        str = str.replace(regex, svgStr);
       });
       // str = str.replace(/__([^_]+)__/g, '<span class="action-card-name-reference">$1</span>');
       str = str.replace(/\[G\](.+)\[\/G\]/g, '<span class="rare-marker">$1</span>');
@@ -1001,8 +1035,6 @@ define([
       // TODO?
     },
 
-    notif_message(n) {
-
-    },
+    notif_message(n) {},
   });
 });

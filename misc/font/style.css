@@ -1,0 +1,185 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?hl0zk9');
+  src:  url('fonts/icomoon.eot?hl0zk9#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?hl0zk9') format('truetype'),
+    url('fonts/icomoon.woff?hl0zk9') format('woff'),
+    url('fonts/icomoon.svg?hl0zk9#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-anchored:before {
+  content: "\e900";
+}
+.icon-artist .path1:before {
+  content: "\e901";
+  color: rgb(0, 0, 0);
+}
+.icon-artist .path2:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-artist .path3:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-artist .path4:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-artist .path5:before {
+  content: "\e905";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-charge:before {
+  content: "\e906";
+}
+.icon-discard .path1:before {
+  content: "\e907";
+  color: rgb(0, 0, 0);
+}
+.icon-discard .path2:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-fleeting:before {
+  content: "\e909";
+}
+.icon-forest:before {
+  content: "\e90a";
+}
+.icon-hand:before {
+  content: "\e90b";
+}
+.icon-infinity .path1:before {
+  content: "\e90c";
+  color: rgb(1, 2, 2);
+}
+.icon-infinity .path2:before {
+  content: "\e90d";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-mountain:before {
+  content: "\e90e";
+}
+.icon-ocean:before {
+  content: "\e90f";
+}
+.icon-permanent:before {
+  content: "\e910";
+}
+.icon-played:before {
+  content: "\e911";
+}
+.icon-played-from-reserve .path1:before {
+  content: "\e912";
+  color: rgb(0, 0, 0);
+}
+.icon-played-from-reserve .path2:before {
+  content: "\e913";
+  margin-left: -1.904296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-played-from-reserve .path3:before {
+  content: "\e914";
+  margin-left: -1.904296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-played-from-reserve .path4:before {
+  content: "\e915";
+  margin-left: -1.904296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-played-from-reserve .path5:before {
+  content: "\e916";
+  margin-left: -1.904296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-played-from-reserve .path6:before {
+  content: "\e917";
+  margin-left: -1.904296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-played-from-reserve .path7:before {
+  content: "\e918";
+  margin-left: -1.904296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-played-from-reserve .path8:before {
+  content: "\e919";
+  margin-left: -1.904296875em;
+  color: rgb(255, 255, 255);
+}
+.icon-played-from-reserve .path9:before {
+  content: "\e91a";
+  margin-left: -1.904296875em;
+  color: rgb(0, 0, 0);
+}
+.icon-reserve .path1:before {
+  content: "\e91b";
+  color: rgb(0, 0, 0);
+}
+.icon-reserve .path2:before {
+  content: "\e91c";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-reserve .path3:before {
+  content: "\e91d";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-reserve .path4:before {
+  content: "\e91e";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-reserve .path5:before {
+  content: "\e91f";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-reserve .path6:before {
+  content: "\e920";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-reserve .path7:before {
+  content: "\e921";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-reserve .path8:before {
+  content: "\e922";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-sleep:before {
+  content: "\e923";
+}
+.icon-tap:before {
+  content: "\e924";
+}

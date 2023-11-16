@@ -18,3 +18,177 @@
   width: 40px;
   height: 40px;
 }
+
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+@font-face {
+  font-family: "icomoon";
+  src: url("img/fonts/Icons/icomoon.eot?okosut");
+  src:
+    url("img/fonts/Icons/icomoon.eot?okosut#iefix") format("embedded-opentype"),
+    url("img/fonts/Icons/icomoon.ttf?okosut") format("truetype"),
+    url("img/fonts/Icons/icomoon.woff?okosut") format("woff"),
+    url("img/fonts/Icons/icomoon.svg?okosut#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="svgicon-"],
+[class*=" svgicon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  vertical-align: bottom;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.svgicon-anchored:before {
+  content: "\e900";
+}
+.svgicon-artist .path1:before {
+  content: "\e901";
+}
+.svgicon-artist .path2:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-artist .path3:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-artist .path4:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-artist .path5:before {
+  content: "\e905";
+  margin-left: -1em;
+}
+.svgicon-charge:before {
+  content: "\e906";
+}
+.svgicon-discard .path1:before {
+  content: "\e907";
+}
+.svgicon-discard .path2:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-fleeting:before {
+  content: "\e909";
+}
+.svgicon-forest:before {
+  content: "\e90a";
+}
+.svgicon-hand:before {
+  content: "\e90b";
+}
+.svgicon-infinity .path1:before {
+  content: "\e90c";
+}
+.svgicon-infinity .path2:before {
+  content: "\e90d";
+  margin-left: -1em;
+}
+.svgicon-mountain:before {
+  content: "\e90e";
+}
+.svgicon-ocean:before {
+  content: "\e90f";
+}
+.svgicon-permanent:before {
+  content: "\e910";
+}
+.svgicon-played:before {
+  content: "\e911";
+}
+.svgicon-played-from-reserve .path1:before {
+  content: "\e912";
+}
+.svgicon-played-from-reserve .path2:before {
+  content: "\e913";
+  margin-left: -1.904296875em;
+}
+.svgicon-played-from-reserve .path3:before {
+  content: "\e914";
+  margin-left: -1.904296875em;
+}
+.svgicon-played-from-reserve .path4:before {
+  content: "\e915";
+  margin-left: -1.904296875em;
+}
+.svgicon-played-from-reserve .path5:before {
+  content: "\e916";
+  margin-left: -1.904296875em;
+}
+.svgicon-played-from-reserve .path6:before {
+  content: "\e917";
+  margin-left: -1.904296875em;
+}
+.svgicon-played-from-reserve .path7:before {
+  content: "\e918";
+  margin-left: -1.904296875em;
+}
+.svgicon-played-from-reserve .path8:before {
+  content: "\e919";
+  margin-left: -1.904296875em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-played-from-reserve .path9:before {
+  content: "\e91a";
+  margin-left: -1.904296875em;
+}
+.svgicon-reserve .path1:before {
+  content: "\e91b";
+}
+.svgicon-reserve .path2:before {
+  content: "\e91c";
+  margin-left: -1em;
+}
+.svgicon-reserve .path3:before {
+  content: "\e91d";
+  margin-left: -1em;
+}
+.svgicon-reserve .path4:before {
+  content: "\e91e";
+  margin-left: -1em;
+}
+.svgicon-reserve .path5:before {
+  content: "\e91f";
+  margin-left: -1em;
+}
+.svgicon-reserve .path6:before {
+  content: "\e920";
+  margin-left: -1em;
+}
+.svgicon-reserve .path7:before {
+  content: "\e921";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-reserve .path8:before {
+  content: "\e922";
+  margin-left: -1em;
+}
+.svgicon-sleep:before {
+  content: "\e923";
+}
+.svgicon-tap:before {
+  content: "\e924";
+}
