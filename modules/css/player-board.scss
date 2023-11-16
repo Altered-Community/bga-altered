@@ -44,7 +44,6 @@
                 font-family: "Haptic Pro";
                 padding: 0px 10px;
                 color: #e6e4e4;
-                // box-shadow: 0px 0px 3px 1px black;
                 text-shadow: 0px 0px 6px black;
 
                 height: 50px;
@@ -58,6 +57,10 @@
 
                 background-image: url("img/gems.png");
                 background-size: 200% 300%;
+
+                &.bigger {
+                    box-shadow: 0px 0px 9px 5px #ff0;
+                }
             }
 
             .total-forest {

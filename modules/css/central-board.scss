@@ -65,6 +65,7 @@
 
                     &#storm-0 {
                         grid-column-start: 2;
+                        margin-left: -90px;
                     }
                     &#storm-1 {
                         grid-column-start: 3;
@@ -86,6 +87,7 @@
                     }
                     &#storm-7 {
                         grid-column-start: 9;
+                        margin-right: -90px;
                     }
 
                     .storm-slot {
@@ -94,20 +96,13 @@
                         border-radius: 10px;
                         display: flex;
                         justify-content: center;
-                        align-items: end;
+                        align-items: center;
                         box-sizing: border-box;
-                        padding: 5px;
+                        padding: 13px 5px 9px;
 
                         &:nth-child(2) {
-                            align-items: start;
+                            padding: 9px 5px 13px;
                         }
-                    }
-
-                    &#storm-0 .storm-slot {
-                        padding: 8px 17px 8px 5px;
-                    }
-                    &#storm-7 .storm-slot {
-                        padding: 8px 5px 8px 17px;
                     }
                 }
             }

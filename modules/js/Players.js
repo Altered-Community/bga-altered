@@ -14,12 +14,17 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return this.getPlayers().length == 1;
     },
 
+    getOpponent(pId) {
+      return this.orderedPlayers[0].id == pId ? this.orderedPlayers[1].id : this.orderedPlayers[0].id;
+    },
+
     setupPlayers() {
       // Change No so that it fits the current player order view
       let currentNo = this.getPlayers().reduce((carry, player) => (player.id == this.player_id ? player.no : carry), 0);
       let nPlayers = Object.keys(this.gamedatas.players).length;
       this.forEachPlayer((player) => (player.order = (player.no + nPlayers - currentNo) % nPlayers));
       this.orderedPlayers = Object.values(this.gamedatas.players).sort((a, b) => a.order - b.order);
+      this.bottomId = this.orderedPlayers[0].id;
 
       // Add player board and player panel
       this.orderedPlayers.forEach((player, i) => {
@@ -234,16 +239,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.gamedatas.players[pId].biomes = biomes;
       }
 
+      let opponentId = this.getOpponent(pId);
+
       // Update the total for each biome and each side
       ['stormLeft', 'stormRight'].forEach((storm) => {
-        // let p = { forest: 0, mountain: 0, ocean: 0 };
         let container = $(`board-${storm}-${pId}`);
-        // [...container.querySelectorAll('.altered-card')].forEach((oCard) => {
-        //   ['forest', 'mountain', 'ocean'].forEach((biome) => {
-        //     let o = oCard.querySelector(`.card-${biome}`);
-        //     if (o) p[biome] += +o.innerHTML;
-        //   });
-        // });
         p = this.gamedatas.players[pId].biomes[storm];
 
         // Update
@@ -252,6 +252,20 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           let o = container.querySelector(`.total-${biome}`);
           o.innerHTML = p[biome];
           o.dataset.size = sizes[biome];
+
+          // Compare them
+          let o2 = $(`board-${storm}-${opponentId}`).querySelector(`.total-${biome}`);
+          let v2 = this.gamedatas.players[opponentId].biomes[storm][biome];
+          if (p[biome] < v2) {
+            o.classList.remove('bigger');
+            o2.classList.add('bigger');
+          } else if (p[biome] > v2) {
+            o.classList.add('bigger');
+            o2.classList.remove('bigger');
+          } else {
+            o.classList.remove('bigger');
+            o2.classList.remove('bigger');
+          }
         });
       });
     },

@@ -61,7 +61,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     tplMeeple(meeple) {
       let type = meeple.type.charAt(0).toLowerCase() + meeple.type.substr(1);
       const PERSONAL = ['companion', 'hero'];
-      let faction = PERSONAL.includes(type) ? ` data-faction="${this.getPlayerFaction(meeple.pId)}" ` : '';
+      let faction = PERSONAL.includes(type)
+        ? ` data-faction="${this.getPlayerFaction(meeple.pId)}" data-side="${this.bottomId == meeple.pId ? 'me' : 'opponent'}" `
+        : '';
       return `<div class="altered-meeple altered-icon icon-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" data-state="${meeple.state}" ${faction}></div>`;
     },
 
