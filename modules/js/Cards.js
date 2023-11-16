@@ -235,6 +235,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     onEnteringStateDiscard(args) {
+      if (args.descSuffix == 'nightCleanUp') {
+        this.onEnteringStateNightDiscard(args);
+        return ;
+      }
       this.onSelectNCards(args._private.cards, {
         n: args.n,
         class: 'selectable',
@@ -242,6 +246,31 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
       });
     },
+
+    onEnteringStateNightDiscard(args) {
+      this.onSelectNCards(args._private.cards, {
+        n: args.n + (args.nPermanents ?? 0),
+        class: 'selectable',
+        confirmText: _('Confirm discard'),
+        updateCallback: (cIds) => {
+          // TODO
+          // debug(cIds);
+          // if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
+          // if (cIds.length > 0) {
+          //   let totalCost = cIds.reduce((carry, cId) => carry + args.costs[cId], 0);
+          //   if (totalCost <= args.n) {
+          //     this.addPrimaryActionButton(
+          //       'btnConfirmChoice',
+          //       this.fsr(_('Confirm (total: ${totalCost} energy)'), { totalCost }),
+          //       () => this.takeAtomicAction('actFulfillContractSimone', [cIds])
+          //     );
+          //   }
+          // }
+        },
+        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
+      });
+    },
+
 
     /**
      * Private notification for the player drawing the card :

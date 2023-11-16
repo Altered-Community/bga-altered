@@ -235,7 +235,8 @@ trait TurnTrait
 
     // if the player has no need to discard
     $nExceededReserve = $player->getReserveCards()->count() - $player->getReserveSlots();
-    $needToDiscard = $nExceededReserve > 0;
+    $nExceededPermanents = $player->getPermanents()->count() - $player->getPermanentSlots();
+    $needToDiscard = $nExceededReserve > 0 || $nExceededPermanents > 0;
 
     if (!$needToDiscard) {
       $skipped[] = $player->getId();
@@ -256,6 +257,8 @@ trait TurnTrait
             'source' => RESERVE,
             'destination' => 'discard',
             'n' => $nExceededReserve,
+            'special' => 'nightCleanUp',
+            'nPermanents' => $nExceededPermanents,
           ],
         ],
       ],

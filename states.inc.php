@@ -233,6 +233,12 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must discard ${n} card(s) from ${source} to ${destination}'),
     'descriptionCanPass' => clienttranslate('${actplayer} may discard ${n} card(s) from ${source} to ${destination}'),
     'descriptionmyturnCanPass' => clienttranslate('${you} may discard ${n} card(s) from ${source} to ${destination}'),
+    'descriptionnightCleanUp' => clienttranslate(
+      '${actplayer} must discard ${n} reserve card(s) and ${nPermanents} permanent card(s)'
+    ),
+    'descriptionmyturnnightCleanUp' => clienttranslate(
+      '${you} must discard ${n} reserve card(s) and ${nPermanents} permanent card(s)'
+    ),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'possibleactions' => ['actDiscard', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
