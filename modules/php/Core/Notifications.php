@@ -374,7 +374,11 @@ class Notifications
 
   public static function updateBiomes($player)
   {
-    self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
+    self::notifyAll('updateBiomes', '', [
+      'biomes' => $player->getBiomeStrength(),
+      'pId' => $player->getId(),
+      'movements' => Players::computeStorm(),
+    ]);
   }
 
   public static function winTieBreaker($player, $n)

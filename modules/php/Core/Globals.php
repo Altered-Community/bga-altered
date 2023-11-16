@@ -34,6 +34,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nightSelection' => 'obj',
     'deckSelection' => 'obj',
     'costReduction' => 'obj', // pId => character => cost
+
+    'newDayManaSelection' => 'obj', // to avoid warning for legacy games
   ];
 
   protected static $table = 'global_variables';

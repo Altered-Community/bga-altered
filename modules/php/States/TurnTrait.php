@@ -130,55 +130,9 @@ trait TurnTrait
     // TODO: multiplayer not managed (create pairs and iterate on those)
     $players = Players::getAll();
     $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
-    $winners = [
-      STORM_LEFT => [
-        FOREST => ['pId' => null, 'value' => 0],
-        MOUNTAIN => ['pId' => null, 'value' => 0],
-        OCEAN => ['pId' => null, 'value' => 0],
-      ],
-      STORM_RIGHT => [
-        FOREST => ['pId' => null, 'value' => 0],
-        MOUNTAIN => ['pId' => null, 'value' => 0],
-        OCEAN => ['pId' => null, 'value' => 0],
-      ],
-    ];
 
     if (Globals::getTieBreakerMode() == false) {
-      // Winner calculation
-      foreach ($players as $pId => $player) {
-        $expeditions = $player->getBiomeStrength(STORMS, true);
-        foreach ($expeditions as $expedition => $biomes) {
-          foreach ($biomes as $biome => $value) {
-            if ($winners[$expedition][$biome]['value'] < $value) {
-              $winners[$expedition][$biome]['value'] = $value;
-              $winners[$expedition][$biome]['pId'] = $pId;
-            } elseif ($winners[$expedition][$biome]['value'] == $value) {
-              $winners[$expedition][$biome]['pId'] = null;
-            }
-          }
-        }
-      }
-
-      // For each player, check whether hero and/or companion move forward
-      foreach ($players as $pId => $player) {
-        $biomesByStorm = $player->getBiomeInStorms();
-        foreach ($biomesByStorm as $side => $biomes) {
-          $move = null;
-          $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
-
-          foreach ($biomes as $i => $biome) {
-            if ($winners[$expedition][$biome]['pId'] == $pId) {
-              $move = $biome;
-            }
-            if ($move !== null) {
-              break;
-            }
-          }
-          if ($move !== null) {
-            $player->advanceStorm($side, $move);
-          }
-        }
-      }
+      Players::computeStorm(true);
     } else {
       // Tie breaker mode
       $winners = [

@@ -88,6 +88,7 @@ class altered extends Table
       'skippedPlayers' => Globals::getSkippedPlayers(),
       'storm' => Globals::getStorm(true),
       'day' => Globals::getDay(),
+      'movements' => Players::computeStorm(),
       'tieBreaker' => Globals::getTieBreakerMode(),
     ];
   }

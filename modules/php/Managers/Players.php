@@ -192,4 +192,64 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       $player->initializeDecks();
     }
   }
+
+  public function computeStorm($advance = false)
+  {
+    $players = self::getAll();
+    $winners = [
+      STORM_LEFT => [
+        FOREST => ['pId' => null, 'value' => 0],
+        MOUNTAIN => ['pId' => null, 'value' => 0],
+        OCEAN => ['pId' => null, 'value' => 0],
+      ],
+      STORM_RIGHT => [
+        FOREST => ['pId' => null, 'value' => 0],
+        MOUNTAIN => ['pId' => null, 'value' => 0],
+        OCEAN => ['pId' => null, 'value' => 0],
+      ],
+    ];
+
+    if (Globals::getTieBreakerMode() == false) {
+      // Winner calculation
+      foreach ($players as $pId => $player) {
+        $expeditions = $player->getBiomeStrength(STORMS, true);
+        foreach ($expeditions as $expedition => $biomes) {
+          foreach ($biomes as $biome => $value) {
+            if ($winners[$expedition][$biome]['value'] < $value) {
+              $winners[$expedition][$biome]['value'] = $value;
+              $winners[$expedition][$biome]['pId'] = $pId;
+            } elseif ($winners[$expedition][$biome]['value'] == $value) {
+              $winners[$expedition][$biome]['pId'] = null;
+            }
+          }
+        }
+      }
+
+      $movements = [];
+      // For each player, check whether hero and/or companion move forward
+      foreach ($players as $pId => $player) {
+        $biomesByStorm = $player->getBiomeInStorms();
+        foreach ($biomesByStorm as $side => $biomes) {
+          $move = null;
+          $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
+
+          foreach ($biomes as $i => $biome) {
+            if ($winners[$expedition][$biome]['pId'] == $pId) {
+              $move = $biome;
+              $movements[$pId][$side] = true;
+            }
+            if ($move !== null) {
+              break;
+            }
+          }
+
+          if ($advance === true && $move !== null) {
+            $player->advanceStorm($side, $move);
+          }
+        }
+      }
+      return $movements;
+    }
+    return [];
+  }
 }
