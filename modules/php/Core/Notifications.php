@@ -446,15 +446,14 @@ class Notifications
     self::notifyAll('message', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
   }
 
-  // public static function boost($card, $source, $tokens)
-  // {
-  //   self::notifyAll('boost', clienttranslate('${card_name} gains ${n} Boost from ${source}'), [
-  //     'card' => $card,
-  //     'tokens' => $tokens,
-  //     'n' => count($tokens),
-  //     'source' => $source,
-  //   ]);
-  // }
+  public static function shuffleDeck($player, $location, $nCards)
+  {
+    self::notifyAll('shuffleDeck', clienttranslate('${player_name} exhauts its deck and shuffle the discard'), [
+      'player' => $player,
+      'location' => $location,
+      'n' => $nCards,
+    ]);
+  }
 
   public static function spellCleanup($card, $deleted)
   {

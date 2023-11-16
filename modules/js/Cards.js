@@ -582,15 +582,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // TODO (tap card, etc.)
     },
 
-    // notif_boost(n) {
-    //   debug('Notif: boosting card', n);
-    //   // TODO slide tokens + update counters
-    // },
-
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
       // TODO
       // It can contain multiple cards!
+    },
+
+    notif_shuffleDeck(n) {
+      debug('Notif: shuffling deck', n);
+      this._playerCounters[n.args.player_id]['deckCount'].incValue(n.args.n);
+
     },
 
     notif_spellCleanup(n) {

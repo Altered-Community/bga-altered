@@ -34,6 +34,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   protected static $autoremovePrefix = false;
   protected static $autoreshuffle = true;
   protected static $autoreshuffleCustom = ['deck' => 'discard'];
+  protected static $autoreshuffleListener = ['obj' => 'ALT\Managers\Cards', 'method' => 'shuffleDeck'];
   protected static $datas = null;
 
   protected static function cast($card)
@@ -113,6 +114,12 @@ class Cards extends \ALT\Helpers\CachedPieces
     self::create($toCreate, null);
     return $deckList;
     // self::shuffle('deck-' . $pId);
+  }
+
+  public static function shuffleDeck($location)
+  {
+    $player = Players::get(explode('-', $location)[1]);
+    Notifications::shuffleDeck($player, $location, self::countInLocation($location));
   }
 
   /**

@@ -67,6 +67,7 @@ define([
         ['invokeToken', 100],
         ['afterYou', 100],
         ['roll', 100],
+        ['shuffleDeck', 100],
 
         ['payMana', 500],
         ['discard', 500],
