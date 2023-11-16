@@ -819,8 +819,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-type='character'></div>
-          <div class='card-hand-cost'>${p.costHand}</div>
-          <div class='card-reserve-cost' data-faction='${p.faction}'>${p.costReserve}</div>
+          ${p.costHand > 0 ? '<div class=\'card-hand-cost\'>'+p.costHand+'</div>' : ''}
+          ${p.costReserve > 0 ? '<div class=\'card-reserve-cost\' data-faction=\'' + p.faction+'\'>'+p.costReserve+'</div>' : ''}
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
