@@ -34,6 +34,7 @@ define([
     constructor: function () {
       this._inactiveStates = ['selectDeck', 'newDayManaSelection'];
       this._notifications = [
+        ['message', 10],
         ['midMessage', 1200],
         ['clearTurn', 200],
         ['refreshUI', 200],
@@ -68,6 +69,7 @@ define([
         ['afterYou', 100],
         ['roll', 100],
         ['shuffleDeck', 100],
+        ['winTieBreaker', 50],
 
         ['payMana', 500],
         ['discard', 500],
@@ -992,6 +994,15 @@ define([
         widthScale = WIDTH / BOARD_WIDTH,
         scale = Math.min(widthScale, heightScale);
       ROOT.style.setProperty('--boardScale', scale);
+    },
+
+    notif_winTieBreaker(n) {
+      debug('Notif: winning with tiebreaker', n);
+      // TODO?
+    },
+
+    notif_message(n) {
+
     },
   });
 });

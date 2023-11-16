@@ -377,6 +377,14 @@ class Notifications
     self::notifyAll('updateBiomes', '', ['biomes' => $player->getBiomeStrength(), 'pId' => $player->getId()]);
   }
 
+  public static function winTieBreaker($player, $n)
+  {
+    self::notifyAll('winTieBreaker', clienttranslate('${player_name} wins the tiebreaker with ${n} attributes'), [
+      'player' => $player,
+      'n' => $n,
+    ]);
+  }
+
   public static function gainMeeple($power, $card, $meeples, $source = null, $silent = true)
   {
     $n = count($meeples);

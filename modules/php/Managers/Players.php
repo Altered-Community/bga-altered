@@ -153,6 +153,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $tiebreaker = false;
     $victor = -1;
     // TODO: multiplayer mode
+    if (Globals::getTieBreakerMode() === true) {
+      return false;
+    }
 
     // check if one or multiple players crossed their tokens
     foreach (Players::getAll() as $pId => $player) {
