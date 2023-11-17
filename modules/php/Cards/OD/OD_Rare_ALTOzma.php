@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Rare_ALTOzma extends \ALT\Models\Card
@@ -21,7 +23,7 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
 
       'effectDesc' => clienttranslate('{J} If you control at least 3 other Characters, draw a card.'),
-      'echoDesc' => clienttranslate(
+      'supportDesc' => clienttranslate(
         '[G]{D} : The next Character you play this turn costs {1} less.[/G] (Discard me from your Reserve to activate this effect)'
       ),
       'changedStats' => ['forest', 'ocean'],
@@ -35,7 +37,7 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
         'condition' => 'control3OtherCharacters',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
-      'effectEcho' => [
+      'effectSupport' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
       ],

@@ -414,8 +414,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           let target = n.args.stealing
             ? $(`counter-${n.args.stealing}-${counter}`)
             : n.args.toMana
-              ? $(`counter-board-${this.player_id}-mana`)
-              : this.getVisibleTitleContainer();
+            ? $(`counter-board-${this.player_id}-mana`)
+            : this.getVisibleTitleContainer();
           return this.slide(`card-${card.id}`, target, {
             delay: 100 * i,
             duration: 1000,
@@ -588,8 +588,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
-    notif_echoEffect(n) {
-      debug('Notif : playing from echo');
+    notif_supportEffect(n) {
+      debug('Notif : playing from support');
       let card = n.args.card;
       let id = `card-${card.id}`;
       if (!$(id)) {
@@ -868,8 +868,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${p.reminders ? this.formatString(_(p.reminders)) : ''}
             </div>
           </div>
-          <div class='card-echo'>
-            ${p.echoDesc ? this.formatString(_(p.echoDesc)) : ''}
+          <div class='card-support'>
+            ${p.supportDesc ? this.formatString(_(p.supportDesc)) : ''}
           </div>
         </div>
 
@@ -955,6 +955,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
         </div>
         <div class='altered-card-statuses'></div>
+      </div>`;
+    },
+
+    tplPermanentCardTooltip(card) {
+      let p = card.properties;
+      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+        ${this.tplPermanentCard(card, true, false)}
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
 

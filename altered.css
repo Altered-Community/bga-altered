@@ -691,7 +691,7 @@ html {
       top: 280px; }
     .altered-card .altered-card-wrapper .card-frame[data-frame="4"] ~ .card-text {
       top: 260px; }
-    .altered-card .altered-card-wrapper .card-echo {
+    .altered-card .altered-card-wrapper .card-support {
       position: absolute;
       z-index: 2;
       top: 371px;
@@ -864,11 +864,11 @@ html {
       .player-board-hero .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
         background: #a4b4c7ee; }
     .altered-card.mini-card .altered-card-wrapper .card-text,
-    .altered-card.mini-card .altered-card-wrapper .card-echo,
+    .altered-card.mini-card .altered-card-wrapper .card-support,
     .altered-card.mini-card .altered-card-wrapper .card-name,
     .altered-card.mini-card .altered-card-wrapper .card-typeline,
     .player-board-hero .altered-card .altered-card-wrapper .card-text,
-    .player-board-hero .altered-card .altered-card-wrapper .card-echo,
+    .player-board-hero .altered-card .altered-card-wrapper .card-support,
     .player-board-hero .altered-card .altered-card-wrapper .card-name,
     .player-board-hero .altered-card .altered-card-wrapper .card-typeline {
       display: none; }

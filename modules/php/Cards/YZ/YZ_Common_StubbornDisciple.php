@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_StubbornDisciple extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class YZ_Common_StubbornDisciple extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => 'Mage',
 
-      'echoDesc' => clienttranslate(
+      'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 0,
@@ -27,7 +28,7 @@ class YZ_Common_StubbornDisciple extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
-      'effectEcho' => [
+      'effectSupport' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1]],
       ],

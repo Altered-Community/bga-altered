@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
 use ALT\Helpers\FT;
 
 class YZ_Common_Alice extends \ALT\Models\Card
@@ -20,13 +22,13 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => 'Citizen',
 
-      'echoDesc' => clienttranslate('{D} : [After You]. (Discard me from your Reserve to activate this effect)'),
+      'supportDesc' => clienttranslate('{D} : [After You]. (Discard me from your Reserve to activate this effect)'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectEcho' => FT::ACTION(AFTER_YOU, []),
+      'effectSupport' => FT::ACTION(AFTER_YOU, []),
     ];
   }
 }
