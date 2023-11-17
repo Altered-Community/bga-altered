@@ -176,7 +176,7 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must choose an action or pass'),
     'args' => 'argsAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actPlay', 'actEcho', 'actTap', 'actPass', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actPlay', 'actSupport', 'actTap', 'actPass', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_GAIN => [

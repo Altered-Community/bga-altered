@@ -59,7 +59,7 @@ define([
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
-        ['echoEffect', 100],
+        ['supportEffect', 100],
         ['moveStormToken', null],
         ['moveToHand', null],
         ['silentKill', 200],
@@ -614,7 +614,7 @@ define([
       }
     },
 
-    onLeavingStateNewDayManaSelection() {
+    onLeavingStateFirstDayManaSelection() {
       this.closeOverlay();
       this.onChangeHandLocationSetting();
       $('altered-overlay-content').innerHTML = '';
@@ -752,9 +752,9 @@ define([
           this.onClick(`card-${cardId}`, () =>
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
-              echo: t.echo,
+              support: t.support,
               cardId,
-              echoPossible: t.hasOwnProperty('echo') ? t.echo.includes(parseInt(cardId)) : false,
+              supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
             })
           );
         });
@@ -773,7 +773,7 @@ define([
 
     onEnteringStateChooseAssignmentLocation(args) {
       this.addCancelStateBtn();
-      this.onEnteringStateChooseAssignment({ _private: { play: args.play, echo: args.echo } });
+      this.onEnteringStateChooseAssignment({ _private: { play: args.play, support: args.support } });
       let cardId = args.cardId;
       $(`card-${cardId}`).classList.add('selected');
 
@@ -793,8 +793,10 @@ define([
         this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
       });
 
-      if (args.echoPossible == true) {
-        this.addPrimaryActionButton('btnLocation' + 99, _('Echo effect'), () => this.takeAtomicAction('actEcho', [cardId]));
+      if (args.supportPossible == true) {
+        this.addPrimaryActionButton('btnLocation' + 99, _('Support ability'), () =>
+          this.takeAtomicAction('actSupport', [cardId])
+        );
       }
     },
 

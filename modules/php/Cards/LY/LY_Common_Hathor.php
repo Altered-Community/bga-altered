@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_Hathor extends \ALT\Models\Card
@@ -20,7 +22,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => 'Divinity',
 
-      'echoDesc' => clienttranslate(
+      'supportDesc' => clienttranslate(
         '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,
@@ -28,7 +30,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 3,
-      'effectEcho' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [RESERVE], 'effect' => FT::RETURN_TO_HAND()]),
+      'effectSupport' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [RESERVE], 'effect' => FT::RETURN_TO_HAND()]),
     ];
   }
 }

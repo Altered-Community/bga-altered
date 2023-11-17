@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => 'Engineer',
 
-      'echoDesc' => clienttranslate(
+      'supportDesc' => clienttranslate(
         '[G]{D} : The next Permanent you play this turn costs {1} less.[/G] (Discard me from your Reserve to activate this effect)'
       ),
       'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),

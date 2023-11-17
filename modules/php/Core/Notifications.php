@@ -330,8 +330,8 @@ class Notifications
   {
     $msg =
       $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${location}')
-        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
+      ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${location}')
+      : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -397,8 +397,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -437,9 +437,9 @@ class Notifications
     ]);
   }
 
-  public static function echoEffect($player, $card)
+  public static function supportEffect($player, $card)
   {
-    self::notifyAll('echoEffect', clienttranslate('${player_name} activates echo effect of ${card_name} and discards it'), [
+    self::notifyAll('supportEffect', clienttranslate('${player_name} activates support effect of ${card_name} and discards it'), [
       'player' => $player,
       'card' => $card,
     ]);

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Rare_TinkerBell extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => 'Fairy',
 
-      'echoDesc' => clienttranslate(
+      'supportDesc' => clienttranslate(
         '[G]{D} : Activate the {J} effect of target Permanent.[/G] (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,

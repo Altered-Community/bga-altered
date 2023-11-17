@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Models;
 
 use ALT\Managers\Players;
@@ -56,7 +57,7 @@ class Card extends \ALT\Helpers\DB_Model
     'effectPlayed' => 'obj', // Played, no mater from hand or reserve
     'effectHand' => 'obj', // played from hand
     'effectReserve' => 'obj', // played from reserve
-    'effectEcho' => 'obj',
+    'effectSupport' => 'obj',
     'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
     'effectTap' => 'obj',
 
@@ -83,7 +84,7 @@ class Card extends \ALT\Helpers\DB_Model
   // 'ocean' => ['ocean', 'int'],
   // 'boostEffect' => ['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
   // 'faction' => ['faction', 'str'],
-  // 'effectEcho' => ['effectEcho', 'obj'],
+  // 'effectSupport' => ['effectSupport', 'obj'],
   // 'effectHand' => ['effectHand', 'obj'], // played from hand
   // 'effectReserve' => ['effectReserve', 'obj'], // played from reserve
   // 'effectPassive' => ['effectPassive', 'obj'], // [[listener type => action]]: listener type to distinguish

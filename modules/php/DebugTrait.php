@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT;
+
 use ALT\Core\Globals;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -34,7 +36,7 @@ trait DebugTrait
     // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
     // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
-    // $this->actTakeAtomicAction('actEcho', [226]);
+    // $this->actTakeAtomicAction('actSupport', [226]);
     $this->actTakeAtomicAction('actTap', [236]);
     // $this->actTakeAtomicAction('actPass', []);
     // $this->actTakeAtomicAction('actDiscard', [[9]]);

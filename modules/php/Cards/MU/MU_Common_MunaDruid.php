@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Common_MunaDruid extends \ALT\Models\Card
@@ -20,7 +22,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'typeline' => clienttranslate('Common - Druid'),
       'rarity' => RARITY_COMMON,
 
-      'echoDesc' => clienttranslate(
+      'supportDesc' => clienttranslate(
         '{D} : Target Character with hand cost {3} or less becomes [[Anchored]]. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,
@@ -28,7 +30,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
-      'effectEcho' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }
 }

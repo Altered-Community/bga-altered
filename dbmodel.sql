@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `cards` (
 
 -- `boostEffect` JSON NULL, --['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
 --   `faction`VARCHAR(20),
---   `effectEcho`JSON NULL,
+--   `effectSupport`JSON NULL,
 --   `effectHand` JSON NULL, --played from hand
 --   `effectReserve` JSON NULL, -- played from reserve
 --   `effectPassive` JSON NULL, -- [[listener type => action]]: listener type to distinguish

@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_TheHatter extends \ALT\Models\Card
@@ -20,7 +22,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => 'Citizen',
 
-      'echoDesc' => clienttranslate(
+      'supportDesc' => clienttranslate(
         '{D} : Target Character with hand cost {3} or less becomes [[Anchored]]. (Discard me from your Reserve to activate this effect)'
       ),
       'reminders' => clienttranslate('He can\'t swim.'),
@@ -29,7 +31,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 4,
       'costReserve' => 5,
-      'effectEcho' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }
 }

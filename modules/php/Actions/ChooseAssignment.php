@@ -31,7 +31,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $player = Players::getActive();
     $handCards = $player->getHand();
     $reserveCards = $player->getReserveCards();
-    $actions = ['play' => [], 'echo' => [], 'tap' => []];
+    $actions = ['play' => [], 'support' => [], 'tap' => []];
 
     // 1. Play cards
     $actions['play'] = $handCards
@@ -53,10 +53,10 @@ class ChooseAssignment extends \ALT\Models\Action
         return [];
       });
 
-    // 2. Echo
-    $actions['echo'] = $reserveCards
+    // 2. Support
+    $actions['support'] = $reserveCards
       ->filter(function ($card) {
-        return !empty($card->getEffectEcho());
+        return !empty($card->getEffectSupport());
       })
       ->getIds();
 
@@ -163,10 +163,10 @@ class ChooseAssignment extends \ALT\Models\Action
   // |_____\___|_| |_|\___/
   /////////////////////////////
 
-  public function actEcho($cardId)
+  public function actSupport($cardId)
   {
     $player = Players::getActive();
-    $args = $this->argsChooseAssignment()['_private']['active']['echo'];
+    $args = $this->argsChooseAssignment()['_private']['active']['support'];
 
     if (!in_array($cardId, $args)) {
       throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
@@ -174,9 +174,9 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $card = Cards::get($cardId);
     Cards::discard($cardId, 'discard');
-    Notifications::echoEffect($player, $card);
+    Notifications::supportEffect($player, $card);
 
-    $effect = $card->getEffectEcho();
+    $effect = $card->getEffectSupport();
     if (!empty($effect)) {
       $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
       $this->insertAsChild($effect);
