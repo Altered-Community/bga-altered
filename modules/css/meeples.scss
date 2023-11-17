@@ -10,6 +10,8 @@
         background-size: 600% 200%;
         border-radius: 50%;
         box-sizing: border-box;
+        position: relative;
+
         &[data-faction="AX"] {
             background-position-x: 0%;
         }
@@ -47,6 +49,22 @@
         //         box-shadow: 0 0 0 5px rgba(255, 219, 12, 0.1);
         //     }
         // }
+
+        &.willProgress::before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 0;
+            border: 12px solid transparent;
+            border-right: 22px solid white;
+            top: 18px;
+            left: -43px;
+        }
+        &[data-type="hero"].willProgress::before {
+            border: 12px solid transparent;
+            border-left: 22px solid white;
+            left: 65px;
+        }
     }
     &[data-type="hero"] {
         background-position-y: 100%;

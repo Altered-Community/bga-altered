@@ -222,6 +222,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
         this.updateBiomeTotals(player.id);
       });
+      this.updateMovements();
     },
 
     onUpdateManaCounter(pId, v) {
@@ -281,9 +282,22 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
     },
 
+    updateMovements(movements = null) {
+      if (movements !== null) {
+        this.gamedatas.movements = movements;
+      }
+
+      [...$('storm-container').querySelectorAll('.altered-meeple')].forEach((meeple) => {
+        let pId = meeple.dataset.side == 'opponent' ? this.getOpponent(this.bottomId) : this.bottomId;
+        let willProgress = this.gamedatas.movements[pId] && this.gamedatas.movements[pId][meeple.dataset.type];
+        meeple.classList.toggle('willProgress', willProgress === true);
+      });
+    },
+
     notif_updateBiomes(n) {
       debug('Notif: updating biomes', n);
       this.updateBiomeTotals(n.args.pId, n.args.biomes);
+      this.updateMovements(n.args.movements);
     },
 
     /**
