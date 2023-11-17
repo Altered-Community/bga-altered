@@ -302,7 +302,8 @@ html {
     filter: grayscale(80%);
     -webkit-transform: translateZ(0);
     -webkit-perspective: 1000;
-    -webkit-backface-visibility: hidden; }
+    -webkit-backface-visibility: hidden;
+    opacity: 0.5; }
   .altered-card.selectable {
     cursor: pointer; }
     .altered-card.selectable:hover {
@@ -976,8 +977,10 @@ html {
 .icon-first-player {
   background-image: url("img/icons/first-player.png");
   background-size: 100%;
-  width: 40px;
-  height: 40px; }
+  width: 60px;
+  height: 60px;
+  box-shadow: 3px 3px 6px 1px black;
+  border-radius: 50%; }
 
 @font-face {
   font-family: "icomoon";
@@ -1147,7 +1150,8 @@ html {
     background-image: url("img/hero-tokens.jpg");
     background-size: 600% 200%;
     border-radius: 50%;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    position: relative; }
     .altered-meeple[data-type="companion"][data-faction="AX"], .altered-meeple[data-type="hero"][data-faction="AX"] {
       background-position-x: 0%; }
     .altered-meeple[data-type="companion"][data-faction="BR"], .altered-meeple[data-type="hero"][data-faction="BR"] {
@@ -1166,6 +1170,19 @@ html {
     .altered-meeple[data-type="companion"][data-side="opponent"], .altered-meeple[data-type="hero"][data-side="opponent"] {
       box-shadow: 0px 0px 8px 7px rgba(255, 0, 0, 0.7);
       border: 1px solid red; }
+    .altered-meeple[data-type="companion"].willProgress::before, .altered-meeple[data-type="hero"].willProgress::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 0;
+      border: 12px solid transparent;
+      border-right: 22px solid white;
+      top: 18px;
+      left: -43px; }
+    .altered-meeple[data-type="companion"][data-type="hero"].willProgress::before, .altered-meeple[data-type="hero"][data-type="hero"].willProgress::before {
+      border: 12px solid transparent;
+      border-left: 22px solid white;
+      left: 65px; }
   .altered-meeple[data-type="hero"] {
     background-position-y: 100%; }
   .altered-meeple[data-type="fleeting"] {
@@ -1326,19 +1343,30 @@ html {
 
 #focus-storm-overlay {
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 0;
-  right: 100%;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-flow: column;
-  bottom: 0;
-  transition: right 0.8s; }
-  #focus-storm-overlay.active {
-    right: 0%; }
+  pointer-events: none; }
+  #focus-storm-overlay #focus-storm-top,
+  #focus-storm-overlay #focus-storm-middle,
+  #focus-storm-overlay #focus-storm-bottom {
+    transition: opacity 0.6s;
+    opacity: 0; }
+  #focus-storm-overlay.opponentPassed #focus-storm-top {
+    opacity: 0.5; }
+  #focus-storm-overlay.mePassed #focus-storm-middle,
+  #focus-storm-overlay.mePassed #focus-storm-bottom {
+    opacity: 0.5; }
+  #focus-storm-overlay.active #focus-storm-top,
+  #focus-storm-overlay.active #focus-storm-middle,
+  #focus-storm-overlay.active #focus-storm-bottom {
+    opacity: 1; }
   #focus-storm-overlay #focus-storm-top {
     height: calc(var(--boardScale) * 460px);
     width: 100%;
-    opacity: 1;
     box-shadow: 10px -10px 10px rgba(0, 0, 0, 0.8);
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
   #focus-storm-overlay #focus-storm-middle {
@@ -1380,7 +1408,8 @@ html {
         padding: 0px 121px; }
         #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container {
           grid-row: 1 / span 1;
-          grid-column-end: span 2; }
+          grid-column-end: span 2;
+          transition: opacity 0.7s, filter 0.7s; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(1) {
             grid-column-start: 1; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(2) {
@@ -1391,6 +1420,12 @@ html {
             grid-column-start: 7; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(5) {
             grid-column-start: 9; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container.useless {
+            opacity: 0.4;
+            filter: grayscale(80%);
+            -webkit-transform: translateZ(0);
+            -webkit-perspective: 1000;
+            -webkit-backface-visibility: hidden; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card {
             width: 260px;
             height: 186px;
@@ -1453,7 +1488,25 @@ html {
   position: relative; }
   .altered-player-board .player-board-hero {
     position: absolute;
-    width: 120px; }
+    width: 120px;
+    height: 160px;
+    background: #ffffff78;
+    border-radius: 7px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 0px 0px #ffe300;
+    transition: box-shadow 0.5s; }
+    .altered-player-board .player-board-hero.active {
+      box-shadow: 0px 0px 15px 8px #ffe300; }
+    .altered-player-board .player-board-hero .altered-first-player-holder {
+      position: absolute;
+      height: 60px;
+      width: 60px;
+      right: 1px;
+      top: 90px;
+      z-index: 3; }
   .altered-player-board .player-board-storm {
     position: absolute;
     width: 436px;
@@ -1697,13 +1750,6 @@ html {
   cursor: pointer;
   vertical-align: bottom;
   margin-left: 3px; }
-
-.altered-first-player-holder {
-  position: absolute;
-  height: 40px;
-  right: 49px;
-  top: 7px;
-  width: 40px; }
 
 .player_score .player_score_value {
   display: none; }

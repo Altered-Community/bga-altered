@@ -47,6 +47,7 @@ define([
         ['newFirstPlayer', null],
         ['startDusk', 1200],
         ['endDusk', 1200],
+        ['passTurn', 800],
 
         ['addMeeples', null],
         ['looseMeeples', null],
@@ -272,8 +273,8 @@ define([
         $('storm-container').insertAdjacentHTML(
           'beforeend',
           `<div class='storm-space' id='storm-${i}'>
-            <div class='storm-slot' id='storm-${i}-opponent'></div>
-            <div class='storm-slot' id='storm-${i}-player'></div>
+            <div class='storm-slot' id='storm-${i}-opponent' data-x="${i}"></div>
+            <div class='storm-slot' id='storm-${i}-player' data-x="${i}"></div>
           </div>`
         );
       }
@@ -340,7 +341,7 @@ define([
     notif_refreshUI(n) {
       debug('Notif: refreshing UI', n);
 
-      ['meeples', 'players', 'cards'].forEach((value) => {
+      Object.keys(n.args.datas).forEach((value) => {
         this.gamedatas[value] = n.args.datas[value];
       });
       this.setupCards();
@@ -378,6 +379,13 @@ define([
     onEnteringState(stateName, args) {
       debug('Entering state: ' + stateName, args);
       if (this.isFastMode() && ![].includes(stateName)) return;
+
+      if (args.type == 'activeplayer') {
+        let pId1 = args.active_player,
+          pId2 = this.getOpponent(pId1);
+        $(`board-hero-${pId1}`).classList.add('active');
+        $(`board-hero-${pId2}`).classList.remove('active');
+      }
 
       if (args.args && args.args.descSuffix) {
         this.changePageTitle(args.args.descSuffix);

@@ -24,7 +24,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let nPlayers = Object.keys(this.gamedatas.players).length;
       this.forEachPlayer((player) => (player.order = (player.no + nPlayers - currentNo) % nPlayers));
       this.orderedPlayers = Object.values(this.gamedatas.players).sort((a, b) => a.order - b.order);
-      this.bottomId = this.orderedPlayers[0].id;
+      this.bottomPId = this.orderedPlayers[0].id;
+      this.topPId = this.orderedPlayers[1].id;
 
       // Add player board and player panel
       this.orderedPlayers.forEach((player, i) => {
@@ -105,7 +106,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               </div>
             </div>
           </div>
-          <div class='player-board-hero' id='board-hero-${pId}'></div>
+          <div class='player-board-hero' id='board-hero-${pId}'>
+            <div class="altered-first-player-holder" id="firstPlayer-${player.id}"></div>
+          </div>
           <div class='player-board-storm storm-right' id='board-stormRight-${pId}'>
             <div class="total-biomes">
               <div class='total-forest'></div>
@@ -126,7 +129,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerPanel(player) {
-      return `<div class="altered-first-player-holder" id="firstPlayer-${player.id}"></div>
+      return `
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${player.id}-totalMana"></span>
@@ -222,6 +225,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
         this.updateBiomeTotals(player.id);
       });
+      this.updateMovements();
+      this.updatePassedPlayers();
     },
 
     onUpdateManaCounter(pId, v) {
@@ -281,9 +286,49 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
     },
 
+    updateMovements(movements = null) {
+      if (movements !== null) {
+        this.gamedatas.movements = movements;
+      }
+
+      let minPos = 8,
+        maxPos = 0;
+      [...$('storm-container').querySelectorAll('.altered-meeple')].forEach((meeple) => {
+        let pId = meeple.dataset.side == 'opponent' ? this.topPId : this.bottomPId;
+        let willProgress = this.gamedatas.movements[pId] && this.gamedatas.movements[pId][meeple.dataset.type];
+        meeple.classList.toggle('willProgress', willProgress === true);
+
+        let pos = +meeple.parentNode.dataset.x;
+        if (meeple.dataset.type == 'hero') minPos = Math.min(minPos, pos);
+        else maxPos = Math.max(maxPos, pos);
+      });
+
+      let minCard = Math.floor((minPos + 1) / 2),
+        maxCard = Math.floor((maxPos + 1) / 2);
+      for (let i = 0; i < 5; i++) {
+        $(`storm-card-container-${i}`).classList.toggle('useless', i < minCard || i > maxCard);
+      }
+    },
+
     notif_updateBiomes(n) {
       debug('Notif: updating biomes', n);
       this.updateBiomeTotals(n.args.pId, n.args.biomes);
+      this.updateMovements(n.args.movements);
+    },
+
+    updatePassedPlayers(pId = null) {
+      if (pId !== null) {
+        this.gamedatas.passedPlayers.push(pId);
+      }
+
+      let skipped = this.gamedatas.passedPlayers;
+      $('focus-storm-overlay').classList.toggle('mePassed', skipped.includes(this.bottomPId));
+      $('focus-storm-overlay').classList.toggle('opponentPassed', skipped.includes(this.topPId));
+    },
+
+    notif_passTurn(n) {
+      debug('Notif: someone is over', n);
+      this.updatePassedPlayers(n.args.player_id);
     },
 
     /**
