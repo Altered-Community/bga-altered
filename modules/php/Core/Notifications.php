@@ -455,7 +455,7 @@ class Notifications
 
   public static function pass($player)
   {
-    self::notifyAll('message', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
+    self::notifyAll('passTurn', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
   }
 
   public static function shuffleDeck($player, $location, $nCards)
@@ -502,6 +502,7 @@ class Notifications
       'cards' => $datas['cards'],
       'meeples' => $datas['meeples'],
       'movements' => $datas['movements'],
+      'skippedPlayers' => $datas['skippedPlayers'],
     ];
     foreach ($fDatas['players'] as &$player) {
       $player['hand'] = []; // Hide hand !

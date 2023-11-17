@@ -62,7 +62,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let type = meeple.type.charAt(0).toLowerCase() + meeple.type.substr(1);
       const PERSONAL = ['companion', 'hero'];
       let faction = PERSONAL.includes(type)
-        ? ` data-faction="${this.getPlayerFaction(meeple.pId)}" data-side="${this.bottomId == meeple.pId ? 'me' : 'opponent'}" `
+        ? ` data-faction="${this.getPlayerFaction(meeple.pId)}" data-side="${this.bottomPId == meeple.pId ? 'me' : 'opponent'}" `
         : '';
       return `<div class="altered-meeple altered-icon icon-${type}" id="meeple-${meeple.id}" data-id="${meeple.id}" data-type="${type}" data-state="${meeple.state}" ${faction}></div>`;
     },
@@ -182,6 +182,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_moveStormToken(n) {
       debug('Notif: moving a token in the storm', n);
+      $(`meeple-${n.args.token.id}`).classList.remove('willProgress');
       let slideIt = () => this.slideResources([n.args.token]);
 
       let card = n.args.revealed;
@@ -223,7 +224,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_startDusk(n) {
       debug('Notif: starting dusk phase');
+      $('focus-storm-overlay').classList.remove('mePassed');
+      $('focus-storm-overlay').classList.remove('opponentPassed');
+      this.gamedatas.skippedPlayers = [];
       $('focus-storm-overlay').classList.add('active');
+      $(`board-hero-${this.topPId}`).classList.remove('active');
+      $(`board-hero-${this.bottomPId}`).classList.remove('active');
     },
 
     notif_endDusk(n) {

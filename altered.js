@@ -47,6 +47,7 @@ define([
         ['newFirstPlayer', null],
         ['startDusk', 1200],
         ['endDusk', 1200],
+        ['passTurn', 800],
 
         ['addMeeples', null],
         ['looseMeeples', null],
@@ -340,7 +341,7 @@ define([
     notif_refreshUI(n) {
       debug('Notif: refreshing UI', n);
 
-      ['meeples', 'players', 'cards', 'movements'].forEach((value) => {
+      Object.keys(n.args.datas).forEach((value) => {
         this.gamedatas[value] = n.args.datas[value];
       });
       this.setupCards();

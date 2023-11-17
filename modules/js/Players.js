@@ -24,7 +24,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let nPlayers = Object.keys(this.gamedatas.players).length;
       this.forEachPlayer((player) => (player.order = (player.no + nPlayers - currentNo) % nPlayers));
       this.orderedPlayers = Object.values(this.gamedatas.players).sort((a, b) => a.order - b.order);
-      this.bottomId = this.orderedPlayers[0].id;
+      this.bottomPId = this.orderedPlayers[0].id;
+      this.topPId = this.orderedPlayers[1].id;
 
       // Add player board and player panel
       this.orderedPlayers.forEach((player, i) => {
@@ -225,6 +226,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.updateBiomeTotals(player.id);
       });
       this.updateMovements();
+      this.updateSkippedPlayers();
     },
 
     onUpdateManaCounter(pId, v) {
@@ -290,7 +292,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
 
       [...$('storm-container').querySelectorAll('.altered-meeple')].forEach((meeple) => {
-        let pId = meeple.dataset.side == 'opponent' ? this.getOpponent(this.bottomId) : this.bottomId;
+        let pId = meeple.dataset.side == 'opponent' ? this.topPId : this.bottomPId;
         let willProgress = this.gamedatas.movements[pId] && this.gamedatas.movements[pId][meeple.dataset.type];
         meeple.classList.toggle('willProgress', willProgress === true);
       });
@@ -300,6 +302,21 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif: updating biomes', n);
       this.updateBiomeTotals(n.args.pId, n.args.biomes);
       this.updateMovements(n.args.movements);
+    },
+
+    updateSkippedPlayers(pId = null) {
+      if (pId !== null) {
+        this.gamedatas.skippedPlayers.push(pId);
+      }
+
+      let skipped = this.gamedatas.skippedPlayers;
+      $('focus-storm-overlay').classList.toggle('mePassed', skipped.includes(this.bottomPId));
+      $('focus-storm-overlay').classList.toggle('opponentPassed', skipped.includes(this.topPId));
+    },
+
+    notif_passTurn(n) {
+      debug('Notif: someone is over', n);
+      this.updateSkippedPlayers(n.args.player_id);
     },
 
     /**
