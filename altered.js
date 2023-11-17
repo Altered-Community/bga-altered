@@ -273,8 +273,8 @@ define([
         $('storm-container').insertAdjacentHTML(
           'beforeend',
           `<div class='storm-space' id='storm-${i}'>
-            <div class='storm-slot' id='storm-${i}-opponent'></div>
-            <div class='storm-slot' id='storm-${i}-player'></div>
+            <div class='storm-slot' id='storm-${i}-opponent' data-x="${i}"></div>
+            <div class='storm-slot' id='storm-${i}-player' data-x="${i}"></div>
           </div>`
         );
       }

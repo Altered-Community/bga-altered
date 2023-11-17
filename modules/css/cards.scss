@@ -19,6 +19,7 @@
         -webkit-transform: translateZ(0);
         -webkit-perspective: 1000;
         -webkit-backface-visibility: hidden;
+        opacity: 0.5;
     }
 
     &.selectable {

@@ -302,7 +302,8 @@ html {
     filter: grayscale(80%);
     -webkit-transform: translateZ(0);
     -webkit-perspective: 1000;
-    -webkit-backface-visibility: hidden; }
+    -webkit-backface-visibility: hidden;
+    opacity: 0.5; }
   .altered-card.selectable {
     cursor: pointer; }
     .altered-card.selectable:hover {
@@ -1407,7 +1408,8 @@ html {
         padding: 0px 121px; }
         #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container {
           grid-row: 1 / span 1;
-          grid-column-end: span 2; }
+          grid-column-end: span 2;
+          transition: opacity 0.7s, filter 0.7s; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(1) {
             grid-column-start: 1; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(2) {
@@ -1418,6 +1420,12 @@ html {
             grid-column-start: 7; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(5) {
             grid-column-start: 9; }
+          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container.useless {
+            opacity: 0.4;
+            filter: grayscale(80%);
+            -webkit-transform: translateZ(0);
+            -webkit-perspective: 1000;
+            -webkit-backface-visibility: hidden; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card {
             width: 260px;
             height: 186px;

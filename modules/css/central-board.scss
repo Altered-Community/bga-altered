@@ -39,6 +39,17 @@
                         }
                     }
 
+                    transition:
+                        opacity 0.7s,
+                        filter 0.7s;
+                    &.useless {
+                        opacity: 0.4;
+                        filter: grayscale(80%);
+                        -webkit-transform: translateZ(0);
+                        -webkit-perspective: 1000;
+                        -webkit-backface-visibility: hidden;
+                    }
+
                     .storm-card {
                         width: 260px;
                         height: 186px;

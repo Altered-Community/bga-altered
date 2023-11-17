@@ -226,7 +226,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.updateBiomeTotals(player.id);
       });
       this.updateMovements();
-      this.updateSkippedPlayers();
+      this.updatePassedPlayers();
     },
 
     onUpdateManaCounter(pId, v) {
@@ -291,11 +291,23 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.gamedatas.movements = movements;
       }
 
+      let minPos = 8,
+        maxPos = 0;
       [...$('storm-container').querySelectorAll('.altered-meeple')].forEach((meeple) => {
         let pId = meeple.dataset.side == 'opponent' ? this.topPId : this.bottomPId;
         let willProgress = this.gamedatas.movements[pId] && this.gamedatas.movements[pId][meeple.dataset.type];
         meeple.classList.toggle('willProgress', willProgress === true);
+
+        let pos = +meeple.parentNode.dataset.x;
+        if (meeple.dataset.type == 'hero') minPos = Math.min(minPos, pos);
+        else maxPos = Math.max(maxPos, pos);
       });
+
+      let minCard = Math.floor((minPos + 1) / 2),
+        maxCard = Math.floor((maxPos + 1) / 2);
+      for (let i = 0; i < 5; i++) {
+        $(`storm-card-container-${i}`).classList.toggle('useless', i < minCard || i > maxCard);
+      }
     },
 
     notif_updateBiomes(n) {
@@ -304,19 +316,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.updateMovements(n.args.movements);
     },
 
-    updateSkippedPlayers(pId = null) {
+    updatePassedPlayers(pId = null) {
       if (pId !== null) {
-        this.gamedatas.skippedPlayers.push(pId);
+        this.gamedatas.passedPlayers.push(pId);
       }
 
-      let skipped = this.gamedatas.skippedPlayers;
+      let skipped = this.gamedatas.passedPlayers;
       $('focus-storm-overlay').classList.toggle('mePassed', skipped.includes(this.bottomPId));
       $('focus-storm-overlay').classList.toggle('opponentPassed', skipped.includes(this.topPId));
     },
 
     notif_passTurn(n) {
       debug('Notif: someone is over', n);
-      this.updateSkippedPlayers(n.args.player_id);
+      this.updatePassedPlayers(n.args.player_id);
     },
 
     /**
