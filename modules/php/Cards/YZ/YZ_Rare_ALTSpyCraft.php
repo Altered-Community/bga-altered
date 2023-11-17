@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
+use ALT\Helpers\FT;
 
 class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
 {
@@ -24,6 +27,15 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'costHand' => 2,
       'costReserve' => 2,
+      'effectPlayed' => FT::SEQ(
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+        FT::ACTION(RESUPPLY, [])
+      ),
     ];
   }
 }

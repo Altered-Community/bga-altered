@@ -68,6 +68,7 @@ const ST_CHECK_CONDITION = 21;
 const ST_AFTER_YOU = 23;
 const ST_ROLL_DIE = 24;
 const ST_RESUPPLY = 25;
+const ST_MOVE_EXPEDITION = 26;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -115,6 +116,7 @@ const CHECK_CONDITION = 'CheckCondition';
 const AFTER_YOU = 'AfterYou';
 const ROLL_DIE = 'RollDie';
 const RESUPPLY = 'Resupply';
+const MOVE_EXPEDITION = 'MoveExpedition';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';
@@ -168,7 +170,7 @@ const FACTION_MU = 'MU';
 const FACTION_OD = 'OD';
 const FACTION_YZ = 'YZ';
 // const FACTIONS = [FACTION_AX, FACTION_BR, FACTION_LY, FACTION_MU, FACTION_OD, FACTION_YZ];
-const FACTIONS = [FACTION_BR, FACTION_MU, FACTION_OD, FACTION_LY];
+const FACTIONS = [FACTION_BR, FACTION_MU, FACTION_OD, FACTION_LY, FACTION_YZ];
 
 const OPPONENT = 'opponent';
 const ME = 'me';

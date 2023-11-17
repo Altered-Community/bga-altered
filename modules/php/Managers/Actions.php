@@ -27,6 +27,7 @@ class Actions
     AFTER_YOU,
     ROLL_DIE,
     RESUPPLY,
+    MOVE_EXPEDITION,
   ];
 
   public static function get($actionId, &$ctx = null)

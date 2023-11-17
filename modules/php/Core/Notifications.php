@@ -155,11 +155,16 @@ class Notifications
     self::notifyAll('endDusk', clienttranslate('Dusk phase is over, starting night phase'), []);
   }
 
-  public static function moveStormToken($player, $biome, $tokenMeeple, $stormIndex, $revealed)
+  public static function moveStormToken($player, $biome, $tokenMeeple, $stormIndex, $revealed, $source)
   {
+    $msg = clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biome}');
+    if (!is_null($source)) {
+      $msg = clienttranslate('${player_name} moves in ${expedition} due to ${card_name}\'s effect');
+    }
+
     self::notifyAll(
       'moveStormToken',
-      clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biome}'),
+      $msg,
       [
         'i18n' => ['biome', 'expedition'],
         'player' => $player,
@@ -168,6 +173,7 @@ class Notifications
         'token' => $tokenMeeple,
         'stormIndex' => $stormIndex,
         'revealed' => $revealed,
+        'card' => $source,
       ]
     );
   }

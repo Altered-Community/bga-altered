@@ -1,5 +1,9 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
+use ALT\Helpers\FT;
+
 
 class YZ_Rare_ALTKadigiranAlchemist extends \ALT\Models\Card
 {
@@ -26,6 +30,7 @@ class YZ_Rare_ALTKadigiranAlchemist extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 3,
+      'effectHand' => FT::GAIN($this, BOOST, 3),
     ];
   }
 }

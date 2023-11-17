@@ -13,7 +13,7 @@ class YZ_Common_Alice extends \ALT\Models\Card
     $this->properties = [
       'uid' => '177',
       'asset' => 'YZ-13-Alice-C',
-      'frameSize' => 1,
+      'frameSize' => 3,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Alice'),

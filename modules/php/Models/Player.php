@@ -253,15 +253,21 @@ class Player extends \ALT\Helpers\DB_Model
     return $locations;
   }
 
-  public function advanceStorm($token, $biome)
+  public function advanceStorm($token, $biome, $n = 1, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
     $tokenMeeple = $this->$getToken();
     // TODO: manage immobile
     $location = $tokenMeeple->getLocationArg();
     // if hero we increase
-    $delta = $token == HERO ? 1 : -1;
-    $sId = $location + $delta;
+    $delta = $token == HERO ? $n : $n * -1;
+    $sId = $token == HERO ? max(0, $location + $delta) : min(7, $location + $delta);
+
+    if ($sId == $location) {
+      Notifications::message(clienttranslate('${player_name} expedition cannot move'), ['player' => $this]);
+      return;
+    }
+
     // Set new location
     $tokenMeeple->setLocation('storm-' . $sId);
 
@@ -280,7 +286,9 @@ class Player extends \ALT\Helpers\DB_Model
       Globals::setStorm($storms);
     }
 
-    Notifications::moveStormToken($this, $biome, $tokenMeeple, $stormIndex, $revealed);
+    if ($notify === true) {
+      Notifications::moveStormToken($this, $biome, $tokenMeeple, $stormIndex, $revealed, $source);
+    }
   }
 
   public function nightCleanup()
