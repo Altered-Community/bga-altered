@@ -330,8 +330,8 @@ class Notifications
   {
     $msg =
       $fromLocation == RESERVE
-      ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${location}')
-      : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
+      ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
+      : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -342,7 +342,8 @@ class Notifications
       'biomes' => $player->getBiomeStrength(),
       'location' => $location,
       'fromLocation' => $fromLocation,
-      'i18n' => ['location', 'fromLocation'],
+      'displayLocation' => $location,
+      'i18n' => ['location', 'fromLocation', 'displayLocation'],
     ]);
   }
 
@@ -476,10 +477,11 @@ class Notifications
   {
     self::notifyAll(
       'invokeToken',
-      clienttranslate('${player_name} invokes ${card_name} in ${location} (${card_name2}\'s effect)'),
+      clienttranslate('${player_name} invokes ${card_name} in ${displayLocation} (${card_name2}\'s effect)'),
       [
         'player' => $player,
         'location' => $card->getLocation(),
+        'displayLocation' => $card->getLocation(),
         'card' => $card,
         'card2' => $source,
         'i18n' => ['token_type'],
@@ -649,6 +651,10 @@ class Notifications
       ];
       $data['i18n'][] = 'players_names';
       unset($data['players']);
+    }
+
+    if (isset($data['displayLocation'])) {
+      $data['displayLocation'] = $data['displayLocation'] == STORM_LEFT ? clienttranslate('Hero\'s expedition') : clienttranslate('Companion\'s expedition');
     }
 
     // if (isset($data['actionCard'])) {
