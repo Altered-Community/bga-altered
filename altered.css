@@ -534,6 +534,8 @@ html {
         background-image: url("img/frames/YZ.png"); }
       .altered-card .altered-card-wrapper .card-frame[data-type="hero"] {
         background-position: 0% 50%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="token"] {
+        background-position: 20% 50%; }
       .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="1"] {
         background-position: 40% 0%; }
       .altered-card .altered-card-wrapper .card-frame[data-type="character"][data-rarity="0"][data-frame="2"] {

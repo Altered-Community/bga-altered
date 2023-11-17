@@ -137,7 +137,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (this.tooltips[id]) {
           this.registerCustomTooltip(this.tooltips[id].getContent(), o.id);
         }
-
       });
       this.attachRegisteredTooltips();
       this._discardModal.show();
@@ -219,7 +218,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     onSelectNCards(cardIds, config, location = 'hand') {
       let elements = this.prepareCardsForSelection(cardIds, location);
-      debug (elements);
+      debug(elements);
       config.elements = elements;
       let callback = config.confirmMsg
         ? (selectedElements) => {
@@ -237,7 +236,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     onEnteringStateDiscard(args) {
       if (args.descSuffix == 'nightCleanUp') {
         this.onEnteringStateNightDiscard(args);
-        return ;
+        return;
       }
       this.onSelectNCards(args._private.cards, {
         n: args.n,
@@ -270,7 +269,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
       });
     },
-
 
     /**
      * Private notification for the player drawing the card :
@@ -354,7 +352,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // this.closeChooseCardsModal();
       let counter = 'handCount';
 
-
       this._playerCounters[n.args.player_id]['deckCount'].incValue(-n.args.cards.length);
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
@@ -417,8 +414,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           let target = n.args.stealing
             ? $(`counter-${n.args.stealing}-${counter}`)
             : n.args.toMana
-            ? $(`counter-board-${this.player_id}-mana`)
-            : this.getVisibleTitleContainer();
+              ? $(`counter-board-${this.player_id}-mana`)
+              : this.getVisibleTitleContainer();
           return this.slide(`card-${card.id}`, target, {
             delay: 100 * i,
             duration: 1000,
@@ -620,7 +617,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_shuffleDeck(n) {
       debug('Notif: shuffling deck', n);
       this._playerCounters[n.args.player_id]['deckCount'].incValue(n.args.n);
-
     },
 
     notif_spellCleanup(n) {
@@ -764,7 +760,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (type == HERO) {
         return this.tplHeroCard(card);
       } else if (type == CHARACTER) {
-        return this.tplCharacterCard(card, false, mini);
+        if (card.properties.token) return this.tplTokenCard(card, false, mini);
+        else return this.tplCharacterCard(card, false, mini);
       } else if (type == SPELL) {
         return this.tplSpellCard(card, false, mini);
       } else if (type == PERMANENT) {
@@ -780,13 +777,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (type == HERO) {
         return this.tplHeroCardTooltip(card);
       } else if (type == CHARACTER) {
-        return this.tplCharacterCardTooltip(card);
+        if (card.properties.token) return this.tplTokenCardTooltip(card);
+        else return this.tplCharacterCardTooltip(card);
       } else if (type == SPELL) {
         return this.tplSpellCardTooltip(card);
+      } else if (type == PERMANENT) {
+        return this.tplPermanentCardTooltip(card);
       }
-      //else if (type == PERMANENT) {
-      //   return this.tplPermanentCard(card);
-      // }
 
       return '';
     },
@@ -849,8 +846,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-type='character'></div>
-          ${p.costHand > 0 ? '<div class=\'card-hand-cost\'>'+p.costHand+'</div>' : ''}
-          ${p.costReserve > 0 ? '<div class=\'card-reserve-cost\' data-faction=\'' + p.faction+'\'>'+p.costReserve+'</div>' : ''}
+          ${p.costHand > 0 ? "<div class='card-hand-cost'>" + p.costHand + '</div>' : ''}
+          ${
+            p.costReserve > 0 ? "<div class='card-reserve-cost' data-faction='" + p.faction + "'>" + p.costReserve + '</div>' : ''
+          }
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
@@ -880,6 +879,37 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplCharacterCardTooltip(card) {
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
         ${this.tplCharacterCard(card, true, false)}
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
+      </div>`;
+    },
+
+    tplTokenCard(card, tooltip = false, mini = false) {
+      let p = card.properties;
+      let sizes = this.getBiomesUISizes(p);
+      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+        class='altered-card card-token ${mini ? 'mini-card' : ''}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+          <div class='card-frame' data-faction='${p.faction}' data-type='token'></div>
+          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-typeline'>${_(p.typeline)}</div>
+
+          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}'>${p.forest}</div>
+          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}'>${p.mountain}</div>
+          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}'>${p.ocean}</div>
+
+          <div class='card-text'>
+            <div class='card-qrcode-container'>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+            </div>
+          </div>
+        </div>
+
+        <div class='altered-card-statuses'></div>
+      </div>`;
+    },
+    tplTokenCardTooltip(card) {
+      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+        ${this.tplTokenCard(card, true, false)}
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },

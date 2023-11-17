@@ -151,6 +151,10 @@
                 background-position: 0% 50%;
             }
 
+            &[data-type="token"] {
+                background-position: 20% 50%;
+            }
+
             &[data-type="character"] {
                 // BASE
                 &[data-rarity="0"] {
