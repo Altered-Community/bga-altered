@@ -105,7 +105,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               </div>
             </div>
           </div>
-          <div class='player-board-hero' id='board-hero-${pId}'></div>
+          <div class='player-board-hero' id='board-hero-${pId}'>
+            <div class="altered-first-player-holder" id="firstPlayer-${player.id}"></div>
+          </div>
           <div class='player-board-storm storm-right' id='board-stormRight-${pId}'>
             <div class="total-biomes">
               <div class='total-forest'></div>
@@ -126,7 +128,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerPanel(player) {
-      return `<div class="altered-first-player-holder" id="firstPlayer-${player.id}"></div>
+      return `
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${player.id}-totalMana"></span>

@@ -340,7 +340,7 @@ define([
     notif_refreshUI(n) {
       debug('Notif: refreshing UI', n);
 
-      ['meeples', 'players', 'cards'].forEach((value) => {
+      ['meeples', 'players', 'cards', 'movements'].forEach((value) => {
         this.gamedatas[value] = n.args.datas[value];
       });
       this.setupCards();
@@ -378,6 +378,13 @@ define([
     onEnteringState(stateName, args) {
       debug('Entering state: ' + stateName, args);
       if (this.isFastMode() && ![].includes(stateName)) return;
+
+      if (args.type == 'activeplayer') {
+        let pId1 = args.active_player,
+          pId2 = this.getOpponent(pId1);
+        $(`board-hero-${pId1}`).classList.add('active');
+        $(`board-hero-${pId2}`).classList.remove('active');
+      }
 
       if (args.args && args.args.descSuffix) {
         this.changePageTitle(args.args.descSuffix);

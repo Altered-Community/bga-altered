@@ -330,8 +330,8 @@ class Notifications
   {
     $msg =
       $fromLocation == RESERVE
-      ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${location}')
-      : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${location}')
+        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${location}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -397,8 +397,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -501,6 +501,7 @@ class Notifications
       'players' => $datas['players'],
       'cards' => $datas['cards'],
       'meeples' => $datas['meeples'],
+      'movements' => $datas['movements'],
     ];
     foreach ($fDatas['players'] as &$player) {
       $player['hand'] = []; // Hide hand !
