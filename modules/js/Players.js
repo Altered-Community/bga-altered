@@ -98,6 +98,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               <div class='total-forest'></div>
               <div class='total-mountain'></div>
               <div class='total-ocean'></div>
+              <div class='total-biomes-highlights'>
+                <div class='total-forest-highlight'></div>
+                <div class='total-mountain-highlight'></div>
+                <div class='total-ocean-highlight'></div>
+              </div>
             </div>
           </div>
           <div class='player-board-hero' id='board-hero-${pId}'></div>
@@ -106,6 +111,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               <div class='total-forest'></div>
               <div class='total-mountain'></div>
               <div class='total-ocean'></div>
+              <div class='total-biomes-highlights'>
+                <div class='total-forest-highlight'></div>
+                <div class='total-mountain-highlight'></div>
+                <div class='total-ocean-highlight'></div>
+              </div>
             </div>
           </div>
 

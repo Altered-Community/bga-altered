@@ -1476,45 +1476,62 @@ html {
       width: 77px;
       left: -117px;
       top: -4px; }
+      .altered-player-board .player-board-storm .total-biomes .total-biomes-highlights {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0; }
+        .altered-player-board .player-board-storm .total-biomes .total-biomes-highlights div {
+          padding: 0px 10px;
+          color: #e6e4e4;
+          height: 50px;
+          width: 50px;
+          margin-bottom: 1px; }
+        .altered-player-board .player-board-storm .total-biomes .total-biomes-highlights .total-forest-highlight {
+          border-radius: 14px 0 0 4px; }
+        .altered-player-board .player-board-storm .total-biomes .total-biomes-highlights .total-mountain-highlight {
+          border-radius: 4px 0 0 4px; }
+        .altered-player-board .player-board-storm .total-biomes .total-biomes-highlights .total-ocean-highlight {
+          border-radius: 4px 0 0 14px; }
       .altered-player-board .player-board-storm .total-biomes .total-forest,
       .altered-player-board .player-board-storm .total-biomes .total-mountain,
       .altered-player-board .player-board-storm .total-biomes .total-ocean {
+        position: relative;
+        z-index: 1;
         font-family: "Haptic Pro";
         padding: 0px 10px;
         color: #e6e4e4;
         text-shadow: 0px 0px 6px black;
         height: 50px;
         width: 50px;
-        margin-bottom: 1px;
+        margin-bottom: 2px;
         font-size: 32px;
         line-height: 58px;
         font-weight: bold;
         text-align: center;
         background-image: url("img/gems.png");
         background-size: 200% 300%; }
-        .altered-player-board .player-board-storm .total-biomes .total-forest.bigger,
-        .altered-player-board .player-board-storm .total-biomes .total-mountain.bigger,
-        .altered-player-board .player-board-storm .total-biomes .total-ocean.bigger {
-          box-shadow: 0px 0px 9px 5px #ff0; }
-      .altered-player-board .player-board-storm .total-biomes .total-forest {
-        border-radius: 14px 0 0 4px; }
       .altered-player-board .player-board-storm .total-biomes .total-mountain {
-        border-radius: 4px 0 0 4px;
         background-position-y: 50%; }
       .altered-player-board .player-board-storm .total-biomes .total-ocean {
-        border-radius: 4px 0 0 14px;
         background-position-y: 100%; }
+      .altered-player-board .player-board-storm .total-biomes .total-forest.bigger ~ .total-biomes-highlights .total-forest-highlight,
+      .altered-player-board .player-board-storm .total-biomes .total-mountain.bigger ~ .total-biomes-highlights .total-mountain-highlight,
+      .altered-player-board .player-board-storm .total-biomes .total-ocean.bigger ~ .total-biomes-highlights .total-ocean-highlight {
+        box-shadow: 0px 0px 9px 5px #ff0; }
     .altered-player-board .player-board-storm.storm-right .total-biomes {
       left: 480px; }
     .altered-player-board .player-board-storm.storm-right .total-forest,
     .altered-player-board .player-board-storm.storm-right .total-mountain,
     .altered-player-board .player-board-storm.storm-right .total-ocean {
       background-position-x: 100%; }
-    .altered-player-board .player-board-storm.storm-right .total-forest {
+    .altered-player-board .player-board-storm.storm-right .total-biomes-highlights .total-forest-highlight {
       border-radius: 0 14px 4px 0; }
-    .altered-player-board .player-board-storm.storm-right .total-mountain {
+    .altered-player-board .player-board-storm.storm-right .total-biomes-highlights .total-mountain-highlight {
       border-radius: 0 4px 4px 0px; }
-    .altered-player-board .player-board-storm.storm-right .total-ocean {
+    .altered-player-board .player-board-storm.storm-right .total-biomes-highlights .total-ocean-highlight {
       border-radius: 0 4px 14px 0; }
   .altered-player-board .player-board-discard {
     width: 120px;
