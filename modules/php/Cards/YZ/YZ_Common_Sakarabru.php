@@ -26,7 +26,7 @@ class YZ_Common_Sakarabru extends \ALT\Models\Card
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
-      'costHand' => 2,
+      'costHand' => 7,
       'costReserve' => 7,
       'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT])
     ];
