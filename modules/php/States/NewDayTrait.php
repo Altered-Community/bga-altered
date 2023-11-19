@@ -18,6 +18,7 @@ trait NewDayTrait
   function stFirstDay()
   {
     $day = Globals::incDay(1);
+    Stats::incDays();
     $nCards = 6;
 
     // Draw cards and make everyone active
@@ -136,6 +137,8 @@ trait NewDayTrait
     Globals::setSkippedPlayers([]);
     Globals::setStormMoves([]);
     Cards::untapAll();
+    Stats::incDays();
+
 
     // Change first player
     $currentFirstPId = Globals::getFirstPlayer();

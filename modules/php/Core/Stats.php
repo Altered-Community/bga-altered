@@ -1,10 +1,13 @@
 <?php
+
 namespace ALT\Core;
+
 use ALT\Managers\Players;
 
 /*
  * Statistics
  */
+
 class Stats extends \ALT\Helpers\DB_Manager
 {
   protected static $table = 'stats';
@@ -65,15 +68,15 @@ class Stats extends \ALT\Helpers\DB_Manager
       if (!in_array($stat['id'] . ',player', $existingStats)) {
         foreach ($playerIds as $i => $pId) {
           $value = $default[$stat['type']];
-          if ($stat['id'] == STAT_POSITION) {
-            $value = $i + 1;
-          }
-          if ($stat['id'] == STAT_ASSOCIATION_WORKERS) {
-            $value = 1;
-          }
-          if ($stat['id'] == STAT_REPUTATION) {
-            $value = 1;
-          }
+          // if ($stat['id'] == STAT_POSITION) {
+          //   $value = $i + 1;
+          // }
+          // if ($stat['id'] == STAT_ASSOCIATION_WORKERS) {
+          //   $value = 1;
+          // }
+          // if ($stat['id'] == STAT_REPUTATION) {
+          //   $value = 1;
+          // }
 
           $values[] = [
             'stats_type' => $stat['id'],
@@ -186,28 +189,12 @@ class Stats extends \ALT\Helpers\DB_Manager
   protected function getLabels()
   {
     $labels = [
-      clienttranslate('Number of breaks'),
-
-      clienttranslate('First player'),
-      clienttranslate('Second player'),
-      clienttranslate('Third player'),
-      clienttranslate('Fourth player'),
-
-      clienttranslate('Map A'),
-      clienttranslate('Map 0'),
-      clienttranslate('Map 1: Observation Tower'),
-      clienttranslate('Map 2: Outdoor Areas'),
-      clienttranslate('Map 3: Silver Lake'),
-      clienttranslate('Map 4: Commercial Harbor'),
-      clienttranslate('Map 5: Park Restaurant'),
-      clienttranslate('Map 6: Research Institute'),
-      clienttranslate('Map 7: Ice Cream Parlors'),
-      clienttranslate('Map 8: Hollywood Hills'),
-
-      clienttranslate('No'),
-      clienttranslate('Yes'),
+      clienttranslate('Axiom'),
+      clienttranslate('Bravos'),
+      clienttranslate('Lyra'),
+      clienttranslate('Muna'),
+      clienttranslate('Ordis'),
+      clienttranslate('Yzmir'),
     ];
   }
 }
-
-?>

@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\States;
+
 use ALT\Core\Globals;
 use ALT\Core\Notifications;
 use ALT\Core\Engine;
@@ -20,14 +22,14 @@ trait SetupTrait
     Globals::setupNewGame($players, $options);
     Players::setupNewGame($players, $options);
     // Preferences::setupNewGame($players, $this->player_preferences);
-    // Stats::checkExistence();
 
     Globals::setFirstPlayer($this->getNextPlayerTable()[0]);
     Players::initializeDecks();
+    Stats::checkExistence();
 
     $this->setGameStateInitialValue('logging', false);
     $this->gamestate->setAllPlayersMultiactive();
-    // $this->activeNextPlayer();
+    $this->activeNextPlayer();
   }
 
   //////////////////////////////////////////////////////////////////
@@ -145,6 +147,7 @@ trait SetupTrait
   function stDeckSetup()
   {
     $selection = Globals::getDeckSelection();
+    $factionMap = [FACTION_AX => 1, FACTION_BR => 2, FACTION_LY => 3, FACTION_MU => 4, FACTION_OD => 5, FACTION_YZ => 6];
     foreach (Players::getAll() as $pId => $player) {
       $deckNumber = $selection[$pId];
 
@@ -161,6 +164,7 @@ trait SetupTrait
 
       // faction setup
       $player->setFaction(Globals::getPlayerDecks()[$pId][$deckNumber]['faction']);
+      Stats::setFaction($player, $factionMap[Globals::getPlayerDecks()[$pId][$deckNumber]['faction']]);
       $meeples = Meeples::setupPlayer($player);
 
       // shuffling of dec

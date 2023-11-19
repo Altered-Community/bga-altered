@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\States;
+
 use ALT\Core\Globals;
 use ALT\Core\Notifications;
 use ALT\Core\Engine;
@@ -82,7 +84,7 @@ trait TurnTrait
 
     self::giveExtraTime($player->getId());
 
-    // Stats::incTurns($player);
+    Stats::incTurns($player);
     $node = [
       'childs' => [
         [

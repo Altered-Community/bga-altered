@@ -1,6 +1,9 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
+
 class OD_Common_StickyNotesSeals extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -27,10 +30,13 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::XOR(
-          FT::ACTION(TARGET, ['minHandCost' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
-          FT::ACTION(TARGET, ['minHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
-        )
+        [
+          'optional' => true, 'type' => NODE_XOR,
+          'childs' => [
+            FT::ACTION(TARGET, ['minHandCost' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
+            FT::ACTION(TARGET, ['minHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
+          ]
+        ]
       ),
     ];
   }

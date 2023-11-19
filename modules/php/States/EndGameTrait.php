@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\States;
+
 use ALT\Core\Globals;
 use ALT\Core\Notifications;
 use ALT\Core\Engine;
@@ -35,7 +37,7 @@ trait EndGameTrait
   {
     // TODO remove in alpha
     if ($this->getBgaEnvironment() == 'studio') {
-      throw new \feException('winner');
+      // throw new \feException('winner');
     }
 
     // TODO: API call

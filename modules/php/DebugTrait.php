@@ -10,6 +10,7 @@ use ALT\Core\Game;
 use ALT\Core\Notifications;
 use ALT\Helpers\Utils;
 use ALT\Helpers\FT;
+use ALT\Core\Stats;
 use ALT\Helpers\Collection;
 
 trait DebugTrait
@@ -37,13 +38,14 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actSupport', [226]);
-    $this->actTakeAtomicAction('actTap', [236]);
+    // $this->actTakeAtomicAction('actTap', [236]);
     // $this->actTakeAtomicAction('actPass', []);
     // $this->actTakeAtomicAction('actDiscard', [[9]]);
     // $this->actTakeAtomicAction('actTarget', [[17]]);
     // $this->actTakeAtomicAction('actInvokeToken', [STORM_LEFT]);
 
     // throw new \feException(Cards::get(11)->countToken(FLEETING));
+    Stats::incDays(2);
   }
 
   function tv()

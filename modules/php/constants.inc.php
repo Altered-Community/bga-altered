@@ -194,5 +194,6 @@ const ASLEEP = 'asleep';
  ****** STATS ******
  ******************/
 
-const STAT_POSITION = 11;
-const STAT_TURN = 12;
+const STAT_DAYS = 11;
+const STAT_FACTION = 12;
+const STAT_TURN = 13;

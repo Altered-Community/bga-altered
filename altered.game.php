@@ -62,7 +62,7 @@ class altered extends Table
       'logging' => 10,
     ]);
     Engine::boot();
-    //   Stats::checkExistence();
+    // Stats::checkExistence();
   }
 
   public static function get()
