@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_Booda extends \ALT\Models\Card
@@ -26,8 +27,8 @@ class BR_Common_Booda extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'token' => true,
-      'costHand' => '',
-      'costReserve' => '',
+      'costHand' => 0,
+      'costReserve' => 0,
     ];
   }
 }

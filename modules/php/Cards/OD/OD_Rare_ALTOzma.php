@@ -13,7 +13,7 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
     $this->properties = [
       'uid' => '156',
       'asset' => 'OD-11-Ozma-R',
-      'frameSize' => 1,
+      'frameSize' => 3,
 
       'faction' => FACTION_OD,
       'name' => clienttranslate('ALT Ozma'),

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_OrdisRecruit extends \ALT\Models\Card
@@ -26,8 +27,8 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'token' => true,
-      'costReserve' => '',
-      'costHand' => '',
+      'costReserve' => 0,
+      'costHand' => 0,
     ];
   }
 }

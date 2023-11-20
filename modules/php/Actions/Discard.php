@@ -28,13 +28,20 @@ class Discard extends \ALT\Models\Action
   public function getDescription()
   {
     $location = $this->getCtxArg('destination') ?? 'discard';
-    $msg = clienttranslate('discard to ${location}');
+    $msg = clienttranslate('discard to ${location} ${card}');
     if ($location == 'discard') {
-      $msg = clienttranslate('discard');
+      $msg = clienttranslate('discard ${card}');
     }
+
+    if (!is_null($this->getCtxArg('cardId') ?? null)) {
+      $card = Cards::get($this->getCtxArg('cardId'));
+    } else {
+      $card = '';
+    }
+
     return [
       'log' => $msg,
-      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard'],
+      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard', 'card' => $card->getName()],
     ];
   }
 
@@ -48,16 +55,26 @@ class Discard extends \ALT\Models\Action
     }
   }
 
+  protected $args = [
+    'upTo' => false, // if n > 1, can the player select UP TO n cards or exactly n cards ?
+    'destination' => 'discard',
+    'n' => 1, // number of card to discard
+    'source' => '',
+    'nPermanents' => 0, // only for night clean up
+    // 'totalCost' => INFTY
+  ];
+
   public function argsDiscard()
   {
     $player = Players::getActive();
     if (($this->getCtxArg('special') ?? '') == 'nightCleanUp') {
       return [
-        'n' => $this->getCtxArg('n') ?? 1,
-        'nPermanents' => $this->getCtxArg('nPermanents'),
-        'source' => $this->getCtxArg('source') ?? '',
-        'destination' => $this->getCtxArg('destination') ?? 'discard',
+        'n' => $this->getArg('n') ?? 1,
+        'nPermanents' => $this->getArg('nPermanents'),
+        'source' => $this->getArg('source') ?? '',
+        'destination' => $this->getArg('destination'),
         'descSuffix' => 'nightCleanUp',
+        'upTo' => false,
         '_private' => [
           'active' => [
             'reserveCards' => $player->getReserveCards()->getIds(),
@@ -71,18 +88,20 @@ class Discard extends \ALT\Models\Action
       ];
     } elseif (!is_null($this->getCtxArg('cardId'))) {
       $cards = [];
-    } elseif ($this->getCtxArg('source') == HAND) {
+    } elseif ($this->getArg('source') == HAND) {
       $cards = $player->getHand()->getIds();
-    } elseif ($this->getCtxArg('source') == RESERVE) {
+    } elseif ($this->getArg('source') == RESERVE) {
       $cards = $player->getReserveCards()->getIds();
     } else {
       $cards = $player->getPlayedCards()->getIds();
     }
     return [
-      'n' => $this->getCtxArg('n') ?? 1,
-      'source' => $this->getCtxArg('source') ?? '',
-      'destination' => $this->getCtxArg('destination') ?? 'discard',
+      'n' => $this->getArg('n') ?? 1,
+      'source' => $this->getArg('source') ?? '',
+      'destination' => $this->getArg('destination'),
       'descSuffix' => $this->isOptional() ? 'CanPass' : '',
+      'upTo' => $this->getArg('upTo'),
+      // 'totalCost' => $this->getArg('totalCost'),
       '_private' => [
         'active' => [
           'cards' => $cards,
@@ -96,13 +115,17 @@ class Discard extends \ALT\Models\Action
     $player = Players::getActive();
     $args = $this->argsDiscard();
     $hand = false;
+    // $totalCost = $this->getArg('totalCost');
 
     if ($automatic === false) {
       // self::checkAction('actDiscard');
 
-      if (count($cardIds) != $args['n'] + ($args['nPermanents'] ?? 0)) {
+      if (($args['upTo'] == false && count($cardIds) != $args['n'] + ($args['nPermanents'] ?? 0))
+        || ($args['upTo'] == false && count($cardIds) > $args['n'] + ($args['nPermanents'] ?? 0))
+      ) {
         throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
       }
+
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
@@ -128,10 +151,15 @@ class Discard extends \ALT\Models\Action
     foreach ($cardIds as $cardId) {
       $card = Cards::get($cardId);
       $card->checkLeaveExpeditionListener();
+      // $totalCost += $card->getCostHand();
       if ($card->getLocation() == HAND) {
         $hand = true;
       }
     }
+
+    // if ($totalCost < 0) {
+    //   throw new \BgaUserException(clienttranslate('Total hand cost exceeds the limit of the effect'));
+    // }
 
     Cards::discard($cardIds, $args['destination']);
 
@@ -143,6 +171,8 @@ class Discard extends \ALT\Models\Action
       if ($args['destination'] == RESERVE && $card->hasToken(FLEETING)) {
         Cards::discard($cardId);
       }
+      // remove all meeples on the card
+      // TODO : manage seasoned
       $deleted = array_merge($deleted, Meeples::getInLocation('card-' . $cardId)->getIds());
       Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds());
     }
@@ -150,6 +180,8 @@ class Discard extends \ALT\Models\Action
     $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source}');
     if ($args['destination'] == HAND) {
       $msg = clienttranslate('${player_name} puts ${n} card(s) to players\' hand');
+    } elseif ($args['destination'] == 'discard') {
+      $msg = clienttranslate('${player_name} discards ${card_names} (${n} card(s))');
     } elseif ($automatic === true) {
       $msg = clienttranslate('${player_name} discards ${n} card(s)');
     }

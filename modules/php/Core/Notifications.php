@@ -251,7 +251,7 @@ class Notifications
   {
     self::notifyAll(
       'publicDiscard',
-      $publicMsg ?? clienttranslate('${player_name} discards ${card_names} (${n} card(s)'),
+      $publicMsg ?? clienttranslate('${player_name} discards ${card_names} (${n} card(s))'),
       $args + [
         'player' => $player,
         'n' => count($cards),
