@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -104,12 +106,10 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(
-          array_diff(
-            $cardIds,
-            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['permanentCards'] ?? [])
-          )
-        )
+        !empty(array_diff(
+          $cardIds,
+          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['permanentCards'] ?? [])
+        ))
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -134,15 +134,20 @@ class Discard extends \ALT\Models\Action
     }
 
     Cards::discard($cardIds, $args['destination']);
+
     $cards = Cards::getMany($cardIds);
 
     $deleted = [];
-    foreach ($cardIds as $cardId) {
+    foreach ($cards as $cardId => $card) {
+      // we discard a card that has fleeting and should go to reserve
+      if ($args['destination'] == RESERVE && $card->hasToken(FLEETING)) {
+        Cards::discard($cardId);
+      }
       $deleted = array_merge($deleted, Meeples::getInLocation('card-' . $cardId)->getIds());
       Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds());
     }
 
-    $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source} to ${destination}');
+    $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source}');
     if ($args['destination'] == HAND) {
       $msg = clienttranslate('${player_name} puts ${n} card(s) to players\' hand');
     } elseif ($automatic === true) {
