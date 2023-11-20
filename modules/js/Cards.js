@@ -600,6 +600,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
         this.updateBiomeTotals(card.pId, n.args.biomes);
+        this.updateMovements(n.args.movements);
         this.notifqueue.setSynchronousDuration(100);
       });
     },

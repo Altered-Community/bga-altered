@@ -346,6 +346,7 @@ class Notifications
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
       'biomes' => $player->getBiomeStrength(),
+      'movements' => Players::computeStorm(),
       'location' => $location,
       'fromLocation' => $fromLocation,
       'displayLocation' => $location,
@@ -404,8 +405,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -510,7 +511,7 @@ class Notifications
       'cards' => $datas['cards'],
       'meeples' => $datas['meeples'],
       'movements' => $datas['movements'],
-      'skippedPlayers' => $datas['skippedPlayers'],
+      'skippedPlayers' => $datas['passedPlayers'],
     ];
     foreach ($fDatas['players'] as &$player) {
       $player['hand'] = []; // Hide hand !
