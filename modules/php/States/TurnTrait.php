@@ -236,8 +236,8 @@ trait TurnTrait
     }
 
     // if the player has no need to discard
-    $nExceededReserve = $player->getReserveCards()->count() - $player->getReserveSlots();
-    $nExceededPermanents = $player->getPermanents()->count() - $player->getPermanentSlots();
+    $nExceededReserve = max($player->getReserveCards()->count() - $player->getReserveSlots(), 0);
+    $nExceededPermanents = max($player->getPermanents()->count() - $player->getPermanentSlots(), 0);
     $needToDiscard = $nExceededReserve > 0 || $nExceededPermanents > 0;
 
     if (!$needToDiscard) {
