@@ -48,12 +48,15 @@
         }
 
         border: 2px solid transparent;
+        border-radius: 5px;
         &.selectable {
-            border: 2px dashed black;
+            border: 2px solid rgb(89, 172, 68);
+            background: rgba(24, 219, 24, 0.2);
             cursor: pointer;
 
             &:hover {
-                border: 2px solid red;
+                border: 2px solid rgb(51, 129, 32);
+                background: rgba(17, 153, 17, 0.3);
             }
         }
 

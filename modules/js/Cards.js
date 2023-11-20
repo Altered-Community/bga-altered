@@ -390,7 +390,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     /**
      * Private notification for the player discarding the card :
      *  slide them and destroy them
-     * NOT USED
      */
     notif_pDiscardCards(n) {
       debug('Notif: private discarding cards', n);
@@ -597,9 +596,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.addCard(card, 'page-title');
       }
       $(id).classList.add('mini-card');
+      let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
+      $(id).classList.add(highlight);
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
         this.updateBiomeTotals(card.pId, n.args.biomes);
+        $(id).classList.remove(highlight);
         this.notifqueue.setSynchronousDuration(100);
       });
     },

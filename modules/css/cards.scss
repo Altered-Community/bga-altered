@@ -48,6 +48,15 @@
         box-shadow: 0px 0px 10px 0px #319cda;
     }
 
+    &.highlighted-me,
+    &.mini-card.highlighted-me {
+        box-shadow: 0px 0px 13px 5px rgba(0, 76, 255, 0.7);
+    }
+    &.highlighted-opponent,
+    &.mini-card.highlighted-opponent {
+        box-shadow: 0px 0px 13px 5px rgba(255, 0, 0, 0.7);
+    }
+
     // &.selectedToKeep {
     //     border-color: #5ec15e;
     //     box-shadow: 0px 0px 10px 0px #2be32b;
@@ -476,6 +485,16 @@ $miniCardScale: 0.33;
 
         .card-frame {
             display: none;
+        }
+    }
+
+    &.card-spell {
+        border-radius: 50%;
+        .altered-card-wrapper {
+            border-radius: 50%;
+            .card-frame {
+                border-radius: 50%;
+            }
         }
     }
 

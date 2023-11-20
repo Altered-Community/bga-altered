@@ -162,20 +162,16 @@ class Notifications
       $msg = clienttranslate('${player_name} moves in ${expedition} due to ${card_name}\'s effect');
     }
 
-    self::notifyAll(
-      'moveStormToken',
-      $msg,
-      [
-        'i18n' => ['biome', 'expedition'],
-        'player' => $player,
-        'biome' => $biome,
-        'expedition' => $tokenMeeple->getType(),
-        'token' => $tokenMeeple,
-        'stormIndex' => $stormIndex,
-        'revealed' => $revealed,
-        'card' => $source,
-      ]
-    );
+    self::notifyAll('moveStormToken', $msg, [
+      'i18n' => ['biome', 'expedition'],
+      'player' => $player,
+      'biome' => $biome,
+      'expedition' => $tokenMeeple->getType(),
+      'token' => $tokenMeeple,
+      'stormIndex' => $stormIndex,
+      'revealed' => $revealed,
+      'card' => $source,
+    ]);
   }
 
   public static function cleanupCards($player, $cards)
@@ -336,8 +332,8 @@ class Notifications
   {
     $msg =
       $fromLocation == RESERVE
-      ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
-      : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
+        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -510,7 +506,7 @@ class Notifications
       'cards' => $datas['cards'],
       'meeples' => $datas['meeples'],
       'movements' => $datas['movements'],
-      'skippedPlayers' => $datas['skippedPlayers'],
+      'passedPlayers' => $datas['passedPlayers'],
     ];
     foreach ($fDatas['players'] as &$player) {
       $player['hand'] = []; // Hide hand !
@@ -662,7 +658,10 @@ class Notifications
     }
 
     if (isset($data['displayLocation'])) {
-      $data['displayLocation'] = $data['displayLocation'] == STORM_LEFT ? clienttranslate('Hero\'s expedition') : clienttranslate('Companion\'s expedition');
+      $data['displayLocation'] =
+        $data['displayLocation'] == STORM_LEFT
+          ? clienttranslate('Hero\'s expedition')
+          : clienttranslate('Companion\'s expedition');
     }
 
     // if (isset($data['actionCard'])) {
