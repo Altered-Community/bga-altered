@@ -411,17 +411,33 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       Promise.all(
         n.args.cards.map((card, i) => {
-          let target = n.args.stealing
-            ? $(`counter-${n.args.stealing}-${counter}`)
-            : n.args.toMana
-              ? $(`counter-board-${this.player_id}-mana`)
-              : this.getVisibleTitleContainer();
-          return this.slide(`card-${card.id}`, target, {
-            delay: 100 * i,
-            duration: 1000,
-            destroy: true,
-            phantom: false,
-          });
+          // TO MANA
+          if (n.args.toMana) {
+            let target = $(`counter-board-${this.player_id}-mana`);
+            let oCard = $(`card-${card.id}`);
+            let fakeCardId = this._fakeIndex++;
+            let fakeCard = this.tplFakeCard({ id: fakeCardId });
+            return this.flipAndReplace(oCard, fakeCard)
+              .then(() =>
+                this.slide(`card-${fakeCardId}`, target, {
+                  delay: 100 * i,
+                  duration: 1000,
+                  destroy: true,
+                  phantom: false,
+                })
+              )
+              .then(() => $(`mana-cards-${this.player_id}`).insertAdjacentElement('beforeend', oCard));
+          }
+          // NORMAL
+          else {
+            let target = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : this.getVisibleTitleContainer();
+            return this.slide(`card-${card.id}`, target, {
+              delay: 100 * i,
+              duration: 1000,
+              destroy: true,
+              phantom: false,
+            });
+          }
         })
       ).then(() => {
         this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);

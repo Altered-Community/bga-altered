@@ -6,9 +6,16 @@
     display: flex;
 }
 
+.player-hand {
+    .flip-container {
+        width: calc(var(--cardScale) * 324px + 14px);
+        height: calc(var(--cardScale) * 450px + 10px);
+        // margin: -3px -5px;
+    }
+}
+
 .altered-card {
-    border: 1px solid white;
-    box-shadow: 1px 1px 4px -1px white;
+    border: 2px solid transparent;
     border-radius: 7px;
     margin: 3px 5px;
     position: relative;
@@ -23,16 +30,17 @@
     }
 
     &.selectable {
+        box-shadow: 0px 0px 10px 0px lime;
         cursor: pointer;
+        border-color: #04c104;
         &:hover {
             transform: scale(1.1);
         }
     }
 
     &.selected {
-        border: 2px solid red;
-        margin: 2px 4px;
-        box-shadow: 0px 0px 10px 0px red;
+        border: 2px solid #ffe300;
+        box-shadow: 0px 0px 10px 0px #ffe300;
     }
 
     &.selectedToMana {
@@ -121,9 +129,8 @@
 .altered-card {
     width: calc(var(--cardScale) * 324px);
     height: calc(var(--cardScale) * 450px);
-    border: none;
     box-shadow: none;
-    border-radius: calc(var(--cardScale) * 30px);
+    border-radius: calc(var(--cardScale) * 20px);
 
     .altered-card-wrapper {
         width: 324px;
@@ -460,6 +467,8 @@ $miniCardScale: 0.33;
     width: $miniCardScale * 324px;
     height: $miniCardScale * 324px;
     box-shadow: 2px 2px 5px 1px black;
+    border-radius: 10px;
+    border: none;
 
     &.card-hero {
         height: $miniCardScale * 450px;

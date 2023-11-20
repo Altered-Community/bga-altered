@@ -3,6 +3,10 @@
     height: 486px;
     position: relative;
 
+    .mana-cards-holder {
+        display: none; // TODO
+    }
+
     .player-board-hero {
         position: absolute;
         width: $cardWidth + 2 * $boardMargin;

@@ -38,6 +38,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         // Cards
         player.hand.forEach((card) => this.addCard(card));
         this.onClick('board-discard-' + player.id, () => this.setupDiscardDialog(player.id), false);
+
+        if (player.id == this.player_id) {
+          $(`player-board-${this.player_id}`).insertAdjacentHTML(
+            'beforeend',
+            `<div id='mana-cards-${this.player_id}' class='mana-cards-holder'></div>`
+          );
+        }
       });
 
       this.setupPlayersCounters();
