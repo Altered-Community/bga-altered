@@ -505,7 +505,7 @@ html {
   height: calc(var(--cardScale) * 450px);
   border: none;
   box-shadow: none;
-  border-radius: calc(var(--cardScale) * 20px); }
+  border-radius: calc(var(--cardScale) * 30px); }
   .altered-card .altered-card-wrapper {
     width: 324px;
     height: 450px;
@@ -577,6 +577,8 @@ html {
         background-position: 80% 75%; }
       .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="4"] {
         background-position: 100% 75%; }
+    .altered-card .altered-card-wrapper .rarity-gem {
+      display: none; }
     .altered-card .altered-card-wrapper .card-name {
       position: absolute;
       z-index: 2;
@@ -608,14 +610,19 @@ html {
       font-family: "Haptic Pro";
       font-weight: bold;
       font-size: 34px; }
+      .altered-card .altered-card-wrapper .card-hand-cost.altered,
+      .altered-card .altered-card-wrapper .card-reserve-cost.altered {
+        color: #eebc52; }
     .altered-card .altered-card-wrapper .card-hand-cost {
       top: 21px;
-      left: 27px;
+      left: 26px;
       font-size: 25px; }
     .altered-card .altered-card-wrapper .card-reserve-cost {
       top: 39px;
       left: 49px;
       font-size: 25px; }
+    .altered-card .altered-card-wrapper .card-costs-bg {
+      display: none; }
     .altered-card .altered-card-wrapper .card-forest,
     .altered-card .altered-card-wrapper .card-mountain,
     .altered-card .altered-card-wrapper .card-ocean {
@@ -645,6 +652,10 @@ html {
       .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
       .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
         width: 35px; }
+      .altered-card .altered-card-wrapper .card-forest.altered,
+      .altered-card .altered-card-wrapper .card-mountain.altered,
+      .altered-card .altered-card-wrapper .card-ocean.altered {
+        color: #9f794a; }
     .altered-card .altered-card-wrapper .card-forest {
       background: #abb648;
       top: 96px;
@@ -700,7 +711,10 @@ html {
       left: 20px;
       right: 84px;
       font-family: "Jali Greek Variable";
-      color: black; }
+      font-size: 13px;
+      color: white; }
+      .altered-card .altered-card-wrapper .card-support .svgicon-discard .path2:before {
+        color: black; }
   .altered-card.card-hero .card-name {
     top: 27px;
     font-style: italic; }
@@ -717,10 +731,12 @@ html {
 .altered-card.mini-card,
 .player-board-hero .altered-card {
   width: 106.92px;
-  height: 106.92px; }
+  height: 106.92px;
+  box-shadow: 2px 2px 5px 1px black; }
   .altered-card.mini-card.card-hero,
   .player-board-hero .altered-card.card-hero {
-    height: 148.5px; }
+    height: 148.5px;
+    box-shadow: none; }
     .altered-card.mini-card.card-hero .card-frame,
     .player-board-hero .altered-card.card-hero .card-frame {
       display: none; }
@@ -767,37 +783,45 @@ html {
       text-align: center;
       font-family: "Haptic Pro";
       font-weight: bold;
-      font-size: 13px;
-      line-height: 23px;
-      background: #579ccc;
-      top: -4px;
-      left: -4px;
+      font-size: 16px;
+      top: -2px;
+      left: -5px;
       width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      text-shadow: 0px 0px 5px black;
-      box-shadow: 0px 0px 5px black;
-      border: 1px solid black; }
+      height: 19px; }
     .altered-card.mini-card .altered-card-wrapper .card-reserve-cost,
     .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost {
+      z-index: 3;
+      top: 11px;
+      left: 12px; }
+    .altered-card.mini-card .altered-card-wrapper .card-costs-bg,
+    .player-board-hero .altered-card .altered-card-wrapper .card-costs-bg {
       z-index: 2;
-      top: 7px;
-      left: 11px; }
-      .altered-card.mini-card .altered-card-wrapper .card-reserve-cost[data-faction="MU"],
-      .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost[data-faction="MU"] {
-        background: #2a7533;
-        box-shadow: 0px 0px 5px #396a3f;
-        border: 1px solid #396a3f; }
-      .altered-card.mini-card .altered-card-wrapper .card-reserve-cost[data-faction="LY"],
-      .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost[data-faction="LY"] {
-        background: #a82249;
-        box-shadow: 0px 0px 5px #ce3f65;
-        border: 1px solid #ce3f65; }
-      .altered-card.mini-card .altered-card-wrapper .card-reserve-cost[data-faction="BR"],
-      .player-board-hero .altered-card .altered-card-wrapper .card-reserve-cost[data-faction="BR"] {
-        background: #5f1f16;
-        box-shadow: 0px 0px 5px #aa212e;
-        border: 1px solid #aa212e; }
+      display: block;
+      position: absolute;
+      top: -11px;
+      left: -14px;
+      width: 50px;
+      height: 45px;
+      background-image: url("img/costs.png");
+      background-size: 100% 600%; }
+      .altered-card.mini-card .altered-card-wrapper .card-costs-bg[data-faction="AX"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-costs-bg[data-faction="AX"] {
+        background-position-y: 0%; }
+      .altered-card.mini-card .altered-card-wrapper .card-costs-bg[data-faction="BR"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-costs-bg[data-faction="BR"] {
+        background-position-y: 20%; }
+      .altered-card.mini-card .altered-card-wrapper .card-costs-bg[data-faction="LY"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-costs-bg[data-faction="LY"] {
+        background-position-y: 40%; }
+      .altered-card.mini-card .altered-card-wrapper .card-costs-bg[data-faction="MU"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-costs-bg[data-faction="MU"] {
+        background-position-y: 60%; }
+      .altered-card.mini-card .altered-card-wrapper .card-costs-bg[data-faction="OD"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-costs-bg[data-faction="OD"] {
+        background-position-y: 80%; }
+      .altered-card.mini-card .altered-card-wrapper .card-costs-bg[data-faction="YZ"],
+      .player-board-hero .altered-card .altered-card-wrapper .card-costs-bg[data-faction="YZ"] {
+        background-position-y: 100%; }
     .altered-card.mini-card .altered-card-wrapper .card-forest,
     .altered-card.mini-card .altered-card-wrapper .card-mountain,
     .altered-card.mini-card .altered-card-wrapper .card-ocean,
@@ -810,7 +834,7 @@ html {
       font-family: "Haptic Pro";
       padding-left: 4px;
       color: white;
-      box-shadow: 0px 0px 6px 2px black;
+      box-shadow: 0px 0px 4px 2px black;
       text-shadow: 0px 0px 6px black;
       border-radius: 6px;
       height: 17px;
@@ -876,11 +900,31 @@ html {
     .altered-card.mini-card .altered-card-wrapper .card-frame,
     .player-board-hero .altered-card .altered-card-wrapper .card-frame {
       background: none;
-      border: 6px solid black;
+      border: 4px solid black;
       border-radius: 10px; }
       .altered-card.mini-card .altered-card-wrapper .card-frame[data-rarity="1"],
       .player-board-hero .altered-card .altered-card-wrapper .card-frame[data-rarity="1"] {
         border: 1px solid white; }
+    .altered-card.mini-card .altered-card-wrapper .rarity-gem,
+    .player-board-hero .altered-card .altered-card-wrapper .rarity-gem {
+      display: block;
+      position: absolute;
+      top: -4px;
+      left: calc(50% - 10px);
+      width: 20px;
+      height: 13px;
+      background-image: url("img/rarity-gems.png");
+      background-size: 100% 300%;
+      z-index: 4; }
+      .altered-card.mini-card .altered-card-wrapper .rarity-gem[data-rarity="0"],
+      .player-board-hero .altered-card .altered-card-wrapper .rarity-gem[data-rarity="0"] {
+        background-position-y: 0%; }
+      .altered-card.mini-card .altered-card-wrapper .rarity-gem[data-rarity="1"],
+      .player-board-hero .altered-card .altered-card-wrapper .rarity-gem[data-rarity="1"] {
+        background-position-y: 50%; }
+      .altered-card.mini-card .altered-card-wrapper .rarity-gem[data-rarity="2"],
+      .player-board-hero .altered-card .altered-card-wrapper .rarity-gem[data-rarity="2"] {
+        background-position-y: 100%; }
 
 .altered-card-tooltip {
   display: flex;

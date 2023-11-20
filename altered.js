@@ -550,36 +550,22 @@ define([
     onEnteringStateNewDayManaSelection(args) {
       if (!args._private) return;
 
-      // first day, handle differently
+      // first day, handle differently since it's multiactive
       if (!args.canPass) {
         this.onEnteringStateFirstDayManaSelection(args);
         return;
       }
 
       this.openHand();
+      this.onSelectNCards(args._private.cards, {
+        n: 1,
+        class: 'selectedToMana',
+        confirmText: _('Confirm Mana'),
+        callback: (selectedElements, ignoredElements) =>
+          this.takeAction('actNewDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
+      });
 
-      // Already made a selection => allow to cancel it
-      if (args._private.selection != null) {
-        this.addSecondaryActionButton('actCancelNewDayManaSelection', _('Cancel'), () =>
-          this.takeAction('actCancelNewDayManaSelection', {}, false)
-        );
-        args._private.selection.forEach((cardId) => {
-          $(`card-${cardId}`).classList.add('selectedToMana');
-        });
-      }
-      // No selection yet => let the user click on it
-      else {
-        this.onSelectNCards(args._private.cards, {
-          n: args._private.n,
-          class: 'selectedToMana',
-          confirmText: _('Confirm Mana'),
-          callback: (selectedElements, ignoredElements) =>
-            this.takeAction('actNewDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
-        });
-      }
-
-      if (this.isCurrentPlayerActive())
-        this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
+      this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
     },
 
     onEnteringStateFirstDayManaSelection(args) {
@@ -887,6 +873,7 @@ define([
         J: 'played',
         M: ['hand', 'played'],
         S: ['played-from-reserve'],
+        D: 'discard',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');

@@ -123,7 +123,7 @@
     height: calc(var(--cardScale) * 450px);
     border: none;
     box-shadow: none;
-    border-radius: calc(var(--cardScale) * 20px);
+    border-radius: calc(var(--cardScale) * 30px);
 
     .altered-card-wrapper {
         width: 324px;
@@ -256,6 +256,9 @@
                 }
             }
         }
+        .rarity-gem {
+            display: none;
+        }
 
         .card-name {
             position: absolute;
@@ -292,11 +295,14 @@
             font-family: "Haptic Pro";
             font-weight: bold;
             font-size: 34px;
+            &.altered {
+                color: $goldRareCostColor;
+            }
         }
 
         .card-hand-cost {
             top: 21px;
-            left: 27px;
+            left: 26px;
             font-size: 25px;
         }
 
@@ -304,6 +310,10 @@
             top: 39px;
             left: 49px;
             font-size: 25px;
+        }
+
+        .card-costs-bg {
+            display: none;
         }
 
         .card-forest,
@@ -333,6 +343,10 @@
             }
             &[data-size="3"] {
                 width: 35px;
+            }
+
+            &.altered {
+                color: $goldRareColor;
             }
         }
 
@@ -406,7 +420,12 @@
             left: 20px;
             right: 84px;
             font-family: "Jali Greek Variable";
-            color: black;
+            font-size: 13px;
+            color: white;
+
+            .svgicon-discard .path2:before {
+                color: black;
+            }
         }
     }
 
@@ -440,9 +459,11 @@ $miniCardScale: 0.33;
 .player-board-hero .altered-card {
     width: $miniCardScale * 324px;
     height: $miniCardScale * 324px;
+    box-shadow: 2px 2px 5px 1px black;
 
     &.card-hero {
         height: $miniCardScale * 450px;
+        box-shadow: none;
 
         .card-frame {
             display: none;
@@ -494,42 +515,46 @@ $miniCardScale: 0.33;
             text-align: center;
             font-family: "Haptic Pro";
             font-weight: bold;
-            font-size: 13px;
-            line-height: 23px;
-            background: #579ccc;
-            // top: 2px;
-            // left: 2px;
-            top: -4px;
-            left: -4px;
+            font-size: 16px;
+            top: -2px;
+            left: -5px;
             width: 19px;
             height: 19px;
-            border-radius: 50%;
-            text-shadow: 0px 0px 5px black;
-            box-shadow: 0px 0px 5px black;
-            border: 1px solid black;
+        }
+        .card-reserve-cost {
+            z-index: 3;
+            top: 11px;
+            left: 12px;
         }
 
-        .card-reserve-cost {
+        .card-costs-bg {
             z-index: 2;
-            top: 7px;
-            left: 11px;
-            // top: 13px;
-            // left: 17px;
+            display: block;
+            position: absolute;
+            top: -11px;
+            left: -14px;
+            width: 50px;
+            height: 45px;
+            background-image: url("img/costs.png");
+            background-size: 100% 600%;
 
-            &[data-faction="MU"] {
-                background: #2a7533;
-                box-shadow: 0px 0px 5px #396a3f;
-                border: 1px solid #396a3f;
-            }
-            &[data-faction="LY"] {
-                background: #a82249;
-                box-shadow: 0px 0px 5px #ce3f65;
-                border: 1px solid #ce3f65;
+            &[data-faction="AX"] {
+                background-position-y: 0%;
             }
             &[data-faction="BR"] {
-                background: #5f1f16;
-                box-shadow: 0px 0px 5px #aa212e;
-                border: 1px solid #aa212e;
+                background-position-y: 20%;
+            }
+            &[data-faction="LY"] {
+                background-position-y: 40%;
+            }
+            &[data-faction="MU"] {
+                background-position-y: 60%;
+            }
+            &[data-faction="OD"] {
+                background-position-y: 80%;
+            }
+            &[data-faction="YZ"] {
+                background-position-y: 100%;
             }
         }
 
@@ -543,7 +568,7 @@ $miniCardScale: 0.33;
             font-family: "Haptic Pro";
             padding-left: 4px;
             color: white;
-            box-shadow: 0px 0px 6px 2px black;
+            box-shadow: 0px 0px 4px 2px black;
             text-shadow: 0px 0px 6px black;
 
             border-radius: 6px;
@@ -600,11 +625,33 @@ $miniCardScale: 0.33;
 
         .card-frame {
             background: none;
-            border: 6px solid black;
+            border: 4px solid black;
             border-radius: 10px;
 
             &[data-rarity="1"] {
                 border: 1px solid white;
+            }
+        }
+
+        .rarity-gem {
+            display: block;
+            position: absolute;
+            top: -4px;
+            left: calc(50% - 10px);
+            width: 20px;
+            height: 13px;
+            background-image: url("img/rarity-gems.png");
+            background-size: 100% 300%;
+            z-index: 4;
+
+            &[data-rarity="0"] {
+                background-position-y: 0%;
+            }
+            &[data-rarity="1"] {
+                background-position-y: 50%;
+            }
+            &[data-rarity="2"] {
+                background-position-y: 100%;
             }
         }
     }

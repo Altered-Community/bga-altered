@@ -414,8 +414,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           let target = n.args.stealing
             ? $(`counter-${n.args.stealing}-${counter}`)
             : n.args.toMana
-            ? $(`counter-board-${this.player_id}-mana`)
-            : this.getVisibleTitleContainer();
+              ? $(`counter-board-${this.player_id}-mana`)
+              : this.getVisibleTitleContainer();
           return this.slide(`card-${card.id}`, target, {
             delay: 100 * i,
             duration: 1000,
@@ -841,21 +841,29 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplCharacterCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
+      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-character ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-type='character'></div>
-          ${p.costHand > 0 ? "<div class='card-hand-cost'>" + p.costHand + '</div>' : ''}
-          ${
-            p.costReserve > 0 ? "<div class='card-reserve-cost' data-faction='" + p.faction + "'>" + p.costReserve + '</div>' : ''
-          }
+          <div class='rarity-gem' data-rarity='${p.rarity}'></div>
+          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
+          <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>
+
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}'>${p.forest}</div>
-          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}'>${p.mountain}</div>
-          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}'>${p.ocean}</div>
+          <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' data-initial='${p.forest}'>
+            ${p.forest}
+          </div>
+          <div class='card-mountain ${changed('mountain')}' data-size='${sizes.mountain}' data-initial='${p.mountain}'>
+            ${p.mountain}
+          </div>
+          <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' data-initial='${p.ocean}'>
+            ${p.ocean}
+          </div>
 
           <div class='card-text'>
             <div class='card-qrcode-container'>
@@ -916,13 +924,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplSpellCard(card, tooltip = false, mini = false) {
       let p = card.properties;
+      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-spell ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-type='spell'></div>
-          <div class='card-hand-cost'>${p.costHand}</div>
-          <div class='card-reserve-cost'>${p.costReserve}</div>
+          <div class='rarity-gem' data-rarity='${p.rarity}'></div>
+          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
+          <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>
+
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
