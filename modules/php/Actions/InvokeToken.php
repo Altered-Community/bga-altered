@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -21,7 +23,15 @@ class InvokeToken extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return clienttranslate('Invoke a token');
+    $msg = clienttranslate('Invoke ${tokenName} in ${location}');
+    return [
+      'log' => $msg,
+      'args' => [
+        'tokenName' => $this->getToken()->getName(),
+        'location' => implode(', ', $this->getDisplayLocation()),
+        'i18n' => ['tokenName', 'location'],
+      ],
+    ];
   }
 
   public function argsInvokeToken()
@@ -56,6 +66,20 @@ class InvokeToken extends \ALT\Models\Action
   public function isIndependent($player = null)
   {
     return true;
+  }
+
+  public function getDisplayLocation()
+  {
+    $locations = $this->getCtxArg('targetLocation') ?? STORMS;
+    $displayLocation = [];
+    foreach ($locations as $loc) {
+      if ($loc == 'source') {
+        $loc = $this->getSource()->getLocation();
+      }
+      $displayLocation[] = $loc == STORM_LEFT ? clienttranslate('Hero\'s expedition')  : clienttranslate('Companion\'s expedition');
+    }
+
+    return $displayLocation;
   }
 
   public function stInvokeToken()
