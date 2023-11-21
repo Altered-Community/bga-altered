@@ -11,7 +11,7 @@ class YZ_Common_StubbornDisciple extends \ALT\Models\Card
     $this->properties = [
       'uid' => '172',
       'asset' => 'YZ-04-StedfastDisciple-C',
-      'frameSize' => 1,
+      'frameSize' => 3,
 
       'faction' => FACTION_YZ,
       'name' => clienttranslate('Stubborn Disciple'),
