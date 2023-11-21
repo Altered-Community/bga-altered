@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -31,28 +33,42 @@ class Target extends \ALT\Models\Action
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
     'excludeSelf' => false,
+    'totalCost' => INFTY
   ];
 
   public function getDescription()
   {
     $targetType = $this->getArg('targetType');
     $upTo = $this->getCtxArg('upTo') ?? false;
+    $totalCost = $this->getArg('totalCost');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
-        $msg = clienttranslate('Target up to ${n} character(s) to ${effect}');
+        if ($totalCost != INFTY) {
+          $msg = clienttranslate('Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect}');
+        } else {
+          $msg = clienttranslate('Target up to ${n} character(s) to ${effect}');
+        }
       } else {
         $msg = clienttranslate('Target ${n} character(s) to ${effect}');
       }
     } elseif (count($targetType) == 1 && $targetType == [PERMANENT]) {
       if ($upTo) {
-        $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect}');
+        if ($totalCost != INFTY) {
+          $msg = clienttranslate('Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect}');
+        } else {
+          $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect}');
+        }
       } else {
         $msg = clienttranslate('Target ${n} permanent(s) to ${effect}');
       }
     } else {
       if ($upTo) {
-        $msg = clienttranslate('Target up to ${n} card(s) to ${effect}');
+        if ($totalCost != INFTY) {
+          $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect}');
+        } else {
+          $msg = clienttranslate('Target up to ${n} card(s) to ${effect}');
+        }
       } else {
         $msg = clienttranslate('Target ${n} card(s) to ${effect}');
       }
@@ -63,13 +79,14 @@ class Target extends \ALT\Models\Action
       'args' => [
         'n' => $this->getCtxArg('n') ?? 1,
         'effect' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
+        'totalCost' => $totalCost
       ],
     ];
   }
 
   public function isDoable($player)
   {
-    return count($this->getTargetableCards($player)) != 0;
+    return $this->getArg('upTo') || count($this->getTargetableCards($player)) != 0;
   }
 
   public function getTargetableCards($player)
@@ -127,6 +144,7 @@ class Target extends \ALT\Models\Action
       'cardIds' => $cards->getIds(),
       'upTo' => $this->getArg('upTo'),
       'description' => $this->getDescription(),
+      'totalCost' => $this->getArg('totalCost'),
     ];
   }
 
@@ -142,6 +160,7 @@ class Target extends \ALT\Models\Action
   {
     $player = Players::getActive();
     $args = $this->argsTarget();
+    $totalCost = $this->getArg('totalCost');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
       throw new \BgaVisibleSystemException('You cannot target these cards. Should not happen');
@@ -157,11 +176,19 @@ class Target extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You havent selected enough cards. Should not happen');
     }
 
-    foreach ($cardIds as $cardId) {
+    $cards = Cards::getMany($cardIds);
+
+
+    foreach ($cards as $cardId => $card) {
       $node = $this->getArg('effect');
       $node['args']['cardId'] = $cardId;
       $node['sourceId'] = $this->getSourceId();
       $this->pushParallelChild($node);
+      $totalCost -= $card->getCostHand();
+    }
+
+    if ($totalCost < 0) {
+      throw new \BgaUserException(clienttranslate('Total hand cost exceeds the limit of the effect'));
     }
 
     $cards = Cards::getMany($cardIds);

@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
+use ALT\Helpers\FT;
 
 class YZ_Common_KrakensWrath extends \ALT\Models\Card
 {
@@ -26,6 +29,10 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 5,
       'costReserve' => 5,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET, ['upTo' => true, 'n' => 3, 'totalCost' => 5, 'effect' => FT::ACTION(DISCARD, [])])
+      )
     ];
   }
 }

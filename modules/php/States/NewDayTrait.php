@@ -146,7 +146,7 @@ trait NewDayTrait
     Globals::setFirstPlayer($newFirstPId);
     Notifications::newFirstPlayer(Players::get($newFirstPId));
 
-    $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', ST_BEFORE_ASSIGNMENT, true);
+    $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', 'stAfterNewday', true);
   }
 
   public function stNewDayDraw()
@@ -187,5 +187,11 @@ trait NewDayTrait
     // Inserting leaf Action card
     Engine::setup($node, ['order' => 'newDay']);
     Engine::proceed();
+  }
+
+  // Trigger listeners linked to after the dawn
+  public function stAfterNewDay()
+  {
+    $this->checkCardListeners('Dawn', ST_BEFORE_ASSIGNMENT);
   }
 }

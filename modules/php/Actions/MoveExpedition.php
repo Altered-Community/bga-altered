@@ -5,6 +5,7 @@ namespace ALT\Actions;
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
+use ALT\Core\Globals;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
@@ -36,6 +37,11 @@ class MoveExpedition extends \ALT\Models\Action
 
   public function stMoveExpedition()
   {
+    if (Globals::isTieBreakerMode()) {
+      Notifications::message(clienttranslate("In tie-breaker this power have no effect."), []);
+      return;
+    }
+
     $n = $this->getArg('n');
     $source = $this->ctx->getSource() ?? null;
     $sourceId = $this->ctx->getSourceId() ?? null;
