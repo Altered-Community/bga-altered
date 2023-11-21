@@ -1,5 +1,9 @@
 <?php
+
 namespace ALT\Cards\AX;
+
+use ALT\Helpers\FT;
+
 
 class AX_Common_AxiomSalvager extends \ALT\Models\Card
 {
@@ -26,6 +30,7 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
+      'effectReserve' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }
