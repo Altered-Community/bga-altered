@@ -220,6 +220,46 @@
                     }
                 }
             }
+            &[data-type="permanent"] {
+                // BASE
+                &[data-rarity="0"] {
+                    // Small frame, no ECHO
+                    &[data-frame="1"] {
+                        background-position: 0% 25%;
+                    }
+                    // Bigger frame, no ECHO
+                    &[data-frame="2"] {
+                        background-position: 20% 25%;
+                    }
+                    // Small frame, with ECHO
+                    &[data-frame="3"] {
+                        background-position: 80% 0%;
+                    }
+                    // Bigger frame, with ECHO
+                    &[data-frame="4"] {
+                        background-position: 100% 0%;
+                    }
+                }
+                // RARE
+                &[data-rarity="1"] {
+                    // Small frame, no ECHO
+                    &[data-frame="1"] {
+                        background-position: 40% 75%;
+                    }
+                    // Bigger frame, no ECHO
+                    &[data-frame="2"] {
+                        background-position: 100% 75%;
+                    }
+                    // Small frame, with ECHO
+                    &[data-frame="3"] {
+                        background-position: 0% 75%;
+                    }
+                    // Bigger frame, with ECHO
+                    &[data-frame="4"] {
+                        background-position: 20% 75%;
+                    }
+                }
+            }
         }
         .rarity-gem {
             display: none;
@@ -249,6 +289,41 @@
             text-align: center;
             font-family: "Jali Greek Variable";
             font-style: italic;
+        }
+
+        .card-frame[data-type="permanent"] {
+            &[data-frame="1"] ~ {
+                .card-name {
+                    top: 250px;
+                }
+                .card-typeline {
+                    top: 270px;
+                }
+            }
+            &[data-frame="2"] ~ {
+                .card-name {
+                    top: 219px;
+                }
+                .card-typeline {
+                    top: 239px;
+                }
+            }
+            &[data-frame="3"] ~ {
+                .card-name {
+                    top: 219px;
+                }
+                .card-typeline {
+                    top: 239px;
+                }
+            }
+            &[data-frame="4"] ~ {
+                .card-name {
+                    top: 185px;
+                }
+                .card-typeline {
+                    top: 205px;
+                }
+            }
         }
 
         .card-hand-cost,
@@ -376,6 +451,10 @@
         .card-frame[data-frame="4"] ~ .card-text {
             top: 260px;
         }
+        .card-frame[data-type="permanent"] ~ .card-text {
+            left: 25px;
+            right: 25px;
+        }
 
         .card-support {
             position: absolute;
@@ -438,12 +517,19 @@ $miniCardScale: 0.33;
     }
 
     &.card-spell {
-        border-radius: 50%;
-        .altered-card-wrapper {
+        &,
+        .altered-card-wrapper,
+        .altered-card-wrapper .card-frame {
             border-radius: 50%;
-            .card-frame {
-                border-radius: 50%;
-            }
+        }
+    }
+
+    &.card-permanent {
+        &,
+        .altered-card-wrapper,
+        .altered-card-wrapper .card-frame {
+            border-bottom-left-radius: 40px 100px;
+            border-bottom-right-radius: 40px 100px;
         }
     }
 

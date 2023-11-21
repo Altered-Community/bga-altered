@@ -583,7 +583,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     */
 
-    notif_playCard(n) {
+    async notif_playCard(n) {
       debug('Notif: playing a card', n);
       // Update counters
       if (n.args.fromLocation == 'hand') {
@@ -596,7 +596,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let card = n.args.card;
       let id = `card-${card.id}`;
       if (!$(id)) {
-        this.addCard(card, 'page-title');
+        let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+        this.addCard(card, `hand-${n.args.player_id}`);
+        await this.flipAndReplace(fakeCard, id);
       }
       $(id).classList.add('mini-card');
       let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
@@ -787,7 +789,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       } else if (type == SPELL) {
         return this.tplSpellCard(card, false, mini);
       } else if (type == PERMANENT) {
-        return this.tplCharacterCard(card, false, mini);
+        return this.tplPermanentCard(card, false, mini);
       }
 
       console.error('No tpl yet', card);
@@ -804,7 +806,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       } else if (type == SPELL) {
         return this.tplSpellCardTooltip(card);
       } else if (type == PERMANENT) {
-        return this.tplCharacterCard(card);
+        return this.tplPermanentCardTooltip(card);
       }
 
       return '';
@@ -984,10 +986,35 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
-    tplPermanentCard(card) {
-      return `<div id="card-${card.id}" data-id="${card.id}" class='altered-card mini-card card-permanent'>
-        <div class='altered-card-wrapper' data-asset='${card.properties.asset}'>
+    tplPermanentCard(card, tooltip = false, mini = false) {
+      let p = card.properties;
+      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
+      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+        class='altered-card card-permanent ${mini ? 'mini-card' : ''}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+          <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
+              data-rarity='${p.rarity}' data-type='permanent'></div>
+          <div class='rarity-gem' data-rarity='${p.rarity}'></div>
+          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
+          <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>
+
+          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-typeline'>${_(p.typeline)}</div>
+
+          <div class='card-text'>
+            <div class='card-qrcode-container'>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+            </div>
+            <div class='card-effect'>
+              ${this.formatString(_(p.effectDesc) || '')}
+            </div>
+            <div class='card-reminders'>
+            ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+            </div>
+          </div>
         </div>
+
         <div class='altered-card-statuses'></div>
       </div>`;
     },

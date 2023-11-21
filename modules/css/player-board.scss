@@ -289,6 +289,13 @@
             background: url("img/permanent-slot.jpg");
             background-size: auto 100%;
             background-repeat: repeat-x;
+            display: flex;
+            flex-flow: row-reverse;
+            align-items: center;
+
+            .altered-card {
+                margin: 3px 21px;
+            }
         }
     }
 
