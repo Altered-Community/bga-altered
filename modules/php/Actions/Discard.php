@@ -41,7 +41,7 @@ class Discard extends \ALT\Models\Action
 
     return [
       'log' => $msg,
-      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard', 'card' => $card->getName()],
+      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard', 'card' => $card != '' ? $card->getName() : ''],
     ];
   }
 

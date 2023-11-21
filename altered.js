@@ -747,10 +747,27 @@ define([
             this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
               play: t.play,
               support: t.support,
+              tap: t.tap,
               cardId,
               supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
             })
           );
+        });
+      }
+
+      if (t.support) {
+        t.support.forEach((cardId) => {
+          if (!t.play || !Object.keys(t.play).includes(parseInt(cardId))) {
+            this.onClick(`card-${cardId}`, () =>
+              this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
+                play: t.play,
+                support: t.support,
+                tap: t.tap,
+                cardId,
+                supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
+              })
+            );
+          }
         });
       }
 
@@ -767,7 +784,7 @@ define([
 
     onEnteringStateChooseAssignmentLocation(args) {
       this.addCancelStateBtn();
-      this.onEnteringStateChooseAssignment({ _private: { play: args.play, support: args.support } });
+      this.onEnteringStateChooseAssignment({ _private: { play: args.play, support: args.support, tap: args.tap } });
       let cardId = args.cardId;
       $(`card-${cardId}`).classList.add('selected');
 
@@ -782,10 +799,13 @@ define([
         reserve: _('Reserve'),
         limbo: _('Spell'),
       };
-      args.play[cardId].forEach((location, i) => {
-        this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
-        this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
-      });
+
+      if (args.play[cardId] != undefined) {
+        args.play[cardId].forEach((location, i) => {
+          this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
+          this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+        });
+      }
 
       if (args.supportPossible == true) {
         this.addPrimaryActionButton('btnLocation' + 99, _('Support ability'), () =>
@@ -862,7 +882,7 @@ define([
     },
 
     formatString(str) {
-      const ICONS = ['BOOST'];
+      const ICONS = ['BOOST', 'ANCHORED', 'FLEETING'];
       ICONS.forEach((name) => {
         const regex = new RegExp('<' + name + ':([^>]+)>', 'g');
         str = str.replaceAll(regex, this.formatIcon(name, '<span>$1</span>'));
@@ -917,8 +937,8 @@ define([
             // args.source = `<span class="ark-log-card-name" id="${uid}">${_(args.source)}</span>`;
           }
 
-          if (args.effect !== undefined) {
-            args.effect = this.formatString(this.translate(args.effect));
+          if (args.effect_desc !== undefined) {
+            args.effect_desc = this.formatString(this.translate(args.effect_desc));
           }
         }
       } catch (e) {

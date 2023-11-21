@@ -45,32 +45,32 @@ class Target extends \ALT\Models\Action
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
         if ($totalCost != INFTY) {
-          $msg = clienttranslate('Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect}');
+          $msg = clienttranslate('Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } else {
-          $msg = clienttranslate('Target up to ${n} character(s) to ${effect}');
+          $msg = clienttranslate('Target up to ${n} character(s) to ${effect_desc}');
         }
       } else {
-        $msg = clienttranslate('Target ${n} character(s) to ${effect}');
+        $msg = clienttranslate('Target ${n} character(s) to ${effect_desc}');
       }
     } elseif (count($targetType) == 1 && $targetType == [PERMANENT]) {
       if ($upTo) {
         if ($totalCost != INFTY) {
-          $msg = clienttranslate('Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect}');
+          $msg = clienttranslate('Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } else {
-          $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect}');
+          $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect_desc}');
         }
       } else {
-        $msg = clienttranslate('Target ${n} permanent(s) to ${effect}');
+        $msg = clienttranslate('Target ${n} permanent(s) to ${effect_desc}');
       }
     } else {
       if ($upTo) {
         if ($totalCost != INFTY) {
-          $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect}');
+          $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } else {
-          $msg = clienttranslate('Target up to ${n} card(s) to ${effect}');
+          $msg = clienttranslate('Target up to ${n} card(s) to ${effect_desc}');
         }
       } else {
-        $msg = clienttranslate('Target ${n} card(s) to ${effect}');
+        $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
       }
     }
 
@@ -78,9 +78,9 @@ class Target extends \ALT\Models\Action
       'log' => $msg,
       'args' => [
         'n' => $this->getCtxArg('n') ?? 1,
-        'effect' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
+        'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
         'totalCost' => $totalCost,
-        'i18n' => ['effect'],
+        'i18n' => ['effect_desc'],
       ],
     ];
   }
