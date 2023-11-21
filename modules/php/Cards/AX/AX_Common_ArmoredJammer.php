@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\AX;
+
+use ALT\Helpers\FT;
 
 class AX_Common_ArmoredJammer extends \ALT\Models\Card
 {
@@ -23,6 +26,12 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
       'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),
       'costHand' => 2,
       'costReserve' => 2,
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetLocation' => [RESERVE],
+        'upTo' => true,
+        'effect' => FT::ACTION(DISCARD, []),
+      ]),
     ];
   }
 }
