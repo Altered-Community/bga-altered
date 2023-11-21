@@ -862,7 +862,7 @@ define([
     },
 
     formatString(str) {
-      const ICONS = ['APPEAL'];
+      const ICONS = ['BOOST'];
       ICONS.forEach((name) => {
         const regex = new RegExp('<' + name + ':([^>]+)>', 'g');
         str = str.replaceAll(regex, this.formatIcon(name, '<span>$1</span>'));
@@ -915,6 +915,10 @@ define([
             // let card = this.getCardInfos(args.card_id);
             // let uid = this.registerCustomTooltip(this.tplCard(card, true));
             // args.source = `<span class="ark-log-card-name" id="${uid}">${_(args.source)}</span>`;
+          }
+
+          if (args.effect !== undefined) {
+            args.effect = this.formatString(this.translate(args.effect));
           }
         }
       } catch (e) {

@@ -1,6 +1,25 @@
 .altered-icon {
-  background: url("img/icons.png");
-  background-repeat: no-repeat;
+  // background: url("img/icons.png");
+  // background-repeat: no-repeat;
+
+  &.icon-fleeting {
+    background-image: url("img/icons/fleeting.png");
+    background-size: 100% 100%;
+    width: 1.4em;
+    height: 1.4em;
+  }
+  &.icon-boost {
+    background-image: url("img/icons/boost.png");
+    background-size: 100% 100%;
+    width: 1.4em;
+    height: 1.4em;
+  }
+  &.icon-anchored {
+    background-image: url("img/icons/anchored.png");
+    background-size: 100% 100%;
+    width: 1.4em;
+    height: 1.4em;
+  }
 }
 
 /////////////////////////////////////////////////////////
@@ -10,6 +29,8 @@
 /////////////////////////////////////////////////////////
 .icon-container {
   display: inline-block;
+  vertical-align: middle;
+  margin: -0.2em 0.2em 0em;
 }
 
 .icon-first-player {

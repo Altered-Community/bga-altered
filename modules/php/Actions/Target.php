@@ -33,7 +33,7 @@ class Target extends \ALT\Models\Action
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
     'excludeSelf' => false,
-    'totalCost' => INFTY
+    'totalCost' => INFTY,
   ];
 
   public function getDescription()
@@ -79,7 +79,8 @@ class Target extends \ALT\Models\Action
       'args' => [
         'n' => $this->getCtxArg('n') ?? 1,
         'effect' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
-        'totalCost' => $totalCost
+        'totalCost' => $totalCost,
+        'i18n' => ['effect'],
       ],
     ];
   }
@@ -177,7 +178,6 @@ class Target extends \ALT\Models\Action
     }
 
     $cards = Cards::getMany($cardIds);
-
 
     foreach ($cards as $cardId => $card) {
       $node = $this->getArg('effect');

@@ -227,7 +227,6 @@ $machinestates = [
     'action' => 'stAtomicAction',
   ],
 
-
   ST_MOVE_EXPEDITION => [
     'name' => 'moveExpedition',
     'type' => 'game',
