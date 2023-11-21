@@ -683,6 +683,22 @@ html {
         background-position: 80% 75%; }
       .altered-card .altered-card-wrapper .card-frame[data-type="spell"][data-rarity="1"][data-frame="4"] {
         background-position: 100% 75%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="0"][data-frame="1"] {
+        background-position: 0% 25%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="0"][data-frame="2"] {
+        background-position: 20% 25%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="0"][data-frame="3"] {
+        background-position: 80% 0%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="0"][data-frame="4"] {
+        background-position: 100% 0%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="1"][data-frame="1"] {
+        background-position: 40% 75%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="1"][data-frame="2"] {
+        background-position: 100% 75%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="1"][data-frame="3"] {
+        background-position: 0% 75%; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-rarity="1"][data-frame="4"] {
+        background-position: 20% 75%; }
     .altered-card .altered-card-wrapper .rarity-gem {
       display: none; }
     .altered-card .altered-card-wrapper .card-name {
@@ -707,6 +723,22 @@ html {
       text-align: center;
       font-family: "Jali Greek Variable";
       font-style: italic; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="1"] ~ .card-name {
+      top: 250px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="1"] ~ .card-typeline {
+      top: 270px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="2"] ~ .card-name {
+      top: 219px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="2"] ~ .card-typeline {
+      top: 239px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="3"] ~ .card-name {
+      top: 219px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="3"] ~ .card-typeline {
+      top: 239px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="4"] ~ .card-name {
+      top: 185px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-frame="4"] ~ .card-typeline {
+      top: 205px; }
     .altered-card .altered-card-wrapper .card-hand-cost,
     .altered-card .altered-card-wrapper .card-reserve-cost {
       position: absolute;
@@ -809,6 +841,9 @@ html {
       top: 280px; }
     .altered-card .altered-card-wrapper .card-frame[data-frame="4"] ~ .card-text {
       top: 260px; }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text {
+      left: 25px;
+      right: 25px; }
     .altered-card .altered-card-wrapper .card-support {
       position: absolute;
       z-index: 2;
@@ -849,14 +884,20 @@ html {
     .player-board-hero .altered-card.card-hero .card-frame {
       display: none; }
   .altered-card.mini-card.card-spell,
-  .player-board-hero .altered-card.card-spell {
+  .altered-card.mini-card.card-spell .altered-card-wrapper,
+  .altered-card.mini-card.card-spell .altered-card-wrapper .card-frame,
+  .player-board-hero .altered-card.card-spell,
+  .player-board-hero .altered-card.card-spell .altered-card-wrapper,
+  .player-board-hero .altered-card.card-spell .altered-card-wrapper .card-frame {
     border-radius: 50%; }
-    .altered-card.mini-card.card-spell .altered-card-wrapper,
-    .player-board-hero .altered-card.card-spell .altered-card-wrapper {
-      border-radius: 50%; }
-      .altered-card.mini-card.card-spell .altered-card-wrapper .card-frame,
-      .player-board-hero .altered-card.card-spell .altered-card-wrapper .card-frame {
-        border-radius: 50%; }
+  .altered-card.mini-card.card-permanent,
+  .altered-card.mini-card.card-permanent .altered-card-wrapper,
+  .altered-card.mini-card.card-permanent .altered-card-wrapper .card-frame,
+  .player-board-hero .altered-card.card-permanent,
+  .player-board-hero .altered-card.card-permanent .altered-card-wrapper,
+  .player-board-hero .altered-card.card-permanent .altered-card-wrapper .card-frame {
+    border-bottom-left-radius: 40px 100px;
+    border-bottom-right-radius: 40px 100px; }
   .altered-card.mini-card .help-marker,
   .player-board-hero .altered-card .help-marker {
     left: calc(50% - 11px);
@@ -1866,7 +1907,12 @@ html {
       min-width: 298px;
       background: url("img/permanent-slot.jpg");
       background-size: auto 100%;
-      background-repeat: repeat-x; }
+      background-repeat: repeat-x;
+      display: flex;
+      flex-flow: row-reverse;
+      align-items: center; }
+      .altered-player-board .player-board-grass .player-board-permanents .altered-card {
+        margin: 3px 21px; }
   .altered-player-board .player-board-hand {
     position: absolute;
     width: 100%; }
