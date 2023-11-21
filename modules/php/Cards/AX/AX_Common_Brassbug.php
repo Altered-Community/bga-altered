@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_Brassbug extends \ALT\Models\Card
@@ -18,6 +19,9 @@ class AX_Common_Brassbug extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
       'subtype' => 'Token - Robot',
+      'token' => true,
+      'costHand' => 0,
+      'costReserve' => 0,
 
       'effectDesc' => clienttranslate(
         '[Token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone - Remove me from the game).'

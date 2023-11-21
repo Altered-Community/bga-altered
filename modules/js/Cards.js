@@ -787,7 +787,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       } else if (type == SPELL) {
         return this.tplSpellCard(card, false, mini);
       } else if (type == PERMANENT) {
-        return this.tplPermanentCard(card, false, mini);
+        return this.tplCharacterCard(card, false, mini);
       }
 
       console.error('No tpl yet', card);
@@ -804,7 +804,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       } else if (type == SPELL) {
         return this.tplSpellCardTooltip(card);
       } else if (type == PERMANENT) {
-        return this.tplPermanentCardTooltip(card);
+        return this.tplCharacterCard(card);
       }
 
       return '';
