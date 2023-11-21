@@ -38,6 +38,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           dojo.place(o, container);
         }
 
+        // Update tapped state
+        o.classList.toggle('tapped', card.properties && card.properties.tapped == true);
+
         // Minimize card except in hand and in discard
         let isFull = container.classList.contains('player-hand') || container.classList.contains('player-board-discard');
         o.classList.toggle('mini-card', !isFull);
@@ -629,7 +632,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_tap(n) {
       debug('Notif: tapping card', n);
-      // TODO (tap card, etc.)
+      $(`card-${n.args.card.id}`).classList.remove('selectable');
+      $(`card-${n.args.card.id}`).classList.add('tapped');
     },
 
     notif_untap(n) {

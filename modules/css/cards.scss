@@ -23,6 +23,11 @@
 
 .altered-card,
 .altered-card.mini-card {
+    transition: transform 0.5s;
+    &.tapped {
+        transform: rotate(90deg);
+    }
+
     &.unselectable {
         cursor: not-allowed;
         filter: grayscale(80%);
@@ -39,6 +44,7 @@
         &:hover {
             transform: scale(1.1);
         }
+        transition: none;
     }
 
     &.selected {

@@ -74,7 +74,7 @@ define([
 
         ['payMana', 500],
         ['discard', 500],
-        ['tap', 500],
+        ['tap', 800],
         // ['boost', 500],
         ['untap', 500],
       ];
@@ -894,6 +894,7 @@ define([
         M: ['hand', 'played'],
         S: ['played-from-reserve'],
         D: 'discard',
+        T: 'tap',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');
