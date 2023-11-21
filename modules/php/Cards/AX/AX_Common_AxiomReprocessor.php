@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\AX;
+
+use ALT\Helpers\FT;
 
 class AX_Common_AxiomReprocessor extends \ALT\Models\Card
 {
@@ -23,6 +26,12 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),
       'costHand' => 4,
       'costReserve' => 4,
+      'effectPassive' => [
+        'Dawn' => [
+          'condition' => 'myTurn',
+          'output' => FT::ACTION(RESUPPLY, []),
+        ],
+      ],
     ];
   }
 }

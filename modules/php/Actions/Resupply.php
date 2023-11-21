@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -20,7 +22,7 @@ class Resupply extends \ALT\Models\Action
     return [
       'log' => clienttranslate('Put ${n} from deck to reserve'),
       'args' => [
-        'n' => $n,
+        'n' => $this->getArg('n'),
       ],
     ];
   }
