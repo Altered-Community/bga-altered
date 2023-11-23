@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_Charge extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class OD_Common_Charge extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('$[FLEETING].  Your Characters gain 1 boost.  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

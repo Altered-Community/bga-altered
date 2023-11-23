@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

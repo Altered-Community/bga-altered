@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_ManaChannelling extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class BR_Common_ManaChannelling extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('$[FLEETING]  Put the top card of your deck in your Mana Orbs, exhausted.  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

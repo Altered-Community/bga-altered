@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_KuwatSouldrinker extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class YZ_Common_KuwatSouldrinker extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

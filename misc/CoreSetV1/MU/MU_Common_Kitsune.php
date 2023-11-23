@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Kitsune extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class MU_Common_Kitsune extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

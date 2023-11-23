@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_StickyNotesSeals extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
         '$[FLEETING].  Choose one:  - Send to Reserve target Character of hand cost {4} or more.  - Discard target Permanent of hand cost {4} or more.  '
       ),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

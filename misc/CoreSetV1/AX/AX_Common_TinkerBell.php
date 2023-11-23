@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_TinkerBell extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

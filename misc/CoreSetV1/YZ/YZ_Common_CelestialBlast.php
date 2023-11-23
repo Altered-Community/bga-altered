@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_CelestialBlast extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_CelestialBlast extends \ALT\Models\Card
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate('$[FLEETING].  Discard up to two targets, Characters or Permanents.  '),
       'costHand' => 7,
-      'costMemory' => 7,
+      'costReserve' => 7,
     ];
   }
 }

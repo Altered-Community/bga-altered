@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_Achilles extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class BR_Common_Achilles extends \ALT\Models\Card
       'mountain' => 6,
       'ocean' => 6,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

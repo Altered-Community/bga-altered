@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_Thoth extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class OD_Common_Thoth extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

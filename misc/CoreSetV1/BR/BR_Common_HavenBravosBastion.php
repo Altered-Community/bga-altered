@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_HavenBravosBastion extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('Your Characters have : \"{S} I gain 1 boost.\"  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

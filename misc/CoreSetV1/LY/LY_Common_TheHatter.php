@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_TheHatter extends \ALT\Models\Card
@@ -23,7 +24,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 0,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

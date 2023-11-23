@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_MechanicalTraining extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('You may activate the {J} effect of one of your Permanents.  '),
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

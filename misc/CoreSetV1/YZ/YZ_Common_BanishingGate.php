@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_BanishingGate extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_BanishingGate extends \ALT\Models\Card
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate('$[FLEETING].  Discard target Character or Permanent.  '),
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

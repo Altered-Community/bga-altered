@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_YzmirStargazer extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 1,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

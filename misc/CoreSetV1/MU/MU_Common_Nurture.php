@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Nurture extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class MU_Common_Nurture extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('Up to two target Characters gain 1 boost.  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

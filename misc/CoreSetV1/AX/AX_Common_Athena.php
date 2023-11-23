@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_Athena extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class AX_Common_Athena extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 4,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

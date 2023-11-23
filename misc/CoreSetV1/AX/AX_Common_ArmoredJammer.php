@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_ArmoredJammer extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('{J} $[SABOTAGE].  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

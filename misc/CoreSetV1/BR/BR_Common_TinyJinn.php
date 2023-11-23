@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_TinyJinn extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

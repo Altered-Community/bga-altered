@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Parvati extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class MU_Common_Parvati extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 3,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

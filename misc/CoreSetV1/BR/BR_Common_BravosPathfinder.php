@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_BravosPathfinder extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class BR_Common_BravosPathfinder extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

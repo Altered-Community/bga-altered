@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_OuroborosDealer extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class LY_Common_OuroborosDealer extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

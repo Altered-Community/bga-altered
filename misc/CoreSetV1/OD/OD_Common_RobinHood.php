@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_RobinHood extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class OD_Common_RobinHood extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

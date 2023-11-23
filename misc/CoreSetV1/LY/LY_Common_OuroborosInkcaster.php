@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

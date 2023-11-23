@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_AetherShard extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_AetherShard extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('At Dawn — Draw a card.  '),
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

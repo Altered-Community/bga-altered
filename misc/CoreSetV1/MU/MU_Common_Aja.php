@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Aja extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class MU_Common_Aja extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 4,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

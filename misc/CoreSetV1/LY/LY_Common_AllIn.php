@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_AllIn extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.  '),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

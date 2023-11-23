@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_BabasIsba extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_BabasIsba extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('{J} Draw a card.  {T}, Sacrifice a Character: $[AFTER_YOU].  '),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

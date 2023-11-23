@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_KelonSurge extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Common_KelonSurge extends \ALT\Models\Card
         '$[FLEETING].  Choose one:  - Send to Reserve target Character of hand cost {4} or less.  - Discard target Permanent of hand cost {4} or less.  '
       ),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

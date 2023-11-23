@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_Anansi extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

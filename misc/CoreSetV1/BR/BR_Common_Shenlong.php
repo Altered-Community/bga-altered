@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_Shenlong extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class BR_Common_Shenlong extends \ALT\Models\Card
       'mountain' => 8,
       'ocean' => 8,
       'costHand' => 6,
-      'costMemory' => 6,
+      'costReserve' => 6,
     ];
   }
 }

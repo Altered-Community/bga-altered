@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_TheKraken extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class YZ_Common_TheKraken extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 8,
       'costHand' => 7,
-      'costMemory' => 7,
+      'costReserve' => 7,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_BeautySleep extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class MU_Common_BeautySleep extends \ALT\Models\Card
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate('Target Character becomes $[ASLEEP].  '),
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

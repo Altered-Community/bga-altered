@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_AxiomSalvager extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

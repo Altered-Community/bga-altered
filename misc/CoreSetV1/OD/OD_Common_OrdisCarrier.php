@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_OrdisCarrier extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('At Dawn — Create a [ORDIS_RECRUIT] Soldier token in your Companion Expedition.  '),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

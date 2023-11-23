@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_OuroborosTrickster extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_BrassbugHive extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('{J} Create a [BRASSBUG] Robot token.  At Dawn — Activate my {J} effect.  '),
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

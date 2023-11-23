@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_MoonlightJellyfish extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class YZ_Common_MoonlightJellyfish extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 1,
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_OrdisCadets extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

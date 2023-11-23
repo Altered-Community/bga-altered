@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_Kappa extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class BR_Common_Kappa extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 5,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

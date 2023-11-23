@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_PhysicalTraining extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

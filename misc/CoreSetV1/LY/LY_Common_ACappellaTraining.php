@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_ACappellaTraining extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class LY_Common_ACappellaTraining extends \ALT\Models\Card
       'subtype' => SONG,
       'effectDesc' => clienttranslate('Target Character becomes [FLEETING_CHAR].  '),
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

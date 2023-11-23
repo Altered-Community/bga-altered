@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_CelebrationDay extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class OD_Common_CelebrationDay extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('$[FLEETING].  Target Expedition cannot advance this Day.  '),
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

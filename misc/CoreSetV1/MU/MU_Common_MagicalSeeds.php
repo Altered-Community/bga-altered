@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_MagicalSeeds extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class MU_Common_MagicalSeeds extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('{T} : The next Plant you play this turn costs {1} less.  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

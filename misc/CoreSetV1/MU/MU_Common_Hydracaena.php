@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Hydracaena extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class MU_Common_Hydracaena extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 7,
-      'costMemory' => 7,
+      'costReserve' => 7,
     ];
   }
 }

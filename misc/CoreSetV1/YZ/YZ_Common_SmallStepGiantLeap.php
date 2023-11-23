@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_SmallStepGiantLeap extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_SmallStepGiantLeap extends \ALT\Models\Card
       'subtype' => MANEUVER,
       'effectDesc' => clienttranslate('$[FLEETING].  Target Expedition moves forward.  '),
       'costHand' => 6,
-      'costMemory' => 6,
+      'costReserve' => 6,
     ];
   }
 }

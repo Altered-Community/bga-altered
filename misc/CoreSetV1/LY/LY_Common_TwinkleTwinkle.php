@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
         '{D} : The next card you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)  '
       ),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

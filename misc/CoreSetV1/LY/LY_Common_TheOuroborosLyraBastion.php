@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('If you should roll a die, roll an additional one. Ignore the result of your choice.  '),
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

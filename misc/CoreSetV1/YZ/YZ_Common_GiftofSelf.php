@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_GiftofSelf extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_GiftofSelf extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character to draw 2 cards.  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

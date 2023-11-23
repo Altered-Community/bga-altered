@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_BrassbugHub extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
         '{J} I gain 3 Kelon counters.  At Dawn — You may pay {1} and remove a Kelon counter from me to create a [BRASSBUG] Robot token.  '
       ),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

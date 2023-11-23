@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_IssunBoshi extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class BR_Common_IssunBoshi extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 2,
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

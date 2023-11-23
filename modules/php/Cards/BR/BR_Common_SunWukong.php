@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Common_SunWukong extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -22,6 +24,7 @@ class BR_Common_SunWukong extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 3,
+      'effectReserve' => FT::GAIN($this, BOOST, 2),
     ];
   }
 }

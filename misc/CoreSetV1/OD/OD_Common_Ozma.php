@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_Ozma extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 1,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }
