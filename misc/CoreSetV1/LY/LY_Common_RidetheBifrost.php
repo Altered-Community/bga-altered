@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_RidetheBifrost extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class LY_Common_RidetheBifrost extends \ALT\Models\Card
       'subtype' => MANEUVER,
       'effectDesc' => clienttranslate('$[FLEETING].  Swap all of your Characters between your Expeditions.  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

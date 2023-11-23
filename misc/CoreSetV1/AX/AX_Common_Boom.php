@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_Boom extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class AX_Common_Boom extends \ALT\Models\Card
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character to discard target Character or Permanent.  '),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_FoundryEngineer extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class AX_Common_FoundryEngineer extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 1,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

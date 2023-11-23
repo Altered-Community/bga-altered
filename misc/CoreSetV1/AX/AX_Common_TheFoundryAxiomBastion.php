@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_TheFoundryAxiomBastion extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Common_TheFoundryAxiomBastion extends \ALT\Models\Card
         '{T} : The next time you play a Character from your hand this turn, trigger its {S} effects if it has any.  '
       ),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

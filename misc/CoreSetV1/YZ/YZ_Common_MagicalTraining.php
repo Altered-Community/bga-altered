@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_MagicalTraining extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_MagicalTraining extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('Draw a card.  '),
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

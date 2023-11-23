@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('Characters in your Expeditions have $[TOUGH_2].  '),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

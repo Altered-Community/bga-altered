@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_BravosBladedancer extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

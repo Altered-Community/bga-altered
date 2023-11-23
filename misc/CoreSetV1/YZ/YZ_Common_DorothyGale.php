@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_DorothyGale extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

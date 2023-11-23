@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_SpyCraft extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], $[RESUPPLY].  '),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_AloeVera extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class MU_Common_AloeVera extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 4,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

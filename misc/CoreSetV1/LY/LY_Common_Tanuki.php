@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_Tanuki extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class LY_Common_Tanuki extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 0,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

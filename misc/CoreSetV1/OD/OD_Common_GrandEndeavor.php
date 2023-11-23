@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_GrandEndeavor extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class OD_Common_GrandEndeavor extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('At Night — Target Expedition advances.  '),
       'costHand' => 6,
-      'costMemory' => 6,
+      'costReserve' => 6,
     ];
   }
 }

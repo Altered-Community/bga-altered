@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_ConiferalConeman extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class MU_Common_ConiferalConeman extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

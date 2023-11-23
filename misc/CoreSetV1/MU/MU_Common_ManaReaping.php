@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_ManaReaping extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class MU_Common_ManaReaping extends \ALT\Models\Card
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate('$[FLEETING].  Put target Character or Permanent in its owner\'s Mana Orbs, exhausted.  '),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

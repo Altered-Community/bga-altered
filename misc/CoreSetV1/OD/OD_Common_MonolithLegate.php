@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_MonolithLegate extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class OD_Common_MonolithLegate extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 2,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_TheKadigirYzmirBastion extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_TheKadigirYzmirBastion extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('{T} : Play a Spell for free.  '),
       'costHand' => 8,
-      'costMemory' => 8,
+      'costReserve' => 8,
     ];
   }
 }

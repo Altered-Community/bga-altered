@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_MonolithArchivist extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class OD_Common_MonolithArchivist extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

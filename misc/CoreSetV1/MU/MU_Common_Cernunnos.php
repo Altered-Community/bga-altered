@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Cernunnos extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

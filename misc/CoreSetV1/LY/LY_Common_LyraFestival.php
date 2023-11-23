@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_LyraFestival extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
         '{J} Draw a card.  At Dusk — If you have a [FLEETING] Character, another [ANCHORED] Character and another [ASLEEP] Character in your Expeditions, you win the game.  '
       ),
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_Intimidation extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class BR_Common_Intimidation extends \ALT\Models\Card
         '$[FLEETING].  Return target Character or Permanent of hand cost {4} or less to its owner\'s hand.  '
       ),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Harvest extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class MU_Common_Harvest extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('$[RESUPPLY].  '),
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

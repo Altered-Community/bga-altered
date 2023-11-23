@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_TeamworkTraining extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class OD_Common_TeamworkTraining extends \ALT\Models\Card
         '$[FLEETING].  Send to Reserve target Character of hand cost {X} or less, where X is the number of Characters in your Expeditions.  '
       ),
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

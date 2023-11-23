@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_MunaCaregiver extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class MU_Common_MunaCaregiver extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 0,
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

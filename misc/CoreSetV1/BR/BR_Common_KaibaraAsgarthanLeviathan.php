@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'mountain' => 6,
       'ocean' => 6,
       'costHand' => 8,
-      'costMemory' => 8,
+      'costReserve' => 8,
     ];
   }
 }

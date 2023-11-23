@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_Frankenstein extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class AX_Common_Frankenstein extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

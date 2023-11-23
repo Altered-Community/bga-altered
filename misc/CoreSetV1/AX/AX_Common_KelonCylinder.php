@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_KelonCylinder extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
         '{T} : I gain two Kelon Counters.  {T}, Remove a Kelon Counter from me: The next Character you play gains 1 boost.  '
       ),
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }

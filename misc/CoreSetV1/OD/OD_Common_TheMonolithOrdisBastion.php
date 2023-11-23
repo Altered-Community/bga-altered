@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate('When a Character joins your Expeditions, it gains 1 boost.  '),
       'costHand' => 5,
-      'costMemory' => 5,
+      'costReserve' => 5,
     ];
   }
 }

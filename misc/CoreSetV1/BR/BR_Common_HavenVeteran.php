@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_HavenVeteran extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class BR_Common_HavenVeteran extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 4,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_ClothCocoon extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
         '$[FLEETING]. Choose one:  - Discard target [FLEETING], [ANCHORED] or [ASLEEP] Character.  - Discard target Permanent.  '
       ),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

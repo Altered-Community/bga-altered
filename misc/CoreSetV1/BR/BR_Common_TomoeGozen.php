@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_TomoeGozen extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

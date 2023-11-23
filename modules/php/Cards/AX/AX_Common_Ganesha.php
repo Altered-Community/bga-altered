@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_Ganesha extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class AX_Common_Ganesha extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => 'Divinity',
 
-      'effectDesc' => clienttranslate('{J} Create a [2/2/2 Brassbug] Robot token for each Permanent you control.'),
+      'effectDesc' => clienttranslate('{J} Activate the {J} effect of all your Permanents.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

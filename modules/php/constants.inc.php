@@ -169,8 +169,8 @@ const FACTION_LY = 'LY';
 const FACTION_MU = 'MU';
 const FACTION_OD = 'OD';
 const FACTION_YZ = 'YZ';
-const FACTIONS = [FACTION_AX, FACTION_BR, FACTION_LY, FACTION_MU, FACTION_OD, FACTION_YZ];
-// const FACTIONS = [FACTION_BR, FACTION_MU, FACTION_OD, FACTION_LY, FACTION_YZ];
+// const FACTIONS = [FACTION_AX, FACTION_BR, FACTION_LY, FACTION_MU, FACTION_OD, FACTION_YZ];
+const FACTIONS = [FACTION_BR, FACTION_MU, FACTION_OD, FACTION_LY, FACTION_YZ];
 
 const OPPONENT = 'opponent';
 const ME = 'me';
@@ -180,6 +180,11 @@ const ALL = 'all';
  ****** MEEPLES ******
  ********************/
 const COMPANION = 'companion';
+
+/*********************
+ ***** SUB-TYPE **********
+ *********************/
+const DIVINITY = 'divinity';
 
 /*********************
  * ****** ABILITIES *****

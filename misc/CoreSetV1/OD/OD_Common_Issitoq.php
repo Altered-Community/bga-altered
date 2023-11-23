@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_Issitoq extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class OD_Common_Issitoq extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

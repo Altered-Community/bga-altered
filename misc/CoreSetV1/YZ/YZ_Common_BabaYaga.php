@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_BabaYaga extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class YZ_Common_BabaYaga extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 2,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

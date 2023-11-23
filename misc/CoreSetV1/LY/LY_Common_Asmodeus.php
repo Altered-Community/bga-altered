@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_Asmodeus extends \ALT\Models\Card
@@ -22,7 +23,7 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 6,
-      'costMemory' => 6,
+      'costReserve' => 6,
     ];
   }
 }

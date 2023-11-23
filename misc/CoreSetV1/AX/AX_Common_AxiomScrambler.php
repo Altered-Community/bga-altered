@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_AxiomScrambler extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 2,
       'costHand' => 4,
-      'costMemory' => 4,
+      'costReserve' => 4,
     ];
   }
 }

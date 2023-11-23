@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_TheCouncil extends \ALT\Models\Card
@@ -23,7 +24,7 @@ class OD_Common_TheCouncil extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 6,
-      'costMemory' => 6,
+      'costReserve' => 6,
     ];
   }
 }

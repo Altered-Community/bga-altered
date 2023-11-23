@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_SonofYggdrasil extends \ALT\Models\Card
@@ -20,7 +21,7 @@ class MU_Common_SonofYggdrasil extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 6,
-      'costMemory' => 6,
+      'costReserve' => 6,
     ];
   }
 }

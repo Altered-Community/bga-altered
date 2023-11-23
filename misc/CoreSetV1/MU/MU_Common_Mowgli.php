@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Mowgli extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class MU_Common_Mowgli extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 2,
-      'costMemory' => 2,
+      'costReserve' => 2,
     ];
   }
 }

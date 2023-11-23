@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_LyraChronicler extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class LY_Common_LyraChronicler extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 4,
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

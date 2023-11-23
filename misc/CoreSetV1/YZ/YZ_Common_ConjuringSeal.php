@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_ConjuringSeal extends \ALT\Models\Card
@@ -17,7 +18,7 @@ class YZ_Common_ConjuringSeal extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('Draw 2 cards.  '),
       'costHand' => 3,
-      'costMemory' => 3,
+      'costReserve' => 3,
     ];
   }
 }

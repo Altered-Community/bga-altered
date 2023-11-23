@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_OrdisTrooper extends \ALT\Models\Card
@@ -19,7 +20,7 @@ class OD_Common_OrdisTrooper extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
-      'costMemory' => 1,
+      'costReserve' => 1,
     ];
   }
 }
