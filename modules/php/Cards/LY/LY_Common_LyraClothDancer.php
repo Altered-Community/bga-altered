@@ -16,7 +16,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'name' => clienttranslate('Lyra Cloth-Dancer'),
       'type' => CHARACTER,
       'subtype' => ARTIST,
-      'effectDesc' => clienttranslate('{M} Another target Character becomes $[FLEETING].  '),
+      'effectDesc' => clienttranslate('{M} Another target Character becomes $[FLEETING].'),
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 2,

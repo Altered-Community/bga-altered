@@ -16,7 +16,7 @@ class YZ_Common_MagicalTraining extends \ALT\Models\Card
       'name' => clienttranslate('Magical Training'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('Draw a card.  '),
+      'effectDesc' => clienttranslate('Draw a card.'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

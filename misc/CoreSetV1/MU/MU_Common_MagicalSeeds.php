@@ -16,7 +16,7 @@ class MU_Common_MagicalSeeds extends \ALT\Models\Card
       'name' => clienttranslate('Magical Seeds'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('{T} : The next Plant you play this turn costs {1} less.  '),
+      'effectDesc' => clienttranslate('{T} : The next Plant you play this turn costs {1} less.'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

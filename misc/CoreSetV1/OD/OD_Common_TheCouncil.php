@@ -17,9 +17,9 @@ class OD_Common_TheCouncil extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => BUREAUCRAT,
       'effectDesc' => clienttranslate(
-        'If I am in your Hero Expedition, Companion Expeditions can\'t advance. If I am in your Companion Expedition, Hero Expeditions can\'t advance.  '
+        'If I am in your Hero Expedition, Companion Expeditions can\'t advance. If I am in your Companion Expedition, Hero Expeditions can\'t advance.'
       ),
-      'supportDesc' => clienttranslate('{D} : Draw a card. (Discard me from your Reserve to activate this effect)  '),
+      'supportDesc' => clienttranslate('{D} : Draw a card. (Discard me from your Reserve to activate this effect)'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

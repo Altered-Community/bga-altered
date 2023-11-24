@@ -15,7 +15,7 @@ class OD_Common_WaruMack extends \ALT\Models\Card
       'name' => clienttranslate('Waru & Mack'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'At Dawn, if you have a Bureaucrat in your Expeditions — Create a [ORDIS_RECRUIT] Soldier token.  Whenever you play a Bureaucrat — you may have it become $[ASLEEP].  '
+        'At Dawn, if you have a Bureaucrat in your Expeditions — Create a [ORDIS_RECRUIT] Soldier token.  Whenever you play a Bureaucrat — you may have it become $[ASLEEP].'
       ),
     ];
   }

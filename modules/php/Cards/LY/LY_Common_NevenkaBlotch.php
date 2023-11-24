@@ -16,7 +16,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'name' => clienttranslate('Nevenka & Blotch'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        '{T} : Target one of your Characters, then roll a die.  - On 6, it becomes $[ANCHORED].  - On 1, send it to Reserve.  - Otherwise it gains 1 boost.  '
+        '{T} : Target one of your Characters, then roll a die.  - On 6, it becomes $[ANCHORED].  - On 1, send it to Reserve.  - Otherwise it gains 1 boost.'
       ),
 
       'reserveSlots' => 2,

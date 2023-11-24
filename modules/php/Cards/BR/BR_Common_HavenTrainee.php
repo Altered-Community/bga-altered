@@ -17,7 +17,7 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'name' => clienttranslate('Haven Trainee'),
       'type' => CHARACTER,
       'subtype' => TRAINER,
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts.  '),
+      'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,

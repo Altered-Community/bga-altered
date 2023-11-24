@@ -16,7 +16,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'name' => clienttranslate('Ordis Spy'),
       'type' => CHARACTER,
       'subtype' => CITIZEN,
-      'effectDesc' => clienttranslate('{M} $[SABOTAGE].  '),
+      'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

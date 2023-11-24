@@ -16,7 +16,7 @@ class MU_Common_SonofYggdrasil extends \ALT\Models\Card
       'name' => clienttranslate('Son of Yggdrasil'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('$[GIGANTIC].  '),
+      'effectDesc' => clienttranslate('$[GIGANTIC].'),
       'forest' => 6,
       'mountain' => 3,
       'ocean' => 3,

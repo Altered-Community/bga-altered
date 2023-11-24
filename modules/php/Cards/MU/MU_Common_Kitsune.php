@@ -16,7 +16,7 @@ class MU_Common_Kitsune extends \ALT\Models\Card
       'name' => clienttranslate('Kitsune'),
       'type' => CHARACTER,
       'subtype' => SPIRIT,
-      'effectDesc' => clienttranslate('{M} Each player draws a card.  '),
+      'effectDesc' => clienttranslate('{M} Each player draws a card.'),
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 2,

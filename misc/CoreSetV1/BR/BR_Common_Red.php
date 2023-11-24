@@ -16,7 +16,7 @@ class BR_Common_Red extends \ALT\Models\Card
       'name' => clienttranslate('Red'),
       'type' => CHARACTER,
       'subtype' => ADVENTURER,
-      'effectDesc' => clienttranslate('$[SEASONED].  '),
+      'effectDesc' => clienttranslate('$[SEASONED].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

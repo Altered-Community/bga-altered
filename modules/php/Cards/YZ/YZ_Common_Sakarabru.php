@@ -18,7 +18,7 @@ class YZ_Common_Sakarabru extends \ALT\Models\Card
       'name' => clienttranslate('Sakarabru'),
       'type' => CHARACTER,
       'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{M} Your opponent\'s Expedition facing mine moves backwards.  '),
+      'effectDesc' => clienttranslate('{M} Your opponent\'s Expedition facing mine moves backwards.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

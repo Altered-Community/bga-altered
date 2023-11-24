@@ -16,7 +16,7 @@ class MU_Common_SneezerShroom extends \ALT\Models\Card
       'name' => clienttranslate('Sneezer Shroom'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  '),
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

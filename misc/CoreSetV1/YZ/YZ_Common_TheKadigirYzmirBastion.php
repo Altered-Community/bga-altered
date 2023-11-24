@@ -16,7 +16,7 @@ class YZ_Common_TheKadigirYzmirBastion extends \ALT\Models\Card
       'name' => clienttranslate('The Kadigir, Yzmir Bastion'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('{T} : Play a Spell for free.  '),
+      'effectDesc' => clienttranslate('{T} : Play a Spell for free.'),
       'costHand' => 8,
       'costReserve' => 8,
     ];

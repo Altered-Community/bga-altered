@@ -17,7 +17,7 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => LEVIATHAN,
       'effectDesc' => clienttranslate(
-        '$[GIGANTIC].  $[TOUGH_X], X being the numbers of regions separating your Hero and Companion.  '
+        '$[GIGANTIC].  $[TOUGH_X], X being the numbers of regions separating your Hero and Companion.'
       ),
       'forest' => 6,
       'mountain' => 6,

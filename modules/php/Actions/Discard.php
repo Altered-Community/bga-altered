@@ -120,19 +120,21 @@ class Discard extends \ALT\Models\Action
     if ($automatic === false) {
       // self::checkAction('actDiscard');
 
-      if (($args['upTo'] == false && count($cardIds) != $args['n'] + ($args['nPermanents'] ?? 0))
-        || ($args['upTo'] == false && count($cardIds) > $args['n'] + ($args['nPermanents'] ?? 0))
+      if (
+        ($args['upTo'] == false && count($cardIds) != $args['n'] + ($args['nPermanents'] ?? 0)) ||
+        ($args['upTo'] == false && count($cardIds) > $args['n'] + ($args['nPermanents'] ?? 0))
       ) {
         throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
       }
 
-
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(array_diff(
-          $cardIds,
-          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['permanentCards'] ?? [])
-        ))
+        !empty(
+          array_diff(
+            $cardIds,
+            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['permanentCards'] ?? [])
+          )
+        )
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }

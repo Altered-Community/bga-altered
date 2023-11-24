@@ -16,7 +16,7 @@ class BR_Common_Achilles extends \ALT\Models\Card
       'name' => clienttranslate('Achilles'),
       'type' => CHARACTER,
       'subtype' => ADVENTURER,
-      'effectDesc' => clienttranslate('$[TOUGH_1].  '),
+      'effectDesc' => clienttranslate('$[TOUGH_1].'),
       'forest' => 6,
       'mountain' => 6,
       'ocean' => 6,

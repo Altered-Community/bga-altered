@@ -16,7 +16,7 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
       'name' => clienttranslate('The Spindle, Muna Bastion'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('Characters in your Expeditions have $[TOUGH_2].  '),
+      'effectDesc' => clienttranslate('Characters in your Expeditions have $[TOUGH_2].'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

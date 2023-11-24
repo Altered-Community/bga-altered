@@ -16,7 +16,7 @@ class MU_Common_ManaReaping extends \ALT\Models\Card
       'name' => clienttranslate('Mana Reaping'),
       'type' => SPELL,
       'subtype' => DISRUPTION,
-      'effectDesc' => clienttranslate('$[FLEETING].  Put target Character or Permanent in its owner\'s Mana Orbs, exhausted.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Put target Character or Permanent in its owner\'s Mana Orbs, exhausted.'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

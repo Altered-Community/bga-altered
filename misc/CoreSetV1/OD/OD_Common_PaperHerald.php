@@ -17,7 +17,7 @@ class OD_Common_PaperHerald extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => INSECT,
       'supportDesc' => clienttranslate(
-        '{D} : Create a [ORDIS_RECRUIT] Soldier token. (Discard me from your Reserve to activate this effect)  '
+        '{D} : Create a [ORDIS_RECRUIT] Soldier token. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 0,
       'mountain' => 0,

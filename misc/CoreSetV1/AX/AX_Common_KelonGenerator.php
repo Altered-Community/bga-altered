@@ -16,7 +16,7 @@ class AX_Common_KelonGenerator extends \ALT\Models\Card
       'name' => clienttranslate('Kelon Generator'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('{2}, {T} : Draw a card.  '),
+      'effectDesc' => clienttranslate('{2}, {T} : Draw a card.'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

@@ -16,7 +16,7 @@ class OD_Common_CelebrationDay extends \ALT\Models\Card
       'name' => clienttranslate('Celebration Day'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('$[FLEETING].  Target Expedition cannot advance this Day.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Target Expedition cannot advance this Day.'),
       'costHand' => 5,
       'costReserve' => 5,
     ];

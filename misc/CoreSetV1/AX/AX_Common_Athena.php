@@ -16,7 +16,7 @@ class AX_Common_Athena extends \ALT\Models\Card
       'name' => clienttranslate('Athena'),
       'type' => CHARACTER,
       'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{S} If you have at least 2 Landmarks, I lose [FLEETING_CHAR].  '),
+      'effectDesc' => clienttranslate('{S} If you have at least 2 Landmarks, I lose [FLEETING_CHAR].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 4,

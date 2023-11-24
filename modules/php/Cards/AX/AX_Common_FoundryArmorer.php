@@ -16,7 +16,7 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
       'name' => clienttranslate('Foundry Armorer'),
       'type' => CHARACTER,
       'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{S} Create a [BRASSBUG] Robot token.  '),
+      'effectDesc' => clienttranslate('{S} Create a [BRASSBUG] Robot token.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

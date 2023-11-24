@@ -16,7 +16,7 @@ class YZ_Common_BabasIsba extends \ALT\Models\Card
       'name' => clienttranslate("Baba's Isba"),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('{J} Draw a card.  {T}, Sacrifice a Character: $[AFTER_YOU].  '),
+      'effectDesc' => clienttranslate('{J} Draw a card.  {T}, Sacrifice a Character: $[AFTER_YOU].'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

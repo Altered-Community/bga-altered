@@ -16,7 +16,7 @@ class BR_Common_Jinn extends \ALT\Models\Card
       'name' => clienttranslate('Jinn'),
       'type' => CHARACTER,
       'subtype' => ELEMENTAL,
-      'effectDesc' => clienttranslate('When I leave the Expedition zone — You may put me in my owner\'s Mana Orbs exhausted.  '),
+      'effectDesc' => clienttranslate('When I leave the Expedition zone — You may put me in my owner\'s Mana Orbs exhausted.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 0,

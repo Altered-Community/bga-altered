@@ -16,7 +16,7 @@ class OD_Common_Charge extends \ALT\Models\Card
       'name' => clienttranslate('Charge!'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('$[FLEETING].  Your Characters gain 1 boost.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Your Characters gain 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(

@@ -17,7 +17,7 @@ class BR_Common_IssunBoshi extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => SAMURAI,
       'supportDesc' => clienttranslate(
-        '{D} : The next Character you play this turn gains 1 boost. (Discard me from your Reserve to activate this effect)  '
+        '{D} : The next Character you play this turn gains 1 boost. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 0,
       'mountain' => 0,

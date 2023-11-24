@@ -15,9 +15,9 @@ class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
       'name' => clienttranslate('ALT The Three Little Pigs'),
       'type' => CHARACTER,
       'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{J} If you have at least 2 cards in your Landmarks, I gain #2# boosts.  '),
+      'effectDesc' => clienttranslate('{J} If you have at least 2 cards in your Landmarks, I gain #2# boosts.'),
       'supportDesc' => clienttranslate(
-        '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)  '
+        '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,
       'mountain' => 3,

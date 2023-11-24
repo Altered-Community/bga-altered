@@ -15,7 +15,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sigismar & Wingspan'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('At Dawn — Create a [ORDIS_RECRUIT] Soldier token in your Hero Expedition.  '),
+      'effectDesc' => clienttranslate('At Dawn — Create a [ORDIS_RECRUIT] Soldier token in your Hero Expedition.'),
       'effectPassive' => [
         'Dawn' => [
           'condition' => 'myTurn',

@@ -16,7 +16,7 @@ class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
       'name' => clienttranslate('ALT Esmeralda'),
       'type' => CHARACTER,
       'subtype' => ARTIST,
-      'effectDesc' => clienttranslate('#{J}# $[RESUPPLY].  '),
+      'effectDesc' => clienttranslate('#{J}# $[RESUPPLY].'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

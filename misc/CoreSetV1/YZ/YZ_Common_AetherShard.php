@@ -16,7 +16,7 @@ class YZ_Common_AetherShard extends \ALT\Models\Card
       'name' => clienttranslate('Aether Shard'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('At Dawn — Draw a card.  '),
+      'effectDesc' => clienttranslate('At Dawn — Draw a card.'),
       'costHand' => 5,
       'costReserve' => 5,
     ];

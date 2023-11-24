@@ -16,7 +16,7 @@ class YZ_Common_ConjuringSeal extends \ALT\Models\Card
       'name' => clienttranslate('Conjuring Seal'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('Draw 2 cards.  '),
+      'effectDesc' => clienttranslate('Draw 2 cards.'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

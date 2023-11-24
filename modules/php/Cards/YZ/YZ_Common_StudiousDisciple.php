@@ -17,7 +17,7 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => MAGE,
       'supportDesc' => clienttranslate(
-        '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)  '
+        '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 0,
       'mountain' => 1,

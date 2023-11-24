@@ -16,7 +16,7 @@ class OD_Common_RobinHood extends \ALT\Models\Card
       'name' => clienttranslate('Robin Hood'),
       'type' => CHARACTER,
       'subtype' => BUREAUCRAT,
-      'effectDesc' => clienttranslate('Your opponent\'s Characters cost {1} more.  '),
+      'effectDesc' => clienttranslate('Your opponent\'s Characters cost {1} more.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,

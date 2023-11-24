@@ -16,7 +16,7 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
       'name' => clienttranslate('Open the Gates'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('Create two [ORDIS_RECRUIT] Soldier tokens in both of your Expeditions.  '),
+      'effectDesc' => clienttranslate('Create two [ORDIS_RECRUIT] Soldier tokens in both of your Expeditions.'),
       'costHand' => 5,
       'costReserve' => 5,
     ];

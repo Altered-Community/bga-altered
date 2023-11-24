@@ -17,7 +17,7 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
       'name' => clienttranslate('Hua Mulan'),
       'type' => CHARACTER,
       'subtype' => ADVENTURER,
-      'effectDesc' => clienttranslate('{S} I lose [FLEETING_CHAR].  '),
+      'effectDesc' => clienttranslate('{S} I lose [FLEETING_CHAR].'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,

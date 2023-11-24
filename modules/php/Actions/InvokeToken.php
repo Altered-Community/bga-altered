@@ -76,7 +76,8 @@ class InvokeToken extends \ALT\Models\Action
       if ($loc == 'source') {
         $loc = $this->getSource()->getLocation();
       }
-      $displayLocation[] = $loc == STORM_LEFT ? clienttranslate('Hero\'s expedition')  : clienttranslate('Companion\'s expedition');
+      $displayLocation[] =
+        $loc == STORM_LEFT ? clienttranslate('Hero\'s expedition') : clienttranslate('Companion\'s expedition');
     }
 
     return $displayLocation;

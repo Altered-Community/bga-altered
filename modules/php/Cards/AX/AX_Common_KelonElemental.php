@@ -15,7 +15,7 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
       'name' => clienttranslate('Kelon Elemental'),
       'type' => CHARACTER,
       'subtype' => ELEMENTAL,
-      'effectDesc' => clienttranslate('{M} Put a card from your hand into your Reserve  '),
+      'effectDesc' => clienttranslate('{M} Put a card from your hand into your Reserve'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,

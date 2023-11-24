@@ -19,7 +19,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'type' => SPELL,
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Send to Reserve up to 3 Characters with a cumulated hand cost of {5} or less.  '
+        '$[FLEETING].  Send to Reserve up to 3 Characters with a cumulated hand cost of {5} or less.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

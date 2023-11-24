@@ -16,7 +16,7 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
       'name' => clienttranslate('Lyra Thespian'),
       'type' => CHARACTER,
       'subtype' => ARTIST,
-      'effectDesc' => clienttranslate('{J} If you have at least 3 base statistics 0 among your Characters, I gain 1 boost.  '),
+      'effectDesc' => clienttranslate('{J} If you have at least 3 base statistics 0 among your Characters, I gain 1 boost.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

@@ -18,7 +18,7 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
       'name' => clienttranslate('Armored Jammer'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('{J} $[SABOTAGE].  '),
+      'effectDesc' => clienttranslate('{J} $[SABOTAGE].'),
       'costHand' => 2,
       'costReserve' => 2,
 

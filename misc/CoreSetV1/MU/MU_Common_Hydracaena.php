@@ -16,7 +16,7 @@ class MU_Common_Hydracaena extends \ALT\Models\Card
       'name' => clienttranslate('Hydracaena'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('$[ETERNAL].  {J} and At Dawn — I gain 4 boosts.  '),
+      'effectDesc' => clienttranslate('$[ETERNAL].  {J} and At Dawn — I gain 4 boosts.'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

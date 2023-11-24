@@ -16,7 +16,7 @@ class YZ_Common_SmallStepGiantLeap extends \ALT\Models\Card
       'name' => clienttranslate('Small Step, Giant Leap'),
       'type' => SPELL,
       'subtype' => MANEUVER,
-      'effectDesc' => clienttranslate('$[FLEETING].  Target Expedition moves forward.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Target Expedition moves forward.'),
       'costHand' => 6,
       'costReserve' => 6,
     ];

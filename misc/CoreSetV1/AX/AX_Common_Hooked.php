@@ -16,7 +16,7 @@ class AX_Common_Hooked extends \ALT\Models\Card
       'name' => clienttranslate('Hooked'),
       'type' => SPELL,
       'subtype' => MANEUVER,
-      'effectDesc' => clienttranslate('Target Character joins the other Expedition of its controller.  '),
+      'effectDesc' => clienttranslate('Target Character joins the other Expedition of its controller.'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

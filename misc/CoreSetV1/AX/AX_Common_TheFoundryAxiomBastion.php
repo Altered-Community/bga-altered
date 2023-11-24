@@ -17,7 +17,7 @@ class AX_Common_TheFoundryAxiomBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate(
-        '{T} : The next time you play a Character from your hand this turn, trigger its {S} effects if it has any.  '
+        '{T} : The next time you play a Character from your hand this turn, trigger its {S} effects if it has any.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

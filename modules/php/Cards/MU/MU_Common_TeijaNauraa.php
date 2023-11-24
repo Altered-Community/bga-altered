@@ -15,7 +15,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Teija & Nauraa'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('The first Character you play each Day gains 1 boost.  '),
+      'effectDesc' => clienttranslate('The first Character you play each Day gains 1 boost.'),
 
       'reserveSlots' => 2,
       'permanentSlots' => 2,

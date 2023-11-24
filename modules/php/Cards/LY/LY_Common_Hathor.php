@@ -19,7 +19,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => DIVINITY,
       'supportDesc' => clienttranslate(
-        '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)  '
+        '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,
       'mountain' => 3,

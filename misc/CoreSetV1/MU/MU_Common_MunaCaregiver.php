@@ -17,7 +17,7 @@ class MU_Common_MunaCaregiver extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => DRUID,
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)  '
+        '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 0,
       'mountain' => 1,

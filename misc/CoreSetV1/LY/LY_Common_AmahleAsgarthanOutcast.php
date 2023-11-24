@@ -16,7 +16,7 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'name' => clienttranslate('Amahle, Asgarthan Outcast'),
       'type' => CHARACTER,
       'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to Draw a card.  '),
+      'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to Draw a card.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

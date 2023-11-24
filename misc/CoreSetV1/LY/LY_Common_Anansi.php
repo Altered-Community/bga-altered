@@ -16,7 +16,7 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'name' => clienttranslate('Anansi'),
       'type' => CHARACTER,
       'subtype' => ARTIST,
-      'effectDesc' => clienttranslate('{J} I gain 1 boost for each card in your Reserve.  '),
+      'effectDesc' => clienttranslate('{J} I gain 1 boost for each card in your Reserve.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

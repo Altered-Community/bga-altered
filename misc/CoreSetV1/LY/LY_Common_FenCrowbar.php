@@ -15,7 +15,7 @@ class LY_Common_FenCrowbar extends \ALT\Models\Card
       'name' => clienttranslate('Fen & Crowbar'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'During Awakening, instead of your draw step, put the top card of your deck in your Mana Orbs, then draw a card, then $[RESUPPLY].  This Ability doesn\'t Trigger during the first Awakening.  '
+        'During Awakening, instead of your draw step, put the top card of your deck in your Mana Orbs, then draw a card, then $[RESUPPLY].  This Ability doesn\'t Trigger during the first Awakening.'
       ),
     ];
   }

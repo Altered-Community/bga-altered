@@ -16,7 +16,7 @@ class MU_Common_BeautySleep extends \ALT\Models\Card
       'name' => clienttranslate('Beauty Sleep'),
       'type' => SPELL,
       'subtype' => DISRUPTION,
-      'effectDesc' => clienttranslate('Target Character becomes $[ASLEEP].  '),
+      'effectDesc' => clienttranslate('Target Character becomes $[ASLEEP].'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

@@ -16,7 +16,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Akesha & Taru'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('{1}, {T} : $[AFTER_YOU]. This ability is free if you have the first player token.  '),
+      'effectDesc' => clienttranslate('{1}, {T} : $[AFTER_YOU]. This ability is free if you have the first player token.'),
     ];
   }
 }

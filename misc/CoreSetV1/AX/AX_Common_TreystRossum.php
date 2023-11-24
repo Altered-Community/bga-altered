@@ -15,7 +15,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
       'name' => clienttranslate('Treyst & Rossum'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'When a card leaves your Reserve during the Afternoon, if I have less than 5 Steam counters, add me one.  {T} : Draw a card then put a card from your hand in Reserve. Activate this ability only if I have at least 5 Steam counters.  '
+        'When a card leaves your Reserve during the Afternoon, if I have less than 5 Steam counters, add me one.  {T} : Draw a card then put a card from your hand in Reserve. Activate this ability only if I have at least 5 Steam counters.'
       ),
     ];
   }

@@ -18,7 +18,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'name' => clienttranslate('Brassbug Hive'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('{J} Create a [BRASSBUG] Robot token.  At Dawn - Activate my {J} effect.  '),
+      'effectDesc' => clienttranslate('{J} Create a [BRASSBUG] Robot token.  At Dawn - Activate my {J} effect.'),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::XOR(

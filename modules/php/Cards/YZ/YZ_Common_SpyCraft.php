@@ -16,7 +16,7 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'name' => clienttranslate('Spy Craft'),
       'type' => SPELL,
       'subtype' => DISRUPTION,
-      'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], $[RESUPPLY].  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], $[RESUPPLY].'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(

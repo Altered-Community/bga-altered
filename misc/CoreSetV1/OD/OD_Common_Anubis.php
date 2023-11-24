@@ -16,7 +16,7 @@ class OD_Common_Anubis extends \ALT\Models\Card
       'name' => clienttranslate('Anubis'),
       'type' => CHARACTER,
       'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{J} Each player sacrifices a Character.  '),
+      'effectDesc' => clienttranslate('{J} Each player sacrifices a Character.'),
       'forest' => 3,
       'mountain' => 4,
       'ocean' => 3,

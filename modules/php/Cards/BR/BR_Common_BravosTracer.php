@@ -16,7 +16,7 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
       'name' => clienttranslate('Bravos Tracer'),
       'type' => CHARACTER,
       'subtype' => ADVENTURER,
-      'effectDesc' => clienttranslate('{J} I become $[FLEETING_CHAR].  '),
+      'effectDesc' => clienttranslate('{J} I become $[FLEETING_CHAR].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

@@ -16,7 +16,7 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
       'name' => clienttranslate('Ratatoskr'),
       'type' => CHARACTER,
       'subtype' => SQUIRREL,
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts.  '),
+      'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

@@ -16,7 +16,7 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'name' => clienttranslate('Axiom Scrambler'),
       'type' => CHARACTER,
       'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{M} $[SABOTAGE].  '),
+      'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,

@@ -16,7 +16,7 @@ class AX_Common_Ogun extends \ALT\Models\Card
       'name' => clienttranslate('Ogun'),
       'type' => CHARACTER,
       'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{J} Your Robots gain 1 boost.  '),
+      'effectDesc' => clienttranslate('{J} Your Robots gain 1 boost.'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,

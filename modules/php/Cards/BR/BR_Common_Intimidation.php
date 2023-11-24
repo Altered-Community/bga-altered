@@ -17,7 +17,7 @@ class BR_Common_Intimidation extends \ALT\Models\Card
       'type' => SPELL,
       'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Return target Character or Permanent of hand cost {4} or less to its owner\'s hand.  '
+        '$[FLEETING].  Return target Character or Permanent of hand cost {4} or less to its owner\'s hand.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

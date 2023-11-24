@@ -16,7 +16,7 @@ class LY_Common_TheSandman extends \ALT\Models\Card
       'name' => clienttranslate('The Sandman'),
       'type' => CHARACTER,
       'subtype' => MERCHANT,
-      'effectDesc' => clienttranslate('{M} Another target Character becomes $[ASLEEP].  '),
+      'effectDesc' => clienttranslate('{M} Another target Character becomes $[ASLEEP].'),
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,

@@ -16,7 +16,7 @@ class YZ_Common_GiftofSelf extends \ALT\Models\Card
       'name' => clienttranslate('Gift of Self'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character to draw 2 cards.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character to draw 2 cards.'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

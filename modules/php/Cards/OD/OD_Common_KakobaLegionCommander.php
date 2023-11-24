@@ -16,7 +16,7 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
       'name' => clienttranslate('Kakoba, Legion Commander'),
       'type' => CHARACTER,
       'subtype' => SOLDIER,
-      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, I gain 2 boosts.  '),
+      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, I gain 2 boosts.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

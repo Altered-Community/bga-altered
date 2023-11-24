@@ -16,7 +16,7 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'name' => clienttranslate('Spindle Harvesters'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  '),
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

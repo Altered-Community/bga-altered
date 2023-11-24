@@ -16,7 +16,7 @@ class OD_Common_GrandEndeavor extends \ALT\Models\Card
       'name' => clienttranslate('Grand Endeavor'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('At Night — Target Expedition advances.  '),
+      'effectDesc' => clienttranslate('At Night — Target Expedition advances.'),
       'costHand' => 6,
       'costReserve' => 6,
     ];

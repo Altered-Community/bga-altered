@@ -16,7 +16,7 @@ class YZ_Common_ToothFairy extends \ALT\Models\Card
       'name' => clienttranslate('Tooth Fairy'),
       'type' => CHARACTER,
       'subtype' => FAIRY,
-      'effectDesc' => clienttranslate('{M} $[SABOTAGE].  '),
+      'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

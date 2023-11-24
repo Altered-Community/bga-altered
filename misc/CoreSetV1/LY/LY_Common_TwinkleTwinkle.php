@@ -16,9 +16,9 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
       'name' => clienttranslate('Twinkle Twinkle'),
       'type' => SPELL,
       'subtype' => SONG,
-      'effectDesc' => clienttranslate('Target Character becomes $[ASLEEP].  '),
+      'effectDesc' => clienttranslate('Target Character becomes $[ASLEEP].'),
       'supportDesc' => clienttranslate(
-        '{D} : The next card you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)  '
+        '{D} : The next card you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

@@ -17,7 +17,7 @@ class OD_Common_TeamworkTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtype' => MANEUVER,
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Send to Reserve target Character of hand cost {X} or less, where X is the number of Characters in your Expeditions.  '
+        '$[FLEETING].  Send to Reserve target Character of hand cost {X} or less, where X is the number of Characters in your Expeditions.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

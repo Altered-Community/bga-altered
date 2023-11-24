@@ -16,7 +16,7 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'name' => clienttranslate('Ada Lovelace'),
       'type' => CHARACTER,
       'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{S} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.  '),
+      'effectDesc' => clienttranslate('{S} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,

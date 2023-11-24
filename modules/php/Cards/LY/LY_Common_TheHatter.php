@@ -16,9 +16,9 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'name' => clienttranslate('The Hatter'),
       'type' => CHARACTER,
       'subtype' => CITIZEN,
-      'effectDesc' => clienttranslate('(*He can\'t swim.*)  '),
+      'effectDesc' => clienttranslate('(*He can\'t swim.*)'),
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)  '
+        '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 5,
       'mountain' => 5,

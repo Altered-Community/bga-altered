@@ -17,7 +17,7 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => ARTIST,
       'effectDesc' => clienttranslate(
-        '{J} Roll a die. If the result is 4 or more, I gain #3# boosts. Otherwise, I gain 1 boost.  '
+        '{J} Roll a die. If the result is 4 or more, I gain #3# boosts. Otherwise, I gain 1 boost.'
       ),
       'forest' => 0,
       'mountain' => 0,

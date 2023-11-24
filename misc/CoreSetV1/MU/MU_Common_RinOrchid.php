@@ -15,7 +15,7 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
       'name' => clienttranslate('Rin & Orchid'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'Whenever one of your Expeditions advances due to a {V} statistic — Draw a card then put a card in Reserve from your hand.  '
+        'Whenever one of your Expeditions advances due to a {V} statistic — Draw a card then put a card in Reserve from your hand.'
       ),
     ];
   }

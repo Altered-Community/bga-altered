@@ -16,7 +16,7 @@ class YZ_Common_Baku extends \ALT\Models\Card
       'name' => clienttranslate('Baku'),
       'type' => CHARACTER,
       'subtype' => DEMON,
-      'effectDesc' => clienttranslate('{M} Target opponent discards a card from their hand.  '),
+      'effectDesc' => clienttranslate('{M} Target opponent discards a card from their hand.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

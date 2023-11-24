@@ -16,7 +16,7 @@ class LY_Common_Loki extends \ALT\Models\Card
       'name' => clienttranslate('Loki'),
       'type' => CHARACTER,
       'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{M} Each player discards their hand and draws 3 cards.  '),
+      'effectDesc' => clienttranslate('{M} Each player discards their hand and draws 3 cards.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

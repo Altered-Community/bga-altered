@@ -16,7 +16,7 @@ class MU_Common_DaughterofYggdrasil extends \ALT\Models\Card
       'name' => clienttranslate('Daughter of Yggdrasil'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('{M} Each opponent draws a card.  '),
+      'effectDesc' => clienttranslate('{M} Each opponent draws a card.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 3,

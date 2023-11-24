@@ -16,7 +16,7 @@ class YZ_Common_KadigiranMageDancer extends \ALT\Models\Card
       'name' => clienttranslate('Kadigiran Mage-Dancer'),
       'type' => CHARACTER,
       'subtype' => MAGE,
-      'effectDesc' => clienttranslate('Whenever you play a Spell — I gain 1 boost.  '),
+      'effectDesc' => clienttranslate('Whenever you play a Spell — I gain 1 boost.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

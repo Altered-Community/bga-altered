@@ -16,7 +16,7 @@ class AX_Common_Brassbug extends \ALT\Models\Card
       'name' => clienttranslate('Brassbug'),
       'type' => TOKEN,
       'subtype' => ROBOT,
-      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone - Discard me)  '),
+      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone - Discard me)'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

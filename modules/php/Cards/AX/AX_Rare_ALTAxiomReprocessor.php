@@ -15,7 +15,7 @@ class AX_Rare_ALTAxiomReprocessor extends \ALT\Models\Card
       'name' => clienttranslate('ALT Axiom Reprocessor'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('#{J} $[RESUPPLY].#  At Dawn — Activate my {J} effect.  '),
+      'effectDesc' => clienttranslate('#{J} $[RESUPPLY].#  At Dawn — Activate my {J} effect.'),
       'costHand' => 4,
       'costReserve' => 4,
     ];

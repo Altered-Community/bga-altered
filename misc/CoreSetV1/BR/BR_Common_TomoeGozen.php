@@ -16,7 +16,7 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
       'name' => clienttranslate('Tomoe Gozen'),
       'type' => CHARACTER,
       'subtype' => SAMURAI,
-      'effectDesc' => clienttranslate('I can only be played if you have 7 or more Mana Orbs.  '),
+      'effectDesc' => clienttranslate('I can only be played if you have 7 or more Mana Orbs.'),
       'forest' => 2,
       'mountain' => 5,
       'ocean' => 5,

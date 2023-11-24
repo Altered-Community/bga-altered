@@ -16,7 +16,7 @@ class MU_Common_YongSuVerdantWeaver extends \ALT\Models\Card
       'name' => clienttranslate('Yong-Su, Verdant Weaver'),
       'type' => CHARACTER,
       'subtype' => GARDENER,
-      'effectDesc' => clienttranslate('{J} If you have 2 or more Plants in your Expedition, I gain 2 boosts.  '),
+      'effectDesc' => clienttranslate('{J} If you have 2 or more Plants in your Expedition, I gain 2 boosts.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

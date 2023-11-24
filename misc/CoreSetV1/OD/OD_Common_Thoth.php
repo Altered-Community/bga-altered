@@ -17,7 +17,7 @@ class OD_Common_Thoth extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => BUREAUCRAT,
       'effectDesc' => clienttranslate(
-        'When my Expedition doesn\'t advance during Dusk — Create a [ORDIS_RECRUIT] Soldier token.  '
+        'When my Expedition doesn\'t advance during Dusk — Create a [ORDIS_RECRUIT] Soldier token.'
       ),
       'forest' => 3,
       'mountain' => 3,

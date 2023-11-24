@@ -16,7 +16,7 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
       'name' => clienttranslate('Esmeralda'),
       'type' => CHARACTER,
       'subtype' => ARTIST,
-      'effectDesc' => clienttranslate('{M} $[RESUPPLY].  '),
+      'effectDesc' => clienttranslate('{M} $[RESUPPLY].'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

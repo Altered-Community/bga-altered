@@ -16,7 +16,7 @@ class MU_Common_Harvest extends \ALT\Models\Card
       'name' => clienttranslate('Harvest'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('$[RESUPPLY].  '),
+      'effectDesc' => clienttranslate('$[RESUPPLY].'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

@@ -16,7 +16,7 @@ class YZ_Common_BabaYaga extends \ALT\Models\Card
       'name' => clienttranslate('Baba Yaga'),
       'type' => CHARACTER,
       'subtype' => MAGE,
-      'effectDesc' => clienttranslate('{M} Draw a card.  '),
+      'effectDesc' => clienttranslate('{M} Draw a card.'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 2,

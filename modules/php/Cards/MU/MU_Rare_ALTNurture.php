@@ -16,7 +16,7 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
       'name' => clienttranslate('ALT Nurture'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('Up to two target Characters gain #2# boosts.  '),
+      'effectDesc' => clienttranslate('Up to two target Characters gain #2# boosts.'),
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],

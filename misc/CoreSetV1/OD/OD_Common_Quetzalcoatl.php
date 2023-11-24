@@ -17,7 +17,7 @@ class OD_Common_Quetzalcoatl extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => BUREAUCRAT,
       'effectDesc' => clienttranslate(
-        'Whenever an opponent draws one or more cards or activates [RESUPPLY] — Create a [ORDIS_RECRUIT] Soldier token.  '
+        'Whenever an opponent draws one or more cards or activates [RESUPPLY] — Create a [ORDIS_RECRUIT] Soldier token.'
       ),
       'forest' => 4,
       'mountain' => 4,

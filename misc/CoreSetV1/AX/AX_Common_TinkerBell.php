@@ -15,7 +15,7 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
       'name' => clienttranslate('Tinker Bell'),
       'type' => CHARACTER,
       'subtype' => FAIRY,
-      'effectDesc' => clienttranslate('{S} $[SABOTAGE].  '),
+      'effectDesc' => clienttranslate('{S} $[SABOTAGE].'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,

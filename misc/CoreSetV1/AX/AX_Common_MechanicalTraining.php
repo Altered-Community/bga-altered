@@ -16,7 +16,7 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
       'name' => clienttranslate('Mechanical Training'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('You may activate the {J} effect of one of your Permanents.  '),
+      'effectDesc' => clienttranslate('You may activate the {J} effect of one of your Permanents.'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

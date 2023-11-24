@@ -17,7 +17,7 @@ class AX_Common_FoundryMechanic extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => ENGINEER,
       'supportDesc' => clienttranslate(
-        '{D} : The next Permanent you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)  '
+        '{D} : The next Permanent you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 0,
       'mountain' => 1,

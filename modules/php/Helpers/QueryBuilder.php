@@ -83,8 +83,7 @@ class QueryBuilder extends \APP_DbObject
               : "'" . mysql_escape_string($val) . "'");
       }
       $vals[] = '(' . implode(',', $rowValues) . ')';
-      $ids[] =
-        $rom[$this->primary] ?? ($this->insertPrimaryIndex === false ? $startingId++ : $row[$this->insertPrimaryIndex]);
+      $ids[] = $rom[$this->primary] ?? ($this->insertPrimaryIndex === false ? $startingId++ : $row[$this->insertPrimaryIndex]);
     }
 
     $this->sql .= implode(',', $vals);

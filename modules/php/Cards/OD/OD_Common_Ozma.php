@@ -16,7 +16,7 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'name' => clienttranslate('Ozma'),
       'type' => CHARACTER,
       'subtype' => CITIZEN,
-      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, draw a card.  '),
+      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, draw a card.'),
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 1,

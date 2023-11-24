@@ -17,7 +17,7 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtype' => LANDMARK,
       'effectDesc' => clienttranslate(
-        '{J} I gain 3 Kelon counters.  At Dawn — You may pay {1} and remove a Kelon counter from me to create a [BRASSBUG] Robot token.  '
+        '{J} I gain 3 Kelon counters.  At Dawn — You may pay {1} and remove a Kelon counter from me to create a [BRASSBUG] Robot token.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

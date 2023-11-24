@@ -16,7 +16,7 @@ class LY_Common_RidetheBifrost extends \ALT\Models\Card
       'name' => clienttranslate('Ride the Bifrost'),
       'type' => SPELL,
       'subtype' => MANEUVER,
-      'effectDesc' => clienttranslate('$[FLEETING].  Swap all of your Characters between your Expeditions.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Swap all of your Characters between your Expeditions.'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

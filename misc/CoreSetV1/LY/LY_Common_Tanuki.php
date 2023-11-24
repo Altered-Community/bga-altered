@@ -16,7 +16,7 @@ class LY_Common_Tanuki extends \ALT\Models\Card
       'name' => clienttranslate('Tanuki'),
       'type' => CHARACTER,
       'subtype' => SPIRIT,
-      'effectDesc' => clienttranslate('{M} $[SABOTAGE].  '),
+      'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,

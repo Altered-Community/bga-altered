@@ -16,7 +16,7 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
       'name' => clienttranslate('The Ouroboros, Lyra Bastion'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('If you should roll a die, roll an additional one. Ignore the result of your choice.  '),
+      'effectDesc' => clienttranslate('If you should roll a die, roll an additional one. Ignore the result of your choice.'),
       'costHand' => 4,
       'costReserve' => 4,
     ];

@@ -16,7 +16,7 @@ class YZ_Common_CelestialBlast extends \ALT\Models\Card
       'name' => clienttranslate('Celestial Blast'),
       'type' => SPELL,
       'subtype' => DISRUPTION,
-      'effectDesc' => clienttranslate('$[FLEETING].  Discard up to two targets, Characters or Permanents.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Discard up to two targets, Characters or Permanents.'),
       'costHand' => 7,
       'costReserve' => 7,
     ];

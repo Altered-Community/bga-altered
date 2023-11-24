@@ -18,9 +18,9 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
       'name' => clienttranslate('ALT Ozma'),
       'type' => CHARACTER,
       'subtype' => CITIZEN,
-      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, draw a card.  '),
+      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, draw a card.'),
       'supportDesc' => clienttranslate(
-        '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)  '
+        '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 2,
       'mountain' => 2,

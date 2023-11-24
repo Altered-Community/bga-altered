@@ -16,7 +16,7 @@ class MU_Common_Aja extends \ALT\Models\Card
       'name' => clienttranslate('Aja'),
       'type' => CHARACTER,
       'subtype' => DRUID,
-      'effectDesc' => clienttranslate('{M} Each player puts the top card of their deck in their Mana Orbs, exhausted.  '),
+      'effectDesc' => clienttranslate('{M} Each player puts the top card of their deck in their Mana Orbs, exhausted.'),
       'forest' => 4,
       'mountain' => 5,
       'ocean' => 4,

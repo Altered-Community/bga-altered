@@ -17,7 +17,7 @@ class OD_Common_MonolithRuneScribe extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => SOLDIER,
       'supportDesc' => clienttranslate(
-        '{D} : The next Character you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)  '
+        '{D} : The next Character you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 2,
       'mountain' => 2,

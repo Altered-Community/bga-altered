@@ -16,7 +16,7 @@ class MU_Common_Parvati extends \ALT\Models\Card
       'name' => clienttranslate('Parvati'),
       'type' => CHARACTER,
       'subtype' => DRUID,
-      'effectDesc' => clienttranslate('{M} Target Character becomes $[ANCHORED].  '),
+      'effectDesc' => clienttranslate('{M} Target Character becomes $[ANCHORED].'),
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,

@@ -16,7 +16,7 @@ class YZ_Common_KuwatSouldrinker extends \ALT\Models\Card
       'name' => clienttranslate('Kuwat, Souldrinker'),
       'type' => CHARACTER,
       'subtype' => MAGE,
-      'effectDesc' => clienttranslate('{J} Sacrifice a Character from my Expedition.  '),
+      'effectDesc' => clienttranslate('{J} Sacrifice a Character from my Expedition.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

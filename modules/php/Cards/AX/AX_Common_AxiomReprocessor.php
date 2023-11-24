@@ -18,7 +18,7 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'name' => clienttranslate('Axiom Reprocessor'),
       'type' => PERMANENT,
       'subtype' => LANDMARK,
-      'effectDesc' => clienttranslate('At Dawn — $[RESUPPLY].  '),
+      'effectDesc' => clienttranslate('At Dawn — $[RESUPPLY].'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPassive' => [

@@ -16,7 +16,7 @@ class AX_Common_Frankenstein extends \ALT\Models\Card
       'name' => clienttranslate('Frankenstein'),
       'type' => CHARACTER,
       'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{S} You may activate the {J} effect of one of your Permanents.  '),
+      'effectDesc' => clienttranslate('{S} You may activate the {J} effect of one of your Permanents.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

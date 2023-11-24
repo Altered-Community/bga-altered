@@ -16,7 +16,7 @@ class BR_Common_HelpingHand extends \ALT\Models\Card
       'name' => clienttranslate('Helping Hand'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('Target Character gains 1 boost and loses [FLEETING_CHAR].  '),
+      'effectDesc' => clienttranslate('Target Character gains 1 boost and loses [FLEETING_CHAR].'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

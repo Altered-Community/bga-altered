@@ -16,7 +16,7 @@ class YZ_Common_BanishingGate extends \ALT\Models\Card
       'name' => clienttranslate('Banishing Gate'),
       'type' => SPELL,
       'subtype' => DISRUPTION,
-      'effectDesc' => clienttranslate('$[FLEETING].  Discard target Character or Permanent.  '),
+      'effectDesc' => clienttranslate('$[FLEETING].  Discard target Character or Permanent.'),
       'costHand' => 4,
       'costReserve' => 4,
     ];

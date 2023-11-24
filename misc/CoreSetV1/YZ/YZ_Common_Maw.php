@@ -16,7 +16,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'type' => TOKEN,
       'subtype' => VOID_WURM,
       'effectDesc' => clienttranslate(
-        'I am a token.  (When I leave the Expedition zone — Discard me)  Whenever you sacrifice a Character, I gain 2 boosts.  '
+        'I am a token.  (When I leave the Expedition zone — Discard me)  Whenever you sacrifice a Character, I gain 2 boosts.'
       ),
       'forest' => 0,
       'mountain' => 0,

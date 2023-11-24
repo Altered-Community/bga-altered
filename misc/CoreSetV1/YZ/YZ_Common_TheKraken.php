@@ -17,7 +17,7 @@ class YZ_Common_TheKraken extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => LEVIATHAN,
       'effectDesc' => clienttranslate(
-        '$[GIGANTIC].  {J} Sacrifice 2 Characters.  All regions are {E} and lose their other types.  '
+        '$[GIGANTIC].  {J} Sacrifice 2 Characters.  All regions are {E} and lose their other types.'
       ),
       'forest' => 0,
       'mountain' => 0,

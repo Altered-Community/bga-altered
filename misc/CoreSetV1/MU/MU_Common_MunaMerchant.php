@@ -16,7 +16,7 @@ class MU_Common_MunaMerchant extends \ALT\Models\Card
       'name' => clienttranslate('Muna Merchant'),
       'type' => CHARACTER,
       'subtype' => CITIZEN,
-      'effectDesc' => clienttranslate('{S} $[RESUPPLY].  '),
+      'effectDesc' => clienttranslate('{S} $[RESUPPLY].'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 0,

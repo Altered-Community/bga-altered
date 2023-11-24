@@ -16,7 +16,7 @@ class AX_Common_Ganesha extends \ALT\Models\Card
       'name' => clienttranslate('Ganesha'),
       'type' => CHARACTER,
       'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{J} Activate the {J} effect of all your Permanents.  '),
+      'effectDesc' => clienttranslate('{J} Activate the {J} effect of all your Permanents.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

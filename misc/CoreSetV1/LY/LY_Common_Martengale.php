@@ -17,7 +17,7 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => CHIMERA,
       'supportDesc' => clienttranslate(
-        '{D} : The next card you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)  '
+        '{D} : The next card you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 1,
       'mountain' => 1,

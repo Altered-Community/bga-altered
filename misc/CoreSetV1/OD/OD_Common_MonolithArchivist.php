@@ -16,7 +16,7 @@ class OD_Common_MonolithArchivist extends \ALT\Models\Card
       'name' => clienttranslate('Monolith Archivist'),
       'type' => CHARACTER,
       'subtype' => BUREAUCRAT,
-      'effectDesc' => clienttranslate('$[DEFENDER].  '),
+      'effectDesc' => clienttranslate('$[DEFENDER].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

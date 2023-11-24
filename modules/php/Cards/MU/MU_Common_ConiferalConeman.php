@@ -16,7 +16,7 @@ class MU_Common_ConiferalConeman extends \ALT\Models\Card
       'name' => clienttranslate('Coniferal Coneman'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  '),
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

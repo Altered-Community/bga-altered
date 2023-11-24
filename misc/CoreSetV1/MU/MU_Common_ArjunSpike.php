@@ -15,7 +15,7 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'name' => clienttranslate('Arjun & Spike'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        '{T}, discard a card from your Reserve : the next Character of hand cost {3} or less you play this turn becomes $[ANCHORED].  '
+        '{T}, discard a card from your Reserve : the next Character of hand cost {3} or less you play this turn becomes $[ANCHORED].'
       ),
     ];
   }

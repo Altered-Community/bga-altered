@@ -18,7 +18,7 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
       'name' => clienttranslate('ALT Spy Craft'),
       'type' => SPELL,
       'subtype' => DISRUPTION,
-      'effectDesc' => clienttranslate('$[SABOTAGE], $[RESUPPLY].  '),
+      'effectDesc' => clienttranslate('$[SABOTAGE], $[RESUPPLY].'),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costReserve'],

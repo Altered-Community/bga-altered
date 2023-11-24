@@ -16,7 +16,7 @@ class LY_Common_ACappellaTraining extends \ALT\Models\Card
       'name' => clienttranslate('A Cappella Training'),
       'type' => SPELL,
       'subtype' => SONG,
-      'effectDesc' => clienttranslate('Target Character becomes [FLEETING_CHAR].  '),
+      'effectDesc' => clienttranslate('Target Character becomes [FLEETING_CHAR].'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

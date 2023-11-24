@@ -16,7 +16,7 @@ class BR_Common_ManaChannelling extends \ALT\Models\Card
       'name' => clienttranslate('Mana Channelling'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('$[FLEETING]  Put the top card of your deck in your Mana Orbs, exhausted.  '),
+      'effectDesc' => clienttranslate('$[FLEETING]  Put the top card of your deck in your Mana Orbs, exhausted.'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

@@ -16,7 +16,7 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
       'name' => clienttranslate('Bravos Bladedancer'),
       'type' => CHARACTER,
       'subtype' => ADVENTURER,
-      'effectDesc' => clienttranslate('{J} I gain 1 boost.  $[SEASONED]  '),
+      'effectDesc' => clienttranslate('{J} I gain 1 boost.  $[SEASONED]'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

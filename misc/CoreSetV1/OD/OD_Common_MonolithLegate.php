@@ -16,7 +16,7 @@ class OD_Common_MonolithLegate extends \ALT\Models\Card
       'name' => clienttranslate('Monolith Legate'),
       'type' => CHARACTER,
       'subtype' => BUREAUCRAT,
-      'effectDesc' => clienttranslate('When my Expedition doesn\'t move forward during Dusk — $[SABOTAGE] after Rest.  '),
+      'effectDesc' => clienttranslate('When my Expedition doesn\'t move forward during Dusk — $[SABOTAGE] after Rest.'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 2,

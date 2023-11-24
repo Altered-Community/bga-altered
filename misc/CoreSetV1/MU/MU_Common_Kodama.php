@@ -16,7 +16,7 @@ class MU_Common_Kodama extends \ALT\Models\Card
       'name' => clienttranslate('Kodama'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('{M} I become $[ASLEEP].  '),
+      'effectDesc' => clienttranslate('{M} I become $[ASLEEP].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

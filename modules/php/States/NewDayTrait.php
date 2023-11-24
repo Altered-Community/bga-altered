@@ -139,7 +139,6 @@ trait NewDayTrait
     Cards::untapAll();
     Stats::incDays();
 
-
     // Change first player
     $currentFirstPId = Globals::getFirstPlayer();
     $newFirstPId = Players::getNextId($currentFirstPId);

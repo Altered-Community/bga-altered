@@ -17,7 +17,7 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       'name' => clienttranslate('Haven Bouncer'),
       'type' => CHARACTER,
       'subtype' => ADVENTURER,
-      'effectDesc' => clienttranslate('{M} $[SABOTAGE].  {S} I gain 1 boost.  '),
+      'effectDesc' => clienttranslate('{M} $[SABOTAGE].  {S} I gain 1 boost.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

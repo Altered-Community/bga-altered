@@ -16,7 +16,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'name' => clienttranslate('All In!'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.  '),
+      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [

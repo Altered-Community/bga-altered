@@ -17,7 +17,7 @@ class OD_Common_Issitoq extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => BUREAUCRAT,
       'effectDesc' => clienttranslate(
-        'Characters in the opponent\'s Expedition facing me don\'t trigger their {J}, {M} and {S} abilities.  '
+        'Characters in the opponent\'s Expedition facing me don\'t trigger their {J}, {M} and {S} abilities.'
       ),
       'forest' => 4,
       'mountain' => 4,

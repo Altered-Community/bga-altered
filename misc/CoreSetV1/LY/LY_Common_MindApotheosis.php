@@ -17,7 +17,7 @@ class LY_Common_MindApotheosis extends \ALT\Models\Card
       'type' => SPELL,
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Reveal the top 4 cards of your deck. You may play up to two Characters revealed this way for free if possible, in the order of your choice. They gain [FLEETING]. Discard cards that weren\'t played this way. (Don\'t trigger any {M} effects.)  '
+        '$[FLEETING].  Reveal the top 4 cards of your deck. You may play up to two Characters revealed this way for free if possible, in the order of your choice. They gain [FLEETING]. Discard cards that weren\'t played this way. (Don\'t trigger any {M} effects.)'
       ),
       'costHand' => 9,
       'costReserve' => 9,

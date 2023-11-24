@@ -16,7 +16,7 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'name' => clienttranslate('Ordis Recruit'),
       'type' => TOKEN,
       'subtype' => SOLDIER,
-      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone — Discard me).  '),
+      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone — Discard me).'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

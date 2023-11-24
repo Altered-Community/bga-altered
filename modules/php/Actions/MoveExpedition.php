@@ -20,7 +20,7 @@ class MoveExpedition extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return  clienttranslate('Move expedition');
+    return clienttranslate('Move expedition');
   }
 
   public function isAutomatic($player = null)
@@ -28,17 +28,16 @@ class MoveExpedition extends \ALT\Models\Action
     return true;
   }
 
-
   protected $args = [
     'expedition' => null,
     'pId' => ME,
-    'n' => 1
+    'n' => 1,
   ];
 
   public function stMoveExpedition()
   {
     if (Globals::isTieBreakerMode()) {
-      Notifications::message(clienttranslate("In tie-breaker this power have no effect."), []);
+      Notifications::message(clienttranslate('In tie-breaker this power have no effect.'), []);
       return;
     }
 
@@ -61,7 +60,6 @@ class MoveExpedition extends \ALT\Models\Action
 
     $token = $expedition == STORM_LEFT ? HERO : COMPANION;
     $getToken = 'get' . ucfirst($token) . 'Token';
-
 
     $pId = $this->getCtxArg('pId') ?? Players::getActiveId();
     if ($pId == ME) {

@@ -15,7 +15,7 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
       'name' => clienttranslate('Gulrang & Tocsin'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'Whenever you create a token — it gains 1 boost.  As long as you have less than 8 Mana Orbs, your boosted tokens have $[DEFENDER].  '
+        'Whenever you create a token — it gains 1 boost.  As long as you have less than 8 Mana Orbs, your boosted tokens have $[DEFENDER].'
       ),
     ];
   }

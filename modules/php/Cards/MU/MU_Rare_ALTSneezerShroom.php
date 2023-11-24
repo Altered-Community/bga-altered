@@ -16,7 +16,7 @@ class MU_Rare_ALTSneezerShroom extends \ALT\Models\Card
       'name' => clienttranslate('ALT Sneezer Shroom'),
       'type' => CHARACTER,
       'subtype' => PLANT,
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  #At Dawn — I gain 1 boost.#  '),
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  #At Dawn — I gain 1 boost.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

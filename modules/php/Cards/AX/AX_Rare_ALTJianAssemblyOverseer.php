@@ -17,7 +17,7 @@ class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => ENGINEER,
       'supportDesc' => clienttranslate(
-        '#{D} : Activate the {J} effect of target Permanent.# (Discard me from your Reserve to activate this effect)  '
+        '#{D} : Activate the {J} effect of target Permanent.# (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,
       'mountain' => 2,

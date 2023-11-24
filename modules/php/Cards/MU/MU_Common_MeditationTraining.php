@@ -16,7 +16,7 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'name' => clienttranslate('Meditation Training'),
       'type' => SPELL,
       'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes $[ANCHORED].  '),
+      'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes $[ANCHORED].'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),

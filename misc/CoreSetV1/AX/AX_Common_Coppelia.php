@@ -16,7 +16,7 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'name' => clienttranslate('Coppélia'),
       'type' => CHARACTER,
       'subtype' => ROBOT,
-      'effectDesc' => clienttranslate('When I\'m sent to Reserve from your hand — Play me for free and I become $[ASLEEP].  '),
+      'effectDesc' => clienttranslate('When I\'m sent to Reserve from your hand — Play me for free and I become $[ASLEEP].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 0,

@@ -16,9 +16,9 @@ class YZ_Common_Flamel extends \ALT\Models\Card
       'name' => clienttranslate('Flamel'),
       'type' => CHARACTER,
       'subtype' => MAGE,
-      'effectDesc' => clienttranslate('{M} You may put a Spell from your Reserve into your hand.  '),
+      'effectDesc' => clienttranslate('{M} You may put a Spell from your Reserve into your hand.'),
       'supportDesc' => clienttranslate(
-        '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)  '
+        '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 4,
       'mountain' => 3,
