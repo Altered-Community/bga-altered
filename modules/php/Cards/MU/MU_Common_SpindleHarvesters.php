@@ -7,21 +7,16 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '101',
-      'asset' => 'MU-06-MusubiHarvester-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_06_C',
+      'asset' => 'ALT_CORE_B_MU_06_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Spindle Harvesters'),
-      'typeline' => clienttranslate('Common - Plant'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Spindle Harvesters'),
       'type' => CHARACTER,
-      'subtype' => 'Plant',
-
-      'effectDesc' => clienttranslate('{J} I become [[Anchored]].'),
-      'reminders' => clienttranslate('(Anchored: At Night, I don\'t go to Reserve and I lose Anchored.)'),
+      'subtype' => PLANT,
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  '),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

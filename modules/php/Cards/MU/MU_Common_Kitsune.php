@@ -7,20 +7,16 @@ class MU_Common_Kitsune extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '98',
-      'asset' => 'MU-05-Kitsune-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_05_C',
+      'asset' => 'ALT_CORE_B_MU_05_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Kitsune'),
-      'typeline' => clienttranslate('Common - Spirit'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Kitsune'),
       'type' => CHARACTER,
-      'subtype' => 'Spirit',
-
-      'effectDesc' => clienttranslate('{M} [Gift] - Each player draws a card.'),
+      'subtype' => SPIRIT,
+      'effectDesc' => clienttranslate('{M} Each player draws a card.  '),
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 2,

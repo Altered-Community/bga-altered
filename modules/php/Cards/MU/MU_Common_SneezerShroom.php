@@ -7,21 +7,16 @@ class MU_Common_SneezerShroom extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '104',
-      'asset' => 'MU-08-Sneezer-Shroom-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_08_C',
+      'asset' => 'ALT_CORE_B_MU_08_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Sneezer Shroom'),
-      'typeline' => clienttranslate('Common - Plant'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Sneezer Shroom'),
       'type' => CHARACTER,
-      'subtype' => 'Plant',
-
-      'effectDesc' => clienttranslate('{J} I become [[Anchored]].'),
-      'reminders' => clienttranslate('(Anchored: At Night, I don\'t go to Reserve and I lose Anchored.)'),
+      'subtype' => PLANT,
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  '),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

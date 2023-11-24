@@ -7,22 +7,16 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '120',
-      'asset' => 'MU-25-Mana-Web-C',
-
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_25_C',
+      'asset' => 'ALT_CORE_B_MU_25_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Meditation Training'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Meditation Training'),
       'type' => SPELL,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes [[Anchored]].'),
-      'reminders' => clienttranslate('(Anchored: At Night, I don\'t go to Reserve and I lose Anchored.)'),
+      'subtype' => SUPPORT,
+      'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes $[ANCHORED].  '),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),

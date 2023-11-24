@@ -7,23 +7,19 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '97',
-      'asset' => 'MU-02-Teija-Nauraa-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_01_C',
+      'asset' => 'ALT_CORE_B_MU_01_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Teija & Nauraa'),
-      'typeline' => clienttranslate('Muna Hero'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Teija & Nauraa'),
       'type' => HERO,
-      'subtype' => '',
+      'effectDesc' => clienttranslate('The first Character you play each Day gains 1 boost.  '),
 
       'reserveSlots' => 2,
       'permanentSlots' => 2,
 
-      'effectDesc' => clienttranslate('The first Character you play each day gains 1 boost.'),
       'effectPassive' => [
         'ChooseAssignment' => [
           'condition' => 'firstCharacterPlayed',

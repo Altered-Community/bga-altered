@@ -7,21 +7,16 @@ class MU_Common_ConiferalConeman extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '118',
-      'asset' => 'MU-20-ConiferalConeman-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_20_C',
+      'asset' => 'ALT_CORE_B_MU_20_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Coniferal Coneman'),
-      'typeline' => clienttranslate('Common - Plant'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Coniferal Coneman'),
       'type' => CHARACTER,
-      'subtype' => 'Plant',
-
-      'effectDesc' => clienttranslate('{J} I become [[Anchored]].'),
-      'reminders' => clienttranslate('(Anchored: At Night, I don\'t go to Reserve and I lose Anchored.)'),
+      'subtype' => PLANT,
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  '),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

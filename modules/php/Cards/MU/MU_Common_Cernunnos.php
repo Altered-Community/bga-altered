@@ -6,19 +6,15 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '115',
-      'asset' => 'MU-14-New-Cernunnos-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_14_C',
+      'asset' => 'ALT_CORE_B_MU_14_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Cernunnos'),
-      'typeline' => clienttranslate('Common - Druid'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Cernunnos'),
       'type' => CHARACTER,
-      'subtype' => 'Druid',
-
+      'subtype' => DRUID,
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

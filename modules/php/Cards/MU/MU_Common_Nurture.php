@@ -7,21 +7,16 @@ class MU_Common_Nurture extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '123',
-      'asset' => 'MU-27-Nurturing-Watering-Can-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_27_C',
+      'asset' => 'ALT_CORE_B_MU_27_C',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('Nurture'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Nurture'),
       'type' => SPELL,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('Up to two target Characters gain 1 boost.'),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
+      'subtype' => SUPPORT,
+      'effectDesc' => clienttranslate('Up to two target Characters gain 1 boost.  '),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
