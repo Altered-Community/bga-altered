@@ -6,19 +6,15 @@ class YZ_Common_LadyoftheLake extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '166',
-      'asset' => 'YZ-09-Nimue-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_09_C',
+      'asset' => 'ALT_CORE_B_YZ_09_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Lady of the Lake'),
-      'typeline' => clienttranslate('Common - Spirit'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Lady of the Lake'),
       'type' => CHARACTER,
-      'subtype' => 'Spirit',
-
+      'subtype' => SPIRIT,
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 3,

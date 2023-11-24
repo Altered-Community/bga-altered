@@ -24,6 +24,10 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
+      'effectSupport' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1]],
+      ],
     ];
   }
 }

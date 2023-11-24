@@ -35,7 +35,7 @@ const PRECOS = [
     'BR_Common_Ratatoskr' => 2,
     'BR_Rare_BravosTracer' => 1,
     'BR_Rare_SunWukong' => 1,
-    // 'BR_Rare_HuaMulan' => 1, 
+    // 'BR_Rare_HuaMulan' => 1,
     'BR_Rare_Ratatoskr' => 1,
   ],
 
@@ -101,7 +101,7 @@ const PRECOS = [
     'YZ_Common_OffYouGo' => 3,
     'YZ_Common_Sakarabru' => 3,
     'YZ_Common_SpyCraft' => 2,
-    'YZ_Common_StubbornDisciple' => 3,
+    'YZ_Common_StudiousDisciple' => 3,
     'YZ_Common_YzmirStargazer' => 3,
     'YZ_Rare_ALTKadigiranAlchemist' => 1,
     'YZ_Rare_ALTSpyCraft' => 1,

@@ -7,20 +7,16 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '180',
-      'asset' => 'YZ-16-DorotyGale-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_16_C',
+      'asset' => 'ALT_CORE_B_YZ_16_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Dorothy Gale'),
-      'typeline' => clienttranslate('Common - Citizen'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Dorothy Gale'),
       'type' => CHARACTER,
-      'subtype' => 'Citizen',
-
-      'effectDesc' => clienttranslate('{M} Send to Reserve target Character.'),
+      'subtype' => CITIZEN,
+      'effectDesc' => clienttranslate('{M} Send to Reserve target Character.  '),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,

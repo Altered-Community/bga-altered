@@ -9,20 +9,16 @@ class YZ_Common_Alice extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '177',
-      'asset' => 'YZ-13-Alice-C',
-      'frameSize' => 3,
+      'uid' => 'ALT_CORE_B_YZ_13_C',
+      'asset' => 'ALT_CORE_B_YZ_13_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Alice'),
-      'typeline' => clienttranslate('Common - Citizen'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Alice'),
       'type' => CHARACTER,
-      'subtype' => 'Citizen',
-
-      'supportDesc' => clienttranslate('{D} : [After You]. (Discard me from your Reserve to activate this effect)'),
+      'subtype' => CITIZEN,
+      'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from your Reserve to activate this effect)  '),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,

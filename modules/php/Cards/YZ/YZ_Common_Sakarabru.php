@@ -9,26 +9,22 @@ class YZ_Common_Sakarabru extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '182',
-      'asset' => 'YZ-18-SakarMoonhealer-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_18_C',
+      'asset' => 'ALT_CORE_B_YZ_18_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Sakarabru'),
-      'typeline' => clienttranslate('Common - Divinity'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Sakarabru'),
       'type' => CHARACTER,
-      'subtype' => 'Divinity',
-
-      'effectDesc' => clienttranslate('{M} The Expedition opposing me moves one step back.'),
+      'subtype' => DIVINITY,
+      'effectDesc' => clienttranslate('{M} Your opponent\'s Expedition facing mine moves backwards.  '),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 7,
       'costReserve' => 7,
-      'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT])
+      'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT]),
     ];
   }
 }

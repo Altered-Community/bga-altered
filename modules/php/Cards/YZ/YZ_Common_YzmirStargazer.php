@@ -6,21 +6,17 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '169',
-      'asset' => 'YZ-40-Kadigiran-Phonomancer-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_08_C',
+      'asset' => 'ALT_CORE_B_YZ_08_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Yzmir Stargazer'),
-      'typeline' => clienttranslate('Common - Mage'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Yzmir Stargazer'),
       'type' => CHARACTER,
-      'subtype' => 'Mage',
-
-      'forest' => 2,
-      'mountain' => 1,
+      'subtype' => MAGE,
+      'forest' => 1,
+      'mountain' => 2,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,

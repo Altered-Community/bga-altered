@@ -9,30 +9,24 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '188',
-      'asset' => 'YZ-04-StedfastDisciple-C',
-
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_26_C',
+      'asset' => 'ALT_CORE_B_YZ_26_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate("Kraken's Wrath"),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate("Kraken's Wrath"),
       'type' => SPELL,
-      'subtype' => '',
-
+      'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Send to Reserve up to 3 Characters with a cumulated hand cost of {5} or less.'
+        '$[FLEETING].  Send to Reserve up to 3 Characters with a cumulated hand cost of {5} or less.  '
       ),
-      'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['upTo' => true, 'n' => 3, 'totalCost' => 5, 'effect' => FT::ACTION(DISCARD, [])])
-      )
+      ),
     ];
   }
 }

@@ -1,26 +1,22 @@
 <?php
 namespace ALT\Cards\YZ;
 use ALT\Helpers\FT;
+
 class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '175',
-      'asset' => 'YZ-12-VanHelsing-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_12_C',
+      'asset' => 'ALT_CORE_B_YZ_12_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Kadigiran Alchemist'),
-      'typeline' => clienttranslate('Common - Mage'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Kadigiran Alchemist'),
       'type' => CHARACTER,
-      'subtype' => 'Mage',
-
-      'effectDesc' => clienttranslate('{M} I gain 2 boosts.'),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
+      'subtype' => MAGE,
+      'effectDesc' => clienttranslate('{M} I gain 2 boosts.  '),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

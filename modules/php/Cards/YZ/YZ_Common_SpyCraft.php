@@ -7,23 +7,16 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '191',
-      'asset' => 'YZ-22-UnjiriClairvoyant-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_22_C',
+      'asset' => 'ALT_CORE_B_YZ_22_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Spy Craft'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Spy Craft'),
       'type' => SPELL,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('[[Fleeting]].  [Sabotage], [Resupply].'),
-      'reminders' => clienttranslate(
-        '(Fleeting: After my effect resolves, banish me. Sabotage: Banish up to one target card from a Reserve. Resupply: Put the top card of your deck in your Reserve.)'
-      ),
+      'subtype' => DISRUPTION,
+      'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], $[RESUPPLY].  '),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
