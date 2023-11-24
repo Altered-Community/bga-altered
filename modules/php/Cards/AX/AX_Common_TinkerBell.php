@@ -6,24 +6,21 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '5',
-      'asset' => 'AX-09-Tinkder-Bell-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_AX_09_C',
+      'asset' => 'ALT_CORE_B_AX_09_C',
 
       'faction' => FACTION_AX,
-      'name' => clienttranslate('Tinker Bell'),
-      'typeline' => clienttranslate('Common - Fairy'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Tinker Bell'),
       'type' => CHARACTER,
-      'subtype' => 'Fairy',
-
-      'forest' => 3,
-      'mountain' => 2,
-      'ocean' => 0,
-      'costHand' => 2,
-      'costReserve' => 2,
+      'subtype' => FAIRY,
+      'effectDesc' => clienttranslate('{S} $[SABOTAGE].  '),
+      'forest' => 1,
+      'mountain' => 3,
+      'ocean' => 3,
+      'costHand' => 3,
+      'costReserve' => 3,
     ];
   }
 }

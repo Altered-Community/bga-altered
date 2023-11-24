@@ -7,25 +7,16 @@ class AX_Common_Brassbug extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '32',
-      'asset' => 'AX-31-Brassbug-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_AX_31_C',
+      'asset' => 'ALT_CORE_B_AX_31_C',
 
       'faction' => FACTION_AX,
-      'name' => clienttranslate('Brassbug'),
-      'typeline' => clienttranslate('Common - Token - Robot'),
       'rarity' => RARITY_COMMON,
-      'type' => CHARACTER,
-      'subtype' => 'Token - Robot',
-      'token' => true,
-      'costHand' => 0,
-      'costReserve' => 0,
-
-      'effectDesc' => clienttranslate(
-        '[Token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone - Remove me from the game).'
-      ),
+      'name' => clienttranslate('Brassbug'),
+      'type' => TOKEN,
+      'subtype' => ROBOT,
+      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone - Discard me)  '),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

@@ -9,20 +9,16 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '26',
-      'asset' => 'AX-30-BrassbugQueen-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_AX_30_C',
+      'asset' => 'ALT_CORE_B_AX_30_C',
 
       'faction' => FACTION_AX,
-      'name' => clienttranslate('Brassbug Hive'),
-      'typeline' => '',
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Brassbug Hive'),
       'type' => PERMANENT,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('{J} Create a [2/2/2 Brassbug] Robot token.  At Dawn - Activate my {J} effect.'),
+      'subtype' => LANDMARK,
+      'effectDesc' => clienttranslate('{J} Create a [BRASSBUG] Robot token.  At Dawn - Activate my {J} effect.  '),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::XOR(
@@ -51,7 +47,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
               'tokenType' => 'AX_Common_Brassbug',
               'targetLocation' => [STORM_LEFT],
             ])
-          )
+          ),
         ],
       ],
     ];

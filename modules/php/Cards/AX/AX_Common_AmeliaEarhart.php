@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_AmeliaEarhart extends \ALT\Models\Card
@@ -6,18 +7,15 @@ class AX_Common_AmeliaEarhart extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '9',
-      'asset' => 'AX-11-AmeliaEarhart-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_AX_11_C',
+      'asset' => 'ALT_CORE_B_AX_11_C',
 
       'faction' => FACTION_AX,
-      'name' => clienttranslate('Amelia Earhart'),
-      'typeline' => clienttranslate('Common - Pilot'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Amelia Earhart'),
       'type' => CHARACTER,
-      'subtype' => 'Pilot',
+      'subtype' => PILOT,
 
       'forest' => 2,
       'mountain' => 2,

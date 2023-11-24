@@ -9,21 +9,16 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '24',
-      'asset' => 'AX-25-Recycling-Mill-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_AX_25_C',
+      'asset' => 'ALT_CORE_B_AX_25_C',
 
       'faction' => FACTION_AX,
-      'name' => clienttranslate('Axiom Reprocessor'),
-      'typeline' => '',
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Axiom Reprocessor'),
       'type' => PERMANENT,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('At Dawn - [Resupply].'),
-      'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),
+      'subtype' => LANDMARK,
+      'effectDesc' => clienttranslate('At Dawn — $[RESUPPLY].  '),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPassive' => [

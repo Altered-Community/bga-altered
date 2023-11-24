@@ -6,24 +6,16 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '1',
-      'asset' => 'AX-01-Sierra-Oddball-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_AX_01_C',
+      'asset' => 'ALT_CORE_B_AX_01_C',
 
       'faction' => FACTION_AX,
-      'name' => clienttranslate('Sierra & Oddball'),
-      'typeline' => clienttranslate('Axiom Hero'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Sierra & Oddball'),
       'type' => HERO,
-      'subtype' => '',
-
-      'reserveSlots' => 2,
-      'permanentSlots' => 2,
-
       'effectDesc' => clienttranslate(
-        'When you play a Permanent, you may exhaust me ({T}) to create a [2/2/2 Brassbug] Robot token.'
+        'When you play a Permanent with a hand cost {3} or more, you may exhaust me ({T}) to create a [BRASSBUG] Robot token.  '
       ),
     ];
   }

@@ -1,6 +1,30 @@
 <?php
 namespace ALT\Cards\AX;
 
+/// WARNING : big changes with previous version => TO CHECK
+class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_AX_10_C',
+      'asset' => 'ALT_CORE_B_AX_10_C',
+
+      'faction' => FACTION_AX,
+      'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Jian, Assembly Overseer'),
+      'type' => CHARACTER,
+      'subtype' => ENGINEER,
+      'forest' => 3,
+      'mountain' => 2,
+      'ocean' => 0,
+      'costHand' => 2,
+      'costReserve' => 2,
+    ];
+  }
+}
+/*
 class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -29,3 +53,4 @@ class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
     ];
   }
 }
+*/

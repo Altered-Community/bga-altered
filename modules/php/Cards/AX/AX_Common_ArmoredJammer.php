@@ -9,23 +9,19 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '21',
-      'asset' => 'AX-28-ArmoredJammer-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_AX_28_C',
+      'asset' => 'ALT_CORE_B_AX_28_C',
 
       'faction' => FACTION_AX,
-      'name' => clienttranslate('Armored Jammer'),
-      'typeline' => '',
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Armored Jammer'),
       'type' => PERMANENT,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('{J} [Sabotage].'),
-      'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),
+      'subtype' => LANDMARK,
+      'effectDesc' => clienttranslate('{J} $[SABOTAGE].  '),
       'costHand' => 2,
       'costReserve' => 2,
+
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER, SPELL, PERMANENT],
         'targetLocation' => [RESERVE],
