@@ -1,26 +1,22 @@
 <?php
 namespace ALT\Cards\LY;
 use ALT\Helpers\FT;
+
 class LY_Common_OuroborosDealer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '83',
-      'asset' => 'LY-C7-Kasirga-Dealer-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_LY_17_C',
+      'asset' => 'ALT_CORE_B_LY_17_C',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('Ouroboros Dealer'),
-      'typeline' => clienttranslate('Common - Citizen'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Ouroboros Dealer'),
       'type' => CHARACTER,
-      'subtype' => 'Citizen',
-
-      'effectDesc' => clienttranslate('{M} Roll a dice, if the result is 4 or more, draw a card, otherwise, [Resupply].'),
-      'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),
+      'subtype' => CITIZEN,
+      'effectDesc' => clienttranslate('{M} Roll a dice, if the result is 4 or more, draw a card, otherwise, $[RESUPPLY].  '),
       'forest' => 0,
       'mountain' => 4,
       'ocean' => 4,

@@ -7,21 +7,16 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '75',
-      'asset' => 'LY-11-Esmeralda-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_LY_11_C',
+      'asset' => 'ALT_CORE_B_LY_11_C',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('Esmeralda'),
-      'typeline' => clienttranslate('Common - Artist'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Esmeralda'),
       'type' => CHARACTER,
-      'subtype' => 'Artist',
-
-      'effectDesc' => clienttranslate('{M} [Resupply].'),
-      'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),
+      'subtype' => ARTIST,
+      'effectDesc' => clienttranslate('{M} $[RESUPPLY].  '),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

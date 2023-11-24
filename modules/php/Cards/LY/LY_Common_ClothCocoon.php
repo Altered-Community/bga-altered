@@ -1,28 +1,24 @@
 <?php
 namespace ALT\Cards\LY;
 use ALT\Helpers\FT;
+
 class LY_Common_ClothCocoon extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '88',
-      'asset' => 'LY-24-Cloth-Cocoon-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_LY_24_C',
+      'asset' => 'ALT_CORE_B_LY_24_C',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('Cloth Cocoon'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Cloth Cocoon'),
       'type' => SPELL,
-      'subtype' => '',
-
+      'subtype' => DISRUPTION,
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]. Choose one:  - Discard target [[Fleeting]], [[Anchored]] or [[Asleep]] Character.  - Discard target Permanent.'
+        '$[FLEETING]. Choose one:  - Discard target [FLEETING], [ANCHORED] or [ASLEEP] Character.  - Discard target Permanent.  '
       ),
-      'reminders' => clienttranslate('(Fleeting: After my effect resolves, banish me.)'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(

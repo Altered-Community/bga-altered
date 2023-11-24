@@ -9,28 +9,28 @@ class LY_Common_Hathor extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '69',
-      'asset' => 'LY-07-Hathor-C',
-      'frameSize' => 3,
+      'uid' => 'ALT_CORE_B_LY_07_C',
+      'asset' => 'ALT_CORE_B_LY_07_C',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('Hathor'),
-      'typeline' => clienttranslate('Common - Divinity'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Hathor'),
       'type' => CHARACTER,
-      'subtype' => 'Divinity',
-
+      'subtype' => DIVINITY,
       'supportDesc' => clienttranslate(
-        '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)'
+        '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)  '
       ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,
       'costHand' => 2,
-      'costReserve' => 3,
-      'effectSupport' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [RESERVE], 'effect' => FT::RETURN_TO_HAND()]),
+      'costReserve' => 2,
+      'effectSupport' => FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
+        'targetLocation' => [RESERVE],
+        'effect' => FT::RETURN_TO_HAND(),
+      ]),
     ];
   }
 }

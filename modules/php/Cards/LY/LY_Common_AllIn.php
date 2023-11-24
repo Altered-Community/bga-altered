@@ -7,22 +7,16 @@ class LY_Common_AllIn extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '91',
-      'asset' => 'LY-25-Loaded-Die-C',
-
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_LY_25_C',
+      'asset' => 'ALT_CORE_B_LY_25_C',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('All In!'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('All In!'),
       'type' => SPELL,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.'),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
+      'subtype' => SUPPORT,
+      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.  '),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [

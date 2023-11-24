@@ -6,19 +6,15 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '70',
-      'asset' => 'LY-Mnemos-Skald-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_LY_08_C',
+      'asset' => 'ALT_CORE_B_LY_08_C',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('Lyra Skald'),
-      'typeline' => clienttranslate('Common - Artist'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Lyra Skald'),
       'type' => CHARACTER,
-      'subtype' => 'Artist',
-
+      'subtype' => ARTIST,
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 2,

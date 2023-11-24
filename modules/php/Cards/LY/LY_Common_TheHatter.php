@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\LY;
-
 use ALT\Helpers\FT;
 
 class LY_Common_TheHatter extends \ALT\Models\Card
@@ -9,28 +7,24 @@ class LY_Common_TheHatter extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '85',
-      'asset' => 'LY-18-MadHatter-C',
-      'frameSize' => 5,
+      'uid' => 'ALT_CORE_B_LY_18_C',
+      'asset' => 'ALT_CORE_B_LY_18_C',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('The Hatter'),
-      'typeline' => clienttranslate('Character - Citizen'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('The Hatter'),
       'type' => CHARACTER,
-      'subtype' => 'Citizen',
-
+      'subtype' => CITIZEN,
+      'effectDesc' => clienttranslate('(*He can\'t swim.*)  '),
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with hand cost {3} or less becomes [[Anchored]]. (Discard me from your Reserve to activate this effect)'
+        '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)  '
       ),
-      'reminders' => clienttranslate('He can\'t swim.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 0,
       'costHand' => 4,
-      'costReserve' => 5,
+      'costReserve' => 4,
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }
