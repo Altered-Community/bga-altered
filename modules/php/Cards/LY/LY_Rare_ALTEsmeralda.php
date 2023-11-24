@@ -7,21 +7,16 @@ class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '95',
-      'asset' => 'LY-11-Esmeralda-R',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_LY_11_R1',
+      'asset' => 'ALT_CORE_B_LY_11_R1',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('ALT Esmeralda'),
-      'typeline' => clienttranslate('Rare - Artist'),
       'rarity' => RARITY_RARE,
+      'name' => clienttranslate('ALT Esmeralda'),
       'type' => CHARACTER,
-      'subtype' => 'Artist',
-
-      'effectDesc' => clienttranslate('[G]{J}[/G] [Resupply].'),
-      'reminders' => clienttranslate('(Resupply: Put the top card of your deck in your Reserve.)'),
+      'subtype' => ARTIST,
+      'effectDesc' => clienttranslate('#{J}# $[RESUPPLY].  '),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

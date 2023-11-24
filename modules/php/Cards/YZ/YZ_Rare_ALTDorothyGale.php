@@ -4,31 +4,27 @@ namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-class YZ_Rare_DorothyGale extends \ALT\Models\Card
+class YZ_Rare_ALTDorothyGale extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '193',
-      'asset' => 'YZ-16-DorotyGale-R',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_16_R1',
+      'asset' => 'ALT_CORE_B_YZ_16_R1',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Dorothy Gale'),
-      'typeline' => clienttranslate('Rare - Citizen'),
       'rarity' => RARITY_RARE,
+      'name' => clienttranslate('ALT Dorothy Gale'),
       'type' => CHARACTER,
-      'subtype' => 'Citizen',
-
-      'effectDesc' => clienttranslate('[G]{J}[/G] Send to Reserve target Character.'),
-      'changedStats' => ['costReserve'],
+      'subtype' => CITIZEN,
+      'effectDesc' => clienttranslate('#{J}# Send to Reserve target Character.  '),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 5,
       'costReserve' => 5,
+      'changedStats' => ['costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
     ];
   }

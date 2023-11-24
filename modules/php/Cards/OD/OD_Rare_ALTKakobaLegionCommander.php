@@ -1,26 +1,22 @@
 <?php
 namespace ALT\Cards\OD;
 use ALT\Helpers\FT;
+
 class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '157',
-      'asset' => 'OD-15-Caellach-R',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_OR_15_R1',
+      'asset' => 'ALT_CORE_B_OR_15_R1',
 
       'faction' => FACTION_OD,
-      'name' => clienttranslate('ALT Kakoba, Legion Commander'),
-      'typeline' => clienttranslate('Rare - Soldier'),
       'rarity' => RARITY_RARE,
+      'name' => clienttranslate('ALT Kakoba, Legion Commander'),
       'type' => CHARACTER,
-      'subtype' => 'Soldier',
-
-      'effectDesc' => clienttranslate('{J} If you control at least 3 other Characters, I gain [G]3[/G] boosts.'),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
+      'subtype' => SOLDIER,
+      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, I gain #3# boosts.  '),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

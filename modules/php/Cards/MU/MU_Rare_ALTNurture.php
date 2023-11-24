@@ -7,25 +7,19 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '126',
-      'asset' => 'MU-27-Nurturing-Watering-Can-R',
-
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_MU_27_R1',
+      'asset' => 'ALT_CORE_B_MU_27_R1',
 
       'faction' => FACTION_MU,
-      'name' => clienttranslate('ALT Nurture'),
-      'typeline' => clienttranslate('Rare'),
       'rarity' => RARITY_RARE,
+      'name' => clienttranslate('ALT Nurture'),
       'type' => SPELL,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('Up to two target Characters gain [G]2[/G] boosts.'),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
-      'changedStats' => ['costHand', 'costReserve'],
+      'subtype' => SUPPORT,
+      'effectDesc' => clienttranslate('Up to two target Characters gain #2# boosts.  '),
       'costHand' => 3,
-      'costReserve' => 2,
+      'costReserve' => 3,
+      'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
     ];
   }

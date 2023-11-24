@@ -1,34 +1,30 @@
 <?php
 namespace ALT\Cards\LY;
 use ALT\Helpers\FT;
+
 class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '94',
-      'asset' => 'LY-06-LyraLegerdemain-R',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_LY_10_R1',
+      'asset' => 'ALT_CORE_B_LY_10_R1',
 
       'faction' => FACTION_LY,
-      'name' => clienttranslate('ALT Ouroboros Trickster'),
-      'typeline' => clienttranslate('Rare - Artist'),
       'rarity' => RARITY_RARE,
+      'name' => clienttranslate('ALT Ouroboros Trickster'),
       'type' => CHARACTER,
-      'subtype' => 'Artist',
-
+      'subtype' => ARTIST,
       'effectDesc' => clienttranslate(
-        '{J} Roll a die. If the result is 4 or more, I gain [G]3[/G] boosts. Otherwise, I gain 1 boost.'
+        '{J} Roll a die. If the result is 4 or more, I gain #3# boosts. Otherwise, I gain 1 boost.  '
       ),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
-      'changedStats' => ['costReserve'],
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 2,
+      'changedStats' => ['costReserve'],
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 3)],
       ]),
