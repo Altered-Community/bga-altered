@@ -7,20 +7,16 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '153',
-      'asset' => 'OD-30-Mesektet-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_OR_30_C',
+      'asset' => 'ALT_CORE_B_OR_30_C',
 
       'faction' => FACTION_OD,
-      'name' => clienttranslate('Ordis Carrier'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Ordis Carrier'),
       'type' => PERMANENT,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('At Dawn - Create a [1/1/1 Ordis Recruit] Soldier token in your Companion Expedition.'),
+      'subtype' => LANDMARK,
+      'effectDesc' => clienttranslate('At Dawn — Create a [ORDIS_RECRUIT] Soldier token in your Companion Expedition.  '),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPassive' => [

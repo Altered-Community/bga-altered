@@ -7,22 +7,16 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '162',
-      'asset' => 'OD-31-AegisRecruit-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_OR_32_C',
+      'asset' => 'ALT_CORE_B_OR_32_C',
 
       'faction' => FACTION_OD,
-      'name' => clienttranslate('Ordis Recruit'),
-      'typeline' => clienttranslate('Common - Token - Soldier'),
       'rarity' => RARITY_COMMON,
-      'type' => CHARACTER,
-      'subtype' => 'Token - Soldier',
-
-      'effectDesc' => clienttranslate(
-        '[Token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone - Remove me from the game).'
-      ),
+      'name' => clienttranslate('Ordis Recruit'),
+      'type' => TOKEN,
+      'subtype' => SOLDIER,
+      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone — Discard me).  '),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

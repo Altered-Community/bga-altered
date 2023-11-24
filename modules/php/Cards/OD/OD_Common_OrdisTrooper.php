@@ -6,19 +6,15 @@ class OD_Common_OrdisTrooper extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '129',
-      'asset' => 'OD-05-AegisCadet-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_OR_05_C',
+      'asset' => 'ALT_CORE_B_OR_05_C',
 
       'faction' => FACTION_OD,
-      'name' => clienttranslate('Ordis Trooper'),
-      'typeline' => clienttranslate('Common - Soldier'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Ordis Trooper'),
       'type' => CHARACTER,
-      'subtype' => 'Soldier',
-
+      'subtype' => SOLDIER,
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

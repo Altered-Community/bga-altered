@@ -6,19 +6,15 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '135',
-      'asset' => 'OD-09-FrogPrince-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_OR_09_C',
+      'asset' => 'ALT_CORE_B_OR_09_C',
 
       'faction' => FACTION_OD,
-      'name' => clienttranslate('The Frog Prince'),
-      'typeline' => clienttranslate('Common - Bureaucrat'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('The Frog Prince'),
       'type' => CHARACTER,
-      'subtype' => 'Bureaucrat',
-
+      'subtype' => BUREAUCRAT,
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,

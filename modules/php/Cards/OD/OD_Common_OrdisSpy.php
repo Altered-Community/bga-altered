@@ -7,21 +7,16 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '140',
-      'asset' => 'OD-14-Eskheret-ruun-Kurush-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_OR_14_C',
+      'asset' => 'ALT_CORE_B_OR_14_C',
 
       'faction' => FACTION_OD,
-      'name' => clienttranslate('Ordis Spy'),
-      'typeline' => clienttranslate('Common - Citizen'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Ordis Spy'),
       'type' => CHARACTER,
-      'subtype' => 'Citizen',
-
-      'effectDesc' => clienttranslate('{M} [Sabotage].'),
-      'reminders' => clienttranslate('(Sabotage: Banish up to one target card from a Reserve.)'),
+      'subtype' => CITIZEN,
+      'effectDesc' => clienttranslate('{M} $[SABOTAGE].  '),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
