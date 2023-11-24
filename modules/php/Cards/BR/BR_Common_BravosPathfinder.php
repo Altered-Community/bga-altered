@@ -6,19 +6,15 @@ class BR_Common_BravosPathfinder extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '41',
-      'asset' => 'BR-08-Gretel-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_08_C',
+      'asset' => 'ALT_CORE_B_BR_08_C',
 
       'faction' => FACTION_BR,
-      'name' => clienttranslate('Bravos Pathfinder'),
-      'typeline' => clienttranslate('Common - Adventurer'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Bravos Pathfinder'),
       'type' => CHARACTER,
-      'subtype' => 'Adventurer',
-
+      'subtype' => ADVENTURER,
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,

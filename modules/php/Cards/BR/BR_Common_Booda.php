@@ -7,22 +7,16 @@ class BR_Common_Booda extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '67',
-      'asset' => 'BR-31-Booda-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_31_C',
+      'asset' => 'ALT_CORE_B_BR_31_C',
 
       'faction' => FACTION_BR,
-      'name' => clienttranslate('Booda'),
-      'typeline' => clienttranslate('Common - Token - Cat'),
       'rarity' => RARITY_COMMON,
-      'type' => CHARACTER,
-      'subtype' => 'Token - Cat',
-
-      'effectDesc' => clienttranslate(
-        '[Token].  (At the beginning of the game, remove me from your deck. When I leave the Expedition Zone - Remove me from the game).'
-      ),
+      'name' => clienttranslate('Booda'),
+      'type' => TOKEN,
+      'subtype' => CAT,
+      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone - Discard me).'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

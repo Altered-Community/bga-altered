@@ -6,27 +6,21 @@ class BR_Common_Atlas extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '55',
-      'asset' => 'BR-20-Atlas-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_20_C',
+      'asset' => 'ALT_CORE_B_BR_20_C',
 
       'faction' => FACTION_BR,
-      'name' => clienttranslate('Atlas'),
-      'typeline' => clienttranslate('Common - Titan'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Atlas'),
       'type' => CHARACTER,
-      'subtype' => 'Titan',
-
-      'effectDesc' => clienttranslate('[Gigantic].'),
-      'reminders' => clienttranslate('(Gigantic: I am considered present in both your Expeditions.)'),
+      'subtype' => TITAN,
+      'effectDesc' => clienttranslate('$[GIGANTIC].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 5,
       'costReserve' => 5,
-      'gigantic' => true,
     ];
   }
 }

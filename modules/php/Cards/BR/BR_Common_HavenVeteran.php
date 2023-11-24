@@ -6,19 +6,15 @@ class BR_Common_HavenVeteran extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '52',
-      'asset' => 'BR-17-SeiringarOldGuard-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_17_C',
+      'asset' => 'ALT_CORE_B_BR_17_C',
 
       'faction' => FACTION_BR,
-      'name' => clienttranslate('Haven Veteran'),
-      'typeline' => clienttranslate('Common - Blademaster'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Haven Veteran'),
       'type' => CHARACTER,
-      'subtype' => 'Blademaster',
-
+      'subtype' => BLADEMASTER,
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 4,

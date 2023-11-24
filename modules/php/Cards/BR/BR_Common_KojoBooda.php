@@ -6,25 +6,20 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '36',
-      'asset' => 'BR-01-Ekwu-Booda-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_01_C',
+      'asset' => 'ALT_CORE_B_BR_01_C',
 
       'faction' => FACTION_BR,
-      'name' => clienttranslate('Kojo & Booda'),
-      'typeline' => clienttranslate('Bravos Hero'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Kojo & Booda'),
       'type' => HERO,
-      'subtype' => '',
-
+      'effectDesc' => clienttranslate(
+        'At Dawn, if you are first player — Create a [BOODA] Cat token in the Companion Expedition.  '
+      ),
       'reserveSlots' => 2,
       'permanentSlots' => 2,
 
-      'effectDesc' => clienttranslate(
-        'At Dawn, if you have the first player Token - Create a [Booda 2/2/2] Cat token in your Companion Expedition.'
-      ),
       'effectPassive' => [
         'Dawn' => [
           'condition' => 'isFirstPlayer',

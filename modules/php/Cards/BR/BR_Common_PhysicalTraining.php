@@ -7,21 +7,16 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '58',
-      'asset' => 'BR-26-GerichtVanBraast-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_26_C',
+      'asset' => 'ALT_CORE_B_BR_26_C',
 
       'faction' => FACTION_BR,
-      'name' => clienttranslate('Physical Training'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Physical Training'),
       'type' => SPELL,
-      'subtype' => '',
-
+      'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),

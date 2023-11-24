@@ -7,21 +7,16 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '37',
-      'asset' => 'BR-04-Ratatoskr-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_04_C',
+      'asset' => 'ALT_CORE_B_BR_04_C',
 
       'faction' => FACTION_BR,
-      'name' => clienttranslate('Ratatoskr'),
-      'typeline' => clienttranslate('Common - Squirrel'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Ratatoskr'),
       'type' => CHARACTER,
-      'subtype' => 'Squirrel',
-
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
-      'reminders' => clienttranslate('(Boosts are +1/+1/+1 counters that are removed when they leave the Expedition Zone.)'),
+      'subtype' => SQUIRREL,
+      'effectDesc' => clienttranslate('{S} I gain 2 boosts.  '),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

@@ -9,26 +9,20 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => '45',
-      'asset' => 'BR-33-HavenTrainee-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_BR_09_C',
+      'asset' => 'ALT_CORE_B_BR_09_C',
 
       'faction' => FACTION_BR,
+      'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Haven Trainee'),
       'type' => CHARACTER,
-      'typeline' => clienttranslate('Character - Trainer'),
-      'rarity' => RARITY_COMMON,
-      'subtype' => 'Trainer',
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
-
-      'reminders' => clienttranslate(
-        'Boosts are +1/+1/+1 counters. Remove them when the boosted Character leaves the Expedition Zone.'
-      ),
+      'subtype' => TRAINER,
+      'effectDesc' => clienttranslate('{S} I gain 2 boosts.  '),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
-      'costReserve' => 4,
+      'costReserve' => 2,
       'effectReserve' => FT::GAIN($this, BOOST, 2),
     ];
   }
