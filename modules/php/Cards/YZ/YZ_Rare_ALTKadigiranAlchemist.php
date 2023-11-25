@@ -17,7 +17,7 @@ class YZ_Rare_ALTKadigiranAlchemist extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Kadigiran Alchemist'),
       'type' => CHARACTER,
-      'subtype' => MAGE,
+      'subtype' => [MAGE],
       'effectDesc' => clienttranslate('{M} I gain #3# boosts.'),
       'forest' => 1,
       'mountain' => 1,

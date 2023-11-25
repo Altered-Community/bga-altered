@@ -15,7 +15,7 @@ class AX_Common_AmeliaEarhart extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Amelia Earhart'),
       'type' => CHARACTER,
-      'subtype' => PILOT,
+      'subtype' => [PILOT],
 
       'forest' => 2,
       'mountain' => 2,

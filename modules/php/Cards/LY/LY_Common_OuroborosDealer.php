@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_OuroborosDealer extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class LY_Common_OuroborosDealer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ouroboros Dealer'),
       'type' => CHARACTER,
-      'subtype' => CITIZEN,
+      'subtype' => [CITIZEN],
       'effectDesc' => clienttranslate('{M} Roll a dice, if the result is 4 or more, draw a card, otherwise, $[RESUPPLY].'),
       'forest' => 0,
       'mountain' => 4,

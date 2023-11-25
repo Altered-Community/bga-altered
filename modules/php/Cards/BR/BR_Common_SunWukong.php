@@ -17,7 +17,7 @@ class BR_Common_SunWukong extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sun Wukong'),
       'type' => CHARACTER,
-      'subtype' => DIVINITY,
+      'subtype' => [DIVINITY],
       'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
       'forest' => 2,
       'mountain' => 4,

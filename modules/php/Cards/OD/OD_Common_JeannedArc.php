@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Common_JeannedArc extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate("Jeanne d'Arc"),
       'type' => CHARACTER,
-      'subtype' => SOLDIER,
+      'subtype' => [SOLDIER],
       'effectDesc' => clienttranslate(
         'When I leave the Expedition zone — Create a [ORDIS_RECRUIT] Soldier token in both of your Expeditions.'
       ),

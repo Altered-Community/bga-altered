@@ -15,7 +15,7 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Foundry Armorer'),
       'type' => CHARACTER,
-      'subtype' => ENGINEER,
+      'subtype' => [ENGINEER],
       'effectDesc' => clienttranslate('{S} Create a [BRASSBUG] Robot token.'),
       'forest' => 2,
       'mountain' => 2,

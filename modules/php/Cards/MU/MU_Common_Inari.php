@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Inari extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class MU_Common_Inari extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Inari'),
       'type' => CHARACTER,
-      'subtype' => DIVINITY,
+      'subtype' => [DIVINITY],
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 3,

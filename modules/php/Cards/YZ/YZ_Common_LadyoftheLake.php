@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\YZ;
 
 class YZ_Common_LadyoftheLake extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class YZ_Common_LadyoftheLake extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lady of the Lake'),
       'type' => CHARACTER,
-      'subtype' => SPIRIT,
+      'subtype' => [SPIRIT],
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 3,

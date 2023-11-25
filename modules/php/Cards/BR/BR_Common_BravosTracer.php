@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\BR;
+
 use ALT\Helpers\FT;
 
 class BR_Common_BravosTracer extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Bravos Tracer'),
       'type' => CHARACTER,
-      'subtype' => ADVENTURER,
+      'subtype' => [ADVENTURER],
       'effectDesc' => clienttranslate('{J} I become $[FLEETING_CHAR].'),
       'forest' => 3,
       'mountain' => 3,

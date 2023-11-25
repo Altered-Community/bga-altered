@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_AllIn extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('All In!'),
       'type' => SPELL,
-      'subtype' => SUPPORT,
+      'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.'),
       'costHand' => 3,
       'costReserve' => 3,

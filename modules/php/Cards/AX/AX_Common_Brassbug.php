@@ -15,11 +15,12 @@ class AX_Common_Brassbug extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Brassbug'),
       'type' => TOKEN,
-      'subtype' => ROBOT,
+      'subtype' => [ROBOT],
       'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone - Discard me)'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
+      'token' => true
     ];
   }
 }

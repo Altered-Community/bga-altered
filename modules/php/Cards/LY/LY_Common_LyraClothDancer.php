@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_LyraClothDancer extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Cloth-Dancer'),
       'type' => CHARACTER,
-      'subtype' => ARTIST,
+      'subtype' => [ARTIST],
       'effectDesc' => clienttranslate('{M} Another target Character becomes $[FLEETING].'),
       'forest' => 0,
       'mountain' => 3,

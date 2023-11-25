@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Kakoba, Legion Commander'),
       'type' => CHARACTER,
-      'subtype' => SOLDIER,
+      'subtype' => [SOLDIER],
       'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, I gain #3# boosts.'),
       'forest' => 2,
       'mountain' => 2,

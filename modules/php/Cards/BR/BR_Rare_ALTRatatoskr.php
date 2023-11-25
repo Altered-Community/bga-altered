@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\BR;
+
 use ALT\Helpers\FT;
 
 class BR_Rare_ALTRatatoskr extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class BR_Rare_ALTRatatoskr extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Ratatoskr'),
       'type' => CHARACTER,
-      'subtype' => SQUIRREL,
+      'subtype' => [SQUIRREL],
       'effectDesc' => clienttranslate('{S} I gain #3# boosts.'),
       'forest' => 1,
       'mountain' => 1,

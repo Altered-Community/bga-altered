@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_LyraSkald extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Skald'),
       'type' => CHARACTER,
-      'subtype' => ARTIST,
+      'subtype' => [ARTIST],
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 2,

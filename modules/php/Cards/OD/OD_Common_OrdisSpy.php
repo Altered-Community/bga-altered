@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Common_OrdisSpy extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Spy'),
       'type' => CHARACTER,
-      'subtype' => CITIZEN,
+      'subtype' => [CITIZEN],
       'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
       'forest' => 2,
       'mountain' => 2,

@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_ClothCocoon extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Cloth Cocoon'),
       'type' => SPELL,
-      'subtype' => DISRUPTION,
+      'subtype' => [DISRUPTION],
       'effectDesc' => clienttranslate(
         '$[FLEETING]. Choose one:  - Discard target [FLEETING], [ANCHORED] or [ASLEEP] Character.  - Discard target Permanent.'
       ),

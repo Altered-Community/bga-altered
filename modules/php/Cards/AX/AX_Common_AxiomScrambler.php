@@ -15,7 +15,7 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Axiom Scrambler'),
       'type' => CHARACTER,
-      'subtype' => ENGINEER,
+      'subtype' => [ENGINEER],
       'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
       'forest' => 2,
       'mountain' => 4,

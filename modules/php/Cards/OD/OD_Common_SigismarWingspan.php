@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Common_SigismarWingspan extends \ALT\Models\Card
@@ -15,6 +17,10 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sigismar & Wingspan'),
       'type' => HERO,
+
+      'reserveSlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate('At Dawn — Create a [ORDIS_RECRUIT] Soldier token in your Hero Expedition.'),
       'effectPassive' => [
         'Dawn' => [

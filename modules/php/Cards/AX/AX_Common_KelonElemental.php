@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_KelonElemental extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kelon Elemental'),
       'type' => CHARACTER,
-      'subtype' => ELEMENTAL,
+      'subtype' => [ELEMENTAL],
       'effectDesc' => clienttranslate('{M} Put a card from your hand into your Reserve'),
       'forest' => 1,
       'mountain' => 3,

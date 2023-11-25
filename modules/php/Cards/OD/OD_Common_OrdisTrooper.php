@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_OrdisTrooper extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class OD_Common_OrdisTrooper extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Trooper'),
       'type' => CHARACTER,
-      'subtype' => SOLDIER,
+      'subtype' => [SOLDIER],
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

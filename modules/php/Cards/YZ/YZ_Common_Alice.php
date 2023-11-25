@@ -17,7 +17,7 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Alice'),
       'type' => CHARACTER,
-      'subtype' => CITIZEN,
+      'subtype' => [CITIZEN],
       'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from your Reserve to activate this effect)'),
       'forest' => 2,
       'mountain' => 2,

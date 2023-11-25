@@ -185,6 +185,29 @@ const COMPANION = 'companion';
  ***** SUB-TYPE **********
  *********************/
 const DIVINITY = 'divinity';
+const ADVENTURER = 'adventurer';
+const PILOT = 'pilot';
+const LANDMARK = 'landmark';
+const ENGINEER = 'engineer';
+const ROBOT = 'robot';
+const ELEMENTAL = 'elemental';
+const DISRUPTION = 'disruption';
+const TITAN = 'titan';
+const CAT = 'cat';
+const TRAINER = 'trainer';
+const BLADEMASTER = 'blade master';
+const SUPPORT = 'support';
+const SQUIRREL = 'squirrel';
+const DEMON = 'demon';
+const ARTIST = 'artist';
+const CITIZEN = 'citien';
+const DRUID = 'druid';
+const PLANT = 'plant';
+const SPIRIT = 'spirit';
+const SOLDIER = 'soldier';
+const BUREAUCRAT = 'bureaucrat';
+const MAGE = 'mage';
+const TOKEN = 'token';
 
 /*********************
  * ****** ABILITIES *****

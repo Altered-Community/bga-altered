@@ -15,7 +15,7 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Brassbug Hub'),
       'type' => PERMANENT,
-      'subtype' => LANDMARK,
+      'subtype' => [LANDMARK],
       'effectDesc' => clienttranslate(
         '{J} I gain 3 Kelon counters.  At Dawn — You may pay {1} and remove a Kelon counter from me to create a [BRASSBUG] Robot token.'
       ),

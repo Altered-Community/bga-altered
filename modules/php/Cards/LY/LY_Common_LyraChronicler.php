@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\LY;
 
 class LY_Common_LyraChronicler extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class LY_Common_LyraChronicler extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Chronicler'),
       'type' => CHARACTER,
-      'subtype' => CITIZEN,
+      'subtype' => [CITIZEN],
       'forest' => 4,
       'mountain' => 0,
       'ocean' => 4,

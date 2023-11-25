@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Common_OrdisCadets extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Cadets'),
       'type' => CHARACTER,
-      'subtype' => SOLDIER,
+      'subtype' => [SOLDIER],
       'effectDesc' => clienttranslate('{J} Create a [ORDIS_RECRUIT] Soldier token in my Expedition.'),
       'forest' => 1,
       'mountain' => 1,

@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\BR;
+
 use ALT\Helpers\FT;
 
 class BR_Common_PhysicalTraining extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Physical Training'),
       'type' => SPELL,
-      'subtype' => SUPPORT,
+      'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
       'costHand' => 2,
       'costReserve' => 2,

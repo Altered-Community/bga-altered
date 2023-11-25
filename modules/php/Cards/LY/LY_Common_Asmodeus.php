@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_Asmodeus extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Asmodeus'),
       'type' => CHARACTER,
-      'subtype' => DEMON,
+      'subtype' => [DEMON],
       'effectDesc' => clienttranslate(
         '{J} Roll a die. If the result is 4 or more, I gain $[ANCHORED]. Otherwise, I gain 3 boosts.'
       ),

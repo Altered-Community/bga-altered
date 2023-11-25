@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\MU;
 
 class MU_Common_Cernunnos extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Cernunnos'),
       'type' => CHARACTER,
-      'subtype' => DRUID,
+      'subtype' => [DRUID],
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
