@@ -11,29 +11,48 @@ $goldRareColor: #9f794a;
 $goldRareCostColor: #eebc52;
 
 $illustrations: (
-    "AX": "AX-01-Sierra-Oddball-C" "AX-04-Kelon-Elemental-C" "AX-08-Foundry-Smelter-C" "AX-09-Tinkder-Bell-C"
-        "AX-09-Tinkder-Bell-R" "AX-10-JianLam-C" "AX-10-JianLam-R" "AX-11-AmeliaEarhart-C" "AX-19-Ganesha-C"
-        "AX-23-Parallax-Dialer-C" "AX-25-Recycling-Mill-C" "AX-25-Recycling-Mill-R" "AX-28-ArmoredJammer-C"
-        "AX-30-BrassbugQueen-C" "AX-31-Brassbug-C",
-    "BR": "BR-01-Ekwu-Booda-C" "BR-04-Ratatoskr-C" "BR-04-Ratatoskr-R" "BR-07-AltrunTracer-C" "BR-07-AltrunTracer-R"
-        "BR-08-Gretel-C" "BR-11-Chiron-C" "BR-12-Hua-Mulan-C" "BR-12-Hua-Mulan-R" "BR-15-MiskiCalderon-C"
-        "BR-17-SeiringarOldGuard-C" "BR-20-Atlas-C" "BR-26-GerichtVanBraast-C" "BR-28-TheHighGround-C" "BR-31-Booda-C"
-        "BR-33-HavenTrainee-C" "ALT_CORE_B_BR_18_C",
-    "LY": "LY-03-Nevenka-Blotch" "LY-06-LyraLegerdemain-C" "LY-06-LyraLegerdemain-R" "LY-07-Hathor-C"
-        "LY-11-Esmeralda-C" "LY-11-Esmeralda-R" "LY-14-Kasirga-Wind-Dancer-C" "LY-16-Scheherezade-C" "LY-20-Asmodeus-C"
-        "LY-20-Asmodeus-R" "LY-24-Cloth-Cocoon-C" "LY-25-Loaded-Die-C" "LY-C7-Kasirga-Dealer-C" "LY-Mnemos-Skald-C"
-        "LY-18-MadHatter-C",
-    "MU": "MU-02-Teija-Nauraa-C" "MU-05-Kitsune-C" "MU-06-MusubiHarvester-C" "MU-08-Sneezer-Shroom-C"
-        "MU-08-Sneezer-Shroom-R" "MU-11-Inari-C" "MU-12-Hesperide-C" "MU-13-TasakaalMeshrider-C" "MU-14-New-Cernunnos-C"
-        "MU-20-ConiferalConeman-C" "MU-20-ConiferalConeman-R" "MU-25-Mana-Web-C" "MU-27-Nurturing-Watering-Can-C"
-        "MU-27-Nurturing-Watering-Can-R",
-    "OD": "OD-02-Sigimar-Wingspan" "OD-05-AegisCadet-C" "OD-06-TrainingGrounds-C" "OD-09-FrogPrince-C" "OD-11-Ozma-C"
-        "OD-11-Ozma-R" "OD-14-Eskheret-ruun-Kurush-C" "OD-15-Caellach-C" "OD-15-Caellach-R" "OD-17-JeanneD-Arc-C"
-        "OD-17-JeanneD-Arc-R" "OD-23-Charge-C" "OD-30-Mesektet-C" "OD-31-AegisRecruit-C" "OD-32-AegisRecruit-C"
-        "OD-33-Strength-in-Numbers-C",
-    "YZ": "YZ-01-Akesha-Kone" "YZ-04-StedfastDisciple-C" "YZ-09-Nimue-C" "YZ-12-VanHelsing-C" "YZ-12-VanHelsing-R"
-        "YZ-13-Alice-C" "YZ-16-DorotyGale-C" "YZ-16-DorotyGale-R" "YZ-18-SakarMoonhealer-C" "YZ-21-Dottys-Tornado-C"
-        "YZ-22-UnjiriClairvoyant-C" "YZ-22-UnjiriClairvoyant-R" "YZ-40-Kadigiran-Phonomancer-C"
+    "AX": "ALT_CORE_B_AX_01_C" "ALT_CORE_B_AX_02_C" "ALT_CORE_B_AX_03_C" "ALT_CORE_B_AX_04_C" "ALT_CORE_B_AX_05_C"
+        "ALT_CORE_B_AX_06_C" "ALT_CORE_B_AX_07_C" "ALT_CORE_B_AX_08_C" "ALT_CORE_B_AX_09_C" "ALT_CORE_B_AX_10_C"
+        "ALT_CORE_B_AX_10_R1" "ALT_CORE_B_AX_11_C" "ALT_CORE_B_AX_12_C" "ALT_CORE_B_AX_12_R1" "ALT_CORE_B_AX_13_C"
+        "ALT_CORE_B_AX_14_C" "ALT_CORE_B_AX_15_C" "ALT_CORE_B_AX_16_C" "ALT_CORE_B_AX_17_C" "ALT_CORE_B_AX_18_C"
+        "ALT_CORE_B_AX_19_C" "ALT_CORE_B_AX_20_C" "ALT_CORE_B_AX_21_C" "ALT_CORE_B_AX_22_C" "ALT_CORE_B_AX_23_C"
+        "ALT_CORE_B_AX_24_C" "ALT_CORE_B_AX_25_C" "ALT_CORE_B_AX_25_R1" "ALT_CORE_B_AX_26_C" "ALT_CORE_B_AX_27_C"
+        "ALT_CORE_B_AX_28_C" "ALT_CORE_B_AX_29_C" "ALT_CORE_B_AX_30_C" "ALT_CORE_B_AX_31_C",
+    "BR": "ALT_CORE_B_BR_01_C" "ALT_CORE_B_BR_02_C" "ALT_CORE_B_BR_03_C" "ALT_CORE_B_BR_04_C" "ALT_CORE_B_BR_04_R1"
+        "ALT_CORE_B_BR_05_C" "ALT_CORE_B_BR_06_C" "ALT_CORE_B_BR_07_C" "ALT_CORE_B_BR_07_R1" "ALT_CORE_B_BR_08_C"
+        "ALT_CORE_B_BR_09_C" "ALT_CORE_B_BR_10_C" "ALT_CORE_B_BR_11_C" "ALT_CORE_B_BR_12_C" "ALT_CORE_B_BR_13_C"
+        "ALT_CORE_B_BR_14_C" "ALT_CORE_B_BR_15_C" "ALT_CORE_B_BR_16_C" "ALT_CORE_B_BR_17_C" "ALT_CORE_B_BR_18_C"
+        "ALT_CORE_B_BR_18_R1" "ALT_CORE_B_BR_19_C" "ALT_CORE_B_BR_20_C" "ALT_CORE_B_BR_21_C" "ALT_CORE_B_BR_22_C"
+        "ALT_CORE_B_BR_23_C" "ALT_CORE_B_BR_24_C" "ALT_CORE_B_BR_25_C" "ALT_CORE_B_BR_26_C" "ALT_CORE_B_BR_27_C"
+        "ALT_CORE_B_BR_28_C" "ALT_CORE_B_BR_29_C" "ALT_CORE_B_BR_30_C" "ALT_CORE_B_BR_31_C",
+    "LY": "ALT_CORE_B_LY_01_C" "ALT_CORE_B_LY_02_C" "ALT_CORE_B_LY_03_C" "ALT_CORE_B_LY_04_C" "ALT_CORE_B_LY_05_C"
+        "ALT_CORE_B_LY_06_C" "ALT_CORE_B_LY_07_C" "ALT_CORE_B_LY_08_C" "ALT_CORE_B_LY_09_C" "ALT_CORE_B_LY_10_C"
+        "ALT_CORE_B_LY_10_R1" "ALT_CORE_B_LY_11_C" "ALT_CORE_B_LY_11_R1" "ALT_CORE_B_LY_12_C" "ALT_CORE_B_LY_13_C"
+        "ALT_CORE_B_LY_14_C" "ALT_CORE_B_LY_15_C" "ALT_CORE_B_LY_16_C" "ALT_CORE_B_LY_17_C" "ALT_CORE_B_LY_18_C"
+        "ALT_CORE_B_LY_19_C" "ALT_CORE_B_LY_20_C" "ALT_CORE_B_LY_20_R1" "ALT_CORE_B_LY_21_C" "ALT_CORE_B_LY_22_C"
+        "ALT_CORE_B_LY_23_C" "ALT_CORE_B_LY_24_C" "ALT_CORE_B_LY_25_C" "ALT_CORE_B_LY_26_C" "ALT_CORE_B_LY_27_C"
+        "ALT_CORE_B_LY_28_C" "ALT_CORE_B_LY_29_C" "ALT_CORE_B_LY_30_C",
+    "MU": "ALT_CORE_B_MU_01_C" "ALT_CORE_B_MU_02_C" "ALT_CORE_B_MU_03_C" "ALT_CORE_B_MU_04_C" "ALT_CORE_B_MU_05_C"
+        "ALT_CORE_B_MU_06_C" "ALT_CORE_B_MU_07_C" "ALT_CORE_B_MU_08_C" "ALT_CORE_B_MU_08_R1" "ALT_CORE_B_MU_09_C"
+        "ALT_CORE_B_MU_10_C" "ALT_CORE_B_MU_11_C" "ALT_CORE_B_MU_12_C" "ALT_CORE_B_MU_13_C" "ALT_CORE_B_MU_14_C"
+        "ALT_CORE_B_MU_15_C" "ALT_CORE_B_MU_16_C" "ALT_CORE_B_MU_17_C" "ALT_CORE_B_MU_18_C" "ALT_CORE_B_MU_19_C"
+        "ALT_CORE_B_MU_20_C" "ALT_CORE_B_MU_20_R1" "ALT_CORE_B_MU_21_C" "ALT_CORE_B_MU_22_C" "ALT_CORE_B_MU_23_C"
+        "ALT_CORE_B_MU_24_C" "ALT_CORE_B_MU_25_C" "ALT_CORE_B_MU_26_C" "ALT_CORE_B_MU_27_C" "ALT_CORE_B_MU_27_R1"
+        "ALT_CORE_B_MU_28_C" "ALT_CORE_B_MU_29_C" "ALT_CORE_B_MU_30_C",
+    "OD": "ALT_CORE_B_OR_01_C" "ALT_CORE_B_OR_02_C" "ALT_CORE_B_OR_03_C" "ALT_CORE_B_OR_04_C" "ALT_CORE_B_OR_05_C"
+        "ALT_CORE_B_OR_06_C" "ALT_CORE_B_OR_07_C" "ALT_CORE_B_OR_08_C" "ALT_CORE_B_OR_09_C" "ALT_CORE_B_OR_10_C"
+        "ALT_CORE_B_OR_11_C" "ALT_CORE_B_OR_11_R1" "ALT_CORE_B_OR_12_C" "ALT_CORE_B_OR_13_C" "ALT_CORE_B_OR_14_C"
+        "ALT_CORE_B_OR_15_C" "ALT_CORE_B_OR_15_R1" "ALT_CORE_B_OR_16_C" "ALT_CORE_B_OR_17_C" "ALT_CORE_B_OR_17_R1"
+        "ALT_CORE_B_OR_18_C" "ALT_CORE_B_OR_19_C" "ALT_CORE_B_OR_20_C" "ALT_CORE_B_OR_21_C" "ALT_CORE_B_OR_22_C"
+        "ALT_CORE_B_OR_23_C" "ALT_CORE_B_OR_24_C" "ALT_CORE_B_OR_25_C" "ALT_CORE_B_OR_26_C" "ALT_CORE_B_OR_27_C"
+        "ALT_CORE_B_OR_28_C" "ALT_CORE_B_OR_29_C" "ALT_CORE_B_OR_30_C" "ALT_CORE_B_OR_31_C" "ALT_CORE_B_OR_32_C",
+    "YZ": "ALT_CORE_B_YZ_01_C" "ALT_CORE_B_YZ_02_C" "ALT_CORE_B_YZ_03_C" "ALT_CORE_B_YZ_04_C" "ALT_CORE_B_YZ_05_C"
+        "ALT_CORE_B_YZ_06_C" "ALT_CORE_B_YZ_07_C" "ALT_CORE_B_YZ_08_C" "ALT_CORE_B_YZ_09_C" "ALT_CORE_B_YZ_10_C"
+        "ALT_CORE_B_YZ_11_C" "ALT_CORE_B_YZ_12_C" "ALT_CORE_B_YZ_12_R1" "ALT_CORE_B_YZ_13_C" "ALT_CORE_B_YZ_14_C"
+        "ALT_CORE_B_YZ_15_C" "ALT_CORE_B_YZ_16_C" "ALT_CORE_B_YZ_16_R1" "ALT_CORE_B_YZ_17_C" "ALT_CORE_B_YZ_18_C"
+        "ALT_CORE_B_YZ_19_C" "ALT_CORE_B_YZ_20_C" "ALT_CORE_B_YZ_21_C" "ALT_CORE_B_YZ_22_C" "ALT_CORE_B_YZ_22_R1"
+        "ALT_CORE_B_YZ_23_C" "ALT_CORE_B_YZ_24_C" "ALT_CORE_B_YZ_25_C" "ALT_CORE_B_YZ_26_C" "ALT_CORE_B_YZ_27_C"
+        "ALT_CORE_B_YZ_28_C" "ALT_CORE_B_YZ_29_C" "ALT_CORE_B_YZ_30_C" "ALT_CORE_B_YZ_31_C"
 );
 
 $factions: "AX" "BR" "LY" "MU" "OD" "YZ";
