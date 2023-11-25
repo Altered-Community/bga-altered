@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\AX;
 
 class AX_Common_SierraOddball extends \ALT\Models\Card
@@ -14,6 +15,10 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sierra & Oddball'),
       'type' => HERO,
+
+      'reserveSlots' => 2,
+      'permanentSlots' => 2,
+
       'effectDesc' => clienttranslate(
         'When you play a Permanent with a hand cost {3} or more, you may exhaust me ({T}) to create a [BRASSBUG] Robot token.'
       ),
