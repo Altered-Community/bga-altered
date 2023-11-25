@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Rare_ALTNurture extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Nurture'),
       'type' => SPELL,
-      'subtype' => SUPPORT,
+      'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Up to two target Characters gain #2# boosts.'),
       'costHand' => 3,
       'costReserve' => 3,

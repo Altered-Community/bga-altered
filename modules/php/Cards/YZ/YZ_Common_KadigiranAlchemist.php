@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
 use ALT\Helpers\FT;
 
 class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kadigiran Alchemist'),
       'type' => CHARACTER,
-      'subtype' => MAGE,
+      'subtype' => [MAGE],
       'effectDesc' => clienttranslate('{M} I gain 2 boosts.'),
       'forest' => 1,
       'mountain' => 1,

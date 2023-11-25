@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
 use ALT\Helpers\FT;
 
 class YZ_Common_DorothyGale extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Dorothy Gale'),
       'type' => CHARACTER,
-      'subtype' => CITIZEN,
+      'subtype' => [CITIZEN],
       'effectDesc' => clienttranslate('{M} Send to Reserve target Character.'),
       'forest' => 3,
       'mountain' => 2,

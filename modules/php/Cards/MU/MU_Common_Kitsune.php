@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Common_Kitsune extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class MU_Common_Kitsune extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kitsune'),
       'type' => CHARACTER,
-      'subtype' => SPIRIT,
+      'subtype' => [SPIRIT],
       'effectDesc' => clienttranslate('{M} Each player draws a card.'),
       'forest' => 0,
       'mountain' => 3,

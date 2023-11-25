@@ -17,7 +17,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Muna Druid'),
       'type' => CHARACTER,
-      'subtype' => DRUID,
+      'subtype' => [DRUID],
       'supportDesc' => clienttranslate(
         '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)'
       ),

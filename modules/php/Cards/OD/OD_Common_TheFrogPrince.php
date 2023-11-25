@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\OD;
 
 class OD_Common_TheFrogPrince extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('The Frog Prince'),
       'type' => CHARACTER,
-      'subtype' => BUREAUCRAT,
+      'subtype' => [BUREAUCRAT],
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,

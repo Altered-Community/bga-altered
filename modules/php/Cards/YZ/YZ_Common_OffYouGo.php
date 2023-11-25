@@ -1,26 +1,24 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
 use ALT\Helpers\FT;
 
-class YZ_Common_OffYouGo extends \ALT\Models\Card
+class YZ_Common_Offyougo extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
-
     $this->properties = [
-      'uid' => '185',
-      'asset' => 'YZ-21-Dottys-Tornado-C',
-      'frameSize' => 1,
+      'uid' => 'ALT_CORE_B_YZ_21_C',
+      'asset' => 'ALT_CORE_B_YZ_21_C',
 
       'faction' => FACTION_YZ,
-      'name' => clienttranslate('Off You Go!'),
-      'typeline' => clienttranslate('Common'),
       'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Off you go!'),
       'type' => SPELL,
-      'subtype' => '',
-
-      'effectDesc' => clienttranslate('Send to Reserve target Character of hand cost {3} or less.'),
+      'subtype' => [DISRUPTION],
+      'effectDesc' => clienttranslate('Send to Reserve target Character of hand cost {3} or less.  '),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),

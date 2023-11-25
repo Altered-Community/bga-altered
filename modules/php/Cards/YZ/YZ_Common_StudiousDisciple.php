@@ -15,7 +15,7 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Studious Disciple'),
       'type' => CHARACTER,
-      'subtype' => MAGE,
+      'subtype' => [MAGE],
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),

@@ -17,7 +17,7 @@ class YZ_Rare_ALTDorothyGale extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Dorothy Gale'),
       'type' => CHARACTER,
-      'subtype' => CITIZEN,
+      'subtype' => [CITIZEN],
       'effectDesc' => clienttranslate('#{J}# Send to Reserve target Character.'),
       'forest' => 3,
       'mountain' => 2,

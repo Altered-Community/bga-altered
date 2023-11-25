@@ -15,7 +15,7 @@ class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Jian, Assembly Overseer'),
       'type' => CHARACTER,
-      'subtype' => ENGINEER,
+      'subtype' => [ENGINEER],
       'supportDesc' => clienttranslate(
         '#{D} : Activate the {J} effect of target Permanent.# (Discard me from your Reserve to activate this effect)'
       ),

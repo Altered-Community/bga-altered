@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Common_DaughterofYggdrasil extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class MU_Common_DaughterofYggdrasil extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Daughter of Yggdrasil'),
       'type' => CHARACTER,
-      'subtype' => PLANT,
+      'subtype' => [PLANT],
       'effectDesc' => clienttranslate('{M} Each opponent draws a card.'),
       'forest' => 5,
       'mountain' => 5,

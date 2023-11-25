@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Common_Nurture extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class MU_Common_Nurture extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Nurture'),
       'type' => SPELL,
-      'subtype' => SUPPORT,
+      'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Up to two target Characters gain 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,

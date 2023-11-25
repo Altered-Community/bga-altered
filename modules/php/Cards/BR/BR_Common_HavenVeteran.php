@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_HavenVeteran extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class BR_Common_HavenVeteran extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Haven Veteran'),
       'type' => CHARACTER,
-      'subtype' => BLADEMASTER,
+      'subtype' => [BLADEMASTER],
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 4,

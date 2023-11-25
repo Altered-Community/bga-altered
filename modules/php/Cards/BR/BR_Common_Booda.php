@@ -15,7 +15,7 @@ class BR_Common_Booda extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Booda'),
       'type' => TOKEN,
-      'subtype' => CAT,
+      'subtype' => [CAT],
       'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone - Discard me).'),
       'forest' => 2,
       'mountain' => 2,

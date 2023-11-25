@@ -17,7 +17,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate("Kraken's Wrath"),
       'type' => SPELL,
-      'subtype' => DISRUPTION,
+      'subtype' => [DISRUPTION],
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Send to Reserve up to 3 Characters with a cumulated hand cost of {5} or less.'
       ),

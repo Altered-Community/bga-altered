@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_BravosPathfinder extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class BR_Common_BravosPathfinder extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Bravos Pathfinder'),
       'type' => CHARACTER,
-      'subtype' => ADVENTURER,
+      'subtype' => [ADVENTURER],
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,

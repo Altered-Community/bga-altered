@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Rare_ALTSneezerShroom extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class MU_Rare_ALTSneezerShroom extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Sneezer Shroom'),
       'type' => CHARACTER,
-      'subtype' => PLANT,
+      'subtype' => [PLANT],
       'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  #At Dawn — I gain 1 boost.#'),
       'forest' => 1,
       'mountain' => 1,

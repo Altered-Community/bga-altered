@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Common_SpindleHarvesters extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Spindle Harvesters'),
       'type' => CHARACTER,
-      'subtype' => PLANT,
+      'subtype' => [PLANT],
       'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
       'forest' => 1,
       'mountain' => 0,

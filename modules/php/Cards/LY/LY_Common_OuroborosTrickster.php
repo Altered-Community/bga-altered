@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_OuroborosTrickster extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ouroboros Trickster'),
       'type' => CHARACTER,
-      'subtype' => ARTIST,
+      'subtype' => [ARTIST],
       'effectDesc' => clienttranslate('{J} Roll a die. If the result is 4 or more, I gain 2 boosts. Otherwise, I gain 1 boost.'),
       'forest' => 0,
       'mountain' => 0,

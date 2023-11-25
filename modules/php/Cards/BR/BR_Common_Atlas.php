@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_Atlas extends \ALT\Models\Card
@@ -14,7 +15,7 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Atlas'),
       'type' => CHARACTER,
-      'subtype' => TITAN,
+      'subtype' => [TITAN],
       'effectDesc' => clienttranslate('$[GIGANTIC].'),
       'forest' => 3,
       'mountain' => 3,

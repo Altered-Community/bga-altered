@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
 use ALT\Helpers\FT;
 
 class YZ_Common_SpyCraft extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Spy Craft'),
       'type' => SPELL,
-      'subtype' => DISRUPTION,
+      'subtype' => [DISRUPTION],
       'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], $[RESUPPLY].'),
       'costHand' => 2,
       'costReserve' => 2,

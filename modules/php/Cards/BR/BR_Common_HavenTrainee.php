@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
@@ -16,7 +17,7 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Haven Trainee'),
       'type' => CHARACTER,
-      'subtype' => TRAINER,
+      'subtype' => [TRAINER],
       'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
       'forest' => 3,
       'mountain' => 1,

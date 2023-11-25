@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
@@ -15,7 +17,7 @@ class LY_Rare_ALTEsmeralda extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Esmeralda'),
       'type' => CHARACTER,
-      'subtype' => ARTIST,
+      'subtype' => [ARTIST],
       'effectDesc' => clienttranslate('#{J}# $[RESUPPLY].'),
       'forest' => 0,
       'mountain' => 2,

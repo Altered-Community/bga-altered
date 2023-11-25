@@ -17,7 +17,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Hathor'),
       'type' => CHARACTER,
-      'subtype' => DIVINITY,
+      'subtype' => [DIVINITY],
       'supportDesc' => clienttranslate(
         '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)'
       ),
