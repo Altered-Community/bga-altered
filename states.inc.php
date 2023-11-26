@@ -260,7 +260,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actTarget', 'actTargetPass', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actTarget', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_SPELL_CLEANUP => [
