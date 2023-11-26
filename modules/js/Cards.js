@@ -11,6 +11,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const CHARACTER = 'character';
   const PERMANENT = 'permanent';
   const SPELL = 'spell';
+  const FONT_SIZE = '13px';
 
   return declare('altered.cards', null, {
     // getCardInfos(cardId) {
@@ -82,6 +83,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let o = this.place('tplCard', card, container);
       if (o !== undefined) {
         this.addCustomTooltip(o.id, () => this.tplCardTooltip(card), { midSize: false });
+        this.autofitCardFrame(o);
       }
     },
 
@@ -827,7 +829,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text'>
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
               ${this.formatString(_(p.effectDesc || ''))}
@@ -869,12 +871,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplCharacterCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
+      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
+      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-character ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-type='character'></div>
+          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
+              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
@@ -893,9 +898,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             ${p.ocean}
           </div>
 
-          <div class='card-text'>
+          <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
               ${this.formatString(_(p.effectDesc) || '')}
@@ -935,7 +940,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text'>
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
           </div>
         </div>
@@ -952,12 +957,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplSpellCard(card, tooltip = false, mini = false) {
       let p = card.properties;
+      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
+      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-spell ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-type='spell'></div>
+          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
+              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='spell'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
@@ -966,9 +973,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-text'>
+          <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
               ${this.formatString(_(p.effectDesc) || '')}
@@ -992,12 +999,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplPermanentCard(card, tooltip = false, mini = false) {
       let p = card.properties;
+      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
+      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-permanent ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-frame='${p.frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-type='permanent'></div>
+          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
+              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='permanent'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
@@ -1006,9 +1015,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-text'>
+          <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
               ${this.formatString(_(p.effectDesc) || '')}
@@ -1029,6 +1038,26 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         ${this.tplPermanentCard(card, true, false)}
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
+    },
+
+    autofitCardFrame(oCard) {
+      let isMini = oCard.classList.contains('mini-card');
+      if (isMini) oCard.classList.remove('mini-card');
+
+      // Fit effect + reminders
+      let isEffectSizeOk = () =>
+        oCard.querySelector('.card-text').offsetHeight >=
+        oCard.querySelector('.card-effect').offsetHeight + oCard.querySelector('.card-reminders').offsetHeight;
+      if (!isEffectSizeOk()) {
+        oCard.querySelector('.card-frame').dataset.size = 2;
+        oCard.offsetHeight;
+        for (let i = 13; i >= 10 && !isEffectSizeOk(); i--) {
+          oCard.querySelector('.card-text').style.fontSize = `${i}px`;
+        }
+      }
+
+      // Add back mini if needed
+      if (isMini) oCard.classList.add('mini-card');
     },
 
     getMeeplesOnCard(cardId) {

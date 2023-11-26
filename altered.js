@@ -907,7 +907,7 @@ define([
         str = str.replace(regex, svgStr);
       });
       // str = str.replace(/__([^_]+)__/g, '<span class="action-card-name-reference">$1</span>');
-      str = str.replace(/\[G\](.+)\[\/G\]/g, '<span class="rare-marker">$1</span>');
+      str = str.replace(/\#(.+)\#/g, '<span class="rare-marker">$1</span>');
       str = str.replace(/\[\[([^\]]+)\]\]/g, '<span class="effect-reference-emphasis">$1</span>');
       str = str.replace(/\[([^\]]+)\]/g, '<span class="effect-reference">$1</span>');
       str = str.replace(/\{([0-9]+)\}/g, '<span class="mana-cost">$1</span>');
