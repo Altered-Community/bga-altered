@@ -11,6 +11,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const CHARACTER = 'character';
   const PERMANENT = 'permanent';
   const SPELL = 'spell';
+  const TOKEN = 'token';
 
   return declare('altered.cards', null, {
     // getCardInfos(cardId) {
@@ -78,6 +79,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (container === null) {
         container = this.getCardContainer(card);
       }
+      debug(container);
 
       let o = this.place('tplCard', card, container);
       if (o !== undefined) {
@@ -788,12 +790,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (type == HERO) {
         return this.tplHeroCard(card);
       } else if (type == CHARACTER) {
-        if (card.properties.token) return this.tplTokenCard(card, false, mini);
-        else return this.tplCharacterCard(card, false, mini);
+        return this.tplCharacterCard(card, false, mini);
       } else if (type == SPELL) {
         return this.tplSpellCard(card, false, mini);
       } else if (type == PERMANENT) {
         return this.tplPermanentCard(card, false, mini);
+      } else if (type == TOKEN) {
+        return this.tplTokenCard(card, false, mini);
       }
 
       console.error('No tpl yet', card);
