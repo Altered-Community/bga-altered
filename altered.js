@@ -67,7 +67,7 @@ define([
         ['updateBiomes', 100],
         ['spellCleanup', 100],
         ['invokeToken', 100],
-        ['afterYou', 100],
+        ['afterYou', 1000],
         ['roll', 100],
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],

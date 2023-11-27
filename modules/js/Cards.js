@@ -13,7 +13,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const SPELL = 'spell';
   const TOKEN = 'token';
   const FONT_SIZE = '13px';
-  const TOKEN = 'token';
 
   return declare('altered.cards', null, {
     // getCardInfos(cardId) {
@@ -648,8 +647,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
-      // TODO
-      // It can contain multiple cards!
+      n.args.cardIds.forEach((cardId) => $(`card-${cardId}`).classList.remove('added'));
     },
 
     notif_shuffleDeck(n) {
