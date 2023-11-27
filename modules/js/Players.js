@@ -36,17 +36,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         // Panels
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
 
-        // Cards
-        player.hand.forEach((card) => this.addCard(card));
-
         // Discard modal
         this.setupDiscardModal(player);
-
+        // Mana modal
         if (player.id == this.player_id) {
-          $(`player-board-${this.player_id}`).insertAdjacentHTML(
-            'beforeend',
-            `<div id='mana-cards-${this.player_id}' class='mana-cards-holder'></div>`
-          );
+          this.setupManaModal(player);
         }
       });
 
@@ -69,14 +63,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       // this.ensureNoSortableHandOnTouchDevice();
     },
 
-    updateHandCards() {
-      if (this.isSpectator) return;
-      this.empty(`hand-${this.player_id}`);
-      let hand = this.gamedatas.players[this.player_id].hand;
-      hand.forEach((card) => {
-        this.addCard(card);
-      });
-    },
+    // updateHandCards() {
+    //   if (this.isSpectator) return;
+    //   this.empty(`hand-${this.player_id}`);
+    //   let hand = this.gamedatas.players[this.player_id].hand;
+    //   hand.forEach((card) => {
+    //     this.addCard(card);
+    //   });
+    // },
 
     tplPlayerBoard(player) {
       let pId = player.id;

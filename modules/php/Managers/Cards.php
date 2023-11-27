@@ -56,7 +56,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     return new Card($data); // information from DB
   }
 
-  public static function getUiData()
+  public static function getUiData($pId)
   {
     return self::getAll()
       ->where('location', IN_PLAY)
@@ -64,6 +64,8 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->merge(self::getInLocation('board-hero-%'))
       ->merge(self::getInLocation('limbo'))
       ->merge(self::getInLocation('discard'))
+      ->merge(self::getHand($pId))
+      ->merge(self::getFiltered($pId, MANA))
       ->toArray();
   }
 

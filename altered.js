@@ -219,7 +219,6 @@ define([
       this.setupBoard();
       this.setupPlayers();
       this.setupCards();
-      this.updateHandCards();
       this.setupMeeples();
       // this.setupSortableHand();
       this.inherited(arguments);
@@ -351,8 +350,7 @@ define([
 
     notif_refreshHand(n) {
       debug('Notif: refreshing UI', n);
-      this.gamedatas.players[n.args.player_id].hand = n.args.hand;
-      this.updateHandCards();
+      n.args.hand.forEach((card) => this.addCard(card));
     },
 
     onUpdateActionButtons(stateName, args) {

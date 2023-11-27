@@ -43,7 +43,8 @@
     }
 }
 
-.altered_discard_popin {
+.altered_discard_popin,
+.altered_mana_popin {
     --cardScale: 1;
     width: 90vw;
     display: flex;
@@ -67,6 +68,38 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+        }
+    }
+
+    .mana-modal {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        .altered-card.tapped {
+            transform: none;
+            &::before {
+                content: "\e924";
+                position: absolute;
+                font-family: "icomoon" !important;
+                speak: never;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                vertical-align: bottom;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                background: white;
+                display: block;
+                z-index: 5;
+                border-radius: 25%;
+                padding: 2px;
+                font-size: 20px;
+                left: calc(50% - 13px);
+                top: -16px;
+            }
         }
     }
 }

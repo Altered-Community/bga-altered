@@ -81,7 +81,7 @@ class altered extends Table
     return [
       'prefs' => Preferences::getUiData($pId),
       'players' => Players::getUiData($pId),
-      'cards' => Cards::getUiData(),
+      'cards' => Cards::getUiData($pId),
       'meeples' => Meeples::getUiData(),
 
       'firstPlayer' => Globals::getFirstPlayer(),

@@ -44,17 +44,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         o.classList.toggle('tapped', card.properties && card.properties.tapped == true);
 
         // Minimize card except in hand and in discard
-        let isFull = container.classList.contains('player-hand') || container.classList.contains('player-board-discard');
+        let isFull =
+          container.classList.contains('player-hand') ||
+          container.classList.contains('player-board-discard') ||
+          container.classList.contains('mana-modal');
         o.classList.toggle('mini-card', !isFull);
 
         return card.id;
       });
       document.querySelectorAll('.altered-card').forEach((oCard) => {
-        if (
-          !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
-          !oCard.parentNode.classList.contains('player-hand') &&
-          !oCard.parentNode.classList.contains('player-board-alterer')
-        ) {
+        if (!cardIds.includes(parseInt(oCard.getAttribute('data-id'))) && !oCard.classList.contains('card-back')) {
           this.destroy(oCard);
         }
       });
@@ -80,7 +79,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (container === null) {
         container = this.getCardContainer(card);
       }
-      debug(container);
 
       let o = this.place('tplCard', card, container);
       if (o !== undefined) {
@@ -113,10 +111,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return $(`board-reserve-${card.pId}`);
       } else if (type == HERO) {
         return $(card.location);
+      } else if (card.location == 'mana') {
+        return $(`mana-cards-${card.pId}`);
       }
-      // if (card.location == 'hand') {
-      //   return $(`hand-${card.pId}`);
-      // }
 
       return $('test-cards');
     },
@@ -144,39 +141,25 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
-    // setupDiscardDialog(player_id) {
-    //   this._discardModal = new customgame.modal('discardDisplay', {
-    //     class: 'altered_popin',
-    //     autoShow: false,
-    //     closeIcon: 'fa-times',
-    //     closeAction: 'hide',
-    //     verticalAlign: 'flex-start',
-    //     contentsTpl: `<div id='modal-discard'></div><div id='discard-cards-footer'></div>`,
-    //     scale: 0.9,
-    //     breakpoint: 800,
-    //   });
-    //   // this.addPrimaryActionButton('btnShowCards', _('Show cards'), () => this._cardsChoiceModal.show());
-    //   // container = $('choose-cards');
-    //   let dis = $(`board-discard-${player_id}`);
-    //   document.querySelectorAll(`#board-discard-${player_id} .altered-card`).forEach((oCard) => {
-    //     let o = oCard.cloneNode(true);
-    //     let id = o.id;
-    //     o.id += '_discard';
-    //     $('modal-discard').appendChild(o);
-
-    //     if (this.tooltips[id]) {
-    //       this.registerCustomTooltip(this.tooltips[id].getContent(), o.id);
-    //     }
-    //   });
-    //   this.attachRegisteredTooltips();
-    //   this._discardModal.show();
-    // },
-
-    openDiscardModal(player_id) {
-      $(`modal-discard-${player_id}`).innerHTML = '';
-      let dis = $(`board-discard-${player_id}`);
-      $(`modal-discard-${player_id}`).appendChild(dis);
-      this._discardModals[player_id].show();
+    setupManaModal(player) {
+      let pId = player.id;
+      this._manaModal = new customgame.modal('manaDisplay', {
+        class: 'altered_mana_popin',
+        autoShow: false,
+        closeIcon: null,
+        closeAction: 'hide',
+        title: _('Your mana cards'),
+        verticalAlign: 'flex-start',
+        contentsTpl: `<div class='mana-modal' id='mana-cards-${pId}'></div>`,
+        scale: 0.9,
+        breakpoint: 800,
+        onShow: () => this.closeCurrentTooltip(),
+      });
+      $(`mana-gauge-${pId}`).addEventListener('click', () => {
+        this.closeCurrentTooltip();
+        if (this._manaModal.isDisplayed()) this._manaModal.hide();
+        else this._manaModal.show();
+      });
     },
 
     /**
