@@ -18,6 +18,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       this._activeStatus = null;
       this._helpMode = false;
       this._dragndropMode = false;
+      this._displayedTooltip = null;
       this._customTooltipIdCounter = 0;
       this._registeredCustomTooltips = {};
 
@@ -999,10 +1000,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       document.body.removeEventListener('click', this.closeCurrentTooltip.bind(this));
     },
 
-    closeCurrentTooltip() {
-      if (!this._helpMode) return;
+    closeCurrentTooltip(onlyInHelpMode = true) {
+      if (!this._helpMode && onlyInHelpMode) return;
 
-      if (this._displayedTooltip == null) return;
+      if (this._displayedTooltip === null) return;
       else {
         if (this._displayedTooltip.showTimeout != null) clearTimeout(this._displayedTooltip.showTimeout);
         this._displayedTooltip.close();
@@ -1119,9 +1120,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           tooltip.showTimeout = setTimeout(() => {
             if ($(id)) {
               tooltip.open($(id));
-              this._displayedTooltip = tooltip;
             }
           }, config.delay);
+          this._displayedTooltip = tooltip;
         }
       });
 

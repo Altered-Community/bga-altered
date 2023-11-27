@@ -130,12 +130,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         contentsTpl: `<div class='discard-modal' id='discard-cards-${pId}'></div>`,
         scale: 0.9,
         breakpoint: 800,
-        onStartShow: () => $(`discard-cards-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`)),
-        onStartHide: () => $(`player-board-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`)),
-        onShow: () => this.closeCurrentTooltip(),
+        onStartShow: () => {
+          this.closeCurrentTooltip(false);
+          $(`discard-cards-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+        },
+        onStartHide: () => {
+          this.closeCurrentTooltip(false);
+          $(`player-board-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+        },
+        onShow: () => this.closeCurrentTooltip(false),
       });
       $(`board-discard-${pId}`).addEventListener('click', () => {
-        this.closeCurrentTooltip();
+        this.closeCurrentTooltip(false);
         if (this._discardModals[pId].isDisplayed()) this._discardModals[pId].hide();
         else this._discardModals[pId].show();
       });
@@ -153,10 +159,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         contentsTpl: `<div class='mana-modal' id='mana-cards-${pId}'></div>`,
         scale: 0.9,
         breakpoint: 800,
-        onShow: () => this.closeCurrentTooltip(),
+        onStartShow: () => this.closeCurrentTooltip(false),
+        onStartHide: () => this.closeCurrentTooltip(false),
+
+        onShow: () => this.closeCurrentTooltip(false),
       });
       $(`mana-gauge-${pId}`).addEventListener('click', () => {
-        this.closeCurrentTooltip();
+        this.closeCurrentTooltip(false);
         if (this._manaModal.isDisplayed()) this._manaModal.hide();
         else this._manaModal.show();
       });

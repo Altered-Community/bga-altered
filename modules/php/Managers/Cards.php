@@ -66,6 +66,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->merge(self::getInLocation('discard'))
       ->merge(self::getHand($pId))
       ->merge(self::getFiltered($pId, MANA))
+      ->orderBy('state')
       ->toArray();
   }
 
