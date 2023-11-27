@@ -124,11 +124,22 @@ trait DebugTrait
     self::playCardAux($cardId, true);
   }
 
-  function addCard($cardId)
+  function addCard($cardId, $location = 'hand')
   {
-    self::playCardAux($cardId, false);
-    $sql = "UPDATE cards set card_location = 'inPlay' where card_id = '$cardId'";
-    self::DbQuery($sql);
+    $player = Players::getCurrent();
+    $faction  = substr($cardId, 0, 2);
+    $className = "\\ALT\\Cards\\$faction\\$cardId";
+    $card = new $className(null);
+
+    Cards::singleCreate([
+      'player_id' => $player->getId(),
+      'location' => $location,
+      'nbr' => 1,
+      'properties' => $card->getProperties(),
+    ]);
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+    $player = Players::getCurrent();
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
   }
 
   function drawCard($cardId)

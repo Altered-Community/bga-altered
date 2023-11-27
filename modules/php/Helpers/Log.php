@@ -6,6 +6,8 @@ use ALT\Core\Game;
 use ALT\Core\Globals;
 use ALT\Core\Notifications;
 use ALT\Managers\Players;
+use ALT\Managers\Cards;
+use ALT\Managers\Meeples;
 
 /**
  * Class that allows to log DB change: useful for undo feature
@@ -199,7 +201,9 @@ class Log extends \APP_DbObject
 
     // Force to clear cached informations
     Globals::fetch();
-
+    Cards::invalidate();
+    Players::invalidate();
+    Meeples::invalidate();
     // Notify
     $datas = Game::get()->getAllDatas(true);
     Notifications::refreshUI($datas);
