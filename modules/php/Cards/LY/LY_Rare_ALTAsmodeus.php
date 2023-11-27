@@ -26,7 +26,7 @@ class LY_Rare_ALTAsmodeus extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 5,
       'costReserve' => 5,
-      'changedStats' => ['forest', 'mountain', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 3), '4+' => FT::GAIN(ME, ANCHORED)],
       ]),

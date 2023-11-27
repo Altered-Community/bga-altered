@@ -130,58 +130,58 @@
             &[data-type="character"] {
                 // BASE
                 &[data-rarity="0"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
                         background-position: 40% 0%;
                     }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
                         background-position: 60% 0%;
                     }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
                         background-position: 0% 0%;
                     }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
                         background-position: 20% 0%;
                     }
                 }
                 // RARE
                 &[data-rarity="1"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
                         background-position: 80% 50%;
                     }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
                         background-position: 100% 50%;
                     }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
                         background-position: 40% 50%;
                     }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
                         background-position: 60% 0%;
                     }
                 }
                 // UNIQUE
                 &[data-rarity="2"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
                         background-position: 80% 100%;
                     }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
                         background-position: 100% 100%;
                     }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
                         background-position: 40% 100%;
                     }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
                         background-position: 60% 100%;
                     }
                 }
@@ -189,39 +189,39 @@
             &[data-type="spell"] {
                 // BASE
                 &[data-rarity="0"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
                         background-position: 80% 25%;
                     }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
                         background-position: 100% 25%;
                     }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
                         background-position: 40% 25%;
                     }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
                         background-position: 60% 25%;
                     }
                 }
                 // RARE
                 &[data-rarity="1"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
                         background-position: 0% 100%;
                     }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
                         background-position: 20% 100%;
                     }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
                         background-position: 80% 75%;
                     }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
                         background-position: 100% 75%;
                     }
                 }
@@ -229,39 +229,39 @@
             &[data-type="permanent"] {
                 // BASE
                 &[data-rarity="0"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
                         background-position: 0% 25%;
                     }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
                         background-position: 20% 25%;
                     }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
                         background-position: 80% 0%;
                     }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
                         background-position: 100% 0%;
                     }
                 }
                 // RARE
                 &[data-rarity="1"] {
-                    // Small frame, no ECHO
-                    &[data-frame="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
                         background-position: 40% 75%;
                     }
-                    // Bigger frame, no ECHO
-                    &[data-frame="2"] {
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
                         background-position: 100% 75%;
                     }
-                    // Small frame, with ECHO
-                    &[data-frame="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
                         background-position: 0% 75%;
                     }
-                    // Bigger frame, with ECHO
-                    &[data-frame="4"] {
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
                         background-position: 20% 75%;
                     }
                 }
@@ -298,7 +298,7 @@
         }
 
         .card-frame[data-type="permanent"] {
-            &[data-frame="1"] ~ {
+            &[data-support="0"][data-size="1"] ~ {
                 .card-name {
                     top: 250px;
                 }
@@ -306,7 +306,7 @@
                     top: 270px;
                 }
             }
-            &[data-frame="2"] ~ {
+            &[data-support="0"][data-size="2"] ~ {
                 .card-name {
                     top: 219px;
                 }
@@ -314,7 +314,7 @@
                     top: 239px;
                 }
             }
-            &[data-frame="3"] ~ {
+            &[data-support="1"][data-size="1"] ~ {
                 .card-name {
                     top: 219px;
                 }
@@ -322,7 +322,7 @@
                     top: 239px;
                 }
             }
-            &[data-frame="4"] ~ {
+            &[data-support="1"][data-size="2"] ~ {
                 .card-name {
                     top: 185px;
                 }
@@ -392,7 +392,7 @@
             }
 
             &.altered {
-                color: $goldRareColor;
+                color: $goldRareCostColor;
             }
         }
 
@@ -451,10 +451,11 @@
             }
         }
 
-        .card-frame[data-frame="3"] ~ .card-text {
+        .card-frame[data-support="1"][data-size="1"] ~ .card-text,
+        .card-frame[data-support="0"][data-size="2"] ~ .card-text {
             top: 280px;
         }
-        .card-frame[data-frame="4"] ~ .card-text {
+        .card-frame[data-support="1"][data-size="2"] ~ .card-text {
             top: 260px;
         }
         .card-frame[data-type="permanent"] ~ .card-text {

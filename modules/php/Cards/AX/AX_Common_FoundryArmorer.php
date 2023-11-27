@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_FoundryArmorer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -22,6 +24,11 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 3,
+      'effectReserve' =>  FT::ACTION(INVOKE_TOKEN, [
+        'pId' => $this->getPId(),
+        'tokenType' => 'AX_Common_Brassbug',
+        'targetLocation' => [STORM_RIGHT, STORM_LEFT],
+      ]),
     ];
   }
 }

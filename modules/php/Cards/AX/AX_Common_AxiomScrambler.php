@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_AxiomScrambler extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -22,6 +24,12 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 4,
       'costReserve' => 4,
+      'effectHand' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetLocation' => [RESERVE],
+        'upTo' => true,
+        'effect' => FT::ACTION(DISCARD, []),
+      ]),
     ];
   }
 }
