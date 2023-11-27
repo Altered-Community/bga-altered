@@ -11,6 +11,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const CHARACTER = 'character';
   const PERMANENT = 'permanent';
   const SPELL = 'spell';
+  const TOKEN = 'token';
   const FONT_SIZE = '13px';
 
   return declare('altered.cards', null, {
@@ -588,7 +589,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     */
 
-    async notif_playCard(n) {
+    notif_playCard(n) {
       debug('Notif: playing a card', n);
       // Update counters
       if (n.args.fromLocation == 'hand') {
@@ -600,21 +601,26 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
+      let slideIt = () => {
+        $(id).classList.add('mini-card');
+        let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
+        $(id).classList.add(highlight);
+        let container = this.getCardContainer(card);
+        this.slide(id, container).then(() => {
+          this.updateBiomeTotals(card.pId, n.args.biomes);
+          $(id).classList.remove(highlight);
+          this.updateMovements(n.args.movements);
+          this.notifqueue.setSynchronousDuration(100);
+        });
+      };
+
       if (!$(id)) {
         let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
         this.addCard(card, `hand-${n.args.player_id}`);
-        await this.flipAndReplace(fakeCard, id);
+        this.flipAndReplace(fakeCard, id).then(slideIt);
+      } else {
+        slideIt();
       }
-      $(id).classList.add('mini-card');
-      let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
-      $(id).classList.add(highlight);
-      let container = this.getCardContainer(card);
-      this.slide(id, container).then(() => {
-        this.updateBiomeTotals(card.pId, n.args.biomes);
-        $(id).classList.remove(highlight);
-        this.updateMovements(n.args.movements);
-        this.notifqueue.setSynchronousDuration(100);
-      });
     },
 
     notif_supportEffect(n) {
@@ -796,6 +802,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return this.tplSpellCard(card, false, mini);
       } else if (type == PERMANENT) {
         return this.tplPermanentCard(card, false, mini);
+      } else if (type == TOKEN) {
+        return this.tplTokenCard(card, false, mini);
       }
 
       console.error('No tpl yet', card);
@@ -813,6 +821,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return this.tplSpellCardTooltip(card);
       } else if (type == PERMANENT) {
         return this.tplPermanentCardTooltip(card);
+      } else if (type == TOKEN) {
+        return this.tplTokenCardTooltip(card);
       }
 
       return '';
@@ -1041,6 +1051,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     autofitCardFrame(oCard) {
+      if (!oCard.querySelector('.card-effect')) return;
       let isMini = oCard.classList.contains('mini-card');
       if (isMini) oCard.classList.remove('mini-card');
 
