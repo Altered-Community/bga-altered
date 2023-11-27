@@ -121,33 +121,56 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return $('test-cards');
     },
 
-    setupDiscardDialog(player_id) {
-      this._discardModal = new customgame.modal('discardDisplay', {
-        class: 'altered_popin',
+    setupDiscardModal(player) {
+      let pId = player.id;
+      this._discardModals[pId] = new customgame.modal('discardDisplay' + pId, {
+        class: 'altered_discard_popin',
         autoShow: false,
-        closeIcon: 'fa-times',
+        closeIcon: null,
         closeAction: 'hide',
+        title: this.fsr(_('Discard of ${player_name}'), { player_name: player.name }),
         verticalAlign: 'flex-start',
-        contentsTpl: `<div id='modal-discard'></div><div id='discard-cards-footer'></div>`,
+        contentsTpl: `<div class='discard-modal' id='discard-cards-${pId}'></div>`,
         scale: 0.9,
         breakpoint: 800,
+        onStartShow: () => $(`discard-cards-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`)),
+        onStartHide: () => $(`player-board-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`)),
+        onShow: () => this.closeCurrentTooltip(),
       });
-      // this.addPrimaryActionButton('btnShowCards', _('Show cards'), () => this._cardsChoiceModal.show());
-      // container = $('choose-cards');
-      let dis = $(`board-discard-${player_id}`);
-      document.querySelectorAll(`#board-discard-${player_id} .altered-card`).forEach((oCard) => {
-        let o = oCard.cloneNode(true);
-        let id = o.id;
-        o.id += '_discard';
-        $('modal-discard').appendChild(o);
-
-        if (this.tooltips[id]) {
-          this.registerCustomTooltip(this.tooltips[id].getContent(), o.id);
-        }
+      $(`board-discard-${pId}`).addEventListener('click', () => {
+        this.closeCurrentTooltip();
+        if (this._discardModals[pId].isDisplayed()) this._discardModals[pId].hide();
+        else this._discardModals[pId].show();
       });
-      this.attachRegisteredTooltips();
-      this._discardModal.show();
     },
+
+    // setupDiscardDialog(player_id) {
+    //   this._discardModal = new customgame.modal('discardDisplay', {
+    //     class: 'altered_popin',
+    //     autoShow: false,
+    //     closeIcon: 'fa-times',
+    //     closeAction: 'hide',
+    //     verticalAlign: 'flex-start',
+    //     contentsTpl: `<div id='modal-discard'></div><div id='discard-cards-footer'></div>`,
+    //     scale: 0.9,
+    //     breakpoint: 800,
+    //   });
+    //   // this.addPrimaryActionButton('btnShowCards', _('Show cards'), () => this._cardsChoiceModal.show());
+    //   // container = $('choose-cards');
+    //   let dis = $(`board-discard-${player_id}`);
+    //   document.querySelectorAll(`#board-discard-${player_id} .altered-card`).forEach((oCard) => {
+    //     let o = oCard.cloneNode(true);
+    //     let id = o.id;
+    //     o.id += '_discard';
+    //     $('modal-discard').appendChild(o);
+
+    //     if (this.tooltips[id]) {
+    //       this.registerCustomTooltip(this.tooltips[id].getContent(), o.id);
+    //     }
+    //   });
+    //   this.attachRegisteredTooltips();
+    //   this._discardModal.show();
+    // },
 
     openDiscardModal(player_id) {
       $(`modal-discard-${player_id}`).innerHTML = '';
@@ -647,7 +670,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
-      n.args.cardIds.forEach((cardId) => $(`card-${cardId}`).classList.remove('added'));
+      n.args.cardIds.forEach((cardId) => {
+        if ($(`card-${cardId}`)) $(`card-${cardId}`).classList.remove('tapped');
+      });
     },
 
     notif_shuffleDeck(n) {
@@ -738,6 +763,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       ).then(() => {
         this.notifqueue.setSynchronousDuration(100);
       });
+      this.gamedatas.passedPlayers = [];
     },
 
     /**

@@ -56,6 +56,8 @@ define(['dojo', 'dojo/_base/declare', 'dojo/fx', 'dojox/fx/ext-dojo/complex'], f
 
     onShow: null,
     onHide: null,
+    onStartShow: null,
+    onStartHide: null,
 
     statusElt: null, // If specified, will add/remove "opened" class on this element
 
@@ -128,7 +130,7 @@ define(['dojo', 'dojo/_base/declare', 'dojo/fx', 'dojox/fx/ext-dojo/complex'], f
         height: '100%',
         zIndex: 1049,
         opacity: 0,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
       });
 
       dojo.style('popin_' + this.id + '_wrapper', {
@@ -142,7 +144,7 @@ define(['dojo', 'dojo/_base/declare', 'dojo/fx', 'dojox/fx/ext-dojo/complex'], f
         display: 'flex',
         justifyContent: 'center',
         alignItems: this.verticalAlign,
-        paddingTop: this.verticalAlign == 'center' ? 0 : '125px',
+        paddingTop: this.verticalAlign == 'center' ? 0 : '75px',
         transformOrigin: 'top left',
       });
 
@@ -259,6 +261,10 @@ define(['dojo', 'dojo/_base/declare', 'dojo/fx', 'dojox/fx/ext-dojo/complex'], f
       this.adjustSize();
       this._isOpening = true;
       this._isClosing = false;
+      if (this.onStartShow !== null) {
+        this.onStartShow();
+      }
+
       this.fadeInAnimation().then(() => {
         if (!this._isOpening) return;
 
@@ -329,6 +335,10 @@ define(['dojo', 'dojo/_base/declare', 'dojo/fx', 'dojox/fx/ext-dojo/complex'], f
 
       this._isClosing = true;
       this._isOpening = false;
+      if (this.onStartHide !== null) {
+        this.onStartHide();
+      }
+
       this.fadeOutAnimation().then(() => {
         if (!this._isClosing || this._isOpening) return;
         this._isClosing = false;

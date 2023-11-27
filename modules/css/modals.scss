@@ -42,3 +42,31 @@
         border-bottom: 1px solid #734f2a;
     }
 }
+
+.altered_discard_popin {
+    --cardScale: 1;
+    width: 90vw;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+
+    h2 {
+        background: #fffd;
+        border-radius: 4px;
+        margin: auto;
+        padding: 7px 15px;
+        border: 1px solid white;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    .discard-modal {
+        .player-board-discard {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    }
+}

@@ -2158,7 +2158,8 @@ html {
   .altered-player-board .player-board-discard {
     width: 120px;
     position: absolute;
-    left: 120px; }
+    left: 120px;
+    cursor: zoom-in; }
     .altered-player-board .player-board-discard .altered-card {
       position: absolute;
       filter: grayscale(80%);
@@ -2529,6 +2530,27 @@ html {
     border-radius: 8px 8px 0px 0px;
     padding: 11px 0px 3px;
     border-bottom: 1px solid #734f2a; }
+
+.altered_discard_popin {
+  --cardScale: 1;
+  width: 90vw;
+  display: flex;
+  flex-flow: column;
+  justify-content: center; }
+  .altered_discard_popin h2 {
+    background: #fffd;
+    border-radius: 4px;
+    margin: auto;
+    padding: 7px 15px;
+    border: 1px solid white;
+    margin-bottom: 20px;
+    font-size: 20px; }
+  .altered_discard_popin .discard-modal .player-board-discard {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; }
 
 .effect-reference,
 .effect-reference-emphasis {

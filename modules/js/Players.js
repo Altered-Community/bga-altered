@@ -26,6 +26,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.orderedPlayers = Object.values(this.gamedatas.players).sort((a, b) => a.order - b.order);
       this.bottomPId = this.orderedPlayers[0].id;
       this.topPId = this.orderedPlayers[1].id;
+      this._discardModals = {};
 
       // Add player board and player panel
       this.orderedPlayers.forEach((player, i) => {
@@ -37,7 +38,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
         // Cards
         player.hand.forEach((card) => this.addCard(card));
-        this.onClick('board-discard-' + player.id, () => this.setupDiscardDialog(player.id), false);
+
+        // Discard modal
+        this.setupDiscardModal(player);
 
         if (player.id == this.player_id) {
           $(`player-board-${this.player_id}`).insertAdjacentHTML(

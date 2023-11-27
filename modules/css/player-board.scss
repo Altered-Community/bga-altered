@@ -158,6 +158,7 @@
         width: $cardWidth + 2 * $boardMargin;
         position: absolute;
         left: 120px;
+        cursor: zoom-in;
 
         .altered-card {
             position: absolute;
