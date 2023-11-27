@@ -821,6 +821,7 @@ define([
         confirmText: _('Confirm target'),
         upTo: args.upTo,
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
+        passCallback: () => this.takeAction('actPassOptionalAction'),
       });
     },
 

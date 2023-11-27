@@ -1385,7 +1385,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       };
 
       if ($('btnPass')) $('btnPass').remove();
-      if (config.optional) {
+      if (config.optional || config.upTo) {
         this.addSecondaryActionButton('btnPass', _('Pass action'), () => config.passCallback(), config.btnContainer);
       }
 

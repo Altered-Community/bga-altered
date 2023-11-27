@@ -144,7 +144,7 @@ class Actions
   public static function pass($actionId, $ctx)
   {
     if (!$ctx->isOptional()) {
-      self::error($ctx->toArray());
+      // self::error($ctx->toArray());
       throw new \BgaVisibleSystemException('This action is not optional');
     }
 
