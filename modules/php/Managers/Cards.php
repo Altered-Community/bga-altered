@@ -56,16 +56,22 @@ class Cards extends \ALT\Helpers\CachedPieces
     return new Card($data); // information from DB
   }
 
-  public static function getUiData($pId)
+  public static function getUiData($pId, $refresh = false)
   {
-    return self::getAll()
+    $current = Players::getCurrent()->getId() == $pId;
+    $cards = self::getAll()
       ->where('location', IN_PLAY)
       ->merge(self::getInLocation(RESERVE))
       ->merge(self::getInLocation('board-hero-%'))
       ->merge(self::getInLocation('limbo'))
-      ->merge(self::getInLocation('discard'))
-      ->merge(self::getHand($pId))
-      ->merge(self::getFiltered($pId, MANA))
+      ->merge(self::getInLocation('discard'));
+
+    if (!$refresh && $current) {
+      $cards = $cards->merge(self::getHand($pId))
+        ->merge(self::getFiltered($pId, MANA));
+    }
+
+    return $cards
       ->orderBy('state')
       ->toArray();
   }

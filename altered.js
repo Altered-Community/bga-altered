@@ -351,6 +351,7 @@ define([
     notif_refreshHand(n) {
       debug('Notif: refreshing UI', n);
       n.args.hand.forEach((card) => this.addCard(card));
+      n.args.mana.forEach((card) => this.addCard(card));
     },
 
     onUpdateActionButtons(stateName, args) {
