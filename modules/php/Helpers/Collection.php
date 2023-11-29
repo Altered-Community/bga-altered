@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Helpers;
 
 class Collection extends \ArrayObject
@@ -99,9 +100,11 @@ class Collection extends \ArrayObject
         $objValue = $obj->$method();
         return is_array($value)
           ? in_array($objValue, $value)
-          : (strpos($value, '%') !== false
-            ? like_match($value, $objValue)
-            : $objValue == $value);
+          : (is_array($objValue)
+            ? in_array($value, $objValue)
+            : (strpos($value, '%') !== false
+              ? like_match($value, $objValue)
+              : $objValue == $value));
       });
   }
 
@@ -114,9 +117,11 @@ class Collection extends \ArrayObject
         $objValue = $obj->$method();
         return is_array($value)
           ? !in_array($objValue, $value)
-          : (strpos($value, '%') !== false
-            ? !like_match($value, $objValue)
-            : $objValue != $value);
+          : (is_array($objValue)
+            ? !in_array($value, $objValue)
+            : (strpos($value, '%') !== false
+              ? !like_match($value, $objValue)
+              : $objValue != $value));
       });
   }
 

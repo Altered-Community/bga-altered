@@ -42,7 +42,8 @@ class Player extends \ALT\Helpers\DB_Model
     $data['totalMana'] = $this->getTotalMana();
     $data['handCount'] = $this->getHand()->count();
     $data['biomes'] = $this->getBiomeStrength();
-
+    $data['hand'] = $current ? $this->getHand()->ui() : [];
+    $data['manaCards'] = $current ? $this->getManaCards() : [];
     return $data;
   }
 
@@ -115,7 +116,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $cards = $this->getManaCards(false)->limit($n);
     if ($cards->count() < $n) {
-      throw new \BgaVisibleSystemException('You don\'t have enough money to pay. Should not happen');
+      throw new \BgaVisibleSystemException('You don\'t have enough mana to pay. Should not happen');
     }
 
     foreach ($cards as $card) {
@@ -165,14 +166,20 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getHero()->getReserveSlots();
   }
 
-  public function getPermanentSlots()
+  public function getLandmarkSlots()
   {
-    return $this->getHero()->getPermanentSlots();
+    return $this->getHero()->getLandmarkSlots();
   }
 
   public function getPermanents()
   {
     return Cards::getPlayedCards($this->id, PERMANENT);
+  }
+
+
+  public function getLandmarks()
+  {
+    return Cards::getPlayedCards($this->id, PERMANENT)->where('subtype', LANDMARK);
   }
 
   public function getManaCards($tapped = null)

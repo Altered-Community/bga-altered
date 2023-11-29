@@ -23,7 +23,7 @@ class InvokeToken extends \ALT\Models\Action
 
   public function getDescription()
   {
-    $msg = clienttranslate('Invoke ${tokenName} in ${location}');
+    $msg = clienttranslate('Invoke ${tokenName}');
     return [
       'log' => $msg,
       'args' => [
@@ -100,9 +100,6 @@ class InvokeToken extends \ALT\Models\Action
 
   public function actInvokeToken($location, $auto = false)
   {
-    if ($auto === false) {
-      self::checkAction('actInvokeToken');
-    }
     $player = $this->getPlayer();
     $args = $this->argsInvokeToken();
 

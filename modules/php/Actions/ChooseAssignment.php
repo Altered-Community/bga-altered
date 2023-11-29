@@ -41,13 +41,14 @@ class ChooseAssignment extends \ALT\Models\Action
       })
       ->map(function ($card) {
         $type = $card->getType();
-        if ($type == PERMANENT) {
+        $subType = $card->getSubtype();
+        if ($type == PERMANENT && !in_array(LANDMARK, $subType)) {
           return [PERMANENT];
-        }
-        if ($type == SPELL) {
+        } elseif ($type == PERMANENT && in_array(LANDMARK, $subType)) {
+          return [LANDMARK];
+        } elseif ($type == SPELL) {
           return [LIMBO];
-        }
-        if ($type == CHARACTER) {
+        } elseif ($type == CHARACTER) {
           return [STORM_LEFT, STORM_RIGHT];
         }
         return [];
@@ -60,7 +61,7 @@ class ChooseAssignment extends \ALT\Models\Action
       })
       ->getIds();
 
-    // 3. Permanent/tap effect
+    // 3. Tap effect
     $actions['tap'] = $player
       ->getPlayedCards()
       ->merge($player->getHeroCollection())
@@ -128,7 +129,7 @@ class ChooseAssignment extends \ALT\Models\Action
     if ($location == DISCARD) {
       $deleted = $card->discard();
       Notifications::silentKill($deleted);
-    } elseif ($fromLocation == RESERVE && $location != PERMANENT) {
+    } elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }

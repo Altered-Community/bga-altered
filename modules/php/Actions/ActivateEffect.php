@@ -1,0 +1,61 @@
+<?php
+
+namespace ALT\Actions;
+
+use ALT\Managers\Meeples;
+use ALT\Managers\Players;
+use ALT\Managers\Cards;
+use ALT\Core\Globals;
+use ALT\Core\Stats;
+use ALT\Helpers\Utils;
+use ALT\Core\Notifications;
+
+class ActivateEffect extends \ALT\Models\Action
+{
+  public function getState()
+  {
+    return ST_ACTIVATE_EFFECT;
+  }
+
+  public function getDescription()
+  {
+    return clienttranslate('activate {J} effect');
+  }
+
+  public function isAutomatic($player = null)
+  {
+    return true;
+  }
+
+  public function isIndependent($player = null)
+  {
+    return true;
+  }
+
+  public function getCard()
+  {
+    $args = $this->getCtxArgs();
+    $cardId = $args['cardId'] ?? null;
+    if ($cardId === null) {
+      throw new \BgaVisibleSystemException('no card in args. Should not happen');
+    }
+    return Cards::get($cardId);
+  }
+
+  protected $args = ['effectType' => 'Played'];
+
+  public function stActivateEffect()
+  {
+    $source = $this->getSource();
+    $card = $this->getCard();
+
+    $effect = 'getEffect' . $this->getArg('effectType');
+    if (!empty($card->$effect())) {
+      $node = $card->$effect();
+      $node['sourceId'] = $this->getSourceId();
+      $this->pushParallelChild($node);
+    }
+
+    $this->resolveAction([]);
+  }
+}

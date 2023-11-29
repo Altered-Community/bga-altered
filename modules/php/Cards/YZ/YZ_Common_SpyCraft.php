@@ -24,7 +24,7 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
           'targetLocation' => [RESERVE],
           'upTo' => true,
           'effect' => FT::ACTION(DISCARD, []),

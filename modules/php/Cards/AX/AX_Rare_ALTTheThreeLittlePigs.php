@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -25,6 +27,14 @@ class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'control2Landmarks',
+        'effect' => FT::GAIN(ME, BOOST, 2),
+      ]),
+      'effectSupport' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
+      ],
     ];
   }
 }

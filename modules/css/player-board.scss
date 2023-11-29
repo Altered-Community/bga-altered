@@ -282,12 +282,12 @@
         .player-board-separator {
             width: 40px;
             height: 185px;
-            background: url("img/separator-reserve-permanent.jpg");
+            background: url("img/separator-reserve-landmark.jpg");
             background-size: 100% 100%;
         }
-        .player-board-permanents {
+        .player-board-landmarks {
             min-width: 298px;
-            background: url("img/permanent-slot.jpg");
+            background: url("img/landmark-slot.jpg");
             background-size: auto 100%;
             background-repeat: repeat-x;
             display: flex;

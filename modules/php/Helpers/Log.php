@@ -1,9 +1,13 @@
 <?php
+
 namespace ALT\Helpers;
+
 use ALT\Core\Game;
 use ALT\Core\Globals;
 use ALT\Core\Notifications;
 use ALT\Managers\Players;
+use ALT\Managers\Cards;
+use ALT\Managers\Meeples;
 
 /**
  * Class that allows to log DB change: useful for undo feature
@@ -197,12 +201,14 @@ class Log extends \APP_DbObject
 
     // Force to clear cached informations
     Globals::fetch();
-
+    Cards::invalidate();
+    Players::invalidate();
+    Meeples::invalidate();
     // Notify
-    $datas = Game::get()->getAllDatas();
+    $datas = Game::get()->getAllDatas(true);
     Notifications::refreshUI($datas);
     $player = Players::getCurrent();
-    Notifications::refreshHand($player, $player->getHand()->ui());
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
 
     // Force notif flush to be able to delete "restart turn" notif
     Game::get()->sendNotifications();

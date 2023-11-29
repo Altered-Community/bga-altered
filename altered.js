@@ -69,6 +69,8 @@ define([
         ['invokeToken', 100],
         ['afterYou', 1000],
         ['roll', 100],
+        ['gainCounter', 100],
+        ['useCounter', 100],
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],
 
@@ -351,6 +353,7 @@ define([
     notif_refreshHand(n) {
       debug('Notif: refreshing UI', n);
       n.args.hand.forEach((card) => this.addCard(card));
+      n.args.mana.forEach((card) => this.addCard(card));
     },
 
     onUpdateActionButtons(stateName, args) {
@@ -793,7 +796,7 @@ define([
       const names = {
         stormLeft: _('Hero side'),
         stormRight: _('Companion side'),
-        permanent: _('Permanent'),
+        landmark: _('Landmark'),
         reserve: _('Reserve'),
         limbo: _('Spell'),
       };
@@ -821,6 +824,17 @@ define([
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
         passCallback: () => this.takeAction('actPassOptionalAction'),
       });
+    },
+
+    onEnteringStateInvokeToken(args) {
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+      };
+
+      args.locations.forEach((location, i) =>
+        this.addPrimaryActionButton('btnLocation' + i, names[location], () => this.takeAtomicAction('actInvokeToken', [location]))
+      );
     },
 
     ////////////////////////////////////////////////////////////

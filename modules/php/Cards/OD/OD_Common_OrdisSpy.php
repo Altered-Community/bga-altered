@@ -25,7 +25,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectHand' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
         'targetLocation' => [RESERVE],
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),

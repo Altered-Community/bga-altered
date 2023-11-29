@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_BrassbugHub extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -21,6 +23,26 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
       ),
       'costHand' => 3,
       'costReserve' => 3,
+      'effectPlayed' =>  [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'gainCounter', 'args' => ['counter' => 3, 'counterName' => clienttranslate('Kelon counter')]],
+      ],
+      'effectPassive' => [
+        'Dawn' => [
+          'condition' => 'hasCounterOnCard',
+          'output' => [
+            'type' => NODE_SEQ, 'optional' => true,
+            'childs' => [
+              FT::ACTION(USE_COUNTER, ['pay' => 1, 'consume' => 1]),
+              FT::ACTION(INVOKE_TOKEN, [
+                'pId' => $this->getPId(),
+                'tokenType' => 'AX_Common_Brassbug',
+                'targetLocation' => STORMS
+              ])
+            ]
+          ]
+        ],
+      ],
     ];
   }
 }

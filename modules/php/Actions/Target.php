@@ -24,7 +24,7 @@ class Target extends \ALT\Models\Action
   protected $args = [
     'upTo' => false, // if n > 1, can the player select UP TO n cards or exactly n cards ?
     'targetPlayer' => ALL,
-    'targetType' => [CHARACTER], // must be an array
+    'targetType' => [CHARACTER, TOKEN], // must be an array
     'targetLocation' => IN_PLAY, //  must be an array reserve / inplay)
     'maxReserveCost' => INFTY, // limitation
     'maxHandCost' => INFTY, // limitation
@@ -34,6 +34,7 @@ class Target extends \ALT\Models\Action
     'statuses' => 'disabled', // does it has those statuses
     'excludeSelf' => false,
     'totalCost' => INFTY,
+    'hasEffects' => 'disabled'
   ];
 
   public function getDescription()
@@ -125,6 +126,19 @@ class Target extends \ALT\Models\Action
       $handCost = $c->getCostHand();
       $reserveCost = $c->getCostReserve();
       $statuses = $this->getArg('statuses');
+      $effects = $this->getArg('hasEffects');
+      if ($effects != 'disabled') {
+        $found = false;
+        foreach ($effects as $effect) {
+          $f =  'getEffect' . $effect;
+          if (!empty($c->$f())) {
+            $found = true;
+          }
+        }
+        if (!$found) {
+          return false;
+        }
+      }
       $costCheck =
         $this->getArg('minHandCost') <= $handCost &&
         $handCost <= $this->getArg('maxHandCost') &&

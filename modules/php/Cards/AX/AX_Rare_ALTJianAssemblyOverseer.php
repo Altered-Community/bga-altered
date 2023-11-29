@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -17,13 +19,14 @@ class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => [ENGINEER],
       'supportDesc' => clienttranslate(
-        '#{D} : Activate the {J} effect of target Permanent.# (Discard me from your Reserve to activate this effect)'
+        '#{D} : Activate the {J} effect of target Permanent you control.# (Discard me from your Reserve to activate this effect)'
       ),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 2,
+      'effectSupport' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'targetPlayer' => ME, 'hasEffects' => ['Played'], 'effect' => FT::ACTION(ACTIVATE_EFFECT, [])])
     ];
   }
 }

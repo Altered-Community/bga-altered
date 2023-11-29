@@ -28,6 +28,8 @@ class Actions
     ROLL_DIE,
     RESUPPLY,
     MOVE_EXPEDITION,
+    USE_COUNTER,
+    ACTIVATE_EFFECT
   ];
 
   public static function get($actionId, &$ctx = null)

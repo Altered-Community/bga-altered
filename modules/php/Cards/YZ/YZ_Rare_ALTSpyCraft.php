@@ -24,7 +24,7 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::SEQ(
         FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
           'targetLocation' => [RESERVE],
           'upTo' => true,
           'effect' => FT::ACTION(DISCARD, []),

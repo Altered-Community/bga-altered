@@ -37,6 +37,7 @@ class Card extends \ALT\Helpers\DB_Model
     'faction' => 'str',
     'name' => 'str', // obj?
     'type' => 'str', // Token/hero/adventurer/spell
+    'subtype' => 'obj',
     'token' => 'bool',
     'uid' => 'str',
 
@@ -44,7 +45,7 @@ class Card extends \ALT\Helpers\DB_Model
     'asset' => 'str',
     'frame' => 'int',
     'reserveSlots' => 'int',
-    'permanentSlots' => 'int',
+    'landmarkSlots' => 'int',
 
     'mountain' => 'int',
     'forest' => 'int',
@@ -118,7 +119,7 @@ class Card extends \ALT\Helpers\DB_Model
   {
     return $this->location == STORM_LEFT ||
       $this->location == STORM_RIGHT ||
-      $this->location == PERMANENT ||
+      $this->location == LANDMARK ||
       $this->properties['type'] == HERO;
   }
 

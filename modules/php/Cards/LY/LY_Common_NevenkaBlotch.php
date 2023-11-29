@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_NevenkaBlotch extends \ALT\Models\Card
@@ -20,7 +22,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       ),
 
       'reserveSlots' => 2,
-      'permanentSlots' => 2,
+      'landmarkSlots' => 2,
 
       'effectTap' => FT::ACTION(TARGET, [
         'targetPlayer' => ME,

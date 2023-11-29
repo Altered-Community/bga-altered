@@ -332,8 +332,8 @@ class Notifications
   {
     $msg =
       $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
-        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
+      ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
+      : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -393,6 +393,32 @@ class Notifications
     ]);
   }
 
+  public static function gainCounter($card)
+  {
+    self::notifyAll(
+      'gainCounter',
+      clienttranslate('${card_name} gains ${n} ${counterName}'),
+      ['card' => $card, 'n' => $card->getExtraDatas()['counter'], 'counterName' => $card->getExtraDatas()['counterName'], 'i18n' => ['counterName']]
+    );
+  }
+
+  public static function useCounter($player, $consume, $cost, $source)
+  {
+    if ($cost > 0) {
+      $msg = clienttranslate('${player_name} pays {${n}} and reduce by ${consume} the counter (${card_name}\'s effect)');
+    } else {
+      $msg = clienttranslate('${player_name} reduce by ${consume} the counter (${card2_name}\'s effect)');
+    }
+    self::notifyAll('useCounter', $msg, [
+      'player' => $player,
+      'n' => $cost,
+      'consume' => $consume,
+      'card' => $source,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
+    ]);
+  }
+
   public static function gainMeeple($power, $card, $meeples, $source = null, $silent = true)
   {
     $n = count($meeples);
@@ -401,8 +427,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -511,6 +537,7 @@ class Notifications
     ];
     foreach ($fDatas['players'] as &$player) {
       $player['hand'] = []; // Hide hand !
+      $player['manaCards'] = []; // Hide mana
     }
 
     self::notifyAll('refreshUI', '', [
@@ -518,11 +545,12 @@ class Notifications
     ]);
   }
 
-  public static function refreshHand($player, $hand)
+  public static function refreshHand($player, $hand, $mana)
   {
     self::notify($player, 'refreshHand', '', [
       'player' => $player,
       'hand' => $hand,
+      'mana' => $mana
     ]);
   }
 
@@ -661,8 +689,8 @@ class Notifications
     if (isset($data['displayLocation'])) {
       $data['displayLocation'] =
         $data['displayLocation'] == STORM_LEFT
-          ? clienttranslate('Hero\'s expedition')
-          : clienttranslate('Companion\'s expedition');
+        ? clienttranslate('Hero\'s expedition')
+        : clienttranslate('Companion\'s expedition');
     }
 
     // if (isset($data['actionCard'])) {

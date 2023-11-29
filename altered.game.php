@@ -75,13 +75,13 @@ class altered extends Table
     return 'altered';
   }
 
-  public function getAllDatas()
+  public function getAllDatas($refresh = false)
   {
     $pId = self::getCurrentPId();
     return [
       'prefs' => Preferences::getUiData($pId),
       'players' => Players::getUiData($pId),
-      'cards' => Cards::getUiData($pId),
+      'cards' => Cards::getUiData($pId, $refresh),
       'meeples' => Meeples::getUiData(),
 
       'firstPlayer' => Globals::getFirstPlayer(),

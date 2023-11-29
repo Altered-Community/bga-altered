@@ -103,7 +103,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let type = card.properties.type;
       if (card.location == 'hand') {
         return $(`hand-${card.pId}`);
-      } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'limbo', 'discard'].includes(card.location)) {
+      } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'landmark', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
       }
       // TODO REMOVE : legacy code
@@ -295,7 +295,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     onEnteringStateNightDiscard(args) {
       this.onSelectNCards(args._private.cards, {
-        n: args.n + (args.nPermanents ?? 0),
+        n: args.n + (args.nLandmarks ?? 0),
         class: 'selectable',
         confirmText: _('Confirm discard'),
         updateCallback: (cIds) => {
@@ -556,9 +556,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             if (card.location == 'hand') return;
             if (n.args.hand == true) this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
 
-            let elt = $(`card-${card.id}`);
-            if (card.location == 'discard') elt.classList.remove('mini-card');
-            this.updateStatusIfCard(elt);
+            let id = `card-${card.id}`;
+            if (!$(id)) {
+              this.addCard(card, `hand-${card.pId}`);
+            }
+
+            if (card.location == 'discard') $(id).classList.remove('mini-card');
+            if (n.args.hand === true) $(id).classList.add('mini-card');
+            this.updateStatusIfCard($(id));
             return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`);
           });
         })
@@ -593,6 +598,22 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this._playerCounters[n.args.player_id2][counter].incValue(nCards);
         this.notifqueue.setSynchronousDuration(200);
       });
+    },
+
+    notif_gainCounter(n) {
+      debug('Notification: gain counter', n);
+      //TODO
+      // display or increment a counter on the card
+    },
+
+    notif_useCounter(n) {
+      debug('Notification: use counter', n);
+      //TODO
+      // reduce a counter on the card
+
+      // pay mana if necessary
+      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+      this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
     },
 
     /**
@@ -834,7 +855,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCard(card) {
       let type = card.properties.type;
-      let miniZones = ['reserve', 'stormLeft', 'stormRight', 'permanent'];
+      let miniZones = ['reserve', 'stormLeft', 'stormRight', 'permanent', 'landmark'];
       let mini = miniZones.includes(card.location);
       if (type == HERO) {
         return this.tplHeroCard(card);
