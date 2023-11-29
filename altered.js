@@ -796,7 +796,7 @@ define([
       const names = {
         stormLeft: _('Hero side'),
         stormRight: _('Companion side'),
-        permanent: _('Permanent'),
+        landmark: _('Landmark'),
         reserve: _('Reserve'),
         limbo: _('Spell'),
       };

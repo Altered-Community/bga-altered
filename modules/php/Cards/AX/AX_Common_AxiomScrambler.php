@@ -25,7 +25,7 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'effectHand' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
         'targetLocation' => [RESERVE],
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),

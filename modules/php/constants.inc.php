@@ -139,6 +139,7 @@ const EFFECT = 'EFFECT';
 const HERO = 'hero';
 const CHARACTER = 'character';
 const PERMANENT = 'permanent';
+const LANDMARK = 'landmark';
 const SPELL = 'spell';
 const EVERYONE_ELSE = 'everyone-else';
 
@@ -150,7 +151,7 @@ const MANA = 'mana';
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';
 const STORMS = [STORM_LEFT, STORM_RIGHT];
-const IN_PLAY = [STORM_LEFT, STORM_RIGHT, PERMANENT];
+const IN_PLAY = [STORM_LEFT, STORM_RIGHT, LANDMARK];
 
 const STORM_CARDS = [
   [[], [FOREST, MOUNTAIN, OCEAN]],
@@ -189,7 +190,6 @@ const COMPANION = 'companion';
 const DIVINITY = 'divinity';
 const ADVENTURER = 'adventurer';
 const PILOT = 'pilot';
-const LANDMARK = 'landmark';
 const ENGINEER = 'engineer';
 const ROBOT = 'robot';
 const ELEMENTAL = 'elemental';

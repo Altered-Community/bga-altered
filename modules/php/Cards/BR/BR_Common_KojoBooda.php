@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Cards\BR;
 
 class BR_Common_KojoBooda extends \ALT\Models\Card
@@ -18,7 +19,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
         'At Dawn, if you are first player — Create a [BOODA] Cat token in the Companion Expedition.'
       ),
       'reserveSlots' => 2,
-      'permanentSlots' => 2,
+      'landmarkSlots' => 2,
 
       'effectPassive' => [
         'Dawn' => [

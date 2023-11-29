@@ -19,7 +19,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'type' => HERO,
 
       'reserveSlots' => 2,
-      'permanentSlots' => 2,
+      'landmarkSlots' => 2,
 
       'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. This action costs {1} more if you are not the first player.'),
       'effectTap' => FT::ACTION(AFTER_YOU, ['pay' => 1, 'condition' => 'notFirstPlayer']),

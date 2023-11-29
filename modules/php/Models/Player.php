@@ -166,14 +166,20 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getHero()->getReserveSlots();
   }
 
-  public function getPermanentSlots()
+  public function getLandmarkSlots()
   {
-    return $this->getHero()->getPermanentSlots();
+    return $this->getHero()->getLandmarkSlots();
   }
 
   public function getPermanents()
   {
     return Cards::getPlayedCards($this->id, PERMANENT);
+  }
+
+
+  public function getLandmarks()
+  {
+    return Cards::getPlayedCards($this->id, PERMANENT)->where('subtype', LANDMARK);
   }
 
   public function getManaCards($tapped = null)

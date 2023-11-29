@@ -17,7 +17,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'type' => HERO,
 
       'reserveSlots' => 2,
-      'permanentSlots' => 2,
+      'landmarkSlots' => 2,
 
       'effectDesc' => clienttranslate(
         'When you play a Permanent with a hand cost {3} or more, you may exhaust me ({T}) to create a [BRASSBUG] Robot token.'

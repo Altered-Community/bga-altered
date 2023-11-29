@@ -60,7 +60,7 @@ class Discard extends \ALT\Models\Action
     'destination' => 'discard',
     'n' => 1, // number of card to discard
     'source' => '',
-    'nPermanents' => 0, // only for night clean up
+    'nLandmarks' => 0, // only for night clean up
     // 'totalCost' => INFTY
   ];
 
@@ -70,7 +70,7 @@ class Discard extends \ALT\Models\Action
     if (($this->getCtxArg('special') ?? '') == 'nightCleanUp') {
       return [
         'n' => $this->getArg('n') ?? 1,
-        'nPermanents' => $this->getArg('nPermanents'),
+        'nLandmarks' => $this->getArg('nLandmarks'),
         'source' => $this->getArg('source') ?? '',
         'destination' => $this->getArg('destination'),
         'descSuffix' => 'nightCleanUp',
@@ -78,10 +78,10 @@ class Discard extends \ALT\Models\Action
         '_private' => [
           'active' => [
             'reserveCards' => $player->getReserveCards()->getIds(),
-            'permanentCards' => $player->getPermanents()->getIds(),
+            'landmarkCards' => $player->getLandmarks()->getIds(),
             'cards' => $player
               ->getReserveCards()
-              ->merge($player->getPermanents())
+              ->merge($player->getLandmarks())
               ->getIds(),
           ],
         ],
@@ -121,8 +121,8 @@ class Discard extends \ALT\Models\Action
       // self::checkAction('actDiscard');
 
       if (
-        ($args['upTo'] == false && count($cardIds) != $args['n'] + ($args['nPermanents'] ?? 0)) ||
-        ($args['upTo'] == false && count($cardIds) > $args['n'] + ($args['nPermanents'] ?? 0))
+        ($args['upTo'] == false && count($cardIds) != $args['n'] + ($args['nLandmarks'] ?? 0)) ||
+        ($args['upTo'] == false && count($cardIds) > $args['n'] + ($args['nLandmarks'] ?? 0))
       ) {
         throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
       }
@@ -130,9 +130,9 @@ class Discard extends \ALT\Models\Action
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
         !empty(array_diff(
-            $cardIds,
-            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['permanentCards'] ?? [])
-          ))
+          $cardIds,
+          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+        ))
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -141,7 +141,7 @@ class Discard extends \ALT\Models\Action
       if ($args['descSuffix'] == 'nightCleanUp') {
         if (
           count($cardIds) - count(array_diff($cardIds, $args['_private']['active']['reserveCards'])) != $args['n'] ||
-          count($cardIds) - count(array_diff($cardIds, $args['_private']['active']['permanentCards'])) != $args['nPermanents']
+          count($cardIds) - count(array_diff($cardIds, $args['_private']['active']['landmarkCards'])) != $args['nLandmarks']
         ) {
           throw new \BgaVisibleSystemException('You must select the correct number of each type of cards');
         }

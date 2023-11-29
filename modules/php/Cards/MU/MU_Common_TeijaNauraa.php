@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Common_TeijaNauraa extends \ALT\Models\Card
@@ -18,7 +20,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'effectDesc' => clienttranslate('The first Character you play each Day gains 1 boost.'),
 
       'reserveSlots' => 2,
-      'permanentSlots' => 2,
+      'landmarkSlots' => 2,
 
       'effectPassive' => [
         'ChooseAssignment' => [

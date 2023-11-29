@@ -103,7 +103,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let type = card.properties.type;
       if (card.location == 'hand') {
         return $(`hand-${card.pId}`);
-      } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'limbo', 'discard'].includes(card.location)) {
+      } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'landmark', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
       }
       // TODO REMOVE : legacy code
@@ -270,7 +270,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     onEnteringStateNightDiscard(args) {
       this.onSelectNCards(args._private.cards, {
-        n: args.n + (args.nPermanents ?? 0),
+        n: args.n + (args.nLandmarks ?? 0),
         class: 'selectable',
         confirmText: _('Confirm discard'),
         updateCallback: (cIds) => {
@@ -830,7 +830,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCard(card) {
       let type = card.properties.type;
-      let miniZones = ['reserve', 'stormLeft', 'stormRight', 'permanent'];
+      let miniZones = ['reserve', 'stormLeft', 'stormRight', 'permanent', 'landmark'];
       let mini = miniZones.includes(card.location);
       if (type == HERO) {
         return this.tplHeroCard(card);

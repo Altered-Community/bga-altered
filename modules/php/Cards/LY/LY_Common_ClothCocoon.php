@@ -27,7 +27,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, [
           'statuses' => [FLEETING, ANCHORED, ASLEEP],
-          'targetType' => [CHARACTER, PERMANENT],
+          'targetType' => [CHARACTER, TOKEN, PERMANENT],
           'effect' => FT::ACTION(DISCARD, []),
         ])
       ),
