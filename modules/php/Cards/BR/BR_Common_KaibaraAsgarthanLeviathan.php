@@ -24,6 +24,9 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'ocean' => 6,
       'costHand' => 8,
       'costReserve' => 8,
+
+      'gigantic' => true,
+      'dynamicTough' => 'region'
     ];
   }
 }

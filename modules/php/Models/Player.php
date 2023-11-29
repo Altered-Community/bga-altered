@@ -225,6 +225,13 @@ class Player extends \ALT\Helpers\DB_Model
     );
   }
 
+  public function getRegionDifference()
+  {
+    $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];
+    $heroPos = explode('-', $this->getHeroToken()->getLocation())[1];
+    return max($companionPos - $heroPos, 0);
+  }
+
   public function checkVictory()
   {
     $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];

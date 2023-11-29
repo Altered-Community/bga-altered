@@ -443,12 +443,19 @@ class Notifications
     ]);
   }
 
-  public static function targetCards($player, $cards, $source)
+  public static function targetCards($player, $cards, $additionalCost, $source)
   {
-    self::notifyAll('midMessage', clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect'), [
+    if ($additionalCost > 0) {
+      $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect and pays {${n}} (Tough effect)');
+    } else {
+      $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect');
+    }
+    self::notifyAll('targetCards', $msg, [
       'player' => $player,
       'cards' => $cards,
       'card' => $source,
+      'n' => $additionalCost,
+      'mana' => $player->getMana(),
     ]);
   }
 

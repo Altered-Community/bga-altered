@@ -188,8 +188,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-                card.properties.uid
-              }.jpg");'></div>
+              card.properties.uid
+            }.jpg");'></div>
             </div>`
           );
         });
@@ -614,6 +614,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // pay mana if necessary
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
       this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+    },
+
+    notif_targetCards(n) {
+      debug('Notification: target card');
+      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
     },
 
     /**

@@ -65,6 +65,8 @@ class Card extends \ALT\Helpers\DB_Model
     'tapped' => 'bool',
     'gigantic' => 'bool',
     'fleeting' => 'bool',
+    'tough' => 'int',
+    'dynamicTough' => 'str',
 
     'extraDatas' => 'obj',
   ];
@@ -353,6 +355,20 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
     return $biomes;
+  }
+
+  public function getTough()
+  {
+    // TODO: manage MU_Common_TheSpindleMunaBastion (provide tough to all characters)
+    $dynamicTough = $this->getDynamicTough();
+    switch ($dynamicTough) {
+      case '':
+        return $this->properties['tough'] ?? 0;
+        break;
+      case 'region':
+        return  $this->getPlayer()->getRegionDifference();
+        break;
+    }
   }
 
   /********** EFFECTS **********/

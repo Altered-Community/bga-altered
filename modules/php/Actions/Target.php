@@ -155,6 +155,18 @@ class Target extends \ALT\Models\Action
     return $cards;
   }
 
+  public function getTargetCosts($player)
+  {
+    $cards = $this->getTargetableCards($player);
+    $costs = [];
+    foreach ($cards as $cId => $card) {
+      if ($card->getTough() > 0 && $card->getPId() != $player->getId()) {
+        $costs[$cId] = $card->getTough();
+      }
+    }
+    return $costs;
+  }
+
   public function argsTarget()
   {
     $player = Players::getActive();
@@ -166,6 +178,7 @@ class Target extends \ALT\Models\Action
       'upTo' => $this->getArg('upTo'),
       'description' => $this->getDescription(),
       'totalCost' => $this->getArg('totalCost'),
+      'targetCosts' => $this->getTargetCosts($player)
     ];
   }
 
@@ -197,6 +210,16 @@ class Target extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You havent selected enough cards. Should not happen');
     }
 
+    // Tough
+    $additionalCost = 0;
+    foreach ($cardIds as $cardId) {
+      $additionalCost += $args['targetCosts'][$cardId] ?? 0;
+    }
+    if ($additionalCost > $player->getMana()) {
+      throw new \BgaUserException(clienttranslate('You cannot pay the additional cost (Tough effect)'));
+    }
+    $player->payMana($additionalCost);
+
     $cards = Cards::getMany($cardIds);
 
     foreach ($cards as $cardId => $card) {
@@ -212,7 +235,7 @@ class Target extends \ALT\Models\Action
     }
 
     $cards = Cards::getMany($cardIds);
-    Notifications::targetCards($player, $cards, $this->getSource());
+    Notifications::targetCards($player, $cards, $additionalCost, $this->getSource());
     $this->resolveAction([$cardIds]);
   }
 }

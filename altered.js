@@ -73,6 +73,7 @@ define([
         ['useCounter', 100],
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],
+        ['targetCards', 500],
 
         ['payMana', 500],
         ['discard', 500],
