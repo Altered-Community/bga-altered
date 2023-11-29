@@ -2169,7 +2169,7 @@ html {
 .altered-meeple[data-type=companion][data-faction=MU], .altered-meeple[data-type=hero][data-faction=MU] {
   background-position-x: 60%;
 }
-.altered-meeple[data-type=companion][data-faction=OR], .altered-meeple[data-type=hero][data-faction=OR] {
+.altered-meeple[data-type=companion][data-faction=OD], .altered-meeple[data-type=hero][data-faction=OD] {
   background-position-x: 80%;
 }
 .altered-meeple[data-type=companion][data-faction=YZ], .altered-meeple[data-type=hero][data-faction=YZ] {
