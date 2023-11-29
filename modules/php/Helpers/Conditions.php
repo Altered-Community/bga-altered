@@ -49,4 +49,12 @@ abstract class Conditions
       })
       ->count() >= 3;
   }
+
+  public static function control2Landmarks($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getLandmarks()
+      ->count() >= 2;
+  }
 }
