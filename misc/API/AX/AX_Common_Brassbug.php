@@ -1,0 +1,25 @@
+<?php
+namespace ALT\Cards\AX;
+
+class AX_Common_Brassbug extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_AX_31_C',
+      'asset' => 'ALT_CORE_B_AX_31_C',
+
+      'faction' => FACTION_AX,
+      'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Brassbug'),
+      'typeline' => clienttranslate('Token - Robot'),
+      'type' => TOKEN,
+      'subtypes' => [ROBOT],
+      'effectDesc' => clienttranslate('(If I leave the Expedition Zone, remove me from the game.)'),
+      'forest' => 2,
+      'mountain' => 2,
+      'ocean' => 2,
+    ];
+  }
+}

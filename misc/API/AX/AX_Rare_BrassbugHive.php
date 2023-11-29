@@ -1,0 +1,26 @@
+<?php
+namespace ALT\Cards\AX;
+
+class AX_Rare_BrassbugHive extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_AX_30_R1',
+      'asset' => 'ALT_CORE_B_AX_30_R1',
+
+      'faction' => FACTION_AX,
+      'rarity' => RARITY_RARE,
+      'name' => clienttranslate('Brassbug Hive'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'type' => PERMANENT,
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate(
+        '{J} Create a [Brassbug 2/2/2] Robot token in target Expedition.  At Noon — Create a [Brassbug 2/2/2] Robot token in target Expedition.  When a Robot joins your Expeditions — It gains 1 boost.'
+      ),
+      'costHand' => 6,
+      'costReserve' => 6,
+    ];
+  }
+}

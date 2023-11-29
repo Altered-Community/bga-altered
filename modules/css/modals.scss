@@ -103,3 +103,31 @@
         }
     }
 }
+
+#popin_showAllCards_underlay {
+    opacity: 1 !important;
+}
+#popin_showAllCards {
+    width: 90%;
+    height: 95%;
+    overflow: auto;
+    --cardScale: 1;
+    #all-cards-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .card-compare {
+            margin: 5px;
+            display: flex;
+            border-radius: 8px;
+            border: 2px solid white;
+
+            .card-mockup {
+                width: 324px;
+                height: 450px;
+                background-size: 100%;
+            }
+        }
+    }
+}

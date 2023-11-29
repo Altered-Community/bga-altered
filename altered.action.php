@@ -35,6 +35,13 @@ class action_altered extends APP_GameAction
     }
   }
 
+  public function actDisplayAllCards()
+  {
+    self::setAjaxMode();
+    $result = $this->game->actDisplayAllCards();
+    self::ajaxResponseWithResult($result);
+  }
+
   public function loadBugSQL()
   {
     self::setAjaxMode();

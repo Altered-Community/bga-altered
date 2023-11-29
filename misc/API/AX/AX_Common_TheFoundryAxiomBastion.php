@@ -1,0 +1,24 @@
+<?php
+namespace ALT\Cards\AX;
+
+class AX_Common_TheFoundryAxiomBastion extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_AX_29_C',
+      'asset' => 'ALT_CORE_B_AX_29_C',
+
+      'faction' => FACTION_AX,
+      'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('The Foundry, Axiom Bastion'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'type' => PERMANENT,
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate('{T} : Activate the {S} triggers of the next Character you play from your hand this turn.'),
+      'costHand' => 3,
+      'costReserve' => 3,
+    ];
+  }
+}

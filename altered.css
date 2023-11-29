@@ -3231,6 +3231,28 @@ html {
   top: -16px;
 }
 
+#popin_showAllCards_underlay {
+  opacity: 1 !important; }
+
+#popin_showAllCards {
+  width: 90%;
+  height: 95%;
+  overflow: auto;
+  --cardScale: 1; }
+  #popin_showAllCards #all-cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; }
+    #popin_showAllCards #all-cards-wrapper .card-compare {
+      margin: 5px;
+      display: flex;
+      border-radius: 8px;
+      border: 2px solid white; }
+      #popin_showAllCards #all-cards-wrapper .card-compare .card-mockup {
+        width: 324px;
+        height: 450px;
+        background-size: 100%; }
+
 .effect-reference,
 .effect-reference-emphasis {
   font-family: "Jali Greek Variable";

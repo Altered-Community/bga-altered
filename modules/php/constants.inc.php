@@ -215,6 +215,20 @@ const BUREAUCRAT = 'bureaucrat';
 const MAGE = 'mage';
 const TOKEN = 'token';
 
+const NOBLE = 'noble';
+const SONG = 'song';
+const LEVIATHAN = 'leviathan';
+const DRAGON = 'dragon';
+const DEITY = 'deity';
+const MESSENGER = 'messenger';
+const CONJURATION = 'conjuration';
+const BOON = 'boon';
+const FAIRY = 'fairy';
+const APPRENTICE = 'apprentice';
+const MANEUVER = 'maneuver';
+const SCHOLAR = 'scholar';
+const ANIMAL = 'animal';
+
 /*********************
  * ****** ABILITIES *****
  *********************/
