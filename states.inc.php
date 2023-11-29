@@ -293,6 +293,14 @@ $machinestates = [
     'transitions' => [],
   ],
 
+  ST_ACTIVATE_EFFECT => [
+    'name' => 'activateEffect',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

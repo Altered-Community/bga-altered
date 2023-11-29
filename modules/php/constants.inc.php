@@ -70,6 +70,7 @@ const ST_ROLL_DIE = 24;
 const ST_RESUPPLY = 25;
 const ST_MOVE_EXPEDITION = 26;
 const ST_USE_COUNTER = 27;
+const ST_ACTIVATE_EFFECT = 28;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -119,6 +120,7 @@ const ROLL_DIE = 'RollDie';
 const RESUPPLY = 'Resupply';
 const MOVE_EXPEDITION = 'MoveExpedition';
 const USE_COUNTER = 'UseCounter';
+const ACTIVATE_EFFECT = 'ActivateEffect';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Rare_ALTAxiomReprocessor extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -19,6 +21,13 @@ class AX_Rare_ALTAxiomReprocessor extends \ALT\Models\Card
       'effectDesc' => clienttranslate('#{J} $[RESUPPLY].#  At Dawn — Activate my {J} effect.'),
       'costHand' => 4,
       'costReserve' => 4,
+      'effectPlayed' => FT::ACTION(RESUPPLY, []),
+      'effectPassive' => [
+        'Dawn' => [
+          'condition' => 'myTurn',
+          'output' => FT::ACTION(RESUPPLY, []),
+        ],
+      ],
     ];
   }
 }
