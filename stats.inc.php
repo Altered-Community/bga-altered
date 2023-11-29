@@ -35,12 +35,22 @@ $stats_type = [
       5 => totranslate('Ordis'),
       6 => totranslate('Yzmir')
     ],
+
+    STAT_WINNER => [
+      0 => totranslate('No'),
+      1 => totranslate('Yes'),
+    ],
   ],
 
   'player' => [
     'faction' => [
       'id' => STAT_FACTION,
       'name' => totranslate('Faction'),
+      'type' => 'int',
+    ],
+    'winner' => [
+      'id' => STAT_WINNER,
+      'name' => totranslate('Winner'),
       'type' => 'int',
     ],
     'turns' => [

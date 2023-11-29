@@ -245,3 +245,4 @@ const ASLEEP = 'asleep';
 const STAT_DAYS = 11;
 const STAT_FACTION = 12;
 const STAT_TURN = 13;
+const STAT_WINNER = 14;

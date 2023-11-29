@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Managers;
+
 use ALT\Core\Game;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
@@ -10,6 +12,7 @@ use ALT\Core\Notifications;
  * Players manager : allows to easily access players ...
  *  a player is an instance of Player class
  */
+
 class Players extends \ALT\Helpers\CachedDB_Manager
 {
   protected static $table = 'player';
@@ -179,6 +182,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     } elseif ($victor != -1) {
       // we have a winner => end of game
       Players::get($victor)->setScore(99);
+      Stats::setWinner(Players::get($victor), 1);
       Game::get()->jumpToOrCall(ST_PRE_END_OF_GAME);
       return true;
     }

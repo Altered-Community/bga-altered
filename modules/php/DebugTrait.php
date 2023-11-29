@@ -59,7 +59,8 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actInvokeToken', [STORM_LEFT]);
 
     // throw new \feException(Cards::get(11)->countToken(FLEETING));
-    Stats::incDays(2);
+    // Stats::incDays(2);
+    Stats::setWinner(Players::getActive(), true);
   }
 
   function tv()

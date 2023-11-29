@@ -176,6 +176,7 @@ trait TurnTrait
         $player = Players::get($victor);
         Notifications::winTieBreaker($player, $pWin[$player->getId()]);
         $player->setScore(99);
+        Stats::setWinner($player, 1);
         $this->jumpToOrCall(ST_PRE_END_OF_GAME);
         return;
       } else {
