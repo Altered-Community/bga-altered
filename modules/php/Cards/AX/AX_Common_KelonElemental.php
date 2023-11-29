@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_KelonElemental extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -22,6 +24,12 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
+      'effectHand' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetPlayer' => ME,
+        'targetLocation' => [HAND],
+        'effect' => FT::DISCARD_TO_RESERVE(),
+      ]),
     ];
   }
 }

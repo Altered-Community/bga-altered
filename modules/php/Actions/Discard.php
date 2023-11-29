@@ -129,12 +129,10 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(
-          array_diff(
+        !empty(array_diff(
             $cardIds,
             array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['permanentCards'] ?? [])
-          )
-        )
+          ))
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -158,10 +156,6 @@ class Discard extends \ALT\Models\Action
         $hand = true;
       }
     }
-
-    // if ($totalCost < 0) {
-    //   throw new \BgaUserException(clienttranslate('Total hand cost exceeds the limit of the effect'));
-    // }
 
     Cards::discard($cardIds, $args['destination']);
 

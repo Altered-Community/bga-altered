@@ -140,6 +140,7 @@ trait DebugTrait
     Notifications::refreshUI($this::get()->getAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
   }
 
   function drawCard($cardId)

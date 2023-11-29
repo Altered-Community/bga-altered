@@ -531,9 +531,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             if (card.location == 'hand') return;
             if (n.args.hand == true) this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
 
-            let elt = $(`card-${card.id}`);
-            if (card.location == 'discard') elt.classList.remove('mini-card');
-            this.updateStatusIfCard(elt);
+            let id = `card-${card.id}`;
+            if (!$(id)) {
+              this.addCard(card, `hand-${card.pId}`);
+            }
+
+            if (card.location == 'discard') $(id).classList.remove('mini-card');
+            if (n.args.hand === true) $(id).classList.add('mini-card');
+            this.updateStatusIfCard($(id));
             return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`);
           });
         })
