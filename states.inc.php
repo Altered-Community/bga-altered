@@ -301,6 +301,14 @@ $machinestates = [
     'transitions' => [],
   ],
 
+  ST_TAP => [
+    'name' => 'tap',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

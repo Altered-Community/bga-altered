@@ -29,7 +29,8 @@ class Actions
     RESUPPLY,
     MOVE_EXPEDITION,
     USE_COUNTER,
-    ACTIVATE_EFFECT
+    ACTIVATE_EFFECT,
+    TAP
   ];
 
   public static function get($actionId, &$ctx = null)

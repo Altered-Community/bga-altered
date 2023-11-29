@@ -50,6 +50,7 @@ class ActivateEffect extends \ALT\Models\Action
     $card = $this->getCard();
 
     $effect = 'getEffect' . $this->getArg('effectType');
+    Notifications::message(clienttranslate('${player_name} activates ${card_name} {J} effect'), ['player' => Players::getActive(), 'card' => $card]);
     if (!empty($card->$effect())) {
       $node = $card->$effect();
       $node['sourceId'] = $this->getSourceId();

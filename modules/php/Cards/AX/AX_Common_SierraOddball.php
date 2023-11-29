@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_SierraOddball extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -22,6 +24,19 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'When you play a Permanent with a hand cost {3} or more, you may exhaust me ({T}) to create a [BRASSBUG] Robot token.'
       ),
+      'effectPassive' => [
+        'ChooseAssignment' => [
+          'condition' => 'isPermanentAndCost3',
+          'output' => FT::SEQ_OPTIONAL(
+            FT::ACTION(TAP, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'AX_Common_Brassbug',
+              'targetLocation' => STORMS
+            ])
+          ),
+        ],
+      ],
     ];
   }
 }

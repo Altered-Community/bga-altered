@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Helpers;
 
 // Flow Tree
@@ -8,6 +9,15 @@ abstract class FT
   {
     return [
       'type' => NODE_SEQ,
+      'childs' => $childs,
+    ];
+  }
+
+  public static function SEQ_OPTIONAL(...$childs)
+  {
+    return [
+      'type' => NODE_SEQ,
+      'optional' => true,
       'childs' => $childs,
     ];
   }

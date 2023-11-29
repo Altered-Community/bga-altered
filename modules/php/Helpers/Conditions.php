@@ -3,6 +3,7 @@
 namespace ALT\Helpers;
 
 use ALT\Core\Globals;
+use ALT\Managers\Cards;
 
 // Conditions
 abstract class Conditions
@@ -56,5 +57,15 @@ abstract class Conditions
       ->getPlayer()
       ->getLandmarks()
       ->count() >= 2;
+  }
+
+  public static function isPermanentAndCost3($card, $event)
+  {
+    // check card triggering the effect isn't tapped
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      !$card->isTapped() &&
+      $event['cardType'] == PERMANENT &&
+      Cards::get($event['playedCard'])->getCostHand() >= 3;
   }
 }
