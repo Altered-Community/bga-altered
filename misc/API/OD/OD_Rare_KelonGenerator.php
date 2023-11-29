@@ -1,0 +1,24 @@
+<?php
+namespace ALT\Cards\OD;
+
+class OD_Rare_KelonGenerator extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_AX_27_R2',
+      'asset' => 'ALT_CORE_B_AX_27_R2',
+
+      'faction' => FACTION_OD,
+      'rarity' => RARITY_RARE,
+      'name' => clienttranslate('Kelon Generator'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'type' => PERMANENT,
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate('{1}, {T} : Draw a card.'),
+      'costHand' => 4,
+      'costReserve' => 4,
+    ];
+  }
+}

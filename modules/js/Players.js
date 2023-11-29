@@ -45,6 +45,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
 
       this.setupPlayersCounters();
+      // TODO : remove at some point
+      if ($('open-all-cards-modal')) $('open-all-cards-modal').addEventListener('click', () => this.openAllCardsModal());
     },
 
     onChangeHandLocationSetting(v) {
@@ -133,7 +135,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerPanel(player) {
-      return `
+      return (
+        `
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${player.id}-totalMana"></span>
@@ -144,7 +147,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <span class="player-handCount" id="counter-${player.id}-handCount"></span>
           <span class="player-handCount-icon">HAND</span>
         </div>
-      </div>`;
+      </div>` + (player.id == this.player_id ? `<div id='open-all-cards-modal'>Show all cards</div>` : '')
+      );
     },
 
     notif_setupPlayer(n) {

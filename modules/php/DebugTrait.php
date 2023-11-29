@@ -15,6 +15,20 @@ use ALT\Helpers\Collection;
 
 trait DebugTrait
 {
+  function actDisplayAllCards()
+  {
+    $datas = [];
+    require_once dirname(__FILE__) . '/../../misc/API/list.inc.php';
+    foreach (ALL_CARDS as $filename) {
+      require_once dirname(__FILE__) . '/../../misc/API/' . $filename . '.php';
+      $t = explode('/', $filename);
+      $className = '\\ALT\\Cards\\' . $t[0] . '\\' . $t[1];
+      $datas[] = new $className(null);
+    }
+
+    return $datas;
+  }
+
   function tp()
   {
     $players = self::loadPlayersBasicInfos();

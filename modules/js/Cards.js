@@ -171,6 +171,31 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    openAllCardsModal() {
+      let modal = new customgame.modal('showAllCards', {
+        class: 'altered_popin',
+        autoShow: true,
+        closeIcon: null,
+        contentsTpl: `<div id='all-cards-wrapper'></div>`,
+      });
+
+      this.takeAction('actDisplayAllCards', { lock: false }, false).then((response) => {
+        let data = response.data;
+        data.forEach((card, i) => {
+          card.id = 'allcard-' + i;
+          $('all-cards-wrapper').insertAdjacentHTML(
+            'beforeend',
+            `<div class='card-compare'>
+              ${this.tplCard(card)}
+              <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
+                card.properties.uid
+              }.jpg");'></div>
+            </div>`
+          );
+        });
+      });
+    },
+
     /**
      * Prepare cards for selection : get cards corresponding to ids,
      *   and make other in the same "location" unselectable
