@@ -1,11 +1,14 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Core\Notifications;
 
 class SpecialEffect extends \ALT\Models\Action
 {
@@ -58,6 +61,14 @@ class SpecialEffect extends \ALT\Models\Action
         $reduction = Globals::getCostReduction();
         $reduction[$card->getPId()][$args['type']] = $reduction[$card->getPId()][$args['type']] ?? 0 + $args['reduction'];
         Globals::setCostReduction($reduction);
+        break;
+      case 'gainCounter':
+        $data = $card->getExtraDatas();
+        $data['counter'] = $args['counter'] ?? 0;
+        $data['counterName'] = $args['counterName'] ?? '';
+        $card->setExtraDatas($data);
+
+        Notifications::gainCounter($this->getSource());
         break;
       default:
         break;

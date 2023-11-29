@@ -393,6 +393,32 @@ class Notifications
     ]);
   }
 
+  public static function gainCounter($card)
+  {
+    self::notifyAll(
+      'gainCounter',
+      clienttranslate('${card_name} gains ${n} ${counterName}'),
+      ['card' => $card, 'n' => $card->getExtraDatas()['counter'], 'counterName' => $card->getExtraDatas()['counterName'], 'i18n' => ['counterName']]
+    );
+  }
+
+  public static function useCounter($player, $consume, $cost, $source)
+  {
+    if ($cost > 0) {
+      $msg = clienttranslate('${player_name} pays {${n}} and reduce by ${consume} the counter (${card_name}\'s effect)');
+    } else {
+      $msg = clienttranslate('${player_name} reduce by ${consume} the counter (${card2_name}\'s effect)');
+    }
+    self::notifyAll('useCounter', $msg, [
+      'player' => $player,
+      'n' => $cost,
+      'consume' => $consume,
+      'card' => $source,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
+    ]);
+  }
+
   public static function gainMeeple($power, $card, $meeples, $source = null, $silent = true)
   {
     $n = count($meeples);

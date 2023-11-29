@@ -116,7 +116,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $cards = $this->getManaCards(false)->limit($n);
     if ($cards->count() < $n) {
-      throw new \BgaVisibleSystemException('You don\'t have enough money to pay. Should not happen');
+      throw new \BgaVisibleSystemException('You don\'t have enough mana to pay. Should not happen');
     }
 
     foreach ($cards as $card) {

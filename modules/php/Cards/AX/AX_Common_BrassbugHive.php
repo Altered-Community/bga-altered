@@ -21,33 +21,19 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{J} Create a [BRASSBUG] Robot token.  At Dawn - Activate my {J} effect.'),
       'costHand' => 5,
       'costReserve' => 5,
-      'effectPlayed' => FT::XOR(
-        FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
-          'tokenType' => 'AX_Common_Brassbug',
-          'targetLocation' => [STORM_RIGHT],
-        ]),
-        FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
-          'tokenType' => 'AX_Common_Brassbug',
-          'targetLocation' => [STORM_LEFT],
-        ])
-      ),
+      'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
+        'pId' => $this->getPId(),
+        'tokenType' => 'AX_Common_Brassbug',
+        'targetLocation' => STORMS
+      ]),
       'effectPassive' => [
         'Dawn' => [
           'condition' => 'myTurn',
-          'output' => FT::XOR(
-            FT::ACTION(INVOKE_TOKEN, [
-              'pId' => $this->getPId(),
-              'tokenType' => 'AX_Common_Brassbug',
-              'targetLocation' => [STORM_RIGHT],
-            ]),
-            FT::ACTION(INVOKE_TOKEN, [
-              'pId' => $this->getPId(),
-              'tokenType' => 'AX_Common_Brassbug',
-              'targetLocation' => [STORM_LEFT],
-            ])
-          ),
+          'output' => FT::ACTION(INVOKE_TOKEN, [
+            'pId' => $this->getPId(),
+            'tokenType' => 'AX_Common_Brassbug',
+            'targetLocation' => STORMS
+          ]),
         ],
       ],
     ];

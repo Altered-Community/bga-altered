@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Helpers;
 
 use ALT\Core\Globals;
@@ -30,6 +31,12 @@ abstract class Conditions
   public static function myTurn($card, $event)
   {
     return $event['pId'] == $card->getPId();
+  }
+
+
+  public static function hasCounterOnCard($card, $event)
+  {
+    return $event['pId'] == $card->getPId() && ($card->getExtraDatas('counter') ?? 0) > 0;
   }
 
   public static function control3OtherCharacters($card, $event)

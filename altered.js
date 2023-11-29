@@ -69,6 +69,8 @@ define([
         ['invokeToken', 100],
         ['afterYou', 1000],
         ['roll', 100],
+        ['gainCounter', 100],
+        ['useCounter', 100],
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],
 
@@ -822,6 +824,17 @@ define([
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
         passCallback: () => this.takeAction('actPassOptionalAction'),
       });
+    },
+
+    onEnteringStateInvokeToken(args) {
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+      };
+
+      args.locations.forEach((location, i) =>
+        this.addPrimaryActionButton('btnLocation' + i, names[location], () => this.takeAtomicAction('actInvokeToken', [location]))
+      );
     },
 
     ////////////////////////////////////////////////////////////

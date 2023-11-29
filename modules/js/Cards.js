@@ -570,6 +570,22 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    notif_gainCounter(n) {
+      debug('Notification: gain counter', n);
+      //TODO
+      // display or increment a counter on the card
+    },
+
+    notif_useCounter(n) {
+      debug('Notification: use counter', n);
+      //TODO
+      // reduce a counter on the card
+
+      // pay mana if necessary
+      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+      this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+    },
+
     /**
      * Public notification when discarding cards from the display
      *
