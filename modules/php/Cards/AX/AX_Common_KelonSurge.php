@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_KelonSurge extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -21,6 +23,14 @@ class AX_Common_KelonSurge extends \ALT\Models\Card
       ),
       'costHand' => 3,
       'costReserve' => 3,
+      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), [
+        'optional' => true,
+        'type' => NODE_XOR,
+        'childs' => [
+          FT::ACTION(TARGET, ['maxHandCost' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
+          FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+        ],
+      ]),
     ];
   }
 }

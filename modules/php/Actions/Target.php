@@ -24,7 +24,7 @@ class Target extends \ALT\Models\Action
   protected $args = [
     'upTo' => false, // if n > 1, can the player select UP TO n cards or exactly n cards ?
     'targetPlayer' => ALL,
-    'targetType' => [CHARACTER], // must be an array
+    'targetType' => [CHARACTER, TOKEN], // must be an array
     'targetLocation' => IN_PLAY, //  must be an array reserve / inplay)
     'maxReserveCost' => INFTY, // limitation
     'maxHandCost' => INFTY, // limitation
