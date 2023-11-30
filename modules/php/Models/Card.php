@@ -65,6 +65,8 @@ class Card extends \ALT\Helpers\DB_Model
     'tapped' => 'bool',
     'gigantic' => 'bool',
     'fleeting' => 'bool',
+
+    // Tough management
     'tough' => 'int',
     'dynamicTough' => 'str',
 
@@ -359,16 +361,20 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getTough()
   {
-    // TODO: manage MU_Common_TheSpindleMunaBastion (provide tough to all characters)
+    $tough = $this->properties['tough'] ?? 0;
     $dynamicTough = $this->getDynamicTough();
     switch ($dynamicTough) {
       case '':
-        return $this->properties['tough'] ?? 0;
+        // no dynamic
         break;
       case 'region':
-        return  $this->getPlayer()->getRegionDifference();
+        $tough +=  $this->getPlayer()->getRegionDifference();
         break;
     }
+    if ($this->getPlayer()->hasUniversalCharacterTough()) {
+      $tough += 2;
+    }
+    return $tough;
   }
 
   /********** EFFECTS **********/

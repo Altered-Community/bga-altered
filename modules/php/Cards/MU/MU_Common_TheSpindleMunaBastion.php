@@ -19,6 +19,8 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
       'effectDesc' => clienttranslate('Characters in your Expeditions have $[TOUGH_2].'),
       'costHand' => 3,
       'costReserve' => 3,
+
+      'dynamicTough' => 'universalCharacter2',
     ];
   }
 }
