@@ -361,6 +361,11 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getTough()
   {
+    // Tough impacts only a card in Storms
+    if (!in_array($this->getLocation(), STORMS)) {
+      return 0;
+    }
+
     $tough = $this->properties['tough'] ?? 0;
     $dynamicTough = $this->getDynamicTough();
     switch ($dynamicTough) {
@@ -371,8 +376,9 @@ class Card extends \ALT\Helpers\DB_Model
         $tough +=  $this->getPlayer()->getRegionDifference();
         break;
     }
-    if ($this->getPlayer()->hasUniversalCharacterTough()) {
-      $tough += 2;
+
+    if (in_array($this->getType(), [CHARACTER, TOKEN])) {
+      $tough += 2 * $this->getPlayer()->countUniversalCharacterTough();
     }
     return $tough;
   }

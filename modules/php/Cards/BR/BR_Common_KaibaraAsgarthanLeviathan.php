@@ -15,7 +15,7 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kaibara, Asgarthan Leviathan'),
       'type' => CHARACTER,
-      'subtype' => LEVIATHAN,
+      'subtype' => [LEVIATHAN],
       'effectDesc' => clienttranslate(
         '$[GIGANTIC].  $[TOUGH_X], X being the numbers of regions separating your Hero and Companion.'
       ),

@@ -387,10 +387,10 @@ class Player extends \ALT\Helpers\DB_Model
     Globals::setPlayerDecks($allDecks);
   }
 
-  public function hasUniversalCharacterTough()
+  public function countUniversalCharacterTough()
   {
     return count($this->getPlayedCards()->filter(function ($card) {
       $card->getDynamicTough() == 'universalCharacter2';
-    })) > 0;
+    }));
   }
 }

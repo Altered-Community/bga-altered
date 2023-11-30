@@ -15,7 +15,7 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('The Spindle, Muna Bastion'),
       'type' => PERMANENT,
-      'subtype' => LANDMARK,
+      'subtype' => [LANDMARK],
       'effectDesc' => clienttranslate('Characters in your Expeditions have $[TOUGH_2].'),
       'costHand' => 3,
       'costReserve' => 3,

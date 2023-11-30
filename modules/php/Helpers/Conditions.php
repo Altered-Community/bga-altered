@@ -68,4 +68,13 @@ abstract class Conditions
       $event['cardType'] == PERMANENT &&
       Cards::get($event['playedCard'])->getCostHand() >= 3;
   }
+
+  public static function isSourceAndDiscardPermanent($card, $event)
+  {
+    if ($card->getPId() != $event['pId'] || $card->getId() != $event['sourceId']) {
+      return false;
+    }
+
+    return Cards::getMany($event['discarded'], false)->where('type', PERMANENT)->count() > 0;
+  }
 }

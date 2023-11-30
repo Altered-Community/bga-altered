@@ -211,6 +211,8 @@ class Discard extends \ALT\Models\Action
       Notifications::updateBiomes($card->getPlayer());
     }
 
+    $this->checkAfterListeners($player, ['discarded' => $cardIds, 'sourceId' => $this->getSourceId()]);
+
     $this->resolveAction([$cardIds]);
   }
 }
