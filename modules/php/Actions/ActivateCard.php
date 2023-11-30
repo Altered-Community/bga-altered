@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -22,7 +24,7 @@ class ActivateCard extends \ALT\Models\Action
 
   public function getFlow($player)
   {
-    return $this->getCard()->isPlayed() ||
+    $flow =  $this->getCard()->isPlayed() ||
       in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
       ? Cards::applyEffect(
         $this->getCard(),
@@ -32,6 +34,15 @@ class ActivateCard extends \ALT\Models\Action
         true // Throw error if no such listener
       )
       : null;
+
+    if ($flow == null) {
+      return null;
+    }
+
+    return Utils::tagTree($flow, [
+      'sourceId' => $this->getCtxArg('cardId'),
+      'event' => $this->getCtxArg('event'),
+    ]);
   }
 
   public function getFlowTree($player)
@@ -57,6 +68,7 @@ class ActivateCard extends \ALT\Models\Action
   public function isDoable($player)
   {
     $flowTree = $this->getFlowTree($player);
+
     // throw new \feException(print_r($flowTree));
     return is_null($flowTree) ? false : $flowTree->isDoable($player);
   }
@@ -100,10 +112,10 @@ class ActivateCard extends \ALT\Models\Action
       $flow['optional'] = false; // Remove optional to avoid double confirmation UX
     }
     // Add tag about that card
-    $flow = Utils::tagTree($flow, [
-      'sourceId' => $this->getCtxArg('cardId'),
-      'event' => $this->getCtxArg('event'),
-    ]);
+    // $flow = Utils::tagTree($flow, [
+    //   'sourceId' => $this->getCtxArg('cardId'),
+    //   'event' => $this->getCtxArg('event'),
+    // ]);
 
     $node->replace(Engine::buildTree($flow));
     Engine::save();
