@@ -66,7 +66,7 @@ abstract class FT
   public static function LOOSE($card, $token, $n = 1)
   {
     if (!($card instanceof \ALT\Models\Card)) {
-      $cardId = EFFECT;
+      $cardId = $card;
     } else {
       $cardId = $card->getId() ?? ME;
     }

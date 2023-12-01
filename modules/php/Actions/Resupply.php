@@ -20,7 +20,7 @@ class Resupply extends \ALT\Models\Action
   public function getDescription()
   {
     return [
-      'log' => clienttranslate('Put ${n} from deck to reserve'),
+      'log' => clienttranslate('Resupply ${n}'),
       'args' => [
         'n' => $this->getArg('n'),
       ],
