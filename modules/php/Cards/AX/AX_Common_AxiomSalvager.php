@@ -23,7 +23,7 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
       'effectReserve' => FT::ACTION(RESUPPLY, []),
     ];
   }
