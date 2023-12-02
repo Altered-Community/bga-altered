@@ -17,7 +17,7 @@ class AX_Common_Boom extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Boom!'),
       'type' => SPELL,
-      'subtype' => DISRUPTION,
+      'subtype' => [DISRUPTION],
       'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character to discard target Character or Permanent.'),
       'costHand' => 3,
       'costReserve' => 3,

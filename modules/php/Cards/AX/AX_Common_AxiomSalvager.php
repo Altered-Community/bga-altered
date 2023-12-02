@@ -17,7 +17,7 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Axiom Salvager'),
       'type' => CHARACTER,
-      'subtype' => ENGINEER,
+      'subtype' => [ENGINEER],
       'effectDesc' => clienttranslate('{S} $[RESUPPLY].'),
       'forest' => 1,
       'mountain' => 1,
