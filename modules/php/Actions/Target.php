@@ -226,6 +226,12 @@ class Target extends \ALT\Models\Action
       $node = $this->getArg('effect');
       $node['args']['cardId'] = $cardId;
       $node['sourceId'] = $this->getSourceId();
+      if (isset($node['childs'])) {
+        foreach ($node['childs'] as &$child) {
+          $child['args']['cardId'] = $cardId;
+          $child['sourceId'] = $this->getSourceId();
+        }
+      }
       $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
     }

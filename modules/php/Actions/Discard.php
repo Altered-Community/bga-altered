@@ -39,6 +39,10 @@ class Discard extends \ALT\Models\Action
       $card = '';
     }
 
+    if (($this->getCtxArg('desc') ?? '') == 'sacrifice') {
+      $msg = clienttranslate('sacrifice ${card}');
+    }
+
     return [
       'log' => $msg,
       'args' => ['location' => $this->getCtxArg('destination') ?? 'discard', 'card' => $card != '' ? $card->getName() : ''],
