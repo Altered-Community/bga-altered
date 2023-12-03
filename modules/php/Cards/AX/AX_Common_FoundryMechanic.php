@@ -15,7 +15,7 @@ class AX_Common_FoundryMechanic extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Foundry Mechanic'),
       'type' => CHARACTER,
-      'subtype' => ENGINEER,
+      'subtype' => [ENGINEER],
       'supportDesc' => clienttranslate(
         '{D} : The next Permanent you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
@@ -24,6 +24,10 @@ class AX_Common_FoundryMechanic extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
+      'effectSupport' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
+      ],
     ];
   }
 }

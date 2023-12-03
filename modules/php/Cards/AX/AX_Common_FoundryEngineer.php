@@ -15,7 +15,7 @@ class AX_Common_FoundryEngineer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Foundry Engineer'),
       'type' => CHARACTER,
-      'subtype' => ENGINEER,
+      'subtype' => [ENGINEER],
       'effectDesc' => clienttranslate('{S} The next Permanent you play this Afternoon costs {1} less.'),
       'forest' => 2,
       'mountain' => 2,
