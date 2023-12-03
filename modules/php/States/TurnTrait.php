@@ -46,6 +46,7 @@ trait TurnTrait
     Globals::setStormMoves([]);
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
+    Globals::setCostReduction([]);
     Globals::setDayPhase(true);
     // Update cards with extra datas set
     foreach (Cards::getAll() as $cId => $card) {
@@ -80,7 +81,16 @@ trait TurnTrait
     }
 
     Globals::setPlayedCards(0);
-    Globals::setCostReduction([]);
+    $reductionsAll = Globals::getCostReduction();
+    foreach ($reductionsAll as $pId => &$reductions) {
+      foreach ($reductions as $type => &$reduction) {
+        if (!isset($reduction['permanent']) || $reduction['permanenet'] == false) {
+          $reduction['reduction'] = 0;
+        }
+      }
+    }
+
+    Globals::setCostReduction($reductionsAll);
 
     self::giveExtraTime($player->getId());
 

@@ -59,7 +59,8 @@ class SpecialEffect extends \ALT\Models\Action
 
       case 'costReduction':
         $reduction = Globals::getCostReduction();
-        $reduction[$card->getPId()][$args['type']] = $reduction[$card->getPId()][$args['type']] ?? 0 + $args['reduction'];
+        $reduction[$card->getPId()][$args['type']]['reduction'] = $reduction[$card->getPId()][$args['type']] ?? 0 + $args['reduction'];
+        $reduction[$card->getPId()][$args['type']]['permanent'] = ($reduction[$card->getPId()][$args['type']]['permanent'] ?? false) || ($args['permanent'] ?? false);
         Globals::setCostReduction($reduction);
         break;
       case 'gainCounter':

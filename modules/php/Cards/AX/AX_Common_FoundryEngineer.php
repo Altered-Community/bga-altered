@@ -16,12 +16,17 @@ class AX_Common_FoundryEngineer extends \ALT\Models\Card
       'name' => clienttranslate('Foundry Engineer'),
       'type' => CHARACTER,
       'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{S} The next Permanent you play this Day costs {1} less.'),
+      'effectDesc' => clienttranslate('{S} The next Permanent you play this Afternoon costs {1} less.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
+
+      'effectReserve' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1, 'permanent' => true]],
+      ],
     ];
   }
 }
