@@ -160,6 +160,11 @@ class Discard extends \ALT\Models\Action
         $hand = true;
       }
     }
+    $cards = Cards::getMany($cardIds);
+    $originalLocation = [];
+    foreach ($cards as $cId => $card) {
+      $originalLocation[$cId] = $card->getLocation();
+    }
 
     Cards::discard($cardIds, $args['destination']);
 
@@ -215,7 +220,16 @@ class Discard extends \ALT\Models\Action
       Notifications::updateBiomes($card->getPlayer());
     }
 
-    $this->checkAfterListeners($player, ['discarded' => $cardIds, 'sourceId' => $this->getSourceId()]);
+    $this->checkAfterListeners(
+      $player,
+      [
+        'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
+        'discarded' => $cardIds,
+        'originalLocation' => $originalLocation,
+        'cards' => $cards,
+        'sourceId' => $this->getSourceId()
+      ]
+    );
 
     $this->resolveAction([$cardIds]);
   }

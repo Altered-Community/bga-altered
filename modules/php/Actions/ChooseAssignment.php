@@ -100,7 +100,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->resolveAction([$cardId, $location]);
   }
 
-  public function playCard($cardId, $location)
+  public function playCard($cardId, $location, $free = false)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -108,13 +108,15 @@ class ChooseAssignment extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
     }
 
-    // Pay cost
-    $cost = $card->getCost();
-    $player->payMana($cost);
-    $costReduction = Globals::getCostReduction();
-    if (isset($costReduction[$player->getId()][$card->getType()])) {
-      unset($costReduction[$player->getId()][$card->getType()]);
-      Globals::setCostReduction($costReduction);
+    if ($free == false) {
+      // Pay cost
+      $cost = $card->getCost();
+      $player->payMana($cost);
+      $costReduction = Globals::getCostReduction();
+      if (isset($costReduction[$player->getId()][$card->getType()])) {
+        unset($costReduction[$player->getId()][$card->getType()]);
+        Globals::setCostReduction($costReduction);
+      }
     }
 
     // Move card

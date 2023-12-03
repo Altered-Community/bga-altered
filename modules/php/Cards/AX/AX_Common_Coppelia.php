@@ -2,6 +2,9 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
+
 class AX_Common_Coppelia extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,13 +18,25 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Coppélia'),
       'type' => CHARACTER,
-      'subtype' => ROBOT,
-      'effectDesc' => clienttranslate('When I\'m sent to Reserve from your hand — Play me for free and I become $[ASLEEP].'),
+      'subtype' => [ROBOT],
+      'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may put me in one of your Expeditions and I gain $[ASLEEP].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 2,
+
+      'effectPassive' => [
+        'Discard' =>
+        [
+          'condition' => 'isDiscardedFromHandToReserve',
+          'output' => FT::SEQ(
+            FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true], ['optional' => true]),
+            FT::GAIN($this, ASLEEP)
+          )
+        ]
+      ]
+
     ];
   }
 }

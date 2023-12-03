@@ -285,6 +285,18 @@ $machinestates = [
     'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_PLAY_CARD => [
+    'name' => 'playCard',
+    'description' => clienttranslate('${actplayer} may play ${card_name}'),
+    'descriptionmyturn' => clienttranslate('${you} may play ${card_name}'),
+    'descriptionfree' => clienttranslate('${actplayer} may play ${card_name} for free'),
+    'descriptionmyturnfree' => clienttranslate('${you} may play ${card_name} for free'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actPlay', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ST_ACTIVATE_CARD => [
     'name' => 'activateCard',
     'description' => '',

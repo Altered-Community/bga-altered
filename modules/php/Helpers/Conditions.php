@@ -69,6 +69,19 @@ abstract class Conditions
       Cards::get($event['playedCard'])->getCostHand() >= 3;
   }
 
+  public static function isDiscardedFromHandToReserve($card, $event)
+  {
+    $cardId = $card->getId();
+
+    // throw new \feException(in_array($cardId, $event['discarded'])  &&
+    //   $event['originalLocation'][$cardId] == HAND); // &&
+    // //   $event['cards'][$cardId]->getLocation() == RESERVE);
+
+    return in_array($cardId, $event['discarded']) &&
+      $event['originalLocation'][$cardId] == HAND &&
+      $event['cards'][$cardId]->getLocation() == RESERVE;
+  }
+
   public static function isSourceAndDiscardPermanent($card, $event)
   {
     if ($card->getPId() != $event['pId'] || $card->getId() != $event['sourceId']) {

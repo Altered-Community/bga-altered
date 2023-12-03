@@ -72,6 +72,8 @@ const ST_MOVE_EXPEDITION = 26;
 const ST_USE_COUNTER = 27;
 const ST_ACTIVATE_EFFECT = 28;
 const ST_TAP = 29;
+const ST_PLAY_CARD = 30;
+
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -123,6 +125,7 @@ const MOVE_EXPEDITION = 'MoveExpedition';
 const USE_COUNTER = 'UseCounter';
 const ACTIVATE_EFFECT = 'ActivateEffect';
 const TAP = 'Tap';
+const PLAY_CARD = 'PlayCard';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

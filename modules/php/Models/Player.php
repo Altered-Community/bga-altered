@@ -362,6 +362,9 @@ class Player extends \ALT\Helpers\DB_Model
         if ($card->getLocation() != $exp && !$card->hasToken(GIGANTIC) && !$card->isGigantic()) {
           continue;
         }
+        if ($card->hasToken(ASLEEP)) {
+          continue;
+        }
 
         $biome = $card->getBiomes($includeModifiers);
         foreach ($biome as $bi => $value) {

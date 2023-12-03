@@ -30,7 +30,8 @@ class Actions
     MOVE_EXPEDITION,
     USE_COUNTER,
     ACTIVATE_EFFECT,
-    TAP
+    TAP,
+    PLAY_CARD
   ];
 
   public static function get($actionId, &$ctx = null)

@@ -287,6 +287,10 @@ class Card extends \ALT\Helpers\DB_Model
    **/
   public function isListeningTo($event)
   {
+    if ($this->hasToken(ASLEEP)) {
+      return false;
+    }
+
     $passive = $this->getEffectPassive();
     // throw new \feException(print_r($event));
     if (

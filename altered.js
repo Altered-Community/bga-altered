@@ -785,8 +785,11 @@ define([
     },
 
     onEnteringStateChooseAssignmentLocation(args) {
-      this.addCancelStateBtn();
-      this.onEnteringStateChooseAssignment({ _private: { play: args.play, support: args.support, tap: args.tap } });
+      if (!args.hasOwnProperty('clientState') || args.clientState == true) {
+        this.addCancelStateBtn();
+        this.onEnteringStateChooseAssignment({ _private: { play: args.play, support: args.support, tap: args.tap } });
+      }
+
       let cardId = args.cardId;
       $(`card-${cardId}`).classList.add('selected');
 
@@ -825,6 +828,38 @@ define([
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
         passCallback: () => this.takeAction('actPassOptionalAction'),
       });
+    },
+
+    onEnteringStatePlayCard(args) {
+      let cardId = args.cardId;
+      $(`card-${cardId}`).classList.add('selected');
+
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actPlay', [cardId, location]);
+      };
+
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+        landmark: _('Landmark'),
+        reserve: _('Reserve'),
+        limbo: _('Spell'),
+      };
+
+      if (args._private.play[cardId] != undefined) {
+        args._private.play[cardId].forEach((location, i) => {
+          this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
+          this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+        });
+      }
+      // this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
+      //   play: args._private.play,
+      //   support: [],
+      //   tap: [],
+      //   cardId: args.cardId,
+      //   supportPossible: false,
+      //   clientState: false,
+      // });
     },
 
     onEnteringStateInvokeToken(args) {
