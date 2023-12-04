@@ -19,7 +19,10 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return clienttranslate('activate {J} effect');
+    return [
+      'log' => clienttranslate('activate {J} effect of ${card_name}'),
+      'args' => ['card_name' => $this->getCard()->getName(), 'i18n' => ['card_name']],
+    ];
   }
 
   public function isAutomatic($player = null)

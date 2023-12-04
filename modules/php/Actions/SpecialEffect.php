@@ -71,6 +71,14 @@ class SpecialEffect extends \ALT\Models\Action
 
         Notifications::gainCounter($this->getSource());
         break;
+      case 'activateAllPermanents':
+        $cards = $card->getPlayer()->getPermanents();
+        $childs = [];
+        foreach ($cards as $cId => $card) {
+          $childs[] = ['action' => ACTIVATE_EFFECT, 'optional' => true, 'args' => ['cardId' => $cId], 'sourceId' => $card->getId()];
+        }
+        $this->pushParallelChilds($childs);
+        break;
       default:
         break;
     }

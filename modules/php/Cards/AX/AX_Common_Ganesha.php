@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_Ganesha extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,13 +17,15 @@ class AX_Common_Ganesha extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ganesha'),
       'type' => CHARACTER,
-      'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{J} Activate the {J} effect of all your Permanents.'),
+      'subtype' => [DIVINITY],
+      'effectDesc' => clienttranslate('{J} For each Permanent you control, you may activate its {J} triggers.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
       'costReserve' => 7,
+
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'activateAllPermanents'])
     ];
   }
 }
