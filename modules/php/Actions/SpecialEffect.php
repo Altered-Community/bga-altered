@@ -19,6 +19,20 @@ class SpecialEffect extends \ALT\Models\Action
 
   public function getDescription()
   {
+    $effect = $this->getArg('effect');
+
+    if ($effect == 'gainCounter') {
+      return [
+        'log' => clienttranslate('Gain ${n} ${counter_name}'),
+        'args' => [
+          'n' => $this->getArg('args')['counter'],
+          'counter_name' => $this->getArg('args')['counterName'],
+          'i18n' => ['counter_name'],
+        ],
+      ];
+    } elseif ($effect == 'nextCharacterGains1Boost') {
+      return clienttranslate('Next character <BOOST>');
+    }
     return '';
   }
 
@@ -78,6 +92,9 @@ class SpecialEffect extends \ALT\Models\Action
           $childs[] = ['action' => ACTIVATE_EFFECT, 'optional' => true, 'args' => ['cardId' => $cId], 'sourceId' => $card->getId()];
         }
         $this->pushParallelChilds($childs);
+        break;
+      case 'nextCharacterGains1Boost':
+        Globals::incNextCharacterBoost(1);
         break;
       default:
         break;

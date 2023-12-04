@@ -416,7 +416,7 @@ class Notifications
     if ($cost > 0) {
       $msg = clienttranslate('${player_name} pays {${n}} and reduce by ${consume} the counter (${card_name}\'s effect)');
     } else {
-      $msg = clienttranslate('${player_name} reduce by ${consume} the counter (${card2_name}\'s effect)');
+      $msg = clienttranslate('${player_name} reduce by ${consume} the counter (${card_name}\'s effect)');
     }
     self::notifyAll('useCounter', $msg, [
       'player' => $player,

@@ -13,6 +13,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\FlowConvertor;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
+use ALT\Helpers\FT;
 
 class ChooseAssignment extends \ALT\Models\Action
 {
@@ -135,6 +136,13 @@ class ChooseAssignment extends \ALT\Models\Action
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }
+
+    // should we boost the card
+    if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getNextCharacterBoost() > 0) {
+      $this->insertAsChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
+      Globals::setNextCharacterBoost(0);
+    }
+
     // insert effect flow
     $effect = $card->getEffectPlayed();
     if (empty($effect) && $fromLocation == HAND) {

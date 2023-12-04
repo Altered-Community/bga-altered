@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Core;
 
 use ALT\Core\Game;
@@ -7,6 +8,7 @@ use ALT\Helpers\Utils;
 /*
  * Globals
  */
+
 class Globals extends \ALT\Helpers\DB_Manager
 {
   protected static $initialized = false;
@@ -34,6 +36,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nightSelection' => 'obj',
     'deckSelection' => 'obj',
     'costReduction' => 'obj', // pId => character => cost
+    'nextCharacterBoost' => 'int',
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
   ];
@@ -56,12 +59,10 @@ class Globals extends \ALT\Helpers\DB_Manager
     $tmp = self::$log;
     self::$log = false;
 
-    foreach (
-      self::DB()
+    foreach (self::DB()
         ->select(['value', 'name'])
         ->get(false)
-      as $name => $variable
-    ) {
+      as $name => $variable) {
       if (\array_key_exists($name, self::$variables)) {
         self::$data[$name] = $variable;
       }

@@ -47,6 +47,8 @@ trait TurnTrait
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
     Globals::setCostReduction([]);
+    Globals::setNextCharacterBoost(0);
+
     Globals::setDayPhase(true);
     // Update cards with extra datas set
     foreach (Cards::getAll() as $cId => $card) {
@@ -91,6 +93,7 @@ trait TurnTrait
     }
 
     Globals::setCostReduction($reductionsAll);
+    Globals::setNextCharacterBoost(0);
 
     self::giveExtraTime($player->getId());
 

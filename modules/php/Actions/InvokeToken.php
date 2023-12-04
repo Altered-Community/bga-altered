@@ -10,7 +10,7 @@ use ALT\Managers\ActionCards;
 use ALT\Core\Engine;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
-use ALT\Helpers\Collection;
+use ALT\Helpers\FT;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
 
@@ -121,6 +121,13 @@ class InvokeToken extends \ALT\Models\Action
 
     Notifications::invokeToken($player, $card, $this->getSource());
     Notifications::updateBiomes($player);
+
+    // should we boost the card
+    if (Globals::getNextCharacterBoost() > 0) {
+      $this->insertAsChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
+      Globals::setNextCharacterBoost(0);
+    }
+
     $this->resolveAction([$card->getId()]);
   }
 }
