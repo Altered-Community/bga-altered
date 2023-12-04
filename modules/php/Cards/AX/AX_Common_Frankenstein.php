@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_Frankenstein extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -21,7 +23,9 @@ class AX_Common_Frankenstein extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 3,
+
+      'effectReserve' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'targetPlayer' => ME, 'hasEffects' => ['Played'], 'effect' => FT::ACTION(ACTIVATE_EFFECT, [])])
     ];
   }
 }
