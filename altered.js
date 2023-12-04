@@ -74,6 +74,7 @@ define([
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],
         ['targetCards', 500],
+        ['moveCard', null],
 
         ['payMana', 500],
         ['discard', 500],

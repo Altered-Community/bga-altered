@@ -762,6 +762,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    notif_moveCard(n) {
+      debug('Notif: moving card');
+      // Slide the card
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+      // we slide it from the card triggering the effect
+      let container = this.getCardContainer(card);
+      this.slide(id, container).then(() => {
+        this.updateBiomeTotals(card.pId, n.args.biomes);
+        this.notifqueue.setSynchronousDuration(100);
+      });
+    },
+
     notif_nightCleanup(n) {
       debug('Notif: cleaning up played cards', n);
       let pId = n.args.player_id;

@@ -214,6 +214,15 @@ class Notifications
     ]);
   }
 
+  public static function moveCard($player, $card, $source)
+  {
+    self::notifyAll(
+      'moveCard',
+      clienttranslate('${player_name} moves ${card_name} to opposite expedition (${card_name2}\'s effect)'),
+      ['player' => $player, 'card' => $card, 'card2' => $source]
+    );
+  }
+
   /////////////////////////////////
   //    ____              _
   //   / ___|__ _ _ __ __| |___

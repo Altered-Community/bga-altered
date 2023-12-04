@@ -305,6 +305,14 @@ $machinestates = [
     'transitions' => [],
   ],
 
+  ST_MOVE_CARD => [
+    'name' => 'moveCard',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+  ],
+
   ST_ACTIVATE_EFFECT => [
     'name' => 'activateEffect',
     'description' => '',

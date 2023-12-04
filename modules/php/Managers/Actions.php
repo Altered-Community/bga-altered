@@ -31,7 +31,8 @@ class Actions
     USE_COUNTER,
     ACTIVATE_EFFECT,
     TAP,
-    PLAY_CARD
+    PLAY_CARD,
+    MOVE_CARD
   ];
 
   public static function get($actionId, &$ctx = null)
