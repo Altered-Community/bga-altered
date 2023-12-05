@@ -33,7 +33,7 @@ class Tap extends \ALT\Models\Action
 
     if ($cardId === null) {
       throw new \feException($this->getSourceId());
-      throw new \BgaVisibleSystemException('no card in args. Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (tap). Should not happen');
     }
     return Cards::get($cardId);
   }

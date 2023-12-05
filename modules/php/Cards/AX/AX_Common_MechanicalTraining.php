@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_MechanicalTraining extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,10 +17,12 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Mechanical Training'),
       'type' => SPELL,
-      'subtype' => SUPPORT,
-      'effectDesc' => clienttranslate('You may activate the {J} effect of one of your Permanents.'),
+      'subtype' => [SUPPORT],
+      'effectDesc' => clienttranslate('Activate the {J} triggers of target Permanent you control.'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
+      'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'targetPlayer' => ME, 'hasEffects' => ['Played'], 'effect' => FT::ACTION(ACTIVATE_EFFECT, [])])
+
     ];
   }
 }

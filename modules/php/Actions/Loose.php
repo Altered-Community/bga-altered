@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -44,7 +46,7 @@ class Loose extends \ALT\Models\Action
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args. Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (Loose). Should not happen');
     }
     return Cards::getSingle($cardId);
   }

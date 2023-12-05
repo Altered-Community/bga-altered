@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -34,7 +36,7 @@ class SpellCleanup extends \ALT\Models\Action
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
-      throw new \BgaVisibleSystemException('no card in args. Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (spell clenaup). Should not happen');
     }
     return Cards::get($cardId);
   }

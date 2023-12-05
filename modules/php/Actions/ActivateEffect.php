@@ -19,10 +19,14 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return [
-      'log' => clienttranslate('activate {J} effect of ${card_name}'),
-      'args' => ['card_name' => $this->getCard()->getName(), 'i18n' => ['card_name']],
-    ];
+    if (is_null($this->getCtxArgs()['cardId'] ?? null)) {
+      return  clienttranslate('activate {J} effect');
+    } else {
+      return [
+        'log' => clienttranslate('activate {J} effect of ${card_name}'),
+        'args' => ['card_name' => $this->getCard()->getName(), 'i18n' => ['card_name']],
+      ];
+    }
   }
 
   public function isAutomatic($player = null)
@@ -40,7 +44,7 @@ class ActivateEffect extends \ALT\Models\Action
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
-      throw new \BgaVisibleSystemException('no card in args. Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (Activate effect). Should not happen');
     }
     return Cards::get($cardId);
   }

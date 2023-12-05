@@ -232,6 +232,7 @@ class Target extends \ALT\Models\Action
           $child['sourceId'] = $this->getSourceId();
         }
       }
+
       $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
     }

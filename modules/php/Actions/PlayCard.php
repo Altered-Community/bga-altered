@@ -45,7 +45,7 @@ class PlayCard extends \ALT\Models\Action
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args. Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (play card). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
