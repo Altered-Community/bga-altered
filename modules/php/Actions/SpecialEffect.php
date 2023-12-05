@@ -7,7 +7,7 @@ use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
-use ALT\Helpers\Utils;
+use ALT\Helpers\FT;
 use ALT\Core\Notifications;
 
 class SpecialEffect extends \ALT\Models\Action
@@ -95,6 +95,21 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
+        break;
+      case 'boostAllSubtype':
+        if (!isset($args['subType'])) {
+          throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
+        }
+        $subType = $args['subType'];
+        $n = $args['n'] ?? 1;
+        $player = $card->getPlayer();
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if (in_array($subType, $card->getSubtype())) {
+            $nodes[] = FT::GAIN($pCard, BOOST, $n);
+          }
+        }
+        $this->pushParallelChilds($nodes);
         break;
       default:
         break;

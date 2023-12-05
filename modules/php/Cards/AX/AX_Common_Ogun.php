@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Common_Ogun extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,13 +17,14 @@ class AX_Common_Ogun extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ogun'),
       'type' => CHARACTER,
-      'subtype' => ENGINEER,
-      'effectDesc' => clienttranslate('{J} Your Robots gain 1 boost.'),
+      'subtype' => [ENGINEER, DEITY],
+      'effectDesc' => clienttranslate('{J} Robots you control gain 1 boost'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ROBOT]])
     ];
   }
 }
