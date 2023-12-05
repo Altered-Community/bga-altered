@@ -74,6 +74,7 @@ const ST_ACTIVATE_EFFECT = 28;
 const ST_TAP = 29;
 const ST_PLAY_CARD = 30;
 const ST_MOVE_CARD = 31;
+const ST_PAY = 32;
 
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
@@ -128,6 +129,7 @@ const ACTIVATE_EFFECT = 'ActivateEffect';
 const TAP = 'Tap';
 const PLAY_CARD = 'PlayCard';
 const MOVE_CARD = 'MoveCard';
+const PAY = 'Pay';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

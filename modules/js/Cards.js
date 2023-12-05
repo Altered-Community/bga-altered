@@ -709,6 +709,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: tapping card', n);
       $(`card-${n.args.card.id}`).classList.remove('selectable');
       $(`card-${n.args.card.id}`).classList.add('tapped');
+      if (n.args.cost > 0) {
+        this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+        this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+      }
     },
 
     notif_untap(n) {

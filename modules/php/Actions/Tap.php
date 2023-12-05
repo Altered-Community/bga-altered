@@ -23,7 +23,7 @@ class Tap extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->getCard()->isTapped() == false;
+    return $this->getCard()->isTapped() == false &&  $player->getMana() >= ($this->getCtxArg('pay') ?? 0);
   }
 
   public function getCard()
@@ -32,6 +32,7 @@ class Tap extends \ALT\Models\Action
     $cardId = $args['cardId'] ?? $this->getSourceId();
 
     if ($cardId === null) {
+      throw new \feException($this->getSourceId());
       throw new \BgaVisibleSystemException('no card in args. Should not happen');
     }
     return Cards::get($cardId);
@@ -42,11 +43,16 @@ class Tap extends \ALT\Models\Action
     $player = $this->getPlayer();
     $card = $this->getCard();
 
+    $pay = $this->getCtxArg('pay') ?? 0;
+    if ($pay > 0) {
+      $player->payMana($pay);
+    }
+
     if ($card->isTapped()) {
       throw new \BgaVisibleSystemException('Card is already tapped. Should not happen');
     }
     $card->setTapped(true);
-    Notifications::tapEffect($player, $card);
+    Notifications::tapEffect($player, $card, $pay);
 
     $this->resolveAction();
   }

@@ -491,11 +491,30 @@ class Notifications
     ]);
   }
 
-  public static function tapEffect($player, $card)
+  public static function tapEffect($player, $card, $cost = 0)
   {
-    self::notifyAll('tap', clienttranslate('${player_name} taps ${card_name} to activate it\'s effect'), [
+    if ($cost > 0) {
+      $msg = clienttranslate('${player_name} pays {${cost}} and taps ${card_name} to activate it\'s effect');
+    } else {
+      $msg = clienttranslate('${player_name} taps ${card_name} to activate it\'s effect');
+    }
+
+    self::notifyAll('tap', $msg, [
       'player' => $player,
       'card' => $card,
+      'cost' => $cost,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
+    ]);
+  }
+
+  public static function pay($player, $cost)
+  {
+    self::notifyAll('pay', clienttranslate('${player_name} pays {${cost}}'), [
+      'player' => $player,
+      'cost' => $cost,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
     ]);
   }
 
