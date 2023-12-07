@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\AX;
+
+use ALT\Helpers\FT;
 
 class AX_Common_TinkerBell extends \ALT\Models\Card
 {
@@ -21,6 +24,13 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
+
+      'effectReserve' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+        'targetLocation' => [RESERVE],
+        'upTo' => true,
+        'effect' => FT::ACTION(DISCARD, []),
+      ]),
     ];
   }
 }
