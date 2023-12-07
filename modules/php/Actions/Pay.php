@@ -18,7 +18,13 @@ class Pay extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return '{T}';
+    $pay = $this->getCtxArg('pay') ?? 0;
+    return [
+      'log' => '{${n}}',
+      'args' => [
+        'n' => $pay,
+      ],
+    ];
   }
 
   public function isDoable($player)
