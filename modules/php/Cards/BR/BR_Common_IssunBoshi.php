@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Common_IssunBoshi extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,7 +17,7 @@ class BR_Common_IssunBoshi extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Issun-Boshi'),
       'type' => CHARACTER,
-      'subtype' => SAMURAI,
+      'subtype' => [ADVENTURER],
       'supportDesc' => clienttranslate(
         '{D} : The next Character you play this turn gains 1 boost. (Discard me from your Reserve to activate this effect)'
       ),
@@ -24,6 +26,7 @@ class BR_Common_IssunBoshi extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 1,
       'costReserve' => 1,
+      'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost'])
     ];
   }
 }
