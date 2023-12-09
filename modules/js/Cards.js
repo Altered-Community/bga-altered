@@ -441,16 +441,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_pDiscardCards(n) {
       debug('Notif: private discarding cards', n);
       let counter = 'handCount';
+      let nonTappedMana = 0;
 
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
           this.destroy($(`card-${card.id}`));
+          nonTappedMana += card.properties.tapped == false ? 1 : 0;
         });
         this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
         if (n.args.toMana) {
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
-          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
+          this._playerCounters[this.player_id]['mana'].incValue(nonTappedMana);
         }
         return;
       }
@@ -459,6 +461,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         n.args.cards.map((card, i) => {
           // TO MANA
           if (n.args.toMana) {
+            nonTappedMana += card.properties.tapped == false ? 1 : 0;
             let target = $(`counter-board-${this.player_id}-mana`);
             let oCard = $(`card-${card.id}`);
             let fakeCardId = this._fakeIndex++;
@@ -490,7 +493,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
         if (n.args.toMana) {
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
-          this._playerCounters[this.player_id]['mana'].incValue(n.args.cards.length);
+          this._playerCounters[this.player_id]['mana'].incValue(nonTappedMana);
         }
 
         this.notifqueue.setSynchronousDuration(100);

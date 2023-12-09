@@ -116,7 +116,7 @@ class ActivateCard extends \ALT\Models\Action
     //   'sourceId' => $this->getCtxArg('cardId'),
     //   'event' => $this->getCtxArg('event'),
     // ]);
-
+    // throw new \feException(print_r($flow));
     $node->replace(Engine::buildTree($flow));
     Engine::save();
     Engine::proceed();

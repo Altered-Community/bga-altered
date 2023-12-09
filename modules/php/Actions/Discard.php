@@ -34,7 +34,11 @@ class Discard extends \ALT\Models\Action
     }
 
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
-      $card = Cards::get($this->getCtxArg('cardId'));
+      if ($this->getCtxArg('cardId') == ME) {
+        $card = Cards::get($this->ctx->getSourceId());
+      } else {
+        $card = Cards::get($this->getCtxArg('cardId'));
+      }
     } else {
       $card = '';
     }
@@ -52,12 +56,9 @@ class Discard extends \ALT\Models\Action
   public function stDiscard()
   {
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
-      throw new \feException("titi");
       $this->actDiscard([$this->getCtxArg('cardId')], true);
     }
     if ($this->getArg('special') != 'nightCleanUp' && !is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
-      // throw new \feException($this->getCtxArg('n'));
-      throw new \feException(print_r($this->getCtxArgs()));
       $this->actDiscard([$this->getCtx()->getSourceId()], true);
     }
   }
@@ -69,6 +70,7 @@ class Discard extends \ALT\Models\Action
     'source' => '',
     'nLandmarks' => 0, // only for night clean up
     'special' => '',
+    'tapped' => false,
     // 'totalCost' => INFTY
   ];
 
@@ -156,7 +158,11 @@ class Discard extends \ALT\Models\Action
       }
     }
 
-    foreach ($cardIds as $cardId) {
+    foreach ($cardIds as &$cardId) {
+      if ($cardId == ME) {
+        $cardId = $this->ctx->getSourceId();
+      }
+
       $card = Cards::get($cardId);
       $card->checkLeaveExpeditionListener();
       // $totalCost += $card->getCostHand();
@@ -168,6 +174,9 @@ class Discard extends \ALT\Models\Action
     $originalLocation = [];
     foreach ($cards as $cId => $card) {
       $originalLocation[$cId] = $card->getLocation();
+      if ($this->getArg('tapped')) {
+        $card->setTapped(true);
+      }
     }
 
     Cards::discard($cardIds, $args['destination']);
