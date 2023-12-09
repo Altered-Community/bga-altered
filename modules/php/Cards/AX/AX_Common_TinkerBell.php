@@ -17,7 +17,7 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Tinker Bell'),
       'type' => CHARACTER,
-      'subtype' => FAIRY,
+      'subtype' => [FAIRY],
       'effectDesc' => clienttranslate('{S} $[SABOTAGE].'),
       'forest' => 1,
       'mountain' => 3,

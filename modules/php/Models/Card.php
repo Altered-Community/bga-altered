@@ -65,6 +65,7 @@ class Card extends \ALT\Helpers\DB_Model
     'tapped' => 'bool',
     'gigantic' => 'bool',
     'fleeting' => 'bool',
+    'seasoned' => 'bool',
 
     // Tough management
     'tough' => 'int',
@@ -177,9 +178,12 @@ class Card extends \ALT\Helpers\DB_Model
     $this->checkLeaveExpeditionListener();
     $this->setLocation(RESERVE);
     $this->setTapped(false);
-    $deleted = Meeples::getInLocation('card-' . $this->id)->getIds();
+    $seasoned = $this->isSeasoned();
+    $deleted = Meeples::getInLocation('card-' . $this->id)->filter(function ($m) use ($seasoned) {
+      return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
+    })->getIds();
     if (!empty($deleted)) {
-      Meeples::delete(Meeples::getInLocation('card-' . $this->id)->getIds());
+      Meeples::delete($deleted);
     }
 
     return $deleted;
