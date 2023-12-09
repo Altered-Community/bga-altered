@@ -52,9 +52,12 @@ class Discard extends \ALT\Models\Action
   public function stDiscard()
   {
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
+      throw new \feException("titi");
       $this->actDiscard([$this->getCtxArg('cardId')], true);
     }
-    if (!is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
+    if ($this->getArg('special') != 'nightCleanUp' && !is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
+      // throw new \feException($this->getCtxArg('n'));
+      throw new \feException(print_r($this->getCtxArgs()));
       $this->actDiscard([$this->getCtx()->getSourceId()], true);
     }
   }
@@ -65,6 +68,7 @@ class Discard extends \ALT\Models\Action
     'n' => 1, // number of card to discard
     'source' => '',
     'nLandmarks' => 0, // only for night clean up
+    'special' => '',
     // 'totalCost' => INFTY
   ];
 
@@ -177,9 +181,12 @@ class Discard extends \ALT\Models\Action
         Cards::discard($cardId);
       }
       // remove all meeples on the card
-      // TODO : manage seasoned
-      $deleted = array_merge($deleted, Meeples::getInLocation('card-' . $cardId)->getIds());
-      Meeples::delete(Meeples::getInLocation('card-' . $cardId)->getIds());
+      $seasoned = $card->isSeasoned();
+      $toDelete = Meeples::getInLocation('card-' . $cardId)->filter(function ($m) use ($seasoned) {
+        return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
+      })->getIds();
+      Meeples::delete($toDelete);
+      $deleted = array_merge($deleted, $toDelete);
     }
 
     $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source}');
