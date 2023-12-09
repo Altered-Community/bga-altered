@@ -90,4 +90,12 @@ abstract class Conditions
 
     return Cards::getMany($event['discarded'], false)->where('type', PERMANENT)->count() > 0;
   }
+
+  public static function isCharacterFromReserve($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      $event['cardType'] == CHARACTER &&
+      $event['from'] == RESERVE;
+  }
 }
