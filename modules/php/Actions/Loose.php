@@ -105,14 +105,16 @@ class Loose extends \ALT\Models\Action
       $deleted[$mId] = $m;
       $amount--;
     }
-    Meeples::delete($deleted->getIds());
+    if (!empty($deleted)) {
+      Meeples::delete($deleted->getIds());
 
-    if (count($deleted) > 0) {
-      Notifications::looseMeeples($resource, $card, $deleted, false);
-      Notifications::updateBiomes($card->getPlayer());
+      if (count($deleted) > 0) {
+        Notifications::looseMeeples($resource, $card, $deleted, false);
+        Notifications::updateBiomes($card->getPlayer());
+      }
+
+      $this->checkAfterListeners($player, ['loose' => $args]);
     }
-
-    $this->checkAfterListeners($player, ['loose' => $args]);
     $this->resolveAction();
   }
 }

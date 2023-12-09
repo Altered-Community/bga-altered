@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Common_HelpingHand extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -18,7 +20,15 @@ class BR_Common_HelpingHand extends \ALT\Models\Card
       'subtype' => SUPPORT,
       'effectDesc' => clienttranslate('Target Character gains 1 boost and loses [FLEETING_CHAR].'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
+
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'effect' =>
+        FT::SEQ(
+          FT::GAIN(EFFECT, BOOST),
+          FT::LOOSE(EFFECT, FLEETING)
+        )
+      ])
     ];
   }
 }
