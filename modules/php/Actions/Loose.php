@@ -8,6 +8,7 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Collection;
+use ALT\Helpers\Utils;
 
 class Loose extends \ALT\Models\Action
 {
@@ -18,7 +19,28 @@ class Loose extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return [];
+    $player = $this->getPlayer();
+    $gain = $this->getLoose();
+    $desc = Utils::resourcesToStr([$gain[0] => $gain[1]], true);
+
+    if ($player->getId() == Players::getActiveId()) {
+      return [
+        'log' => clienttranslate('loose ${resources_desc}'),
+        'args' => [
+          'resources_desc' => $desc,
+        ],
+      ];
+    }
+    // The reward is for someone else
+    else {
+      return [
+        'log' => clienttranslate('Let ${player_name} loose ${resources_desc}'),
+        'args' => [
+          'player_name' => $player->getName(),
+          'resources_desc' => $desc,
+        ],
+      ];
+    }
   }
 
   public function isAutomatic($player = null)
