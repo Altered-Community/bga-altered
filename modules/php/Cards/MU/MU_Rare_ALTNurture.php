@@ -20,7 +20,7 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
       'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Up to two target Characters gain #2# boosts.'),
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
     ];

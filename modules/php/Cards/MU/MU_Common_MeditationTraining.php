@@ -20,7 +20,7 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes $[ANCHORED].'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }

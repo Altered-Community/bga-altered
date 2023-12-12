@@ -20,7 +20,7 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
       'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
     ];
   }

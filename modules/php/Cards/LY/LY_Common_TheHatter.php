@@ -26,7 +26,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 0,
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 5,
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
     ];
   }

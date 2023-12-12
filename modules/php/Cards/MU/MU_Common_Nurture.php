@@ -20,7 +20,7 @@ class MU_Common_Nurture extends \ALT\Models\Card
       'subtype' => [SUPPORT],
       'effectDesc' => clienttranslate('Up to two target Characters gain 1 boost.'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
     ];
   }

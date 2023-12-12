@@ -10,8 +10,8 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_10_C',
-      'asset' => 'ALT_CORE_B_LY_10_C',
+      'uid' => 'ALT_CORE_B_LY_06_C',
+      'asset' => 'ALT_CORE_B_LY_06_C',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
@@ -23,7 +23,7 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 1,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 2)],
       ]),

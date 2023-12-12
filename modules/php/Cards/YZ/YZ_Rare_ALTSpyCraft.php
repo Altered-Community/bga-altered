@@ -20,7 +20,7 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
       'subtype' => [DISRUPTION],
       'effectDesc' => clienttranslate('$[SABOTAGE], $[RESUPPLY].'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::SEQ(
         FT::ACTION(TARGET, [
