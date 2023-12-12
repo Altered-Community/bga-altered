@@ -446,7 +446,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
           this.destroy($(`card-${card.id}`));
-          nonTappedMana += card.properties.tapped == false ? 1 : 0;
+          nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped ? 1 : 0;
         });
         this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
@@ -461,7 +461,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         n.args.cards.map((card, i) => {
           // TO MANA
           if (n.args.toMana) {
-            nonTappedMana += card.properties.tapped == false ? 1 : 0;
+            nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped == false ? 1 : 0;
             let target = $(`counter-board-${this.player_id}-mana`);
             let oCard = $(`card-${card.id}`);
             let fakeCardId = this._fakeIndex++;
