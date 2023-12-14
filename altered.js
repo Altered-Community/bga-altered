@@ -868,6 +868,7 @@ define([
       const names = {
         stormLeft: _('Hero side'),
         stormRight: _('Companion side'),
+        source: _('source'),
       };
 
       args.locations.forEach((location, i) =>
