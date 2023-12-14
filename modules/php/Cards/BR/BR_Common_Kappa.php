@@ -15,7 +15,7 @@ class BR_Common_Kappa extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kappa'),
       'type' => CHARACTER,
-      'subtype' => SAGE,
+      'subtype' => [SPIRIT, TRAINER],
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 5,
