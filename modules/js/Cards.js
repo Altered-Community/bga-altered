@@ -445,7 +445,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
-          this.destroy($(`card-${card.id}`));
+          if ($(`card-${card.id}`)) {
+            this.destroy($(`card-${card.id}`));
+          }
           nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped ? 1 : 0;
         });
         this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
@@ -463,7 +465,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (n.args.toMana) {
             nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped == false ? 1 : 0;
             let target = $(`counter-board-${this.player_id}-mana`);
+            if (!$(`card-${card.id}`)) {
+              this.addCard(card, `board-deck-${card.pId}`);
+            }
             let oCard = $(`card-${card.id}`);
+
             let fakeCardId = this._fakeIndex++;
             let fakeCard = this.tplFakeCard({ id: fakeCardId });
             return this.flipAndReplace(oCard, fakeCard)
@@ -517,8 +523,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (this.isFastMode()) {
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
         if (n.args.toMana) {
-          this._playerCounters[this.player_id]['totalMana'].incValue(nCards);
-          this._playerCounters[this.player_id]['mana'].incValue(nCards);
+          this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
+          this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
         }
         return;
       }
@@ -542,7 +548,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
         if (n.args.toMana) {
           this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
-          this._playerCounters[n.args.player_id]['mana'].incValue(nCards);
+          this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
         }
 
         this.notifqueue.setSynchronousDuration(200);

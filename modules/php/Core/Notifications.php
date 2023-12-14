@@ -239,6 +239,7 @@ class Notifications
       $args + [
         'player' => $player,
         'n' => count($cards),
+        'mana' => $player->getMana(),
       ]
     );
     self::notify(

@@ -215,6 +215,12 @@ $machinestates = [
     'action' => 'stAtomicAction',
   ],
 
+  ST_DRAW_MANA => [
+    'name' => 'drawMana',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+  ],
+
   ST_USE_COUNTER => [
     'name' => 'useCounter',
     'type' => 'game',

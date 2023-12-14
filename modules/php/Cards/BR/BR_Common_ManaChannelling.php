@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Common_ManaChannelling extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,10 +17,14 @@ class BR_Common_ManaChannelling extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Mana Channelling'),
       'type' => SPELL,
-      'subtype' => SUPPORT,
+      'subtype' => [CONJURATION],
       'effectDesc' => clienttranslate('$[FLEETING]  Put the top card of your deck in your Mana Orbs, exhausted.'),
       'costHand' => 2,
       'costReserve' => 2,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(DRAW_MANA, []),
+      )
     ];
   }
 }

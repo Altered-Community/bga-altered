@@ -33,7 +33,8 @@ class Actions
     TAP,
     PLAY_CARD,
     MOVE_CARD,
-    PAY
+    PAY,
+    DRAW_MANA
   ];
 
   public static function get($actionId, &$ctx = null)
