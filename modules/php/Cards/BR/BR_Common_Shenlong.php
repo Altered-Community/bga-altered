@@ -15,7 +15,7 @@ class BR_Common_Shenlong extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Shenlong'),
       'type' => CHARACTER,
-      'subtype' => DRAGON,
+      'subtype' => [DRAGON],
       'forest' => 8,
       'mountain' => 8,
       'ocean' => 8,
