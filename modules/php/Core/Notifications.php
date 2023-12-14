@@ -262,6 +262,8 @@ class Notifications
         'player' => $player,
         'n' => count($cards),
         'cards' => $cards->toArray(),
+        'totalMana' => $player->getTotalMana(),
+        'mana' => $player->getMana(),
       ]
     );
   }

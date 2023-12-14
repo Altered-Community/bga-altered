@@ -830,6 +830,9 @@ define([
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
         passCallback: () => this.takeAction('actPassOptionalAction'),
       });
+      if (args.manaOrbs == true) {
+        this._manaModal.show();
+      }
     },
 
     onEnteringStatePlayCard(args) {

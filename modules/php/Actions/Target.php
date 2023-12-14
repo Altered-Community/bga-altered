@@ -178,7 +178,8 @@ class Target extends \ALT\Models\Action
       'upTo' => $this->getArg('upTo'),
       'description' => $this->getDescription(),
       'totalCost' => $this->getArg('totalCost'),
-      'targetCosts' => $this->getTargetCosts($player)
+      'targetCosts' => $this->getTargetCosts($player),
+      'manaOrbs' => $this->getArg('targetLocation') == [MANA]
     ];
   }
 
