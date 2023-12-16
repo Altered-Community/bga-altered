@@ -66,6 +66,7 @@ class Card extends \ALT\Helpers\DB_Model
     'gigantic' => 'bool',
     'fleeting' => 'bool',
     'seasoned' => 'bool',
+    'minManaOrbs' => 'int',
 
     // Tough management
     'tough' => 'int',
@@ -146,7 +147,9 @@ class Card extends \ALT\Helpers\DB_Model
   {
     $cost = $this->getCost();
     $mana = $player->getMana();
-    return $cost <= $mana;
+    $totalMana = $player->getTotalMana();
+
+    return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
   public function hasToken($token)
