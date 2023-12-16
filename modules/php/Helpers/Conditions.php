@@ -98,4 +98,9 @@ abstract class Conditions
       $event['cardType'] == CHARACTER &&
       $event['from'] == RESERVE;
   }
+
+  public static function isBoosted($card, $event)
+  {
+    return $card->hasToken(BOOST) || ($event['boosted'] ?? false) == true;
+  }
 }

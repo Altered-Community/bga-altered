@@ -343,7 +343,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     // }
 
     if ($throwErrorIfNone && !$listened) {
-      throw new \feException(print_r(debug_print_backtrace()));
+      // throw new \feException(print_r(debug_print_backtrace()));
       throw new \BgaVisibleSystemException(
         'Trying to apply effect of a card without corresponding listener : ' . $methodName . ' ' . $card->getId()
       );

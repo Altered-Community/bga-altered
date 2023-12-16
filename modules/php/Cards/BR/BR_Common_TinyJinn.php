@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Common_TinyJinn extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,7 +17,7 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Tiny Jinn'),
       'type' => CHARACTER,
-      'subtype' => ELEMENTAL,
+      'subtype' => [ELEMENTAL],
       'effectDesc' => clienttranslate(
         'When I leave the Expedition zone, if I am boosted — Put me in my owner\'s Mana Orbs exhausted.  {S} I gain 1 boost.'
       ),
@@ -23,7 +25,14 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 0,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
+      'effectReserve' => FT::GAIN($this, BOOST),
+      'effectPassive' => [
+        'LeaveExpedition' => [
+          'condition' => 'isBoosted',
+          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true])
+        ],
+      ]
     ];
   }
 }

@@ -26,14 +26,9 @@ class BR_Common_Jinn extends \ALT\Models\Card
       'costReserve' => 3,
 
       'effectPassive' => [
-        // necessary to put both as cleanup doesn't trigger custom turn order
         'LeaveExpedition' => [
           'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true], ['optional' => true])
         ],
-        'BeforeNight' => [
-          'condition' => 'myTurn',
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true], ['optional' => true])
-        ]
       ]
     ];
   }

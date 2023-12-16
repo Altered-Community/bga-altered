@@ -217,12 +217,42 @@ trait TurnTrait
     }
     $cardLeft = [];
     Globals::setStormMoves([]);
-    foreach (Players::getAll() as $pId => $player) {
-      $cardLeft = array_merge($cardLeft, $player->nightCleanup());
-      Notifications::updateBiomes($player);
-    }
+    Globals::setSkippedPlayers([]);
+    $this->initCustomDefaultTurnOrder('nightCleanup', 'stNightCleanup', 'stAfterNightCleanup', true);
+  }
 
-    $this->checkCardListeners('BeforeNight', 'stPreNight', ['cardsToListen' => $cardLeft]);
+  function stNightCleanup()
+  {
+    $player = Players::getActive();
+    $skipped = Globals::getSkippedPlayers();
+
+    if (in_array($player->getId(), $skipped)) {
+      $remaining = array_diff(Players::getAll()->getIds(), $skipped);
+      if (empty($remaining)) {
+        $this->endCustomOrder('nightCleanup');
+      } else {
+        $this->nextPlayerCustomOrder('nightCleanup');
+      }
+      return;
+    }
+    Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
+
+    $skipped[] = $player->getId();
+    Globals::setSkippedPlayers($skipped);
+
+    $listened = $player->nightCleanup();
+    Notifications::updateBiomes($player);
+
+    if (Engine::getNextUnresolved() === null) {
+      $this->nextPlayerCustomOrder('nightCleanup');
+    } else {
+      Engine::proceed();
+    }
+  }
+
+  function stAfterNightCleanup()
+  {
+    $this->checkCardListeners('BeforeNight', 'stPreNight', []);
   }
 
   function stPreNight()

@@ -200,7 +200,7 @@ class Card extends \ALT\Helpers\DB_Model
   public function checkLeaveExpeditionListener()
   {
     if (in_array($this->getLocation(), STORMS)) {
-      $event = ['type' => 'LeaveExpedition', 'method' => 'LeaveExpedition'];
+      $event = ['type' => 'LeaveExpedition', 'method' => 'LeaveExpedition', 'boosted' => $this->hasToken(BOOST), 'cardId' => $this->id];
       if ($this->isListeningTo($event)) {
         $event['cardsToListen'] = [$this->id];
         Engine::pushAfterFinishingChilds([
