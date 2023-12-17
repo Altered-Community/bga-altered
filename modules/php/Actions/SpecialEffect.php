@@ -79,11 +79,19 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'gainCounter':
         $data = $card->getExtraDatas();
-        $data['counter'] = $args['counter'] ?? 0;
+        $data['counter'] = $data['counter'] ?? 0 + $args['counter'] ?? 0;
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($this->getSource());
+        break;
+      case 'incCounter':
+        $data = $card->getExtraDatas();
+        $data['counter'] = $data['counter'] ?? 0 + $args['counter'] ?? 0;
+        $data['counterName'] = $args['counterName'] ?? '';
+        $card->setExtraDatas($data);
+
+        Notifications::gainCounter($this->getSource(), $args['counter']);
         break;
       case 'activateAllPermanents':
         $cards = $card->getPlayer()->getPermanents();

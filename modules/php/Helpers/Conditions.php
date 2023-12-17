@@ -103,4 +103,11 @@ abstract class Conditions
   {
     return $card->hasToken(BOOST) || ($event['boosted'] ?? false) == true;
   }
+
+  public static function costHigherThanCounter($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      Cards::get($event['playedCard'])->getCostHand() >= $card->getExtraDatas('counter');
+  }
 }

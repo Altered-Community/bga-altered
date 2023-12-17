@@ -405,12 +405,18 @@ class Notifications
     ]);
   }
 
-  public static function gainCounter($card)
+  public static function gainCounter($card, $increase = null)
   {
     self::notifyAll(
       'gainCounter',
-      clienttranslate('${card_name} gains ${n} ${counterName}'),
-      ['card' => $card, 'n' => $card->getExtraDatas()['counter'], 'counterName' => $card->getExtraDatas()['counterName'], 'i18n' => ['counterName']]
+      clienttranslate('${card_name} gains ${increase} ${counterName}'),
+      [
+        'card' => $card,
+        'n' => $card->getExtraDatas()['counter'],
+        'increase' => is_null($increase) ? $card->getExtraDatas()['counter'] : $increase,
+        'counterName' => $card->getExtraDatas()['counterName'],
+        'i18n' => ['counterName']
+      ]
     );
   }
 
