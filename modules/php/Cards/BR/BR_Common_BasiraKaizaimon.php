@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\BR;
+
+use ALT\Helpers\FT;
 
 class BR_Common_BasiraKaizaimon extends \ALT\Models\Card
 {
@@ -17,6 +20,21 @@ class BR_Common_BasiraKaizaimon extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'Whenever one of your Characters is boosted — You may exhaust me ({T}) to give any target Character 1 boost.'
       ),
+
+      'reserveSlots' => 2,
+      'landmarkSlots' => 2,
+
+      'effectPassive' => [
+        'Gain' => [
+          'condition' => 'isCharacterBoosted',
+          'output' => FT::SEQ_OPTIONAL(
+            FT::ACTION(TAP, []),
+            FT::ACTION(TARGET, [
+              'effect' => FT::GAIN(EFFECT, BOOST)
+            ])
+          ),
+        ]
+      ]
     ];
   }
 }

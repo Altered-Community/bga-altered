@@ -21,6 +21,11 @@ abstract class Conditions
     return false;
   }
 
+  public static function isCharacterBoosted($card, $event)
+  {
+    return $event['pId'] == $card->getPId()  && $event['gain']['type'] == BOOST && Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
+  }
+
   public static function firstCharacterPlayed($card, $event)
   {
     return $event['playCard'] === true &&
