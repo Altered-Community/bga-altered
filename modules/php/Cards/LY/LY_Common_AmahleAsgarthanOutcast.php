@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\LY;
 
+use ALT\Helpers\FT;
+
 class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,13 +17,28 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Amahle, Asgarthan Outcast'),
       'type' => CHARACTER,
-      'subtype' => DIVINITY,
+      'subtype' => [SCHOLAR],
       'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to Draw a card.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 5,
       'costReserve' => 5,
+
+      'effectPlayed' =>  FT::ACTION(
+        TARGET,
+        [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetPlayer' => ME,
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(DRAW, ['players' => ME])
+          )
+        ],
+        ['optional' => true]
+      ),
     ];
   }
 }
