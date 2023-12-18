@@ -93,10 +93,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div class='player-board-mana-wrapper'>
             <div class='player-board-mana-gauge' id='mana-gauge-${pId}'></div>
             <div class='player-board-mana-indicator'>
-              <h6>${_('Mana')}</h6>
-              <span class="mana-counter" id="counter-board-${pId}-mana"></span> 
-              / 
-              <span class="mana-counter" id="counter-board-${pId}-totalMana"></span>
+              <h6>${this.formatIcon('first-player')} ${_('MANA')}</h6>
+              <div class='mana-counters-wrapper'>
+                <span class="mana-counter" id="counter-board-${pId}-mana"></span> 
+                / 
+                <span class="mana-counter" id="counter-board-${pId}-totalMana"></span>
+              </div>
             </div>
           </div>
 

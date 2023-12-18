@@ -62,8 +62,8 @@
 
         .total-biomes {
             position: absolute;
-            width: 77px;
-            left: -117px;
+            width: 100px;
+            left: -135px;
             top: -4px;
 
             .total-biomes-highlights {
@@ -78,19 +78,20 @@
                     padding: 0px 10px;
                     color: #e6e4e4;
 
-                    height: 50px;
-                    width: 50px;
-                    margin-bottom: 1px;
+                    height: 46px;
+                    width: 60px;
+                    margin-bottom: 5px;
                 }
-                .total-forest-highlight {
-                    border-radius: 14px 0 0 4px;
-                }
-                .total-mountain-highlight {
-                    border-radius: 4px 0 0 4px;
-                }
-                .total-ocean-highlight {
-                    border-radius: 4px 0 0 14px;
-                }
+            }
+
+            .total-biomes-highlights div,
+            .total-forest,
+            .total-mountain,
+            .total-ocean {
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-top-left-radius: 36px 18px;
+                border-bottom-left-radius: 36px 18px;
             }
 
             .total-forest,
@@ -103,23 +104,55 @@
                 color: #e6e4e4;
                 text-shadow: 0px 0px 6px black;
 
-                height: 50px;
-                width: 50px;
-                margin-bottom: 2px;
-
+                height: 46px;
+                width: 60px;
+                margin-bottom: 5px;
                 font-size: 32px;
-                line-height: 58px;
+                line-height: 52px;
                 font-weight: bold;
-                text-align: center;
+                text-align: right;
 
-                background-image: url("img/gems.png");
-                background-size: 200% 300%;
+                // background-image: url("img/gems.png");
+                // background-size: 200% 300%;
+
+                &::before {
+                    display: block;
+                    position: absolute;
+                    left: -5px;
+                    top: 4px;
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    font-family: "icomoon" !important;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    font-size: 22px;
+                    line-height: 36px;
+                    text-shadow: none;
+                    box-shadow: 1px 1px 3px black;
+                    text-align: center;
+                }
+            }
+            .total-forest {
+                background: #799c00;
+                &::before {
+                    content: "\e90a";
+                    background: #98b23f;
+                }
             }
             .total-mountain {
-                background-position-y: 50%;
+                background: #bb690f;
+                &::before {
+                    content: "\e90e";
+                    background: #d4854c;
+                }
             }
             .total-ocean {
-                background-position-y: 100%;
+                background: #006d97;
+                &::before {
+                    content: "\e90f";
+                    background: #4c76a9;
+                }
             }
 
             .total-forest.bigger ~ .total-biomes-highlights .total-forest-highlight,
@@ -137,19 +170,22 @@
             .total-forest,
             .total-mountain,
             .total-ocean {
-                background-position-x: 100%;
+                // background-position-x: 100%;
+                text-align: left;
+
+                &::before {
+                    left: 50px;
+                }
             }
 
-            .total-biomes-highlights {
-                .total-forest-highlight {
-                    border-radius: 0 14px 4px 0;
-                }
-                .total-mountain-highlight {
-                    border-radius: 0 4px 4px 0px;
-                }
-                .total-ocean-highlight {
-                    border-radius: 0 4px 14px 0;
-                }
+            .total-biomes-highlights div,
+            .total-forest,
+            .total-mountain,
+            .total-ocean {
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                border-top-right-radius: 36px 18px;
+                border-bottom-right-radius: 36px 18px;
             }
         }
     }
@@ -211,49 +247,59 @@
         left: 57px;
         display: flex;
         width: 60px;
-        height: 460px;
+        height: 495px;
 
         .player-board-mana-indicator {
-            height: 48px;
+            height: 54px;
+            margin-top: 4px;
             font-family: "Haptic Pro";
             color: #e6e4e4;
-            text-align: center;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
             font-weight: bold;
             font-size: 18px;
 
             h6 {
-                font-size: 10px;
-                margin-bottom: 4px;
+                font-size: 14px;
                 font-weight: bold;
-                margin-top: 7px;
+                margin: 4px 0px 4px -30px;
+
+                .icon-container {
+                    margin-right: 3px;
+                    .icon-first-player {
+                        width: 25px;
+                        height: 25px;
+                    }
+                }
+            }
+
+            .mana-counters-wrapper {
+                margin: 3px 0px;
             }
         }
 
         .player-board-mana-gauge {
             display: flex;
-            padding: 2px 12px;
+            padding: 4px 2px;
             flex-grow: 1;
             align-items: center;
 
             .mana-gauge-slot {
-                width: 30px;
+                width: 42px;
                 height: 20px;
                 background: #153038;
                 margin: 1px 0px;
-                border-top-left-radius: 2px 6px;
-                border-top-right-radius: 2px 6px;
-                border-bottom-left-radius: 2px 6px;
-                border-bottom-right-radius: 2px 6px;
+                border-radius: 8px;
+                border: 1px solid #009ee3;
 
                 .mana-gem {
                     display: none;
-                    width: 30px;
+                    width: 42px;
                     height: 20px;
-                    background: #00b2df;
-                    border-top-left-radius: 2px 6px;
-                    border-top-right-radius: 2px 6px;
-                    border-bottom-left-radius: 2px 6px;
-                    border-bottom-right-radius: 2px 6px;
+                    background: #009ee3;
+                    border-radius: 6px;
                 }
 
                 &.available .mana-gem {
@@ -287,7 +333,7 @@
         }
         .player-board-landmarks {
             min-width: 298px;
-            background: url("img/landmark-slot.jpg");
+            background: url("img/landmark-slot.png");
             background-size: auto 100%;
             background-repeat: repeat-x;
             display: flex;
@@ -331,9 +377,13 @@
     .player-board-mana-wrapper {
         top: 0px;
         flex-flow: column;
-    }
-    .player-board-mana-gauge {
-        flex-flow: column-reverse;
+        .player-board-mana-gauge {
+            flex-flow: column-reverse;
+        }
+
+        .player-board-mana-indicator {
+            flex-flow: column-reverse;
+        }
     }
 
     .player-board-hand {
@@ -362,7 +412,7 @@
     }
 
     .player-board-storm {
-        top: 53px;
+        top: 61px;
 
         .total-biomes {
             top: -30px;
@@ -377,7 +427,7 @@
     }
 
     .player-board-mana-wrapper {
-        top: 25px;
+        top: 0px;
         flex-flow: column-reverse;
     }
     .player-board-mana-gauge {
