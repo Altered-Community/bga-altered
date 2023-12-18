@@ -119,6 +119,12 @@ class SpecialEffect extends \ALT\Models\Action
         }
         $this->pushParallelChilds($nodes);
         break;
+      case 'boostXReserve':
+        $n = $card->getPlayer()->getReserveCards()->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
       default:
         break;
     }
