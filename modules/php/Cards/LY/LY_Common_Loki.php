@@ -22,7 +22,7 @@ class LY_Common_Loki extends \ALT\Models\Card
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
-      'costHand' => 3,
+      'costHand' => 7,
       'costReserve' => 5,
       'effectHand' => FT::SEQ(
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHand']),
