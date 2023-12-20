@@ -568,10 +568,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             let id = `card-${card.id}`;
             if (!$(id)) {
               this.addCard(card, `hand-${card.pId}`);
+              if (n.args.player_id != this.player_id) {
+                [...$(`hand-${n.args.player_id}`).querySelectorAll('.altered-card')][0].remove();
+              }
             }
 
-            if (card.location == 'discard') $(id).classList.remove('mini-card');
             if (n.args.hand === true) $(id).classList.add('mini-card');
+            if (card.location == 'discard') $(id).classList.remove('mini-card');
+
             this.updateStatusIfCard($(id));
             return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`);
           });

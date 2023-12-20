@@ -53,13 +53,24 @@ class Discard extends \ALT\Models\Action
     ];
   }
 
+
   public function stDiscard()
   {
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
       $this->actDiscard([$this->getCtxArg('cardId')], true);
-    }
-    if ($this->getArg('special') != 'nightCleanUp' && !is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
+    } elseif ($this->getArg('special') == 'allHand') {
+      $this->actDiscard($this->getPlayer()->getHand()->getIds(), true);
+    } elseif ($this->getArg('special') != 'nightCleanUp' && !is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
       $this->actDiscard([$this->getCtx()->getSourceId()], true);
+    }
+  }
+
+  public function getPlayer()
+  {
+    if (!is_null($this->getCtxArg('pId') ?? null)) {
+      return Players::get($this->getCtxArg('pId'));
+    } else {
+      return Players::getActive();
     }
   }
 
@@ -76,7 +87,7 @@ class Discard extends \ALT\Models\Action
 
   public function argsDiscard()
   {
-    $player = Players::getActive();
+    $player = $this->getPlayer();
     if (($this->getCtxArg('special') ?? '') == 'nightCleanUp') {
       return [
         'n' => $this->getArg('n') ?? 1,
@@ -122,7 +133,7 @@ class Discard extends \ALT\Models\Action
 
   public function actDiscard($cardIds, $automatic = false)
   {
-    $player = Players::getActive();
+    $player = $this->getPlayer();
     $args = $this->argsDiscard();
     $hand = false;
     // $totalCost = $this->getArg('totalCost');

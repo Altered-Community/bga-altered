@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\LY;
 
+use ALT\Helpers\FT;
+
 class LY_Common_Loki extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,13 +17,17 @@ class LY_Common_Loki extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Loki'),
       'type' => CHARACTER,
-      'subtype' => DIVINITY,
-      'effectDesc' => clienttranslate('{M} Each player discards their hand and draws 3 cards.'),
+      'subtype' => [DIVINITY],
+      'effectDesc' => clienttranslate('{M} Each player discards their hand, then draws 3 cards.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
-      'costHand' => 7,
-      'costReserve' => 7,
+      'costHand' => 3,
+      'costReserve' => 5,
+      'effectHand' => FT::SEQ(
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHand']),
+        FT::ACTION(DRAW, ['n' => 3])
+      )
     ];
   }
 }

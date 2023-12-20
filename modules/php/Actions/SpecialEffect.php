@@ -125,6 +125,15 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
         break;
+      case 'discardAllHand':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = FT::ACTION(DISCARD, ['pId' => $pId, 'special' => 'allHand']);
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+
+        break;
       default:
         break;
     }
