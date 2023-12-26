@@ -1057,6 +1057,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       config = Object.assign(
         {
           delay: 400,
+          // delay: 0,
+          // hideDelay: 0,
           midSize: true,
           forceRecreate: false,
         },
@@ -1082,6 +1084,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
         getContent,
         position: this.defaultTooltipPosition,
         showDelay: config.delay,
+        hideDelay: config.hideDelay,
       });
       this.tooltips[id] = tooltip;
       dojo.addClass(id, 'tooltipable');
@@ -1103,6 +1106,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           } else {
             this.closeCurrentTooltip();
             tooltip.open($(id));
+            $('dijit__MasterTooltip_0').classList.add('instant');
             dijit.Tooltip._masterTT.onMouseLeave = () => {
               if (!this._helpMode) tooltip.close();
             };
@@ -1120,6 +1124,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           tooltip.showTimeout = setTimeout(() => {
             if ($(id)) {
               tooltip.open($(id));
+              $('dijit__MasterTooltip_0').classList.add('instant');
             }
           }, config.delay);
           this._displayedTooltip = tooltip;

@@ -2827,6 +2827,9 @@ html {
   .flip-container.flipped .flip-inner {
     transform: rotateY(180deg); }
 
+#dijit__MasterTooltip_0.instant {
+  opacity: 1 !important; }
+
 @font-face {
   font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-BlackItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-BlackItalic.ttf") format("truetype");
