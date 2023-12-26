@@ -94,7 +94,7 @@
     width: calc(var(--cardScale) * 324px);
     height: calc(var(--cardScale) * 450px);
     box-shadow: none;
-    border-radius: calc(var(--cardScale) * 20px);
+    border-radius: calc(var(--cardScale) * 25px);
 
     .altered-card-wrapper {
         width: 324px;
@@ -499,6 +499,18 @@
     }
 }
 
+.altered-card.no-frame.card-hero.selected {
+    transform: scale(1.05);
+    margin: 3px 10px;
+}
+.altered-card.no-frame.card-hero.keep {
+    transform: scale(1.12);
+    margin: 3px 20px;
+    margin-top: -1px;
+    border: 2px solid #f3b200;
+    box-shadow: 0px 0px 15px 0px #ffd000;
+}
+
 //  __  __ _       _
 // |  \/  (_)_ __ (_)
 // | |\/| | | '_ \| |
@@ -522,7 +534,16 @@ $miniCardScale: 0.33;
             display: none;
         }
     }
+}
 
+.altered-card.no-frame,
+.altered-card.mini-card,
+.player-board-hero .altered-card {
+    &.card-hero {
+        .card-frame {
+            display: none;
+        }
+    }
     &.card-spell {
         &,
         .altered-card-wrapper,

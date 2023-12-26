@@ -1,0 +1,52 @@
+Max
+Starting deck
+Afficher le lore / manière de jeu dans le tooltip
+Rajout d'un step confirm
+Quand on a selectionné, pouvoir recliquer sur les cartes
+Changer fond du chat
+Après choix
+Affichage de fight
+Image a envoyer
+Startin hand
+On aligne sur défausser en mana
+réduire après sélection
+afficher icône
+Dupliquer le bouton valider en bas des cartes
+Mettre le compteur 3/3
+enlever l'overlay dès le début
+Tooltip
+virer la bordure blanche
+Voir poru afficher les bulles Fugace/etc. afficher l'icone
+d'abord statut puis reminder
+Afficher les tokens Asleep/anchored / avec les vraies images
+Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
+Glossaire
+Bouton pour afficher le glossaire
+Misc
+Kojo a modifier
+Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
+Unique: bordure dorée avec un glow
+Tough: mettre une icone bouclier + afficher le coût supplémentaire
+Setup
+Mettre une ombre sur le héros à la place de la bordure
+Afficher le nombre de jour/phase où on est
+REserve a baisser un peu par rapport
+Discard a remettre
+Afficher max reserve / max landmark slot
+Reserve afficher de gauche à droite
+Biomes
+Mettre flèche si ca te fait avancer (verte). et mettre flèche autre couleur si majoritaire mais pas avancer (gris)
+Eventail de la main
+
+Choose Assignment
+Pouvoir désélectionner quand tu cliques sur ta carte ou ailleurs
+Lorsqu'on clique sur une carte (main/reserve), elle revient grande (pas mini) + haut pour montrer la carte x&
+Pour les sorts, rajout un bouton pour lancer le sort.
+Tap hero/carte
+
+Animation nuit
+Retourner la carte dans l'autre sens
+
+End game
+Reutiliser ecran de win
+Tiebreak: manque une map 

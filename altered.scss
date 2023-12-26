@@ -233,6 +233,106 @@ html {
     font-display: swap;
 }
 
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-BoldItalic.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-Bold.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-Demi.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-Demi.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-Medium.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-Heavy.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-Heavy.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-MediumItalic.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-MediumItalic.ttf") format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-DemiItalic.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-DemiItalic.ttf") format("truetype");
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-Regular.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-RegularItalic.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-RegularItalic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Tiller";
+    src:
+        url("img/fonts/Tiller/Tiller-HeavyItalic.woff") format("woff"),
+        url("img/fonts/Tiller/Tiller-HeavyItalic.ttf") format("truetype");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
 // .tundra .dijitTooltipContainer {
 //     background: black;
 //     border-color: white;
@@ -361,6 +461,10 @@ html {
 
 #customActions .bgabutton.selected {
     background: linear-gradient(rgba(89, 219, 78, 0.87), rgba(87, 149, 59, 0.89));
+}
+
+#customActions .bgabutton.keep {
+    background: linear-gradient(#f3b200, #f8ba11);
 }
 
 #page-title {

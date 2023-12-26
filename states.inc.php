@@ -22,7 +22,7 @@ $machinestates = [
     'description' => '',
     'type' => 'manager',
     'action' => 'stGameSetup',
-    'transitions' => ['' => ST_DECK_SELECTION],
+    'transitions' => ['' => ST_PRECO_DECK_SELECTION],
     // 'transitions' => ['' => 50],
   ],
 
@@ -40,13 +40,22 @@ $machinestates = [
     'type' => 'game',
   ],
 
+  ST_PRECO_DECK_SELECTION => [
+    'name' => 'selectPrecoDeck',
+    'description' => clienttranslate('Waiting for others to choose their faction'),
+    'descriptionmyturn' => clienttranslate('${you} must select the faction you want to play with'),
+    'type' => 'multipleactiveplayer',
+    'args' => 'argsPrecoDeckSelection',
+    'possibleactions' => ['actSelectPrecoDeck', 'actCancelPrecoDeckSelection'],
+    'transitions' => ['done' => ST_SETUP, 'zombiePass' => ST_SETUP],
+  ],
+
   ST_DECK_SELECTION => [
     'name' => 'selectDeck',
     'description' => clienttranslate('Waiting for others to choose their deck'),
     'descriptionmyturn' => clienttranslate('${you} must select the deck you want to play'),
     'type' => 'multipleactiveplayer',
     'args' => 'argsDeckSelection',
-    'action' => 'stDeckSelection',
     'possibleactions' => ['actSelectDeck', 'actCancelDeckSelection'],
     'transitions' => ['done' => ST_SETUP, 'zombiePass' => ST_SETUP],
   ],

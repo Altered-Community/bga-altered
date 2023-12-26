@@ -64,9 +64,9 @@ class Notifications
   // |____/ \___|_|\___|\___|\__| |____/ \___|\___|_|\_\
   ///////////////////////////////////////////////////////////
 
-  public static function updateInitialDeckSelection($player, $args)
+  public static function updateInitialPrecoDeckSelection($player, $args)
   {
-    self::notify($player, 'updateInitialDeckSelection', '', [
+    self::notify($player, 'updateInitialPrecoDeckSelection', '', [
       'args' => ['_private' => $args['_private'][$player->getId()]],
     ]);
   }
@@ -344,8 +344,8 @@ class Notifications
   {
     $msg =
       $fromLocation == RESERVE
-      ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
-      : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
+        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
@@ -407,17 +407,13 @@ class Notifications
 
   public static function gainCounter($card, $increase = null)
   {
-    self::notifyAll(
-      'gainCounter',
-      clienttranslate('${card_name} gains ${increase} ${counterName}'),
-      [
-        'card' => $card,
-        'n' => $card->getExtraDatas()['counter'],
-        'increase' => is_null($increase) ? $card->getExtraDatas()['counter'] : $increase,
-        'counterName' => $card->getExtraDatas()['counterName'],
-        'i18n' => ['counterName']
-      ]
-    );
+    self::notifyAll('gainCounter', clienttranslate('${card_name} gains ${increase} ${counterName}'), [
+      'card' => $card,
+      'n' => $card->getExtraDatas()['counter'],
+      'increase' => is_null($increase) ? $card->getExtraDatas()['counter'] : $increase,
+      'counterName' => $card->getExtraDatas()['counterName'],
+      'i18n' => ['counterName'],
+    ]);
   }
 
   public static function useCounter($player, $consume, $cost, $source)
@@ -445,8 +441,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -594,7 +590,7 @@ class Notifications
     self::notify($player, 'refreshHand', '', [
       'player' => $player,
       'hand' => $hand,
-      'mana' => $mana
+      'mana' => $mana,
     ]);
   }
 
@@ -733,8 +729,8 @@ class Notifications
     if (isset($data['displayLocation'])) {
       $data['displayLocation'] =
         $data['displayLocation'] == STORM_LEFT
-        ? clienttranslate('Hero\'s expedition')
-        : clienttranslate('Companion\'s expedition');
+          ? clienttranslate('Hero\'s expedition')
+          : clienttranslate('Companion\'s expedition');
     }
 
     // if (isset($data['actionCard'])) {

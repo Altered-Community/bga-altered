@@ -33,12 +33,13 @@ trait SetupTrait
   }
 
   //////////////////////////////////////////////////////////////////
-  //    ____ _                                _           _
-  //   / ___| |__   ___   ___  ___  ___    __| | ___  ___| | __
-  //  | |   | '_ \ / _ \ / _ \/ __|/ _ \  / _` |/ _ \/ __| |/ /
-  //  | |___| | | | (_) | (_) \__ \  __/ | (_| |  __/ (__|   <
-  //   \____|_| |_|\___/ \___/|___/\___|  \__,_|\___|\___|_|\_\
+  //  ____
+  // |  _ \ _ __ ___  ___ ___  ___
+  // | |_) | '__/ _ \/ __/ _ \/ __|
+  // |  __/| | |  __/ (_| (_) \__ \
+  // |_|   |_|  \___|\___\___/|___/
   //////////////////////////////////////////////////////////////////
+
   function getDeckHero($deckNumber)
   {
     return Cards::getInLocation("deck-$deckNumber")
@@ -46,7 +47,7 @@ trait SetupTrait
       ->first();
   }
 
-  function argsDeckSelection()
+  function argsPrecoDeckSelection()
   {
     $args = [
       '_private' => [],
@@ -65,33 +66,33 @@ trait SetupTrait
     return $args;
   }
 
-  public function actSelectDeck($choice)
+  public function actSelectPrecoDeck($choice)
   {
-    $this->gamestate->checkPossibleAction('actSelectDeck');
+    $this->gamestate->checkPossibleAction('actSelectPrecoDeck');
 
     $player = Players::getCurrent();
     $selection = Globals::getDeckSelection();
     $selection[$player->getId()] = $choice;
     Globals::setDeckSelection($selection);
-    Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
+    Notifications::updateInitialPrecoDeckSelection($player, self::argsPrecoDeckSelection());
 
-    $this->updateActivePlayersDeckSelection();
+    $this->updateActivePlayersPrecoDeckSelection();
   }
 
-  public function actCancelDeckSelection()
+  public function actCancelPrecoDeckSelection()
   {
-    $this->gamestate->checkPossibleAction('actCancelDeckSelection');
+    $this->gamestate->checkPossibleAction('actCancelPrecoDeckSelection');
 
     $player = Players::getCurrent();
     $selection = Globals::getDeckSelection();
     unset($selection[$player->getId()]);
     Globals::setDeckSelection($selection);
-    Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
+    Notifications::updateInitialPrecoDeckSelection($player, self::argsPrecoDeckSelection());
 
-    $this->updateActivePlayersDeckSelection();
+    $this->updateActivePlayersPrecoDeckSelection();
   }
 
-  public function updateActivePlayersDeckSelection()
+  public function updateActivePlayersPrecoDeckSelection()
   {
     // Compute players that still need to select their card
     // => use that instead of BGA framework feature because in some rare case a player
@@ -111,29 +112,68 @@ trait SetupTrait
     }
   }
 
-  function actGetDeck($deckNumber)
-  {
-    self::checkAction('actGetDeck');
-    $player = Players::getCurrent();
-    if (!in_array($deckNumber, array_keys(Globals::getPlayerDecks()[$player->getId()]))) {
-      throw new \BgaVisibleSystemException('You do not have a deck with this number. Should not happen');
-    }
-    return $player->getDeck($deckNumber)->toArray();
-  }
+  //////////////////////////////////////////////////////////////////
+  //    ____ _                                _           _
+  //   / ___| |__   ___   ___  ___  ___    __| | ___  ___| | __
+  //  | |   | '_ \ / _ \ / _ \/ __|/ _ \  / _` |/ _ \/ __| |/ /
+  //  | |___| | | | (_) | (_) \__ \  __/ | (_| |  __/ (__|   <
+  //   \____|_| |_|\___/ \___/|___/\___|  \__,_|\___|\___|_|\_\
+  //////////////////////////////////////////////////////////////////
 
-  // TODO : REMOVE ONCE WE GOT API
-  function stDeckSelection()
-  {
-    // // Temporary while we get decks
-    // $selection = [];
-    // $pIds = Players::getAll()->getIds();
-    // foreach ($pIds as $i => $pId) {
-    //   $selection[$pId] = $i == 0 ? \FACTION_BR : FACTION_MU;
-    // }
-    // Globals::setDeckSelection($selection);
+  // function argsDeckSelection()
+  // {
+  //   $args = [
+  //     '_private' => [],
+  //   ];
+  //   $allDecks = Globals::getPlayerDecks();
+  //   $selection = Globals::getDeckSelection();
+  //   foreach (Players::getAll() as $pId => $player) {
+  //     $decks = $allDecks[$pId];
+  //     foreach ($decks as &$deck) {
+  //       $deck['hero'] = $this->getDeckHero($deck['deckNum']);
+  //     }
+  //     $args['_private'][$pId]['decks'] = $decks;
+  //     $args['_private'][$pId]['selection'] = $selection[$pId] ?? null;
+  //   }
 
-    // $this->gamestate->nextState('done');
-  }
+  //   return $args;
+  // }
+
+  // public function actSelectDeck($choice)
+  // {
+  //   $this->gamestate->checkPossibleAction('actSelectDeck');
+
+  //   $player = Players::getCurrent();
+  //   $selection = Globals::getDeckSelection();
+  //   $selection[$player->getId()] = $choice;
+  //   Globals::setDeckSelection($selection);
+  //   Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
+
+  //   $this->updateActivePlayersDeckSelection();
+  // }
+
+  // public function actCancelDeckSelection()
+  // {
+  //   $this->gamestate->checkPossibleAction('actCancelDeckSelection');
+
+  //   $player = Players::getCurrent();
+  //   $selection = Globals::getDeckSelection();
+  //   unset($selection[$player->getId()]);
+  //   Globals::setDeckSelection($selection);
+  //   Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
+
+  //   $this->updateActivePlayersDeckSelection();
+  // }
+
+  // function actGetDeck($deckNumber)
+  // {
+  //   self::checkAction('actGetDeck');
+  //   $player = Players::getCurrent();
+  //   if (!in_array($deckNumber, array_keys(Globals::getPlayerDecks()[$player->getId()]))) {
+  //     throw new \BgaVisibleSystemException('You do not have a deck with this number. Should not happen');
+  //   }
+  //   return $player->getDeck($deckNumber)->toArray();
+  // }
 
   /////////////////////////////////////////////////////////
   //  ____       _                     _           _

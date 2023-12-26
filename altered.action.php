@@ -59,6 +59,21 @@ class action_altered extends APP_GameAction
     self::ajaxResponse();
   }
 
+  public function actSelectPrecoDeck()
+  {
+    self::setAjaxMode();
+    $choice = self::getArg('choice', AT_int, true);
+    $this->game->actSelectPrecoDeck($choice);
+    self::ajaxResponse();
+  }
+
+  public function actCancelPrecoDeckSelection()
+  {
+    self::setAjaxMode();
+    $this->game->actCancelPrecoDeckSelection();
+    self::ajaxResponse();
+  }
+
   public function actFirstDayManaSelection()
   {
     self::setAjaxMode();
@@ -98,21 +113,6 @@ class action_altered extends APP_GameAction
 
     $result = $this->game->actGetDeck($deckNumber);
     self::ajaxResponseWithResult($result);
-  }
-
-  public function actSelectDeck()
-  {
-    self::setAjaxMode();
-    $choice = self::getArg('choice', AT_int, true);
-    $this->game->actSelectDeck($choice);
-    self::ajaxResponse();
-  }
-
-  public function actCancelDeckSelection()
-  {
-    self::setAjaxMode();
-    $this->game->actCancelDeckSelection();
-    self::ajaxResponse();
   }
 
   //////////////////

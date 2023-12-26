@@ -32,14 +32,14 @@ define([
 ], function (dojo, declare, Sortable) {
   return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
     constructor: function () {
-      this._inactiveStates = ['selectDeck', 'newDayManaSelection'];
+      this._inactiveStates = ['selectPrecoDeck', 'newDayManaSelection'];
       this._notifications = [
         ['message', 10],
         ['midMessage', 1200],
         ['clearTurn', 200],
         ['refreshUI', 200],
         ['refreshHand', 200],
-        ['updateInitialDeckSelection', 200],
+        ['updateInitialPrecoDeckSelection', 200],
         ['setupPlayer', 3000],
         ['updateFirstDayManaSelection', 200],
         ['nightCleanup', null],
@@ -483,21 +483,91 @@ define([
     },
 
     ///////////////////////////////////////////////////////////
-    //  ____       _           _     ____            _
-    // / ___|  ___| | ___  ___| |_  |  _ \  ___  ___| | __
-    // \___ \ / _ \ |/ _ \/ __| __| | | | |/ _ \/ __| |/ /
-    //  ___) |  __/ |  __/ (__| |_  | |_| |  __/ (__|   <
-    // |____/ \___|_|\___|\___|\__| |____/ \___|\___|_|\_\
+    //  ____
+    // |  _ \ _ __ ___  ___ ___  ___
+    // | |_) | '__/ _ \/ __/ _ \/ __|
+    // |  __/| | |  __/ (_| (_) \__ \
+    // |_|   |_|  \___|\___\___/|___/
     ///////////////////////////////////////////////////////////
 
-    onEnteringStateSelectDeck(args) {
+    onEnteringStateSelectPrecoDeck(args) {
       if (!args._private) return;
+      let deckNum = args._private.selection;
+      debug(args);
+
+      const FACTION_NAMES = {
+        AX: _('Axiom'),
+        BR: _('Bravos'),
+        LY: _('Lyra'),
+        MU: _('Muna'),
+        OD: _('Ordis'),
+        YZ: _('Yzmir'),
+      };
+
+      const FACTION_DESC = {
+        AX: _('This faction is.....'),
+        BR: _('This faction is.....'),
+        LY: _('This faction is.....'),
+        MU: _('This faction is.....'),
+        OD: _('This faction is.....'),
+        YZ: _('This faction is.....'),
+      };
+
+      let selectedDeck = null;
+      let selectDeck = (deck) => {
+        if (selectedDeck !== null) {
+          $(`card-${selectedDeck.hero.id}`).classList.remove('selected');
+          $(`btnSelectDeck${selectedDeck.deckNum}`).classList.remove('selected');
+        }
+        selectedDeck = deck;
+        $(`card-${selectedDeck.hero.id}`).classList.add('selected');
+        $(`btnSelectDeck${selectedDeck.deckNum}`).classList.add('selected');
+
+        $(`overlay-deck-details`).innerHTML = '';
+        $(`overlay-deck-details`).insertAdjacentHTML(
+          'beforeend',
+          `<div class='deck-details'>
+          <div class='faction-banner' data-faction='${deck.faction}'></div>
+          <h3>${FACTION_NAMES[deck.faction]}</h3>
+          <p>
+            ${FACTION_DESC[deck.faction]}
+          </p>
+          <div class='details-footer'></div>
+        </div>`
+        );
+
+        if (deckNum === null || deckNum != selectedDeck.deckNum) {
+          if ($('btnCancel') && deckNum === null) $('btnCancel').remove();
+          if ($('btnCancelFooter')) $('btnCancelFooter').remove();
+
+          this.addPrimaryActionButton(
+            'btnConfirmFooter',
+            _('Confirm'),
+            () => this.takeAction('actSelectPrecoDeck', { choice: selectedDeck.deckNum }, false),
+            $(`overlay-deck-details`).querySelector('.details-footer')
+          );
+          this.addPrimaryActionButton('btnConfirm', _('Confirm'), () =>
+            this.takeAction('actSelectPrecoDeck', { choice: selectedDeck.deckNum }, false)
+          );
+        } else {
+          if ($('btnConfirm')) $('btnConfirm').remove();
+          if ($('btnConfirmFooter')) $('btnConfirm').remove();
+
+          this.addSecondaryActionButton(
+            'btnCancelFooter',
+            _('Cancel'),
+            () => this.takeAction('actCancelPrecoDeckSelection', {}, false),
+            $(`overlay-deck-details`).querySelector('.details-footer')
+          );
+          this.addSecondaryActionButton('btnCancel', _('Cancel'), () =>
+            this.takeAction('actCancelPrecoDeckSelection', {}, false)
+          );
+        }
+      };
 
       decks = args._private.decks;
       decks.forEach((deck) => {
-        this.addPrimaryActionButton('btnSelectDeck' + deck.deckNum, 'Deck n°' + deck.deckNum + ' Faction ' + deck.faction, () =>
-          this.takeAction('actSelectDeck', { choice: deck.deckNum }, false)
-        );
+        this.addPrimaryActionButton('btnSelectDeck' + deck.deckNum, FACTION_NAMES[deck.faction], () => selectDeck(deck));
       });
 
       // Open deck container
@@ -506,41 +576,100 @@ define([
         $('altered-overlay-content').insertAdjacentHTML(
           'beforeend',
           `
-          <h2>${_('Choose your deck')}</h2>
+          <h2>${_('Choose your faction')}</h2>
           <div id='overlay-deck-container'></div>
+          <div id='overlay-deck-details'></div>
         `
         );
-
         decks.forEach((deck) => {
           this.addCard(deck.hero, 'overlay-deck-container');
-          this.onClick(`card-${deck.hero.id}`, () => this.takeAction('actSelectDeck', { choice: deck.deckNum }, false));
+          $(`card-${deck.hero.id}`).classList.add('no-frame');
         });
       }
+
+      decks.forEach((deck) => {
+        this.onClick(`card-${deck.hero.id}`, () => selectDeck(deck));
+      });
+
       this.openOverlay();
 
       // Already made a selection => allow to cancel it
-      let deckNum = args._private.selection;
-      if (deckNum != null) {
-        let previousCard = $('overlay-deck-container').querySelector('.altered-card.selected');
-        if (previousCard) previousCard.classList.remove('selected');
-        let previousBtn = $('customActions').querySelector('.bgabutton.selected');
-        if (previousBtn) previousBtn.classList.remove('selected');
+      let previousCard = $('overlay-deck-container').querySelector('.altered-card.keep');
+      if (previousCard) previousCard.classList.remove('keep');
+      let previousBtn = $('customActions').querySelector('.bgabutton.keep');
+      if (previousBtn) previousBtn.classList.remove('keep');
 
-        $(`btnSelectDeck${deckNum}`).classList.add('selected');
-        $(`card-${decks[deckNum].hero.id}`).classList.add('selected');
+      if (deckNum != null) {
+        $(`btnSelectDeck${deckNum}`).classList.add('keep');
+        $(`card-${decks[deckNum].hero.id}`).classList.add('keep');
+
+        selectDeck(args._private.decks[deckNum]);
       }
     },
 
-    onLeavingStateSelectDeck() {
+    onLeavingStateSelectPrecoDeck() {
       this.closeOverlay();
       $('altered-overlay-content').innerHTML = '';
     },
 
-    notif_updateInitialDeckSelection(n) {
+    notif_updateInitialPrecoDeckSelection(n) {
+      debug('Notif: update initial preco deck selection', n);
       this.clearPossible();
       this.updatePageTitle();
-      this.onEnteringStateSelectDeck(n.args.args);
+      this.onEnteringStateSelectPrecoDeck(n.args.args);
     },
+
+    // onEnteringStateSelectDeck(args) {
+    //   if (!args._private) return;
+
+    //   decks = args._private.decks;
+    //   decks.forEach((deck) => {
+    //     this.addPrimaryActionButton('btnSelectDeck' + deck.deckNum, 'Deck n°' + deck.deckNum + ' Faction ' + deck.faction, () =>
+    //       this.takeAction('actSelectDeck', { choice: deck.deckNum }, false)
+    //     );
+    //   });
+
+    //   // Open deck container
+    //   if (!$('overlay-deck-container')) {
+    //     $('altered-overlay-content').innerHTML = '';
+    //     $('altered-overlay-content').insertAdjacentHTML(
+    //       'beforeend',
+    //       `
+    //       <h2>${_('Choose your deck')}</h2>
+    //       <div id='overlay-deck-container'></div>
+    //     `
+    //     );
+
+    //     decks.forEach((deck) => {
+    //       this.addCard(deck.hero, 'overlay-deck-container');
+    //       this.onClick(`card-${deck.hero.id}`, () => this.takeAction('actSelectDeck', { choice: deck.deckNum }, false));
+    //     });
+    //   }
+    //   this.openOverlay();
+
+    //   // Already made a selection => allow to cancel it
+    //   let deckNum = args._private.selection;
+    //   if (deckNum != null) {
+    //     let previousCard = $('overlay-deck-container').querySelector('.altered-card.selected');
+    //     if (previousCard) previousCard.classList.remove('selected');
+    //     let previousBtn = $('customActions').querySelector('.bgabutton.selected');
+    //     if (previousBtn) previousBtn.classList.remove('selected');
+
+    //     $(`btnSelectDeck${deckNum}`).classList.add('selected');
+    //     $(`card-${decks[deckNum].hero.id}`).classList.add('selected');
+    //   }
+    // },
+
+    // onLeavingStateSelectDeck() {
+    //   this.closeOverlay();
+    //   $('altered-overlay-content').innerHTML = '';
+    // },
+
+    // notif_updateInitialDeckSelection(n) {
+    //   this.clearPossible();
+    //   this.updatePageTitle();
+    //   this.onEnteringStateSelectDeck(n.args.args);
+    // },
 
     //////////////////////////////////////////////////////
     //  _   _                 ____

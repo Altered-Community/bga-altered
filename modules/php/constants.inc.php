@@ -42,41 +42,42 @@ const OPTION_CONFIRM_UNDOABLE = 104;
  * State constants
  */
 const ST_GAME_SETUP = 1;
-const ST_DECK_SELECTION = 2;
-const ST_SETUP = 3; // tempest setup + deck shuffle + alterer position
-const ST_FIRST_DAY = 4;
-const ST_FIRST_DAY_MULTI = 5;
-const ST_NEW_DAY = 6; // Mana draw, if day 1 = 7 + 3 mana
-const ST_NEW_DAY_MULTI = 7;
-const ST_NEW_DAY_BONUS = 8;
+const ST_PRECO_DECK_SELECTION = 2;
+const ST_DECK_SELECTION = 3;
+const ST_SETUP = 5; // tempest setup + deck shuffle + alterer position
 
-const ST_BEFORE_ASSIGNMENT = 9;
-const ST_ASSIGNMENT = 10;
-const ST_CHOOSE_ASSIGNMENT = 11;
+const ST_FIRST_DAY = 10;
+const ST_FIRST_DAY_MULTI = 11;
+const ST_NEW_DAY = 12; // Mana draw, if day 1 = 7 + 3 mana
+const ST_NEW_DAY_MULTI = 13;
+const ST_NEW_DAY_BONUS = 14;
+
+const ST_BEFORE_ASSIGNMENT = 18;
+const ST_ASSIGNMENT = 19;
+const ST_CHOOSE_ASSIGNMENT = 20;
 
 // Atomic action
-const ST_DISCARD = 12;
-const ST_GAIN = 13;
-const ST_TARGET = 14;
-const ST_LOOSE = 15;
-const ST_SPELL_CLEANUP = 16;
-const ST_INVOKE_TOKEN = 17;
-const ST_ACTIVATE_CARD = 18;
-const ST_DRAW = 19;
-const ST_SPECIAL_EFFECT = 20;
-const ST_CHECK_CONDITION = 21;
-const ST_AFTER_YOU = 23;
-const ST_ROLL_DIE = 24;
-const ST_RESUPPLY = 25;
-const ST_MOVE_EXPEDITION = 26;
-const ST_USE_COUNTER = 27;
-const ST_ACTIVATE_EFFECT = 28;
-const ST_TAP = 29;
-const ST_PLAY_CARD = 30;
-const ST_MOVE_CARD = 31;
-const ST_PAY = 32;
-const ST_DRAW_MANA = 33;
-
+const ST_DISCARD = 21;
+const ST_GAIN = 22;
+const ST_TARGET = 23;
+const ST_LOOSE = 24;
+const ST_SPELL_CLEANUP = 25;
+const ST_INVOKE_TOKEN = 26;
+const ST_ACTIVATE_CARD = 27;
+const ST_DRAW = 28;
+const ST_SPECIAL_EFFECT = 29;
+const ST_CHECK_CONDITION = 30;
+const ST_AFTER_YOU = 31;
+const ST_ROLL_DIE = 32;
+const ST_RESUPPLY = 33;
+const ST_MOVE_EXPEDITION = 34;
+const ST_USE_COUNTER = 35;
+const ST_ACTIVATE_EFFECT = 36;
+const ST_TAP = 37;
+const ST_PLAY_CARD = 38;
+const ST_MOVE_CARD = 39;
+const ST_PAY = 40;
+const ST_DRAW_MANA = 41;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -173,7 +174,7 @@ const STORM_CARDS = [
   [[OCEAN], [MOUNTAIN, FOREST]],
   [[FOREST, MOUNTAIN, OCEAN], []],
 ];
-const STORM_BACK = 5;
+const STORM_BACK = 6;
 
 const RARITY_COMMON = 0;
 const RARITY_RARE = 1;

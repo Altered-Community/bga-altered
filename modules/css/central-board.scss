@@ -44,7 +44,7 @@
                         filter 0.7s;
                     &.useless {
                         opacity: 0.4;
-                        filter: grayscale(80%);
+                        filter: brightness(50%) grayscale(80%);
                         -webkit-transform: translateZ(0);
                         -webkit-perspective: 1000;
                         -webkit-backface-visibility: hidden;
@@ -54,12 +54,12 @@
                         width: 260px;
                         height: 186px;
                         background-image: url("img/storm.jpg");
-                        background-size: 100% 600%;
+                        background-size: 100% 700%;
                         border-radius: 7px;
 
                         @for $i from 0 to 7 {
                             &[data-id="#{$i}"] {
-                                background-position-y: $i * 100% / 5;
+                                background-position-y: $i * 100% / 6;
                             }
                         }
 
