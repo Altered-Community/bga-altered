@@ -115,213 +115,25 @@
     }
 }
 
-#altered-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    transition: opacity 0.6s;
-    opacity: 0;
-
-    &.active {
-        background-color: #0f1b22c0;
-        pointer-events: all;
-        opacity: 1;
-    }
-
-    #altered-overlay-content {
-        font-family: "Tiller";
-        padding-right: 250px;
-        display: flex;
-        flex-flow: column;
-
-        .mobile_version & {
-            padding-right: 0px;
-        }
-
-        h2 {
-            text-align: center;
-            color: gold;
-            font-size: 55px;
-            font-weight: bold;
-            margin: 0px auto 40px;
-            background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-
-            &::after {
-                content: "";
-                position: absolute;
-                left: -40px;
-                right: -40px;
-                bottom: -10px;
-                height: 2px;
-                background: linear-gradient(
-                    90deg,
-                    transparent 0%,
-                    #bc8441 15%,
-                    #f3c769 50%,
-                    #bc8441 85%,
-                    transparent 100%
-                );
-            }
-        }
-
-        p {
-            text-align: center;
-            color: white;
-            font-weight: bold;
-            font-size: 25px;
-            margin-bottom: 40px;
-        }
-
-        #overlay-hand-container {
-            max-width: calc(0.9 * (100vw - 250px));
-            .mobile_version & {
-                max-width: 90vw;
-            }
-            --cardScale: 0.5;
-
-            .player-hand {
-                display: flex;
-                flex-wrap: wrap;
-            }
-        }
-
-        #overlay-deck-container {
-            max-width: calc(0.9 * (100vw - 250px));
-            .mobile_version & {
-                max-width: 90vw;
-            }
-            --cardScale: 0.5;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        #overlay-deck-details {
-            margin-top: 30px;
-            height: 200px;
-
-            .deck-details {
-                padding: 10px;
-                height: 250px;
-                width: 100%;
-                background-color: #f8f4db;
-                border-radius: 4px;
-                position: relative;
-                box-sizing: border-box;
-
-                .faction-banner {
-                    width: 50px;
-                    height: 80px;
-                    background-image: url("img/banners.png");
-                    background-size: 600% 100%;
-                    position: absolute;
-                    top: 0px;
-                    left: 10px;
-
-                    &[data-faction="BR"] {
-                        background-position-x: 20%;
-                    }
-                    &[data-faction="LY"] {
-                        background-position-x: 40%;
-                    }
-                    &[data-faction="MU"] {
-                        background-position-x: 60%;
-                    }
-                    &[data-faction="OD"] {
-                        background-position-x: 80%;
-                    }
-                    &[data-faction="YZ"] {
-                        background-position-x: 100%;
-                    }
-                }
-
-                h3 {
-                    text-align: left;
-                    font-family: "Tiller";
-                    font-size: 30px;
-                    text-indent: 65px;
-                    margin-top: 14px;
-                }
-
-                p {
-                    text-align: left;
-                    color: black;
-                    margin-top: 20px;
-                    font-size: 22px;
-                }
-
-                div.details-footer {
-                    text-align: center;
-                    a {
-                        font-size: 24px;
-                    }
-                }
-            }
-        }
-    }
+.desktop_version #chatbardock {
+    right: 0px;
 }
 
-#focus-storm-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-flow: column;
-    pointer-events: none;
+.chatwindowcollapsed {
+    background: #5e5e71;
+    .chatwindowcollapsedtitle {
+        color: white;
+    }
+}
+.notouch-device .chatwindowcollapsed:hover {
+    background: #3f3f51;
+}
 
-    #focus-storm-top,
-    #focus-storm-middle,
-    #focus-storm-bottom {
-        transition: opacity 0.6s;
-        opacity: 0;
-    }
-    &.opponentPassed {
-        #focus-storm-top {
-            opacity: 0.5;
-        }
-    }
-    &.mePassed {
-        #focus-storm-middle,
-        #focus-storm-bottom {
-            opacity: 0.5;
-        }
-    }
-    &.active {
-        #focus-storm-top,
-        #focus-storm-middle,
-        #focus-storm-bottom {
-            opacity: 1;
-        }
-    }
+.chatwindowlogs,
+.chatwindowexpanded {
+    background: #beb6c6;
+}
 
-    #focus-storm-top {
-        height: calc(var(--boardScale) * 460px);
-        width: 100%;
-        // box-shadow: 10px -10px 10px rgba(0, 0, 0, 0.8);
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
-    }
-
-    #focus-storm-middle {
-        height: calc(var(--boardScale) * 460px);
-        width: 100%;
-        // box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.8);
-        margin-top: calc(var(--boardScale) * 80px);
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
-    }
-
-    #focus-storm-bottom {
-        width: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        flex-grow: 1;
-    }
+.chatinput {
+    background: #e1e1e1;
 }

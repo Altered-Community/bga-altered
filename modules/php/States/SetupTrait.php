@@ -188,6 +188,17 @@ trait SetupTrait
   {
     $selection = Globals::getDeckSelection();
     $factionMap = [FACTION_AX => 1, FACTION_BR => 2, FACTION_LY => 3, FACTION_MU => 4, FACTION_OD => 5, FACTION_YZ => 6];
+    $factions = [];
+    foreach (Players::getAll() as $pId => $player) {
+      $deckNumber = $selection[$pId];
+      // faction setup
+      $faction = Globals::getPlayerDecks()[$pId][$deckNumber]['faction'];
+      $player->setFaction($faction);
+      $factions[$pId] = $faction;
+      Stats::setFaction($player, $factionMap[$faction]);
+    }
+    Notifications::vsScreen($factions);
+
     foreach (Players::getAll() as $pId => $player) {
       $deckNumber = $selection[$pId];
 
@@ -202,9 +213,6 @@ trait SetupTrait
         ->where('location', "deck-$deckNumber")
         ->update('location', "deck-$pId");
 
-      // faction setup
-      $player->setFaction(Globals::getPlayerDecks()[$pId][$deckNumber]['faction']);
-      Stats::setFaction($player, $factionMap[Globals::getPlayerDecks()[$pId][$deckNumber]['faction']]);
       $meeples = Meeples::setupPlayer($player);
 
       // shuffling of dec

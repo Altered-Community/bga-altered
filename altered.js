@@ -40,6 +40,7 @@ define([
         ['refreshUI', 200],
         ['refreshHand', 200],
         ['updateInitialPrecoDeckSelection', 200],
+        ['vsScreen', 100],
         ['setupPlayer', 3000],
         ['updateFirstDayManaSelection', 200],
         ['nightCleanup', null],
@@ -360,11 +361,30 @@ define([
     },
 
     onUpdateActionButtons(stateName, args) {
-      //        this.addPrimaryActionButton('test', 'test', () => this.testNotif());
+      // this.addPrimaryActionButton('test', 'test', () => this.testNotif());
       this.inherited(arguments);
     },
 
-    testNotif() {},
+    testNotif() {
+      let o = {
+        uid: '658b59c2be6d0',
+        type: 'vsScreen',
+        log: '',
+        args: {
+          factions: {
+            2322020: 'MU',
+            2322021: 'BR',
+          },
+        },
+        channelorig: '/table/t545303',
+        gamenameorig: 'altered',
+        time: 1703631299,
+        move_id: 15,
+        bIsTableMsg: true,
+        table_id: '545303',
+      };
+      this.notif_vsScreen(o);
+    },
 
     clearPossible() {
       dojo.empty('pagesubtitle');
@@ -670,6 +690,21 @@ define([
     //   this.updatePageTitle();
     //   this.onEnteringStateSelectDeck(n.args.args);
     // },
+
+    notif_vsScreen(n) {
+      debug('Notif: VS screen', n);
+      // $('altered-overlay-content').innerHTML = '';
+      // $('altered-overlay-content').insertAdjacentHTML(
+      //   'beforeend',
+      //   `<div id='vs-left'>
+      //       MUNA
+      //   </div>
+      //   <div id='vs-container'></div>
+      //   <div id='vs-right'>
+      //     LYRA
+      //   </div>`
+      // );
+    },
 
     //////////////////////////////////////////////////////
     //  _   _                 ____

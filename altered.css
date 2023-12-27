@@ -1921,149 +1921,23 @@ html {
     #logs .log .roundedbox .replay_last_move_button .icon32 {
       filter: invert(100%); }
 
-#altered-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-  transition: opacity 0.6s;
-  opacity: 0; }
-  #altered-overlay.active {
-    background-color: #0f1b22c0;
-    pointer-events: all;
-    opacity: 1; }
-  #altered-overlay #altered-overlay-content {
-    font-family: "Tiller";
-    padding-right: 250px;
-    display: flex;
-    flex-flow: column; }
-    .mobile_version #altered-overlay #altered-overlay-content {
-      padding-right: 0px; }
-    #altered-overlay #altered-overlay-content h2 {
-      text-align: center;
-      color: gold;
-      font-size: 55px;
-      font-weight: bold;
-      margin: 0px auto 40px;
-      background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      position: relative; }
-      #altered-overlay #altered-overlay-content h2::after {
-        content: "";
-        position: absolute;
-        left: -40px;
-        right: -40px;
-        bottom: -10px;
-        height: 2px;
-        background: linear-gradient(90deg, transparent 0%, #bc8441 15%, #f3c769 50%, #bc8441 85%, transparent 100%); }
-    #altered-overlay #altered-overlay-content p {
-      text-align: center;
-      color: white;
-      font-weight: bold;
-      font-size: 25px;
-      margin-bottom: 40px; }
-    #altered-overlay #altered-overlay-content #overlay-hand-container {
-      max-width: calc(0.9 * (100vw - 250px));
-      --cardScale: 0.5; }
-      .mobile_version #altered-overlay #altered-overlay-content #overlay-hand-container {
-        max-width: 90vw; }
-      #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand {
-        display: flex;
-        flex-wrap: wrap; }
-    #altered-overlay #altered-overlay-content #overlay-deck-container {
-      max-width: calc(0.9 * (100vw - 250px));
-      --cardScale: 0.5;
-      display: flex;
-      flex-wrap: wrap; }
-      .mobile_version #altered-overlay #altered-overlay-content #overlay-deck-container {
-        max-width: 90vw; }
-    #altered-overlay #altered-overlay-content #overlay-deck-details {
-      margin-top: 30px;
-      height: 200px; }
-      #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details {
-        padding: 10px;
-        height: 250px;
-        width: 100%;
-        background-color: #f8f4db;
-        border-radius: 4px;
-        position: relative;
-        box-sizing: border-box; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner {
-          width: 50px;
-          height: 80px;
-          background-image: url("img/banners.png");
-          background-size: 600% 100%;
-          position: absolute;
-          top: 0px;
-          left: 10px; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="BR"] {
-            background-position-x: 20%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="LY"] {
-            background-position-x: 40%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="MU"] {
-            background-position-x: 60%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="OD"] {
-            background-position-x: 80%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="YZ"] {
-            background-position-x: 100%; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details h3 {
-          text-align: left;
-          font-family: "Tiller";
-          font-size: 30px;
-          text-indent: 65px;
-          margin-top: 14px; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details p {
-          text-align: left;
-          color: black;
-          margin-top: 20px;
-          font-size: 22px; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer {
-          text-align: center; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer a {
-            font-size: 24px; }
+.desktop_version #chatbardock {
+  right: 0px; }
 
-#focus-storm-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-flow: column;
-  pointer-events: none; }
-  #focus-storm-overlay #focus-storm-top,
-  #focus-storm-overlay #focus-storm-middle,
-  #focus-storm-overlay #focus-storm-bottom {
-    transition: opacity 0.6s;
-    opacity: 0; }
-  #focus-storm-overlay.opponentPassed #focus-storm-top {
-    opacity: 0.5; }
-  #focus-storm-overlay.mePassed #focus-storm-middle,
-  #focus-storm-overlay.mePassed #focus-storm-bottom {
-    opacity: 0.5; }
-  #focus-storm-overlay.active #focus-storm-top,
-  #focus-storm-overlay.active #focus-storm-middle,
-  #focus-storm-overlay.active #focus-storm-bottom {
-    opacity: 1; }
-  #focus-storm-overlay #focus-storm-top {
-    height: calc(var(--boardScale) * 460px);
-    width: 100%;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
-  #focus-storm-overlay #focus-storm-middle {
-    height: calc(var(--boardScale) * 460px);
-    width: 100%;
-    margin-top: calc(var(--boardScale) * 80px);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
-  #focus-storm-overlay #focus-storm-bottom {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    flex-grow: 1; }
+.chatwindowcollapsed {
+  background: #5e5e71; }
+  .chatwindowcollapsed .chatwindowcollapsedtitle {
+    color: white; }
+
+.notouch-device .chatwindowcollapsed:hover {
+  background: #3f3f51; }
+
+.chatwindowlogs,
+.chatwindowexpanded {
+  background: #beb6c6; }
+
+.chatinput {
+  background: #e1e1e1; }
 
 #altered-main-container {
   margin-top: calc(var(--boardScale) * -130px);
@@ -2827,9 +2701,6 @@ html {
   .flip-container.flipped .flip-inner {
     transform: rotateY(180deg); }
 
-#dijit__MasterTooltip_0.instant {
-  opacity: 1 !important; }
-
 @font-face {
   font-family: "Haptic Pro";
   src: url("img/fonts/HapticPro/HapticPro-BlackItalic.woff2") format("woff2"), url("img/fonts/HapticPro/HapticPro-BlackItalic.ttf") format("truetype");
@@ -3010,6 +2881,150 @@ html {
   font-weight: 900;
   font-style: italic;
   font-display: swap; }
+#altered-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  transition: opacity 0.6s;
+  opacity: 0; }
+  #altered-overlay.active {
+    background-color: #0f1b22c0;
+    pointer-events: all;
+    opacity: 1; }
+  #altered-overlay #altered-overlay-content {
+    font-family: "Tiller";
+    padding-right: 250px;
+    display: flex;
+    flex-flow: column; }
+    .mobile_version #altered-overlay #altered-overlay-content {
+      padding-right: 0px; }
+    #altered-overlay #altered-overlay-content h2 {
+      text-align: center;
+      color: gold;
+      font-size: 55px;
+      font-weight: bold;
+      margin: 0px auto 40px;
+      background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative; }
+      #altered-overlay #altered-overlay-content h2::after {
+        content: "";
+        position: absolute;
+        left: -40px;
+        right: -40px;
+        bottom: -10px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, #bc8441 15%, #f3c769 50%, #bc8441 85%, transparent 100%); }
+    #altered-overlay #altered-overlay-content p {
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      font-size: 25px;
+      margin-bottom: 40px; }
+    #altered-overlay #altered-overlay-content #overlay-hand-container {
+      max-width: calc(0.9 * (100vw - 250px));
+      --cardScale: 0.5; }
+      .mobile_version #altered-overlay #altered-overlay-content #overlay-hand-container {
+        max-width: 90vw; }
+      #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand {
+        display: flex;
+        flex-wrap: wrap; }
+    #altered-overlay #altered-overlay-content #overlay-deck-container {
+      max-width: calc(0.9 * (100vw - 250px));
+      --cardScale: 0.5;
+      display: flex;
+      flex-wrap: wrap; }
+      .mobile_version #altered-overlay #altered-overlay-content #overlay-deck-container {
+        max-width: 90vw; }
+    #altered-overlay #altered-overlay-content #overlay-deck-details {
+      margin-top: 30px;
+      height: 200px; }
+      #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details {
+        padding: 10px;
+        height: 250px;
+        width: 100%;
+        background-color: #f8f4db;
+        border-radius: 4px;
+        position: relative;
+        box-sizing: border-box; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner {
+          width: 50px;
+          height: 80px;
+          background-image: url("img/banners.png");
+          background-size: 600% 100%;
+          position: absolute;
+          top: 0px;
+          left: 10px; }
+          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="BR"] {
+            background-position-x: 20%; }
+          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="LY"] {
+            background-position-x: 40%; }
+          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="MU"] {
+            background-position-x: 60%; }
+          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="OD"] {
+            background-position-x: 80%; }
+          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="YZ"] {
+            background-position-x: 100%; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details h3 {
+          text-align: left;
+          font-family: "Tiller";
+          font-size: 30px;
+          text-indent: 65px;
+          margin-top: 14px; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details p {
+          text-align: left;
+          color: black;
+          margin-top: 20px;
+          font-size: 22px; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer {
+          text-align: center; }
+          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer a {
+            font-size: 24px; }
+
+#focus-storm-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: column;
+  pointer-events: none; }
+  #focus-storm-overlay #focus-storm-top,
+  #focus-storm-overlay #focus-storm-middle,
+  #focus-storm-overlay #focus-storm-bottom {
+    transition: opacity 0.6s;
+    opacity: 0; }
+  #focus-storm-overlay.opponentPassed #focus-storm-top {
+    opacity: 0.5; }
+  #focus-storm-overlay.mePassed #focus-storm-middle,
+  #focus-storm-overlay.mePassed #focus-storm-bottom {
+    opacity: 0.5; }
+  #focus-storm-overlay.active #focus-storm-top,
+  #focus-storm-overlay.active #focus-storm-middle,
+  #focus-storm-overlay.active #focus-storm-bottom {
+    opacity: 1; }
+  #focus-storm-overlay #focus-storm-top {
+    height: calc(var(--boardScale) * 460px);
+    width: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
+  #focus-storm-overlay #focus-storm-middle {
+    height: calc(var(--boardScale) * 460px);
+    width: 100%;
+    margin-top: calc(var(--boardScale) * 80px);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
+  #focus-storm-overlay #focus-storm-bottom {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    flex-grow: 1; }
+
 .notransition {
   -webkit-transition: none !important;
   -moz-transition: none !important;

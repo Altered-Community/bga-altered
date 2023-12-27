@@ -71,6 +71,11 @@ class Notifications
     ]);
   }
 
+  public static function vsScreen($factions)
+  {
+    self::notifyAll('vsScreen', '', ['factions' => $factions]);
+  }
+
   public static function setupDeck($player, $meeples, $hero)
   {
     $factionNames = [

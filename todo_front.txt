@@ -1,21 +1,25 @@
-Max
-Starting deck
-Afficher le lore / manière de jeu dans le tooltip
-Rajout d'un step confirm
-Quand on a selectionné, pouvoir recliquer sur les cartes
-Changer fond du chat
-Après choix
-Affichage de fight
-Image a envoyer
-Startin hand
-On aligne sur défausser en mana
-réduire après sélection
-afficher icône
-Dupliquer le bouton valider en bas des cartes
-Mettre le compteur 3/3
-enlever l'overlay dès le début
-Tooltip
-virer la bordure blanche
+[Misc]
+X Changer fond et emplacement du chat
+
+[Starting deck]
+~ Afficher le lore / manière de jeu dans le tooltip
+X Rajout d'un step confirm
+- Quand on a selectionné, pouvoir recliquer sur les cartes
+
+[Après choix]
+~ Affichage de fight
+- Image a envoyer
+- enlever l'overlay dès le début
+
+[Starting hand]
+- On aligne sur défausser en mana
+- Réduire après sélection
+- afficher icône poubelle
+- Dupliquer le bouton valider en bas des cartes
+- Mettre le compteur 3/3
+
+[Tooltip]
+- virer la bordure blanche
 Voir poru afficher les bulles Fugace/etc. afficher l'icone
 d'abord statut puis reminder
 Afficher les tokens Asleep/anchored / avec les vraies images
