@@ -12,11 +12,13 @@ X Rajout d'un step confirm
 - enlever l'overlay dès le début
 
 [Starting hand]
-- On aligne sur défausser en mana
-- Réduire après sélection
-- afficher icône poubelle
-- Dupliquer le bouton valider en bas des cartes
-- Mettre le compteur 3/3
+X On aligne sur défausser en mana
+X Réduire après sélection
+X afficher icône poubelle
+X Dupliquer le bouton valider en bas des cartes
+X Mettre le compteur 3/3
+- finir état quand cartes validées
+- enlever l'overlay dès le début
 
 [Tooltip]
 - virer la bordure blanche

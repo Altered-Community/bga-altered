@@ -739,14 +739,22 @@ define([
     onEnteringStateFirstDayManaSelection(args) {
       debug('onEnteringStateFirstDayManaSelection');
       this.openHand();
+      let n = args._private.n;
+
       if (!$('overlay-hand-container')) {
         $('altered-overlay-content').innerHTML = '';
         $('altered-overlay-content').insertAdjacentHTML(
           'beforeend',
           `
-          <h2>${_('Choose your starting hand')}</h2>
-          <p>${_('Discarded cards will join your mana pool')}</p>
+          <h2>${_('Choose your starting mana cards')}</h2>
+          <p>${_('Selected cards will join your mana pool')}</p>
           <div id='overlay-hand-container'></div>
+          <div id='overlay-new-day-counter-wrapper' class='invalid'>
+            <span id='overlay-new-day-counter'>0</span>
+            /
+            ${n}
+          </div>
+          <a href="#" class="action-button bgabutton bgabutton_blue disabled" id="btnConfirmManaSelection">${_('Confirm')}</a>
         `
         );
 
@@ -767,9 +775,14 @@ define([
       // No selection yet => let the user click on it
       else {
         this.onSelectNCards(args._private.cards, {
-          n: args._private.n,
+          n,
           class: 'selectedToMana',
           confirmText: _('Confirm Mana'),
+          updateCallback: (selectedElements) => {
+            $('overlay-new-day-counter').innerHTML = selectedElements.length;
+            $('btnConfirmManaSelection').classList.toggle('disabled', selectedElements.length != n);
+            $('overlay-new-day-counter-wrapper').classList.toggle('invalid', selectedElements.length != n);
+          },
           callback: (selectedElements, ignoredElements) =>
             this.takeAction('actFirstDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
         });

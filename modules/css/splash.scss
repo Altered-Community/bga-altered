@@ -74,7 +74,25 @@
             .player-hand {
                 display: flex;
                 flex-wrap: wrap;
+                align-items: center;
             }
+        }
+
+        #overlay-new-day-counter-wrapper {
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: rgb(16, 226, 16);
+            &.invalid {
+                color: #f00505;
+            }
+        }
+
+        .action-button {
+            font-size: 24px;
+            margin: auto;
         }
 
         #overlay-deck-container {
