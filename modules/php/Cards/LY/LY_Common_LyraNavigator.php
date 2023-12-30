@@ -8,19 +8,19 @@ class LY_Common_LyraNavigator extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_06_C',
-      'asset' => 'ALT_CORE_B_LY_06_C',
+      'uid' => 'ALT_CORE_B_LY_12_C',
+      'asset' => 'ALT_CORE_B_LY_12_C',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Navigator'),
       'type' => CHARACTER,
-      'subtype' => CITIZEN,
+      'subtype' => [CITIZEN],
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 4,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }
