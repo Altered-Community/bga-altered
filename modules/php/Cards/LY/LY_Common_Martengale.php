@@ -15,7 +15,7 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Martengale'),
       'type' => CHARACTER,
-      'subtype' => CHIMERA,
+      'subtype' => [ANIMAL, SPIRIT],
       'supportDesc' => clienttranslate(
         '{D} : The next card you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
       ),
@@ -24,6 +24,10 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
+      'effectSupport' =>  [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
+      ],
     ];
   }
 }

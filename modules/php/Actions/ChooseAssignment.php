@@ -116,8 +116,11 @@ class ChooseAssignment extends \ALT\Models\Action
       $costReduction = Globals::getCostReduction();
       if (isset($costReduction[$player->getId()][$card->getType()])) {
         unset($costReduction[$player->getId()][$card->getType()]);
-        Globals::setCostReduction($costReduction);
       }
+      if (isset($costReduction[$player->getId()][ALL])) {
+        unset($costReduction[$player->getId()][ALL]);
+      }
+      Globals::setCostReduction($costReduction);
     }
 
     // Move card
