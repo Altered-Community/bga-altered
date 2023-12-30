@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\LY;
 
+use ALT\Helpers\FT;
+
 class LY_Common_LyraThespian extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,13 +17,14 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Thespian'),
       'type' => CHARACTER,
-      'subtype' => ARTIST,
-      'effectDesc' => clienttranslate('{J} If you have at least 3 base statistics 0 among your Characters, I gain 1 boost.'),
+      'subtype' => [ARTIST],
+      'effectDesc' => clienttranslate('{J}  If you have three or more base statistics of 0 among Characters you control, I gain 1 boost.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boost3Stat0'])
     ];
   }
 }
