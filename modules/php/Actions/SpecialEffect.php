@@ -9,6 +9,7 @@ use ALT\Core\Globals;
 use ALT\Core\Stats;
 use ALT\Helpers\FT;
 use ALT\Core\Notifications;
+use ALT\Core\Game;
 
 class SpecialEffect extends \ALT\Models\Action
 {
@@ -133,6 +134,16 @@ class SpecialEffect extends \ALT\Models\Action
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
 
+        break;
+      case 'instantWin':
+        if (Globals::getInstantWin() == false) {
+          $card->getPlayer()->setScore(99);
+          Globals::setInstantWin(true);
+          Notifications::message(
+            clienttranslate('${player_name} wins the game with ${card_name}\'s effect'),
+            ['player' => $card->getPlayer(), 'card' => $card]
+          );
+        }
         break;
       default:
         break;

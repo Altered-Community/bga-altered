@@ -115,4 +115,29 @@ abstract class Conditions
       $card->getPId() == $event['pId'] &&
       Cards::get($event['playedCard'])->getCostHand() >= $card->getExtraDatas('counter');
   }
+
+  public static function hasFleetingAnchoredAsleep($card, $event)
+  {
+    $asleep = [];
+    $anchored = [];
+    $fleeting = [];
+    foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
+      if ($c->hasToken(ASLEEP)) {
+        $asleep[] = $cId;
+      }
+      if ($c->hasToken(ANCHORED)) {
+        $anchored[] = $cId;
+      }
+      if ($c->hasToken(FLEETING)) {
+        $fleeting[] = $cId;
+      }
+    }
+
+    $combination = Utils::cartesian([$asleep, $anchored, $fleeting]);
+    Utils::filter($combination, function ($comb) {
+      return count(array_unique($comb)) == 3;
+    });
+
+    return count($combination) >= 1;
+  }
 }

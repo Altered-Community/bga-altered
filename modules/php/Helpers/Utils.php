@@ -1,4 +1,5 @@
 <?php
+
 namespace ALT\Helpers;
 
 abstract class Utils extends \APP_DbObject
@@ -233,6 +234,27 @@ abstract class Utils extends \APP_DbObject
       if (!in_array($val, $array2)) {
         $result[] = $val;
       }
+    }
+
+    return $result;
+  }
+
+  function cartesian($input)
+  {
+    $result = array(array());
+
+    foreach ($input as $key => $values) {
+      $append = array();
+      $values = array_unique($values, SORT_NUMERIC);
+
+      foreach ($result as $product) {
+        foreach ($values as $item) {
+          $product[$key] = $item;
+          $append[] = $product;
+        }
+      }
+
+      $result = $append;
     }
 
     return $result;
