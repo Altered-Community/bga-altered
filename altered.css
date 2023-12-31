@@ -1819,12 +1819,23 @@ html {
       background-position-x: 80%; }
     .altered-meeple[data-type="companion"][data-faction="YZ"], .altered-meeple[data-type="hero"][data-faction="YZ"] {
       background-position-x: 100%; }
-    .altered-meeple[data-type="companion"][data-side="me"], .altered-meeple[data-type="hero"][data-side="me"] {
-      box-shadow: 0px 0px 8px 6px rgba(0, 76, 255, 0.7);
-      border: 1px solid #004cff; }
-    .altered-meeple[data-type="companion"][data-side="opponent"], .altered-meeple[data-type="hero"][data-side="opponent"] {
-      box-shadow: 0px 0px 8px 7px rgba(255, 0, 0, 0.7);
-      border: 1px solid red; }
+    .altered-meeple[data-type="companion"][data-side], .altered-meeple[data-type="hero"][data-side] {
+      position: relative; }
+      .altered-meeple[data-type="companion"][data-side]::after, .altered-meeple[data-type="hero"][data-side]::after {
+        content: "";
+        display: block;
+        mix-blend-mode: plus-lighter;
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        margin: -3px; }
+    .altered-meeple[data-type="companion"][data-side="me"]::after, .altered-meeple[data-type="hero"][data-side="me"]::after {
+      box-shadow: 0px 0px 5px 4px #0041d8;
+      border: 3px solid #0041d8; }
+    .altered-meeple[data-type="companion"][data-side="opponent"]::after, .altered-meeple[data-type="hero"][data-side="opponent"]::after {
+      box-shadow: 0px 0px 5px 4px #bf0000;
+      border: 3px solid #bf0000; }
     .altered-meeple[data-type="companion"].willProgress::before, .altered-meeple[data-type="hero"].willProgress::before {
       content: "";
       display: block;
@@ -2033,8 +2044,7 @@ html {
               transform: rotate(180deg); }
         #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space {
           grid-column-end: span 1;
-          grid-row: 1 / span 1;
-          z-index: 2; }
+          grid-row: 1 / span 1; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-0 {
             grid-column-start: 2;
             margin-left: -90px; }
