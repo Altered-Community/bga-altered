@@ -17,7 +17,7 @@ X Réduire après sélection
 X afficher icône poubelle
 X Dupliquer le bouton valider en bas des cartes
 X Mettre le compteur 3/3
-- finir état quand cartes validées
+X finir état quand cartes validées
 - enlever l'overlay dès le début
 
 [Tooltip]

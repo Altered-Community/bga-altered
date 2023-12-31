@@ -32,7 +32,7 @@ define([
 ], function (dojo, declare, Sortable) {
   return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
     constructor: function () {
-      this._inactiveStates = ['selectPrecoDeck', 'newDayManaSelection'];
+      this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection'];
       this._notifications = [
         ['message', 10],
         ['midMessage', 1200],
@@ -741,6 +741,7 @@ define([
       this.openHand();
       let n = args._private.n;
 
+      let cardIds = null;
       if (!$('overlay-hand-container')) {
         $('altered-overlay-content').innerHTML = '';
         $('altered-overlay-content').insertAdjacentHTML(
@@ -754,7 +755,6 @@ define([
             /
             ${n}
           </div>
-          <a href="#" class="action-button bgabutton bgabutton_blue disabled" id="btnConfirmManaSelection">${_('Confirm')}</a>
         `
         );
 
@@ -765,20 +765,49 @@ define([
 
       // Already made a selection => allow to cancel it
       if (args._private.selection != null) {
+        args._private.selection.forEach((cardId) => {
+          $(`card-${cardId}`).classList.add('selectedToMana');
+        });
+        $('overlay-new-day-counter').innerHTML = 3;
+        $('overlay-new-day-counter-wrapper').classList.remove('invalid');
+
+        // Remove confirm button
+        if ($('btnConfirmManaSelection')) $('btnConfirmManaSelection').remove();
+
+        // Cancel buttons
         this.addSecondaryActionButton('actCancelFirstDayManaSelection', _('Cancel'), () =>
           this.takeAction('actCancelFirstDayManaSelection', {}, false)
         );
-        args._private.selection.forEach((cardId) => {
-          $(`card-${cardId}`).classList.add('selectedToMana');
+        $('altered-overlay-content').insertAdjacentHTML(
+          'beforeend',
+          `<a href="#" class="action-button bgabutton bgabutton_gray" id="btnCancelManaSelection">${_('Cancel')}</a>`
+        );
+        this.onClick('btnCancelManaSelection', () => {
+          this.takeAction('actCancelFirstDayManaSelection', {}, false);
         });
       }
       // No selection yet => let the user click on it
       else {
+        // Remove confirm button
+        if ($('btnCancelManaSelection')) $('btnCancelManaSelection').remove();
+
+        // Confirm button
+        if (!$('btnConfirmManaSelection')) {
+          $('altered-overlay-content').insertAdjacentHTML(
+            'beforeend',
+            `<a href="#" class="action-button bgabutton bgabutton_blue disabled" id="btnConfirmManaSelection">${_('Confirm')}</a>`
+          );
+          this.onClick('btnConfirmManaSelection', () => {
+            this.takeAction('actFirstDayManaSelection', { cardIds: JSON.stringify(cardIds) });
+          });
+        }
+
         this.onSelectNCards(args._private.cards, {
           n,
           class: 'selectedToMana',
           confirmText: _('Confirm Mana'),
           updateCallback: (selectedElements) => {
+            cardIds = selectedElements;
             $('overlay-new-day-counter').innerHTML = selectedElements.length;
             $('btnConfirmManaSelection').classList.toggle('disabled', selectedElements.length != n);
             $('overlay-new-day-counter-wrapper').classList.toggle('invalid', selectedElements.length != n);

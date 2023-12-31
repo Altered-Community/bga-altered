@@ -2967,12 +2967,18 @@ html {
       font-weight: bold;
       margin-top: 20px;
       margin-bottom: 20px;
-      color: #0ebd0e; }
+      color: #10e210; }
       #altered-overlay #altered-overlay-content #overlay-new-day-counter-wrapper.invalid {
         color: #f00505; }
     #altered-overlay #altered-overlay-content .action-button {
       font-size: 24px;
       margin: auto; }
+      #altered-overlay #altered-overlay-content .action-button.bgabutton_gray {
+        background-color: #f0f0f0;
+        color: #060606; }
+        #altered-overlay #altered-overlay-content .action-button.bgabutton_gray:hover {
+          background-color: #bbbaba;
+          color: black; }
     #altered-overlay #altered-overlay-content #overlay-deck-container {
       max-width: calc(0.9 * (100vw - 250px));
       --cardScale: 0.5;

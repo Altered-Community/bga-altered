@@ -1414,6 +1414,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           updateStatus();
         });
       });
+
+      if (config.updateCallback !== null) {
+        config.updateCallback([]);
+      }
+      updateStatus();
     },
   });
 });
