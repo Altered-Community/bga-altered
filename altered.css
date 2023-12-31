@@ -2699,20 +2699,20 @@ html {
     width: auto;
     fill: currentColor; }
 
-.flip-container {
+.flip-container.vertical {
   background-color: transparent;
   width: 100%;
   height: 100%;
   perspective: 1000px; }
-  .flip-container .flip-inner {
+  .flip-container.vertical .flip-inner {
     position: relative;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
     transition: transform 1s;
     transform: rotateY(0deg); }
-    .flip-container .flip-inner .flip-front,
-    .flip-container .flip-inner .flip-back {
+    .flip-container.vertical .flip-inner .flip-front,
+    .flip-container.vertical .flip-inner .flip-back {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -2720,10 +2720,36 @@ html {
       /* Safari */
       backface-visibility: hidden;
       transform: rotateY(0deg); }
-    .flip-container .flip-inner .flip-back {
+    .flip-container.vertical .flip-inner .flip-back {
       transform: rotateY(180deg); }
-  .flip-container.flipped .flip-inner {
+  .flip-container.vertical.flipped .flip-inner {
     transform: rotateY(180deg); }
+
+.flip-container.horizontal {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px; }
+  .flip-container.horizontal .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    transform: rotateX(0deg); }
+    .flip-container.horizontal .flip-inner .flip-front,
+    .flip-container.horizontal .flip-inner .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      /* Safari */
+      backface-visibility: hidden;
+      transform: rotateX(0deg); }
+    .flip-container.horizontal .flip-inner .flip-back {
+      transform: rotateX(180deg); }
+  .flip-container.horizontal.flipped .flip-inner {
+    transform: rotateX(180deg); }
 
 @font-face {
   font-family: "Haptic Pro";

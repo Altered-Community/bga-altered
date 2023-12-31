@@ -234,8 +234,13 @@ define([
       $('altered-overlay').classList.add('active');
     },
     closeOverlay() {
-      debug('testest');
       $('altered-overlay').classList.remove('active');
+    },
+
+    closeOverlayIfOpened() {
+      this.closeOverlay();
+      this.onChangeHandLocationSetting();
+      $('altered-overlay-content').innerHTML = '';
     },
 
     setupSortableHand() {
@@ -819,9 +824,7 @@ define([
     },
 
     onLeavingStateFirstDayManaSelection() {
-      this.closeOverlay();
-      this.onChangeHandLocationSetting();
-      $('altered-overlay-content').innerHTML = '';
+      this.closeOverlayIfOpened();
     },
 
     notif_updateFirstDayManaSelection(n) {

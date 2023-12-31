@@ -190,7 +190,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         let oCard = $(`storm-card-container-${n.args.stormIndex}`).querySelector('.storm-card');
         this.flipAndReplace(
           oCard,
-          `<div class='storm-card' data-id='${card.cardId % 10}' data-flipped='${card.rotated ? 1 : 0}'></div>`
+          `<div class='storm-card' data-id='${card.cardId % 10}' data-flipped='${card.rotated ? 1 : 0}'></div>`,
+          { direction: 'horizontal' }
         ).then(slideIt);
       } else {
         slideIt();

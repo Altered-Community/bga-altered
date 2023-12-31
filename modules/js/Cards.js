@@ -188,8 +188,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -442,6 +442,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: private discarding cards', n);
       let counter = 'handCount';
       let nonTappedMana = 0;
+      this.closeOverlayIfOpened();
 
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
@@ -514,6 +515,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     notif_discardCards(n) {
       debug('Notif: public discarding cards', n);
+      this.closeOverlayIfOpened();
       if (n.args.player_id == this.player_id) {
         return;
       }
