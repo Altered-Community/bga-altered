@@ -632,7 +632,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_targetCards(n) {
-      debug('Notification: target card');
+      debug('Notification: target card', n);
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
     },
 

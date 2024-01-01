@@ -20,7 +20,12 @@ class PlayCard extends \ALT\Models\Action
   public function getDescription()
   {
     $player = $this->getPlayer();
-    $card = $this->getCard();
+    $card = $this->getCard(true);
+
+    if (is_null($card)) {
+      return clienttranslate('Play a card');
+    }
+
     return [
       'log' => clienttranslate('Play ${card_name}'),
       'args' => [
@@ -37,14 +42,16 @@ class PlayCard extends \ALT\Models\Action
     return Players::get($pId);
   }
 
-  public function getCard()
+  public function getCard($description = false)
   {
     $cardId = $this->getCtxArg('cardId');
     if ($cardId == ME) {
       $cardId = $this->ctx->getSourceId() ?? null;
     }
 
-    if (is_null($cardId)) {
+    if (is_null($cardId) && $description) {
+      return null;
+    } elseif (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args (play card). Should not happen');
     }
     return Cards::getSingle($cardId);
@@ -53,6 +60,7 @@ class PlayCard extends \ALT\Models\Action
   protected $args = [
     'n' => 1,
     'free' => false,
+    'effectHand' => true,
   ];
 
   public function argsPlayCard()
@@ -98,7 +106,7 @@ class PlayCard extends \ALT\Models\Action
     }
 
     // $this->playCard($cardId, $location); // TODO
-    Actions::get(CHOOSE_ASSIGNMENT)->playCard($cardId, $location);
+    Actions::get(CHOOSE_ASSIGNMENT)->playCard($cardId, $location, $this->getArg('free'), $this->getArg('effectHand'));
     $this->resolveAction([$cardId, $location]);
   }
 }

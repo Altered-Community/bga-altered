@@ -101,7 +101,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->resolveAction([$cardId, $location]);
   }
 
-  public function playCard($cardId, $location, $free = false)
+  public function playCard($cardId, $location, $free = false, $effectHand = true)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -121,6 +121,8 @@ class ChooseAssignment extends \ALT\Models\Action
         unset($costReduction[$player->getId()][ALL]);
       }
       Globals::setCostReduction($costReduction);
+    } else {
+      $cost = 0;
     }
 
     // Move card
@@ -148,7 +150,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // insert effect flow
     $effect = $card->getEffectPlayed();
-    if (empty($effect) && $fromLocation == HAND) {
+    if (empty($effect) && $fromLocation == HAND && $effectHand) {
       $effect = $card->getEffectHand();
     }
 

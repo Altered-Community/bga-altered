@@ -19,7 +19,7 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'name' => clienttranslate('Coppélia'),
       'type' => CHARACTER,
       'subtype' => [ROBOT],
-      'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may put me in one of your Expeditions and I gain $[ASLEEP].'),
+      'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 0,

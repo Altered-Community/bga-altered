@@ -10,6 +10,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\FT;
 use ALT\Core\Notifications;
 use ALT\Core\Game;
+use ALT\Core\Engine;
 
 class SpecialEffect extends \ALT\Models\Action
 {
@@ -156,6 +157,29 @@ class SpecialEffect extends \ALT\Models\Action
             ['player' => $card->getPlayer(), 'card' => $card]
           );
         }
+        break;
+      case 'MindApotheosis':
+        Engine::checkpoint();
+        // draw 4 cards
+        $player = $card->getPlayer();
+        $drawn = $player->draw(4, null, null, $card);
+        // Target only Characters drawn
+        $this->insertAsChild(FT::ACTION(
+          TARGET,
+          [
+            'n' => 2,
+            'upTo' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(PLAY_CARD, ['free' => true, 'effectHand' => false]),
+              FT::GAIN(EFFECT, FLEETING)
+            ),
+            'targetLocation' => [HAND],
+            'targetPlayer' => ME,
+            'cards' => $drawn->getIds(),
+            'discardRemaining' => true,
+          ],
+          ['sourceId' => $card->getId()]
+        ));
         break;
       default:
         break;
