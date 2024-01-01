@@ -1,5 +1,20 @@
 [Misc]
 X Changer fond et emplacement du chat
+- Kojo a modifier
+- Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
+- Unique: bordure dorée avec un glow
+- Tough: mettre une icone bouclier + afficher le coût supplémentaire
+
+[Setup]
+- Mettre une ombre sur le héros à la place de la bordure
+- Afficher le nombre de jour/phase où on est
+- Reserve a baisser un peu par rapport
+- Discard a remettre
+- Afficher max reserve / max landmark slot
+- Reserve afficher de gauche à droite
+- Biomes
+- Mettre flèche si ca te fait avancer (verte). et mettre flèche autre couleur si majoritaire mais pas avancer (gris)
+- Eventail de la main
 
 [Starting deck]
 ~ Afficher le lore / manière de jeu dans le tooltip
@@ -17,42 +32,29 @@ X Réduire après sélection
 X afficher icône poubelle
 X Dupliquer le bouton valider en bas des cartes
 X Mettre le compteur 3/3
-- finir état quand cartes validées
+X finir état quand cartes validées
 - enlever l'overlay dès le début
 
 [Tooltip]
 - virer la bordure blanche
-Voir poru afficher les bulles Fugace/etc. afficher l'icone
-d'abord statut puis reminder
-Afficher les tokens Asleep/anchored / avec les vraies images
-Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
-Glossaire
-Bouton pour afficher le glossaire
-Misc
-Kojo a modifier
-Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
-Unique: bordure dorée avec un glow
-Tough: mettre une icone bouclier + afficher le coût supplémentaire
-Setup
-Mettre une ombre sur le héros à la place de la bordure
-Afficher le nombre de jour/phase où on est
-REserve a baisser un peu par rapport
-Discard a remettre
-Afficher max reserve / max landmark slot
-Reserve afficher de gauche à droite
-Biomes
-Mettre flèche si ca te fait avancer (verte). et mettre flèche autre couleur si majoritaire mais pas avancer (gris)
-Eventail de la main
+- Voir pour afficher les bulles Fugace/etc. afficher l'icone
+- d'abord statut puis reminder
+- Afficher les tokens Asleep/anchored / avec les vraies images
+- Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
 
-Choose Assignment
-Pouvoir désélectionner quand tu cliques sur ta carte ou ailleurs
-Lorsqu'on clique sur une carte (main/reserve), elle revient grande (pas mini) + haut pour montrer la carte x&
-Pour les sorts, rajout un bouton pour lancer le sort.
-Tap hero/carte
+[Glossaire]
+- Bouton pour afficher le glossaire
 
-Animation nuit
-Retourner la carte dans l'autre sens
+[Choose Assignment]
+- Pouvoir désélectionner quand tu cliques sur ta carte ou ailleurs
+- Lorsqu'on clique sur une carte (main/reserve), elle revient grande (pas mini) + haut pour montrer la carte x&
+- Pour les sorts, rajout un bouton pour lancer le sort.
 
-End game
-Reutiliser ecran de win
-Tiebreak: manque une map 
+[Tap hero/carte]
+
+[Animation nuit]
+X Retourner la carte dans l'autre sens
+
+[End game]
+- Reutiliser ecran de win
+X Tiebreak: manque une map 

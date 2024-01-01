@@ -1819,12 +1819,23 @@ html {
       background-position-x: 80%; }
     .altered-meeple[data-type="companion"][data-faction="YZ"], .altered-meeple[data-type="hero"][data-faction="YZ"] {
       background-position-x: 100%; }
-    .altered-meeple[data-type="companion"][data-side="me"], .altered-meeple[data-type="hero"][data-side="me"] {
-      box-shadow: 0px 0px 8px 6px rgba(0, 76, 255, 0.7);
-      border: 1px solid #004cff; }
-    .altered-meeple[data-type="companion"][data-side="opponent"], .altered-meeple[data-type="hero"][data-side="opponent"] {
-      box-shadow: 0px 0px 8px 7px rgba(255, 0, 0, 0.7);
-      border: 1px solid red; }
+    .altered-meeple[data-type="companion"][data-side], .altered-meeple[data-type="hero"][data-side] {
+      position: relative; }
+      .altered-meeple[data-type="companion"][data-side]::after, .altered-meeple[data-type="hero"][data-side]::after {
+        content: "";
+        display: block;
+        mix-blend-mode: plus-lighter;
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        margin: -3px; }
+    .altered-meeple[data-type="companion"][data-side="me"]::after, .altered-meeple[data-type="hero"][data-side="me"]::after {
+      box-shadow: 0px 0px 5px 4px #0041d8;
+      border: 3px solid #0041d8; }
+    .altered-meeple[data-type="companion"][data-side="opponent"]::after, .altered-meeple[data-type="hero"][data-side="opponent"]::after {
+      box-shadow: 0px 0px 5px 4px #bf0000;
+      border: 3px solid #bf0000; }
     .altered-meeple[data-type="companion"].willProgress::before, .altered-meeple[data-type="hero"].willProgress::before {
       content: "";
       display: block;
@@ -2033,8 +2044,7 @@ html {
               transform: rotate(180deg); }
         #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space {
           grid-column-end: span 1;
-          grid-row: 1 / span 1;
-          z-index: 2; }
+          grid-row: 1 / span 1; }
           #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-0 {
             grid-column-start: 2;
             margin-left: -90px; }
@@ -2699,20 +2709,20 @@ html {
     width: auto;
     fill: currentColor; }
 
-.flip-container {
+.flip-container.vertical {
   background-color: transparent;
   width: 100%;
   height: 100%;
   perspective: 1000px; }
-  .flip-container .flip-inner {
+  .flip-container.vertical .flip-inner {
     position: relative;
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
     transition: transform 1s;
     transform: rotateY(0deg); }
-    .flip-container .flip-inner .flip-front,
-    .flip-container .flip-inner .flip-back {
+    .flip-container.vertical .flip-inner .flip-front,
+    .flip-container.vertical .flip-inner .flip-back {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -2720,10 +2730,36 @@ html {
       /* Safari */
       backface-visibility: hidden;
       transform: rotateY(0deg); }
-    .flip-container .flip-inner .flip-back {
+    .flip-container.vertical .flip-inner .flip-back {
       transform: rotateY(180deg); }
-  .flip-container.flipped .flip-inner {
+  .flip-container.vertical.flipped .flip-inner {
     transform: rotateY(180deg); }
+
+.flip-container.horizontal {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px; }
+  .flip-container.horizontal .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    transform: rotateX(0deg); }
+    .flip-container.horizontal .flip-inner .flip-front,
+    .flip-container.horizontal .flip-inner .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      /* Safari */
+      backface-visibility: hidden;
+      transform: rotateX(0deg); }
+    .flip-container.horizontal .flip-inner .flip-back {
+      transform: rotateX(180deg); }
+  .flip-container.horizontal.flipped .flip-inner {
+    transform: rotateX(180deg); }
 
 @font-face {
   font-family: "Haptic Pro";
@@ -2967,12 +3003,18 @@ html {
       font-weight: bold;
       margin-top: 20px;
       margin-bottom: 20px;
-      color: #0ebd0e; }
+      color: #10e210; }
       #altered-overlay #altered-overlay-content #overlay-new-day-counter-wrapper.invalid {
         color: #f00505; }
     #altered-overlay #altered-overlay-content .action-button {
       font-size: 24px;
       margin: auto; }
+      #altered-overlay #altered-overlay-content .action-button.bgabutton_gray {
+        background-color: #f0f0f0;
+        color: #060606; }
+        #altered-overlay #altered-overlay-content .action-button.bgabutton_gray:hover {
+          background-color: #bbbaba;
+          color: black; }
     #altered-overlay #altered-overlay-content #overlay-deck-container {
       max-width: calc(0.9 * (100vw - 250px));
       --cardScale: 0.5;

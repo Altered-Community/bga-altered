@@ -93,6 +93,16 @@
         .action-button {
             font-size: 24px;
             margin: auto;
+
+            &.bgabutton_gray {
+                background-color: #f0f0f0;
+                color: #060606;
+
+                &:hover {
+                    background-color: #bbbaba;
+                    color: black;
+                }
+            }
         }
 
         #overlay-deck-container {

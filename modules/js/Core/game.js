@@ -878,7 +878,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
     /*
      * Wrap a node inside a flip container to trigger a flip animation before replacing with another node
      */
-    flipAndReplace(target, newNode, duration = 1000) {
+    flipAndReplace(target, newNode, config = {}) {
+      let duration = config.duration || 1000;
+      let direction = config.direction || 'vertical';
+
       // Fast replay mode
       if (this.isFastMode()) {
         dojo.place(newNode, target, 'replace');
@@ -888,7 +891,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       return new Promise((resolve, reject) => {
         // Wrap everything inside a flip container
         let container = dojo.place(
-          `<div class="flip-container flipped">
+          `<div class="flip-container flipped ${direction}">
             <div class="flip-inner">
               <div class="flip-front"></div>
               <div class="flip-back"></div>
@@ -1414,6 +1417,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           updateStatus();
         });
       });
+
+      if (config.updateCallback !== null) {
+        config.updateCallback([]);
+      }
+      updateStatus();
     },
   });
 });
