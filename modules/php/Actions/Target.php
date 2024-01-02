@@ -34,7 +34,9 @@ class Target extends \ALT\Models\Action
     'statuses' => 'disabled', // does it has those statuses
     'excludeSelf' => false,
     'totalCost' => INFTY,
-    'hasEffects' => 'disabled'
+    'hasEffects' => 'disabled',
+    'cards' => null,
+    'discardRemaining' => false
   ];
 
   public function getDescription()
@@ -113,7 +115,15 @@ class Target extends \ALT\Models\Action
     // What cards ?
     $targetType = $this->getArg('targetType');
     $targetLocation = $this->getArg('targetLocation');
-    $cards = Cards::getFiltered($pIds, $targetLocation, $targetType);
+
+    if (!is_null($this->getArg('cards'))) {
+      $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
+        return in_array($c->getLocation(), $targetLocation) && in_array($c->getType(), $targetType);
+      });
+    } else {
+      $cards = Cards::getFiltered($pIds, $targetLocation, $targetType);
+    }
+
     $excludeSelf = $this->getArg('excludeSelf');
     $sourceId = $this->getSourceId();
 
@@ -244,6 +254,24 @@ class Target extends \ALT\Models\Action
 
     $cards = Cards::getMany($cardIds);
     Notifications::targetCards($player, $cards, $additionalCost, $this->getSource());
+
+    if ($this->getArg('discardRemaining') == true) {
+      foreach (array_diff($this->getArg('cards'), $cardIds) as $cId) {
+        Cards::discard($cId);
+      }
+
+      Notifications::publicDiscard(
+        $player,
+        Cards::getMany(array_diff($this->getArg('cards'), $cardIds)),
+        clienttranslate('${player_name} discards  ${card_names} as they are not targeted'),
+        [
+          'source' => HAND,
+          'hand' => true,
+          'destination' => DISCARD,
+        ]
+      );
+    }
+
     $this->resolveAction([$cardIds]);
   }
 }
