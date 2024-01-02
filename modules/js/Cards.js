@@ -986,6 +986,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
 
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
+
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-character ${mini ? 'mini-card' : ''}'>
@@ -1015,10 +1018,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
-              ${this.formatString(_(p.effectDesc) || '')}
+              ${this.formatString(effect.str)}
             </div>
             <div class='card-reminders'>
-              ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+              ${this.formatString(reminders)}
             </div>
           </div>
           <div class='card-support'>
@@ -1071,6 +1074,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
+
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-spell ${mini ? 'mini-card' : ''}'>
@@ -1090,10 +1096,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
-              ${this.formatString(_(p.effectDesc) || '')}
+              ${this.formatString(effect.str)}
             </div>
             <div class='card-reminders'>
-            ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+              ${this.formatString(reminders)}
             </div>
           </div>
         </div>
@@ -1246,5 +1252,99 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     //   }
     //   return result;
     // },
+
+    replaceKeyWordsAndGetReminders(str) {
+      const KEYWORDS = {
+        AFTER_YOU: {
+          text: _('After You'),
+          reminder: _('End your turn as if you had played a card. You may still play cards later this Day.'),
+        },
+        ANCHORED: {
+          text: _('Anchored'),
+          reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
+        },
+        ASLEEP: {
+          text: _('Asleep'),
+          reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
+        },
+        B: {
+          text: '',
+          reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
+        },
+        BOODA: {
+          text: _('Booda 2/2/2'),
+        },
+        BOOSTED: {
+          text: _('Boosted'),
+        },
+        BRASSBUG: {
+          text: _('Brassbug 2/2/2'),
+        },
+        DEFENDER: {
+          text: _('Defender'),
+          reminder: _("My Expedition can't advance during Dusk."),
+        },
+        ETERNAL: {
+          text: _('Eternal'),
+          reminder: _("During Rest, I don't go to Reserve."),
+        },
+        FLEETING: {
+          text: _('Fleeting'),
+          reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
+        },
+        FLEETING_CHAR: {
+          text: _('Fleeting'),
+          reminder: _('If I would be sent to Reserve, discard me instead.'),
+        },
+        GIGANTIC: {
+          text: _('Gigantic'),
+          reminder: _('I am considered present in each of your Expeditions.'),
+        },
+        MAW: {
+          text: _('Maw 0/0/0'),
+        },
+        ORDIS_RECRUIT: {
+          text: _('Ordis Recruit 1/1/1'),
+        },
+        RESUPPLY: {
+          text: _('Resupply'),
+          reminder: _('Put the top card of your deck in Reserve.'),
+        },
+        SABOTAGE: {
+          text: _('Sabotage'),
+          reminder: _('Discard up to one target card from a Reserve.'),
+        },
+        SEASONED: {
+          text: _('Seasoned'),
+          reminder: _('I keep my boosts when I go to Reserve.'),
+        },
+        TOUGH_1: {
+          text: _('Tough 1'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
+        },
+        TOUGH_2: {
+          text: _('Tough 2'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {2} more."),
+        },
+        TOUGH_X: {
+          text: _('Tough X'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
+        },
+      };
+
+      let reminders = [];
+      Object.keys(KEYWORDS).forEach((keyword) => {
+        const regex = new RegExp('\\$\\[' + keyword + '\\]', 'g');
+        if (str.match(regex) !== null) {
+          reminders.push(KEYWORDS[keyword].text + ':' + KEYWORDS[keyword].reminder);
+          str = str.replaceAll(regex, `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`);
+        }
+
+        const regex2 = new RegExp('\\[' + keyword + '\\]', 'g');
+        str = str.replaceAll(regex2, `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`);
+      });
+
+      return { str, reminders };
+    },
   });
 });
