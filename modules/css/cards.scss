@@ -555,7 +555,8 @@ $miniCardScale: 0.33;
 
     &.card-hero {
         height: $miniCardScale * 450px;
-        box-shadow: none;
+        margin: 0;
+        // box-shadow: none;
 
         .card-frame {
             display: none;

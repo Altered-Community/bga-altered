@@ -6,7 +6,7 @@ X Changer fond et emplacement du chat
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
 
 [Setup]
-- Mettre une ombre sur le héros à la place de la bordure
+X Mettre une ombre sur le héros à la place de la bordure
 - Afficher le nombre de jour/phase où on est
 - Reserve a baisser un peu par rapport
 - Discard a remettre

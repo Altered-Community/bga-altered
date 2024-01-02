@@ -9,18 +9,18 @@
 
     .player-board-hero {
         position: absolute;
-        width: $cardWidth + 2 * $boardMargin;
-        height: $cardHeight + 2 * $boardMargin;
-        background: #ffffff78;
-        border-radius: 7px;
-        border: 1px solid black;
+        width: $cardWidth; // + 2 * $boardMargin;
+        height: $cardHeight; // + 2 * $boardMargin;
+        // background: #ffffff78;
+        // border: 1px solid black;
+        border-radius: 12px;
         display: flex;
         justify-content: center;
         align-items: center;
         box-shadow: 0px 0px 0px 0px #ffe300;
         transition: box-shadow 0.5s;
         &.active {
-            box-shadow: 0px 0px 15px 8px #ffe300;
+            box-shadow: 0px 0px 19px 13px #ffe300;
         }
 
         .altered-first-player-holder {
