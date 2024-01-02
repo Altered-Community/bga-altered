@@ -279,19 +279,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           o.innerHTML = p[biome];
           o.dataset.size = sizes[biome];
 
-          // Compare them
-          let o2 = $(`board-${storm}-${opponentId}`).querySelector(`.total-${biome}`);
-          let v2 = this.gamedatas.players[opponentId].biomes[storm][biome];
-          if (p[biome] < v2) {
-            o.classList.remove('bigger');
-            o2.classList.add('bigger');
-          } else if (p[biome] > v2) {
-            o.classList.add('bigger');
-            o2.classList.remove('bigger');
-          } else {
-            o.classList.remove('bigger');
-            o2.classList.remove('bigger');
-          }
+          // // Compare them
+          // let o2 = $(`board-${storm}-${opponentId}`).querySelector(`.total-${biome}`);
+          // let v2 = this.gamedatas.players[opponentId].biomes[storm][biome];
+          // if (p[biome] < v2) {
+          //   o.classList.remove('bigger');
+          //   o2.classList.add('bigger');
+          // } else if (p[biome] > v2) {
+          //   o.classList.add('bigger');
+          //   o2.classList.remove('bigger');
+          // } else {
+          //   o.classList.remove('bigger');
+          //   o2.classList.remove('bigger');
+          // }
         });
       });
     },
@@ -301,15 +301,40 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.gamedatas.movements = movements;
       }
 
+      let willMove = {};
+
+      this.forEachPlayer((player) => {
+        let pId = player.id;
+        willMove[pId] = {};
+
+        // Update will move for each biome
+        ['hero', 'companion'].forEach((type) => {
+          let stormSide = type == 'hero' ? 'stormLeft' : 'stormRight';
+          let container = $(`board-${stormSide}-${pId}`);
+
+          let moving = false;
+          ['forest', 'mountain', 'ocean'].forEach((biome) => {
+            let o = container.querySelector(`.total-${biome}`);
+            o.dataset.willProgress = this.gamedatas.movements[pId][type][biome];
+            if (o.dataset.willProgress == 2) moving = true;
+          });
+
+          willMove[pId][type] = moving;
+        });
+      });
+
+      console.log(willMove);
+
       let minPos = 8,
         maxPos = 0;
       [...$('storm-container').querySelectorAll('.altered-meeple')].forEach((meeple) => {
         let pId = meeple.dataset.side == 'opponent' ? this.topPId : this.bottomPId;
-        let willProgress = this.gamedatas.movements[pId] && this.gamedatas.movements[pId][meeple.dataset.type];
-        meeple.classList.toggle('willProgress', willProgress === true);
+        let type = meeple.dataset.type;
+        let willProgress = willMove[pId][type];
+        meeple.classList.toggle('willProgress', willProgress);
 
         let pos = +meeple.parentNode.dataset.x;
-        if (meeple.dataset.type == 'hero') minPos = Math.min(minPos, pos);
+        if (type == 'hero') minPos = Math.min(minPos, pos);
         else maxPos = Math.max(maxPos, pos);
       });
 

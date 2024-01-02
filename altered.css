@@ -1837,18 +1837,20 @@ html {
       box-shadow: 0px 0px 5px 4px #bf0000;
       border: 3px solid #bf0000; }
     .altered-meeple[data-type="companion"].willProgress::before, .altered-meeple[data-type="hero"].willProgress::before {
-      content: "";
+      content: "\f0d9";
       display: block;
       position: absolute;
-      width: 0;
-      border: 12px solid transparent;
-      border-right: 22px solid white;
-      top: 18px;
-      left: -43px; }
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: 14px;
+      font-size: 40px;
+      text-rendering: auto;
+      top: 10px;
+      left: -26px;
+      color: white;
+      text-shadow: 0px 0px 4px black, 0px 0px 4px black; }
     .altered-meeple[data-type="companion"][data-type="hero"].willProgress::before, .altered-meeple[data-type="hero"][data-type="hero"].willProgress::before {
-      border: 12px solid transparent;
-      border-left: 22px solid white;
-      left: 65px; }
+      content: "\f0da";
+      left: 66px; }
   .altered-meeple[data-type="hero"] {
     background-position-y: 100%; }
   .altered-meeple[data-type="fleeting"] {
@@ -2180,6 +2182,29 @@ html {
           text-shadow: none;
           box-shadow: 1px 1px 3px black;
           text-align: center; }
+        .altered-player-board .player-board-storm .total-biomes .total-forest::after,
+        .altered-player-board .player-board-storm .total-biomes .total-mountain::after,
+        .altered-player-board .player-board-storm .total-biomes .total-ocean::after {
+          content: "\f0da";
+          display: block;
+          position: absolute;
+          font: normal normal normal 14px/1 FontAwesome;
+          font-size: 30px;
+          text-rendering: auto;
+          top: 8px;
+          right: -22px;
+          color: #cac7c7;
+          text-shadow: 0px 0px 4px black, 0px 0px 4px black;
+          opacity: 1;
+          transition: opacity 0.5s, color 0.5s; }
+        .altered-player-board .player-board-storm .total-biomes .total-forest[data-will-progress="0"]::after,
+        .altered-player-board .player-board-storm .total-biomes .total-mountain[data-will-progress="0"]::after,
+        .altered-player-board .player-board-storm .total-biomes .total-ocean[data-will-progress="0"]::after {
+          opacity: 0; }
+        .altered-player-board .player-board-storm .total-biomes .total-forest[data-will-progress="2"]::after,
+        .altered-player-board .player-board-storm .total-biomes .total-mountain[data-will-progress="2"]::after,
+        .altered-player-board .player-board-storm .total-biomes .total-ocean[data-will-progress="2"]::after {
+          color: #05ec05; }
       .altered-player-board .player-board-storm .total-biomes .total-forest {
         background: #799c00; }
         .altered-player-board .player-board-storm .total-biomes .total-forest::before {
@@ -2209,6 +2234,12 @@ html {
       .altered-player-board .player-board-storm.storm-right .total-mountain::before,
       .altered-player-board .player-board-storm.storm-right .total-ocean::before {
         left: 50px; }
+      .altered-player-board .player-board-storm.storm-right .total-forest::after,
+      .altered-player-board .player-board-storm.storm-right .total-mountain::after,
+      .altered-player-board .player-board-storm.storm-right .total-ocean::after {
+        content: "\f0d9";
+        right: auto;
+        left: -20px; }
     .altered-player-board .player-board-storm.storm-right .total-biomes-highlights div,
     .altered-player-board .player-board-storm.storm-right .total-forest,
     .altered-player-board .player-board-storm.storm-right .total-mountain,
@@ -2317,7 +2348,7 @@ html {
     .altered-player-board .player-board-grass .player-board-separator {
       width: 40px;
       height: 185px;
-      background: url("img/separator-reserve-landmark.jpg");
+      background: url("img/separator-reserve-landmark.png");
       background-size: 100% 100%; }
     .altered-player-board .player-board-grass .player-board-landmarks {
       min-width: 298px;
@@ -2371,7 +2402,7 @@ html {
   #altered-board-me .altered-player-board .player-board-storm .total-biomes {
     top: -30px; }
 #altered-board-me .altered-player-board .player-board-deck {
-  top: 195px; }
+  top: 200px; }
 #altered-board-me .altered-player-board .player-board-discard {
   top: 195px; }
 #altered-board-me .altered-player-board .player-board-mana-wrapper {

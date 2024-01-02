@@ -12,8 +12,7 @@ X Mettre une ombre sur le héros à la place de la bordure
 - Discard a remettre
 - Afficher max reserve / max landmark slot
 - Reserve afficher de gauche à droite
-- Biomes
-- Mettre flèche si ca te fait avancer (verte). et mettre flèche autre couleur si majoritaire mais pas avancer (gris)
+X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
 - Eventail de la main
 
 [Starting deck]

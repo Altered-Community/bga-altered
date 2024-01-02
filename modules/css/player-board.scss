@@ -132,6 +132,31 @@
                     box-shadow: 1px 1px 3px black;
                     text-align: center;
                 }
+
+                &::after {
+                    content: "\f0da";
+                    display: block;
+                    position: absolute;
+                    font: normal normal normal 14px/1 FontAwesome;
+                    font-size: 30px;
+                    text-rendering: auto;
+                    top: 8px;
+                    right: -22px;
+                    color: #cac7c7;
+                    text-shadow:
+                        0px 0px 4px black,
+                        0px 0px 4px black;
+                    opacity: 1;
+                    transition:
+                        opacity 0.5s,
+                        color 0.5s;
+                }
+                &[data-will-progress="0"]::after {
+                    opacity: 0;
+                }
+                &[data-will-progress="2"]::after {
+                    color: #05ec05;
+                }
             }
             .total-forest {
                 background: #799c00;
@@ -175,6 +200,11 @@
 
                 &::before {
                     left: 50px;
+                }
+                &::after {
+                    content: "\f0d9";
+                    right: auto;
+                    left: -20px;
                 }
             }
 
@@ -328,7 +358,7 @@
         .player-board-separator {
             width: 40px;
             height: 185px;
-            background: url("img/separator-reserve-landmark.jpg");
+            background: url("img/separator-reserve-landmark.png");
             background-size: 100% 100%;
         }
         .player-board-landmarks {
@@ -420,7 +450,7 @@
     }
 
     .player-board-deck {
-        top: 195px;
+        top: 200px;
     }
     .player-board-discard {
         top: 195px;

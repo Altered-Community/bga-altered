@@ -66,19 +66,36 @@
         // }
 
         &.willProgress::before {
-            content: "";
+            content: "\f0d9";
             display: block;
             position: absolute;
-            width: 0;
-            border: 12px solid transparent;
-            border-right: 22px solid white;
-            top: 18px;
-            left: -43px;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 14px;
+            font-size: 40px;
+            text-rendering: auto;
+            top: 10px;
+            left: -26px;
+            color: white;
+            text-shadow:
+                0px 0px 4px black,
+                0px 0px 4px black;
+
+            // content: "";
+            // display: block;
+            // position: absolute;
+            // width: 0;
+            // border: 12px solid transparent;
+            // border-right: 22px solid white;
+            // top: 18px;
+            // left: -43px;
         }
         &[data-type="hero"].willProgress::before {
-            border: 12px solid transparent;
-            border-left: 22px solid white;
-            left: 65px;
+            content: "\f0da";
+            left: 66px;
+
+            // border: 12px solid transparent;
+            // border-left: 22px solid white;
+            // left: 65px;
         }
     }
     &[data-type="hero"] {
