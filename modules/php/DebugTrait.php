@@ -18,12 +18,19 @@ trait DebugTrait
   function actDisplayAllCards()
   {
     $datas = [];
-    require_once dirname(__FILE__) . '/../../misc/API/list.inc.php';
+    require_once dirname(__FILE__) . '/../../misc/list.inc.php';
     foreach (ALL_CARDS as $filename) {
-      require_once dirname(__FILE__) . '/../../misc/API/' . $filename . '.php';
+      if (!file_exists(dirname(__FILE__) . '/../../misc/CoreSetV2/' . $filename . '.php')) {
+        continue;
+      }
+      require_once dirname(__FILE__) . '/../../misc/CoreSetV2/' . $filename . '.php';
       $t = explode('/', $filename);
       $className = '\\ALT\\Cards\\' . $t[0] . '\\' . $t[1];
-      $datas[] = new $className(null);
+      $class = new $className(null);
+
+      if ($class->getRarity() == RARITY_COMMON) {
+        $datas[] = $class;
+      }
     }
 
     return $datas;
@@ -142,7 +149,7 @@ trait DebugTrait
   function addCard($cardId, $location = 'hand')
   {
     $player = Players::getCurrent();
-    $faction  = substr($cardId, 0, 2);
+    $faction = substr($cardId, 0, 2);
     $className = "\\ALT\\Cards\\$faction\\$cardId";
     $card = new $className(null);
 

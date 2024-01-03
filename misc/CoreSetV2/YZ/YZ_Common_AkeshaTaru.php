@@ -13,7 +13,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Akesha & Taru'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Yzmir Hero'),
       'type' => HERO,
       'flavorText' => clienttranslate('Magic is the essence of wonder!'),
       'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. You can only activate this if you are the first player.'),

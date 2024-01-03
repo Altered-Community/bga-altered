@@ -13,7 +13,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Afanas & Senka'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Yzmir Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         'When you play a Spell — Target Character you control gains 1 boost$[BB]. (Do this after the spell resolves.)'

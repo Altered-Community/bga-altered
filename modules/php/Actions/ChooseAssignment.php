@@ -42,10 +42,10 @@ class ChooseAssignment extends \ALT\Models\Action
       })
       ->map(function ($card) {
         $type = $card->getType();
-        $subType = $card->getSubtype();
-        if ($type == PERMANENT && !in_array(LANDMARK, $subType)) {
+        $subTypes = $card->getSubtypes();
+        if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
           return [PERMANENT];
-        } elseif ($type == PERMANENT && in_array(LANDMARK, $subType)) {
+        } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
           return [LANDMARK];
         } elseif ($type == SPELL) {
           return [LIMBO];

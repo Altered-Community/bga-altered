@@ -1145,7 +1145,7 @@ define([
       // return `<div class='inline-icon'><svg viewBox="${viewBox}"><use href="#${svgId}" /></svg></div>`;
     },
 
-    formatString(str) {
+    formatString(str, italicParenthesis = false) {
       const ICONS = ['BOOST', 'ANCHORED', 'FLEETING'];
       ICONS.forEach((name) => {
         const regex = new RegExp('<' + name + ':([^>]+)>', 'g');
@@ -1155,8 +1155,11 @@ define([
 
       const MARKERS_MAP = {
         J: 'played',
-        M: ['hand', 'played'],
-        S: ['played-from-reserve'],
+        j: 'played',
+        H: 'hand',
+        h: 'hand',
+        R: 'reserve',
+        r: 'reserve',
         D: 'discard',
         T: 'tap',
       };
@@ -1174,7 +1177,8 @@ define([
       str = str.replace(/\#(.+)\#/g, '<span class="rare-marker">$1</span>');
       str = str.replace(/\[\[([^\]]+)\]\]/g, '<span class="effect-reference-emphasis">$1</span>');
       str = str.replace(/\[([^\]]+)\]/g, '<span class="effect-reference">$1</span>');
-      str = str.replace(/\{([0-9]+)\}/g, '<span class="mana-cost">$1</span>');
+      str = str.replace(/\{([0-9X]+)\}/g, '<span class="mana-cost">$1</span>');
+      if (italicParenthesis) str = str.replace(/(\([^\)]+\))/g, '<span class="parenthesis">$1</span>');
 
       return str;
     },

@@ -13,7 +13,7 @@ class LY_Common_AuraqKibble extends \ALT\Models\Card
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Auraq & Kibble'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Lyria Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         'When you play a Character with a base statistic of 0 — I gain a Performance counter.  At Noon — You may spend five of my Performance counters to reveal the top card of your deck. You may play it for free. If you don\'t, put it into your hand. (Don\'t activate any {h} triggers.)'

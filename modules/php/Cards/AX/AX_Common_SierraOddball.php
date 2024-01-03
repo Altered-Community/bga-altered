@@ -17,6 +17,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sierra & Oddball'),
       'type' => HERO,
+      'typeline' => clienttranslate('Axiom Hero'),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
@@ -38,7 +39,6 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
         ],
       ],
       'flavorText' => clienttranslate('There\'s nothing crazier than seeing what you\'ve built come to life! TEST THAI'),
-      'typeline' => clienttranslate('Hero'),
     ];
   }
 }

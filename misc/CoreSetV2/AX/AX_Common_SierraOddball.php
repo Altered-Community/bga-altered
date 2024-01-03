@@ -13,7 +13,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sierra & Oddball'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Axiom Hero'),
       'type' => HERO,
       'flavorText' => clienttranslate('There\'s nothing crazier than seeing what you\'ve built come to life! TEST THAI'),
       'effectDesc' => clienttranslate(

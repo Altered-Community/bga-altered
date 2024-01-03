@@ -13,7 +13,7 @@ class OD_Common_WaruMack extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Waru & Mack'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Ordis Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         'At Noon, if you control a Bureaucrat — Create an [ORDIS_RECRUIT] Soldier token in target Expedition.  When you play a Bureaucrat — You may have it gain $[ASLEEP].'

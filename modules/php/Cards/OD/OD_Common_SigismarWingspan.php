@@ -17,6 +17,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sigismar & Wingspan'),
       'type' => HERO,
+      'typeline' => clienttranslate('Ordis Hero'),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
@@ -32,7 +33,6 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
           ]),
         ],
       ],
-      'typeline' => clienttranslate('Hero'),
     ];
   }
 }

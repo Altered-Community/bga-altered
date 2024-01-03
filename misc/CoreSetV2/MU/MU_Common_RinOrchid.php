@@ -13,7 +13,7 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Rin & Orchid'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         'When one of your Expeditions moves forward due to {V} — Draw a card, then put a card from your hand in Reserve.'

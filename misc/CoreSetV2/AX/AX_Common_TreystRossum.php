@@ -13,7 +13,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Treyst & Rossum'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Axiom Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         'When a card leaves your Reserve during the Afternoon, if I have less than five Steam counters — I gain a Steam counter.  If I have five or more Steam counters, I gain \"{T} : Draw a card, then put a card from your hand in Reserve.\"'

@@ -13,7 +13,7 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Gulrang & Tocsin'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Ordis Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         'When you create a token — It gains 1 boost.  If you have less than eight Mana Orbs, [BOOSTED] tokens you control have [DEFENDER]. (Their Expeditions can\'t advance during Dusk.)'

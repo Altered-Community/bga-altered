@@ -301,10 +301,10 @@
         .card-name {
             position: absolute;
             z-index: 2;
-            top: 26px;
+            top: 24px;
             left: 48px;
             right: 50px;
-            font-size: 17px;
+            font-size: 16px;
             color: white;
             text-align: center;
             font-family: "Jali Greek Variable";
@@ -314,14 +314,13 @@
         .card-typeline {
             position: absolute;
             z-index: 2;
-            top: 46px;
+            top: 45px;
             left: 48px;
             right: 50px;
             font-size: 13px;
             color: black;
             text-align: center;
             font-family: "Jali Greek Variable";
-            font-style: italic;
         }
 
         .card-frame[data-type="permanent"] {
@@ -374,15 +373,17 @@
         }
 
         .card-hand-cost {
-            top: 21px;
-            left: 26px;
-            font-size: 25px;
+            top: 20px;
+            left: 25px;
+            font-size: 27px;
+            text-shadow: 0px 0px 5px black;
         }
 
         .card-reserve-cost {
-            top: 39px;
-            left: 49px;
-            font-size: 25px;
+            top: 41px;
+            left: 50px;
+            font-size: 21px;
+            text-shadow: 0px 0px 5px black;
         }
 
         .card-costs-bg {
@@ -398,24 +399,24 @@
             font-family: "Haptic Pro";
             padding-left: 12px;
             color: white;
-            box-shadow: 0px 0px 14px 2px black;
+            box-shadow: 1px 1px 4px 1px #424242dd;
             text-shadow: 0px 0px 6px black;
-
             border-radius: 11px;
-            height: 25px;
-            width: 25px;
-            font-size: 21px;
-            line-height: 29px;
+
+            height: 28px;
+            width: 28px;
+            font-size: 22px;
+            line-height: 31px;
 
             &[data-size="0"] {
-                width: 15px;
-                background: transparent;
+                width: 18px;
+                background: #fdfdfd4a;
             }
             &[data-size="1"] {
-                width: 15px;
+                width: 20px;
             }
             &[data-size="3"] {
-                width: 35px;
+                width: 40px;
             }
 
             &.altered {
@@ -424,20 +425,22 @@
         }
 
         .card-forest {
-            background: #abb648;
-            top: 96px;
+            background: #a6c24b;
+            top: 90px;
             border-bottom-right-radius: 4px;
+            line-height: 35px;
         }
         .card-mountain {
-            background: #af7b51;
-            top: 123px;
+            background: #d58447;
+            top: 120px;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
         }
         .card-ocean {
-            background: #6b93c0;
+            background: #6386bc;
             top: 150px;
             border-top-right-radius: 4px;
+            line-height: 29px;
         }
 
         .card-text {
@@ -448,12 +451,9 @@
             left: 20px;
             right: 20px;
             font-family: "Jali Greek Variable";
-            font-size: 13px;
+            font-size: 14px;
             color: black;
-
-            .card-reminders {
-                font-style: italic;
-            }
+            line-height: 1.1em;
 
             .card-qrcode-container {
                 float: right;
@@ -469,12 +469,27 @@
                     width: 66px;
                     height: 66px;
                     background-image: url("img/qrcode.png");
-                    background-size: 80%;
+                    background-size: 84%;
                     background-repeat: no-repeat;
                     margin-bottom: -4px;
                     margin-right: -4px;
-                    background-position: center center;
+                    background-position: 5px 5px;
                 }
+            }
+        }
+
+        .card-text,
+        .card-support {
+            .keyword {
+                font-weight: bold;
+                &.FLEETING_CHAR,
+                &.FLEETING,
+                &.BOOSTED {
+                    text-decoration: underline;
+                }
+            }
+            .parenthesis {
+                font-style: italic;
             }
         }
 
@@ -509,13 +524,12 @@
 
     &.card-hero {
         .card-name {
-            top: 27px;
-            font-style: italic;
+            top: 24px;
+            font-size: 22px;
         }
         .card-typeline {
-            top: 51px;
-            font-style: italic;
-            font-weight: bold;
+            top: 50px;
+            font-size: 15px;
         }
         .card-text {
             top: 311px;

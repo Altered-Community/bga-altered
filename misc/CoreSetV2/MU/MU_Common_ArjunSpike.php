@@ -13,7 +13,7 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Arjun & Spike'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains $[ANCHORED].'

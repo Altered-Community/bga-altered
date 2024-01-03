@@ -73,10 +73,10 @@ class PlayCard extends \ALT\Models\Action
 
     $locations = [];
     $type = $card->getType();
-    $subType = $card->getSubtype();
-    if ($type == PERMANENT && !in_array(LANDMARK, $subType)) {
+    $subTypes = $card->getSubtypes();
+    if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
       $locations[$cId] = [PERMANENT];
-    } elseif ($type == PERMANENT && in_array(LANDMARK, $subType)) {
+    } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
       $locations[$cId] = [LANDMARK];
     } elseif ($type == SPELL) {
       $locations[$cId] = [LIMBO];

@@ -13,7 +13,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Teija & Nauraa'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$[BB].'),
     ];

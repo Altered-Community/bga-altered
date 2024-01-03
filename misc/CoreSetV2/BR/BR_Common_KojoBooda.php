@@ -13,7 +13,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kojo & Booda'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Bravos Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
         'At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.'

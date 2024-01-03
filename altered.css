@@ -1077,10 +1077,10 @@ html {
     .altered-card .altered-card-wrapper .card-name {
       position: absolute;
       z-index: 2;
-      top: 26px;
+      top: 24px;
       left: 48px;
       right: 50px;
-      font-size: 17px;
+      font-size: 16px;
       color: white;
       text-align: center;
       font-family: "Jali Greek Variable";
@@ -1088,14 +1088,13 @@ html {
     .altered-card .altered-card-wrapper .card-typeline {
       position: absolute;
       z-index: 2;
-      top: 46px;
+      top: 45px;
       left: 48px;
       right: 50px;
       font-size: 13px;
       color: black;
       text-align: center;
-      font-family: "Jali Greek Variable";
-      font-style: italic; }
+      font-family: "Jali Greek Variable"; }
     .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-support="0"][data-size="1"] ~ .card-name {
       top: 250px; }
     .altered-card .altered-card-wrapper .card-frame[data-type="permanent"][data-support="0"][data-size="1"] ~ .card-typeline {
@@ -1125,13 +1124,15 @@ html {
       .altered-card .altered-card-wrapper .card-reserve-cost.altered {
         color: #eebc52; }
     .altered-card .altered-card-wrapper .card-hand-cost {
-      top: 21px;
-      left: 26px;
-      font-size: 25px; }
+      top: 20px;
+      left: 25px;
+      font-size: 27px;
+      text-shadow: 0px 0px 5px black; }
     .altered-card .altered-card-wrapper .card-reserve-cost {
-      top: 39px;
-      left: 49px;
-      font-size: 25px; }
+      top: 41px;
+      left: 50px;
+      font-size: 21px;
+      text-shadow: 0px 0px 5px black; }
     .altered-card .altered-card-wrapper .card-costs-bg {
       display: none; }
     .altered-card .altered-card-wrapper .card-forest,
@@ -1143,43 +1144,45 @@ html {
       font-family: "Haptic Pro";
       padding-left: 12px;
       color: white;
-      box-shadow: 0px 0px 14px 2px black;
+      box-shadow: 1px 1px 4px 1px #424242dd;
       text-shadow: 0px 0px 6px black;
       border-radius: 11px;
-      height: 25px;
-      width: 25px;
-      font-size: 21px;
-      line-height: 29px; }
+      height: 28px;
+      width: 28px;
+      font-size: 22px;
+      line-height: 31px; }
       .altered-card .altered-card-wrapper .card-forest[data-size="0"],
       .altered-card .altered-card-wrapper .card-mountain[data-size="0"],
       .altered-card .altered-card-wrapper .card-ocean[data-size="0"] {
-        width: 15px;
-        background: transparent; }
+        width: 18px;
+        background: #fdfdfd4a; }
       .altered-card .altered-card-wrapper .card-forest[data-size="1"],
       .altered-card .altered-card-wrapper .card-mountain[data-size="1"],
       .altered-card .altered-card-wrapper .card-ocean[data-size="1"] {
-        width: 15px; }
+        width: 20px; }
       .altered-card .altered-card-wrapper .card-forest[data-size="3"],
       .altered-card .altered-card-wrapper .card-mountain[data-size="3"],
       .altered-card .altered-card-wrapper .card-ocean[data-size="3"] {
-        width: 35px; }
+        width: 40px; }
       .altered-card .altered-card-wrapper .card-forest.altered,
       .altered-card .altered-card-wrapper .card-mountain.altered,
       .altered-card .altered-card-wrapper .card-ocean.altered {
         color: #eebc52; }
     .altered-card .altered-card-wrapper .card-forest {
-      background: #abb648;
-      top: 96px;
-      border-bottom-right-radius: 4px; }
+      background: #a6c24b;
+      top: 90px;
+      border-bottom-right-radius: 4px;
+      line-height: 35px; }
     .altered-card .altered-card-wrapper .card-mountain {
-      background: #af7b51;
-      top: 123px;
+      background: #d58447;
+      top: 120px;
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px; }
     .altered-card .altered-card-wrapper .card-ocean {
-      background: #6b93c0;
+      background: #6386bc;
       top: 150px;
-      border-top-right-radius: 4px; }
+      border-top-right-radius: 4px;
+      line-height: 29px; }
     .altered-card .altered-card-wrapper .card-text {
       position: absolute;
       z-index: 2;
@@ -1188,10 +1191,9 @@ html {
       left: 20px;
       right: 20px;
       font-family: "Jali Greek Variable";
-      font-size: 13px;
-      color: black; }
-      .altered-card .altered-card-wrapper .card-text .card-reminders {
-        font-style: italic; }
+      font-size: 14px;
+      color: black;
+      line-height: 1.1em; }
       .altered-card .altered-card-wrapper .card-text .card-qrcode-container {
         float: right;
         width: 70px;
@@ -1205,11 +1207,22 @@ html {
           width: 66px;
           height: 66px;
           background-image: url("img/qrcode.png");
-          background-size: 80%;
+          background-size: 84%;
           background-repeat: no-repeat;
           margin-bottom: -4px;
           margin-right: -4px;
-          background-position: center center; }
+          background-position: 5px 5px; }
+    .altered-card .altered-card-wrapper .card-text .keyword,
+    .altered-card .altered-card-wrapper .card-support .keyword {
+      font-weight: bold; }
+      .altered-card .altered-card-wrapper .card-text .keyword.FLEETING_CHAR, .altered-card .altered-card-wrapper .card-text .keyword.FLEETING, .altered-card .altered-card-wrapper .card-text .keyword.BOOSTED,
+      .altered-card .altered-card-wrapper .card-support .keyword.FLEETING_CHAR,
+      .altered-card .altered-card-wrapper .card-support .keyword.FLEETING,
+      .altered-card .altered-card-wrapper .card-support .keyword.BOOSTED {
+        text-decoration: underline; }
+    .altered-card .altered-card-wrapper .card-text .parenthesis,
+    .altered-card .altered-card-wrapper .card-support .parenthesis {
+      font-style: italic; }
     .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="1"] ~ .card-text,
     .altered-card .altered-card-wrapper .card-frame[data-support="0"][data-size="2"] ~ .card-text {
       top: 280px; }
@@ -1231,12 +1244,11 @@ html {
       .altered-card .altered-card-wrapper .card-support .svgicon-discard .path2:before {
         color: black; }
   .altered-card.card-hero .card-name {
-    top: 27px;
-    font-style: italic; }
+    top: 24px;
+    font-size: 22px; }
   .altered-card.card-hero .card-typeline {
-    top: 51px;
-    font-style: italic;
-    font-weight: bold; }
+    top: 50px;
+    font-size: 15px; }
   .altered-card.card-hero .card-text {
     top: 311px;
     bottom: 31px;
@@ -2706,7 +2718,8 @@ html {
       #popin_showAllCards #all-cards-wrapper .card-compare .card-mockup {
         width: 324px;
         height: 450px;
-        background-size: 100%; }
+        background-size: 100%;
+        margin: 3px 0px; }
 
 .effect-reference,
 .effect-reference-emphasis {

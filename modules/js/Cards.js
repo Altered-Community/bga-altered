@@ -12,7 +12,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const PERMANENT = 'permanent';
   const SPELL = 'spell';
   const TOKEN = 'token';
-  const FONT_SIZE = '13px';
+  const FONT_SIZE = '14px';
 
   return declare('altered.cards', null, {
     // getCardInfos(cardId) {
@@ -932,6 +932,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplHeroCard(card, tooltip = false, mini = false) {
       let p = card.properties;
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
           class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
@@ -944,10 +946,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
-              ${this.formatString(_(p.effectDesc || ''))}
-            </div>
-            <div class='card-reminders'>
-            ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+              ${this.formatString(effect.str, true)}
             </div>
           </div>
         </div>
@@ -987,7 +986,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
 
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
-      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
+      //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
@@ -1018,14 +1017,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
-              ${this.formatString(effect.str)}
-            </div>
-            <div class='card-reminders'>
-              ${this.formatString(reminders)}
+              ${this.formatString(effect.str, true)}
             </div>
           </div>
           <div class='card-support'>
-            ${p.supportDesc ? this.formatString(_(p.supportDesc)) : ''}
+            ${p.supportDesc ? this.formatString(_(p.supportDesc), true) : ''}
           </div>
         </div>
 
@@ -1075,7 +1071,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
-      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
+      //      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
@@ -1096,10 +1092,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
-              ${this.formatString(effect.str)}
-            </div>
-            <div class='card-reminders'>
-              ${this.formatString(reminders)}
+              ${this.formatString(effect.str, true)}
             </div>
           </div>
         </div>
@@ -1119,7 +1112,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
+
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-permanent ${mini ? 'mini-card' : ''}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
@@ -1138,10 +1133,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
-              ${this.formatString(_(p.effectDesc) || '')}
-            </div>
-            <div class='card-reminders'>
-            ${p.reminders ? this.formatString(_(p.reminders)) : ''}
+              ${this.formatString(effect.str, true)}
             </div>
           </div>
         </div>
@@ -1165,8 +1157,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       // Fit effect + reminders
       let isEffectSizeOk = () =>
-        oCard.querySelector('.card-text').offsetHeight >=
-        oCard.querySelector('.card-effect').offsetHeight + oCard.querySelector('.card-reminders').offsetHeight;
+        oCard.querySelector('.card-text').offsetHeight >= oCard.querySelector('.card-effect').offsetHeight;
       if (!isEffectSizeOk()) {
         oCard.querySelector('.card-frame').dataset.size = 2;
         oCard.offsetHeight;
@@ -1267,7 +1258,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Asleep'),
           reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
         },
-        B: {
+        BB: {
           text: '',
           reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
         },
@@ -1288,13 +1279,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Eternal'),
           reminder: _("During Rest, I don't go to Reserve."),
         },
-        FLEETING: {
-          text: _('Fleeting'),
-          reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
-        },
         FLEETING_CHAR: {
           text: _('Fleeting'),
           reminder: _('If I would be sent to Reserve, discard me instead.'),
+        },
+        FLEETING: {
+          text: _('Fleeting'),
+          reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
         },
         GIGANTIC: {
           text: _('Gigantic'),
@@ -1334,10 +1325,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       let reminders = [];
       Object.keys(KEYWORDS).forEach((keyword) => {
-        const regex = new RegExp('\\$\\[' + keyword + '\\]', 'g');
+        const regex = new RegExp('\\$\\[' + keyword + '\\]([^.]*.)', 'g');
         if (str.match(regex) !== null) {
           reminders.push(KEYWORDS[keyword].text + ':' + KEYWORDS[keyword].reminder);
-          str = str.replaceAll(regex, `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`);
+          str = str.replaceAll(
+            regex,
+            `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>
+            $1
+            (${KEYWORDS[keyword].reminder})
+            <br />`
+          );
         }
 
         const regex2 = new RegExp('\\[' + keyword + '\\]', 'g');

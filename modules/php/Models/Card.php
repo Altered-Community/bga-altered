@@ -37,9 +37,13 @@ class Card extends \ALT\Helpers\DB_Model
     'faction' => 'str',
     'name' => 'str', // obj?
     'type' => 'str', // Token/hero/adventurer/spell
+    'typeline' => 'str',
     'subtypes' => 'obj',
     'token' => 'bool',
     'uid' => 'str',
+    'flavorText' => 'str',
+    'effectDesc' => 'str',
+    'supportDesc' => 'str',
 
     'rarity' => 'int',
     'asset' => 'str',
