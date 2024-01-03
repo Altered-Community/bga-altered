@@ -23,7 +23,7 @@ class OD_Rare_KadigiranAlchemist extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 1,
     ];
   }
 }

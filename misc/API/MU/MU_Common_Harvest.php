@@ -18,7 +18,7 @@ class MU_Common_Harvest extends \ALT\Models\Card
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate('[Resupply]. (Put the top card of your deck in Reserve.)'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
     ];
   }
 }

@@ -21,7 +21,7 @@ class MU_Common_MunaMerchant extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 0,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

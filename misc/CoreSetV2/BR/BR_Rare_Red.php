@@ -21,7 +21,7 @@ class BR_Rare_Red extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
       'changedStats' => ['costReserve'],
     ];
   }

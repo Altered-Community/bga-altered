@@ -23,7 +23,7 @@ class OD_Rare_TheSandman extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 2,
     ];
   }
 }

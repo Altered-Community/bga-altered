@@ -8,7 +8,7 @@ include_once('list.inc.php');
 /*
 $sourceOld = 'API/';
 $sourceNew = 'CoreSetV2/';
-$target = 'Merge/';
+$target = 'CoreSetV2/';
 $attributes = ['effectDesc', 'supportDesc', 'changedStats'];
 */
 
@@ -16,13 +16,13 @@ $attributes = ['effectDesc', 'supportDesc', 'changedStats'];
 $target = "../modules/php/Cards/";
 $sourceOld = $target;
 $sourceNew = 'CoreSetV2/';
-$attributes = ['flavorText', 'effectDesc', 'supportDesc', 'typeline', 'subtypes', 'changedStats'];
+$attributes = ['uid', 'asset', 'mountain', 'ocean', 'forest', 'costHand', 'costReserve', 'flavorText', 'effectDesc', 'supportDesc', 'typeline', 'subtypes', 'changedStats'];
 
 
 $i = 0;
 foreach(ALL_CARDS as $cardId){
 	$i++;
-//	if($i > 6) break;
+//	if($i > 10) break;
 
 	if(!file_exists($sourceOld . $cardId . ".php") or !file_exists($sourceNew . $cardId . ".php")) continue;
 
@@ -40,11 +40,11 @@ foreach(ALL_CARDS as $cardId){
 
 		if(!empty($matches)){
 			$newValue = $matches[1];
-//			echo $newValue;
+			echo $newValue . "\n";
 
-			preg_match('/\''. $attr .'\' => ((\s|.)+?),\n/', $oldFile, $matches);
+			preg_match('/(\''. $attr .'\' => )((\s|.)+?),\n/', $oldFile, $matches);
 			if(!empty($matches)){
-				$oldFile = preg_replace('/(\''. $attr .'\' => )((\s|.)+?),\n/', '\1'.$newValue. ",\n", $oldFile);
+				$oldFile = preg_replace('/(\''. $attr .'\' => )((\s|.)+?),\n/', '${1}'.$newValue. ",\n", $oldFile);
 			} else {
 				echo "missing";
 				$oldFile = preg_replace('/\];/', "'$attr' => $newValue, \n];", $oldFile);

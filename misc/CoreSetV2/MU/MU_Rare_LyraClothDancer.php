@@ -23,7 +23,7 @@ class MU_Rare_LyraClothDancer extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 2,
     ];
   }
 }

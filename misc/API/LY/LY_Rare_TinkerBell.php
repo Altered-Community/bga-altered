@@ -22,7 +22,7 @@ class LY_Rare_TinkerBell extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

@@ -23,7 +23,7 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 2,
     ];
   }
 }

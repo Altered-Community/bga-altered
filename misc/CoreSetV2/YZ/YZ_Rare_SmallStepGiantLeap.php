@@ -18,7 +18,7 @@ class YZ_Rare_SmallStepGiantLeap extends \ALT\Models\Card
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate('Target Expedition moves forward.'),
       'costHand' => 6,
-      'costReserve' => 6,
+      'costReserve' => 7,
       'changedStats' => ['costReserve'],
     ];
   }

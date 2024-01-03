@@ -21,7 +21,7 @@ class BR_Rare_DorothyGale extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 5,
-      'costReserve' => 5,
+      'costReserve' => 3,
     ];
   }
 }

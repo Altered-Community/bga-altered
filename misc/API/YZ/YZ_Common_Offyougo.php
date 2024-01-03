@@ -18,7 +18,7 @@ class YZ_Common_Offyougo extends \ALT\Models\Card
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Send to Reserve target Character with Hand Cost {3} or less.'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 4,
     ];
   }
 }

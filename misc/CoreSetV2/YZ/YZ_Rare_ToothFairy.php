@@ -21,7 +21,7 @@ class YZ_Rare_ToothFairy extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 1,
       'changedStats' => ['costReserve'],
     ];
   }

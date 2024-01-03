@@ -21,7 +21,7 @@ class MU_Rare_Loki extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
-      'costReserve' => 7,
+      'costReserve' => 5,
     ];
   }
 }

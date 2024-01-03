@@ -18,7 +18,7 @@ class MU_Rare_BeautySleep extends \ALT\Models\Card
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Target Character gains $[ASLEEP]. #You may give it 2 boosts#.'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 3,
     ];
   }
 }

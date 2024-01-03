@@ -24,7 +24,7 @@ class MU_Rare_MunaDruid extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'water'],
     ];
   }

@@ -23,7 +23,7 @@ class BR_Rare_TinyJinn extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 0,
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
       'changedStats' => ['mountain', 'costHand', 'costReserve'],
     ];
   }

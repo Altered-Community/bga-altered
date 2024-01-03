@@ -21,7 +21,7 @@ class YZ_Rare_KuwatSouldrinker extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 3,
     ];
   }
 }

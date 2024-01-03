@@ -18,7 +18,7 @@ class YZ_Rare_BanishingGate extends \ALT\Models\Card
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Discard target Character or Permanent.'),
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 5,
       'changedStats' => ['costReserve'],
     ];
   }

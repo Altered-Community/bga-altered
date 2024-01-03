@@ -20,7 +20,7 @@ class LY_Common_LyraNavigator extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 4,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

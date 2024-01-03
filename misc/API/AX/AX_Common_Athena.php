@@ -22,7 +22,7 @@ class AX_Common_Athena extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 5,
-      'costReserve' => 5,
+      'costReserve' => 3,
     ];
   }
 }

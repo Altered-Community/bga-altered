@@ -18,7 +18,7 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('$[SABOTAGE], then $[RESUPPLY].'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
       'changedStats' => ['costReserve'],
     ];
   }

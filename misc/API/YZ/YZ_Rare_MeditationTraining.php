@@ -20,7 +20,7 @@ class YZ_Rare_MeditationTraining extends \ALT\Models\Card
         'Target Character with Hand Cost {3} or less gains [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)'
       ),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

@@ -18,7 +18,7 @@ class MU_Rare_PhysicalTraining extends \ALT\Models\Card
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate('Target Character gains 3 boosts$[BB].'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

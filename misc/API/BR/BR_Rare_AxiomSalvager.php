@@ -22,7 +22,7 @@ class BR_Rare_AxiomSalvager extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
     ];
   }
 }

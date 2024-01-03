@@ -24,7 +24,7 @@ class MU_Rare_IssunBoshi extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 2,
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
       'changedStats' => ['costReserve'],
     ];
   }

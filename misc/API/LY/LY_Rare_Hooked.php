@@ -21,7 +21,7 @@ class LY_Rare_Hooked extends \ALT\Models\Card
         'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)'
       ),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
     ];
   }
 }

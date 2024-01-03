@@ -24,7 +24,7 @@ class BR_Rare_HavenTrainee extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 4,
     ];
   }
 }

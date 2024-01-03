@@ -22,7 +22,7 @@ class OD_Rare_AmeliaEarhart extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 1,
     ];
   }
 }

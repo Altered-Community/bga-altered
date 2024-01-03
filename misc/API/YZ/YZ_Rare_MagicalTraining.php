@@ -18,7 +18,7 @@ class YZ_Rare_MagicalTraining extends \ALT\Models\Card
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate('Draw a card.'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
     ];
   }
 }

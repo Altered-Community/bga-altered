@@ -20,7 +20,7 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
         'Target Character gains 3 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

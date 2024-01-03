@@ -23,7 +23,7 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 0,
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 3,
     ];
   }
 }

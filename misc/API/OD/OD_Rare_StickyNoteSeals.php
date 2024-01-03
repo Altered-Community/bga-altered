@@ -20,7 +20,7 @@ class OD_Rare_StickyNoteSeals extends \ALT\Models\Card
         'Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.'
       ),
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 4,
     ];
   }
 }

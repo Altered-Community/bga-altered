@@ -18,7 +18,7 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate('Target Character with Hand Cost {3} or less gains $[ANCHORED].'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

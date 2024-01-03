@@ -18,7 +18,7 @@ class OD_Rare_ConjuringSeal extends \ALT\Models\Card
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate('Draw two cards.'),
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 5,
     ];
   }
 }

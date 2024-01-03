@@ -21,7 +21,7 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 3,
     ];
   }
 }

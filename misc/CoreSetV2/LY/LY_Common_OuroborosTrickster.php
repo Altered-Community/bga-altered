@@ -21,7 +21,7 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 1,
     ];
   }
 }

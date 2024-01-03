@@ -20,7 +20,7 @@ class OD_Rare_Nurture extends \ALT\Models\Card
         'Up to two target Characters each gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 1,
     ];
   }
 }

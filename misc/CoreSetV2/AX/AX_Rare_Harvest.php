@@ -18,7 +18,7 @@ class AX_Rare_Harvest extends \ALT\Models\Card
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate('$[RESUPPLY].'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
     ];
   }
 }

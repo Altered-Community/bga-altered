@@ -22,7 +22,7 @@ class YZ_Rare_Sakarabru extends \ALT\Models\Card
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
-      'costReserve' => 7,
+      'costReserve' => 4,
       'changedStats' => ['forest', 'mountain', 'water'],
     ];
   }

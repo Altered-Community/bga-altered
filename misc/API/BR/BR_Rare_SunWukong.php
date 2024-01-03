@@ -23,7 +23,7 @@ class BR_Rare_SunWukong extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 2,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 4,
     ];
   }
 }

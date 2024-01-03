@@ -20,7 +20,7 @@ class MU_Rare_BeautySleep extends \ALT\Models\Card
         'Target Character gains [[Asleep]]. You may give it 2 boosts. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
       ),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 3,
     ];
   }
 }

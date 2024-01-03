@@ -18,7 +18,7 @@ class BR_Common_HelpingHand extends \ALT\Models\Card
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate('Target Character gains 1 boost$[BB] and loses [FLEETING_CHAR].'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 2,
     ];
   }
 }

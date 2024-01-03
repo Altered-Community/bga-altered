@@ -18,7 +18,7 @@ class MU_Rare_Charge extends \ALT\Models\Card
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate('Characters you control gain 1 boost$[BB].'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
       'changedStats' => ['costReserve'],
     ];
   }

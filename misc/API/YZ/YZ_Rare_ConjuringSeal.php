@@ -18,7 +18,7 @@ class YZ_Rare_ConjuringSeal extends \ALT\Models\Card
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate('Draw three cards.'),
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 5,
     ];
   }
 }

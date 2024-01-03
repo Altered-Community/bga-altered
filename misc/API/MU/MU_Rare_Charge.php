@@ -20,7 +20,7 @@ class MU_Rare_Charge extends \ALT\Models\Card
         'Characters you control gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 3,
     ];
   }
 }

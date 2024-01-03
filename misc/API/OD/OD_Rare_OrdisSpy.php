@@ -23,7 +23,7 @@ class OD_Rare_OrdisSpy extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 2,
     ];
   }
 }

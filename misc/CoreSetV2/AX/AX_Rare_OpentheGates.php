@@ -18,7 +18,7 @@ class AX_Rare_OpentheGates extends \ALT\Models\Card
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate('Create #a [BRASSBUG] Robot# token in each of your Expeditions.'),
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],
     ];
   }

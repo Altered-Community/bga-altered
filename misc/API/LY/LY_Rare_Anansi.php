@@ -23,7 +23,7 @@ class LY_Rare_Anansi extends \ALT\Models\Card
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 3,
-      'costReserve' => 3,
+      'costReserve' => 2,
     ];
   }
 }

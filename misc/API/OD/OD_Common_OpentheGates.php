@@ -18,7 +18,7 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate('Create two [Ordis Recruit 1/1/1] Soldier tokens in each of your Expeditions.'),
       'costHand' => 5,
-      'costReserve' => 5,
+      'costReserve' => 6,
     ];
   }
 }

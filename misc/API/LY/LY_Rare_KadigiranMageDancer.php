@@ -23,7 +23,7 @@ class LY_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 1,
     ];
   }
 }

@@ -18,7 +18,7 @@ class OD_Rare_Nurture extends \ALT\Models\Card
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate('Up to two target Characters each gain 1 boost$[BB].'),
       'costHand' => 2,
-      'costReserve' => 2,
+      'costReserve' => 1,
     ];
   }
 }

@@ -20,7 +20,7 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 3,
     ];
   }
 }

@@ -18,7 +18,7 @@ class YZ_Rare_BeautySleep extends \ALT\Models\Card
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Target Character gains $[ASLEEP].'),
       'costHand' => 1,
-      'costReserve' => 1,
+      'costReserve' => 3,
     ];
   }
 }

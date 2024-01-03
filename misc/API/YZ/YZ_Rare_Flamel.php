@@ -26,7 +26,7 @@ class YZ_Rare_Flamel extends \ALT\Models\Card
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 4,
-      'costReserve' => 4,
+      'costReserve' => 3,
     ];
   }
 }
