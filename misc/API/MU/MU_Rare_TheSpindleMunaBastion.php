@@ -17,7 +17,7 @@ class MU_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        'Characters you control have [Tough 2]. (Your opponent\'s Spells and abilities that target me cost {2} more.)  At Noon — Target Character you control gains 1 boost.'
+        'Characters you control have [Tough 2]. (Your opponent\'s Spells and abilities that target me cost {2} more.)  At Noon — Target Character you control gains 1 boost.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

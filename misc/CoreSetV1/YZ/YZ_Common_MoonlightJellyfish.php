@@ -16,7 +16,7 @@ class YZ_Common_MoonlightJellyfish extends \ALT\Models\Card
       'name' => clienttranslate('Moonlight Jellyfish'),
       'type' => CHARACTER,
       'subtype' => LEVIATHAN,
-      'effectDesc' => clienttranslate('When I\'m sacrificed, if I\'m not [FLEETING] — Send me to Reserve.'),
+      'effectDesc' => clienttranslate('When I\'m sacrificed, if I\'m not [FLEETING] — Send me to Reserve.'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 1,

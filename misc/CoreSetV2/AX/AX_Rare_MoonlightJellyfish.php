@@ -17,7 +17,7 @@ class AX_Rare_MoonlightJellyfish extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate(
-        '#When a Robot joins your Expeditions — You may sacrifice me to give it 2 boosts$[BB].#  When I\'m sacrificed, if I\'m not [FLEETING] — Send me to Reserve.'
+        '#When a Robot joins your Expeditions — You may sacrifice me to give it 2 boosts$[BB].#  When I\'m sacrificed, if I\'m not [FLEETING] — Send me to Reserve.'
       ),
       'forest' => 1,
       'mountain' => 0,

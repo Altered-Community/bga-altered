@@ -16,6 +16,9 @@ class AX_Rare_AxiomScrambler extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate(
+        'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. This is regrettable.'
+      ),
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
       'forest' => 2,
       'mountain' => 4,

@@ -19,7 +19,7 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtype' => [ELEMENTAL],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone, if I am boosted — Put me in my owner\'s Mana Orbs exhausted.  {S} I gain 1 boost.'
+        'When I leave the Expedition zone, if I am boosted — Put me in my owner\'s Mana Orbs exhausted.  {S} I gain 1 boost.'
       ),
       'forest' => 0,
       'mountain' => 3,
@@ -30,9 +30,9 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       'effectPassive' => [
         'LeaveExpedition' => [
           'condition' => 'isBoosted',
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true])
+          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true]),
         ],
-      ]
+      ],
     ];
   }
 }

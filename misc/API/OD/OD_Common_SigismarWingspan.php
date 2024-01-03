@@ -15,7 +15,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'name' => clienttranslate('Sigismar & Wingspan'),
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('At Noon — Create an [Ordis Recruit 1/1/1] Soldier token in your Hero Expedition.'),
+      'effectDesc' => clienttranslate('At Noon — Create an [Ordis Recruit 1/1/1] Soldier token in your Hero Expedition.'),
     ];
   }
 }

@@ -17,7 +17,7 @@ class LY_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MAGE, SOLDIER],
       'effectDesc' => clienttranslate(
-        'When you roll one or more dice — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        'When you roll one or more dice — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 1,
       'mountain' => 1,

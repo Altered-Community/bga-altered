@@ -17,7 +17,7 @@ class MU_Rare_LyraFestival extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} Draw a card.  At Dusk — If you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character, you win the game.'
+        '{J} Draw a card.  At Dusk — If you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character, you win the game.'
       ),
       'costHand' => 4,
       'costReserve' => 4,

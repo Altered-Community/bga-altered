@@ -16,6 +16,7 @@ class AX_Common_Athena extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
+      'flavorText' => clienttranslate('I’ve lifted the mist from off your eyes that’s blurred them up to now.'),
       'effectDesc' => clienttranslate('{R} If you control two or more Landmarks, I lose [FLEETING_CHAR].'),
       'forest' => 3,
       'mountain' => 4,

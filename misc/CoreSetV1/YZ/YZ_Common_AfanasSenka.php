@@ -14,7 +14,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Afanas & Senka'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('Whenever you play a Spell — One of your Characters gains 1 boost.'),
+      'effectDesc' => clienttranslate('Whenever you play a Spell — One of your Characters gains 1 boost.'),
     ];
   }
 }

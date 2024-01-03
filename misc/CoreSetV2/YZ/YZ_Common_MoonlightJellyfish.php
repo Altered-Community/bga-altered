@@ -16,7 +16,7 @@ class YZ_Common_MoonlightJellyfish extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
-      'effectDesc' => clienttranslate('When I\'m sacrificed, if I\'m not [FLEETING] — Put me in Reserve.'),
+      'effectDesc' => clienttranslate('When I\'m sacrificed, if I\'m not [FLEETING] — Put me in Reserve.'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 1,

@@ -16,6 +16,7 @@ class AX_Rare_Frankenstein extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate('We sometimes look for companionship in the strangest life forms.'),
       'effectDesc' => clienttranslate('{R} You may activate the {j} triggers of target Permanent you control.'),
       'forest' => 3,
       'mountain' => 3,

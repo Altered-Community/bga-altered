@@ -17,7 +17,7 @@ class MU_Rare_SneezerShroom extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate(
-        '{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)  At Noon — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)  At Noon — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 1,
       'mountain' => 1,

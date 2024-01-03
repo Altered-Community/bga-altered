@@ -16,7 +16,7 @@ class MU_Rare_Inari extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('At Noon — Draw a card.'),
+      'effectDesc' => clienttranslate('At Noon — Draw a card.'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 3,

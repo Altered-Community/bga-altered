@@ -16,7 +16,7 @@ class OD_Common_MonolithLegate extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — $[SABOTAGE] after Rest.'),
+      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — $[SABOTAGE] after Rest.'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 2,

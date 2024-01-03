@@ -16,6 +16,9 @@ class AX_Rare_KelonCylinder extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
+      'flavorText' => clienttranslate(
+        'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy, for which engineers find new applications every day.'
+      ),
       'effectDesc' => clienttranslate(
         '#{J} Target Character gains 1 boost.#  {T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: #target Character gains 1 boost.#'
       ),

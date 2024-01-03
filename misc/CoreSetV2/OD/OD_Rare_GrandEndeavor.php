@@ -16,7 +16,7 @@ class OD_Rare_GrandEndeavor extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('#$[TOUGH_2].#  At Noon — Target Expedition moves forward.'),
+      'effectDesc' => clienttranslate('#$[TOUGH_2].#  At Noon — Target Expedition moves forward.'),
       'costHand' => 6,
       'costReserve' => 6,
     ];

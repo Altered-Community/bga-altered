@@ -16,7 +16,8 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Noon — $[RESUPPLY].'),
+      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
+      'effectDesc' => clienttranslate('At Noon — $[RESUPPLY].'),
       'costHand' => 4,
       'costReserve' => 4,
     ];

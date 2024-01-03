@@ -16,6 +16,7 @@ class YZ_Common_Baku extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
+      'flavorText' => clienttranslate('I’ve seen it! ‘Baku ! Baku !’, it says, eating ghosts as if they were candies.'),
       'effectDesc' => clienttranslate('{H} Target opponent discards a card from their hand.'),
       'forest' => 2,
       'mountain' => 2,

@@ -16,7 +16,7 @@ class MU_Common_Dracaena extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant Dragon'),
       'type' => CHARACTER,
       'subtypes' => [PLANT, DRAGON],
-      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  At Noon — I gain 1 boost.'),
+      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  At Noon — I gain 1 boost.'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

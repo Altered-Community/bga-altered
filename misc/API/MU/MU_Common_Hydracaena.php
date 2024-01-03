@@ -17,7 +17,7 @@ class MU_Common_Hydracaena extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT, DRAGON],
       'effectDesc' => clienttranslate(
-        '{J} I gain 4 boosts.  [Eternal]. (During Rest, I don\'t go to Reserve.)  At Noon — I gain 4 boosts.'
+        '{J} I gain 4 boosts.  [Eternal]. (During Rest, I don\'t go to Reserve.)  At Noon — I gain 4 boosts.'
       ),
       'forest' => 0,
       'mountain' => 0,

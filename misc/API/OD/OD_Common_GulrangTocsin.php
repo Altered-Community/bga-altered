@@ -16,7 +16,7 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'When you create a token — It gains 1 boost.  If you have less than eight Mana Orbs, [[Boosted]] tokens you control have [Defender]. (Their Expeditions can\'t advance during Dusk.)'
+        'When you create a token — It gains 1 boost.  If you have less than eight Mana Orbs, [[Boosted]] tokens you control have [Defender]. (Their Expeditions can\'t advance during Dusk.)'
       ),
     ];
   }

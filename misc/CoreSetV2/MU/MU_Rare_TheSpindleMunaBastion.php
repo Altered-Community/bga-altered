@@ -17,7 +17,7 @@ class MU_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        'Characters you control have $[TOUGH_2].  #At Noon — Target Character you control gains 1 boost.#'
+        'Characters you control have $[TOUGH_2].  #At Noon — Target Character you control gains 1 boost.#'
       ),
       'costHand' => 3,
       'costReserve' => 3,

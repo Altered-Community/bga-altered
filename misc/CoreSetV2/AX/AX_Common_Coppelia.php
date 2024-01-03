@@ -16,7 +16,10 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Robot'),
       'type' => CHARACTER,
       'subtypes' => [ROBOT],
-      'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].'),
+      'flavorText' => clienttranslate(
+        'Because of its artificial nature, it served as a model for the Faction\'s first Automata prototypes.'
+      ),
+      'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 0,

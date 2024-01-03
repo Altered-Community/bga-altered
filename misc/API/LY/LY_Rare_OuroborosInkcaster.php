@@ -17,7 +17,7 @@ class LY_Rare_OuroborosInkcaster extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
+        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
       ),
       'supportDesc' => clienttranslate(
         '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'

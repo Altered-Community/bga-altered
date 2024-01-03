@@ -16,6 +16,7 @@ class BR_Rare_FoundryArmorer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate('No Brassbug would survive in the Tumult without their armor.'),
       'effectDesc' => clienttranslate('{R} Create a [BRASSBUG] Robot token in target Expedition.'),
       'forest' => 2,
       'mountain' => 2,

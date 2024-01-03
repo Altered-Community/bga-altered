@@ -15,8 +15,9 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'name' => clienttranslate('Sierra & Oddball'),
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
+      'flavorText' => clienttranslate('There\'s nothing crazier than seeing what you\'ve built come to life! TEST THAI'),
       'effectDesc' => clienttranslate(
-        'When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.'
+        'When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.'
       ),
     ];
   }

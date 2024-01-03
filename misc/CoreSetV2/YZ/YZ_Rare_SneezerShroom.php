@@ -16,7 +16,7 @@ class YZ_Rare_SneezerShroom extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
-      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost.#'),
+      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

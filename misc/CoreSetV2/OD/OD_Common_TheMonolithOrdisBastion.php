@@ -16,7 +16,7 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('When a Character joins your Expeditions — It gains 1 boost$[BB].'),
+      'effectDesc' => clienttranslate('When a Character joins your Expeditions — It gains 1 boost$[BB].'),
       'costHand' => 5,
       'costReserve' => 5,
     ];

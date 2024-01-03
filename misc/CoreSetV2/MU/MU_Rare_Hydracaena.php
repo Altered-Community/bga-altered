@@ -17,7 +17,7 @@ class MU_Rare_Hydracaena extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT, DRAGON],
       'effectDesc' => clienttranslate(
-        '$[ETERNAL].  #$[TOUGH_X], where X is the number of plants you control.#  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.'
+        '$[ETERNAL].  #$[TOUGH_X], where X is the number of plants you control.#  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.'
       ),
       'forest' => 0,
       'mountain' => 0,

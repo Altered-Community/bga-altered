@@ -12,7 +12,7 @@ class YZ_Rare_RidetheBifrost extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Ride the Bifröst'),
+      'name' => clienttranslate('Ride the Bifrost'),
       'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
       'subtypes' => [MANEUVER],

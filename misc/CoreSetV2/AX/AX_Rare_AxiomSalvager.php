@@ -16,6 +16,7 @@ class AX_Rare_AxiomSalvager extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate('The Axiom\'s limited ressources pushed them to reuse whatever could be.'),
       'effectDesc' => clienttranslate('{R} $[RESUPPLY].'),
       'forest' => 1,
       'mountain' => 1,

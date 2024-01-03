@@ -17,7 +17,7 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MAGE, SCHOLAR],
       'effectDesc' => clienttranslate(
-        'When I\'m sacrificed — You may have target Character gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        'When I\'m sacrificed — You may have target Character gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 2,

@@ -16,6 +16,7 @@ class BR_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
       'effectDesc' => clienttranslate('{J} If you control #one# or more Landmarks, I gain 1 boost$[BB].'),
       'forest' => 3,
       'mountain' => 3,

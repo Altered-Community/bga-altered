@@ -16,6 +16,7 @@ class AX_Rare_Ganesha extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
+      'flavorText' => clienttranslate('Knowledge and wisdom must walk side by side.'),
       'effectDesc' => clienttranslate('{J} For each Permanent you control, you may activate its {j} triggers.'),
       'forest' => 4,
       'mountain' => 4,

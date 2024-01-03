@@ -15,6 +15,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'name' => clienttranslate('Akesha & Taru'),
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
+      'flavorText' => clienttranslate('Magic is the essence of wonder!'),
       'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. You can only activate this if you are the first player.'),
     ];
   }

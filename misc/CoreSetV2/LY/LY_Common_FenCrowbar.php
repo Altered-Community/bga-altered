@@ -16,7 +16,7 @@ class LY_Common_FenCrowbar extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'During Morning, draw only one card. Then, put the top card of your deck in your Mana zone instead of a card from your hand.  At Noon — $[RESUPPLY].  Ignore my abilities during the first Day.'
+        'During Morning, draw only one card. Then, put the top card of your deck in your Mana zone instead of a card from your hand.  At Noon — $[RESUPPLY].  Ignore my abilities during the first Day.'
       ),
     ];
   }

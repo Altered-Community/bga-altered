@@ -16,7 +16,7 @@ class OD_Rare_MonolithLegate extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — $[SABOTAGE] after Rest.'),
+      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — $[SABOTAGE] after Rest.'),
       'supportDesc' => clienttranslate(
         '#{D} : Create an [ORDIS_RECRUIT] Soldier token in target Expedition.# (Discard me from Reserve to do this.)'
       ),

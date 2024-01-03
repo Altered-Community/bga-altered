@@ -17,7 +17,7 @@ class LY_Rare_LyraFestival extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '#{J} Target Character gains [FLEETING], [ANCHORED] or [ASLEEP].#  At Dusk — If you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character, you win the game.'
+        '#{J} Target Character gains [FLEETING], [ANCHORED] or [ASLEEP].#  At Dusk — If you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character, you win the game.'
       ),
       'costHand' => 4,
       'costReserve' => 4,

@@ -16,7 +16,8 @@ class OD_Rare_ArmoredJammer extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('{J} $[SABOTAGE].  #When I leave your Landmark zone — [SABOTAGE].#'),
+      'flavorText' => clienttranslate('In a jam? Sorry, mate. Maybe a side-effect of our scrambling...'),
+      'effectDesc' => clienttranslate('{J} $[SABOTAGE].  #When I leave your Landmark zone — [SABOTAGE].#'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

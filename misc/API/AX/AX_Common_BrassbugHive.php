@@ -18,7 +18,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'subtypes' => [LANDMARK],
       'flavorText' => clienttranslate('What could possibly go wrong with an absorbing, self-replicating cute little robot?'),
       'effectDesc' => clienttranslate(
-        '{J} Create a [Brassbug 2/2/2] Robot token in target Expedition.  At Noon — Create a [Brassbug 2/2/2] Robot token in target Expedition.'
+        '{J} Create a [Brassbug 2/2/2] Robot token in target Expedition.  At Noon — Create a [Brassbug 2/2/2] Robot token in target Expedition.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

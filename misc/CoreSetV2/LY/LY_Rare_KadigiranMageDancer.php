@@ -16,7 +16,7 @@ class LY_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage Soldier'),
       'type' => CHARACTER,
       'subtypes' => [MAGE, SOLDIER],
-      'effectDesc' => clienttranslate('When you #roll one or more dice# — I gain 1 boost$[BB].'),
+      'effectDesc' => clienttranslate('When you #roll one or more dice# — I gain 1 boost$[BB].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

@@ -16,7 +16,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'When you play a Spell — Target Character you control gains 1 boost$[BB]. (Do this after the spell resolves.)'
+        'When you play a Spell — Target Character you control gains 1 boost$[BB]. (Do this after the spell resolves.)'
       ),
     ];
   }

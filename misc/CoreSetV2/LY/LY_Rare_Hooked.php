@@ -16,6 +16,7 @@ class LY_Rare_Hooked extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
       'subtypes' => [MANEUVER],
+      'flavorText' => clienttranslate('Get over here!'),
       'effectDesc' => clienttranslate(
         'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)'
       ),

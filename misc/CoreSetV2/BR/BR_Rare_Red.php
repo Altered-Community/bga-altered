@@ -16,7 +16,7 @@ class BR_Rare_Red extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('$[SEASONED].  #At Dusk, if I have 3 or more boosts — Draw a card.#'),
+      'effectDesc' => clienttranslate('$[SEASONED].  #At Dusk, if I have 3 or more boosts — Draw a card.#'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

@@ -304,7 +304,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
                 },
                 handleAs: 'text',
                 error: function (error) {
-                  console.log('Error while loading : ', error);
+                  console.log('Error while loading : ', error);
                 },
               });
             }

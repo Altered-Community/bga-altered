@@ -16,7 +16,7 @@ class OD_Common_OrdisAttorney extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — Draw a card.'),
+      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — Draw a card.'),
       'forest' => 2,
       'mountain' => 3,
       'ocean' => 3,

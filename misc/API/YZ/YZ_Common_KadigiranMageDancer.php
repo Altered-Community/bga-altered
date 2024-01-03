@@ -17,7 +17,7 @@ class YZ_Common_KadigiranMageDancer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MAGE, SOLDIER],
       'effectDesc' => clienttranslate(
-        'When you play a Spell — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        'When you play a Spell — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 1,
       'mountain' => 1,

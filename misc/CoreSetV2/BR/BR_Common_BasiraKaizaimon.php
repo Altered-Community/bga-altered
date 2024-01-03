@@ -16,7 +16,7 @@ class BR_Common_BasiraKaizaimon extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$[BB].'
+        'When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$[BB].'
       ),
     ];
   }

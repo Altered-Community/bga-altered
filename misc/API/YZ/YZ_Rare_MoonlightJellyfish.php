@@ -17,7 +17,7 @@ class YZ_Rare_MoonlightJellyfish extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate(
-        'When I\'m sacrificed, if I\'m not [[Fleeting]] — Put me in Reserve.  When I\'m sacrificed, if I\'m [[Fleeting]] — Draw a card.'
+        'When I\'m sacrificed, if I\'m not [[Fleeting]] — Put me in Reserve.  When I\'m sacrificed, if I\'m [[Fleeting]] — Draw a card.'
       ),
       'forest' => 1,
       'mountain' => 0,

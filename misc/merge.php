@@ -5,41 +5,55 @@ error_reporting(E_ALL);
 
 include_once('list.inc.php');
 
-$sourceOld = 'CoreSetV2/';
-$sourceNew = 'API/';
-$target = 'Merge';
 
-//$target = "../../modules/php/Cards/";
+$sourceOld = 'API/';
+$sourceNew = 'CoreSetV2/';
+$target = 'Merge/';
+$attributes = ['effectDesc', 'supportDesc', 'changedStats'];
 
-$attributes = ['effectDesc'];
+
+/*
+$target = "../modules/php/Cards/";
+$sourceOld = $target;
+$sourceNew = 'Merge/';
+$attributes = ['lore', 'effectDesc', 'typeline', 'subtypes'];
+*/
 
 $i = 0;
 foreach(ALL_CARDS as $cardId){
 	$i++;
-	if($i > 6) break;
+//	if($i > 6) break;
 
 	if(!file_exists($sourceOld . $cardId . ".php") or !file_exists($sourceNew . $cardId . ".php")) continue;
 
-	echo "##########################################################\n CARD $i: ". $cardId . "\n##########################################################\n";
+	echo "\n##########################################################\n CARD $i: ". $cardId . "\n##########################################################\n";
 
 	$newFile = file_get_contents($sourceNew . $cardId . ".php");
-	echo $newFile;
+//	echo $newFile;
 
 	$oldFile = file_get_contents($sourceOld . $cardId . ".php");
-	echo $oldFile;
+//	echo $oldFile;
 
 	foreach($attributes as $attr){
 		echo "#################\n" . $attr . "\n";
 		preg_match('/\''. $attr .'\' => ((\s|.)+?),\n/', $newFile, $matches);
-		var_dump($matches);
 
 		if(!empty($matches)){
 			$newValue = $matches[1];
-			echo $newValue;
+//			echo $newValue;
 
-			$oldFile = preg_replace('/(\''. $attr .'\' => )((\s|.)+?),\n/', '\1'.$newValue. ",\n", $oldFile);
+			preg_match('/\''. $attr .'\' => ((\s|.)+?),\n/', $oldFile, $matches);
+			if(!empty($matches)){
+				$oldFile = preg_replace('/(\''. $attr .'\' => )((\s|.)+?),\n/', '\1'.$newValue. ",\n", $oldFile);
+			} else {
+				echo "missing";
+				$oldFile = preg_replace('/\];/', "'$attr' => $newValue, \n];", $oldFile);
+			}
 		}
 	}
 	
-	echo $oldFile;
+	@mkdir($target . explode("/", $cardId)[0]);
+  $fp = fopen($target . $cardId . ".php", 'w');
+  fwrite($fp, $oldFile);
+	fclose($fp);
 }

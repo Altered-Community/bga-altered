@@ -17,7 +17,7 @@ class BR_Rare_Red extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
       'effectDesc' => clienttranslate(
-        '[Seasoned]. (I keep my boosts when I go to Reserve.)  At Dusk, if I have 3 or more boosts — Draw a card.'
+        '[Seasoned]. (I keep my boosts when I go to Reserve.)  At Dusk, if I have 3 or more boosts — Draw a card.'
       ),
       'forest' => 2,
       'mountain' => 2,

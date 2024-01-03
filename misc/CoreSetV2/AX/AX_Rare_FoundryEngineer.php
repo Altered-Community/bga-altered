@@ -16,6 +16,7 @@ class AX_Rare_FoundryEngineer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate('Behind every Axiom masterwork, there are Foundry Engineers.'),
       'effectDesc' => clienttranslate('{R} The next Permanent you play this Afternoon costs #{2}# less.'),
       'forest' => 2,
       'mountain' => 2,

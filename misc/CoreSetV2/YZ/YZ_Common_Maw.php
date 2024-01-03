@@ -16,7 +16,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'typeline' => clienttranslate('Token - Companion'),
       'type' => TOKEN,
       'subtypes' => [COMPANION],
-      'effectDesc' => clienttranslate('When you sacrifice a Character — I gain 2 boosts.'),
+      'effectDesc' => clienttranslate('When you sacrifice a Character — I gain 2 boosts.'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

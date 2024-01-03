@@ -16,7 +16,7 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant Animal'),
       'type' => CHARACTER,
       'subtypes' => [PLANT, ANIMAL],
-      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  #At Noon, if I have 2 or more boosts — $[RESUPPLY].#'),
+      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  #At Noon, if I have 2 or more boosts — $[RESUPPLY].#'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

@@ -17,7 +17,7 @@ class AX_Rare_JeannedArc extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone — Create a [Brassbug 2/2/2] Robot token in each of your Expeditions.'
+        'When I leave the Expedition zone — Create a [Brassbug 2/2/2] Robot token in each of your Expeditions.'
       ),
       'forest' => 3,
       'mountain' => 3,

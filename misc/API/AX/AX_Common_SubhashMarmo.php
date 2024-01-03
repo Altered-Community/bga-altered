@@ -16,7 +16,7 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'At Noon — You may pay {1} and put a card from your hand in Reserve to create a [Brassbug 2/2/2] Robot token in target Expedition.'
+        'At Noon — You may pay {1} and put a card from your hand in Reserve to create a [Brassbug 2/2/2] Robot token in target Expedition.'
       ),
     ];
   }

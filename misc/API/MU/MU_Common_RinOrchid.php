@@ -16,7 +16,7 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'When one of your Expeditions moves forward due to {V} — Draw a card, then put a card from your hand in Reserve.'
+        'When one of your Expeditions moves forward due to {V} — Draw a card, then put a card from your hand in Reserve.'
       ),
     ];
   }

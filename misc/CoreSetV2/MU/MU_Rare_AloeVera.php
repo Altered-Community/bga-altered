@@ -16,7 +16,7 @@ class MU_Rare_AloeVera extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
-      'effectDesc' => clienttranslate('#{J} You may pay {1} to have me gain $[ANCHORED].#  At Noon — $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('#{J} You may pay {1} to have me gain $[ANCHORED].#  At Noon — $[RESUPPLY].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,

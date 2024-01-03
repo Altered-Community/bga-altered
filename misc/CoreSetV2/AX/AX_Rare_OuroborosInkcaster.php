@@ -17,7 +17,7 @@ class AX_Rare_OuroborosInkcaster extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
+        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
       ),
       'forest' => 2,
       'mountain' => 2,

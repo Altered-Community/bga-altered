@@ -16,7 +16,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.'
+        'At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.'
       ),
     ];
   }

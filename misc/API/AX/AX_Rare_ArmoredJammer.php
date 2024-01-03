@@ -18,7 +18,7 @@ class AX_Rare_ArmoredJammer extends \ALT\Models\Card
       'subtypes' => [LANDMARK],
       'flavorText' => clienttranslate('In a jam? Sorry, mate. Maybe a side-effect of our scrambling...'),
       'effectDesc' => clienttranslate(
-        '{J} [Sabotage]. (Discard up to one target card from a Reserve.)  When I leave your Landmark zone — [Sabotage].'
+        '{J} [Sabotage]. (Discard up to one target card from a Reserve.)  When I leave your Landmark zone — [Sabotage].'
       ),
       'costHand' => 2,
       'costReserve' => 2,

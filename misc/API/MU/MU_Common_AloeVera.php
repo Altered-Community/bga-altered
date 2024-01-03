@@ -16,7 +16,7 @@ class MU_Common_AloeVera extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
-      'effectDesc' => clienttranslate('At Noon — [Resupply]. (Put the top card of your deck in Reserve.)'),
+      'effectDesc' => clienttranslate('At Noon — [Resupply]. (Put the top card of your deck in Reserve.)'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,

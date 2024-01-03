@@ -16,7 +16,7 @@ class OD_Rare_OrdisCarrier extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in #each of your Expeditions#.'),
+      'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in #each of your Expeditions#.'),
       'costHand' => 5,
       'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],

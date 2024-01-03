@@ -16,8 +16,11 @@ class AX_Rare_BrassbugHub extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
+      'flavorText' => clienttranslate(
+        'Few people visit the depths of the Foundry, and even fewer can explain how the Brassbugs came to be.'
+      ),
       'effectDesc' => clienttranslate(
-        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.'
+        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

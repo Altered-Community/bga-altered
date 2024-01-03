@@ -16,6 +16,7 @@ class OD_Rare_Athena extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
+      'flavorText' => clienttranslate('I’ve lifted the mist from off your eyes that’s blurred them up to now.'),
       'effectDesc' => clienttranslate(
         '#{H} If you control two or more other Characters, I gain 2 boosts.#  {R} If you control two or more #other Characters#, I lose [FLEETING_CHAR].'
       ),

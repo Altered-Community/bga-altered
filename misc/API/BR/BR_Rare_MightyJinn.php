@@ -17,7 +17,7 @@ class BR_Rare_MightyJinn extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb). If you don\'t, draw a card.'
+        'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb). If you don\'t, draw a card.'
       ),
       'forest' => 4,
       'mountain' => 4,

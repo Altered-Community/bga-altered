@@ -16,6 +16,7 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Fairy'),
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
+      'flavorText' => clienttranslate('Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...'),
       'effectDesc' => clienttranslate('{R} $[SABOTAGE].'),
       'forest' => 1,
       'mountain' => 3,

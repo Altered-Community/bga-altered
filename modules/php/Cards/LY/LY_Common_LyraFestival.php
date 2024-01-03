@@ -19,7 +19,7 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtype' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} Draw a card.  At Dusk — If you have a [FLEETING] Character, another [ANCHORED] Character and another [ASLEEP] Character in your Expeditions, you win the game.'
+        '{J} Draw a card.  At Dusk — If you have a [FLEETING] Character, another [ANCHORED] Character and another [ASLEEP] Character in your Expeditions, you win the game.'
       ),
       'costHand' => 4,
       'costReserve' => 4,
@@ -27,9 +27,9 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
       'effectPassive' => [
         'BeforeDusk' => [
           'condition' => 'hasFleetingAnchoredAsleep',
-          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'instantWin'])
-        ]
-      ]
+          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'instantWin']),
+        ],
+      ],
     ];
   }
 }

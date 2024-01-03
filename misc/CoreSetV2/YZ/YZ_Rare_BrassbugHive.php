@@ -16,8 +16,9 @@ class YZ_Rare_BrassbugHive extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
+      'flavorText' => clienttranslate('What could possibly go wrong with an absorbing, self-replicating cute little robot?'),
       'effectDesc' => clienttranslate(
-        '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.'
+        '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

@@ -16,7 +16,7 @@ class YZ_Rare_AetherShard extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('#{J} Draw a card.#  At Noon — Draw a card.'),
+      'effectDesc' => clienttranslate('#{J} Draw a card.#  At Noon — Draw a card.'),
       'costHand' => 5,
       'costReserve' => 5,
     ];

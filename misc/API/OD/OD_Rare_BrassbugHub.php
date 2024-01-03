@@ -20,7 +20,7 @@ class OD_Rare_BrassbugHub extends \ALT\Models\Card
         'Few people visit the depths of the Foundry, and even fewer can explain how the Brassbugs came to be.'
       ),
       'effectDesc' => clienttranslate(
-        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [Brassbug 2/2/2] Robot token in target Expedition.'
+        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [Brassbug 2/2/2] Robot token in target Expedition.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

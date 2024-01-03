@@ -16,6 +16,7 @@ class MU_Rare_KelonElemental extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Elemental'),
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
+      'flavorText' => clienttranslate('In true Axiom fashion, Kelon Elementals like to put everything to the taste.'),
       'effectDesc' => clienttranslate('{H} #You may# put a card from your hand in Reserve.'),
       'forest' => 1,
       'mountain' => 3,

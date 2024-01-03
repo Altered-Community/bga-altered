@@ -17,7 +17,7 @@ class YZ_Rare_MonolithLegate extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
       'effectDesc' => clienttranslate(
-        'When my Expedition fails to move forward during Dusk — [Sabotage] after Rest. (Discard up to one target card from a Reserve.)'
+        'When my Expedition fails to move forward during Dusk — [Sabotage] after Rest. (Discard up to one target card from a Reserve.)'
       ),
       'forest' => 2,
       'mountain' => 1,

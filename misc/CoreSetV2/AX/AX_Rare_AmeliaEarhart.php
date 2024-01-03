@@ -16,6 +16,7 @@ class AX_Rare_AmeliaEarhart extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
+      'flavorText' => clienttranslate('The most effective way to do it, is to do it.'),
       'effectDesc' => clienttranslate('#{H} I gain 1 boost$[BB].#'),
       'forest' => 2,
       'mountain' => 2,

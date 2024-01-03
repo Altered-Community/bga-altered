@@ -16,6 +16,7 @@ class MU_Rare_Ogun extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer Deity'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER, DEITY],
+      'flavorText' => clienttranslate('With every blow of his hammer, Ogun forges the Axiom\'s destiny.'),
       'effectDesc' => clienttranslate('{J} #Plants# you control gain 1 boost$[BB].'),
       'forest' => 2,
       'mountain' => 1,

@@ -16,7 +16,7 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage Scholar'),
       'type' => CHARACTER,
       'subtypes' => [MAGE, SCHOLAR],
-      'effectDesc' => clienttranslate('#When I\'m sacrificed — You may have target Character gain 2 boosts$[BB].#'),
+      'effectDesc' => clienttranslate('#When I\'m sacrificed — You may have target Character gain 2 boosts$[BB].#'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

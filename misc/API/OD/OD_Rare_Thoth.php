@@ -17,7 +17,7 @@ class OD_Rare_Thoth extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT, DEITY],
       'effectDesc' => clienttranslate(
-        'When my Expedition fails to move forward during Dusk — Create two [Ordis Recruit 1/1/1] Soldier tokens in target Expedition.'
+        'When my Expedition fails to move forward during Dusk — Create two [Ordis Recruit 1/1/1] Soldier tokens in target Expedition.'
       ),
       'forest' => 3,
       'mountain' => 3,

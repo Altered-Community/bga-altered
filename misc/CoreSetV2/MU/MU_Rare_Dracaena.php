@@ -16,7 +16,7 @@ class MU_Rare_Dracaena extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant Dragon'),
       'type' => CHARACTER,
       'subtypes' => [PLANT, DRAGON],
-      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  At Noon — I gain #2 boosts#.'),
+      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  At Noon — I gain #2 boosts#.'),
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 1,
