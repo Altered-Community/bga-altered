@@ -17,7 +17,7 @@ class BR_Rare_ManaEruption extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Discard a Mana Orb to discard target Character or Permanent. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Discard one of your Mana Orbs to discard target Character or Permanent.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

@@ -17,7 +17,7 @@ class MU_Rare_BeautySleep extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        'Target Character gains [[Asleep]]. You may give it 2 boosts. (Ignore my statistics during Dusk. At Night, I don\'t go to Reserve and I lose Asleep.)'
+        'Target Character gains [[Asleep]]. You may give it 2 boosts. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
       ),
       'costHand' => 1,
       'costReserve' => 1,

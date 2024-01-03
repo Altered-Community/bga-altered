@@ -16,7 +16,9 @@ class BR_Rare_Ratatoskr extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Messenger'),
       'type' => CHARACTER,
       'subtypes' => [MESSENGER],
-      'effectDesc' => clienttranslate('{S} I gain 3 boosts.'),
+      'effectDesc' => clienttranslate(
+        '{R} I gain 3 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

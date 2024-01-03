@@ -16,7 +16,7 @@ class YZ_Rare_ToothFairy extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Fairy'),
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
-      'effectDesc' => clienttranslate('{M} [Sabotage]. (Discard up to one target card from a Reserve.)'),
+      'effectDesc' => clienttranslate('{H} [Sabotage]. (Discard up to one target card from a Reserve.)'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

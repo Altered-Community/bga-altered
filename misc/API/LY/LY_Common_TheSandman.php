@@ -17,7 +17,7 @@ class LY_Common_TheSandman extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        '{M} Up to one target Character gains [[Asleep]]. (Ignore my statistics during Dusk. At Night, I don\'t go to Reserve and I lose Asleep.)'
+        '{H} Up to one target Character gains [[Asleep]]. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
       ),
       'forest' => 0,
       'mountain' => 3,

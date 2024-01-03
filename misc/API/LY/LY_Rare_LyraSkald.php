@@ -17,7 +17,7 @@ class LY_Rare_LyraSkald extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        '{M} You may discard a card from your Reserve to [Resupply]. (Put the top card of your deck in your Reserve.)'
+        '{H} You may discard a card from your Reserve to [Resupply]. (Put the top card of your deck in Reserve.)'
       ),
       'supportDesc' => clienttranslate(
         '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'

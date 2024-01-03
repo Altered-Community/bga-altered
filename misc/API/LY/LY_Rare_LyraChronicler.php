@@ -17,7 +17,7 @@ class LY_Rare_LyraChronicler extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'supportDesc' => clienttranslate(
-        '{D} : [Resupply]. (Resupply: Put the top card of your deck in your Reserve. Discard me from Reserve to do this.)'
+        '{D} : [Resupply]. (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)'
       ),
       'forest' => 4,
       'mountain' => 0,

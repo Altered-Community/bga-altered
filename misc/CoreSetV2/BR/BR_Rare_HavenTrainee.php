@@ -1,0 +1,30 @@
+<?php
+namespace ALT\Cards\BR;
+
+class BR_Rare_HavenTrainee extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_BR_09_R1',
+      'asset' => 'ALT_CORE_B_BR_09_R1',
+
+      'faction' => FACTION_BR,
+      'rarity' => RARITY_RARE,
+      'name' => clienttranslate('Haven Trainee'),
+      'typeline' => clienttranslate('Character - Apprentice'),
+      'type' => CHARACTER,
+      'subtypes' => [APPRENTICE],
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'
+      ),
+      'forest' => 3,
+      'mountain' => 1,
+      'ocean' => 1,
+      'costHand' => 2,
+      'costReserve' => 2,
+    ];
+  }
+}

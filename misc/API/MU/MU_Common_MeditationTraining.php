@@ -17,7 +17,7 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        'Target Character with Hand Cost {3} or less gains [[Anchored]]. (At Night, I don\'t go to Reserve and I lose Anchored.)'
+        'Target Character with Hand Cost {3} or less gains [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

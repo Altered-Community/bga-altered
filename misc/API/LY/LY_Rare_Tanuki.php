@@ -17,7 +17,7 @@ class LY_Rare_Tanuki extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate(
-        '{M} [Sabotage].  {S} Roll a die. On a 4 or more, [Sabotage]. (Discard up to one target card from a Reserve.)'
+        '{H} [Sabotage]. (Discard up to one target card from a Reserve.)  {R} Roll a die. On a 4 or higher, [Sabotage].'
       ),
       'forest' => 3,
       'mountain' => 3,

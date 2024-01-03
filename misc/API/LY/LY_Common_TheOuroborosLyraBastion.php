@@ -16,6 +16,9 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
+      'flavorText' => clienttranslate(
+        'The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind.'
+      ),
       'effectDesc' => clienttranslate(
         'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'
       ),

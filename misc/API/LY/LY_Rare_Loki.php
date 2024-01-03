@@ -16,7 +16,7 @@ class LY_Rare_Loki extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{M} Each player discards their hand and their Reserve, then draws three cards.'),
+      'effectDesc' => clienttranslate('{H} Each player discards their hand and their Reserve, then draws three cards.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

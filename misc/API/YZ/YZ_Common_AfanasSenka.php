@@ -15,7 +15,9 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'name' => clienttranslate('Afanas & Senka'),
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('When you play a Spell — Target Character you control gains 1 boost.'),
+      'effectDesc' => clienttranslate(
+        'When you play a Spell — Target Character you control gains 1 boost[]. (Do this after the spell resolves. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
     ];
   }
 }

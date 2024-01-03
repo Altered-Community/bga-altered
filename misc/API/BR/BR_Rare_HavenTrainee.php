@@ -16,7 +16,9 @@ class BR_Rare_HavenTrainee extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Apprentice'),
       'type' => CHARACTER,
       'subtypes' => [APPRENTICE],
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
+      'effectDesc' => clienttranslate(
+        '{R} I gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'supportDesc' => clienttranslate(
         '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)'
       ),

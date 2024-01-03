@@ -17,7 +17,7 @@ class OD_Rare_Atlas extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [TITAN],
       'effectDesc' => clienttranslate(
-        '[Gigantic].  Tokens you control have [Gigantic]. (I am considered present in each of your Expeditions.)'
+        '[Gigantic]. (I am considered present in each of your Expeditions.)  Tokens you control have [Gigantic].'
       ),
       'forest' => 1,
       'mountain' => 1,

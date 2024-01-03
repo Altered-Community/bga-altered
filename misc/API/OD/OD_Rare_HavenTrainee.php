@@ -16,7 +16,7 @@ class OD_Rare_HavenTrainee extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Apprentice'),
       'type' => CHARACTER,
       'subtypes' => [APPRENTICE],
-      'effectDesc' => clienttranslate('{S} Create a [Ordis Recruit 1/1/1] Soldier token in each of your Expeditions.'),
+      'effectDesc' => clienttranslate('{R} Create an [Ordis Recruit 1/1/1] Soldier token in each of your Expeditions.'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,

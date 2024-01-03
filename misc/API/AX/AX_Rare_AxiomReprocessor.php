@@ -16,7 +16,8 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('{J} [Resupply].  At Noon — [Resupply]. (Put the top card of your deck in your Reserve.)'),
+      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
+      'effectDesc' => clienttranslate('{J} [Resupply].  At Noon — [Resupply]. (Put the top card of your deck in Reserve.)'),
       'costHand' => 4,
       'costReserve' => 4,
     ];

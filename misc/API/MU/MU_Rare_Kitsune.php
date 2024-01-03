@@ -16,7 +16,7 @@ class MU_Rare_Kitsune extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
-      'effectDesc' => clienttranslate('{M} Each player may [Resupply]. (Put the top card of your deck in your Reserve.)'),
+      'effectDesc' => clienttranslate('{H} Each player may [Resupply]. (They may put the top card of their deck in Reserve.)'),
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,

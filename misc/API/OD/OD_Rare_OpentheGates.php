@@ -17,7 +17,7 @@ class OD_Rare_OpentheGates extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        'Create four [Ordis Recruit 1/1/1] Soldier tokens divided as you choose among target Expeditions.'
+        'Create four [Ordis Recruit 1/1/1] Soldier tokens, distributed as you choose among any number of target Expeditions.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

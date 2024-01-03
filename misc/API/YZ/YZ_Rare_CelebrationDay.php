@@ -17,7 +17,7 @@ class YZ_Rare_CelebrationDay extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Expeditions can\'t move forward this Day. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Expeditions can\'t move forward this Day.'
       ),
       'costHand' => 8,
       'costReserve' => 8,

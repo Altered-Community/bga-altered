@@ -16,8 +16,11 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Robot'),
       'type' => CHARACTER,
       'subtypes' => [ROBOT],
+      'flavorText' => clienttranslate(
+        'Because of its artificial nature, it served as a model for the Faction\'s first Automata prototypes.'
+      ),
       'effectDesc' => clienttranslate(
-        'When I go to Reserve from your hand — You may put me in one of your Expeditions and I gain [[Asleep]]. (Ignore my statistics during Dusk. At Night, I don\'t go to Reserve and I lose Asleep.)'
+        'When I go to Reserve from your hand — You may play me for free and I gain [[Asleep]]. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
       ),
       'forest' => 2,
       'mountain' => 2,

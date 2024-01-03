@@ -16,7 +16,7 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Messenger'),
       'type' => CHARACTER,
       'subtypes' => [MESSENGER],
-      'effectDesc' => clienttranslate('{S} Create two [Ordis Recruit 1/1/1] Soldier tokens in my Expedition.'),
+      'effectDesc' => clienttranslate('{R} Create two [Ordis Recruit 1/1/1] Soldier tokens in my Expedition.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

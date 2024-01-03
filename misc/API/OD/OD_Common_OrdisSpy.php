@@ -16,7 +16,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{M} [Sabotage]. (Discard up to one target card from a Reserve.)'),
+      'effectDesc' => clienttranslate('{H} [Sabotage]. (Discard up to one target card from a Reserve.)'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

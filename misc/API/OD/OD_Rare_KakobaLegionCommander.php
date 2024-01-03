@@ -17,7 +17,7 @@ class OD_Rare_KakobaLegionCommander extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER, NOBLE],
       'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, I gain 3 boosts. (Cards in Reserve are not controlled.)'
+        '{J} If you control three or more other Characters, I gain 3 boost[]s. (Cards in Reserve are not controlled. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 2,

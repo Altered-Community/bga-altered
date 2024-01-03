@@ -17,7 +17,7 @@ class YZ_Rare_HelpingHand extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        'Target Character gains 1 boost and loses [[Fleeting]]. (If I would be sent to Reserve, discard me instead.)'
+        'Target Character gains 1 boost[] and loses [[Fleeting]]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 1,
       'costReserve' => 1,

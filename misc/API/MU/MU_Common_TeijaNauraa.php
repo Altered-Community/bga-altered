@@ -15,7 +15,9 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'name' => clienttranslate('Teija & Nauraa'),
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost.'),
+      'effectDesc' => clienttranslate(
+        'The first Character you play each Afternoon gains 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
     ];
   }
 }

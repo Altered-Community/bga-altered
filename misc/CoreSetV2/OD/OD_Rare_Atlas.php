@@ -1,0 +1,28 @@
+<?php
+namespace ALT\Cards\OD;
+
+class OD_Rare_Atlas extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_BR_20_R2',
+      'asset' => 'ALT_CORE_B_BR_20_R2',
+
+      'faction' => FACTION_OD,
+      'rarity' => RARITY_RARE,
+      'name' => clienttranslate('Atlas'),
+      'typeline' => clienttranslate('Character - Titan'),
+      'type' => CHARACTER,
+      'subtypes' => [TITAN],
+      'effectDesc' => clienttranslate('$[GIGANTIC].  #Tokens you control have [GIGANTIC].#'),
+      'forest' => 1,
+      'mountain' => 1,
+      'ocean' => 1,
+      'costHand' => 5,
+      'costReserve' => 5,
+      'changedStats' => ['forest', 'mountain', 'water'],
+    ];
+  }
+}

@@ -16,7 +16,10 @@ class BR_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{J} If you control one or more Landmarks, I gain 1 boost.'),
+      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
+      'effectDesc' => clienttranslate(
+        '{J} If you control one or more Landmarks, I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

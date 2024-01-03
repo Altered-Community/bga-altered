@@ -16,7 +16,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        '{T} : Target a Character you control, then roll a die.  • On a 6 or more, it gains [[Anchored]].  • On a 1, send it to Reserve.  • On all other results, it gains 1 boost. (At Night, I don\'t go to Reserve and I lose Anchored.)'
+        '{T} : Target a Character you control, then roll a die.  • On a 6 or higher, it gains [[Anchored]]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)  • On a 1, send it to Reserve.  • On all other results, it gains 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
     ];
   }

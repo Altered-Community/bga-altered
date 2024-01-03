@@ -17,7 +17,7 @@ class OD_Rare_TeamworkTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Create a [Ordis Recruit 1/1/1] Soldier token in target Expedition.  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Create an [Ordis Recruit 1/1/1] Soldier token in target Expedition.  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

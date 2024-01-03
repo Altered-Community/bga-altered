@@ -17,7 +17,7 @@ class BR_Rare_Parvati extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate(
-        '{J} Target Character gains [[Anchored]]. (At Night, I don\'t go to Reserve and I lose Anchored.)'
+        '{J} Target Character gains [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)'
       ),
       'forest' => 3,
       'mountain' => 0,

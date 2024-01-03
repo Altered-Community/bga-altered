@@ -17,7 +17,7 @@ class BR_Rare_BravosPathfinder extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
       'effectDesc' => clienttranslate(
-        '[Seasoned].  {M} You may pay {2} to have me gain 1 boost. (I keep my boosts when I go to Reserve.)'
+        '[Seasoned]. (I keep my boosts when I go to Reserve.)  {H} You may pay {2} to have me gain 1 boost.'
       ),
       'forest' => 0,
       'mountain' => 3,

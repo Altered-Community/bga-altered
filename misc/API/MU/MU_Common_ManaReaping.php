@@ -17,7 +17,7 @@ class MU_Common_ManaReaping extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb). (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).'
       ),
       'costHand' => 3,
       'costReserve' => 3,

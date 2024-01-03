@@ -16,7 +16,9 @@ class BR_Rare_Chiron extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Trainer'),
       'type' => CHARACTER,
       'subtypes' => [TRAINER],
-      'effectDesc' => clienttranslate('{J} Up to two target Characters gain 1 boost.'),
+      'effectDesc' => clienttranslate(
+        '{J} Up to two target Characters gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

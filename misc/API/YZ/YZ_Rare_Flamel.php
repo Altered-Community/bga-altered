@@ -17,7 +17,7 @@ class YZ_Rare_Flamel extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
       'effectDesc' => clienttranslate(
-        '{M} [Resupply]. Then, you may return a Spell from your Reserve to your hand. (Put the top card of your deck in your Reserve.)'
+        '{H} [Resupply]. Then, you may return a Spell from your Reserve to your hand. (Put the top card of your deck in Reserve.)'
       ),
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'

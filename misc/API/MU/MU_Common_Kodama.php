@@ -17,7 +17,7 @@ class MU_Common_Kodama extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT, SPIRIT],
       'effectDesc' => clienttranslate(
-        '{M} I gain [[Asleep]]. (Ignore my statistics during Dusk. At Night, I don\'t go to Reserve and I lose Asleep.)'
+        '{H} I gain [[Asleep]]. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
       ),
       'forest' => 3,
       'mountain' => 3,

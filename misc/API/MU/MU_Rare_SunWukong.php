@@ -16,7 +16,9 @@ class MU_Rare_SunWukong extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{S} Target Character gains 2 boosts.'),
+      'effectDesc' => clienttranslate(
+        '{R} Target Character gains 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,

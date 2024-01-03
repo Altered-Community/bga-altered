@@ -17,7 +17,7 @@ class LY_Rare_TheHatter extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with Hand Cost {4} or less gains [[Anchored]]. (Discard me from Reserve to do this.)'
+        '{D} : Target Character with Hand Cost {3} or less gains [[Anchored]]. (Discard me from Reserve to do this.)'
       ),
       'forest' => 5,
       'mountain' => 0,

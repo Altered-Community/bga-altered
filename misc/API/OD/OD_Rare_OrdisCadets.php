@@ -16,7 +16,7 @@ class OD_Rare_OrdisCadets extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Apprentice Soldier'),
       'type' => CHARACTER,
       'subtypes' => [APPRENTICE, SOLDIER],
-      'effectDesc' => clienttranslate('{J} Create a [Ordis Recruit 1/1/1] Soldier token in your other Expedition.'),
+      'effectDesc' => clienttranslate('{J} Create an [Ordis Recruit 1/1/1] Soldier token in your other Expedition.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

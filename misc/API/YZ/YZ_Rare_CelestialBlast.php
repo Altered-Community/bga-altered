@@ -17,7 +17,7 @@ class YZ_Rare_CelestialBlast extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Discard up to two targets, Characters or Permanents. Draw a card. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Discard up to two targets, Characters or Permanents.  Draw a card.'
       ),
       'costHand' => 7,
       'costReserve' => 7,

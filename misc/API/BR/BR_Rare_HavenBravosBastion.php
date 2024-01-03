@@ -17,7 +17,7 @@ class BR_Rare_HavenBravosBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} [Resupply].  Your Characters have: \"{S} I gain 1 boost.\" (Put the top card of your deck in your Reserve.)'
+        '{J} [Resupply]. (Put the top card of your deck in Reserve.)  Your Characters have: \"{R} I gain 1 boost.\"'
       ),
       'costHand' => 2,
       'costReserve' => 2,

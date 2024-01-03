@@ -15,8 +15,9 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'name' => clienttranslate('Akesha & Taru'),
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
+      'flavorText' => clienttranslate('Magic is the essence of wonder!'),
       'effectDesc' => clienttranslate(
-        '{T} : [After You]. This action costs {1} more if you are not the first player. (End your turn as if you had played a card. You may still play cards later this Day.)'
+        '{T} : [After You]. You can only activate this if you are the first player. (End your turn as if you had played a card. You may still play cards later this Day.)'
       ),
     ];
   }

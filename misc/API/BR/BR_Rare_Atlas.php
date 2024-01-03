@@ -17,7 +17,7 @@ class BR_Rare_Atlas extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [TITAN],
       'effectDesc' => clienttranslate(
-        '[Gigantic], [Seasoned]. (I am considered present in each of your Expeditions.I keep my boosts when I go to Reserve.)'
+        '[Gigantic]. (I am considered present in each of your Expeditions.)  [Seasoned]. (I keep my boosts when I go to Reserve.)'
       ),
       'supportDesc' => clienttranslate(
         '{D} : The next Character you play this turn gains 2 boosts. (Discard me from Reserve to do this.)'

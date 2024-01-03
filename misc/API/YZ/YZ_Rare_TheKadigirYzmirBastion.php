@@ -17,7 +17,7 @@ class YZ_Rare_TheKadigirYzmirBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{T} : The next Spell you play this turn is free. If you play it from your hand, it loses [[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '{T} : The next Spell you play this turn is free. If you play it from your hand, it loses [[Fleeting]].'
       ),
       'costHand' => 8,
       'costReserve' => 8,

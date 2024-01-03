@@ -17,7 +17,7 @@ class LY_Common_OuroborosCroupier extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate(
-        '{M} Roll a die. On a 4 or more, draw a card. Otherwise, [Resupply]. (Put the top card of your deck in your Reserve.)'
+        '{H} Roll a die. On a 4 or higher, draw a card. Otherwise, [Resupply]. (Put the top card of your deck in Reserve.)'
       ),
       'forest' => 0,
       'mountain' => 4,

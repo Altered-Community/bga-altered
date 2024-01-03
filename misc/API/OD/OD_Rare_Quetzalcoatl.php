@@ -17,7 +17,7 @@ class OD_Rare_Quetzalcoatl extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT, DEITY],
       'effectDesc' => clienttranslate(
-        'When an opponent draws one or more cards or does [Resupply] — Create a [Ordis Recruit 1/1/1] Soldier token in target Expedition.'
+        'When an opponent draws one or more cards or does [Resupply] — Create an [Ordis Recruit 1/1/1] Soldier token in target Expedition.'
       ),
       'forest' => 3,
       'mountain' => 3,

@@ -16,7 +16,7 @@ class YZ_Rare_BabaYaga extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
       'subtypes' => [MAGE],
-      'effectDesc' => clienttranslate('{M} Draw a card.'),
+      'effectDesc' => clienttranslate('{H} Draw a card.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,

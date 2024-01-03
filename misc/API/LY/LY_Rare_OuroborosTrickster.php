@@ -7,8 +7,8 @@ class LY_Rare_OuroborosTrickster extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_10_R1',
-      'asset' => 'ALT_CORE_B_LY_10_R1',
+      'uid' => 'ALT_CORE_B_LY_06_R1',
+      'asset' => 'ALT_CORE_B_LY_06_R1',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
@@ -16,7 +16,9 @@ class LY_Rare_OuroborosTrickster extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or more, I gain 3 boosts. Otherwise, I gain 1 boost.'),
+      'effectDesc' => clienttranslate(
+        '{J} Roll a die. On a 4 or higher, I gain 3 boosts. Otherwise, I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

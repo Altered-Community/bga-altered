@@ -16,7 +16,7 @@ class MU_Rare_DaughterofYggdrasil extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
-      'effectDesc' => clienttranslate('{M} Each player draws a card.'),
+      'effectDesc' => clienttranslate('{H} Each player draws a card.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 3,

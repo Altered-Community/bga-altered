@@ -17,7 +17,7 @@ class YZ_Rare_Intimidation extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Return target Character or Permanent with Hand Cost {5} or less to its owner\'s hand. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Return target Character or Permanent with Hand Cost {5} or less to its owner\'s hand.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

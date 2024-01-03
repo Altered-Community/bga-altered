@@ -17,7 +17,7 @@ class BR_Rare_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [LEVIATHAN],
       'effectDesc' => clienttranslate(
-        '[Gigantic].  [Tough X], where X is the numbers of regions between your Hero and Companion.  (If your Hero and Companion Expeditions are adjacent, X equals 0.) (I am considered present in each of your Expeditions.Your opponent\'s Spells and abilities that target me cost {X} more.)'
+        '[Gigantic]. (I am considered present in each of your Expeditions.)  [Tough X], where X is the numbers of regions between your Hero and Companion. (If your Hero and Companion Expeditions are adjacent, X equals 0. Your opponent\'s Spells and abilities that target me cost {X} more.)'
       ),
       'forest' => 8,
       'mountain' => 8,

@@ -7,8 +7,8 @@ class LY_Rare_OuroborosInkcaster extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_12_R1',
-      'asset' => 'ALT_CORE_B_LY_12_R1',
+      'uid' => 'ALT_CORE_B_LY_10_R1',
+      'asset' => 'ALT_CORE_B_LY_10_R1',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
@@ -17,7 +17,7 @@ class LY_Rare_OuroborosInkcaster extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        'When I go to Reserve from the Expedition zone — You may return another card in your Reserve to your hand.'
+        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
       ),
       'supportDesc' => clienttranslate(
         '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'

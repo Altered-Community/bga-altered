@@ -17,7 +17,7 @@ class OD_Rare_BanishingGate extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Discard target Character or Permanent. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Discard target Character or Permanent.'
       ),
       'costHand' => 4,
       'costReserve' => 4,

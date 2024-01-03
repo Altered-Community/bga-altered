@@ -17,7 +17,7 @@ class OD_Rare_MonolithArchivist extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
       'effectDesc' => clienttranslate(
-        '[Defender].  If you control two or more other Bureaucrats, I lose [Defender]. (My Expedition can\'t advance during Dusk.)'
+        'I have [Defender] unless you control two or more Bureaucrats. (My Expedition can\'t advance during Dusk.)'
       ),
       'forest' => 3,
       'mountain' => 3,

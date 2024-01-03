@@ -16,7 +16,7 @@ class OD_Common_TheCouncil extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('The {J}, {M} and {S} triggers of Characters facing me don\'t activate.'),
+      'effectDesc' => clienttranslate('The {J}, {H} and {R} triggers of Characters facing me don\'t activate.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

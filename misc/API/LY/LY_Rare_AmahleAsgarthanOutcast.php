@@ -16,7 +16,7 @@ class LY_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Scholar'),
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
-      'effectDesc' => clienttranslate('{J} You may discard X cards from your Reserve to draw X cards.'),
+      'effectDesc' => clienttranslate('{J} You may discard any number of cards from your Reserve to draw that many cards.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

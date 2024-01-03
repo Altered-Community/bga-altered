@@ -17,7 +17,7 @@ class LY_Rare_ClothCocoon extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Discard target [[Fleeting]], [[Anchored]] or [[Asleep]] Character. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Discard target [[Fleeting]], [[Anchored]] or [[Asleep]] Character.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

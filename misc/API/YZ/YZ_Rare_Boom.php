@@ -16,8 +16,9 @@ class YZ_Rare_Boom extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
+      'flavorText' => clienttranslate('Catastrophic failure ? I prefer the term \'learning opportunity\'.'),
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Sacrifice a Character. If you do, discard target Character or Permanent. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Sacrifice a Character. If you do, discard target Character or Permanent.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

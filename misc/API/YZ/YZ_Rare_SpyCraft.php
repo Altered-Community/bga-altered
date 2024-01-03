@@ -17,7 +17,7 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[Sabotage], [Resupply]. (Discard up to one target card from a Reserve.Put the top card of your deck in your Reserve.)'
+        '[Sabotage], then [Resupply]. (Discard up to one target card from a Reserve. Put the top card of your deck in Reserve.)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

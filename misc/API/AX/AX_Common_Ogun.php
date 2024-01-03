@@ -16,7 +16,10 @@ class AX_Common_Ogun extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer Deity'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER, DEITY],
-      'effectDesc' => clienttranslate('{J} Robots you control gain 1 boost.'),
+      'flavorText' => clienttranslate('With every blow of his hammer, Ogun forges the Axiom\'s destiny.'),
+      'effectDesc' => clienttranslate(
+        '{J} Robots you control gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,

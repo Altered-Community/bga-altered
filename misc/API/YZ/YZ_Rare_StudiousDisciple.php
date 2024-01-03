@@ -16,7 +16,10 @@ class YZ_Rare_StudiousDisciple extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage Apprentice'),
       'type' => CHARACTER,
       'subtypes' => [MAGE, APPRENTICE],
-      'effectDesc' => clienttranslate('{S} The next Spell you play this Afternoon costs {1} less.'),
+      'effectDesc' => clienttranslate('{R} The next Spell you play this Afternoon costs {1} less.'),
+      'supportDesc' => clienttranslate(
+        '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 1,

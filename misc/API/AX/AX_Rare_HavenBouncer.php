@@ -16,7 +16,7 @@ class AX_Rare_HavenBouncer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{M} [Sabotage].  {S} I gain 2 boosts. (Discard up to one target card from a Reserve.)'),
+      'effectDesc' => clienttranslate('{H} [Sabotage]. (Discard up to one target card from a Reserve.)  {R} I gain 2 boosts.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

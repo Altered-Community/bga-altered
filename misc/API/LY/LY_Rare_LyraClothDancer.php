@@ -17,7 +17,7 @@ class LY_Rare_LyraClothDancer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        '{M} All of target player\'s Characters gain [[Fleeting]]. (If I would be sent to Reserve, discard me instead.)'
+        '{H} Each Character controlled by target player gains [[Fleeting]]. (If it would be sent to Reserve, discard it instead.)'
       ),
       'forest' => 0,
       'mountain' => 2,

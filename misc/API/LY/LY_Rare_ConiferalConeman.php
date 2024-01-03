@@ -16,7 +16,7 @@ class LY_Rare_ConiferalConeman extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
-      'effectDesc' => clienttranslate('{J} I gain [[Anchored]]. (At Night, I don\'t go to Reserve and I lose Anchored.)'),
+      'effectDesc' => clienttranslate('{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

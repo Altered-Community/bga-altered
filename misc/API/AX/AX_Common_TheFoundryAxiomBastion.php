@@ -16,7 +16,10 @@ class AX_Common_TheFoundryAxiomBastion extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('{T} : Activate the {S} triggers of the next Character you play from your hand this turn.'),
+      'flavorText' => clienttranslate(
+        'Etched into the cliff, it overlooks the city and reminds everyone who looks up that nothing is unreachable if you put your mind to it.'
+      ),
+      'effectDesc' => clienttranslate('{T} : Activate the {R} triggers of the next Character you play from your hand this turn.'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

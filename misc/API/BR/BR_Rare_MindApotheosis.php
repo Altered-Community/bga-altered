@@ -17,7 +17,7 @@ class BR_Rare_MindApotheosis extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in the Expedition Zone. They gain Fleeting. Discard the other cards. (Only activate their {J} triggers.) (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [[Fleeting]]. Discard the other cards. (Don\'t activate any {M} triggers.)'
       ),
       'costHand' => 9,
       'costReserve' => 9,

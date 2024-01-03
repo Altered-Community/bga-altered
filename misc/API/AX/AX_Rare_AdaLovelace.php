@@ -16,7 +16,10 @@ class AX_Rare_AdaLovelace extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{S} You may put a card from your hand in your Reserve to draw a card.'),
+      'flavorText' => clienttranslate(
+        'Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.'
+      ),
+      'effectDesc' => clienttranslate('{R} You may put a card from your hand in Reserve to draw a card.'),
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 1,

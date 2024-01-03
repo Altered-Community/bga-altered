@@ -16,7 +16,9 @@ class MU_Common_YongSuVerdantWeaver extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
       'subtypes' => [DRUID],
-      'effectDesc' => clienttranslate('{J} If you control two or more Plants, I gain 2 boosts.'),
+      'effectDesc' => clienttranslate(
+        '{J} If you control two or more Plants, I gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

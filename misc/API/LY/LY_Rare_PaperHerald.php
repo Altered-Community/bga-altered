@@ -17,7 +17,7 @@ class LY_Rare_PaperHerald extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MESSENGER],
       'supportDesc' => clienttranslate(
-        '{D} : Create a [Ordis Recruit 1/1/1] Soldier token in target Expedition. (Discard me from Reserve to do this.)'
+        '{D} : Create an [Ordis Recruit 1/1/1] Soldier token in target Expedition. (Discard me from Reserve to do this.)'
       ),
       'forest' => 0,
       'mountain' => 1,

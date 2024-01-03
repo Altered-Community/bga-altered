@@ -17,7 +17,7 @@ class BR_Rare_HelpingHand extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]  Target Character gains 2 boosts and loses [[Fleeting]]. (If I would be sent to Reserve, discard me instead.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Target Character gains 2 boosts and loses [[Fleeting]].'
       ),
       'costHand' => 1,
       'costReserve' => 1,

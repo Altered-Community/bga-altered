@@ -17,7 +17,7 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        '{J} If you have three or more base statistics 0 among Characters you control, I gain 1 boost.'
+        '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 2,

@@ -17,7 +17,7 @@ class YZ_Rare_GiftofSelf extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Sacrifice a Character to draw three cards. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Sacrifice a Character to draw three cards.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

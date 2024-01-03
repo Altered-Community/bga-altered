@@ -17,7 +17,7 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT, ANIMAL],
       'effectDesc' => clienttranslate(
-        '{J} I gain [[Anchored]].  At Noon, if I have 2 or more boosts —  [Resupply]. (At Night, I don\'t go to Reserve and I lose Anchored.Put the top card of your deck in your Reserve.)'
+        '{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)  At Noon, if I have 2 or more boosts — [Resupply]. (Put the top card of your deck in Reserve.)'
       ),
       'forest' => 1,
       'mountain' => 0,

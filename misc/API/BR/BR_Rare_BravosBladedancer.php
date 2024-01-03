@@ -17,7 +17,7 @@ class BR_Rare_BravosBladedancer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
-        '{J} I gain 1 boost.  {S} If I have 4 or less boosts, I lose [[Fleeting]].  [Seasoned]. (I keep my boosts when I go to Reserve.)'
+        '[Seasoned]. (I keep my boosts when I go to Reserve.)  {J} I gain 1 boost.  {R} If I have 4 boosts or less, I lose [[Fleeting]].'
       ),
       'forest' => 0,
       'mountain' => 0,

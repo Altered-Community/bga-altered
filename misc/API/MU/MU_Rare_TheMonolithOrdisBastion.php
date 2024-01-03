@@ -16,7 +16,9 @@ class MU_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('When a non-token Character joins your Expeditions — It gains 1 boost.'),
+      'effectDesc' => clienttranslate(
+        'When a non-token Character joins your Expeditions — It gains 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'costHand' => 3,
       'costReserve' => 3,
     ];

@@ -16,7 +16,9 @@ class BR_Rare_IssunBoshi extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{S} Target Character gains 1 boost.'),
+      'effectDesc' => clienttranslate(
+        '{R} Target Character gains 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'supportDesc' => clienttranslate(
         '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)'
       ),

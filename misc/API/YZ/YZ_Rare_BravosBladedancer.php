@@ -16,7 +16,7 @@ class YZ_Rare_BravosBladedancer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} I gain 1 boost.  [Seasoned]. (I keep my boosts when I go to Reserve.)'),
+      'effectDesc' => clienttranslate('[Seasoned]. (I keep my boosts when I go to Reserve.)  {J} I gain 1 boost.'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

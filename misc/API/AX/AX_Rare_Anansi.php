@@ -16,7 +16,9 @@ class AX_Rare_Anansi extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate('{J} I gain 1 boost for each card in your Reserve.'),
+      'effectDesc' => clienttranslate(
+        '{J} I gain 1 boost[] for each card in your Reserve. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

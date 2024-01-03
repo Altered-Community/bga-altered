@@ -16,7 +16,9 @@ class MU_Rare_KakobaLegionCommander extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Soldier Noble'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER, NOBLE],
-      'effectDesc' => clienttranslate('{J} If you control three or more other Characters, I gain 3 boosts.'),
+      'effectDesc' => clienttranslate(
+        '{J} If you control three or more other Characters, I gain 3 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

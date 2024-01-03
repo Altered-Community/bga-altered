@@ -17,7 +17,7 @@ class MU_Rare_Hydracaena extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT, DRAGON],
       'effectDesc' => clienttranslate(
-        '[Eternal].  {J} — I gain 4 boosts.  At Noon — I gain 4 boosts.  [Tough X], where X is the number of plants you control. (At Night, I don\'t join the Reserve.Your opponent\'s Spells and abilities that target me cost {X} more.)'
+        '{J} I gain 4 boosts.  [Tough X], where X is the number of plants you control. (Your opponent\'s Spells and abilities that target me cost {X} more.)  [Eternal]. (During Rest, I don\'t go to Reserve.)  At Noon — I gain 4 boosts.'
       ),
       'forest' => 0,
       'mountain' => 0,

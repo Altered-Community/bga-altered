@@ -16,7 +16,7 @@ class YZ_Rare_OrdisCarrier extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Noon — Create a [Ordis Recruit 1/1/1] Soldier token in your Companion Expedition.'),
+      'effectDesc' => clienttranslate('At Noon — Create an [Ordis Recruit 1/1/1] Soldier token in your Companion Expedition.'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

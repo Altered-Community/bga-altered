@@ -17,7 +17,7 @@ class MU_Rare_AloeVera extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate(
-        '{J} You may pay {1} to have me gain [[Anchored]].  At Noon — [Resupply]. (At Night, I don\'t go to Reserve and I lose Anchored.Put the top card of your deck in your Reserve.)'
+        '{J} You may pay {1} to have me gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)  At Noon — [Resupply]. (Put the top card of your deck in Reserve.)'
       ),
       'forest' => 2,
       'mountain' => 2,

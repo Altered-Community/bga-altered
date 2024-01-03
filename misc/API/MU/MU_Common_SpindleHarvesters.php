@@ -16,7 +16,7 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Plant Animal'),
       'type' => CHARACTER,
       'subtypes' => [PLANT, ANIMAL],
-      'effectDesc' => clienttranslate('{J} I gain [[Anchored]]. (At Night, I don\'t go to Reserve and I lose Anchored.)'),
+      'effectDesc' => clienttranslate('{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

@@ -17,7 +17,7 @@ class YZ_Rare_Hathor extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST, DEITY],
       'supportDesc' => clienttranslate(
-        '{D} : return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
+        '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
       ),
       'forest' => 3,
       'mountain' => 3,

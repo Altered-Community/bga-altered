@@ -17,7 +17,7 @@ class OD_Common_Charge extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]. Characters you control gain 1 boost. (Cards in Reserve are not controlled.) (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Characters you control gain 1 boost[]. (Cards in Reserve are not controlled. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

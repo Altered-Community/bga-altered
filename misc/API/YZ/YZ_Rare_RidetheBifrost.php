@@ -17,7 +17,7 @@ class YZ_Rare_RidetheBifrost extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  All Characters you control switch Expeditions. (They leave their Expeditions and join their controller\'s other Expeditions.) (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  All Characters you control switch Expeditions. (They leave their Expeditions and join their controller\'s other Expedition.)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

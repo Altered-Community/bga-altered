@@ -17,7 +17,7 @@ class OD_Rare_GrandEndeavor extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '[Tough 2].  At Night — Target Expedition moves forward. (Your opponent\'s Spells and abilities that target me cost {2} more.)'
+        '[Tough 2]. (Your opponent\'s Spells and abilities that target me cost {2} more.)  At Noon — Target Expedition moves forward.'
       ),
       'costHand' => 6,
       'costReserve' => 6,

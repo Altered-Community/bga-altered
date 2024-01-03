@@ -17,7 +17,7 @@ class BR_Rare_OrdisSpy extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate(
-        '{M} [Sabotage].  {S} Create a [Ordis Recruit 1/1/1] Soldier token in my Expedition. (Discard up to one target card from a Reserve.)'
+        '{H} [Sabotage]. (Discard up to one target card from a Reserve.)  {R} Create an [Ordis Recruit 1/1/1] Soldier token in my Expedition.'
       ),
       'forest' => 2,
       'mountain' => 2,

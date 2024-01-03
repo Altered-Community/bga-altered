@@ -16,7 +16,9 @@ class LY_Rare_Anansi extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate('{J} I gain 1 boost for each card in each player\'s Reserve.'),
+      'effectDesc' => clienttranslate(
+        '{J} I gain 1 boost[] for each card in each player\'s Reserve. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

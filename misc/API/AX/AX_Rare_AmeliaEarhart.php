@@ -16,7 +16,10 @@ class AX_Rare_AmeliaEarhart extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{M} I gain 1 boost.'),
+      'flavorText' => clienttranslate('The most effective way to do it, is to do it.'),
+      'effectDesc' => clienttranslate(
+        '{H} I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

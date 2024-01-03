@@ -16,6 +16,9 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate(
+        'This material does not seem to be affected by gravity. By harnessing the properties of this Aerolithe, we could create flying ships and cities, and fly close to the clouds...'
+      ),
       'supportDesc' => clienttranslate(
         '{D} : Activate the {J} triggers of target Permanent you control. (Discard me from Reserve to do this.)'
       ),

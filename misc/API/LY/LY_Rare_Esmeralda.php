@@ -16,7 +16,7 @@ class LY_Rare_Esmeralda extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate('{J} [Resupply]. (Put the top card of your deck in your Reserve.)'),
+      'effectDesc' => clienttranslate('{J} [Resupply]. (Put the top card of your deck in Reserve.)'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

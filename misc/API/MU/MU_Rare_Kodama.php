@@ -17,7 +17,7 @@ class MU_Rare_Kodama extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT, SPIRIT],
       'effectDesc' => clienttranslate(
-        '{M} I gain [[Asleep]]. (Ignore my statistics during Dusk. At Night, I don\'t go to Reserve and I lose Asleep.)'
+        '{H} I gain [[Asleep]]. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
       ),
       'supportDesc' => clienttranslate(
         '{D} : Target Character with Hand Cost {3} or less gains [[Anchored]]. (Discard me from Reserve to do this.)'

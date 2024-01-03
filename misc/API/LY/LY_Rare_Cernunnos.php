@@ -17,7 +17,7 @@ class LY_Rare_Cernunnos extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DRUID, DEITY],
       'forest' => 4,
-      'mountain' => 3,
+      'mountain' => 4,
       'ocean' => 4,
       'costHand' => 3,
       'costReserve' => 3,

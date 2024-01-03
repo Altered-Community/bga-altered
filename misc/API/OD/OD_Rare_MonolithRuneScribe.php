@@ -16,7 +16,7 @@ class OD_Rare_MonolithRuneScribe extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Scholar'),
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
-      'effectDesc' => clienttranslate('{M} If you control a token, [Resupply]. (Put the top card of your deck in your Reserve.)'),
+      'effectDesc' => clienttranslate('{H} If you control a token, [Resupply]. (Put the top card of your deck in Reserve.)'),
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 2,

@@ -17,7 +17,7 @@ class LY_Rare_SmallStepGiantLeap extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Target Expedition moves forward. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Target Expedition moves forward.'
       ),
       'costHand' => 6,
       'costReserve' => 6,

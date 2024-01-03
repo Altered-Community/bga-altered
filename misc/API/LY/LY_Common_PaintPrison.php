@@ -17,7 +17,7 @@ class LY_Common_PaintPrison extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of it\'s owner\'s deck. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner\'s deck.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

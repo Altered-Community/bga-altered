@@ -17,7 +17,7 @@ class YZ_Rare_SneezerShroom extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate(
-        '{J} I gain [[Anchored]].  At Noon — I gain 1 boost. (At Night, I don\'t go to Reserve and I lose Anchored.)'
+        '{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)  At Noon — I gain 1 boost.'
       ),
       'forest' => 1,
       'mountain' => 1,

@@ -16,7 +16,7 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{S} I lose [[Fleeting]].'),
+      'effectDesc' => clienttranslate('{R} I lose [[Fleeting]].'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,

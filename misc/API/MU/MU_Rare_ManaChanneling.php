@@ -17,7 +17,7 @@ class MU_Rare_ManaChanneling extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb). (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'
       ),
       'costHand' => 2,
       'costReserve' => 2,

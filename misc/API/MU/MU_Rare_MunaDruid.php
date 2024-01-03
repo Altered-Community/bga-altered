@@ -16,7 +16,9 @@ class MU_Rare_MunaDruid extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
       'subtypes' => [DRUID],
-      'effectDesc' => clienttranslate('{M} Up to one target Plant gains 2 boosts.'),
+      'effectDesc' => clienttranslate(
+        '{H} Up to one target Plant gains 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'supportDesc' => clienttranslate(
         '{D} : Target Character with Hand Cost {3} or less gains [[Anchored]]. (Discard me from Reserve to do this.)'
       ),

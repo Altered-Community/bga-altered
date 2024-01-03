@@ -17,7 +17,7 @@ class LY_Rare_Asmodeus extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate(
-        '{J} Roll a die. On a 4 or more, I gain [[Anchored]]. Otherwise, I gain 3 boosts. (At Night, I don\'t go to Reserve and I lose Anchored.)'
+        '{J} Roll a die. On a 4 or higher, I gain [[Anchored]]. Otherwise, I gain 3 boosts. (During Rest, I don\'t go to Reserve and I lose Anchored.)'
       ),
       'forest' => 4,
       'mountain' => 4,

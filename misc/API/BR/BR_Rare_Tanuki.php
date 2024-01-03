@@ -16,7 +16,7 @@ class BR_Rare_Tanuki extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
-      'effectDesc' => clienttranslate('{M} [Sabotage]. (Discard up to one target card from a Reserve.)'),
+      'effectDesc' => clienttranslate('{H} [Sabotage]. (Discard up to one target card from a Reserve.)'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,

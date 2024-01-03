@@ -16,7 +16,9 @@ class OD_Rare_Nurture extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Boon'),
       'type' => SPELL,
       'subtypes' => [BOON],
-      'effectDesc' => clienttranslate('Up to two target Characters each gain 1 boost.'),
+      'effectDesc' => clienttranslate(
+        'Up to two target Characters each gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
     ];

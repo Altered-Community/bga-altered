@@ -16,7 +16,7 @@ class MU_Rare_MunaMerchant extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{S} [Resupply]. (Put the top card of your deck in your Reserve.)'),
+      'effectDesc' => clienttranslate('{R} [Resupply]. (Put the top card of your deck in Reserve.)'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 0,

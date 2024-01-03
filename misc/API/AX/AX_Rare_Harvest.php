@@ -16,7 +16,7 @@ class AX_Rare_Harvest extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
       'subtypes' => [CONJURATION],
-      'effectDesc' => clienttranslate('[Resupply]. (Put the top card of your deck in your Reserve.)'),
+      'effectDesc' => clienttranslate('[Resupply]. (Put the top card of your deck in Reserve.)'),
       'costHand' => 1,
       'costReserve' => 1,
     ];

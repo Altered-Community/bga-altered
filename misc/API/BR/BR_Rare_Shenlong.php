@@ -16,7 +16,7 @@ class BR_Rare_Shenlong extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Dragon Deity'),
       'type' => CHARACTER,
       'subtypes' => [DRAGON, DEITY],
-      'effectDesc' => clienttranslate('[Tough 1] (Your opponent\'s Spells and abilities that target me cost {1} more.)'),
+      'effectDesc' => clienttranslate('[Tough 1]. (Your opponent\'s Spells and abilities that target me cost {1} more.)'),
       'forest' => 9,
       'mountain' => 9,
       'ocean' => 9,

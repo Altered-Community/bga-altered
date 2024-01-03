@@ -16,6 +16,7 @@ class OD_Rare_FoundryMechanic extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'flavorText' => clienttranslate('You can\'t choose when and where a quick fix is needed.'),
       'supportDesc' => clienttranslate(
         '{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),

@@ -16,7 +16,7 @@ class OD_Common_OrdisGatekeeper extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} Create a [Ordis Recruit 1/1/1] Soldier token in your other Expedition.'),
+      'effectDesc' => clienttranslate('{J} Create an [Ordis Recruit 1/1/1] Soldier token in your other Expedition.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,
