@@ -182,9 +182,11 @@ class Card extends \ALT\Helpers\DB_Model
     $this->setLocation(RESERVE);
     $this->setTapped(false);
     $seasoned = $this->isSeasoned();
-    $deleted = Meeples::getInLocation('card-' . $this->id)->filter(function ($m) use ($seasoned) {
-      return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
-    })->getIds();
+    $deleted = Meeples::getInLocation('card-' . $this->id)
+      ->filter(function ($m) use ($seasoned) {
+        return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
+      })
+      ->getIds();
     if (!empty($deleted)) {
       Meeples::delete($deleted);
     }
@@ -203,7 +205,12 @@ class Card extends \ALT\Helpers\DB_Model
   public function checkLeaveExpeditionListener()
   {
     if (in_array($this->getLocation(), STORMS)) {
-      $event = ['type' => 'LeaveExpedition', 'method' => 'LeaveExpedition', 'boosted' => $this->hasToken(BOOST), 'cardId' => $this->id];
+      $event = [
+        'type' => 'LeaveExpedition',
+        'method' => 'LeaveExpedition',
+        'boosted' => $this->hasToken(BOOST),
+        'cardId' => $this->id,
+      ];
       if ($this->isListeningTo($event)) {
         $event['cardsToListen'] = [$this->id];
         Engine::pushAfterFinishingChilds([
@@ -349,10 +356,14 @@ class Card extends \ALT\Helpers\DB_Model
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     switch ($this->getLocation()) {
       case HAND:
-        return $this->getCostHand() - ($costReduction[$this->getType()]['reduction'] ?? 0) - ($costReduction[ALL]['reduction'] ?? 0);
+        return $this->getCostHand() -
+          ($costReduction[$this->getType()]['reduction'] ?? 0) -
+          ($costReduction[ALL]['reduction'] ?? 0);
         break;
       case RESERVE:
-        return $this->getCostReserve() - ($costReduction[$this->getType()]['reduction'] ?? 0) - ($costReduction[ALL]['reduction'] ?? 0);
+        return $this->getCostReserve() -
+          ($costReduction[$this->getType()]['reduction'] ?? 0) -
+          ($costReduction[ALL]['reduction'] ?? 0);
         break;
     }
   }
@@ -384,7 +395,7 @@ class Card extends \ALT\Helpers\DB_Model
         // no dynamic
         break;
       case 'region':
-        $tough +=  $this->getPlayer()->getRegionDifference();
+        $tough += $this->getPlayer()->getRegionDifference();
         break;
     }
 

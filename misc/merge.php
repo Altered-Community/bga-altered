@@ -5,19 +5,19 @@ error_reporting(E_ALL);
 
 include_once('list.inc.php');
 
-
+/*
 $sourceOld = 'API/';
 $sourceNew = 'CoreSetV2/';
 $target = 'Merge/';
 $attributes = ['effectDesc', 'supportDesc', 'changedStats'];
+*/
 
 
-/*
 $target = "../modules/php/Cards/";
 $sourceOld = $target;
-$sourceNew = 'Merge/';
-$attributes = ['lore', 'effectDesc', 'typeline', 'subtypes'];
-*/
+$sourceNew = 'CoreSetV2/';
+$attributes = ['flavorText', 'effectDesc', 'supportDesc', 'typeline', 'subtypes', 'changedStats'];
+
 
 $i = 0;
 foreach(ALL_CARDS as $cardId){

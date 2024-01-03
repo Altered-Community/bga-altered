@@ -23,7 +23,7 @@ class Tap extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->getCard()->isTapped() == false &&  $player->getMana() >= ($this->getCtxArg('pay') ?? 0);
+    return $this->getCard()->isTapped() == false && $player->getMana() >= ($this->getCtxArg('pay') ?? 0);
   }
 
   public function getCard()

@@ -30,10 +30,13 @@ class BR_Common_AtsadiSurge extends \ALT\Models\Card
           'condition' => 'costHigherThanCounter',
           'output' => FT::SEQ(
             FT::ACTION(DRAW, ['players' => ME]),
-            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'incCounter', 'args' => ['counter' => 1, 'counterName' => clienttranslate('Heroism counter')]])
-          )
-        ]
-      ]
+            FT::ACTION(SPECIAL_EFFECT, [
+              'effect' => 'incCounter',
+              'args' => ['counter' => 1, 'counterName' => clienttranslate('Heroism counter')],
+            ])
+          ),
+        ],
+      ],
     ];
   }
 }

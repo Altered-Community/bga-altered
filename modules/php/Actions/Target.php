@@ -36,7 +36,7 @@ class Target extends \ALT\Models\Action
     'totalCost' => INFTY,
     'hasEffects' => 'disabled',
     'cards' => null,
-    'discardRemaining' => false
+    'discardRemaining' => false,
   ];
 
   public function getDescription()
@@ -98,7 +98,6 @@ class Target extends \ALT\Models\Action
     return $this->getArg('upTo') || count($this->getTargetableCards(Players::getActive())) == 0;
   }
 
-
   public function getTargetableCards($player)
   {
     // Who is the target ?
@@ -140,7 +139,7 @@ class Target extends \ALT\Models\Action
       if ($effects != 'disabled') {
         $found = false;
         foreach ($effects as $effect) {
-          $f =  'getEffect' . $effect;
+          $f = 'getEffect' . $effect;
           if (!empty($c->$f())) {
             $found = true;
           }
@@ -189,7 +188,7 @@ class Target extends \ALT\Models\Action
       'description' => $this->getDescription(),
       'totalCost' => $this->getArg('totalCost'),
       'targetCosts' => $this->getTargetCosts($player),
-      'manaOrbs' => $this->getArg('targetLocation') == [MANA]
+      'manaOrbs' => $this->getArg('targetLocation') == [MANA],
     ];
   }
 

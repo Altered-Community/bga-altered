@@ -25,17 +25,14 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
 
-      'effectPlayed' =>  FT::ACTION(
+      'effectPlayed' => FT::ACTION(
         TARGET,
         [
           'targetType' => [CHARACTER, SPELL, PERMANENT],
           'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
           'upTo' => true,
-          'effect' => FT::SEQ(
-            FT::ACTION(DISCARD, []),
-            FT::ACTION(DRAW, ['players' => ME])
-          )
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::ACTION(DRAW, ['players' => ME])),
         ],
         ['optional' => true]
       ),

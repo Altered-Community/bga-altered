@@ -241,10 +241,10 @@ abstract class Utils extends \APP_DbObject
 
   function cartesian($input)
   {
-    $result = array(array());
+    $result = [[]];
 
     foreach ($input as $key => $values) {
-      $append = array();
+      $append = [];
       $values = array_unique($values, SORT_NUMERIC);
 
       foreach ($result as $product) {

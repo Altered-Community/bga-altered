@@ -25,8 +25,14 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
       'costReserve' => 1,
 
       'effectTap' => FT::XOR(
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'gainCounter', 'args' => ['counter' => 2, 'counterName' => clienttranslate('Kelon counters')]]),
-        FT::SEQ(FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']))
+        FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'gainCounter',
+          'args' => ['counter' => 2, 'counterName' => clienttranslate('Kelon counters')],
+        ]),
+        FT::SEQ(
+          FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost'])
+        )
       ),
       'extraDatas' => ['counter' => 3],
     ];

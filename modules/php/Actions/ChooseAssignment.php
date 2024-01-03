@@ -164,7 +164,12 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     // TODO: put in in invoke
-    $this->checkAfterListeners($player, ['playCard' => true, 'playedCard' => $cardId, 'cardType' => $card->getType(), 'from' => $fromLocation]);
+    $this->checkAfterListeners($player, [
+      'playCard' => true,
+      'playedCard' => $cardId,
+      'cardType' => $card->getType(),
+      'from' => $fromLocation,
+    ]);
 
     if ($card->getType() == SPELL) {
       Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()]]);

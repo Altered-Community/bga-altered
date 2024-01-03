@@ -34,7 +34,7 @@ class Actions
     PLAY_CARD,
     MOVE_CARD,
     PAY,
-    DRAW_MANA
+    DRAW_MANA,
   ];
 
   public static function get($actionId, &$ctx = null)

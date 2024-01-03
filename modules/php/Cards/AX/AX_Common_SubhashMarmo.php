@@ -27,25 +27,22 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
       'effectPassive' => [
         'Dawn' => [
           'condition' => 'myTurn',
-          'output' =>  FT::SEQ_OPTIONAL(
+          'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(PAY, ['pay' => 1]),
-            FT::ACTION(
-              TARGET,
-              [
-                'targetType' => [CHARACTER, SPELL, PERMANENT],
-                'targetPlayer' => ME,
-                'targetLocation' => [HAND],
-                'effect' => FT::DISCARD_TO_RESERVE()
-              ]
-            ),
+            FT::ACTION(TARGET, [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'targetLocation' => [HAND],
+              'effect' => FT::DISCARD_TO_RESERVE(),
+            ]),
             FT::ACTION(INVOKE_TOKEN, [
               'pId' => $this->getPId(),
               'tokenType' => 'AX_Common_Brassbug',
-              'targetLocation' => STORMS
+              'targetLocation' => STORMS,
             ])
-          )
-        ]
-      ]
+          ),
+        ],
+      ],
     ];
   }
 }

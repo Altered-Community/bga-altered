@@ -26,7 +26,7 @@ class BR_Common_IssunBoshi extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 1,
       'costReserve' => 1,
-      'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost'])
+      'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
     ];
   }
 }

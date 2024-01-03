@@ -20,7 +20,7 @@ class AX_Common_Brassbug extends \ALT\Models\Card
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
-      'token' => true
+      'token' => true,
     ];
   }
 }

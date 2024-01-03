@@ -21,10 +21,7 @@ class AX_Common_KelonGenerator extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{2}, {T} : Draw a card.'),
       'costHand' => 3,
       'costReserve' => 3,
-      'effectTap' => FT::SEQ(
-        FT::ACTION(PAY, ['pay' => 2]),
-        FT::ACTION(DRAW, ['players' => ME])
-      )
+      'effectTap' => FT::SEQ(FT::ACTION(PAY, ['pay' => 2]), FT::ACTION(DRAW, ['players' => ME])),
     ];
   }
 }

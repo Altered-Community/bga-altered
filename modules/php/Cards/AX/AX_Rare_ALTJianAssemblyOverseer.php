@@ -26,7 +26,12 @@ class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectSupport' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'targetPlayer' => ME, 'hasEffects' => ['Played'], 'effect' => FT::ACTION(ACTIVATE_EFFECT, [])])
+      'effectSupport' => FT::ACTION(TARGET, [
+        'targetType' => [PERMANENT],
+        'targetPlayer' => ME,
+        'hasEffects' => ['Played'],
+        'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
+      ]),
     ];
   }
 }

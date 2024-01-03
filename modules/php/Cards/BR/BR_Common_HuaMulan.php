@@ -24,7 +24,7 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectReserve' => FT::LOOSE($this, FLEETING)
+      'effectReserve' => FT::LOOSE($this, FLEETING),
     ];
   }
 }

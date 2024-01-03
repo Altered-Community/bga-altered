@@ -24,7 +24,7 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
-      'effectSupport' =>  [
+      'effectSupport' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
       ],

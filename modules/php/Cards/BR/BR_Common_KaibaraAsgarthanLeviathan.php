@@ -26,7 +26,7 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'costReserve' => 8,
 
       'gigantic' => true,
-      'dynamicTough' => 'region'
+      'dynamicTough' => 'region',
     ];
   }
 }

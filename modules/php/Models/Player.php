@@ -176,7 +176,6 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::getPlayedCards($this->id, PERMANENT);
   }
 
-
   public function getLandmarks()
   {
     return Cards::getPlayedCards($this->id, PERMANENT)->where('subtype', LANDMARK);
@@ -392,8 +391,10 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function countUniversalCharacterTough()
   {
-    return count($this->getPlayedCards()->filter(function ($card) {
-      $card->getDynamicTough() == 'universalCharacter2';
-    }));
+    return count(
+      $this->getPlayedCards()->filter(function ($card) {
+        $card->getDynamicTough() == 'universalCharacter2';
+      })
+    );
   }
 }

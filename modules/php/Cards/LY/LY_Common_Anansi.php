@@ -24,7 +24,7 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserve'])
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserve']),
     ];
   }
 }

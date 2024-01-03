@@ -21,10 +21,7 @@ class BR_Common_ManaChannelling extends \ALT\Models\Card
       'effectDesc' => clienttranslate('$[FLEETING]  Put the top card of your deck in your Mana Orbs, exhausted.'),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
-        FT::ACTION(DRAW_MANA, []),
-      )
+      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(DRAW_MANA, [])),
     ];
   }
 }

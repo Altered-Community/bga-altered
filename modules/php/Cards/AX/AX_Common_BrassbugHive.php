@@ -24,7 +24,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
         'pId' => $this->getPId(),
         'tokenType' => 'AX_Common_Brassbug',
-        'targetLocation' => STORMS
+        'targetLocation' => STORMS,
       ]),
       'effectPassive' => [
         'Dawn' => [
@@ -32,7 +32,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => $this->getPId(),
             'tokenType' => 'AX_Common_Brassbug',
-            'targetLocation' => STORMS
+            'targetLocation' => STORMS,
           ]),
         ],
       ],

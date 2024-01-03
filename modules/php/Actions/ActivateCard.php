@@ -24,16 +24,16 @@ class ActivateCard extends \ALT\Models\Action
 
   public function getFlow($player)
   {
-    $flow =  $this->getCard()->isPlayed() ||
-      in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
-      ? Cards::applyEffect(
-        $this->getCard(),
-        $player,
-        $this->getCtxArgs()['event']['method'],
-        $this->getCtxArgs()['event'],
-        true // Throw error if no such listener
-      )
-      : null;
+    $flow =
+      $this->getCard()->isPlayed() || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
+        ? Cards::applyEffect(
+          $this->getCard(),
+          $player,
+          $this->getCtxArgs()['event']['method'],
+          $this->getCtxArgs()['event'],
+          true // Throw error if no such listener
+        )
+        : null;
 
     if ($flow == null) {
       return null;

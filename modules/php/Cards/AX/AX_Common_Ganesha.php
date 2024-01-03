@@ -25,7 +25,7 @@ class AX_Common_Ganesha extends \ALT\Models\Card
       'costHand' => 7,
       'costReserve' => 7,
 
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'activateAllPermanents'])
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'activateAllPermanents']),
     ];
   }
 }

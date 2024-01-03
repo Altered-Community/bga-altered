@@ -21,8 +21,12 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
       'effectDesc' => clienttranslate('Activate the {J} triggers of target Permanent you control.'),
       'costHand' => 1,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'targetPlayer' => ME, 'hasEffects' => ['Played'], 'effect' => FT::ACTION(ACTIVATE_EFFECT, [])])
-
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetType' => [PERMANENT],
+        'targetPlayer' => ME,
+        'hasEffects' => ['Played'],
+        'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
+      ]),
     ];
   }
 }

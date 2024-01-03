@@ -23,7 +23,9 @@ abstract class Conditions
 
   public static function isCharacterBoosted($card, $event)
   {
-    return $event['pId'] == $card->getPId()  && $event['gain']['type'] == BOOST && Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
+    return $event['pId'] == $card->getPId() &&
+      $event['gain']['type'] == BOOST &&
+      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
   }
 
   public static function firstCharacterPlayed($card, $event)
@@ -38,7 +40,6 @@ abstract class Conditions
   {
     return $event['pId'] == $card->getPId();
   }
-
 
   public static function hasCounterOnCard($card, $event)
   {
@@ -93,7 +94,9 @@ abstract class Conditions
       return false;
     }
 
-    return Cards::getMany($event['discarded'], false)->where('type', PERMANENT)->count() > 0;
+    return Cards::getMany($event['discarded'], false)
+      ->where('type', PERMANENT)
+      ->count() > 0;
   }
 
   public static function isCharacterFromReserve($card, $event)

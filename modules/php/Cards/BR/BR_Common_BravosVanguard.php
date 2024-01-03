@@ -25,7 +25,7 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
 
-      'effectPlayed' => FT::ACTION(TARGET, ['statuses' => FLEETING, 'upTo' => true, 'effect' => FT::LOOSE(EFFECT, FLEETING)])
+      'effectPlayed' => FT::ACTION(TARGET, ['statuses' => FLEETING, 'upTo' => true, 'effect' => FT::LOOSE(EFFECT, FLEETING)]),
     ];
   }
 }

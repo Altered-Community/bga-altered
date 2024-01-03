@@ -23,15 +23,15 @@ class UseCounter extends \ALT\Models\Action
 
   public function getDescription()
   {
-    if ($this->getArg('pay') != 0)
+    if ($this->getArg('pay') != 0) {
       return [
         'log' => clienttranslate('{${n}}'),
         'args' => [
           'n' => $this->getArg('pay'),
-          'consume' => $this->getArg('consume')
+          'consume' => $this->getArg('consume'),
         ],
       ];
-    else {
+    } else {
       return '';
     }
   }
@@ -42,7 +42,6 @@ class UseCounter extends \ALT\Models\Action
   {
     return $this->getArg('pay') <= $player->getMana();
   }
-
 
   public function stUseCounter()
   {

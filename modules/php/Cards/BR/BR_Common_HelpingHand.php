@@ -23,12 +23,8 @@ class BR_Common_HelpingHand extends \ALT\Models\Card
       'costReserve' => 2,
 
       'effectPlayed' => FT::ACTION(TARGET, [
-        'effect' =>
-        FT::SEQ(
-          FT::GAIN(EFFECT, BOOST),
-          FT::LOOSE(EFFECT, FLEETING)
-        )
-      ])
+        'effect' => FT::SEQ(FT::GAIN(EFFECT, BOOST), FT::LOOSE(EFFECT, FLEETING)),
+      ]),
     ];
   }
 }

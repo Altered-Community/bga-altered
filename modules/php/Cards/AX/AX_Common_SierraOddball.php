@@ -32,7 +32,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
             FT::ACTION(INVOKE_TOKEN, [
               'pId' => $this->getPId(),
               'tokenType' => 'AX_Common_Brassbug',
-              'targetLocation' => STORMS
+              'targetLocation' => STORMS,
             ])
           ),
         ],

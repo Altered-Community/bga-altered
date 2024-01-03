@@ -22,7 +22,6 @@ class LY_Common_ACappellaTraining extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
-
     ];
   }
 }

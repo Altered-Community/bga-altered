@@ -23,23 +23,18 @@ class AX_Common_Boom extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::ACTION(
-          TARGET,
-          [
-            'targetPlayer' => ME, 'targetType' => [CHARACTER, TOKEN], 'effect' =>
-            FT::SEQ(
-              FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
-              FT::ACTION(
-                TARGET,
-                [
-                  'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' =>
-                  FT::ACTION(DISCARD, [])
-                ]
-              )
-            )
-          ]
-        )
-      )
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetType' => [CHARACTER, TOKEN],
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+            FT::ACTION(TARGET, [
+              'targetType' => [CHARACTER, TOKEN, PERMANENT],
+              'effect' => FT::ACTION(DISCARD, []),
+            ])
+          ),
+        ])
+      ),
     ];
   }
 }

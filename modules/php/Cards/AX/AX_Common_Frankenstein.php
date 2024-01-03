@@ -25,7 +25,12 @@ class AX_Common_Frankenstein extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 3,
 
-      'effectReserve' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'targetPlayer' => ME, 'hasEffects' => ['Played'], 'effect' => FT::ACTION(ACTIVATE_EFFECT, [])])
+      'effectReserve' => FT::ACTION(TARGET, [
+        'targetType' => [PERMANENT],
+        'targetPlayer' => ME,
+        'hasEffects' => ['Played'],
+        'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
+      ]),
     ];
   }
 }

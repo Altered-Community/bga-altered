@@ -21,7 +21,7 @@ class AX_Common_Hooked extends \ALT\Models\Card
       'effectDesc' => clienttranslate('Target Character joins the other Expedition of its controller.'),
       'costHand' => 1,
       'costReserve' => 1,
-      'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])])
+      'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
     ];
   }
 }

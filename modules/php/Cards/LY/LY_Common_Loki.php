@@ -24,10 +24,7 @@ class LY_Common_Loki extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 7,
       'costReserve' => 5,
-      'effectHand' => FT::SEQ(
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHand']),
-        FT::ACTION(DRAW, ['n' => 3])
-      )
+      'effectHand' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHand']), FT::ACTION(DRAW, ['n' => 3])),
     ];
   }
 }

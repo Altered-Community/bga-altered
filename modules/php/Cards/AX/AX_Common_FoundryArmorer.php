@@ -27,8 +27,8 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
       'effectReserve' => FT::ACTION(INVOKE_TOKEN, [
         'pId' => $this->getPId(),
         'tokenType' => 'AX_Common_Brassbug',
-        'targetLocation' => STORMS
-      ])
+        'targetLocation' => STORMS,
+      ]),
     ];
   }
 }

@@ -18,13 +18,15 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
       'name' => clienttranslate('Lyra Thespian'),
       'type' => CHARACTER,
       'subtype' => [ARTIST],
-      'effectDesc' => clienttranslate('{J}  If you have three or more base statistics of 0 among Characters you control, I gain 1 boost.'),
+      'effectDesc' => clienttranslate(
+        '{J}  If you have three or more base statistics of 0 among Characters you control, I gain 1 boost.'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boost3Stat0'])
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boost3Stat0']),
     ];
   }
 }

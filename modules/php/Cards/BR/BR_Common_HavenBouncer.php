@@ -30,7 +30,7 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'effectReserve' => FT::GAIN($this, BOOST)
+      'effectReserve' => FT::GAIN($this, BOOST),
     ];
   }
 }

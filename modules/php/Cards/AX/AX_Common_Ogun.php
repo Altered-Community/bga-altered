@@ -24,7 +24,7 @@ class AX_Common_Ogun extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ROBOT]])
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ROBOT]]),
     ];
   }
 }

@@ -25,20 +25,21 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
 
-      'effectReserve' =>
-      FT::ACTION(
+      'effectReserve' => FT::ACTION(
         TARGET,
         [
           'targetType' => [CHARACTER, SPELL, PERMANENT],
           'targetPlayer' => ME,
           'targetLocation' => [HAND],
-          'effect' => FT::DISCARD_TO_RESERVE()
+          'effect' => FT::DISCARD_TO_RESERVE(),
         ],
         ['optional' => true]
       ),
 
       // using passive effect to listen to check what was discarded
-      'effectPassive' => ['Discard' => ['condition' => 'isSourceAndDiscardPermanent', 'output' => FT::ACTION(DRAW, ['players' => ME])]]
+      'effectPassive' => [
+        'Discard' => ['condition' => 'isSourceAndDiscardPermanent', 'output' => FT::ACTION(DRAW, ['players' => ME])],
+      ],
     ];
   }
 }

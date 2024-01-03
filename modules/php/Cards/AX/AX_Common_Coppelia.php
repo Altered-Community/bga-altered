@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Common_Coppelia extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -27,16 +26,14 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'costReserve' => 2,
 
       'effectPassive' => [
-        'Discard' =>
-        [
+        'Discard' => [
           'condition' => 'isDiscardedFromHandToReserve',
           'output' => FT::SEQ(
             FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true], ['optional' => true]),
             FT::GAIN($this, ASLEEP)
-          )
-        ]
-      ]
-
+          ),
+        ],
+      ],
     ];
   }
 }

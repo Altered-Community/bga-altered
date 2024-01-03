@@ -53,14 +53,22 @@ class Discard extends \ALT\Models\Action
     ];
   }
 
-
   public function stDiscard()
   {
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
       $this->actDiscard([$this->getCtxArg('cardId')], true);
     } elseif ($this->getArg('special') == 'allHand') {
-      $this->actDiscard($this->getPlayer()->getHand()->getIds(), true);
-    } elseif ($this->getArg('special') != 'nightCleanUp' && !is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
+      $this->actDiscard(
+        $this->getPlayer()
+          ->getHand()
+          ->getIds(),
+        true
+      );
+    } elseif (
+      $this->getArg('special') != 'nightCleanUp' &&
+      !is_null($this->getCtxArg('n') ?? null) &&
+      $this->getCtxArg('n') == ME
+    ) {
       $this->actDiscard([$this->getCtx()->getSourceId()], true);
     }
   }
@@ -150,10 +158,12 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(array_diff(
-          $cardIds,
-          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
-        ))
+        !empty(
+          array_diff(
+            $cardIds,
+            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+          )
+        )
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -202,9 +212,11 @@ class Discard extends \ALT\Models\Action
       }
       // remove all meeples on the card
       $seasoned = $card->isSeasoned();
-      $toDelete = Meeples::getInLocation('card-' . $cardId)->filter(function ($m) use ($seasoned) {
-        return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
-      })->getIds();
+      $toDelete = Meeples::getInLocation('card-' . $cardId)
+        ->filter(function ($m) use ($seasoned) {
+          return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
+        })
+        ->getIds();
       Meeples::delete($toDelete);
       $deleted = array_merge($deleted, $toDelete);
     }
@@ -247,16 +259,13 @@ class Discard extends \ALT\Models\Action
       Notifications::updateBiomes($card->getPlayer());
     }
 
-    $this->checkAfterListeners(
-      $player,
-      [
-        'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
-        'discarded' => $cardIds,
-        'originalLocation' => $originalLocation,
-        'cards' => $cards,
-        'sourceId' => $this->getSourceId()
-      ]
-    );
+    $this->checkAfterListeners($player, [
+      'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
+      'discarded' => $cardIds,
+      'originalLocation' => $originalLocation,
+      'cards' => $cards,
+      'sourceId' => $this->getSourceId(),
+    ]);
 
     $this->resolveAction([$cardIds]);
   }

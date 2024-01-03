@@ -75,13 +75,15 @@ class SpecialEffect extends \ALT\Models\Action
 
       case 'costReduction':
         $reduction = Globals::getCostReduction();
-        $reduction[$card->getPId()][$args['type']]['reduction'] = $reduction[$card->getPId()][$args['type']] ?? 0 + $args['reduction'];
-        $reduction[$card->getPId()][$args['type']]['permanent'] = ($reduction[$card->getPId()][$args['type']]['permanent'] ?? false) || ($args['permanent'] ?? false);
+        $reduction[$card->getPId()][$args['type']]['reduction'] =
+          $reduction[$card->getPId()][$args['type']] ?? 0 + $args['reduction'];
+        $reduction[$card->getPId()][$args['type']]['permanent'] =
+          ($reduction[$card->getPId()][$args['type']]['permanent'] ?? false) || ($args['permanent'] ?? false);
         Globals::setCostReduction($reduction);
         break;
       case 'gainCounter':
         $data = $card->getExtraDatas();
-        $data['counter'] = $data['counter'] ?? 0 + $args['counter'] ?? 0;
+        $data['counter'] = $data['counter'] ?? (0 + $args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
 
@@ -89,7 +91,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'incCounter':
         $data = $card->getExtraDatas();
-        $data['counter'] = $data['counter'] ?? 0 + $args['counter'] ?? 0;
+        $data['counter'] = $data['counter'] ?? (0 + $args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
 
@@ -99,7 +101,12 @@ class SpecialEffect extends \ALT\Models\Action
         $cards = $card->getPlayer()->getPermanents();
         $childs = [];
         foreach ($cards as $cId => $card) {
-          $childs[] = ['action' => ACTIVATE_EFFECT, 'optional' => true, 'args' => ['cardId' => $cId], 'sourceId' => $card->getId()];
+          $childs[] = [
+            'action' => ACTIVATE_EFFECT,
+            'optional' => true,
+            'args' => ['cardId' => $cId],
+            'sourceId' => $card->getId(),
+          ];
         }
         $this->pushParallelChilds($childs);
         break;
@@ -122,7 +129,10 @@ class SpecialEffect extends \ALT\Models\Action
         $this->pushParallelChilds($nodes);
         break;
       case 'boostXReserve':
-        $n = $card->getPlayer()->getReserveCards()->count();
+        $n = $card
+          ->getPlayer()
+          ->getReserveCards()
+          ->count();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
@@ -131,8 +141,9 @@ class SpecialEffect extends \ALT\Models\Action
         $nb = 0;
         foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
           foreach ($c->getBiomes(false) as $type => $value) {
-            if ($value == 0)
+            if ($value == 0) {
               $nb++;
+            }
           }
         }
         if ($nb >= 3) {
@@ -152,10 +163,10 @@ class SpecialEffect extends \ALT\Models\Action
         if (Globals::getInstantWin() == false) {
           $card->getPlayer()->setScore(99);
           Globals::setInstantWin(true);
-          Notifications::message(
-            clienttranslate('${player_name} wins the game with ${card_name}\'s effect'),
-            ['player' => $card->getPlayer(), 'card' => $card]
-          );
+          Notifications::message(clienttranslate('${player_name} wins the game with ${card_name}\'s effect'), [
+            'player' => $card->getPlayer(),
+            'card' => $card,
+          ]);
         }
         break;
       case 'MindApotheosis':
@@ -164,22 +175,21 @@ class SpecialEffect extends \ALT\Models\Action
         $player = $card->getPlayer();
         $drawn = $player->draw(4, null, null, $card);
         // Target only Characters drawn
-        $this->insertAsChild(FT::ACTION(
-          TARGET,
-          [
-            'n' => 2,
-            'upTo' => true,
-            'effect' => FT::SEQ(
-              FT::ACTION(PLAY_CARD, ['free' => true, 'effectHand' => false]),
-              FT::GAIN(EFFECT, FLEETING)
-            ),
-            'targetLocation' => [HAND],
-            'targetPlayer' => ME,
-            'cards' => $drawn->getIds(),
-            'discardRemaining' => true,
-          ],
-          ['sourceId' => $card->getId()]
-        ));
+        $this->insertAsChild(
+          FT::ACTION(
+            TARGET,
+            [
+              'n' => 2,
+              'upTo' => true,
+              'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
+              'targetLocation' => [HAND],
+              'targetPlayer' => ME,
+              'cards' => $drawn->getIds(),
+              'discardRemaining' => true,
+            ],
+            ['sourceId' => $card->getId()]
+          )
+        );
         break;
       default:
         break;

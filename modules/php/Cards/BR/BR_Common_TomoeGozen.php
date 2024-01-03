@@ -22,7 +22,7 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 3,
       'costReserve' => 3,
-      'minManaOrbs' => 7
+      'minManaOrbs' => 7,
     ];
   }
 }

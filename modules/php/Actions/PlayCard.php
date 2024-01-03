@@ -35,7 +35,6 @@ class PlayCard extends \ALT\Models\Action
     ];
   }
 
-
   public function getPlayer()
   {
     $pId = $this->getCtxArg('pId') ?? Players::getActiveId();

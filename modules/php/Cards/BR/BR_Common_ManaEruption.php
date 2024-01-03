@@ -23,9 +23,14 @@ class BR_Common_ManaEruption extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [MANA], 'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [MANA],
+          'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
         FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
-      )
+      ),
     ];
   }
 }
