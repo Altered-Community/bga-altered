@@ -17,9 +17,9 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate("Kraken's Wrath"),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
+      'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Send to Reserve up to 3 Characters with a cumulated hand cost of {5} or less.'
+        '$[FLEETING].  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'
       ),
       'costHand' => 5,
       'costReserve' => 5,
@@ -27,6 +27,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['upTo' => true, 'n' => 3, 'totalCost' => 5, 'effect' => FT::ACTION(DISCARD, [])])
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

@@ -17,8 +17,8 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Haven, Bravos Bastion'),
       'type' => PERMANENT,
-      'subtype' => [LANDMARK],
-      'effectDesc' => clienttranslate('Your Characters have : "{S} I gain 1 boost."'),
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate('Your Characters have: \"{R} I gain 1 boost$[BB].\"'),
       'costHand' => 2,
       'costReserve' => 2,
 
@@ -28,6 +28,7 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

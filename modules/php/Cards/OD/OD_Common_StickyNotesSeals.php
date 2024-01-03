@@ -17,7 +17,7 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sticky Notes Seals'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
+      'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Choose one:  - Send to Reserve target Character of hand cost {4} or more.  - Discard target Permanent of hand cost {4} or more.'
       ),

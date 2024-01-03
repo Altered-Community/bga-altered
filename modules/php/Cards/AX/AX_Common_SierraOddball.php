@@ -22,7 +22,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'landmarkSlots' => 2,
 
       'effectDesc' => clienttranslate(
-        'When you play a Permanent with a hand cost {3} or more, you may exhaust me ({T}) to create a [BRASSBUG] Robot token.'
+        'When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.'
       ),
       'effectPassive' => [
         'ChooseAssignment' => [
@@ -37,6 +37,8 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
           ),
         ],
       ],
+      'flavorText' => clienttranslate('There\'s nothing crazier than seeing what you\'ve built come to life! TEST THAI'),
+      'typeline' => clienttranslate('Hero'),
     ];
   }
 }

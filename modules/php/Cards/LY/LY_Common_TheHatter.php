@@ -17,10 +17,10 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('The Hatter'),
       'type' => CHARACTER,
-      'subtype' => [CITIZEN],
+      'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('(*He can\'t swim.*)'),
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)'
+        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)'
       ),
       'forest' => 5,
       'mountain' => 5,
@@ -28,6 +28,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 5,
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'typeline' => clienttranslate('Character - Citizen'),
     ];
   }
 }

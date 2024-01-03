@@ -17,8 +17,8 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Spy Craft'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], $[RESUPPLY].'),
+      'subtypes' => [DISRUPTION],
+      'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
@@ -31,6 +31,7 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
         ]),
         FT::ACTION(RESUPPLY, [])
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

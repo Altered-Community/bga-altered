@@ -17,8 +17,8 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ouroboros Trickster'),
       'type' => CHARACTER,
-      'subtype' => [ARTIST],
-      'effectDesc' => clienttranslate('{J} Roll a die. If the result is 4 or more, I gain 2 boosts. Otherwise, I gain 1 boost.'),
+      'subtypes' => [CITIZEN],
+      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain 2 boosts. Otherwise, I gain 1 boost$[BB].'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
@@ -27,6 +27,7 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 2)],
       ]),
+      'typeline' => clienttranslate('Character - Citizen'),
     ];
   }
 }

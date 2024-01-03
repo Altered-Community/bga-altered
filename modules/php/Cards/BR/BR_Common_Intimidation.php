@@ -17,9 +17,9 @@ class BR_Common_Intimidation extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Intimidation'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
+      'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Return target Character or Permanent of hand cost {4} or less to its owner\'s hand.'
+        '$[FLEETING].  Return target Character or Permanent with Hand Cost {4} or less to its owner\'s hand.'
       ),
       'costHand' => 2,
       'costReserve' => 2,
@@ -27,6 +27,7 @@ class BR_Common_Intimidation extends \ALT\Models\Card
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

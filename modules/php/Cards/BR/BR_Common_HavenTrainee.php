@@ -17,14 +17,15 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Haven Trainee'),
       'type' => CHARACTER,
-      'subtype' => [TRAINER],
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
+      'subtypes' => [APPRENTICE],
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 4,
       'effectReserve' => FT::GAIN($this, BOOST, 2),
+      'typeline' => clienttranslate('Character - Apprentice'),
     ];
   }
 }

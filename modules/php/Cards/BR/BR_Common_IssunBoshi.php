@@ -17,9 +17,9 @@ class BR_Common_IssunBoshi extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Issun-Boshi'),
       'type' => CHARACTER,
-      'subtype' => [ADVENTURER],
+      'subtypes' => [ADVENTURER],
       'supportDesc' => clienttranslate(
-        '{D} : The next Character you play this turn gains 1 boost. (Discard me from your Reserve to activate this effect)'
+        '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)'
       ),
       'forest' => 0,
       'mountain' => 0,
@@ -27,6 +27,7 @@ class BR_Common_IssunBoshi extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 1,
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
+      'typeline' => clienttranslate('Character - Adventurer'),
     ];
   }
 }

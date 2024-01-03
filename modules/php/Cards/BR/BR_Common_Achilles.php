@@ -15,7 +15,7 @@ class BR_Common_Achilles extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Achilles'),
       'type' => CHARACTER,
-      'subtype' => [ADVENTURER],
+      'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate('$[TOUGH_1].'),
       'forest' => 5,
       'mountain' => 5,
@@ -24,6 +24,7 @@ class BR_Common_Achilles extends \ALT\Models\Card
       'costReserve' => 5,
 
       'tough' => 1,
+      'typeline' => clienttranslate('Character - Soldier'),
     ];
   }
 }

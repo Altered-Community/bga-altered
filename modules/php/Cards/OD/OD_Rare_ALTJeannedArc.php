@@ -17,7 +17,7 @@ class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate("ALT Jeanne d'Arc"),
       'type' => CHARACTER,
-      'subtype' => [SOLDIER],
+      'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
         'When I leave the Expedition zone — Create #two# [ORDIS_RECRUIT] Soldier tokens in both of your Expeditions.'
       ),

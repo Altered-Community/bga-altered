@@ -17,8 +17,8 @@ class AX_Common_Boom extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Boom!'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character to discard target Character or Permanent.'),
+      'subtypes' => [DISRUPTION],
+      'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character. If you do, discard target Character or Permanent.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
@@ -35,6 +35,8 @@ class AX_Common_Boom extends \ALT\Models\Card
           ),
         ])
       ),
+      'flavorText' => clienttranslate('Catastrophic failure ? I prefer the term \'learning opportunity\'.'),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

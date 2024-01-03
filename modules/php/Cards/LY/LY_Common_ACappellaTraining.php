@@ -17,11 +17,12 @@ class LY_Common_ACappellaTraining extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('A Cappella Training'),
       'type' => SPELL,
-      'subtype' => [SONG],
-      'effectDesc' => clienttranslate('Target Character becomes [FLEETING_CHAR].'),
+      'subtypes' => [SONG],
+      'effectDesc' => clienttranslate('Target Character gains $[FLEETING_CHAR].'),
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
+      'typeline' => clienttranslate('Spell - Song'),
     ];
   }
 }

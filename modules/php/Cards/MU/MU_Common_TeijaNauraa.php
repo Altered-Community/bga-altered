@@ -17,7 +17,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Teija & Nauraa'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('The first Character you play each Day gains 1 boost.'),
+      'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$[BB].'),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
@@ -28,6 +28,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
           'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
         ],
       ],
+      'typeline' => clienttranslate('Hero'),
     ];
   }
 }

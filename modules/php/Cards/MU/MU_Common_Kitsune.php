@@ -17,14 +17,15 @@ class MU_Common_Kitsune extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kitsune'),
       'type' => CHARACTER,
-      'subtype' => [SPIRIT],
-      'effectDesc' => clienttranslate('{M} Each player draws a card.'),
+      'subtypes' => [SPIRIT],
+      'effectDesc' => clienttranslate('{H} Each player draws a card.'),
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(DRAW, []),
+      'typeline' => clienttranslate('Character - Spirit'),
     ];
   }
 }

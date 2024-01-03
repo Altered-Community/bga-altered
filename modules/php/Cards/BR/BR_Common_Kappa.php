@@ -15,12 +15,13 @@ class BR_Common_Kappa extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kappa'),
       'type' => CHARACTER,
-      'subtype' => [SPIRIT, TRAINER],
+      'subtypes' => [SPIRIT, TRAINER],
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 5,
       'costHand' => 4,
       'costReserve' => 4,
+      'typeline' => clienttranslate('Character - Spirit Trainer'),
     ];
   }
 }

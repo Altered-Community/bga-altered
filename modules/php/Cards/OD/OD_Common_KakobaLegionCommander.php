@@ -17,8 +17,10 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kakoba, Legion Commander'),
       'type' => CHARACTER,
-      'subtype' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, I gain 2 boosts.'),
+      'subtypes' => [SOLDIER, NOBLE],
+      'effectDesc' => clienttranslate(
+        '{J} If you control three or more other Characters, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -28,6 +30,7 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
         'condition' => 'control3OtherCharacters',
         'effect' => FT::GAIN(ME, BOOST, 2),
       ]),
+      'typeline' => clienttranslate('Character - Soldier Noble'),
     ];
   }
 }

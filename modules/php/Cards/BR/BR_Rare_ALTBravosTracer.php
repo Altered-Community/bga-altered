@@ -17,7 +17,7 @@ class BR_Rare_ALTBravosTracer extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Bravos Tracer'),
       'type' => CHARACTER,
-      'subtype' => [ADVENTURER],
+      'subtypes' => [ADVENTURER],
       'effectDesc' => clienttranslate('{J} I become $[FLEETING_CHAR].'),
       'forest' => 4,
       'mountain' => 3,

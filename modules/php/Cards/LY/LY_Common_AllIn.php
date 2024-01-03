@@ -17,13 +17,14 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('All In!'),
       'type' => SPELL,
-      'subtype' => [SUPPORT],
-      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts, where X is the die\'s result.'),
+      'subtypes' => [BOON],
+      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts$[BB], where X is the result.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN('effect', BOOST, 'die')])],
       ]),
+      'typeline' => clienttranslate('Spell - Boon'),
     ];
   }
 }

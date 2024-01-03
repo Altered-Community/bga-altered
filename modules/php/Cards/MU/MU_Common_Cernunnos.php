@@ -15,12 +15,13 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Cernunnos'),
       'type' => CHARACTER,
-      'subtype' => [DRUID],
+      'subtypes' => [DRUID, DEITY],
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 4,
       'costReserve' => 3,
+      'typeline' => clienttranslate('Character - Druid Deity'),
     ];
   }
 }

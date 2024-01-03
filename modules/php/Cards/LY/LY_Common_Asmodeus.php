@@ -17,10 +17,8 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Asmodeus'),
       'type' => CHARACTER,
-      'subtype' => [DEMON],
-      'effectDesc' => clienttranslate(
-        '{J} Roll a die. If the result is 4 or more, I gain $[ANCHORED]. Otherwise, I gain 3 boosts.'
-      ),
+      'subtypes' => [DEITY],
+      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts$[BB].'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
@@ -29,6 +27,7 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 3), '4+' => FT::GAIN(ME, ANCHORED)],
       ]),
+      'typeline' => clienttranslate('Character - Deity'),
     ];
   }
 }

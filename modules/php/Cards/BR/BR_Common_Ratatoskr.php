@@ -17,14 +17,15 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ratatoskr'),
       'type' => CHARACTER,
-      'subtype' => [SQUIRREL],
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts.'),
+      'subtypes' => [MESSENGER],
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 3,
       'effectReserve' => FT::GAIN($this, BOOST, 2),
+      'typeline' => clienttranslate('Character - Messenger'),
     ];
   }
 }

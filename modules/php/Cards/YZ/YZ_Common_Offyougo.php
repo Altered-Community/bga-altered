@@ -17,11 +17,12 @@ class YZ_Common_Offyougo extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Off you go!'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
-      'effectDesc' => clienttranslate('Send to Reserve target Character of hand cost {3} or less.  '),
+      'subtypes' => [DISRUPTION],
+      'effectDesc' => clienttranslate('Send to Reserve target Character with Hand Cost {3} or less.'),
       'costHand' => 2,
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

@@ -17,8 +17,8 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Mechanical Training'),
       'type' => SPELL,
-      'subtype' => [SUPPORT],
-      'effectDesc' => clienttranslate('Activate the {J} triggers of target Permanent you control.'),
+      'subtypes' => [BOON],
+      'effectDesc' => clienttranslate('Activate the {j} triggers of target Permanent you control.'),
       'costHand' => 1,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
@@ -27,6 +27,8 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
+      'flavorText' => clienttranslate('To learn to create, first learn to fix.'),
+      'typeline' => clienttranslate('Spell - Boon'),
     ];
   }
 }

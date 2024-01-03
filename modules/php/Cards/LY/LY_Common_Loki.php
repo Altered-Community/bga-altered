@@ -17,14 +17,15 @@ class LY_Common_Loki extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Loki'),
       'type' => CHARACTER,
-      'subtype' => [DIVINITY],
-      'effectDesc' => clienttranslate('{M} Each player discards their hand, then draws 3 cards.'),
+      'subtypes' => [DEITY],
+      'effectDesc' => clienttranslate('{H} Each player discards their hand, then draws three cards.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
       'costReserve' => 5,
       'effectHand' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHand']), FT::ACTION(DRAW, ['n' => 3])),
+      'typeline' => clienttranslate('Character - Deity'),
     ];
   }
 }

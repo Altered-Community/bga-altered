@@ -17,8 +17,8 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Carrier'),
       'type' => PERMANENT,
-      'subtype' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Dawn — Create a [ORDIS_RECRUIT] Soldier token in your Companion Expedition.'),
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Companion Expedition.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPassive' => [
@@ -31,6 +31,7 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
           ]),
         ],
       ],
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

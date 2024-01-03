@@ -17,8 +17,8 @@ class AX_Common_Frankenstein extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Frankenstein'),
       'type' => CHARACTER,
-      'subtype' => [ENGINEER],
-      'effectDesc' => clienttranslate('{S} You may activate the {J} effect of one of your Permanents.'),
+      'subtypes' => [ENGINEER],
+      'effectDesc' => clienttranslate('{R} You may activate the {j} triggers of target Permanent you control.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -31,6 +31,8 @@ class AX_Common_Frankenstein extends \ALT\Models\Card
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
+      'flavorText' => clienttranslate('We sometimes look for companionship in the strangest life forms.'),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

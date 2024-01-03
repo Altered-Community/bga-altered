@@ -17,14 +17,15 @@ class MU_Common_SneezerShroom extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sneezer Shroom'),
       'type' => CHARACTER,
-      'subtype' => [PLANT],
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
+      'subtypes' => [PLANT],
+      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'typeline' => clienttranslate('Character - Plant'),
     ];
   }
 }

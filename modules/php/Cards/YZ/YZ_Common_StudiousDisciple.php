@@ -15,9 +15,9 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Studious Disciple'),
       'type' => CHARACTER,
-      'subtype' => [MAGE],
+      'subtypes' => [MAGE, APPRENTICE],
       'supportDesc' => clienttranslate(
-        '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
+        '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
       'forest' => 0,
       'mountain' => 1,
@@ -28,6 +28,7 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1]],
       ],
+      'typeline' => clienttranslate('Character - Mage Apprentice'),
     ];
   }
 }

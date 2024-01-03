@@ -17,7 +17,7 @@ class AX_Common_TheThreeLittlePigs extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('The Three Little Pigs'),
       'type' => CHARACTER,
-      'subtype' => [ENGINEER],
+      'subtypes' => [ENGINEER],
       'effectDesc' => clienttranslate('{J} If you have at least 2 cards in your Landmarks, I gain 1 boost.'),
       'forest' => 3,
       'mountain' => 3,

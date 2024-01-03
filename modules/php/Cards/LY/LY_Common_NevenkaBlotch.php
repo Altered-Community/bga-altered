@@ -18,7 +18,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'name' => clienttranslate('Nevenka & Blotch'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        '{T} : Target one of your Characters, then roll a die.  - On 6, it becomes $[ANCHORED].  - On 1, send it to Reserve.  - Otherwise it gains 1 boost.'
+        '{T} : Target a Character you control, then roll a die.  • On a 6 or higher, it gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)  • On a 1, send it to Reserve.  • On all other results, it gains 1 boost$[BB].'
       ),
 
       'reserveSlots' => 2,
@@ -34,6 +34,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
           ],
         ]),
       ]),
+      'typeline' => clienttranslate('Hero'),
     ];
   }
 }

@@ -15,9 +15,9 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kaibara, Asgarthan Leviathan'),
       'type' => CHARACTER,
-      'subtype' => [LEVIATHAN],
+      'subtypes' => [LEVIATHAN],
       'effectDesc' => clienttranslate(
-        '$[GIGANTIC].  $[TOUGH_X], X being the numbers of regions separating your Hero and Companion.'
+        '$[GIGANTIC].  $[TOUGH_X], where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)'
       ),
       'forest' => 6,
       'mountain' => 6,
@@ -27,6 +27,7 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
 
       'gigantic' => true,
       'dynamicTough' => 'region',
+      'typeline' => clienttranslate('Character - Leviathan'),
     ];
   }
 }

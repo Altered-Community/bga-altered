@@ -17,9 +17,9 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Brassbug Hub'),
       'type' => PERMANENT,
-      'subtype' => [LANDMARK],
+      'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} I gain 3 Kelon counters.  At Dawn — You may pay {1} and remove a Kelon counter from me to create a [BRASSBUG] Robot token.'
+        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.'
       ),
       'costHand' => 3,
       'costReserve' => 3,
@@ -44,6 +44,10 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
           ],
         ],
       ],
+      'flavorText' => clienttranslate(
+        'Few people visit the depths of the Foundry, and even fewer can explain how the Brassbugs came to be.'
+      ),
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

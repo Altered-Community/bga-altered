@@ -17,8 +17,8 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Axiom Scrambler'),
       'type' => CHARACTER,
-      'subtype' => [ENGINEER],
-      'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
+      'subtypes' => [ENGINEER],
+      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,
@@ -30,6 +30,10 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
+      'flavorText' => clienttranslate(
+        'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. This is regrettable.'
+      ),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

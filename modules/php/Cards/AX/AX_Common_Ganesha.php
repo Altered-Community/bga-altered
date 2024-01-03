@@ -17,8 +17,8 @@ class AX_Common_Ganesha extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ganesha'),
       'type' => CHARACTER,
-      'subtype' => [DIVINITY],
-      'effectDesc' => clienttranslate('{J} For each Permanent you control, you may activate its {J} triggers.'),
+      'subtypes' => [DEITY],
+      'effectDesc' => clienttranslate('{J} For each Permanent you control, you may activate its {j} triggers.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
@@ -26,6 +26,8 @@ class AX_Common_Ganesha extends \ALT\Models\Card
       'costReserve' => 7,
 
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'activateAllPermanents']),
+      'flavorText' => clienttranslate('Knowledge and wisdom must walk side by side.'),
+      'typeline' => clienttranslate('Character - Deity'),
     ];
   }
 }

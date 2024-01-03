@@ -17,8 +17,8 @@ class BR_Common_ManaEruption extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Mana Eruption'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Mana Orb to discard target Character or Permanent.'),
+      'subtypes' => [DISRUPTION],
+      'effectDesc' => clienttranslate('$[FLEETING].  Discard one of your Mana Orbs to discard target Character or Permanent.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
@@ -31,6 +31,7 @@ class BR_Common_ManaEruption extends \ALT\Models\Card
         ]),
         FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

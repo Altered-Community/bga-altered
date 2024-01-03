@@ -17,14 +17,16 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Axiom Salvager'),
       'type' => CHARACTER,
-      'subtype' => [ENGINEER],
-      'effectDesc' => clienttranslate('{S} $[RESUPPLY].'),
+      'subtypes' => [ENGINEER],
+      'effectDesc' => clienttranslate('{R} $[RESUPPLY].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 2,
       'effectReserve' => FT::ACTION(RESUPPLY, []),
+      'flavorText' => clienttranslate('The Axiom\'s limited ressources pushed them to reuse whatever could be.'),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

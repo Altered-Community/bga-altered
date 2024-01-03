@@ -17,8 +17,8 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Foundry Armorer'),
       'type' => CHARACTER,
-      'subtype' => [ENGINEER],
-      'effectDesc' => clienttranslate('{S} Create a [BRASSBUG] Robot token.'),
+      'subtypes' => [ENGINEER],
+      'effectDesc' => clienttranslate('{R} Create a [BRASSBUG] Robot token in target Expedition.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -29,6 +29,8 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
         'tokenType' => 'AX_Common_Brassbug',
         'targetLocation' => STORMS,
       ]),
+      'flavorText' => clienttranslate('No Brassbug would survive in the Tumult without their armor.'),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

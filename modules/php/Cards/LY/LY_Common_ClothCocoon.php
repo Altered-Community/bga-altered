@@ -17,9 +17,9 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Cloth Cocoon'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
+      'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING]. Choose one:  - Discard target [FLEETING], [ANCHORED] or [ASLEEP] Character.  - Discard target Permanent.'
+        '$[FLEETING].  Choose one:  • Discard target [FLEETING_CHAR], [ANCHORED] or [ASLEEP] Character.  • Discard target Permanent.'
       ),
       'costHand' => 3,
       'costReserve' => 3,
@@ -31,6 +31,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
           'effect' => FT::ACTION(DISCARD, []),
         ])
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

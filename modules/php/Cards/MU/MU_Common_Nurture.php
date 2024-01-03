@@ -17,11 +17,12 @@ class MU_Common_Nurture extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Nurture'),
       'type' => SPELL,
-      'subtype' => [SUPPORT],
-      'effectDesc' => clienttranslate('Up to two target Characters gain 1 boost.'),
+      'subtypes' => [BOON],
+      'effectDesc' => clienttranslate('Up to two target Characters each gain 1 boost$[BB].'),
       'costHand' => 2,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+      'typeline' => clienttranslate('Spell - Boon'),
     ];
   }
 }

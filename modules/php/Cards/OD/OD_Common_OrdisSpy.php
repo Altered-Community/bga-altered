@@ -17,8 +17,8 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Spy'),
       'type' => CHARACTER,
-      'subtype' => [CITIZEN],
-      'effectDesc' => clienttranslate('{M} $[SABOTAGE].'),
+      'subtypes' => [CITIZEN],
+      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -30,6 +30,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
+      'typeline' => clienttranslate('Character - Citizen'),
     ];
   }
 }

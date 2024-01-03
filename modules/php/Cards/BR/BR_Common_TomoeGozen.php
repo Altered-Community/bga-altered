@@ -15,7 +15,7 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Tomoe Gozen'),
       'type' => CHARACTER,
-      'subtype' => [SOLDIER],
+      'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate('I can\'t be played if you have less than seven Mana Orbs.'),
       'forest' => 2,
       'mountain' => 5,
@@ -23,6 +23,7 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'minManaOrbs' => 7,
+      'typeline' => clienttranslate('Character - Soldier'),
     ];
   }
 }

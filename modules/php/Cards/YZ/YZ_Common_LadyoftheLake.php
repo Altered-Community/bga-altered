@@ -15,12 +15,13 @@ class YZ_Common_LadyoftheLake extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lady of the Lake'),
       'type' => CHARACTER,
-      'subtype' => [SPIRIT],
+      'subtypes' => [FAIRY, SPIRIT],
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
+      'typeline' => clienttranslate('Character - Fairy Spirit'),
     ];
   }
 }

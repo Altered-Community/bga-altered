@@ -15,7 +15,7 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('The Frog Prince'),
       'type' => CHARACTER,
-      'subtype' => [BUREAUCRAT],
+      'subtypes' => [BUREAUCRAT],
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,

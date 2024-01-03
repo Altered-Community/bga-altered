@@ -15,12 +15,13 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Yzmir Stargazer'),
       'type' => CHARACTER,
-      'subtype' => [MAGE],
+      'subtypes' => [MAGE, SCHOLAR],
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 1,
+      'typeline' => clienttranslate('Character - Mage Scholar'),
     ];
   }
 }

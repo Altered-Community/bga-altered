@@ -17,8 +17,8 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kelon Elemental'),
       'type' => CHARACTER,
-      'subtype' => [ELEMENTAL],
-      'effectDesc' => clienttranslate('{M} Put a card from your hand into your Reserve'),
+      'subtypes' => [ELEMENTAL],
+      'effectDesc' => clienttranslate('{H} Put a card from your hand in Reserve.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,
@@ -30,6 +30,8 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
         'targetLocation' => [HAND],
         'effect' => FT::DISCARD_TO_RESERVE(),
       ]),
+      'flavorText' => clienttranslate('In true Axiom fashion, Kelon Elementals like to put everything to the taste.'),
+      'typeline' => clienttranslate('Character - Elemental'),
     ];
   }
 }

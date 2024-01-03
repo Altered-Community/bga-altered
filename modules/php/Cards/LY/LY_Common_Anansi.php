@@ -17,14 +17,15 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Anansi'),
       'type' => CHARACTER,
-      'subtype' => [ARTIST],
-      'effectDesc' => clienttranslate('{J} I gain 1 boost for each card in your Reserve.'),
+      'subtypes' => [ARTIST],
+      'effectDesc' => clienttranslate('{J} I gain 1 boost$[BB] for each card in your Reserve.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserve']),
+      'typeline' => clienttranslate('Character - Artist'),
     ];
   }
 }

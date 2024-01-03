@@ -17,7 +17,7 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Ouroboros Trickster'),
       'type' => CHARACTER,
-      'subtype' => [ARTIST],
+      'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
         '{J} Roll a die. If the result is 4 or more, I gain #3# boosts. Otherwise, I gain 1 boost.'
       ),

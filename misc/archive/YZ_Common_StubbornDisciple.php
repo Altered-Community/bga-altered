@@ -18,7 +18,7 @@ class YZ_Common_StubbornDisciple extends \ALT\Models\Card
       'typeline' => clienttranslate('Common - Mage'),
       'rarity' => RARITY_COMMON,
       'type' => CHARACTER,
-      'subtype' => 'Mage',
+      'subtypes' => 'Mage',
 
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'

@@ -17,8 +17,10 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Brassbug Hive'),
       'type' => PERMANENT,
-      'subtype' => [LANDMARK],
-      'effectDesc' => clienttranslate('{J} Create a [BRASSBUG] Robot token.  At Dawn - Activate my {J} effect.'),
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate(
+        '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.'
+      ),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
@@ -36,6 +38,8 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
           ]),
         ],
       ],
+      'flavorText' => clienttranslate('What could possibly go wrong with an absorbing, self-replicating cute little robot?'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

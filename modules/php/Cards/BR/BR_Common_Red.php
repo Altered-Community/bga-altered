@@ -15,7 +15,7 @@ class BR_Common_Red extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Red'),
       'type' => CHARACTER,
-      'subtype' => [ADVENTURER],
+      'subtypes' => [ADVENTURER],
       'effectDesc' => clienttranslate('$[SEASONED].'),
       'forest' => 2,
       'mountain' => 2,
@@ -23,6 +23,7 @@ class BR_Common_Red extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'seasoned' => true,
+      'typeline' => clienttranslate('Character - Adventurer'),
     ];
   }
 }

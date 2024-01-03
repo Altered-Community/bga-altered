@@ -17,8 +17,8 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ada Lovelace'),
       'type' => CHARACTER,
-      'subtype' => [ENGINEER],
-      'effectDesc' => clienttranslate('{S} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.'),
+      'subtypes' => [ENGINEER],
+      'effectDesc' => clienttranslate('{R} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,
@@ -40,6 +40,10 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => ['condition' => 'isSourceAndDiscardPermanent', 'output' => FT::ACTION(DRAW, ['players' => ME])],
       ],
+      'flavorText' => clienttranslate(
+        'Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.'
+      ),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

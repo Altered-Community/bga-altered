@@ -17,8 +17,8 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Cadets'),
       'type' => CHARACTER,
-      'subtype' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} Create a [ORDIS_RECRUIT] Soldier token in my Expedition.'),
+      'subtypes' => [APPRENTICE, SOLDIER],
+      'effectDesc' => clienttranslate('{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,
@@ -29,6 +29,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['source'],
       ]),
+      'typeline' => clienttranslate('Character - Apprentice Soldier'),
     ];
   }
 }

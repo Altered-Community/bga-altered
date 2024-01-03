@@ -17,14 +17,17 @@ class OD_Common_Charge extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Charge!'),
       'type' => SPELL,
-      'subtype' => [SUPPORT],
-      'effectDesc' => clienttranslate('$[FLEETING].  Your Characters gain 1 boost.'),
+      'subtypes' => [MANEUVER],
+      'effectDesc' => clienttranslate(
+        '$[FLEETING].  Characters you control gain 1 boost$[BB]. (Cards in Reserve are not controlled.)'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)])
       ),
+      'typeline' => clienttranslate('Spell - Maneuver'),
     ];
   }
 }

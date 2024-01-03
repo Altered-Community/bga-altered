@@ -17,14 +17,15 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Esmeralda'),
       'type' => CHARACTER,
-      'subtype' => [ARTIST],
-      'effectDesc' => clienttranslate('{M} $[RESUPPLY].'),
+      'subtypes' => [ARTIST],
+      'effectDesc' => clienttranslate('{H} $[RESUPPLY].'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(RESUPPLY, []),
+      'typeline' => clienttranslate('Character - Artist'),
     ];
   }
 }

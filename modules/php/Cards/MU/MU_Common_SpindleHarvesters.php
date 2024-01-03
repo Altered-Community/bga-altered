@@ -17,14 +17,15 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Spindle Harvesters'),
       'type' => CHARACTER,
-      'subtype' => [PLANT],
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
+      'subtypes' => [PLANT, ANIMAL],
+      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'typeline' => clienttranslate('Character - Plant Animal'),
     ];
   }
 }

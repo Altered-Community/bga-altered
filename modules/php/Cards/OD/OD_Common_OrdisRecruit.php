@@ -15,14 +15,15 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Recruit'),
       'type' => TOKEN,
-      'subtype' => [SOLDIER],
-      'effectDesc' => clienttranslate('I am a token.  (When I leave the Expedition zone — Discard me).'),
+      'subtypes' => [SOLDIER],
+      'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'token' => true,
       'costReserve' => 0,
       'costHand' => 0,
+      'typeline' => clienttranslate('Token - Soldier'),
     ];
   }
 }

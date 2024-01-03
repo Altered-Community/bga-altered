@@ -17,9 +17,9 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Festival'),
       'type' => PERMANENT,
-      'subtype' => [LANDMARK],
+      'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} Draw a card.  At Dusk — If you have a [FLEETING] Character, another [ANCHORED] Character and another [ASLEEP] Character in your Expeditions, you win the game.'
+        '{J} Draw a card.  At Dusk — If you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character, you win the game.'
       ),
       'costHand' => 4,
       'costReserve' => 4,
@@ -30,6 +30,7 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'instantWin']),
         ],
       ],
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

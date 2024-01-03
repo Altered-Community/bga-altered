@@ -17,8 +17,10 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Bravos Vanguard'),
       'type' => CHARACTER,
-      'subtype' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{J} You may have another target Character loose $[FLEETING_CHAR].'),
+      'subtypes' => [ADVENTURER],
+      'effectDesc' => clienttranslate(
+        '{J} You may have another target Character lose [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)'
+      ),
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 2,
@@ -26,6 +28,7 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'costReserve' => 3,
 
       'effectPlayed' => FT::ACTION(TARGET, ['statuses' => FLEETING, 'upTo' => true, 'effect' => FT::LOOSE(EFFECT, FLEETING)]),
+      'typeline' => clienttranslate('Character - Adventurer'),
     ];
   }
 }

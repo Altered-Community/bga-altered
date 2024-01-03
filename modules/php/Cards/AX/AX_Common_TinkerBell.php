@@ -17,8 +17,8 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Tinker Bell'),
       'type' => CHARACTER,
-      'subtype' => [FAIRY],
-      'effectDesc' => clienttranslate('{S} $[SABOTAGE].'),
+      'subtypes' => [FAIRY],
+      'effectDesc' => clienttranslate('{R} $[SABOTAGE].'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,
@@ -31,6 +31,8 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
+      'flavorText' => clienttranslate('Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...'),
+      'typeline' => clienttranslate('Character - Fairy'),
     ];
   }
 }

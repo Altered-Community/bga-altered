@@ -15,13 +15,14 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Atlas'),
       'type' => CHARACTER,
-      'subtype' => [TITAN],
+      'subtypes' => [TITAN],
       'effectDesc' => clienttranslate('$[GIGANTIC].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 5,
       'costReserve' => 5,
+      'typeline' => clienttranslate('Character - Titan'),
     ];
   }
 }

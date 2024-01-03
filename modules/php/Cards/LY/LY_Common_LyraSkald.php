@@ -15,12 +15,13 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Skald'),
       'type' => CHARACTER,
-      'subtype' => [ARTIST],
+      'subtypes' => [ARTIST],
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
+      'typeline' => clienttranslate('Character - Artist'),
     ];
   }
 }

@@ -17,14 +17,15 @@ class BR_Common_Chiron extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Chiron'),
       'type' => CHARACTER,
-      'subtype' => [TRAINER],
-      'effectDesc' => clienttranslate('{J} Target Character gains 1 boost.'),
+      'subtypes' => [TRAINER],
+      'effectDesc' => clienttranslate('{J} Target Character gains 1 boost$[BB].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+      'typeline' => clienttranslate('Character - Trainer'),
     ];
   }
 }

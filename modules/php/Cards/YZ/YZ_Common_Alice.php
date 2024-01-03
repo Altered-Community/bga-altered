@@ -17,14 +17,15 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Alice'),
       'type' => CHARACTER,
-      'subtype' => [CITIZEN],
-      'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from your Reserve to activate this effect)'),
+      'subtypes' => [CITIZEN],
+      'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,
       'costHand' => 3,
       'costReserve' => 3,
       'effectSupport' => FT::ACTION(AFTER_YOU, []),
+      'typeline' => clienttranslate('Character - Citizen'),
     ];
   }
 }

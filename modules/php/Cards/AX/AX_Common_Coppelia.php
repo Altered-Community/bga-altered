@@ -17,7 +17,7 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Coppélia'),
       'type' => CHARACTER,
-      'subtype' => [ROBOT],
+      'subtypes' => [ROBOT],
       'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].'),
       'forest' => 2,
       'mountain' => 2,
@@ -34,6 +34,10 @@ class AX_Common_Coppelia extends \ALT\Models\Card
           ),
         ],
       ],
+      'flavorText' => clienttranslate(
+        'Because of its artificial nature, it served as a model for the Faction\'s first Automata prototypes.'
+      ),
+      'typeline' => clienttranslate('Character - Robot'),
     ];
   }
 }

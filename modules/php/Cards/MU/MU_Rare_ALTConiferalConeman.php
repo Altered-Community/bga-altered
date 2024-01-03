@@ -17,7 +17,7 @@ class MU_Rare_ALTConiferalConeman extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('ALT Coniferal Coneman'),
       'type' => CHARACTER,
-      'subtype' => [PLANT],
+      'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
       'forest' => 3,
       'mountain' => 3,

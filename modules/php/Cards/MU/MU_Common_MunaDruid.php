@@ -17,9 +17,9 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Muna Druid'),
       'type' => CHARACTER,
-      'subtype' => [DRUID],
+      'subtypes' => [DRUID],
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with hand cost {3} or less becomes [ANCHORED]. (Discard me from your Reserve to activate this effect)'
+        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)'
       ),
       'forest' => 3,
       'mountain' => 2,
@@ -27,6 +27,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 2,
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'typeline' => clienttranslate('Character - Druid'),
     ];
   }
 }

@@ -17,14 +17,16 @@ class AX_Common_Ogun extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ogun'),
       'type' => CHARACTER,
-      'subtype' => [ENGINEER, DEITY],
-      'effectDesc' => clienttranslate('{J} Robots you control gain 1 boost'),
+      'subtypes' => [ENGINEER, DEITY],
+      'effectDesc' => clienttranslate('{J} Robots you control gain 1 boost$[BB].'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ROBOT]]),
+      'flavorText' => clienttranslate('With every blow of his hammer, Ogun forges the Axiom\'s destiny.'),
+      'typeline' => clienttranslate('Character - Engineer Deity'),
     ];
   }
 }

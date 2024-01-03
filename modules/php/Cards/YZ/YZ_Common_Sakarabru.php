@@ -17,14 +17,15 @@ class YZ_Common_Sakarabru extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sakarabru'),
       'type' => CHARACTER,
-      'subtype' => [DIVINITY],
-      'effectDesc' => clienttranslate('{M} Your opponent\'s Expedition facing mine moves backwards.'),
+      'subtypes' => [DEITY],
+      'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing mine moves backwards one region.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 7,
       'costReserve' => 4,
       'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT]),
+      'typeline' => clienttranslate('Character - Deity'),
     ];
   }
 }

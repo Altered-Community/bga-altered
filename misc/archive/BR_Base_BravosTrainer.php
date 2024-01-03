@@ -16,7 +16,7 @@ class BR_Base_BravosTrainer extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'name' => clienttranslate('Bravos Trainer'),
       'type' => CHARACTER,
-      'subtype' => 'Bowmaster',
+      'subtypes' => 'Bowmaster',
       'typeline' => 'Character Base - Bowmaster',
       'rarity' => RARITY_BASE,
       'effectDesc' => clienttranslate('{S} Target Character gains 2 boosts.'),

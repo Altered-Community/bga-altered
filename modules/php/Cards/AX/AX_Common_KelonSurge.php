@@ -17,7 +17,7 @@ class AX_Common_KelonSurge extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kelon Surge'),
       'type' => SPELL,
-      'subtype' => [DISRUPTION],
+      'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Choose one:  - Send to Reserve target Character of hand cost {4} or less.  - Discard target Permanent of hand cost {4} or less.'
       ),

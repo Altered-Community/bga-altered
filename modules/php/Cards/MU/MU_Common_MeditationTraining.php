@@ -17,11 +17,12 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Meditation Training'),
       'type' => SPELL,
-      'subtype' => [SUPPORT],
-      'effectDesc' => clienttranslate('Target Character of hand cost {3} or less becomes $[ANCHORED].'),
+      'subtypes' => [BOON],
+      'effectDesc' => clienttranslate('Target Character with Hand Cost {3} or less gains $[ANCHORED].'),
       'costHand' => 2,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'typeline' => clienttranslate('Spell - Boon'),
     ];
   }
 }

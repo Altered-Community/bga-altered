@@ -17,14 +17,15 @@ class MU_Common_ConiferalConeman extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Coniferal Coneman'),
       'type' => CHARACTER,
-      'subtype' => [PLANT],
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),
+      'subtypes' => [PLANT],
+      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'typeline' => clienttranslate('Character - Plant'),
     ];
   }
 }

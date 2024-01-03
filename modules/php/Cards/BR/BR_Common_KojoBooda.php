@@ -16,7 +16,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'name' => clienttranslate('Kojo & Booda'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'At Dawn, if you are first player — Create a [BOODA] Cat token in the Companion Expedition.'
+        'At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.'
       ),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
@@ -31,6 +31,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
           ],
         ],
       ],
+      'typeline' => clienttranslate('Hero'),
     ];
   }
 }

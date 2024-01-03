@@ -15,7 +15,7 @@ class BR_Common_HavenVeteran extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Haven Veteran'),
       'type' => CHARACTER,
-      'subtype' => [BLADEMASTER],
+      'subtypes' => [BLADEMASTER],
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 4,

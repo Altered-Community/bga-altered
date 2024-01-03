@@ -17,8 +17,8 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Axiom Reprocessor'),
       'type' => PERMANENT,
-      'subtype' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Dawn — $[RESUPPLY].'),
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate('At Noon — $[RESUPPLY].'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPassive' => [
@@ -27,6 +27,8 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
+      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

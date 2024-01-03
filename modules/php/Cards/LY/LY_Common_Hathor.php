@@ -17,9 +17,9 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Hathor'),
       'type' => CHARACTER,
-      'subtype' => [DIVINITY],
+      'subtypes' => [ARTIST, DEITY],
       'supportDesc' => clienttranslate(
-        '{D} : Return another card from your Reserve to your hand. (Discard me from your Reserve to activate this effect)'
+        '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
       ),
       'forest' => 3,
       'mountain' => 3,
@@ -31,6 +31,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
         'targetLocation' => [RESERVE],
         'effect' => FT::RETURN_TO_HAND(),
       ]),
+      'typeline' => clienttranslate('Character - Artist Deity'),
     ];
   }
 }

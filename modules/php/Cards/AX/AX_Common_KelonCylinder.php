@@ -17,9 +17,9 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kelon Cylinder'),
       'type' => PERMANENT,
-      'subtype' => [LANDMARK],
+      'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{T} : I gain two Kelon Counters.  {T}, Remove a Kelon Counter from me: The next Character you play this turn gains 1 boost.'
+        '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost$[BB].'
       ),
       'costHand' => 1,
       'costReserve' => 1,
@@ -35,6 +35,10 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
         )
       ),
       'extraDatas' => ['counter' => 3],
+      'flavorText' => clienttranslate(
+        'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy, for which engineers find new applications every day.'
+      ),
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

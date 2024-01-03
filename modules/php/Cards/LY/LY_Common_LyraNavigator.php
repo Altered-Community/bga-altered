@@ -15,12 +15,13 @@ class LY_Common_LyraNavigator extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Navigator'),
       'type' => CHARACTER,
-      'subtype' => [CITIZEN],
+      'subtypes' => [CITIZEN],
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 4,
       'costHand' => 2,
       'costReserve' => 3,
+      'typeline' => clienttranslate('Character - Citizen'),
     ];
   }
 }

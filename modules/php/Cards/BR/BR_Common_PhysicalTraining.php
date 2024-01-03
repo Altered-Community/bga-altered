@@ -17,11 +17,12 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Physical Training'),
       'type' => SPELL,
-      'subtype' => [SUPPORT],
-      'effectDesc' => clienttranslate('Target Character gains 3 boosts.'),
+      'subtypes' => [BOON],
+      'effectDesc' => clienttranslate('Target Character gains 3 boosts$[BB].'),
       'costHand' => 2,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
+      'typeline' => clienttranslate('Spell - Boon'),
     ];
   }
 }

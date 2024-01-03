@@ -15,9 +15,9 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Martengale'),
       'type' => CHARACTER,
-      'subtype' => [ANIMAL, SPIRIT],
+      'subtypes' => [ANIMAL, SPIRIT],
       'supportDesc' => clienttranslate(
-        '{D} : The next card you play this turn costs {1} less. (Discard me from your Reserve to activate this effect)'
+        '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
       'forest' => 1,
       'mountain' => 1,
@@ -28,6 +28,7 @@ class LY_Common_Martengale extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
       ],
+      'typeline' => clienttranslate('Character - Animal Spirit'),
     ];
   }
 }

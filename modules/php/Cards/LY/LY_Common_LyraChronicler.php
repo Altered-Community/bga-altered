@@ -15,12 +15,13 @@ class LY_Common_LyraChronicler extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Lyra Chronicler'),
       'type' => CHARACTER,
-      'subtype' => [CITIZEN],
+      'subtypes' => [ARTIST],
       'forest' => 4,
       'mountain' => 0,
       'ocean' => 4,
       'costHand' => 3,
       'costReserve' => 3,
+      'typeline' => clienttranslate('Character - Artist'),
     ];
   }
 }

@@ -15,12 +15,13 @@ class BR_Common_BravosPathfinder extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Bravos Pathfinder'),
       'type' => CHARACTER,
-      'subtype' => [ADVENTURER],
+      'subtypes' => [ADVENTURER],
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
+      'typeline' => clienttranslate('Character - Adventurer'),
     ];
   }
 }

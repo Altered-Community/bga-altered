@@ -17,8 +17,8 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Amahle, Asgarthan Outcast'),
       'type' => CHARACTER,
-      'subtype' => [SCHOLAR],
-      'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to Draw a card.'),
+      'subtypes' => [SCHOLAR],
+      'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to draw a card.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
@@ -36,6 +36,7 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
         ],
         ['optional' => true]
       ),
+      'typeline' => clienttranslate('Character - Scholar'),
     ];
   }
 }

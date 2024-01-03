@@ -17,7 +17,7 @@ class BR_Common_ManaChannelling extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Mana Channelling'),
       'type' => SPELL,
-      'subtype' => [CONJURATION],
+      'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate('$[FLEETING]  Put the top card of your deck in your Mana Orbs, exhausted.'),
       'costHand' => 2,
       'costReserve' => 2,

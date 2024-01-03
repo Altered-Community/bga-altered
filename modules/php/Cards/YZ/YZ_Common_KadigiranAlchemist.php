@@ -17,14 +17,15 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kadigiran Alchemist'),
       'type' => CHARACTER,
-      'subtype' => [MAGE],
-      'effectDesc' => clienttranslate('{M} I gain 2 boosts.'),
+      'subtypes' => [MAGE],
+      'effectDesc' => clienttranslate('{H} I gain 2 boosts$[BB].'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 1,
       'effectHand' => FT::GAIN($this, BOOST, 2),
+      'typeline' => clienttranslate('Character - Mage'),
     ];
   }
 }

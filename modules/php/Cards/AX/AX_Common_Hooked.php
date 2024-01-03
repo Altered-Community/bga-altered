@@ -17,11 +17,15 @@ class AX_Common_Hooked extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Hooked'),
       'type' => SPELL,
-      'subtype' => [MANEUVER],
-      'effectDesc' => clienttranslate('Target Character joins the other Expedition of its controller.'),
+      'subtypes' => [MANEUVER],
+      'effectDesc' => clienttranslate(
+        'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)'
+      ),
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
+      'flavorText' => clienttranslate('Get over here!'),
+      'typeline' => clienttranslate('Spell - Maneuver'),
     ];
   }
 }

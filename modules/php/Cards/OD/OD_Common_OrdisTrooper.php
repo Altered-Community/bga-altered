@@ -15,12 +15,13 @@ class OD_Common_OrdisTrooper extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Trooper'),
       'type' => CHARACTER,
-      'subtype' => [SOLDIER],
+      'subtypes' => [SOLDIER],
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
+      'typeline' => clienttranslate('Character - Soldier'),
     ];
   }
 }

@@ -17,8 +17,8 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Bravos Bladedancer'),
       'type' => CHARACTER,
-      'subtype' => ADVENTURER,
-      'effectDesc' => clienttranslate('{J} I gain 1 boost.  $[SEASONED]'),
+      'subtypes' => [SOLDIER],
+      'effectDesc' => clienttranslate('$[SEASONED].  {J} I gain 1 boost.'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
@@ -27,6 +27,7 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
 
       'seasoned' => true,
       'effectPlayed' => FT::GAIN($this, BOOST),
+      'typeline' => clienttranslate('Character - Soldier'),
     ];
   }
 }
