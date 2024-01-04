@@ -119,7 +119,7 @@ trait NewDayTrait
         Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
       }
 
-      $this->checkCardListeners('Dawn', ST_BEFORE_ASSIGNMENT);
+      $this->checkCardListeners('Noon', ST_BEFORE_ASSIGNMENT);
     }
   }
 
@@ -188,9 +188,9 @@ trait NewDayTrait
     Engine::proceed();
   }
 
-  // Trigger listeners linked to after the dawn
+  // Trigger listeners linked to after the noon
   public function stAfterNewDay()
   {
-    $this->checkCardListeners('Dawn', ST_BEFORE_ASSIGNMENT);
+    $this->checkCardListeners('Noon', ST_BEFORE_ASSIGNMENT);
   }
 }

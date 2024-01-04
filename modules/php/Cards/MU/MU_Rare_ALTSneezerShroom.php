@@ -18,14 +18,14 @@ class MU_Rare_ALTSneezerShroom extends \ALT\Models\Card
       'name' => clienttranslate('ALT Sneezer Shroom'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
-      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  #At Dawn — I gain 1 boost.#'),
+      'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  #At Noon — I gain 1 boost.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
-      'effectPassive' => ['Dawn' => ['condition' => 'myTurn', 'output' => FT::GAIN($this, BOOST)]],
+      'effectPassive' => ['Noon' => ['condition' => 'myTurn', 'output' => FT::GAIN($this, BOOST)]],
     ];
   }
 }

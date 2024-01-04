@@ -22,7 +22,7 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPassive' => [
-        'Dawn' => [
+        'Noon' => [
           'condition' => 'myTurn',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => $this->getPId(),

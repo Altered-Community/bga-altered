@@ -18,12 +18,12 @@ class AX_Rare_ALTAxiomReprocessor extends \ALT\Models\Card
       'name' => clienttranslate('ALT Axiom Reprocessor'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('#{J} $[RESUPPLY].#  At Dawn — Activate my {J} effect.'),
+      'effectDesc' => clienttranslate('#{J} $[RESUPPLY].#  At Noon — Activate my {J} effect.'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'effectPassive' => [
-        'Dawn' => [
+        'Noon' => [
           'condition' => 'myTurn',
           'output' => FT::ACTION(RESUPPLY, []),
         ],
