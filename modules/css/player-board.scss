@@ -381,8 +381,22 @@
         width: 100%;
 
         .player-hand {
-            display: flex;
-            justify-content: center;
+            position: relative;
+            // display: flex;
+            // justify-content: center;
+
+            .altered-card {
+                position: absolute;
+                margin: 0px;
+                transition:
+                    transform 0.2s ease-in,
+                    left 0.3s;
+
+                &:not(.card-back):hover {
+                    transform: scale(1.15) rotate(0rad) translateY(-80px) !important;
+                    z-index: 99;
+                }
+            }
         }
     }
 }
