@@ -2376,8 +2376,14 @@ html {
     position: absolute;
     width: 100%; }
     .altered-player-board .player-board-hand .player-hand {
-      display: flex;
-      justify-content: center; }
+      position: relative; }
+      .altered-player-board .player-board-hand .player-hand .altered-card {
+        position: absolute;
+        margin: 0px;
+        transition: transform 0.2s ease-in, left 0.3s; }
+        .altered-player-board .player-board-hand .player-hand .altered-card:not(.card-back):hover {
+          transform: scale(1.15) rotate(0rad) translateY(-80px) !important;
+          z-index: 99; }
 
 #altered-board-opponent .altered-player-board .player-board-hero {
   top: 313px;

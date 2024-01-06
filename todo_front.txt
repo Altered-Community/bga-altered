@@ -13,7 +13,7 @@ X Mettre une ombre sur le héros à la place de la bordure
 - Afficher max reserve / max landmark slot
 - Reserve afficher de gauche à droite
 X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
-- Eventail de la main
+X Eventail de la main
 
 [Starting deck]
 ~ Afficher le lore / manière de jeu dans le tooltip
@@ -36,9 +36,10 @@ X finir état quand cartes validées
 
 [Tooltip]
 - virer la bordure blanche
-- Voir pour afficher les bulles Fugace/etc. afficher l'icone
-- d'abord statut puis reminder
-- Afficher les tokens Asleep/anchored / avec les vraies images
+- Voir pour afficher les bulles Fugace/etc. 
+- afficher l'icone
+    * D'abord statut puis reminder
+    * Afficher les tokens Asleep/anchored / avec les vraies images
 - Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
 
 [Glossaire]
@@ -50,6 +51,7 @@ X finir état quand cartes validées
 - Pour les sorts, rajout un bouton pour lancer le sort.
 
 [Tap hero/carte]
+ - conserver rotation, même pour le héro mais réduire sa taille pendant l'animation (#filou)
 
 [Animation nuit]
 X Retourner la carte dans l'autre sens

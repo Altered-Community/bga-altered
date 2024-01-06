@@ -118,6 +118,40 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return $('test-cards');
     },
 
+    adjustHand(container, pos = 'bottom') {
+      let items = [...container.querySelectorAll('.altered-card')];
+      let n = items.length;
+      const THRESHOLD = 8;
+      if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
+
+      let a = Math.min(600, n * 50); // X-DISTANCE BETWEEN MAX LEFT CARD AND CENTER
+      let b = n < THRESHOLD ? 80 : 60; // Y-DISTANCE BETWEEN LOWEST CARD AND UPPEST CARD
+      let r = (a * a + b * b) / (2 * b); // RADIUS OF THE CIRCLE
+      let halfAngle = Math.asin(a / r);
+      let alpha = (2 * halfAngle) / (n - 1);
+      console.log(a, b, r, halfAngle, alpha);
+      items.forEach((item, i) => {
+        // Virtual index (useful if less than THRESHOLD cards)
+        let j = i;
+        if (items.length < THRESHOLD) j += parseInt((n - items.length) / 2);
+
+        // Angle
+        let itemAngle = -halfAngle + alpha * j;
+        let dy = item.offsetHeight / 2 - b - (Math.cos(itemAngle) * r - (r - b));
+        if (pos == 'top') {
+          dy = -dy - item.offsetHeight;
+          itemAngle = -itemAngle;
+        }
+        item.style.transform = `rotate(${itemAngle}rad) translateY(${dy}px)`;
+        // Origin
+        item.style.transformOrigin = `${pos} center`;
+
+        // Position
+        let x = (j - n / 2) * 0.8 * item.offsetWidth;
+        item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+      });
+    },
+
     setupDiscardModal(player) {
       let pId = player.id;
       this._discardModals[pId] = new customgame.modal('discardDisplay' + pId, {

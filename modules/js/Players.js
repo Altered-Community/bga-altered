@@ -33,6 +33,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         let container = i == 0 ? 'altered-board-me' : 'altered-board-opponent';
         this.place('tplPlayerBoard', player, container);
 
+        let handContainer = $(`hand-${player.id}`);
+        let observer = new MutationObserver(() => this.adjustHand(handContainer, i == 0 ? 'bottom' : 'top'));
+        observer.observe(handContainer, { childList: true });
+
         // Panels
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
 
@@ -322,8 +326,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           willMove[pId][type] = moving;
         });
       });
-
-      console.log(willMove);
 
       let minPos = 8,
         maxPos = 0;
