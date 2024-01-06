@@ -343,7 +343,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     $power = $passive[$event['action'] ?? $event['type']];
     $cond = $power['condition'] ?? null;
-    // structured : ['Dawn'=>['condition' =>, 'output'=>]]
+    // structured : ['Noon'=>['condition' =>, 'output'=>]]
     if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
       return [null, null];
     }

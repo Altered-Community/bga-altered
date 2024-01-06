@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Core;
+
 use ALT\Managers\Players;
 use ALT\Managers\Actions;
 use ALT\Managers\Scores;
@@ -10,6 +12,7 @@ use ALT\Helpers\UserException;
 /*
  * Engine: a class that allows to handle complex flow
  */
+
 class Engine
 {
   public static $tree = null;
@@ -346,6 +349,7 @@ class Engine
     foreach ($childs as $child) {
       $node->pushChild(self::buildTree($child));
     }
+    Engine::save();
   }
 
   /**

@@ -41,7 +41,7 @@ const PRECOS = [
 
   FACTION_LY => [
     'LY_Common_NevenkaBlotch' => 1,
-    'LY_Common_Hathor' => 1,
+    'LY_Common_Hathor' => 3,
     'LY_Common_LyraSkald' => 3,
     'LY_Common_OuroborosTrickster' => 2,
     'LY_Common_Esmeralda' => 2,

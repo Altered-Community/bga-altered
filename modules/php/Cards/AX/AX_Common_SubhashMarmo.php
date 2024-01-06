@@ -26,7 +26,7 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
       'landmarkSlots' => 2,
 
       'effectPassive' => [
-        'Dawn' => [
+        'Noon' => [
           'condition' => 'myTurn',
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(PAY, ['pay' => 1]),

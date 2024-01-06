@@ -24,7 +24,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
 
       'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Hero Expedition.'),
       'effectPassive' => [
-        'Dawn' => [
+        'Noon' => [
           'condition' => 'myTurn',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => $this->getPId(),

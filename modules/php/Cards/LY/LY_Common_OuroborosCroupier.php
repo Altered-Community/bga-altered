@@ -4,7 +4,7 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-class LY_Common_OuroborosDealer extends \ALT\Models\Card
+class LY_Common_OuroborosCroupier extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,10 +15,10 @@ class LY_Common_OuroborosDealer extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Ouroboros Dealer'),
+      'name' => clienttranslate('Ouroboros Croupier'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{M} Roll a dice, if the result is 4 or more, draw a card, otherwise, $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('{M} Roll a dice, if the result is 4 or more, draw a card. Otherwise, $[RESUPPLY].'),
       'forest' => 0,
       'mountain' => 4,
       'ocean' => 4,

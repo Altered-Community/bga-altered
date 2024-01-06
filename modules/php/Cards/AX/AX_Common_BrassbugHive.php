@@ -29,7 +29,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
         'targetLocation' => STORMS,
       ]),
       'effectPassive' => [
-        'Dawn' => [
+        'Noon' => [
           'condition' => 'myTurn',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => $this->getPId(),

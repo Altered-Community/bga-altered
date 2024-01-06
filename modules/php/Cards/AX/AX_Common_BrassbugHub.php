@@ -28,7 +28,7 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
         'args' => ['effect' => 'gainCounter', 'args' => ['counter' => 3, 'counterName' => clienttranslate('Kelon counter')]],
       ],
       'effectPassive' => [
-        'Dawn' => [
+        'Noon' => [
           'condition' => 'hasCounterOnCard',
           'output' => [
             'type' => NODE_SEQ,

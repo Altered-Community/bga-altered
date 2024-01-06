@@ -23,7 +23,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'landmarkSlots' => 2,
 
       'effectPassive' => [
-        'Dawn' => [
+        'Noon' => [
           'condition' => 'isFirstPlayer',
           'output' => [
             'action' => INVOKE_TOKEN,

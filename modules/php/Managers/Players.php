@@ -234,6 +234,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       foreach ($players as $pId => $player) {
         $biomesByStorm = $player->getBiomeInStorms();
         foreach ($biomesByStorm as $side => $biomes) {
+          $move = null;
           $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
           $movements[$pId][$side] = [OCEAN => 0, FOREST => 0, MOUNTAIN => 0];
 
