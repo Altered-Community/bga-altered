@@ -35,7 +35,7 @@ class Target extends \ALT\Models\Action
     'excludeSelf' => false,
     'totalCost' => INFTY,
     'hasEffects' => 'disabled',
-    'cards' => null,
+    'cards' => [],
     'discardRemaining' => false,
   ];
 
@@ -115,7 +115,7 @@ class Target extends \ALT\Models\Action
     $targetType = $this->getArg('targetType');
     $targetLocation = $this->getArg('targetLocation');
 
-    if (!is_null($this->getArg('cards'))) {
+    if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
         return in_array($c->getLocation(), $targetLocation) && in_array($c->getType(), $targetType);
       });
