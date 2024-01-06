@@ -748,6 +748,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           to: null,
 
           phantom: true,
+          clearTransform: false,
         },
         options
       );
@@ -770,6 +771,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
         return new Promise((resolve, reject) => {
           resolve();
         });
+      }
+
+      if (config.clearTransform) {
+        dojo.style(mobile, { transform: null });
       }
 
       // Handle phantom at start
@@ -825,7 +830,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
             if (config.phantomEnd) dojo.place(mobile, targetId, 'replace');
             else this.changeParent(mobile, newParent);
           }
-          if (config.clearPos && !config.destroy) dojo.style(mobile, { top: null, left: null, position: null });
+          if (config.clearPos && !config.destroy) {
+            dojo.style(mobile, { top: null, left: null, position: null });
+          }
           resolve();
         });
         animation.play();

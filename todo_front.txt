@@ -4,6 +4,7 @@ X Changer fond et emplacement du chat
 - Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
 - Unique: bordure dorée avec un glow
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
+- Asleep
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure

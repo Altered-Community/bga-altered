@@ -724,7 +724,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
         $(id).classList.add(highlight);
         let container = this.getCardContainer(card);
-        this.slide(id, container).then(() => {
+        this.slide(id, container, { clearTransform: true }).then(() => {
           this.updateBiomeTotals(card.pId, n.args.biomes);
           $(id).classList.remove(highlight);
           this.updateMovements(n.args.movements);
