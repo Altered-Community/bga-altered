@@ -1421,7 +1421,7 @@ html {
     padding-left: 4px;
     color: white;
     box-shadow: 0px 0px 4px 2px black;
-    text-shadow: 0px 0px 6px black;
+    text-shadow: 0px 0px 8px black, 0px 0px 8px black;
     border-radius: 6px;
     height: 17px;
     width: 20px;
@@ -1536,6 +1536,16 @@ html {
     .altered-card.mini-card .altered-card-wrapper .rarity-gem[data-rarity="2"],
     .player-board-hero .altered-card .altered-card-wrapper .rarity-gem[data-rarity="2"] {
       background-position-y: 100%; }
+.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
+.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
+.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
+.altered-card.mini-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
+.altered-card.mini-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
+.altered-card.mini-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
+.player-board-hero .altered-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
+.player-board-hero .altered-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
+.player-board-hero .altered-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean {
+  color: #01ff01; }
 
 .altered-card-tooltip {
   display: flex;
@@ -1546,6 +1556,20 @@ html {
     font-family: "Jali Greek Variable"; }
     .altered-card-tooltip .tooltip-explanation:empty {
       display: none; }
+  .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-boost]:not([data-boost="0"])::after,
+  .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-boost]:not([data-boost="0"])::after,
+  .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-boost]:not([data-boost="0"])::after {
+    content: "+" attr(data-boost);
+    display: block;
+    position: absolute;
+    left: 60px;
+    top: 0;
+    width: 30px;
+    height: 28px;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: black 0px 0px 5px, black 0px 0px 5px, black 2px 0px 0px, black 1.75517px 0.958851px 0px, black 1.0806px 1.68294px 0px, black 0.141474px 1.99499px 0px, black -0.832294px 1.81859px 0px, black -1.60229px 1.19694px 0px, black -1.97999px 0.28224px 0px, black -1.87291px -0.701566px 0px, black -1.30729px -1.51361px 0px, black -0.421592px -1.95506px 0px, black 0.567324px -1.91785px 0px, black 1.41734px -1.41108px 0px, black 1.92034px -0.558831px 0px;
+    color: lime; }
 
 #floating-hand-wrapper {
   position: fixed;

@@ -1040,13 +1040,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
+      let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
 
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-character ${mini ? 'mini-card' : ''}'>
+        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${boost}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
@@ -1058,13 +1059,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' data-initial='${p.forest}'>
+          <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' 
+            data-initial='${p.forest}' data-boost='${boost}'>
             ${p.forest}
           </div>
-          <div class='card-mountain ${changed('mountain')}' data-size='${sizes.mountain}' data-initial='${p.mountain}'>
+          <div class='card-mountain ${changed('mountain')}' data-size='${sizes.mountain}' 
+            data-initial='${p.mountain}' data-boost='${boost}'>
             ${p.mountain}
           </div>
-          <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' data-initial='${p.ocean}'>
+          <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' 
+            data-initial='${p.ocean}' data-boost='${boost}'>
             ${p.ocean}
           </div>
 
@@ -1233,7 +1237,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let current = 0;
       let tooLow = 0,
         tooHigh = 1000;
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 6; i++) {
         let padding = computePadding();
         if (padding > current && padding > tooLow) tooLow = padding;
         if (padding < current && padding < tooHigh) tooHigh = padding;
@@ -1283,12 +1287,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           ocean: parseInt($(`card-${cardId}`).querySelector('.card-ocean').getAttribute('data-initial')) + boost,
         };
         let sizes = this.getBiomesUISizes(p);
-        $(`card-${cardId}`).querySelector('.card-forest').setAttribute('data-size', sizes.forest);
-        $(`card-${cardId}`).querySelector('.card-forest').innerHTML = p.forest;
-        $(`card-${cardId}`).querySelector('.card-mountain').setAttribute('data-size', sizes.mountain);
-        $(`card-${cardId}`).querySelector('.card-mountain').innerHTML = p.mountain;
-        $(`card-${cardId}`).querySelector('.card-ocean').setAttribute('data-size', sizes.ocean);
-        $(`card-${cardId}`).querySelector('.card-ocean').innerHTML = p.ocean;
+        ['forest', 'mountain', 'ocean'].forEach((biome) => {
+          let o = $(`card-${cardId}`).querySelector(`.card-${biome}`);
+          o.setAttribute('data-size', sizes[biome]);
+          o.innerHTML = p[biome];
+        });
+
+        $(`card-${cardId}`).dataset.boost = boost;
       }
     },
 

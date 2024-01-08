@@ -4,7 +4,7 @@ X Kojo a modifier
 - Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
 - Unique: bordure dorée avec un glow
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
-- Asleep
+X Asleep
 X Icones status : mettre les vrais meeples
 
 [Setup]
@@ -16,7 +16,6 @@ X Mettre une ombre sur le héros à la place de la bordure
 - Reserve afficher de gauche à droite
 X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
 X Eventail de la main
-- Changer couleur des stats si boostées
 
 [Starting deck]
 ~ Afficher le lore / manière de jeu dans le tooltip
@@ -43,7 +42,7 @@ X finir état quand cartes validées
 - afficher l'icone
     * D'abord statut puis reminder
     * Afficher les tokens Asleep/anchored / avec les vraies images
-- Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
+X Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
 
 [Glossaire]
 - Bouton pour afficher le glossaire
