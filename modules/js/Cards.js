@@ -47,13 +47,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         let isFull =
           container.classList.contains('player-hand') ||
           container.classList.contains('player-board-discard') ||
+          container.classList.contains('player-board-limbo') ||
           container.classList.contains('mana-modal');
         o.classList.toggle('mini-card', !isFull);
 
         return card.id;
       });
       document.querySelectorAll('.altered-card').forEach((oCard) => {
-        if (!cardIds.includes(parseInt(oCard.getAttribute('data-id'))) && !oCard.classList.contains('card-back')) {
+        if (
+          !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
+          !oCard.classList.contains('card-back') &&
+          !oCard.parentNode.classList.contains('player-hand')
+        ) {
           this.destroy(oCard);
         }
       });
@@ -129,7 +134,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let r = (a * a + b * b) / (2 * b); // RADIUS OF THE CIRCLE
       let halfAngle = Math.asin(a / r);
       let alpha = (2 * halfAngle) / (n - 1);
-      console.log(a, b, r, halfAngle, alpha);
+
       items.forEach((item, i) => {
         // Virtual index (useful if less than THRESHOLD cards)
         let j = i;
@@ -143,12 +148,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           itemAngle = -itemAngle;
         }
         item.style.transform = `rotate(${itemAngle}rad) translateY(${dy}px)`;
+
         // Origin
         item.style.transformOrigin = `${pos} center`;
 
         // Position
         let x = (j - n / 2) * 0.8 * item.offsetWidth;
         item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+        item.style.top = '0px';
       });
     },
 
@@ -299,13 +306,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     onSelectNCards(cardIds, config, location = 'hand') {
       let elements = this.prepareCardsForSelection(cardIds, location);
-      debug(elements);
       config.elements = elements;
-      let callback = config.confirmMsg
-        ? (selectedElements) => {
-            this.askConfirmation(config.confirmMsg(selectedElements), () => config.callback(selectedElements));
-          }
-        : config.callback;
+      // let callback = config.confirmMsg
+      //   ? (selectedElements) => {
+      //       this.askConfirmation(config.confirmMsg(selectedElements), () => config.callback(selectedElements));
+      //     }
+      //   : config.callback;
 
       if (location == 'choice') {
         config.btnContainer = 'choose-cards-footer';
@@ -720,10 +726,25 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let card = n.args.card;
       let id = `card-${card.id}`;
       let slideIt = () => {
-        $(id).classList.add('mini-card');
+        let container = this.getCardContainer(card);
+
+        if (card.location != 'limbo') $(id).classList.add('mini-card');
+        else if (n.args.player_id == this.player_id) {
+          this.changeParent(id, container);
+          $(id).style.left = '0px';
+          $(id).style.top = '0px';
+          $(id).style.transform = '';
+          if ($('btnLaunchSpell')) $('btnLaunchSpell').remove();
+
+          this.wait(800).then(() => {
+            this.updateMovements(n.args.movements);
+            this.notifqueue.setSynchronousDuration(100);
+          });
+          return;
+        }
+
         let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
         $(id).classList.add(highlight);
-        let container = this.getCardContainer(card);
         this.slide(id, container, { clearTransform: true }).then(() => {
           this.updateBiomeTotals(card.pId, n.args.biomes);
           $(id).classList.remove(highlight);
@@ -1018,6 +1039,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let sizes = this.getBiomesUISizes(p);
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
 
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
@@ -1050,7 +1072,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-qrcode-container'>
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect'>
+            <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
           </div>
@@ -1104,6 +1126,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       //      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
@@ -1125,7 +1148,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-qrcode-container'>
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect'>
+            <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
           </div>
@@ -1188,8 +1211,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (!oCard.querySelector('.card-effect')) return;
       let isMini = oCard.classList.contains('mini-card');
       if (isMini) oCard.classList.remove('mini-card');
+      oCard.style.setProperty('--cardScale', 1);
 
-      // Fit effect + reminders
+      // Fit effect
       let isEffectSizeOk = () =>
         oCard.querySelector('.card-text').offsetHeight >= oCard.querySelector('.card-effect').offsetHeight;
       if (!isEffectSizeOk()) {
@@ -1200,6 +1224,25 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         }
       }
 
+      // Center text
+      let computePadding = () =>
+        (oCard.querySelector('.card-text').getBoundingClientRect()['height'] -
+          oCard.querySelector('.card-effect').getBoundingClientRect()['height']) /
+        2;
+
+      let current = 0;
+      let tooLow = 0,
+        tooHigh = 1000;
+      for (let i = 0; i < 4; i++) {
+        let padding = computePadding();
+        if (padding > current && padding > tooLow) tooLow = padding;
+        if (padding < current && padding < tooHigh) tooHigh = padding;
+        oCard.querySelector('.card-effect').style.paddingTop = padding + 'px';
+        current = padding;
+      }
+      oCard.querySelector('.card-effect').style.paddingTop = (tooHigh + tooLow) / 2 + 'px';
+
+      oCard.style.setProperty('--cardScale', null);
       // Add back mini if needed
       if (isMini) oCard.classList.add('mini-card');
     },

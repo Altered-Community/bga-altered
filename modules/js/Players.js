@@ -89,7 +89,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
           <div class='player-board-grass'>
             <div class='player-board-reserve' id='board-reserve-${player.id}'></div>
-            <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
             <div class='player-board-separator'></div>
             <div class='player-board-landmarks' id='board-landmark-${player.id}'></div>
           </div>
@@ -135,6 +134,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
 
           <div class='player-board-hand' id='player-board-hand-${pId}'>
+            <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
             <div class='player-hand' id='hand-${player.id}'></div>
           </div>
         </div>`;

@@ -30,6 +30,7 @@
             right: 1px;
             top: 90px;
             z-index: 3;
+            pointer-events: none;
         }
     }
 
@@ -352,8 +353,6 @@
             align-items: flex-start;
             flex-grow: 1;
         }
-        .player-board-limbo {
-        }
 
         .player-board-separator {
             width: 40px;
@@ -380,8 +379,48 @@
         position: absolute;
         width: 100%;
 
+        .player-board-limbo {
+            position: absolute;
+            width: $cardWidth;
+            height: $cardHeight;
+            left: 750px;
+            z-index: 10;
+            pointer-events: none;
+
+            .altered-card {
+                transform: scale(1.2);
+                pointer-events: all;
+                margin: 0px;
+            }
+
+            #btnLaunchSpell {
+                pointer-events: all;
+                position: absolute;
+                bottom: -40px;
+                left: 15px;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 33px;
+
+                animation: pulse-animation 1.2s infinite;
+
+                @keyframes pulse-animation {
+                    0% {
+                        box-shadow: 0 0 0 0px rgba(255, 219, 12, 0.8);
+                    }
+                    100% {
+                        box-shadow: 0 0 0 10px rgba(255, 219, 12, 0.1);
+                    }
+                }
+            }
+        }
+
         .player-hand {
-            position: relative;
             // display: flex;
             // justify-content: center;
 
@@ -390,11 +429,23 @@
                 margin: 0px;
                 transition:
                     transform 0.2s ease-in,
-                    left 0.3s;
+                    left 0.2s ease-in,
+                    top 0.2s ease-in;
 
-                &:not(.card-back):hover {
+                &:not(.card-back):not(.selected):hover {
                     transform: scale(1.15) rotate(0rad) translateY(-80px) !important;
                     z-index: 99;
+                }
+
+                // &.selected {
+                //     transition:
+                //         transform 0.5s linear,
+                //         left 0.5s,
+                //         top 0.5s;
+                // }
+
+                &.limbo {
+                    visibility: hidden;
                 }
             }
         }
@@ -433,7 +484,10 @@
     .player-board-hand {
         bottom: 315px;
         .altered-card {
-            margin: 3px -10px;
+        }
+
+        .player-board-limbo {
+            top: 50px;
         }
     }
 
@@ -480,6 +534,9 @@
 
     .player-board-hand {
         top: 320px;
+        .player-board-limbo {
+            top: -250px;
+        }
     }
 
     .player-board-grass {

@@ -774,7 +774,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       }
 
       if (config.clearTransform) {
-        dojo.style(mobile, { transform: null });
+        $(mobileElt).style.transform = '';
+        $(mobileElt).style.transformOrigin = 'initial';
       }
 
       // Handle phantom at start
@@ -797,12 +798,25 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
         } else {
           dojo.place(targetId, targetElt);
         }
+
+        if (targetElt.classList.contains('player-hand')) {
+          this.adjustHand(targetElt);
+        }
+        mobile.style.transform = targetId.style.transform;
+        mobile.style.transformOrigin = targetId.style.transformOrigin;
+        mobileElt.style.transform = targetId.style.transform;
+        mobileElt.style.transformOrigin = targetId.style.transformOrigin;
+        if (config.clearPos) {
+          targetId.style.left = null;
+          targetId.style.top = null;
+        }
       }
 
       dojo.style(mobile, 'zIndex', 5000);
       dojo.addClass(mobile, config.className);
       if (config.changeParent) this.changeParent(mobile, 'game_play_area');
       if (config.from != null) this.placeOnObject(mobile, config.from);
+
       return new Promise((resolve, reject) => {
         const animation =
           config.pos == null

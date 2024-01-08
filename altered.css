@@ -1201,7 +1201,7 @@ html {
         display: flex;
         align-items: flex-end;
         justify-content: end;
-        shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px); }
+        shape-outside: polygon(0px 36px, 0px 102px, 70px 102px, 70px 36px); }
         .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
           display: block;
           width: 66px;
@@ -2113,7 +2113,8 @@ html {
       width: 60px;
       right: 1px;
       top: 90px;
-      z-index: 3; }
+      z-index: 3;
+      pointer-events: none; }
   .altered-player-board .player-board-storm {
     position: absolute;
     width: 436px;
@@ -2375,15 +2376,45 @@ html {
   .altered-player-board .player-board-hand {
     position: absolute;
     width: 100%; }
-    .altered-player-board .player-board-hand .player-hand {
-      position: relative; }
-      .altered-player-board .player-board-hand .player-hand .altered-card {
+    .altered-player-board .player-board-hand .player-board-limbo {
+      position: absolute;
+      width: 110px;
+      height: 150px;
+      left: 750px;
+      z-index: 10;
+      pointer-events: none; }
+      .altered-player-board .player-board-hand .player-board-limbo .altered-card {
+        transform: scale(1.2);
+        pointer-events: all;
+        margin: 0px; }
+      .altered-player-board .player-board-hand .player-board-limbo #btnLaunchSpell {
+        pointer-events: all;
         position: absolute;
-        margin: 0px;
-        transition: transform 0.2s ease-in, left 0.3s; }
-        .altered-player-board .player-board-hand .player-hand .altered-card:not(.card-back):hover {
-          transform: scale(1.15) rotate(0rad) translateY(-80px) !important;
-          z-index: 99; }
+        bottom: -40px;
+        left: 15px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 33px;
+        animation: pulse-animation 1.2s infinite; }
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 219, 12, 0.8); }
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 219, 12, 0.1); } }
+    .altered-player-board .player-board-hand .player-hand .altered-card {
+      position: absolute;
+      margin: 0px;
+      transition: transform 0.2s ease-in, left 0.2s ease-in, top 0.2s ease-in; }
+      .altered-player-board .player-board-hand .player-hand .altered-card:not(.card-back):not(.selected):hover {
+        transform: scale(1.15) rotate(0rad) translateY(-80px) !important;
+        z-index: 99; }
+      .altered-player-board .player-board-hand .player-hand .altered-card.limbo {
+        visibility: hidden; }
 
 #altered-board-opponent .altered-player-board .player-board-hero {
   top: 313px;
@@ -2403,8 +2434,8 @@ html {
     flex-flow: column-reverse; }
 #altered-board-opponent .altered-player-board .player-board-hand {
   bottom: 315px; }
-  #altered-board-opponent .altered-player-board .player-board-hand .altered-card {
-    margin: 3px -10px; }
+  #altered-board-opponent .altered-player-board .player-board-hand .player-board-limbo {
+    top: 50px; }
 #altered-board-opponent .altered-player-board .player-board-grass {
   top: 129px; }
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-reserve {
@@ -2430,6 +2461,8 @@ html {
   flex-flow: column; }
 #altered-board-me .altered-player-board .player-board-hand {
   top: 320px; }
+  #altered-board-me .altered-player-board .player-board-hand .player-board-limbo {
+    top: -250px; }
 #altered-board-me .altered-player-board .player-board-grass {
   top: 193px; }
   #altered-board-me .altered-player-board .player-board-grass .player-board-reserve {

@@ -5,6 +5,7 @@ X Changer fond et emplacement du chat
 - Unique: bordure dorée avec un glow
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
 - Asleep
+- Icones status : mettre les vrais meeples
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure
@@ -15,6 +16,7 @@ X Mettre une ombre sur le héros à la place de la bordure
 - Reserve afficher de gauche à droite
 X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
 X Eventail de la main
+- Changer couleur des stats si boostées
 
 [Starting deck]
 ~ Afficher le lore / manière de jeu dans le tooltip
@@ -47,9 +49,9 @@ X finir état quand cartes validées
 - Bouton pour afficher le glossaire
 
 [Choose Assignment]
-- Pouvoir désélectionner quand tu cliques sur ta carte ou ailleurs
-- Lorsqu'on clique sur une carte (main/reserve), elle revient grande (pas mini) + haut pour montrer la carte x&
-- Pour les sorts, rajout un bouton pour lancer le sort.
+X Pouvoir désélectionner quand tu cliques sur ta carte ou ailleurs
+X Lorsqu'on clique sur une carte (main/reserve), elle revient grande (pas mini) + haut pour montrer la carte x&
+X Pour les sorts, rajout un bouton pour lancer le sort.
 
 [Tap hero/carte]
  - conserver rotation, même pour le héro mais réduire sa taille pendant l'animation (#filou)
