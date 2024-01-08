@@ -11,6 +11,12 @@
         width: calc(var(--cardScale) * 324px + 14px);
         height: calc(var(--cardScale) * 450px + 10px);
         // margin: -3px -5px;
+
+        .altered-card {
+            transform: rotate(0deg) !important;
+            left: 0px !important;
+            top: 0px !important;
+        }
     }
 }
 
@@ -24,6 +30,7 @@
 .altered-card,
 .altered-card.mini-card {
     transition: transform 0.5s;
+
     &.tapped {
         transform: rotate(90deg);
     }
@@ -462,7 +469,7 @@
                 display: flex;
                 align-items: flex-end;
                 justify-content: end;
-                shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px);
+                shape-outside: polygon(0px 36px, 0px 102px, 70px 102px, 70px 36px);
 
                 .card-qrcode {
                     display: block;
@@ -614,6 +621,13 @@ $miniCardScale: 0.33;
         right: 0;
         z-index: 6;
         visibility: hidden;
+
+        &[data-type="companion"][data-side],
+        &[data-type="hero"][data-side] {
+            position: absolute;
+            top: 5px;
+            right: calc(50% - 33px);
+        }
     }
 
     .altered-card-statuses {
@@ -621,16 +635,27 @@ $miniCardScale: 0.33;
         top: 2px;
         right: 2px;
         z-index: 7;
+        font-size: 1.1em;
 
-        .card-status {
-            width: 1em;
-            height: 1em;
-            padding: 0.25em;
-            background: #222222;
-            border-radius: 50%;
-            box-shadow: 0px 0px 5px white;
-            color: white;
+        .icon-container {
+            margin: 0;
+
+            .altered-icon {
+                background-size: 107% 107%;
+                background-position: center center;
+                border-radius: 50%;
+                box-shadow: 0px 0px 5px white;
+            }
         }
+        // .card-status {
+        //     width: 1em;
+        //     height: 1em;
+        //     padding: 0.25em;
+        //     background: #222222;
+        //     border-radius: 50%;
+        //     box-shadow: 0px 0px 5px white;
+        //     color: white;
+        // }
     }
 
     .altered-card-wrapper {
@@ -702,7 +727,9 @@ $miniCardScale: 0.33;
             padding-left: 4px;
             color: white;
             box-shadow: 0px 0px 4px 2px black;
-            text-shadow: 0px 0px 6px black;
+            text-shadow:
+                0px 0px 8px black,
+                0px 0px 8px black;
 
             border-radius: 6px;
             height: 17px;
@@ -788,6 +815,14 @@ $miniCardScale: 0.33;
             }
         }
     }
+
+    &[data-boost]:not([data-boost="0"]) .altered-card-wrapper {
+        .card-forest,
+        .card-mountain,
+        .card-ocean {
+            color: rgb(1, 255, 1);
+        }
+    }
 }
 
 //  _____           _ _   _
@@ -809,6 +844,47 @@ $miniCardScale: 0.33;
         max-width: 200px;
         padding: 5px;
         font-family: "Jali Greek Variable";
+    }
+
+    .altered-card {
+        .altered-card-wrapper {
+            .card-forest,
+            .card-mountain,
+            .card-ocean {
+                &[data-boost]:not([data-boost="0"])::after {
+                    content: "+" attr(data-boost);
+                    display: block;
+                    position: absolute;
+                    left: 60px;
+                    top: 0;
+                    width: 30px;
+                    height: 28px;
+                    font-size: 20px;
+                    text-align: center;
+                    text-shadow:
+                        black 0px 0px 5px,
+                        black 0px 0px 5px,
+                        black 2px 0px 0px,
+                        black 1.75517px 0.958851px 0px,
+                        black 1.0806px 1.68294px 0px,
+                        black 0.141474px 1.99499px 0px,
+                        black -0.832294px 1.81859px 0px,
+                        black -1.60229px 1.19694px 0px,
+                        black -1.97999px 0.28224px 0px,
+                        black -1.87291px -0.701566px 0px,
+                        black -1.30729px -1.51361px 0px,
+                        black -0.421592px -1.95506px 0px,
+                        black 0.567324px -1.91785px 0px,
+                        black 1.41734px -1.41108px 0px,
+                        black 1.92034px -0.558831px 0px;
+                    color: lime;
+
+                    // border-radius: 8px;
+                    // color: white;
+                    // background: radial-gradient(circle at center, #e05c20 42%, #752b04 100%);
+                }
+            }
+        }
     }
 }
 

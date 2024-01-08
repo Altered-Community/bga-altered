@@ -34,7 +34,11 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.place('tplPlayerBoard', player, container);
 
         let handContainer = $(`hand-${player.id}`);
-        let observer = new MutationObserver(() => this.adjustHand(handContainer, i == 0 ? 'bottom' : 'top'));
+        let observer = new MutationObserver(() => {
+          if (handContainer.parentNode.id == `player-board-hand-${player.id}`)
+            this.adjustHand(handContainer, i == 0 ? 'bottom' : 'top');
+          else this.clearHandTransform(handContainer);
+        });
         observer.observe(handContainer, { childList: true });
 
         // Panels
@@ -60,6 +64,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         $(container).insertAdjacentElement('beforeend', hand);
         $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
         hand.style.order = v == 1 ? 1 : 4;
+        hand.childNodes.forEach((item) => (item.dataset.animationSpeed = 'none'));
+        this.adjustHand(hand);
 
         if (v == 3) {
           this.openHand();
@@ -89,7 +95,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
           <div class='player-board-grass'>
             <div class='player-board-reserve' id='board-reserve-${player.id}'></div>
-            <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
             <div class='player-board-separator'></div>
             <div class='player-board-landmarks' id='board-landmark-${player.id}'></div>
           </div>
@@ -135,6 +140,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
 
           <div class='player-board-hand' id='player-board-hand-${pId}'>
+            <div class='player-board-limbo' id='board-limbo-${player.id}'></div>
             <div class='player-hand' id='hand-${player.id}'></div>
           </div>
         </div>`;
@@ -145,13 +151,21 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         `
       <div class='player-info'>
         <div class='mana-counter-holder'>
-          <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${player.id}-totalMana"></span>
-          <span class="player-mana-icon">MANA</span>
+          <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${
+            player.id
+          }-totalMana"></span>
+          
+          ${this.formatIcon('first-player')}
         </div>
 
         <div class='handCount-holder'>
           <span class="player-handCount" id="counter-${player.id}-handCount"></span>
-          <span class="player-handCount-icon">HAND</span>
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296.664 296.664">
+            <path d="M 58.355,226.748 V 69.414 c 0,-1.709 0.294,-3.391 0.526,-5.039 L 13.778,79.057 C 3.316,82.455 -2.42,93.797 0.979,104.258 l 48.639,149.633 c 2.738,8.428 10.639,13.816 19.075,13.816 2.035,0 4.109,-0.315 6.143,-0.975 l 12.796,-4.211 C 71.066,259.213 58.355,244.242 58.355,226.748 Z" />
+            <path d="M 91.098,203.275 139.715,53.673 c 0.491,-1.512 1.078,-3.342 1.746,-4.342 H 94.688 c -11,0 -20.333,9.082 -20.333,20.082 v 157.334 c 0,11 9.333,20.584 20.333,20.584 h 15.969 C 94.061,239.332 85.361,220.932 91.098,203.275 Z" />
+            <path d="M 282.848,79.057 180.134,45.684 c -2.034,-0.662 -4.102,-0.975 -6.138,-0.975 -8.436,0 -16.326,5.387 -19.064,13.814 l -48.617,149.633 c -3.399,10.463 2.379,21.803 12.841,25.203 l 102.713,33.373 c 2.034,0.66 4.102,0.975 6.138,0.975 8.436,0 16.326,-5.389 19.064,-13.816 L 295.689,104.258 C 299.088,93.797 293.31,82.455 282.848,79.057 Z" />
+          </svg>
         </div>
       </div>` + (player.id == this.player_id ? `<div id='open-all-cards-modal'>Show all cards</div>` : '')
       );
@@ -177,10 +191,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       //   // });
       // }
 
-      this.slide(`card-${hero.id}`, `board-hero-${pId}`).then(() => {
+      this.slide(`card-${hero.id}`, `board-hero-${pId}`, { clearTransform: true, phantom: false }).then(() => {
         n.args.meeples.forEach((meeple) => {
           this.addMeeple(meeple, `card-${hero.id}`);
-          debug(this.getMeepleContainer(meeple));
           this.slide(`meeple-${meeple.id}`, this.getMeepleContainer(meeple));
         });
       });
@@ -319,7 +332,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           let moving = false;
           ['forest', 'mountain', 'ocean'].forEach((biome) => {
             let o = container.querySelector(`.total-${biome}`);
-            o.dataset.willProgress = this.gamedatas.movements[pId][type][biome];
+            o.dataset.willProgress = this.gamedatas.movements[pId] && this.gamedatas.movements[pId][type][biome];
             if (o.dataset.willProgress == 2) moving = true;
           });
 
@@ -339,6 +352,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         if (type == 'hero') minPos = Math.min(minPos, pos);
         else maxPos = Math.max(maxPos, pos);
       });
+
+      if (minPos == 8 && maxPos == 0) return;
 
       let minCard = Math.floor((minPos + 1) / 2),
         maxCard = Math.floor((maxPos + 1) / 2);

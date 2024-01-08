@@ -47,13 +47,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         let isFull =
           container.classList.contains('player-hand') ||
           container.classList.contains('player-board-discard') ||
+          container.classList.contains('player-board-limbo') ||
           container.classList.contains('mana-modal');
         o.classList.toggle('mini-card', !isFull);
 
         return card.id;
       });
       document.querySelectorAll('.altered-card').forEach((oCard) => {
-        if (!cardIds.includes(parseInt(oCard.getAttribute('data-id'))) && !oCard.classList.contains('card-back')) {
+        if (
+          !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
+          !oCard.classList.contains('card-back') &&
+          !oCard.parentNode.classList.contains('player-hand')
+        ) {
           this.destroy(oCard);
         }
       });
@@ -119,7 +124,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     adjustHand(container, pos = 'bottom') {
-      let items = [...container.querySelectorAll('.altered-card')];
+      // let items = [...container.querySelectorAll('.altered-card'), ...container.querySelectorAll('.flip-container')];
+      let items = [...container.childNodes];
       let n = items.length;
       const THRESHOLD = 8;
       if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
@@ -129,8 +135,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let r = (a * a + b * b) / (2 * b); // RADIUS OF THE CIRCLE
       let halfAngle = Math.asin(a / r);
       let alpha = (2 * halfAngle) / (n - 1);
-      console.log(a, b, r, halfAngle, alpha);
-      items.forEach((item, i) => {
+
+      items.forEach(async (item, i) => {
+        if (item.animationDelay) await this.wait(item.animationDelay);
+        delete item.animationDelay;
+
         // Virtual index (useful if less than THRESHOLD cards)
         let j = i;
         if (items.length < THRESHOLD) j += parseInt((n - items.length) / 2);
@@ -143,12 +152,34 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           itemAngle = -itemAngle;
         }
         item.style.transform = `rotate(${itemAngle}rad) translateY(${dy}px)`;
+
         // Origin
         item.style.transformOrigin = `${pos} center`;
 
         // Position
         let x = (j - n / 2) * 0.8 * item.offsetWidth;
         item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+        item.style.top = '0px';
+
+        let removeSpeed = () => {
+          delete item.dataset.animationSpeed;
+          item.removeEventListener('transitionend', removeSpeed);
+        };
+        if (item.dataset.animationSpeed == 'none') {
+          await this.wait(1);
+          removeSpeed();
+        } else {
+          item.addEventListener('transitionend', removeSpeed);
+        }
+      });
+    },
+
+    clearHandTransform(container) {
+      let items = [...container.querySelectorAll('.altered-card')];
+      items.forEach((item, i) => {
+        item.style.transform = `rotate(0rad) translateY(0px)`;
+        item.style.left = '0px';
+        item.style.top = '0px';
       });
     },
 
@@ -299,13 +330,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     onSelectNCards(cardIds, config, location = 'hand') {
       let elements = this.prepareCardsForSelection(cardIds, location);
-      debug(elements);
       config.elements = elements;
-      let callback = config.confirmMsg
-        ? (selectedElements) => {
-            this.askConfirmation(config.confirmMsg(selectedElements), () => config.callback(selectedElements));
-          }
-        : config.callback;
+      // let callback = config.confirmMsg
+      //   ? (selectedElements) => {
+      //       this.askConfirmation(config.confirmMsg(selectedElements), () => config.callback(selectedElements));
+      //     }
+      //   : config.callback;
 
       if (location == 'choice') {
         config.btnContainer = 'choose-cards-footer';
@@ -372,20 +402,27 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       Promise.all(
         n.args.cards.map((card, i) => {
-          return this.wait(100 * i).then(() => {
-            this.addCard(card);
+          let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${this.player_id}`);
+          this.addCard(card, source);
 
-            let to = null;
-            let container = this.getCardContainer(card);
-            if (!isVisible(container)) to = $('floating-hand-button');
-            let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${this.player_id}`);
+          let cardId = `card-${card.id}`;
+          $(cardId).animationDelay = 100 * (n.args.cards.length - i);
+          $(cardId).dataset.animationSpeed = 'medium';
+          this.changeParent($(cardId), $(`hand-${n.args.player_id}`));
+          return this.wait(100 * i + 700);
 
-            return this.slide(`card-${card.id}`, container, {
-              from: source,
-              duration: 1000,
-              to,
-            });
-          });
+          // return this.wait(100 * i).then(() => {
+
+          //   let to = null;
+          //   let container = this.getCardContainer(card);
+          //   if (!isVisible(container)) to = $('floating-hand-button');
+
+          //   return this.slide(`card-${card.id}`, container, {
+          //     from: source,
+          //     duration: 1000,
+          //     to,
+          //   });
+          // });
         })
       ).then(() => {
         this._playerCounters[this.player_id][counter].incValue(n.args.cards.length);
@@ -412,17 +449,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return;
       }
 
-      Promise.all(
-        Array.from(Array(nCards), (x, i) => i).map((i) => {
-          return this.wait(100 * i).then(() => {
-            let cardId = this.addFakeCard($(`board-deck-${n.args.player_id}`));
-            return this.slide(cardId, `hand-${n.args.player_id}`, {
-              duration: 1000,
-              phantom: false,
-            });
-          });
-        })
-      ).then(() => {
+      Array.from(Array(nCards), (x, i) => i).map((i) => {
+        let cardId = this.addFakeCard($(`board-deck-${n.args.player_id}`));
+        $(cardId).animationDelay = 100 * (nCards - i);
+        $(cardId).dataset.animationSpeed = 'medium';
+        this.changeParent($(cardId), $(`hand-${n.args.player_id}`));
+      });
+      this.wait(100 * nCards + 700).then(() => {
         this._playerCounters[n.args.player_id][counter].incValue(nCards);
         this.notifqueue.setSynchronousDuration(100);
       });
@@ -720,10 +753,25 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let card = n.args.card;
       let id = `card-${card.id}`;
       let slideIt = () => {
-        $(id).classList.add('mini-card');
+        let container = this.getCardContainer(card);
+
+        if (card.location != 'limbo') $(id).classList.add('mini-card');
+        else if (n.args.player_id == this.player_id) {
+          this.changeParent(id, container);
+          $(id).style.left = '0px';
+          $(id).style.top = '0px';
+          $(id).style.transform = '';
+          if ($('btnLaunchSpell')) $('btnLaunchSpell').remove();
+
+          this.wait(800).then(() => {
+            this.updateMovements(n.args.movements);
+            this.notifqueue.setSynchronousDuration(100);
+          });
+          return;
+        }
+
         let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
         $(id).classList.add(highlight);
-        let container = this.getCardContainer(card);
         this.slide(id, container, { clearTransform: true }).then(() => {
           this.updateBiomeTotals(card.pId, n.args.biomes);
           $(id).classList.remove(highlight);
@@ -1018,13 +1066,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let sizes = this.getBiomesUISizes(p);
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
+      let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
 
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-character ${mini ? 'mini-card' : ''}'>
+        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${boost}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
@@ -1036,13 +1086,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' data-initial='${p.forest}'>
+          <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' 
+            data-initial='${p.forest}' data-boost='${boost}'>
             ${p.forest}
           </div>
-          <div class='card-mountain ${changed('mountain')}' data-size='${sizes.mountain}' data-initial='${p.mountain}'>
+          <div class='card-mountain ${changed('mountain')}' data-size='${sizes.mountain}' 
+            data-initial='${p.mountain}' data-boost='${boost}'>
             ${p.mountain}
           </div>
-          <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' data-initial='${p.ocean}'>
+          <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' 
+            data-initial='${p.ocean}' data-boost='${boost}'>
             ${p.ocean}
           </div>
 
@@ -1050,7 +1103,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-qrcode-container'>
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect'>
+            <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
           </div>
@@ -1104,6 +1157,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       //      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
@@ -1125,7 +1179,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-qrcode-container'>
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect'>
+            <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
           </div>
@@ -1188,8 +1242,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (!oCard.querySelector('.card-effect')) return;
       let isMini = oCard.classList.contains('mini-card');
       if (isMini) oCard.classList.remove('mini-card');
+      oCard.style.setProperty('--cardScale', 1);
 
-      // Fit effect + reminders
+      // Fit effect
       let isEffectSizeOk = () =>
         oCard.querySelector('.card-text').offsetHeight >= oCard.querySelector('.card-effect').offsetHeight;
       if (!isEffectSizeOk()) {
@@ -1200,6 +1255,25 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         }
       }
 
+      // Center text
+      let computePadding = () =>
+        (oCard.querySelector('.card-text').getBoundingClientRect()['height'] -
+          oCard.querySelector('.card-effect').getBoundingClientRect()['height']) /
+        2;
+
+      let current = 0;
+      let tooLow = 0,
+        tooHigh = 1000;
+      for (let i = 0; i < 6; i++) {
+        let padding = computePadding();
+        if (padding > current && padding > tooLow) tooLow = padding;
+        if (padding < current && padding < tooHigh) tooHigh = padding;
+        oCard.querySelector('.card-effect').style.paddingTop = padding + 'px';
+        current = padding;
+      }
+      oCard.querySelector('.card-effect').style.paddingTop = (tooHigh + tooLow) / 2 + 'px';
+
+      oCard.style.setProperty('--cardScale', null);
       // Add back mini if needed
       if (isMini) oCard.classList.add('mini-card');
     },
@@ -1229,7 +1303,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           return;
         }
 
-        container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
+        //        container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
+        container.insertAdjacentHTML('beforeend', this.formatIcon(type));
       });
 
       if ($(`card-${cardId}`).querySelector('.card-forest') != null) {
@@ -1239,12 +1314,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           ocean: parseInt($(`card-${cardId}`).querySelector('.card-ocean').getAttribute('data-initial')) + boost,
         };
         let sizes = this.getBiomesUISizes(p);
-        $(`card-${cardId}`).querySelector('.card-forest').setAttribute('data-size', sizes.forest);
-        $(`card-${cardId}`).querySelector('.card-forest').innerHTML = p.forest;
-        $(`card-${cardId}`).querySelector('.card-mountain').setAttribute('data-size', sizes.mountain);
-        $(`card-${cardId}`).querySelector('.card-mountain').innerHTML = p.mountain;
-        $(`card-${cardId}`).querySelector('.card-ocean').setAttribute('data-size', sizes.ocean);
-        $(`card-${cardId}`).querySelector('.card-ocean').innerHTML = p.ocean;
+        ['forest', 'mountain', 'ocean'].forEach((biome) => {
+          let o = $(`card-${cardId}`).querySelector(`.card-${biome}`);
+          o.setAttribute('data-size', sizes[biome]);
+          o.innerHTML = p[biome];
+        });
+
+        $(`card-${cardId}`).dataset.boost = boost;
       }
     },
 

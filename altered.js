@@ -360,9 +360,34 @@ define([
     },
 
     notif_refreshHand(n) {
-      debug('Notif: refreshing UI', n);
-      n.args.hand.forEach((card) => this.addCard(card));
-      n.args.mana.forEach((card) => this.addCard(card));
+      debug('Notif: refreshing UI hand and mana', n);
+      let cardIds = [];
+      n.args.hand.forEach((card) => {
+        if (!$(`card-${card.id}`)) {
+          this.addCard(card);
+        } else {
+          $(`hand-${this.player_id}`).insertAdjacentElement('beforeend', $(`card-${card.id}`));
+        }
+        cardIds.push(card.id);
+      });
+      n.args.mana.forEach((card) => {
+        if (!$(`card-${card.id}`)) {
+          this.addCard(card);
+        } else {
+          $(`mana-cards-${this.player_id}`).insertAdjacentElement('beforeend', $(`card-${card.id}`));
+        }
+        cardIds.push(card.id);
+      });
+
+      // Destroy other cards
+      [
+        ...$(`mana-cards-${this.player_id}`).querySelectorAll('.altered-card'),
+        ...$(`hand-${this.player_id}`).querySelectorAll('.altered-card'),
+      ].forEach((oCard) => {
+        if (!cardIds.includes(parseInt(oCard.getAttribute('data-id')))) {
+          this.destroy(oCard);
+        }
+      });
     },
 
     onUpdateActionButtons(stateName, args) {
@@ -397,7 +422,7 @@ define([
       dojo.query('.selectedToDiscard').removeClass('selectedToDiscard');
       dojo.query('.selectedToKeep').removeClass('selectedToKeep');
 
-      let toRemove = [];
+      let toRemove = ['btnLaunchSpell'];
       toRemove.forEach((eltId) => {
         if ($(eltId)) $(eltId).remove();
       });
@@ -530,12 +555,30 @@ define([
       };
 
       const FACTION_DESC = {
-        AX: _('This faction is.....'),
-        BR: _('This faction is.....'),
-        LY: _('This faction is.....'),
-        MU: _('This faction is.....'),
-        OD: _('This faction is.....'),
-        YZ: _('This faction is.....'),
+        AX:
+          _('Sierra "the renowned engineer"') +
+          '<br/>' +
+          _('Construct powerful machines and let their strength carry you to victory!'),
+        BR:
+          _('Kojo "the rising star"') +
+          '<br/>' +
+          _('Summon your firecat Companion to seize the advantage without delay, for only the brave make history!'),
+        LY:
+          _('Nevenka "the unpredictable"') +
+          '<br/>' +
+          _("What's better than invoking fate to spice up a game? Are you ready to embrace the whims of destiny?"),
+        MU:
+          _('Teija "the druidess"') +
+          '<br/>' +
+          _('Anchor and boost your allies over the long haul and reap the rewards of your good deeds.'),
+        OD:
+          _('Sigismar "the commander"') +
+          '<br/>' +
+          _('Take the reins of the Ordis Legion and secure victory through sheer numbers!'),
+        YZ:
+          _('Akesha "the astute"') +
+          '<br/>' +
+          _('Let your opponent take the initiative to better thwart their plans, slowly but surely.'),
       };
 
       let selectedDeck = null;
@@ -764,6 +807,7 @@ define([
         );
 
         $('overlay-hand-container').insertAdjacentElement('beforeend', $(`hand-${this.player_id}`));
+        this.clearHandTransform($(`hand-${this.player_id}`));
         this.openOverlay();
       }
       // TODO
@@ -953,18 +997,44 @@ define([
     // /_/   \_\___|\__|_|\___/|_| |_|___/
     ///////////////////////////////////////
     onEnteringStateChooseAssignment(args) {
+      let unselectIfNeeded = () => {
+        let oCard = $(`hand-${this.player_id}`).querySelector('.selected');
+        if (!oCard) return;
+        oCard.style.transform = oCard.backup.transform;
+        oCard.style.left = oCard.backup.left;
+        oCard.style.top = oCard.backup.top;
+      };
+
       let t = args._private;
       if (t.play) {
         Object.keys(t.play).forEach((cardId) => {
-          this.onClick(`card-${cardId}`, () =>
-            this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
-              play: t.play,
-              support: t.support,
-              tap: t.tap,
-              cardId,
-              supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
-            })
-          );
+          // ALREADY SELECTED CARD
+          if (cardId == args.cardId) {
+            this.wait(250).then(() => {
+              this.onClick('altered-board-me', () => {
+                unselectIfNeeded();
+                this.clearClientState();
+              });
+
+              this.onClick(`card-${cardId}`, () => {
+                unselectIfNeeded();
+                this.clearClientState();
+              });
+            });
+          }
+          // OTHER CARD
+          else {
+            this.onClick(`card-${cardId}`, () => {
+              unselectIfNeeded();
+              this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
+                play: t.play,
+                support: t.support,
+                tap: t.tap,
+                cardId,
+                supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
+              });
+            });
+          }
         });
       }
 
@@ -998,11 +1068,28 @@ define([
     onEnteringStateChooseAssignmentLocation(args) {
       if (!args.hasOwnProperty('clientState') || args.clientState == true) {
         this.addCancelStateBtn();
-        this.onEnteringStateChooseAssignment({ _private: { play: args.play, support: args.support, tap: args.tap } });
+        this.onEnteringStateChooseAssignment({
+          cardId: args.cardId,
+          _private: { play: args.play, support: args.support, tap: args.tap },
+        });
       }
 
+      // Mark card as selected
       let cardId = args.cardId;
-      $(`card-${cardId}`).classList.add('selected');
+      oCard = $(`card-${cardId}`);
+      oCard.classList.add('selected');
+      // Backup previous pos and transform
+      oCard.backup = {
+        transform: oCard.style.transform,
+        left: oCard.style.left,
+        top: oCard.style.top,
+      };
+
+      // Slide it using css transition
+      let limbo = $(`board-limbo-${this.player_id}`);
+      oCard.style.transform = 'scale(1.2) rotate(0rad) translateY(0px)';
+      oCard.style.left = limbo.offsetLeft + 'px';
+      oCard.style.top = limbo.offsetTop + 'px';
 
       let onChooseLocation = (location) => {
         return () => this.takeAtomicAction('actPlay', [cardId, location]);
@@ -1020,6 +1107,18 @@ define([
         args.play[cardId].forEach((location, i) => {
           this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
           this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+
+          if (location == 'limbo') {
+            this.wait(200).then(() => {
+              if ($(`card-${cardId}`).classList.contains('selected'))
+                this.addPrimaryActionButton(
+                  'btnLaunchSpell',
+                  '<i class="fa fa-magic"></i>',
+                  onChooseLocation(location),
+                  `board-limbo-${this.player_id}`
+                );
+            });
+          }
         });
       }
 

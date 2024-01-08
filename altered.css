@@ -294,6 +294,10 @@ html {
 .player-hand .flip-container {
   width: calc(var(--cardScale) * 324px + 14px);
   height: calc(var(--cardScale) * 450px + 10px); }
+  .player-hand .flip-container .altered-card {
+    transform: rotate(0deg) !important;
+    left: 0px !important;
+    top: 0px !important; }
 
 .altered-card {
   border: 2px solid transparent;
@@ -1201,7 +1205,7 @@ html {
         display: flex;
         align-items: flex-end;
         justify-content: end;
-        shape-outside: polygon(0px 33px, 0px 102px, 70px 102px, 70px 33px); }
+        shape-outside: polygon(0px 36px, 0px 102px, 70px 102px, 70px 36px); }
         .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
           display: block;
           width: 66px;
@@ -1319,23 +1323,33 @@ html {
   right: 0;
   z-index: 6;
   visibility: hidden; }
+  .altered-card.no-frame .altered-meeple[data-type="companion"][data-side], .altered-card.no-frame .altered-meeple[data-type="hero"][data-side],
+  .altered-card.mini-card .altered-meeple[data-type="companion"][data-side],
+  .altered-card.mini-card .altered-meeple[data-type="hero"][data-side],
+  .player-board-hero .altered-card .altered-meeple[data-type="companion"][data-side],
+  .player-board-hero .altered-card .altered-meeple[data-type="hero"][data-side] {
+    position: absolute;
+    top: 5px;
+    right: calc(50% - 33px); }
 .altered-card.no-frame .altered-card-statuses,
 .altered-card.mini-card .altered-card-statuses,
 .player-board-hero .altered-card .altered-card-statuses {
   position: absolute;
   top: 2px;
   right: 2px;
-  z-index: 7; }
-  .altered-card.no-frame .altered-card-statuses .card-status,
-  .altered-card.mini-card .altered-card-statuses .card-status,
-  .player-board-hero .altered-card .altered-card-statuses .card-status {
-    width: 1em;
-    height: 1em;
-    padding: 0.25em;
-    background: #222222;
-    border-radius: 50%;
-    box-shadow: 0px 0px 5px white;
-    color: white; }
+  z-index: 7;
+  font-size: 1.1em; }
+  .altered-card.no-frame .altered-card-statuses .icon-container,
+  .altered-card.mini-card .altered-card-statuses .icon-container,
+  .player-board-hero .altered-card .altered-card-statuses .icon-container {
+    margin: 0; }
+    .altered-card.no-frame .altered-card-statuses .icon-container .altered-icon,
+    .altered-card.mini-card .altered-card-statuses .icon-container .altered-icon,
+    .player-board-hero .altered-card .altered-card-statuses .icon-container .altered-icon {
+      background-size: 107% 107%;
+      background-position: center center;
+      border-radius: 50%;
+      box-shadow: 0px 0px 5px white; }
 .altered-card.no-frame .altered-card-wrapper,
 .altered-card.mini-card .altered-card-wrapper,
 .player-board-hero .altered-card .altered-card-wrapper {
@@ -1419,7 +1433,7 @@ html {
     padding-left: 4px;
     color: white;
     box-shadow: 0px 0px 4px 2px black;
-    text-shadow: 0px 0px 6px black;
+    text-shadow: 0px 0px 8px black, 0px 0px 8px black;
     border-radius: 6px;
     height: 17px;
     width: 20px;
@@ -1534,6 +1548,16 @@ html {
     .altered-card.mini-card .altered-card-wrapper .rarity-gem[data-rarity="2"],
     .player-board-hero .altered-card .altered-card-wrapper .rarity-gem[data-rarity="2"] {
       background-position-y: 100%; }
+.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
+.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
+.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
+.altered-card.mini-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
+.altered-card.mini-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
+.altered-card.mini-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
+.player-board-hero .altered-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
+.player-board-hero .altered-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
+.player-board-hero .altered-card[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean {
+  color: #01ff01; }
 
 .altered-card-tooltip {
   display: flex;
@@ -1544,6 +1568,20 @@ html {
     font-family: "Jali Greek Variable"; }
     .altered-card-tooltip .tooltip-explanation:empty {
       display: none; }
+  .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-boost]:not([data-boost="0"])::after,
+  .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-boost]:not([data-boost="0"])::after,
+  .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-boost]:not([data-boost="0"])::after {
+    content: "+" attr(data-boost);
+    display: block;
+    position: absolute;
+    left: 60px;
+    top: 0;
+    width: 30px;
+    height: 28px;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: black 0px 0px 5px, black 0px 0px 5px, black 2px 0px 0px, black 1.75517px 0.958851px 0px, black 1.0806px 1.68294px 0px, black 0.141474px 1.99499px 0px, black -0.832294px 1.81859px 0px, black -1.60229px 1.19694px 0px, black -1.97999px 0.28224px 0px, black -1.87291px -0.701566px 0px, black -1.30729px -1.51361px 0px, black -0.421592px -1.95506px 0px, black 0.567324px -1.91785px 0px, black 1.41734px -1.41108px 0px, black 1.92034px -0.558831px 0px;
+    color: lime; }
 
 #floating-hand-wrapper {
   position: fixed;
@@ -2113,7 +2151,8 @@ html {
       width: 60px;
       right: 1px;
       top: 90px;
-      z-index: 3; }
+      z-index: 3;
+      pointer-events: none; }
   .altered-player-board .player-board-storm {
     position: absolute;
     width: 436px;
@@ -2374,16 +2413,55 @@ html {
         margin: 3px 21px; }
   .altered-player-board .player-board-hand {
     position: absolute;
-    width: 100%; }
-    .altered-player-board .player-board-hand .player-hand {
-      position: relative; }
-      .altered-player-board .player-board-hand .player-hand .altered-card {
+    width: 100%;
+    z-index: 3; }
+    .altered-player-board .player-board-hand .player-board-limbo {
+      position: absolute;
+      width: 110px;
+      height: 150px;
+      left: 750px;
+      z-index: 10;
+      pointer-events: none; }
+      .altered-player-board .player-board-hand .player-board-limbo .altered-card {
+        transform: scale(1.2);
+        pointer-events: all;
+        margin: 0px; }
+      .altered-player-board .player-board-hand .player-board-limbo #btnLaunchSpell {
+        pointer-events: all;
         position: absolute;
-        margin: 0px;
-        transition: transform 0.2s ease-in, left 0.3s; }
-        .altered-player-board .player-board-hand .player-hand .altered-card:not(.card-back):hover {
-          transform: scale(1.15) rotate(0rad) translateY(-80px) !important;
-          z-index: 99; }
+        bottom: -40px;
+        left: 15px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 33px;
+        animation: pulse-animation 1.2s infinite; }
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 219, 12, 0.8); }
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 219, 12, 0.1); } }
+    .altered-player-board .player-board-hand .player-hand .flip-container {
+      position: absolute;
+      width: calc(var(--cardScale) * 324px);
+      height: calc(var(--cardScale) * 450px); }
+    .altered-player-board .player-board-hand .player-hand .altered-card {
+      position: absolute;
+      margin: 0px;
+      transition: transform 0.2s ease-in, left 0.2s ease-in, top 0.2s ease-in; }
+      .altered-player-board .player-board-hand .player-hand .altered-card[data-animation-speed="medium"] {
+        transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in; }
+      .altered-player-board .player-board-hand .player-hand .altered-card[data-animation-speed="none"] {
+        transition: none; }
+      .altered-player-board .player-board-hand .player-hand .altered-card:not(.card-back):not(.selected):hover {
+        transform: scale(1.15) rotate(0rad) translateY(-80px) !important;
+        z-index: 99; }
+      .altered-player-board .player-board-hand .player-hand .altered-card.limbo {
+        visibility: hidden; }
 
 #altered-board-opponent .altered-player-board .player-board-hero {
   top: 313px;
@@ -2403,8 +2481,8 @@ html {
     flex-flow: column-reverse; }
 #altered-board-opponent .altered-player-board .player-board-hand {
   bottom: 315px; }
-  #altered-board-opponent .altered-player-board .player-board-hand .altered-card {
-    margin: 3px -10px; }
+  #altered-board-opponent .altered-player-board .player-board-hand .player-board-limbo {
+    top: 50px; }
 #altered-board-opponent .altered-player-board .player-board-grass {
   top: 129px; }
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-reserve {
@@ -2430,6 +2508,8 @@ html {
   flex-flow: column; }
 #altered-board-me .altered-player-board .player-board-hand {
   top: 320px; }
+  #altered-board-me .altered-player-board .player-board-hand .player-board-limbo {
+    top: -250px; }
 #altered-board-me .altered-player-board .player-board-grass {
   top: 193px; }
   #altered-board-me .altered-player-board .player-board-grass .player-board-reserve {
@@ -2449,11 +2529,30 @@ html {
 
 .player-info {
   display: flex;
-  justify-content: space-between; }
-  .player-info .mana-counter-holder {
+  justify-content: space-between;
+  margin: 3px 0px; }
+  .player-info .mana-counter-holder,
+  .player-info .handCount-holder {
     font-family: "Jali Greek Variable";
     font-size: 20px;
-    text-align: center; }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 7px; }
+    .player-info .mana-counter-holder svg,
+    .player-info .handCount-holder svg {
+      fill: white;
+      width: 1.5em;
+      margin-left: 7px; }
+    .player-info .mana-counter-holder .icon-container,
+    .player-info .handCount-holder .icon-container {
+      margin: 0px;
+      margin-left: 7px; }
+      .player-info .mana-counter-holder .icon-container .icon-first-player,
+      .player-info .handCount-holder .icon-container .icon-first-player {
+        width: 25px;
+        height: 25px;
+        box-shadow: 1px 1px 2px black; }
   .player-info .altered-card {
     position: absolute; }
 
@@ -3045,6 +3144,8 @@ html {
         display: flex;
         flex-wrap: wrap;
         align-items: center; }
+        #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand .altered-card {
+          position: initial !important; }
     #altered-overlay #altered-overlay-content #overlay-new-day-counter-wrapper {
       text-align: center;
       font-size: 40px;

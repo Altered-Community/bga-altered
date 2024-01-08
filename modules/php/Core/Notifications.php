@@ -347,10 +347,18 @@ class Notifications
 
   public static function playCard($player, $card, $cost, $fromLocation, $location)
   {
-    $msg =
-      $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
-        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
+    $msg = '';
+    if ($location == 'limbo') {
+      $msg =
+        $fromLocation == RESERVE
+          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost}')
+          : clienttranslate('${player_name} plays ${card_name} for ${cost}');
+    } else {
+      $msg =
+        $fromLocation == RESERVE
+          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
+          : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
+    }
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,

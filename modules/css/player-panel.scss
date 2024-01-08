@@ -17,11 +17,32 @@
 .player-info {
     display: flex;
     justify-content: space-between;
+    margin: 3px 0px;
 
-    .mana-counter-holder {
+    .mana-counter-holder,
+    .handCount-holder {
         font-family: "Jali Greek Variable";
         font-size: 20px;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 7px;
+
+        svg {
+            fill: white;
+            width: 1.5em;
+            margin-left: 7px;
+        }
+
+        .icon-container {
+            margin: 0px;
+            margin-left: 7px;
+            .icon-first-player {
+                width: 25px;
+                height: 25px;
+                box-shadow: 1px 1px 2px black;
+            }
+        }
     }
 
     .altered-card {

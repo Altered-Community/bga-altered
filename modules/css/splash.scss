@@ -75,6 +75,10 @@
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
+
+                .altered-card {
+                    position: initial !important;
+                }
             }
         }
 
