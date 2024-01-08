@@ -1,6 +1,6 @@
 [Misc]
 X Changer fond et emplacement du chat
-- Kojo a modifier
+X Kojo a modifier
 - Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
 - Unique: bordure dorée avec un glow
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
