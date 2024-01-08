@@ -124,7 +124,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     adjustHand(container, pos = 'bottom') {
-      let items = [...container.querySelectorAll('.altered-card')];
+      // let items = [...container.querySelectorAll('.altered-card'), ...container.querySelectorAll('.flip-container')];
+      let items = [...container.childNodes];
       let n = items.length;
       const THRESHOLD = 8;
       if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
@@ -135,7 +136,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let halfAngle = Math.asin(a / r);
       let alpha = (2 * halfAngle) / (n - 1);
 
-      items.forEach((item, i) => {
+      items.forEach(async (item, i) => {
+        if (item.animationDelay) await this.wait(item.animationDelay);
+        delete item.animationDelay;
+
         // Virtual index (useful if less than THRESHOLD cards)
         let j = i;
         if (items.length < THRESHOLD) j += parseInt((n - items.length) / 2);
@@ -155,6 +159,26 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         // Position
         let x = (j - n / 2) * 0.8 * item.offsetWidth;
         item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+        item.style.top = '0px';
+
+        let removeSpeed = () => {
+          delete item.dataset.animationSpeed;
+          item.removeEventListener('transitionend', removeSpeed);
+        };
+        if (item.dataset.animationSpeed == 'none') {
+          await this.wait(1);
+          removeSpeed();
+        } else {
+          item.addEventListener('transitionend', removeSpeed);
+        }
+      });
+    },
+
+    clearHandTransform(container) {
+      let items = [...container.querySelectorAll('.altered-card')];
+      items.forEach((item, i) => {
+        item.style.transform = `rotate(0rad) translateY(0px)`;
+        item.style.left = '0px';
         item.style.top = '0px';
       });
     },
@@ -378,20 +402,27 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       Promise.all(
         n.args.cards.map((card, i) => {
-          return this.wait(100 * i).then(() => {
-            this.addCard(card);
+          let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${this.player_id}`);
+          this.addCard(card, source);
 
-            let to = null;
-            let container = this.getCardContainer(card);
-            if (!isVisible(container)) to = $('floating-hand-button');
-            let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${this.player_id}`);
+          let cardId = `card-${card.id}`;
+          $(cardId).animationDelay = 100 * (n.args.cards.length - i);
+          $(cardId).dataset.animationSpeed = 'medium';
+          this.changeParent($(cardId), $(`hand-${n.args.player_id}`));
+          return this.wait(100 * i + 700);
 
-            return this.slide(`card-${card.id}`, container, {
-              from: source,
-              duration: 1000,
-              to,
-            });
-          });
+          // return this.wait(100 * i).then(() => {
+
+          //   let to = null;
+          //   let container = this.getCardContainer(card);
+          //   if (!isVisible(container)) to = $('floating-hand-button');
+
+          //   return this.slide(`card-${card.id}`, container, {
+          //     from: source,
+          //     duration: 1000,
+          //     to,
+          //   });
+          // });
         })
       ).then(() => {
         this._playerCounters[this.player_id][counter].incValue(n.args.cards.length);
@@ -418,17 +449,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return;
       }
 
-      Promise.all(
-        Array.from(Array(nCards), (x, i) => i).map((i) => {
-          return this.wait(100 * i).then(() => {
-            let cardId = this.addFakeCard($(`board-deck-${n.args.player_id}`));
-            return this.slide(cardId, `hand-${n.args.player_id}`, {
-              duration: 1000,
-              phantom: false,
-            });
-          });
-        })
-      ).then(() => {
+      Array.from(Array(nCards), (x, i) => i).map((i) => {
+        let cardId = this.addFakeCard($(`board-deck-${n.args.player_id}`));
+        $(cardId).animationDelay = 100 * (nCards - i);
+        $(cardId).dataset.animationSpeed = 'medium';
+        this.changeParent($(cardId), $(`hand-${n.args.player_id}`));
+      });
+      this.wait(100 * nCards + 700).then(() => {
         this._playerCounters[n.args.player_id][counter].incValue(nCards);
         this.notifqueue.setSynchronousDuration(100);
       });

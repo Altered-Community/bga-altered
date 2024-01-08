@@ -555,12 +555,30 @@ define([
       };
 
       const FACTION_DESC = {
-        AX: _('This faction is.....'),
-        BR: _('This faction is.....'),
-        LY: _('This faction is.....'),
-        MU: _('This faction is.....'),
-        OD: _('This faction is.....'),
-        YZ: _('This faction is.....'),
+        AX:
+          _('Sierra "the renowned engineer"') +
+          '<br/>' +
+          _('Construct powerful machines and let their strength carry you to victory!'),
+        BR:
+          _('Kojo "the rising star"') +
+          '<br/>' +
+          _('Summon your firecat Companion to seize the advantage without delay, for only the brave make history!'),
+        LY:
+          _('Nevenka "the unpredictable"') +
+          '<br/>' +
+          _("What's better than invoking fate to spice up a game? Are you ready to embrace the whims of destiny?"),
+        MU:
+          _('Teija "the druidess"') +
+          '<br/>' +
+          _('Anchor and boost your allies over the long haul and reap the rewards of your good deeds.'),
+        OD:
+          _('Sigismar "the commander"') +
+          '<br/>' +
+          _('Take the reins of the Ordis Legion and secure victory through sheer numbers!'),
+        YZ:
+          _('Akesha "the astute"') +
+          '<br/>' +
+          _('Let your opponent take the initiative to better thwart their plans, slowly but surely.'),
       };
 
       let selectedDeck = null;
@@ -789,6 +807,7 @@ define([
         );
 
         $('overlay-hand-container').insertAdjacentElement('beforeend', $(`hand-${this.player_id}`));
+        this.clearHandTransform($(`hand-${this.player_id}`));
         this.openOverlay();
       }
       // TODO

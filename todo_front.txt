@@ -18,9 +18,9 @@ X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre
 X Eventail de la main
 
 [Starting deck]
-~ Afficher le lore / manière de jeu dans le tooltip
+X Afficher le lore / manière de jeu dans le tooltip
 X Rajout d'un step confirm
-- Quand on a selectionné, pouvoir recliquer sur les cartes
+X Quand on a selectionné, pouvoir recliquer sur les cartes
 
 [Après choix]
 ~ Affichage de fight

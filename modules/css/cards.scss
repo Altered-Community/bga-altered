@@ -11,6 +11,12 @@
         width: calc(var(--cardScale) * 324px + 14px);
         height: calc(var(--cardScale) * 450px + 10px);
         // margin: -3px -5px;
+
+        .altered-card {
+            transform: rotate(0deg) !important;
+            left: 0px !important;
+            top: 0px !important;
+        }
     }
 }
 
@@ -615,6 +621,13 @@ $miniCardScale: 0.33;
         right: 0;
         z-index: 6;
         visibility: hidden;
+
+        &[data-type="companion"][data-side],
+        &[data-type="hero"][data-side] {
+            position: absolute;
+            top: 5px;
+            right: calc(50% - 33px);
+        }
     }
 
     .altered-card-statuses {
