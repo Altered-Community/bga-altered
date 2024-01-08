@@ -567,7 +567,7 @@
 //
 $miniCardScale: 0.33;
 .altered-card.mini-card,
-.player-board-hero .altered-card {
+.player-board-hero .altered-card:not(.force-frame) {
     width: $miniCardScale * 324px;
     height: $miniCardScale * 324px;
     box-shadow: 2px 2px 5px 1px black;
@@ -586,8 +586,8 @@ $miniCardScale: 0.33;
 }
 
 .altered-card.no-frame,
-.altered-card.mini-card,
-.player-board-hero .altered-card {
+.altered-card.mini-card:not(.force-frame),
+.player-board-hero .altered-card:not(.force-frame) {
     &.card-hero {
         .card-frame {
             display: none;
@@ -796,10 +796,10 @@ $miniCardScale: 0.33;
         .rarity-gem {
             display: block;
             position: absolute;
-            top: -4px;
-            left: calc(50% - 10px);
-            width: 20px;
-            height: 13px;
+            top: -5px;
+            left: calc(50% - 14px);
+            width: 27px;
+            height: 15px;
             background-image: url("img/rarity-gems.png");
             background-size: 100% 300%;
             z-index: 4;

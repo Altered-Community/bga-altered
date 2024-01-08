@@ -76,7 +76,7 @@
 
                     &#storm-0 {
                         grid-column-start: 2;
-                        margin-left: -90px;
+                        margin-left: -30px;
                     }
                     &#storm-1 {
                         grid-column-start: 3;
@@ -98,7 +98,7 @@
                     }
                     &#storm-7 {
                         grid-column-start: 9;
-                        margin-right: -90px;
+                        margin-right: -30px;
                     }
 
                     .storm-slot {
@@ -109,10 +109,10 @@
                         justify-content: center;
                         align-items: center;
                         box-sizing: border-box;
-                        padding: 13px 5px 9px;
+                        padding: 30px 5px 9px;
 
                         &:nth-child(2) {
-                            padding: 9px 5px 13px;
+                            padding: 9px 5px 30px;
                         }
                     }
                 }
