@@ -18,7 +18,7 @@ class BR_Rare_ALTRatatoskr extends \ALT\Models\Card
       'name' => clienttranslate('ALT Ratatoskr'),
       'type' => CHARACTER,
       'subtypes' => [SQUIRREL],
-      'effectDesc' => clienttranslate('{S} I gain #3# boosts.'),
+      'effectDesc' => clienttranslate('{R} I gain #3# boosts.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

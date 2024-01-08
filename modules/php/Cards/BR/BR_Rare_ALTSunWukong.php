@@ -18,7 +18,7 @@ class BR_Rare_ALTSunWukong extends \ALT\Models\Card
       'name' => clienttranslate('ALT Sun Wukong'),
       'type' => CHARACTER,
       'subtypes' => [DIVINITY],
-      'effectDesc' => clienttranslate('{S} I gain 2 boosts #and I lose [FLEETING_CHAR]#.'),
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts #and I lose [FLEETING_CHAR]#.'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,
