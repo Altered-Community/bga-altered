@@ -5,7 +5,7 @@ X Changer fond et emplacement du chat
 - Unique: bordure dorée avec un glow
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
 - Asleep
-- Icones status : mettre les vrais meeples
+X Icones status : mettre les vrais meeples
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure

@@ -1272,7 +1272,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           return;
         }
 
-        container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
+        //        container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
+        container.insertAdjacentHTML('beforeend', this.formatIcon(type));
       });
 
       if ($(`card-${cardId}`).querySelector('.card-forest') != null) {
