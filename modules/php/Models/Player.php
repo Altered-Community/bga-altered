@@ -178,7 +178,7 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getLandmarks()
   {
-    return Cards::getPlayedCards($this->id, PERMANENT)->where('subtype', LANDMARK);
+    return Cards::getPlayedCards($this->id, PERMANENT)->where('subtypes', LANDMARK);
   }
 
   public function getManaCards($tapped = null)
