@@ -349,8 +349,7 @@
 
         .player-board-reserve {
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            justify-content: flex-start;
             flex-grow: 1;
         }
 
@@ -482,7 +481,7 @@
         top: 145px;
     }
     .player-board-discard {
-        top: 145px;
+        top: 135px;
     }
 
     .player-board-mana-wrapper {
@@ -498,7 +497,7 @@
     }
 
     .player-board-hand {
-        bottom: 315px;
+        bottom: 370px;
         .altered-card {
         }
 
@@ -537,7 +536,7 @@
         top: 200px;
     }
     .player-board-discard {
-        top: 195px;
+        top: 200px;
     }
 
     .player-board-mana-wrapper {
@@ -549,9 +548,9 @@
     }
 
     .player-board-hand {
-        top: 320px;
+        top: 370px;
         .player-board-limbo {
-            top: -250px;
+            top: -300px;
         }
     }
 
@@ -559,6 +558,8 @@
         top: 193px;
         .player-board-reserve {
             align-items: flex-start;
+            padding-top: 20px;
+            padding-left: 35px;
         }
 
         .player-board-separator {

@@ -183,7 +183,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_moveStormToken(n) {
       debug('Notif: moving a token in the storm', n);
       $(`meeple-${n.args.token.id}`).classList.remove('willProgress');
-      let slideIt = () => this.slideResources([n.args.token]);
+      let slideIt = () => this.slideResources([n.args.token], { changeParent: false, zIndex: false });
 
       let card = n.args.revealed;
       if (card) {

@@ -121,31 +121,31 @@ define([
           section: 'layout',
         },
 
-        handLocation: {
-          default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 3),
-          name: _('Hand of cards'),
-          type: 'select',
-          values: {
-            0: _('On the board'),
-            1: _('In a floating collapsible container'),
-            2: _('In a floating collapsible container, opened when entering the table'),
-          },
-          section: 'layout',
-        },
-        cardScale: {
-          default: 40,
-          name: _('Card size in hand'),
-          type: 'slider',
-          sliderConfig: {
-            step: 3,
-            padding: 0,
-            range: {
-              min: [30],
-              max: [80],
-            },
-          },
-          section: 'layout',
-        },
+        // handLocation: {
+        //   default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 3),
+        //   name: _('Hand of cards'),
+        //   type: 'select',
+        //   values: {
+        //     0: _('On the board'),
+        //     1: _('In a floating collapsible container'),
+        //     2: _('In a floating collapsible container, opened when entering the table'),
+        //   },
+        //   section: 'layout',
+        // },
+        // cardScale: {
+        //   default: 40,
+        //   name: _('Card size in hand'),
+        //   type: 'slider',
+        //   sliderConfig: {
+        //     step: 3,
+        //     padding: 0,
+        //     range: {
+        //       min: [30],
+        //       max: [80],
+        //     },
+        //   },
+        //   section: 'layout',
+        // },
 
         //////////////////////
         /// BOARD / PANELS ///
@@ -169,16 +169,16 @@ define([
 
         //////////////////////
         /////// OTHER ////////
-        sortableHand: {
-          default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 0),
-          name: _('Sortable hand using dragndrop'),
-          type: 'select',
-          values: {
-            0: _('Enabled'),
-            1: _('Disabled'),
-          },
-          section: 'other',
-        },
+        // sortableHand: {
+        //   default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 0),
+        //   name: _('Sortable hand using dragndrop'),
+        //   type: 'select',
+        //   values: {
+        //     0: _('Enabled'),
+        //     1: _('Disabled'),
+        //   },
+        //   section: 'other',
+        // },
       };
     },
 
@@ -311,6 +311,9 @@ define([
 
     onLoadingComplete() {
       this.updateLayout();
+      $('altered-board')
+        .querySelectorAll('.player-board-hero .altered-card')
+        .forEach((oCard) => this.autofitCardFrame(oCard, true));
       this.inherited(arguments);
     },
 

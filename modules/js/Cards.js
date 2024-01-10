@@ -547,6 +547,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                   duration: 1000,
                   destroy: true,
                   phantom: false,
+                  clearTransform: true,
                 })
               )
               .then(() => $(`mana-cards-${this.player_id}`).insertAdjacentElement('beforeend', oCard));
@@ -1015,6 +1016,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplHeroCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
 
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
           class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
@@ -1023,11 +1026,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-text'>
+          <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect'>
+            <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
           </div>
@@ -1182,6 +1185,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
+            <div class='card-support'>
+              ${p.supportDesc ? this.formatString(_(p.supportDesc), true) : ''}
+            </div>
           </div>
         </div>
 
@@ -1238,11 +1244,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
-    autofitCardFrame(oCard) {
+    autofitCardFrame(oCard, eraseExisting = false) {
       if (!oCard.querySelector('.card-effect')) return;
       let isMini = oCard.classList.contains('mini-card');
       if (isMini) oCard.classList.remove('mini-card');
       oCard.style.setProperty('--cardScale', 1);
+      oCard.classList.add('force-frame');
+      if (eraseExisting) {
+        oCard.querySelector('.card-text').style.fontSize = FONT_SIZE + 'px';
+        oCard.querySelector('.card-effect').style.paddingTop = '0px';
+      }
+      oCard.offsetHeight;
 
       // Fit effect
       let isEffectSizeOk = () =>
@@ -1274,6 +1286,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       oCard.querySelector('.card-effect').style.paddingTop = (tooHigh + tooLow) / 2 + 'px';
 
       oCard.style.setProperty('--cardScale', null);
+      oCard.classList.remove('force-frame');
+
       // Add back mini if needed
       if (isMini) oCard.classList.add('mini-card');
     },

@@ -746,6 +746,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           clearPos: true,
           beforeBrother: null,
           to: null,
+          zIndex: true,
 
           phantom: true,
           clearTransform: false,
@@ -812,7 +813,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
         }
       }
 
-      dojo.style(mobile, 'zIndex', 5000);
+      if (config.zIndex) {
+        dojo.style(mobile, 'zIndex', 5000);
+      }
       dojo.addClass(mobile, config.className);
       if (config.changeParent) this.changeParent(mobile, 'game_play_area');
       if (config.from != null) this.placeOnObject(mobile, config.from);

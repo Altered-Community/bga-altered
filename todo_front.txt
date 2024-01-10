@@ -1,7 +1,7 @@
 [Misc]
 X Changer fond et emplacement du chat
 X Kojo a modifier
-- Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
+X Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
 - Unique: bordure dorée avec un glow
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
 X Asleep
@@ -10,10 +10,10 @@ X Icones status : mettre les vrais meeples
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure
 - Afficher le nombre de jour/phase où on est
-- Reserve a baisser un peu par rapport
+X Reserve a baisser un peu par rapport
 - Discard a remettre
 - Afficher max reserve / max landmark slot
-- Reserve afficher de gauche à droite
+X Reserve afficher de gauche à droite
 X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
 X Eventail de la main
 
@@ -34,7 +34,7 @@ X afficher icône poubelle
 X Dupliquer le bouton valider en bas des cartes
 X Mettre le compteur 3/3
 X finir état quand cartes validées
-- enlever l'overlay dès le début
+X enlever l'overlay dès le début
 
 [Tooltip]
 - virer la bordure blanche
