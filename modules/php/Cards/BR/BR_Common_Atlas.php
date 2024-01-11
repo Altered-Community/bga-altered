@@ -23,6 +23,7 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
       'typeline' => clienttranslate('Character - Titan'),
+      'gigantic' => true,
     ];
   }
 }
