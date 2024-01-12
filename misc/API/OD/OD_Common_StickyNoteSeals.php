@@ -1,7 +1,7 @@
 <?php
 namespace ALT\Cards\OD;
 
-class OD_Common_StickyNotesSeals extends \ALT\Models\Card
+class OD_Common_StickyNoteSeals extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -12,7 +12,7 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Sticky Notes Seals'),
+      'name' => clienttranslate('Sticky Note Seals'),
       'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],

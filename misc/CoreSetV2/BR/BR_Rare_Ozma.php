@@ -22,7 +22,7 @@ class BR_Rare_Ozma extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['forest', 'water'],
+      'changedStats' => ['forest', 'ocean'],
     ];
   }
 }

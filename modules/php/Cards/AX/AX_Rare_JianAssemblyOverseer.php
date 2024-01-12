@@ -4,7 +4,7 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
+class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,11 +15,11 @@ class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Jian, Assembly Overseer'),
+      'name' => clienttranslate('Jian, Assembly Overseer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'supportDesc' => clienttranslate(
-        '#{D} : Activate the {J} effect of target Permanent you control.# (Discard me from your Reserve to activate this effect)'
+        '#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)'
       ),
       'forest' => 3,
       'mountain' => 2,
@@ -32,6 +32,10 @@ class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
+      'flavorText' => clienttranslate(
+        'This material does not seem to be affected by gravity. By harnessing the properties of this Aerolithe, we could create flying ships and cities, and fly close to the clouds...'
+      ),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

@@ -21,7 +21,7 @@ class OD_Rare_FrogPrince extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 1,
       'costReserve' => 1,
-      'changedStats' => ['forest', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['forest', 'ocean', 'costHand', 'costReserve'],
     ];
   }
 }

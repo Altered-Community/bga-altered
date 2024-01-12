@@ -24,7 +24,7 @@ class LY_Rare_TheHatter extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 4,
       'costReserve' => 4,
-      'changedStats' => ['mountain', 'water', 'costReserve'],
+      'changedStats' => ['mountain', 'ocean', 'costReserve'],
     ];
   }
 }

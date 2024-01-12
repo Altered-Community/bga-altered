@@ -4,7 +4,7 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
+class LY_Rare_OuroborosTrickster extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,12 +15,10 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Ouroboros Trickster'),
+      'name' => clienttranslate('Ouroboros Trickster'),
       'type' => CHARACTER,
-      'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate(
-        '{J} Roll a die. If the result is 4 or more, I gain #3# boosts. Otherwise, I gain 1 boost.'
-      ),
+      'subtypes' => [CITIZEN],
+      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain #3 boosts#. Otherwise, I gain 1 boost$[BB].'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
@@ -30,6 +28,7 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 3)],
       ]),
+      'typeline' => clienttranslate('Character - Citizen'),
     ];
   }
 }

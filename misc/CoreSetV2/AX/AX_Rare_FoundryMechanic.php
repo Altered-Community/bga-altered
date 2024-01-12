@@ -25,7 +25,7 @@ class AX_Rare_FoundryMechanic extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 1,
       'costReserve' => 1,
-      'changedStats' => ['forest', 'water'],
+      'changedStats' => ['forest', 'ocean'],
     ];
   }
 }

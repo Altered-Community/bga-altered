@@ -4,7 +4,7 @@ namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
+class YZ_Rare_SpyCraft extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,10 +15,10 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Spy Craft'),
+      'name' => clienttranslate('Spy Craft'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[SABOTAGE], $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('$[SABOTAGE], then $[RESUPPLY].'),
       'costHand' => 2,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
@@ -31,6 +31,7 @@ class YZ_Rare_ALTSpyCraft extends \ALT\Models\Card
         ]),
         FT::ACTION(RESUPPLY, [])
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

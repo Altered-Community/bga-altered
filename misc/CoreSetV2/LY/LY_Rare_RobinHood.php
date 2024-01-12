@@ -25,7 +25,7 @@ class LY_Rare_RobinHood extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 4,
       'costReserve' => 4,
-      'changedStats' => ['mountain', 'water'],
+      'changedStats' => ['mountain', 'ocean'],
     ];
   }
 }

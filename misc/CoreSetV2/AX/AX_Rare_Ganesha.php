@@ -23,7 +23,7 @@ class AX_Rare_Ganesha extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 6,
       'costReserve' => 6,
-      'changedStats' => ['forest', 'mountain', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
     ];
   }
 }

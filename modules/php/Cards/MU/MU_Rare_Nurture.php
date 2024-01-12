@@ -4,7 +4,7 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-class MU_Rare_ALTNurture extends \ALT\Models\Card
+class MU_Rare_Nurture extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,14 +15,15 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Nurture'),
+      'name' => clienttranslate('Nurture'),
       'type' => SPELL,
-      'subtypes' => [SUPPORT],
-      'effectDesc' => clienttranslate('Up to two target Characters gain #2# boosts.'),
+      'subtypes' => [BOON],
+      'effectDesc' => clienttranslate('Up to two target Characters each gain #2 boosts$[BB]#.'),
       'costHand' => 3,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+      'typeline' => clienttranslate('Spell - Boon'),
     ];
   }
 }

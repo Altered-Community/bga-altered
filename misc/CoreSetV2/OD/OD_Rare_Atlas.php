@@ -22,7 +22,7 @@ class OD_Rare_Atlas extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 5,
       'costReserve' => 5,
-      'changedStats' => ['forest', 'mountain', 'water'],
+      'changedStats' => ['forest', 'mountain', 'ocean'],
     ];
   }
 }

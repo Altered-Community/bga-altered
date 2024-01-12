@@ -23,7 +23,7 @@ class OD_Rare_Issitoq extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 5,
       'costReserve' => 5,
-      'changedStats' => ['forest', 'mountain', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
     ];
   }
 }

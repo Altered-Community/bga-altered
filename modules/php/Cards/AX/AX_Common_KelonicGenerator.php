@@ -4,7 +4,7 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Common_KelonGenerator extends \ALT\Models\Card
+class AX_Common_KelonicGenerator extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,13 +15,14 @@ class AX_Common_KelonGenerator extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Kelon Generator'),
+      'name' => clienttranslate('Kelonic Generator'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate('{2}, {T} : Draw a card.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectTap' => FT::SEQ(FT::ACTION(PAY, ['pay' => 2]), FT::ACTION(DRAW, ['players' => ME])),
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

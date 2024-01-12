@@ -4,7 +4,7 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
+class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,10 +15,12 @@ class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT The Three Little Pigs'),
+      'name' => clienttranslate('Three Little Pigs'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{J} If you have at least 2 cards in your Landmarks, I gain #2# boosts.'),
+      'effectDesc' => clienttranslate(
+        '{J} If you control two or more Landmarks, I gain #2 boosts$[BB]#. (Cards in Reserve are not controlled.)'
+      ),
       'supportDesc' => clienttranslate(
         '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
@@ -35,6 +37,8 @@ class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
+      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

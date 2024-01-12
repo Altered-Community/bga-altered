@@ -4,7 +4,7 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-class OD_Common_StickyNotesSeals extends \ALT\Models\Card
+class OD_Common_StickyNoteSeals extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,11 +15,11 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Sticky Notes Seals'),
+      'name' => clienttranslate('Sticky Note Seals'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Choose one:  - Send to Reserve target Character of hand cost {4} or more.  - Discard target Permanent of hand cost {4} or more.'
+        '$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

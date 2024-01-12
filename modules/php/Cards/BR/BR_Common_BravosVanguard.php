@@ -18,7 +18,9 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'name' => clienttranslate('Bravos Vanguard'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{J} You may have another target Character lose [FLEETING_CHAR].'),
+      'effectDesc' => clienttranslate(
+        '{J} You may have another target Character lose [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)'
+      ),
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 2,

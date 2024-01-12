@@ -22,7 +22,7 @@ class BR_Rare_Chiron extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['mountain', 'water'],
+      'changedStats' => ['mountain', 'ocean'],
     ];
   }
 }

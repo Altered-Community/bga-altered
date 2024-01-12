@@ -4,7 +4,7 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
+class OD_Rare_KakobaLegionCommander extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,10 +15,12 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Kakoba, Legion Commander'),
+      'name' => clienttranslate('Kakoba, Legion Commander'),
       'type' => CHARACTER,
-      'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, I gain #3# boosts.'),
+      'subtypes' => [SOLDIER, NOBLE],
+      'effectDesc' => clienttranslate(
+        '{J} If you control three or more other Characters, I gain #3 boosts$[BB]#. (Cards in Reserve are not controlled.)'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -28,6 +30,7 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
         'condition' => 'control3OtherCharacters',
         'effect' => FT::GAIN(ME, BOOST, 3),
       ]),
+      'typeline' => clienttranslate('Character - Soldier Noble'),
     ];
   }
 }

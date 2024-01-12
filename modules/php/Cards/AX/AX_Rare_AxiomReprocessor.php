@@ -4,7 +4,7 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Rare_ALTAxiomReprocessor extends \ALT\Models\Card
+class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,10 +15,10 @@ class AX_Rare_ALTAxiomReprocessor extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Axiom Reprocessor'),
+      'name' => clienttranslate('Axiom Reprocessor'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('#{J} $[RESUPPLY].#  At Noon — Activate my {J} effect.'),
+      'effectDesc' => clienttranslate('#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
@@ -28,6 +28,8 @@ class AX_Rare_ALTAxiomReprocessor extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
+      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

@@ -22,7 +22,7 @@ class BR_Rare_BravosTracer extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['forest', 'water'],
+      'changedStats' => ['forest', 'ocean'],
     ];
   }
 }
