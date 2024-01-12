@@ -209,7 +209,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     if (isset($event['cardsToListen'])) {
       $cards = array_merge(
         $cards,
-        Cards::getMany($event['cardsToListen'])
+        Cards::getMany($event['cardsToListen'], false)
           ->filter(function ($card) use ($event) {
             return $card->isListeningTo($event);
           })

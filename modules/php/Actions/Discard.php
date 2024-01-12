@@ -158,12 +158,10 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(
-          array_diff(
-            $cardIds,
-            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
-          )
-        )
+        !empty(array_diff(
+          $cardIds,
+          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+        ))
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -205,11 +203,19 @@ class Discard extends \ALT\Models\Action
     $cards = Cards::getMany($cardIds);
 
     $deleted = [];
+    $deletedTokens = [];
     foreach ($cards as $cardId => $card) {
       // we discard a card that has fleeting and should go to reserve
       if ($args['destination'] == RESERVE && $card->hasToken(FLEETING)) {
         Cards::discard($cardId);
       }
+
+      if ($card->isToken()) {
+        // delete the card as it's a token
+        $deletedTokens[] = $cId;
+        Cards::delete($cId);
+      }
+
       // remove all meeples on the card
       $seasoned = $card->isSeasoned();
       $toDelete = Meeples::getInLocation('card-' . $cardId)
@@ -230,24 +236,31 @@ class Discard extends \ALT\Models\Action
       $msg = clienttranslate('${player_name} discards ${n} card(s)');
     }
 
+    $copyCards = $cards;
+
     // deleting meeples first
-    if (!empty($deleted)) {
-      Notifications::silentKill($deleted);
+    if (!empty($deleted) || !empty($deletedTokens)) {
+      Notifications::silentKill($deleted, $deletedTokens);
+      foreach ($deletedTokens as $dId) {
+        unset($copyCards[$dId]);
+      }
     }
 
-    if ($args['destination'] == HAND) {
-      Notifications::moveToHand($player, $cards, $msg, null, [
-        'source' => $args['source'],
-        'destination' => $args['destination'],
-      ]);
-    } elseif ($args['destination'] == MANA) {
-      Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
-    } else {
-      Notifications::publicDiscard($player, $cards, $msg, [
-        'source' => $args['source'],
-        'hand' => $hand,
-        'destination' => $args['destination'],
-      ]);
+    if (count($copyCards) != 0) {
+      if ($args['destination'] == HAND) {
+        Notifications::moveToHand($player, $copyCards, $msg, null, [
+          'source' => $args['source'],
+          'destination' => $args['destination'],
+        ]);
+      } elseif ($args['destination'] == MANA) {
+        Notifications::discardMana($player, $copyCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+      } else {
+        Notifications::publicDiscard($player, $copyCards, $msg, [
+          'source' => $args['source'],
+          'hand' => $hand,
+          'destination' => $args['destination'],
+        ]);
+      }
     }
 
     $notified = [];

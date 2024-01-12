@@ -203,6 +203,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       n.args.tokens.forEach((meepleId) => {
         $(`meeple-${meepleId}`).remove();
       });
+
+      n.args.cardsDeleted.forEach((cardId) => {
+        $(`card-${cardId}`).remove();
+      });
     },
 
     notif_newFirstPlayer(n) {
