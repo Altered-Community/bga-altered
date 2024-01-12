@@ -13,14 +13,15 @@ class OD_Common_FrogPrince extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('The Frog Prince'),
+      'name' => clienttranslate('Frog Prince'),
       'type' => CHARACTER,
-      'subtypes' => [BUREAUCRAT],
+      'subtypes' => [BUREAUCRAT, NOBLE],
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
+      'typeline' => clienttranslate('Character - Bureaucrat Noble'),
     ];
   }
 }

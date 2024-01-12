@@ -15,10 +15,12 @@ class AX_Common_ThreeLittlePigs extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('The Three Little Pigs'),
+      'name' => clienttranslate('Three Little Pigs'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{J} If you have at least 2 cards in your Landmarks, I gain 1 boost.'),
+      'effectDesc' => clienttranslate(
+        '{J} If you control two or more Landmarks, I gain 1 boost$[BB]. (Cards in Reserve are not controlled.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -28,6 +30,8 @@ class AX_Common_ThreeLittlePigs extends \ALT\Models\Card
         'condition' => 'control2Landmarks',
         'effect' => FT::GAIN(ME, BOOST, 1),
       ]),
+      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
+      'typeline' => clienttranslate('Character - Engineer'),
     ];
   }
 }

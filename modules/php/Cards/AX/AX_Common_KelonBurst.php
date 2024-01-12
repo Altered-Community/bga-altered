@@ -15,11 +15,11 @@ class AX_Common_KelonBurst extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Kelon Surge'),
+      'name' => clienttranslate('Kelon Burst'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Choose one:  - Send to Reserve target Character of hand cost {4} or less.  - Discard target Permanent of hand cost {4} or less.'
+        '$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.'
       ),
       'costHand' => 3,
       'costReserve' => 3,
@@ -31,6 +31,7 @@ class AX_Common_KelonBurst extends \ALT\Models\Card
           FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
         ],
       ]),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

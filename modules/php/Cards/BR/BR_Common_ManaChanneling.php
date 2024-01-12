@@ -15,13 +15,16 @@ class BR_Common_ManaChanneling extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Mana Channelling'),
+      'name' => clienttranslate('Mana Channeling'),
       'type' => SPELL,
       'subtypes' => [CONJURATION],
-      'effectDesc' => clienttranslate('$[FLEETING]  Put the top card of your deck in your Mana Orbs, exhausted.'),
+      'effectDesc' => clienttranslate(
+        '$[FLEETING].  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(DRAW_MANA, [])),
+      'typeline' => clienttranslate('Spell - Conjuration'),
     ];
   }
 }

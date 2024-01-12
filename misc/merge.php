@@ -18,6 +18,7 @@ $sourceNew = 'CoreSetV2/';
 $attributes = [
   'uid',
   'asset',
+  'name',
   'mountain',
   'ocean',
   'forest',

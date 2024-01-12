@@ -13,14 +13,15 @@ class BR_Common_HavenWarrior extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Haven Veteran'),
+      'name' => clienttranslate('Haven Warrior'),
       'type' => CHARACTER,
-      'subtypes' => [BLADEMASTER],
+      'subtypes' => [SOLDIER],
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 4,
       'costHand' => 3,
       'costReserve' => 3,
+      'typeline' => clienttranslate('Character - Soldier'),
     ];
   }
 }
