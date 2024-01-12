@@ -4,7 +4,7 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
+class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class AX_Rare_ALTJianAssemblyOverseer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Jian, Assembly Overseer'),
+      'name' => clienttranslate('Jian, Assembly Overseer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'supportDesc' => clienttranslate(

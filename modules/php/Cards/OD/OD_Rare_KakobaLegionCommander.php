@@ -4,7 +4,7 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
+class OD_Rare_KakobaLegionCommander extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class OD_Rare_ALTKakobaLegionCommander extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Kakoba, Legion Commander'),
+      'name' => clienttranslate('Kakoba, Legion Commander'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, I gain #3# boosts.'),

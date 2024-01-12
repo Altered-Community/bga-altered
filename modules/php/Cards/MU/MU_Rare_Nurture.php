@@ -4,7 +4,7 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-class MU_Rare_ALTNurture extends \ALT\Models\Card
+class MU_Rare_Nurture extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class MU_Rare_ALTNurture extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Nurture'),
+      'name' => clienttranslate('Nurture'),
       'type' => SPELL,
       'subtypes' => [SUPPORT],
       'effectDesc' => clienttranslate('Up to two target Characters gain #2# boosts.'),

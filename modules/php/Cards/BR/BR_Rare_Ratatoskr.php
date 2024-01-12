@@ -4,7 +4,7 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-class BR_Rare_ALTRatatoskr extends \ALT\Models\Card
+class BR_Rare_Ratatoskr extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class BR_Rare_ALTRatatoskr extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Ratatoskr'),
+      'name' => clienttranslate('Ratatoskr'),
       'type' => CHARACTER,
       'subtypes' => [SQUIRREL],
       'effectDesc' => clienttranslate('{R} I gain #3# boosts.'),

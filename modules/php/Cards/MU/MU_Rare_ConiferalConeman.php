@@ -4,7 +4,7 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-class MU_Rare_ALTConiferalConeman extends \ALT\Models\Card
+class MU_Rare_ConiferalConeman extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class MU_Rare_ALTConiferalConeman extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Coniferal Coneman'),
+      'name' => clienttranslate('Coniferal Coneman'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{J} I become $[ANCHORED].'),

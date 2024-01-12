@@ -4,7 +4,7 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
+class AX_Rare_TheThreeLittlePigs extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class AX_Rare_ALTTheThreeLittlePigs extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT The Three Little Pigs'),
+      'name' => clienttranslate('The Three Little Pigs'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'effectDesc' => clienttranslate('{J} If you have at least 2 cards in your Landmarks, I gain #2# boosts.'),

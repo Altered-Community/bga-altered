@@ -4,7 +4,7 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-class BR_Rare_ALTSunWukong extends \ALT\Models\Card
+class BR_Rare_SunWukong extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class BR_Rare_ALTSunWukong extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Sun Wukong'),
+      'name' => clienttranslate('Sun Wukong'),
       'type' => CHARACTER,
       'subtypes' => [DIVINITY],
       'effectDesc' => clienttranslate('{R} I gain 2 boosts #and I lose [FLEETING_CHAR]#.'),

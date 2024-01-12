@@ -4,7 +4,7 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-class MU_Rare_ALTSneezerShroom extends \ALT\Models\Card
+class MU_Rare_SneezerShroom extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class MU_Rare_ALTSneezerShroom extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Sneezer Shroom'),
+      'name' => clienttranslate('Sneezer Shroom'),
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{J} I become $[ANCHORED].  #At Noon — I gain 1 boost.#'),

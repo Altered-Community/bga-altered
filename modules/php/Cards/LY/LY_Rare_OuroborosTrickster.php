@@ -4,7 +4,7 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
+class LY_Rare_OuroborosTrickster extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class LY_Rare_ALTOuroborosTrickster extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Ouroboros Trickster'),
+      'name' => clienttranslate('Ouroboros Trickster'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(

@@ -4,7 +4,7 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-class OD_Rare_ALTOzma extends \ALT\Models\Card
+class OD_Rare_Ozma extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class OD_Rare_ALTOzma extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Ozma'),
+      'name' => clienttranslate('Ozma'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, draw a card.'),

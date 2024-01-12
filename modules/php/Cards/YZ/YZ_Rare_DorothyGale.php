@@ -4,7 +4,7 @@ namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-class YZ_Rare_ALTDorothyGale extends \ALT\Models\Card
+class YZ_Rare_DorothyGale extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class YZ_Rare_ALTDorothyGale extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('ALT Dorothy Gale'),
+      'name' => clienttranslate('Dorothy Gale'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('#{J}# Send to Reserve target Character.'),

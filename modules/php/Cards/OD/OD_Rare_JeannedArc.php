@@ -4,7 +4,7 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
+class OD_Rare_JeannedArc extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class OD_Rare_ALTJeannedArc extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate("ALT Jeanne d'Arc"),
+      'name' => clienttranslate("Jeanne d'Arc"),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(

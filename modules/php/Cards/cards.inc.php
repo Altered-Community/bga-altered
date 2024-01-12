@@ -14,9 +14,9 @@ const PRECOS = [
     'AX_Common_AxiomReprocessor' => 2,
     'AX_Common_BrassbugHive' => 3,
 
-    'AX_Rare_ALTJianAssemblyOverseer' => 1,
-    'AX_Rare_ALTTheThreeLittlePigs' => 1,
-    'AX_Rare_ALTAxiomReprocessor' => 1,
+    'AX_Rare_JianAssemblyOverseer' => 1,
+    'AX_Rare_TheThreeLittlePigs' => 1,
+    'AX_Rare_AxiomReprocessor' => 1,
     'AX_Common_Brassbug' => 4,
   ],
 
@@ -33,9 +33,9 @@ const PRECOS = [
     'BR_Common_PhysicalTraining' => 3,
     'BR_Common_Intimidation' => 3,
 
-    'BR_Rare_ALTSunWukong' => 1,
-    'BR_Rare_ALTBravosTracer' => 1,
-    'BR_Rare_ALTRatatoskr' => 1,
+    'BR_Rare_SunWukong' => 1,
+    'BR_Rare_BravosTracer' => 1,
+    'BR_Rare_Ratatoskr' => 1,
     'BR_Common_Booda' => 1,
   ],
 
@@ -51,9 +51,9 @@ const PRECOS = [
     'LY_Common_Asmodeus' => 2,
     'LY_Common_ClothCocoon' => 3,
     'LY_Common_AllIn' => 3,
-    'LY_Rare_ALTOuroborosTrickster' => 1,
-    'LY_Rare_ALTEsmeralda' => 1,
-    'LY_Rare_ALTAsmodeus' => 1,
+    'LY_Rare_OuroborosTrickster' => 1,
+    'LY_Rare_Esmeralda' => 1,
+    'LY_Rare_Asmodeus' => 1,
   ],
 
   FACTION_MU => [
@@ -68,9 +68,9 @@ const PRECOS = [
     'MU_Common_ConiferalConeman' => 2,
     'MU_Common_MeditationTraining' => 3,
     'MU_Common_Nurture' => 2,
-    'MU_Rare_ALTConiferalConeman' => 1,
-    'MU_Rare_ALTNurture' => 1,
-    'MU_Rare_ALTSneezerShroom' => 1,
+    'MU_Rare_ConiferalConeman' => 1,
+    'MU_Rare_Nurture' => 1,
+    'MU_Rare_SneezerShroom' => 1,
   ],
 
   FACTION_OD => [
@@ -83,11 +83,11 @@ const PRECOS = [
     'OD_Common_KakobaLegionCommander' => 2,
     'OD_Common_JeannedArc' => 2,
     'OD_Common_Charge' => 3,
-    'OD_Common_StickyNotesSeals' => 3,
+    'OD_Common_StickyNoteSeals' => 3,
     'OD_Common_OrdisCarrier' => 3,
-    'OD_Rare_ALTOzma' => 1,
-    'OD_Rare_ALTKakobaLegionCommander' => 1,
-    'OD_Rare_ALTJeannedArc' => 1,
+    'OD_Rare_Ozma' => 1,
+    'OD_Rare_KakobaLegionCommander' => 1,
+    'OD_Rare_JeannedArc' => 1,
     'OD_Common_OrdisRecruit' => 3,
   ],
 
@@ -103,8 +103,8 @@ const PRECOS = [
     'YZ_Common_Offyougo' => 3,
     'YZ_Common_KrakensWrath' => 3,
     'YZ_Common_SpyCraft' => 2,
-    'YZ_Rare_ALTDorothyGale' => 1,
-    'YZ_Rare_ALTSpyCraft' => 1,
-    'YZ_Rare_ALTKadigiranAlchemist' => 1,
+    'YZ_Rare_DorothyGale' => 1,
+    'YZ_Rare_SpyCraft' => 1,
+    'YZ_Rare_KadigiranAlchemist' => 1,
   ],
 ];

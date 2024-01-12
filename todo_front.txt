@@ -11,7 +11,7 @@ X Icones status : mettre les vrais meeples
 X Mettre une ombre sur le héros à la place de la bordure
 - Afficher le nombre de jour/phase où on est
 X Reserve a baisser un peu par rapport
-- Discard a remettre
+X Discard a remettre
 - Afficher max reserve / max landmark slot
 X Reserve afficher de gauche à droite
 X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
