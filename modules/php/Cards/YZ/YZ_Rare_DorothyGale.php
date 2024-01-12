@@ -18,7 +18,7 @@ class YZ_Rare_DorothyGale extends \ALT\Models\Card
       'name' => clienttranslate('Dorothy Gale'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('#{J}# Send to Reserve target Character.'),
+      'effectDesc' => clienttranslate('#{J}# You may send target Character to Reserve.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,
@@ -26,6 +26,7 @@ class YZ_Rare_DorothyGale extends \ALT\Models\Card
       'costReserve' => 5,
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
+      'typeline' => clienttranslate('Character - Citizen'),
     ];
   }
 }

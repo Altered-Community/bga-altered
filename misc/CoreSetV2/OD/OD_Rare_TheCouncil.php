@@ -22,7 +22,7 @@ class OD_Rare_TheCouncil extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
-      'changedStats' => ['forest', 'mountain', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
     ];
   }
 }

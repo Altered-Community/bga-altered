@@ -22,7 +22,7 @@ class LY_Rare_Anansi extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 3,
       'costReserve' => 2,
-      'changedStats' => ['forest', 'mountain', 'water'],
+      'changedStats' => ['forest', 'mountain', 'ocean'],
     ];
   }
 }

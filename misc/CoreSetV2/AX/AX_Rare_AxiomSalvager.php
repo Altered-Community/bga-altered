@@ -23,7 +23,7 @@ class AX_Rare_AxiomSalvager extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
-      'changedStats' => ['water', 'costReserve'],
+      'changedStats' => ['ocean', 'costReserve'],
     ];
   }
 }

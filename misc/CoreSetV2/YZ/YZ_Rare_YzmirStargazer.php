@@ -22,7 +22,7 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['forest', 'water', 'costReserve'],
+      'changedStats' => ['forest', 'ocean', 'costReserve'],
     ];
   }
 }

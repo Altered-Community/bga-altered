@@ -32,9 +32,14 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
         'LeaveExpedition' => [
           'output' => FT::ACTION(
             TARGET,
-            ['targetLocation' => [RESERVE], 'targetPlayer' => ME, 'targetType' => [CHARACTER, TOKEN, SPELL], 'effect' => FT::RETURN_TO_HAND()],
+            [
+              'targetLocation' => [RESERVE],
+              'targetPlayer' => ME,
+              'targetType' => [CHARACTER, TOKEN, SPELL],
+              'effect' => FT::RETURN_TO_HAND(),
+            ],
             ['optional' => true]
-          )
+          ),
         ],
       ],
     ];

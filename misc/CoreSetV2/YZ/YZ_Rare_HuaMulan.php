@@ -22,7 +22,7 @@ class YZ_Rare_HuaMulan extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['mountain', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['mountain', 'ocean', 'costHand', 'costReserve'],
     ];
   }
 }

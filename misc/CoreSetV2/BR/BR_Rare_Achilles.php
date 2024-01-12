@@ -22,7 +22,7 @@ class BR_Rare_Achilles extends \ALT\Models\Card
       'ocean' => 6,
       'costHand' => 5,
       'costReserve' => 5,
-      'changedStats' => ['mountain', 'water'],
+      'changedStats' => ['mountain', 'ocean'],
     ];
   }
 }

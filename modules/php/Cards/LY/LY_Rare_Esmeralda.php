@@ -25,6 +25,8 @@ class LY_Rare_Esmeralda extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
+      'typeline' => clienttranslate('Character - Artist'),
+      'changedStats' => ['costReserve'],
     ];
   }
 }

@@ -17,14 +17,15 @@ class BR_Rare_Ratatoskr extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Ratatoskr'),
       'type' => CHARACTER,
-      'subtypes' => [SQUIRREL],
-      'effectDesc' => clienttranslate('{R} I gain #3# boosts.'),
+      'subtypes' => [MESSENGER],
+      'effectDesc' => clienttranslate('{R} I gain #3 boosts$[BB]#.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 3,
       'effectReserve' => FT::GAIN($this, BOOST, 3),
+      'typeline' => clienttranslate('Character - Messenger'),
     ];
   }
 }

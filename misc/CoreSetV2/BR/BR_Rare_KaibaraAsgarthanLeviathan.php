@@ -24,7 +24,7 @@ class BR_Rare_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'ocean' => 8,
       'costHand' => 9,
       'costReserve' => 9,
-      'changedStats' => ['forest', 'mountain', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
     ];
   }
 }

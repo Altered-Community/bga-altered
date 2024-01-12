@@ -18,13 +18,14 @@ class YZ_Rare_KadigiranAlchemist extends \ALT\Models\Card
       'name' => clienttranslate('Kadigiran Alchemist'),
       'type' => CHARACTER,
       'subtypes' => [MAGE],
-      'effectDesc' => clienttranslate('{H} I gain #3# boosts.'),
+      'effectDesc' => clienttranslate('{H} I gain #3 boosts$[BB]#.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 1,
       'effectHand' => FT::GAIN($this, BOOST, 3),
+      'typeline' => clienttranslate('Character - Mage'),
     ];
   }
 }

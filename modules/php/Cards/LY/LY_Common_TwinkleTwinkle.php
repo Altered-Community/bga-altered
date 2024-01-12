@@ -31,7 +31,6 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
       ],
-
     ];
   }
 }

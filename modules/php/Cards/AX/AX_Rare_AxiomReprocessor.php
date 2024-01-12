@@ -18,7 +18,7 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
       'name' => clienttranslate('Axiom Reprocessor'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('#{J} $[RESUPPLY].#  At Noon — Activate my {J} effect.'),
+      'effectDesc' => clienttranslate('#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
@@ -28,6 +28,8 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
+      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
     ];
   }
 }

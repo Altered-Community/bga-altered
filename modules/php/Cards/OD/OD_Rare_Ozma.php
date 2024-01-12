@@ -17,8 +17,10 @@ class OD_Rare_Ozma extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Ozma'),
       'type' => CHARACTER,
-      'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{J} If you have at least 3 other Characters in your Expeditions, draw a card.'),
+      'subtypes' => [NOBLE],
+      'effectDesc' => clienttranslate(
+        '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)'
+      ),
       'supportDesc' => clienttranslate(
         '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
@@ -37,6 +39,7 @@ class OD_Rare_Ozma extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
       ],
+      'typeline' => clienttranslate('Character - Noble'),
     ];
   }
 }

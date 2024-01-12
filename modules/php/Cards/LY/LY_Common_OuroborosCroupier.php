@@ -17,6 +17,7 @@ class LY_Common_OuroborosCroupier extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ouroboros Croupier'),
       'type' => CHARACTER,
+      'typeline' => clienttranslate('Character - Citizen'),
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $[RESUPPLY].'),
       'forest' => 0,
@@ -30,9 +31,6 @@ class LY_Common_OuroborosCroupier extends \ALT\Models\Card
           '4+' => FT::ACTION(DRAW, ['players' => ME]),
         ],
       ]),
-    'typeline' => clienttranslate('Character - Citizen'), 
-'typeline' => clienttranslate('Character - Citizen'), 
-'typeline' => clienttranslate('Character - Citizen'), 
-];
+    ];
   }
 }

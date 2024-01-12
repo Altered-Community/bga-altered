@@ -22,7 +22,7 @@ class MU_Rare_Dracaena extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 3,
-      'changedStats' => ['mountain', 'water'],
+      'changedStats' => ['mountain', 'ocean'],
     ];
   }
 }

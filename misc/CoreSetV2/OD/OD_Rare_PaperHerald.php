@@ -24,7 +24,7 @@ class OD_Rare_PaperHerald extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 1,
       'costReserve' => 1,
-      'changedStats' => ['mountain', 'water'],
+      'changedStats' => ['mountain', 'ocean'],
     ];
   }
 }

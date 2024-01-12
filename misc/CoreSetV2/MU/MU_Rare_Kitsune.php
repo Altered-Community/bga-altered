@@ -22,7 +22,7 @@ class MU_Rare_Kitsune extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['water'],
+      'changedStats' => ['ocean'],
     ];
   }
 }

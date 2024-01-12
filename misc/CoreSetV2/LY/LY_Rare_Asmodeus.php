@@ -22,7 +22,7 @@ class LY_Rare_Asmodeus extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 5,
       'costReserve' => 5,
-      'changedStats' => ['forest', 'mountain', 'water', 'costHand', 'costReserve'],
+      'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
     ];
   }
 }

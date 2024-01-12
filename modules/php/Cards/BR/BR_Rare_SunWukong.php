@@ -17,14 +17,15 @@ class BR_Rare_SunWukong extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Sun Wukong'),
       'type' => CHARACTER,
-      'subtypes' => [DIVINITY],
-      'effectDesc' => clienttranslate('{R} I gain 2 boosts #and I lose [FLEETING_CHAR]#.'),
+      'subtypes' => [DEITY],
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB] #and lose [FLEETING_CHAR]#.'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 4,
       'effectReserve' => FT::SEQ(FT::GAIN($this, BOOST, 2), FT::LOOSE($this, FLEETING)),
+      'typeline' => clienttranslate('Character - Deity'),
     ];
   }
 }

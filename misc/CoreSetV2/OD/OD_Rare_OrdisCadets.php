@@ -22,7 +22,7 @@ class OD_Rare_OrdisCadets extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['water'],
+      'changedStats' => ['ocean'],
     ];
   }
 }

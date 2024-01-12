@@ -18,7 +18,7 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
       'name' => clienttranslate('Spy Craft'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[SABOTAGE], $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('$[SABOTAGE], then $[RESUPPLY].'),
       'costHand' => 2,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
@@ -31,6 +31,7 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
         ]),
         FT::ACTION(RESUPPLY, [])
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }

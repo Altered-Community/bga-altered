@@ -22,7 +22,7 @@ class BR_Rare_Shenlong extends \ALT\Models\Card
       'ocean' => 9,
       'costHand' => 6,
       'costReserve' => 6,
-      'changedStats' => ['forest', 'mountain', 'water'],
+      'changedStats' => ['forest', 'mountain', 'ocean'],
     ];
   }
 }
