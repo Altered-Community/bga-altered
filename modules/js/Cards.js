@@ -253,8 +253,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-                card.properties.uid
-              }.jpg");'></div>
+              card.properties.uid
+            }.jpg");'></div>
             </div>`
           );
         });
@@ -940,6 +940,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         [...n.args.cards].map((card) => {
           isPlayer = this.player_id == card.pId;
           this.updateCardStatuses(card.id);
+          let oCard = $(`card-${card.id}`);
+          let isMini = oCard.classList.contains('mini-card');
+          if (isMini) oCard.classList.remove('mini-card');
           player_inc[card.pId] = player_inc[card.pId] ?? 0 + 1;
 
           return this.slide(`card-${card.id}`, isPlayer ? this.getCardContainer(card) : `counter-${card.pId}-handCount`, {
