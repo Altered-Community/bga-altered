@@ -81,7 +81,8 @@ trait DebugTrait
     //   ],
     // ]);
     // Cards::get(1)->isListeningTo([]);
-    throw new \feException(print_r(Players::get(2305528)->getBiomeInStorms()));
+    // throw new \feException(print_r(Players::get(2305528)->getBiomeInStorms()));
+    Notifications::updateTotalMana();
   }
 
   function score($cardId)

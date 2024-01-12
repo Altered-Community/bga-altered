@@ -212,6 +212,14 @@ class Notifications
     self::notifyAll('untap', '', ['cardIds' => $cardIds]);
   }
 
+  public static function updateTotalMana()
+  {
+    self::notifyAll('updateTotalMana', '', ['manas' => Players::getAll()->reduce(function ($mana, $player) {
+      $mana[$player->getId()] = $player->getTotalMana();
+      return $mana;
+    }, [])]);
+  }
+
   public static function updateNightSelection($player, $args)
   {
     self::notify($player, 'updateNightSelection', '', [
