@@ -138,6 +138,7 @@ trait NewDayTrait
     Globals::setStormMoves([]);
     Cards::untapAll();
     Stats::incDays();
+    Notifications::updateTotalMana();
 
     // Change first player
     $currentFirstPId = Globals::getFirstPlayer();

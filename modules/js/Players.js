@@ -152,8 +152,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${
-            player.id
-          }-totalMana"></span>
+          player.id
+        }-totalMana"></span>
           
           ${this.formatIcon('first-player')}
         </div>
@@ -522,6 +522,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif: pay', n);
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
       this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+    },
+
+    notif_updateTotalMana(n) {
+      debug('Notif: update total mana', n);
+      Object.keys(n.args.manas).forEach((id) => {
+        this._playerCounters[id]['mana'].toValue(n.args.manas[id]);
+        this._playerCounters[id]['totalMana'].toValue(n.args.manas[id]);
+      });
     },
   });
 });

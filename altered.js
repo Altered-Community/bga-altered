@@ -83,6 +83,7 @@ define([
         ['tap', 800],
         // ['boost', 500],
         ['untap', 500],
+        ['updateTotalMana', 200],
       ];
 
       // Fix mobile viewport (remove CSS zoom)
