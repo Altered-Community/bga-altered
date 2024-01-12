@@ -1002,7 +1002,10 @@ define([
     onEnteringStateChooseAssignment(args) {
       let unselectIfNeeded = () => {
         let oCard = $(`hand-${this.player_id}`).querySelector('.selected');
-        if (!oCard) return;
+        if (!oCard) {
+          oCard = $(`board-reserve-${this.player_id}`).querySelector('.selected');
+          if (!oCard) return;
+        }
         oCard.style.transform = oCard.backup.transform;
         oCard.style.left = oCard.backup.left;
         oCard.style.top = oCard.backup.top;
@@ -1070,7 +1073,7 @@ define([
 
     onEnteringStateChooseAssignmentLocation(args) {
       if (!args.hasOwnProperty('clientState') || args.clientState == true) {
-        this.addCancelStateBtn();
+        // this.addCancelStateBtn();
         this.onEnteringStateChooseAssignment({
           cardId: args.cardId,
           _private: { play: args.play, support: args.support, tap: args.tap },
