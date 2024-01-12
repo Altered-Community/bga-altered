@@ -316,6 +316,15 @@
             padding: 4px 2px;
             flex-grow: 1;
             align-items: center;
+            z-index: 99;
+
+            .altered-card {
+                transition:
+                    transform 0.6s ease-in,
+                    left 0.6s ease-in,
+                    top 0.6s ease-in;
+                z-index: 99;
+            }
 
             .mana-gauge-slot {
                 width: 42px;
@@ -428,6 +437,8 @@
                 position: absolute;
                 width: calc(var(--cardScale) * 324px);
                 height: calc(var(--cardScale) * 450px);
+                border: 2px solid transparent;
+                border-radius: 7px;
             }
 
             .altered-card {

@@ -253,8 +253,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -532,7 +532,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           // TO MANA
           if (n.args.toMana) {
             nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped == false ? 1 : 0;
-            let target = $(`counter-board-${this.player_id}-mana`);
+            let target = $(`mana-gauge-${this.player_id}`); //$(`counter-board-${this.player_id}-mana`);
             if (!$(`card-${card.id}`)) {
               this.addCard(card, `board-deck-${card.pId}`);
             }
@@ -541,16 +541,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             let fakeCardId = this._fakeIndex++;
             let fakeCard = this.tplFakeCard({ id: fakeCardId });
             return this.flipAndReplace(oCard, fakeCard)
-              .then(() =>
-                this.slide(`card-${fakeCardId}`, target, {
-                  delay: 100 * i,
-                  duration: 1000,
-                  destroy: true,
-                  phantom: false,
-                  clearTransform: true,
-                })
-              )
-              .then(() => $(`mana-cards-${this.player_id}`).insertAdjacentElement('beforeend', oCard));
+              .then(() => {
+                let id = `card-${fakeCardId}`;
+                this.changeParent(id, target);
+                $(id).style.left = '0px';
+                $(id).style.top = '0px';
+                $(id).style.transform = '';
+                return this.wait(700);
+              })
+              .then(() => {
+                $(`mana-cards-${this.player_id}`).insertAdjacentElement('beforeend', oCard);
+                $(`card-${fakeCardId}`).remove();
+              });
           }
           // NORMAL
           else {

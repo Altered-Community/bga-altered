@@ -874,29 +874,47 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       if (typeof relation == 'undefined') {
         relation = 'last';
       }
-      var src = dojo.position(mobile);
       dojo.style(mobile, 'position', 'absolute');
+
+      // Remove board scale
+      const ROOT = document.documentElement;
+      let scale = ROOT.style.getPropertyValue('--boardScale');
+      ROOT.style.setProperty('--boardScale', 1);
+      // Remove transform
+      let tmp = mobile.style.transform;
+      mobile.classList.add('notransition');
+      mobile.offsetHeight;
+      mobile.style.transform = '';
+      // Get position
+      var src = dojo.position(mobile);
+      // Change place
       dojo.place(mobile, new_parent, relation);
+      // Compute needed change
       var tgt = dojo.position(mobile);
       var box = dojo.marginBox(mobile);
       var cbox = dojo.contentBox(mobile);
+      console.log(src, tgt, box, cbox);
       var left = box.l + src.x - tgt.x;
       var top = box.t + src.y - tgt.y;
       this.positionObjectDirectly(mobile, left, top);
       box.l += box.w - cbox.w;
       box.t += box.h - cbox.h;
+
+      // Restore scale and transform
+      ROOT.style.setProperty('--boardScale', scale);
+      mobile.style.transform = tmp;
+      mobile.offsetHeight;
+      mobile.classList.remove('notransition');
       return box;
     },
 
     positionObjectDirectly(mobileObj, x, y) {
-      // do not remove this "dead" code some-how it makes difference
-      dojo.style(mobileObj, 'left'); // bug? re-compute style
-      // console.log("place " + x + "," + y);
+      dojo.style(mobileObj, 'left');
       dojo.style(mobileObj, {
         left: x + 'px',
         top: y + 'px',
       });
-      dojo.style(mobileObj, 'left'); // bug? re-compute style
+      dojo.style(mobileObj, 'left');
     },
 
     /*
@@ -925,7 +943,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
           'after'
         );
         dojo.place(target, container.querySelector('.flip-back'));
-        dojo.place(newNode, container.querySelector('.flip-front'));
+        let o = dojo.place(newNode, container.querySelector('.flip-front'));
 
         // Trigget flip animation
         container.offsetWidth;
@@ -933,7 +951,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
 
         // Clean everything once it's done
         setTimeout(() => {
-          dojo.place(newNode, container, 'replace');
+          dojo.place(o, container, 'replace');
+          o.dataset.animationSpeed = 'none';
           resolve();
         }, duration);
       });
