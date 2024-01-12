@@ -50,7 +50,7 @@ abstract class Conditions
   {
     return $card
       ->getPlayer()
-      ->getPlayedCards(CHARACTER)
+      ->getPlayedCards([CHARACTER, TOKEN])
       ->filter(function ($c) use ($card) {
         return $c->getId() != $card->getId();
       })
