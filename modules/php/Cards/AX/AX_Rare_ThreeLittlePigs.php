@@ -4,7 +4,7 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Rare_TheThreeLittlePigs extends \ALT\Models\Card
+class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
 {
   public function __construct($row)
   {

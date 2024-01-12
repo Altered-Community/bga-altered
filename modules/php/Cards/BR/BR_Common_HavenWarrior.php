@@ -2,7 +2,7 @@
 
 namespace ALT\Cards\BR;
 
-class BR_Common_HavenVeteran extends \ALT\Models\Card
+class BR_Common_HavenWarrior extends \ALT\Models\Card
 {
   public function __construct($row)
   {

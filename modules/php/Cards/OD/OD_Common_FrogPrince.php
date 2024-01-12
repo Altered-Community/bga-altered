@@ -2,7 +2,7 @@
 
 namespace ALT\Cards\OD;
 
-class OD_Common_TheFrogPrince extends \ALT\Models\Card
+class OD_Common_FrogPrince extends \ALT\Models\Card
 {
   public function __construct($row)
   {

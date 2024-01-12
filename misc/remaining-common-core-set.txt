@@ -1,11 +1,5 @@
-AX/AX_Common_KelonBurst
-AX/AX_Common_KelonicGenerator
 AX/AX_Common_TheFoundryAxiomBastion
-AX/AX_Common_ThreeLittlePigs
 AX/AX_Common_TreystRossum
-BR/BR_Common_HavenWarrior
-BR/BR_Common_ManaChanneling
-BR/BR_Common_MightyJinn
 LY/LY_Common_AuraqKibble
 LY/LY_Common_FenCrowbar
 LY/LY_Common_PaintPrison
@@ -31,7 +25,6 @@ MU/MU_Common_Verdantback
 MU/MU_Common_YongSuVerdantWeaver
 OD/OD_Common_Anubis
 OD/OD_Common_CelebrationDay
-OD/OD_Common_FrogPrince
 OD/OD_Common_GrandEndeavor
 OD/OD_Common_GulrangTocsin
 OD/OD_Common_Issitoq
