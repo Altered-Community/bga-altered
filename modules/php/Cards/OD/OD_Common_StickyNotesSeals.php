@@ -31,6 +31,7 @@ class OD_Common_StickyNotesSeals extends \ALT\Models\Card
           FT::ACTION(TARGET, ['minHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
         ],
       ]),
+      'typeline' => clienttranslate('Spell - Disruption'),
     ];
   }
 }
