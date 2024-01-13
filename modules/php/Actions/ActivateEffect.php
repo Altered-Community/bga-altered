@@ -63,7 +63,7 @@ class ActivateEffect extends \ALT\Models\Action
     ]);
     if (!empty($card->$effect())) {
       $node = $card->$effect();
-      $node['sourceId'] = $this->getSourceId();
+      $node['sourceId'] = $card->getId();
       $this->pushParallelChild($node);
     }
 
