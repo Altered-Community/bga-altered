@@ -179,6 +179,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // players have moved the same number in the phase
     if ($tiebreaker === true) {
       Globals::setTieBreakerMode(true);
+      Notifications::message(clienttranslate('The tiebreaker is triggered as heroes reached their companions at the same time'));
     } elseif ($victor != -1) {
       // we have a winner => end of game
       Players::get($victor)->setScore(99);
