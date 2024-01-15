@@ -10,8 +10,8 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_BR_04_R2',
-      'asset' => 'ALT_CORE_B_BR_04_R2',
+      'uid' => 'ALT_CORE_B_BR_04_R1',
+      'asset' => 'ALT_CORE_B_BR_04_R1',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
@@ -25,7 +25,7 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 3,
-      'effectReserve' =>  FT::SEQ(
+      'effectReserve' => FT::SEQ(
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => $this->getPId(),
           'tokenType' => 'OD_Common_OrdisRecruit',
@@ -36,7 +36,7 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['source'],
         ])
-      )
+      ),
     ];
   }
 }
