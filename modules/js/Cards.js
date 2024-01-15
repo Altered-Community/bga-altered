@@ -248,8 +248,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-                card.properties.uid
-              }.jpg");'></div>
+              card.properties.uid
+            }.jpg");'></div>
             </div>`
           );
         });
@@ -1131,16 +1131,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplTokenCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
+      let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-token ${mini ? 'mini-card' : ''}'>
+        class='altered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${boost}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-faction='${p.faction}' data-type='token'></div>
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}'>${p.forest}</div>
-          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}'>${p.mountain}</div>
-          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}'>${p.ocean}</div>
+          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
+          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
+        p.mountain
+      }</div>
+          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
 
           <div class='card-text'>
             <div class='card-qrcode-container'>

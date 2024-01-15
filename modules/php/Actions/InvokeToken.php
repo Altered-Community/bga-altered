@@ -128,6 +128,13 @@ class InvokeToken extends \ALT\Models\Action
       Globals::setNextCharacterBoost(0);
     }
 
+    $this->checkAfterListeners($player, [
+      'playCard' => true,
+      'playedCard' => $card->getId(),
+      'cardType' => $card->getType(),
+      'from' => 'invoke',
+    ]);
+
     $this->resolveAction([$card->getId()]);
   }
 }

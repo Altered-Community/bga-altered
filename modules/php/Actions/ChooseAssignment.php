@@ -163,7 +163,6 @@ class ChooseAssignment extends \ALT\Models\Action
       $this->insertAsChild($effect);
     }
 
-    // TODO: put in in invoke
     $this->checkAfterListeners($player, [
       'playCard' => true,
       'playedCard' => $cardId,

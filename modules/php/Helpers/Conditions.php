@@ -75,6 +75,13 @@ abstract class Conditions
       Cards::get($event['playedCard'])->getCostHand() >= 3;
   }
 
+  public static function isRobotPlayed($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
+  }
+
   public static function isDiscardedFromHandToReserve($card, $event)
   {
     $cardId = $card->getId();
