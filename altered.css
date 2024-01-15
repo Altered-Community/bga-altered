@@ -2251,6 +2251,9 @@ html {
       .altered-player-board .player-board-storm.selectable:hover {
         border: 2px solid #338120;
         background: rgba(17, 153, 17, 0.3); }
+    .altered-player-board .player-board-storm .flip-container {
+      width: calc(106.92px + 14px);
+      height: calc(106.92px + 10px); }
     .altered-player-board .player-board-storm .total-biomes {
       position: absolute;
       width: 100px;
@@ -2484,6 +2487,9 @@ html {
           transition: none; }
         .altered-player-board .player-board-grass .player-board-reserve .altered-card.selected:not([data-animation-speed="none"]) {
           transition: transform 0.2s ease-in, left 0.2s ease-in, top 0.2s ease-in; }
+      .altered-player-board .player-board-grass .player-board-reserve .flip-container {
+        width: calc(106.92px + 14px);
+        height: calc(106.92px + 10px); }
     .altered-player-board .player-board-grass .player-board-separator {
       width: 40px;
       height: 185px;

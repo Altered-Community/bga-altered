@@ -82,6 +82,11 @@
             }
         }
 
+        .flip-container {
+            width: calc(#{$miniCardScale * 324px} + 14px);
+            height: calc(#{$miniCardScale * 324px} + 10px);
+        }
+
         .total-biomes {
             position: absolute;
             width: 100px;
@@ -398,6 +403,11 @@
                         left 0.2s ease-in,
                         top 0.2s ease-in;
                 }
+            }
+
+            .flip-container {
+                width: calc(#{$miniCardScale * 324px} + 14px);
+                height: calc(#{$miniCardScale * 324px} + 10px);
             }
         }
 
