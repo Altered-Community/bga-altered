@@ -90,7 +90,7 @@ define([
       this.default_viewport = 'width=740';
       this.cardStatuses = {};
 
-      this._fakeIndex = 1;
+      this._fakeIndex = 90001;
     },
     notif_midMessage(n) {},
 
