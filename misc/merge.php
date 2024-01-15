@@ -5,13 +5,14 @@ error_reporting(E_ALL);
 
 include_once 'list.inc.php';
 
-/*
-$sourceOld = 'API/';
-$sourceNew = 'CoreSetV2/';
-$target = 'CoreSetV2/';
-$attributes = ['effectDesc', 'supportDesc', 'changedStats'];
-*/
 
+$target = 'CoreSetV2/';
+$sourceOld = $target;
+$sourceNew = 'API/';
+$attributes = ['flavorText'];
+
+
+/*
 $target = '../modules/php/Cards/';
 $sourceOld = $target;
 $sourceNew = 'CoreSetV2/';
@@ -31,6 +32,7 @@ $attributes = [
   'subtypes',
   'changedStats',
 ];
+*/
 
 $i = 0;
 foreach (ALL_CARDS as $cardId) {
