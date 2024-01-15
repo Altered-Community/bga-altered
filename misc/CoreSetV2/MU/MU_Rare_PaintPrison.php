@@ -8,7 +8,7 @@ class MU_Rare_PaintPrison extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_LY_26_R2',
-      'asset' => 'ALT_CORE_B_LY_26_R2',
+      'asset' => 'ALT_CORE_B_LY_26_R1',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

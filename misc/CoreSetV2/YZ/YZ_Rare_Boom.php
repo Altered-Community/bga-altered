@@ -8,7 +8,7 @@ class YZ_Rare_Boom extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_21_R2',
-      'asset' => 'ALT_CORE_B_AX_21_R2',
+      'asset' => 'ALT_CORE_B_AX_21_R1',
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,

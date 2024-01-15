@@ -59,10 +59,10 @@ X Pour les sorts, rajout un bouton pour lancer le sort.
 - enlever le layover
 
 [Discard card]
-- Quand je discard vers la main (via Intimidation par exemple), ca slide vers la discard un peu chelou avant d'arriver dans la main
+X Quand je discard vers la main (via Intimidation par exemple), ca slide vers la discard un peu chelou avant d'arriver dans la main
 
 [Spell]
-- si tu joues un spell, et que ca gagne fleeting dans limbo, le token slide sur la place originale
+X si tu joues un spell, et que ca gagne fleeting dans limbo, le token slide sur la place originale
 
 [Tap hero/carte]
 X conserver rotation, même pour le héro mais réduire sa taille pendant l'animation (#filou)

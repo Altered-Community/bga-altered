@@ -8,7 +8,7 @@ class AX_Rare_HavenBravosBastion extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_BR_30_R2',
-      'asset' => 'ALT_CORE_B_BR_30_R2',
+      'asset' => 'ALT_CORE_B_BR_30_R1',
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,

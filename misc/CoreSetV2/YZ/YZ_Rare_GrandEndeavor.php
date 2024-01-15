@@ -8,7 +8,7 @@ class YZ_Rare_GrandEndeavor extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_OR_29_R2',
-      'asset' => 'ALT_CORE_B_OR_29_R2',
+      'asset' => 'ALT_CORE_B_OR_29_R1',
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,

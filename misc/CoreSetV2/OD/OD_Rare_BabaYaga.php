@@ -8,7 +8,7 @@ class OD_Rare_BabaYaga extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_YZ_11_R2',
-      'asset' => 'ALT_CORE_B_YZ_11_R2',
+      'asset' => 'ALT_CORE_B_YZ_11_R1',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

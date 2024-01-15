@@ -8,7 +8,7 @@ class BR_Rare_OrdisSpy extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_OR_14_R2',
-      'asset' => 'ALT_CORE_B_OR_14_R2',
+      'asset' => 'ALT_CORE_B_OR_14_R1',
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,

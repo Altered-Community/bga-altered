@@ -8,7 +8,7 @@ class BR_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_MU_30_R2',
-      'asset' => 'ALT_CORE_B_MU_30_R2',
+      'asset' => 'ALT_CORE_B_MU_30_R1',
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,

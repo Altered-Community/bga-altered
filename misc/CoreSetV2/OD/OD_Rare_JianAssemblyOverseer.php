@@ -8,7 +8,7 @@ class OD_Rare_JianAssemblyOverseer extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_10_R2',
-      'asset' => 'ALT_CORE_B_AX_10_R2',
+      'asset' => 'ALT_CORE_B_AX_10_R1',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

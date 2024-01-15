@@ -8,7 +8,7 @@ class MU_Rare_Charge extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_OR_23_R2',
-      'asset' => 'ALT_CORE_B_OR_23_R2',
+      'asset' => 'ALT_CORE_B_OR_23_R1',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

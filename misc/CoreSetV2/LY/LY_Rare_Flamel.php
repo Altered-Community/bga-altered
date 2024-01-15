@@ -8,7 +8,7 @@ class LY_Rare_Flamel extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_YZ_14_R2',
-      'asset' => 'ALT_CORE_B_YZ_14_R2',
+      'asset' => 'ALT_CORE_B_YZ_14_R1',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
