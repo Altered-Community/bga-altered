@@ -49,6 +49,7 @@
         border-color: #04c104;
         &:hover {
             transform: scale(1.1);
+            z-index: 100;
         }
         transition: none;
     }
@@ -128,6 +129,49 @@
     height: calc(var(--cardScale) * 450px);
     box-shadow: none;
     border-radius: calc(var(--cardScale) * 25px);
+
+    & > .altered-meeple {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 6;
+        visibility: hidden;
+
+        &[data-type="companion"][data-side],
+        &[data-type="hero"][data-side] {
+            position: absolute;
+            top: 5px;
+            right: calc(50% - 33px);
+        }
+    }
+
+    .altered-card-statuses {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 7;
+        font-size: 1.1em;
+
+        .icon-container {
+            margin: 0;
+
+            .altered-icon {
+                background-size: 107% 107%;
+                background-position: center center;
+                border-radius: 50%;
+                box-shadow: 0px 0px 5px white;
+            }
+        }
+        // .card-status {
+        //     width: 1em;
+        //     height: 1em;
+        //     padding: 0.25em;
+        //     background: #222222;
+        //     border-radius: 50%;
+        //     box-shadow: 0px 0px 5px white;
+        //     color: white;
+        // }
+    }
 
     .altered-card-wrapper {
         width: 324px;
@@ -614,49 +658,6 @@ $miniCardScale: 0.33;
     .help-marker {
         left: calc(50% - 11px);
         top: -10px;
-    }
-
-    .altered-meeple {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 6;
-        visibility: hidden;
-
-        &[data-type="companion"][data-side],
-        &[data-type="hero"][data-side] {
-            position: absolute;
-            top: 5px;
-            right: calc(50% - 33px);
-        }
-    }
-
-    .altered-card-statuses {
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        z-index: 7;
-        font-size: 1.1em;
-
-        .icon-container {
-            margin: 0;
-
-            .altered-icon {
-                background-size: 107% 107%;
-                background-position: center center;
-                border-radius: 50%;
-                box-shadow: 0px 0px 5px white;
-            }
-        }
-        // .card-status {
-        //     width: 1em;
-        //     height: 1em;
-        //     padding: 0.25em;
-        //     background: #222222;
-        //     border-radius: 50%;
-        //     box-shadow: 0px 0px 5px white;
-        //     color: white;
-        // }
     }
 
     .altered-card-wrapper {

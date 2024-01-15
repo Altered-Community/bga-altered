@@ -968,7 +968,7 @@ define([
         let msg =
           warning === true
             ? _(
-                "If you take this action, you won't be able to undo past this step because you will either draw card(s) from the deck or the discard, or someone else is going to make a choice"
+                "If you take this action, you won't be able to undo past this step because you will either roll a dice, draw card(s) from the deck or the discard, or someone else is going to make a decision"
               )
             : warning;
         this.confirmationDialog(
@@ -1005,12 +1005,16 @@ define([
         let oCard = $(`hand-${this.player_id}`).querySelector('.selected');
         if (!oCard) {
           oCard = $(`board-reserve-${this.player_id}`).querySelector('.selected');
-          if (!oCard) return;
         }
+        if (!oCard) {
+          oCard = $(`board-limbo-${this.player_id}`).querySelector('.selected');
+        }
+        if (!oCard) return;
+
         oCard.style.transform = oCard.backup.transform;
         oCard.style.left = oCard.backup.left;
         oCard.style.top = oCard.backup.top;
-        oCard.classList.remove('selected');
+        //        this.wait(400).then(() => oCard.classList.remove('selected'));
       };
 
       let t = args._private;
@@ -1094,15 +1098,19 @@ define([
       // Backup previous pos and transform
       oCard.backup = {
         transform: oCard.style.transform,
-        left: oCard.style.left,
-        top: oCard.style.top,
+        left: oCard.style.left || '0px',
+        top: oCard.style.top || '0px',
       };
 
-      // Slide it using css transition
+      // Slide it using css transition, unless parent is reserve
       let limbo = $(`board-limbo-${this.player_id}`);
       oCard.style.transform = 'scale(1.2) rotate(0rad) translateY(0px)';
-      oCard.style.left = limbo.offsetLeft + 'px';
-      oCard.style.top = limbo.offsetTop + 'px';
+      if (oCard.parentNode.classList.contains('player-board-reserve')) {
+        this.slide(oCard, limbo, { duration: 100, changeParent: false, attach: false, phantom: false, clearPos: false });
+      } else {
+        oCard.style.left = limbo.offsetLeft + 'px';
+        oCard.style.top = limbo.offsetTop + 'px';
+      }
 
       let onChooseLocation = (location) => {
         return () => this.takeAtomicAction('actPlay', [cardId, location]);

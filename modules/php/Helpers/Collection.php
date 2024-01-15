@@ -88,6 +88,13 @@ class Collection extends \ArrayObject
     return new Collection($t);
   }
 
+  public function jsonSerialize()
+  {
+    return $this->map(function ($elem) {
+      return $elem->jsonSerialize();
+    });
+  }
+
   /*****
    * Méthods for collection of object
    */

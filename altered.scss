@@ -126,6 +126,9 @@ html {
 
 #btnUndoLastStep {
     background: #d97050;
+    &:hover {
+        background: rgb(228, 139, 111);
+    }
 }
 
 [data-undobuttons="0"] #btnUndoLastStep {

@@ -839,6 +839,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       if (card.location == 'discard') {
         $(id).classList.remove('mini-card');
+      } else {
+        $(id).classList.add('mini-card');
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {

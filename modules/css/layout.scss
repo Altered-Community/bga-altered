@@ -32,6 +32,10 @@
         box-shadow: 0 0 0 white;
         color: white;
         text-shadow: none;
+
+        &:hover {
+            color: black;
+        }
     }
 }
 

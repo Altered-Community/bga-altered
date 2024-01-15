@@ -326,7 +326,8 @@ html {
     transition: none; }
     .altered-card.selectable:hover,
     .altered-card.mini-card.selectable:hover {
-      transform: scale(1.1); }
+      transform: scale(1.1);
+      z-index: 100; }
   .altered-card.selected,
   .altered-card.mini-card.selected {
     border: 2px solid #ffe300;
@@ -991,6 +992,29 @@ html {
   height: calc(var(--cardScale) * 450px);
   box-shadow: none;
   border-radius: calc(var(--cardScale) * 25px); }
+  .altered-card > .altered-meeple {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 6;
+    visibility: hidden; }
+    .altered-card > .altered-meeple[data-type="companion"][data-side], .altered-card > .altered-meeple[data-type="hero"][data-side] {
+      position: absolute;
+      top: 5px;
+      right: calc(50% - 33px); }
+  .altered-card .altered-card-statuses {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 7;
+    font-size: 1.1em; }
+    .altered-card .altered-card-statuses .icon-container {
+      margin: 0; }
+      .altered-card .altered-card-statuses .icon-container .altered-icon {
+        background-size: 107% 107%;
+        background-position: center center;
+        border-radius: 50%;
+        box-shadow: 0px 0px 5px white; }
   .altered-card .altered-card-wrapper {
     width: 324px;
     height: 450px;
@@ -1319,41 +1343,6 @@ html {
 .player-board-hero .altered-card:not(.force-frame) .help-marker {
   left: calc(50% - 11px);
   top: -10px; }
-.altered-card.no-frame .altered-meeple,
-.altered-card.mini-card:not(.force-frame) .altered-meeple,
-.player-board-hero .altered-card:not(.force-frame) .altered-meeple {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 6;
-  visibility: hidden; }
-  .altered-card.no-frame .altered-meeple[data-type="companion"][data-side], .altered-card.no-frame .altered-meeple[data-type="hero"][data-side],
-  .altered-card.mini-card:not(.force-frame) .altered-meeple[data-type="companion"][data-side],
-  .altered-card.mini-card:not(.force-frame) .altered-meeple[data-type="hero"][data-side],
-  .player-board-hero .altered-card:not(.force-frame) .altered-meeple[data-type="companion"][data-side],
-  .player-board-hero .altered-card:not(.force-frame) .altered-meeple[data-type="hero"][data-side] {
-    position: absolute;
-    top: 5px;
-    right: calc(50% - 33px); }
-.altered-card.no-frame .altered-card-statuses,
-.altered-card.mini-card:not(.force-frame) .altered-card-statuses,
-.player-board-hero .altered-card:not(.force-frame) .altered-card-statuses {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  z-index: 7;
-  font-size: 1.1em; }
-  .altered-card.no-frame .altered-card-statuses .icon-container,
-  .altered-card.mini-card:not(.force-frame) .altered-card-statuses .icon-container,
-  .player-board-hero .altered-card:not(.force-frame) .altered-card-statuses .icon-container {
-    margin: 0; }
-    .altered-card.no-frame .altered-card-statuses .icon-container .altered-icon,
-    .altered-card.mini-card:not(.force-frame) .altered-card-statuses .icon-container .altered-icon,
-    .player-board-hero .altered-card:not(.force-frame) .altered-card-statuses .icon-container .altered-icon {
-      background-size: 107% 107%;
-      background-position: center center;
-      border-radius: 50%;
-      box-shadow: 0px 0px 5px white; }
 .altered-card.no-frame .altered-card-wrapper,
 .altered-card.mini-card:not(.force-frame) .altered-card-wrapper,
 .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper {
@@ -1957,6 +1946,10 @@ html {
     box-shadow: 0 0 0 white;
     color: white;
     text-shadow: none; }
+    .current_player_is_active #page-title .bgabutton_gray:hover,
+    .gamestate_gameEnd #page-title .bgabutton_gray:hover,
+    #page-title .bgabutton_gray:hover {
+      color: black; }
 
 #right-side {
   float: left;
@@ -2160,6 +2153,9 @@ html {
         transform: scale(0.8) rotate(90deg); }
     .altered-player-board .player-board-hero.active .altered-card {
       box-shadow: 2px 2px 5px 1px black, 0px 0px 19px 13px #ffe300; }
+      .altered-player-board .player-board-hero.active .altered-card.selectable {
+        box-shadow: 0px 0px 7px 4px lime, 0px 0px 19px 13px #ffe300;
+        transition: none; }
   .altered-player-board .player-board-storm {
     position: absolute;
     width: 436px;
@@ -2406,6 +2402,13 @@ html {
       display: flex;
       justify-content: flex-start;
       flex-grow: 1; }
+      .altered-player-board .player-board-grass .player-board-reserve .altered-card {
+        z-index: 30;
+        transition: left 0.2s ease-in, top 0.2s ease-in; }
+        .altered-player-board .player-board-grass .player-board-reserve .altered-card[data-animation-speed="none"] {
+          transition: none; }
+        .altered-player-board .player-board-grass .player-board-reserve .altered-card.selected:not([data-animation-speed="none"]) {
+          transition: transform 0.2s ease-in, left 0.2s ease-in, top 0.2s ease-in; }
     .altered-player-board .player-board-grass .player-board-separator {
       width: 40px;
       height: 185px;
@@ -2430,7 +2433,7 @@ html {
       width: 110px;
       height: 150px;
       left: 750px;
-      z-index: 10;
+      z-index: 40;
       pointer-events: none; }
       .altered-player-board .player-board-hand .player-board-limbo .altered-card {
         transform: scale(1.2);
@@ -2474,6 +2477,8 @@ html {
         z-index: 99; }
       .altered-player-board .player-board-hand .player-hand .altered-card.limbo {
         visibility: hidden; }
+      .altered-player-board .player-board-hand .player-hand .altered-card.selected {
+        z-index: 30; }
 
 #altered-board-opponent .altered-player-board .player-board-hero {
   top: 313px;
@@ -2498,7 +2503,9 @@ html {
 #altered-board-opponent .altered-player-board .player-board-grass {
   top: 129px; }
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-reserve {
-    align-items: flex-end; }
+    align-items: flex-end;
+    padding-bottom: 5px;
+    padding-left: 35px; }
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-separator {
     margin-bottom: -20px; }
 
@@ -3321,6 +3328,8 @@ html {
 
 #btnUndoLastStep {
   background: #d97050; }
+  #btnUndoLastStep:hover {
+    background: #e48b6f; }
 
 [data-undobuttons="0"] #btnUndoLastStep {
   display: none; }
