@@ -10,7 +10,7 @@ abstract class Conditions
 {
   public static function isFirstPlayer($card, $event)
   {
-    return $event['pId'] == $card->getPId() && $card->getPId() == Globals::getFirstPlayer();
+    return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() == Globals::getFirstPlayer();
   }
 
   public static function boostedByOtherCard($card, $event)
