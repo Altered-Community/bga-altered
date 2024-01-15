@@ -38,6 +38,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         let container = this.getCardContainer(card);
         if (o.parentNode != $(container)) {
           dojo.place(o, container);
+          if (!container.classList.contains('player-hand')) {
+            o.style.transform = '';
+            o.style.left = '0px';
+            o.style.top = '0px';
+            o.style.position = '';
+          }
         }
 
         // Update tapped state
@@ -248,8 +254,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -934,31 +940,34 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      */
     notif_moveToHand(n) {
       debug('Moving cards to hand', n);
-      player_inc = {};
+      let playerInc = {};
       Promise.all(
         [...n.args.cards].map((card) => {
-          isPlayer = this.player_id == card.pId;
           this.updateCardStatuses(card.id);
           let oCard = $(`card-${card.id}`);
-          let isMini = oCard.classList.contains('mini-card');
-          if (isMini) oCard.classList.remove('mini-card');
-          player_inc[card.pId] = player_inc[card.pId] ?? 0 + 1;
+          oCard.classList.remove('mini-card');
+          playerInc[card.pId] = playerInc[card.pId] ?? 0 + 1;
 
-          return this.slide(`card-${card.id}`, isPlayer ? this.getCardContainer(card) : `counter-${card.pId}-handCount`, {
-            duration: 1000,
-            destroy: isPlayer ? false : true,
-            phantom: isPlayer ? true : false,
-          });
+          if (this.player_id == card.pId) {
+            oCard.dataset.animationSpeed = 'medium';
+            this.changeParent(oCard, `hand-${card.pId}`);
+            return this.wait(500);
+          } else {
+            let fakeCardId = this._fakeIndex--;
+            let fakeCard = this.tplFakeCard({ id: fakeCardId });
+            return this.flipAndReplace(oCard, fakeCard).then(() => {
+              $(`card-${fakeCardId}`).dataset.animationSpeed = 'medium';
+              this.changeParent(`card-${fakeCardId}`, `hand-${card.pId}`);
+              return this.wait(500);
+            });
+          }
         })
-      )
-        .then(() => {
-          Object.keys(player_inc).forEach((player) => {
-            this._playerCounters[player]['handCount'].incValue(player_inc[player]);
-          });
-        })
-        .then(() => {
-          this.notifqueue.setSynchronousDuration(100);
+      ).then(() => {
+        Object.keys(playerInc).forEach((player) => {
+          this._playerCounters[player]['handCount'].incValue(playerInc[player]);
         });
+        this.notifqueue.setSynchronousDuration(100);
+      });
     },
 
     //////////////////////////////////////////////
@@ -1141,8 +1150,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
-        p.mountain
-      }</div>
+            p.mountain
+          }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
 
           <div class='card-text'>
