@@ -16,7 +16,7 @@ class BR_Common_Booda extends \ALT\Models\Card
       'typeline' => clienttranslate('Token - Companion'),
       'type' => TOKEN,
       'subtypes' => [COMPANION],
-      'effectDesc' => clienttranslate('(If I leave the Expedition Zone, remove me from the game.)'),
+      'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

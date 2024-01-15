@@ -16,8 +16,11 @@ class AX_Rare_KelonSurge extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
+      'flavorText' => clienttranslate(
+        'There\'s an enduring legend in the Suspira quarries: the existence of another type of Kelon.'
+      ),
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.  If you control two or more Landmarks, create a [Brassbug 2/2/2] Robot token in target Expedition. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.  If you control two or more Landmarks, create a [Brassbug 2/2/2] Robot token in target Expedition.'
       ),
       'costHand' => 4,
       'costReserve' => 4,

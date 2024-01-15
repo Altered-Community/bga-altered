@@ -17,7 +17,7 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        'When a Character joins one of your Expeditions — It gains 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        'When a Character joins your Expeditions — It gains 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 5,
       'costReserve' => 5,

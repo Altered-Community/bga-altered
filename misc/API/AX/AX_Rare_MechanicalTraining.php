@@ -17,7 +17,7 @@ class AX_Rare_MechanicalTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'flavorText' => clienttranslate('To learn to create, first learn to fix.'),
-      'effectDesc' => clienttranslate('Activate the {J} triggers of up to two target Permanents you control.'),
+      'effectDesc' => clienttranslate('Activate the {j} triggers of up to two target Permanents you control.'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

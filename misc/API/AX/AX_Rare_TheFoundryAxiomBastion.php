@@ -20,7 +20,7 @@ class AX_Rare_TheFoundryAxiomBastion extends \ALT\Models\Card
         'Etched into the cliff, it overlooks the city and reminds everyone who looks up that nothing is unreachable if you put your mind to it.'
       ),
       'effectDesc' => clienttranslate(
-        '{J} Draw a card.  {T} : Activate the {R} triggers of the next Character you play from your hand this turn.'
+        '{J} Draw a card.  {T} : Activate the {r} triggers of the next Character you play from your hand this turn.'
       ),
       'costHand' => 4,
       'costReserve' => 4,

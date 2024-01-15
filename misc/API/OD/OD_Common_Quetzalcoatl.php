@@ -13,9 +13,9 @@ class OD_Common_Quetzalcoatl extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Quetzalcoatl'),
-      'typeline' => clienttranslate('Character - Bureaucrat Deity'),
+      'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'subtypes' => [BUREAUCRAT, DEITY],
+      'subtypes' => [BUREAUCRAT],
       'effectDesc' => clienttranslate(
         'When an opponent draws one or more cards or does [Resupply] — Create an [Ordis Recruit 1/1/1] Soldier token in target Expedition.'
       ),

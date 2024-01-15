@@ -13,9 +13,9 @@ class BR_Rare_Kappa extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Kappa'),
-      'typeline' => clienttranslate('Character - Spirit Trainer'),
+      'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
-      'subtypes' => [SPIRIT, TRAINER],
+      'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate('[Seasoned]. (I keep my boosts when I go to Reserve.)'),
       'supportDesc' => clienttranslate(
         '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)'

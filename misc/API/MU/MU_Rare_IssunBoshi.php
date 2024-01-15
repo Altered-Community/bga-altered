@@ -12,7 +12,7 @@ class MU_Rare_IssunBoshi extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Issun-Boshi'),
+      'name' => clienttranslate('Issun-Bōshi'),
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],

@@ -17,7 +17,7 @@ class LY_Rare_TwinkleTwinkle extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [SONG],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  All Characters in target Expedition gain [[Asleep]]. (This only affects one player\'s Characters. During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  All Characters in target Expedition gain [[Asleep]]. (This only affects one player\'s Characters. During Dusk, ignore their statistics. During Rest, they don\'t go to Reserve and they lose Asleep.)'
       ),
       'supportDesc' => clienttranslate(
         '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'

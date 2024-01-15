@@ -17,7 +17,7 @@ class MU_Common_Parvati extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate(
-        '{H} Target Character gains [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)'
+        '{H} Target Character gains [[Anchored]]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
       ),
       'forest' => 3,
       'mountain' => 0,

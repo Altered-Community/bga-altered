@@ -16,7 +16,7 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        '{T} : Create a [Maw 0/0/0] Companion token in your Companion Expedition with "When you sacrifice a Character — I gain 2 boosts". This action costs {1} more if you are not the first player.'
+        '{T} : Create a [Maw 0/0/0] Companion token in your Companion Expedition with  "When you sacrifice a Character — I gain 2 boosts ". This action costs {1} more if you are not the first player.'
       ),
     ];
   }

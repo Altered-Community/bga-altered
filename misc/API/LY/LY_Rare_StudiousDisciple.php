@@ -13,9 +13,9 @@ class LY_Rare_StudiousDisciple extends \ALT\Models\Card
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Studious Disciple'),
-      'typeline' => clienttranslate('Character - Mage Apprentice'),
+      'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
-      'subtypes' => [MAGE, APPRENTICE],
+      'subtypes' => [MAGE],
       'effectDesc' => clienttranslate('{R} The next Spell you play this Afternoon costs {1} less.'),
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'

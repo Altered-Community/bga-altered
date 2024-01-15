@@ -16,7 +16,7 @@ class BR_Rare_TheCouncil extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('The {J}, {H} and {R} triggers of Characters facing me don\'t activate.'),
+      'effectDesc' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

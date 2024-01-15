@@ -17,7 +17,7 @@ class MU_Rare_MagicalSeeds extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} You may pay {1} to [Resupply].  {T} : The next Plant you play this turn costs {1} less. (Put the top card of your deck in your Reserve.)'
+        '{J} You may pay {1} to [Resupply]. (Put the top card of your deck in Reserve.)  {T} : The next Plant you play this turn costs {1} less.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

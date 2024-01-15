@@ -17,7 +17,7 @@ class OD_Rare_GiftofSelf extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Sacrifice a Character to draw two cards.'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Sacrifice a Character. If you do, draw two cards.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

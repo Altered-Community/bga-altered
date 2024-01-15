@@ -13,11 +13,11 @@ class LY_Rare_Hydracaena extends \ALT\Models\Card
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Hydracaena'),
-      'typeline' => clienttranslate('Character - Plant Dragon'),
+      'typeline' => clienttranslate('Character - Dragon'),
       'type' => CHARACTER,
-      'subtypes' => [PLANT, DRAGON],
+      'subtypes' => [DRAGON],
       'effectDesc' => clienttranslate(
-        '{J} I gain 4 boosts.  [Eternal]. (During Rest, I don\'t go to Reserve.)  At Noon — I gain 4 boosts.'
+        '[Eternal]. (During Rest, I don\'t go to Reserve.)  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.'
       ),
       'forest' => 0,
       'mountain' => 0,

@@ -13,11 +13,11 @@ class MU_Rare_KakobaLegionCommander extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Kakoba, Legion Commander'),
-      'typeline' => clienttranslate('Character - Soldier Noble'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'subtypes' => [SOLDIER, NOBLE],
+      'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, I gain 3 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{J} If you control three or more other Characters, I gain 3 boosts[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 2,

@@ -17,7 +17,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Send to Reserve up to three target Characters with total Hand Cost {5} or less.'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

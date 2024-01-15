@@ -13,9 +13,9 @@ class LY_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Kadigiran Mage-Dancer'),
-      'typeline' => clienttranslate('Character - Mage Soldier'),
+      'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
-      'subtypes' => [MAGE, SOLDIER],
+      'subtypes' => [MAGE],
       'effectDesc' => clienttranslate(
         'When you roll one or more dice — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),

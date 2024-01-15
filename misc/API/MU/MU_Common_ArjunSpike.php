@@ -16,7 +16,7 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'typeline' => clienttranslate('Hero'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)'
+        '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains [[Anchored]]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
       ),
     ];
   }

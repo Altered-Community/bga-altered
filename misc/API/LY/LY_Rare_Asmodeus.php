@@ -17,7 +17,7 @@ class LY_Rare_Asmodeus extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate(
-        '{J} Roll a die. On a 4 or higher, I gain [[Anchored]]. Otherwise, I gain 3 boosts. (During Rest, I don\'t go to Reserve and I lose Anchored.)'
+        '{J} Roll a die. On a 4 or higher, I gain [[Anchored]]. Otherwise, I gain 3 boosts[]. (During Rest, I don\'t go to Reserve and I lose Anchored. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 4,
       'mountain' => 4,

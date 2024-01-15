@@ -13,9 +13,9 @@ class OD_Rare_Verdantback extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Verdantback'),
-      'typeline' => clienttranslate('Character - Plant Animal'),
+      'typeline' => clienttranslate('Character - ANIMAL'),
       'type' => CHARACTER,
-      'subtypes' => [PLANT, ANIMAL],
+      'subtypes' => [ANIMAL],
       'effectDesc' => clienttranslate(
         'I have [Defender] unless you control two or more Bureaucrats. (My Expedition can\'t advance during Dusk.)'
       ),

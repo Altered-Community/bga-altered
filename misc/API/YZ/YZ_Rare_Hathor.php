@@ -13,9 +13,9 @@ class YZ_Rare_Hathor extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Hathor'),
-      'typeline' => clienttranslate('Character - Artist Deity'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'subtypes' => [ARTIST, DEITY],
+      'subtypes' => [ARTIST],
       'supportDesc' => clienttranslate(
         '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
       ),

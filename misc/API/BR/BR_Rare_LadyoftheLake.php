@@ -13,9 +13,9 @@ class BR_Rare_LadyoftheLake extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Lady of the Lake'),
-      'typeline' => clienttranslate('Character - Fairy Spirit'),
+      'typeline' => clienttranslate('Character - Fairy'),
       'type' => CHARACTER,
-      'subtypes' => [FAIRY, SPIRIT],
+      'subtypes' => [FAIRY],
       'supportDesc' => clienttranslate(
         '{D} : The next Character you play this turn loses [[Fleeting]]. (Discard me from Reserve to do this.)'
       ),

@@ -13,11 +13,11 @@ class YZ_Rare_Thoth extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Thoth'),
-      'typeline' => clienttranslate('Character - Bureaucrat Deity'),
+      'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'subtypes' => [BUREAUCRAT, DEITY],
+      'subtypes' => [BUREAUCRAT],
       'effectDesc' => clienttranslate(
-        'When my Expedition fails to move forward during Dusk — Create two [Ordis Recruit 1/1/1] Soldier tokens in target Expedition.'
+        'When my Expedition fails to move forward during Dusk — Create two [Ordis Recruit 1/1/1] Soldier tokens in target Expedition after Rest.'
       ),
       'forest' => 3,
       'mountain' => 3,

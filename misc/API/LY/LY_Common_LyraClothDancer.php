@@ -12,7 +12,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Lyra Cloth-Dancer'),
+      'name' => clienttranslate('Lyra Cloth Dancer'),
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],

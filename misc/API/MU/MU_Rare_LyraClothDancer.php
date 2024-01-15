@@ -12,7 +12,7 @@ class MU_Rare_LyraClothDancer extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Lyra Cloth-Dancer'),
+      'name' => clienttranslate('Lyra Cloth Dancer'),
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],

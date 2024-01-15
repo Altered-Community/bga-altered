@@ -17,7 +17,7 @@ class MU_Rare_MechanicalTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'flavorText' => clienttranslate('To learn to create, first learn to fix.'),
-      'effectDesc' => clienttranslate('Activate the {J} triggers of target Character you control.'),
+      'effectDesc' => clienttranslate('Activate the {j} triggers of target Character you control.'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

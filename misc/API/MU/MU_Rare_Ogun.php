@@ -13,9 +13,9 @@ class MU_Rare_Ogun extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Ogun'),
-      'typeline' => clienttranslate('Character - Engineer Deity'),
+      'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
-      'subtypes' => [ENGINEER, DEITY],
+      'subtypes' => [ENGINEER],
       'flavorText' => clienttranslate('With every blow of his hammer, Ogun forges the Axiom\'s destiny.'),
       'effectDesc' => clienttranslate(
         '{J} Plants you control gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
