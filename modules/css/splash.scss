@@ -117,6 +117,10 @@
             --cardScale: 0.5;
             display: flex;
             flex-wrap: wrap;
+
+            .altered-card {
+                margin: 2px 5px;
+            }
         }
 
         #overlay-deck-details {

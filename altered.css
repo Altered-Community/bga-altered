@@ -3182,6 +3182,8 @@ html {
       flex-wrap: wrap; }
       .mobile_version #altered-overlay #altered-overlay-content #overlay-deck-container {
         max-width: 90vw; }
+      #altered-overlay #altered-overlay-content #overlay-deck-container .altered-card {
+        margin: 2px 5px; }
     #altered-overlay #altered-overlay-content #overlay-deck-details {
       margin-top: 30px;
       height: 200px; }

@@ -152,8 +152,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${
-          player.id
-        }-totalMana"></span>
+            player.id
+          }-totalMana"></span>
           
           ${this.formatIcon('first-player')}
         </div>
@@ -182,6 +182,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
       // Slide hero
       let hero = n.args.card;
+      delete this.tooltips[`card-${hero.id}`];
       this.addCard(hero, `hand-${pId}`);
       // if (!$(`card-${hero.id}`)) {
       // this.addCard(hero, `hand-${pId}`);
