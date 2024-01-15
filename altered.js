@@ -1010,6 +1010,7 @@ define([
         oCard.style.transform = oCard.backup.transform;
         oCard.style.left = oCard.backup.left;
         oCard.style.top = oCard.backup.top;
+        oCard.classList.remove('selected');
       };
 
       let t = args._private;
@@ -1048,26 +1049,31 @@ define([
       if (t.support) {
         t.support.forEach((cardId) => {
           if (!t.play || !Object.keys(t.play).includes(parseInt(cardId))) {
-            this.onClick(`card-${cardId}`, () =>
+            this.onClick(`card-${cardId}`, () => {
+              unselectIfNeeded();
+
               this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
                 play: t.play,
                 support: t.support,
                 tap: t.tap,
                 cardId,
                 supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
-              })
-            );
+              });
+            });
           }
         });
       }
 
       if (t.tap) {
         t.tap.forEach((cardId) => {
+          unselectIfNeeded();
           this.onClick(`card-${cardId}`, () => this.takeAtomicAction('actTap', [cardId]));
         });
       }
 
       this.addDangerActionButton('btnPass', _('Pass'), () => {
+        unselectIfNeeded();
+
         this.takeAtomicAction('actPass', []);
       });
     },
