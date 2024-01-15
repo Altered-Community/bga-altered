@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -25,6 +27,16 @@ class CheckCondition extends \ALT\Models\Action
   }
 
   protected $args = ['condition' => null];
+
+  public function isDoable($player)
+  {
+    $condition = $this->getCtxArg('condition');
+    if ($condition == 'isFirstPlayer') {
+      return $player->getId() == Globals::getFirstPlayer();
+    } else {
+      return true;
+    }
+  }
 
   public function stCheckCondition()
   {

@@ -10,7 +10,7 @@ abstract class Conditions
 {
   public static function isFirstPlayer($card, $event)
   {
-    return $event['pId'] == $card->getPId() && $card->getPId() == Globals::getFirstPlayer();
+    return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() == Globals::getFirstPlayer();
   }
 
   public static function boostedByOtherCard($card, $event)
@@ -73,6 +73,13 @@ abstract class Conditions
       !$card->isTapped() &&
       $event['cardType'] == PERMANENT &&
       Cards::get($event['playedCard'])->getCostHand() >= 3;
+  }
+
+  public static function isRobotPlayed($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
   }
 
   public static function isDiscardedFromHandToReserve($card, $event)

@@ -23,7 +23,8 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'landmarkSlots' => 2,
 
       'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. You can only activate this if you are the first player.'),
-      'effectTap' => FT::ACTION(AFTER_YOU, ['pay' => 1, 'condition' => 'notFirstPlayer']),
+      'effectTap' => FT::ACTION(CHECK_CONDITION, ['condition' => 'isFirstPlayer', 'effect' => FT::ACTION(AFTER_YOU, [])]),
+
       'flavorText' => clienttranslate('Magic is the essence of wonder!'),
     ];
   }
