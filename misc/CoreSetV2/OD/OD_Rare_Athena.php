@@ -8,7 +8,7 @@ class OD_Rare_Athena extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_18_R2',
-      'asset' => 'ALT_CORE_B_AX_18_R2',
+      'asset' => 'ALT_CORE_B_AX_18_R1',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

@@ -8,7 +8,7 @@ class AX_Rare_OuroborosInkcaster extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_LY_10_R2',
-      'asset' => 'ALT_CORE_B_LY_10_R2',
+      'asset' => 'ALT_CORE_B_LY_10_R1',
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,

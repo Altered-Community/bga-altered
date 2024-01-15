@@ -8,7 +8,7 @@ class MU_Rare_Ogun extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_06_R2',
-      'asset' => 'ALT_CORE_B_AX_06_R2',
+      'asset' => 'ALT_CORE_B_AX_06_R1',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

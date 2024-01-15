@@ -8,7 +8,7 @@ class MU_Rare_Esmeralda extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_LY_11_R2',
-      'asset' => 'ALT_CORE_B_LY_11_R2',
+      'asset' => 'ALT_CORE_B_LY_11_R1',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

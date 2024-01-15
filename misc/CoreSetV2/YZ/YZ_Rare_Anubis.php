@@ -8,7 +8,7 @@ class YZ_Rare_Anubis extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_OR_20_R2',
-      'asset' => 'ALT_CORE_B_OR_20_R2',
+      'asset' => 'ALT_CORE_B_OR_20_R1',
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,

@@ -8,7 +8,7 @@ class OD_Rare_HavenTrainee extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_BR_09_R2',
-      'asset' => 'ALT_CORE_B_BR_09_R2',
+      'asset' => 'ALT_CORE_B_BR_09_R1',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
