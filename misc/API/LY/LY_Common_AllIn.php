@@ -17,7 +17,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        'Roll a die. Target Character gains X boost[]s, where X is the result. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        'Roll a die. Target Character gains X boosts[], where X is the result. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 3,
       'costReserve' => 3,

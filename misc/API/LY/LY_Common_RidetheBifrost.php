@@ -12,7 +12,7 @@ class LY_Common_RidetheBifrost extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Ride the Bifrost'),
+      'name' => clienttranslate('Ride the Bifröst'),
       'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
       'subtypes' => [MANEUVER],

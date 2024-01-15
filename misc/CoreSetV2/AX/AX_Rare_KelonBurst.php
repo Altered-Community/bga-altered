@@ -22,6 +22,9 @@ class AX_Rare_KelonBurst extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
+      'flavorText' => clienttranslate(
+        'There\'s an enduring legend in the Suspira quarries: the existence of another type of Kelon.'
+      ),
     ];
   }
 }

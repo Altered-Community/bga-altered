@@ -12,12 +12,12 @@ class LY_Rare_RidetheBifrost extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Ride the Bifrost'),
+      'name' => clienttranslate('Ride the Bifröst'),
       'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  All Characters controlled by target opponent switch Expeditions. (They leave their Expeditions and join their controller\'s other Expedition.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  All Characters controlled by target player switch Expeditions. (They leave their Expeditions and join their controller\'s other Expedition.)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

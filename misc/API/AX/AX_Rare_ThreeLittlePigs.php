@@ -18,7 +18,7 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'subtypes' => [ENGINEER],
       'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
       'effectDesc' => clienttranslate(
-        '{J} If you control two or more Landmarks, I gain 2 boost[]s. (Cards in Reserve are not controlled. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{J} If you control two or more Landmarks, I gain 2 boosts[]. (Cards in Reserve are not controlled. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 3,
       'mountain' => 3,

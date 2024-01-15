@@ -20,7 +20,7 @@ class AX_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
         'The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind.'
       ),
       'effectDesc' => clienttranslate(
-        '{J} [Resupply].  If you would [Resupply], instead, look at the top two cards of your deck. Put one in Reserve, and discard the other. (Put the top card of your deck in Reserve.)'
+        '{J} [Resupply].  If you would [Resupply], instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other. (Put the top card of your deck in Reserve.)'
       ),
       'costHand' => 3,
       'costReserve' => 3,

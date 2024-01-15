@@ -13,9 +13,9 @@ class AX_Rare_TheFrogPrince extends \ALT\Models\Card
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('The Frog Prince'),
-      'typeline' => clienttranslate('Character - Bureaucrate Noble'),
+      'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'subtypes' => [BUREAUCRAT, NOBLE],
+      'subtypes' => [BUREAUCRAT],
       'supportDesc' => clienttranslate(
         '{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),

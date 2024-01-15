@@ -13,9 +13,9 @@ class YZ_Rare_OrdisCadets extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Ordis Cadets'),
-      'typeline' => clienttranslate('Character - Apprentice Soldier'),
+      'typeline' => clienttranslate('Character - Apprentice'),
       'type' => CHARACTER,
-      'subtypes' => [APPRENTICE, SOLDIER],
+      'subtypes' => [APPRENTICE],
       'effectDesc' => clienttranslate('{J} Create an [Ordis Recruit 1/1/1] Soldier token in my Expedition.'),
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'

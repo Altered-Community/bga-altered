@@ -17,7 +17,7 @@ class BR_Common_SunWukong extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate(
-        '{R} I gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{R} I gain 2 boosts[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 4,

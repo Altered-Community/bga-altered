@@ -17,7 +17,7 @@ class BR_Rare_PhysicalTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        'Target Character gains 3 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)  Draw a card.'
+        'Target Character gains 3 boosts[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)  Draw a card.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

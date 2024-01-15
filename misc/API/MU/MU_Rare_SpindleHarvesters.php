@@ -13,9 +13,9 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Spindle Harvesters'),
-      'typeline' => clienttranslate('Character - Plant Animal'),
+      'typeline' => clienttranslate('Character - ANIMAL'),
       'type' => CHARACTER,
-      'subtypes' => [PLANT, ANIMAL],
+      'subtypes' => [ANIMAL],
       'effectDesc' => clienttranslate(
         '{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)  At Noon, if I have 2 or more boosts — [Resupply]. (Put the top card of your deck in Reserve.)'
       ),

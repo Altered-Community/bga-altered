@@ -17,7 +17,7 @@ class LY_Rare_AllIn extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        'Roll a die. You may discard a card from your Reserve to increase the result by 2. Target Character gains X boosts, where X is the result.'
+        'Roll a die. You may discard a card from your Reserve to increase the result by 2. Target Character gains X boosts[], where X is the final result. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 3,
       'costReserve' => 3,

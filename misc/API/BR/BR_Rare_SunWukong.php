@@ -17,7 +17,7 @@ class BR_Rare_SunWukong extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate(
-        '{R} I gain 2 boost[]s and lose [[Fleeting]]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{R} I gain 2 boosts[] and lose [[Fleeting]]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 4,

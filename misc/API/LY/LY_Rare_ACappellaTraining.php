@@ -17,7 +17,7 @@ class LY_Rare_ACappellaTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [SONG],
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Target Character gains [[Fleeting]]. (If I would be sent to Reserve, discard me instead.)  Draw a card.'
+        '[[Fleeting]].  Target Character gains [[Fleeting]]. (If it would be sent to Reserve, discard it instead.)  Draw a card.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

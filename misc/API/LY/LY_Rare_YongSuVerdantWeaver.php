@@ -17,7 +17,7 @@ class LY_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DRUID],
       'effectDesc' => clienttranslate(
-        '{J} If you have three or more base statistics 0 among Characters you control, I gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{J} If you have three or more base statistics 0 among Characters you control, I gain 2 boosts[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 3,
       'mountain' => 3,

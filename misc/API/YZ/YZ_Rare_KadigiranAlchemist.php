@@ -17,7 +17,7 @@ class YZ_Rare_KadigiranAlchemist extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MAGE],
       'effectDesc' => clienttranslate(
-        '{H} I gain 3 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{H} I gain 3 boosts[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 1,
       'mountain' => 1,

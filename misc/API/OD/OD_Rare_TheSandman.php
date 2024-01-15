@@ -17,7 +17,7 @@ class OD_Rare_TheSandman extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        '{H} Up to one target Character gains [[Asleep]]. You may have it gain 2 boosts. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
+        '{H} Up to one target Character gains [[Asleep]]. You may have it gain 2 boosts. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
       ),
       'forest' => 0,
       'mountain' => 3,

@@ -17,7 +17,7 @@ class MU_Rare_ACappellaTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [SONG],
       'effectDesc' => clienttranslate(
-        'Target Character gains [[Fleeting]]. (If I would be sent to Reserve, discard me instead.)'
+        'Target Character gains [[Fleeting]]. (If it would be sent to Reserve, discard it instead.)'
       ),
       'costHand' => 1,
       'costReserve' => 1,

@@ -13,9 +13,9 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Studious Disciple'),
-      'typeline' => clienttranslate('Character - Mage Apprentice'),
+      'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
-      'subtypes' => [MAGE, APPRENTICE],
+      'subtypes' => [MAGE],
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),

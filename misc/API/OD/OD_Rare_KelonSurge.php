@@ -16,8 +16,11 @@ class OD_Rare_KelonSurge extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
+      'flavorText' => clienttranslate(
+        'There\'s an enduring legend in the Suspira quarries: the existence of another type of Kelon.'
+      ),
       'effectDesc' => clienttranslate(
-        '[[Fleeting]].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less. (Send me to Discard instead of Reserve after my effect resolves.)'
+        '[[Fleeting]]. (Send me to Discard instead of Reserve after my effect resolves.)  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

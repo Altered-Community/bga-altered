@@ -17,7 +17,7 @@ class MU_Rare_LyraThespian extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        '{J} If you control two or more [[Boosted]] Characters, I gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{J} If you control two or more [[Boosted]] Characters, I gain 2 boosts[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 2,

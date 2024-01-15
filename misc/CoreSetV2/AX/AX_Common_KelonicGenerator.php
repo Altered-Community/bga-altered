@@ -19,6 +19,7 @@ class AX_Common_KelonicGenerator extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{2}, {T} : Draw a card.'),
       'costHand' => 3,
       'costReserve' => 3,
+      'flavorText' => clienttranslate(' "Suspira\'s mines will soon run dry. Your precious Kelon will run dry. "'),
     ];
   }
 }

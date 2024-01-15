@@ -13,9 +13,9 @@ class BR_Rare_Dracaena extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Dracaena'),
-      'typeline' => clienttranslate('Character - Plant Dragon'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'subtypes' => [PLANT, DRAGON],
+      'subtypes' => [PLANT],
       'effectDesc' => clienttranslate(
         '{J} I gain [[Anchored]]. (During Rest, I don\'t go to Reserve and I lose Anchored.)  At Noon — I gain 1 boost.'
       ),

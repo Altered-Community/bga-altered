@@ -13,9 +13,9 @@ class MU_Rare_Kodama extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Kodama'),
-      'typeline' => clienttranslate('Character - Plant Spirit'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'subtypes' => [PLANT, SPIRIT],
+      'subtypes' => [PLANT],
       'effectDesc' => clienttranslate(
         '{H} I gain [[Asleep]]. (During Dusk, ignore my statistics. During Rest, I don\'t go to Reserve and I lose Asleep.)'
       ),

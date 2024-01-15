@@ -13,9 +13,9 @@ class MU_Rare_Verdantback extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Verdantback'),
-      'typeline' => clienttranslate('Character - Plant Animal'),
+      'typeline' => clienttranslate('Character - ANIMAL'),
       'type' => CHARACTER,
-      'subtypes' => [PLANT, ANIMAL],
+      'subtypes' => [ANIMAL],
       'effectDesc' => clienttranslate(
         'I have [Defender] unless you control two or more other Plants. (My Expedition can\'t advance during Dusk.)'
       ),

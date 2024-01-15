@@ -20,6 +20,7 @@ class OD_Rare_KelonicGenerator extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
+      'flavorText' => clienttranslate(' "Suspira\'s mines will soon run dry. Your precious Kelon will run dry. "'),
     ];
   }
 }

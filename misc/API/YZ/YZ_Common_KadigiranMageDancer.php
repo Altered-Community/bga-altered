@@ -13,9 +13,9 @@ class YZ_Common_KadigiranMageDancer extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kadigiran Mage-Dancer'),
-      'typeline' => clienttranslate('Character - Mage Soldier'),
+      'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
-      'subtypes' => [MAGE, SOLDIER],
+      'subtypes' => [MAGE],
       'effectDesc' => clienttranslate(
         'When you play a Spell — I gain 1 boost[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),

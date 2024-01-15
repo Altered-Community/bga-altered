@@ -13,11 +13,11 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kakoba, Legion Commander'),
-      'typeline' => clienttranslate('Character - Soldier Noble'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'subtypes' => [SOLDIER, NOBLE],
+      'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, I gain 2 boost[]s. (Cards in Reserve are not controlled. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        '{J} If you control three or more other Characters, I gain 2 boosts[]. (Cards in Reserve are not controlled. A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 2,

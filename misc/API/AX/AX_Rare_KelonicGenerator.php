@@ -16,7 +16,7 @@ class AX_Rare_KelonicGenerator extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'flavorText' => clienttranslate('"Suspira\'s mines will soon run dry. Your precious Kelon will run dry."'),
+      'flavorText' => clienttranslate(' "Suspira\'s mines will soon run dry. Your precious Kelon will run dry. "'),
       'effectDesc' => clienttranslate('{1}, {T} : Draw a card.'),
       'costHand' => 4,
       'costReserve' => 4,

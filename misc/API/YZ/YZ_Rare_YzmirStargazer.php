@@ -13,11 +13,11 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Yzmir Stargazer'),
-      'typeline' => clienttranslate('Character - Mage Scholar'),
+      'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
-      'subtypes' => [MAGE, SCHOLAR],
+      'subtypes' => [MAGE],
       'effectDesc' => clienttranslate(
-        'When I\'m sacrificed — You may have target Character gain 2 boost[]s. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        'When I\'m sacrificed — You may have target Character gain 2 boosts[]. (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'forest' => 2,
       'mountain' => 2,
