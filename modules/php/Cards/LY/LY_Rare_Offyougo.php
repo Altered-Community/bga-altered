@@ -11,7 +11,7 @@ class LY_Rare_Offyougo extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_YZ_21_R2',
-      'asset' => 'ALT_CORE_B_YZ_21_R2',
+      'asset' => 'ALT_CORE_B_YZ_21_R1',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
