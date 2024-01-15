@@ -37,7 +37,7 @@ X Dupliquer le bouton valider en bas des cartes
 X Mettre le compteur 3/3
 X finir état quand cartes validées
 X enlever l'overlay dès le début
-- Après le first day, le héro du 1er joueur a pas son pouvoir dans le hoover. J'ai essayé de relancer un tooltip mais ca marche pas
+X Après le first day, le héro du 1er joueur a pas son pouvoir dans le hoover. J'ai essayé de relancer un tooltip mais ca marche pas
 
 [Tooltip]
 - virer la bordure blanche
@@ -65,7 +65,7 @@ X Pour les sorts, rajout un bouton pour lancer le sort.
 - si tu joues un spell, et que ca gagne fleeting dans limbo, le token slide sur la place originale
 
 [Tap hero/carte]
- - conserver rotation, même pour le héro mais réduire sa taille pendant l'animation (#filou)
+X conserver rotation, même pour le héro mais réduire sa taille pendant l'animation (#filou)
 
 [Animation nuit]
 X Retourner la carte dans l'autre sens

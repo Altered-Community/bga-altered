@@ -969,7 +969,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplFakeCard(card) {
       let uid = 'card-' + card.id;
-      return `<div id="${uid}" class='altered-card fake-card'>
+      return `<div id="${uid}" class='altered-card fake-card card-back'>
         <div class='altered-card-wrapper' data-asset='back'>
         </div>
       </div>`;

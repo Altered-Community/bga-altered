@@ -2144,11 +2144,7 @@ html {
     border-radius: 12px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    box-shadow: 0px 0px 0px 0px #ffe300;
-    transition: box-shadow 0.5s; }
-    .altered-player-board .player-board-hero.active {
-      box-shadow: 0px 0px 19px 13px #ffe300; }
+    align-items: center; }
     .altered-player-board .player-board-hero .altered-first-player-holder {
       position: absolute;
       height: 60px;
@@ -2157,6 +2153,13 @@ html {
       top: 90px;
       z-index: 3;
       pointer-events: none; }
+    .altered-player-board .player-board-hero .altered-card {
+      box-shadow: 2px 2px 5px 1px black, 0px 0px 0px 0px #ffe300;
+      transition: box-shadow 0.5s, transform 0.5s; }
+      .altered-player-board .player-board-hero .altered-card.tapped {
+        transform: scale(0.8) rotate(90deg); }
+    .altered-player-board .player-board-hero.active .altered-card {
+      box-shadow: 2px 2px 5px 1px black, 0px 0px 19px 13px #ffe300; }
   .altered-player-board .player-board-storm {
     position: absolute;
     width: 436px;
