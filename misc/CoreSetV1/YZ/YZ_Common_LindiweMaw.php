@@ -15,7 +15,7 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
       'name' => clienttranslate('Lindiwe & Maw'),
       'type' => HERO,
       'effectDesc' => clienttranslate(
-        'At Dawn — You can pay {1} to create a [MAW] Void Worm token in your Companion zone with \"Whenever you sacrifice a Character — I gain 2 boosts\".  This ability is free if you have the first player token.'
+        'At Dawn — You can pay {1} to create a [MAW] Void Worm token in your Companion zone with "Whenever you sacrifice a Character — I gain 2 boosts".  This ability is free if you have the first player token.'
       ),
     ];
   }

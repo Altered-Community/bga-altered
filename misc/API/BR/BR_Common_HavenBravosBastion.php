@@ -17,7 +17,7 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        'Your Characters have: \"{R} I gain 1 boost[].\" (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
+        'Your Characters have: "{R} I gain 1 boost[]." (A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

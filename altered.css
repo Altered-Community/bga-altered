@@ -1221,9 +1221,11 @@ html {
     .altered-card .altered-card-wrapper .card-text .keyword,
     .altered-card .altered-card-wrapper .card-support .keyword {
       font-weight: bold; }
-      .altered-card .altered-card-wrapper .card-text .keyword.FLEETING_CHAR, .altered-card .altered-card-wrapper .card-text .keyword.FLEETING, .altered-card .altered-card-wrapper .card-text .keyword.BOOSTED,
+      .altered-card .altered-card-wrapper .card-text .keyword.FLEETING_CHAR, .altered-card .altered-card-wrapper .card-text .keyword.FLEETING, .altered-card .altered-card-wrapper .card-text .keyword.ANCHORED, .altered-card .altered-card-wrapper .card-text .keyword.ASLEEP, .altered-card .altered-card-wrapper .card-text .keyword.BOOSTED,
       .altered-card .altered-card-wrapper .card-support .keyword.FLEETING_CHAR,
       .altered-card .altered-card-wrapper .card-support .keyword.FLEETING,
+      .altered-card .altered-card-wrapper .card-support .keyword.ANCHORED,
+      .altered-card .altered-card-wrapper .card-support .keyword.ASLEEP,
       .altered-card .altered-card-wrapper .card-support .keyword.BOOSTED {
         text-decoration: underline; }
     .altered-card .altered-card-wrapper .card-text .parenthesis,

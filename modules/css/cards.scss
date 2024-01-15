@@ -490,6 +490,8 @@
                 font-weight: bold;
                 &.FLEETING_CHAR,
                 &.FLEETING,
+                &.ANCHORED,
+                &.ASLEEP,
                 &.BOOSTED {
                     text-decoration: underline;
                 }

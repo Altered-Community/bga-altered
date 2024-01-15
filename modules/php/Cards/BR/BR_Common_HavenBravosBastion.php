@@ -18,7 +18,7 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
       'name' => clienttranslate('Haven, Bravos Bastion'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('Your Characters have: \"{R} I gain 1 boost$[BB].\"'),
+      'effectDesc' => clienttranslate('Your Characters have: "{R} I gain 1 boost$[BB]."'),
       'costHand' => 2,
       'costReserve' => 2,
 

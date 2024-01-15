@@ -90,7 +90,7 @@ define([
       this.default_viewport = 'width=740';
       this.cardStatuses = {};
 
-      this._fakeIndex = 90001;
+      this._fakeIndex = -1;
     },
     notif_midMessage(n) {},
 
@@ -1274,6 +1274,7 @@ define([
         r: 'reserve',
         D: 'discard',
         T: 'tap',
+        V: 'forest',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');

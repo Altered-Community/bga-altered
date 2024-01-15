@@ -1,0 +1,61 @@
+<script type="text/javascript">
+  // Sample string
+  let inputString =
+    'This is a sample [AFTER_YOU] string [AFTER_YOU]. (Already existing parenthesis)  Another sentence with nothing. (Test)  Another [AFTER_YOU] multiple matches. Another sentence. (Test)';
+
+  // Replacement string
+  const replacementString = 'After You';
+
+  // Regular expression pattern
+  const regexPattern = /\[AFTER_YOU\]/g;
+
+  // Find all matches in the string
+  let finalString = inputString;
+  const matches = [...inputString.matchAll(regexPattern)];
+  for (let i = matches.length - 1; i >= 0; i--) {
+    console.log('#####', i);
+    console.log(finalString);
+    const match = matches[i];
+    const index = match.index;
+    finalString = finalString.slice(0, index) + replacementString + finalString.slice(index + 11);
+
+    const regexParentheses = /\(([^)]+)\)/;
+    const nextDoubleSpaceIndex = finalString.indexOf('  ', index);
+    if (nextDoubleSpaceIndex !== -1) {
+      // Check if there is a string in parentheses before the double space
+      const textBeforeDoubleSpace = finalString.slice(index + replacementString.length, nextDoubleSpaceIndex);
+      const matchParentheses = textBeforeDoubleSpace.match(regexParentheses);
+
+      if (matchParentheses) {
+        let index2 = matchParentheses.index;
+        console.log(index2);
+
+        // Concatenate "REMINDER" at the end of the inside of the parentheses
+        finalString =
+          finalString.slice(0, index + replacementString.length + index2) +
+          '(' +
+          matchParentheses[1] +
+          ' REMINDER)' +
+          finalString.slice(nextDoubleSpaceIndex);
+      } else {
+        // Add "REMINDER" at the next double space
+        finalString = finalString.slice(0, nextDoubleSpaceIndex) + ' (REMINDER)' + finalString.slice(nextDoubleSpaceIndex);
+      }
+    } else {
+      // Check if there is a string in parentheses before the end
+      const textBeforeEnd = finalString.slice(index + replacementString.length);
+      const matchParentheses = textBeforeEnd.match(regexParentheses);
+
+      if (matchParentheses) {
+        let index2 = matchParentheses.index;
+        console.log(index2);
+        // Concatenate "REMINDER" at the end of the inside of the parentheses
+        finalString = finalString.slice(0, index + replacementString.length + index2) + '(' + matchParentheses[1] + ' REMINDER)';
+      } else {
+        // Add "REMINDER" at the end
+        finalString = finalString + ' (REMINDER)';
+      }
+    }
+    console.log(finalString);
+  }
+</script>

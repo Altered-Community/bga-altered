@@ -93,14 +93,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     addFakeCard(container) {
-      let id = this._fakeIndex++;
-      container.insertAdjacentHTML(
-        'beforeend',
-        `<div id='card-f-${id}' class='altered-card card-back'>
-          <div class='altered-card-wrapper' data-asset='back'></div>
-        </div>`
-      );
-      return `card-f-${id}`;
+      let id = this._fakeIndex--;
+      container.insertAdjacentHTML('beforeend', this.tplFakeCard({ id }));
+      return `card-${id}`;
     },
 
     getCardContainer(card) {
@@ -538,7 +533,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             }
             let oCard = $(`card-${card.id}`);
 
-            let fakeCardId = this._fakeIndex++;
+            let fakeCardId = this._fakeIndex--;
             let fakeCard = this.tplFakeCard({ id: fakeCardId });
             return this.flipAndReplace(oCard, fakeCard)
               .then(() => {
@@ -973,7 +968,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     //////////////////////////////////////////////
 
     tplFakeCard(card) {
-      let uid = 'card-' + card.id;
+      let uid = 'card-f-' + card.id;
       return `<div id="${uid}" class='altered-card fake-card'>
         <div class='altered-card-wrapper' data-asset='back'>
         </div>
@@ -1079,6 +1074,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
+      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
@@ -1116,7 +1112,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             </div>
           </div>
           <div class='card-support'>
-            ${p.supportDesc ? this.formatString(_(p.supportDesc), true) : ''}
+            ${this.formatString(support.str, true)}
           </div>
         </div>
 
@@ -1167,6 +1163,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
       //      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
@@ -1191,7 +1188,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${this.formatString(effect.str, true)}
             </div>
             <div class='card-support'>
-              ${p.supportDesc ? this.formatString(_(p.supportDesc), true) : ''}
+            ${this.formatString(support.str, true)}
             </div>
           </div>
         </div>
@@ -1452,23 +1449,75 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
       };
 
+      const regexParentheses = /\(([^)]+)\)/;
+
       let reminders = [];
       Object.keys(KEYWORDS).forEach((keyword) => {
         const regex = new RegExp('\\$\\[' + keyword + '\\]([^.]*.)', 'g');
+        const replacement = `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`;
+        const reminder = KEYWORDS[keyword].reminder;
+
         if (str.match(regex) !== null) {
           reminders.push(KEYWORDS[keyword].text + ':' + KEYWORDS[keyword].reminder);
-          str = str.replaceAll(
-            regex,
-            `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>
-            $1
-            (${KEYWORDS[keyword].reminder})
-            <br />`
-          );
+
+          const matches = [...str.matchAll(regex)];
+          for (let i = matches.length - 1; i >= 0; i--) {
+            const match = matches[i];
+            const index = match.index;
+            str = str.slice(0, index) + replacement + str.slice(index + keyword.length + 3);
+
+            const nextDoubleSpaceIndex = str.indexOf('  ', index);
+            if (nextDoubleSpaceIndex !== -1) {
+              // Check if there is a string in parentheses before the double space
+              const textBeforeDoubleSpace = str.slice(index + replacement.length, nextDoubleSpaceIndex);
+              const matchParentheses = textBeforeDoubleSpace.match(regexParentheses);
+
+              if (matchParentheses) {
+                let index2 = matchParentheses.index;
+
+                // Concatenate reminder at the end of the inside of the parentheses
+                str =
+                  str.slice(0, index + replacement.length + index2) +
+                  '(' +
+                  matchParentheses[1] +
+                  ' ' +
+                  reminder +
+                  ')' +
+                  str.slice(nextDoubleSpaceIndex);
+              } else {
+                // Add "(reminder)" at the next double space
+                str = str.slice(0, nextDoubleSpaceIndex) + ' (' + reminder + ')' + str.slice(nextDoubleSpaceIndex);
+              }
+            } else {
+              // Check if there is a string in parentheses before the end
+              const textBeforeEnd = str.slice(index + replacement.length);
+              const matchParentheses = textBeforeEnd.match(regexParentheses);
+
+              if (matchParentheses) {
+                let index2 = matchParentheses.index;
+                // Concatenate reminder at the end of the inside of the parentheses
+                str = str.slice(0, index + replacement.length + index2) + '(' + matchParentheses[1] + ' ' + reminder + ')';
+              } else {
+                // Add reminder at the end
+                str = str + ' (' + reminder + ')';
+              }
+            }
+          }
+
+          // str = str.replaceAll(
+          //   regex,
+          //   `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>
+          //   $1
+          //   (${KEYWORDS[keyword].reminder})
+          //   <br />`
+          // );
         }
 
         const regex2 = new RegExp('\\[' + keyword + '\\]', 'g');
         str = str.replaceAll(regex2, `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`);
       });
+
+      str = str.replaceAll('  ', '<br />');
 
       return { str, reminders };
     },
