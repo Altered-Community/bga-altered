@@ -94,7 +94,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let o = this.place('tplCard', card, container);
       if (o !== undefined) {
         this.addCustomTooltip(o.id, () => this.tplCardTooltip(card), { midSize: false });
-        this.autofitCardFrame(o);
+        if (this._loadingComplete) {
+          this.autofitCardFrame(o);
+        }
       }
     },
 
@@ -1262,6 +1264,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     autofitCardFrame(oCard, eraseExisting = false) {
       if (!oCard.querySelector('.card-effect')) return;
+
       let isMini = oCard.classList.contains('mini-card');
       if (isMini) oCard.classList.remove('mini-card');
       oCard.style.setProperty('--cardScale', 1);
@@ -1284,22 +1287,22 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       // Center text
-      let computePadding = () =>
-        (oCard.querySelector('.card-text').getBoundingClientRect()['height'] -
-          oCard.querySelector('.card-effect').getBoundingClientRect()['height']) /
-        2;
+      const H = oCard.querySelector('.card-text').getBoundingClientRect()['height'];
+      let computePadding = () => (H - oCard.querySelector('.card-effect').getBoundingClientRect()['height']) / 2;
 
       let current = 0;
       let tooLow = 0,
         tooHigh = 1000;
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 4; i++) {
         let padding = computePadding();
         if (padding > current && padding > tooLow) tooLow = padding;
         if (padding < current && padding < tooHigh) tooHigh = padding;
         oCard.querySelector('.card-effect').style.paddingTop = padding + 'px';
         current = padding;
       }
-      oCard.querySelector('.card-effect').style.paddingTop = (tooHigh + tooLow) / 2 + 'px';
+      let mean = parseInt((tooHigh + tooLow) / 2);
+      if (mean > H) mean = 0;
+      oCard.querySelector('.card-effect').style.paddingTop = mean + 'px';
 
       oCard.style.setProperty('--cardScale', null);
       oCard.classList.remove('force-frame');

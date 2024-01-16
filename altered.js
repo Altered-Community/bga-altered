@@ -90,6 +90,7 @@ define([
       this.default_viewport = 'width=740';
       this.cardStatuses = {};
 
+      this._loadingComplete = false;
       this._fakeIndex = -1;
       this._diceIndex = 1;
     },
@@ -315,9 +316,8 @@ define([
 
     onLoadingComplete() {
       this.updateLayout();
-      $('altered-board')
-        .querySelectorAll('.player-board-hero .altered-card')
-        .forEach((oCard) => this.autofitCardFrame(oCard, true));
+      document.querySelectorAll('.altered-card').forEach((oCard) => this.autofitCardFrame(oCard, true));
+      this._loadingComplete = true;
       this.inherited(arguments);
     },
 

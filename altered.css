@@ -1388,13 +1388,13 @@ html {
     .player-board-hero .altered-card:not(.force-frame).card-hero .card-frame {
       display: none; }
 
-.altered-card.no-frame.card-hero .card-frame,
+.altered-card.no-frame:not(.force-frame).card-hero .card-frame,
 .altered-card.mini-card:not(.force-frame).card-hero .card-frame,
 .player-board-hero .altered-card:not(.force-frame).card-hero .card-frame {
   display: none; }
-.altered-card.no-frame.card-spell,
-.altered-card.no-frame.card-spell .altered-card-wrapper,
-.altered-card.no-frame.card-spell .altered-card-wrapper .card-frame,
+.altered-card.no-frame:not(.force-frame).card-spell,
+.altered-card.no-frame:not(.force-frame).card-spell .altered-card-wrapper,
+.altered-card.no-frame:not(.force-frame).card-spell .altered-card-wrapper .card-frame,
 .altered-card.mini-card:not(.force-frame).card-spell,
 .altered-card.mini-card:not(.force-frame).card-spell .altered-card-wrapper,
 .altered-card.mini-card:not(.force-frame).card-spell .altered-card-wrapper .card-frame,
@@ -1402,9 +1402,9 @@ html {
 .player-board-hero .altered-card:not(.force-frame).card-spell .altered-card-wrapper,
 .player-board-hero .altered-card:not(.force-frame).card-spell .altered-card-wrapper .card-frame {
   border-radius: 50%; }
-.altered-card.no-frame.card-permanent,
-.altered-card.no-frame.card-permanent .altered-card-wrapper,
-.altered-card.no-frame.card-permanent .altered-card-wrapper .card-frame,
+.altered-card.no-frame:not(.force-frame).card-permanent,
+.altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper,
+.altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper .card-frame,
 .altered-card.mini-card:not(.force-frame).card-permanent,
 .altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper,
 .altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame,
@@ -1413,12 +1413,12 @@ html {
 .player-board-hero .altered-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame {
   border-bottom-left-radius: 40px 100px;
   border-bottom-right-radius: 40px 100px; }
-.altered-card.no-frame .help-marker,
+.altered-card.no-frame:not(.force-frame) .help-marker,
 .altered-card.mini-card:not(.force-frame) .help-marker,
 .player-board-hero .altered-card:not(.force-frame) .help-marker {
   left: calc(50% - 11px);
   top: -10px; }
-.altered-card.no-frame .altered-card-wrapper,
+.altered-card.no-frame:not(.force-frame) .altered-card-wrapper,
 .altered-card.mini-card:not(.force-frame) .altered-card-wrapper,
 .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper {
   border-radius: 10px;
@@ -1426,8 +1426,8 @@ html {
   height: 100%;
   transform: none;
   background-size: 100% auto; }
-  .altered-card.no-frame .altered-card-wrapper .card-hand-cost,
-  .altered-card.no-frame .altered-card-wrapper .card-reserve-cost,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-hand-cost,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-reserve-cost,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-hand-cost,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-reserve-cost,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-hand-cost,
@@ -1443,13 +1443,13 @@ html {
     left: -5px;
     width: 19px;
     height: 19px; }
-  .altered-card.no-frame .altered-card-wrapper .card-reserve-cost,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-reserve-cost,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-reserve-cost,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-reserve-cost {
     z-index: 3;
     top: 11px;
     left: 12px; }
-  .altered-card.no-frame .altered-card-wrapper .card-costs-bg,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-costs-bg,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-costs-bg,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-costs-bg {
     z-index: 2;
@@ -1461,33 +1461,33 @@ html {
     height: 45px;
     background-image: url("img/costs.png");
     background-size: 100% 600%; }
-    .altered-card.no-frame .altered-card-wrapper .card-costs-bg[data-faction="AX"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="AX"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="AX"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="AX"] {
       background-position-y: 0%; }
-    .altered-card.no-frame .altered-card-wrapper .card-costs-bg[data-faction="BR"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="BR"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="BR"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="BR"] {
       background-position-y: 20%; }
-    .altered-card.no-frame .altered-card-wrapper .card-costs-bg[data-faction="LY"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="LY"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="LY"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="LY"] {
       background-position-y: 40%; }
-    .altered-card.no-frame .altered-card-wrapper .card-costs-bg[data-faction="MU"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="MU"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="MU"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="MU"] {
       background-position-y: 60%; }
-    .altered-card.no-frame .altered-card-wrapper .card-costs-bg[data-faction="OD"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="OD"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="OD"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="OD"] {
       background-position-y: 80%; }
-    .altered-card.no-frame .altered-card-wrapper .card-costs-bg[data-faction="YZ"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="YZ"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="YZ"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-costs-bg[data-faction="YZ"] {
       background-position-y: 100%; }
-  .altered-card.no-frame .altered-card-wrapper .card-forest,
-  .altered-card.no-frame .altered-card-wrapper .card-mountain,
-  .altered-card.no-frame .altered-card-wrapper .card-ocean,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-forest,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-mountain,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-ocean,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-forest,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-mountain,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-ocean,
@@ -1508,9 +1508,9 @@ html {
     font-size: 13px;
     line-height: 21px;
     font-weight: bold; }
-    .altered-card.no-frame .altered-card-wrapper .card-forest[data-size="0"],
-    .altered-card.no-frame .altered-card-wrapper .card-mountain[data-size="0"],
-    .altered-card.no-frame .altered-card-wrapper .card-ocean[data-size="0"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-forest[data-size="0"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="0"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="0"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-forest[data-size="0"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="0"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="0"],
@@ -1518,9 +1518,9 @@ html {
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="0"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="0"] {
       width: 11px; }
-    .altered-card.no-frame .altered-card-wrapper .card-forest[data-size="1"],
-    .altered-card.no-frame .altered-card-wrapper .card-mountain[data-size="1"],
-    .altered-card.no-frame .altered-card-wrapper .card-ocean[data-size="1"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-forest[data-size="1"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="1"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="1"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-forest[data-size="1"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="1"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="1"],
@@ -1528,9 +1528,9 @@ html {
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="1"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="1"] {
       width: 13px; }
-    .altered-card.no-frame .altered-card-wrapper .card-forest[data-size="3"],
-    .altered-card.no-frame .altered-card-wrapper .card-mountain[data-size="3"],
-    .altered-card.no-frame .altered-card-wrapper .card-ocean[data-size="3"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-forest[data-size="3"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="3"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="3"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-forest[data-size="3"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="3"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="3"],
@@ -1538,41 +1538,41 @@ html {
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="3"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="3"] {
       width: 27px; }
-  .altered-card.no-frame .altered-card-wrapper .card-forest,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-forest,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-forest,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-forest {
     top: 37px;
     background: #abb648;
     border-bottom-right-radius: 2px; }
-    .altered-card.no-frame .altered-card-wrapper .card-forest[data-size="0"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-forest[data-size="0"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-forest[data-size="0"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-forest[data-size="0"] {
       background: #bdbeb5ee; }
-  .altered-card.no-frame .altered-card-wrapper .card-mountain,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-mountain,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-mountain,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-mountain {
     top: 57px;
     background: #af7b51;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px; }
-    .altered-card.no-frame .altered-card-wrapper .card-mountain[data-size="0"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="0"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="0"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-mountain[data-size="0"] {
       background: #ad9684ee; }
-  .altered-card.no-frame .altered-card-wrapper .card-ocean,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-ocean,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-ocean,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-ocean {
     top: 77px;
     background: #6b93c0;
     border-top-right-radius: 2px; }
-    .altered-card.no-frame .altered-card-wrapper .card-ocean[data-size="0"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="0"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="0"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-ocean[data-size="0"] {
       background: #a4b4c7ee; }
-  .altered-card.no-frame .altered-card-wrapper .card-text,
-  .altered-card.no-frame .altered-card-wrapper .card-support,
-  .altered-card.no-frame .altered-card-wrapper .card-name,
-  .altered-card.no-frame .altered-card-wrapper .card-typeline,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-text,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-name,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-typeline,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-text,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-name,
@@ -1582,17 +1582,17 @@ html {
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-name,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-typeline {
     display: none; }
-  .altered-card.no-frame .altered-card-wrapper .card-frame,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-frame,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-frame,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-frame {
     background: none;
     border: 4px solid black;
     border-radius: 10px; }
-    .altered-card.no-frame .altered-card-wrapper .card-frame[data-rarity="1"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="1"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="1"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="1"] {
       border: 1px solid white; }
-  .altered-card.no-frame .altered-card-wrapper .rarity-gem,
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem {
     display: block;
@@ -1604,21 +1604,21 @@ html {
     background-image: url("img/rarity-gems.png");
     background-size: 100% 300%;
     z-index: 4; }
-    .altered-card.no-frame .altered-card-wrapper .rarity-gem[data-rarity="0"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="0"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="0"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="0"] {
       background-position-y: 0%; }
-    .altered-card.no-frame .altered-card-wrapper .rarity-gem[data-rarity="1"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="1"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="1"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="1"] {
       background-position-y: 50%; }
-    .altered-card.no-frame .altered-card-wrapper .rarity-gem[data-rarity="2"],
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"] {
       background-position-y: 100%; }
-.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
-.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
-.altered-card.no-frame[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
+.altered-card.no-frame:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
+.altered-card.no-frame:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
+.altered-card.no-frame:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
 .altered-card.mini-card:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
 .altered-card.mini-card:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
 .altered-card.mini-card:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
@@ -3135,13 +3135,13 @@ html {
   font-display: swap; }
 @font-face {
   font-family: "Jali Greek Variable";
-  src: url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.woff2") format("woff2"), url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.ttf") format("truetype");
+  src: url("JaliGreekVariable-Regular.woff2") format("woff2"), url("JaliGreekVariable-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap; }
 @font-face {
   font-family: "Jali Greek Variable";
-  src: url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.woff2") format("woff2"), url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.ttf") format("truetype");
+  src: url("JaliGreekVariable-Italic.woff2") format("woff2"), url("JaliGreekVariable-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
   font-display: swap; }

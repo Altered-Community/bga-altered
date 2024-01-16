@@ -630,7 +630,7 @@ $miniCardScale: 0.33;
     }
 }
 
-.altered-card.no-frame,
+.altered-card.no-frame:not(.force-frame),
 .altered-card.mini-card:not(.force-frame),
 .player-board-hero .altered-card:not(.force-frame) {
     &.card-hero {
