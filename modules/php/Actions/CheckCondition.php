@@ -47,13 +47,13 @@ class CheckCondition extends \ALT\Models\Action
 
     $source = $this->getSource();
     $condition = $this->getCtxArg('condition');
-    if (Conditions::$condition($source, []) === false) {
+    if (Conditions::$condition($source, ['pId' => $player->getId()]) === false) {
       $this->resolveAction(['notMet']);
       return;
     }
-
     $node = $this->getArg('effect');
     $node['sourceId'] = $this->getSourceId();
     $this->pushParallelChild($node);
+    $this->resolveAction(['met']);
   }
 }
