@@ -514,11 +514,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
     },
 
-    notif_roll(n) {
-      debug('Notif: rolling dice', n);
-      // TODO
-    },
-
     notif_pay(n) {
       debug('Notif: pay', n);
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
