@@ -69,7 +69,6 @@ define([
         ['spellCleanup', 100],
         ['invokeToken', 100],
         ['afterYou', 1000],
-        ['roll', 100],
         ['pay', 100],
         ['gainCounter', 100],
         ['useCounter', 100],
@@ -84,6 +83,7 @@ define([
         // ['boost', 500],
         ['untap', 500],
         ['updateTotalMana', 200],
+        ['roll', 3000],
       ];
 
       // Fix mobile viewport (remove CSS zoom)
@@ -91,6 +91,7 @@ define([
       this.cardStatuses = {};
 
       this._fakeIndex = -1;
+      this._diceIndex = 1;
     },
     notif_midMessage(n) {},
 
@@ -289,6 +290,8 @@ define([
           </div>`
         );
       }
+
+      $('storm-container').insertAdjacentHTML('beforeend', '<div id="roll-dice-container"></div>');
     },
 
     // onChangeSortableHandSetting(v) {

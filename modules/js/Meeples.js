@@ -241,5 +241,59 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif: ending dusk phase');
       $('focus-storm-overlay').classList.remove('active');
     },
+
+    /////////////////////////
+    //  ____  _
+    // |  _ \(_) ___ ___
+    // | | | | |/ __/ _ \
+    // | |_| | | (_|  __/
+    // |____/|_|\___\___|
+    /////////////////////////
+
+    rollDice(target, value) {
+      // Initial rotation
+      const angle = {
+        1: [0, 0],
+        2: [0, 90],
+        3: [90, 0],
+        4: [-90, 0],
+        5: [0, -90],
+        6: [180, 0],
+      }[value];
+      let id = this._diceIndex++;
+
+      // Create html
+      target.insertAdjacentHTML(
+        'beforeend',
+        `<div id='roll-dice-${id}' class='dice-wrapper'>
+        <div class='dice' style='transform:rotateX(${angle[0]}deg) rotateY(${angle[1]}deg)'>
+      ` +
+          [1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0]
+            .map((pips) => {
+              let res = `<div class='dice-face ${pips == 0 ? 'back' : ''}'>`;
+              for (let i = 0; i < pips; i++) {
+                res += "<div class='pip'></div>";
+              }
+              res += '</div>';
+              return res;
+            })
+            .join('') +
+          `</div>
+      </div>`
+      );
+
+      return this.wait(2800).then(() => this.fadeOutAndDestroy(`roll-dice-${id}`));
+    },
+
+    rollDices(values) {
+      values.forEach((value) => {
+        this.rollDice($('roll-dice-container'), value);
+      });
+    },
+
+    notif_roll(n) {
+      debug('Notif: rolling dice', n);
+      this.rollDices(n.args.rolls);
+    },
   });
 });

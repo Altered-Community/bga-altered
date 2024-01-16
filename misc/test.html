@@ -1,61 +1,793 @@
+<style>
+  @keyframes dice-movement {
+    0% {
+      transform: translateX(0px) translateY(0px) rotateX(-55deg) rotateZ(-150deg) rotateY(100deg);
+    }
+
+    1% {
+      transform: translateX(4px) translateY(2px) rotateX(-53deg) rotateZ(-130deg) rotateY(90deg);
+    }
+
+    2% {
+      transform: translateX(8px) translateY(6px) rotateX(-52deg) rotateZ(-110deg) rotateY(80deg);
+    }
+
+    3% {
+      transform: translateX(12px) translateY(12px) rotateX(-51deg) rotateZ(-91deg) rotateY(70deg);
+    }
+
+    4% {
+      transform: translateX(16px) translateY(20px) rotateX(-50deg) rotateZ(-72deg) rotateY(61deg);
+    }
+
+    5% {
+      transform: translateX(20px) translateY(30px) rotateX(-49deg) rotateZ(-53deg) rotateY(51deg);
+    }
+
+    6% {
+      transform: translateX(24px) translateY(42px) rotateX(-48deg) rotateZ(-35deg) rotateY(42deg);
+    }
+
+    7% {
+      transform: translateX(28px) translateY(56px) rotateX(-47deg) rotateZ(-18deg) rotateY(34deg);
+    }
+
+    8% {
+      transform: translateX(32px) translateY(72px) rotateX(-46deg) rotateZ(0deg) rotateY(25deg);
+    }
+
+    9% {
+      transform: translateX(36px) translateY(90px) rotateX(-45deg) rotateZ(16deg) rotateY(16deg);
+    }
+
+    10% {
+      transform: translateX(40px) translateY(110px) rotateX(-45deg) rotateZ(33deg) rotateY(8deg);
+    }
+
+    11% {
+      transform: translateX(44px) translateY(132px) rotateX(-44deg) rotateZ(49deg) rotateY(0deg);
+    }
+
+    12% {
+      transform: translateX(48px) translateY(156px) rotateX(-43deg) rotateZ(65deg) rotateY(-7deg);
+    }
+
+    13% {
+      transform: translateX(52px) translateY(182px) rotateX(-42deg) rotateZ(81deg) rotateY(-15deg);
+    }
+
+    14% {
+      transform: translateX(56px) translateY(210px) rotateX(-41deg) rotateZ(96deg) rotateY(-23deg);
+    }
+
+    15% {
+      transform: translateX(60px) translateY(240px) rotateX(-40deg) rotateZ(111deg) rotateY(-30deg);
+    }
+
+    16% {
+      transform: translateX(64px) translateY(272px) rotateX(-39deg) rotateZ(126deg) rotateY(-38deg);
+    }
+
+    17% {
+      transform: translateX(68px) translateY(294px) rotateX(-39deg) rotateZ(141deg) rotateY(-45deg);
+    }
+
+    18% {
+      transform: translateX(72px) translateY(268px) rotateX(-38deg) rotateZ(155deg) rotateY(-52deg);
+    }
+
+    19% {
+      transform: translateX(76px) translateY(245px) rotateX(-37deg) rotateZ(169deg) rotateY(-59deg);
+    }
+
+    20% {
+      transform: translateX(80px) translateY(224px) rotateX(-36deg) rotateZ(182deg) rotateY(-66deg);
+    }
+
+    21% {
+      transform: translateX(84px) translateY(205px) rotateX(-36deg) rotateZ(196deg) rotateY(-73deg);
+    }
+
+    22% {
+      transform: translateX(88px) translateY(188px) rotateX(-35deg) rotateZ(209deg) rotateY(-79deg);
+    }
+
+    23% {
+      transform: translateX(92px) translateY(172px) rotateX(-34deg) rotateZ(222deg) rotateY(-86deg);
+    }
+
+    24% {
+      transform: translateX(96px) translateY(159px) rotateX(-34deg) rotateZ(235deg) rotateY(-92deg);
+    }
+
+    25% {
+      transform: translateX(100px) translateY(148px) rotateX(-33deg) rotateZ(247deg) rotateY(-98deg);
+    }
+
+    26% {
+      transform: translateX(104px) translateY(139px) rotateX(-32deg) rotateZ(259deg) rotateY(-104deg);
+    }
+
+    27% {
+      transform: translateX(108px) translateY(132px) rotateX(-32deg) rotateZ(271deg) rotateY(-110deg);
+    }
+
+    28% {
+      transform: translateX(112px) translateY(126px) rotateX(-31deg) rotateZ(283deg) rotateY(-116deg);
+    }
+
+    29% {
+      transform: translateX(116px) translateY(123px) rotateX(-30deg) rotateZ(294deg) rotateY(-122deg);
+    }
+
+    30% {
+      transform: translateX(120px) translateY(122px) rotateX(-30deg) rotateZ(305deg) rotateY(-127deg);
+    }
+
+    31% {
+      transform: translateX(124px) translateY(123px) rotateX(-29deg) rotateZ(316deg) rotateY(-133deg);
+    }
+
+    32% {
+      transform: translateX(128px) translateY(126px) rotateX(-29deg) rotateZ(327deg) rotateY(-138deg);
+    }
+
+    33% {
+      transform: translateX(132px) translateY(130px) rotateX(-28deg) rotateZ(337deg) rotateY(-143deg);
+    }
+
+    34% {
+      transform: translateX(136px) translateY(137px) rotateX(-27deg) rotateZ(348deg) rotateY(-149deg);
+    }
+
+    35% {
+      transform: translateX(140px) translateY(146px) rotateX(-27deg) rotateZ(358deg) rotateY(-154deg);
+    }
+
+    36% {
+      transform: translateX(144px) translateY(157px) rotateX(-26deg) rotateZ(368deg) rotateY(-159deg);
+    }
+
+    37% {
+      transform: translateX(148px) translateY(170px) rotateX(-26deg) rotateZ(378deg) rotateY(-164deg);
+    }
+
+    38% {
+      transform: translateX(152px) translateY(184px) rotateX(-25deg) rotateZ(387deg) rotateY(-168deg);
+    }
+
+    39% {
+      transform: translateX(156px) translateY(201px) rotateX(-25deg) rotateZ(397deg) rotateY(-173deg);
+    }
+
+    40% {
+      transform: translateX(160px) translateY(220px) rotateX(-24deg) rotateZ(406deg) rotateY(-178deg);
+    }
+
+    41% {
+      transform: translateX(164px) translateY(241px) rotateX(-24deg) rotateZ(415deg) rotateY(-182deg);
+    }
+
+    42% {
+      transform: translateX(168px) translateY(264px) rotateX(-23deg) rotateZ(423deg) rotateY(-186deg);
+    }
+
+    43% {
+      transform: translateX(172px) translateY(288px) rotateX(-23deg) rotateZ(432deg) rotateY(-191deg);
+    }
+
+    44% {
+      transform: translateX(176px) translateY(284px) rotateX(-22deg) rotateZ(441deg) rotateY(-195deg);
+    }
+
+    45% {
+      transform: translateX(180px) translateY(264px) rotateX(-22deg) rotateZ(449deg) rotateY(-199deg);
+    }
+
+    46% {
+      transform: translateX(184px) translateY(247px) rotateX(-21deg) rotateZ(457deg) rotateY(-203deg);
+    }
+
+    47% {
+      transform: translateX(188px) translateY(232px) rotateX(-21deg) rotateZ(465deg) rotateY(-207deg);
+    }
+
+    48% {
+      transform: translateX(192px) translateY(218px) rotateX(-21deg) rotateZ(473deg) rotateY(-211deg);
+    }
+
+    49% {
+      transform: translateX(196px) translateY(207px) rotateX(-20deg) rotateZ(480deg) rotateY(-215deg);
+    }
+
+    50% {
+      transform: translateX(200px) translateY(197px) rotateX(-20deg) rotateZ(488deg) rotateY(-219deg);
+    }
+
+    51% {
+      transform: translateX(204px) translateY(190px) rotateX(-19deg) rotateZ(495deg) rotateY(-222deg);
+    }
+
+    52% {
+      transform: translateX(208px) translateY(184px) rotateX(-19deg) rotateZ(503deg) rotateY(-226deg);
+    }
+
+    53% {
+      transform: translateX(212px) translateY(181px) rotateX(-19deg) rotateZ(510deg) rotateY(-230deg);
+    }
+
+    54% {
+      transform: translateX(216px) translateY(179px) rotateX(-18deg) rotateZ(517deg) rotateY(-233deg);
+    }
+
+    55% {
+      transform: translateX(220px) translateY(180px) rotateX(-18deg) rotateZ(523deg) rotateY(-236deg);
+    }
+
+    56% {
+      transform: translateX(224px) translateY(183px) rotateX(-17deg) rotateZ(530deg) rotateY(-240deg);
+    }
+
+    57% {
+      transform: translateX(228px) translateY(187px) rotateX(-17deg) rotateZ(537deg) rotateY(-243deg);
+    }
+
+    58% {
+      transform: translateX(232px) translateY(194px) rotateX(-17deg) rotateZ(543deg) rotateY(-246deg);
+    }
+
+    59% {
+      transform: translateX(236px) translateY(202px) rotateX(-16deg) rotateZ(549deg) rotateY(-249deg);
+    }
+
+    60% {
+      transform: translateX(240px) translateY(213px) rotateX(-16deg) rotateZ(555deg) rotateY(-252deg);
+    }
+
+    61% {
+      transform: translateX(244px) translateY(225px) rotateX(-16deg) rotateZ(561deg) rotateY(-255deg);
+    }
+
+    62% {
+      transform: translateX(248px) translateY(240px) rotateX(-15deg) rotateZ(567deg) rotateY(-258deg);
+    }
+
+    63% {
+      transform: translateX(252px) translateY(257px) rotateX(-15deg) rotateZ(573deg) rotateY(-261deg);
+    }
+
+    64% {
+      transform: translateX(256px) translateY(275px) rotateX(-15deg) rotateZ(579deg) rotateY(-264deg);
+    }
+
+    65% {
+      transform: translateX(260px) translateY(296px) rotateX(-14deg) rotateZ(584deg) rotateY(-267deg);
+    }
+
+    66% {
+      transform: translateX(264px) translateY(281px) rotateX(-14deg) rotateZ(590deg) rotateY(-270deg);
+    }
+
+    67% {
+      transform: translateX(268px) translateY(265px) rotateX(-14deg) rotateZ(595deg) rotateY(-272deg);
+    }
+
+    68% {
+      transform: translateX(272px) translateY(251px) rotateX(-14deg) rotateZ(600deg) rotateY(-275deg);
+    }
+
+    69% {
+      transform: translateX(276px) translateY(239px) rotateX(-13deg) rotateZ(605deg) rotateY(-277deg);
+    }
+
+    70% {
+      transform: translateX(280px) translateY(229px) rotateX(-13deg) rotateZ(610deg) rotateY(-280deg);
+    }
+
+    71% {
+      transform: translateX(284px) translateY(221px) rotateX(-13deg) rotateZ(615deg) rotateY(-282deg);
+    }
+
+    72% {
+      transform: translateX(288px) translateY(214px) rotateX(-13deg) rotateZ(620deg) rotateY(-285deg);
+    }
+
+    73% {
+      transform: translateX(292px) translateY(210px) rotateX(-12deg) rotateZ(625deg) rotateY(-287deg);
+    }
+
+    74% {
+      transform: translateX(296px) translateY(208px) rotateX(-12deg) rotateZ(630deg) rotateY(-290deg);
+    }
+
+    75% {
+      transform: translateX(300px) translateY(208px) rotateX(-12deg) rotateZ(634deg) rotateY(-292deg);
+    }
+
+    76% {
+      transform: translateX(304px) translateY(210px) rotateX(-12deg) rotateZ(639deg) rotateY(-294deg);
+    }
+
+    77% {
+      transform: translateX(308px) translateY(214px) rotateX(-11deg) rotateZ(643deg) rotateY(-296deg);
+    }
+
+    78% {
+      transform: translateX(312px) translateY(220px) rotateX(-11deg) rotateZ(647deg) rotateY(-298deg);
+    }
+
+    79% {
+      transform: translateX(316px) translateY(228px) rotateX(-11deg) rotateZ(651deg) rotateY(-300deg);
+    }
+
+    80% {
+      transform: translateX(320px) translateY(238px) rotateX(-11deg) rotateZ(656deg) rotateY(-303deg);
+    }
+
+    81% {
+      transform: translateX(324px) translateY(250px) rotateX(-10deg) rotateZ(660deg) rotateY(-305deg);
+    }
+
+    82% {
+      transform: translateX(328px) translateY(264px) rotateX(-10deg) rotateZ(664deg) rotateY(-307deg);
+    }
+
+    83% {
+      transform: translateX(332px) translateY(280px) rotateX(-10deg) rotateZ(667deg) rotateY(-308deg);
+    }
+
+    84% {
+      transform: translateX(336px) translateY(298px) rotateX(-10deg) rotateZ(671deg) rotateY(-310deg);
+    }
+
+    85% {
+      transform: translateX(340px) translateY(281px) rotateX(-10deg) rotateZ(675deg) rotateY(-312deg);
+    }
+
+    86% {
+      transform: translateX(344px) translateY(267px) rotateX(-9deg) rotateZ(679deg) rotateY(-314deg);
+    }
+
+    87% {
+      transform: translateX(348px) translateY(255px) rotateX(-9deg) rotateZ(682deg) rotateY(-316deg);
+    }
+
+    88% {
+      transform: translateX(352px) translateY(245px) rotateX(-9deg) rotateZ(686deg) rotateY(-318deg);
+    }
+
+    89% {
+      transform: translateX(356px) translateY(237px) rotateX(-9deg) rotateZ(689deg) rotateY(-319deg);
+    }
+
+    90% {
+      transform: translateX(360px) translateY(245px) rotateX(-9deg) rotateZ(695deg) rotateY(-320deg);
+    }
+
+    91% {
+      transform: translateX(364px) translateY(245px) rotateX(-7deg) rotateZ(700deg) rotateY(-320deg);
+    }
+
+    92% {
+      transform: translateX(368px) translateY(245px) rotateX(-5deg) rotateZ(704deg) rotateY(-320deg);
+    }
+
+    93% {
+      transform: translateX(372px) translateY(246px) rotateX(-3deg) rotateZ(708deg) rotateY(-325deg);
+    }
+
+    94% {
+      transform: translateX(376px) translateY(251px) rotateX(-2deg) rotateZ(710deg) rotateY(-325deg);
+    }
+
+    95% {
+      transform: translateX(380px) translateY(258px) rotateX(-2deg) rotateZ(710deg) rotateY(-345deg);
+    }
+
+    96% {
+      transform: translateX(384px) translateY(266px) rotateX(-1deg) rotateZ(710deg) rotateY(-349deg);
+    }
+
+    97% {
+      transform: translateX(388px) translateY(273px) rotateX(0deg) rotateZ(710deg) rotateY(-354deg);
+    }
+
+    98% {
+      transform: translateX(392px) translateY(281px) rotateX(0deg) rotateZ(710deg) rotateY(-357deg);
+    }
+
+    99% {
+      transform: translateX(396px) translateY(288px) rotateX(0deg) rotateZ(720deg) rotateY(-360deg);
+    }
+
+    100% {
+      transform: translateX(400px) translateY(291px) rotateX(0deg) rotateZ(720deg) rotateY(-360deg);
+    }
+  }
+
+  .dice-outer {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    perspective: 10000px;
+    margin-left: 100px;
+    margin-top: 100px;
+    margin-right: 64px;
+    margin-bottom: 32px;
+    box-sizing: border-box;
+
+    transform-style: preserve-3d;
+    animation-fill-mode: forwards;
+
+    animation: dice-movement 1.5s linear both;
+  }
+
+  .dice {
+    display: inline-block;
+    position: absolute;
+
+    width: 60px;
+    height: 60px;
+
+    transform-style: preserve-3d;
+    transform-origin: center center;
+  }
+
+  .dice-face {
+    position: absolute;
+    background: white;
+
+    transform-origin: center center;
+    backface-visibility: hidden;
+
+    display: grid;
+    grid-template-areas:
+      'a . c'
+      'e g f'
+      'd . b';
+
+    flex: 0 0 auto;
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #aaa;
+    box-sizing: border-box;
+
+    background-color: #e7e7e7;
+    box-shadow: 0px 0px 10px 1px rgb(255, 230, 0);
+    /* box-shadow:
+      inset 0 5px white,
+      inset 0 -5px #bbb,
+      inset 5px 0 #d7d7d7,
+      inset -5px 0 #d7d7d7; */
+    border-radius: 15%;
+  }
+
+  .dice-face.back {
+    background: #aaa;
+  }
+
+  .pip {
+    display: block;
+    align-self: center;
+    justify-self: center;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #333;
+    box-shadow:
+      inset 0 3px #111,
+      inset 0 -3px #555;
+  }
+
+  .pip:nth-child(2) {
+    grid-area: b;
+  }
+  .pip:nth-child(3) {
+    grid-area: c;
+  }
+  .pip:nth-child(4) {
+    grid-area: d;
+  }
+  .pip:nth-child(5) {
+    grid-area: e;
+  }
+  .pip:nth-child(6) {
+    grid-area: f;
+  }
+  /* This selects the last pip of odd-valued dice (1, 3, 5) and positions the pip in the center */
+  .pip:nth-child(odd):last-child {
+    grid-area: g;
+  }
+
+  .dice-face:nth-child(1) {
+    transform: translateZ(30px);
+  }
+  .dice-face:nth-child(2) {
+    transform: rotateY(-90deg) translateZ(30px);
+  }
+  .dice-face:nth-child(3) {
+    transform: rotateX(-90deg) translateZ(30px);
+  }
+  .dice-face:nth-child(4) {
+    transform: rotateX(90deg) translateZ(30px);
+  }
+  .dice-face:nth-child(5) {
+    transform: rotateY(90deg) translateZ(30px);
+  }
+  .dice-face:nth-child(6) {
+    transform: rotateY(180deg) translateZ(30px);
+  }
+
+  .dice-face:nth-child(7) {
+    transform: translateZ(30px) rotateY(180deg);
+  }
+  .dice-face:nth-child(8) {
+    transform: rotateY(-90deg) translateZ(30px) rotateY(180deg);
+  }
+  .dice-face:nth-child(9) {
+    transform: rotateX(-90deg) translateZ(30px) rotateY(180deg);
+  }
+  .dice-face:nth-child(10) {
+    transform: rotateX(90deg) translateZ(30px) rotateY(180deg);
+  }
+  .dice-face:nth-child(11) {
+    transform: rotateY(90deg) translateZ(30px) rotateY(180deg);
+  }
+  .dice-face:nth-child(12) {
+    transform: rotateY(180deg) translateZ(30px) rotateY(180deg);
+  }
+</style>
+
+<div id="container"></div>
+
+<textarea id="textarea"></textarea>
+
 <script type="text/javascript">
-  // Sample string
-  let inputString =
-    'This is a sample [AFTER_YOU] string [AFTER_YOU]. (Already existing parenthesis)  Another sentence with nothing. (Test)  Another [AFTER_YOU] multiple matches. Another sentence. (Test)';
+  const Errors = {
+    MISSING_ELEMENT: 'HTMLElement to render dice animation not specified.',
+    INVALID_ELEMENT: '"element" must be a HTMLElement.',
+    MISSING_NUMBER_OF_DICE: 'Number of dice to use not specified.',
+    NUMBER_OF_DICE_NUMBER: '"numberOfDice" must be a number.',
+    NUMBER_OF_DICE_INTEGER: '"numberOfDice" must be an integer.',
+    MISSING_CALLBACK: 'Provide a callback function to recieve dice values.',
+    INVALID_CALLBACK: '"callback" must be a function.',
+    INVALID_DELAY_TYPE: 'Time is seconds. "delay" must be a number.',
+    INVALID_VALUES: 'Values to generate. "values" must be an array of numbers.',
+    INVALID_VALUES_LENGTH: 'The length of "values" must be equal to the numberOfDice.',
+    INVALID_SOUND_VOLUME: 'Sound volume must be a number between 0 - 1',
+    INVALID_VALUE_NUMBER: (value) => `${value} in "values" must be a number.`,
+    INVALID_VALUE_INTEGER: (value) => `${value} in "values" must be an integer.`,
+  };
 
-  // Replacement string
-  const replacementString = 'After You';
+  const dieInDOM = [];
+  function verifyParams(options) {
+    const { numberOfDice, callback, element, delay, values, soundVolume } = options;
+    if (!element) throw new Error(Errors.MISSING_ELEMENT);
+    if (!(element instanceof HTMLElement)) throw new Error(Errors.INVALID_ELEMENT);
 
-  // Regular expression pattern
-  const regexPattern = /\[AFTER_YOU\]/g;
+    if (!numberOfDice) throw new Error(Errors.MISSING_NUMBER_OF_DICE);
+    if (typeof numberOfDice !== 'number') throw new Error(Errors.NUMBER_OF_DICE_NUMBER);
 
-  // Find all matches in the string
-  let finalString = inputString;
-  const matches = [...inputString.matchAll(regexPattern)];
-  for (let i = matches.length - 1; i >= 0; i--) {
-    console.log('#####', i);
-    console.log(finalString);
-    const match = matches[i];
-    const index = match.index;
-    finalString = finalString.slice(0, index) + replacementString + finalString.slice(index + 11);
+    if (!Number.isInteger(numberOfDice)) throw new Error(Errors.NUMBER_OF_DICE_INTEGER);
 
-    const regexParentheses = /\(([^)]+)\)/;
-    const nextDoubleSpaceIndex = finalString.indexOf('  ', index);
-    if (nextDoubleSpaceIndex !== -1) {
-      // Check if there is a string in parentheses before the double space
-      const textBeforeDoubleSpace = finalString.slice(index + replacementString.length, nextDoubleSpaceIndex);
-      const matchParentheses = textBeforeDoubleSpace.match(regexParentheses);
+    if (!callback) throw new Error(Errors.MISSING_CALLBACK);
+    if (typeof callback !== 'function') throw new Error(Errors.INVALID_CALLBACK);
 
-      if (matchParentheses) {
-        let index2 = matchParentheses.index;
-        console.log(index2);
+    if (delay && typeof delay !== 'number') throw new Error(Errors.INVALID_DELAY_TYPE);
 
-        // Concatenate "REMINDER" at the end of the inside of the parentheses
-        finalString =
-          finalString.slice(0, index + replacementString.length + index2) +
-          '(' +
-          matchParentheses[1] +
-          ' REMINDER)' +
-          finalString.slice(nextDoubleSpaceIndex);
-      } else {
-        // Add "REMINDER" at the next double space
-        finalString = finalString.slice(0, nextDoubleSpaceIndex) + ' (REMINDER)' + finalString.slice(nextDoubleSpaceIndex);
-      }
-    } else {
-      // Check if there is a string in parentheses before the end
-      const textBeforeEnd = finalString.slice(index + replacementString.length);
-      const matchParentheses = textBeforeEnd.match(regexParentheses);
+    if (values) {
+      if (!Array.isArray(values)) throw new Error(Errors.INVALID_VALUES);
+      if (values.length !== numberOfDice) throw new Error(Errors.INVALID_VALUES_LENGTH);
+      values.forEach((value) => {
+        if (typeof value !== 'number') throw new Error(Errors.INVALID_VALUE_NUMBER(value));
+        if (!Number.isInteger(value)) throw new Error(Errors.INVALID_VALUE_INTEGER(value));
+      });
+    }
 
-      if (matchParentheses) {
-        let index2 = matchParentheses.index;
-        console.log(index2);
-        // Concatenate "REMINDER" at the end of the inside of the parentheses
-        finalString = finalString.slice(0, index + replacementString.length + index2) + '(' + matchParentheses[1] + ' REMINDER)';
-      } else {
-        // Add "REMINDER" at the end
-        finalString = finalString + ' (REMINDER)';
+    if (typeof soundVolume !== 'number') throw new Error(Errors.INVALID_SOUND_VOLUME);
+    if (soundVolume < 0 || soundVolume > 1) throw new Error(Errors.INVALID_SOUND_VOLUME);
+  }
+
+  function getFace(pips) {
+    const elt = document.createElement('div');
+    elt.className = 'dice-face';
+    if (pips == 0) elt.className = 'dice-face back';
+
+    for (let i = 0; i < pips; i++) {
+      const pip = document.createElement('div');
+      pip.className = 'pip';
+      elt.appendChild(pip);
+    }
+
+    return elt;
+  }
+
+  function appendDieContainers(dieId, element, angle) {
+    const outer = document.createElement('div');
+    outer.className = 'dice-outer';
+    outer.id = dieId;
+    element.appendChild(outer);
+
+    const dice = document.createElement('div');
+    dice.className = 'dice';
+    dice.style.transform = `rotateX(${angle[0]}deg) rotateY(${angle[1]}deg)`;
+    outer.appendChild(dice);
+    return dice;
+  }
+
+  function removeDieFromDOM(dieId) {
+    const removeElement = document.getElementById(dieId);
+    if (removeElement) {
+      removeElement.remove();
+    }
+  }
+
+  const rollADie = function (options) {
+    const { numberOfDice, callback, element, values, soundVolume = 1 } = options;
+    let delay = options.delay || 3000;
+    if (dieInDOM.length) {
+      dieInDOM.forEach((die) => removeDieFromDOM(die));
+      dieInDOM.length = 0; //reset the array
+    }
+    verifyParams({ ...options, soundVolume });
+    const result = [];
+
+    for (let i = 0; i < numberOfDice; i++) {
+      const dieFace = values ? values[i] : Math.floor(Math.random() * 6) + 1;
+      result.push(dieFace);
+      const angle = {
+        1: [0, 0],
+        2: [0, 90],
+        3: [90, 0],
+        4: [-90, 0],
+        5: [0, -90],
+        6: [180, 0],
+      }[dieFace];
+      const dieId = 'die';
+      dieInDOM.push(dieId);
+      const dice = appendDieContainers(dieId, element, angle);
+      [1, 2, 3, 4, 5, 6].map(getFace).forEach((face) => dice.appendChild(face));
+      [0, 0, 0, 0, 0, 0].map(getFace).forEach((face) => dice.appendChild(face));
+
+      //      setTimeout(() => removeDieFromDOM(dieId), delay);
+
+      if (result.length === numberOfDice && callback) {
+        callback(result);
       }
     }
-    console.log(finalString);
-  }
+  };
+
+  rollADie({ element: document.getElementById('container'), numberOfDice: 1, values: [6], callback: (elt) => console.log(elt) });
+  //  rotateY(60deg) rotateX(3deg) rotateZ(7deg)
+
+  let speedX = 4;
+  let x = 0;
+  let y = 0;
+  let vy = 0;
+  let ay = 2;
+  let bottom = 300;
+  let zangle = -150;
+  let yangle = 100;
+  let frames = [];
+
+  document.getElementById('container').addEventListener('click', () => {
+    document.getElementById('textarea').innerHTML = '';
+    for (let i = 0; i < 90; i++) {
+      let coeff = Math.exp(-i / 50);
+
+      frames.push({
+        transform: `rotateX(${parseInt(-55 * coeff)}deg) rotateZ(${parseInt(zangle)}deg) rotateY(${parseInt(yangle)}deg)`,
+        left: `${parseInt(x)}px`,
+        top: `${parseInt(y)}px`,
+      });
+
+      zangle += 20 * coeff;
+      yangle -= 10 * coeff;
+      x += speedX;
+      vy += ay;
+      if (y + vy > bottom) {
+        y = bottom - (y + vy - bottom);
+        vy = -0.8 * vy;
+      } else {
+        y += vy;
+      }
+      //    if (i > 90) speedX = 2;
+      //    if (i > 90) y = bottom;
+    }
+    y = parseInt(y);
+    x = parseInt(x);
+
+    // rotateX(-9.275098099772752deg) rotateZ(689.703183135731deg) rotateY(-319.85159156786546deg)
+    frames.push({
+      transform: 'rotateX(-9deg) rotateZ(695deg) rotateY(-320deg)',
+      left: `${x}px`,
+      top: `${y + 14}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(-7deg) rotateZ(700deg) rotateY(-320deg)',
+      left: `${x}px`,
+      top: `${y + 14}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(-5deg) rotateZ(704deg) rotateY(-320deg)',
+      left: `${x}px`,
+      top: `${y + 14}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(-3deg) rotateZ(708deg) rotateY(-325deg)',
+      left: `${x}px`,
+      top: `${y + 15}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(-2deg) rotateZ(710deg) rotateY(-325deg)',
+      left: `${x}px`,
+      top: `${y + 20}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(-2deg) rotateZ(710deg) rotateY(-345deg)',
+      left: `${x}px`,
+      top: `${y + 27}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(-1deg) rotateZ(710deg) rotateY(-349deg)',
+      left: `${x}px`,
+      top: `${y + 35}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(0deg) rotateZ(710deg) rotateY(-354deg)',
+      left: `${x}px`,
+      top: `${y + 42}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(0deg) rotateZ(710deg) rotateY(-357deg)',
+      left: `${x}px`,
+      top: `${y + 50}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(0deg) rotateZ(720deg) rotateY(-360deg)',
+      left: `${x}px`,
+      top: `${y + 57}px`,
+    });
+    x += speedX;
+    frames.push({
+      transform: 'rotateX(0deg) rotateZ(720deg) rotateY(-360deg)',
+      left: `${x}px`,
+      top: `${y + 60}px`,
+    });
+
+    let frames2 = frames.map((frame) => {
+      return {
+        transform: `translateX(${frame.left}) translateY(${frame.top}) ` + frame.transform,
+      };
+    });
+
+    let o = document.getElementById('textarea');
+    o.innerHTML = '';
+    frames2.forEach((frame, i) => {
+      o.innerHTML += `
+      ${i}% {
+        transform: ${frame.transform};
+      }
+      `;
+    });
+
+    const timing = {
+      duration: 1500,
+      iterations: 1,
+      fill: 'forwards',
+    };
+
+    document.getElementById('die').animate(frames2, timing);
+  });
 </script>
