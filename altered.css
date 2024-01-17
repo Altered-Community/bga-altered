@@ -3197,11 +3197,14 @@ html {
     opacity: 1; }
   #altered-overlay #altered-overlay-content {
     font-family: "Tiller";
-    padding-right: 250px;
+    padding-right: calc(250px / var(--boardScale));
     display: flex;
-    flex-flow: column; }
+    flex-flow: column;
+    transform: scale(var(--boardScale));
+    flex-shrink: 0; }
     .mobile_version #altered-overlay #altered-overlay-content {
-      padding-right: 0px; }
+      padding-right: 0px;
+      padding-top: 134px; }
     #altered-overlay #altered-overlay-content h2 {
       text-align: center;
       color: gold;
@@ -3227,7 +3230,7 @@ html {
       font-size: 25px;
       margin-bottom: 40px; }
     #altered-overlay #altered-overlay-content #overlay-hand-container {
-      max-width: calc(0.9 * (100vw - 250px));
+      max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
       --cardScale: 0.5; }
       .mobile_version #altered-overlay #altered-overlay-content #overlay-hand-container {
         max-width: 90vw; }
@@ -3336,6 +3339,8 @@ html {
     height: calc(var(--boardScale) * 460px);
     width: 100%;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
+    .mobile_version #focus-storm-overlay #focus-storm-top {
+      height: calc(var(--boardScale) * 460px + 134px); }
   #focus-storm-overlay #focus-storm-middle {
     height: calc(var(--boardScale) * 460px);
     width: 100%;

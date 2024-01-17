@@ -140,7 +140,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       const THRESHOLD = 8;
       if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
 
-      let a = Math.min(600, n * 50); // X-DISTANCE BETWEEN MAX LEFT CARD AND CENTER
+      let a = Math.min(550, n * 50); // X-DISTANCE BETWEEN MAX LEFT CARD AND CENTER
       let b = n < THRESHOLD ? 80 : 60; // Y-DISTANCE BETWEEN LOWEST CARD AND UPPEST CARD
       let r = (a * a + b * b) / (2 * b); // RADIUS OF THE CIRCLE
       let halfAngle = Math.asin(a / r);
@@ -156,7 +156,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         // Angle
         let itemAngle = -halfAngle + alpha * j;
-        let dy = item.offsetHeight / 2 - b - (Math.cos(itemAngle) * r - (r - b));
+        let dy = item.offsetHeight / 2 - b - (Math.cos(itemAngle) * r - (r - 80));
         if (pos == 'top') {
           dy = -dy - item.offsetHeight;
           itemAngle = -itemAngle;
@@ -190,6 +190,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         item.style.transform = `rotate(0rad) translateY(0px)`;
         item.style.left = '0px';
         item.style.top = '0px';
+        item.style.position = null;
       });
     },
 
@@ -547,6 +548,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               this.addCard(card, `board-deck-${card.pId}`);
             }
             let oCard = $(`card-${card.id}`);
+            oCard.classList.remove('selectedToMana');
 
             let fakeCardId = this._fakeIndex--;
             let fakeCard = this.tplFakeCard({ id: fakeCardId });
@@ -581,6 +583,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (n.args.toMana) {
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
           this._playerCounters[this.player_id]['mana'].incValue(nonTappedMana);
+          this.clearHandTransform(`mana-cards-${this.player_id}`);
         }
 
         this.notifqueue.setSynchronousDuration(100);

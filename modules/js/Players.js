@@ -60,9 +60,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     onChangeHandLocationSetting(v) {
       let hand = $(`hand-${this.player_id}`);
       if (hand) {
-        let container = this.isFloatingHand() ? 'floating-hand' : `player-board-hand-${this.player_id}`;
-        $(container).insertAdjacentElement('beforeend', hand);
-        $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
+        // let container = this.isFloatingHand() ? 'floating-hand' : `player-board-hand-${this.player_id}`;
+        // $(container).insertAdjacentElement('beforeend', hand);
+        // $('floating-hand-wrapper').classList.toggle('active', this.isFloatingHand());
         hand.style.order = v == 1 ? 1 : 4;
         hand.childNodes.forEach((item) => (item.dataset.animationSpeed = 'none'));
         this.adjustHand(hand);

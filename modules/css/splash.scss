@@ -19,12 +19,15 @@
 
     #altered-overlay-content {
         font-family: "Tiller";
-        padding-right: 250px;
+        padding-right: calc(250px / var(--boardScale));
         display: flex;
         flex-flow: column;
+        transform: scale(var(--boardScale));
+        flex-shrink: 0;
 
         .mobile_version & {
             padding-right: 0px;
+            padding-top: 134px;
         }
 
         h2 {
@@ -65,7 +68,7 @@
         }
 
         #overlay-hand-container {
-            max-width: calc(0.9 * (100vw - 250px));
+            max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
             .mobile_version & {
                 max-width: 90vw;
             }
@@ -237,6 +240,10 @@
         width: 100%;
         // box-shadow: 10px -10px 10px rgba(0, 0, 0, 0.8);
         background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
+
+        .mobile_version & {
+            height: calc(var(--boardScale) * 460px + 150px);
+        }
     }
 
     #focus-storm-middle {
