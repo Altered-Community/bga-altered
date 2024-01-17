@@ -240,6 +240,10 @@
         width: 100%;
         // box-shadow: 10px -10px 10px rgba(0, 0, 0, 0.8);
         background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
+
+        .mobile_version & {
+            height: calc(var(--boardScale) * 460px + 150px);
+        }
     }
 
     #focus-storm-middle {

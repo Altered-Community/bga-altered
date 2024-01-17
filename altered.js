@@ -1206,9 +1206,14 @@ define([
         source: _('source'),
       };
 
-      args.locations.forEach((location, i) =>
-        this.addPrimaryActionButton('btnLocation' + i, names[location], () => this.takeAtomicAction('actInvokeToken', [location]))
-      );
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actInvokeToken', [location]);
+      };
+
+      args.locations.forEach((location, i) => {
+        this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
+        this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+      });
     },
 
     ////////////////////////////////////////////////////////////
@@ -1367,14 +1372,14 @@ define([
            </div>`,
       });
 
-      let handWrapper = $('floating-hand-wrapper');
-      $('floating-hand-button').addEventListener('click', () => {
-        if (handWrapper.dataset.open && handWrapper.dataset.open == 'hand') {
-          delete handWrapper.dataset.open;
-        } else {
-          handWrapper.dataset.open = 'hand';
-        }
-      });
+      // let handWrapper = $('floating-hand-wrapper');
+      // $('floating-hand-button').addEventListener('click', () => {
+      //   if (handWrapper.dataset.open && handWrapper.dataset.open == 'hand') {
+      //     delete handWrapper.dataset.open;
+      //   } else {
+      //     handWrapper.dataset.open = 'hand';
+      //   }
+      // });
 
       $('show-topbar').addEventListener('click', () => {
         $('topbar').classList.toggle('visible');
