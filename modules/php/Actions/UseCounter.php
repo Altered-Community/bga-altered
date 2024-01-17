@@ -65,7 +65,7 @@ class UseCounter extends \ALT\Models\Action
     $extraDatas['counter'] -= $consume;
     $card->setExtraDatas($extraDatas);
 
-    Notifications::useCounter($player, $consume, $cost, $this->getSource());
+    Notifications::useCounter($player, $card, $consume, $cost, $this->getSource());
     $this->resolveAction([$cost]);
   }
 }

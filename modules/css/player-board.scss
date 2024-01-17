@@ -425,9 +425,22 @@
             display: flex;
             flex-flow: row-reverse;
             align-items: center;
+            border: 2px solid transparent;
+            border-radius: 7px;
 
             .altered-card {
                 margin: 3px 21px;
+            }
+
+            &.selectable {
+                border: 2px solid rgb(89, 172, 68);
+                background-color: rgba(24, 219, 24, 0.2);
+                cursor: pointer;
+
+                &:hover {
+                    border: 2px solid rgb(51, 129, 32);
+                    background-color: rgba(17, 153, 17, 0.3);
+                }
             }
         }
     }
@@ -435,7 +448,7 @@
     .player-board-hand {
         position: absolute;
         width: 100%;
-        z-index: 3;
+        z-index: 100;
 
         .player-board-limbo {
             position: absolute;

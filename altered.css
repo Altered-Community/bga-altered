@@ -331,7 +331,8 @@ html {
   .altered-card.selected,
   .altered-card.mini-card.selected {
     border: 2px solid #ffe300;
-    box-shadow: 0px 0px 10px 0px #ffe300; }
+    box-shadow: 0px 0px 10px 0px #ffe300;
+    margin: -2px; }
   .altered-card.selectedToMana,
   .altered-card.mini-card.selectedToMana {
     border-color: #1059c5;
@@ -1626,6 +1627,29 @@ html {
 .player-board-hero .altered-card:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
 .player-board-hero .altered-card:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean {
   color: #01ff01; }
+.altered-card.no-frame:not(.force-frame)[data-counter]::before,
+.altered-card.mini-card:not(.force-frame)[data-counter]::before,
+.player-board-hero .altered-card:not(.force-frame)[data-counter]::before {
+  content: attr(data-counter);
+  display: block;
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0px 24px 0px 3px;
+  height: 22px;
+  z-index: 10;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px black;
+  background-color: #ffffffb2;
+  background-image: url("img/icons/charge.svg");
+  background-repeat: no-repeat;
+  background-position: center right 2px;
+  background-size: auto 86%;
+  font-family: "Haptic Pro";
+  line-height: 26px;
+  font-size: 19px; }
 
 .altered-card-tooltip {
   display: flex;
@@ -1650,81 +1674,6 @@ html {
     text-align: center;
     text-shadow: black 0px 0px 5px, black 0px 0px 5px, black 2px 0px 0px, black 1.75517px 0.958851px 0px, black 1.0806px 1.68294px 0px, black 0.141474px 1.99499px 0px, black -0.832294px 1.81859px 0px, black -1.60229px 1.19694px 0px, black -1.97999px 0.28224px 0px, black -1.87291px -0.701566px 0px, black -1.30729px -1.51361px 0px, black -0.421592px -1.95506px 0px, black 0.567324px -1.91785px 0px, black 1.41734px -1.41108px 0px, black 1.92034px -0.558831px 0px;
     color: lime; }
-
-#floating-hand-wrapper {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  transition: transform 0.8s;
-  z-index: 1000;
-  --cardScale: 0.4;
-  transform: translateY(calc(100% - var(--cardScale) * 140px));
-  box-shadow: 0 0 10px 1px #ff0;
-  background-color: rgba(40, 39, 36, 0.78);
-  border-top: 1px solid #7c5d45;
-  border-right: 1px solid #7c5d45;
-  border-top-right-radius: 8px; }
-  #floating-hand-wrapper:not(.active) {
-    display: none; }
-  #floating-hand-wrapper[data-open] {
-    transform: translateY(0px); }
-  #floating-hand-wrapper #floating-hand-button-container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: flex-start;
-    z-index: 2;
-    transition: top 0.8s; }
-    #floating-hand-wrapper #floating-hand-button-container #floating-hand-button {
-      border: 1px solid black;
-      border-radius: 50%;
-      box-shadow: 2px 2px 5px black;
-      background-color: gray;
-      margin: 0px 5px;
-      margin-top: -38px;
-      cursor: pointer;
-      transform: translateY(0);
-      transition: transform 0.4s, margin 0.4s; }
-      #floating-hand-wrapper #floating-hand-button-container #floating-hand-button:hover {
-        transform: translateY(-10px); }
-      #floating-hand-wrapper #floating-hand-button-container #floating-hand-button .icon-hand {
-        width: 40px;
-        height: 40px;
-        margin: 4px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 32px; }
-        #floating-hand-wrapper #floating-hand-button-container #floating-hand-button .icon-hand i {
-          display: none; }
-  #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button {
-    margin-top: -58px;
-    margin-bottom: 20px; }
-    #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button .icon-hand {
-      background: none; }
-      #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button .icon-hand i {
-        display: block; }
-    #floating-hand-wrapper[data-open="hand"] #floating-hand-button-container #floating-hand-button:hover .icon-hand {
-      font-size: 34px; }
-  #floating-hand-wrapper #floating-hand {
-    width: 100%;
-    height: 100%;
-    margin-top: calc(-1 * var(--cardScale) * 12px);
-    padding-top: calc(var(--cardScale) * 12px);
-    min-width: calc(var(--cardScale) * 375px); }
-    #floating-hand-wrapper #floating-hand .player-board-hand {
-      display: flex;
-      max-width: 99vw;
-      flex-wrap: wrap;
-      justify-content: flex-start; }
-      #floating-hand-wrapper #floating-hand .player-board-hand .ark-card {
-        margin: 4px;
-        flex-shrink: 0; }
-        #floating-hand-wrapper #floating-hand .player-board-hand .ark-card.selected {
-          margin: 2px; }
-        #floating-hand-wrapper #floating-hand .player-board-hand .ark-card:hover {
-          z-index: 4; }
 
 .altered-icon.icon-fleeting {
   background-image: url("img/icons/fleeting.png");
@@ -1989,6 +1938,22 @@ html {
 
 .action-button .icon-container ~ .altered-meeple {
   margin-left: 0.5em; }
+
+#animation-counter {
+  padding: 0px 34px 0px 6px;
+  height: 32px;
+  z-index: 10;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px black;
+  background-color: #ffffffb2;
+  background-image: url("img/icons/charge.svg");
+  background-repeat: no-repeat;
+  background-position: center right 2px;
+  background-size: auto 86%;
+  font-family: "Haptic Pro";
+  line-height: 38px;
+  font-size: 30px; }
 
 #topbar {
   margin-top: -66px;
@@ -2517,13 +2482,22 @@ html {
       background-repeat: repeat-x;
       display: flex;
       flex-flow: row-reverse;
-      align-items: center; }
+      align-items: center;
+      border: 2px solid transparent;
+      border-radius: 7px; }
       .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
         margin: 3px 21px; }
+      .altered-player-board .player-board-grass .player-board-landmarks.selectable {
+        border: 2px solid #59ac44;
+        background-color: rgba(24, 219, 24, 0.2);
+        cursor: pointer; }
+        .altered-player-board .player-board-grass .player-board-landmarks.selectable:hover {
+          border: 2px solid #338120;
+          background-color: rgba(17, 153, 17, 0.3); }
   .altered-player-board .player-board-hand {
     position: absolute;
     width: 100%;
-    z-index: 3; }
+    z-index: 100; }
     .altered-player-board .player-board-hand .player-board-limbo {
       position: absolute;
       width: 110px;

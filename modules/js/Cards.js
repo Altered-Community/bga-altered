@@ -49,6 +49,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         // Update tapped state
         o.classList.toggle('tapped', card.properties && card.properties.tapped == true);
 
+        // Update counters
+        if (card.properties && card.properties.extraDatas && card.properties.extraDatas.counterName) {
+          o.dataset.counter = card.properties.extraDatas.counter;
+        } else {
+          delete o.dataset.counter;
+        }
+
         // Minimize card except in hand and in discard
         let isFull =
           container.classList.contains('player-hand') ||
@@ -644,12 +651,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             let id = `card-${card.id}`;
 
             let slideIt = () => {
-              if (n.args.hand === true) $(id).classList.add('mini-card');
+              if (n.args.hand === true) {
+                $(id).classList.add('mini-card');
+                this.changeParent(id, `board-${card.location}-${card.pId}`);
+              }
               if (card.location == 'discard') $(id).classList.remove('mini-card');
 
               this.updateStatusIfCard($(id));
 
-              this.changeParent(id, `board-${card.location}-${card.pId}`);
               return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`, {
                 clearTransform: true,
               });
@@ -703,18 +712,46 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_gainCounter(n) {
       debug('Notification: gain counter', n);
-      //TODO
-      // display or increment a counter on the card
+
+      let oCard = $(`card-${n.args.card.id}`);
+      if (this.isFastMode()) {
+        oCard.dataset.counter = n.args.value;
+        return;
+      }
+
+      let tmpElt = `<div style='position:absolute' id='animation-counter'>${n.args.increase}</div>`;
+      this.getVisibleTitleContainer().insertAdjacentHTML('beforebegin', tmpElt);
+      this.slide('animation-counter', oCard, {
+        from: this.getVisibleTitleContainer(),
+        destroy: true,
+        phantom: false,
+        duration: 1200,
+      }).then(() => {
+        oCard.dataset.counter = n.args.value;
+      });
     },
 
     notif_useCounter(n) {
       debug('Notification: use counter', n);
-      //TODO
-      // reduce a counter on the card
-
       // pay mana if necessary
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
       this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+
+      let oCard = $(`card-${n.args.card.id}`);
+      if (this.isFastMode()) {
+        oCard.dataset.counter = n.args.value;
+        return;
+      }
+
+      let tmpElt = `<div style='position:absolute' id='animation-counter'>${n.args.decrease}</div>`;
+      this.getVisibleTitleContainer().insertAdjacentHTML('beforebegin', tmpElt);
+      oCard.dataset.counter = n.args.value;
+      this.slide('animation-counter', this.getVisibleTitleContainer(), {
+        from: oCard,
+        destroy: true,
+        phantom: false,
+        duration: 1200,
+      });
     },
 
     notif_targetCards(n) {
@@ -1100,9 +1137,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
 
+      let counter = '';
+      if (p.extraDatas && p.extraDatas.counterName) {
+        counter = ` data-counter='${p.extraDatas.counter}'`;
+      }
+
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${boost}'>
+        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${boost}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
@@ -1193,9 +1235,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
       //      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
+      let counter = '';
+      if (p.extraDatas && p.extraDatas.counterName) {
+        counter = ` data-counter='${p.extraDatas.counter}'`;
+      }
+
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-spell ${mini ? 'mini-card' : ''}'>
+        class='altered-card card-spell ${mini ? 'mini-card' : ''}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='spell'></div>
@@ -1238,8 +1285,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
 
+      let counter = '';
+      if (p.extraDatas && p.extraDatas.counterName) {
+        counter = ` data-counter='${p.extraDatas.counter}'`;
+      }
+
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-permanent ${mini ? 'mini-card' : ''}'>
+        class='altered-card card-permanent ${mini ? 'mini-card' : ''}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='permanent'></div>

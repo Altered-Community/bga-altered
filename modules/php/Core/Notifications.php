@@ -432,14 +432,14 @@ class Notifications
   {
     self::notifyAll('gainCounter', clienttranslate('${card_name} gains ${increase} ${counterName}'), [
       'card' => $card,
-      'n' => $card->getExtraDatas()['counter'],
+      'value' => $card->getExtraDatas()['counter'],
       'increase' => is_null($increase) ? $card->getExtraDatas()['counter'] : $increase,
       'counterName' => $card->getExtraDatas()['counterName'],
       'i18n' => ['counterName'],
     ]);
   }
 
-  public static function useCounter($player, $consume, $cost, $source)
+  public static function useCounter($player, $card, $consume, $cost, $source)
   {
     if ($cost > 0) {
       $msg = clienttranslate('${player_name} pays {${n}} and reduce by ${consume} the counter (${card_name}\'s effect)');
@@ -453,6 +453,8 @@ class Notifications
       'card' => $source,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
+      'value' => $card->getExtraDatas()['counter'],
+      'decrease' => $consume,
     ]);
   }
 
@@ -656,56 +658,6 @@ class Notifications
         'scoringCard' => true,
       ]
     );
-  }
-
-  ////////////////////////////////
-  //   ____       _
-  //  / ___| __ _(_)_ __  ___
-  // | |  _ / _` | | '_ \/ __|
-  // | |_| | (_| | | | | \__ \
-  //  \____|\__,_|_|_| |_|___/
-  ////////////////////////////////
-
-  public static function gain($player, $args, $source = null)
-  {
-    self::getBonuses($player, $args, $source, []);
-  }
-
-  public static function getBonuses($player, $bonuses, $source = null, $args = [], $msg = null)
-  {
-    $found = false;
-    foreach ($bonuses as $type => $bonus) {
-      if ($bonus > 0) {
-        $found = true;
-        break;
-      }
-    }
-    if (!$found) {
-      return;
-    }
-
-    if (is_null($msg)) {
-      $msg = clienttranslate('${player_name} gains ${bonuses_desc}');
-      if (!is_null($source)) {
-        if ($source instanceof \ARK\Models\ZooCard) {
-          $msg = clienttranslate('${player_name} gains ${bonuses_desc} (${card_name})');
-          $args['card_id'] = $source->getId();
-          $args['card_name'] = $source->getName();
-          $args['i18n'][] = 'card_name';
-          $args['preserve'][] = 'card_id';
-        } else {
-          $msg = clienttranslate('${player_name} gains ${bonuses_desc} (${source})');
-          $args['source'] = $source;
-          $args['i18n'][] = 'source';
-        }
-      }
-    }
-
-    $args['player'] = $player;
-    $args['score'] = $player->updateScore();
-    $args['income'] = $player->getMoneyIncome();
-    $args['bonuses'] = $bonuses;
-    self::notifyAll('getBonuses', $msg, $args);
   }
 
   ///////////////////////////////////////////////////////////////
