@@ -57,6 +57,25 @@ abstract class Conditions
       ->count() >= 3;
   }
 
+  public static function control1Token($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getPlayedCards([TOKEN])
+      ->count() >= 1;
+  }
+
+  public static function control2Plants($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getPlayedCards([CHARACTER, TOKEN])
+      ->filter(function ($c) use ($card) {
+        return in_array(PLANT, $c->getSubtypes());
+      })
+      ->count() >= 2;
+  }
+
   public static function control2Landmarks($card, $event)
   {
     return $card
