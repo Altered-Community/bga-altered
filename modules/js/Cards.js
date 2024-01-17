@@ -190,6 +190,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         item.style.transform = `rotate(0rad) translateY(0px)`;
         item.style.left = '0px';
         item.style.top = '0px';
+        item.style.position = null;
       });
     },
 

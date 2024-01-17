@@ -19,12 +19,15 @@
 
     #altered-overlay-content {
         font-family: "Tiller";
-        padding-right: 250px;
+        padding-right: calc(250px / var(--boardScale));
         display: flex;
         flex-flow: column;
+        transform: scale(var(--boardScale));
+        flex-shrink: 0;
 
         .mobile_version & {
             padding-right: 0px;
+            padding-top: 134px;
         }
 
         h2 {
@@ -65,7 +68,7 @@
         }
 
         #overlay-hand-container {
-            max-width: calc(0.9 * (100vw - 250px));
+            max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
             .mobile_version & {
                 max-width: 90vw;
             }
