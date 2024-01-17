@@ -30,7 +30,7 @@ class Discard extends \ALT\Models\Action
     $location = $this->getCtxArg('destination') ?? 'discard';
     $msg = clienttranslate('discard to ${location} ${card}');
     if ($location == 'discard') {
-      $msg = clienttranslate('discard ${card}');
+      $msg = clienttranslate('Discard ${card}');
     }
 
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
@@ -44,7 +44,7 @@ class Discard extends \ALT\Models\Action
     }
 
     if (($this->getCtxArg('desc') ?? '') == 'sacrifice') {
-      $msg = clienttranslate('sacrifice ${card}');
+      $msg = clienttranslate('Sacrifice ${card}');
     }
 
     return [
@@ -158,10 +158,12 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(array_diff(
-          $cardIds,
-          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
-        ))
+        !empty(
+          array_diff(
+            $cardIds,
+            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+          )
+        )
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -204,7 +206,13 @@ class Discard extends \ALT\Models\Action
 
     $deleted = [];
     $deletedTokens = [];
+    $players = [];
     foreach ($cards as $cardId => $card) {
+      $pId = $card->getPlayer()->getId();
+      if (!array_key_exists($pId, $players)) {
+        $players[$pId] = $card->getPlayer();
+      }
+
       // we discard a card that has fleeting and should go to reserve
       if ($args['destination'] == RESERVE && $card->hasToken(FLEETING)) {
         Cards::discard($cardId);
@@ -263,13 +271,8 @@ class Discard extends \ALT\Models\Action
       }
     }
 
-    $notified = [];
-    foreach ($cards as $cId => $card) {
-      if (in_array($card->getPlayer()->getId(), $notified)) {
-        continue;
-      }
-      $notified[] = $card->getPlayer()->getId();
-      Notifications::updateBiomes($card->getPlayer());
+    foreach ($players as $player) {
+      Notifications::updateBiomes($player);
     }
 
     $this->checkAfterListeners($player, [
