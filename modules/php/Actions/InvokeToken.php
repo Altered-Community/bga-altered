@@ -75,6 +75,9 @@ class InvokeToken extends \ALT\Models\Action
     foreach ($locations as $loc) {
       if ($loc == 'source') {
         $loc = $this->getSource()->getLocation();
+      } elseif ($loc == 'oppositeSource') {
+        $srcLoc = $this->getSource()->getLocation();
+        $loc  = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
       }
       $displayLocation[] =
         $loc == STORM_LEFT ? clienttranslate('Hero\'s expedition') : clienttranslate('Companion\'s expedition');
@@ -109,6 +112,9 @@ class InvokeToken extends \ALT\Models\Action
 
     if ($location == 'source') {
       $location = $this->getSource()->getLocation();
+    } elseif ($location == 'oppositeSource') {
+      $srcLoc = $this->getSource()->getLocation();
+      $location  = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
     }
 
     $card = $this->getToken();
