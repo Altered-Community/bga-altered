@@ -221,6 +221,7 @@ class Discard extends \ALT\Models\Action
       if ($card->isToken()) {
         // delete the card as it's a token
         $deletedTokens[] = $cId;
+        Cards::discard($cId, 'destroy');
         Cards::delete($cId);
       }
 
@@ -247,11 +248,8 @@ class Discard extends \ALT\Models\Action
     $copyCards = $cards;
 
     // deleting meeples first
-    if (!empty($deleted) || !empty($deletedTokens)) {
-      Notifications::silentKill($deleted, $deletedTokens);
-      foreach ($deletedTokens as $dId) {
-        unset($copyCards[$dId]);
-      }
+    if (!empty($deleted)) {
+      Notifications::silentKill($deleted, []);
     }
 
     if (count($copyCards) != 0) {
