@@ -584,7 +584,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      * Public notification when discarding cards:
      *  ignore if current player is the one discarding card
      *  slide fakes cards from player panel to titlebar and decrease hand count
-     * NOT USED
      */
     notif_discardCards(n) {
       debug('Notif: public discarding cards', n);
@@ -633,26 +632,38 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_publicDiscard(n) {
       debug('Public discard', n);
       let pId = n.args.player_id;
+      let oCards = [...$(`hand-${pId}`).querySelectorAll('.altered-card')];
+      let indexCardReplacement = 0;
 
       Promise.all(
         [...n.args.cards].map((card, i) => {
           return this.wait(200 * i).then(() => {
             if (card.location == 'hand') return;
-            if (n.args.hand == true) this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
+            if (n.args.hand === true) this._playerCounters[pId]['handCount'].incValue(-1);
 
             let id = `card-${card.id}`;
-            if (!$(id)) {
-              this.addCard(card, `hand-${card.pId}`);
-              if (n.args.player_id != this.player_id) {
-                [...$(`hand-${n.args.player_id}`).querySelectorAll('.altered-card')][0].remove();
-              }
+
+            let slideIt = () => {
+              if (n.args.hand === true) $(id).classList.add('mini-card');
+              if (card.location == 'discard') $(id).classList.remove('mini-card');
+
+              this.updateStatusIfCard($(id));
+
+              this.changeParent(id, `board-${card.location}-${card.pId}`);
+              return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`, {
+                clearTransform: true,
+              });
+            };
+
+            if (pId != this.player_id) {
+              this.addCard(card, this.getVisibleTitleContainer());
+              $(id).classList.remove('mini-card');
+              return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
+            } else if (!$(id)) {
+              console.error('Card do not exists ! :', card);
+            } else {
+              return slideIt();
             }
-
-            if (n.args.hand === true) $(id).classList.add('mini-card');
-            if (card.location == 'discard') $(id).classList.remove('mini-card');
-
-            this.updateStatusIfCard($(id));
-            return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`);
           });
         })
       ).then(() => {

@@ -7,7 +7,7 @@ X Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
 X Asleep
 X Icones status : mettre les vrais meeples
 - Compteurs sur la carte
-    
+- reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure

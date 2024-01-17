@@ -262,7 +262,7 @@ class Target extends \ALT\Models\Action
       Notifications::publicDiscard(
         $player,
         Cards::getMany(array_diff($this->getArg('cards'), $cardIds)),
-        clienttranslate('${player_name} discards  ${card_names} as they are not targeted'),
+        clienttranslate('${player_name} discards ${card_names} as they are not targeted'),
         [
           'source' => HAND,
           'hand' => true,
