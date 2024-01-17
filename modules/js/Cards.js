@@ -548,6 +548,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               this.addCard(card, `board-deck-${card.pId}`);
             }
             let oCard = $(`card-${card.id}`);
+            oCard.classList.remove('selectedToMana');
 
             let fakeCardId = this._fakeIndex--;
             let fakeCard = this.tplFakeCard({ id: fakeCardId });
@@ -582,6 +583,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (n.args.toMana) {
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
           this._playerCounters[this.player_id]['mana'].incValue(nonTappedMana);
+          this.clearHandTransform(`mana-cards-${this.player_id}`);
         }
 
         this.notifqueue.setSynchronousDuration(100);
