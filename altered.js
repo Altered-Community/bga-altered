@@ -1204,6 +1204,7 @@ define([
         stormLeft: _('Hero side'),
         stormRight: _('Companion side'),
         source: _('source'),
+        oppositeSource: _('opposite of played card'),
       };
 
       args.locations.forEach((location, i) =>
