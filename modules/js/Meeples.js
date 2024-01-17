@@ -205,7 +205,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
 
       n.args.cardsDeleted.forEach((cardId) => {
-        $(`card-${cardId}`).remove();
+        this.fadeOutAndDestroy($(`card-${cardId}`));
       });
     },
 

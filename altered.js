@@ -539,6 +539,10 @@ define([
       if (this[methodName] !== undefined) this[methodName](args.args);
     },
 
+    onEnteringStateGameEnd() {
+      $('focus-storm-overlay').classList.remove('active');
+    },
+
     ///////////////////////////////////////////////////////////
     //  ____
     // |  _ \ _ __ ___  ___ ___  ___
