@@ -1286,23 +1286,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         }
       }
 
-      // Center text
-      const H = oCard.querySelector('.card-text').getBoundingClientRect()['height'];
-      let computePadding = () => (H - oCard.querySelector('.card-effect').getBoundingClientRect()['height']) / 2;
+      // // Center text
+      // const H = oCard.querySelector('.card-text').getBoundingClientRect()['height'];
+      // let computePadding = () => (H - oCard.querySelector('.card-effect').getBoundingClientRect()['height']) / 2;
 
-      let current = 0;
-      let tooLow = 0,
-        tooHigh = 1000;
-      for (let i = 0; i < 4; i++) {
-        let padding = computePadding();
-        if (padding > current && padding > tooLow) tooLow = padding;
-        if (padding < current && padding < tooHigh) tooHigh = padding;
-        oCard.querySelector('.card-effect').style.paddingTop = padding + 'px';
-        current = padding;
-      }
-      let mean = parseInt((tooHigh + tooLow) / 2);
-      if (mean > H) mean = 0;
-      oCard.querySelector('.card-effect').style.paddingTop = mean + 'px';
+      // let current = 0;
+      // let tooLow = 0,
+      //   tooHigh = 1000;
+      // for (let i = 0; i < 4; i++) {
+      //   let padding = computePadding();
+      //   if (padding > current && padding > tooLow) tooLow = padding;
+      //   if (padding < current && padding < tooHigh) tooHigh = padding;
+      //   oCard.querySelector('.card-effect').style.paddingTop = padding + 'px';
+      //   current = padding;
+      // }
+      // let mean = parseInt((tooHigh + tooLow) / 2);
+      // if (mean > H) mean = 0;
+      // oCard.querySelector('.card-effect').style.paddingTop = mean + 'px';
 
       oCard.style.setProperty('--cardScale', null);
       oCard.classList.remove('force-frame');
