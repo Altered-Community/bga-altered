@@ -74,7 +74,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     getMeepleContainer(meeple) {
       let t = meeple.location.split('-');
       if (t[0] == 'storm') {
-        let position = meeple.pId == this.player_id ? 'player' : 'opponent';
+        let position = meeple.pId == this.bottomPId ? 'player' : 'opponent';
         return $(`storm-${t[1]}-${position}`);
       } else if ($(meeple.location)) {
         return $(meeple.location);
