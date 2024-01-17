@@ -652,6 +652,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             if (n.args.hand === true) this._playerCounters[pId]['handCount'].incValue(-1);
 
             let id = `card-${card.id}`;
+            if (card.location == 'destroy') {
+              this.fadeOutAndDestroy(id, 1000);
+              return this.wait(1000);
+            }
 
             let slideIt = () => {
               if (n.args.hand === true) {
@@ -667,12 +671,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               });
             };
 
-            if (pId != this.player_id) {
-              this.addCard(card, this.getVisibleTitleContainer());
-              $(id).classList.remove('mini-card');
-              return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
-            } else if (!$(id)) {
-              console.error('Card do not exists ! :', card);
+            if (!$(id)) {
+              if (pId != this.player_id) {
+                this.addCard(card, this.getVisibleTitleContainer());
+                $(id).classList.remove('mini-card');
+                return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
+              } else {
+                console.error('Card that I own do not exists ! :', card);
+              }
             } else {
               return slideIt();
             }
