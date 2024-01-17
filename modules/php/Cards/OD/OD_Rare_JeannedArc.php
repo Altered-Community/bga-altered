@@ -38,6 +38,16 @@ class OD_Rare_JeannedArc extends \ALT\Models\Card
             FT::ACTION(INVOKE_TOKEN, [
               'pId' => $this->getPId(),
               'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_RIGHT],
+            ]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_LEFT],
+            ]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => $this->getPId(),
+              'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_LEFT],
             ])
           ),
