@@ -38,6 +38,7 @@ class MoveExpedition extends \ALT\Models\Action
   {
     if (Globals::isTieBreakerMode()) {
       Notifications::message(clienttranslate('In tie-breaker this power have no effect.'), []);
+      $this->resolveAction(null);
       return;
     }
 
