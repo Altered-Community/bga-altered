@@ -101,6 +101,13 @@ abstract class Conditions
       in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
   }
 
+  public static function isCharacterPlayed($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]);
+  }
+
   public static function isDiscardedFromHandToReserve($card, $event)
   {
     $cardId = $card->getId();
