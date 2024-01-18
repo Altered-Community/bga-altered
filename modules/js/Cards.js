@@ -185,6 +185,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     clearHandTransform(container) {
+      debug(container);
       let items = [...container.querySelectorAll('.altered-card')];
       items.forEach((item, i) => {
         item.style.transform = `rotate(0rad) translateY(0px)`;
@@ -264,8 +265,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-                card.properties.uid
-              }.jpg");'></div>
+              card.properties.uid
+            }.jpg");'></div>
             </div>`
           );
         });
@@ -583,7 +584,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (n.args.toMana) {
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
           this._playerCounters[this.player_id]['mana'].incValue(nonTappedMana);
-          this.clearHandTransform(`mana-cards-${this.player_id}`);
+          this.clearHandTransform($(`mana-cards-${this.player_id}`));
         }
 
         this.notifqueue.setSynchronousDuration(100);
@@ -1214,8 +1215,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
-            p.mountain
-          }</div>
+        p.mountain
+      }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
 
           <div class='card-text'>
