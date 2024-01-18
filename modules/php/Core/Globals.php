@@ -20,6 +20,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'customTurnOrders' => 'obj', // DO NOT MODIFY, USED FOR CUSTOM TURN ORDER FEATURE
 
     'playerDecks' => 'obj',
+    'deckOptions' => 'str',
 
     'firstPlayer' => 'int',
     'skippedPlayers' => 'obj',
@@ -60,12 +61,10 @@ class Globals extends \ALT\Helpers\DB_Manager
     $tmp = self::$log;
     self::$log = false;
 
-    foreach (
-      self::DB()
+    foreach (self::DB()
         ->select(['value', 'name'])
         ->get(false)
-      as $name => $variable
-    ) {
+      as $name => $variable) {
       if (\array_key_exists($name, self::$variables)) {
         self::$data[$name] = $variable;
       }
@@ -183,6 +182,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setDay(0);
     self::setPlayedCards(0);
     self::setDayPhase(false);
+    self::setDeckOptions($options[OPTION_DECKS]);
   }
 
   public static function getStorm($ui = false)

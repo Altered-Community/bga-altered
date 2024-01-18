@@ -127,7 +127,7 @@ const STARTER = [
     'AX_Rare_ThreeLittlePigs' => 1,
     'AX_Common_AxiomScrambler' => 2,
     'AX_Rare_AxiomScrambler' => 1,
-    'AX_Common_BrassbugHive' => 3,
+    'AX_Common_BrassbugHive' => 2,
     'AX_Rare_BrassbugHive' => 1,
     'AX_Rare_KelonicGenerator' => 1,
     'AX_Rare_TheOuroborosLyraBastion' => 1,
@@ -209,6 +209,7 @@ const STARTER = [
 
   FACTION_OD => [
     'OD_Common_SigismarWingspan' => 1,
+    'OD_Common_OrdisCadets' => 3,
     'OD_Common_FrogPrince' => 3,
     'OD_Common_OrdisGatekeeper' => 3,
     'OD_Common_Charge' => 3,

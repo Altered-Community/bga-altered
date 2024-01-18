@@ -23,10 +23,24 @@
  * !! It is not a good idea to modify this file when a game is running !!
  *
  */
+
 namespace ALT;
 
 require_once 'modules/php/constants.inc.php';
-$game_options = [];
+$game_options = [
+  OPTION_DECKS => [
+    'name' => totranslate('Decks'),
+    'values' => [
+      OPTION_DECKS_DEMO => [
+        'name' => totranslate('Demo decks'),
+        'tmdisplay' => totranslate('[Demo decks]'),
+      ],
+      OPTION_DECKS_STARTER => [
+        'name' => totranslate('Starter decks'),
+      ],
+    ]
+  ]
+];
 
 $game_preferences = [
   OPTION_CONFIRM => [

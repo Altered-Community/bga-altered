@@ -50,7 +50,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $rarity = $p['rarity'] == 0 ? 'common' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    if (false && Game::get()->getBgaEnvironment() == 'studio') {
+    if (true && Game::get()->getBgaEnvironment() == 'studio') {
       return new $className($data); // no DB call
     }
     return new Card($data); // information from DB
@@ -92,7 +92,13 @@ class Cards extends \ALT\Helpers\CachedPieces
     // $faction = $player->getFaction();
     // $deck = PRECOS[$faction];
     foreach (FACTIONS as $faction) {
-      $deck = PRECOS[$faction];
+      $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? PRECOS[$faction] : STARTER[$faction];
+      $starterReady = ['AX', 'MU', 'BR', 'OD'];
+
+      if (Globals::getDeckOptions() == OPTION_DECKS_STARTER && !in_array($faction, $starterReady)) {
+        continue;
+      }
+
       foreach ($deck as $cardId => $n) {
         // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
         $className = "\\ALT\\Cards\\$faction\\$cardId";
