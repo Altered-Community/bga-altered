@@ -22,7 +22,7 @@ class OD_Rare_OpentheGates extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'Create #four# [ORDIS_RECRUIT] Soldier tokens, distributed as you choose among any number of target Expeditions.'
       ),
-      'costHand' => 1,
+      'costHand' => 5,
       'costReserve' => 5,
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::SEQ(
