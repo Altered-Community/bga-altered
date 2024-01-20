@@ -1279,7 +1279,7 @@ define([
     },
 
     formatString(str, italicParenthesis = false) {
-      const ICONS = ['BOOST', 'ANCHORED', 'FLEETING'];
+      const ICONS = ['BOOST', 'ANCHORED', 'FLEETING', 'ASLEEP'];
       ICONS.forEach((name) => {
         const regex = new RegExp('<' + name + ':([^>]+)>', 'g');
         str = str.replaceAll(regex, this.formatIcon(name, '<span>$1</span>'));

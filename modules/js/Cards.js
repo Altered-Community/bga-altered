@@ -1398,7 +1398,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (!container) return;
       container.innerHTML = '';
 
-      const ICONS = ['fleeting', 'anchored', 'sleeping', 'boost'];
+      const ICONS = ['fleeting', 'anchored', 'asleep', 'boost'];
       let boost = 0;
       this.getMeeplesOnCard(cardId).forEach((meeple) => {
         let type = meeple.dataset.type;
