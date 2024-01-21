@@ -13,7 +13,7 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Frog Prince'),
+      'name' => 'The Frog Prince',
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT, NOBLE],
       'forest' => 3,
@@ -21,7 +21,9 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'typeline' => clienttranslate('Character - Bureaucrat Noble'),
+      'typeline' => 'Character - Bureaucrat Noble',
+      'flavorText' => "Thankfully, he doesn\'t seal his contracts with a kiss.",
+      'artist' => 'Gaga Zhou',
     ];
   }
 }

@@ -75,7 +75,7 @@ class Resupply extends \ALT\Models\Action
           TARGET,
           [
             'effect' => FT::ACTION(DISCARD, []),
-            'targetType' => ['CHARACTER', 'TOKEN', 'SPELL', 'PERMANENT'],]
+            'targetType' => ['CHARACTER', 'TOKEN', 'SPELL', 'PERMANENT'],
             'targetLocation' => [RESERVE],
             'targetPlayer' => ME,
             'cards' => $drawn->getIds(),

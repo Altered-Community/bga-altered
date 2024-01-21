@@ -6,16 +6,17 @@ error_reporting(E_ALL);
 include_once 'list.inc.php';
 
 
+/*
 $target = 'CoreSetV2/';
 $sourceOld = $target;
 $sourceNew = 'API/';
 $attributes = ['flavorText'];
+*/
 
 
-/*
 $target = '../modules/php/Cards/';
 $sourceOld = $target;
-$sourceNew = 'CoreSetV2/';
+$sourceNew = 'CoreSetV3/';
 $attributes = [
   'uid',
   'asset',
@@ -31,8 +32,9 @@ $attributes = [
   'typeline',
   'subtypes',
   'changedStats',
+	'artist',
 ];
-*/
+
 
 $i = 0;
 foreach (ALL_CARDS as $cardId) {

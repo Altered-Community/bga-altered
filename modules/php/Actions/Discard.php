@@ -158,10 +158,12 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(array_diff(
-          $cardIds,
-          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
-        ))
+        !empty(
+          array_diff(
+            $cardIds,
+            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+          )
+        )
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }

@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 include_once 'list.inc.php';
 
 $repo = '../modules/php/Cards/';
-$coreset = 'CoreSetV2/';
+$coreset = 'CoreSetV3/';
 
 foreach (glob($repo . '*/*.php') as $fileName) {
   $t = explode('/', $fileName);
@@ -18,6 +18,7 @@ foreach (glob($repo . '*/*.php') as $fileName) {
   }
 }
 
+
 const FACTION_AX = 'AX';
 const FACTION_BR = 'BR';
 const FACTION_LY = 'LY';
@@ -27,7 +28,22 @@ const FACTION_YZ = 'YZ';
 
 require_once $repo . 'cards.inc.php';
 
+echo "#######\n DEMO \n";
+
 foreach (PRECOS as $faction => $cards) {
+  foreach ($cards as $cId => $nbr) {
+    $cardId = $faction . '/' . $cId;
+
+    if (!file_exists($coreset . $cardId . '.php')) {
+      echo $cardId . "\n";
+    }
+  }
+}
+
+
+echo "#######\n STARTERS \n";
+
+foreach (STARTER as $faction => $cards) {
   foreach ($cards as $cId => $nbr) {
     $cardId = $faction . '/' . $cId;
 

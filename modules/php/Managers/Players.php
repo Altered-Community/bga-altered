@@ -242,7 +242,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
             continue;
           }
 
-
           foreach ($biomes as $i => $biome) {
             $win = $winners[$expedition][$biome]['pId'] == $pId;
             $movements[$pId][$side][$biome] = $win ? 2 : 1;
