@@ -71,6 +71,7 @@ class Card extends \ALT\Helpers\DB_Model
     'fleeting' => 'bool',
     'seasoned' => 'bool',
     'minManaOrbs' => 'int',
+    'defender' => 'bool',
 
     // Tough management
     'tough' => 'int',

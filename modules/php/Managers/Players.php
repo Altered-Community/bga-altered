@@ -238,6 +238,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           $move = null;
           $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
           $movements[$pId][$side] = [OCEAN => 0, FOREST => 0, MOUNTAIN => 0];
+          if ($player->hasDefender($expedition)) {
+            continue;
+          }
+
 
           foreach ($biomes as $i => $biome) {
             $win = $winners[$expedition][$biome]['pId'] == $pId;
