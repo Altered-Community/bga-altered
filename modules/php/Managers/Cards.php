@@ -93,7 +93,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     // $deck = PRECOS[$faction];
     foreach (FACTIONS as $faction) {
       $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? PRECOS[$faction] : STARTER[$faction];
-      $starterReady = ['AX', 'MU', 'BR', 'OD'];
+      $starterReady = ['AX', 'MU', 'BR', 'OD', 'YZ'];
 
       if (Globals::getDeckOptions() == OPTION_DECKS_STARTER && !in_array($faction, $starterReady)) {
         continue;
