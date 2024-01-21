@@ -24,6 +24,10 @@ class BR_Common_Booda extends \ALT\Models\Card
       'costHand' => 0,
       'costReserve' => 0,
       'typeline' => clienttranslate('Token - Companion'),
+      'flavorText' => clienttranslate(
+        'A Hero can practice Alteration through their Companion, no matter the distance between them.'
+      ),
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

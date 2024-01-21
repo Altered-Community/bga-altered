@@ -15,10 +15,10 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Spy Craft'),
+      'name' => 'Spy Craft',
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[SABOTAGE], then $[RESUPPLY].'),
+      'effectDesc' => '$[SABOTAGE], then $[RESUPPLY].',
       'costHand' => 2,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
@@ -31,7 +31,9 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
         ]),
         FT::ACTION(RESUPPLY, [])
       ),
-      'typeline' => clienttranslate('Spell - Disruption'),
+      'typeline' => 'Spell - Disruption',
+      'flavorText' => 'This message will self-destruct in five seconds.',
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

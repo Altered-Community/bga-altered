@@ -13,7 +13,7 @@ class LY_Common_LyraNavigator extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Lyra Navigator'),
+      'name' => 'Lyra Navigator',
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'forest' => 0,
@@ -21,7 +21,9 @@ class LY_Common_LyraNavigator extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 2,
       'costReserve' => 3,
-      'typeline' => clienttranslate('Character - Citizen'),
+      'typeline' => 'Character - Citizen',
+      'flavorText' => 'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.',
+      'artist' => 'Taras Susak',
     ];
   }
 }

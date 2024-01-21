@@ -29,6 +29,8 @@ class LY_Rare_OuroborosTrickster extends \ALT\Models\Card
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 3)],
       ]),
       'typeline' => clienttranslate('Character - Citizen'),
+      'flavorText' => clienttranslate('Like the Bravos, Lyras are drawn to freedom and the distant horizon.'),
+      'artist' => 'Zero Wen',
     ];
   }
 }

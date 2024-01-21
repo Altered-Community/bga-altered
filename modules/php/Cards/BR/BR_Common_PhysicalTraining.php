@@ -23,6 +23,10 @@ class BR_Common_PhysicalTraining extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
       'typeline' => clienttranslate('Spell - Boon'),
+      'flavorText' => clienttranslate(
+        '100 crunches, 100 push-ups, 100 squats, a 10-km run and a desire to prove yourself. Just your typical morning of Bravos training.'
+      ),
+      'artist' => 'Polar Engine',
     ];
   }
 }

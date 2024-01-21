@@ -13,10 +13,10 @@ class BR_Common_Achilles extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Achilles'),
+      'name' => 'Achilles',
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('$[TOUGH_1].'),
+      'effectDesc' => '$[TOUGH_1].',
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
@@ -24,7 +24,9 @@ class BR_Common_Achilles extends \ALT\Models\Card
       'costReserve' => 5,
 
       'tough' => 1,
-      'typeline' => clienttranslate('Character - Soldier'),
+      'typeline' => 'Character - Soldier',
+      'flavorText' => "\"Many things lie between us—shadowy mountains and sounding sea.\"",
+      'artist' => 'Taras Susak',
     ];
   }
 }

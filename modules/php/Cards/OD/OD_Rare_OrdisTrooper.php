@@ -22,6 +22,8 @@ class OD_Rare_OrdisTrooper extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 1,
       'changedStats' => ['mountain', 'ocean'],
+      'flavorText' => clienttranslate("\"Chin up and stand tall. You’re shieldbearers of the Aegis now!\""),
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

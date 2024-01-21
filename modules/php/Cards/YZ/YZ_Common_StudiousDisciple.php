@@ -29,6 +29,8 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
         'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1]],
       ],
       'typeline' => clienttranslate('Character - Mage Apprentice'),
+      'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

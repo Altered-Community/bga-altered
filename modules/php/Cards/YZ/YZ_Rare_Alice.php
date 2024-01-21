@@ -28,6 +28,8 @@ class YZ_Rare_Alice extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain'],
       'effectSupport' => FT::ACTION(AFTER_YOU, []),
 
+      'flavorText' => clienttranslate("\"One good turn deserves another.\""),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

@@ -22,6 +22,8 @@ class BR_Common_BravosPathfinder extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'typeline' => clienttranslate('Character - Adventurer'),
+      'flavorText' => clienttranslate("\"Stay on the path, they say. I make my own path!\""),
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

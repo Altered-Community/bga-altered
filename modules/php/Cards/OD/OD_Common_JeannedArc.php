@@ -19,7 +19,7 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone — Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.'
+        'When I leave the Expedition zone — Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.'
       ),
       'forest' => 2,
       'mountain' => 2,
@@ -43,6 +43,8 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
         ],
       ],
       'typeline' => clienttranslate('Character - Soldier'),
+      'flavorText' => clienttranslate("She\'ll be followed long after she\'s gone."),
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

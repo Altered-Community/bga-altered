@@ -28,8 +28,9 @@ class AX_Common_FoundryMechanic extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
-      'flavorText' => clienttranslate('You can\'t choose when and where a quick fix is needed.'),
+      'flavorText' => clienttranslate("You can\'t choose when and where a quick fix will be needed."),
       'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Fahmi Fauzi',
     ];
   }
 }

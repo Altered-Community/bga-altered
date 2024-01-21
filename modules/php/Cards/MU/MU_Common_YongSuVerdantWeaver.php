@@ -19,13 +19,17 @@ class MU_Common_YongSuVerdantWeaver extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
       'subtypes' => [DRUID],
-      'effectDesc' => clienttranslate('{J} If you control two or more Plants, I gain 2 boosts$[BB].'),
+      'effectDesc' => clienttranslate(
+        '{J} If you control two or more Plants, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'control2Plants', 'effect' => FT::GAIN($this, BOOST, 2)])
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'control2Plants', 'effect' => FT::GAIN($this, BOOST, 2)]),
+      'flavorText' => clienttranslate('Green is good.'),
+      'artist' => 'Kevin Sidharta',
     ];
   }
 }

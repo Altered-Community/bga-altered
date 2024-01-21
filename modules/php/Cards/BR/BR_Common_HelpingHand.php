@@ -15,17 +15,19 @@ class BR_Common_HelpingHand extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Helping Hand'),
+      'name' => 'Helping Hand',
       'type' => SPELL,
       'subtypes' => [BOON],
-      'effectDesc' => clienttranslate('Target Character gains 1 boost$[BB] and loses [FLEETING_CHAR].'),
+      'effectDesc' => 'Target Character gains 1 boost$[BB] and loses [FLEETING_CHAR].',
       'costHand' => 1,
       'costReserve' => 2,
 
       'effectPlayed' => FT::ACTION(TARGET, [
         'effect' => FT::SEQ(FT::GAIN(EFFECT, BOOST), FT::LOOSE(EFFECT, FLEETING)),
       ]),
-      'typeline' => clienttranslate('Spell - Boon'),
+      'typeline' => 'Spell - Boon',
+      'flavorText' => 'Never gonna give you up.',
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

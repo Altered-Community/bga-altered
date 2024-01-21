@@ -28,6 +28,10 @@ class OD_Common_Charge extends \ALT\Models\Card
         FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)])
       ),
       'typeline' => clienttranslate('Spell - Maneuver'),
+      'flavorText' => clienttranslate(
+        'Facing terrible odds and an unfathomably huge Leviathan, the Ordis legion charged nonetheless.'
+      ),
+      'artist' => 'Zero Wen',
     ];
   }
 }

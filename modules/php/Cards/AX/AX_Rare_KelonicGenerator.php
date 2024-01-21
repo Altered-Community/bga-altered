@@ -23,9 +23,10 @@ class AX_Rare_KelonicGenerator extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
-      'flavorText' => clienttranslate(' "Suspira\'s mines will soon run dry. Your precious Kelon will run dry. "'),
+      'flavorText' => clienttranslate("\"Suspira\'s mines will soon run dry. Your precious Kelon will run dry.\""),
       'effectTap' => FT::SEQ(FT::ACTION(PAY, ['pay' => 1]), FT::ACTION(DRAW, ['players' => ME])),
 
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

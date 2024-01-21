@@ -19,7 +19,9 @@ class MU_Rare_MeditationTraining extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Boon'),
       'type' => SPELL,
       'subtypes' => [BOON],
-      'effectDesc' => clienttranslate('Target Character with Hand Cost {3} or less gains $[ANCHORED].'),
+      'effectDesc' => clienttranslate(
+        'Target Character with Hand Cost {3} or less gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+      ),
       'supportDesc' => clienttranslate(
         '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'
       ),
@@ -29,6 +31,8 @@ class MU_Rare_MeditationTraining extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
 
+      'flavorText' => clienttranslate("Don\'t think you are, know you are."),
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

@@ -22,6 +22,8 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 3,
       'typeline' => clienttranslate('Character - Druid Deity'),
+      'flavorText' => clienttranslate('You can feel it in the trees, deep beneath their roots – the very heartbeat of nature.'),
+      'artist' => 'Ba Vo',
     ];
   }
 }

@@ -22,6 +22,8 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 1,
       'typeline' => clienttranslate('Character - Mage Scholar'),
+      'flavorText' => clienttranslate("She won\'t read the future in the stars, she\'ll change it herself."),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

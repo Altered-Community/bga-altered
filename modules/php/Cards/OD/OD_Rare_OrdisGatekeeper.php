@@ -15,11 +15,11 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Ordis Gatekeeper'),
-      'typeline' => clienttranslate('Character - Soldier'),
+      'name' => 'Ordis Gatekeeper',
+      'typeline' => 'Character - Soldier',
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} Create an [ORDIS_RECRUIT] Soldier token in #each of your# Expeditions.'),
+      'effectDesc' => '{J} Create an [ORDIS_RECRUIT] Soldier token in #each of your# Expeditions.',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -38,6 +38,7 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
           'targetLocation' => [STORM_LEFT],
         ])
       ),
+      'artist' => 'Atanas Lozanski',
     ];
   }
 }

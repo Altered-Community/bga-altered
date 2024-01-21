@@ -31,6 +31,8 @@ class LY_Common_OuroborosCroupier extends \ALT\Models\Card
           '4+' => FT::ACTION(DRAW, ['players' => ME]),
         ],
       ]),
+      'flavorText' => clienttranslate('The house never loses.'),
+      'artist' => 'Anh Tung',
     ];
   }
 }

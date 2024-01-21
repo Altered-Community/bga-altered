@@ -30,6 +30,8 @@ class YZ_Rare_Sakarabru extends \ALT\Models\Card
       'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT]),
       'effectSupport' => FT::ACTION(DRAW, ['players' => ME]),
 
+      'flavorText' => clienttranslate('When such a terrifying being appears in your path, taking a step back is only natural.'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

@@ -28,6 +28,8 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'costReserve' => 2,
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
       'typeline' => clienttranslate('Character - Druid'),
+      'flavorText' => clienttranslate("\"We are the sentinels of the Skein, always keeping a finger on the pulse of nature.\""),
+      'artist' => 'Ba Vo',
     ];
   }
 }

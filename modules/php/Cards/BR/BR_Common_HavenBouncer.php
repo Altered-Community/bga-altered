@@ -32,6 +32,8 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       ]),
       'effectReserve' => FT::GAIN($this, BOOST),
       'typeline' => clienttranslate('Character - Adventurer'),
+      'flavorText' => clienttranslate('Only the bravest can enter Haven.'),
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

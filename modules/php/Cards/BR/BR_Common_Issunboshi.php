@@ -4,7 +4,7 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-class BR_Common_IssunBoshi extends \ALT\Models\Card
+class BR_Common_Issunboshi extends \ALT\Models\Card
 {
   public function __construct($row)
   {

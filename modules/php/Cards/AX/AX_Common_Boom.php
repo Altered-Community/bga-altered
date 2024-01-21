@@ -15,10 +15,10 @@ class AX_Common_Boom extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Boom!'),
+      'name' => 'Boom!',
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[FLEETING].  Sacrifice a Character. If you do, discard target Character or Permanent.'),
+      'effectDesc' => '$[FLEETING].  Sacrifice a Character. If you do, discard target Character or Permanent.',
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
@@ -35,8 +35,9 @@ class AX_Common_Boom extends \ALT\Models\Card
           ),
         ])
       ),
-      'flavorText' => clienttranslate('Catastrophic failure ? I prefer the term \'learning opportunity\'.'),
-      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => "\"Catastrophic failure? I prefer the term \'learning opportunity\'.\"",
+      'typeline' => 'Spell - Disruption',
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

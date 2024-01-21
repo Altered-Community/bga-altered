@@ -29,8 +29,9 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
         'tokenType' => 'AX_Common_Brassbug',
         'targetLocation' => STORMS,
       ]),
-      'flavorText' => clienttranslate('No Brassbug would survive in the Tumult without their armor.'),
+      'flavorText' => clienttranslate('No Brassbug would survive in the Tumult without armor.'),
       'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Anh Tung',
     ];
   }
 }

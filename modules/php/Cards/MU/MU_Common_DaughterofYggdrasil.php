@@ -26,6 +26,8 @@ class MU_Common_DaughterofYggdrasil extends \ALT\Models\Card
       'costReserve' => 3,
       'effectHand' => FT::ACTION(DRAW, ['players' => OPPONENT]),
       'typeline' => clienttranslate('Character - Plant'),
+      'flavorText' => clienttranslate('The children of Yggdrasil now take care of the world trees.'),
+      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

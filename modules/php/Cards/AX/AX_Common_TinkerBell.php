@@ -15,10 +15,10 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Tinker Bell'),
+      'name' => 'Tinker Bell',
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
-      'effectDesc' => clienttranslate('{R} $[SABOTAGE].'),
+      'effectDesc' => '{R} $[SABOTAGE].',
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,
@@ -31,8 +31,9 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'flavorText' => clienttranslate('Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...'),
-      'typeline' => clienttranslate('Character - Fairy'),
+      'flavorText' => "Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...",
+      'typeline' => 'Character - Fairy',
+      'artist' => 'Anh Tung',
     ];
   }
 }

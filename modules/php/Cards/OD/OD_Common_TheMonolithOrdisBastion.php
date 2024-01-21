@@ -19,19 +19,21 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('When a Character joins your Expeditions — It gains 1 boost$[BB].'),
+      'effectDesc' => clienttranslate('When a Character joins your Expeditions — It gains 1 boost$[BB].'),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPassive' => [
         'ChooseAssignment' => [
           'condition' => 'isCharacterPlayed',
-          'output' => FT::GAIN(EFFECT, BOOST)
+          'output' => FT::GAIN(EFFECT, BOOST),
         ],
         'InvokeToken' => [
           'condition' => 'isCharacterPlayed',
-          'output' => FT::GAIN(EFFECT, BOOST)
+          'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
+      'flavorText' => clienttranslate('A beacon of knowledge and order, a lighthouse towering high above the world.'),
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

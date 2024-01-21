@@ -32,6 +32,7 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
       ]),
       'flavorText' => clienttranslate('In true Axiom fashion, Kelon Elementals like to put everything to the taste.'),
       'typeline' => clienttranslate('Character - Elemental'),
+      'artist' => 'Zero Wen',
     ];
   }
 }

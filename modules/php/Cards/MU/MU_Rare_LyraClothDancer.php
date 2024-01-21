@@ -15,7 +15,7 @@ class MU_Rare_LyraClothDancer extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Lyra Cloth-Dancer'),
+      'name' => clienttranslate('Lyra Cloth Dancer'),
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
@@ -29,6 +29,8 @@ class MU_Rare_LyraClothDancer extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)]),
 
+      'flavorText' => clienttranslate("Hope you\'re not afraid of heights!"),
+      'artist' => 'Ting-Yun',
     ];
   }
 }

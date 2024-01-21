@@ -31,6 +31,8 @@ class OD_Rare_KakobaLegionCommander extends \ALT\Models\Card
         'effect' => FT::GAIN(ME, BOOST, 3),
       ]),
       'typeline' => clienttranslate('Character - Soldier Noble'),
+      'flavorText' => clienttranslate('The general who became a scholar; the scholar who became a senator.'),
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

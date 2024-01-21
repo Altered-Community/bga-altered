@@ -26,6 +26,8 @@ class BR_Rare_SunWukong extends \ALT\Models\Card
       'costReserve' => 4,
       'effectReserve' => FT::SEQ(FT::GAIN($this, BOOST, 2), FT::LOOSE($this, FLEETING)),
       'typeline' => clienttranslate('Character - Deity'),
+      'flavorText' => clienttranslate('Ever the trickster, always the rebel.'),
+      'artist' => 'Kevin Sidharta',
     ];
   }
 }

@@ -22,6 +22,8 @@ class BR_Common_HavenWarrior extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'typeline' => clienttranslate('Character - Soldier'),
+      'flavorText' => clienttranslate("We\'ve all lived through some things. But she\'s been through worse."),
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

@@ -15,7 +15,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Lyra Cloth-Dancer'),
+      'name' => clienttranslate('Lyra Cloth Dancer'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
@@ -28,6 +28,8 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)]),
       'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate("Hope you\'re not afraid of heights!"),
+      'artist' => 'Ting-Yun',
     ];
   }
 }

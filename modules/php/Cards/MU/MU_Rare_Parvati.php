@@ -19,7 +19,9 @@ class MU_Rare_Parvati extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('#{J}# Target Character gains $[ANCHORED].'),
+      'effectDesc' => clienttranslate(
+        '#{J}# Target Character gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+      ),
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
@@ -28,6 +30,8 @@ class MU_Rare_Parvati extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
 
+      'flavorText' => clienttranslate('Only in harmony can the world thrive.'),
+      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

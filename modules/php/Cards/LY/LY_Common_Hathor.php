@@ -32,6 +32,8 @@ class LY_Common_Hathor extends \ALT\Models\Card
         'effect' => FT::RETURN_TO_HAND(),
       ]),
       'typeline' => clienttranslate('Character - Artist Deity'),
+      'flavorText' => clienttranslate('Dance is the language of the soul.'),
+      'artist' => 'Taras Susak',
     ];
   }
 }

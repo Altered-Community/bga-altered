@@ -15,10 +15,10 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Haven, Bravos Bastion'),
+      'name' => 'Haven, Bravos Bastion',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('Your Characters have: "{R} I gain 1 boost$[BB]."'),
+      'effectDesc' => 'Your Characters have: \"{R} I gain 1 boost$[BB].\"',
       'costHand' => 2,
       'costReserve' => 2,
 
@@ -28,7 +28,9 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
-      'typeline' => clienttranslate('Permanent - Landmark'),
+      'typeline' => 'Permanent - Landmark',
+      'flavorText' => "Haven isn\'t where legends are born... it\'s where they live forever.",
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

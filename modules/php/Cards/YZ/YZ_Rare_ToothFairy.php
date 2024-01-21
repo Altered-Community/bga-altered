@@ -32,6 +32,8 @@ class YZ_Rare_ToothFairy extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
+      'flavorText' => clienttranslate("\"Show me those pearly whites.\""),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

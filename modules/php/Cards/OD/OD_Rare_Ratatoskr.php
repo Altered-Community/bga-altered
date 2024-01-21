@@ -37,6 +37,8 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
           'targetLocation' => ['source'],
         ])
       ),
+      'flavorText' => clienttranslate('You’re nuts if you think you can keep up with this little one!'),
+      'artist' => 'Gaga Zhou',
     ];
   }
 }

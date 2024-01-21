@@ -15,10 +15,10 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Amahle, Asgarthan Outcast'),
+      'name' => 'Amahle, Asgarthan Outcast',
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
-      'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to draw a card.'),
+      'effectDesc' => '{J} You may discard a card from your Reserve to draw a card.',
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
@@ -36,7 +36,9 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
         ],
         ['optional' => true]
       ),
-      'typeline' => clienttranslate('Character - Scholar'),
+      'typeline' => 'Character - Scholar',
+      'flavorText' => 'The old world is dying, and the new world struggles to be born: now is the time of monsters.',
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

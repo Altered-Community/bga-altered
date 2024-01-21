@@ -19,7 +19,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.'
+        '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.'
       ),
       'costHand' => 5,
       'costReserve' => 5,
@@ -38,8 +38,9 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
           ]),
         ],
       ],
-      'flavorText' => clienttranslate('What could possibly go wrong with an absorbing, self-replicating cute little robot?'),
+      'flavorText' => clienttranslate('What could possibly go wrong with an adorable little self-replicating autonomous robot?'),
       'typeline' => clienttranslate('Permanent - Landmark'),
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

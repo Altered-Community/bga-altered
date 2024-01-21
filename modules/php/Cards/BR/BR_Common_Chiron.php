@@ -15,17 +15,19 @@ class BR_Common_Chiron extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Chiron'),
+      'name' => 'Chiron',
       'type' => CHARACTER,
       'subtypes' => [TRAINER],
-      'effectDesc' => clienttranslate('{J} Target Character gains 1 boost$[BB].'),
+      'effectDesc' => '{J} Target Character gains 1 boost$[BB].',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
-      'typeline' => clienttranslate('Character - Trainer'),
+      'typeline' => 'Character - Trainer',
+      'flavorText' => "\"And now, pray, mark all these things well in a wise heart.\"",
+      'artist' => 'Justice Wong',
     ];
   }
 }

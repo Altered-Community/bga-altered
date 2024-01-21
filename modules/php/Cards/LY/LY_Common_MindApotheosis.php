@@ -15,7 +15,7 @@ class LY_Common_MindApotheosis extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Mind Apotheosis'),
+      'name' => 'Mind Apotheosis',
       'type' => SPELL,
       'subtypes' => [CONJURATION],
       'effectDesc' => clienttranslate(
@@ -24,7 +24,9 @@ class LY_Common_MindApotheosis extends \ALT\Models\Card
       'costHand' => 9,
       'costReserve' => 9,
       'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'MindApotheosis'])),
-      'typeline' => clienttranslate('Spell - Conjuration'),
+      'typeline' => 'Spell - Conjuration',
+      'flavorText' => 'Who looks outside, dreams; who looks inside, awakes.',
+      'artist' => 'Zero Wen',
     ];
   }
 }

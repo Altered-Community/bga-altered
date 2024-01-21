@@ -15,7 +15,7 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Kelon Cylinder'),
+      'name' => 'Kelon Cylinder',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
@@ -38,7 +38,8 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy, for which engineers find new applications every day.'
       ),
-      'typeline' => clienttranslate('Permanent - Landmark'),
+      'typeline' => 'Permanent - Landmark',
+      'artist' => 'Anh Tung',
     ];
   }
 }

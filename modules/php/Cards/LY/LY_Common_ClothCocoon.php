@@ -15,7 +15,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Cloth Cocoon'),
+      'name' => 'Cloth Cocoon',
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
@@ -31,7 +31,9 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
           'effect' => FT::ACTION(DISCARD, []),
         ])
       ),
-      'typeline' => clienttranslate('Spell - Disruption'),
+      'typeline' => 'Spell - Disruption',
+      'flavorText' => 'Nobody expects... the cloth dancer!',
+      'artist' => 'Zero Wen',
     ];
   }
 }

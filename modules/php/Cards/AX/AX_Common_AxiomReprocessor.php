@@ -18,7 +18,7 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'name' => clienttranslate('Axiom Reprocessor'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Noon — $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('At Noon — $[RESUPPLY].'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPassive' => [
@@ -29,6 +29,7 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       ],
       'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
       'typeline' => clienttranslate('Permanent - Landmark'),
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

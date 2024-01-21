@@ -15,7 +15,7 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Tiny Jinn'),
+      'name' => 'Tiny Jinn',
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
       'effectDesc' => clienttranslate(
@@ -33,7 +33,9 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
           'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true]),
         ],
       ],
-      'typeline' => clienttranslate('Character - Elemental'),
+      'typeline' => 'Character - Elemental',
+      'flavorText' => 'It may be a fire today — tomorrow it will be ashes.',
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

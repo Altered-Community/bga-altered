@@ -32,6 +32,8 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
         FT::ACTION(RESUPPLY, [])
       ),
       'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('This message will self-destruct in five seconds.'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

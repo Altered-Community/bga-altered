@@ -1,8 +1,7 @@
-<?php
 
-namespace ALT\Cards\AX;
+<?php namespace ALT\Cards\AX;
 
-class AX_Rare_FrogPrince extends \ALT\Models\Card
+class AX_Rare_TheFrogPrince extends \ALT\Models\Card
 {
   public function __construct($row)
   {

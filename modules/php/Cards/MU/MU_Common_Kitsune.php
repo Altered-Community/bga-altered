@@ -26,6 +26,8 @@ class MU_Common_Kitsune extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::ACTION(DRAW, []),
       'typeline' => clienttranslate('Character - Spirit'),
+      'flavorText' => clienttranslate("\"Want to play a game of headman-hunter-fox with me? I promise not to cheat!\""),
+      'artist' => 'Gaga Zhou',
     ];
   }
 }

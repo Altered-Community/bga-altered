@@ -15,8 +15,8 @@ class LY_Common_TheSandman extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('The Sandman'),
-      'typeline' => clienttranslate('Character - Artist'),
+      'name' => 'The Sandman',
+      'typeline' => 'Character - Artist',
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate('{H} Up to one target Character gains $[ASLEEP].'),
@@ -27,6 +27,7 @@ class LY_Common_TheSandman extends \ALT\Models\Card
       'costReserve' => 3,
 
       'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, ASLEEP)]),
+      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

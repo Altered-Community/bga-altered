@@ -15,7 +15,7 @@ class AX_Common_Hooked extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Hooked'),
+      'name' => 'Hooked',
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
@@ -24,8 +24,9 @@ class AX_Common_Hooked extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
-      'flavorText' => clienttranslate('Get over here!'),
-      'typeline' => clienttranslate('Spell - Maneuver'),
+      'flavorText' => 'Get over here!',
+      'typeline' => 'Spell - Maneuver',
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

@@ -22,6 +22,10 @@ class MU_Common_Inari extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 2,
       'typeline' => clienttranslate('Character - Deity'),
+      'flavorText' => clienttranslate(
+        'Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. '
+      ),
+      'artist' => 'Matteo Spirito',
     ];
   }
 }

@@ -28,6 +28,8 @@ class BR_Common_Intimidation extends \ALT\Models\Card
         FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
       ),
       'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('The terrible beast shrank and cowered before the might of the Bravos.'),
+      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

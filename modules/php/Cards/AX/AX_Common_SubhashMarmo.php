@@ -15,9 +15,9 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Subhash & Marmo'),
+      'name' => 'Subhash & Marmo',
       'type' => HERO,
-      'typeline' => clienttranslate('Axiom Hero'),
+      'typeline' => 'Hero',
       'effectDesc' => clienttranslate(
         'At Noon — You may pay {1} and put a card from your hand in Reserve to create a [BRASSBUG] Robot token in target Expedition.'
       ),
@@ -44,6 +44,7 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
           ),
         ],
       ],
+      'artist' => 'Taras Susak',
     ];
   }
 }

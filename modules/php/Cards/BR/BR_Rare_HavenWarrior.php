@@ -29,6 +29,8 @@ class BR_Rare_HavenWarrior extends \ALT\Models\Card
       'costReserve' => 3,
       'changedStats' => ['mountain'],
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
+      'flavorText' => clienttranslate("We\'ve all lived through some things. But she\'s been through worse."),
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

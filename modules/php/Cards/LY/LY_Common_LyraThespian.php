@@ -15,19 +15,19 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Lyra Thespian'),
+      'name' => 'Lyra Thespian',
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate(
-        '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$[BB].'
-      ),
+      'effectDesc' => '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$[BB].',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boost3Stat0']),
-      'typeline' => clienttranslate('Character - Artist'),
+      'typeline' => 'Character - Artist',
+      'flavorText' => "\"All the world’s a stage.\"",
+      'artist' => 'Rémi Jacquot',
     ];
   }
 }

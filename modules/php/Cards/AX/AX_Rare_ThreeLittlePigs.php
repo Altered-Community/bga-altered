@@ -39,6 +39,7 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
       ],
       'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
       'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Anh Tung',
     ];
   }
 }

@@ -17,7 +17,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Teija & Nauraa'),
       'type' => HERO,
-      'typeline' => clienttranslate('Muna Hero'),
+      'typeline' => clienttranslate('Hero'),
       'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$[BB].'),
 
       'reserveSlots' => 2,
@@ -29,6 +29,8 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
           'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
         ],
       ],
+      'flavorText' => clienttranslate('Nature must be nurtured to fully express its generosity.'),
+      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

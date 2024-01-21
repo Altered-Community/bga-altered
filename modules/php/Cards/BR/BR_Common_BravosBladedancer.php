@@ -15,10 +15,10 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Bravos Bladedancer'),
+      'name' => 'Bravos Bladedancer',
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('$[SEASONED].  {J} I gain 1 boost.'),
+      'effectDesc' => '$[SEASONED].  {J} I gain 1 boost.',
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
@@ -27,7 +27,9 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
 
       'seasoned' => true,
       'effectPlayed' => FT::GAIN($this, BOOST),
-      'typeline' => clienttranslate('Character - Soldier'),
+      'typeline' => 'Character - Soldier',
+      'flavorText' => "\"It seems Thoth has never seen me duel.\"",
+      'artist' => 'Taras Susak',
     ];
   }
 }

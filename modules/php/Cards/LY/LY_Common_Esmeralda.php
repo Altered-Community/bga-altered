@@ -26,6 +26,8 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::ACTION(RESUPPLY, []),
       'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

@@ -15,10 +15,10 @@ class AX_Common_Athena extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Athena'),
+      'name' => 'Athena',
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{R} If you control two or more Landmarks, I lose [FLEETING_CHAR].'),
+      'effectDesc' => '{R} If you control two or more Landmarks, I lose [FLEETING_CHAR].',
       'forest' => 3,
       'mountain' => 4,
       'ocean' => 4,
@@ -28,8 +28,9 @@ class AX_Common_Athena extends \ALT\Models\Card
         'condition' => 'control2Landmarks',
         'effect' => FT::LOOSE(ME, FLEETING),
       ]),
-      'flavorText' => clienttranslate('I’ve lifted the mist from off your eyes that’s blurred them up to now.'),
-      'typeline' => clienttranslate('Character - Deity'),
+      'flavorText' => "\"I’ve lifted the mist from off your eyes that’s blurred them up to now.\"",
+      'typeline' => 'Character - Deity',
+      'artist' => 'Zero Wen',
     ];
   }
 }

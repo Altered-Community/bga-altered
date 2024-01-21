@@ -13,17 +13,19 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Tomoe Gozen'),
+      'name' => 'Tomoe Gozen',
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('I can\'t be played if you have less than seven Mana Orbs.'),
+      'effectDesc' => 'I can\'t be played if you have less than seven Mana Orbs.',
       'forest' => 2,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 3,
       'costReserve' => 3,
       'minManaOrbs' => 7,
-      'typeline' => clienttranslate('Character - Soldier'),
+      'typeline' => 'Character - Soldier',
+      'flavorText' => "For only the most gifted of Alterers could bring humanity\'s long-remembered legends to life.",
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

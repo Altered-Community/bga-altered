@@ -32,6 +32,8 @@ class LY_Common_Tanuki extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
+      'flavorText' => clienttranslate("\"Pom! Pompoko, pom!\""),
+      'artist' => 'Matteo Spirito',
     ];
   }
 }

@@ -17,7 +17,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Akesha & Taru'),
       'type' => HERO,
-      'typeline' => clienttranslate('Yzmir Hero'),
+      'typeline' => clienttranslate('Hero'),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
@@ -25,7 +25,8 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. You can only activate this if you are the first player.'),
       'effectTap' => FT::ACTION(CHECK_CONDITION, ['condition' => 'isFirstPlayer', 'effect' => FT::ACTION(AFTER_YOU, [])]),
 
-      'flavorText' => clienttranslate('Magic is the essence of wonder!'),
+      'flavorText' => clienttranslate('Whatever ordeals we may face, good manners and politeness are always in fashion!'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

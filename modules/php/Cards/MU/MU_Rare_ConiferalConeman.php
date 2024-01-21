@@ -27,6 +27,8 @@ class MU_Rare_ConiferalConeman extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'typeline' => clienttranslate('Character - Plant'),
+      'flavorText' => clienttranslate("\"Dosukoi! Let’s put it in the ground!\""),
+      'artist' => 'Damian Audino',
     ];
   }
 }

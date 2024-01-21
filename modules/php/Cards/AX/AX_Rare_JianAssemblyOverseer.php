@@ -33,9 +33,10 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
       'flavorText' => clienttranslate(
-        'This material does not seem to be affected by gravity. By harnessing the properties of this Aerolithe, we could create flying ships and cities, and fly close to the clouds...'
+        "\"This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...\""
       ),
       'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

@@ -28,6 +28,8 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 3), '4+' => FT::GAIN(ME, ANCHORED)],
       ]),
       'typeline' => clienttranslate('Character - Deity'),
+      'flavorText' => clienttranslate('Wanna play a game?'),
+      'artist' => 'Zero Wen',
     ];
   }
 }

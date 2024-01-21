@@ -32,6 +32,8 @@ class OD_Common_StickyNoteSeals extends \ALT\Models\Card
         ],
       ]),
       'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('Some lessons stick better than others.'),
+      'artist' => 'Atanas Lozanski',
     ];
   }
 }

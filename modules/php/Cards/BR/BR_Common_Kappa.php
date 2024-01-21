@@ -22,6 +22,8 @@ class BR_Common_Kappa extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'typeline' => clienttranslate('Character - Spirit Trainer'),
+      'flavorText' => clienttranslate("\"Push through the pain. Giving up would hurt far more.\""),
+      'artist' => 'Matteo Spirito',
     ];
   }
 }

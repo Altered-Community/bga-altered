@@ -26,6 +26,8 @@ class YZ_Common_BabaYaga extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(DRAW, ['players' => ME]),
+      'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

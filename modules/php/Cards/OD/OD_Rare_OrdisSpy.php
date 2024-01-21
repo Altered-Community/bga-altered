@@ -31,11 +31,13 @@ class OD_Rare_OrdisSpy extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'effectReserve' =>  FT::ACTION(INVOKE_TOKEN, [
+      'effectReserve' => FT::ACTION(INVOKE_TOKEN, [
         'pId' => $this->getPId(),
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['source'],
       ]),
+      'flavorText' => clienttranslate('Stirred, but not shaken.'),
+      'artist' => 'Matteo Spirito',
     ];
   }
 }

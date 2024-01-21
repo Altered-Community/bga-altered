@@ -27,6 +27,8 @@ class YZ_Rare_BabaYaga extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain'],
       'effectHand' => FT::ACTION(DRAW, ['players' => ME]),
+      'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

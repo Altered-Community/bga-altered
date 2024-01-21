@@ -15,7 +15,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('The Hatter'),
+      'name' => 'The Hatter',
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('(*He can\'t swim.*)'),
@@ -28,7 +28,8 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 5,
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
-      'typeline' => clienttranslate('Character - Citizen'),
+      'typeline' => 'Character - Citizen',
+      'artist' => 'Zero Wen',
     ];
   }
 }

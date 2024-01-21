@@ -13,7 +13,7 @@ class BR_Common_Shenlong extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Shenlong'),
+      'name' => 'Shenlong',
       'type' => CHARACTER,
       'subtypes' => [DRAGON, DEITY],
       'forest' => 8,
@@ -21,7 +21,9 @@ class BR_Common_Shenlong extends \ALT\Models\Card
       'ocean' => 8,
       'costHand' => 6,
       'costReserve' => 6,
-      'typeline' => clienttranslate('Character - Dragon Deity'),
+      'typeline' => 'Character - Dragon Deity',
+      'flavorText' => 'Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.',
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

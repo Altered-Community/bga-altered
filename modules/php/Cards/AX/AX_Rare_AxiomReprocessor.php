@@ -15,10 +15,10 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Axiom Reprocessor'),
+      'name' => 'Axiom Reprocessor',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].'),
+      'effectDesc' => '#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].',
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
@@ -28,8 +28,9 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
-      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
-      'typeline' => clienttranslate('Permanent - Landmark'),
+      'flavorText' => 'Nothing is created, nothing is lost, everything is transformed.',
+      'typeline' => 'Permanent - Landmark',
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

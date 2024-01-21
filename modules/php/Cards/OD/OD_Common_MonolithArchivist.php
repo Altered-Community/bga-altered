@@ -13,17 +13,19 @@ class OD_Common_MonolithArchivist extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Monolith Archivist'),
-      'typeline' => clienttranslate('Character - Bureaucrat'),
+      'name' => 'Monolith Archivist',
+      'typeline' => 'Character - Bureaucrat',
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('$[DEFENDER].'),
+      'effectDesc' => '$[DEFENDER].',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
       'defender' => true,
+      'flavorText' => "\"The form has been filled out incorrectly. Please make a new appointment tomorrow.\"",
+      'artist' => 'Atanas Lozanski',
     ];
   }
 }

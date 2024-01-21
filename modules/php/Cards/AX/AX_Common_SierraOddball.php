@@ -17,13 +17,13 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sierra & Oddball'),
       'type' => HERO,
-      'typeline' => clienttranslate('Axiom Hero'),
+      'typeline' => clienttranslate('Hero'),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
       'effectDesc' => clienttranslate(
-        'When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.'
+        'When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.'
       ),
       'effectPassive' => [
         'ChooseAssignment' => [
@@ -38,7 +38,10 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
           ),
         ],
       ],
-      'flavorText' => clienttranslate('There\'s nothing crazier than seeing what you\'ve built come to life! TEST THAI'),
+      'flavorText' => clienttranslate(
+        "I don\'t know if there\'s a better reward than seeing something you\'ve built come to life."
+      ),
+      'artist' => 'Taras Susak',
     ];
   }
 }

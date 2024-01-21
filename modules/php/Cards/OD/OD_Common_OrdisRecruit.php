@@ -24,6 +24,8 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'costReserve' => 0,
       'costHand' => 0,
       'typeline' => clienttranslate('Token - Soldier'),
+      'flavorText' => clienttranslate('MISSING FLAVOR'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

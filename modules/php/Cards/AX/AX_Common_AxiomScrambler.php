@@ -31,9 +31,10 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
         'effect' => FT::ACTION(DISCARD, []),
       ]),
       'flavorText' => clienttranslate(
-        'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. This is regrettable.'
+        'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.'
       ),
       'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

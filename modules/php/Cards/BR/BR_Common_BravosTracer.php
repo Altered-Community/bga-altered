@@ -18,7 +18,7 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
       'name' => clienttranslate('Bravos Tracer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{J} I gain $[FLEETING_CHAR].'),
+      'effectDesc' => clienttranslate('{J} I gain [FLEETING_CHAR]. (If I would be sent to Reserve, discard me instead.)'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -26,6 +26,8 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::GAIN($this, FLEETING),
       'typeline' => clienttranslate('Character - Adventurer'),
+      'flavorText' => clienttranslate("\"I only feel alive when I hear the wind whistling in my ears.\""),
+      'artist' => 'Justice Wong',
     ];
   }
 }

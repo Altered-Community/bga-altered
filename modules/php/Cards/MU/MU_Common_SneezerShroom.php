@@ -26,6 +26,8 @@ class MU_Common_SneezerShroom extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'typeline' => clienttranslate('Character - Plant'),
+      'flavorText' => clienttranslate("\"Achoo!\""),
+      'artist' => 'Zero Wen',
     ];
   }
 }

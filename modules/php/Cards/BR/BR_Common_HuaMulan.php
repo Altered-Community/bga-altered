@@ -15,17 +15,19 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Hua Mulan'),
+      'name' => 'Hua Mulan',
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{R} I lose [FLEETING_CHAR].'),
+      'effectDesc' => '{R} I lose [FLEETING_CHAR].',
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
       'effectReserve' => FT::LOOSE($this, FLEETING),
-      'typeline' => clienttranslate('Character - Adventurer'),
+      'typeline' => 'Character - Adventurer',
+      'flavorText' => 'Her determination has yet to meet its match in this world.',
+      'artist' => 'Zero Wen',
     ];
   }
 }

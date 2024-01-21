@@ -31,6 +31,8 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
         'effect' => FT::ACTION(DISCARD, []),
       ]),
       'typeline' => clienttranslate('Character - Citizen'),
+      'flavorText' => clienttranslate('Stirred, but not shaken.'),
+      'artist' => 'Matteo Spirito',
     ];
   }
 }

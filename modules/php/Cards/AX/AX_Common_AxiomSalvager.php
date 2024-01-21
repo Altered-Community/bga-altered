@@ -25,8 +25,9 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 2,
       'effectReserve' => FT::ACTION(RESUPPLY, []),
-      'flavorText' => clienttranslate('The Axiom\'s limited ressources pushed them to reuse whatever could be.'),
+      'flavorText' => clienttranslate("The Axiom\'s limited resources pushed them to reuse whatever they could."),
       'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Anh Tung',
     ];
   }
 }

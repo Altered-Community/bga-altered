@@ -26,6 +26,8 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'costReserve' => 4,
       'effectReserve' => FT::GAIN($this, BOOST, 2),
       'typeline' => clienttranslate('Character - Apprentice'),
+      'flavorText' => clienttranslate("\"All right, lad, show me what you’ve learned.\""),
+      'artist' => 'Atanas Lozanski',
     ];
   }
 }

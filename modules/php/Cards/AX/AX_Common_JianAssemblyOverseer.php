@@ -22,9 +22,10 @@ class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'flavorText' => clienttranslate(
-        'This material does not seem to be affected by gravity. By harnessing the properties of this Aerolithe, we could create flying ships and cities, and fly close to the clouds...'
+        "\"This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...\""
       ),
       'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

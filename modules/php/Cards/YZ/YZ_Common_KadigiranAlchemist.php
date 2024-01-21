@@ -26,6 +26,10 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'costReserve' => 1,
       'effectHand' => FT::GAIN($this, BOOST, 2),
       'typeline' => clienttranslate('Character - Mage'),
+      'flavorText' => clienttranslate(
+        "Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self."
+      ),
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

@@ -22,6 +22,10 @@ class LY_Common_LyraChronicler extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate(
+        "Eidolon or human, we are all shaped by stories. They\'re the building blocks of our identity. "
+      ),
+      'artist' => 'Taras Susak',
     ];
   }
 }

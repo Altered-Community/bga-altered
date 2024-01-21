@@ -15,12 +15,10 @@ class OD_Common_Ozma extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Ozma'),
+      'name' => 'Ozma',
       'type' => CHARACTER,
       'subtypes' => [NOBLE],
-      'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)'
-      ),
+      'effectDesc' => '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)',
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 1,
@@ -30,7 +28,9 @@ class OD_Common_Ozma extends \ALT\Models\Card
         'condition' => 'control3OtherCharacters',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
-      'typeline' => clienttranslate('Character - Noble'),
+      'typeline' => 'Character - Noble',
+      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
+      'artist' => 'Taras Susak',
     ];
   }
 }

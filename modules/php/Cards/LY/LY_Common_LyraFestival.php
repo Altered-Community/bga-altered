@@ -15,7 +15,7 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Lyra Festival'),
+      'name' => 'Lyra Festival',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
@@ -30,7 +30,8 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'instantWin']),
         ],
       ],
-      'typeline' => clienttranslate('Permanent - Landmark'),
+      'typeline' => 'Permanent - Landmark',
+      'artist' => 'Fahmi Fauzi',
     ];
   }
 }

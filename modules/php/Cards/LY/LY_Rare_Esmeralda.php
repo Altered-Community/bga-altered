@@ -27,6 +27,8 @@ class LY_Rare_Esmeralda extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'typeline' => clienttranslate('Character - Artist'),
       'changedStats' => ['costReserve'],
+      'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

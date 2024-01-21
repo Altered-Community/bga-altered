@@ -26,6 +26,8 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'costReserve' => 1,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'typeline' => clienttranslate('Character - Plant Animal'),
+      'flavorText' => clienttranslate('Some say the harvesters are the caretakers of the world-trees.'),
+      'artist' => 'Ba Vo',
     ];
   }
 }

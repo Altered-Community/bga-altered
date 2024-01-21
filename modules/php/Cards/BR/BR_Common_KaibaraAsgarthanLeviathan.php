@@ -13,7 +13,7 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Kaibara, Asgarthan Leviathan'),
+      'name' => 'Kaibara, Asgarthan Leviathan',
       'type' => CHARACTER,
       'subtypes' => [LEVIATHAN],
       'effectDesc' => clienttranslate(
@@ -27,7 +27,9 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
 
       'gigantic' => true,
       'dynamicTough' => 'region',
-      'typeline' => clienttranslate('Character - Leviathan'),
+      'typeline' => 'Character - Leviathan',
+      'flavorText' => 'For hundreds of years, Kaibara has protected Asagartha.',
+      'artist' => 'Fahmi Fauzi',
     ];
   }
 }

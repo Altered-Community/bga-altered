@@ -15,11 +15,11 @@ class YZ_Common_ToothFairy extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Tooth Fairy'),
-      'typeline' => clienttranslate('Character - Fairy'),
+      'name' => 'Tooth Fairy',
+      'typeline' => 'Character - Fairy',
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => '{H} $[SABOTAGE].',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -31,6 +31,8 @@ class YZ_Common_ToothFairy extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
+      'flavorText' => "\"Show me those pearly whites.\"",
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

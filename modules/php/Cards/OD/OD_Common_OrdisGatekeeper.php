@@ -25,12 +25,16 @@ class OD_Common_OrdisGatekeeper extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectPlayed' =>  FT::ACTION(INVOKE_TOKEN, [
+      'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
         'pId' => $this->getPId(),
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['oppositeSource'],
       ]),
 
+      'flavorText' => clienttranslate(
+        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.'
+      ),
+      'artist' => 'Atanas Lozanski',
     ];
   }
 }

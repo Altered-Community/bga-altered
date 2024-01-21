@@ -13,15 +13,16 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('The Spindle, Muna Bastion'),
+      'name' => 'The Spindle, Muna Bastion',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('Characters you control have $[TOUGH_2].'),
+      'effectDesc' => 'Characters you control have $[TOUGH_2].',
       'costHand' => 3,
       'costReserve' => 3,
 
       'dynamicTough' => 'universalCharacter2',
-      'typeline' => clienttranslate('Permanent - Landmark'),
+      'typeline' => 'Permanent - Landmark',
+      'artist' => 'Ba Vo',
     ];
   }
 }

@@ -24,7 +24,9 @@ class BR_Rare_Shenlong extends \ALT\Models\Card
       'costHand' => 6,
       'costReserve' => 6,
       'changedStats' => ['forest', 'mountain', 'ocean'],
-      'tough' => 1
+      'tough' => 1,
+      'flavorText' => clienttranslate('Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.'),
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

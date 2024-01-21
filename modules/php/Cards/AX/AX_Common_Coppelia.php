@@ -15,10 +15,10 @@ class AX_Common_Coppelia extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Coppélia'),
+      'name' => 'Coppélia',
       'type' => CHARACTER,
       'subtypes' => [ROBOT],
-      'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].'),
+      'effectDesc' => 'When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 0,
@@ -34,10 +34,9 @@ class AX_Common_Coppelia extends \ALT\Models\Card
           ),
         ],
       ],
-      'flavorText' => clienttranslate(
-        'Because of its artificial nature, it served as a model for the Faction\'s first Automata prototypes.'
-      ),
-      'typeline' => clienttranslate('Character - Robot'),
+      'flavorText' => "Because of her artificial nature, she served as a model for the Faction\'s first Automata prototypes.",
+      'typeline' => 'Character - Robot',
+      'artist' => 'Taras Susak',
     ];
   }
 }

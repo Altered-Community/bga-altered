@@ -15,11 +15,11 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Open the Gates'),
-      'typeline' => clienttranslate('Spell - Maneuver'),
+      'name' => 'Open the Gates',
+      'typeline' => 'Spell - Maneuver',
       'type' => SPELL,
       'subtypes' => [MANEUVER],
-      'effectDesc' => clienttranslate('Create two [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.'),
+      'effectDesc' => 'Create two [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.',
       'costHand' => 5,
       'costReserve' => 6,
       'effectPlayed' => FT::SEQ(
@@ -42,8 +42,9 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
           'pId' => $this->getPId(),
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_RIGHT],
-        ]),
-      )
+        ])
+      ),
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

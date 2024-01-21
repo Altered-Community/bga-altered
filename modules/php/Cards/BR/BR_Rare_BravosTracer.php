@@ -18,7 +18,7 @@ class BR_Rare_BravosTracer extends \ALT\Models\Card
       'name' => clienttranslate('Bravos Tracer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{J} I gain $[FLEETING_CHAR].'),
+      'effectDesc' => clienttranslate('{J} I gain [FLEETING_CHAR]. (If I would be sent to Reserve, discard me instead.)'),
       'forest' => 4,
       'mountain' => 3,
       'ocean' => 4,
@@ -27,6 +27,8 @@ class BR_Rare_BravosTracer extends \ALT\Models\Card
       'changedStats' => ['forest', 'ocean'],
       'effectPlayed' => FT::GAIN($this, FLEETING),
       'typeline' => clienttranslate('Character - Adventurer'),
+      'flavorText' => clienttranslate("\"I only feel alive when I hear the wind whistling in my ears.\""),
+      'artist' => 'Justice Wong',
     ];
   }
 }

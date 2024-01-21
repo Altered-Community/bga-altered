@@ -15,8 +15,8 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Ouroboros Inkcaster'),
-      'typeline' => clienttranslate('Character - Artist'),
+      'name' => 'Ouroboros Inkcaster',
+      'typeline' => 'Character - Artist',
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
@@ -42,6 +42,8 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
           ),
         ],
       ],
+      'flavorText' => 'When luck joins in the game, cleverness scores double. ',
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }

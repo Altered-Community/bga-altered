@@ -15,10 +15,10 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Ada Lovelace'),
+      'name' => 'Ada Lovelace',
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{R} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.'),
+      'effectDesc' => '{R} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.',
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,
@@ -40,10 +40,9 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => ['condition' => 'isSourceAndDiscardPermanent', 'output' => FT::ACTION(DRAW, ['players' => ME])],
       ],
-      'flavorText' => clienttranslate(
-        'Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.'
-      ),
-      'typeline' => clienttranslate('Character - Engineer'),
+      'flavorText' => "\"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.\"",
+      'typeline' => 'Character - Engineer',
+      'artist' => 'Taras Susak',
     ];
   }
 }

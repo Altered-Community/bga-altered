@@ -33,13 +33,17 @@ class LY_Rare_Tanuki extends \ALT\Models\Card
         'effect' => FT::ACTION(DISCARD, []),
       ]),
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
-        'effect' => ['4+' => FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER, SPELL, PERMANENT],
-          'targetLocation' => [RESERVE],
-          'upTo' => true,
-          'effect' => FT::ACTION(DISCARD, []),
-        ])]
+        'effect' => [
+          '4+' => FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(DISCARD, []),
+          ]),
+        ],
       ]),
+      'flavorText' => clienttranslate("\"Pom! Pompoko, pom!\""),
+      'artist' => 'Matteo Spirito',
     ];
   }
 }

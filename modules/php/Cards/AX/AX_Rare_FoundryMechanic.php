@@ -17,7 +17,7 @@ class AX_Rare_FoundryMechanic extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'flavorText' => clienttranslate('You can\'t choose when and where a quick fix is needed.'),
+      'flavorText' => clienttranslate("You can\'t choose when and where a quick fix will be needed."),
       'supportDesc' => clienttranslate(
         '{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
@@ -31,6 +31,7 @@ class AX_Rare_FoundryMechanic extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
+      'artist' => 'Fahmi Fauzi',
     ];
   }
 }

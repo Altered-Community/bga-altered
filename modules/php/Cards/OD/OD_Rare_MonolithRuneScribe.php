@@ -26,7 +26,9 @@ class OD_Rare_MonolithRuneScribe extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest'],
-      'effectHand' => FT::ACTION(CHECK_CONDITION, ['condition' => 'control1Token', 'effect' => FT::ACTION(RESUPPLY, [])])
+      'effectHand' => FT::ACTION(CHECK_CONDITION, ['condition' => 'control1Token', 'effect' => FT::ACTION(RESUPPLY, [])]),
+      'flavorText' => clienttranslate('The Ordis manifest their Alteration through the use of glyphs of power.'),
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

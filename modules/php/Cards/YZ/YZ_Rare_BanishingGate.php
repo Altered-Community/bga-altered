@@ -15,16 +15,18 @@ class YZ_Rare_BanishingGate extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Banishing Gate'),
-      'typeline' => clienttranslate('Spell - Disruption'),
+      'name' => 'Banishing Gate',
+      'typeline' => 'Spell - Disruption',
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => clienttranslate('Discard target Character or Permanent.'),
+      'effectDesc' => 'Discard target Character or Permanent.',
       'costHand' => 4,
       'costReserve' => 5,
       'changedStats' => ['costReserve'],
-      'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
+      'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
 
+      'flavorText' => 'Let me walk you to the door.',
+      'artist' => 'MISSING ARTIST',
     ];
   }
 }
