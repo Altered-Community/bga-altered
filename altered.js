@@ -72,6 +72,7 @@ define([
         ['pay', 100],
         ['gainCounter', 1400],
         ['useCounter', 1400],
+        ['deleteCounter', 500],
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],
         ['targetCards', 500],
@@ -1025,6 +1026,7 @@ define([
       };
 
       let t = args._private;
+
       if (t.play) {
         Object.keys(t.play).forEach((cardId) => {
           // ALREADY SELECTED CARD

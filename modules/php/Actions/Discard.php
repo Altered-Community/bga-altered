@@ -158,12 +158,10 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(
-          array_diff(
-            $cardIds,
-            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
-          )
-        )
+        !empty(array_diff(
+          $cardIds,
+          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+        ))
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -189,6 +187,10 @@ class Discard extends \ALT\Models\Action
       // $totalCost += $card->getCostHand();
       if ($card->getLocation() == HAND) {
         $hand = true;
+      }
+      if (!is_null($card->getExtraDatas()['counterName'] ?? null)) {
+        $card->setExtraDatas([]);
+        Notifications::deleteCounter($card);
       }
     }
     $cards = Cards::getMany($cardIds);
