@@ -1,0 +1,26 @@
+<?php
+namespace ALT\Cards\OD;
+
+class OD_Common_OrdisCarrier extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_OR_30_C',
+      'asset' => 'ALT_CORE_B_OR_30_C',
+
+      'faction' => FACTION_OD,
+      'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Ordis Carrier'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'type' => PERMANENT,
+      'flavorText' => clienttranslate('The flow of Ordis Recruits seems to go on forever.'),
+      'artist' => 'Taras Susak',
+      'subtypes' => [LANDMARK],
+      'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Companion Expedition.'),
+      'costHand' => 3,
+      'costReserve' => 3,
+    ];
+  }
+}
