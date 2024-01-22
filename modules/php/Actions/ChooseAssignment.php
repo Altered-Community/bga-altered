@@ -110,9 +110,9 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     if ($free == false) {
-      // Pay cost
+
+      // Calculate cost
       $cost = $card->getCost();
-      $player->payMana($cost);
       $costReduction = Globals::getCostReduction();
       if (isset($costReduction[$player->getId()][$card->getType()])) {
         unset($costReduction[$player->getId()][$card->getType()]);
@@ -121,6 +121,30 @@ class ChooseAssignment extends \ALT\Models\Action
         unset($costReduction[$player->getId()][ALL]);
       }
       Globals::setCostReduction($costReduction);
+
+      // management of CostReductionDiscard, discarding a card from reserve to reduce cost
+      if ($card->getCostReductionDiscard() > 0) {
+        $this->insertAsChild(
+          FT::SEQ(
+            FT::XOR(
+              FT::ACTION(
+                PAY,
+                ['pay' => $cost]
+              ),
+              FT::SEQ(
+                FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'targetPlayer' => ME, 'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])], ['sourceId' => $cardId]),
+                FT::ACTION(PAY, ['pay' => $cost - $card->getCostReductionDiscard()]),
+              )
+            ),
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true])
+          )
+        );
+        $this->resolveAction(['CostReduction']);
+        return;
+      }
+
+      // Pay cost
+      $player->payMana($cost);
     } else {
       $cost = 0;
     }
@@ -189,7 +213,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['support'];
 
     if (!in_array($cardId, $args)) {
-      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be played as support. Should not happen');
     }
 
     $card = Cards::get($cardId);

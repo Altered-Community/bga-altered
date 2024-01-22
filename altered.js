@@ -59,6 +59,7 @@ define([
         ['pDiscardCards', null],
         ['publicDiscard', null],
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
+        ['putInDeck', 400],
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
         ['supportEffect', 100],

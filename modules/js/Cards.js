@@ -692,6 +692,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    notif_putInDeck(n) {
+      debug('Notification: put on top of deck', n);
+      // TODO
+    },
+
     /**
      * stealingCard : slighty different => move card to other player panel and destroy it
      */
