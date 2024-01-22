@@ -18,11 +18,13 @@ class LY_Common_PaintPrison extends \ALT\Models\Card
       'name' => clienttranslate('Paint Prison'),
       'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
+      'flavorText' => clienttranslate('Your problem is a lack of perspective.'),
+      'artist' => 'Justice Wong',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
         '$[FLEETING].  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner\'s deck.'
       ),
-      'costHand' => 3,
+      'costHand' => 5,
       'costReserve' => 5,
       'costReductionDiscard' => 2,
       'effectPlayed' => FT::ACTION(
