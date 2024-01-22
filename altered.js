@@ -1218,8 +1218,11 @@ define([
       };
 
       args.locations.forEach((location, i) => {
+        debug(location);
         this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
-        this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+        if (location == 'stormLeft' || location == 'stormRight') {
+          this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+        }
       });
     },
 
