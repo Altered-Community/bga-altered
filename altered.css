@@ -1402,18 +1402,45 @@ html {
 .player-board-hero .altered-card:not(.force-frame).card-spell,
 .player-board-hero .altered-card:not(.force-frame).card-spell .altered-card-wrapper,
 .player-board-hero .altered-card:not(.force-frame).card-spell .altered-card-wrapper .card-frame {
-  border-radius: 50%; }
+  border-top-left-radius: 25% 50%;
+  border-top-right-radius: 25% 50%;
+  border-bottom-left-radius: 25% 50%;
+  border-bottom-right-radius: 25% 50%; }
 .altered-card.no-frame:not(.force-frame).card-permanent,
-.altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper,
-.altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper .card-frame,
 .altered-card.mini-card:not(.force-frame).card-permanent,
-.altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper,
-.altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame,
-.player-board-hero .altered-card:not(.force-frame).card-permanent,
-.player-board-hero .altered-card:not(.force-frame).card-permanent .altered-card-wrapper,
-.player-board-hero .altered-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame {
-  border-bottom-left-radius: 40px 100px;
-  border-bottom-right-radius: 40px 100px; }
+.player-board-hero .altered-card:not(.force-frame).card-permanent {
+  box-shadow: none; }
+  .altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper,
+  .altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper,
+  .player-board-hero .altered-card:not(.force-frame).card-permanent .altered-card-wrapper {
+    clip-path: polygon(-15% -15%, 100% -15%, 100% 60%, 91% 70%, 91% 100%, 9% 100%, 9% 70%, 0% 60%, 0% 20%, -15% 20%); }
+    .altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type="permanent"][data-size][data-support],
+    .altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type="permanent"][data-size][data-support],
+    .player-board-hero .altered-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type="permanent"][data-size][data-support] {
+      background: url("img/permanent-borders.png");
+      background-position: 0% 0%;
+      background-position: 0% 0%;
+      background-size: 100% 300%;
+      border: none;
+      border-radius: 0px; }
+      .altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type="permanent"][data-size][data-support][data-rarity="1"],
+      .altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type="permanent"][data-size][data-support][data-rarity="1"],
+      .player-board-hero .altered-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type="permanent"][data-size][data-support][data-rarity="1"] {
+        background-position-y: 50%; }
+  .altered-card.no-frame:not(.force-frame).card-permanent::after,
+  .altered-card.mini-card:not(.force-frame).card-permanent::after,
+  .player-board-hero .altered-card:not(.force-frame).card-permanent::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    right: -16px;
+    bottom: -17px;
+    background: url("img/permanent-shadow.png");
+    z-index: -1;
+    background-size: 100%;
+    background-repeat: no-repeat; }
 .altered-card.no-frame:not(.force-frame) .help-marker,
 .altered-card.mini-card:not(.force-frame) .help-marker,
 .player-board-hero .altered-card:not(.force-frame) .help-marker {
@@ -2101,102 +2128,156 @@ html {
       #altered-main-container #altered-board-resizable #altered-board #altered-board-me {
         width: 1530px;
         height: 486px; }
-      #altered-main-container #altered-board-resizable #altered-board #storm-container {
-        width: 1299px;
-        height: 186px;
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        grid-template-rows: 1fr;
-        padding: 0px 121px;
-        position: relative; }
-        #altered-main-container #altered-board-resizable #altered-board #storm-container #roll-dice-container {
-          z-index: 200;
+      #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper {
+        position: relative;
+        left: 34px;
+        top: 5px; }
+        #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator {
           position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          transform: translateX(-400px) translateY(-291px);
-          pointer-events: none; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container #roll-dice-container .dice-wrapper {
-            margin: 5px 15px; }
-        #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container {
-          grid-row: 1 / span 1;
-          grid-column-end: span 2;
-          transition: opacity 0.7s, filter 0.7s; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(1) {
-            grid-column-start: 1; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(2) {
-            grid-column-start: 3; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(3) {
-            grid-column-start: 5; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(4) {
-            grid-column-start: 7; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container:nth-child(5) {
-            grid-column-start: 9; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container.useless {
-            opacity: 0.4;
-            filter: brightness(50%) grayscale(80%);
-            -webkit-transform: translateZ(0);
-            -webkit-perspective: 1000;
-            -webkit-backface-visibility: hidden; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card {
-            width: 260px;
+          width: 309px;
+          height: 186px; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel {
+            position: absolute;
+            top: 0px;
+            left: 21px;
+            width: 100px;
             height: 186px;
-            background-image: url("img/storm.jpg");
-            background-size: 100% 700%;
-            border-radius: 7px; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="0"] {
-              background-position-y: 0%; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="1"] {
-              background-position-y: 16.6666666667%; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="2"] {
-              background-position-y: 33.3333333333%; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="3"] {
-              background-position-y: 50%; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="4"] {
-              background-position-y: 66.6666666667%; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="5"] {
-              background-position-y: 83.3333333333%; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-id="6"] {
-              background-position-y: 100%; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-card-container .storm-card[data-flipped="1"] {
-              transform: rotate(180deg); }
-        #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space {
-          grid-column-end: span 1;
-          grid-row: 1 / span 1; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-0 {
-            grid-column-start: 2;
-            margin-left: -30px; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-1 {
-            grid-column-start: 3; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-2 {
-            grid-column-start: 4; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-3 {
-            grid-column-start: 5; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-4 {
-            grid-column-start: 6; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-5 {
-            grid-column-start: 7; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-6 {
-            grid-column-start: 8; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space#storm-7 {
-            grid-column-start: 9;
-            margin-right: -30px; }
-          #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space .storm-slot {
-            width: 100%;
-            height: 93px;
-            border-radius: 10px;
+            overflow: hidden; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel::before {
+              content: "";
+              display: block;
+              width: 186px;
+              height: 186px;
+              background: url("img/day-indicator-wheel.png");
+              background-size: 100%;
+              transform-origin: center center;
+              transition: transform 0.5s; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="0"]::before {
+              transform: rotate(0deg); }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="1"]::before {
+              transform: rotate(71deg); }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="2"]::before {
+              transform: rotate(146deg); }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="3"]::before {
+              transform: rotate(213deg); }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="4"]::before {
+              transform: rotate(288deg); }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="5"]::before {
+              transform: rotate(360deg); }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame {
+            width: 309px;
+            height: 186px;
+            background: url("img/day-indicator-cache.png");
+            background-size: auto 100%;
+            position: absolute;
+            z-index: 10;
+            left: 17px; }
+        #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-end-frame {
+          width: 109px;
+          height: 186px;
+          background: url("img/day-indicator-cache.png");
+          background-size: auto 100%;
+          position: absolute;
+          z-index: 10;
+          right: 110px;
+          top: 0px;
+          background-position: right center; }
+        #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container {
+          position: absolute;
+          width: 1299px;
+          height: 186px;
+          display: grid;
+          grid-template-columns: repeat(10, 1fr);
+          grid-template-rows: 1fr;
+          padding: 0px 121px;
+          position: relative; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container #roll-dice-container {
+            z-index: 200;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-sizing: border-box;
-            padding: 30px 5px 9px; }
-            #altered-main-container #altered-board-resizable #altered-board #storm-container .storm-space .storm-slot:nth-child(2) {
-              padding: 9px 5px 30px; }
+            transform: translateX(-400px) translateY(-291px);
+            pointer-events: none; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container #roll-dice-container .dice-wrapper {
+              margin: 5px 15px; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container {
+            grid-row: 1 / span 1;
+            grid-column-end: span 2;
+            transition: opacity 0.7s, filter 0.7s; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container:nth-child(1) {
+              grid-column-start: 1; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container:nth-child(2) {
+              grid-column-start: 3; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container:nth-child(3) {
+              grid-column-start: 5; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container:nth-child(4) {
+              grid-column-start: 7; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container:nth-child(5) {
+              grid-column-start: 9; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container.useless {
+              opacity: 0.4;
+              filter: brightness(50%) grayscale(80%);
+              -webkit-transform: translateZ(0);
+              -webkit-perspective: 1000;
+              -webkit-backface-visibility: hidden; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card {
+              width: 260px;
+              height: 186px;
+              background-image: url("img/storm.jpg");
+              background-size: 100% 700%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-id="0"] {
+                background-position-y: 0%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-id="1"] {
+                background-position-y: 16.6666666667%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-id="2"] {
+                background-position-y: 33.3333333333%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-id="3"] {
+                background-position-y: 50%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-id="4"] {
+                background-position-y: 66.6666666667%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-id="5"] {
+                background-position-y: 83.3333333333%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-id="6"] {
+                background-position-y: 100%; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container .storm-card[data-flipped="1"] {
+                transform: rotate(180deg); }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space {
+            grid-column-end: span 1;
+            grid-row: 1 / span 1; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-0 {
+              grid-column-start: 2;
+              margin-left: -30px; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-1 {
+              grid-column-start: 3; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-2 {
+              grid-column-start: 4; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-3 {
+              grid-column-start: 5; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-4 {
+              grid-column-start: 6; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-5 {
+              grid-column-start: 7; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-6 {
+              grid-column-start: 8; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space#storm-7 {
+              grid-column-start: 9;
+              margin-right: -30px; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space .storm-slot {
+              width: 100%;
+              height: 93px;
+              border-radius: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              box-sizing: border-box;
+              padding: 30px 5px 9px; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-space .storm-slot:nth-child(2) {
+                padding: 9px 5px 30px; }
 
 .altered-player-board {
   width: 1530px;
@@ -2240,9 +2321,9 @@ html {
     border: 2px solid transparent;
     border-radius: 5px; }
     .altered-player-board .player-board-storm.storm-left {
-      left: 262px; }
+      left: 289px; }
     .altered-player-board .player-board-storm.storm-right {
-      left: 837px; }
+      left: 871px; }
     .altered-player-board .player-board-storm.selectable {
       border: 2px solid #59ac44;
       background: rgba(24, 219, 24, 0.2);
@@ -2356,7 +2437,7 @@ html {
       .altered-player-board .player-board-storm .total-biomes .total-ocean.bigger ~ .total-biomes-highlights .total-ocean-highlight {
         box-shadow: 0px 0px 9px 5px #ff0; }
     .altered-player-board .player-board-storm.storm-right .total-biomes {
-      left: 480px; }
+      left: 492px; }
     .altered-player-board .player-board-storm.storm-right .total-forest,
     .altered-player-board .player-board-storm.storm-right .total-mountain,
     .altered-player-board .player-board-storm.storm-right .total-ocean {
@@ -2382,7 +2463,7 @@ html {
   .altered-player-board .player-board-discard {
     width: 120px;
     position: absolute;
-    left: 120px;
+    left: 150px;
     cursor: zoom-in; }
     .altered-player-board .player-board-discard .altered-card {
       position: absolute;
@@ -2392,7 +2473,7 @@ html {
       -webkit-backface-visibility: hidden; }
   .altered-player-board .player-board-deck {
     width: 120px;
-    left: 247px;
+    left: 271px;
     position: absolute; }
     .altered-player-board .player-board-deck .altered-card {
       position: absolute;
@@ -2419,7 +2500,7 @@ html {
         font-size: 26px; }
   .altered-player-board .player-board-mana-wrapper {
     position: absolute;
-    left: 57px;
+    left: 80px;
     display: flex;
     width: 60px;
     height: 495px; }
@@ -2447,7 +2528,7 @@ html {
         margin: 3px 0px; }
     .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge {
       display: flex;
-      padding: 4px 2px;
+      padding: 4px 6px 4px 2px;
       flex-grow: 1;
       align-items: center;
       z-index: 99; }
@@ -2455,25 +2536,25 @@ html {
         transition: transform 0.6s ease-in, left 0.6s ease-in, top 0.6s ease-in;
         z-index: 99; }
       .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge .mana-gauge-slot {
-        width: 42px;
-        height: 20px;
+        width: 34px;
+        height: 16px;
         background: #153038;
-        margin: 1px 0px;
+        margin: 2px 0px;
         border-radius: 8px;
         border: 1px solid #009ee3; }
         .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge .mana-gauge-slot .mana-gem {
           display: none;
-          width: 42px;
-          height: 20px;
+          width: 34px;
+          height: 16px;
           background: #009ee3;
           border-radius: 6px; }
         .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge .mana-gauge-slot.available .mana-gem {
           display: block; }
   .altered-player-board .player-board-grass {
     position: absolute;
-    width: 1027px;
+    width: 1046px;
     height: 165px;
-    left: 380px;
+    left: 413px;
     display: flex; }
     .altered-player-board .player-board-grass .player-board-reserve {
       display: flex;
@@ -2490,22 +2571,20 @@ html {
         width: calc(106.92px + 14px);
         height: calc(106.92px + 10px); }
     .altered-player-board .player-board-grass .player-board-separator {
-      width: 40px;
-      height: 185px;
+      width: 28px;
+      height: 165px;
       background: url("img/separator-reserve-landmark.png");
       background-size: 100% 100%; }
     .altered-player-board .player-board-grass .player-board-landmarks {
-      min-width: 298px;
+      min-width: 276px;
       background: url("img/landmark-slot.png");
-      background-size: auto 100%;
+      background-size: auto 95%;
       background-repeat: repeat-x;
       display: flex;
       flex-flow: row-reverse;
       align-items: center;
       border: 2px solid transparent;
       border-radius: 7px; }
-      .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
-        margin: 3px 21px; }
       .altered-player-board .player-board-grass .player-board-landmarks.selectable {
         border: 2px solid #59ac44;
         background-color: rgba(24, 219, 24, 0.2);
@@ -2521,7 +2600,7 @@ html {
       position: absolute;
       width: 110px;
       height: 150px;
-      left: 750px;
+      left: 780px;
       z-index: 40;
       pointer-events: none; }
       .altered-player-board .player-board-hand .player-board-limbo .altered-card {
@@ -2570,16 +2649,16 @@ html {
         z-index: 30; }
 
 #altered-board-opponent .altered-player-board .player-board-hero {
-  top: 313px;
-  left: 711px; }
+  top: 310px;
+  left: 745px; }
 #altered-board-opponent .altered-player-board .player-board-storm {
-  top: 316px; }
+  top: 309px; }
 #altered-board-opponent .altered-player-board .player-board-deck {
-  top: 145px; }
+  top: 136px; }
 #altered-board-opponent .altered-player-board .player-board-discard {
-  top: 135px; }
+  top: 131px; }
 #altered-board-opponent .altered-player-board .player-board-mana-wrapper {
-  top: 0px;
+  top: -2px;
   flex-flow: column; }
   #altered-board-opponent .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge {
     flex-flow: column-reverse; }
@@ -2588,44 +2667,53 @@ html {
 #altered-board-opponent .altered-player-board .player-board-hand {
   bottom: 370px; }
   #altered-board-opponent .altered-player-board .player-board-hand .player-board-limbo {
-    top: 50px; }
+    top: 130px; }
 #altered-board-opponent .altered-player-board .player-board-grass {
   top: 129px; }
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-reserve {
     align-items: flex-end;
-    padding-bottom: 5px;
-    padding-left: 35px; }
+    padding-bottom: 10px;
+    padding-left: 22px; }
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-separator {
-    margin-bottom: -20px; }
+    margin-top: 13px;
+    margin-right: 5px; }
+  #altered-board-opponent .altered-player-board .player-board-grass .player-board-landmarks {
+    background-position: -6px 21px; }
+    #altered-board-opponent .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
+      margin: 40px 27px 0px 4px; }
 
 #altered-board-me .altered-player-board .player-board-hero {
-  top: 18px;
-  left: 711px; }
+  top: 42px;
+  left: 745px; }
 #altered-board-me .altered-player-board .player-board-storm {
-  top: 61px; }
+  top: 67px; }
   #altered-board-me .altered-player-board .player-board-storm .total-biomes {
-    top: -30px; }
+    top: -26px; }
 #altered-board-me .altered-player-board .player-board-deck {
-  top: 200px; }
+  top: 211px; }
 #altered-board-me .altered-player-board .player-board-discard {
-  top: 200px; }
+  top: 216px; }
 #altered-board-me .altered-player-board .player-board-mana-wrapper {
-  top: 0px;
+  top: 7px;
   flex-flow: column-reverse; }
 #altered-board-me .altered-player-board .player-board-mana-gauge {
   flex-flow: column; }
 #altered-board-me .altered-player-board .player-board-hand {
   top: 370px; }
   #altered-board-me .altered-player-board .player-board-hand .player-board-limbo {
-    top: -300px; }
+    top: -265px; }
 #altered-board-me .altered-player-board .player-board-grass {
-  top: 193px; }
+  top: 202px; }
   #altered-board-me .altered-player-board .player-board-grass .player-board-reserve {
     align-items: flex-start;
-    padding-top: 20px;
-    padding-left: 35px; }
+    padding-top: 15px;
+    padding-left: 22px; }
   #altered-board-me .altered-player-board .player-board-grass .player-board-separator {
     margin-top: -20px; }
+  #altered-board-me .altered-player-board .player-board-grass .player-board-landmarks {
+    background-position: -6px -15px; }
+    #altered-board-me .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
+      margin: -31px 27px 0px 4px; }
 
 .player-name svg {
   width: 25px;

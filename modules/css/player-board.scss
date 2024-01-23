@@ -63,10 +63,10 @@
         justify-content: center;
         align-items: center;
         &.storm-left {
-            left: 262px;
+            left: 289px;
         }
         &.storm-right {
-            left: 837px;
+            left: 871px;
         }
 
         border: 2px solid transparent;
@@ -216,7 +216,7 @@
 
         &.storm-right {
             .total-biomes {
-                left: 480px;
+                left: 492px;
             }
 
             .total-forest,
@@ -250,7 +250,7 @@
     .player-board-discard {
         width: $cardWidth + 2 * $boardMargin;
         position: absolute;
-        left: 120px;
+        left: 150px;
         cursor: zoom-in;
 
         .altered-card {
@@ -264,7 +264,7 @@
 
     .player-board-deck {
         width: $cardWidth + 2 * $boardMargin;
-        left: 247px;
+        left: 271px;
         position: absolute;
 
         .altered-card {
@@ -301,7 +301,7 @@
 
     .player-board-mana-wrapper {
         position: absolute;
-        left: 57px;
+        left: 80px;
         display: flex;
         width: 60px;
         height: 495px;
@@ -339,7 +339,7 @@
 
         .player-board-mana-gauge {
             display: flex;
-            padding: 4px 2px;
+            padding: 4px 6px 4px 2px;
             flex-grow: 1;
             align-items: center;
             z-index: 99;
@@ -353,17 +353,17 @@
             }
 
             .mana-gauge-slot {
-                width: 42px;
-                height: 20px;
+                width: 34px;
+                height: 16px;
                 background: #153038;
-                margin: 1px 0px;
+                margin: 2px 0px;
                 border-radius: 8px;
                 border: 1px solid #009ee3;
 
                 .mana-gem {
                     display: none;
-                    width: 42px;
-                    height: 20px;
+                    width: 34px;
+                    height: 16px;
                     background: #009ee3;
                     border-radius: 6px;
                 }
@@ -377,9 +377,9 @@
 
     .player-board-grass {
         position: absolute;
-        width: 1027px;
+        width: 1046px;
         height: 165px;
-        left: 380px;
+        left: 413px;
         display: flex;
 
         .player-board-reserve {
@@ -412,25 +412,21 @@
         }
 
         .player-board-separator {
-            width: 40px;
-            height: 185px;
+            width: 28px;
+            height: 165px;
             background: url("img/separator-reserve-landmark.png");
             background-size: 100% 100%;
         }
         .player-board-landmarks {
-            min-width: 298px;
+            min-width: 276px;
             background: url("img/landmark-slot.png");
-            background-size: auto 100%;
+            background-size: auto 95%;
             background-repeat: repeat-x;
             display: flex;
             flex-flow: row-reverse;
             align-items: center;
             border: 2px solid transparent;
             border-radius: 7px;
-
-            .altered-card {
-                margin: 3px 21px;
-            }
 
             &.selectable {
                 border: 2px solid rgb(89, 172, 68);
@@ -454,7 +450,7 @@
             position: absolute;
             width: $cardWidth;
             height: $cardHeight;
-            left: 750px;
+            left: 780px;
             z-index: 40;
             pointer-events: none;
 
@@ -546,23 +542,23 @@
 
 #altered-board-opponent .altered-player-board {
     .player-board-hero {
-        top: 313px;
-        left: 711px;
+        top: 310px;
+        left: 745px;
     }
 
     .player-board-storm {
-        top: 316px;
+        top: 309px;
     }
 
     .player-board-deck {
-        top: 145px;
+        top: 136px;
     }
     .player-board-discard {
-        top: 135px;
+        top: 131px;
     }
 
     .player-board-mana-wrapper {
-        top: 0px;
+        top: -2px;
         flex-flow: column;
         .player-board-mana-gauge {
             flex-flow: column-reverse;
@@ -579,7 +575,7 @@
         }
 
         .player-board-limbo {
-            top: 50px;
+            top: 130px;
         }
     }
 
@@ -587,39 +583,48 @@
         top: 129px;
         .player-board-reserve {
             align-items: flex-end;
-            padding-bottom: 5px;
-            padding-left: 35px;
+            padding-bottom: 10px;
+            padding-left: 22px;
         }
 
         .player-board-separator {
-            margin-bottom: -20px;
+            margin-top: 13px;
+            margin-right: 5px;
+        }
+
+        .player-board-landmarks {
+            background-position: -6px 21px;
+
+            .altered-card {
+                margin: 40px 27px 0px 4px;
+            }
         }
     }
 }
 
 #altered-board-me .altered-player-board {
     .player-board-hero {
-        top: 18px;
-        left: 711px;
+        top: 42px;
+        left: 745px;
     }
 
     .player-board-storm {
-        top: 61px;
+        top: 67px;
 
         .total-biomes {
-            top: -30px;
+            top: -26px;
         }
     }
 
     .player-board-deck {
-        top: 200px;
+        top: 211px;
     }
     .player-board-discard {
-        top: 200px;
+        top: 216px;
     }
 
     .player-board-mana-wrapper {
-        top: 0px;
+        top: 7px;
         flex-flow: column-reverse;
     }
     .player-board-mana-gauge {
@@ -629,20 +634,28 @@
     .player-board-hand {
         top: 370px;
         .player-board-limbo {
-            top: -300px;
+            top: -265px;
         }
     }
 
     .player-board-grass {
-        top: 193px;
+        top: 202px;
         .player-board-reserve {
             align-items: flex-start;
-            padding-top: 20px;
-            padding-left: 35px;
+            padding-top: 15px;
+            padding-left: 22px;
         }
 
         .player-board-separator {
             margin-top: -20px;
+        }
+
+        .player-board-landmarks {
+            background-position: -6px -15px;
+
+            .altered-card {
+                margin: -31px 27px 0px 4px;
+            }
         }
     }
 }

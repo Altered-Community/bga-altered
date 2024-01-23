@@ -22,116 +22,190 @@
                 height: 486px;
             }
 
-            #storm-container {
-                width: 1299px;
-                height: 186px;
-                display: grid;
-                grid-template-columns: repeat(10, 1fr);
-                grid-template-rows: 1fr;
-                padding: 0px 121px;
+            #middle-line-wrapper {
                 position: relative;
+                left: 34px;
+                top: 5px;
 
-                #roll-dice-container {
-                    z-index: 200;
+                #day-indicator {
                     position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    transform: translateX(-400px) translateY(-291px);
-                    pointer-events: none;
+                    width: 309px;
+                    height: 186px;
 
-                    .dice-wrapper {
-                        margin: 5px 15px;
-                    }
-                }
-
-                .storm-card-container {
-                    grid-row: 1 / span 1;
-                    grid-column-end: span 2;
-                    @for $i from 1 through 5 {
-                        &:nth-child(#{$i}) {
-                            grid-column-start: 2 * $i - 1;
-                        }
-                    }
-
-                    transition:
-                        opacity 0.7s,
-                        filter 0.7s;
-                    &.useless {
-                        opacity: 0.4;
-                        filter: brightness(50%) grayscale(80%);
-                        -webkit-transform: translateZ(0);
-                        -webkit-perspective: 1000;
-                        -webkit-backface-visibility: hidden;
-                    }
-
-                    .storm-card {
-                        width: 260px;
+                    #day-indicator-wheel {
+                        position: absolute;
+                        top: 0px;
+                        left: 21px;
+                        width: 100px;
                         height: 186px;
-                        background-image: url("img/storm.jpg");
-                        background-size: 100% 700%;
-                        border-radius: 7px;
+                        overflow: hidden;
 
-                        @for $i from 0 to 7 {
-                            &[data-id="#{$i}"] {
-                                background-position-y: $i * 100% / 6;
-                            }
+                        &::before {
+                            content: "";
+                            display: block;
+                            width: 186px;
+                            height: 186px;
+                            background: url("img/day-indicator-wheel.png");
+                            background-size: 100%;
+                            transform-origin: center center;
+                            transition: transform 0.5s;
                         }
 
-                        &[data-flipped="1"] {
-                            transform: rotate(180deg);
+                        &[data-phase="0"]::before {
+                            transform: rotate(0deg);
                         }
+                        &[data-phase="1"]::before {
+                            transform: rotate(71deg);
+                        }
+                        &[data-phase="2"]::before {
+                            transform: rotate(146deg);
+                        }
+                        &[data-phase="3"]::before {
+                            transform: rotate(213deg);
+                        }
+                        &[data-phase="4"]::before {
+                            transform: rotate(288deg);
+                        }
+                        &[data-phase="5"]::before {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+                    #day-indicator-frame {
+                        width: 309px;
+                        height: 186px;
+                        background: url("img/day-indicator-cache.png");
+                        background-size: auto 100%;
+                        position: absolute;
+                        z-index: 10;
+                        left: 17px;
                     }
                 }
 
-                .storm-space {
-                    grid-column-end: span 1;
-                    grid-row: 1 / span 1;
-                    // z-index: 2;
+                #storm-end-frame {
+                    width: 109px;
+                    height: 186px;
+                    background: url("img/day-indicator-cache.png");
+                    background-size: auto 100%;
+                    position: absolute;
+                    z-index: 10;
+                    right: 110px;
+                    top: 0px;
+                    background-position: right center;
+                }
 
-                    &#storm-0 {
-                        grid-column-start: 2;
-                        margin-left: -30px;
-                    }
-                    &#storm-1 {
-                        grid-column-start: 3;
-                    }
-                    &#storm-2 {
-                        grid-column-start: 4;
-                    }
-                    &#storm-3 {
-                        grid-column-start: 5;
-                    }
-                    &#storm-4 {
-                        grid-column-start: 6;
-                    }
-                    &#storm-5 {
-                        grid-column-start: 7;
-                    }
-                    &#storm-6 {
-                        grid-column-start: 8;
-                    }
-                    &#storm-7 {
-                        grid-column-start: 9;
-                        margin-right: -30px;
-                    }
+                #storm-container {
+                    position: absolute;
+                    width: 1299px;
+                    height: 186px;
+                    display: grid;
+                    grid-template-columns: repeat(10, 1fr);
+                    grid-template-rows: 1fr;
+                    padding: 0px 121px;
+                    position: relative;
 
-                    .storm-slot {
-                        width: 100%;
-                        height: 93px;
-                        border-radius: 10px;
+                    #roll-dice-container {
+                        z-index: 200;
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        box-sizing: border-box;
-                        padding: 30px 5px 9px;
+                        transform: translateX(-400px) translateY(-291px);
+                        pointer-events: none;
 
-                        &:nth-child(2) {
-                            padding: 9px 5px 30px;
+                        .dice-wrapper {
+                            margin: 5px 15px;
+                        }
+                    }
+
+                    .storm-card-container {
+                        grid-row: 1 / span 1;
+                        grid-column-end: span 2;
+                        @for $i from 1 through 5 {
+                            &:nth-child(#{$i}) {
+                                grid-column-start: 2 * $i - 1;
+                            }
+                        }
+
+                        transition:
+                            opacity 0.7s,
+                            filter 0.7s;
+                        &.useless {
+                            opacity: 0.4;
+                            filter: brightness(50%) grayscale(80%);
+                            -webkit-transform: translateZ(0);
+                            -webkit-perspective: 1000;
+                            -webkit-backface-visibility: hidden;
+                        }
+
+                        .storm-card {
+                            width: 260px;
+                            height: 186px;
+                            background-image: url("img/storm.jpg");
+                            background-size: 100% 700%;
+                            // border-radius: 7px;
+
+                            @for $i from 0 to 7 {
+                                &[data-id="#{$i}"] {
+                                    background-position-y: $i * 100% / 6;
+                                }
+                            }
+
+                            &[data-flipped="1"] {
+                                transform: rotate(180deg);
+                            }
+                        }
+                    }
+
+                    .storm-space {
+                        grid-column-end: span 1;
+                        grid-row: 1 / span 1;
+                        // z-index: 2;
+
+                        &#storm-0 {
+                            grid-column-start: 2;
+                            margin-left: -30px;
+                        }
+                        &#storm-1 {
+                            grid-column-start: 3;
+                        }
+                        &#storm-2 {
+                            grid-column-start: 4;
+                        }
+                        &#storm-3 {
+                            grid-column-start: 5;
+                        }
+                        &#storm-4 {
+                            grid-column-start: 6;
+                        }
+                        &#storm-5 {
+                            grid-column-start: 7;
+                        }
+                        &#storm-6 {
+                            grid-column-start: 8;
+                        }
+                        &#storm-7 {
+                            grid-column-start: 9;
+                            margin-right: -30px;
+                        }
+
+                        .storm-slot {
+                            width: 100%;
+                            height: 93px;
+                            border-radius: 10px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            box-sizing: border-box;
+                            padding: 30px 5px 9px;
+
+                            &:nth-child(2) {
+                                padding: 9px 5px 30px;
+                            }
                         }
                     }
                 }
