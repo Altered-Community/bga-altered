@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -117,6 +119,9 @@ class RollDie extends \ALT\Models\Action
     } elseif (count($effects) == 1) {
       $this->insertAsChild($effects[0]);
     }
+
+    $this->checkAfterListeners($player, ['rolls' => $rolls, 'sourceId' => $sourceId]);
+
 
     $this->resolveAction($rolls, true);
   }

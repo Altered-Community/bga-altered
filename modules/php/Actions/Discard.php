@@ -31,6 +31,8 @@ class Discard extends \ALT\Models\Action
     $msg = clienttranslate('discard to ${location} ${card}');
     if ($location == 'discard') {
       $msg = clienttranslate('Discard ${card}');
+    } elseif ($location == 'topOfDeck') {
+      $msg = clienttranslate('put ${card} on top of it\'s owner deck');
     }
 
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
@@ -158,12 +160,10 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(
-          array_diff(
-            $cardIds,
-            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
-          )
-        )
+        !empty(array_diff(
+          $cardIds,
+          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+        ))
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -204,7 +204,11 @@ class Discard extends \ALT\Models\Action
       }
     }
 
-    Cards::discard($cardIds, $args['destination']);
+    if ($args['destination'] == 'topOfDeck') {
+      Cards::insertOnTop($cardId, 'deck-' . $card->getPlayer()->getId());
+    } else {
+      Cards::discard($cardIds, $args['destination']);
+    }
 
     $cards = Cards::getMany($cardIds);
 
@@ -264,6 +268,11 @@ class Discard extends \ALT\Models\Action
         ]);
       } elseif ($args['destination'] == MANA) {
         Notifications::discardMana($player, $copyCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+      } elseif ($args['destination'] == 'topOfDeck') {
+        Notifications::putInDeck($player, $copyCards, [
+          'hand' => $hand,
+          'destination' => $args['destination']
+        ]);
       } else {
         Notifications::publicDiscard($player, $copyCards, $msg, [
           'source' => $args['source'],

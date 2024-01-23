@@ -58,6 +58,7 @@ class Card extends \ALT\Helpers\DB_Model
     'costModifier' => 'obj', // ['hand'=> action check, 'reserve' => action check]
     'costHand' => 'int',
     'costReserve' => 'int',
+    'costReductionDiscard' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
 
     'effectPlayed' => 'obj', // Played, no mater from hand or reserve
     'effectHand' => 'obj', // played from hand
@@ -70,7 +71,7 @@ class Card extends \ALT\Helpers\DB_Model
     'gigantic' => 'bool',
     'fleeting' => 'bool',
     'seasoned' => 'bool',
-    'minManaOrbs' => 'int',
+    'minManaOrbs' => 'int', //used for cards that cannot be played unless specific amount of total mana
     'defender' => 'bool',
 
     // Tough management
@@ -153,6 +154,15 @@ class Card extends \ALT\Helpers\DB_Model
     $cost = $this->getCost();
     $mana = $player->getMana();
     $totalMana = $player->getTotalMana();
+
+    if ($this->getCostReductionDiscard() > 0) {
+      $reserveCards = $this->getPlayer()->getReserveCards()->count();
+      if ($this->getLocation() == RESERVE && $reserveCards >= 2) {
+        $cost -= $this->getCostReductionDiscard();
+      } elseif ($reserveCards >= 1) {
+        $cost -= $this->getCostReductionDiscard();
+      }
+    }
 
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
