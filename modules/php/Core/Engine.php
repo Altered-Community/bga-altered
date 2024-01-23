@@ -202,8 +202,10 @@ class Engine
     $args = $node->getArgs();
     $actionId = $node->getAction();
     // Do some pre-action code if needed and if we are not undoing to an irreversible node
-    if (!$isUndo || !$node->isIrreversible(Players::get($node->getPId()))) {
+    if ((!$isUndo || !$node->isIrreversible(Players::get($node->getPId()))) && $node->getFlag() != PRE_ACTION_DONE) {
       Actions::stPreAction($actionId, $node);
+      $node->flagStPreAction();
+      self::save();
     }
     Game::get()->gamestate->jumpToState($state);
   }

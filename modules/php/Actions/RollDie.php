@@ -8,7 +8,7 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
-use ALT\Core\Engine;
+use ALT\Core\Globals;
 use ALT\Core\Game;
 
 class RollDie extends \ALT\Models\Action
@@ -44,6 +44,16 @@ class RollDie extends \ALT\Models\Action
     'n' => 1,
     'effect' => [],
   ];
+
+  public function getSource()
+  {
+    $source = $this->ctx->getSource() ?? null;
+    $sourceId = $this->ctx->getSourceId() ?? null;
+    if (is_null($source) && !is_null($sourceId)) {
+      $source = Cards::getSingle($sourceId);
+    }
+    return $source;
+  }
 
   private function getGain($roll)
   {
@@ -81,37 +91,71 @@ class RollDie extends \ALT\Models\Action
     return $effect;
   }
 
-  public function stRollDie()
+  public function stPreRollDie()
   {
     $player = Players::getActive();
     $n = $this->getArg('n');
     $rolls = [];
-    $effects = [];
 
-    $source = $this->ctx->getSource() ?? null;
-    $sourceId = $this->ctx->getSourceId() ?? null;
-    if (is_null($source) && !is_null($sourceId)) {
-      $source = Cards::getSingle($sourceId);
-    }
+    $source = $this->getSource();
+
+    // Lyra Bastion management
+    $lyraBastion = 0;
+    $lyraBastion += $player->getLandmarks()->where('uid', 'ALT_CORE_B_LY_30_R1')->count();
+    $lyraBastion += $player->getLandmarks()->where('uid', 'ALT_CORE_B_LY_30_C')->count();
+    Notifications::message(clienttranslate('${n} dice are added to the roll (Ouroboros Lyra Bastion\'s effect)'), ['n' => $lyraBastion]);
+    $n += $lyraBastion;
+
+
     for ($i = 0; $i < $n; $i++) {
       $roll = bga_rand(1, 6);
-      if (Game::get()->getBgaEnvironment() == 'studio') {
-        $roll = 5;
-      }
+      // if (Game::get()->getBgaEnvironment() == 'studio') {
+      //   $roll = 5;
+      // }
       $rolls[] = $roll;
-      $effect = $this->getGain($roll);
-      if ($effect !== null) {
-        $effect = Utils::updateTree($effect, 'die', $roll);
-        $effect['sourceId'] = $source->getId();
-        $cardId = $this->getCtxArg('cardId') ?? null;
-        if (!is_null($cardId)) {
-          $effect['args']['cardId'] = $cardId;
-        }
-        $effects[] = $effect;
-      }
     }
 
+    // TODO: add power to increment die result
+
     Notifications::roll($player, $rolls, $source);
+    Globals::setDiceRolls($rolls);
+  }
+
+  public function argsRollDie()
+  {
+    return [
+      'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC)
+      // TODO: add effects associated to it?
+      // TODO: improve choice as choice is necessary only if 2 differents effects
+    ];
+  }
+
+  public function stRollDie()
+  {
+    $args = $this->argsRollDie();
+    // throw new \feException(print_r(debug_print_backtrace()));
+
+    if (count($args['rolls']) == 1) {
+      $this->actRollDie($args['rolls'][0]);
+    }
+  }
+
+  public function actRollDie($dieValue)
+  {
+    $player = Players::getActive();
+    $source = $this->getSource();
+    $effects = [];
+
+    $effect = $this->getGain($dieValue);
+    if ($effect !== null) {
+      $effect = Utils::updateTree($effect, 'die', $dieValue);
+      $effect['sourceId'] = $source->getId();
+      $cardId = $this->getCtxArg('cardId') ?? null;
+      if (!is_null($cardId)) {
+        $effect['args']['cardId'] = $cardId;
+      }
+      $effects[] = $effect;
+    }
 
     if (count($effects) > 1) {
       // TODO: see if we will need seq/or/etc.
@@ -120,9 +164,10 @@ class RollDie extends \ALT\Models\Action
       $this->insertAsChild($effects[0]);
     }
 
-    $this->checkAfterListeners($player, ['rolls' => $rolls, 'sourceId' => $sourceId]);
+    $this->checkAfterListeners($player, ['rolls' => Globals::getDiceRolls(), 'sourceId' => $source->getId()]);
 
+    Globals::setDiceRolls([]);
 
-    $this->resolveAction($rolls, true);
+    $this->resolveAction([$dieValue]);
   }
 }
