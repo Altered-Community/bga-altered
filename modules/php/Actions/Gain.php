@@ -94,6 +94,12 @@ class Gain extends \ALT\Models\Action
 
     // Increase resource and notify
     list($resource, $amount) = $this->getGain();
+    if ($resource == FLEETING && $card->hasToken(FLEETING)) {
+      // a card cannot have more than one fleeting token
+      $this->resolveAction();
+      return;
+    }
+
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
     Notifications::updateBiomes($card->getPlayer());
