@@ -13,13 +13,92 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const SPELL = 'spell';
   const TOKEN = 'token';
   const FONT_SIZE = '14px';
+  let CARDS_DATA = {};
+
+  const KEYWORDS = {
+    AFTER_YOU: {
+      text: _('After You'),
+      reminder: _('End your turn as if you had played a card. You may still play cards later this Day.'),
+    },
+    ANCHORED: {
+      text: _('Anchored'),
+      reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
+    },
+    ASLEEP: {
+      text: _('Asleep'),
+      reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
+    },
+    BB: {
+      text: '',
+      reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
+    },
+    BOODA: {
+      text: _('Booda 2/2/2'),
+    },
+    BOOSTED: {
+      text: _('Boosted'),
+    },
+    BRASSBUG: {
+      text: _('Brassbug 2/2/2'),
+    },
+    DEFENDER: {
+      text: _('Defender'),
+      reminder: _("My Expedition can't advance during Dusk."),
+    },
+    ETERNAL: {
+      text: _('Eternal'),
+      reminder: _("During Rest, I don't go to Reserve."),
+    },
+    FLEETING_CHAR: {
+      text: _('Fleeting'),
+      reminder: _('If I would be sent to Reserve, discard me instead.'),
+    },
+    FLEETING: {
+      text: _('Fleeting'),
+      reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
+    },
+    GIGANTIC: {
+      text: _('Gigantic'),
+      reminder: _('I am considered present in each of your Expeditions.'),
+    },
+    MAW: {
+      text: _('Maw 0/0/0'),
+    },
+    ORDIS_RECRUIT: {
+      text: _('Ordis Recruit 1/1/1'),
+    },
+    RESUPPLY: {
+      text: _('Resupply'),
+      reminder: _('Put the top card of your deck in Reserve.'),
+    },
+    SABOTAGE: {
+      text: _('Sabotage'),
+      reminder: _('Discard up to one target card from a Reserve.'),
+    },
+    SEASONED: {
+      text: _('Seasoned'),
+      reminder: _('I keep my boosts when I go to Reserve.'),
+    },
+    TOUGH_1: {
+      text: _('Tough 1'),
+      reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
+    },
+    TOUGH_2: {
+      text: _('Tough 2'),
+      reminder: _("Your opponent's Spells and abilities that target me cost {2} more."),
+    },
+    TOUGH_X: {
+      text: _('Tough X'),
+      reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
+    },
+  };
 
   return declare('altered.cards', null, {
-    // getCardInfos(cardId) {
-    //   let card = { id: cardId };
-    //   this.loadSaveCard(card);
-    //   return card;
-    // },
+    getCardInfos(cardId) {
+      let card = { id: cardId };
+      this.loadSaveCard(card);
+      return card;
+    },
     // getCardName(cardId) {
     //   let card = this.getCardInfos(cardId);
     //   return this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
@@ -93,6 +172,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return;
       }
 
+      CARDS_DATA[card.id] = card;
       // this.loadSaveCard(card);
       if (container === null) {
         container = this.getCardContainer(card);
@@ -100,7 +180,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       let o = this.place('tplCard', card, container);
       if (o !== undefined) {
-        this.addCustomTooltip(o.id, () => this.tplCardTooltip(card), { midSize: false });
+        this.addCustomTippyTooltip(o.id, this.tplCardTooltip(card));
         if (this._loadingComplete) {
           this.autofitCardFrame(o);
         }
@@ -265,8 +345,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -1115,7 +1195,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     tplHeroCardTooltip(card) {
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        ${this.tplHeroCard(card, true, false)}
+        <div class='card-tooltip-frame'>
+          ${this.tplHeroCard(card, true, false)}
+        </div>
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
@@ -1202,7 +1284,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     tplCharacterCardTooltip(card) {
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        ${this.tplCharacterCard(card, true, false)}
+        <div class='card-tooltip-frame'>
+          ${this.tplCharacterCard(card, true, false)}
+        </div>
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
@@ -1220,8 +1304,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
-        p.mountain
-      }</div>
+            p.mountain
+          }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
 
           <div class='card-text'>
@@ -1236,7 +1320,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
     tplTokenCardTooltip(card) {
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        ${this.tplTokenCard(card, true, false)}
+        <div class='card-tooltip-frame'>
+          ${this.tplTokenCard(card, true, false)}
+        </div>
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
@@ -1288,7 +1374,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplSpellCardTooltip(card) {
       let p = card.properties;
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        ${this.tplSpellCard(card, true, false)}
+        <div class='card-tooltip-frame'>
+          ${this.tplSpellCard(card, true, false)}
+        </div>
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
@@ -1335,7 +1423,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplPermanentCardTooltip(card) {
       let p = card.properties;
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
-        ${this.tplPermanentCard(card, true, false)}
+        <div class='card-tooltip-frame'>
+          ${this.tplPermanentCard(card, true, false)}
+        </div>
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
     },
@@ -1387,6 +1477,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       // Add back mini if needed
       if (isMini) oCard.classList.add('mini-card');
+
+      this.updateCardTooltip(oCard.dataset.id);
     },
 
     getMeeplesOnCard(cardId) {
@@ -1433,6 +1525,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         $(`card-${cardId}`).dataset.boost = boost;
       }
+
+      this.updateCardTooltip(cardId);
+    },
+
+    updateCardTooltip(cardId) {
+      this.tooltips[`card-${cardId}`].setContent(this.tplCardTooltip(this.getCardInfos(cardId)));
     },
 
     getCardTooltipExplanation(card) {
@@ -1440,7 +1538,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       this.getMeeplesOnCard(card.id).forEach((oMeeple) => {
         let tooltipDesc = this.getMeepleTooltip({ type: oMeeple.dataset.type });
         if (tooltipDesc != null) {
-          explanation += tooltipDesc.map((t) => this.formatString(t)).join('<br/>');
+          explanation += `<div class='explanation'>
+            ${this.formatIcon(oMeeple.dataset.type)}
+            <p>
+              ${tooltipDesc.map((t) => this.formatString(t)).join('<br/>')}
+            </p>
+          </div>`;
         }
       });
 
@@ -1466,84 +1569,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     // },
 
     replaceKeyWordsAndGetReminders(str) {
-      const KEYWORDS = {
-        AFTER_YOU: {
-          text: _('After You'),
-          reminder: _('End your turn as if you had played a card. You may still play cards later this Day.'),
-        },
-        ANCHORED: {
-          text: _('Anchored'),
-          reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
-        },
-        ASLEEP: {
-          text: _('Asleep'),
-          reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
-        },
-        BB: {
-          text: '',
-          reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
-        },
-        BOODA: {
-          text: _('Booda 2/2/2'),
-        },
-        BOOSTED: {
-          text: _('Boosted'),
-        },
-        BRASSBUG: {
-          text: _('Brassbug 2/2/2'),
-        },
-        DEFENDER: {
-          text: _('Defender'),
-          reminder: _("My Expedition can't advance during Dusk."),
-        },
-        ETERNAL: {
-          text: _('Eternal'),
-          reminder: _("During Rest, I don't go to Reserve."),
-        },
-        FLEETING_CHAR: {
-          text: _('Fleeting'),
-          reminder: _('If I would be sent to Reserve, discard me instead.'),
-        },
-        FLEETING: {
-          text: _('Fleeting'),
-          reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
-        },
-        GIGANTIC: {
-          text: _('Gigantic'),
-          reminder: _('I am considered present in each of your Expeditions.'),
-        },
-        MAW: {
-          text: _('Maw 0/0/0'),
-        },
-        ORDIS_RECRUIT: {
-          text: _('Ordis Recruit 1/1/1'),
-        },
-        RESUPPLY: {
-          text: _('Resupply'),
-          reminder: _('Put the top card of your deck in Reserve.'),
-        },
-        SABOTAGE: {
-          text: _('Sabotage'),
-          reminder: _('Discard up to one target card from a Reserve.'),
-        },
-        SEASONED: {
-          text: _('Seasoned'),
-          reminder: _('I keep my boosts when I go to Reserve.'),
-        },
-        TOUGH_1: {
-          text: _('Tough 1'),
-          reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
-        },
-        TOUGH_2: {
-          text: _('Tough 2'),
-          reminder: _("Your opponent's Spells and abilities that target me cost {2} more."),
-        },
-        TOUGH_X: {
-          text: _('Tough X'),
-          reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
-        },
-      };
-
       const regexParentheses = /\(([^)]+)\)/;
 
       let reminders = [];

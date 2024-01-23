@@ -1,0 +1,105 @@
+.tooltip-arrow {
+    display: block;
+    width: 0px;
+    height: 0px;
+    border: 7px solid transparent;
+    border-bottom: 10px solid #659dc7;
+    margin-top: -16px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 0px;
+        height: 0px;
+        border: 7px solid transparent;
+        border-bottom: 10px solid #ebebeb;
+        top: -5px;
+        left: -7px;
+    }
+}
+
+[data-popper-placement="top"] .tooltip-arrow {
+    border-bottom: 7px solid transparent;
+    border-top: 10px solid #659dc7;
+    bottom: -16px;
+    margin: 0px;
+
+    &::before {
+        border-bottom: 7px solid transparent;
+        border-top: 10px solid #ebebeb;
+        top: -12px;
+    }
+}
+[data-popper-placement="right"] .tooltip-arrow {
+    border-bottom: 7px solid transparent;
+    border-right: 10px solid #659dc7;
+    margin: 0px;
+    left: -16px;
+
+    &::before {
+        border-bottom: 7px solid transparent;
+        border-right: 10px solid #ebebeb;
+        top: -7px;
+        left: -5px;
+    }
+}
+[data-popper-placement="left"] .tooltip-arrow {
+    border-bottom: 7px solid transparent;
+    border-left: 10px solid #659dc7;
+    margin: 0px;
+    right: -17px;
+    left: initial;
+
+    &::before {
+        border-bottom: 7px solid transparent;
+        border-left: 10px solid #ebebeb;
+        top: -7px;
+        left: -12px;
+    }
+}
+
+.altered-tooltip {
+    animation-fill-mode: forwards;
+    animation: fadeInNoTransform 0.3s linear both;
+    pointer-events: all !important;
+
+    &.no-delay {
+        animation: none;
+    }
+
+    // &.hiding {
+    //     animation: fadeout 0.3s linear both !important;
+    // }
+
+    .card-tooltip-frame {
+        background: rgb(235, 235, 235);
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px black;
+        border: 1px solid #7eabcd;
+    }
+
+    &[data-popper-placement="left"] .altered-card-tooltip {
+        .card-tooltip-frame {
+            order: 2;
+        }
+        .tooltip-explanation {
+            order: 1;
+            margin-left: 0px;
+            margin-right: 10px;
+        }
+    }
+}
+
+@keyframes fadeInNoTransform {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

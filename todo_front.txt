@@ -6,7 +6,7 @@ X Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
 - Tough: mettre une icone bouclier + afficher le coût supplémentaire
 X Asleep
 X Icones status : mettre les vrais meeples
-- Compteurs sur la carte
+X Compteurs sur la carte
 - reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
 
 [Setup]
@@ -46,6 +46,7 @@ X Après le first day, le héro du 1er joueur a pas son pouvoir dans le hoover. 
     * D'abord statut puis reminder
     * Afficher les tokens Asleep/anchored / avec les vraies images
 X Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
+- disable tooltip in mana pool
 
 [Glossaire]
 - Bouton pour afficher le glossaire
@@ -54,9 +55,9 @@ X Boost: afficher sur la miniature les attributs en vert + afficher un + X dans 
 X Pouvoir désélectionner quand tu cliques sur ta carte ou ailleurs
 X Lorsqu'on clique sur une carte (main/reserve), elle revient grande (pas mini) + haut pour montrer la carte x&
 X Pour les sorts, rajout un bouton pour lancer le sort.
-- clique sur carte en réserve, c'est pas bien aligné https://boardgamearena.com/bug?id=110530
-- Je pense que c'est un sort qui a été joué donc il avait gardé son scale + 20% https://boardgamearena.com/bug?id=110540
-- enlever le layover
+X clique sur carte en réserve, c'est pas bien aligné https://boardgamearena.com/bug?id=110530
+X Je pense que c'est un sort qui a été joué donc il avait gardé son scale + 20% https://boardgamearena.com/bug?id=110540
+X enlever l'overlay
 
 [Discard card]
 X Quand je discard vers la main (via Intimidation par exemple), ca slide vers la discard un peu chelou avant d'arriver dans la main

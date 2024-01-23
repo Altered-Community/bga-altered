@@ -870,9 +870,29 @@ $miniCardScale: 0.33;
             display: none;
         }
 
-        max-width: 200px;
-        padding: 5px;
+        max-width: 220px;
         font-family: "Jali Greek Variable";
+        margin-left: 10px;
+        font-size: 15px;
+
+        .explanation {
+            background: #242642;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 6px;
+            border: 1px solid #7eabcd;
+            box-shadow: 1px 1px 6px 4px black;
+
+            .icon-container {
+                margin: 2px 7px;
+            }
+
+            p {
+                padding-right: 10px;
+            }
+        }
     }
 
     .altered-card {

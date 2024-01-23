@@ -1,11 +1,13 @@
 var isDebug = window.location.host == 'studio.boardgamearena.com' || window.location.hash.indexOf('debug') > -1;
 var debug = isDebug ? console.info.bind(window.console) : function () {};
 
-define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouislider.min.js', 'ebg/core/gamegui'], (
-  dojo,
-  declare,
-  noUiSlider
-) => {
+define([
+  'dojo',
+  'dojo/_base/declare',
+  g_gamethemeurl + 'modules/js/vendor/nouislider.min.js',
+  g_gamethemeurl + 'modules/js/vendor/tippy-headless.min.js',
+  'ebg/core/gamegui',
+], (dojo, declare, noUiSlider, tippy) => {
   return declare('customgame.game', ebg.core.gamegui, {
     /*
      * Constructor
@@ -1053,7 +1055,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       if (this._displayedTooltip === null) return;
       else {
         if (this._displayedTooltip.showTimeout != null) clearTimeout(this._displayedTooltip.showTimeout);
-        this._displayedTooltip.close();
+        if (this._displayedTooltip.close) this._displayedTooltip.close();
+        else this._displayedTooltip.hide();
         this._displayedTooltip = null;
       }
     },
@@ -1194,6 +1197,125 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/vendor/nouisl
       }
 
       elem.remove();
+    },
+
+    addCustomTippyTooltip(id, html, config = {}) {
+      config = Object.assign(
+        {
+          delay: 400,
+          // delay: 0,
+          // hideDelay: 0,
+          midSize: true,
+          forceRecreate: false,
+        },
+        config
+      );
+
+      // Handle dynamic content out of the box
+      let getContent = () => {
+        let content = typeof html === 'function' ? html() : html;
+        return content;
+      };
+
+      if (this.tooltips[id] && !config.forceRecreate) {
+        this.tooltips[id].setContent(getContent);
+        return;
+      }
+
+      let that = this;
+      let tooltip = tippy($(id), {
+        content: getContent,
+        trigger: '',
+        animation: true,
+        touch: ['hold', 400],
+        placement: 'auto',
+        hideOnClick: false,
+        render(instance) {
+          // The recommended structure is to use the popper as an outer wrapper
+          // element, with an inner `box` element
+          const popper = document.createElement('div');
+          const arrow = document.createElement('arrow');
+          arrow.dataset.popperArrow = true;
+          arrow.classList = 'tooltip-arrow';
+          popper.appendChild(arrow);
+
+          const box = document.createElement('div');
+          popper.appendChild(box);
+
+          popper.className = 'altered-tooltip';
+          box.insertAdjacentHTML('beforeend', instance.props.content);
+
+          function onUpdate(prevProps, nextProps) {
+            console.log('Update content');
+            // DOM diffing
+            if (prevProps.content !== nextProps.content) {
+              box.innerHTML = nextProps.content;
+            }
+          }
+
+          return {
+            popper,
+            onUpdate,
+          };
+        },
+        onMount(instance) {
+          if (that.addDelayTimeout != null) clearTimeout(that.addDelayTimeout);
+          instance.popper.classList.toggle('no-delay', that.noDelayTippy);
+          that.noDelayTippy = true;
+        },
+        onHide(instance) {
+          if (that.addDelayTimeout != null) clearTimeout(that.addDelayTimeout);
+          that.addDelayTimeout = setTimeout(() => {
+            that.noDelayTippy = false;
+          }, 500);
+
+          requestAnimationFrame(() => instance.unmount());
+        },
+      });
+
+      this.tooltips[id] = tooltip;
+      dojo.addClass(id, 'tooltipable');
+      dojo.place(
+        `<div class='help-marker'>
+          <svg><use href="#help-marker-svg" /></svg>
+        </div>`,
+        id
+      );
+
+      dojo.connect($(id), 'click', (evt) => {
+        if (!this._helpMode) {
+          tooltip.hide();
+        } else {
+          evt.stopPropagation();
+
+          if (tooltip == tooltip.state.isShown) {
+            this.closeCurrentTooltip();
+          } else {
+            this.closeCurrentTooltip();
+            this.noDelayTippy = true;
+            tooltip.show();
+            // dijit.Tooltip._masterTT.onMouseLeave = () => {
+            //   if (!this._helpMode) tooltip.close();
+            // };
+            this._displayedTooltip = tooltip;
+          }
+        }
+      });
+
+      dojo.connect($(id), 'mouseenter', (evt) => {
+        evt.stopPropagation();
+        if (!this._helpMode && !this._dragndropMode) {
+          tooltip.show();
+          this._displayedTooltip = tooltip;
+        }
+      });
+
+      dojo.connect($(id), 'mouseleave', (evt) => {
+        evt.stopPropagation();
+        if (!this._helpMode && !this._dragndropMode) {
+          tooltip.hide();
+        }
+      });
     },
 
     /*

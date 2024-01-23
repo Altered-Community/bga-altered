@@ -49,11 +49,17 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     getMeepleTooltip(meeple) {
       let type = meeple.type;
-      if (type == 'first-player') {
-        return [_('First player')];
-      }
+      // if (type == 'first-player') {
+      //   return [_('First player')];
+      // }
       if (type == 'fleeting') {
         return [_('Fleeting: if I would be send to reserve, banish me instead.')];
+      }
+      if (type == 'anchored') {
+        return [_("Anchored: during Rest, I don't go to Reserve and I lose Anchored.")];
+      }
+      if (type == 'asleep') {
+        return [_("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep.")];
       }
       return null;
     },
