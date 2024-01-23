@@ -450,7 +450,7 @@
             position: absolute;
             width: $cardWidth;
             height: $cardHeight;
-            left: 750px;
+            left: 780px;
             z-index: 40;
             pointer-events: none;
 
@@ -575,7 +575,7 @@
         }
 
         .player-board-limbo {
-            top: 50px;
+            top: 130px;
         }
     }
 
@@ -634,7 +634,7 @@
     .player-board-hand {
         top: 370px;
         .player-board-limbo {
-            top: -300px;
+            top: -265px;
         }
     }
 

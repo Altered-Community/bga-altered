@@ -1402,7 +1402,10 @@ html {
 .player-board-hero .altered-card:not(.force-frame).card-spell,
 .player-board-hero .altered-card:not(.force-frame).card-spell .altered-card-wrapper,
 .player-board-hero .altered-card:not(.force-frame).card-spell .altered-card-wrapper .card-frame {
-  border-radius: 50%; }
+  border-top-left-radius: 25% 50%;
+  border-top-right-radius: 25% 50%;
+  border-bottom-left-radius: 25% 50%;
+  border-bottom-right-radius: 25% 50%; }
 .altered-card.no-frame:not(.force-frame).card-permanent,
 .altered-card.mini-card:not(.force-frame).card-permanent,
 .player-board-hero .altered-card:not(.force-frame).card-permanent {
@@ -2597,7 +2600,7 @@ html {
       position: absolute;
       width: 110px;
       height: 150px;
-      left: 750px;
+      left: 780px;
       z-index: 40;
       pointer-events: none; }
       .altered-player-board .player-board-hand .player-board-limbo .altered-card {
@@ -2664,7 +2667,7 @@ html {
 #altered-board-opponent .altered-player-board .player-board-hand {
   bottom: 370px; }
   #altered-board-opponent .altered-player-board .player-board-hand .player-board-limbo {
-    top: 50px; }
+    top: 130px; }
 #altered-board-opponent .altered-player-board .player-board-grass {
   top: 129px; }
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-reserve {
@@ -2698,7 +2701,7 @@ html {
 #altered-board-me .altered-player-board .player-board-hand {
   top: 370px; }
   #altered-board-me .altered-player-board .player-board-hand .player-board-limbo {
-    top: -300px; }
+    top: -265px; }
 #altered-board-me .altered-player-board .player-board-grass {
   top: 202px; }
   #altered-board-me .altered-player-board .player-board-grass .player-board-reserve {
