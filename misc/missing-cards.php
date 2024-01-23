@@ -7,7 +7,7 @@ include_once 'list.inc.php';
 
 $target = '../modules/php/Cards/';
 $sourceOld = $target;
-$sourceNew = 'CoreSetV2/';
+$sourceNew = 'CoreSetV3/';
 
 foreach (ALL_CARDS as $cardId) {
   if (!file_exists($sourceOld . $cardId . '.php') or !file_exists($sourceNew . $cardId . '.php')) {
@@ -16,8 +16,9 @@ foreach (ALL_CARDS as $cardId) {
     }
 
     if (!file_exists($sourceNew . $cardId . '.php')) {
-      echo "\n##########################################################\n";
-      echo 'NOT FOUND: ' . $cardId . "\n";
+      echo $cardId . "\n";
+//      echo "\n##########################################################\n";
+//      echo 'NOT FOUND: ' . $cardId . "\n";
     } else {
       echo $cardId . "\n";
     }
