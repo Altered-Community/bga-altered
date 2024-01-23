@@ -4,7 +4,14 @@
   <div id="altered-board-resizable">
     <div id="altered-board">
       <div id="altered-board-opponent"></div>
-      <div id="storm-container"></div>
+      <div id="middle-line-wrapper">
+        <div id="day-indicator">
+          <div id="day-indicator-wheel"></div>
+          <div id="day-indicator-frame"></div>
+        </div>
+        <div id="storm-container"></div>
+        <div id="storm-end-frame"></div>
+      </div>
       <div id="altered-board-me"></div>
     </div>
   </div>
