@@ -412,15 +412,15 @@
         }
 
         .player-board-separator {
-            width: 40px;
-            height: 185px;
+            width: 28px;
+            height: 165px;
             background: url("img/separator-reserve-landmark.png");
             background-size: 100% 100%;
         }
         .player-board-landmarks {
-            min-width: 298px;
+            min-width: 276px;
             background: url("img/landmark-slot.png");
-            background-size: auto 100%;
+            background-size: auto 95%;
             background-repeat: repeat-x;
             display: flex;
             flex-flow: row-reverse;
@@ -588,14 +588,15 @@
         }
 
         .player-board-separator {
-            margin-bottom: -20px;
+            margin-top: 13px;
+            margin-right: 5px;
         }
 
         .player-board-landmarks {
-            background-position: 0px 15px;
+            background-position: -6px 21px;
 
             .altered-card {
-                margin: 30px 33px 0px 5px;
+                margin: 40px 27px 0px 4px;
             }
         }
     }
@@ -650,10 +651,10 @@
         }
 
         .player-board-landmarks {
-            background-position: 0px -15px;
+            background-position: -6px -15px;
 
             .altered-card {
-                margin: 30px 33px 0px 5px;
+                margin: -31px 27px 0px 4px;
             }
         }
     }

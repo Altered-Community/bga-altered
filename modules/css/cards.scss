@@ -648,11 +648,54 @@ $miniCardScale: 0.33;
     }
 
     &.card-permanent {
-        &,
-        .altered-card-wrapper,
-        .altered-card-wrapper .card-frame {
-            border-bottom-left-radius: 40px 100px;
-            border-bottom-right-radius: 40px 100px;
+        box-shadow: none;
+
+        // &,
+        // .altered-card-wrapper,
+        // .altered-card-wrapper .card-frame {
+        //     border-bottom-left-radius: 40px 100px;
+        //     border-bottom-right-radius: 40px 100px;
+        // }
+        .altered-card-wrapper {
+            clip-path: polygon(
+                -15% -15%,
+                100% -15%,
+                100% 60%,
+                91% 70%,
+                91% 100%,
+                9% 100%,
+                9% 70%,
+                0% 60%,
+                0% 20%,
+                -15% 20%
+            );
+
+            .card-frame[data-type="permanent"][data-size][data-support] {
+                background: url("img/permanent-borders.png");
+                background-position: 0% 0%;
+                background-position: 0% 0%;
+                background-size: 100% 300%;
+                border: none;
+                border-radius: 0px;
+
+                &[data-rarity="1"] {
+                    background-position-y: 50%;
+                }
+            }
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 1px;
+            top: 1px;
+            right: -16px;
+            bottom: -17px;
+            background: url("img/permanent-shadow.png");
+            z-index: -1;
+            background-size: 100%;
+            background-repeat: no-repeat;
         }
     }
 
