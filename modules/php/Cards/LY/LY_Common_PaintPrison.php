@@ -27,12 +27,15 @@ class LY_Common_PaintPrison extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
       'costReductionDiscard' => 2,
-      'effectPlayed' => FT::ACTION(
-        TARGET,
-        [
-          'targetType' => [CHARACTER, TOKEN, PERMANENT],
-          'effect' => FT::ACTION(DISCARD, ['destination' => 'topOfDeck'])
-        ]
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [CHARACTER, TOKEN, PERMANENT],
+            'effect' => FT::ACTION(DISCARD, ['destination' => 'topOfDeck'])
+          ]
+        )
       )
     ];
   }
