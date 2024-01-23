@@ -1,11 +1,14 @@
 <?php
+
 namespace ALT\Core\Engine;
+
 use ALT\Core\Globals;
 use ALT\Managers\Players;
 
 /*
  * AbstractNode: a class that represent an abstract Node
  */
+
 class AbstractNode
 {
   protected $childs = [];
@@ -385,6 +388,11 @@ class AbstractNode
   public function isIrreversible($player = null)
   {
     return false;
+  }
+
+  public function flagStPreAction()
+  {
+    $this->infos['flag'] = PRE_ACTION_DONE;
   }
 
   /************************

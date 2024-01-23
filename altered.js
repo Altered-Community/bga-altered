@@ -1227,6 +1227,16 @@ define([
       });
     },
 
+    onEnteringStateRollDie(args) {
+      let chooseRollDie = (roll) => {
+        return () => this.takeAtomicAction('actRollDie', [roll]);
+      };
+
+      args.rolls.forEach((roll, i) => {
+        this.addPrimaryActionButton('btnRoll' + i, roll, chooseRollDie(roll));
+      });
+    },
+
     ////////////////////////////////////////////////////////////
     // _____                          _   _   _
     // |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _

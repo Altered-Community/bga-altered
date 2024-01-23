@@ -106,6 +106,7 @@ const ZOMBIE = 98;
 const PASS = 99;
 
 const AFTER_FINISHING_ACTION = 'afterFinishing';
+const PRE_ACTION_DONE = 'preActionDone';
 
 /*
  * Atomic action
