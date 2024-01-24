@@ -160,12 +160,10 @@ class Discard extends \ALT\Models\Action
 
       if (
         !empty(array_diff($cardIds, $args['_private']['active']['cards'] ?? [])) &&
-        !empty(
-          array_diff(
-            $cardIds,
-            array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
-          )
-        )
+        !empty(array_diff(
+          $cardIds,
+          array_merge($args['_private']['active']['reserveCards'] ?? [], $args['_private']['active']['landmarkCards'] ?? [])
+        ))
       ) {
         throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
@@ -247,7 +245,7 @@ class Discard extends \ALT\Models\Action
     }
 
     $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source}');
-    if ($args['destination'] == HAND) {
+    if ($args['destination'] == HAND && count($deletedTokens) != count($cards)) {
       $msg = clienttranslate('${player_name} puts ${n} card(s) to players\' hand');
     } elseif ($args['destination'] == 'discard') {
       $msg = clienttranslate('${player_name} discards ${card_names} (${n} card(s))');
@@ -263,7 +261,7 @@ class Discard extends \ALT\Models\Action
     }
 
     if (count($copyCards) != 0) {
-      if ($args['destination'] == HAND) {
+      if ($args['destination'] == HAND && count($deletedTokens) != count($copyCards)) {
         Notifications::moveToHand($player, $copyCards, $msg, null, [
           'source' => $args['source'],
           'destination' => $args['destination'],
