@@ -15,10 +15,10 @@ $gameinfos = [
   'game_name' => 'Altered',
 
   // Game designer (or game designers, separated by commas)
-  'designer' => 'Régis Bonnessée, Charles Wickham, François Jourdain, Jacques Ernoult, Kieran Mougel, Léa Roulée, Marcus Kearsey, Nathanaël Dufour, Pierre Millin, Timothée Simonot, Merlin Ismet, Manuel Rozoy, Max Fiévé, Ting-Yun Yu, Fabien Courgnaud, Stéphane Gantiez, Héléna Beilloin, Yoshiaki Mimura, David Flórez Herrero, Thai Pham, Philippe Autier, Matthias Mouy, Étienne Pascal, Félix Lavaste, Olivier Tousche, Émeline Gaube, Benoît Delamaire, Jérôme Lefèvre, Alexandre Desseaux, Eric Dieulangard, Thalia Eched, Justin Parnell, Manon Wojtowiez, Lokinox, Maxime Despretz, Stéphan Cotrelle',
+  'designer' => 'Equinox team',
 
   // Game artist (or game artists, separated by commas)
-  'artist' => 'Anh Tung, Anatas Lozanski, Bà Vo, Christophe Young, Damian Audino, Edward Cheekokseang, Fahmi Fauzi, Floriane Bodereau, Fori Y., Gaga Zhou, Gael Giudicelli, HuoMiao Studio, Matteo Spirito, Marie Cardouat, Nestor Papatriantafyllou, Jean-Baptiste Andrier, Justice Wong, Kevin Sidharta, Khoa Viet, Polar Engine, Romain Kurdi, Rémi Jacquot, Slawek Fedorcuzk, Taras Susak, Zero Wen',
+  'artist' => 'Equinox team',
 
   // Year of FIRST publication of this game. Can be negative.
   'year' => 2024,
