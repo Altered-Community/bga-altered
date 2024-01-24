@@ -6,6 +6,8 @@ use ALT\Core\Game;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Helpers\Collection;
+use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
 
 /*
@@ -179,7 +181,14 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // players have moved the same number in the phase
     if ($tiebreaker === true) {
       Globals::setTieBreakerMode(true);
-      Notifications::message(clienttranslate('The tiebreaker is triggered as heroes reached their companions at the same time'));
+      $meeples = new Collection();
+      foreach (Players::getAll() as $pId => $player) {
+        $player->getCompanionToken()->setLocation('storm-4');
+        $player->getHeroToken()->setLocation('storm-3');
+        $meeples = $meeples->merge(Meeples::getStormTokens($pId));
+      }
+      // notif startTiebreak
+      Notifications::startTiebreak($meeples->toArray());
     } elseif ($victor != -1) {
       // we have a winner => end of game
       Players::get($victor)->setScore(1);

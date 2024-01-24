@@ -12,6 +12,7 @@ use ALT\Helpers\Utils;
 use ALT\Helpers\FT;
 use ALT\Core\Stats;
 use ALT\Helpers\Collection;
+use ALT\Managers\Meeples;
 
 trait DebugTrait
 {
@@ -83,6 +84,19 @@ trait DebugTrait
     // Cards::get(1)->isListeningTo([]);
     // throw new \feException(print_r(Players::get(2305528)->getBiomeInStorms()));
     Notifications::updateTotalMana();
+  }
+
+  function tiebreak()
+  {
+    Globals::setTieBreakerMode(true);
+    $meeples = new Collection();
+    foreach (Players::getAll() as $pId => $player) {
+      $player->getCompanionToken()->setLocation('storm-4');
+      $player->getHeroToken()->setLocation('storm-3');
+      $meeples = $meeples->merge(Meeples::getStormTokens($pId));
+    }
+    // notif startTiebreak
+    Notifications::startTiebreak($meeples->toArray());
   }
 
   function score($cardId)

@@ -76,6 +76,7 @@ define([
         ['deleteCounter', 500],
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],
+        ['startTiebreak', 500],
         ['targetCards', 500],
         ['moveCard', null],
 
@@ -1467,6 +1468,10 @@ define([
     notif_winTieBreaker(n) {
       debug('Notif: winning with tiebreaker', n);
       // TODO?
+    },
+
+    notif_startTiebreak(n) {
+      debug('Notif: start tiebreak', n);
     },
 
     notif_message(n) {},
