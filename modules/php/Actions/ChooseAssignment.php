@@ -98,7 +98,6 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     $this->playCard($cardId, $location);
-    $this->resolveAction([$cardId, $location]);
   }
 
   public function playCard($cardId, $location, $free = false, $effectHand = true)
