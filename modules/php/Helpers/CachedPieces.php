@@ -408,7 +408,7 @@ class CachedPieces extends DB_Manager
     self::moveAllInLocation($discard, $fromLocation);
     self::shuffle($fromLocation);
     if (static::$autoreshuffleListener) {
-      $obj = new (static::$autoreshuffleListener['obj'])();
+      $obj = new static::$autoreshuffleListener['obj']();
       $method = static::$autoreshuffleListener['method'];
       $obj->$method($fromLocation);
     }

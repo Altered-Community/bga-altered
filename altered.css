@@ -1354,6 +1354,16 @@ html {
       color: white; }
       .altered-card .altered-card-wrapper .card-support .svgicon-discard .path2:before {
         color: black; }
+    .altered-card .altered-card-wrapper .card-footer {
+      position: absolute;
+      bottom: 16px;
+      height: 12px;
+      left: 20px;
+      right: 20px;
+      text-align: center;
+      color: #ffffffa1;
+      z-index: 2;
+      font-size: 9px; }
   .altered-card.card-hero .card-name {
     top: 24px;
     font-size: 22px; }
@@ -1647,6 +1657,10 @@ html {
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"] {
       background-position-y: 100%; }
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-footer,
+  .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-footer,
+  .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-footer {
+    display: none; }
 .altered-card.no-frame:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-forest,
 .altered-card.no-frame:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-mountain,
 .altered-card.no-frame:not(.force-frame)[data-boost]:not([data-boost="0"]) .altered-card-wrapper .card-ocean,
