@@ -591,6 +591,9 @@ html {
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_31_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_31_C"] {
       background-image: url("img/illustrations/BR/ALT_CORE_B_BR_31_C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_R1"],
+    .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_R1"] {
+      background-image: url("img/illustrations/BR/ALT_CORE_B_BR_22_R1.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_LY_01_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_LY_01_C"] {
       background-image: url("img/illustrations/LY/ALT_CORE_B_LY_01_C.jpg"); }
