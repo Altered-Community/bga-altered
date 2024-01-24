@@ -43,6 +43,7 @@ trait TurnTrait
       return;
     }
 
+    Notifications::newPhase(PHASE_AFTERNOON);
     Globals::setStormMoves([]);
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
@@ -125,6 +126,7 @@ trait TurnTrait
     if (Players::checkVictory()) {
       return;
     }
+    Notifications::newPhase(PHASE_DUSK);
 
     Globals::setStormMoves([]);
     $this->checkCardListeners('BeforeDusk', 'stBeforeDusk');
@@ -220,6 +222,7 @@ trait TurnTrait
       return;
     }
     $cardLeft = [];
+    Notifications::newPhase(PHASE_NIGHT);
     Globals::setStormMoves([]);
     Globals::setSkippedPlayers([]);
     $this->initCustomDefaultTurnOrder('nightCleanup', 'stNightCleanup', 'stAfterNightCleanup', true);

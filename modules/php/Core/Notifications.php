@@ -448,6 +448,13 @@ class Notifications
     self::notifyAll('startTiebreak', clienttranslate('The tiebreaker is triggered as heroes reached their companions at the same time'), ['meeples' => $meeples]);
   }
 
+  public static function newPhase($phase)
+  {
+    // decide phase
+    $msg = 'toto';
+    self::notifyAll('newPhase', $msg, ['phase' => $phase]);
+  }
+
   public static function gainCounter($card, $increase = null)
   {
     self::notifyAll('gainCounter', clienttranslate('${card_name} gains ${increase} ${counterName}'), [

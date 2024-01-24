@@ -163,6 +163,12 @@ const RESERVE = 'reserve';
 const LIMBO = 'limbo';
 const MANA = 'mana';
 
+const PHASE_MORNING = 'morning';
+const PHASE_NOON = 'noon';
+const PHASE_AFTERNOON = 'afternoon';
+const PHASE_DUSK = 'dusk';
+const PHASE_NIGHT = 'night';
+
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';
 const STORMS = [STORM_LEFT, STORM_RIGHT];

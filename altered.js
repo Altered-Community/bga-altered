@@ -79,6 +79,7 @@ define([
         ['startTiebreak', 500],
         ['targetCards', 500],
         ['moveCard', null],
+        ['newPhase', 1000],
 
         ['payMana', 500],
         ['discard', 500],
@@ -1472,6 +1473,11 @@ define([
 
     notif_startTiebreak(n) {
       debug('Notif: start tiebreak', n);
+    },
+
+    notif_newPhase(n) {
+      debug('Notif: start new phase', n);
+      // TODO
     },
 
     notif_message(n) {},
