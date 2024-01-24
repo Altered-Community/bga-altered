@@ -15,10 +15,10 @@ $gameinfos = [
   'game_name' => 'Altered',
 
   // Game designer (or game designers, separated by commas)
-  'designer' => 'John Doe',
+  'designer' => 'Régis Bonnessée, Charles Wickham, François Jourdain, Jacques Ernoult, Kieran Mougel, Léa Roulée, Marcus Kearsey, Nathanaël Dufour, Pierre Millin, Timothée Simonot, Merlin Ismet, Manuel Rozoy, Max Fiévé, Ting-Yun Yu, Fabien Courgnaud, Stéphane Gantiez, Héléna Beilloin, Yoshiaki Mimura, David Flórez Herrero, Thai Pham, Philippe Autier, Matthias Mouy, Étienne Pascal, Félix Lavaste, Olivier Tousche, Émeline Gaube, Benoît Delamaire, Jérôme Lefèvre, Alexandre Desseaux, Eric Dieulangard, Thalia Eched, Justin Parnell, Manon Wojtowiez, Lokinox, Maxime Despretz, Stéphan Cotrelle',
 
   // Game artist (or game artists, separated by commas)
-  'artist' => 'Jane Doe',
+  'artist' => 'Anh Tung, Anatas Lozanski, Bà Vo, Christophe Young, Damian Audino, Edward Cheekokseang, Fahmi Fauzi, Floriane Bodereau, Fori Y., Gaga Zhou, Gael Giudicelli, HuoMiao Studio, Matteo Spirito, Marie Cardouat, Nestor Papatriantafyllou, Jean-Baptiste Andrier, Justice Wong, Kevin Sidharta, Khoa Viet, Polar Engine, Romain Kurdi, Rémi Jacquot, Slawek Fedorcuzk, Taras Susak, Zero Wen',
 
   // Year of FIRST publication of this game. Can be negative.
   'year' => 2024,
@@ -27,13 +27,13 @@ $gameinfos = [
   'publisher' => 'Equinox',
 
   // Url of game publisher website
-  'publisher_website' => 'http://www.mypublishingcompany.com/',
+  'publisher_website' => 'https://www.altered.gg',
 
   // Board Game Geek ID of the publisher
   'publisher_bgg_id' => 1234,
 
   // Board game geek ID of the game
-  'bgg_id' => 123456,
+  'bgg_id' => 5248,
 
   // Players configuration that can be played (ex: 2 to 4 players)
   'players' => [2],
@@ -88,13 +88,13 @@ $gameinfos = [
   'complexity' => 3,
 
   // Luck of the game, from 0 (absolutely no luck in this game) to 5 (totally luck driven)
-  'luck' => 3,
+  'luck' => 2,
 
   // Strategy of the game, from 0 (no strategy can be setup) to 5 (totally based on strategy)
-  'strategy' => 3,
+  'strategy' => 4,
 
   // Diplomacy of the game, from 0 (no interaction in this game) to 5 (totally based on interaction and discussion between players)
-  'diplomacy' => 3,
+  'diplomacy' => 4,
 
   // Colors attributed to players
   'player_colors' => ['ff0000', '008000', '0000ff', 'ffa500', '773300'],
@@ -128,9 +128,11 @@ $gameinfos = [
   // Each paragraph must be wrapped with totranslate() for translation and should not contain html (plain text without formatting).
   // A good length for this text is between 100 and 150 words (about 6 to 9 lines on a standard display)
   'presentation' => [
-    //    totranslate("This wonderful game is about geometric shapes!"),
-    //    totranslate("It was awarded best triangle game of the year in 2005 and nominated for the Spiel des Jahres."),
-    //    ...
+    totranslate("Altered is an innovative TCG which offers a new, refreshing approach to both competitive and casual players. Set in a universe of rich lore and visual design (influenced by Miyazaki's work and Dixit-like illustrations), this game is about exploring a new, reshaped Earth after a mysterious event, the Confluence, profoundly altered it."),
+    totranslate("Shape your own adventure, choose a faction and lead your expeditions through an ever-changing world. Be the first to discover what the universe of Altered has in store for you!"),
+    totranslate("What really lies at the heart of this revolution is a ton of expertly tailored details — a new rarity system, deep evolving lore, innovative game mechanisms and design — and a phygital experience that comes along with its myriad of life-quality improvements, both for the players, tournaments organizers and store owners alike."),
+    totranslate("Born and led from the mind of talented game designer Régis Bonnessée (founder of the Libellud studio, which published Dixit, Mysterium, Dice Forge, and Seasons), this project is brought to you by the French studio Equinox, based in Paris, in partnership with and exclusively distributed by Asmodee.")
+
   ],
 
   //////// BGA SANDBOX ONLY PARAMETERS (DO NOT MODIFY)
