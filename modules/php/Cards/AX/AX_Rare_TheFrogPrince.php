@@ -1,5 +1,6 @@
+<?php
 
-<?php namespace ALT\Cards\AX;
+namespace ALT\Cards\AX;
 
 class AX_Rare_TheFrogPrince extends \ALT\Models\Card
 {
