@@ -23,7 +23,7 @@ class BR_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
       'dynamicTough' => 'universalCharacter2',
 
       'flavorText' => clienttranslate(
-        "Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants."
+        "Within the Spindle's trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants."
       ),
       'artist' => 'Ba Vo',
     ];

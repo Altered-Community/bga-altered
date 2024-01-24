@@ -29,7 +29,7 @@ class MU_Rare_LyraClothDancer extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)]),
 
-      'flavorText' => clienttranslate("Hope you\'re not afraid of heights!"),
+      'flavorText' => clienttranslate("Hope you're not afraid of heights!"),
       'artist' => 'Fori Y.',
     ];
   }

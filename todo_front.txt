@@ -8,6 +8,9 @@ X Asleep
 X Icones status : mettre les vrais meeples
 X Compteurs sur la carte
 - reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
+- autofit text for card names
+- helpers
+
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure
@@ -47,6 +50,8 @@ X Après le first day, le héro du 1er joueur a pas son pouvoir dans le hoover. 
     * Afficher les tokens Asleep/anchored / avec les vraies images
 X Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
 - disable tooltip in mana pool
+- tooltip : boost discussion Max avec x 5
+
 
 [Glossaire]
 - Bouton pour afficher le glossaire

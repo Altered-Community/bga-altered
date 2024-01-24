@@ -35,6 +35,7 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       'typeline' => 'Character - Elemental',
       'flavorText' => 'It may be a fire today — tomorrow it will be ashes.',
       'artist' => 'HuoMiao Studio',
-    ];
+    'effectDesc' => 'When I leave the Expedition zone, if I\'m [BOOSTED] — Put me in my owner\'s Mana zone (as an exhausted Mana Orb).  {R} I gain 1 boost.', 
+];
   }
 }

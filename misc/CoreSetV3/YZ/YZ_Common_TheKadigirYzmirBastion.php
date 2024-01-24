@@ -16,7 +16,7 @@ class YZ_Common_TheKadigirYzmirBastion extends \ALT\Models\Card
       'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
       'flavorText' =>
-        "What dark, phantasmagorical secrets hide within Asgartha\'s College of Magic? Only madmen and the Yzmirs know for sure...",
+        "What dark, phantasmagorical secrets hide within Asgartha's College of Magic? Only madmen and the Yzmirs know for sure...",
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [LANDMARK],
       'effectDesc' => '{T} : The next Spell you play this turn is free.',

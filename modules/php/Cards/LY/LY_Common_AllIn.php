@@ -25,7 +25,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
         'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN('effect', BOOST, 'die')])],
       ]),
       'typeline' => clienttranslate('Spell - Boon'),
-      'flavorText' => clienttranslate("There\'s a time to be cautious, and a time to bet it all!"),
+      'flavorText' => clienttranslate("There's a time to be cautious, and a time to bet it all!"),
       'artist' => 'HuoMiao Studio',
     ];
   }

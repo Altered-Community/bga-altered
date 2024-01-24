@@ -33,7 +33,7 @@ class AX_Common_KelonBurst extends \ALT\Models\Card
       ]),
       'typeline' => clienttranslate('Spell - Disruption'),
       'flavorText' => clienttranslate(
-        "There\'s an enduring legend in the Suspira quarries: the existence of another type of Kelon."
+        "There's an enduring legend in the Suspira quarries: the existence of another type of Kelon."
       ),
       'artist' => 'HuoMiao Studio',
     ];

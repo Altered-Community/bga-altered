@@ -43,6 +43,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
       ],
       'flavorText' => 'When luck joins in the game, cleverness scores double. ',
       'artist' => 'Khoa Viet',
-    ];
+    'effectDesc' => 'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.', 
+];
   }
 }

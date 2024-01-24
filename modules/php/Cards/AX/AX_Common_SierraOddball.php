@@ -38,9 +38,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
           ),
         ],
       ],
-      'flavorText' => clienttranslate(
-        "I don\'t know if there\'s a better reward than seeing something you\'ve built come to life."
-      ),
+      'flavorText' => clienttranslate("I don't know if there's a better reward than seeing something you've built come to life."),
       'artist' => 'Taras Susak',
     ];
   }

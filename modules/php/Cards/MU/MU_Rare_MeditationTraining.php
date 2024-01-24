@@ -31,7 +31,7 @@ class MU_Rare_MeditationTraining extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
 
-      'flavorText' => clienttranslate("Don\'t think you are, know you are."),
+      'flavorText' => clienttranslate("Don't think you are, know you are."),
       'artist' => 'HuoMiao Studio',
     ];
   }

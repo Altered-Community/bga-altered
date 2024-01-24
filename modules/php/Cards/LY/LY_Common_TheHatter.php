@@ -31,6 +31,8 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'flavorText' =>
         "\"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?\"",
-    ];
+    'flavorText' => "\"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?\"", 
+'supportDesc' => '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)', 
+];
   }
 }

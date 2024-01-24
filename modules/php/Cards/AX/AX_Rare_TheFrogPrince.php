@@ -26,7 +26,7 @@ class AX_Rare_TheFrogPrince extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
-      'flavorText' => "Thankfully, he doesn\'t seal his contracts with a kiss.",
+      'flavorText' => "Thankfully, he doesn't seal his contracts with a kiss.",
       'artist' => 'Gaga Zhou',
     ];
   }

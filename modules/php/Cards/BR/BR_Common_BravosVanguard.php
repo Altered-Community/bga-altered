@@ -30,6 +30,7 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'artist' => 'Edward Cheekokseang',
       'flavorText' =>
         "\"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!\"",
-    ];
+    'flavorText' => "\"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!\"", 
+];
   }
 }

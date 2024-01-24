@@ -15,7 +15,7 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
       'name' => 'Tinker Bell',
       'typeline' => 'Character - Fairy',
       'type' => CHARACTER,
-      'flavorText' => "Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...",
+      'flavorText' => "Ting! Ting-a-ling! There's something magical in mischievous tinkering...",
       'artist' => 'Anh Tung',
       'subtypes' => [FAIRY],
       'effectDesc' => '{R} $[SABOTAGE].',

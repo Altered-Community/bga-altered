@@ -16,7 +16,7 @@ class MU_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
       'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
       'flavorText' =>
-        "Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.",
+        "Within the Spindle's trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.",
       'artist' => 'Ba Vo',
       'subtypes' => [LANDMARK],
       'effectDesc' => 'Characters you control have $[TOUGH_2].  #At Noon — Target Character you control gains 1 boost.#',

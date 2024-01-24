@@ -30,7 +30,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
         'targetLocation' => ['source'],
       ]),
       'typeline' => 'Character - Apprentice Soldier',
-      'flavorText' => "Together they learn, and together they\'ll protect.",
+      'flavorText' => "Together they learn, and together they'll protect.",
       'artist' => 'Anh Tung',
     ];
   }

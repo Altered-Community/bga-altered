@@ -32,6 +32,7 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
       ],
       'flavorText' => 'Up above the world so high, like a diamond in the sky.',
       'artist' => 'HuoMiao Studio',
-    ];
+    'effectDesc' => 'Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)', 
+];
   }
 }

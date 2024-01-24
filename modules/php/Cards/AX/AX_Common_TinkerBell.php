@@ -31,7 +31,7 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'flavorText' => "Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...",
+      'flavorText' => "Ting! Ting-a-ling! There's something magical in mischievous tinkering...",
       'typeline' => 'Character - Fairy',
       'artist' => 'Anh Tung',
     ];

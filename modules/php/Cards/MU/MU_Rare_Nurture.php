@@ -24,7 +24,7 @@ class MU_Rare_Nurture extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
       'typeline' => clienttranslate('Spell - Boon'),
-      'flavorText' => clienttranslate("When the sun shines, we\'ll shine together."),
+      'flavorText' => clienttranslate("When the sun shines, we'll shine together."),
       'artist' => 'Zero Wen',
     ];
   }

@@ -25,7 +25,7 @@ class AX_Common_Ogun extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ROBOT]]),
-      'flavorText' => "With every blow of his hammer, Ogun forges the Axiom\'s destiny.",
+      'flavorText' => "With every blow of his hammer, Ogun forges the Axiom's destiny.",
       'typeline' => 'Character - Engineer Deity',
       'artist' => 'Edward Cheekokseang',
     ];

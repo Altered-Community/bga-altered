@@ -15,7 +15,7 @@ class MU_Rare_MeditationTraining extends \ALT\Models\Card
       'name' => clienttranslate('Meditation Training'),
       'typeline' => clienttranslate('Spell - Boon'),
       'type' => SPELL,
-      'flavorText' => clienttranslate("Don\'t think you are, know you are."),
+      'flavorText' => clienttranslate("Don't think you are, know you are."),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
