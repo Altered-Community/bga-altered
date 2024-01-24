@@ -39,6 +39,8 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
         ])
       ),
       'artist' => 'Atanas Lozanski',
+      'flavorText' =>
+        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
     ];
   }
 }

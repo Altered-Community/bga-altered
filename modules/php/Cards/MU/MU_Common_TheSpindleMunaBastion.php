@@ -23,6 +23,8 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
       'dynamicTough' => 'universalCharacter2',
       'typeline' => 'Permanent - Landmark',
       'artist' => 'Ba Vo',
+      'flavorText' =>
+        "Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.",
     ];
   }
 }

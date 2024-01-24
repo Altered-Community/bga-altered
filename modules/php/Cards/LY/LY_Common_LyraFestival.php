@@ -18,9 +18,8 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
       'name' => 'Lyra Festival',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate(
-        '{J} Draw a card.  At Dusk — If you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character, you win the game.'
-      ),
+      'effectDesc' =>
+        '{J} Draw a card.  At Dusk, if you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character — You win the game.',
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
@@ -32,6 +31,8 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
       ],
       'typeline' => 'Permanent - Landmark',
       'artist' => 'Fahmi Fauzi',
+      'flavorText' =>
+        'When the time of the Kalann Mae comes, the Lyra all feel the call to a single place, where they will bring a masterpiece to life.',
     ];
   }
 }

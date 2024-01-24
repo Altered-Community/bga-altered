@@ -19,9 +19,8 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate(
-        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
-      ),
+      'effectDesc' =>
+        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 2,

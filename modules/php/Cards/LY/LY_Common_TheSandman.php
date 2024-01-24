@@ -19,7 +19,8 @@ class LY_Common_TheSandman extends \ALT\Models\Card
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate('{H} Up to one target Character gains $[ASLEEP].'),
+      'effectDesc' =>
+        '{H} Up to one target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,
@@ -28,6 +29,8 @@ class LY_Common_TheSandman extends \ALT\Models\Card
 
       'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, ASLEEP)]),
       'artist' => 'Nestor Papatriantafyllou',
+      'flavorText' =>
+        "\"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide.\"",
     ];
   }
 }

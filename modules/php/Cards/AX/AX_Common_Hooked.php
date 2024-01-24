@@ -18,9 +18,8 @@ class AX_Common_Hooked extends \ALT\Models\Card
       'name' => 'Hooked',
       'type' => SPELL,
       'subtypes' => [MANEUVER],
-      'effectDesc' => clienttranslate(
-        'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)'
-      ),
+      'effectDesc' =>
+        'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)',
       'costHand' => 1,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),

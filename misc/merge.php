@@ -61,17 +61,19 @@ foreach (ALL_CARDS as $cardId) {
   $oldFile = file_get_contents($sourceOld . $cardId . '.php');
   //	echo $oldFile;
 
+
   foreach ($attributes as $attr) {
-    //    echo "#################\n" . $attr . "\n";
-    preg_match('/\'' . $attr . '\' => ((\s|.)+?),\n/', $newFile, $matches);
+//        echo "#################\n" . $attr . "\n";
+//    preg_match('/\'' . $attr . '\' => ((clienttranslate\(\n?)?(\s|.)+?(\n\s+\))?),\n/', $newFile, $matches);
+    preg_match('/\'' . $attr . '\' =>( |(\n\s+))((\s|.)+?),\n/', $newFile, $matches);
 
     if (!empty($matches)) {
-      $newValue = $matches[1];
-      //      echo $newValue . "\n";
+      $newValue = $matches[3];
+//            echo $newValue . "\n";
 
-      preg_match('/(\'' . $attr . '\' => )((\s|.)+?),\n/', $oldFile, $matches);
+      preg_match('/(\'' . $attr . '\' => )((\s|.|\n)+?),( ?)\n/', $oldFile, $matches);
       if (!empty($matches)) {
-        $oldFile = preg_replace('/(\'' . $attr . '\' => )((\s|.)+?),\n/', '${1}' . $newValue . ",\n", $oldFile);
+        $oldFile = preg_replace('/(\'' . $attr . '\' => )((\s|.)+?),( ?)\n/', '${1}' . $newValue . ",\n", $oldFile);
       } else {
         echo 'missing';
         $oldFile = preg_replace('/\];/', "'$attr' => $newValue, \n];", $oldFile);

@@ -18,9 +18,8 @@ class BR_Common_AtsadiSurge extends \ALT\Models\Card
       'name' => 'Atsadi & Surge',
       'type' => HERO,
       'typeline' => 'Hero',
-      'effectDesc' => clienttranslate(
-        'I begin the game with five Heroism counters.  When you play a Character with Hand Cost greater than or equal to my number of Heroism counters — Draw a card and I gain a Heroism counter.'
-      ),
+      'effectDesc' =>
+        'I begin the game with five Heroism counters.  When you play a Character with Hand Cost greater than or equal to my number of Heroism counters — Draw a card and I gain a Heroism counter.',
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,

@@ -27,6 +27,8 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserve']),
       'typeline' => 'Character - Artist',
       'artist' => 'Taras Susak',
+      'flavorText' =>
+        'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.',
     ];
   }
 }
