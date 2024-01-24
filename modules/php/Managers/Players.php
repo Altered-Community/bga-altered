@@ -182,7 +182,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       Notifications::message(clienttranslate('The tiebreaker is triggered as heroes reached their companions at the same time'));
     } elseif ($victor != -1) {
       // we have a winner => end of game
-      Players::get($victor)->setScore(99);
+      Players::get($victor)->setScore(1);
       Stats::setWinner(Players::get($victor), 1);
       Game::get()->jumpToOrCall(ST_PRE_END_OF_GAME);
       return true;

@@ -161,7 +161,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'instantWin':
         if (Globals::getInstantWin() == false) {
-          $card->getPlayer()->setScore(99);
+          $card->getPlayer()->setScore(1);
           Globals::setInstantWin(true);
           Notifications::message(clienttranslate('${player_name} wins the game with ${card_name}\'s effect'), [
             'player' => $card->getPlayer(),
