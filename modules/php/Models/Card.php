@@ -362,7 +362,7 @@ class Card extends \ALT\Helpers\DB_Model
     // put the source as the card triggering itself
     $power['output']['sourceId'] = $this->id;
 
-    return [$power['payment'] ?? [], $power['output']];
+    return [($power['payment'] ?? []), $power['output']];
   }
 
   public function getCost()
