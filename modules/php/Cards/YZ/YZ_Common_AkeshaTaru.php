@@ -26,7 +26,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'effectTap' => FT::ACTION(CHECK_CONDITION, ['condition' => 'isFirstPlayer', 'effect' => FT::ACTION(AFTER_YOU, [])]),
 
       'flavorText' => clienttranslate('Whatever ordeals we may face, good manners and politeness are always in fashion!'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
     ];
   }
 }

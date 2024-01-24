@@ -27,7 +27,7 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
       'effectHand' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
       'typeline' => clienttranslate('Character - Citizen'),
       'flavorText' => clienttranslate("\"I’ve a feeling we’re not in Kansas anymore.\""),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
     ];
   }
 }

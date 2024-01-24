@@ -376,13 +376,13 @@ class Notifications
     if ($location == 'limbo') {
       $msg =
         $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost}')
-        : clienttranslate('${player_name} plays ${card_name} for ${cost}');
+          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost}')
+          : clienttranslate('${player_name} plays ${card_name} for ${cost}');
     } else {
       $msg =
         $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
-        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
+          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
+          : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
     }
 
     self::notifyAll('playCard', $msg, [
@@ -488,8 +488,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -729,8 +729,8 @@ class Notifications
     if (isset($data['displayLocation'])) {
       $data['displayLocation'] =
         $data['displayLocation'] == STORM_LEFT
-        ? clienttranslate('Hero\'s expedition')
-        : clienttranslate('Companion\'s expedition');
+          ? clienttranslate('Hero\'s expedition')
+          : clienttranslate('Companion\'s expedition');
     }
 
     // if (isset($data['actionCard'])) {

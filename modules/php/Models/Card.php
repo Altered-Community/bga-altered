@@ -156,7 +156,9 @@ class Card extends \ALT\Helpers\DB_Model
     $totalMana = $player->getTotalMana();
 
     if ($this->getCostReductionDiscard() > 0) {
-      $reserveCards = $this->getPlayer()->getReserveCards()->count();
+      $reserveCards = $this->getPlayer()
+        ->getReserveCards()
+        ->count();
       if ($this->getLocation() == RESERVE && $reserveCards >= 2) {
         $cost -= $this->getCostReductionDiscard();
       } elseif ($reserveCards >= 1) {

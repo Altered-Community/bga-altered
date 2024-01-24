@@ -17,7 +17,7 @@ class YZ_Common_TheKraken extends \ALT\Models\Card
       'type' => CHARACTER,
       'flavorText' =>
         'The Kraken tears open the surface, sending plumes of water crashing down on the troops in an apocalyptic deluge.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Fahmi Fauzi',
       'subtypes' => [LEVIATHAN],
       'effectDesc' => '$[GIGANTIC].  {J} Sacrifice two Characters.  All regions are {E} and lose their other types.',
       'forest' => 0,

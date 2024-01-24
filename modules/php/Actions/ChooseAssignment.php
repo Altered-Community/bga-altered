@@ -110,7 +110,6 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     if ($free == false) {
-
       // Calculate cost
       $cost = $card->getCost();
       $costReduction = Globals::getCostReduction();
@@ -127,13 +126,19 @@ class ChooseAssignment extends \ALT\Models\Action
         $this->insertAsChild(
           FT::SEQ(
             FT::XOR(
-              FT::ACTION(
-                PAY,
-                ['pay' => $cost]
-              ),
+              FT::ACTION(PAY, ['pay' => $cost]),
               FT::SEQ(
-                FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'targetPlayer' => ME, 'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])], ['sourceId' => $cardId]),
-                FT::ACTION(PAY, ['pay' => $cost - $card->getCostReductionDiscard()]),
+                FT::ACTION(
+                  TARGET,
+                  [
+                    'targetLocation' => [RESERVE],
+                    'targetPlayer' => ME,
+                    'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                    'effect' => FT::ACTION(DISCARD, []),
+                  ],
+                  ['sourceId' => $cardId]
+                ),
+                FT::ACTION(PAY, ['pay' => $cost - $card->getCostReductionDiscard()])
               )
             ),
             FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true])

@@ -30,7 +30,7 @@ class AX_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       // Passive effect managed in Resupply
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
     ];
   }
 }

@@ -16,7 +16,7 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate("\"One good turn deserves another.\""),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
       'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)'),
       'forest' => 2,

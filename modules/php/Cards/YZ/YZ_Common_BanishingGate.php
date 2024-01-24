@@ -27,7 +27,7 @@ class YZ_Common_BanishingGate extends \ALT\Models\Card
         FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
       ),
       'flavorText' => clienttranslate('Let me walk you to the door.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

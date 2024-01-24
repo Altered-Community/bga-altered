@@ -16,7 +16,7 @@ class YZ_Rare_StudiousDisciple extends \ALT\Models\Card
       'typeline' => 'Character - Mage Apprentice',
       'type' => CHARACTER,
       'flavorText' => 'So far behind, and still so much to learn!',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Floriane Bodereau',
       'subtypes' => [MAGE, APPRENTICE],
       'effectDesc' => '#{R} The next Spell you play this Afternoon costs {1} less.#',
       'supportDesc' => '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)',

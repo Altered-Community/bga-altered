@@ -16,7 +16,7 @@ class BR_Rare_LadyoftheLake extends \ALT\Models\Card
       'typeline' => 'Character - Fairy Spirit',
       'type' => CHARACTER,
       'flavorText' => "\"One day, I will show you the wonders of Avalon and the true might of the Fae realms.\"",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [FAIRY, SPIRIT],
       'supportDesc' => '#{D} : The next Character you play this turn loses [FLEETING].# (Discard me from Reserve to do this.)',
       'forest' => 1,

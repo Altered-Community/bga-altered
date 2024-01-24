@@ -18,7 +18,7 @@ class AX_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         "The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind. "
       ),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
         '#{J} [RESUPPLY].#  If you would #$[RESUPPLY], instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other.#'

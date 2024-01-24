@@ -16,7 +16,7 @@ class BR_Rare_Sakarabru extends \ALT\Models\Card
       'typeline' => 'Character - Deity',
       'type' => CHARACTER,
       'flavorText' => 'When such a terrifying being appears in your path, taking a step back is only natural.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Gael Giudicelli',
       'subtypes' => [DEITY],
       'effectDesc' => '{H} Your opponent\'s Expedition facing mine moves backwards one region.',
       'forest' => 4,

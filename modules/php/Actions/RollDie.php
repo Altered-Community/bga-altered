@@ -101,11 +101,18 @@ class RollDie extends \ALT\Models\Action
 
     // Lyra Bastion management
     $lyraBastion = 0;
-    $lyraBastion += $player->getLandmarks()->where('uid', 'ALT_CORE_B_LY_30_R1')->count();
-    $lyraBastion += $player->getLandmarks()->where('uid', 'ALT_CORE_B_LY_30_C')->count();
-    Notifications::message(clienttranslate('${n} dice are added to the roll (Ouroboros Lyra Bastion\'s effect)'), ['n' => $lyraBastion]);
+    $lyraBastion += $player
+      ->getLandmarks()
+      ->where('uid', 'ALT_CORE_B_LY_30_R1')
+      ->count();
+    $lyraBastion += $player
+      ->getLandmarks()
+      ->where('uid', 'ALT_CORE_B_LY_30_C')
+      ->count();
+    Notifications::message(clienttranslate('${n} dice are added to the roll (Ouroboros Lyra Bastion\'s effect)'), [
+      'n' => $lyraBastion,
+    ]);
     $n += $lyraBastion;
-
 
     for ($i = 0; $i < $n; $i++) {
       $roll = bga_rand(1, 6);
@@ -124,7 +131,7 @@ class RollDie extends \ALT\Models\Action
   public function argsRollDie()
   {
     return [
-      'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC)
+      'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC),
       // TODO: add effects associated to it?
       // TODO: improve choice as choice is necessary only if 2 differents effects
     ];

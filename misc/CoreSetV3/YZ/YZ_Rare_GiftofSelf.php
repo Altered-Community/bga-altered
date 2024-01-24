@@ -17,7 +17,7 @@ class YZ_Rare_GiftofSelf extends \ALT\Models\Card
       'type' => SPELL,
       'flavorText' =>
         'Her being begins to disintegrate as she breaks all the Mana bridges linking the idea of who she is to physical matter.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Fahmi Fauzi',
       'subtypes' => [CONJURATION],
       'effectDesc' => '$[FLEETING].  Sacrifice a Character. If you do, draw #three cards#.',
       'costHand' => 3,

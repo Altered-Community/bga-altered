@@ -16,7 +16,7 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
       'typeline' => 'Spell - Disruption',
       'type' => SPELL,
       'flavorText' => 'This message will self-destruct in five seconds.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DISRUPTION],
       'effectDesc' => '$[SABOTAGE], then $[RESUPPLY].',
       'costHand' => 2,

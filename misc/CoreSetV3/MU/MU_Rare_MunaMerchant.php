@@ -16,7 +16,7 @@ class MU_Rare_MunaMerchant extends \ALT\Models\Card
       'typeline' => 'Character - Citizen',
       'type' => CHARACTER,
       'flavorText' => "\"What do you need?\"",
-      'artist' => 'HuoMiao Studio',
+      'artist' => 'Ba Vo',
       'subtypes' => [CITIZEN],
       'effectDesc' => '{R} $[RESUPPLY].',
       'forest' => 3,

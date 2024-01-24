@@ -18,7 +18,7 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         "\"This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...\""
       ),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
       'subtypes' => [ENGINEER],
       'supportDesc' => clienttranslate(
         '#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)'

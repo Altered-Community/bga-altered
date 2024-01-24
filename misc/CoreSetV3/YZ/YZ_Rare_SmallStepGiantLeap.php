@@ -16,7 +16,7 @@ class YZ_Rare_SmallStepGiantLeap extends \ALT\Models\Card
       'typeline' => 'Spell - Maneuver',
       'type' => SPELL,
       'flavorText' => 'The journey of a thousand miles begins with one step.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'HuoMiao Studio',
       'subtypes' => [MANEUVER],
       'effectDesc' => 'Target Expedition moves forward.',
       'costHand' => 6,

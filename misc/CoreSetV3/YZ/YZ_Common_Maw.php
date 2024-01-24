@@ -16,7 +16,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'typeline' => 'Token - Companion',
       'type' => TOKEN,
       'flavorText' => 'Always hungry for new ideas...',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Edward Cheekokseang',
       'subtypes' => [COMPANION],
       'effectDesc' => 'When you sacrifice a Character — I gain 2 boosts.',
       'forest' => 0,

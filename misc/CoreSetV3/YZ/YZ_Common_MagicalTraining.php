@@ -16,7 +16,7 @@ class YZ_Common_MagicalTraining extends \ALT\Models\Card
       'typeline' => 'Spell - Conjuration',
       'type' => SPELL,
       'flavorText' => 'Without practice, the gift of Alteration will come to nothing.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Zero Wen',
       'subtypes' => [CONJURATION],
       'effectDesc' => 'Draw a card.',
       'costHand' => 1,

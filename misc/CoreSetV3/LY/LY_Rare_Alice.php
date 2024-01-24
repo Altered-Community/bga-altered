@@ -16,7 +16,7 @@ class LY_Rare_Alice extends \ALT\Models\Card
       'typeline' => 'Character - Citizen',
       'type' => CHARACTER,
       'flavorText' => "\"One good turn deserves another.\"",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
       'supportDesc' => '{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)',
       'forest' => 3,

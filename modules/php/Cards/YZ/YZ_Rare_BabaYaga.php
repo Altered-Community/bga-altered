@@ -28,7 +28,7 @@ class YZ_Rare_BabaYaga extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain'],
       'effectHand' => FT::ACTION(DRAW, ['players' => ME]),
       'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Atanas Lozanski',
     ];
   }
 }

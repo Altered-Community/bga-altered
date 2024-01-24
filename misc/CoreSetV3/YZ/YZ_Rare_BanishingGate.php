@@ -16,7 +16,7 @@ class YZ_Rare_BanishingGate extends \ALT\Models\Card
       'typeline' => 'Spell - Disruption',
       'type' => SPELL,
       'flavorText' => 'Let me walk you to the door.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [DISRUPTION],
       'effectDesc' => 'Discard target Character or Permanent.',
       'costHand' => 4,

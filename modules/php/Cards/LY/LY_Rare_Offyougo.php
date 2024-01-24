@@ -25,7 +25,7 @@ class LY_Rare_Offyougo extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),
 
       'flavorText' => clienttranslate('Time to kiss Kansas goodbye.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

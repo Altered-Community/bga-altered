@@ -27,7 +27,7 @@ class BR_Rare_DorothyGale extends \ALT\Models\Card
       'costReserve' => 3,
       'effectHand' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
       'flavorText' => clienttranslate("\"I’ve a feeling we’re not in Kansas anymore.\""),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
     ];
   }
 }

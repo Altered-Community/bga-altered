@@ -31,7 +31,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         'The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.'
       ),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Matteo Spirito',
     ];
   }
 }

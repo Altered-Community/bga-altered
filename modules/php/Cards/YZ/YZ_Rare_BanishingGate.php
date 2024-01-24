@@ -26,7 +26,7 @@ class YZ_Rare_BanishingGate extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
 
       'flavorText' => 'Let me walk you to the door.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

@@ -16,7 +16,7 @@ class YZ_Rare_Sakarabru extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate('When such a terrifying being appears in your path, taking a step back is only natural.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Gael Giudicelli',
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing mine moves backwards one region.'),
       'supportDesc' => clienttranslate('#{D} : Draw a card.# (Discard me from Reserve to do this.)'),

@@ -16,7 +16,7 @@ class YZ_Common_CelestialBlast extends \ALT\Models\Card
       'typeline' => 'Spell - Disruption',
       'type' => SPELL,
       'flavorText' => 'The sky cracked open in a thunderous wave as the dream was unleashed upon the world.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' => '$[FLEETING].  Discard up to two targets, Characters or Permanents.',
       'costHand' => 7,

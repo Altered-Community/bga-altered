@@ -30,7 +30,7 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       ],
       'typeline' => clienttranslate('Character - Mage Apprentice'),
       'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Floriane Bodereau',
     ];
   }
 }

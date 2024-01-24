@@ -16,7 +16,7 @@ class OD_Rare_ConjuringSeal extends \ALT\Models\Card
       'typeline' => 'Spell - Conjuration',
       'type' => SPELL,
       'flavorText' => 'The Imagination shapes our reality just as our beliefs shaped the Æther.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
       'subtypes' => [CONJURATION],
       'effectDesc' => 'Draw two cards.',
       'costHand' => 3,

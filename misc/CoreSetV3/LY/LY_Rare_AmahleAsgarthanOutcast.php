@@ -16,7 +16,7 @@ class LY_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'typeline' => 'Character - Scholar',
       'type' => CHARACTER,
       'flavorText' => 'The old world is dying, and the new world struggles to be born: now is the time of monsters.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
       'subtypes' => [SCHOLAR],
       'effectDesc' => '{J} You may discard #any number of cards# from your Reserve to #draw that many cards#.',
       'forest' => 5,

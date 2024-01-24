@@ -23,7 +23,7 @@ class YZ_Common_LadyoftheLake extends \ALT\Models\Card
       'costReserve' => 2,
       'typeline' => clienttranslate('Character - Fairy Spirit'),
       'flavorText' => clienttranslate("\"One day, I will show you the wonders of Avalon and the true might of the Fae realms.\""),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

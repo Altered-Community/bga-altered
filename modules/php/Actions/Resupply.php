@@ -60,15 +60,24 @@ class Resupply extends \ALT\Models\Action
     }
 
     // manage of AX_Rare_TheOuroborosLyraBastion
-    if ($player->getLandmarks()->where('uid', 'ALT_CORE_B_LY_30_R2')->count() >= 1) {
+    if (
+      $player
+        ->getLandmarks()
+        ->where('uid', 'ALT_CORE_B_LY_30_R2')
+        ->count() >= 1
+    ) {
       // draw 2, 1 goes to reserve, the other one is discarded
       $drawn = $player->draw(
         2,
         'deck-' . $player->getId(),
         RESERVE,
         $source,
-        clienttranslate('You draw ${card_names} from your deck and must keep 1 (${card_name2}\'s effect combined with The Ouroboros, Lyra Bastion)'),
-        clienttranslate('${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}\'s effect combined with  The Ouroboros, Lyra Bastion)')
+        clienttranslate(
+          'You draw ${card_names} from your deck and must keep 1 (${card_name2}\'s effect combined with The Ouroboros, Lyra Bastion)'
+        ),
+        clienttranslate(
+          '${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}\'s effect combined with  The Ouroboros, Lyra Bastion)'
+        )
       );
       $this->insertAsChild(
         FT::ACTION(
@@ -84,7 +93,6 @@ class Resupply extends \ALT\Models\Action
         )
       );
     } else {
-
       $player->draw(
         $n,
         'deck-' . $player->getId(),

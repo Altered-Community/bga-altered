@@ -16,7 +16,7 @@ class YZ_Common_Baku extends \ALT\Models\Card
       'typeline' => 'Character - Spirit',
       'type' => CHARACTER,
       'flavorText' => "\"I’ve seen it myself! \'Baku! Baku!\', it says, eating up ghosts as though they were candies.\"",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Zero Wen',
       'subtypes' => [SPIRIT],
       'effectDesc' => '{H} Target opponent discards a card from their hand.',
       'forest' => 2,
