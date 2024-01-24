@@ -10,7 +10,8 @@ X Compteurs sur la carte
 - reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
 - autofit text for card names
 - helpers
-
+- deck thumbnail
+- revoir chooseAssignment
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure

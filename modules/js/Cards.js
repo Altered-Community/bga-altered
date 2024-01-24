@@ -1294,9 +1294,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
-            <div class='card-support'>
+          </div>
+          <div class='card-support'>
             ${this.formatString(support.str, true)}
-            </div>
           </div>
 
           <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>

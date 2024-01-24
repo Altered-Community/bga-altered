@@ -96,11 +96,11 @@ class Actions
     // Run action
     $action = self::get($actionId, $ctx);
     $methodName = $actionName;
-    $action->$methodName(...$args);
+    $result = $action->$methodName(...$args);
 
     // Resolve action
     $automatic = $ctx->isAutomatic($player);
-    $checkpoint = false; // TODO
+    $checkpoint = is_null($result)? false : $result; 
     $ctx = $action->getCtx();
     Engine::resolveAction(['actionName' => $actionName, 'args' => $args], $checkpoint, $ctx, $automatic);
     Engine::proceed();

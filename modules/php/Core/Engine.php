@@ -291,7 +291,7 @@ class Engine
     if (!is_null($node) && $node->getPId() == $player->getId()) {
       throw new UserException(
         totranslate(
-          "You can't take an irreversible action if there is a mandatory undoable action pending (eg unpayable Venom fee)"
+          "You can't take an irreversible action if there is a mandatory undoable action pending"
         )
       );
     }
