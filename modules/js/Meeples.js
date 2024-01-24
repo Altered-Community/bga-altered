@@ -31,6 +31,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.addMeeple({ id: 'firstPlayer', type: 'first-player' }, $(`firstPlayer-${this.gamedatas.firstPlayer}`));
       }
       this.updatePlayersCounters();
+
+      this.gamedatas.cards.forEach((card) => {
+        this.updateCardStatuses(card.id);
+      });
     },
 
     addMeeple(meeple, location = null) {
