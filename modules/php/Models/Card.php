@@ -413,6 +413,9 @@ class Card extends \ALT\Helpers\DB_Model
         // no dynamic
         break;
       case 'region':
+        if (Globals::isTieBreakerMode()) {
+          break;
+        }
         $tough += $this->getPlayer()->getRegionDifference();
         break;
     }
