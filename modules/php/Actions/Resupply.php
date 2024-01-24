@@ -62,9 +62,9 @@ class Resupply extends \ALT\Models\Action
     // manage of AX_Rare_TheOuroborosLyraBastion
     if (
       $player
-        ->getLandmarks()
-        ->where('uid', 'ALT_CORE_B_LY_30_R2')
-        ->count() >= 1
+      ->getLandmarks()
+      ->where('uid', 'ALT_CORE_B_LY_30_R2')
+      ->count() >= 1
     ) {
       // draw 2, 1 goes to reserve, the other one is discarded
       $drawn = $player->draw(
@@ -84,7 +84,7 @@ class Resupply extends \ALT\Models\Action
           TARGET,
           [
             'effect' => FT::ACTION(DISCARD, []),
-            'targetType' => ['CHARACTER', 'TOKEN', 'SPELL', 'PERMANENT'],
+            'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
             'targetLocation' => [RESERVE],
             'targetPlayer' => ME,
             'cards' => $drawn->getIds(),
