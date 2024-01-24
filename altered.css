@@ -2171,7 +2171,16 @@ html {
             background-size: auto 100%;
             position: absolute;
             z-index: 10;
-            left: 17px; }
+            left: 17px;
+            color: #d6aa49;
+            font-weight: bold;
+            font-family: "Tiller";
+            writing-mode: sideways-lr;
+            text-align: center;
+            padding-right: 51px;
+            box-sizing: border-box;
+            font-size: 12px;
+            padding-left: 154px; }
         #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-end-frame {
           width: 109px;
           height: 186px;
@@ -2181,7 +2190,15 @@ html {
           z-index: 10;
           right: 110px;
           top: 0px;
-          background-position: right center; }
+          background-position: right center;
+          color: #d6aa49;
+          font-weight: bold;
+          font-family: "Tiller";
+          writing-mode: sideways-rl;
+          text-align: center;
+          padding-right: 51px;
+          box-sizing: border-box;
+          font-size: 12px; }
         #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container {
           position: absolute;
           width: 1299px;

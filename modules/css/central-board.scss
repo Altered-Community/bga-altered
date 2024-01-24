@@ -79,6 +79,16 @@
                         position: absolute;
                         z-index: 10;
                         left: 17px;
+
+                        color: #d6aa49;
+                        font-weight: bold;
+                        font-family: "Tiller";
+                        writing-mode: sideways-lr;
+                        text-align: center;
+                        padding-right: 51px;
+                        box-sizing: border-box;
+                        font-size: 12px;
+                        padding-left: 154px;
                     }
                 }
 
@@ -92,6 +102,15 @@
                     right: 110px;
                     top: 0px;
                     background-position: right center;
+
+                    color: #d6aa49;
+                    font-weight: bold;
+                    font-family: "Tiller";
+                    writing-mode: sideways-rl;
+                    text-align: center;
+                    padding-right: 51px;
+                    box-sizing: border-box;
+                    font-size: 12px;
                 }
 
                 #storm-container {
