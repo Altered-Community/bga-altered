@@ -24,7 +24,7 @@ class YZ_Common_Offyougo extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),
       'typeline' => clienttranslate('Spell - Disruption'),
       'flavorText' => clienttranslate('Time to kiss Kansas goodbye.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'HuoMiao Studio',
     ];
   }
 }

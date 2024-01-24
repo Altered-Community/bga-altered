@@ -29,7 +29,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)]),
       'typeline' => clienttranslate('Character - Artist'),
       'flavorText' => clienttranslate("Hope you\'re not afraid of heights!"),
-      'artist' => 'Ting-Yun',
+      'artist' => 'Fori Y.',
     ];
   }
 }

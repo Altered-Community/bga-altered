@@ -16,7 +16,7 @@ class AX_Rare_OuroborosInkcaster extends \ALT\Models\Card
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
       'flavorText' => 'When luck joins in the game, cleverness scores double. ',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
       'subtypes' => [ARTIST],
       'effectDesc' =>
         'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',

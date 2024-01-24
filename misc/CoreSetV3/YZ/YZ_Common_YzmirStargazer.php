@@ -16,7 +16,7 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage Scholar'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate("She won\'t read the future in the stars, she\'ll change it herself."),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'HuoMiao Studio',
       'subtypes' => [MAGE, SCHOLAR],
       'forest' => 1,
       'mountain' => 2,

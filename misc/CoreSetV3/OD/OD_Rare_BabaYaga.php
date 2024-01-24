@@ -16,7 +16,7 @@ class OD_Rare_BabaYaga extends \ALT\Models\Card
       'typeline' => 'Character - Mage',
       'type' => CHARACTER,
       'flavorText' => 'Help or harm? Only the card will tell.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Atanas Lozanski',
       'subtypes' => [MAGE],
       'effectDesc' => '{H} Draw a card.',
       'forest' => 3,

@@ -16,7 +16,7 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
       'flavorText' => clienttranslate('This message will self-destruct in five seconds.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].'),
       'costHand' => 2,

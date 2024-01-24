@@ -19,7 +19,7 @@ class LY_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         "The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind. "
       ),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
         'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'
@@ -28,7 +28,6 @@ class LY_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
       // Effect managed in RollDie directly
-
     ];
   }
 }

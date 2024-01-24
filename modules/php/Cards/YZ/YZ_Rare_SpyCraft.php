@@ -33,7 +33,7 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
       ),
       'typeline' => 'Spell - Disruption',
       'flavorText' => 'This message will self-destruct in five seconds.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

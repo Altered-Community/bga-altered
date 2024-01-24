@@ -16,7 +16,7 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage Apprentice'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Floriane Bodereau',
       'subtypes' => [MAGE, APPRENTICE],
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'

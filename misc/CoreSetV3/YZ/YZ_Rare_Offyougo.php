@@ -16,7 +16,7 @@ class YZ_Rare_Offyougo extends \ALT\Models\Card
       'typeline' => 'Spell - Disruption',
       'type' => SPELL,
       'flavorText' => 'Time to kiss Kansas goodbye.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' => 'Send to Reserve target Character with Hand Cost #{5} or less#.',
       'costHand' => 3,

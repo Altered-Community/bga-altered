@@ -16,7 +16,7 @@ class MU_Rare_LyraClothDancer extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate("Hope you\'re not afraid of heights!"),
-      'artist' => 'Ting-Yun',
+      'artist' => 'Fori Y.',
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
         '{H} Up to one target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)'

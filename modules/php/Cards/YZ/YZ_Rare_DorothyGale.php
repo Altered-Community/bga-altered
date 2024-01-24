@@ -28,7 +28,7 @@ class YZ_Rare_DorothyGale extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
       'typeline' => clienttranslate('Character - Citizen'),
       'flavorText' => clienttranslate("\"I’ve a feeling we’re not in Kansas anymore.\""),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
     ];
   }
 }

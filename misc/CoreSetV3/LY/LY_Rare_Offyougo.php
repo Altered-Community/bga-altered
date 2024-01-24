@@ -16,7 +16,7 @@ class LY_Rare_Offyougo extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
       'flavorText' => clienttranslate('Time to kiss Kansas goodbye.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Send to Reserve target Character with Hand Cost {3} or less.'),
       'costHand' => 2,

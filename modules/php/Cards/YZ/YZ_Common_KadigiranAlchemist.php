@@ -29,7 +29,7 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         "Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self."
       ),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

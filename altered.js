@@ -295,6 +295,9 @@ define([
       }
 
       $('storm-container').insertAdjacentHTML('beforeend', '<div id="roll-dice-container"></div>');
+
+      $('day-indicator-frame').insertAdjacentHTML('beforeend', _('HERO'));
+      $('storm-end-frame').insertAdjacentHTML('beforeend', _('COMPANION'));
     },
 
     // onChangeSortableHandSetting(v) {

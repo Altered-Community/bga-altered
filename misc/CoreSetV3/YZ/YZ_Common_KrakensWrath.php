@@ -18,7 +18,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         'The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.'
       ),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Matteo Spirito',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'

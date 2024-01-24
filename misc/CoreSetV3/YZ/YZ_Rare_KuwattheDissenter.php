@@ -16,7 +16,7 @@ class YZ_Rare_KuwattheDissenter extends \ALT\Models\Card
       'typeline' => 'Character - Mage',
       'type' => CHARACTER,
       'flavorText' => "\"There are gates one should not open, there are seals one should not breach. And yet I will.\"",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Ba Vo',
       'subtypes' => [MAGE],
       'effectDesc' => '{J} Sacrifice a Character.',
       'forest' => 5,

@@ -43,7 +43,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
         ],
       ],
       'flavorText' => 'When luck joins in the game, cleverness scores double. ',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
     ];
   }
 }

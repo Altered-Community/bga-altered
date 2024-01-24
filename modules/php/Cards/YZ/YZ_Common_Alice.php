@@ -27,7 +27,7 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'effectSupport' => FT::ACTION(AFTER_YOU, []),
       'typeline' => clienttranslate('Character - Citizen'),
       'flavorText' => clienttranslate("\"One good turn deserves another.\""),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
     ];
   }
 }

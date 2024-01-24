@@ -16,7 +16,7 @@ class LY_Rare_LyraClothDancer extends \ALT\Models\Card
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
       'flavorText' => "Hope you\'re not afraid of heights!",
-      'artist' => 'Ting-Yun',
+      'artist' => 'Fori Y.',
       'subtypes' => [ARTIST],
       'effectDesc' =>
         '{H} #Each Character controlled by target player# gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)',

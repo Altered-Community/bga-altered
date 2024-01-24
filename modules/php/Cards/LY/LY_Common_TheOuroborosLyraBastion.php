@@ -17,10 +17,10 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
       'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
       'flavorText' => "The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind. ",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Khoa Viet',
       'subtypes' => [LANDMARK],
       'effectDesc' =>
-      'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.',
+        'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.',
       'costHand' => 4,
       'costReserve' => 4,
     ];

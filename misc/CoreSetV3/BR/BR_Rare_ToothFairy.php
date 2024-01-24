@@ -16,7 +16,7 @@ class BR_Rare_ToothFairy extends \ALT\Models\Card
       'typeline' => 'Character - Fairy',
       'type' => CHARACTER,
       'flavorText' => "\"Show me those pearly whites.\"",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Anh Tung',
       'subtypes' => [FAIRY],
       'effectDesc' => '{H} $[SABOTAGE].',
       'forest' => 1,

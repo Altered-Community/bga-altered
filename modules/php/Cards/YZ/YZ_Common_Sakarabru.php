@@ -27,7 +27,7 @@ class YZ_Common_Sakarabru extends \ALT\Models\Card
       'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT]),
       'typeline' => clienttranslate('Character - Deity'),
       'flavorText' => clienttranslate('When such a terrifying being appears in your path, taking a step back is only natural.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Gael Giudicelli',
     ];
   }
 }

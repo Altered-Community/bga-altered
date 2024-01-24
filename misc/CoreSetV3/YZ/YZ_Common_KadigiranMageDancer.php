@@ -16,7 +16,7 @@ class YZ_Common_KadigiranMageDancer extends \ALT\Models\Card
       'typeline' => 'Character - Mage Soldier',
       'type' => CHARACTER,
       'flavorText' => "\"Don\'t just wait for magic to happen. Go out and make your own!\"",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [MAGE, SOLDIER],
       'effectDesc' => 'When you play a Spell — I gain 1 boost$[BB].',
       'forest' => 1,

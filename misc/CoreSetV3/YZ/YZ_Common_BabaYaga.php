@@ -16,7 +16,7 @@ class YZ_Common_BabaYaga extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Atanas Lozanski',
       'subtypes' => [MAGE],
       'effectDesc' => clienttranslate('{H} Draw a card.'),
       'forest' => 2,

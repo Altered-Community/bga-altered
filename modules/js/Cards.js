@@ -15,84 +15,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const FONT_SIZE = '14px';
   let CARDS_DATA = {};
 
-  const KEYWORDS = {
-    AFTER_YOU: {
-      text: _('After You'),
-      reminder: _('End your turn as if you had played a card. You may still play cards later this Day.'),
-    },
-    ANCHORED: {
-      text: _('Anchored'),
-      reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
-    },
-    ASLEEP: {
-      text: _('Asleep'),
-      reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
-    },
-    BB: {
-      text: '',
-      reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
-    },
-    BOODA: {
-      text: _('Booda 2/2/2'),
-    },
-    BOOSTED: {
-      text: _('Boosted'),
-    },
-    BRASSBUG: {
-      text: _('Brassbug 2/2/2'),
-    },
-    DEFENDER: {
-      text: _('Defender'),
-      reminder: _("My Expedition can't advance during Dusk."),
-    },
-    ETERNAL: {
-      text: _('Eternal'),
-      reminder: _("During Rest, I don't go to Reserve."),
-    },
-    FLEETING_CHAR: {
-      text: _('Fleeting'),
-      reminder: _('If I would be sent to Reserve, discard me instead.'),
-    },
-    FLEETING: {
-      text: _('Fleeting'),
-      reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
-    },
-    GIGANTIC: {
-      text: _('Gigantic'),
-      reminder: _('I am considered present in each of your Expeditions.'),
-    },
-    MAW: {
-      text: _('Maw 0/0/0'),
-    },
-    ORDIS_RECRUIT: {
-      text: _('Ordis Recruit 1/1/1'),
-    },
-    RESUPPLY: {
-      text: _('Resupply'),
-      reminder: _('Put the top card of your deck in Reserve.'),
-    },
-    SABOTAGE: {
-      text: _('Sabotage'),
-      reminder: _('Discard up to one target card from a Reserve.'),
-    },
-    SEASONED: {
-      text: _('Seasoned'),
-      reminder: _('I keep my boosts when I go to Reserve.'),
-    },
-    TOUGH_1: {
-      text: _('Tough 1'),
-      reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
-    },
-    TOUGH_2: {
-      text: _('Tough 2'),
-      reminder: _("Your opponent's Spells and abilities that target me cost {2} more."),
-    },
-    TOUGH_X: {
-      text: _('Tough X'),
-      reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
-    },
-  };
-
   return declare('altered.cards', null, {
     getCardInfos(cardId) {
       let card = { id: cardId };
@@ -1195,6 +1117,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${this.formatString(effect.str, true)}
             </div>
           </div>
+          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
       </div>`;
     },
@@ -1282,6 +1205,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-support'>
             ${this.formatString(support.str, true)}
           </div>
+
+          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1318,6 +1243,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
           </div>
+
+          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1371,6 +1298,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             ${this.formatString(support.str, true)}
             </div>
           </div>
+
+          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1419,6 +1348,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${this.formatString(effect.str, true)}
             </div>
           </div>
+
+          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1574,6 +1505,84 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     // },
 
     replaceKeyWordsAndGetReminders(str) {
+      const KEYWORDS = {
+        AFTER_YOU: {
+          text: _('After You'),
+          reminder: _('End your turn as if you had played a card. You may still play cards later this Day.'),
+        },
+        ANCHORED: {
+          text: _('Anchored'),
+          reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
+        },
+        ASLEEP: {
+          text: _('Asleep'),
+          reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
+        },
+        BB: {
+          text: '',
+          reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
+        },
+        BOODA: {
+          text: _('Booda 2/2/2'),
+        },
+        BOOSTED: {
+          text: _('Boosted'),
+        },
+        BRASSBUG: {
+          text: _('Brassbug 2/2/2'),
+        },
+        DEFENDER: {
+          text: _('Defender'),
+          reminder: _("My Expedition can't advance during Dusk."),
+        },
+        ETERNAL: {
+          text: _('Eternal'),
+          reminder: _("During Rest, I don't go to Reserve."),
+        },
+        FLEETING_CHAR: {
+          text: _('Fleeting'),
+          reminder: _('If I would be sent to Reserve, discard me instead.'),
+        },
+        FLEETING: {
+          text: _('Fleeting'),
+          reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
+        },
+        GIGANTIC: {
+          text: _('Gigantic'),
+          reminder: _('I am considered present in each of your Expeditions.'),
+        },
+        MAW: {
+          text: _('Maw 0/0/0'),
+        },
+        ORDIS_RECRUIT: {
+          text: _('Ordis Recruit 1/1/1'),
+        },
+        RESUPPLY: {
+          text: _('Resupply'),
+          reminder: _('Put the top card of your deck in Reserve.'),
+        },
+        SABOTAGE: {
+          text: _('Sabotage'),
+          reminder: _('Discard up to one target card from a Reserve.'),
+        },
+        SEASONED: {
+          text: _('Seasoned'),
+          reminder: _('I keep my boosts when I go to Reserve.'),
+        },
+        TOUGH_1: {
+          text: _('Tough 1'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
+        },
+        TOUGH_2: {
+          text: _('Tough 2'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {2} more."),
+        },
+        TOUGH_X: {
+          text: _('Tough X'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
+        },
+      };
+
       const regexParentheses = /\(([^)]+)\)/;
 
       let reminders = [];

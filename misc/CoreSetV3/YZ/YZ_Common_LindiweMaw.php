@@ -16,7 +16,7 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
       'typeline' => 'Hero',
       'type' => HERO,
       'flavorText' => 'To master magic, one must be willing to sacrifice.',
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Edward Cheekokseang',
       'effectDesc' =>
         '{T} : Create a [MAW] Companion token in your Companion Expedition with \"When you sacrifice a Character — I gain 2 boosts\". This action costs {1} more if you are not the first player.',
     ];

@@ -16,7 +16,7 @@ class YZ_Common_BabasIsba extends \ALT\Models\Card
       'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
       'flavorText' => "Boney Legs, she\'s called, and her hut is one reason why.",
-      'artist' => 'MISSING ARTIST',
+      'artist' => 'Taras Susak',
       'subtypes' => [LANDMARK],
       'effectDesc' => '{J} Draw a card.  {T}, Sacrifice a Character: $[AFTER_YOU].',
       'costHand' => 3,
