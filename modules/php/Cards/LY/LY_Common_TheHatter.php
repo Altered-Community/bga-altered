@@ -19,9 +19,8 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('(*He can\'t swim.*)'),
-      'supportDesc' => clienttranslate(
-        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)'
-      ),
+      'supportDesc' =>
+        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)',
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 0,
@@ -30,6 +29,8 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
       'typeline' => 'Character - Citizen',
       'artist' => 'Zero Wen',
+      'flavorText' =>
+        "\"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?\"",
     ];
   }
 }

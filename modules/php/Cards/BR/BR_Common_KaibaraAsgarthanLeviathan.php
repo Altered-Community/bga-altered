@@ -16,9 +16,8 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'name' => 'Kaibara, Asgarthan Leviathan',
       'type' => CHARACTER,
       'subtypes' => [LEVIATHAN],
-      'effectDesc' => clienttranslate(
-        '$[GIGANTIC].  $[TOUGH_X], where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)'
-      ),
+      'effectDesc' =>
+        '$[GIGANTIC].  $[TOUGH_X], where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)',
       'forest' => 6,
       'mountain' => 6,
       'ocean' => 6,

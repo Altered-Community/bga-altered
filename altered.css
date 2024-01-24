@@ -2018,12 +2018,6 @@ html {
   line-height: 38px;
   font-size: 30px; }
 
-#topbar {
-  margin-top: -66px;
-  transition: margin 0.5s; }
-  #topbar.visible {
-    margin-top: 0px; }
-
 #game_play_area {
   margin-top: 0px; }
 

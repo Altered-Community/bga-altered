@@ -18,9 +18,8 @@ class LY_Common_MindApotheosis extends \ALT\Models\Card
       'name' => 'Mind Apotheosis',
       'type' => SPELL,
       'subtypes' => [CONJURATION],
-      'effectDesc' => clienttranslate(
-        '$[FLEETING].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards. (Don\'t activate any {h} triggers.)'
-      ),
+      'effectDesc' =>
+        '$[FLEETING].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards. (Don\'t activate any {h} triggers.)',
       'costHand' => 9,
       'costReserve' => 9,
       'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'MindApotheosis'])),
