@@ -9,7 +9,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 use ALT\Core\Globals;
-use ALT\Core\Game;
+use ALT\Helpers\Log;
 
 class RollDie extends \ALT\Models\Action
 {
@@ -109,9 +109,11 @@ class RollDie extends \ALT\Models\Action
       ->getLandmarks()
       ->where('uid', 'ALT_CORE_B_LY_30_C')
       ->count();
-    Notifications::message(clienttranslate('${n} dice are added to the roll (Ouroboros Lyra Bastion\'s effect)'), [
-      'n' => $lyraBastion,
-    ]);
+    if ($lyraBastion > 0) {
+      Notifications::message(clienttranslate('${n} dice are added to the roll (Ouroboros Lyra Bastion\'s effect)'), [
+        'n' => $lyraBastion,
+      ]);
+    }
     $n += $lyraBastion;
 
     for ($i = 0; $i < $n; $i++) {
@@ -126,6 +128,7 @@ class RollDie extends \ALT\Models\Action
 
     Notifications::roll($player, $rolls, $source);
     Globals::setDiceRolls($rolls);
+    Log::checkpoint();
   }
 
   public function argsRollDie()
