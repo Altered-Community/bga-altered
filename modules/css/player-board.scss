@@ -389,6 +389,7 @@
 
             .altered-card {
                 z-index: 30;
+                margin-left: 10px;
 
                 transition:
                     left 0.2s ease-in,
@@ -596,7 +597,7 @@
             background-position: -6px 21px;
 
             .altered-card {
-                margin: 40px 27px 0px 4px;
+                margin: 42px 27px 0px 4px;
             }
         }
     }

@@ -556,15 +556,19 @@
         .card-frame[data-type="permanent"] ~ .card-text {
             left: 25px;
             right: 25px;
+
+            .card-qrcode-container {
+                margin-right: -5px;
+            }
         }
 
         .card-support {
             position: absolute;
             z-index: 2;
-            top: 371px;
-            bottom: 29px;
-            left: 20px;
-            right: 84px;
+            top: 92px;
+            bottom: 0px;
+            left: 2px;
+            right: 66px;
             font-family: "Jali Greek Variable";
             font-size: 13px;
             color: white;

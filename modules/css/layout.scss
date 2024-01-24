@@ -25,7 +25,7 @@
     color: white;
     border-radius: 6px;
     border: 1px solid #bc8441;
-    box-shadow: 0px 0px 6px -1px #ffd700c4;
+    // box-shadow: 0px 0px 6px -1px #ffd700c4;
 
     .bgabutton_gray {
         border: 1px solid white;
@@ -53,13 +53,38 @@
 .player-board {
     background-color: #464660;
     border-radius: 8px 0 0 8px;
-    border: 1px solid #bc8441 !important;
+    // border: 1px solid #bc8441 !important;
     // box-shadow: 0px 0px 6px -1px #b99e02c4;
     clear: both;
     padding: 5px 3px;
     color: #e2e2e2;
     margin: 0px -1px;
     margin-bottom: 5px;
+
+    position: relative;
+    background-clip: padding-box;
+    border: 1px solid transparent !important;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        margin: -1px;
+        border-radius: inherit;
+        background: linear-gradient(50deg, #bc8441 15%, #eac557 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+    }
+
+    &.spectator-mode {
+        .roundedbox_top,
+        .roundedbox_main,
+        .roundedbox_bottom {
+            display: none;
+        }
+    }
 }
 
 #player_board_config {

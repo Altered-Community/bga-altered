@@ -1342,13 +1342,15 @@ html {
     .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text {
       left: 25px;
       right: 25px; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text .card-qrcode-container {
+        margin-right: -5px; }
     .altered-card .altered-card-wrapper .card-support {
       position: absolute;
       z-index: 2;
-      top: 371px;
-      bottom: 29px;
-      left: 20px;
-      right: 84px;
+      top: 92px;
+      bottom: 0px;
+      left: 2px;
+      right: 66px;
       font-family: "Jali Greek Variable";
       font-size: 13px;
       color: white; }
@@ -2034,8 +2036,7 @@ html {
   background: #464660;
   color: white;
   border-radius: 6px;
-  border: 1px solid #bc8441;
-  box-shadow: 0px 0px 6px -1px #ffd700c4; }
+  border: 1px solid #bc8441; }
   .current_player_is_active #page-title .bgabutton_gray,
   .gamestate_gameEnd #page-title .bgabutton_gray,
   #page-title .bgabutton_gray {
@@ -2059,12 +2060,29 @@ html {
 .player-board {
   background-color: #464660;
   border-radius: 8px 0 0 8px;
-  border: 1px solid #bc8441 !important;
   clear: both;
   padding: 5px 3px;
   color: #e2e2e2;
   margin: 0px -1px;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  position: relative;
+  background-clip: padding-box;
+  border: 1px solid transparent !important; }
+  .player-board:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -1px;
+    border-radius: inherit;
+    background: linear-gradient(50deg, #bc8441 15%, #eac557 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%); }
+  .player-board.spectator-mode .roundedbox_top,
+  .player-board.spectator-mode .roundedbox_main,
+  .player-board.spectator-mode .roundedbox_bottom {
+    display: none; }
 
 #player_board_config {
   position: relative;
@@ -2590,6 +2608,7 @@ html {
       flex-grow: 1; }
       .altered-player-board .player-board-grass .player-board-reserve .altered-card {
         z-index: 30;
+        margin-left: 10px;
         transition: left 0.2s ease-in, top 0.2s ease-in; }
         .altered-player-board .player-board-grass .player-board-reserve .altered-card[data-animation-speed="none"] {
           transition: none; }
@@ -2708,7 +2727,7 @@ html {
   #altered-board-opponent .altered-player-board .player-board-grass .player-board-landmarks {
     background-position: -6px 21px; }
     #altered-board-opponent .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
-      margin: 40px 27px 0px 4px; }
+      margin: 42px 27px 0px 4px; }
 
 #altered-board-me .altered-player-board .player-board-hero {
   top: 42px;
