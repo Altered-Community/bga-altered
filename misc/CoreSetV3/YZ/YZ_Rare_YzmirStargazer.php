@@ -15,7 +15,7 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'name' => 'Yzmir Stargazer',
       'typeline' => 'Character - Mage Scholar',
       'type' => CHARACTER,
-      'flavorText' => "She won\'t read the future in the stars, she\'ll change it herself.",
+      'flavorText' => "She won't read the future in the stars, she'll change it herself.",
       'artist' => 'HuoMiao Studio',
       'subtypes' => [MAGE, SCHOLAR],
       'effectDesc' => '#When I\'m sacrificed — You may have target Character gain 2 boosts$[BB].#',

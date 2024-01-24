@@ -24,7 +24,7 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
       'costReserve' => 3,
       'minManaOrbs' => 7,
       'typeline' => 'Character - Soldier',
-      'flavorText' => "For only the most gifted of Alterers could bring humanity\'s long-remembered legends to life.",
+      'flavorText' => "For only the most gifted of Alterers could bring humanity's long-remembered legends to life.",
       'artist' => 'Edward Cheekokseang',
     ];
   }

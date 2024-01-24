@@ -15,7 +15,7 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'name' => clienttranslate('Ordis Recruit'),
       'typeline' => clienttranslate('Token - Soldier'),
       'type' => TOKEN,
-      'flavorText' => '',
+      'flavorText' => clienttranslate('MISSING FLAVOR'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),

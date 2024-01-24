@@ -16,7 +16,7 @@ class LY_Rare_Flamel extends \ALT\Models\Card
       'typeline' => 'Character - Scholar',
       'type' => CHARACTER,
       'flavorText' =>
-        "Rubedo is the final stage of alchemy, where one\'s substance is reborn like a phoenix before returning to the world.",
+        "Rubedo is the final stage of alchemy, where one's substance is reborn like a phoenix before returning to the world.",
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SCHOLAR],
       'effectDesc' => '{H} You may return a Spell from your Reserve to your hand.',

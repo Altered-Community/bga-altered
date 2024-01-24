@@ -34,7 +34,7 @@ class AX_Common_Coppelia extends \ALT\Models\Card
           ),
         ],
       ],
-      'flavorText' => "Because of her artificial nature, she served as a model for the Faction\'s first Automata prototypes.",
+      'flavorText' => "Because of her artificial nature, she served as a model for the Faction's first Automata prototypes.",
       'typeline' => 'Character - Robot',
       'artist' => 'Taras Susak',
     ];

@@ -15,7 +15,7 @@ class MU_Rare_Coppelia extends \ALT\Models\Card
       'name' => 'Coppélia',
       'typeline' => 'Character - Robot',
       'type' => CHARACTER,
-      'flavorText' => "Because of her artificial nature, she served as a model for the Faction\'s first Automata prototypes.",
+      'flavorText' => "Because of her artificial nature, she served as a model for the Faction's first Automata prototypes.",
       'artist' => 'Taras Susak',
       'subtypes' => [ROBOT],
       'effectDesc' => 'When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].',

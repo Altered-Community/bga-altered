@@ -29,6 +29,7 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'artist' => 'Taras Susak',
       'flavorText' =>
         'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.',
-    ];
+    'flavorText' => 'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.', 
+];
   }
 }

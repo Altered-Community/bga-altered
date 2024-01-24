@@ -15,7 +15,7 @@ class BR_Common_HavenWarrior extends \ALT\Models\Card
       'name' => clienttranslate('Haven Warrior'),
       'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("We\'ve all lived through some things. But she\'s been through worse."),
+      'flavorText' => clienttranslate("We've all lived through some things. But she's been through worse."),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [SOLDIER],
       'forest' => 4,

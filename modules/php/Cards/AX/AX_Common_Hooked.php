@@ -26,6 +26,7 @@ class AX_Common_Hooked extends \ALT\Models\Card
       'flavorText' => 'Get over here!',
       'typeline' => 'Spell - Maneuver',
       'artist' => 'HuoMiao Studio',
-    ];
+    'effectDesc' => 'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)', 
+];
   }
 }

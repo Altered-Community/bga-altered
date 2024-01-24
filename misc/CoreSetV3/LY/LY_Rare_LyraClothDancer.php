@@ -15,7 +15,7 @@ class LY_Rare_LyraClothDancer extends \ALT\Models\Card
       'name' => 'Lyra Cloth Dancer',
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
-      'flavorText' => "Hope you\'re not afraid of heights!",
+      'flavorText' => "Hope you're not afraid of heights!",
       'artist' => 'Fori Y.',
       'subtypes' => [ARTIST],
       'effectDesc' =>

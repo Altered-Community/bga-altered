@@ -22,7 +22,7 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'typeline' => clienttranslate('Character - Artist'),
-      'flavorText' => clienttranslate("We\'re all stories, in the end."),
+      'flavorText' => clienttranslate("We're all stories, in the end."),
       'artist' => 'Ba Vo',
     ];
   }

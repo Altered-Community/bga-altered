@@ -15,7 +15,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'name' => clienttranslate('Lyra Cloth Dancer'),
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("Hope you\'re not afraid of heights!"),
+      'flavorText' => clienttranslate("Hope you're not afraid of heights!"),
       'artist' => 'Fori Y.',
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(

@@ -5,13 +5,13 @@
 
     #altered-board-resizable {
         width: calc(var(--boardScale) * 1530px);
-        height: calc(var(--boardScale) * 1158px);
+        height: calc(var(--boardScale) * 1175px);
 
         #altered-board {
             transform: scale(var(--boardScale));
             transform-origin: top left;
             width: 1530px;
-            height: 1158px;
+            height: 1175px;
             background-image: url("img/board.png");
             background-size: 100%;
             clip-path: polygon(0% 6%, 100% 6%, 100% 100%, 0% 100%);
@@ -154,8 +154,8 @@
                             opacity 0.7s,
                             filter 0.7s;
                         &.useless {
-                            opacity: 0.4;
-                            filter: brightness(50%) grayscale(80%);
+                            opacity: 0.7;
+                            filter: brightness(60%) grayscale(100%);
                             -webkit-transform: translateZ(0);
                             -webkit-perspective: 1000;
                             -webkit-backface-visibility: hidden;

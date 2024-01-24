@@ -15,7 +15,7 @@ class AX_Common_FoundryMechanic extends \ALT\Models\Card
       'name' => clienttranslate('Foundry Mechanic'),
       'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("You can\'t choose when and where a quick fix will be needed."),
+      'flavorText' => clienttranslate("You can't choose when and where a quick fix will be needed."),
       'artist' => 'Fahmi Fauzi',
       'subtypes' => [ENGINEER],
       'supportDesc' => clienttranslate(

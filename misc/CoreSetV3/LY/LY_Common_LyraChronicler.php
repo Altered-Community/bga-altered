@@ -16,7 +16,7 @@ class LY_Common_LyraChronicler extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate(
-        "Eidolon or human, we are all shaped by stories. They\'re the building blocks of our identity. "
+        "Eidolon or human, we are all shaped by stories. They're the building blocks of our identity. "
       ),
       'artist' => 'Taras Susak',
       'subtypes' => [ARTIST],

@@ -25,7 +25,7 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
       'typeline' => clienttranslate('Spell - Boon'),
-      'flavorText' => clienttranslate("Don\'t think you are, know you are."),
+      'flavorText' => clienttranslate("Don't think you are, know you are."),
       'artist' => 'HuoMiao Studio',
     ];
   }

@@ -15,7 +15,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
       'name' => 'Ordis Cadets',
       'typeline' => 'Character - Apprentice Soldier',
       'type' => CHARACTER,
-      'flavorText' => "Together they learn, and together they\'ll protect.",
+      'flavorText' => "Together they learn, and together they'll protect.",
       'artist' => 'Anh Tung',
       'subtypes' => [APPRENTICE, SOLDIER],
       'effectDesc' => '{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.',

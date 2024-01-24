@@ -29,7 +29,7 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
         ],
       ],
       'typeline' => 'Permanent - Landmark',
-      'flavorText' => "Haven isn\'t where legends are born... it\'s where they live forever.",
+      'flavorText' => "Haven isn't where legends are born... it's where they live forever.",
       'artist' => 'HuoMiao Studio',
     ];
   }

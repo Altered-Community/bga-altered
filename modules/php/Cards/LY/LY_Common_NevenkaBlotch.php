@@ -36,7 +36,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
         ]),
       ]),
       'flavorText' => clienttranslate(
-        "Chaos can bring disappointment, sure, but it\'s also where ye\'ll find the most wonderfullest hidden gems!"
+        "Chaos can bring disappointment, sure, but it's also where ye'll find the most wonderfullest hidden gems!"
       ),
       'artist' => 'Edward Cheekokseang',
     ];

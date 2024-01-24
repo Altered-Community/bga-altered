@@ -15,7 +15,7 @@ class OD_Rare_HavenWarrior extends \ALT\Models\Card
       'name' => 'Haven Warrior',
       'typeline' => 'Character - Soldier',
       'type' => CHARACTER,
-      'flavorText' => "We\'ve all lived through some things. But she\'s been through worse.",
+      'flavorText' => "We've all lived through some things. But she's been through worse.",
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [SOLDIER],
       'supportDesc' => '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)',

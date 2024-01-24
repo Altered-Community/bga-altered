@@ -54,7 +54,7 @@ class OD_Rare_JeannedArc extends \ALT\Models\Card
         ],
       ],
       'typeline' => clienttranslate('Character - Soldier'),
-      'flavorText' => clienttranslate("She\'ll be followed long after she\'s gone."),
+      'flavorText' => clienttranslate("She'll be followed long after she's gone."),
       'artist' => 'Jean-Baptiste Andrier',
     ];
   }

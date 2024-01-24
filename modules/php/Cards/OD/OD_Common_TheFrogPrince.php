@@ -22,7 +22,7 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'typeline' => 'Character - Bureaucrat Noble',
-      'flavorText' => "Thankfully, he doesn\'t seal his contracts with a kiss.",
+      'flavorText' => "Thankfully, he doesn't seal his contracts with a kiss.",
       'artist' => 'Gaga Zhou',
     ];
   }

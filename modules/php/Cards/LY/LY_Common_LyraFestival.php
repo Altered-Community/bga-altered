@@ -33,6 +33,8 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
       'artist' => 'Fahmi Fauzi',
       'flavorText' =>
         'When the time of the Kalann Mae comes, the Lyra all feel the call to a single place, where they will bring a masterpiece to life.',
-    ];
+    'flavorText' => 'When the time of the Kalann Mae comes, the Lyra all feel the call to a single place, where they will bring a masterpiece to life.', 
+'effectDesc' => '{J} Draw a card.  At Dusk, if you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character — You win the game.', 
+];
   }
 }

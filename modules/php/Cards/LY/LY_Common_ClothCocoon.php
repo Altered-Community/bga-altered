@@ -33,6 +33,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
       'typeline' => 'Spell - Disruption',
       'flavorText' => 'Nobody expects... the cloth dancer!',
       'artist' => 'Zero Wen',
-    ];
+    'effectDesc' => '$[FLEETING].  Choose one:  • Discard target [FLEETING_CHAR], [ANCHORED] or [ASLEEP] Character.  • Discard target Permanent.', 
+];
   }
 }
