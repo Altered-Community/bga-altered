@@ -86,7 +86,7 @@ trait TurnTrait
     $reductionsAll = Globals::getCostReduction();
     foreach ($reductionsAll as $pId => &$reductions) {
       foreach ($reductions as $type => &$reduction) {
-        if (!isset($reduction['permanent']) || $reduction['permanenet'] == false) {
+        if (!isset($reduction['permanent']) || $reduction['permanent'] == false) {
           $reduction['reduction'] = 0;
         }
       }
