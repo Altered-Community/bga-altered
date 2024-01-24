@@ -128,7 +128,7 @@ class RollDie extends \ALT\Models\Action
 
     Notifications::roll($player, $rolls, $source);
     Globals::setDiceRolls($rolls);
-    Log::checkpoint();
+    Log::checkpoint(true);
   }
 
   public function argsRollDie()
