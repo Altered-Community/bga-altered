@@ -46,7 +46,7 @@ $game_preferences = [
   OPTION_CONFIRM => [
     'name' => totranslate('Turn confirmation'),
     'needReload' => false,
-    'default' => OPTION_CONFIRM_ENABLED,
+    'default' => OPTION_CONFIRM_DISABLED,
     'values' => [
       OPTION_CONFIRM_ENABLED => ['name' => totranslate('Enabled')],
       OPTION_CONFIRM_DISABLED => ['name' => totranslate('Disabled')],
