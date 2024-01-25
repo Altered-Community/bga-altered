@@ -403,7 +403,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return count(
       $this->getPlayedCards()->filter(function ($card) {
-        $card->getDynamicTough() == 'universalCharacter2';
+        return $card->getDynamicTough() == 'universalCharacter2';
       })
     );
   }

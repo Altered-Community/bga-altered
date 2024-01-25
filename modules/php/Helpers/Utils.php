@@ -158,9 +158,7 @@ abstract class Utils extends \APP_DbObject
     foreach ($t as $key => $value) {
       if (is_array($value)) {
         $t[$key] = self::updateTree($value, $searched, $newValue);
-      }
-
-      if ($value == $searched) {
+      } elseif ($value === $searched) {
         $t[$key] = $newValue;
       }
     }
