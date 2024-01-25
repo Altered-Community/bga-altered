@@ -2249,13 +2249,13 @@ html {
               #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="0"] {
                 transform: rotate(0deg); }
               #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="1"] {
-                transform: rotate(-72deg); }
+                transform: rotate(-74deg); }
               #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="2"] {
-                transform: rotate(-147deg); }
+                transform: rotate(-140deg); }
               #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="3"] {
-                transform: rotate(-214deg); }
+                transform: rotate(-216deg); }
               #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="4"] {
-                transform: rotate(-289deg); }
+                transform: rotate(-290deg); }
           #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame {
             width: 309px;
             height: 186px;

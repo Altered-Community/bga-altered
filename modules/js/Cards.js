@@ -546,7 +546,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         $(cardId).dataset.animationSpeed = 'medium';
         this.changeParent($(cardId), $(`hand-${n.args.player_id}`));
       });
-      this.wait(100 * nCards + 700).then(() => {
+      this.wait(100 * nCards + 1000).then(() => {
         this._playerCounters[n.args.player_id][counter].incValue(nCards);
         this.notifqueue.setSynchronousDuration(100);
       });
@@ -697,7 +697,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       Promise.all(
         Array.from(Array(nCards), (x, i) => i).map((i) => {
           return this.wait(100 * i).then(() => {
-            return this.slide(
+            let o = this.slide(
               oCards[i].id,
               n.args.toMana ? $(`counter-board-${n.args.player_id}-mana`) : this.getVisibleTitleContainer(),
               {
@@ -706,6 +706,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 phantom: false,
               }
             );
+            oCards[i].style.transform = '';
+            return o;
           });
         })
       ).then(() => {

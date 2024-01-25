@@ -148,6 +148,10 @@ trait NewDayTrait
     Globals::setFirstPlayer($newFirstPId);
     Notifications::newFirstPlayer(Players::get($newFirstPId));
 
+    foreach(Players::getAll() as $player){
+      $player->draw(2, null, null, null);
+    }
+
     $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', 'stAfterNewday', true);
   }
 
@@ -174,16 +178,8 @@ trait NewDayTrait
 
     // Stats::incTurns($player);
     $node = [
-      'childs' => [
-        [
-          'pId' => $player->getId(),
-          'type' => NODE_SEQ,
-          'childs' => [
-            ['action' => DRAW, 'args' => ['n' => 2, 'players' => ME]],
-            ['action' => DISCARD, 'args' => ['canPass' => true, 'n' => 1, 'source' => HAND, 'destination' => MANA]],
-          ],
-        ],
-      ],
+      'pId' => $player->getId(),
+      'action' => DISCARD, 'args' => ['canPass' => true, 'n' => 1, 'source' => HAND, 'destination' => MANA],
     ];
 
     // Inserting leaf Action card

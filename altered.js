@@ -1491,7 +1491,7 @@ define([
       if (newVal == 0) turn++;
       wheel.dataset.phase = turn * 5 + newVal;
 
-      let angles = [0, -72, -147, -214, -289];
+      let angles = [0, -74, -140, -216, -290];
       wheel.style.transform = `rotate(${turn * -360 + angles[newVal]}deg)`;
     },
 
