@@ -80,12 +80,36 @@
                         color: #d6aa49;
                         font-weight: bold;
                         font-family: "Tiller";
-                        writing-mode: sideways-lr;
+                        writing-mode: vertical-lr;
                         text-align: center;
                         padding-right: 51px;
                         box-sizing: border-box;
                         font-size: 12px;
                         padding-left: 154px;
+
+                        #help-phases-button {
+                            position: absolute;
+                            height: 30px;
+                            width: 30px;
+                            background: white;
+                            left: 90px;
+                            top: 5px;
+                            border-radius: 15px;
+                            border: 1px solid #d6a945;
+                            font-size: 19px;
+                            cursor: pointer;
+
+                            // .icon-container {
+                            //     margin: -0.05em -0.4em 0em 0em;
+                            //     position: relative;
+                            //     z-index: 2;
+                            // }
+
+                            svg {
+                                height: 100%;
+                                width: 30px;
+                            }
+                        }
                     }
                 }
 
@@ -103,7 +127,7 @@
                     color: #d6aa49;
                     font-weight: bold;
                     font-family: "Tiller";
-                    writing-mode: sideways-rl;
+                    writing-mode: vertical-rl;
                     text-align: center;
                     padding-right: 51px;
                     box-sizing: border-box;

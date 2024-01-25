@@ -2267,12 +2267,26 @@ html {
             color: #d6aa49;
             font-weight: bold;
             font-family: "Tiller";
-            writing-mode: sideways-lr;
+            writing-mode: vertical-lr;
             text-align: center;
             padding-right: 51px;
             box-sizing: border-box;
             font-size: 12px;
             padding-left: 154px; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame #help-phases-button {
+              position: absolute;
+              height: 30px;
+              width: 30px;
+              background: white;
+              left: 90px;
+              top: 5px;
+              border-radius: 15px;
+              border: 1px solid #d6a945;
+              font-size: 19px;
+              cursor: pointer; }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame #help-phases-button svg {
+                height: 100%;
+                width: 30px; }
         #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-end-frame {
           width: 109px;
           height: 186px;
@@ -2286,7 +2300,7 @@ html {
           color: #d6aa49;
           font-weight: bold;
           font-family: "Tiller";
-          writing-mode: sideways-rl;
+          writing-mode: vertical-rl;
           text-align: center;
           padding-right: 51px;
           box-sizing: border-box;
@@ -3148,6 +3162,110 @@ html {
         height: 450px;
         background-size: 100%;
         margin: 3px 0px; }
+
+#popin_helperModal {
+  width: 900px;
+  position: relative; }
+  #popin_helperModal .altered_popin_closeicon {
+    background-color: #d6a944;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -11px;
+    right: -18px;
+    font-size: 90%;
+    color: white !important;
+    border: 1px solid #35302d;
+    z-index: 2; }
+    #popin_helperModal .altered_popin_closeicon:hover {
+      text-decoration: none;
+      color: #eee !important;
+      transform: scale(1.1); }
+    #popin_helperModal .altered_popin_closeicon i {
+      margin-top: -2px; }
+  #popin_helperModal #altered-helpers {
+    display: flex; }
+    #popin_helperModal #altered-helpers #helper-phases,
+    #popin_helperModal #altered-helpers #helper-icons {
+      width: 430px;
+      height: 628px;
+      background-size: 100% auto;
+      border-radius: 15px;
+      border: 4px solid black;
+      color: white;
+      font-family: "Jali Greek Variable";
+      padding-right: 10px;
+      flex-shrink: 0; }
+      #popin_helperModal #altered-helpers #helper-phases h2,
+      #popin_helperModal #altered-helpers #helper-icons h2 {
+        color: #d6a944;
+        font-family: "Tiller";
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 29px;
+        padding-left: 74px;
+        line-height: 38px;
+        margin-bottom: 30px; }
+      #popin_helperModal #altered-helpers #helper-phases h3,
+      #popin_helperModal #altered-helpers #helper-icons h3 {
+        color: #d6a944;
+        font-weight: bold;
+        padding-left: 5px;
+        font-size: 17px; }
+        #popin_helperModal #altered-helpers #helper-phases h3 .icon-container,
+        #popin_helperModal #altered-helpers #helper-icons h3 .icon-container {
+          margin: -0.2em 0em 0em; }
+      #popin_helperModal #altered-helpers #helper-phases h4,
+      #popin_helperModal #altered-helpers #helper-icons h4 {
+        margin-top: 5px;
+        margin-left: 33px; }
+      #popin_helperModal #altered-helpers #helper-phases ul,
+      #popin_helperModal #altered-helpers #helper-icons ul {
+        padding-left: 50px; }
+        #popin_helperModal #altered-helpers #helper-phases ul li,
+        #popin_helperModal #altered-helpers #helper-icons ul li {
+          list-style-type: disc; }
+          #popin_helperModal #altered-helpers #helper-phases ul li::marker,
+          #popin_helperModal #altered-helpers #helper-icons ul li::marker {
+            color: #d6a944; }
+      #popin_helperModal #altered-helpers #helper-phases svgicon-discard .path2::before,
+      #popin_helperModal #altered-helpers #helper-icons svgicon-discard .path2::before {
+        color: black; }
+      #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(1), #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(2), #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(3),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(1),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(2),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(3) {
+        width: 289px;
+        height: 73px;
+        margin: 7px 19px 5px 120px;
+        font-size: 23px;
+        display: flex;
+        align-items: center; }
+      #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(4), #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(5), #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(6), #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(7),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(4),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(5),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(6),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(7) {
+        width: 109px;
+        height: 51px;
+        margin: 5px 10px 3px 291px;
+        font-size: 20px;
+        display: flex;
+        align-items: center; }
+      #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(4),
+      #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(4) {
+        margin-top: 47px; }
+    #popin_helperModal #altered-helpers #helper-phases {
+      background-image: url("img/helper-phases.jpg"); }
+    #popin_helperModal #altered-helpers #helper-icons {
+      background-image: url("img/helper-icons.jpg");
+      margin-left: 10px; }
+      #popin_helperModal #altered-helpers #helper-icons h2 {
+        margin-bottom: 40px; }
 
 .effect-reference,
 .effect-reference-emphasis {

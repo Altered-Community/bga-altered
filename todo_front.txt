@@ -9,7 +9,7 @@ X Compteurs sur la carte
 - reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
 - autofit text for card names
 - helpers
-- deck thumbnail
+X deck thumbnail
 - revoir chooseAssignment
 - Unique: bordure dorée avec un glow
 
@@ -44,13 +44,13 @@ X enlever l'overlay dès le début
 X Après le first day, le héro du 1er joueur a pas son pouvoir dans le hoover. J'ai essayé de relancer un tooltip mais ca marche pas
 
 [Tooltip]
-- virer la bordure blanche
-- Voir pour afficher les bulles Fugace/etc. 
-- afficher l'icone
+X virer la bordure blanche
+X Voir pour afficher les bulles Fugace/etc. 
+X afficher l'icone
     * D'abord statut puis reminder
     * Afficher les tokens Asleep/anchored / avec les vraies images
 X Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
-- disable tooltip in mana pool
+X disable tooltip in mana pool
 - tooltip : boost discussion Max avec x 5
 
 

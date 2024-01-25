@@ -1,21 +1,29 @@
-define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'], (dojo, declare) => {
+define([
+  "dojo",
+  "dojo/_base/declare",
+  g_gamethemeurl + "modules/js/cardsData.js",
+], (dojo, declare) => {
   function isVisible(elem) {
-    return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+    return !!(
+      elem.offsetWidth ||
+      elem.offsetHeight ||
+      elem.getClientRects().length
+    );
   }
 
   const isObject = (obj) => {
-    return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
+    return typeof obj === "object" && obj !== null && !Array.isArray(obj);
   };
 
-  const HERO = 'hero';
-  const CHARACTER = 'character';
-  const PERMANENT = 'permanent';
-  const SPELL = 'spell';
-  const TOKEN = 'token';
-  const FONT_SIZE = '14px';
+  const HERO = "hero";
+  const CHARACTER = "character";
+  const PERMANENT = "permanent";
+  const SPELL = "spell";
+  const TOKEN = "token";
+  const FONT_SIZE = "14px";
   let CARDS_DATA = {};
 
-  return declare('altered.cards', null, {
+  return declare("altered.cards", null, {
     getCardInfos(cardId) {
       let card = { id: cardId };
       this.loadSaveCard(card);
@@ -39,14 +47,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         let container = this.getCardContainer(card);
         if (o.parentNode != $(container)) {
           dojo.place(o, container);
-          if (!container.classList.contains('player-hand')) {
-            o.style.transform = '';
-            o.style.left = '0px';
-            o.style.top = '0px';
-            o.style.position = '';
+          if (!container.classList.contains("player-hand")) {
+            o.style.transform = "";
+            o.style.left = "0px";
+            o.style.top = "0px";
+            o.style.position = "";
           }
 
-          if (container.classList.contains('mana-modal')) {
+          if (container.classList.contains("mana-modal")) {
             this.tooltips[o.id].disable();
           } else {
             this.tooltips[o.id].enable();
@@ -54,10 +62,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         }
 
         // Update tapped state
-        o.classList.toggle('tapped', card.properties && card.properties.tapped == true);
+        o.classList.toggle(
+          "tapped",
+          card.properties && card.properties.tapped == true
+        );
 
         // Update counters
-        if (card.properties && card.properties.extraDatas && card.properties.extraDatas.counterName) {
+        if (
+          card.properties &&
+          card.properties.extraDatas &&
+          card.properties.extraDatas.counterName
+        ) {
           o.dataset.counter = card.properties.extraDatas.counter;
         } else {
           delete o.dataset.counter;
@@ -65,19 +80,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         // Minimize card except in hand and in discard
         let isFull =
-          container.classList.contains('player-hand') ||
-          container.classList.contains('player-board-discard') ||
-          container.classList.contains('player-board-limbo') ||
-          container.classList.contains('mana-modal');
-        o.classList.toggle('mini-card', !isFull);
+          container.classList.contains("player-hand") ||
+          container.classList.contains("player-board-discard") ||
+          container.classList.contains("player-board-limbo") ||
+          container.classList.contains("mana-modal");
+        o.classList.toggle("mini-card", !isFull);
 
         return card.id;
       });
-      document.querySelectorAll('.altered-card').forEach((oCard) => {
+      document.querySelectorAll(".altered-card").forEach((oCard) => {
         if (
-          !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
-          !oCard.classList.contains('card-back') &&
-          !oCard.parentNode.classList.contains('player-hand')
+          !cardIds.includes(parseInt(oCard.getAttribute("data-id"))) &&
+          !oCard.classList.contains("card-back") &&
+          !oCard.parentNode.classList.contains("player-hand")
         ) {
           this.destroy(oCard);
         }
@@ -96,7 +111,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     addCard(card, container = null) {
       if (card.fake) {
-        this.place('tplFakeCard', card, container);
+        this.place("tplFakeCard", card, container);
         return;
       }
 
@@ -106,9 +121,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         container = this.getCardContainer(card);
       }
 
-      let o = this.place('tplCard', card, container);
+      let o = this.place("tplCard", card, container);
       if (o !== undefined) {
-        this.addCustomTippyTooltip(o.id, this.tplCardTooltip(card));
+        this.addCustomTippyTooltip(o.id, this.tplCardTooltip(card), {
+          disablingParentClass: "mana-modal",
+        });
         if (this._loadingComplete) {
           this.autofitCardFrame(o);
         }
@@ -117,31 +134,41 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     addFakeCard(container) {
       let id = this._fakeIndex--;
-      container.insertAdjacentHTML('beforeend', this.tplFakeCard({ id }));
+      container.insertAdjacentHTML("beforeend", this.tplFakeCard({ id }));
       return `card-${id}`;
     },
 
     getCardContainer(card) {
-      let t = card.location.split('_');
+      let t = card.location.split("_");
       let type = card.properties.type;
-      if (card.location == 'hand') {
+      if (card.location == "hand") {
         return $(`hand-${card.pId}`);
-      } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'landmark', 'limbo', 'discard'].includes(card.location)) {
+      } else if (
+        [
+          "stormLeft",
+          "stormRight",
+          "reserve",
+          "permanent",
+          "landmark",
+          "limbo",
+          "discard",
+        ].includes(card.location)
+      ) {
         return $(`board-${card.location}-${card.pId}`);
       }
       // TODO REMOVE : legacy code
-      else if (card.location == 'reserve') {
+      else if (card.location == "reserve") {
         return $(`board-reserve-${card.pId}`);
       } else if (type == HERO) {
         return $(card.location);
-      } else if (card.location == 'mana') {
+      } else if (card.location == "mana") {
         return $(`mana-cards-${card.pId}`);
       }
 
-      return $('test-cards');
+      return $("test-cards");
     },
 
-    adjustHand(container, pos = 'bottom') {
+    adjustHand(container, pos = "bottom") {
       // let items = [...container.querySelectorAll('.altered-card'), ...container.querySelectorAll('.flip-container')];
       let items = [...container.childNodes];
       let n = items.length;
@@ -164,8 +191,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         // Angle
         let itemAngle = -halfAngle + alpha * j;
-        let dy = item.offsetHeight / 2 - b - (Math.cos(itemAngle) * r - (r - 80));
-        if (pos == 'top') {
+        let dy =
+          item.offsetHeight / 2 - b - (Math.cos(itemAngle) * r - (r - 80));
+        if (pos == "top") {
           dy = -dy - item.offsetHeight;
           itemAngle = -itemAngle;
         }
@@ -176,71 +204,80 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         // Position
         let x = (j - n / 2) * 0.8 * item.offsetWidth;
-        item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
-        item.style.top = '0px';
+        item.style.left = `calc(50% ${x < 0 ? "- " : " +"} ${Math.abs(x)}px)`;
+        item.style.top = "0px";
 
         let removeSpeed = () => {
           delete item.dataset.animationSpeed;
-          item.removeEventListener('transitionend', removeSpeed);
+          item.removeEventListener("transitionend", removeSpeed);
         };
-        if (item.dataset.animationSpeed == 'none') {
+        if (item.dataset.animationSpeed == "none") {
           await this.wait(1);
           removeSpeed();
         } else {
-          item.addEventListener('transitionend', removeSpeed);
+          item.addEventListener("transitionend", removeSpeed);
         }
       });
     },
 
     clearHandTransform(container) {
       debug(container);
-      let items = [...container.querySelectorAll('.altered-card')];
+      let items = [...container.querySelectorAll(".altered-card")];
       items.forEach((item, i) => {
         item.style.transform = `rotate(0rad) translateY(0px)`;
-        item.style.left = '0px';
-        item.style.top = '0px';
+        item.style.left = "0px";
+        item.style.top = "0px";
         item.style.position = null;
       });
     },
 
     setupDiscardModal(player) {
       let pId = player.id;
-      this._discardModals[pId] = new customgame.modal('discardDisplay' + pId, {
-        class: 'altered_discard_popin',
+      this._discardModals[pId] = new customgame.modal("discardDisplay" + pId, {
+        class: "altered_discard_popin",
         autoShow: false,
         closeIcon: null,
-        closeAction: 'hide',
-        title: this.fsr(_('Discard of ${player_name}'), { player_name: player.name }),
-        verticalAlign: 'flex-start',
+        closeAction: "hide",
+        title: this.fsr(_("Discard of ${player_name}"), {
+          player_name: player.name,
+        }),
+        verticalAlign: "flex-start",
         contentsTpl: `<div class='discard-modal' id='discard-cards-${pId}'></div>`,
         scale: 0.9,
         breakpoint: 800,
         onStartShow: () => {
           this.closeCurrentTooltip(false);
-          $(`discard-cards-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+          $(`discard-cards-${pId}`).insertAdjacentElement(
+            "beforeend",
+            $(`board-discard-${pId}`)
+          );
         },
         onStartHide: () => {
           this.closeCurrentTooltip(false);
-          $(`player-board-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+          $(`player-board-${pId}`).insertAdjacentElement(
+            "beforeend",
+            $(`board-discard-${pId}`)
+          );
         },
         onShow: () => this.closeCurrentTooltip(false),
       });
-      $(`board-discard-${pId}`).addEventListener('click', () => {
+      $(`board-discard-${pId}`).addEventListener("click", () => {
         this.closeCurrentTooltip(false);
-        if (this._discardModals[pId].isDisplayed()) this._discardModals[pId].hide();
+        if (this._discardModals[pId].isDisplayed())
+          this._discardModals[pId].hide();
         else this._discardModals[pId].show();
       });
     },
 
     setupManaModal(player) {
       let pId = player.id;
-      this._manaModal = new customgame.modal('manaDisplay', {
-        class: 'altered_mana_popin',
+      this._manaModal = new customgame.modal("manaDisplay", {
+        class: "altered_mana_popin",
         autoShow: false,
         closeIcon: null,
-        closeAction: 'hide',
-        title: _('Your mana cards'),
-        verticalAlign: 'flex-start',
+        closeAction: "hide",
+        title: _("Your mana cards"),
+        verticalAlign: "flex-start",
         contentsTpl: `<div class='mana-modal' id='mana-cards-${pId}'></div>`,
         scale: 0.9,
         breakpoint: 800,
@@ -249,7 +286,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         onShow: () => this.closeCurrentTooltip(false),
       });
-      $(`mana-gauge-${pId}`).addEventListener('click', () => {
+      $(`mana-gauge-${pId}`).addEventListener("click", () => {
         this.closeCurrentTooltip(false);
         if (this._manaModal.isDisplayed()) this._manaModal.hide();
         else this._manaModal.show();
@@ -257,57 +294,61 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     openAllCardsModal() {
-      let modal = new customgame.modal('showAllCards', {
-        class: 'altered_popin',
+      let modal = new customgame.modal("showAllCards", {
+        class: "altered_popin",
         autoShow: true,
         closeIcon: null,
         contentsTpl: `<div id='all-cards-wrapper'></div>`,
       });
 
-      this.takeAction('actDisplayAllCards', { lock: false }, false).then((response) => {
-        let data = response.data;
-        data.forEach((card, i) => {
-          card.id = 'allcard-' + i;
-          $('all-cards-wrapper').insertAdjacentHTML(
-            'beforeend',
-            `<div class='card-compare'>
+      this.takeAction("actDisplayAllCards", { lock: false }, false).then(
+        (response) => {
+          let data = response.data;
+          data.forEach((card, i) => {
+            card.id = "allcard-" + i;
+            $("all-cards-wrapper").insertAdjacentHTML(
+              "beforeend",
+              `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
                 card.properties.uid
               }.jpg");'></div>
             </div>`
-          );
-        });
-      });
+            );
+          });
+        }
+      );
     },
 
     /**
      * Prepare cards for selection : get cards corresponding to ids,
      *   and make other in the same "location" unselectable
      */
-    prepareCardsForSelection(cardIds, location = 'hand') {
+    prepareCardsForSelection(cardIds, location = "hand") {
       let container = null;
-      if (location == 'hand') {
+      if (location == "hand") {
         this.openHand();
         container = $(`hand-${this.player_id}`);
-      } else if (location == 'scoringHand') {
+      } else if (location == "scoringHand") {
         this.openScoringHand();
         container = $(`scoring-hand-${this.player_id}`);
-      } else if (location == 'pool') {
-        container = $('cards-pool');
-      } else if (location == 'choice') {
-        this._cardsChoiceModal = new customgame.modal('chooseCards', {
-          class: 'altered_popin',
+      } else if (location == "pool") {
+        container = $("cards-pool");
+      } else if (location == "choice") {
+        this._cardsChoiceModal = new customgame.modal("chooseCards", {
+          class: "altered_popin",
           autoShow: true,
-          closeIcon: 'fa-times',
-          closeAction: 'hide',
-          verticalAlign: 'flex-start',
+          closeIcon: "fa-times",
+          closeAction: "hide",
+          verticalAlign: "flex-start",
           contentsTpl: `<div id='choose-cards'></div><div id='choose-cards-footer'></div>`,
           scale: 0.9,
           breakpoint: 800,
         });
-        this.addPrimaryActionButton('btnShowCards', _('Show cards'), () => this._cardsChoiceModal.show());
-        container = $('choose-cards');
+        this.addPrimaryActionButton("btnShowCards", _("Show cards"), () =>
+          this._cardsChoiceModal.show()
+        );
+        container = $("choose-cards");
       }
 
       let elements = {};
@@ -321,16 +362,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           oCard = $(`card-${cardId}`);
         }
         elements[cardId] = oCard;
-        oCard.classList.remove('unselectable');
-        oCard.classList.add('selectable');
+        oCard.classList.remove("unselectable");
+        oCard.classList.add("selectable");
       });
 
-      let containers = [$(`hand-${this.player_id}`), $(`scoring-hand-${this.player_id}`), $('cards-pool'), $('choose-cards')];
+      let containers = [
+        $(`hand-${this.player_id}`),
+        $(`scoring-hand-${this.player_id}`),
+        $("cards-pool"),
+        $("choose-cards"),
+      ];
       containers.forEach((container) => {
         if (container) {
-          [...container.querySelectorAll('.ark-card:not(.unselectable):not(.selectable)')].forEach((elt) =>
-            elt.classList.add('unselectable')
-          );
+          [
+            ...container.querySelectorAll(
+              ".ark-card:not(.unselectable):not(.selectable)"
+            ),
+          ].forEach((elt) => elt.classList.add("unselectable"));
         }
       });
 
@@ -348,7 +396,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      * onSelectNCards : syntaxic sugar for calling prepareCardsForSelection and then onSelectN
      *  + default behavior for keep/discard choice when selecting n/2 cards over a pool of n cards
      */
-    onSelectNCards(cardIds, config, location = 'hand') {
+    onSelectNCards(cardIds, config, location = "hand") {
       let elements = this.prepareCardsForSelection(cardIds, location);
       config.elements = elements;
       // let callback = config.confirmMsg
@@ -357,36 +405,37 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       //     }
       //   : config.callback;
 
-      if (location == 'choice') {
-        config.btnContainer = 'choose-cards-footer';
+      if (location == "choice") {
+        config.btnContainer = "choose-cards-footer";
       }
 
       this.onSelectN(config);
     },
 
     onEnteringStateDiscard(args) {
-      if (args.descSuffix == 'nightCleanUp') {
+      if (args.descSuffix == "nightCleanUp") {
         this.onEnteringStateNightDiscard(args);
         return;
       }
-      if (args.destination == 'mana' && args.n == 1) {
+      if (args.destination == "mana" && args.n == 1) {
         this.onEnteringStateManaDiscard(args);
         return;
       }
 
       this.onSelectNCards(args._private.cards, {
         n: args.n,
-        class: 'selectable',
-        confirmText: _('Confirm discard'),
-        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
+        class: "selectable",
+        confirmText: _("Confirm discard"),
+        callback: (selectedElements, ignoredElements) =>
+          this.takeAtomicAction("actDiscard", [selectedElements]),
       });
     },
 
     onEnteringStateNightDiscard(args) {
       this.onSelectNCards(args._private.cards, {
         n: args.n + (args.nLandmarks ?? 0),
-        class: 'selectable',
-        confirmText: _('Confirm discard'),
+        class: "selectable",
+        confirmText: _("Confirm discard"),
         updateCallback: (cIds) => {
           // TODO
           // debug(cIds);
@@ -402,7 +451,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           //   }
           // }
         },
-        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
+        callback: (selectedElements, ignoredElements) =>
+          this.takeAtomicAction("actDiscard", [selectedElements]),
       });
     },
 
@@ -414,17 +464,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         // oCard.style.transform = oCard.backup.transform;
         // oCard.style.left = oCard.backup.left;
         // oCard.style.top = oCard.backup.top;
-        oCard.classList.remove('selectedToMana', 'selected');
+        oCard.classList.remove("selectedToMana", "selected");
         selectedCard = null;
-        if ($('btnConfirm')) $('btnConfirm').remove();
+        if ($("btnConfirm")) $("btnConfirm").remove();
       };
 
-      this.onClick('altered-board-me', () => {
+      this.onClick("altered-board-me", () => {
         unselectIfNeeded();
       });
 
-      this.onClick('btnPassAction', () => {
-        console.log('test');
+      this.onClick("btnPassAction", () => {
+        console.log("test");
         unselectIfNeeded();
       });
 
@@ -438,13 +488,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             selectedCard = cardId;
 
             let oCard = $(`card-${selectedCard}`);
-            oCard.classList.add('selectedToMana', 'selected');
+            oCard.classList.add("selectedToMana", "selected");
 
             // Backup previous pos and transform
             oCard.backup = {
               transform: oCard.style.transform,
-              left: oCard.style.left || '0px',
-              top: oCard.style.top || '0px',
+              left: oCard.style.left || "0px",
+              top: oCard.style.top || "0px",
             };
 
             // Slide it using css transition, unless parent is reserve
@@ -453,8 +503,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             // oCard.style.left = limbo.offsetLeft + 'px';
             // oCard.style.top = limbo.offsetTop + 'px';
 
-            this.addPrimaryActionButton('btnConfirm', _('Confirm Mana'), () =>
-              this.takeAtomicAction('actDiscard', [[selectedCard]])
+            this.addPrimaryActionButton("btnConfirm", _("Confirm Mana"), () =>
+              this.takeAtomicAction("actDiscard", [[selectedCard]])
             );
           }
         });
@@ -462,14 +512,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     onLeavingStateDiscard() {
-      let oCard = $(`hand-${this.player_id}`).querySelector('.selectedToMana');
-      console.log('Leaving discard', oCard);
+      let oCard = $(`hand-${this.player_id}`).querySelector(".selectedToMana");
+      console.log("Leaving discard", oCard);
       if (!oCard) return;
 
       oCard.style.transform = oCard.backup.transform;
       oCard.style.left = oCard.backup.left;
       oCard.style.top = oCard.backup.top;
-      oCard.classList.remove('selectedToMana', 'selected');
+      oCard.classList.remove("selectedToMana", "selected");
     },
 
     /**
@@ -477,28 +527,37 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  create the cards and slide them in hand
      */
     notif_pDrawCards(n) {
-      debug('Notif: private drawing cards', n);
+      debug("Notif: private drawing cards", n);
       // this.closeChooseCardsModal();
-      let counter = 'handCount';
+      let counter = "handCount";
 
-      this._playerCounters[this.player_id]['deckCount'].incValue(-n.args.cards.length);
+      this._playerCounters[this.player_id]["deckCount"].incValue(
+        -n.args.cards.length
+      );
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
           this.addCard(card);
         });
-        this._playerCounters[this.player_id][counter].incValue(n.args.cards.length);
-        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
+        this._playerCounters[this.player_id][counter].incValue(
+          n.args.cards.length
+        );
+        if (n.args.stealing)
+          this._playerCounters[n.args.stealing][counter].incValue(
+            -n.args.cards.length
+          );
         return;
       }
 
       Promise.all(
         n.args.cards.map((card, i) => {
-          let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${this.player_id}`);
+          let source = n.args.stealing
+            ? $(`counter-${n.args.stealing}-${counter}`)
+            : $(`board-deck-${this.player_id}`);
           this.addCard(card, source);
 
           let cardId = `card-${card.id}`;
           $(cardId).animationDelay = 100 * (n.args.cards.length - i);
-          $(cardId).dataset.animationSpeed = 'medium';
+          $(cardId).dataset.animationSpeed = "medium";
           this.changeParent($(cardId), $(`hand-${n.args.player_id}`));
           return this.wait(100 * i + 700);
 
@@ -516,8 +575,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           // });
         })
       ).then(() => {
-        this._playerCounters[this.player_id][counter].incValue(n.args.cards.length);
-        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
+        this._playerCounters[this.player_id][counter].incValue(
+          n.args.cards.length
+        );
+        if (n.args.stealing)
+          this._playerCounters[n.args.stealing][counter].incValue(
+            -n.args.cards.length
+          );
 
         this.notifqueue.setSynchronousDuration(100);
       });
@@ -529,12 +593,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  slide fakes cards from titlebar to player panel and increase hand count
      */
     notif_drawCards(n) {
-      debug('Notif: public drawing cards', n);
+      debug("Notif: public drawing cards", n);
       // this.closeChooseCardsModal();
-      let counter = 'handCount';
+      let counter = "handCount";
 
       let nCards = n.args.n;
-      this._playerCounters[n.args.player_id]['deckCount'].incValue(-nCards);
+      this._playerCounters[n.args.player_id]["deckCount"].incValue(-nCards);
       if (this.isFastMode()) {
         this._playerCounters[n.args.player_id][counter].incValue(nCards);
         return;
@@ -543,7 +607,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       Array.from(Array(nCards), (x, i) => i).map((i) => {
         let cardId = this.addFakeCard($(`board-deck-${n.args.player_id}`));
         $(cardId).animationDelay = 100 * (nCards - i);
-        $(cardId).dataset.animationSpeed = 'medium';
+        $(cardId).dataset.animationSpeed = "medium";
         this.changeParent($(cardId), $(`hand-${n.args.player_id}`));
       });
       this.wait(100 * nCards + 1000).then(() => {
@@ -553,17 +617,24 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_publicDrawCards(n) {
-      debug('Notif: public drawing cards', n);
+      debug("Notif: public drawing cards", n);
       // this.closeChooseCardsModal();
-      let counter = 'handCount';
+      let counter = "handCount";
 
-      this._playerCounters[n.args.player_id]['deckCount'].incValue(-n.args.cards.length);
+      this._playerCounters[n.args.player_id]["deckCount"].incValue(
+        -n.args.cards.length
+      );
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
           this.addCard(card);
         });
-        this._playerCounters[n.args.player_id][counter].incValue(n.args.cards.length);
-        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
+        this._playerCounters[n.args.player_id][counter].incValue(
+          n.args.cards.length
+        );
+        if (n.args.stealing)
+          this._playerCounters[n.args.stealing][counter].incValue(
+            -n.args.cards.length
+          );
         return;
       }
 
@@ -574,8 +645,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
             let to = null;
             let container = this.getCardContainer(card);
-            if (!isVisible(container)) to = $('floating-hand-button');
-            let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${n.args.player_id}`);
+            if (!isVisible(container)) to = $("floating-hand-button");
+            let source = n.args.stealing
+              ? $(`counter-${n.args.stealing}-${counter}`)
+              : $(`board-deck-${n.args.player_id}`);
 
             return this.slide(`card-${card.id}`, container, {
               from: source,
@@ -585,8 +658,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           });
         })
       ).then(() => {
-        this._playerCounters[n.args.player_id][counter].incValue(n.args.cards.length);
-        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
+        this._playerCounters[n.args.player_id][counter].incValue(
+          n.args.cards.length
+        );
+        if (n.args.stealing)
+          this._playerCounters[n.args.stealing][counter].incValue(
+            -n.args.cards.length
+          );
 
         this.notifqueue.setSynchronousDuration(100);
       });
@@ -597,8 +675,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  slide them and destroy them
      */
     notif_pDiscardCards(n) {
-      debug('Notif: private discarding cards', n);
-      let counter = 'handCount';
+      debug("Notif: private discarding cards", n);
+      let counter = "handCount";
       let nonTappedMana = 0;
       this.closeOverlayIfOpened();
 
@@ -607,13 +685,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if ($(`card-${card.id}`)) {
             this.destroy($(`card-${card.id}`));
           }
-          nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped ? 1 : 0;
+          nonTappedMana +=
+            !card.properties.hasOwnProperty("tapped") || card.properties.tapped
+              ? 1
+              : 0;
         });
-        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
-        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
+        this._playerCounters[this.player_id][counter].incValue(
+          -n.args.cards.length
+        );
+        if (n.args.stealing)
+          this._playerCounters[n.args.stealing][counter].incValue(
+            n.args.cards.length
+          );
         if (n.args.toMana) {
-          this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
-          this._playerCounters[this.player_id]['mana'].incValue(nonTappedMana);
+          this._playerCounters[this.player_id]["totalMana"].incValue(
+            n.args.cards.length
+          );
+          this._playerCounters[this.player_id]["mana"].incValue(nonTappedMana);
         }
         return;
       }
@@ -622,13 +710,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         n.args.cards.map((card, i) => {
           // TO MANA
           if (n.args.toMana) {
-            nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped == false ? 1 : 0;
+            nonTappedMana +=
+              !card.properties.hasOwnProperty("tapped") ||
+              card.properties.tapped == false
+                ? 1
+                : 0;
             let target = $(`mana-gauge-${this.player_id}`); //$(`counter-board-${this.player_id}-mana`);
             if (!$(`card-${card.id}`)) {
               this.addCard(card, `board-deck-${card.pId}`);
             }
             let oCard = $(`card-${card.id}`);
-            oCard.classList.remove('selectedToMana');
+            oCard.classList.remove("selectedToMana");
 
             let fakeCardId = this._fakeIndex--;
             let fakeCard = this.tplFakeCard({ id: fakeCardId });
@@ -636,19 +728,24 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               .then(() => {
                 let id = `card-${fakeCardId}`;
                 this.changeParent(id, target);
-                $(id).style.left = '0px';
-                $(id).style.top = '0px';
-                $(id).style.transform = '';
+                $(id).style.left = "0px";
+                $(id).style.top = "0px";
+                $(id).style.transform = "";
                 return this.wait(700);
               })
               .then(() => {
-                $(`mana-cards-${this.player_id}`).insertAdjacentElement('beforeend', oCard);
+                $(`mana-cards-${this.player_id}`).insertAdjacentElement(
+                  "beforeend",
+                  oCard
+                );
                 $(`card-${fakeCardId}`).remove();
               });
           }
           // NORMAL
           else {
-            let target = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : this.getVisibleTitleContainer();
+            let target = n.args.stealing
+              ? $(`counter-${n.args.stealing}-${counter}`)
+              : this.getVisibleTitleContainer();
             return this.slide(`card-${card.id}`, target, {
               delay: 100 * i,
               duration: 1000,
@@ -658,11 +755,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           }
         })
       ).then(() => {
-        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
-        if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
+        this._playerCounters[this.player_id][counter].incValue(
+          -n.args.cards.length
+        );
+        if (n.args.stealing)
+          this._playerCounters[n.args.stealing][counter].incValue(
+            n.args.cards.length
+          );
         if (n.args.toMana) {
-          this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
-          this._playerCounters[this.player_id]['mana'].incValue(nonTappedMana);
+          this._playerCounters[this.player_id]["totalMana"].incValue(
+            n.args.cards.length
+          );
+          this._playerCounters[this.player_id]["mana"].incValue(nonTappedMana);
           this.clearHandTransform($(`mana-cards-${this.player_id}`));
         }
 
@@ -676,45 +780,49 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  slide fakes cards from player panel to titlebar and decrease hand count
      */
     notif_discardCards(n) {
-      debug('Notif: public discarding cards', n);
+      debug("Notif: public discarding cards", n);
       this.closeOverlayIfOpened();
       if (n.args.player_id == this.player_id) {
         return;
       }
 
-      let counter = 'handCount';
+      let counter = "handCount";
       let nCards = n.args.n;
       if (this.isFastMode()) {
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
         if (n.args.toMana) {
-          this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
-          this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+          this._playerCounters[n.args.player_id]["totalMana"].incValue(nCards);
+          this._playerCounters[n.args.player_id]["mana"].toValue(n.args.mana);
         }
         return;
       }
 
-      let oCards = [...$(`hand-${n.args.player_id}`).querySelectorAll('.altered-card')];
+      let oCards = [
+        ...$(`hand-${n.args.player_id}`).querySelectorAll(".altered-card"),
+      ];
       Promise.all(
         Array.from(Array(nCards), (x, i) => i).map((i) => {
           return this.wait(100 * i).then(() => {
             let o = this.slide(
               oCards[i].id,
-              n.args.toMana ? $(`counter-board-${n.args.player_id}-mana`) : this.getVisibleTitleContainer(),
+              n.args.toMana
+                ? $(`counter-board-${n.args.player_id}-mana`)
+                : this.getVisibleTitleContainer(),
               {
                 duration: 1000,
                 destroy: true,
                 phantom: false,
               }
             );
-            oCards[i].style.transform = '';
+            oCards[i].style.transform = "";
             return o;
           });
         })
       ).then(() => {
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
         if (n.args.toMana) {
-          this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
-          this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+          this._playerCounters[n.args.player_id]["totalMana"].incValue(nCards);
+          this._playerCounters[n.args.player_id]["mana"].toValue(n.args.mana);
         }
 
         this.notifqueue.setSynchronousDuration(200);
@@ -722,44 +830,53 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_publicDiscard(n) {
-      debug('Public discard', n);
+      debug("Public discard", n);
       let pId = n.args.player_id;
-      let oCards = [...$(`hand-${pId}`).querySelectorAll('.altered-card')];
+      let oCards = [...$(`hand-${pId}`).querySelectorAll(".altered-card")];
       let indexCardReplacement = 0;
 
       Promise.all(
         [...n.args.cards].map((card, i) => {
           return this.wait(200 * i).then(() => {
-            if (card.location == 'hand') return;
-            if (n.args.hand === true) this._playerCounters[pId]['handCount'].incValue(-1);
+            if (card.location == "hand") return;
+            if (n.args.hand === true)
+              this._playerCounters[pId]["handCount"].incValue(-1);
 
             let id = `card-${card.id}`;
-            if (card.location == 'destroy') {
+            if (card.location == "destroy") {
               this.fadeOutAndDestroy(id, 1000);
               return this.wait(1000);
             }
 
             let slideIt = () => {
               if (n.args.hand === true) {
-                $(id).classList.add('mini-card');
+                $(id).classList.add("mini-card");
                 this.changeParent(id, `board-${card.location}-${card.pId}`);
               }
-              if (card.location == 'discard') $(id).classList.remove('mini-card');
+              if (card.location == "discard")
+                $(id).classList.remove("mini-card");
 
               this.updateStatusIfCard($(id));
 
-              return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`, {
-                clearTransform: true,
-              });
+              return this.slide(
+                `card-${card.id}`,
+                `board-${card.location}-${card.pId}`,
+                {
+                  clearTransform: true,
+                }
+              );
             };
 
             if (!$(id)) {
               if (pId != this.player_id) {
                 this.addCard(card, this.getVisibleTitleContainer());
-                $(id).classList.remove('mini-card');
-                return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
+                $(id).classList.remove("mini-card");
+                return this.flipAndReplace(
+                  oCards[indexCardReplacement++],
+                  id
+                ).then(() => slideIt());
               } else {
-                console.error('Card that I own do not exists ! :', card);
+                console.error("Card that I own do not exists ! :", card);
               }
             } else {
               return slideIt();
@@ -767,14 +884,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           });
         })
       ).then(() => {
-        this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
-        this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+        this._playerCounters[n.args.player_id]["totalMana"].toValue(
+          n.args.totalMana
+        );
+        this._playerCounters[n.args.player_id]["mana"].toValue(n.args.mana);
         this.notifqueue.setSynchronousDuration(100);
       });
     },
 
     notif_putInDeck(n) {
-      debug('Notification: put on top of deck', n);
+      debug("Notification: put on top of deck", n);
       // TODO
     },
 
@@ -782,11 +901,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      * stealingCard : slighty different => move card to other player panel and destroy it
      */
     notif_stealingCard(n) {
-      if (n.args.player_id == this.player_id || n.args.player_id2 == this.player_id) {
+      if (
+        n.args.player_id == this.player_id ||
+        n.args.player_id2 == this.player_id
+      ) {
         return;
       }
 
-      let counter = 'handCount';
+      let counter = "handCount";
       let nCards = 1;
       if (this.isFastMode()) {
         this._playerCounters[n.args.player_id][counter].incValue(-nCards);
@@ -794,7 +916,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return;
       }
 
-      this.addCard({ id: 1, fake: true }, `counter-${n.args.player_id}-${counter}`);
+      this.addCard(
+        { id: 1, fake: true },
+        `counter-${n.args.player_id}-${counter}`
+      );
       this.slide(`card-1`, `counter-${n.args.player_id2}-${counter}`, {
         duration: 1000,
         destroy: true,
@@ -807,7 +932,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_gainCounter(n) {
-      debug('Notification: gain counter', n);
+      debug("Notification: gain counter", n);
 
       let oCard = $(`card-${n.args.card.id}`);
       if (this.isFastMode()) {
@@ -816,8 +941,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       let tmpElt = `<div style='position:absolute' id='animation-counter'>${n.args.increase}</div>`;
-      this.getVisibleTitleContainer().insertAdjacentHTML('beforebegin', tmpElt);
-      this.slide('animation-counter', oCard, {
+      this.getVisibleTitleContainer().insertAdjacentHTML("beforebegin", tmpElt);
+      this.slide("animation-counter", oCard, {
         from: this.getVisibleTitleContainer(),
         destroy: true,
         phantom: false,
@@ -828,10 +953,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_useCounter(n) {
-      debug('Notification: use counter', n);
+      debug("Notification: use counter", n);
       // pay mana if necessary
-      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
-      this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+      this._playerCounters[n.args.player_id]["mana"].toValue(n.args.mana);
+      this._playerCounters[n.args.player_id]["totalMana"].toValue(
+        n.args.totalMana
+      );
 
       let oCard = $(`card-${n.args.card.id}`);
       if (this.isFastMode()) {
@@ -840,9 +967,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       let tmpElt = `<div style='position:absolute' id='animation-counter'>${n.args.decrease}</div>`;
-      this.getVisibleTitleContainer().insertAdjacentHTML('beforebegin', tmpElt);
+      this.getVisibleTitleContainer().insertAdjacentHTML("beforebegin", tmpElt);
       oCard.dataset.counter = n.args.value;
-      this.slide('animation-counter', this.getVisibleTitleContainer(), {
+      this.slide("animation-counter", this.getVisibleTitleContainer(), {
         from: oCard,
         destroy: true,
         phantom: false,
@@ -851,13 +978,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_deleteCounter(n) {
-      debug('Notification: delete counter');
+      debug("Notification: delete counter");
       // TODO
     },
 
     notif_targetCards(n) {
-      debug('Notification: target card', n);
-      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+      debug("Notification: target card", n);
+      this._playerCounters[n.args.player_id]["mana"].toValue(n.args.mana);
     },
 
     /**
@@ -896,13 +1023,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     */
 
     notif_playCard(n) {
-      debug('Notif: playing a card', n);
+      debug("Notif: playing a card", n);
       // Update counters
-      if (n.args.fromLocation == 'hand') {
-        this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
+      if (n.args.fromLocation == "hand") {
+        this._playerCounters[n.args.player_id]["handCount"].incValue(-1);
       }
-      this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
-      this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+      this._playerCounters[n.args.player_id]["mana"].toValue(n.args.mana);
+      this._playerCounters[n.args.player_id]["totalMana"].toValue(
+        n.args.totalMana
+      );
 
       // Slide the card
       let card = n.args.card;
@@ -910,13 +1039,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let slideIt = () => {
         let container = this.getCardContainer(card);
 
-        if (card.location != 'limbo') $(id).classList.add('mini-card');
+        if (card.location != "limbo") $(id).classList.add("mini-card");
         else if (n.args.player_id == this.player_id) {
           this.changeParent(id, container);
-          $(id).style.left = '0px';
-          $(id).style.top = '0px';
-          $(id).style.transform = '';
-          if ($('btnLaunchSpell')) $('btnLaunchSpell').remove();
+          $(id).style.left = "0px";
+          $(id).style.top = "0px";
+          $(id).style.transform = "";
+          if ($("btnLaunchSpell")) $("btnLaunchSpell").remove();
 
           this.wait(800).then(() => {
             this.updateMovements(n.args.movements);
@@ -925,7 +1054,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           return;
         }
 
-        let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
+        let highlight =
+          n.args.player_id == this.bottomPId
+            ? "highlighted-me"
+            : "highlighted-opponent";
         $(id).classList.add(highlight);
         this.slide(id, container, { clearTransform: true }).then(() => {
           this.updateBiomeTotals(card.pId, n.args.biomes);
@@ -936,7 +1068,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       };
 
       if (!$(id)) {
-        let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+        let fakeCard = $(`hand-${n.args.player_id}`).querySelector(
+          ".card-back:last-child"
+        );
         this.addCard(card, `hand-${n.args.player_id}`);
         this.flipAndReplace(fakeCard, id).then(slideIt);
       } else {
@@ -945,14 +1079,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_supportEffect(n) {
-      debug('Notif : playing from support');
+      debug("Notif : playing from support");
       let card = n.args.card;
       let id = `card-${card.id}`;
       if (!$(id)) {
-        this.addCard(card, 'page-title');
+        this.addCard(card, "page-title");
       }
       let container = this.getCardContainer(card);
-      $(id).classList.remove('mini-card');
+      $(id).classList.remove("mini-card");
 
       this.slide(id, container).then(() => {
         this.notifqueue.setSynchronousDuration(100);
@@ -960,29 +1094,31 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_tap(n) {
-      debug('Notif: tapping card', n);
-      $(`card-${n.args.card.id}`).classList.remove('selectable');
-      $(`card-${n.args.card.id}`).classList.add('tapped');
+      debug("Notif: tapping card", n);
+      $(`card-${n.args.card.id}`).classList.remove("selectable");
+      $(`card-${n.args.card.id}`).classList.add("tapped");
       if (n.args.cost > 0) {
-        this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
-        this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+        this._playerCounters[n.args.player_id]["mana"].toValue(n.args.mana);
+        this._playerCounters[n.args.player_id]["totalMana"].toValue(
+          n.args.totalMana
+        );
       }
     },
 
     notif_untap(n) {
-      debug('Notif: untapping card(s)', n);
+      debug("Notif: untapping card(s)", n);
       n.args.cardIds.forEach((cardId) => {
-        if ($(`card-${cardId}`)) $(`card-${cardId}`).classList.remove('tapped');
+        if ($(`card-${cardId}`)) $(`card-${cardId}`).classList.remove("tapped");
       });
     },
 
     notif_shuffleDeck(n) {
-      debug('Notif: shuffling deck', n);
-      this._playerCounters[n.args.player_id]['deckCount'].incValue(n.args.n);
+      debug("Notif: shuffling deck", n);
+      this._playerCounters[n.args.player_id]["deckCount"].incValue(n.args.n);
     },
 
     notif_spellCleanup(n) {
-      debug('Notif: spell cleanup', n);
+      debug("Notif: spell cleanup", n);
       n.args.deleted.forEach((meepleId) => {
         $(`meeple-${meepleId}`).remove();
       });
@@ -992,12 +1128,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       this.updateCardStatuses(card.id);
       let id = `card-${card.id}`;
       if (!$(id)) {
-        this.addCard(card, 'page-title');
+        this.addCard(card, "page-title");
       }
-      if (card.location == 'discard') {
-        $(id).classList.remove('mini-card');
+      if (card.location == "discard") {
+        $(id).classList.remove("mini-card");
       } else {
-        $(id).classList.add('mini-card');
+        $(id).classList.add("mini-card");
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
@@ -1006,14 +1142,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_invokeToken(n) {
-      debug('Notif: invoke token', n);
+      debug("Notif: invoke token", n);
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
       // we slide it from the card triggering the effect
       if (!$(id)) {
-        this.addCard(card, n.args.card2.location == 'hand' ? 'page-title' : `card-${n.args.card2.id}`);
-        $(id).classList.add('mini-card');
+        this.addCard(
+          card,
+          n.args.card2.location == "hand"
+            ? "page-title"
+            : `card-${n.args.card2.id}`
+        );
+        $(id).classList.add("mini-card");
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
@@ -1023,7 +1164,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_moveCard(n) {
-      debug('Notif: moving card');
+      debug("Notif: moving card");
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
@@ -1036,7 +1177,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_nightCleanup(n) {
-      debug('Notif: cleaning up played cards', n);
+      debug("Notif: cleaning up played cards", n);
       let pId = n.args.player_id;
       n.args.cards.forEach((card) => (card.discard = true));
 
@@ -1048,8 +1189,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
           return this.wait(200 * i).then(() => {
             this.updateCardStatuses(card.id);
-            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`).then(() => {
-              if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+            return this.slide(
+              `card-${card.id}`,
+              card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`
+            ).then(() => {
+              if (card.discard)
+                $(`card-${card.id}`).classList.remove("mini-card");
             });
           });
         })
@@ -1069,7 +1214,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_cleanupCards(n) {
-      debug('Notif: updating status of all cleaned up cards', n);
+      debug("Notif: updating status of all cleaned up cards", n);
       Promise.all(
         [...n.args.cardIds].map((cardId, i) => {
           return this.wait(200 * i).then(() => {
@@ -1090,29 +1235,29 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  multiple cards of multiple players can be moved like that
      */
     notif_moveToHand(n) {
-      debug('Moving cards to hand', n);
+      debug("Moving cards to hand", n);
       let playerInc = {};
       Promise.all(
         [...n.args.cards].map((card) => {
           this.updateCardStatuses(card.id);
           let oCard = $(`card-${card.id}`);
-          oCard.classList.remove('mini-card');
+          oCard.classList.remove("mini-card");
           playerInc[card.pId] = playerInc[card.pId] ?? 0 + 1;
 
-          if (card.location == 'destroy') {
+          if (card.location == "destroy") {
             this.fadeOutAndDestroy(oCard, 1000);
             return this.wait(1000);
           }
 
           if (this.player_id == card.pId) {
-            oCard.dataset.animationSpeed = 'medium';
+            oCard.dataset.animationSpeed = "medium";
             this.changeParent(oCard, `hand-${card.pId}`);
             return this.wait(500);
           } else {
             let fakeCardId = this._fakeIndex--;
             let fakeCard = this.tplFakeCard({ id: fakeCardId });
             return this.flipAndReplace(oCard, fakeCard).then(() => {
-              $(`card-${fakeCardId}`).dataset.animationSpeed = 'medium';
+              $(`card-${fakeCardId}`).dataset.animationSpeed = "medium";
               this.changeParent(`card-${fakeCardId}`, `hand-${card.pId}`);
               return this.wait(500);
             });
@@ -1120,7 +1265,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         })
       ).then(() => {
         Object.keys(playerInc).forEach((player) => {
-          this._playerCounters[player]['handCount'].incValue(playerInc[player]);
+          this._playerCounters[player]["handCount"].incValue(playerInc[player]);
         });
         this.notifqueue.setSynchronousDuration(100);
       });
@@ -1135,7 +1280,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     //////////////////////////////////////////////
 
     tplFakeCard(card) {
-      let uid = 'card-' + card.id;
+      let uid = "card-" + card.id;
       return `<div id="${uid}" class='altered-card fake-card card-back'>
         <div class='altered-card-wrapper' data-asset='back'>
         </div>
@@ -1144,7 +1289,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCard(card) {
       let type = card.properties.type;
-      let miniZones = ['reserve', 'stormLeft', 'stormRight', 'permanent', 'landmark'];
+      let miniZones = [
+        "reserve",
+        "stormLeft",
+        "stormRight",
+        "permanent",
+        "landmark",
+      ];
       let mini = miniZones.includes(card.location);
       if (type == HERO) {
         return this.tplHeroCard(card);
@@ -1158,8 +1309,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return this.tplTokenCard(card, false, mini);
       }
 
-      console.error('No tpl yet', card);
-      return '';
+      console.error("No tpl yet", card);
+      return "";
     },
 
     tplCardTooltip(card) {
@@ -1177,31 +1328,43 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return this.tplTokenCardTooltip(card);
       }
 
-      return '';
+      return "";
     },
 
     tplHeroCard(card, tooltip = false, mini = false) {
       let p = card.properties;
-      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
-      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || "");
+      let textFontSize = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-text").style.fontSize
+        : FONT_SIZE;
+      let paddingTop = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-effect").style.paddingTop
+        : "0px";
 
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-          class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
+      return `<div id="card-${card.id}${tooltip ? "tooltip" : ""}" data-id="${
+        card.id
+      }" 
+          class='altered-card card-hero ${mini ? "mini-card" : ""} '>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
+          <div class='card-frame' data-faction='${
+            p.faction
+          }' data-type='hero'></div>
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${
+                p.uid
+              }" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
             </div>
           </div>
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'>${this.formatSvgIcon("artist")} ${
+        p.artist
+      }</div>
         </div>
       </div>`;
     },
@@ -1210,7 +1373,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='card-tooltip-frame'>
           ${this.tplHeroCard(card, true, false)}
         </div>
-        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(
+          card
+        )}</div>
       </div>`;
     },
 
@@ -1221,7 +1386,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (mid == 0) mid = biomes[2];
 
       let sizes = {};
-      ['forest', 'mountain', 'ocean'].forEach((biome) => {
+      ["forest", "mountain", "ocean"].forEach((biome) => {
         let v = p[biome];
         let size = null;
         if (v == 0) size = 0;
@@ -1237,50 +1402,75 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     tplCharacterCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
-      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
-      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
+      let frameSize = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-frame").dataset.size
+        : 1;
+      let textFontSize = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-text").style.fontSize
+        : FONT_SIZE;
+      let paddingTop = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-effect").style.paddingTop
+        : "0px";
       let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
 
-      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || "");
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
-      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
+      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || "");
 
-      let counter = '';
+      let counter = "";
       if (p.extraDatas && p.extraDatas.counterName) {
         counter = ` data-counter='${p.extraDatas.counter}'`;
       }
 
-      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${boost}' ${counter}>
+      let changed = (name) =>
+        p.changedStats && p.changedStats.includes(name) ? " altered" : "";
+      return `<div id="card-${card.id}${tooltip ? "tooltip" : ""}" data-id="${
+        card.id
+      }" 
+        class='altered-card card-character ${
+          mini ? "mini-card" : ""
+        }' data-boost='${boost}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
+          <div class='card-frame' data-size='${frameSize}' data-faction='${
+        p.faction
+      }' 
+              data-rarity='${p.rarity}' data-support='${
+        p.supportDesc ? 1 : 0
+      }' data-type='character'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
-          <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
+          <div class='card-hand-cost ${changed("costHand")}'>${p.costHand}</div>
+          <div class='card-reserve-cost ${changed("costReserve")}'>${
+        p.costReserve
+      }</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>
 
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' 
+          <div class='card-forest ${changed("forest")}' data-size='${
+        sizes.forest
+      }' 
             data-initial='${p.forest}' data-boost='${boost}'>
             ${p.forest}
           </div>
-          <div class='card-mountain ${changed('mountain')}' data-size='${sizes.mountain}' 
+          <div class='card-mountain ${changed("mountain")}' data-size='${
+        sizes.mountain
+      }' 
             data-initial='${p.mountain}' data-boost='${boost}'>
             ${p.mountain}
           </div>
-          <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' 
+          <div class='card-ocean ${changed("ocean")}' data-size='${
+        sizes.ocean
+      }' 
             data-initial='${p.ocean}' data-boost='${boost}'>
             ${p.ocean}
           </div>
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${
+                p.uid
+              }" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
@@ -1290,7 +1480,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             ${this.formatString(support.str, true)}
           </div>
 
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'>${this.formatSvgIcon("artist")} ${
+        p.artist
+      }</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1301,7 +1493,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='card-tooltip-frame'>
           ${this.tplCharacterCard(card, true, false)}
         </div>
-        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(
+          card
+        )}</div>
       </div>`;
     },
 
@@ -1309,26 +1503,42 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
       let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${boost}'>
+      return `<div id="card-${card.id}${tooltip ? "tooltip" : ""}" data-id="${
+        card.id
+      }" 
+        class='altered-card card-token ${
+          mini ? "mini-card" : ""
+        }' data-boost='${boost}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-faction='${p.faction}' data-type='token'></div>
+          <div class='card-frame' data-faction='${
+            p.faction
+          }' data-type='token'></div>
           <div class='card-name'>${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
-          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
-            p.mountain
-          }</div>
-          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
+          <div class='card-forest' data-size='${sizes.forest}' data-initial='${
+        p.forest
+      }' data-boost='${boost}'>${p.forest}</div>
+          <div class='card-mountain' data-size='${
+            sizes.mountain
+          }' data-initial='${p.mountain}' data-boost='${boost}'>${
+        p.mountain
+      }</div>
+          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${
+        p.ocean
+      }' data-boost='${boost}'>${p.ocean}</div>
 
           <div class='card-text'>
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${
+                p.uid
+              }" target="_blank" class='card-qrcode'></a>
             </div>
           </div>
 
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'>${this.formatSvgIcon("artist")} ${
+        p.artist
+      }</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1339,33 +1549,50 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='card-tooltip-frame'>
           ${this.tplTokenCard(card, true, false)}
         </div>
-        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(
+          card
+        )}</div>
       </div>`;
     },
 
     tplSpellCard(card, tooltip = false, mini = false) {
       let p = card.properties;
-      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
-      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
-      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
-      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
+      let frameSize = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-frame").dataset.size
+        : 1;
+      let textFontSize = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-text").style.fontSize
+        : FONT_SIZE;
+      let paddingTop = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-effect").style.paddingTop
+        : "0px";
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || "");
+      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || "");
       //      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
 
-      let counter = '';
+      let counter = "";
       if (p.extraDatas && p.extraDatas.counterName) {
         counter = ` data-counter='${p.extraDatas.counter}'`;
       }
 
-      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-spell ${mini ? 'mini-card' : ''}' ${counter}>
+      let changed = (name) =>
+        p.changedStats && p.changedStats.includes(name) ? " altered" : "";
+      return `<div id="card-${card.id}${tooltip ? "tooltip" : ""}" data-id="${
+        card.id
+      }" 
+        class='altered-card card-spell ${mini ? "mini-card" : ""}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='spell'></div>
+          <div class='card-frame' data-size='${frameSize}' data-faction='${
+        p.faction
+      }' 
+              data-rarity='${p.rarity}' data-support='${
+        p.supportDesc ? 1 : 0
+      }' data-type='spell'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
-          <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
+          <div class='card-hand-cost ${changed("costHand")}'>${p.costHand}</div>
+          <div class='card-reserve-cost ${changed("costReserve")}'>${
+        p.costReserve
+      }</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>
 
           <div class='card-name'>${_(p.name)}</div>
@@ -1373,7 +1600,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${
+                p.uid
+              }" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
@@ -1383,7 +1612,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             ${this.formatString(support.str, true)}
           </div>
 
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'>${this.formatSvgIcon("artist")} ${
+        p.artist
+      }</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1395,30 +1626,47 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='card-tooltip-frame'>
           ${this.tplSpellCard(card, true, false)}
         </div>
-        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(
+          card
+        )}</div>
       </div>`;
     },
 
     tplPermanentCard(card, tooltip = false, mini = false) {
       let p = card.properties;
-      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
-      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
-      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
+      let frameSize = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-frame").dataset.size
+        : 1;
+      let textFontSize = tooltip
+        ? $(`card-${card.id}`).querySelector(".card-text").style.fontSize
+        : FONT_SIZE;
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || "");
+      let changed = (name) =>
+        p.changedStats && p.changedStats.includes(name) ? " altered" : "";
 
-      let counter = '';
+      let counter = "";
       if (p.extraDatas && p.extraDatas.counterName) {
         counter = ` data-counter='${p.extraDatas.counter}'`;
       }
 
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-permanent ${mini ? 'mini-card' : ''}' ${counter}>
+      return `<div id="card-${card.id}${tooltip ? "tooltip" : ""}" data-id="${
+        card.id
+      }" 
+        class='altered-card card-permanent ${
+          mini ? "mini-card" : ""
+        }' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='permanent'></div>
+          <div class='card-frame' data-size='${frameSize}' data-faction='${
+        p.faction
+      }' 
+              data-rarity='${p.rarity}' data-support='${
+        p.supportDesc ? 1 : 0
+      }' data-type='permanent'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
-          <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
+          <div class='card-hand-cost ${changed("costHand")}'>${p.costHand}</div>
+          <div class='card-reserve-cost ${changed("costReserve")}'>${
+        p.costReserve
+      }</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>
 
           <div class='card-name'>${_(p.name)}</div>
@@ -1426,14 +1674,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.equinox-ccg.io/fr-fr/cards/${
+                p.uid
+              }" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
               ${this.formatString(effect.str, true)}
             </div>
           </div>
 
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'>${this.formatSvgIcon("artist")} ${
+        p.artist
+      }</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1446,31 +1698,34 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='card-tooltip-frame'>
           ${this.tplPermanentCard(card, true, false)}
         </div>
-        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
+        <div class='tooltip-explanation'>${this.getCardTooltipExplanation(
+          card
+        )}</div>
       </div>`;
     },
 
     autofitCardFrame(oCard, eraseExisting = false) {
-      if (!oCard.querySelector('.card-effect')) return;
+      if (!oCard.querySelector(".card-effect")) return;
 
-      let isMini = oCard.classList.contains('mini-card');
-      if (isMini) oCard.classList.remove('mini-card');
-      oCard.style.setProperty('--cardScale', 1);
-      oCard.classList.add('force-frame');
+      let isMini = oCard.classList.contains("mini-card");
+      if (isMini) oCard.classList.remove("mini-card");
+      oCard.style.setProperty("--cardScale", 1);
+      oCard.classList.add("force-frame");
       if (eraseExisting) {
-        oCard.querySelector('.card-text').style.fontSize = FONT_SIZE + 'px';
-        oCard.querySelector('.card-effect').style.paddingTop = '0px';
+        oCard.querySelector(".card-text").style.fontSize = FONT_SIZE + "px";
+        oCard.querySelector(".card-effect").style.paddingTop = "0px";
       }
       oCard.offsetHeight;
 
       // Fit effect
       let isEffectSizeOk = () =>
-        oCard.querySelector('.card-text').offsetHeight >= oCard.querySelector('.card-effect').offsetHeight;
+        oCard.querySelector(".card-text").offsetHeight >=
+        oCard.querySelector(".card-effect").offsetHeight;
       if (!isEffectSizeOk()) {
-        oCard.querySelector('.card-frame').dataset.size = 2;
+        oCard.querySelector(".card-frame").dataset.size = 2;
         oCard.offsetHeight;
         for (let i = 13; i >= 10 && !isEffectSizeOk(); i--) {
-          oCard.querySelector('.card-text').style.fontSize = `${i}px`;
+          oCard.querySelector(".card-text").style.fontSize = `${i}px`;
         }
       }
 
@@ -1492,54 +1747,76 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // if (mean > H) mean = 0;
       // oCard.querySelector('.card-effect').style.paddingTop = mean + 'px';
 
-      oCard.style.setProperty('--cardScale', null);
-      oCard.classList.remove('force-frame');
+      oCard.style.setProperty("--cardScale", null);
+      oCard.classList.remove("force-frame");
 
       // Add back mini if needed
-      if (isMini) oCard.classList.add('mini-card');
+      if (isMini) oCard.classList.add("mini-card");
 
       this.updateCardTooltip(oCard.dataset.id);
     },
 
     getMeeplesOnCard(cardId) {
       if (!$(`card-${cardId}`)) return [];
-      return [...$(`card-${cardId}`).querySelectorAll('.altered-meeple:not(.phantom)')];
+      return [
+        ...$(`card-${cardId}`).querySelectorAll(
+          ".altered-meeple:not(.phantom)"
+        ),
+      ];
     },
 
     updateStatusIfCard(elt) {
-      if ($(elt).classList.contains('altered-card')) this.updateCardStatuses($(elt).dataset.id);
+      if ($(elt).classList.contains("altered-card"))
+        this.updateCardStatuses($(elt).dataset.id);
     },
 
     updateCardStatuses(cardId) {
-      let container = $(`card-${cardId}`).querySelector('.altered-card-statuses');
+      let container = $(`card-${cardId}`).querySelector(
+        ".altered-card-statuses"
+      );
       if (!container) return;
-      container.innerHTML = '';
+      container.innerHTML = "";
 
-      const ICONS = ['fleeting', 'anchored', 'asleep', 'boost'];
+      const ICONS = ["fleeting", "anchored", "asleep", "boost"];
       let boost = 0;
       this.getMeeplesOnCard(cardId).forEach((meeple) => {
         let type = meeple.dataset.type;
         if (!ICONS.includes(type)) return;
 
-        if (type == 'boost') {
+        if (type == "boost") {
           boost++;
           return;
         }
 
         //        container.insertAdjacentHTML('beforeend', `<div class='card-status'>${this.formatSvgIcon(type)}</div>`);
-        container.insertAdjacentHTML('beforeend', this.formatIcon(type));
+        container.insertAdjacentHTML("beforeend", this.formatIcon(type));
       });
 
-      if ($(`card-${cardId}`).querySelector('.card-forest') != null) {
+      if ($(`card-${cardId}`).querySelector(".card-forest") != null) {
         let p = {
-          forest: parseInt($(`card-${cardId}`).querySelector('.card-forest').getAttribute('data-initial')) + boost,
-          mountain: parseInt($(`card-${cardId}`).querySelector('.card-mountain').getAttribute('data-initial')) + boost,
-          ocean: parseInt($(`card-${cardId}`).querySelector('.card-ocean').getAttribute('data-initial')) + boost,
+          forest:
+            parseInt(
+              $(`card-${cardId}`)
+                .querySelector(".card-forest")
+                .getAttribute("data-initial")
+            ) + boost,
+          mountain:
+            parseInt(
+              $(`card-${cardId}`)
+                .querySelector(".card-mountain")
+                .getAttribute("data-initial")
+            ) + boost,
+          ocean:
+            parseInt(
+              $(`card-${cardId}`)
+                .querySelector(".card-ocean")
+                .getAttribute("data-initial")
+            ) + boost,
         };
         let sizes = this.getBiomesUISizes(p);
-        ['forest', 'mountain', 'ocean'].forEach((biome) => {
+        ["forest", "mountain", "ocean"].forEach((biome) => {
           let o = $(`card-${cardId}`).querySelector(`.card-${biome}`);
-          o.setAttribute('data-size', sizes[biome]);
+          o.setAttribute("data-size", sizes[biome]);
           o.innerHTML = p[biome];
         });
 
@@ -1550,18 +1827,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     updateCardTooltip(cardId) {
-      this.tooltips[`card-${cardId}`].setContent(this.tplCardTooltip(this.getCardInfos(cardId)));
+      this.tooltips[`card-${cardId}`].setContent(
+        this.tplCardTooltip(this.getCardInfos(cardId))
+      );
     },
 
     getCardTooltipExplanation(card) {
-      let explanation = '';
+      let explanation = "";
       this.getMeeplesOnCard(card.id).forEach((oMeeple) => {
         let tooltipDesc = this.getMeepleTooltip({ type: oMeeple.dataset.type });
         if (tooltipDesc != null) {
           explanation += `<div class='explanation'>
             ${this.formatIcon(oMeeple.dataset.type)}
             <p>
-              ${tooltipDesc.map((t) => this.formatString(t)).join('<br/>')}
+              ${tooltipDesc.map((t) => this.formatString(t)).join("<br/>")}
             </p>
           </div>`;
         }
@@ -1591,79 +1870,95 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     replaceKeyWordsAndGetReminders(str) {
       const KEYWORDS = {
         AFTER_YOU: {
-          text: _('After You'),
-          reminder: _('End your turn as if you had played a card. You may still play cards later this Day.'),
+          text: _("After You"),
+          reminder: _(
+            "End your turn as if you had played a card. You may still play cards later this Day."
+          ),
         },
         ANCHORED: {
-          text: _('Anchored'),
-          reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
+          text: _("Anchored"),
+          reminder: _(
+            "During Rest, I don't go to Reserve and I lose Anchored."
+          ),
         },
         ASLEEP: {
-          text: _('Asleep'),
-          reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
+          text: _("Asleep"),
+          reminder: _(
+            "During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."
+          ),
         },
         BB: {
-          text: '',
-          reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
+          text: "",
+          reminder: _(
+            "A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone"
+          ),
         },
         BOODA: {
-          text: _('Booda 2/2/2'),
+          text: _("Booda 2/2/2"),
         },
         BOOSTED: {
-          text: _('Boosted'),
+          text: _("Boosted"),
         },
         BRASSBUG: {
-          text: _('Brassbug 2/2/2'),
+          text: _("Brassbug 2/2/2"),
         },
         DEFENDER: {
-          text: _('Defender'),
+          text: _("Defender"),
           reminder: _("My Expedition can't advance during Dusk."),
         },
         ETERNAL: {
-          text: _('Eternal'),
+          text: _("Eternal"),
           reminder: _("During Rest, I don't go to Reserve."),
         },
         FLEETING_CHAR: {
-          text: _('Fleeting'),
-          reminder: _('If I would be sent to Reserve, discard me instead.'),
+          text: _("Fleeting"),
+          reminder: _("If I would be sent to Reserve, discard me instead."),
         },
         FLEETING: {
-          text: _('Fleeting'),
-          reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
+          text: _("Fleeting"),
+          reminder: _(
+            "Send me to Discard instead of Reserve after my effect resolves."
+          ),
         },
         GIGANTIC: {
-          text: _('Gigantic'),
-          reminder: _('I am considered present in each of your Expeditions.'),
+          text: _("Gigantic"),
+          reminder: _("I am considered present in each of your Expeditions."),
         },
         MAW: {
-          text: _('Maw 0/0/0'),
+          text: _("Maw 0/0/0"),
         },
         ORDIS_RECRUIT: {
-          text: _('Ordis Recruit 1/1/1'),
+          text: _("Ordis Recruit 1/1/1"),
         },
         RESUPPLY: {
-          text: _('Resupply'),
-          reminder: _('Put the top card of your deck in Reserve.'),
+          text: _("Resupply"),
+          reminder: _("Put the top card of your deck in Reserve."),
         },
         SABOTAGE: {
-          text: _('Sabotage'),
-          reminder: _('Discard up to one target card from a Reserve.'),
+          text: _("Sabotage"),
+          reminder: _("Discard up to one target card from a Reserve."),
         },
         SEASONED: {
-          text: _('Seasoned'),
-          reminder: _('I keep my boosts when I go to Reserve.'),
+          text: _("Seasoned"),
+          reminder: _("I keep my boosts when I go to Reserve."),
         },
         TOUGH_1: {
-          text: _('Tough 1'),
-          reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
+          text: _("Tough 1"),
+          reminder: _(
+            "Your opponent's Spells and abilities that target me cost {1} more."
+          ),
         },
         TOUGH_2: {
-          text: _('Tough 2'),
-          reminder: _("Your opponent's Spells and abilities that target me cost {2} more."),
+          text: _("Tough 2"),
+          reminder: _(
+            "Your opponent's Spells and abilities that target me cost {2} more."
+          ),
         },
         TOUGH_X: {
-          text: _('Tough X'),
-          reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
+          text: _("Tough X"),
+          reminder: _(
+            "Your opponent's Spells and abilities that target me cost {X} more."
+          ),
         },
       };
 
@@ -1671,24 +1966,34 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       let reminders = [];
       Object.keys(KEYWORDS).forEach((keyword) => {
-        const regex = new RegExp('\\$\\[' + keyword + '\\]([^.]*.)', 'g');
+        const regex = new RegExp("\\$\\[" + keyword + "\\]([^.]*.)", "g");
         const replacement = `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`;
         const reminder = KEYWORDS[keyword].reminder;
 
         if (str.match(regex) !== null) {
-          reminders.push(KEYWORDS[keyword].text + ':' + KEYWORDS[keyword].reminder);
+          reminders.push(
+            KEYWORDS[keyword].text + ":" + KEYWORDS[keyword].reminder
+          );
 
           const matches = [...str.matchAll(regex)];
           for (let i = matches.length - 1; i >= 0; i--) {
             const match = matches[i];
             const index = match.index;
-            str = str.slice(0, index) + replacement + str.slice(index + keyword.length + 3);
+            str =
+              str.slice(0, index) +
+              replacement +
+              str.slice(index + keyword.length + 3);
 
-            const nextDoubleSpaceIndex = str.indexOf('  ', index);
+            const nextDoubleSpaceIndex = str.indexOf("  ", index);
             if (nextDoubleSpaceIndex !== -1) {
               // Check if there is a string in parentheses before the double space
-              const textBeforeDoubleSpace = str.slice(index + replacement.length, nextDoubleSpaceIndex);
-              const matchParentheses = textBeforeDoubleSpace.match(regexParentheses);
+              const textBeforeDoubleSpace = str.slice(
+                index + replacement.length,
+                nextDoubleSpaceIndex
+              );
+              const matchParentheses = textBeforeDoubleSpace.match(
+                regexParentheses
+              );
 
               if (matchParentheses) {
                 let index2 = matchParentheses.index;
@@ -1696,15 +2001,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 // Concatenate reminder at the end of the inside of the parentheses
                 str =
                   str.slice(0, index + replacement.length + index2) +
-                  '(' +
+                  "(" +
                   matchParentheses[1] +
-                  ' ' +
+                  " " +
                   reminder +
-                  ')' +
+                  ")" +
                   str.slice(nextDoubleSpaceIndex);
               } else {
                 // Add "(reminder)" at the next double space
-                str = str.slice(0, nextDoubleSpaceIndex) + ' (' + reminder + ')' + str.slice(nextDoubleSpaceIndex);
+                str =
+                  str.slice(0, nextDoubleSpaceIndex) +
+                  " (" +
+                  reminder +
+                  ")" +
+                  str.slice(nextDoubleSpaceIndex);
               }
             } else {
               // Check if there is a string in parentheses before the end
@@ -1714,10 +2024,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               if (matchParentheses) {
                 let index2 = matchParentheses.index;
                 // Concatenate reminder at the end of the inside of the parentheses
-                str = str.slice(0, index + replacement.length + index2) + '(' + matchParentheses[1] + ' ' + reminder + ')';
+                str =
+                  str.slice(0, index + replacement.length + index2) +
+                  "(" +
+                  matchParentheses[1] +
+                  " " +
+                  reminder +
+                  ")";
               } else {
                 // Add reminder at the end
-                str = str + ' (' + reminder + ')';
+                str = str + " (" + reminder + ")";
               }
             }
           }
@@ -1731,11 +2047,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           // );
         }
 
-        const regex2 = new RegExp('\\[' + keyword + '\\]', 'g');
-        str = str.replaceAll(regex2, `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`);
+        const regex2 = new RegExp("\\[" + keyword + "\\]", "g");
+        str = str.replaceAll(
+          regex2,
+          `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`
+        );
       });
 
-      str = str.replaceAll('  ', '<br />');
+      str = str.replaceAll("  ", "<br />");
 
       return { str, reminders };
     },

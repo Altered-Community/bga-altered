@@ -1,14 +1,16 @@
-var isDebug = window.location.host == 'studio.boardgamearena.com' || window.location.hash.indexOf('debug') > -1;
+var isDebug =
+  window.location.host == "studio.boardgamearena.com" ||
+  window.location.hash.indexOf("debug") > -1;
 var debug = isDebug ? console.info.bind(window.console) : function () {};
 
 define([
-  'dojo',
-  'dojo/_base/declare',
-  g_gamethemeurl + 'modules/js/vendor/nouislider.min.js',
-  g_gamethemeurl + 'modules/js/vendor/tippy-headless.min.js',
-  'ebg/core/gamegui',
+  "dojo",
+  "dojo/_base/declare",
+  g_gamethemeurl + "modules/js/vendor/nouislider.min.js",
+  g_gamethemeurl + "modules/js/vendor/tippy-headless.min.js",
+  "ebg/core/gamegui",
 ], (dojo, declare, noUiSlider, tippy) => {
-  return declare('customgame.game', ebg.core.gamegui, {
+  return declare("customgame.game", ebg.core.gamegui, {
     /*
      * Constructor
      */
@@ -27,15 +29,15 @@ define([
       this._notif_uid_to_log_id = {};
       this._notif_uid_to_mobile_log_id = {};
       this._last_notif = null;
-      dojo.place('loader_mask', 'overall-content', 'before');
-      dojo.style('loader_mask', {
-        height: '100vh',
-        position: 'fixed',
+      dojo.place("loader_mask", "overall-content", "before");
+      dojo.style("loader_mask", {
+        height: "100vh",
+        position: "fixed",
       });
     },
 
     showMessage(msg, type) {
-      if (type == 'error') {
+      if (type == "error") {
         console.error(msg);
       }
       return this.inherited(arguments);
@@ -48,17 +50,17 @@ define([
     setModeInstataneous() {
       if (this.instantaneousMode == false) {
         this.instantaneousMode = true;
-        dojo.style('leftright_page_wrapper', 'display', 'none');
-        dojo.style('loader_mask', 'display', 'block');
-        dojo.style('loader_mask', 'opacity', 1);
+        dojo.style("leftright_page_wrapper", "display", "none");
+        dojo.style("loader_mask", "display", "block");
+        dojo.style("loader_mask", "opacity", 1);
       }
     },
 
     unsetModeInstantaneous() {
       if (this.instantaneousMode) {
         this.instantaneousMode = false;
-        dojo.style('leftright_page_wrapper', 'display', 'block');
-        dojo.style('loader_mask', 'display', 'none');
+        dojo.style("leftright_page_wrapper", "display", "block");
+        dojo.style("loader_mask", "display", "none");
         this.updateLayout();
       }
     },
@@ -75,7 +77,7 @@ define([
     },
 
     onLoadingComplete() {
-      debug('Loading complete');
+      debug("Loading complete");
     },
 
     /*
@@ -83,15 +85,25 @@ define([
      */
     setup(gamedatas) {
       // Create a new div for buttons to avoid BGA auto clearing it
-      dojo.place("<div id='customActions' style='display:inline-block'></div>", $('generalactions'), 'after');
-      dojo.place("<div id='restartAction' style='display:inline-block'></div>", $('customActions'), 'after');
+      dojo.place(
+        "<div id='customActions' style='display:inline-block'></div>",
+        $("generalactions"),
+        "after"
+      );
+      dojo.place(
+        "<div id='restartAction' style='display:inline-block'></div>",
+        $("customActions"),
+        "after"
+      );
 
       this.attachRegisteredTooltips();
 
       this.setupNotifications();
       this.initPreferences();
-      dojo.connect(this.notifqueue, 'addToLog', () => {
-        this.checkLogCancel(this._last_notif == null ? null : this._last_notif.msg.uid);
+      dojo.connect(this.notifqueue, "addToLog", () => {
+        this.checkLogCancel(
+          this._last_notif == null ? null : this._last_notif.msg.uid
+        );
         this.addLogClass();
         this.attachRegisteredTooltips();
       });
@@ -101,7 +113,9 @@ define([
      * Detect if spectator or replay
      */
     isReadOnly() {
-      return this.isSpectator || typeof g_replayFrom != 'undefined' || g_archive_mode;
+      return (
+        this.isSpectator || typeof g_replayFrom != "undefined" || g_archive_mode
+      );
     },
 
     /*
@@ -121,7 +135,7 @@ define([
       }
       return new Promise((resolve, reject) => {
         this.ajaxcall(
-          '/' + this.game_name + '/' + this.game_name + '/' + action + '.html',
+          "/" + this.game_name + "/" + this.game_name + "/" + action + ".html",
           data,
           this,
           (data) => resolve(data),
@@ -141,12 +155,19 @@ define([
      *  - mixed args : additional information
      */
     onEnteringState(stateName, args) {
-      debug('Entering state: ' + stateName, args);
+      debug("Entering state: " + stateName, args);
       if (this.isFastMode()) return;
-      if (this._activeStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
+      if (
+        this._activeStates.includes(stateName) &&
+        !this.isCurrentPlayerActive()
+      )
+        return;
 
       // Call appropriate method
-      var methodName = 'onEnteringState' + stateName.charAt(0).toUpperCase() + stateName.slice(1);
+      var methodName =
+        "onEnteringState" +
+        stateName.charAt(0).toUpperCase() +
+        stateName.slice(1);
       if (this[methodName] !== undefined) this[methodName](args.args);
     },
 
@@ -158,21 +179,24 @@ define([
      *  - str stateName : name of the state we are leaving
      */
     onLeavingState(stateName) {
-      debug('Leaving state: ' + stateName);
+      debug("Leaving state: " + stateName);
       if (this.isFastMode()) return;
       this.clearPossible();
 
       // Call appropriate method
-      var methodName = 'onLeavingState' + stateName.charAt(0).toUpperCase() + stateName.slice(1);
+      var methodName =
+        "onLeavingState" +
+        stateName.charAt(0).toUpperCase() +
+        stateName.slice(1);
       if (this[methodName] !== undefined) this[methodName]();
     },
     clearTitleBar() {
       this.removeActionButtons();
-      this.empty('customActions');
-      this.empty('restartAction');
-      this.empty('anytimeActions');
-      $('gameaction_status').innerHTML = '';
-      $('pagemaintitletext').innerHTML = '';
+      this.empty("customActions");
+      this.empty("restartAction");
+      this.empty("anytimeActions");
+      $("gameaction_status").innerHTML = "";
+      $("pagemaintitletext").innerHTML = "";
     },
     clearPossible() {
       this.clearTitleBar();
@@ -180,11 +204,11 @@ define([
       this._connections.forEach(dojo.disconnect);
       this._connections = [];
       this._selectableNodes.forEach((node) => {
-        if ($(node)) dojo.removeClass(node, 'selectable selected');
+        if ($(node)) dojo.removeClass(node, "selectable selected");
       });
       this._selectableNodes = [];
-      dojo.query('.unselectable').removeClass('unselectable');
-      dojo.query('.selected').removeClass('selected');
+      dojo.query(".unselectable").removeClass("unselectable");
+      dojo.query(".selected").removeClass("selected");
     },
 
     empty(container) {
@@ -195,7 +219,7 @@ define([
           delete this.tooltips[node.id];
         }
       });
-      container.innerHTML = '';
+      container.innerHTML = "";
     },
 
     /**
@@ -204,11 +228,14 @@ define([
     onUpdateActionButtons(stateName, args) {
       let status = this.isCurrentPlayerActive();
       if (status != this._activeStatus) {
-        debug('Update activity: ' + stateName, status);
+        debug("Update activity: " + stateName, status);
         this._activeStatus = status;
 
         // Call appropriate method
-        var methodName = 'onUpdateActivity' + stateName.charAt(0).toUpperCase() + stateName.slice(1);
+        var methodName =
+          "onUpdateActivity" +
+          stateName.charAt(0).toUpperCase() +
+          stateName.slice(1);
         if (this[methodName] !== undefined) this[methodName](args, status);
       }
     },
@@ -218,32 +245,41 @@ define([
      */
     getVisibleTitleContainer() {
       function isVisible(elem) {
-        return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+        return !!(
+          elem.offsetWidth ||
+          elem.offsetHeight ||
+          elem.getClientRects().length
+        );
       }
 
-      if (isVisible($('pagemaintitletext'))) {
-        return $('pagemaintitletext');
+      if (isVisible($("pagemaintitletext"))) {
+        return $("pagemaintitletext");
       } else {
-        return $('pagemaintitletext');
+        return $("pagemaintitletext");
       }
     },
 
     setupNotifications() {
       console.log(this._notifications);
       this._notifications.forEach((notif) => {
-        var functionName = 'notif_' + notif[0];
+        var functionName = "notif_" + notif[0];
 
         let wrapper = (args) => {
-          let msg = this.formatString(this.format_string_recursive(args.log, args.args));
-          if (msg != '') {
+          let msg = this.formatString(
+            this.format_string_recursive(args.log, args.args)
+          );
+          if (msg != "") {
             this.clearTitleBar();
-            $('gameaction_status').innerHTML = msg;
-            $('pagemaintitletext').innerHTML = msg;
+            $("gameaction_status").innerHTML = msg;
+            $("pagemaintitletext").innerHTML = msg;
           }
           let timing = this[functionName](args);
           if (timing === undefined) {
             if (notif[1] === undefined) {
-              console.error("A notification don't have default timing and didn't send a timing as return value : " + notif[0]);
+              console.error(
+                "A notification don't have default timing and didn't send a timing as return value : " +
+                  notif[0]
+              );
               return;
             }
 
@@ -267,10 +303,10 @@ define([
       });
 
       // Load production bug report handler
-      dojo.subscribe('loadBug', this, (n) => this.notif_loadBug(n));
+      dojo.subscribe("loadBug", this, (n) => this.notif_loadBug(n));
 
       this.notifqueue.setSynchronousDuration = (duration) => {
-        setTimeout(() => dojo.publish('notifEnd', null), duration);
+        setTimeout(() => dojo.publish("notifEnd", null), duration);
       };
     },
 
@@ -281,7 +317,7 @@ define([
       let self = this;
       function fetchNextUrl() {
         var url = n.args.urls.shift();
-        console.log('Fetching URL', url, '...');
+        console.log("Fetching URL", url, "...");
         // all the calls have to be made with ajaxcall in order to add the csrf token, otherwise you'll get "Invalid session information for this action. Please try reloading the page or logging in again"
         self.ajaxcall(
           url,
@@ -290,7 +326,7 @@ define([
           },
           self,
           function (success) {
-            console.log('=> Success ', success);
+            console.log("=> Success ", success);
 
             if (n.args.urls.length > 1) {
               fetchNextUrl();
@@ -300,23 +336,23 @@ define([
               dojo.xhrGet({
                 url: url,
                 load: function (success) {
-                  console.log('Success for URL', url, success);
-                  console.log('Done, reloading page');
+                  console.log("Success for URL", url, success);
+                  console.log("Done, reloading page");
                   window.location.reload();
                 },
-                handleAs: 'text',
+                handleAs: "text",
                 error: function (error) {
-                  console.log('Error while loading : ', error);
+                  console.log("Error while loading : ", error);
                 },
               });
             }
           },
           function (error) {
-            if (error) console.log('=> Error ', error);
+            if (error) console.log("=> Error ", error);
           }
         );
       }
-      console.log('Notif: load bug', n.args);
+      console.log("Notif: load bug", n.args);
       fetchNextUrl();
     },
 
@@ -332,7 +368,11 @@ define([
       var button = $(buttonId);
       var isReadOnly = this.isReadOnly();
       if (button == null || isReadOnly || pref == 2) {
-        debug('Ignoring startActionTimer(' + buttonId + ')', 'readOnly=' + isReadOnly, 'prefValue=' + pref);
+        debug(
+          "Ignoring startActionTimer(" + buttonId + ")",
+          "readOnly=" + isReadOnly,
+          "prefValue=" + pref
+        );
         return;
       }
 
@@ -349,21 +389,25 @@ define([
         if (button == null) {
           this.stopActionTimer();
         } else if (this._actionTimerSeconds-- > 1) {
-          button.innerHTML = this._actionTimerLabel + ' (' + this._actionTimerSeconds + ')';
+          button.innerHTML =
+            this._actionTimerLabel + " (" + this._actionTimerSeconds + ")";
         } else {
-          debug('Timer ' + buttonId + ' execute');
+          debug("Timer " + buttonId + " execute");
           button.click();
           this.stopActionTimer();
         }
       };
       this._actionTimerFunction();
-      this._actionTimerId = window.setInterval(this._actionTimerFunction.bind(this), 1000);
-      debug('Timer #' + this._actionTimerId + ' ' + buttonId + ' start');
+      this._actionTimerId = window.setInterval(
+        this._actionTimerFunction.bind(this),
+        1000
+      );
+      debug("Timer #" + this._actionTimerId + " " + buttonId + " start");
     },
 
     stopActionTimer() {
       if (this._actionTimerId != null) {
-        debug('Timer #' + this._actionTimerId + ' stop');
+        debug("Timer #" + this._actionTimerId + " stop");
         window.clearInterval(this._actionTimerId);
         delete this._actionTimerId;
       }
@@ -383,19 +427,23 @@ define([
 
     changePageTitle(suffix = null, save = false) {
       if (suffix == null) {
-        suffix = 'generic';
+        suffix = "generic";
       }
 
-      if (!this.gamedatas.gamestate['descriptionmyturn' + suffix]) return;
+      if (!this.gamedatas.gamestate["descriptionmyturn" + suffix]) return;
 
       if (save) {
         this.gamedatas.gamestate.descriptionmyturngeneric = this.gamedatas.gamestate.descriptionmyturn;
         this.gamedatas.gamestate.descriptiongeneric = this.gamedatas.gamestate.description;
       }
 
-      this.gamedatas.gamestate.descriptionmyturn = this.gamedatas.gamestate['descriptionmyturn' + suffix];
-      if (this.gamedatas.gamestate['description' + suffix])
-        this.gamedatas.gamestate.description = this.gamedatas.gamestate['description' + suffix];
+      this.gamedatas.gamestate.descriptionmyturn = this.gamedatas.gamestate[
+        "descriptionmyturn" + suffix
+      ];
+      if (this.gamedatas.gamestate["description" + suffix])
+        this.gamedatas.gamestate.description = this.gamedatas.gamestate[
+          "description" + suffix
+        ];
       this.updatePageTitle();
     },
 
@@ -403,28 +451,28 @@ define([
      * Remove non standard zoom property
      */
     onScreenWidthChange() {
-      dojo.style('page-content', 'zoom', '');
-      dojo.style('page-title', 'zoom', '');
-      dojo.style('right-side-first-part', 'zoom', '');
+      dojo.style("page-content", "zoom", "");
+      dojo.style("page-title", "zoom", "");
+      dojo.style("right-side-first-part", "zoom", "");
     },
 
     /*
      * Add a blue/grey button if it doesn't already exists
      */
-    addPrimaryActionButton(id, text, callback, zone = 'customActions') {
-      if (!$(id)) this.addActionButton(id, text, callback, zone, false, 'blue');
+    addPrimaryActionButton(id, text, callback, zone = "customActions") {
+      if (!$(id)) this.addActionButton(id, text, callback, zone, false, "blue");
     },
 
-    addSecondaryActionButton(id, text, callback, zone = 'customActions') {
-      if (!$(id)) this.addActionButton(id, text, callback, zone, false, 'gray');
+    addSecondaryActionButton(id, text, callback, zone = "customActions") {
+      if (!$(id)) this.addActionButton(id, text, callback, zone, false, "gray");
     },
 
-    addDangerActionButton(id, text, callback, zone = 'customActions') {
-      if (!$(id)) this.addActionButton(id, text, callback, zone, false, 'red');
+    addDangerActionButton(id, text, callback, zone = "customActions") {
+      if (!$(id)) this.addActionButton(id, text, callback, zone, false, "red");
     },
 
     clearActionButtons() {
-      dojo.empty('customActions');
+      dojo.empty("customActions");
     },
 
     /*
@@ -433,47 +481,74 @@ define([
     setPreferenceValue(number, newValue) {
       var optionSel = 'option[value="' + newValue + '"]';
       dojo
-        .query('#preference_control_' + number + ' > ' + optionSel + ', #preference_fontrol_' + number + ' > ' + optionSel)
-        .attr('selected', true);
-      var select = $('preference_control_' + number);
+        .query(
+          "#preference_control_" +
+            number +
+            " > " +
+            optionSel +
+            ", #preference_fontrol_" +
+            number +
+            " > " +
+            optionSel
+        )
+        .attr("selected", true);
+      var select = $("preference_control_" + number);
       if (dojo.isIE) {
-        select.fireEvent('onchange');
+        select.fireEvent("onchange");
       } else {
-        var event = document.createEvent('HTMLEvents');
-        event.initEvent('change', false, true);
+        var event = document.createEvent("HTMLEvents");
+        event.initEvent("change", false, true);
         select.dispatchEvent(event);
       }
     },
 
     initPreferencesObserver() {
-      dojo.query('.preference_control, preference_fontrol').on('change', (e) => {
-        var match = e.target.id.match(/^preference_[fc]ontrol_(\d+)$/);
-        if (!match) {
-          return;
-        }
-        var pref = match[1];
-        var newValue = e.target.value;
-        this.prefs[pref].value = newValue;
-        if (this.prefs[pref].attribute) {
-          $('ebd-body').setAttribute('data-' + this.prefs[pref].attribute, newValue);
-        }
+      dojo
+        .query(".preference_control, preference_fontrol")
+        .on("change", (e) => {
+          var match = e.target.id.match(/^preference_[fc]ontrol_(\d+)$/);
+          if (!match) {
+            return;
+          }
+          var pref = match[1];
+          var newValue = e.target.value;
+          this.prefs[pref].value = newValue;
+          if (this.prefs[pref].attribute) {
+            $("ebd-body").setAttribute(
+              "data-" + this.prefs[pref].attribute,
+              newValue
+            );
+          }
 
-        $('preference_control_' + pref).value = newValue;
-        if ($('preference_fontrol_' + pref)) {
-          $('preference_fontrol_' + pref).value = newValue;
-        }
-        data = { pref: pref, lock: false, value: newValue, player: this.player_id };
-        this.takeAction('actChangePref', data, false, false);
-        this.onPreferenceChange(pref, newValue);
-      });
+          $("preference_control_" + pref).value = newValue;
+          if ($("preference_fontrol_" + pref)) {
+            $("preference_fontrol_" + pref).value = newValue;
+          }
+          data = {
+            pref: pref,
+            lock: false,
+            value: newValue,
+            player: this.player_id,
+          };
+          this.takeAction("actChangePref", data, false, false);
+          this.onPreferenceChange(pref, newValue);
+        });
     },
 
     checkPreferencesConsistency(backPrefs) {
       backPrefs.forEach((prefInfo) => {
         let pref = prefInfo.pref_id;
-        if (this.prefs[pref] != undefined && this.prefs[pref].value != prefInfo.pref_value) {
-          data = { pref: pref, lock: false, value: this.prefs[pref].value, player: this.player_id };
-          this.takeAction('actChangePref', data, false, false);
+        if (
+          this.prefs[pref] != undefined &&
+          this.prefs[pref].value != prefInfo.pref_value
+        ) {
+          data = {
+            pref: pref,
+            lock: false,
+            value: this.prefs[pref].value,
+            player: this.player_id,
+          };
+          this.takeAction("actChangePref", data, false, false);
         }
       });
     },
@@ -486,7 +561,7 @@ define([
       Object.keys(this.prefs).forEach((prefId) => {
         let pref = this.prefs[prefId];
         if (pref.attribute) {
-          $('ebd-body').setAttribute('data-' + pref.attribute, pref.value);
+          $("ebd-body").setAttribute("data-" + pref.attribute, pref.value);
         }
       });
 
@@ -495,13 +570,15 @@ define([
         Object.keys(this.gamedatas.localPrefs).forEach((prefId) => {
           let pref = this.gamedatas.localPrefs[prefId];
           pref.id = prefId;
-          let selectedValue = this.gamedatas.prefs.find((pref2) => pref2.pref_id == pref.id).pref_value;
+          let selectedValue = this.gamedatas.prefs.find(
+            (pref2) => pref2.pref_id == pref.id
+          ).pref_value;
           pref.value = selectedValue;
           this.prefs[prefId] = pref;
           if (pref.attribute) {
-            $('ebd-body').setAttribute('data-' + pref.attribute, selectedValue);
+            $("ebd-body").setAttribute("data-" + pref.attribute, selectedValue);
           }
-          this.place('tplPreferenceSelect', pref, 'local-prefs-container');
+          this.place("tplPreferenceSelect", pref, "local-prefs-container");
         });
       }
 
@@ -516,9 +593,12 @@ define([
     tplPreferenceSelect(pref) {
       let values = Object.keys(pref.values)
         .map(
-          (val) => `<option value='${val}' ${pref.value == val ? 'selected="selected"' : ''}>${_(pref.values[val].name)}</option>`
+          (val) =>
+            `<option value='${val}' ${
+              pref.value == val ? 'selected="selected"' : ""
+            }>${_(pref.values[val].name)}</option>`
         )
-        .join('');
+        .join("");
 
       return `
         <div class="preference_choice">
@@ -542,27 +622,42 @@ define([
      ******* SETTINGS ********
      ************************/
     isMobile() {
-      return $('ebd-body').classList.contains('mobile_version');
+      return $("ebd-body").classList.contains("mobile_version");
     },
 
     setupSettings() {
-      dojo.connect($('show-settings'), 'onclick', () => this.toggleSettings());
-      this.addTooltip('show-settings', '', _('Display some settings about the game.'));
-      let container = $('settings-controls-container');
+      dojo.connect($("show-settings"), "onclick", () => this.toggleSettings());
+      this.addTooltip(
+        "show-settings",
+        "",
+        _("Display some settings about the game.")
+      );
+      let container = $("settings-controls-container");
 
       if (this.getSettingsSections) {
         this._settingsSections = this.getSettingsSections();
-        dojo.place(`<div id='settings-controls-header'></div><div id='settings-controls-wrapper'></div>`, container);
+        dojo.place(
+          `<div id='settings-controls-header'></div><div id='settings-controls-wrapper'></div>`,
+          container
+        );
         Object.keys(this._settingsSections).forEach((sectionName, i) => {
-          dojo.place(`<div id='settings-section-${sectionName}' class='settings-section'></div>`, 'settings-controls-wrapper');
-          let div = dojo.place(`<div>${this._settingsSections[sectionName]}</div>`, 'settings-controls-header');
+          dojo.place(
+            `<div id='settings-section-${sectionName}' class='settings-section'></div>`,
+            "settings-controls-wrapper"
+          );
+          let div = dojo.place(
+            `<div>${this._settingsSections[sectionName]}</div>`,
+            "settings-controls-header"
+          );
           let openSection = () => {
-            dojo.query('#settings-controls-header div').removeClass('open');
-            div.classList.add('open');
-            dojo.query('#settings-controls-wrapper div.settings-section').removeClass('open');
-            $(`settings-section-${sectionName}`).classList.add('open');
+            dojo.query("#settings-controls-header div").removeClass("open");
+            div.classList.add("open");
+            dojo
+              .query("#settings-controls-wrapper div.settings-section")
+              .removeClass("open");
+            $(`settings-section-${sectionName}`).classList.add("open");
           };
-          div.addEventListener('click', openSection);
+          div.addEventListener("click", openSection);
           if (i == 0) {
             openSection();
           }
@@ -578,61 +673,78 @@ define([
           localContainer = $(`settings-section-${config.section}`);
         }
 
-        if (config.type == 'pref') {
+        if (config.type == "pref") {
           if (config.local == true && this.isReadOnly()) {
             return;
           }
           // Pref type => just move the user pref around
-          dojo.place($('preference_control_' + config.prefId).parentNode.parentNode, localContainer);
+          dojo.place(
+            $("preference_control_" + config.prefId).parentNode.parentNode,
+            localContainer
+          );
           return;
         }
 
         let suffix = settingName.charAt(0).toUpperCase() + settingName.slice(1);
         let defaultValue =
-          typeof config.default === 'function' ? config.default(this.isMobile(), this.isTouchDevice) : config.default;
+          typeof config.default === "function"
+            ? config.default(this.isMobile(), this.isTouchDevice)
+            : config.default;
         let value = this.getConfig(this.game_name + suffix, defaultValue);
         this.settings[settingName] = value;
 
         // Slider type => create DOM and initialize noUiSlider
-        if (config.type == 'slider') {
-          this.place('tplSettingSlider', { desc: config.name, id: settingName }, localContainer);
+        if (config.type == "slider") {
+          this.place(
+            "tplSettingSlider",
+            { desc: config.name, id: settingName },
+            localContainer
+          );
           config.sliderConfig.start = [value];
-          noUiSlider.create($('setting-' + settingName), config.sliderConfig);
-          $('setting-' + settingName).noUiSlider.on('slide', (arg) => this.changeSetting(settingName, parseInt(arg[0])));
-        } else if (config.type == 'multislider') {
-          this.place('tplSettingSlider', { desc: config.name, id: settingName }, localContainer);
+          noUiSlider.create($("setting-" + settingName), config.sliderConfig);
+          $("setting-" + settingName).noUiSlider.on("slide", (arg) =>
+            this.changeSetting(settingName, parseInt(arg[0]))
+          );
+        } else if (config.type == "multislider") {
+          this.place(
+            "tplSettingSlider",
+            { desc: config.name, id: settingName },
+            localContainer
+          );
           config.sliderConfig.start = value;
-          noUiSlider.create($('setting-' + settingName), config.sliderConfig);
-          $('setting-' + settingName).noUiSlider.on('slide', (arg) => this.changeSetting(settingName, arg));
+          noUiSlider.create($("setting-" + settingName), config.sliderConfig);
+          $("setting-" + settingName).noUiSlider.on("slide", (arg) =>
+            this.changeSetting(settingName, arg)
+          );
         }
 
         // Select type => create a select
-        else if (config.type == 'select') {
+        else if (config.type == "select") {
           config.id = settingName;
-          this.place('tplSettingSelect', config, localContainer);
-          $('setting-' + settingName).addEventListener('change', () => {
-            let newValue = $('setting-' + settingName).value;
+          this.place("tplSettingSelect", config, localContainer);
+          $("setting-" + settingName).addEventListener("change", () => {
+            let newValue = $("setting-" + settingName).value;
             this.changeSetting(settingName, newValue);
             if (config.attribute) {
-              $('ebd-body').setAttribute('data-' + config.attribute, newValue);
+              $("ebd-body").setAttribute("data-" + config.attribute, newValue);
             }
           });
         }
         // Switch type => create a select
-        else if (config.type == 'switch') {
+        else if (config.type == "switch") {
           config.id = settingName;
-          this.place('tplSettingSwitch', config, localContainer);
-          $('setting-' + settingName).addEventListener('change', () => {
-            let newValue = $('setting-' + settingName).checked ? 1 : 0;
+          this.place("tplSettingSwitch", config, localContainer);
+          $("setting-" + settingName).addEventListener("change", () => {
+            let newValue = $("setting-" + settingName).checked ? 1 : 0;
             this.changeSetting(settingName, newValue);
             if (config.attribute) {
-              $('ebd-body').setAttribute('data-' + config.attribute, newValue);
+              $("ebd-body").setAttribute("data-" + config.attribute, newValue);
             }
           });
         }
 
         if (config.attribute) {
-          $('ebd-body').setAttribute('data-' + config.attribute, value);
+          $("ebd-body").setAttribute("data-" + config.attribute, value);
         }
         this.changeSetting(settingName, value);
       });
@@ -642,7 +754,7 @@ define([
       let suffix = settingName.charAt(0).toUpperCase() + settingName.slice(1);
       this.settings[settingName] = value;
       localStorage.setItem(this.game_name + suffix, value);
-      let methodName = 'onChange' + suffix + 'Setting';
+      let methodName = "onChange" + suffix + "Setting";
       if (this[methodName]) {
         this[methodName](value);
       }
@@ -661,11 +773,15 @@ define([
 
     tplSettingSwitch(setting) {
       return `
-      <div class='row-data row-data-large row-data-switch' data-id='${setting.id}'>
+      <div class='row-data row-data-large row-data-switch' data-id='${
+        setting.id
+      }'>
         <div class='row-label'>${_(setting.name)}</div>
         <div class='row-value'>
           <label class="switch" for="setting-${setting.id}">
-            <input type="checkbox" id="setting-${setting.id}" ${this.settings[setting.id] == 1 ? 'checked="checked"' : ''} />
+            <input type="checkbox" id="setting-${setting.id}" ${
+        this.settings[setting.id] == 1 ? 'checked="checked"' : ""
+      } />
             <div class="slider round"></div>
           </label>
         </div>
@@ -677,18 +793,20 @@ define([
       let values = Object.keys(setting.values)
         .map(
           (val) =>
-            `<option value='${val}' ${this.settings[setting.id] == val ? 'selected="selected"' : ''}>${_(
-              setting.values[val]
-            )}</option>`
+            `<option value='${val}' ${
+              this.settings[setting.id] == val ? 'selected="selected"' : ""
+            }>${_(setting.values[val])}</option>`
         )
-        .join('');
+        .join("");
 
       return `
         <div class="preference_choice" data-id='${setting.id}'>
           <div class="row-data row-data-large">
             <div class="row-label">${_(setting.name)}</div>
             <div class="row-value">
-              <select id="setting-${setting.id}" class="preference_control game_local_preference_control" style="display: block;">
+              <select id="setting-${
+                setting.id
+              }" class="preference_control game_local_preference_control" style="display: block;">
                 ${values}
               </select>
             </div>
@@ -717,12 +835,12 @@ define([
     },
 
     getScale(id) {
-      let transform = dojo.style(id, 'transform');
-      if (transform == 'none') return 1;
+      let transform = dojo.style(id, "transform");
+      if (transform == "none") return 1;
 
-      var values = transform.split('(')[1];
-      values = values.split(')')[0];
-      values = values.split(',');
+      var values = transform.split("(")[1];
+      values = values.split(")")[0];
+      values = values.split(",");
       let a = values[0];
       let b = values[1];
       return Math.sqrt(a * a + b * b);
@@ -743,7 +861,7 @@ define([
           attach: true,
           changeParent: true, // Change parent during sliding to avoid zIndex issue
           pos: null,
-          className: 'moving',
+          className: "moving",
           from: null,
           clearPos: true,
           beforeBrother: null,
@@ -777,32 +895,32 @@ define([
       }
 
       if (config.clearTransform) {
-        $(mobileElt).style.transform = '';
-        $(mobileElt).style.transformOrigin = 'initial';
+        $(mobileElt).style.transform = "";
+        $(mobileElt).style.transformOrigin = "initial";
       }
 
       // Handle phantom at start
       if (config.phantomStart && config.from == null) {
         mobile = dojo.clone(mobileElt);
-        dojo.attr(mobile, 'id', mobileElt.id + '_animated');
-        dojo.place(mobile, 'game_play_area');
+        dojo.attr(mobile, "id", mobileElt.id + "_animated");
+        dojo.place(mobile, "game_play_area");
         this.placeOnObject(mobile, mobileElt);
-        dojo.addClass(mobileElt, 'phantom');
+        dojo.addClass(mobileElt, "phantom");
         config.from = mobileElt;
       }
 
       // Handle phantom at end
       if (config.phantomEnd) {
         targetId = dojo.clone(mobileElt);
-        dojo.attr(targetId, 'id', mobileElt.id + '_afterSlide');
-        dojo.addClass(targetId, 'phantom');
+        dojo.attr(targetId, "id", mobileElt.id + "_afterSlide");
+        dojo.addClass(targetId, "phantom");
         if (config.beforeBrother != null) {
-          dojo.place(targetId, config.beforeBrother, 'before');
+          dojo.place(targetId, config.beforeBrother, "before");
         } else {
           dojo.place(targetId, targetElt);
         }
 
-        if (targetElt.classList.contains('player-hand')) {
+        if (targetElt.classList.contains("player-hand")) {
           this.adjustHand(targetElt);
         }
         mobile.style.transform = targetId.style.transform;
@@ -817,24 +935,36 @@ define([
       }
 
       if (config.zIndex) {
-        dojo.style(mobile, 'zIndex', 5000);
+        dojo.style(mobile, "zIndex", 5000);
       }
       dojo.addClass(mobile, config.className);
-      if (config.changeParent) this.changeParent(mobile, 'game_play_area');
+      if (config.changeParent) this.changeParent(mobile, "game_play_area");
       if (config.from != null) this.placeOnObject(mobile, config.from);
 
       return new Promise((resolve, reject) => {
         const animation =
           config.pos == null
-            ? this.slideToObject(mobile, config.to || targetId, config.duration, config.delay)
-            : this.slideToObjectPos(mobile, config.to || targetId, config.pos.x, config.pos.y, config.duration, config.delay);
+            ? this.slideToObject(
+                mobile,
+                config.to || targetId,
+                config.duration,
+                config.delay
+              )
+            : this.slideToObjectPos(
+                mobile,
+                config.to || targetId,
+                config.pos.x,
+                config.pos.y,
+                config.duration,
+                config.delay
+              );
 
-        dojo.connect(animation, 'onEnd', () => {
-          dojo.style(mobile, 'zIndex', null);
+        dojo.connect(animation, "onEnd", () => {
+          dojo.style(mobile, "zIndex", null);
           dojo.removeClass(mobile, config.className);
           if (config.phantomStart) {
-            dojo.place(mobileElt, mobile, 'replace');
-            dojo.removeClass(mobileElt, 'phantom');
+            dojo.place(mobileElt, mobile, "replace");
+            dojo.removeClass(mobileElt, "phantom");
             mobile = mobileElt;
           }
           if (config.destroy) {
@@ -847,7 +977,7 @@ define([
             return;
           }
           if (config.changeParent || config.attach) {
-            if (config.phantomEnd) dojo.place(mobile, targetId, 'replace');
+            if (config.phantomEnd) dojo.place(mobile, targetId, "replace");
             else this.changeParent(mobile, newParent);
           }
           if (config.clearPos && !config.destroy) {
@@ -861,33 +991,33 @@ define([
 
     changeParent(mobile, new_parent, relation) {
       if (mobile === null) {
-        console.error('attachToNewParent: mobile obj is null');
+        console.error("attachToNewParent: mobile obj is null");
         return;
       }
       if (new_parent === null) {
-        console.error('attachToNewParent: new_parent is null');
+        console.error("attachToNewParent: new_parent is null");
         return;
       }
-      if (typeof mobile == 'string') {
+      if (typeof mobile == "string") {
         mobile = $(mobile);
       }
-      if (typeof new_parent == 'string') {
+      if (typeof new_parent == "string") {
         new_parent = $(new_parent);
       }
-      if (typeof relation == 'undefined') {
-        relation = 'last';
+      if (typeof relation == "undefined") {
+        relation = "last";
       }
-      dojo.style(mobile, 'position', 'absolute');
+      dojo.style(mobile, "position", "absolute");
 
       // Remove board scale
       const ROOT = document.documentElement;
-      let scale = ROOT.style.getPropertyValue('--boardScale');
-      ROOT.style.setProperty('--boardScale', 1);
+      let scale = ROOT.style.getPropertyValue("--boardScale");
+      ROOT.style.setProperty("--boardScale", 1);
       // Remove transform
       let tmp = mobile.style.transform;
-      mobile.classList.add('notransition');
+      mobile.classList.add("notransition");
       mobile.offsetHeight;
-      mobile.style.transform = '';
+      mobile.style.transform = "";
       // Get position
       var src = dojo.position(mobile);
       // Change place
@@ -904,20 +1034,20 @@ define([
       box.t += box.h - cbox.h;
 
       // Restore scale and transform
-      ROOT.style.setProperty('--boardScale', scale);
+      ROOT.style.setProperty("--boardScale", scale);
       mobile.style.transform = tmp;
       mobile.offsetHeight;
-      mobile.classList.remove('notransition');
+      mobile.classList.remove("notransition");
       return box;
     },
 
     positionObjectDirectly(mobileObj, x, y) {
-      dojo.style(mobileObj, 'left');
+      dojo.style(mobileObj, "left");
       dojo.style(mobileObj, {
-        left: x + 'px',
-        top: y + 'px',
+        left: x + "px",
+        top: y + "px",
       });
-      dojo.style(mobileObj, 'left');
+      dojo.style(mobileObj, "left");
     },
 
     /*
@@ -925,11 +1055,11 @@ define([
      */
     flipAndReplace(target, newNode, config = {}) {
       let duration = config.duration || 1000;
-      let direction = config.direction || 'vertical';
+      let direction = config.direction || "vertical";
 
       // Fast replay mode
       if (this.isFastMode()) {
-        dojo.place(newNode, target, 'replace');
+        dojo.place(newNode, target, "replace");
         return;
       }
 
@@ -943,19 +1073,19 @@ define([
             </div>
           </div>`,
           target,
-          'after'
+          "after"
         );
-        dojo.place(target, container.querySelector('.flip-back'));
-        let o = dojo.place(newNode, container.querySelector('.flip-front'));
+        dojo.place(target, container.querySelector(".flip-back"));
+        let o = dojo.place(newNode, container.querySelector(".flip-front"));
 
         // Trigget flip animation
         container.offsetWidth;
-        dojo.removeClass(container, 'flipped');
+        dojo.removeClass(container, "flipped");
 
         // Clean everything once it's done
         setTimeout(() => {
-          dojo.place(o, container, 'replace');
-          o.dataset.animationSpeed = 'none';
+          dojo.place(o, container, "replace");
+          o.dataset.animationSpeed = "none";
           resolve();
         }, duration);
       });
@@ -966,21 +1096,51 @@ define([
      */
     coloredYou() {
       var color = this.gamedatas.players[this.player_id].color;
-      var color_bg = '';
-      if (this.gamedatas.players[this.player_id] && this.gamedatas.players[this.player_id].color_back) {
-        color_bg = 'background-color:#' + this.gamedatas.players[this.player_id].color_back + ';';
+      var color_bg = "";
+      if (
+        this.gamedatas.players[this.player_id] &&
+        this.gamedatas.players[this.player_id].color_back
+      ) {
+        color_bg =
+          "background-color:#" +
+          this.gamedatas.players[this.player_id].color_back +
+          ";";
       }
-      var you = '<span style="font-weight:bold;color:#' + color + ';' + color_bg + '">' + __('lang_mainsite', 'You') + '</span>';
+      var you =
+        '<span style="font-weight:bold;color:#' +
+        color +
+        ";" +
+        color_bg +
+        '">' +
+        __("lang_mainsite", "You") +
+        "</span>";
       return you;
     },
 
     coloredPlayerName(name) {
-      const player = Object.values(this.gamedatas.players).find((player) => player.name == name);
-      if (player == undefined) return '<!--PNS--><span class="playername">' + name + '</span><!--PNE-->';
+      const player = Object.values(this.gamedatas.players).find(
+        (player) => player.name == name
+      );
+      if (player == undefined)
+        return (
+          '<!--PNS--><span class="playername">' + name + "</span><!--PNE-->"
+        );
 
       const color = player.color;
-      const color_bg = player.color_back ? 'background-color:#' + this.gamedatas.players[this.player_id].color_back + ';' : '';
-      return '<!--PNS--><span class="playername" style="color:#' + color + ';' + color_bg + '">' + name + '</span><!--PNE-->';
+      const color_bg = player.color_back
+        ? "background-color:#" +
+          this.gamedatas.players[this.player_id].color_back +
+          ";"
+        : "";
+      return (
+        '<!--PNS--><span class="playername" style="color:#' +
+        color +
+        ";" +
+        color_bg +
+        '">' +
+        name +
+        "</span><!--PNE-->"
+      );
     },
 
     /*
@@ -991,7 +1151,9 @@ define([
         if (log && args) {
           //          if (args.msgYou && args.player_id == this.player_id) log = args.msgYou;
 
-          let player_keys = Object.keys(args).filter((key) => key.substr(0, 11) == 'player_name');
+          let player_keys = Object.keys(args).filter(
+            (key) => key.substr(0, 11) == "player_name"
+          );
           player_keys.forEach((key) => {
             args[key] = this.coloredPlayerName(args[key]);
           });
@@ -999,7 +1161,7 @@ define([
           //          args.You = this.coloredYou();
         }
       } catch (e) {
-        console.error(log, args, 'Exception thrown', e.stack);
+        console.error(log, args, "Exception thrown", e.stack);
       }
 
       return this.inherited(arguments);
@@ -1007,12 +1169,20 @@ define([
 
     place(tplMethodName, object, container, position = null) {
       if ($(container) == null) {
-        console.error('Trying to place on null container', container, tplMethodName, object);
+        console.error(
+          "Trying to place on null container",
+          container,
+          tplMethodName,
+          object
+        );
         return;
       }
 
       if (this[tplMethodName] == undefined) {
-        console.error('Trying to create a non-existing template', tplMethodName);
+        console.error(
+          "Trying to create a non-existing template",
+          tplMethodName
+        );
         return;
       }
 
@@ -1021,7 +1191,10 @@ define([
 
     /* Helper to work with local storage */
     getConfig(value, v) {
-      return localStorage.getItem(value) == null || isNaN(localStorage.getItem(value)) ? v : localStorage.getItem(value);
+      return localStorage.getItem(value) == null ||
+        isNaN(localStorage.getItem(value))
+        ? v
+        : localStorage.getItem(value);
     },
 
     /**********************
@@ -1037,16 +1210,22 @@ define([
 
     activateHelpMode() {
       this._helpMode = true;
-      dojo.addClass('ebd-body', 'help-mode');
+      dojo.addClass("ebd-body", "help-mode");
       this._displayedTooltip = null;
-      document.body.addEventListener('click', this.closeCurrentTooltip.bind(this));
+      document.body.addEventListener(
+        "click",
+        this.closeCurrentTooltip.bind(this)
+      );
     },
 
     desactivateHelpMode() {
       this.closeCurrentTooltip();
       this._helpMode = false;
-      dojo.removeClass('ebd-body', 'help-mode');
-      document.body.removeEventListener('click', this.closeCurrentTooltip.bind(this));
+      dojo.removeClass("ebd-body", "help-mode");
+      document.body.removeEventListener(
+        "click",
+        this.closeCurrentTooltip.bind(this)
+      );
     },
 
     closeCurrentTooltip(onlyInHelpMode = true) {
@@ -1054,7 +1233,8 @@ define([
 
       if (this._displayedTooltip === null) return;
       else {
-        if (this._displayedTooltip.showTimeout != null) clearTimeout(this._displayedTooltip.showTimeout);
+        if (this._displayedTooltip.showTimeout != null)
+          clearTimeout(this._displayedTooltip.showTimeout);
         if (this._displayedTooltip.close) this._displayedTooltip.close();
         else this._displayedTooltip.hide();
         this._displayedTooltip = null;
@@ -1078,12 +1258,12 @@ define([
       };
 
       if (temporary) {
-        this.connect($(node), 'click', safeCallback);
-        dojo.removeClass(node, 'unselectable');
-        dojo.addClass(node, 'selectable');
+        this.connect($(node), "click", safeCallback);
+        dojo.removeClass(node, "unselectable");
+        dojo.addClass(node, "selectable");
         this._selectableNodes.push(node);
       } else {
-        dojo.connect($(node), 'click', safeCallback);
+        dojo.connect($(node), "click", safeCallback);
       }
     },
 
@@ -1091,14 +1271,17 @@ define([
      * Tooltip to work with help mode
      */
     registerCustomTooltip(html, id = null) {
-      id = id || this.game_name + '-tooltipable-' + this._customTooltipIdCounter++;
+      id =
+        id || this.game_name + "-tooltipable-" + this._customTooltipIdCounter++;
       this._registeredCustomTooltips[id] = html;
       return id;
     },
     attachRegisteredTooltips() {
       Object.keys(this._registeredCustomTooltips).forEach((id) => {
         if ($(id)) {
-          this.addCustomTooltip(id, this._registeredCustomTooltips[id], { forceRecreate: true });
+          this.addCustomTooltip(id, this._registeredCustomTooltips[id], {
+            forceRecreate: true,
+          });
         }
       });
       this._registeredCustomTooltips = {};
@@ -1117,9 +1300,9 @@ define([
 
       // Handle dynamic content out of the box
       let getContent = () => {
-        let content = typeof html === 'function' ? html() : html;
+        let content = typeof html === "function" ? html() : html;
         if (config.midSize) {
-          content = '<div class="midSizeDialog">' + content + '</div>';
+          content = '<div class="midSizeDialog">' + content + "</div>";
         }
         return content;
       };
@@ -1137,7 +1320,7 @@ define([
         hideDelay: config.hideDelay,
       });
       this.tooltips[id] = tooltip;
-      dojo.addClass(id, 'tooltipable');
+      dojo.addClass(id, "tooltipable");
       dojo.place(
         `<div class='help-marker'>
           <svg><use href="#help-marker-svg" /></svg>
@@ -1145,18 +1328,18 @@ define([
         id
       );
 
-      dojo.connect($(id), 'click', (evt) => {
+      dojo.connect($(id), "click", (evt) => {
         if (!this._helpMode) {
           tooltip.close();
         } else {
           evt.stopPropagation();
 
-          if (tooltip.state == 'SHOWING') {
+          if (tooltip.state == "SHOWING") {
             this.closeCurrentTooltip();
           } else {
             this.closeCurrentTooltip();
             tooltip.open($(id));
-            $('dijit__MasterTooltip_0').classList.add('instant');
+            $("dijit__MasterTooltip_0").classList.add("instant");
             dijit.Tooltip._masterTT.onMouseLeave = () => {
               if (!this._helpMode) tooltip.close();
             };
@@ -1166,7 +1349,7 @@ define([
       });
 
       tooltip.showTimeout = null;
-      dojo.connect($(id), 'mouseenter', (evt) => {
+      dojo.connect($(id), "mouseenter", (evt) => {
         evt.stopPropagation();
         if (!this._helpMode && !this._dragndropMode) {
           if (tooltip.showTimeout != null) clearTimeout(tooltip.showTimeout);
@@ -1174,14 +1357,14 @@ define([
           tooltip.showTimeout = setTimeout(() => {
             if ($(id)) {
               tooltip.open($(id));
-              $('dijit__MasterTooltip_0').classList.add('instant');
+              $("dijit__MasterTooltip_0").classList.add("instant");
             }
           }, config.delay);
           this._displayedTooltip = tooltip;
         }
       });
 
-      dojo.connect($(id), 'mouseleave', (evt) => {
+      dojo.connect($(id), "mouseleave", (evt) => {
         evt.stopPropagation();
         if (!this._helpMode && !this._dragndropMode) {
           tooltip.close();
@@ -1207,13 +1390,14 @@ define([
           // hideDelay: 0,
           midSize: true,
           forceRecreate: false,
+          disablingParentClass: null,
         },
         config
       );
 
       // Handle dynamic content out of the box
       let getContent = () => {
-        let content = typeof html === 'function' ? html() : html;
+        let content = typeof html === "function" ? html() : html;
         return content;
       };
 
@@ -1225,28 +1409,28 @@ define([
       let that = this;
       let tooltip = tippy($(id), {
         content: getContent,
-        trigger: '',
+        trigger: "",
         animation: true,
-        touch: ['hold', 400],
-        placement: 'auto',
+        touch: ["hold", 400],
+        placement: "auto",
         hideOnClick: false,
         render(instance) {
           // The recommended structure is to use the popper as an outer wrapper
           // element, with an inner `box` element
-          const popper = document.createElement('div');
-          const arrow = document.createElement('arrow');
+          const popper = document.createElement("div");
+          const arrow = document.createElement("arrow");
           arrow.dataset.popperArrow = true;
-          arrow.classList = 'tooltip-arrow';
+          arrow.classList = "tooltip-arrow";
           popper.appendChild(arrow);
 
-          const box = document.createElement('div');
+          const box = document.createElement("div");
           popper.appendChild(box);
 
-          popper.className = 'altered-tooltip';
-          box.insertAdjacentHTML('beforeend', instance.props.content);
+          popper.className = "altered-tooltip";
+          box.insertAdjacentHTML("beforeend", instance.props.content);
 
           function onUpdate(prevProps, nextProps) {
-            console.log('Update content');
+            console.log("Update content");
             // DOM diffing
             if (prevProps.content !== nextProps.content) {
               box.innerHTML = nextProps.content;
@@ -1260,7 +1444,7 @@ define([
         },
         onMount(instance) {
           if (that.addDelayTimeout != null) clearTimeout(that.addDelayTimeout);
-          instance.popper.classList.toggle('no-delay', that.noDelayTippy);
+          instance.popper.classList.toggle("no-delay", that.noDelayTippy);
           that.noDelayTippy = true;
         },
         onHide(instance) {
@@ -1274,7 +1458,7 @@ define([
       });
 
       this.tooltips[id] = tooltip;
-      dojo.addClass(id, 'tooltipable');
+      dojo.addClass(id, "tooltipable");
       dojo.place(
         `<div class='help-marker'>
           <svg><use href="#help-marker-svg" /></svg>
@@ -1282,7 +1466,13 @@ define([
         id
       );
 
-      dojo.connect($(id), 'click', (evt) => {
+      dojo.connect($(id), "click", (evt) => {
+        if (
+          config.disablingParentClass &&
+          $(id).parentNode.classList.contains(config.disablingParentClass)
+        )
+          return;
+
         if (!this._helpMode) {
           tooltip.hide();
         } else {
@@ -1302,7 +1492,13 @@ define([
         }
       });
 
-      dojo.connect($(id), 'mouseenter', (evt) => {
+      dojo.connect($(id), "mouseenter", (evt) => {
+        if (
+          config.disablingParentClass &&
+          $(id).parentNode.classList.contains(config.disablingParentClass)
+        )
+          return;
+
         evt.stopPropagation();
         if (!this._helpMode && !this._dragndropMode) {
           tooltip.show();
@@ -1310,7 +1506,13 @@ define([
         }
       });
 
-      dojo.connect($(id), 'mouseleave', (evt) => {
+      dojo.connect($(id), "mouseleave", (evt) => {
+        if (
+          config.disablingParentClass &&
+          $(id).parentNode.classList.contains(config.disablingParentClass)
+        )
+          return;
+
         evt.stopPropagation();
         if (!this._helpMode && !this._dragndropMode) {
           tooltip.hide();
@@ -1341,7 +1543,10 @@ define([
      *   strikes all log messages related to the given array of notif ids
      */
     checkLogCancel(notifId) {
-      if (this.gamedatas.canceledNotifIds != null && this.gamedatas.canceledNotifIds.includes(notifId)) {
+      if (
+        this.gamedatas.canceledNotifIds != null &&
+        this.gamedatas.canceledNotifIds.includes(notifId)
+      ) {
         this.cancelLogs([notifId]);
       }
     },
@@ -1350,11 +1555,12 @@ define([
       notifIds.forEach((uid) => {
         if (this._notif_uid_to_log_id.hasOwnProperty(uid)) {
           let logId = this._notif_uid_to_log_id[uid];
-          if ($('log_' + logId)) dojo.addClass('log_' + logId, 'cancel');
+          if ($("log_" + logId)) dojo.addClass("log_" + logId, "cancel");
         }
         if (this._notif_uid_to_mobile_log_id.hasOwnProperty(uid)) {
           let mobileLogId = this._notif_uid_to_mobile_log_id[uid];
-          if ($('dockedlog_' + mobileLogId)) dojo.addClass('dockedlog_' + mobileLogId, 'cancel');
+          if ($("dockedlog_" + mobileLogId))
+            dojo.addClass("dockedlog_" + mobileLogId, "cancel");
         }
       });
     },
@@ -1364,16 +1570,17 @@ define([
 
       let notif = this._last_notif;
       let type = notif.msg.type;
-      if (type == 'history_history') type = notif.msg.args.originalType;
+      if (type == "history_history") type = notif.msg.args.originalType;
 
-      if ($('log_' + notif.logId)) {
-        dojo.addClass('log_' + notif.logId, 'notif_' + type);
+      if ($("log_" + notif.logId)) {
+        dojo.addClass("log_" + notif.logId, "notif_" + type);
 
-        var methodName = 'onAdding' + type.charAt(0).toUpperCase() + type.slice(1) + 'ToLog';
+        var methodName =
+          "onAdding" + type.charAt(0).toUpperCase() + type.slice(1) + "ToLog";
         if (this[methodName] !== undefined) this[methodName](notif);
       }
-      if ($('dockedlog_' + notif.mobileLogId)) {
-        dojo.addClass('dockedlog_' + notif.mobileLogId, 'notif_' + type);
+      if ($("dockedlog_" + notif.mobileLogId)) {
+        dojo.addClass("dockedlog_" + notif.mobileLogId, "notif_" + type);
       }
     },
 
@@ -1386,7 +1593,7 @@ define([
       let elements = [];
       elts.forEach((id) => {
         if (!$(id)) {
-          console.error('Counter : element does not exist', id);
+          console.error("Counter : element does not exist", id);
         } else {
           elements.push($(id));
         }
@@ -1417,7 +1624,9 @@ define([
 
           this.targetValue = +n;
           if (this.currentValue != n) {
-            this.elements.forEach((span) => span.classList.add('counter_in_progress'));
+            this.elements.forEach((span) =>
+              span.classList.add("counter_in_progress")
+            );
             setTimeout(() => this.makeCounterProgress(), this.speed);
           }
         },
@@ -1431,13 +1640,22 @@ define([
         },
         makeCounterProgress() {
           if (this.currentValue == this.targetValue) {
-            setTimeout(() => this.elements.forEach((span) => span.classList.remove('counter_in_progress')), this.speed);
+            setTimeout(
+              () =>
+                this.elements.forEach((span) =>
+                  span.classList.remove("counter_in_progress")
+                ),
+              this.speed
+            );
             if (callback) callback(this.targetValue);
             return;
           }
 
-          let step = Math.ceil(Math.abs(this.targetValue - this.currentValue) / 5);
-          this.currentValue += (this.currentValue < this.targetValue ? 1 : -1) * step;
+          let step = Math.ceil(
+            Math.abs(this.targetValue - this.currentValue) / 5
+          );
+          this.currentValue +=
+            (this.currentValue < this.targetValue ? 1 : -1) * step;
           this.elements.forEach((span) => (span.innerHTML = this.currentValue));
           setTimeout(() => this.makeCounterProgress(), this.speed);
         },
@@ -1470,10 +1688,15 @@ define([
 
     addCancelStateBtn(text = null) {
       if (text == null) {
-        text = _('Cancel');
+        text = _("Cancel");
       }
 
-      this.addSecondaryActionButton('btnCancel', text, () => this.clearClientState(), 'restartAction');
+      this.addSecondaryActionButton(
+        "btnCancel",
+        text,
+        () => this.clearClientState(),
+        "restartAction"
+      );
     },
 
     clearClientState() {
@@ -1482,7 +1705,7 @@ define([
     },
 
     translate(t) {
-      if (typeof t === 'object') {
+      if (typeof t === "object") {
         return this.format_string_recursive(_(t.log), t.args);
       } else {
         return this.format_string_recursive(_(t), {});
@@ -1499,17 +1722,17 @@ define([
           elements: [],
           n: 0,
           autoConfirm: false,
-          confirmText: _('Confirm'),
+          confirmText: _("Confirm"),
           confirmBtn: true,
-          cancelText: _('Cancel'),
+          cancelText: _("Cancel"),
           cancelBtn: true,
           callback: null,
           updateCallback: null,
           upTo: false,
           optional: false,
           passCallback: null,
-          btnContainer: 'customActions',
-          class: '',
+          btnContainer: "customActions",
+          class: "",
         },
         options
       );
@@ -1517,19 +1740,21 @@ define([
       let elemIds = Object.keys(config.elements);
       let selectedElements = [];
       let updateStatus = () => {
-        if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
+        if ($("btnConfirmChoice")) $("btnConfirmChoice").remove();
         if (
           ((config.upTo === false && selectedElements.length == config.n) ||
             (config.upTo === true && selectedElements.length <= config.n)) &&
           config.confirmBtn
         ) {
-          let otherElems = elemIds.filter((id) => !selectedElements.includes(id));
+          let otherElems = elemIds.filter(
+            (id) => !selectedElements.includes(id)
+          );
           if (config.autoConfirm) {
             config.callback(selectedElements, otherElems);
             return;
           } else {
             this.addPrimaryActionButton(
-              'btnConfirmChoice',
+              "btnConfirmChoice",
               config.confirmText,
               () => config.callback(selectedElements, otherElems),
               config.btnContainer
@@ -1537,11 +1762,11 @@ define([
           }
         }
 
-        if ($('btnCancelChoice')) $('btnCancelChoice').remove();
+        if ($("btnCancelChoice")) $("btnCancelChoice").remove();
         if (selectedElements.length > 0 && config.cancelBtn) {
           this.addSecondaryActionButton(
-            'btnCancelChoice',
-            _('Cancel'),
+            "btnCancelChoice",
+            _("Cancel"),
             () => {
               selectedElements = [];
               updateStatus();
@@ -1553,9 +1778,12 @@ define([
         elemIds.forEach((id) => {
           let elt = config.elements[id];
           let selected = selectedElements.includes(id);
-          elt.classList.toggle('selected', selected);
-          if (config.class != '') elt.classList.toggle(config.class, selected);
-          elt.classList.toggle('selectable', selected || selectedElements.length < config.n);
+          elt.classList.toggle("selected", selected);
+          if (config.class != "") elt.classList.toggle(config.class, selected);
+          elt.classList.toggle(
+            "selectable",
+            selected || selectedElements.length < config.n
+          );
         });
 
         if (config.updateCallback !== null) {
@@ -1563,9 +1791,14 @@ define([
         }
       };
 
-      if ($('btnPass')) $('btnPass').remove();
+      if ($("btnPass")) $("btnPass").remove();
       if (config.optional || config.upTo) {
-        this.addSecondaryActionButton('btnPass', _('Pass action'), () => config.passCallback(), config.btnContainer);
+        this.addSecondaryActionButton(
+          "btnPass",
+          _("Pass action"),
+          () => config.passCallback(),
+          config.btnContainer
+        );
       }
 
       Object.keys(config.elements).forEach((id) => {

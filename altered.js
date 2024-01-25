@@ -306,6 +306,14 @@ define([
 
       $('day-indicator-frame').insertAdjacentHTML('beforeend', _('HERO'));
       $('storm-end-frame').insertAdjacentHTML('beforeend', _('COMPANION'));
+
+      $('day-indicator-frame').insertAdjacentHTML(
+        'beforeend',
+        `<div id='help-phases-button'>
+          <svg><use href="#help-marker-svg" /></svg>
+        </div>`
+      );
+      $('help-phases-button').addEventListener('click', () => this.openHelperModal());
     },
 
     // onChangeSortableHandSetting(v) {
@@ -555,6 +563,25 @@ define([
     onEnteringStateGameEnd() {
       $('focus-storm-overlay').classList.remove('active');
     },
+
+    notif_winTieBreaker(n) {
+      debug('Notif: winning with tiebreaker', n);
+      // TODO?
+    },
+
+    notif_newPhase(n) {
+      debug('Notif: start new phase', n);
+      let wheel = $('day-indicator-wheel-inner');
+      let newVal = n.args.phaseId;
+      let turn = parseInt(+wheel.dataset.phase / 5);
+      if (newVal == 0) turn++;
+      wheel.dataset.phase = turn * 5 + newVal;
+
+      let angles = [0, -74, -140, -216, -290];
+      wheel.style.transform = `rotate(${turn * -360 + angles[newVal]}deg)`;
+    },
+
+    notif_message(n) {},
 
     ///////////////////////////////////////////////////////////
     //  ____
@@ -1322,6 +1349,7 @@ define([
         D: 'discard',
         T: 'tap',
         V: 'forest',
+        E: 'ocean',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');
@@ -1397,6 +1425,8 @@ define([
       let chk = $('help-mode-chk');
       dojo.connect(chk, 'onchange', () => this.toggleHelpMode(chk.checked));
       this.addTooltip('help-mode-switch', '', _('Toggle help/safe mode.'));
+
+      this.setupHelperModal();
 
       this._settingsModal = new customgame.modal('showSettings', {
         class: 'altered_popin',
@@ -1478,23 +1508,81 @@ define([
       ROOT.style.setProperty('--boardScale', scale);
     },
 
-    notif_winTieBreaker(n) {
-      debug('Notif: winning with tiebreaker', n);
-      // TODO?
+    /////////////////////////////////////////
+    //  _   _      _
+    // | | | | ___| |_ __   ___ _ __ ___
+    // | |_| |/ _ \ | '_ \ / _ \ '__/ __|
+    // |  _  |  __/ | |_) |  __/ |  \__ \
+    // |_| |_|\___|_| .__/ \___|_|  |___/
+    //              |_|
+    /////////////////////////////////////////
+
+    openHelperModal() {
+      this._helperModal.show();
     },
 
-    notif_newPhase(n) {
-      debug('Notif: start new phase', n);
-      let wheel = $('day-indicator-wheel-inner');
-      let newVal = n.args.phaseId;
-      let turn = parseInt(+wheel.dataset.phase / 5);
-      if (newVal == 0) turn++;
-      wheel.dataset.phase = turn * 5 + newVal;
+    setupHelperModal() {
+      this._helperModal = new customgame.modal('helperModal', {
+        class: 'altered_popin',
+        closeIcon: 'fa-times',
+        closeAction: 'hide',
+        verticalAlign: 'flex-start',
+        contentsTpl: `<div id='altered-helpers'>
+          <div id='helper-phases'>
+            <h2>${_('Phases of the day')}</h2>
 
-      let angles = [0, -74, -140, -216, -290];
-      wheel.style.transform = `rotate(${turn * -360 + angles[newVal]}deg)`;
+            <h3>${this.formatIcon('morning')} ${_('Phase 1: Morning')}</h3>
+            <ul>
+              <li>${_('Change first player')}</li>
+              <li>${_('Ready your cards')}</li>
+              <li>${_('Draw two cards')}</li>
+              <li>${_('Put a card in Mana')}</li>
+            </ul>
+
+            <h3>${this.formatIcon('noon')} ${_('Phase 2: Noon')}</h3>
+            <ul>
+              <li>${_('Apply "At Noon" effects')}</li>
+            </ul>
+
+            <h3>${this.formatIcon('afternoon')} ${_('Phase 3: Afternoon')}</h3>
+            <h4>${_('Go back and forth taking turns')}</h4>
+            <ul>
+              <li>${_('You can activate Quick actions')} (${this.formatSvgIcon('discard')} & ${this.formatSvgIcon('tap')})</li>
+            </ul>
+
+            <h4>${_('Then either:')}</h4>
+            <ul>
+              <li>${_('Play a card from your hand or Reserve')}</li>
+              <li>${_('Pass the turn and end your Afternoon')}</li>
+            </ul>
+
+            <h3>${this.formatIcon('dusk')} ${_('Phase 4: Dusk')}</h3>
+            <ul>
+              <li>${_('Compare statistics and check which expeditions move forward')}</li>
+            </ul>
+
+            <h3>${this.formatIcon('night')} ${_('Phase 5: Night')}</h3>
+            <ul>
+              <li>${_('Apply "At Night" effects')}</li>
+              <li>${_('Rest: Characters go to Reserve')}</li>
+              <li>${_('Keep up to 2 cards in Reserve and 2 in Landmarks, discard the rest')}</li>
+            </ul>
+          </div>
+          <div id='helper-icons'>
+            <h2>${_('Icons')}</h2>
+
+            <div class='icon-item'>${_("When I'm played from anywhere...")}</div>
+            <div class='icon-item'>${_("When I'm played from hand...")}</div>
+            <div class='icon-item'>${_("When I'm played from your Reserve")}</div>
+
+
+            <div class='icon-item'>${_('Exhaust')}</div>
+            <div class='icon-item'>${_('Fleeting')}</div>
+            <div class='icon-item'>${_('Anchored')}</div>
+            <div class='icon-item'>${_('Asleep')}</div>
+          </div>
+        </div>`,
+      });
     },
-
-    notif_message(n) {},
   });
 });
