@@ -152,7 +152,7 @@ class Notifications
   //////////////////////////////////////////////////////
   public static function startDusk()
   {
-    self::notifyAll('startDusk', clienttranslate('End of the day: computing the progress on the storms'), []);
+    self::notifyAll('startDusk', clienttranslate('End of the Afternoon: computing the progress in the Tumult'), []);
   }
 
   public static function endDusk()
@@ -165,6 +165,10 @@ class Notifications
     $msg = clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biome}');
     if (!is_null($source)) {
       $msg = clienttranslate('${player_name} moves in ${expedition} due to ${card_name}\'s effect');
+    }
+
+    if ($biome == OCEAN) {
+      $biome = 'Water';
     }
 
     self::notifyAll('moveStormToken', $msg, [
@@ -452,11 +456,11 @@ class Notifications
   {
     // decide phase
     $msgs = [
-       PHASE_MORNING => clienttranslate('${phase_icon} Day n°${day}: morning ${phase_icon2}'),
-       PHASE_NOON => clienttranslate('${phase_icon} Day n°${day}: noon ${phase_icon2}'),
-       PHASE_AFTERNOON => clienttranslate('${phase_icon} Day n°${day}: afternoon ${phase_icon2}'),
-       PHASE_DUSK => clienttranslate('${phase_icon} Day n°${day}: dusk ${phase_icon2}'),
-       PHASE_NIGHT => clienttranslate('${phase_icon} Day n°${day}: night ${phase_icon2}')
+      PHASE_MORNING => clienttranslate('${phase_icon} Day n°${day}: morning ${phase_icon2}'),
+      PHASE_NOON => clienttranslate('${phase_icon} Day n°${day}: noon ${phase_icon2}'),
+      PHASE_AFTERNOON => clienttranslate('${phase_icon} Day n°${day}: afternoon ${phase_icon2}'),
+      PHASE_DUSK => clienttranslate('${phase_icon} Day n°${day}: dusk ${phase_icon2}'),
+      PHASE_NIGHT => clienttranslate('${phase_icon} Day n°${day}: night ${phase_icon2}')
     ];
     $msg = $msgs[$phase];
     self::notifyAll('newPhase', $msg, [
@@ -595,7 +599,7 @@ class Notifications
 
   public static function pass($player)
   {
-    self::notifyAll('passTurn', clienttranslate('${player_name} passes and end its day'), ['player' => $player]);
+    self::notifyAll('passTurn', clienttranslate('${player_name} passes and ends its afternoon'), ['player' => $player]);
   }
 
   public static function shuffleDeck($player, $location, $nCards)
