@@ -304,7 +304,7 @@ define([
 
       $('storm-container').insertAdjacentHTML('beforeend', '<div id="roll-dice-container"></div>');
 
-      $('day-indicator-frame').insertAdjacentHTML('beforeend', _('HERO'));
+      $('day-indicator-frame').insertAdjacentHTML('beforeend', `<div class="storm-text">${_('HERO')}</div>`);
       $('storm-end-frame').insertAdjacentHTML('beforeend', _('COMPANION'));
 
       $('day-indicator-frame').insertAdjacentHTML(

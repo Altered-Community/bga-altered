@@ -2340,19 +2340,23 @@ html {
             position: absolute;
             z-index: 10;
             left: 17px;
-            color: #d6aa49;
-            font-weight: bold;
-            font-family: "Tiller";
-            writing-mode: vertical-lr;
-            text-align: center;
             padding-right: 51px;
             box-sizing: border-box;
-            font-size: 12px;
-            padding-left: 154px; }
+            padding-left: 153px;
+            color: #d6aa49; }
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame .storm-text {
+              height: 100%;
+              font-weight: bold;
+              font-family: "Tiller";
+              writing-mode: vertical-lr;
+              text-align: center;
+              box-sizing: border-box;
+              font-size: 12px;
+              transform: scale(-1); }
             #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame #help-phases-button {
               position: absolute;
-              height: 30px;
-              width: 30px;
+              height: 26px;
+              width: 26px;
               background: white;
               left: 90px;
               top: 5px;
@@ -2362,7 +2366,7 @@ html {
               cursor: pointer; }
               #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame #help-phases-button svg {
                 height: 100%;
-                width: 30px; }
+                width: 26px; }
         #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-end-frame {
           width: 109px;
           height: 186px;
