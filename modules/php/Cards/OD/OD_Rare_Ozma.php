@@ -22,6 +22,7 @@ class OD_Rare_Ozma extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
+      'supportIcon' => 'discard',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

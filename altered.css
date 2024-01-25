@@ -1207,6 +1207,8 @@ html {
         background-position: 20% 75%; }
     .altered-card .altered-card-wrapper .rarity-gem {
       display: none; }
+    .altered-card .altered-card-wrapper .card-support-icon {
+      display: none; }
     .altered-card .altered-card-wrapper .card-name {
       position: absolute;
       z-index: 2;
@@ -1683,6 +1685,80 @@ html {
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"] {
       background-position-y: 100%; }
+  .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon,
+  .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon,
+  .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon {
+    display: block;
+    position: absolute;
+    bottom: -1px;
+    right: 2px;
+    width: 31px;
+    height: 20px;
+    z-index: 4;
+    border-top-left-radius: 20px 14px;
+    border-bottom-left-radius: 20px 14px;
+    border-top-right-radius: 20px 14px;
+    border-bottom-right-radius: 20px 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    box-shadow: 0px 0px 5px 2px black; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"],
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"],
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"] {
+      background: #774a32;
+      border: 1px solid #774a32; }
+      .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"] .svgicon-discard .path2::before,
+      .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"] .svgicon-discard .path2::before,
+      .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"] .svgicon-discard .path2::before {
+        color: #774a32; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="BR"],
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="BR"],
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="BR"] {
+      background: #5f1f16;
+      border: 1px solid #5f1f16; }
+      .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="BR"] .svgicon-discard .path2::before,
+      .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="BR"] .svgicon-discard .path2::before,
+      .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="BR"] .svgicon-discard .path2::before {
+        color: #5f1f16; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="MU"],
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="MU"],
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="MU"] {
+      background: #2a7533;
+      border: 1px solid #2a7533; }
+      .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="MU"] .svgicon-discard .path2::before,
+      .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="MU"] .svgicon-discard .path2::before,
+      .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="MU"] .svgicon-discard .path2::before {
+        color: #2a7533; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="LY"],
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="LY"],
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="LY"] {
+      background: #a82249;
+      border: 1px solid #a82249; }
+      .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="LY"] .svgicon-discard .path2::before,
+      .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="LY"] .svgicon-discard .path2::before,
+      .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="LY"] .svgicon-discard .path2::before {
+        color: #a82249; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="OD"],
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="OD"],
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="OD"] {
+      background: #2f6187;
+      border: 1px solid #2f6187; }
+      .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="OD"] .svgicon-discard .path2::before,
+      .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="OD"] .svgicon-discard .path2::before,
+      .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="OD"] .svgicon-discard .path2::before {
+        color: #2f6187; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="YZ"],
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="YZ"],
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="YZ"] {
+      background: #4a3f67;
+      border: 1px solid #4a3f67; }
+      .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="YZ"] .svgicon-discard .path2::before,
+      .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="YZ"] .svgicon-discard .path2::before,
+      .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="YZ"] .svgicon-discard .path2::before {
+        color: #4a3f67; }
   .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-footer,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-footer,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-footer {
@@ -2183,7 +2259,7 @@ html {
   font-weight: bold;
   font-family: "Tiller";
   font-size: 16px;
-  padding: 7px 2px; }
+  padding: 5px 2px 3px; }
 
 .desktop_version #chatbardock {
   right: 0px; }
@@ -3232,8 +3308,8 @@ html {
           #popin_helperModal #altered-helpers #helper-phases ul li::marker,
           #popin_helperModal #altered-helpers #helper-icons ul li::marker {
             color: #d6a944; }
-      #popin_helperModal #altered-helpers #helper-phases svgicon-discard .path2::before,
-      #popin_helperModal #altered-helpers #helper-icons svgicon-discard .path2::before {
+      #popin_helperModal #altered-helpers #helper-phases .svgicon-discard .path2::before,
+      #popin_helperModal #altered-helpers #helper-icons .svgicon-discard .path2::before {
         color: black; }
       #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(1), #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(2), #popin_helperModal #altered-helpers #helper-phases div.icon-item:nth-of-type(3),
       #popin_helperModal #altered-helpers #helper-icons div.icon-item:nth-of-type(1),

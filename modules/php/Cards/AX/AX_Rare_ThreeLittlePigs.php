@@ -24,6 +24,7 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
+      'supportIcon' => 'discard',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

@@ -8,7 +8,7 @@ X Icones status : mettre les vrais meeples
 X Compteurs sur la carte
 - reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
 - autofit text for card names
-- helpers
+X helpers
 X deck thumbnail
 - revoir chooseAssignment
 - Unique: bordure dorée avec un glow

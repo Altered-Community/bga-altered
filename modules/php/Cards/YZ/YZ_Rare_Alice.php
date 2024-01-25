@@ -20,6 +20,7 @@ class YZ_Rare_Alice extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)'),
+      'supportIcon' => 'discard',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 4,

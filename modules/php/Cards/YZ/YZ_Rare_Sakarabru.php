@@ -21,6 +21,7 @@ class YZ_Rare_Sakarabru extends \ALT\Models\Card
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing mine moves backwards one region.'),
       'supportDesc' => clienttranslate('#{D} : Draw a card.# (Discard me from Reserve to do this.)'),
+      'supportIcon' => 'discard',
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

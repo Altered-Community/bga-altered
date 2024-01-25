@@ -19,6 +19,7 @@ class BR_Common_Issunboshi extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
       'supportDesc' => '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)',
+      'supportIcon' => 'discard',
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 2,

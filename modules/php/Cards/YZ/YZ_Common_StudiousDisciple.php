@@ -19,6 +19,7 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
+      'supportIcon' => 'discard',
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 1,

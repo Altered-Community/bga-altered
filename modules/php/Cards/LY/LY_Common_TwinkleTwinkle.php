@@ -19,9 +19,9 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
       'typeline' => 'Spell - Song',
       'type' => SPELL,
       'subtypes' => [SONG],
-      'effectDesc' =>
-        'Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
+      'effectDesc' => 'Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)', 
       'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
+      'supportIcon' => 'discard',
       'costHand' => 2,
       'costReserve' => 2,
 
@@ -32,7 +32,6 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
       ],
       'flavorText' => 'Up above the world so high, like a diamond in the sky.',
       'artist' => 'HuoMiao Studio',
-    'effectDesc' => 'Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)', 
 ];
   }
 }

@@ -17,6 +17,7 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ANIMAL, SPIRIT],
       'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
+      'supportIcon' => 'discard',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,

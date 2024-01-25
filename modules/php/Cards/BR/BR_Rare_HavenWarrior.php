@@ -22,6 +22,7 @@ class BR_Rare_HavenWarrior extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'
       ),
+      'supportIcon' => 'discard',
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

@@ -367,6 +367,9 @@
         .rarity-gem {
             display: none;
         }
+        .card-support-icon {
+            display: none;
+        }
 
         .card-name {
             position: absolute;
@@ -896,6 +899,81 @@ $miniCardScale: 0.33;
             }
             &[data-rarity="2"] {
                 background-position-y: 100%;
+            }
+        }
+
+        .card-support-icon {
+            display: block;
+            position: absolute;
+            bottom: -1px;
+            right: 2px;
+            width: 31px;
+            height: 20px;
+            z-index: 4;
+            border-top-left-radius: 20px 14px;
+            border-bottom-left-radius: 20px 14px;
+            border-top-right-radius: 20px 14px;
+            border-bottom-right-radius: 20px 14px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            box-shadow: 0px 0px 5px 2px black;
+
+            &[data-faction="AX"] {
+                background: #774a32;
+                border: 1px solid #774a32;
+                // box-shadow: 0px 0px 5px #9a7251;
+                // border: 1px solid #9a7251;
+                .svgicon-discard .path2::before {
+                    color: #774a32;
+                }
+            }
+            &[data-faction="BR"] {
+                background: #5f1f16;
+                border: 1px solid #5f1f16;
+                // box-shadow: 0px 0px 5px #aa212e;
+                // border: 1px solid #aa212e;
+                .svgicon-discard .path2::before {
+                    color: #5f1f16;
+                }
+            }
+            &[data-faction="MU"] {
+                background: #2a7533;
+                border: 1px solid #2a7533;
+                // box-shadow: 0px 0px 5px #396a3f;
+                // border: 1px solid #396a3f;
+                .svgicon-discard .path2::before {
+                    color: #2a7533;
+                }
+            }
+            &[data-faction="LY"] {
+                background: #a82249;
+                border: 1px solid #a82249;
+                // box-shadow: 0px 0px 5px #ce3f65;
+                // border: 1px solid #ce3f65;
+                .svgicon-discard .path2::before {
+                    color: #a82249;
+                }
+            }
+            &[data-faction="OD"] {
+                background: #2f6187;
+                border: 1px solid #2f6187;
+                // box-shadow: 0px 0px 5px #5792c4;
+                // border: 1px solid #5792c4;
+                .svgicon-discard .path2::before {
+                    color: #2f6187;
+                }
+            }
+            &[data-faction="YZ"] {
+                background: #4a3f67;
+                border: 1px solid #4a3f67;
+                // box-shadow: 0px 0px 5px #846094;
+                // border: 1px solid #846094;
+                .svgicon-discard .path2::before {
+                    color: #4a3f67;
+                }
             }
         }
 
