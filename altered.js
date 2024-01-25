@@ -1182,6 +1182,14 @@ define([
       if (args.manaOrbs == true) {
         this._manaModal.show();
       }
+
+      Object.keys(args.targetCosts).forEach((cardId) => {
+        $(`card-${cardId}`).insertAdjacentHTML('beforeend', `<div class='tough-marker'>${args.targetCosts[cardId]}</div>`);
+      });
+    },
+
+    onLeavingStateTarget() {
+      document.querySelectorAll('.tough-marker').forEach((o) => o.remove());
     },
 
     onEnteringStatePlayCard(args) {

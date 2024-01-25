@@ -468,6 +468,9 @@ html {
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_AX_27_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_AX_27_C"] {
       background-image: url("img/illustrations/AX/ALT_CORE_B_AX_27_C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_AX_27_R1"],
+    .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_AX_27_R1"] {
+      background-image: url("img/illustrations/AX/ALT_CORE_B_AX_27_R1.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_AX_28_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_AX_28_C"] {
       background-image: url("img/illustrations/AX/ALT_CORE_B_AX_28_C.jpg"); }
@@ -561,6 +564,9 @@ html {
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_C"] {
       background-image: url("img/illustrations/BR/ALT_CORE_B_BR_22_C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_R1"],
+    .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_R1"] {
+      background-image: url("img/illustrations/BR/ALT_CORE_B_BR_22_R1.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_23_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_23_C"] {
       background-image: url("img/illustrations/BR/ALT_CORE_B_BR_23_C.jpg"); }
@@ -591,9 +597,6 @@ html {
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_31_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_31_C"] {
       background-image: url("img/illustrations/BR/ALT_CORE_B_BR_31_C.jpg"); }
-    .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_R1"],
-    .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_BR_22_R1"] {
-      background-image: url("img/illustrations/BR/ALT_CORE_B_BR_22_R1.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_LY_01_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_LY_01_C"] {
       background-image: url("img/illustrations/LY/ALT_CORE_B_LY_01_C.jpg"); }
@@ -768,6 +771,9 @@ html {
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_MU_18_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_MU_18_C"] {
       background-image: url("img/illustrations/MU/ALT_CORE_B_MU_18_C.jpg"); }
+    .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_MU_18_R1"],
+    .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_MU_18_R1"] {
+      background-image: url("img/illustrations/MU/ALT_CORE_B_MU_18_R1.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="ALT_CORE_B_MU_19_C"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_CORE_B_MU_19_C"] {
       background-image: url("img/illustrations/MU/ALT_CORE_B_MU_19_C.jpg"); }
@@ -1065,6 +1071,25 @@ html {
     .altered-card .altered-card-wrapper[data-asset="back"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="back"] {
       background-image: url("img/back-main.jpg"); }
+  .altered-card .tough-marker,
+  .altered-card.mini-card .tough-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-image: url("img/icons/tough.png");
+    background-size: 100%;
+    background-color: #ffffffbf;
+    border-radius: 50%;
+    box-shadow: 1px 1px 11px 6px #ffffffbf;
+    color: white;
+    text-align: center;
+    line-height: 43px;
+    font-family: "Haptic Pro";
+    font-size: 21px;
+    font-weight: bold; }
 
 .altered-card {
   width: calc(var(--cardScale) * 324px);
@@ -3505,7 +3530,7 @@ html {
   #focus-storm-overlay.active #focus-storm-bottom {
     opacity: 1; }
   #focus-storm-overlay #focus-storm-top {
-    height: calc(var(--boardScale) * 460px);
+    height: calc(var(--boardScale) * 460px + 75px);
     width: 100%;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 80%, transparent 100%); }
     .mobile_version #focus-storm-overlay #focus-storm-top {

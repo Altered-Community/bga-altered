@@ -117,6 +117,26 @@
             background-image: url("img/back-main.jpg");
         }
     }
+
+    .tough-marker {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background-image: url("img/icons/tough.png");
+        background-size: 100%;
+        background-color: #ffffffbf;
+        border-radius: 50%;
+        box-shadow: 1px 1px 11px 6px #ffffffbf;
+        color: white;
+        text-align: center;
+        line-height: 43px;
+        font-family: "Haptic Pro";
+        font-size: 21px;
+        font-weight: bold;
+    }
 }
 
 //  _____      _ _

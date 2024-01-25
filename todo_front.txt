@@ -2,8 +2,7 @@
 X Changer fond et emplacement du chat
 X Kojo a modifier
 X Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
-- Unique: bordure dorée avec un glow
-- Tough: mettre une icone bouclier + afficher le coût supplémentaire
+X Tough: mettre une icone bouclier + afficher le coût supplémentaire
 X Asleep
 X Icones status : mettre les vrais meeples
 X Compteurs sur la carte
@@ -12,6 +11,7 @@ X Compteurs sur la carte
 - helpers
 - deck thumbnail
 - revoir chooseAssignment
+- Unique: bordure dorée avec un glow
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure
