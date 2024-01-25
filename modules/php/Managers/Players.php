@@ -209,6 +209,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
   public function computeStorm($advance = false)
   {
+    if (Globals::isTieBreakerMode()) {
+      return [];
+    }
+
     $players = self::getAll();
     $winners = [
       STORM_LEFT => [
@@ -223,53 +227,51 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       ],
     ];
 
-    if (Globals::getTieBreakerMode() == false) {
-      // Winner calculation
-      foreach ($players as $pId => $player) {
-        $expeditions = $player->getBiomeStrength(STORMS, true);
-        foreach ($expeditions as $expedition => $biomes) {
-          foreach ($biomes as $biome => $value) {
-            if ($winners[$expedition][$biome]['value'] < $value) {
-              $winners[$expedition][$biome]['value'] = $value;
-              $winners[$expedition][$biome]['pId'] = $pId;
-            } elseif ($winners[$expedition][$biome]['value'] == $value) {
-              $winners[$expedition][$biome]['pId'] = null;
-            }
+    // Winner calculation
+    foreach ($players as $pId => $player) {
+      $expeditions = $player->getBiomeStrength(STORMS, true);
+      foreach ($expeditions as $expedition => $biomes) {
+        foreach ($biomes as $biome => $value) {
+          if ($winners[$expedition][$biome]['value'] < $value) {
+            $winners[$expedition][$biome]['value'] = $value;
+            $winners[$expedition][$biome]['pId'] = $pId;
+          } elseif ($winners[$expedition][$biome]['value'] == $value) {
+            $winners[$expedition][$biome]['pId'] = null;
           }
         }
       }
+    }
 
-      $movements = [];
-      // For each player, check whether hero and/or companion move forward
+    $movements = [];
+    // For each player, check whether hero and/or companion move forward
+    foreach([HERO, COMPANION] as $side){
       foreach ($players as $pId => $player) {
         $biomesByStorm = $player->getBiomeInStorms();
-        foreach ($biomesByStorm as $side => $biomes) {
-          $move = null;
-          $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
-          $movements[$pId][$side] = [OCEAN => 0, FOREST => 0, MOUNTAIN => 0];
-          if ($player->hasDefender($expedition)) {
-            continue;
-          }
+        $biomes = $biomesByStorm[$side];
+        $move = null;
+        $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
+        $movements[$pId][$side] = [OCEAN => 0, FOREST => 0, MOUNTAIN => 0];
+        if ($player->hasDefender($expedition)) {
+          continue;
+        }
 
-          foreach ($biomes as $i => $biome) {
-            $win = $winners[$expedition][$biome]['pId'] == $pId;
-            $movements[$pId][$side][$biome] = $win ? 2 : 1;
+        foreach ($biomes as $i => $biome) {
+          $win = $winners[$expedition][$biome]['pId'] == $pId;
+          $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
-            if ($win) {
-              $move = $biome;
-              if ($advance) {
-                break;
-              }
+          if ($win) {
+            $move = $biome;
+            if ($advance) {
+              break;
             }
           }
+        }
 
-          if ($advance && !is_null($move)) {
-            $player->advanceStorm($side, $move);
-          }
+        if ($advance && !is_null($move)) {
+          $player->advanceStorm($side, $move);
         }
       }
-      return $movements;
     }
-    return [];
+    return $movements;
   }
 }
