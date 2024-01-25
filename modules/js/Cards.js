@@ -277,8 +277,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-                card.properties.uid
-              }.jpg");'></div>
+              card.properties.uid
+            }.jpg");'></div>
             </div>`
           );
         });
@@ -1186,7 +1186,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     getSupportIcon(properties) {
       if (!properties.supportIcon || properties.supportIcon == '') return '';
-      return `<div class='card-support-icon' data-faction='${properties.faction}'>${this.formatSvgIcon(properties.supportIcon)}</div>`;
+      return `<div class='card-support-icon' data-faction='${properties.faction}'>${this.formatSvgIcon(
+        properties.supportIcon
+      )}</div>`;
     },
 
     tplHeroCard(card, tooltip = false, mini = false) {
@@ -1204,7 +1206,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
@@ -1289,7 +1291,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
@@ -1328,13 +1330,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
-            p.mountain
-          }</div>
+        p.mountain
+      }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
 
           <div class='card-text'>
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
           </div>
 
@@ -1384,7 +1386,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
               ${this.formatString(effect.str, true)}
@@ -1439,7 +1441,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.equinox-ccg.io/fr-fr/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
               ${this.formatString(effect.str, true)}
