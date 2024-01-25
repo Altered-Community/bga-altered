@@ -27,13 +27,13 @@ class Notifications
 
   public static function message($txt, $args = [])
   {
-    self::notifyAll('message', $txt, $args);
+    self::notifyAll('mediumMessage', $txt, $args);
   }
 
   public static function messageTo($player, $txt, $args = [])
   {
     $pId = is_int($player) ? $player : $player->getId();
-    self::notify($pId, 'message', $txt, $args);
+    self::notify($pId, 'mediumMessage', $txt, $args);
   }
 
   public static function newUndoableStep($player, $stepId)

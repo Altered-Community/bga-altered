@@ -2261,6 +2261,14 @@ html {
   font-size: 16px;
   padding: 5px 2px 3px; }
 
+.pageheader {
+  z-index: 20; }
+
+#table-decision {
+  position: relative;
+  z-index: 20;
+  background: #d2be7f; }
+
 .desktop_version #chatbardock {
   right: 0px; }
 

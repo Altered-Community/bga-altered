@@ -32,9 +32,9 @@ define([
 ], function (dojo, declare, Sortable) {
   return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
     constructor: function () {
-      this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection'];
+      this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection', 'gameEnd'];
       this._notifications = [
-        ['message', 10],
+        ['mediumMessage', 1000],
         ['midMessage', 1200],
         ['clearTurn', 200],
         ['refreshUI', 200],
@@ -68,7 +68,7 @@ define([
         ['silentKill', 200],
         ['updateBiomes', 100],
         ['spellCleanup', 100],
-        ['invokeToken', 100],
+        ['invokeToken', null],
         ['afterYou', 1000],
         ['pay', 100],
         ['gainCounter', 1400],
@@ -581,7 +581,7 @@ define([
       wheel.style.transform = `rotate(${turn * -360 + angles[newVal]}deg)`;
     },
 
-    notif_message(n) {},
+    notif_mediumMessage(n) {},
 
     ///////////////////////////////////////////////////////////
     //  ____
