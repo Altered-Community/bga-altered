@@ -451,8 +451,19 @@ class Notifications
   public static function newPhase($phase)
   {
     // decide phase
-    $msg = 'toto';
-    self::notifyAll('newPhase', $msg, ['phase' => $phase]);
+    $msgs = [
+       PHASE_MORNING => clienttranslate('${phase_icon} Day n°${day}: morning ${phase_icon2}'),
+       PHASE_NOON => clienttranslate('${phase_icon} Day n°${day}: noon ${phase_icon2}'),
+       PHASE_AFTERNOON => clienttranslate('${phase_icon} Day n°${day}: afternoon ${phase_icon2}'),
+       PHASE_DUSK => clienttranslate('${phase_icon} Day n°${day}: dusk ${phase_icon2}'),
+       PHASE_NIGHT => clienttranslate('${phase_icon} Day n°${day}: night ${phase_icon2}')
+    ];
+    $msg = $msgs[$phase];
+    self::notifyAll('newPhase', $msg, [
+      'phase' => $phase, 'day' => Globals::getDay(), 'phase_icon' => '', 'phase_icon2' => '',
+      'preserve' => ['phase_icon', 'phase_icon2'],
+      'phaseId' => Globals::getPhase(),
+    ]);
   }
 
   public static function gainCounter($card, $increase = null)

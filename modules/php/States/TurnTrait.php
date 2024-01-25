@@ -43,6 +43,7 @@ trait TurnTrait
       return;
     }
 
+    Globals::setPhase(2);
     Notifications::newPhase(PHASE_AFTERNOON);
     Globals::setStormMoves([]);
     Globals::setPlayedCards(0);
@@ -126,6 +127,7 @@ trait TurnTrait
     if (Players::checkVictory()) {
       return;
     }
+    Globals::setPhase(3);
     Notifications::newPhase(PHASE_DUSK);
 
     Globals::setStormMoves([]);
@@ -222,6 +224,7 @@ trait TurnTrait
       return;
     }
     $cardLeft = [];
+    Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setStormMoves([]);
     Globals::setSkippedPlayers([]);

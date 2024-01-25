@@ -40,7 +40,7 @@
                         height: 186px;
                         overflow: hidden;
 
-                        &::before {
+                        #day-indicator-wheel-inner {
                             content: "";
                             display: block;
                             width: 186px;
@@ -49,25 +49,22 @@
                             background-size: 100%;
                             transform-origin: center center;
                             transition: transform 0.5s;
-                        }
 
-                        &[data-phase="0"]::before {
-                            transform: rotate(0deg);
-                        }
-                        &[data-phase="1"]::before {
-                            transform: rotate(71deg);
-                        }
-                        &[data-phase="2"]::before {
-                            transform: rotate(146deg);
-                        }
-                        &[data-phase="3"]::before {
-                            transform: rotate(213deg);
-                        }
-                        &[data-phase="4"]::before {
-                            transform: rotate(288deg);
-                        }
-                        &[data-phase="5"]::before {
-                            transform: rotate(360deg);
+                            &[data-phase="0"] {
+                                transform: rotate(0deg);
+                            }
+                            &[data-phase="1"] {
+                                transform: rotate(-72deg);
+                            }
+                            &[data-phase="2"] {
+                                transform: rotate(-147deg);
+                            }
+                            &[data-phase="3"] {
+                                transform: rotate(-214deg);
+                            }
+                            &[data-phase="4"] {
+                                transform: rotate(-289deg);
+                            }
                         }
                     }
 
@@ -120,7 +117,7 @@
                     background-image: url("img/tie-breaker.png");
                     background-size: 100% auto;
                     top: -30px;
-                    left: 635px;
+                    left: 633px;
                     pointer-events: none;
                     opacity: 0;
                     transition: opacity 0.5s;

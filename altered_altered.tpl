@@ -6,7 +6,7 @@
       <div id="altered-board-opponent"></div>
       <div id="middle-line-wrapper">
         <div id="day-indicator">
-          <div id="day-indicator-wheel"></div>
+          <div id="day-indicator-wheel"><div id="day-indicator-wheel-inner"></div></div>
           <div id="day-indicator-frame"></div>
         </div>
         <div id="storm-container"></div>

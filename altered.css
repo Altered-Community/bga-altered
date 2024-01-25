@@ -337,7 +337,6 @@ html {
   .altered-card.mini-card.selectedToMana {
     border-color: #1059c5;
     box-shadow: 0px 0px 10px 0px #319cda;
-    --cardScale: 0.4;
     margin: 0px 20px; }
     .altered-card.selectedToMana .altered-card-wrapper,
     .altered-card.mini-card.selectedToMana .altered-card-wrapper {
@@ -1780,11 +1779,43 @@ html {
   background-size: 100% 100%;
   width: 1.4em;
   height: 1.4em; }
+.altered-icon.icon-morning {
+  background-image: url("img/icons/dawn.png");
+  background-size: 100% 100%;
+  width: 1.8em;
+  height: 1.8em; }
+.altered-icon.icon-noon {
+  background-image: url("img/icons/noon.png");
+  background-size: 100% 100%;
+  width: 1.8em;
+  height: 1.8em; }
+.altered-icon.icon-afternoon {
+  background-image: url("img/icons/afternoon.png");
+  background-size: 100% 100%;
+  width: 1.8em;
+  height: 1.8em; }
+.altered-icon.icon-dusk {
+  background-image: url("img/icons/dusk.png");
+  background-size: 100% 100%;
+  width: 1.8em;
+  height: 1.8em; }
+.altered-icon.icon-night {
+  background-image: url("img/icons/night.png");
+  background-size: 100% 100%;
+  width: 1.8em;
+  height: 1.8em; }
 
 .icon-container {
   display: inline-block;
   vertical-align: middle;
   margin: -0.2em 0.2em 0em; }
+
+.icon-container-morning,
+.icon-container-noon,
+.icon-container-afternoon,
+.icon-container-dusk,
+.icon-container-night {
+  margin: -0.05em -0.2em 0em; }
 
 .icon-first-player {
   background-image: url("img/icons/first-player.png");
@@ -2144,6 +2175,15 @@ html {
     border-color: white; }
     #logs .log .roundedbox .replay_last_move_button .icon32 {
       filter: invert(100%); }
+#logs .log.notif_newPhase .roundedbox {
+  background: radial-gradient(#4b7c85, #355b62);
+  text-align: center;
+  color: #dbaf4e;
+  border-color: #acacac;
+  font-weight: bold;
+  font-family: "Tiller";
+  font-size: 16px;
+  padding: 7px 2px; }
 
 .desktop_version #chatbardock {
   right: 0px; }
@@ -2197,7 +2237,7 @@ html {
             width: 100px;
             height: 186px;
             overflow: hidden; }
-            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel::before {
+            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner {
               content: "";
               display: block;
               width: 186px;
@@ -2206,18 +2246,16 @@ html {
               background-size: 100%;
               transform-origin: center center;
               transition: transform 0.5s; }
-            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="0"]::before {
-              transform: rotate(0deg); }
-            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="1"]::before {
-              transform: rotate(71deg); }
-            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="2"]::before {
-              transform: rotate(146deg); }
-            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="3"]::before {
-              transform: rotate(213deg); }
-            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="4"]::before {
-              transform: rotate(288deg); }
-            #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel[data-phase="5"]::before {
-              transform: rotate(360deg); }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="0"] {
+                transform: rotate(0deg); }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="1"] {
+                transform: rotate(-72deg); }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="2"] {
+                transform: rotate(-147deg); }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="3"] {
+                transform: rotate(-214deg); }
+              #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-wheel #day-indicator-wheel-inner[data-phase="4"] {
+                transform: rotate(-289deg); }
           #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator #day-indicator-frame {
             width: 309px;
             height: 186px;
@@ -2260,7 +2298,7 @@ html {
           background-image: url("img/tie-breaker.png");
           background-size: 100% auto;
           top: -30px;
-          left: 635px;
+          left: 633px;
           pointer-events: none;
           opacity: 0;
           transition: opacity 0.5s; }
@@ -3384,7 +3422,8 @@ html {
   align-items: center;
   pointer-events: none;
   transition: opacity 0.6s;
-  opacity: 0; }
+  opacity: 0;
+  padding-top: 70px; }
   #altered-overlay.active {
     background-color: #0f1b22c0;
     pointer-events: all;
@@ -3433,7 +3472,11 @@ html {
         flex-wrap: wrap;
         align-items: center; }
         #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand .altered-card {
-          position: initial !important; }
+          position: initial !important;
+          margin: 0px 5px; }
+          #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand .altered-card.selectedToMana {
+            --cardScale: 0.4;
+            margin: 0px 21px; }
     #altered-overlay #altered-overlay-content #overlay-new-day-counter-wrapper {
       text-align: center;
       font-size: 40px;
@@ -3465,13 +3508,29 @@ html {
       margin-top: 30px;
       height: 200px; }
       #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details {
-        padding: 10px;
-        height: 250px;
-        width: 100%;
+        padding: 10px 15px;
+        height: 280px;
+        width: 990px;
         background-color: #f8f4db;
-        border-radius: 4px;
+        border-radius: 6px;
         position: relative;
-        box-sizing: border-box; }
+        box-sizing: border-box;
+        background-image: url("img/deck-thumbnails.jpg");
+        background-size: auto 600%;
+        margin: auto;
+        border: 2px solid #ffe300;
+        box-shadow: 0px 0px 10px 0px #ffe300;
+        color: white; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="BR"] {
+          background-position-y: 20%; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="LY"] {
+          background-position-y: 40%; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="MU"] {
+          background-position-y: 60%; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="OD"] {
+          background-position-y: 80%; }
+        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="YZ"] {
+          background-position-y: 100%; }
         #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner {
           width: 50px;
           height: 80px;
@@ -3479,7 +3538,7 @@ html {
           background-size: 600% 100%;
           position: absolute;
           top: 0px;
-          left: 10px; }
+          left: 20px; }
           #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="BR"] {
             background-position-x: 20%; }
           #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="LY"] {
@@ -3494,13 +3553,16 @@ html {
           text-align: left;
           font-family: "Tiller";
           font-size: 30px;
-          text-indent: 65px;
+          text-indent: 75px;
           margin-top: 14px; }
         #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details p {
           text-align: left;
-          color: black;
-          margin-top: 20px;
-          font-size: 22px; }
+          color: white;
+          margin-top: 30px;
+          font-size: 22px;
+          width: 500px;
+          height: 120px;
+          margin-bottom: 5px; }
         #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer {
           text-align: center; }
           #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer a {

@@ -63,7 +63,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
       this.setupPlayersCounters();
       // TODO : remove at some point
-      if ($('open-all-cards-modal')) $('open-all-cards-modal').addEventListener('click', () => this.openAllCardsModal());
+      //      if ($('open-all-cards-modal')) $('open-all-cards-modal').addEventListener('click', () => this.openAllCardsModal());
     },
 
     onChangeHandLocationSetting(v) {
@@ -156,8 +156,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     },
 
     tplPlayerPanel(player) {
-      return (
-        `
+      return `
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${
@@ -176,8 +175,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
             <path d="M 282.848,79.057 180.134,45.684 c -2.034,-0.662 -4.102,-0.975 -6.138,-0.975 -8.436,0 -16.326,5.387 -19.064,13.814 l -48.617,149.633 c -3.399,10.463 2.379,21.803 12.841,25.203 l 102.713,33.373 c 2.034,0.66 4.102,0.975 6.138,0.975 8.436,0 16.326,-5.389 19.064,-13.816 L 295.689,104.258 C 299.088,93.797 293.31,82.455 282.848,79.057 Z" />
           </svg>
         </div>
-      </div>` + (player.id == this.player_id ? `<div id='open-all-cards-modal'>Show all cards</div>` : '')
-      );
+      </div>`; // + (player.id == this.player_id ? `<div id='open-all-cards-modal'>Show all cards</div>` : '')
     },
 
     notif_setupPlayer(n) {

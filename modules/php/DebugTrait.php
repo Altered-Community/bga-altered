@@ -21,10 +21,10 @@ trait DebugTrait
     $datas = [];
     require_once dirname(__FILE__) . '/../../misc/list.inc.php';
     foreach (ALL_CARDS as $filename) {
-      if (!file_exists(dirname(__FILE__) . '/../../misc/CoreSetV2/' . $filename . '.php')) {
+      if (!file_exists(dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php')) {
         continue;
       }
-      require_once dirname(__FILE__) . '/../../misc/CoreSetV2/' . $filename . '.php';
+      require_once dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php';
       $t = explode('/', $filename);
       $className = '\\ALT\\Cards\\' . $t[0] . '\\' . $t[1];
       $class = new $className(null);

@@ -26,6 +26,37 @@
     width: 1.4em;
     height: 1.4em;
   }
+
+  &.icon-morning {
+    background-image: url("img/icons/dawn.png");
+    background-size: 100% 100%;
+    width: 1.8em;
+    height: 1.8em;
+  }
+  &.icon-noon {
+    background-image: url("img/icons/noon.png");
+    background-size: 100% 100%;
+    width: 1.8em;
+    height: 1.8em;
+  }
+  &.icon-afternoon {
+    background-image: url("img/icons/afternoon.png");
+    background-size: 100% 100%;
+    width: 1.8em;
+    height: 1.8em;
+  }
+  &.icon-dusk {
+    background-image: url("img/icons/dusk.png");
+    background-size: 100% 100%;
+    width: 1.8em;
+    height: 1.8em;
+  }
+  &.icon-night {
+    background-image: url("img/icons/night.png");
+    background-size: 100% 100%;
+    width: 1.8em;
+    height: 1.8em;
+  }
 }
 
 /////////////////////////////////////////////////////////
@@ -37,6 +68,14 @@
   display: inline-block;
   vertical-align: middle;
   margin: -0.2em 0.2em 0em;
+}
+
+.icon-container-morning,
+.icon-container-noon,
+.icon-container-afternoon,
+.icon-container-dusk,
+.icon-container-night {
+  margin: -0.05em -0.2em 0em;
 }
 
 .icon-first-player {

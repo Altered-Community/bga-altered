@@ -88,6 +88,7 @@ class altered extends Table
       'passedPlayers' => Globals::isDayPhase() ? Globals::getSkippedPlayers() : [],
       'storm' => Globals::getStorm(true),
       'day' => Globals::getDay(),
+      'phase' => Globals::getPhase(),
       'movements' => Players::computeStorm(),
       'tieBreaker' => Globals::getTieBreakerMode(),
     ];

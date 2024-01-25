@@ -10,6 +10,7 @@
     pointer-events: none;
     transition: opacity 0.6s;
     opacity: 0;
+    padding-top: 70px;
 
     &.active {
         background-color: #0f1b22c0;
@@ -81,6 +82,12 @@
 
                 .altered-card {
                     position: initial !important;
+                    margin: 0px 5px;
+
+                    &.selectedToMana {
+                        --cardScale: 0.4;
+                        margin: 0px 21px;
+                    }
                 }
             }
         }
@@ -131,13 +138,34 @@
             height: 200px;
 
             .deck-details {
-                padding: 10px;
-                height: 250px;
-                width: 100%;
+                padding: 10px 15px;
+                height: 280px;
+                width: 990px;
                 background-color: #f8f4db;
-                border-radius: 4px;
+                border-radius: 6px;
                 position: relative;
                 box-sizing: border-box;
+                background-image: url("img/deck-thumbnails.jpg");
+                background-size: auto 600%;
+                margin: auto;
+                border: 2px solid #ffe300;
+                box-shadow: 0px 0px 10px 0px #ffe300;
+                color: white;
+                &[data-faction="BR"] {
+                    background-position-y: 20%;
+                }
+                &[data-faction="LY"] {
+                    background-position-y: 40%;
+                }
+                &[data-faction="MU"] {
+                    background-position-y: 60%;
+                }
+                &[data-faction="OD"] {
+                    background-position-y: 80%;
+                }
+                &[data-faction="YZ"] {
+                    background-position-y: 100%;
+                }
 
                 .faction-banner {
                     width: 50px;
@@ -146,7 +174,7 @@
                     background-size: 600% 100%;
                     position: absolute;
                     top: 0px;
-                    left: 10px;
+                    left: 20px;
 
                     &[data-faction="BR"] {
                         background-position-x: 20%;
@@ -169,15 +197,18 @@
                     text-align: left;
                     font-family: "Tiller";
                     font-size: 30px;
-                    text-indent: 65px;
+                    text-indent: 75px;
                     margin-top: 14px;
                 }
 
                 p {
                     text-align: left;
-                    color: black;
-                    margin-top: 20px;
+                    color: white;
+                    margin-top: 30px;
                     font-size: 22px;
+                    width: 500px;
+                    height: 120px;
+                    margin-bottom: 5px;
                 }
 
                 div.details-footer {

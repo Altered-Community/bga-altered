@@ -45,6 +45,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             o.style.top = '0px';
             o.style.position = '';
           }
+
+          if (container.classList.contains('mana-modal')) {
+            this.tooltips[o.id].disable();
+          } else {
+            this.tooltips[o.id].enable();
+          }
         }
 
         // Update tapped state
@@ -267,8 +273,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -363,6 +369,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.onEnteringStateNightDiscard(args);
         return;
       }
+      if (args.destination == 'mana' && args.n == 1) {
+        this.onEnteringStateManaDiscard(args);
+        return;
+      }
+
       this.onSelectNCards(args._private.cards, {
         n: args.n,
         class: 'selectable',
@@ -393,6 +404,72 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
       });
+    },
+
+    onEnteringStateManaDiscard(args) {
+      let selectedCard = null;
+      let unselectIfNeeded = () => {
+        if (!selectedCard) return;
+        let oCard = $(`card-${selectedCard}`);
+        // oCard.style.transform = oCard.backup.transform;
+        // oCard.style.left = oCard.backup.left;
+        // oCard.style.top = oCard.backup.top;
+        oCard.classList.remove('selectedToMana', 'selected');
+        selectedCard = null;
+        if ($('btnConfirm')) $('btnConfirm').remove();
+      };
+
+      this.onClick('altered-board-me', () => {
+        unselectIfNeeded();
+      });
+
+      this.onClick('btnPassAction', () => {
+        console.log('test');
+        unselectIfNeeded();
+      });
+
+      let cards = args._private.cards;
+      cards.forEach((cardId) => {
+        this.onClick(`card-${cardId}`, () => {
+          if (cardId == selectedCard) {
+            unselectIfNeeded();
+          } else {
+            unselectIfNeeded();
+            selectedCard = cardId;
+
+            let oCard = $(`card-${selectedCard}`);
+            oCard.classList.add('selectedToMana', 'selected');
+
+            // Backup previous pos and transform
+            oCard.backup = {
+              transform: oCard.style.transform,
+              left: oCard.style.left || '0px',
+              top: oCard.style.top || '0px',
+            };
+
+            // Slide it using css transition, unless parent is reserve
+            // let limbo = $(`board-limbo-${this.player_id}`);
+            // oCard.style.transform = 'scale(1.2) rotate(0rad) translateY(0px)';
+            // oCard.style.left = limbo.offsetLeft + 'px';
+            // oCard.style.top = limbo.offsetTop + 'px';
+
+            this.addPrimaryActionButton('btnConfirm', _('Confirm Mana'), () =>
+              this.takeAtomicAction('actDiscard', [[selectedCard]])
+            );
+          }
+        });
+      });
+    },
+
+    onLeavingStateDiscard() {
+      let oCard = $(`hand-${this.player_id}`).querySelector('.selectedToMana');
+      console.log('Leaving discard', oCard);
+      if (!oCard) return;
+
+      oCard.style.transform = oCard.backup.transform;
+      oCard.style.left = oCard.backup.left;
+      oCard.style.top = oCard.backup.top;
+      oCard.classList.remove('selectedToMana', 'selected');
     },
 
     /**
@@ -1239,8 +1316,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
-        p.mountain
-      }</div>
+            p.mountain
+          }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
 
           <div class='card-text'>

@@ -139,6 +139,7 @@ trait NewDayTrait
     Cards::untapAll();
     Stats::incDays();
     Notifications::updateTotalMana();
+    Globals::setPhase(0);
     Notifications::newPhase(PHASE_MORNING);
 
     // Change first player
@@ -193,6 +194,7 @@ trait NewDayTrait
   // Trigger listeners linked to after the noon
   public function stAfterNewDay()
   {
+    Globals::setPhase(1);
     Notifications::newPhase(PHASE_NOON);
 
     $this->checkCardListeners('Noon', ST_BEFORE_ASSIGNMENT);

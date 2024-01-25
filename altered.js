@@ -227,6 +227,7 @@ define([
           <div id="focus-storm-bottom"></div>          
         </div>`
       );
+      $('day-indicator-wheel-inner').dataset.phase = gamedatas.phase;
 
       this.setupInfoPanel();
       this.setupBoard();
@@ -617,7 +618,7 @@ define([
         $(`overlay-deck-details`).innerHTML = '';
         $(`overlay-deck-details`).insertAdjacentHTML(
           'beforeend',
-          `<div class='deck-details'>
+          `<div class='deck-details' data-faction='${deck.faction}'>
           <div class='faction-banner' data-faction='${deck.faction}'></div>
           <h3>${FACTION_NAMES[deck.faction]}</h3>
           <p>
@@ -795,16 +796,7 @@ define([
         return;
       }
 
-      this.openHand();
-      this.onSelectNCards(args._private.cards, {
-        n: 1,
-        class: 'selectedToMana',
-        confirmText: _('Confirm Mana'),
-        callback: (selectedElements, ignoredElements) =>
-          this.takeAction('actNewDayManaSelection', { cardIds: JSON.stringify(selectedElements) }),
-      });
-
-      this.addSecondaryActionButton('btnPass', _('Pass'), () => this.takeAction('actPassNewDayManaSelection', {}));
+      console.error('SHOULD NOT HAPPEN !!');
     },
 
     onEnteringStateFirstDayManaSelection(args) {
@@ -1377,6 +1369,13 @@ define([
           if (args.effect_desc !== undefined) {
             args.effect_desc = this.formatString(this.translate(args.effect_desc));
           }
+
+          if (args.phase_icon !== undefined) {
+            args.phase_icon = this.formatIcon(args.phase);
+          }
+          if (args.phase_icon2 !== undefined) {
+            args.phase_icon2 = this.formatIcon(args.phase);
+          }
         }
       } catch (e) {
         console.error(log, args, 'Exception thrown', e.stack);
@@ -1486,7 +1485,14 @@ define([
 
     notif_newPhase(n) {
       debug('Notif: start new phase', n);
-      // TODO
+      let wheel = $('day-indicator-wheel-inner');
+      let newVal = n.args.phaseId;
+      let turn = parseInt(+wheel.dataset.phase / 5);
+      if (newVal == 0) turn++;
+      wheel.dataset.phase = turn * 5 + newVal;
+
+      let angles = [0, -72, -147, -214, -289];
+      wheel.style.transform = `rotate(${turn * -360 + angles[newVal]}deg)`;
     },
 
     notif_message(n) {},
