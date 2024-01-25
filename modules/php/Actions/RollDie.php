@@ -10,6 +10,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 use ALT\Core\Globals;
 use ALT\Helpers\Log;
+use ALT\Core\Game;
 
 class RollDie extends \ALT\Models\Action
 {
@@ -118,9 +119,9 @@ class RollDie extends \ALT\Models\Action
 
     for ($i = 0; $i < $n; $i++) {
       $roll = bga_rand(1, 6);
-      // if (Game::get()->getBgaEnvironment() == 'studio') {
-      //   $roll = 5;
-      // }
+      if (Game::get()->getBgaEnvironment() == 'studio') {
+        $roll = 5;
+      }
       $rolls[] = $roll;
     }
 
