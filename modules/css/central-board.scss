@@ -77,20 +77,26 @@
                         z-index: 10;
                         left: 17px;
 
-                        color: #d6aa49;
-                        font-weight: bold;
-                        font-family: "Tiller";
-                        writing-mode: vertical-lr;
-                        text-align: center;
                         padding-right: 51px;
                         box-sizing: border-box;
-                        font-size: 12px;
-                        padding-left: 154px;
+                        padding-left: 153px;
+                        color: #d6aa49;
+
+                        .storm-text {
+                            height: 100%;
+                            font-weight: bold;
+                            font-family: "Tiller";
+                            writing-mode: vertical-lr;
+                            text-align: center;
+                            box-sizing: border-box;
+                            font-size: 12px;
+                            transform: scale(-1);
+                        }
 
                         #help-phases-button {
                             position: absolute;
-                            height: 30px;
-                            width: 30px;
+                            height: 26px;
+                            width: 26px;
                             background: white;
                             left: 90px;
                             top: 5px;
@@ -107,7 +113,7 @@
 
                             svg {
                                 height: 100%;
-                                width: 30px;
+                                width: 26px;
                             }
                         }
                     }

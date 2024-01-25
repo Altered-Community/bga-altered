@@ -21,6 +21,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)'
       ),
+      'supportIcon' => 'discard',
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,

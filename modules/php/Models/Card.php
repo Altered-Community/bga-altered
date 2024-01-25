@@ -44,6 +44,7 @@ class Card extends \ALT\Helpers\DB_Model
     'flavorText' => 'str',
     'effectDesc' => 'str',
     'supportDesc' => 'str',
+    'supportIcon' => 'str',
     'artist' => 'str',
 
     'rarity' => 'int',

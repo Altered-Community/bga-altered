@@ -18,6 +18,7 @@ class AX_Rare_TheFrogPrince extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT, NOBLE],
       'supportDesc' => '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
+      'supportIcon' => 'discard',
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,

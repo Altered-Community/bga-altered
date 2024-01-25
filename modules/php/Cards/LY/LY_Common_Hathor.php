@@ -21,6 +21,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
       ),
+      'supportIcon' => 'discard',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,

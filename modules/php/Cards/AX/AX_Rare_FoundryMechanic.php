@@ -21,6 +21,7 @@ class AX_Rare_FoundryMechanic extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
+      'supportIcon' => 'discard',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 2,
