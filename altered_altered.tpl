@@ -11,6 +11,7 @@
         </div>
         <div id="storm-container"></div>
         <div id="storm-end-frame"></div>
+        <div id="tie-breaker-attributes"></div>
       </div>
       <div id="altered-board-me"></div>
     </div>

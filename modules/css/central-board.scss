@@ -113,6 +113,53 @@
                     font-size: 12px;
                 }
 
+                #tie-breaker-attributes {
+                    width: 270px;
+                    height: 250px;
+                    position: absolute;
+                    background-image: url("img/tie-breaker.png");
+                    background-size: 100% auto;
+                    top: -30px;
+                    left: 635px;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.5s;
+
+                    [data-tie-breaker="1"] & {
+                        opacity: 1;
+                    }
+
+                    .total-biomes {
+                        position: absolute;
+                        display: flex;
+
+                        &.altered-board-me {
+                            bottom: 13px;
+                        }
+                        &.altered-board-opponent {
+                            top: 0;
+                        }
+
+                        .total-forest,
+                        .total-mountain,
+                        .total-ocean {
+                            position: relative;
+                            z-index: 1;
+                            font-family: "Haptic Pro";
+                            padding: 0px 10px;
+                            color: #e6e4e4;
+                            text-shadow: 0px 0px 6px black;
+                            height: 36px;
+                            width: 62px;
+                            font-size: 26px;
+                            line-height: 52px;
+                            font-weight: bold;
+                            text-align: right;
+                            margin-left: 5px;
+                        }
+                    }
+                }
+
                 #storm-container {
                     position: absolute;
                     width: 1299px;

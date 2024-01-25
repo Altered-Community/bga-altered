@@ -76,7 +76,7 @@ define([
         ['deleteCounter', 500],
         ['shuffleDeck', 100],
         ['winTieBreaker', 50],
-        ['startTiebreak', 500],
+        ['startTiebreak', null],
         ['targetCards', 500],
         ['moveCard', null],
         ['newPhase', 1000],
@@ -278,6 +278,8 @@ define([
     setupBoard() {
       let storm = this.gamedatas.storm;
       storm.forEach((stormCard, i) => {
+        if (this.gamedatas.tieBreaker && i == 2) stormCard.cardId = 5;
+
         $('storm-container').insertAdjacentHTML(
           'beforeend',
           `<div class='storm-card-container' id='storm-card-container-${i}'>
@@ -285,6 +287,9 @@ define([
           </div>`
         );
       });
+      if (this.gamedatas.tieBreaker) {
+        $('ebd-body').dataset.tieBreaker = 1;
+      }
 
       for (let i = 0; i < 8; i++) {
         $('storm-container').insertAdjacentHTML(
@@ -1469,10 +1474,6 @@ define([
     notif_winTieBreaker(n) {
       debug('Notif: winning with tiebreaker', n);
       // TODO?
-    },
-
-    notif_startTiebreak(n) {
-      debug('Notif: start tiebreak', n);
     },
 
     notif_newPhase(n) {

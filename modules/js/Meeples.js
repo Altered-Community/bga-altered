@@ -99,6 +99,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
      */
     slideResources(meeples, configFn, syncNotif = true) {
       let fakeId = -1; // Used for virtual meeple that will get destroyed after animation (eg SCORE)
+      let moveHeroCompanion = false;
       let promises = meeples.map((resource, i) => {
         // Get config for this slide
         let config = typeof configFn === 'function' ? configFn(resource, i) : Object.assign({}, configFn);
@@ -115,6 +116,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         let from = config.from ? config.from : this.getMeepleContainer(resource);
         if (!isVisible(target)) {
           config.to = $(`overall_player_board_${resource.pId}`);
+        }
+
+        if (['hero', 'companion'].includes(resource.type)) {
+          moveHeroCompanion = true;
         }
 
         // Slide it
@@ -147,6 +152,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
 
       let endCallback = () => {
+        if (moveHeroCompanion) this.updateUselessStormCards();
         if (syncNotif) {
           this.notifqueue.setSynchronousDuration(this.isFastMode() ? 0 : 10);
         }
@@ -250,6 +256,33 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_endDusk(n) {
       debug('Notif: ending dusk phase');
       $('focus-storm-overlay').classList.remove('active');
+    },
+
+    notif_startTiebreak(n) {
+      debug('Notif: start tie break', n);
+
+      if (this.isFastMode()) {
+        console.error('TODO: fast mode for tiebreak');
+      }
+
+      let meeples = n.args.meeples;
+      Promise.all(
+        meeples.map((meeple) => {
+          $(`meeple-${meeple.id}`).classList.remove('willProgress');
+
+          let container = this.getMeepleContainer({ location: 'storm-' + (meeple.type == 'hero' ? 2 : 5), pId: meeple.pId });
+          if ($(`meeple-${meeple.id}`).parentNode != container) return this.slide(`meeple-${meeple.id}`, container);
+          else return this.wait(10);
+        })
+      ).then(() => {
+        let oCard = $(`storm-card-container-2`).querySelector('.storm-card');
+        this.flipAndReplace(oCard, `<div class='storm-card' data-id='5' data-flipped='0'></div>`, {
+          direction: 'horizontal',
+        }).then(() => {
+          $('ebd-body').dataset.tieBreaker = 1;
+          this.slideResources(meeples);
+        });
+      });
     },
 
     /////////////////////////

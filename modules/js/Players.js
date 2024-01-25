@@ -43,6 +43,15 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
         // Panels
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
+        // Tie breaker
+        $('tie-breaker-attributes').insertAdjacentHTML(
+          'beforeend',
+          `<div class="total-biomes ${container}" id='tie-breaker-biomes-${player.id}'>
+          <div class='total-forest'></div>
+          <div class='total-mountain'></div>
+          <div class='total-ocean'></div>
+        </div>`
+        );
 
         // Discard modal
         this.setupDiscardModal(player);
@@ -152,8 +161,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${
-          player.id
-        }-totalMana"></span>
+            player.id
+          }-totalMana"></span>
           
           ${this.formatIcon('first-player')}
         </div>
@@ -284,6 +293,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
 
       let opponentId = this.getOpponent(pId);
+      let totals = { forest: 0, mountain: 0, ocean: 0 };
 
       // Update the total for each biome and each side
       ['stormLeft', 'stormRight'].forEach((storm) => {
@@ -296,6 +306,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           let o = container.querySelector(`.total-${biome}`);
           o.innerHTML = p[biome];
           o.dataset.size = sizes[biome];
+          totals[biome] += p[biome];
 
           // // Compare them
           // let o2 = $(`board-${storm}-${opponentId}`).querySelector(`.total-${biome}`);
@@ -311,6 +322,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           //   o2.classList.remove('bigger');
           // }
         });
+      });
+
+      let container = $(`tie-breaker-biomes-${pId}`);
+      ['forest', 'mountain', 'ocean'].forEach((biome) => {
+        let o = container.querySelector(`.total-${biome}`);
+        o.innerHTML = totals[biome];
       });
     },
 
@@ -341,14 +358,21 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         });
       });
 
-      let minPos = 8,
-        maxPos = 0;
       [...$('storm-container').querySelectorAll('.altered-meeple')].forEach((meeple) => {
         let pId = meeple.dataset.side == 'opponent' ? this.topPId : this.bottomPId;
         let type = meeple.dataset.type;
         let willProgress = willMove[pId][type];
         meeple.classList.toggle('willProgress', willProgress);
+      });
 
+      this.updateUselessStormCards();
+    },
+
+    updateUselessStormCards() {
+      let minPos = 8,
+        maxPos = 0;
+      [...$('storm-container').querySelectorAll('.altered-meeple')].forEach((meeple) => {
+        let type = meeple.dataset.type;
         let pos = +meeple.parentNode.dataset.x;
         if (type == 'hero') minPos = Math.min(minPos, pos);
         else maxPos = Math.max(maxPos, pos);

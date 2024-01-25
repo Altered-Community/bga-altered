@@ -896,7 +896,7 @@ define([
       var tgt = dojo.position(mobile);
       var box = dojo.marginBox(mobile);
       var cbox = dojo.contentBox(mobile);
-      console.log(src, tgt, box, cbox);
+      // console.log(src, tgt, box, cbox);
       var left = box.l + src.x - tgt.x;
       var top = box.t + src.y - tgt.y;
       this.positionObjectDirectly(mobile, left, top);
