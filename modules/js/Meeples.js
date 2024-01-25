@@ -247,7 +247,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       debug('Notif: starting dusk phase');
       $('focus-storm-overlay').classList.remove('mePassed');
       $('focus-storm-overlay').classList.remove('opponentPassed');
-      this.gamedatas.skippedPlayers = [];
+      this.gamedatas.passedPlayers = [];
       $('focus-storm-overlay').classList.add('active');
       $(`board-hero-${this.topPId}`).classList.remove('active');
       $(`board-hero-${this.bottomPId}`).classList.remove('active');
