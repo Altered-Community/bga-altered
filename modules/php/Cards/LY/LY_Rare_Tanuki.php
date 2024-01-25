@@ -32,7 +32,7 @@ class LY_Rare_Tanuki extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'effectPlayed' => FT::ACTION(ROLL_DIE, [
+      'effectReserve' => FT::ACTION(ROLL_DIE, [
         'effect' => [
           '4+' => FT::ACTION(TARGET, [
             'targetType' => [CHARACTER, SPELL, PERMANENT],
