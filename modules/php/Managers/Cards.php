@@ -92,12 +92,13 @@ class Cards extends \ALT\Helpers\CachedPieces
     // $faction = $player->getFaction();
     // $deck = DEMO[$faction];
     foreach (FACTIONS as $faction) {
-      $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? DEMO[$faction] : STARTER[$faction];
+      $deck = DEMO[$faction]; // to remove when game option is back
+      // $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? DEMO[$faction] : STARTER[$faction];
       $starterReady = ['AX', 'MU', 'BR', 'OD', 'YZ', 'LY'];
 
-      if (Globals::getDeckOptions() == OPTION_DECKS_STARTER && !in_array($faction, $starterReady)) {
-        continue;
-      }
+      // if (Globals::getDeckOptions() == OPTION_DECKS_STARTER && !in_array($faction, $starterReady)) {
+      //   continue;
+      // }
 
       foreach ($deck as $cardId => $n) {
         // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';

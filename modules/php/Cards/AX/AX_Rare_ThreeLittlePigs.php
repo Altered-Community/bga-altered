@@ -21,9 +21,9 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{J} If you control two or more Landmarks, I gain #2 boosts$[BB]#. (Cards in Reserve are not controlled.)'
       ),
-      'supportDesc' => clienttranslate(
-        '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
-      ),
+      // 'supportDesc' => clienttranslate(
+      //   '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
+      // ),
       'supportIcon' => 'discard',
       'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
       'typeline' => clienttranslate('Character - Engineer'),
