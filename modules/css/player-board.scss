@@ -444,6 +444,10 @@
                     border: 2px solid rgb(51, 129, 32);
                     background-color: rgba(17, 153, 17, 0.3);
                 }
+
+                .altered-card {
+                    pointer-events: none;
+                }
             }
         }
 
@@ -700,7 +704,7 @@
             background-position: -6px -15px;
 
             .altered-card {
-                margin: -31px 27px 0px 4px;
+                margin: -30px 27px 0px 4px;
             }
         }
 

@@ -1097,7 +1097,7 @@ define([
 
       if (t.support) {
         t.support.forEach((cardId) => {
-          if (!t.play || !Object.keys(t.play).includes(parseInt(cardId))) {
+          if (!t.play || $(`card-${cardId}`).classList.contains('selected')) {
             this.onClick(`card-${cardId}`, () => {
               unselectIfNeeded();
 
@@ -1120,14 +1120,19 @@ define([
         });
       }
 
-      this.addDangerActionButton('btnPass', _('Pass'), () => {
-        unselectIfNeeded();
-
-        this.takeAtomicAction('actPass', []);
-      });
+      this.addDangerActionButton(
+        'btnPass',
+        _('Pass'),
+        () => {
+          unselectIfNeeded();
+          this.takeAtomicAction('actPass', []);
+        },
+        'restartAction'
+      );
     },
 
     onEnteringStateChooseAssignmentLocation(args) {
+      this.addCancelStateBtn();
       if (!args.hasOwnProperty('clientState') || args.clientState == true) {
         // this.addCancelStateBtn();
         this.onEnteringStateChooseAssignment({
@@ -1140,6 +1145,11 @@ define([
       let cardId = args.cardId;
       oCard = $(`card-${cardId}`);
       oCard.classList.add('selected');
+      if (args.supportPossible) {
+        this.onClick(oCard.querySelector('.card-support-icon'), () => {
+          this.takeAtomicAction('actSupport', [cardId]);
+        });
+      }
       // Backup previous pos and transform
       oCard.backup = {
         transform: oCard.style.transform,
@@ -1191,7 +1201,7 @@ define([
       if (args.supportPossible == true) {
         this.addPrimaryActionButton(
           'btnSupportAbility',
-          _('Support ability') + `(${oCard.querySelector('.card-support-icon').innerHTML})`,
+          _('Support ability') + oCard.querySelector('.card-support-icon').innerHTML,
           () => this.takeAtomicAction('actSupport', [cardId])
         );
       }

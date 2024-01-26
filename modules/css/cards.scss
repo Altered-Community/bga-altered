@@ -979,6 +979,20 @@ $miniCardScale: 0.33;
             font-size: 18px;
             box-shadow: 0px 0px 5px 2px black;
 
+            transition:
+                bottom 0.5s,
+                right 0.5s,
+                height 0.5s,
+                border-radius 0.5s;
+            &.selectable {
+                bottom: -35px;
+                right: 50%;
+                height: 31px;
+                border-radius: 50%;
+                transform: translateX(50%);
+                animation: pulse-animation 1.2s infinite;
+            }
+
             &[data-faction="AX"] {
                 background: #774a32;
                 border: 1px solid #774a32;

@@ -1742,7 +1742,17 @@ html {
     justify-content: center;
     align-items: center;
     font-size: 18px;
-    box-shadow: 0px 0px 5px 2px black; }
+    box-shadow: 0px 0px 5px 2px black;
+    transition: bottom 0.5s, right 0.5s, height 0.5s, border-radius 0.5s; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon.selectable,
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon.selectable,
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon.selectable {
+      bottom: -35px;
+      right: 50%;
+      height: 31px;
+      border-radius: 50%;
+      transform: translateX(50%);
+      animation: pulse-animation 1.2s infinite; }
     .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"],
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-support-icon[data-faction="AX"] {
@@ -1966,7 +1976,8 @@ html {
 .bgabutton:not(:hover) .svgicon-mana-7 .path2:before,
 .bgabutton:not(:hover) .svgicon-mana-8 .path2:before,
 .bgabutton:not(:hover) .svgicon-mana-9 .path2:before,
-.bgabutton:not(:hover) .svgicon-mana-X .path2:before {
+.bgabutton:not(:hover) .svgicon-mana-X .path2:before,
+.bgabutton:not(:hover) .svgicon-discard .path2:before {
   color: black; }
 .bgabutton [class^="svgicon-"],
 .bgabutton [class*=" svgicon-"] {
@@ -2992,6 +3003,8 @@ html {
         .altered-player-board .player-board-grass .player-board-landmarks.selectable:hover {
           border: 2px solid #338120;
           background-color: rgba(17, 153, 17, 0.3); }
+        .altered-player-board .player-board-grass .player-board-landmarks.selectable .altered-card {
+          pointer-events: none; }
     .altered-player-board .player-board-grass .reserve-warning,
     .altered-player-board .player-board-grass .landmark-warning {
       position: absolute;
@@ -3140,7 +3153,7 @@ html {
   #altered-board-me .altered-player-board .player-board-grass .player-board-landmarks {
     background-position: -6px -15px; }
     #altered-board-me .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
-      margin: -31px 27px 0px 4px; }
+      margin: -30px 27px 0px 4px; }
   #altered-board-me .altered-player-board .player-board-grass .reserve-warning,
   #altered-board-me .altered-player-board .player-board-grass .landmark-warning {
     top: -10px; }

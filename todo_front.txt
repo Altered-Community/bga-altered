@@ -1,10 +1,7 @@
 [Misc]
 - check mobile
 - Unique: bordure dorée avec un glow
-- Booda : flavor text overflow
-- Meditation training: flavor text not displayed
-- Nurture : idem
-- Jeanne d'Arc: idem
+- landmark zone : not great
 
 [Après choix / écran VS]
 ~ Affichage de fight
@@ -13,9 +10,6 @@
 
 [Glossaire]
 - Bouton pour afficher le glossaire
-
-[Choose Assignment]
-- refaire une passe pour la support ability / btn Pass pas ouf
 
 [End game]
 - Reutiliser ecran de vs pour win
@@ -37,6 +31,7 @@ X helpers
 X deck thumbnail
 X autofit text for card names
 X Mieux gérer affichage cout mana dans title bar + logs
+X Booda : flavor text overflow
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure
@@ -84,6 +79,7 @@ X clique sur carte en réserve, c'est pas bien aligné https://boardgamearena.co
 X Je pense que c'est un sort qui a été joué donc il avait gardé son scale + 20% https://boardgamearena.com/bug?id=110540
 X enlever l'overlay
 X changer icone bouton spell
+X refaire une passe pour la support ability / btn Pass pas ouf
 
 [Discard card]
 X Quand je discard vers la main (via Intimidation par exemple), ca slide vers la discard un peu chelou avant d'arriver dans la main

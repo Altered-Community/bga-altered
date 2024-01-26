@@ -911,6 +911,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
+      if ($(id).querySelector('.card-support-icon')) {
+        $(id).querySelector('.card-support-icon').classList.remove('selectable');
+      }
+
       let slideIt = () => {
         let container = this.getCardContainer(card);
 
@@ -1225,6 +1229,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let flavor = _(p.flavorText || '');
       let maxSize = p.supportDesc == '' ? 250 : 180;
       if (flavor == '' || effect.length + flavor.length >= maxSize) return '';
+      if (p.token) return '';
       return (effect == '' ? '' : '<hr/>') + `<span class='flavor-text'>${flavor}</span>`;
     },
 
