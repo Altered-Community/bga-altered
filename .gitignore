@@ -8,3 +8,4 @@ node_modules/
 deploy.sh
 .gitignore
 .prettierrc
+sync-css.sh
