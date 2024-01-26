@@ -283,10 +283,10 @@ class Notifications
     );
   }
 
-  public static function putInDeck($player, $cards, $args = [])
+  public static function putOnDeck($player, $cards, $args = [])
   {
     self::notifyAll(
-      'putInDeck',
+      'putOnDeck',
       clienttranslate('${player_name} puts ${card_names} on top of its deck'),
       $args + [
         'player' => $player,

@@ -1126,7 +1126,7 @@ $miniCardScale: 0.33;
                     content: "+" attr(data-boost);
                     display: block;
                     position: absolute;
-                    left: 60px;
+                    left: 52px;
                     top: 0;
                     width: 30px;
                     height: 28px;
@@ -1153,6 +1153,16 @@ $miniCardScale: 0.33;
                     // border-radius: 8px;
                     // color: white;
                     // background: radial-gradient(circle at center, #e05c20 42%, #752b04 100%);
+                }
+
+                &[data-size="0"][data-boost]:not([data-boost="0"])::after {
+                    left: 30px;
+                }
+                &[data-size="1"][data-boost]:not([data-boost="0"])::after {
+                    left: 32px;
+                }
+                &[data-size="2"][data-boost]:not([data-boost="0"])::after {
+                    left: 39px;
                 }
             }
         }

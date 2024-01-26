@@ -782,11 +782,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
-    notif_putInDeck(n) {
-      debug('Notification: put on top of deck', n);
-      // TODO
-    },
-
     /**
      * stealingCard : slighty different => move card to other player panel and destroy it
      */
@@ -1130,6 +1125,35 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       ).then(() => {
         Object.keys(playerInc).forEach((player) => {
           this._playerCounters[player]['handCount'].incValue(playerInc[player]);
+        });
+        this.notifqueue.setSynchronousDuration(100);
+      });
+    },
+
+    notif_putOnDeck(n) {
+      debug('Notif: put back on deck', n);
+
+      let playerInc = {};
+      Promise.all(
+        [...n.args.cards].map((card) => {
+          let oCard = $(`card-${card.id}`);
+          if (card.location == 'destroy') {
+            this.fadeOutAndDestroy(oCard, 1000);
+            return this.wait(1000);
+          }
+
+          playerInc[card.pId] = playerInc[card.pId] ?? 0 + 1;
+
+          oCard.classList.remove('mini-card');
+          let fakeCardId = this._fakeIndex--;
+          let fakeCard = this.tplFakeCard({ id: fakeCardId });
+          return this.flipAndReplace(oCard, fakeCard).then(() => {
+            return this.slide(`card-${fakeCardId}`, `board-deck-${card.pId}`, { destroy: true });
+          });
+        })
+      ).then(() => {
+        Object.keys(playerInc).forEach((player) => {
+          this._playerCounters[player]['deckCount'].incValue(playerInc[player]);
         });
         this.notifqueue.setSynchronousDuration(100);
       });
