@@ -21,15 +21,20 @@ class PlayCard extends \ALT\Models\Action
   {
     $player = $this->getPlayer();
     $card = $this->getCard(true);
+    $msg = clienttranslate('Play ${card_name}');
 
     if (is_null($card)) {
       return clienttranslate('Play a card');
     }
+    if ($this->getArg('cost') > 0) {
+      $msg = clienttranslate('Play ${card_name} for ${mana_cost}');
+    }
 
     return [
-      'log' => clienttranslate('Play ${card_name}'),
+      'log' => $msg,
       'args' => [
         'card_name' => $card->getName(),
+        'mana_cost' => $this->getArg('cost'),
         'i18n' => ['card_name'],
       ],
     ];
@@ -61,6 +66,7 @@ class PlayCard extends \ALT\Models\Action
     'free' => false,
     'effectHand' => true,
     'location' => '',
+    'cost' => 0,
   ];
 
   public function argsPlayCard()
@@ -113,7 +119,7 @@ class PlayCard extends \ALT\Models\Action
     }
 
     // $this->playCard($cardId, $location); // TODO
-    Actions::get(CHOOSE_ASSIGNMENT)->playCard($cardId, $location, $this->getArg('free'), $this->getArg('effectHand'));
+    Actions::get(CHOOSE_ASSIGNMENT)->playCard($cardId, $location, $this->getArg('free'), $this->getArg('effectHand'), $this->getArg('cost'));
     $this->resolveAction([$cardId, $location]);
   }
 }
