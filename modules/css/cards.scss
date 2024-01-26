@@ -1101,8 +1101,14 @@ $miniCardScale: 0.33;
             border: 1px solid #7eabcd;
             box-shadow: 1px 1px 6px 4px black;
 
-            .icon-container {
+            .explanation-icon {
                 margin: 2px 7px;
+                font-weight: bold;
+                text-align: center;
+                font-family: "Haptic Pro";
+                .icon-container {
+                    margin: 0.3em 0.2em;
+                }
             }
 
             p {

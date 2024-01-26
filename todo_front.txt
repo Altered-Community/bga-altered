@@ -1,17 +1,11 @@
 [Misc]
+- check mobile
 - Unique: bordure dorée avec un glow
 
 [Après choix / écran VS]
 ~ Affichage de fight
 - Image a envoyer
 - enlever l'overlay dès le début
-
-[Tooltip]
-X afficher l'icone
-    * D'abord statut puis reminder
-    * Afficher les tokens Asleep/anchored / avec les vraies images
-- tooltip : boost discussion Max avec x 5
-- virer tooltip dans discard
 
 [Glossaire]
 - Bouton pour afficher le glossaire
@@ -73,6 +67,8 @@ X afficher l'icone
     * Afficher les tokens Asleep/anchored / avec les vraies images
 X Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
 X disable tooltip in mana pool
+X tooltip : boost discussion Max avec x 5
+X virer tooltip dans discard
 
 
 [Choose Assignment]

@@ -65,6 +65,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       if (type == 'asleep') {
         return [_("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep.")];
       }
+      if (type == 'boost') {
+        return [_('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.')];
+      }
       return null;
     },
 

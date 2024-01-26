@@ -1219,7 +1219,7 @@ define([
           // hideDelay: 0,
           midSize: true,
           forceRecreate: false,
-          disablingParentClass: null,
+          disablingParentClasses: null,
         },
         config
       );
@@ -1228,6 +1228,14 @@ define([
       let getContent = () => {
         let content = typeof html === 'function' ? html() : html;
         return content;
+      };
+
+      // Some parent will prevent tooltip
+      let isPrevented = () => {
+        return (
+          config.disablingParentClasses &&
+          config.disablingParentClasses.some((className) => $(id).parentNode.classList.contains(className))
+        );
       };
 
       if (this.tooltips[id] && !config.forceRecreate) {
@@ -1295,7 +1303,7 @@ define([
       );
 
       dojo.connect($(id), 'click', (evt) => {
-        if (config.disablingParentClass && $(id).parentNode.classList.contains(config.disablingParentClass)) return;
+        if (isPrevented()) return;
 
         if (!this._helpMode) {
           tooltip.hide();
@@ -1317,7 +1325,7 @@ define([
       });
 
       dojo.connect($(id), 'mouseenter', (evt) => {
-        if (config.disablingParentClass && $(id).parentNode.classList.contains(config.disablingParentClass)) return;
+        if (isPrevented()) return;
 
         evt.stopPropagation();
         if (!this._helpMode && !this._dragndropMode) {
@@ -1327,7 +1335,7 @@ define([
       });
 
       dojo.connect($(id), 'mouseleave', (evt) => {
-        if (config.disablingParentClass && $(id).parentNode.classList.contains(config.disablingParentClass)) return;
+        if (isPrevented()) return;
 
         evt.stopPropagation();
         if (!this._helpMode && !this._dragndropMode) {

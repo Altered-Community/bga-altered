@@ -1851,8 +1851,13 @@ html {
       border-radius: 6px;
       border: 1px solid #7eabcd;
       box-shadow: 1px 1px 6px 4px black; }
-      .altered-card-tooltip .tooltip-explanation .explanation .icon-container {
-        margin: 2px 7px; }
+      .altered-card-tooltip .tooltip-explanation .explanation .explanation-icon {
+        margin: 2px 7px;
+        font-weight: bold;
+        text-align: center;
+        font-family: "Haptic Pro"; }
+        .altered-card-tooltip .tooltip-explanation .explanation .explanation-icon .icon-container {
+          margin: 0.3em 0.2em; }
       .altered-card-tooltip .tooltip-explanation .explanation p {
         padding-right: 10px; }
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-boost]:not([data-boost="0"])::after,
@@ -1951,6 +1956,19 @@ html {
 .bgabutton [class^="svgicon-"],
 .bgabutton [class*=" svgicon-"] {
   vertical-align: text-top; }
+
+#logs .svgicon-mana-0 .path2:before,
+#logs .svgicon-mana-1 .path2:before,
+#logs .svgicon-mana-2 .path2:before,
+#logs .svgicon-mana-3 .path2:before,
+#logs .svgicon-mana-4 .path2:before,
+#logs .svgicon-mana-5 .path2:before,
+#logs .svgicon-mana-6 .path2:before,
+#logs .svgicon-mana-7 .path2:before,
+#logs .svgicon-mana-8 .path2:before,
+#logs .svgicon-mana-9 .path2:before,
+#logs .svgicon-mana-X .path2:before {
+  color: black; }
 
 @font-face {
   font-family: "icomoon";
@@ -2353,17 +2371,22 @@ html {
   padding-bottom: 10px;
   border-top-right-radius: 0px; }
 
-#logs .log .roundedbox {
+#logs .log .roundedbox,
+.chatwindowlogs_zone .roundedbox.log {
   background-color: #393955;
   color: #dfdede;
   border: 1px solid #66688a;
   border-radius: 4px; }
-  #logs .log .roundedbox .replay_last_move_button {
+  #logs .log .roundedbox .replay_last_move_button,
+  .chatwindowlogs_zone .roundedbox.log .replay_last_move_button {
     color: white;
     border-color: white; }
-    #logs .log .roundedbox .replay_last_move_button .icon32 {
+    #logs .log .roundedbox .replay_last_move_button .icon32,
+    .chatwindowlogs_zone .roundedbox.log .replay_last_move_button .icon32 {
       filter: invert(100%); }
-#logs .log.notif_newPhase .roundedbox {
+
+#logs .log.notif_newPhase .roundedbox,
+.chatwindowlogs_zone .log.notif_newPhase.roundedbox {
   background: radial-gradient(#4b7c85, #355b62);
   text-align: center;
   color: #dbaf4e;

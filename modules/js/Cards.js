@@ -108,7 +108,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let o = this.place('tplCard', card, container);
       if (o !== undefined) {
         this.addCustomTippyTooltip(o.id, this.tplCardTooltip(card), {
-          disablingParentClass: 'mana-modal',
+          disablingParentClasses: ['mana-modal', 'no-tooltip'],
         });
         if (this._loadingComplete) {
           this.autofitCardFrame(o);
@@ -221,10 +221,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         onStartShow: () => {
           this.closeCurrentTooltip(false);
           $(`discard-cards-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+          $(`board-discard-${pId}`).classList.add('no-tooltip');
         },
         onStartHide: () => {
           this.closeCurrentTooltip(false);
           $(`player-board-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+          $(`board-discard-${pId}`).classList.remove('no-tooltip');
         },
         onShow: () => this.closeCurrentTooltip(false),
       });
@@ -232,6 +234,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.closeCurrentTooltip(false);
         if (this._discardModals[pId].isDisplayed()) this._discardModals[pId].hide();
         else this._discardModals[pId].show();
+      });
+      $(`discard-cards-${pId}`).addEventListener('click', () => {
+        this.closeCurrentTooltip(false);
+        if (this._discardModals[pId].isDisplayed()) this._discardModals[pId].hide();
       });
     },
 
@@ -1625,11 +1631,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     getCardTooltipExplanation(card) {
       let explanation = '';
-      this.getMeeplesOnCard(card.id).forEach((oMeeple) => {
-        let tooltipDesc = this.getMeepleTooltip({ type: oMeeple.dataset.type });
+      let meeplesByTypes = this.getMeeplesOnCard(card.id).groupBy((oMeeple) => oMeeple.dataset.type);
+      Object.keys(meeplesByTypes).forEach((type) => {
+        let tooltipDesc = this.getMeepleTooltip({ type });
         if (tooltipDesc != null) {
+          let n = meeplesByTypes[type].length;
           explanation += `<div class='explanation'>
-            ${this.formatIcon(oMeeple.dataset.type)}
+            <div class='explanation-icon'>
+              ${this.formatIcon(type)}
+              ${n > 1 ? `x ${n}` : ''}
+            </div>
             <p>
               ${tooltipDesc.map((t) => this.formatString(t)).join('<br/>')}
             </p>

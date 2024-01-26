@@ -126,33 +126,33 @@
     }
 }
 
-#logs {
-    .log .roundedbox {
-        background-color: #393955;
-        color: #dfdede;
-        border: 1px solid #66688a;
-        border-radius: 4px;
+#logs .log .roundedbox,
+.chatwindowlogs_zone .roundedbox.log {
+    background-color: #393955;
+    color: #dfdede;
+    border: 1px solid #66688a;
+    border-radius: 4px;
 
-        .replay_last_move_button {
-            color: white;
-            border-color: white;
+    .replay_last_move_button {
+        color: white;
+        border-color: white;
 
-            .icon32 {
-                filter: invert(100%);
-            }
+        .icon32 {
+            filter: invert(100%);
         }
     }
+}
 
-    .log.notif_newPhase .roundedbox {
-        background: radial-gradient(#4b7c85, #355b62);
-        text-align: center;
-        color: #dbaf4e;
-        border-color: #acacac;
-        font-weight: bold;
-        font-family: "Tiller";
-        font-size: 16px;
-        padding: 5px 2px 3px;
-    }
+#logs .log.notif_newPhase .roundedbox,
+.chatwindowlogs_zone .log.notif_newPhase.roundedbox {
+    background: radial-gradient(#4b7c85, #355b62);
+    text-align: center;
+    color: #dbaf4e;
+    border-color: #acacac;
+    font-weight: bold;
+    font-family: "Tiller";
+    font-size: 16px;
+    padding: 5px 2px 3px;
 }
 
 .pageheader {

@@ -117,6 +117,27 @@
   }
 }
 
+#logs {
+  .svgicon-mana-0,
+  .svgicon-mana-1,
+  .svgicon-mana-2,
+  .svgicon-mana-3,
+  .svgicon-mana-4,
+  .svgicon-mana-5,
+  .svgicon-mana-6,
+  .svgicon-mana-7,
+  .svgicon-mana-8,
+  .svgicon-mana-9,
+  .svgicon-mana-X {
+    .path2:before {
+      color: black;
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
 @font-face {
   font-family: "icomoon";
   src: url("img/fonts/Icons/icomoon.eot");
