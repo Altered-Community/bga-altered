@@ -152,6 +152,7 @@ $machinestates = [
   ST_BEFORE_NIGHT => [
     'name' => 'beforeNight',
     'description' => '',
+    'updateGameProgression' => true,
     'type' => 'game',
     'action' => 'stBeforeNight',
     'transitions' => [
@@ -421,6 +422,7 @@ $machinestates = [
     'name' => 'preEndOfGame',
     'type' => 'game',
     'action' => 'stPreEndOfGame',
+    'updateGameProgression' => true,
     'transitions' => ['' => ST_END_GAME],
   ],
 

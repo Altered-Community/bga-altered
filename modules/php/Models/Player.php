@@ -230,6 +230,9 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function checkVictory()
   {
+    if (is_null($this->getCompanionToken())) {
+      return 7;
+    }
     $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];
     $heroPos = explode('-', $this->getHeroToken()->getLocation())[1];
     return [$companionPos - $heroPos <= 0, Globals::getStormMoves()[$this->id] ?? 0];

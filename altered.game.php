@@ -96,9 +96,17 @@ class altered extends Table
 
   function getGameProgression()
   {
-    // TODO: compute and return the game progression
+    if (Globals::isTieBreakerMode()) {
+      return 99;
+    }
 
-    return 50;
+    $distance = 99;
+    foreach (Players::getAll() as $pId => $player) {
+      list($d, $c) = $player->checkVictory();
+      $distance = min($distance, $d);
+    }
+
+    return $d / 7 * 100;
   }
 
   function actChangePreference($pref, $value)
