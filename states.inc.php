@@ -314,7 +314,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actPlay', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actPlayCard', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_ACTIVATE_CARD => [

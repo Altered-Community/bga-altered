@@ -272,6 +272,7 @@ class Discard extends \ALT\Models\Action
         Notifications::putOnDeck($player, $copyCards, [
           'hand' => $hand,
           'destination' => $args['destination'],
+          'tokensOnly' => count($deletedTokens) == count($cards)
         ]);
       } else {
         Notifications::publicDiscard($player, $copyCards, $msg, [

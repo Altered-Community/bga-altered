@@ -60,6 +60,7 @@ class PlayCard extends \ALT\Models\Action
     'n' => 1,
     'free' => false,
     'effectHand' => true,
+    'location' => '',
   ];
 
   public function argsPlayCard()
@@ -93,7 +94,14 @@ class PlayCard extends \ALT\Models\Action
     ];
   }
 
-  public function actPlay($cardId, $location)
+  public function stPlayCard()
+  {
+    if ($this->getArg('location') != '') {
+      return [$this->getCard()->getId(), $this->getArg('location')];
+    }
+  }
+
+  public function actPlayCard($cardId, $location)
   {
     $args = $this->argsPlayCard()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;

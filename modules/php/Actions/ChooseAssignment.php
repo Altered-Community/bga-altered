@@ -140,7 +140,7 @@ class ChooseAssignment extends \ALT\Models\Action
                 FT::ACTION(PAY, ['pay' => $cost - $card->getCostReductionDiscard()])
               )
             ),
-            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true])
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location])
           )
         );
         $this->resolveAction(['CostReduction']);

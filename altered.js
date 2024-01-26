@@ -1217,7 +1217,7 @@ define([
       $(`card-${cardId}`).classList.add('selected');
 
       let onChooseLocation = (location) => {
-        return () => this.takeAtomicAction('actPlay', [cardId, location]);
+        return () => this.takeAtomicAction('actPlayCard', [cardId, location]);
       };
 
       const names = {
