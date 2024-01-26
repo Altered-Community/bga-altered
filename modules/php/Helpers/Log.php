@@ -154,14 +154,14 @@ class Log extends \APP_DbObject
 
       $log['affected'] = json_decode($log['affected'], true);
       $moveIds[] = intval($log['move_id']);
-
       foreach ($log['affected'] as $row) {
         $q = new QueryBuilder($log['table'], null, $log['primary']);
 
         if ($log['type'] != 'create') {
           foreach ($row as $key => $val) {
             if (isset($row[$key])) {
-              $row[$key] = str_replace("'", "\\'", \stripcslashes($val));
+              $val = str_replace('\\', '\\\\', $val);
+              $row[$key] = $val;
             }
           }
         }

@@ -522,7 +522,11 @@ class CachedPieces extends DB_Manager
         }
 
         foreach (static::$customFields as $field) {
-          $data[] = $info[$field] ?? null;
+          if (isset($info[$field]) && is_array($info[$field])) {
+            $data[] = \json_encode($info[$field]);
+          } else {
+            $data[] = $info[$field] ?? null;
+          }
         }
 
         $values[] = $data;

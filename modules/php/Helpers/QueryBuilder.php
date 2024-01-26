@@ -79,7 +79,7 @@ class QueryBuilder extends \APP_DbObject
           $val === null
             ? 'NULL'
             : (is_array($val)
-              ? "'" . \addslashes(\json_encode($val)) . "'"
+              ? "'" . mysql_escape_string(json_encode($val)) . "'"
               : "'" . mysql_escape_string($val) . "'");
       }
       $vals[] = '(' . implode(',', $rowValues) . ')';
@@ -119,7 +119,8 @@ class QueryBuilder extends \APP_DbObject
   {
     $values = [];
     foreach ($fields as $column => $field) {
-      $values[] = "`$column` = " . (is_null($field) ? 'NULL' : "'$field'");
+      $v = (is_null($field) ? 'NULL' : "'$field'");
+      $values[] = "`$column` = " . $v;
     }
 
     $this->operation = 'update';
