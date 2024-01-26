@@ -18,7 +18,7 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),
       'typeline' => clienttranslate('Token - Soldier'),
-      'flavorText' => clienttranslate('MISSING FLAVOR'),
+      'flavorText' => '',
       'artist' => 'Jean-Baptiste Andrier',
 
       'forest' => 1,

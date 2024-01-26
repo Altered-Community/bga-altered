@@ -358,19 +358,19 @@ class Notifications
     if ($location == 'limbo') {
       $msg =
         $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost}')
-        : clienttranslate('${player_name} plays ${card_name} for ${cost}');
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost}')
+        : clienttranslate('${player_name} plays ${card_name} for ${mana_cost}');
     } else {
       $msg =
         $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}')
-        : clienttranslate('${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}');
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation}')
+        : clienttranslate('${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation}');
     }
 
     self::notifyAll('playCard', $msg, [
       'player' => $player,
       'card' => $card,
-      'cost' => $cost,
+      'mana_cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
       'biomes' => $player->getBiomeStrength(),

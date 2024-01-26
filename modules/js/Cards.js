@@ -12,7 +12,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const PERMANENT = 'permanent';
   const SPELL = 'spell';
   const TOKEN = 'token';
-  const FONT_SIZE = '14px';
   let CARDS_DATA = {};
 
   return declare('altered.cards', null, {
@@ -1200,22 +1199,21 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplHeroCard(card, tooltip = false, mini = false) {
       let p = card.properties;
+      let i = this.getCardFrontInfos(card, tooltip);
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
-      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
 
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
           class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
-          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-text' style="font-size:${textFontSize}">
+          <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect' style="padding-top:${paddingTop}">
+            <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
             </div>
           </div>
@@ -1254,11 +1252,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplCharacterCard(card, tooltip = false, mini = false) {
       let p = card.properties;
+      let i = this.getCardFrontInfos(card, tooltip);
       let sizes = this.getBiomesUISizes(p);
-      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
-      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
-      let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
 
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
@@ -1272,36 +1267,36 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${boost}' ${counter}>
+        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${i.boost}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
+          <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>
 
-          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
           <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' 
-            data-initial='${p.forest}' data-boost='${boost}'>
+            data-initial='${p.forest}' data-boost='${i.boost}'>
             ${p.forest}
           </div>
           <div class='card-mountain ${changed('mountain')}' data-size='${sizes.mountain}' 
-            data-initial='${p.mountain}' data-boost='${boost}'>
+            data-initial='${p.mountain}' data-boost='${i.boost}'>
             ${p.mountain}
           </div>
           <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' 
-            data-initial='${p.ocean}' data-boost='${boost}'>
+            data-initial='${p.ocean}' data-boost='${i.boost}'>
             ${p.ocean}
           </div>
 
-          <div class='card-text' style="font-size:${textFontSize}">
+          <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect' style="padding-top:${paddingTop}">
+            <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
               ${flavor}
             </div>
@@ -1328,30 +1323,29 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplTokenCard(card, tooltip = false, mini = false) {
       let p = card.properties;
+      let i = this.getCardFrontInfos(card, tooltip);
       let sizes = this.getBiomesUISizes(p);
-      let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
 
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${boost}'>
+        class='altered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${i.boost}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
           <div class='card-frame' data-faction='${p.faction}' data-type='token'></div>
-          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
-          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
+          <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${i.boost}'>${p.forest}</div>
+          <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${i.boost}'>${
             p.mountain
           }</div>
-          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
+          <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${i.boost}'>${p.ocean}</div>
 
-          <div class='card-text' style="font-size:${textFontSize}">
+          <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect'>
+            <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
               ${flavor}
             </div>
@@ -1374,9 +1368,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplSpellCard(card, tooltip = false, mini = false) {
       let p = card.properties;
-      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
-      let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
+      let i = this.getCardFrontInfos(card, tooltip);
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
@@ -1391,21 +1383,21 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-spell ${mini ? 'mini-card' : ''}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
+          <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='spell'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>
 
-          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-name'style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-text' style="font-size:${textFontSize}">
+          <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect' style="padding-top:${paddingTop}">
+            <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
               ${flavor}
             </div>
@@ -1433,8 +1425,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplPermanentCard(card, tooltip = false, mini = false) {
       let p = card.properties;
-      let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
-      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let i = this.getCardFrontInfos(card, tooltip);
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
@@ -1448,21 +1439,21 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-permanent ${mini ? 'mini-card' : ''}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
-          <div class='card-frame' data-size='${frameSize}' data-faction='${p.faction}' 
+          <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='permanent'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>
 
-          <div class='card-name'>${_(p.name)}</div>
+          <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
-          <div class='card-text' style="font-size:${textFontSize}">
+          <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
-            <div class='card-effect'>
+            <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
               ${flavor}
             </div>
@@ -1486,6 +1477,30 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
+    getCardFrontInfos(card, tooltip) {
+      if (tooltip) {
+        let oCard = $(`card-${card.id}`);
+        return {
+          frameSize: oCard.querySelector('.card-frame').dataset.size,
+          textFontSize: oCard.querySelector('.card-text').style.fontSize,
+          nameFontSize: oCard.querySelector('.card-name').style.fontSize,
+          boost: oCard.dataset.boost,
+          textPaddingTop: oCard.querySelector('.card-effect').style.paddingTop,
+        };
+      }
+
+      let infos = {
+        frameSize: 1,
+        textFontSize: '14px',
+        nameFontSize: '16px',
+        boost: 0,
+        textPaddingTop: '0px',
+      };
+      if (card.type == 'hero') infos.nameFontSize = '22px';
+
+      return infos;
+    },
+
     autofitCardFrame(oCard, eraseExisting = false) {
       if (!oCard.querySelector('.card-effect')) return;
 
@@ -1493,23 +1508,40 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (isMini) oCard.classList.remove('mini-card');
       oCard.style.setProperty('--cardScale', 1);
       oCard.classList.add('force-frame');
+
+      let card = this.getCardInfos(oCard.dataset.id);
+      let i = this.getCardFrontInfos(card);
+
       if (eraseExisting) {
-        oCard.querySelector('.card-text').style.fontSize = FONT_SIZE + 'px';
-        oCard.querySelector('.card-effect').style.paddingTop = '0px';
+        oCard.querySelector('.card-name').style.fontSize = i.nameFontSize;
+        oCard.querySelector('.card-text').style.fontSize = i.textFontSize;
+        oCard.querySelector('.card-effect').style.paddingTop = i.textPaddingTop;
       }
       oCard.offsetHeight;
 
       // Fit effect
-      let isEffectSizeOk = () =>
-        oCard.querySelector('.card-text').offsetHeight -
-          (oCard.querySelector('.card-support') ? oCard.querySelector('.card-support').offsetHeight : 0) >=
-        oCard.querySelector('.card-effect').offsetHeight;
+      let isEffectSizeOk = () => {
+        let frameSize =
+          oCard.querySelector('.card-text').offsetHeight -
+          (oCard.querySelector('.card-support') ? oCard.querySelector('.card-support').offsetHeight : 0);
+        let contentSize = oCard.querySelector('.card-effect').offsetHeight;
+        return frameSize >= contentSize;
+      };
+
       if (!isEffectSizeOk()) {
         oCard.querySelector('.card-frame').dataset.size = 2;
         oCard.offsetHeight;
         for (let i = 13; i >= 10 && !isEffectSizeOk(); i--) {
           oCard.querySelector('.card-text').style.fontSize = `${i}px`;
         }
+      }
+
+      // Fit name
+      let oName = oCard.querySelector('.card-name');
+      let isNameSizeOk = () => oName.offsetHeight + 3 > oName.scrollHeight;
+      let d = parseInt(i.nameFontSize);
+      for (let i = d; i >= d - 4 && !isNameSizeOk(); i--) {
+        oCard.querySelector('.card-name').style.fontSize = `${i}px`;
       }
 
       // // Center text

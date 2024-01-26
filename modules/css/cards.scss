@@ -375,13 +375,18 @@
             position: absolute;
             z-index: 2;
             top: 24px;
-            left: 48px;
-            right: 50px;
+            left: 51px;
+            right: 53px;
             font-size: 16px;
             color: white;
-            text-align: center;
             font-family: "Jali Greek Variable";
             font-weight: bold;
+            word-break: break-all;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 23px;
         }
 
         .card-typeline {
@@ -616,6 +621,7 @@
             top: auto;
         }
 
+        // Adjust text position for effect depending on frame
         .card-frame[data-support="1"][data-size="1"] ~ .card-text,
         .card-frame[data-support="0"][data-size="2"] ~ .card-text {
             top: 280px;
@@ -629,6 +635,14 @@
                 shape-outside: polygon(0px 106px, 0px 182px, 70px 182px, 70px 106px);
             }
         }
+        .card-frame[data-type="token"] ~ .card-text {
+            top: 365px;
+            .card-qrcode-container {
+                shape-outside: polygon(0px 0px, 0px 53px, 70px 52px, 70px 0px);
+            }
+        }
+
+        // Adjust width for permanent frame
         .card-frame[data-type="permanent"] ~ .card-text {
             left: 25px;
             right: 25px;
@@ -655,6 +669,7 @@
         .card-name {
             top: 24px;
             font-size: 22px;
+            height: 27px;
         }
         .card-typeline {
             top: 50px;
@@ -663,7 +678,7 @@
         .card-text {
             top: 311px;
             bottom: 31px;
-            left: 25px;
+            left: 21px;
             right: 21px;
         }
     }

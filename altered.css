@@ -1213,13 +1213,17 @@ html {
       position: absolute;
       z-index: 2;
       top: 24px;
-      left: 48px;
-      right: 50px;
+      left: 51px;
+      right: 53px;
       font-size: 16px;
       color: white;
-      text-align: center;
       font-family: "Jali Greek Variable";
-      font-weight: bold; }
+      font-weight: bold;
+      word-break: break-all;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 23px; }
     .altered-card .altered-card-wrapper .card-typeline {
       position: absolute;
       z-index: 2;
@@ -1403,6 +1407,10 @@ html {
       top: 245px; }
       .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="2"] ~ .card-text .card-qrcode-container {
         shape-outside: polygon(0px 106px, 0px 182px, 70px 182px, 70px 106px); }
+    .altered-card .altered-card-wrapper .card-frame[data-type="token"] ~ .card-text {
+      top: 365px; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="token"] ~ .card-text .card-qrcode-container {
+        shape-outside: polygon(0px 0px, 0px 53px, 70px 52px, 70px 0px); }
     .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text {
       left: 25px;
       right: 25px; }
@@ -1420,14 +1428,15 @@ html {
       font-size: 9px; }
   .altered-card.card-hero .card-name {
     top: 24px;
-    font-size: 22px; }
+    font-size: 22px;
+    height: 27px; }
   .altered-card.card-hero .card-typeline {
     top: 50px;
     font-size: 15px; }
   .altered-card.card-hero .card-text {
     top: 311px;
     bottom: 31px;
-    left: 25px;
+    left: 21px;
     right: 21px; }
 
 .altered-card.no-frame.card-hero.selected {
@@ -3671,13 +3680,13 @@ html {
   font-display: swap; }
 @font-face {
   font-family: "Jali Greek Variable";
-  src: url("img/JaliGreekVariable-Regular.woff2") format("woff2"), url("img/JaliGreekVariable-Regular.ttf") format("truetype");
+  src: url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.woff2") format("woff2"), url("img/fonts/JaliGreekVariable/JaliGreekVariable-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap; }
 @font-face {
   font-family: "Jali Greek Variable";
-  src: url("img/JaliGreekVariable-Italic.woff2") format("woff2"), url("img/JaliGreekVariable-Italic.ttf") format("truetype");
+  src: url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.woff2") format("woff2"), url("img/fonts/JaliGreekVariable/JaliGreekVariable-Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
   font-display: swap; }

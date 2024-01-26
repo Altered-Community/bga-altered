@@ -336,8 +336,10 @@ define([
 
     onLoadingComplete() {
       this.updateLayout();
-      document.querySelectorAll('.altered-card').forEach((oCard) => this.autofitCardFrame(oCard, true));
-      this._loadingComplete = true;
+      document.fonts.ready.then(() => {
+        document.querySelectorAll('.altered-card').forEach((oCard) => this.autofitCardFrame(oCard, true));
+        this._loadingComplete = true;
+      });
       this.inherited(arguments);
     },
 

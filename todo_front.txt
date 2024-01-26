@@ -1,5 +1,4 @@
 [Misc]
-- autofit text for card names
 - Unique: bordure dorée avec un glow
 
 [Après choix / écran VS]
@@ -38,6 +37,7 @@ X Compteurs sur la carte
 X reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
 X helpers
 X deck thumbnail
+X autofit text for card names
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure
