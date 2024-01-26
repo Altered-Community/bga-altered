@@ -1214,10 +1214,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     getSupportIcon(properties) {
-      if (!properties.supportIcon || properties.supportIcon == '') return '';
-      return `<div class='card-support-icon' data-faction='${properties.faction}'>${this.formatSvgIcon(
-        properties.supportIcon
-      )}</div>`;
+      console.log(properties);
+      if (properties.supportIcon === undefined || properties.supportIcon == '') return '';
+      return `<div class='card-support-icon' data-faction='${properties.faction}'>
+        ${this.formatSvgIcon(properties.supportIcon)}
+      </div>`;
     },
 
     getFlavorTextIfFitting(effect, p) {

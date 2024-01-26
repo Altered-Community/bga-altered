@@ -1394,6 +1394,9 @@ html {
       .altered-card .altered-card-wrapper .card-support .svgicon-mana-9 .path2:before,
       .altered-card .altered-card-wrapper .card-support .svgicon-mana-X .path2:before {
         color: black; }
+    .altered-card .altered-card-wrapper .card-frame[data-faction="AX"] ~ .card-support .rare-marker,
+    .altered-card .altered-card-wrapper .card-frame[data-faction="OD"] ~ .card-support .rare-marker {
+      color: #e1c24e; }
     .altered-card .altered-card-wrapper .card-frame[data-support="0"] ~ .card-support {
       height: 0px;
       top: auto; }
@@ -1979,7 +1982,18 @@ html {
 #logs .svgicon-mana-7 .path2:before,
 #logs .svgicon-mana-8 .path2:before,
 #logs .svgicon-mana-9 .path2:before,
-#logs .svgicon-mana-X .path2:before {
+#logs .svgicon-mana-X .path2:before,
+#page-title .svgicon-mana-0 .path2:before,
+#page-title .svgicon-mana-1 .path2:before,
+#page-title .svgicon-mana-2 .path2:before,
+#page-title .svgicon-mana-3 .path2:before,
+#page-title .svgicon-mana-4 .path2:before,
+#page-title .svgicon-mana-5 .path2:before,
+#page-title .svgicon-mana-6 .path2:before,
+#page-title .svgicon-mana-7 .path2:before,
+#page-title .svgicon-mana-8 .path2:before,
+#page-title .svgicon-mana-9 .path2:before,
+#page-title .svgicon-mana-X .path2:before {
   color: black; }
 
 @font-face {
@@ -4442,6 +4456,9 @@ html {
 
 #btnConfirmChoice {
   margin-left: 30px;
+  background: #d7ab29; }
+
+#btnSupportAbility {
   background: #d7ab29; }
 
 #ebd-body.help-mode .tooltipable {

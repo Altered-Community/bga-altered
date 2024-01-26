@@ -615,6 +615,11 @@
             }
         }
 
+        .card-frame[data-faction="AX"] ~ .card-support .rare-marker,
+        .card-frame[data-faction="OD"] ~ .card-support .rare-marker {
+            color: #e1c24e;
+        }
+
         // Make sure to remove support if not needed
         .card-frame[data-support="0"] ~ .card-support {
             height: 0px;

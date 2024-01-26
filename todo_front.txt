@@ -1,6 +1,10 @@
 [Misc]
 - check mobile
 - Unique: bordure dorée avec un glow
+- Booda : flavor text overflow
+- Meditation training: flavor text not displayed
+- Nurture : idem
+- Jeanne d'Arc: idem
 
 [Après choix / écran VS]
 ~ Affichage de fight
@@ -32,6 +36,7 @@ X reminders dans mauvais ordre si plusieurs présents dans la même phrase...
 X helpers
 X deck thumbnail
 X autofit text for card names
+X Mieux gérer affichage cout mana dans title bar + logs
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure

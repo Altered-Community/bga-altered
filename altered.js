@@ -1078,13 +1078,18 @@ define([
           else {
             this.onClick(`card-${cardId}`, () => {
               unselectIfNeeded();
-              this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
-                play: t.play,
-                support: t.support,
-                tap: t.tap,
-                cardId,
-                supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
-              });
+              let supportPossible = t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false;
+              this.clientState(
+                'chooseAssignmentLocation',
+                supportPossible ? _('What do you want to do with that card?') : _('Where do you want to play that card?'),
+                {
+                  play: t.play,
+                  support: t.support,
+                  tap: t.tap,
+                  cardId,
+                  supportPossible,
+                }
+              );
             });
           }
         });
@@ -1184,8 +1189,10 @@ define([
       }
 
       if (args.supportPossible == true) {
-        this.addPrimaryActionButton('btnLocation' + 99, _('Support ability'), () =>
-          this.takeAtomicAction('actSupport', [cardId])
+        this.addPrimaryActionButton(
+          'btnSupportAbility',
+          _('Support ability') + `(${oCard.querySelector('.card-support-icon').innerHTML})`,
+          () => this.takeAtomicAction('actSupport', [cardId])
         );
       }
     },
