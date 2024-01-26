@@ -6,7 +6,7 @@ X Tough: mettre une icone bouclier + afficher le coût supplémentaire
 X Asleep
 X Icones status : mettre les vrais meeples
 X Compteurs sur la carte
-- reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
+X reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
 - autofit text for card names
 X helpers
 X deck thumbnail

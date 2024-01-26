@@ -1627,6 +1627,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     // },
 
     replaceKeyWordsAndGetReminders(str) {
+      let t = str.split('  ');
+      if (t.length > 1) {
+        return t.map((s) => this.replaceKeyWordsAndGetReminders(s)).join('<br />');
+      }
+
       const KEYWORDS = {
         AFTER_YOU: {
           text: _('After You'),
@@ -1642,7 +1647,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         BB: {
           text: '',
-          reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone'),
+          reminder: _('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.'),
         },
         BOODA: {
           text: _('Booda 2/2/2'),
@@ -1706,76 +1711,47 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       };
 
       const regexParentheses = /\(([^)]+)\)/;
+      const regex = new RegExp('\\$\\[([^\\]]+)\\]', 'g');
 
-      let reminders = [];
-      Object.keys(KEYWORDS).forEach((keyword) => {
-        const regex = new RegExp('\\$\\[' + keyword + '\\]([^.]*.)', 'g');
-        const replacement = `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`;
-        const reminder = KEYWORDS[keyword].reminder;
+      if (str.match(regex) !== null) {
+        const matches = [...str.matchAll(regex)];
+        for (let i = matches.length - 1; i >= 0; i--) {
+          const match = matches[i];
+          const index = match.index;
 
-        if (str.match(regex) !== null) {
-          reminders.push(KEYWORDS[keyword].text + ':' + KEYWORDS[keyword].reminder);
+          const keyword = match[1];
+          const replacement = `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`;
+          const reminder = '##REMINDER##' + KEYWORDS[keyword].reminder;
 
-          const matches = [...str.matchAll(regex)];
-          for (let i = matches.length - 1; i >= 0; i--) {
-            const match = matches[i];
-            const index = match.index;
-            str = str.slice(0, index) + replacement + str.slice(index + keyword.length + 3);
+          str = str.slice(0, index) + replacement + str.slice(index + keyword.length + 3);
 
-            const nextDoubleSpaceIndex = str.indexOf('  ', index);
-            if (nextDoubleSpaceIndex !== -1) {
-              // Check if there is a string in parentheses before the double space
-              const textBeforeDoubleSpace = str.slice(index + replacement.length, nextDoubleSpaceIndex);
-              const matchParentheses = textBeforeDoubleSpace.match(regexParentheses);
+          const alreadyReminder = str.indexOf('##REMINDER##', index);
+          if (alreadyReminder !== -1) {
+            str = str.replace('##REMINDER##', reminder + ' ');
+          } else {
+            // Check if there is a string in parentheses before the end
+            const textBeforeEnd = str.slice(index + replacement.length);
+            const matchParentheses = textBeforeEnd.match(regexParentheses);
 
-              if (matchParentheses) {
-                let index2 = matchParentheses.index;
-
-                // Concatenate reminder at the end of the inside of the parentheses
-                str =
-                  str.slice(0, index + replacement.length + index2) +
-                  '(' +
-                  matchParentheses[1] +
-                  ' ' +
-                  reminder +
-                  ')' +
-                  str.slice(nextDoubleSpaceIndex);
-              } else {
-                // Add "(reminder)" at the next double space
-                str = str.slice(0, nextDoubleSpaceIndex) + ' (' + reminder + ')' + str.slice(nextDoubleSpaceIndex);
-              }
+            if (matchParentheses) {
+              let index2 = matchParentheses.index;
+              // Concatenate reminder at the end of the inside of the parentheses
+              str = str.slice(0, index + replacement.length + index2) + '(' + matchParentheses[1] + ' ' + reminder + ')';
             } else {
-              // Check if there is a string in parentheses before the end
-              const textBeforeEnd = str.slice(index + replacement.length);
-              const matchParentheses = textBeforeEnd.match(regexParentheses);
-
-              if (matchParentheses) {
-                let index2 = matchParentheses.index;
-                // Concatenate reminder at the end of the inside of the parentheses
-                str = str.slice(0, index + replacement.length + index2) + '(' + matchParentheses[1] + ' ' + reminder + ')';
-              } else {
-                // Add reminder at the end
-                str = str + ' (' + reminder + ')';
-              }
+              // Add reminder at the end
+              str = str + ' (' + reminder + ')';
             }
           }
-
-          // str = str.replaceAll(
-          //   regex,
-          //   `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>
-          //   $1
-          //   (${KEYWORDS[keyword].reminder})
-          //   <br />`
-          // );
         }
+      }
 
+      Object.keys(KEYWORDS).forEach((keyword) => {
         const regex2 = new RegExp('\\[' + keyword + '\\]', 'g');
         str = str.replaceAll(regex2, `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`);
       });
 
-      str = str.replaceAll('  ', '<br />');
+      str = str.replace('##REMINDER##', '');
 
-      // return { str, reminders };
       return str;
     },
   });
