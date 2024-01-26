@@ -20,9 +20,9 @@ class Pay extends \ALT\Models\Action
   {
     $pay = $this->getCtxArg('pay') ?? 0;
     return [
-      'log' => clienttranslate('Pay ${cost_mana}'),
+      'log' => clienttranslate('Pay ${mana_cost}'),
       'args' => [
-        'cost_mana' => $pay,
+        'mana_cost' => $pay,
       ],
     ];
   }

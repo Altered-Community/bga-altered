@@ -285,9 +285,16 @@ class Notifications
 
   public static function putOnDeck($player, $cards, $args = [])
   {
+    $msg = clienttranslate('${player_name} puts ${card_names} on top of its deck');
+
+    if (isset($args['tokensOnly']) && $args['tokensOnly'] == true) {
+      // if we put on deck a token, it's destroyed
+      $msg = clienttranslate('${player_name} remove ${card_names} from play');
+    }
+
     self::notifyAll(
       'putOnDeck',
-      clienttranslate('${player_name} puts ${card_names} on top of its deck'),
+      $msg,
       $args + [
         'player' => $player,
         'n' => count($cards),

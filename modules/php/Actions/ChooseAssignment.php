@@ -100,7 +100,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCard($cardId, $location);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -123,24 +123,21 @@ class ChooseAssignment extends \ALT\Models\Action
       // management of CostReductionDiscard, discarding a card from reserve to reduce cost
       if ($card->getCostReductionDiscard() > 0) {
         $this->insertAsChild(
-          FT::SEQ(
-            FT::XOR(
-              FT::ACTION(PAY, ['pay' => $cost]),
-              FT::SEQ(
-                FT::ACTION(
-                  TARGET,
-                  [
-                    'targetLocation' => [RESERVE],
-                    'targetPlayer' => ME,
-                    'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-                    'effect' => FT::ACTION(DISCARD, []),
-                  ],
-                  ['sourceId' => $cardId]
-                ),
-                FT::ACTION(PAY, ['pay' => $cost - $card->getCostReductionDiscard()])
-              )
-            ),
-            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true])
+          FT::XOR(
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+            FT::SEQ(
+              FT::ACTION(
+                TARGET,
+                [
+                  'targetLocation' => [RESERVE],
+                  'targetPlayer' => ME,
+                  'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                  'effect' => FT::ACTION(DISCARD, []),
+                ],
+                ['sourceId' => $cardId]
+              ),
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'cost' => $cost - $card->getCostReductionDiscard(), 'location' => $location])
+            )
           )
         );
         $this->resolveAction(['CostReduction']);
@@ -149,6 +146,9 @@ class ChooseAssignment extends \ALT\Models\Action
 
       // Pay cost
       $player->payMana($cost);
+    } elseif ($newCost > 0) {
+      $player->payMana($newCost);
+      $cost = $newCost;
     } else {
       $cost = 0;
     }

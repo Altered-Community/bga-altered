@@ -152,6 +152,7 @@ $machinestates = [
   ST_BEFORE_NIGHT => [
     'name' => 'beforeNight',
     'description' => '',
+    'updateGameProgression' => true,
     'type' => 'game',
     'action' => 'stBeforeNight',
     'transitions' => [
@@ -313,7 +314,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actPlay', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actPlayCard', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_ACTIVATE_CARD => [
@@ -421,6 +422,7 @@ $machinestates = [
     'name' => 'preEndOfGame',
     'type' => 'game',
     'action' => 'stPreEndOfGame',
+    'updateGameProgression' => true,
     'transitions' => ['' => ST_END_GAME],
   ],
 
