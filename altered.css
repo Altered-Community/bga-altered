@@ -2848,6 +2848,28 @@ html {
         .altered-player-board .player-board-grass .player-board-landmarks.selectable:hover {
           border: 2px solid #338120;
           background-color: rgba(17, 153, 17, 0.3); }
+    .altered-player-board .player-board-grass .reserve-warning,
+    .altered-player-board .player-board-grass .landmark-warning {
+      position: absolute;
+      background: #133015;
+      color: #e5b232;
+      border: 1px solid #e5ba3e;
+      padding: 1px 6px 2px 6px;
+      font-size: 14px;
+      height: 15px;
+      border-radius: 7px;
+      font-weight: bold;
+      box-shadow: 0px 0px 3px gold;
+      display: none; }
+    .altered-player-board .player-board-grass .reserve-warning {
+      left: 30px; }
+    .altered-player-board .player-board-grass .landmark-warning {
+      left: 780px;
+      z-index: 2; }
+    .altered-player-board .player-board-grass .player-board-reserve.danger ~ .reserve-warning {
+      display: block; }
+    .altered-player-board .player-board-grass .player-board-landmarks.danger ~ .landmark-warning {
+      display: block; }
   .altered-player-board .player-board-hand {
     position: absolute;
     width: 100%;
@@ -2937,6 +2959,9 @@ html {
     background-position: -6px 21px; }
     #altered-board-opponent .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
       margin: 42px 27px 0px 4px; }
+  #altered-board-opponent .altered-player-board .player-board-grass .reserve-warning,
+  #altered-board-opponent .altered-player-board .player-board-grass .landmark-warning {
+    bottom: -15px; }
 
 #altered-board-me .altered-player-board .player-board-hero {
   top: 42px;
@@ -2970,6 +2995,9 @@ html {
     background-position: -6px -15px; }
     #altered-board-me .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
       margin: -31px 27px 0px 4px; }
+  #altered-board-me .altered-player-board .player-board-grass .reserve-warning,
+  #altered-board-me .altered-player-board .player-board-grass .landmark-warning {
+    top: -10px; }
 
 .player-name svg {
   width: 25px;

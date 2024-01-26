@@ -3,9 +3,6 @@
 - revoir chooseAssignment
 - Unique: bordure dorée avec un glow
 
-[Setup]
-- Afficher max reserve / max landmark slot
-
 [Après choix / écran VS]
 ~ Affichage de fight
 - Image a envoyer
@@ -51,6 +48,7 @@ X Reserve afficher de gauche à droite
 X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
 X Eventail de la main
 X Afficher le nombre de jour/phase où on est
+X Afficher max reserve / max landmark slot
 
 
 [Starting deck]

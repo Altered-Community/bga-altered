@@ -446,6 +446,36 @@
                 }
             }
         }
+
+        .reserve-warning,
+        .landmark-warning {
+            position: absolute;
+            background: #133015;
+            color: #e5b232;
+            border: 1px solid #e5ba3e;
+            padding: 1px 6px 2px 6px;
+            font-size: 14px;
+            height: 15px;
+            border-radius: 7px;
+            font-weight: bold;
+            box-shadow: 0px 0px 3px gold;
+            display: none;
+        }
+
+        .reserve-warning {
+            left: 30px;
+        }
+        .landmark-warning {
+            left: 780px;
+            z-index: 2;
+        }
+
+        .player-board-reserve.danger ~ .reserve-warning {
+            display: block;
+        }
+        .player-board-landmarks.danger ~ .landmark-warning {
+            display: block;
+        }
     }
 
     .player-board-hand {
@@ -606,6 +636,11 @@
                 margin: 42px 27px 0px 4px;
             }
         }
+
+        .reserve-warning,
+        .landmark-warning {
+            bottom: -15px;
+        }
     }
 }
 
@@ -663,6 +698,11 @@
             .altered-card {
                 margin: -31px 27px 0px 4px;
             }
+        }
+
+        .reserve-warning,
+        .landmark-warning {
+            top: -10px;
         }
     }
 }

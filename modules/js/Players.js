@@ -33,6 +33,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         let container = i == 0 ? 'altered-board-me' : 'altered-board-opponent';
         this.place('tplPlayerBoard', player, container);
 
+        // Hand observer
         let handContainer = $(`hand-${player.id}`);
         let observer = new MutationObserver(() => {
           if (handContainer.parentNode.id == `player-board-hand-${player.id}`)
@@ -40,6 +41,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           else this.clearHandTransform(handContainer);
         });
         observer.observe(handContainer, { childList: true });
+
+        // Landmark observer
+        let landmarkContainer = $(`board-landmark-${player.id}`);
+        let observerLandmark = new MutationObserver(() => {
+          this.displayWarningSizeLimitIfNeeded(player, 'landmark', landmarkContainer);
+        });
+        observerLandmark.observe(landmarkContainer, { childList: true });
+        // Reserve observer
+        let reserveContainer = $(`board-reserve-${player.id}`);
+        let reserveLandmark = new MutationObserver(() => {
+          this.displayWarningSizeLimitIfNeeded(player, 'reserve', reserveContainer);
+        });
+        reserveLandmark.observe(reserveContainer, { childList: true });
 
         // Panels
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
@@ -84,14 +98,20 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       // this.ensureNoSortableHandOnTouchDevice();
     },
 
-    // updateHandCards() {
-    //   if (this.isSpectator) return;
-    //   this.empty(`hand-${this.player_id}`);
-    //   let hand = this.gamedatas.players[this.player_id].hand;
-    //   hand.forEach((card) => {
-    //     this.addCard(card);
-    //   });
-    // },
+    getZoneMaxLimit(player, zone) {
+      // TODO: do something smart here :)
+      return 2;
+    },
+
+    displayWarningSizeLimitIfNeeded(player, zone, container) {
+      let limit = this.getZoneMaxLimit(player, zone);
+      if (limit === null) {
+        return;
+      }
+
+      container.classList.toggle('danger', container.childNodes.length > limit);
+      $(`max-${zone}-indicator-${player.id}`).innerHTML = limit;
+    },
 
     tplPlayerBoard(player) {
       let pId = player.id;
@@ -104,8 +124,20 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           </div>
           <div class='player-board-grass'>
             <div class='player-board-reserve' id='board-reserve-${player.id}'></div>
+            <div class='reserve-warning'>
+              <i class="fa fa-warning"></i>
+              ${_('Max reserve slots at night:')}
+              <span id='max-reserve-indicator-${player.id}'></span>
+            </div>
+
             <div class='player-board-separator'></div>
+
             <div class='player-board-landmarks' id='board-landmark-${player.id}'></div>
+            <div class='landmark-warning'>
+              <i class="fa fa-warning"></i>
+              ${_('Max landmark slots at night:')}
+              <span id='max-landmark-indicator-${player.id}'></span>
+            </div>
           </div>
 
           <div class='player-board-mana-wrapper'>
