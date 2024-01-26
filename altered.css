@@ -1866,7 +1866,7 @@ html {
     content: "+" attr(data-boost);
     display: block;
     position: absolute;
-    left: 60px;
+    left: 52px;
     top: 0;
     width: 30px;
     height: 28px;
@@ -1877,15 +1877,15 @@ html {
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="0"][data-boost]:not([data-boost="0"])::after,
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="0"][data-boost]:not([data-boost="0"])::after,
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="0"][data-boost]:not([data-boost="0"])::after {
-    left: 20px; }
+    left: 30px; }
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="1"][data-boost]:not([data-boost="0"])::after,
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="1"][data-boost]:not([data-boost="0"])::after,
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="1"][data-boost]:not([data-boost="0"])::after {
-    left: 30px; }
+    left: 32px; }
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-forest[data-size="2"][data-boost]:not([data-boost="0"])::after,
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-mountain[data-size="2"][data-boost]:not([data-boost="0"])::after,
   .altered-card-tooltip .altered-card .altered-card-wrapper .card-ocean[data-size="2"][data-boost]:not([data-boost="0"])::after {
-    left: 40px; }
+    left: 39px; }
 
 .altered-icon.icon-fleeting {
   background-image: url("img/icons/fleeting.png");
@@ -2383,18 +2383,15 @@ html {
   padding-bottom: 10px;
   border-top-right-radius: 0px; }
 
-#logs .log .roundedbox,
-.chatwindowlogs_zone .roundedbox.log {
+#logs .log .roundedbox {
   background-color: #393955;
   color: #dfdede;
   border: 1px solid #66688a;
   border-radius: 4px; }
-  #logs .log .roundedbox .replay_last_move_button,
-  .chatwindowlogs_zone .roundedbox.log .replay_last_move_button {
+  #logs .log .roundedbox .replay_last_move_button {
     color: white;
     border-color: white; }
-    #logs .log .roundedbox .replay_last_move_button .icon32,
-    .chatwindowlogs_zone .roundedbox.log .replay_last_move_button .icon32 {
+    #logs .log .roundedbox .replay_last_move_button .icon32 {
       filter: invert(100%); }
 
 #logs .log.notif_newPhase .roundedbox,

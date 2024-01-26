@@ -269,7 +269,7 @@ class Discard extends \ALT\Models\Action
       } elseif ($args['destination'] == MANA) {
         Notifications::discardMana($player, $copyCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
       } elseif ($args['destination'] == 'topOfDeck') {
-        Notifications::putInDeck($player, $copyCards, [
+        Notifications::putOnDeck($player, $copyCards, [
           'hand' => $hand,
           'destination' => $args['destination'],
         ]);
