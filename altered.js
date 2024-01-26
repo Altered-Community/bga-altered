@@ -81,7 +81,6 @@ define([
         ['moveCard', null],
         ['newPhase', 1000],
 
-        ['payMana', 500],
         ['discard', 500],
         ['tap', 800],
         // ['boost', 500],
@@ -103,9 +102,9 @@ define([
     getSettingsSections() {
       return {
         layout: _('Layout'),
-        playerBoard: _('Player Board/Panel'),
+        //        playerBoard: _('Player Board/Panel'),
         gameFlow: _('Game Flow'),
-        other: _('Other'),
+        //        other: _('Other'),
       };
     },
 
@@ -1386,12 +1385,14 @@ define([
             // let card = this.getCardInfos(args.card_id);
             // let uid = this.registerCustomTooltip(this.tplCard(card, true));
             // args.card_name = `<span class="ark-log-card-name" id="${uid}">${_(args.card_name)}</span>`;
+            args.card_name = `<span class="altered-log-card-name">${_(args.card_name)}</span>`;
           }
 
           if (args.source !== undefined && args.sourceId !== undefined) {
             // let card = this.getCardInfos(args.card_id);
             // let uid = this.registerCustomTooltip(this.tplCard(card, true));
             // args.source = `<span class="ark-log-card-name" id="${uid}">${_(args.source)}</span>`;
+            args.source = `<span class="altered-log-card-name">${_(args.source)}</span>`;
           }
 
           if (args.effect_desc !== undefined) {
@@ -1410,6 +1411,10 @@ define([
             if (icon == 'water') icon = 'ocean';
             args.biome_icon = this.formatSvgIcon(icon);
             args.biome_name = '';
+          }
+
+          if (args.mana_cost !== undefined) {
+            args.mana_cost = `<span class="mana-cost">${args.mana_cost}</span>`;
           }
         }
       } catch (e) {

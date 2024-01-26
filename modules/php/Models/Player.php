@@ -112,7 +112,7 @@ class Player extends \ALT\Helpers\DB_Model
   // |____/ \___|\__|\__\___|_|  |___/
   ////////////////////////////////////////
 
-  public function payMana($n, $notif = true, $source = null)
+  public function payMana($n)
   {
     $cards = $this->getManaCards(false)->limit($n);
     if ($cards->count() < $n) {
@@ -122,9 +122,6 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($cards as $card) {
       $card->setTapped(true);
     }
-    // if ($notif) {
-    //   Notifications::payMana($this, $n, $this->getMana(), $source);
-    // }
   }
 
   ///////////////////////////////////////////////////

@@ -277,8 +277,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -1191,6 +1191,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       )}</div>`;
     },
 
+    getFlavorTextIfFitting(effect, p) {
+      let flavor = _(p.flavorText || '');
+      let maxSize = p.supportDesc == '' ? 250 : 180;
+      if (flavor == '' || effect.length + flavor.length >= maxSize) return '';
+      return (effect == '' ? '' : '<hr/>') + `<span class='flavor-text'>${flavor}</span>`;
+    },
+
     tplHeroCard(card, tooltip = false, mini = false) {
       let p = card.properties;
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
@@ -1209,7 +1216,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
-              ${this.formatString(effect.str, true)}
+              ${this.formatString(effect, true)}
             </div>
           </div>
           <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
@@ -1254,6 +1261,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
 
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let flavor = this.getFlavorTextIfFitting(effect, p);
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
       let supportIcon = this.getSupportIcon(p);
@@ -1294,11 +1302,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
-              ${this.formatString(effect.str, true)}
+              ${this.formatString(effect, true)}
+              ${flavor}
             </div>
           </div>
           <div class='card-support'>
-            ${this.formatString(support.str, true)}
+            ${this.formatString(support, true)}
           </div>
 
           ${supportIcon}
@@ -1321,6 +1330,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let sizes = this.getBiomesUISizes(p);
       let boost = tooltip ? $(`card-${card.id}`).dataset.boost : 0;
+      let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
+      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let flavor = this.getFlavorTextIfFitting(effect, p);
+
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${boost}'>
         <div class='altered-card-wrapper' data-asset='${p.asset}'>
@@ -1330,13 +1343,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${boost}'>${p.forest}</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${boost}'>${
-        p.mountain
-      }</div>
+            p.mountain
+          }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${boost}'>${p.ocean}</div>
 
-          <div class='card-text'>
+          <div class='card-text' style="font-size:${textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+            </div>
+            <div class='card-effect'>
+              ${this.formatString(effect, true)}
+              ${flavor}
             </div>
           </div>
 
@@ -1361,8 +1378,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let paddingTop = tooltip ? $(`card-${card.id}`).querySelector('.card-effect').style.paddingTop : '0px';
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let flavor = this.getFlavorTextIfFitting(effect, p);
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
-      //      let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
       let supportIcon = this.getSupportIcon(p);
 
       let counter = '';
@@ -1389,11 +1406,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${paddingTop}">
-              ${this.formatString(effect.str, true)}
+              ${this.formatString(effect, true)}
+              ${flavor}
             </div>
           </div>
           <div class='card-support'>
-            ${this.formatString(support.str, true)}
+            ${this.formatString(support, true)}
           </div>
 
           ${supportIcon}
@@ -1418,6 +1436,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let frameSize = tooltip ? $(`card-${card.id}`).querySelector('.card-frame').dataset.size : 1;
       let textFontSize = tooltip ? $(`card-${card.id}`).querySelector('.card-text').style.fontSize : FONT_SIZE;
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let flavor = this.getFlavorTextIfFitting(effect, p);
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       let supportIcon = this.getSupportIcon(p);
 
@@ -1444,7 +1463,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect'>
-              ${this.formatString(effect.str, true)}
+              ${this.formatString(effect, true)}
+              ${flavor}
             </div>
           </div>
 
@@ -1481,7 +1501,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       // Fit effect
       let isEffectSizeOk = () =>
-        oCard.querySelector('.card-text').offsetHeight >= oCard.querySelector('.card-effect').offsetHeight;
+        oCard.querySelector('.card-text').offsetHeight -
+          (oCard.querySelector('.card-support') ? oCard.querySelector('.card-support').offsetHeight : 0) >=
+        oCard.querySelector('.card-effect').offsetHeight;
       if (!isEffectSizeOk()) {
         oCard.querySelector('.card-frame').dataset.size = 2;
         oCard.offsetHeight;
@@ -1753,7 +1775,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       str = str.replaceAll('  ', '<br />');
 
-      return { str, reminders };
+      // return { str, reminders };
+      return str;
     },
   });
 });

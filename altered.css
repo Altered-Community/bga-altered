@@ -1347,6 +1347,12 @@ html {
           margin-bottom: -4px;
           margin-right: -4px;
           background-position: 5px 5px; }
+      .altered-card .altered-card-wrapper .card-text hr {
+        color: #a2a2a2;
+        height: 0px;
+        border-top: none; }
+      .altered-card .altered-card-wrapper .card-text .flavor-text {
+        font-style: italic; }
     .altered-card .altered-card-wrapper .card-text .keyword,
     .altered-card .altered-card-wrapper .card-support .keyword {
       font-weight: bold; }
@@ -1360,16 +1366,6 @@ html {
     .altered-card .altered-card-wrapper .card-text .parenthesis,
     .altered-card .altered-card-wrapper .card-support .parenthesis {
       font-style: italic; }
-    .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="1"] ~ .card-text,
-    .altered-card .altered-card-wrapper .card-frame[data-support="0"][data-size="2"] ~ .card-text {
-      top: 280px; }
-    .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="2"] ~ .card-text {
-      top: 260px; }
-    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text {
-      left: 25px;
-      right: 25px; }
-      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text .card-qrcode-container {
-        margin-right: -5px; }
     .altered-card .altered-card-wrapper .card-support {
       position: absolute;
       z-index: 2;
@@ -1382,6 +1378,24 @@ html {
       color: white; }
       .altered-card .altered-card-wrapper .card-support .svgicon-discard .path2:before {
         color: black; }
+    .altered-card .altered-card-wrapper .card-frame[data-support="0"] ~ .card-support {
+      height: 0px;
+      top: auto; }
+    .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="1"] ~ .card-text,
+    .altered-card .altered-card-wrapper .card-frame[data-support="0"][data-size="2"] ~ .card-text {
+      top: 280px; }
+      .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="1"] ~ .card-text .card-qrcode-container,
+      .altered-card .altered-card-wrapper .card-frame[data-support="0"][data-size="2"] ~ .card-text .card-qrcode-container {
+        shape-outside: polygon(0px 70px, 0px 142px, 70px 142px, 70px 70px); }
+    .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="2"] ~ .card-text {
+      top: 245px; }
+      .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="2"] ~ .card-text .card-qrcode-container {
+        shape-outside: polygon(0px 106px, 0px 182px, 70px 182px, 70px 106px); }
+    .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text {
+      left: 25px;
+      right: 25px; }
+      .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text .card-qrcode-container {
+        margin-right: -5px; }
     .altered-card .altered-card-wrapper .card-footer {
       position: absolute;
       bottom: 16px;
@@ -2300,8 +2314,7 @@ html {
       width: 1530px;
       height: 1175px;
       background-image: url("img/board.png");
-      background-size: 100%;
-      clip-path: polygon(0% 6%, 100% 6%, 100% 100%, 0% 100%); }
+      background-size: 100%; }
       #altered-main-container #altered-board-resizable #altered-board #altered-board-opponent,
       #altered-main-container #altered-board-resizable #altered-board #altered-board-me {
         width: 1530px;
@@ -3384,6 +3397,9 @@ html {
     height: 1em;
     width: auto;
     fill: currentColor; }
+
+.altered-log-card-name {
+  font-style: italic; }
 
 .flip-container.vertical {
   background-color: transparent;

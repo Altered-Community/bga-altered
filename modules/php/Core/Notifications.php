@@ -352,24 +352,6 @@ class Notifications
   // /_/   \_\___|\__|_|\___/|_| |_|___/
   /////////////////////////////////////////
 
-  public static function payMana($player, $amount, $total, $cardIds, $source)
-  {
-    if ($source === null) {
-      $msg = clienttranslate('${player_name} pays ${amount} mana');
-    } else {
-      $msg = clienttranslate('${player_name} pays ${amount} mana for ${source}');
-    }
-
-    self::notifyAll('payMana', $msg, [
-      'i18n' => ['source'],
-      'player' => $player,
-      'source' => $source,
-      'amount' => $amount,
-      'total' => $total,
-      'cardIds' => $cardIds,
-    ]);
-  }
-
   public static function playCard($player, $card, $cost, $fromLocation, $location)
   {
     $msg = '';
@@ -403,13 +385,13 @@ class Notifications
   public static function afterYou($player, $cost, $source)
   {
     if ($cost != 0) {
-      $msg = clienttranslate('${player_name} triggers After You effect and pays ${cost} (${card_name}\'s effect)');
+      $msg = clienttranslate('${player_name} triggers After You effect and pays ${mana_cost} (${card_name}\'s effect)');
     } else {
       $msg = clienttranslate('${player_name} triggers After You effect (${card_name}\'s effect)');
     }
     self::notifyAll('afterYou', $msg, [
       'player' => $player,
-      'cost' => $cost,
+      'mana_cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
       'card' => $source,
@@ -480,13 +462,13 @@ class Notifications
   public static function useCounter($player, $card, $consume, $cost, $source)
   {
     if ($cost > 0) {
-      $msg = clienttranslate('${player_name} pays {${n}} and reduce by ${consume} the counter (${card_name}\'s effect)');
+      $msg = clienttranslate('${player_name} pays ${mana_cost} and reduce by ${consume} the counter (${card_name}\'s effect)');
     } else {
       $msg = clienttranslate('${player_name} reduce by ${consume} the counter (${card_name}\'s effect)');
     }
     self::notifyAll('useCounter', $msg, [
       'player' => $player,
-      'n' => $cost,
+      'mana_cost' => $cost,
       'consume' => $consume,
       'card' => $source,
       'totalMana' => $player->getTotalMana(),
@@ -530,7 +512,7 @@ class Notifications
   public static function targetCards($player, $cards, $additionalCost, $source)
   {
     if ($additionalCost > 0) {
-      $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect and pays {${n}} (Tough effect)');
+      $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect and pays ${mana_cost} (Tough effect)');
     } else {
       $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect');
     }
@@ -569,7 +551,7 @@ class Notifications
   public static function tapEffect($player, $card, $cost = 0)
   {
     if ($cost > 0) {
-      $msg = clienttranslate('${player_name} pays {${cost}} and taps ${card_name} to activate it\'s effect');
+      $msg = clienttranslate('${player_name} pays ${mana_cost} and taps ${card_name} to activate it\'s effect');
     } else {
       $msg = clienttranslate('${player_name} taps ${card_name} to activate it\'s effect');
     }
@@ -577,7 +559,7 @@ class Notifications
     self::notifyAll('tap', $msg, [
       'player' => $player,
       'card' => $card,
-      'cost' => $cost,
+      'mana_cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
     ]);
@@ -585,9 +567,9 @@ class Notifications
 
   public static function pay($player, $cost)
   {
-    self::notifyAll('pay', clienttranslate('${player_name} pays {${cost}}'), [
+    self::notifyAll('pay', clienttranslate('${player_name} pays ${mana_cost}'), [
       'player' => $player,
-      'cost' => $cost,
+      'mana_cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
     ]);
