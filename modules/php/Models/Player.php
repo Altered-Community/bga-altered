@@ -264,7 +264,7 @@ class Player extends \ALT\Helpers\DB_Model
     return $locations;
   }
 
-  public function advanceStorm($token, $biome, $n = 1, $notify = true, $source = null)
+  public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
     $tokenMeeple = $this->$getToken();
@@ -297,8 +297,8 @@ class Player extends \ALT\Helpers\DB_Model
       Globals::setStorm($storms);
     }
 
-    if ($notify === true) {
-      Notifications::moveStormToken($this, $biome, $tokenMeeple, $stormIndex, $revealed, $source);
+    if ($notify) {
+      Notifications::moveStormToken($this, $biomes, $tokenMeeple, $stormIndex, $revealed, $source);
     }
   }
 

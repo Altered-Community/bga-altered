@@ -249,8 +249,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $biomesByStorm = $player->getBiomeInStorms();
         $biomes = $biomesByStorm[$side] ?? null;
         if(is_null($biomes)) continue;
-        
-        $move = null;
+
+        $move = false;
+        $winningBiomes = [];
         $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
         $movements[$pId][$side] = [OCEAN => 0, FOREST => 0, MOUNTAIN => 0];
         if ($player->hasDefender($expedition)) {
@@ -262,15 +263,13 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
           if ($win) {
-            $move = $biome;
-            if ($advance) {
-              break;
-            }
+            $move = true;
+            $winningBiomes[] = $biome;
           }
         }
 
-        if ($advance && !is_null($move)) {
-          $player->advanceStorm($side, $move);
+        if ($advance && $move) {
+          $player->advanceStorm($side, $winningBiomes);
         }
       }
     }

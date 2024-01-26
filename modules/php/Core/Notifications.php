@@ -152,29 +152,25 @@ class Notifications
   //////////////////////////////////////////////////////
   public static function startDusk()
   {
-    self::notifyAll('startDusk', clienttranslate('End of the Afternoon: computing the progress in the Tumult'), []);
+    self::notifyAll('startDusk', clienttranslate('Computing the progress in the Tumult'), []);
   }
 
   public static function endDusk()
   {
-    self::notifyAll('endDusk', clienttranslate('Dusk phase is over, starting night phase'), []);
+    self::notifyAll('endDusk', '', []);
   }
 
-  public static function moveStormToken($player, $biome, $tokenMeeple, $stormIndex, $revealed, $source)
+  public static function moveStormToken($player, $biomes, $tokenMeeple, $stormIndex, $revealed, $source)
   {
-    $msg = clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biome}');
+    $msg = clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biomes_desc}');
     if (!is_null($source)) {
       $msg = clienttranslate('${player_name} moves in ${expedition} due to ${card_name}\'s effect');
-    }
-
-    if ($biome == OCEAN) {
-      $biome = 'Water';
     }
 
     self::notifyAll('moveStormToken', $msg, [
       'i18n' => ['biome', 'expedition'],
       'player' => $player,
-      'biome' => $biome,
+      'biomes_desc' => $biomes,
       'expedition' => $tokenMeeple->getType(),
       'token' => $tokenMeeple,
       'stormIndex' => $stormIndex,
@@ -895,40 +891,34 @@ class Notifications
       $data['i18n'][] = 'card_names2';
     }
 
-    foreach (['bonuses', 'bonuses2'] as $key) {
-      if (isset($data[$key])) {
-        $bonusesNames = [
-          'money' => clienttranslate('money'),
-          'appeal' => clienttranslate('appeal'),
-          'reputation' => clienttranslate('reputation'),
-          'conservation' => clienttranslate('conservation'),
-          'xtoken' => \clienttranslate('xtoken'),
+    foreach (['biomes_desc'] as $key) {
+      if (isset($data[$key]) && !empty($data[$key])) {
+        $biomeNames = [
+          FOREST => clienttranslate('forest'),
+          MOUNTAIN => clienttranslate('mountain'),
+          OCEAN => clienttranslate('water'),
         ];
 
         $args = [];
         $i = 0;
-        foreach ($data[$key] as $type => $bonus) {
-          if ($bonus == 0) {
-            continue;
-          }
-          $args['i18n'][] = 'bonus_' . $i;
-          $args['bonus_' . $i] = [
-            'log' => '${bonus}${bonus_icon} ${bonus_name}',
+        foreach ($data[$key] as $biome) {
+          $args['i18n'][] = 'biome_' . $i;
+          $args['biome_' . $i] = [
+            'log' => '${biome_icon}${biome_name}',
             'args' => [
-              'i18n' => ['bonus_name'],
-              'bonus_name' => $bonusesNames[$type],
-              'bonus_icon' => '',
-              'bonus' => $bonus > 0 ? $bonus : -$bonus,
+              'i18n' => ['biome_name'],
+              'biome_name' => $biomeNames[$biome],
+              'biome_icon' => '',
             ],
           ];
           $i++;
         }
         $logs = [
-          1 => '${bonus_0}',
-          2 => clienttranslate('${bonus_0} and ${bonus_1}'),
-          3 => clienttranslate('${bonus_0}, ${bonus_1} and ${bonus_2}'),
+          1 => '${biome_0}',
+          2 => clienttranslate('${biome_0} and ${biome_1}'),
+          3 => clienttranslate('${biome_0}, ${biome_1} and ${biome_2}'),
         ];
-        $data[$key . '_desc'] = [
+        $data[$key] = [
           'log' => $logs[$i],
           'args' => $args,
         ];

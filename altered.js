@@ -47,7 +47,7 @@ define([
         ['cleanupCards', null],
         ['newFirstPlayer', null],
         ['startDusk', 1200],
-        ['endDusk', 1200],
+        ['endDusk', 900],
         ['passTurn', 800],
 
         ['addMeeples', null],
@@ -1403,6 +1403,13 @@ define([
           }
           if (args.phase_icon2 !== undefined) {
             args.phase_icon2 = this.formatIcon(args.phase);
+          }
+
+          if (args.biome_icon !== undefined) {
+            let icon = args.biome_name;
+            if (icon == 'water') icon = 'ocean';
+            args.biome_icon = this.formatSvgIcon(icon);
+            args.biome_name = '';
           }
         }
       } catch (e) {
