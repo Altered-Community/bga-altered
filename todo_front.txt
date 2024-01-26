@@ -1,6 +1,5 @@
 [Misc]
 - autofit text for card names
-- revoir chooseAssignment
 - Unique: bordure dorée avec un glow
 
 [Après choix / écran VS]
@@ -13,13 +12,13 @@ X afficher l'icone
     * D'abord statut puis reminder
     * Afficher les tokens Asleep/anchored / avec les vraies images
 - tooltip : boost discussion Max avec x 5
+- virer tooltip dans discard
 
 [Glossaire]
 - Bouton pour afficher le glossaire
 
 [Choose Assignment]
 - refaire une passe pour la support ability / btn Pass pas ouf
-- changer icone bouton spell
 
 [End game]
 - Reutiliser ecran de vs pour win
@@ -83,6 +82,7 @@ X Pour les sorts, rajout un bouton pour lancer le sort.
 X clique sur carte en réserve, c'est pas bien aligné https://boardgamearena.com/bug?id=110530
 X Je pense que c'est un sort qui a été joué donc il avait gardé son scale + 20% https://boardgamearena.com/bug?id=110540
 X enlever l'overlay
+X changer icone bouton spell
 
 [Discard card]
 X Quand je discard vers la main (via Intimidation par exemple), ca slide vers la discard un peu chelou avant d'arriver dans la main

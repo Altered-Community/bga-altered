@@ -1172,7 +1172,7 @@ define([
               if ($(`card-${cardId}`).classList.contains('selected'))
                 this.addPrimaryActionButton(
                   'btnLaunchSpell',
-                  '<i class="fa fa-magic"></i>',
+                  this.formatSvgIcon('spell'),
                   onChooseLocation(location),
                   `board-limbo-${this.player_id}`
                 );
@@ -1300,18 +1300,32 @@ define([
       let glyphs = {
         anchored: 1,
         artist: 5,
+        btg: 1,
+        card: 1,
         charge: 1,
         discard: 2,
         fleeting: 1,
         forest: 1,
         hand: 1,
         infinity: 2,
+        'mana-0': 2,
+        'mana-1': 2,
+        'mana-2': 2,
+        'mana-3': 2,
+        'mana-4': 2,
+        'mana-5': 2,
+        'mana-6': 2,
+        'mana-7': 2,
+        'mana-8': 2,
+        'mana-9': 2,
+        'mana-X': 2,
+        'mana-$1': 2, // Useful only for substitution into regex
         mountain: 1,
         ocean: 1,
         permanent: 1,
         played: 1,
-        'played-from-reserve': 9,
         reserve: 8,
+        spell: 1,
         sleep: 1,
         tap: 1,
       };
@@ -1349,6 +1363,7 @@ define([
         T: 'tap',
         V: 'forest',
         E: 'ocean',
+        COUNTER: 'charge',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');
@@ -1364,7 +1379,7 @@ define([
       str = str.replace(/\#(.+)\#/g, '<span class="rare-marker">$1</span>');
       str = str.replace(/\[\[([^\]]+)\]\]/g, '<span class="effect-reference-emphasis">$1</span>');
       str = str.replace(/\[([^\]]+)\]/g, '<span class="effect-reference">$1</span>');
-      str = str.replace(/\{([0-9X]+)\}/g, '<span class="mana-cost">$1</span>');
+      str = str.replace(/\{([0-9X]+)\}/g, this.formatSvgIcon('mana-$1'));
       if (italicParenthesis) str = str.replace(/(\([^\)]+\))/g, '<span class="parenthesis">$1</span>');
 
       return str;
@@ -1414,7 +1429,7 @@ define([
           }
 
           if (args.mana_cost !== undefined) {
-            args.mana_cost = `<span class="mana-cost">${args.mana_cost}</span>`;
+            args.mana_cost = this.formatSvgIcon('mana-' + args.mana_cost);
           }
         }
       } catch (e) {

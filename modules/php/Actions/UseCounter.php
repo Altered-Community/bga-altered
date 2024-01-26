@@ -23,17 +23,16 @@ class UseCounter extends \ALT\Models\Action
 
   public function getDescription()
   {
-    if ($this->getArg('pay') != 0) {
-      return [
-        'log' => clienttranslate('{${n}}'),
-        'args' => [
-          'n' => $this->getArg('pay'),
-          'consume' => $this->getArg('consume'),
-        ],
-      ];
-    } else {
-      return '';
-    }
+    $consume = $this->getArg('consume');
+    $pay = $this->getArg('pay');
+
+    return [
+      'log' => $pay == 0? clienttranslate('Use ${consume}{COUNTER}') : clienttranslate('Pay ${mana_cost} and use ${consume}{COUNTER}'),
+      'args' => [
+        'mana_cost' => $pay,
+        'consume' => $consume
+      ]
+    ];
   }
 
   protected $args = ['pay' => 0, 'consume' => 99];

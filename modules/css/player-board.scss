@@ -509,7 +509,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 33px;
+                font-size: 40px;
 
                 animation: pulse-animation 1.2s infinite;
 
@@ -520,6 +520,10 @@
                     100% {
                         box-shadow: 0 0 0 10px rgba(255, 219, 12, 0.1);
                     }
+                }
+
+                .svgicon-spell {
+                    margin-top: -0.15em;
                 }
             }
         }

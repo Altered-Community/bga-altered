@@ -92,15 +92,39 @@
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
+.bgabutton {
+  &:not(:hover) {
+    .svgicon-mana-0,
+    .svgicon-mana-1,
+    .svgicon-mana-2,
+    .svgicon-mana-3,
+    .svgicon-mana-4,
+    .svgicon-mana-5,
+    .svgicon-mana-6,
+    .svgicon-mana-7,
+    .svgicon-mana-8,
+    .svgicon-mana-9,
+    .svgicon-mana-X {
+      .path2:before {
+        color: black;
+      }
+    }
+  }
+
+  [class^="svgicon-"],
+  [class*=" svgicon-"] {
+    vertical-align: text-top;
+  }
+}
 
 @font-face {
   font-family: "icomoon";
-  src: url("img/fonts/Icons/icomoon.eot?okosut");
+  src: url("img/fonts/Icons/icomoon.eot");
   src:
-    url("img/fonts/Icons/icomoon.eot?okosut#iefix") format("embedded-opentype"),
-    url("img/fonts/Icons/icomoon.ttf?okosut") format("truetype"),
-    url("img/fonts/Icons/icomoon.woff?okosut") format("woff"),
-    url("img/fonts/Icons/icomoon.svg?okosut#icomoon") format("svg");
+    url("img/fonts/Icons/icomoon.eot#iefix") format("embedded-opentype"),
+    url("img/fonts/Icons/icomoon.ttf") format("truetype"),
+    url("img/fonts/Icons/icomoon.woff") format("woff"),
+    url("img/fonts/Icons/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -122,6 +146,103 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.svgicon-spell:before {
+  content: "\e934";
+}
+.svgicon-btg:before {
+  content: "\e912";
+}
+.svgicon-card:before {
+  content: "\e913";
+}
+.svgicon-mana-1 .path1:before {
+  content: "\e914";
+}
+.svgicon-mana-1 .path2:before {
+  content: "\e915";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-2 .path1:before {
+  content: "\e916";
+}
+.svgicon-mana-2 .path2:before {
+  content: "\e917";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-3 .path1:before {
+  content: "\e918";
+}
+.svgicon-mana-3 .path2:before {
+  content: "\e919";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-4 .path1:before {
+  content: "\e91a";
+}
+.svgicon-mana-4 .path2:before {
+  content: "\e925";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-5 .path1:before {
+  content: "\e926";
+}
+.svgicon-mana-5 .path2:before {
+  content: "\e927";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-6 .path1:before {
+  content: "\e928";
+}
+.svgicon-mana-6 .path2:before {
+  content: "\e929";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-7 .path1:before {
+  content: "\e92a";
+}
+.svgicon-mana-7 .path2:before {
+  content: "\e92b";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-8 .path1:before {
+  content: "\e92c";
+}
+.svgicon-mana-8 .path2:before {
+  content: "\e92d";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-9 .path1:before {
+  content: "\e92e";
+}
+.svgicon-mana-9 .path2:before {
+  content: "\e92f";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-X .path1:before {
+  content: "\e930";
+}
+.svgicon-mana-X .path2:before {
+  content: "\e931";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.svgicon-mana-0 .path1:before {
+  content: "\e932";
+}
+.svgicon-mana-0 .path2:before {
+  content: "\e933";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
 .svgicon-anchored:before {
   content: "\e900";
 }
@@ -185,42 +306,6 @@
 }
 .svgicon-played:before {
   content: "\e911";
-}
-.svgicon-played-from-reserve .path1:before {
-  content: "\e912";
-}
-.svgicon-played-from-reserve .path2:before {
-  content: "\e913";
-  margin-left: -1.904296875em;
-}
-.svgicon-played-from-reserve .path3:before {
-  content: "\e914";
-  margin-left: -1.904296875em;
-}
-.svgicon-played-from-reserve .path4:before {
-  content: "\e915";
-  margin-left: -1.904296875em;
-}
-.svgicon-played-from-reserve .path5:before {
-  content: "\e916";
-  margin-left: -1.904296875em;
-}
-.svgicon-played-from-reserve .path6:before {
-  content: "\e917";
-  margin-left: -1.904296875em;
-}
-.svgicon-played-from-reserve .path7:before {
-  content: "\e918";
-  margin-left: -1.904296875em;
-}
-.svgicon-played-from-reserve .path8:before {
-  content: "\e919";
-  margin-left: -1.904296875em;
-  color: rgb(255, 255, 255);
-}
-.svgicon-played-from-reserve .path9:before {
-  content: "\e91a";
-  margin-left: -1.904296875em;
 }
 .svgicon-reserve .path1:before {
   content: "\e91b";

@@ -7,17 +7,17 @@
         text-decoration: underline;
     }
 }
-.mana-cost {
-    font-family: "Haptic Pro";
-    display: inline-block;
-    background: black;
-    border-radius: 50%;
-    color: white;
-    width: 1em;
-    height: 1em;
-    text-align: center;
-    margin: 0 0.2em;
-}
+// .mana-cost {
+//     font-family: "Haptic Pro";
+//     display: inline-block;
+//     background: black;
+//     border-radius: 50%;
+//     color: white;
+//     width: 1em;
+//     height: 1em;
+//     text-align: center;
+//     margin: 0 0.2em;
+// }
 
 .rare-marker {
     color: $goldRareColor;
@@ -35,5 +35,6 @@
 }
 
 .altered-log-card-name {
-    font-style: italic;
+    font-family: "Jali Greek Variable";
+    //    font-style: italic;
 }
