@@ -15,15 +15,18 @@ class LY_Common_TheHatter extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'The Hatter',
+      'name' => clienttranslate('The Hatter'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'supportDesc' => '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)'
+      ),
       'supportIcon' => 'discard',
-      'typeline' => 'Character - Citizen',
+      'typeline' => clienttranslate('Character - Citizen'),
       'artist' => 'Zero Wen',
-      'flavorText' =>
-      "\"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?\"",
+      'flavorText' => clienttranslate(
+        "\"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?\""
+      ),
 
       'forest' => 5,
       'mountain' => 5,

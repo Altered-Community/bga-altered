@@ -15,12 +15,12 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => 'Ordis Cadets',
+      'name' => clienttranslate('Ordis Cadets'),
       'type' => CHARACTER,
       'subtypes' => [APPRENTICE, SOLDIER],
-      'effectDesc' => '{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.',
-      'typeline' => 'Character - Apprentice Soldier',
-      'flavorText' => "Together they learn, and together they'll protect.",
+      'effectDesc' => clienttranslate('{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.'),
+      'typeline' => clienttranslate('Character - Apprentice Soldier'),
+      'flavorText' => clienttranslate("Together they learn, and together they'll protect."),
       'artist' => 'Anh Tung',
 
       'forest' => 1,

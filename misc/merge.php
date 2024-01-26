@@ -51,6 +51,7 @@ foreach (ALL_CARDS as $cardId) {
     continue;
   }
 
+
   //   echo "\n##########################################################\n CARD $i: " .
   //     $cardId .
   //     "\n##########################################################\n";
@@ -73,10 +74,10 @@ foreach (ALL_CARDS as $cardId) {
 
       preg_match('/(\'' . $attr . '\' =>)( |(\n\s+))((\s|.|\n)+?),( ?)\n/', $oldFile, $matches);
       if (!empty($matches)) {
-        $oldFile = preg_replace('/(\'' . $attr . '\' => )( |(\n\s+))((\s|.)+?),( ?)\n/', '${1}${2}' . $newValue . ",\n", $oldFile);
+        $oldFile = preg_replace('/(\'' . $attr . '\' =>)( |(\n\s+))((\s|.|\n)+?),( ?)\n/', '${1}${2}' . $newValue . ",\n", $oldFile);
       } else {
         echo "missing $attr\n";
-//        $oldFile = preg_replace('/\];/', "'$attr' => $newValue, \n];", $oldFile);
+        $oldFile = preg_replace('/\];/', "'$attr' => $newValue, \n];", $oldFile);
       }
     }
   }
