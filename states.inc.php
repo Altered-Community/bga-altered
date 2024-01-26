@@ -407,7 +407,7 @@ $machinestates = [
 
   ST_IMPOSSIBLE_MANDATORY_ACTION => [
     'name' => 'impossibleAction',
-    'description' => clienttranslate('${actplayer} can\'t take the mandatory action and must restart his turn or exchange/cook'),
+    'description' => clienttranslate('${actplayer} can\'t take the mandatory action and must restart his turn'),
     'descriptionmyturn' => clienttranslate(
       '${you} can\'t take the mandatory action. Restart your turn or exchange/cook to make it possible'
     ),

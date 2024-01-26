@@ -1,6 +1,6 @@
 <?php
 
-const PRECOS = [
+const DEMO = [
   FACTION_AX => [
     'AX_Common_SierraOddball' => 1,
     'AX_Common_KelonElemental' => 3,

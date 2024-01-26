@@ -30,7 +30,7 @@ require_once $repo . 'cards.inc.php';
 
 echo "#######\n DEMO \n";
 
-foreach (PRECOS as $faction => $cards) {
+foreach (DEMO as $faction => $cards) {
   foreach ($cards as $cId => $nbr) {
     $cardId = $faction . '/' . $cId;
 

@@ -19,20 +19,30 @@ trait DebugTrait
   function actDisplayAllCards()
   {
     $datas = [];
-    require_once dirname(__FILE__) . '/../../misc/list.inc.php';
-    foreach (ALL_CARDS as $filename) {
-      if (!file_exists(dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php')) {
-        continue;
-      }
-      require_once dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php';
-      $t = explode('/', $filename);
-      $className = '\\ALT\\Cards\\' . $t[0] . '\\' . $t[1];
-      $class = new $className(null);
 
-      if ($class->getRarity() == RARITY_COMMON) {
-        $datas[] = $class;
+    require_once dirname(__FILE__) . '/Cards/cards.inc.php';
+    foreach (DEMO as $faction => $deck) {
+      foreach($deck as $cardId => $n){
+        $className = '\\ALT\\Cards\\' . $faction . '\\' . $cardId;
+        $class = new $className(null);
+        $datas[] = $class->jsonSerialize();
       }
     }
+
+    // require_once dirname(__FILE__) . '/../../misc/list.inc.php';
+    // foreach (ALL_CARDS as $filename) {
+    //   if (!file_exists(dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php')) {
+    //     continue;
+    //   }
+    //   require_once dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php';
+    //   $t = explode('/', $filename);
+    //   $className = '\\ALT\\Cards\\' . $t[0] . '\\' . $t[1];
+    //   $class = new $className(null);
+
+    //   if ($class->getRarity() == RARITY_COMMON) {
+    //     $datas[] = $class;
+    //   }
+    // }
 
     return $datas;
   }

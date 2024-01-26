@@ -90,9 +90,9 @@ class Cards extends \ALT\Helpers\CachedPieces
     $toCreate = [];
     $pId = $player->getId();
     // $faction = $player->getFaction();
-    // $deck = PRECOS[$faction];
+    // $deck = DEMO[$faction];
     foreach (FACTIONS as $faction) {
-      $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? PRECOS[$faction] : STARTER[$faction];
+      $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? DEMO[$faction] : STARTER[$faction];
       $starterReady = ['AX', 'MU', 'BR', 'OD', 'YZ', 'LY'];
 
       if (Globals::getDeckOptions() == OPTION_DECKS_STARTER && !in_array($faction, $starterReady)) {
