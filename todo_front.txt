@@ -1,4 +1,37 @@
 [Misc]
+- autofit text for card names
+- revoir chooseAssignment
+- Unique: bordure dorée avec un glow
+
+[Setup]
+- Afficher max reserve / max landmark slot
+
+[Après choix / écran VS]
+~ Affichage de fight
+- Image a envoyer
+- enlever l'overlay dès le début
+
+[Tooltip]
+X afficher l'icone
+    * D'abord statut puis reminder
+    * Afficher les tokens Asleep/anchored / avec les vraies images
+- tooltip : boost discussion Max avec x 5
+
+[Glossaire]
+- Bouton pour afficher le glossaire
+
+[Choose Assignment]
+- refaire une passe pour la support ability / btn Pass pas ouf
+- changer icone bouton spell
+
+[End game]
+- Reutiliser ecran de vs pour win
+
+----------------------------------
+----------- ARCHIVE --------------
+----------------------------------
+
+[Misc]
 X Changer fond et emplacement du chat
 X Kojo a modifier
 X Augmenter les tailles des gemmes rares/uniques. Mettre la bordure blanche
@@ -7,31 +40,23 @@ X Asleep
 X Icones status : mettre les vrais meeples
 X Compteurs sur la carte
 X reminders dans mauvais ordre si plusieurs présents dans la même phrase... 
-- autofit text for card names
 X helpers
 X deck thumbnail
-- revoir chooseAssignment
-- Unique: bordure dorée avec un glow
 
 [Setup]
 X Mettre une ombre sur le héros à la place de la bordure
-- Afficher le nombre de jour/phase où on est
 X Reserve a baisser un peu par rapport
 X Discard a remettre
-- Afficher max reserve / max landmark slot
 X Reserve afficher de gauche à droite
 X Biomes : mettre flèche si ca te fait avancer (verte). et mettre flèche autre si ça pourrait faire avancer (gris)
 X Eventail de la main
+X Afficher le nombre de jour/phase où on est
+
 
 [Starting deck]
 X Afficher le lore / manière de jeu dans le tooltip
 X Rajout d'un step confirm
 X Quand on a selectionné, pouvoir recliquer sur les cartes
-
-[Après choix]
-~ Affichage de fight
-- Image a envoyer
-- enlever l'overlay dès le début
 
 [Starting hand]
 X On aligne sur défausser en mana
@@ -51,11 +76,7 @@ X afficher l'icone
     * Afficher les tokens Asleep/anchored / avec les vraies images
 X Boost: afficher sur la miniature les attributs en vert + afficher un + X dans le tooltip (alignés entre eux)
 X disable tooltip in mana pool
-- tooltip : boost discussion Max avec x 5
 
-
-[Glossaire]
-- Bouton pour afficher le glossaire
 
 [Choose Assignment]
 X Pouvoir désélectionner quand tu cliques sur ta carte ou ailleurs
@@ -76,7 +97,3 @@ X conserver rotation, même pour le héro mais réduire sa taille pendant l'anim
 
 [Animation nuit]
 X Retourner la carte dans l'autre sens
-
-[End game]
-- Reutiliser ecran de win
-X Tiebreak: manque une map 

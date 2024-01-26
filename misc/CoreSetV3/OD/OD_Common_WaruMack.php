@@ -13,7 +13,7 @@ class OD_Common_WaruMack extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => 'Waru & Mack',
-      'typeline' => 'Hero',
+      'typeline' => 'Ordis Hero',
       'type' => HERO,
       'flavorText' => 'Bureaucracy is an art that requires careful planning.',
       'artist' => 'Taras Susak',

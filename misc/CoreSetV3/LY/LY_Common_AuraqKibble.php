@@ -13,7 +13,7 @@ class LY_Common_AuraqKibble extends \ALT\Models\Card
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
       'name' => 'Auraq & Kibble',
-      'typeline' => 'Hero',
+      'typeline' => 'Lyra Hero',
       'type' => HERO,
       'flavorText' => 'True beauty lies outside of the conventional.',
       'artist' => 'Edward Cheekokseang',

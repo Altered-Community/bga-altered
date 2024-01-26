@@ -13,7 +13,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Akesha & Taru'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Yzmir Hero'),
       'type' => HERO,
       'flavorText' => clienttranslate('Whatever ordeals we may face, good manners and politeness are always in fashion!'),
       'artist' => 'Taras Susak',

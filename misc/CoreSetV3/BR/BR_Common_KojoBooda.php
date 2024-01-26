@@ -13,7 +13,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kojo & Booda'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Bravos Hero'),
       'type' => HERO,
       'flavorText' => clienttranslate('Faster, ever faster! Our fire rages highest when the race is afoot! '),
       'artist' => 'Edward Cheekokseang',

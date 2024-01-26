@@ -13,7 +13,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
       'name' => 'Treyst & Rossum',
-      'typeline' => 'Hero',
+      'typeline' => 'Axiom Hero',
       'type' => HERO,
       'flavorText' => 'An energy system is a piece of subtle machinery to be optimized for better output.',
       'artist' => 'Taras Susak',

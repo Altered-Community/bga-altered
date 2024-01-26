@@ -13,7 +13,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sigismar & Wingspan'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Ordis Hero'),
       'type' => HERO,
       'flavorText' => clienttranslate('Follow me, friends! If we stand together, nothing can stop us! '),
       'artist' => 'Edward Cheekokseang',

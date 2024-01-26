@@ -13,7 +13,7 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
       'name' => 'Rin & Orchid',
-      'typeline' => 'Hero',
+      'typeline' => 'Muna Hero',
       'type' => HERO,
       'flavorText' => 'The forest always gives back, when you know where to look.',
       'artist' => 'Zero Wen',

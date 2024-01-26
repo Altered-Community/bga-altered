@@ -13,7 +13,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Nevenka & Blotch'),
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Lyra Hero'),
       'type' => HERO,
       'flavorText' => clienttranslate(
         "Chaos can bring disappointment, sure, but it's also where ye'll find the most wonderfullest hidden gems!"

@@ -13,7 +13,7 @@ class BR_Common_AtsadiSurge extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
       'name' => 'Atsadi & Surge',
-      'typeline' => 'Hero',
+      'typeline' => 'Bravos Hero',
       'type' => HERO,
       'flavorText' => 'Every challenge is a blessing that lets me rise even higher.',
       'artist' => 'Nestor Papatriantafyllou',

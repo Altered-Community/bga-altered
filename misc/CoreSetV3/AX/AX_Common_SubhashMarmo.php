@@ -13,7 +13,7 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
       'name' => 'Subhash & Marmo',
-      'typeline' => 'Hero',
+      'typeline' => 'Axiom Hero',
       'type' => HERO,
       'flavorText' =>
         "There are still endless possibilities, even in a world of finite resources. In the end, it all comes down to how you choose to spend 'em.",

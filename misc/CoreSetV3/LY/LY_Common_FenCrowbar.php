@@ -13,7 +13,7 @@ class LY_Common_FenCrowbar extends \ALT\Models\Card
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
       'name' => 'Fen & Crowbar',
-      'typeline' => 'Hero',
+      'typeline' => 'Lyra Hero',
       'type' => HERO,
       'flavorText' => "When you listen to the voice of the Wind, it always carries you where you're meant to be.",
       'artist' => 'Anh Tung',

@@ -13,7 +13,7 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
       'name' => 'Arjun & Spike',
-      'typeline' => 'Hero',
+      'typeline' => 'Muna Hero',
       'type' => HERO,
       'flavorText' => 'When you care for the earth, it let roots grow strong and resilient.',
       'artist' => 'Ba Vo',

@@ -13,7 +13,7 @@ class BR_Common_BasiraKaizaimon extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
       'name' => 'Basira & Kaizaimon',
-      'typeline' => 'Hero',
+      'typeline' => 'Bravos Hero',
       'type' => HERO,
       'flavorText' => 'Only the worthy shall achieve true transcendence under my guidance.',
       'artist' => 'Nestor Papatriantafyllou',

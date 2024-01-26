@@ -13,7 +13,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => 'Afanas & Senka',
-      'typeline' => 'Hero',
+      'typeline' => 'Yzmir Hero',
       'type' => HERO,
       'flavorText' => 'The world feeds on magic, and withers in its absence.',
       'artist' => 'Edward Cheekokseang',

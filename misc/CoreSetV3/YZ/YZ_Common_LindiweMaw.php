@@ -13,7 +13,7 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => 'Lindiwe & Maw',
-      'typeline' => 'Hero',
+      'typeline' => 'Yzmir Hero',
       'type' => HERO,
       'flavorText' => 'To master magic, one must be willing to sacrifice.',
       'artist' => 'Edward Cheekokseang',

@@ -13,7 +13,7 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => 'Gulrang & Tocsin',
-      'typeline' => 'Hero',
+      'typeline' => 'Ordis Hero',
       'type' => HERO,
       'flavorText' => 'The Ordis way lies in patience and resilience.',
       'artist' => 'Taras Susak',
