@@ -23,15 +23,16 @@ class BR_Rare_HavenWarrior extends \ALT\Models\Card
         '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
+      'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
+      'flavorText' => clienttranslate("We've all lived through some things. But she's been through worse."),
+      'artist' => 'Edward Cheekokseang',
+
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['mountain'],
-      'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
-      'flavorText' => clienttranslate("We've all lived through some things. But she's been through worse."),
-      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

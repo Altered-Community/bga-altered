@@ -19,6 +19,10 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => 'Activate the {j} triggers of target Permanent you control.',
+      'flavorText' => 'To learn to create, first learn to fix.',
+      'typeline' => 'Spell - Boon',
+      'artist' => 'Damian Audino',
+
       'costHand' => 1,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
@@ -27,9 +31,6 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
-      'flavorText' => 'To learn to create, first learn to fix.',
-      'typeline' => 'Spell - Boon',
-      'artist' => 'Damian Audino',
     ];
   }
 }

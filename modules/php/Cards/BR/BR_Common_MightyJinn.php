@@ -19,6 +19,10 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
       'effectDesc' => 'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).',
+      'typeline' => 'Character - Elemental',
+      'flavorText' => 'A single spark can start a wildfire.',
+      'artist' => 'HuoMiao Studio',
+
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 0,
@@ -30,9 +34,6 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
           'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true], ['optional' => true]),
         ],
       ],
-      'typeline' => 'Character - Elemental',
-      'flavorText' => 'A single spark can start a wildfire.',
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

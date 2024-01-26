@@ -17,6 +17,9 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [TITAN],
       'effectDesc' => clienttranslate('$[GIGANTIC].'),
+      'flavorText' => clienttranslate('Not even the weight of the sky could make him buckle.'),
+      'artist' => 'Matteo Spirito',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -24,8 +27,6 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'costReserve' => 5,
       'typeline' => clienttranslate('Character - Titan'),
       'gigantic' => true,
-      'flavorText' => clienttranslate('Not even the weight of the sky could make him buckle.'),
-      'artist' => 'Matteo Spirito',
     ];
   }
 }

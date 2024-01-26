@@ -26,14 +26,14 @@ class MU_Rare_MeditationTraining extends \ALT\Models\Card
         '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
+      'flavorText' => clienttranslate("Don't think you are, know you are."),
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
-
-      'flavorText' => clienttranslate("Don't think you are, know you are."),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

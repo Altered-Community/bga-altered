@@ -19,6 +19,10 @@ class AX_Common_Boom extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => '$[FLEETING].  Sacrifice a Character. If you do, discard target Character or Permanent.',
+      'flavorText' => "\"Catastrophic failure? I prefer the term 'learning opportunity'.\"",
+      'typeline' => 'Spell - Disruption',
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
@@ -35,9 +39,6 @@ class AX_Common_Boom extends \ALT\Models\Card
           ),
         ])
       ),
-      'flavorText' => "\"Catastrophic failure? I prefer the term 'learning opportunity'.\"",
-      'typeline' => 'Spell - Disruption',
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

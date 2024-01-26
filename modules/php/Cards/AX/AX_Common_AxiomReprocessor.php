@@ -19,6 +19,10 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate('At Noon — $[RESUPPLY].'),
+      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 4,
       'costReserve' => 4,
       'effectPassive' => [
@@ -27,9 +31,6 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
-      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
-      'typeline' => clienttranslate('Permanent - Landmark'),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

@@ -21,6 +21,12 @@ class AX_Common_KelonBurst extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.'
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate(
+        "There's an enduring legend in the Suspira quarries: the existence of another type of Kelon."
+      ),
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), [
@@ -31,11 +37,6 @@ class AX_Common_KelonBurst extends \ALT\Models\Card
           FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
         ],
       ]),
-      'typeline' => clienttranslate('Spell - Disruption'),
-      'flavorText' => clienttranslate(
-        "There's an enduring legend in the Suspira quarries: the existence of another type of Kelon."
-      ),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

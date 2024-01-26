@@ -19,17 +19,18 @@ class YZ_Rare_KadigiranAlchemist extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MAGE],
       'effectDesc' => clienttranslate('{H} I gain #3 boosts$[BB]#.'),
+      'typeline' => clienttranslate('Character - Mage'),
+      'flavorText' => clienttranslate(
+        "Alchemy is not just a matter of turning lead to gold. It's about purifying yourself of imperfections to become your true self."
+      ),
+      'artist' => 'Edward Cheekokseang',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 1,
       'effectHand' => FT::GAIN($this, BOOST, 3),
-      'typeline' => clienttranslate('Character - Mage'),
-      'flavorText' => clienttranslate(
-        "Alchemy is not just a matter of turning lead to gold. It's about purifying yourself of imperfections to become your true self."
-      ),
-      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

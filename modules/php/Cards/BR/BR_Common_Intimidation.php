@@ -21,15 +21,16 @@ class BR_Common_Intimidation extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Return target Character or Permanent with Hand Cost {4} or less to its owner\'s hand.'
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('The terrible beast shrank and cowered before the might of the Bravos.'),
+      'artist' => 'Nestor Papatriantafyllou',
+
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
       ),
-      'typeline' => clienttranslate('Spell - Disruption'),
-      'flavorText' => clienttranslate('The terrible beast shrank and cowered before the might of the Bravos.'),
-      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

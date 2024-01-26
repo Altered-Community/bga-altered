@@ -16,16 +16,17 @@ class AX_Common_JianAssemblyOverseer extends \ALT\Models\Card
       'name' => clienttranslate('Jian, Assembly Overseer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'forest' => 3,
-      'mountain' => 2,
-      'ocean' => 0,
-      'costHand' => 2,
-      'costReserve' => 2,
       'flavorText' => clienttranslate(
         "\"This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...\""
       ),
       'typeline' => clienttranslate('Character - Engineer'),
       'artist' => 'Khoa Viet',
+
+      'forest' => 3,
+      'mountain' => 2,
+      'ocean' => 0,
+      'costHand' => 2,
+      'costReserve' => 2,
     ];
   }
 }

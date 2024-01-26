@@ -19,12 +19,13 @@ class YZ_Common_Offyougo extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Send to Reserve target Character with Hand Cost {3} or less.'),
-      'costHand' => 2,
-      'costReserve' => 4,
-      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),
       'typeline' => clienttranslate('Spell - Disruption'),
       'flavorText' => clienttranslate('Time to kiss Kansas goodbye.'),
       'artist' => 'HuoMiao Studio',
+
+      'costHand' => 2,
+      'costReserve' => 4,
+      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),
     ];
   }
 }

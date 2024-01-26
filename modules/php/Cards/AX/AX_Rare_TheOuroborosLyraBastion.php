@@ -25,12 +25,13 @@ class AX_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '#{J} [RESUPPLY].#  If you would #$[RESUPPLY], instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other.#'
       ),
+      'artist' => 'Khoa Viet',
+
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       // Passive effect managed in Resupply
-      'artist' => 'Khoa Viet',
     ];
   }
 }

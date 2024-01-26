@@ -19,15 +19,16 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT, ANIMAL],
       'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),
+      'typeline' => clienttranslate('Character - Plant Animal'),
+      'flavorText' => clienttranslate('Some say the harvesters are the caretakers of the world-trees.'),
+      'artist' => 'Ba Vo',
+
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
-      'typeline' => clienttranslate('Character - Plant Animal'),
-      'flavorText' => clienttranslate('Some say the harvesters are the caretakers of the world-trees.'),
-      'artist' => 'Ba Vo',
     ];
   }
 }

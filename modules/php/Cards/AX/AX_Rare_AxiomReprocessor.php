@@ -19,6 +19,10 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => '#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].',
+      'flavorText' => 'Nothing is created, nothing is lost, everything is transformed.',
+      'typeline' => 'Permanent - Landmark',
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
@@ -28,9 +32,6 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
-      'flavorText' => 'Nothing is created, nothing is lost, everything is transformed.',
-      'typeline' => 'Permanent - Landmark',
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

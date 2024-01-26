@@ -19,6 +19,11 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
       'effectDesc' => '{J} You may have another target Character lose [FLEETING_CHAR].',
+      'typeline' => 'Character - Adventurer',
+      'artist' => 'Edward Cheekokseang',
+      'flavorText' =>
+        "\"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!\"",
+
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 2,
@@ -26,11 +31,6 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'costReserve' => 3,
 
       'effectPlayed' => FT::ACTION(TARGET, ['statuses' => FLEETING, 'upTo' => true, 'effect' => FT::LOOSE(EFFECT, FLEETING)]),
-      'typeline' => 'Character - Adventurer',
-      'artist' => 'Edward Cheekokseang',
-      'flavorText' =>
-        "\"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!\"",
-    'flavorText' => "\"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!\"", 
-];
+    ];
   }
 }

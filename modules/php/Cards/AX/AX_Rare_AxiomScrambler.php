@@ -23,6 +23,8 @@ class AX_Rare_AxiomScrambler extends \ALT\Models\Card
         'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.'
       ),
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'artist' => 'HuoMiao Studio',
+
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,
@@ -35,7 +37,6 @@ class AX_Rare_AxiomScrambler extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

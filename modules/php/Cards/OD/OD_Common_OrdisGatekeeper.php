@@ -20,6 +20,11 @@ class OD_Common_OrdisGatekeeper extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate('{J} Create an [ORDIS_RECRUIT] Soldier token in your other Expedition.'),
+      'flavorText' => clienttranslate(
+        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.'
+      ),
+      'artist' => 'Atanas Lozanski',
+
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,
@@ -30,11 +35,6 @@ class OD_Common_OrdisGatekeeper extends \ALT\Models\Card
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['oppositeSource'],
       ]),
-
-      'flavorText' => clienttranslate(
-        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.'
-      ),
-      'artist' => 'Atanas Lozanski',
     ];
   }
 }

@@ -19,12 +19,13 @@ class LY_Common_ACappellaTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [SONG],
       'effectDesc' => 'Target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)',
-      'costHand' => 1,
-      'costReserve' => 1,
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
       'typeline' => 'Spell - Song',
       'flavorText' => 'Thank you for being my metronome!',
       'artist' => 'Zero Wen',
+
+      'costHand' => 1,
+      'costReserve' => 1,
+      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
     ];
   }
 }

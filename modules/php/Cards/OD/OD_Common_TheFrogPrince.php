@@ -16,14 +16,15 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
       'name' => 'The Frog Prince',
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT, NOBLE],
+      'typeline' => 'Character - Bureaucrat Noble',
+      'flavorText' => "Thankfully, he doesn't seal his contracts with a kiss.",
+      'artist' => 'Gaga Zhou',
+
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'typeline' => 'Character - Bureaucrat Noble',
-      'flavorText' => "Thankfully, he doesn't seal his contracts with a kiss.",
-      'artist' => 'Gaga Zhou',
     ];
   }
 }

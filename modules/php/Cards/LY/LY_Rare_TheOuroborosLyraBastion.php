@@ -24,6 +24,7 @@ class LY_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'
       ),
+
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],

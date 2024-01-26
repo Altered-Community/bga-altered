@@ -22,6 +22,7 @@ class LY_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [MAGE, SOLDIER],
       'effectDesc' => clienttranslate('When you #roll one or more dice# — I gain 1 boost$[BB].'),
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

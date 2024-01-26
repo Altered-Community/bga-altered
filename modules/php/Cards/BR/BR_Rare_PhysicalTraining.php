@@ -20,6 +20,11 @@ class BR_Rare_PhysicalTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate('Target Character gains 3 boosts$[BB].  #Draw a card.#'),
+      'flavorText' => clienttranslate(
+        '100 crunches, 100 push-ups, 100 squats, a 10-km run and a desire to prove yourself. Just your typical morning of Bravos training.'
+      ),
+      'artist' => 'Polar Engine',
+
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand'],
@@ -27,11 +32,6 @@ class BR_Rare_PhysicalTraining extends \ALT\Models\Card
         FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
         FT::ACTION(DRAW, ['players' => ME])
       ),
-
-      'flavorText' => clienttranslate(
-        '100 crunches, 100 push-ups, 100 squats, a 10-km run and a desire to prove yourself. Just your typical morning of Bravos training.'
-      ),
-      'artist' => 'Polar Engine',
     ];
   }
 }

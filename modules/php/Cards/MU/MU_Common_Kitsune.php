@@ -19,15 +19,16 @@ class MU_Common_Kitsune extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate('{H} Each player draws a card.'),
+      'typeline' => clienttranslate('Character - Spirit'),
+      'flavorText' => clienttranslate("\"Want to play a game of headman-hunter-fox with me? I promise not to cheat!\""),
+      'artist' => 'Gaga Zhou',
+
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(DRAW, []),
-      'typeline' => clienttranslate('Character - Spirit'),
-      'flavorText' => clienttranslate("\"Want to play a game of headman-hunter-fox with me? I promise not to cheat!\""),
-      'artist' => 'Gaga Zhou',
     ];
   }
 }

@@ -20,6 +20,9 @@ class YZ_Common_ToothFairy extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
       'effectDesc' => '{H} $[SABOTAGE].',
+      'flavorText' => "\"Show me those pearly whites.\"",
+      'artist' => 'Anh Tung',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -31,8 +34,6 @@ class YZ_Common_ToothFairy extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'flavorText' => "\"Show me those pearly whites.\"",
-      'artist' => 'Anh Tung',
     ];
   }
 }

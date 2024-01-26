@@ -19,6 +19,10 @@ class AX_Common_DrFrankenstein extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'effectDesc' => '{R} You may activate the {j} triggers of target Permanent you control.',
+      'flavorText' => 'We sometimes seek companionship in the strangest of life forms.',
+      'typeline' => 'Character - Engineer',
+      'artist' => 'Taras Susak',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -31,9 +35,6 @@ class AX_Common_DrFrankenstein extends \ALT\Models\Card
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
-      'flavorText' => 'We sometimes seek companionship in the strangest of life forms.',
-      'typeline' => 'Character - Engineer',
-      'artist' => 'Taras Susak',
     ];
   }
 }

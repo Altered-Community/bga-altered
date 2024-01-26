@@ -19,15 +19,16 @@ class MU_Common_DaughterofYggdrasil extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{H} Target opponent draws a card.'),
+      'typeline' => clienttranslate('Character - Plant'),
+      'flavorText' => clienttranslate('The children of Yggdrasil now take care of the world trees.'),
+      'artist' => 'Nestor Papatriantafyllou',
+
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
       'effectHand' => FT::ACTION(DRAW, ['players' => OPPONENT]),
-      'typeline' => clienttranslate('Character - Plant'),
-      'flavorText' => clienttranslate('The children of Yggdrasil now take care of the world trees.'),
-      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

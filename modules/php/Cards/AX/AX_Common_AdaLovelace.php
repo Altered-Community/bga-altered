@@ -18,7 +18,11 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'name' => 'Ada Lovelace',
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
+      'typeline' => 'Character - Engineer',
       'effectDesc' => '{R} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.',
+      'flavorText' => "\"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.\"",
+      'artist' => 'Taras Susak',
+
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,
@@ -40,9 +44,6 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => ['condition' => 'isSourceAndDiscardPermanent', 'output' => FT::ACTION(DRAW, ['players' => ME])],
       ],
-      'flavorText' => "\"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.\"",
-      'typeline' => 'Character - Engineer',
-      'artist' => 'Taras Susak',
     ];
   }
 }

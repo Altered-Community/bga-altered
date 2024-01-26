@@ -21,6 +21,10 @@ class AX_Common_ThreeLittlePigs extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{J} If you control two or more Landmarks, I gain 1 boost$[BB]. (Cards in Reserve are not controlled.)'
       ),
+      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
+      'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Anh Tung',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -30,9 +34,6 @@ class AX_Common_ThreeLittlePigs extends \ALT\Models\Card
         'condition' => 'control2Landmarks',
         'effect' => FT::GAIN(ME, BOOST, 1),
       ]),
-      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
-      'typeline' => clienttranslate('Character - Engineer'),
-      'artist' => 'Anh Tung',
     ];
   }
 }

@@ -23,6 +23,10 @@ class OD_Rare_Ozma extends \ALT\Models\Card
         '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
       'supportIcon' => 'discard',
+      'typeline' => 'Character - Noble',
+      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
+      'artist' => 'Taras Susak',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -38,9 +42,6 @@ class OD_Rare_Ozma extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
       ],
-      'typeline' => 'Character - Noble',
-      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
-      'artist' => 'Taras Susak',
     ];
   }
 }

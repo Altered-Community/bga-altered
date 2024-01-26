@@ -25,6 +25,10 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
         '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
       'supportIcon' => 'discard',
+      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
+      'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Anh Tung',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -38,9 +42,6 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
-      'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
-      'typeline' => clienttranslate('Character - Engineer'),
-      'artist' => 'Anh Tung',
     ];
   }
 }

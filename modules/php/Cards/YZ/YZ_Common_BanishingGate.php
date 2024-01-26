@@ -20,14 +20,15 @@ class YZ_Common_BanishingGate extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('$[FLEETING].  Discard target Character or Permanent.'),
+      'flavorText' => clienttranslate('Let me walk you to the door.'),
+      'artist' => 'Jean-Baptiste Andrier',
+
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
       ),
-      'flavorText' => clienttranslate('Let me walk you to the door.'),
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

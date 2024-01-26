@@ -20,6 +20,9 @@ class YZ_Rare_ToothFairy extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'flavorText' => clienttranslate("\"Show me those pearly whites.\""),
+      'artist' => 'Anh Tung',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -32,8 +35,6 @@ class YZ_Rare_ToothFairy extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'flavorText' => clienttranslate("\"Show me those pearly whites.\""),
-      'artist' => 'Anh Tung',
     ];
   }
 }

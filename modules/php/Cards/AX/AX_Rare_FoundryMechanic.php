@@ -21,6 +21,8 @@ class AX_Rare_FoundryMechanic extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
+      'artist' => 'Fahmi Fauzi',
+
       'supportIcon' => 'discard',
       'forest' => 1,
       'mountain' => 1,
@@ -32,7 +34,6 @@ class AX_Rare_FoundryMechanic extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
-      'artist' => 'Fahmi Fauzi',
     ];
   }
 }

@@ -19,6 +19,10 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
       'effectDesc' => '{J} You may discard a card from your Reserve to draw a card.',
+      'typeline' => 'Character - Scholar',
+      'flavorText' => 'The old world is dying, and the new world struggles to be born: now is the time of monsters.',
+      'artist' => 'Khoa Viet',
+
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
@@ -36,9 +40,6 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
         ],
         ['optional' => true]
       ),
-      'typeline' => 'Character - Scholar',
-      'flavorText' => 'The old world is dying, and the new world struggles to be born: now is the time of monsters.',
-      'artist' => 'Khoa Viet',
     ];
   }
 }

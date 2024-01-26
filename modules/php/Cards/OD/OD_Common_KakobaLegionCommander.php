@@ -21,6 +21,10 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{J} If you control three or more other Characters, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)'
       ),
+      'typeline' => clienttranslate('Character - Soldier Noble'),
+      'flavorText' => clienttranslate('The general who became a scholar; the scholar who became a senator.'),
+      'artist' => 'Jean-Baptiste Andrier',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -30,9 +34,6 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
         'condition' => 'control3OtherCharacters',
         'effect' => FT::GAIN(ME, BOOST, 2),
       ]),
-      'typeline' => clienttranslate('Character - Soldier Noble'),
-      'flavorText' => clienttranslate('The general who became a scholar; the scholar who became a senator.'),
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

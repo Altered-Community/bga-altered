@@ -16,14 +16,15 @@ class OD_Common_OrdisTrooper extends \ALT\Models\Card
       'name' => clienttranslate('Ordis Trooper'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
+      'typeline' => clienttranslate('Character - Soldier'),
+      'flavorText' => clienttranslate("\"Chin up and stand tall. You’re shieldbearers of the Aegis now!\""),
+      'artist' => 'Jean-Baptiste Andrier',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
-      'typeline' => clienttranslate('Character - Soldier'),
-      'flavorText' => clienttranslate("\"Chin up and stand tall. You’re shieldbearers of the Aegis now!\""),
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

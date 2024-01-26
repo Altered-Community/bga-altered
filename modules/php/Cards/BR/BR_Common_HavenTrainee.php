@@ -19,15 +19,16 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [APPRENTICE],
       'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'typeline' => clienttranslate('Character - Apprentice'),
+      'flavorText' => clienttranslate("\"All right, lad, show me what you’ve learned.\""),
+      'artist' => 'Atanas Lozanski',
+
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 4,
       'effectReserve' => FT::GAIN($this, BOOST, 2),
-      'typeline' => clienttranslate('Character - Apprentice'),
-      'flavorText' => clienttranslate("\"All right, lad, show me what you’ve learned.\""),
-      'artist' => 'Atanas Lozanski',
     ];
   }
 }

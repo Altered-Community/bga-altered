@@ -20,6 +20,9 @@ class LY_Common_OuroborosCroupier extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $[RESUPPLY].'),
+      'flavorText' => clienttranslate('The house never loses.'),
+      'artist' => 'Anh Tung',
+
       'forest' => 0,
       'mountain' => 4,
       'ocean' => 4,
@@ -31,8 +34,6 @@ class LY_Common_OuroborosCroupier extends \ALT\Models\Card
           '4+' => FT::ACTION(DRAW, ['players' => ME]),
         ],
       ]),
-      'flavorText' => clienttranslate('The house never loses.'),
-      'artist' => 'Anh Tung',
     ];
   }
 }

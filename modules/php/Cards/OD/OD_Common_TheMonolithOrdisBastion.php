@@ -20,6 +20,9 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate('When a Character joins your Expeditions — It gains 1 boost$[BB].'),
+      'flavorText' => clienttranslate('A beacon of knowledge and order, a lighthouse towering high above the world.'),
+      'artist' => 'Jean-Baptiste Andrier',
+
       'costHand' => 5,
       'costReserve' => 5,
       'effectPassive' => [
@@ -32,8 +35,6 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
-      'flavorText' => clienttranslate('A beacon of knowledge and order, a lighthouse towering high above the world.'),
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

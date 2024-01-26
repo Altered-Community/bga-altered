@@ -17,15 +17,16 @@ class BR_Common_Red extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
       'effectDesc' => '$[SEASONED].',
+      'typeline' => 'Character - Adventurer',
+      'flavorText' => 'Grandma would be proud.',
+      'artist' => 'Jean-Baptiste Andrier',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'seasoned' => true,
-      'typeline' => 'Character - Adventurer',
-      'flavorText' => 'Grandma would be proud.',
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

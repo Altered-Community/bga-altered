@@ -19,6 +19,10 @@ class MU_Rare_ConiferalConeman extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),
+      'typeline' => clienttranslate('Character - Plant'),
+      'flavorText' => clienttranslate("\"Dosukoi! Let’s put it in the ground!\""),
+      'artist' => 'Damian Audino',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -26,9 +30,6 @@ class MU_Rare_ConiferalConeman extends \ALT\Models\Card
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::GAIN($this, ANCHORED),
-      'typeline' => clienttranslate('Character - Plant'),
-      'flavorText' => clienttranslate("\"Dosukoi! Let’s put it in the ground!\""),
-      'artist' => 'Damian Audino',
     ];
   }
 }

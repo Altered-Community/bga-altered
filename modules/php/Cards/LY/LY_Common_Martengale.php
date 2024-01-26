@@ -18,6 +18,10 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'subtypes' => [ANIMAL, SPIRIT],
       'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
       'supportIcon' => 'discard',
+      'typeline' => 'Character - Animal Spirit',
+      'flavorText' => 'Spotting a martengale is always a good omen.',
+      'artist' => 'Nestor Papatriantafyllou',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,
@@ -27,9 +31,6 @@ class LY_Common_Martengale extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
       ],
-      'typeline' => 'Character - Animal Spirit',
-      'flavorText' => 'Spotting a martengale is always a good omen.',
-      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

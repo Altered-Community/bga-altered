@@ -19,6 +19,12 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'flavorText' => clienttranslate(
+        'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.'
+      ),
+      'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'HuoMiao Studio',
+
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,
@@ -30,11 +36,6 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'flavorText' => clienttranslate(
-        'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.'
-      ),
-      'typeline' => clienttranslate('Character - Engineer'),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

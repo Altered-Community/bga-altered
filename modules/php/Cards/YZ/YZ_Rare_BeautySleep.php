@@ -22,11 +22,12 @@ class YZ_Rare_BeautySleep extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
       ),
+      'flavorText' => clienttranslate('Yet beware of splinters of flax.'),
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 1,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ASLEEP)]),
-      'flavorText' => clienttranslate('Yet beware of splinters of flax.'),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

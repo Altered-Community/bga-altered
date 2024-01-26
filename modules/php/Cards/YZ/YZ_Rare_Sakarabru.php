@@ -22,6 +22,9 @@ class YZ_Rare_Sakarabru extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing mine moves backwards one region.'),
       'supportDesc' => clienttranslate('#{D} : Draw a card.# (Discard me from Reserve to do this.)'),
       'supportIcon' => 'discard',
+      'flavorText' => clienttranslate('When such a terrifying being appears in your path, taking a step back is only natural.'),
+      'artist' => 'Gael Giudicelli',
+
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
@@ -30,9 +33,6 @@ class YZ_Rare_Sakarabru extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain', 'ocean'],
       'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT]),
       'effectSupport' => FT::ACTION(DRAW, ['players' => ME]),
-
-      'flavorText' => clienttranslate('When such a terrifying being appears in your path, taking a step back is only natural.'),
-      'artist' => 'Gael Giudicelli',
     ];
   }
 }

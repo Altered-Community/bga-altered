@@ -16,13 +16,14 @@ class OD_Common_MonolithRuneScribe extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Scholar'),
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
+      'flavorText' => clienttranslate('The Ordis manifest their Alteration through the use of glyphs of power.'),
+      'artist' => 'HuoMiao Studio',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'flavorText' => clienttranslate('The Ordis manifest their Alteration through the use of glyphs of power.'),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

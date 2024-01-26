@@ -19,6 +19,10 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
       'effectDesc' => '{R} $[SABOTAGE].',
+      'flavorText' => "Ting! Ting-a-ling! There's something magical in mischievous tinkering...",
+      'typeline' => 'Character - Fairy',
+      'artist' => 'Anh Tung',
+
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,
@@ -31,9 +35,6 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'flavorText' => "Ting! Ting-a-ling! There's something magical in mischievous tinkering...",
-      'typeline' => 'Character - Fairy',
-      'artist' => 'Anh Tung',
     ];
   }
 }

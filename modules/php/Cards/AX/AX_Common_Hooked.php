@@ -20,13 +20,13 @@ class AX_Common_Hooked extends \ALT\Models\Card
       'subtypes' => [MANEUVER],
       'effectDesc' =>
         'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)',
+      'typeline' => 'Spell - Maneuver',
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 1,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
       'flavorText' => 'Get over here!',
-      'typeline' => 'Spell - Maneuver',
-      'artist' => 'HuoMiao Studio',
-    'effectDesc' => 'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)', 
-];
+    ];
   }
 }

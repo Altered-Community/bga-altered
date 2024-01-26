@@ -24,6 +24,7 @@ class LY_Rare_PaintPrison extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '$[FLEETING].  You may discard a card from your Reserve to reduce my cost by #{1}#.  Return target Character or Permanent to the top of its owner\'s deck.'
       ),
+
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],

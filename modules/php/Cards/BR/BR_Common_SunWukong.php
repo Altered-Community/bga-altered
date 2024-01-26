@@ -19,15 +19,16 @@ class BR_Common_SunWukong extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'typeline' => clienttranslate('Character - Deity'),
+      'flavorText' => clienttranslate('Ever the trickster, always the rebel.'),
+      'artist' => 'Kevin Sidharta',
+
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 4,
       'effectReserve' => FT::GAIN($this, BOOST, 2),
-      'typeline' => clienttranslate('Character - Deity'),
-      'flavorText' => clienttranslate('Ever the trickster, always the rebel.'),
-      'artist' => 'Kevin Sidharta',
     ];
   }
 }

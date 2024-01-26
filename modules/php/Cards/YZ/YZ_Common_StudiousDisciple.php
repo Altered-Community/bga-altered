@@ -20,6 +20,10 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
+      'typeline' => clienttranslate('Character - Mage Apprentice'),
+      'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
+      'artist' => 'Floriane Bodereau',
+
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 1,
@@ -29,9 +33,6 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1]],
       ],
-      'typeline' => clienttranslate('Character - Mage Apprentice'),
-      'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
-      'artist' => 'Floriane Bodereau',
     ];
   }
 }

@@ -18,6 +18,9 @@ class BR_Rare_Shenlong extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DRAGON, DEITY],
       'effectDesc' => clienttranslate('#$[TOUGH_1].#'),
+      'flavorText' => clienttranslate('Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.'),
+      'artist' => 'HuoMiao Studio',
+
       'forest' => 9,
       'mountain' => 9,
       'ocean' => 9,
@@ -25,8 +28,6 @@ class BR_Rare_Shenlong extends \ALT\Models\Card
       'costReserve' => 6,
       'changedStats' => ['forest', 'mountain', 'ocean'],
       'tough' => 1,
-      'flavorText' => clienttranslate('Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.'),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

@@ -20,13 +20,13 @@ class LY_Common_MindApotheosis extends \ALT\Models\Card
       'subtypes' => [CONJURATION],
       'effectDesc' =>
         '$[FLEETING].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards. (Don\'t activate any {h} triggers.)',
-      'costHand' => 9,
-      'costReserve' => 9,
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'MindApotheosis'])),
       'typeline' => 'Spell - Conjuration',
       'flavorText' => 'Who looks outside, dreams; who looks inside, awakes.',
       'artist' => 'Zero Wen',
-    'effectDesc' => '$[FLEETING].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards. (Don\'t activate any {h} triggers.)', 
-];
+
+      'costHand' => 9,
+      'costReserve' => 9,
+      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'MindApotheosis'])),
+    ];
   }
 }

@@ -19,6 +19,10 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].'),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('This message will self-destruct in five seconds.'),
+      'artist' => 'Nestor Papatriantafyllou',
+
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
@@ -31,9 +35,6 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
         ]),
         FT::ACTION(RESUPPLY, [])
       ),
-      'typeline' => clienttranslate('Spell - Disruption'),
-      'flavorText' => clienttranslate('This message will self-destruct in five seconds.'),
-      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

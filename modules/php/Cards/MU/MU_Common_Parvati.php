@@ -20,15 +20,15 @@ class MU_Common_Parvati extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => '{H} Target Character gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
+      'flavorText' => 'Only in harmony can the world thrive.',
+      'artist' => 'Nestor Papatriantafyllou',
+
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
       'costHand' => 4,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
-
-      'flavorText' => 'Only in harmony can the world thrive.',
-      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

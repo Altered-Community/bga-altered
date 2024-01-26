@@ -19,6 +19,10 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => '$[SABOTAGE], then $[RESUPPLY].',
+      'typeline' => 'Spell - Disruption',
+      'flavorText' => 'This message will self-destruct in five seconds.',
+      'artist' => 'Nestor Papatriantafyllou',
+
       'costHand' => 2,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
@@ -31,9 +35,6 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
         ]),
         FT::ACTION(RESUPPLY, [])
       ),
-      'typeline' => 'Spell - Disruption',
-      'flavorText' => 'This message will self-destruct in five seconds.',
-      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

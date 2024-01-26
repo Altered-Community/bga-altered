@@ -19,6 +19,10 @@ class LY_Rare_Asmodeus extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts$[BB].'),
+      'typeline' => clienttranslate('Character - Deity'),
+      'flavorText' => clienttranslate('Wanna play a game?'),
+      'artist' => 'Zero Wen',
+
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
@@ -28,9 +32,6 @@ class LY_Rare_Asmodeus extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 3), '4+' => FT::GAIN(ME, ANCHORED)],
       ]),
-      'typeline' => clienttranslate('Character - Deity'),
-      'flavorText' => clienttranslate('Wanna play a game?'),
-      'artist' => 'Zero Wen',
     ];
   }
 }

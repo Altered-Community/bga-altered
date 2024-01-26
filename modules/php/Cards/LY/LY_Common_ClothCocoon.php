@@ -20,6 +20,10 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
         '$[FLEETING].  Choose one:  • Discard target [FLEETING_CHAR], [ANCHORED] or [ASLEEP] Character.  • Discard target Permanent.',
+      'typeline' => 'Spell - Disruption',
+      'flavorText' => 'Nobody expects... the cloth dancer!',
+      'artist' => 'Zero Wen',
+
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
@@ -30,10 +34,6 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
           'effect' => FT::ACTION(DISCARD, []),
         ])
       ),
-      'typeline' => 'Spell - Disruption',
-      'flavorText' => 'Nobody expects... the cloth dancer!',
-      'artist' => 'Zero Wen',
-    'effectDesc' => '$[FLEETING].  Choose one:  • Discard target [FLEETING_CHAR], [ANCHORED] or [ASLEEP] Character.  • Discard target Permanent.', 
-];
+    ];
   }
 }

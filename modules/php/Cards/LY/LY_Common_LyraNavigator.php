@@ -16,14 +16,15 @@ class LY_Common_LyraNavigator extends \ALT\Models\Card
       'name' => 'Lyra Navigator',
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
+      'typeline' => 'Character - Citizen',
+      'flavorText' => 'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.',
+      'artist' => 'Taras Susak',
+
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 4,
       'costHand' => 2,
       'costReserve' => 3,
-      'typeline' => 'Character - Citizen',
-      'flavorText' => 'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.',
-      'artist' => 'Taras Susak',
     ];
   }
 }

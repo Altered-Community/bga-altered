@@ -22,6 +22,12 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
         '#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
+      'flavorText' => clienttranslate(
+        "\"This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...\""
+      ),
+      'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Khoa Viet',
+
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 0,
@@ -33,11 +39,6 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
-      'flavorText' => clienttranslate(
-        "\"This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...\""
-      ),
-      'typeline' => clienttranslate('Character - Engineer'),
-      'artist' => 'Khoa Viet',
     ];
   }
 }

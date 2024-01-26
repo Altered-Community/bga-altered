@@ -19,6 +19,10 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'typeline' => clienttranslate('Character - Citizen'),
+      'flavorText' => clienttranslate('Stirred, but not shaken.'),
+      'artist' => 'Matteo Spirito',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -30,9 +34,6 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'typeline' => clienttranslate('Character - Citizen'),
-      'flavorText' => clienttranslate('Stirred, but not shaken.'),
-      'artist' => 'Matteo Spirito',
     ];
   }
 }

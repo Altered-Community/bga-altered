@@ -18,13 +18,14 @@ class AX_Common_KelonicGenerator extends \ALT\Models\Card
       'name' => 'Kelonic Generator',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
+      'typeline' => 'Permanent - Landmark',
+      'flavorText' => "\"Suspira's mines will soon run dry. Your precious Kelon will run dry.\"",
+      'artist' => 'Jean-Baptiste Andrier',
+
       'effectDesc' => '{2}, {T} : Draw a card.',
       'costHand' => 3,
       'costReserve' => 3,
       'effectTap' => FT::SEQ(FT::ACTION(PAY, ['pay' => 2]), FT::ACTION(DRAW, ['players' => ME])),
-      'typeline' => 'Permanent - Landmark',
-      'flavorText' => "\"Suspira's mines will soon run dry. Your precious Kelon will run dry.\"",
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

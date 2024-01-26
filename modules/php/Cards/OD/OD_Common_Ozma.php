@@ -19,6 +19,10 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [NOBLE],
       'effectDesc' => '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)',
+      'typeline' => 'Character - Noble',
+      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
+      'artist' => 'Taras Susak',
+
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 1,
@@ -28,9 +32,6 @@ class OD_Common_Ozma extends \ALT\Models\Card
         'condition' => 'control3OtherCharacters',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
-      'typeline' => 'Character - Noble',
-      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
-      'artist' => 'Taras Susak',
     ];
   }
 }

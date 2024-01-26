@@ -18,14 +18,15 @@ class YZ_Rare_MonolithArchivist extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
       'effectDesc' => clienttranslate('$[DEFENDER].'),
+      'flavorText' => clienttranslate("\"The form has been filled out incorrectly. Please make a new appointment tomorrow.\""),
+      'artist' => 'Atanas Lozanski',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
       'defender' => true,
-      'flavorText' => clienttranslate("\"The form has been filled out incorrectly. Please make a new appointment tomorrow.\""),
-      'artist' => 'Atanas Lozanski',
     ];
   }
 }

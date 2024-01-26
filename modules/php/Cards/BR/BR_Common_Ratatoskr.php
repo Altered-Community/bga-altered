@@ -19,15 +19,16 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MESSENGER],
       'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'typeline' => clienttranslate('Character - Messenger'),
+      'flavorText' => clienttranslate('You’re nuts if you think you can keep up with this little one!'),
+      'artist' => 'Gaga Zhou',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 3,
       'effectReserve' => FT::GAIN($this, BOOST, 2),
-      'typeline' => clienttranslate('Character - Messenger'),
-      'flavorText' => clienttranslate('You’re nuts if you think you can keep up with this little one!'),
-      'artist' => 'Gaga Zhou',
     ];
   }
 }

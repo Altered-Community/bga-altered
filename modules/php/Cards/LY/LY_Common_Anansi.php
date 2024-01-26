@@ -19,17 +19,17 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => '{J} I gain 1 boost$[BB] for each card in your Reserve.',
+      'typeline' => 'Character - Artist',
+      'flavorText' =>
+        'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.',
+      'artist' => 'Taras Susak',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserve']),
-      'typeline' => 'Character - Artist',
-      'artist' => 'Taras Susak',
-      'flavorText' =>
-        'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.',
-    'flavorText' => 'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.', 
-];
+    ];
   }
 }

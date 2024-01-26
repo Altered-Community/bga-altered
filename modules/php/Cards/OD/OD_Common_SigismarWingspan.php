@@ -17,12 +17,15 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Sigismar & Wingspan'),
       'type' => HERO,
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Ordis Hero'),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
       'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Hero Expedition.'),
+      'flavorText' => clienttranslate('Follow me, friends! If we stand together, nothing can stop us! '),
+      'artist' => 'Edward Cheekokseang',
+
       'effectPassive' => [
         'Noon' => [
           'condition' => 'myTurn',
@@ -33,8 +36,6 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
           ]),
         ],
       ],
-      'flavorText' => clienttranslate('Follow me, friends! If we stand together, nothing can stop us! '),
-      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

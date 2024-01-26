@@ -19,16 +19,17 @@ class LY_Rare_Esmeralda extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate('#{J}# $[RESUPPLY].'),
+      'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
+      'artist' => 'Edward Cheekokseang',
+
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
-      'typeline' => clienttranslate('Character - Artist'),
       'changedStats' => ['costReserve'],
-      'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
-      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

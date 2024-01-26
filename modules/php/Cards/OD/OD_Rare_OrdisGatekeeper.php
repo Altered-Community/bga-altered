@@ -20,6 +20,10 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => '{J} Create an [ORDIS_RECRUIT] Soldier token in #each of your# Expeditions.',
+      'artist' => 'Atanas Lozanski',
+      'flavorText' =>
+        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -38,10 +42,6 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
           'targetLocation' => [STORM_LEFT],
         ])
       ),
-      'artist' => 'Atanas Lozanski',
-      'flavorText' =>
-        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
-    'flavorText' => 'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.', 
-];
+    ];
   }
 }

@@ -21,11 +21,9 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
       'subtypes' => [LANDMARK],
       'effectDesc' =>
         'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.',
+
       'costHand' => 4,
       'costReserve' => 4,
-      'effectDesc' =>
-        'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.',
-    'effectDesc' => 'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.', 
-];
+    ];
   }
 }

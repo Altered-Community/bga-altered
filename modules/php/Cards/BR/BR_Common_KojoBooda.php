@@ -15,10 +15,13 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Kojo & Booda'),
       'type' => HERO,
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Bravos Hero'),
       'effectDesc' => clienttranslate(
         'At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.'
       ),
+      'flavorText' => clienttranslate('Faster, ever faster! Our fire rages highest when the race is afoot! '),
+      'artist' => 'Edward Cheekokseang',
+
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
@@ -32,8 +35,6 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
           ],
         ],
       ],
-      'flavorText' => clienttranslate('Faster, ever faster! Our fire rages highest when the race is afoot! '),
-      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

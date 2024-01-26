@@ -20,6 +20,9 @@ class OD_Rare_OrdisSpy extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].  #{R} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.#'),
+      'flavorText' => clienttranslate('Stirred, but not shaken.'),
+      'artist' => 'Matteo Spirito',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -36,8 +39,6 @@ class OD_Rare_OrdisSpy extends \ALT\Models\Card
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['source'],
       ]),
-      'flavorText' => clienttranslate('Stirred, but not shaken.'),
-      'artist' => 'Matteo Spirito',
     ];
   }
 }

@@ -22,6 +22,11 @@ class OD_Rare_OpentheGates extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'Create #four# [ORDIS_RECRUIT] Soldier tokens, #distributed as you choose among any number of target Expeditions#.'
       ),
+      'flavorText' => clienttranslate(
+        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.'
+      ),
+      'artist' => 'Jean-Baptiste Andrier',
+
       'costHand' => 5,
       'costReserve' => 5,
       'changedStats' => ['costReserve'],
@@ -47,10 +52,6 @@ class OD_Rare_OpentheGates extends \ALT\Models\Card
           'targetLocation' => STORMS,
         ])
       ),
-      'flavorText' => clienttranslate(
-        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.'
-      ),
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

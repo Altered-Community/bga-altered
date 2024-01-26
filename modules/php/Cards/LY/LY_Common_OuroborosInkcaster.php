@@ -21,6 +21,9 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
       'subtypes' => [ARTIST],
       'effectDesc' =>
         'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',
+      'flavorText' => 'When luck joins in the game, cleverness scores double. ',
+      'artist' => 'Khoa Viet',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 2,
@@ -41,9 +44,6 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
           ),
         ],
       ],
-      'flavorText' => 'When luck joins in the game, cleverness scores double. ',
-      'artist' => 'Khoa Viet',
-    'effectDesc' => 'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.', 
-];
+    ];
   }
 }

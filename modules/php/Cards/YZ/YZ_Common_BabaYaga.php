@@ -20,14 +20,15 @@ class YZ_Common_BabaYaga extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MAGE],
       'effectDesc' => clienttranslate('{H} Draw a card.'),
+      'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
+      'artist' => 'Atanas Lozanski',
+
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(DRAW, ['players' => ME]),
-      'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
-      'artist' => 'Atanas Lozanski',
     ];
   }
 }

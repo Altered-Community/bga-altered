@@ -21,6 +21,10 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.'
       ),
+      'flavorText' => clienttranslate('What could possibly go wrong with an adorable little self-replicating autonomous robot?'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
@@ -38,9 +42,6 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
           ]),
         ],
       ],
-      'flavorText' => clienttranslate('What could possibly go wrong with an adorable little self-replicating autonomous robot?'),
-      'typeline' => clienttranslate('Permanent - Landmark'),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

@@ -16,14 +16,15 @@ class BR_Common_Shenlong extends \ALT\Models\Card
       'name' => 'Shenlong',
       'type' => CHARACTER,
       'subtypes' => [DRAGON, DEITY],
+      'typeline' => 'Character - Dragon Deity',
+      'flavorText' => 'Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.',
+      'artist' => 'HuoMiao Studio',
+
       'forest' => 8,
       'mountain' => 8,
       'ocean' => 8,
       'costHand' => 6,
       'costReserve' => 6,
-      'typeline' => 'Character - Dragon Deity',
-      'flavorText' => 'Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.',
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

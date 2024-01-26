@@ -19,6 +19,10 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => '$[SEASONED].  {J} I gain 1 boost.',
+      'typeline' => 'Character - Soldier',
+      'flavorText' => "\"It seems Thoth has never seen me duel.\"",
+      'artist' => 'Taras Susak',
+
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
@@ -27,9 +31,6 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
 
       'seasoned' => true,
       'effectPlayed' => FT::GAIN($this, BOOST),
-      'typeline' => 'Character - Soldier',
-      'flavorText' => "\"It seems Thoth has never seen me duel.\"",
-      'artist' => 'Taras Susak',
     ];
   }
 }

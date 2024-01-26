@@ -19,6 +19,10 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
       'effectDesc' => clienttranslate('{H} Put a card from your hand in Reserve.'),
+      'flavorText' => clienttranslate('In true Axiom fashion, Kelon Elementals like to put everything to the taste.'),
+      'typeline' => clienttranslate('Character - Elemental'),
+      'artist' => 'Zero Wen',
+
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,
@@ -30,9 +34,6 @@ class AX_Common_KelonElemental extends \ALT\Models\Card
         'targetLocation' => [HAND],
         'effect' => FT::DISCARD_TO_RESERVE(),
       ]),
-      'flavorText' => clienttranslate('In true Axiom fashion, Kelon Elementals like to put everything to the taste.'),
-      'typeline' => clienttranslate('Character - Elemental'),
-      'artist' => 'Zero Wen',
     ];
   }
 }

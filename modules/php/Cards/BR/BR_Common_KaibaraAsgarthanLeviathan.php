@@ -18,6 +18,10 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'subtypes' => [LEVIATHAN],
       'effectDesc' =>
         '$[GIGANTIC].  $[TOUGH_X], where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)',
+      'typeline' => 'Character - Leviathan',
+      'flavorText' => 'For hundreds of years, Kaibara has protected Asagartha.',
+      'artist' => 'Fahmi Fauzi',
+
       'forest' => 6,
       'mountain' => 6,
       'ocean' => 6,
@@ -26,10 +30,6 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
 
       'gigantic' => true,
       'dynamicTough' => 'region',
-      'typeline' => 'Character - Leviathan',
-      'flavorText' => 'For hundreds of years, Kaibara has protected Asagartha.',
-      'artist' => 'Fahmi Fauzi',
-    'effectDesc' => '$[GIGANTIC].  $[TOUGH_X], where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)', 
-];
+    ];
   }
 }

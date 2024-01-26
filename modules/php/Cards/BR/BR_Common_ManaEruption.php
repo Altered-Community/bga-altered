@@ -19,6 +19,10 @@ class BR_Common_ManaEruption extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => '$[FLEETING].  Discard one of your Mana Orbs. If you do, discard target Character or Permanent.',
+      'typeline' => 'Spell - Disruption',
+      'flavorText' => 'Flames fly from his hand as he falls towards the monster, leaving a trail of glowing fire behind him...',
+      'artist' => 'Zero Wen',
+
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
@@ -31,9 +35,6 @@ class BR_Common_ManaEruption extends \ALT\Models\Card
         ]),
         FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
       ),
-      'typeline' => 'Spell - Disruption',
-      'flavorText' => 'Flames fly from his hand as he falls towards the monster, leaving a trail of glowing fire behind him...',
-      'artist' => 'Zero Wen',
     ];
   }
 }

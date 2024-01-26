@@ -19,15 +19,16 @@ class LY_Common_Loki extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => '{H} Each player discards their hand, then draws three cards.',
+      'typeline' => 'Character - Deity',
+      'flavorText' => 'What did you expect?',
+      'artist' => 'Justice Wong',
+
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
       'costReserve' => 5,
       'effectHand' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHand']), FT::ACTION(DRAW, ['n' => 3])),
-      'typeline' => 'Character - Deity',
-      'flavorText' => 'What did you expect?',
-      'artist' => 'Justice Wong',
     ];
   }
 }

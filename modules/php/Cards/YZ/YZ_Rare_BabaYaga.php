@@ -20,6 +20,9 @@ class YZ_Rare_BabaYaga extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MAGE],
       'effectDesc' => clienttranslate('{H} Draw a card.'),
+      'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
+      'artist' => 'Atanas Lozanski',
+
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,
@@ -27,8 +30,6 @@ class YZ_Rare_BabaYaga extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain'],
       'effectHand' => FT::ACTION(DRAW, ['players' => ME]),
-      'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
-      'artist' => 'Atanas Lozanski',
     ];
   }
 }

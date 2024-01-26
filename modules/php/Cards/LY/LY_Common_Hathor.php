@@ -22,6 +22,10 @@ class LY_Common_Hathor extends \ALT\Models\Card
         '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
+      'typeline' => clienttranslate('Character - Artist Deity'),
+      'flavorText' => clienttranslate('Dance is the language of the soul.'),
+      'artist' => 'Taras Susak',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,
@@ -32,9 +36,6 @@ class LY_Common_Hathor extends \ALT\Models\Card
         'targetLocation' => [RESERVE],
         'effect' => FT::RETURN_TO_HAND(),
       ]),
-      'typeline' => clienttranslate('Character - Artist Deity'),
-      'flavorText' => clienttranslate('Dance is the language of the soul.'),
-      'artist' => 'Taras Susak',
     ];
   }
 }

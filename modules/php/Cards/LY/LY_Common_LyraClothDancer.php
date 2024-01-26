@@ -21,15 +21,16 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{H} Up to one target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)'
       ),
+      'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate("Hope you're not afraid of heights!"),
+      'artist' => 'Fori Y.',
+
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)]),
-      'typeline' => clienttranslate('Character - Artist'),
-      'flavorText' => clienttranslate("Hope you're not afraid of heights!"),
-      'artist' => 'Fori Y.',
     ];
   }
 }

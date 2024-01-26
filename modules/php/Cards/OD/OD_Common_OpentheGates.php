@@ -20,6 +20,10 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [MANEUVER],
       'effectDesc' => 'Create two [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.',
+      'artist' => 'Jean-Baptiste Andrier',
+      'flavorText' =>
+        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.',
+
       'costHand' => 5,
       'costReserve' => 6,
       'effectPlayed' => FT::SEQ(
@@ -44,10 +48,6 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
           'targetLocation' => [STORM_RIGHT],
         ])
       ),
-      'artist' => 'Jean-Baptiste Andrier',
-      'flavorText' =>
-        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.',
-    'flavorText' => 'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.', 
-];
+    ];
   }
 }

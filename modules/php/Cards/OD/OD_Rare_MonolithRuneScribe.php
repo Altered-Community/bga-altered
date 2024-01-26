@@ -20,6 +20,9 @@ class OD_Rare_MonolithRuneScribe extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
       'effectDesc' => clienttranslate('#{H} If you control a token, $[RESUPPLY].#'),
+      'flavorText' => clienttranslate('The Ordis manifest their Alteration through the use of glyphs of power.'),
+      'artist' => 'HuoMiao Studio',
+
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 2,
@@ -27,8 +30,6 @@ class OD_Rare_MonolithRuneScribe extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['forest'],
       'effectHand' => FT::ACTION(CHECK_CONDITION, ['condition' => 'control1Token', 'effect' => FT::ACTION(RESUPPLY, [])]),
-      'flavorText' => clienttranslate('The Ordis manifest their Alteration through the use of glyphs of power.'),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

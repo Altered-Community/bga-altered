@@ -19,15 +19,16 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$[BB].',
+      'typeline' => 'Character - Artist',
+      'flavorText' => "\"All the world’s a stage.\"",
+      'artist' => 'Rémi Jacquot',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boost3Stat0']),
-      'typeline' => 'Character - Artist',
-      'flavorText' => "\"All the world’s a stage.\"",
-      'artist' => 'Rémi Jacquot',
     ];
   }
 }

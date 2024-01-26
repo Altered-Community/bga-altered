@@ -19,6 +19,10 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => '{J} $[SABOTAGE].',
+      'flavorText' => "\"In a jam? Sorry, mate. Maybe a side-effect of our scrambling...\"",
+      'typeline' => 'Permanent - Landmark',
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 2,
       'costReserve' => 2,
 
@@ -28,9 +32,6 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'flavorText' => "\"In a jam? Sorry, mate. Maybe a side-effect of our scrambling...\"",
-      'typeline' => 'Permanent - Landmark',
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

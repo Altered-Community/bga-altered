@@ -19,12 +19,13 @@ class MU_Common_Nurture extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate('Up to two target Characters each gain 1 boost$[BB].'),
-      'costHand' => 2,
-      'costReserve' => 1,
-      'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
       'typeline' => clienttranslate('Spell - Boon'),
       'flavorText' => clienttranslate("When the sun shines, we'll shine together."),
       'artist' => 'Zero Wen',
+
+      'costHand' => 2,
+      'costReserve' => 1,
+      'effectPlayed' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
     ];
   }
 }

@@ -17,16 +17,15 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Akesha & Taru'),
       'type' => HERO,
-      'typeline' => clienttranslate('Hero'),
+      'typeline' => clienttranslate('Yzmir Hero'),
+      'flavorText' => clienttranslate('Whatever ordeals we may face, good manners and politeness are always in fashion!'),
+      'artist' => 'Taras Susak',
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
       'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. You can only activate this if you are the first player.'),
       'effectTap' => FT::ACTION(CHECK_CONDITION, ['condition' => 'isFirstPlayer', 'effect' => FT::ACTION(AFTER_YOU, [])]),
-
-      'flavorText' => clienttranslate('Whatever ordeals we may face, good manners and politeness are always in fashion!'),
-      'artist' => 'Taras Susak',
     ];
   }
 }

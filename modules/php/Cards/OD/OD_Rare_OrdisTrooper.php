@@ -16,14 +16,15 @@ class OD_Rare_OrdisTrooper extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
+      'flavorText' => clienttranslate("\"Chin up and stand tall. You’re shieldbearers of the Aegis now!\""),
+      'artist' => 'Jean-Baptiste Andrier',
+
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 1,
       'costReserve' => 1,
       'changedStats' => ['mountain', 'ocean'],
-      'flavorText' => clienttranslate("\"Chin up and stand tall. You’re shieldbearers of the Aegis now!\""),
-      'artist' => 'Jean-Baptiste Andrier',
     ];
   }
 }

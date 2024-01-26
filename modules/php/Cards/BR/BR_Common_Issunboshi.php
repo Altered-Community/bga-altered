@@ -20,15 +20,16 @@ class BR_Common_Issunboshi extends \ALT\Models\Card
       'subtypes' => [ADVENTURER],
       'supportDesc' => '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)',
       'supportIcon' => 'discard',
+      'typeline' => 'Character - Adventurer',
+      'flavorText' => 'Small stature, big heart, immense adventures.',
+      'artist' => 'Anh Tung',
+
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 2,
       'costHand' => 1,
       'costReserve' => 1,
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
-      'typeline' => 'Character - Adventurer',
-      'flavorText' => 'Small stature, big heart, immense adventures.',
-      'artist' => 'Anh Tung',
     ];
   }
 }

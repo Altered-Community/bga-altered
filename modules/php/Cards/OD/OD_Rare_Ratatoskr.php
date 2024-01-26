@@ -20,6 +20,9 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [MESSENGER],
       'effectDesc' => clienttranslate('{R} #Create two [ORDIS_RECRUIT] Soldier tokens in my Expedition.#'),
+      'flavorText' => clienttranslate('You’re nuts if you think you can keep up with this little one!'),
+      'artist' => 'Gaga Zhou',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -37,8 +40,6 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
           'targetLocation' => ['source'],
         ])
       ),
-      'flavorText' => clienttranslate('You’re nuts if you think you can keep up with this little one!'),
-      'artist' => 'Gaga Zhou',
     ];
   }
 }

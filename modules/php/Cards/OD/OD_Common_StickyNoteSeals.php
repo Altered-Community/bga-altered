@@ -21,6 +21,10 @@ class OD_Common_StickyNoteSeals extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.'
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('Some lessons stick better than others.'),
+      'artist' => 'Atanas Lozanski',
+
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), [
@@ -31,9 +35,6 @@ class OD_Common_StickyNoteSeals extends \ALT\Models\Card
           FT::ACTION(TARGET, ['minHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
         ],
       ]),
-      'typeline' => clienttranslate('Spell - Disruption'),
-      'flavorText' => clienttranslate('Some lessons stick better than others.'),
-      'artist' => 'Atanas Lozanski',
     ];
   }
 }

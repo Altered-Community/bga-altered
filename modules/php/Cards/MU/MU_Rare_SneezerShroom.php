@@ -19,6 +19,10 @@ class MU_Rare_SneezerShroom extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost$[BB].#'),
+      'typeline' => clienttranslate('Character - Plant'),
+      'flavorText' => clienttranslate("\"Achoo!\""),
+      'artist' => 'Zero Wen',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -26,9 +30,6 @@ class MU_Rare_SneezerShroom extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'effectPassive' => ['Noon' => ['condition' => 'myTurn', 'output' => FT::GAIN($this, BOOST)]],
-      'typeline' => clienttranslate('Character - Plant'),
-      'flavorText' => clienttranslate("\"Achoo!\""),
-      'artist' => 'Zero Wen',
     ];
   }
 }

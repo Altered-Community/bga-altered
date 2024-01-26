@@ -22,6 +22,9 @@ class MU_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{J} If you control two or more Plants, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)'
       ),
+      'flavorText' => clienttranslate('Green is good.'),
+      'artist' => 'Kevin Sidharta',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -29,8 +32,6 @@ class MU_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'control2Plants', 'effect' => FT::GAIN($this, BOOST, 2)]),
-      'flavorText' => clienttranslate('Green is good.'),
-      'artist' => 'Kevin Sidharta',
     ];
   }
 }

@@ -19,6 +19,10 @@ class AX_Common_FoundryMechanic extends \ALT\Models\Card
       'supportDesc' => clienttranslate(
         '{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
+      'flavorText' => clienttranslate("You can't choose when and where a quick fix will be needed."),
+      'typeline' => clienttranslate('Character - Engineer'),
+      'artist' => 'Fahmi Fauzi',
+
       'supportIcon' => 'discard',
       'forest' => 0,
       'mountain' => 1,
@@ -29,9 +33,6 @@ class AX_Common_FoundryMechanic extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
-      'flavorText' => clienttranslate("You can't choose when and where a quick fix will be needed."),
-      'typeline' => clienttranslate('Character - Engineer'),
-      'artist' => 'Fahmi Fauzi',
     ];
   }
 }

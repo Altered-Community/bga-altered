@@ -16,14 +16,15 @@ class YZ_Common_LadyoftheLake extends \ALT\Models\Card
       'name' => clienttranslate('Lady of the Lake'),
       'type' => CHARACTER,
       'subtypes' => [FAIRY, SPIRIT],
+      'typeline' => clienttranslate('Character - Fairy Spirit'),
+      'flavorText' => clienttranslate("\"One day, I will show you the wonders of Avalon and the true might of the Fae realms.\""),
+      'artist' => 'Nestor Papatriantafyllou',
+
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'typeline' => clienttranslate('Character - Fairy Spirit'),
-      'flavorText' => clienttranslate("\"One day, I will show you the wonders of Avalon and the true might of the Fae realms.\""),
-      'artist' => 'Nestor Papatriantafyllou',
     ];
   }
 }

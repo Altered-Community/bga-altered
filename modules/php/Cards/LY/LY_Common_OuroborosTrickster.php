@@ -19,6 +19,10 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain 2 boosts. Otherwise, I gain 1 boost$[BB].'),
+      'typeline' => clienttranslate('Character - Citizen'),
+      'flavorText' => clienttranslate('Like the Bravos, Lyras are drawn to freedom and the distant horizon.'),
+      'artist' => 'Zero Wen',
+
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
@@ -27,9 +31,6 @@ class LY_Common_OuroborosTrickster extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 2)],
       ]),
-      'typeline' => clienttranslate('Character - Citizen'),
-      'flavorText' => clienttranslate('Like the Bravos, Lyras are drawn to freedom and the distant horizon.'),
-      'artist' => 'Zero Wen',
     ];
   }
 }

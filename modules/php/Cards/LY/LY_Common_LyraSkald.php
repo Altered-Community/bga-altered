@@ -16,14 +16,15 @@ class LY_Common_LyraSkald extends \ALT\Models\Card
       'name' => clienttranslate('Lyra Skald'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
+      'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate("We're all stories, in the end."),
+      'artist' => 'Ba Vo',
+
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'typeline' => clienttranslate('Character - Artist'),
-      'flavorText' => clienttranslate("We're all stories, in the end."),
-      'artist' => 'Ba Vo',
     ];
   }
 }

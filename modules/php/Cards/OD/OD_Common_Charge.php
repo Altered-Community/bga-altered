@@ -21,17 +21,18 @@ class OD_Common_Charge extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Characters you control gain 1 boost$[BB]. (Cards in Reserve are not controlled.)'
       ),
+      'typeline' => clienttranslate('Spell - Maneuver'),
+      'flavorText' => clienttranslate(
+        'Facing terrible odds and an unfathomably huge Leviathan, the Ordis legion charged nonetheless.'
+      ),
+      'artist' => 'Zero Wen',
+
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)])
       ),
-      'typeline' => clienttranslate('Spell - Maneuver'),
-      'flavorText' => clienttranslate(
-        'Facing terrible odds and an unfathomably huge Leviathan, the Ordis legion charged nonetheless.'
-      ),
-      'artist' => 'Zero Wen',
     ];
   }
 }

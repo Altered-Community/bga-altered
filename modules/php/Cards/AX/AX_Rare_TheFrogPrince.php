@@ -19,6 +19,9 @@ class AX_Rare_TheFrogPrince extends \ALT\Models\Card
       'subtypes' => [BUREAUCRAT, NOBLE],
       'supportDesc' => '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
       'supportIcon' => 'discard',
+      'flavorText' => "Thankfully, he doesn't seal his contracts with a kiss.",
+      'artist' => 'Gaga Zhou',
+
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
@@ -28,8 +31,6 @@ class AX_Rare_TheFrogPrince extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
       ],
-      'flavorText' => "Thankfully, he doesn't seal his contracts with a kiss.",
-      'artist' => 'Gaga Zhou',
     ];
   }
 }

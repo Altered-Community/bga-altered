@@ -21,17 +21,18 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '$[FLEETING].  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'
       ),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate(
+        'The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.'
+      ),
+      'artist' => 'Matteo Spirito',
+
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['upTo' => true, 'n' => 3, 'totalCost' => 5, 'effect' => FT::ACTION(DISCARD, [])])
       ),
-      'typeline' => clienttranslate('Spell - Disruption'),
-      'flavorText' => clienttranslate(
-        'The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.'
-      ),
-      'artist' => 'Matteo Spirito',
     ];
   }
 }

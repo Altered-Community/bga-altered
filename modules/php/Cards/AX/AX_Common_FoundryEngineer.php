@@ -17,6 +17,10 @@ class AX_Common_FoundryEngineer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'effectDesc' => '{R} The next Permanent you play this Afternoon costs {1} less.',
+      'flavorText' => 'Behind every Axiom masterwork, there are Foundry Engineers.',
+      'typeline' => 'Character - Engineer',
+      'artist' => 'Damian Audino',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 1,
@@ -27,9 +31,6 @@ class AX_Common_FoundryEngineer extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1, 'permanent' => true]],
       ],
-      'flavorText' => 'Behind every Axiom masterwork, there are Foundry Engineers.',
-      'typeline' => 'Character - Engineer',
-      'artist' => 'Damian Audino',
     ];
   }
 }

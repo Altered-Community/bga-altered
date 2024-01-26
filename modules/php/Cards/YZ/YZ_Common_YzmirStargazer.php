@@ -14,6 +14,10 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Yzmir Stargazer'),
+      'typeline' => clienttranslate('Character - Mage Scholar'),
+      'flavorText' => clienttranslate("She won't read the future in the stars, she'll change it herself."),
+      'artist' => 'HuoMiao Studio',
+
       'type' => CHARACTER,
       'subtypes' => [MAGE, SCHOLAR],
       'forest' => 1,
@@ -21,9 +25,6 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 1,
-      'typeline' => clienttranslate('Character - Mage Scholar'),
-      'flavorText' => clienttranslate("She won't read the future in the stars, she'll change it herself."),
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }

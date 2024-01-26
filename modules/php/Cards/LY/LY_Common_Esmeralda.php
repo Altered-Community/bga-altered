@@ -19,15 +19,16 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate('{H} $[RESUPPLY].'),
+      'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
+      'artist' => 'Edward Cheekokseang',
+
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(RESUPPLY, []),
-      'typeline' => clienttranslate('Character - Artist'),
-      'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
-      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

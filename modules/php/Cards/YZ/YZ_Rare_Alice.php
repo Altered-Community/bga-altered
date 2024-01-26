@@ -21,6 +21,9 @@ class YZ_Rare_Alice extends \ALT\Models\Card
       'subtypes' => [CITIZEN],
       'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)'),
       'supportIcon' => 'discard',
+      'flavorText' => clienttranslate("\"One good turn deserves another.\""),
+      'artist' => 'Taras Susak',
+
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 4,
@@ -28,9 +31,6 @@ class YZ_Rare_Alice extends \ALT\Models\Card
       'costReserve' => 3,
       'changedStats' => ['forest', 'mountain'],
       'effectSupport' => FT::ACTION(AFTER_YOU, []),
-
-      'flavorText' => clienttranslate("\"One good turn deserves another.\""),
-      'artist' => 'Taras Susak',
     ];
   }
 }

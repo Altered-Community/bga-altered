@@ -19,6 +19,10 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].  {R} I gain 1 boost.'),
+      'typeline' => clienttranslate('Character - Adventurer'),
+      'flavorText' => clienttranslate('Only the bravest can enter Haven.'),
+      'artist' => 'Edward Cheekokseang',
+
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -31,9 +35,6 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
         'effect' => FT::ACTION(DISCARD, []),
       ]),
       'effectReserve' => FT::GAIN($this, BOOST),
-      'typeline' => clienttranslate('Character - Adventurer'),
-      'flavorText' => clienttranslate('Only the bravest can enter Haven.'),
-      'artist' => 'Edward Cheekokseang',
     ];
   }
 }

@@ -19,6 +19,10 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Companion Expedition.'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'flavorText' => clienttranslate('The flow of Ordis Recruits seems to go on forever.'),
+      'artist' => 'Taras Susak',
+
       'costHand' => 3,
       'costReserve' => 3,
       'effectPassive' => [
@@ -31,9 +35,6 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
           ]),
         ],
       ],
-      'typeline' => clienttranslate('Permanent - Landmark'),
-      'flavorText' => clienttranslate('The flow of Ordis Recruits seems to go on forever.'),
-      'artist' => 'Taras Susak',
     ];
   }
 }

@@ -23,6 +23,8 @@ class AX_Rare_BrassbugHive extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#'
       ),
+      'artist' => 'HuoMiao Studio',
+
       'costHand' => 6,
       'costReserve' => 6,
       'changedStats' => ['costHand', 'costReserve'],
@@ -49,7 +51,6 @@ class AX_Rare_BrassbugHive extends \ALT\Models\Card
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
-      'artist' => 'HuoMiao Studio',
     ];
   }
 }
