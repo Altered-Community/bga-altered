@@ -243,28 +243,42 @@ class altered extends Table
         you must _never_ use getCurrentPlayerId() or getCurrentPlayerName(), otherwise it will fail with a "Not logged" error message. 
     */
 
-  function zombieTurn($state, $active_player)
+  function zombieTurn($state, $activePlayer)
   {
-    $statename = $state['name'];
-
-    if ($state['type'] === 'activeplayer') {
-      switch ($statename) {
-        default:
-          $this->gamestate->nextState('zombiePass');
-          break;
+    $stateName = $state['name'];
+    if ($state['type'] == 'activeplayer') {
+      if ($stateName == 'confirmTurn') {
+        $this->actConfirmTurn(true);
+      } elseif ($stateName == 'confirmPartialTurn') {
+        $this->actConfirmPartialTurn(true);
       }
+      // Clear all node of player
+      elseif (Engine::getNextUnresolved() != null) {
+        Engine::clearZombieNodes($activePlayer);
+        Engine::proceed();
+      } else {
+        $this->gamestate->nextState('zombiePass');
+      }
+    } elseif ($state['type'] == 'multipleactiveplayer') {
+      if ($stateName == 'selectPrecoDeck') {
+        $selection = Globals::getDeckSelection();
+        $selection[$activePlayer] = 0;
+        Globals::setDeckSelection($selection);
+        $this->updateActivePlayersPrecoDeckSelection();
+      } else if($stateName == 'firstDayManaSelection'){
+        $args = $this->argsFirstDayManaSelection()['_private'][$activePlayer];
+        $cardIds = [$args['cards'][0], $args['cards'][1], $args['cards'][2]];
 
-      return;
-    }
-
-    if ($state['type'] === 'multipleactiveplayer') {
+        $selection = Globals::getFirstDayManaSelection();
+        $selection[$activePlayer] = $cardIds;
+        Globals::setFirstDayManaSelection($selection);    
+        $this->updateActivePlayersFirstDayManaSelection();
+      }
       // Make sure player is in a non blocking status for role turn
-      $this->gamestate->setPlayerNonMultiactive($active_player, '');
-
-      return;
+      else {
+        $this->gamestate->setPlayerNonMultiactive($activePlayer, 'zombiePass');
+      }
     }
-
-    throw new feException('Zombie mode not supported at this game state: ' . $statename);
   }
 
   ///////////////////////////////////////////////////////////////////////////////////:

@@ -2430,8 +2430,10 @@ html {
   font-size: 16px;
   padding: 5px 2px 3px; }
 
-.pageheader {
-  z-index: 20; }
+.pageheader,
+#neutralized_game_panel {
+  z-index: 20;
+  position: relative; }
 
 #table-decision {
   position: relative;

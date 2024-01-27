@@ -154,8 +154,10 @@
     padding: 5px 2px 3px;
 }
 
-.pageheader {
+.pageheader,
+#neutralized_game_panel {
     z-index: 20;
+    position: relative;
 }
 
 #table-decision {
