@@ -911,9 +911,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
-      if ($(id).querySelector('.card-support-icon')) {
-        $(id).querySelector('.card-support-icon').classList.remove('selectable');
-      }
 
       let slideIt = () => {
         let container = this.getCardContainer(card);
@@ -948,6 +945,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.addCard(card, `hand-${n.args.player_id}`);
         this.flipAndReplace(fakeCard, id).then(slideIt);
       } else {
+        if ($(id).querySelector('.card-support-icon')) {
+          $(id).querySelector('.card-support-icon').classList.remove('selectable');
+        }
         slideIt();
       }
     },
@@ -1218,7 +1218,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     getSupportIcon(properties) {
-      console.log(properties);
       if (properties.supportIcon === undefined || properties.supportIcon == '') return '';
       return `<div class='card-support-icon' data-faction='${properties.faction}'>
         ${this.formatSvgIcon(properties.supportIcon)}

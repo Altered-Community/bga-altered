@@ -2,6 +2,7 @@
 - check mobile
 - Unique: bordure dorée avec un glow
 - landmark zone : not great
+- tooltip freeze when hero is selected
 
 [Après choix / écran VS]
 ~ Affichage de fight
