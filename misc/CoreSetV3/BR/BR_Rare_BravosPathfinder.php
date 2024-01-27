@@ -15,7 +15,7 @@ class BR_Rare_BravosPathfinder extends \ALT\Models\Card
       'name' => 'Bravos Pathfinder',
       'typeline' => 'Character - Adventurer',
       'type' => CHARACTER,
-      'flavorText' => "\"Stay on the path, they say. I make my own path!\"",
+      'flavorText' => '"Stay on the path, they say. I make my own path!"',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ADVENTURER],
       'effectDesc' => '#$[SEASONED].#  #{H} You may pay {2} to have me gain 1 boost.#',

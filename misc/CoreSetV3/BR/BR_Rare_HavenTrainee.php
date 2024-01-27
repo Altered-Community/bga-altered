@@ -15,7 +15,7 @@ class BR_Rare_HavenTrainee extends \ALT\Models\Card
       'name' => 'Haven Trainee',
       'typeline' => 'Character - Apprentice',
       'type' => CHARACTER,
-      'flavorText' => "\"All right, lad, show me what you’ve learned.\"",
+      'flavorText' => '"All right, lad, show me what you’ve learned."',
       'artist' => 'Atanas Lozanski',
       'subtypes' => [APPRENTICE],
       'effectDesc' => '{R} I gain 2 boosts$[BB].',

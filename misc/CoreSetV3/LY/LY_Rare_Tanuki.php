@@ -15,7 +15,7 @@ class LY_Rare_Tanuki extends \ALT\Models\Card
       'name' => clienttranslate('Tanuki'),
       'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"Pom! Pompoko, pom!\""),
+      'flavorText' => clienttranslate('"Pom! Pompoko, pom!"'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate('{H} $[SABOTAGE].  #{R} Roll a die. On a 4 or higher, [SABOTAGE].#'),

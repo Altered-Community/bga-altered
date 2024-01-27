@@ -15,7 +15,7 @@ class LY_Rare_LyraChronicler extends \ALT\Models\Card
       'name' => 'Lyra Chronicler',
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
-      'flavorText' => "Eidolon or human, we are all shaped by stories. They're the building blocks of our identity. ",
+      'flavorText' => 'Eidolon or human, we are all shaped by stories. They\'re the building blocks of our identity. ',
       'artist' => 'Taras Susak',
       'subtypes' => [ARTIST],
       'supportDesc' => '#{D} : [RESUPPLY]#. (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)',

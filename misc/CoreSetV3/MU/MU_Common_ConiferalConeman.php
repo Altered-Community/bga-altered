@@ -15,7 +15,7 @@ class MU_Common_ConiferalConeman extends \ALT\Models\Card
       'name' => clienttranslate('Coniferal Coneman'),
       'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"Dosukoi! Let’s put it in the ground!\""),
+      'flavorText' => clienttranslate('"Dosukoi! Let’s put it in the ground!"'),
       'artist' => 'Damian Audino',
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),

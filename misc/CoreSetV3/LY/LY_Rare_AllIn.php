@@ -15,7 +15,7 @@ class LY_Rare_AllIn extends \ALT\Models\Card
       'name' => 'All In!',
       'typeline' => 'Spell - Boon',
       'type' => SPELL,
-      'flavorText' => "There's a time to be cautious, and a time to bet it all!",
+      'flavorText' => 'There\'s a time to be cautious, and a time to bet it all!',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [BOON],
       'effectDesc' =>

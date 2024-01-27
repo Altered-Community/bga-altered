@@ -15,7 +15,7 @@ class OD_Rare_Thoth extends \ALT\Models\Card
       'name' => 'Thoth',
       'typeline' => 'Character - Bureaucrat Deity',
       'type' => CHARACTER,
-      'flavorText' => "\"The pen is mightier than the sword.\"",
+      'flavorText' => '"The pen is mightier than the sword."',
       'artist' => 'Christophe Young',
       'subtypes' => [BUREAUCRAT, DEITY],
       'effectDesc' =>

@@ -15,7 +15,7 @@ class MU_Common_Mowgli extends \ALT\Models\Card
       'name' => 'Mowgli',
       'typeline' => 'Character - Druid',
       'type' => CHARACTER,
-      'flavorText' => "\"Wake up, you lazy furball!\"",
+      'flavorText' => '"Wake up, you lazy furball!"',
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
       'forest' => 3,

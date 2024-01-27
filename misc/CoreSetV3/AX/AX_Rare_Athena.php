@@ -15,7 +15,7 @@ class AX_Rare_Athena extends \ALT\Models\Card
       'name' => 'Athena',
       'typeline' => 'Character - Deity',
       'type' => CHARACTER,
-      'flavorText' => "\"I’ve lifted the mist from off your eyes that’s blurred them up to now.\"",
+      'flavorText' => '"I’ve lifted the mist from off your eyes that’s blurred them up to now."',
       'artist' => 'Zero Wen',
       'subtypes' => [DEITY],
       'effectDesc' =>

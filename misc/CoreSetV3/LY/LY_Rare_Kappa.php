@@ -15,7 +15,7 @@ class LY_Rare_Kappa extends \ALT\Models\Card
       'name' => 'Kappa',
       'typeline' => 'Character - Spirit Trainer',
       'type' => CHARACTER,
-      'flavorText' => "\"Push through the pain. Giving up would hurt far more.\"",
+      'flavorText' => '"Push through the pain. Giving up would hurt far more."',
       'artist' => 'Matteo Spirito',
       'subtypes' => [SPIRIT, TRAINER],
       'forest' => 4,

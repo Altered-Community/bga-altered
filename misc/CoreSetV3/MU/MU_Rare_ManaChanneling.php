@@ -15,7 +15,7 @@ class MU_Rare_ManaChanneling extends \ALT\Models\Card
       'name' => 'Mana Channeling',
       'typeline' => 'Spell - Conjuration',
       'type' => SPELL,
-      'flavorText' => "There's only one way to turn the tide: by becoming stronger.",
+      'flavorText' => 'There\'s only one way to turn the tide: by becoming stronger.',
       'artist' => 'Zero Wen',
       'subtypes' => [CONJURATION],
       'effectDesc' => '$[FLEETING].  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).',

@@ -15,7 +15,7 @@ class OD_Rare_KelonBurst extends \ALT\Models\Card
       'name' => 'Kelon Burst',
       'typeline' => 'Spell - Disruption',
       'type' => SPELL,
-      'flavorText' => "There's an enduring legend in the Suspira quarries: the existence of another type of Kelon.",
+      'flavorText' => 'There\'s an enduring legend in the Suspira quarries: the existence of another type of Kelon.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>

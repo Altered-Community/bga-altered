@@ -15,7 +15,7 @@ class YZ_Rare_Boom extends \ALT\Models\Card
       'name' => 'Boom!',
       'typeline' => 'Spell - Disruption',
       'type' => SPELL,
-      'flavorText' => "\"Catastrophic failure? I prefer the term 'learning opportunity'.\"",
+      'flavorText' => '"Catastrophic failure? I prefer the term \'learning opportunity\'."',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' => '$[FLEETING].  Sacrifice a Character. If you do, discard target Character or Permanent.',

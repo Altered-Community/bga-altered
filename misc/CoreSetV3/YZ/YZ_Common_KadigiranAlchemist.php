@@ -16,7 +16,7 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate(
-        "Alchemy is not just a matter of turning lead to gold. It's about purifying yourself of imperfections to become your true self."
+        'Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self.'
       ),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [MAGE],

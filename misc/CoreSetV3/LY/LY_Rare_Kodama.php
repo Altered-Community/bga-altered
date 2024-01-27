@@ -15,7 +15,7 @@ class LY_Rare_Kodama extends \ALT\Models\Card
       'name' => 'Kodama',
       'typeline' => 'Character - Plant Spirit',
       'type' => CHARACTER,
-      'flavorText' => "There's no greater blessing for a tree than to offer a home for a Kodama.",
+      'flavorText' => 'There\'s no greater blessing for a tree than to offer a home for a Kodama.',
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT, SPIRIT],
       'effectDesc' => '{H} I gain $[ASLEEP].',

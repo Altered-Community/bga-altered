@@ -15,7 +15,7 @@ class AX_Rare_JeannedArc extends \ALT\Models\Card
       'name' => "Jeanne d'Arc",
       'typeline' => 'Character - Soldier',
       'type' => CHARACTER,
-      'flavorText' => "She'll be followed long after she's gone.",
+      'flavorText' => 'She\'ll be followed long after she\'s gone.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER],
       'effectDesc' => 'When I leave the Expedition zone — Create a #[BRASSBUG] Robot# token in each of your Expeditions.',

@@ -15,7 +15,7 @@ class OD_Rare_AmeliaEarhart extends \ALT\Models\Card
       'name' => 'Amelia Earhart',
       'typeline' => 'Character - Adventurer',
       'type' => CHARACTER,
-      'flavorText' => "\"The most effective way to do it, is to do it.\"",
+      'flavorText' => '"The most effective way to do it, is to do it."',
       'artist' => 'Taras Susak',
       'subtypes' => [ADVENTURER],
       'effectDesc' => '#{H} I gain 1 boost$[BB].#',

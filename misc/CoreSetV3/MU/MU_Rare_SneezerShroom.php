@@ -15,7 +15,7 @@ class MU_Rare_SneezerShroom extends \ALT\Models\Card
       'name' => clienttranslate('Sneezer Shroom'),
       'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"Achoo!\""),
+      'flavorText' => clienttranslate('"Achoo!"'),
       'artist' => 'Zero Wen',
       'subtypes' => [PLANT],
       'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost$[BB].#'),

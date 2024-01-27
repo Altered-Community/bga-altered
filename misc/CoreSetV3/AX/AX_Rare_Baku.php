@@ -15,7 +15,7 @@ class AX_Rare_Baku extends \ALT\Models\Card
       'name' => 'Baku',
       'typeline' => 'Character - Spirit',
       'type' => CHARACTER,
-      'flavorText' => "\"I’ve seen it myself! 'Baku! Baku!', it says, eating up ghosts as though they were candies.\"",
+      'flavorText' => '"I’ve seen it myself! \'Baku! Baku!\', it says, eating up ghosts as though they were candies."',
       'artist' => 'Zero Wen',
       'subtypes' => [SPIRIT],
       'effectDesc' => '{H} Target opponent discards a card from their hand.',

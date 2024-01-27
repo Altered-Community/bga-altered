@@ -15,7 +15,7 @@ class BR_Rare_Tanuki extends \ALT\Models\Card
       'name' => 'Tanuki',
       'typeline' => 'Character - Spirit',
       'type' => CHARACTER,
-      'flavorText' => "\"Pom! Pompoko, pom!\"",
+      'flavorText' => '"Pom! Pompoko, pom!"',
       'artist' => 'Matteo Spirito',
       'subtypes' => [SPIRIT],
       'effectDesc' => '{H} $[SABOTAGE].',

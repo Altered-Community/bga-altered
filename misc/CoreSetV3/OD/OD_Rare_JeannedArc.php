@@ -15,7 +15,7 @@ class OD_Rare_JeannedArc extends \ALT\Models\Card
       'name' => clienttranslate("Jeanne d'Arc"),
       'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("She'll be followed long after she's gone."),
+      'flavorText' => clienttranslate('She\'ll be followed long after she\'s gone.'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(

@@ -15,7 +15,7 @@ class AX_Rare_ArmoredJammer extends \ALT\Models\Card
       'name' => 'Armored Jammer',
       'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
-      'flavorText' => "\"In a jam? Sorry, mate. Maybe a side-effect of our scrambling...\"",
+      'flavorText' => '"In a jam? Sorry, mate. Maybe a side-effect of our scrambling..."',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
       'effectDesc' => '{J} $[SABOTAGE].  #When I leave your Landmark zone — [SABOTAGE].#',

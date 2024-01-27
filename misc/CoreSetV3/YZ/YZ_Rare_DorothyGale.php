@@ -15,7 +15,7 @@ class YZ_Rare_DorothyGale extends \ALT\Models\Card
       'name' => clienttranslate('Dorothy Gale'),
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"I’ve a feeling we’re not in Kansas anymore.\""),
+      'flavorText' => clienttranslate('"I’ve a feeling we’re not in Kansas anymore."'),
       'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('#{J}# You may send target Character to Reserve.'),

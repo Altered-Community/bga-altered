@@ -15,7 +15,7 @@ class BR_Rare_Ozma extends \ALT\Models\Card
       'name' => 'Ozma',
       'typeline' => 'Character - Noble',
       'type' => CHARACTER,
-      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
+      'flavorText' => '"Never give up. No one knows what’s going to happen next."',
       'artist' => 'Taras Susak',
       'subtypes' => [NOBLE],
       'effectDesc' => '{J} If you control #two or more other [BOOSTED_MP]# Characters, draw a card.',

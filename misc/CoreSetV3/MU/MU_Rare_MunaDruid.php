@@ -15,7 +15,7 @@ class MU_Rare_MunaDruid extends \ALT\Models\Card
       'name' => 'Muna Druid',
       'typeline' => 'Character - Druid',
       'type' => CHARACTER,
-      'flavorText' => "\"We are the sentinels of the Skein, always keeping a finger on the pulse of nature.\"",
+      'flavorText' => '"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."',
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
       'effectDesc' => '#{H} Up to one target Plant gains 2 boosts$[BB].#',

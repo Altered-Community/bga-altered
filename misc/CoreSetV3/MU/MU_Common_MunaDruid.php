@@ -15,7 +15,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       'name' => clienttranslate('Muna Druid'),
       'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"We are the sentinels of the Skein, always keeping a finger on the pulse of nature.\""),
+      'flavorText' => clienttranslate('"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."'),
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
       'supportDesc' => clienttranslate(

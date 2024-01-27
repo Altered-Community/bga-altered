@@ -15,7 +15,7 @@ class OD_Common_MonolithLegate extends \ALT\Models\Card
       'name' => 'Monolith Legate',
       'typeline' => 'Character - Bureaucrat',
       'type' => CHARACTER,
-      'flavorText' => "Your document has expired. Needless to say, that's not his problem.",
+      'flavorText' => 'Your document has expired. Needless to say, that\'s not his problem.',
       'artist' => 'Romain Kurdi',
       'subtypes' => [BUREAUCRAT],
       'effectDesc' => 'When my Expedition fails to move forward during Dusk — $[SABOTAGE] after Rest.',

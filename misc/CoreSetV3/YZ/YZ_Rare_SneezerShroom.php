@@ -15,7 +15,7 @@ class YZ_Rare_SneezerShroom extends \ALT\Models\Card
       'name' => 'Sneezer Shroom',
       'typeline' => 'Character - Plant',
       'type' => CHARACTER,
-      'flavorText' => "\"Achoo!\"",
+      'flavorText' => '"Achoo!"',
       'artist' => 'Zero Wen',
       'subtypes' => [PLANT],
       'effectDesc' => '{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost.#',

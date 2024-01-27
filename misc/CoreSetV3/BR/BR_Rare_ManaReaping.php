@@ -15,7 +15,7 @@ class BR_Rare_ManaReaping extends \ALT\Models\Card
       'name' => 'Mana Reaping',
       'typeline' => 'Spell - Disruption',
       'type' => SPELL,
-      'flavorText' => "Everything is energy and that's all there is to it.",
+      'flavorText' => 'Everything is energy and that\'s all there is to it.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' => '$[FLEETING].  Put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).',

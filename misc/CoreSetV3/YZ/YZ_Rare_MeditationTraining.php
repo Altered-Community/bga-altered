@@ -15,7 +15,7 @@ class YZ_Rare_MeditationTraining extends \ALT\Models\Card
       'name' => 'Meditation Training',
       'typeline' => 'Spell - Boon',
       'type' => SPELL,
-      'flavorText' => "Don't think you are, know you are.",
+      'flavorText' => 'Don\'t think you are, know you are.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [BOON],
       'effectDesc' =>

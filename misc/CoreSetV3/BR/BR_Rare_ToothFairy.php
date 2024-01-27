@@ -15,7 +15,7 @@ class BR_Rare_ToothFairy extends \ALT\Models\Card
       'name' => 'Tooth Fairy',
       'typeline' => 'Character - Fairy',
       'type' => CHARACTER,
-      'flavorText' => "\"Show me those pearly whites.\"",
+      'flavorText' => '"Show me those pearly whites."',
       'artist' => 'Anh Tung',
       'subtypes' => [FAIRY],
       'effectDesc' => '{H} $[SABOTAGE].',

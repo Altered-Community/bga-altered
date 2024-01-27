@@ -15,7 +15,7 @@ class YZ_Rare_LyraSkald extends \ALT\Models\Card
       'name' => 'Lyra Skald',
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
-      'flavorText' => "We're all stories, in the end.",
+      'flavorText' => 'We\'re all stories, in the end.',
       'artist' => 'Ba Vo',
       'subtypes' => [ARTIST],
       'effectDesc' => '#{H} You may discard a card from your Reserve to $[RESUPPLY].#',

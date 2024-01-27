@@ -15,7 +15,7 @@ class YZ_Rare_MonolithArchivist extends \ALT\Models\Card
       'name' => clienttranslate('Monolith Archivist'),
       'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"The form has been filled out incorrectly. Please make a new appointment tomorrow.\""),
+      'flavorText' => clienttranslate('"The form has been filled out incorrectly. Please make a new appointment tomorrow."'),
       'artist' => 'Atanas Lozanski',
       'subtypes' => [BUREAUCRAT],
       'effectDesc' => clienttranslate('$[DEFENDER].'),

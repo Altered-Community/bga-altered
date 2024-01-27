@@ -16,7 +16,7 @@ class LY_Rare_TheHatter extends \ALT\Models\Card
       'typeline' => 'Character - Citizen',
       'type' => CHARACTER,
       'flavorText' =>
-        "\"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?\"",
+        '"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?"',
       'artist' => 'Zero Wen',
       'subtypes' => [CITIZEN],
       'supportDesc' =>

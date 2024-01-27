@@ -16,7 +16,7 @@ class MU_Common_Hydracaena extends \ALT\Models\Card
       'typeline' => 'Character - Plant Dragon',
       'type' => CHARACTER,
       'flavorText' =>
-        "When they reach adult size, it's clear that the Dracaenas have really thrived on all that rest and relaxation.",
+        'When they reach adult size, it\'s clear that the Dracaenas have really thrived on all that rest and relaxation.',
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT, DRAGON],
       'effectDesc' => '$[ETERNAL].  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.',

@@ -15,7 +15,7 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
       'name' => 'The Ouroboros, Lyra Bastion',
       'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
-      'flavorText' => "The Expeditionary Corps' mobile outpost soars high, like a spinning wheel weaving the wind. ",
+      'flavorText' => 'The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind. ',
       'artist' => 'Khoa Viet',
       'subtypes' => [LANDMARK],
       'effectDesc' =>

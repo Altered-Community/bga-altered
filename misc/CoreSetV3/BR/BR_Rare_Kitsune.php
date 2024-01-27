@@ -15,7 +15,7 @@ class BR_Rare_Kitsune extends \ALT\Models\Card
       'name' => 'Kitsune',
       'typeline' => 'Character - Spirit',
       'type' => CHARACTER,
-      'flavorText' => "\"Want to play a game of headman-hunter-fox with me? I promise not to cheat!\"",
+      'flavorText' => '"Want to play a game of headman-hunter-fox with me? I promise not to cheat!"',
       'artist' => 'Gaga Zhou',
       'subtypes' => [SPIRIT],
       'effectDesc' => '{H} Each player draws a card.',

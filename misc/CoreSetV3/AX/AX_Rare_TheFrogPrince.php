@@ -15,7 +15,7 @@ class AX_Rare_TheFrogPrince extends \ALT\Models\Card
       'name' => 'The Frog Prince',
       'typeline' => 'Character - Bureaucrat Noble',
       'type' => CHARACTER,
-      'flavorText' => "Thankfully, he doesn't seal his contracts with a kiss.",
+      'flavorText' => 'Thankfully, he doesn\'t seal his contracts with a kiss.',
       'artist' => 'Gaga Zhou',
       'subtypes' => [BUREAUCRAT, NOBLE],
       'supportDesc' => '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from Reserve to do this.)',

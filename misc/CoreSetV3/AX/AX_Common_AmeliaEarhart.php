@@ -15,7 +15,7 @@ class AX_Common_AmeliaEarhart extends \ALT\Models\Card
       'name' => clienttranslate('Amelia Earhart'),
       'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"The most effective way to do it, is to do it.\""),
+      'flavorText' => clienttranslate('"The most effective way to do it, is to do it."'),
       'artist' => 'Taras Susak',
       'subtypes' => [ADVENTURER],
       'forest' => 2,

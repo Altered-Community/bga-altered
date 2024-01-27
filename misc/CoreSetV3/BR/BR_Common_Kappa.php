@@ -15,7 +15,7 @@ class BR_Common_Kappa extends \ALT\Models\Card
       'name' => clienttranslate('Kappa'),
       'typeline' => clienttranslate('Character - Spirit Trainer'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate("\"Push through the pain. Giving up would hurt far more.\""),
+      'flavorText' => clienttranslate('"Push through the pain. Giving up would hurt far more."'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [SPIRIT, TRAINER],
       'forest' => 4,

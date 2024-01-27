@@ -15,7 +15,7 @@ class BR_Rare_AxiomSalvager extends \ALT\Models\Card
       'name' => 'Axiom Salvager',
       'typeline' => 'Character - Engineer',
       'type' => CHARACTER,
-      'flavorText' => "The Axiom's limited resources pushed them to reuse whatever they could.",
+      'flavorText' => 'The Axiom\'s limited resources pushed them to reuse whatever they could.',
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
       'effectDesc' => '{R} $[RESUPPLY].',

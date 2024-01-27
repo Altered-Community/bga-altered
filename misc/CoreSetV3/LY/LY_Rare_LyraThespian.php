@@ -15,7 +15,7 @@ class LY_Rare_LyraThespian extends \ALT\Models\Card
       'name' => 'Lyra Thespian',
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
-      'flavorText' => "\"All the world’s a stage.\"",
+      'flavorText' => '"All the world’s a stage."',
       'artist' => 'Rémi Jacquot',
       'subtypes' => [ARTIST],
       'effectDesc' => '{J} If you have three or more base statistics of 0 among Characters you control, I gain #2 boosts$[BB]#.',

@@ -15,7 +15,7 @@ class MU_Rare_Chiron extends \ALT\Models\Card
       'name' => 'Chiron',
       'typeline' => 'Character - Trainer',
       'type' => CHARACTER,
-      'flavorText' => "\"And now, pray, mark all these things well in a wise heart.\"",
+      'flavorText' => '"And now, pray, mark all these things well in a wise heart."',
       'artist' => 'Justice Wong',
       'subtypes' => [TRAINER],
       'effectDesc' => '{J} #Up to two target Characters each# gain 1 boost$[BB].',

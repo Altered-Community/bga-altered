@@ -16,7 +16,7 @@ class AX_Rare_BravosVanguard extends \ALT\Models\Card
       'typeline' => 'Character - Adventurer',
       'type' => CHARACTER,
       'flavorText' =>
-        "\"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!\"",
+        '"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!"',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ADVENTURER],
       'effectDesc' => '{J} You may have another target Character lose [FLEETING_CHAR] #and gain 1 boost#.',

@@ -15,7 +15,7 @@ class OD_Rare_MonolithArchivist extends \ALT\Models\Card
       'name' => 'Monolith Archivist',
       'typeline' => 'Character - Bureaucrat',
       'type' => CHARACTER,
-      'flavorText' => "\"The form has been filled out incorrectly. Please make a new appointment tomorrow.\"",
+      'flavorText' => '"The form has been filled out incorrectly. Please make a new appointment tomorrow."',
       'artist' => 'Atanas Lozanski',
       'subtypes' => [BUREAUCRAT],
       'effectDesc' => '#I have $[DEFENDER] unless you control two or more Bureaucrats.#',

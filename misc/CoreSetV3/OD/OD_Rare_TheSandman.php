@@ -16,7 +16,7 @@ class OD_Rare_TheSandman extends \ALT\Models\Card
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
       'flavorText' =>
-        "\"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide.\"",
+        '"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide."',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [ARTIST],
       'effectDesc' =>

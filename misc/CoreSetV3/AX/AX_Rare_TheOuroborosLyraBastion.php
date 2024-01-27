@@ -16,7 +16,7 @@ class AX_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
       'flavorText' => clienttranslate(
-        "The Expeditionary Corps' mobile outpost soars high, like a spinning wheel weaving the wind. "
+        'The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind. '
       ),
       'artist' => 'Khoa Viet',
       'subtypes' => [LANDMARK],

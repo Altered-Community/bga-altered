@@ -15,7 +15,7 @@ class LY_Rare_ConiferalConeman extends \ALT\Models\Card
       'name' => 'Coniferal Coneman',
       'typeline' => 'Character - Plant',
       'type' => CHARACTER,
-      'flavorText' => "\"Dosukoi! Let’s put it in the ground!\"",
+      'flavorText' => '"Dosukoi! Let’s put it in the ground!"',
       'artist' => 'Damian Audino',
       'subtypes' => [PLANT],
       'effectDesc' => '{J} I gain $[ANCHORED].',

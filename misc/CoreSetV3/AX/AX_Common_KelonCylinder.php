@@ -16,7 +16,7 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
       'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
       'flavorText' =>
-        "This little battery is Axiom's trump card. The Kelon produces phenomenal energy for which engineers find new applications every day.",
+        'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy for which engineers find new applications every day.',
       'artist' => 'Anh Tung',
       'subtypes' => [LANDMARK],
       'effectDesc' =>

@@ -15,7 +15,7 @@ class MU_Common_MunaMerchant extends \ALT\Models\Card
       'name' => 'Muna Merchant',
       'typeline' => 'Character - Citizen',
       'type' => CHARACTER,
-      'flavorText' => "\"What do you need?\"",
+      'flavorText' => '"What do you need?"',
       'artist' => 'Ba Vo',
       'subtypes' => [CITIZEN],
       'effectDesc' => '{R} $[RESUPPLY].',

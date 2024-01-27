@@ -15,7 +15,7 @@ class MU_Rare_LyraThespian extends \ALT\Models\Card
       'name' => 'Lyra Thespian',
       'typeline' => 'Character - Artist',
       'type' => CHARACTER,
-      'flavorText' => "\"All the world’s a stage.\"",
+      'flavorText' => '"All the world’s a stage."',
       'artist' => 'Rémi Jacquot',
       'subtypes' => [ARTIST],
       'effectDesc' => '{J} If you control #two or more [BOOSTED_MP] Characters#, I gain #2 boosts$[BB]#.',

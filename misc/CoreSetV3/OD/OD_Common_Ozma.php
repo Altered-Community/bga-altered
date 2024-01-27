@@ -15,7 +15,7 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'name' => 'Ozma',
       'typeline' => 'Character - Noble',
       'type' => CHARACTER,
-      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
+      'flavorText' => '"Never give up. No one knows what’s going to happen next."',
       'artist' => 'Taras Susak',
       'subtypes' => [NOBLE],
       'effectDesc' => '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)',

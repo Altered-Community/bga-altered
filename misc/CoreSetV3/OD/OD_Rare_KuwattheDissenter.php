@@ -15,7 +15,7 @@ class OD_Rare_KuwattheDissenter extends \ALT\Models\Card
       'name' => 'Kuwat, the Dissenter',
       'typeline' => 'Character - Mage',
       'type' => CHARACTER,
-      'flavorText' => "\"There are gates one should not open, there are seals one should not breach. And yet I will.\"",
+      'flavorText' => '"There are gates one should not open, there are seals one should not breach. And yet I will."',
       'artist' => 'Ba Vo',
       'subtypes' => [MAGE],
       'effectDesc' => '{J} Sacrifice a Character in my Expedition.',

@@ -15,7 +15,7 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
       'name' => 'Bravos Bladedancer',
       'typeline' => 'Character - Soldier',
       'type' => CHARACTER,
-      'flavorText' => "\"It seems Thoth has never seen me duel.\"",
+      'flavorText' => '"It seems Thoth has never seen me duel."',
       'artist' => 'Taras Susak',
       'subtypes' => [SOLDIER],
       'effectDesc' => '$[SEASONED].  {J} I gain 1 boost.',

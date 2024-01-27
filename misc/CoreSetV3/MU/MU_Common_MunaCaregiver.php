@@ -15,7 +15,7 @@ class MU_Common_MunaCaregiver extends \ALT\Models\Card
       'name' => 'Muna Caregiver',
       'typeline' => 'Character - Druid',
       'type' => CHARACTER,
-      'flavorText' => "\"We don’t inherit the earth from our ancestors, we borrow it from our children.\"",
+      'flavorText' => '"We don’t inherit the earth from our ancestors, we borrow it from our children."',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DRUID],
       'supportDesc' =>
