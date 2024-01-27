@@ -20,7 +20,7 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
       'subtypes' => [ENGINEER],
       'typeline' => 'Character - Engineer',
       'effectDesc' => '{R} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.',
-      'flavorText' => "\"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.\"",
+      'flavorText' => '"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us."',
       'artist' => 'Taras Susak',
 
       'forest' => 1,

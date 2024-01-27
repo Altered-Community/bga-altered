@@ -22,7 +22,7 @@ class LY_Common_LyraClothDancer extends \ALT\Models\Card
         '{H} Up to one target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)'
       ),
       'typeline' => clienttranslate('Character - Artist'),
-      'flavorText' => clienttranslate("Hope you're not afraid of heights!"),
+      'flavorText' => clienttranslate('Hope you\'re not afraid of heights!'),
       'artist' => 'Fori Y.',
 
       'forest' => 0,

@@ -79,7 +79,7 @@ class QueryBuilder extends \APP_DbObject
           $val === null
             ? 'NULL'
             : (is_array($val)
-              ? "'" . mysql_escape_string(json_encode($val)) . "'"
+              ? "'" . mysql_escape_string(json_encode($val, JSON_UNESCAPED_SLASHES)) . "'"
               : "'" . mysql_escape_string($val) . "'");
       }
       $vals[] = '(' . implode(',', $rowValues) . ')';

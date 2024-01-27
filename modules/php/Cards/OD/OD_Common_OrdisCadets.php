@@ -20,7 +20,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
       'subtypes' => [APPRENTICE, SOLDIER],
       'effectDesc' => clienttranslate('{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.'),
       'typeline' => clienttranslate('Character - Apprentice Soldier'),
-      'flavorText' => clienttranslate("Together they learn, and together they'll protect."),
+      'flavorText' => clienttranslate('Together they learn, and together they\'ll protect.'),
       'artist' => 'Anh Tung',
 
       'forest' => 1,

@@ -24,7 +24,7 @@ class OD_Rare_Ozma extends \ALT\Models\Card
       ),
       'supportIcon' => 'discard',
       'typeline' => 'Character - Noble',
-      'flavorText' => "\"Never give up. No one knows what’s going to happen next.\"",
+      'flavorText' => '"Never give up. No one knows what’s going to happen next."',
       'artist' => 'Taras Susak',
 
       'forest' => 2,

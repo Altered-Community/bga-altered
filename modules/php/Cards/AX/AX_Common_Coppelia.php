@@ -19,7 +19,7 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ROBOT],
       'effectDesc' => 'When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].',
-      'flavorText' => "Because of her artificial nature, she served as a model for the Faction's first Automata prototypes.",
+      'flavorText' => 'Because of her artificial nature, she served as a model for the Faction\'s first Automata prototypes.',
       'typeline' => 'Character - Robot',
       'artist' => 'Taras Susak',
 

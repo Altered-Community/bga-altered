@@ -22,7 +22,7 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'typeline' => 'Character - Adventurer',
       'artist' => 'Edward Cheekokseang',
       'flavorText' =>
-        "\"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!\"",
+        '"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!"',
 
       'forest' => 4,
       'mountain' => 2,

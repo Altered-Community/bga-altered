@@ -23,7 +23,7 @@ class MU_Common_MunaDruid extends \ALT\Models\Card
       ),
       'supportIcon' => 'discard',
       'typeline' => clienttranslate('Character - Druid'),
-      'flavorText' => clienttranslate("\"We are the sentinels of the Skein, always keeping a finger on the pulse of nature.\""),
+      'flavorText' => clienttranslate('"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."'),
       'artist' => 'Ba Vo',
 
       'forest' => 3,

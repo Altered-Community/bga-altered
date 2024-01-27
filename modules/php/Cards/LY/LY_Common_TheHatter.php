@@ -25,7 +25,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'artist' => 'Zero Wen',
       'flavorText' => clienttranslate(
-        "\"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?\""
+        '"You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?"'
       ),
 
       'forest' => 5,

@@ -20,7 +20,7 @@ class BR_Rare_DorothyGale extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{H} You may send target Character to Reserve.'),
-      'flavorText' => clienttranslate("\"I’ve a feeling we’re not in Kansas anymore.\""),
+      'flavorText' => clienttranslate('"I’ve a feeling we’re not in Kansas anymore."'),
       'artist' => 'Taras Susak',
 
       'forest' => 3,

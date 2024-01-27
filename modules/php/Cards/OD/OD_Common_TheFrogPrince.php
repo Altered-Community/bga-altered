@@ -17,7 +17,7 @@ class OD_Common_TheFrogPrince extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT, NOBLE],
       'typeline' => clienttranslate('Character - Bureaucrat Noble'),
-      'flavorText' => clienttranslate("Thankfully, he doesn't seal his contracts with a kiss."),
+      'flavorText' => clienttranslate('Thankfully, he doesn\'t seal his contracts with a kiss.'),
       'artist' => 'Gaga Zhou',
 
       'forest' => 3,

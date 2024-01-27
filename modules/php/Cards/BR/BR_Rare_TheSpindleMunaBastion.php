@@ -19,7 +19,7 @@ class BR_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate('Characters you control have $[TOUGH_2]. (Cards in Reserve are not controlled.)'),
       'flavorText' => clienttranslate(
-        "Within the Spindle's trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants."
+        'Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.'
       ),
       'artist' => 'Ba Vo',
 

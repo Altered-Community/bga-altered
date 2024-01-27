@@ -15,7 +15,7 @@ class YZ_Common_YzmirStargazer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Yzmir Stargazer'),
       'typeline' => clienttranslate('Character - Mage Scholar'),
-      'flavorText' => clienttranslate("She won't read the future in the stars, she'll change it herself."),
+      'flavorText' => clienttranslate('She won\'t read the future in the stars, she\'ll change it herself.'),
       'artist' => 'HuoMiao Studio',
 
       'type' => CHARACTER,

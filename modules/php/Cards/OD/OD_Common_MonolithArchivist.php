@@ -18,7 +18,7 @@ class OD_Common_MonolithArchivist extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT],
       'effectDesc' => '$[DEFENDER].',
-      'flavorText' => "\"The form has been filled out incorrectly. Please make a new appointment tomorrow.\"",
+      'flavorText' => '"The form has been filled out incorrectly. Please make a new appointment tomorrow."',
       'artist' => 'Atanas Lozanski',
 
       'forest' => 3,

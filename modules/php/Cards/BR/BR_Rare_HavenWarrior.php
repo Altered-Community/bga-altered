@@ -24,7 +24,7 @@ class BR_Rare_HavenWarrior extends \ALT\Models\Card
       ),
       'supportIcon' => 'discard',
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
-      'flavorText' => clienttranslate("We've all lived through some things. But she's been through worse."),
+      'flavorText' => clienttranslate('We\'ve all lived through some things. But she\'s been through worse.'),
       'artist' => 'Edward Cheekokseang',
 
       'forest' => 4,

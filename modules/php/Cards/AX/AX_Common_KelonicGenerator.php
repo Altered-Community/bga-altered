@@ -19,7 +19,7 @@ class AX_Common_KelonicGenerator extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'typeline' => 'Permanent - Landmark',
-      'flavorText' => "\"Suspira's mines will soon run dry. Your precious Kelon will run dry.\"",
+      'flavorText' => '"Suspira\'s mines will soon run dry. Your precious Kelon will run dry."',
       'artist' => 'Jean-Baptiste Andrier',
 
       'effectDesc' => '{2}, {T} : Draw a card.',

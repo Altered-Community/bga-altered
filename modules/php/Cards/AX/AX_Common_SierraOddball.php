@@ -21,7 +21,9 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         'When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.'
       ),
-      'flavorText' => clienttranslate("I don't know if there's a better reward than seeing something you've built come to life."),
+      'flavorText' => clienttranslate(
+        'I don\'t know if there\'s a better reward than seeing something you\'ve built come to life.'
+      ),
       'artist' => 'Taras Susak',
 
       'reserveSlots' => 2,

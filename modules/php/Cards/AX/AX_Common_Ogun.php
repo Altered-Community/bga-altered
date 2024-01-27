@@ -19,7 +19,7 @@ class AX_Common_Ogun extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ENGINEER, DEITY],
       'effectDesc' => '{J} Robots you control gain 1 boost$[BB].',
-      'flavorText' => "With every blow of his hammer, Ogun forges the Axiom's destiny.",
+      'flavorText' => 'With every blow of his hammer, Ogun forges the Axiom\'s destiny.',
       'typeline' => 'Character - Engineer Deity',
       'artist' => 'Edward Cheekokseang',
 

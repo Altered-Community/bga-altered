@@ -20,7 +20,7 @@ class AX_Rare_KelonicGenerator extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate('#{1}#, {T} : Draw a card.'),
-      'flavorText' => clienttranslate("\"Suspira's mines will soon run dry. Your precious Kelon will run dry.\""),
+      'flavorText' => clienttranslate('"Suspira\'s mines will soon run dry. Your precious Kelon will run dry."'),
       'artist' => 'Jean-Baptiste Andrier',
 
       'costHand' => 4,

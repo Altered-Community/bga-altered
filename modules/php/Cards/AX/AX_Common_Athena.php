@@ -19,7 +19,7 @@ class AX_Common_Athena extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DEITY],
       'effectDesc' => '{R} If you control two or more Landmarks, I lose [FLEETING_CHAR].',
-      'flavorText' => "\"I’ve lifted the mist from off your eyes that’s blurred them up to now.\"",
+      'flavorText' => '"I’ve lifted the mist from off your eyes that’s blurred them up to now."',
       'typeline' => 'Character - Deity',
       'artist' => 'Zero Wen',
 

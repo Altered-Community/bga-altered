@@ -19,7 +19,7 @@ class AX_Common_TinkerBell extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
       'effectDesc' => '{R} $[SABOTAGE].',
-      'flavorText' => "Ting! Ting-a-ling! There's something magical in mischievous tinkering...",
+      'flavorText' => 'Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...',
       'typeline' => 'Character - Fairy',
       'artist' => 'Anh Tung',
 

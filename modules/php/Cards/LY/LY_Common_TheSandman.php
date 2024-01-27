@@ -23,7 +23,7 @@ class LY_Common_TheSandman extends \ALT\Models\Card
         '{H} Up to one target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
       'artist' => 'Nestor Papatriantafyllou',
       'flavorText' =>
-        "\"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide.\"",
+        '"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide."',
 
       'forest' => 0,
       'mountain' => 3,

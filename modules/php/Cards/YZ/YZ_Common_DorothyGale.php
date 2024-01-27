@@ -20,7 +20,7 @@ class YZ_Common_DorothyGale extends \ALT\Models\Card
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{H} You may send target Character to Reserve.'),
       'typeline' => clienttranslate('Character - Citizen'),
-      'flavorText' => clienttranslate("\"I’ve a feeling we’re not in Kansas anymore.\""),
+      'flavorText' => clienttranslate('"I’ve a feeling we’re not in Kansas anymore."'),
       'artist' => 'Taras Susak',
 
       'forest' => 3,

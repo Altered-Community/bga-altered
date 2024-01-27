@@ -523,7 +523,7 @@ class CachedPieces extends DB_Manager
 
         foreach (static::$customFields as $field) {
           if (isset($info[$field]) && is_array($info[$field])) {
-            $data[] = \json_encode($info[$field]);
+            $data[] = \json_encode($info[$field], JSON_UNESCAPED_SLASHES);
           } else {
             $data[] = $info[$field] ?? null;
           }

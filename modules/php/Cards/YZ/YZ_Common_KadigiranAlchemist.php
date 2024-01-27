@@ -21,7 +21,7 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{H} I gain 2 boosts$[BB].'),
       'typeline' => clienttranslate('Character - Mage'),
       'flavorText' => clienttranslate(
-        "Alchemy is not just a matter of turning lead to gold. It's about purifying yourself of imperfections to become your true self."
+        'Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self.'
       ),
       'artist' => 'Edward Cheekokseang',
 

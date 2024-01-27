@@ -18,7 +18,7 @@ class BR_Common_TomoeGozen extends \ALT\Models\Card
       'subtypes' => [SOLDIER],
       'effectDesc' => 'I can\'t be played if you have less than seven Mana Orbs.',
       'typeline' => 'Character - Soldier',
-      'flavorText' => "For only the most gifted of Alterers could bring humanity's long-remembered legends to life.",
+      'flavorText' => 'For only the most gifted of Alterers could bring humanity\'s long-remembered legends to life.',
       'artist' => 'Edward Cheekokseang',
 
       'forest' => 2,
