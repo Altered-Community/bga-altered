@@ -31,7 +31,7 @@ class OD_Common_OrdisGatekeeper extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
-        'pId' => $this->getPId(),
+        'pId' => 'source',
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['oppositeSource'],
       ]),

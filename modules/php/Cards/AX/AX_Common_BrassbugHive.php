@@ -28,7 +28,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
-        'pId' => $this->getPId(),
+        'pId' => 'source',
         'tokenType' => 'AX_Common_Brassbug',
         'targetLocation' => STORMS,
       ]),
@@ -36,7 +36,7 @@ class AX_Common_BrassbugHive extends \ALT\Models\Card
         'Noon' => [
           'condition' => 'myTurn',
           'output' => FT::ACTION(INVOKE_TOKEN, [
-            'pId' => $this->getPId(),
+            'pId' => 'source',
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => STORMS,
           ]),

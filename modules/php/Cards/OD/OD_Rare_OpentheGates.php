@@ -32,22 +32,22 @@ class OD_Rare_OpentheGates extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::SEQ(
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => STORMS,
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => STORMS,
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => STORMS,
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => STORMS,
         ])

@@ -35,7 +35,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, []),
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => $this->getPId(),
+              'pId' => 'source',
               'tokenType' => 'AX_Common_Brassbug',
               'targetLocation' => STORMS,
             ])

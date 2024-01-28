@@ -34,12 +34,12 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
         'LeaveExpedition' => [
           'output' => FT::SEQ(
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => $this->getPId(),
+              'pId' => 'source',
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_RIGHT],
             ]),
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => $this->getPId(),
+              'pId' => 'source',
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_LEFT],
             ])

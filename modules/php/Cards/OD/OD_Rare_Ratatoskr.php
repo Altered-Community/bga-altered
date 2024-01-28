@@ -30,12 +30,12 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
       'costReserve' => 3,
       'effectReserve' => FT::SEQ(
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['source'],
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['source'],
         ])

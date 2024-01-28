@@ -22,28 +22,28 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
       'effectDesc' => 'Create two [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.',
       'artist' => 'Jean-Baptiste Andrier',
       'flavorText' =>
-        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.',
+      'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.',
 
       'costHand' => 5,
       'costReserve' => 6,
       'effectPlayed' => FT::SEQ(
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_LEFT],
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_LEFT],
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_RIGHT],
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_RIGHT],
         ])
