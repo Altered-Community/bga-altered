@@ -1793,6 +1793,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           const index = match.index;
 
           const keyword = match[1];
+          if (!KEYWORDS[keyword]) {
+            console.error('Cant substitute keyword, should not happen :', keyword);
+            continue;
+          }
+
           const replacement = `<span class="keyword ${keyword}">${KEYWORDS[keyword].text}</span>`;
           const reminder = '##REMINDER##' + KEYWORDS[keyword].reminder;
 
