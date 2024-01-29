@@ -18,7 +18,7 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
       'name' => 'Axiom Reprocessor',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].',
+      'effectDesc' => '#{J} <RESUPPLY>.#  At Noon — $<RESUPPLY>.',
       'flavorText' => 'Nothing is created, nothing is lost, everything is transformed.',
       'typeline' => 'Permanent - Landmark',
       'artist' => 'HuoMiao Studio',

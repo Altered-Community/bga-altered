@@ -18,7 +18,7 @@ class BR_Common_HuaMulan extends \ALT\Models\Card
       'name' => 'Hua Mulan',
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '{R} I lose [FLEETING_CHAR].',
+      'effectDesc' => '{R} I lose <FLEETING_CHAR>.',
       'typeline' => 'Character - Adventurer',
       'flavorText' => 'Her determination has yet to meet its match in this world.',
       'artist' => 'Zero Wen',

@@ -19,7 +19,7 @@ class YZ_Rare_ToothFairy extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Fairy'),
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'flavorText' => clienttranslate('"Show me those pearly whites."'),
       'artist' => 'Anh Tung',
 

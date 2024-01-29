@@ -18,7 +18,7 @@ class LY_Common_ACappellaTraining extends \ALT\Models\Card
       'name' => 'A Cappella Training',
       'type' => SPELL,
       'subtypes' => [SONG],
-      'effectDesc' => 'Target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)',
+      'effectDesc' => 'Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)',
       'typeline' => 'Spell - Song',
       'flavorText' => 'Thank you for being my metronome!',
       'artist' => 'Zero Wen',

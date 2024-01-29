@@ -19,7 +19,7 @@ class OD_Common_OrdisGatekeeper extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} Create an [ORDIS_RECRUIT] Soldier token in your other Expedition.'),
+      'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in your other Expedition.'),
       'flavorText' => clienttranslate(
         'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.'
       ),

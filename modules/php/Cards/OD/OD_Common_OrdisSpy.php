@@ -18,7 +18,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'name' => clienttranslate('Ordis Spy'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'typeline' => clienttranslate('Character - Citizen'),
       'flavorText' => clienttranslate('Stirred, but not shaken.'),
       'artist' => 'Matteo Spirito',

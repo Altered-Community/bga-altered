@@ -18,7 +18,7 @@ class YZ_Common_Alice extends \ALT\Models\Card
       'name' => clienttranslate('Alice'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)'),
+      'supportDesc' => clienttranslate('{D} : <AFTER_YOU>. (Discard me from Reserve to do this.)'),
       'supportIcon' => 'discard',
       'typeline' => clienttranslate('Character - Citizen'),
       'flavorText' => clienttranslate('"One good turn deserves another."'),

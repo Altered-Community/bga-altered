@@ -19,7 +19,7 @@ class OD_Rare_OrdisSpy extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].  #{R} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.#'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.  #{R} Create an <ORDIS_RECRUIT> Soldier token in my Expedition.#'),
       'flavorText' => clienttranslate('Stirred, but not shaken.'),
       'artist' => 'Matteo Spirito',
 

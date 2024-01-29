@@ -19,7 +19,7 @@ class BR_Common_BasiraKaizaimon extends \ALT\Models\Card
       'type' => HERO,
       'typeline' => 'Bravos Hero',
       'effectDesc' =>
-        'When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$[BB].',
+        'When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$<BB>.',
       'flavorText' => 'Only the worthy shall achieve true transcendence under my guidance.',
       'artist' => 'Nestor Papatriantafyllou',
 

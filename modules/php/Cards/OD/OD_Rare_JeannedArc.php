@@ -19,7 +19,7 @@ class OD_Rare_JeannedArc extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone — Create #two# [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.'
+        'When I leave the Expedition zone — Create #two# <ORDIS_RECRUIT> Soldier tokens in each of your Expeditions.'
       ),
       'typeline' => clienttranslate('Character - Soldier'),
       'flavorText' => clienttranslate('She\'ll be followed long after she\'s gone.'),

@@ -19,7 +19,7 @@ class LY_Common_MindApotheosis extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [CONJURATION],
       'effectDesc' =>
-        '$[FLEETING].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards. (Don\'t activate any {h} triggers.)',
+        '$<FLEETING>.  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain <FLEETING>. Discard the other cards. (Don\'t activate any {h} triggers.)',
       'typeline' => 'Spell - Conjuration',
       'flavorText' => 'Who looks outside, dreams; who looks inside, awakes.',
       'artist' => 'Zero Wen',

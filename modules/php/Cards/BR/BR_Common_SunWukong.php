@@ -18,7 +18,7 @@ class BR_Common_SunWukong extends \ALT\Models\Card
       'name' => clienttranslate('Sun Wukong'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$<BB>.'),
       'typeline' => clienttranslate('Character - Deity'),
       'flavorText' => clienttranslate('Ever the trickster, always the rebel.'),
       'artist' => 'Kevin Sidharta',

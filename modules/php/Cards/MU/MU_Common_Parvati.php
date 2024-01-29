@@ -19,7 +19,7 @@ class MU_Common_Parvati extends \ALT\Models\Card
       'typeline' => 'Character - Deity',
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => '{H} Target Character gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
+      'effectDesc' => '{H} Target Character gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
       'flavorText' => 'Only in harmony can the world thrive.',
       'artist' => 'Nestor Papatriantafyllou',
 

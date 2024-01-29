@@ -18,7 +18,7 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       'name' => clienttranslate('Kadigiran Alchemist'),
       'type' => CHARACTER,
       'subtypes' => [MAGE],
-      'effectDesc' => clienttranslate('{H} I gain 2 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{H} I gain 2 boosts$<BB>.'),
       'typeline' => clienttranslate('Character - Mage'),
       'flavorText' => clienttranslate(
         'Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self.'

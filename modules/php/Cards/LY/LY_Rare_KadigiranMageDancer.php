@@ -21,7 +21,7 @@ class LY_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'flavorText' => clienttranslate('"Don\'t just wait for magic to happen. Go out and make your own!"'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [MAGE, SOLDIER],
-      'effectDesc' => clienttranslate('When you #roll one or more dice# — I gain 1 boost$[BB].'),
+      'effectDesc' => clienttranslate('When you #roll one or more dice# — I gain 1 boost$<BB>.'),
 
       'forest' => 1,
       'mountain' => 1,

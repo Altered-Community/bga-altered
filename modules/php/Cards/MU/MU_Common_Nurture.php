@@ -18,7 +18,7 @@ class MU_Common_Nurture extends \ALT\Models\Card
       'name' => clienttranslate('Nurture'),
       'type' => SPELL,
       'subtypes' => [BOON],
-      'effectDesc' => clienttranslate('Up to two target Characters each gain 1 boost$[BB].'),
+      'effectDesc' => clienttranslate('Up to two target Characters each gain 1 boost$<BB>.'),
       'typeline' => clienttranslate('Spell - Boon'),
       'flavorText' => clienttranslate('When the sun shines, we\'ll shine together.'),
       'artist' => 'Zero Wen',

@@ -18,7 +18,7 @@ class LY_Rare_Asmodeus extends \ALT\Models\Card
       'name' => clienttranslate('Asmodeus'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain $<ANCHORED>. Otherwise, I gain 3 boosts$<BB>.'),
       'typeline' => clienttranslate('Character - Deity'),
       'flavorText' => clienttranslate('Wanna play a game?'),
       'artist' => 'Zero Wen',

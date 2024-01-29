@@ -22,7 +22,7 @@ class AX_Rare_AxiomScrambler extends \ALT\Models\Card
       'flavorText' => clienttranslate(
         'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.'
       ),
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'artist' => 'HuoMiao Studio',
 
       'forest' => 2,

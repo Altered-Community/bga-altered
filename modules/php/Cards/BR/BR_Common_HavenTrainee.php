@@ -18,7 +18,7 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'name' => clienttranslate('Haven Trainee'),
       'type' => CHARACTER,
       'subtypes' => [APPRENTICE],
-      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$<BB>.'),
       'typeline' => clienttranslate('Character - Apprentice'),
       'flavorText' => clienttranslate('"All right, lad, show me what you’ve learned."'),
       'artist' => 'Atanas Lozanski',

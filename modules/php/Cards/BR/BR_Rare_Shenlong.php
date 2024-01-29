@@ -17,7 +17,7 @@ class BR_Rare_Shenlong extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Dragon Deity'),
       'type' => CHARACTER,
       'subtypes' => [DRAGON, DEITY],
-      'effectDesc' => clienttranslate('#$[TOUGH_1].#'),
+      'effectDesc' => clienttranslate('#$<TOUGH_1>.#'),
       'flavorText' => clienttranslate('Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.'),
       'artist' => 'HuoMiao Studio',
 

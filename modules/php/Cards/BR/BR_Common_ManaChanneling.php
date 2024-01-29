@@ -18,7 +18,7 @@ class BR_Common_ManaChanneling extends \ALT\Models\Card
       'name' => 'Mana Channeling',
       'type' => SPELL,
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$[FLEETING].  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).',
+      'effectDesc' => '$<FLEETING>.  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).',
       'typeline' => 'Spell - Conjuration',
       'flavorText' => 'There\'s only one way to turn the tide: by becoming stronger.',
       'artist' => 'Zero Wen',

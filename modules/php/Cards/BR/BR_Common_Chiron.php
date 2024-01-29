@@ -18,7 +18,7 @@ class BR_Common_Chiron extends \ALT\Models\Card
       'name' => 'Chiron',
       'type' => CHARACTER,
       'subtypes' => [TRAINER],
-      'effectDesc' => '{J} Target Character gains 1 boost$[BB].',
+      'effectDesc' => '{J} Target Character gains 1 boost$<BB>.',
       'typeline' => 'Character - Trainer',
       'flavorText' => '"And now, pray, mark all these things well in a wise heart."',
       'artist' => 'Justice Wong',

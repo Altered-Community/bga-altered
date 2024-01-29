@@ -19,7 +19,7 @@ class YZ_Common_ToothFairy extends \ALT\Models\Card
       'typeline' => 'Character - Fairy',
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
-      'effectDesc' => '{H} $[SABOTAGE].',
+      'effectDesc' => '{H} $<SABOTAGE>.',
       'flavorText' => '"Show me those pearly whites."',
       'artist' => 'Anh Tung',
 

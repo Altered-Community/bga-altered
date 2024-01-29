@@ -16,7 +16,7 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'name' => clienttranslate('Atlas'),
       'type' => CHARACTER,
       'subtypes' => [TITAN],
-      'effectDesc' => clienttranslate('$[GIGANTIC].'),
+      'effectDesc' => clienttranslate('$<GIGANTIC>.'),
       'flavorText' => clienttranslate('Not even the weight of the sky could make him buckle.'),
       'artist' => 'Matteo Spirito',
 

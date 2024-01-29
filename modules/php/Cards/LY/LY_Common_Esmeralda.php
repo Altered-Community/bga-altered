@@ -18,7 +18,7 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
       'name' => clienttranslate('Esmeralda'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate('{H} $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('{H} $<RESUPPLY>.'),
       'typeline' => clienttranslate('Character - Artist'),
       'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
       'artist' => 'Edward Cheekokseang',

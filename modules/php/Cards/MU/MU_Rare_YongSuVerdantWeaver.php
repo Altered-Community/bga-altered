@@ -20,7 +20,7 @@ class MU_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [DRUID],
       'effectDesc' => clienttranslate(
-        '{J} If you control two or more Plants, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)'
+        '{J} If you control two or more Plants, I gain 2 boosts$<BB>. (Cards in Reserve are not controlled.)'
       ),
       'flavorText' => clienttranslate('Green is good.'),
       'artist' => 'Kevin Sidharta',

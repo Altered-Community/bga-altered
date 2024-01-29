@@ -16,7 +16,7 @@ class BR_Common_Achilles extends \ALT\Models\Card
       'name' => 'Achilles',
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => '$[TOUGH_1].',
+      'effectDesc' => '$<TOUGH_1>.',
       'typeline' => 'Character - Soldier',
       'flavorText' => '"Many things lie between us—shadowy mountains and sounding sea."',
       'artist' => 'Taras Susak',

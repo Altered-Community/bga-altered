@@ -18,7 +18,7 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
       'name' => 'Bravos Vanguard',
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '{J} You may have another target Character lose [FLEETING_CHAR].',
+      'effectDesc' => '{J} You may have another target Character lose <FLEETING_CHAR>.',
       'typeline' => 'Character - Adventurer',
       'artist' => 'Edward Cheekokseang',
       'flavorText' =>

@@ -18,7 +18,7 @@ class AX_Common_AxiomSalvager extends \ALT\Models\Card
       'name' => clienttranslate('Axiom Salvager'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{R} $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('{R} $<RESUPPLY>.'),
       'flavorText' => clienttranslate('The Axiom\'s limited resources pushed them to reuse whatever they could.'),
       'typeline' => clienttranslate('Character - Engineer'),
       'artist' => 'Anh Tung',

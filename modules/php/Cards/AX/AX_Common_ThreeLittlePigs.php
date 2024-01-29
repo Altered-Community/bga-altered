@@ -19,7 +19,7 @@ class AX_Common_ThreeLittlePigs extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'effectDesc' => clienttranslate(
-        '{J} If you control two or more Landmarks, I gain 1 boost$[BB]. (Cards in Reserve are not controlled.)'
+        '{J} If you control two or more Landmarks, I gain 1 boost$<BB>. (Cards in Reserve are not controlled.)'
       ),
       'flavorText' => clienttranslate('Together they can build more than just a stone house.'),
       'typeline' => clienttranslate('Character - Engineer'),

@@ -19,9 +19,9 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
       'type' => HERO,
       'typeline' => 'Axiom Hero',
       'effectDesc' =>
-      'At Noon — You may pay {1} and put a card from your hand in Reserve to create a [BRASSBUG] Robot token in target Expedition.',
+        'At Noon — You may pay {1} and put a card from your hand in Reserve to create a <BRASSBUG> Robot token in target Expedition.',
       'flavorText' =>
-      'There are still endless possibilities, even in a world of finite resources. In the end, it all comes down to how you choose to spend \'em.',
+        'There are still endless possibilities, even in a world of finite resources. In the end, it all comes down to how you choose to spend \'em.',
       'artist' => 'Taras Susak',
 
       'reserveSlots' => 2,

@@ -20,7 +20,7 @@ class MU_Common_BeautySleep extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        'Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
+        'Target Character gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
       ),
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ASLEEP)]),
       'flavorText' => clienttranslate('Yet beware of splinters of flax.'),

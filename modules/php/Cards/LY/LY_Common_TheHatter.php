@@ -19,7 +19,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [CITIZEN],
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)'
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
       'typeline' => clienttranslate('Character - Citizen'),

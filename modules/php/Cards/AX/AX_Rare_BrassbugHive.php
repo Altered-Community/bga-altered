@@ -21,7 +21,7 @@ class AX_Rare_BrassbugHive extends \ALT\Models\Card
       'subtypes' => [LANDMARK],
       'flavorText' => clienttranslate('What could possibly go wrong with an adorable little self-replicating autonomous robot?'),
       'effectDesc' => clienttranslate(
-        '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#'
+        '{J} Create a <BRASSBUG> Robot token in target Expedition.  At Noon — Create a <BRASSBUG> Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#'
       ),
       'artist' => 'HuoMiao Studio',
 

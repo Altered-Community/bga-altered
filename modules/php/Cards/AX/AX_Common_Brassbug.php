@@ -13,13 +13,13 @@ class AX_Common_Brassbug extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Brassbug'),
+      'name' => 'Brassbug',
       'type' => TOKEN,
       'subtypes' => [ROBOT],
-      'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),
+      'effectDesc' => '(If I leave the Expedition zone, remove me from the game.)',
       'flavorText' =>
-        clienttranslate('01010001 01110101 01100101 01100101 01101110 00100000 01110100 01101111 00100000 01000010 00101101 01001000 01101001 01110110 01100101'),
-      'typeline' => clienttranslate('Token - Robot'),
+        '01010001 01110101 01100101 01100101 01101110 00100000 01110100 01101111 00100000 01000010 00101101 01001000 01101001 01110110 01100101',
+      'typeline' => 'Token - Robot',
       'artist' => 'Anh Tung',
 
       'forest' => 2,

@@ -18,7 +18,7 @@ class LY_Common_Anansi extends \ALT\Models\Card
       'name' => 'Anansi',
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => '{J} I gain 1 boost$[BB] for each card in your Reserve.',
+      'effectDesc' => '{J} I gain 1 boost$<BB> for each card in your Reserve.',
       'typeline' => 'Character - Artist',
       'flavorText' =>
         'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.',

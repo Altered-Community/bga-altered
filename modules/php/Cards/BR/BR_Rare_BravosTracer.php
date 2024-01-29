@@ -18,7 +18,7 @@ class BR_Rare_BravosTracer extends \ALT\Models\Card
       'name' => clienttranslate('Bravos Tracer'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{J} I gain [FLEETING_CHAR]. (If I would be sent to Reserve, discard me instead.)'),
+      'effectDesc' => clienttranslate('{J} I gain <FLEETING_CHAR>. (If I would be sent to Reserve, discard me instead.)'),
       'typeline' => clienttranslate('Character - Adventurer'),
       'flavorText' => clienttranslate('"I only feel alive when I hear the wind whistling in my ears."'),
       'artist' => 'Justice Wong',

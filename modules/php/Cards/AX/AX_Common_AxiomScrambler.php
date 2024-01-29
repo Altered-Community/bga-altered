@@ -18,7 +18,7 @@ class AX_Common_AxiomScrambler extends \ALT\Models\Card
       'name' => clienttranslate('Axiom Scrambler'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'flavorText' => clienttranslate(
         'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.'
       ),

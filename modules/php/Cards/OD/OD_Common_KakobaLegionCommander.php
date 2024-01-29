@@ -19,7 +19,7 @@ class OD_Common_KakobaLegionCommander extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [SOLDIER, NOBLE],
       'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)'
+        '{J} If you control three or more other Characters, I gain 2 boosts$<BB>. (Cards in Reserve are not controlled.)'
       ),
       'typeline' => clienttranslate('Character - Soldier Noble'),
       'flavorText' => clienttranslate('The general who became a scholar; the scholar who became a senator.'),

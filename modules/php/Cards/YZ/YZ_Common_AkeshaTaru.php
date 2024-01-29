@@ -24,7 +24,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
-      'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. You can only activate this if you are the first player.'),
+      'effectDesc' => clienttranslate('{T} : $<AFTER_YOU>. You can only activate this if you are the first player.'),
       'effectTap' => FT::ACTION(CHECK_CONDITION, ['condition' => 'isFirstPlayer', 'effect' => FT::ACTION(AFTER_YOU, [])]),
     ];
   }

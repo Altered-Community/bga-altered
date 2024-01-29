@@ -18,7 +18,7 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
       'name' => 'Lyra Thespian',
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$[BB].',
+      'effectDesc' => '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$<BB>.',
       'typeline' => 'Character - Artist',
       'flavorText' => '"All the world’s a stage."',
       'artist' => 'Rémi Jacquot',

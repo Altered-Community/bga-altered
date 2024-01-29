@@ -22,7 +22,7 @@ class LY_Common_PaintPrison extends \ALT\Models\Card
       'artist' => 'Justice Wong',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner\'s deck.'
+        '$<FLEETING>.  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner\'s deck.'
       ),
 
       'costHand' => 5,

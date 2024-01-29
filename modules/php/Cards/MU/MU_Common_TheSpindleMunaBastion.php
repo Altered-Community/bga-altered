@@ -16,7 +16,7 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
       'name' => 'The Spindle, Muna Bastion',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'Characters you control have $[TOUGH_2].',
+      'effectDesc' => 'Characters you control have $<TOUGH_2>.',
       'typeline' => 'Permanent - Landmark',
       'artist' => 'Ba Vo',
       'flavorText' =>
