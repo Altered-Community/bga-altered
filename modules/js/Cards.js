@@ -1703,6 +1703,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (t.length > 1) {
         return t.map((s) => this.replaceKeyWordsAndGetReminders(s)).join('<br />');
       }
+      str = str.replaceAll('<', '[').replaceAll('>', ']');
 
       const KEYWORDS = {
         AFTER_YOU: {

@@ -18,7 +18,7 @@ class BR_Common_Chiron extends \ALT\Models\Card
       'flavorText' => '"And now, pray, mark all these things well in a wise heart."',
       'artist' => 'Justice Wong',
       'subtypes' => [TRAINER],
-      'effectDesc' => '{J} Target Character gains 1 boost$[BB].',
+      'effectDesc' => '{J} Target Character gains 1 boost$<BB>.',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

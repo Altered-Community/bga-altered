@@ -18,7 +18,7 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
       'flavorText' => 'The Ordis way lies in patience and resilience.',
       'artist' => 'Taras Susak',
       'effectDesc' =>
-        'When you create a token — It gains 1 boost.  If you have less than eight Mana Orbs, [BOOSTED_MP] tokens you control have [DEFENDER]. (Their Expeditions can\'t advance during Dusk.)',
+        'When you create a token — It gains 1 boost.  If you have less than eight Mana Orbs, <BOOSTED_MP> tokens you control have <DEFENDER>. (Their Expeditions can\'t advance during Dusk.)',
     ];
   }
 }

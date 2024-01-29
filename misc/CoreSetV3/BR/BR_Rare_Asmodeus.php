@@ -18,7 +18,7 @@ class BR_Rare_Asmodeus extends \ALT\Models\Card
       'flavorText' => 'Wanna play a game?',
       'artist' => 'Zero Wen',
       'subtypes' => [DEITY],
-      'effectDesc' => '{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts.',
+      'effectDesc' => '{J} Roll a die. On a 4 or higher, I gain $<ANCHORED>. Otherwise, I gain 3 boosts.',
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

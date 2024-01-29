@@ -18,7 +18,7 @@ class BR_Rare_OuroborosTrickster extends \ALT\Models\Card
       'flavorText' => 'Like the Bravos, Lyras are drawn to freedom and the distant horizon.',
       'artist' => 'Zero Wen',
       'subtypes' => [CITIZEN],
-      'effectDesc' => '{J} Roll a die. On a 4 or higher, I gain 2 boosts. Otherwise, I gain 1 boost$[BB].',
+      'effectDesc' => '{J} Roll a die. On a 4 or higher, I gain 2 boosts. Otherwise, I gain 1 boost$<BB>.',
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

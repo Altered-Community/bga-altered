@@ -18,7 +18,7 @@ class BR_Rare_Red extends \ALT\Models\Card
       'flavorText' => 'Grandma would be proud.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '$[SEASONED].  #At Dusk, if I have 3 or more boosts — Draw a card.#',
+      'effectDesc' => '$<SEASONED>.  #At Dusk, if I have 3 or more boosts — Draw a card.#',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

@@ -18,7 +18,7 @@ class LY_Rare_SmallStepGiantLeap extends \ALT\Models\Card
       'flavorText' => 'The journey of a thousand miles begins with one step.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [MANEUVER],
-      'effectDesc' => '$[FLEETING].  Target Expedition moves forward.',
+      'effectDesc' => '$<FLEETING>.  Target Expedition moves forward.',
       'costHand' => 6,
       'costReserve' => 6,
     ];

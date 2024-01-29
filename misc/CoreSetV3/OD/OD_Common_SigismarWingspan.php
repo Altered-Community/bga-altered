@@ -17,7 +17,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'type' => HERO,
       'flavorText' => clienttranslate('Follow me, friends! If we stand together, nothing can stop us! '),
       'artist' => 'Edward Cheekokseang',
-      'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Hero Expedition.'),
+      'effectDesc' => clienttranslate('At Noon — Create an <ORDIS_RECRUIT> Soldier token in your Hero Expedition.'),
     ];
   }
 }

@@ -18,7 +18,7 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       'flavorText' => clienttranslate('Only the bravest can enter Haven.'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].  {R} I gain 1 boost.'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.  {R} I gain 1 boost.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

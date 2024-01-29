@@ -19,7 +19,7 @@ class LY_Rare_AllIn extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [BOON],
       'effectDesc' =>
-        'Roll a die. #You may discard a card from your Reserve to increase the result by 2.# Target Character gains X boosts$[BB], where X is the final result.',
+        'Roll a die. #You may discard a card from your Reserve to increase the result by 2.# Target Character gains X boosts$<BB>, where X is the final result.',
       'costHand' => 3,
       'costReserve' => 3,
     ];

@@ -18,7 +18,7 @@ class BR_Rare_HavenTrainee extends \ALT\Models\Card
       'flavorText' => '"All right, lad, show me what you’ve learned."',
       'artist' => 'Atanas Lozanski',
       'subtypes' => [APPRENTICE],
-      'effectDesc' => '{R} I gain 2 boosts$[BB].',
+      'effectDesc' => '{R} I gain 2 boosts$<BB>.',
       'supportDesc' => '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)',
       'forest' => 3,
       'mountain' => 1,

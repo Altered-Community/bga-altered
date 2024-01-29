@@ -19,7 +19,7 @@ class OD_Rare_KelonBurst extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
-        '$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.',
+        '$<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.',
       'costHand' => 3,
       'costReserve' => 3,
     ];

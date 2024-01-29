@@ -18,7 +18,7 @@ class MU_Rare_Kitsune extends \ALT\Models\Card
       'flavorText' => '"Want to play a game of headman-hunter-fox with me? I promise not to cheat!"',
       'artist' => 'Gaga Zhou',
       'subtypes' => [SPIRIT],
-      'effectDesc' => '{H} Each player #may [RESUPPLY].# (Put the top card of their deck in Reserve.)',
+      'effectDesc' => '{H} Each player #may <RESUPPLY>.# (Put the top card of their deck in Reserve.)',
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,

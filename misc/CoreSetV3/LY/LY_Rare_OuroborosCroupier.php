@@ -18,7 +18,7 @@ class LY_Rare_OuroborosCroupier extends \ALT\Models\Card
       'flavorText' => 'The house never loses.',
       'artist' => 'Anh Tung',
       'subtypes' => [CITIZEN],
-      'effectDesc' => '{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $[RESUPPLY].',
+      'effectDesc' => '{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $<RESUPPLY>.',
       'supportDesc' => '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
       'forest' => 0,
       'mountain' => 5,

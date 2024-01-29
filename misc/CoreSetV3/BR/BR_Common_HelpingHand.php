@@ -18,7 +18,7 @@ class BR_Common_HelpingHand extends \ALT\Models\Card
       'flavorText' => 'Never gonna give you up.',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [BOON],
-      'effectDesc' => 'Target Character gains 1 boost$[BB] and loses [FLEETING_CHAR].',
+      'effectDesc' => 'Target Character gains 1 boost$<BB> and loses <FLEETING_CHAR>.',
       'costHand' => 1,
       'costReserve' => 2,
     ];

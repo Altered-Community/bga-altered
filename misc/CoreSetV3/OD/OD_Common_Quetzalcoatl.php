@@ -19,7 +19,7 @@ class OD_Common_Quetzalcoatl extends \ALT\Models\Card
       'artist' => 'Taras Susak',
       'subtypes' => [BUREAUCRAT, DEITY],
       'effectDesc' =>
-        'When an opponent draws one or more cards or does [RESUPPLY] — Create an [ORDIS_RECRUIT] Soldier token in target Expedition.',
+        'When an opponent draws one or more cards or does <RESUPPLY> — Create an <ORDIS_RECRUIT> Soldier token in target Expedition.',
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

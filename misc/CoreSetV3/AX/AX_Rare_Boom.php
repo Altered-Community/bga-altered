@@ -18,7 +18,7 @@ class AX_Rare_Boom extends \ALT\Models\Card
       'flavorText' => '"Catastrophic failure? I prefer the term \'learning opportunity\'."',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Sacrifice a Character #or Permanent#. If you do, discard target Character or Permanent.',
+      'effectDesc' => '$<FLEETING>.  Sacrifice a Character #or Permanent#. If you do, discard target Character or Permanent.',
       'costHand' => 3,
       'costReserve' => 3,
     ];

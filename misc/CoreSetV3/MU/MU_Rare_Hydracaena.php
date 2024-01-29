@@ -20,7 +20,7 @@ class MU_Rare_Hydracaena extends \ALT\Models\Card
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT, DRAGON],
       'effectDesc' =>
-        '$[ETERNAL].  #$[TOUGH_X], where X is the number of plants you control.#  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.',
+        '$<ETERNAL>.  #$<TOUGH_X>, where X is the number of plants you control.#  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.',
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

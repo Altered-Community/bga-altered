@@ -18,7 +18,7 @@ class MU_Rare_AloeVera extends \ALT\Models\Card
       'flavorText' => 'Moisturizing every day is essential.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [PLANT],
-      'effectDesc' => '#{J} You may pay {1} to have me gain $[ANCHORED].#  At Noon — $[RESUPPLY].',
+      'effectDesc' => '#{J} You may pay {1} to have me gain $<ANCHORED>.#  At Noon — $<RESUPPLY>.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,

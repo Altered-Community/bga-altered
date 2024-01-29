@@ -18,7 +18,7 @@ class BR_Rare_Issunboshi extends \ALT\Models\Card
       'flavorText' => 'Small stature, big heart, immense adventures.',
       'artist' => 'Anh Tung',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '#{R} Target Character gains 1 boost$[BB].#',
+      'effectDesc' => '#{R} Target Character gains 1 boost$<BB>.#',
       'supportDesc' => '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)',
       'forest' => 0,
       'mountain' => 0,

@@ -18,7 +18,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'flavorText' => 'The world feeds on magic, and withers in its absence.',
       'artist' => 'Edward Cheekokseang',
       'effectDesc' =>
-        'When you play a Spell — Target Character you control gains 1 boost$[BB]. (Do this after the spell resolves.)',
+        'When you play a Spell — Target Character you control gains 1 boost$<BB>. (Do this after the spell resolves.)',
     ];
   }
 }

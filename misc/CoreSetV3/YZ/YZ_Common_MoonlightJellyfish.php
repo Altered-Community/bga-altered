@@ -19,7 +19,7 @@ class YZ_Common_MoonlightJellyfish extends \ALT\Models\Card
         'Theoretically, transdifferentiation can go on indefinitely, effectively rendering the jellyfish biologically immortal... and squishy.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SPIRIT],
-      'effectDesc' => 'When I\'m sacrificed, if I\'m not [FLEETING] — Put me in Reserve.',
+      'effectDesc' => 'When I\'m sacrificed, if I\'m not <FLEETING> — Put me in Reserve.',
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 1,

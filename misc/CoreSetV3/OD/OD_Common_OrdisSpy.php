@@ -18,7 +18,7 @@ class OD_Common_OrdisSpy extends \ALT\Models\Card
       'flavorText' => clienttranslate('Stirred, but not shaken.'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

@@ -18,7 +18,7 @@ class MU_Rare_Harvest extends \ALT\Models\Card
       'flavorText' => 'The thankful receiver bears a plentiful harvest.',
       'artist' => 'Ba Vo',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$[RESUPPLY], #then [RESUPPLY] again#.',
+      'effectDesc' => '$<RESUPPLY>, #then <RESUPPLY> again#.',
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand'],

@@ -19,7 +19,7 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
       'effectDesc' => clienttranslate(
-        '{J} If you control two or more Landmarks, I gain #2 boosts$[BB]#. (Cards in Reserve are not controlled.)'
+        '{J} If you control two or more Landmarks, I gain #2 boosts$<BB>#. (Cards in Reserve are not controlled.)'
       ),
       'forest' => 3,
       'mountain' => 3,

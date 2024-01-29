@@ -19,7 +19,7 @@ class AX_Rare_KelonBurst extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
-        '[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.  #If you control two or more Landmarks, create a [BRASSBUG] Robot token in target Expedition.#',
+        '<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.  #If you control two or more Landmarks, create a <BRASSBUG> Robot token in target Expedition.#',
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],

@@ -18,7 +18,7 @@ class OD_Rare_BabasIsba extends \ALT\Models\Card
       'flavorText' => 'Boney Legs, she\'s called, and her hut is one reason why.',
       'artist' => 'Taras Susak',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '{J} Draw a card.  {T}, Sacrifice a Character: $[AFTER_YOU].',
+      'effectDesc' => '{J} Draw a card.  {T}, Sacrifice a Character: $<AFTER_YOU>.',
       'costHand' => 3,
       'costReserve' => 3,
     ];

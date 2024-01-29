@@ -21,7 +21,7 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.'
+        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a <BRASSBUG> Robot token in target Expedition.'
       ),
       'costHand' => 3,
       'costReserve' => 3,

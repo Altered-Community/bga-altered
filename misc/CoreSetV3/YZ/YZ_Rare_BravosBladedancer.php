@@ -18,7 +18,7 @@ class YZ_Rare_BravosBladedancer extends \ALT\Models\Card
       'flavorText' => '"It seems Thoth has never seen me duel."',
       'artist' => 'Taras Susak',
       'subtypes' => [SOLDIER],
-      'effectDesc' => '$[SEASONED].  {J} I gain 1 boost.',
+      'effectDesc' => '$<SEASONED>.  {J} I gain 1 boost.',
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

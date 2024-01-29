@@ -18,7 +18,7 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'flavorText' => 'When you care for the earth, it let roots grow strong and resilient.',
       'artist' => 'Ba Vo',
       'effectDesc' =>
-        '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
+        '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
     ];
   }
 }

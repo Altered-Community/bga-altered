@@ -19,7 +19,7 @@ class AX_Rare_TeamworkTraining extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
-        '$[FLEETING].  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.',
+        '$<FLEETING>.  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.',
       'costHand' => 2,
       'costReserve' => 2,
     ];

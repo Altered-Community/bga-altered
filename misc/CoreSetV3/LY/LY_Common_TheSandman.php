@@ -20,7 +20,7 @@ class LY_Common_TheSandman extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [ARTIST],
       'effectDesc' =>
-        '{H} Up to one target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
+        '{H} Up to one target Character gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,

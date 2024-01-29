@@ -19,7 +19,7 @@ class BR_Common_Intimidation extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Return target Character or Permanent with Hand Cost {4} or less to its owner\'s hand.'
+        '$<FLEETING>.  Return target Character or Permanent with Hand Cost {4} or less to its owner\'s hand.'
       ),
       'costHand' => 2,
       'costReserve' => 2,

@@ -18,7 +18,7 @@ class BR_Rare_Tanuki extends \ALT\Models\Card
       'flavorText' => '"Pom! Pompoko, pom!"',
       'artist' => 'Matteo Spirito',
       'subtypes' => [SPIRIT],
-      'effectDesc' => '{H} $[SABOTAGE].',
+      'effectDesc' => '{H} $<SABOTAGE>.',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,

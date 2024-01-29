@@ -18,7 +18,7 @@ class LY_Common_Asmodeus extends \ALT\Models\Card
       'flavorText' => clienttranslate('Wanna play a game?'),
       'artist' => 'Zero Wen',
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{J} Roll a die. On a 4 or higher, I gain $<ANCHORED>. Otherwise, I gain 3 boosts$<BB>.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

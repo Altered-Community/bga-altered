@@ -18,7 +18,7 @@ class LY_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'flavorText' => 'Green is good.',
       'artist' => 'Kevin Sidharta',
       'subtypes' => [DRUID],
-      'effectDesc' => '{J} #If you have three or more base statistics 0 among Characters you control,# I gain 2 boosts$[BB].',
+      'effectDesc' => '{J} #If you have three or more base statistics 0 among Characters you control,# I gain 2 boosts$<BB>.',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

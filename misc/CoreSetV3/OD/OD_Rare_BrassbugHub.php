@@ -19,7 +19,7 @@ class OD_Rare_BrassbugHub extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
       'effectDesc' =>
-        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.',
+        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a <BRASSBUG> Robot token in target Expedition.',
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],

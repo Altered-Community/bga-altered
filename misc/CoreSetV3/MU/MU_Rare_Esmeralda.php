@@ -18,7 +18,7 @@ class MU_Rare_Esmeralda extends \ALT\Models\Card
       'flavorText' => 'Eidolon or not, you are our Shepherdess. You lead and we follow.',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ARTIST],
-      'effectDesc' => '{H} $[RESUPPLY].',
+      'effectDesc' => '{H} $<RESUPPLY>.',
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

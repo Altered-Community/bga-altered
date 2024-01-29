@@ -20,7 +20,7 @@ class BR_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
       ),
       'artist' => 'Ba Vo',
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('Characters you control have $[TOUGH_2]. (Cards in Reserve are not controlled.)'),
+      'effectDesc' => clienttranslate('Characters you control have $<TOUGH_2>. (Cards in Reserve are not controlled.)'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

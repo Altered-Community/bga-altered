@@ -18,7 +18,7 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'flavorText' => 'Some say the harvesters are the caretakers of the world-trees.',
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT, ANIMAL],
-      'effectDesc' => '{J} I gain $[ANCHORED].  #At Noon, if I have 2 or more boosts — $[RESUPPLY].#',
+      'effectDesc' => '{J} I gain $<ANCHORED>.  #At Noon, if I have 2 or more boosts — $<RESUPPLY>.#',
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

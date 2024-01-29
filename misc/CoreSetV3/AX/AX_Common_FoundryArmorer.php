@@ -18,7 +18,7 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
       'flavorText' => clienttranslate('No Brassbug would survive in the Tumult without armor.'),
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{R} Create a [BRASSBUG] Robot token in target Expedition.'),
+      'effectDesc' => clienttranslate('{R} Create a <BRASSBUG> Robot token in target Expedition.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

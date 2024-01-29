@@ -18,7 +18,7 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
       'flavorText' => 'Nothing is created, nothing is lost, everything is transformed.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].',
+      'effectDesc' => '#{J} <RESUPPLY>.#  At Noon — $<RESUPPLY>.',
       'costHand' => 4,
       'costReserve' => 4,
     ];

@@ -18,7 +18,7 @@ class BR_Rare_Parvati extends \ALT\Models\Card
       'flavorText' => 'Only in harmony can the world thrive.',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DEITY],
-      'effectDesc' => '#{J}# Target Character gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
+      'effectDesc' => '#{J}# Target Character gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,

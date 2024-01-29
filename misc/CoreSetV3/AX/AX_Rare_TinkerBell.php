@@ -18,7 +18,7 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
       'flavorText' => 'Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...',
       'artist' => 'Anh Tung',
       'subtypes' => [FAIRY],
-      'effectDesc' => '{R} $[SABOTAGE].',
+      'effectDesc' => '{R} $<SABOTAGE>.',
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,

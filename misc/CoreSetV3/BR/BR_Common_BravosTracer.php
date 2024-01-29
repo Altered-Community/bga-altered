@@ -18,7 +18,7 @@ class BR_Common_BravosTracer extends \ALT\Models\Card
       'flavorText' => clienttranslate('"I only feel alive when I hear the wind whistling in my ears."'),
       'artist' => 'Justice Wong',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{J} I gain [FLEETING_CHAR]. (If I would be sent to Reserve, discard me instead.)'),
+      'effectDesc' => clienttranslate('{J} I gain <FLEETING_CHAR>. (If I would be sent to Reserve, discard me instead.)'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

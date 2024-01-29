@@ -18,7 +18,7 @@ class BR_Rare_HavenBouncer extends \ALT\Models\Card
       'flavorText' => 'Only the bravest can enter Haven.',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '{H} $[SABOTAGE].  {R} I gain #2 boosts#.',
+      'effectDesc' => '{H} $<SABOTAGE>.  {R} I gain #2 boosts#.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

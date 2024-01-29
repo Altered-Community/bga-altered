@@ -18,7 +18,7 @@ class BR_Common_Red extends \ALT\Models\Card
       'flavorText' => 'Grandma would be proud.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '$[SEASONED].',
+      'effectDesc' => '$<SEASONED>.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

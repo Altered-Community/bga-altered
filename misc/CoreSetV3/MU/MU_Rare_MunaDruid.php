@@ -18,9 +18,9 @@ class MU_Rare_MunaDruid extends \ALT\Models\Card
       'flavorText' => '"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."',
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
-      'effectDesc' => '#{H} Up to one target Plant gains 2 boosts$[BB].#',
+      'effectDesc' => '#{H} Up to one target Plant gains 2 boosts$<BB>.#',
       'supportDesc' =>
-        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)',
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,

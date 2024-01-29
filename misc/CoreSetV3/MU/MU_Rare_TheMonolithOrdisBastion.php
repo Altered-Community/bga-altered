@@ -18,7 +18,7 @@ class MU_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
       'flavorText' => 'A beacon of knowledge and order, a lighthouse towering high above the world.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'When a #non-token# Character joins your Expeditions — It gains 1 boost$[BB].',
+      'effectDesc' => 'When a #non-token# Character joins your Expeditions — It gains 1 boost$<BB>.',
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],

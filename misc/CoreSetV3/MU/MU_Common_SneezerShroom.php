@@ -18,7 +18,7 @@ class MU_Common_SneezerShroom extends \ALT\Models\Card
       'flavorText' => clienttranslate('"Achoo!"'),
       'artist' => 'Zero Wen',
       'subtypes' => [PLANT],
-      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),
+      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

@@ -18,7 +18,7 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'flavorText' => clienttranslate('"All right, lad, show me what you’ve learned."'),
       'artist' => 'Atanas Lozanski',
       'subtypes' => [APPRENTICE],
-      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$<BB>.'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,

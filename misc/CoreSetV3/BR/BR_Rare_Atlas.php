@@ -18,7 +18,7 @@ class BR_Rare_Atlas extends \ALT\Models\Card
       'flavorText' => 'Not even the weight of the sky could make him buckle.',
       'artist' => 'Matteo Spirito',
       'subtypes' => [TITAN],
-      'effectDesc' => '$[GIGANTIC].  #$[SEASONED]#.',
+      'effectDesc' => '$<GIGANTIC>.  #$<SEASONED>#.',
       'supportDesc' => '#{D} : The next Character you play this turn gains 2 boosts.# (Discard me from Reserve to do this.)',
       'forest' => 3,
       'mountain' => 3,

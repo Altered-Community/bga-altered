@@ -18,7 +18,7 @@ class LY_Rare_ClothCocoon extends \ALT\Models\Card
       'flavorText' => 'Nobody expects... the cloth dancer!',
       'artist' => 'Zero Wen',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Discard target [FLEETING_CHAR], [ANCHORED] or [ASLEEP] Character.',
+      'effectDesc' => '$<FLEETING>.  Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.',
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],

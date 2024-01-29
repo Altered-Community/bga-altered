@@ -18,7 +18,7 @@ class YZ_Rare_SpindleHarvesters extends \ALT\Models\Card
       'flavorText' => 'Some say the harvesters are the caretakers of the world-trees.',
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT, ANIMAL],
-      'effectDesc' => '{J} I gain $[ANCHORED].',
+      'effectDesc' => '{J} I gain $<ANCHORED>.',
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

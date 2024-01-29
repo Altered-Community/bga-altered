@@ -19,7 +19,7 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SONG],
       'effectDesc' =>
-        'Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
+        'Target Character gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
       'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
       'costHand' => 2,
       'costReserve' => 2,

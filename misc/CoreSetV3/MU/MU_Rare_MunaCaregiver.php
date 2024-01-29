@@ -19,7 +19,7 @@ class MU_Rare_MunaCaregiver extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DRUID],
       'supportDesc' =>
-        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)',
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 0,

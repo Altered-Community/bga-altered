@@ -18,7 +18,7 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
       'flavorText' => clienttranslate('The flow of Ordis Recruits seems to go on forever.'),
       'artist' => 'Taras Susak',
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Companion Expedition.'),
+      'effectDesc' => clienttranslate('At Noon — Create an <ORDIS_RECRUIT> Soldier token in your Companion Expedition.'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

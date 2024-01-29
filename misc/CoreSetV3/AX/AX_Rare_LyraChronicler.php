@@ -18,7 +18,7 @@ class AX_Rare_LyraChronicler extends \ALT\Models\Card
       'flavorText' => 'Eidolon or human, we are all shaped by stories. They\'re the building blocks of our identity. ',
       'artist' => 'Taras Susak',
       'subtypes' => [ARTIST],
-      'supportDesc' => '#{D} : [RESUPPLY]#. (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)',
+      'supportDesc' => '#{D} : <RESUPPLY>#. (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)',
       'forest' => 4,
       'mountain' => 0,
       'ocean' => 4,

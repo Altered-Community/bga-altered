@@ -18,7 +18,7 @@ class OD_Rare_OrdisCarrier extends \ALT\Models\Card
       'flavorText' => 'The flow of Ordis Recruits seems to go on forever.',
       'artist' => 'Taras Susak',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'At Noon — Create an [ORDIS_RECRUIT] Soldier token in #each of your Expeditions#.',
+      'effectDesc' => 'At Noon — Create an <ORDIS_RECRUIT> Soldier token in #each of your Expeditions#.',
       'costHand' => 5,
       'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],

@@ -19,7 +19,7 @@ class MU_Rare_LyraClothDancer extends \ALT\Models\Card
       'artist' => 'Fori Y.',
       'subtypes' => [ARTIST],
       'effectDesc' => clienttranslate(
-        '{H} Up to one target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)'
+        '{H} Up to one target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)'
       ),
       'forest' => 0,
       'mountain' => 3,

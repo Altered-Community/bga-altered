@@ -18,7 +18,7 @@ class BR_Rare_OrdisSpy extends \ALT\Models\Card
       'flavorText' => 'Stirred, but not shaken.',
       'artist' => 'Matteo Spirito',
       'subtypes' => [CITIZEN],
-      'effectDesc' => '{H} $[SABOTAGE].  #{R} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.#',
+      'effectDesc' => '{H} $<SABOTAGE>.  #{R} Create an <ORDIS_RECRUIT> Soldier token in my Expedition.#',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

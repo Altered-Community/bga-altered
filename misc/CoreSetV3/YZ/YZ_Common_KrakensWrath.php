@@ -21,7 +21,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'artist' => 'Matteo Spirito',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'
+        '$<FLEETING>.  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

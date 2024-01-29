@@ -19,7 +19,7 @@ class OD_Common_Thoth extends \ALT\Models\Card
       'artist' => 'Christophe Young',
       'subtypes' => [BUREAUCRAT, DEITY],
       'effectDesc' =>
-        'When my Expedition fails to move forward during Dusk — Create an [ORDIS_RECRUIT] Soldier token in target Expedition after Rest.',
+        'When my Expedition fails to move forward during Dusk — Create an <ORDIS_RECRUIT> Soldier token in target Expedition after Rest.',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 2,

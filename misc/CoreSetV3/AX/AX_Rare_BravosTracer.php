@@ -18,7 +18,7 @@ class AX_Rare_BravosTracer extends \ALT\Models\Card
       'flavorText' => '"I only feel alive when I hear the wind whistling in my ears."',
       'artist' => 'Justice Wong',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '{J} I gain [FLEETING_CHAR]. (If I would be sent to Reserve, discard me instead.)',
+      'effectDesc' => '{J} I gain <FLEETING_CHAR>. (If I would be sent to Reserve, discard me instead.)',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

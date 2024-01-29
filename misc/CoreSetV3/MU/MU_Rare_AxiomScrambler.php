@@ -19,7 +19,7 @@ class MU_Rare_AxiomScrambler extends \ALT\Models\Card
         'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{H} $[SABOTAGE].',
+      'effectDesc' => '{H} $<SABOTAGE>.',
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,

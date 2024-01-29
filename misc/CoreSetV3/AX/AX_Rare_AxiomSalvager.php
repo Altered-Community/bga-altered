@@ -18,7 +18,7 @@ class AX_Rare_AxiomSalvager extends \ALT\Models\Card
       'flavorText' => 'The Axiom\'s limited resources pushed them to reuse whatever they could.',
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{R} $[RESUPPLY].',
+      'effectDesc' => '{R} $<RESUPPLY>.',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,

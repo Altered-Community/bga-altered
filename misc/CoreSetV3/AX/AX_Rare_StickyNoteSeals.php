@@ -19,7 +19,7 @@ class AX_Rare_StickyNoteSeals extends \ALT\Models\Card
       'artist' => 'Atanas Lozanski',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
-        '$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.',
+        '$<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.',
       'costHand' => 3,
       'costReserve' => 3,
     ];

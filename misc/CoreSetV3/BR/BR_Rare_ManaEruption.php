@@ -18,7 +18,7 @@ class BR_Rare_ManaEruption extends \ALT\Models\Card
       'flavorText' => 'Flames fly from his hand as he falls towards the monster, leaving a trail of glowing fire behind him...',
       'artist' => 'Zero Wen',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Discard one of your Mana Orbs. If you do, discard target Character or Permanent.',
+      'effectDesc' => '$<FLEETING>.  Discard one of your Mana Orbs. If you do, discard target Character or Permanent.',
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],

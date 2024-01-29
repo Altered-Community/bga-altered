@@ -20,7 +20,7 @@ class AX_Rare_AxiomScrambler extends \ALT\Models\Card
       ),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,

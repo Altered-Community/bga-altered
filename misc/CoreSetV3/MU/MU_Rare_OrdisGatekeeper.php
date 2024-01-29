@@ -19,7 +19,7 @@ class MU_Rare_OrdisGatekeeper extends \ALT\Models\Card
         'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
       'artist' => 'Atanas Lozanski',
       'subtypes' => [SOLDIER],
-      'effectDesc' => '{J} #Target Character# in your other Expedition #gains 2 boosts$[BB]#.',
+      'effectDesc' => '{J} #Target Character# in your other Expedition #gains 2 boosts$<BB>#.',
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,

@@ -18,7 +18,7 @@ class AX_Rare_JeannedArc extends \ALT\Models\Card
       'flavorText' => 'She\'ll be followed long after she\'s gone.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER],
-      'effectDesc' => 'When I leave the Expedition zone — Create a #[BRASSBUG] Robot# token in each of your Expeditions.',
+      'effectDesc' => 'When I leave the Expedition zone — Create a #<BRASSBUG> Robot# token in each of your Expeditions.',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

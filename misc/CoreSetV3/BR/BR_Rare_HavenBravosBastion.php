@@ -18,7 +18,7 @@ class BR_Rare_HavenBravosBastion extends \ALT\Models\Card
       'flavorText' => 'Haven isn\'t where legends are born... it\'s where they live forever.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#{J} $[RESUPPLY].#  Your Characters have: \"{R} I gain 1 boost.\"',
+      'effectDesc' => '#{J} $<RESUPPLY>.#  Your Characters have: \"{R} I gain 1 boost.\"',
       'costHand' => 2,
       'costReserve' => 2,
     ];

@@ -18,7 +18,7 @@ class OD_Rare_OrdisCadets extends \ALT\Models\Card
       'flavorText' => 'Together they learn, and together they\'ll protect.',
       'artist' => 'Anh Tung',
       'subtypes' => [APPRENTICE, SOLDIER],
-      'effectDesc' => '{J} Create an [ORDIS_RECRUIT] Soldier token in #your other Expedition#.',
+      'effectDesc' => '{J} Create an <ORDIS_RECRUIT> Soldier token in #your other Expedition#.',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

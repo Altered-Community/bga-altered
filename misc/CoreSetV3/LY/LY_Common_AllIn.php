@@ -18,7 +18,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'flavorText' => clienttranslate('There\'s a time to be cautious, and a time to bet it all!'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [BOON],
-      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts$[BB], where X is the result.'),
+      'effectDesc' => clienttranslate('Roll a die. Target Character gains X boosts$<BB>, where X is the result.'),
       'costHand' => 3,
       'costReserve' => 3,
     ];

@@ -19,7 +19,7 @@ class AX_Rare_OpentheGates extends \ALT\Models\Card
         'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [MANEUVER],
-      'effectDesc' => 'Create #a [BRASSBUG] Robot# token in each of your Expeditions.',
+      'effectDesc' => 'Create #a <BRASSBUG> Robot# token in each of your Expeditions.',
       'costHand' => 4,
       'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],

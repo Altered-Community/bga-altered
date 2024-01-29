@@ -20,7 +20,7 @@ class YZ_Common_KadigiranAlchemist extends \ALT\Models\Card
       ),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [MAGE],
-      'effectDesc' => clienttranslate('{H} I gain 2 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{H} I gain 2 boosts$<BB>.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

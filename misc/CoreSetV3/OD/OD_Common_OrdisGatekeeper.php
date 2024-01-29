@@ -20,7 +20,7 @@ class OD_Common_OrdisGatekeeper extends \ALT\Models\Card
       ),
       'artist' => 'Atanas Lozanski',
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{J} Create an [ORDIS_RECRUIT] Soldier token in your other Expedition.'),
+      'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in your other Expedition.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,

@@ -18,7 +18,7 @@ class BR_Common_Ratatoskr extends \ALT\Models\Card
       'flavorText' => clienttranslate('You’re nuts if you think you can keep up with this little one!'),
       'artist' => 'Gaga Zhou',
       'subtypes' => [MESSENGER],
-      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB].'),
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$<BB>.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

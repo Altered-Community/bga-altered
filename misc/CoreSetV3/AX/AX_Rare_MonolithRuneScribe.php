@@ -18,7 +18,7 @@ class AX_Rare_MonolithRuneScribe extends \ALT\Models\Card
       'flavorText' => 'The Ordis manifest their Alteration through the use of glyphs of power.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '#{H} If you control a token, $[RESUPPLY].#',
+      'effectDesc' => '#{H} If you control a token, $<RESUPPLY>.#',
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 2,

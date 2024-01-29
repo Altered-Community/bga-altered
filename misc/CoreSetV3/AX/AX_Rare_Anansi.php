@@ -19,7 +19,7 @@ class AX_Rare_Anansi extends \ALT\Models\Card
         'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.',
       'artist' => 'Taras Susak',
       'subtypes' => [ARTIST],
-      'effectDesc' => '{J} I gain 1 boost$[BB] for each card in your Reserve.',
+      'effectDesc' => '{J} I gain 1 boost$<BB> for each card in your Reserve.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

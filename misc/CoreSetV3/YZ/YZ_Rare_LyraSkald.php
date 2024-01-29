@@ -18,7 +18,7 @@ class YZ_Rare_LyraSkald extends \ALT\Models\Card
       'flavorText' => 'We\'re all stories, in the end.',
       'artist' => 'Ba Vo',
       'subtypes' => [ARTIST],
-      'effectDesc' => '#{H} You may discard a card from your Reserve to $[RESUPPLY].#',
+      'effectDesc' => '#{H} You may discard a card from your Reserve to $<RESUPPLY>.#',
       'supportDesc' => '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
       'forest' => 3,
       'mountain' => 0,

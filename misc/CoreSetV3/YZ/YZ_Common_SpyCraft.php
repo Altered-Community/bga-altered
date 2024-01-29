@@ -18,7 +18,7 @@ class YZ_Common_SpyCraft extends \ALT\Models\Card
       'flavorText' => clienttranslate('This message will self-destruct in five seconds.'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('$<FLEETING>.  $<SABOTAGE>, then $<RESUPPLY>.'),
       'costHand' => 2,
       'costReserve' => 2,
     ];

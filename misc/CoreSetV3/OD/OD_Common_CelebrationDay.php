@@ -19,7 +19,7 @@ class OD_Common_CelebrationDay extends \ALT\Models\Card
         'Today, and for centuries to come, we will celebrate victory over the Kraken and revel in freedom regained!',
       'artist' => 'Matteo Spirito',
       'subtypes' => [MANEUVER],
-      'effectDesc' => '$[FLEETING].  Target Expedition can\'t move forward this Day.',
+      'effectDesc' => '$<FLEETING>.  Target Expedition can\'t move forward this Day.',
       'costHand' => 5,
       'costReserve' => 5,
     ];

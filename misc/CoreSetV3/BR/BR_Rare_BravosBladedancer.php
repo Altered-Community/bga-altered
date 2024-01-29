@@ -18,7 +18,7 @@ class BR_Rare_BravosBladedancer extends \ALT\Models\Card
       'flavorText' => '"It seems Thoth has never seen me duel."',
       'artist' => 'Taras Susak',
       'subtypes' => [SOLDIER],
-      'effectDesc' => '$[SEASONED].  {J} I gain 1 boost.  #{R} If I have 4 boosts or less, I lose [FLEETING_CHAR].#',
+      'effectDesc' => '$<SEASONED>.  {J} I gain 1 boost.  #{R} If I have 4 boosts or less, I lose <FLEETING_CHAR>.#',
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

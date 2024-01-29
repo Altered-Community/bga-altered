@@ -18,7 +18,7 @@ class MU_Common_ManaReaping extends \ALT\Models\Card
       'flavorText' => 'Everything is energy and that\'s all there is to it.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).',
+      'effectDesc' => '$<FLEETING>.  Put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).',
       'costHand' => 3,
       'costReserve' => 3,
     ];

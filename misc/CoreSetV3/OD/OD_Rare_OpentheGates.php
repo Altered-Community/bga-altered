@@ -21,7 +21,7 @@ class OD_Rare_OpentheGates extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        'Create #four# [ORDIS_RECRUIT] Soldier tokens, #distributed as you choose among any number of target Expeditions#.'
+        'Create #four# <ORDIS_RECRUIT> Soldier tokens, #distributed as you choose among any number of target Expeditions#.'
       ),
       'costHand' => 5,
       'costReserve' => 5,

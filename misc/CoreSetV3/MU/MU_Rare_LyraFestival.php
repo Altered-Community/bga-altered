@@ -20,7 +20,7 @@ class MU_Rare_LyraFestival extends \ALT\Models\Card
       'artist' => 'Fahmi Fauzi',
       'subtypes' => [LANDMARK],
       'effectDesc' =>
-        '{J} Draw a card.  At Dusk, if you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character — You win the game.',
+        '{J} Draw a card.  At Dusk, if you control a <FLEETING> Character, another <ANCHORED> Character and yet another <ASLEEP> Character — You win the game.',
       'costHand' => 4,
       'costReserve' => 4,
     ];

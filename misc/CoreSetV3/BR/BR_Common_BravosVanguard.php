@@ -19,7 +19,7 @@ class BR_Common_BravosVanguard extends \ALT\Models\Card
         '"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!"',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '{J} You may have another target Character lose [FLEETING_CHAR].',
+      'effectDesc' => '{J} You may have another target Character lose <FLEETING_CHAR>.',
       'forest' => 4,
       'mountain' => 2,
       'ocean' => 2,

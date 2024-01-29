@@ -18,7 +18,7 @@ class BR_Common_Atlas extends \ALT\Models\Card
       'flavorText' => clienttranslate('Not even the weight of the sky could make him buckle.'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [TITAN],
-      'effectDesc' => clienttranslate('$[GIGANTIC].'),
+      'effectDesc' => clienttranslate('$<GIGANTIC>.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

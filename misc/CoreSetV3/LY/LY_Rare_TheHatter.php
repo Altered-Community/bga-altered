@@ -20,7 +20,7 @@ class LY_Rare_TheHatter extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'subtypes' => [CITIZEN],
       'supportDesc' =>
-        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)',
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
       'forest' => 5,
       'mountain' => 0,
       'ocean' => 5,

@@ -18,7 +18,7 @@ class MU_Common_Kodama extends \ALT\Models\Card
       'flavorText' => 'There\'s no greater blessing for a tree than to offer a home for a Kodama.',
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT, SPIRIT],
-      'effectDesc' => '{H} I gain $[ASLEEP].',
+      'effectDesc' => '{H} I gain $<ASLEEP>.',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

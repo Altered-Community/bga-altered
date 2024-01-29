@@ -19,7 +19,7 @@ class YZ_Rare_Flamel extends \ALT\Models\Card
         'Rubedo is the final stage of alchemy, where one\'s substance is reborn like a phoenix before returning to the world.',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '{H} #$[RESUPPLY].# Then, you may return a Spell from your Reserve to your hand.',
+      'effectDesc' => '{H} #$<RESUPPLY>.# Then, you may return a Spell from your Reserve to your hand.',
       'supportDesc' => '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)',
       'forest' => 4,
       'mountain' => 3,

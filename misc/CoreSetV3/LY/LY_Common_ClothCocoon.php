@@ -19,7 +19,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
-        '$[FLEETING].  Choose one:  • Discard target [FLEETING_CHAR], [ANCHORED] or [ASLEEP] Character.  • Discard target Permanent.',
+        '$<FLEETING>.  Choose one:  • Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.  • Discard target Permanent.',
       'costHand' => 3,
       'costReserve' => 3,
     ];

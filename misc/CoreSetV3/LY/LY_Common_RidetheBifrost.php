@@ -19,7 +19,7 @@ class LY_Common_RidetheBifrost extends \ALT\Models\Card
       'artist' => 'Fahmi Fauzi',
       'subtypes' => [MANEUVER],
       'effectDesc' =>
-        '$[FLEETING].  All Characters you control switch Expeditions. (They leave their Expeditions and join their controller\'s other Expedition.)',
+        '$<FLEETING>.  All Characters you control switch Expeditions. (They leave their Expeditions and join their controller\'s other Expedition.)',
       'costHand' => 2,
       'costReserve' => 2,
     ];

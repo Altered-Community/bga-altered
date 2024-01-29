@@ -19,7 +19,7 @@ class OD_Rare_TeamworkTraining extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
-        '$[FLEETING].  #Create an [ORDIS_RECRUIT] Soldier token in target Expedition.#  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.',
+        '$<FLEETING>.  #Create an <ORDIS_RECRUIT> Soldier token in target Expedition.#  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.',
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],

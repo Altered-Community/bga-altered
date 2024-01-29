@@ -18,7 +18,7 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'flavorText' => clienttranslate('A beacon of knowledge and order, a lighthouse towering high above the world.'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('When a Character joins your Expeditions — It gains 1 boost$[BB].'),
+      'effectDesc' => clienttranslate('When a Character joins your Expeditions — It gains 1 boost$<BB>.'),
       'costHand' => 5,
       'costReserve' => 5,
     ];

@@ -18,7 +18,7 @@ class LY_Rare_SpyCraft extends \ALT\Models\Card
       'flavorText' => 'This message will self-destruct in five seconds.',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].',
+      'effectDesc' => '$<FLEETING>.  $<SABOTAGE>, then $<RESUPPLY>.',
       'costHand' => 2,
       'costReserve' => 2,
     ];

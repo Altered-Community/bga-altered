@@ -18,7 +18,7 @@ class OD_Rare_HavenTrainee extends \ALT\Models\Card
       'flavorText' => '"All right, lad, show me what you’ve learned."',
       'artist' => 'Atanas Lozanski',
       'subtypes' => [APPRENTICE],
-      'effectDesc' => '{R} #Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.#',
+      'effectDesc' => '{R} #Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.#',
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,

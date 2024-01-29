@@ -18,7 +18,7 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'flavorText' => clienttranslate('Some say the harvesters are the caretakers of the world-trees.'),
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT, ANIMAL],
-      'effectDesc' => clienttranslate('{J} I gain $[ANCHORED].'),
+      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

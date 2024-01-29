@@ -18,7 +18,7 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('At Noon — $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('At Noon — $<RESUPPLY>.'),
       'costHand' => 4,
       'costReserve' => 4,
     ];

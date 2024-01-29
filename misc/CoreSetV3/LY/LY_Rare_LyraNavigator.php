@@ -18,7 +18,7 @@ class LY_Rare_LyraNavigator extends \ALT\Models\Card
       'flavorText' => 'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.',
       'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
-      'supportDesc' => '#{D} : [RESUPPLY]#. (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)',
+      'supportDesc' => '#{D} : <RESUPPLY>#. (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)',
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 4,

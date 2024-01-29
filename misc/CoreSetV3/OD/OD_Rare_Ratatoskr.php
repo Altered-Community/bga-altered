@@ -18,7 +18,7 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
       'flavorText' => clienttranslate('You’re nuts if you think you can keep up with this little one!'),
       'artist' => 'Gaga Zhou',
       'subtypes' => [MESSENGER],
-      'effectDesc' => clienttranslate('{R} #Create two [ORDIS_RECRUIT] Soldier tokens in my Expedition.#'),
+      'effectDesc' => clienttranslate('{R} #Create two <ORDIS_RECRUIT> Soldier tokens in my Expedition.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

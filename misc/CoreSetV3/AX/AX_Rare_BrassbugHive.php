@@ -19,7 +19,7 @@ class AX_Rare_BrassbugHive extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#'
+        '{J} Create a <BRASSBUG> Robot token in target Expedition.  At Noon — Create a <BRASSBUG> Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#'
       ),
       'costHand' => 6,
       'costReserve' => 6,

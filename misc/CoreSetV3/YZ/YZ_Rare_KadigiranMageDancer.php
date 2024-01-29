@@ -18,7 +18,7 @@ class YZ_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'flavorText' => '"Don\'t just wait for magic to happen. Go out and make your own!"',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [MAGE, SOLDIER],
-      'effectDesc' => 'When you play a Spell — I gain 1 boost$[BB].  #At Dusk, if I have 3 or more boosts — Draw a card.#',
+      'effectDesc' => 'When you play a Spell — I gain 1 boost$<BB>.  #At Dusk, if I have 3 or more boosts — Draw a card.#',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

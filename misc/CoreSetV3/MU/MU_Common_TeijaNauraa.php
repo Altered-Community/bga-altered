@@ -17,7 +17,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'type' => HERO,
       'flavorText' => clienttranslate('Nature must be nurtured to fully express its generosity.'),
       'artist' => 'Nestor Papatriantafyllou',
-      'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$[BB].'),
+      'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$<BB>.'),
     ];
   }
 }

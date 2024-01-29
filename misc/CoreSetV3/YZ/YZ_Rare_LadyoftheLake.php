@@ -18,7 +18,7 @@ class YZ_Rare_LadyoftheLake extends \ALT\Models\Card
       'flavorText' => '"One day, I will show you the wonders of Avalon and the true might of the Fae realms."',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [FAIRY, SPIRIT],
-      'supportDesc' => '#{D} : The next Spell you play this turn loses [FLEETING].# (Discard me from Reserve to do this.)',
+      'supportDesc' => '#{D} : The next Spell you play this turn loses <FLEETING>.# (Discard me from Reserve to do this.)',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 3,

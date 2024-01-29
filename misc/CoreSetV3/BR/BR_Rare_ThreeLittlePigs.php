@@ -18,7 +18,7 @@ class BR_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'flavorText' => 'Together they can build more than just a stone house.',
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{J} If you control #one# or more Landmarks, I gain 1 boost$[BB].',
+      'effectDesc' => '{J} If you control #one# or more Landmarks, I gain 1 boost$<BB>.',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

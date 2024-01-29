@@ -18,7 +18,7 @@ class LY_Common_Esmeralda extends \ALT\Models\Card
       'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate('{H} $[RESUPPLY].'),
+      'effectDesc' => clienttranslate('{H} $<RESUPPLY>.'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

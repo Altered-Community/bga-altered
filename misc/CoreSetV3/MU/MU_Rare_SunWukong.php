@@ -18,7 +18,7 @@ class MU_Rare_SunWukong extends \ALT\Models\Card
       'flavorText' => 'Ever the trickster, always the rebel.',
       'artist' => 'Kevin Sidharta',
       'subtypes' => [DEITY],
-      'effectDesc' => '{R} #Target Character# gains 2 boosts$[BB].',
+      'effectDesc' => '{R} #Target Character# gains 2 boosts$<BB>.',
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,

@@ -19,7 +19,7 @@ class LY_Rare_ACappellaTraining extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'subtypes' => [SONG],
       'effectDesc' =>
-        '#[FLEETING].#  Target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)  #Draw a card.#',
+        '#<FLEETING>.#  Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)  #Draw a card.#',
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],

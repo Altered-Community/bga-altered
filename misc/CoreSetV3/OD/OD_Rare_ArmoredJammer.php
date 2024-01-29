@@ -18,7 +18,7 @@ class OD_Rare_ArmoredJammer extends \ALT\Models\Card
       'flavorText' => '"In a jam? Sorry, mate. Maybe a side-effect of our scrambling..."',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '{J} $[SABOTAGE].  #When I leave your Landmark zone — [SABOTAGE].#',
+      'effectDesc' => '{J} $<SABOTAGE>.  #When I leave your Landmark zone — <SABOTAGE>.#',
       'costHand' => 2,
       'costReserve' => 2,
     ];

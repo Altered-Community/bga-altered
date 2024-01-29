@@ -19,7 +19,7 @@ class YZ_Rare_TheKadigirYzmirBastion extends \ALT\Models\Card
         'What dark, phantasmagorical secrets hide within Asgartha\'s College of Magic? Only madmen and the Yzmirs know for sure...',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '{T} : The next Spell you play this turn is free. #If you play it from your hand, it loses [FLEETING].#',
+      'effectDesc' => '{T} : The next Spell you play this turn is free. #If you play it from your hand, it loses <FLEETING>.#',
       'costHand' => 8,
       'costReserve' => 8,
     ];

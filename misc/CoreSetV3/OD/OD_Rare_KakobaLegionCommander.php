@@ -19,7 +19,7 @@ class OD_Rare_KakobaLegionCommander extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER, NOBLE],
       'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, I gain #3 boosts$[BB]#. (Cards in Reserve are not controlled.)'
+        '{J} If you control three or more other Characters, I gain #3 boosts$<BB>#. (Cards in Reserve are not controlled.)'
       ),
       'forest' => 2,
       'mountain' => 2,

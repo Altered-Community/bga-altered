@@ -18,7 +18,7 @@ class MU_Common_AloeVera extends \ALT\Models\Card
       'flavorText' => 'Moisturizing every day is essential.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [PLANT],
-      'effectDesc' => 'At Noon — $[RESUPPLY].',
+      'effectDesc' => 'At Noon — $<RESUPPLY>.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,

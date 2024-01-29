@@ -18,7 +18,7 @@ class OD_Rare_CelestialBlast extends \ALT\Models\Card
       'flavorText' => 'The sky cracked open in a thunderous wave as the dream was unleashed upon the world.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Discard up to two targets, Characters or Permanents.  #Draw a card.#',
+      'effectDesc' => '$<FLEETING>.  Discard up to two targets, Characters or Permanents.  #Draw a card.#',
       'costHand' => 7,
       'costReserve' => 7,
     ];

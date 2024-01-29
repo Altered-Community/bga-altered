@@ -18,7 +18,7 @@ class YZ_Rare_Alice extends \ALT\Models\Card
       'flavorText' => clienttranslate('"One good turn deserves another."'),
       'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
-      'supportDesc' => clienttranslate('{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)'),
+      'supportDesc' => clienttranslate('{D} : <AFTER_YOU>. (Discard me from Reserve to do this.)'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 4,

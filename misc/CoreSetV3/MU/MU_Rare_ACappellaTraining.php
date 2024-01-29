@@ -18,7 +18,7 @@ class MU_Rare_ACappellaTraining extends \ALT\Models\Card
       'flavorText' => 'Thank you for being my metronome!',
       'artist' => 'Zero Wen',
       'subtypes' => [SONG],
-      'effectDesc' => 'Target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)',
+      'effectDesc' => 'Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)',
       'costHand' => 1,
       'costReserve' => 1,
     ];

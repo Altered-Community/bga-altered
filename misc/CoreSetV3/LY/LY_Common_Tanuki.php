@@ -18,7 +18,7 @@ class LY_Common_Tanuki extends \ALT\Models\Card
       'flavorText' => clienttranslate('"Pom! Pompoko, pom!"'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [SPIRIT],
-      'effectDesc' => clienttranslate('{H} $[SABOTAGE].'),
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,

@@ -19,7 +19,7 @@ class LY_Rare_MindApotheosis extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'subtypes' => [CONJURATION],
       'effectDesc' =>
-        '[FLEETING].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards. (Don\'t activate any {h} triggers.)',
+        '<FLEETING>.  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain <FLEETING>. Discard the other cards. (Don\'t activate any {h} triggers.)',
       'costHand' => 8,
       'costReserve' => 8,
       'changedStats' => ['costHand', 'costReserve'],

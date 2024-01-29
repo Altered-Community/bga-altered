@@ -19,7 +19,7 @@ class MU_Rare_MeditationTraining extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        'Target Character with Hand Cost {3} or less gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+        'Target Character with Hand Cost {3} or less gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
       ),
       'supportDesc' => clienttranslate(
         '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'

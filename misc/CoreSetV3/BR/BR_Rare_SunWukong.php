@@ -18,7 +18,7 @@ class BR_Rare_SunWukong extends \ALT\Models\Card
       'flavorText' => clienttranslate('Ever the trickster, always the rebel.'),
       'artist' => 'Kevin Sidharta',
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{R} I gain 2 boosts$[BB] #and lose [FLEETING_CHAR]#.'),
+      'effectDesc' => clienttranslate('{R} I gain 2 boosts$<BB> #and lose <FLEETING_CHAR>#.'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,

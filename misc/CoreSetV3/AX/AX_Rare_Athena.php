@@ -19,7 +19,7 @@ class AX_Rare_Athena extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'subtypes' => [DEITY],
       'effectDesc' =>
-        '#{H} If you control two or more Landmarks, I gain 2 boosts.#  {R} If you control two or more Landmarks, I lose [FLEETING_CHAR].',
+        '#{H} If you control two or more Landmarks, I gain 2 boosts.#  {R} If you control two or more Landmarks, I lose <FLEETING_CHAR>.',
       'forest' => 3,
       'mountain' => 4,
       'ocean' => 4,

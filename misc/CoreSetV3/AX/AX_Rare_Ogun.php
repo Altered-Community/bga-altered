@@ -19,7 +19,7 @@ class AX_Rare_Ogun extends \ALT\Models\Card
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ENGINEER, DEITY],
       'effectDesc' =>
-        '{J} #You may pay {2} to create a [BRASSBUG] Robot token in target Expedition.# Then, Robots you control gain 1 boost.',
+        '{J} #You may pay {2} to create a <BRASSBUG> Robot token in target Expedition.# Then, Robots you control gain 1 boost.',
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,

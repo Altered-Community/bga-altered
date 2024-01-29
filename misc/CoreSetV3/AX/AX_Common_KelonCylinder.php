@@ -20,7 +20,7 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
       'artist' => 'Anh Tung',
       'subtypes' => [LANDMARK],
       'effectDesc' =>
-        '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost$[BB].',
+        '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost$<BB>.',
       'costHand' => 1,
       'costReserve' => 1,
     ];

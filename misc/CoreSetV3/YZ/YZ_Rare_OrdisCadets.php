@@ -18,7 +18,7 @@ class YZ_Rare_OrdisCadets extends \ALT\Models\Card
       'flavorText' => 'Together they learn, and together they\'ll protect.',
       'artist' => 'Anh Tung',
       'subtypes' => [APPRENTICE, SOLDIER],
-      'effectDesc' => '{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.',
+      'effectDesc' => '{J} Create an <ORDIS_RECRUIT> Soldier token in my Expedition.',
       'supportDesc' => '#{D} : The next Spell you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
       'forest' => 1,
       'mountain' => 1,

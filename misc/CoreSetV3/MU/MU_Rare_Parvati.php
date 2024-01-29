@@ -19,7 +19,7 @@ class MU_Rare_Parvati extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DEITY],
       'effectDesc' => clienttranslate(
-        '#{J}# Target Character gains [ANCHORED]. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+        '#{J}# Target Character gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
       ),
       'forest' => 3,
       'mountain' => 0,

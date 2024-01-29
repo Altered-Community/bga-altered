@@ -19,7 +19,7 @@ class LY_Rare_TwinkleTwinkle extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SONG],
       'effectDesc' =>
-        '#$[FLEETING].#  #All Characters in target Expedition# gain [ASLEEP]. (This only affects one player\'s Characters. During Dusk, ignore their statistics. During Rest, they don\'t go to Reserve and they lose Asleep.)',
+        '#$<FLEETING>.#  #All Characters in target Expedition# gain <ASLEEP>. (This only affects one player\'s Characters. During Dusk, ignore their statistics. During Rest, they don\'t go to Reserve and they lose Asleep.)',
       'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
       'costHand' => 4,
       'costReserve' => 4,

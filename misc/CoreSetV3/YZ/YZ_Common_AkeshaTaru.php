@@ -17,7 +17,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'type' => HERO,
       'flavorText' => clienttranslate('Whatever ordeals we may face, good manners and politeness are always in fashion!'),
       'artist' => 'Taras Susak',
-      'effectDesc' => clienttranslate('{T} : $[AFTER_YOU]. You can only activate this if you are the first player.'),
+      'effectDesc' => clienttranslate('{T} : $<AFTER_YOU>. You can only activate this if you are the first player.'),
     ];
   }
 }

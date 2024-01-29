@@ -18,7 +18,7 @@ class BR_Rare_FoundryArmorer extends \ALT\Models\Card
       'flavorText' => 'No Brassbug would survive in the Tumult without armor.',
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{R} Create a [BRASSBUG] Robot token in target Expedition.',
+      'effectDesc' => '{R} Create a <BRASSBUG> Robot token in target Expedition.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

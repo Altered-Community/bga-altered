@@ -18,7 +18,7 @@ class AX_Common_Athena extends \ALT\Models\Card
       'flavorText' => '"I’ve lifted the mist from off your eyes that’s blurred them up to now."',
       'artist' => 'Zero Wen',
       'subtypes' => [DEITY],
-      'effectDesc' => '{R} If you control two or more Landmarks, I lose [FLEETING_CHAR].',
+      'effectDesc' => '{R} If you control two or more Landmarks, I lose <FLEETING_CHAR>.',
       'forest' => 3,
       'mountain' => 4,
       'ocean' => 4,

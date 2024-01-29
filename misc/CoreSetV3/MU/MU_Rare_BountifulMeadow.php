@@ -18,7 +18,7 @@ class MU_Rare_BountifulMeadow extends \ALT\Models\Card
       'flavorText' => 'There\'s no greater joy than seeing all that is green thrive and grow.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#{J} You may pay {1} to $[RESUPPLY].#  {T} : The next Plant you play this turn costs {1} less.',
+      'effectDesc' => '#{J} You may pay {1} to $<RESUPPLY>.#  {T} : The next Plant you play this turn costs {1} less.',
       'costHand' => 2,
       'costReserve' => 2,
     ];

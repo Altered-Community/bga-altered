@@ -18,7 +18,7 @@ class BR_Rare_Achilles extends \ALT\Models\Card
       'flavorText' => '"Many things lie between us—shadowy mountains and sounding sea."',
       'artist' => 'Taras Susak',
       'subtypes' => [SOLDIER],
-      'effectDesc' => '#$[TOUGH_2].#',
+      'effectDesc' => '#$<TOUGH_2>.#',
       'forest' => 5,
       'mountain' => 6,
       'ocean' => 6,

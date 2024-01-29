@@ -19,7 +19,7 @@ class BR_Rare_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
       'artist' => 'Fahmi Fauzi',
       'subtypes' => [LEVIATHAN],
       'effectDesc' =>
-        '$[GIGANTIC].  $[TOUGH_X], where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)',
+        '$<GIGANTIC>.  $<TOUGH_X>, where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)',
       'forest' => 8,
       'mountain' => 8,
       'ocean' => 8,

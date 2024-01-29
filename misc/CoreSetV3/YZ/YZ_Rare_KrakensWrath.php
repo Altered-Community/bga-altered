@@ -19,7 +19,7 @@ class YZ_Rare_KrakensWrath extends \ALT\Models\Card
         'The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.',
       'artist' => 'Matteo Spirito',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Send to Reserve up to #four# target Characters with a total Hand Cost #{6}# or less.',
+      'effectDesc' => '$<FLEETING>.  Send to Reserve up to #four# target Characters with a total Hand Cost #{6}# or less.',
       'costHand' => 5,
       'costReserve' => 5,
     ];

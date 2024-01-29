@@ -18,7 +18,7 @@ class MU_Rare_KakobaLegionCommander extends \ALT\Models\Card
       'flavorText' => 'The general who became a scholar; the scholar who became a senator.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER, NOBLE],
-      'effectDesc' => '{J} If you control three or more other Characters, I gain #3 boosts$[BB]#.',
+      'effectDesc' => '{J} If you control three or more other Characters, I gain #3 boosts$<BB>#.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

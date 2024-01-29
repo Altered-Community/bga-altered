@@ -19,7 +19,7 @@ class OD_Rare_KadigiranAlchemist extends \ALT\Models\Card
         'Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self.',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [MAGE],
-      'effectDesc' => '{H} I gain #3 boosts$[BB]#.',
+      'effectDesc' => '{H} I gain #3 boosts$<BB>#.',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

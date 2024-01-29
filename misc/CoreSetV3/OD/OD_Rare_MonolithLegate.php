@@ -18,9 +18,9 @@ class OD_Rare_MonolithLegate extends \ALT\Models\Card
       'flavorText' => 'Your document has expired. Needless to say, that\'s not his problem.',
       'artist' => 'Romain Kurdi',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => 'When my Expedition fails to move forward during Dusk — $[SABOTAGE] after Rest.',
+      'effectDesc' => 'When my Expedition fails to move forward during Dusk — $<SABOTAGE> after Rest.',
       'supportDesc' =>
-        '#{D} : Create an [ORDIS_RECRUIT] Soldier token in target Expedition.# (Discard me from Reserve to do this.)',
+        '#{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition.# (Discard me from Reserve to do this.)',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

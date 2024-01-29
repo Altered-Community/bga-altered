@@ -18,7 +18,7 @@ class BR_Rare_HuaMulan extends \ALT\Models\Card
       'flavorText' => 'Her determination has yet to meet its match in this world.',
       'artist' => 'Zero Wen',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '{R} I lose [FLEETING_CHAR].',
+      'effectDesc' => '{R} I lose <FLEETING_CHAR>.',
       'forest' => 1,
       'mountain' => 2,
       'ocean' => 2,

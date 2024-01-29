@@ -18,7 +18,7 @@ class BR_Common_ManaChanneling extends \ALT\Models\Card
       'flavorText' => 'There\'s only one way to turn the tide: by becoming stronger.',
       'artist' => 'Zero Wen',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$[FLEETING].  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).',
+      'effectDesc' => '$<FLEETING>.  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).',
       'costHand' => 2,
       'costReserve' => 2,
     ];

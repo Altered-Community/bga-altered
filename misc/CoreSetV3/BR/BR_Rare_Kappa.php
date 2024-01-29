@@ -18,7 +18,7 @@ class BR_Rare_Kappa extends \ALT\Models\Card
       'flavorText' => '"Push through the pain. Giving up would hurt far more."',
       'artist' => 'Matteo Spirito',
       'subtypes' => [SPIRIT, TRAINER],
-      'effectDesc' => '#$[SEASONED].#',
+      'effectDesc' => '#$<SEASONED>.#',
       'supportDesc' => '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)',
       'forest' => 4,
       'mountain' => 4,

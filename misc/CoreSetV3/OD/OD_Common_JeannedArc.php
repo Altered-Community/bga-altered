@@ -19,7 +19,7 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone — Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.'
+        'When I leave the Expedition zone — Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'
       ),
       'forest' => 2,
       'mountain' => 2,

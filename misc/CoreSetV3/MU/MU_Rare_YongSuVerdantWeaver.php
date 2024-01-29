@@ -19,7 +19,7 @@ class MU_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'artist' => 'Kevin Sidharta',
       'subtypes' => [DRUID],
       'effectDesc' => clienttranslate(
-        '{J} If you control two or more Plants, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)'
+        '{J} If you control two or more Plants, I gain 2 boosts$<BB>. (Cards in Reserve are not controlled.)'
       ),
       'forest' => 2,
       'mountain' => 2,

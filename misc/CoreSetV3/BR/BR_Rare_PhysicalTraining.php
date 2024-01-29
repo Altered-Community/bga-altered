@@ -20,7 +20,7 @@ class BR_Rare_PhysicalTraining extends \ALT\Models\Card
       ),
       'artist' => 'Polar Engine',
       'subtypes' => [BOON],
-      'effectDesc' => clienttranslate('Target Character gains 3 boosts$[BB].  #Draw a card.#'),
+      'effectDesc' => clienttranslate('Target Character gains 3 boosts$<BB>.  #Draw a card.#'),
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand'],

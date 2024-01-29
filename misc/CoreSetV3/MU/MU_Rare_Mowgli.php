@@ -19,7 +19,7 @@ class MU_Rare_Mowgli extends \ALT\Models\Card
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
       'supportDesc' =>
-        '#{D} : Target Character with Hand Cost {3} or less gains [ANCHORED].# (Discard me from Reserve to do this.)',
+        '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)',
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 0,

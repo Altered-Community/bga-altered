@@ -18,7 +18,7 @@ class BR_Rare_Dracaena extends \ALT\Models\Card
       'flavorText' => 'They\'re sometimes seen dozing close to a pond, soaking in the water and the sunlight... ',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [PLANT, DRAGON],
-      'effectDesc' => '{J} I gain $[ANCHORED].  At Noon — I gain 1 boost.',
+      'effectDesc' => '{J} I gain $<ANCHORED>.  At Noon — I gain 1 boost.',
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,

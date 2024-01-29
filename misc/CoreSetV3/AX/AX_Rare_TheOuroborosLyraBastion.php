@@ -21,7 +21,7 @@ class AX_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'artist' => 'Khoa Viet',
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '#{J} [RESUPPLY].#  If you would #$[RESUPPLY], instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other.#'
+        '#{J} <RESUPPLY>.#  If you would #$<RESUPPLY>, instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other.#'
       ),
       'costHand' => 3,
       'costReserve' => 3,

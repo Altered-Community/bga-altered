@@ -18,7 +18,7 @@ class OD_Rare_Nurture extends \ALT\Models\Card
       'flavorText' => 'When the sun shines, we\'ll shine together.',
       'artist' => 'Zero Wen',
       'subtypes' => [BOON],
-      'effectDesc' => 'Up to two target Characters each gain 1 boost$[BB].',
+      'effectDesc' => 'Up to two target Characters each gain 1 boost$<BB>.',
       'costHand' => 2,
       'costReserve' => 1,
     ];

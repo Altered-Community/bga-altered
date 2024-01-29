@@ -19,7 +19,7 @@ class MU_Rare_BeautySleep extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
-        'Target Character gains [ASLEEP]. #You may give it 2 boosts#. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
+        'Target Character gains <ASLEEP>. #You may give it 2 boosts#. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
       'costHand' => 1,
       'costReserve' => 3,
     ];

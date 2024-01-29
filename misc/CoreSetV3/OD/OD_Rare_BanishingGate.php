@@ -18,7 +18,7 @@ class OD_Rare_BanishingGate extends \ALT\Models\Card
       'flavorText' => 'Let me walk you to the door.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Discard target Character or Permanent.',
+      'effectDesc' => '$<FLEETING>.  Discard target Character or Permanent.',
       'costHand' => 4,
       'costReserve' => 4,
     ];

@@ -18,7 +18,7 @@ class BR_Rare_SonofYggdrasil extends \ALT\Models\Card
       'flavorText' => 'World trees like the Spindle may have grown from the seeds of the Cosmic Ash.',
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT],
-      'effectDesc' => '$[GIGANTIC].',
+      'effectDesc' => '$<GIGANTIC>.',
       'forest' => 6,
       'mountain' => 3,
       'ocean' => 3,

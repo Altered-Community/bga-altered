@@ -18,7 +18,7 @@ class BR_Common_KojoBooda extends \ALT\Models\Card
       'flavorText' => clienttranslate('Faster, ever faster! Our fire rages highest when the race is afoot! '),
       'artist' => 'Edward Cheekokseang',
       'effectDesc' => clienttranslate(
-        'At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.'
+        'At Noon, if you are the first player — Create a <BOODA> Companion token in your Companion Expedition.'
       ),
     ];
   }

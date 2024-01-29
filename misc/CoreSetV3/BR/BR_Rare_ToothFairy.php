@@ -18,7 +18,7 @@ class BR_Rare_ToothFairy extends \ALT\Models\Card
       'flavorText' => '"Show me those pearly whites."',
       'artist' => 'Anh Tung',
       'subtypes' => [FAIRY],
-      'effectDesc' => '{H} $[SABOTAGE].',
+      'effectDesc' => '{H} $<SABOTAGE>.',
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

@@ -18,7 +18,7 @@ class YZ_Common_BanishingGate extends \ALT\Models\Card
       'flavorText' => clienttranslate('Let me walk you to the door.'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => clienttranslate('$[FLEETING].  Discard target Character or Permanent.'),
+      'effectDesc' => clienttranslate('$<FLEETING>.  Discard target Character or Permanent.'),
       'costHand' => 4,
       'costReserve' => 4,
     ];

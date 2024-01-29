@@ -21,7 +21,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'subtypes' => [CITIZEN],
       'supportDesc' => clienttranslate(
-        '{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)'
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)'
       ),
       'forest' => 5,
       'mountain' => 5,

@@ -18,7 +18,7 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'flavorText' => 'She won\'t read the future in the stars, she\'ll change it herself.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [MAGE, SCHOLAR],
-      'effectDesc' => '#When I\'m sacrificed — You may have target Character gain 2 boosts$[BB].#',
+      'effectDesc' => '#When I\'m sacrificed — You may have target Character gain 2 boosts$<BB>.#',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

@@ -18,7 +18,7 @@ class MU_Rare_MunaMerchant extends \ALT\Models\Card
       'flavorText' => '"What do you need?"',
       'artist' => 'Ba Vo',
       'subtypes' => [CITIZEN],
-      'effectDesc' => '{R} $[RESUPPLY].',
+      'effectDesc' => '{R} $<RESUPPLY>.',
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 0,

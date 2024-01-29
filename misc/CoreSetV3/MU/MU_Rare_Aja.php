@@ -21,7 +21,7 @@ class MU_Rare_Aja extends \ALT\Models\Card
       'subtypes' => [DEITY],
       'effectDesc' => '#{J}# Each player puts the top card of their deck in their Mana zone (as an exhausted Mana Orb).',
       'supportDesc' =>
-        '#{D} : Target Character with Hand Cost {3} or less gains [ANCHORED].# (Discard me from Reserve to do this.)',
+        '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)',
       'forest' => 4,
       'mountain' => 5,
       'ocean' => 4,

@@ -18,7 +18,7 @@ class BR_Rare_BravosPathfinder extends \ALT\Models\Card
       'flavorText' => '"Stay on the path, they say. I make my own path!"',
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '#$[SEASONED].#  #{H} You may pay {2} to have me gain 1 boost.#',
+      'effectDesc' => '#$<SEASONED>.#  #{H} You may pay {2} to have me gain 1 boost.#',
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,

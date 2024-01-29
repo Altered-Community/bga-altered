@@ -18,7 +18,7 @@ class OD_Rare_GrandEndeavor extends \ALT\Models\Card
       'flavorText' => 'The Ordis built a relay of lighthouses to light the way through the Tumult.',
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#$[TOUGH_2].#  At Noon — Target Expedition moves forward.',
+      'effectDesc' => '#$<TOUGH_2>.#  At Noon — Target Expedition moves forward.',
       'costHand' => 6,
       'costReserve' => 6,
     ];

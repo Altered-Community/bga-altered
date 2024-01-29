@@ -21,7 +21,7 @@ class OD_Common_Charge extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'subtypes' => [MANEUVER],
       'effectDesc' => clienttranslate(
-        '$[FLEETING].  Characters you control gain 1 boost$[BB]. (Cards in Reserve are not controlled.)'
+        '$<FLEETING>.  Characters you control gain 1 boost$<BB>. (Cards in Reserve are not controlled.)'
       ),
       'costHand' => 2,
       'costReserve' => 2,

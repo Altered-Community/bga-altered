@@ -18,7 +18,7 @@ class AX_Rare_Harvest extends \ALT\Models\Card
       'flavorText' => 'The thankful receiver bears a plentiful harvest.',
       'artist' => 'Ba Vo',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$[RESUPPLY].',
+      'effectDesc' => '$<RESUPPLY>.',
       'costHand' => 1,
       'costReserve' => 2,
     ];

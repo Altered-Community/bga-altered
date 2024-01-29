@@ -19,7 +19,7 @@ class OD_Rare_PaperHerald extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [MESSENGER],
       'supportDesc' =>
-        '{D} : Create an [ORDIS_RECRUIT] Soldier token in target Expedition. (Discard me from Reserve to do this.)',
+        '{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition. (Discard me from Reserve to do this.)',
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 2,

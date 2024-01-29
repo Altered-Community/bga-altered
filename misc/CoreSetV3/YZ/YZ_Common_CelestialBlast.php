@@ -18,7 +18,7 @@ class YZ_Common_CelestialBlast extends \ALT\Models\Card
       'flavorText' => 'The sky cracked open in a thunderous wave as the dream was unleashed upon the world.',
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$[FLEETING].  Discard up to two targets, Characters or Permanents.',
+      'effectDesc' => '$<FLEETING>.  Discard up to two targets, Characters or Permanents.',
       'costHand' => 7,
       'costReserve' => 7,
     ];
