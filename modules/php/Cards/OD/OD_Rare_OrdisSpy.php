@@ -35,7 +35,7 @@ class OD_Rare_OrdisSpy extends \ALT\Models\Card
         'effect' => FT::ACTION(DISCARD, []),
       ]),
       'effectReserve' => FT::ACTION(INVOKE_TOKEN, [
-        'pId' => $this->getPId(),
+        'pId' => 'source',
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['source'],
       ]),

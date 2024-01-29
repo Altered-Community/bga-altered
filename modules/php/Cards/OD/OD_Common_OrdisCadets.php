@@ -29,7 +29,7 @@ class OD_Common_OrdisCadets extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
-        'pId' => $this->getPId(),
+        'pId' => 'source',
         'tokenType' => 'OD_Common_OrdisRecruit',
         'targetLocation' => ['source'],
       ]),

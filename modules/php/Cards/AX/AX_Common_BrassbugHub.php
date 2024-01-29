@@ -42,7 +42,7 @@ class AX_Common_BrassbugHub extends \ALT\Models\Card
             'childs' => [
               FT::ACTION(USE_COUNTER, ['pay' => 1, 'consume' => 1]),
               FT::ACTION(INVOKE_TOKEN, [
-                'pId' => $this->getPId(),
+                'pId' => 'source',
                 'tokenType' => 'AX_Common_Brassbug',
                 'targetLocation' => STORMS,
               ]),

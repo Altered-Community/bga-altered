@@ -98,6 +98,9 @@ class InvokeToken extends \ALT\Models\Action
   {
     $args = $this->getCtxArgs();
     $pId = $args['pId'] ?? Players::getActiveId();
+    if ($pId == 'source') {
+      $pId = $this->getSource()->getPId();
+    }
     return Players::get($pId);
   }
 

@@ -30,7 +30,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
         'Noon' => [
           'condition' => 'myTurn',
           'output' => FT::ACTION(INVOKE_TOKEN, [
-            'pId' => $this->getPId(),
+            'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
           ]),

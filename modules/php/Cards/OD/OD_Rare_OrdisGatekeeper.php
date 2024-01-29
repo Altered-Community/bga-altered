@@ -22,7 +22,7 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
       'effectDesc' => '{J} Create an [ORDIS_RECRUIT] Soldier token in #each of your# Expeditions.',
       'artist' => 'Atanas Lozanski',
       'flavorText' =>
-        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
+      'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
 
       'forest' => 1,
       'mountain' => 1,
@@ -32,12 +32,12 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
       'changedStats' => ['mountain'],
       'effectPlayed' => FT::SEQ(
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_RIGHT],
         ]),
         FT::ACTION(INVOKE_TOKEN, [
-          'pId' => $this->getPId(),
+          'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_LEFT],
         ])

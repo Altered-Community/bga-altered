@@ -22,7 +22,7 @@ trait DebugTrait
 
     require_once dirname(__FILE__) . '/Cards/cards.inc.php';
     foreach (DEMO as $faction => $deck) {
-      foreach($deck as $cardId => $n){
+      foreach ($deck as $cardId => $n) {
         $className = '\\ALT\\Cards\\' . $faction . '\\' . $cardId;
         $class = new $className(null);
         $datas[] = $class->jsonSerialize();
@@ -123,6 +123,20 @@ trait DebugTrait
   {
     Engine::resolveAction([]);
     Engine::proceed();
+  }
+
+  function tapAllMana()
+  {
+    foreach (Cards::getAll() as $cId => $card) {
+      if ($card->getLocation() == MANA) {
+        $card->setTapped(true);
+      }
+    }
+  }
+
+  function untapAll()
+  {
+    Cards::untapAll();
   }
 
   function allVisible()

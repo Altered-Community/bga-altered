@@ -29,7 +29,7 @@ class AX_Common_FoundryArmorer extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectReserve' => FT::ACTION(INVOKE_TOKEN, [
-        'pId' => $this->getPId(),
+        'pId' => 'source',
         'tokenType' => 'AX_Common_Brassbug',
         'targetLocation' => STORMS,
       ]),
