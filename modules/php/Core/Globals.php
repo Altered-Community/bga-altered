@@ -42,6 +42,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'deckSelection' => 'obj',
     'costReduction' => 'obj', // pId => character => cost
     'nextCharacterBoost' => 'int',
+    'additionalEffect' => 'obj', // use to trigger R/H of next character
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
   ];

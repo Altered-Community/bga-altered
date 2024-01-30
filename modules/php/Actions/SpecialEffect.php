@@ -191,6 +191,10 @@ class SpecialEffect extends \ALT\Models\Action
           )
         );
         break;
+      case 'triggerEffectOfNextCharacter':
+        Globals::setAdditionalEffect([$args['type'] => ['from' => $args['from'], 'effect' => $args['effect']]]);
+        Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), ['player' => Players::getActive()]);
+        break;
       default:
         break;
     }
