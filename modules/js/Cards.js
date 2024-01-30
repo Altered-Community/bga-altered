@@ -471,6 +471,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     onLeavingStateDiscard() {
+      if (this.isSpectator) return;
       let oCard = $(`hand-${this.player_id}`).querySelector('.selectedToMana');
       console.log('Leaving discard', oCard);
       if (!oCard) return;
