@@ -34,6 +34,7 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'effectSupport' => FT::ACTION(TARGET, [
         'targetPlayer' => ME,
         'targetLocation' => [RESERVE],
+        'targetType' => [CHARACTER, SPELL, PERMANENT],
         'effect' => FT::RETURN_TO_HAND(),
       ]),
     ];
