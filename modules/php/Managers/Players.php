@@ -244,11 +244,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
     $movements = [];
     // For each player, check whether hero and/or companion move forward
-    foreach([HERO, COMPANION] as $side){
+    foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
         $biomesByStorm = $player->getBiomeInStorms();
         $biomes = $biomesByStorm[$side] ?? null;
-        if(is_null($biomes)) continue;
+        if (is_null($biomes)) continue;
 
         $move = false;
         $winningBiomes = [];

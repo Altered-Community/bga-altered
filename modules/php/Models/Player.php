@@ -284,7 +284,7 @@ class Player extends \ALT\Helpers\DB_Model
 
     // needed to determine if tiebreaker is needed
     $moves = Globals::getStormMoves();
-    $moves[$this->id] = $moves[$this->id] ?? 0 + 1;
+    $moves[$this->id] = ($moves[$this->id] ?? 0) + 1;
     Globals::setStormMoves($moves);
 
     // Do we need to reveal storm?
