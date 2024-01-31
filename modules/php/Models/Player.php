@@ -223,6 +223,9 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getRegionDifference()
   {
+    if (is_null($this->getCompanionToken())) {
+      return 7;
+    }
     $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];
     $heroPos = explode('-', $this->getHeroToken()->getLocation())[1];
     return max($companionPos - $heroPos, 0);
