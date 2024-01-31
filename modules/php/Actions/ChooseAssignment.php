@@ -122,26 +122,28 @@ class ChooseAssignment extends \ALT\Models\Action
 
       // management of CostReductionDiscard, discarding a card from reserve to reduce cost
       if ($card->getCostReductionDiscard() > 0) {
-        $this->insertAsChild(
-          FT::XOR(
-            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
-            FT::SEQ(
-              FT::ACTION(
-                TARGET,
-                [
-                  'targetLocation' => [RESERVE],
-                  'targetPlayer' => ME,
-                  'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-                  'effect' => FT::ACTION(DISCARD, []),
-                ],
-                ['sourceId' => $cardId]
-              ),
-              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'cost' => $cost - $card->getCostReductionDiscard(), 'location' => $location])
+        if ($player->getReserveCards()->count() > 0) {
+          $this->insertAsChild(
+            FT::XOR(
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              FT::SEQ(
+                FT::ACTION(
+                  TARGET,
+                  [
+                    'targetLocation' => [RESERVE],
+                    'targetPlayer' => ME,
+                    'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                    'effect' => FT::ACTION(DISCARD, []),
+                  ],
+                  ['sourceId' => $cardId]
+                ),
+                FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'cost' => $cost - $card->getCostReductionDiscard(), 'location' => $location])
+              )
             )
-          )
-        );
-        $this->resolveAction(['CostReduction']);
-        return;
+          );
+          $this->resolveAction(['CostReduction']);
+          return;
+        }
       }
 
       // Pay cost
