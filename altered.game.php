@@ -102,11 +102,11 @@ class altered extends Table
 
     $distance = 99;
     foreach (Players::getAll() as $pId => $player) {
-      list($d, $c) = $player->checkVictory();
+      $d = $player->getRegionDifference();
       $distance = min($distance, $d);
     }
 
-    return $d / 7 * 100;
+    return (7 - $d) / 7 * 100;
   }
 
   function actChangePreference($pref, $value)
@@ -265,13 +265,13 @@ class altered extends Table
         $selection[$activePlayer] = 0;
         Globals::setDeckSelection($selection);
         $this->updateActivePlayersPrecoDeckSelection();
-      } else if($stateName == 'firstDayManaSelection'){
+      } else if ($stateName == 'firstDayManaSelection') {
         $args = $this->argsFirstDayManaSelection()['_private'][$activePlayer];
         $cardIds = [$args['cards'][0], $args['cards'][1], $args['cards'][2]];
 
         $selection = Globals::getFirstDayManaSelection();
         $selection[$activePlayer] = $cardIds;
-        Globals::setFirstDayManaSelection($selection);    
+        Globals::setFirstDayManaSelection($selection);
         $this->updateActivePlayersFirstDayManaSelection();
       }
       // Make sure player is in a non blocking status for role turn
