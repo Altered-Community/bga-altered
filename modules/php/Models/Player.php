@@ -238,7 +238,7 @@ class Player extends \ALT\Helpers\DB_Model
     }
     $companionPos = explode('-', $this->getCompanionToken()->getLocation())[1];
     $heroPos = explode('-', $this->getHeroToken()->getLocation())[1];
-    return [$companionPos - $heroPos <= 0, $heroPos - $companionPos];
+    return [$companionPos - $heroPos <= 0, $heroPos + (7 - $companionPos)];
   }
 
   public function getBiomeInStorms()
