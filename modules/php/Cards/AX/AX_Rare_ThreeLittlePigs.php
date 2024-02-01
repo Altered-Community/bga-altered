@@ -38,10 +38,10 @@ class AX_Rare_ThreeLittlePigs extends \ALT\Models\Card
         'condition' => 'control2Landmarks',
         'effect' => FT::GAIN(ME, BOOST, 2),
       ]),
-      'effectSupport' => [
-        'action' => SPECIAL_EFFECT,
-        'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
-      ],
+      // 'effectSupport' => [
+      //   'action' => SPECIAL_EFFECT,
+      //   'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1]],
+      // ],
     ];
   }
 }
