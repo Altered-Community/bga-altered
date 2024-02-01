@@ -46,6 +46,11 @@ abstract class Conditions
     return $event['pId'] == $card->getPId() && ($card->getExtraDatas('counter') ?? 0) > 0;
   }
 
+  public static function has5CounterOnCard($card, $event)
+  {
+    return $event['pId'] == $card->getPId() && ($card->getExtraDatas('counter') ?? 0) >= 5;
+  }
+
   public static function control3OtherCharacters($card, $event)
   {
     return $card
@@ -99,6 +104,21 @@ abstract class Conditions
     return $event['playCard'] === true &&
       $card->getPId() == $event['pId'] &&
       in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
+  }
+
+  public static function isWithZeroStat($card, $event)
+  {
+    $playedCard = Cards::get($event['playedCard']);
+    $hasZero = false;
+    foreach ($playedCard->getBiomes() as $biome => $value) {
+      if ($value == 0) {
+        $hasZero = true;
+      }
+    }
+
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      $hasZero;
   }
 
   public static function isCharacterPlayed($card, $event)

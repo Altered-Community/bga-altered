@@ -34,6 +34,8 @@ class SpecialEffect extends \ALT\Models\Action
       ];
     } elseif ($effect == 'nextCharacterGains1Boost') {
       return clienttranslate('Next character <BOOST>');
+    } elseif ($effect == 'AuraqKibble') {
+      return clienttranslate('Draw and keep card or play it for free');
     }
     return '';
   }
@@ -188,6 +190,24 @@ class SpecialEffect extends \ALT\Models\Action
               'discardRemaining' => true,
             ],
             ['sourceId' => $card->getId()]
+          )
+        );
+        break;
+      case 'AuraqKibble':
+        Engine::checkpoint();
+        // draw 1 card
+        $player = $card->getPlayer();
+        $drawn = $player->draw(1, null, null, $card)->first();
+        // Target only Characters drawn
+        $this->insertAsChild(
+          FT::ACTION(
+            PLAY_CARD,
+            [
+              'cardId' => $drawn->getId(),
+              'free' => true,
+              'effectHand' => false
+            ],
+            ['sourceId' => $card->getId(), 'optional' => true]
           )
         );
         break;
