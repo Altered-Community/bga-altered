@@ -373,15 +373,20 @@ class Card extends \ALT\Helpers\DB_Model
   {
     // TODO: manage cost modifiers
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
+    $typeReduction = 0;
+    if (isset($costReduction[$this->getType()])) {
+      $typeReduction = $costReduction[$this->getType()]['reduction'];
+    }
+
     switch ($this->getLocation()) {
       case HAND:
         return $this->getCostHand() -
-          ($costReduction[$this->getType()]['reduction'] ?? 0) -
+          $typeReduction -
           ($costReduction[ALL]['reduction'] ?? 0);
         break;
       case RESERVE:
         return $this->getCostReserve() -
-          ($costReduction[$this->getType()]['reduction'] ?? 0) -
+          $typeReduction -
           ($costReduction[ALL]['reduction'] ?? 0);
         break;
     }
