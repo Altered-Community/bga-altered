@@ -148,8 +148,22 @@ trait NewDayTrait
     Globals::setFirstPlayer($newFirstPId);
     Notifications::newFirstPlayer(Players::get($newFirstPId));
 
-    foreach(Players::getAll() as $player){
-      $player->draw(2, null, null, null);
+    foreach (Players::getAll() as $player) {
+      if ($player->getHero()->getUid() == 'ALT_CORE_B_LY_03_C') {
+        $player->draw(1, null, null, $player->getHero());
+        $player->draw(
+          1,
+          null,
+          MANA,
+          $player->getHero(),
+          clienttranslate('${player_name} draws 1 card from its deck and put it in mana (${card_name2}\'s effect)'),
+          clienttranslate('You draw ${card_names} from your deck and put it in mana (${card_name2}\'s effect)')
+        );
+        $skipped[] = $player->getId();
+        Globals::setSkippedPlayers($skipped);
+      } else {
+        $player->draw(2, null, null, null);
+      }
     }
 
     $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', 'stAfterNewday', true);

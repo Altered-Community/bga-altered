@@ -86,12 +86,14 @@ class Player extends \ALT\Helpers\DB_Model
     $toLocation = $toLocation ?? 'hand';
     $public = $toLocation == 'hand' ? false : true;
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
-    if ($source !== null) {
+    if ($toLocation == MANA) {
+      Notifications::discardMana($this, $cards, $privateMsg, $publicMsg, ['card2' => $source]);
+    } elseif ($source !== null) {
       Notifications::drawCards(
         $this,
         $cards,
-        $publicMsg ?? clienttranslate('You draw ${card_names} from your deck (${card_name2}\'s effect)'),
-        $privateMsg ??
+        $privateMsg ?? clienttranslate('You draw ${card_names} from your deck (${card_name2}\'s effect)'),
+        $publicMsg ??
           ($public
             ? clienttranslate('${player_name} draws ${card_names} from its deck (${card_name2}\'s effect)')
             : clienttranslate('${player_name} draws ${n} card(s) from its deck (${card_name2}\'s effect)')),
