@@ -23,6 +23,9 @@ class MoveCard extends \ALT\Models\Action
     if (($this->getCtxArg('cardId') ?? null) == null) {
       return clienttranslate('move a character to opposite expedition');
     }
+    if ($this->getArg('cards') == ALL) {
+      return clienttranslate('move all characters to opposite expedition');
+    }
 
     return [
       'log' => clienttranslate('move ${card_name} to opposite expedition'),
@@ -36,7 +39,7 @@ class MoveCard extends \ALT\Models\Action
     return true;
   }
 
-  protected $args = ['location' => 'opposite'];
+  protected $args = ['location' => 'opposite', 'player' => ME, 'cards' => 1];
 
   public function getCard()
   {
@@ -50,15 +53,23 @@ class MoveCard extends \ALT\Models\Action
 
   public function stMoveCard()
   {
-    $card = $this->getCard();
+    if ($this->getArg('cards') == ALL) {
+      // we must switch all
+      $player = ($this->getArg('player') == ME) ? Players::getActive() : Players::getNext();
+      $cards = $player->getPlayedCards(CHARACTER)->merge($player->getPlayedCards(TOKEN));
+    } else {
+      $cards[] = $this->getCard();
+    }
     $source = $this->getSource();
 
     $map = [STORM_LEFT => STORM_RIGHT, STORM_RIGHT => STORM_LEFT];
-    if ($this->getArg('location') == 'opposite') {
-      $card->setLocation($map[$card->getLocation()]);
+    foreach ($cards as $cId => $card) {
+      if ($this->getArg('location') == 'opposite') {
+        $card->setLocation($map[$card->getLocation()]);
+      }
+      Notifications::moveCard($source->getPlayer(), $card, $source);
     }
 
-    Notifications::moveCard($source->getPlayer(), $card, $source);
     Notifications::updateBiomes($card->getPlayer());
     $this->resolveAction(null);
   }
