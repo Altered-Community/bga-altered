@@ -267,7 +267,12 @@ class Discard extends \ALT\Models\Action
           'destination' => $args['destination'],
         ]);
       } elseif ($args['destination'] == MANA) {
-        Notifications::discardMana($player, $copyCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+        foreach ($players as $pId => $p2) {
+          $playerCards = $copyCards->filter(function ($c) use ($pId) {
+            return $c->getPId() == $pId;
+          });
+          Notifications::discardMana($p2, $playerCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+        }
       } elseif ($args['destination'] == 'topOfDeck') {
         Notifications::putOnDeck($player, $copyCards, [
           'hand' => $hand,
