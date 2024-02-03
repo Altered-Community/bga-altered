@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Actions;
+
 use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
@@ -59,6 +61,8 @@ class Draw extends \ALT\Models\Action
   protected $args = [
     'n' => 1,
     'players' => ALL,
+    'location' => HAND,
+    'tapped' => false,
   ];
 
   public function stDraw()
@@ -81,7 +85,19 @@ class Draw extends \ALT\Models\Action
     }
 
     foreach ($players as $player) {
-      $player->draw($n, null, null, $source);
+      if ($this->getArg('location') == MANA) {
+        $cards = $player->draw(
+          1,
+          null,
+          MANA,
+          $player->getHero(),
+          clienttranslate('${player_name} draws 1 card from its deck and put it in mana (${card_name2}\'s effect)'),
+          clienttranslate('You draw ${card_names} from your deck and put it in mana (${card_name2}\'s effect)'),
+          $this->getArg('tapped')
+        );
+      } else {
+        $player->draw($n, null, null, $source);
+      }
       $this->checkAfterListeners($player, ['draw' => $n]);
     }
 

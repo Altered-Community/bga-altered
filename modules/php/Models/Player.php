@@ -80,12 +80,17 @@ class Player extends \ALT\Helpers\DB_Model
     return Actions::isDoable($action, $ctx, $this);
   }
 
-  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null, $publicMsg = null, $privateMsg = null)
+  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null, $publicMsg = null, $privateMsg = null, $tapped = false)
   {
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
     $public = $toLocation == 'hand' ? false : true;
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
+    if ($tapped == true) {
+      foreach ($cards as $cId => $card) {
+        $card->setTapped(true);
+      }
+    }
     if ($toLocation == MANA) {
       Notifications::discardMana($this, $cards, $privateMsg, $publicMsg, ['card2' => $source]);
     } elseif ($source !== null) {
