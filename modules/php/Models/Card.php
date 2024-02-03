@@ -75,6 +75,7 @@ class Card extends \ALT\Helpers\DB_Model
     'seasoned' => 'bool',
     'minManaOrbs' => 'int', //used for cards that cannot be played unless specific amount of total mana
     'defender' => 'bool',
+    'dynamicDefender' => 'str',
 
     // Tough management
     'tough' => 'int',
@@ -430,6 +431,35 @@ class Card extends \ALT\Helpers\DB_Model
       $tough += 2 * $this->getPlayer()->countUniversalCharacterTough();
     }
     return $tough;
+  }
+
+  public function isDefender()
+  {
+    if (($this->properties['defender'] ?? false) == true) {
+      return true;
+    }
+    $dynamicDefender = $this->getDynamicDefender();
+    switch ($dynamicDefender) {
+      case '':
+        return false;
+        break;
+      case '2OtherPlants':
+        $c = 0;
+        foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+          if ($cId == $this->id) {
+            continue;
+          }
+
+          if (in_array(PLANT, $card->getSubtypes())) {
+            $c++;
+          }
+        }
+        if ($c >= 2) {
+          return false;
+        }
+        return true;
+        break;
+    }
   }
 
   /********** EFFECTS **********/
