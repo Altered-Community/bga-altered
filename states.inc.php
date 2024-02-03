@@ -145,6 +145,16 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stDusk',
     'transitions' => [
+      'done' => ST_AFTER_DUSK,
+    ],
+  ],
+
+  ST_AFTER_DUSK => [
+    'name' => 'afterDusk',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAfterDusk',
+    'transitions' => [
       'done' => ST_BEFORE_NIGHT,
     ],
   ],

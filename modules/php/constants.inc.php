@@ -81,6 +81,7 @@ const ST_DRAW_MANA = 41;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
+const ST_AFTER_DUSK = 87;
 const ST_BEFORE_NIGHT = 85;
 const ST_NIGHT = 86; // clean up !! may need some choice
 const ST_RESOLVE_STACK = 90;

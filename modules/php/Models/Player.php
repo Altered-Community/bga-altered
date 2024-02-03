@@ -287,9 +287,13 @@ class Player extends \ALT\Helpers\DB_Model
     // Set new location
     $tokenMeeple->setLocation('storm-' . $sId);
 
-    // needed to determine if tiebreaker is needed
+    // needed to effect after moving
     $moves = Globals::getStormMoves();
-    $moves[$this->id] = ($moves[$this->id] ?? 0) + 1;
+    $previousBiomes = [];
+    if (isset($moves[$this->id])) {
+      $previousBiomes = $moves[$this->id]['biomes'];
+    }
+    $moves[$this->id] = ['biomes' => array_merge($biomes, $previousBiomes), 'moves' => $n];
     Globals::setStormMoves($moves);
 
     // Do we need to reveal storm?

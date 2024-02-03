@@ -196,4 +196,14 @@ abstract class Conditions
 
     return count($combination) >= 1;
   }
+
+  public static function movesStormsWithForest($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    if (!isset($stormMoves[$card->getPId()])) {
+      return false;
+    }
+
+    return $card->getPId() == $event['pId'] && in_array(FOREST, $stormMoves[$card->getPId()]['biomes']) && $stormMoves[$card->getPId()]['moves'] >= 1;
+  }
 }

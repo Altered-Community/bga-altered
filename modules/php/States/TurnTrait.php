@@ -211,6 +211,11 @@ trait TurnTrait
     $this->gamestate->nextState('done');
   }
 
+  function stAfterDusk()
+  {
+    $this->checkCardListeners('AfterDusk', 'stBeforeNight');
+  }
+
   ////////////////////////////////
   //  _   _ _       _     _
   // | \ | (_) __ _| |__ | |_
