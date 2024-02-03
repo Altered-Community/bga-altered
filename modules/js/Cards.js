@@ -566,19 +566,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: public drawing cards', n);
       // this.closeChooseCardsModal();
       let counter = 'handCount';
+      let nInHand = 0;
 
       this._playerCounters[n.args.player_id]['deckCount'].incValue(-n.args.cards.length);
       if (this.isFastMode()) {
         n.args.cards.forEach((card) => {
           this.addCard(card);
+          if (card.location == 'hand') nInHand++;
         });
-        this._playerCounters[n.args.player_id][counter].incValue(n.args.cards.length);
+        this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
         return;
       }
 
       Promise.all(
         n.args.cards.map((card, i) => {
+          if (card.location == 'hand') nInHand++;
+
           return this.wait(100 * i).then(() => {
             this.addCard(card);
 
@@ -595,7 +599,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           });
         })
       ).then(() => {
-        this._playerCounters[n.args.player_id][counter].incValue(n.args.cards.length);
+        this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
 
         this.notifqueue.setSynchronousDuration(100);
