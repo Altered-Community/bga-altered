@@ -96,6 +96,7 @@ trait TurnTrait
 
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
+    Globals::setNextCharacterCost3Anchored(false);
     Globals::setAdditionalEffect([]);
 
     self::giveExtraTime($player->getId());

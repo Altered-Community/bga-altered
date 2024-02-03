@@ -178,6 +178,13 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextCharacterBoost(0);
     }
 
+    // should we anchor the character?
+    if (Globals::getNextCharacterCost3Anchored() == true && in_array($card->getType(), [CHARACTER, TOKEN]) && $card->getCostHand() <= 3) {
+      $this->insertAsChild(FT::GAIN($card, ANCHORED));
+      Globals::setNextCharacterCost3Anchored(false);
+    }
+
+
     // insert effect flow
     $effect = $card->getEffectPlayed();
     if (empty($effect) && $fromLocation == HAND && $effectHand) {

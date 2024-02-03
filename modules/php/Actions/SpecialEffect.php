@@ -115,6 +115,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
         break;
+      case 'nextCharacterCost3Anchored':
+        Globals::setNextCharacterCost3Anchored(true);
+        break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
           throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
