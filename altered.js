@@ -1039,23 +1039,23 @@ define([
     //  / ___ \ (__| |_| | (_) | | | \__ \
     // /_/   \_\___|\__|_|\___/|_| |_|___/
     ///////////////////////////////////////
+    unselectIfNeeded() {
+      let oCard = $(`hand-${this.player_id}`).querySelector('.selected');
+      if (!oCard) {
+        oCard = $(`board-reserve-${this.player_id}`).querySelector('.selected');
+      }
+      if (!oCard) {
+        oCard = $(`board-limbo-${this.player_id}`).querySelector('.selected');
+      }
+      if (!oCard) return;
+
+      oCard.style.transform = oCard.backup.transform;
+      oCard.style.left = oCard.backup.left;
+      oCard.style.top = oCard.backup.top;
+      //        this.wait(400).then(() => oCard.classList.remove('selected'));
+    },
+
     onEnteringStateChooseAssignment(args) {
-      let unselectIfNeeded = () => {
-        let oCard = $(`hand-${this.player_id}`).querySelector('.selected');
-        if (!oCard) {
-          oCard = $(`board-reserve-${this.player_id}`).querySelector('.selected');
-        }
-        if (!oCard) {
-          oCard = $(`board-limbo-${this.player_id}`).querySelector('.selected');
-        }
-        if (!oCard) return;
-
-        oCard.style.transform = oCard.backup.transform;
-        oCard.style.left = oCard.backup.left;
-        oCard.style.top = oCard.backup.top;
-        //        this.wait(400).then(() => oCard.classList.remove('selected'));
-      };
-
       let t = args._private;
 
       if (t.play) {
@@ -1064,12 +1064,12 @@ define([
           if (cardId == args.cardId) {
             this.wait(250).then(() => {
               this.onClick('altered-board-me', () => {
-                unselectIfNeeded();
+                this.unselectIfNeeded();
                 this.clearClientState();
               });
 
               this.onClick(`card-${cardId}`, () => {
-                unselectIfNeeded();
+                this.unselectIfNeeded();
                 this.clearClientState();
               });
             });
@@ -1077,7 +1077,7 @@ define([
           // OTHER CARD
           else {
             this.onClick(`card-${cardId}`, () => {
-              unselectIfNeeded();
+              this.unselectIfNeeded();
               let supportPossible = t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false;
               this.clientState(
                 'chooseAssignmentLocation',
@@ -1099,7 +1099,7 @@ define([
         t.support.forEach((cardId) => {
           if (!t.play || Object.keys(t.play).length == 0 || !$(`card-${cardId}`).classList.contains('selected')) {
             this.onClick(`card-${cardId}`, () => {
-              unselectIfNeeded();
+              this.unselectIfNeeded();
 
               this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
                 play: t.play,
@@ -1115,7 +1115,7 @@ define([
 
       if (t.tap) {
         t.tap.forEach((cardId) => {
-          unselectIfNeeded();
+          this.unselectIfNeeded();
           this.onClick(`card-${cardId}`, () => this.takeAtomicAction('actTap', [cardId]));
         });
       }
@@ -1124,7 +1124,7 @@ define([
         'btnPass',
         _('Pass'),
         () => {
-          unselectIfNeeded();
+          this.unselectIfNeeded();
           this.takeAtomicAction('actPass', []);
         },
         'restartAction'
@@ -1132,6 +1132,16 @@ define([
     },
 
     onEnteringStateChooseAssignmentLocation(args) {
+      this.addSecondaryActionButton(
+        'btnCancel',
+        _('Cancel'),
+        () => {
+          this.unselectIfNeeded();
+          this.clearClientState();
+        },
+        'restartAction'
+      );
+
       this.addCancelStateBtn();
       if (!args.hasOwnProperty('clientState') || args.clientState == true) {
         // this.addCancelStateBtn();
