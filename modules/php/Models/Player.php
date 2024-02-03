@@ -330,14 +330,14 @@ class Player extends \ALT\Helpers\DB_Model
       }
 
       // Remove card if Fleeting but is not anchored
-      if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
+      if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
         $deletedTokens = array_merge($deletedTokens, $card->discard()->getIds());
         $deletedCards[$cId] = $card;
         continue;
       }
 
       // Move card without anchored,asleep to reserve
-      if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP)) {
+      if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
         // move card to reserve
         $deletedTokens = array_merge($deletedTokens, $card->moveToReserve());
         if ($card->isToken()) {

@@ -76,6 +76,7 @@ class Card extends \ALT\Helpers\DB_Model
     'minManaOrbs' => 'int', //used for cards that cannot be played unless specific amount of total mana
     'defender' => 'bool',
     'dynamicDefender' => 'str',
+    'eternal' => 'bool',
 
     // Tough management
     'tough' => 'int',
