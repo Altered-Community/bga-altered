@@ -1097,7 +1097,7 @@ define([
 
       if (t.support) {
         t.support.forEach((cardId) => {
-          if (!t.play || Object.keys(t.play).length == 0 || $(`card-${cardId}`).classList.contains('selected')) {
+          if (!t.play || Object.keys(t.play).length == 0 || !$(`card-${cardId}`).classList.contains('selected')) {
             this.onClick(`card-${cardId}`, () => {
               unselectIfNeeded();
 
