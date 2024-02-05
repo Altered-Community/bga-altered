@@ -41,6 +41,20 @@ abstract class Conditions
     return $event['pId'] == $card->getPId();
   }
 
+  public static function controlBureaucratNoon($card, $event)
+  {
+    if ($event['pId'] != $card->getPId()) {
+      return false;
+    }
+    foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
+      if (in_array(BUREAUCRAT, $c->getSubtypes())) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public static function hasCounterOnCard($card, $event)
   {
     return $event['pId'] == $card->getPId() && ($card->getExtraDatas('counter') ?? 0) > 0;
@@ -104,6 +118,13 @@ abstract class Conditions
     return $event['playCard'] === true &&
       $card->getPId() == $event['pId'] &&
       in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
+  }
+
+  public static function isBureaucratPlayed($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      in_array(BUREAUCRAT, Cards::get($event['playedCard'])->getSubtypes());
   }
 
   public static function isWithZeroStat($card, $event)
