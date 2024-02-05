@@ -379,6 +379,9 @@ class Card extends \ALT\Helpers\DB_Model
     if (isset($costReduction[$this->getType()])) {
       $typeReduction = $costReduction[$this->getType()]['reduction'];
     }
+    foreach ($this->getSubtypes() as $subtype) {
+      $typeReduction += isset($costReduction[$subtype]) ? $costReduction[$subtype]['reduction'] : 0;
+    }
 
     switch ($this->getLocation()) {
       case HAND:

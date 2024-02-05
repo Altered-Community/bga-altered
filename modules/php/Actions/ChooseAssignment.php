@@ -115,6 +115,13 @@ class ChooseAssignment extends \ALT\Models\Action
       if (isset($costReduction[$player->getId()][$card->getType()])) {
         unset($costReduction[$player->getId()][$card->getType()]);
       }
+
+      foreach ($card->getSubtypes() as $subtype) {
+        if (isset($costReduction[$player->getId()][$subtype])) {
+          unset($costReduction[$player->getId()][$subtype]);
+        }
+      }
+
       if (isset($costReduction[$player->getId()][ALL])) {
         unset($costReduction[$player->getId()][ALL]);
       }
