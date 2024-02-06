@@ -125,6 +125,7 @@ class Engine
           'childs' => [
             [
               'action' => CHOOSE_ASSIGNMENT,
+              'pId' => Globals::getActivePId(),
             ],
           ],
         ]

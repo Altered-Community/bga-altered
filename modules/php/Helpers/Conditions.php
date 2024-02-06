@@ -41,6 +41,11 @@ abstract class Conditions
     return $event['pId'] == $card->getPId();
   }
 
+  public static function notMe($card, $event)
+  {
+    return $event['pId'] != $card->getPId();
+  }
+
   public static function controlBureaucratNoon($card, $event)
   {
     if ($event['pId'] != $card->getPId()) {

@@ -259,7 +259,6 @@ class Cards extends \ALT\Helpers\CachedPieces
     if (empty($childs) && $returnNullIfEmpty) {
       return null;
     }
-
     // return [
     //   'type' => NODE_PARALLEL,
     //   'pId' => $event['pId'],
