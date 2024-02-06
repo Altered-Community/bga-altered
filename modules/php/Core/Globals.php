@@ -187,7 +187,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setDay(0);
     self::setPlayedCards(0);
     self::setDayPhase(false);
-    self::setDeckOptions($options[OPTION_DECKS] ?? 0);
+    // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
+    self::setDeckOptions(OPTION_DECKS_STARTER);
   }
 
   public static function getStorm($ui = false)
