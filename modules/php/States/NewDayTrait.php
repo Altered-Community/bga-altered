@@ -148,6 +148,8 @@ trait NewDayTrait
     Globals::setFirstPlayer($newFirstPId);
     Notifications::newFirstPlayer(Players::get($newFirstPId));
 
+    $reactions = [];
+
     foreach (Players::getAll() as $player) {
       if ($player->getHero()->getUid() == 'ALT_CORE_B_LY_03_C') {
         $player->draw(1, null, null, $player->getHero());
@@ -166,6 +168,12 @@ trait NewDayTrait
       }
     }
 
+    // $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', 'stAfterNewday', true);
+    $this->checkCardListeners('Morning', 'initNewDay');
+  }
+
+  public function initNewDay()
+  {
     $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', 'stAfterNewday', true);
   }
 
