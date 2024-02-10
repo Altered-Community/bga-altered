@@ -29,7 +29,7 @@ class YZ_Rare_DorothyGale extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
       'changedStats' => ['costReserve'],
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
+      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()], ['optional' => true]),
     ];
   }
 }
