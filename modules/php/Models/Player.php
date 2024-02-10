@@ -298,7 +298,7 @@ class Player extends \ALT\Helpers\DB_Model
     if (isset($moves[$this->id])) {
       $previousBiomes = $moves[$this->id]['biomes'];
     }
-    $moves[$this->id] = ['biomes' => array_merge($biomes, $previousBiomes), 'moves' => $n];
+    $moves[$this->id] = ['biomes' => array_merge((is_array($biomes) ? $biomes : []), $previousBiomes), 'moves' => $n];
     Globals::setStormMoves($moves);
 
     // Do we need to reveal storm?
