@@ -159,6 +159,7 @@ const STARTER = [
   FACTION_LY => [
     'LY_Common_NevenkaBlotch' => 1,
     'LY_Common_Hathor' => 3,
+    'LY_Common_TheHatter' => 3,
     'LY_Common_LyraClothDancer' => 3,
     'LY_Common_LyraChronicler' => 3,
     'LY_Common_OuroborosCroupier' => 3,
