@@ -65,7 +65,7 @@ class InvokeToken extends \ALT\Models\Action
 
   public function isIndependent($player = null)
   {
-    return true;
+    return count($this->argsInvokeToken()['locations']) == 1;
   }
 
   public function getDisplayLocation()

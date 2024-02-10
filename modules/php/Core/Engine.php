@@ -168,7 +168,10 @@ class Engine
       Game::get()->gamestate->changeActivePlayer($pId);
     }
 
-    if ($confirmedPartial) {
+    if (
+      $confirmedPartial ||
+      ($pId != null && $oldPId != $pId)
+    ) {
       Log::enable();
       Log::checkpoint();
       Globals::setEngineChoices(0);
