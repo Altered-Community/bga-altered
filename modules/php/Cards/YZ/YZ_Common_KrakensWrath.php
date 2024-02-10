@@ -31,7 +31,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'costReserve' => 5,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::ACTION(TARGET, ['upTo' => true, 'n' => 3, 'totalCost' => 5, 'effect' => FT::ACTION(DISCARD, [])])
+        FT::ACTION(TARGET, ['upTo' => true, 'n' => 3, 'totalCost' => 5, 'effect' => FT::DISCARD_TO_RESERVE()])
       ),
     ];
   }
