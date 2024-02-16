@@ -1,0 +1,30 @@
+<?php
+namespace ALT\Cards\LY;
+
+class LY_Rare_OuroborosTrickster extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_LY_06_R1',
+      'asset' => 'ALT_CORE_B_LY_06_R1',
+
+      'faction' => FACTION_LY,
+      'rarity' => RARITY_RARE,
+      'name' => clienttranslate('Ouroboros Trickster'),
+      'typeline' => clienttranslate('Character - Citizen'),
+      'type' => CHARACTER,
+      'flavorText' => clienttranslate('Like the Bravos, Lyras are drawn to freedom and the distant horizon.'),
+      'artist' => 'Zero Wen',
+      'subtypes' => [CITIZEN],
+      'effectDesc' => clienttranslate('{J} Roll a die. On a 4+, I gain #3 boosts#. On a 1-3, I gain 1 boost$<BB>.'),
+      'forest' => 0,
+      'mountain' => 0,
+      'ocean' => 0,
+      'costHand' => 2,
+      'costReserve' => 2,
+      'changedStats' => ['costReserve'],
+    ];
+  }
+}

@@ -16,7 +16,7 @@ $attributes = ['flavorText'];
 
 $target = '../modules/php/Cards/';
 $sourceOld = $target;
-$sourceNew = 'CoreSetV3/';
+$sourceNew = 'CoreSetV4/';
 $attributes = [
   'uid',
   'asset',
