@@ -15,8 +15,8 @@ class MU_Common_Cernunnos extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Cernunnos'),
       'type' => CHARACTER,
-      'subtypes' => [DRUID, DEITY],
-      'typeline' => clienttranslate('Character - Druid Deity'),
+      'subtypes' => [DEITY, DRUID],
+      'typeline' => clienttranslate('Character - Deity Druid'),
       'flavorText' => clienttranslate('You can feel it in the trees, deep beneath their roots – the very heartbeat of nature.'),
       'artist' => 'Ba Vo',
 

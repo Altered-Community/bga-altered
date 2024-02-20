@@ -17,9 +17,9 @@ class BR_Common_HavenBouncer extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Haven Bouncer'),
       'type' => CHARACTER,
-      'subtypes' => [ADVENTURER],
-      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.  {R} I gain 1 boost.'),
-      'typeline' => clienttranslate('Character - Adventurer'),
+      'subtypes' => [SOLDIER],
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.  {R} I gain 1 boost$<BB>.'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'flavorText' => clienttranslate('Only the bravest can enter Haven.'),
       'artist' => 'Edward Cheekokseang',
 

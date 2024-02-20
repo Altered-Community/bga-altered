@@ -15,10 +15,10 @@ class LY_Common_Martengale extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => 'Martengale',
       'type' => CHARACTER,
-      'subtypes' => [ANIMAL, SPIRIT],
+      'subtypes' => [SPIRIT, ANIMAL],
       'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
       'supportIcon' => 'discard',
-      'typeline' => 'Character - Animal Spirit',
+      'typeline' => 'Character - Spirit Animal',
       'flavorText' => 'Spotting a martengale is always a good omen.',
       'artist' => 'Nestor Papatriantafyllou',
 

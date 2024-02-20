@@ -19,7 +19,7 @@ class OD_Common_StickyNoteSeals extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.'
+        '$<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.'
       ),
       'typeline' => clienttranslate('Spell - Disruption'),
       'flavorText' => clienttranslate('Some lessons stick better than others.'),

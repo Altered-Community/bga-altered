@@ -17,12 +17,12 @@ class LY_Common_Hathor extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Hathor'),
       'type' => CHARACTER,
-      'subtypes' => [ARTIST, DEITY],
+      'subtypes' => [DEITY, ARTIST],
       'supportDesc' => clienttranslate(
         '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
-      'typeline' => clienttranslate('Character - Artist Deity'),
+      'typeline' => clienttranslate('Character - Deity Artist'),
       'flavorText' => clienttranslate('Dance is the language of the soul.'),
       'artist' => 'Taras Susak',
 
