@@ -46,6 +46,7 @@ trait TurnTrait
     Globals::setPhase(2);
     Notifications::newPhase(PHASE_AFTERNOON);
     Globals::setStormMoves([]);
+    Globals::setAfterRest([]);
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
     Globals::setCostReduction([]);

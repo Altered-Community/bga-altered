@@ -218,6 +218,25 @@ class SpecialEffect extends \ALT\Models\Action
         Globals::setAdditionalEffect([$args['type'] => ['from' => $args['from'], 'effect' => $args['effect']]]);
         Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), ['player' => Players::getActive()]);
         break;
+      case 'AfterRestSabotage':
+        var_dump('afterRestSabotage');
+        $afterRest = Globals::getAfterRest();
+        $pId = $card->getPlayer()->getId();
+        if (!isset($afterRest[$pId])) {
+          $afterRest[$pId] = [];
+        }
+        $afterRest[$pId] = array_merge($afterRest[$pId], [FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(DISCARD, []),
+          ],
+          ['sourceId' => $card->getId()]
+        )]);
+        Globals::setAfterRest($afterRest);
+        break;
       default:
         break;
     }

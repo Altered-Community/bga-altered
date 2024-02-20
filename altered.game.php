@@ -215,6 +215,19 @@ class altered extends Table
     $reaction = null;
     $reaction = Cards::getReaction($event);
 
+    // Hard code for Monolith Legate (and such)
+    if ($event['type'] == 'BeforeNight') {
+      $afterRest = Globals::getAfterRest()[$pId] ?? [];
+      if (!empty($afterRest)) {
+        // throw new \feException(print_r($afterRest));
+        if (is_null($reaction)) {
+          $reaction = $afterRest;
+        } else {
+          $reaction = array_push($reaction, ...$afterRest);
+        }
+      }
+    }
+
     if (is_null($reaction)) {
       // No reaction => just go to next player
       $this->nextPlayerCustomOrder($event['type']);

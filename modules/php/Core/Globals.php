@@ -45,6 +45,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nextCharacterBoost' => 'int',
     'nextCharacterCost3Anchored' => 'bool',
     'additionalEffect' => 'obj', // use to trigger R/H of next character
+    'afterRest' => 'obj', // used for triggers readd during dusk but that should be trigerred after Rest
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
   ];

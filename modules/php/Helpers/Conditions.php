@@ -257,4 +257,9 @@ abstract class Conditions
 
     return $card->getPId() == $event['pId'] && in_array(FOREST, $stormMoves[$card->getPId()]['biomes']) && $stormMoves[$card->getPId()]['moves'] >= 1;
   }
+
+  public static function hasNotMoved($card, $event)
+  {
+    return $event['pId'] == $card->getPId() && (!isset(Globals::getStormMoves()[$card->getPId()]) || (Globals::getStormMoves()[$card->getPId()]['moves'] ?? 0) == 0);
+  }
 }
