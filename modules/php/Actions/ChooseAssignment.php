@@ -259,6 +259,12 @@ class ChooseAssignment extends \ALT\Models\Action
       $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
       $this->insertAsChild($effect);
     }
+
+    $this->checkAfterListeners($player, [
+      'playedCard' => $cardId,
+      'cardType' => $card->getType(),
+      'from' => RESERVE,
+    ]);
   }
 
   ////////////////////////

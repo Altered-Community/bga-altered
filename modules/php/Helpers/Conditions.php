@@ -62,12 +62,12 @@ abstract class Conditions
 
   public static function hasCounterOnCard($card, $event)
   {
-    return $event['pId'] == $card->getPId() && ($card->getExtraDatas('counter') ?? 0) > 0;
+    return $event['pId'] == $card->getPId() && ($card->getExtraDatas()['counter'] ?? 0) > 0;
   }
 
   public static function has5CounterOnCard($card, $event)
   {
-    return $event['pId'] == $card->getPId() && ($card->getExtraDatas('counter') ?? 0) >= 5;
+    return $event['pId'] == $card->getPId() && ($card->getExtraDatas()['counter'] ?? 0) >= 5;
   }
 
   public static function control3OtherCharacters($card, $event)
@@ -186,6 +186,31 @@ abstract class Conditions
       $event['from'] == RESERVE;
   }
 
+  // Treyst listeners
+  public static function isFromReserveAndLess5Counters($card, $event)
+  {
+    return ($card->getExtraDatas()['counter'] ?? 0) <= 5 &&
+      $card->getPId() == $event['pId'] &&
+      $event['from'] == RESERVE;
+  }
+
+  public static function isDiscardedFromReserveAndLess5Counters($card, $event)
+  {
+    if (($card->getExtraDatas()['counter'] ?? 0) > 5) {
+      return false;
+    }
+    if ($event['originalLocation'] != RESERVE) {
+      return false;
+    }
+
+    foreach ($event['cards'] as $c) {
+      if ($card->getPId() == $c->getPId()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function isBoosted($card, $event)
   {
     return $card->hasToken(BOOST) || ($event['boosted'] ?? false) == true;
@@ -195,7 +220,7 @@ abstract class Conditions
   {
     return $event['playCard'] === true &&
       $card->getPId() == $event['pId'] &&
-      Cards::get($event['playedCard'])->getCostHand() >= $card->getExtraDatas('counter');
+      Cards::get($event['playedCard'])->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
   }
 
   public static function hasFleetingAnchoredAsleep($card, $event)

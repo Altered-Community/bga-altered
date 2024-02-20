@@ -33,6 +33,8 @@ class CheckCondition extends \ALT\Models\Action
     $condition = $this->getCtxArg('condition');
     if ($condition == 'isFirstPlayer') {
       return $player->getId() == Globals::getFirstPlayer();
+    } elseif ($condition == 'has5CounterOnCard') {
+      return Conditions::has5CounterOnCard($player->getHero(), ['pId' => $player->getId()]);
     } else {
       return true;
     }
@@ -52,6 +54,11 @@ class CheckCondition extends \ALT\Models\Action
       return;
     }
     $node = $this->getArg('effect');
+    if (isset($node['childs'])) {
+      foreach ($node['childs'] as &$child) {
+        $child['sourceId'] = $this->getSourceId();
+      }
+    }
     $node['sourceId'] = $this->getSourceId();
     $this->pushParallelChild($node);
     $this->resolveAction(['met']);
