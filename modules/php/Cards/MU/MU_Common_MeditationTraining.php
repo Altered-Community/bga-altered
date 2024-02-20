@@ -19,7 +19,7 @@ class MU_Common_MeditationTraining extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [BOON],
       'effectDesc' => clienttranslate(
-        'Target Character with Hand Cost {3} or less gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+        'Target Character with Hand Cost {3} or less gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
       ),
       'typeline' => clienttranslate('Spell - Boon'),
       'flavorText' => clienttranslate('Don\'t think you are, know you are.'),

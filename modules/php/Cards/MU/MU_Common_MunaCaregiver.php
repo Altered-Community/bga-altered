@@ -22,7 +22,7 @@ class MU_Common_MunaCaregiver extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DRUID],
       'supportDesc' =>
-      '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
+      '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
       'supportIcon' => 'discard',
       'forest' => 0,
       'mountain' => 1,

@@ -17,9 +17,9 @@ class MU_Common_SpindleHarvesters extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Spindle Harvesters'),
       'type' => CHARACTER,
-      'subtypes' => [PLANT, ANIMAL],
+      'subtypes' => [ANIMAL, PLANT],
       'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.'),
-      'typeline' => clienttranslate('Character - Plant Animal'),
+      'typeline' => clienttranslate('Character - Animal Plant'),
       'flavorText' => clienttranslate('Some say the harvesters are the caretakers of the world-trees.'),
       'artist' => 'Ba Vo',
 

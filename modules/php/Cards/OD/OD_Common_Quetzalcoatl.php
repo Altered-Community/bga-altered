@@ -15,14 +15,14 @@ class OD_Common_Quetzalcoatl extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => 'Quetzalcoatl',
-      'typeline' => 'Character - Bureaucrat Deity',
+      'name' => 'Quetzalcóatl',
+      'typeline' => 'Character - Deity Bureaucrat',
       'type' => CHARACTER,
       'flavorText' => 'A soul has yet to be found who is bold enough to contest his wisdom.',
       'artist' => 'Taras Susak',
-      'subtypes' => [BUREAUCRAT, DEITY],
+      'subtypes' => [DEITY, BUREAUCRAT],
       'effectDesc' =>
-      'When an opponent draws one or more cards or does <RESUPPLY> — Create an <ORDIS_RECRUIT> Soldier token in target Expedition.',
+      'When an opponent draws one or more cards or does <RESUPPLY_T> — Create an <ORDIS_RECRUIT> Soldier token in target Expedition.',
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

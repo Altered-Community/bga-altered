@@ -19,7 +19,7 @@ class AX_Common_KelonBurst extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.'
+        '$<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.'
       ),
       'typeline' => clienttranslate('Spell - Disruption'),
       'flavorText' => clienttranslate(

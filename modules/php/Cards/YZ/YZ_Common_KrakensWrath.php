@@ -19,7 +19,7 @@ class YZ_Common_KrakensWrath extends \ALT\Models\Card
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate(
-        '$<FLEETING>.  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'
+        '$<FLEETING>.  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.'
       ),
       'typeline' => clienttranslate('Spell - Disruption'),
       'flavorText' => clienttranslate(

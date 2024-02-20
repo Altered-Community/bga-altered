@@ -17,9 +17,9 @@ class YZ_Rare_KadigiranAlchemist extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Kadigiran Alchemist'),
       'type' => CHARACTER,
-      'subtypes' => [MAGE],
+      'subtypes' => [SCHOLAR],
       'effectDesc' => clienttranslate('{H} I gain #3 boosts$<BB>#.'),
-      'typeline' => clienttranslate('Character - Mage'),
+      'typeline' => clienttranslate('Character - Scholar'),
       'flavorText' => clienttranslate(
         'Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self.'
       ),

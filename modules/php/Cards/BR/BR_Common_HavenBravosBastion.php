@@ -18,7 +18,7 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
       'name' => 'Haven, Bravos Bastion',
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'Your Characters have: \"{R} I gain 1 boost$<BB>.\"',
+      'effectDesc' => 'Your Characters have: \" {R} I gain 1 boost$<BB>.\"',
       'typeline' => 'Permanent - Landmark',
       'flavorText' => 'Haven isn\'t where legends are born... it\'s where they live forever.',
       'artist' => 'HuoMiao Studio',

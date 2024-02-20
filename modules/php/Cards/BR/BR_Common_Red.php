@@ -16,7 +16,7 @@ class BR_Common_Red extends \ALT\Models\Card
       'name' => 'Red',
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '$<SEASONED>.',
+      'effectDesc' => '$<SEASONED_ME_FS>.',
       'typeline' => 'Character - Adventurer',
       'flavorText' => 'Grandma would be proud.',
       'artist' => 'Jean-Baptiste Andrier',

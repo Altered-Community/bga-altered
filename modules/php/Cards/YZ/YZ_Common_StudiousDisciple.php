@@ -15,12 +15,12 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Studious Disciple'),
       'type' => CHARACTER,
-      'subtypes' => [MAGE, APPRENTICE],
+      'subtypes' => [APPRENTICE, MAGE],
       'supportDesc' => clienttranslate(
         '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
-      'typeline' => clienttranslate('Character - Mage Apprentice'),
+      'typeline' => clienttranslate('Character - Apprentice Mage'),
       'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
       'artist' => 'Floriane Bodereau',
 

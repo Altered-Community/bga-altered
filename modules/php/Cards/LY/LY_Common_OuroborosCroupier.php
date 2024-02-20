@@ -19,7 +19,7 @@ class LY_Common_OuroborosCroupier extends \ALT\Models\Card
       'type' => CHARACTER,
       'typeline' => clienttranslate('Character - Citizen'),
       'subtypes' => [CITIZEN],
-      'effectDesc' => clienttranslate('{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $<RESUPPLY>.'),
+      'effectDesc' => clienttranslate('{H} Roll a die. On a 4+, draw a card. On a 1-3, $<RESUPPLY_LOW>.'),
       'flavorText' => clienttranslate('The house never loses.'),
       'artist' => 'Anh Tung',
 
