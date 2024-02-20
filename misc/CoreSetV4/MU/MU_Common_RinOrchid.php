@@ -7,16 +7,16 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_P_MU_03_C',
-      'asset' => 'ALT_CORE_P_MU_03_C',
+      'uid' => 'ALT_CORE_B_MU_03_C',
+      'asset' => 'ALT_CORE_B_MU_03_C',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
       'name' => 'Rin & Orchid',
       'typeline' => 'Muna Hero',
       'type' => HERO,
-      'flavorText' => 'MISSING FLAVOR',
-      'artist' => 'MISSING ARTIST',
+      'flavorText' => 'The forest always gives back, when you know where to look.',
+      'artist' => 'Zero Wen',
     ];
   }
 }

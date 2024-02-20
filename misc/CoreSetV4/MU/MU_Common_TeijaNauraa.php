@@ -7,16 +7,16 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_P_MU_01_C',
-      'asset' => 'ALT_CORE_P_MU_01_C',
+      'uid' => 'ALT_CORE_B_MU_01_C',
+      'asset' => 'ALT_CORE_B_MU_01_C',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Teija & Nauraa'),
       'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
-      'flavorText' => clienttranslate('MISSING FLAVOR'),
-      'artist' => 'MISSING ARTIST',
+      'flavorText' => clienttranslate('Nature must be nurtured to fully express its generosity.'),
+      'artist' => 'Nestor Papatriantafyllou',
       'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$<BB>.'),
     ];
   }
