@@ -77,6 +77,7 @@ class Card extends \ALT\Helpers\DB_Model
     'defender' => 'bool',
     'dynamicDefender' => 'str',
     'eternal' => 'bool',
+    'blockingPower' => 'bool',
 
     // Tough management
     'tough' => 'int',

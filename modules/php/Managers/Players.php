@@ -151,6 +151,20 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $order;
   }
 
+  public function hasOpponentBlockingPower($player, $expedition)
+  {
+    // TODO: manage multiplayers
+    foreach (self::getAll() as $pId => $player2) {
+      if ($pId == $player->getId()) {
+        continue;
+      }
+      if ($player2->hasBlockingPower($expedition)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function checkVictory()
   {
     $isVictory = false;

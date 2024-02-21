@@ -56,15 +56,21 @@ class ActivateEffect extends \ALT\Models\Action
     $source = $this->getSource();
     $card = $this->getCard();
 
-    $effect = 'getEffect' . $this->getArg('effectType');
-    Notifications::message(clienttranslate('${player_name} activates ${card_name} {J} effect'), [
-      'player' => Players::getActive(),
-      'card' => $card,
-    ]);
-    if (!empty($card->$effect())) {
-      $node = $card->$effect();
-      $node['sourceId'] = $card->getId();
-      $this->pushParallelChild($node);
+    if (($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($card->getPlayer(), $card->getLocation())) ||
+      $card->getType() != CHARACTER
+    ) {
+      $effect = 'getEffect' . $this->getArg('effectType');
+      Notifications::message(clienttranslate('${player_name} activates ${card_name} {J} effect'), [
+        'player' => Players::getActive(),
+        'card' => $card,
+      ]);
+      if (!empty($card->$effect())) {
+        $node = $card->$effect();
+        $node['sourceId'] = $card->getId();
+        $this->pushParallelChild($node);
+      }
+    } else {
+      Notifications::message(clienttranslate('Effects are not triggered, due to an effect in the opponent\'s expedition'), []);
     }
 
     $this->resolveAction([]);
