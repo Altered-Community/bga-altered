@@ -442,11 +442,9 @@ class Card extends \ALT\Helpers\DB_Model
     if (($this->properties['defender'] ?? false) == true) {
       return true;
     }
+
     $dynamicDefender = $this->getDynamicDefender();
     switch ($dynamicDefender) {
-      case '':
-        return false;
-        break;
       case '2OtherPlants':
         $c = 0;
         foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
@@ -458,12 +456,18 @@ class Card extends \ALT\Helpers\DB_Model
             $c++;
           }
         }
-        if ($c >= 2) {
-          return false;
+        if ($c < 2) {
+          return true;
         }
-        return true;
         break;
     }
+
+
+    // OD_Common_GulrangTocsin
+    if (in_array($this->getPlayer()->getHero()->getUid(), ['ALT_CORE_B_OR_03_C'])) {
+      return $this->isToken() && $this->hasToken(BOOST);
+    }
+    return false;
   }
 
   /********** EFFECTS **********/
