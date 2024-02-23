@@ -111,6 +111,11 @@ class Target extends \ALT\Models\Action
       $pIds = array_diff($pIds, [$pId]);
     }
 
+    $maxHandCost = $this->getArg('maxHandCost');
+    if (!is_int($maxHandCost) && $maxHandCost == 'controlledCharacter') {
+      $maxHandCost = $player->getPlayedCards(CHARACTER)->count() + $player->getPlayedCards(TOKEN)->count();
+    }
+
     // What cards ?
     $targetType = $this->getArg('targetType');
     $targetLocation = $this->getArg('targetLocation');
@@ -127,7 +132,7 @@ class Target extends \ALT\Models\Action
     $sourceId = $this->getSourceId();
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -150,7 +155,7 @@ class Target extends \ALT\Models\Action
       }
       $costCheck =
         $this->getArg('minHandCost') <= $handCost &&
-        $handCost <= $this->getArg('maxHandCost') &&
+        $handCost <= $maxHandCost &&
         $this->getArg('minReserveCost') <= $reserveCost &&
         $reserveCost <= $this->getArg('maxReserveCost');
 
