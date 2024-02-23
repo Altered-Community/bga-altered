@@ -165,6 +165,17 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
+  public function hasOppositeDefender($expedition)
+  {
+    $oppositeExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+    foreach (self::getAll() as $pId => $player) {
+      if ($player->hasOppositeDefender($oppositeExpedition)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function checkVictory()
   {
     $isVictory = false;
@@ -271,6 +282,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         if ($player->hasDefender($expedition)) {
           continue;
         }
+        if (self::hasOppositeDefender($expedition)) {
+          continue;
+        }
+
 
         foreach ($biomes as $i => $biome) {
           $win = $winners[$expedition][$biome]['pId'] == $pId;
