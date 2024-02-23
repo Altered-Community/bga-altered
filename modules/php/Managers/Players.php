@@ -176,6 +176,18 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
+  public function getOpponentAdditionalCost($player, $type)
+  {
+    $cost = 0;
+    foreach (self::getAll() as $pId => $player2) {
+      if ($pId == $player->getId()) {
+        continue;
+      }
+      $cost += $player2->getOpponentAdditionalCost($type);
+    }
+    return $cost;
+  }
+
   public function checkVictory()
   {
     $isVictory = false;

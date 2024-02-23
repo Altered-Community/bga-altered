@@ -419,6 +419,16 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function getOpponentAdditionalCost($type)
+  {
+    $f = 'getIncreaseOpponent' . ucfirst($type) . 'Cost';
+    $cost = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $cost += $card->$f();
+    }
+    return $cost;
+  }
+
   /********* Deck setup ***********/
   public function initializeDecks()
   {

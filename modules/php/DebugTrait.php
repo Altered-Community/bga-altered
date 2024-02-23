@@ -79,7 +79,7 @@ trait DebugTrait
     // throw new \feException(Cards::get(11)->countToken(FLEETING));
     // Stats::incDays(2);
     // Stats::setWinner(Players::getActive(), true);
-    throw new \feException(Cards::get(383)->isDefender()); //->isDefender());
+    throw new \feException(Cards::get(264)->getCost()); //->isDefender());
   }
 
   function tv()

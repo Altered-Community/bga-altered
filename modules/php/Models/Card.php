@@ -79,6 +79,10 @@ class Card extends \ALT\Helpers\DB_Model
     'oppositeDefender' => 'bool', // OD_Common_Issitoq
     'eternal' => 'bool',
     'blockingPower' => 'bool',
+    'increaseOpponentCharacterCost' => 'int',
+    'increaseOpponentSpellCost' => 'int',
+    'increaseOpponentPermanentCost' => 'int',
+
 
     // Tough management
     'tough' => 'int',
@@ -385,16 +389,19 @@ class Card extends \ALT\Helpers\DB_Model
       $typeReduction += isset($costReduction[$subtype]) ? $costReduction[$subtype]['reduction'] : 0;
     }
 
+    // TODO: to update in multiplayer
+    $additionalCost = Players::getOpponentAdditionalCost($this->getPlayer(), $this->getType());
+
     switch ($this->getLocation()) {
       case HAND:
-        return $this->getCostHand() -
+        return ($this->getCostHand() -
           $typeReduction -
-          ($costReduction[ALL]['reduction'] ?? 0);
+          ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost);
         break;
       case RESERVE:
-        return $this->getCostReserve() -
+        return ($this->getCostReserve() -
           $typeReduction -
-          ($costReduction[ALL]['reduction'] ?? 0);
+          ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost);
         break;
     }
   }
