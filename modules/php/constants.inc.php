@@ -78,6 +78,7 @@ const ST_PLAY_CARD = 38;
 const ST_MOVE_CARD = 39;
 const ST_PAY = 40;
 const ST_DRAW_MANA = 41;
+const ST_BLOCK_EXPEDITION = 42;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -135,6 +136,7 @@ const PLAY_CARD = 'PlayCard';
 const MOVE_CARD = 'MoveCard';
 const PAY = 'Pay';
 const DRAW_MANA = 'DrawMana';
+const BLOCK_EXPEDITION = 'BlockExpedition';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

@@ -80,6 +80,7 @@ define([
         ['moveCard', null],
         ['newPhase', 1000],
         ['putOnDeck', null],
+        ['blockExpedition', 100],
 
         ['discard', 500],
         ['tap', 800],
@@ -417,6 +418,11 @@ define([
           this.destroy(oCard);
         }
       });
+    },
+
+    notif_blockExpedition(n) {
+      debug('Blocking expedition', n);
+      // TODO
     },
 
     onUpdateActionButtons(stateName, args) {
@@ -1289,6 +1295,26 @@ define([
         if (location == 'stormLeft' || location == 'stormRight') {
           this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
         }
+      });
+    },
+
+    onEnteringStateBlockExpedition(args) {
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+        source: _('source'),
+        oppositeSource: _('opposite of played card'),
+      };
+
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actBlockExpedition', [location]);
+      };
+
+      this.forEachPlayer((player) => {
+        ['stormLeft', 'stormRight'].forEach((location) => {
+          debug(`board-${location}-${player.id}`);
+          this.onClick(`board-${location}-${player.id}`, onChooseLocation(`board-${location}-${player.id}`));
+        });
       });
     },
 

@@ -35,6 +35,7 @@ class Actions
     MOVE_CARD,
     PAY,
     DRAW_MANA,
+    BLOCK_EXPEDITION
   ];
 
   public static function get($actionId, &$ctx = null)
@@ -100,7 +101,7 @@ class Actions
 
     // Resolve action
     $automatic = $ctx->isAutomatic($player);
-    $checkpoint = is_null($result)? false : $result; 
+    $checkpoint = is_null($result) ? false : $result;
     $ctx = $action->getCtx();
     Engine::resolveAction(['actionName' => $actionName, 'args' => $args], $checkpoint, $ctx, $automatic);
     Engine::proceed();

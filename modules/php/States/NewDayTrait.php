@@ -136,6 +136,7 @@ trait NewDayTrait
     $nCards = 0;
     Globals::setSkippedPlayers([]);
     Globals::setStormMoves([]);
+    Globals::setBlockedExpeditions([]);
     Cards::untapAll();
     Stats::incDays();
     Notifications::updateTotalMana();

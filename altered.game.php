@@ -91,6 +91,7 @@ class altered extends Table
       'phase' => Globals::getPhase(),
       'movements' => Players::computeStorm(),
       'tieBreaker' => Globals::getTieBreakerMode(),
+      'blockedExpeditions' => Globals::getBlockedExpeditions()
     ];
   }
 

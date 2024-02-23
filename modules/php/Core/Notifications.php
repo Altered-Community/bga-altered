@@ -626,6 +626,15 @@ class Notifications
     ]);
   }
 
+  public function blockExpedition($player, $blockedPlayer, $expedition)
+  {
+    self::notifyAll('blockExpedition',  clienttranslate('${player_name} blocks ${player_name2} ${expedition}\'s expedition until next Day'), [
+      'player' => $player,
+      'player2' => $blockedPlayer,
+      'expedition' => $expedition == STORM_LEFT ? clienttranslate('Hero') : clienttranslate('Companion')
+    ]);
+  }
+
   /*********** unchecked ******* */
   public static function refreshUI($datas)
   {

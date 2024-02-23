@@ -33,6 +33,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'heroes' => 'obj',
     'playedCards' => 'int',
     'stormMoves' => 'obj',
+    'blockedExpeditions' => 'obj', // pId => StormLet/Right
     'tieBreakerMode' => 'bool',
     'instantWin' => 'bool',
 

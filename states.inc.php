@@ -315,6 +315,16 @@ $machinestates = [
     'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_BLOCK_EXPEDITION => [
+    'name' => 'blockExpedition',
+    'description' => clienttranslate('${actplayer} must block an expedition from moving this day'),
+    'descriptionmyturn' => clienttranslate('${you} must block an expedition from moving this day'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actBlockExpedition', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ST_PLAY_CARD => [
     'name' => 'playCard',
     'description' => clienttranslate('${actplayer} may play ${card_name}'),

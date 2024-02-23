@@ -249,6 +249,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     if (Globals::isTieBreakerMode()) {
       return [];
     }
+    $blockedExpeditions = Globals::getBlockedExpeditions();
 
     $players = self::getAll();
     $winners = [
@@ -295,6 +296,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           continue;
         }
         if (self::hasOppositeDefender($expedition)) {
+          continue;
+        }
+        // we cannot move as blocked by power (like Celebration Day)
+        if (isset($blockedExpeditions[$pId]) && in_array($expedition, $blockedExpeditions[$pId])) {
           continue;
         }
 
