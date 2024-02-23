@@ -219,7 +219,6 @@ class SpecialEffect extends \ALT\Models\Action
         Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), ['player' => Players::getActive()]);
         break;
       case 'AfterRestSabotage':
-        var_dump('afterRestSabotage');
         $afterRest = Globals::getAfterRest();
         $pId = $card->getPlayer()->getId();
         if (!isset($afterRest[$pId])) {
@@ -236,6 +235,26 @@ class SpecialEffect extends \ALT\Models\Action
           ['sourceId' => $card->getId()]
         )]);
         Globals::setAfterRest($afterRest);
+        break;
+      case 'AllPlayersSacrifice1':
+        $activePlayer = Players::getActive();
+        $player = $activePlayer;
+        $nodes = null;
+        do {
+          $nodes[] =
+            FT::ACTION(
+              TARGET,
+              [
+                'targetPlayer' => ME,
+                'targetType' => [CHARACTER, TOKEN],
+                'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
+              ],
+              ['pId' => $player->getId(), 'sourceId' => $card->getId()]
+            );
+          $player = Players::getNext($player);
+        } while ($player->getId() != $activePlayer->getId());
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        Notifications::message(clienttranslate('All players must sacrifice 1 character (${card_name}\'s effect)'), ['card' => $card]);
         break;
       default:
         break;
