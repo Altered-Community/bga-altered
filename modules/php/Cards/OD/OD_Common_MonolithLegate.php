@@ -29,7 +29,7 @@ class OD_Common_MonolithLegate extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'AfterDusk' => [
-          'condition' => 'hasNotMoved',
+          'condition' => 'myExpeditionHasNotMoved',
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRestSabotage'])
         ],
       ]

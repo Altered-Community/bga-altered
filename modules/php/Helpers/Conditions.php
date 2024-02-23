@@ -262,4 +262,10 @@ abstract class Conditions
   {
     return $event['pId'] == $card->getPId() && (!isset(Globals::getStormMoves()[$card->getPId()]) || (Globals::getStormMoves()[$card->getPId()]['moves'] ?? 0) == 0);
   }
+
+  public static function myExpeditionHasNotMoved($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? null;
+    return $event['pId'] == $card->getPId() && (is_null($stormMoves) || ($stormMoves['moves'] ?? 0) == 0 || !in_array($card->getLocation(), $stormMoves['sides']));
+  }
 }

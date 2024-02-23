@@ -29,7 +29,7 @@ class OD_Common_OrdisAttorney extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'AfterDusk' => [
-          'condition' => 'hasNotMoved',
+          'condition' => 'myExpeditionHasNotMoved',
           'output' => FT::ACTION(DRAW, ['players' => ME])
         ]
       ]

@@ -280,6 +280,8 @@ class Player extends \ALT\Helpers\DB_Model
     $tokenMeeple = $this->$getToken();
     // TODO: manage immobile
     $location = $tokenMeeple->getLocationArg();
+    $expedition = $token == HERO ? STORM_LEFT : STORM_RIGHT;
+
     // if hero we increase
     $delta = $token == HERO ? $n : $n * -1;
     $sId = $token == HERO ? max(0, $location + $delta) : min(7, $location + $delta);
@@ -295,11 +297,19 @@ class Player extends \ALT\Helpers\DB_Model
     // needed to effect after moving
     $moves = Globals::getStormMoves();
     $previousBiomes = [];
+    $previousSides = [];
     if (isset($moves[$this->id])) {
       $previousBiomes = $moves[$this->id]['biomes'];
+      $previousSides = $moves[$this->id]['sides'];
     }
-    $moves[$this->id] = ['biomes' => array_merge((is_array($biomes) ? $biomes : []), $previousBiomes), 'moves' => $n];
+    $previousSides[] = $expedition;
+    $moves[$this->id] = [
+      'biomes' => array_merge((is_array($biomes) ? $biomes : []), $previousBiomes),
+      'moves' => ($moves[$this->id]['moves'] ?? 0) + $n,
+      'sides' => $previousSides
+    ];
     Globals::setStormMoves($moves);
+
 
     // Do we need to reveal storm?
     $revealed = null;
