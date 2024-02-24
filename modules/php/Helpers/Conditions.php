@@ -125,6 +125,13 @@ abstract class Conditions
       in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
   }
 
+  public static function isSpellPlayed($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      Cards::get($event['playedCard'])->getType() == SPELL;
+  }
+
   public static function isBureaucratPlayed($card, $event)
   {
     return $event['playCard'] === true &&

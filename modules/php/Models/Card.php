@@ -82,6 +82,7 @@ class Card extends \ALT\Helpers\DB_Model
     'increaseOpponentCharacterCost' => 'int',
     'increaseOpponentSpellCost' => 'int',
     'increaseOpponentPermanentCost' => 'int',
+    'sacrificeAndNotFleetingGoToReserve' => 'bool',
 
 
     // Tough management
