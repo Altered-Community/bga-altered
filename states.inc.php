@@ -303,6 +303,16 @@ $machinestates = [
     'possibleactions' => ['actTarget', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_TARGET_PLAYER => [
+    'name' => 'targetPlayer',
+    'description' => '${actplayer} ${description}',
+    'descriptionmyturn' => '${you} ${description}',
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actTargetPlayer', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ST_SPELL_CLEANUP => [
     'name' => 'spellCleanup',
     'type' => 'game',
