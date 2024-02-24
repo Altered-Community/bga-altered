@@ -31,7 +31,7 @@ class YZ_Rare_Sakarabru extends \ALT\Models\Card
       'costHand' => 7,
       'costReserve' => 4,
       'changedStats' => ['forest', 'mountain', 'ocean'],
-      'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => EFFECT, 'pId' => OPPONENT]),
+      'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT]),
       'effectSupport' => FT::ACTION(DRAW, ['players' => ME]),
     ];
   }

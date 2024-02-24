@@ -265,8 +265,12 @@ $machinestates = [
 
   ST_MOVE_EXPEDITION => [
     'name' => 'moveExpedition',
-    'type' => 'game',
+    'description' => clienttranslate('${actplayer} must move one expedition'),
+    'descriptionmyturn' => clienttranslate('${you} must move one expedition'),
+    'type' => 'activeplayer',
+    'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
+    'possibleactions' => ['actMoveExpedition', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_DISCARD => [

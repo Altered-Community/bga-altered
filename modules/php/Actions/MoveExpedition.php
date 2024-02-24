@@ -25,14 +25,23 @@ class MoveExpedition extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
-    return true;
+    return count($this->getArg('expedition')) == 1;
   }
 
   protected $args = [
-    'expedition' => null,
+    'expedition' => [],
     'pId' => ME,
     'n' => 1,
   ];
+
+  public function argsMoveExpedition()
+  {
+    $expeditions = $this->getArg('expedition');
+    return [
+      'expeditions' => empty($expeditions) ? STORMS : $expeditions,
+      'actPId' => Players::getActive()->getId()
+    ];
+  }
 
   public function stMoveExpedition()
   {
@@ -42,14 +51,19 @@ class MoveExpedition extends \ALT\Models\Action
       return;
     }
 
+    if (count($this->getArg('expedition')) == 1) {
+      return [$this->getArg('expedition')[0], $this->getArg('pId')];
+    }
+  }
+
+  public function actMoveExpedition($expedition, $pId)
+  {
     $n = $this->getArg('n');
     $source = $this->ctx->getSource() ?? null;
     $sourceId = $this->ctx->getSourceId() ?? null;
     if (is_null($source) && !is_null($sourceId)) {
       $source = Cards::getSingle($sourceId);
     }
-
-    $expedition = $this->getArg('expedition');
 
     if ($expedition === null) {
       throw new \BgaVisibleSystemException('an expedition is mandatory');
@@ -62,7 +76,7 @@ class MoveExpedition extends \ALT\Models\Action
     $token = $expedition == STORM_LEFT ? HERO : COMPANION;
     $getToken = 'get' . ucfirst($token) . 'Token';
 
-    $pId = $this->getCtxArg('pId') ?? Players::getActiveId();
+    $pId = $pId ?? Players::getActiveId();
     if ($pId == ME) {
       $players = [Players::getActive()];
     } elseif ($pId == ALL) {
@@ -76,6 +90,6 @@ class MoveExpedition extends \ALT\Models\Action
       $this->checkAfterListeners($player, ['moveExpedition' => $n]);
     }
 
-    $this->resolveAction(null);
+    return [];
   }
 }

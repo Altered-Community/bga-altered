@@ -1312,7 +1312,6 @@ define([
 
       this.forEachPlayer((player) => {
         ['stormLeft', 'stormRight'].forEach((location) => {
-          debug(`board-${location}-${player.id}`);
           this.onClick(`board-${location}-${player.id}`, onChooseLocation(`board-${location}-${player.id}`));
         });
       });
@@ -1325,6 +1324,21 @@ define([
 
       args.rolls.forEach((roll, i) => {
         this.addPrimaryActionButton('btnRoll' + i, roll, chooseRollDie(roll));
+      });
+    },
+
+    onEnteringStateMoveExpedition(args) {
+      let onChooseLocation = (location, pId) => {
+        return () => this.takeAtomicAction('actMoveExpedition', [location, pId]);
+      };
+
+      this.forEachPlayer((player) => {
+        ['stormLeft', 'stormRight'].forEach((location) => {
+          this.onClick(
+            `board-${location}-${player.id}`,
+            onChooseLocation(location, player.id == args.actPId ? 'me' : 'opponent')
+          );
+        });
       });
     },
 
