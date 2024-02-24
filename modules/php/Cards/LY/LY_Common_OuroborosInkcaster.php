@@ -20,7 +20,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
       'effectDesc' =>
-        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',
+      'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',
       'flavorText' => 'When luck joins in the game, cleverness scores double. ',
       'artist' => 'Khoa Viet',
 
@@ -38,6 +38,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
               'targetLocation' => [RESERVE],
               'targetPlayer' => ME,
               'targetType' => [CHARACTER, TOKEN, SPELL],
+              'excludeSelf' => true,
               'effect' => FT::RETURN_TO_HAND(),
             ],
             ['optional' => true]
