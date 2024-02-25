@@ -100,6 +100,7 @@ trait TurnTrait
     Globals::setNextCharacterCost3Anchored(false);
     Globals::setAdditionalEffect([]);
     Globals::setActivePId($player->getId());
+    Globals::setNextSpellIsFree(false);
 
     self::giveExtraTime($player->getId());
 

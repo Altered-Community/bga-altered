@@ -380,7 +380,10 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getCost()
   {
-    // TODO: manage cost modifiers
+    if ($this->getType() == SPELL && Globals::isNextSpellIsFree()) {
+      return 0;
+    }
+
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
     if (isset($costReduction[$this->getType()])) {

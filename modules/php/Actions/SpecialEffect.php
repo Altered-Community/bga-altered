@@ -115,6 +115,12 @@ class SpecialEffect extends \ALT\Models\Action
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
         break;
+      case 'nextSpellIsFree':
+        Globals::setNextSpellIsFree(true);
+        Notifications::message(clienttranslate('Next spell played this turn will be free (${card_name}\'s effect)'), [
+          'card' => $card,
+        ]);
+        break;
       case 'nextCharacterCost3Anchored':
         Globals::setNextCharacterCost3Anchored(true);
         break;
