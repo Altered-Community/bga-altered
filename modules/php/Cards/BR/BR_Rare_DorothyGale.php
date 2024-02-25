@@ -28,7 +28,7 @@ class BR_Rare_DorothyGale extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 5,
       'costReserve' => 3,
-      'effectHand' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()]),
+      'effectHand' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()], ['optional' => true]),
     ];
   }
 }
