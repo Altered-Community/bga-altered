@@ -300,6 +300,7 @@ class Discard extends \ALT\Models\Action
       'discarded' => $cardIds,
       'originalLocation' => $originalLocation,
       'cards' => $cards,
+      'sacrifice' => ($this->getCtxArg('desc') ?? '') == 'sacrifice',
       'sourceId' => $this->getSourceId(),
     ]);
 

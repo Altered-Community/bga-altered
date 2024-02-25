@@ -13,6 +13,11 @@ abstract class Conditions
     return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() == Globals::getFirstPlayer();
   }
 
+  public static function isNotFirstPlayer($card, $event)
+  {
+    return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() != Globals::getFirstPlayer();
+  }
+
   public static function boostedByOtherCard($card, $event)
   {
     if ($event['sourceId'] != $card->getId() && $event['gain']['type'] == BOOST && $event['gain']['cardId'] == $card->getId()) {
@@ -172,6 +177,17 @@ abstract class Conditions
     return in_array($cardId, $event['discarded']) &&
       $event['originalLocation'][$cardId] == HAND &&
       $event['cards'][$cardId]->getLocation() == RESERVE;
+  }
+
+  public static function isCharacterSacrifice($card, $event)
+  {
+    $found = false;
+    foreach ($event['cards'] as $cdId => $card2) {
+      if (in_array($card2->getType(), [CHARACTER, TOKEN])) {
+        $found = true;
+      }
+    }
+    return $card->getPId() == $event['pId'] && $event['sacrifice'] == true && $found;
   }
 
   public static function isSourceAndDiscardPermanent($card, $event)
