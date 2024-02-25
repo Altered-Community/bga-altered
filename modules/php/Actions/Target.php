@@ -119,6 +119,9 @@ class Target extends \ALT\Models\Action
     // What cards ?
     $targetType = $this->getArg('targetType');
     $targetLocation = $this->getArg('targetLocation');
+    if ($targetLocation == ['source']) {
+      $targetLocation = [$this->getSource()->getLocation()];
+    }
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
