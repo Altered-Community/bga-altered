@@ -303,6 +303,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           continue;
         }
 
+        // throw new \feException(print_r($biomes));
+        self::biomesModifier($biomes, $player, $expedition);
 
         foreach ($biomes as $i => $biome) {
           $win = $winners[$expedition][$biome]['pId'] == $pId;
@@ -320,5 +322,43 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       }
     }
     return $movements;
+  }
+
+  public function biomesModifier(&$biomes, $player, $expedition)
+  {
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      $updateExpeditions = $card->getUpdateExpeditions();
+      if (empty($updateExpeditions)) {
+        continue;
+      }
+      if (($updateExpeditions['type'] ?? '') == 'all') {
+        self::updateBiomesModifier($biomes, $updateExpeditions);
+      }
+
+      if (($updateExpeditions['type'] ?? '') == ME && $card->getPId() == $player->getId()) {
+        self::updateBiomesModifier($biomes, $updateExpeditions);
+      }
+
+      if (($updateExpeditions['type'] ?? '') == OPPONENT && $card->getPId() != $player->getId()) {
+        self::updateBiomesModifier($biomes, $updateExpeditions);
+      }
+    }
+  }
+
+  public function updateBiomesModifier(&$biomes, $updateExpeditions)
+  {
+    // remove all the one to remove
+    foreach ($updateExpeditions['regionsRemove'] ?? [] as $region) {
+      foreach (array_keys($biomes, $region) as $key) {
+        unset($biomes[$key]);
+      }
+    }
+
+    // add
+    foreach ($updateExpeditions['regionsAdd'] ?? [] as $region) {
+      if (!in_array($region, $biomes)) {
+        $biomes[] = $region;
+      }
+    }
   }
 }
