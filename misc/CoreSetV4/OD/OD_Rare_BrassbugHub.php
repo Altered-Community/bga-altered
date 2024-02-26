@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\OD;
+
+use ALT\Helpers\FT;
 
 class OD_Rare_BrassbugHub extends \ALT\Models\Card
 {
@@ -19,10 +22,32 @@ class OD_Rare_BrassbugHub extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
       'effectDesc' =>
-        '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a <BRASSBUG> Robot token in target Expedition.',
+      '{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a <BRASSBUG> Robot token in target Expedition.',
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
+
+      'effectPlayed' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'gainCounter', 'args' => ['counter' => 3, 'counterName' => clienttranslate('Kelon counter')]],
+      ],
+      'effectPassive' => [
+        'Noon' => [
+          'condition' => 'hasCounterOnCard',
+          'output' => [
+            'type' => NODE_SEQ,
+            'optional' => true,
+            'childs' => [
+              FT::ACTION(USE_COUNTER, ['pay' => 1, 'consume' => 1]),
+              FT::ACTION(INVOKE_TOKEN, [
+                'pId' => 'source',
+                'tokenType' => 'AX_Common_Brassbug',
+                'targetLocation' => STORMS,
+              ]),
+            ],
+          ],
+        ],
+      ],
     ];
   }
 }
