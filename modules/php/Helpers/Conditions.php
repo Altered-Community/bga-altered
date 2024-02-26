@@ -209,6 +209,17 @@ abstract class Conditions
       ->count() > 0;
   }
 
+  public static function isSourceAndDiscardSpell($card, $event)
+  {
+    if ($card->getPId() != $event['pId'] || $card->getId() != $event['sourceId']) {
+      return false;
+    }
+
+    return Cards::getMany($event['discarded'], false)
+      ->where('type', SPELL)
+      ->count() > 0;
+  }
+
   public static function isCharacterFromReserve($card, $event)
   {
     return $event['playCard'] === true &&
