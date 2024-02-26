@@ -133,7 +133,7 @@ class SpecialEffect extends \ALT\Models\Action
         $player = $card->getPlayer();
         $nodes = [];
         foreach ($player->getPlayedCards() as $cId => $pCard) {
-          if (in_array($subType, $card->getSubtypes())) {
+          if (in_array($subType, $pCard->getSubtypes())) {
             $nodes[] = FT::GAIN($pCard, BOOST, $n);
           }
         }
