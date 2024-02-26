@@ -113,6 +113,14 @@ abstract class Conditions
       ->count() >= 2;
   }
 
+  public static function control1Landmarks($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getLandmarks()
+      ->count() >= 1;
+  }
+
   public static function isPermanentAndCost3($card, $event)
   {
     // check card triggering the effect isn't tapped
