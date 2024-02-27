@@ -1,9 +1,12 @@
 <?php
+
 namespace ALT\Core\Engine;
 
+use ALT\Managers\Players;
 /*
  * ParallelNode: a class that represent an Node with a choice (parallel), some of them being optional, other are mandatory
  */
+
 class ParallelNode extends AbstractNode
 {
   public function __construct($infos = [], $childs = [])
@@ -36,10 +39,10 @@ class ParallelNode extends AbstractNode
    */
   public function isOptional()
   {
-    return parent::isOptional() ||
+    return $this->getPId() == Players::getActive() && (parent::isOptional() ||
       $this->childsReduceAnd(function ($child) {
         return $child->isOptional() || $child->isResolved();
-      });
+      }));
   }
 
   /**

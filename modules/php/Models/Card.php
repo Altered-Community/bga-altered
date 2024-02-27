@@ -251,6 +251,7 @@ class Card extends \ALT\Helpers\DB_Model
               'cardId' => $this->id,
               'event' => $event,
             ],
+            'pId' => $this->getPId(),
           ],
         ]);
       }
@@ -261,8 +262,8 @@ class Card extends \ALT\Helpers\DB_Model
   {
     if ($this->getLocation() == LANDMARK) {
       $event = [
-        'type' => 'LeaveLandmard',
-        'method' => 'LeaveExpedition',
+        'type' => 'LeaveLandmark',
+        'method' => 'LeaveLandmark',
         'boosted' => $this->hasToken(BOOST),
         'cardId' => $this->id,
       ];
@@ -275,6 +276,7 @@ class Card extends \ALT\Helpers\DB_Model
               'cardId' => $this->id,
               'event' => $event,
             ],
+            'pId' => $this->getPId(),
           ],
         ]);
       }
