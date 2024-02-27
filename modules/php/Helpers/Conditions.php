@@ -269,6 +269,11 @@ abstract class Conditions
     return $card->hasToken(BOOST) || ($event['boosted'] ?? false) == true;
   }
 
+  public static function has3Boost($card, $event)
+  {
+    return $card->getPId() == $event['pId'] && $card->countToken(BOOST) >= 3;
+  }
+
   public static function costHigherThanCounter($card, $event)
   {
     return $event['playCard'] === true &&
