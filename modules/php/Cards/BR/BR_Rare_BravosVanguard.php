@@ -1,0 +1,46 @@
+<?php
+
+namespace ALT\Cards\BR;
+
+use ALT\Helpers\FT;
+
+
+class BR_Rare_BravosVanguard extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_BR_14_R1',
+      'asset' => 'ALT_CORE_B_BR_14_R1',
+
+      'faction' => FACTION_BR,
+      'rarity' => RARITY_RARE,
+      'name' => 'Bravos Vanguard',
+      'typeline' => 'Character - Adventurer',
+      'type' => CHARACTER,
+      'flavorText' =>
+      '"We will be the arrow that pierces the veil of the unknown, the torch that banishes the mists of ignorance!"',
+      'artist' => 'Edward Cheekokseang',
+      'subtypes' => [ADVENTURER],
+      'effectDesc' => '{J} You may have another target Character lose <FLEETING_CHAR> #and gain 1 boost#.',
+      'forest' => 4,
+      'mountain' => 2,
+      'ocean' => 2,
+      'costHand' => 3,
+      'costReserve' => 3,
+      'effectPlayed' => FT::ACTION(
+        TARGET,
+        [
+          'statuses' => FLEETING,
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::LOOSE(EFFECT, FLEETING),
+            FT::GAIN(EFFECT, BOOST)
+          )
+        ]
+      ),
+
+    ];
+  }
+}
