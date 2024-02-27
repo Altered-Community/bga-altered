@@ -4,29 +4,30 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class AX_Common_KelonCylinder extends \ALT\Models\Card
+
+class AX_Rare_KelonCylinder extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_AX_26_C',
-      'asset' => 'ALT_CORE_B_AX_26_C',
+      'uid' => 'ALT_CORE_B_AX_26_R1',
+      'asset' => 'ALT_CORE_B_AX_26_R1',
 
       'faction' => FACTION_AX,
-      'rarity' => RARITY_COMMON,
+      'rarity' => RARITY_RARE,
       'name' => 'Kelon Cylinder',
+      'typeline' => 'Permanent - Landmark',
       'type' => PERMANENT,
-      'subtypes' => [LANDMARK],
-      'effectDesc' =>
-      '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost.',
       'flavorText' =>
       'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy for which engineers find new applications every day.',
-      'typeline' => 'Permanent - Landmark',
       'artist' => 'Anh Tung',
-
+      'subtypes' => [LANDMARK],
+      'effectDesc' =>
+      '#{J} Target Character gains 1 boost.#  {T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: #target Character gains 1 boost.#',
       'costHand' => 1,
       'costReserve' => 1,
+      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
 
       'effectTap' => FT::XOR(
         FT::ACTION(SPECIAL_EFFECT, [
@@ -35,7 +36,7 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
         ]),
         FT::SEQ(
           FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]),
-          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost'])
+          FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
         )
       ),
     ];
