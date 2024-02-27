@@ -199,6 +199,7 @@ class Card extends \ALT\Helpers\DB_Model
   public function discard()
   {
     $this->checkLeaveExpeditionListener();
+    $this->checkLeaveLandmarkListener();
     $this->setLocation('discard');
     $deleted = Meeples::getInLocation('card-' . $this->id);
     Meeples::delete($deleted->getIds());
@@ -208,6 +209,7 @@ class Card extends \ALT\Helpers\DB_Model
   public function moveToReserve()
   {
     $this->checkLeaveExpeditionListener();
+    $this->checkLeaveLandmarkListener();
     $this->setLocation(RESERVE);
     $this->setTapped(false);
     $seasoned = $this->isSeasoned();
@@ -236,6 +238,30 @@ class Card extends \ALT\Helpers\DB_Model
     if (in_array($this->getLocation(), STORMS)) {
       $event = [
         'type' => 'LeaveExpedition',
+        'method' => 'LeaveExpedition',
+        'boosted' => $this->hasToken(BOOST),
+        'cardId' => $this->id,
+      ];
+      if ($this->isListeningTo($event)) {
+        $event['cardsToListen'] = [$this->id];
+        Engine::pushAfterFinishingChilds([
+          [
+            'action' => ACTIVATE_CARD,
+            'args' => [
+              'cardId' => $this->id,
+              'event' => $event,
+            ],
+          ],
+        ]);
+      }
+    }
+  }
+
+  public function checkLeaveLandmarkListener()
+  {
+    if ($this->getLocation() == LANDMARK) {
+      $event = [
+        'type' => 'LeaveLandmard',
         'method' => 'LeaveExpedition',
         'boosted' => $this->hasToken(BOOST),
         'cardId' => $this->id,
