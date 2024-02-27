@@ -166,6 +166,19 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::GAIN($card, BOOST));
         }
         break;
+      case 'boost23Stat0':
+        $nb = 0;
+        foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
+          foreach ($c->getBiomes(false) as $type => $value) {
+            if ($value == 0) {
+              $nb++;
+            }
+          }
+        }
+        if ($nb >= 3) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, 2));
+        }
+        break;
       case 'discardAllHand':
         $nodes = [];
         foreach (Players::getAll() as $pId => $player) {
