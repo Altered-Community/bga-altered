@@ -34,6 +34,8 @@ class SpecialEffect extends \ALT\Models\Action
       ];
     } elseif ($effect == 'nextCharacterGains1Boost') {
       return clienttranslate('Next character <BOOST>');
+    } elseif ($effect == 'nextCharacterGains2Boost') {
+      return clienttranslate('Next character 2<BOOST>');
     } elseif ($effect == 'AuraqKibble') {
       return clienttranslate('Draw and keep card or play it for free');
     }
@@ -114,6 +116,9 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
+        break;
+      case 'nextCharacterGains2Boost':
+        Globals::incNextCharacterBoost(2);
         break;
       case 'nextSpellIsFree':
         Globals::setNextSpellIsFree(true);

@@ -461,4 +461,13 @@ class Player extends \ALT\Helpers\DB_Model
       })
     );
   }
+
+  public function countUniversalTokenGigantic()
+  {
+    return count(
+      $this->getPlayedCards()->filter(function ($card) {
+        return $card->getDynamicGigantic() == 'universalGiganticToken';
+      })
+    );
+  }
 }

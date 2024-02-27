@@ -71,6 +71,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     'tapped' => 'bool',
     'gigantic' => 'bool',
+    'dynamicGigantic' => 'str',
     'fleeting' => 'bool',
     'seasoned' => 'bool',
     'minManaOrbs' => 'int', //used for cards that cannot be played unless specific amount of total mana
@@ -477,6 +478,18 @@ class Card extends \ALT\Helpers\DB_Model
       $tough += 2 * $this->getPlayer()->countUniversalCharacterTough();
     }
     return $tough;
+  }
+
+  public function isGigantic()
+  {
+    if (($this->properties['gigantic'] ?? false) == true) {
+      return true;
+    }
+
+    if ($this->isToken() && $this->getPlayer()->countUniversalTokenGigantic() > 0) {
+      return true;
+    }
+    return false;
   }
 
   public function isDefender()
