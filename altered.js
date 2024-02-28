@@ -1317,6 +1317,16 @@ define([
       });
     },
 
+    onEnteringStateTargetPlayer(args) {
+      let targetPlayer = (player) => {
+        return () => this.takeAtomicAction('actTargetPlayer', [player]);
+      };
+
+      this.forEachPlayer((player) => {
+        this.addPrimaryActionButton('btnTargetr' + player.id, player.name, targetPlayer(player.id));
+      });
+    },
+
     onEnteringStateRollDie(args) {
       let chooseRollDie = (roll) => {
         return () => this.takeAtomicAction('actRollDie', [roll]);

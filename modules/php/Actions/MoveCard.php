@@ -20,11 +20,12 @@ class MoveCard extends \ALT\Models\Action
 
   public function getDescription()
   {
-    if (($this->getCtxArg('cardId') ?? null) == null) {
-      return clienttranslate('move a character to opposite expedition');
-    }
+
     if ($this->getArg('cards') == ALL) {
       return clienttranslate('move all characters to opposite expedition');
+    }
+    if (($this->getCtxArg('cardId') ?? null) == null) {
+      return clienttranslate('move a character to opposite expedition');
     }
 
     return [
