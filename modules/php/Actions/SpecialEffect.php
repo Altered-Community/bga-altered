@@ -153,6 +153,16 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
         break;
+      case 'boostXReserveAll':
+        $n = 0;
+        foreach (Players::getAll() as $pId => $player) {
+          $n += $player->getReserveCards()->count();
+        }
+
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
       case 'boost3Stat0':
         $nb = 0;
         foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
