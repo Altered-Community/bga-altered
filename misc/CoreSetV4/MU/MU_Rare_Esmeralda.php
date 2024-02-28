@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\MU;
+
+use ALT\Helpers\FT;
 
 class MU_Rare_Esmeralda extends \ALT\Models\Card
 {
@@ -24,6 +27,7 @@ class MU_Rare_Esmeralda extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
+      'effectHand' => FT::ACTION(RESUPPLY, [])
     ];
   }
 }
