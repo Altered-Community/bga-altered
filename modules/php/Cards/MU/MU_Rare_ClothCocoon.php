@@ -1,29 +1,28 @@
 <?php
 
-namespace ALT\Cards\LY;
+namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-class LY_Common_ClothCocoon extends \ALT\Models\Card
+class MU_Rare_ClothCocoon extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_24_C',
-      'asset' => 'ALT_CORE_B_LY_24_C',
+      'uid' => 'ALT_CORE_B_LY_24_R2',
+      'asset' => 'ALT_CORE_B_LY_24_R1',
 
-      'faction' => FACTION_LY,
-      'rarity' => RARITY_COMMON,
+      'faction' => FACTION_MU,
+      'rarity' => RARITY_RARE,
       'name' => 'Cloth Cocoon',
+      'typeline' => 'Spell - Disruption',
       'type' => SPELL,
+      'flavorText' => 'Nobody expects... the cloth dancer!',
+      'artist' => 'Zero Wen',
       'subtypes' => [DISRUPTION],
       'effectDesc' =>
       '$<FLEETING>.  Choose one:  • Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.  • Discard target Permanent.',
-      'typeline' => 'Spell - Disruption',
-      'flavorText' => 'Nobody expects... the cloth dancer!',
-      'artist' => 'Zero Wen',
-
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
