@@ -66,6 +66,14 @@ class Discard extends \ALT\Models\Action
           ->getIds(),
         true
       );
+    } elseif ($this->getArg('special') == 'allHandReserve') {
+      $this->actDiscard(
+        $this->getPlayer()
+          ->getHand()->merge($this->getPlayer()
+            ->getReserveCards())
+          ->getIds(),
+        true
+      );
     } elseif (
       $this->getArg('special') != 'nightCleanUp' &&
       !is_null($this->getCtxArg('n') ?? null) &&

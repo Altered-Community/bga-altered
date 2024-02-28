@@ -198,6 +198,15 @@ class SpecialEffect extends \ALT\Models\Action
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
 
         break;
+      case 'discardAllHandReserve':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = FT::ACTION(DISCARD, ['pId' => $pId, 'special' => 'allHandReserve']);
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+
+        break;
       case 'instantWin':
         if (Globals::getInstantWin() == false) {
           $card->getPlayer()->setScore(1);
