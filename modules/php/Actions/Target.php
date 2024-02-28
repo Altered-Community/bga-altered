@@ -248,6 +248,12 @@ class Target extends \ALT\Models\Action
         foreach ($node['childs'] as &$child) {
           $child['args']['cardId'] = $cardId;
           $child['sourceId'] = $this->getSourceId();
+          if (isset($child['childs'])) {
+            foreach ($child['childs'] as &$grandchild) {
+              $grandchild['args']['cardId'] = $cardId;
+              $grandchild['sourceId'] = $this->getSourceId();
+            }
+          }
         }
       }
 
