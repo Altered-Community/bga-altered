@@ -472,6 +472,13 @@ class Card extends \ALT\Helpers\DB_Model
         }
         $tough += $this->getPlayer()->getRegionDifference();
         break;
+      case 'controlledPlants':
+        foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+          if (in_array(PLANT, $card->getSubtypes())) {
+            $tough++;
+          }
+        }
+        break;
     }
 
     if (in_array($this->getType(), [CHARACTER, TOKEN])) {
