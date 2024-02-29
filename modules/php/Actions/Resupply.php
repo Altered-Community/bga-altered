@@ -30,7 +30,7 @@ class Resupply extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
-    return true;
+    return !$this->isOptional();
   }
 
   public function isIrreversible($player = null)

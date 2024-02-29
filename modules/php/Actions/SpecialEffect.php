@@ -316,6 +316,20 @@ class SpecialEffect extends \ALT\Models\Action
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         Notifications::message(clienttranslate('All players must sacrifice 1 character (${card_name}\'s effect)'), ['card' => $card]);
         break;
+      case 'eachPlayerOptionalResupply':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = [
+            'type' => NODE_SEQ,
+            'optional' => true,
+            'pId' => $pId,
+            'childs' => [
+              FT::ACTION(RESUPPLY, [], ['pId' => $pId, 'sourceId' => $this->getSourceId()])
+            ]
+          ];
+        }
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
       default:
         break;
     }
