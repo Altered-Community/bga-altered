@@ -189,6 +189,21 @@ abstract class Conditions
       $hasZero;
   }
 
+  public static function has3WithZeroStat($card, $event)
+  {
+    $playedCard = Cards::get($event['playedCard']);
+    $hasZero = 0;
+    foreach ($playedCard->getBiomes() as $biome => $value) {
+      if ($value == 0) {
+        $hasZero++;
+      }
+    }
+
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      $hasZero >= 3;
+  }
+
   public static function isCharacterPlayed($card, $event)
   {
     return $event['playCard'] === true &&
