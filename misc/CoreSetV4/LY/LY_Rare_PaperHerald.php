@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\LY;
+
+use ALT\Helpers\FT;
 
 class LY_Rare_PaperHerald extends \ALT\Models\Card
 {
@@ -19,13 +22,18 @@ class LY_Rare_PaperHerald extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [MESSENGER],
       'supportDesc' =>
-        '{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition. (Discard me from Reserve to do this.)',
+      '{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition. (Discard me from Reserve to do this.)',
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
       'changedStats' => ['mountain'],
+      'supportIcon' => 'discard',
+      'effectSupport' => FT::ACTION(INVOKE_TOKEN, [
+        'pId' => 'source',
+        'tokenType' => 'OD_Common_OrdisRecruit',
+      ]),
     ];
   }
 }
