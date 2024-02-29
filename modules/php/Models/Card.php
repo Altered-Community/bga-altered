@@ -497,26 +497,30 @@ class Card extends \ALT\Helpers\DB_Model
     if (($this->properties['defender'] ?? false) == true) {
       return true;
     }
-
+    $subType = '';
     $dynamicDefender = $this->getDynamicDefender();
     switch ($dynamicDefender) {
       case '2OtherPlants':
-        $c = 0;
-        foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
-          if ($cId == $this->id) {
-            continue;
-          }
-
-          if (in_array(PLANT, $card->getSubtypes())) {
-            $c++;
-          }
-        }
-        if ($c < 2) {
-          return true;
-        }
+        $subType = PLANT;
+        break;
+      case '2OtherBureaucrats':
+        $subType = BUREAUCRAT;
         break;
     }
 
+    $c = 0;
+    foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+      if ($cId == $this->id) {
+        continue;
+      }
+
+      if (in_array($subType, $card->getSubtypes())) {
+        $c++;
+      }
+    }
+    if ($c < 2) {
+      return true;
+    }
 
     // OD_Common_GulrangTocsin
     if (in_array($this->getPlayer()->getHero()->getUid(), ['ALT_CORE_B_OR_03_C'])) {
