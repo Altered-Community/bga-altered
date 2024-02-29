@@ -435,7 +435,9 @@ class Player extends \ALT\Helpers\DB_Model
     $cost = 0;
     foreach ($this->getPlayedCards() as $cId => $card) {
       $cost += $card->$f();
+      $cost += $card->getIncreaseOpponentCardsCost();
     }
+
     return $cost;
   }
 

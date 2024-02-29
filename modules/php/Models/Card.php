@@ -80,6 +80,7 @@ class Card extends \ALT\Helpers\DB_Model
     'oppositeDefender' => 'bool', // OD_Common_Issitoq
     'eternal' => 'bool',
     'blockingPower' => 'bool',
+    'increaseOpponentCardsCost' => 'int',
     'increaseOpponentCharacterCost' => 'int',
     'increaseOpponentSpellCost' => 'int',
     'increaseOpponentPermanentCost' => 'int',
