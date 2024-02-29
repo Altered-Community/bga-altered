@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\AX;
+
+use ALT\Helpers\FT;
 
 class AX_Rare_MunaMerchant extends \ALT\Models\Card
 {
@@ -24,6 +27,8 @@ class AX_Rare_MunaMerchant extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 3,
+      'effectReserve' => FT::ACTION(RESUPPLY, [])
+
     ];
   }
 }
