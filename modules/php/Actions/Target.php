@@ -37,6 +37,7 @@ class Target extends \ALT\Models\Action
     'hasEffects' => 'disabled',
     'cards' => [],
     'discardRemaining' => false,
+    'subType' => 'disabled',
   ];
 
   public function getDescription()
@@ -133,9 +134,10 @@ class Target extends \ALT\Models\Action
 
     $excludeSelf = $this->getArg('excludeSelf');
     $sourceId = $this->getSourceId();
+    $subType = $this->getArg('subType');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -156,6 +158,11 @@ class Target extends \ALT\Models\Action
           return false;
         }
       }
+
+      if ($subType != 'disabled' && !in_array($subType, $c->getSubtypes())) {
+        return false;
+      }
+
       $costCheck =
         $this->getArg('minHandCost') <= $handCost &&
         $handCost <= $maxHandCost &&
