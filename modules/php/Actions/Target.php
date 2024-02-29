@@ -122,6 +122,8 @@ class Target extends \ALT\Models\Action
     $targetLocation = $this->getArg('targetLocation');
     if ($targetLocation == ['source']) {
       $targetLocation = [$this->getSource()->getLocation()];
+    } elseif ($targetLocation == ['opposite']) {
+      $targetLocation = [$this->getSource()->getLocation() == STORM_RIGHT ? STORM_LEFT : STORM_RIGHT];
     }
 
     if (!empty($this->getArg('cards'))) {
