@@ -120,29 +120,31 @@ class InvokeToken extends \ALT\Models\Action
       $location = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
     }
 
-    $card = $this->getToken();
-    $card = Cards::singleCreate([
-      'player_id' => $player->getId(),
-      'location' => $location,
-      'nbr' => 1,
-      'properties' => $card->getProperties(),
-    ]);
+    for ($i = 0; $i < ($this->getCtxArg('n') ?? 1); $i++) {
+      $card = $this->getToken();
+      $card = Cards::singleCreate([
+        'player_id' => $player->getId(),
+        'location' => $location,
+        'nbr' => 1,
+        'properties' => $card->getProperties(),
+      ]);
 
-    Notifications::invokeToken($player, $card, $this->getSource());
-    Notifications::updateBiomes($player);
+      Notifications::invokeToken($player, $card, $this->getSource());
+      Notifications::updateBiomes($player);
 
-    // should we boost the card
-    if (Globals::getNextCharacterBoost() > 0) {
-      $this->insertAsChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
-      Globals::setNextCharacterBoost(0);
+      // should we boost the card
+      if (Globals::getNextCharacterBoost() > 0) {
+        $this->insertAsChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
+        Globals::setNextCharacterBoost(0);
+      }
+
+      $this->checkAfterListeners($player, [
+        'playCard' => true,
+        'playedCard' => $card->getId(),
+        'cardType' => $card->getType(),
+        'from' => 'invoke',
+      ]);
     }
-
-    $this->checkAfterListeners($player, [
-      'playCard' => true,
-      'playedCard' => $card->getId(),
-      'cardType' => $card->getType(),
-      'from' => 'invoke',
-    ]);
 
     $this->resolveAction([$card->getId()]);
   }

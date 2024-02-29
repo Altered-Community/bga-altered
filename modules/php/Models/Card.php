@@ -516,18 +516,20 @@ class Card extends \ALT\Helpers\DB_Model
         break;
     }
 
-    $c = 0;
-    foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
-      if ($cId == $this->id) {
-        continue;
-      }
+    if ($subType != '') {
+      $c = 0;
+      foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+        if ($cId == $this->id) {
+          continue;
+        }
 
-      if (in_array($subType, $card->getSubtypes())) {
-        $c++;
+        if (in_array($subType, $card->getSubtypes())) {
+          $c++;
+        }
       }
-    }
-    if ($c < 2) {
-      return true;
+      if ($c < 2) {
+        return true;
+      }
     }
 
     // OD_Common_GulrangTocsin

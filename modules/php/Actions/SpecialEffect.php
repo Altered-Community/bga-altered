@@ -296,6 +296,24 @@ class SpecialEffect extends \ALT\Models\Action
         )]);
         Globals::setAfterRest($afterRest);
         break;
+      case 'AfterRest2OrdisRecruit':
+        $afterRest = Globals::getAfterRest();
+        $pId = $card->getPlayer()->getId();
+        if (!isset($afterRest[$pId])) {
+          $afterRest[$pId] = [];
+        }
+        $afterRest[$pId] = array_merge($afterRest[$pId], [FT::ACTION(
+          INVOKE_TOKEN,
+          [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'n' => 2,
+            'targetLocation' => STORMS,
+          ],
+          ['sourceId' => $card->getId()]
+        )]);
+        Globals::setAfterRest($afterRest);
+        break;
       case 'AllPlayersSacrifice1':
         $activePlayer = Players::getActive();
         $player = $activePlayer;
