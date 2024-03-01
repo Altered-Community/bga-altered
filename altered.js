@@ -81,6 +81,7 @@ define([
         ['newPhase', 1000],
         ['putOnDeck', null],
         ['blockExpedition', 100],
+        ['blockAllExpeditions', 100],
 
         ['discard', 500],
         ['tap', 800],
@@ -421,6 +422,11 @@ define([
     },
 
     notif_blockExpedition(n) {
+      debug('Blocking expedition', n);
+      // TODO
+    },
+
+    notif_blockAllExpeditions(n) {
       debug('Blocking expedition', n);
       // TODO
     },

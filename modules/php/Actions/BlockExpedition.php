@@ -31,22 +31,42 @@ class BlockExpedition extends \ALT\Models\Action
     return [];
   }
 
+  public function stBlockExpedition()
+  {
+    if (($this->getCtxArg('expedition') ?? '') == 'all') {
+      return ['all'];
+    }
+  }
+
   public function actBlockExpedition($expedition)
   {
     $player = $this->getPlayer();
 
-    $expeditions = explode('-', $expedition);
-    $blocked = Globals::getBlockedExpeditions();
-    $block = [];
-    if (isset($blocked[$expeditions[2]])) {
-      $block = $blocked[$expeditions[2]];
+    if ($expedition == 'all' && ($this->getCtxArg('expedition') ?? '') != 'all') {
+      throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
     }
-    $block[] = $expeditions[1];
-    $blocked[$expeditions[2]] = $block;
-    Globals::setBlockedExpeditions($blocked);
 
-    Notifications::blockExpedition(Players::getActive(), Players::get($expeditions[2]), $expeditions[1]);
-    Notifications::updateBiomes(Players::get($expeditions[2]));
+    if ($expedition == 'all') {
+      $blocks = [];
+      foreach (Players::getAll() as $pId => $player) {
+        $blocks[$pId] = STORMS;
+      }
+      Globals::setBlockedExpeditions($blocks);
+      Notifications::blockAllExpeditions(Players::getActive(), $this->getSource());
+    } else {
+
+      $expeditions = explode('-', $expedition);
+      $blocked = Globals::getBlockedExpeditions();
+      $block = [];
+      if (isset($blocked[$expeditions[2]])) {
+        $block = $blocked[$expeditions[2]];
+      }
+      $block[] = $expeditions[1];
+      $blocked[$expeditions[2]] = $block;
+      Globals::setBlockedExpeditions($blocked);
+      Notifications::blockExpedition(Players::getActive(), Players::get($expeditions[2]), $expeditions[1]);
+    }
+    Notifications::updateBiomes(Players::getActive());
 
     return [$expedition];
   }

@@ -635,6 +635,14 @@ class Notifications
     ]);
   }
 
+  public function blockAllExpeditions($player, $source)
+  {
+    self::notifyAll('blockAllExpeditions',  clienttranslate('${player_name} blocks all expeditions until next Day (${card_name}'), [
+      'player' => $player,
+      'card' => $source,
+    ]);
+  }
+
   /*********** unchecked ******* */
   public static function refreshUI($datas)
   {
