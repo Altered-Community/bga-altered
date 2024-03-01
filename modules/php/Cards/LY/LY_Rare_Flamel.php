@@ -1,20 +1,20 @@
 <?php
 
-namespace ALT\Cards\YZ;
+namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-class YZ_Common_Flamel extends \ALT\Models\Card
+class LY_Rare_Flamel extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_YZ_14_C',
-      'asset' => 'ALT_CORE_B_YZ_14_C',
+      'uid' => 'ALT_CORE_B_YZ_14_R2',
+      'asset' => 'ALT_CORE_B_YZ_14_R1',
 
-      'faction' => FACTION_YZ,
-      'rarity' => RARITY_COMMON,
+      'faction' => FACTION_LY,
+      'rarity' => RARITY_RARE,
       'name' => 'Flamel',
       'typeline' => 'Character - Scholar',
       'type' => CHARACTER,

@@ -4,17 +4,17 @@ namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-class YZ_Common_Flamel extends \ALT\Models\Card
+class YZ_Rare_Flamel extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_YZ_14_C',
-      'asset' => 'ALT_CORE_B_YZ_14_C',
+      'uid' => 'ALT_CORE_B_YZ_14_R1',
+      'asset' => 'ALT_CORE_B_YZ_14_R1',
 
       'faction' => FACTION_YZ,
-      'rarity' => RARITY_COMMON,
+      'rarity' => RARITY_RARE,
       'name' => 'Flamel',
       'typeline' => 'Character - Scholar',
       'type' => CHARACTER,
@@ -22,22 +22,25 @@ class YZ_Common_Flamel extends \ALT\Models\Card
       'Rubedo is the final stage of alchemy, where one\'s substance is reborn like a phoenix before returning to the world.',
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '{H} You may return a Spell from your Reserve to your hand.',
+      'effectDesc' => '{H} #$<RESUPPLY>.# Then, you may return a Spell from your Reserve to your hand.',
       'supportDesc' => '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)',
       'forest' => 4,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 4,
       'costReserve' => 3,
-      'effectHand' => FT::ACTION(
-        TARGET,
-        [
-          'targetLocation' => [RESERVE],
-          'targetPlayer' => ME,
-          'targetType' => [SPELL],
-          'effect' => FT::RETURN_TO_HAND(),
-        ],
-        ['optional' => true]
+      'effectHand' => FT::SEQ(
+        FT::ACTION(RESUPPLY, []),
+        FT::ACTION(
+          TARGET,
+          [
+            'targetLocation' => [RESERVE],
+            'targetPlayer' => ME,
+            'targetType' => [SPELL],
+            'effect' => FT::RETURN_TO_HAND(),
+          ],
+          ['optional' => true]
+        )
       ),
       'supportIcon' => 'discard',
       'effectSupport' => [
