@@ -253,6 +253,16 @@ abstract class Conditions
     return $card->getPId() == $event['pId'] && $event['sacrifice'] == true && $found;
   }
 
+  public static function isSacrificed($card, $event)
+  {
+    foreach ($event['cards'] as $cdId => $card2) {
+      if ($card2->getId() == $card->getId()) {
+        $found = true;
+      }
+    }
+    return $card->getPId() == $event['pId'] && $event['sacrifice'] == true && $found;
+  }
+
   public static function isSourceAndDiscardPermanent($card, $event)
   {
     if ($card->getPId() != $event['pId'] || $card->getId() != $event['sourceId']) {
