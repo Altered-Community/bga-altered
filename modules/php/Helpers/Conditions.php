@@ -222,6 +222,13 @@ abstract class Conditions
       in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]);
   }
 
+  public static function isNonTokenPlayed($card, $event)
+  {
+    return $event['playCard'] === true &&
+      $card->getPId() == $event['pId'] &&
+      Cards::get($event['playedCard'])->getType() == CHARACTER;
+  }
+
   public static function isDiscardedFromHandToReserve($card, $event)
   {
     $cardId = $card->getId();
