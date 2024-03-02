@@ -114,6 +114,27 @@ class SpecialEffect extends \ALT\Models\Action
         }
         $this->pushParallelChilds($childs);
         break;
+      case 'activateAllOtherCharacters':
+        $cards = $card->getPlayer()->getPlayedCards();
+        $childs = [];
+        foreach ($cards as $cId => $card) {
+          if ($card->getType() != CHARACTER || $cId == $this->getSourceId()) {
+            continue;
+          }
+
+          if (empty($card->getEffectPlayed())) {
+            continue;
+          }
+
+          $childs[] = [
+            'action' => ACTIVATE_EFFECT,
+            'optional' => true,
+            'args' => ['cardId' => $cId],
+            'sourceId' => $card->getId(),
+          ];
+        }
+        $this->pushParallelChilds($childs);
+        break;
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
         break;
