@@ -25,6 +25,8 @@ class BR_Rare_LadyoftheLake extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
+      'supportIcon' => 'discard',
+      'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'removeFleetingSpellPlayed'])
     ];
   }
 }

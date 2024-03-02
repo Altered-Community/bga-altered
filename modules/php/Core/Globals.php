@@ -49,6 +49,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'afterRest' => 'obj', // used for triggers readd during dusk but that should be trigerred after Rest
     'nextSpellIsFree' => 'bool',
     'removeFleetingIfSpellPlayedHand' => 'bool',
+    'removeFleetingSpellPlayed' => 'bool',
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
   ];

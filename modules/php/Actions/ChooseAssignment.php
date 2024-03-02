@@ -236,7 +236,10 @@ class ChooseAssignment extends \ALT\Models\Action
     if ($card->getType() == SPELL) {
       if ($fromLocation == HAND &&  Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
         Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+      } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
+        Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
       }
+
       Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()]]);
     }
   }
