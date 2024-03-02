@@ -1,0 +1,39 @@
+<?php
+
+namespace ALT\Cards\OD;
+
+use ALT\Helpers\FT;
+
+class OD_Rare_CelestialBlast extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CORE_B_YZ_27_R2',
+      'asset' => 'ALT_CORE_B_YZ_27_R1',
+
+      'faction' => FACTION_OD,
+      'rarity' => RARITY_RARE,
+      'name' => 'Celestial Blast',
+      'typeline' => 'Spell - Disruption',
+      'type' => SPELL,
+      'flavorText' => 'The sky cracked open in a thunderous wave as the dream was unleashed upon the world.',
+      'artist' => 'HuoMiao Studio',
+      'subtypes' => [DISRUPTION],
+      'effectDesc' => '$<FLEETING>.  Discard up to two targets, Characters or Permanents.  #Draw a card.#',
+      'costHand' => 7,
+      'costReserve' => 7,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN, PERMANENT],
+          'n' => 2,
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+        FT::ACTION(DRAW, ['players' => ME])
+      )
+    ];
+  }
+}
