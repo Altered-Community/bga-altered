@@ -1,5 +1,8 @@
 <?php
+
 namespace ALT\Cards\BR;
+
+use ALT\Helpers\FT;
 
 class BR_Rare_Sakarabru extends \ALT\Models\Card
 {
@@ -24,6 +27,7 @@ class BR_Rare_Sakarabru extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 7,
       'costReserve' => 4,
+      'effectHand' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT]),
     ];
   }
 }
