@@ -129,6 +129,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'nextCharacterCost3Anchored':
         Globals::setNextCharacterCost3Anchored(true);
         break;
+      case 'removeFleetingIfPlayedHand':
+        Globals::setRemoveFleetingIfPlayedHand(true);
+        break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
           throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');

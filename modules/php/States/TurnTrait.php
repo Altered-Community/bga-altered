@@ -101,6 +101,7 @@ trait TurnTrait
     Globals::setAdditionalEffect([]);
     Globals::setActivePId($player->getId());
     Globals::setNextSpellIsFree(false);
+    Globals::setRemoveFleetingIfPlayedHand(false);
 
     self::giveExtraTime($player->getId());
 

@@ -48,6 +48,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'additionalEffect' => 'obj', // use to trigger R/H of next character
     'afterRest' => 'obj', // used for triggers readd during dusk but that should be trigerred after Rest
     'nextSpellIsFree' => 'bool',
+    'removeFleetingIfPlayedHand' => 'bool',
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
   ];
