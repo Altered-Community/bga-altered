@@ -26,6 +26,12 @@ class LY_Rare_Martengale extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
+      'supportIcon' => 'discard',
+      'effectSupport' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
+      ],
+      'addRoll' => 1,
     ];
   }
 }

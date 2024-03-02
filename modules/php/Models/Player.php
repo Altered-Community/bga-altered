@@ -228,6 +228,15 @@ class Player extends \ALT\Helpers\DB_Model
     );
   }
 
+  public function getAddRoll()
+  {
+    $add = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $add += $card->getAddRoll();
+    }
+    return $add;
+  }
+
   public function getRegionDifference()
   {
     if (is_null($this->getCompanionToken())) {

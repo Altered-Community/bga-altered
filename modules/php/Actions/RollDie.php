@@ -126,9 +126,17 @@ class RollDie extends \ALT\Models\Action
     }
 
     // TODO: add power to increment die result
+    $newRolls = [];
+    $addRoll = $player->getAddRoll();
+    foreach ($rolls as $roll) {
+      $newRolls[] = $roll;
+      for ($i = 1; $i <= $addRoll; $i++) {
+        $newRolls[] = $roll + $i;
+      }
+    }
 
     Notifications::roll($player, $rolls, $source);
-    Globals::setDiceRolls($rolls);
+    Globals::setDiceRolls($newRolls);
     Log::checkpoint(true);
   }
 

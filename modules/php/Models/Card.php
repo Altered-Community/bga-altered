@@ -92,6 +92,7 @@ class Card extends \ALT\Helpers\DB_Model
     // Tough management
     'tough' => 'int',
     'dynamicTough' => 'str',
+    'addRoll' => 'int',
 
     'extraDatas' => 'obj',
   ];
