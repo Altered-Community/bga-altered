@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\LY;
 
+use ALT\Helpers\FT;
+
 class LY_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -25,6 +27,7 @@ class LY_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 5,
       'costReserve' => 5,
+      'effectPlayed' => FT::ACTION(DISCARD_DRAW, [])
     ];
   }
 }

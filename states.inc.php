@@ -303,6 +303,18 @@ $machinestates = [
     'possibleactions' => ['actTarget', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_DISCARD_DRAW => [
+    'name' => 'discardDraw',
+    // 'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
+    // 'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
+    'description' => clienttranslate('${actplayer} may discard cards to draw the same amount of cards'),
+    'descriptionmyturn' => clienttranslate('${you} may discard cards to draw the same amount of cards'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actTarget', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ST_TARGET_PLAYER => [
     'name' => 'targetPlayer',
     'description' => '${actplayer} ${description}',

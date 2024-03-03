@@ -1247,6 +1247,10 @@ define([
       });
     },
 
+    onEnteringStateDiscardDraw(args) {
+      this.onEnteringStateTarget(args);
+    },
+
     onLeavingStateTarget() {
       document.querySelectorAll('.tough-marker').forEach((o) => o.remove());
     },

@@ -58,7 +58,11 @@ class Discard extends \ALT\Models\Action
   public function stDiscard()
   {
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
-      $this->actDiscard([$this->getCtxArg('cardId')], true);
+      if (!is_array($this->getCtxArg('cardId'))) {
+        $this->actDiscard([$this->getCtxArg('cardId')], true);
+      } else {
+        $this->actDiscard($this->getCtxArg('cardId'), true);
+      }
     } elseif ($this->getArg('special') == 'allHand') {
       $this->actDiscard(
         $this->getPlayer()

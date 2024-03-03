@@ -80,6 +80,7 @@ const ST_PAY = 40;
 const ST_DRAW_MANA = 41;
 const ST_BLOCK_EXPEDITION = 42;
 const ST_TARGET_PLAYER = 43;
+const ST_DISCARD_DRAW = 44;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -139,6 +140,7 @@ const PAY = 'Pay';
 const DRAW_MANA = 'DrawMana';
 const BLOCK_EXPEDITION = 'BlockExpedition';
 const TARGET_PLAYER = 'TargetPlayer';
+const DISCARD_DRAW = 'DiscardDraw';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';
