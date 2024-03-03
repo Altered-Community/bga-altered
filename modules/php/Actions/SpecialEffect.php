@@ -389,6 +389,21 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         break;
+      case 'sleepingAllCharactersinExpedition':
+        $expedition = $this->getCtxArg('expedition');
+        $pId = $this->getCtxArg('player');
+        $nodes = [];
+
+        foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
+          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(ASLEEP) || $card->getLocation() != $expedition) {
+            continue;
+          }
+          $nodes[] = FT::GAIN($cId, ASLEEP);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
       default:
         break;
     }

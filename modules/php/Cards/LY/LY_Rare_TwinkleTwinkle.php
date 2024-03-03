@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\LY;
 
+use ALT\Helpers\FT;
+
 class LY_Rare_TwinkleTwinkle extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -25,6 +27,12 @@ class LY_Rare_TwinkleTwinkle extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
+      'supportIcon' => 'discard',
+      'effectPlayed' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sleepingAllCharactersinExpedition'])]),
+      'effectSupport' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
+      ],
     ];
   }
 }

@@ -351,6 +351,16 @@ $machinestates = [
     'possibleactions' => ['actBlockExpedition', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_TARGET_EXPEDITION => [
+    'name' => 'targetExpedition',
+    'description' => clienttranslate('${actplayer} must target an expedition'),
+    'descriptionmyturn' => clienttranslate('${you} must target an expedition'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actTargetExpedition', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ST_PLAY_CARD => [
     'name' => 'playCard',
     'description' => clienttranslate('${actplayer} may play ${card_name}'),

@@ -1327,6 +1327,25 @@ define([
       });
     },
 
+    onEnteringStateTargetExpedition(args) {
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+        source: _('source'),
+        oppositeSource: _('opposite of played card'),
+      };
+
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actTargetExpedition', [location]);
+      };
+
+      this.forEachPlayer((player) => {
+        ['stormLeft', 'stormRight'].forEach((location) => {
+          this.onClick(`board-${location}-${player.id}`, onChooseLocation(`board-${location}-${player.id}`));
+        });
+      });
+    },
+
     onEnteringStateTargetPlayer(args) {
       let targetPlayer = (player) => {
         return () => this.takeAtomicAction('actTargetPlayer', [player]);
