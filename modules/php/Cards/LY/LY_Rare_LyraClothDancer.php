@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\LY;
 
+use ALT\Helpers\FT;
+
 class LY_Rare_LyraClothDancer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -27,6 +29,7 @@ class LY_Rare_LyraClothDancer extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 2,
       'changedStats' => ['mountain'],
+      'effectHand' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => false, 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'fleetingAllCharacters'])])
     ];
   }
 }

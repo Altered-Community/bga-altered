@@ -67,7 +67,6 @@ class TargetPlayer extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You cannot target yourself. Should not happen');
     }
 
-
     $node = $this->getArg('effect');
     $node['sourceId'] = $this->getSourceId();
     if (isset($node['childs'])) {

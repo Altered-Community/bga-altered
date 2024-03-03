@@ -375,6 +375,20 @@ class SpecialEffect extends \ALT\Models\Action
         }
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
+      case 'fleetingAllCharacters':
+        $player = Players::getActive();
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $card) {
+          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(FLEETING)) {
+            continue;
+          }
+          $nodes[] = FT::GAIN($cId, FLEETING);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+
+        break;
       default:
         break;
     }
