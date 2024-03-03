@@ -235,6 +235,7 @@ define([
       this.setupPlayers();
       this.setupCards();
       this.setupMeeples();
+      this.setupOAuth();
       // this.setupSortableHand();
       this.inherited(arguments);
     },
@@ -275,6 +276,57 @@ define([
       //     touchStartThreshold: 10,
       //   });
       // }
+    },
+
+    /*
+     * Create form to request access token from Google's OAuth 2.0 server.
+     */
+    setupOAuth() {
+      // Google's OAuth 2.0 endpoint for requesting an access token
+      let oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+      // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+      let form = document.createElement('form');
+      form.setAttribute('method', 'GET'); // Send as a GET request.
+      form.setAttribute('action', oauth2Endpoint);
+
+      // Parameters to pass to OAuth 2.0 endpoint.
+      let params = {
+        project_id: 'bga-altered',
+        client_id: '516885558184-6amd2b1sma940uh2o7p3fbqocoh3qfkd.apps.googleusercontent.com',
+        redirect_uri: 'https://localhost/index.php',
+        response_type: 'code',
+        scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+        include_granted_scopes: 'true',
+        state: 'pass-through value',
+      };
+
+      // Add form parameters as hidden input values.
+      for (var p in params) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', p);
+        input.setAttribute('value', params[p]);
+        form.appendChild(input);
+      }
+
+      let btn = document.createElement('button');
+      btn.setAttribute('type', 'submit');
+      btn.appendChild(document.createTextNode('OAuth'));
+      btn.classList.add('bgabutton');
+      btn.classList.add('bgabutton_red');
+      btn.style.position = 'absolute';
+      btn.style.top = '50%';
+      btn.style.left = '0px';
+      btn.style.width = '100px';
+      btn.style.zIndex = 1000;
+      btn.style.fontSize = '20px';
+      btn.style.display = 'none';
+      form.appendChild(btn);
+
+      // Add form to page and submit it to open the OAuth 2.0 endpoint.
+      $('altered-board').appendChild(form);
+      //      form.submit();
     },
 
     setupBoard() {
