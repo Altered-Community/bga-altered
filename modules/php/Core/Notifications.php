@@ -71,6 +71,11 @@ class Notifications
     ]);
   }
 
+  public static function updateDeckList($player, $deckList)
+  {
+    self::notify($player, 'updateDeckList', '', ['deckList' => $deckList]);
+  }
+
   public static function vsScreen($factions)
   {
     self::notifyAll('vsScreen', '', ['factions' => $factions]);

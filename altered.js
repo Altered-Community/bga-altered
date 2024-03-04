@@ -769,7 +769,22 @@ define([
           this.addCard(deck.hero, 'overlay-deck-container');
           $(`card-${deck.hero.id}`).classList.add('no-frame');
         });
+        $('altered-overlay-content').insertAdjacentHTML(
+          'beforeend',
+          `<div id = 'apiSetup' style='background:white;'>
+          <h2>Load Deck from Equinox</h2>
+          Login: <input type="text" id="apiLogin"/><br>
+          password: <input type="password" id="apiSecret"/>
+          <div id='apiSubmit' style='border:1px solid;'>Get decks</div></div>
+          `
+        );
       }
+
+      this.onClick(`apiSubmit`, () => {
+        login = $('apiLogin').value;
+        secret = $('apiSecret').value;
+        this.takeAction('actLoadAPIDecks', { lo: JSON.stringify(login), sec: JSON.stringify(secret) }, false);
+      });
 
       decks.forEach((deck) => {
         this.onClick(`card-${deck.hero.id}`, () => selectDeck(deck));

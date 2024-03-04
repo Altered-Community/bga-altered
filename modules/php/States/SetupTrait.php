@@ -32,6 +32,75 @@ trait SetupTrait
     $this->activeNextPlayer();
   }
 
+  //////////////////////////////////
+  //// API
+  ///////////////////////
+
+  function connectToAPI($user, $secret)
+  {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => API_URL . 'login',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => '{
+        "email": "' . $user . '",
+        "password": "' . $secret . '"
+    }',
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+    $response = json_decode(curl_exec($curl), true);
+    if (!isset($response['token'])) {
+      throw new \feException('Invalid login or password');
+    }
+    $token = $response['token'];
+    curl_close($curl);
+    return $token;
+  }
+
+  function updateAPIDeckList($pId, $token)
+  {
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => API_URL . 'deck_user_lists/',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'token: ' . $token,
+        'Authorization: Bearer ' . $token,
+        // 'Cookie: PHPSESSID=pvg1jab35e1o55alsmu3bk3or9'
+      ),
+    ));
+
+    $decks = json_decode(curl_exec($curl), true);
+
+    curl_close($curl);
+    $deckList = [];
+    $numDeck = 0;
+    foreach ($decks['hydra:member'] as $deck) {
+      // $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction];
+      $deckList[$numDeck] = ['deckNum' => $numDeck, 'apiId' => $deck['@id'], 'faction' => $deck['faction']['name'], 'deckName' => $deck['name'], 'hero' => $deck['alterator']['@id'], 'cardCount' => $deck['cardQuantity']];
+      $numDeck++;
+    }
+    $playerDecks = Globals::getPlayerDecks();
+    $playerDecks[$pId] = $deckList;
+    Globals::setPlayerDecks($playerDecks);
+    return $deckList;
+  }
+
   //////////////////////////////////////////////////////////////////
   //  ____
   // |  _ \ _ __ ___  ___ ___  ___
@@ -64,6 +133,14 @@ trait SetupTrait
     }
 
     return $args;
+  }
+
+  public function actLoaAPIdDecks($login, $secret)
+  {
+    $token = $this->connectToAPI($login, $secret);
+    $deckList = $this->updateAPIDeckList(Players::getCurrent()->getId(), $token);
+    // getdecks and create in DB
+    Notifications::updateDeckList(Players::getCurrent(), $deckList);
   }
 
   public function actSelectPrecoDeck($choice)

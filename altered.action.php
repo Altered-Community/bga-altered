@@ -1,4 +1,5 @@
 <?php
+
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
@@ -64,6 +65,16 @@ class action_altered extends APP_GameAction
     self::setAjaxMode();
     $choice = self::getArg('choice', AT_int, true);
     $this->game->actSelectPrecoDeck($choice);
+    self::ajaxResponse();
+  }
+
+  public function actLoadAPIDecks()
+  {
+    self::setAjaxMode();
+    $login = self::getArg('lo', AT_json, true);
+    $this->validateJSonAlphaNum($login, 'lo');
+    $secret = self::getArg('sec', AT_json, true);
+    $this->game->actLoaAPIdDecks($login, $secret);
     self::ajaxResponse();
   }
 
@@ -196,9 +207,9 @@ class action_altered extends APP_GameAction
     if (is_int($value)) {
       return true;
     }
-    $bValid = preg_match('/^[_0-9a-zA-Z- ]*$/', $value) === 1;
+    $bValid = preg_match('/^[_0-9a-zA-Z- @.-]*$/', $value) === 1;
     if (!$bValid) {
-      throw new feException("Bad value for: $argName", true, true, FEX_bad_input_argument);
+      throw new feException("Bad value for: $argName $value", true, true, FEX_bad_input_argument);
     }
     return true;
   }
