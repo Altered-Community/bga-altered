@@ -140,7 +140,8 @@ trait SetupTrait
     $token = $this->connectToAPI($login, $secret);
     $deckList = $this->updateAPIDeckList(Players::getCurrent()->getId(), $token);
     // getdecks and create in DB
-    Notifications::updateDeckList(Players::getCurrent(), $deckList);
+    // Notifications::updateDeckList(Players::getCurrent(), $deckList);
+    return $deckList;
   }
 
   public function actSelectPrecoDeck($choice)

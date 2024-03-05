@@ -74,8 +74,8 @@ class action_altered extends APP_GameAction
     $login = self::getArg('lo', AT_json, true);
     $this->validateJSonAlphaNum($login, 'lo');
     $secret = self::getArg('sec', AT_json, true);
-    $this->game->actLoaAPIdDecks($login, $secret);
-    self::ajaxResponse();
+    $deckList = $this->game->actLoaAPIdDecks($login, $secret);
+    self::ajaxResponseWithResult($deckList);
   }
 
   public function actCancelPrecoDeckSelection()
