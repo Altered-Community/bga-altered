@@ -21,6 +21,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     'playerDecks' => 'obj',
     'deckOptions' => 'str',
+    'deckContent' => 'obj',
 
     'firstPlayer' => 'int',
     'skippedPlayers' => 'obj',
@@ -58,7 +59,10 @@ class Globals extends \ALT\Helpers\DB_Manager
   protected static $primary = 'name';
   protected static function cast($row)
   {
-    $val = json_decode(\stripslashes($row['value']), true);
+
+    $val = str_replace('\\\\', '\\\\\\\\', $row['value']);
+    $val = json_decode($val, true, 512, JSON_UNESCAPED_SLASHES);
+
     return self::$variables[$row['name']] == 'int' ? ((int) $val) : $val;
   }
 
@@ -157,7 +161,7 @@ class Globals extends \ALT\Helpers\DB_Manager
         }
 
         self::$data[$name] = $value;
-        self::DB()->update(['value' => \addslashes(\json_encode($value))], $name);
+        self::DB()->update(['value' => \addslashes(\json_encode($value, JSON_UNESCAPED_SLASHES))], $name);
         return $value;
       } elseif ($match[1] == 'inc') {
         if (self::$variables[$name] != 'int') {

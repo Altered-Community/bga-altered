@@ -659,6 +659,7 @@ define([
     onEnteringStateSelectPrecoDeck(args) {
       if (!args._private) return;
       let deckNum = args._private.selection;
+      if (deckNum == 'API') return;
       debug(args);
 
       const FACTION_NAMES = {
@@ -783,7 +784,39 @@ define([
       this.onClick(`apiSubmit`, () => {
         login = $('apiLogin').value;
         secret = $('apiSecret').value;
-        this.takeAction('actLoadAPIDecks', { lo: JSON.stringify(login), sec: JSON.stringify(secret) }, false);
+        this.takeAction('actLoadAPIDecks', { lo: JSON.stringify(login), sec: JSON.stringify(secret), lock: false }, false).then(
+          (response) => {
+            debug(response);
+            if ($(`deckList`)) {
+              $(`deckList`).remove();
+            }
+
+            $('altered-overlay-content').insertAdjacentHTML(
+              'beforeend',
+              `<div id = 'deckList' style='background:white;'>
+              </div>
+              `
+            );
+            response.data.forEach((deck) => {
+              $(`deckList`).insertAdjacentHTML('beforeEnd', `<div id='${deck.apiId}'>${deck.deckName} (${deck.faction})</div>`);
+            });
+
+            response.data.forEach((deck) => {
+              this.onClick(deck.apiId, () => {
+                this.takeAction(
+                  'actGetDeckInfos',
+                  { lo: JSON.stringify(login), sec: JSON.stringify(secret), deckID: JSON.stringify(deck.apiId), lock: false },
+                  false
+                ).then((deckContent) => {
+                  debug(deckContent.data);
+                  this.addPrimaryActionButton('btnConfirmDeck', 'Confirm API Deck', () => {
+                    this.takeAction('actConfirmAPIDeck', {}, false);
+                  });
+                });
+              });
+            });
+          }
+        );
       });
 
       decks.forEach((deck) => {

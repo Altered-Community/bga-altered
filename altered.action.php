@@ -78,6 +78,25 @@ class action_altered extends APP_GameAction
     self::ajaxResponseWithResult($deckList);
   }
 
+
+  public function actGetDeckInfos()
+  {
+    self::setAjaxMode();
+    $login = self::getArg('lo', AT_json, true);
+    $this->validateJSonAlphaNum($login, 'lo');
+    $secret = self::getArg('sec', AT_json, true);
+    $deckId = self::getArg('deckID', AT_json, true);
+    $deckContent = $this->game->actGetDeckInfos($login, $secret, $deckId);
+    self::ajaxResponseWithResult($deckContent);
+  }
+
+  public function actConfirmAPIDeck()
+  {
+    self::setAjaxMode();
+    $this->game->actConfirmAPIDeck();
+    self::ajaxResponse();
+  }
+
   public function actCancelPrecoDeckSelection()
   {
     self::setAjaxMode();

@@ -40,7 +40,7 @@ trait SetupTrait
   {
     $curl = curl_init();
     curl_setopt_array($curl, array(
-      CURLOPT_URL => API_URL . 'login',
+      CURLOPT_URL => API_URL . '/login',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -70,7 +70,7 @@ trait SetupTrait
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-      CURLOPT_URL => API_URL . 'deck_user_lists/',
+      CURLOPT_URL => API_URL . '/deck_user_lists/',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -95,11 +95,47 @@ trait SetupTrait
       $deckList[$numDeck] = ['deckNum' => $numDeck, 'apiId' => $deck['@id'], 'faction' => $deck['faction']['name'], 'deckName' => $deck['name'], 'hero' => $deck['alterator']['@id'], 'cardCount' => $deck['cardQuantity']];
       $numDeck++;
     }
-    $playerDecks = Globals::getPlayerDecks();
-    $playerDecks[$pId] = $deckList;
-    Globals::setPlayerDecks($playerDecks);
+    // $playerDecks = Globals::getPlayerDecks();
+    // $playerDecks[$pId] = $deckList;
+    // Globals::setPlayerDecks($playerDecks);
     return $deckList;
   }
+
+  function getAPIDeckContent($token, $deckId)
+  {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => API_URL . $deckId,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'token: ' . $token,
+        'Authorization: Bearer ' . $token,
+        // 'Cookie: PHPSESSID=pvg1jab35e1o55alsmu3bk3or9'
+      ),
+    ));
+
+    $deck = json_decode(curl_exec($curl), true);
+    // throw new \feException(print_r($deck));
+    curl_close($curl);
+    $deckContent = [];
+    $deckContent[HERO] = ['card' => Cards::getCardClass($deck['alterator']['reference']), 'n' => 1];
+    foreach ($deck['deckUserListCards'] as $c) {
+      $deckContent[] = ['card' => Cards::getCardClass($c['card']['reference']), 'n' => $c['quantity']];
+    }
+    $gContent = Globals::getDeckContent();
+    $gContent[Players::getCurrentId()] = $deckContent;
+    Globals::setDeckContent($gContent);
+
+    return $deckContent;
+  }
+
+
 
   //////////////////////////////////////////////////////////////////
   //  ____
@@ -142,6 +178,25 @@ trait SetupTrait
     // getdecks and create in DB
     // Notifications::updateDeckList(Players::getCurrent(), $deckList);
     return $deckList;
+  }
+
+  public function actGetDeckInfos($login, $secret, $deckID)
+  {
+    $token = $this->connectToAPI($login, $secret);
+    return $this->getAPIDeckContent($token, $deckID);
+  }
+
+  public function actConfirmAPIDeck()
+  {
+    $this->gamestate->checkPossibleAction('actConfirmAPIDeck');
+
+    $player = Players::getCurrent();
+    $selection = Globals::getDeckSelection();
+    $selection[$player->getId()] = 'API';
+    Globals::setDeckSelection($selection);
+    Notifications::updateInitialPrecoDeckSelection($player, self::argsPrecoDeckSelection());
+
+    $this->updateActivePlayersPrecoDeckSelection();
   }
 
   public function actSelectPrecoDeck($choice)
@@ -265,12 +320,18 @@ trait SetupTrait
   function stDeckSetup()
   {
     $selection = Globals::getDeckSelection();
+    // throw new \feException(print_r(Globals::getDeckContent()));
     $factionMap = [FACTION_AX => 1, FACTION_BR => 2, FACTION_LY => 3, FACTION_MU => 4, FACTION_OD => 5, FACTION_YZ => 6];
     $factions = [];
     foreach (Players::getAll() as $pId => $player) {
-      $deckNumber = $selection[$pId];
-      // faction setup
-      $faction = Globals::getPlayerDecks()[$pId][$deckNumber]['faction'];
+      if ($selection[$pId] == 'API') {
+        $deckContent = Globals::getDeckContent()[$pId];
+        $faction = Cards::createDeck($player, $deckContent);
+      } else {
+        $deckNumber = $selection[$pId];
+        // faction setup
+        $faction = Globals::getPlayerDecks()[$pId][$deckNumber]['faction'];
+      }
       $player->setFaction($faction);
       $factions[$pId] = $faction;
       Stats::setFaction($player, $factionMap[$faction]);

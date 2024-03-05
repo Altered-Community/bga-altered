@@ -264,7 +264,7 @@ const GIGANTIC = 'gigantic';
 const ANCHORED = 'anchored';
 const ASLEEP = 'asleep';
 
-const API_URL = 'https://api.equinox-ccg.io/';
+const API_URL = 'https://api.equinox-ccg.io';
 
 /******************
  ****** STATS ******

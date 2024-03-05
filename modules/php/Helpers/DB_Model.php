@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Helpers;
+
 use ALT\Core\Game;
 
 abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
@@ -34,7 +36,9 @@ abstract class DB_Model extends \APP_DbObject implements \JsonSerializable
           $this->$attribute = (bool) $this->$attribute;
         }
         if ($field[1] == 'obj') {
-          $this->$attribute = json_decode($this->$attribute, true);
+          if (!is_array($this->$attribute)) {
+            $this->$attribute = json_decode($this->$attribute, true);
+          }
         }
       }
     }

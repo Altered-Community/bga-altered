@@ -56,6 +56,17 @@ class Cards extends \ALT\Helpers\CachedPieces
     return new Card($data); // information from DB
   }
 
+  public static function getCardClass($uid)
+  {
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    if (!isset(MAP_REFS_CLASSES[$uid])) {
+      throw new \BgaVisibleSystemException('This card is not implemented ' . $uid);
+    }
+    $cInfo = explode('/', MAP_REFS_CLASSES[$uid]);
+    $className = "\\ALT\\Cards\\$cInfo[0]\\$cInfo[1]";
+    return new $className(null);
+  }
+
   public static function getUiData($pId, $refresh = false)
   {
     $current = Players::getCurrent() == null ? false : Players::getCurrent()->getId() == $pId;
@@ -127,6 +138,40 @@ class Cards extends \ALT\Helpers\CachedPieces
     self::create($toCreate, null);
     return $deckList;
     // self::shuffle('deck-' . $pId);
+  }
+
+  public static function createDeck($player, $deckContent)
+  {
+    // Load list of cards
+    $toCreate = [];
+    $pId = $player->getId();
+    $faction = '';
+
+    $toCreate[] = [
+      'player_id' => $pId,
+      'location' => 'board-hero-' . $pId,
+      'nbr' => 1,
+      'properties' => $deckContent[HERO]['card']['properties'],
+    ];
+    $location = 'deck-API';
+    foreach ($deckContent as $cardInfo) {
+      $card = new Card($cardInfo['card']);
+
+      // we do not create token as they will be created on the fly
+      if ($card->isToken()) {
+        continue;
+      }
+
+      $toCreate[] = [
+        'player_id' => $pId,
+        'location' => $location,
+        'nbr' => $cardInfo['n'],
+        'properties' => $card->getProperties(),
+      ];
+      $faction = $card->getFaction();
+    }
+    self::create($toCreate, null);
+    return $faction;
   }
 
   public static function shuffleDeck($location)
