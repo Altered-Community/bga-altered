@@ -36,93 +36,89 @@ trait SetupTrait
   //// API
   ///////////////////////
 
-  function connectToAPI($user, $secret)
+  function equinoxAPIConnect($params)
   {
+    $mode = $params['mode'];
+    $user = $params['user'] ?? '';
+    $secret = $params['secret'] ?? '';
+    $token = $params['token'] ?? '';
+    $deckId = $params['deckId'] ?? '';
     $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => API_URL . '/login',
+    $baseUrl = 'https://api.equinox-ccg.io';
+    $setup =  [
+      CURLOPT_URL => $baseUrl . '/login',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
       CURLOPT_TIMEOUT => 0,
       CURLOPT_FOLLOWLOCATION => true,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'POST',
-      CURLOPT_POSTFIELDS => '{
-        "email": "' . $user . '",
-        "password": "' . $secret . '"
-    }',
-      CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/json'
-      ),
-    ));
+    ];
+
+    switch ($mode) {
+      case 'login':
+        $setup[CURLOPT_URL] = $baseUrl . '/login';
+        $setup[CURLOPT_POSTFIELDS] = '{
+              "email": "' . $user . '",
+              "password": "' . $secret . '"
+          }';
+        $setup[CURLOPT_HTTPHEADER] = array(
+          'Content-Type: application/json'
+        );
+        $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
+        break;
+      case 'deckList':
+        $setup[CURLOPT_URL] = $baseUrl . '/deck_user_lists/';
+        $setup[CURLOPT_HTTPHEADER] = [
+          'token: ' . $token,
+          'Authorization: Bearer ' . $token,
+        ];
+        $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
+        // throw new \feException(print_r($setup));
+        break;
+      case 'deck':
+        $setup[CURLOPT_URL] = $baseUrl . $deckId;
+        $setup[CURLOPT_HTTPHEADER] = [
+          'token: ' . $token,
+          'Authorization: Bearer ' . $token,
+        ];
+        $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
+        break;
+    }
+    curl_setopt_array($curl, $setup);
     $response = json_decode(curl_exec($curl), true);
+    curl_close($curl);
+    return $response;
+  }
+
+  function connectToAPI($user, $secret)
+  {
+    $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
     if (!isset($response['token'])) {
       throw new \feException('Invalid login or password');
     }
     $token = $response['token'];
-    curl_close($curl);
     return $token;
   }
 
   function updateAPIDeckList($pId, $token)
   {
-    $curl = curl_init();
+    $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
 
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => API_URL . '/deck_user_lists/',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'GET',
-      CURLOPT_HTTPHEADER => array(
-        'token: ' . $token,
-        'Authorization: Bearer ' . $token,
-        // 'Cookie: PHPSESSID=pvg1jab35e1o55alsmu3bk3or9'
-      ),
-    ));
-
-    $decks = json_decode(curl_exec($curl), true);
-
-    curl_close($curl);
     $deckList = [];
     $numDeck = 0;
     foreach ($decks['hydra:member'] as $deck) {
-      // $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction];
       $deckList[$numDeck] = ['deckNum' => $numDeck, 'apiId' => $deck['@id'], 'faction' => $deck['faction']['name'], 'deckName' => $deck['name'], 'hero' => $deck['alterator']['@id'], 'cardCount' => $deck['cardQuantity']];
       $numDeck++;
     }
-    // $playerDecks = Globals::getPlayerDecks();
-    // $playerDecks[$pId] = $deckList;
-    // Globals::setPlayerDecks($playerDecks);
+
     return $deckList;
   }
 
   function getAPIDeckContent($token, $deckId)
   {
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => API_URL . $deckId,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'GET',
-      CURLOPT_HTTPHEADER => array(
-        'token: ' . $token,
-        'Authorization: Bearer ' . $token,
-        // 'Cookie: PHPSESSID=pvg1jab35e1o55alsmu3bk3or9'
-      ),
-    ));
+    $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
 
-    $deck = json_decode(curl_exec($curl), true);
-    // throw new \feException(print_r($deck));
-    curl_close($curl);
     $deckContent = [];
     $deckContent[HERO] = ['card' => Cards::getCardClass($deck['alterator']['reference']), 'n' => 1];
     foreach ($deck['deckUserListCards'] as $c) {
