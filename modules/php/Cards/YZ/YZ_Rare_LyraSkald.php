@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\YZ;
 
+use ALT\Helpers\FT;
+
 class YZ_Rare_LyraSkald extends \ALT\Models\Card
 {
   public function __construct($row)
