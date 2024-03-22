@@ -301,31 +301,39 @@ define([
         state: 'pass-through value',
       };
 
+      let URL = oauth2Endpoint + '?';
+      let urlParams = [];
       // Add form parameters as hidden input values.
       for (var p in params) {
-        var input = document.createElement('input');
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('name', p);
-        input.setAttribute('value', params[p]);
-        form.appendChild(input);
+        // var input = document.createElement('input');
+        // input.setAttribute('type', 'hidden');
+        // input.setAttribute('name', p);
+        // input.setAttribute('value', params[p]);
+        // form.appendChild(input);
+        urlParams.push(p + '=' + params[p]);
       }
 
-      let btn = document.createElement('button');
+      let btn = document.createElement('a');
+      btn.href = URL + urlParams.join('&');
+      btn.target = '_blank';
+
+      // let btn = document.createElement('button');
       btn.setAttribute('type', 'submit');
       btn.appendChild(document.createTextNode('OAuth'));
       btn.classList.add('bgabutton');
       btn.classList.add('bgabutton_red');
-      btn.style.position = 'absolute';
-      btn.style.top = '50%';
-      btn.style.left = '0px';
+      // btn.style.position = 'absolute';
+      // btn.style.top = '50%';
+      // btn.style.left = '0px';
       btn.style.width = '100px';
       btn.style.zIndex = 1000;
       btn.style.fontSize = '20px';
-      btn.style.display = 'none';
       form.appendChild(btn);
 
       // Add form to page and submit it to open the OAuth 2.0 endpoint.
-      $('altered-board').appendChild(form);
+      // $('altered-board').appendChild(form);
+      $('anytimeActions').appendChild(form);
+
       //      form.submit();
     },
 
@@ -660,7 +668,6 @@ define([
       if (!args._private) return;
       let deckNum = args._private.selection;
       if (deckNum == 'API') return;
-      debug(args);
 
       const FACTION_NAMES = {
         AX: _('Axiom'),
@@ -770,54 +777,7 @@ define([
           this.addCard(deck.hero, 'overlay-deck-container');
           $(`card-${deck.hero.id}`).classList.add('no-frame');
         });
-        $('altered-overlay-content').insertAdjacentHTML(
-          'beforeend',
-          `<div id = 'apiSetup' style='background:white;'>
-          <h2>Load Deck from Equinox</h2>
-          Login: <input type="text" id="apiLogin"/><br>
-          password: <input type="password" id="apiSecret"/>
-          <div id='apiSubmit' style='border:1px solid;'>Get decks</div></div>
-          `
-        );
       }
-
-      this.onClick(`apiSubmit`, () => {
-        login = $('apiLogin').value;
-        secret = $('apiSecret').value;
-        this.takeAction('actLoadAPIDecks', { lo: JSON.stringify(login), sec: JSON.stringify(secret), lock: false }, false).then(
-          (response) => {
-            debug(response);
-            if ($(`deckList`)) {
-              $(`deckList`).remove();
-            }
-
-            $('altered-overlay-content').insertAdjacentHTML(
-              'beforeend',
-              `<div id = 'deckList' style='background:white;'>
-              </div>
-              `
-            );
-            response.data.forEach((deck) => {
-              $(`deckList`).insertAdjacentHTML('beforeEnd', `<div id='${deck.apiId}'>${deck.deckName} (${deck.faction})</div>`);
-            });
-
-            response.data.forEach((deck) => {
-              this.onClick(deck.apiId, () => {
-                this.takeAction(
-                  'actGetDeckInfos',
-                  { lo: JSON.stringify(login), sec: JSON.stringify(secret), deckID: JSON.stringify(deck.apiId), lock: false },
-                  false
-                ).then((deckContent) => {
-                  debug(deckContent.data);
-                  this.addPrimaryActionButton('btnConfirmDeck', 'Confirm API Deck', () => {
-                    this.takeAction('actConfirmAPIDeck', {}, false);
-                  });
-                });
-              });
-            });
-          }
-        );
-      });
 
       decks.forEach((deck) => {
         this.onClick(`card-${deck.hero.id}`, () => selectDeck(deck));
@@ -837,6 +797,23 @@ define([
 
         selectDeck(args._private.decks[deckNum]);
       }
+
+      // API
+      let canUseAPI = true;
+      if (canUseAPI && !$('card-fake-API')) {
+        $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
+        $('card-fake-API')
+          .querySelector('.altered-card-wrapper')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+            <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
+              Custom deck
+            </div>
+          </div>`
+          );
+        this.onClick('card-fake-API', () => this.clientState('fetchDecks', 'Connect to equinox to fetch your decks', {}));
+      }
     },
 
     onLeavingStateSelectPrecoDeck() {
@@ -849,6 +826,95 @@ define([
       this.clearPossible();
       this.updatePageTitle();
       this.onEnteringStateSelectPrecoDeck(n.args.args);
+    },
+
+    onEnteringStateFetchDecks(args) {
+      this.addCancelStateBtn();
+
+      $('altered-overlay-content').innerHTML = '';
+      $('altered-overlay-content').insertAdjacentHTML(
+        'beforeend',
+        `
+        <h2>Log in Equinox</h2>
+        <div id='apiSetup' style='background: white; padding: 20px; border-radius: 15px; border: 1px solid black;font-size:20px; display:flex; flex-flow:column; justify-content:center;'>
+          <label for="apiLogin">Login: </label>
+          <input type="text" id="apiLogin" style="height: 30px;margin-bottom: 10px; font-size:20px;" />
+          <br />
+
+          <label for="password">Password: </label>
+          <input type="password" id="apiSecret" style="height: 30px;margin-bottom: 10px; font-size:20px;" />
+          <br />
+
+          <div id='apiSubmit' class='action-button bgabutton bgabutton_blue' style="margin-top:20px;">Get decks</div>
+        </div>`
+      );
+      this.openOverlay();
+
+      this.onClick('apiSubmit', () => {
+        let login = $('apiLogin').value;
+        let secret = $('apiSecret').value;
+        $('apiSubmit').style.background = '#eab757';
+        this.takeAction('actLoadAPIDecks', { lo: JSON.stringify(login), sec: JSON.stringify(secret), lock: false }, false).then(
+          (response) => {
+            this.clientState('chooseFetchedDeck', 'Choose one of your deck', { decks: response.data, login, secret });
+          }
+        );
+      });
+    },
+
+    onEnteringStateChooseFetchedDeck(args) {
+      this.addCancelStateBtn();
+
+      $('altered-overlay-content').innerHTML = '';
+      $('altered-overlay-content').insertAdjacentHTML(
+        'beforeend',
+        `
+        <h2>Choose your deck</h2>
+        <div id='apiSetup' style='background: white; padding: 20px; border-radius: 15px; border: 1px solid black;font-size:20px; display:flex; flex-flow:column; justify-content:center;'>
+          <ul id='deckList' style='max-height:400px; border:1px solid black; margin-bottom:15px; overflow:auto;'></ul>
+        </div>`
+      );
+      this.addPrimaryActionButton(
+        'btnConfirmDeck',
+        _('Confirm'),
+        () => {
+          this.takeAction('actConfirmAPIDeck', {}, false);
+        },
+        'apiSetup'
+      );
+      $('btnConfirmDeck').classList.add('disabled');
+      this.openOverlay();
+
+      let selected = null;
+      args.decks.forEach((deck) => {
+        $(`deckList`).insertAdjacentHTML(
+          'beforeEnd',
+          `<li id='${deck.apiId}' style='border:1px solid black; padding:2px 5px; cursor:pointer;'>${deck.deckName} (${deck.faction})</li>`
+        );
+
+        this.onClick(deck.apiId, () => {
+          if (selected) {
+            $(selected).style.background = '';
+          }
+          selected = deck.apiId;
+          $(selected).style.background = '#eab757';
+          $('btnConfirmDeck').classList.add('disabled');
+
+          this.takeAction(
+            'actGetDeckInfos',
+            { lo: JSON.stringify(args.login), sec: JSON.stringify(args.secret), deckID: JSON.stringify(deck.apiId), lock: false },
+            false
+          ).then((deckContent) => {
+            debug(deckContent);
+            $(selected).style.background = '#43d743';
+            $('btnConfirmDeck').classList.remove('disabled');
+          });
+        });
+      });
+    },
+    onLeavingStateChooseFetchedDeck() {
+      this.closeOverlay();
+      $('altered-overlay-content').innerHTML = '';
     },
 
     // onEnteringStateSelectDeck(args) {
