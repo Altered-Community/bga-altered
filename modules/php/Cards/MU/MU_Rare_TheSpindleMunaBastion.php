@@ -1,6 +1,7 @@
 <?php
 
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
@@ -37,6 +38,7 @@ class MU_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
             ]
           ),
         ]
+      ]
     ];
   }
 }
