@@ -28,7 +28,7 @@ class YZ_Rare_MoonlightJellyfish extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 1,
       'sacrificeAndNotFleetingGoToReserve' => true,
-      'sacrificeAndNotFleetingDraw' => true,
+      'sacrificeAndFleetingDraw' => true,
 
     ];
   }

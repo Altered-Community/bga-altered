@@ -85,7 +85,7 @@ class Card extends \ALT\Helpers\DB_Model
     'increaseOpponentSpellCost' => 'int',
     'increaseOpponentPermanentCost' => 'int',
     'sacrificeAndNotFleetingGoToReserve' => 'bool',
-    'sacrificeAndNotFleetingDraw' => 'bool',
+    'sacrificeAndFleetingDraw' => 'bool',
     'updateExpeditions' => 'obj', // type = All, region []
 
 
