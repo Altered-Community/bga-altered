@@ -244,9 +244,17 @@ abstract class Conditions
   public static function isCharacterSacrifice($card, $event)
   {
     $found = false;
-    foreach ($event['cards'] as $cdId => $card2) {
-      if (in_array($card2->getType(), [CHARACTER, TOKEN])) {
+    foreach ($event['cards'] as $cId => $card2) {
+
+      if (is_array($card2)) {
+        $type = $card2['properties']['type'];
+      } else {
+        $type = $card2->getType();
+      }
+
+      if (in_array($type, [CHARACTER, TOKEN])) {
         $found = true;
+        break;
       }
     }
     return $card->getPId() == $event['pId'] && $event['sacrifice'] == true && $found;
@@ -255,7 +263,7 @@ abstract class Conditions
   public static function isSacrificed($card, $event)
   {
     foreach ($event['cards'] as $cdId => $card2) {
-      if ($card2->getId() == $card->getId()) {
+      if ($cdId == $card->getId()) {
         $found = true;
       }
     }
