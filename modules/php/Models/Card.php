@@ -362,10 +362,6 @@ class Card extends \ALT\Helpers\DB_Model
    **/
   public function isListeningTo($event)
   {
-    if ($this->hasToken(ASLEEP)) {
-      return false;
-    }
-
     $passive = $this->getEffectPassive();
     // throw new \feException(print_r($event));
     if (
@@ -535,7 +531,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     // OD_Common_GulrangTocsin
-    if (in_array($this->getPlayer()->getHero()->getUid(), ['ALT_CORE_B_OR_03_C'])) {
+    if (in_array($this->getPlayer()->getHero()->getUid(), ['ALT_CORE_B_OR_03_C']) && $this->getPlayer()->getTotalMana() < 8) {
       return $this->isToken() && $this->hasToken(BOOST);
     }
     return false;
