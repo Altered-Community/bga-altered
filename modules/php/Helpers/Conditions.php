@@ -232,14 +232,13 @@ abstract class Conditions
   public static function isDiscardedFromHandToReserve($card, $event)
   {
     $cardId = $card->getId();
-
     // throw new \feException(in_array($cardId, $event['discarded'])  &&
     //   $event['originalLocation'][$cardId] == HAND); // &&
     // //   $event['cards'][$cardId]->getLocation() == RESERVE);
 
     return in_array($cardId, $event['discarded']) &&
       $event['originalLocation'][$cardId] == HAND &&
-      $event['cards'][$cardId]->getLocation() == RESERVE;
+      $event['cards'][$cardId]['location'] == RESERVE;
   }
 
   public static function isCharacterSacrifice($card, $event)
