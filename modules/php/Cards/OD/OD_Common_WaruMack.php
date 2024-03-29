@@ -34,7 +34,7 @@ class OD_Common_WaruMack extends \ALT\Models\Card
         ],
         'ChooseAssignment' => [
           'condition' => 'isBureaucratPlayed',
-          'output' => FT::ACTION(GAIN, ['cardId' => EFFECT, 'type' => ASLEEP, 'n' => 1], ['optional' => true])
+          'output' => FT::SEQ_OPTIONAL(FT::ACTION(GAIN, ['cardId' => EFFECT, 'type' => ASLEEP, 'n' => 1]))
         ]
       ]
     ];
