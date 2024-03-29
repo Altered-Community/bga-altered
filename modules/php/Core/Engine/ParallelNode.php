@@ -39,10 +39,11 @@ class ParallelNode extends AbstractNode
    */
   public function isOptional()
   {
-    return $this->getPId() == Players::getActive() && (parent::isOptional() ||
-      $this->childsReduceAnd(function ($child) {
-        return $child->isOptional() || $child->isResolved();
-      }));
+    return $this->getPId() == Players::getActiveId()
+      && (parent::isOptional() ||
+        $this->childsReduceAnd(function ($child) {
+          return $child->isOptional() || $child->isResolved();
+        }));
   }
 
   /**
