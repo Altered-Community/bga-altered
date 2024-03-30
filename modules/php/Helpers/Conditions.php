@@ -188,6 +188,11 @@ abstract class Conditions
   public static function isWithZeroStat($card, $event)
   {
     $playedCard = Cards::get($event['playedCard']);
+
+    if (!in_array($playedCard->getType(), [CHARACTER, TOKEN])) {
+      return false;
+    }
+
     $hasZero = false;
     foreach ($playedCard->getBiomes() as $biome => $value) {
       if ($value == 0) {
