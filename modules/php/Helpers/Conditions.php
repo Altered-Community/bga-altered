@@ -46,6 +46,11 @@ abstract class Conditions
     return $event['pId'] == $card->getPId();
   }
 
+  public static function myTurnAndNotFirstTurn($card, $event)
+  {
+    return $event['pId'] == $card->getPId() && Globals::getDay() != 1;
+  }
+
   public static function notMe($card, $event)
   {
     return $event['pId'] != $card->getPId();
