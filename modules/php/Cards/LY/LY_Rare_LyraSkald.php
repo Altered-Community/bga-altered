@@ -28,11 +28,15 @@ class LY_Rare_LyraSkald extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'suppoertIcon' => 'discard',
-      'effectHand' =>  FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, TOKEN, PERMANENT, SPELL],
-        'effect' => FT::ACTION(RESUPPLY, []),
-      ]),
+      'supportIcon' => 'discard',
+      'effectHand' =>  FT::SEQ_OPTIONAL(
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN, PERMANENT, SPELL],
+          'targetLocation' => [RESERVE],
+          'effect' => FT::ACTION(DISCARD, [])
+        ]),
+        FT::ACTION(RESUPPLY, [])
+      ),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
