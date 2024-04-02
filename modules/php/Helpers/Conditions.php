@@ -33,6 +33,13 @@ abstract class Conditions
       Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
   }
 
+  public static function isCharacterBoostedAndUntap($card, $event)
+  {
+    return $event['pId'] == $card->getPId() && !$card->isTapped() &&
+      $event['gain']['type'] == BOOST &&
+      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
+  }
+
   public static function firstCharacterPlayed($card, $event)
   {
     return $event['playCard'] === true &&
