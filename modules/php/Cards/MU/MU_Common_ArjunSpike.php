@@ -22,6 +22,9 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'artist' => 'Ba Vo',
       'effectDesc' =>
       '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
+      'reserveSlots' => 2,
+      'landmarkSlots' => 2,
+
       'effectTap' => FT::SEQ(
         FT::ACTION(
           TARGET,
