@@ -57,6 +57,10 @@ class Discard extends \ALT\Models\Action
 
   public function stDiscard()
   {
+    if (($this->getCtxArg('canPass') ?? false) == true) {
+      return;
+    }
+
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
       if (!is_array($this->getCtxArg('cardId'))) {
         $this->actDiscard([$this->getCtxArg('cardId')], true);
@@ -130,7 +134,11 @@ class Discard extends \ALT\Models\Action
         ],
       ];
     } elseif (!is_null($this->getCtxArg('cardId'))) {
-      $cards = [];
+      $cardId =  $this->getCtxArg('cardId');
+      if ($this->getCtxArg('cardId') == ME) {
+        $cardId = $this->ctx->getSourceId();
+      }
+      $cards = [$cardId];
     } elseif ($this->getArg('source') == HAND) {
       $cards = $player->getHand()->getIds();
     } elseif ($this->getArg('source') == RESERVE) {

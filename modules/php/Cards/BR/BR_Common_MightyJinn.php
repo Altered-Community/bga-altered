@@ -31,7 +31,7 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
 
       'effectPassive' => [
         'LeaveExpedition' => [
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true], ['optional' => true]),
+          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true, 'canPass' => true]),
         ],
       ],
     ];
