@@ -104,7 +104,10 @@ class Gain extends \ALT\Models\Action
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
     Notifications::updateBiomes($card->getPlayer());
 
-    $this->checkAfterListeners($player, ['gain' => $this->getCtxArgs(), 'sourceId' => $sourceId]);
+    $args = $this->getCtxArgs();
+    $args['cardId'] = $this->getCard()->getId();
+
+    $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
 
     $this->resolveAction();
   }
