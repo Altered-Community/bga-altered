@@ -30,7 +30,7 @@ class BR_Rare_BravosBladedancer extends \ALT\Models\Card
       'costReserve' => 3,
       'seasoned' => true,
       'effectPlayed' => FT::GAIN($this, BOOST),
-      'effectReserve' => FT::ACTION(CHECK_CONDITION, ['conition' => 'has4BoostOrLess', 'effect' => FT::LOOSE($this, FLEETING)])
+      'effectReserve' => FT::ACTION(CHECK_CONDITION, ['condition' => 'has4BoostOrLess', 'effect' => FT::LOOSE($this, FLEETING)])
     ];
   }
 }
