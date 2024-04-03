@@ -29,8 +29,7 @@ class LY_Rare_LyraFestival extends \ALT\Models\Card
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(
         TARGET,
-        ['
-        effect' => FT::XOR(
+        ['effect' => FT::XOR(
           FT::GAIN(EFFECT, FLEETING),
           FT::GAIN(EFFECT, ANCHORED),
           FT::GAIN(EFFECT, ASLEEP)
