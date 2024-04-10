@@ -336,6 +336,7 @@ class AbstractNode
     $choice = null;
     $choices = [];
     $childs = $this->getType() == NODE_SEQ && !empty($this->childs) ? [0 => $this->childs[0]] : $this->childs;
+    $allOptional = true;
 
     foreach ($childs as $id => $child) {
       if (!$child->isResolved() && ($displayAllChoices || $child->isDoable($player))) {
@@ -351,10 +352,13 @@ class AbstractNode
           'sourceId' => $child->getSourceId(),
         ];
         $choices[$id] = $choice;
+        if (!$child->isOptional($player)) {
+          $allOptional = false;
+        }
       }
     }
 
-    if ($this->isOptional($player) || empty($choices)) {
+    if ($this->isOptional($player) || empty($choices) || $allOptional) {
       if (count($choices) != 1 || !$choice['optionalAction'] || $choice['automaticAction']) {
         $choices[PASS] = [
           'id' => PASS,
