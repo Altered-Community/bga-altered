@@ -194,19 +194,25 @@ class ChooseAssignment extends \ALT\Models\Action
     if (($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($player, $location)) ||
       $card->getType() != CHARACTER
     ) {
+      $effects = [];
       // insert effect flow
       $effect = $card->getEffectPlayed();
-      if (empty($effect) && $fromLocation == HAND && $effectHand) {
-        $effect = $card->getEffectHand();
-      }
-
-      if (empty($effect) && $fromLocation == RESERVE) {
-        $effect = $card->getEffectReserve();
-      }
-
       if (!empty($effect)) {
-        $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
-        $this->insertAsChild($effect);
+        $effects[] = $effect;
+      }
+
+      if ($fromLocation == HAND && $effectHand) {
+        $effect = $card->getEffectHand();
+        if (!empty($effect)) {
+          $effects[] = $effect;
+        }
+      }
+
+      if ($fromLocation == RESERVE) {
+        $effect = $card->getEffectReserve();
+        if (!empty($effect)) {
+          $effects[] = $effect;
+        }
       }
 
       if (!is_null(Globals::getAdditionalEffect()[$card->getType()] ?? null)) {
@@ -216,11 +222,17 @@ class ChooseAssignment extends \ALT\Models\Action
           $f = 'getEffect' . ucfirst($effectType);
           $newEffect = $card->$f();
           if (!empty($newEffect)) {
-            $newEffect = Utils::tagTree($newEffect, ['sourceId' => $card->getId()]);
-            $this->insertAsChild($newEffect);
+            $effects[] = $newEffect;
+            // $newEffect = Utils::tagTree($newEffect, ['sourceId' => $card->getId()]);
+            // $this->insertAsChild($newEffect);
           }
           Globals::setAdditionalEffect([]);
         }
+      }
+
+      if (!empty($effects)) {
+        $effects = Utils::tagTree(['type' => NODE_PARALLEL, 'childs' => $effects], ['sourceId' => $card->getId()]);
+        $this->insertAsChild($effects);
       }
     } else {
       Notifications::message(clienttranslate('Effects are not triggered, due to an effect in the opponent\'s expedition'), []);
