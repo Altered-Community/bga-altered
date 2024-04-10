@@ -94,9 +94,9 @@ class Target extends \ALT\Models\Action
     return $this->getArg('upTo') || count($this->getTargetableCards($player)) != 0;
   }
 
-  public function isOptional()
+  public function isOptional($player)
   {
-    return $this->getArg('upTo') || count($this->getTargetableCards(Players::getActive())) == 0;
+    return $this->getArg('upTo') || count($this->getTargetableCards(Players::getActive())) == 0 || !$this->isDoable($player);
   }
 
   public function getTargetableCards($player)

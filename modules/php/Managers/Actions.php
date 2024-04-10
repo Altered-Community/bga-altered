@@ -78,7 +78,7 @@ class Actions
     $action = self::get($actionId, $ctx);
     $methodName = 'args' . $action->getClassName();
     $args = \method_exists($action, $methodName) ? $action->$methodName() : [];
-    return array_merge($args, ['optionalAction' => $ctx->isOptional()]);
+    return array_merge($args, ['optionalAction' => $ctx->isOptional(Players::getActive())]);
   }
 
   public static function takeAction($actionId, $actionName, $args, &$ctx, $automatic = false)
@@ -114,7 +114,7 @@ class Actions
   {
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
-      if (!$ctx->isOptional()) {
+      if (!$ctx->isOptional($player)) {
         if (self::isDoable($actionId, $ctx, $player, true)) {
           Game::get()->gamestate->jumpToState(ST_IMPOSSIBLE_MANDATORY_ACTION);
           return;
@@ -154,7 +154,7 @@ class Actions
 
   public static function pass($actionId, $ctx)
   {
-    if (!$ctx->isOptional()) {
+    if (!$ctx->isOptional(Players::getActive())) {
       // self::error($ctx->toArray());
       throw new \BgaVisibleSystemException('This action is not optional');
     }

@@ -20,7 +20,7 @@ class Discard extends \ALT\Models\Action
     return ST_DISCARD;
   }
 
-  public function isOptional()
+  public function isOptional($player)
   {
     return $this->getCtxArg('canPass') ?? false;
   }
@@ -150,7 +150,7 @@ class Discard extends \ALT\Models\Action
       'n' => $this->getArg('n') ?? 1,
       'source' => $this->getArg('source') ?? '',
       'destination' => $this->getArg('destination'),
-      'descSuffix' => $this->isOptional() ? 'CanPass' : '',
+      'descSuffix' => $this->isOptional($player) ? 'CanPass' : '',
       'upTo' => $this->getArg('upTo'),
       // 'totalCost' => $this->getArg('totalCost'),
       '_private' => [

@@ -316,7 +316,7 @@ abstract class Conditions
 
   public static function isCharacterFromReserve($card, $event)
   {
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       $event['cardType'] == CHARACTER &&
       $event['from'] == RESERVE;

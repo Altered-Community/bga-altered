@@ -28,21 +28,22 @@ class ParallelNode extends AbstractNode
    */
   public function isDoable($player)
   {
-    return $this->isOptional() ||
+    return $this->isOptional($player) ||
       $this->childsReduceAnd(function ($child) use ($player) {
-        return $child->isDoable($player) || $child->isOptional();
+        return $child->isDoable($player) || $child->isOptional($player);
       });
   }
 
   /**
    * A PARALLEL node is optional if all its mandatory childs are already done
    */
-  public function isOptional()
+  public function isOptional($player)
   {
+    // $player = Players::getActive();
     return $this->getPId() == Players::getActiveId()
-      && (parent::isOptional() ||
-        $this->childsReduceAnd(function ($child) {
-          return $child->isOptional() || $child->isResolved();
+      && (parent::isOptional($player) ||
+        $this->childsReduceAnd(function ($child) use ($player) {
+          return $child->isOptional($player) || $child->isResolved();
         }));
   }
 

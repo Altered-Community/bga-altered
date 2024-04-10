@@ -29,7 +29,7 @@ class Action
     return true;
   }
 
-  public function isOptional()
+  public function isOptional($player)
   {
     return false;
   }

@@ -1,9 +1,11 @@
 <?php
+
 namespace ALT\Core\Engine;
 
 /*
  * XorNode: a class that represent an Node with a choice (parallel) with a unique possibility
  */
+
 class XorNode extends AbstractNode
 {
   public function __construct($infos = [], $childs = [])
@@ -25,7 +27,7 @@ class XorNode extends AbstractNode
    */
   public function isDoable($player)
   {
-    return $this->isOptional() ||
+    return $this->isOptional($player) ||
       $this->childsReduceOr(function ($child) use ($player) {
         return $child->isDoable($player);
       });

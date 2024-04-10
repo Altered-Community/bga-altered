@@ -238,7 +238,7 @@ class AbstractNode
   }
   public function getUndoableMandatoryNode($player)
   {
-    if (!$this->isResolved() && !$this->isDoable($player) && ($this->isMandatory() || !$this->isOptional())) {
+    if (!$this->isResolved() && !$this->isDoable($player) && ($this->isMandatory() || !$this->isOptional($player))) {
       return $this;
     }
     return null;
@@ -311,7 +311,7 @@ class AbstractNode
     return false;
   }
 
-  public function isOptional()
+  public function isOptional($player)
   {
     return $this->infos['optional'] ?? $this->parent != null && $this->parent->areChildrenOptional();
   }
@@ -343,7 +343,7 @@ class AbstractNode
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
           'args' => $child->getArgs(),
-          'optionalAction' => $child->isOptional(),
+          'optionalAction' => $child->isOptional($player),
           'automaticAction' => $child->isAutomatic($player),
           'independentAction' => $child->isIndependent($player),
           'irreversibleAction' => $child->isIrreversible($player),
@@ -354,7 +354,7 @@ class AbstractNode
       }
     }
 
-    if ($this->isOptional()) {
+    if ($this->isOptional($player) || empty($choices)) {
       if (count($choices) != 1 || !$choice['optionalAction'] || $choice['automaticAction']) {
         $choices[PASS] = [
           'id' => PASS,

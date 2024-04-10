@@ -40,7 +40,7 @@ class DiscardDraw extends \ALT\Models\Action
     'subType' => 'disabled',
   ];
 
-  public function isOptional()
+  public function isOptional($player)
   {
     return true;
   }

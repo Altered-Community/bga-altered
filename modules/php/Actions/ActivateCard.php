@@ -52,13 +52,13 @@ class ActivateCard extends \ALT\Models\Action
     return is_null($flow) ? null : Engine::buildTree($flow);
   }
 
-  public function isOptional()
+  public function isOptional($player)
   {
     $player = $this->getPlayer();
     if (is_null($this->getFlowTree($player))) {
       return true;
     }
-    return $this->getFlowTree($player)->isOptional();
+    return $this->getFlowTree($player)->isOptional($player) || !$this->getFlowTree($player)->isDoable($player);
   }
 
   public function isAutomatic($player = null)

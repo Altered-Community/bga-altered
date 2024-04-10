@@ -1,9 +1,13 @@
 <?php
+
 namespace ALT\Core\Engine;
+
+use ALT\Managers\Players;
 
 /*
  * OrNode: a class that represent an Node with a choice (parallel)
  */
+
 class OrNode extends AbstractNode
 {
   public function __construct($infos = [], $childs = [])
@@ -25,7 +29,7 @@ class OrNode extends AbstractNode
    */
   public function isDoable($player)
   {
-    return $this->isOptional() ||
+    return $this->isOptional($player) ||
       $this->childsReduceOr(function ($child) use ($player) {
         return $child->isDoable($player);
       });
@@ -34,9 +38,10 @@ class OrNode extends AbstractNode
   /**
    * An OR node become optional as soon as one child is resolved
    */
-  public function isOptional()
+  public function isOptional($player)
   {
-    return parent::isOptional() ||
+    // $player = Players::getActive();
+    return parent::isOptional($player) ||
       $this->childsReduceOr(function ($child) {
         return $child->isResolved() && $child->getResolutionArgs() != PASS;
       });

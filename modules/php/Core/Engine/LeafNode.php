@@ -1,10 +1,13 @@
 <?php
+
 namespace ALT\Core\Engine;
+
 use ALT\Managers\Actions;
 
 /*
  * Leaf: a class that represent a Leaf
  */
+
 class LeafNode extends AbstractNode
 {
   public function __construct($infos = [])
@@ -37,15 +40,15 @@ class LeafNode extends AbstractNode
     return Actions::get($this->infos['action'], $this)->isIndependent($player);
   }
 
-  public function isOptional()
+  public function isOptional($player)
   {
     if (isset($this->infos['mandatory']) && $this->infos['mandatory']) {
       return false;
     }
-    if (parent::isOptional() || !isset($this->infos['action'])) {
-      return parent::isOptional();
+    if (parent::isOptional($player) || !isset($this->infos['action'])) {
+      return parent::isOptional($player);
     }
-    return Actions::get($this->infos['action'], $this)->isOptional();
+    return Actions::get($this->infos['action'], $this)->isOptional($player) || !Actions::get($this->infos['action'], $this)->isDoable($player);
   }
 
   public function isIrreversible($player = null)

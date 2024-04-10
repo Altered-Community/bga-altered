@@ -104,7 +104,7 @@ trait EngineTrait
         $anytimeActions[] = [
           'flow' => $flow,
           'desc' => $flow['desc'] ?? $tree->getDescription(true),
-          'optionalAction' => $tree->isOptional(),
+          'optionalAction' => $tree->isOptional($player),
           'independentAction' => $tree->isIndependent($player),
         ];
       }

@@ -1,10 +1,13 @@
 <?php
+
 namespace ALT\Core\Engine;
 
 use ALT\Core\Engine;
+use ALT\Managers\Players;
 /*
  * SeqNode: a class that represent a sequence of actions
  */
+
 class SeqNode extends AbstractNode
 {
   public function __construct($infos = [], $childs = [])
@@ -29,13 +32,13 @@ class SeqNode extends AbstractNode
   public function isDoable($player)
   {
     return $this->childsReduceAnd(function ($child) use ($player) {
-      return $child->isDoable($player) || $child->isOptional();
+      return $child->isDoable($player) || $child->isOptional($player);
     });
   }
 
   public function getUndoableMandatoryNode($player)
   {
-    if ($this->isOptional()) {
+    if ($this->isOptional($player)) {
       return null;
     }
     foreach ($this->childs as $child) {
@@ -68,7 +71,7 @@ class SeqNode extends AbstractNode
       return null;
     }
 
-    if ($this->isOptional()) {
+    if ($this->isOptional(Players::getActive())) {
       return $this;
     }
 
