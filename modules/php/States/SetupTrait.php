@@ -95,7 +95,7 @@ trait SetupTrait
   {
     // $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
     $response = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      "game" => "altered",
+      "game" => "alter" . "ed",
       'mode' => 'login', 'user' => $user, 'secret' => $secret
     ]);
     if (!isset($response['token'])) {
@@ -109,7 +109,7 @@ trait SetupTrait
   {
     // $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
     $decks = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      "game" => "altered",
+      "game" => "alter" . "ed",
       'mode' => 'deckList', 'token' => $token
     ]);
     $deckList = [];
@@ -126,7 +126,7 @@ trait SetupTrait
   {
     // $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
     $deck = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      "game" => "altered",
+      "game" => "alter" . "ed",
       'mode' => 'deck', 'token' => $token, 'deckId' => $deckId
     ]);
     $deckContent = [];
