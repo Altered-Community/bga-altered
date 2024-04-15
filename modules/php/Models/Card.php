@@ -87,6 +87,7 @@ class Card extends \ALT\Helpers\DB_Model
     'sacrificeAndNotFleetingGoToReserve' => 'bool',
     'sacrificeAndFleetingDraw' => 'bool',
     'updateExpeditions' => 'obj', // type = All, region []
+    'blockAutomaticAction' => 'obj',
 
 
     // Tough management

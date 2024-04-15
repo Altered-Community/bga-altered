@@ -44,11 +44,22 @@ class Gain extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
+
     return true;
   }
 
   public function isIndependent($player = null)
   {
+    // return false;
+    $cards = Cards::getPlayedCards(null);
+    $gain = $this->getArg('type');
+
+    foreach ($cards as $cId => $card) {
+      $block = $card->getBlockAutomaticAction();
+      if (isset($block[GAIN]) && isset($block[GAIN][$gain])) {
+        return false;
+      }
+    }
     return true;
   }
 

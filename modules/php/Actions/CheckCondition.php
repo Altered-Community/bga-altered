@@ -23,7 +23,29 @@ class CheckCondition extends \ALT\Models\Action
 
   public function getDescription()
   {
+    switch ($this->getArg('condition')) {
+      case 'has4BoostOrLess':
+        return clienttranslate('Check if there are less than 4 <BOOST>');
+        break;
+      default:
+        '';
+    }
     return '';
+  }
+
+  public function isIndependent($player = null)
+  {
+    $cards = Cards::getPlayedCards(null);
+    $effect = $this->getArg('condition');
+    foreach ($cards as $cId => $card) {
+      $block = $card->getBlockAutomaticAction();
+      if (
+        isset($block[CHECK_CONDITION]) &&
+        isset($block[CHECK_CONDITION][$effect])
+      ) {
+        return false;
+      }
+    }
   }
 
   protected $args = ['condition' => null];
