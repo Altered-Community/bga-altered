@@ -257,10 +257,9 @@ abstract class Conditions
     // throw new \feException(in_array($cardId, $event['discarded'])  &&
     //   $event['originalLocation'][$cardId] == HAND); // &&
     // //   $event['cards'][$cardId]->getLocation() == RESERVE);
-
     return in_array($cardId, $event['discarded']) &&
       $event['originalLocation'][$cardId] == HAND &&
-      $event['cards'][$cardId]['location'] == RESERVE;
+      (is_array($event['cards'][$cardId]) ? $event['cards'][$cardId]['location'] : $event['cards'][$cardId]->getLocation()) == RESERVE;
   }
 
   public static function isCharacterSacrifice($card, $event)
