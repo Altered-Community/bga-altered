@@ -67,6 +67,28 @@ class Cards extends \ALT\Helpers\CachedPieces
     return new $className(null);
   }
 
+  public static function generateRandomDeck($player)
+  {
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    $faction = FACTIONS[array_rand(FACTIONS)];
+    $deckContent = [];
+
+    $deckContent[HERO] = ['card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(), 'n' => 1];
+    // random cards of the faction
+    $i = 0;
+
+    do {
+      $c = array_rand(MAP_REFS_CLASSES);
+      // var_dump($c);
+      $objCard = self::getCardClass($c);
+      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
+        $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
+        $i++;
+      }
+    } while ($i < 40);
+    return self::createDeck($player, $deckContent);
+  }
+
   public static function getUiData($pId, $refresh = false)
   {
     $current = Players::getCurrent() == null ? false : Players::getCurrent()->getId() == $pId;

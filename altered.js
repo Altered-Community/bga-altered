@@ -668,6 +668,7 @@ define([
       if (!args._private) return;
       let deckNum = args._private.selection;
       if (deckNum == 'API') return;
+      if (deckNum == 'random') return;
 
       const FACTION_NAMES = {
         AX: _('Axiom'),
@@ -802,16 +803,14 @@ define([
       let canUseAPI = true;
       if (canUseAPI && !$('card-fake-API')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
-        $('card-fake-API')
-          .querySelector('.altered-card-wrapper')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-API').querySelector('.altered-card-wrapper').insertAdjacentHTML(
+          'beforeend',
+          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Custom deck
             </div>
           </div>`
-          );
+        );
         this.onClick('card-fake-API', () => this.clientState('fetchDecks', 'Connect to equinox to fetch your decks', {}));
       }
     },

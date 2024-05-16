@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\BR;
 
+use ALT\Helpers\FT;
+
 class BR_Rare_LadyoftheLake extends \ALT\Models\Card
 {
   public function __construct($row)

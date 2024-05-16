@@ -333,6 +333,9 @@ trait SetupTrait
       if ($selection[$pId] == 'API') {
         $deckContent = Globals::getDeckContent()[$pId];
         $faction = Cards::createDeck($player, $deckContent);
+      } elseif ($selection[$pId] == 'random') {
+        $faction = Cards::generateRandomDeck($player);
+        $selection[$pId] = 'API';
       } else {
         $deckNumber = $selection[$pId];
         // faction setup

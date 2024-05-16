@@ -426,8 +426,8 @@ const MAP_REFS_CLASSES = [
   'ALT_CORE_B_BR_30_R1' => 'BR/BR_Rare_HavenBravosBastion',
   'ALT_CORE_B_BR_30_R2' => 'AX/AX_Rare_HavenBravosBastion',
   'ALT_CORE_B_BR_31_C' => 'BR/BR_Common_Booda',
-  'ALT_CORE_B_FOILER_C' => 'NE/NE_Common_ALTCOREBFOILERC',
-  'ALT_CORE_B_FOILER_R' => 'NE/NE_Rare_ALTCOREBFOILERR',
+  // 'ALT_CORE_B_FOILER_C' => 'NE/NE_Common_ALTCOREBFOILERC',
+  // 'ALT_CORE_B_FOILER_R' => 'NE/NE_Rare_ALTCOREBFOILERR',
   'ALT_CORE_B_LY_01_C' => 'LY/LY_Common_NevenkaBlotch',
   'ALT_CORE_B_LY_02_C' => 'LY/LY_Common_AuraqKibble',
   'ALT_CORE_B_LY_03_C' => 'LY/LY_Common_FenCrowbar',
@@ -596,7 +596,7 @@ const MAP_REFS_CLASSES = [
   'ALT_CORE_B_MU_30_C' => 'MU/MU_Common_TheSpindleMunaBastion',
   'ALT_CORE_B_MU_30_R1' => 'MU/MU_Rare_TheSpindleMunaBastion',
   'ALT_CORE_B_MU_30_R2' => 'BR/BR_Rare_TheSpindleMunaBastion',
-  'ALT_CORE_B_NE_1_C' => 'NE/NE_Common_ManaConvergence',
+  // 'ALT_CORE_B_NE_1_C' => 'NE/NE_Common_ManaConvergence',
   'ALT_CORE_B_OR_01_C' => 'OD/OD_Common_SigismarWingspan',
   'ALT_CORE_B_OR_02_C' => 'OD/OD_Common_WaruMack',
   'ALT_CORE_B_OR_03_C' => 'OD/OD_Common_GulrangTocsin',
@@ -768,4 +768,13 @@ const MAP_REFS_CLASSES = [
   'ALT_CORE_B_YZ_30_R1' => 'YZ/YZ_Rare_TheKadigirYzmirBastion',
   'ALT_CORE_B_YZ_30_R2' => 'LY/LY_Rare_TheKadigirYzmirBastion',
   'ALT_CORE_B_YZ_31_C' => 'YZ/YZ_Common_Maw',
+];
+
+const HEROES = [
+  FACTION_AX => ['ALT_CORE_B_AX_01_C',  'ALT_CORE_B_AX_02_C',  'ALT_CORE_B_AX_03_C'],
+  FACTION_BR => ['ALT_CORE_B_BR_01_C',  'ALT_CORE_B_BR_02_C',  'ALT_CORE_B_BR_03_C'],
+  FACTION_LY => ['ALT_CORE_B_LY_01_C',  'ALT_CORE_B_LY_02_C',  'ALT_CORE_B_LY_03_C'],
+  FACTION_MU => ['ALT_CORE_B_MU_01_C',  'ALT_CORE_B_MU_02_C',  'ALT_CORE_B_MU_03_C'],
+  FACTION_OD => ['ALT_CORE_B_OR_01_C',  'ALT_CORE_B_OR_02_C',  'ALT_CORE_B_OR_03_C'],
+  FACTION_YZ => ['ALT_CORE_B_YZ_01_C',  'ALT_CORE_B_YZ_02_C',  'ALT_CORE_B_YZ_03_C'],
 ];
