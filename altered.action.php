@@ -63,7 +63,7 @@ class action_altered extends APP_GameAction
   public function actSelectPrecoDeck()
   {
     self::setAjaxMode();
-    $choice = self::getArg('choice', AT_int, true);
+    $choice = self::getArg('choice', AT_alphanum, true);
     $this->game->actSelectPrecoDeck($choice);
     self::ajaxResponse();
   }
