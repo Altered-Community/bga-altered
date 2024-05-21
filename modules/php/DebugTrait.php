@@ -47,6 +47,32 @@ trait DebugTrait
     return $datas;
   }
 
+  function decks()
+  {
+    // $json = toto(dirname(__FILE__) . '/../../misc/prod_assets.json');
+    // $data = json_decode($json, true);
+    // // throw new \feException(print_r($data));
+    // $cardList = '';
+    // foreach ($data['hydra:member'] as $card) {
+    //   $cardList .= "'" . $card['reference'] . "',";
+    // }
+
+    // throw new \feException($cardList);
+    // foreach (ALL_CARDS as $filename) {
+    //   if (!file_exists(dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php')) {
+    //     continue;
+    //   }
+    //   require_once dirname(__FILE__) . '/../../misc/CoreSetV3/' . $filename . '.php';
+    //   $t = explode('/', $filename);
+    //   $className = '\\ALT\\Cards\\' . $t[0] . '\\' . $t[1];
+    //   $class = new $className(null);
+
+    //   if ($class->getRarity() == RARITY_COMMON) {
+    //     $datas[] = $class;
+    //   }
+    // }
+  }
+
   function tp()
   {
     $players = self::loadPlayersBasicInfos();

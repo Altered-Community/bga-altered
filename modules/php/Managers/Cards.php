@@ -78,7 +78,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     $i = 0;
 
     do {
-      $c = array_rand(MAP_REFS_CLASSES);
+      $c = RELEASED[array_rand(RELEASED)];
+      // $c = MAP_REFS_CLASSES[$a];
       // var_dump($c);
       $objCard = self::getCardClass($c);
       if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
