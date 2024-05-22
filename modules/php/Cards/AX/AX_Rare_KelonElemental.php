@@ -32,6 +32,7 @@ class AX_Rare_KelonElemental extends \ALT\Models\Card
         'targetPlayer' => ME,
         'targetLocation' => [HAND],
         'effect' => FT::DISCARD_TO_RESERVE(),
+        'upTo' => true,
       ], ['optional' => true]),
     ];
   }

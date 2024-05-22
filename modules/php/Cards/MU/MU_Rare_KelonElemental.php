@@ -31,6 +31,7 @@ class MU_Rare_KelonElemental extends \ALT\Models\Card
       'effectHand' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER, SPELL, PERMANENT],
         'targetPlayer' => ME,
+        'upTo' => true,
         'targetLocation' => [HAND],
         'effect' => FT::DISCARD_TO_RESERVE(),
       ], ['optional' => true]),
