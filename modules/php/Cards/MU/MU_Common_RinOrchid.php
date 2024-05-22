@@ -22,6 +22,8 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
       'artist' => 'Zero Wen',
       'effectDesc' =>
       'When one of your Expeditions moves forward due to {V} — Draw a card, then put a card from your hand in Reserve.',
+      'reserveSlots' => 2,
+      'landmarkSlots' => 2,
 
       'effectPassive' => [
         'AfterDusk' => [
