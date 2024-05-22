@@ -27,7 +27,7 @@ class MU_Rare_SunWukong extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 4,
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+      'effectReserve' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
 
     ];
   }
