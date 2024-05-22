@@ -34,6 +34,7 @@ class BR_Rare_BravosVanguard extends \ALT\Models\Card
         [
           'statuses' => FLEETING,
           'upTo' => true,
+          'excludeSelf' => true,
           'effect' => FT::SEQ(
             FT::LOOSE(EFFECT, FLEETING),
             FT::GAIN(EFFECT, BOOST)
