@@ -44,7 +44,7 @@ class LY_Rare_OuroborosInkcaster extends \ALT\Models\Card
             [
               'targetLocation' => [RESERVE],
               'targetPlayer' => ME,
-              'targetType' => [CHARACTER, TOKEN, SPELL],
+              'targetType' => [CHARACTER, TOKEN, PERMANENT, SPELL],
               'excludeSelf' => true,
               'effect' => FT::RETURN_TO_HAND(),
             ],
