@@ -38,6 +38,7 @@ class LY_Rare_OuroborosInkcaster extends \ALT\Models\Card
       ],
       'effectPassive' => [
         'LeaveExpedition' => [
+          'condition' => 'notFleeting',
           'output' => FT::ACTION(
             TARGET,
             [

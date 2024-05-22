@@ -398,6 +398,11 @@ abstract class Conditions
     return count($combination) >= 1;
   }
 
+  public static function notFleeting($card, $event)
+  {
+    return !$card->hasToken(FLEETING);
+  }
+
   public static function movesStormsWithForest($card, $event)
   {
     $stormMoves = Globals::getStormMoves();

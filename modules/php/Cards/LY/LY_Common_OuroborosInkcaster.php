@@ -32,7 +32,8 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
 
       'effectPassive' => [
         'LeaveExpedition' => [
-          'output' => FT::ACTION(
+          'condition' => 'notFleeting',
+          'output' =>  FT::ACTION(
             TARGET,
             [
               'targetLocation' => [RESERVE],
@@ -42,7 +43,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
               'effect' => FT::RETURN_TO_HAND(),
             ],
             ['optional' => true]
-          ),
+          )
         ],
       ],
     ];
