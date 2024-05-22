@@ -524,7 +524,7 @@ class Notifications
   public static function targetCards($player, $cards, $additionalCost, $source)
   {
     if ($additionalCost > 0) {
-      $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect and pays ${mana_cost} (Tough effect)');
+      $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect and pays ${n} (Tough effect)');
     } else {
       $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect');
     }
