@@ -18,7 +18,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'name' => clienttranslate('Nevenka & Blotch'),
       'type' => HERO,
       'typeline' => clienttranslate('Lyra Hero'),
-      'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$<BB>.'),
+      'effectDesc' => clienttranslate('{T} : Target a Character you control, then roll a die. On a:  • 6+, it gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)  • 2-5, it gains 1 boost$<BB>.  • 1, send it to Reserve.'),
       'flavorText' => clienttranslate(
         'Chaos can bring disappointment, sure, but it\'s also where ye\'ll find the most wonderfullest hidden gems!'
       ),
