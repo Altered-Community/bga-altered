@@ -33,6 +33,8 @@ class Discard extends \ALT\Models\Action
       $msg = clienttranslate('Discard ${card}');
     } elseif ($location == 'topOfDeck') {
       $msg = clienttranslate('put ${card} on top of it\'s owner deck');
+    } elseif ($location == HAND) {
+      $msg = clienttranslate('Return to hand ${card}');
     }
 
     if (!is_null($this->getCtxArg('cardId') ?? null)) {
