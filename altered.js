@@ -235,7 +235,7 @@ define([
       this.setupPlayers();
       this.setupCards();
       this.setupMeeples();
-      this.setupOAuth();
+      // this.setupOAuth();
       // this.setupSortableHand();
       this.inherited(arguments);
     },
