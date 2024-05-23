@@ -33,6 +33,7 @@ class YZ_Rare_LyraSkald extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN, PERMANENT, SPELL],
           'targetLocation' => [RESERVE],
+          'targetPlayer' => ME,
           'effect' => FT::ACTION(DISCARD, [])
         ]),
         FT::ACTION(RESUPPLY, [])

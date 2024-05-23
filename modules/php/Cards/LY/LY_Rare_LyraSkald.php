@@ -32,6 +32,7 @@ class LY_Rare_LyraSkald extends \ALT\Models\Card
       'effectHand' =>  FT::SEQ_OPTIONAL(
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN, PERMANENT, SPELL],
+          'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
           'effect' => FT::ACTION(DISCARD, [])
         ]),
