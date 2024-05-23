@@ -232,13 +232,15 @@ trait EngineTrait
     // Check user preference to bypass if DISABLED is picked
     $pref = Players::getActive()->getPref(OPTION_CONFIRM);
     if ($pref == OPTION_CONFIRM_DISABLED) {
-      $this->actConfirmTurn();
+      $this->actConfirmTurn(true);
     }
   }
 
-  public function actConfirmTurn()
+  public function actConfirmTurn($auto = false)
   {
-    self::checkAction('actConfirmTurn');
+    if (!$auto) {
+      self::checkAction('actConfirmTurn');
+    }
     Engine::confirm();
   }
 
