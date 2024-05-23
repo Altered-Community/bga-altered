@@ -1232,7 +1232,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     getFlavorTextIfFitting(effect, p) {
       let flavor = _(p.flavorText || '');
-      let maxSize = p.supportDesc == '' ? 250 : 180;
+      // let maxSize = p.supportDesc == '' ? 250 : 180;
+      let supportLength = p.hasOwnProperty('supportDesc') ? p.supportDesc.length : 0;
+      let maxSize = p.supportDesc == '' ? 250 : Math.min(250 - supportLength, 180);
+
       if (flavor == '' || effect.length + flavor.length >= maxSize) return '';
       if (p.token) return '';
       return (effect == '' ? '' : '<hr/>') + `<span class='flavor-text'>${flavor}</span>`;
@@ -1413,8 +1416,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let i = this.getCardFrontInfos(card, tooltip);
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
-      let flavor = this.getFlavorTextIfFitting(effect, p);
+      // let flavor = this.getFlavorTextIfFitting(effect, p);
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
+      let flavor = this.getFlavorTextIfFitting(effect, p);
       let supportIcon = this.getSupportIcon(p);
 
       let counter = '';
