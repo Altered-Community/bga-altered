@@ -33,6 +33,7 @@ class YZ_Rare_AdaLovelace extends \ALT\Models\Card
         [
           'targetType' => [CHARACTER, SPELL, PERMANENT],
           'targetPlayer' => ME,
+          'upTo' => true,
           'targetLocation' => [HAND],
           'effect' => FT::DISCARD_TO_RESERVE(),
         ],
