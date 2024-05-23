@@ -28,6 +28,7 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
 
       'effectPassive' => [
         'InvokeToken' => [
+          'condition' => 'myTurn',
           'output' => FT::GAIN(EFFECT, BOOST)
         ]
       ]
