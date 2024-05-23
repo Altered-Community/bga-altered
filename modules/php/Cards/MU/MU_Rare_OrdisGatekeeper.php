@@ -29,7 +29,7 @@ class MU_Rare_OrdisGatekeeper extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetLocation' => ['opposite'],
+        'targetLocation' => ['oppositeSource'],
         'targetPlayer' => ME,
         'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])
       ]),

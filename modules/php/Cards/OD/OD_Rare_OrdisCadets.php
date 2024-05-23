@@ -31,7 +31,7 @@ class OD_Rare_OrdisCadets extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
         'pId' => 'source',
         'tokenType' => 'OD_Common_OrdisRecruit',
-        'targetLocation' => ['opposite'],
+        'targetLocation' => ['oppositeSource'],
       ]),
     ];
   }
