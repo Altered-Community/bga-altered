@@ -105,8 +105,8 @@ class Gain extends \ALT\Models\Action
 
     // Increase resource and notify
     list($resource, $amount) = $this->getGain();
-    if ($resource == FLEETING && $card->hasToken(FLEETING)) {
-      // a card cannot have more than one fleeting token
+    if (in_array($resource, [FLEETING, ANCHORED]) && $card->hasToken($resource)) {
+      // a card cannot have more than one fleeting/anchored token
       $this->resolveAction();
       return;
     }
