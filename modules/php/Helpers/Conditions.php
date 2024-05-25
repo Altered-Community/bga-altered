@@ -366,6 +366,11 @@ abstract class Conditions
     return $card->getPId() == $event['pId'] && $card->countToken(BOOST) <= 4;
   }
 
+  public static function hasReserve($card, $event)
+  {
+    return $card->getPId() == $event['pId'] && $card->getPlayer()->getReserveCards()->count() > 0;
+  }
+
   public static function costHigherThanCounter($card, $event)
   {
     return $event['playCard'] === true &&

@@ -25,18 +25,29 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
-      'effectTap' => FT::SEQ(
-        FT::ACTION(
+      // 'effectTap' => FT::SEQ(
+      //   FT::ACTION(
+      //     TARGET,
+      //     [
+      //       'targetPlayer' => ME,
+      //       'targetLocation' => [RESERVE],
+      //       'targetType' => [CHARACTER, SPELL, PERMANENT],
+      //       'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored'])),
+      //     ]
+      //   )
+      // )
+      'effectTap' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'hasReserve',
+        'effect' => FT::ACTION(
           TARGET,
           [
             'targetPlayer' => ME,
             'targetLocation' => [RESERVE],
             'targetType' => [CHARACTER, SPELL, PERMANENT],
-            'effect' => FT::ACTION(DISCARD, []),
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored'])),
           ]
-        ),
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored'])
-      )
+        )
+      ])
     ];
   }
 }

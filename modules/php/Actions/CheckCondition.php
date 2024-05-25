@@ -57,6 +57,8 @@ class CheckCondition extends \ALT\Models\Action
       return $player->getId() == Globals::getFirstPlayer();
     } elseif ($condition == 'has5CounterOnCard') {
       return Conditions::has5CounterOnCard($player->getHero(), ['pId' => $player->getId()]);
+    } elseif ($condition == 'hasReserve') {
+      return Conditions::hasReserve($player->getHero(), ['pId' => $player->getId()]);
     } else {
       return true;
     }
