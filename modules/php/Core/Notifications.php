@@ -288,6 +288,18 @@ class Notifications
     );
   }
 
+  public static function publicJinn($player, $cards)
+  {
+    self::notifyAll(
+      'publicJinn',
+      '',
+      [
+        'player' => $player,
+        'cardsDeleted' => $cards
+      ]
+    );
+  }
+
   public static function putOnDeck($player, $cards, $args = [])
   {
     $msg = clienttranslate('${player_name} puts ${card_names} on top of its deck');

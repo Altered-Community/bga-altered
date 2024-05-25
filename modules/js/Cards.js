@@ -762,10 +762,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               if (card.location == 'discard') $(id).classList.remove('mini-card');
 
               this.updateStatusIfCard($(id));
-
-              return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`, {
-                clearTransform: true,
-              });
+              if (card.location == 'mana') {
+                return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
+              } else {
+                return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`, {
+                  clearTransform: true,
+                });
+              }
             };
 
             if (!$(id)) {
@@ -785,6 +788,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
         this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
         this.notifqueue.setSynchronousDuration(100);
+      });
+    },
+
+    notif_publicJinn(n) {
+      debug('Notif: discard of jinns', n);
+      n.args.cardsDeleted.forEach((cardId) => {
+        this.fadeOutAndDestroy($(`card-${cardId}`));
       });
     },
 
