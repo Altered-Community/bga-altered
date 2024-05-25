@@ -40,7 +40,7 @@ class ParallelNode extends AbstractNode
   public function isOptional($player)
   {
     // $player = Players::getActive();
-    return $this->getPId() == Players::getActiveId()
+    return $this->getPId() == $player->getId()
       && (parent::isOptional($player) ||
         $this->childsReduceAnd(function ($child) use ($player) {
           return $child->isOptional($player) || $child->isResolved();

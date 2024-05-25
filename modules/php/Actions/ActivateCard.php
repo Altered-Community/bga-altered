@@ -112,6 +112,7 @@ class ActivateCard extends \ALT\Models\Action
     if ($node->isMandatory()) {
       $flow['optional'] = false; // Remove optional to avoid double confirmation UX
     }
+    // $flow['pId'] = $this->getCard()->getPlayer()->getId();
     // Add tag about that card
     // $flow = Utils::tagTree($flow, [
     //   'sourceId' => $this->getCtxArg('cardId'),
