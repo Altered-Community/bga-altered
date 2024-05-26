@@ -22,8 +22,8 @@ class OD_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [LANDMARK],
       'effectDesc' => 'When a #non-token# Character joins your Expeditions — It gains 1 boost.',
-      'costHand' => 3,
-      'costReserve' => 3,
+      'costHand' => 4,
+      'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPassive' => [
         'ChooseAssignment' => [
