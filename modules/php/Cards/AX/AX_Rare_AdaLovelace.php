@@ -36,6 +36,7 @@ class AX_Rare_AdaLovelace extends \ALT\Models\Card
             'targetType' => [CHARACTER, SPELL, PERMANENT],
             'targetPlayer' => ME,
             'targetLocation' => [HAND],
+            'upTo' => true,
             'effect' => FT::DISCARD_TO_RESERVE(),
           ]
         ),
