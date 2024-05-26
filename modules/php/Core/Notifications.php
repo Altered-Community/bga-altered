@@ -553,7 +553,7 @@ class Notifications
   {
     $msg = '';
     if (!$silent) {
-      $msg = clienttranslate('${card_name} looses ${n} ${power}');
+      $msg = clienttranslate('${card_name} loses ${n} ${power}');
     }
     self::notifyAll('looseMeeples', $msg, [
       'card' => $card,
