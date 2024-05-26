@@ -324,14 +324,14 @@ abstract class Conditions
   // Treyst listeners
   public static function isFromReserveAndLess5Counters($card, $event)
   {
-    return ($card->getExtraDatas()['counter'] ?? 0) <= 5 &&
+    return ($card->getExtraDatas()['counter'] ?? 0) < 5 &&
       $card->getPId() == $event['pId'] &&
       $event['from'] == RESERVE;
   }
 
   public static function isDiscardedFromReserveAndLess5Counters($card, $event)
   {
-    if (($card->getExtraDatas()['counter'] ?? 0) > 5) {
+    if (($card->getExtraDatas()['counter'] ?? 0) >= 5) {
       return false;
     }
     if ($event['originalLocation'] != RESERVE) {
