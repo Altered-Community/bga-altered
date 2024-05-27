@@ -68,6 +68,7 @@ class ActivateCard extends \ALT\Models\Action
 
   public function isDoable($player)
   {
+    $player = $this->getPlayer();
     $flowTree = $this->getFlowTree($player);
 
     // throw new \feException(print_r($flowTree));
@@ -76,12 +77,14 @@ class ActivateCard extends \ALT\Models\Action
 
   public function isIrreversible($player = null)
   {
+    $player = $this->getPlayer();
     $flowTree = $this->getFlowTree($player);
     return is_null($flowTree) ? false : $flowTree->isIrreversible();
   }
 
   public function isIndependent($player = null)
   {
+    $player = $this->getPlayer();
     $flowTree = $this->getFlowTree($player);
     return is_null($flowTree) ? false : $flowTree->isIndependent($player);
   }
@@ -112,7 +115,7 @@ class ActivateCard extends \ALT\Models\Action
     if ($node->isMandatory()) {
       $flow['optional'] = false; // Remove optional to avoid double confirmation UX
     }
-    // $flow['pId'] = $this->getCard()->getPlayer()->getId();
+    $flow['pId'] = $this->getCard()->getPlayer()->getId();
     // Add tag about that card
     // $flow = Utils::tagTree($flow, [
     //   'sourceId' => $this->getCtxArg('cardId'),

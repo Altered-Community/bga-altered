@@ -45,12 +45,15 @@ class LeafNode extends AbstractNode
     if (isset($this->infos['mandatory']) && $this->infos['mandatory']) {
       return false;
     }
-    if (parent::isOptional($player) || !isset($this->infos['action'])) {
-      return parent::isOptional($player);
-    }
+
     if (!is_null($this->getPId()) && $this->getPId() != $player->getId()) {
       return false;
     }
+
+    if (parent::isOptional($player) || !isset($this->infos['action'])) {
+      return parent::isOptional($player);
+    }
+
     return Actions::get($this->infos['action'], $this)->isOptional($player) || !Actions::get($this->infos['action'], $this)->isDoable($player);
   }
 
