@@ -339,7 +339,8 @@ class AbstractNode
     $allOptional = true;
 
     foreach ($childs as $id => $child) {
-      if (!$child->isResolved() && ($displayAllChoices || $child->isDoable($player))) {
+      $isDoable = $child->isDoable($player);
+      if (!$child->isResolved() && ($displayAllChoices || $isDoable)) {
         $choice = [
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
@@ -351,7 +352,9 @@ class AbstractNode
           'source' => $child->getSource(),
           'sourceId' => $child->getSourceId(),
         ];
-        $choices[$id] = $choice;
+        if ($choice['description'] != '' || $isDoable) {
+          $choices[$id] = $choice;
+        }
         if (!$child->isOptional($player)) {
           $allOptional = false;
         }

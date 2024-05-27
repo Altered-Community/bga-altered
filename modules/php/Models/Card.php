@@ -372,13 +372,13 @@ class Card extends \ALT\Helpers\DB_Model
       return false;
     }
 
-    $power = $passive[$event['action'] ?? $event['type']];
-    $cond = $power['condition'] ?? null;
+    // $power = $passive[$event['action'] ?? $event['type']];
+    // $cond = $power['condition'] ?? null;
 
-    if (!is_null($cond)) {
-      // throw new \feException(Conditions::$cond($this, $event));
-      return Conditions::$cond($this, $event);
-    }
+    // if (!is_null($cond)) {
+    //   // throw new \feException(Conditions::$cond($this, $event));
+    //   return Conditions::$cond($this, $event);
+    // }
     return true;
   }
 

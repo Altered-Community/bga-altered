@@ -31,7 +31,7 @@ class ActivateCard extends \ALT\Models\Action
         $player,
         $this->getCtxArgs()['event']['method'],
         $this->getCtxArgs()['event'],
-        true // Throw error if no such listener
+        false // Throw error if no such listener
       )
       : null;
 

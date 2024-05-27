@@ -50,7 +50,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $rarity = $p['rarity'] == 0 ? 'common' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    if (true && Game::get()->getBgaEnvironment() == 'studio') {
+    if (false && Game::get()->getBgaEnvironment() == 'studio') {
       return new $className($data); // no DB call
     }
     return new Card($data); // information from DB
@@ -398,6 +398,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (is_null($output) || empty($output)) {
       $listened = false;
+      return null;
     }
 
     // if ($player != null && $isPlayerEvent && \method_exists($card, 'onPlayer' . $methodName)) {
