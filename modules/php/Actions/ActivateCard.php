@@ -19,15 +19,22 @@ class ActivateCard extends \ALT\Models\Action
 
   public function getCard()
   {
-    return Cards::get($this->getCtxArg('cardId'));
+    return Cards::getSingle($this->getCtxArg('cardId'), false);
   }
 
   public function getFlow($player)
   {
+
+    $card = $this->getCard();
+    if (is_null($card)) {
+      // in the case of a token that react, as we deleted the tokens they do not exist in DB anymore
+      return null;
+    }
+
     $flow =
-      $this->getCard()->isPlayed() || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
+      $card->isPlayed() || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
       ? Cards::applyEffect(
-        $this->getCard(),
+        $card,
         $player,
         $this->getCtxArgs()['event']['method'],
         $this->getCtxArgs()['event'],
