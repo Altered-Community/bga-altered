@@ -129,7 +129,9 @@ class ChooseAssignment extends \ALT\Models\Action
 
       // management of CostReductionDiscard, discarding a card from reserve to reduce cost
       if ($card->getCostReductionDiscard() > 0) {
-        if ($player->getReserveCards()->count() > 0) {
+        if (($card->getLocation() == RESERVE && $player->getReserveCards()->count() > 1) ||
+          ($card->getLocation() != RESERVE && $player->getReserveCards()->count() > 0)
+        ) {
           $this->insertAsChild(
             FT::XOR(
               FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
@@ -139,6 +141,7 @@ class ChooseAssignment extends \ALT\Models\Action
                   [
                     'targetLocation' => [RESERVE],
                     'targetPlayer' => ME,
+                    'excludeSelf' => true,
                     'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
                     'effect' => FT::ACTION(DISCARD, []),
                   ],
