@@ -169,7 +169,7 @@ abstract class Conditions
   public static function isPermanentAndCost3($card, $event)
   {
     // check card triggering the effect isn't tapped
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       !$card->isTapped() &&
       $event['cardType'] == PERMANENT &&
@@ -178,21 +178,21 @@ abstract class Conditions
 
   public static function isRobotPlayed($card, $event)
   {
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
   }
 
   public static function isSpellPlayed($card, $event)
   {
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       Cards::get($event['playedCard'])->getType() == SPELL;
   }
 
   public static function isBureaucratPlayed($card, $event)
   {
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       in_array(BUREAUCRAT, Cards::get($event['playedCard'])->getSubtypes());
   }
@@ -212,7 +212,7 @@ abstract class Conditions
       }
     }
 
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       $hasZero;
   }
@@ -239,14 +239,14 @@ abstract class Conditions
 
   public static function isCharacterPlayed($card, $event)
   {
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]);
   }
 
   public static function isNonTokenPlayed($card, $event)
   {
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       Cards::get($event['playedCard'])->getType() == CHARACTER;
   }
@@ -373,7 +373,7 @@ abstract class Conditions
 
   public static function costHigherThanCounter($card, $event)
   {
-    return $event['playCard'] === true &&
+    return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       Cards::get($event['playedCard'])->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
   }

@@ -285,6 +285,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $this->checkAfterListeners($player, [
       'playedCard' => $cardId,
+      'playCard' => false,
       'cardType' => $card->getType(),
       'from' => RESERVE,
     ]);

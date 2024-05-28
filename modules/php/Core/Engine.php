@@ -330,7 +330,7 @@ class Engine
     // Go through root children
     $childs = self::$tree->getChilds();
     for ($i = 0; $i < count($childs); $i++) {
-      if ($childs[$i]->getFlag() == AFTER_FINISHING_ACTION) {
+      if ($childs[$i]->getFlag() == AFTER_FINISHING_ACTION && !$childs[$i]->isResolved()) {
         return $childs[$i];
       }
     }
