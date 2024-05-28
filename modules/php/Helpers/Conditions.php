@@ -18,6 +18,11 @@ abstract class Conditions
     return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() != Globals::getFirstPlayer();
   }
 
+  public static function isNotFirstPlayerCanPay1($card, $event)
+  {
+    return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() != Globals::getFirstPlayer() && $card->getPlayer()->getMana() >= 1;
+  }
+
   public static function boostedByOtherCard($card, $event)
   {
     if ($event['sourceId'] != $card->getId() && $event['gain']['type'] == BOOST && $event['gain']['cardId'] == $card->getId()) {

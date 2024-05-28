@@ -59,6 +59,8 @@ class CheckCondition extends \ALT\Models\Action
       return Conditions::has5CounterOnCard($player->getHero(), ['pId' => $player->getId()]);
     } elseif ($condition == 'hasReserve') {
       return Conditions::hasReserve($player->getHero(), ['pId' => $player->getId()]);
+    } elseif ($condition == 'isNotFirstPlayerCanPay1') {
+      return Conditions::isNotFirstPlayerCanPay1($player->getHero(), ['pId' => $player->getId()]);
     } else {
       return true;
     }
