@@ -122,7 +122,7 @@ class Target extends \ALT\Models\Action
     $targetLocation = $this->getArg('targetLocation');
     if ($targetLocation == ['source']) {
       $targetLocation = [$this->getSource()->getLocation()];
-    } elseif ($targetLocation == ['opposite']) {
+    } elseif ($targetLocation == ['oppositeSource']) {
       $targetLocation = [$this->getSource()->getLocation() == STORM_RIGHT ? STORM_LEFT : STORM_RIGHT];
     }
 
