@@ -187,7 +187,7 @@ class Engine
         count($choices) == 1 &&
         count($allChoices) == 1 &&
         array_keys($allChoices) == array_keys($choices) &&
-        !$choices[$id]['irreversibleAction']
+        (!$choices[$id]['irreversibleAction'] ||  (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
       ) {
         self::chooseNode($player, $id, true);
       } else {
