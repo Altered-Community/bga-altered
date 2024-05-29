@@ -24,12 +24,19 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
-      'effectTap' =>
-      FT::ACTION(CHECK_CONDITION, ['condition' => 'isNotFirstPlayerCanPay1', 'effect' =>
-      FT::SEQ(
-        FT::ACTION(PAY, ['pay' => 1]),
-        FT::ACTION(INVOKE_TOKEN,  ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]])
-      )])
+      'effectTap' => FT::XOR(
+        FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'isNotFirstPlayerCanPay1',
+          'effect' => FT::SEQ(
+            FT::ACTION(PAY, ['pay' => 1]),
+            FT::ACTION(INVOKE_TOKEN,  ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]])
+          )
+        ]),
+        FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'isFirstPlayer',
+          'effect' => FT::ACTION(INVOKE_TOKEN,  ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]])
+        ])
+      )
     ];
   }
 }
