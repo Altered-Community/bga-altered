@@ -410,7 +410,7 @@ abstract class Conditions
 
   public static function notFleeting($card, $event)
   {
-    return !$card->hasToken(FLEETING);
+    return !$card->hasToken(FLEETING) && !($event['fleeting'] ?? false);
   }
 
   public static function movesStormsWithForest($card, $event)

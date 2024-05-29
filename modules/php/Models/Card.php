@@ -245,6 +245,7 @@ class Card extends \ALT\Helpers\DB_Model
         'type' => 'LeaveExpedition',
         'method' => 'LeaveExpedition',
         'boosted' => $this->hasToken(BOOST),
+        'fleeting' => $this->hasToken(FLEETING),
         'cardId' => $this->id,
       ];
       if ($this->isListeningTo($event)) {
