@@ -245,7 +245,7 @@ class Discard extends \ALT\Models\Action
       }
 
       // we discard a card that has fleeting and should go to reserve
-      if ($args['destination'] == RESERVE && $card->hasToken(FLEETING)) {
+      if ($args['destination'] == RESERVE && $card->hasToken(FLEETING) && !$card->isToken()) {
         Cards::discard($cardId);
         if (($this->getCtxArg('desc') ?? '') == 'sacrifice' && $card->isSacrificeAndFleetingDraw()) {
           $this->insertAsChild(['action' => DRAW, 'args' => ['players' => ME]]);
