@@ -212,7 +212,7 @@ class Target extends \ALT\Models\Action
   public function stTarget()
   {
     $args = $this->argsTarget();
-    if ($args['upTo'] == false  && $this->isOptional(Players::getActive()) && count($args['cardIds']) <= $args['n']) {
+    if ($args['upTo'] == false  && !$this->isOptional(Players::getActive()) && count($args['cardIds']) <= $args['n']) {
       $this->actTarget($args['cardIds']);
     }
   }
