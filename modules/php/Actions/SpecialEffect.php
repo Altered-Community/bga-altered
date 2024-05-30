@@ -193,6 +193,10 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boost3Stat0':
         $nb = 0;
         foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
+          if (!in_array($c->getType(), [CHARACTER, TOKEN])) {
+            continue;
+          }
+
           foreach ($c->getBiomes(false) as $type => $value) {
             if ($value == 0) {
               $nb++;
@@ -206,6 +210,10 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boost23Stat0':
         $nb = 0;
         foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
+          if (!in_array($c->getType(), [CHARACTER, TOKEN])) {
+            continue;
+          }
+
           foreach ($c->getBiomes(false) as $type => $value) {
             if ($value == 0) {
               $nb++;
