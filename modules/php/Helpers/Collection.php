@@ -14,6 +14,11 @@ class Collection extends \ArrayObject
     return empty($this->getArrayCopy());
   }
 
+  public function has($key)
+  {
+    return array_key_exists($key, $this->getArrayCopy());
+  }
+
   public function first()
   {
     $arr = $this->toArray();

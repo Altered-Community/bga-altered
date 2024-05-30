@@ -25,7 +25,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return new \ALT\Models\Player($row);
   }
 
-  public function setupNewGame($players, $options)
+  public static function setupNewGame($players, $options)
   {
     // Create players
     $gameInfos = Game::get()->getGameinfos();
@@ -69,12 +69,12 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     Game::get()->reloadPlayersBasicInfos();
   }
 
-  public function getActiveId()
+  public static function getActiveId()
   {
     return (int) Game::get()->getActivePlayerId();
   }
 
-  public function getCurrentId()
+  public static function getCurrentId()
   {
     return (int) Game::get()->getCurrentPId();
   }
@@ -82,34 +82,34 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   /*
    * get : returns the Player object for the given player ID
    */
-  public function get($id = null)
+  public static function get($id = null)
   {
     return parent::get($id ?? self::getActiveId());
   }
 
-  public function getActive()
+  public static function getActive()
   {
     return self::get();
   }
 
-  public function getCurrent()
+  public static function getCurrent()
   {
     return self::get(self::getCurrentId());
   }
 
-  public function getNextId($player)
+  public static function getNextId($player)
   {
     $pId = is_int($player) ? $player : $player->getId();
     $table = Game::get()->getNextPlayerTable();
     return $table[$pId];
   }
 
-  public function getNext($player)
+  public static function getNext($player)
   {
     return self::get(self::getNextId($player));
   }
 
-  public function getPrevious($player)
+  public static function getPrevious($player)
   {
     $table = Game::get()->getPrevPlayerTable();
     $pId = (int) $table[$player->getId()];
@@ -119,7 +119,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   /*
    * Return the number of players
    */
-  public function count()
+  public static function count()
   {
     return self::getAll()->count();
   }
@@ -127,7 +127,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   /*
    * getUiData : get all ui data of all players
    */
-  public function getUiData($pId)
+  public static function getUiData($pId)
   {
     return self::getAll()
       ->map(function ($player) use ($pId) {
@@ -139,7 +139,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   /*
    * Get current turn order according to first player variable
    */
-  public function getTurnOrder($firstPlayer = null)
+  public static function getTurnOrder($firstPlayer = null)
   {
     $firstPlayer = $firstPlayer ?? Globals::getFirstPlayer();
     $order = [];
@@ -151,7 +151,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $order;
   }
 
-  public function hasOpponentBlockingPower($player, $expedition)
+  public static function hasOpponentBlockingPower($player, $expedition)
   {
     // TODO: manage multiplayers
     foreach (self::getAll() as $pId => $player2) {
@@ -165,7 +165,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
-  public function hasOppositeDefender($expedition)
+  public static function hasOppositeDefender($expedition)
   {
     $oppositeExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
     foreach (self::getAll() as $pId => $player) {
@@ -176,7 +176,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
-  public function getOpponentAdditionalCost($player, $type)
+  public static function getOpponentAdditionalCost($player, $type)
   {
     $cost = 0;
     foreach (self::getAll() as $pId => $player2) {
@@ -188,7 +188,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
-  public function checkVictory()
+  public static function checkVictory()
   {
     $isVictory = false;
     $maxMoves = 0;
@@ -237,14 +237,14 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
-  public function initializeDecks()
+  public static function initializeDecks()
   {
     foreach (self::getAll() as $pId => $player) {
       $player->initializeDecks();
     }
   }
 
-  public function computeStorm($advance = false)
+  public static function computeStorm($advance = false)
   {
     if (Globals::isTieBreakerMode()) {
       return [];
@@ -324,7 +324,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $movements;
   }
 
-  public function biomesModifier(&$biomes, $player, $expedition)
+  public static function biomesModifier(&$biomes, $player, $expedition)
   {
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       $updateExpeditions = $card->getUpdateExpeditions();
@@ -345,7 +345,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
   }
 
-  public function updateBiomesModifier(&$biomes, $updateExpeditions)
+  public static function updateBiomesModifier(&$biomes, $updateExpeditions)
   {
     // remove all the one to remove
     foreach ($updateExpeditions['regionsRemove'] ?? [] as $region) {

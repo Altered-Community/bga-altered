@@ -174,7 +174,7 @@ class Globals extends \ALT\Helpers\DB_Manager
       }
     }
     throw new \feException(print_r(debug_print_backtrace()));
-    return undefined;
+    return null;
   }
 
   /*

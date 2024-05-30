@@ -1,5 +1,7 @@
 <?php
+
 namespace ALT\Managers;
+
 use ALT\Core\Stats;
 use ALT\Core\Globals;
 use ALT\Helpers\UserException;
@@ -67,7 +69,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
   /**
    * Generic base query
    */
-  public function getFilteredQuery($pId = null, $location, $type)
+  public static function getFilteredQuery($pId = null, $location, $type)
   {
     $query = self::getSelectQuery();
 
@@ -87,7 +89,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
     return $query;
   }
 
-  public function createOnCard($type, $cardId, $pId, $nbr = 1)
+  public static function createOnCard($type, $cardId, $pId, $nbr = 1)
   {
     if ($nbr == 1) {
       return [self::singleCreate(['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId])];

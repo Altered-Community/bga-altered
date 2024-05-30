@@ -228,7 +228,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function getManaChoice($pId)
   {
-    return self::getFilteredQuery($pId, 'choice')->orderBy('state', 'ASC');
+    return self::getFiltered($pId, 'choice')->orderBy('state', 'ASC');
   }
 
   /**
@@ -272,7 +272,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   /**
    * Get all the cards triggered by an event
    */
-  public function getListeningCards($event)
+  public static function getListeningCards($event)
   {
     $cards = self::getListeningCardsObject()
       ->filter(function ($card) use ($event) {
@@ -295,7 +295,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $cards;
   }
 
-  public function getListeningCardsObject()
+  public static function getListeningCardsObject()
   {
     return self::getInLocation(STORM_LEFT)
       ->merge(self::getInLocation(STORM_RIGHT))
@@ -306,7 +306,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   /**
    * Get reaction in form of an ARRAY of node that can be used to activate a card
    */
-  public function getReaction($event, $returnNullIfEmpty = true)
+  public static function getReaction($event, $returnNullIfEmpty = true)
   {
     $listeningCards = self::getListeningCards($event);
     if (empty($listeningCards) && $returnNullIfEmpty) {
@@ -338,7 +338,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   /**
    * Go trough all played cards to apply effects
    */
-  public function getAllCardsWithMethod($methodName)
+  public static function getAllCardsWithMethod($methodName)
   {
     return self::getListeningCardsObject()->filter(function ($card) use ($methodName) {
       return \method_exists($card, 'on' . $methodName) ||
@@ -347,7 +347,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     });
   }
 
-  public function applyEffects($player, $methodName, &$args)
+  public static function applyEffects($player, $methodName, &$args)
   {
     // Compute a specific ordering if needed
     $cards = self::getAllCardsWithMethod($methodName)->toAssoc();
@@ -386,7 +386,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $result;
   }
 
-  public function applyEffect($card, $player, $methodName, &$args, $throwErrorIfNone = false)
+  public static function applyEffect($card, $player, $methodName, &$args, $throwErrorIfNone = false)
   {
     $card = $card instanceof \ALT\Models\Card ? $card : self::get($card);
     $res = null;

@@ -643,7 +643,7 @@ class Notifications
     ]);
   }
 
-  public function blockExpedition($player, $blockedPlayer, $expedition)
+  public static function blockExpedition($player, $blockedPlayer, $expedition)
   {
     self::notifyAll('blockExpedition',  clienttranslate('${player_name} blocks ${player_name2} ${expedition}\'s expedition until next Day'), [
       'player' => $player,
@@ -652,7 +652,7 @@ class Notifications
     ]);
   }
 
-  public function blockAllExpeditions($player, $source)
+  public static function blockAllExpeditions($player, $source)
   {
     self::notifyAll('blockAllExpeditions',  clienttranslate('${player_name} blocks all expeditions until next Day (${card_name}'), [
       'player' => $player,
@@ -778,81 +778,6 @@ class Notifications
         ? clienttranslate('Hero\'s expedition')
         : clienttranslate('Companion\'s expedition');
     }
-
-    // if (isset($data['actionCard'])) {
-    //   $lvlMapping = [
-    //     1 => 'I',
-    //     2 => 'II',
-    //   ];
-    //   $card = $data['actionCard'];
-    //   $data['i18n'][] = 'action_card_name';
-    //   $data['action_card_name'] = $card->getName();
-    //   $data['action_card_level'] = $lvlMapping[$card->getLevel()];
-    //   $data['action_card_icon'] = '';
-    //   $data['action_card_type'] = $card->getType();
-    //   $data['preserve'][] = 'action_card_type';
-    // }
-
-    // if (isset($data['actionCards'])) {
-    //   $data['actionCards'] = $data['actionCards']->map(function ($card) {
-    //     return $card->getStrength();
-    //   });
-    // }
-
-    // // Useful for frontend formating
-    // if (isset($data['strength'])) {
-    //   $data['strength_icon'] = '';
-    // }
-
-    // if (isset($data['building'])) {
-    //   $building = $data['building'];
-    //   $names = [
-    //     'pavilion' => clienttranslate('a pavilion'),
-    //     'kiosk' => clienttranslate('a Kiosk'),
-    //     LARGE_BIRD_AVIARY => clienttranslate('the Large Bird Aviary'),
-    //     PETTING_ZOO => clienttranslate('the Petting Zoo'),
-    //     REPTILE_HOUSE => clienttranslate('the Reptile House'),
-    //     'empty' => clienttranslate('no enclosure'),
-    //   ];
-    //   $name = $names[$building['type']] ?? [
-    //     'log' => clienttranslate('a size-${n} enclosure'),
-    //     'args' => ['n' => count(\BUILDINGS[$building['type']])],
-    //   ];
-    //   if (in_array($building['type'], \UNIQUE_BUILDINGS)) {
-    //     $name = \clienttranslate('a unique building');
-    //   }
-
-    //   $data['i18n'][] = 'building_name';
-    //   $data['building_name'] = $name;
-    // }
-
-    // if (isset($data['building2'])) {
-    //   $building = $data['building2'];
-    //   $names = [
-    //     'pavilion' => clienttranslate('a pavilion'),
-    //     'kiosk' => clienttranslate('a Kiosk'),
-    //     LARGE_BIRD_AVIARY => clienttranslate('the Large Bird Aviary'),
-    //     PETTING_ZOO => clienttranslate('the Petting Zoo'),
-    //     REPTILE_HOUSE => clienttranslate('the Reptile House'),
-    //   ];
-    //   $data['i18n'][] = 'building_name2';
-    //   $data['building_name2'] = $names[$building['type']] ?? [
-    //     'log' => clienttranslate('a size-${n} enclosure'),
-    //     'args' => ['n' => count(\BUILDINGS[$building['type']])],
-    //   ];
-    // }
-
-    // if (isset($data['resources'])) {
-    //   // Get an associative array $resource => $amount
-    //   $resources = Utils::reduceResources($data['resources']);
-    //   $data['resources_desc'] = Utils::resourcesToStr($resources);
-    // }
-
-    // if (isset($data['resources2'])) {
-    //   // Get an associative array $resource => $amount
-    //   $resources2 = Utils::reduceResources($data['resources2']);
-    //   $data['resources2_desc'] = Utils::resourcesToStr($resources2);
-    // }
 
     if (isset($data['card'])) {
       $data['card_id'] = $data['card']->getId();

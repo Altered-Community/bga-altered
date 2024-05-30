@@ -33,7 +33,7 @@ abstract class Utils extends \APP_DbObject
   }
   public static function GAIN($token, $n = 1)
   {
-    return ACTION(GAIN, ['type' => $token, 'n' => $n]);
+    return self::ACTION(GAIN, ['type' => $token, 'n' => $n]);
   }
 
   public static function filter(&$data, $filter)
@@ -41,7 +41,7 @@ abstract class Utils extends \APP_DbObject
     $data = array_values(array_filter($data, $filter));
   }
 
-  public function rand($array, $n = 1)
+  public static function rand($array, $n = 1)
   {
     $keys = array_rand($array, $n);
     if ($n == 1) {
@@ -109,9 +109,6 @@ abstract class Utils extends \APP_DbObject
 
   public static function die($args = null)
   {
-    if (is_null($args)) {
-      throw new \BgaVisibleSystemException(implode('<br>', self::$logmsg));
-    }
     throw new \BgaVisibleSystemException(json_encode($args));
   }
 
@@ -171,25 +168,6 @@ abstract class Utils extends \APP_DbObject
     return [
       'fees' => [$cost],
     ];
-  }
-
-  public static function reduceResources($meeples)
-  {
-    $allResources = [XTOKEN, REPUTATION, APPEAL, MONEY];
-    $t = [];
-    foreach ($allResources as $resource) {
-      $t[$resource] = 0;
-    }
-
-    foreach ($meeples as $meeple) {
-      if ($meeple['type'] == SCORE) {
-        continue;
-      }
-
-      $t[$meeple['type']]++;
-    }
-
-    return $t;
   }
 
   public static function uniqueZones($arr1)

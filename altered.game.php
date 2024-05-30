@@ -322,13 +322,13 @@ class altered extends Table
   // Exposing protected method getCurrentPlayerId
   public static function getCurrentPId()
   {
-    return self::getCurrentPlayerId();
+    return self::get()->getCurrentPlayerId();
   }
 
   // Exposing protected method translation
   public static function translate($text)
   {
-    return self::_($text);
+    return self::get()->_($text);
   }
 
   public function checkAction($actionName, $bThrowException = true)

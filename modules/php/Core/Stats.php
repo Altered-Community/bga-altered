@@ -186,7 +186,7 @@ class Stats extends \ALT\Helpers\DB_Manager
     return null;
   }
 
-  protected function getLabels()
+  protected static function getLabels()
   {
     $labels = [
       clienttranslate('Axiom'),
