@@ -265,8 +265,8 @@ class Discard extends \ALT\Models\Action
       // remove all meeples on the card
       $seasoned = $card->isSeasoned();
       $toDelete = Meeples::getInLocation('card-' . $cardId)
-        ->filter(function ($m) use ($seasoned) {
-          return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
+        ->filter(function ($m) use ($seasoned, $args) {
+          return $seasoned == false || ($args['destination'] == RESERVE && $seasoned == true && $m->getType() != BOOST);
         })
         ->getIds();
       Meeples::delete($toDelete);
