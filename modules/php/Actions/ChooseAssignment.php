@@ -256,6 +256,8 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()]]);
+    } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
+      Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
     }
   }
 

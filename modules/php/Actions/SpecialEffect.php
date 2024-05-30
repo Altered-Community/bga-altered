@@ -156,6 +156,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'removeFleetingSpellPlayed':
         Globals::setRemoveFleetingSpellPlayed(true);
         break;
+      case 'removeFleetingCharacterPlayed':
+        Globals::setRemoveFleetingCharacterPlayed(true);
+        break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
           throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');

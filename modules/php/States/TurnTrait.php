@@ -103,6 +103,8 @@ trait TurnTrait
     Globals::setNextSpellIsFree(false);
     Globals::setRemoveFleetingIfSpellPlayedHand(false);
     Globals::setRemoveFleetingSpellPlayed(false);
+    Globals::setRemoveFleetingCharacterPlayed(false;
+
 
     self::giveExtraTime($player->getId());
 

@@ -51,6 +51,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nextSpellIsFree' => 'bool',
     'removeFleetingIfSpellPlayedHand' => 'bool',
     'removeFleetingSpellPlayed' => 'bool',
+    'removeFleetingCharacterPlayed' => 'bool',
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
   ];
