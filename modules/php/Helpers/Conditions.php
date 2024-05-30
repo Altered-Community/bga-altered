@@ -339,7 +339,14 @@ abstract class Conditions
     if (($card->getExtraDatas()['counter'] ?? 0) >= 5) {
       return false;
     }
-    if ($event['originalLocation'] != RESERVE) {
+
+    $found = false;
+    foreach ($event['originalLocation'] as $cId => $location) {
+      if ($location == RESERVE) {
+        $found = true;
+      }
+    }
+    if (!$found) {
       return false;
     }
 
