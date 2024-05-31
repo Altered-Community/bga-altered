@@ -59,7 +59,8 @@ class Discard extends \ALT\Models\Action
 
   public function stDiscard()
   {
-    if (($this->getCtxArg('canPass') ?? false) == true) {
+    $force = $this->getCtxArg('force') ?? false;
+    if (($this->getCtxArg('canPass') ?? false) == true && !$force) {
       return;
     }
 

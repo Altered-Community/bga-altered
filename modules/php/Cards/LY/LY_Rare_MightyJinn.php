@@ -30,7 +30,7 @@ class LY_Rare_MightyJinn extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'LeaveExpedition' => [
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true], ['optional' => true]),
+          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true, 'canPass' => true, 'force' => true])
         ],
       ],
     ];

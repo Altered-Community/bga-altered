@@ -31,7 +31,7 @@ class BR_Rare_MightyJinn extends \ALT\Models\Card
       'effectPassive' => [
         'LeaveExpedition' => [
           'output' => FT::XOR(
-            FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true]),
+            FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'force' => true, 'tapped' => true]),
             FT::ACTION(DRAW, ['players' => ME])
           )
         ],
