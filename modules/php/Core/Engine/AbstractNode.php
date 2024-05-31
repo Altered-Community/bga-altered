@@ -227,6 +227,11 @@ class AbstractNode
     return $this->infos['source'] ?? null;
   }
 
+  public function getOptional()
+  {
+    return $this->infos['optional'] ?? false;
+  }
+
   public function getSourceId()
   {
     return $this->infos['sourceId'] ?? null;
