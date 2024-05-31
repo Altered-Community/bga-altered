@@ -31,7 +31,6 @@ class AX_Rare_BravosVanguard extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(
         TARGET,
         [
-          'statuses' => FLEETING,
           'upTo' => true,
           'excludeSelf' => true,
           'effect' => FT::SEQ(
