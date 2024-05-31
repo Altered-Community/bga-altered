@@ -32,8 +32,8 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'condition' => 'isDiscardedFromHandToReserve',
-          'output' => FT::SEQ(
-            FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true], ['optional' => true]),
+          'output' => FT::SEQ_OPTIONAL(
+            FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]),
             FT::GAIN($this, ASLEEP)
           ),
         ],
