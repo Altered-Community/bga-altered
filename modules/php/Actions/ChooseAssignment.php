@@ -246,6 +246,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'playedCard' => $cardId,
       'cardType' => $card->getType(),
       'from' => $fromLocation,
+      'to' => $location
     ]);
 
     if ($card->getType() == SPELL) {

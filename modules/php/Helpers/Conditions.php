@@ -4,6 +4,7 @@ namespace ALT\Helpers;
 
 use ALT\Core\Globals;
 use ALT\Managers\Cards;
+use ALT\Managers\Players;
 
 // Conditions
 abstract class Conditions
@@ -329,6 +330,15 @@ abstract class Conditions
       $card->getPId() == $event['pId'] &&
       $event['cardType'] == CHARACTER &&
       $event['from'] == RESERVE;
+  }
+
+  public static function isCharacterFromReserveNotBlocked($card, $event)
+  {
+    return ($event['playCard'] ?? false) === true &&
+      $card->getPId() == $event['pId'] &&
+      $event['cardType'] == CHARACTER &&
+      $event['from'] == RESERVE &&
+      !Players::hasOpponentBlockingPower($card->getPlayer(), $event['to']);
   }
 
   // Treyst listeners

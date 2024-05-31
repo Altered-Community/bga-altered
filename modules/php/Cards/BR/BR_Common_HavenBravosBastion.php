@@ -28,7 +28,7 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCharacterFromReserve',
+          'condition' => 'isCharacterFromReserveNotBlocked',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
