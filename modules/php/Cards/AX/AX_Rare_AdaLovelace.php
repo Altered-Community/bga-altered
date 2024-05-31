@@ -29,20 +29,22 @@ class AX_Rare_AdaLovelace extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['mountain'],
-      'effectReserve' => FT::SEQ_OPTIONAL(
-        FT::ACTION(
-          TARGET,
-          [
-            'targetType' => [CHARACTER, SPELL, PERMANENT],
-            'targetPlayer' => ME,
-            'targetLocation' => [HAND],
-            'upTo' => true,
-            'effect' => FT::DISCARD_TO_RESERVE(),
-          ]
-        ),
-        FT::ACTION(DRAW, ['players' => ME])
-      )
-
+      'effectReserve' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'hasCardsInHand', 'effect' =>
+        FT::SEQ_OPTIONAL(
+          FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'targetLocation' => [HAND],
+              'upTo' => true,
+              'effect' => FT::DISCARD_TO_RESERVE(),
+            ]
+          ),
+          FT::ACTION(DRAW, ['players' => ME])
+        )
+      ])
     ];
   }
 }
