@@ -96,7 +96,7 @@ class Target extends \ALT\Models\Action
 
   public function isOptional($player)
   {
-    return $this->getArg('upTo') || count($this->getTargetableCards(Players::getActive())) == 0 || !$this->isDoable($player);
+    return $this->getArg('upTo') || count($this->getTargetableCards(Players::getActive())) == 0 || !$this->isDoable($player) || $this->getCtx()->isOptional($player);
   }
 
   public function getTargetableCards($player)
