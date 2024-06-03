@@ -687,9 +687,9 @@ define([
       let values = Object.keys(setting.values)
         .map(
           (val) =>
-            `<option value='${val}' ${
-              this.settings[setting.id] == val ? 'selected="selected"' : ''
-            }>${_(setting.values[val])}</option>`
+            `<option value='${val}' ${this.settings[setting.id] == val ? 'selected="selected"' : ''}>${_(
+              setting.values[val]
+            )}</option>`
         )
         .join('');
 
@@ -1546,7 +1546,7 @@ define([
         if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
         if (
           ((config.upTo === false && selectedElements.length == config.n) ||
-            (config.upTo === true && selectedElements.length <= config.n)) &&
+            (config.upTo === true && selectedElements.length <= config.n && selectedElements.length > 0)) &&
           config.confirmBtn
         ) {
           let otherElems = elemIds.filter((id) => !selectedElements.includes(id));
@@ -1589,10 +1589,10 @@ define([
         }
       };
 
-      if ($('btnPass')) $('btnPass').remove();
-      if (config.optional || config.upTo) {
-        this.addSecondaryActionButton('btnPass', _('Pass action'), () => config.passCallback(), config.btnContainer);
-      }
+      // if ($('btnPass')) $('btnPass').remove();
+      // if (config.optional || config.upTo) {
+      //   this.addSecondaryActionButton('btnPass', _('Pass action'), () => config.passCallback(), config.btnContainer);
+      // }
 
       Object.keys(config.elements).forEach((id) => {
         let elt = config.elements[id];
