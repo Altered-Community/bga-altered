@@ -494,6 +494,7 @@
             left: 780px;
             z-index: 40;
             pointer-events: none;
+            display: flex;
 
             .altered-card {
                 transform: scale(1.2);

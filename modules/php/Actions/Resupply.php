@@ -70,7 +70,7 @@ class Resupply extends \ALT\Models\Action
       $drawn = $player->draw(
         2,
         'deck-' . $player->getId(),
-        RESERVE,
+        LIMBO,
         $source,
         clienttranslate(
           'You draw ${card_names} from your deck and must keep 1 (${card_name2}\'s effect combined with The Ouroboros, Lyra Bastion)'
@@ -80,16 +80,28 @@ class Resupply extends \ALT\Models\Action
         )
       );
       $this->insertAsChild(
-        FT::ACTION(
-          TARGET,
-          [
-            'effect' => FT::ACTION(DISCARD, []),
-            'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-            'targetLocation' => [RESERVE],
-            'targetPlayer' => ME,
-            'cards' => $drawn->getIds(),
-          ],
-          ['sourceId' => $sourceId]
+        FT::SEQ(
+          FT::ACTION(
+            TARGET,
+            [
+              'effect' => FT::ACTION(DISCARD, []),
+              'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+              'targetLocation' => [LIMBO],
+              'targetPlayer' => ME,
+              'cards' => $drawn->getIds(),
+            ],
+            ['sourceId' => $sourceId]
+          ),
+          FT::ACTION(
+            TARGET,
+            [
+              'effect' => FT::ACTION(DISCARD,  ['destination' => HAND]),
+              'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+              'targetLocation' => [LIMBO],
+              'targetPlayer' => ME,
+            ],
+            ['sourceId' => $sourceId]
+          )
         )
       );
     } else {
