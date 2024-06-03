@@ -1551,13 +1551,24 @@ define([
       let onChooseLocation = (location, pId) => {
         return () => this.takeAtomicAction('actMoveExpedition', [location, pId]);
       };
-
+      let i = 0;
       this.forEachPlayer((player) => {
         ['stormLeft', 'stormRight'].forEach((location) => {
           this.onClick(
             `board-${location}-${player.id}`,
             onChooseLocation(location, player.id == args.actPId ? 'me' : 'opponent')
           );
+          if (player.id == args.actPId) {
+            desc = location == 'stormLeft' ? _('My Hero expedition') : _('My Companion expedition');
+          } else {
+            desc = location == 'stormLeft' ? _('Opponent Hero expedition') : _('Opponent Companion expedition');
+          }
+          this.addPrimaryActionButton(
+            'btnLocation' + i,
+            desc,
+            onChooseLocation(location, player.id == args.actPId ? 'me' : 'opponent')
+          );
+          i++;
         });
       });
     },
