@@ -95,7 +95,7 @@ class Resupply extends \ALT\Models\Action
           FT::ACTION(
             TARGET,
             [
-              'effect' => FT::ACTION(DISCARD,  ['destination' => HAND]),
+              'effect' => FT::ACTION(DISCARD,  ['destination' => RESERVE]),
               'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
               'targetLocation' => [LIMBO],
               'targetPlayer' => ME,
