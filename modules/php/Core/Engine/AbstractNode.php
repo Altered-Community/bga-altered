@@ -407,6 +407,12 @@ class AbstractNode
     $this->infos['flag'] = PRE_ACTION_DONE;
   }
 
+  public function setFlag($v)
+  {
+
+    $this->infos['flagToto'] = $v;
+  }
+
   /************************
    *** Action resolution ***
    ************************/

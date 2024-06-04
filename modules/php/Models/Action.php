@@ -19,9 +19,9 @@ class Action
 {
   protected $ctx = null; // Contain ctx information : current node of flow tree
   protected $description = '';
-  public function __construct($ctx)
+  public function __construct(&$ctx)
   {
-    $this->ctx = $ctx;
+    $this->ctx = &$ctx;
   }
 
   public function isDoable($player)
@@ -68,7 +68,7 @@ class Action
   /**
    * Syntaxic sugar
    */
-  public function getCtx()
+  public function &getCtx()
   {
     return $this->ctx;
   }

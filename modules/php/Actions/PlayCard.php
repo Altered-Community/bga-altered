@@ -118,8 +118,7 @@ class PlayCard extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
 
-    // $this->playCard($cardId, $location); // TODO
-    Actions::get(CHOOSE_ASSIGNMENT)->playCard($cardId, $location, $this->getArg('free'), $this->getArg('effectHand'), $this->getArg('cost'));
-    $this->resolveAction([$cardId, $location]);
+    $context = &$this->getCtx();
+    Actions::get(CHOOSE_ASSIGNMENT, $context)->playCard($cardId, $location, $this->getArg('free'), $this->getArg('effectHand'), $this->getArg('cost'));
   }
 }

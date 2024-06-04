@@ -38,6 +38,8 @@ class SpecialEffect extends \ALT\Models\Action
       return clienttranslate('Next character 2<BOOST>');
     } elseif ($effect == 'AuraqKibble') {
       return clienttranslate('Draw and keep card or play it for free');
+      // } elseif ($effect == 'boost3Stat0') {
+      //   return clienttranslate('Gain 1<BOOST> if there are 3 base statistic at 0');
     }
     return '';
   }
