@@ -620,6 +620,10 @@
             color: #e1c24e;
         }
 
+        .card-frame[data-faction="LY"] ~ .card-support .rare-marker {
+            color: #F2D261;
+        }
+
         // Make sure to remove support if not needed
         .card-frame[data-support="0"] ~ .card-support {
             height: 0px;

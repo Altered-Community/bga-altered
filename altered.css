@@ -2233,6 +2233,9 @@ html {
 .altered-card .altered-card-wrapper .card-frame[data-faction=OD] ~ .card-support .rare-marker {
   color: #e1c24e;
 }
+.altered-card .altered-card-wrapper .card-frame[data-faction=LY] ~ .card-support .rare-marker {
+  color: #F2D261;
+}
 .altered-card .altered-card-wrapper .card-frame[data-support="0"] ~ .card-support {
   height: 0px;
   top: auto;
