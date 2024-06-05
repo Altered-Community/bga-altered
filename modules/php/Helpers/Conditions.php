@@ -44,6 +44,12 @@ abstract class Conditions
       Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
   }
 
+
+  public static function canSacrifice($card, $event)
+  {
+    return Players::get($event['pId'])->getPlayedCards([CHARACTER, TOKEN])->count() > 0;
+  }
+
   public static function isCharacterBoostedAndUntap($card, $event)
   {
     return !$card->isTapped() &&

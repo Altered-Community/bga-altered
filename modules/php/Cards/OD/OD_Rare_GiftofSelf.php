@@ -27,16 +27,21 @@ class OD_Rare_GiftofSelf extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::SEQ_OPTIONAL(
-          FT::ACTION(
-            TARGET,
-            [
-              'targetPlayer' => ME,
-              'targetType' => [CHARACTER, TOKEN],
-              'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
-            ]
-          ),
-          FT::ACTION(DRAW, ['players' => ME, 'n' => 2])
+        FT::ACTION(
+          CHECK_CONDITION,
+          [
+            'condition' => 'canSacrifice', 'effect' => FT::SEQ(
+              FT::ACTION(
+                TARGET,
+                [
+                  'targetPlayer' => ME,
+                  'targetType' => [CHARACTER, TOKEN],
+                  'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
+                ]
+              ),
+              FT::ACTION(DRAW, ['players' => ME, 'n' => 2])
+            )
+          ]
         )
       )
     ];
