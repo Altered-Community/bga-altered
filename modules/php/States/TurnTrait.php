@@ -70,7 +70,11 @@ trait TurnTrait
   function stAssignment()
   {
     $player = Players::getActive();
-
+    if (Players::checkVictory()) {
+      Globals::setDayPhase(false);
+      $this->endCustomOrder('assignment');
+      return;
+    }
     // check if a player skipped his turn
     $skipped = Globals::getSkippedPlayers();
     if (in_array($player->getId(), $skipped)) {

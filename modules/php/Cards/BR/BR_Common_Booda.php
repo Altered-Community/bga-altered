@@ -28,7 +28,7 @@ class BR_Common_Booda extends \ALT\Models\Card
       'token' => true,
       'costHand' => 0,
       'costReserve' => 0,
-      'typeline' => clienttranslate('Token - Companion'),
+      'typeline' => clienttranslate('Token Character - Companion'),
     ];
   }
 }

@@ -16,7 +16,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
       'name' => 'Maw',
-      'typeline' => 'Token - Companion',
+      'typeline' => 'Token Character - Companion',
       'type' => TOKEN,
       'token' => true,
       'flavorText' => 'Always hungry for new ideas...',

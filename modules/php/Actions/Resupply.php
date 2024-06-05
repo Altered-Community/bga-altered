@@ -99,6 +99,7 @@ class Resupply extends \ALT\Models\Action
               'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
               'targetLocation' => [LIMBO],
               'targetPlayer' => ME,
+              'cards' => $drawn->getIds(),
             ],
             ['sourceId' => $sourceId]
           )

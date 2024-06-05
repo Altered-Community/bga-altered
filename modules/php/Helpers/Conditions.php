@@ -44,6 +44,12 @@ abstract class Conditions
       Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
   }
 
+
+  public static function canSacrifice($card, $event)
+  {
+    return Players::get($event['pId'])->getPlayedCards([CHARACTER, TOKEN])->count() > 0;
+  }
+
   public static function isCharacterBoostedAndUntap($card, $event)
   {
     return !$card->isTapped() &&
@@ -344,13 +350,17 @@ abstract class Conditions
   // Treyst listeners
   public static function isFromReserveAndLess5Counters($card, $event)
   {
-    return ($card->getExtraDatas()['counter'] ?? 0) < 5 &&
+    return Globals::isDayPhase() && ($card->getExtraDatas()['counter'] ?? 0) < 5 &&
       $card->getPId() == $event['pId'] &&
       $event['from'] == RESERVE;
   }
 
   public static function isDiscardedFromReserveAndLess5Counters($card, $event)
   {
+    if (!Globals::isDayPhase()) {
+      return false;
+    }
+
     if (($card->getExtraDatas()['counter'] ?? 0) >= 5) {
       return false;
     }
