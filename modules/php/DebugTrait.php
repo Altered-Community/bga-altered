@@ -21,12 +21,18 @@ trait DebugTrait
     $datas = [];
 
     require_once dirname(__FILE__) . '/Cards/cards.inc.php';
-    foreach (DEMO as $faction => $deck) {
-      foreach ($deck as $cardId => $n) {
-        $className = '\\ALT\\Cards\\' . $faction . '\\' . $cardId;
-        $class = new $className(null);
-        $datas[] = $class->jsonSerialize();
-      }
+    // foreach (DEMO as $faction => $deck) {
+    //   foreach ($deck as $cardId => $n) {
+    //     $className = '\\ALT\\Cards\\' . $faction . '\\' . $cardId;
+    //     $class = new $className(null);
+    //     $datas[] = $class->jsonSerialize();
+    //   }
+    // }
+
+    foreach (MAP_REFS_CLASSES as $cardId => $className) {
+      $className = '\\ALT\\Cards\\' . str_replace('/', '\\', $className);
+      $class = new $className(null);
+      $datas[] = $class->jsonSerialize();
     }
 
     // require_once dirname(__FILE__) . '/../../misc/list.inc.php';

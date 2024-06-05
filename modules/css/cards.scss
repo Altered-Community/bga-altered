@@ -616,12 +616,15 @@
         }
 
         .card-frame[data-faction="AX"] ~ .card-support .rare-marker,
-        .card-frame[data-faction="OD"] ~ .card-support .rare-marker {
+        .card-frame[data-faction="OD"] ~ .card-support .rare-marker,
+        .card-frame[data-faction="BR"] ~ .card-support .rare-marker,
+        .card-frame[data-faction="MU"] ~ .card-support .rare-marker,
+        .card-frame[data-faction="YZ"] ~ .card-support .rare-marker {
             color: #e1c24e;
         }
 
         .card-frame[data-faction="LY"] ~ .card-support .rare-marker {
-            color: #F2D261;
+            color: #f2d261;
         }
 
         // Make sure to remove support if not needed

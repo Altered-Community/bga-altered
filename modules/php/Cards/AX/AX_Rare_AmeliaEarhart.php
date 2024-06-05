@@ -21,7 +21,7 @@ class AX_Rare_AmeliaEarhart extends \ALT\Models\Card
       'flavorText' => '"The most effective way to do it, is to do it."',
       'artist' => 'Taras Susak',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '#{H} I gain 1 boost.#',
+      'effectDesc' => '#{H} I gain 1 boost$<BB>.#',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
