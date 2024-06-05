@@ -1,10 +1,16 @@
 <?php
+
 namespace ALT\Core;
+
 use ALT\Core\Game;
+
+require_once dirname(__FILE__) . '/../gameoptions.inc.php';
+
 
 /*
  * User preferences
  */
+
 class Preferences extends \ALT\Helpers\DB_Manager
 {
   protected static $table = 'user_preferences';
@@ -15,13 +21,40 @@ class Preferences extends \ALT\Helpers\DB_Manager
     return $row;
   }
 
+  protected static $game_preferences = [];
+
+  public static function getLocalPrefsData()
+  {
+    return [
+      \ALT\OPTION_CONFIRM => [
+        'name' => totranslate('Turn confirmation'),
+        'needReload' => false,
+        'default' => \ALT\OPTION_CONFIRM_DISABLED,
+        'values' => [
+          \ALT\OPTION_CONFIRM_ENABLED => ['name' => totranslate('Enabled')],
+          \ALT\OPTION_CONFIRM_DISABLED => ['name' => totranslate('Disabled')],
+          \ALT\OPTION_CONFIRM_TIMER => ['name' => totranslate('Enabled with timer')],
+        ],
+      ],
+      \ALT\OPTION_CONFIRM_UNDOABLE => [
+        'name' => totranslate('Undoable actions confirmation'),
+        'needReload' => false,
+        'values' => [
+          \ALT\OPTION_CONFIRM_ENABLED => ['name' => totranslate('Enabled')],
+          \ALT\OPTION_CONFIRM_DISABLED => ['name' => totranslate('Disabled')],
+        ],
+      ],
+    ];
+  }
+
   /*
    * Setup new game
    */
   public static function setupNewGame($players, $prefs)
   {
     // Load user preferences
-    include dirname(__FILE__) . '/../../../gameoptions.inc.php';
+    // include dirname(__FILE__) . '/../../../gameoptions.inc.php';
+    $game_preferences = self::getLocalPrefsData();
 
     $values = [];
     foreach ($game_preferences as $id => $data) {
@@ -47,7 +80,9 @@ class Preferences extends \ALT\Helpers\DB_Manager
   public static function checkExistence()
   {
     // Load user preferences
-    include dirname(__FILE__) . '/../../../gameoptions.inc.php';
+    // include dirname(__FILE__) . '/../../../gameoptions.inc.php';
+    $game_preferences = self::getLocalPrefsData();
+
 
     $playerIds = array_keys(Game::get()->loadPlayersBasicInfos());
     $values = [];
