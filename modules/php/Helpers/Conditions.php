@@ -344,13 +344,17 @@ abstract class Conditions
   // Treyst listeners
   public static function isFromReserveAndLess5Counters($card, $event)
   {
-    return ($card->getExtraDatas()['counter'] ?? 0) < 5 &&
+    return Globals::isDayPhase() && ($card->getExtraDatas()['counter'] ?? 0) < 5 &&
       $card->getPId() == $event['pId'] &&
       $event['from'] == RESERVE;
   }
 
   public static function isDiscardedFromReserveAndLess5Counters($card, $event)
   {
+    if (!Globals::isDayPhase()) {
+      return false;
+    }
+
     if (($card->getExtraDatas()['counter'] ?? 0) >= 5) {
       return false;
     }
