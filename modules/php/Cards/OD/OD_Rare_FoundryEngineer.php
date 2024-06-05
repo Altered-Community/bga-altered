@@ -19,7 +19,7 @@ class OD_Rare_FoundryEngineer extends \ALT\Models\Card
       'flavorText' => 'Behind every Axiom masterwork, there are Foundry Engineers.',
       'artist' => 'Damian Audino',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{R} The next Permanent you play this Afternoon costs #{2} less#.',
+      'effectDesc' => '{R} The next Permanent you play this Afternoon costs #{2}# less.',
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 1,
