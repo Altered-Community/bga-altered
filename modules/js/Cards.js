@@ -755,7 +755,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             }
 
             let slideIt = () => {
-              if (n.args.hand === true) {
+              if (n.args.hand === true || card.location == 'reserve') {
                 $(id).classList.add('mini-card');
                 this.changeParent(id, `board-${card.location}-${card.pId}`);
               }
