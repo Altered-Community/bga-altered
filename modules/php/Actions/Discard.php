@@ -10,6 +10,7 @@ use ALT\Managers\ActionCards;
 use ALT\Core\Engine;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
+use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
 
@@ -53,7 +54,7 @@ class Discard extends \ALT\Models\Action
 
     return [
       'log' => $msg,
-      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard', 'card' => $card != '' ? $card->getName() : ''],
+      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard', 'card' => $card != '' ? ($card instanceof Collection ? clienttranslate(' multiple cards') : $card->getName()) : ''],
     ];
   }
 
@@ -141,7 +142,11 @@ class Discard extends \ALT\Models\Action
       if ($this->getCtxArg('cardId') == ME) {
         $cardId = $this->ctx->getSourceId();
       }
-      $cards = [$cardId];
+      if (is_array($cardId)) {
+        $cards = $cardId;
+      } else {
+        $cards = [$cardId];
+      }
     } elseif ($this->getArg('source') == HAND) {
       $cards = $player->getHand()->getIds();
     } elseif ($this->getArg('source') == RESERVE) {

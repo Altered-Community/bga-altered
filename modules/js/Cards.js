@@ -318,7 +318,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.addPrimaryActionButton('btnShowCards', _('Show cards'), () => this._cardsChoiceModal.show());
         container = $('choose-cards');
       }
-
+      debug('test', cardIds);
       let elements = {};
       cardIds.forEach((cardId) => {
         let oCard = $(`card-${cardId}`);
