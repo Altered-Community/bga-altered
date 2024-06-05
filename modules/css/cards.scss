@@ -552,6 +552,10 @@
                     margin-bottom: -4px;
                     margin-right: -4px;
                     background-position: 5px 5px;
+
+                    .touch-device & {
+                        pointer-events: none;
+                    }
                 }
             }
 

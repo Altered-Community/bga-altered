@@ -30,6 +30,31 @@ define([
   g_gamethemeurl + 'modules/js/Cards.js',
   g_gamethemeurl + 'modules/js/Meeples.js',
 ], function (dojo, declare, Sortable) {
+  function openFullscreen() {
+    var docElm = document.documentElement;
+    if (docElm.requestFullscreen) {
+      docElm.requestFullscreen();
+    } else if (docElm.mozRequestFullScreen) {
+      docElm.mozRequestFullScreen();
+    } else if (docElm.webkitRequestFullScreen) {
+      docElm.webkitRequestFullScreen();
+    } else if (docElm.msRequestFullscreen) {
+      docElm.msRequestFullscreen();
+    }
+  }
+
+  function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+
   return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
     constructor: function () {
       this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection', 'gameEnd'];
@@ -93,7 +118,8 @@ define([
       ];
 
       // Fix mobile viewport (remove CSS zoom)
-      this.default_viewport = 'width=740';
+      this.default_viewport = 'width=1000';
+      this.biggestHeightLandscape = 0;
       this.cardStatuses = {};
 
       this._loadingComplete = false;
@@ -123,7 +149,7 @@ define([
             step: 3,
             padding: 0,
             range: {
-              min: [30],
+              min: [80],
               max: [120],
             },
           },
@@ -230,6 +256,27 @@ define([
         </div>`
       );
       $('day-indicator-wheel-inner').dataset.phase = gamedatas.phase;
+
+      // Experimental
+      $('altered-main-container').insertAdjacentElement('beforeend', $('page-title'));
+      $('left-side').insertAdjacentHTML(
+        'beforeend',
+        `<div id="bga-help_buttons">
+          <button id="toggle-focus-mode" class="bga-help_button"></button>
+        </div>`
+      );
+
+      $('toggle-focus-mode').addEventListener('click', () => {
+        document.body.classList.toggle('focus-board');
+        if (document.body.classList.contains('focus-board')) {
+          window.scrollTo(0, 0);
+          this.biggestHeightLandscape = 0;
+          // openFullscreen();
+        } else {
+          // closeFullscreen();
+        }
+        this.onGameUiWidthChange();
+      });
 
       this.setupInfoPanel();
       this.setupBoard();
@@ -1764,6 +1811,8 @@ define([
         closeIcon: 'fa-times',
         title: _('Settings'),
         closeAction: 'hide',
+        scale: 0.9,
+        breakpoint: 550,
         verticalAlign: 'flex-start',
         contentsTpl: `<div id='altered-settings'>
              <div id='altered-settings-header'></div>
@@ -1828,15 +1877,29 @@ define([
       if (!this.settings) return;
       const ROOT = document.documentElement;
 
+      const IS_FOCUS_MODE = document.body.classList.contains('focus-board');
       const WIDTH = $('altered-main-container').getBoundingClientRect()['width'];
-      const HEIGHT = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight) - 62;
+      let HEIGHT =
+        (window.outerHeight || document.documentElement.clientHeight || document.body.clientHeight) - (IS_FOCUS_MODE ? 0 : 62);
       const BOARD_WIDTH = 1401;
       const BOARD_HEIGHT = 980;
 
-      let heightScale = ((this.settings.boardHeight / 100) * HEIGHT) / BOARD_HEIGHT,
-        widthScale = WIDTH / BOARD_WIDTH,
-        scale = Math.min(widthScale, heightScale);
+      if (HEIGHT < WIDTH && WIDTH < BOARD_WIDTH) {
+        this.biggestHeightLandscape = Math.max(this.biggestHeightLandscape, HEIGHT);
+        HEIGHT = this.biggestHeightLandscape;
+      }
+
+      let heightS = IS_FOCUS_MODE ? 0.92 : this.settings.boardHeight / 100;
+      if (HEIGHT < WIDTH) {
+        heightS = Math.max(0.8, heightS);
+      }
+      let heightScale = (heightS * HEIGHT) / BOARD_HEIGHT;
+      let widthScale = WIDTH / BOARD_WIDTH;
+      let scale = Math.min(widthScale, heightScale);
       ROOT.style.setProperty('--boardScale', scale);
+      // if (IS_FOCUS_MODE) {
+      //   document.body.style.height = heightS * HEIGHT + 'px';
+      // }
     },
 
     /////////////////////////////////////////

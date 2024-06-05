@@ -1,3 +1,81 @@
+body.focus-board {
+    overflow: hidden;
+    height: 100%;
+
+    #overall-footer {
+        display: none;
+    }
+
+    #topbar {
+        display: none;
+    }
+
+    #right-side,
+    #overall-footer-spacer {
+        display: none;
+    }
+
+    #page-content {
+        margin-bottom: 0px;
+        min-height: 0px;
+    }
+
+    #left-side {
+        margin-right: 0px !important;
+
+        #page-content ~ .whiteblock,
+        #page-content ~ .pageheader,
+        #pagesection_howtoplay,
+        #pagesection_competition,
+        #pagesection_tournament,
+        #pagesection_strategytips,
+        #pagesection_options,
+        #pagesection_credits,
+        #pagesection_music {
+            display: none !important;
+        }
+    }
+}
+
+#bga-help_buttons {
+    align-items: flex-end;
+    bottom: 12px;
+    display: flex;
+    gap: 10px;
+    left: 5px;
+    position: fixed;
+    z-index: 949;
+
+    .bga-help_button {
+        border-radius: 25px;
+        box-shadow: 3px 5px 5px 0 #000;
+        cursor: pointer;
+        height: 50px;
+        width: 50px;
+        color: white;
+        font-size: 28pt;
+        font-weight: 700;
+
+        &#toggle-focus-mode {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 25px;
+            text-rendering: auto;
+            color: black;
+
+            &::before {
+                content: "\f09c";
+            }
+        }
+    }
+}
+
+body.focus-board #bga-help_buttons #toggle-focus-mode {
+    background-color: #5890a9;
+    &::before {
+        content: "\f023";
+    }
+}
 // #topbar {
 //     margin-top: -66px;
 //     transition: margin 0.5s;
@@ -12,6 +90,22 @@
 
 #left-side-wrapper {
     margin-top: 0px;
+}
+
+#after-page-title {
+    display: none;
+}
+
+#altered-main-container {
+    position: relative;
+
+    #page-title {
+        position: absolute;
+        top: -5px;
+        z-index: 10;
+        left: 0;
+        right: 0;
+    }
 }
 
 #page-title {
@@ -96,26 +190,42 @@
 
 .mobile_version {
     #right-side {
-        top: 8px;
+        top: 74px;
+        // top: 8px;
         transition: top 0.5s;
+
+        #right-side-first-part {
+            background: #27311b;
+        }
     }
 
     #topbar.visible ~ #leftright_page_wrapper #right-side {
-        top: 72px;
+        top: 74px;
     }
 
     #player_boards {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0px 2px;
+        z-index: 1;
+        position: relative;
 
         .player-board {
             order: 2;
             clear: both;
             float: none;
+            flex-basis: calc(50% - 12px);
         }
 
         #player_board_config {
-            order: 3;
+            order: 1;
+            flex-basis: 100%;
+            height: auto !important;
+            margin-top: 0px;
+            border-radius: 7px !important;
+            padding: 2px 5px 0px;
+            margin-bottom: 3px;
         }
     }
 
