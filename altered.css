@@ -1696,6 +1696,8 @@ html {
           margin-bottom: -4px;
           margin-right: -4px;
           background-position: 5px 5px; }
+          .touch-device .altered-card .altered-card-wrapper .card-text .card-qrcode-container .card-qrcode {
+            pointer-events: none; }
       .altered-card .altered-card-wrapper .card-text hr {
         color: #a2a2a2;
         height: 0px;
@@ -2669,11 +2671,80 @@ html {
   line-height: 38px;
   font-size: 30px; }
 
+body.focus-board {
+  overflow: hidden;
+  height: 100%; }
+  body.focus-board #overall-footer {
+    display: none; }
+  body.focus-board #topbar {
+    display: none; }
+  body.focus-board #right-side,
+  body.focus-board #overall-footer-spacer {
+    display: none; }
+  body.focus-board #page-content {
+    margin-bottom: 0px;
+    min-height: 0px; }
+  body.focus-board #left-side {
+    margin-right: 0px !important; }
+    body.focus-board #left-side #page-content ~ .whiteblock,
+    body.focus-board #left-side #page-content ~ .pageheader,
+    body.focus-board #left-side #pagesection_howtoplay,
+    body.focus-board #left-side #pagesection_competition,
+    body.focus-board #left-side #pagesection_tournament,
+    body.focus-board #left-side #pagesection_strategytips,
+    body.focus-board #left-side #pagesection_options,
+    body.focus-board #left-side #pagesection_credits,
+    body.focus-board #left-side #pagesection_music {
+      display: none !important; }
+
+#bga-help_buttons {
+  align-items: flex-end;
+  bottom: 12px;
+  display: flex;
+  gap: 10px;
+  left: 5px;
+  position: fixed;
+  z-index: 949; }
+  #bga-help_buttons .bga-help_button {
+    border-radius: 25px;
+    box-shadow: 3px 5px 5px 0 #000;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    color: white;
+    font-size: 28pt;
+    font-weight: 700; }
+    #bga-help_buttons .bga-help_button#toggle-focus-mode {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: 25px;
+      text-rendering: auto;
+      color: black; }
+      #bga-help_buttons .bga-help_button#toggle-focus-mode::before {
+        content: "\f09c"; }
+
+body.focus-board #bga-help_buttons #toggle-focus-mode {
+  background-color: #5890a9; }
+  body.focus-board #bga-help_buttons #toggle-focus-mode::before {
+    content: "\f023"; }
+
 #game_play_area {
   margin-top: 0px; }
 
 #left-side-wrapper {
   margin-top: 0px; }
+
+#after-page-title {
+  display: none; }
+
+#altered-main-container {
+  position: relative; }
+  #altered-main-container #page-title {
+    position: absolute;
+    top: -5px;
+    z-index: 10;
+    left: 0;
+    right: 0; }
 
 #page-title {
   position: relative;
@@ -2740,19 +2811,32 @@ html {
   padding-bottom: 7px; }
 
 .mobile_version #right-side {
-  top: 8px;
+  top: 74px;
   transition: top 0.5s; }
+  .mobile_version #right-side #right-side-first-part {
+    background: #27311b; }
 .mobile_version #topbar.visible ~ #leftright_page_wrapper #right-side {
-  top: 72px; }
+  top: 74px; }
 .mobile_version #player_boards {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0px 2px;
+  z-index: 1;
+  position: relative; }
   .mobile_version #player_boards .player-board {
     order: 2;
     clear: both;
-    float: none; }
+    float: none;
+    flex-basis: calc(50% - 12px); }
   .mobile_version #player_boards #player_board_config {
-    order: 3; }
+    order: 1;
+    flex-basis: 100%;
+    height: auto !important;
+    margin-top: 0px;
+    border-radius: 7px !important;
+    padding: 2px 5px 0px;
+    margin-bottom: 3px; }
 .mobile_version #player_board_config {
   margin-top: -5px;
   padding-bottom: 10px;
@@ -2809,12 +2893,13 @@ html {
   background: #e1e1e1; }
 
 #altered-main-container {
-  margin-top: calc(var(--boardScale) * -130px);
+  margin-top: 0px;
   display: flex;
   justify-content: center; }
   #altered-main-container #altered-board-resizable {
     width: calc(var(--boardScale) * 1530px);
-    height: calc(var(--boardScale) * 1175px); }
+    height: calc(var(--boardScale) * 1175px);
+    margin-top: calc(15px + var(--boardScale) * -45px); }
     #altered-main-container #altered-board-resizable #altered-board {
       transform: scale(var(--boardScale));
       transform-origin: top left;

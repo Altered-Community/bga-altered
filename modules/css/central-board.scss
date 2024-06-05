@@ -1,11 +1,13 @@
 #altered-main-container {
-    margin-top: calc(var(--boardScale) * -130px);
+    margin-top: 0px;
+    // margin-top: calc(var(--boardScale) * -10px);
     display: flex;
     justify-content: center;
 
     #altered-board-resizable {
         width: calc(var(--boardScale) * 1530px);
         height: calc(var(--boardScale) * 1175px);
+        margin-top: calc(15px + var(--boardScale) * -45px);
 
         #altered-board {
             transform: scale(var(--boardScale));
