@@ -42,7 +42,7 @@ class Discard extends \ALT\Models\Action
       if ($this->getCtxArg('cardId') == ME) {
         $card = Cards::get($this->ctx->getSourceId());
       } else {
-        $card = Cards::get($this->getCtxArg('cardId'));
+        $card = Cards::get($this->getCtxArg('cardId'), false);
       }
     } else {
       $card = '';
