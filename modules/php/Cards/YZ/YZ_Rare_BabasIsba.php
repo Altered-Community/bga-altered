@@ -25,10 +25,9 @@ class YZ_Rare_BabasIsba extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'controlCharacters', 'effect' =>
-        FT::ACTION(DRAW, ['players' => ME]),
-        'effectTap' => FT::SEQ(
+      'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
+      'effectTap' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'controlCharacters', 'effect' => FT::SEQ(
           FT::ACTION(
             TARGET,
             [

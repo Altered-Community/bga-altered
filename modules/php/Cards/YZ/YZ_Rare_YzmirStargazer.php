@@ -31,7 +31,7 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'condition' => 'isSacrificed',
-          'output' =>  FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+          'output' =>  FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2]), 'upTo' => true]),
         ]
       ]
     ];
