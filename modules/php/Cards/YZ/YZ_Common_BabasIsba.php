@@ -25,17 +25,20 @@ class YZ_Common_BabasIsba extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
-      'effectTap' => FT::SEQ(
-        FT::ACTION(
-          TARGET,
-          [
-            'targetPlayer' => ME,
-            'targetType' => [CHARACTER, TOKEN],
-            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
-          ]
-        ),
-        FT::ACTION(AFTER_YOU, [])
-      )
+      'effectTap' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'controlCharacters', 'effect' =>
+        FT::SEQ(
+          FT::ACTION(
+            TARGET,
+            [
+              'targetPlayer' => ME,
+              'targetType' => [CHARACTER, TOKEN],
+              'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
+            ]
+          ),
+          FT::ACTION(AFTER_YOU, [])
+        )
+      ])
     ];
   }
 }

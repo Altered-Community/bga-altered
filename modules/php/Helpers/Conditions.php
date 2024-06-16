@@ -104,6 +104,14 @@ abstract class Conditions
     return $event['pId'] == $card->getPId() && ($card->getExtraDatas()['counter'] ?? 0) >= 5;
   }
 
+  public static function controlCharacters($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getPlayedCards([CHARACTER, TOKEN])
+      ->count() >= 1;
+  }
+
   public static function control3OtherCharacters($card, $event)
   {
     return $card
