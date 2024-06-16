@@ -21,14 +21,24 @@ class Draw extends \ALT\Models\Action
   {
     $n = $this->getCtxArg('n') ?? 1;
     $players = $this->getCtxArg('players') ?? ALL;
+    $location = $this->getArg('location');
 
     if ($players == ALL) {
-      return [
-        'log' => clienttranslate('All players draw ${n} card(s)'),
-        'args' => [
-          'n' => $n,
-        ],
-      ];
+      if ($location == MANA) {
+        return [
+          'log' => clienttranslate('All players puts the top deck card in their mana one'),
+          'args' => [
+            'n' => $n,
+          ],
+        ];
+      } else {
+        return [
+          'log' => clienttranslate('All players draw ${n} card(s)'),
+          'args' => [
+            'n' => $n,
+          ],
+        ];
+      }
     } elseif ($players == OPPONENT) {
       return [
         'log' => clienttranslate('The opponent draws ${n} card(s)'),
