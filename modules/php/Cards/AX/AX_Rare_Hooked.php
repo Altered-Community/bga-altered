@@ -27,7 +27,10 @@ class AX_Rare_Hooked extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand'],
-      'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
+      'effectPlayed' => FT::SEQ(
+        FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
+        FT::ACTION(DRAW, ['players' => ME])
+      )
 
     ];
   }
