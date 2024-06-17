@@ -27,7 +27,7 @@ class AX_Rare_HavenBravosBastion extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCharacterFromReserve',
+          'condition' => 'isCharacterFromReserveNotBlocked',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
