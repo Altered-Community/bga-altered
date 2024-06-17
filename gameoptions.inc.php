@@ -28,18 +28,17 @@ namespace ALT;
 
 require_once 'modules/php/constants.inc.php';
 $game_options = [
-  // OPTION_DECKS => [
-  //   'name' => totranslate('Decks'),
-  //   'values' => [
-  //     OPTION_DECKS_DEMO => [
-  //       'name' => totranslate('Demo decks'),
-  //       'tmdisplay' => totranslate('[Demo decks]'),
-  //     ],
-  //     OPTION_DECKS_STARTER => [
-  //       'name' => totranslate('Starter decks'),
-  //     ],
-  //   ]
-  // ]
+  OPTION_TESTING => [
+    'name' => 'Testing',
+    'values' => [
+      OPTION_DISABLED => [
+        'name' => 'Disabled',
+      ],
+      OPTION_ENABLED => [
+        'name' => 'Enabled',
+      ],
+    ]
+  ]
 ];
 
 $game_preferences = [

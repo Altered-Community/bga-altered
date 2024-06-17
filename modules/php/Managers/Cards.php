@@ -76,6 +76,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $deckContent[HERO] = ['card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(), 'n' => 1];
     // random cards of the faction
     $i = 0;
+    $totalCards = Globals::getTestingOption() ? 80 : 40;
 
     do {
       $c = RELEASED[array_rand(RELEASED)];
@@ -86,7 +87,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
         $i++;
       }
-    } while ($i < 40);
+    } while ($i < $totalCards);
     return self::createDeck($player, $deckContent);
   }
 

@@ -20,6 +20,9 @@ trait NewDayTrait
     $day = Globals::incDay(1);
     Stats::incDays();
     $nCards = 6;
+    if (Globals::getTestingOption()) {
+      $nCards = 15;
+    }
 
     // Draw cards and make everyone active
     $pIds = [];
@@ -43,12 +46,13 @@ trait NewDayTrait
     $args = [
       'canPass' => false,
       '_private' => [],
+      'n' => Globals::getTestingOption() ? 10 : 3,
     ];
 
     foreach (Players::getAll() as $pId => $player) {
       $hand = $player->getHand();
       $args['_private'][$pId] = [
-        'n' => 3,
+        'n' => Globals::getTestingOption() ? 10 : 3,
         'cards' => $hand->getIds(),
         'selection' => $selection[$pId] ?? null,
       ];

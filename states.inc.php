@@ -90,7 +90,7 @@ $machinestates = [
     'name' => 'firstDayManaSelection',
     'type' => 'multipleactiveplayer',
     'description' => clienttranslate('Waiting for other players to select cards to discard as mana'),
-    'descriptionmyturn' => clienttranslate('${you} must select 3 cards to discard as mana'),
+    'descriptionmyturn' => clienttranslate('${you} must select ${n} cards to discard as mana'),
     'args' => 'argsFirstDayManaSelection',
     'possibleactions' => ['actFirstDayManaSelection', 'actCancelFirstDayManaSelection'],
     'transitions' => ['done' => ST_BEFORE_ASSIGNMENT, 'zombiePass' => ST_BEFORE_ASSIGNMENT],

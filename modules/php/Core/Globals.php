@@ -54,6 +54,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'removeFleetingCharacterPlayed' => 'bool',
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
+    'testingOption' => 'bool',
   ];
 
   protected static $table = 'global_variables';
@@ -199,6 +200,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setPlayedCards(0);
     self::setDayPhase(false);
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
+    self::setTestingOption($options[OPTION_TESTING] ?? 0);
     self::setDeckOptions(OPTION_DECKS_STARTER);
   }
 

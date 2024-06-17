@@ -38,6 +38,9 @@ const OPTION_CONFIRM_TIMER = 3;
 
 const OPTION_CONFIRM_UNDOABLE = 104;
 
+const OPTION_TESTING = 150;
+const OPTION_DISABLED = 0;
+const OPTION_ENABLED = 1;
 /*
  * State constants
  */
