@@ -220,14 +220,11 @@ class ChooseAssignment extends \ALT\Models\Action
 
       if (!is_null(Globals::getAdditionalEffect()[$card->getType()] ?? null)) {
         if (Globals::getAdditionalEffect()[$card->getType()]['from'] == $fromLocation) {
-          // awaiting info if should be merged or not
           $effectType = Globals::getAdditionalEffect()[$card->getType()]['effect'];
           $f = 'getEffect' . ucfirst($effectType);
           $newEffect = $card->$f();
           if (!empty($newEffect)) {
             $effects[] = $newEffect;
-            // $newEffect = Utils::tagTree($newEffect, ['sourceId' => $card->getId()]);
-            // $this->insertAsChild($newEffect);
           }
           Globals::setAdditionalEffect([]);
         }

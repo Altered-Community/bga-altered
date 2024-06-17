@@ -351,7 +351,7 @@ abstract class Conditions
     return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       $event['cardType'] == CHARACTER &&
-      $event['from'] == RESERVE &&
+      ($event['from'] == RESERVE  || (Globals::getAdditionalEffect()[$event['cardType']] ?? null)) &&
       !Players::hasOpponentBlockingPower($card->getPlayer(), $event['to']);
   }
 
