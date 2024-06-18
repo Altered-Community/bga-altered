@@ -178,7 +178,11 @@ trait TurnTrait
       ];
       foreach ($players as $pId => $player) {
         $expeditions = $player->getBiomeStrength(STORMS, true);
-        foreach ([FOREST, OCEAN, MOUNTAIN] as $biome) {
+
+        $validBiomes = [FOREST => 0, OCEAN => 0, MOUNTAIN => 0];
+        Players::biomesModifier($validBiomes, $player, '');
+
+        foreach (array_keys($validBiomes) as $biome) {
           $value = $expeditions[STORM_LEFT][$biome] + $expeditions[STORM_RIGHT][$biome];
           if ($winners[$biome]['value'] < $value) {
             $winners[$biome]['value'] = $value;
