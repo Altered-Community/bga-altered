@@ -228,6 +228,9 @@ trait TurnTrait
 
   function stAfterDusk()
   {
+    if (Players::checkVictory()) {
+      return;
+    }
     $this->checkCardListeners('AfterDusk', 'stBeforeNight');
   }
 
