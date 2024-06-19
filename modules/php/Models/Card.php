@@ -456,8 +456,8 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getTough()
   {
-    // Tough impacts only a card in Storms
-    if (!in_array($this->getLocation(), STORMS)) {
+    // Tough impacts only a card in Storms or landmark
+    if (!in_array($this->getLocation(), STORMS) && $this->getLocation() != LANDMARK) {
       return 0;
     }
 
