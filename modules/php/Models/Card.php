@@ -471,7 +471,10 @@ class Card extends \ALT\Helpers\DB_Model
         if (Globals::isTieBreakerMode()) {
           break;
         }
-        $tough += $this->getPlayer()->getRegionDifference();
+        $diff = $this->getPlayer()->getRegionDifference();
+        if ($diff > 1) {
+          $tough += $diff;
+        }
         break;
       case 'controlledPlants':
         foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
