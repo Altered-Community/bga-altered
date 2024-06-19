@@ -218,16 +218,21 @@ class ChooseAssignment extends \ALT\Models\Action
         }
       }
 
-      if (!is_null(Globals::getAdditionalEffect()[$card->getType()] ?? null)) {
-        if (Globals::getAdditionalEffect()[$card->getType()]['from'] == $fromLocation) {
-          $effectType = Globals::getAdditionalEffect()[$card->getType()]['effect'];
-          $f = 'getEffect' . ucfirst($effectType);
-          $newEffect = $card->$f();
-          if (!empty($newEffect)) {
-            $effects[] = $newEffect;
+      if (Globals::getAdditionalEffect() != []) {
+        $addEffects = Globals::getAdditionalEffect();
+        foreach ($addEffects as $addEffect) {
+          if ($addEffect['type'] == $card->getType()) {
+            if ($addEffect['from'] == $fromLocation) {
+              $effectType = $addEffect['effect'];
+              $f = 'getEffect' . ucfirst($effectType);
+              $newEffect = $card->$f();
+              if (!empty($newEffect)) {
+                $effects[] = $newEffect;
+              }
+            }
           }
-          Globals::setAdditionalEffect([]);
         }
+        Globals::setAdditionalEffect([]);
       }
 
       if (!empty($effects)) {

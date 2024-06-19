@@ -298,7 +298,9 @@ class SpecialEffect extends \ALT\Models\Action
         );
         break;
       case 'triggerEffectOfNextCharacter':
-        Globals::setAdditionalEffect([$args['type'] => ['from' => $args['from'], 'effect' => $args['effect']]]);
+        $addEffects = Globals::getAdditionalEffect();
+        $addEffects = array_merge($addEffects,  [['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]]);
+        Globals::setAdditionalEffect($addEffects);
         Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), ['player' => Players::getActive()]);
         break;
       case 'AfterRestSabotage':
