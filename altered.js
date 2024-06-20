@@ -851,16 +851,14 @@ define([
       let canUseAPI = true;
       if (canUseAPI && !$('card-fake-API')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
-        $('card-fake-API')
-          .querySelector('.altered-card-wrapper')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-API').querySelector('.altered-card-wrapper').insertAdjacentHTML(
+          'beforeend',
+          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Custom deck
             </div>
           </div>`
-          );
+        );
         this.onClick('card-fake-API', () => this.clientState('fetchDecks', 'Connect to equinox to fetch your decks', {}));
       }
 
@@ -868,16 +866,14 @@ define([
       let canUseRandom = true;
       if (canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-        $('card-fake-random')
-          .querySelector('.altered-card-wrapper')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
+          'beforeend',
+          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Random deck
             </div>
           </div>`
-          );
+        );
         this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
       }
     },
@@ -1596,6 +1592,16 @@ define([
       args.rolls.forEach((roll, i) => {
         this.addPrimaryActionButton('btnRoll' + i, roll, chooseRollDie(roll));
       });
+
+      // management of All In rare
+      if (args.canDiscard == true) {
+        this.onSelectNCards(args.cardIds, {
+          n: 1,
+          class: 'selectable',
+          confirmText: _('Confirm discard to increase die by 2'),
+          callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscardAdd', [selectedElements]),
+        });
+      }
     },
 
     onEnteringStateMoveExpedition(args) {

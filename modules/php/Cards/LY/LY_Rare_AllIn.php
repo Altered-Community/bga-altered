@@ -25,6 +25,10 @@ class LY_Rare_AllIn extends \ALT\Models\Card
       'Roll a die. #You may discard a card from your Reserve to increase the result by 2.# Target Character gains X boosts, where X is the final result.',
       'costHand' => 3,
       'costReserve' => 3,
+      'effectPlayed' => FT::ACTION(ROLL_DIE, [
+        'canDiscard' => true,
+        'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN('effect', BOOST, 'die')])],
+      ]),
     ];
   }
 }

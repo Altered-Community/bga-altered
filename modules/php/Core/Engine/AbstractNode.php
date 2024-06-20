@@ -76,8 +76,8 @@ class AbstractNode
       throw new \BgaVisibleSystemException('Trying to insert a brother of the root');
     }
     // Ensure parent is a seq node
-    if (!$this->parent instanceof \ARK\Core\Engine\SeqNode) {
-      $newParent = new \ARK\Core\Engine\SeqNode([], []);
+    if (!$this->parent instanceof \ALT\Core\Engine\SeqNode) {
+      $newParent = new \ALT\Core\Engine\SeqNode([], []);
       $newParent = $this->parent->replaceAtPos($newParent, $index);
       $newParent->pushChild($this);
     }

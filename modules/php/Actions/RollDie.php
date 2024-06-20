@@ -11,6 +11,7 @@ use ALT\Helpers\Utils;
 use ALT\Core\Globals;
 use ALT\Helpers\Log;
 use ALT\Core\Game;
+use ALT\Helpers\FT;
 
 class RollDie extends \ALT\Models\Action
 {
@@ -44,6 +45,8 @@ class RollDie extends \ALT\Models\Action
   protected $args = [
     'n' => 1,
     'effect' => [],
+    'canDiscard' => false,
+    'hasRolled' => false,
   ];
 
   public function getSource()
@@ -99,6 +102,9 @@ class RollDie extends \ALT\Models\Action
     $rolls = [];
 
     $source = $this->getSource();
+    if ($this->getArg('hasRolled')) {
+      return;
+    }
 
     // Lyra Bastion management
     $lyraBastion = 0;
@@ -144,6 +150,8 @@ class RollDie extends \ALT\Models\Action
   {
     return [
       'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC),
+      'canDiscard' => $this->getArg('canDiscard') && Players::getActive()->getReserveCards()->count() > 0,
+      'cardIds' => Players::getActive()->getReserveCards()->getIds(),
       // TODO: add effects associated to it?
       // TODO: improve choice as choice is necessary only if 2 differents effects
     ];
@@ -154,7 +162,7 @@ class RollDie extends \ALT\Models\Action
     $args = $this->argsRollDie();
     // throw new \feException(print_r(debug_print_backtrace()));
 
-    if (count($args['rolls']) == 1) {
+    if (!$args['canDiscard'] && count($args['rolls']) == 1) {
       $this->actRollDie($args['rolls'][0]);
     }
   }
@@ -188,5 +196,26 @@ class RollDie extends \ALT\Models\Action
     Globals::setDiceRolls([]);
 
     $this->resolveAction([$dieValue]);
+  }
+
+  public function actDiscardAdd($cardId)
+  {
+    $player = Players::getActive();
+    $source = $this->getSource();
+    $args = $this->argsRollDie();
+
+    if (count(array_diff($cardId, $args['cardIds'])) != 0) {
+      throw new \BgaVisibleSystemException('You cannot target this card. should not happen');
+    }
+    $this->duplicateAction(['canDiscard' => false, 'hasRolled' => true]);
+    $this->insertAsChild(FT::ACTION(DISCARD, ['cardId' => $cardId]));
+
+    $rolls = Globals::getDiceRolls();
+    foreach ($rolls as $roll) {
+      $newRolls[] = $roll + 2;
+    }
+    Globals::setDiceRolls($newRolls);
+    Notifications::message(clienttranslate('${player_name} discards ${card_name} to add 2 to its rolls.'), ['player' => $player, 'card' => Cards::get($cardId)]);
+    return ['add'];
   }
 }

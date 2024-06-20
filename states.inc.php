@@ -254,7 +254,7 @@ $machinestates = [
     'description' => clienttranslate('${source}: ${actplayer} must choose 1 die result'),
     'descriptionmyturn' => clienttranslate('${source}: ${you} must choose 1 die result'),
     'args' => 'argsAtomicAction',
-    'possibleactions' => ['actRollDie', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
+    'possibleactions' => ['actRollDie', 'actDiscardAdd', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_RESUPPLY => [

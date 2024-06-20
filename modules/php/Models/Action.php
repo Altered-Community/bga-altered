@@ -225,4 +225,29 @@ class Action
   {
     $this->checkModifiers('computeArgs' . $this->getClassName(), $actionArgs, 'actionArgs', $player, $args);
   }
+
+  /**
+   * Update the args of current node
+   * @param array $args : the keys/values that needs to get updated
+   * Warning: resolve action must be call on the side
+   */
+  public function duplicateAction($args = [], $checkpoint = false)
+  {
+    // Duplicate the node and update the args
+    $node = $this->ctx->toArray();
+    $node['type'] = \NODE_LEAF;
+    $node['childs'] = [];
+    $node['args'] = array_merge($node['args'], $args);
+    $node['duplicate'] = true;
+    unset($node['mandatory']); // Weird edge case
+    $node = Engine::buildTree($node);
+    // Insert it as a brother of current node and proceed
+    $this->ctx->insertAsBrother($node);
+    Engine::save();
+
+    if ($checkpoint) {
+      Engine::checkpoint();
+    }
+    // Engine::proceed();
+  }
 }
