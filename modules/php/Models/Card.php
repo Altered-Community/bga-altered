@@ -471,8 +471,8 @@ class Card extends \ALT\Helpers\DB_Model
         if (Globals::isTieBreakerMode()) {
           break;
         }
-        $diff = $this->getPlayer()->getRegionDifference();
-        if ($diff > 1) {
+        $diff = $this->getPlayer()->getRegionDifference() - 1;
+        if ($diff >= 1) {
           $tough += $diff;
         }
         break;
