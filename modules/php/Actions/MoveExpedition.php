@@ -87,6 +87,7 @@ class MoveExpedition extends \ALT\Models\Action
 
     foreach ($players as $player) {
       $player->advanceStorm($token, null, $n, true, $source);
+      Notifications::updateBiomes($player);
       $this->checkAfterListeners($player, ['moveExpedition' => $n]);
     }
 
