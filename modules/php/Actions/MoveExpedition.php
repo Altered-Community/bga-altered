@@ -37,8 +37,19 @@ class MoveExpedition extends \ALT\Models\Action
   public function argsMoveExpedition()
   {
     $expeditions = $this->getArg('expedition');
+    if (empty($expeditions)) {
+      $expeditions = STORMS;
+    }
+    $toRemove = [];
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      if ($card->isOppositeDefender()) {
+        $toRemove[] = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+      }
+    }
+
+
     return [
-      'expeditions' => empty($expeditions) ? STORMS : $expeditions,
+      'expeditions' => array_diff($expeditions, $toRemove),
       'actPId' => Players::getActive()->getId()
     ];
   }

@@ -1610,7 +1610,7 @@ define([
       };
       let i = 0;
       this.forEachPlayer((player) => {
-        ['stormLeft', 'stormRight'].forEach((location) => {
+        args.expeditions.forEach((location) => {
           this.onClick(
             `board-${location}-${player.id}`,
             onChooseLocation(location, player.id == args.actPId ? 'me' : 'opponent')
