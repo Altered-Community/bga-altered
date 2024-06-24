@@ -419,7 +419,7 @@ abstract class Conditions
   public static function costHigherThanCounter($card, $event)
   {
     return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
+      $card->getPId() == $event['pId'] && ($event['playedFree'] ?? false) == false &&
       Cards::get($event['playedCard'])->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
   }
 
