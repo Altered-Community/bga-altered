@@ -39,7 +39,8 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
                 'effect' => FT::DISCARD_TO_RESERVE(),
               ]
             ),
-          )
+          ),
+          'n' => 'eachExpedition',
         ]
       ]
     ];

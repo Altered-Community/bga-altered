@@ -456,16 +456,26 @@ abstract class Conditions
   public static function movesStormsWithForest($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
-    if (!isset($stormMoves[$card->getPId()])) {
+    if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$event['expedition']])) {
       return false;
     }
 
-    return $card->getPId() == $event['pId'] && in_array(FOREST, $stormMoves[$card->getPId()]['biomes']) && $stormMoves[$card->getPId()]['moves'] >= 1;
+    $move = $stormMoves[$card->getPId()][$event['expedition']];
+    if (in_array(FOREST, $move['biomes']) && $move['moves'] >= 1) {
+      return true;
+    }
+
+    return false;
   }
 
   public static function hasNotMoved($card, $event)
   {
-    return $event['pId'] == $card->getPId() && (!isset(Globals::getStormMoves()[$card->getPId()]) || (Globals::getStormMoves()[$card->getPId()]['moves'] ?? 0) == 0);
+    return $event['pId'] == $card->getPId() &&
+      (
+        !isset(Globals::getStormMoves()[$card->getPId()]) ||
+        (
+          (Globals::getStormMoves()[$card->getPId()][STORM_LEFT]['moves'] ?? 0) + (Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0)
+        ) == 0);
   }
 
   public static function myExpeditionHasNotMoved($card, $event)
