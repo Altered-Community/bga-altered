@@ -79,7 +79,9 @@ class Cards extends \ALT\Helpers\CachedPieces
     $totalCards = Globals::getTestingOption() ? 80 : 40;
 
     do {
-      $c = RELEASED[array_rand(RELEASED)];
+      // $c = RELEASED[array_rand(RELEASED)];
+      $c = array_rand(MAP_REFS_CLASSES);
+
       // $c = MAP_REFS_CLASSES[$a];
       // var_dump($c);
       $objCard = self::getCardClass($c);

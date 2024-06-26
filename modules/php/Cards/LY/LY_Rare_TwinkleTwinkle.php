@@ -28,7 +28,10 @@ class LY_Rare_TwinkleTwinkle extends \ALT\Models\Card
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
       'supportIcon' => 'discard',
-      'effectPlayed' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sleepingAllCharactersinExpedition'])]),
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN($this, FLEETING),
+        FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sleepingAllCharactersinExpedition'])])
+      ),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],

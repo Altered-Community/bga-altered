@@ -27,7 +27,7 @@ class YZ_Rare_TheKadigirYzmirBastion extends \ALT\Models\Card
       'costReserve' => 8,
       'effectTap' => FT::SEQ(
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextSpellIsFree']),
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'removeFleetingIfPlayedHand'])
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'removeFleetingIfSpellPlayedHand'])
       )
     ];
   }

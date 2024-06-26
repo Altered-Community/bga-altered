@@ -9,6 +9,7 @@ use ALT\Core\Engine;
 use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
 use ALT\Helpers\Conditions;
+use ALT\Helpers\FT;
 
 /*
  * Card
@@ -398,9 +399,29 @@ class Card extends \ALT\Helpers\DB_Model
 
     $power = $passive[$event['action'] ?? $event['type']];
     $cond = $power['condition'] ?? null;
-    // structured : ['Noon'=>['condition' =>, 'output'=>]]
-    if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
-      return [null, null];
+    $n = $power['n'] ?? 'once';
+    switch ($n) {
+      case 'eachExpedition':
+        $output = [];
+        foreach (STORMS as $storm) {
+          $event['expedition'] = $storm;
+          if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
+            continue;
+          }
+          $output = $power['output'];
+        }
+        if (empty($output)) {
+          return [null, null];
+        }
+        $power['output'] = FT::SEQ($output);
+        break;
+      case 'once':
+        // structured : ['Noon'=>['condition' =>, 'output'=>]]
+        if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
+          return [null, null];
+        }
+
+        break;
     }
 
     // put the source as the card triggering itself

@@ -305,17 +305,9 @@ class Player extends \ALT\Helpers\DB_Model
 
     // needed to effect after moving
     $moves = Globals::getStormMoves();
-    $previousBiomes = [];
-    $previousSides = [];
-    if (isset($moves[$this->id])) {
-      $previousBiomes = $moves[$this->id]['biomes'];
-      $previousSides = $moves[$this->id]['sides'];
-    }
-    $previousSides[] = $expedition;
-    $moves[$this->id] = [
-      'biomes' => array_merge((is_array($biomes) ? $biomes : []), $previousBiomes),
-      'moves' => ($moves[$this->id]['moves'] ?? 0) + $n,
-      'sides' => $previousSides
+    $moves[$this->id][$expedition] = [
+      'biomes' => (is_array($biomes) ? $biomes : []),
+      'moves' => $n,
     ];
     Globals::setStormMoves($moves);
 

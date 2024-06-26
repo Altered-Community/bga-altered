@@ -28,17 +28,11 @@ class LY_Rare_ClothCocoon extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::XOR(
-          FT::ACTION(TARGET, [
-            'statuses' => [FLEETING, ANCHORED, ASLEEP],
-            'targetType' => [CHARACTER, TOKEN],
-            'effect' => FT::ACTION(DISCARD, []),
-          ]),
-          FT::ACTION(TARGET, [
-            'targetType' => [PERMANENT],
-            'effect' => FT::ACTION(DISCARD, []),
-          ]),
-        )
+        FT::ACTION(TARGET, [
+          'statuses' => [FLEETING, ANCHORED, ASLEEP],
+          'targetType' => [CHARACTER, TOKEN],
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
       ),
     ];
   }

@@ -248,7 +248,8 @@ class ChooseAssignment extends \ALT\Models\Action
       'playedCard' => $cardId,
       'cardType' => $card->getType(),
       'from' => $fromLocation,
-      'to' => $location
+      'to' => $location,
+      'playedFree' => $cost == 0 ? true : false,
     ]);
 
     if ($card->getType() == SPELL) {
