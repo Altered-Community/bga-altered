@@ -1109,7 +1109,7 @@ $miniCardScale: 0.33;
 
 .altered-card-tooltip {
     display: flex;
-    --cardScale: 1;
+    --cardScale: var(--cardScaleTooltip);
 
     .tooltip-explanation {
         &:empty {

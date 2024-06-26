@@ -283,7 +283,8 @@ html {
   right: 28px; }
 
 :root {
-  --boardScale: 1; }
+  --boardScale: 1;
+  --cardScaleTooltip: 1; }
 
 :root {
   --cardScale: 0.33; }
@@ -2199,7 +2200,7 @@ html {
 
 .altered-card-tooltip {
   display: flex;
-  --cardScale: 1; }
+  --cardScale: var(--cardScaleTooltip); }
   .altered-card-tooltip .tooltip-explanation {
     max-width: 220px;
     font-family: "Jali Greek Variable";
@@ -2671,9 +2672,16 @@ html {
   line-height: 38px;
   font-size: 30px; }
 
+#page-content,
+#page-title,
+#right-side-first-part {
+  zoom: none !important; }
+
+#overall-content {
+  min-height: inherit; }
+
 body.focus-board {
-  overflow: hidden;
-  height: 100%; }
+  height: 100lvh; }
   body.focus-board #overall-footer {
     display: none; }
   body.focus-board #topbar {
@@ -2898,13 +2906,13 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
   justify-content: center; }
   #altered-main-container #altered-board-resizable {
     width: calc(var(--boardScale) * 1530px);
-    height: calc(var(--boardScale) * 1175px);
-    margin-top: calc(15px + var(--boardScale) * -45px); }
+    height: calc(var(--boardScale) * 1110px); }
     #altered-main-container #altered-board-resizable #altered-board {
       transform: scale(var(--boardScale));
       transform-origin: top left;
       width: 1530px;
       height: 1175px;
+      margin-top: -50px;
       background-image: url("img/board.png");
       background-size: 100%; }
       #altered-main-container #altered-board-resizable #altered-board #altered-board-opponent,
@@ -2915,6 +2923,72 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
         position: relative;
         left: 34px;
         top: 5px; }
+        #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 {
+          position: absolute;
+          right: 109px;
+          top: 170px;
+          height: 28px;
+          width: 81px;
+          padding: 2px 3px;
+          z-index: 10;
+          background: white;
+          border-radius: 17px;
+          border: 1px solid #d6aa49;
+          display: none;
+          justify-content: center;
+          align-items: center; }
+          body.focus-board #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 {
+            display: flex; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 .checkbox {
+            display: none; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 .label {
+            background-color: #2c3037;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            height: 26px;
+            width: 50px;
+            margin-right: 4px; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 .label .ball {
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            height: 22px;
+            width: 22px;
+            transform: translateX(0px);
+            transition: transform 0.2s linear, color 0.7s linear; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 .checkbox:checked + .label .ball {
+            transform: translateX(24px); }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 svg {
+            width: 27px; }
+        #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2 {
+          position: absolute;
+          right: 109px;
+          background: white;
+          height: 28px;
+          width: 28px;
+          top: -15px;
+          z-index: 10;
+          border-radius: 50%;
+          padding: 5px;
+          border: 1px solid #d6aa49;
+          color: #d6aa49;
+          display: none;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer; }
+          body.focus-board #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2 {
+            display: flex; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2 svg {
+            width: 30px; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2 .fa-primary {
+            transform-origin: 216px 255px;
+            transition: transform 1s; }
+          #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2:hover .fa-primary {
+            transform: rotate(180deg); }
         #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #day-indicator {
           position: absolute;
           width: 309px;
@@ -3137,6 +3211,36 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
   position: relative; }
   .altered-player-board .mana-cards-holder {
     display: none; }
+  .altered-player-board .player-board-infos {
+    position: absolute;
+    padding: 2px 12px;
+    min-width: 150px;
+    height: 24px;
+    background: #faf7e7;
+    top: 457px;
+    left: 266px;
+    border: 1px solid #d4a743;
+    border-radius: 7px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px 4px black; }
+    body.focus-board .altered-player-board .player-board-infos {
+      display: flex; }
+    .altered-player-board .player-board-infos .player-board-name {
+      color: #d4a743;
+      font-weight: bold;
+      flex-grow: 1;
+      text-align: center;
+      margin-right: 5px; }
+    .altered-player-board .player-board-infos .handCount-holder {
+      display: flex;
+      font-weight: bold;
+      color: black;
+      justify-content: center;
+      align-items: center; }
+      .altered-player-board .player-board-infos .handCount-holder svg {
+        height: 24px; }
   .altered-player-board .player-board-hero {
     position: absolute;
     width: 110px;
@@ -3563,6 +3667,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
 #altered-board-me .altered-player-board .player-board-hero {
   top: 42px;
   left: 745px; }
+#altered-board-me .altered-player-board .player-board-infos {
+  top: 8px; }
 #altered-board-me .altered-player-board .player-board-storm {
   top: 67px; }
   #altered-board-me .altered-player-board .player-board-storm .total-biomes {

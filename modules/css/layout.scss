@@ -1,6 +1,16 @@
+#page-content,
+#page-title,
+#right-side-first-part {
+    zoom: none !important;
+}
+
+#overall-content {
+    min-height: inherit;
+}
+
 body.focus-board {
-    overflow: hidden;
-    height: 100%;
+    // overflow: hidden;
+    height: 100lvh;
 
     #overall-footer {
         display: none;

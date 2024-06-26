@@ -155,6 +155,16 @@ define([
           },
           section: 'layout',
         },
+        fitTo: {
+          default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 0),
+          name: _('Lock mode fitting direction'),
+          type: 'select',
+          values: {
+            0: _('Fit to height'),
+            1: _('Fit to width'),
+          },
+          section: 'layout',
+        },
 
         // handLocation: {
         //   default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 3),
@@ -851,14 +861,16 @@ define([
       let canUseAPI = true;
       if (canUseAPI && !$('card-fake-API')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
-        $('card-fake-API').querySelector('.altered-card-wrapper').insertAdjacentHTML(
-          'beforeend',
-          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-API')
+          .querySelector('.altered-card-wrapper')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Custom deck
             </div>
           </div>`
-        );
+          );
         this.onClick('card-fake-API', () => this.clientState('fetchDecks', 'Connect to equinox to fetch your decks', {}));
       }
 
@@ -866,14 +878,16 @@ define([
       let canUseRandom = true;
       if (canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
-          'beforeend',
-          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-random')
+          .querySelector('.altered-card-wrapper')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Random deck
             </div>
           </div>`
-        );
+          );
         this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
       }
     },
@@ -1810,6 +1824,9 @@ define([
       dojo.connect(chk, 'onchange', () => this.toggleHelpMode(chk.checked));
       this.addTooltip('help-mode-switch', '', _('Toggle help/safe mode.'));
 
+      dojo.connect($('show-settings2'), 'onclick', () => this.toggleSettings());
+      this.addTooltip('show-settings2', '', _('Display some settings about the game.'));
+
       this.setupHelperModal();
 
       this._settingsModal = new customgame.modal('showSettings', {
@@ -1879,6 +1896,10 @@ define([
       this.updateLayout();
     },
 
+    onChangeFitToSetting(val) {
+      this.updateLayout();
+    },
+
     updateLayout() {
       if (!this.settings) return;
       const ROOT = document.documentElement;
@@ -1886,26 +1907,36 @@ define([
       const IS_FOCUS_MODE = document.body.classList.contains('focus-board');
       const WIDTH = $('altered-main-container').getBoundingClientRect()['width'];
       let HEIGHT =
-        (window.outerHeight || document.documentElement.clientHeight || document.body.clientHeight) - (IS_FOCUS_MODE ? 0 : 62);
+        (IS_FOCUS_MODE
+          ? document.body.clientHeight
+          : window.outerHeight || document.documentElement.clientHeight || document.body.clientHeight) - (IS_FOCUS_MODE ? 0 : 62);
       const BOARD_WIDTH = 1401;
-      const BOARD_HEIGHT = 980;
+      const BOARD_HEIGHT = 1100;
 
-      if (HEIGHT < WIDTH && WIDTH < BOARD_WIDTH) {
-        this.biggestHeightLandscape = Math.max(this.biggestHeightLandscape, HEIGHT);
-        HEIGHT = this.biggestHeightLandscape;
+      // TOOLTIP SIZE
+      if (HEIGHT < 900) {
+        let tooltipScale = HEIGHT / 700;
+        ROOT.style.setProperty('--cardScaleTooltip', tooltipScale);
       }
 
-      let heightS = IS_FOCUS_MODE ? 0.92 : this.settings.boardHeight / 100;
+      // if (HEIGHT < WIDTH && WIDTH < BOARD_WIDTH) {
+      //   this.biggestHeightLandscape = Math.max(this.biggestHeightLandscape, HEIGHT);
+      //   HEIGHT = this.biggestHeightLandscape;
+      // }
+
+      let heightS = IS_FOCUS_MODE ? 1 : this.settings.boardHeight / 100;
       if (HEIGHT < WIDTH) {
         heightS = Math.max(0.8, heightS);
       }
       let heightScale = (heightS * HEIGHT) / BOARD_HEIGHT;
       let widthScale = WIDTH / BOARD_WIDTH;
       let scale = Math.min(widthScale, heightScale);
+
+      if (IS_FOCUS_MODE) {
+        if (this.settings.fitTo == 1) scale = widthScale;
+        else scale = heightScale;
+      }
       ROOT.style.setProperty('--boardScale', scale);
-      // if (IS_FOCUS_MODE) {
-      //   document.body.style.height = heightS * HEIGHT + 'px';
-      // }
     },
 
     /////////////////////////////////////////
