@@ -406,8 +406,12 @@ class Card extends \ALT\Helpers\DB_Model
         foreach (STORMS as $storm) {
           $event['expedition'] = $storm;
           if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
+            continue;
           }
           $output = $power['output'];
+        }
+        if (empty($output)) {
+          return [null, null];
         }
         $power['output'] = FT::SEQ($output);
         break;
