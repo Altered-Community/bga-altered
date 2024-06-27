@@ -104,6 +104,26 @@
     }
 }
 
+.altered_mana_popin {
+    h2 {
+        width: 90%;
+        text-align: center;
+    }
+
+    .altered_mana_popin_closeicon {
+        position: absolute;
+        right: 5%;
+        top: 1px;
+        color: black;
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 #popin_showAllCards_underlay {
     opacity: 1 !important;
 }

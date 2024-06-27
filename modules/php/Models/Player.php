@@ -92,7 +92,7 @@ class Player extends \ALT\Helpers\DB_Model
       }
     }
     if ($toLocation == MANA) {
-      Notifications::discardMana($this, $cards, $privateMsg, $publicMsg, ['card2' => $source]);
+      Notifications::discardMana($this, $cards, $privateMsg, $publicMsg, ['card2' => $source, 'fromLocation' => $fromLocation]);
     } elseif ($source !== null) {
       Notifications::drawCards(
         $this,

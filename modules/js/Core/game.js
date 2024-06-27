@@ -752,6 +752,7 @@ define([
           destroy: false,
           attach: true,
           changeParent: true, // Change parent during sliding to avoid zIndex issue
+          container: 'game_play_area',
           pos: null,
           className: 'moving',
           from: null,
@@ -795,7 +796,7 @@ define([
       if (config.phantomStart && config.from == null) {
         mobile = dojo.clone(mobileElt);
         dojo.attr(mobile, 'id', mobileElt.id + '_animated');
-        dojo.place(mobile, 'game_play_area');
+        dojo.place(mobile, config.container);
         this.placeOnObject(mobile, mobileElt);
         dojo.addClass(mobileElt, 'phantom');
         config.from = mobileElt;
@@ -830,7 +831,7 @@ define([
         dojo.style(mobile, 'zIndex', 5000);
       }
       dojo.addClass(mobile, config.className);
-      if (config.changeParent) this.changeParent(mobile, 'game_play_area');
+      if (config.changeParent) this.changeParent(mobile, config.container);
       if (config.from != null) this.placeOnObject(mobile, config.from);
 
       return new Promise((resolve, reject) => {
@@ -853,6 +854,7 @@ define([
               delete this.tooltips[mobile.id];
             }
             dojo.destroy(mobile);
+            if (config.phantomEnd) dojo.destroy(targetId);
             resolve();
             return;
           }
