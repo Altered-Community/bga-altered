@@ -148,10 +148,12 @@ class RollDie extends \ALT\Models\Action
 
   public function argsRollDie()
   {
+    $canDiscard = $this->getArg('canDiscard') && Players::getActive()->getReserveCards()->count() > 0;
     return [
       'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC),
-      'canDiscard' => $this->getArg('canDiscard') && Players::getActive()->getReserveCards()->count() > 0,
+      'canDiscard' => $canDiscard,
       'cardIds' => Players::getActive()->getReserveCards()->getIds(),
+      'descSuffix' => $canDiscard ? 'bastion' : ''
       // TODO: add effects associated to it?
       // TODO: improve choice as choice is necessary only if 2 differents effects
     ];
