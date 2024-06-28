@@ -108,7 +108,7 @@ class Draw extends \ALT\Models\Action
       } else {
         $player->draw($n, null, null, $source);
       }
-      $this->checkAfterListeners($player, ['draw' => $n]);
+      $this->checkAfterListeners($player, ['draw' => $n, 'location' => $this->getArg('location')]);
     }
 
     $this->resolveAction(null, true);
