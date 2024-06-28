@@ -304,6 +304,14 @@ define([
     closeOverlay() {
       $('altered-overlay').classList.remove('active');
     },
+    addToggleOverlayButton() {
+      let getText = () => ($('altered-overlay').classList.contains('active') ? _('Close overlay') : _('Open overlay'));
+
+      this.addSecondaryActionButton('btnToggleOverlay', getText(), () => {
+        $('altered-overlay').classList.toggle('active');
+        $('btnToggleOverlay').innerHTML = getText();
+      });
+    },
 
     closeOverlayIfOpened() {
       this.closeOverlay();
@@ -843,6 +851,7 @@ define([
       });
 
       this.openOverlay();
+      this.addToggleOverlayButton();
 
       // Already made a selection => allow to cancel it
       let previousCard = $('overlay-deck-container').querySelector('.altered-card.keep');
@@ -1107,7 +1116,7 @@ define([
         this.clearHandTransform($(`hand-${this.player_id}`));
         this.openOverlay();
       }
-      // TODO
+      this.addToggleOverlayButton();
 
       // Already made a selection => allow to cancel it
       if (args._private.selection != null) {
