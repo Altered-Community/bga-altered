@@ -2872,7 +2872,7 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
   font-size: 16px;
   padding: 5px 2px 3px; }
 
-.pageheader,
+.pageheader:not(#maingameview_menufooter),
 #neutralized_game_panel {
   z-index: 20;
   position: relative; }

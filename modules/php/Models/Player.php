@@ -32,6 +32,7 @@ class Player extends \ALT\Helpers\DB_Model
     'zombie' => 'player_zombie',
     'faction' => 'faction',
   ];
+  protected $id;
 
   public function getUiData($currentPlayerId = null)
   {

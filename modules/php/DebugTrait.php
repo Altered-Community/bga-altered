@@ -81,8 +81,6 @@ trait DebugTrait
 
   function tp()
   {
-    $players = self::loadPlayersBasicInfos();
-    Cards::setupNewGame($players, []);
   }
 
   function dv()
@@ -140,16 +138,6 @@ trait DebugTrait
     }
     // notif startTiebreak
     Notifications::startTiebreak($meeples->toArray());
-  }
-
-  function score($cardId)
-  {
-    $card = ZooCards::get($cardId);
-    if (!$card->isPlayed()) {
-      throw new \feException('not played');
-    }
-
-    $card->score();
   }
 
   function resolveDebug()
@@ -215,7 +203,7 @@ trait DebugTrait
 
   function playCard($cardId)
   {
-    self::playCardAux($cardId, true);
+    $this->playCardAux($cardId, true);
   }
 
   function addCard($cardId, $location = 'hand')
@@ -239,24 +227,9 @@ trait DebugTrait
 
   function drawCard($cardId)
   {
-    self::playCardAux($cardId, false);
+    $this->playCardAux($cardId, false);
     $sql = "UPDATE cards set card_location = 'hand' where card_id = '$cardId'";
     self::DbQuery($sql);
-  }
-
-  function engSetup()
-  {
-    $pId = Players::getAll()->getIds()[0];
-
-    Engine::setup([
-      'childs' => [
-        [
-          'state' => ST_PLACE_FARMER,
-          'pId' => $pId,
-          'mandatory' => true,
-        ],
-      ],
-    ]);
   }
 
   function engDisplay()

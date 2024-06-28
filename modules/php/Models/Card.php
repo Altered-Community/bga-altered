@@ -31,6 +31,12 @@ class Card extends \ALT\Helpers\DB_Model
     'initialProperties' => ['initial_properties', 'obj'],
     'properties' => ['properties', 'obj'], // will superseed original properties if needed
   ];
+  protected $id;
+  protected $location;
+  protected $state;
+  protected $pId;
+  protected $properties;
+  protected $initialProperties;
 
   protected $staticAttributes = [];
   protected $propertiesAttributes = [
