@@ -156,8 +156,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
       let endCallback = () => {
         if (moveHeroCompanion) this.updateUselessStormCards();
-        if (syncNotif) {
-          this.notifqueue.setSynchronousDuration(this.isFastMode() ? 0 : 10);
+        if (syncNotif && !this.isFastMode()) {
+          this.notifqueue.setSynchronousDuration(10);
         }
       };
 

@@ -194,7 +194,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     clearHandTransform(container) {
-      debug(container);
       let items = [...container.querySelectorAll('.altered-card')];
       items.forEach((item, i) => {
         item.style.transform = `rotate(0rad) translateY(0px)`;
@@ -626,6 +625,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (o) {
             if (n.args.toMana) {
               $(`mana-cards-${this.player_id}`).insertAdjacentElement('beforeend', o);
+              o.classList.remove('selectedToMana');
             } else {
               this.destroy(o);
             }
@@ -705,7 +705,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
      *  slide fakes cards from player panel to titlebar and decrease hand count
      */
     notif_discardCards(n) {
-      debug('Notif: public discarding cards', n);
+      debug('Notif: public discarding hidden cards', n);
       this.closeOverlayIfOpened();
       if (n.args.player_id == this.player_id) {
         return;
@@ -717,15 +717,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       let nCards = n.args.n;
-      if (this.isFastMode()) {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        if (n.args.toMana) {
-          this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
-          this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
-        }
-        return;
-      }
-
       let oCards = [...$(`hand-${n.args.player_id}`).querySelectorAll('.altered-card')];
       // FROM DECK
       if (n.args.fromLocation && n.args.fromLocation.startsWith('deck')) {
@@ -736,6 +727,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           $(`board-deck-${n.args.player_id}`).insertAdjacentHTML('beforeend', fakeCard);
           oCards.push($(`card-${fakeCardId}`));
         }
+      }
+
+      if (this.isFastMode()) {
+        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
+        if (n.args.toMana) {
+          this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
+          this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+        }
+        for (let i = 0; i < nCards; i++) {
+          oCards[i].remove();
+        }
+        return;
       }
 
       Promise.all(
@@ -771,6 +774,32 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let pId = n.args.player_id;
       let oCards = [...$(`hand-${pId}`).querySelectorAll('.altered-card')];
       let indexCardReplacement = 0;
+
+      if (this.isFastMode()) {
+        [...n.args.cards].map((card, i) => {
+          if (card.location == 'hand') return;
+          if (n.args.hand === true) this._playerCounters[pId]['handCount'].incValue(-1);
+
+          let id = `card-${card.id}`;
+          if (card.location == 'destroy') {
+            $(id).remove();
+            return this.wait(1000);
+          }
+
+          if (!$(id)) {
+            this.addCard(card);
+          } else {
+            $(`board-${card.location}-${card.pId}`).insertAdjacentElement('beforeend', $(id));
+            if (n.args.hand === true || card.location == 'reserve') $(id).classList.add('mini-card');
+            if (card.location == 'discard') $(id).classList.remove('mini-card');
+            $(id).style.transform = '';
+            $(id).style.transformOrigin = 'initial';
+          }
+        });
+        this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
+        this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
+        return;
+      }
 
       Promise.all(
         [...n.args.cards].map((card, i) => {
@@ -823,6 +852,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_publicJinn(n) {
       debug('Notif: discard of jinns', n);
+
+      if (this.isFastMode()) {
+        n.args.cardsDeleted.forEach((cardId) => {
+          $(cardId).remove();
+        });
+        return;
+      }
+
       n.args.cardsDeleted.forEach((cardId) => {
         this.fadeOutAndDestroy($(`card-${cardId}`));
       });
@@ -958,6 +995,25 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let card = n.args.card;
       let id = `card-${card.id}`;
 
+      if (this.isFastMode()) {
+        if (!$(id)) {
+          let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+          fakeCard.remove();
+          this.addCard(card);
+        } else {
+          let container = this.getCardContainer(card);
+          $(container).insertAdjacentElement('beforeend', $(id));
+          $(id).style.left = '0px';
+          $(id).style.top = '0px';
+          $(id).style.transform = '';
+        }
+        if (card.location != 'limbo') $(id).classList.add('mini-card');
+
+        this.updateBiomeTotals(card.pId, n.args.biomes);
+        this.updateMovements(n.args.movements);
+        return;
+      }
+
       let slideIt = () => {
         let container = this.getCardContainer(card);
 
@@ -1055,7 +1111,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
-        this.notifqueue.setSynchronousDuration(100);
+        if (!this.isFastMode()) {
+          this.notifqueue.setSynchronousDuration(100);
+        }
       });
     },
 
@@ -1064,6 +1122,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
+
+      if (this.isFastMode()) {
+        if (!$(id)) {
+          this.addCard(card);
+        } else {
+          let container = this.getCardContainer(card);
+          $(container).insertAdjacentElement('beforeend', $(id));
+        }
+        this.updateBiomeTotals(card.pId, n.args.biomes);
+        return;
+      }
+
       // we slide it from the card triggering the effect
       if (!$(id)) {
         this.addCard(card, n.args.card2.location == 'hand' ? 'page-title' : `card-${n.args.card2.id}`);
@@ -1085,7 +1155,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
         this.updateBiomeTotals(card.pId, n.args.biomes);
-        this.notifqueue.setSynchronousDuration(100);
+        if (!this.isFastMode()) {
+          this.notifqueue.setSynchronousDuration(100);
+        }
       });
     },
 
@@ -1097,6 +1169,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       n.args.meeples.forEach((meepleId) => {
         $(`meeple-${meepleId}`).remove();
       });
+
+      if (this.isFastMode()) {
+        [...n.args.cards, ...n.args.cards2].map((card, i) => {
+          this.updateCardStatuses(card.id);
+          let container = $(card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`);
+          container.insertAdjacentElement('beforeend', $(`card-${card.id}`));
+          if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+        });
+
+        [...n.args.cards3].map((card, i) => {
+          return $(`card-${card.id}`).remove();
+        });
+        return;
+      }
 
       Promise.all(
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
@@ -1124,6 +1210,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     notif_cleanupCards(n) {
       debug('Notif: updating status of all cleaned up cards', n);
+      this.gamedatas.passedPlayers = [];
+
+      if (this.isFastMode()) {
+        [...n.args.cardIds].map((cardId, i) => {
+          this.updateCardStatuses(cardId);
+        });
+        return;
+      }
+
       Promise.all(
         [...n.args.cardIds].map((cardId, i) => {
           return this.wait(200 * i).then(() => {
@@ -1133,7 +1228,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       ).then(() => {
         this.notifqueue.setSynchronousDuration(100);
       });
-      this.gamedatas.passedPlayers = [];
     },
 
     /**

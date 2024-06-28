@@ -237,6 +237,22 @@ define([
       }
     },
 
+    onLeavingFastMode() {
+      this.updateLayout();
+
+      this.orderedPlayers.forEach((player, i) => {
+        let handContainer = $(`hand-${player.id}`);
+        this.adjustHand(handContainer, i == 0 ? 'bottom' : 'top');
+
+        if (player.id == this.player_id) {
+          this.clearHandTransform($(`mana-cards-${player.id}`));
+        }
+        this.clearHandTransform($(`board-discard-${player.id}`));
+        this.clearHandTransform($(`board-reserve-${player.id}`));
+      });
+      console.log('Leaving fast mode');
+    },
+
     /**
      * Setup:
      *	This method set up the game user interface according to current game situation specified in parameters

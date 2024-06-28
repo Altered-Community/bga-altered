@@ -227,6 +227,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_setupPlayer(n) {
       debug('Notif: setupPlayer', n);
       let pId = n.args.player_id;
+      if (this.isFastMode()) {
+        this.closeOverlay();
+      }
 
       // Update faction
       let faction = n.args.faction;
@@ -237,13 +240,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let hero = n.args.card;
       delete this.tooltips[`card-${hero.id}`];
       this.addCard(hero, `hand-${pId}`);
-      // if (!$(`card-${hero.id}`)) {
-      // this.addCard(hero, `hand-${pId}`);
-      // } else if ($('overlay-deck-container')) {
-      //   // [...$('overlay-deck-container').querySelectorAll('.altered-card')].forEach((oCard) => {
-      //   //   if (oCard.dataset.id != hero.id) oCard.classList.add('phantom');
-      //   // });
-      // }
 
       this.slide(`card-${hero.id}`, `board-hero-${pId}`, { clearTransform: true, phantom: false }).then(() => {
         n.args.meeples.forEach((meeple) => {

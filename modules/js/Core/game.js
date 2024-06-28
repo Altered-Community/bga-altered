@@ -59,7 +59,7 @@ define([
         this.instantaneousMode = false;
         dojo.style('leftright_page_wrapper', 'display', 'block');
         dojo.style('loader_mask', 'display', 'none');
-        this.updateLayout();
+        this.onLeavingFastMode();
       }
     },
 
@@ -240,6 +240,7 @@ define([
             $('gameaction_status').innerHTML = msg;
             $('pagemaintitletext').innerHTML = msg;
           }
+          console.log(this.instantaneousMode);
           let timing = this[functionName](args);
           if (timing === undefined) {
             if (notif[1] === undefined) {
@@ -942,7 +943,9 @@ define([
       // Fast replay mode
       if (this.isFastMode()) {
         dojo.place(newNode, target, 'replace');
-        return;
+        return new Promise((resolve, reject) => {
+          resolve();
+        });
       }
 
       return new Promise((resolve, reject) => {
