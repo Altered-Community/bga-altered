@@ -10,8 +10,8 @@ class BR_Rare_Chiron extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_BR_11_R1',
-      'asset' => 'ALT_CORE_B_BR_11_R1',
+      'uid' => 'ALT_CORE_B_BR_11_R',
+      'asset' => 'ALT_CORE_B_BR_11_R',
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,

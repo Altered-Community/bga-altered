@@ -10,8 +10,8 @@ class MU_Rare_Hydracaena extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_MU_22_R1',
-      'asset' => 'ALT_CORE_B_MU_22_R1',
+      'uid' => 'ALT_CORE_B_MU_22_R',
+      'asset' => 'ALT_CORE_B_MU_22_R',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

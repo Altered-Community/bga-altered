@@ -317,7 +317,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.addPrimaryActionButton('btnShowCards', _('Show cards'), () => this._cardsChoiceModal.show());
         container = $('choose-cards');
       }
-      debug('test', cardIds);
+
       let elements = {};
       cardIds.forEach((cardId) => {
         let oCard = $(`card-${cardId}`);
@@ -1382,7 +1382,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
           class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
-        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
@@ -1446,7 +1446,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${i.boost}' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
@@ -1508,7 +1508,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${i.boost}'>
-        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-faction='${p.faction}' data-type='token'></div>
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
@@ -1563,7 +1563,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-spell ${mini ? 'mini-card' : ''}' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='spell'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
@@ -1619,7 +1619,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-permanent ${mini ? 'mini-card' : ''}' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${p.asset}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='permanent'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>

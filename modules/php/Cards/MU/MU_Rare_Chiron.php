@@ -12,7 +12,7 @@ class MU_Rare_Chiron extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_BR_11_R2',
-      'asset' => 'ALT_CORE_B_BR_11_R1',
+      'asset' => 'ALT_CORE_B_BR_11_R',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

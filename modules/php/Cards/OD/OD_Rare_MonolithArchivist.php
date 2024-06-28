@@ -8,8 +8,8 @@ class OD_Rare_MonolithArchivist extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_OR_10_R1',
-      'asset' => 'ALT_CORE_B_OR_10_R1',
+      'uid' => 'ALT_CORE_B_OR_10_R',
+      'asset' => 'ALT_CORE_B_OR_10_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

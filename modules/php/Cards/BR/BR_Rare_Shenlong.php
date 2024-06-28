@@ -8,8 +8,8 @@ class BR_Rare_Shenlong extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_BR_22_R1',
-      'asset' => 'ALT_CORE_B_BR_22_R1',
+      'uid' => 'ALT_CORE_B_BR_22_R',
+      'asset' => 'ALT_CORE_B_BR_22_R',
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,

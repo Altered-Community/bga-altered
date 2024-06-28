@@ -9,7 +9,7 @@ class OD_Rare_Atlas extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_BR_20_R2',
-      'asset' => 'ALT_CORE_B_BR_20_R1',
+      'asset' => 'ALT_CORE_B_BR_20_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

@@ -11,7 +11,7 @@ class LY_Rare_PaperHerald extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_OR_04_R2',
-      'asset' => 'ALT_CORE_B_OR_04_R1',
+      'asset' => 'ALT_CORE_B_OR_04_R',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,

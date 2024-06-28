@@ -11,7 +11,7 @@ class OD_Rare_BabasIsba extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_YZ_28_R2',
-      'asset' => 'ALT_CORE_B_YZ_28_R1',
+      'asset' => 'ALT_CORE_B_YZ_28_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

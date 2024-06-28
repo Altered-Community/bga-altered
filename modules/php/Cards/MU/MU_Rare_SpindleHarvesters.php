@@ -11,8 +11,8 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_MU_06_R1',
-      'asset' => 'ALT_CORE_B_MU_06_R1',
+      'uid' => 'ALT_CORE_B_MU_06_R',
+      'asset' => 'ALT_CORE_B_MU_06_R',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

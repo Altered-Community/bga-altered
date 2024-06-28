@@ -11,7 +11,7 @@ class BR_Rare_TheHatter extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_LY_18_R2',
-      'asset' => 'ALT_CORE_B_LY_18_R1',
+      'asset' => 'ALT_CORE_B_LY_18_R',
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,

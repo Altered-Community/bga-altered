@@ -11,8 +11,8 @@ class LY_Rare_Anansi extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_13_R1',
-      'asset' => 'ALT_CORE_B_LY_13_R1',
+      'uid' => 'ALT_CORE_B_LY_13_R',
+      'asset' => 'ALT_CORE_B_LY_13_R',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,

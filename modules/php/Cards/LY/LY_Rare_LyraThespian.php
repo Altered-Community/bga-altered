@@ -10,8 +10,8 @@ class LY_Rare_LyraThespian extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_05_R1',
-      'asset' => 'ALT_CORE_B_LY_05_R1',
+      'uid' => 'ALT_CORE_B_LY_05_R',
+      'asset' => 'ALT_CORE_B_LY_05_R',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,

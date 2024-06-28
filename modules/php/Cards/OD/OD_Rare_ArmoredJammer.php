@@ -11,7 +11,7 @@ class OD_Rare_ArmoredJammer extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'asset' => 'ALT_CORE_B_AX_28_R1',
+      'asset' => 'ALT_CORE_B_AX_28_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

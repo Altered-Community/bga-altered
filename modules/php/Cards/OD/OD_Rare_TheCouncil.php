@@ -8,8 +8,8 @@ class OD_Rare_TheCouncil extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_OR_12_R1',
-      'asset' => 'ALT_CORE_B_OR_12_R1',
+      'uid' => 'ALT_CORE_B_OR_12_R',
+      'asset' => 'ALT_CORE_B_OR_12_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

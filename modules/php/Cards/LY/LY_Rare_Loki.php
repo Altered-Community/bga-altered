@@ -10,8 +10,8 @@ class LY_Rare_Loki extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_LY_21_R1',
-      'asset' => 'ALT_CORE_B_LY_21_R1',
+      'uid' => 'ALT_CORE_B_LY_21_R',
+      'asset' => 'ALT_CORE_B_LY_21_R',
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,

@@ -250,7 +250,6 @@ define([
         this.clearHandTransform($(`board-discard-${player.id}`));
         this.clearHandTransform($(`board-reserve-${player.id}`));
       });
-      console.log('Leaving fast mode');
     },
 
     /**

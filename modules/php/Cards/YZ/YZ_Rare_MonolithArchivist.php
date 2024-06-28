@@ -9,7 +9,7 @@ class YZ_Rare_MonolithArchivist extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_OR_10_R2',
-      'asset' => 'ALT_CORE_B_OR_10_R1',
+      'asset' => 'ALT_CORE_B_OR_10_R',
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,

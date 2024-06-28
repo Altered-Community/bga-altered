@@ -12,7 +12,7 @@ class OD_Rare_AmeliaEarhart extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_11_R2',
-      'asset' => 'ALT_CORE_B_AX_11_R1',
+      'asset' => 'ALT_CORE_B_AX_11_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

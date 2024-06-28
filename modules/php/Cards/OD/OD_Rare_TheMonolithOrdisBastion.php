@@ -10,8 +10,8 @@ class OD_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_OR_28_R1',
-      'asset' => 'ALT_CORE_B_OR_28_R1',
+      'uid' => 'ALT_CORE_B_OR_28_R',
+      'asset' => 'ALT_CORE_B_OR_28_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

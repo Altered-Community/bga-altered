@@ -240,7 +240,7 @@ define([
             $('gameaction_status').innerHTML = msg;
             $('pagemaintitletext').innerHTML = msg;
           }
-          console.log(this.instantaneousMode);
+
           let timing = this[functionName](args);
           if (timing === undefined) {
             if (notif[1] === undefined) {

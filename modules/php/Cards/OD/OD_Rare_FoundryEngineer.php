@@ -9,7 +9,7 @@ class OD_Rare_FoundryEngineer extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_05_R2',
-      'asset' => 'ALT_CORE_B_AX_05_R1',
+      'asset' => 'ALT_CORE_B_AX_05_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

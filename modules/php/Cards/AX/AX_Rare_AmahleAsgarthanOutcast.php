@@ -11,7 +11,7 @@ class AX_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_LY_19_R2',
-      'asset' => 'ALT_CORE_B_LY_19_R1',
+      'asset' => 'ALT_CORE_B_LY_19_R',
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,

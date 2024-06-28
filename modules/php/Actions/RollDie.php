@@ -110,7 +110,7 @@ class RollDie extends \ALT\Models\Action
     $lyraBastion = 0;
     $lyraBastion += $player
       ->getLandmarks()
-      ->where('uid', 'ALT_CORE_B_LY_30_R1')
+      ->where('uid', 'ALT_CORE_B_LY_30_R')
       ->count();
     $lyraBastion += $player
       ->getLandmarks()

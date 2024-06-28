@@ -11,7 +11,7 @@ class YZ_Rare_BravosBladedancer extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_BR_16_R2',
-      'asset' => 'ALT_CORE_B_BR_16_R1',
+      'asset' => 'ALT_CORE_B_BR_16_R',
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,

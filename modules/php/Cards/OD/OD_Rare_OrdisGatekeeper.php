@@ -10,8 +10,8 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_OR_13_R1',
-      'asset' => 'ALT_CORE_B_OR_13_R1',
+      'uid' => 'ALT_CORE_B_OR_13_R',
+      'asset' => 'ALT_CORE_B_OR_13_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
@@ -22,7 +22,7 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
       'effectDesc' => '{J} Create an <ORDIS_RECRUIT> Soldier token in #each of your# Expeditions.',
       'artist' => 'Atanas Lozanski',
       'flavorText' =>
-        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
+      'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
 
       'forest' => 1,
       'mountain' => 1,

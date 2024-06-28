@@ -10,8 +10,8 @@ class OD_Rare_TeamworkTraining extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_OR_24_R1',
-      'asset' => 'ALT_CORE_B_OR_24_R1',
+      'uid' => 'ALT_CORE_B_OR_24_R',
+      'asset' => 'ALT_CORE_B_OR_24_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

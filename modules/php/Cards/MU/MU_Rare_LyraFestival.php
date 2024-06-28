@@ -12,7 +12,7 @@ class MU_Rare_LyraFestival extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_LY_29_R2',
-      'asset' => 'ALT_CORE_B_LY_29_R1',
+      'asset' => 'ALT_CORE_B_LY_29_R',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

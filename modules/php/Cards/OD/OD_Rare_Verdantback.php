@@ -9,7 +9,7 @@ class OD_Rare_Verdantback extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_MU_19_R2',
-      'asset' => 'ALT_CORE_B_MU_19_R1',
+      'asset' => 'ALT_CORE_B_MU_19_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

@@ -10,8 +10,8 @@ class OD_Rare_Anubis extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_OR_20_R1',
-      'asset' => 'ALT_CORE_B_OR_20_R1',
+      'uid' => 'ALT_CORE_B_OR_20_R',
+      'asset' => 'ALT_CORE_B_OR_20_R',
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,

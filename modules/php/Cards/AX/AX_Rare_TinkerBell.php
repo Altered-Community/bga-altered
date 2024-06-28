@@ -11,8 +11,8 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_AX_09_R1',
-      'asset' => 'ALT_CORE_B_AX_09_R1',
+      'uid' => 'ALT_CORE_B_AX_09_R',
+      'asset' => 'ALT_CORE_B_AX_09_R',
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,

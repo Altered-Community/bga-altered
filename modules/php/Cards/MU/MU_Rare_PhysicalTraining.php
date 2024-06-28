@@ -11,7 +11,7 @@ class MU_Rare_PhysicalTraining extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_BR_26_R2',
-      'asset' => 'ALT_CORE_B_BR_26_R1',
+      'asset' => 'ALT_CORE_B_BR_26_R',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,

@@ -11,7 +11,7 @@ class MU_Rare_AxiomScrambler extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_15_R2',
-      'asset' => 'ALT_CORE_B_AX_15_R1',
+      'asset' => 'ALT_CORE_B_AX_15_R',
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
