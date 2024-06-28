@@ -185,6 +185,10 @@ class Target extends \ALT\Models\Action
   {
     $cards = $this->getTargetableCards($player);
     $costs = [];
+    if (Globals::isPlayedForFree()) {
+      return $costs;
+    }
+
     foreach ($cards as $cId => $card) {
       if ($card->getTough() > 0 && $card->getPId() != $player->getId()) {
         $costs[$cId] = $card->getTough();

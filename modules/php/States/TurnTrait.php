@@ -51,6 +51,7 @@ trait TurnTrait
     Globals::setSkippedPlayers([]);
     Globals::setCostReduction([]);
     Globals::setNextCharacterBoost(0);
+    Globals::setPlayedForFree(false);
 
     Globals::setDayPhase(true);
     // Update cards with extra datas set
@@ -108,6 +109,7 @@ trait TurnTrait
     Globals::setRemoveFleetingIfSpellPlayedHand(false);
     Globals::setRemoveFleetingSpellPlayed(false);
     Globals::setRemoveFleetingCharacterPlayed(false);
+    Globals::setPlayedForFree(false);
 
 
     self::giveExtraTime($player->getId());
@@ -253,6 +255,7 @@ trait TurnTrait
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setStormMoves([]);
     Globals::setSkippedPlayers([]);
+    Globals::setPlayedForFree(false);
     $this->initCustomDefaultTurnOrder('nightCleanup', 'stNightCleanup', 'stAfterNightCleanup', true);
   }
 

@@ -253,6 +253,8 @@ $machinestates = [
     'action' => 'stAtomicAction',
     'description' => clienttranslate('${source}: ${actplayer} must choose 1 die result'),
     'descriptionmyturn' => clienttranslate('${source}: ${you} must choose 1 die result'),
+    'descriptionbastion' => clienttranslate('${actplayer} must choose 1 die result or select a card to add 2'),
+    'descriptionmyturnbastion' => clienttranslate('${you} must choose 1 die result or select a card to add 2'),
     'args' => 'argsAtomicAction',
     'possibleactions' => ['actRollDie', 'actDiscardAdd', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
