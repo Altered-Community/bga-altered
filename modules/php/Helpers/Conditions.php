@@ -80,6 +80,11 @@ abstract class Conditions
     return $event['pId'] != $card->getPId();
   }
 
+  public static function notMeandDrawNotMana($card, $event)
+  {
+    return $event['pId'] != $card->getPId() && ($event['location'] ?? HAND) != MANA;
+  }
+
   public static function controlBureaucratNoon($card, $event)
   {
     if ($event['pId'] != $card->getPId()) {
