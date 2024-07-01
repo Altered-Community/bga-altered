@@ -84,10 +84,9 @@ define([
         ['pDiscardCards', null],
         ['publicDiscard', null],
         ['discardCards', null, (notif) => notif.args.player_id == this.player_id],
-        ['publicJinn', null, (notif) => notif.args.player_id == this.player_id],
         // ['discardCardsOnDisplay', null],
         ['playCard', null],
-        ['supportEffect', 100],
+        ['supportEffect', null],
         ['moveStormToken', null],
         ['moveToHand', null],
         ['silentKill', 200],
@@ -109,9 +108,7 @@ define([
         ['blockExpedition', 100],
         ['blockAllExpeditions', 100],
 
-        ['discard', 500],
         ['tap', 800],
-        // ['boost', 500],
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],
@@ -249,6 +246,7 @@ define([
         }
         this.clearHandTransform($(`board-discard-${player.id}`));
         this.clearHandTransform($(`board-reserve-${player.id}`));
+        this.clearHandTransform($(`board-landmark-${player.id}`));
       });
     },
 

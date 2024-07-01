@@ -865,49 +865,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
-    notif_publicJinn(n) {
-      debug('Notif: discard of jinns', n);
-
-      if (this.isFastMode()) {
-        n.args.cardsDeleted.forEach((cardId) => {
-          $(cardId).remove();
-        });
-        return;
-      }
-
-      n.args.cardsDeleted.forEach((cardId) => {
-        this.fadeOutAndDestroy($(`card-${cardId}`));
-      });
-    },
-
-    /**
-     * stealingCard : slighty different => move card to other player panel and destroy it
-     */
-    notif_stealingCard(n) {
-      if (n.args.player_id == this.player_id || n.args.player_id2 == this.player_id) {
-        return;
-      }
-
-      let counter = 'handCount';
-      let nCards = 1;
-      if (this.isFastMode()) {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
-        return;
-      }
-
-      this.addCard({ id: 1, fake: true }, `counter-${n.args.player_id}-${counter}`);
-      this.slide(`card-1`, `counter-${n.args.player_id2}-${counter}`, {
-        duration: 1000,
-        destroy: true,
-        phantom: false,
-      }).then(() => {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
-        this.notifqueue.setSynchronousDuration(200);
-      });
-    },
-
     notif_gainCounter(n) {
       debug('Notification: gain counter', n);
 
@@ -961,41 +918,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notification: target card', n);
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
     },
-
-    /**
-     * Public notification when discarding cards from the display
-     *
-    notif_discardCardsOnDisplay(n) {
-      debug('Notif: discarding cards on the display', n);
-
-      // Remove tokens on the card
-      if (n.args.tokenIds) {
-        n.args.tokenIds.forEach((mId) => {
-          $(`meeple-${mId}`).remove();
-        });
-      }
-
-      if (this.isFastMode()) {
-        n.args.cards.forEach((card) => {
-          this.destroy($(`card-${card.id}`));
-        });
-        return;
-      }
-
-      Promise.all(
-        n.args.cards.map((card, i) => {
-          return this.slide(`card-${card.id}`, this.getVisibleTitleContainer(), {
-            delay: 100 * i,
-            duration: 1000,
-            destroy: true,
-            phantom: false,
-          });
-        })
-      ).then(() => {
-        this.notifqueue.setSynchronousDuration(100);
-      });
-    },
-    */
 
     notif_playCard(n) {
       debug('Notif: playing a card', n);
@@ -1070,7 +992,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_supportEffect(n) {
-      debug('Notif : playing from support');
+      debug('Notif : playing from support', n);
       let card = n.args.card;
       let id = `card-${card.id}`;
       if (!$(id)) {
@@ -1078,6 +1000,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       let container = this.getCardContainer(card);
       $(id).classList.remove('mini-card');
+      $(id).style.transform = '';
+      $(id).style.transformOrigin = 'initial';
 
       this.slide(id, container).then(() => {
         this.notifqueue.setSynchronousDuration(100);
@@ -1121,6 +1045,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       if (card.location == 'discard') {
         $(id).classList.remove('mini-card');
+        $(id).style.transform = '';
+        $(id).style.transformOrigin = 'initial';
       } else {
         $(id).classList.add('mini-card');
       }
