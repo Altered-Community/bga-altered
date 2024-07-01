@@ -177,6 +177,7 @@ define([
     clearPossible() {
       this.clearTitleBar();
 
+      this.closeCurrentTooltip(false);
       this._connections.forEach(dojo.disconnect);
       this._connections = [];
       this._selectableNodes.forEach((node) => {
@@ -1058,7 +1059,7 @@ define([
     },
 
     desactivateHelpMode() {
-      this.closeCurrentTooltip();
+      this.closeCurrentTooltip(false);
       this._helpMode = false;
       dojo.removeClass('ebd-body', 'help-mode');
       document.body.removeEventListener('click', this.closeCurrentTooltip.bind(this));
@@ -1186,6 +1187,7 @@ define([
       dojo.connect($(id), 'mouseenter', (evt) => {
         evt.stopPropagation();
         if (!this._helpMode && !this._dragndropMode) {
+          this.closeCurrentTooltip(false);
           if (tooltip.showTimeout != null) clearTimeout(tooltip.showTimeout);
 
           tooltip.showTimeout = setTimeout(() => {

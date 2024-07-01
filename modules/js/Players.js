@@ -317,6 +317,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       for (let i = slots.length; i < v; i++) {
         container.insertAdjacentHTML('beforeend', `<div class='mana-gauge-slot'><div class='mana-gem'></div></div>`);
       }
+      for (let i = v; i < slots.length; i++) {
+        slots[i].remove();
+      }
     },
     onUpdateHandCountCounter(pId, v) {
       if (pId == this.player_id) return;

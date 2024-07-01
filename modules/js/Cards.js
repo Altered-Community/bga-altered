@@ -303,6 +303,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         container = $(`scoring-hand-${this.player_id}`);
       } else if (location == 'pool') {
         container = $('cards-pool');
+      } else if (location == 'mana') {
+        container = $(`mana-cards-${this.player_id}`);
+        this._manaModal.show();
       } else if (location == 'choice') {
         this._cardsChoiceModal = new customgame.modal('chooseCards', {
           class: 'altered_popin',
@@ -367,6 +370,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       if (location == 'choice') {
         config.btnContainer = 'choose-cards-footer';
+      }
+      if (location == 'mana') {
+        config.btnContainer = 'popin_manaDisplay_subtitle';
       }
 
       this.onSelectN(config);

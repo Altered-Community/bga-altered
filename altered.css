@@ -1767,7 +1767,7 @@ html {
   width: calc(var(--cardScale) * 324px);
   height: calc(var(--cardScale) * 450px);
   box-shadow: none;
-  border-radius: calc(var(--cardScale) * 25px); }
+  border-radius: calc(var(--cardScale) * 17px); }
   .altered-card > .altered-meeple {
     position: absolute;
     top: 0;
@@ -3227,6 +3227,13 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
 .chatinput {
   background: #e1e1e1; }
 
+.lockedInterface .bgabutton {
+  cursor: progress !important;
+  pointer-events: none !important;
+  opacity: 0.5 !important;
+  background: linear-gradient(rgba(189, 189, 189, 0.59), rgba(166, 165, 165, 0.45)) !important;
+  pointer-events: all !important; }
+
 #altered-main-container {
   margin-top: 0px;
   display: flex;
@@ -4313,6 +4320,21 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
   display: flex;
   justify-content: center;
   align-items: center; }
+.altered_mana_popin h3 {
+  min-width: 80%;
+  background: #fffd;
+  border-radius: 4px;
+  margin: auto;
+  padding: 7px 15px;
+  border: 1px solid white;
+  margin-top: -15px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  text-align: center;
+  min-height: 26px; }
+  .altered_mana_popin h3 .bgabutton {
+    margin-top: -3px;
+    margin-bottom: -2px; }
 
 #popin_showAllCards_underlay {
   opacity: 1 !important; }

@@ -609,6 +609,11 @@ define([
         if ($(eltId)) $(eltId).remove();
       });
 
+      if ($('popin_manaDisplay_subtitle')) {
+        $('popin_manaDisplay_subtitle').remove();
+      }
+      this._manaModal.hide();
+
       this.inherited(arguments);
     },
 
@@ -1496,17 +1501,32 @@ define([
     },
 
     onEnteringStateTarget(args) {
-      this.onSelectNCards(args.cardIds, {
-        n: args.n,
-        class: 'selectable',
-        confirmText: _('Confirm target'),
-        upTo: args.upTo,
-        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
-        passCallback: () => this.takeAction('actPassOptionalAction'),
-      });
+      let location = 'hand';
+
       if (args.manaOrbs == true) {
+        this.addPrimaryActionButton('btnShowMana', _('Show mana cards'), () => this._manaModal.show());
         this._manaModal.show();
+
+        if (!$('popin_manaDisplay_subtitle')) {
+          $('popin_manaDisplay_title').insertAdjacentHTML('afterend', '<h3 id="popin_manaDisplay_subtitle"></h3>');
+        }
+        $('popin_manaDisplay_subtitle').innerHTML = $('pagemaintitletext').innerHTML;
+
+        location = 'mana';
       }
+
+      this.onSelectNCards(
+        args.cardIds,
+        {
+          n: args.n,
+          class: 'selectable',
+          confirmText: _('Confirm target'),
+          upTo: args.upTo,
+          callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTarget', [selectedElements]),
+          passCallback: () => this.takeAction('actPassOptionalAction'),
+        },
+        location
+      );
 
       Object.keys(args.targetCosts).forEach((cardId) => {
         $(`card-${cardId}`).insertAdjacentHTML('beforeend', `<div class='tough-marker'>${args.targetCosts[cardId]}</div>`);
