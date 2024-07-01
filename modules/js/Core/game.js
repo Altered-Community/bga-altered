@@ -852,7 +852,8 @@ define([
           }
           if (config.destroy) {
             if (this.tooltips[mobile.id]) {
-              this.tooltips[mobile.id].close();
+              if (this.tooltips[mobile.id].close) this.tooltips[mobile.id].close();
+              else this.tooltips[mobile.id].hide();
               delete this.tooltips[mobile.id];
             }
             dojo.destroy(mobile);

@@ -3810,7 +3810,10 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
             width: 25px;
             height: 25px; }
       .altered-player-board .player-board-mana-wrapper .player-board-mana-indicator .mana-counters-wrapper {
-        margin: 3px 0px; }
+        margin: 3px 0px;
+        position: relative; }
+        .altered-player-board .player-board-mana-wrapper .player-board-mana-indicator .mana-counters-wrapper .altered-card {
+          position: absolute; }
     .altered-player-board .player-board-mana-wrapper .player-board-mana-gauge {
       display: flex;
       padding: 4px 6px 4px 2px;

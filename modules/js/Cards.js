@@ -129,10 +129,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return $(`hand-${card.pId}`);
       } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'landmark', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
-      }
-      // TODO REMOVE : legacy code
-      else if (card.location == 'reserve') {
-        return $(`board-reserve-${card.pId}`);
       } else if (type == HERO) {
         return $(card.location);
       } else if (card.location == 'mana') {
@@ -795,11 +791,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (!$(id)) {
             this.addCard(card);
           } else {
-            $(`board-${card.location}-${card.pId}`).insertAdjacentElement('beforeend', $(id));
-            if (n.args.hand === true || card.location == 'reserve') $(id).classList.add('mini-card');
-            if (card.location == 'discard') $(id).classList.remove('mini-card');
-            $(id).style.transform = '';
-            $(id).style.transformOrigin = 'initial';
+            let container = this.getCardContainer(card);
+            if (container) {
+              container.insertAdjacentElement('beforeend', $(id));
+              if (n.args.hand === true || card.location == 'reserve') $(id).classList.add('mini-card');
+              if (card.location == 'discard') $(id).classList.remove('mini-card');
+              $(id).style.transform = '';
+              $(id).style.transformOrigin = 'initial';
+            } else if (card.location == 'mana') {
+              $(id).remove();
+            }
           }
         });
         this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
@@ -828,9 +829,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
               this.updateStatusIfCard($(id));
               if (card.location == 'mana') {
-                return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
+                let container = this.getCardContainer(card);
+                if (container) {
+                  return this.slide(id, `counter-board-${card.pId}-mana`).then(() => {
+                    $(container).insertAdjacentElement('beforeend', $(id));
+                    $(id).classList.remove('mini-card');
+                  });
+                } else {
+                  return this.slide(id, `counter-board-${card.pId}-mana`, { destroy: true });
+                }
               } else {
-                return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`, {
+                return this.slide(id, `board-${card.location}-${card.pId}`, {
                   clearTransform: true,
                 });
               }
