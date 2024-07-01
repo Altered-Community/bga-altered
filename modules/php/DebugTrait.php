@@ -127,6 +127,62 @@ trait DebugTrait
     Notifications::updateTotalMana();
   }
 
+  function loadUnique()
+  {
+    require_once('Cards/unique.php');
+    $unique = $uniques['hydra:member'][0];
+
+    $properties = [];
+    $properties['uid'] = $unique['reference'];
+    $properties['rarity'] = RARITY_UNIQUE;
+    $asset = explode('_', $unique['reference']);
+    unset($asset[count($asset) - 1]);
+    $properties['asset'] = implode('_', $asset);
+    $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
+    $properties['name'] = $unique['name'];
+    $properties['type'] = constant($unique['cardType']['reference']);
+    $subtypes = [];
+    $typeline = ['Character'];
+
+    foreach ($unique['cardSubTypes'] as $v => $sub) {
+      $subtypes[] = constant($sub['reference']);
+      $typeline[] = $sub['name'];
+    }
+    $properties['subtypes'] = $subtypes;
+    $properties['typeline'] = implode(' - ', $typeline);
+    $properties['artist'] = $unique['illustrator']['nickName'];
+    $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
+    $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+    $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
+    $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+    $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
+
+    // add effects
+    foreach ($unique['cardElements'] as $i => $cardElement) {
+      if ($cardElement['cardElementType']['reference'] != 'MAIN_EFFECT'  && $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT') {
+        continue;
+      }
+      foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
+        $trinity = [];
+        foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
+          if (in_array($indivEffect['idGd'], TRIGGER)) {
+            $trinity['trigger'] = $indivEffect['idGd'];
+          } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
+            $trinity['condition'] = $indivEffect['idGd'];
+          } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
+            $trinity['output'] = $indivEffect['idGd'];
+          }
+        }
+        if (empty($trinity)) {
+          continue;
+        }
+      }
+    }
+    throw new \feException(print_r($properties));
+  }
+
+
+
   function tiebreak()
   {
     Globals::setTieBreakerMode(true);
