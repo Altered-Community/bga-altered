@@ -379,6 +379,11 @@
 
             .mana-counters-wrapper {
                 margin: 3px 0px;
+                position: relative;
+
+                .altered-card {
+                    position: absolute;
+                }
             }
         }
 

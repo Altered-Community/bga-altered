@@ -129,10 +129,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return $(`hand-${card.pId}`);
       } else if (['stormLeft', 'stormRight', 'reserve', 'permanent', 'landmark', 'limbo', 'discard'].includes(card.location)) {
         return $(`board-${card.location}-${card.pId}`);
-      }
-      // TODO REMOVE : legacy code
-      else if (card.location == 'reserve') {
-        return $(`board-reserve-${card.pId}`);
       } else if (type == HERO) {
         return $(card.location);
       } else if (card.location == 'mana') {
@@ -303,6 +299,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         container = $(`scoring-hand-${this.player_id}`);
       } else if (location == 'pool') {
         container = $('cards-pool');
+      } else if (location == 'mana') {
+        container = $(`mana-cards-${this.player_id}`);
+        this._manaModal.show();
       } else if (location == 'choice') {
         this._cardsChoiceModal = new customgame.modal('chooseCards', {
           class: 'altered_popin',
@@ -367,6 +366,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       if (location == 'choice') {
         config.btnContainer = 'choose-cards-footer';
+      }
+      if (location == 'mana') {
+        config.btnContainer = 'popin_manaDisplay_subtitle';
       }
 
       this.onSelectN(config);
@@ -789,11 +791,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (!$(id)) {
             this.addCard(card);
           } else {
-            $(`board-${card.location}-${card.pId}`).insertAdjacentElement('beforeend', $(id));
-            if (n.args.hand === true || card.location == 'reserve') $(id).classList.add('mini-card');
-            if (card.location == 'discard') $(id).classList.remove('mini-card');
-            $(id).style.transform = '';
-            $(id).style.transformOrigin = 'initial';
+            let container = this.getCardContainer(card);
+            if (container) {
+              container.insertAdjacentElement('beforeend', $(id));
+              if (n.args.hand === true || card.location == 'reserve') $(id).classList.add('mini-card');
+              if (card.location == 'discard') $(id).classList.remove('mini-card');
+              $(id).style.transform = '';
+              $(id).style.transformOrigin = 'initial';
+            } else if (card.location == 'mana') {
+              $(id).remove();
+            }
           }
         });
         this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
@@ -822,9 +829,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
               this.updateStatusIfCard($(id));
               if (card.location == 'mana') {
-                return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
+                let container = this.getCardContainer(card);
+                if (container) {
+                  return this.slide(id, `counter-board-${card.pId}-mana`).then(() => {
+                    $(container).insertAdjacentElement('beforeend', $(id));
+                    $(id).classList.remove('mini-card');
+                  });
+                } else {
+                  return this.slide(id, `counter-board-${card.pId}-mana`, { destroy: true });
+                }
               } else {
-                return this.slide(`card-${card.id}`, `board-${card.location}-${card.pId}`, {
+                return this.slide(id, `board-${card.location}-${card.pId}`, {
                   clearTransform: true,
                 });
               }
@@ -847,49 +862,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
         this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
         this.notifqueue.setSynchronousDuration(100);
-      });
-    },
-
-    notif_publicJinn(n) {
-      debug('Notif: discard of jinns', n);
-
-      if (this.isFastMode()) {
-        n.args.cardsDeleted.forEach((cardId) => {
-          $(cardId).remove();
-        });
-        return;
-      }
-
-      n.args.cardsDeleted.forEach((cardId) => {
-        this.fadeOutAndDestroy($(`card-${cardId}`));
-      });
-    },
-
-    /**
-     * stealingCard : slighty different => move card to other player panel and destroy it
-     */
-    notif_stealingCard(n) {
-      if (n.args.player_id == this.player_id || n.args.player_id2 == this.player_id) {
-        return;
-      }
-
-      let counter = 'handCount';
-      let nCards = 1;
-      if (this.isFastMode()) {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
-        return;
-      }
-
-      this.addCard({ id: 1, fake: true }, `counter-${n.args.player_id}-${counter}`);
-      this.slide(`card-1`, `counter-${n.args.player_id2}-${counter}`, {
-        duration: 1000,
-        destroy: true,
-        phantom: false,
-      }).then(() => {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
-        this._playerCounters[n.args.player_id2][counter].incValue(nCards);
-        this.notifqueue.setSynchronousDuration(200);
       });
     },
 
@@ -946,41 +918,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notification: target card', n);
       this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
     },
-
-    /**
-     * Public notification when discarding cards from the display
-     *
-    notif_discardCardsOnDisplay(n) {
-      debug('Notif: discarding cards on the display', n);
-
-      // Remove tokens on the card
-      if (n.args.tokenIds) {
-        n.args.tokenIds.forEach((mId) => {
-          $(`meeple-${mId}`).remove();
-        });
-      }
-
-      if (this.isFastMode()) {
-        n.args.cards.forEach((card) => {
-          this.destroy($(`card-${card.id}`));
-        });
-        return;
-      }
-
-      Promise.all(
-        n.args.cards.map((card, i) => {
-          return this.slide(`card-${card.id}`, this.getVisibleTitleContainer(), {
-            delay: 100 * i,
-            duration: 1000,
-            destroy: true,
-            phantom: false,
-          });
-        })
-      ).then(() => {
-        this.notifqueue.setSynchronousDuration(100);
-      });
-    },
-    */
 
     notif_playCard(n) {
       debug('Notif: playing a card', n);
@@ -1055,7 +992,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_supportEffect(n) {
-      debug('Notif : playing from support');
+      debug('Notif : playing from support', n);
       let card = n.args.card;
       let id = `card-${card.id}`;
       if (!$(id)) {
@@ -1063,6 +1000,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       let container = this.getCardContainer(card);
       $(id).classList.remove('mini-card');
+      $(id).style.transform = '';
+      $(id).style.transformOrigin = 'initial';
 
       this.slide(id, container).then(() => {
         this.notifqueue.setSynchronousDuration(100);
@@ -1106,6 +1045,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       if (card.location == 'discard') {
         $(id).classList.remove('mini-card');
+        $(id).style.transform = '';
+        $(id).style.transformOrigin = 'initial';
       } else {
         $(id).classList.add('mini-card');
       }

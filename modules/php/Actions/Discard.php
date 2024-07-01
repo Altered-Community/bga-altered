@@ -306,15 +306,15 @@ class Discard extends \ALT\Models\Action
           $playerCards = $copyCards->filter(function ($c) use ($pId) {
             return $c->getPId() == $pId;
           });
-          $visibleCards = [];
-          foreach ($originalLocation as $cId => $location) {
-            if ($location == RESERVE) {
-              $visibleCards[] = $cId;
-            }
-          }
-          Notifications::discardMana($p2, $playerCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
-          if (!empty($visibleCards)) {
-            Notifications::publicJinn($p2, $visibleCards);
+          $visibleCards = $playerCards->filter(function ($c) use ($originalLocation) {
+            $location = $originalLocation[$c->getId()];
+            return in_array($location, [RESERVE, STORM_LEFT, STORM_RIGHT]);
+          });
+
+          if (!$visibleCards->empty()) {
+            Notifications::publicDiscardToMana($p2, $visibleCards);
+          } else {
+            Notifications::discardMana($p2, $playerCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
           }
         }
       } elseif ($args['destination'] == 'topOfDeck') {

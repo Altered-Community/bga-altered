@@ -288,14 +288,18 @@ class Notifications
     );
   }
 
-  public static function publicJinn($player, $cards)
+  public static function publicDiscardToMana($player, $cards, $publicMsg = null, $args = [])
   {
     self::notifyAll(
-      'publicJinn',
-      '',
-      [
+      'publicDiscard',
+      $publicMsg ?? clienttranslate('${player_name} discards ${card_names} to mana'),
+      $args + [
         'player' => $player,
-        'cardsDeleted' => $cards
+        'n' => count($cards),
+        'cards' => $cards->toArray(),
+        'totalMana' => $player->getTotalMana(),
+        'mana' => $player->getMana(),
+        'toMana' => true,
       ]
     );
   }

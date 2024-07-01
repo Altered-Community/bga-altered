@@ -254,6 +254,14 @@ class Target extends \ALT\Models\Action
     $cards = Cards::getMany($cardIds);
 
     foreach ($cards as $cardId => $card) {
+      // Select untapped card in mana => untap another card if any
+      if ($args['manaOrbs'] && !$card->isTapped()) {
+        $card2 = $player->getManaCards(true)->first();
+        if (!is_null($card2)) {
+          $card2->setTapped(false);
+        }
+      }
+
       $node = $this->getArg('effect');
       $node['args']['cardId'] = $cardId;
       $node['sourceId'] = $this->getSourceId();

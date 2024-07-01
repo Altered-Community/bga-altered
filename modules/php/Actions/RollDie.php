@@ -22,14 +22,34 @@ class RollDie extends \ALT\Models\Action
 
   public function getDescription()
   {
-    $n = $this->getCtxArg('n') ?? 1;
+    list($nTotal, $extraRolls) = $this->getN();
 
     return [
       'log' => clienttranslate('Roll ${n} die'),
       'args' => [
-        'n' => $n,
+        'n' => $nTotal,
       ],
     ];
+  }
+
+  public function getN($player = null)
+  {
+    $n = $this->getCtxArg('n') ?? 1;
+
+    $player = $player ?? Players::getActive();
+
+    // Lyra Bastion management
+    $extraRolls = 0;
+    $extraRolls += $player
+      ->getLandmarks()
+      ->where('uid', 'ALT_CORE_B_LY_30_R')
+      ->count();
+    $extraRolls += $player
+      ->getLandmarks()
+      ->where('uid', 'ALT_CORE_B_LY_30_C')
+      ->count();
+
+    return [$n + $extraRolls, $extraRolls];
   }
 
   public function isAutomatic($player = null)
@@ -98,7 +118,7 @@ class RollDie extends \ALT\Models\Action
   public function stPreRollDie()
   {
     $player = Players::getActive();
-    $n = $this->getArg('n');
+    list($nTotal, $extraRolls) = $this->getN();
     $rolls = [];
 
     $source = $this->getSource();
@@ -106,24 +126,13 @@ class RollDie extends \ALT\Models\Action
       return;
     }
 
-    // Lyra Bastion management
-    $lyraBastion = 0;
-    $lyraBastion += $player
-      ->getLandmarks()
-      ->where('uid', 'ALT_CORE_B_LY_30_R')
-      ->count();
-    $lyraBastion += $player
-      ->getLandmarks()
-      ->where('uid', 'ALT_CORE_B_LY_30_C')
-      ->count();
-    if ($lyraBastion > 0) {
+    if ($extraRolls > 0) {
       Notifications::message(clienttranslate('${n} dice are added to the roll (Ouroboros Lyra Bastion\'s effect)'), [
-        'n' => $lyraBastion,
+        'n' => $extraRolls,
       ]);
     }
-    $n += $lyraBastion;
 
-    for ($i = 0; $i < $n; $i++) {
+    for ($i = 0; $i < $nTotal; $i++) {
       $roll = bga_rand(1, 6);
       if (Game::get()->getBgaEnvironment() == 'studio') {
         // $roll = 5;
