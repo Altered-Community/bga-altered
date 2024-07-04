@@ -169,8 +169,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
                 <div class='total-ocean-highlight'></div>
               </div>
               <div class='storm-blocked' id='blocked-stormLeft-${pId}'>
-                <i class="fa6 fa6-times"></i> &nbsp;
-                <i class="fa6 fa6-caret-right"></i> &nbsp;
+                <i class="fa6 fa6-times"></i>
+                <i class="fa6 fa6-times"></i>
                 <i class="fa6 fa6-times"></i>
               </div>
             </div>
@@ -194,8 +194,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
                 <div class='total-ocean-highlight'></div>
               </div>
               <div class='storm-blocked' id='blocked-stormRight-${pId}'>
-                <i class="fa6 fa6-times"></i> &nbsp;
-                <i class="fa6 fa6-caret-left"></i> &nbsp;
+                <i class="fa6 fa6-times"></i>
+                <i class="fa6 fa6-times"></i>
                 <i class="fa6 fa6-times"></i>
               </div>
             </div>

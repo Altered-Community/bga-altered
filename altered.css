@@ -3797,7 +3797,7 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
         font-size: 18px;
         line-height: 20px;
         flex-direction: column;
-        justify-content: center; }
+        justify-content: space-around; }
         .altered-player-board .player-board-storm .total-biomes .storm-blocked.active {
           display: flex; }
         .altered-player-board .player-board-storm .total-biomes .storm-blocked .fa6-times {
