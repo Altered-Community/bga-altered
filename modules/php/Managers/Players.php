@@ -266,15 +266,31 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $biomes;
   }
 
+  public static function getDefenders()
+  {
+    $defenders = [];
+    foreach (self::getAll() as $pId => $player) {
+      foreach ($player->getPlayedCards()->where('location', STORMS) as $cId => $card) {
+        if ($card->isDefender()) {
+          $defenders[$pId][$card->getLocation()][] = $cId;
+        }
+      }
+    }
+
+    return $defenders;
+  }
+
   public static function getBlockedExpeditions()
   {
     // Blocked by global (temporary)
     $blockedExpeditions = Globals::getBlockedExpeditions();
-    // Blockde by "opposite defender" => always symetric
+    // Blocked by "opposite defender" => always symetric
     $blockedOppositeDefenders = [];
     foreach (STORMS as $expedition) {
       $blockedOppositeDefenders[$expedition] = self::hasOppositeDefender($expedition);
     }
+    // Blocked by defenders
+    $defenders = self::getDefenders();
 
     $statuses = [];
     foreach (Players::getAll() as $pId => $player) {
@@ -285,10 +301,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           $blocked = true;
         }
         // Blocked by "opposite defender" cards
-        if ($blockedOppositeDefenders[$expedition]) {
+        if (!$blocked && $blockedOppositeDefenders[$expedition]) {
           $blocked = true;
         }
-        if (!$blocked && $player->hasDefender($expedition)) {
+        if (!$blocked && !empty($defenders[$pId][$expedition] ?? [])) {
           $blocked = true;
         }
 

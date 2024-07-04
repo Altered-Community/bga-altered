@@ -273,6 +273,11 @@ define([
         this.gamedatas.powersBlockedExpeditions = n.args.powersBlockedExpeditions;
         this.updatePowersBlockedExpeditions();
       }
+      // Defenders
+      if (n.args.defenders !== undefined) {
+        this.gamedatas.defenders = n.args.defenders;
+        this.updateDefenders();
+      }
     },
 
     /**
@@ -339,6 +344,7 @@ define([
       this.updateMovements();
       this.updateBlockedExpeditions();
       this.updatePowersBlockedExpeditions();
+      this.updateDefenders();
 
       this.inherited(arguments);
     },

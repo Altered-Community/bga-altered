@@ -1882,6 +1882,22 @@ html {
     font-family: "Haptic Pro";
     font-size: 21px;
     font-weight: bold; }
+  .altered-card .defender-marker,
+  .altered-card.mini-card .defender-marker {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    background-color: #ffffffef;
+    border-radius: 50%;
+    box-shadow: 1px 1px 5px 3px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    z-index: 5; }
 
 .altered-card {
   width: calc(var(--cardScale) * 324px);
@@ -3769,18 +3785,21 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
       .altered-player-board .player-board-storm .total-biomes .storm-blocked {
         display: none;
         position: absolute;
-        bottom: -20px;
-        height: 18px;
-        width: 80px;
+        top: -4px;
+        bottom: 0px;
+        right: -10px;
+        width: 18px;
         background: #faf7e8f5;
         text-align: center;
         border-radius: 4px;
         border: 1px solid #ff9898;
         box-shadow: 1px 1px 2px black;
         font-size: 18px;
-        line-height: 20px; }
+        line-height: 20px;
+        flex-direction: column;
+        justify-content: center; }
         .altered-player-board .player-board-storm .total-biomes .storm-blocked.active {
-          display: block; }
+          display: flex; }
         .altered-player-board .player-board-storm .total-biomes .storm-blocked .fa6-times {
           color: red; }
       .altered-player-board .player-board-storm .total-biomes .total-biomes-highlights {
@@ -3877,6 +3896,9 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
         box-shadow: 0px 0px 9px 5px #ff0; }
     .altered-player-board .player-board-storm.storm-right .total-biomes {
       left: 492px; }
+      .altered-player-board .player-board-storm.storm-right .total-biomes .storm-blocked {
+        left: -30px;
+        right: auto; }
     .altered-player-board .player-board-storm.storm-right .total-forest,
     .altered-player-board .player-board-storm.storm-right .total-mountain,
     .altered-player-board .player-board-storm.storm-right .total-ocean {
@@ -4164,9 +4186,6 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
   top: 67px; }
   #altered-board-me .altered-player-board .player-board-storm .total-biomes {
     top: -26px; }
-    #altered-board-me .altered-player-board .player-board-storm .total-biomes .storm-blocked {
-      top: -25px;
-      bottom: auto; }
   #altered-board-me .altered-player-board .player-board-storm .powers-blocked {
     bottom: auto;
     top: -20px; }

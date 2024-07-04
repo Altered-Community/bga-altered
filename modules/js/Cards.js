@@ -485,6 +485,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     /**
+     * Update defenders
+     */
+    updateDefenders() {
+      $('ebd-body')
+        .querySelectorAll('.defender-marker')
+        .forEach((e) => e.remove());
+
+      Object.values(this.gamedatas.defenders).forEach((defendersBySide) => {
+        Object.values(defendersBySide).forEach((defenderIds) => {
+          defenderIds.forEach((cardId) =>
+            $(`card-${cardId}`).insertAdjacentHTML('beforeend', '<i class="fa6 fa6-chess-rook defender-marker"></i>')
+          );
+        });
+      });
+    },
+
+    /**
      * Private notification for the player drawing the card :
      *  create the cards and slide them in hand
      */

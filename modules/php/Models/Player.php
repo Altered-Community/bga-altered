@@ -400,16 +400,6 @@ class Player extends \ALT\Helpers\DB_Model
     return $strengths;
   }
 
-  public function hasDefender($expedition)
-  {
-    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
-      if ($card->isDefender()) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   public function hasBlockingPower($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {

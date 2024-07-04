@@ -26,6 +26,10 @@ class Notifications
       'name' => 'powersBlockedExpeditions',
       'method' => ['ALT\Managers\Players', 'getPowersBlockedExpeditions']
     ],
+    [
+      'name' => 'defenders',
+      'method' => ['ALT\Managers\Players', 'getDefenders']
+    ],
   ];
 
   protected static $cachedValues = [];

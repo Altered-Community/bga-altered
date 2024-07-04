@@ -98,6 +98,7 @@ class altered extends Table
       'biomes' => Players::getBiomeTotals(),
       'blockedExpeditions' => Players::getBlockedExpeditions(),
       'powersBlockedExpeditions' => Players::getPowersBlockedExpeditions(),
+      'defenders' => Players::getDefenders(),
     ];
   }
 
