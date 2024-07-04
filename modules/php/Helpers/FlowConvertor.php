@@ -126,18 +126,54 @@ abstract class FlowConvertor
         ])
       ],
       181 => ['description' => clienttranslate('If I have 1 or more boosts:'), 'condition' => 'has1Boost'],
-      182 => ['description' => clienttranslate('You may put a card from your hand in Reserve. If you do:'), 'condition' => ''],
-      183 => ['description' => clienttranslate('If I have 2 or more boosts:'), 'condition' => ''],
-      186 => ['description' => clienttranslate('You may pay {1}. If you do:'), 'condition' => ''],
-      187 => ['description' => clienttranslate('You may discard a card from your Reserve. If you do:'), 'condition' => ''],
-      188 => ['description' => clienttranslate('If you control a token:'), 'condition' => ''],
-      189 => ['description' => clienttranslate('If you control one or more Landmarks:'), 'condition' => ''],
-      190 => ['description' => clienttranslate('If I\'m not [FLEETING]:'), 'condition' => ''],
-      191 => ['description' => clienttranslate('[]]'), 'condition' => ''],
-      198 => ['description' => clienttranslate('If you have less than eight Mana Orbs:'), 'condition' => ''],
-      201 => ['description' => clienttranslate('Unless you control two or more Plants other than me:'), 'condition' => ''],
-      202 => ['description' => clienttranslate('Unless you control two or more Bureaucrats other than me:'), 'condition' => ''],
-      247 => ['description' => clienttranslate('You may sacrifice me. If you do:'), 'condition' => ''],
+      182 => [
+        'description' => clienttranslate('You may put a card from your hand in Reserve. If you do:'),
+        'effect' => FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetPlayer' => ME,
+            'upTo' => true,
+            'targetLocation' => [HAND],
+            'effect' => FT::DISCARD_TO_RESERVE(),
+          ],
+          ['optional' => true]
+        ),
+      ],
+      183 => ['description' => clienttranslate('If I have 2 or more boosts:'), 'condition' => 'has2Boost'],
+      186 => [
+        'description' => clienttranslate('You may pay {1}. If you do:'),
+        'effect' =>  FT::ACTION(PAY, ['pay' => 1]),
+        'optional' => true
+      ],
+      187 => [
+        'description' => clienttranslate('You may discard a card from your Reserve. If you do:'),
+        'effect' => FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetPlayer' => ME,
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'TODO'),
+          ],
+          ['optional' => true]
+        )
+      ],
+      188 => ['description' => clienttranslate('If you control a token:'), 'condition' => 'control1Token'],
+      189 => ['description' => clienttranslate('If you control one or more Landmarks:'), 'condition' => 'control1Landmarks'],
+      190 => ['description' => clienttranslate('If I\'m not [FLEETING]:'), 'condition' => 'notFleeting'],
+      191 => ['description' => clienttranslate('[]]'),],
+      198 => ['description' => clienttranslate('If you have less than eight Mana Orbs:'), 'condition' => 'less8Mana'],
+      201 => ['description' => clienttranslate('Unless you control two or more Plants other than me:'), 'condition' => 'controlLess2OtherPlants'],
+      202 => ['description' => clienttranslate('Unless you control two or more Bureaucrats other than me:'), 'condition' => 'controlLess2OtherBureaucrats'],
+      247 => [
+        'description' => clienttranslate('You may sacrifice me. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(
+          FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]),
+          'TODO'
+        )
+      ],
 
     ];
   }
@@ -149,34 +185,81 @@ abstract class FlowConvertor
       self::computeTrigger($trinity['trigger'], $calculated);
     }
     if (isset($trinity['condition'])) {
-      self::computeTrigger($trinity['condition'], $calculated);
+      self::computeConditions($trinity['condition'], $calculated);
     }
-    if (isset($trinity['output'])) {
-      self::computeTrigger($trinity['output'], $calculated);
+    // if (isset($trinity['output'])) {
+    //   self::computeTrigger($trinity['output'], $calculated);
+    // }
+
+    $key = $calculated['type'];
+    $node = [];
+    if ($key != 'effectPassive') {
+      // no natural condition check, we need to insert CheckConditions
+      if (isset($calculated['triggerConditions'])) {
+        self::insertCheckCondition($calculated['triggerConditions'], $node);
+      }
+      if (isset($calculated['conditionEffect'])) {
+        self::addEffectToCondition($calculated['conditionEffect'], $node);
+      }
+    } else {
+      $node = [];
+      if (isset($calculated['trigger'])) {
+        if (!is_array($calculated['trigger'])) {
+          $calculated['trigger'] = [$calculated['trigger']];
+        }
+        foreach ($calculated['trigger'] as $t => $trig) {
+          // add conditions + effect + output
+        }
+      }
     }
 
     // use calculated to generate the effect in properties
-    // if effect dans condition => noeud SEQ
-    // Trigger condition => vrai check condition
-    // TODO/ passiveEffect
+    // if conditionEffect dans condition => noeud SEQ
+    // Trigger condition => vrai check condition ! Array
+    // le TODO (s'il existe) doit être remplacé par l'output
 
   }
 
-  public  static function computeTrigger($effect, &$calculated)
+  public static function computeTrigger($effect, &$calculated)
   {
-    if (!isset($trigger[$effect])) {
+
+    $trigger = self::getTriggers()[$effect] ?? null;
+
+    if (is_null($trigger)) {
       throw new \BgaVisibleSystemException('Unique trigger not implemented.' . $effect);
     }
-    $trigger = self::getTriggers()[$effect];
-    $calculated['type'] = $trigger['type'] ?? 'passive';
+
+    $calculated['type'] = $trigger['type'] ?? 'effectPassive';
     if (isset($trigger['trigger']) && $trigger['trigger'] != '') {
       $calculated['trigger'] = $trigger['trigger'];
     }
     if (isset($trigger['condition'])) {
       $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), [$trigger['condition']]);
     }
+    if (isset($trigger['description'])) {
+      $calculated['triggerDescription'] = $trigger['description'];
+    }
   }
 
+  public static function computeConditions($effect, &$calculated)
+  {
+    $conditions = self::getConditions()[$effect] ?? null;
+
+    if (is_null($conditions)) {
+      throw new \BgaVisibleSystemException('Unique conditions not implemented.' . $effect);
+    }
+    if (isset($conditions['description'])) {
+      $calculated['conditionDescription'] = $conditions['description'];
+    }
+
+    if (isset($conditions['condition'])) {
+      $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), [$conditions['condition']]);
+    }
+
+    if (isset($conditions['effect'])) {
+      $calculated['conditionEffect'] = $conditions['effect'];
+    }
+  }
 
   // public static function getTrigger($effect){
   //   $trigger = null;

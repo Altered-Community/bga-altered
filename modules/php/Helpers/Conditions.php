@@ -201,6 +201,28 @@ abstract class Conditions
       ->count() >= 2;
   }
 
+  public static function controlLess2OtherPlants($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getPlayedCards([CHARACTER, TOKEN])
+      ->filter(function ($c) use ($card) {
+        return in_array(PLANT, $c->getSubtypes()) && $c->getId() != $card->getId();
+      })
+      ->count() < 2;
+  }
+
+  public static function controlLess2OtherBureaucrats($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getPlayedCards([CHARACTER, TOKEN])
+      ->filter(function ($c) use ($card) {
+        return in_array(BUREAUCRAT, $c->getSubtypes()) && $c->getId() != $card->getId();
+      })
+      ->count() < 2;
+  }
+
   public static function control2Landmarks($card, $event)
   {
     return $card
@@ -543,6 +565,11 @@ abstract class Conditions
   public static function notFleeting($card, $event)
   {
     return !$card->hasToken(FLEETING) && !($event['fleeting'] ?? false);
+  }
+
+  public static function less8Mana($card, $event)
+  {
+    return $card->getPlayer()->getTotalMana() < 8;
   }
 
   public static function movesStormsWithForest($card, $event)
