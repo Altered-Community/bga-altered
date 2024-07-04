@@ -3744,11 +3744,45 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     .altered-player-board .player-board-storm .flip-container {
       width: calc(106.92px + 14px);
       height: calc(106.92px + 10px); }
+    .altered-player-board .player-board-storm .powers-blocked {
+      display: none;
+      position: absolute;
+      bottom: -20px;
+      height: 18px;
+      width: 100%;
+      background: #ffffffc9;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid #ff9898;
+      box-shadow: 1px 1px 2px black;
+      font-size: 18px;
+      line-height: 20px; }
+      .altered-player-board .player-board-storm .powers-blocked.active {
+        display: block; }
+      .altered-player-board .player-board-storm .powers-blocked .fa6-times {
+        color: red; }
     .altered-player-board .player-board-storm .total-biomes {
       position: absolute;
       width: 100px;
       left: -135px;
       top: -4px; }
+      .altered-player-board .player-board-storm .total-biomes .storm-blocked {
+        display: none;
+        position: absolute;
+        bottom: -20px;
+        height: 18px;
+        width: 80px;
+        background: #faf7e8f5;
+        text-align: center;
+        border-radius: 4px;
+        border: 1px solid #ff9898;
+        box-shadow: 1px 1px 2px black;
+        font-size: 18px;
+        line-height: 20px; }
+        .altered-player-board .player-board-storm .total-biomes .storm-blocked.active {
+          display: block; }
+        .altered-player-board .player-board-storm .total-biomes .storm-blocked .fa6-times {
+          color: red; }
       .altered-player-board .player-board-storm .total-biomes .total-biomes-highlights {
         position: absolute;
         top: 0;
@@ -4130,6 +4164,12 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
   top: 67px; }
   #altered-board-me .altered-player-board .player-board-storm .total-biomes {
     top: -26px; }
+    #altered-board-me .altered-player-board .player-board-storm .total-biomes .storm-blocked {
+      top: -25px;
+      bottom: auto; }
+  #altered-board-me .altered-player-board .player-board-storm .powers-blocked {
+    bottom: auto;
+    top: -20px; }
 #altered-board-me .altered-player-board .player-board-deck {
   top: 211px; }
 #altered-board-me .altered-player-board .player-board-discard {

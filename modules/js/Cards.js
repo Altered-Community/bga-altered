@@ -945,9 +945,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           $(id).style.transform = '';
         }
         if (card.location != 'limbo') $(id).classList.add('mini-card');
-
-        this.updateBiomeTotals(card.pId, n.args.biomes);
-        this.updateMovements(n.args.movements);
         return;
       }
 
@@ -963,7 +960,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if ($('btnLaunchSpell')) $('btnLaunchSpell').remove();
 
           this.wait(800).then(() => {
-            this.updateMovements(n.args.movements);
             this.notifqueue.setSynchronousDuration(100);
           });
           return;
@@ -972,9 +968,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         let highlight = n.args.player_id == this.bottomPId ? 'highlighted-me' : 'highlighted-opponent';
         $(id).classList.add(highlight);
         this.slide(id, container, { clearTransform: true }).then(() => {
-          this.updateBiomeTotals(card.pId, n.args.biomes);
           $(id).classList.remove(highlight);
-          this.updateMovements(n.args.movements);
           this.notifqueue.setSynchronousDuration(100);
         });
       };
@@ -1071,7 +1065,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           let container = this.getCardContainer(card);
           $(container).insertAdjacentElement('beforeend', $(id));
         }
-        this.updateBiomeTotals(card.pId, n.args.biomes);
         return;
       }
 
@@ -1082,7 +1075,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
-        this.updateBiomeTotals(card.pId, n.args.biomes);
         this.notifqueue.setSynchronousDuration(100);
       });
     },
@@ -1095,7 +1087,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // we slide it from the card triggering the effect
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
-        this.updateBiomeTotals(card.pId, n.args.biomes);
         if (!this.isFastMode()) {
           this.notifqueue.setSynchronousDuration(100);
         }

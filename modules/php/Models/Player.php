@@ -42,7 +42,6 @@ class Player extends \ALT\Helpers\DB_Model
     $data['mana'] = $this->getMana();
     $data['totalMana'] = $this->getTotalMana();
     $data['handCount'] = $this->getHand()->count();
-    $data['biomes'] = $this->getBiomeStrength();
     $data['hand'] = $current ? $this->getHand()->ui() : [];
     $data['manaCards'] = $current ? $this->getManaCards() : [];
     return $data;

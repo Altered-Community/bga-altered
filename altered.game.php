@@ -42,6 +42,7 @@ use ALT\Helpers\Log;
 use ALT\Core\Preferences;
 use ALT\Core\Stats;
 use ALT\Core\Engine;
+use ALT\Core\Notifications;
 
 class altered extends Table
 {
@@ -63,6 +64,7 @@ class altered extends Table
     ]);
     Engine::boot();
     // Stats::checkExistence();
+    Notifications::resetCache();
   }
 
   public static function get()
@@ -89,9 +91,13 @@ class altered extends Table
       'storm' => Globals::getStorm(true),
       'day' => Globals::getDay(),
       'phase' => Globals::getPhase(),
-      'movements' => Players::computeStorm(),
       'tieBreaker' => Globals::getTieBreakerMode(),
-      'blockedExpeditions' => Globals::getBlockedExpeditions()
+
+      // Cached infos
+      'movements' => Players::computeStorm(),
+      'biomes' => Players::getBiomeTotals(),
+      'blockedExpeditions' => Players::getBlockedExpeditions(),
+      'powersBlockedExpeditions' => Players::getPowersBlockedExpeditions(),
     ];
   }
 

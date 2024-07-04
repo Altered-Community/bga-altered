@@ -59,6 +59,7 @@ define([
     constructor: function () {
       this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection', 'gameEnd'];
       this._notifications = [
+        ['updateInformations', 10],
         ['mediumMessage', 1000],
         ['midMessage', 1200],
         ['clearTurn', 200],
@@ -90,7 +91,6 @@ define([
         ['moveStormToken', null],
         ['moveToHand', null],
         ['silentKill', 200],
-        ['updateBiomes', 100],
         ['spellCleanup', null],
         ['invokeToken', null],
         ['afterYou', 1000],
@@ -105,13 +105,14 @@ define([
         ['moveCard', null],
         ['newPhase', 1000],
         ['putOnDeck', null],
-        ['blockExpedition', 100],
-        ['blockAllExpeditions', 100],
 
         ['tap', 800],
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],
+
+        // TODO??
+        ['blockAllExpeditions', 100],
       ];
 
       // Fix mobile viewport (remove CSS zoom)
@@ -250,6 +251,30 @@ define([
       });
     },
 
+    notif_updateInformations(n) {
+      debug('Notif: updating some informations', n);
+      // Biome totals
+      if (n.args.biomes !== undefined) {
+        this.gamedatas.biomes = n.args.biomes;
+        this.updateBiomeTotals();
+      }
+      // Will move
+      if (n.args.movements !== undefined) {
+        this.gamedatas.movements = n.args.movements;
+        this.updateMovements();
+      }
+      // Blocked expedition
+      if (n.args.blockedExpeditions !== undefined) {
+        this.gamedatas.blockedExpeditions = n.args.blockedExpeditions;
+        this.updateBlockedExpeditions();
+      }
+      // Powers-blocked expeditions
+      if (n.args.powersBlockedExpeditions !== undefined) {
+        this.gamedatas.powersBlockedExpeditions = n.args.powersBlockedExpeditions;
+        this.updatePowersBlockedExpeditions();
+      }
+    },
+
     /**
      * Setup:
      *	This method set up the game user interface according to current game situation specified in parameters
@@ -308,6 +333,13 @@ define([
       this.setupMeeples();
       // this.setupOAuth();
       // this.setupSortableHand();
+
+      // Updatable informations
+      this.updateBiomeTotals();
+      this.updateMovements();
+      this.updateBlockedExpeditions();
+      this.updatePowersBlockedExpeditions();
+
       this.inherited(arguments);
     },
 
@@ -558,16 +590,6 @@ define([
           this.destroy(oCard);
         }
       });
-    },
-
-    notif_blockExpedition(n) {
-      debug('Blocking expedition', n);
-      // TODO
-    },
-
-    notif_blockAllExpeditions(n) {
-      debug('Blocking expedition', n);
-      // TODO
     },
 
     onUpdateActionButtons(stateName, args) {

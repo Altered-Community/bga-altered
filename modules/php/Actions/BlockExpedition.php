@@ -31,6 +31,11 @@ class BlockExpedition extends \ALT\Models\Action
     return [];
   }
 
+  public function isAutomatic($player = null)
+  {
+    return ($this->getCtxArg('expedition') ?? '') == 'all';
+  }
+
   public function stBlockExpedition()
   {
     if (($this->getCtxArg('expedition') ?? '') == 'all') {
@@ -67,7 +72,5 @@ class BlockExpedition extends \ALT\Models\Action
       Notifications::blockExpedition(Players::getActive(), Players::get($expeditions[2]), $expeditions[1]);
     }
     Notifications::updateBiomes(Players::getActive());
-
-    return [$expedition];
   }
 }

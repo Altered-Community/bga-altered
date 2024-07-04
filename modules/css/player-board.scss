@@ -126,11 +126,57 @@
             height: calc(#{$miniCardScale * 324px} + 10px);
         }
 
+        .powers-blocked {
+            display: none;
+            &.active {
+                display: block;
+            }
+
+            position: absolute;
+            bottom: -20px;
+            height: 18px;
+            width: 100%;
+            background: #ffffffc9;
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid #ff9898;
+            box-shadow: 1px 1px 2px black;
+            font-size: 18px;
+            line-height: 20px;
+
+            .fa6-times {
+                color: red;
+            }
+        }
+
         .total-biomes {
             position: absolute;
             width: 100px;
             left: -135px;
             top: -4px;
+
+            .storm-blocked {
+                display: none;
+                &.active {
+                    display: block;
+                }
+
+                position: absolute;
+                bottom: -20px;
+                height: 18px;
+                width: 80px;
+                background: #faf7e8f5;
+                text-align: center;
+                border-radius: 4px;
+                border: 1px solid #ff9898;
+                box-shadow: 1px 1px 2px black;
+                font-size: 18px;
+                line-height: 20px;
+
+                .fa6-times {
+                    color: red;
+                }
+            }
 
             .total-biomes-highlights {
                 position: absolute;
@@ -712,6 +758,15 @@
 
         .total-biomes {
             top: -26px;
+            .storm-blocked {
+                top: -25px;
+                bottom: auto;
+            }
+        }
+
+        .powers-blocked {
+            bottom: auto;
+            top: -20px;
         }
     }
 

@@ -9,6 +9,52 @@ use ALT\Core\Globals;
 
 class Notifications
 {
+  protected static $listeners = [
+    [
+      'name' => 'biomes',
+      'method' => ['ALT\Managers\Players', 'getBiomeTotals'],
+    ],
+    [
+      'name' => 'movements',
+      'method' => ['ALT\Managers\Players', 'computeStorm'],
+    ],
+    [
+      'name' => 'blockedExpeditions',
+      'method' => ['ALT\Managers\Players', 'getBlockedExpeditions']
+    ],
+    [
+      'name' => 'powersBlockedExpeditions',
+      'method' => ['ALT\Managers\Players', 'getPowersBlockedExpeditions']
+    ],
+  ];
+
+  protected static $cachedValues = [];
+  public static function resetCache()
+  {
+    foreach (self::$listeners as $listener) {
+      $method = $listener['method'];
+      self::$cachedValues[$listener['name']] = call_user_func($method);
+    }
+  }
+
+  public static function updateIfNeeded()
+  {
+    $toSend = [];
+    foreach (self::$listeners as $listener) {
+      $name = $listener['name'];
+      $method = $listener['method'];
+      $val = call_user_func($method);
+      if ($val !== self::$cachedValues[$name]) {
+        self::$cachedValues[$name] = $val;
+        $toSend[$name] = $val;
+      }
+    }
+
+    if (!empty($toSend)) {
+      Game::get()->notifyAllPlayers('updateInformations', '', $toSend);
+    }
+  }
+
   /*************************
    **** GENERIC METHODS ****
    *************************/
@@ -16,6 +62,7 @@ class Notifications
   {
     self::updateArgs($data);
     Game::get()->notifyAllPlayers($name, $msg, $data);
+    self::updateIfNeeded();
   }
 
   protected static function notify($player, $name, $msg, $data)
@@ -649,7 +696,7 @@ class Notifications
 
   public static function blockExpedition($player, $blockedPlayer, $expedition)
   {
-    self::notifyAll('blockExpedition',  clienttranslate('${player_name} blocks ${player_name2} ${expedition}\'s expedition until next Day'), [
+    self::notifyAll('mediumMessage',  clienttranslate('${player_name} blocks ${player_name2} ${expedition}\'s expedition until next Day'), [
       'player' => $player,
       'player2' => $blockedPlayer,
       'expedition' => $expedition == STORM_LEFT ? clienttranslate('Hero') : clienttranslate('Companion')
@@ -658,7 +705,7 @@ class Notifications
 
   public static function blockAllExpeditions($player, $source)
   {
-    self::notifyAll('blockAllExpeditions',  clienttranslate('${player_name} blocks all expeditions until next Day (${card_name}'), [
+    self::notifyAll('mediumMessage',  clienttranslate('${player_name} blocks all expeditions until next Day (${card_name}'), [
       'player' => $player,
       'card' => $source,
     ]);
@@ -672,7 +719,6 @@ class Notifications
       'players' => $datas['players'],
       'cards' => $datas['cards'],
       'meeples' => $datas['meeples'],
-      'movements' => $datas['movements'],
       'passedPlayers' => $datas['passedPlayers'],
     ];
     foreach ($fDatas['players'] as &$player) {

@@ -262,10 +262,8 @@ define([
 
         if (notif[2] != undefined) {
           this.notifqueue.setIgnoreNotificationCheck(notif[0], notif[2]);
-          this.notifqueue.setSynchronous(notif[0], notif[1]); // Ignorable notif must have a default timing
-        } else {
-          this.notifqueue.setSynchronous(notif[0]);
         }
+        this.notifqueue.setSynchronous(notif[0]);
       });
 
       // Load production bug report handler

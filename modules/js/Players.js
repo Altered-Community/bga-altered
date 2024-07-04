@@ -32,6 +32,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.orderedPlayers.forEach((player, i) => {
         let container = i == 0 ? 'altered-board-me' : 'altered-board-opponent';
         this.place('tplPlayerBoard', player, container);
+        // Tooltips
+        ['stormLeft', 'stormRight'].forEach((expe) => {
+          this.addCustomTooltip(
+            `powers-blocked-${expe}-${player.id}`,
+            _('These powers are currently blocked in this expedition')
+          );
+          this.addCustomTooltip(`blocked-${expe}-${player.id}`, _("This expedition can't currently move forward"));
+        });
 
         // Hand observer
         let handContainer = $(`hand-${player.id}`);
@@ -76,8 +84,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       });
 
       this.setupPlayersCounters();
-      // TODO : remove at some point
-      //      if ($('open-all-cards-modal')) $('open-all-cards-modal').addEventListener('click', () => this.openAllCardsModal());
     },
 
     onChangeHandLocationSetting(v) {
@@ -162,6 +168,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
                 <div class='total-mountain-highlight'></div>
                 <div class='total-ocean-highlight'></div>
               </div>
+              <div class='storm-blocked' id='blocked-stormLeft-${pId}'>
+                <i class="fa6 fa6-times"></i> &nbsp;
+                <i class="fa6 fa6-caret-right"></i> &nbsp;
+                <i class="fa6 fa6-times"></i>
+              </div>
+            </div>
+            <div class='powers-blocked' id='powers-blocked-stormLeft-${pId}'>
+              <i class="fa6 fa6-times"></i>
+              ${this.formatSvgIcon('played') + ' ' + this.formatSvgIcon('hand') + ' ' + this.formatSvgIcon('reserve')}
+              <i class="fa6 fa6-times"></i>
             </div>
           </div>
           <div class='player-board-hero' id='board-hero-${pId}'>
@@ -177,6 +193,16 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
                 <div class='total-mountain-highlight'></div>
                 <div class='total-ocean-highlight'></div>
               </div>
+              <div class='storm-blocked' id='blocked-stormRight-${pId}'>
+                <i class="fa6 fa6-times"></i> &nbsp;
+                <i class="fa6 fa6-caret-left"></i> &nbsp;
+                <i class="fa6 fa6-times"></i>
+              </div>
+            </div>
+            <div class='powers-blocked' id='powers-blocked-stormRight-${pId}'>
+              <i class="fa6 fa6-times"></i>
+              ${this.formatSvgIcon('played') + ' ' + this.formatSvgIcon('hand') + ' ' + this.formatSvgIcon('reserve')}
+              <i class="fa6 fa6-times"></i>
             </div>
           </div>
 
@@ -299,10 +325,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           let value = player[res];
           this._playerCounters[player.id][res].goTo(value, anim);
         });
-
-        this.updateBiomeTotals(player.id);
       });
-      this.updateMovements();
       this.updatePassedPlayers();
     },
 
@@ -330,55 +353,36 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
     },
 
-    updateBiomeTotals(pId, biomes = null) {
-      if (biomes !== null) {
-        this.gamedatas.players[pId].biomes = biomes;
-      }
+    updateBiomeTotals() {
+      this.forEachPlayer((player) => {
+        let pId = player.id;
+        let opponentId = this.getOpponent(pId);
+        let totals = { forest: 0, mountain: 0, ocean: 0 };
 
-      let opponentId = this.getOpponent(pId);
-      let totals = { forest: 0, mountain: 0, ocean: 0 };
+        // Update the total for each biome and each side
+        ['stormLeft', 'stormRight'].forEach((storm) => {
+          let container = $(`board-${storm}-${pId}`);
+          p = this.gamedatas.biomes[pId][storm];
 
-      // Update the total for each biome and each side
-      ['stormLeft', 'stormRight'].forEach((storm) => {
-        let container = $(`board-${storm}-${pId}`);
-        p = this.gamedatas.players[pId].biomes[storm];
+          // Update
+          let sizes = this.getBiomesUISizes(p);
+          ['forest', 'mountain', 'ocean'].forEach((biome) => {
+            let o = container.querySelector(`.total-${biome}`);
+            o.innerHTML = p[biome];
+            o.dataset.size = sizes[biome];
+            totals[biome] += p[biome];
+          });
+        });
 
-        // Update
-        let sizes = this.getBiomesUISizes(p);
+        let container = $(`tie-breaker-biomes-${pId}`);
         ['forest', 'mountain', 'ocean'].forEach((biome) => {
           let o = container.querySelector(`.total-${biome}`);
-          o.innerHTML = p[biome];
-          o.dataset.size = sizes[biome];
-          totals[biome] += p[biome];
-
-          // // Compare them
-          // let o2 = $(`board-${storm}-${opponentId}`).querySelector(`.total-${biome}`);
-          // let v2 = this.gamedatas.players[opponentId].biomes[storm][biome];
-          // if (p[biome] < v2) {
-          //   o.classList.remove('bigger');
-          //   o2.classList.add('bigger');
-          // } else if (p[biome] > v2) {
-          //   o.classList.add('bigger');
-          //   o2.classList.remove('bigger');
-          // } else {
-          //   o.classList.remove('bigger');
-          //   o2.classList.remove('bigger');
-          // }
+          o.innerHTML = totals[biome];
         });
-      });
-
-      let container = $(`tie-breaker-biomes-${pId}`);
-      ['forest', 'mountain', 'ocean'].forEach((biome) => {
-        let o = container.querySelector(`.total-${biome}`);
-        o.innerHTML = totals[biome];
       });
     },
 
-    updateMovements(movements = null) {
-      if (movements !== null) {
-        this.gamedatas.movements = movements;
-      }
-
+    updateMovements() {
       let willMove = {};
 
       this.forEachPlayer((player) => {
@@ -430,12 +434,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       }
     },
 
-    notif_updateBiomes(n) {
-      debug('Notif: updating biomes', n);
-      this.updateBiomeTotals(n.args.pId, n.args.biomes);
-      this.updateMovements(n.args.movements);
-    },
-
     updatePassedPlayers(pId = null) {
       if (pId !== null) {
         this.gamedatas.passedPlayers.push(pId);
@@ -449,6 +447,22 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     notif_passTurn(n) {
       debug('Notif: someone is over', n);
       this.updatePassedPlayers(n.args.player_id);
+    },
+
+    updatePowersBlockedExpeditions() {
+      Object.entries(this.gamedatas.powersBlockedExpeditions).forEach(([pId, blocked]) => {
+        ['stormLeft', 'stormRight'].forEach((expe) => {
+          $(`powers-blocked-${expe}-${pId}`).classList.toggle('active', blocked[expe]);
+        });
+      });
+    },
+
+    updateBlockedExpeditions() {
+      Object.entries(this.gamedatas.blockedExpeditions).forEach(([pId, blocked]) => {
+        ['stormLeft', 'stormRight'].forEach((expe) => {
+          $(`blocked-${expe}-${pId}`).classList.toggle('active', blocked[expe]);
+        });
+      });
     },
 
     /**
