@@ -29,7 +29,7 @@ abstract class FlowConvertor
       20 => ['description' => clienttranslate('At Noon —'), 'trigger' => 'Noon', 'condition' => 'myTurn'],
       21 => ['description' => clienttranslate('When another Character joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isOtherCharacterPlayed'],
       22 => ['description' => clienttranslate('{H}'), 'trigger' => '', 'type' => 'effectHand'],
-      // 23 => ['description' => clienttranslate('[]]'), 'trigger' => ''],
+      23 => ['description' => clienttranslate('[]]')],
       24 => ['description' => clienttranslate('{J}'), 'trigger' => '', 'type' => 'effectPlayed'],
       25 => ['description' => clienttranslate('When you create a token —'), 'trigger' => 'InvokeToken', 'condition' => 'myTurn'],
       26 => ['description' => clienttranslate('When you roll one or more dice —'), 'trigger' => 'RollDie', 'condition' => 'myTurn'],
@@ -56,7 +56,7 @@ abstract class FlowConvertor
           'targetPlayer' => ME,
           'targetLocation' => [MANA],
           'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-          'effect' => FT::ACTION(DISCARD, []),
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT')
         ]),
       ],
       171 => [
@@ -68,7 +68,7 @@ abstract class FlowConvertor
             'targetPlayer' => ME,
             'upTo' => true,
             'targetLocation' => [HAND],
-            'effect' => FT::DISCARD_TO_RESERVE(),
+            'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), 'OUTPUT')
           ],
           ['optional' => true]
         ),
@@ -87,7 +87,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['condition' => 'isSourceAndDiscardSpell']] // to check
+        'passiveEffect' => ['Discard' => ['condition' => 'isSourceAndDiscardSpell', 'effect' => 'OUTPUT']] // to check
       ],
       173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'control4Characters'],
       175 => [
@@ -96,14 +96,14 @@ abstract class FlowConvertor
           'targetPlayer' => ME,
           'targetType' => [PERMANENT],
           'upTo' => true,
-          'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT')
         ])
       ],
       176 => ['description' => clienttranslate('If you control two or more Landmarks:'), 'condition' => 'control2Landmarks'],
       177 => [
         'description' => clienttranslate('Roll a die. On a 4+:'),
         'effect' => FT::ACTION(ROLL_DIE, [
-          'effect' => ['4+' => 'TODO'],
+          'effect' => ['4+' => 'OUTPUT'],
         ])
       ],
       178 => [
@@ -112,7 +112,7 @@ abstract class FlowConvertor
           'targetPlayer' => ME,
           'targetType' => [TOKEN, CHARACTER],
           'upTo' => true,
-          'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT')
         ])
       ],
       179 => ['description' => clienttranslate('If you control three or more Characters:'), 'condition' => 'control3Characters'],
@@ -122,7 +122,7 @@ abstract class FlowConvertor
           'targetPlayer' => ME,
           'targetType' => [TOKEN, CHARACTER, PERMANENT],
           'upTo' => true,
-          'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT')
         ])
       ],
       181 => ['description' => clienttranslate('If I have 1 or more boosts:'), 'condition' => 'has1Boost'],
@@ -135,7 +135,7 @@ abstract class FlowConvertor
             'targetPlayer' => ME,
             'upTo' => true,
             'targetLocation' => [HAND],
-            'effect' => FT::DISCARD_TO_RESERVE(),
+            'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), 'OUTPUT')
           ],
           ['optional' => true]
         ),
@@ -143,7 +143,7 @@ abstract class FlowConvertor
       183 => ['description' => clienttranslate('If I have 2 or more boosts:'), 'condition' => 'has2Boost'],
       186 => [
         'description' => clienttranslate('You may pay {1}. If you do:'),
-        'effect' =>  FT::ACTION(PAY, ['pay' => 1]),
+        'effect' =>  FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 1]), 'OUTPUT'),
         'optional' => true
       ],
       187 => [
@@ -155,7 +155,7 @@ abstract class FlowConvertor
             'targetPlayer' => ME,
             'targetLocation' => [RESERVE],
             'upTo' => true,
-            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'TODO'),
+            'effect' => FT::SEQ(FT::SEQ(FT::ACTION(DISCARD, []), 'TODO'), 'OUTPUT')
           ],
           ['optional' => true]
         )
@@ -171,7 +171,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may sacrifice me. If you do:'),
         'effect' => FT::SEQ_OPTIONAL(
           FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]),
-          'TODO'
+          'OUTPUT'
         )
       ],
 
@@ -201,22 +201,42 @@ abstract class FlowConvertor
       if (isset($calculated['conditionEffect'])) {
         self::addEffectToCondition($calculated['conditionEffect'], $node);
       }
+
+      // TODO insert output
     } else {
-      $node = [];
       if (isset($calculated['trigger'])) {
         if (!is_array($calculated['trigger'])) {
           $calculated['trigger'] = [$calculated['trigger']];
         }
+
+        $template = [];
+        if (isset($calculated['triggerConditions'])) {
+          $template['conditions'] = $calculated['triggerConditions'];
+        }
+        if (isset($calculated['conditionEffect'])) {
+          $template['effect'] = $calculated['conditionEffect'];
+        }
+
         foreach ($calculated['trigger'] as $t => $trig) {
           // add conditions + effect + output
+          $node[$trig] = $template;
         }
       }
     }
+    $properties[$key] = $node;
 
+    $properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] = [$calculated['triggerDescription'] ?? '', $calculated['conditionDescription'] ?? ''];
+
+    // debug
+    //$properties['calculated'] = $calculated;
+
+    // throw new \feException(print_r($properties));
     // use calculated to generate the effect in properties
     // if conditionEffect dans condition => noeud SEQ
     // Trigger condition => vrai check condition ! Array
-    // le TODO (s'il existe) doit être remplacé par l'output
+    // le OUTPUT (s'il existe) doit être remplacé par l'output
+
+    // TOOD: add description
 
   }
 
@@ -258,6 +278,27 @@ abstract class FlowConvertor
 
     if (isset($conditions['effect'])) {
       $calculated['conditionEffect'] = $conditions['effect'];
+    }
+  }
+
+  public static function insertCheckCondition($conditions, &$node)
+  {
+    if (empty($node)) {
+      $node = FT::ACTION(CHECK_CONDITION, ['conditions' => $conditions, 'effect' => 'TODO']);
+    } else {
+      $nKey = Utils::search($node, function ($child) {
+        return ($child['action'] ?? '') == CHECK_CONDITION;
+      });
+      $node[$nKey]['conditions'] = array_merge(is_array($node[$nKey]['conditions']) ?  $node[$nKey]['conditions'] : [$node[$nKey]['conditions']], $conditions);
+    }
+  }
+
+  public static function addEffectToCondition($effect, &$node)
+  {
+    if (empty($node)) {
+      $node = $effect;
+    } else {
+      $node = Utils::updateTree($node, 'TODO', $effect);
     }
   }
 

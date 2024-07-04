@@ -12,6 +12,7 @@ use ALT\Helpers\Utils;
 use ALT\Helpers\FT;
 use ALT\Core\Stats;
 use ALT\Helpers\Collection;
+use ALT\Helpers\FlowConvertor;
 use ALT\Managers\Meeples;
 
 trait DebugTrait
@@ -128,10 +129,10 @@ trait DebugTrait
     Notifications::updateTotalMana();
   }
 
-  function loadUnique()
+  function loadUnique($v)
   {
     require_once('Cards/unique.php');
-    $unique = $uniques['hydra:member'][0];
+    $unique = $uniques['hydra:member'][$v ?? 0];
 
     $properties = [];
     $properties['uid'] = $unique['reference'];
@@ -177,6 +178,7 @@ trait DebugTrait
         if (empty($trinity)) {
           continue;
         }
+        FlowConvertor::constructEffect($trinity, $properties);
       }
     }
     throw new \feException(print_r($properties));
