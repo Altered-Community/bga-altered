@@ -67,6 +67,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $query->values($values);
     Game::get()->reattributeColorsBasedOnPreferences($players, $gameInfos['player_colors']);
     Game::get()->reloadPlayersBasicInfos();
+    self::invalidate();
   }
 
   public static function getActiveId()
@@ -149,6 +150,18 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       $p = self::getNextId($p);
     } while ($p != $firstPlayer);
     return $order;
+  }
+
+  public static function getPowersBlockedExpeditions()
+  {
+    $statuses = [];
+    foreach (self::getAll() as $pId => $player) {
+      foreach (STORMS as $expedition) {
+        $statuses[$pId][$expedition] = self::hasOpponentBlockingPower($player, $expedition);
+      }
+    }
+
+    return $statuses;
   }
 
   public static function hasOpponentBlockingPower($player, $expedition)
@@ -244,12 +257,70 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
   }
 
+  public static function getBiomeTotals()
+  {
+    $biomes = [];
+    foreach (self::getAll() as $pId => $player) {
+      $biomes[$pId] = $player->getBiomeStrength();
+    }
+
+    return $biomes;
+  }
+
+  public static function getDefenders()
+  {
+    $defenders = [];
+    foreach (self::getAll() as $pId => $player) {
+      foreach ($player->getPlayedCards()->where('location', STORMS) as $cId => $card) {
+        if ($card->isDefender()) {
+          $defenders[$pId][$card->getLocation()][] = $cId;
+        }
+      }
+    }
+
+    return $defenders;
+  }
+
+  public static function getBlockedExpeditions()
+  {
+    // Blocked by global (temporary)
+    $blockedExpeditions = Globals::getBlockedExpeditions();
+    // Blocked by "opposite defender" => always symetric
+    $blockedOppositeDefenders = [];
+    foreach (STORMS as $expedition) {
+      $blockedOppositeDefenders[$expedition] = self::hasOppositeDefender($expedition);
+    }
+    // Blocked by defenders
+    $defenders = self::getDefenders();
+
+    $statuses = [];
+    foreach (Players::getAll() as $pId => $player) {
+      foreach (STORMS as $expedition) {
+        $blocked = false;
+        // we cannot move as blocked by power (like Celebration Day)
+        if (isset($blockedExpeditions[$pId]) && in_array($expedition, $blockedExpeditions[$pId])) {
+          $blocked = true;
+        }
+        // Blocked by "opposite defender" cards
+        if (!$blocked && $blockedOppositeDefenders[$expedition]) {
+          $blocked = true;
+        }
+        if (!$blocked && !empty($defenders[$pId][$expedition] ?? [])) {
+          $blocked = true;
+        }
+
+        $statuses[$pId][$expedition] = $blocked;
+      }
+    }
+
+    return $statuses;
+  }
+
   public static function computeStorm($advance = false)
   {
     if (Globals::isTieBreakerMode()) {
       return [];
     }
-    $blockedExpeditions = Globals::getBlockedExpeditions();
 
     $players = self::getAll();
     $winners = [
@@ -281,6 +352,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
 
     $movements = [];
+    $blockedExpeditions = self::getBlockedExpeditions();
     // For each player, check whether hero and/or companion move forward
     foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
@@ -292,18 +364,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $winningBiomes = [];
         $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
         $movements[$pId][$side] = [OCEAN => 0, FOREST => 0, MOUNTAIN => 0];
-        if ($player->hasDefender($expedition)) {
-          continue;
-        }
-        if (self::hasOppositeDefender($expedition)) {
-          continue;
-        }
-        // we cannot move as blocked by power (like Celebration Day)
-        if (isset($blockedExpeditions[$pId]) && in_array($expedition, $blockedExpeditions[$pId])) {
+        if ($blockedExpeditions[$pId][$expedition]) {
           continue;
         }
 
-        // throw new \feException(print_r($biomes));
         self::biomesModifier($biomes, $player, $expedition);
 
         foreach ($biomes as $i => $biome) {

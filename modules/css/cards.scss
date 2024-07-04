@@ -136,6 +136,23 @@
         font-size: 21px;
         font-weight: bold;
     }
+
+    .defender-marker {
+        position: absolute;
+        top: -16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 36px;
+        background-color: #ffffffef;
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px 3px black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        z-index: 5;
+    }
 }
 
 //  _____      _ _

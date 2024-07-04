@@ -166,7 +166,7 @@ trait SetupTrait
     $allDecks = Globals::getPlayerDecks();
     $selection = Globals::getDeckSelection();
     foreach (Players::getAll() as $pId => $player) {
-      $decks = $allDecks[$pId];
+      $decks = $allDecks[$pId] ?? [];
       foreach ($decks as &$deck) {
         $deck['hero'] = $this->getDeckHero($deck['deckNum']);
       }
@@ -372,13 +372,5 @@ trait SetupTrait
     //    Notifications::setupCards(Cards::getUiData());
 
     $this->gamestate->nextState('');
-  }
-
-  protected function setupPrecoDeck($player, $faction)
-  {
-    $player->setFaction($faction);
-    $meeples = Meeples::setupPlayer($player);
-    Cards::setupPrecoDeck($player);
-    Notifications::setupPreco($player, $meeples);
   }
 }

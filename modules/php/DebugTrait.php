@@ -81,6 +81,7 @@ trait DebugTrait
 
   function tp()
   {
+    Players::initializeDecks();
   }
 
   function dv()

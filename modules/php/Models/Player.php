@@ -42,7 +42,6 @@ class Player extends \ALT\Helpers\DB_Model
     $data['mana'] = $this->getMana();
     $data['totalMana'] = $this->getTotalMana();
     $data['handCount'] = $this->getHand()->count();
-    $data['biomes'] = $this->getBiomeStrength();
     $data['hand'] = $current ? $this->getHand()->ui() : [];
     $data['manaCards'] = $current ? $this->getManaCards() : [];
     return $data;
@@ -399,16 +398,6 @@ class Player extends \ALT\Helpers\DB_Model
       $strengths[$exp] = $strength;
     }
     return $strengths;
-  }
-
-  public function hasDefender($expedition)
-  {
-    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
-      if ($card->isDefender()) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public function hasBlockingPower($expedition)

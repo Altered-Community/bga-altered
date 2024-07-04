@@ -530,11 +530,17 @@ abstract class Conditions
     return $card->getPId() == $event['pId'] && $card->getPlayer()->getReserveCards()->count() > 0;
   }
 
-  public static function costHigherThanCounter($card, $event)
+  public static function characterCostHigherThanCounter($card, $event)
   {
     return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] && ($event['playedFree'] ?? false) == false &&
-      Cards::get($event['playedCard'])->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
+      Cards::get($event['playedCard'])->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0) &&
+      in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]);;
+  }
+  // LEGACY CODE : TODO : remove
+  public static function costHigherThanCounter($card, $event)
+  {
+    return self::characterCostHigherThanCounter($card, $event);
   }
 
   public static function hasFleetingAnchoredAsleep($card, $event)
