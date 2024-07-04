@@ -67,6 +67,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $query->values($values);
     Game::get()->reattributeColorsBasedOnPreferences($players, $gameInfos['player_colors']);
     Game::get()->reloadPlayersBasicInfos();
+    self::invalidate();
   }
 
   public static function getActiveId()
