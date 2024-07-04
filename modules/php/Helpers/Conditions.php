@@ -109,12 +109,22 @@ abstract class Conditions
     return $event['pId'] == $card->getPId() && ($card->getExtraDatas()['counter'] ?? 0) >= 5;
   }
 
-  public static function controlCharacters($card, $event)
+  public static function controlCharacters($card, $event, $n = 1)
   {
     return $card
       ->getPlayer()
       ->getPlayedCards([CHARACTER, TOKEN])
-      ->count() >= 1;
+      ->count() >= $n;
+  }
+
+  public static function control4Characters($card, $event)
+  {
+    return self::controlCharacters($card, $event, 4);
+  }
+
+  public static function control3Characters($card, $event)
+  {
+    return self::controlCharacters($card, $event, 3);
   }
 
   public static function control3OtherCharacters($card, $event)
@@ -180,6 +190,17 @@ abstract class Conditions
       ->count() >= 2;
   }
 
+  public static function control2OtherPlants($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getPlayedCards([CHARACTER, TOKEN])
+      ->filter(function ($c) use ($card) {
+        return in_array(PLANT, $c->getSubtypes()) && $c->getId() != $card->getId();
+      })
+      ->count() >= 2;
+  }
+
   public static function control2Landmarks($card, $event)
   {
     return $card
@@ -206,11 +227,34 @@ abstract class Conditions
       Cards::get($event['playedCard'])->getCostHand() >= 3;
   }
 
+  public static function isPermanent($card, $event)
+  {
+    // check card triggering the effect isn't tapped
+    return ($event['playCard'] ?? false) === true &&
+      $card->getPId() == $event['pId'] &&
+      !$card->isTapped() &&
+      $event['cardType'] == PERMANENT;
+  }
+
   public static function isRobotPlayed($card, $event)
   {
     return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
+  }
+
+  public static function isOtherCharacterNonTokenPlayed($card, $event)
+  {
+    return ($event['playCard'] ?? false) === true &&
+      $card->getPId() == $event['pId'] &&
+      Cards::get($event['playedCard'])->getType() == CHARACTER && $card->getId() != $event['playedCard'];
+  }
+
+  public static function isOtherCharacterPlayed($card, $event)
+  {
+    return ($event['playCard'] ?? false) === true &&
+      $card->getPId() == $event['pId'] &&
+      in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]) && $card->getId() != $event['playedCard'];
   }
 
   public static function isSpellPlayed($card, $event)
@@ -245,6 +289,14 @@ abstract class Conditions
     return ($event['playCard'] ?? false) === true &&
       $card->getPId() == $event['pId'] &&
       $hasZero;
+  }
+
+  public static function isWithZeroStatAndNotMe($card, $event)
+  {
+    if (($event['playedCard'] ?? 0) == $card->getId()) {
+      return false;
+    }
+    return self::isWithZeroStat($card, $event);
   }
 
   public static function has3WithZeroStat($card, $event)
@@ -396,15 +448,50 @@ abstract class Conditions
     return false;
   }
 
+  public static function isFromReserveAfternoon($card, $event)
+  {
+    if (!Globals::isDayPhase()) {
+      return false;
+    }
+
+    if ($event['type'] == 'Discard') {
+      $found = false;
+      foreach ($event['originalLocation'] as $cId => $location) {
+        if ($location == RESERVE) {
+          $found = true;
+        }
+      }
+      if (!$found) {
+        return false;
+      }
+
+      foreach ($event['cards'] as $c) {
+        if ($card->getPId() == $c->getPId()) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      $card->getPId() == $event['pId'] &&
+        $event['from'] == RESERVE;
+    }
+  }
+
   public static function isBoosted($card, $event)
   {
     return $card->hasToken(BOOST) || ($event['boosted'] ?? false) == true;
+  }
+
+  public static function has1Boost($card, $event)
+  {
+    return $card->getPId() == $event['pId'] && $card->countToken(BOOST) >= 1;
   }
 
   public static function has2Boost($card, $event)
   {
     return $card->getPId() == $event['pId'] && $card->countToken(BOOST) >= 2;
   }
+
 
   public static function has3Boost($card, $event)
   {
