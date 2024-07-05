@@ -145,8 +145,13 @@ abstract class Conditions
     return $card->getPlayer()->getReserveCards()->count() > 0;
   }
 
+  public static function hasLess8Mana($card, $event)
+  {
+    return $card->getPlayer()->getTotalMana() < 8;
+  }
 
-  public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all')
+
+  public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = "GTE")
   {
     $types = [CHARACTER, TOKEN];
     if ($type == TOKEN) $types = [TOKEN];
@@ -170,7 +175,9 @@ abstract class Conditions
       }
     }
 
-    return $cards->count() >= $n;
+    $m = $cards->count();
+    if ($op == "GTE") return $m >= $n;
+    if ($op == "LTE") return $m <= $n;
   }
 
   public static function has3WithZeroStat($card, $event)
