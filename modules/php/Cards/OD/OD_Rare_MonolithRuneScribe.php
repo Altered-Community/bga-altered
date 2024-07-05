@@ -29,7 +29,7 @@ class OD_Rare_MonolithRuneScribe extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest'],
-      'effectHand' => FT::ACTION(CHECK_CONDITION, ['condition' => 'control1Token', 'effect' => FT::ACTION(RESUPPLY, [])]),
+      'effectHand' => FT::ACTION(CHECK_CONDITION, ['condition' => 'hasControl:token:1', 'effect' => FT::ACTION(RESUPPLY, [])]),
     ];
   }
 }

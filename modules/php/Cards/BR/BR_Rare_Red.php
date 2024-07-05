@@ -31,7 +31,7 @@ class BR_Rare_Red extends \ALT\Models\Card
       'seasoned' => true,
       'effectPassive' => [
         'BeforeDusk' => [
-          'condition' => 'has3Boost',
+          'condition' => 'hasBoost:3',
           'output' => FT::ACTION(DRAW, ['players' => ME]),
         ],
       ],

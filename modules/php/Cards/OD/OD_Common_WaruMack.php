@@ -25,7 +25,7 @@ class OD_Common_WaruMack extends \ALT\Models\Card
       'landmarkSlots' => 2,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'controlBureaucratNoon',
+          'conditions' => ['isMe', 'hasControl:bureaucrat:1'],
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
@@ -33,7 +33,7 @@ class OD_Common_WaruMack extends \ALT\Models\Card
           ]),
         ],
         'ChooseAssignment' => [
-          'condition' => 'isBureaucratPlayed',
+          'condition' => 'isCardPlayed:bureaucrat',
           'output' => FT::SEQ_OPTIONAL(FT::ACTION(GAIN, ['cardId' => EFFECT, 'type' => ASLEEP, 'n' => 1]))
         ]
       ]

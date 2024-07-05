@@ -31,7 +31,7 @@ class OD_Rare_KakobaLegionCommander extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control3OtherCharacters',
+        'condition' => 'hasControl::3:true',
         'effect' => FT::GAIN(ME, BOOST, 3),
       ]),
     ];

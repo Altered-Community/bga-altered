@@ -27,7 +27,7 @@ class MU_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isNonTokenPlayed',
+          'condition' => 'isCardPlayed:characterOnly',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ]

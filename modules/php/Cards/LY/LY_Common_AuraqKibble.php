@@ -30,7 +30,7 @@ class LY_Common_AuraqKibble extends \ALT\Models\Card
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'incCounter', 'args' => ['counter' => 1, 'counterName' => clienttranslate('Performance')]])
         ],
         'Noon' => [
-          'condition' => 'has5CounterOnCard',
+          'condition' => 'hasCounterOnCard:5',
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(USE_COUNTER, ['consume' => 5]),
             FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AuraqKibble'])

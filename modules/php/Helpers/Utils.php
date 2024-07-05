@@ -55,7 +55,7 @@ abstract class Utils extends \APP_DbObject
     return $entries;
   }
 
-  function search($array, $test)
+  public static function search($array, $test)
   {
     $found = false;
     $iterator = new \ArrayIterator($array);
@@ -215,7 +215,7 @@ abstract class Utils extends \APP_DbObject
     return $result;
   }
 
-  static function  cartesian($input)
+  public static function  cartesian($input)
   {
     $result = [[]];
 

@@ -31,7 +31,7 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'has2Boost',
+          'condition' => 'hasBoost:2',
           'output' => FT::ACTION(RESUPPLY, [])
         ]
       ],

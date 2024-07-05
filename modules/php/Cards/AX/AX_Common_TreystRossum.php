@@ -28,7 +28,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isFromReserveAndLess5Counters',
+          'conditions' => ['isAfternoon', 'isFromReserve', 'hasCounterOnCard:4:LTE'],
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'incCounter', 'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')]])
         ],
         'Discard' => [
@@ -37,7 +37,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
         ]
       ],
       'effectTap' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'has5CounterOnCard',
+        'condition' => 'hasCounterOnCard:5',
         'effect' => FT::SEQ(
           FT::ACTION(DRAW, ['players' => ME]),
           FT::ACTION(

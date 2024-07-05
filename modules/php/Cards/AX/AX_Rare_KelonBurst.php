@@ -38,7 +38,7 @@ class AX_Rare_KelonBurst extends \ALT\Models\Card
           ],
         ],
         FT::ACTION(CHECK_CONDITION, [
-          'condition' => 'control2Landmarks',
+          'condition' => 'hasControl:landmark:2',
           'effect' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'AX_Common_Brassbug',

@@ -31,7 +31,7 @@ class AX_Common_ThreeLittlePigs extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control2Landmarks',
+        'condition' => 'hasControl:landmark:2',
         'effect' => FT::GAIN(ME, BOOST, 1),
       ]),
     ];

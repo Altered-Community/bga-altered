@@ -28,7 +28,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isSpellPlayed',
+          'condition' => 'isCardPlayed:spell',
           'output' => FT::ACTION(
             TARGET,
             [

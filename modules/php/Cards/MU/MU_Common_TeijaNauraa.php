@@ -27,7 +27,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'firstCharacterPlayed',
+          'conditions' => ['notUsed', 'isCardPlayed:character'],
           'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
         ],
       ],

@@ -24,7 +24,7 @@ class CheckCondition extends \ALT\Models\Action
   public function getDescription()
   {
     switch ($this->getArg('condition')) {
-      case 'has4BoostOrLess':
+      case 'hasBoost:4:LTE':
         return clienttranslate('Check if there are less than 4 <BOOST>');
         break;
       default:
@@ -52,18 +52,14 @@ class CheckCondition extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    $condition = $this->getCtxArg('condition');
-    if ($condition == 'isFirstPlayer') {
-      return $player->getId() == Globals::getFirstPlayer();
-    } elseif ($condition == 'has5CounterOnCard') {
-      return Conditions::has5CounterOnCard($player->getHero(), ['pId' => $player->getId()]);
-    } elseif ($condition == 'hasReserve') {
-      return Conditions::hasReserve($player->getHero(), ['pId' => $player->getId()]);
-    } elseif ($condition == 'isNotFirstPlayerCanPay1') {
-      return Conditions::isNotFirstPlayerCanPay1($player->getHero(), ['pId' => $player->getId()]);
-    } else {
-      return true;
-    }
+    return $this->checkCondition($player);
+  }
+
+  public function checkCondition($player)
+  {
+    $source = $this->getSource();
+    $event = ['pId' => $player->getId()];
+    return Conditions::check($this->getCtxArgs(), $source, $event);
   }
 
   public function stCheckCondition()
@@ -73,12 +69,11 @@ class CheckCondition extends \ALT\Models\Action
       throw new \feException('No condition defined. Should not happen');
     }
 
-    $source = $this->getSource();
-    $condition = $this->getCtxArg('condition');
-    if (Conditions::$condition($source, ['pId' => $player->getId()]) === false) {
+    if ($this->checkCondition($player) === false) {
       $this->resolveAction(['notMet']);
       return;
     }
+
     $node = $this->getArg('effect');
     if (isset($node['childs'])) {
       foreach ($node['childs'] as &$child) {

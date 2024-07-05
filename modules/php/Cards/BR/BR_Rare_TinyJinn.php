@@ -33,7 +33,7 @@ class BR_Rare_TinyJinn extends \ALT\Models\Card
       'effectReserve' => FT::GAIN($this, BOOST),
       'effectPassive' => [
         'LeaveExpedition' => [
-          'condition' => 'isBoosted',
+          'condition' => 'hasBoost',
           'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true]),
         ],
       ],

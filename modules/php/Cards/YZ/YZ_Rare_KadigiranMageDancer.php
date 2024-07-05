@@ -29,11 +29,11 @@ class YZ_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'costReserve' => 1,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isSpellPlayed',
+          'condition' => 'isCardPlayed:spell',
           'output' => FT::GAIN($this, BOOST)
         ],
         'BeforeDusk' => [
-          'condition' => 'has3Boost',
+          'condition' => 'hasBoost:3',
           'output' => FT::ACTION(DRAW, ['players' => ME]),
         ],
       ]
