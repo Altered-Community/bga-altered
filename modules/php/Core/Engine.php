@@ -110,7 +110,7 @@ class Engine
         (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array($player->getId(), $skipped))) ||
         Globals::getDayPhase() === false
       ) {
-        if (Globals::getEngineChoices() == 0) {
+        if (Globals::getEngineChoices() == 0 || !Globals::isUndo()) {
           self::confirm(); // No choices were made => auto confirm
         } else {
           // Confirm/restart
@@ -152,6 +152,7 @@ class Engine
     }
 
     if (
+      Globals::isUndo() &&
       $pId != null &&
       $oldPId != $pId &&
       (!$node->isIndependent(Players::get($pId)) && Globals::getEngineChoices() != 0) &&
@@ -187,7 +188,7 @@ class Engine
         count($choices) == 1 &&
         count($allChoices) == 1 &&
         array_keys($allChoices) == array_keys($choices) &&
-        (!$choices[$id]['irreversibleAction'] ||  (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
+        (!Globals::isUndo() || !$choices[$id]['irreversibleAction'] ||  (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
       ) {
         self::chooseNode($player, $id, true);
       } else {

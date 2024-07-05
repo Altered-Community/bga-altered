@@ -38,7 +38,19 @@ $game_options = [
         'name' => 'Enabled',
       ],
     ]
+  ],
+  OPTION_UNDO => [
+    'name' => clienttranslate('Undo'),
+    'values' => [
+      OPTION_DISABLED => [
+        'name' => 'Disabled',
+      ],
+      OPTION_ENABLED => [
+        'name' => 'Enabled',
+      ],
+    ]
   ]
+
 ];
 
 $game_preferences = [

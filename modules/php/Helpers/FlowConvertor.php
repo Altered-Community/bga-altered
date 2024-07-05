@@ -226,7 +226,11 @@ abstract class FlowConvertor
     $properties[$key] = $node;
 
     $properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] = [$calculated['triggerDescription'] ?? '', $calculated['conditionDescription'] ?? ''];
-
+    if ($key == 'effectSupport') {
+      if ($calculated['triggerDescription'] == '{D}') {
+        $properties['supportIcon'] = 'discard';
+      }
+    }
     // debug
     //$properties['calculated'] = $calculated;
 

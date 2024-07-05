@@ -123,6 +123,7 @@ define([
       this._loadingComplete = false;
       this._fakeIndex = -1;
       this._diceIndex = 1;
+      this._undoPossible = true;
     },
     notif_midMessage(n) {},
 
@@ -345,6 +346,7 @@ define([
       this.updateBlockedExpeditions();
       this.updatePowersBlockedExpeditions();
       this.updateDefenders();
+      this._undoPossible = gamedatas.undo;
 
       this.inherited(arguments);
     },
@@ -703,7 +705,13 @@ define([
       }
 
       // Restart turn button
-      if (args.args && args.args.previousEngineChoices && args.args.previousEngineChoices >= 1 && !args.args.automaticAction) {
+      if (
+        this._undoPossible &&
+        args.args &&
+        args.args.previousEngineChoices &&
+        args.args.previousEngineChoices >= 1 &&
+        !args.args.automaticAction
+      ) {
         if (args.args && args.args.previousSteps) {
           let lastStep = Math.max(...args.args.previousSteps);
           if (lastStep > 0)
@@ -916,16 +924,14 @@ define([
       let canUseAPI = true;
       if (canUseAPI && !$('card-fake-API')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
-        $('card-fake-API')
-          .querySelector('.altered-card-wrapper')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-API').querySelector('.altered-card-wrapper').insertAdjacentHTML(
+          'beforeend',
+          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Custom deck
             </div>
           </div>`
-          );
+        );
         this.onClick('card-fake-API', () => this.clientState('fetchDecks', 'Connect to equinox to fetch your decks', {}));
       }
 
@@ -933,16 +939,14 @@ define([
       let canUseRandom = true;
       if (canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-        $('card-fake-random')
-          .querySelector('.altered-card-wrapper')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
+          'beforeend',
+          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Random deck
             </div>
           </div>`
-          );
+        );
         this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
       }
     },
