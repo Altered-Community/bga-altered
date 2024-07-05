@@ -29,7 +29,7 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control3OtherCharacters',
+        'condition' => 'hasControl::3:true',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
     ];

@@ -26,7 +26,7 @@ class LY_Common_FenCrowbar extends \ALT\Models\Card
       // effect managed in NewDayTrait
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurnAndNotFirstTurn',
+          'conditions' => ['isMe', 'isNotFirstTurn'],
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],

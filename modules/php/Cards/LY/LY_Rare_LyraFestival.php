@@ -37,7 +37,7 @@ class LY_Rare_LyraFestival extends \ALT\Models\Card
       ),
       'effectPassive' => [
         'BeforeDusk' => [
-          'condition' => 'hasFleetingAnchoredAsleep',
+          'condition' => 'hasControlFleetingAnchoredAsleep',
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'instantWin']),
         ],
       ],

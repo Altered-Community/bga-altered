@@ -28,7 +28,7 @@ class BR_Rare_ThreeLittlePigs extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control1Landmarks',
+        'condition' => 'hasControl:landmark:1',
         'effect' => FT::GAIN(ME, BOOST, 1),
       ]),
     ];

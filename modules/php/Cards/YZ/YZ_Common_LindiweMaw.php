@@ -26,7 +26,7 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
 
       'effectTap' => FT::XOR(
         FT::ACTION(CHECK_CONDITION, [
-          'condition' => 'isNotFirstPlayerCanPay1',
+          'conditions' => ['isNotFirstPlayer', 'CanPay:1'],
           'effect' => FT::SEQ(
             FT::ACTION(PAY, ['pay' => 1]),
             FT::ACTION(INVOKE_TOKEN,  ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]])

@@ -30,11 +30,11 @@ class OD_Rare_Athena extends \ALT\Models\Card
       'costReserve' => 3,
 
       'effectReserve' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control2OtherCharacters',
+        'condition' => 'hasControl::2:true',
         'effect' => FT::LOOSE(ME, FLEETING),
       ]),
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control2OtherCharacters',
+        'condition' => 'hasControl::2:true',
         'effect' => FT::GAIN(ME, BOOST, 2),
       ]),
     ];

@@ -101,7 +101,5 @@ class MoveExpedition extends \ALT\Models\Action
       Notifications::updateBiomes($player);
       $this->checkAfterListeners($player, ['moveExpedition' => $n]);
     }
-
-    return [];
   }
 }

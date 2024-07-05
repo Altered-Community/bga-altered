@@ -31,7 +31,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isPermanentAndCost3',
+          'conditions' => ['notTapped', 'isCardPlayed:permanent:3'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, []),
             FT::ACTION(INVOKE_TOKEN, [

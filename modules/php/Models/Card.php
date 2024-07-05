@@ -210,8 +210,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function discard()
   {
-    $this->checkLeaveExpeditionListener();
-    $this->checkLeaveLandmarkListener();
+    $this->checkLeaveListener('discard');
     $this->setLocation('discard');
     $deleted = Meeples::getInLocation('card-' . $this->id);
     Meeples::delete($deleted->getIds());
@@ -220,8 +219,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function moveToReserve()
   {
-    $this->checkLeaveExpeditionListener();
-    $this->checkLeaveLandmarkListener();
+    $this->checkLeaveListener('reserve');
     $this->setLocation(RESERVE);
     $this->setTapped(false);
     $seasoned = $this->isSeasoned();
@@ -245,54 +243,37 @@ class Card extends \ALT\Helpers\DB_Model
     return $tokIds;
   }
 
-  public function checkLeaveExpeditionListener()
+  public function checkLeaveListener($target)
   {
-    if (in_array($this->getLocation(), STORMS)) {
-      $event = [
-        'type' => 'LeaveExpedition',
-        'method' => 'LeaveExpedition',
-        'boosted' => $this->hasToken(BOOST),
-        'fleeting' => $this->hasToken(FLEETING),
-        'cardId' => $this->id,
-      ];
-      if ($this->isListeningTo($event)) {
-        $event['cardsToListen'] = [$this->id];
-        Engine::pushAfterFinishingChilds([
-          [
-            'action' => ACTIVATE_CARD,
-            'args' => [
-              'cardId' => $this->id,
-              'event' => $event,
-            ],
-            'pId' => $this->getPId(),
-          ],
-        ]);
-      }
+    $type = null;
+    $location = $this->getLocation();
+    if (in_array($location, STORMS)) {
+      $type = 'LeaveExpedition';
+    } else if ($location == LANDMARK) {
+      $type = 'LeaveLandmark';
     }
-  }
 
-  public function checkLeaveLandmarkListener()
-  {
-    if ($this->getLocation() == LANDMARK) {
-      $event = [
-        'type' => 'LeaveLandmark',
-        'method' => 'LeaveLandmark',
-        'boosted' => $this->hasToken(BOOST),
-        'cardId' => $this->id,
-      ];
-      if ($this->isListeningTo($event)) {
-        $event['cardsToListen'] = [$this->id];
-        Engine::pushAfterFinishingChilds([
-          [
-            'action' => ACTIVATE_CARD,
-            'args' => [
-              'cardId' => $this->id,
-              'event' => $event,
-            ],
-            'pId' => $this->getPId(),
+    $event = [
+      'type' => $type,
+      'method' => $type,
+      'boost' => $this->countToken(BOOST),
+      'fleeting' => $this->hasToken(FLEETING),
+      'to' => $target,
+      'cardId' => $this->id,
+    ];
+
+    if ($this->isListeningTo($event)) {
+      $event['cardsToListen'] = [$this->id];
+      Engine::pushAfterFinishingChilds([
+        [
+          'action' => ACTIVATE_CARD,
+          'args' => [
+            'cardId' => $this->id,
+            'event' => $event,
           ],
-        ]);
-      }
+          'pId' => $this->getPId(),
+        ],
+      ]);
     }
   }
 
@@ -404,14 +385,13 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $power = $passive[$event['action'] ?? $event['type']];
-    $cond = $power['condition'] ?? null;
     $n = $power['n'] ?? 'once';
     switch ($n) {
       case 'eachExpedition':
         $output = [];
         foreach (STORMS as $storm) {
           $event['expedition'] = $storm;
-          if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
+          if (Conditions::check($power, $this, $event) === false) {
             continue;
           }
           $output = $power['output'];
@@ -423,7 +403,7 @@ class Card extends \ALT\Helpers\DB_Model
         break;
       case 'once':
         // structured : ['Noon'=>['condition' =>, 'output'=>]]
-        if (!is_null($cond) && Conditions::$cond($this, $event) === false) {
+        if (Conditions::check($power, $this, $event) === false) {
           return [null, null];
         }
 

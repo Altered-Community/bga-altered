@@ -258,6 +258,45 @@ const MANEUVER = 'maneuver';
 const SCHOLAR = 'scholar';
 const ANIMAL = 'animal';
 
+const SUBTYPES = [
+  DIVINITY,
+  ADVENTURER,
+  PILOT,
+  ENGINEER,
+  ROBOT,
+  ELEMENTAL,
+  DISRUPTION,
+  TITAN,
+  CAT,
+  TRAINER,
+  BLADEMASTER,
+  SUPPORT,
+  SQUIRREL,
+  DEMON,
+  ARTIST,
+  CITIZEN,
+  DRUID,
+  PLANT,
+  SPIRIT,
+  SOLDIER,
+  BUREAUCRAT,
+  MAGE,
+  TOKEN,
+  NOBLE,
+  SONG,
+  LEVIATHAN,
+  DRAGON,
+  DEITY,
+  MESSENGER,
+  CONJURATION,
+  BOON,
+  FAIRY,
+  APPRENTICE,
+  MANEUVER,
+  SCHOLAR,
+  ANIMAL,
+];
+
 /*********************
  * ****** ABILITIES *****
  *********************/

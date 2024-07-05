@@ -30,7 +30,7 @@ class MU_Rare_LyraFestival extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
       'effectPassive' => [
         'BeforeDusk' => [
-          'condition' => 'hasFleetingAnchoredAsleep',
+          'condition' => 'hasControlFleetingAnchoredAsleep',
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'instantWin']),
         ],
       ],

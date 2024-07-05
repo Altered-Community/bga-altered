@@ -33,7 +33,7 @@ class OD_Rare_BrassbugHub extends \ALT\Models\Card
       ],
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'hasCounterOnCard',
+          'conditions' => ['isMe', 'hasCounterOnCard'],
           'output' => [
             'type' => NODE_SEQ,
             'optional' => true,

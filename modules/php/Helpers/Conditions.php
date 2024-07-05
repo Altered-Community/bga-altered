@@ -9,294 +9,168 @@ use ALT\Managers\Players;
 // Conditions
 abstract class Conditions
 {
+  // Checking a condition/several conditions
+  public static function check($power, $card, $event)
+  {
+    $conditions = [];
+    if (isset($power['conditions']) && is_array($power['conditions'])) {
+      $conditions = $power['conditions'];
+    }
+
+    if (isset($power['condition'])) {
+      $conditions[] = $power['condition'];
+    }
+
+    foreach ($conditions as $cond) {
+      $t = explode(':', $cond);
+      $condFct = $t[0];
+      $condArgs = array_slice($t, 1);
+
+      if (self::$condFct($card, $event, ...$condArgs) === false) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+
+  public function isFromReserve($card, $event)
+  {
+    return ($event['from'] ?? null) == RESERVE;
+  }
+
+  ///////////////////////////////////////////////
+  //  ____  _                         ___    _ 
+  // |  _ \| | __ _ _   _  ___ _ __  |_ _|__| |
+  // | |_) | |/ _` | | | |/ _ \ '__|  | |/ _` |
+  // |  __/| | (_| | |_| |  __/ |     | | (_| |
+  // |_|   |_|\__,_|\__, |\___|_|    |___\__,_|
+  //                |___/                      
+  ///////////////////////////////////////////////
+
+  public static function isMe($card, $event)
+  {
+    return ($event['pId'] ?? null) == $card->getPId();
+  }
+
+  public static function isNotMe($card, $event)
+  {
+    return ($event['pId'] ?? null) != $card->getPId();
+  }
+
   public static function isFirstPlayer($card, $event)
   {
-    return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() == Globals::getFirstPlayer();
+    return self::isMe($card, $event) && $card->getPId() == Globals::getFirstPlayer();
   }
 
   public static function isNotFirstPlayer($card, $event)
   {
-    return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() != Globals::getFirstPlayer();
+    return self::isMe($card, $event) && $card->getPId() != Globals::getFirstPlayer();
   }
 
-  public static function isNotFirstPlayerCanPay1($card, $event)
+
+  ////////////////////////////////////////////////////////////
+  //  ____                ____  _                         
+  // |  _ \  __ _ _   _  |  _ \| |__   __ _ ___  ___  ___ 
+  // | | | |/ _` | | | | | |_) | '_ \ / _` / __|/ _ \/ __|
+  // | |_| | (_| | |_| | |  __/| | | | (_| \__ \  __/\__ \
+  // |____/ \__,_|\__, | |_|   |_| |_|\__,_|___/\___||___/
+  //              |___/                                   
+  ////////////////////////////////////////////////////////////
+
+  public static function isAfternoon($card, $event)
   {
-    return ($event['pId'] ?? null) == $card->getPId() && $card->getPId() != Globals::getFirstPlayer() && $card->getPlayer()->getMana() >= 1;
+    return Globals::isDayPhase();
+  }
+
+  public static function isNotFirstTurn($card, $event)
+  {
+    return Globals::getDay() != 1;
+  }
+
+  public static function movesStormsWithForest($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$event['expedition']])) {
+      return false;
+    }
+
+    $move = $stormMoves[$card->getPId()][$event['expedition']];
+    if (in_array(FOREST, $move['biomes']) && $move['moves'] >= 1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public static function hasNotMoved($card, $event)
+  {
+    return $event['pId'] == $card->getPId() &&
+      (
+        !isset(Globals::getStormMoves()[$card->getPId()]) ||
+        (
+          (Globals::getStormMoves()[$card->getPId()][STORM_LEFT]['moves'] ?? 0) + (Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0)
+        ) == 0);
+  }
+
+  public static function myExpeditionHasNotMoved($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? null;
+    $stormMoves = $stormMoves[$card->getLocation()] ?? null;
+    return $event['pId'] == $card->getPId() && (is_null($stormMoves) || ($stormMoves['moves'] ?? 0) == 0);
+  }
+
+
+  /////////////////////////////////////////
+  //   ____            _             _ 
+  //  / ___|___  _ __ | |_ _ __ ___ | |
+  // | |   / _ \| '_ \| __| '__/ _ \| |
+  // | |__| (_) | | | | |_| | | (_) | |
+  //  \____\___/|_| |_|\__|_|  \___/|_|
+  /////////////////////////////////////////
+
+  public static function canPay($card, $event, $n)
+  {
+    return $card->getPlayer()->getMana() >= $n;
   }
 
   public static function hasCardsInHand($card, $event)
   {
-    return ($event['pId'] ?? null) == $card->getPId() && $card->getPlayer()->getHand()->count() > 0;
+    return $card->getPlayer()->getHand()->count() > 0;
   }
 
-  public static function boostedByOtherCard($card, $event)
+  public static function hasReserve($card, $event)
   {
-    if ($event['sourceId'] != $card->getId() && $event['gain']['type'] == BOOST && $event['gain']['cardId'] == $card->getId()) {
-      return true;
+    return $card->getPlayer()->getReserveCards()->count() > 0;
+  }
+
+
+  public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all')
+  {
+    $types = [CHARACTER, TOKEN];
+    if ($type == TOKEN) $types = [TOKEN];
+    if ($type == LANDMARK) $types = [LANDMARK];
+
+    $cards = $card
+      ->getPlayer()
+      ->getPlayedCards($types);
+
+    if (in_array($type, SUBTYPES)) {
+      $cards = $cards->filter(fn ($c) => in_array($type, $c->getSubtypes()));
     }
-    return false;
-  }
 
-  public static function isCharacterBoosted($card, $event)
-  {
-    return $event['pId'] == $card->getPId() &&
-      $event['gain']['type'] == BOOST &&
-      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
-  }
-
-
-  public static function canSacrifice($card, $event)
-  {
-    return Players::get($event['pId'])->getPlayedCards([CHARACTER, TOKEN])->count() > 0;
-  }
-
-  public static function isCharacterBoostedAndUntap($card, $event)
-  {
-    return !$card->isTapped() &&
-      $event['gain']['type'] == BOOST &&
-      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
-  }
-
-  public static function firstCharacterPlayed($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      $event['cardType'] == CHARACTER &&
-      ($card->getExtraDatas()['userPower'] ?? false) == false;
-  }
-
-  public static function myTurn($card, $event)
-  {
-    return $event['pId'] == $card->getPId();
-  }
-
-  public static function myTurnAndNotFirstTurn($card, $event)
-  {
-    return $event['pId'] == $card->getPId() && Globals::getDay() != 1;
-  }
-
-  public static function notMe($card, $event)
-  {
-    return $event['pId'] != $card->getPId();
-  }
-
-  public static function notMeandDrawNotMana($card, $event)
-  {
-    return $event['pId'] != $card->getPId() && ($event['location'] ?? HAND) != MANA;
-  }
-
-  public static function controlBureaucratNoon($card, $event)
-  {
-    if ($event['pId'] != $card->getPId()) {
-      return false;
+    if ($excludeMyself === "true") {
+      $cards = $cards->filter(fn ($c) => $c->getId() != $card->getId());
     }
-    foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
-      if (in_array(BUREAUCRAT, $c->getSubtypes())) {
-        return true;
+
+    if ($state != 'all') {
+      if ($state == 'boosted') {
+        $cards = $cards->filter(fn ($c) => $c->hasToken(BOOST));
       }
     }
 
-    return false;
-  }
-
-  public static function hasCounterOnCard($card, $event)
-  {
-    return $event['pId'] == $card->getPId() && ($card->getExtraDatas()['counter'] ?? 0) > 0;
-  }
-
-  public static function has5CounterOnCard($card, $event)
-  {
-    return $event['pId'] == $card->getPId() && ($card->getExtraDatas()['counter'] ?? 0) >= 5;
-  }
-
-  public static function controlCharacters($card, $event, $n = 1)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([CHARACTER, TOKEN])
-      ->count() >= $n;
-  }
-
-  public static function control4Characters($card, $event)
-  {
-    return self::controlCharacters($card, $event, 4);
-  }
-
-  public static function control3Characters($card, $event)
-  {
-    return self::controlCharacters($card, $event, 3);
-  }
-
-  public static function control3OtherCharacters($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([CHARACTER, TOKEN])
-      ->filter(function ($c) use ($card) {
-        return $c->getId() != $card->getId();
-      })
-      ->count() >= 3;
-  }
-
-  public static function control2OtherCharacters($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([CHARACTER, TOKEN])
-      ->filter(function ($c) use ($card) {
-        return $c->getId() != $card->getId();
-      })
-      ->count() >= 2;
-  }
-
-  public static function control2BoostedCharacters($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([CHARACTER, TOKEN])
-      ->filter(function ($c) use ($card) {
-        return $c->hasToken(BOOST);
-      })
-      ->count() >= 2;
-  }
-
-  public static function control2BoostedOtherCharacters($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([CHARACTER, TOKEN])
-      ->filter(function ($c) use ($card) {
-        return $c->getId() != $card->getId() && $c->hasToken(BOOST);
-      })
-      ->count() >= 2;
-  }
-
-  public static function control1Token($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([TOKEN])
-      ->count() >= 1;
-  }
-
-  public static function control2Plants($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([CHARACTER, TOKEN])
-      ->filter(function ($c) use ($card) {
-        return in_array(PLANT, $c->getSubtypes());
-      })
-      ->count() >= 2;
-  }
-
-  public static function control2OtherPlants($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getPlayedCards([CHARACTER, TOKEN])
-      ->filter(function ($c) use ($card) {
-        return in_array(PLANT, $c->getSubtypes()) && $c->getId() != $card->getId();
-      })
-      ->count() >= 2;
-  }
-
-  public static function control2Landmarks($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getLandmarks()
-      ->count() >= 2;
-  }
-
-  public static function control1Landmarks($card, $event)
-  {
-    return $card
-      ->getPlayer()
-      ->getLandmarks()
-      ->count() >= 1;
-  }
-
-  public static function isPermanentAndCost3($card, $event)
-  {
-    // check card triggering the effect isn't tapped
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      !$card->isTapped() &&
-      $event['cardType'] == PERMANENT &&
-      Cards::get($event['playedCard'])->getCostHand() >= 3;
-  }
-
-  public static function isPermanent($card, $event)
-  {
-    // check card triggering the effect isn't tapped
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      !$card->isTapped() &&
-      $event['cardType'] == PERMANENT;
-  }
-
-  public static function isRobotPlayed($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      in_array(ROBOT, Cards::get($event['playedCard'])->getSubtypes());
-  }
-
-  public static function isOtherCharacterNonTokenPlayed($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      Cards::get($event['playedCard'])->getType() == CHARACTER && $card->getId() != $event['playedCard'];
-  }
-
-  public static function isOtherCharacterPlayed($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]) && $card->getId() != $event['playedCard'];
-  }
-
-  public static function isSpellPlayed($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      Cards::get($event['playedCard'])->getType() == SPELL;
-  }
-
-  public static function isBureaucratPlayed($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      in_array(BUREAUCRAT, Cards::get($event['playedCard'])->getSubtypes());
-  }
-
-  public static function isWithZeroStat($card, $event)
-  {
-    $playedCard = Cards::get($event['playedCard']);
-
-    if (!in_array($playedCard->getType(), [CHARACTER, TOKEN])) {
-      return false;
-    }
-
-    $hasZero = false;
-    foreach ($playedCard->getBiomes() as $biome => $value) {
-      if ($value == 0) {
-        $hasZero = true;
-      }
-    }
-
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      $hasZero;
-  }
-
-  public static function isWithZeroStatAndNotMe($card, $event)
-  {
-    if (($event['playedCard'] ?? 0) == $card->getId()) {
-      return false;
-    }
-    return self::isWithZeroStat($card, $event);
+    return $cards->count() >= $n;
   }
 
   public static function has3WithZeroStat($card, $event)
@@ -319,26 +193,230 @@ abstract class Conditions
       $hasZero >= 3;
   }
 
-  public static function isCharacterPlayed($card, $event)
+  public static function canSacrifice($card, $event)
   {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]);
+    return Players::get($event['pId'])->getPlayedCards([CHARACTER, TOKEN])->count() > 0;
   }
 
-  public static function isNonTokenPlayed($card, $event)
+  public static function hasControlFleetingAnchoredAsleep($card, $event)
   {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      Cards::get($event['playedCard'])->getType() == CHARACTER;
+    $asleep = [];
+    $anchored = [];
+    $fleeting = [];
+    foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
+      if ($c->hasToken(ASLEEP)) {
+        $asleep[] = $cId;
+      }
+      if ($c->hasToken(ANCHORED)) {
+        $anchored[] = $cId;
+      }
+      if ($c->hasToken(FLEETING)) {
+        $fleeting[] = $cId;
+      }
+    }
+
+    $combination = Utils::cartesian([$asleep, $anchored, $fleeting]);
+    Utils::filter($combination, function ($comb) {
+      return count(array_unique($comb)) == 3;
+    });
+
+    return count($combination) >= 1;
   }
+
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //   ____              _   ____                            _   _           
+  //  / ___|__ _ _ __ __| | |  _ \ _ __ ___  _ __   ___ _ __| |_(_) ___  ___ 
+  // | |   / _` | '__/ _` | | |_) | '__/ _ \| '_ \ / _ \ '__| __| |/ _ \/ __|
+  // | |__| (_| | | | (_| | |  __/| | | (_) | |_) |  __/ |  | |_| |  __/\__ \
+  //  \____\__,_|_|  \__,_| |_|   |_|  \___/| .__/ \___|_|   \__|_|\___||___/
+  //                                        |_|                              
+  ///////////////////////////////////////////////////////////////////////////////
+
+  public static function notFleeting($card, $event)
+  {
+    return !$card->hasToken(FLEETING) && !($event['fleeting'] ?? false);
+  }
+
+  public static function notTapped($card, $event)
+  {
+    return !$card->isTapped();
+  }
+
+  public static function notUsed($card, $event)
+  {
+    return ($card->getExtraDatas()['userPower'] ?? false) == false;
+  }
+
+  public static function hasBoost($card, $event, $n = 1, $op = "GTE")
+  {
+    // USELESS ?? self::isMe($card, $event) &&
+    $m = $card->countToken(BOOST);
+    // EVENT keep information about the card previous status in case it was move to discard
+    if (isset($event['boost'])) $m = $event['boost'];
+
+    if ($op == "GTE") return $m >= $n;
+    if ($op == "LTE") return $m <= $n;
+    die("Unknown op for hasBoost");
+  }
+
+
+  public static function hasCounterOnCard($card, $event, $n = 1, $op = "GTE")
+  {
+    $m = ($card->getExtraDatas()['counter'] ?? 0);
+    if ($op == "GTE") return $m >= $n;
+    if ($op == "LTE") return $m <= $n;
+    die("Unknown op for hasCounterOnCard");
+  }
+
+  ///////////////////////////////////////////////////////////// 
+  //   ____  _                      _    ____              _ 
+  //  |  _ \| | __ _ _   _  ___  __| |  / ___|__ _ _ __ __| |
+  //  | |_) | |/ _` | | | |/ _ \/ _` | | |   / _` | '__/ _` |
+  //  |  __/| | (_| | |_| |  __/ (_| | | |__| (_| | | | (_| |
+  //  |_|   |_|\__,_|\__, |\___|\__,_|  \____\__,_|_|  \__,_|
+  //                 |___/                                   
+  ///////////////////////////////////////////////////////////// 
+
+  public static function isPlayEvent($card, $event, $meOnly = true)
+  {
+    if ($event['playCard'] ?? false) {
+      return false;
+    }
+
+    if ($meOnly && !self::isMe($card, $event)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public static function isCardPlayed($card, $event, $type, $cost = null, $op = "GTE", $excludeMyself = "")
+  {
+    if (!self::isPlayEvent($card, $event)) {
+      return false;
+    }
+    $card = Cards::get($event['playedCard']);
+
+    // Exclude myself
+    if ($excludeMyself == "true" && $card->getId() == $event['playedCard']) {
+      return false;
+    }
+
+    // Type check
+    if (in_array($type, [PERMANENT, TOKEN, LANDMARK, SPELL])) {
+      if ($event['cardType'] != $type) {
+        return false;
+      }
+    }
+    if ($type == CHARACTER && !in_array($event['cardType'], [CHARACTER, TOKEN])) {
+      return false;
+    }
+    if ($type == 'characterOnly' && $event['cardType'] != CHARACTER) {
+      return false;
+    }
+
+    // Subtype check
+    if (in_array($type, SUBTYPES)) {
+      if (!in_array($type, $card->getSubtypes())) {
+        return false;
+      }
+    }
+
+    // Cost check
+    if (!is_null($cost)) {
+      $costHand = $card->getCostHand();
+      if ($op == "GTE" && $costHand < $cost) return false;
+      if ($op == "LTE" && $costHand > $cost) return false;
+      if ($op == "E" && $costHand != $cost) return false;
+    }
+
+    return true;
+  }
+
+  public static function isCardPlayedWithZeroStat($card, $event)
+  {
+    if (!self::isCardPlayed($card, $event, CHARACTER)) {
+      return false;
+    }
+
+    $playedCard = Cards::get($event['playedCard']);
+    $hasZero = false;
+    foreach ($playedCard->getBiomes() as $biome => $value) {
+      if ($value == 0) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+
+  public static function isCharacterFromReserveNotBlocked($card, $event)
+  {
+    if (!self::isCardPlayed($card, $event, CHARACTER)) {
+      return false;
+    }
+
+    return ($event['from'] == RESERVE  || (Globals::getAdditionalEffect()[$event['cardType']] ?? null)) &&
+      !Players::hasOpponentBlockingPower($card->getPlayer(), $event['to']);
+  }
+
+  public static function isCharacterCostHigherThanCounter($card, $event)
+  {
+    if (!self::isCardPlayed($card, $event, CHARACTER)) {
+      return false;
+    }
+
+    $cardPlayed = Cards::get($event['playedCard']);
+    return ($event['playedFree'] ?? false) == false &&
+      $cardPlayed->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
+  }
+
+
+  /**********************************
+   **********************************
+   **********************************
+   ************* TODO ***************
+   **********************************
+   **********************************
+   *********************************/
+
+
+  public static function boostedByOtherCard($card, $event)
+  {
+    if ($event['sourceId'] != $card->getId() && $event['gain']['type'] == BOOST && $event['gain']['cardId'] == $card->getId()) {
+      return true;
+    }
+    return false;
+  }
+
+  public static function isCharacterBoosted($card, $event)
+  {
+    return $event['pId'] == $card->getPId() &&
+      $event['gain']['type'] == BOOST &&
+      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
+  }
+
+
+  public static function isCharacterBoostedAndUntap($card, $event)
+  {
+    return !$card->isTapped() &&
+      $event['gain']['type'] == BOOST &&
+      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
+  }
+
+
+  public static function notMeandDrawNotMana($card, $event)
+  {
+    return $event['pId'] != $card->getPId() && ($event['location'] ?? HAND) != MANA;
+  }
+
+
 
   public static function isDiscardedFromHandToReserve($card, $event)
   {
     $cardId = $card->getId();
-    // throw new \feException(in_array($cardId, $event['discarded'])  &&
-    //   $event['originalLocation'][$cardId] == HAND); // &&
-    // //   $event['cards'][$cardId]->getLocation() == RESERVE);
     return in_array($cardId, $event['discarded']) &&
       $event['originalLocation'][$cardId] == HAND &&
       (is_array($event['cards'][$cardId]) ? $event['cards'][$cardId]['location'] : $event['cards'][$cardId]->getLocation()) == RESERVE;
@@ -395,31 +473,8 @@ abstract class Conditions
       ->count() > 0;
   }
 
-  public static function isCharacterFromReserve($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      $event['cardType'] == CHARACTER &&
-      $event['from'] == RESERVE;
-  }
-
-  public static function isCharacterFromReserveNotBlocked($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] &&
-      $event['cardType'] == CHARACTER &&
-      ($event['from'] == RESERVE  || (Globals::getAdditionalEffect()[$event['cardType']] ?? null)) &&
-      !Players::hasOpponentBlockingPower($card->getPlayer(), $event['to']);
-  }
 
   // Treyst listeners
-  public static function isFromReserveAndLess5Counters($card, $event)
-  {
-    return Globals::isDayPhase() && ($card->getExtraDatas()['counter'] ?? 0) < 5 &&
-      $card->getPId() == $event['pId'] &&
-      $event['from'] == RESERVE;
-  }
-
   public static function isDiscardedFromReserveAndLess5Counters($card, $event)
   {
     if (!Globals::isDayPhase()) {
@@ -475,111 +530,5 @@ abstract class Conditions
       $card->getPId() == $event['pId'] &&
         $event['from'] == RESERVE;
     }
-  }
-
-  public static function isBoosted($card, $event)
-  {
-    return $card->hasToken(BOOST) || ($event['boosted'] ?? false) == true;
-  }
-
-  public static function has1Boost($card, $event)
-  {
-    return $card->getPId() == $event['pId'] && $card->countToken(BOOST) >= 1;
-  }
-
-  public static function has2Boost($card, $event)
-  {
-    return $card->getPId() == $event['pId'] && $card->countToken(BOOST) >= 2;
-  }
-
-
-  public static function has3Boost($card, $event)
-  {
-    return $card->getPId() == $event['pId'] && $card->countToken(BOOST) >= 3;
-  }
-
-  public static function has4BoostOrLess($card, $event)
-  {
-    return $card->getPId() == $event['pId'] && $card->countToken(BOOST) <= 4;
-  }
-
-  public static function hasReserve($card, $event)
-  {
-    return $card->getPId() == $event['pId'] && $card->getPlayer()->getReserveCards()->count() > 0;
-  }
-
-  public static function characterCostHigherThanCounter($card, $event)
-  {
-    return ($event['playCard'] ?? false) === true &&
-      $card->getPId() == $event['pId'] && ($event['playedFree'] ?? false) == false &&
-      Cards::get($event['playedCard'])->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0) &&
-      in_array(Cards::get($event['playedCard'])->getType(), [CHARACTER, TOKEN]);;
-  }
-  // LEGACY CODE : TODO : remove
-  public static function costHigherThanCounter($card, $event)
-  {
-    return self::characterCostHigherThanCounter($card, $event);
-  }
-
-  public static function hasFleetingAnchoredAsleep($card, $event)
-  {
-    $asleep = [];
-    $anchored = [];
-    $fleeting = [];
-    foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
-      if ($c->hasToken(ASLEEP)) {
-        $asleep[] = $cId;
-      }
-      if ($c->hasToken(ANCHORED)) {
-        $anchored[] = $cId;
-      }
-      if ($c->hasToken(FLEETING)) {
-        $fleeting[] = $cId;
-      }
-    }
-
-    $combination = Utils::cartesian([$asleep, $anchored, $fleeting]);
-    Utils::filter($combination, function ($comb) {
-      return count(array_unique($comb)) == 3;
-    });
-
-    return count($combination) >= 1;
-  }
-
-  public static function notFleeting($card, $event)
-  {
-    return !$card->hasToken(FLEETING) && !($event['fleeting'] ?? false);
-  }
-
-  public static function movesStormsWithForest($card, $event)
-  {
-    $stormMoves = Globals::getStormMoves();
-    if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$event['expedition']])) {
-      return false;
-    }
-
-    $move = $stormMoves[$card->getPId()][$event['expedition']];
-    if (in_array(FOREST, $move['biomes']) && $move['moves'] >= 1) {
-      return true;
-    }
-
-    return false;
-  }
-
-  public static function hasNotMoved($card, $event)
-  {
-    return $event['pId'] == $card->getPId() &&
-      (
-        !isset(Globals::getStormMoves()[$card->getPId()]) ||
-        (
-          (Globals::getStormMoves()[$card->getPId()][STORM_LEFT]['moves'] ?? 0) + (Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0)
-        ) == 0);
-  }
-
-  public static function myExpeditionHasNotMoved($card, $event)
-  {
-    $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? null;
-    $stormMoves = $stormMoves[$card->getLocation()] ?? null;
-    return $event['pId'] == $card->getPId() && (is_null($stormMoves) || ($stormMoves['moves'] ?? 0) == 0);
   }
 }

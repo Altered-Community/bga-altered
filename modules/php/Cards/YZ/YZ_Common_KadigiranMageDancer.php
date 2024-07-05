@@ -29,7 +29,7 @@ class YZ_Common_KadigiranMageDancer extends \ALT\Models\Card
       'costReserve' => 1,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isSpellPlayed',
+          'condition' => 'isCardPlayed:spell',
           'output' => FT::GAIN($this, BOOST)
         ],
       ]

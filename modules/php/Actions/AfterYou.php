@@ -1,16 +1,10 @@
 <?php
+
 namespace ALT\Actions;
-use ALT\Managers\Meeples;
+
 use ALT\Managers\Players;
-use ALT\Managers\Cards;
 use ALT\Core\Notifications;
-use ALT\Managers\ActionCards;
-use ALT\Core\Engine;
 use ALT\Core\Globals;
-use ALT\Core\Stats;
-use ALT\Helpers\Conditions;
-use ALT\Helpers\Utils;
-use ALT\Models\Player;
 
 class AfterYou extends \ALT\Models\Action
 {

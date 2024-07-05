@@ -14,42 +14,42 @@ abstract class FlowConvertor
       1 => ['description' => clienttranslate('{R}'), 'trigger' => '', 'type' => 'effectReserve'],
       2 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'notMeandDrawNotMana'],
       4 => ['description' => clienttranslate('When one of your Expeditions moves forward due to {V} —'), 'trigger' => 'AfterDusk', 'condition' => 'movesStormsWithForest'], // to check if bug with Rin
-      5 => ['description' => clienttranslate('When a Robot joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isRobotPlayed'],
+      5 => ['description' => clienttranslate('When a Robot joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isCardPlayed:robot'],
       7 => ['description' => clienttranslate('When I go to Reserve from your hand —'), 'trigger' => 'Discard', 'condition' => 'isDiscardedFromHandToReserve'],
       8 => ['description' => clienttranslate('When I\'m sacrificed —'), 'trigger' => 'Discard', 'condition' => 'isSacrificed'],
-      10 => ['description' => clienttranslate('When you play a Permanent with Hand Cost {3} or more —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isPermanentAndCost3'],
+      10 => ['description' => clienttranslate('When you play a Permanent with Hand Cost {3} or more —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:permanent:3'],
       11 => ['description' => clienttranslate('When I go to Reserve from the Expedition zone —'), 'trigger' => 'LeaveExpedition', 'condition' => 'notFleeting'],
       12 => ['description' => clienttranslate('When I leave the Expedition zone —'), 'trigger' => 'LeaveExpedition'],
       13 => ['description' => clienttranslate('When a Character you control gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'isCharacterBoostedAndUntap'], // condition to check
       14 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
-      15 => ['description' => clienttranslate('When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isWithZeroStatAndNotMe'],
-      16 => ['description' => clienttranslate('When you play a Permanent —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isPermanent'],
+      15 => ['description' => clienttranslate('When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'conditions' => ['isCardPlayed:::true', 'isCardPlayedWithZeroStat']],
+      16 => ['description' => clienttranslate('When you play a Permanent —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:permanent'],
       17 => ['description' => clienttranslate('At Dusk —'), 'trigger' => 'BeforeDusk'],
-      19 => ['description' => clienttranslate('When another non-token Character joins your Expeditions —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isOtherCharacterNonTokenPlayed'],
+      19 => ['description' => clienttranslate('When another non-token Character joins your Expeditions —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:characterOnly:::true'],
       20 => ['description' => clienttranslate('At Noon —'), 'trigger' => 'Noon', 'condition' => 'myTurn'],
-      21 => ['description' => clienttranslate('When another Character joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isOtherCharacterPlayed'],
+      21 => ['description' => clienttranslate('When another Character joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isCardPlayed:character:::true'],
       22 => ['description' => clienttranslate('{H}'), 'trigger' => '', 'type' => 'effectHand'],
       // 23 => ['description' => clienttranslate('[]]'), 'trigger' => ''],
       24 => ['description' => clienttranslate('{J}'), 'trigger' => '', 'type' => 'effectPlayed'],
       25 => ['description' => clienttranslate('When you create a token —'), 'trigger' => 'InvokeToken', 'condition' => 'myTurn'],
       26 => ['description' => clienttranslate('When you roll one or more dice —'), 'trigger' => 'RollDie', 'condition' => 'myTurn'],
-      27 => ['description' => clienttranslate('When you play a Spell —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isSpellPlayed'],
+      27 => ['description' => clienttranslate('When you play a Spell —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:spell'],
       28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'condition' => 'isFromReserveAfternoon'],
       192 => ['description' => clienttranslate('{D}'), 'trigger' => '', 'type' => 'effectSupport'],
       231 => ['description' => clienttranslate('When I\'m sacrificed —'),  'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
       239 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'notMeandDrawNotMana'],
-      240 => ['description' => clienttranslate('When I gain 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'has1Boost'],
+      240 => ['description' => clienttranslate('When I gain 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'hasBoost'],
     ];
   }
 
   public function getConditions()
   {
     return [
-      166 => ['description' => clienttranslate('If you control two or more Plants other than me:'), 'condition' => 'control2OtherPlants'],
+      166 => ['description' => clienttranslate('If you control two or more Plants other than me:'), 'condition' => 'hasControl:plant:2:true'],
       167 => ['description' => clienttranslate('If you have three or more base statistics of 0 among Characters you control:'), 'condition' => 'has3WithZeroStat'],
-      168 => ['description' => clienttranslate('If I have 3 or more boosts:'), 'condition' => 'has3Boost'],
-      169 => ['description' => clienttranslate('If you control two or more [BOOSTED_CHA_P] Characters:'), 'condition' => 'control2BoostedCharacters'],
+      168 => ['description' => clienttranslate('If I have 3 or more boosts:'), 'condition' => 'hasBoost:3'],
+      169 => ['description' => clienttranslate('If you control two or more [BOOSTED_CHA_P] Characters:'), 'condition' => 'hasControl::2::boosted'],
       170 => [
         'description' => clienttranslate('You may discard one of your Mana Orbs. If you do:'),
         'effect' => FT::ACTION(TARGET, [
@@ -89,7 +89,7 @@ abstract class FlowConvertor
         ),
         'passiveEffect' => ['Discard' => ['condition' => 'isSourceAndDiscardSpell']] // to check
       ],
-      173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'control4Characters'],
+      173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'hasControl::4'],
       175 => [
         'description' => clienttranslate('You may sacrifice a Permanent. If you do:'),
         'effect' =>  FT::ACTION(TARGET, [
@@ -99,7 +99,7 @@ abstract class FlowConvertor
           'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
         ])
       ],
-      176 => ['description' => clienttranslate('If you control two or more Landmarks:'), 'condition' => 'control2Landmarks'],
+      176 => ['description' => clienttranslate('If you control two or more Landmarks:'), 'condition' => 'hasControl:landmark:2'],
       177 => [
         'description' => clienttranslate('Roll a die. On a 4+:'),
         'effect' => FT::ACTION(ROLL_DIE, [
@@ -115,7 +115,7 @@ abstract class FlowConvertor
           'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
         ])
       ],
-      179 => ['description' => clienttranslate('If you control three or more Characters:'), 'condition' => 'control3Characters'],
+      179 => ['description' => clienttranslate('If you control three or more Characters:'), 'condition' => 'hasControl::3'],
       180 => [
         'description' => clienttranslate('You may sacrifice a Character or Permanent. If you do:'),
         'effect' =>  FT::ACTION(TARGET, [
@@ -125,7 +125,7 @@ abstract class FlowConvertor
           'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
         ])
       ],
-      181 => ['description' => clienttranslate('If I have 1 or more boosts:'), 'condition' => 'has1Boost'],
+      181 => ['description' => clienttranslate('If I have 1 or more boosts:'), 'condition' => 'hasBoost'],
       182 => ['description' => clienttranslate('You may put a card from your hand in Reserve. If you do:'), 'condition' => ''],
       183 => ['description' => clienttranslate('If I have 2 or more boosts:'), 'condition' => ''],
       186 => ['description' => clienttranslate('You may pay {1}. If you do:'), 'condition' => ''],

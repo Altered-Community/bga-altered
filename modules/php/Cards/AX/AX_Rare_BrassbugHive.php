@@ -43,11 +43,11 @@ class AX_Rare_BrassbugHive extends \ALT\Models\Card
           ]),
         ],
         'ChooseAssignment' => [
-          'condition' => 'isRobotPlayed',
+          'condition' => 'isCardPlayed:robot',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
         'InvokeToken' => [
-          'condition' => 'isRobotPlayed',
+          'condition' => 'isCardPlayed:robot',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],

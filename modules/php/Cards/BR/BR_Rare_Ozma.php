@@ -29,7 +29,7 @@ class BR_Rare_Ozma extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['forest', 'ocean'],
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control2BoostedOtherCharacters',
+        'condition' => 'hasControl::2:true:boosted',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
     ];

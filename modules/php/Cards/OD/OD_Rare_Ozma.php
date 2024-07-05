@@ -35,7 +35,7 @@ class OD_Rare_Ozma extends \ALT\Models\Card
       'changedStats' => ['forest', 'ocean'],
 
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control3OtherCharacters',
+        'condition' => 'hasControl::3:true',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
       'effectSupport' => [

@@ -29,11 +29,11 @@ class AX_Rare_Athena extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 3,
       'effectReserve' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control2Landmarks',
+        'condition' => 'hasControl:landmark:2',
         'effect' => FT::LOOSE(ME, FLEETING),
       ]),
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'control2Landmarks',
+        'condition' => 'hasControl:landmark:2',
         'effect' => FT::GAIN(ME, BOOST, 2),
       ]),
     ];
