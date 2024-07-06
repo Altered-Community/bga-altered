@@ -24,7 +24,7 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
 
       'costHand' => 4,
       'costReserve' => 4,
-      // Effect managed in RollDie directly
+      'addDice' => 1
 
     ];
   }

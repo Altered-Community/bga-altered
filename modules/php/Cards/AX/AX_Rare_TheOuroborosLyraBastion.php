@@ -31,7 +31,7 @@ class AX_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
-      // Passive effect managed in Resupply
+      'getResupply2' => true
     ];
   }
 }

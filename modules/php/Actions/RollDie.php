@@ -39,15 +39,7 @@ class RollDie extends \ALT\Models\Action
     $player = $player ?? Players::getActive();
 
     // Lyra Bastion management
-    $extraRolls = 0;
-    $extraRolls += $player
-      ->getLandmarks()
-      ->where('uid', 'ALT_CORE_B_LY_30_R')
-      ->count();
-    $extraRolls += $player
-      ->getLandmarks()
-      ->where('uid', 'ALT_CORE_B_LY_30_C')
-      ->count();
+    $extraRolls = $player->getAddDice();
 
     return [$n + $extraRolls, $extraRolls];
   }

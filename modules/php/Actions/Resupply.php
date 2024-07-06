@@ -61,10 +61,7 @@ class Resupply extends \ALT\Models\Action
 
     // manage of AX_Rare_TheOuroborosLyraBastion
     if (
-      $player
-      ->getLandmarks()
-      ->where('uid', 'ALT_CORE_B_LY_30_R2')
-      ->count() >= 1
+      $player->getResupply2()
     ) {
       // draw 2, 1 goes to reserve, the other one is discarded
       $drawn = $player->draw(

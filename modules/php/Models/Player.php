@@ -237,6 +237,26 @@ class Player extends \ALT\Helpers\DB_Model
     return $add;
   }
 
+  public function getAddDice()
+  {
+    $add = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $add += $card->getAddDice();
+    }
+    return $add;
+  }
+
+  public function getResupply2()
+  {
+    $found = false;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->getRessuply2()) {
+        $found = true;
+      }
+    }
+    return $found;
+  }
+
   public function getRegionDifference()
   {
     if (is_null($this->getCompanionToken())) {
