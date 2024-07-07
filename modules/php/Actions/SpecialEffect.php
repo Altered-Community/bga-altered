@@ -169,10 +169,14 @@ class SpecialEffect extends \ALT\Models\Action
           throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
         }
         $subType = $args['subType'];
+        $excludeSelf = $args['excludeSelf'] ?? false;
         $n = $args['n'] ?? 1;
         $player = $card->getPlayer();
         $nodes = [];
         foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($excludeSelf && $cId == $card->getId()) {
+            continue;
+          }
           if (in_array($subType, $pCard->getSubtypes())) {
             $nodes[] = FT::GAIN($pCard, BOOST, $n);
           }
@@ -183,6 +187,15 @@ class SpecialEffect extends \ALT\Models\Action
         $n = $card
           ->getPlayer()
           ->getReserveCards()
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXLandmark':
+        $n = $card
+          ->getPlayer()
+          ->getLandmarks()
           ->count();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
