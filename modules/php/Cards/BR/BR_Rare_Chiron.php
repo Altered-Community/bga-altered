@@ -15,13 +15,13 @@ class BR_Rare_Chiron extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Chiron',
-      'typeline' => 'Character - Trainer',
+      'name' => clienttranslate('Chiron'),
+      'typeline' => clienttranslate('Character - Trainer'),
       'type' => CHARACTER,
-      'flavorText' => '"And now, pray, mark all these things well in a wise heart."',
+      'flavorText' => clienttranslate('"And now, pray, mark all these things well in a wise heart."'),
       'artist' => 'Justice Wong',
       'subtypes' => [TRAINER],
-      'effectDesc' => '{J} #Up to two target Characters# each gain 1 boost.',
+      'effectDesc' => clienttranslate('{J} #Up to two target Characters# each gain 1 boost.'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,
@@ -31,7 +31,7 @@ class BR_Rare_Chiron extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, [
         'upTo' => true,
         'n' => 2,
-        'effect' => FT::ACTION(GAIN, ['type' => BOOST])
+        'effect' => FT::ACTION(GAIN, ['type' => BOOST]),
       ]),
     ];
   }

@@ -15,13 +15,14 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => 'Arjun & Spike',
-      'typeline' => 'Muna Hero',
+      'name' => clienttranslate('Arjun & Spike'),
+      'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
-      'flavorText' => 'When you care for the earth, it let roots grow strong and resilient.',
+      'flavorText' => clienttranslate('When you care for the earth, it let roots grow strong and resilient.'),
       'artist' => 'Ba Vo',
-      'effectDesc' =>
-      '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
+      'effectDesc' => clienttranslate(
+        '{T}, Discard a card from your Reserve: the next Character you play this turn with Hand Cost {3} or less gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+      ),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
@@ -38,16 +39,13 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       // )
       'effectTap' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'hasReserve',
-        'effect' => FT::ACTION(
-          TARGET,
-          [
-            'targetPlayer' => ME,
-            'targetLocation' => [RESERVE],
-            'targetType' => [CHARACTER, SPELL, PERMANENT],
-            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored'])),
-          ]
-        )
-      ])
+        'effect' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [RESERVE],
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored'])),
+        ]),
+      ]),
     ];
   }
 }

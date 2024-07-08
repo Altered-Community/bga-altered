@@ -15,20 +15,19 @@ class MU_Rare_ManaReaping extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Mana Reaping',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Mana Reaping'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'Everything is energy and that\'s all there is to it.',
+      'flavorText' => clienttranslate('Everything is energy and that\'s all there is to it.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => 'Put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).',
+      'effectDesc' => clienttranslate('Put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetType' => [PERMANENT, CHARACTER],
         'effect' => FT::ACTION(DISCARD, ['destination' => MANA, 'tapped' => true]),
-      ])
-
+      ]),
     ];
   }
 }

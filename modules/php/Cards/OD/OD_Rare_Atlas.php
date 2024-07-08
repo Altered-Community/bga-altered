@@ -13,13 +13,13 @@ class OD_Rare_Atlas extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Atlas',
-      'typeline' => 'Character - Titan',
+      'name' => clienttranslate('Atlas'),
+      'typeline' => clienttranslate('Character - Titan'),
       'type' => CHARACTER,
-      'flavorText' => 'Not even the weight of the sky could make him buckle.',
+      'flavorText' => clienttranslate('Not even the weight of the sky could make him buckle.'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [TITAN],
-      'effectDesc' => '$<GIGANTIC>.  #Tokens you control have <GIGANTIC>.#',
+      'effectDesc' => clienttranslate('$<GIGANTIC>.  #Tokens you control have <GIGANTIC>.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -27,7 +27,7 @@ class OD_Rare_Atlas extends \ALT\Models\Card
       'costReserve' => 5,
       'changedStats' => ['forest', 'mountain', 'ocean'],
       'gigantic' => true,
-      'dynamicGigantic' => 'universalGiganticToken'
+      'dynamicGigantic' => 'universalGiganticToken',
     ];
   }
 }

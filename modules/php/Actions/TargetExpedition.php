@@ -21,7 +21,6 @@ class TargetExpedition extends \ALT\Models\Action
     return ST_TARGET_EXPEDITION;
   }
 
-
   public function argTargetExpedition()
   {
     $expeditions = [];

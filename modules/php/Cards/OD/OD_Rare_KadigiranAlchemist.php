@@ -15,14 +15,15 @@ class OD_Rare_KadigiranAlchemist extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Kadigiran Alchemist',
-      'typeline' => 'Character - Scholar',
+      'name' => clienttranslate('Kadigiran Alchemist'),
+      'typeline' => clienttranslate('Character - Scholar'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self.',
+      'flavorText' => clienttranslate(
+        'Alchemy is not just a matter of turning lead to gold. It\'s about purifying yourself of imperfections to become your true self.'
+      ),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '{H} I gain #3 boosts#.',
+      'effectDesc' => clienttranslate('{H} I gain #3 boosts#.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

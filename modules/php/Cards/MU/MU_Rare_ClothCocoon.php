@@ -15,14 +15,15 @@ class MU_Rare_ClothCocoon extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Cloth Cocoon',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Cloth Cocoon'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'Nobody expects... the cloth dancer!',
+      'flavorText' => clienttranslate('Nobody expects... the cloth dancer!'),
       'artist' => 'Zero Wen',
       'subtypes' => [DISRUPTION],
-      'effectDesc' =>
-      '$<FLEETING>.  Choose one:  • Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.  • Discard target Permanent.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Choose one:  • Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.  • Discard target Permanent.'
+      ),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
@@ -36,7 +37,7 @@ class MU_Rare_ClothCocoon extends \ALT\Models\Card
           FT::ACTION(TARGET, [
             'targetType' => [PERMANENT],
             'effect' => FT::ACTION(DISCARD, []),
-          ]),
+          ])
         )
       ),
     ];

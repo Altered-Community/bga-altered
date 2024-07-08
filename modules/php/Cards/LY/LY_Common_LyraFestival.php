@@ -15,14 +15,16 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Lyra Festival',
+      'name' => clienttranslate('Lyra Festival'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' =>
-      '{J} Draw a card.  At Dusk, if you control a <FLEETING> Character, another <ANCHORED> Character and yet another <ASLEEP> Character — You win the game.',
-      'flavorText' =>
-      'When the time of the Kalann Mae comes, the Lyra all feel the call to a single place, where they will bring a masterpiece to life.',
-      'typeline' => 'Permanent - Landmark',
+      'effectDesc' => clienttranslate(
+        '{J} Draw a card.  At Dusk, if you control a <FLEETING> Character, another <ANCHORED> Character and yet another <ASLEEP> Character — You win the game.'
+      ),
+      'flavorText' => clienttranslate(
+        'When the time of the Kalann Mae comes, the Lyra all feel the call to a single place, where they will bring a masterpiece to life.'
+      ),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'artist' => 'Fahmi Fauzi',
 
       'costHand' => 4,

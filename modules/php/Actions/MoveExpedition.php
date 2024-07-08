@@ -47,10 +47,9 @@ class MoveExpedition extends \ALT\Models\Action
       }
     }
 
-
     return [
       'expeditions' => array_values(array_diff($expeditions, $toRemove)),
-      'actPId' => Players::getActive()->getId()
+      'actPId' => Players::getActive()->getId(),
     ];
   }
 

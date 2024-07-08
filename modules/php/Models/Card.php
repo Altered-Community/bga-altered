@@ -95,7 +95,6 @@ class Card extends \ALT\Helpers\DB_Model
     'addDice' => 'int',
     'ressuply2' => 'bool',
 
-
     // Tough management
     'tough' => 'int',
     'dynamicTough' => 'str',
@@ -173,7 +172,6 @@ class Card extends \ALT\Helpers\DB_Model
       $this->setProperties($this->properties);
     }
   }
-
 
   public function isSupported($players, $options)
   {
@@ -293,7 +291,7 @@ class Card extends \ALT\Helpers\DB_Model
     $location = $this->getLocation();
     if (in_array($location, STORMS)) {
       $type = 'LeaveExpedition';
-    } else if ($location == LANDMARK) {
+    } elseif ($location == LANDMARK) {
       $type = 'LeaveLandmark';
     }
 
@@ -320,7 +318,6 @@ class Card extends \ALT\Helpers\DB_Model
       ]);
     }
   }
-
 
   /**
    * Event modifiers template
@@ -386,7 +383,7 @@ class Card extends \ALT\Helpers\DB_Model
     // put the source as the card triggering itself
     $power['output']['sourceId'] = $this->id;
 
-    return [($power['payment'] ?? []), $power['output']];
+    return [$power['payment'] ?? [], $power['output']];
   }
 
   public function getCost()
@@ -409,14 +406,10 @@ class Card extends \ALT\Helpers\DB_Model
 
     switch ($this->getLocation()) {
       case HAND:
-        return ($this->getCostHand() -
-          $typeReduction -
-          ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost);
+        return $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost;
         break;
       case RESERVE:
-        return ($this->getCostReserve() -
-          $typeReduction -
-          ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost);
+        return $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost;
         break;
     }
   }
@@ -518,7 +511,15 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     // OD_Common_GulrangTocsin
-    if (in_array($this->getPlayer()->getHero()->getUid(), ['ALT_CORE_B_OR_03_C']) && $this->getPlayer()->getTotalMana() < 8) {
+    if (
+      in_array(
+        $this->getPlayer()
+          ->getHero()
+          ->getUid(),
+        ['ALT_CORE_B_OR_03_C']
+      ) &&
+      $this->getPlayer()->getTotalMana() < 8
+    ) {
       return $this->isToken() && $this->hasToken(BOOST);
     }
     return false;

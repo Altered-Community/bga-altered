@@ -15,14 +15,15 @@ class LY_Rare_AllIn extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'All In!',
-      'typeline' => 'Spell - Boon',
+      'name' => clienttranslate('All In!'),
+      'typeline' => clienttranslate('Spell - Boon'),
       'type' => SPELL,
-      'flavorText' => 'There\'s a time to be cautious, and a time to bet it all!',
+      'flavorText' => clienttranslate('There\'s a time to be cautious, and a time to bet it all!'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [BOON],
-      'effectDesc' =>
-      'Roll a die. #You may discard a card from your Reserve to increase the result by 2.# Target Character gains X boosts, where X is the final result.',
+      'effectDesc' => clienttranslate(
+        'Roll a die. #You may discard a card from your Reserve to increase the result by 2.# Target Character gains X boosts, where X is the final result.'
+      ),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [

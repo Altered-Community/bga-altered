@@ -4,7 +4,6 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-
 class MU_Rare_ManaChanneling extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,17 +15,18 @@ class MU_Rare_ManaChanneling extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Mana Channeling',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Mana Channeling'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' => 'There\'s only one way to turn the tide: by becoming stronger.',
+      'flavorText' => clienttranslate('There\'s only one way to turn the tide: by becoming stronger.'),
       'artist' => 'Zero Wen',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$<FLEETING>.  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(DRAW_MANA, [])),
-
     ];
   }
 }

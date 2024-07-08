@@ -15,14 +15,15 @@ class MU_Rare_Quetzalcoatl extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Quetzalcóatl',
-      'typeline' => 'Character - Deity Bureaucrat',
+      'name' => clienttranslate('Quetzalcóatl'),
+      'typeline' => clienttranslate('Character - Deity Bureaucrat'),
       'type' => CHARACTER,
-      'flavorText' => 'A soul has yet to be found who is bold enough to contest his wisdom.',
+      'flavorText' => clienttranslate('A soul has yet to be found who is bold enough to contest his wisdom.'),
       'artist' => 'Taras Susak',
       'subtypes' => [DEITY, BUREAUCRAT],
-      'effectDesc' =>
-      'When an opponent draws one or more cards or does <RESUPPLY_T> — Create an <ORDIS_RECRUIT> Soldier token in target Expedition.',
+      'effectDesc' => clienttranslate(
+        'When an opponent draws one or more cards or does <RESUPPLY_T> — Create an <ORDIS_RECRUIT> Soldier token in target Expedition.'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
@@ -50,8 +51,8 @@ class MU_Rare_Quetzalcoatl extends \ALT\Models\Card
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
           ]),
-        ]
-      ]
+        ],
+      ],
     ];
   }
 }

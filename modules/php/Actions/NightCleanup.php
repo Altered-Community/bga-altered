@@ -54,7 +54,10 @@ class Discard extends \ALT\Models\Action
 
     return [
       'log' => $msg,
-      'args' => ['location' => $this->getCtxArg('destination') ?? 'discard', 'card' => $card != '' ? ($card instanceof Collection ? clienttranslate(' multiple cards') : $card->getName()) : ''],
+      'args' => [
+        'location' => $this->getCtxArg('destination') ?? 'discard',
+        'card' => $card != '' ? ($card instanceof Collection ? clienttranslate(' multiple cards') : $card->getName()) : '',
+      ],
     ];
   }
 
@@ -81,16 +84,12 @@ class Discard extends \ALT\Models\Action
     } elseif ($this->getArg('special') == 'allHandReserve') {
       $this->actDiscard(
         $this->getPlayer()
-          ->getHand()->merge($this->getPlayer()
-            ->getReserveCards())
+          ->getHand()
+          ->merge($this->getPlayer()->getReserveCards())
           ->getIds(),
         true
       );
-    } elseif (
-      $this->isNightCleanup() &&
-      !is_null($this->getCtxArg('n') ?? null) &&
-      $this->getCtxArg('n') == ME
-    ) {
+    } elseif ($this->isNightCleanup() && !is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
       $this->actDiscard([$this->getCtx()->getSourceId()], true);
     }
   }
@@ -143,7 +142,7 @@ class Discard extends \ALT\Models\Action
         ],
       ];
     } elseif (!is_null($this->getCtxArg('cardId'))) {
-      $cardId =  $this->getCtxArg('cardId');
+      $cardId = $this->getCtxArg('cardId');
       if ($this->getCtxArg('cardId') == ME) {
         $cardId = $this->ctx->getSourceId();
       }
@@ -255,7 +254,11 @@ class Discard extends \ALT\Models\Action
         if (($this->getCtxArg('desc') ?? '') == 'sacrifice' && $card->isSacrificeAndFleetingDraw()) {
           $this->insertAsChild(['action' => DRAW, 'args' => ['players' => ME]]);
         }
-      } elseif (($this->getCtxArg('desc') ?? '') == 'sacrifice' && $card->isSacrificeAndNotFleetingGoToReserve() && !$card->hasToken(FLEETING)) {
+      } elseif (
+        ($this->getCtxArg('desc') ?? '') == 'sacrifice' &&
+        $card->isSacrificeAndNotFleetingGoToReserve() &&
+        !$card->hasToken(FLEETING)
+      ) {
         // When we sacrifice a card and has this attribute, goes to reserve if not fleeting
         Cards::discard($cardId, RESERVE);
       }
@@ -271,7 +274,9 @@ class Discard extends \ALT\Models\Action
       $seasoned = $card->isSeasoned();
       $toDelete = Meeples::getInLocation('card-' . $cardId)
         ->filter(function ($m) use ($seasoned, $args) {
-          return $seasoned == false || ($args['destination'] == RESERVE && $seasoned == true && $m->getType() != BOOST) || ($args['destination'] != RESERVE && $seasoned == true);
+          return $seasoned == false ||
+            ($args['destination'] == RESERVE && $seasoned == true && $m->getType() != BOOST) ||
+            ($args['destination'] != RESERVE && $seasoned == true);
         })
         ->getIds();
       Meeples::delete($toDelete);
@@ -320,7 +325,7 @@ class Discard extends \ALT\Models\Action
         Notifications::putOnDeck($player, $copyCards, [
           'hand' => $hand,
           'destination' => $args['destination'],
-          'tokensOnly' => count($deletedTokens) == count($cards)
+          'tokensOnly' => count($deletedTokens) == count($cards),
         ]);
       } else {
         Notifications::publicDiscard($player, $copyCards, $msg, [

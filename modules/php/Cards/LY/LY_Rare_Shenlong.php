@@ -13,10 +13,10 @@ class LY_Rare_Shenlong extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Shenlong',
-      'typeline' => 'Character - Deity Dragon',
+      'name' => clienttranslate('Shenlong'),
+      'typeline' => clienttranslate('Character - Deity Dragon'),
       'type' => CHARACTER,
-      'flavorText' => 'Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.',
+      'flavorText' => clienttranslate('Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DEITY, DRAGON],
       'forest' => 8,

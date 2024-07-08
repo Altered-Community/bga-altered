@@ -15,20 +15,19 @@ class MU_Rare_SunWukong extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Sun Wukong',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Sun Wukong'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'Ever the trickster, always the rebel.',
+      'flavorText' => clienttranslate('Ever the trickster, always the rebel.'),
       'artist' => 'Kevin Sidharta',
       'subtypes' => [DEITY],
-      'effectDesc' => '{R} #Target Character# gains 2 boosts.',
+      'effectDesc' => clienttranslate('{R} #Target Character# gains 2 boosts.'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 4,
       'effectReserve' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
-
     ];
   }
 }

@@ -13,12 +13,12 @@ class AX_Common_FoundryEngineer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Foundry Engineer',
+      'name' => clienttranslate('Foundry Engineer'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{R} The next Permanent you play this Afternoon costs {1} less.',
-      'flavorText' => 'Behind every Axiom masterwork, there are Foundry Engineers.',
-      'typeline' => 'Character - Engineer',
+      'effectDesc' => clienttranslate('{R} The next Permanent you play this Afternoon costs {1} less.'),
+      'flavorText' => clienttranslate('Behind every Axiom masterwork, there are Foundry Engineers.'),
+      'typeline' => clienttranslate('Character - Engineer'),
       'artist' => 'Damian Audino',
 
       'forest' => 2,

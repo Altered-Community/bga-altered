@@ -15,13 +15,13 @@ class OD_Rare_CelestialBlast extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Celestial Blast',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Celestial Blast'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'The sky cracked open in a thunderous wave as the dream was unleashed upon the world.',
+      'flavorText' => clienttranslate('The sky cracked open in a thunderous wave as the dream was unleashed upon the world.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Discard up to two targets, Characters or Permanents.  #Draw a card.#',
+      'effectDesc' => clienttranslate('$<FLEETING>.  Discard up to two targets, Characters or Permanents.  #Draw a card.#'),
       'costHand' => 7,
       'costReserve' => 7,
       'effectPlayed' => FT::SEQ(
@@ -33,7 +33,7 @@ class OD_Rare_CelestialBlast extends \ALT\Models\Card
           'effect' => FT::ACTION(DISCARD, []),
         ]),
         FT::ACTION(DRAW, ['players' => ME])
-      )
+      ),
     ];
   }
 }

@@ -4,7 +4,6 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-
 class BR_Rare_TinyJinn extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,14 +15,15 @@ class BR_Rare_TinyJinn extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Tiny Jinn',
-      'typeline' => 'Character - Elemental',
+      'name' => clienttranslate('Tiny Jinn'),
+      'typeline' => clienttranslate('Character - Elemental'),
       'type' => CHARACTER,
-      'flavorText' => 'It may be a fire today — tomorrow it will be ashes.',
+      'flavorText' => clienttranslate('It may be a fire today — tomorrow it will be ashes.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [ELEMENTAL],
-      'effectDesc' =>
-      'When I leave the Expedition zone, if I\'m <BOOSTED> — Put me in my owner\'s Mana zone (as an exhausted Mana Orb).  {R} I gain 1 boost.',
+      'effectDesc' => clienttranslate(
+        'When I leave the Expedition zone, if I\'m <BOOSTED> — Put me in my owner\'s Mana zone (as an exhausted Mana Orb).  {R} I gain 1 boost.'
+      ),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 0,

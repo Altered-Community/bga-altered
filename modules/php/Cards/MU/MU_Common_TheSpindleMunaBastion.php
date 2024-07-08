@@ -13,14 +13,15 @@ class MU_Common_TheSpindleMunaBastion extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => 'The Spindle, Muna Bastion',
+      'name' => clienttranslate('The Spindle, Muna Bastion'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'Characters you control have $<TOUGH_2>.',
-      'typeline' => 'Permanent - Landmark',
+      'effectDesc' => clienttranslate('Characters you control have $<TOUGH_2>.'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'artist' => 'Ba Vo',
-      'flavorText' =>
-        'Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.',
+      'flavorText' => clienttranslate(
+        'Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.'
+      ),
 
       'costHand' => 3,
       'costReserve' => 3,

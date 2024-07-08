@@ -15,13 +15,14 @@ class LY_Common_Anansi extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Anansi',
+      'name' => clienttranslate('Anansi'),
       'type' => CHARACTER,
       'subtypes' => [DEITY, ARTIST],
-      'effectDesc' => '{J} I gain 1 boost$<BB> for each card in your Reserve.',
-      'typeline' => 'Character - Deity Artist',
-      'flavorText' =>
-        'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.',
+      'effectDesc' => clienttranslate('{J} I gain 1 boost$<BB> for each card in your Reserve.'),
+      'typeline' => clienttranslate('Character - Deity Artist'),
+      'flavorText' => clienttranslate(
+        'In the end, he had accumulated pretty well all the wisdom that was available. He put it in a gourd and made a stopper for it.'
+      ),
       'artist' => 'Taras Susak',
 
       'forest' => 2,

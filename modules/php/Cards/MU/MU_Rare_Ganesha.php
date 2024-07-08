@@ -15,20 +15,19 @@ class MU_Rare_Ganesha extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Ganesha',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Ganesha'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'Knowledge and wisdom must walk side by side.',
+      'flavorText' => clienttranslate('Knowledge and wisdom must walk side by side.'),
       'artist' => 'Taras Susak',
       'subtypes' => [DEITY],
-      'effectDesc' => '{J} For each #other Character# you control, you may activate its {j} triggers.',
+      'effectDesc' => clienttranslate('{J} For each #other Character# you control, you may activate its {j} triggers.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
       'costReserve' => 7,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'activateAllOtherCharacters']),
-
     ];
   }
 }

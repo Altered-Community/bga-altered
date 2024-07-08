@@ -4,7 +4,6 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-
 class BR_Rare_HavenBravosBastion extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class BR_Rare_HavenBravosBastion extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Haven, Bravos Bastion',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Haven, Bravos Bastion'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'Haven isn\'t where legends are born... it\'s where they live forever.',
+      'flavorText' => clienttranslate('Haven isn\'t where legends are born... it\'s where they live forever.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#{J} $<RESUPPLY>.#  Your Characters have: \" {R} I gain 1 boost.\"',
+      'effectDesc' => clienttranslate('#{J} $<RESUPPLY>.#  Your Characters have: \" {R} I gain 1 boost.\"'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPassive' => [
@@ -31,8 +30,7 @@ class BR_Rare_HavenBravosBastion extends \ALT\Models\Card
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
-      'effectPlayed' => FT::ACTION(RESUPPLY, [])
-
+      'effectPlayed' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }

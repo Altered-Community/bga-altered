@@ -15,19 +15,21 @@ class OD_Common_TheCouncil extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => 'The Council',
-      'typeline' => 'Character - Bureaucrat',
+      'name' => clienttranslate('The Council'),
+      'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'flavorText' => 'The idea of facing the Council is deterrent enough for most would-be criminals in Asgartha.',
+      'flavorText' => clienttranslate(
+        'The idea of facing the Council is deterrent enough for most would-be criminals in Asgartha.'
+      ),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => 'The {j}, {h} and {r} triggers of Characters facing me don\'t activate.',
+      'effectDesc' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,
       'costHand' => 4,
       'costReserve' => 4,
-      'blockingPower' => true
+      'blockingPower' => true,
     ];
   }
 }

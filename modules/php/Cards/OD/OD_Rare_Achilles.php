@@ -13,19 +13,19 @@ class OD_Rare_Achilles extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Achilles',
-      'typeline' => 'Character - Soldier',
+      'name' => clienttranslate('Achilles'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' => '"Many things lie between us—shadowy mountains and sounding sea."',
+      'flavorText' => clienttranslate('"Many things lie between us—shadowy mountains and sounding sea."'),
       'artist' => 'Taras Susak',
       'subtypes' => [SOLDIER],
-      'effectDesc' => '$<TOUGH_1>.',
+      'effectDesc' => clienttranslate('$<TOUGH_1>.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 5,
       'costReserve' => 5,
-      'tough' => 1
+      'tough' => 1,
     ];
   }
 }

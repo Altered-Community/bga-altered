@@ -45,7 +45,7 @@ trait SetupTrait
     $deckId = $params['deckId'] ?? '';
     $curl = curl_init();
     $baseUrl = 'https://api.equinox-ccg.io';
-    $setup =  [
+    $setup = [
       CURLOPT_URL => $baseUrl . '/login',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
@@ -58,30 +58,27 @@ trait SetupTrait
     switch ($mode) {
       case 'login':
         $setup[CURLOPT_URL] = $baseUrl . '/login';
-        $setup[CURLOPT_POSTFIELDS] = '{
-              "email": "' . $user . '",
-              "password": "' . $secret . '"
+        $setup[CURLOPT_POSTFIELDS] =
+          '{
+              "email": "' .
+          $user .
+          '",
+              "password": "' .
+          $secret .
+          '"
           }';
-        $setup[CURLOPT_HTTPHEADER] = array(
-          'Content-Type: application/json'
-        );
+        $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
         $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
         break;
       case 'deckList':
         $setup[CURLOPT_URL] = $baseUrl . '/deck_user_lists/';
-        $setup[CURLOPT_HTTPHEADER] = [
-          'token: ' . $token,
-          'Authorization: Bearer ' . $token,
-        ];
+        $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
         $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
         // throw new \feException(print_r($setup));
         break;
       case 'deck':
         $setup[CURLOPT_URL] = $baseUrl . $deckId;
-        $setup[CURLOPT_HTTPHEADER] = [
-          'token: ' . $token,
-          'Authorization: Bearer ' . $token,
-        ];
+        $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
         $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
         break;
     }
@@ -95,8 +92,10 @@ trait SetupTrait
   {
     // $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
     $response = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      "game" => "alter" . "ed",
-      'mode' => 'login', 'user' => $user, 'secret' => $secret
+      'game' => 'alter' . 'ed',
+      'mode' => 'login',
+      'user' => $user,
+      'secret' => $secret,
     ]);
     if (!isset($response['token'])) {
       throw new \feException('Invalid login or password');
@@ -109,13 +108,21 @@ trait SetupTrait
   {
     // $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
     $decks = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      "game" => "alter" . "ed",
-      'mode' => 'deckList', 'token' => $token
+      'game' => 'alter' . 'ed',
+      'mode' => 'deckList',
+      'token' => $token,
     ]);
     $deckList = [];
     $numDeck = 0;
     foreach ($decks['hydra:member'] as $deck) {
-      $deckList[$numDeck] = ['deckNum' => $numDeck, 'apiId' => $deck['@id'], 'faction' => $deck['faction']['name'], 'deckName' => $deck['name'], 'hero' => $deck['alterator']['@id'], 'cardCount' => $deck['cardQuantity']];
+      $deckList[$numDeck] = [
+        'deckNum' => $numDeck,
+        'apiId' => $deck['@id'],
+        'faction' => $deck['faction']['name'],
+        'deckName' => $deck['name'],
+        'hero' => $deck['alterator']['@id'],
+        'cardCount' => $deck['cardQuantity'],
+      ];
       $numDeck++;
     }
 
@@ -126,8 +133,10 @@ trait SetupTrait
   {
     // $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
     $deck = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      "game" => "alter" . "ed",
-      'mode' => 'deck', 'token' => $token, 'deckId' => $deckId
+      'game' => 'alter' . 'ed',
+      'mode' => 'deck',
+      'token' => $token,
+      'deckId' => $deckId,
     ]);
     $deckContent = [];
     $deckContent[HERO] = ['card' => Cards::getCardClass($deck['alterator']['reference']), 'n' => 1];
@@ -140,8 +149,6 @@ trait SetupTrait
 
     return $deckContent;
   }
-
-
 
   //////////////////////////////////////////////////////////////////
   //  ____

@@ -4,7 +4,6 @@ namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-
 class YZ_Rare_Hathor extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,15 @@ class YZ_Rare_Hathor extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Hathor',
-      'typeline' => 'Character - Deity Artist',
+      'name' => clienttranslate('Hathor'),
+      'typeline' => clienttranslate('Character - Deity Artist'),
       'type' => CHARACTER,
-      'flavorText' => 'Dance is the language of the soul.',
+      'flavorText' => clienttranslate('Dance is the language of the soul.'),
       'artist' => 'Taras Susak',
       'subtypes' => [DEITY, ARTIST],
-      'supportDesc' => '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,

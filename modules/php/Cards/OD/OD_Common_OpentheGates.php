@@ -15,14 +15,15 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => 'Open the Gates',
-      'typeline' => 'Spell - Maneuver',
+      'name' => clienttranslate('Open the Gates'),
+      'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
       'subtypes' => [MANEUVER],
-      'effectDesc' => 'Create two <ORDIS_RECRUIT> Soldier tokens in each of your Expeditions.',
+      'effectDesc' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in each of your Expeditions.'),
       'artist' => 'Jean-Baptiste Andrier',
-      'flavorText' =>
-        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.',
+      'flavorText' => clienttranslate(
+        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.'
+      ),
 
       'costHand' => 5,
       'costReserve' => 6,

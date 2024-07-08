@@ -4,7 +4,6 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-
 class MU_Rare_Issunboshi extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,14 +15,16 @@ class MU_Rare_Issunboshi extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Issun-bōshi',
-      'typeline' => 'Character - Adventurer',
+      'name' => clienttranslate('Issun-bōshi'),
+      'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
-      'flavorText' => 'Small stature, big heart, immense adventures.',
+      'flavorText' => clienttranslate('Small stature, big heart, immense adventures.'),
       'artist' => 'Anh Tung',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '#{R} Target Character gains 1 boost.#',
-      'supportDesc' => '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('#{R} Target Character gains 1 boost.#'),
+      'supportDesc' => clienttranslate(
+        '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 2,
@@ -33,7 +34,6 @@ class MU_Rare_Issunboshi extends \ALT\Models\Card
       'supportIcon' => 'discard',
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
       'effectReserve' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
-
     ];
   }
 }

@@ -13,13 +13,15 @@ class AX_Rare_TheFrogPrince extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'The Frog Prince',
-      'typeline' => 'Character - Bureaucrat Noble',
+      'name' => clienttranslate('The Frog Prince'),
+      'typeline' => clienttranslate('Character - Bureaucrat Noble'),
       'type' => CHARACTER,
       'subtypes' => [BUREAUCRAT, NOBLE],
-      'supportDesc' => '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from Reserve to do this.)'
+      ),
       'supportIcon' => 'discard',
-      'flavorText' => 'Thankfully, he doesn\'t seal his contracts with a kiss.',
+      'flavorText' => clienttranslate('Thankfully, he doesn\'t seal his contracts with a kiss.'),
       'artist' => 'Gaga Zhou',
 
       'forest' => 3,

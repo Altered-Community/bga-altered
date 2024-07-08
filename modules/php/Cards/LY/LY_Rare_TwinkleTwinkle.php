@@ -15,15 +15,18 @@ class LY_Rare_TwinkleTwinkle extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Twinkle Twinkle',
-      'typeline' => 'Spell - Song',
+      'name' => clienttranslate('Twinkle Twinkle'),
+      'typeline' => clienttranslate('Spell - Song'),
       'type' => SPELL,
-      'flavorText' => 'Up above the world so high, like a diamond in the sky.',
+      'flavorText' => clienttranslate('Up above the world so high, like a diamond in the sky.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SONG],
-      'effectDesc' =>
-      '#$<FLEETING>.#  #All Characters in target Expedition# gain <ASLEEP>. (This only affects one player\'s Characters. During Dusk, ignore their statistics. During Rest, they don\'t go to Reserve and they lose Asleep.)',
-      'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate(
+        '#$<FLEETING>.#  #All Characters in target Expedition# gain <ASLEEP>. (This only affects one player\'s Characters. During Dusk, ignore their statistics. During Rest, they don\'t go to Reserve and they lose Asleep.)'
+      ),
+      'supportDesc' => clienttranslate(
+        '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'
+      ),
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],

@@ -4,7 +4,6 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-
 class BR_Rare_KelonCylinder extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,15 +15,17 @@ class BR_Rare_KelonCylinder extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Kelon Cylinder',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Kelon Cylinder'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' =>
-      'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy for which engineers find new applications every day.',
+      'flavorText' => clienttranslate(
+        'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy for which engineers find new applications every day.'
+      ),
       'artist' => 'Anh Tung',
       'subtypes' => [LANDMARK],
-      'effectDesc' =>
-      '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost.',
+      'effectDesc' => clienttranslate(
+        '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost.'
+      ),
       'costHand' => 1,
       'costReserve' => 1,
       'effectTap' => FT::XOR(

@@ -15,12 +15,12 @@ class YZ_Common_ToothFairy extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => 'Tooth Fairy',
-      'typeline' => 'Character - Fairy',
+      'name' => clienttranslate('Tooth Fairy'),
+      'typeline' => clienttranslate('Character - Fairy'),
       'type' => CHARACTER,
       'subtypes' => [FAIRY],
-      'effectDesc' => '{H} $<SABOTAGE>.',
-      'flavorText' => '"Show me those pearly whites."',
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
+      'flavorText' => clienttranslate('"Show me those pearly whites."'),
       'artist' => 'Anh Tung',
 
       'forest' => 1,

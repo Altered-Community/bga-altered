@@ -15,20 +15,20 @@ class LY_Rare_ConiferalConeman extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Coniferal Coneman',
-      'typeline' => 'Character - Plant',
+      'name' => clienttranslate('Coniferal Coneman'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => '"Dosukoi! Let’s put it in the ground!"',
+      'flavorText' => clienttranslate('"Dosukoi! Let’s put it in the ground!"'),
       'artist' => 'Damian Audino',
       'subtypes' => [PLANT],
-      'effectDesc' => '{J} I gain $<ANCHORED>.',
+      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' => FT::GAIN($this, ANCHORED)
+      'effectPlayed' => FT::GAIN($this, ANCHORED),
     ];
   }
 }

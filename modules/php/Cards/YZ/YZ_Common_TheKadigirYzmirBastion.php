@@ -15,17 +15,18 @@ class YZ_Common_TheKadigirYzmirBastion extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => 'The Kadigir, Yzmir Bastion',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('The Kadigir, Yzmir Bastion'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' =>
-      'What dark, phantasmagorical secrets hide within Asgartha\'s College of Magic? Only madmen and the Yzmirs know for sure...',
+      'flavorText' => clienttranslate(
+        'What dark, phantasmagorical secrets hide within Asgartha\'s College of Magic? Only madmen and the Yzmirs know for sure...'
+      ),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '{T} : The next Spell you play this turn is free.',
+      'effectDesc' => clienttranslate('{T} : The next Spell you play this turn is free.'),
       'costHand' => 8,
       'costReserve' => 8,
-      'effectTap' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextSpellIsFree'])
+      'effectTap' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextSpellIsFree']),
     ];
   }
 }

@@ -15,12 +15,16 @@ class LY_Common_FenCrowbar extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Fen & Crowbar',
-      'typeline' => 'Lyra Hero',
+      'name' => clienttranslate('Fen & Crowbar'),
+      'typeline' => clienttranslate('Lyra Hero'),
       'type' => HERO,
-      'flavorText' => 'When you listen to the voice of the Wind, it always carries you where you\'re meant to be.',
+      'flavorText' => clienttranslate(
+        'When you listen to the voice of the Wind, it always carries you where you\'re meant to be.'
+      ),
       'artist' => 'Anh Tung',
-      'effectDesc' => 'During Morning, draw only one card. Then, put the top card of your deck in your Mana zone instead of a card from your hand.  At Noon — $<RESUPPLY>.  Ignore my abilities during the first Day.',
+      'effectDesc' => clienttranslate(
+        'During Morning, draw only one card. Then, put the top card of your deck in your Mana zone instead of a card from your hand.  At Noon — $<RESUPPLY>.  Ignore my abilities during the first Day.'
+      ),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
       // effect managed in NewDayTrait

@@ -15,14 +15,15 @@ class OD_Common_TeamworkTraining extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => 'Teamwork Training',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Teamwork Training'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'Through their Hive Mind, Ordis turns the thoughts of the multitude into a unified will.',
+      'flavorText' => clienttranslate('Through their Hive Mind, Ordis turns the thoughts of the multitude into a unified will.'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [DISRUPTION],
-      'effectDesc' =>
-      '$<FLEETING>.  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(

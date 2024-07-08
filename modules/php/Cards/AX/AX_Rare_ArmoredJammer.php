@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Rare_ArmoredJammer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class AX_Rare_ArmoredJammer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Armored Jammer',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Armored Jammer'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => '"In a jam? Sorry, mate. Maybe a side-effect of our scrambling..."',
+      'flavorText' => clienttranslate('"In a jam? Sorry, mate. Maybe a side-effect of our scrambling..."'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '{J} $<SABOTAGE>.  #When I leave your Landmark zone — <SABOTAGE>.#',
+      'effectDesc' => clienttranslate('{J} $<SABOTAGE>.  #When I leave your Landmark zone — <SABOTAGE>.#'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
@@ -41,7 +40,7 @@ class AX_Rare_ArmoredJammer extends \ALT\Models\Card
             'effect' => FT::ACTION(DISCARD, []),
           ]),
         ],
-      ]
+      ],
     ];
   }
 }

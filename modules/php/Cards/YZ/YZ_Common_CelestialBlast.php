@@ -15,13 +15,13 @@ class YZ_Common_CelestialBlast extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => 'Celestial Blast',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Celestial Blast'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'The sky cracked open in a thunderous wave as the dream was unleashed upon the world.',
+      'flavorText' => clienttranslate('The sky cracked open in a thunderous wave as the dream was unleashed upon the world.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Discard up to two targets, Characters or Permanents.',
+      'effectDesc' => clienttranslate('$<FLEETING>.  Discard up to two targets, Characters or Permanents.'),
       'costHand' => 7,
       'costReserve' => 7,
       'effectPlayed' => FT::SEQ(
@@ -32,7 +32,7 @@ class YZ_Common_CelestialBlast extends \ALT\Models\Card
           'upTo' => true,
           'effect' => FT::ACTION(DISCARD, []),
         ])
-      )
+      ),
     ];
   }
 }

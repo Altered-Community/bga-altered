@@ -15,20 +15,19 @@ class LY_Rare_Loki extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Loki',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Loki'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'What did you expect?',
+      'flavorText' => clienttranslate('What did you expect?'),
       'artist' => 'Justice Wong',
       'subtypes' => [DEITY],
-      'effectDesc' => '{H} Each player discards their hand #and their Reserve#, then draws three cards.',
+      'effectDesc' => clienttranslate('{H} Each player discards their hand #and their Reserve#, then draws three cards.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 7,
       'costReserve' => 5,
       'effectHand' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHandReserve']), FT::ACTION(DRAW, ['n' => 3])),
-
     ];
   }
 }

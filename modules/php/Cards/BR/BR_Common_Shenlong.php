@@ -13,11 +13,11 @@ class BR_Common_Shenlong extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Shenlong',
+      'name' => clienttranslate('Shenlong'),
       'type' => CHARACTER,
       'subtypes' => [DEITY, DRAGON],
-      'typeline' => 'Character - Deity Dragon',
-      'flavorText' => 'Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.',
+      'typeline' => clienttranslate('Character - Deity Dragon'),
+      'flavorText' => clienttranslate('Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.'),
       'artist' => 'HuoMiao Studio',
 
       'forest' => 8,

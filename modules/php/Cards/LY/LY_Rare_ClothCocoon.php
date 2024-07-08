@@ -4,7 +4,6 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-
 class LY_Rare_ClothCocoon extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class LY_Rare_ClothCocoon extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Cloth Cocoon',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Cloth Cocoon'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'Nobody expects... the cloth dancer!',
+      'flavorText' => clienttranslate('Nobody expects... the cloth dancer!'),
       'artist' => 'Zero Wen',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.',
+      'effectDesc' => clienttranslate('$<FLEETING>.  Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.'),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
@@ -32,7 +31,7 @@ class LY_Rare_ClothCocoon extends \ALT\Models\Card
           'statuses' => [FLEETING, ANCHORED, ASLEEP],
           'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::ACTION(DISCARD, []),
-        ]),
+        ])
       ),
     ];
   }

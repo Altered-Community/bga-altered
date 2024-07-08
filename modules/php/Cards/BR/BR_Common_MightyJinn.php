@@ -15,12 +15,14 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Mighty Jinn',
+      'name' => clienttranslate('Mighty Jinn'),
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
-      'effectDesc' => 'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).',
-      'typeline' => 'Character - Elemental',
-      'flavorText' => 'A single spark can start a wildfire.',
+      'effectDesc' => clienttranslate(
+        'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'
+      ),
+      'typeline' => clienttranslate('Character - Elemental'),
+      'flavorText' => clienttranslate('A single spark can start a wildfire.'),
       'artist' => 'HuoMiao Studio',
 
       'forest' => 4,
@@ -31,7 +33,13 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
 
       'effectPassive' => [
         'LeaveExpedition' => [
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true, 'canPass' => true, 'force' => true]),
+          'output' => FT::ACTION(DISCARD, [
+            'cardId' => ME,
+            'destination' => MANA,
+            'tapped' => true,
+            'canPass' => true,
+            'force' => true,
+          ]),
         ],
       ],
     ];

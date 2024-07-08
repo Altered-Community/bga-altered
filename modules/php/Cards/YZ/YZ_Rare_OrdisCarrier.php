@@ -15,13 +15,13 @@ class YZ_Rare_OrdisCarrier extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Ordis Carrier',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Ordis Carrier'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'The flow of Ordis Recruits seems to go on forever.',
+      'flavorText' => clienttranslate('The flow of Ordis Recruits seems to go on forever.'),
       'artist' => 'Taras Susak',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'At Noon — Create an <ORDIS_RECRUIT> Soldier token in your Companion Expedition.',
+      'effectDesc' => clienttranslate('At Noon — Create an <ORDIS_RECRUIT> Soldier token in your Companion Expedition.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPassive' => [

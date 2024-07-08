@@ -4,7 +4,6 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-
 class LY_Rare_Hooked extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,18 +15,18 @@ class LY_Rare_Hooked extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Hooked',
-      'typeline' => 'Spell - Maneuver',
+      'name' => clienttranslate('Hooked'),
+      'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
-      'flavorText' => 'Get over here!',
+      'flavorText' => clienttranslate('Get over here!'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [MANEUVER],
-      'effectDesc' =>
-      'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)',
+      'effectDesc' => clienttranslate(
+        'Target Character switches Expeditions. (It leaves its Expedition and joins its controller\'s other Expedition.)'
+      ),
       'costHand' => 1,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
-
     ];
   }
 }

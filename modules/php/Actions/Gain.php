@@ -44,7 +44,6 @@ class Gain extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
-
     return true;
   }
 

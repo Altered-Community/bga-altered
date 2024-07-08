@@ -15,13 +15,14 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => 'Rin & Orchid',
-      'typeline' => 'Muna Hero',
+      'name' => clienttranslate('Rin & Orchid'),
+      'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
-      'flavorText' => 'The forest always gives back, when you know where to look.',
+      'flavorText' => clienttranslate('The forest always gives back, when you know where to look.'),
       'artist' => 'Zero Wen',
-      'effectDesc' =>
-      'When one of your Expeditions moves forward due to {V} — Draw a card, then put a card from your hand in Reserve.',
+      'effectDesc' => clienttranslate(
+        'When one of your Expeditions moves forward due to {V} — Draw a card, then put a card from your hand in Reserve.'
+      ),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
@@ -30,19 +31,16 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
           'condition' => 'movesStormsWithForest',
           'output' => FT::SEQ(
             FT::ACTION(DRAW, ['players' => ME]),
-            FT::ACTION(
-              TARGET,
-              [
-                'targetType' => [CHARACTER, SPELL, PERMANENT],
-                'targetPlayer' => ME,
-                'targetLocation' => [HAND],
-                'effect' => FT::DISCARD_TO_RESERVE(),
-              ]
-            ),
+            FT::ACTION(TARGET, [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'targetLocation' => [HAND],
+              'effect' => FT::DISCARD_TO_RESERVE(),
+            ])
           ),
           'n' => 'eachExpedition',
-        ]
-      ]
+        ],
+      ],
     ];
   }
 }

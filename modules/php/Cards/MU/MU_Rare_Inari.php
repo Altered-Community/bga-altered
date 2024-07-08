@@ -15,13 +15,15 @@ class MU_Rare_Inari extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Inari',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Inari'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. ',
+      'flavorText' => clienttranslate(
+        'Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. '
+      ),
       'artist' => 'Matteo Spirito',
       'subtypes' => [DEITY],
-      'effectDesc' => '#At Noon — Draw a card.#',
+      'effectDesc' => clienttranslate('#At Noon — Draw a card.#'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 3,
@@ -30,9 +32,9 @@ class MU_Rare_Inari extends \ALT\Models\Card
       'effectPassive' => [
         'Noon' => [
           'condition' => 'isMe',
-          'output' => FT::ACTION(DRAW, ['players' => ME])
-        ]
-      ]
+          'output' => FT::ACTION(DRAW, ['players' => ME]),
+        ],
+      ],
     ];
   }
 }

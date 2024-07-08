@@ -4,7 +4,6 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-
 class OD_Rare_HavenTrainee extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class OD_Rare_HavenTrainee extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Haven Trainee',
-      'typeline' => 'Character - Apprentice',
+      'name' => clienttranslate('Haven Trainee'),
+      'typeline' => clienttranslate('Character - Apprentice'),
       'type' => CHARACTER,
-      'flavorText' => '"All right, lad, show me what you’ve learned."',
+      'flavorText' => clienttranslate('"All right, lad, show me what you’ve learned."'),
       'artist' => 'Atanas Lozanski',
       'subtypes' => [APPRENTICE],
-      'effectDesc' => '{R} #Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.#',
+      'effectDesc' => clienttranslate('{R} #Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.#'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 1,

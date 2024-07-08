@@ -15,12 +15,14 @@ class BR_Common_ManaChanneling extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Mana Channeling',
+      'name' => clienttranslate('Mana Channeling'),
       'type' => SPELL,
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$<FLEETING>.  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).',
-      'typeline' => 'Spell - Conjuration',
-      'flavorText' => 'There\'s only one way to turn the tide: by becoming stronger.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'
+      ),
+      'typeline' => clienttranslate('Spell - Conjuration'),
+      'flavorText' => clienttranslate('There\'s only one way to turn the tide: by becoming stronger.'),
       'artist' => 'Zero Wen',
 
       'costHand' => 2,

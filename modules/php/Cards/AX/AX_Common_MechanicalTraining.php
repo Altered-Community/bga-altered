@@ -15,12 +15,12 @@ class AX_Common_MechanicalTraining extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Mechanical Training',
+      'name' => clienttranslate('Mechanical Training'),
       'type' => SPELL,
       'subtypes' => [BOON],
-      'effectDesc' => 'Activate the {j} triggers of target Permanent you control.',
-      'flavorText' => 'To learn to create, first learn to fix.',
-      'typeline' => 'Spell - Boon',
+      'effectDesc' => clienttranslate('Activate the {j} triggers of target Permanent you control.'),
+      'flavorText' => clienttranslate('To learn to create, first learn to fix.'),
+      'typeline' => clienttranslate('Spell - Boon'),
       'artist' => 'Damian Audino',
 
       'costHand' => 1,

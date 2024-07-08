@@ -140,10 +140,9 @@ class DiscardDraw extends \ALT\Models\Action
       'description' => $this->getDescription(),
       'totalCost' => $this->getArg('totalCost'),
       'manaOrbs' => $this->getArg('targetLocation') == [MANA],
-      'targetCosts' => []
+      'targetCosts' => [],
     ];
   }
-
 
   public function actTarget($cardIds)
   {
@@ -166,10 +165,12 @@ class DiscardDraw extends \ALT\Models\Action
     }
 
     $cards = Cards::getMany($cardIds);
-    $this->insertAsChild(FT::SEQ(
-      FT::ACTION(DISCARD, ['cardId' => $cardIds], ['sourceId' => $this->getSourceId()]),
-      FT::ACTION(DRAW, ['players' => ME, 'n' => count($cardIds)], ['sourceId' => $this->getSourceId()])
-    ));
+    $this->insertAsChild(
+      FT::SEQ(
+        FT::ACTION(DISCARD, ['cardId' => $cardIds], ['sourceId' => $this->getSourceId()]),
+        FT::ACTION(DRAW, ['players' => ME, 'n' => count($cardIds)], ['sourceId' => $this->getSourceId()])
+      )
+    );
 
     return [$cardIds];
   }

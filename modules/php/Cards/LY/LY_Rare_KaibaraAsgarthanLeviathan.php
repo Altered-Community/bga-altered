@@ -13,21 +13,22 @@ class LY_Rare_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Kaibara, Asgarthan Leviathan',
-      'typeline' => 'Character - Leviathan',
+      'name' => clienttranslate('Kaibara, Asgarthan Leviathan'),
+      'typeline' => clienttranslate('Character - Leviathan'),
       'type' => CHARACTER,
-      'flavorText' => 'For hundreds of years, Kaibara has protected Asagartha.',
+      'flavorText' => clienttranslate('For hundreds of years, Kaibara has protected Asagartha.'),
       'artist' => 'Fahmi Fauzi',
       'subtypes' => [LEVIATHAN],
-      'effectDesc' =>
-      '$<GIGANTIC>.  $<TOUGH_X>, where X is the number of regions between your Hero and Companion. (If they are adjacent, X equals 0.)',
+      'effectDesc' => clienttranslate(
+        '$<GIGANTIC>.  $<TOUGH_X>, where X is the number of regions between your Hero and Companion. (If they are adjacent, X equals 0.)'
+      ),
       'forest' => 6,
       'mountain' => 6,
       'ocean' => 6,
       'costHand' => 8,
       'costReserve' => 8,
       'gigantic' => true,
-      'dynamicTough' => 'region'
+      'dynamicTough' => 'region',
     ];
   }
 }

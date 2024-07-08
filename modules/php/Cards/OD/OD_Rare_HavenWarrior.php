@@ -15,13 +15,15 @@ class OD_Rare_HavenWarrior extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Haven Warrior',
-      'typeline' => 'Character - Soldier',
+      'name' => clienttranslate('Haven Warrior'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' => 'We\'ve all lived through some things. But she\'s been through worse.',
+      'flavorText' => clienttranslate('We\'ve all lived through some things. But she\'s been through worse.'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [SOLDIER],
-      'supportDesc' => '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

@@ -15,21 +15,20 @@ class MU_Rare_MunaMerchant extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Muna Merchant',
-      'typeline' => 'Character - Citizen',
+      'name' => clienttranslate('Muna Merchant'),
+      'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
-      'flavorText' => '"What do you need?"',
+      'flavorText' => clienttranslate('"What do you need?"'),
       'artist' => 'Ba Vo',
       'subtypes' => [CITIZEN],
-      'effectDesc' => '{R} $<RESUPPLY>.',
+      'effectDesc' => clienttranslate('{R} $<RESUPPLY>.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costReserve'],
-      'effectReserve' => FT::ACTION(RESUPPLY, [])
-
+      'effectReserve' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }

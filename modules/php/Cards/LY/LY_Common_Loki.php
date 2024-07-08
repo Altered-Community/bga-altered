@@ -15,12 +15,12 @@ class LY_Common_Loki extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Loki',
+      'name' => clienttranslate('Loki'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => '{H} Each player discards their hand, then draws three cards.',
-      'typeline' => 'Character - Deity',
-      'flavorText' => 'What did you expect?',
+      'effectDesc' => clienttranslate('{H} Each player discards their hand, then draws three cards.'),
+      'typeline' => clienttranslate('Character - Deity'),
+      'flavorText' => clienttranslate('What did you expect?'),
       'artist' => 'Justice Wong',
 
       'forest' => 5,

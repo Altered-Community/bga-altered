@@ -4,7 +4,6 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-
 class LY_Rare_TheSandman extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,15 +15,17 @@ class LY_Rare_TheSandman extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'The Sandman',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('The Sandman'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' =>
-      '"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide."',
+      'flavorText' => clienttranslate(
+        '"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide."'
+      ),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [ARTIST],
-      'effectDesc' =>
-      '{H} Up to one target Character gains <ASLEEP>. #You may have it gain 2 boosts.# (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
+      'effectDesc' => clienttranslate(
+        '{H} Up to one target Character gains <ASLEEP>. #You may have it gain 2 boosts.# (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
+      ),
       'forest' => 0,
       'mountain' => 3,
       'ocean' => 3,
@@ -32,15 +33,9 @@ class LY_Rare_TheSandman extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['costReserve'],
       'effectHand' => FT::ACTION(TARGET, [
-        'upTo' => true, 'effect' => FT::XOR(
-          FT::GAIN(EFFECT, ASLEEP),
-          FT::SEQ(
-            FT::GAIN(EFFECT, ASLEEP),
-            FT::GAIN(EFFECT, BOOST, 2)
-          )
-        )
+        'upTo' => true,
+        'effect' => FT::XOR(FT::GAIN(EFFECT, ASLEEP), FT::SEQ(FT::GAIN(EFFECT, ASLEEP), FT::GAIN(EFFECT, BOOST, 2))),
       ]),
-
     ];
   }
 }

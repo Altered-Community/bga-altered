@@ -15,21 +15,21 @@ class YZ_Common_AetherShard extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => 'Aether Shard',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Aether Shard'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'No mere trinket, but a fragment of purest dream.',
+      'flavorText' => clienttranslate('No mere trinket, but a fragment of purest dream.'),
       'artist' => 'Anh Tung',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'At Noon — Draw a card.',
+      'effectDesc' => clienttranslate('At Noon — Draw a card.'),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPassive' => [
         'Noon' => [
           'condition' => 'isMe',
-          'output' => FT::ACTION(DRAW, ['players' => ME])
-        ]
-      ]
+          'output' => FT::ACTION(DRAW, ['players' => ME]),
+        ],
+      ],
     ];
   }
 }

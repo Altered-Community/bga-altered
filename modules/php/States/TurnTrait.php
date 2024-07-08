@@ -111,7 +111,6 @@ trait TurnTrait
     Globals::setRemoveFleetingCharacterPlayed(false);
     Globals::setPlayedForFree(false);
 
-
     self::giveExtraTime($player->getId());
 
     Stats::incTurns($player);

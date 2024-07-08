@@ -15,16 +15,20 @@ class MU_Rare_Aja extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Aja',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Aja'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'She is the soul of the forest, the patron of herbal medicine. From herbs and roots, she mixes potent potions.',
+      'flavorText' => clienttranslate(
+        'She is the soul of the forest, the patron of herbal medicine. From herbs and roots, she mixes potent potions.'
+      ),
       'artist' => 'Rémi Jacquot',
       'subtypes' => [DEITY],
-      'effectDesc' => '#{J}# Each player puts the top card of their deck in their Mana zone (as an exhausted Mana Orb).',
-      'supportDesc' =>
-      '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate(
+        '#{J}# Each player puts the top card of their deck in their Mana zone (as an exhausted Mana Orb).'
+      ),
+      'supportDesc' => clienttranslate(
+        '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 4,
       'mountain' => 5,
       'ocean' => 4,
@@ -33,7 +37,6 @@ class MU_Rare_Aja extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(DRAW, ['location' => MANA, 'tapped' => true]),
       'supportIcon' => 'discard',
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
-
     ];
   }
 }

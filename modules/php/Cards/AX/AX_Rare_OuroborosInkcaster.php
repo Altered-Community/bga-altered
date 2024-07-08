@@ -15,14 +15,15 @@ class AX_Rare_OuroborosInkcaster extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Ouroboros Inkcaster',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Ouroboros Inkcaster'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => 'When luck joins in the game, cleverness scores double. ',
+      'flavorText' => clienttranslate('When luck joins in the game, cleverness scores double. '),
       'artist' => 'Khoa Viet',
       'subtypes' => [ARTIST],
-      'effectDesc' =>
-      'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',
+      'effectDesc' => clienttranslate(
+        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

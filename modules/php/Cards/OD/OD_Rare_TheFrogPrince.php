@@ -13,10 +13,10 @@ class OD_Rare_TheFrogPrince extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'The Frog Prince',
-      'typeline' => 'Character - Bureaucrat Noble',
+      'name' => clienttranslate('The Frog Prince'),
+      'typeline' => clienttranslate('Character - Bureaucrat Noble'),
       'type' => CHARACTER,
-      'flavorText' => 'Thankfully, he doesn\'t seal his contracts with a kiss.',
+      'flavorText' => clienttranslate('Thankfully, he doesn\'t seal his contracts with a kiss.'),
       'artist' => 'Gaga Zhou',
       'subtypes' => [BUREAUCRAT, NOBLE],
       'forest' => 2,

@@ -27,7 +27,6 @@ class TargetPlayer extends \ALT\Models\Action
 
   public function getDescription()
   {
-
     $msg = clienttranslate('Target player to ${effect_desc}');
 
     return [
@@ -46,7 +45,7 @@ class TargetPlayer extends \ALT\Models\Action
 
     return [
       'opponentsOnly' => $this->getArg('opponentsOnly'),
-      'description' => $this->getDescription()
+      'description' => $this->getDescription(),
     ];
   }
 
@@ -56,7 +55,6 @@ class TargetPlayer extends \ALT\Models\Action
       return [Players::getNextId(Players::getActive())];
     }
   }
-
 
   public function actTargetPlayer($pId)
   {
@@ -77,7 +75,11 @@ class TargetPlayer extends \ALT\Models\Action
     $node['pId'] = $pId;
 
     $this->insertAsChild($node);
-    Notifications::message(clienttranslate('${player_name} targets ${player_name2} for ${card_name}\'s effect'), ['player' => $player, 'player2' => Players::get($pId), 'card' => $this->getSource()]);
+    Notifications::message(clienttranslate('${player_name} targets ${player_name2} for ${card_name}\'s effect'), [
+      'player' => $player,
+      'player2' => Players::get($pId),
+      'card' => $this->getSource(),
+    ]);
 
     return [$pId];
   }

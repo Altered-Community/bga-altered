@@ -15,28 +15,27 @@ class YZ_Rare_KuwattheDissenter extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Kuwat, the Dissenter',
-      'typeline' => 'Character - Mage',
+      'name' => clienttranslate('Kuwat, the Dissenter'),
+      'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
-      'flavorText' => '"There are gates one should not open, there are seals one should not breach. And yet I will."',
+      'flavorText' => clienttranslate(
+        '"There are gates one should not open, there are seals one should not breach. And yet I will."'
+      ),
       'artist' => 'Ba Vo',
       'subtypes' => [MAGE],
-      'effectDesc' => '{J} Sacrifice a Character.',
+      'effectDesc' => clienttranslate('{J} Sacrifice a Character.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 4,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
-      'effectPlayed' =>  FT::ACTION(
-        TARGET,
-        [
-          'targetPlayer' => ME,
-          'targetType' => [CHARACTER, TOKEN],
-          'targetLocation' => STORMS,
-          'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
-        ]
-      ),
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
+        'targetType' => [CHARACTER, TOKEN],
+        'targetLocation' => STORMS,
+        'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+      ]),
     ];
   }
 }

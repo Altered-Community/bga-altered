@@ -15,13 +15,14 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Cloth Cocoon',
+      'name' => clienttranslate('Cloth Cocoon'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' =>
-      '$<FLEETING>.  Choose one:  • Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.  • Discard target Permanent.',
-      'typeline' => 'Spell - Disruption',
-      'flavorText' => 'Nobody expects... the cloth dancer!',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Choose one:  • Discard target <FLEETING_CHAR>, <ANCHORED> or <ASLEEP> Character.  • Discard target Permanent.'
+      ),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('Nobody expects... the cloth dancer!'),
       'artist' => 'Zero Wen',
 
       'costHand' => 3,
@@ -37,7 +38,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
           FT::ACTION(TARGET, [
             'targetType' => [PERMANENT],
             'effect' => FT::ACTION(DISCARD, []),
-          ]),
+          ])
         )
       ),
     ];

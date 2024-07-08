@@ -15,30 +15,30 @@ class MU_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'The Spindle, Muna Bastion',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('The Spindle, Muna Bastion'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' =>
-      'Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.',
+      'flavorText' => clienttranslate(
+        'Within the Spindle\'s trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.'
+      ),
       'artist' => 'Ba Vo',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'Characters you control have $<TOUGH_2>.  #At Noon — Target Character you control gains 1 boost.#',
+      'effectDesc' => clienttranslate(
+        'Characters you control have $<TOUGH_2>.  #At Noon — Target Character you control gains 1 boost.#'
+      ),
       'costHand' => 3,
       'costReserve' => 3,
       'dynamicTough' => 'universalCharacter2',
       'effectPassive' => [
         'Noon' => [
           'condition' => 'isMe',
-          'output' => FT::ACTION(
-            TARGET,
-            [
-              'targetPlayer' => ME,
-              'targetType' => [CHARACTER, TOKEN],
-              'effect' => FT::GAIN(EFFECT, BOOST)
-            ]
-          ),
-        ]
-      ]
+          'output' => FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER, TOKEN],
+            'effect' => FT::GAIN(EFFECT, BOOST),
+          ]),
+        ],
+      ],
     ];
   }
 }

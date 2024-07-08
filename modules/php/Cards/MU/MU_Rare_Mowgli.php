@@ -15,14 +15,15 @@ class MU_Rare_Mowgli extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Mowgli',
-      'typeline' => 'Character - Druid',
+      'name' => clienttranslate('Mowgli'),
+      'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
-      'flavorText' => '"Wake up, you lazy furball!"',
+      'flavorText' => clienttranslate('"Wake up, you lazy furball!"'),
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
-      'supportDesc' =>
-      '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 0,
@@ -30,7 +31,6 @@ class MU_Rare_Mowgli extends \ALT\Models\Card
       'costReserve' => 1,
       'supportIcon' => 'discard',
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
-
     ];
   }
 }

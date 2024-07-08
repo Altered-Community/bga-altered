@@ -15,12 +15,12 @@ class BR_Common_HavenBravosBastion extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Haven, Bravos Bastion',
+      'name' => clienttranslate('Haven, Bravos Bastion'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'Your Characters have: \" {R} I gain 1 boost$<BB>.\"',
-      'typeline' => 'Permanent - Landmark',
-      'flavorText' => 'Haven isn\'t where legends are born... it\'s where they live forever.',
+      'effectDesc' => clienttranslate('Your Characters have: \" {R} I gain 1 boost$<BB>.\"'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
+      'flavorText' => clienttranslate('Haven isn\'t where legends are born... it\'s where they live forever.'),
       'artist' => 'HuoMiao Studio',
 
       'costHand' => 2,

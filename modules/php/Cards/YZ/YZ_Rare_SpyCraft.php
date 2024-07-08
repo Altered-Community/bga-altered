@@ -15,12 +15,12 @@ class YZ_Rare_SpyCraft extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Spy Craft',
+      'name' => clienttranslate('Spy Craft'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<SABOTAGE>, then $<RESUPPLY_LOW>.',
-      'typeline' => 'Spell - Disruption',
-      'flavorText' => 'This message will self-destruct in five seconds.',
+      'effectDesc' => clienttranslate('$<SABOTAGE>, then $<RESUPPLY_LOW>.'),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate('This message will self-destruct in five seconds.'),
       'artist' => 'Nestor Papatriantafyllou',
 
       'costHand' => 2,

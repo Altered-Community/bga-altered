@@ -15,13 +15,13 @@ class OD_Rare_OrdisAttorney extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Ordis Attorney',
-      'typeline' => 'Character - Bureaucrat',
+      'name' => clienttranslate('Ordis Attorney'),
+      'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'flavorText' => 'Objection!',
+      'flavorText' => clienttranslate('Objection!'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => 'When my Expedition fails to move forward during Dusk — Draw a card.',
+      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — Draw a card.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -31,9 +31,9 @@ class OD_Rare_OrdisAttorney extends \ALT\Models\Card
       'effectPassive' => [
         'AfterDusk' => [
           'condition' => 'myExpeditionHasNotMoved',
-          'output' => FT::ACTION(DRAW, ['players' => ME])
-        ]
-      ]
+          'output' => FT::ACTION(DRAW, ['players' => ME]),
+        ],
+      ],
     ];
   }
 }

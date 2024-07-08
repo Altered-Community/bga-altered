@@ -60,9 +60,7 @@ class Resupply extends \ALT\Models\Action
     }
 
     // manage of AX_Rare_TheOuroborosLyraBastion
-    if (
-      $player->getResupply2()
-    ) {
+    if ($player->getResupply2()) {
       // draw 2, 1 goes to reserve, the other one is discarded
       $drawn = $player->draw(
         2,
@@ -92,7 +90,7 @@ class Resupply extends \ALT\Models\Action
           FT::ACTION(
             TARGET,
             [
-              'effect' => FT::ACTION(DISCARD,  ['destination' => RESERVE]),
+              'effect' => FT::ACTION(DISCARD, ['destination' => RESERVE]),
               'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
               'targetLocation' => [LIMBO],
               'targetPlayer' => ME,

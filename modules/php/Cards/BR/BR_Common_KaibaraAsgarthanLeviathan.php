@@ -13,13 +13,14 @@ class BR_Common_KaibaraAsgarthanLeviathan extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Kaibara, Asgarthan Leviathan',
+      'name' => clienttranslate('Kaibara, Asgarthan Leviathan'),
       'type' => CHARACTER,
       'subtypes' => [LEVIATHAN],
-      'effectDesc' =>
-        '$<GIGANTIC>.  $<TOUGH_X>, where X is the number of regions between your Hero and Companion. (If they are adjacent, X equals 0.)',
-      'typeline' => 'Character - Leviathan',
-      'flavorText' => 'For hundreds of years, Kaibara has protected Asagartha.',
+      'effectDesc' => clienttranslate(
+        '$<GIGANTIC>.  $<TOUGH_X>, where X is the number of regions between your Hero and Companion. (If they are adjacent, X equals 0.)'
+      ),
+      'typeline' => clienttranslate('Character - Leviathan'),
+      'flavorText' => clienttranslate('For hundreds of years, Kaibara has protected Asagartha.'),
       'artist' => 'Fahmi Fauzi',
 
       'forest' => 6,

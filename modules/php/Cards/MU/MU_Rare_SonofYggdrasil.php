@@ -15,15 +15,16 @@ class MU_Rare_SonofYggdrasil extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Son of Yggdrasil',
-      'typeline' => 'Character - Plant',
+      'name' => clienttranslate('Son of Yggdrasil'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => 'World trees like the Spindle may have grown from the seeds of the Cosmic Ash.',
+      'flavorText' => clienttranslate('World trees like the Spindle may have grown from the seeds of the Cosmic Ash.'),
       'artist' => 'Ba Vo',
       'subtypes' => [PLANT],
-      'effectDesc' => '$<GIGANTIC>.  #$<TOUGH_1>.#',
-      'supportDesc' =>
-      '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('$<GIGANTIC>.  #$<TOUGH_1>.#'),
+      'supportDesc' => clienttranslate(
+        '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 6,
       'mountain' => 3,
       'ocean' => 3,
@@ -33,7 +34,6 @@ class MU_Rare_SonofYggdrasil extends \ALT\Models\Card
       'tough' => 1,
       'supportIcon' => 'discard',
       'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
-
     ];
   }
 }

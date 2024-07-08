@@ -88,7 +88,10 @@ class Cards extends \ALT\Helpers\CachedPieces
     $faction = FACTIONS[array_rand(FACTIONS)];
     $deckContent = [];
 
-    $deckContent[HERO] = ['card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(), 'n' => 1];
+    $deckContent[HERO] = [
+      'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
+      'n' => 1,
+    ];
     // random cards of the faction
     $i = 0;
     $totalCards = Globals::getTestingOption() ? 80 : 40;

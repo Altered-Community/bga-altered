@@ -39,10 +39,7 @@ class CheckCondition extends \ALT\Models\Action
     $effect = $this->getArg('condition');
     foreach ($cards as $cId => $card) {
       $block = $card->getBlockAutomaticAction();
-      if (
-        isset($block[CHECK_CONDITION]) &&
-        isset($block[CHECK_CONDITION][$effect])
-      ) {
+      if (isset($block[CHECK_CONDITION]) && isset($block[CHECK_CONDITION][$effect])) {
         return false;
       }
     }

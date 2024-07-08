@@ -15,13 +15,14 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Ouroboros Inkcaster',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Ouroboros Inkcaster'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' =>
-      'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',
-      'flavorText' => 'When luck joins in the game, cleverness scores double. ',
+      'effectDesc' => clienttranslate(
+        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
+      ),
+      'flavorText' => clienttranslate('When luck joins in the game, cleverness scores double. '),
       'artist' => 'Khoa Viet',
 
       'forest' => 3,
@@ -33,7 +34,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
       'effectPassive' => [
         'LeaveExpedition' => [
           'condition' => 'notFleeting',
-          'output' =>  FT::ACTION(
+          'output' => FT::ACTION(
             TARGET,
             [
               'targetLocation' => [RESERVE],
@@ -43,7 +44,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
               'effect' => FT::RETURN_TO_HAND(),
             ],
             ['optional' => true]
-          )
+          ),
         ],
       ],
     ];

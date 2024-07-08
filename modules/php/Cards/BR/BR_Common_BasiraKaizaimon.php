@@ -15,12 +15,13 @@ class BR_Common_BasiraKaizaimon extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Basira & Kaizaimon',
+      'name' => clienttranslate('Basira & Kaizaimon'),
       'type' => HERO,
-      'typeline' => 'Bravos Hero',
-      'effectDesc' =>
-      'When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$<BB>.',
-      'flavorText' => 'Only the worthy shall achieve true transcendence under my guidance.',
+      'typeline' => clienttranslate('Bravos Hero'),
+      'effectDesc' => clienttranslate(
+        'When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$<BB>.'
+      ),
+      'flavorText' => clienttranslate('Only the worthy shall achieve true transcendence under my guidance.'),
       'artist' => 'Nestor Papatriantafyllou',
 
       'reserveSlots' => 2,

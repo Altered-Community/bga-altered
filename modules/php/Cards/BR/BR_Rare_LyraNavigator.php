@@ -13,10 +13,12 @@ class BR_Rare_LyraNavigator extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Lyra Navigator',
-      'typeline' => 'Character - Citizen',
+      'name' => clienttranslate('Lyra Navigator'),
+      'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
-      'flavorText' => 'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.',
+      'flavorText' => clienttranslate(
+        'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.'
+      ),
       'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
       'forest' => 0,

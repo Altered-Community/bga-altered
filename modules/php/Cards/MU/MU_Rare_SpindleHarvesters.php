@@ -4,7 +4,6 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-
 class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Spindle Harvesters',
-      'typeline' => 'Character - Animal Plant',
+      'name' => clienttranslate('Spindle Harvesters'),
+      'typeline' => clienttranslate('Character - Animal Plant'),
       'type' => CHARACTER,
-      'flavorText' => 'Some say the harvesters are the caretakers of the world-trees.',
+      'flavorText' => clienttranslate('Some say the harvesters are the caretakers of the world-trees.'),
       'artist' => 'Ba Vo',
       'subtypes' => [ANIMAL, PLANT],
-      'effectDesc' => '{J} I gain $<ANCHORED>.  #At Noon, if I have 2 or more boosts — $<RESUPPLY>.#',
+      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.  #At Noon, if I have 2 or more boosts — $<RESUPPLY>.#'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,
@@ -32,10 +31,9 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'effectPassive' => [
         'Noon' => [
           'condition' => 'hasBoost:2',
-          'output' => FT::ACTION(RESUPPLY, [])
-        ]
+          'output' => FT::ACTION(RESUPPLY, []),
+        ],
       ],
-
     ];
   }
 }

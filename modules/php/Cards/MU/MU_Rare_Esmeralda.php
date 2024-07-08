@@ -15,19 +15,19 @@ class MU_Rare_Esmeralda extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Esmeralda',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Esmeralda'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => 'Eidolon or not, you are our Shepherdess. You lead and we follow.',
+      'flavorText' => clienttranslate('Eidolon or not, you are our Shepherdess. You lead and we follow.'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ARTIST],
-      'effectDesc' => '{H} $<RESUPPLY>.',
+      'effectDesc' => clienttranslate('{H} $<RESUPPLY>.'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectHand' => FT::ACTION(RESUPPLY, [])
+      'effectHand' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }

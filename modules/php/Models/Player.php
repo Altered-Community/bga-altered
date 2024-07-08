@@ -80,8 +80,15 @@ class Player extends \ALT\Helpers\DB_Model
     return Actions::isDoable($action, $ctx, $this);
   }
 
-  public function draw($nb, $fromLocation = null, $toLocation = null, $source = null, $publicMsg = null, $privateMsg = null, $tapped = false)
-  {
+  public function draw(
+    $nb,
+    $fromLocation = null,
+    $toLocation = null,
+    $source = null,
+    $publicMsg = null,
+    $privateMsg = null,
+    $tapped = false
+  ) {
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
     $public = $toLocation == 'hand' ? false : true;
@@ -326,11 +333,10 @@ class Player extends \ALT\Helpers\DB_Model
     // needed to effect after moving
     $moves = Globals::getStormMoves();
     $moves[$this->id][$expedition] = [
-      'biomes' => (is_array($biomes) ? $biomes : []),
+      'biomes' => is_array($biomes) ? $biomes : [],
       'moves' => $n,
     ];
     Globals::setStormMoves($moves);
-
 
     // Do we need to reveal storm?
     $revealed = null;

@@ -15,12 +15,12 @@ class BR_Common_HelpingHand extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Helping Hand',
+      'name' => clienttranslate('Helping Hand'),
       'type' => SPELL,
       'subtypes' => [BOON],
-      'effectDesc' => 'Target Character gains 1 boost$<BB> and loses <FLEETING_CHAR>.',
-      'typeline' => 'Spell - Boon',
-      'flavorText' => 'Never gonna give you up.',
+      'effectDesc' => clienttranslate('Target Character gains 1 boost$<BB> and loses <FLEETING_CHAR>.'),
+      'typeline' => clienttranslate('Spell - Boon'),
+      'flavorText' => clienttranslate('Never gonna give you up.'),
       'artist' => 'Edward Cheekokseang',
 
       'costHand' => 1,

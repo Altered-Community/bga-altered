@@ -13,13 +13,15 @@ class BR_Rare_TomoeGozen extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Tomoe Gozen',
-      'typeline' => 'Character - Soldier',
+      'name' => clienttranslate('Tomoe Gozen'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' => 'For only the most gifted of Alterers could bring humanity\'s long-remembered legends to life.',
+      'flavorText' => clienttranslate(
+        'For only the most gifted of Alterers could bring humanity\'s long-remembered legends to life.'
+      ),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [SOLDIER],
-      'effectDesc' => 'I can\'t be played if you have less than #six Mana Orbs#.',
+      'effectDesc' => clienttranslate('I can\'t be played if you have less than #six Mana Orbs#.'),
       'forest' => 2,
       'mountain' => 5,
       'ocean' => 5,

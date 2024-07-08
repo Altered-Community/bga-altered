@@ -15,26 +15,28 @@ class LY_Rare_LyraSkald extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Lyra Skald',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Lyra Skald'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => 'We\'re all stories, in the end.',
+      'flavorText' => clienttranslate('We\'re all stories, in the end.'),
       'artist' => 'Ba Vo',
       'subtypes' => [ARTIST],
-      'effectDesc' => '#{H} You may discard a card from your Reserve to $<RESUPPLY_INF>.#',
-      'supportDesc' => '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('#{H} You may discard a card from your Reserve to $<RESUPPLY_INF>.#'),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'supportIcon' => 'discard',
-      'effectHand' =>  FT::SEQ_OPTIONAL(
+      'effectHand' => FT::SEQ_OPTIONAL(
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN, PERMANENT, SPELL],
           'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
-          'effect' => FT::ACTION(DISCARD, [])
+          'effect' => FT::ACTION(DISCARD, []),
         ]),
         FT::ACTION(RESUPPLY, [])
       ),

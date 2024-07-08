@@ -13,10 +13,10 @@ class YZ_Rare_OrdisTrooper extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Ordis Trooper',
-      'typeline' => 'Character - Soldier',
+      'name' => clienttranslate('Ordis Trooper'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' => '"Chin up and stand tall. You’re shieldbearers of the Aegis now!"',
+      'flavorText' => clienttranslate('"Chin up and stand tall. You’re shieldbearers of the Aegis now!"'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [SOLDIER],
       'forest' => 1,

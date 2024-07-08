@@ -15,21 +15,19 @@ class OD_Rare_Charge extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Charge!',
-      'typeline' => 'Spell - Maneuver',
+      'name' => clienttranslate('Charge!'),
+      'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
-      'flavorText' => 'Facing terrible odds and an unfathomably huge Leviathan, the Ordis legion charged nonetheless.',
+      'flavorText' => clienttranslate(
+        'Facing terrible odds and an unfathomably huge Leviathan, the Ordis legion charged nonetheless.'
+      ),
       'artist' => 'Zero Wen',
       'subtypes' => [MANEUVER],
-      'effectDesc' => 'Characters you control gain 1 boost.',
+      'effectDesc' => clienttranslate('Characters you control gain 1 boost.'),
       'costHand' => 2,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
-      'effectPlayed' =>
-      FT::ACTION(
-        TARGET,
-        ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)]
-      ),
+      'effectPlayed' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)]),
     ];
   }
 }

@@ -15,13 +15,14 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => 'Gulrang & Tocsin',
-      'typeline' => 'Ordis Hero',
+      'name' => clienttranslate('Gulrang & Tocsin'),
+      'typeline' => clienttranslate('Ordis Hero'),
       'type' => HERO,
-      'flavorText' => 'The Ordis way lies in patience and resilience.',
+      'flavorText' => clienttranslate('The Ordis way lies in patience and resilience.'),
       'artist' => 'Taras Susak',
-      'effectDesc' =>
-      'When you create a token — It gains 1 boost.  If you have less than eight Mana Orbs, <BOOSTED_TKN_P> tokens you control have <DEFENDER>. (Their Expeditions can\'t advance during Dusk.)',
+      'effectDesc' => clienttranslate(
+        'When you create a token — It gains 1 boost.  If you have less than eight Mana Orbs, <BOOSTED_TKN_P> tokens you control have <DEFENDER>. (Their Expeditions can\'t advance during Dusk.)'
+      ),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
@@ -29,9 +30,9 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
       'effectPassive' => [
         'InvokeToken' => [
           'condition' => 'isMe',
-          'output' => FT::GAIN(EFFECT, BOOST)
-        ]
-      ]
+          'output' => FT::GAIN(EFFECT, BOOST),
+        ],
+      ],
     ];
   }
 }

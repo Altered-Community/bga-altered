@@ -15,13 +15,17 @@ class LY_Rare_LyraChronicler extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Lyra Chronicler',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Lyra Chronicler'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => 'Eidolon or human, we are all shaped by stories. They\'re the building blocks of our identity. ',
+      'flavorText' => clienttranslate(
+        'Eidolon or human, we are all shaped by stories. They\'re the building blocks of our identity. '
+      ),
       'artist' => 'Taras Susak',
       'subtypes' => [ARTIST],
-      'supportDesc' => '#{D} : <RESUPPLY>.# (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '#{D} : <RESUPPLY>.# (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)'
+      ),
       'forest' => 4,
       'mountain' => 0,
       'ocean' => 4,

@@ -15,12 +15,14 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Ada Lovelace',
+      'name' => clienttranslate('Ada Lovelace'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'typeline' => 'Character - Engineer',
-      'effectDesc' => '{R} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.',
-      'flavorText' => '"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us."',
+      'typeline' => clienttranslate('Character - Engineer'),
+      'effectDesc' => clienttranslate('{R} You may put a card from your hand in Reserve. If it\'s a Permanent, draw a card.'),
+      'flavorText' => clienttranslate(
+        '"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us."'
+      ),
       'artist' => 'Taras Susak',
 
       'forest' => 1,

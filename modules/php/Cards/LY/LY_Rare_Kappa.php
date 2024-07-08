@@ -13,10 +13,10 @@ class LY_Rare_Kappa extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Kappa',
-      'typeline' => 'Character - Trainer Spirit',
+      'name' => clienttranslate('Kappa'),
+      'typeline' => clienttranslate('Character - Trainer Spirit'),
       'type' => CHARACTER,
-      'flavorText' => '"Push through the pain. Giving up would hurt far more."',
+      'flavorText' => clienttranslate('"Push through the pain. Giving up would hurt far more."'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [TRAINER, SPIRIT],
       'forest' => 4,

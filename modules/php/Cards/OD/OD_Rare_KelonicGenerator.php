@@ -4,7 +4,6 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-
 class OD_Rare_KelonicGenerator extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -15,18 +14,17 @@ class OD_Rare_KelonicGenerator extends \ALT\Models\Card
       'asset' => 'ALT_CORE_B_AX_27_R',
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Kelonic Generator',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Kelonic Generator'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => '"Suspira\'s mines will soon run dry. Your precious Kelon will run dry."',
+      'flavorText' => clienttranslate('"Suspira\'s mines will soon run dry. Your precious Kelon will run dry."'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#{1}#, {T} : Draw a card.',
+      'effectDesc' => clienttranslate('#{1}#, {T} : Draw a card.'),
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
       'effectTap' => FT::SEQ(FT::ACTION(PAY, ['pay' => 1]), FT::ACTION(DRAW, ['players' => ME])),
-
     ];
   }
 }

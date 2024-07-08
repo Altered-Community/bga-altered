@@ -15,18 +15,17 @@ class MU_Rare_Harvest extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Harvest',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Harvest'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' => 'The thankful receiver bears a plentiful harvest.',
+      'flavorText' => clienttranslate('The thankful receiver bears a plentiful harvest.'),
       'artist' => 'Ba Vo',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$<RESUPPLY>, #then <RESUPPLY_LOW> again#.',
+      'effectDesc' => clienttranslate('$<RESUPPLY>, #then <RESUPPLY_LOW> again#.'),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand'],
-      'effectPlayed' => FT::SEQ(FT::ACTION(RESUPPLY, []), FT::ACTION(RESUPPLY, []))
-
+      'effectPlayed' => FT::SEQ(FT::ACTION(RESUPPLY, []), FT::ACTION(RESUPPLY, [])),
     ];
   }
 }

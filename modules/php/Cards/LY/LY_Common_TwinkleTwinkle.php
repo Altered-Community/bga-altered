@@ -15,15 +15,18 @@ class LY_Common_TwinkleTwinkle extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Twinkle Twinkle',
-      'typeline' => 'Spell - Song',
+      'name' => clienttranslate('Twinkle Twinkle'),
+      'typeline' => clienttranslate('Spell - Song'),
       'type' => SPELL,
       'subtypes' => [SONG],
-      'effectDesc' =>
-        'Target Character gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
-      'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate(
+        'Target Character gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
+      ),
+      'supportDesc' => clienttranslate(
+        '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'
+      ),
       'supportIcon' => 'discard',
-      'flavorText' => 'Up above the world so high, like a diamond in the sky.',
+      'flavorText' => clienttranslate('Up above the world so high, like a diamond in the sky.'),
       'artist' => 'HuoMiao Studio',
 
       'costHand' => 2,

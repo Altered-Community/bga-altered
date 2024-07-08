@@ -4,7 +4,6 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-
 class LY_Rare_MightyJinn extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,15 @@ class LY_Rare_MightyJinn extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Mighty Jinn',
-      'typeline' => 'Character - Elemental',
+      'name' => clienttranslate('Mighty Jinn'),
+      'typeline' => clienttranslate('Character - Elemental'),
       'type' => CHARACTER,
-      'flavorText' => 'A single spark can start a wildfire.',
+      'flavorText' => clienttranslate('A single spark can start a wildfire.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [ELEMENTAL],
-      'effectDesc' => 'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).',
+      'effectDesc' => clienttranslate(
+        'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'
+      ),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 0,
@@ -30,7 +31,13 @@ class LY_Rare_MightyJinn extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'LeaveExpedition' => [
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true, 'canPass' => true, 'force' => true])
+          'output' => FT::ACTION(DISCARD, [
+            'cardId' => ME,
+            'destination' => MANA,
+            'tapped' => true,
+            'canPass' => true,
+            'force' => true,
+          ]),
         ],
       ],
     ];

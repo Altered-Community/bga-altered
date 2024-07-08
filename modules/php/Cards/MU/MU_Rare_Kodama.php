@@ -15,15 +15,16 @@ class MU_Rare_Kodama extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Kodama',
-      'typeline' => 'Character - Spirit Plant',
+      'name' => clienttranslate('Kodama'),
+      'typeline' => clienttranslate('Character - Spirit Plant'),
       'type' => CHARACTER,
-      'flavorText' => 'There\'s no greater blessing for a tree than to offer a home for a Kodama.',
+      'flavorText' => clienttranslate('There\'s no greater blessing for a tree than to offer a home for a Kodama.'),
       'artist' => 'Ba Vo',
       'subtypes' => [SPIRIT, PLANT],
-      'effectDesc' => '{H} I gain $<ASLEEP>.',
-      'supportDesc' =>
-      '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('{H} I gain $<ASLEEP>.'),
+      'supportDesc' => clienttranslate(
+        '#{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

@@ -15,12 +15,13 @@ class BR_Common_AtsadiSurge extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Atsadi & Surge',
+      'name' => clienttranslate('Atsadi & Surge'),
       'type' => HERO,
-      'typeline' => 'Bravos Hero',
-      'effectDesc' =>
-      'I begin the game with five Heroism counters.  When you play a Character with Hand Cost greater than or equal to my number of Heroism counters — Draw a card and I gain a Heroism counter.',
-      'flavorText' => 'Every challenge is a blessing that lets me rise even higher.',
+      'typeline' => clienttranslate('Bravos Hero'),
+      'effectDesc' => clienttranslate(
+        'I begin the game with five Heroism counters.  When you play a Character with Hand Cost greater than or equal to my number of Heroism counters — Draw a card and I gain a Heroism counter.'
+      ),
+      'flavorText' => clienttranslate('Every challenge is a blessing that lets me rise even higher.'),
       'artist' => 'Nestor Papatriantafyllou',
 
       'reserveSlots' => 2,

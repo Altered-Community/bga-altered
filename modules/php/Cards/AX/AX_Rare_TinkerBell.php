@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Rare_TinkerBell extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class AX_Rare_TinkerBell extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Tinker Bell',
-      'typeline' => 'Character - Fairy',
+      'name' => clienttranslate('Tinker Bell'),
+      'typeline' => clienttranslate('Character - Fairy'),
       'type' => CHARACTER,
-      'flavorText' => 'Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...',
+      'flavorText' => clienttranslate('Ting! Ting-a-ling! There\'s something magical in mischievous tinkering...'),
       'artist' => 'Anh Tung',
       'subtypes' => [FAIRY],
-      'effectDesc' => '{R} $<SABOTAGE>.',
+      'effectDesc' => clienttranslate('{R} $<SABOTAGE>.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,

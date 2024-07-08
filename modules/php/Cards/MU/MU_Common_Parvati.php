@@ -15,12 +15,14 @@ class MU_Common_Parvati extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => 'Parvati',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Parvati'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => '{H} Target Character gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
-      'flavorText' => 'Only in harmony can the world thrive.',
+      'effectDesc' => clienttranslate(
+        '{H} Target Character gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+      ),
+      'flavorText' => clienttranslate('Only in harmony can the world thrive.'),
       'artist' => 'Nestor Papatriantafyllou',
 
       'forest' => 3,

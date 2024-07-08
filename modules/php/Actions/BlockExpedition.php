@@ -59,7 +59,6 @@ class BlockExpedition extends \ALT\Models\Action
       Globals::setBlockedExpeditions($blocks);
       Notifications::blockAllExpeditions(Players::getActive(), $this->getSource());
     } else {
-
       $expeditions = explode('-', $expedition);
       $blocked = Globals::getBlockedExpeditions();
       $block = [];

@@ -15,17 +15,16 @@ class OD_Rare_ConjuringSeal extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Conjuring Seal',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Conjuring Seal'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' => 'The Imagination shapes our reality just as our beliefs shaped the Æther.',
+      'flavorText' => clienttranslate('The Imagination shapes our reality just as our beliefs shaped the Æther.'),
       'artist' => 'Khoa Viet',
       'subtypes' => [CONJURATION],
-      'effectDesc' => 'Draw two cards.',
+      'effectDesc' => clienttranslate('Draw two cards.'),
       'costHand' => 3,
       'costReserve' => 5,
-      'effectPlayed' => FT::ACTION(DRAW, ['n' => 2, 'players' => ME])
-
+      'effectPlayed' => FT::ACTION(DRAW, ['n' => 2, 'players' => ME]),
     ];
   }
 }

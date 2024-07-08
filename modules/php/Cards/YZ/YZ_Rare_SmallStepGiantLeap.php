@@ -15,17 +15,17 @@ class YZ_Rare_SmallStepGiantLeap extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Small Step, Giant Leap',
-      'typeline' => 'Spell - Maneuver',
+      'name' => clienttranslate('Small Step, Giant Leap'),
+      'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
-      'flavorText' => 'The journey of a thousand miles begins with one step.',
+      'flavorText' => clienttranslate('The journey of a thousand miles begins with one step.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [MANEUVER],
-      'effectDesc' => 'Target Expedition moves forward one region.',
+      'effectDesc' => clienttranslate('Target Expedition moves forward one region.'),
       'costHand' => 6,
       'costReserve' => 7,
       'changedStats' => ['costReserve'],
-      'effectPlayed' => FT::ACTION(MOVE_EXPEDITION, [])
+      'effectPlayed' => FT::ACTION(MOVE_EXPEDITION, []),
     ];
   }
 }

@@ -15,12 +15,12 @@ class OD_Rare_BanishingGate extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Banishing Gate',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Banishing Gate'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Discard target Character or Permanent.',
-      'flavorText' => 'Let me walk you to the door.',
+      'effectDesc' => clienttranslate('$<FLEETING>.  Discard target Character or Permanent.'),
+      'flavorText' => clienttranslate('Let me walk you to the door.'),
       'artist' => 'Jean-Baptiste Andrier',
 
       'costHand' => 4,

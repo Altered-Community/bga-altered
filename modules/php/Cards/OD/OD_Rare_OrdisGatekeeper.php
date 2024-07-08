@@ -15,14 +15,15 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Ordis Gatekeeper',
-      'typeline' => 'Character - Soldier',
+      'name' => clienttranslate('Ordis Gatekeeper'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
       'subtypes' => [SOLDIER],
-      'effectDesc' => '{J} Create an <ORDIS_RECRUIT> Soldier token in #each of your# Expeditions.',
+      'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in #each of your# Expeditions.'),
       'artist' => 'Atanas Lozanski',
-      'flavorText' =>
-      'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
+      'flavorText' => clienttranslate(
+        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.'
+      ),
 
       'forest' => 1,
       'mountain' => 1,

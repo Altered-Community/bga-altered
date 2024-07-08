@@ -4,7 +4,6 @@ namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-
 class YZ_Rare_BrassbugHive extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,14 +15,15 @@ class YZ_Rare_BrassbugHive extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Brassbug Hive',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Brassbug Hive'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'What could possibly go wrong with an adorable little self-replicating autonomous robot?',
+      'flavorText' => clienttranslate('What could possibly go wrong with an adorable little self-replicating autonomous robot?'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' =>
-      '{J} Create a <BRASSBUG> Robot token in target Expedition.  At Noon — Create a <BRASSBUG> Robot token in target Expedition.',
+      'effectDesc' => clienttranslate(
+        '{J} Create a <BRASSBUG> Robot token in target Expedition.  At Noon — Create a <BRASSBUG> Robot token in target Expedition.'
+      ),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [

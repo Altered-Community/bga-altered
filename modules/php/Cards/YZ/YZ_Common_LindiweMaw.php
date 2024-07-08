@@ -15,12 +15,14 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => 'Lindiwe & Maw',
-      'typeline' => 'Yzmir Hero',
+      'name' => clienttranslate('Lindiwe & Maw'),
+      'typeline' => clienttranslate('Yzmir Hero'),
       'type' => HERO,
-      'flavorText' => 'To master magic, one must be willing to sacrifice.',
+      'flavorText' => clienttranslate('To master magic, one must be willing to sacrifice.'),
       'artist' => 'Edward Cheekokseang',
-      'effectDesc' => '{T} : Create a [Maw 0/0/0] Companion token in your Companion Expedition with "When you sacrifice a Character — I gain 2 boosts". This action costs {1} more if you are not the first player.',
+      'effectDesc' => clienttranslate(
+        '{T} : Create a [Maw 0/0/0] Companion token in your Companion Expedition with "When you sacrifice a Character — I gain 2 boosts". This action costs {1} more if you are not the first player.'
+      ),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
@@ -29,14 +31,14 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
           'conditions' => ['isNotFirstPlayer', 'CanPay:1'],
           'effect' => FT::SEQ(
             FT::ACTION(PAY, ['pay' => 1]),
-            FT::ACTION(INVOKE_TOKEN,  ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]])
-          )
+            FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]])
+          ),
         ]),
         FT::ACTION(CHECK_CONDITION, [
           'condition' => 'isFirstPlayer',
-          'effect' => FT::ACTION(INVOKE_TOKEN,  ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]])
+          'effect' => FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'YZ_Common_Maw', 'targetLocation' => [STORM_RIGHT]]),
         ])
-      )
+      ),
     ];
   }
 }

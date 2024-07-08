@@ -15,13 +15,13 @@ class YZ_Rare_HelpingHand extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Helping Hand',
-      'typeline' => 'Spell - Boon',
+      'name' => clienttranslate('Helping Hand'),
+      'typeline' => clienttranslate('Spell - Boon'),
       'type' => SPELL,
-      'flavorText' => 'Never gonna give you up.',
+      'flavorText' => clienttranslate('Never gonna give you up.'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [BOON],
-      'effectDesc' => 'Target Character gains 1 boost and loses <FLEETING_CHAR>.',
+      'effectDesc' => clienttranslate('Target Character gains 1 boost and loses <FLEETING_CHAR>.'),
       'costHand' => 1,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [

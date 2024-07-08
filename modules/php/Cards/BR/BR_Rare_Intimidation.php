@@ -4,7 +4,6 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-
 class BR_Rare_Intimidation extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,15 @@ class BR_Rare_Intimidation extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Intimidation',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Intimidation'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'The terrible beast shrank and cowered before the might of the Bravos.',
+      'flavorText' => clienttranslate('The terrible beast shrank and cowered before the might of the Bravos.'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Return target Character or Permanent with Hand Cost #{5} or less# to its owner\'s hand.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Return target Character or Permanent with Hand Cost #{5} or less# to its owner\'s hand.'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(

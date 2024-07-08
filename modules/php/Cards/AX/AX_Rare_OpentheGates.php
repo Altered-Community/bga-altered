@@ -15,14 +15,15 @@ class AX_Rare_OpentheGates extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Open the Gates',
-      'typeline' => 'Spell - Maneuver',
+      'name' => clienttranslate('Open the Gates'),
+      'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
-      'flavorText' =>
-      'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.',
+      'flavorText' => clienttranslate(
+        'For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.'
+      ),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [MANEUVER],
-      'effectDesc' => 'Create #a <BRASSBUG> Robot# token in each of your Expeditions.',
+      'effectDesc' => clienttranslate('Create #a <BRASSBUG> Robot# token in each of your Expeditions.'),
       'costHand' => 4,
       'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],

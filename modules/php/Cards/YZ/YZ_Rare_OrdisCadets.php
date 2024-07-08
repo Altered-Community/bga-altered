@@ -15,14 +15,16 @@ class YZ_Rare_OrdisCadets extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Ordis Cadets',
-      'typeline' => 'Character - Apprentice Soldier',
+      'name' => clienttranslate('Ordis Cadets'),
+      'typeline' => clienttranslate('Character - Apprentice Soldier'),
       'type' => CHARACTER,
-      'flavorText' => 'Together they learn, and together they\'ll protect.',
+      'flavorText' => clienttranslate('Together they learn, and together they\'ll protect.'),
       'artist' => 'Anh Tung',
       'subtypes' => [APPRENTICE, SOLDIER],
-      'effectDesc' => '{J} Create an <ORDIS_RECRUIT> Soldier token in my Expedition.',
-      'supportDesc' => '#{D} : The next Spell you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in my Expedition.'),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next Spell you play this turn costs {1} less.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,

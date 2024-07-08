@@ -15,21 +15,25 @@ class LY_Rare_LyraClothDancer extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Lyra Cloth Dancer',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Lyra Cloth Dancer'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => 'Hope you\'re not afraid of heights!',
+      'flavorText' => clienttranslate('Hope you\'re not afraid of heights!'),
       'artist' => 'Fori Y.',
       'subtypes' => [ARTIST],
-      'effectDesc' =>
-      '{H} #Each Character controlled by target player# gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)',
+      'effectDesc' => clienttranslate(
+        '{H} #Each Character controlled by target player# gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)'
+      ),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
       'changedStats' => ['mountain'],
-      'effectHand' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => false, 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'fleetingAllCharacters'])])
+      'effectHand' => FT::ACTION(TARGET_PLAYER, [
+        'opponentsOnly' => false,
+        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'fleetingAllCharacters']),
+      ]),
     ];
   }
 }

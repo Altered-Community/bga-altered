@@ -15,30 +15,30 @@ class YZ_Rare_TheKraken extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'The Kraken',
-      'typeline' => 'Character - Leviathan',
+      'name' => clienttranslate('The Kraken'),
+      'typeline' => clienttranslate('Character - Leviathan'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'The Kraken tears open the surface, sending plumes of water crashing down on the troops in an apocalyptic deluge.',
+      'flavorText' => clienttranslate(
+        'The Kraken tears open the surface, sending plumes of water crashing down on the troops in an apocalyptic deluge.'
+      ),
       'artist' => 'Fahmi Fauzi',
       'subtypes' => [LEVIATHAN],
-      'effectDesc' => '$<GIGANTIC>.  {J} Sacrifice #one Character#.  All regions are {E} and lose their other types.',
+      'effectDesc' => clienttranslate(
+        '$<GIGANTIC>.  {J} Sacrifice #one Character#.  All regions are {E} and lose their other types.'
+      ),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 8,
       'costHand' => 7,
       'costReserve' => 7,
       'gigantic' => true,
-      'effectPlayed' => FT::ACTION(
-        TARGET,
-        [
-          'targetPlayer' => ME,
-          'targetType' => [CHARACTER, TOKEN],
-          'n' => 1,
-          'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
-        ]
-      ),
-      'updateExpeditions' => ['type' => 'all', 'regionsRemove' => [MOUNTAIN, FOREST], 'regionsAdd' => [OCEAN]]
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
+        'targetType' => [CHARACTER, TOKEN],
+        'n' => 1,
+        'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+      ]),
+      'updateExpeditions' => ['type' => 'all', 'regionsRemove' => [MOUNTAIN, FOREST], 'regionsAdd' => [OCEAN]],
     ];
   }
 }

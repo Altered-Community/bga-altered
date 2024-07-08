@@ -15,12 +15,12 @@ class AX_Common_Boom extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Boom!',
+      'name' => clienttranslate('Boom!'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Sacrifice a Character. If you do, discard target Character or Permanent.',
-      'flavorText' => '"Catastrophic failure? I prefer the term \'learning opportunity\'."',
-      'typeline' => 'Spell - Disruption',
+      'effectDesc' => clienttranslate('$<FLEETING>.  Sacrifice a Character. If you do, discard target Character or Permanent.'),
+      'flavorText' => clienttranslate('"Catastrophic failure? I prefer the term \'learning opportunity\'."'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'artist' => 'HuoMiao Studio',
 
       'costHand' => 3,

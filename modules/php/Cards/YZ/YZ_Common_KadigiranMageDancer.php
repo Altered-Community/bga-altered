@@ -15,13 +15,13 @@ class YZ_Common_KadigiranMageDancer extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => 'Kadigiran Mage-Dancer',
-      'typeline' => 'Character - Soldier Mage',
+      'name' => clienttranslate('Kadigiran Mage-Dancer'),
+      'typeline' => clienttranslate('Character - Soldier Mage'),
       'type' => CHARACTER,
-      'flavorText' => '"Don\'t just wait for magic to happen. Go out and make your own!"',
+      'flavorText' => clienttranslate('"Don\'t just wait for magic to happen. Go out and make your own!"'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SOLDIER, MAGE],
-      'effectDesc' => 'When you play a Spell — I gain 1 boost$<BB>.',
+      'effectDesc' => clienttranslate('When you play a Spell — I gain 1 boost$<BB>.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
@@ -30,9 +30,9 @@ class YZ_Common_KadigiranMageDancer extends \ALT\Models\Card
       'effectPassive' => [
         'ChooseAssignment' => [
           'condition' => 'isCardPlayed:spell',
-          'output' => FT::GAIN($this, BOOST)
+          'output' => FT::GAIN($this, BOOST),
         ],
-      ]
+      ],
     ];
   }
 }

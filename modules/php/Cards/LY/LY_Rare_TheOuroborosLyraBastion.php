@@ -28,7 +28,7 @@ class LY_Rare_TheOuroborosLyraBastion extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
-      'addDice' => 1
+      'addDice' => 1,
     ];
   }
 }

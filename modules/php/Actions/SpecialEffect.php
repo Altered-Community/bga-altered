@@ -307,7 +307,7 @@ class SpecialEffect extends \ALT\Models\Action
             [
               'cardId' => $drawn->getId(),
               'free' => true,
-              'effectHand' => false
+              'effectHand' => false,
             ],
             ['sourceId' => $card->getId(), 'optional' => true]
           )
@@ -315,9 +315,11 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'triggerEffectOfNextCharacter':
         $addEffects = Globals::getAdditionalEffect();
-        $addEffects = array_merge($addEffects,  [['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]]);
+        $addEffects = array_merge($addEffects, [['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]]);
         Globals::setAdditionalEffect($addEffects);
-        Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), ['player' => Players::getActive()]);
+        Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), [
+          'player' => Players::getActive(),
+        ]);
         break;
       case 'AfterRestSabotage':
         $afterRest = Globals::getAfterRest();
@@ -325,16 +327,18 @@ class SpecialEffect extends \ALT\Models\Action
         if (!isset($afterRest[$pId])) {
           $afterRest[$pId] = [];
         }
-        $afterRest[$pId] = array_merge($afterRest[$pId], [FT::ACTION(
-          TARGET,
-          [
-            'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
-            'targetLocation' => [RESERVE],
-            'upTo' => true,
-            'effect' => FT::ACTION(DISCARD, []),
-          ],
-          ['sourceId' => $card->getId()]
-        )]);
+        $afterRest[$pId] = array_merge($afterRest[$pId], [
+          FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+              'targetLocation' => [RESERVE],
+              'upTo' => true,
+              'effect' => FT::ACTION(DISCARD, []),
+            ],
+            ['sourceId' => $card->getId()]
+          ),
+        ]);
         Globals::setAfterRest($afterRest);
         break;
       case 'AfterRestOrdisRecruit':
@@ -343,15 +347,17 @@ class SpecialEffect extends \ALT\Models\Action
         if (!isset($afterRest[$pId])) {
           $afterRest[$pId] = [];
         }
-        $afterRest[$pId] = array_merge($afterRest[$pId], [FT::ACTION(
-          INVOKE_TOKEN,
-          [
-            'pId' => 'source',
-            'tokenType' => 'OD_Common_OrdisRecruit',
-            'targetLocation' => STORMS,
-          ],
-          ['sourceId' => $card->getId()]
-        )]);
+        $afterRest[$pId] = array_merge($afterRest[$pId], [
+          FT::ACTION(
+            INVOKE_TOKEN,
+            [
+              'pId' => 'source',
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => STORMS,
+            ],
+            ['sourceId' => $card->getId()]
+          ),
+        ]);
         Globals::setAfterRest($afterRest);
         break;
       case 'AfterRest2OrdisRecruit':
@@ -360,16 +366,18 @@ class SpecialEffect extends \ALT\Models\Action
         if (!isset($afterRest[$pId])) {
           $afterRest[$pId] = [];
         }
-        $afterRest[$pId] = array_merge($afterRest[$pId], [FT::ACTION(
-          INVOKE_TOKEN,
-          [
-            'pId' => 'source',
-            'tokenType' => 'OD_Common_OrdisRecruit',
-            'n' => 2,
-            'targetLocation' => STORMS,
-          ],
-          ['sourceId' => $card->getId()]
-        )]);
+        $afterRest[$pId] = array_merge($afterRest[$pId], [
+          FT::ACTION(
+            INVOKE_TOKEN,
+            [
+              'pId' => 'source',
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'n' => 2,
+              'targetLocation' => STORMS,
+            ],
+            ['sourceId' => $card->getId()]
+          ),
+        ]);
         Globals::setAfterRest($afterRest);
         break;
       case 'AllPlayersSacrifice1':
@@ -377,20 +385,21 @@ class SpecialEffect extends \ALT\Models\Action
         $player = $activePlayer;
         $nodes = null;
         do {
-          $nodes[] =
-            FT::ACTION(
-              TARGET,
-              [
-                'targetPlayer' => ME,
-                'targetType' => [CHARACTER, TOKEN],
-                'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
-              ],
-              ['pId' => $player->getId(), 'sourceId' => $card->getId()]
-            );
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetPlayer' => ME,
+              'targetType' => [CHARACTER, TOKEN],
+              'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+            ],
+            ['pId' => $player->getId(), 'sourceId' => $card->getId()]
+          );
           $player = Players::getNext($player);
         } while ($player->getId() != $activePlayer->getId());
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
-        Notifications::message(clienttranslate('All players must sacrifice 1 character (${card_name}\'s effect)'), ['card' => $card]);
+        Notifications::message(clienttranslate('All players must sacrifice 1 character (${card_name}\'s effect)'), [
+          'card' => $card,
+        ]);
         break;
       case 'eachPlayerOptionalResupply':
         $nodes = [];
@@ -399,9 +408,7 @@ class SpecialEffect extends \ALT\Models\Action
             'type' => NODE_SEQ,
             'optional' => true,
             'pId' => $pId,
-            'childs' => [
-              FT::ACTION(RESUPPLY, [], ['pId' => $pId, 'sourceId' => $this->getSourceId()])
-            ]
+            'childs' => [FT::ACTION(RESUPPLY, [], ['pId' => $pId, 'sourceId' => $this->getSourceId()])],
           ];
         }
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);

@@ -13,10 +13,10 @@ class AX_Rare_Mowgli extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Mowgli',
-      'typeline' => 'Character - Druid',
+      'name' => clienttranslate('Mowgli'),
+      'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
-      'flavorText' => '"Wake up, you lazy furball!"',
+      'flavorText' => clienttranslate('"Wake up, you lazy furball!"'),
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
       'forest' => 3,
