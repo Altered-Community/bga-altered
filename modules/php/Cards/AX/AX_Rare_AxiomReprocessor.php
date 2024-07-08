@@ -28,7 +28,7 @@ class AX_Rare_AxiomReprocessor extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],

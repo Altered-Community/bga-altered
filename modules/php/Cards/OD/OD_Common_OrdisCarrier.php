@@ -27,7 +27,7 @@ class OD_Common_OrdisCarrier extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',

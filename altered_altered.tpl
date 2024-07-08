@@ -32,6 +32,10 @@
       <div id="altered-board-me"></div>
     </div>
   </div>
+
+  <div id="altered-board-overlay">
+    <div id="altered-overlay-content"></div>
+  </div>
 </div>
 
 <div id="test-cards"></div>

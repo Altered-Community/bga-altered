@@ -26,7 +26,7 @@ class OD_Rare_GrandEndeavor extends \ALT\Models\Card
       'costReserve' => 6,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(MOVE_EXPEDITION, ['n' => 1, 'expedition' => null]),
         ]
       ],

@@ -28,7 +28,7 @@ class MU_Rare_TheSpindleMunaBastion extends \ALT\Models\Card
       'dynamicTough' => 'universalCharacter2',
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(
             TARGET,
             [

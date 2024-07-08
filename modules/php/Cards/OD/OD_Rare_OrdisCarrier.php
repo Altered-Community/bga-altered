@@ -27,7 +27,7 @@ class OD_Rare_OrdisCarrier extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::SEQ(
             FT::ACTION(INVOKE_TOKEN, [
               'pId' => 'source',

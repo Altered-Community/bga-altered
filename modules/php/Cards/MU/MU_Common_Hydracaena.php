@@ -32,7 +32,7 @@ class MU_Common_Hydracaena extends \ALT\Models\Card
       'effectPlayed' => FT::GAIN($this, BOOST, 4),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::GAIN($this, BOOST, 4)
         ]
       ]

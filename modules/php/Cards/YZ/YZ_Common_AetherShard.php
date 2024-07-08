@@ -26,7 +26,7 @@ class YZ_Common_AetherShard extends \ALT\Models\Card
       'costReserve' => 5,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(DRAW, ['players' => ME])
         ]
       ]

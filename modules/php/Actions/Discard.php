@@ -213,8 +213,7 @@ class Discard extends \ALT\Models\Action
       }
 
       $card = Cards::get($cardId);
-      $card->checkLeaveExpeditionListener();
-      $card->checkLeaveLandmarkListener();
+      $card->checkLeaveListener('discard');
       // $totalCost += $card->getCostHand();
       if ($card->getLocation() == HAND) {
         $hand = true;

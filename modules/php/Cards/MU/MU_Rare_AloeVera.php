@@ -29,7 +29,7 @@ class MU_Rare_AloeVera extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(RESUPPLY, [])
         ]
       ],

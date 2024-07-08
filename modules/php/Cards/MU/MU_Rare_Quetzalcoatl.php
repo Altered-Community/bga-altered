@@ -45,7 +45,7 @@ class MU_Rare_Quetzalcoatl extends \ALT\Models\Card
           ]),
         ],
         'Morning' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',

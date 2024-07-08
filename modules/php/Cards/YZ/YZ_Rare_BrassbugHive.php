@@ -33,7 +33,7 @@ class YZ_Rare_BrassbugHive extends \ALT\Models\Card
       ]),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'AX_Common_Brassbug',

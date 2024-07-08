@@ -27,7 +27,7 @@ class AX_Common_AxiomReprocessor extends \ALT\Models\Card
       'costReserve' => 4,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],

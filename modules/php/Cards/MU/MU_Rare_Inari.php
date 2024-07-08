@@ -29,7 +29,7 @@ class MU_Rare_Inari extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(DRAW, ['players' => ME])
         ]
       ]

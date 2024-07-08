@@ -30,7 +30,7 @@ class MU_Common_Dracaena extends \ALT\Models\Card
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::GAIN($this, BOOST)
         ]
       ]

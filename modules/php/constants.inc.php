@@ -167,6 +167,7 @@ const EFFECT = 'EFFECT';
 
 const HERO = 'hero';
 const CHARACTER = 'character';
+const TOKEN = 'token';
 const PERMANENT = 'permanent';
 const LANDMARK = 'landmark';
 const SPELL = 'spell';
@@ -244,7 +245,6 @@ const SPIRIT = 'spirit';
 const SOLDIER = 'soldier';
 const BUREAUCRAT = 'bureaucrat';
 const MAGE = 'mage';
-const TOKEN = 'token';
 
 const NOBLE = 'noble';
 const SONG = 'song';
@@ -283,7 +283,6 @@ const SUBTYPES = [
   SOLDIER,
   BUREAUCRAT,
   MAGE,
-  TOKEN,
   NOBLE,
   SONG,
   LEVIATHAN,
@@ -308,7 +307,13 @@ const GIGANTIC = 'gigantic';
 const ANCHORED = 'anchored';
 const ASLEEP = 'asleep';
 
+
+/*********************
+ ******* MISC ********
+ *********************/
 const API_URL = 'https://api.equinox-ccg.io';
+
+const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas'];
 
 /******************
  ****** STATS ******
