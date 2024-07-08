@@ -27,7 +27,7 @@ class OD_Rare_BabasIsba extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
       'effectTap' =>
       FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'controlCharacters', 'effect' => FT::SEQ(
+        'condition' => 'canSacrifice', 'effect' => FT::SEQ(
           FT::ACTION(
             TARGET,
             [

@@ -26,7 +26,7 @@ class YZ_Common_BabasIsba extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
       'effectTap' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'controlCharacters', 'effect' =>
+        'condition' => 'canSacrifice', 'effect' =>
         FT::SEQ(
           FT::ACTION(
             TARGET,

@@ -173,11 +173,13 @@ class ChooseAssignment extends \ALT\Models\Action
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
 
-    // if played from reserve, it gains fleeting
+    // When does this happens ????
     if ($location == DISCARD) {
       $deleted = $card->discard();
       Notifications::silentKill($deleted);
-    } elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
+    }
+    // if played from reserve, it gains fleeting
+    elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }

@@ -110,7 +110,6 @@ class Loose extends \ALT\Models\Action
 
       if (count($deleted) > 0) {
         Notifications::looseMeeples($resource, $card, $deleted, false);
-        Notifications::updateBiomes($card->getPlayer());
       }
 
       $this->checkAfterListeners($player, ['loose' => $args]);

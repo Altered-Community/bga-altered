@@ -71,7 +71,6 @@ class MoveCard extends \ALT\Models\Action
       Notifications::moveCard($source->getPlayer(), $card, $source);
     }
 
-    Notifications::updateBiomes($card->getPlayer());
     $this->resolveAction(null);
   }
 }

@@ -487,15 +487,6 @@ class Notifications
     ]);
   }
 
-  public static function updateBiomes($player)
-  {
-    self::notifyAll('updateBiomes', '', [
-      'biomes' => $player->getBiomeStrength(),
-      'pId' => $player->getId(),
-      'movements' => Players::computeStorm(),
-    ]);
-  }
-
   public static function winTieBreaker($player, $n)
   {
     self::notifyAll('winTieBreaker', clienttranslate('${player_name} wins the tiebreaker with ${n} attributes'), [

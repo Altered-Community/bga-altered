@@ -71,6 +71,5 @@ class BlockExpedition extends \ALT\Models\Action
       Globals::setBlockedExpeditions($blocked);
       Notifications::blockExpedition(Players::getActive(), Players::get($expeditions[2]), $expeditions[1]);
     }
-    Notifications::updateBiomes(Players::getActive());
   }
 }

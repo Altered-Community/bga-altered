@@ -178,6 +178,7 @@ const HAND = 'hand';
 const RESERVE = 'reserve';
 const LIMBO = 'limbo';
 const MANA = 'mana';
+const LANDMARK = 'landmark';
 
 const PHASE_MORNING = 'morning';
 const PHASE_NOON = 'noon';
@@ -260,8 +261,6 @@ const APPRENTICE = 'apprentice';
 const MANEUVER = 'maneuver';
 const SCHOLAR = 'scholar';
 const ANIMAL = 'animal';
-
-const LANDMARK = 'landmark';
 
 const SUBTYPES = [
   DIVINITY,

@@ -202,7 +202,7 @@ abstract class Conditions
 
   public static function canSacrifice($card, $event)
   {
-    return Players::get($event['pId'])->getPlayedCards([CHARACTER, TOKEN])->count() > 0;
+    return self::hasControl($card, $event, CHARACTER, 1);
   }
 
   public static function hasControlFleetingAnchoredAsleep($card, $event)
