@@ -182,7 +182,7 @@ abstract class FlowConvertor
   {
     return [
       29 => [
-        clienttranslate('Sacrifice two Characters.'),
+        'description' => clienttranslate('Sacrifice two Characters.'),
         'output' => FT::ACTION(
           TARGET,
           [
@@ -193,14 +193,14 @@ abstract class FlowConvertor
           ]
         )
       ],
-      30 => [clienttranslate('Target opponent draws a card.'), 'output' =>  FT::ACTION(DRAW, ['players' => OPPONENT])],
-      31 => [clienttranslate('I can\'t be played if you have less than seven Mana Orbs.'), 'attributes' => ['minManaOrbs' => 7]],
-      32 => [clienttranslate('I have <DEFENDER>.'), 'attributes' => ['defender' => true]],
-      33 => [clienttranslate('I gain <ASLEEP>.'), 'output' => FT::GAIN(ME, ASLEEP)],
-      34 => [clienttranslate('I gain <FLEETING>.'), 'output' => FT::GAIN(ME, FLEETING)],
-      35 => [clienttranslate('I can\'t be played if you have less than six Mana Orbs.'), 'attributes' => ['minManaOrbs' => 6]],
+      30 => ['description' => clienttranslate('Target opponent draws a card.'), 'output' =>  FT::ACTION(DRAW, ['players' => OPPONENT])],
+      31 => ['description' => clienttranslate('I can\'t be played if you have less than seven Mana Orbs.'), 'attributes' => ['minManaOrbs' => 7]],
+      32 => ['description' => clienttranslate('I have <DEFENDER>.'), 'attributes' => ['defender' => true]],
+      33 => ['description' => clienttranslate('I gain <ASLEEP>.'), 'output' => FT::GAIN(ME, ASLEEP)],
+      34 => ['description' => clienttranslate('I gain <FLEETING>.'), 'output' => FT::GAIN(ME, FLEETING)],
+      35 => ['description' => clienttranslate('I can\'t be played if you have less than six Mana Orbs.'), 'attributes' => ['minManaOrbs' => 6]],
       36 => [
-        clienttranslate('Sacrifice a Character in my Expedition.'),
+        'description' => clienttranslate('Sacrifice a Character in my Expedition.'),
         'output' =>  FT::ACTION(
           TARGET,
           [
@@ -211,18 +211,18 @@ abstract class FlowConvertor
           ]
         ),
       ],
-      37 => [clienttranslate('I lose $<FLEETING>.'), 'output' => FT::LOOSE(ME, FLEETING)],
+      37 => ['description' => clienttranslate('I lose $<FLEETING>.'), 'output' => FT::LOOSE(ME, FLEETING)],
       38 => [
-        clienttranslate('You may play me for free and I gain <ASLEEP>.'),
+        'description' => clienttranslate('You may play me for free and I gain <ASLEEP>.'),
         'output' => FT::SEQ_OPTIONAL(
           FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]),
           FT::GAIN(ME, ASLEEP)
         ),
       ],
-      39 => [clienttranslate('Each player draws a card.'), 'output' =>  FT::ACTION(DRAW, [])],
-      40 => [clienttranslate('Each player puts the top card of their deck in their Mana zone (as an exhausted Mana Orb).'), 'output' => FT::ACTION(DRAW, ['location' => MANA, 'tapped' => true])],
+      39 => ['description' => clienttranslate('Each player draws a card.'), 'output' =>  FT::ACTION(DRAW, [])],
+      40 => ['description' => clienttranslate('Each player puts the top card of their deck in their Mana zone (as an exhausted Mana Orb).'), 'output' => FT::ACTION(DRAW, ['location' => MANA, 'tapped' => true])],
       41 => [
-        clienttranslate('You may put a card from your hand in Reserve.'),
+        'description' => clienttranslate('You may put a card from your hand in Reserve.'),
         'output' => FT::ACTION(
           TARGET,
           [
@@ -236,7 +236,7 @@ abstract class FlowConvertor
         ),
       ],
       42 => [
-        clienttranslate('You may have target Character other than me lose <FLEETING>.'),
+        'description' => clienttranslate('You may have target Character other than me lose <FLEETING>.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
           'targetPlayer' => ME,
@@ -245,17 +245,17 @@ abstract class FlowConvertor
           'effect' => FT::LOOSE(EFFECT, FLEETING),
         ]),
       ],
-      43 => [clienttranslate('Each player may <RESUPPLY_INF>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalResupply'])],
-      44 => [clienttranslate('Put me in Reserve.'), 'output' => FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => ME])],
-      45 => [clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'attributes' => ['blockingPower' => true]],
-      46 => [clienttranslate('I have <SEASONED>.'), 'attributes' => ['seasoned' => true]],
-      47 => [clienttranslate('I have <TOUGH_1>.'), 'attributes' => ['tough' => 1]],
-      48 => [clienttranslate('If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'), 'attributes' => ['addDice' => 1]],
-      49 => [clienttranslate('If you would roll a die, you may add 1 to its result. (Choose after you see the result.)'), 'attributes' => ['addRoll' => 1]],
-      50 => [clienttranslate('I have <TOUGH_X>, where X is the number of regions between your Hero and Companion.'), 'attributes' => ['dynamicTough' => 'region']],
-      51 => [clienttranslate('<RESUPPLY>.'), 'output' => FT::ACTION(RESUPPLY, []),],
+      43 => ['description' => clienttranslate('Each player may <RESUPPLY_INF>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalResupply'])],
+      44 => ['description' => clienttranslate('Put me in Reserve.'), 'output' => FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => ME])],
+      45 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'attributes' => ['blockingPower' => true]],
+      46 => ['description' => clienttranslate('I have <SEASONED>.'), 'attributes' => ['seasoned' => true]],
+      47 => ['description' => clienttranslate('I have <TOUGH_1>.'), 'attributes' => ['tough' => 1]],
+      48 => ['description' => clienttranslate('If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'), 'attributes' => ['addDice' => 1]],
+      49 => ['description' => clienttranslate('If you would roll a die, you may add 1 to its result. (Choose after you see the result.)'), 'attributes' => ['addRoll' => 1]],
+      50 => ['description' => clienttranslate('I have <TOUGH_X>, where X is the number of regions between your Hero and Companion.'), 'attributes' => ['dynamicTough' => 'region']],
+      51 => ['description' => clienttranslate('<RESUPPLY>.'), 'output' => FT::ACTION(RESUPPLY, []),],
       52 => [
-        clienttranslate('You may return a Spell from your Reserve to your hand.'),
+        'description' => clienttranslate('You may return a Spell from your Reserve to your hand.'),
         'output' =>  FT::ACTION(
           TARGET,
           [
@@ -267,35 +267,35 @@ abstract class FlowConvertor
           ['optional' => true]
         ),
       ],
-      54 => [clienttranslate('I have [TOUGH_2].'),  'attributes' => ['tough' => 2]],
-      56 => [clienttranslate('I gain 1 boost.'), 'output' => FT::GAIN(ME, BOOST)],
+      54 => ['description' => clienttranslate('I have [TOUGH_2].'),  'attributes' => ['tough' => 2]],
+      56 => ['description' => clienttranslate('I gain 1 boost.'), 'output' => FT::GAIN(ME, BOOST)],
       57 => [
-        clienttranslate('The next Permanent you play this Afternoon costs {1} less.'),
+        'description' => clienttranslate('The next Permanent you play this Afternoon costs {1} less.'),
         'output' => [
           'action' => SPECIAL_EFFECT,
           'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1, 'permanent' => true]],
         ],
       ],
       58 => [
-        clienttranslate('The next Plant you play this Afternoon costs {1} less.'),
+        'description' => clienttranslate('The next Plant you play this Afternoon costs {1} less.'),
         'output' => [
           'action' => SPECIAL_EFFECT,
           'args' => ['effect' => 'costReduction', 'args' => ['type' => PLANT, 'reduction' => 1, 'permanent' => true]],
         ],
       ],
       59 => [
-        clienttranslate('The next Spell you play this Afternoon costs {1} less.'),
+        'description' => clienttranslate('The next Spell you play this Afternoon costs {1} less.'),
         'output' => [
           'action' => SPECIAL_EFFECT,
           'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1, 'permanent' => true]],
         ],
       ],
       60 => [
-        clienttranslate('Activate the {r} triggers of the next Character you play from your hand this turn.'),
+        'description' => clienttranslate('Activate the {r} triggers of the next Character you play from your hand this turn.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'triggerEffectOfNextCharacter', 'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE]]),
       ],
       61 => [
-        clienttranslate('You may return a card other than me from your Reserve to your hand.'),
+        'description' => clienttranslate('You may return a card other than me from your Reserve to your hand.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
           'excludeSelf' => true,
@@ -305,14 +305,14 @@ abstract class FlowConvertor
         ]),
       ],
       63 => [
-        clienttranslate('The next Bureaucrat you play this Afternoon costs {1} less.'),
+        'description' => clienttranslate('The next Bureaucrat you play this Afternoon costs {1} less.'),
         'output' => [
           'action' => SPECIAL_EFFECT,
           'args' => ['effect' => 'costReduction', 'args' => ['type' => BUREAUCRAT, 'reduction' => 1, 'permanent' => true]],
         ],
       ],
       64 => [
-        clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in my Expedition.'),
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
@@ -320,7 +320,7 @@ abstract class FlowConvertor
         ]),
       ],
       65 => [
-        clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your Companion Expedition.'),
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your Companion Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
@@ -328,7 +328,7 @@ abstract class FlowConvertor
         ]),
       ],
       66 => [
-        clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your Hero Expedition.'),
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your Hero Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
@@ -336,34 +336,34 @@ abstract class FlowConvertor
         ]),
       ],
       67 => [
-        clienttranslate('Plants you control other than me gain 1 boost.'),
+        'description' => clienttranslate('Plants you control other than me gain 1 boost.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => PLANT]]),
       ],
       68 => [
-        clienttranslate('Roll a die. On a 4+, I gain 2 boosts. On a 1-3, I gain 1 boost.'),
+        'description' =>  clienttranslate('Roll a die. On a 4+, I gain 2 boosts. On a 1-3, I gain 1 boost.'),
         'output' =>  FT::ACTION(ROLL_DIE, [
           'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 2)],
         ]),
       ],
       69 => [
-        clienttranslate('Up to one target Character gains <ASLEEP>.'),
+        'description' => clienttranslate('Up to one target Character gains <ASLEEP>.'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,  'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::GAIN(EFFECT, ASLEEP)
         ]),
       ],
       70 => [
-        clienttranslate('Up to one target Character gains <FLEETING>].'),
+        'description' => clienttranslate('Up to one target Character gains <FLEETING>].'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,  'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::GAIN(EFFECT, ASLEEP)
         ]),
       ],
-      71 => [clienttranslate('Reduce my cost by {1}.'), 'output' => ''], // TODO
-      72 => [clienttranslate('If you would <RESUPPLY_INF>, instead look at the top two cards of your deck. Put one in Reserve, and discard the other.'), 'attributes' => ['resupply2' => true]],
-      73 => [clienttranslate('Characters you control other than me have [TOUGH_1].'), 'output' => ''], // TODO
+      71 => ['description' => clienttranslate('Reduce my cost by {1}.'), 'output' => ''], // TODO
+      72 => ['description' => clienttranslate('If you would <RESUPPLY_INF>, instead look at the top two cards of your deck. Put one in Reserve, and discard the other.'), 'attributes' => ['resupply2' => true]],
+      73 => ['description' => clienttranslate('Characters you control other than me have [TOUGH_1].'), 'output' => ''], // TODO
       75 => [
-        clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your other Expedition (the one I\'m not in).'),
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your other Expedition (the one I\'m not in).'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
@@ -371,26 +371,26 @@ abstract class FlowConvertor
         ]),
       ],
       76 => [
-        clienttranslate('Robots you control other than me gain 1 boost.'),
+        'description' => clienttranslate('Robots you control other than me gain 1 boost.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ROBOT, 'excludeSelf' => true]])
       ],
       77 => [
-        clienttranslate('Target Character gains 1 boost.'),
+        'description' => clienttranslate('Target Character gains 1 boost.'),
         'output' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])])
       ],
       78 => [
-        clienttranslate('Target Character switches Expedition.'),
+        'description' => clienttranslate('Target Character switches Expedition.'),
         'output' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
       ],
       79 => [
-        clienttranslate('The next card you play this Afternoon costs {1} less.'),
+        'description' => clienttranslate('The next card you play this Afternoon costs {1} less.'),
         'output' => [
           'action' => SPECIAL_EFFECT,
           'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'permanent' => true, 'reduction' => 1]],
         ],
       ],
       80 => [
-        clienttranslate('<SABOTAGE>.'),
+        'description' => clienttranslate('<SABOTAGE>.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
           'targetLocation' => [RESERVE],
@@ -399,18 +399,18 @@ abstract class FlowConvertor
         ]),
       ],
       81 => [
-        clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in target Expedition.'),
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in target Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
         ]),
       ],
       82 => [
-        clienttranslate('I gain 1 boost for each card in your Reserve.'),
+        'description' => clienttranslate('I gain 1 boost for each card in your Reserve.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserve']),
       ],
       83 => [
-        clienttranslate('Roll a die. On a 4+, draw a card. On a 1-3, <RESUPPLY>.'),
+        'description' => clienttranslate('Roll a die. On a 4+, draw a card. On a 1-3, <RESUPPLY>.'),
         'output' => FT::ACTION(ROLL_DIE, [
           'effect' => [
             '1-3' => FT::ACTION(RESUPPLY, []),
@@ -419,7 +419,7 @@ abstract class FlowConvertor
         ]),
       ],
       84 => [
-        clienttranslate('Your Characters have: \"{R} I gain 1 boost.\"'),
+        'description' =>  clienttranslate('Your Characters have: \"{R} I gain 1 boost.\"'),
         'passive' => [
           'ChooseAssignment' => [
             'condition' => 'isCharacterFromReserveNotBlocked',
@@ -428,11 +428,11 @@ abstract class FlowConvertor
         ],
       ],
       86 => [
-        clienttranslate('I gain 1 boost for each Landmark you control.'),
+        'description' =>  clienttranslate('I gain 1 boost for each Landmark you control.'),
         'output' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXLandmark']),
       ],
       87 => [
-        clienttranslate('You may activate the {j} triggers of target Permanent you control.'),
+        'description' => clienttranslate('You may activate the {j} triggers of target Permanent you control.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
@@ -441,7 +441,7 @@ abstract class FlowConvertor
         ]),
       ],
       88 => [
-        clienttranslate('You may have target Character other than me lose [FLEETING] and gain 1 boost.'),
+        'description' => clienttranslate('You may have target Character other than me lose [FLEETING] and gain 1 boost.'),
         'output' => FT::ACTION(
           TARGET,
           [
@@ -455,12 +455,12 @@ abstract class FlowConvertor
         ),
       ],
       89 => [
-        clienttranslate('Each player sacrifices a Character.'),
+        'description' =>  clienttranslate('Each player sacrifices a Character.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AllPlayersSacrifice1'])
       ],
-      90 => [clienttranslate('Draw a card.'), 'output' => FT::ACTION(DRAW, ['players' => ME])],
+      90 => ['description' => clienttranslate('Draw a card.'), 'output' => FT::ACTION(DRAW, ['players' => ME])],
       91 => [
-        clienttranslate('Up to one target Character gains <ASLEEP>. You may have it gain 2 boosts.'),
+        'description' =>  clienttranslate('Up to one target Character gains <ASLEEP>. You may have it gain 2 boosts.'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true, 'effect' => FT::XOR(
             FT::GAIN(EFFECT, ASLEEP),
@@ -472,35 +472,35 @@ abstract class FlowConvertor
         ]),
       ],
       92 => [
-        clienttranslate('Each Character controlled by target player gains <FLEETING>.'),
+        'description' => clienttranslate('Each Character controlled by target player gains <FLEETING>.'),
         'output' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => false, 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'fleetingAllCharacters'])])
       ],
       94 => [
-        clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains [ANCHORED].'),
+        'description' => clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains [ANCHORED].'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
       ],
-      95 => [clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => 1]],
+      95 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => 1]],
       96 => [
-        clienttranslate('Put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
+        'description' => clienttranslate('Put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
           DISCARD,
           ['cardId' => ME, 'destination' => MANA, 'tapped' => true, 'force' => true]
         ),
       ],
-      97 => [clienttranslate('I gain 2 boosts.'), 'output' => FT::GAIN(ME, BOOST, 2),],
+      97 => ['description' => clienttranslate('I gain 2 boosts.'), 'output' => FT::GAIN(ME, BOOST, 2),],
       98 => [
-        clienttranslate('You may return target Character or Permanent with Hand Cost {4} or less to its owner\'s hand.'),
+        'description' => clienttranslate('You may return target Character or Permanent with Hand Cost {4} or less to its owner\'s hand.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
       ],
       99 => [
-        clienttranslate('Roll a die. On a 4+, I gain 3 boosts. On a 1-3, I gain 1 boost.'),
+        'description' => clienttranslate('Roll a die. On a 4+, I gain 3 boosts. On a 1-3, I gain 1 boost.'),
         'output' => FT::ACTION(ROLL_DIE, [
           'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 2)],
         ]),
       ],
-      100 => [clienttranslate('Target Character gains [ANCHORED].'), 'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),],
+      100 => ['description' => clienttranslate('Target Character gains [ANCHORED].'), 'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),],
       101 => [
-        clienttranslate('Target Character in your other Expedition (the one I\'m not in) gains 2 boosts.'),
+        'description' => clienttranslate('Target Character in your other Expedition (the one I\'m not in) gains 2 boosts.'),
         'output' => FT::ACTION(TARGET, [
           'targetLocation' => ['oppositeSource'],
           'targetPlayer' => ME,
@@ -508,26 +508,26 @@ abstract class FlowConvertor
         ]),
       ],
       102 => [
-        clienttranslate('The next Permanent you play this Afternoon costs {2} less.'),
+        'description' => clienttranslate('The next Permanent you play this Afternoon costs {2} less.'),
         'output' => [
           'action' => SPECIAL_EFFECT,
           'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 2, 'permanent' => true]],
         ],
       ],
       104 => [
-        clienttranslate('You may discard target Permanent with Hand Cost {4} or more.'),
+        'description' => clienttranslate('You may discard target Permanent with Hand Cost {4} or more.'),
         'output' =>  FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
       ],
       105 => [
-        clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
+        'description' => clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
           DISCARD,
           ['cardId' => ME, 'destination' => MANA, 'tapped' => true, 'canPass' => true, 'force' => true]
         ),
       ],
-      106 => [clienttranslate('I gain 2 boosts and lose <FLEETING>.'), 'output' => FT::SEQ(FT::GAIN(ME, BOOST, 2), FT::LOOSE(ME, FLEETING)),],
+      106 => ['description' => clienttranslate('I gain 2 boosts and lose <FLEETING>.'), 'output' => FT::SEQ(FT::GAIN(ME, BOOST, 2), FT::LOOSE(ME, FLEETING)),],
       107 => [
-        clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in my Expedition.'),
+        'description' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in my Expedition.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
@@ -542,25 +542,25 @@ abstract class FlowConvertor
         ),
       ],
       108 => [
-        clienttranslate('I gain 1 boost for each card in each player\'s Reserve.'),
+        'description' => clienttranslate('I gain 1 boost for each card in each player\'s Reserve.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserveAll']),
       ],
       109 => [
-        clienttranslate('Up to one target Plant gains 2 boosts.'),
+        'description' => clienttranslate('Up to one target Plant gains 2 boosts.'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,
           'subType' => PLANT,
           'effect' => FT::GAIN(EFFECT, BOOST, 2)
         ]),
       ],
-      110 => [clienttranslate('I gain [ANCHORED]. (4+)'), 'output' => ''], // TOOD : check how it works :)
+      110 => ['description' => clienttranslate('I gain [ANCHORED]. (4+)'), 'output' => ''], // TOOD : check how it works :)
       111 => [
-        clienttranslate('Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'),
+        'description' => clienttranslate('Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(DRAW_MANA, []),
       ],
-      112 => [clienttranslate('Cards your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCardsCost' => 1]],
+      112 => ['description' => clienttranslate('Cards your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCardsCost' => 1]],
       113 => [
-        clienttranslate('You may activate the {j} triggers of up to two target Permanents you control.'),
+        'description' => clienttranslate('You may activate the {j} triggers of up to two target Permanents you control.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
@@ -571,11 +571,11 @@ abstract class FlowConvertor
         ]),
       ],
       115 => [
-        clienttranslate('You may return target Character or Permanent with Hand Cost {5} or less to its owner\'s hand.'),
+        'description' => clienttranslate('You may return target Character or Permanent with Hand Cost {5} or less to its owner\'s hand.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 5, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
       ],
       116 => [
-        clienttranslate('Target Character other than me gains [FLEETING], [ANCHORED] or [ASLEEP].'),
+        'description' => clienttranslate('Target Character other than me gains [FLEETING], [ANCHORED] or [ASLEEP].'),
         'output' => FT::ACTION(
           TARGET,
           ['effect' => FT::XOR(
@@ -586,11 +586,11 @@ abstract class FlowConvertor
         ),
       ],
       117 => [
-        clienttranslate('Characters you control other than me have <TOUGH_2>.'),
+        'description' => clienttranslate('Characters you control other than me have <TOUGH_2>.'),
         'attributes' => ['excludeUniversalTough' => true, 'dynamicTough' => 'universalCharacter2',]
       ],
       118 => [
-        clienttranslate('Create a [BRASSBUG] Robot token in target Expedition.'),
+        'description' => clienttranslate('Create a [BRASSBUG] Robot token in target Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'AX_Common_Brassbug',
@@ -598,114 +598,285 @@ abstract class FlowConvertor
         ]),
       ],
       119 => [
-        clienttranslate('Target Character gains 2 boosts.'),
+        'description' => clienttranslate('Target Character gains 2 boosts.'),
         'output' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
       ],
       120 => [
-        clienttranslate('Up to two target Characters each gain 1 boost.'),
+        'description' => clienttranslate('Up to two target Characters each gain 1 boost.'),
         'output' => FT::ACTION(TARGET, ['upTo' => true, 'n' => 2, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
       ],
       121 => [
-        clienttranslate('You may send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.'),
+        'description' => clienttranslate('You may send to Reserve target Character with Hand Cost {X} or less, where X is the number of Characters you control.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 'controlledCharacter', 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()])
       ],
       122 => [
-        clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb). If you don\'t, draw a card.'),
+        'description' => clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb). If you don\'t, draw a card.'),
         'output' => FT::XOR(
           FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'force' => true, 'tapped' => true]),
           FT::ACTION(DRAW, ['players' => ME])
         )
       ],
-      123 => [clienttranslate('I have <GIGANTIC>.'), 'attributes' => ['gigantic' => true]],
-      124 => [clienttranslate('Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.'), 'output' => ''],
-      125 => [clienttranslate('Each player discards their hand, then draws three cards.'), 'output' => ''],
-      126 => [clienttranslate('(unused) Each player sacrifices two Characters.'), 'output' => ''],
-      127 => [clienttranslate('For each Character you control other than me, you may activate its {j} triggers.'), 'output' => ''],
-      128 => [clienttranslate('For each Permanent you control, you may activate its {j} triggers.'), 'output' => ''],
-      129 => [clienttranslate('You may send to Reserve target Character with Hand Cost {3} or less.'), 'output' => ''],
-      130 => [clienttranslate('Target opponent discards a card from their hand.'), 'output' => ''],
-      131 => [clienttranslate('Your other Expedition (the one I\'m not in) and the Expedition facing it can\'t move forward.'), 'output' => ''],
-      132 => [clienttranslate('You may discard target Permanent.'), 'output' => ''],
-      133 => [clienttranslate('Characters you control gain 1 boost.'), 'output' => ''],
-      134 => [clienttranslate('I gain 3 boosts.'), 'output' => ''],
-      135 => [clienttranslate('(unused) Target Character gains 2 boosts and loses [FLEETING].'), 'output' => ''],
-      136 => [clienttranslate('You may send to Reserve target Character with Hand Cost {4} or more.'), 'output' => ''],
-      137 => [clienttranslate('You may discard target Character with Hand Cost {3} or less.'), 'output' => ''],
-      138 => [clienttranslate('You may discard target [FLEETING], [ANCHORED], or [ASLEEP] Character.'), 'output' => ''],
-      139 => [clienttranslate('You may put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).'), 'output' => ''],
-      140 => [clienttranslate('Roll a die. I gain X boosts, where X is the result.'), 'output' => ''],
-      141 => [clienttranslate('You may discard target Character with Hand Cost {4} or more.'), 'output' => ''],
-      142 => [clienttranslate('I am [ETERNAL].'), 'output' => ''],
-      143 => [clienttranslate('Each player discards their hand and their Reserve, then draws three cards.'), 'output' => ''],
-      144 => [clienttranslate('You may send target Character to Reserve.'), 'output' => ''],
-      145 => [clienttranslate('Roll a die. Target Character gain X boosts, where X is the result.'), 'output' => ''],
-      146 => [clienttranslate('Target Character gains 3 boosts.'), 'output' => ''],
-      147 => [clienttranslate('You may discard target Character.'), 'output' => ''],
-      148 => [clienttranslate('All Characters in target Expedition gain [ASLEEP].'), 'output' => ''],
-      149 => [clienttranslate('Your opponent\'s Expedition facing mine moves backwards one region.'), 'output' => ''],
-      150 => [clienttranslate('You may return target Character or Permanent to the top of its owner\'s deck.'), 'output' => ''],
-      151 => [clienttranslate('Up to two target Characters each gain 2 boosts.'), 'output' => ''],
-      152 => [clienttranslate('Draw two cards.'), 'output' => ''],
-      153 => [clienttranslate('(unused) I gain 4 boosts.'), 'output' => ''],
-      154 => [clienttranslate('You may discard target Character or Permanent.'), 'output' => ''],
-      155 => [clienttranslate('Put the top two cards of your deck in your Mana zone (as exhausted Mana Orbs).'), 'output' => ''],
-      156 => [clienttranslate('Create a [BRASSBUG] Robot token in each of your Expeditions.'), 'output' => ''],
-      157 => [clienttranslate('Create two [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.'), 'output' => ''],
-      158 => [clienttranslate('Draw three cards.'), 'output' => ''],
-      159 => [clienttranslate('Create four [ORDIS_RECRUIT] Soldier tokens, distributed as you choose among any number of target Expeditions.'), 'output' => ''],
-      160 => [clienttranslate('(unused) Target Expedition can\'t move forward this Day.'), 'output' => ''],
-      161 => [clienttranslate('(unused) Target Expedition moves forward one Region.'), 'output' => ''],
-      162 => [clienttranslate('(unused) Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards.'), 'output' => ''],
-      163 => [clienttranslate('(unused) Expeditions can\'t move forward this Day.'), 'output' => ''],
-      164 => [clienttranslate('(unused) You win the game.'), 'output' => ''],
-      193 => [clienttranslate('[AFTER_YOU].'), 'output' => ''],
-      194 => [clienttranslate('Tokens you control have [GIGANTIC].'), 'output' => ''],
-      195 => [clienttranslate('Roll a die. On a 4+, I gain [ANCHORED]. On a 1-3, I gain 3 boosts.'), 'output' => ''],
-      196 => [clienttranslate('Sacrifice one Character.'), 'output' => ''],
-      197 => [clienttranslate('All Regions are {O} and lose their other types.'), 'output' => ''],
-      199 => [clienttranslate('The next Spell you play this turn loses [FLEETING].'), 'output' => ''],
-      200 => [clienttranslate('The next Character you play this turn loses [FLEETING].'), 'output' => ''],
-      203 => [clienttranslate('[SABOTAGE]. (SP)'), 'output' => ''],
-      204 => [clienttranslate('I have [SEASONED]. (OOF)'), 'output' => ''],
-      205 => [clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains [ANCHORED]. (OOF)'), 'output' => ''],
-      206 => [clienttranslate('Roll a die. On a 4+, I gain 2 boosts. On a 1-3, I gain 1 boost. (BR)'), 'output' => ''],
-      207 => [clienttranslate('Roll a die. On a 4+, I gain 3 boosts. On a 1-3, I gain 1 boost. (BR)'), 'output' => ''],
-      208 => [clienttranslate('Roll a die. On a 4+, draw a card. On a 1-3, [RESUPPLY]. (AX)'), 'output' => ''],
-      209 => [clienttranslate('Roll a die. On a 4+, I gain [ANCHORED]. On a 1-3, I gain 3 boosts. (BR)'), 'output' => ''],
-      210 => [clienttranslate('Each player draws a card. (OOF)'), 'output' => ''],
-      211 => [clienttranslate('I gain [ANCHORED]. (1)'), 'output' => ''],
-      212 => [clienttranslate('I gain [ANCHORED]. (2)'), 'output' => ''],
-      213 => [clienttranslate('I gain [ANCHORED]. (3)'), 'output' => ''],
-      214 => [clienttranslate('Characters your opponents play cost {1} more. (LY)'), 'output' => ''],
-      215 => [clienttranslate('Create a [BRASSBUG] Robot token in each of your Expeditions. (BR)'), 'output' => ''],
-      216 => [clienttranslate('Create a [BRASSBUG] Robot token in target Expedition. (BR)'), 'output' => ''],
-      217 => [clienttranslate('Each Character controlled by target player gains [FLEETING]. (MU)'), 'output' => ''],
-      218 => [clienttranslate('Each player may [RESUPPLY_INF]. (BR)'), 'output' => ''],
-      219 => [clienttranslate('Each player puts the top card of their deck in their Mana zone (as an exhausted Mana Orb). (BR)'), 'output' => ''],
-      220 => [clienttranslate('(unused) Each player sacrifices two Characters. (YZ)'), 'output' => ''],
-      221 => [clienttranslate('I gain [ASLEEP]. (LY)'), 'output' => ''],
-      222 => [clienttranslate('Sacrifice a Character in my Expedition. (OR)'), 'output' => ''],
-      223 => [clienttranslate('Sacrifice one Character. (OR)'), 'output' => ''],
-      224 => [clienttranslate('Sacrifice two Characters. (OR)'), 'output' => ''],
-      225 => [clienttranslate('Target opponent discards a card from their hand. (AX)'), 'output' => ''],
-      226 => [clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate. (BR)'), 'output' => ''],
-      227 => [clienttranslate('(unused) You may discard any number of cards from your Reserve to draw that many cards. (AX)'), 'output' => ''],
-      228 => [clienttranslate('You may put me in my owner\'s Mana zone (LY) (as an exhausted Mana Orb).'), 'output' => ''],
-      229 => [clienttranslate('You may put me in my owner\'s Mana zone (LY) (as an exhausted Mana Orb). If you don\'t, draw a card.'), 'output' => ''],
-      230 => [clienttranslate('Target opponent draws a card. (AX)'), 'output' => ''],
-      232 => [clienttranslate('Create an [ORDIS_RECRUIT] Soldier token in my Expedition. (OOF)'), 'output' => ''],
-      233 => [clienttranslate('Create an [ORDIS_RECRUIT] Soldier token in target Expedition. (OOF)'), 'output' => ''],
-      234 => [clienttranslate('The next Character you play this turn gains 1 boost.'), 'output' => ''],
-      235 => [clienttranslate('(unused) I have [GIGANTIC]. (BR)'), 'output' => ''],
-      237 => [clienttranslate('[AFTER_YOU]. (LY)'), 'output' => ''],
-      238 => [clienttranslate('Target Character gains [ANCHORED]. (BR)'), 'output' => ''],
-      241 => [clienttranslate('The next Character you play this turn gains 2 boosts.'), 'output' => ''],
-      242 => [clienttranslate('[RESUPPLY]. (sup)'), 'output' => ''],
-      243 => [clienttranslate('I gain [FLEETING]. (1)'), 'output' => ''],
-      244 => [clienttranslate('You may activate the {j} triggers of target Permanent you control. (sp)'), 'output' => ''],
-      245 => [clienttranslate('Draw a card. (5+)'), 'output' => ''],
-      246 => [clienttranslate('I have [GIGANTIC]. (7+)'), 'output' => ''],
-      248 => [clienttranslate('You may return a card from your Reserve to your hand.'), 'output' => ''],
+      123 => ['description' => clienttranslate('I have <GIGANTIC>.'), 'attributes' => ['gigantic' => true]],
+      124 => [
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'),
+        'output' =>  FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_RIGHT],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_LEFT],
+          ])
+        ),
+      ],
+      125 => [
+        'description' => clienttranslate('Each player discards their hand, then draws three cards.'),
+        'output' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHand']), FT::ACTION(DRAW, ['n' => 3])),
+      ],
+      127 => [
+        'description' => clienttranslate('For each Character you control other than me, you may activate its {j} triggers.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'activateAllOtherCharacters']),
+      ],
+      128 => [
+        'description' => clienttranslate('For each Permanent you control, you may activate its {j} triggers.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'activateAllPermanents'])
+      ],
+      129 => [
+        'description' => clienttranslate('You may send to Reserve target Character with Hand Cost {3} or less.'),
+        'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
+      ],
+      130 => [
+        'description' => clienttranslate('Target opponent discards a card from their hand.'),
+        'output' => FT::ACTION(TARGET_PLAYER, ['effect' =>  FT::ACTION(
+          TARGET,
+          [
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'effect' => FT::ACTION(DISCARD, []),
+          ]
+        )])
+      ],
+      131 => ['description' => clienttranslate('Your other Expedition (the one I\'m not in) and the Expedition facing it can\'t move forward.'), 'attributes' => ['oppositeDefender' => true]],
+      132 => [
+        'description' => clienttranslate('You may discard target Permanent.'),
+        'output' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+      ],
+      133 => [
+        'description' => clienttranslate('Characters you control gain 1 boost.'),
+        'output' => FT::ACTION(
+          TARGET,
+          ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN(EFFECT, BOOST)]
+        ),
+      ],
+      134 => ['description' => clienttranslate('I gain 3 boosts.'), 'output' => FT::GAIN(ME, BOOST, 3)],
+      136 => [
+        'description' => clienttranslate('You may send to Reserve target Character with Hand Cost {4} or more.'),
+        'output' =>  FT::ACTION(TARGET, ['maxHandCost' => 4, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
+      ],
+      137 => [
+        'description' => clienttranslate('You may discard target Character with Hand Cost {3} or less.'),
+        'output' =>  FT::ACTION(TARGET, ['maxHandCost' => 3, 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+      ],
+      138 => [
+        'description' => clienttranslate('You may discard target <FLEETING>, <ANCHORED>, or <ASLEEP> Character.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'statuses' => [FLEETING, ANCHORED, ASLEEP],
+          'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      139 => [
+        'description' => clienttranslate('You may put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [PERMANENT, CHARACTER],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, ['destination' => MANA, 'tapped' => true]),
+        ])
+      ],
+      140 => [
+        'description' => clienttranslate('Roll a die. I gain X boosts, where X is the result.'),
+        'output' =>  FT::ACTION(ROLL_DIE, [
+          'effect' => ['1+' => FT::GAIN(ME, BOOST, 'die')],
+        ]),
+      ],
+      141 => [
+        'description' => clienttranslate('You may discard target Character with Hand Cost {4} or more.'),
+        'output' => FT::ACTION(TARGET, ['minHandCost' => 4, 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+      ],
+      142 => ['description' => clienttranslate('I am <ETERNAL>.'), 'attributes' => ['eternal' => true]],
+      143 => [
+        'description' => clienttranslate('Each player discards their hand and their Reserve, then draws three cards.'),
+        'output' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHandReserve']), FT::ACTION(DRAW, ['n' => 3])),
+      ],
+      144 => [
+        'description' => clienttranslate('You may send target Character to Reserve.'),
+        'output' =>  FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
+      ],
+      145 => [
+        'description' => clienttranslate('Roll a die. Target Character gain X boosts, where X is the result.'),
+        'output' =>  FT::ACTION(ROLL_DIE, [
+          'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN('effect', BOOST, 'die')])],
+        ]),
+      ],
+      146 => [
+        'description' => clienttranslate('Target Character gains 3 boosts.'),
+        'output' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
+      ],
+      147 => [
+        'description' => clienttranslate('You may discard target Character.'),
+        'output' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+      ],
+      148 => [
+        'description' => clienttranslate('All Characters in target Expedition gain <ASLEEP>.'),
+        'output' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sleepingAllCharactersinExpedition'])])
+      ],
+      149 => [
+        'description' => clienttranslate('Your opponent\'s Expedition facing mine moves backwards one region.'),
+        'output' =>  FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT]),
+      ],
+      150 => [
+        'description' => clienttranslate('You may return target Character or Permanent to the top of its owner\'s deck.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN, PERMANENT],
+          'effect' => FT::ACTION(DISCARD, ['destination' => 'topOfDeck']),
+        ])
+      ],
+      151 => [
+        'description' => clienttranslate('Up to two target Characters each gain 2 boosts.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'upTo' => true,
+          'n' => 2,
+          'effect' => FT::GAIN(EFFECT, BOOST, 2)
+        ]),
+      ],
+      152 => ['description' => clienttranslate('Draw two cards.'), 'output' => FT::ACTION(DRAW, ['n' => 2, 'players' => ME])],
+      154 => [
+        'description' => clienttranslate('You may discard target Character or Permanent.'),
+        'output' =>  FT::ACTION(TARGET, ['targetType' => [PERMANENT, CHARACTER, TOKEN], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+      ],
+      155 => [
+        'description' => clienttranslate('Put the top two cards of your deck in your Mana zone (as exhausted Mana Orbs).'),
+        'output' => FT::ACTION(DRAW_MANA, ['n' => 2]),
+      ],
+      156 => [
+        'description' => clienttranslate('Create a <BRASSBUG> Robot token in each of your Expeditions.'),
+        'output' =>  FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'AX_Common_Brassbug',
+            'targetLocation' => [STORM_RIGHT],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'AX_Common_Brassbug',
+            'targetLocation' => [STORM_LEFT],
+          ])
+        ),
+      ],
+      157 => [
+        'description' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in each of your Expeditions.'),
+        'output' => FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_RIGHT],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_RIGHT],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_LEFT],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_LEFT],
+          ])
+        ),
+      ],
+      158 => ['description' => clienttranslate('Draw three cards.'), 'output' => FT::ACTION(DRAW, ['n' => 3, 'players' => ME])],
+      159 => [
+        'description' => clienttranslate('Create four <ORDIS_RECRUIT> Soldier tokens, distributed as you choose among any number of target Expeditions.'),
+        'output' => FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => STORMS,
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => STORMS,
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => STORMS,
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => STORMS,
+          ])
+        ),
+      ],
+      193 => ['description' => clienttranslate('<AFTER_YOU>.'), 'output' => FT::ACTION(AFTER_YOU, []),],
+      194 => ['description' => clienttranslate('Tokens you control have [GIGANTIC].'), 'attributes' => ['dynamicGigantic' => 'universalGiganticToken']],
+      195 => ['description' => clienttranslate('Roll a die. On a 4+, I gain [ANCHORED]. On a 1-3, I gain 3 boosts.'), 'output' => ''],
+      196 => ['description' => clienttranslate('Sacrifice one Character.'), 'output' => ''],
+      197 => ['description' => clienttranslate('All Regions are {O} and lose their other types.'), 'output' => ''],
+      199 => ['description' => clienttranslate('The next Spell you play this turn loses [FLEETING].'), 'output' => ''],
+      200 => ['description' => clienttranslate('The next Character you play this turn loses [FLEETING].'), 'output' => ''],
+      203 => ['description' => clienttranslate('[SABOTAGE]. (SP)'), 'output' => ''],
+      204 => ['description' => clienttranslate('I have [SEASONED]. (OOF)'), 'output' => ''],
+      205 => ['description' => clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains [ANCHORED]. (OOF)'), 'output' => ''],
+      206 => ['description' => clienttranslate('Roll a die. On a 4+, I gain 2 boosts. On a 1-3, I gain 1 boost. (BR)'), 'output' => ''],
+      207 => ['description' => clienttranslate('Roll a die. On a 4+, I gain 3 boosts. On a 1-3, I gain 1 boost. (BR)'), 'output' => ''],
+      208 => ['description' => clienttranslate('Roll a die. On a 4+, draw a card. On a 1-3, [RESUPPLY]. (AX)'), 'output' => ''],
+      209 => ['description' => clienttranslate('Roll a die. On a 4+, I gain [ANCHORED]. On a 1-3, I gain 3 boosts. (BR)'), 'output' => ''],
+      210 => ['description' => clienttranslate('Each player draws a card. (OOF)'), 'output' => ''],
+      211 => ['description' => clienttranslate('I gain [ANCHORED]. (1)'), 'output' => ''],
+      212 => ['description' => clienttranslate('I gain [ANCHORED]. (2)'), 'output' => ''],
+      213 => ['description' => clienttranslate('I gain [ANCHORED]. (3)'), 'output' => ''],
+      214 => ['description' => clienttranslate('Characters your opponents play cost {1} more. (LY)'), 'output' => ''],
+      215 => ['description' => clienttranslate('Create a [BRASSBUG] Robot token in each of your Expeditions. (BR)'), 'output' => ''],
+      216 => ['description' => clienttranslate('Create a [BRASSBUG] Robot token in target Expedition. (BR)'), 'output' => ''],
+      217 => ['description' => clienttranslate('Each Character controlled by target player gains [FLEETING]. (MU)'), 'output' => ''],
+      218 => ['description' => clienttranslate('Each player may [RESUPPLY_INF]. (BR)'), 'output' => ''],
+      219 => ['description' => clienttranslate('Each player puts the top card of their deck in their Mana zone (as an exhausted Mana Orb). (BR)'), 'output' => ''],
+      220 => ['description' => clienttranslate('(unused) Each player sacrifices two Characters. (YZ)'), 'output' => ''],
+      221 => ['description' => clienttranslate('I gain [ASLEEP]. (LY)'), 'output' => ''],
+      222 => ['description' => clienttranslate('Sacrifice a Character in my Expedition. (OR)'), 'output' => ''],
+      223 => ['description' => clienttranslate('Sacrifice one Character. (OR)'), 'output' => ''],
+      224 => ['description' => clienttranslate('Sacrifice two Characters. (OR)'), 'output' => ''],
+      225 => ['description' => clienttranslate('Target opponent discards a card from their hand. (AX)'), 'output' => ''],
+      226 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate. (BR)'), 'output' => ''],
+      227 => ['description' => clienttranslate('(unused) You may discard any number of cards from your Reserve to draw that many cards. (AX)'), 'output' => ''],
+      228 => ['description' => clienttranslate('You may put me in my owner\'s Mana zone (LY) (as an exhausted Mana Orb).'), 'output' => ''],
+      229 => ['description' => clienttranslate('You may put me in my owner\'s Mana zone (LY) (as an exhausted Mana Orb). If you don\'t, draw a card.'), 'output' => ''],
+      230 => ['description' => clienttranslate('Target opponent draws a card. (AX)'), 'output' => ''],
+      232 => ['description' => clienttranslate('Create an [ORDIS_RECRUIT] Soldier token in my Expedition. (OOF)'), 'output' => ''],
+      233 => ['description' => clienttranslate('Create an [ORDIS_RECRUIT] Soldier token in target Expedition. (OOF)'), 'output' => ''],
+      234 => ['description' => clienttranslate('The next Character you play this turn gains 1 boost.'), 'output' => ''],
+      235 => ['description' => clienttranslate('(unused) I have [GIGANTIC]. (BR)'), 'output' => ''],
+      237 => ['description' => clienttranslate('[AFTER_YOU]. (LY)'), 'output' => ''],
+      238 => ['description' => clienttranslate('Target Character gains [ANCHORED]. (BR)'), 'output' => ''],
+      241 => ['description' => clienttranslate('The next Character you play this turn gains 2 boosts.'), 'output' => ''],
+      242 => ['description' => clienttranslate('[RESUPPLY]. (sup)'), 'output' => ''],
+      243 => ['description' => clienttranslate('I gain [FLEETING]. (1)'), 'output' => ''],
+      244 => ['description' => clienttranslate('You may activate the {j} triggers of target Permanent you control. (sp)'), 'output' => ''],
+      245 => ['description' => clienttranslate('Draw a card. (5+)'), 'output' => ''],
+      246 => ['description' => clienttranslate('I have [GIGANTIC]. (7+)'), 'output' => ''],
+      248 => ['description' => clienttranslate('You may return a card from your Reserve to your hand.'), 'output' => ''],
     ];
   }
 
