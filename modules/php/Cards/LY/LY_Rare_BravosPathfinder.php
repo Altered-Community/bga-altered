@@ -13,10 +13,10 @@ class LY_Rare_BravosPathfinder extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Bravos Pathfinder',
-      'typeline' => 'Character - Adventurer',
+      'name' => clienttranslate('Bravos Pathfinder'),
+      'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
-      'flavorText' => '"Stay on the path, they say. I make my own path!"',
+      'flavorText' => clienttranslate('"Stay on the path, they say. I make my own path!"'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ADVENTURER],
       'forest' => 0,

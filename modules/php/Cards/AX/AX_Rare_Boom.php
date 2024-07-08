@@ -15,13 +15,15 @@ class AX_Rare_Boom extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Boom!',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Boom!'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => '"Catastrophic failure? I prefer the term \'learning opportunity\'."',
+      'flavorText' => clienttranslate('"Catastrophic failure? I prefer the term \'learning opportunity\'."'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Sacrifice a Character #or Permanent#. If you do, discard target Character or Permanent.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Sacrifice a Character #or Permanent#. If you do, discard target Character or Permanent.'
+      ),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(

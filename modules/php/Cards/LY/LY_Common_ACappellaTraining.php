@@ -15,12 +15,14 @@ class LY_Common_ACappellaTraining extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'A Cappella Training',
+      'name' => clienttranslate('A Cappella Training'),
       'type' => SPELL,
       'subtypes' => [SONG],
-      'effectDesc' => 'Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)',
-      'typeline' => 'Spell - Song',
-      'flavorText' => 'Thank you for being my metronome!',
+      'effectDesc' => clienttranslate(
+        'Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)'
+      ),
+      'typeline' => clienttranslate('Spell - Song'),
+      'flavorText' => clienttranslate('Thank you for being my metronome!'),
       'artist' => 'Zero Wen',
 
       'costHand' => 1,

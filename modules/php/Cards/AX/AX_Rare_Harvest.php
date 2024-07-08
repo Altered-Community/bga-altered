@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Rare_Harvest extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,17 +15,16 @@ class AX_Rare_Harvest extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Harvest',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Harvest'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' => 'The thankful receiver bears a plentiful harvest.',
+      'flavorText' => clienttranslate('The thankful receiver bears a plentiful harvest.'),
       'artist' => 'Ba Vo',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$<RESUPPLY>.',
+      'effectDesc' => clienttranslate('$<RESUPPLY>.'),
       'costHand' => 1,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(RESUPPLY, [])
-
+      'effectPlayed' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }

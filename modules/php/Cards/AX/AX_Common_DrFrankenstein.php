@@ -15,12 +15,12 @@ class AX_Common_DrFrankenstein extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Dr. Frankenstein',
+      'name' => clienttranslate('Dr. Frankenstein'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{R} You may activate the {j} triggers of target Permanent you control.',
-      'flavorText' => 'We sometimes seek companionship in the strangest of life forms.',
-      'typeline' => 'Character - Engineer',
+      'effectDesc' => clienttranslate('{R} You may activate the {j} triggers of target Permanent you control.'),
+      'flavorText' => clienttranslate('We sometimes seek companionship in the strangest of life forms.'),
+      'typeline' => clienttranslate('Character - Engineer'),
       'artist' => 'Taras Susak',
 
       'forest' => 3,

@@ -15,20 +15,23 @@ class YZ_Rare_TheKadigirYzmirBastion extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'The Kadigir, Yzmir Bastion',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('The Kadigir, Yzmir Bastion'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' =>
-      'What dark, phantasmagorical secrets hide within Asgartha\'s College of Magic? Only madmen and the Yzmirs know for sure...',
+      'flavorText' => clienttranslate(
+        'What dark, phantasmagorical secrets hide within Asgartha\'s College of Magic? Only madmen and the Yzmirs know for sure...'
+      ),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '{T} : The next Spell you play this turn is free. #If you play it from your hand, it loses <FLEETING>.#',
+      'effectDesc' => clienttranslate(
+        '{T} : The next Spell you play this turn is free. #If you play it from your hand, it loses <FLEETING>.#'
+      ),
       'costHand' => 8,
       'costReserve' => 8,
       'effectTap' => FT::SEQ(
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextSpellIsFree']),
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'removeFleetingIfSpellPlayedHand'])
-      )
+      ),
     ];
   }
 }

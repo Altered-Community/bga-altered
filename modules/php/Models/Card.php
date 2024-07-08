@@ -28,7 +28,6 @@ class Card extends \ALT\Helpers\DB_Model
     'pId' => ['player_id', 'int'],
 
     // attributs persistants
-    'initialProperties' => ['initial_properties', 'obj'],
     'properties' => ['properties', 'obj'], // will superseed original properties if needed
   ];
   protected $id;
@@ -36,7 +35,6 @@ class Card extends \ALT\Helpers\DB_Model
   protected $state;
   protected $pId;
   protected $properties;
-  protected $initialProperties;
 
   protected $staticAttributes = [];
   protected $propertiesAttributes = [
@@ -76,7 +74,6 @@ class Card extends \ALT\Helpers\DB_Model
     'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
     'effectTap' => 'obj',
 
-    'tapped' => 'bool',
     'gigantic' => 'bool',
     'dynamicGigantic' => 'str',
     'fleeting' => 'bool',
@@ -98,41 +95,83 @@ class Card extends \ALT\Helpers\DB_Model
     'addDice' => 'int',
     'ressuply2' => 'bool',
 
-
     // Tough management
     'tough' => 'int',
     'dynamicTough' => 'str',
     'excludeUniversalTough' => 'bool',
     'addRoll' => 'int',
 
+    // Dynamic info
+    'tapped' => 'bool',
     'extraDatas' => 'obj',
   ];
 
-  // 'eqType' => ['type' => , ....]
-  // 'location' => 'card_location',
-  // 'state' => ['card_state', 'int'],
-  // 'pId' => ['player_id', 'int'],
-  // 'type' => ['type', 'str'], // Token/hero/adventurer/spell
-  // 'tapped' => ['tapped', 'bool'],
-  // 'costHand' => ['costHand', 'int'],
-  // 'costReserve' => ['costReserve', 'int'],
-  // 'name' => ['name', 'str'], // obj?
-  // 'rarity' => ['rarity', 'int'],
-  // 'equinoxId' => ['equinoxId', 'int'],
-  // 'mountain' => ['mountain', 'int'],
-  // 'forest' => ['forest', 'int'],
-  // 'ocean' => ['ocean', 'int'],
-  // 'boostEffect' => ['boostEffect', 'obj'], // ['mountain' => X, 'forest' => Y, ...]
-  // 'faction' => ['faction', 'str'],
-  // 'effectSupport' => ['effectSupport', 'obj'],
-  // 'effectHand' => ['effectHand', 'obj'], // played from hand
-  // 'effectReserve' => ['effectReserve', 'obj'], // played from reserve
-  // 'effectPassive' => ['effectPassive', 'obj'], // [[listener type => action]]: listener type to distinguish
-  // 'costModifier' => ['costModifier', 'obj'], // ['hand'=> action check, 'reserve' => action check]
-  // 'extraDatas' => ['extra_datas', 'obj'],
-  // // attributs persistants
-  // 'initialProperties' => ['initial_properties', 'obj'],
-  // 'properties' => ['properties', 'obj'], // will superseed original properties if needed
+  /********* DB ACCESS *********/
+
+  // Magic getter to test DB Field & properties field
+  public function __call($method, $args)
+  {
+    if (preg_match('/^([gs]et|inc|is)([A-Z])(.*)$/', $method, $match)) {
+      // Sanity check : does the name correspond to a declared variable ?
+      $name = mb_strtolower($match[2]) . $match[3];
+
+      // TODO put management of properties
+      if (\array_key_exists($name, $this->propertiesAttributes)) {
+        if ($match[1] == 'get') {
+          $type = $this->propertiesAttributes[$name];
+          if (isset($this->properties[$name])) {
+            if (count($args) > 0 && $type == 'obj' && is_array($this->properties[$name])) {
+              return $this->properties[$name][$args[0]];
+            } else {
+              return $this->properties[$name];
+            }
+          }
+          // Default value
+          else {
+            if ($type == 'int') {
+              return 0;
+            }
+            if ($type == 'bool') {
+              return false;
+            }
+            if ($type == 'str') {
+              return '';
+            }
+            if ($type == 'obj') {
+              return [];
+            }
+          }
+        } elseif ($match[1] == 'is') {
+          if (!isset($this->properties[$name])) {
+            return false;
+          }
+          // Boolean getter
+          return (bool) $this->properties[$name];
+        } elseif ($match[1] == 'set') {
+          return $this->setProperty($name, $args[0]);
+        }
+      }
+      // Default DB behavior
+      else {
+        return parent::__call($method, $args);
+      }
+    } else {
+      return parent::__call($method, $args);
+    }
+  }
+
+  public function getProperty($variable)
+  {
+    return $this->properties[$variable] ?? null;
+  }
+
+  public function setProperty($variable, $value, $updateDB = true)
+  {
+    $this->properties[$variable] = $value;
+    if ($updateDB) {
+      $this->setProperties($this->properties);
+    }
+  }
 
   public function isSupported($players, $options)
   {
@@ -252,7 +291,7 @@ class Card extends \ALT\Helpers\DB_Model
     $location = $this->getLocation();
     if (in_array($location, STORMS)) {
       $type = 'LeaveExpedition';
-    } else if ($location == LANDMARK) {
+    } elseif ($location == LANDMARK) {
       $type = 'LeaveLandmark';
     }
 
@@ -280,83 +319,12 @@ class Card extends \ALT\Helpers\DB_Model
     }
   }
 
-  /********* DB ACCESS *********/
-
-  // Magic getter to test DB Field & properties field
-  public function __call($method, $args)
-  {
-    if (preg_match('/^([gs]et|inc|is)([A-Z])(.*)$/', $method, $match)) {
-      // Sanity check : does the name correspond to a declared variable ?
-      $name = mb_strtolower($match[2]) . $match[3];
-
-      // TODO put management of properties
-      if (\array_key_exists($name, $this->propertiesAttributes)) {
-        if ($match[1] == 'get') {
-          $type = $this->propertiesAttributes[$name];
-          if (isset($this->properties[$name])) {
-            if (count($args) > 0 && $type == 'obj' && is_array($this->properties[$name])) {
-              return $this->properties[$name][$args[0]];
-            } else {
-              return $this->properties[$name];
-            }
-          }
-          // Default value
-          else {
-            if ($type == 'int') {
-              return 0;
-            }
-            if ($type == 'bool') {
-              return false;
-            }
-            if ($type == 'str') {
-              return '';
-            }
-            if ($type == 'obj') {
-              return [];
-            }
-          }
-        } elseif ($match[1] == 'is') {
-          if (!isset($this->properties[$name])) {
-            return false;
-          }
-          // Boolean getter
-          return (bool) $this->properties[$name];
-        } elseif ($match[1] == 'set') {
-          return $this->setProperty($name, $args[0]);
-        }
-      }
-      // Default DB behavior
-      else {
-        return parent::__call($method, $args);
-      }
-    } else {
-      return parent::__call($method, $args);
-    }
-  }
-
-  public function getProperty($variable)
-  {
-    return $this->properties[$variable] ?? null;
-  }
-
-  public function setProperty($variable, $value)
-  {
-    $this->properties[$variable] = $value;
-    $this->setProperties($this->properties);
-    // self::DB()->update(['extra_datas' => \addslashes(\json_encode($this->properties))], $this->id);
-  }
-
-  // /**
-  //  * Scores functions
-  //  */
-
   /**
    * Event modifiers template
    **/
   public function isListeningTo($event)
   {
     $passive = $this->getEffectPassive();
-    // throw new \feException(print_r($event));
     if (
       !in_array($event['type'] ?? 'none', array_keys($passive)) &&
       !in_array($event['action'] ?? 'none', array_keys($passive))
@@ -364,13 +332,12 @@ class Card extends \ALT\Helpers\DB_Model
       return false;
     }
 
-    // $power = $passive[$event['action'] ?? $event['type']];
-    // $cond = $power['condition'] ?? null;
+    if ($event['phase'] ?? false) {
+      if ($event['pId'] != $this->getPId()) {
+        return false;
+      }
+    }
 
-    // if (!is_null($cond)) {
-    //   // throw new \feException(Conditions::$cond($this, $event));
-    //   return Conditions::$cond($this, $event);
-    // }
     return true;
   }
 
@@ -416,7 +383,7 @@ class Card extends \ALT\Helpers\DB_Model
     // put the source as the card triggering itself
     $power['output']['sourceId'] = $this->id;
 
-    return [($power['payment'] ?? []), $power['output']];
+    return [$power['payment'] ?? [], $power['output']];
   }
 
   public function getCost()
@@ -439,14 +406,10 @@ class Card extends \ALT\Helpers\DB_Model
 
     switch ($this->getLocation()) {
       case HAND:
-        return ($this->getCostHand() -
-          $typeReduction -
-          ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost);
+        return $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost;
         break;
       case RESERVE:
-        return ($this->getCostReserve() -
-          $typeReduction -
-          ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost);
+        return $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost;
         break;
     }
   }
@@ -548,23 +511,17 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     // OD_Common_GulrangTocsin
-    if (in_array($this->getPlayer()->getHero()->getUid(), ['ALT_CORE_B_OR_03_C']) && $this->getPlayer()->getTotalMana() < 8) {
+    if (
+      in_array(
+        $this->getPlayer()
+          ->getHero()
+          ->getUid(),
+        ['ALT_CORE_B_OR_03_C']
+      ) &&
+      $this->getPlayer()->getTotalMana() < 8
+    ) {
       return $this->isToken() && $this->hasToken(BOOST);
     }
     return false;
   }
-
-  /********** EFFECTS **********/
-  // public function boost($n, $source = null, $notify = false)
-  // {
-  //   if (!in_array($this->getLocation(), STORMS)) {
-  //     throw new \BgaVisibleSystemException('Cannot be boosted, not in an expedition. Should not happen');
-  //   }
-
-  //   $tokens = Meeples::create([['type' => BOOST, 'nbr' => $n, 'location' => 'card-' . $this->id]]);
-  //   if ($notify === true) {
-  //     Notifications::boost($this, $source, $tokens);
-  //   }
-  //   return $tokens;
-  // }
 }

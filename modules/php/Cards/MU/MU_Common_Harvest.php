@@ -15,16 +15,16 @@ class MU_Common_Harvest extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => 'Harvest',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Harvest'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' => 'The thankful receiver bears a plentiful harvest.',
+      'flavorText' => clienttranslate('The thankful receiver bears a plentiful harvest.'),
       'artist' => 'Ba Vo',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$<RESUPPLY>.',
+      'effectDesc' => clienttranslate('$<RESUPPLY>.'),
       'costHand' => 1,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(RESUPPLY, [])
+      'effectPlayed' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }

@@ -13,10 +13,10 @@ class LY_Rare_Cernunnos extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Cernunnos',
-      'typeline' => 'Character - Deity Druid',
+      'name' => clienttranslate('Cernunnos'),
+      'typeline' => clienttranslate('Character - Deity Druid'),
       'type' => CHARACTER,
-      'flavorText' => 'You can feel it in the trees, deep beneath their roots – the very heartbeat of nature.',
+      'flavorText' => clienttranslate('You can feel it in the trees, deep beneath their roots – the very heartbeat of nature.'),
       'artist' => 'Ba Vo',
       'subtypes' => [DEITY, DRUID],
       'forest' => 4,

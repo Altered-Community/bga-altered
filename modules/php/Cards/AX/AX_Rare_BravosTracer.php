@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Rare_BravosTracer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class AX_Rare_BravosTracer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Bravos Tracer',
-      'typeline' => 'Character - Adventurer',
+      'name' => clienttranslate('Bravos Tracer'),
+      'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
-      'flavorText' => '"I only feel alive when I hear the wind whistling in my ears."',
+      'flavorText' => clienttranslate('"I only feel alive when I hear the wind whistling in my ears."'),
       'artist' => 'Justice Wong',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '{J} I gain <FLEETING_CHAR>. (If I would be sent to Reserve, discard me instead.)',
+      'effectDesc' => clienttranslate('{J} I gain <FLEETING_CHAR>. (If I would be sent to Reserve, discard me instead.)'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

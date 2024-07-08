@@ -15,14 +15,15 @@ class OD_Rare_Thoth extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Thoth',
-      'typeline' => 'Character - Deity Bureaucrat',
+      'name' => clienttranslate('Thoth'),
+      'typeline' => clienttranslate('Character - Deity Bureaucrat'),
       'type' => CHARACTER,
-      'flavorText' => '"The pen is mightier than the sword."',
+      'flavorText' => clienttranslate('"The pen is mightier than the sword."'),
       'artist' => 'Christophe Young',
       'subtypes' => [DEITY, BUREAUCRAT],
-      'effectDesc' =>
-      'When my Expedition fails to move forward during Dusk — Create #two# <ORDIS_RECRUIT> Soldier tokens in target Expedition after Rest.',
+      'effectDesc' => clienttranslate(
+        'When my Expedition fails to move forward during Dusk — Create #two# <ORDIS_RECRUIT> Soldier tokens in target Expedition after Rest.'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 2,
@@ -31,9 +32,9 @@ class OD_Rare_Thoth extends \ALT\Models\Card
       'effectPassive' => [
         'AfterDusk' => [
           'condition' => 'myExpeditionHasNotMoved',
-          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRest2OrdisRecruit'])
-        ]
-      ]
+          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRest2OrdisRecruit']),
+        ],
+      ],
     ];
   }
 }

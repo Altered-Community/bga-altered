@@ -111,7 +111,6 @@ trait TurnTrait
     Globals::setRemoveFleetingCharacterPlayed(false);
     Globals::setPlayedForFree(false);
 
-
     self::giveExtraTime($player->getId());
 
     Stats::incTurns($player);
@@ -279,9 +278,6 @@ trait TurnTrait
     Globals::setSkippedPlayers($skipped);
 
     $listened = $player->nightCleanup();
-    Notifications::updateBiomes($player);
-    // throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
-    // throw new \feException(print_r(Globals::getEngine()));
 
     if (Engine::getNextUnresolved() === null) {
       $this->nextPlayerCustomOrder('nightCleanup');

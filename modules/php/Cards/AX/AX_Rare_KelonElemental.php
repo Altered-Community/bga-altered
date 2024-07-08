@@ -15,25 +15,29 @@ class AX_Rare_KelonElemental extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Kelon Elemental',
-      'typeline' => 'Character - Elemental',
+      'name' => clienttranslate('Kelon Elemental'),
+      'typeline' => clienttranslate('Character - Elemental'),
       'type' => CHARACTER,
-      'flavorText' => 'In true Axiom fashion, Kelon Elementals like to put everything to the taste.',
+      'flavorText' => clienttranslate('In true Axiom fashion, Kelon Elementals like to put everything to the taste.'),
       'artist' => 'Zero Wen',
       'subtypes' => [ELEMENTAL],
-      'effectDesc' => '{H} #You may# put a card from your hand in Reserve.',
+      'effectDesc' => clienttranslate('{H} #You may# put a card from your hand in Reserve.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectHand' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, SPELL, PERMANENT],
-        'targetPlayer' => ME,
-        'targetLocation' => [HAND],
-        'effect' => FT::DISCARD_TO_RESERVE(),
-        'upTo' => true,
-      ], ['optional' => true]),
+      'effectHand' => FT::ACTION(
+        TARGET,
+        [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'effect' => FT::DISCARD_TO_RESERVE(),
+          'upTo' => true,
+        ],
+        ['optional' => true]
+      ),
     ];
   }
 }

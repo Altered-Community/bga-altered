@@ -13,10 +13,10 @@ class AX_Rare_YzmirStargazer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Yzmir Stargazer',
-      'typeline' => 'Character - Scholar Mage',
+      'name' => clienttranslate('Yzmir Stargazer'),
+      'typeline' => clienttranslate('Character - Scholar Mage'),
       'type' => CHARACTER,
-      'flavorText' => 'She won\'t read the future in the stars, she\'ll change it herself.',
+      'flavorText' => clienttranslate('She won\'t read the future in the stars, she\'ll change it herself.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SCHOLAR, MAGE],
       'forest' => 1,

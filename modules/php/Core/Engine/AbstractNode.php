@@ -409,7 +409,6 @@ class AbstractNode
 
   public function setFlag($v)
   {
-
     $this->infos['flagToto'] = $v;
   }
 

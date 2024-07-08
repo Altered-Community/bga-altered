@@ -15,20 +15,19 @@ class AX_Rare_DaughterofYggdrasil extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Daughter of Yggdrasil',
-      'typeline' => 'Character - Plant',
+      'name' => clienttranslate('Daughter of Yggdrasil'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => 'The children of Yggdrasil now take care of the world trees.',
+      'flavorText' => clienttranslate('The children of Yggdrasil now take care of the world trees.'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [PLANT],
-      'effectDesc' => '{H} Target opponent draws a card.',
+      'effectDesc' => clienttranslate('{H} Target opponent draws a card.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
       'effectHand' => FT::ACTION(DRAW, ['players' => OPPONENT]),
-
     ];
   }
 }

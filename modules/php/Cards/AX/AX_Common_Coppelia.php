@@ -15,12 +15,14 @@ class AX_Common_Coppelia extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Coppélia',
+      'name' => clienttranslate('Coppélia'),
       'type' => CHARACTER,
       'subtypes' => [ROBOT],
-      'effectDesc' => 'When I go to Reserve from your hand — You may play me for free and I gain $<ASLEEP>.',
-      'flavorText' => 'Because of her artificial nature, she served as a model for the Faction\'s first Automata prototypes.',
-      'typeline' => 'Character - Robot',
+      'effectDesc' => clienttranslate('When I go to Reserve from your hand — You may play me for free and I gain $<ASLEEP>.'),
+      'flavorText' => clienttranslate(
+        'Because of her artificial nature, she served as a model for the Faction\'s first Automata prototypes.'
+      ),
+      'typeline' => clienttranslate('Character - Robot'),
       'artist' => 'Taras Susak',
 
       'forest' => 2,
@@ -32,10 +34,7 @@ class AX_Common_Coppelia extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'condition' => 'isDiscardedFromHandToReserve',
-          'output' => FT::SEQ_OPTIONAL(
-            FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]),
-            FT::GAIN($this, ASLEEP)
-          ),
+          'output' => FT::SEQ_OPTIONAL(FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]), FT::GAIN($this, ASLEEP)),
         ],
       ],
     ];

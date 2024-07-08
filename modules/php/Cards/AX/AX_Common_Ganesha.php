@@ -15,12 +15,12 @@ class AX_Common_Ganesha extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Ganesha',
+      'name' => clienttranslate('Ganesha'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => '{J} For each Permanent you control, you may activate its {j} triggers.',
-      'flavorText' => 'Knowledge and wisdom must walk side by side.',
-      'typeline' => 'Character - Deity',
+      'effectDesc' => clienttranslate('{J} For each Permanent you control, you may activate its {j} triggers.'),
+      'flavorText' => clienttranslate('Knowledge and wisdom must walk side by side.'),
+      'typeline' => clienttranslate('Character - Deity'),
       'artist' => 'Taras Susak',
 
       'forest' => 5,

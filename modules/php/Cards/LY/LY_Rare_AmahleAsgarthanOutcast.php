@@ -15,19 +15,21 @@ class LY_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Amahle, Asgarthan Outcast',
-      'typeline' => 'Character - Scholar',
+      'name' => clienttranslate('Amahle, Asgarthan Outcast'),
+      'typeline' => clienttranslate('Character - Scholar'),
       'type' => CHARACTER,
-      'flavorText' => 'The old world is dying, and the new world struggles to be born: now is the time of monsters.',
+      'flavorText' => clienttranslate(
+        'The old world is dying, and the new world struggles to be born: now is the time of monsters.'
+      ),
       'artist' => 'Khoa Viet',
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '{J} You may discard #any number of cards# from your Reserve to #draw that many cards#.',
+      'effectDesc' => clienttranslate('{J} You may discard #any number of cards# from your Reserve to #draw that many cards#.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,
       'costHand' => 5,
       'costReserve' => 5,
-      'effectPlayed' => FT::ACTION(DISCARD_DRAW, [])
+      'effectPlayed' => FT::ACTION(DISCARD_DRAW, []),
     ];
   }
 }

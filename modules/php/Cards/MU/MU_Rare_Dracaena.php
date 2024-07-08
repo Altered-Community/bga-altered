@@ -15,13 +15,15 @@ class MU_Rare_Dracaena extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Dracaena',
-      'typeline' => 'Character - Dragon Plant',
+      'name' => clienttranslate('Dracaena'),
+      'typeline' => clienttranslate('Character - Dragon Plant'),
       'type' => CHARACTER,
-      'flavorText' => 'They\'re sometimes seen dozing close to a pond, soaking in the water and the sunlight... ',
+      'flavorText' => clienttranslate(
+        'They\'re sometimes seen dozing close to a pond, soaking in the water and the sunlight... '
+      ),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DRAGON, PLANT],
-      'effectDesc' => '{J} I gain $<ANCHORED>.  At Noon — I gain #2 boosts#.',
+      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.  At Noon — I gain #2 boosts#.'),
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 1,
@@ -31,10 +33,10 @@ class MU_Rare_Dracaena extends \ALT\Models\Card
       'effectPlayed' => FT::GAIN($this, ANCHORED),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
-          'output' => FT::GAIN($this, BOOST, 2)
-        ]
-      ]
+          'condition' => 'isMe',
+          'output' => FT::GAIN($this, BOOST, 2),
+        ],
+      ],
     ];
   }
 }

@@ -15,14 +15,15 @@ class OD_Rare_PaperHerald extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Paper Herald',
-      'typeline' => 'Character - Messenger',
+      'name' => clienttranslate('Paper Herald'),
+      'typeline' => clienttranslate('Character - Messenger'),
       'type' => CHARACTER,
-      'flavorText' => 'Words mean more than what is set down on paper.',
+      'flavorText' => clienttranslate('Words mean more than what is set down on paper.'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [MESSENGER],
-      'supportDesc' =>
-      '{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 2,

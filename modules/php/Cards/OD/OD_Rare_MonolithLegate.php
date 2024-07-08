@@ -15,15 +15,16 @@ class OD_Rare_MonolithLegate extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Monolith Legate',
-      'typeline' => 'Character - Bureaucrat',
+      'name' => clienttranslate('Monolith Legate'),
+      'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'flavorText' => 'Your document has expired. Needless to say, that\'s not his problem.',
+      'flavorText' => clienttranslate('Your document has expired. Needless to say, that\'s not his problem.'),
       'artist' => 'Romain Kurdi',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => 'When my Expedition fails to move forward during Dusk — $<SABOTAGE> after Rest.',
-      'supportDesc' =>
-      '#{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — $<SABOTAGE> after Rest.'),
+      'supportDesc' => clienttranslate(
+        '#{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -33,7 +34,7 @@ class OD_Rare_MonolithLegate extends \ALT\Models\Card
       'effectPassive' => [
         'AfterDusk' => [
           'condition' => 'myExpeditionHasNotMoved',
-          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRestSabotage'])
+          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRestSabotage']),
         ],
       ],
       'supportIcon' => 'discard',

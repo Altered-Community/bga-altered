@@ -15,13 +15,13 @@ class LY_Rare_SpyCraft extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Spy Craft',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Spy Craft'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'This message will self-destruct in five seconds.',
+      'flavorText' => clienttranslate('This message will self-destruct in five seconds.'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  $<SABOTAGE>, then $<RESUPPLY_LOW>.',
+      'effectDesc' => clienttranslate('$<FLEETING>.  $<SABOTAGE>, then $<RESUPPLY_LOW>.'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(

@@ -15,36 +15,32 @@ class YZ_Rare_GiftofSelf extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Gift of Self',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Gift of Self'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' =>
-      'Her being begins to disintegrate as she breaks all the Mana bridges linking the idea of who she is to physical matter.',
+      'flavorText' => clienttranslate(
+        'Her being begins to disintegrate as she breaks all the Mana bridges linking the idea of who she is to physical matter.'
+      ),
       'artist' => 'Fahmi Fauzi',
       'subtypes' => [CONJURATION],
-      'effectDesc' => '$<FLEETING>.  Sacrifice a Character. If you do, draw #three cards#.',
+      'effectDesc' => clienttranslate('$<FLEETING>.  Sacrifice a Character. If you do, draw #three cards#.'),
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
-        FT::ACTION(
-          CHECK_CONDITION,
-          [
-            'condition' => 'canSacrifice', 'effect' => FT::SEQ(
-              FT::ACTION(
-                TARGET,
-                [
-                  'targetPlayer' => ME,
-                  'targetType' => [CHARACTER, TOKEN],
-                  'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
-                ]
-              ),
-              FT::ACTION(DRAW, ['players' => ME, 'n' => 3])
-            )
-          ]
-        )
-      )
+        FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'canSacrifice',
+          'effect' => FT::SEQ(
+            FT::ACTION(TARGET, [
+              'targetPlayer' => ME,
+              'targetType' => [CHARACTER, TOKEN],
+              'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+            ]),
+            FT::ACTION(DRAW, ['players' => ME, 'n' => 3])
+          ),
+        ])
+      ),
     ];
   }
 }

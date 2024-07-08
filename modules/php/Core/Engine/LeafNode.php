@@ -54,7 +54,8 @@ class LeafNode extends AbstractNode
       return parent::isOptional($player);
     }
 
-    return Actions::get($this->infos['action'], $this)->isOptional($player) || !Actions::get($this->infos['action'], $this)->isDoable($player);
+    return Actions::get($this->infos['action'], $this)->isOptional($player) ||
+      !Actions::get($this->infos['action'], $this)->isDoable($player);
   }
 
   public function isIrreversible($player = null)

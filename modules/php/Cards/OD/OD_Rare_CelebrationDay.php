@@ -15,21 +15,19 @@ class OD_Rare_CelebrationDay extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Celebration Day',
-      'typeline' => 'Spell - Maneuver',
+      'name' => clienttranslate('Celebration Day'),
+      'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
-      'flavorText' =>
-      'Today, and for centuries to come, we will celebrate victory over the Kraken and revel in freedom regained!',
+      'flavorText' => clienttranslate(
+        'Today, and for centuries to come, we will celebrate victory over the Kraken and revel in freedom regained!'
+      ),
       'artist' => 'Matteo Spirito',
       'subtypes' => [MANEUVER],
-      'effectDesc' => '$<FLEETING>.  #Expeditions# can\'t move forward this Day.',
+      'effectDesc' => clienttranslate('$<FLEETING>.  #Expeditions# can\'t move forward this Day.'),
       'costHand' => 8,
       'costReserve' => 8,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
-        FT::ACTION(BLOCK_EXPEDITION, ['expedition' => 'all'])
-      )
+      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(BLOCK_EXPEDITION, ['expedition' => 'all'])),
     ];
   }
 }

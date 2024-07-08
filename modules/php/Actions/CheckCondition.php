@@ -39,10 +39,7 @@ class CheckCondition extends \ALT\Models\Action
     $effect = $this->getArg('condition');
     foreach ($cards as $cId => $card) {
       $block = $card->getBlockAutomaticAction();
-      if (
-        isset($block[CHECK_CONDITION]) &&
-        isset($block[CHECK_CONDITION][$effect])
-      ) {
+      if (isset($block[CHECK_CONDITION]) && isset($block[CHECK_CONDITION][$effect])) {
         return false;
       }
     }
@@ -59,7 +56,8 @@ class CheckCondition extends \ALT\Models\Action
   {
     $source = $this->getSource();
     $event = ['pId' => $player->getId()];
-    return Conditions::check($this->getCtxArgs(), $source, $event);
+    $card = $source ?? $player->getHero();
+    return Conditions::check($this->getCtxArgs(), $card, $event);
   }
 
   public function stCheckCondition()

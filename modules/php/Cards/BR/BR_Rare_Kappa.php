@@ -15,14 +15,16 @@ class BR_Rare_Kappa extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Kappa',
-      'typeline' => 'Character - Trainer Spirit',
+      'name' => clienttranslate('Kappa'),
+      'typeline' => clienttranslate('Character - Trainer Spirit'),
       'type' => CHARACTER,
-      'flavorText' => '"Push through the pain. Giving up would hurt far more."',
+      'flavorText' => clienttranslate('"Push through the pain. Giving up would hurt far more."'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [TRAINER, SPIRIT],
-      'effectDesc' => '#$<SEASONED>.#',
-      'supportDesc' => '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('#$<SEASONED>.#'),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 5,

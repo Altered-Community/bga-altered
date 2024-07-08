@@ -15,12 +15,12 @@ class AX_Common_ArmoredJammer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Armored Jammer',
+      'name' => clienttranslate('Armored Jammer'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' => '{J} $<SABOTAGE>.',
-      'flavorText' => '"In a jam? Sorry, mate. Maybe a side-effect of our scrambling..."',
-      'typeline' => 'Permanent - Landmark',
+      'effectDesc' => clienttranslate('{J} $<SABOTAGE>.'),
+      'flavorText' => clienttranslate('"In a jam? Sorry, mate. Maybe a side-effect of our scrambling..."'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'artist' => 'HuoMiao Studio',
 
       'costHand' => 2,

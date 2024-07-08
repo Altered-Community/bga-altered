@@ -4,7 +4,6 @@ namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
-
 class MU_Rare_Ogun extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,20 +15,19 @@ class MU_Rare_Ogun extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Ogun',
-      'typeline' => 'Character - Engineer Deity',
+      'name' => clienttranslate('Ogun'),
+      'typeline' => clienttranslate('Character - Engineer Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'With every blow of his hammer, Ogun forges the Axiom\'s destiny.',
+      'flavorText' => clienttranslate('With every blow of his hammer, Ogun forges the Axiom\'s destiny.'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ENGINEER, DEITY],
-      'effectDesc' => '{J} #Plants# you control gain 1 boost.',
+      'effectDesc' => clienttranslate('{J} #Plants# you control gain 1 boost.'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => PLANT]]),
-
     ];
   }
 }

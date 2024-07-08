@@ -15,17 +15,18 @@ class MU_Rare_ACappellaTraining extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'A Cappella Training',
-      'typeline' => 'Spell - Song',
+      'name' => clienttranslate('A Cappella Training'),
+      'typeline' => clienttranslate('Spell - Song'),
       'type' => SPELL,
-      'flavorText' => 'Thank you for being my metronome!',
+      'flavorText' => clienttranslate('Thank you for being my metronome!'),
       'artist' => 'Zero Wen',
       'subtypes' => [SONG],
-      'effectDesc' => 'Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)',
+      'effectDesc' => clienttranslate(
+        'Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)'
+      ),
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
-
     ];
   }
 }

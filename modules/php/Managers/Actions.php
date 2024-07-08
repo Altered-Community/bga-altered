@@ -38,7 +38,7 @@ class Actions
     BLOCK_EXPEDITION,
     TARGET_PLAYER,
     DISCARD_DRAW,
-    TARGET_EXPEDITION
+    TARGET_EXPEDITION,
   ];
 
   public static function get($actionId, &$ctx = null)

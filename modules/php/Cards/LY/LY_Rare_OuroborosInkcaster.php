@@ -4,7 +4,6 @@ namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-
 class LY_Rare_OuroborosInkcaster extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,15 +15,18 @@ class LY_Rare_OuroborosInkcaster extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Ouroboros Inkcaster',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Ouroboros Inkcaster'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => 'When luck joins in the game, cleverness scores double. ',
+      'flavorText' => clienttranslate('When luck joins in the game, cleverness scores double. '),
       'artist' => 'Khoa Viet',
       'subtypes' => [ARTIST],
-      'effectDesc' =>
-      'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.',
-      'supportDesc' => '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate(
+        'When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.'
+      ),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

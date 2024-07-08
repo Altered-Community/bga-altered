@@ -129,7 +129,8 @@ class ChooseAssignment extends \ALT\Models\Action
 
       // management of CostReductionDiscard, discarding a card from reserve to reduce cost
       if ($card->getCostReductionDiscard() > 0) {
-        if (($card->getLocation() == RESERVE && $player->getReserveCards()->count() > 1) ||
+        if (
+          ($card->getLocation() == RESERVE && $player->getReserveCards()->count() > 1) ||
           ($card->getLocation() != RESERVE && $player->getReserveCards()->count() > 0)
         ) {
           $this->insertAsChild(
@@ -147,7 +148,12 @@ class ChooseAssignment extends \ALT\Models\Action
                   ],
                   ['sourceId' => $cardId]
                 ),
-                FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'cost' => $cost - $card->getCostReductionDiscard(), 'location' => $location])
+                FT::ACTION(PLAY_CARD, [
+                  'cardId' => $cardId,
+                  'free' => true,
+                  'cost' => $cost - $card->getCostReductionDiscard(),
+                  'location' => $location,
+                ])
               )
             )
           );
@@ -173,11 +179,13 @@ class ChooseAssignment extends \ALT\Models\Action
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
 
-    // if played from reserve, it gains fleeting
+    // When does this happens ????
     if ($location == DISCARD) {
       $deleted = $card->discard();
       Notifications::silentKill($deleted);
-    } elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
+    }
+    // if played from reserve, it gains fleeting
+    elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
       $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
       Notifications::gainMeeple(FLEETING, $card, $token);
     }
@@ -189,12 +197,17 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     // should we anchor the character?
-    if (Globals::getNextCharacterCost3Anchored() == true && in_array($card->getType(), [CHARACTER, TOKEN]) && $card->getCostHand() <= 3) {
+    if (
+      Globals::getNextCharacterCost3Anchored() == true &&
+      in_array($card->getType(), [CHARACTER, TOKEN]) &&
+      $card->getCostHand() <= 3
+    ) {
       $this->insertAsChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterCost3Anchored(false);
     }
 
-    if (($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($player, $location)) ||
+    if (
+      ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($player, $location)) ||
       $card->getType() != CHARACTER
     ) {
       $effects = [];
@@ -253,7 +266,7 @@ class ChooseAssignment extends \ALT\Models\Action
     ]);
 
     if ($card->getType() == SPELL) {
-      if ($fromLocation == HAND &&  Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
+      if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
         Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
       } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
         Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));

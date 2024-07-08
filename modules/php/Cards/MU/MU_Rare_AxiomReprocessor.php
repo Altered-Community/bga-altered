@@ -15,18 +15,18 @@ class MU_Rare_AxiomReprocessor extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Axiom Reprocessor',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Axiom Reprocessor'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'Nothing is created, nothing is lost, everything is transformed.',
+      'flavorText' => clienttranslate('Nothing is created, nothing is lost, everything is transformed.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'At Noon — $<RESUPPLY>.',
+      'effectDesc' => clienttranslate('At Noon — $<RESUPPLY>.'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],

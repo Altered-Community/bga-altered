@@ -15,16 +15,18 @@ class OD_Rare_Ozma extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Ozma',
+      'name' => clienttranslate('Ozma'),
       'type' => CHARACTER,
       'subtypes' => [NOBLE],
-      'effectDesc' => '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)',
+      'effectDesc' => clienttranslate(
+        '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)'
+      ),
       'supportDesc' => clienttranslate(
         '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
       ),
       'supportIcon' => 'discard',
-      'typeline' => 'Character - Noble',
-      'flavorText' => '"Never give up. No one knows what’s going to happen next."',
+      'typeline' => clienttranslate('Character - Noble'),
+      'flavorText' => clienttranslate('"Never give up. No one knows what’s going to happen next."'),
       'artist' => 'Taras Susak',
 
       'forest' => 2,

@@ -15,14 +15,16 @@ class AX_Common_KelonCylinder extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Kelon Cylinder',
+      'name' => clienttranslate('Kelon Cylinder'),
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
-      'effectDesc' =>
-      '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost $<BB>.',
-      'flavorText' =>
-      'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy for which engineers find new applications every day.',
-      'typeline' => 'Permanent - Landmark',
+      'effectDesc' => clienttranslate(
+        '{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost $<BB>.'
+      ),
+      'flavorText' => clienttranslate(
+        'This little battery is Axiom\'s trump card. The Kelon produces phenomenal energy for which engineers find new applications every day.'
+      ),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'artist' => 'Anh Tung',
 
       'costHand' => 1,

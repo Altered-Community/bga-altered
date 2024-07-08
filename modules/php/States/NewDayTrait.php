@@ -207,7 +207,8 @@ trait NewDayTrait
     // Stats::incTurns($player);
     $node = [
       'pId' => $player->getId(),
-      'action' => DISCARD, 'args' => ['canPass' => true, 'n' => 1, 'source' => HAND, 'destination' => MANA],
+      'action' => DISCARD,
+      'args' => ['canPass' => true, 'n' => 1, 'source' => HAND, 'destination' => MANA],
     ];
 
     // Inserting leaf Action card

@@ -15,13 +15,13 @@ class MU_Common_AloeVera extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => 'Aloe Vera',
-      'typeline' => 'Character - Plant',
+      'name' => clienttranslate('Aloe Vera'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => 'Moisturizing every day is essential.',
+      'flavorText' => clienttranslate('Moisturizing every day is essential.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [PLANT],
-      'effectDesc' => 'At Noon — $<RESUPPLY>.',
+      'effectDesc' => clienttranslate('At Noon — $<RESUPPLY>.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,
@@ -29,10 +29,10 @@ class MU_Common_AloeVera extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
-          'output' => FT::ACTION(RESUPPLY, [])
-        ]
-      ]
+          'condition' => 'isMe',
+          'output' => FT::ACTION(RESUPPLY, []),
+        ],
+      ],
     ];
   }
 }

@@ -16,13 +16,16 @@ class YZ_Rare_KrakensWrath extends \ALT\Models\Card
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
       'name' => "Kraken's Wrath",
-      'typeline' => 'Spell - Disruption',
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' =>
-      'The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.',
+      'flavorText' => clienttranslate(
+        'The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.'
+      ),
       'artist' => 'Matteo Spirito',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Send to Reserve up to #four# target Characters with a total Hand Cost #{6} or less#.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Send to Reserve up to #four# target Characters with a total Hand Cost #{6} or less#.'
+      ),
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::SEQ(

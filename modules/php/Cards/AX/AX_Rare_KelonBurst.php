@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Rare_KelonBurst extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,14 +15,17 @@ class AX_Rare_KelonBurst extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Kelon Burst',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Kelon Burst'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'There\'s an enduring legend in the Suspira quarries: the existence of another type of Kelon.',
+      'flavorText' => clienttranslate(
+        'There\'s an enduring legend in the Suspira quarries: the existence of another type of Kelon.'
+      ),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' =>
-      '<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.  #If you control two or more Landmarks, create a <BRASSBUG> Robot token in target Expedition.#',
+      'effectDesc' => clienttranslate(
+        '<FLEETING>.  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.  #If you control two or more Landmarks, create a <BRASSBUG> Robot token in target Expedition.#'
+      ),
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],

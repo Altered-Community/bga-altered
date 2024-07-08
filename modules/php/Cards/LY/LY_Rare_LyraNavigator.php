@@ -15,13 +15,17 @@ class LY_Rare_LyraNavigator extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Lyra Navigator',
-      'typeline' => 'Character - Citizen',
+      'name' => clienttranslate('Lyra Navigator'),
+      'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
-      'flavorText' => 'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.',
+      'flavorText' => clienttranslate(
+        'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.'
+      ),
       'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
-      'supportDesc' => '#{D} : <RESUPPLY>.# (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '#{D} : <RESUPPLY>.# (Put the top card of your deck in Reserve. Discard me from Reserve to do this.)'
+      ),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 4,
@@ -29,7 +33,7 @@ class LY_Rare_LyraNavigator extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['costReserve'],
       'supportIcon' => 'discard',
-      'effectSupport' => FT::ACTION(RESUPPLY, [])
+      'effectSupport' => FT::ACTION(RESUPPLY, []),
     ];
   }
 }

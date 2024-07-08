@@ -20,15 +20,15 @@ class Notifications
     ],
     [
       'name' => 'blockedExpeditions',
-      'method' => ['ALT\Managers\Players', 'getBlockedExpeditions']
+      'method' => ['ALT\Managers\Players', 'getBlockedExpeditions'],
     ],
     [
       'name' => 'powersBlockedExpeditions',
-      'method' => ['ALT\Managers\Players', 'getPowersBlockedExpeditions']
+      'method' => ['ALT\Managers\Players', 'getPowersBlockedExpeditions'],
     ],
     [
       'name' => 'defenders',
-      'method' => ['ALT\Managers\Players', 'getDefenders']
+      'method' => ['ALT\Managers\Players', 'getDefenders'],
     ],
   ];
 
@@ -437,13 +437,13 @@ class Notifications
     if ($location == 'limbo') {
       $msg =
         $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost}')
-        : clienttranslate('${player_name} plays ${card_name} for ${mana_cost}');
+          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost}')
+          : clienttranslate('${player_name} plays ${card_name} for ${mana_cost}');
     } else {
       $msg =
         $fromLocation == RESERVE
-        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation}')
-        : clienttranslate('${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation}');
+          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation}')
+          : clienttranslate('${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation}');
     }
 
     self::notifyAll('playCard', $msg, [
@@ -487,15 +487,6 @@ class Notifications
     ]);
   }
 
-  public static function updateBiomes($player)
-  {
-    self::notifyAll('updateBiomes', '', [
-      'biomes' => $player->getBiomeStrength(),
-      'pId' => $player->getId(),
-      'movements' => Players::computeStorm(),
-    ]);
-  }
-
   public static function winTieBreaker($player, $n)
   {
     self::notifyAll('winTieBreaker', clienttranslate('${player_name} wins the tiebreaker with ${n} attributes'), [
@@ -506,7 +497,11 @@ class Notifications
 
   public static function startTiebreak($meeples)
   {
-    self::notifyAll('startTiebreak', clienttranslate('The tiebreaker is triggered as heroes reached their companions at the same time'), ['meeples' => $meeples]);
+    self::notifyAll(
+      'startTiebreak',
+      clienttranslate('The tiebreaker is triggered as heroes reached their companions at the same time'),
+      ['meeples' => $meeples]
+    );
   }
 
   public static function newPhase($phase)
@@ -517,11 +512,14 @@ class Notifications
       PHASE_NOON => clienttranslate('${phase_icon} Day n°${day}: noon ${phase_icon2}'),
       PHASE_AFTERNOON => clienttranslate('${phase_icon} Day n°${day}: afternoon ${phase_icon2}'),
       PHASE_DUSK => clienttranslate('${phase_icon} Day n°${day}: dusk ${phase_icon2}'),
-      PHASE_NIGHT => clienttranslate('${phase_icon} Day n°${day}: night ${phase_icon2}')
+      PHASE_NIGHT => clienttranslate('${phase_icon} Day n°${day}: night ${phase_icon2}'),
     ];
     $msg = $msgs[$phase];
     self::notifyAll('newPhase', $msg, [
-      'phase' => $phase, 'day' => Globals::getDay(), 'phase_icon' => '', 'phase_icon2' => '',
+      'phase' => $phase,
+      'day' => Globals::getDay(),
+      'phase_icon' => '',
+      'phase_icon2' => '',
       'preserve' => ['phase_icon', 'phase_icon2'],
       'phaseId' => Globals::getPhase(),
     ]);
@@ -572,8 +570,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -700,16 +698,20 @@ class Notifications
 
   public static function blockExpedition($player, $blockedPlayer, $expedition)
   {
-    self::notifyAll('mediumMessage',  clienttranslate('${player_name} blocks ${player_name2} ${expedition}\'s expedition until next Day'), [
-      'player' => $player,
-      'player2' => $blockedPlayer,
-      'expedition' => $expedition == STORM_LEFT ? clienttranslate('Hero') : clienttranslate('Companion')
-    ]);
+    self::notifyAll(
+      'mediumMessage',
+      clienttranslate('${player_name} blocks ${player_name2} ${expedition}\'s expedition until next Day'),
+      [
+        'player' => $player,
+        'player2' => $blockedPlayer,
+        'expedition' => $expedition == STORM_LEFT ? clienttranslate('Hero') : clienttranslate('Companion'),
+      ]
+    );
   }
 
   public static function blockAllExpeditions($player, $source)
   {
-    self::notifyAll('mediumMessage',  clienttranslate('${player_name} blocks all expeditions until next Day (${card_name}'), [
+    self::notifyAll('mediumMessage', clienttranslate('${player_name} blocks all expeditions until next Day (${card_name}'), [
       'player' => $player,
       'card' => $source,
     ]);
@@ -829,8 +831,8 @@ class Notifications
     if (isset($data['displayLocation'])) {
       $data['displayLocation'] =
         $data['displayLocation'] == STORM_LEFT
-        ? clienttranslate('Hero\'s expedition')
-        : clienttranslate('Companion\'s expedition');
+          ? clienttranslate('Hero\'s expedition')
+          : clienttranslate('Companion\'s expedition');
     }
 
     if (isset($data['card'])) {

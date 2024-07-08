@@ -15,12 +15,16 @@ class BR_Common_ManaEruption extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Mana Eruption',
+      'name' => clienttranslate('Mana Eruption'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Discard one of your Mana Orbs. If you do, discard target Character or Permanent.',
-      'typeline' => 'Spell - Disruption',
-      'flavorText' => 'Flames fly from his hand as he falls towards the monster, leaving a trail of glowing fire behind him...',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Discard one of your Mana Orbs. If you do, discard target Character or Permanent.'
+      ),
+      'typeline' => clienttranslate('Spell - Disruption'),
+      'flavorText' => clienttranslate(
+        'Flames fly from his hand as he falls towards the monster, leaving a trail of glowing fire behind him...'
+      ),
       'artist' => 'Zero Wen',
 
       'costHand' => 3,

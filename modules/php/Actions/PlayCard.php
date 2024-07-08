@@ -119,6 +119,12 @@ class PlayCard extends \ALT\Models\Action
     }
 
     $context = &$this->getCtx();
-    Actions::get(CHOOSE_ASSIGNMENT, $context)->playCard($cardId, $location, $this->getArg('free'), $this->getArg('effectHand'), $this->getArg('cost'));
+    Actions::get(CHOOSE_ASSIGNMENT, $context)->playCard(
+      $cardId,
+      $location,
+      $this->getArg('free'),
+      $this->getArg('effectHand'),
+      $this->getArg('cost')
+    );
   }
 }

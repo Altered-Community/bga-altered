@@ -4,7 +4,6 @@ namespace ALT\Cards\OD;
 
 use ALT\Helpers\FT;
 
-
 class OD_Rare_AmeliaEarhart extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,19 +15,19 @@ class OD_Rare_AmeliaEarhart extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Amelia Earhart',
-      'typeline' => 'Character - Adventurer',
+      'name' => clienttranslate('Amelia Earhart'),
+      'typeline' => clienttranslate('Character - Adventurer'),
       'type' => CHARACTER,
-      'flavorText' => '"The most effective way to do it, is to do it."',
+      'flavorText' => clienttranslate('"The most effective way to do it, is to do it."'),
       'artist' => 'Taras Susak',
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '#{H} I gain 1 boost$<BB>.#',
+      'effectDesc' => clienttranslate('#{H} I gain 1 boost$<BB>.#'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 1,
-      'effectHand' => FT::GAIN($this, BOOST)
+      'effectHand' => FT::GAIN($this, BOOST),
     ];
   }
 }

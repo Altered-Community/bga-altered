@@ -15,14 +15,15 @@ class LY_Rare_MindApotheosis extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Mind Apotheosis',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Mind Apotheosis'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' => 'Who looks outside, dreams; who looks inside, awakes.',
+      'flavorText' => clienttranslate('Who looks outside, dreams; who looks inside, awakes.'),
       'artist' => 'Zero Wen',
       'subtypes' => [CONJURATION],
-      'effectDesc' =>
-      '<FLEETING>.  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain <FLEETING>. Discard the other cards. (Don\'t activate any {h} triggers.)',
+      'effectDesc' => clienttranslate(
+        '<FLEETING>.  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain <FLEETING>. Discard the other cards. (Don\'t activate any {h} triggers.)'
+      ),
       'costHand' => 8,
       'costReserve' => 8,
       'changedStats' => ['costHand', 'costReserve'],

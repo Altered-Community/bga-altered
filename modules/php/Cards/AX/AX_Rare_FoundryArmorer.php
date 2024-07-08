@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Rare_FoundryArmorer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,13 @@ class AX_Rare_FoundryArmorer extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Foundry Armorer',
-      'typeline' => 'Character - Engineer',
+      'name' => clienttranslate('Foundry Armorer'),
+      'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
-      'flavorText' => 'No Brassbug would survive in the Tumult without armor.',
+      'flavorText' => clienttranslate('No Brassbug would survive in the Tumult without armor.'),
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '#{J}# Create a <BRASSBUG> Robot token in target Expedition.',
+      'effectDesc' => clienttranslate('#{J}# Create a <BRASSBUG> Robot token in target Expedition.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

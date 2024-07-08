@@ -15,13 +15,13 @@ class LY_Rare_AloeVera extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Aloe Vera',
-      'typeline' => 'Character - Plant',
+      'name' => clienttranslate('Aloe Vera'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => 'Moisturizing every day is essential.',
+      'flavorText' => clienttranslate('Moisturizing every day is essential.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [PLANT],
-      'effectDesc' => '#{J} You may pay {1} to have me gain $<ANCHORED>.#  At Noon — $<RESUPPLY>.',
+      'effectDesc' => clienttranslate('#{J} You may pay {1} to have me gain $<ANCHORED>.#  At Noon — $<RESUPPLY>.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 4,
@@ -29,14 +29,11 @@ class LY_Rare_AloeVera extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
-          'output' => FT::ACTION(RESUPPLY, [])
-        ]
+          'condition' => 'isMe',
+          'output' => FT::ACTION(RESUPPLY, []),
+        ],
       ],
-      'effectPlayed' => FT::SEQ_OPTIONAL(
-        FT::ACTION(PAY, ['pay' => 1]),
-        FT::GAIN($this, ANCHORED)
-      )
+      'effectPlayed' => FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 1]), FT::GAIN($this, ANCHORED)),
     ];
   }
 }

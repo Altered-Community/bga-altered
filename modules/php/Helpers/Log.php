@@ -162,7 +162,7 @@ class Log extends \APP_DbObject
         if ($log['type'] != 'create') {
           foreach ($row as $key => $val) {
             if (isset($row[$key])) {
-              $val = str_replace("\\", "\\\\", $val);
+              $val = str_replace('\\', '\\\\', $val);
               $val = str_replace("'", "\\'", \stripcslashes($val));
               $row[$key] = $val;
             }

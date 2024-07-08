@@ -15,20 +15,20 @@ class YZ_Rare_SneezerShroom extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Sneezer Shroom',
-      'typeline' => 'Character - Plant',
+      'name' => clienttranslate('Sneezer Shroom'),
+      'typeline' => clienttranslate('Character - Plant'),
       'type' => CHARACTER,
-      'flavorText' => '"Achoo!"',
+      'flavorText' => clienttranslate('"Achoo!"'),
       'artist' => 'Zero Wen',
       'subtypes' => [PLANT],
-      'effectDesc' => '{J} I gain $<ANCHORED>.  #At Noon — I gain 1 boost.#',
+      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.  #At Noon — I gain 1 boost.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::GAIN($this, ANCHORED),
-      'effectPassive' => ['Noon' => ['condition' => 'myTurn', 'output' => FT::GAIN($this, BOOST)]],
+      'effectPassive' => ['Noon' => ['condition' => 'isMe', 'output' => FT::GAIN($this, BOOST)]],
     ];
   }
 }

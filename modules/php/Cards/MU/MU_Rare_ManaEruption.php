@@ -15,13 +15,17 @@ class MU_Rare_ManaEruption extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Mana Eruption',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Mana Eruption'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'Flames fly from his hand as he falls towards the monster, leaving a trail of glowing fire behind him...',
+      'flavorText' => clienttranslate(
+        'Flames fly from his hand as he falls towards the monster, leaving a trail of glowing fire behind him...'
+      ),
       'artist' => 'Zero Wen',
       'subtypes' => [DISRUPTION],
-      'effectDesc' => '$<FLEETING>.  Discard one of your Mana Orbs. If you do, discard target Character or Permanent.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  Discard one of your Mana Orbs. If you do, discard target Character or Permanent.'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],

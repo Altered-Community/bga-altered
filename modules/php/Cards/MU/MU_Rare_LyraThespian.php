@@ -15,19 +15,22 @@ class MU_Rare_LyraThespian extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Lyra Thespian',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Lyra Thespian'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => '"All the world’s a stage."',
+      'flavorText' => clienttranslate('"All the world’s a stage."'),
       'artist' => 'Rémi Jacquot',
       'subtypes' => [ARTIST],
-      'effectDesc' => '{J} If you control #two or more <BOOSTED_CHA_P> Characters#, I gain #2 boosts#.',
+      'effectDesc' => clienttranslate('{J} If you control #two or more <BOOSTED_CHA_P> Characters#, I gain #2 boosts#.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'hasControl::2::boosted', 'effect' => FT::GAIN($this, BOOST, 2)])
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'hasControl::2::boosted',
+        'effect' => FT::GAIN($this, BOOST, 2),
+      ]),
     ];
   }
 }

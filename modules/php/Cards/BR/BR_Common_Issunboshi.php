@@ -15,13 +15,15 @@ class BR_Common_Issunboshi extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Issun-bōshi',
+      'name' => clienttranslate('Issun-bōshi'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'supportDesc' => '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)'
+      ),
       'supportIcon' => 'discard',
-      'typeline' => 'Character - Adventurer',
-      'flavorText' => 'Small stature, big heart, immense adventures.',
+      'typeline' => clienttranslate('Character - Adventurer'),
+      'flavorText' => clienttranslate('Small stature, big heart, immense adventures.'),
       'artist' => 'Anh Tung',
 
       'forest' => 0,

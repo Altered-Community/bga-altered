@@ -15,14 +15,15 @@ class AX_Rare_MunaDruid extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Muna Druid',
-      'typeline' => 'Character - Druid',
+      'name' => clienttranslate('Muna Druid'),
+      'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
-      'flavorText' => '"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."',
+      'flavorText' => clienttranslate('"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."'),
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
-      'supportDesc' =>
-      '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,

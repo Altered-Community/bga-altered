@@ -15,13 +15,13 @@ class AX_Rare_AxiomSalvager extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Axiom Salvager',
-      'typeline' => 'Character - Engineer',
+      'name' => clienttranslate('Axiom Salvager'),
+      'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
-      'flavorText' => 'The Axiom\'s limited resources pushed them to reuse whatever they could.',
+      'flavorText' => clienttranslate('The Axiom\'s limited resources pushed them to reuse whatever they could.'),
       'artist' => 'Anh Tung',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{R} $<RESUPPLY>.',
+      'effectDesc' => clienttranslate('{R} $<RESUPPLY>.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,
@@ -29,7 +29,6 @@ class AX_Rare_AxiomSalvager extends \ALT\Models\Card
       'costReserve' => 1,
       'changedStats' => ['ocean', 'costReserve'],
       'effectReserve' => FT::ACTION(RESUPPLY, []),
-
     ];
   }
 }

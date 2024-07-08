@@ -214,6 +214,7 @@ class altered extends Table
   {
     $event['type'] = $typeEvent;
     $event['method'] = $typeEvent;
+    $event['phase'] = true;
     $this->initCustomTurnOrder($typeEvent, $order, 'genericPlayerCheckListeners', $endCallback, false, true, $event);
   }
 

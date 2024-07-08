@@ -13,13 +13,15 @@ class AX_Rare_Martengale extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Martengale',
-      'typeline' => 'Character - Spirit Animal',
+      'name' => clienttranslate('Martengale'),
+      'typeline' => clienttranslate('Character - Spirit Animal'),
       'type' => CHARACTER,
-      'flavorText' => 'Spotting a martengale is always a good omen.',
+      'flavorText' => clienttranslate('Spotting a martengale is always a good omen.'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SPIRIT, ANIMAL],
-      'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,

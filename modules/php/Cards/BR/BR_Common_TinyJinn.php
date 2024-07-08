@@ -15,13 +15,14 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Tiny Jinn',
+      'name' => clienttranslate('Tiny Jinn'),
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
-      'effectDesc' =>
-      'When I leave the Expedition zone, if I\'m <BOOSTED> — Put me in my owner\'s Mana zone (as an exhausted Mana Orb).  {R} I gain 1 boost.',
-      'typeline' => 'Character - Elemental',
-      'flavorText' => 'It may be a fire today — tomorrow it will be ashes.',
+      'effectDesc' => clienttranslate(
+        'When I leave the Expedition zone, if I\'m <BOOSTED> — Put me in my owner\'s Mana zone (as an exhausted Mana Orb).  {R} I gain 1 boost.'
+      ),
+      'typeline' => clienttranslate('Character - Elemental'),
+      'flavorText' => clienttranslate('It may be a fire today — tomorrow it will be ashes.'),
       'artist' => 'HuoMiao Studio',
 
       'forest' => 0,

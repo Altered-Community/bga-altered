@@ -15,15 +15,16 @@ class MU_Rare_MunaDruid extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Muna Druid',
-      'typeline' => 'Character - Druid',
+      'name' => clienttranslate('Muna Druid'),
+      'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
-      'flavorText' => '"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."',
+      'flavorText' => clienttranslate('"We are the sentinels of the Skein, always keeping a finger on the pulse of nature."'),
       'artist' => 'Ba Vo',
       'subtypes' => [DRUID],
-      'effectDesc' => '#{H} Up to one target Plant gains 2 boosts.#',
-      'supportDesc' =>
-      '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('#{H} Up to one target Plant gains 2 boosts.#'),
+      'supportDesc' => clienttranslate(
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,
@@ -35,9 +36,8 @@ class MU_Rare_MunaDruid extends \ALT\Models\Card
       'effectHand' => FT::ACTION(TARGET, [
         'upTo' => true,
         'subType' => PLANT,
-        'effect' => FT::GAIN(EFFECT, BOOST, 2)
+        'effect' => FT::GAIN(EFFECT, BOOST, 2),
       ]),
-
     ];
   }
 }

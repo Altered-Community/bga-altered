@@ -13,14 +13,18 @@ class LY_Rare_Martengale extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Martengale',
-      'typeline' => 'Character - Spirit Animal',
+      'name' => clienttranslate('Martengale'),
+      'typeline' => clienttranslate('Character - Spirit Animal'),
       'type' => CHARACTER,
-      'flavorText' => 'Spotting a martengale is always a good omen.',
+      'flavorText' => clienttranslate('Spotting a martengale is always a good omen.'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SPIRIT, ANIMAL],
-      'effectDesc' => '#If you would roll a die, you may add 1 to its result.# (Choose after you see the result.)',
-      'supportDesc' => '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate(
+        '#If you would roll a die, you may add 1 to its result.# (Choose after you see the result.)'
+      ),
+      'supportDesc' => clienttranslate(
+        '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 0,

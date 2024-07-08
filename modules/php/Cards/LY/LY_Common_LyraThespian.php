@@ -15,12 +15,14 @@ class LY_Common_LyraThespian extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Lyra Thespian',
+      'name' => clienttranslate('Lyra Thespian'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' => '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$<BB>.',
-      'typeline' => 'Character - Artist',
-      'flavorText' => '"All the world’s a stage."',
+      'effectDesc' => clienttranslate(
+        '{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$<BB>.'
+      ),
+      'typeline' => clienttranslate('Character - Artist'),
+      'flavorText' => clienttranslate('"All the world’s a stage."'),
       'artist' => 'Rémi Jacquot',
 
       'forest' => 2,

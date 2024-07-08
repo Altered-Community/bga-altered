@@ -15,21 +15,20 @@ class OD_Rare_Anubis extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Anubis',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Anubis'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'Only a heart as light as a feather can stand up to the judgment of Anubis.',
+      'flavorText' => clienttranslate('Only a heart as light as a feather can stand up to the judgment of Anubis.'),
       'artist' => 'Romain Kurdi',
       'subtypes' => [DEITY],
-      'effectDesc' => '{J} Each player sacrifices a Character.',
+      'effectDesc' => clienttranslate('{J} Each player sacrifices a Character.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['mountain', 'costHand', 'costReserve'],
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AllPlayersSacrifice1'])
-
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AllPlayersSacrifice1']),
     ];
   }
 }

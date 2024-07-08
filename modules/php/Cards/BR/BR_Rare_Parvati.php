@@ -15,13 +15,15 @@ class BR_Rare_Parvati extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Parvati',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Parvati'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'Only in harmony can the world thrive.',
+      'flavorText' => clienttranslate('Only in harmony can the world thrive.'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DEITY],
-      'effectDesc' => '#{J}# Target Character gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)',
+      'effectDesc' => clienttranslate(
+        '#{J}# Target Character gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)'
+      ),
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
@@ -29,7 +31,6 @@ class BR_Rare_Parvati extends \ALT\Models\Card
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
-
     ];
   }
 }

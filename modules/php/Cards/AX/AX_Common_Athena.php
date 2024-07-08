@@ -15,12 +15,12 @@ class AX_Common_Athena extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Athena',
+      'name' => clienttranslate('Athena'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => '{R} If you control two or more Landmarks, I lose <FLEETING_CHAR>.',
-      'flavorText' => '"I’ve lifted the mist from off your eyes that’s blurred them up to now."',
-      'typeline' => 'Character - Deity',
+      'effectDesc' => clienttranslate('{R} If you control two or more Landmarks, I lose <FLEETING_CHAR>.'),
+      'flavorText' => clienttranslate('"I’ve lifted the mist from off your eyes that’s blurred them up to now."'),
+      'typeline' => clienttranslate('Character - Deity'),
       'artist' => 'Zero Wen',
 
       'forest' => 3,

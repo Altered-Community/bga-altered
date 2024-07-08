@@ -15,18 +15,17 @@ class YZ_Rare_MagicalTraining extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Magical Training',
-      'typeline' => 'Spell - Conjuration',
+      'name' => clienttranslate('Magical Training'),
+      'typeline' => clienttranslate('Spell - Conjuration'),
       'type' => SPELL,
-      'flavorText' => 'Without practice, the gift of Alteration will come to nothing.',
+      'flavorText' => clienttranslate('Without practice, the gift of Alteration will come to nothing.'),
       'artist' => 'Zero Wen',
       'subtypes' => [CONJURATION],
-      'effectDesc' => 'Draw a card.',
+      'effectDesc' => clienttranslate('Draw a card.'),
       'costHand' => 1,
       'costReserve' => 2,
       'changedStats' => ['costReserve'],
-      'effectPlayed' => FT::ACTION(DRAW, ['players' => ME])
-
+      'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
     ];
   }
 }

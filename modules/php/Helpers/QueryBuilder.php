@@ -119,7 +119,7 @@ class QueryBuilder extends \APP_DbObject
   {
     $values = [];
     foreach ($fields as $column => $field) {
-      $v = (is_null($field) ? 'NULL' : "'$field'");
+      $v = is_null($field) ? 'NULL' : "'$field'";
       $values[] = "`$column` = " . $v;
     }
 

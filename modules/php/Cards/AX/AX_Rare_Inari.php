@@ -15,13 +15,17 @@ class AX_Rare_Inari extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Inari',
-      'typeline' => 'Character - Deity',
+      'name' => clienttranslate('Inari'),
+      'typeline' => clienttranslate('Character - Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. ',
+      'flavorText' => clienttranslate(
+        'Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. '
+      ),
       'artist' => 'Matteo Spirito',
       'subtypes' => [DEITY],
-      'supportDesc' => '#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

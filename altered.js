@@ -296,10 +296,7 @@ define([
       // Create a new div for "subtitle"
       dojo.place("<div id='pagesubtitle'></div>", 'maintitlebar_content');
       // Create a new div for overlays
-      $('left-side-wrapper').insertAdjacentHTML(
-        'beforeend',
-        '<div id="altered-overlay"><div id="altered-overlay-content"></div></div>'
-      );
+      $('left-side-wrapper').insertAdjacentHTML('beforeend', '<div id="altered-overlay"></div>');
       // Create a new div for storm overlays
       $('left-side-wrapper').insertAdjacentHTML(
         'beforeend',
@@ -353,15 +350,24 @@ define([
 
     openOverlay() {
       $('altered-overlay').classList.add('active');
+      $('altered-board-overlay').classList.add('active');
+      this.centerOverlay();
     },
     closeOverlay() {
       $('altered-overlay').classList.remove('active');
+      $('altered-board-overlay').classList.remove('active');
     },
+    centerOverlay() {
+      let h = $('page-title').getBoundingClientRect()['height'];
+      $('altered-board-overlay').style.paddingTop = h + 'px';
+    },
+
     addToggleOverlayButton() {
       let getText = () => ($('altered-overlay').classList.contains('active') ? _('Close overlay') : _('Open overlay'));
 
       this.addSecondaryActionButton('btnToggleOverlay', getText(), () => {
         $('altered-overlay').classList.toggle('active');
+        $('altered-board-overlay').classList.toggle('active');
         $('btnToggleOverlay').innerHTML = getText();
       });
     },
@@ -924,14 +930,16 @@ define([
       let canUseAPI = true;
       if (canUseAPI && !$('card-fake-API')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
-        $('card-fake-API').querySelector('.altered-card-wrapper').insertAdjacentHTML(
-          'beforeend',
-          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-API')
+          .querySelector('.altered-card-wrapper')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Custom deck
             </div>
           </div>`
-        );
+          );
         this.onClick('card-fake-API', () => this.clientState('fetchDecks', 'Connect to equinox to fetch your decks', {}));
       }
 
@@ -939,14 +947,16 @@ define([
       let canUseRandom = true;
       if (canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
-          'beforeend',
-          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-random')
+          .querySelector('.altered-card-wrapper')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Random deck
             </div>
           </div>`
-        );
+          );
         this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
       }
     },
@@ -2011,6 +2021,8 @@ define([
         else scale = heightScale;
       }
       ROOT.style.setProperty('--boardScale', scale);
+
+      this.centerOverlay();
     },
 
     /////////////////////////////////////////

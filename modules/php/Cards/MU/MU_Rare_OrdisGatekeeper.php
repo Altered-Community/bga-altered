@@ -15,14 +15,15 @@ class MU_Rare_OrdisGatekeeper extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Ordis Gatekeeper',
-      'typeline' => 'Character - Soldier',
+      'name' => clienttranslate('Ordis Gatekeeper'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.',
+      'flavorText' => clienttranslate(
+        'The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.'
+      ),
       'artist' => 'Atanas Lozanski',
       'subtypes' => [SOLDIER],
-      'effectDesc' => '{J} #Target Character# in your other Expedition #gains 2 boosts#.',
+      'effectDesc' => clienttranslate('{J} #Target Character# in your other Expedition #gains 2 boosts#.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,
@@ -31,7 +32,7 @@ class MU_Rare_OrdisGatekeeper extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetLocation' => ['oppositeSource'],
         'targetPlayer' => ME,
-        'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])
+        'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2]),
       ]),
     ];
   }

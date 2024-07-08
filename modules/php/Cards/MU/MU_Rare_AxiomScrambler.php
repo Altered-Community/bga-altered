@@ -15,14 +15,15 @@ class MU_Rare_AxiomScrambler extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Axiom Scrambler',
-      'typeline' => 'Character - Engineer',
+      'name' => clienttranslate('Axiom Scrambler'),
+      'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.',
+      'flavorText' => clienttranslate(
+        'Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.'
+      ),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{H} $<SABOTAGE>.',
+      'effectDesc' => clienttranslate('{H} $<SABOTAGE>.'),
       'forest' => 2,
       'mountain' => 4,
       'ocean' => 2,

@@ -15,14 +15,15 @@ class LY_Rare_ACappellaTraining extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'A Cappella Training',
-      'typeline' => 'Spell - Song',
+      'name' => clienttranslate('A Cappella Training'),
+      'typeline' => clienttranslate('Spell - Song'),
       'type' => SPELL,
-      'flavorText' => 'Thank you for being my metronome!',
+      'flavorText' => clienttranslate('Thank you for being my metronome!'),
       'artist' => 'Zero Wen',
       'subtypes' => [SONG],
-      'effectDesc' =>
-      '#<FLEETING>.#  Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)  #Draw a card.#',
+      'effectDesc' => clienttranslate(
+        '#<FLEETING>.#  Target Character gains <FLEETING_CHAR>. (If it would be sent to Reserve, discard it instead.)  #Draw a card.#'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
@@ -30,8 +31,7 @@ class LY_Rare_ACappellaTraining extends \ALT\Models\Card
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
         FT::ACTION(DRAW, ['players' => ME])
-      )
-
+      ),
     ];
   }
 }

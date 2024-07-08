@@ -15,13 +15,13 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Yzmir Stargazer',
-      'typeline' => 'Character - Scholar Mage',
+      'name' => clienttranslate('Yzmir Stargazer'),
+      'typeline' => clienttranslate('Character - Scholar Mage'),
       'type' => CHARACTER,
-      'flavorText' => 'She won\'t read the future in the stars, she\'ll change it herself.',
+      'flavorText' => clienttranslate('She won\'t read the future in the stars, she\'ll change it herself.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SCHOLAR, MAGE],
-      'effectDesc' => '#When I\'m sacrificed — You may have target Character gain 2 boosts.#',
+      'effectDesc' => clienttranslate('#When I\'m sacrificed — You may have target Character gain 2 boosts.#'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
@@ -31,9 +31,9 @@ class YZ_Rare_YzmirStargazer extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'condition' => 'isSacrificed',
-          'output' =>  FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2]), 'upTo' => true]),
-        ]
-      ]
+          'output' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2]), 'upTo' => true]),
+        ],
+      ],
     ];
   }
 }

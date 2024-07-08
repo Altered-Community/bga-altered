@@ -130,7 +130,6 @@ class InvokeToken extends \ALT\Models\Action
       ]);
 
       Notifications::invokeToken($player, $card, $this->getSource());
-      Notifications::updateBiomes($player);
 
       // should we boost the card
       if (Globals::getNextCharacterBoost() > 0) {

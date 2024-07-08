@@ -63,7 +63,6 @@ class Globals extends \ALT\Helpers\DB_Manager
   protected static $primary = 'name';
   protected static function cast($row)
   {
-
     $val = str_replace('\\\\', '\\\\\\\\', $row['value']);
     $val = json_decode($val, true, 512, JSON_UNESCAPED_SLASHES);
 
@@ -80,10 +79,12 @@ class Globals extends \ALT\Helpers\DB_Manager
     $tmp = self::$log;
     self::$log = false;
 
-    foreach (self::DB()
-      ->select(['value', 'name'])
-      ->get(false)
-      as $name => $variable) {
+    foreach (
+      self::DB()
+        ->select(['value', 'name'])
+        ->get(false)
+      as $name => $variable
+    ) {
       if (\array_key_exists($name, self::$variables)) {
         self::$data[$name] = $variable;
       }

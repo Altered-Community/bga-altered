@@ -215,7 +215,7 @@ abstract class Utils extends \APP_DbObject
     return $result;
   }
 
-  public static function  cartesian($input)
+  public static function cartesian($input)
   {
     $result = [[]];
 

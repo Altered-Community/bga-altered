@@ -15,12 +15,14 @@ class LY_Common_AmahleAsgarthanOutcast extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'Amahle, Asgarthan Outcast',
+      'name' => clienttranslate('Amahle, Asgarthan Outcast'),
       'type' => CHARACTER,
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '{J} You may discard a card from your Reserve to draw a card.',
-      'typeline' => 'Character - Scholar',
-      'flavorText' => 'The old world is dying, and the new world struggles to be born: now is the time of monsters.',
+      'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to draw a card.'),
+      'typeline' => clienttranslate('Character - Scholar'),
+      'flavorText' => clienttranslate(
+        'The old world is dying, and the new world struggles to be born: now is the time of monsters.'
+      ),
       'artist' => 'Khoa Viet',
 
       'forest' => 5,

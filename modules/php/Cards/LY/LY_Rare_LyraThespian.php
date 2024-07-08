@@ -15,20 +15,21 @@ class LY_Rare_LyraThespian extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Lyra Thespian',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('Lyra Thespian'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
-      'flavorText' => '"All the world’s a stage."',
+      'flavorText' => clienttranslate('"All the world’s a stage."'),
       'artist' => 'Rémi Jacquot',
       'subtypes' => [ARTIST],
-      'effectDesc' => '{J} If you have three or more base statistics of 0 among Characters you control, I gain #2 boosts#.',
+      'effectDesc' => clienttranslate(
+        '{J} If you have three or more base statistics of 0 among Characters you control, I gain #2 boosts#.'
+      ),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boost23Stat0']),
-
     ];
   }
 }

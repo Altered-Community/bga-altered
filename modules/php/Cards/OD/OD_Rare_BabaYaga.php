@@ -15,13 +15,13 @@ class OD_Rare_BabaYaga extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Baba Yaga',
-      'typeline' => 'Character - Mage',
+      'name' => clienttranslate('Baba Yaga'),
+      'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
-      'flavorText' => 'Help or harm? Only the card will tell.',
+      'flavorText' => clienttranslate('Help or harm? Only the card will tell.'),
       'artist' => 'Atanas Lozanski',
       'subtypes' => [MAGE],
-      'effectDesc' => '{H} Draw a card.',
+      'effectDesc' => clienttranslate('{H} Draw a card.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,
@@ -29,7 +29,6 @@ class OD_Rare_BabaYaga extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain'],
       'effectHand' => FT::ACTION(DRAW, ['players' => ME]),
-
     ];
   }
 }

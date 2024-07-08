@@ -169,10 +169,7 @@ class Engine
       Game::get()->gamestate->changeActivePlayer($pId);
     }
 
-    if (
-      $confirmedPartial ||
-      ($pId != null && $oldPId != $pId)
-    ) {
+    if ($confirmedPartial || ($pId != null && $oldPId != $pId)) {
       Log::enable();
       Log::checkpoint();
       Globals::setEngineChoices(0);
@@ -188,7 +185,9 @@ class Engine
         count($choices) == 1 &&
         count($allChoices) == 1 &&
         array_keys($allChoices) == array_keys($choices) &&
-        (!Globals::isUndo() || !$choices[$id]['irreversibleAction'] ||  (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
+        (!Globals::isUndo() ||
+          !$choices[$id]['irreversibleAction'] ||
+          (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
       ) {
         self::chooseNode($player, $id, true);
       } else {
@@ -295,9 +294,7 @@ class Engine
     $node = self::getUndoableMandatoryNode($player);
     if (!is_null($node) && $node->getPId() == $player->getId()) {
       throw new UserException(
-        totranslate(
-          "You can't take an irreversible action if there is a mandatory undoable action pending"
-        )
+        totranslate("You can't take an irreversible action if there is a mandatory undoable action pending")
       );
     }
 

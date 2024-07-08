@@ -15,15 +15,17 @@ class AX_Rare_MoonlightJellyfish extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Moonlight Jellyfish',
-      'typeline' => 'Character - Spirit',
+      'name' => clienttranslate('Moonlight Jellyfish'),
+      'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'Theoretically, transdifferentiation can go on indefinitely, effectively rendering the jellyfish biologically immortal... and squishy.',
+      'flavorText' => clienttranslate(
+        'Theoretically, transdifferentiation can go on indefinitely, effectively rendering the jellyfish biologically immortal... and squishy.'
+      ),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SPIRIT],
-      'effectDesc' =>
-      '#When a Robot joins your Expeditions — You may sacrifice me to give it 2 boosts.#  When I\'m sacrificed, if I\'m not <FLEETING> — Put me in Reserve.',
+      'effectDesc' => clienttranslate(
+        '#When a Robot joins your Expeditions — You may sacrifice me to give it 2 boosts.#  When I\'m sacrificed, if I\'m not <FLEETING> — Put me in Reserve.'
+      ),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 1,
@@ -33,21 +35,13 @@ class AX_Rare_MoonlightJellyfish extends \ALT\Models\Card
       'effectPassive' => [
         'ChooseAssignment' => [
           'condition' => 'isCardPlayed:robot',
-          'output' => FT::SEQ_OPTIONAL(
-            FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]),
-            FT::GAIN(EFFECT, BOOST, 2)
-          )
+          'output' => FT::SEQ_OPTIONAL(FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]), FT::GAIN(EFFECT, BOOST, 2)),
         ],
         'InvokeToken' => [
           'condition' => 'isCardPlayed:robot',
-          'output' => FT::SEQ_OPTIONAL(
-            FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]),
-            FT::GAIN(EFFECT, BOOST, 2)
-          )
-        ]
-      ]
-
-
+          'output' => FT::SEQ_OPTIONAL(FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]), FT::GAIN(EFFECT, BOOST, 2)),
+        ],
+      ],
     ];
   }
 }

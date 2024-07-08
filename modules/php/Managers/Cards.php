@@ -29,7 +29,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 {
   protected static $table = 'cards';
   protected static $prefix = 'card_';
-  protected static $customFields = ['player_id', 'initial_properties', 'properties'];
+  protected static $customFields = ['player_id', 'properties'];
   protected static $autoIncrement = true;
   protected static $autoremovePrefix = false;
   protected static $autoreshuffle = true;
@@ -44,16 +44,31 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function getCardInstance($id, $data = null)
   {
-    // TODO : remove once stable
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];
     $rarity = $p['rarity'] == 0 ? 'common' : 'rare';
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
-    if (true && Game::get()->getBgaEnvironment() == 'studio') {
-      return new $className($data); // no DB call
+
+    $isUnique = false;
+    // Unique => all infos are stored into DB
+    if ($isUnique) {
+      return new Card($data); // information from DB
     }
-    return new Card($data); // information from DB
+    // Non-unique => take non-dynamic properties from files
+    else {
+      $card = new $className($data); // no DB call
+
+      $prop = json_decode($data['properties'], true);
+      // Update dynamic properties
+      foreach (DYNAMIC_PROPERTIES as $p) {
+        $v = $prop[$p] ?? null;
+        if (!is_null($v)) {
+          $card->setProperty($p, $v, false);
+        }
+      }
+      return $card;
+    }
   }
 
   public static function getCardClass($uid)
@@ -73,7 +88,10 @@ class Cards extends \ALT\Helpers\CachedPieces
     $faction = FACTIONS[array_rand(FACTIONS)];
     $deckContent = [];
 
-    $deckContent[HERO] = ['card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(), 'n' => 1];
+    $deckContent[HERO] = [
+      'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
+      'n' => 1,
+    ];
     // random cards of the faction
     $i = 0;
     $totalCards = Globals::getTestingOption() ? 80 : 40;
@@ -126,16 +144,9 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     $toCreate = [];
     $pId = $player->getId();
-    // $faction = $player->getFaction();
-    // $deck = DEMO[$faction];
-    foreach (FACTIONS as $faction) {
-      // $deck = DEMO[$faction]; // to remove when game option is back
-      $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? DEMO[$faction] : STARTER[$faction];
-      // $starterReady = ['AX', 'MU', 'BR', 'OD', 'YZ', 'LY'];
 
-      // if (Globals::getDeckOptions() == OPTION_DECKS_STARTER && !in_array($faction, $starterReady)) {
-      //   continue;
-      // }
+    foreach (FACTIONS as $faction) {
+      $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? DEMO[$faction] : STARTER[$faction];
 
       foreach ($deck as $cardId => $n) {
         // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
@@ -155,7 +166,11 @@ class Cards extends \ALT\Helpers\CachedPieces
           'player_id' => $pId,
           'location' => $location,
           'nbr' => $n,
-          'properties' => $card->getProperties(),
+          'properties' => [
+            'rarity' => $card->getRarity(),
+            'name' => $card->getName(),
+            'faction' => $card->getFaction(),
+          ],
         ];
       }
       $deckNumber++;

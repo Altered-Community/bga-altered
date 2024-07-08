@@ -15,19 +15,19 @@ class OD_Rare_OrdisCarrier extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
-      'name' => 'Ordis Carrier',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Ordis Carrier'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'The flow of Ordis Recruits seems to go on forever.',
+      'flavorText' => clienttranslate('The flow of Ordis Recruits seems to go on forever.'),
       'artist' => 'Taras Susak',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'At Noon — Create an <ORDIS_RECRUIT> Soldier token in #each of your Expeditions#.',
+      'effectDesc' => clienttranslate('At Noon — Create an <ORDIS_RECRUIT> Soldier token in #each of your Expeditions#.'),
       'costHand' => 5,
       'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::SEQ(
             FT::ACTION(INVOKE_TOKEN, [
               'pId' => 'source',
@@ -38,8 +38,8 @@ class OD_Rare_OrdisCarrier extends \ALT\Models\Card
               'pId' => 'source',
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_RIGHT],
-            ]),
-          )
+            ])
+          ),
         ],
       ],
     ];

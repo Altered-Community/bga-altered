@@ -13,19 +13,21 @@ class LY_Common_TheOuroborosLyraBastion extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'The Ouroboros, Lyra Bastion',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('The Ouroboros, Lyra Bastion'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind. ',
+      'flavorText' => clienttranslate(
+        'The Expeditionary Corps\' mobile outpost soars high, like a spinning wheel weaving the wind. '
+      ),
       'artist' => 'Khoa Viet',
       'subtypes' => [LANDMARK],
-      'effectDesc' =>
-      'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.',
+      'effectDesc' => clienttranslate(
+        'If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'
+      ),
 
       'costHand' => 4,
       'costReserve' => 4,
-      'addDice' => 1
-
+      'addDice' => 1,
     ];
   }
 }

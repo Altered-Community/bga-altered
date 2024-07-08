@@ -13,12 +13,12 @@ class BR_Common_Red extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
-      'name' => 'Red',
+      'name' => clienttranslate('Red'),
       'type' => CHARACTER,
       'subtypes' => [ADVENTURER],
-      'effectDesc' => '$<SEASONED_ME_FS>.',
-      'typeline' => 'Character - Adventurer',
-      'flavorText' => 'Grandma would be proud.',
+      'effectDesc' => clienttranslate('$<SEASONED_ME_FS>.'),
+      'typeline' => clienttranslate('Character - Adventurer'),
+      'flavorText' => clienttranslate('Grandma would be proud.'),
       'artist' => 'Jean-Baptiste Andrier',
 
       'forest' => 2,

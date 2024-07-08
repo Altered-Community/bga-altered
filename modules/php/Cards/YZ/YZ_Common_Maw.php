@@ -15,23 +15,23 @@ class YZ_Common_Maw extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => 'Maw',
-      'typeline' => 'Token Character - Companion',
+      'name' => clienttranslate('Maw'),
+      'typeline' => clienttranslate('Token Character - Companion'),
       'type' => TOKEN,
       'token' => true,
-      'flavorText' => 'Always hungry for new ideas...',
+      'flavorText' => clienttranslate('Always hungry for new ideas...'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [COMPANION],
-      'effectDesc' => 'When you sacrifice a Character — I gain 2 boosts.',
+      'effectDesc' => clienttranslate('When you sacrifice a Character — I gain 2 boosts.'),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
       'effectPassive' => [
         'Discard' => [
           'condition' => 'isCharacterSacrifice',
-          'output' => FT::GAIN($this, BOOST, 2)
-        ]
-      ]
+          'output' => FT::GAIN($this, BOOST, 2),
+        ],
+      ],
     ];
   }
 }

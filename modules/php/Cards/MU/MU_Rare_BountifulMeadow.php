@@ -15,23 +15,22 @@ class MU_Rare_BountifulMeadow extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Bountiful Meadow',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('Bountiful Meadow'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'There\'s no greater joy than seeing all that is green thrive and grow.',
+      'flavorText' => clienttranslate('There\'s no greater joy than seeing all that is green thrive and grow.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => '#{J} You may pay {1} to $<RESUPPLY_INF>.#  {T} : The next Plant you play this turn costs {1} less.',
+      'effectDesc' => clienttranslate(
+        '#{J} You may pay {1} to $<RESUPPLY_INF>.#  {T} : The next Plant you play this turn costs {1} less.'
+      ),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectTap' =>  [
+      'effectTap' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => PLANT, 'reduction' => 1]],
       ],
-      'effectPlayed' => FT::SEQ_OPTIONAL(
-        FT::ACTION(PAY, ['pay' => 1]),
-        FT::ACTION(RESUPPLY, [])
-      )
+      'effectPlayed' => FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 1]), FT::ACTION(RESUPPLY, [])),
     ];
   }
 }

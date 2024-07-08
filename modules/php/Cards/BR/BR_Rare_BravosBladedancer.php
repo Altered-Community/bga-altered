@@ -4,7 +4,6 @@ namespace ALT\Cards\BR;
 
 use ALT\Helpers\FT;
 
-
 class BR_Rare_BravosBladedancer extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,13 +15,15 @@ class BR_Rare_BravosBladedancer extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Bravos Bladedancer',
-      'typeline' => 'Character - Soldier',
+      'name' => clienttranslate('Bravos Bladedancer'),
+      'typeline' => clienttranslate('Character - Soldier'),
       'type' => CHARACTER,
-      'flavorText' => '"It seems Thoth has never seen me duel."',
+      'flavorText' => clienttranslate('"It seems Thoth has never seen me duel."'),
       'artist' => 'Taras Susak',
       'subtypes' => [SOLDIER],
-      'effectDesc' => '$<SEASONED_ME_FS>.  {J} I gain 1 boost.  #{R} If I have 4 boosts or less, I lose <FLEETING_CHAR>.#',
+      'effectDesc' => clienttranslate(
+        '$<SEASONED_ME_FS>.  {J} I gain 1 boost.  #{R} If I have 4 boosts or less, I lose <FLEETING_CHAR>.#'
+      ),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,

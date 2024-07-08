@@ -15,13 +15,15 @@ class YZ_Rare_AdaLovelace extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Ada Lovelace',
-      'typeline' => 'Character - Engineer',
+      'name' => clienttranslate('Ada Lovelace'),
+      'typeline' => clienttranslate('Character - Engineer'),
       'type' => CHARACTER,
-      'flavorText' => '"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us."',
+      'flavorText' => clienttranslate(
+        '"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us."'
+      ),
       'artist' => 'Taras Susak',
       'subtypes' => [ENGINEER],
-      'effectDesc' => '{R} You may put a card from your hand in Reserve. If it\'s a #Spell#, draw a card.',
+      'effectDesc' => clienttranslate('{R} You may put a card from your hand in Reserve. If it\'s a #Spell#, draw a card.'),
       'forest' => 1,
       'mountain' => 3,
       'ocean' => 1,

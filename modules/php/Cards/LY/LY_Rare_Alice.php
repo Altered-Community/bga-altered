@@ -15,13 +15,13 @@ class LY_Rare_Alice extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Alice',
-      'typeline' => 'Character - Citizen',
+      'name' => clienttranslate('Alice'),
+      'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
-      'flavorText' => '"One good turn deserves another."',
+      'flavorText' => clienttranslate('"One good turn deserves another."'),
       'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],
-      'supportDesc' => '{D} : <AFTER_YOU>. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate('{D} : <AFTER_YOU>. (Discard me from Reserve to do this.)'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 4,
@@ -29,7 +29,7 @@ class LY_Rare_Alice extends \ALT\Models\Card
       'costReserve' => 3,
       'changedStats' => ['forest', 'mountain'],
       'effectSupport' => FT::ACTION(AFTER_YOU, []),
-      'supportIcon' => 'discard'
+      'supportIcon' => 'discard',
     ];
   }
 }

@@ -15,28 +15,29 @@ class YZ_Rare_Baku extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
-      'name' => 'Baku',
-      'typeline' => 'Character - Spirit',
+      'name' => clienttranslate('Baku'),
+      'typeline' => clienttranslate('Character - Spirit'),
       'type' => CHARACTER,
-      'flavorText' => '"I’ve seen it myself! \'Baku! Baku!\', it says, eating up ghosts as though they were candies."',
+      'flavorText' => clienttranslate(
+        '"I’ve seen it myself! \'Baku! Baku!\', it says, eating up ghosts as though they were candies."'
+      ),
       'artist' => 'Zero Wen',
       'subtypes' => [SPIRIT],
-      'effectDesc' => '#{J}# Target opponent discards a card from their hand.',
+      'effectDesc' => clienttranslate('#{J}# Target opponent discards a card from their hand.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costReserve'],
-      'effectPlayed' => FT::ACTION(TARGET_PLAYER, ['effect' =>  FT::ACTION(
-        TARGET,
-        [
+      'effectPlayed' => FT::ACTION(TARGET_PLAYER, [
+        'effect' => FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetLocation' => [HAND],
           'targetType' => [CHARACTER, SPELL, PERMANENT],
           'effect' => FT::ACTION(DISCARD, []),
-        ]
-      )])
+        ]),
+      ]),
     ];
   }
 }

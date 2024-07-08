@@ -15,14 +15,16 @@ class AX_Rare_OuroborosCroupier extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Ouroboros Croupier',
-      'typeline' => 'Character - Citizen',
+      'name' => clienttranslate('Ouroboros Croupier'),
+      'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
-      'flavorText' => 'The house never loses.',
+      'flavorText' => clienttranslate('The house never loses.'),
       'artist' => 'Anh Tung',
       'subtypes' => [CITIZEN],
-      'effectDesc' => '{H} Roll a die. On a 4+, draw a card. On a 1-3, $<RESUPPLY_LOW>.',
-      'supportDesc' => '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('{H} Roll a die. On a 4+, draw a card. On a 1-3, $<RESUPPLY_LOW>.'),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 0,
       'mountain' => 5,
       'ocean' => 5,

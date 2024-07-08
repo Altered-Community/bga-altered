@@ -15,21 +15,20 @@ class MU_Rare_BeautySleep extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Beauty Sleep',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Beauty Sleep'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'Yet beware of splinters of flax.',
+      'flavorText' => clienttranslate('Yet beware of splinters of flax.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [DISRUPTION],
-      'effectDesc' =>
-      'Target Character gains <ASLEEP>. #You may give it 2 boosts.# (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
+      'effectDesc' => clienttranslate(
+        'Target Character gains <ASLEEP>. #You may give it 2 boosts.# (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
+      ),
       'costHand' => 1,
       'costReserve' => 3,
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::SEQ(
-        FT::GAIN(EFFECT, ASLEEP),
-        FT::SEQ_OPTIONAL(FT::GAIN(EFFECT, BOOST, 2))
-      )])
-
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'effect' => FT::SEQ(FT::GAIN(EFFECT, ASLEEP), FT::SEQ_OPTIONAL(FT::GAIN(EFFECT, BOOST, 2))),
+      ]),
     ];
   }
 }

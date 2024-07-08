@@ -47,10 +47,9 @@ class MoveExpedition extends \ALT\Models\Action
       }
     }
 
-
     return [
       'expeditions' => array_values(array_diff($expeditions, $toRemove)),
-      'actPId' => Players::getActive()->getId()
+      'actPId' => Players::getActive()->getId(),
     ];
   }
 
@@ -98,7 +97,6 @@ class MoveExpedition extends \ALT\Models\Action
 
     foreach ($players as $player) {
       $player->advanceStorm($token, null, $n, true, $source);
-      Notifications::updateBiomes($player);
       $this->checkAfterListeners($player, ['moveExpedition' => $n]);
     }
   }

@@ -15,15 +15,17 @@ class MU_Rare_Hydracaena extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Hydracaena',
-      'typeline' => 'Character - Dragon Plant',
+      'name' => clienttranslate('Hydracaena'),
+      'typeline' => clienttranslate('Character - Dragon Plant'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'When they reach adult size, it\'s clear that the Dracaenas have really thrived on all that rest and relaxation.',
+      'flavorText' => clienttranslate(
+        'When they reach adult size, it\'s clear that the Dracaenas have really thrived on all that rest and relaxation.'
+      ),
       'artist' => 'Ba Vo',
       'subtypes' => [DRAGON, PLANT],
-      'effectDesc' =>
-      '$<ETERNAL>.  #$<TOUGH_X>, where X is the number of plants you control.#  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.',
+      'effectDesc' => clienttranslate(
+        '$<ETERNAL>.  #$<TOUGH_X>, where X is the number of plants you control.#  {J} I gain 4 boosts.  At Noon — I gain 4 boosts.'
+      ),
       'forest' => 0,
       'mountain' => 0,
       'ocean' => 0,
@@ -33,9 +35,9 @@ class MU_Rare_Hydracaena extends \ALT\Models\Card
       'effectPlayed' => FT::GAIN($this, BOOST, 4),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
-          'output' => FT::GAIN($this, BOOST, 4)
-        ]
+          'condition' => 'isMe',
+          'output' => FT::GAIN($this, BOOST, 4),
+        ],
       ],
       'dynamicTough' => 'controlledPlants',
     ];

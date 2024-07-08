@@ -17,16 +17,31 @@
         pointer-events: all;
         opacity: 1;
     }
+}
+
+#altered-board-overlay {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    &.active {
+        display: flex;
+    }
 
     #altered-overlay-content {
         font-family: "Tiller";
-        padding-right: calc(250px / var(--boardScale));
         display: flex;
         flex-flow: column;
         transform: scale(var(--boardScale));
         flex-shrink: 0;
 
-        .mobile_version & {
+        .mobile_version &,
+        .focus-board & {
             padding-right: 0px;
             padding-top: 134px;
         }
@@ -70,8 +85,9 @@
 
         #overlay-hand-container {
             max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
-            .mobile_version & {
-                max-width: 90vw;
+            .mobile_version &,
+            .focus-board & {
+                max-width: calc(90vw / var(--boardScale));
             }
             --cardScale: 0.5;
 
@@ -120,13 +136,15 @@
         }
 
         #overlay-deck-container {
-            max-width: calc(0.9 * (100vw - 250px));
-            .mobile_version & {
-                max-width: 90vw;
+            max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
+            .mobile_version &,
+            .focus-board & {
+                max-width: calc(90vw / var(--boardScale));
             }
             --cardScale: 0.5;
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
 
             .altered-card {
                 margin: 2px 5px;

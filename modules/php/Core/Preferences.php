@@ -6,7 +6,6 @@ use ALT\Core\Game;
 
 require_once dirname(__FILE__) . '/../gameoptions.inc.php';
 
-
 /*
  * User preferences
  */
@@ -82,7 +81,6 @@ class Preferences extends \ALT\Helpers\DB_Manager
     // Load user preferences
     // include dirname(__FILE__) . '/../../../gameoptions.inc.php';
     $game_preferences = self::getLocalPrefsData();
-
 
     $playerIds = array_keys(Game::get()->loadPlayersBasicInfos());
     $values = [];

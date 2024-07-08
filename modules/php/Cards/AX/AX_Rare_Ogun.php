@@ -4,7 +4,6 @@ namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-
 class AX_Rare_Ogun extends \ALT\Models\Card
 {
   public function __construct($row)
@@ -16,14 +15,15 @@ class AX_Rare_Ogun extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Ogun',
-      'typeline' => 'Character - Engineer Deity',
+      'name' => clienttranslate('Ogun'),
+      'typeline' => clienttranslate('Character - Engineer Deity'),
       'type' => CHARACTER,
-      'flavorText' => 'With every blow of his hammer, Ogun forges the Axiom\'s destiny.',
+      'flavorText' => clienttranslate('With every blow of his hammer, Ogun forges the Axiom\'s destiny.'),
       'artist' => 'Edward Cheekokseang',
       'subtypes' => [ENGINEER, DEITY],
-      'effectDesc' =>
-      '{J} #You may pay {2} to create a <BRASSBUG> Robot token in target Expedition.# Then, Robots you control gain 1 boost.',
+      'effectDesc' => clienttranslate(
+        '{J} #You may pay {2} to create a <BRASSBUG> Robot token in target Expedition.# Then, Robots you control gain 1 boost.'
+      ),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,
@@ -36,11 +36,10 @@ class AX_Rare_Ogun extends \ALT\Models\Card
             'pId' => 'source',
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => STORMS,
-          ]),
+          ])
         ),
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ROBOT]])
       ),
-
     ];
   }
 }

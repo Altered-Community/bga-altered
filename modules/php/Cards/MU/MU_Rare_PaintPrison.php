@@ -15,14 +15,15 @@ class MU_Rare_PaintPrison extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'Paint Prison',
-      'typeline' => 'Spell - Disruption',
+      'name' => clienttranslate('Paint Prison'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'type' => SPELL,
-      'flavorText' => 'Your problem is a lack of perspective.',
+      'flavorText' => clienttranslate('Your problem is a lack of perspective.'),
       'artist' => 'Justice Wong',
       'subtypes' => [DISRUPTION],
-      'effectDesc' =>
-      '$<FLEETING>.  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner\'s deck.',
+      'effectDesc' => clienttranslate(
+        '$<FLEETING>.  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner\'s deck.'
+      ),
       'costHand' => 5,
       'costReserve' => 5,
       'costReductionDiscard' => 2,

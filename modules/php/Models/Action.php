@@ -91,10 +91,13 @@ class Action
   protected $args = []; // Contain default expected value for args
   public function getArg($v)
   {
-    $t = $this->getCtxArg($v) ?? ($this->args[$v] ?? null);
+    $t = $this->getCtxArg($v) ?? null;
     if (is_null($t)) {
-      // throw new \feException(print_r(debug_print_backtrace()));
-      throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v);
+      if (array_key_exists($v, $this->args)) {
+        $t = $this->args[$v];
+      } else {
+        throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v);
+      }
     }
     return $t;
   }

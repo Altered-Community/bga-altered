@@ -15,13 +15,14 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
-      'name' => 'Treyst & Rossum',
-      'typeline' => 'Axiom Hero',
+      'name' => clienttranslate('Treyst & Rossum'),
+      'typeline' => clienttranslate('Axiom Hero'),
       'type' => HERO,
-      'flavorText' => 'An energy system is a piece of subtle machinery to be optimized for better output.',
+      'flavorText' => clienttranslate('An energy system is a piece of subtle machinery to be optimized for better output.'),
       'artist' => 'Taras Susak',
-      'effectDesc' =>
-      'When a card leaves your Reserve during the Afternoon, if I have less than five Scrap counters — I gain a Scrap counter.  If I have five or more Scrap counters, I gain \"{T} : Draw a card, then put a card from your hand in Reserve.\"',
+      'effectDesc' => clienttranslate(
+        'When a card leaves your Reserve during the Afternoon, if I have less than five Scrap counters — I gain a Scrap counter.  If I have five or more Scrap counters, I gain \"{T} : Draw a card, then put a card from your hand in Reserve.\"'
+      ),
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
@@ -29,27 +30,30 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
       'effectPassive' => [
         'ChooseAssignment' => [
           'conditions' => ['isAfternoon', 'isFromReserve', 'hasCounterOnCard:4:LTE'],
-          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'incCounter', 'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')]])
+          'output' => FT::ACTION(SPECIAL_EFFECT, [
+            'effect' => 'incCounter',
+            'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')],
+          ]),
         ],
         'Discard' => [
           'condition' => 'isDiscardedFromReserveAndLess5Counters',
-          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'incCounter', 'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')]])
-        ]
+          'output' => FT::ACTION(SPECIAL_EFFECT, [
+            'effect' => 'incCounter',
+            'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')],
+          ]),
+        ],
       ],
       'effectTap' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'hasCounterOnCard:5',
         'effect' => FT::SEQ(
           FT::ACTION(DRAW, ['players' => ME]),
-          FT::ACTION(
-            TARGET,
-            [
-              'targetType' => [CHARACTER, SPELL, PERMANENT],
-              'targetPlayer' => ME,
-              'targetLocation' => [HAND],
-              'effect' => FT::DISCARD_TO_RESERVE(),
-            ],
-          )
-        )
+          FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'effect' => FT::DISCARD_TO_RESERVE(),
+          ])
+        ),
       ]),
     ];
   }

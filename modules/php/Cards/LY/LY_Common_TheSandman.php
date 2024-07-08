@@ -15,15 +15,17 @@ class LY_Common_TheSandman extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_COMMON,
-      'name' => 'The Sandman',
-      'typeline' => 'Character - Artist',
+      'name' => clienttranslate('The Sandman'),
+      'typeline' => clienttranslate('Character - Artist'),
       'type' => CHARACTER,
       'subtypes' => [ARTIST],
-      'effectDesc' =>
-        '{H} Up to one target Character gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)',
+      'effectDesc' => clienttranslate(
+        '{H} Up to one target Character gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
+      ),
       'artist' => 'Nestor Papatriantafyllou',
-      'flavorText' =>
-        '"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide."',
+      'flavorText' => clienttranslate(
+        '"Sand gives you a taste of what life is all about. Come morning, the castles you have built will be gone with the tide."'
+      ),
 
       'forest' => 0,
       'mountain' => 3,

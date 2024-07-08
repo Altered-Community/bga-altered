@@ -3239,6 +3239,40 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     .gamestate_gameEnd #page-title .bgabutton_gray:hover,
     #page-title .bgabutton_gray:hover {
       color: black; }
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-0 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-1 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-2 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-3 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-4 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-5 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-6 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-7 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-8 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-9 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-X .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-0 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-1 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-2 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-3 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-4 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-5 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-6 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-7 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-8 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-9 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-X .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-0 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-1 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-2 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-3 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-4 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-5 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-6 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-7 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-8 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-9 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-X .path2:before {
+        color: white; }
 
 #right-side {
   float: left;
@@ -4916,17 +4950,29 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     background-color: #0f1b22c0;
     pointer-events: all;
     opacity: 1; }
-  #altered-overlay #altered-overlay-content {
+
+#altered-board-overlay {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #altered-board-overlay.active {
+    display: flex; }
+  #altered-board-overlay #altered-overlay-content {
     font-family: "Tiller";
-    padding-right: calc(250px / var(--boardScale));
     display: flex;
     flex-flow: column;
     transform: scale(var(--boardScale));
     flex-shrink: 0; }
-    .mobile_version #altered-overlay #altered-overlay-content {
+    .mobile_version #altered-board-overlay #altered-overlay-content, .focus-board #altered-board-overlay #altered-overlay-content {
       padding-right: 0px;
       padding-top: 134px; }
-    #altered-overlay #altered-overlay-content h2 {
+    #altered-board-overlay #altered-overlay-content h2 {
       text-align: center;
       color: gold;
       font-size: 55px;
@@ -4936,7 +4982,7 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       position: relative; }
-      #altered-overlay #altered-overlay-content h2::after {
+      #altered-board-overlay #altered-overlay-content h2::after {
         content: "";
         position: absolute;
         left: -40px;
@@ -4944,58 +4990,59 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
         bottom: -10px;
         height: 2px;
         background: linear-gradient(90deg, transparent 0%, #bc8441 15%, #f3c769 50%, #bc8441 85%, transparent 100%); }
-    #altered-overlay #altered-overlay-content p {
+    #altered-board-overlay #altered-overlay-content p {
       text-align: center;
       color: white;
       font-weight: bold;
       font-size: 25px;
       margin-bottom: 40px; }
-    #altered-overlay #altered-overlay-content #overlay-hand-container {
+    #altered-board-overlay #altered-overlay-content #overlay-hand-container {
       max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
       --cardScale: 0.5; }
-      .mobile_version #altered-overlay #altered-overlay-content #overlay-hand-container {
-        max-width: 90vw; }
-      #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand {
+      .mobile_version #altered-board-overlay #altered-overlay-content #overlay-hand-container, .focus-board #altered-board-overlay #altered-overlay-content #overlay-hand-container {
+        max-width: calc(90vw / var(--boardScale)); }
+      #altered-board-overlay #altered-overlay-content #overlay-hand-container .player-hand {
         display: flex;
         flex-wrap: wrap;
         align-items: center; }
-        #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand .altered-card {
+        #altered-board-overlay #altered-overlay-content #overlay-hand-container .player-hand .altered-card {
           position: initial !important;
           margin: 0px 5px; }
-          #altered-overlay #altered-overlay-content #overlay-hand-container .player-hand .altered-card.selectedToMana {
+          #altered-board-overlay #altered-overlay-content #overlay-hand-container .player-hand .altered-card.selectedToMana {
             --cardScale: 0.4;
             margin: 0px 21px; }
-    #altered-overlay #altered-overlay-content #overlay-new-day-counter-wrapper {
+    #altered-board-overlay #altered-overlay-content #overlay-new-day-counter-wrapper {
       text-align: center;
       font-size: 40px;
       font-weight: bold;
       margin-top: 20px;
       margin-bottom: 20px;
       color: #10e210; }
-      #altered-overlay #altered-overlay-content #overlay-new-day-counter-wrapper.invalid {
+      #altered-board-overlay #altered-overlay-content #overlay-new-day-counter-wrapper.invalid {
         color: #f00505; }
-    #altered-overlay #altered-overlay-content .action-button {
+    #altered-board-overlay #altered-overlay-content .action-button {
       font-size: 24px;
       margin: auto; }
-      #altered-overlay #altered-overlay-content .action-button.bgabutton_gray {
+      #altered-board-overlay #altered-overlay-content .action-button.bgabutton_gray {
         background-color: #f0f0f0;
         color: #060606; }
-        #altered-overlay #altered-overlay-content .action-button.bgabutton_gray:hover {
+        #altered-board-overlay #altered-overlay-content .action-button.bgabutton_gray:hover {
           background-color: #bbbaba;
           color: black; }
-    #altered-overlay #altered-overlay-content #overlay-deck-container {
-      max-width: calc(0.9 * (100vw - 250px));
+    #altered-board-overlay #altered-overlay-content #overlay-deck-container {
+      max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
       --cardScale: 0.5;
       display: flex;
-      flex-wrap: wrap; }
-      .mobile_version #altered-overlay #altered-overlay-content #overlay-deck-container {
-        max-width: 90vw; }
-      #altered-overlay #altered-overlay-content #overlay-deck-container .altered-card {
+      flex-wrap: wrap;
+      justify-content: center; }
+      .mobile_version #altered-board-overlay #altered-overlay-content #overlay-deck-container, .focus-board #altered-board-overlay #altered-overlay-content #overlay-deck-container {
+        max-width: calc(90vw / var(--boardScale)); }
+      #altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card {
         margin: 2px 5px; }
-    #altered-overlay #altered-overlay-content #overlay-deck-details {
+    #altered-board-overlay #altered-overlay-content #overlay-deck-details {
       margin-top: 30px;
       height: 200px; }
-      #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details {
+      #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details {
         padding: 10px 15px;
         height: 280px;
         width: 990px;
@@ -5009,17 +5056,17 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
         border: 2px solid #ffe300;
         box-shadow: 0px 0px 10px 0px #ffe300;
         color: white; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="BR"] {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="BR"] {
           background-position-y: 20%; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="LY"] {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="LY"] {
           background-position-y: 40%; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="MU"] {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="MU"] {
           background-position-y: 60%; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="OD"] {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="OD"] {
           background-position-y: 80%; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="YZ"] {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction="YZ"] {
           background-position-y: 100%; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner {
           width: 50px;
           height: 80px;
           background-image: url("img/banners.png");
@@ -5027,23 +5074,23 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
           position: absolute;
           top: 0px;
           left: 20px; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="BR"] {
+          #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="BR"] {
             background-position-x: 20%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="LY"] {
+          #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="LY"] {
             background-position-x: 40%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="MU"] {
+          #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="MU"] {
             background-position-x: 60%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="OD"] {
+          #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="OD"] {
             background-position-x: 80%; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="YZ"] {
+          #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction="YZ"] {
             background-position-x: 100%; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details h3 {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details h3 {
           text-align: left;
           font-family: "Tiller";
           font-size: 30px;
           text-indent: 75px;
           margin-top: 14px; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details p {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details p {
           text-align: left;
           color: white;
           margin-top: 30px;
@@ -5051,9 +5098,9 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
           width: 500px;
           height: 120px;
           margin-bottom: 5px; }
-        #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer {
+        #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer {
           text-align: center; }
-          #altered-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer a {
+          #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer a {
             font-size: 24px; }
 
 #focus-storm-overlay {

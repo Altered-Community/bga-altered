@@ -15,12 +15,14 @@ class OD_Common_Ozma extends \ALT\Models\Card
 
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
-      'name' => 'Ozma',
+      'name' => clienttranslate('Ozma'),
       'type' => CHARACTER,
       'subtypes' => [NOBLE],
-      'effectDesc' => '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)',
-      'typeline' => 'Character - Noble',
-      'flavorText' => '"Never give up. No one knows what’s going to happen next."',
+      'effectDesc' => clienttranslate(
+        '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)'
+      ),
+      'typeline' => clienttranslate('Character - Noble'),
+      'flavorText' => clienttranslate('"Never give up. No one knows what’s going to happen next."'),
       'artist' => 'Taras Susak',
 
       'forest' => 1,

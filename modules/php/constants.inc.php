@@ -167,15 +167,18 @@ const EFFECT = 'EFFECT';
 
 const HERO = 'hero';
 const CHARACTER = 'character';
+const TOKEN = 'token';
 const PERMANENT = 'permanent';
-const LANDMARK = 'landmark';
 const SPELL = 'spell';
+const TYPES = [HERO, CHARACTER, TOKEN, PERMANENT, SPELL];
+
 const EVERYONE_ELSE = 'everyone-else';
 
 const HAND = 'hand';
 const RESERVE = 'reserve';
 const LIMBO = 'limbo';
 const MANA = 'mana';
+const LANDMARK = 'landmark';
 
 const PHASE_MORNING = 'morning';
 const PHASE_NOON = 'noon';
@@ -244,7 +247,6 @@ const SPIRIT = 'spirit';
 const SOLDIER = 'soldier';
 const BUREAUCRAT = 'bureaucrat';
 const MAGE = 'mage';
-const TOKEN = 'token';
 
 const NOBLE = 'noble';
 const SONG = 'song';
@@ -283,7 +285,6 @@ const SUBTYPES = [
   SOLDIER,
   BUREAUCRAT,
   MAGE,
-  TOKEN,
   NOBLE,
   SONG,
   LEVIATHAN,
@@ -297,6 +298,7 @@ const SUBTYPES = [
   MANEUVER,
   SCHOLAR,
   ANIMAL,
+  LANDMARK,
 ];
 
 /*********************
@@ -308,7 +310,13 @@ const GIGANTIC = 'gigantic';
 const ANCHORED = 'anchored';
 const ASLEEP = 'asleep';
 
+
+/*********************
+ ******* MISC ********
+ *********************/
 const API_URL = 'https://api.equinox-ccg.io';
+
+const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas'];
 
 /******************
  ****** STATS ******

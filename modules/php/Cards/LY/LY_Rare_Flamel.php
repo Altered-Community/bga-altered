@@ -15,15 +15,18 @@ class LY_Rare_Flamel extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Flamel',
-      'typeline' => 'Character - Scholar',
+      'name' => clienttranslate('Flamel'),
+      'typeline' => clienttranslate('Character - Scholar'),
       'type' => CHARACTER,
-      'flavorText' =>
-      'Rubedo is the final stage of alchemy, where one\'s substance is reborn like a phoenix before returning to the world.',
+      'flavorText' => clienttranslate(
+        'Rubedo is the final stage of alchemy, where one\'s substance is reborn like a phoenix before returning to the world.'
+      ),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '{H} You may return a Spell from your Reserve to your hand.',
-      'supportDesc' => '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('{H} You may return a Spell from your Reserve to your hand.'),
+      'supportDesc' => clienttranslate(
+        '{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)'
+      ),
       'forest' => 4,
       'mountain' => 3,
       'ocean' => 3,

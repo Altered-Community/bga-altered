@@ -24,7 +24,6 @@ class ActivateCard extends \ALT\Models\Action
 
   public function getFlow($player)
   {
-
     $card = $this->getCard();
     if (is_null($card)) {
       // in the case of a token that react, as we deleted the tokens they do not exist in DB anymore
@@ -33,14 +32,14 @@ class ActivateCard extends \ALT\Models\Action
 
     $flow =
       $card->isPlayed() || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
-      ? Cards::applyEffect(
-        $card,
-        $player,
-        $this->getCtxArgs()['event']['method'],
-        $this->getCtxArgs()['event'],
-        false // Throw error if no such listener
-      )
-      : null;
+        ? Cards::applyEffect(
+          $card,
+          $player,
+          $this->getCtxArgs()['event']['method'],
+          $this->getCtxArgs()['event'],
+          false // Throw error if no such listener
+        )
+        : null;
 
     if ($flow == null) {
       return null;
@@ -49,7 +48,7 @@ class ActivateCard extends \ALT\Models\Action
     return Utils::tagTree($flow, [
       'sourceId' => $this->getCtxArg('cardId'),
       'event' => $this->getCtxArg('event'),
-      'pId' => Cards::get($this->getCtxArg('cardId'))->getPId()
+      'pId' => Cards::get($this->getCtxArg('cardId'))->getPId(),
     ]);
   }
 
@@ -122,7 +121,9 @@ class ActivateCard extends \ALT\Models\Action
     if ($node->isMandatory()) {
       $flow['optional'] = false; // Remove optional to avoid double confirmation UX
     }
-    $flow['pId'] = $this->getCard()->getPlayer()->getId();
+    $flow['pId'] = $this->getCard()
+      ->getPlayer()
+      ->getId();
     // Add tag about that card
     // $flow = Utils::tagTree($flow, [
     //   'sourceId' => $this->getCtxArg('cardId'),

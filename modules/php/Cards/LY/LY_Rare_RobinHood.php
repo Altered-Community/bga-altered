@@ -13,14 +13,16 @@ class LY_Rare_RobinHood extends \ALT\Models\Card
 
       'faction' => FACTION_LY,
       'rarity' => RARITY_RARE,
-      'name' => 'Robin Hood',
-      'typeline' => 'Character - Bureaucrat',
+      'name' => clienttranslate('Robin Hood'),
+      'typeline' => clienttranslate('Character - Bureaucrat'),
       'type' => CHARACTER,
-      'flavorText' => 'Justice comes from a fair redistribution of wealth.',
+      'flavorText' => clienttranslate('Justice comes from a fair redistribution of wealth.'),
       'artist' => 'Taras Susak',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => 'Characters your opponents play cost {1} more.',
-      'supportDesc' => '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('Characters your opponents play cost {1} more.'),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
@@ -33,7 +35,6 @@ class LY_Rare_RobinHood extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],
       ],
-
     ];
   }
 }

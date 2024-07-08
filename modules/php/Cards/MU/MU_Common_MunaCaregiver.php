@@ -15,14 +15,15 @@ class MU_Common_MunaCaregiver extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_COMMON,
-      'name' => 'Muna Caregiver',
-      'typeline' => 'Character - Druid',
+      'name' => clienttranslate('Muna Caregiver'),
+      'typeline' => clienttranslate('Character - Druid'),
       'type' => CHARACTER,
-      'flavorText' => '"We don’t inherit the earth from our ancestors, we borrow it from our children."',
+      'flavorText' => clienttranslate('"We don’t inherit the earth from our ancestors, we borrow it from our children."'),
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [DRUID],
-      'supportDesc' =>
-      '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)',
+      'supportDesc' => clienttranslate(
+        '{D} : Target Character with Hand Cost {3} or less gains <ANCHORED>. (Discard me from Reserve to do this.)'
+      ),
       'supportIcon' => 'discard',
       'forest' => 0,
       'mountain' => 1,

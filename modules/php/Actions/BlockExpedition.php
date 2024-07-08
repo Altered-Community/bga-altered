@@ -59,7 +59,6 @@ class BlockExpedition extends \ALT\Models\Action
       Globals::setBlockedExpeditions($blocks);
       Notifications::blockAllExpeditions(Players::getActive(), $this->getSource());
     } else {
-
       $expeditions = explode('-', $expedition);
       $blocked = Globals::getBlockedExpeditions();
       $block = [];
@@ -71,6 +70,5 @@ class BlockExpedition extends \ALT\Models\Action
       Globals::setBlockedExpeditions($blocked);
       Notifications::blockExpedition(Players::getActive(), Players::get($expeditions[2]), $expeditions[1]);
     }
-    Notifications::updateBiomes(Players::getActive());
   }
 }

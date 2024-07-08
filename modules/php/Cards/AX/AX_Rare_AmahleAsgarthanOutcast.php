@@ -15,13 +15,15 @@ class AX_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_RARE,
-      'name' => 'Amahle, Asgarthan Outcast',
-      'typeline' => 'Character - Scholar',
+      'name' => clienttranslate('Amahle, Asgarthan Outcast'),
+      'typeline' => clienttranslate('Character - Scholar'),
       'type' => CHARACTER,
-      'flavorText' => 'The old world is dying, and the new world struggles to be born: now is the time of monsters.',
+      'flavorText' => clienttranslate(
+        'The old world is dying, and the new world struggles to be born: now is the time of monsters.'
+      ),
       'artist' => 'Khoa Viet',
       'subtypes' => [SCHOLAR],
-      'effectDesc' => '{J} You may discard a card from your Reserve to draw a card.',
+      'effectDesc' => clienttranslate('{J} You may discard a card from your Reserve to draw a card.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

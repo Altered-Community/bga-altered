@@ -15,13 +15,13 @@ class MU_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
 
       'faction' => FACTION_MU,
       'rarity' => RARITY_RARE,
-      'name' => 'The Monolith, Ordis Bastion',
-      'typeline' => 'Permanent - Landmark',
+      'name' => clienttranslate('The Monolith, Ordis Bastion'),
+      'typeline' => clienttranslate('Permanent - Landmark'),
       'type' => PERMANENT,
-      'flavorText' => 'A beacon of knowledge and order, a lighthouse towering high above the world.',
+      'flavorText' => clienttranslate('A beacon of knowledge and order, a lighthouse towering high above the world.'),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [LANDMARK],
-      'effectDesc' => 'When a #non-token# Character joins your Expeditions — It gains 1 boost.',
+      'effectDesc' => clienttranslate('When a #non-token# Character joins your Expeditions — It gains 1 boost.'),
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
@@ -30,7 +30,7 @@ class MU_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
           'condition' => 'isCardPlayed:characterOnly',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
-      ]
+      ],
     ];
   }
 }

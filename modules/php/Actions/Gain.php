@@ -44,7 +44,6 @@ class Gain extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
-
     return true;
   }
 
@@ -113,7 +112,6 @@ class Gain extends \ALT\Models\Action
 
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
-    Notifications::updateBiomes($card->getPlayer());
 
     $args = $this->getCtxArgs();
     $args['cardId'] = $this->getCard()->getId();

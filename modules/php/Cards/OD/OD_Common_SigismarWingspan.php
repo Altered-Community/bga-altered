@@ -28,7 +28,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
 
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'myTurn',
+          'condition' => 'isMe',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',

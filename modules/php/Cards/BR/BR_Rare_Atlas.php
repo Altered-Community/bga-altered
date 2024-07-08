@@ -15,14 +15,16 @@ class BR_Rare_Atlas extends \ALT\Models\Card
 
       'faction' => FACTION_BR,
       'rarity' => RARITY_RARE,
-      'name' => 'Atlas',
-      'typeline' => 'Character - Titan',
+      'name' => clienttranslate('Atlas'),
+      'typeline' => clienttranslate('Character - Titan'),
       'type' => CHARACTER,
-      'flavorText' => 'Not even the weight of the sky could make him buckle.',
+      'flavorText' => clienttranslate('Not even the weight of the sky could make him buckle.'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [TITAN],
-      'effectDesc' => '$<GIGANTIC>.  #$<SEASONED>.#',
-      'supportDesc' => '#{D} : The next Character you play this turn gains 2 boosts.# (Discard me from Reserve to do this.)',
+      'effectDesc' => clienttranslate('$<GIGANTIC>.  #$<SEASONED>.#'),
+      'supportDesc' => clienttranslate(
+        '#{D} : The next Character you play this turn gains 2 boosts.# (Discard me from Reserve to do this.)'
+      ),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
