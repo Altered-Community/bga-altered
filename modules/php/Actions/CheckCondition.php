@@ -59,7 +59,8 @@ class CheckCondition extends \ALT\Models\Action
   {
     $source = $this->getSource();
     $event = ['pId' => $player->getId()];
-    return Conditions::check($this->getCtxArgs(), $source, $event);
+    $card = $source ?? $player->getHero();
+    return Conditions::check($this->getCtxArgs(), $card, $event);
   }
 
   public function stCheckCondition()

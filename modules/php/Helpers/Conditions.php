@@ -35,7 +35,7 @@ abstract class Conditions
   }
 
 
-  public function isFromReserve($card, $event)
+  public static function isFromReserve($card, $event)
   {
     return ($event['from'] ?? null) == RESERVE;
   }
@@ -155,7 +155,7 @@ abstract class Conditions
   {
     $types = [CHARACTER, TOKEN];
     if ($type == TOKEN) $types = [TOKEN];
-    if ($type == LANDMARK) $types = [LANDMARK];
+    if ($type == PERMANENT) $types = [PERMANENT];
 
     $cards = $card
       ->getPlayer()
@@ -287,7 +287,7 @@ abstract class Conditions
 
   public static function isPlayEvent($card, $event, $meOnly = true)
   {
-    if ($event['playCard'] ?? false) {
+    if (!($event['playCard'] ?? false)) {
       return false;
     }
 
@@ -311,7 +311,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (in_array($type, [PERMANENT, TOKEN, LANDMARK, SPELL])) {
+    if (in_array($type, [PERMANENT, TOKEN, SPELL])) {
       if ($event['cardType'] != $type) {
         return false;
       }

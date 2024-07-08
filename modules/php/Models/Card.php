@@ -328,7 +328,6 @@ class Card extends \ALT\Helpers\DB_Model
   public function isListeningTo($event)
   {
     $passive = $this->getEffectPassive();
-    // throw new \feException(print_r($event));
     if (
       !in_array($event['type'] ?? 'none', array_keys($passive)) &&
       !in_array($event['action'] ?? 'none', array_keys($passive))
@@ -336,13 +335,12 @@ class Card extends \ALT\Helpers\DB_Model
       return false;
     }
 
-    // $power = $passive[$event['action'] ?? $event['type']];
-    // $cond = $power['condition'] ?? null;
+    if ($event['phase'] ?? false) {
+      if ($event['pId'] != $this->getPId()) {
+        return false;
+      }
+    }
 
-    // if (!is_null($cond)) {
-    //   // throw new \feException(Conditions::$cond($this, $event));
-    //   return Conditions::$cond($this, $event);
-    // }
     return true;
   }
 

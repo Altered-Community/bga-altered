@@ -3239,6 +3239,40 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     .gamestate_gameEnd #page-title .bgabutton_gray:hover,
     #page-title .bgabutton_gray:hover {
       color: black; }
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-0 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-1 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-2 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-3 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-4 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-5 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-6 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-7 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-8 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-9 .path2:before,
+      .current_player_is_active #page-title .bgabutton_gray:hover .svgicon-mana-X .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-0 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-1 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-2 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-3 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-4 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-5 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-6 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-7 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-8 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-9 .path2:before,
+      .gamestate_gameEnd #page-title .bgabutton_gray:hover .svgicon-mana-X .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-0 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-1 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-2 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-3 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-4 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-5 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-6 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-7 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-8 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-9 .path2:before,
+      #page-title .bgabutton_gray:hover .svgicon-mana-X .path2:before {
+        color: white; }
 
 #right-side {
   float: left;
@@ -4999,7 +5033,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
       max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
       --cardScale: 0.5;
       display: flex;
-      flex-wrap: wrap; }
+      flex-wrap: wrap;
+      justify-content: center; }
       .mobile_version #altered-board-overlay #altered-overlay-content #overlay-deck-container, .focus-board #altered-board-overlay #altered-overlay-content #overlay-deck-container {
         max-width: calc(90vw / var(--boardScale)); }
       #altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card {

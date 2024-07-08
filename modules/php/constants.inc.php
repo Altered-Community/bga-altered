@@ -169,8 +169,9 @@ const HERO = 'hero';
 const CHARACTER = 'character';
 const TOKEN = 'token';
 const PERMANENT = 'permanent';
-const LANDMARK = 'landmark';
 const SPELL = 'spell';
+const TYPES = [HERO, CHARACTER, TOKEN, PERMANENT, SPELL];
+
 const EVERYONE_ELSE = 'everyone-else';
 
 const HAND = 'hand';
@@ -260,6 +261,8 @@ const MANEUVER = 'maneuver';
 const SCHOLAR = 'scholar';
 const ANIMAL = 'animal';
 
+const LANDMARK = 'landmark';
+
 const SUBTYPES = [
   DIVINITY,
   ADVENTURER,
@@ -296,6 +299,7 @@ const SUBTYPES = [
   MANEUVER,
   SCHOLAR,
   ANIMAL,
+  LANDMARK,
 ];
 
 /*********************
