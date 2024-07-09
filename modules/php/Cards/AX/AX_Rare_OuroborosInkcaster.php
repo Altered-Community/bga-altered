@@ -32,7 +32,7 @@ class AX_Rare_OuroborosInkcaster extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain', 'costHand', 'costReserve'],
       'effectPassive' => [
         'LeaveExpedition' => [
-          'condition' => 'notFleeting',
+          'condition' => 'isToReserve',
           'output' => FT::ACTION(
             TARGET,
             [

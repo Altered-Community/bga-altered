@@ -109,6 +109,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (o !== undefined) {
         this.addCustomTippyTooltip(o.id, this.tplCardTooltip(card), {
           disablingParentClasses: ['mana-modal', 'no-tooltip'],
+          forceRecreate: true,
         });
         if (this._loadingComplete) {
           this.autofitCardFrame(o);
@@ -145,7 +146,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       const THRESHOLD = 8;
       if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
 
-      let a = Math.min(550, n * 50); // X-DISTANCE BETWEEN MAX LEFT CARD AND CENTER
+      let a = Math.min(450, n * 50); // X-DISTANCE BETWEEN MAX LEFT CARD AND CENTER
       let b = n < THRESHOLD ? 80 : 60; // Y-DISTANCE BETWEEN LOWEST CARD AND UPPEST CARD
       let r = (a * a + b * b) / (2 * b); // RADIUS OF THE CIRCLE
       let halfAngle = Math.asin(a / r);

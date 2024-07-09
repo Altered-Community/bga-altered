@@ -51,7 +51,7 @@ class Discard extends \ALT\Models\Action
 
     // Msg
     $msgs = [
-      DISCARDL => clienttranslate('Discard ${card}'),
+      DISCARD_PILE => clienttranslate('Discard ${card}'),
       TOP_OF_DECK => clienttranslate('put ${card} on top of it\'s owner deck'),
       HAND => clienttranslate('Return to hand ${card}'),
     ];
@@ -196,13 +196,12 @@ class Discard extends \ALT\Models\Action
       $hasFleeting = $card->hasToken(FLEETING);
 
       // We discard a card that has fleeting and should go to reserve
-      if (in_array($destination, [RESERVE, DISCARDL]) && $hasFleeting) {
-        $destination = DISCARDL;
+      if (in_array($destination, [RESERVE, DISCARD_PILE]) && $hasFleeting) {
+        $destination = DISCARD_PILE;
       }
       // Save information about original location
       $originalLocation = $card->getLocation();
       if (in_array($originalLocation, [RESERVE, STORM_LEFT, STORM_RIGHT])) {
-        $card->checkLeaveListener($destination); // Check leave listener
         $visibleCards[] = $cId;
       } else if ($originalLocation == HAND) {
         $hand = true;
@@ -295,7 +294,7 @@ class Discard extends \ALT\Models\Action
       // Default
       else {
         $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source}');
-        if ($destination == DISCARDL) {
+        if ($destination == DISCARD_PILE) {
           $msg = clienttranslate('${player_name} discards ${card_names} (${n} card(s))');
         } elseif ($automatic) {
           $msg = clienttranslate('${player_name} discards ${n} card(s)');

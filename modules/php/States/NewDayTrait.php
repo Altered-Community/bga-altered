@@ -132,13 +132,11 @@ trait NewDayTrait
   // Clear previous stuff and draw new cards
   function stNewDay()
   {
-    die("testeraze");
     if (Players::checkVictory()) {
       return;
     }
 
-    $day = Globals::incDay(1);
-    $nCards = 0;
+    Globals::incDay(1);
     Globals::setSkippedPlayers([]);
     Globals::setStormMoves([]);
     Globals::setNextCharacterBoost(0);
@@ -154,8 +152,6 @@ trait NewDayTrait
     $newFirstPId = Players::getNextId($currentFirstPId);
     Globals::setFirstPlayer($newFirstPId);
     Notifications::newFirstPlayer(Players::get($newFirstPId));
-
-    $reactions = [];
 
     foreach (Players::getAll() as $player) {
       if ($player->getHero()->getUid() == 'ALT_CORE_B_LY_03_C') {
@@ -175,7 +171,6 @@ trait NewDayTrait
       }
     }
 
-    // $this->initCustomDefaultTurnOrder('newDay', 'stNewDayDraw', 'stAfterNewday', true);
     $this->checkCardListeners('Morning', 'initNewDay');
   }
 

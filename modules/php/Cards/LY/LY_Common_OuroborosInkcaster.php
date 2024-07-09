@@ -33,7 +33,7 @@ class LY_Common_OuroborosInkcaster extends \ALT\Models\Card
 
       'effectPassive' => [
         'LeaveExpedition' => [
-          'condition' => 'notFleeting',
+          'condition' => 'isToReserve',
           'output' => FT::ACTION(
             TARGET,
             [

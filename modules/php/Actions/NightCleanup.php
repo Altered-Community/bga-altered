@@ -75,7 +75,7 @@ class NightCleanup extends \ALT\Models\Action
 
     $cards = Cards::getMany($cardIds);
     $deletedMeeples = [];
-    $destination = DISCARDL;
+    $destination = DISCARD_PILE;
 
     foreach ($cards as $cId => $card) {
       // Save information about original location

@@ -252,7 +252,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function discard()
   {
-    return $this->discardTo(DISCARD);
+    return $this->discardTo(DISCARD_PILE);
   }
 
   public function moveToReserve()

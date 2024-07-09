@@ -181,7 +181,7 @@ const RESERVE = 'reserve';
 const LIMBO = 'limbo';
 const MANA = 'mana';
 const LANDMARK = 'landmark';
-const DISCARDL = 'discard'; // DISCARD is the action, DISCARDL the location
+const DISCARD_PILE = 'discard'; // DISCARD is the action, DISCARD_PILE the location
 const TOP_OF_DECK = 'topOfDeck';
 
 const PHASE_MORNING = 'morning';

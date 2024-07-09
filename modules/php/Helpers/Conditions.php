@@ -48,6 +48,11 @@ abstract class Conditions
     return ($event['from'] ?? null) == RESERVE;
   }
 
+  public static function isToReserve($card, $event)
+  {
+    return ($event['to'] ?? null) == RESERVE;
+  }
+
   public static function isSource($card, $event)
   {
     return  $card->getId() == $event['sourceId'];
