@@ -55,9 +55,17 @@ abstract class Conditions
 
   public static function isSource($card, $event)
   {
-    return  $card->getId() == $event['sourceId'];
+    return $card->getId() == $event['sourceId'];
   }
 
+  public static function hasSameOwner($card, $event)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if (is_null($cardId)) {
+      return false;
+    }
+    return Cards::get($cardId)->getPId() == $card->getPId();
+  }
 
   ///////////////////////////////////////////////
   //  ____  _                         ___    _
@@ -341,10 +349,10 @@ abstract class Conditions
     if (!self::isPlayEvent($card, $event)) {
       return false;
     }
-    $card = Cards::get($event['playedCard']);
+    $card = Cards::get($event['cardId']);
 
     // Exclude myself
-    if ($excludeMyself == 'true' && $card->getId() == $event['playedCard']) {
+    if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
       return false;
     }
 
@@ -383,7 +391,7 @@ abstract class Conditions
       return false;
     }
 
-    $playedCard = Cards::get($event['playedCard']);
+    $playedCard = Cards::get($event['cardId']);
     $hasZero = false;
     foreach ($playedCard->getBiomes() as $biome => $value) {
       if ($value == 0) {
@@ -410,7 +418,7 @@ abstract class Conditions
       return false;
     }
 
-    $cardPlayed = Cards::get($event['playedCard']);
+    $cardPlayed = Cards::get($event['cardId']);
     return ($event['playedFree'] ?? false) == false && $cardPlayed->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
   }
 

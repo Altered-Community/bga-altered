@@ -139,7 +139,7 @@ class InvokeToken extends \ALT\Models\Action
 
       $this->checkAfterListeners($player, [
         'playCard' => true,
-        'playedCard' => $card->getId(),
+        'cardId' => $card->getId(),
         'cardType' => $card->getType(),
         'from' => 'invoke',
       ]);
