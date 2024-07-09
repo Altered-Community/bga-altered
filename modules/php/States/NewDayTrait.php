@@ -132,6 +132,7 @@ trait NewDayTrait
   // Clear previous stuff and draw new cards
   function stNewDay()
   {
+    die("testeraze");
     if (Players::checkVictory()) {
       return;
     }

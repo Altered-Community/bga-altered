@@ -30,7 +30,7 @@ abstract class FlowConvertor
       7 => [
         'description' => clienttranslate('When I go to Reserve from your hand —'),
         'trigger' => 'Discard',
-        'condition' => 'isDiscardedFromHandToReserve',
+        'condition' => 'isMyselfDiscarded:hand:reserve',
       ],
       8 => ['description' => clienttranslate('When I\'m sacrificed —'), 'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       10 => [
@@ -89,7 +89,7 @@ abstract class FlowConvertor
       28 => [
         'description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'),
         'trigger' => ['ChooseAssignment', 'Discard'],
-        'condition' => 'isFromReserveAfternoon',
+        'conditions' => ['isAfternoon', 'isFromReserve'],
       ],
       192 => ['description' => clienttranslate('{D}'), 'trigger' => '', 'type' => 'effectSupport'],
       231 => ['description' => clienttranslate('When I\'m sacrificed —'), 'trigger' => 'Discard', 'condition' => 'isSacrificed'],
@@ -145,7 +145,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => [']Discard' => ['condition' => 'isSourceAndDiscardPermanent']], // to check
+        'passiveEffect' => [']Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent']]], // to check
       ],
       172 => [
         'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Spell:'),
@@ -160,7 +160,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['condition' => 'isSourceAndDiscardSpell', 'effect' => 'OUTPUT']], // to check
+        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'effect' => 'OUTPUT']], // to check
       ],
       173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'hasControl::4'],
       175 => [

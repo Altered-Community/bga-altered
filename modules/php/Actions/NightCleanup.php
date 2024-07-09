@@ -14,337 +14,107 @@ use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
 
-class Discard extends \ALT\Models\Action
+class NightCleanup extends \ALT\Models\Action
 {
   public function getState()
   {
-    return ST_DISCARD;
-  }
-
-  public function isOptional($player)
-  {
-    return $this->getCtxArg('canPass') ?? false;
+    return ST_NIGHT_CLEANUP;
   }
 
   public function getDescription()
   {
-    $location = $this->getCtxArg('destination') ?? 'discard';
-    $msg = clienttranslate('discard to ${location} ${card}');
-    if ($location == 'discard') {
-      $msg = clienttranslate('Discard ${card}');
-    } elseif ($location == 'topOfDeck') {
-      $msg = clienttranslate('put ${card} on top of it\'s owner deck');
-    } elseif ($location == HAND) {
-      $msg = clienttranslate('Return to hand ${card}');
-    }
-
-    if (!is_null($this->getCtxArg('cardId') ?? null)) {
-      if ($this->getCtxArg('cardId') == ME) {
-        $card = Cards::get($this->ctx->getSourceId());
-      } else {
-        $card = Cards::get($this->getCtxArg('cardId'), false);
-      }
-    } else {
-      $card = '';
-    }
-
-    if (($this->getCtxArg('desc') ?? '') == 'sacrifice') {
-      $msg = clienttranslate('Sacrifice ${card}');
-    }
-
-    return [
-      'log' => $msg,
-      'args' => [
-        'location' => $this->getCtxArg('destination') ?? 'discard',
-        'card' => $card != '' ? ($card instanceof Collection ? clienttranslate(' multiple cards') : $card->getName()) : '',
-      ],
-    ];
-  }
-
-  public function stDiscard()
-  {
-    $force = $this->getCtxArg('force') ?? false;
-    if (($this->getCtxArg('canPass') ?? false) == true && !$force) {
-      return;
-    }
-
-    if (!is_null($this->getCtxArg('cardId') ?? null)) {
-      if (!is_array($this->getCtxArg('cardId'))) {
-        $this->actDiscard([$this->getCtxArg('cardId')], true);
-      } else {
-        $this->actDiscard($this->getCtxArg('cardId'), true);
-      }
-    } elseif ($this->getArg('special') == 'allHand') {
-      $this->actDiscard(
-        $this->getPlayer()
-          ->getHand()
-          ->getIds(),
-        true
-      );
-    } elseif ($this->getArg('special') == 'allHandReserve') {
-      $this->actDiscard(
-        $this->getPlayer()
-          ->getHand()
-          ->merge($this->getPlayer()->getReserveCards())
-          ->getIds(),
-        true
-      );
-    } elseif ($this->isNightCleanup() && !is_null($this->getCtxArg('n') ?? null) && $this->getCtxArg('n') == ME) {
-      $this->actDiscard([$this->getCtx()->getSourceId()], true);
-    }
-  }
-
-  public function getPlayer()
-  {
-    if (!is_null($this->getCtxArg('pId') ?? null)) {
-      return Players::get($this->getCtxArg('pId'));
-    } else {
-      return Players::getActive();
-    }
+    return clienttranslate('Night cleanup');
   }
 
   protected $args = [
-    'upTo' => false, // if n > 1, can the player select UP TO n cards or exactly n cards ?
-    'destination' => 'discard',
-    'n' => 1, // number of card to discard
-    'source' => '',
-    'nLandmarks' => 0, // only for night clean up
-    'special' => '',
-    'tapped' => false,
-    // 'totalCost' => INFTY
+    'nReserve' => 0,
+    'nLandmarks' => 0,
   ];
 
-  public function isNightCleanup()
-  {
-    return ($this->getCtxArg('special') ?? '') == 'nightCleanUp';
-  }
-
-  public function argsDiscard()
+  public function argsNightCleanup()
   {
     $player = $this->getPlayer();
-    if ($this->isNightCleanup()) {
-      return [
-        'n' => $this->getArg('n') ?? 1,
-        'nLandmarks' => $this->getArg('nLandmarks'),
-        'source' => $this->getArg('source') ?? '',
-        'destination' => $this->getArg('destination'),
-        'descSuffix' => 'nightCleanUp',
-        'upTo' => false,
-        '_private' => [
-          'active' => [
-            'reserveCards' => $player->getReserveCards()->getIds(),
-            'landmarkCards' => $player->getLandmarks()->getIds(),
-            'cards' => $player
-              ->getReserveCards()
-              ->merge($player->getLandmarks())
-              ->getIds(),
-          ],
-        ],
-      ];
-    } elseif (!is_null($this->getCtxArg('cardId'))) {
-      $cardId = $this->getCtxArg('cardId');
-      if ($this->getCtxArg('cardId') == ME) {
-        $cardId = $this->ctx->getSourceId();
-      }
-      if (is_array($cardId)) {
-        $cards = $cardId;
-      } else {
-        $cards = [$cardId];
-      }
-    } elseif ($this->getArg('source') == HAND) {
-      $cards = $player->getHand()->getIds();
-    } elseif ($this->getArg('source') == RESERVE) {
-      $cards = $player->getReserveCards()->getIds();
-    } else {
-      $cards = $player->getPlayedCards()->getIds();
-    }
+    $reserve = $player->getReserveCards();
+    $landmarks = $player->getLandmarks();
+
+    $nReserve = $this->getArg('nReserve');
+    $nLandmarks = $this->getArg('nLandmarks');
+
     return [
-      'n' => $this->getArg('n') ?? 1,
-      'source' => $this->getArg('source') ?? '',
-      'destination' => $this->getArg('destination'),
-      'descSuffix' => $this->isOptional($player) ? 'CanPass' : '',
-      'upTo' => $this->getArg('upTo'),
+      'nReserve' => $nReserve,
+      'nLandmarks' => $nLandmarks,
+      'descSuffix' => $nReserve == 0 ? 'landmarksOnly' : ($nLandmarks == 0 ? 'reserveOnly' : ''),
       '_private' => [
         'active' => [
-          'cards' => $cards,
+          'reserveCards' => $reserve->getIds(),
+          'landmarkCards' => $landmarks->getIds(),
+          'cards' => $reserve->merge($landmarks)->getIds(),
         ],
       ],
     ];
   }
 
-  public function actDiscard($cardIds, $automatic = false)
+  public function actNightCleanup($reserveCardIds, $landmarkCardIds)
   {
     $player = $this->getPlayer();
-    $args = $this->argsDiscard();
+    $args = $this->argsNightCleanup();
     $pArgs = $args['_private']['active'];
 
-    // Sanity checks
-    if (!$automatic) {
-      // Number of cards
-      $n = $args['n'] + ($args['nLandmarks'] ?? 0);
-      $upTo = $args['upTo'];
-      if ((!$upTo && count($cardIds) != $n) || ($upTo && count($cardIds) > $n)) {
-        throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
-      }
-
-      // Valid card ids
-      $validIds = ($pArgs['cards'] ?? []) + ($pArgs['reserveCards'] ?? []) + ($pArgs['landmarkCards'] ?? []);
-      if (!empty(array_diff($cardIds, $validIds))) {
-        throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
-      }
-
-      // Special case of nightCleanup
-      if ($this->isNightCleanup()) {
-        if (
-          count($cardIds) - count(array_diff($cardIds, $pArgs['reserveCards'])) != $args['n'] ||
-          count($cardIds) - count(array_diff($cardIds, $pArgs['landmarkCards'])) != $args['nLandmarks']
-        ) {
-          throw new \BgaVisibleSystemException('You must select the correct number of each type of cards');
-        }
-      }
+    // Number of cards
+    if (count($reserveCardIds) != $args['nReserve'] || count($landmarkCardIds) != $args['nLandmarks']) {
+      throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
     }
 
-    $hand = false;
-
-    foreach ($cardIds as &$cardId) {
-      if ($cardId == ME) {
-        $cardId = $this->ctx->getSourceId();
-      }
-
-      $card = Cards::get($cardId);
-      $card->checkLeaveListener('discard');
-      // $totalCost += $card->getCostHand();
-      if ($card->getLocation() == HAND) {
-        $hand = true;
-      }
-      if (!is_null($card->getExtraDatas()['counterName'] ?? null)) {
-        $card->setExtraDatas([]);
-        Notifications::deleteCounter($card);
-      }
+    // Valid card ids
+    if (!empty(array_diff($reserveCardIds, $pArgs['reserveCards'])) || !empty(array_diff($landmarkCardIds, $pArgs['landmarkCards']))) {
+      throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
     }
+
+    $cardIds = array_merge($reserveCardIds, $landmarkCardIds);
+
+
     $cards = Cards::getMany($cardIds);
-    $originalLocation = [];
+    $deletedMeeples = [];
+    $destination = DISCARDL;
+
     foreach ($cards as $cId => $card) {
-      $originalLocation[$cId] = $card->getLocation();
-      if ($this->getArg('tapped')) {
-        $card->setTapped(true);
-      }
-    }
-
-    if ($args['destination'] == 'topOfDeck') {
-      Cards::insertOnTop($cardId, 'deck-' . $card->getPlayer()->getId());
-    } else {
-      Cards::discard($cardIds, $args['destination']);
-    }
-
-    $cards = Cards::getMany($cardIds);
-
-    $deleted = [];
-    $deletedTokens = [];
-    $players = [];
-    foreach ($cards as $cardId => $card) {
-      $pId = $card->getPlayer()->getId();
-      if (!array_key_exists($pId, $players)) {
-        $players[$pId] = $card->getPlayer();
+      // Save information about original location
+      $originalLocation = $card->getLocation();
+      if (in_array($originalLocation, [RESERVE, STORM_LEFT, STORM_RIGHT])) {
+        $card->checkLeaveListener($destination); // Check leave listener
       }
 
-      // we discard a card that has fleeting and should go to reserve
-      if (in_array($args['destination'], [RESERVE, 'discard']) && $card->hasToken(FLEETING) && !$card->isToken()) {
-        Cards::discard($cardId);
-        if (($this->getCtxArg('desc') ?? '') == 'sacrifice' && $card->isSacrificeAndFleetingDraw()) {
-          $this->insertAsChild(['action' => DRAW, 'args' => ['players' => ME]]);
-        }
-      } elseif (
-        ($this->getCtxArg('desc') ?? '') == 'sacrifice' &&
-        $card->isSacrificeAndNotFleetingGoToReserve() &&
-        !$card->hasToken(FLEETING)
-      ) {
-        // When we sacrifice a card and has this attribute, goes to reserve if not fleeting
-        Cards::discard($cardId, RESERVE);
-      }
+      // Discard the card
+      $m = $card->discardTo($destination);
+      $deletedMeeples = array_merge($deletedMeeples, $m);
 
-      if ($card->isToken()) {
-        // delete the card as it's a token
-        $deletedTokens[] = $cId;
-        Cards::discard($cId, 'destroy');
-        Cards::delete($cId);
-      }
-
-      // remove all meeples on the card
-      $seasoned = $card->isSeasoned();
-      $toDelete = Meeples::getInLocation('card-' . $cardId)
-        ->filter(function ($m) use ($seasoned, $args) {
-          return $seasoned == false ||
-            ($args['destination'] == RESERVE && $seasoned == true && $m->getType() != BOOST) ||
-            ($args['destination'] != RESERVE && $seasoned == true);
-        })
-        ->getIds();
-      Meeples::delete($toDelete);
-      $deleted = array_merge($deleted, $toDelete);
+      // Check listener
+      $this->checkListeners('Discard', $player, [
+        'discardCard' => true,
+        'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
+        'discarded' => $cId,
+        'from' => $originalLocation,
+        'to' => $destination,
+      ]);
     }
 
-    $msg = clienttranslate('${player_name} discards ${n} card(s) from the ${source}');
-    if ($args['destination'] == HAND && count($deletedTokens) != count($cards)) {
-      $msg = clienttranslate('${player_name} puts ${n} card(s) to players\' hand');
-    } elseif ($args['destination'] == 'discard') {
-      $msg = clienttranslate('${player_name} discards ${card_names} (${n} card(s))');
-    } elseif ($automatic === true) {
-      $msg = clienttranslate('${player_name} discards ${n} card(s)');
+    // Notify deleting meeples first
+    if (!empty($deletedMeeples)) {
+      Notifications::silentKill($deletedMeeples, []);
     }
 
-    $copyCards = $cards;
-
-    // deleting meeples first
-    if (!empty($deleted)) {
-      Notifications::silentKill($deleted, []);
+    // Notify cards moving
+    $msg = clienttranslate('${player_name} discards ${card_names} (${nReserve} card(s) in reserve, ${nLandmarks} landmark(s))');
+    if (empty($landmarkCardIds)) {
+      $msg = clienttranslate('${player_name} discards ${card_names} (${nReserve} card(s) in reserve)');
+    } elseif (empty($reserveCardIds)) {
+      $msg = clienttranslate('${player_name} discards ${card_names} (${nLandmarks} landmark(s))');
     }
 
-    if (count($copyCards) != 0) {
-      if ($args['destination'] == HAND && count($deletedTokens) != count($copyCards)) {
-        Notifications::moveToHand($player, $copyCards, $msg, null, [
-          'source' => $args['source'],
-          'destination' => $args['destination'],
-        ]);
-      } elseif ($args['destination'] == MANA) {
-        foreach ($players as $pId => $p2) {
-          $playerCards = $copyCards->filter(function ($c) use ($pId) {
-            return $c->getPId() == $pId;
-          });
-          $visibleCards = $playerCards->filter(function ($c) use ($originalLocation) {
-            $location = $originalLocation[$c->getId()];
-            return in_array($location, [RESERVE, STORM_LEFT, STORM_RIGHT]);
-          });
-
-          if (!$visibleCards->empty()) {
-            Notifications::publicDiscardToMana($p2, $visibleCards);
-          } else {
-            Notifications::discardMana($p2, $playerCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
-          }
-        }
-      } elseif ($args['destination'] == 'topOfDeck') {
-        Notifications::putOnDeck($player, $copyCards, [
-          'hand' => $hand,
-          'destination' => $args['destination'],
-          'tokensOnly' => count($deletedTokens) == count($cards),
-        ]);
-      } else {
-        Notifications::publicDiscard($player, $copyCards, $msg, [
-          'source' => $args['source'],
-          'hand' => $hand,
-          'destination' => $args['destination'],
-        ]);
-      }
-    }
-
-    $this->checkAfterListeners($player, [
-      'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
-      'discarded' => $cardIds,
-      'originalLocation' => $originalLocation,
-      'cards' => $cards,
-      'sacrifice' => ($this->getCtxArg('desc') ?? '') == 'sacrifice',
-      'sourceId' => $this->getSourceId(),
+    Notifications::publicDiscard($player, $cards, $msg, [
+      'nReserve' => count($reserveCardIds),
+      'nLandmarks' => count($landmarkCardIds),
+      'destination' => $destination,
     ]);
-
-    $this->resolveAction([$cardIds]);
   }
 }

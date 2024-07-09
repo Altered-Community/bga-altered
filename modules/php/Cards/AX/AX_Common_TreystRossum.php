@@ -36,7 +36,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
           ]),
         ],
         'Discard' => [
-          'condition' => 'isDiscardedFromReserveAndLess5Counters',
+          'conditions' => ['isAfternoon', 'isDiscarded:reserve', 'hasCounterOnCard:4:LTE'],
           'output' => FT::ACTION(SPECIAL_EFFECT, [
             'effect' => 'incCounter',
             'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')],

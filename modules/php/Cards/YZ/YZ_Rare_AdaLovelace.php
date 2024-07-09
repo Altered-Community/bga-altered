@@ -44,7 +44,7 @@ class YZ_Rare_AdaLovelace extends \ALT\Models\Card
 
       // using passive effect to listen to check what was discarded
       'effectPassive' => [
-        'Discard' => ['condition' => 'isSourceAndDiscardSpell', 'output' => FT::ACTION(DRAW, ['players' => ME])],
+        'Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'output' => FT::ACTION(DRAW, ['players' => ME])],
       ],
     ];
   }

@@ -4062,6 +4062,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
         z-index: 30;
         margin-left: 10px;
         transition: left 0.2s ease-in, top 0.2s ease-in; }
+        .altered-player-board .player-board-grass .player-board-reserve .altered-card.selected {
+          margin-left: 8px; }
         .altered-player-board .player-board-grass .player-board-reserve .altered-card[data-animation-speed="none"] {
           transition: none; }
         .altered-player-board .player-board-grass .player-board-reserve .altered-card.selected:not([data-animation-speed="none"]) {
@@ -4207,6 +4209,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     background-position: -6px 21px; }
     #altered-board-opponent .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
       margin: 42px 27px 0px 4px; }
+      #altered-board-opponent .altered-player-board .player-board-grass .player-board-landmarks .altered-card.selected {
+        margin: 40px 25px -2px 2px; }
   #altered-board-opponent .altered-player-board .player-board-grass .reserve-warning,
   #altered-board-opponent .altered-player-board .player-board-grass .landmark-warning {
     bottom: -15px; }
@@ -4248,6 +4252,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     background-position: -6px -15px; }
     #altered-board-me .altered-player-board .player-board-grass .player-board-landmarks .altered-card {
       margin: -30px 27px 0px 4px; }
+      #altered-board-me .altered-player-board .player-board-grass .player-board-landmarks .altered-card.selected {
+        margin: -32px 25px -2px 2px; }
   #altered-board-me .altered-player-board .player-board-grass .reserve-warning,
   #altered-board-me .altered-player-board .player-board-grass .landmark-warning {
     top: -10px; }

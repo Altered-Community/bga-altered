@@ -45,7 +45,7 @@ class AX_Common_AdaLovelace extends \ALT\Models\Card
 
       // using passive effect to listen to check what was discarded
       'effectPassive' => [
-        'Discard' => ['condition' => 'isSourceAndDiscardPermanent', 'output' => FT::ACTION(DRAW, ['players' => ME])],
+        'Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'output' => FT::ACTION(DRAW, ['players' => ME])],
       ],
     ];
   }
