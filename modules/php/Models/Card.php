@@ -93,7 +93,7 @@ class Card extends \ALT\Helpers\DB_Model
     'updateExpeditions' => 'obj', // type = All, region []
     'blockAutomaticAction' => 'obj',
     'addDice' => 'int',
-    'ressuply2' => 'bool',
+    'resupply2' => 'bool',
 
     // Tough management
     'tough' => 'int',

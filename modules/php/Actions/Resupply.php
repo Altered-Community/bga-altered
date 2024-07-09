@@ -20,12 +20,17 @@ class Resupply extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return [
-      'log' => clienttranslate('Resupply ${n}'),
-      'args' => [
-        'n' => $this->getArg('n'),
-      ],
-    ];
+    $player = $this->getPlayer();
+    if ($player->getResupply2()) {
+      return clienttranslate('Lyra Bastion\'s resupply');
+    } else {
+      return [
+        'log' => clienttranslate('Resupply ${n}'),
+        'args' => [
+          'n' => $this->getArg('n'),
+        ],
+      ];
+    }
   }
 
   public function isAutomatic($player = null)
@@ -36,12 +41,6 @@ class Resupply extends \ALT\Models\Action
   public function isIrreversible($player = null)
   {
     return true;
-  }
-
-  public function getPlayer()
-  {
-    $pId = $this->getCtxArg('pId') ?? Players::getActiveId();
-    return Players::get($pId);
   }
 
   protected $args = [
