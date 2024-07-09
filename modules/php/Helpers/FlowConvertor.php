@@ -8,7 +8,7 @@ use ALT\Managers\Players;
 // Allow to use a short flow description syntax
 abstract class FlowConvertor
 {
-  public function getTriggers()
+  public static function getTriggers()
   {
     return  [
       1 => ['description' => clienttranslate('{R}'), 'trigger' => '', 'type' => 'effectReserve'],
@@ -43,7 +43,7 @@ abstract class FlowConvertor
     ];
   }
 
-  public function getConditions()
+  public static function getConditions()
   {
     return [
       166 => ['description' => clienttranslate('If you control two or more Plants other than me:'), 'condition' => 'hasControl:plant:2:true'],
@@ -72,7 +72,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => [']Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent']]], // to check
+        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent']]], // to check
       ],
       172 => [
         'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Spell:'),
@@ -1065,9 +1065,9 @@ abstract class FlowConvertor
     if (isset($trinity['condition'])) {
       self::computeConditions($trinity['condition'], $calculated);
     }
-    // if (isset($trinity['output'])) {
-    //   self::computeTrigger($trinity['output'], $calculated);
-    // }
+    if (isset($trinity['output'])) {
+      self::computeOutput($trinity['output'], $calculated);
+    }
 
     $key = $calculated['type'];
     $node = [];
@@ -1079,9 +1079,6 @@ abstract class FlowConvertor
       if (isset($calculated['conditionEffect'])) {
         self::addEffectToCondition($calculated['conditionEffect'], $node);
       }
-
-      // TODO insert output
-      // merge needs to be done
     } else {
       if (isset($calculated['trigger'])) {
         if (!is_array($calculated['trigger'])) {
@@ -1093,22 +1090,40 @@ abstract class FlowConvertor
           $template['conditions'] = $calculated['triggerConditions'];
         }
         if (isset($calculated['conditionEffect'])) {
-          $template['effect'] = $calculated['conditionEffect'];
+          $template['output'] = $calculated['conditionEffect'];
         }
 
         foreach ($calculated['trigger'] as $t => $trig) {
           // add conditions + effect + output
           $node[$trig] = $template;
         }
-
-        // insert output
-        // output or attributes or passive effect
-        // merge!
       }
     }
-    $properties[$key] = $node;
+    // output
+    if (isset($calculated['output'])) {
+      self::addOutputToNode($calculated['output'], $node);
+    }
+    if (isset($calculated['outputAttributes'])) {
+      $properties = array_merge($properties, $calculated['outputAttributes']);
+    }
 
-    $properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] = [$calculated['triggerDescription'] ?? '', $calculated['conditionDescription'] ?? ''];
+    if (isset($properties[$key])) {
+      // there is already an effect, check if there is an OR node, to add the node
+      if (($properties[$key]['type'] ?? '') == NODE_OR) {
+        $properties[$key]['childs'] = array_merge($properties[$key]['childs'], $node);
+      } else {
+        // we add the OR node
+        $properties[$key] = FT::OR([$properties[$key], $node]);
+      }
+    } else {
+      $properties[$key] = $node;
+    }
+
+    if (isset($calculated['outputPassive'])) {
+      $properties['effectPassive'] = array_merge($properties['effectPassive'], $calculated['outputPassive']);
+    }
+
+    $properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] = array_merge($properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] ?? [], [$calculated['triggerDescription'] ?? '', $calculated['conditionDescription'] ?? '', $calculated['outputDescription']]);
     if ($key == 'effectSupport') {
       if ($calculated['triggerDescription'] == '{D}') {
         $properties['supportIcon'] = 'discard';
@@ -1168,6 +1183,29 @@ abstract class FlowConvertor
     }
   }
 
+  public static function computeOutput($effect, &$calculated)
+  {
+    $output = self::getOutput()[$effect] ?? null;
+
+    if (is_null($output)) {
+      throw new \BgaVisibleSystemException('Unique conditions not implemented.' . $effect);
+    }
+    if (isset($output['description'])) {
+      $calculated['outputDescription'] = $output['description'];
+    }
+
+    if (isset($output['output'])) {
+      $calculated['output'] = $output['output'];
+    }
+    if (isset($output['passive'])) {
+      $calculated['outputPassive'] = $output['passive'];
+    }
+    if (isset($output['attributes'])) {
+      $calculated['outputAttributes'] = $output['attributes'];
+    }
+    // manage unique power attributes (tough/gigantic/) awaiting info from GDs
+  }
+
   public static function insertCheckCondition($conditions, &$node)
   {
     if (empty($node)) {
@@ -1186,6 +1224,15 @@ abstract class FlowConvertor
       $node = $effect;
     } else {
       $node = Utils::updateTree($node, 'TODO', $effect);
+    }
+  }
+
+  public static function addOutputToNode($effect, &$node)
+  {
+    if (empty($node)) {
+      $node = $effect;
+    } else {
+      $node = Utils::updateTree($node, 'OUTPUT', $effect);
     }
   }
 

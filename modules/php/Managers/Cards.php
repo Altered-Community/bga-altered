@@ -46,11 +46,11 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];
-    $rarity = $p['rarity'] == 0 ? 'common' : 'rare';
+    $rarity = $p['rarity'] == 0 ? 'common' : ($p['rarity'] == 0 ?  'rare' : 'unique');
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
 
-    $isUnique = false;
+    $isUnique = $rarity == 'unique';
     // Unique => all infos are stored into DB
     if ($isUnique) {
       return new Card($data); // information from DB

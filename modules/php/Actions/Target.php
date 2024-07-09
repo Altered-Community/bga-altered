@@ -266,15 +266,21 @@ class Target extends \ALT\Models\Action
       }
 
       $node = $this->getArg('effect');
-      $node['args']['cardId'] = $cardId;
+      if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
+        $node['args']['cardId'] = $cardId;
+      }
       $node['sourceId'] = $this->getSourceId();
       if (isset($node['childs'])) {
         foreach ($node['childs'] as &$child) {
-          $child['args']['cardId'] = $cardId;
+          if (!isset($child['args']['cardId']) || $child['args']['cardId'] != ME) {
+            $child['args']['cardId'] = $cardId;
+          }
           $child['sourceId'] = $this->getSourceId();
           if (isset($child['childs'])) {
             foreach ($child['childs'] as &$grandchild) {
-              $grandchild['args']['cardId'] = $cardId;
+              if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {
+                $grandchild['args']['cardId'] = $cardId;
+              }
               $grandchild['sourceId'] = $this->getSourceId();
             }
           }

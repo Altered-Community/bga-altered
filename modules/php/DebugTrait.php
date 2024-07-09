@@ -129,7 +129,12 @@ trait DebugTrait
     Notifications::updateTotalMana();
   }
 
-  function loadUnique($v)
+  function debug_loadUnique($v = null)
+  {
+    $this->loadUnique($v);
+  }
+
+  function loadUnique($v = null, $location = HAND)
   {
     require_once('Cards/unique.php');
     $unique = $uniques['hydra:member'][$v ?? 0];
@@ -181,7 +186,16 @@ trait DebugTrait
         FlowConvertor::constructEffect($trinity, $properties);
       }
     }
-    throw new \feException(print_r($properties));
+    Cards::singleCreate([
+      'player_id' => Players::getCurrentId(),
+      'location' => $location,
+      'nbr' => 1,
+      'properties' => $properties,
+    ]);
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+    $player = Players::getCurrent();
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
   }
 
 
