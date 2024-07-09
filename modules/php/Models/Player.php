@@ -255,13 +255,12 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getResupply2()
   {
-    $found = false;
     foreach ($this->getPlayedCards() as $cId => $card) {
-      if ($card->getRessuply2()) {
-        $found = true;
+      if ($card->getResupply2()) {
+        return true;
       }
     }
-    return $found;
+    return false;
   }
 
   public function getRegionDifference()

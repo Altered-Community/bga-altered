@@ -1548,6 +1548,12 @@ define([
 
       let elemIds = Object.keys(config.elements);
       let selectedElements = [];
+
+      let cancelSelection = () => {
+        selectedElements = [];
+        updateStatus();
+      };
+
       let updateStatus = () => {
         if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
         if (
@@ -1571,15 +1577,7 @@ define([
 
         if ($('btnCancelChoice')) $('btnCancelChoice').remove();
         if (selectedElements.length > 0 && config.cancelBtn) {
-          this.addSecondaryActionButton(
-            'btnCancelChoice',
-            _('Cancel'),
-            () => {
-              selectedElements = [];
-              updateStatus();
-            },
-            config.btnContainer
-          );
+          this.addSecondaryActionButton('btnCancelChoice', _('Cancel'), cancelSelection, config.btnContainer);
         }
 
         elemIds.forEach((id) => {
@@ -1620,6 +1618,11 @@ define([
         config.updateCallback([]);
       }
       updateStatus();
+
+      return {
+        updateStatus,
+        cancelSelection,
+      };
     },
   });
 });

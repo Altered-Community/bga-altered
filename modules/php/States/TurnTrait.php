@@ -154,9 +154,8 @@ trait TurnTrait
       $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
       return;
     }
-    // to see if we need that
-    // not sure as Thai said effects are before dusk
-    $this->initCustomDefaultTurnOrder('dusk', \ST_DUSK, ST_BEFORE_NIGHT, true);
+
+    $this->stDusk();
   }
 
   // Move companion and hero
@@ -224,7 +223,7 @@ trait TurnTrait
     }
 
     Notifications::endDusk();
-    $this->gamestate->nextState('done');
+    $this->stAfterDusk();
   }
 
   function stAfterDusk()
@@ -232,6 +231,7 @@ trait TurnTrait
     if (Players::checkVictory()) {
       return;
     }
+
     $this->checkCardListeners('AfterDusk', 'stBeforeNight');
   }
 
@@ -249,41 +249,23 @@ trait TurnTrait
     if (Players::checkVictory()) {
       return;
     }
-    $cardLeft = [];
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setStormMoves([]);
-    Globals::setSkippedPlayers([]);
     Globals::setPlayedForFree(false);
-    $this->initCustomDefaultTurnOrder('nightCleanup', 'stNightCleanup', 'stAfterNightCleanup', true);
+
+    $this->initCustomDefaultTurnOrder('nightCleanup', 'stNightCleanup', 'stAfterNightCleanup');
   }
 
   function stNightCleanup()
   {
     $player = Players::getActive();
-    $skipped = Globals::getSkippedPlayers();
 
-    if (in_array($player->getId(), $skipped)) {
-      $remaining = array_diff(Players::getAll()->getIds(), $skipped);
-      if (empty($remaining)) {
-        $this->endCustomOrder('nightCleanup');
-      } else {
-        $this->nextPlayerCustomOrder('nightCleanup');
-      }
-      return;
-    }
+    // Initiate engine in case some cards are reacting
     Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
-
-    $skipped[] = $player->getId();
-    Globals::setSkippedPlayers($skipped);
-
-    $listened = $player->nightCleanup();
-
-    if (Engine::getNextUnresolved() === null) {
-      $this->nextPlayerCustomOrder('nightCleanup');
-    } else {
-      Engine::proceed();
-    }
+    // Move cards / remove tokens => possible reaction of cards moving to reserve or being discarded
+    $player->nightCleanup();
+    Engine::proceed();
   }
 
   function stAfterNightCleanup()
@@ -293,60 +275,38 @@ trait TurnTrait
 
   function stPreNight()
   {
-    Globals::setSkippedPlayers([]);
     Globals::setPlayedCards(1);
-    $this->initCustomDefaultTurnOrder('nightPhase', \ST_NIGHT, ST_NEW_DAY, true);
+    $this->initCustomDefaultTurnOrder('nightPhase', 'stNight', ST_NEW_DAY);
   }
 
   public function stNight()
   {
     $player = Players::getActive();
-    // check if a player skipped his turn
-    $skipped = Globals::getSkippedPlayers();
 
-    if (in_array($player->getId(), $skipped)) {
-      // Everyone has discarded
-      $remaining = array_diff(Players::getAll()->getIds(), $skipped);
-      if (empty($remaining)) {
-        $this->endCustomOrder('nightPhase');
-      } else {
-        $this->nextPlayerCustomOrder('nightPhase');
-      }
-      return;
-    }
-
-    // if the player has no need to discard
+    // Need to discard ?
     $nExceededReserve = max($player->getReserveCards()->count() - $player->getReserveSlots(), 0);
     $nExceededLandmarks = max($player->getLandmarks()->count() - $player->getLandmarkSlots(), 0);
     $needToDiscard = $nExceededReserve > 0 || $nExceededLandmarks > 0;
 
     if (!$needToDiscard) {
-      $skipped[] = $player->getId();
-      Globals::setSkippedPlayers($skipped);
       $this->nextPlayerCustomOrder('nightPhase');
       return;
     }
 
     self::giveExtraTime($player->getId(), 20);
-
-    // Stats::incTurns($player);
     $node = [
       'childs' => [
         [
-          'action' => DISCARD,
+          'action' => NIGHT_CLEANUP,
           'pId' => $player->getId(),
           'args' => [
-            'source' => RESERVE,
             'destination' => 'discard',
-            'n' => $nExceededReserve,
-            'special' => 'nightCleanUp',
+            'nReserve' => $nExceededReserve,
             'nLandmarks' => $nExceededLandmarks,
           ],
         ],
       ],
     ];
-
-    // Inserting leaf Action card
     Engine::setup($node, ['order' => 'nightPhase']);
     Engine::proceed();
   }

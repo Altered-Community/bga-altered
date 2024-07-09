@@ -258,7 +258,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $this->checkAfterListeners($player, [
       'playCard' => true,
-      'playedCard' => $cardId,
+      'cardId' => $cardId,
       'cardType' => $card->getType(),
       'from' => $fromLocation,
       'to' => $location,
@@ -306,7 +306,7 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     $this->checkAfterListeners($player, [
-      'playedCard' => $cardId,
+      'cardId' => $cardId,
       'playCard' => false,
       'cardType' => $card->getType(),
       'from' => RESERVE,

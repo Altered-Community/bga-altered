@@ -109,6 +109,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (o !== undefined) {
         this.addCustomTippyTooltip(o.id, this.tplCardTooltip(card), {
           disablingParentClasses: ['mana-modal', 'no-tooltip'],
+          forceRecreate: true,
         });
         if (this._loadingComplete) {
           this.autofitCardFrame(o);
@@ -145,7 +146,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       const THRESHOLD = 8;
       if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
 
-      let a = Math.min(550, n * 50); // X-DISTANCE BETWEEN MAX LEFT CARD AND CENTER
+      let a = Math.min(450, n * 50); // X-DISTANCE BETWEEN MAX LEFT CARD AND CENTER
       let b = n < THRESHOLD ? 80 : 60; // Y-DISTANCE BETWEEN LOWEST CARD AND UPPEST CARD
       let r = (a * a + b * b) / (2 * b); // RADIUS OF THE CIRCLE
       let halfAngle = Math.asin(a / r);
@@ -371,14 +372,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         config.btnContainer = 'popin_manaDisplay_subtitle';
       }
 
-      this.onSelectN(config);
+      return this.onSelectN(config);
     },
 
     onEnteringStateDiscard(args) {
-      if (args.descSuffix == 'nightCleanUp') {
-        this.onEnteringStateNightDiscard(args);
-        return;
-      }
       if (args.destination == 'mana' && args.n == 1) {
         this.onEnteringStateManaDiscard(args);
         return;
@@ -392,28 +389,58 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
-    onEnteringStateNightDiscard(args) {
-      this.onSelectNCards(args._private.cards, {
-        n: args.n + (args.nLandmarks ?? 0),
-        class: 'selectable',
-        confirmText: _('Confirm discard'),
-        updateCallback: (cIds) => {
-          // TODO
-          // debug(cIds);
-          // if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
-          // if (cIds.length > 0) {
-          //   let totalCost = cIds.reduce((carry, cId) => carry + args.costs[cId], 0);
-          //   if (totalCost <= args.n) {
-          //     this.addPrimaryActionButton(
-          //       'btnConfirmChoice',
-          //       this.fsr(_('Confirm (total: ${totalCost} energy)'), { totalCost }),
-          //       () => this.takeAtomicAction('actFulfillContractSimone', [cIds])
-          //     );
-          //   }
-          // }
-        },
-        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actDiscard', [selectedElements]),
-      });
+    onEnteringStateNightCleanup(args) {
+      let nReserve = args.nReserve,
+        nLandmarks = args.nLandmarks;
+
+      let reserveSelector = null,
+        landmarksSelector = null;
+
+      let selectedReserve = [],
+        selectedLandmarks = [];
+
+      let updateButtons = () => {
+        if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
+        if (selectedReserve.length == nReserve && selectedLandmarks.length == nLandmarks) {
+          this.addPrimaryActionButton('btnConfirmChoice', _('Confirm discard'), () =>
+            this.takeAtomicAction('actNightCleanup', [selectedReserve, selectedLandmarks])
+          );
+        }
+
+        if ($('btnCancelChoice')) $('btnCancelChoice').remove();
+        if (selectedReserve.length > 0 || selectedLandmarks.length > 0) {
+          this.addSecondaryActionButton('btnCancelChoice', _('Cancel'), () => {
+            if (reserveSelector) reserveSelector.cancelSelection();
+            if (landmarksSelector) landmarksSelector.cancelSelection();
+          });
+        }
+      };
+
+      if (nReserve > 0) {
+        reserveSelector = this.onSelectNCards(args._private.reserveCards, {
+          n: nReserve,
+          class: 'selectable',
+          confirmBtn: false,
+          cancelBtn: false,
+          updateCallback: (cIds) => {
+            selectedReserve = cIds;
+            updateButtons();
+          },
+        });
+      }
+
+      if (nLandmarks > 0) {
+        landmarksSelector = this.onSelectNCards(args._private.landmarkCards, {
+          n: nLandmarks,
+          class: 'selectable',
+          confirmBtn: false,
+          cancelBtn: false,
+          updateCallback: (cIds) => {
+            selectedLandmarks = cIds;
+            updateButtons();
+          },
+        });
+      }
     },
 
     onEnteringStateManaDiscard(args) {

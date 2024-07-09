@@ -15,6 +15,7 @@ class Actions
   static $classes = [
     CHOOSE_ASSIGNMENT,
     DISCARD,
+    NIGHT_CLEANUP,
     GAIN,
     TARGET,
     LOOSE,

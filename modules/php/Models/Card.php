@@ -93,7 +93,7 @@ class Card extends \ALT\Helpers\DB_Model
     'updateExpeditions' => 'obj', // type = All, region []
     'blockAutomaticAction' => 'obj',
     'addDice' => 'int',
-    'ressuply2' => 'bool',
+    'resupply2' => 'bool',
 
     // Tough management
     'tough' => 'int',
@@ -252,37 +252,45 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function discard()
   {
-    $this->checkLeaveListener('discard');
-    $this->setLocation('discard');
-    $deleted = Meeples::getInLocation('card-' . $this->id);
-    Meeples::delete($deleted->getIds());
-    return $deleted;
+    return $this->discardTo(DISCARD_PILE);
   }
 
   public function moveToReserve()
   {
-    $this->checkLeaveListener('reserve');
-    $this->setLocation(RESERVE);
+    return $this->discardTo(RESERVE);
+  }
+
+  public function discardTo($location)
+  {
+    $this->checkLeaveListener($location);
+    $this->setLocation($location);
     $this->setTapped(false);
-    $seasoned = $this->isSeasoned();
-    $deleted = Meeples::getInLocation('card-' . $this->id)
-      ->filter(function ($m) use ($seasoned) {
-        return $seasoned == false || ($seasoned == true && $m->getType() != BOOST);
-      })
-      ->getIds();
-    if (!empty($deleted)) {
-      Meeples::delete($deleted);
+
+    // Remove meeples
+    $meeples = Meeples::getInLocation('card-' . $this->id);
+    if ($location == RESERVE && $this->isSeasoned()) {
+      $meeples = $meeples->filter(fn ($m) => $m->getType() != BOOST); // Seasoned card keep their boost
+    }
+    $meepleIds = $meeples->getIds();
+    if (!empty($meepleIds)) {
+      Meeples::delete($meepleIds);
     }
 
-    return $deleted;
+    // Clear counter
+    if (!is_null($this->getExtraDatas()['counterName'] ?? null)) {
+      $this->setExtraDatas([]);
+      Notifications::deleteCounter($this);
+    }
+
+    return $meepleIds;
   }
 
   // deletes Token that must be removed at night
   public function nightCleanup()
   {
-    $tokIds = Meeples::getFiltered(null, 'card-' . $this->id, [ASLEEP, ANCHORED])->getIds();
-    Meeples::delete($tokIds);
-    return $tokIds;
+    $meepleIds = Meeples::getFiltered(null, 'card-' . $this->id, [ASLEEP, ANCHORED])->getIds();
+    Meeples::delete($meepleIds);
+    return $meepleIds;
   }
 
   public function checkLeaveListener($target)
@@ -298,10 +306,11 @@ class Card extends \ALT\Helpers\DB_Model
     $event = [
       'type' => $type,
       'method' => $type,
+      'cardId' => $this->id,
+      'from' => $this->getLocation(),
+      'to' => $target,
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
-      'to' => $target,
-      'cardId' => $this->id,
     ];
 
     if ($this->isListeningTo($event)) {
@@ -364,12 +373,12 @@ class Card extends \ALT\Helpers\DB_Model
           if (Conditions::check($power, $this, $event) === false) {
             continue;
           }
-          $output = $power['output'];
+          $output[] = $power['output'];
         }
         if (empty($output)) {
           return [null, null];
         }
-        $power['output'] = FT::SEQ($output);
+        $power['output'] = FT::SEQ(...$output);
         break;
       case 'once':
         // structured : ['Noon'=>['condition' =>, 'output'=>]]

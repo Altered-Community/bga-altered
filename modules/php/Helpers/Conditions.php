@@ -34,9 +34,37 @@ abstract class Conditions
     return true;
   }
 
+
+  ///////////////////////////////////////
+  //    ____                           _ 
+  //   / ___| ___ _ __   ___ _ __ __ _| |
+  //  | |  _ / _ \ '_ \ / _ \ '__/ _` | |
+  //  | |_| |  __/ | | |  __/ | | (_| | |
+  //   \____|\___|_| |_|\___|_|  \__,_|_|
+  ///////////////////////////////////////
+
   public static function isFromReserve($card, $event)
   {
     return ($event['from'] ?? null) == RESERVE;
+  }
+
+  public static function isToReserve($card, $event)
+  {
+    return ($event['to'] ?? null) == RESERVE;
+  }
+
+  public static function isSource($card, $event)
+  {
+    return $card->getId() == $event['sourceId'];
+  }
+
+  public static function hasSameOwner($card, $event)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if (is_null($cardId)) {
+      return false;
+    }
+    return Cards::get($cardId)->getPId() == $card->getPId();
   }
 
   ///////////////////////////////////////////////
@@ -111,8 +139,8 @@ abstract class Conditions
     return $event['pId'] == $card->getPId() &&
       (!isset(Globals::getStormMoves()[$card->getPId()]) ||
         (Globals::getStormMoves()[$card->getPId()][STORM_LEFT]['moves'] ?? 0) +
-          (Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0) ==
-          0);
+        (Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0) ==
+        0);
   }
 
   public static function myExpeditionHasNotMoved($card, $event)
@@ -169,16 +197,16 @@ abstract class Conditions
     $cards = $card->getPlayer()->getPlayedCards($types);
 
     if (in_array($type, SUBTYPES)) {
-      $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
+      $cards = $cards->filter(fn ($c) => in_array($type, $c->getSubtypes()));
     }
 
     if ($excludeMyself === 'true') {
-      $cards = $cards->filter(fn($c) => $c->getId() != $card->getId());
+      $cards = $cards->filter(fn ($c) => $c->getId() != $card->getId());
     }
 
     if ($state != 'all') {
       if ($state == 'boosted') {
-        $cards = $cards->filter(fn($c) => $c->hasToken(BOOST));
+        $cards = $cards->filter(fn ($c) => $c->hasToken(BOOST));
       }
     }
 
@@ -321,23 +349,15 @@ abstract class Conditions
     if (!self::isPlayEvent($card, $event)) {
       return false;
     }
-    $card = Cards::get($event['playedCard']);
+    $card = Cards::get($event['cardId']);
 
     // Exclude myself
-    if ($excludeMyself == 'true' && $card->getId() == $event['playedCard']) {
+    if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
       return false;
     }
 
     // Type check
-    if (in_array($type, [PERMANENT, TOKEN, SPELL])) {
-      if ($event['cardType'] != $type) {
-        return false;
-      }
-    }
-    if ($type == CHARACTER && !in_array($event['cardType'], [CHARACTER, TOKEN])) {
-      return false;
-    }
-    if ($type == 'characterOnly' && $event['cardType'] != CHARACTER) {
+    if (!self::typeCheck($type, $event['cardType'])) {
       return false;
     }
 
@@ -371,7 +391,7 @@ abstract class Conditions
       return false;
     }
 
-    $playedCard = Cards::get($event['playedCard']);
+    $playedCard = Cards::get($event['cardId']);
     $hasZero = false;
     foreach ($playedCard->getBiomes() as $biome => $value) {
       if ($value == 0) {
@@ -398,9 +418,108 @@ abstract class Conditions
       return false;
     }
 
-    $cardPlayed = Cards::get($event['playedCard']);
+    $cardPlayed = Cards::get($event['cardId']);
     return ($event['playedFree'] ?? false) == false && $cardPlayed->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
   }
+
+
+  //////////////////////////////////////////////////////////////////////////
+  //  ____  _                       _          _    ____              _ 
+  // |  _ \(_)___  ___ __ _ _ __ __| | ___  __| |  / ___|__ _ _ __ __| |
+  // | | | | / __|/ __/ _` | '__/ _` |/ _ \/ _` | | |   / _` | '__/ _` |
+  // | |_| | \__ \ (_| (_| | | | (_| |  __/ (_| | | |__| (_| | | | (_| |
+  // |____/|_|___/\___\__,_|_|  \__,_|\___|\__,_|  \____\__,_|_|  \__,_|
+  //////////////////////////////////////////////////////////////////////////
+  // WARNING: 'Discard' has a very large meaning, any card moving and not going to the expedition or landmark is considered to being discarded
+
+  public static function isDiscardedEvent($card, $event, $meOnly = false)
+  {
+    if (!($event['discardCard'] ?? false)) {
+      return false;
+    }
+
+    if ($meOnly && !self::isMe($card, $event)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public static function isDiscarded($card, $event, $from = null, $to = null, $type = null)
+  {
+    if (!self::isDiscardedEvent($card, $event)) {
+      return false;
+    }
+
+    if (!is_null($from) && $from != $event['from']) {
+      return false;
+    }
+    if (!is_null($to) && $to != $event['to']) {
+      return false;
+    }
+
+    if (!is_null($type)) {
+      $discardedCard = Cards::get($event['cardId']);
+      if (!self::typeCheck($type, $discardedCard->getType())) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public static function isMyselfDiscarded($card, $event, $from = null, $to = null)
+  {
+    return $event['cardId'] == $card->getId() && self::isDiscarded($card, $event, $from, $to);
+  }
+
+  public static function isSacrifice($card, $event, $type = null)
+  {
+    if (!($event['sacrifice'] ?? false)) {
+      return false;
+    }
+
+    // Type check if needed
+    if (!is_null($type)) {
+      $discardedCard = Cards::get($event['cardId']);
+      if (!self::typeCheck($type, $discardedCard->getType())) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public static function isSacrified($card, $event)
+  {
+    return self::isSacrifice($card, $event) && self::isMyselfDiscarded($card, $event);
+  }
+
+
+  /**********************************
+   **********************************
+   ************* HELPERS ************
+   **********************************
+   *********************************/
+
+  public static function typeCheck($type, $cardType)
+  {
+    if (in_array($type, [PERMANENT, TOKEN, SPELL])) {
+      if ($cardType != $type) {
+        return false;
+      }
+    }
+    if ($type == CHARACTER && !in_array($cardType, [CHARACTER, TOKEN])) {
+      return false;
+    }
+    if ($type == 'characterOnly' && $cardType != CHARACTER) {
+      return false;
+    }
+
+    return true;
+  }
+
+
 
   /**********************************
    **********************************
@@ -409,6 +528,11 @@ abstract class Conditions
    **********************************
    **********************************
    *********************************/
+
+  public static function notMeandDrawNotMana($card, $event)
+  {
+    return $event['pId'] != $card->getPId() && ($event['location'] ?? HAND) != MANA;
+  }
 
   public static function boostedByOtherCard($card, $event)
   {
@@ -430,126 +554,5 @@ abstract class Conditions
     return !$card->isTapped() &&
       $event['gain']['type'] == BOOST &&
       Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
-  }
-
-  public static function notMeandDrawNotMana($card, $event)
-  {
-    return $event['pId'] != $card->getPId() && ($event['location'] ?? HAND) != MANA;
-  }
-
-  public static function isDiscardedFromHandToReserve($card, $event)
-  {
-    $cardId = $card->getId();
-    return in_array($cardId, $event['discarded']) &&
-      $event['originalLocation'][$cardId] == HAND &&
-      (is_array($event['cards'][$cardId]) ? $event['cards'][$cardId]['location'] : $event['cards'][$cardId]->getLocation()) ==
-        RESERVE;
-  }
-
-  public static function isCharacterSacrifice($card, $event)
-  {
-    $found = false;
-    foreach ($event['cards'] as $cId => $card2) {
-      if (is_array($card2)) {
-        $type = $card2['properties']['type'];
-      } else {
-        $type = $card2->getType();
-      }
-
-      if (in_array($type, [CHARACTER, TOKEN])) {
-        $found = true;
-        break;
-      }
-    }
-    return $card->getPId() == $event['pId'] && $event['sacrifice'] == true && $found;
-  }
-
-  public static function isSacrificed($card, $event)
-  {
-    foreach ($event['cards'] as $cdId => $card2) {
-      if ($cdId == $card->getId()) {
-        $found = true;
-      }
-    }
-    return $card->getPId() == $event['pId'] && $event['sacrifice'] == true && $found;
-  }
-
-  public static function isSourceAndDiscardPermanent($card, $event)
-  {
-    if ($card->getPId() != $event['pId'] || $card->getId() != $event['sourceId']) {
-      return false;
-    }
-
-    return Cards::getMany($event['discarded'], false)
-      ->where('type', PERMANENT)
-      ->count() > 0;
-  }
-
-  public static function isSourceAndDiscardSpell($card, $event)
-  {
-    if ($card->getPId() != $event['pId'] || $card->getId() != $event['sourceId']) {
-      return false;
-    }
-
-    return Cards::getMany($event['discarded'], false)
-      ->where('type', SPELL)
-      ->count() > 0;
-  }
-
-  // Treyst listeners
-  public static function isDiscardedFromReserveAndLess5Counters($card, $event)
-  {
-    if (!Globals::isDayPhase()) {
-      return false;
-    }
-
-    if (($card->getExtraDatas()['counter'] ?? 0) >= 5) {
-      return false;
-    }
-
-    $found = false;
-    foreach ($event['originalLocation'] as $cId => $location) {
-      if ($location == RESERVE) {
-        $found = true;
-      }
-    }
-    if (!$found) {
-      return false;
-    }
-
-    foreach ($event['cards'] as $c) {
-      if ($card->getPId() == $c->getPId()) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public static function isFromReserveAfternoon($card, $event)
-  {
-    if (!Globals::isDayPhase()) {
-      return false;
-    }
-
-    if ($event['type'] == 'Discard') {
-      $found = false;
-      foreach ($event['originalLocation'] as $cId => $location) {
-        if ($location == RESERVE) {
-          $found = true;
-        }
-      }
-      if (!$found) {
-        return false;
-      }
-
-      foreach ($event['cards'] as $c) {
-        if ($card->getPId() == $c->getPId()) {
-          return true;
-        }
-      }
-      return false;
-    } else {
-      $card->getPId() == $event['pId'] && $event['from'] == RESERVE;
-    }
   }
 }

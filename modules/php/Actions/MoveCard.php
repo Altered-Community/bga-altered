@@ -55,7 +55,7 @@ class MoveCard extends \ALT\Models\Action
   {
     if ($this->getArg('cards') == ALL) {
       // we must switch all
-      $player = $this->getArg('player') == ME ? Players::getActive() : Players::getNext();
+      $player = $this->getArg('player') == ME ? Players::getActive() : Players::getNext(Players::getActive());
       $cards = $player->getPlayedCards(CHARACTER)->merge($player->getPlayedCards(TOKEN));
     } else {
       $cards[] = $this->getCard();

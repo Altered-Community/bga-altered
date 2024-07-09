@@ -37,12 +37,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       'player_name',
       'player_avatar',
       'player_score',
-      // 'money',
-      // 'reputation',
-      // 'appeal',
-      // 'conservation',
-      // 'xtoken',
-      // 'map_id',
     ]);
 
     $values = [];
@@ -56,12 +50,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $player['player_name'],
         $player['player_avatar'],
         0,
-        // 25,
-        // 1,
-        // $appeal++,
-        // 0,
-        // 0,
-        // $map,
       ];
     }
     $query->values($values);

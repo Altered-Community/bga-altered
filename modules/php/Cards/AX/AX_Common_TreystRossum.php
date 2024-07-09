@@ -29,14 +29,14 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'conditions' => ['isAfternoon', 'isFromReserve', 'hasCounterOnCard:4:LTE'],
+          'conditions' => ['isAfternoon', 'hasSameOwner', 'isFromReserve', 'hasCounterOnCard:4:LTE'],
           'output' => FT::ACTION(SPECIAL_EFFECT, [
             'effect' => 'incCounter',
             'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')],
           ]),
         ],
         'Discard' => [
-          'condition' => 'isDiscardedFromReserveAndLess5Counters',
+          'conditions' => ['isAfternoon', 'hasSameOwner', 'isDiscarded:reserve', 'hasCounterOnCard:4:LTE'],
           'output' => FT::ACTION(SPECIAL_EFFECT, [
             'effect' => 'incCounter',
             'args' => ['counter' => 1, 'counterName' => clienttranslate('Scrap counter')],

@@ -168,16 +168,6 @@ $machinestates = [
     'transitions' => [
       'done' => ST_NIGHT,
       'newDay' => ST_BEFORE_ASSIGNMENT,
-      // 'newDay' => ST_NEW_DAY, temporaty
-    ],
-  ],
-
-  ST_NIGHT => [
-    'name' => 'night',
-    'type' => 'game',
-    'action' => 'stNight',
-    'transitions' => [
-      'done' => ST_BEFORE_ASSIGNMENT,
     ],
   ],
 
@@ -290,6 +280,31 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'possibleactions' => ['actDiscard', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
+    'type' => 'activeplayer',
+  ],
+  ST_NIGHT_CLEANUP => [
+    'name' => 'nightCleanup',
+    'description' => clienttranslate(
+      '${actplayer} must discard ${nReserve} reserve card(s) and ${nLandmarks} landmark card(s)'
+    ),
+    'descriptionmyturn' => clienttranslate(
+      '${you} must discard ${nReserve} reserve card(s) and ${nLandmarks} landmark card(s)'
+    ),
+    'descriptionlandmarksOnly' => clienttranslate(
+      '${actplayer} must discard ${nLandmarks} landmark card(s)'
+    ),
+    'descriptionmyturnlandmarksOnly' => clienttranslate(
+      '${actplayer} must discard ${nLandmarks} landmark card(s)'
+    ),
+    'descriptionreserveOnly' => clienttranslate(
+      '${actplayer} must discard ${nReserve} reserve card(s)'
+    ),
+    'descriptionmyturnreserveOnly' => clienttranslate(
+      '${you} must discard ${nReserve} reserve card(s)'
+    ),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'possibleactions' => ['actNightCleanup'],
     'type' => 'activeplayer',
   ],
 

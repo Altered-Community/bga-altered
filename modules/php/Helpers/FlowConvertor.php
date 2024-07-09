@@ -15,7 +15,7 @@ abstract class FlowConvertor
       2 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'notMeandDrawNotMana'],
       4 => ['description' => clienttranslate('When one of your Expeditions moves forward due to {V} —'), 'trigger' => 'AfterDusk', 'condition' => 'movesStormsWithForest'], // to check if bug with Rin
       5 => ['description' => clienttranslate('When a Robot joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isCardPlayed:robot'],
-      7 => ['description' => clienttranslate('When I go to Reserve from your hand —'), 'trigger' => 'Discard', 'condition' => 'isDiscardedFromHandToReserve'],
+      7 => ['description' => clienttranslate('When I go to Reserve from your hand —'), 'trigger' => 'Discard', 'condition' => 'isMyselfDiscarded:hand:reserve'],
       8 => ['description' => clienttranslate('When I\'m sacrificed —'), 'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       10 => ['description' => clienttranslate('When you play a Permanent with Hand Cost {3} or more —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:permanent:3'],
       11 => ['description' => clienttranslate('When I go to Reserve from the Expedition zone —'), 'trigger' => 'LeaveExpedition', 'condition' => 'notFleeting'],
@@ -34,7 +34,7 @@ abstract class FlowConvertor
       25 => ['description' => clienttranslate('When you create a token —'), 'trigger' => 'InvokeToken', 'condition' => 'myTurn'],
       26 => ['description' => clienttranslate('When you roll one or more dice —'), 'trigger' => 'RollDie', 'condition' => 'myTurn'],
       27 => ['description' => clienttranslate('When you play a Spell —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:spell'],
-      28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'condition' => 'isFromReserveAfternoon'],
+      28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'conditions' => ['isAfternoon', 'hasSameOwner', 'isFromReserve']],
       192 => ['description' => clienttranslate('{D}'), 'trigger' => '', 'type' => 'effectSupport'],
       231 => ['description' => clienttranslate('When I\'m sacrificed —'),  'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
@@ -72,7 +72,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => [']Discard' => ['condition' => 'isSourceAndDiscardPermanent']] // to check
+        'passiveEffect' => [']Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent']]], // to check
       ],
       172 => [
         'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Spell:'),
@@ -87,7 +87,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['condition' => 'isSourceAndDiscardSpell', 'effect' => 'OUTPUT']] // to check
+        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'effect' => 'OUTPUT']], // to check
       ],
       173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'hasControl::4'],
       175 => [

@@ -33,7 +33,7 @@ class MU_Rare_Coppelia extends \ALT\Models\Card
 
       'effectPassive' => [
         'Discard' => [
-          'condition' => 'isDiscardedFromHandToReserve',
+          'condition' => 'isMyselfDiscarded:hand:reserve',
           'output' => FT::SEQ_OPTIONAL(FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]), FT::GAIN($this, ASLEEP)),
         ],
       ],
