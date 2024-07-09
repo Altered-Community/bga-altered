@@ -57,17 +57,19 @@ class Cards extends \ALT\Helpers\CachedPieces
     }
     // Non-unique => take non-dynamic properties from files
     else {
-      $card = new $className($data); // no DB call
+      if (class_exists($className)) {
+        $card = new $className($data); // no DB call
 
-      $prop = json_decode($data['properties'], true);
-      // Update dynamic properties
-      foreach (DYNAMIC_PROPERTIES as $p) {
-        $v = $prop[$p] ?? null;
-        if (!is_null($v)) {
-          $card->setProperty($p, $v, false);
+        $prop = json_decode($data['properties'], true);
+        // Update dynamic properties
+        foreach (DYNAMIC_PROPERTIES as $p) {
+          $v = $prop[$p] ?? null;
+          if (!is_null($v)) {
+            $card->setProperty($p, $v, false);
+          }
         }
+        return $card;
       }
-      return $card;
     }
   }
 

@@ -367,7 +367,7 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
-        $deletedTokens = array_merge($deletedTokens, $card->discard()->getIds());
+        $deletedTokens = array_merge($deletedTokens, $card->discard());
         $deletedCards[$cId] = $card;
         continue;
       }
