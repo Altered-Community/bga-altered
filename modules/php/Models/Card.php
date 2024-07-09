@@ -373,12 +373,12 @@ class Card extends \ALT\Helpers\DB_Model
           if (Conditions::check($power, $this, $event) === false) {
             continue;
           }
-          $output = $power['output'];
+          $output[] = $power['output'];
         }
         if (empty($output)) {
           return [null, null];
         }
-        $power['output'] = FT::SEQ($output);
+        $power['output'] = FT::SEQ(...$output);
         break;
       case 'once':
         // structured : ['Noon'=>['condition' =>, 'output'=>]]

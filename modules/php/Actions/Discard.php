@@ -244,7 +244,7 @@ class Discard extends \ALT\Models\Action
       $this->checkAfterListeners($player, [
         'discardCard' => true,
         'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
-        'discarded' => $cId,
+        'cardId' => $cId,
         'from' => $originalLocation,
         'to' => $destination,
         'sacrifice' => $this->isSacrifice(),
