@@ -197,6 +197,9 @@ abstract class Conditions
     if ($type == PERMANENT) {
       $types = [PERMANENT];
     }
+    if (in_array($type, SUBTYPES)) {
+      $types = [CHARACTER, TOKEN, PERMANENT];
+    }
 
     $cards = $card->getPlayer()->getPlayedCards($types);
 
