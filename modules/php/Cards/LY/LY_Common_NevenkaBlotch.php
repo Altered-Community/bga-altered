@@ -35,7 +35,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
           'effect' => [
             '1' => FT::DISCARD_TO_RESERVE(),
             '2-5' => FT::GAIN(EFFECT, BOOST),
-            '6' => FT::GAIN(EFFECT, ANCHORED),
+            '6+' => FT::GAIN(EFFECT, ANCHORED),
           ],
         ]),
       ]),

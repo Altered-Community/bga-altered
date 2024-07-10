@@ -84,7 +84,7 @@ class RollDie extends \ALT\Models\Action
         $lower = (int) $t[0];
         $upper = (int) $t[1];
       }
-      // Quantity of the form : +X
+      // Quantity of the form : X+
       elseif (\stripos($qty, '+') !== false) {
         $t = \explode('+', $qty);
         $lower = (int) $t[0];
@@ -152,8 +152,8 @@ class RollDie extends \ALT\Models\Action
     $canDiscard =
       $this->getArg('canDiscard') &&
       Players::getActive()
-        ->getReserveCards()
-        ->count() > 0;
+      ->getReserveCards()
+      ->count() > 0;
     return [
       'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC),
       'canDiscard' => $canDiscard,

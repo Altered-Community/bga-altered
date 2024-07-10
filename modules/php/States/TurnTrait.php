@@ -192,7 +192,6 @@ trait TurnTrait
           }
         }
       }
-      // throw new \feException(print_r($winners));
 
       $pWin = [];
       $max = 0;
