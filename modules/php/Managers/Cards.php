@@ -52,6 +52,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];
     $rarity = $rarities[$p['rarity']] ?? 'Common';
+    // if ($rarity == 'Unique')
+    //   throw new \feException(print_r($p));
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . $rarity . '_' . $slug;
 
@@ -92,6 +94,8 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function generateRandomDeck($player)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    require_once(dirname(__FILE__) . '/../Cards/unique.php');
+
     $faction = FACTIONS[array_rand(FACTIONS)];
     $deckContent = [];
 
@@ -115,7 +119,106 @@ class Cards extends \ALT\Helpers\CachedPieces
         $i++;
       }
     } while ($i < $totalCards);
+
+    for ($u = 0; $u < 5; $u++) {
+      // maybe to reenable later
+      // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
+      // $deckContent[] = [
+      //   'card' => ['properties' => self::generateUnique(UNIQUES['hydra:member'][array_rand(UNIQUES['hydra:member'])])],
+      //   'n' => 1
+      // ];
+      $i++;
+    }
+
     return self::createDeck($player, $deckContent);
+  }
+
+  public static function generateUnique($unique)
+  {
+    $properties = [];
+    $properties['uid'] = $unique['reference'];
+    $properties['rarity'] = RARITY_UNIQUE;
+    $asset = explode('_', $unique['reference']);
+    unset($asset[count($asset) - 1]);
+    $properties['asset'] = implode('_', $asset);
+    $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
+    $properties['name'] = $unique['name'];
+    $properties['type'] = constant($unique['cardType']['reference']);
+    $subtypes = [];
+    $typeline = ['Character'];
+
+    foreach ($unique['cardSubTypes'] as $v => $sub) {
+      $subtypes[] = constant($sub['reference']);
+      $typeline[] = $sub['name'];
+    }
+    $properties['subtypes'] = $subtypes;
+    $properties['typeline'] = implode(' - ', $typeline);
+    $properties['artist'] = $unique['illustrator']['nickName'];
+    $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
+    $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+    $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
+    $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+    $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
+
+    // add effects
+    foreach ($unique['cardElements'] as $i => $cardElement) {
+      if ($cardElement['cardElementType']['reference'] != 'MAIN_EFFECT'  && $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT') {
+        continue;
+      }
+      foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
+        $trinity = [];
+        foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
+          if (in_array($indivEffect['idGd'], TRIGGER)) {
+            $trinity['trigger'] = $indivEffect['idGd'];
+          } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
+            $trinity['condition'] = $indivEffect['idGd'];
+          } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
+            $trinity['output'] = $indivEffect['idGd'];
+          }
+        }
+        if (empty($trinity)) {
+          continue;
+        }
+        FlowConvertor::constructEffect($trinity, $properties);
+      }
+    }
+    return $properties;
+  }
+
+  public static function generateRandomUnique($faction)
+  {
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+
+    $found = false;
+    $cardO = null;
+    $cardList = array_keys(MAP_REFS_CLASSES);
+    do {
+      $card = $cardList[array_rand($cardList)];
+      $cardO = self::getCardClass($card);
+
+      if ($cardO->getFaction() != $faction || $cardO->getType() != CHARACTER || $cardO->getRarity() != RARITY_COMMON) {
+        continue;
+      } else {
+        $found = true;
+      }
+    } while ($found == false);
+    $card = $cardO->jsonSerialize()['properties'];
+    $card['rarity'] = RARITY_UNIQUE;
+    $card['asset'] = substr($card['asset'], 0, strlen($card['asset']) - 1) . 'U';
+    foreach (['effectDesc', 'supportDesc', 'supportIcon', 'effectHand', 'effectReserve', 'effectPlayed', 'effectPassive', 'gigantic', 'defender', 'oppositeDefender', 'eternal', 'dynamicDefender', 'dynamicTough', 'tough'] as $eff) {
+      if (isset($card[$eff])) {
+        unset($card[$eff]);
+      }
+    }
+    $nbEffect = rand(1, 1);
+    for ($i = 0; $i < $nbEffect; $i++) {
+      $trinity = [];
+      $trinity['trigger'] = TRIGGER[array_rand(TRIGGER)];
+      $trinity['condition'] = CONDITION[array_rand(CONDITION)];
+      $trinity['output'] = OUTPUT[array_rand(OUTPUT)];
+      FlowConvertor::constructEffect($trinity, $card);
+    }
+    return $card;
   }
 
   public static function getUiData($pId, $refresh = false)
