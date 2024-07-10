@@ -494,7 +494,7 @@ abstract class Conditions
     return true;
   }
 
-  public static function isSacrified($card, $event)
+  public static function isSacrificed($card, $event)
   {
     return self::isSacrifice($card, $event) && self::isMyselfDiscarded($card, $event);
   }
