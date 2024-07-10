@@ -31,14 +31,14 @@ class OD_Common_Quetzalcoatl extends \ALT\Models\Card
       'costReserve' => 4,
       'effectPassive' => [
         'Draw' => [
-          'condition' => 'notMeandDrawNotMana',
+          'condition' => 'isOpponentDraw',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
           ]),
         ],
         'Resupply' => [
-          'condition' => 'notMeandDrawNotMana',
+          'condition' => 'isOpponentDraw',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',

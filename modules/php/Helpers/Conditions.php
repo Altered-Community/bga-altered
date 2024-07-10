@@ -503,6 +503,22 @@ abstract class Conditions
   }
 
 
+  ///////////////////////////////////
+  //   ___  _   _                   
+  //  / _ \| |_| |__   ___ _ __ ___ 
+  // | | | | __| '_ \ / _ \ '__/ __|
+  // | |_| | |_| | | |  __/ |  \__ \
+  //  \___/ \__|_| |_|\___|_|  |___/
+  ///////////////////////////////////
+
+  // Quezalcoatl
+  public static function isOpponentDraw($card, $event)
+  {
+    return self::isNotMe($card, $event) && ($event['location'] ?? null) != MANA;
+  }
+
+
+
   /**********************************
    **********************************
    ************* HELPERS ************
@@ -528,6 +544,7 @@ abstract class Conditions
 
 
 
+
   /**********************************
    **********************************
    **********************************
@@ -536,10 +553,6 @@ abstract class Conditions
    **********************************
    *********************************/
 
-  public static function notMeandDrawNotMana($card, $event)
-  {
-    return $event['pId'] != $card->getPId() && ($event['location'] ?? HAND) != MANA;
-  }
 
   public static function boostedByOtherCard($card, $event)
   {

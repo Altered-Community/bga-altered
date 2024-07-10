@@ -32,14 +32,14 @@ class OD_Rare_Quetzalcoatl extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'effectPassive' => [
         'Draw' => [
-          'condition' => 'notMeandDrawNotMana',
+          'condition' => 'isOpponentDraw',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
           ]),
         ],
         'Resupply' => [
-          'condition' => 'notMeandDrawNotMana',
+          'condition' => 'isOpponentDraw',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
