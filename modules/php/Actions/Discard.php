@@ -207,15 +207,6 @@ class Discard extends \ALT\Models\Action
         $hand = true;
       }
 
-      // Destroy the card if token
-      if ($card->isToken()) {
-        $deletedTokens[] = $cId;
-        $m = $card->discardTo('destroy');
-        $deletedMeeples = array_merge($deletedMeeples, $m);
-        Cards::delete($cId);
-        continue;
-      }
-
       // Special case of MoonlightJellyFish
       if ($this->isSacrifice()) {
         // Sactifice a fleeting
@@ -228,16 +219,24 @@ class Discard extends \ALT\Models\Action
         }
       }
 
-      // Discard the card
-      $m = $card->discardTo($destination);
-      $deletedMeeples = array_merge($deletedMeeples, $m);
-      if ($destination == TOP_OF_DECK) {
-        Cards::insertOnTop($cId, 'deck-' . $card->getPlayer()->getId());
+      // Destroy the card if token
+      if ($card->isToken()) {
+        $deletedTokens[] = $cId;
+        $m = $card->discardTo('destroy');
+        $deletedMeeples = array_merge($deletedMeeples, $m);
       }
+      // Otherwise move the card
+      else {
+        $m = $card->discardTo($destination);
+        $deletedMeeples = array_merge($deletedMeeples, $m);
+        if ($destination == TOP_OF_DECK) {
+          Cards::insertOnTop($cId, 'deck-' . $card->getPlayer()->getId());
+        }
 
-      // Do we need to tap the card ? (LY_Rare_MightyJinn)
-      if ($this->getArg('tapped')) {
-        $card->setTapped(true);
+        // Do we need to tap the card ? (LY_Rare_MightyJinn)
+        if ($this->getArg('tapped')) {
+          $card->setTapped(true);
+        }
       }
 
       // Check listener

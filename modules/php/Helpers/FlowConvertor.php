@@ -12,7 +12,7 @@ abstract class FlowConvertor
   {
     return  [
       1 => ['description' => clienttranslate('{R}'), 'trigger' => '', 'type' => 'effectReserve'],
-      2 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'notMeandDrawNotMana'],
+      2 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'isOpponentDraw'],
       4 => ['description' => clienttranslate('When one of your Expeditions moves forward due to {V} —'), 'trigger' => 'AfterDusk', 'condition' => 'movesStormsWithForest'], // to check if bug with Rin
       5 => ['description' => clienttranslate('When a Robot joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isCardPlayed:robot'],
       7 => ['description' => clienttranslate('When I go to Reserve from your hand —'), 'trigger' => 'Discard', 'condition' => 'isMyselfDiscarded:hand:reserve'],
@@ -38,7 +38,7 @@ abstract class FlowConvertor
       192 => ['description' => clienttranslate('{D}'), 'trigger' => '', 'type' => 'effectSupport'],
       231 => ['description' => clienttranslate('When I\'m sacrificed —'),  'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
-      239 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'notMeandDrawNotMana'],
+      239 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'isOpponentDraw'],
       240 => ['description' => clienttranslate('When I gain 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'hasBoost'],
     ];
   }
