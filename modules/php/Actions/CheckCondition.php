@@ -21,31 +21,48 @@ class CheckCondition extends \ALT\Models\Action
     return ST_CHECK_CONDITION;
   }
 
+  protected $args = ['condition' => null];
+
+  public function getConditions()
+  {
+    $conditions = $this->getCtxArg('conditions');
+    if (!is_null($conditions)) {
+      return $conditions;
+    } else {
+      $cond = $this->getArg('condition');
+      return is_array($cond) ? $cond : [$cond];
+    }
+  }
+
   public function getDescription()
   {
-    switch ($this->getArg('condition')) {
-      case 'hasBoost:4:LTE':
-        return clienttranslate('Check if there are less than 4 <BOOST>');
-        break;
-      default:
-        '';
+    $conditions = $this->getConditions();
+    $desc = '';
+    foreach ($conditions as $condition) {
+      if ($condition == 'hasBoost:4:LTE') {
+        $desc = clienttranslate('Check if there are less than 4 <BOOST>');
+      }
     }
-    return '';
+
+    return $desc;
   }
 
   public function isIndependent($player = null)
   {
     $cards = Cards::getPlayedCards(null);
-    $effect = $this->getArg('condition');
+    $conditions = $this->getConditions();
     foreach ($cards as $cId => $card) {
       $block = $card->getBlockAutomaticAction();
-      if (isset($block[CHECK_CONDITION]) && isset($block[CHECK_CONDITION][$effect])) {
-        return false;
+      if (isset($block[CHECK_CONDITION])) {
+
+        if (!empty(array_intersect($block[CHECK_CONDITION], $conditions))) {
+          return false;
+        }
       }
     }
-  }
 
-  protected $args = ['condition' => null];
+    return true;
+  }
 
   public function isDoable($player)
   {
@@ -63,9 +80,6 @@ class CheckCondition extends \ALT\Models\Action
   public function stCheckCondition()
   {
     $player = Players::getActive();
-    if ($this->getCtxArg('condition') === null) {
-      throw new \feException('No condition defined. Should not happen');
-    }
 
     if ($this->checkCondition($player) === false) {
       $this->resolveAction(['notMet']);

@@ -18,7 +18,11 @@ abstract class Conditions
     }
 
     if (isset($power['condition'])) {
-      $conditions[] = $power['condition'];
+      if (is_array($power['condition'])) {
+        $conditions = array_merge($conditions, $power['condition']);
+      } else {
+        $conditions[] = $power['condition'];
+      }
     }
 
     foreach ($conditions as $cond) {
