@@ -21,7 +21,6 @@ class Resupply extends \ALT\Models\Action
   public function getDescription()
   {
     $player = $this->getPlayer();
-    var_dump($player->getResupply2());
     if ($player->getResupply2()) {
       return clienttranslate('Lyra Bastion\'s resupply');
     } else {

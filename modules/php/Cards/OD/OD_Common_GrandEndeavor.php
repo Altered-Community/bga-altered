@@ -27,7 +27,7 @@ class OD_Common_GrandEndeavor extends \ALT\Models\Card
       'effectPassive' => [
         'Noon' => [
           'condition' => 'isMe',
-          'output' => FT::ACTION(MOVE_EXPEDITION, ['n' => 1, 'expedition' => null]),
+          'output' => FT::ACTION(MOVE_EXPEDITION, []),
         ],
       ],
     ];

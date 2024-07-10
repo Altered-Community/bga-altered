@@ -1703,28 +1703,21 @@ define([
     },
 
     onEnteringStateMoveExpedition(args) {
-      let onChooseLocation = (location, pId) => {
-        return () => this.takeAtomicAction('actMoveExpedition', [location, pId]);
+      let onChooseLocation = (expe) => {
+        return () => this.takeAtomicAction('actMoveExpedition', [expe]);
       };
-      let i = 0;
-      this.forEachPlayer((player) => {
-        args.expeditions.forEach((location) => {
-          this.onClick(
-            `board-${location}-${player.id}`,
-            onChooseLocation(location, player.id == args.actPId ? 'me' : 'opponent')
-          );
-          if (player.id == args.actPId) {
-            desc = location == 'stormLeft' ? _('My Hero expedition') : _('My Companion expedition');
-          } else {
-            desc = location == 'stormLeft' ? _('Opponent Hero expedition') : _('Opponent Companion expedition');
-          }
-          this.addPrimaryActionButton(
-            'btnLocation' + i,
-            desc,
-            onChooseLocation(location, player.id == args.actPId ? 'me' : 'opponent')
-          );
-          i++;
-        });
+
+      args.expeditions.forEach((expe, i) => {
+        let pId = expe[0],
+          location = expe[1];
+
+        this.onClick(`board-${location}-${pId}`, onChooseLocation(expe));
+        if (pId == this.player_id) {
+          desc = location == 'stormLeft' ? _('My Hero expedition') : _('My Companion expedition');
+        } else {
+          desc = location == 'stormLeft' ? _('Opponent Hero expedition') : _('Opponent Companion expedition');
+        }
+        this.addPrimaryActionButton('btnLocation' + i, desc, onChooseLocation(expe));
       });
     },
 

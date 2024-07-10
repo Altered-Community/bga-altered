@@ -257,8 +257,10 @@ $machinestates = [
 
   ST_MOVE_EXPEDITION => [
     'name' => 'moveExpedition',
-    'description' => clienttranslate('${actplayer} must move one expedition'),
-    'descriptionmyturn' => clienttranslate('${you} must move one expedition'),
+    'description' => clienttranslate('${actplayer} must move one expedition forward'),
+    'descriptionmyturn' => clienttranslate('${you} must move one expedition forward'),
+    'descriptionbackward' => clienttranslate('${actplayer} must move one expedition backward'),
+    'descriptionmyturnbackward' => clienttranslate('${you} must move one expedition backward'),
     'type' => 'activeplayer',
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',

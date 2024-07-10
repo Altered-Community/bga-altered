@@ -23,34 +23,67 @@ class MoveExpedition extends \ALT\Models\Action
     return clienttranslate('Move expedition');
   }
 
-  public function isAutomatic($player = null)
-  {
-    return count($this->getArg('expedition')) == 1;
-  }
-
   protected $args = [
     'expedition' => [],
-    'pId' => ME,
     'n' => 1,
+    'pId' => null,
   ];
 
-  public function argsMoveExpedition()
+  public function getSides()
   {
     $expeditions = $this->getArg('expedition');
     if (empty($expeditions)) {
       $expeditions = STORMS;
     }
-    $toRemove = [];
-    foreach (Cards::getPlayedCards(null) as $cId => $card) {
-      if ($card->isOppositeDefender()) {
-        $toRemove[] = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+
+    foreach ($expeditions as &$expe) {
+      if ($expe == EFFECT) {
+        $expe = $this->getSource()->getLocation();
+      }
+    }
+
+    return $expeditions;
+  }
+
+  public function argsMoveExpedition()
+  {
+    $sides = $this->getSides();
+    $n = $this->getArg('n');
+    $forcedPId = $this->getArg('pId');
+    if ($forcedPId == OPPONENT) {
+      $forcedPId = Players::getNextId(Players::getActive());
+    }
+    $blocked = Players::getBlockedExpeditions();
+
+    $expeditions = [];
+    foreach ($blocked as $pId => $statuses) {
+      if (!is_null($forcedPId) && $forcedPId != $pId) {
+        continue;
+      }
+
+      foreach ($statuses as $side => $isBlocked) {
+        if (in_array($side, $sides) && ($n < 0 || !$isBlocked)) {
+          $expeditions[] = [$pId, $side];
+        }
       }
     }
 
     return [
-      'expeditions' => array_values(array_diff($expeditions, $toRemove)),
-      'actPId' => Players::getActive()->getId(),
+      'expeditions' => $expeditions,
+      'descSuffix' => $n < 0 ? "backward" : "",
     ];
+  }
+
+  public function isDoable($player)
+  {
+    $args = $this->argsMoveExpedition();
+    return !empty($args['expeditions']);
+  }
+
+  public function isAutomatic($player = null)
+  {
+    $args = $this->argsMoveExpedition();
+    return count($args['expeditions']) == 1;
   }
 
   public function stMoveExpedition()
@@ -61,43 +94,28 @@ class MoveExpedition extends \ALT\Models\Action
       return;
     }
 
-    if (count($this->getArg('expedition')) == 1) {
-      return [$this->getArg('expedition')[0], $this->getArg('pId')];
+    $args = $this->argsMoveExpedition();
+    if (count($args['expeditions']) == 1) {
+      return [$args['expeditions'][0]];
     }
   }
 
-  public function actMoveExpedition($expedition, $pId)
+  public function actMoveExpedition($expe)
   {
-    $n = $this->getArg('n');
-    $source = $this->ctx->getSource() ?? null;
-    $sourceId = $this->ctx->getSourceId() ?? null;
-    if (is_null($source) && !is_null($sourceId)) {
-      $source = Cards::getSingle($sourceId);
+    $args = $this->argsMoveExpedition();
+    if (!in_array($expe, $args['expeditions'])) {
+      throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
     }
 
-    if ($expedition === null) {
-      throw new \BgaVisibleSystemException('an expedition is mandatory');
-    }
-
-    if ($expedition == EFFECT) {
-      $expedition = $source->getLocation();
-    }
+    $pId = $expe[0];
+    $expedition = $expe[1];
 
     $token = $expedition == STORM_LEFT ? HERO : COMPANION;
-    $getToken = 'get' . ucfirst($token) . 'Token';
+    $source = $this->getSource();
+    $n = $this->getArg('n');
+    $player = Players::get($pId);
 
-    $pId = $pId ?? Players::getActiveId();
-    if ($pId == ME) {
-      $players = [Players::getActive()];
-    } elseif ($pId == ALL) {
-      $players = Players::getAll();
-    } else {
-      $players = [Players::getNext(Players::getActive())];
-    }
-
-    foreach ($players as $player) {
-      $player->advanceStorm($token, null, $n, true, $source);
-      $this->checkAfterListeners($player, ['moveExpedition' => $n]);
-    }
+    $player->advanceStorm($token, null, $n, true, $source);
+    $this->checkAfterListeners($player, ['moveExpedition' => $n]);
   }
 }
