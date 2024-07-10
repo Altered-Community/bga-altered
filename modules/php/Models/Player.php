@@ -356,7 +356,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $deletedCards = new Collection();
     $deletedCardTokens = new Collection();
-    $deletedTokens = [];
+    $deletedMeepleIds = [];
     $cleanupCards = [];
     $movedToReserve = [];
 
@@ -367,7 +367,7 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
-        $deletedTokens = array_merge($deletedTokens, $card->discard());
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard());
         $deletedCards[$cId] = $card;
         continue;
       }
@@ -375,7 +375,7 @@ class Player extends \ALT\Helpers\DB_Model
       // Move card without anchored,asleep to reserve
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
         // move card to reserve
-        $deletedTokens = array_merge($deletedTokens, $card->moveToReserve());
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve());
         if ($card->isToken()) {
           // delete the card as it's a token
           $deletedCardTokens[] = $card;
@@ -387,11 +387,11 @@ class Player extends \ALT\Helpers\DB_Model
       }
 
       // Remove Anchored / Asleep tokens
-      $deletedTokens = array_merge($deletedTokens, $card->nightCleanup());
+      $deletedMeepleIds = array_merge($deletedMeepleIds, $card->nightCleanup());
       $cleanupCards[] = $cId;
     }
-    // throw new \feException(print_r($deletedTokens));
-    Notifications::nightCleanup($this, $deletedCards, $deletedTokens, Cards::getMany($movedToReserve), $deletedCardTokens);
+
+    Notifications::nightCleanup($this, $deletedCards, $deletedMeepleIds, Cards::getMany($movedToReserve), $deletedCardTokens);
     if (!empty($cleanupCards)) {
       Notifications::cleanupCards($this, $cleanupCards);
     }

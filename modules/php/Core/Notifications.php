@@ -241,7 +241,7 @@ class Notifications
     self::notifyAll('cleanupCards', $msg, ['player' => $player, 'cardIds' => $cards]);
   }
 
-  public static function nightCleanup($player, $deletedCards, $deletedTokens, $movedToReserve, $deletedCardTokens)
+  public static function nightCleanup($player, $deletedCards, $deletedMeepleIds, $movedToReserve, $deletedCardTokens)
   {
     $msg = clienttranslate('${player_name} discards ${card_names} and moves ${card_names2} to reserve');
     if ($deletedCards->empty()) {
@@ -259,7 +259,7 @@ class Notifications
       'cards' => $deletedCards->toArray(),
       'cards2' => $movedToReserve->toArray(),
       'cards3' => $deletedCardTokens->toArray(),
-      'meeples' => $deletedTokens,
+      'meeples' => $deletedMeepleIds,
     ]);
   }
 
@@ -437,13 +437,13 @@ class Notifications
     if ($location == 'limbo') {
       $msg =
         $fromLocation == RESERVE
-          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost}')
-          : clienttranslate('${player_name} plays ${card_name} for ${mana_cost}');
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost}')
+        : clienttranslate('${player_name} plays ${card_name} for ${mana_cost}');
     } else {
       $msg =
         $fromLocation == RESERVE
-          ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation}')
-          : clienttranslate('${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation}');
+        ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation}')
+        : clienttranslate('${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation}');
     }
 
     self::notifyAll('playCard', $msg, [
@@ -570,8 +570,8 @@ class Notifications
       if (!is_null($source)) {
         $msg =
           $n == 1
-            ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
-            : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
+          ? clienttranslate('${card_name} gains ${power} (${card_name2}\'s effect)')
+          : clienttranslate('${card_name} gains ${n} ${power} (${card_name2}\'s effect)');
       } else {
         $msg = $n == 1 ? clienttranslate('${card_name} gains ${power}') : clienttranslate('${card_name} gains ${n} ${power}');
       }
@@ -831,8 +831,8 @@ class Notifications
     if (isset($data['displayLocation'])) {
       $data['displayLocation'] =
         $data['displayLocation'] == STORM_LEFT
-          ? clienttranslate('Hero\'s expedition')
-          : clienttranslate('Companion\'s expedition');
+        ? clienttranslate('Hero\'s expedition')
+        : clienttranslate('Companion\'s expedition');
     }
 
     if (isset($data['card'])) {

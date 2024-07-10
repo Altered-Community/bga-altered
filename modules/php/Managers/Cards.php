@@ -44,13 +44,18 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function getCardInstance($id, $data = null)
   {
+    $rarities = [
+      RARITY_COMMON => 'Common',
+      RARITY_RARE => 'Rare',
+      RARITY_UNIQUE => 'Unique'
+    ];
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];
-    $rarity = $p['rarity'] == 0 ? 'common' : ($p['rarity'] == 0 ?  'rare' : 'unique');
+    $rarity = $rarities[$p['rarity']] ?? 'Common';
     $slug = slugify($p['name']);
-    $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . ucfirst($rarity) . '_' . $slug;
+    $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . $rarity . '_' . $slug;
 
-    $isUnique = $rarity == 'unique';
+    $isUnique = $p['rarity'] == RARITY_UNIQUE;
     // Unique => all infos are stored into DB
     if ($isUnique) {
       return new Card($data); // information from DB
