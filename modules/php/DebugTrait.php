@@ -321,6 +321,7 @@ trait DebugTrait
    */
   public function loadBug($reportId)
   {
+    die("Obsolete");
     $db = explode('_', self::getUniqueValueFromDB("SELECT SUBSTRING_INDEX(DATABASE(), '_', -2)"));
     $game = $db[0];
     $tableId = $db[1];
@@ -349,9 +350,8 @@ trait DebugTrait
   /*
    * loadBugSQL: in studio, this is one of the URLs triggered by loadBug() above
    */
-  public function loadBugSQL($reportId)
+  public function loadBugReportSQL($reportId, $studioPlayersIds)
   {
-    $studioPlayer = self::getCurrentPlayerId();
     $players = self::getObjectListFromDb('SELECT player_id FROM player', true);
 
     // Change for your game
@@ -359,7 +359,8 @@ trait DebugTrait
     $sql = ['UPDATE global SET global_value=2 WHERE global_id=1 AND global_value=99'];
     $sql[] = 'ALTER TABLE `gamelog` ADD `cancel` TINYINT(1) NOT NULL DEFAULT 0;';
     $map = [];
-    foreach ($players as $pId) {
+    foreach ($players as $index => $pId) {
+      $studioPlayer = $studioPlayersIds[$index];
       $map[(int) $pId] = (int) $studioPlayer;
 
       // All games can keep this SQL
@@ -375,10 +376,6 @@ trait DebugTrait
       // $sql[] = "UPDATE actioncards SET player_id=$studioPlayer WHERE player_id=$pId";
       // $sql[] = "UPDATE buildings SET player_id=$studioPlayer WHERE player_id=$pId";
       // $sql[] = "UPDATE user_preferences SET player_id=$studioPlayer WHERE player_id=$pId";
-
-      // This could be improved, it assumes you had sequential studio accounts before loading
-      // e.g., quietmint0, quietmint1, quietmint2, etc. are at the table
-      $studioPlayer++;
     }
     $msg =
       "<b>Loaded <a href='https://boardgamearena.com/bug?id=$reportId' target='_blank'>bug report $reportId</a></b><hr><ul><li>" .
@@ -418,7 +415,7 @@ trait DebugTrait
     self::reloadPlayersBasicInfos();
   }
 
-  function loadDebugUpdateEngine(&$node, $map)
+  static function loadDebugUpdateEngine(&$node, $map)
   {
     if (isset($node['pId'])) {
       $node['pId'] = $map[(int) $node['pId']];

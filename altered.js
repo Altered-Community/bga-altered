@@ -1385,6 +1385,7 @@ define([
         Object.keys(t.play).forEach((cardId) => {
           // ALREADY SELECTED CARD
           if (cardId == args.cardId) {
+            console.log('test1');
             this.wait(250).then(() => {
               this.onClick('altered-board-me', () => {
                 this.unselectIfNeeded();
@@ -1392,6 +1393,7 @@ define([
               });
 
               this.onClick(`card-${cardId}`, () => {
+                console.log('test');
                 this.unselectIfNeeded();
                 this.clearClientState();
               });
@@ -1420,19 +1422,21 @@ define([
 
       if (t.support) {
         t.support.forEach((cardId) => {
-          if (!t.play || Object.keys(t.play).length == 0 || !$(`card-${cardId}`).classList.contains('selected')) {
-            this.onClick(`card-${cardId}`, () => {
-              this.unselectIfNeeded();
+          if (t.hasOwnProperty('play') && Object.keys(t.play).includes(`${cardId}`)) return;
+          if ($(`card-${cardId}`).classList.contains('selected')) return;
+          console.log('test2');
 
-              this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
-                play: t.play,
-                support: t.support,
-                tap: t.tap,
-                cardId,
-                supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
-              });
+          this.onClick(`card-${cardId}`, () => {
+            this.unselectIfNeeded();
+
+            this.clientState('chooseAssignmentLocation', _('Where do you want to play that card?'), {
+              play: t.play,
+              support: t.support,
+              tap: t.tap,
+              cardId,
+              supportPossible: t.hasOwnProperty('support') ? t.support.includes(parseInt(cardId)) : false,
             });
-          }
+          });
         });
       }
 
@@ -1519,13 +1523,18 @@ define([
 
           if (location == 'limbo') {
             this.wait(200).then(() => {
-              if ($(`card-${cardId}`).classList.contains('selected'))
+              if ($(`card-${cardId}`).classList.contains('selected')) {
                 this.addPrimaryActionButton(
                   'btnLaunchSpell',
                   this.formatSvgIcon('spell'),
                   onChooseLocation(location),
                   `board-limbo-${this.player_id}`
                 );
+
+                if ($(`card-${cardId}`).classList.contains('mini-card')) {
+                  $('btnLaunchSpell').classList.add('on-mini-card');
+                }
+              }
             });
           }
         });

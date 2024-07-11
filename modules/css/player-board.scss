@@ -616,6 +616,10 @@
                 justify-content: center;
                 align-items: center;
                 font-size: 40px;
+                &.on-mini-card {
+                    left: 50px;
+                    bottom: -30px;
+                }
 
                 animation: pulse-animation 1.2s infinite;
 

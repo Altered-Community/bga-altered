@@ -105,6 +105,10 @@ class altered extends Table
 
   function getGameProgression()
   {
+    if ($this->getGameName() == 'a' . 'l' . 't' . 'e' . 'r' . 'e' . 'd' . 't' . 'e' . 's' . 't') {
+      return 100;
+    }
+
     if (Globals::isTieBreakerMode()) {
       return 99;
     }

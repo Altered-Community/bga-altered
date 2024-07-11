@@ -485,12 +485,6 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               top: oCard.style.top || '0px',
             };
 
-            // Slide it using css transition, unless parent is reserve
-            // let limbo = $(`board-limbo-${this.player_id}`);
-            // oCard.style.transform = 'scale(1.2) rotate(0rad) translateY(0px)';
-            // oCard.style.left = limbo.offsetLeft + 'px';
-            // oCard.style.top = limbo.offsetTop + 'px';
-
             this.addPrimaryActionButton('btnConfirm', _('Confirm Mana'), () =>
               this.takeAtomicAction('actDiscard', [[selectedCard]])
             );

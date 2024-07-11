@@ -154,6 +154,7 @@ class RollDie extends \ALT\Models\Action
       Players::getActive()
       ->getReserveCards()
       ->count() > 0;
+
     return [
       'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC),
       'canDiscard' => $canDiscard,
@@ -161,8 +162,6 @@ class RollDie extends \ALT\Models\Action
         ->getReserveCards()
         ->getIds(),
       'descSuffix' => $canDiscard ? 'bastion' : '',
-      // TODO: add effects associated to it?
-      // TODO: improve choice as choice is necessary only if 2 differents effects
     ];
   }
 
@@ -203,8 +202,6 @@ class RollDie extends \ALT\Models\Action
     $this->checkAfterListeners($player, ['rolls' => Globals::getDiceRolls(), 'sourceId' => $source->getId()]);
 
     Globals::setDiceRolls([]);
-
-    $this->resolveAction([$dieValue]);
   }
 
   public function actDiscardAdd($cardId)
@@ -228,6 +225,5 @@ class RollDie extends \ALT\Models\Action
       'player' => $player,
       'card' => Cards::get($cardId),
     ]);
-    return ['add'];
   }
 }

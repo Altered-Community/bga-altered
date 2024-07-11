@@ -570,9 +570,7 @@
                     margin-right: -4px;
                     background-position: 5px 5px;
 
-                    .touch-device & {
-                        pointer-events: none;
-                    }
+                    pointer-events: none;
                 }
             }
 
@@ -1210,6 +1208,14 @@ $miniCardScale: 0.33;
                 }
                 &[data-size="2"][data-boost]:not([data-boost="0"])::after {
                     left: 39px;
+                }
+            }
+
+            .card-text {
+                .card-qrcode-container {
+                    .card-qrcode {
+                        pointer-events: all;
+                    }
                 }
             }
         }
