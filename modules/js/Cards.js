@@ -76,7 +76,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (
           !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
           !oCard.classList.contains('card-back') &&
-          !oCard.parentNode.classList.contains('player-hand')
+          !oCard.parentNode.classList.contains('player-hand') &&
+          !oCard.parentNode.classList.contains('mana-modal')
         ) {
           this.destroy(oCard);
         }
@@ -278,8 +279,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -1484,11 +1485,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-typeline'>${_(p.typeline)}</div>
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${i.boost}'>${
-        p.forest
-      }</div>
+            p.forest
+          }</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${i.boost}'>${
-        p.mountain
-      }</div>
+            p.mountain
+          }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${i.boost}'>${p.ocean}</div>
 
           <div class='card-text' style="font-size:${i.textFontSize}">
