@@ -137,55 +137,56 @@ trait DebugTrait
   function loadUnique($v = null, $location = HAND)
   {
     require_once('Cards/unique.php');
-    $unique = $uniques['hydra:member'][$v ?? 0];
+    $unique = UNIQUES['hydra:member'][$v ?? 0];
 
-    $properties = [];
-    $properties['uid'] = $unique['reference'];
-    $properties['rarity'] = RARITY_UNIQUE;
-    $asset = explode('_', $unique['reference']);
-    unset($asset[count($asset) - 1]);
-    $properties['asset'] = implode('_', $asset);
-    $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
-    $properties['name'] = $unique['name'];
-    $properties['type'] = constant($unique['cardType']['reference']);
-    $subtypes = [];
-    $typeline = ['Character'];
+    // $properties = [];
+    // $properties['uid'] = $unique['reference'];
+    // $properties['rarity'] = RARITY_UNIQUE;
+    // $asset = explode('_', $unique['reference']);
+    // unset($asset[count($asset) - 1]);
+    // $properties['asset'] = implode('_', $asset);
+    // $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
+    // $properties['name'] = $unique['name'];
+    // $properties['type'] = constant($unique['cardType']['reference']);
+    // $subtypes = [];
+    // $typeline = ['Character'];
 
-    foreach ($unique['cardSubTypes'] as $v => $sub) {
-      $subtypes[] = constant($sub['reference']);
-      $typeline[] = $sub['name'];
-    }
-    $properties['subtypes'] = $subtypes;
-    $properties['typeline'] = implode(' - ', $typeline);
-    $properties['artist'] = $unique['illustrator']['nickName'];
-    $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
-    $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
-    $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
-    $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
-    $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
+    // foreach ($unique['cardSubTypes'] as $v => $sub) {
+    //   $subtypes[] = constant($sub['reference']);
+    //   $typeline[] = $sub['name'];
+    // }
+    // $properties['subtypes'] = $subtypes;
+    // $properties['typeline'] = implode(' - ', $typeline);
+    // $properties['artist'] = $unique['illustrator']['nickName'];
+    // $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
+    // $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+    // $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
+    // $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+    // $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
 
-    // add effects
-    foreach ($unique['cardElements'] as $i => $cardElement) {
-      if ($cardElement['cardElementType']['reference'] != 'MAIN_EFFECT'  && $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT') {
-        continue;
-      }
-      foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
-        $trinity = [];
-        foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
-          if (in_array($indivEffect['idGd'], TRIGGER)) {
-            $trinity['trigger'] = $indivEffect['idGd'];
-          } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
-            $trinity['condition'] = $indivEffect['idGd'];
-          } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
-            $trinity['output'] = $indivEffect['idGd'];
-          }
-        }
-        if (empty($trinity)) {
-          continue;
-        }
-        FlowConvertor::constructEffect($trinity, $properties);
-      }
-    }
+    // // add effects
+    // foreach ($unique['cardElements'] as $i => $cardElement) {
+    //   if ($cardElement['cardElementType']['reference'] != 'MAIN_EFFECT'  && $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT') {
+    //     continue;
+    //   }
+    //   foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
+    //     $trinity = [];
+    //     foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
+    //       if (in_array($indivEffect['idGd'], TRIGGER)) {
+    //         $trinity['trigger'] = $indivEffect['idGd'];
+    //       } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
+    //         $trinity['condition'] = $indivEffect['idGd'];
+    //       } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
+    //         $trinity['output'] = $indivEffect['idGd'];
+    //       }
+    //     }
+    //     if (empty($trinity)) {
+    //       continue;
+    //     }
+    //     FlowConvertor::constructEffect($trinity, $properties);
+    //   }
+    // }
+    $properties = Cards::generateUnique($unique);
     Cards::singleCreate([
       'player_id' => Players::getCurrentId(),
       'location' => $location,
@@ -197,8 +198,20 @@ trait DebugTrait
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
   }
-
-
+  function debug_randomUnique()
+  {
+    $properties = Cards::generateRandomUnique(FACTIONS[array_rand(FACTIONS)]);
+    Cards::singleCreate([
+      'player_id' => Players::getCurrentId(),
+      'location' => HAND,
+      'nbr' => 1,
+      'properties' => $properties,
+    ]);
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+    $player = Players::getCurrent();
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
+  }
 
   function tiebreak()
   {

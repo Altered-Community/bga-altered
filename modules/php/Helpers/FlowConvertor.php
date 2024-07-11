@@ -1069,6 +1069,11 @@ abstract class FlowConvertor
       self::computeOutput($trinity['output'], $calculated);
     }
 
+    if (!isset($calculated['type'])) {
+      var_dump($trinity);
+      throw new \feException(print_r($properties));
+    }
+
     $key = $calculated['type'];
     $node = [];
     if ($key != 'effectPassive') {
