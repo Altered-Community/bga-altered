@@ -1128,7 +1128,7 @@ abstract class FlowConvertor
       $properties['effectPassive'] = array_merge($properties['effectPassive'], $calculated['outputPassive']);
     }
 
-    $properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] = array_merge($properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] ?? [], [$calculated['triggerDescription'] ?? '', $calculated['conditionDescription'] ?? '', $calculated['outputDescription']]);
+    $properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] = array_merge($properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] ?? [], [$calculated['triggerDescription'] ?? '', $calculated['conditionDescription'] ?? '', ($calculated['outputDescription'] ?? '')]);
     if ($key == 'effectSupport') {
       if ($calculated['triggerDescription'] == '{D}') {
         $properties['supportIcon'] = 'discard';
