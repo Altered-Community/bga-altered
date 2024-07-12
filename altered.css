@@ -2182,6 +2182,18 @@ html {
       font-style: italic; }
     .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text {
       color: white; }
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-0 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-1 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-2 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-3 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-4 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-5 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-6 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-7 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-8 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-9 .path2:before,
+      .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] ~ .card-text .svgicon-mana-X .path2:before {
+        color: black; }
     .altered-card .altered-card-wrapper .card-support {
       position: absolute;
       z-index: 2;
@@ -2516,6 +2528,11 @@ html {
     .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="1"],
     .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="1"] {
       border: 1px solid white; }
+    .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="2"],
+    .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="2"],
+    .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .card-frame[data-rarity="2"] {
+      border: 1px solid #ffe454;
+      box-shadow: 0px 0px 5px 2px #d0bd23; }
   .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem,
   .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem,
   .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem {

@@ -1096,6 +1096,8 @@ abstract class FlowConvertor
         }
         if (isset($calculated['conditionEffect'])) {
           $template['output'] = $calculated['conditionEffect'];
+        } else {
+          $template['output'] = 'OUTPUT';
         }
 
         foreach ($calculated['trigger'] as $t => $trig) {
@@ -1113,12 +1115,12 @@ abstract class FlowConvertor
     }
 
     if (isset($properties[$key])) {
-      // there is already an effect, check if there is an OR node, to add the node
-      if (($properties[$key]['type'] ?? '') == NODE_OR) {
-        $properties[$key]['childs'] = array_merge($properties[$key]['childs'], $node);
+      // there is already an effect, check if there is an PAR node, to add the node
+      if (($properties[$key]['type'] ?? '') == NODE_PARALLEL) {
+        $properties[$key]['childs'][] = $node;
       } else {
-        // we add the OR node
-        $properties[$key] = FT::OR([$properties[$key], $node]);
+        // we add the PAR node
+        $properties[$key] = FT::PAR($properties[$key], $node);
       }
     } else {
       $properties[$key] = $node;
@@ -1128,12 +1130,21 @@ abstract class FlowConvertor
       $properties['effectPassive'] = array_merge($properties['effectPassive'], $calculated['outputPassive']);
     }
 
-    $properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] = array_merge($properties[$key == 'effectSupport' ? 'supportDesc' : 'effectDesc'] ?? [], [$calculated['triggerDescription'] ?? '', $calculated['conditionDescription'] ?? '', ($calculated['outputDescription'] ?? '')]);
+    // Description
+    $keyDesc = $key == 'effectSupport' ? 'supportDesc' : 'effectDesc';
+    if (!empty($properties[$keyDesc])) {
+      $properties[$keyDesc][] = '<BR>';
+    }
+    $properties[$keyDesc][] = $calculated['triggerDescription'] ?? '';
+    $properties[$keyDesc][] = $calculated['conditionDescription'] ?? '';
+    $properties[$keyDesc][] = $calculated['outputDescription'] ?? '';
+
     if ($key == 'effectSupport') {
       if ($calculated['triggerDescription'] == '{D}') {
         $properties['supportIcon'] = 'discard';
       }
     }
+
     // debug
     //$properties['calculated'] = $calculated;
 
