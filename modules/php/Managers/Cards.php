@@ -314,6 +314,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       'nbr' => 1,
       'properties' => $deckContent[HERO]['card']['properties'],
     ];
+    $faction =  $deckContent[HERO]['card']['faction'];
     $location = 'deck-API';
     foreach ($deckContent as $cardInfo) {
       $card = new Card($cardInfo['card']);
@@ -329,7 +330,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         'nbr' => $cardInfo['n'],
         'properties' => $card->getProperties(),
       ];
-      $faction = $card->getFaction();
+      // $faction = $card->getFaction();
     }
     self::create($toCreate, null);
     return $faction;
