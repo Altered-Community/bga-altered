@@ -166,6 +166,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
 
     // add effects
+    $properties['uEffects'] = [];
     foreach ($unique['cardElements'] as $i => $cardElement) {
       if ($cardElement['cardElementType']['reference'] != 'MAIN_EFFECT'  && $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT') {
         continue;
@@ -188,6 +189,7 @@ class Cards extends \ALT\Helpers\CachedPieces
           return null;
         }
         $valid = FlowConvertor::constructEffect($trinity, $properties);
+        $properties['uEffects'][] = array_values($trinity);
       }
     }
     return $properties;

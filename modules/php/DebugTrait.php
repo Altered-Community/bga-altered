@@ -138,54 +138,6 @@ trait DebugTrait
   {
     require_once('Cards/unique.php');
     $unique = UNIQUES['hydra:member'][$v ?? 0];
-
-    // $properties = [];
-    // $properties['uid'] = $unique['reference'];
-    // $properties['rarity'] = RARITY_UNIQUE;
-    // $asset = explode('_', $unique['reference']);
-    // unset($asset[count($asset) - 1]);
-    // $properties['asset'] = implode('_', $asset);
-    // $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
-    // $properties['name'] = $unique['name'];
-    // $properties['type'] = constant($unique['cardType']['reference']);
-    // $subtypes = [];
-    // $typeline = ['Character'];
-
-    // foreach ($unique['cardSubTypes'] as $v => $sub) {
-    //   $subtypes[] = constant($sub['reference']);
-    //   $typeline[] = $sub['name'];
-    // }
-    // $properties['subtypes'] = $subtypes;
-    // $properties['typeline'] = implode(' - ', $typeline);
-    // $properties['artist'] = $unique['illustrator']['nickName'];
-    // $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
-    // $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
-    // $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
-    // $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
-    // $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
-
-    // // add effects
-    // foreach ($unique['cardElements'] as $i => $cardElement) {
-    //   if ($cardElement['cardElementType']['reference'] != 'MAIN_EFFECT'  && $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT') {
-    //     continue;
-    //   }
-    //   foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
-    //     $trinity = [];
-    //     foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
-    //       if (in_array($indivEffect['idGd'], TRIGGER)) {
-    //         $trinity['trigger'] = $indivEffect['idGd'];
-    //       } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
-    //         $trinity['condition'] = $indivEffect['idGd'];
-    //       } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
-    //         $trinity['output'] = $indivEffect['idGd'];
-    //       }
-    //     }
-    //     if (empty($trinity)) {
-    //       continue;
-    //     }
-    //     FlowConvertor::constructEffect($trinity, $properties);
-    //   }
-    // }
     $properties = Cards::generateUnique($unique);
     Cards::singleCreate([
       'player_id' => Players::getCurrentId(),
@@ -386,9 +338,7 @@ trait DebugTrait
       $sql[] = "UPDATE cards SET player_id=$studioPlayer WHERE player_id=$pId";
       $sql[] = "UPDATE cards SET card_location='deck-$studioPlayer' WHERE card_location='deck-$pId'";
       $sql[] = "UPDATE cards SET card_location='board-hero-$studioPlayer' WHERE card_location='board-hero-$pId'";
-      // $sql[] = "UPDATE actioncards SET player_id=$studioPlayer WHERE player_id=$pId";
-      // $sql[] = "UPDATE buildings SET player_id=$studioPlayer WHERE player_id=$pId";
-      // $sql[] = "UPDATE user_preferences SET player_id=$studioPlayer WHERE player_id=$pId";
+      $sql[] = "UPDATE user_preferences SET player_id=$studioPlayer WHERE player_id=$pId";
     }
     $msg =
       "<b>Loaded <a href='https://boardgamearena.com/bug?id=$reportId' target='_blank'>bug report $reportId</a></b><hr><ul><li>" .
@@ -425,13 +375,70 @@ trait DebugTrait
     $fp = Globals::getFirstPlayer();
     Globals::setFirstPlayer($map[$fp]);
 
+    // Active player
+    $ap = Globals::getActivePId();
+    Globals::setActivePId($map[$ap]);
+
+    // firstDayManaSelection
+    $t = Globals::getDeckSelection();
+    $u = [];
+    foreach ($t as $pId => $choice) {
+      $u[$map[$pId]] = $choice;
+    }
+    Globals::setDeckSelection($u);
+
+    // firstDayManaSelection
+    $t = Globals::getFirstDayManaSelection();
+    $u = [];
+    foreach ($t as $pId => $choice) {
+      $u[$map[$pId]] = $choice;
+    }
+    Globals::setFirstDayManaSelection($u);
+
+    // firstDayManaSelection
+    $t = Globals::getPlayerDecks();
+    $u = [];
+    foreach ($t as $pId => $choice) {
+      $u[$map[$pId]] = $choice;
+    }
+    Globals::setPlayerDecks($u);
+
+    // skippedPlayers
+    $t = Globals::getSkippedPlayers();
+    $u = [];
+    foreach ($t as $pId) {
+      $u[] = $map[$pId];
+    }
+    Globals::setSkippedPlayers($u);
+
     self::reloadPlayersBasicInfos();
+  }
+
+  static function walkReplacePId(&$t, $map)
+  {
+    if (isset($t['pId'])) {
+      $t['pId'] = $map[(int) $t['pId']] ?? $t['pId'];
+    }
+    if (isset($t['pIds'])) {
+      foreach ($t['pIds'] as &$pId) {
+        $pId = $map[(int) $pId] ?? $pId;
+      }
+    }
+
+    foreach ($t as $key => &$v) {
+      if (is_array($v)) {
+        self::walkReplacePId($v, $map);
+      }
+    }
   }
 
   static function loadDebugUpdateEngine(&$node, $map)
   {
     if (isset($node['pId'])) {
       $node['pId'] = $map[(int) $node['pId']];
+    }
+    if (isset($node['args'])) {
+      self::walkReplacePId($node['args'], $map);
     }
 
     if (isset($node['childs'])) {

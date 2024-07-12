@@ -1462,9 +1462,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
     tplCharacterCardTooltip(card) {
+      let rareExtraDetails = '';
+      let p = card.properties;
+      if (p.rarity == 2) {
+        rareExtraDetails += 'Reference : ' + p.uid;
+        if (p.uEffects) {
+          rareExtraDetails +=
+            '<br /><br />' + p.uEffects.map((t, i) => `Effect ${i}: &nbsp;&nbsp; ${t.join(' / ')}`).join('<br />');
+        }
+      }
+
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
         <div class='card-tooltip-frame'>
           ${this.tplCharacterCard(card, true, false)}
+          ${rareExtraDetails}
         </div>
         <div class='tooltip-explanation'>${this.getCardTooltipExplanation(card)}</div>
       </div>`;
@@ -1824,6 +1835,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           return t.map((s) => this.replaceKeyWordsAndGetReminders(s)).join('<br />');
         }
       }
+
+      // Unique empty condition/trigger
+      if (str == '[]]') return '';
+      // Separate unique effects
+      if (str == '<BR>') return '<br />';
+
+      // Ensure markers are using []
       str = str.replaceAll('<', '[').replaceAll('>', ']').replaceAll('\\', '');
 
       const KEYWORDS = {

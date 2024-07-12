@@ -175,10 +175,6 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function isSupported($players, $options)
   {
-    if (Game::get()->getBgaEnvironment() == 'studio') {
-      return true;
-    }
-
     return $this->implemented;
   }
 

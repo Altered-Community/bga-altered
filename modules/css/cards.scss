@@ -583,8 +583,6 @@
             .flavor-text {
                 font-style: italic;
             }
-
-
         }
 
         .card-text,
@@ -604,8 +602,25 @@
             }
         }
 
+        // Unique
         .card-frame[data-rarity="2"] ~ .card-text {
-            color:white;
+            color: white;
+
+            .svgicon-mana-0,
+            .svgicon-mana-1,
+            .svgicon-mana-2,
+            .svgicon-mana-3,
+            .svgicon-mana-4,
+            .svgicon-mana-5,
+            .svgicon-mana-6,
+            .svgicon-mana-7,
+            .svgicon-mana-8,
+            .svgicon-mana-9,
+            .svgicon-mana-X {
+                .path2:before {
+                    color: black;
+                }
+            }
         }
 
         .card-support {
@@ -967,6 +982,10 @@ $miniCardScale: 0.33;
 
             &[data-rarity="1"] {
                 border: 1px solid white;
+            }
+            &[data-rarity="2"] {
+                border: 1px solid #ffe454;
+                box-shadow: 0px 0px 5px 2px #d0bd23;
             }
         }
 
