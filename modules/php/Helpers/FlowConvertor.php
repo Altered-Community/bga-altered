@@ -356,7 +356,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Up to one target Character gains <FLEETING>].'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,  'targetType' => [CHARACTER, TOKEN],
-          'effect' => FT::GAIN(EFFECT, ASLEEP)
+          'effect' => FT::GAIN(EFFECT, FLEETING)
         ]),
       ],
       71 => ['description' => clienttranslate('Reduce my cost by {1}.'), 'output' => ''], // TODO
