@@ -155,7 +155,7 @@ abstract class FlowConvertor
             'targetPlayer' => ME,
             'targetLocation' => [RESERVE],
             'upTo' => true,
-            'effect' => FT::SEQ(FT::SEQ(FT::ACTION(DISCARD, []), 'TODO'), 'OUTPUT')
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT')
           ],
           ['optional' => true]
         )
