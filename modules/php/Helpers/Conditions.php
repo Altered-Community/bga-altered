@@ -24,7 +24,6 @@ abstract class Conditions
         $conditions[] = $power['condition'];
       }
     }
-
     foreach ($conditions as $cond) {
       $t = explode(':', $cond);
       $condFct = $t[0];
@@ -356,7 +355,8 @@ abstract class Conditions
     if (!self::isPlayEvent($card, $event)) {
       return false;
     }
-    $card = Cards::get($event['cardId']);
+
+    $playedCard = Cards::get($event['cardId']);
 
     // Exclude myself
     if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
@@ -370,14 +370,14 @@ abstract class Conditions
 
     // Subtype check
     if (in_array($type, SUBTYPES)) {
-      if (!in_array($type, $card->getSubtypes())) {
+      if (!in_array($type, $playedCard->getSubtypes())) {
         return false;
       }
     }
 
     // Cost check
     if (!is_null($cost)) {
-      $costHand = $card->getCostHand();
+      $costHand = $playedCard->getCostHand();
       if ($op == 'GTE' && $costHand < $cost) {
         return false;
       }
