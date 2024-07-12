@@ -82,8 +82,8 @@ class LeafNode extends AbstractNode
     if (isset($this->infos['action'])) {
       return $player->canTakeAction($this->infos['action'], $this);
     }
-    // throw new \feException(print_r($this->infos));
-    var_dump($this->parent->toArray());
+
+    var_dump(is_null($this->parent) ? $this->toArray() : $this->parent->toArray());
     throw new \BgaVisibleSystemException('Unimplemented isDoable function for non-action Leaf');
   }
 

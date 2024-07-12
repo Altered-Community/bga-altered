@@ -425,13 +425,70 @@ trait DebugTrait
     $fp = Globals::getFirstPlayer();
     Globals::setFirstPlayer($map[$fp]);
 
+    // Active player
+    $ap = Globals::getActivePId();
+    Globals::setActivePId($map[$ap]);
+
+    // firstDayManaSelection
+    $t = Globals::getDeckSelection();
+    $u = [];
+    foreach ($t as $pId => $choice) {
+      $u[$map[$pId]] = $choice;
+    }
+    Globals::setDeckSelection($u);
+
+    // firstDayManaSelection
+    $t = Globals::getFirstDayManaSelection();
+    $u = [];
+    foreach ($t as $pId => $choice) {
+      $u[$map[$pId]] = $choice;
+    }
+    Globals::setFirstDayManaSelection($u);
+
+    // firstDayManaSelection
+    $t = Globals::getPlayerDecks();
+    $u = [];
+    foreach ($t as $pId => $choice) {
+      $u[$map[$pId]] = $choice;
+    }
+    Globals::setPlayerDecks($u);
+
+    // skippedPlayers
+    $t = Globals::getSkippedPlayers();
+    $u = [];
+    foreach ($t as $pId) {
+      $u[] = $map[$pId];
+    }
+    Globals::setSkippedPlayers($u);
+
     self::reloadPlayersBasicInfos();
+  }
+
+  static function walkReplacePId(&$t, $map)
+  {
+    if (isset($t['pId'])) {
+      $t['pId'] = $map[(int) $t['pId']] ?? $t['pId'];
+    }
+    if (isset($t['pIds'])) {
+      foreach ($t['pIds'] as &$pId) {
+        $pId = $map[(int) $pId] ?? $pId;
+      }
+    }
+
+    foreach ($t as $key => &$v) {
+      if (is_array($v)) {
+        self::walkReplacePId($v, $map);
+      }
+    }
   }
 
   static function loadDebugUpdateEngine(&$node, $map)
   {
     if (isset($node['pId'])) {
       $node['pId'] = $map[(int) $node['pId']];
+    }
+    if (isset($node['args'])) {
+      self::walkReplacePId($node['args'], $map);
     }
 
     if (isset($node['childs'])) {

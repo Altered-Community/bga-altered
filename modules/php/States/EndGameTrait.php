@@ -13,26 +13,6 @@ use ALT\Managers\Cards;
 
 trait EndGameTrait
 {
-  function endOfGameInit()
-  {
-    if (Globals::getEndFinalScoringDone() !== true) {
-      // Trigger discard state
-      Engine::setup(
-        [
-          'action' => DISCARD_SCORING,
-          'pId' => 'all',
-          'args' => ['current' => Players::getActive()->getId()],
-        ],
-        ''
-      );
-      Engine::proceed();
-    } else {
-      // Goto scoring state
-      $this->gamestate->jumpToState(\ST_PRE_END_OF_GAME);
-    }
-    return;
-  }
-
   function stPreEndOfGame()
   {
     // TODO remove in alpha
