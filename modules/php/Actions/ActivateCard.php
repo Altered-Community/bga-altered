@@ -19,7 +19,14 @@ class ActivateCard extends \ALT\Models\Action
 
   public function getCard()
   {
-    return Cards::getSingle($this->getCtxArg('cardId'), false);
+    $card = Cards::getSingle($this->getCtxArg('cardId'), false);
+
+    // Tokens are not really destroyed, they got to location "destroy"
+    //  but they cant be activated from here => only case is Maw
+    if (!is_null($card) && $card->getLocation() == 'destroy') {
+      return null;
+    }
+    return $card;
   }
 
   public function getFlow($player)
@@ -32,14 +39,14 @@ class ActivateCard extends \ALT\Models\Action
 
     $flow =
       $card->isPlayed() || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
-        ? Cards::applyEffect(
-          $card,
-          $player,
-          $this->getCtxArgs()['event']['method'],
-          $this->getCtxArgs()['event'],
-          false // Throw error if no such listener
-        )
-        : null;
+      ? Cards::applyEffect(
+        $card,
+        $player,
+        $this->getCtxArgs()['event']['method'],
+        $this->getCtxArgs()['event'],
+        false // Throw error if no such listener
+      )
+      : null;
 
     if ($flow == null) {
       return null;
