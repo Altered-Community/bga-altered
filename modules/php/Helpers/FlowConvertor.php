@@ -1225,7 +1225,7 @@ abstract class FlowConvertor
   public static function insertCheckCondition($conditions, &$node)
   {
     if (empty($node)) {
-      $node = FT::ACTION(CHECK_CONDITION, ['conditions' => $conditions, 'effect' => 'TODO']);
+      $node = FT::ACTION(CHECK_CONDITION, ['conditions' => $conditions, 'effect' => 'OUTPUT']);
     } else {
       $nKey = Utils::search($node, function ($child) {
         return ($child['action'] ?? '') == CHECK_CONDITION;
@@ -1239,10 +1239,12 @@ abstract class FlowConvertor
     if (empty($node)) {
       $node = $effect;
     } else {
-      $node = Utils::updateTree($node, 'TODO', $effect);
+      $node = Utils::updateTree($node, 'OUTPUT', $effect);
     }
   }
 
+
+  // TODO: to replace with previous function 
   public static function addOutputToNode($effect, &$node)
   {
     if (empty($node)) {
