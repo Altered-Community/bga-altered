@@ -171,12 +171,14 @@ class RollDie extends \ALT\Models\Action
     // throw new \feException(print_r(debug_print_backtrace()));
 
     if (!$args['canDiscard'] && count($args['rolls']) == 1) {
-      $this->actRollDie($args['rolls'][0]);
+      // $this->actRollDie($args['rolls'][0]);
+      return [$args['rolls'][0]];
     }
   }
 
   public function actRollDie($dieValue)
   {
+
     $player = Players::getActive();
     $source = $this->getSource();
     $effects = [];

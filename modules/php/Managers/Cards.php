@@ -123,10 +123,15 @@ class Cards extends \ALT\Helpers\CachedPieces
     for ($u = 0; $u < 5; $u++) {
       // maybe to reenable later
       // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
-      // $deckContent[] = [
-      //   'card' => ['properties' => self::generateUnique(UNIQUES['hydra:member'][array_rand(UNIQUES['hydra:member'])])],
-      //   'n' => 1
-      // ];
+      $properties = self::generateUnique(UNIQUES['hydra:member'][array_rand(UNIQUES['hydra:member'])]);
+      if (is_null($properties)) {
+        $u--;
+        continue;
+      }
+      $deckContent[] = [
+        'card' => ['properties' => $properties],
+        'n' => 1
+      ];
       $i++;
     }
 
@@ -179,7 +184,10 @@ class Cards extends \ALT\Helpers\CachedPieces
         if (empty($trinity)) {
           continue;
         }
-        FlowConvertor::constructEffect($trinity, $properties);
+        if (count($trinity) != 3) {
+          return null;
+        }
+        $valid = FlowConvertor::constructEffect($trinity, $properties);
       }
     }
     return $properties;
