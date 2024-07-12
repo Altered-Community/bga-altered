@@ -386,9 +386,7 @@ trait DebugTrait
       $sql[] = "UPDATE cards SET player_id=$studioPlayer WHERE player_id=$pId";
       $sql[] = "UPDATE cards SET card_location='deck-$studioPlayer' WHERE card_location='deck-$pId'";
       $sql[] = "UPDATE cards SET card_location='board-hero-$studioPlayer' WHERE card_location='board-hero-$pId'";
-      // $sql[] = "UPDATE actioncards SET player_id=$studioPlayer WHERE player_id=$pId";
-      // $sql[] = "UPDATE buildings SET player_id=$studioPlayer WHERE player_id=$pId";
-      // $sql[] = "UPDATE user_preferences SET player_id=$studioPlayer WHERE player_id=$pId";
+      $sql[] = "UPDATE user_preferences SET player_id=$studioPlayer WHERE player_id=$pId";
     }
     $msg =
       "<b>Loaded <a href='https://boardgamearena.com/bug?id=$reportId' target='_blank'>bug report $reportId</a></b><hr><ul><li>" .
