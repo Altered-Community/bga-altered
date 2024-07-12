@@ -354,6 +354,7 @@ define([
       this.centerOverlay();
     },
     closeOverlay() {
+      this.closeCurrentTooltip(false);
       $('altered-overlay').classList.remove('active');
       $('altered-board-overlay').classList.remove('active');
     },
