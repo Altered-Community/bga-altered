@@ -30,6 +30,7 @@ class Discard extends \ALT\Models\Action
     'nLandmarks' => 0, // only for night clean up
     'special' => '',
     'tapped' => false,
+    'pId' => null, // Useful for Loki
 
     'canPass' => false, // Is this optional ?
     'force' => false,  // NO IDEA
@@ -77,6 +78,12 @@ class Discard extends \ALT\Models\Action
         'i18n' => ['location'],
       ],
     ];
+  }
+
+  public function getPlayer()
+  {
+    $pId = $this->getArg('pId');
+    return is_null($pId) ? parent::getPlayer() : Players::get($pId);
   }
 
   public function argsDiscard()
