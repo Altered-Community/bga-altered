@@ -68,11 +68,11 @@ abstract class FlowConvertor
             'targetPlayer' => ME,
             'upTo' => true,
             'targetLocation' => [HAND],
-            'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), 'OUTPUT')
+            'effect' => FT::DISCARD_TO_RESERVE()
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent']]], // to check
+        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'output' => 'OUTPUT']], // to check
       ],
       172 => [
         'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Spell:'),
@@ -87,7 +87,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'effect' => 'OUTPUT']], // to check
+        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:spell'], 'output' => 'OUTPUT']], // to check
       ],
       173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'hasControl::4'],
       175 => [
@@ -1110,17 +1110,37 @@ abstract class FlowConvertor
     if (isset($calculated['output'])) {
       self::addOutputToNode($calculated['output'], $node);
     }
+
+    // needed for passive effects in reaction to a classical output (171)
+    if (isset($calculated['passiveEffect'])) {
+      if (isset($calculated['output'])) {
+        self::addOutputToNode($calculated['output'], $calculated['passiveEffect']);
+      }
+      if (isset($properties['effectPassive'])) {
+        $properties['effectPassive'] = array_merge($properties['effectPassive'], $calculated['passiveEffect']);
+      } else {
+        $properties['effectPassive'] = $calculated['passiveEffect'];
+      }
+    }
+
     if (isset($calculated['outputAttributes'])) {
       $properties = array_merge($properties, $calculated['outputAttributes']);
     }
+    // manage dynamic att
 
     if (isset($properties[$key])) {
-      // there is already an effect, check if there is an PAR node, to add the node
-      if (($properties[$key]['type'] ?? '') == NODE_PARALLEL) {
-        $properties[$key]['childs'][] = $node;
+      // parallel node for non passive effects
+      if ($key != 'effectPassive') {
+        // there is already an effect, check if there is an PAR node, to add the node
+        if (($properties[$key]['type'] ?? '') == NODE_PARALLEL) {
+          $properties[$key]['childs'][] = $node;
+        } else {
+          // we add the PAR node
+          $properties[$key] = FT::PAR($properties[$key], $node);
+        }
       } else {
-        // we add the PAR node
-        $properties[$key] = FT::PAR($properties[$key], $node);
+        // PassiveEffects
+        $properties[$key] = array_merge($properties[$key], $node);
       }
     } else {
       $properties[$key] = $node;
@@ -1196,6 +1216,10 @@ abstract class FlowConvertor
 
     if (isset($conditions['effect'])) {
       $calculated['conditionEffect'] = $conditions['effect'];
+    }
+
+    if (isset($conditions['passiveEffect'])) {
+      $calculated['passiveEffect'] = $conditions['passiveEffect'];
     }
   }
 
