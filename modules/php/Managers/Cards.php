@@ -314,7 +314,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       'nbr' => 1,
       'properties' => $deckContent[HERO]['card']['properties'],
     ];
-    $faction =  $deckContent[HERO]['card']['faction'];
+    $faction =  $deckContent[HERO]['card']['properties']['faction'];
     $location = 'deck-API';
     foreach ($deckContent as $cardInfo) {
       $card = new Card($cardInfo['card']);
