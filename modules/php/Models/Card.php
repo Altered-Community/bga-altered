@@ -10,6 +10,7 @@ use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
 use ALT\Helpers\Conditions;
 use ALT\Helpers\FT;
+use ALT\Helpers\Utils;
 
 /*
  * Card
@@ -100,6 +101,7 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicTough' => 'str',
     'excludeUniversalTough' => 'bool',
     'excludeSelfTough' => 'bool',
+    'dynamicEternal' => 'str',
     'addRoll' => 'int',
 
     // Dynamic info
@@ -480,6 +482,20 @@ class Card extends \ALT\Helpers\DB_Model
 
     if ($this->isToken() && $this->getPlayer()->countUniversalTokenGigantic() > 0) {
       return true;
+    }
+    return false;
+  }
+
+
+  public function isEternal()
+  {
+    if (($this->properties['eternal'] ?? false) == true) {
+      return true;
+    }
+
+    $dynamicEternal = $this->getDynamicEternal();
+    if ($dynamicEternal != '') {
+      return !is_null(Utils::checkAttributeCondition('eternal', $dynamicEternal, $this->getPlayer(), $this));
     }
     return false;
   }

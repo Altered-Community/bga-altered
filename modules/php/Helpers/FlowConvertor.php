@@ -483,7 +483,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains <ANCHORED.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
       ],
-      95 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => 1]],
+      95 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => '1']],
       96 => [
         'description' => clienttranslate('Put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
@@ -712,7 +712,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may discard target Character with Hand Cost {4} or more.'),
         'output' => FT::ACTION(TARGET, ['minHandCost' => 4, 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
       ],
-      142 => ['description' => clienttranslate('I am <ETERNAL>.'), 'attributes' => ['eternal' => true]],
+      142 => ['description' => clienttranslate('I am <ETERNAL>.'), 'attributes' => ['dynamicEternal' => '1']],
       143 => [
         'description' => clienttranslate('Each player discards their hand and their Reserve, then draws three cards.'),
         'output' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHandReserve']), FT::ACTION(DRAW, ['n' => 3])),
@@ -906,7 +906,7 @@ abstract class FlowConvertor
       211 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
       212 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
       213 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
-      214 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => 1]],
+      214 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => '1']],
       215 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in each of your Expeditions.'),
         'output' => FT::SEQ(
