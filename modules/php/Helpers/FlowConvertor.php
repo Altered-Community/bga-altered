@@ -361,7 +361,11 @@ abstract class FlowConvertor
       ],
       71 => ['description' => clienttranslate('Reduce my cost by {1}.'), 'output' => ''], // TODO
       72 => ['description' => clienttranslate('If you would <RESUPPLY_INF>, instead look at the top two cards of your deck. Put one in Reserve, and discard the other.'), 'attributes' => ['resupply2' => true]],
-      73 => ['description' => clienttranslate('Characters you control other than me have [TOUGH_1].'), 'output' => ''], // TODO
+      73 => [
+        'description' => clienttranslate('Characters you control other than me have <TOUGH_1>.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicTough' => 'universalCharacter1', 'excludeUniversalTough' => true]
+      ],
       75 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your other Expedition (the one I\'m not in).'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
@@ -558,7 +562,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(DRAW_MANA, []),
       ],
-      112 => ['description' => clienttranslate('Cards your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCardsCost' => 1]],
+      112 => ['description' => clienttranslate('Cards your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCardsCost' => '1']],
       113 => [
         'description' => clienttranslate('You may activate the {j} triggers of up to two target Permanents you control.'),
         'output' => FT::ACTION(TARGET, [
@@ -1076,7 +1080,17 @@ abstract class FlowConvertor
 
     $key = $calculated['type'];
     $node = [];
-    if ($key != 'effectPassive') {
+    if (isset($calculated['noTrigger']) && $calculated['noTrigger'] === true) {
+      // DynamicAttributes wll be used
+      // if it exists, condition must be added at the end of the dynamic attribute
+      if (isset($calculated['triggerConditions'])) {
+        foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
+          if (is_string($attribute)) {
+            $calculated['outputAttributes'][$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
+          }
+        }
+      }
+    } elseif ($key != 'effectPassive') {
       // no natural condition check, we need to insert CheckConditions
       if (isset($calculated['triggerConditions'])) {
         self::insertCheckCondition($calculated['triggerConditions'], $node);
@@ -1111,7 +1125,7 @@ abstract class FlowConvertor
       self::addOutputToNode($calculated['output'], $node);
     }
 
-    // needed for passive effects in reaction to a classical output (171)
+    // needed for passive effects in reaction to a classical output (171 for example)
     if (isset($calculated['passiveEffect'])) {
       if (isset($calculated['output'])) {
         self::addOutputToNode($calculated['output'], $calculated['passiveEffect']);
@@ -1126,24 +1140,26 @@ abstract class FlowConvertor
     if (isset($calculated['outputAttributes'])) {
       $properties = array_merge($properties, $calculated['outputAttributes']);
     }
-    // manage dynamic att
 
-    if (isset($properties[$key])) {
-      // parallel node for non passive effects
-      if ($key != 'effectPassive') {
-        // there is already an effect, check if there is an PAR node, to add the node
-        if (($properties[$key]['type'] ?? '') == NODE_PARALLEL) {
-          $properties[$key]['childs'][] = $node;
+    // dynamic attributes generate empty node
+    if (!empty($node)) {
+      if (isset($properties[$key])) {
+        // parallel node for non passive effects
+        if ($key != 'effectPassive') {
+          // there is already an effect, check if there is an PAR node, to add the node
+          if (($properties[$key]['type'] ?? '') == NODE_PARALLEL) {
+            $properties[$key]['childs'][] = $node;
+          } else {
+            // we add the PAR node
+            $properties[$key] = FT::PAR($properties[$key], $node);
+          }
         } else {
-          // we add the PAR node
-          $properties[$key] = FT::PAR($properties[$key], $node);
+          // PassiveEffects
+          $properties[$key] = array_merge($properties[$key], $node);
         }
       } else {
-        // PassiveEffects
-        $properties[$key] = array_merge($properties[$key], $node);
+        $properties[$key] = $node;
       }
-    } else {
-      $properties[$key] = $node;
     }
 
     if (isset($calculated['outputPassive'])) {
@@ -1168,7 +1184,7 @@ abstract class FlowConvertor
     // debug
     //$properties['calculated'] = $calculated;
 
-    // throw new \feException(print_r($properties));
+    // throw new \feException(print_r($calculated));
     // use calculated to generate the effect in properties
     // if conditionEffect dans condition => noeud SEQ
     // Trigger condition => vrai check condition ! Array
@@ -1243,6 +1259,11 @@ abstract class FlowConvertor
     if (isset($output['attributes'])) {
       $calculated['outputAttributes'] = $output['attributes'];
     }
+    // For No trigger effects, 
+    if (isset($output['noTrigger'])) {
+      $calculated['noTrigger'] = true;
+    }
+
     // manage unique power attributes (tough/gigantic/) awaiting info from GDs
   }
 

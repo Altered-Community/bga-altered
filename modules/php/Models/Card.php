@@ -99,6 +99,7 @@ class Card extends \ALT\Helpers\DB_Model
     'tough' => 'int',
     'dynamicTough' => 'str',
     'excludeUniversalTough' => 'bool',
+    'excludeSelfTough' => 'bool',
     'addRoll' => 'int',
 
     // Dynamic info
@@ -465,7 +466,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     if (in_array($this->getType(), [CHARACTER, TOKEN])) {
       if (!$this->getExcludeUniversalTough()) {
-        $tough += 2 * $this->getPlayer()->countUniversalCharacterTough();
+        $tough += $this->getPlayer()->countUniversalCharacterTough();
       }
     }
     return $tough;

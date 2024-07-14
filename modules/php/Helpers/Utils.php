@@ -259,6 +259,20 @@ abstract class Utils extends \APP_DbObject
         break;
     }
   }
+
+  public static function checkAttributeCondition($attribute, $data, $player, $card)
+  {
+    $attributeData = explode(':', $data);
+    if (count($attributeData) == 1) {
+      return $attributeData[0];
+    } else {
+      // there is a condition after
+      if (Conditions::check(['condition' => $attributeData[1]], $card, [])) {
+        return $attributeData[0];
+      }
+      return  null;
+    }
+  }
 }
 
 function array_uunique($array, $comparator)

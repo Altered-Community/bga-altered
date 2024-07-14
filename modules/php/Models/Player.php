@@ -11,6 +11,8 @@ use ALT\Managers\Meeples;
 use ALT\Core\Globals;
 use ALT\Core\Engine;
 use ALT\Helpers\Collection;
+use ALT\Helpers\Conditions;
+use ALT\Helpers\Utils;
 
 /*
  * Player: all utility functions concerning a player
@@ -450,10 +452,24 @@ class Player extends \ALT\Helpers\DB_Model
     $f = 'getIncreaseOpponent' . ucfirst($type) . 'Cost';
     $cost = 0;
     foreach ($this->getPlayedCards() as $cId => $card) {
-      $cost += $card->$f();
-      $cost += $card->getIncreaseOpponentCardsCost();
-    }
+      $penalty = $card->$f();
+      if (is_int($penalty)) {
+        $cost += $card->$f();
+      } else {
+        if (!is_null(Utils::checkAttributeCondition('tough', $penalty, $this, $card))) {
+          $cost += (int) explode(':', $card->$f())[0];
+        }
+      }
 
+      $penalty =  $card->getIncreaseOpponentCardsCost();
+      if (is_int($penalty)) {
+        $cost += $penalty;
+      } else {
+        if (!is_null(Utils::checkAttributeCondition('tough', $penalty, $this, $card))) {
+          $cost += (int) explode(':', $card->getIncreaseOpponentCardsCost())[0];
+        }
+      }
+    }
     return $cost;
   }
 
@@ -471,11 +487,16 @@ class Player extends \ALT\Helpers\DB_Model
     Globals::setPlayerDecks($allDecks);
   }
 
+
   public function countUniversalCharacterTough()
   {
     return count(
       $this->getPlayedCards()->filter(function ($card) {
-        return $card->getDynamicTough() == 'universalCharacter2';
+        return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter2';
+      })
+    ) * 2 + count(
+      $this->getPlayedCards()->filter(function ($card) {
+        return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter1';
       })
     );
   }

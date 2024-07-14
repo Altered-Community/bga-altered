@@ -192,6 +192,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         $properties['uEffects'][] = array_values($trinity);
       }
     }
+    // throw new \feException(print_r($properties));
     return $properties;
   }
 
