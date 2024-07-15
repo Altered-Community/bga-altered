@@ -266,8 +266,9 @@ abstract class Utils extends \APP_DbObject
     if (count($attributeData) == 1) {
       return $attributeData[0];
     } else {
+      $condArgs = array_slice($attributeData, 1);
       // there is a condition after
-      if (Conditions::check(['condition' => $attributeData[1]], $card, [])) {
+      if (Conditions::check(['condition' => implode(':', $condArgs)], $card, [])) {
         return $attributeData[0];
       }
       return  null;

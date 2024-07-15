@@ -247,12 +247,12 @@ abstract class FlowConvertor
       ],
       43 => ['description' => clienttranslate('Each player may <RESUPPLY_INF>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalResupply'])],
       44 => ['description' => clienttranslate('Put me in Reserve.'), 'output' => FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => ME])],
-      45 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'attributes' => ['dynamicBlockingPower' => 'block']],
+      45 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'noTrigger' => true, 'attributes' => ['dynamicBlockingPower' => 'block']],
       46 => ['description' => clienttranslate('I have <SEASONED>.'), 'attributes' => ['seasoned' => true]],
-      47 => ['description' => clienttranslate('I have <TOUGH_1>.'), 'attributes' => ['dynamicTough' => 'tough1']],
+      47 => ['description' => clienttranslate('I have <TOUGH_1>.'), 'noTrigger' => true, 'attributes' => ['dynamicTough' => 'tough1']],
       48 => ['description' => clienttranslate('If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'), 'attributes' => ['addDice' => 1]],
       49 => ['description' => clienttranslate('If you would roll a die, you may add 1 to its result. (Choose after you see the result.)'), 'attributes' => ['addRoll' => 1]],
-      50 => ['description' => clienttranslate('I have <TOUGH_X>, where X is the number of regions between your Hero and Companion.'), 'attributes' => ['dynamicTough' => 'region']],
+      50 => ['description' => clienttranslate('I have <TOUGH_X>, where X is the number of regions between your Hero and Companion.'), 'noTrigger' => true, 'attributes' => ['dynamicTough' => 'region']],
       51 => ['description' => clienttranslate('<RESUPPLY>.'), 'output' => FT::ACTION(RESUPPLY, []),],
       52 => [
         'description' => clienttranslate('You may return a Spell from your Reserve to your hand.'),
@@ -267,7 +267,7 @@ abstract class FlowConvertor
           ['optional' => true]
         ),
       ],
-      54 => ['description' => clienttranslate('I have <TOUGH_2>.'),  'attributes' => ['dynamicTough' => 'tough2']],
+      54 => ['description' => clienttranslate('I have <TOUGH_2>.'),  'noTrigger' => true, 'attributes' => ['dynamicTough' => 'tough2']],
       56 => ['description' => clienttranslate('I gain 1 boost.'), 'output' => FT::GAIN(ME, BOOST)],
       57 => [
         'description' => clienttranslate('The next Permanent you play this Afternoon costs {1} less.'),
@@ -359,7 +359,7 @@ abstract class FlowConvertor
           'effect' => FT::GAIN(EFFECT, FLEETING)
         ]),
       ],
-      71 => ['description' => clienttranslate('Reduce my cost by {1}.'), 'attributes' => ['dynamicCostReduction' => '1']],
+      71 => ['description' => clienttranslate('Reduce my cost by {1}.'), 'noTrigger' => true, 'attributes' => ['dynamicCostReduction' => '1']],
       72 => ['description' => clienttranslate('If you would <RESUPPLY_INF>, instead look at the top two cards of your deck. Put one in Reserve, and discard the other.'), 'attributes' => ['resupply2' => true]],
       73 => [
         'description' => clienttranslate('Characters you control other than me have <TOUGH_1>.'),
@@ -483,7 +483,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains <ANCHORED.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
       ],
-      95 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => '1']],
+      95 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCharacterCost' => '1']],
       96 => [
         'description' => clienttranslate('Put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
@@ -562,7 +562,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(DRAW_MANA, []),
       ],
-      112 => ['description' => clienttranslate('Cards your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCardsCost' => '1']],
+      112 => ['description' => clienttranslate('Cards your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCardsCost' => '1']],
       113 => [
         'description' => clienttranslate('You may activate the {j} triggers of up to two target Permanents you control.'),
         'output' => FT::ACTION(TARGET, [
@@ -574,7 +574,7 @@ abstract class FlowConvertor
           'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
         ]),
       ],
-      114 => ['description' => clienttranslate('Reduce my cost by {2}.'), 'attributes' => ['dynamicCostReduction' => '2']],
+      114 => ['description' => clienttranslate('Reduce my cost by {2}.'), 'noTrigger' => true, 'attributes' => ['dynamicCostReduction' => '2']],
       115 => [
         'description' => clienttranslate('You may return target Character or Permanent with Hand Cost {5} or less to its owner\'s hand.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 5, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
@@ -665,7 +665,7 @@ abstract class FlowConvertor
           ]
         )])
       ],
-      131 => ['description' => clienttranslate('Your other Expedition (the one I\'m not in) and the Expedition facing it can\'t move forward.'), 'attributes' => ['dynamicOppositeDefender' => 't']], // value is not relevant :)
+      131 => ['description' => clienttranslate('Your other Expedition (the one I\'m not in) and the Expedition facing it can\'t move forward.'), 'noTrigger' => true, 'attributes' => ['dynamicOppositeDefender' => 't']], // value is not relevant :)
       132 => [
         'description' => clienttranslate('You may discard target Permanent.'),
         'output' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
@@ -713,7 +713,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may discard target Character with Hand Cost {4} or more.'),
         'output' => FT::ACTION(TARGET, ['minHandCost' => 4, 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
       ],
-      142 => ['description' => clienttranslate('I am <ETERNAL>.'), 'attributes' => ['dynamicEternal' => '1']],
+      142 => ['description' => clienttranslate('I am <ETERNAL>.'), 'noTrigger' => true, 'attributes' => ['dynamicEternal' => '1']],
       143 => [
         'description' => clienttranslate('Each player discards their hand and their Reserve, then draws three cards.'),
         'output' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllHandReserve']), FT::ACTION(DRAW, ['n' => 3])),
@@ -835,7 +835,7 @@ abstract class FlowConvertor
         ),
       ],
       193 => ['description' => clienttranslate('<AFTER_YOU>.'), 'output' => FT::ACTION(AFTER_YOU, []),],
-      194 => ['description' => clienttranslate('Tokens you control have <GIGANTIC>.'), 'attributes' => ['dynamicGigantic' => 'universalGiganticToken']],
+      194 => ['description' => clienttranslate('Tokens you control have <GIGANTIC>.'), 'noTrigger' => true, 'attributes' => ['dynamicGigantic' => 'universalGiganticToken']],
       195 => [
         'description' => clienttranslate('Roll a die. On a 4+, I gain <ANCHORED>. On a 1-3, I gain 3 boosts.'),
         'output' => FT::ACTION(ROLL_DIE, [
@@ -907,7 +907,7 @@ abstract class FlowConvertor
       211 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
       212 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
       213 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
-      214 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'attributes' => ['increaseOpponentCharacterCost' => '1']],
+      214 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCharacterCost' => '1']],
       215 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in each of your Expeditions.'),
         'output' => FT::SEQ(
@@ -988,7 +988,7 @@ abstract class FlowConvertor
           ]
         )])
       ],
-      226 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'),  'attributes' => ['dynamicBlockingPower' => 'block']],
+      226 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'noTrigger' => true, 'attributes' => ['dynamicBlockingPower' => 'block']],
       228 => [
         'description' => clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
