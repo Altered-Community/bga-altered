@@ -84,6 +84,7 @@ class Card extends \ALT\Helpers\DB_Model
     'defender' => 'bool',
     'dynamicDefender' => 'str',
     'oppositeDefender' => 'bool', // OD_Common_Issitoq
+    'dynamicOppositeDefender' => 'str',
     'eternal' => 'bool',
     'blockingPower' => 'bool',
     'dynamicBlockingPower' => 'str',
@@ -511,6 +512,16 @@ class Card extends \ALT\Helpers\DB_Model
       return true;
     }
     return false;
+  }
+
+  public function isOppositeDefender()
+  {
+    if (($this->properties['oppositeDefender'] ?? false) == true) {
+      return true;
+    }
+
+    $dynamicBlocking = $this->getDynamicOppositeDefender();
+    return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
   }
 
   public function getDynamicGigantic()

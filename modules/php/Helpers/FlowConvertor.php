@@ -665,7 +665,7 @@ abstract class FlowConvertor
           ]
         )])
       ],
-      131 => ['description' => clienttranslate('Your other Expedition (the one I\'m not in) and the Expedition facing it can\'t move forward.'), 'attributes' => ['oppositeDefender' => true]],
+      131 => ['description' => clienttranslate('Your other Expedition (the one I\'m not in) and the Expedition facing it can\'t move forward.'), 'attributes' => ['dynamicOppositeDefender' => 't']], // value is not relevant :)
       132 => [
         'description' => clienttranslate('You may discard target Permanent.'),
         'output' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
