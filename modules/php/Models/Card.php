@@ -67,6 +67,7 @@ class Card extends \ALT\Helpers\DB_Model
     'costHand' => 'int',
     'costReserve' => 'int',
     'costReductionDiscard' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
+    'dynamicCostReduction' => 'str',
 
     'effectPlayed' => 'obj', // Played, no mater from hand or reserve
     'effectHand' => 'obj', // played from hand
@@ -412,12 +413,24 @@ class Card extends \ALT\Helpers\DB_Model
     // TODO: to update in multiplayer
     $additionalCost = Players::getOpponentAdditionalCost($this->getPlayer(), $this->getType());
 
+    $dynamicReduction = $this->getDynamicCostReduction();
+    $dynSplit = explode(':', $dynamicReduction);
+    if (count($dynSplit) > 1) {
+      // we need to test if ok, add change dynamic tough to the value of 0
+      if (!is_null(Utils::checkAttributeCondition('cost', $dynamicReduction, $this->getPlayer(), $this))) {
+        $dynamicReduction = (int) $dynSplit[0];
+      } else {
+        $dynamicReduction = 0;
+      }
+    }
+
+
     switch ($this->getLocation()) {
       case HAND:
-        return $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost;
+        return $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - $dynamicReduction;
         break;
       case RESERVE:
-        return $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost;
+        return $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - $dynamicReduction;
         break;
     }
   }
@@ -444,6 +457,13 @@ class Card extends \ALT\Helpers\DB_Model
 
     $tough = $this->properties['tough'] ?? 0;
     $dynamicTough = $this->getDynamicTough();
+    $dynSplit = explode(':', $dynamicTough);
+    if (count($dynSplit) > 1) {
+      // we need to test if ok, add change dynamic tough to the value of 0
+      if (!is_null(Utils::checkAttributeCondition('tough', $$dynamicTough, $this->getPlayer(), $this))) {
+        $dynamicTough = $dynSplit[0];
+      }
+    }
     switch ($dynamicTough) {
       case '':
         // no dynamic
@@ -463,6 +483,12 @@ class Card extends \ALT\Helpers\DB_Model
             $tough++;
           }
         }
+        break;
+      case 'tough1':
+        $tough = 1;
+        break;
+      case 'tough2':
+        $tough = 2;
         break;
     }
 

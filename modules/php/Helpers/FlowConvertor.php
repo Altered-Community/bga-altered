@@ -249,7 +249,7 @@ abstract class FlowConvertor
       44 => ['description' => clienttranslate('Put me in Reserve.'), 'output' => FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => ME])],
       45 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'attributes' => ['blockingPower' => true]],
       46 => ['description' => clienttranslate('I have <SEASONED>.'), 'attributes' => ['seasoned' => true]],
-      47 => ['description' => clienttranslate('I have <TOUGH_1>.'), 'attributes' => ['tough' => 1]],
+      47 => ['description' => clienttranslate('I have <TOUGH_1>.'), 'attributes' => ['dynamicTough' => 'tough1']],
       48 => ['description' => clienttranslate('If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'), 'attributes' => ['addDice' => 1]],
       49 => ['description' => clienttranslate('If you would roll a die, you may add 1 to its result. (Choose after you see the result.)'), 'attributes' => ['addRoll' => 1]],
       50 => ['description' => clienttranslate('I have <TOUGH_X>, where X is the number of regions between your Hero and Companion.'), 'attributes' => ['dynamicTough' => 'region']],
@@ -267,7 +267,7 @@ abstract class FlowConvertor
           ['optional' => true]
         ),
       ],
-      54 => ['description' => clienttranslate('I have [TOUGH_2].'),  'attributes' => ['tough' => 2]],
+      54 => ['description' => clienttranslate('I have <TOUGH_2>.'),  'attributes' => ['dynamicTough' => 'tough2']],
       56 => ['description' => clienttranslate('I gain 1 boost.'), 'output' => FT::GAIN(ME, BOOST)],
       57 => [
         'description' => clienttranslate('The next Permanent you play this Afternoon costs {1} less.'),
@@ -359,7 +359,7 @@ abstract class FlowConvertor
           'effect' => FT::GAIN(EFFECT, FLEETING)
         ]),
       ],
-      71 => ['description' => clienttranslate('Reduce my cost by {1}.'), 'output' => ''], // TODO
+      71 => ['description' => clienttranslate('Reduce my cost by {1}.'), 'attributes' => ['dynamicCostReduction' => '1']],
       72 => ['description' => clienttranslate('If you would <RESUPPLY_INF>, instead look at the top two cards of your deck. Put one in Reserve, and discard the other.'), 'attributes' => ['resupply2' => true]],
       73 => [
         'description' => clienttranslate('Characters you control other than me have <TOUGH_1>.'),
@@ -574,6 +574,7 @@ abstract class FlowConvertor
           'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
         ]),
       ],
+      114 => ['description' => clienttranslate('Reduce my cost by {2}.'), 'attributes' => ['dynamicCostReduction' => '2']],
       115 => [
         'description' => clienttranslate('You may return target Character or Permanent with Hand Cost {5} or less to its owner\'s hand.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 5, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
