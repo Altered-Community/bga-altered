@@ -414,7 +414,6 @@ class Card extends \ALT\Helpers\DB_Model
 
     // TODO: to update in multiplayer
     $additionalCost = Players::getOpponentAdditionalCost($this->getPlayer(), $this->getType());
-
     $dynamicReduction = $this->getDynamicCostReduction();
     $dynSplit = explode(':', $dynamicReduction);
     if (count($dynSplit) > 1) {
@@ -424,15 +423,21 @@ class Card extends \ALT\Helpers\DB_Model
       } else {
         $dynamicReduction = 0;
       }
+    } else {
+      if ($dynamicReduction == '') {
+        $dynamicReduction = 0;
+      } else {
+        $dynamicReduction = (int) $dynamicReduction;
+      }
     }
 
 
     switch ($this->getLocation()) {
       case HAND:
-        return $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - $dynamicReduction;
+        return $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction;
         break;
       case RESERVE:
-        return $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - $dynamicReduction;
+        return $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction;
         break;
     }
   }
@@ -521,7 +526,10 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $dynamicBlocking = $this->getDynamicOppositeDefender();
-    return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return false;
   }
 
   public function getDynamicGigantic()
@@ -537,7 +545,10 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $dynamicBlocking = $this->getDynamicBlockingPower();
-    return !is_null(Utils::checkAttributeCondition('eternal', $dynamicBlocking, $this->getPlayer(), $this));
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('eternal', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return false;
   }
 
 
