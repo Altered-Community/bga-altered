@@ -86,6 +86,7 @@ class Card extends \ALT\Helpers\DB_Model
     'oppositeDefender' => 'bool', // OD_Common_Issitoq
     'eternal' => 'bool',
     'blockingPower' => 'bool',
+    'dynamicBlockingPower' => 'str',
     'increaseOpponentCardsCost' => 'int',
     'increaseOpponentCharacterCost' => 'int',
     'increaseOpponentSpellCost' => 'int',
@@ -510,6 +511,22 @@ class Card extends \ALT\Helpers\DB_Model
       return true;
     }
     return false;
+  }
+
+  public function getDynamicGigantic()
+  {
+    return Utils::checkAttributeCondition('eternal', ($this->properties['dynamicGigantic'] ?? ''), $this->getPlayer(), $this);
+  }
+
+  public function isBlockingPower()
+  {
+    $blocking = $this->properties['blockingPower'] ?? false;
+    if ($blocking === true) {
+      return true;
+    }
+
+    $dynamicBlocking = $this->getDynamicBlockingPower();
+    return !is_null(Utils::checkAttributeCondition('eternal', $dynamicBlocking, $this->getPlayer(), $this));
   }
 
 

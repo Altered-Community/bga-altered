@@ -247,7 +247,7 @@ abstract class FlowConvertor
       ],
       43 => ['description' => clienttranslate('Each player may <RESUPPLY_INF>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalResupply'])],
       44 => ['description' => clienttranslate('Put me in Reserve.'), 'output' => FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => ME])],
-      45 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'attributes' => ['blockingPower' => true]],
+      45 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'attributes' => ['dynamicBlockingPower' => 'block']],
       46 => ['description' => clienttranslate('I have <SEASONED>.'), 'attributes' => ['seasoned' => true]],
       47 => ['description' => clienttranslate('I have <TOUGH_1>.'), 'attributes' => ['dynamicTough' => 'tough1']],
       48 => ['description' => clienttranslate('If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'), 'attributes' => ['addDice' => 1]],
@@ -835,7 +835,7 @@ abstract class FlowConvertor
         ),
       ],
       193 => ['description' => clienttranslate('<AFTER_YOU>.'), 'output' => FT::ACTION(AFTER_YOU, []),],
-      194 => ['description' => clienttranslate('Tokens you control have [GIGANTIC].'), 'attributes' => ['dynamicGigantic' => 'universalGiganticToken']],
+      194 => ['description' => clienttranslate('Tokens you control have <GIGANTIC>.'), 'attributes' => ['dynamicGigantic' => 'universalGiganticToken']],
       195 => [
         'description' => clienttranslate('Roll a die. On a 4+, I gain <ANCHORED>. On a 1-3, I gain 3 boosts.'),
         'output' => FT::ACTION(ROLL_DIE, [
@@ -988,7 +988,7 @@ abstract class FlowConvertor
           ]
         )])
       ],
-      226 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'),  'attributes' => ['blockingPower' => true]],
+      226 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'),  'attributes' => ['dynamicBlockingPower' => 'block']],
       228 => [
         'description' => clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
