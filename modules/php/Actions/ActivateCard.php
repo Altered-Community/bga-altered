@@ -108,6 +108,7 @@ class ActivateCard extends \ALT\Models\Action
     if (is_null($flowTree)) {
       return '';
     }
+    // throw new \feException(print_r($flowTree->toArray()));
 
     $flowDesc = $flowTree->getDescription();
     return [
