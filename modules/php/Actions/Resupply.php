@@ -51,6 +51,7 @@ class Resupply extends \ALT\Models\Action
   {
     $n = $this->getArg('n');
     $player = $this->getPlayer();
+    $notResupply = false;
 
     $source = $this->ctx->getSource() ?? null;
     $sourceId = $this->ctx->getSourceId() ?? null;
@@ -60,6 +61,7 @@ class Resupply extends \ALT\Models\Action
 
     // manage of AX_Rare_TheOuroborosLyraBastion
     if ($player->getResupply2()) {
+      $notResupply = true;
       // draw 2, 1 goes to reserve, the other one is discarded
       $drawn = $player->draw(
         2,
@@ -109,7 +111,7 @@ class Resupply extends \ALT\Models\Action
         clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)')
       );
     }
-    $this->checkAfterListeners($player, ['draw' => $n]);
+    $this->checkAfterListeners($player, ['draw' => $n, 'notResupply' => $notResupply]);
 
     $this->resolveAction(null, true);
   }

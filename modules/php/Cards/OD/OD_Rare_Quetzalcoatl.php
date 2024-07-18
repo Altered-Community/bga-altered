@@ -39,7 +39,7 @@ class OD_Rare_Quetzalcoatl extends \ALT\Models\Card
           ]),
         ],
         'Resupply' => [
-          'condition' => 'isOpponentDraw',
+          'conditions' => ['isOpponentDraw', 'realResupply'],
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',

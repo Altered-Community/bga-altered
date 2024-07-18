@@ -518,6 +518,11 @@ abstract class Conditions
     return self::isNotMe($card, $event) && ($event['location'] ?? null) != MANA;
   }
 
+  public static function realResupply($card, $event)
+  {
+    return ($event['notResupply'] ?? false) == false;
+  }
+
 
 
   /**********************************
