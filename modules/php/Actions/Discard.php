@@ -246,6 +246,12 @@ class Discard extends \ALT\Models\Action
         }
       }
 
+      // we add the source to the listening cards if it's not in the storms anymore
+      // linked to effect 171
+      if (!in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
+        $cardIds[] = $this->getSourceId();
+      }
+
       // Check listener
       $this->checkAfterListeners($player, [
         'discardCard' => true,
@@ -257,7 +263,7 @@ class Discard extends \ALT\Models\Action
         'sourceId' => $this->getSourceId(),
       ]);
     }
-
+    // throw new \feException(print_r(Globals::getEngine()));
     // Notify deleting meeples first
     if (!empty($deletedMeeples)) {
       Notifications::silentKill($deletedMeeples, []);

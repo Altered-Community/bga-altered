@@ -24,6 +24,7 @@ abstract class Conditions
         $conditions[] = $power['condition'];
       }
     }
+
     foreach ($conditions as $cond) {
       $t = explode(':', $cond);
       $condFct = $t[0];
