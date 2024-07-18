@@ -22,7 +22,7 @@ abstract class FlowConvertor
       12 => ['description' => clienttranslate('When I leave the Expedition zone —'), 'trigger' => 'LeaveExpedition'],
       13 => ['description' => clienttranslate('When a Character you control gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'isCharacterBoostedAndUntap'], // condition to check
       14 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
-      15 => ['description' => clienttranslate('When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'conditions' => ['isCardPlayed:::true', 'isCardPlayedWithZeroStat']],
+      15 => ['description' => clienttranslate('When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardPlayed:::true', 'isCardPlayedWithZeroStat']],
       16 => ['description' => clienttranslate('When you play a Permanent —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:permanent'],
       17 => ['description' => clienttranslate('At Dusk —'), 'trigger' => 'BeforeDusk'],
       19 => ['description' => clienttranslate('When another non-token Character joins your Expeditions —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:characterOnly:::true'],
@@ -34,7 +34,7 @@ abstract class FlowConvertor
       25 => ['description' => clienttranslate('When you create a token —'), 'trigger' => 'InvokeToken', 'condition' => 'isMe'],
       26 => ['description' => clienttranslate('When you roll one or more dice —'), 'trigger' => 'RollDie', 'condition' => 'isMe'],
       27 => ['description' => clienttranslate('When you play a Spell —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:spell'],
-      28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'conditions' => ['isAfternoon', 'hasSameOwner', 'isFromReserve']],
+      28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'condition' => ['isAfternoon', 'hasSameOwner', 'isFromReserve']],
       192 => ['description' => clienttranslate('{D}'), 'trigger' => '', 'type' => 'effectSupport'],
       231 => ['description' => clienttranslate('When I\'m sacrificed —'),  'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
@@ -72,7 +72,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'output' => 'OUTPUT']], // to check
+        'passiveEffect' => ['Discard' => ['condition' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'output' => 'OUTPUT']], // to check
       ],
       172 => [
         'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Spell:'),
@@ -87,7 +87,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['conditions' => ['isSource', 'isDiscarded:hand:reserve:spell'], 'output' => 'OUTPUT']], // to check
+        'passiveEffect' => ['Discard' => ['condition' => ['isSource', 'isDiscarded:hand:reserve:spell'], 'output' => 'OUTPUT']], // to check
       ],
       173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'hasControl::4'],
       175 => [
@@ -1209,7 +1209,7 @@ abstract class FlowConvertor
       $calculated['trigger'] = $trigger['trigger'];
     }
     if (isset($trigger['condition'])) {
-      $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), [$trigger['condition']]);
+      $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), is_array($trigger['condition']) ? $trigger['condition'] : [$trigger['condition']]);
     }
     if (isset($trigger['description'])) {
       $calculated['triggerDescription'] = $trigger['description'];
@@ -1228,7 +1228,7 @@ abstract class FlowConvertor
     }
 
     if (isset($conditions['condition'])) {
-      $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), [$conditions['condition']]);
+      $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), is_array($conditions['condition']) ? $conditions['condition'] : [$conditions['condition']]);
     }
 
     if (isset($conditions['effect'])) {
