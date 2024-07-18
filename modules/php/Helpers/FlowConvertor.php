@@ -239,9 +239,8 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may have target Character other than me lose <FLEETING>.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
-          'targetPlayer' => ME,
           'excludeSelf' => true,
-          'targetLocation' => [HAND],
+          'targetLocation' => STORMS,
           'effect' => FT::LOOSE(EFFECT, FLEETING),
         ]),
       ],
