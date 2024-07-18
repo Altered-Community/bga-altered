@@ -467,7 +467,7 @@ class Card extends \ALT\Helpers\DB_Model
     $dynSplit = explode(':', $dynamicTough);
     if (count($dynSplit) > 1) {
       // we need to test if ok, add change dynamic tough to the value of 0
-      if (!is_null(Utils::checkAttributeCondition('tough', $$dynamicTough, $this->getPlayer(), $this))) {
+      if (!is_null(Utils::checkAttributeCondition('tough', $dynamicTough, $this->getPlayer(), $this))) {
         $dynamicTough = $dynSplit[0];
       }
     }
