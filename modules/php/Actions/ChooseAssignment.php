@@ -249,8 +249,8 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       if (!empty($effects)) {
-        $effects = Utils::tagTree(['type' => NODE_PARALLEL, 'childs' => $effects], ['sourceId' => $card->getId()]);
-        $this->insertAsChild($effects);
+        $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+        $this->pushParallelChilds($effects['childs']);
       }
     } else {
       Notifications::message(clienttranslate('Effects are not triggered, due to an effect in the opponent\'s expedition'), []);
