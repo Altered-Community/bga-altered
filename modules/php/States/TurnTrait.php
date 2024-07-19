@@ -253,17 +253,20 @@ trait TurnTrait
     Globals::setStormMoves([]);
     Globals::setPlayedForFree(false);
 
-    $this->initCustomDefaultTurnOrder('nightCleanup', 'stNightCleanup', 'stAfterNightCleanup');
+    // We initiate a turn order for only 1 player as everything will follow from those
+    $this->initCustomTurnOrder('nightCleanup', [Players::getActiveId()],  'stNightCleanup', 'stAfterNightCleanup');
   }
 
   function stNightCleanup()
   {
-    $player = Players::getActive();
+    // $player = Players::getActive();
 
     // Initiate engine in case some cards are reacting
     Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
     // Move cards / remove tokens => possible reaction of cards moving to reserve or being discarded
-    $player->nightCleanup();
+    foreach (Players::getAll() as $pId => $player) {
+      $player->nightCleanup();
+    }
     Engine::proceed();
   }
 

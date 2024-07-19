@@ -131,7 +131,8 @@ class Discard extends \ALT\Models\Action
   {
     $force = $this->getArg('force');
     // Nothing automatic if player can pass
-    if ($this->getArg('canPass') && !$force) {
+    // if ($this->getArg('canPass') && !$force) {
+    if ($this->getArg('canPass')) {
       return;
     }
 
