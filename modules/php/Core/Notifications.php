@@ -832,7 +832,7 @@ class Notifications
       $data['displayLocation'] =
         $data['displayLocation'] == STORM_LEFT
         ? clienttranslate('Hero\'s expedition')
-        : clienttranslate('Companion\'s expedition');
+        : ($data['displayLocation'] == LANDMARK ? clienttranslate('Landmark\'s zone') : clienttranslate('Companion\'s expedition'));
     }
 
     if (isset($data['card'])) {
