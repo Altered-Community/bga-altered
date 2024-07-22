@@ -52,6 +52,7 @@ class Card extends \ALT\Helpers\DB_Model
     'supportDesc' => 'str',
     'supportIcon' => 'str',
     'artist' => 'str',
+    'setIcon' => 'str',
 
     'rarity' => 'int',
     'asset' => 'str',

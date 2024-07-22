@@ -320,7 +320,7 @@ const ASLEEP = 'asleep';
  *********************/
 const API_URL = 'https://api.equinox-ccg.io';
 
-const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas'];
+const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas', 'setIcon', 'flavorText', 'asset'];
 
 /******************
  ****** STATS ******

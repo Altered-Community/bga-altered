@@ -52,8 +52,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];
     $rarity = $rarities[$p['rarity']] ?? 'Common';
-    // if ($rarity == 'Unique')
-    //   throw new \feException(print_r($p));
+
     $slug = slugify($p['name']);
     $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . $rarity . '_' . $slug;
 
@@ -83,12 +82,47 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function getCardClass($uid)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    $ks = explode('_', $uid)[1] == 'COREKS';
+
+    if ($ks) {
+      $expUid = explode('_', $uid);
+      $expUid[1] = 'CORE';
+      $coreUid = implode('_', $expUid);
+      $expUid[1] = 'COREKS';
+      if (count($expUid) == 6) {
+        unset($expUid[6]);
+      }
+      unset($expUid[5]);
+      $altUid = implode('_', $expUid);
+    }
+
     if (!isset(MAP_REFS_CLASSES[$uid])) {
-      throw new \BgaVisibleSystemException('This card is not implemented ' . $uid);
+      if (!$ks || !isset(MAP_REFS_CLASSES[$coreUid])) {
+        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid);
+      } elseif ($ks) {
+        $uid = $coreUid;
+      }
     }
     $cInfo = explode('/', MAP_REFS_CLASSES[$uid]);
     $className = "\\ALT\\Cards\\$cInfo[0]\\$cInfo[1]";
-    return new $className(null);
+    $row = $ks == true ? ['properties' => ['setIcon' => 'ks']] : null;
+    // throw new \feException($className);
+    $cardO = new $className($row);
+    if ($ks) {
+      $cardO->setSetIcon('ks');
+      if (isset(self::getAltArt()[$altUid])) {
+        $cardO->setFlavorText(self::getAltArt()[$altUid]['flavorText']);
+        if ($cardO->getRarity() == RARITY_RARE) {
+          $cardO->setAsset($altUid . '_R');
+        } elseif ($cardO->getRarity() == RARITY_COMMON) {
+          $cardO->setAsset($altUid . '_C');
+        } else {
+          $cardO->setAsset($altUid . '_U');
+        }
+      }
+    }
+    return $cardO;
+    // return new $className($row);
   }
 
   public static function generateRandomDeck($player)
@@ -473,6 +507,24 @@ class Cards extends \ALT\Helpers\CachedPieces
     //   'childs' => $childs,
     // ];
     return $childs;
+  }
+
+  public static function getAltArt()
+  {
+    return [
+      'ALT_COREKS_B_AX_07' => ['flavorText' => clienttranslate('These nameless workers are crucial to the Foundry\'s day-to-day operations.')],
+      'ALT_COREKS_B_AX_18' => ['flavorText' => clienttranslate('"Down from the skies, I come to check your rage."')],
+      'ALT_COREKS_B_BR_07' => ['flavorText' => clienttranslate('"Gotta go fast!"')],
+      'ALT_COREKS_B_BR_22' => ['flavorText' => clienttranslate('To attract good fortune, spend new coin on an old friend, share an old pleasure with a new friend, and lift up the heart of a true friend by writing his name on the wings of a dragon.')],
+      'ALT_COREKS_B_LY_09' => ['flavorText' => clienttranslate('"Never trust the Tanuki twice." - Lyra proverb')],
+      'ALT_COREKS_B_LY_21' => ['flavorText' => clienttranslate('"My fourth Unique card? No idea what you\'re talking about."')],
+      'ALT_COREKS_B_MU_08' => ['flavorText' => clienttranslate('Little fella\'s got so mushroom in his heart.')],
+      'ALT_COREKS_B_MU_09' => ['flavorText' => clienttranslate('We look on with benevolent eyes, not knowing what its future holds.')],
+      'ALT_COREKS_B_OR_20' => ['flavorText' => clienttranslate('A soul for a soul.')],
+      'ALT_COREKS_B_OR_21' => ['flavorText' => clienttranslate('"I think you have forgotten something. We keep a merry inn here in the greenwood, but whoever becomes our guest must pay his reckoning."')],
+      'ALT_COREKS_B_YZ_11' => ['flavorText' => clienttranslate('The real scarecrow is not who you think.')],
+      'ALT_COREKS_B_YZ_17' => ['flavorText' => clienttranslate('In the abyssal depths, no one can hear you scream.')],
+    ];
   }
 
   /**
