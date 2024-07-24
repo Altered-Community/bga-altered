@@ -43,6 +43,14 @@ class Preferences extends \ALT\Helpers\DB_Manager
           \ALT\OPTION_CONFIRM_DISABLED => ['name' => totranslate('Disabled')],
         ],
       ],
+      \ALT\OPTION_PLAYER_UNDO => [
+        'name' => totranslate('Undo:'),
+        'needReload' => false,
+        'values' => [
+          \ALT\OPTION_PLAYER_UNDO_ENABLED => ['name' => totranslate('Enabled')],
+          \ALT\OPTION_PLAYER_UNDO_DISABLED => ['name' => totranslate('Disabled')],
+        ],
+      ],
     ];
   }
 

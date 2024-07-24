@@ -100,17 +100,17 @@ class Engine
   public static function proceed($confirmedPartial = false, $isUndo = false)
   {
     $node = self::$tree->getNextUnresolved();
+    $player = Players::getActive();
 
     // Are we done ?
     if ($node == null) {
-      $player = Players::getActive();
       $skipped = Globals::getSkippedPlayers();
       // if card was played or action passed, we are done
       if (
         (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array($player->getId(), $skipped))) ||
         Globals::getDayPhase() === false
       ) {
-        if (Globals::getEngineChoices() == 0 || !Globals::isUndo()) {
+        if (Globals::getEngineChoices() == 0 || !Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) {
           self::confirm(); // No choices were made => auto confirm
         } else {
           // Confirm/restart
@@ -152,7 +152,7 @@ class Engine
     }
 
     if (
-      Globals::isUndo() &&
+      (Globals::isUndo() || (!Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_ENABLED)) &&
       $pId != null &&
       $oldPId != $pId &&
       (!$node->isIndependent(Players::get($pId)) && Globals::getEngineChoices() != 0) &&
@@ -185,7 +185,7 @@ class Engine
         count($choices) == 1 &&
         count($allChoices) == 1 &&
         array_keys($allChoices) == array_keys($choices) &&
-        (!Globals::isUndo() ||
+        ((!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) ||
           !$choices[$id]['irreversibleAction'] ||
           (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
       ) {

@@ -229,9 +229,9 @@ trait EngineTrait
 
   public function stConfirmTurn()
   {
-    // Check user preference to bypass if DISABLED is picked
+    // Check user preference to bypass if DISABLED is picked or if undo is disabled
     $pref = Players::getActive()->getPref(OPTION_CONFIRM);
-    if ($pref == OPTION_CONFIRM_DISABLED) {
+    if ($pref == OPTION_CONFIRM_DISABLED || Players::getActive()->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED) {
       $this->actConfirmTurn(true);
     }
   }

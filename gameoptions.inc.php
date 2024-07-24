@@ -72,4 +72,12 @@ $game_preferences = [
       OPTION_CONFIRM_DISABLED => ['name' => totranslate('Disabled')],
     ],
   ],
+  OPTION_PLAYER_UNDO => [
+    'name' => totranslate('Undo:'),
+    'needReload' => false,
+    'values' => [
+      OPTION_PLAYER_UNDO_ENABLED => ['name' => totranslate('Enabled')],
+      OPTION_PLAYER_UNDO_DISABLED => ['name' => totranslate('Disabled')],
+    ],
+  ],
 ];
