@@ -47,7 +47,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $rarities = [
       RARITY_COMMON => 'Common',
       RARITY_RARE => 'Rare',
-      RARITY_UNIQUE => 'Unique'
+      RARITY_UNIQUE => 'Unique',
     ];
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];
@@ -128,7 +128,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function generateRandomDeck($player)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
-    require_once(dirname(__FILE__) . '/../Cards/unique.php');
+    require_once dirname(__FILE__) . '/../Cards/unique.php';
 
     $faction = FACTIONS[array_rand(FACTIONS)];
     $deckContent = [];
@@ -164,7 +164,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       }
       $deckContent[] = [
         'card' => ['properties' => $properties],
-        'n' => 1
+        'n' => 1,
       ];
       $i++;
     }
@@ -186,7 +186,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     $subtypes = [];
     $typeline = ['Character'];
 
-    foreach ($unique['cardSubTypes'] as $v => $sub) {
+    foreach ($unique['cardSubTypes'] ?? [] as $v => $sub) {
+      // ?? [] is temp!
       $subtypes[] = constant($sub['reference']);
       $typeline[] = $sub['name'];
     }
@@ -202,7 +203,10 @@ class Cards extends \ALT\Helpers\CachedPieces
     // add effects
     $properties['uEffects'] = [];
     foreach ($unique['cardElements'] as $i => $cardElement) {
-      if ($cardElement['cardElementType']['reference'] != 'MAIN_EFFECT'  && $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT') {
+      if (
+        $cardElement['cardElementType']['reference'] != 'MAIN_EFFECT' &&
+        $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT'
+      ) {
         continue;
       }
       foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
@@ -250,7 +254,25 @@ class Cards extends \ALT\Helpers\CachedPieces
     $card = $cardO->jsonSerialize()['properties'];
     $card['rarity'] = RARITY_UNIQUE;
     $card['asset'] = substr($card['asset'], 0, strlen($card['asset']) - 1) . 'U';
-    foreach (['effectDesc', 'supportDesc', 'supportIcon', 'effectHand', 'effectReserve', 'effectPlayed', 'effectPassive', 'gigantic', 'defender', 'oppositeDefender', 'eternal', 'dynamicDefender', 'dynamicTough', 'tough'] as $eff) {
+    foreach (
+      [
+        'effectDesc',
+        'supportDesc',
+        'supportIcon',
+        'effectHand',
+        'effectReserve',
+        'effectPlayed',
+        'effectPassive',
+        'gigantic',
+        'defender',
+        'oppositeDefender',
+        'eternal',
+        'dynamicDefender',
+        'dynamicTough',
+        'tough',
+      ]
+      as $eff
+    ) {
       if (isset($card[$eff])) {
         unset($card[$eff]);
       }
@@ -349,7 +371,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       'nbr' => 1,
       'properties' => $deckContent[HERO]['card']['properties'],
     ];
-    $faction =  $deckContent[HERO]['card']['properties']['faction'];
+    $faction = $deckContent[HERO]['card']['properties']['faction'];
     $location = 'deck-API';
     foreach ($deckContent as $cardInfo) {
       $card = new Card($cardInfo['card']);
@@ -512,16 +534,28 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function getAltArt()
   {
     return [
-      'ALT_COREKS_B_AX_07' => ['flavorText' => clienttranslate('These nameless workers are crucial to the Foundry\'s day-to-day operations.')],
+      'ALT_COREKS_B_AX_07' => [
+        'flavorText' => clienttranslate('These nameless workers are crucial to the Foundry\'s day-to-day operations.'),
+      ],
       'ALT_COREKS_B_AX_18' => ['flavorText' => clienttranslate('"Down from the skies, I come to check your rage."')],
       'ALT_COREKS_B_BR_07' => ['flavorText' => clienttranslate('"Gotta go fast!"')],
-      'ALT_COREKS_B_BR_22' => ['flavorText' => clienttranslate('To attract good fortune, spend new coin on an old friend, share an old pleasure with a new friend, and lift up the heart of a true friend by writing his name on the wings of a dragon.')],
+      'ALT_COREKS_B_BR_22' => [
+        'flavorText' => clienttranslate(
+          'To attract good fortune, spend new coin on an old friend, share an old pleasure with a new friend, and lift up the heart of a true friend by writing his name on the wings of a dragon.'
+        ),
+      ],
       'ALT_COREKS_B_LY_09' => ['flavorText' => clienttranslate('"Never trust the Tanuki twice." - Lyra proverb')],
       'ALT_COREKS_B_LY_21' => ['flavorText' => clienttranslate('"My fourth Unique card? No idea what you\'re talking about."')],
       'ALT_COREKS_B_MU_08' => ['flavorText' => clienttranslate('Little fella\'s got so mushroom in his heart.')],
-      'ALT_COREKS_B_MU_09' => ['flavorText' => clienttranslate('We look on with benevolent eyes, not knowing what its future holds.')],
+      'ALT_COREKS_B_MU_09' => [
+        'flavorText' => clienttranslate('We look on with benevolent eyes, not knowing what its future holds.'),
+      ],
       'ALT_COREKS_B_OR_20' => ['flavorText' => clienttranslate('A soul for a soul.')],
-      'ALT_COREKS_B_OR_21' => ['flavorText' => clienttranslate('"I think you have forgotten something. We keep a merry inn here in the greenwood, but whoever becomes our guest must pay his reckoning."')],
+      'ALT_COREKS_B_OR_21' => [
+        'flavorText' => clienttranslate(
+          '"I think you have forgotten something. We keep a merry inn here in the greenwood, but whoever becomes our guest must pay his reckoning."'
+        ),
+      ],
       'ALT_COREKS_B_YZ_11' => ['flavorText' => clienttranslate('The real scarecrow is not who you think.')],
       'ALT_COREKS_B_YZ_17' => ['flavorText' => clienttranslate('In the abyssal depths, no one can hear you scream.')],
     ];
