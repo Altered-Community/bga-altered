@@ -241,6 +241,7 @@ abstract class FlowConvertor
           'targetType' => [CHARACTER, TOKEN],
           'excludeSelf' => true,
           'targetLocation' => STORMS,
+          'upTo' => true,
           'effect' => FT::LOOSE(EFFECT, FLEETING),
         ]),
       ],
