@@ -27,6 +27,8 @@ function slugify($text)
 
 class Cards extends \ALT\Helpers\CachedPieces
 {
+  use \ALT\States\SetupTrait; // temp for API
+
   protected static $table = 'cards';
   protected static $prefix = 'card_';
   protected static $customFields = ['player_id', 'properties'];
@@ -79,21 +81,38 @@ class Cards extends \ALT\Helpers\CachedPieces
     }
   }
 
+  public static function isKS($uid)
+  {
+    return explode('_', $uid)[1] == 'COREKS';
+  }
+
+  public static function getAltUid($uid)
+  {
+    $expUid = explode('_', $uid);
+    $expUid[1] = 'COREKS';
+    if (count($expUid) == 7) {
+      unset($expUid[6]);
+    }
+    unset($expUid[5]);
+    $altUid = implode('_', $expUid);
+    return $altUid;
+  }
+
+  public static function getCoreUid($uid)
+  {
+    $expUid = explode('_', $uid);
+    $expUid[1] = 'CORE';
+    $coreUid = implode('_', $expUid);
+    return $coreUid;
+  }
+
   public static function getCardClass($uid)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
-    $ks = explode('_', $uid)[1] == 'COREKS';
-
+    $ks = self::isKS($uid);
     if ($ks) {
-      $expUid = explode('_', $uid);
-      $expUid[1] = 'CORE';
-      $coreUid = implode('_', $expUid);
-      $expUid[1] = 'COREKS';
-      if (count($expUid) == 6) {
-        unset($expUid[6]);
-      }
-      unset($expUid[5]);
-      $altUid = implode('_', $expUid);
+      $coreUid = self::getCoreUid($uid);
+      $altUid = self::getAltUid($uid);
     }
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {
@@ -129,6 +148,10 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
     require_once dirname(__FILE__) . '/../Cards/unique.php';
+    require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
+
+
+    $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
 
     $faction = FACTIONS[array_rand(FACTIONS)];
     $deckContent = [];
@@ -156,10 +179,15 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     for ($u = 0; $u < 5; $u++) {
       // maybe to reenable later
+      // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
       // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
-      $properties = self::generateUnique(UNIQUES['hydra:member'][array_rand(UNIQUES['hydra:member'])]);
+      $cardId = uniqueID[array_rand(uniqueID)];
+      $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
+      // throw new \feException(print_r($uniqueCard));
+
+      $properties = self::generateUnique($uniqueCard);
       if (is_null($properties)) {
-        $u--;
+        // $u--;
         continue;
       }
       $deckContent[] = [
@@ -176,10 +204,26 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     $properties = [];
     $properties['uid'] = $unique['reference'];
+    $uid = $properties['uid'];
     $properties['rarity'] = RARITY_UNIQUE;
+
     $asset = explode('_', $unique['reference']);
     unset($asset[count($asset) - 1]);
     $properties['asset'] = implode('_', $asset);
+    if (self::isKS($uid)) {
+      $properties['setIcon'] = 'ks';
+
+      $altUid = self::getAltUid($uid);
+      // ALT_COREKS_B_YZ_04_4451
+      var_dump($uid);
+      var_dump($altUid);
+      if (isset(self::getAltArt()[$altUid])) {
+        $properties['flavorText'] = self::getAltArt()[$altUid]['flavorText'];
+        $properties['asset']  = $altUid . '_U';
+      } else {
+        $properties['asset']  = self::getCoreUid($altUid) . '_U';
+      }
+    }
     $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
     $properties['name'] = $unique['name'];
     $properties['type'] = constant($unique['cardType']['reference']);
@@ -254,25 +298,23 @@ class Cards extends \ALT\Helpers\CachedPieces
     $card = $cardO->jsonSerialize()['properties'];
     $card['rarity'] = RARITY_UNIQUE;
     $card['asset'] = substr($card['asset'], 0, strlen($card['asset']) - 1) . 'U';
-    foreach (
-      [
-        'effectDesc',
-        'supportDesc',
-        'supportIcon',
-        'effectHand',
-        'effectReserve',
-        'effectPlayed',
-        'effectPassive',
-        'gigantic',
-        'defender',
-        'oppositeDefender',
-        'eternal',
-        'dynamicDefender',
-        'dynamicTough',
-        'tough',
-      ]
-      as $eff
-    ) {
+    foreach ([
+      'effectDesc',
+      'supportDesc',
+      'supportIcon',
+      'effectHand',
+      'effectReserve',
+      'effectPlayed',
+      'effectPassive',
+      'gigantic',
+      'defender',
+      'oppositeDefender',
+      'eternal',
+      'dynamicDefender',
+      'dynamicTough',
+      'tough',
+    ]
+      as $eff) {
       if (isset($card[$eff])) {
         unset($card[$eff]);
       }

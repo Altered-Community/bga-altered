@@ -43,8 +43,10 @@ trait SetupTrait
     $secret = $params['secret'] ?? '';
     $token = $params['token'] ?? '';
     $deckId = $params['deckId'] ?? '';
+    $cardId = $params['cardId'] ?? '';
     $curl = curl_init();
-    $baseUrl = 'https://api.equinox-ccg.io';
+    // $baseUrl = 'https://api.equinox-ccg.io';
+    $baseUrl = 'https://api.altered.gg';
     $setup = [
       CURLOPT_URL => $baseUrl . '/login',
       CURLOPT_RETURNTRANSFER => true,
@@ -70,14 +72,36 @@ trait SetupTrait
         $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
         $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
         break;
+      case 'BGALogin':
+        $setup[CURLOPT_URL] = $baseUrl . '/login';
+        $setup[CURLOPT_POSTFIELDS] =
+          '{
+                "email": "' .
+          'bga@equinox.fr' .
+          '",
+                "password": "' .
+          'Q39jXhb7E6HnZEbc' .
+          '"
+            }';
+        $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
+        $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
+        break;
       case 'deckList':
+        // token of the player
         $setup[CURLOPT_URL] = $baseUrl . '/deck_user_lists/?isLegal=true';
         $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
         $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
         // throw new \feException(print_r($setup));
         break;
       case 'deck':
+        // token of the player
         $setup[CURLOPT_URL] = $baseUrl . $deckId;
+        $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
+        $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
+        break;
+      case 'card':
+        // BGA token
+        $setup[CURLOPT_URL] = $baseUrl . '/cards/' . $cardId;
         $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
         $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
         break;
@@ -90,9 +114,9 @@ trait SetupTrait
 
   function connectToAPI($user, $secret)
   {
-    return 12345;
+    // return 12345;
     // TODO: uncomment later on
-    // $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
+    $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
     // $response = self::masterNodeRequest('getGameSpecificMetaInfos', [
     //   'game' => 'alter' . 'ed',
     //   'mode' => 'login',
@@ -108,7 +132,7 @@ trait SetupTrait
 
   function updateAPIDeckList($pId, $token)
   {
-    // $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
+    $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
     // $decks = self::masterNodeRequest('getGameSpecificMetaInfos', [
     //   'game' => 'alter' . 'ed',
     //   'mode' => 'deckList',
@@ -116,7 +140,7 @@ trait SetupTrait
     // ]);
 
     // TODO: to comment when API
-    require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
+    // require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
 
     // END TODO
 
@@ -139,7 +163,9 @@ trait SetupTrait
 
   function getAPIDeckContent($token, $deckId)
   {
-    // $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
+    $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
+    $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
+
     // $deck = self::masterNodeRequest('getGameSpecificMetaInfos', [
     //   'game' => 'alter' . 'ed',
     //   'mode' => 'deck',
@@ -148,21 +174,22 @@ trait SetupTrait
     // ]);
 
     // TODO: remove when API
-    require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
-    $deck = $deckInfos;
+    // require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
+    // $deck = $deckInfos;
     // END TODO
     $deckContent = [];
     $deckContent[HERO] = ['card' => Cards::getCardClass($deck['alterator']['reference']), 'n' => 1];
     foreach (['character', 'spell', 'permanent'] as $type) {
       foreach ($deck['deckCardsByType'][$type]['deckUserListCard'] ?? [] as $c) {
         if ($c['card']['rarity']['reference'] == 'UNIQUE') {
-          if (is_null(Cards::generateUnique($c['card']))) {
+          $uniqueCard = $this->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']])['hydra:member'][0];
+          if (is_null(Cards::generateUnique($uniqueCard))) {
             continue; // TODO: remove
             throw new \BgaVisibleSystemException(
               clienttranslate('This unique has an unimplemented power' . $c['card']['reference'])
             );
           }
-          $deckContent[] = ['card' => ['properties' => Cards::generateUnique($c['card'])], 'n' => $c['quantity']];
+          $deckContent[] = ['card' => ['properties' => Cards::generateUnique($uniqueCard)], 'n' => $c['quantity']];
         } else {
           $deckContent[] = ['card' => Cards::getCardClass($c['card']['reference']), 'n' => $c['quantity']];
         }
