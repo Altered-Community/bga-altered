@@ -151,7 +151,11 @@ class Cards extends \ALT\Helpers\CachedPieces
     require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
 
-    $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
+    // $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
+    $BGAToken = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
+      'game' => 'alter' . 'ed',
+      'mode' => 'BGALogin',
+    ])['token'];
 
     $faction = FACTIONS[array_rand(FACTIONS)];
     $deckContent = [];
@@ -177,12 +181,15 @@ class Cards extends \ALT\Helpers\CachedPieces
       }
     } while ($i < $totalCards);
 
-    for ($u = 0; $u < 5; $u++) {
+    for ($u = 0; $u < 15; $u++) {
       // maybe to reenable later
       // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
       // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
       $cardId = uniqueID[array_rand(uniqueID)];
-      $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
+      // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
+      $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
+        'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId
+      ]);
       // throw new \feException(print_r($uniqueCard));
 
       $properties = self::generateUnique($uniqueCard);
@@ -215,8 +222,8 @@ class Cards extends \ALT\Helpers\CachedPieces
 
       $altUid = self::getAltUid($uid);
       // ALT_COREKS_B_YZ_04_4451
-      var_dump($uid);
-      var_dump($altUid);
+      // var_dump($uid);
+      // var_dump($altUid);
       if (isset(self::getAltArt()[$altUid])) {
         $properties['flavorText'] = self::getAltArt()[$altUid]['flavorText'];
         $properties['asset']  = $altUid . '_U';

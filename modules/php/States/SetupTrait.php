@@ -116,13 +116,13 @@ trait SetupTrait
   {
     // return 12345;
     // TODO: uncomment later on
-    $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
-    // $response = self::masterNodeRequest('getGameSpecificMetaInfos', [
-    //   'game' => 'alter' . 'ed',
-    //   'mode' => 'login',
-    //   'user' => $user,
-    //   'secret' => $secret,
-    // ]);
+    // $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
+    $response = self::masterNodeRequest('getGameSpecificMetaInfos', [
+      'game' => 'alter' . 'ed',
+      'mode' => 'login',
+      'user' => $user,
+      'secret' => $secret,
+    ]);
     if (!isset($response['token'])) {
       throw new \feException('Invalid login or password');
     }
@@ -132,12 +132,12 @@ trait SetupTrait
 
   function updateAPIDeckList($pId, $token)
   {
-    $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
-    // $decks = self::masterNodeRequest('getGameSpecificMetaInfos', [
-    //   'game' => 'alter' . 'ed',
-    //   'mode' => 'deckList',
-    //   'token' => $token,
-    // ]);
+    // $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
+    $decks = self::masterNodeRequest('getGameSpecificMetaInfos', [
+      'game' => 'alter' . 'ed',
+      'mode' => 'deckList',
+      'token' => $token,
+    ]);
 
     // TODO: to comment when API
     // require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
@@ -163,15 +163,19 @@ trait SetupTrait
 
   function getAPIDeckContent($token, $deckId)
   {
-    $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
-    $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
+    // $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
+    // $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
 
-    // $deck = self::masterNodeRequest('getGameSpecificMetaInfos', [
-    //   'game' => 'alter' . 'ed',
-    //   'mode' => 'deck',
-    //   'token' => $token,
-    //   'deckId' => $deckId,
-    // ]);
+    $deck = self::masterNodeRequest('getGameSpecificMetaInfos', [
+      'game' => 'alter' . 'ed',
+      'mode' => 'deck',
+      'token' => $token,
+      'deckId' => $deckId,
+    ]);
+    $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
+      'game' => 'alter' . 'ed',
+      'mode' => 'BGALogin',
+    ])['token'];
 
     // TODO: remove when API
     // require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
@@ -182,7 +186,11 @@ trait SetupTrait
     foreach (['character', 'spell', 'permanent'] as $type) {
       foreach ($deck['deckCardsByType'][$type]['deckUserListCard'] ?? [] as $c) {
         if ($c['card']['rarity']['reference'] == 'UNIQUE') {
-          $uniqueCard = $this->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']])['hydra:member'][0];
+          // $uniqueCard = $this->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']]);
+          $uniqueCard = self::masterNodeRequest('getGameSpecificMetaInfos', [
+            'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']
+          ]);
+
           if (is_null(Cards::generateUnique($uniqueCard))) {
             continue; // TODO: remove
             throw new \BgaVisibleSystemException(

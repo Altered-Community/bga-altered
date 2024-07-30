@@ -106,8 +106,14 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actPass', []);
     // $this->actTakeAtomicAction('actDiscard', [[9]]);
     // $this->actTakeAtomicAction('actTarget', [[17]]);
-    $this->actTakeAtomicAction('actDiscardAdd', [577]);
-
+    // $this->actTakeAtomicAction('actDiscardAdd', [577]);
+    $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
+      'game' => 'alter' . 'ed',
+      'mode' => 'BGALogin',
+    ]);
+    // $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin']);
+    var_dump($BGAToken);
+    // ['token'];
     // throw new \feException(Cards::get(11)->countToken(FLEETING));
     // Stats::incDays(2);
     // Stats::setWinner(Players::getActive(), true);
