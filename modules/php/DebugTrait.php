@@ -109,7 +109,8 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actDiscardAdd', [577]);
     $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
       'game' => 'alter' . 'ed',
-      'mode' => 'BGALogin',
+      'mode' => 'cards',
+      'cardsid' => ["ALT_COREKS_B_LY_04_U_4874", "ALT_COREKS_B_MU_12_U_1367"]
     ]);
     // $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin']);
     var_dump($BGAToken);

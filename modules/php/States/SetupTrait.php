@@ -114,7 +114,7 @@ trait SetupTrait
 
   function connectToAPI($user, $secret)
   {
-    // return 12345;
+    return 12345;
     // TODO: uncomment later on
     // $response = $this->equinoxAPIConnect(['mode' => 'login', 'user' => $user, 'secret' => $secret]);
     $response = self::masterNodeRequest('getGameSpecificMetaInfos', [
@@ -133,14 +133,14 @@ trait SetupTrait
   function updateAPIDeckList($pId, $token)
   {
     // $decks = $this->equinoxAPIConnect(['mode' => 'deckList', 'token' => $token]);
-    $decks = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      'game' => 'alter' . 'ed',
-      'mode' => 'deckList',
-      'token' => $token,
-    ]);
+    // $decks = self::masterNodeRequest('getGameSpecificMetaInfos', [
+    //   'game' => 'alter' . 'ed',
+    //   'mode' => 'deckList',
+    //   'token' => $token,
+    // ]);
 
     // TODO: to comment when API
-    // require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
+    require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
 
     // END TODO
 
@@ -161,48 +161,136 @@ trait SetupTrait
     return $deckList;
   }
 
+  function reduceDeck($deck)
+  {
+    $deckReduced = [];
+    $uniques = [];
+    $deckReduced[HERO] = $deck['alterator']['reference'];
+    foreach (['character', 'spell', 'permanent'] as $type) {
+      foreach ($deck['deckCardsByType'][$type]['deckUserListCard'] ?? [] as $c) {
+        if ($c['card']['rarity']['reference'] == 'UNIQUE') {
+          $deckReduced['UNIQUE'][] = $c['card']['reference'];
+          // needed for testing but not in BGA MS
+          $uniques[$c['card']['reference']] = $c['card'];
+        } else {
+          $deckReduced['CORE'][$c['card']['reference']] =  $c['quantity'];
+        }
+      }
+    }
+
+    // call API Unique
+    // faking it
+    foreach ($deckReduced['UNIQUE'] as $igno => &$unique) {
+      $unique = $uniques[$unique];
+    }
+
+    // throw new \feException(print_r($deckReduced['UNIQUE']));
+
+    foreach ($deckReduced['UNIQUE'] as $igno => $unique) {
+      $uniqueReduced = [];
+      $uniqueReduced['reference'] = $unique['reference'];
+      $uniqueReduced['faction'] = $unique['mainFaction']['reference'];
+      $uniqueReduced['name'] = $unique['name'];
+      $uniqueReduced['cardType'] = $unique['cardType']['reference'];
+      $subtypes = [];
+      $typeline = ['Character'];
+      foreach ($unique['cardSubTypes'] ?? [] as $v => $sub) {
+        // ?? [] is temp!
+        $subtypes[] = $sub['reference'];
+        $typeline[] = $sub['name'];
+      }
+      $uniqueReduced['subTypes'] = $subtypes;
+      $uniqueReduced['typeline'] = $typeline;
+      $uniqueReduced['illustrator'] =  $unique['illustrator']['nickName'];
+      $uniqueReduced['costHand'] = (int) $unique['elements']['MAIN_COST'];
+      $uniqueReduced['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+      $uniqueReduced['forest'] = (int) $unique['elements']['FOREST_POWER'];
+      $uniqueReduced['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+      $uniqueReduced['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
+
+      foreach ($unique['cardElements'] as $i => $cardElement) {
+        if (
+          $cardElement['cardElementType']['reference'] != 'MAIN_EFFECT' &&
+          $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT'
+        ) {
+          continue;
+        }
+        foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
+          $trinity = [];
+          foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
+            $trinity[] =  $indivEffect['idGd'];
+          }
+          if (empty($trinity)) {
+            continue;
+          }
+          if (count($trinity) != 3) {
+            continue;
+          }
+          $uniqueReduced['effects'][] = $trinity;
+        }
+      }
+      $deckReduced['uniqueReduced'][] = $uniqueReduced;
+    }
+    unset($deckReduced['UNIQUE']);
+    return $deckReduced;
+  }
+
   function getAPIDeckContent($token, $deckId)
   {
     // $deck = $this->equinoxAPIConnect(['mode' => 'deck', 'token' => $token, 'deckId' => $deckId]);
     // $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
 
-    $deck = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      'game' => 'alter' . 'ed',
-      'mode' => 'deck',
-      'token' => $token,
-      'deckId' => $deckId,
-    ]);
-    $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      'game' => 'alter' . 'ed',
-      'mode' => 'BGALogin',
-    ])['token'];
+    // $deck = self::masterNodeRequest('getGameSpecificMetaInfos', [
+    //   'game' => 'alter' . 'ed',
+    //   'mode' => 'deck',
+    //   'token' => $token,
+    //   'deckId' => $deckId,
+    // ]);
+    // $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
+    //   'game' => 'alter' . 'ed',
+    //   'mode' => 'BGALogin',
+    // ])['token'];
 
     // TODO: remove when API
-    // require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
-    // $deck = $deckInfos;
+    require_once dirname(__FILE__) . '/../Cards/apiInfos.php';
+
+    $deck = $this->reduceDeck($deckReduced);
+
     // END TODO
     $deckContent = [];
-    $deckContent[HERO] = ['card' => Cards::getCardClass($deck['alterator']['reference']), 'n' => 1];
-    foreach (['character', 'spell', 'permanent'] as $type) {
-      foreach ($deck['deckCardsByType'][$type]['deckUserListCard'] ?? [] as $c) {
-        if ($c['card']['rarity']['reference'] == 'UNIQUE') {
-          // $uniqueCard = $this->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']]);
-          $uniqueCard = self::masterNodeRequest('getGameSpecificMetaInfos', [
-            'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']
-          ]);
-
-          if (is_null(Cards::generateUnique($uniqueCard))) {
-            continue; // TODO: remove
-            throw new \BgaVisibleSystemException(
-              clienttranslate('This unique has an unimplemented power' . $c['card']['reference'])
-            );
-          }
-          $deckContent[] = ['card' => ['properties' => Cards::generateUnique($uniqueCard)], 'n' => $c['quantity']];
-        } else {
-          $deckContent[] = ['card' => Cards::getCardClass($c['card']['reference']), 'n' => $c['quantity']];
-        }
-      }
+    $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO]), 'n' => 1];
+    foreach ($deck['CORE'] as $cardRef => $qty) {
+      $deckContent[] = ['card' => Cards::getCardClass($cardRef), 'n' => $qty];
     }
+    foreach ($deck['uniqueReduced'] as $unique) {
+      if (is_null(Cards::generateUnique($unique))) {
+        throw new \BgaVisibleSystemException(
+          clienttranslate('This unique has an unimplemented power' . $unique['reference'])
+        );
+      }
+      $deckContent[] = ['card' => ['properties' => Cards::generateUnique($unique)], 'n' => 1];
+    }
+
+    // foreach (['character', 'spell', 'permanent'] as $type) {
+    //   foreach ($deck['deckCardsByType'][$type]['deckUserListCard'] ?? [] as $c) {
+    //     if ($c['card']['rarity']['reference'] == 'UNIQUE') {
+    //       // $uniqueCard = $this->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']]);
+    //       $uniqueCard = self::masterNodeRequest('getGameSpecificMetaInfos', [
+    //         'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $c['card']['reference']
+    //       ]);
+
+    //       if (is_null(Cards::generateUnique($uniqueCard))) {
+    //         continue; // TODO: remove
+    //         throw new \BgaVisibleSystemException(
+    //           clienttranslate('This unique has an unimplemented power' . $c['card']['reference'])
+    //         );
+    //       }
+    //       $deckContent[] = ['card' => ['properties' => Cards::generateUnique($uniqueCard)], 'n' => $c['quantity']];
+    //     } else {
+    //       $deckContent[] = ['card' => Cards::getCardClass($c['card']['reference']), 'n' => $c['quantity']];
+    //     }
+    //   }
+    // }
 
     $gContent = Globals::getDeckContent();
     $gContent[Players::getCurrentId()] = $deckContent;

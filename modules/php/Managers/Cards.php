@@ -209,6 +209,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function generateUnique($unique)
   {
+    // throw new \feException(print_r($unique));
     $properties = [];
     $properties['uid'] = $unique['reference'];
     $uid = $properties['uid'];
@@ -231,58 +232,102 @@ class Cards extends \ALT\Helpers\CachedPieces
         $properties['asset']  = self::getCoreUid($altUid) . '_U';
       }
     }
-    $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
+    // $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
+    $properties['faction'] = Utils::convertFaction($unique['faction']);
     $properties['name'] = $unique['name'];
-    $properties['type'] = constant($unique['cardType']['reference']);
-    $subtypes = [];
-    $typeline = ['Character'];
+    // $properties['type'] = constant($unique['cardType']['reference']);
+    $properties['type'] = constant($unique['cardType']);
 
-    foreach ($unique['cardSubTypes'] ?? [] as $v => $sub) {
+    $subtypes = [];
+    $typeline = [];
+
+    // old
+    // foreach ($unique['cardSubTypes'] ?? [] as $v => $sub) {
+    //   // ?? [] is temp!
+    //   $subtypes[] = constant($sub['reference']);
+    //   $typeline[] = $sub['name'];
+    // }
+    foreach ($unique['subTypes'] ?? [] as $v => $sub) {
       // ?? [] is temp!
-      $subtypes[] = constant($sub['reference']);
-      $typeline[] = $sub['name'];
+      $subtypes[] = constant($sub);
+    }
+    foreach ($unique['typeline'] ?? [] as $v => $sub) {
+      // ?? [] is temp!
+      $typeline[] = clienttranslate($sub);
     }
     $properties['subtypes'] = $subtypes;
     $properties['typeline'] = implode(' - ', $typeline);
-    $properties['artist'] = $unique['illustrator']['nickName'];
-    $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
-    $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
-    $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
-    $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
-    $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
+    // $properties['artist'] = $unique['illustrator']['nickName']; old
+    $properties['artist'] = $unique['illustrator'];
+
+    // old
+    // $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
+    // $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+    // $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
+    // $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+    // $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
+
+    $properties['costHand'] = $unique['costHand'];
+    $properties['costReserve'] = $unique['costReserve'];
+    $properties['forest'] = $unique['forest'];
+    $properties['mountain'] = $unique['mountain'];
+    $properties['ocean'] = $unique['ocean'];
 
     // add effects
     $properties['uEffects'] = [];
-    foreach ($unique['cardElements'] as $i => $cardElement) {
-      if (
-        $cardElement['cardElementType']['reference'] != 'MAIN_EFFECT' &&
-        $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT'
-      ) {
+    foreach ($unique['effects'] as $i => $cardElement) {
+      $trinity = [];
+      foreach ($cardElement as $i => $idGd) {
+        if (in_array($idGd, TRIGGER)) {
+          $trinity['trigger'] = $idGd;
+        } elseif (in_array($idGd, \CONDITION)) {
+          $trinity['condition'] = $idGd;
+        } elseif (in_array($idGd, OUTPUT)) {
+          $trinity['output'] = $idGd;
+        }
+      }
+      if (empty($trinity)) {
         continue;
       }
-      foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
-        $trinity = [];
-        foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
-          if (in_array($indivEffect['idGd'], TRIGGER)) {
-            $trinity['trigger'] = $indivEffect['idGd'];
-          } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
-            $trinity['condition'] = $indivEffect['idGd'];
-          } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
-            $trinity['output'] = $indivEffect['idGd'];
-          }
-        }
-        if (empty($trinity)) {
-          continue;
-        }
-        if (count($trinity) != 3) {
-          return null;
-        }
-        $valid = FlowConvertor::constructEffect($trinity, $properties);
-        $properties['uEffects'][] = array_values($trinity);
+      if (count($trinity) != 3) {
+        return null;
       }
+      $valid = FlowConvertor::constructEffect($trinity, $properties);
+      $properties['uEffects'][] = array_values($trinity);
     }
-    // throw new \feException(print_r($properties));
     return $properties;
+
+    // old
+    // foreach ($unique['cardElements'] as $i => $cardElement) {
+    //   if (
+    //     $cardElement['cardElementType']['reference'] != 'MAIN_EFFECT' &&
+    //     $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT'
+    //   ) {
+    //     continue;
+    //   }
+    //   foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
+    //     $trinity = [];
+    //     foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
+    //       if (in_array($indivEffect['idGd'], TRIGGER)) {
+    //         $trinity['trigger'] = $indivEffect['idGd'];
+    //       } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
+    //         $trinity['condition'] = $indivEffect['idGd'];
+    //       } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
+    //         $trinity['output'] = $indivEffect['idGd'];
+    //       }
+    //     }
+    //     if (empty($trinity)) {
+    //       continue;
+    //     }
+    //     if (count($trinity) != 3) {
+    //       return null;
+    //     }
+    //     $valid = FlowConvertor::constructEffect($trinity, $properties);
+    //     $properties['uEffects'][] = array_values($trinity);
+    //   }
+    // }
+    // // throw new \feException(print_r($properties));
+    // return $properties;
   }
 
   public static function generateRandomUnique($faction)
