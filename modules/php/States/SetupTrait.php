@@ -152,7 +152,7 @@ trait SetupTrait
         'apiId' => $deck['@id'],
         'faction' => $deck['faction']['name'],
         'deckName' => $deck['name'],
-        'hero' => $deck['alterator']['@id'],
+        'hero' => $deck['alterator']['reference'],
         'cardCount' => $deck['cardQuantity'],
       ];
       $numDeck++;
