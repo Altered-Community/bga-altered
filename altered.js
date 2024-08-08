@@ -980,28 +980,17 @@ define([
         `
         <h2>Log in Equinox</h2>
         <div id='apiSetup' style='background: white; padding: 20px; border-radius: 15px; border: 1px solid black;font-size:20px; display:flex; flex-flow:column; justify-content:center;'>
-          <label for="apiLogin">Login: </label>
-          <input type="text" id="apiLogin" style="height: 30px;margin-bottom: 10px; font-size:20px;" />
-          <br />
-
-          <label for="password">Password: </label>
-          <input type="password" id="apiSecret" style="height: 30px;margin-bottom: 10px; font-size:20px;" />
-          <br />
-
-          <div id='apiSubmit' class='action-button bgabutton bgabutton_blue' style="margin-top:20px;">Get decks</div>
+          <div id='apiSubmit' class='action-button bgabutton bgabutton_blue' style="margin-top:20px;">Load decks</div>
         </div>`
       );
       this.openOverlay();
 
       this.onClick('apiSubmit', () => {
-        let login = $('apiLogin').value;
-        let secret = $('apiSecret').value;
         $('apiSubmit').style.background = '#eab757';
-        this.takeAction('actLoadAPIDecks', { lo: JSON.stringify(login), sec: JSON.stringify(secret), lock: false }, false).then(
-          (response) => {
-            this.clientState('chooseFetchedDeck', 'Choose one of your deck', { decks: response.data, login, secret });
-          }
-        );
+        this.takeAction('actLoadAPIDecks', { lock: false }, false).then((response) => {
+          debug(response);
+          this.clientState('chooseFetchedDeck', 'Choose one of your deck', { decks: response.data });
+        });
       });
     },
 
@@ -1043,11 +1032,7 @@ define([
           $(selected).style.background = '#eab757';
           $('btnConfirmDeck').classList.add('disabled');
 
-          this.takeAction(
-            'actGetDeckInfos',
-            { lo: JSON.stringify(args.login), sec: JSON.stringify(args.secret), deckID: JSON.stringify(deck.apiId), lock: false },
-            false
-          ).then((deckContent) => {
+          this.takeAction('actGetDeckInfos', { deckID: JSON.stringify(deck.apiId), lock: false }, false).then((deckContent) => {
             debug(deckContent);
             $(selected).style.background = '#43d743';
             $('btnConfirmDeck').classList.remove('disabled');

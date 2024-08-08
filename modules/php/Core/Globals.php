@@ -79,12 +79,10 @@ class Globals extends \ALT\Helpers\DB_Manager
     $tmp = self::$log;
     self::$log = false;
 
-    foreach (
-      self::DB()
-        ->select(['value', 'name'])
-        ->get(false)
-      as $name => $variable
-    ) {
+    foreach (self::DB()
+      ->select(['value', 'name'])
+      ->get(false)
+      as $name => $variable) {
       if (\array_key_exists($name, self::$variables)) {
         self::$data[$name] = $variable;
       }

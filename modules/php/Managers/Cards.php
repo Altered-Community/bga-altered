@@ -144,67 +144,86 @@ class Cards extends \ALT\Helpers\CachedPieces
     // return new $className($row);
   }
 
-  public static function generateRandomDeck($player)
+  public static function generateRandomDeck($deck, $player)
   {
-    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
-    require_once dirname(__FILE__) . '/../Cards/unique.php';
-    require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
-
-
-    // $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
-    $BGAToken = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-      'game' => 'alter' . 'ed',
-      'mode' => 'BGALogin',
-    ])['token'];
-
-    $faction = FACTIONS[array_rand(FACTIONS)];
-    $deckContent = [];
-
-    $deckContent[HERO] = [
-      'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
-      'n' => 1,
-    ];
-    // random cards of the faction
-    $i = 0;
-    $totalCards = Globals::getTestingOption() ? 80 : 40;
-
-    do {
-      // $c = RELEASED[array_rand(RELEASED)];
-      $c = array_rand(MAP_REFS_CLASSES);
-
-      // $c = MAP_REFS_CLASSES[$a];
-      // var_dump($c);
-      $objCard = self::getCardClass($c);
-      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
-        $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
-        $i++;
+    $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO])->jsonSerialize(), 'n' => 1];
+    foreach ($deck['cards'] as $cardRef => $card) {
+      if (isset($card['content'])) {
+        //it's a unique!
+        if (is_null(Cards::generateUnique($card['content']))) {
+          throw new \BgaVisibleSystemException(
+            clienttranslate('This unique has an unimplemented power' . $card['content']['reference'])
+          );
+        }
+        $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
+      } else {
+        $deckContent[] = ['card' => Cards::getCardClass($cardRef)->jsonSerialize(), 'n' => $card['quantity']];
       }
-    } while ($i < $totalCards);
-
-    for ($u = 0; $u < 15; $u++) {
-      // maybe to reenable later
-      // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
-      // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
-      $cardId = uniqueID[array_rand(uniqueID)];
-      // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
-      $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-        'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId
-      ]);
-      // throw new \feException(print_r($uniqueCard));
-
-      $properties = self::generateUnique($uniqueCard);
-      if (is_null($properties)) {
-        // $u--;
-        continue;
-      }
-      $deckContent[] = [
-        'card' => ['properties' => $properties],
-        'n' => 1,
-      ];
-      $i++;
     }
 
     return self::createDeck($player, $deckContent);
+
+    // require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    // require_once dirname(__FILE__) . '/../Cards/unique.php';
+    // require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
+
+
+    // // $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
+    // // $BGAToken = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
+    // //   'game' => 'alter' . 'ed',
+    // //   'mode' => 'BGALogin',
+    // // ])['token'];
+
+    // $result = Game::get()->getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
+
+    // $faction = FACTIONS[array_rand(FACTIONS)];
+    // $deckContent = [];
+
+    // $deckContent[HERO] = [
+    //   'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
+    //   'n' => 1,
+    // ];
+    // // random cards of the faction
+    // $i = 0;
+    // $totalCards = Globals::getTestingOption() ? 80 : 40;
+
+    // do {
+    //   // $c = RELEASED[array_rand(RELEASED)];
+    //   $c = array_rand(MAP_REFS_CLASSES);
+
+    //   // $c = MAP_REFS_CLASSES[$a];
+    //   // var_dump($c);
+    //   $objCard = self::getCardClass($c);
+    //   if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
+    //     $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
+    //     $i++;
+    //   }
+    // } while ($i < $totalCards);
+
+    // for ($u = 0; $u < 15; $u++) {
+    //   // maybe to reenable later
+    //   // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
+    //   // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
+    //   $cardId = uniqueID[array_rand(uniqueID)];
+    //   // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
+    //   $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
+    //     'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId
+    //   ]);
+    //   // throw new \feException(print_r($uniqueCard));
+
+    //   $properties = self::generateUnique($uniqueCard);
+    //   if (is_null($properties)) {
+    //     // $u--;
+    //     continue;
+    //   }
+    //   $deckContent[] = [
+    //     'card' => ['properties' => $properties],
+    //     'n' => 1,
+    //   ];
+    //   $i++;
+    // }
+
+    // return self::createDeck($player, $deckContent);
   }
 
   public static function generateUnique($unique)
@@ -275,7 +294,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     // add effects
     $properties['uEffects'] = [];
-    foreach ($unique['effects'] as $i => $cardElement) {
+    foreach ($unique['uniqueReduced'] as $i => $cardElement) {
       $trinity = [];
       foreach ($cardElement as $i => $idGd) {
         if (in_array($idGd, TRIGGER)) {
