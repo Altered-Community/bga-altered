@@ -158,9 +158,56 @@ trait DebugTrait
 
   function loadUnique($v = null, $location = HAND)
   {
-    require_once('Cards/unique.php');
-    $unique = UNIQUES['hydra:member'][$v ?? 0];
-    $properties = Cards::generateUnique($unique);
+    $token = $this->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
+    $unique = $this->equinoxAPIConnect(['mode' => 'card', 'token' => $token, 'cardId' => $v]);
+
+    $uniqueReduced = [];
+    $uniqueReduced['reference'] = $unique['reference'];
+    $uniqueReduced['faction'] = $unique['mainFaction']['reference'];
+    $uniqueReduced['name'] = $unique['name'];
+    $uniqueReduced['cardType'] = $unique['cardType']['reference'];
+    $subtypes = [];
+    $typeline = ['Character'];
+    foreach ($unique['cardSubTypes'] ?? [] as $v => $sub) {
+      // ?? [] is temp!
+      $subtypes[] = $sub['reference'];
+      $typeline[] = $sub['name'];
+    }
+    $uniqueReduced['subTypes'] = $subtypes;
+    $uniqueReduced['typeline'] = $typeline;
+    $uniqueReduced['illustrator'] =  $unique['illustrator']['nickName'];
+    $uniqueReduced['costHand'] = (int) $unique['elements']['MAIN_COST'];
+    $uniqueReduced['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+    $uniqueReduced['forest'] = (int) $unique['elements']['FOREST_POWER'];
+    $uniqueReduced['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+    $uniqueReduced['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
+
+    foreach ($unique['cardElements'] as $i => $cardElement) {
+      if (
+        $cardElement['cardElementType']['reference'] != 'MAIN_EFFECT' &&
+        $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT'
+      ) {
+        continue;
+      }
+      foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
+        $trinity = [];
+        foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
+          $trinity[] =  $indivEffect['idGd'];
+        }
+        if (empty($trinity)) {
+          continue;
+        }
+        if (count($trinity) != 3) {
+          continue;
+        }
+        $uniqueReduced['uniqueReduced'][0]['effects'][] = $trinity;
+      }
+    }
+
+    // throw new \feException(print_r($uniqueReduced));
+    $properties = Cards::generateUnique($uniqueReduced);
+    // throw new \feException(print_r($properties));
+
     Cards::singleCreate([
       'player_id' => Players::getCurrentId(),
       'location' => $location,

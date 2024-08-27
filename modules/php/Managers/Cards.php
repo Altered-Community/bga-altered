@@ -295,25 +295,32 @@ class Cards extends \ALT\Helpers\CachedPieces
     // add effects
     $properties['uEffects'] = [];
     foreach ($unique['uniqueReduced'] as $i => $cardElement) {
+      // throw new \feException(print_r($cardElement));
       $trinity = [];
-      foreach ($cardElement as $i => $idGd) {
-        if (in_array($idGd, TRIGGER)) {
-          $trinity['trigger'] = $idGd;
-        } elseif (in_array($idGd, \CONDITION)) {
-          $trinity['condition'] = $idGd;
-        } elseif (in_array($idGd, OUTPUT)) {
-          $trinity['output'] = $idGd;
+      foreach ($cardElement['effects'] as $i => $effect) {
+        $trinity = [];
+        foreach ($effect as $j => $idGd) {
+          if (in_array($idGd, TRIGGER)) {
+            $trinity['trigger'] = $idGd;
+          } elseif (in_array($idGd, \CONDITION)) {
+            $trinity['condition'] = $idGd;
+          } elseif (in_array($idGd, OUTPUT)) {
+            $trinity['output'] = $idGd;
+          }
         }
+        if (empty($trinity)) {
+          continue;
+        }
+        if (count($trinity) != 3) {
+          return null;
+        }
+        $valid = FlowConvertor::constructEffect($trinity, $properties);
+        $properties['uEffects'][] = array_values($trinity);
       }
-      if (empty($trinity)) {
-        continue;
-      }
-      if (count($trinity) != 3) {
-        return null;
-      }
-      $valid = FlowConvertor::constructEffect($trinity, $properties);
-      $properties['uEffects'][] = array_values($trinity);
     }
+    // $debug[0] = $unique;
+    // $debug[1] = $properties;
+    // throw new \feException(print_r($debug));
     return $properties;
 
     // old
@@ -369,23 +376,25 @@ class Cards extends \ALT\Helpers\CachedPieces
     $card = $cardO->jsonSerialize()['properties'];
     $card['rarity'] = RARITY_UNIQUE;
     $card['asset'] = substr($card['asset'], 0, strlen($card['asset']) - 1) . 'U';
-    foreach ([
-      'effectDesc',
-      'supportDesc',
-      'supportIcon',
-      'effectHand',
-      'effectReserve',
-      'effectPlayed',
-      'effectPassive',
-      'gigantic',
-      'defender',
-      'oppositeDefender',
-      'eternal',
-      'dynamicDefender',
-      'dynamicTough',
-      'tough',
-    ]
-      as $eff) {
+    foreach (
+      [
+        'effectDesc',
+        'supportDesc',
+        'supportIcon',
+        'effectHand',
+        'effectReserve',
+        'effectPlayed',
+        'effectPassive',
+        'gigantic',
+        'defender',
+        'oppositeDefender',
+        'eternal',
+        'dynamicDefender',
+        'dynamicTough',
+        'tough',
+      ]
+      as $eff
+    ) {
       if (isset($card[$eff])) {
         unset($card[$eff]);
       }
