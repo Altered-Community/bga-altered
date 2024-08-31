@@ -13,7 +13,7 @@ abstract class FlowConvertor
     return  [
       1 => ['description' => clienttranslate('{R}'), 'trigger' => '', 'type' => 'effectReserve'],
       2 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => ['isOpponentDraw', 'realResupply']],
-      4 => ['description' => clienttranslate('When one of your Expeditions moves forward due to {V} —'), 'trigger' => 'AfterDusk', 'condition' => 'movesStormsWithForest'], // to check if bug with Rin
+      4 => ['description' => clienttranslate('When one of your Expeditions moves forward due to {V} —'), 'trigger' => 'BeforeNight', 'condition' => 'movesStormsWithForest'], // to check if bug with Rin
       5 => ['description' => clienttranslate('When a Robot joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isCardPlayed:robot'],
       7 => ['description' => clienttranslate('When I go to Reserve from your hand —'), 'trigger' => 'Discard', 'condition' => 'isMyselfDiscarded:hand:reserve'],
       8 => ['description' => clienttranslate('When I\'m sacrificed —'), 'trigger' => 'Discard', 'condition' => 'isSacrificed'],
@@ -21,7 +21,7 @@ abstract class FlowConvertor
       11 => ['description' => clienttranslate('When I go to Reserve from the Expedition zone —'), 'trigger' => 'LeaveExpedition', 'condition' => 'notFleeting'],
       12 => ['description' => clienttranslate('When I leave the Expedition zone —'), 'trigger' => 'LeaveExpedition'],
       13 => ['description' => clienttranslate('When a Character you control gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'isCharacterBoostedAndUntap'], // condition to check
-      14 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
+      14 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'BeforeNight', 'condition' => 'myExpeditionHasNotMoved'],
       15 => ['description' => clienttranslate('When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardPlayed:::true', 'isCardPlayedWithZeroStat']],
       16 => ['description' => clienttranslate('When you play a Permanent —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:permanent'],
       17 => ['description' => clienttranslate('At Dusk —'), 'trigger' => 'BeforeDusk'],
@@ -37,7 +37,7 @@ abstract class FlowConvertor
       28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'condition' => ['isAfternoon', 'hasSameOwner', 'isFromReserve']],
       192 => ['description' => clienttranslate('{D}'), 'trigger' => '', 'type' => 'effectSupport'],
       231 => ['description' => clienttranslate('When I\'m sacrificed —'),  'trigger' => 'Discard', 'condition' => 'isSacrificed'],
-      236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved'],
+      236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'BeforeNight', 'condition' => 'myExpeditionHasNotMoved'],
       239 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'isOpponentDraw'],
       240 => ['description' => clienttranslate('When I gain 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'hasBoost'],
     ];
@@ -348,14 +348,16 @@ abstract class FlowConvertor
       69 => [
         'description' => clienttranslate('Up to one target Character gains <ASLEEP>.'),
         'output' => FT::ACTION(TARGET, [
-          'upTo' => true,  'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::GAIN(EFFECT, ASLEEP)
         ]),
       ],
       70 => [
         'description' => clienttranslate('Up to one target Character gains <FLEETING>].'),
         'output' => FT::ACTION(TARGET, [
-          'upTo' => true,  'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::GAIN(EFFECT, FLEETING)
         ]),
       ],
@@ -466,7 +468,8 @@ abstract class FlowConvertor
       91 => [
         'description' =>  clienttranslate('Up to one target Character gains <ASLEEP>. You may have it gain 2 boosts.'),
         'output' => FT::ACTION(TARGET, [
-          'upTo' => true, 'effect' => FT::XOR(
+          'upTo' => true,
+          'effect' => FT::XOR(
             FT::GAIN(EFFECT, ASLEEP),
             FT::SEQ(
               FT::GAIN(EFFECT, ASLEEP),
