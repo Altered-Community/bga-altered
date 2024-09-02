@@ -11,6 +11,7 @@ use ALT\Helpers\FT;
 use ALT\Core\Notifications;
 use ALT\Core\Game;
 use ALT\Core\Engine;
+use ALT\Helpers\Utils;
 
 class SpecialEffect extends \ALT\Models\Action
 {
@@ -378,6 +379,19 @@ class SpecialEffect extends \ALT\Models\Action
             ['sourceId' => $card->getId()]
           ),
         ]);
+        Globals::setAfterRest($afterRest);
+        break;
+      case 'afterRest':
+        $afterRest = Globals::getAfterRest();
+        $pId = $card->getPlayer()->getId();
+        if (!isset($afterRest[$pId])) {
+          $afterRest[$pId] = [];
+        }
+
+        // We tag the tree to transport the source
+        Utils::tagTree($args, ['sourceId' => $card->getId()]);
+        $args['sourceId'] =  $card->getId();
+        $afterRest[$pId] = array_merge($afterRest[$pId], [$args]);
         Globals::setAfterRest($afterRest);
         break;
       case 'AllPlayersSacrifice1':
