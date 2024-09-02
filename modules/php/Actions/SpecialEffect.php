@@ -389,9 +389,14 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         // We tag the tree to transport the source
-        Utils::tagTree($args, ['sourceId' => $card->getId()]);
-        $args['sourceId'] =  $card->getId();
+        $args = Utils::tagTree($args, ['sourceId' => $card->getId()]);
+
+        // if we have a card invoking with the parameter source we substitute it with current location
+        $args = Utils::updateTree($args, [0 => 'source'], [$card->getLocation()], ['targetLocation']);
+
+
         $afterRest[$pId] = array_merge($afterRest[$pId], [$args]);
+        // throw new \feException(print_r($afterRest));
         Globals::setAfterRest($afterRest);
         break;
       case 'AllPlayersSacrifice1':

@@ -136,27 +136,31 @@ abstract class Utils extends \APP_DbObject
     return implode(',', $descs);
   }
 
-  public static function tagTree($t, $tags)
+  public static function tagTree($t, $tags, $replaceOnly = false)
   {
     foreach ($tags as $tag => $v) {
-      $t[$tag] = $v;
+      if (!$replaceOnly || ($replaceOnly && isset($t[$tag]))) {
+        $t[$tag] = $v;
+      }
     }
 
     if (isset($t['childs'])) {
-      $t['childs'] = array_map(function ($child) use ($tags) {
-        return self::tagTree($child, $tags);
+      $t['childs'] = array_map(function ($child) use ($tags, $replaceOnly) {
+        return self::tagTree($child, $tags, $replaceOnly);
       }, $t['childs']);
     }
     return $t;
   }
 
-  public static function updateTree($t, $searched, $newValue)
+  public static function updateTree($t, $searched, $newValue, $limitedKeys = [])
   {
     foreach ($t as $key => $value) {
-      if (is_array($value)) {
-        $t[$key] = self::updateTree($value, $searched, $newValue);
-      } elseif ($value === $searched) {
+      if ($limitedKeys == [] && $value === $searched) {
         $t[$key] = $newValue;
+      } elseif (in_array($key, $limitedKeys)  && $value === $searched) {
+        $t[$key] = $newValue;
+      } elseif (is_array($value)) {
+        $t[$key] = self::updateTree($value, $searched, $newValue, $limitedKeys);
       }
     }
 

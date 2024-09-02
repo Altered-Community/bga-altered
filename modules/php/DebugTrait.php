@@ -161,6 +161,8 @@ trait DebugTrait
     $token = $this->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
     $unique = $this->equinoxAPIConnect(['mode' => 'card', 'token' => $token, 'cardId' => $v]);
 
+    // throw new \feException(print_r($unique));
+
     $uniqueReduced = [];
     $uniqueReduced['reference'] = $unique['reference'];
     $uniqueReduced['faction'] = $unique['mainFaction']['reference'];
