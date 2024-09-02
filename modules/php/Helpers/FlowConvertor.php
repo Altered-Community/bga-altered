@@ -299,7 +299,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
           'excludeSelf' => true,
-          'targetLocation' => [HAND],
+          'targetLocation' => [RESERVE],
           'upTo' => true,
           'effect' => FT::RETURN_TO_HAND()
         ]),
