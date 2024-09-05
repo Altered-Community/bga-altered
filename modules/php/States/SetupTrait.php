@@ -76,12 +76,12 @@ trait SetupTrait
         $setup[CURLOPT_URL] = $baseUrl . '/login';
         $setup[CURLOPT_POSTFIELDS] =
           '{
-                "email": "' .
+          "email": "' .
           'bga@equinox.fr' .
           '",
-                "password": "' . 'Q39jXhb7E6HnZEbc' .
+          "password": "' . 'Q39jXhb7E6HnZEbc' .
           '"
-            }';
+      }';
         $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
         $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
         break;
