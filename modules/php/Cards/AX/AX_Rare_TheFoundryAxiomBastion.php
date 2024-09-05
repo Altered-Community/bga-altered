@@ -24,7 +24,7 @@ class AX_Rare_TheFoundryAxiomBastion extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '#{J} Draw a card.#  {T} : Activate the {r} triggers of the next Character you play from your hand this turn.'
+        '#{J} Draw a card.#  {T} : The next Character you play from your hand this turn activates its {r} abilities (as if it had been played from Reserve).'
       ),
       'costHand' => 4,
       'costReserve' => 4,

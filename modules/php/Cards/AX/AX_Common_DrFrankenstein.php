@@ -18,7 +18,7 @@ class AX_Common_DrFrankenstein extends \ALT\Models\Card
       'name' => clienttranslate('Dr. Frankenstein'),
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{R} You may activate the {j} triggers of target Permanent you control.'),
+      'effectDesc' => clienttranslate('{R} You may activate the {j} abilities of target Permanent you control.'),
       'flavorText' => clienttranslate('We sometimes seek companionship in the strangest of life forms.'),
       'typeline' => clienttranslate('Character - Engineer'),
       'artist' => 'Taras Susak',

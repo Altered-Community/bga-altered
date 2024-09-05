@@ -195,7 +195,7 @@ abstract class FlowConvertor
       ],
       30 => ['description' => clienttranslate('Target opponent draws a card.'), 'output' =>  FT::ACTION(DRAW, ['players' => OPPONENT])],
       31 => ['description' => clienttranslate('I can\'t be played if you have less than seven Mana Orbs.'), 'attributes' => ['minManaOrbs' => 7]],
-      32 => ['description' => clienttranslate('I have <DEFENDER>.'), 'attributes' => ['defender' => true]],
+      32 => ['description' => clienttranslate('I am <DEFENDER>.'), 'attributes' => ['defender' => true]],
       33 => ['description' => clienttranslate('I gain <ASLEEP>.'), 'output' => FT::GAIN(ME, ASLEEP)],
       34 => ['description' => clienttranslate('I gain <FLEETING>.'), 'output' => FT::GAIN(ME, FLEETING)],
       35 => ['description' => clienttranslate('I can\'t be played if you have less than six Mana Orbs.'), 'attributes' => ['minManaOrbs' => 6]],
@@ -247,7 +247,7 @@ abstract class FlowConvertor
       ],
       43 => ['description' => clienttranslate('Each player may <RESUPPLY_INF>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalResupply'])],
       44 => ['description' => clienttranslate('Put me in Reserve.'), 'output' => FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => ME])],
-      45 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'noTrigger' => true, 'attributes' => ['dynamicBlockingPower' => 'block']],
+      45 => ['description' => clienttranslate('The {j}, {h} and {r} abilities of Characters facing me can\'t activate.'), 'noTrigger' => true, 'attributes' => ['dynamicBlockingPower' => 'block']],
       46 => ['description' => clienttranslate('I have <SEASONED>.'), 'attributes' => ['seasoned' => true]],
       47 => ['description' => clienttranslate('I have <TOUGH_1>.'), 'noTrigger' => true, 'attributes' => ['dynamicTough' => 'tough1']],
       48 => ['description' => clienttranslate('If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.'), 'attributes' => ['addDice' => 1]],
@@ -291,7 +291,7 @@ abstract class FlowConvertor
         ],
       ],
       60 => [
-        'description' => clienttranslate('Activate the {r} triggers of the next Character you play from your hand this turn.'),
+        'description' => clienttranslate('The next Character you play from your hand this turn activates its {r} abilities (as if it had been played from Reserve).'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'triggerEffectOfNextCharacter', 'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE]]),
       ],
       61 => [
@@ -438,7 +438,7 @@ abstract class FlowConvertor
         'output' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXLandmark']),
       ],
       87 => [
-        'description' => clienttranslate('You may activate the {j} triggers of target Permanent you control.'),
+        'description' => clienttranslate('You may activate the {j} abilities of target Permanent you control.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
@@ -567,7 +567,7 @@ abstract class FlowConvertor
       ],
       112 => ['description' => clienttranslate('Cards your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCardsCost' => '1']],
       113 => [
-        'description' => clienttranslate('You may activate the {j} triggers of up to two target Permanents you control.'),
+        'description' => clienttranslate('You may activate the {j} abilities of up to two target Permanents you control.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
@@ -624,7 +624,7 @@ abstract class FlowConvertor
           FT::ACTION(DRAW, ['players' => ME])
         )
       ],
-      123 => ['description' => clienttranslate('I have <GIGANTIC>.'), 'attributes' => ['gigantic' => true]],
+      123 => ['description' => clienttranslate('I am <GIGANTIC>.'), 'attributes' => ['gigantic' => true]],
       124 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'),
         'output' =>  FT::SEQ(
@@ -744,7 +744,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sleepingAllCharactersinExpedition'])])
       ],
       149 => [
-        'description' => clienttranslate('Your opponent\'s Expedition facing mine moves backwards one region.'),
+        'description' => clienttranslate('Your opponent\'s Expedition facing me moves backwards one region.'),
         'output' =>  FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT]),
       ],
       150 => [
@@ -838,7 +838,7 @@ abstract class FlowConvertor
         ),
       ],
       193 => ['description' => clienttranslate('<AFTER_YOU>.'), 'output' => FT::ACTION(AFTER_YOU, []),],
-      194 => ['description' => clienttranslate('Tokens you control have <GIGANTIC>.'), 'noTrigger' => true, 'attributes' => ['dynamicGigantic' => 'universalGiganticToken']],
+      194 => ['description' => clienttranslate('Tokens you control are <GIGANTIC>.'), 'noTrigger' => true, 'attributes' => ['dynamicGigantic' => 'universalGiganticToken']],
       195 => [
         'description' => clienttranslate('Roll a die. On a 4+, I gain <ANCHORED>. On a 1-3, I gain 3 boosts.'),
         'output' => FT::ACTION(ROLL_DIE, [
@@ -991,7 +991,7 @@ abstract class FlowConvertor
           ]
         )])
       ],
-      226 => ['description' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'), 'noTrigger' => true, 'attributes' => ['dynamicBlockingPower' => 'block']],
+      226 => ['description' => clienttranslate('The {j}, {h} and {r} abilities of Characters facing me can\'t activate.'), 'noTrigger' => true, 'attributes' => ['dynamicBlockingPower' => 'block']],
       228 => [
         'description' => clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
@@ -1038,7 +1038,7 @@ abstract class FlowConvertor
       242 => ['description' => clienttranslate('<RESUPPLY>.'), 'output' => FT::ACTION(RESUPPLY, []),],
       243 => ['description' => clienttranslate('I gain <FLEETING>.'),  'output' => FT::GAIN(ME, FLEETING)],
       244 => [
-        'description' => clienttranslate('You may activate the {j} triggers of target Permanent you control.'),
+        'description' => clienttranslate('You may activate the {j} abilities of target Permanent you control.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
@@ -1047,7 +1047,7 @@ abstract class FlowConvertor
         ]),
       ],
       245 => ['description' => clienttranslate('Draw a card.'),  'output' => FT::ACTION(DRAW, ['players' => ME])],
-      246 => ['description' => clienttranslate('I have <GIGANTIC>.'), 'attributes' => ['gigantic' => true]],
+      246 => ['description' => clienttranslate('I am <GIGANTIC>.'), 'attributes' => ['gigantic' => true]],
       248 => [
         'description' => clienttranslate('You may return a card from your Reserve to your hand.'),
         'output' =>  FT::ACTION(

@@ -19,7 +19,7 @@ class MU_Rare_Verdantback extends \ALT\Models\Card
       'flavorText' => clienttranslate('Slow and steady wins the race.'),
       'artist' => 'Ba Vo',
       'subtypes' => [ANIMAL, PLANT],
-      'effectDesc' => clienttranslate('I have $<DEFENDER> unless you control two or more other Plants.'),
+      'effectDesc' => clienttranslate('I am $<DEFENDER> unless you control two or more other Plants.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 5,

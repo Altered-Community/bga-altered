@@ -23,7 +23,7 @@ class OD_Common_TheCouncil extends \ALT\Models\Card
       ),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'),
+      'effectDesc' => clienttranslate('The {j}, {h} and {r} abilities of Characters facing me can\'t activate.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

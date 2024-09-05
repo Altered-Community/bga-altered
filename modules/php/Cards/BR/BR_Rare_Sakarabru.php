@@ -21,7 +21,7 @@ class BR_Rare_Sakarabru extends \ALT\Models\Card
       'flavorText' => clienttranslate('When such a terrifying being appears in your path, taking a step back is only natural.'),
       'artist' => 'Gael Giudicelli',
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing mine moves backwards one region.'),
+      'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing me moves backwards one region.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 4,

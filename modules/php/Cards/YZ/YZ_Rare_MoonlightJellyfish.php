@@ -22,7 +22,7 @@ class YZ_Rare_MoonlightJellyfish extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate(
-        'When I\'m sacrificed, if I\'m not <FLEETING> — Put me in Reserve.  #When I\'m sacrificed, if I\'m <FLEETING> — Draw a card.#'
+        'When I\'m sacrificed, if I was not <FLEETING> — Put me in Reserve.  #When I\'m sacrificed, if was <FLEETING> — Draw a card.#'
       ),
       'forest' => 1,
       'mountain' => 0,

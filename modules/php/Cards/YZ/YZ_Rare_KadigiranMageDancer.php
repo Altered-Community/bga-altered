@@ -22,7 +22,7 @@ class YZ_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'subtypes' => [SOLDIER, MAGE],
       'effectDesc' => clienttranslate(
-        'When you play a Spell — I gain 1 boost.  #At Dusk, if I have 3 or more boosts — Draw a card.#'
+        'When you play a Spell — I gain 1 boost.  #At Dusk —  if I have 3 or more boosts, draw a card.#'
       ),
       'forest' => 1,
       'mountain' => 1,

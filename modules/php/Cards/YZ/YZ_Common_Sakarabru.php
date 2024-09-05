@@ -18,7 +18,7 @@ class YZ_Common_Sakarabru extends \ALT\Models\Card
       'name' => clienttranslate('Sakarabru'),
       'type' => CHARACTER,
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing mine moves backwards one region.'),
+      'effectDesc' => clienttranslate('{H} Your opponent\'s Expedition facing me moves backwards one region.'),
       'typeline' => clienttranslate('Character - Deity'),
       'flavorText' => clienttranslate('When such a terrifying being appears in your path, taking a step back is only natural.'),
       'artist' => 'Gael Giudicelli',

@@ -24,7 +24,7 @@ class AX_Rare_Inari extends \ALT\Models\Card
       'artist' => 'Matteo Spirito',
       'subtypes' => [DEITY],
       'supportDesc' => clienttranslate(
-        '#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)'
+        '#{D} : Activate the {j} abilities of target Permanent you control.# (Discard me from Reserve to do this.)'
       ),
       'forest' => 3,
       'mountain' => 3,

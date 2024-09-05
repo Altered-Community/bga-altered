@@ -21,7 +21,7 @@ class MU_Rare_MechanicalTraining extends \ALT\Models\Card
       'flavorText' => clienttranslate('To learn to create, first learn to fix.'),
       'artist' => 'Damian Audino',
       'subtypes' => [BOON],
-      'effectDesc' => clienttranslate('Activate the {j} triggers of target #Character# you control.'),
+      'effectDesc' => clienttranslate('Activate the {j} abilities of target #Character# you control.'),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand'],

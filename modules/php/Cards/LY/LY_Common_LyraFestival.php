@@ -19,7 +19,7 @@ class LY_Common_LyraFestival extends \ALT\Models\Card
       'type' => PERMANENT,
       'subtypes' => [LANDMARK],
       'effectDesc' => clienttranslate(
-        '{J} Draw a card.  At Dusk, if you control a <FLEETING> Character, another <ANCHORED> Character and yet another <ASLEEP> Character — You win the game.'
+        '{J} Draw a card.  At Dusk — if you control a <FLEETING> Character, another <ANCHORED> Character and yet another <ASLEEP> Character, you win the game.'
       ),
       'flavorText' => clienttranslate(
         'When the time of the Kalann Mae comes, the Lyra all feel the call to a single place, where they will bring a masterpiece to life.'

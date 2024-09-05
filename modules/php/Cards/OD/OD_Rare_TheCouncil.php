@@ -21,7 +21,7 @@ class OD_Rare_TheCouncil extends \ALT\Models\Card
       ),
       'artist' => 'Jean-Baptiste Andrier',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('The {j}, {h} and {r} triggers of Characters facing me don\'t activate.'),
+      'effectDesc' => clienttranslate('The {j}, {h} and {r} abilities of Characters facing me can\'t activate.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

@@ -21,7 +21,7 @@ class AX_Rare_DrFrankenstein extends \ALT\Models\Card
       'flavorText' => clienttranslate('We sometimes seek companionship in the strangest of life forms.'),
       'artist' => 'Taras Susak',
       'subtypes' => [ENGINEER],
-      'effectDesc' => clienttranslate('{R} You may activate the {j} triggers of target Permanent you control.'),
+      'effectDesc' => clienttranslate('{R} You may activate the {j} abilities of target Permanent you control.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,

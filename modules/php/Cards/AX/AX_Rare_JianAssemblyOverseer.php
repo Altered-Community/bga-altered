@@ -19,7 +19,7 @@ class AX_Rare_JianAssemblyOverseer extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ENGINEER],
       'supportDesc' => clienttranslate(
-        '#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)'
+        '#{D} : Activate the {j} abilities of target Permanent you control.# (Discard me from Reserve to do this.)'
       ),
       'supportIcon' => 'discard',
       'flavorText' => clienttranslate(

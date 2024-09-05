@@ -21,7 +21,7 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'flavorText' => clienttranslate('Some say the harvesters are the caretakers of the world-trees.'),
       'artist' => 'Ba Vo',
       'subtypes' => [ANIMAL, PLANT],
-      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.  #At Noon, if I have 2 or more boosts — $<RESUPPLY>.#'),
+      'effectDesc' => clienttranslate('{J} I gain $<ANCHORED>.  #At Noon — if I have 2 or more boosts, $<RESUPPLY>.#'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 0,

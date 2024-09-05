@@ -24,7 +24,7 @@ class AX_Rare_MoonlightJellyfish extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [SPIRIT],
       'effectDesc' => clienttranslate(
-        '#When a Robot joins your Expeditions — You may sacrifice me to give it 2 boosts.#  When I\'m sacrificed, if I\'m not <FLEETING> — Put me in Reserve.'
+        '#When a Robot joins your Expeditions — You may sacrifice me to give it 2 boosts.#  When I\'m sacrificed, if I was not <FLEETING> — Put me in Reserve.'
       ),
       'forest' => 1,
       'mountain' => 0,
