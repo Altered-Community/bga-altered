@@ -19,7 +19,7 @@ class OD_Rare_Atlas extends \ALT\Models\Card
       'flavorText' => clienttranslate('Not even the weight of the sky could make him buckle.'),
       'artist' => 'Matteo Spirito',
       'subtypes' => [TITAN],
-      'effectDesc' => clienttranslate('$<GIGANTIC>.  #Tokens you control have <GIGANTIC>.#'),
+      'effectDesc' => clienttranslate('$<GIGANTIC>.  #Tokens you control are <GIGANTIC>.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

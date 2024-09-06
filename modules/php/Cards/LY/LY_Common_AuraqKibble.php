@@ -21,7 +21,7 @@ class LY_Common_AuraqKibble extends \ALT\Models\Card
       'flavorText' => clienttranslate('True beauty lies outside of the conventional.'),
       'artist' => 'Edward Cheekokseang',
       'effectDesc' => clienttranslate(
-        'When you play a Character with a base statistic of 0 — I gain a Performance counter.  At Noon — You may spend five of my Performance counters to reveal the top card of your deck. You may play it for free or put it into your hand. (Don\'t activate any {h} triggers.)'
+        'When you play a Character with a base statistic of 0 — I gain a Performance counter.  At Noon — You may spend five of my Performance counters to reveal the top card of your deck. You may play it for free or put it into your hand. (Don\'t activate any {h} abilities.)'
       ),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,

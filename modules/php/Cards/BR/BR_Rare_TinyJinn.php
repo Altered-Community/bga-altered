@@ -22,7 +22,7 @@ class BR_Rare_TinyJinn extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [ELEMENTAL],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone, if I\'m <BOOSTED> — Put me in my owner\'s Mana zone (as an exhausted Mana Orb).  {R} I gain 1 boost.'
+        'If I would leave the Expedition zone while I\'m <BOOSTED>, put me in my owner\'s Mana zone instead (as an exhausted Mana Orb).  {R} I gain 1 boost.'
       ),
       'forest' => 0,
       'mountain' => 2,

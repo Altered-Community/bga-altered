@@ -21,7 +21,7 @@ class MU_Rare_Ganesha extends \ALT\Models\Card
       'flavorText' => clienttranslate('Knowledge and wisdom must walk side by side.'),
       'artist' => 'Taras Susak',
       'subtypes' => [DEITY],
-      'effectDesc' => clienttranslate('{J} For each #other Character# you control, you may activate its {j} triggers.'),
+      'effectDesc' => clienttranslate('{J} For each #other Character# you control, you may activate its {j} abilities.'),
       'forest' => 5,
       'mountain' => 5,
       'ocean' => 5,

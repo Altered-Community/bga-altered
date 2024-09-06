@@ -21,7 +21,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
       'flavorText' => clienttranslate('An energy system is a piece of subtle machinery to be optimized for better output.'),
       'artist' => 'Taras Susak',
       'effectDesc' => clienttranslate(
-        'When a card leaves your Reserve during the Afternoon, if I have less than five Scrap counters — I gain a Scrap counter.  If I have five or more Scrap counters, I gain \"{T} : Draw a card, then put a card from your hand in Reserve.\"'
+        'When a card leaves your Reserve during the Afternoon — if I have less than five Scrap counters, I gain a Scrap counter.  If I have five or more Scrap counters, I gain \"{T} : Draw a card, then put a card from your hand in Reserve.\"'
       ),
 
       'reserveSlots' => 2,
