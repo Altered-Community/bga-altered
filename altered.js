@@ -124,6 +124,7 @@ define([
       this._fakeIndex = -1;
       this._diceIndex = 1;
       this._undoPossible = true;
+      this._beginner = false;
     },
     notif_midMessage(n) {},
 
@@ -345,6 +346,7 @@ define([
       this.updatePowersBlockedExpeditions();
       this.updateDefenders();
       this._undoPossible = gamedatas.undo;
+      this._beginner = gamedatas.beginner;
 
       this.inherited(arguments);
     },
@@ -929,7 +931,7 @@ define([
       }
 
       // API
-      let canUseAPI = true;
+      let canUseAPI = !this._beginner;
       if (canUseAPI && !$('card-fake-API')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
         $('card-fake-API').querySelector('.altered-card-wrapper').insertAdjacentHTML(
@@ -944,7 +946,7 @@ define([
       }
 
       // RandomDeck
-      let canUseRandom = true;
+      let canUseRandom = false;
       if (canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
         $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(

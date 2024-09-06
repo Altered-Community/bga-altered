@@ -86,6 +86,7 @@ class altered extends Table
       'cards' => Cards::getUiData($pId, $refresh),
       'meeples' => Meeples::getUiData(),
       'undo' => Globals::isUndo(),
+      'beginner' => Globals::isBeginner(),
 
       'firstPlayer' => Globals::getFirstPlayer(),
       'passedPlayers' => Globals::isDayPhase() ? Globals::getSkippedPlayers() : [],

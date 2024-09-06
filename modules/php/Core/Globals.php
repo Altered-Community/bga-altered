@@ -57,6 +57,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
+    'beginner' => 'bool',
   ];
 
   protected static $table = 'global_variables';
@@ -79,10 +80,12 @@ class Globals extends \ALT\Helpers\DB_Manager
     $tmp = self::$log;
     self::$log = false;
 
-    foreach (self::DB()
-      ->select(['value', 'name'])
-      ->get(false)
-      as $name => $variable) {
+    foreach (
+      self::DB()
+        ->select(['value', 'name'])
+        ->get(false)
+      as $name => $variable
+    ) {
       if (\array_key_exists($name, self::$variables)) {
         self::$data[$name] = $variable;
       }
@@ -201,8 +204,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setPlayedCards(0);
     self::setDayPhase(false);
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
-    self::setTestingOption($options[OPTION_TESTING] ?? 0);
     self::setDeckOptions(OPTION_DECKS_STARTER);
+    self::setBeginner($options[OPTION_BEGINNER]);
     self::setUndo($options[OPTION_UNDO] ?? 0);
   }
 

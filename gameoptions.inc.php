@@ -28,14 +28,20 @@ namespace ALT;
 
 require_once 'modules/php/constants.inc.php';
 $game_options = [
-  OPTION_TESTING => [
-    'name' => 'Testing',
+  OPTION_BEGINNER => [
+    'name' => clienttranslate('Beginner mode'),
+    'default' => OPTION_ENABLED,
     'values' => [
       OPTION_DISABLED => [
         'name' => 'Disabled',
+        'tmdisplay' => totranslate('Standard'),
+        'description' => totranslate('Custom & starter decks can be used'),
+        'nobeginner' => true,
       ],
       OPTION_ENABLED => [
         'name' => 'Enabled',
+        'tmdisplay' => totranslate('Beginner mode'),
+        'description' => totranslate('Game can be played only with starter decks'),
       ],
     ]
   ],
@@ -44,9 +50,12 @@ $game_options = [
     'values' => [
       OPTION_DISABLED => [
         'name' => 'Disabled',
+        'tmdisplay' => totranslate('no undo'),
+        'description' => totranslate('Undo is disabled for everyone'),
       ],
       OPTION_ENABLED => [
         'name' => 'Enabled',
+        'description' => totranslate('Undo can be disabled as a player preference'),
       ],
     ]
   ]
