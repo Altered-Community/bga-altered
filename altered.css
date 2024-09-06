@@ -3235,7 +3235,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     top: -5px;
     z-index: 10;
     left: 0;
-    right: 0; }
+    right: 0;
+  margin-right:240px; }
 
 #page-title {
   position: relative;
