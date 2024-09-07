@@ -1,0 +1,32 @@
+{
+    "150": {
+        "name": "Beginner mode",
+        "default": 1,
+        "values": {
+           "1" : {
+                "name": "Enabled",
+                "tmdisplay" : "Beginner mode",
+                "description" : "Game can be played only with starter decks"
+            },
+            "0": {
+                "name": "Disabled",
+                "description" : "'Custom & starter decks can be used",
+                "nobeginner": true
+            }
+        }
+    },
+    "151": {
+        "name": "Undo",
+        "values": {
+           "1" : {
+                "name": "Enabled",
+                "tmdisplay" : "no undo",
+                "description" : "Undo is disabled for everyone"
+            },
+            "0": {
+                "name": "Disabled",
+                "description" : "'Undo can be disabled as a player preference"
+            }
+        }
+    }
+}

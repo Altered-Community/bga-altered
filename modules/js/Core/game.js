@@ -593,6 +593,7 @@ define([
             return;
           }
           // Pref type => just move the user pref around
+          debug(config.prefId);
           dojo.place($('preference_control_' + config.prefId).parentNode.parentNode, localContainer);
           return;
         }

@@ -1,0 +1,55 @@
+{
+    "200": {
+        "name": "Display tooltips",
+        "needReload": false,
+        "generic": true,
+        "values": [
+            {
+                "name": "Enabled"
+            },
+            {
+                "name": "Disabled"
+            }
+        ]
+    },
+    "103": {
+        "name": "Turn confirmation",
+        "needReload": false,
+        "default": 0,
+        "values": {
+            "2": {
+                "name": "Enabled"
+            },
+            "0": {
+                "name": "Disabled"
+            },
+            "3": {
+                "name": "Enabled with timer"
+            }
+        }
+    },
+    "104": {
+        "name": "Undoable actions confirmation",
+        "needReload": false,
+        "values": {
+            "2": {
+                "name": "Enabled"
+            },
+            "0": {
+                "name": "Disabled"
+            }
+        }
+    },
+    "152": {
+        "name": "Undo:",
+        "needReload": false,
+        "values": {
+            "1": {
+                "name": "Enabled"
+            },
+            "2": {
+                "name": "Disabled"
+            }
+        }
+    }
+}
