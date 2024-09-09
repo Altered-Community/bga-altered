@@ -683,7 +683,7 @@ abstract class FlowConvertor
       134 => ['description' => clienttranslate('I gain 3 boosts.'), 'output' => FT::GAIN(ME, BOOST, 3)],
       136 => [
         'description' => clienttranslate('You may send to Reserve target Character with Hand Cost {4} or more.'),
-        'output' =>  FT::ACTION(TARGET, ['maxHandCost' => 4, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
+        'output' =>  FT::ACTION(TARGET, ['minHandCost' => 4, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
       ],
       137 => [
         'description' => clienttranslate('You may discard target Character with Hand Cost {3} or less.'),
