@@ -25,7 +25,7 @@ class MU_Rare_ManaReaping extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [PERMANENT, CHARACTER],
+        'targetType' => [PERMANENT, CHARACTER, TOKEN],
         'effect' => FT::ACTION(DISCARD, ['destination' => MANA, 'tapped' => true]),
       ]),
     ];

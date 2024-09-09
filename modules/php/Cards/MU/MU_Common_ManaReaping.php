@@ -29,7 +29,7 @@ class MU_Common_ManaReaping extends \ALT\Models\Card
       'effectPlayed' => FT::SEQ(
         FT::GAIN($this, FLEETING),
         FT::ACTION(TARGET, [
-          'targetType' => [PERMANENT, CHARACTER],
+          'targetType' => [PERMANENT, CHARACTER, TOKEN],
           'effect' => FT::ACTION(DISCARD, ['destination' => MANA, 'tapped' => true]),
         ])
       ),
