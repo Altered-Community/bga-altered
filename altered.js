@@ -1804,7 +1804,7 @@ define([
         D: 'discard',
         T: 'tap',
         V: 'forest',
-        E: 'ocean',
+        O: 'ocean',
         COUNTER: 'charge',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
