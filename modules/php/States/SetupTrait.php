@@ -158,6 +158,9 @@ trait SetupTrait
     // }
 
     $deckList = self::getGenericGameInfos('get_player_decks');
+    if ($deckList['success'] != 1) {
+      throw new \BgaVisibleSystemException($deckList['message']);
+    }
     $deckList = $deckList['content'];
     return $deckList;
   }
@@ -259,6 +262,9 @@ trait SetupTrait
     // 
     // END TODO
     $deck = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $deckId]);
+    if ($deck['success'] != 1) {
+      throw new \BgaVisibleSystemException($deck['message']);
+    }
     // throw new \feException(print_r($deck));
 
     $deck = $deck['content'];
@@ -504,7 +510,6 @@ trait SetupTrait
         $faction = Cards::createDeck($player, $deckContent);
       } elseif ($selection[$pId] == 'random') {
         $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
-        // throw new \feException("toto");
         if ($deckContent['success'] != 1) {
           throw new \BgaVisibleSystemException($deckContent['message']);
         }
