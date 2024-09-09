@@ -51,7 +51,11 @@ class Target extends \ALT\Models\Action
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } else {
-          $msg = clienttranslate('Target up to ${n} character(s) to ${effect_desc}');
+          if ($this->getArg('n') == INFTY) {
+            $msg = clienttranslate('All characters ${effect_desc}');
+          } else {
+            $msg = clienttranslate('Target up to ${n} character(s) to ${effect_desc}');
+          }
         }
       } else {
         $msg = clienttranslate('Target ${n} character(s) to ${effect_desc}');
@@ -71,10 +75,18 @@ class Target extends \ALT\Models\Action
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } else {
-          $msg = clienttranslate('Target up to ${n} card(s) to ${effect_desc}');
+          if ($this->getArg('n') == INFTY) {
+            $msg = clienttranslate('All cards ${effect_desc}');
+          } else {
+            $msg = clienttranslate('Target up to ${n} card(s) to ${effect_desc}');
+          }
         }
       } else {
-        $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
+        if ($this->getArg('n') == INFTY) {
+          $msg = clienttranslate('All cards ${effect_desc}');
+        } else {
+          $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
+        }
       }
     }
 
