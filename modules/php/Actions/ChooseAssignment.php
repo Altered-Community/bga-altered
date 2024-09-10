@@ -245,7 +245,6 @@ class ChooseAssignment extends \ALT\Models\Action
             }
           }
         }
-        Globals::setAdditionalEffect([]);
       }
 
       if (!empty($effects)) {
@@ -263,7 +262,11 @@ class ChooseAssignment extends \ALT\Models\Action
       'from' => $fromLocation,
       'to' => $location,
       'playedFree' => $cost == 0 ? true : false,
+      'additionalEffects' => Globals::getAdditionalEffect()
     ]);
+
+    // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
+    Globals::setAdditionalEffect([]);
 
     if ($card->getType() == SPELL) {
       if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {

@@ -204,16 +204,16 @@ abstract class Conditions
     $cards = $card->getPlayer()->getPlayedCards($types);
 
     if (in_array($type, SUBTYPES)) {
-      $cards = $cards->filter(fn ($c) => in_array($type, $c->getSubtypes()));
+      $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
     }
 
     if ($excludeMyself === 'true') {
-      $cards = $cards->filter(fn ($c) => $c->getId() != $card->getId());
+      $cards = $cards->filter(fn($c) => $c->getId() != $card->getId());
     }
 
     if ($state != 'all') {
       if ($state == 'boosted') {
-        $cards = $cards->filter(fn ($c) => $c->hasToken(BOOST));
+        $cards = $cards->filter(fn($c) => $c->hasToken(BOOST));
       }
     }
 
@@ -415,8 +415,15 @@ abstract class Conditions
     if (!self::isCardPlayed($card, $event, CHARACTER)) {
       return false;
     }
+    $additionalEffect = false;
 
-    return ($event['from'] == RESERVE || (Globals::getAdditionalEffect()[$event['cardType']] ?? null)) &&
+    foreach ($event['additionalEffects'] as $addEffect) {
+      if ($addEffect['type'] == $event['cardType']) {
+        $additionalEffect = true;
+      }
+    }
+
+    return ($event['from'] == RESERVE || $additionalEffect) &&
       !Players::hasOpponentBlockingPower($card->getPlayer(), $event['to']);
   }
 
