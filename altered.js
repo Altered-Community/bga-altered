@@ -998,7 +998,14 @@ define([
 
     onEnteringStateChooseFetchedDeck(args) {
       this.addCancelStateBtn();
-
+      const FACTION_NAMES = {
+        AX: _('Axiom'),
+        BR: _('Bravos'),
+        LY: _('Lyra'),
+        MU: _('Muna'),
+        OR: _('Ordis'),
+        YZ: _('Yzmir'),
+      };
       $('altered-overlay-content').innerHTML = '';
       $('altered-overlay-content').insertAdjacentHTML(
         'beforeend',
@@ -1023,7 +1030,9 @@ define([
       args.decks.forEach((deck) => {
         $(`deckList`).insertAdjacentHTML(
           'beforeEnd',
-          `<li id='${deck.apiId}' style='border:1px solid black; padding:2px 5px; cursor:pointer;'>${deck.deckName} (${deck.faction})</li>`
+          `<li id='${deck.apiId}' style='border:1px solid black; padding:2px 5px; cursor:pointer;'>${deck.deckName} (${
+            FACTION_NAMES[deck.faction]
+          })</li>`
         );
 
         this.onClick(deck.apiId, () => {
