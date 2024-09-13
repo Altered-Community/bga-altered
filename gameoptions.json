@@ -18,12 +18,12 @@
     "151": {
         "name": "Allow undo",
         "values": {
-           "1" : {
+           "0" : {
                 "name": "Disabled",
                 "tmdisplay" : "no undo",
                 "description" : "Undo is disabled for everyone"
             },
-            "0": {
+            "1": {
                 "name": "Enabled",
                 "description" : "Undo can be disabled as a player preference"
             }
