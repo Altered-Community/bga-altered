@@ -18,6 +18,7 @@ class OD_Common_GulrangTocsin extends \ALT\Models\Card
       'name' => clienttranslate('Gulrang & Tocsin'),
       'typeline' => clienttranslate('Ordis Hero'),
       'type' => HERO,
+      'thumbnail' => 2,
       'flavorText' => clienttranslate('The Ordis way lies in patience and resilience.'),
       'artist' => 'Taras Susak',
       'effectDesc' => clienttranslate(

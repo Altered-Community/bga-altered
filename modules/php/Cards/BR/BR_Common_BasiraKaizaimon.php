@@ -17,6 +17,7 @@ class BR_Common_BasiraKaizaimon extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Basira & Kaizaimon'),
       'type' => HERO,
+      'thumbnail' => 2,
       'typeline' => clienttranslate('Bravos Hero'),
       'effectDesc' => clienttranslate(
         'When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$<BB>.'

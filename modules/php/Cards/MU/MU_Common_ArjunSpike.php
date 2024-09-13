@@ -18,6 +18,7 @@ class MU_Common_ArjunSpike extends \ALT\Models\Card
       'name' => clienttranslate('Arjun & Spike'),
       'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
+      'thumbnail' => 1,
       'flavorText' => clienttranslate('When you care for the earth, it let roots grow strong and resilient.'),
       'artist' => 'Ba Vo',
       'effectDesc' => clienttranslate(

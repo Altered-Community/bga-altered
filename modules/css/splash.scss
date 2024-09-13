@@ -29,6 +29,7 @@
     justify-content: center;
     align-items: center;
     display: none;
+    padding-bottom: 60px; // on most screen, the bottom of the board will be cut
     &.active {
         display: flex;
     }
@@ -122,6 +123,7 @@
 
         .action-button {
             font-size: 24px;
+            padding: 0.5rem 1.5rem;
             margin: auto;
 
             &.bgabutton_gray {
@@ -131,6 +133,26 @@
                 &:hover {
                     background-color: #bbbaba;
                     color: black;
+                }
+            }
+
+            &.bgabutton_blue {
+                background-color: #d4af37;
+                color: rgb(39, 39, 39);
+                border: 1px solid #b99a34;
+                text-shadow: none;
+
+                &:hover {
+                    background-color: #f3d46e;
+                    color: black;
+                }
+
+                &.disabled {
+                    border: 1px solid gray;
+                    background-color: #bebaad4b;
+                    color: grey;
+                    cursor: not-allowed;
+                    opacity: 0.7;
                 }
             }
         }
@@ -164,7 +186,7 @@
                 position: relative;
                 box-sizing: border-box;
                 background-image: url("img/deck-thumbnails.jpg");
-                background-size: auto 600%;
+                background-size: 300% 600%;
                 margin: auto;
                 border: 2px solid #ffe300;
                 box-shadow: 0px 0px 10px 0px #ffe300;
@@ -238,6 +260,279 @@
             }
         }
 
+        .spinning-loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #eac357;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        #api-loader {
+            width: 150px;
+            height: 150px;
+            margin: 100px auto;
+        }
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #overlay-deck-selection {
+            //            style='background: white; padding: 20px; border-radius: 15px; border: 1px solid black;font-size:20px;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+
+            #deck-search-holder {
+                display: none;
+                background: white;
+                border-top-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                border-top-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+                padding: 7px;
+                margin-bottom: 15px;
+
+                form {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        display: block;
+                        flex-grow: 1;
+                        border: none;
+                        margin-right: 10px;
+                        height: 40px;
+                        border-bottom: 2px solid transparent;
+                        margin-bottom: -2px;
+                        margin-left: 5px;
+
+                        &:focus {
+                            outline: none;
+                            border-bottom: 2px solid rgb(34, 7, 7);
+                        }
+                    }
+
+                    button {
+                        background-color: #625948;
+                        color: #fff;
+                        cursor: pointer;
+                        width: 60px;
+                        height: 40px;
+                        font-size: 20px;
+                        border-top-left-radius: 15px;
+                        border-bottom-right-radius: 15px;
+                        border-top-right-radius: 5px;
+                        border-bottom-left-radius: 5px;
+                    }
+                }
+            }
+
+            #deck-list {
+                width: 1430px;
+                grid-gap: 10px;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr 1fr;
+
+                .deck-thumbnail {
+                    width: 450px;
+                    height: 110px;
+                    border-radius: 10px;
+                    box-shadow: 1px 1px 5px black;
+                    background-image: url("img/deck-thumbnails.jpg");
+                    background-size: 300% 600%;
+                    color: white;
+                    padding: 10px;
+                    position: relative;
+                    transition:
+                        transform 0.2s,
+                        box-shadow 0.3s;
+
+                    &::before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        pointer-events: none;
+                        transition: background 0.4s;
+                    }
+
+                    &.selectable {
+                        cursor: pointer;
+
+                        &:hover {
+                            transform: translateX(-5px) translateY(-5px);
+                            box-shadow: 0px 0px 7px 3px rgb(255, 187, 0);
+                        }
+                    }
+                    &.fetching,
+                    &.fetching:hover {
+                        transform: translateX(-5px) translateY(-5px);
+                        box-shadow: 0px 0px 7px 3px rgb(255, 166, 0);
+                    }
+                    &.selected,
+                    &.selected:hover {
+                        transform: translateX(-5px) translateY(-5px);
+                        box-shadow: 0px 0px 7px 3px rgb(85, 218, 9);
+                    }
+
+                    &[data-faction="BR"] {
+                        background-position-y: 20%;
+                    }
+                    &[data-faction="LY"] {
+                        background-position-y: 40%;
+                    }
+                    &[data-faction="MU"] {
+                        background-position-y: 60%;
+                    }
+                    &[data-faction="OD"] {
+                        background-position-y: 80%;
+                    }
+                    &[data-faction="OR"] {
+                        background-position-y: 80%;
+                    }
+                    &[data-faction="YZ"] {
+                        background-position-y: 100%;
+                    }
+
+                    &[data-thumbnail="0"] {
+                        background-position-x: 0%;
+                    }
+                    &[data-thumbnail="1"] {
+                        background-position-x: 50%;
+                    }
+                    &[data-faction="2"] {
+                        background-position-y: 100%;
+                    }
+
+                    .deck-name {
+                        font-size: 22px;
+                        font-family: "Tiller";
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                    }
+
+                    .deck-hero-name {
+                        font-size: 18px;
+                        margin-bottom: 25px;
+                    }
+
+                    .deck-properties {
+                        display: flex;
+
+                        & > div {
+                            background: rgb(228, 227, 224);
+                            color: rgb(88, 79, 60);
+                            border-radius: 20px;
+                            padding: 4px 10px 2px;
+                            font-family: "Tiller";
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            margin: 0px 7px 0px 0px;
+                            height: 20px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            svg {
+                                height: 20px;
+                                width: 26px;
+                                margin-top: -4px;
+                                margin-right: 2px;
+                            }
+                        }
+                    }
+
+                    .spinning-loader {
+                        display: none;
+                        position: absolute;
+                        left: calc(50% - 25px);
+                        top: calc(50% - 25px);
+                    }
+
+                    &.fetching {
+                        .spinning-loader {
+                            display: block;
+                            z-index: 2;
+                        }
+
+                        &::before {
+                            background: rgba(0, 0, 0, 0.568);
+                        }
+                    }
+                }
+            }
+
+            #pagination-holder {
+                margin-top: 15px;
+                margin-bottom: 15px;
+                border-top: 1px solid #bebebea1;
+                border-bottom: 1px solid #bebebea1;
+                display: flex;
+                padding-top: 5px;
+                padding-bottom: 5px;
+
+                div#prev-page,
+                div#next-page {
+                    background: #f9f9f9;
+                    color: black;
+                    padding: 9px 12px;
+                    border-radius: 7px;
+                    cursor: pointer;
+                    box-shadow: 1px 1px 2px black;
+                    font-size: 20px;
+
+                    &.disabled {
+                        background-color: #bebaada4;
+                        color: rgb(75, 75, 75);
+                        cursor: not-allowed;
+                    }
+                }
+
+                ul {
+                    flex-grow: 1;
+                    display: flex;
+                    justify-content: center;
+
+                    li.page-link {
+                        background: #f9f9f9;
+                        color: black;
+                        padding: 9px 12px;
+                        border-radius: 7px;
+                        cursor: pointer;
+                        font-size: 20px;
+                        margin: 0px 4px;
+
+                        &.current {
+                            background: #9e978b;
+                            font-weight: bold;
+                            cursor: default;
+                        }
+                    }
+
+                    li.separator {
+                        color: white;
+                        margin: 0px 15px;
+                        font-size: 26px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
         // #vs-left {
         //     position: absolute;
         //     left: 0;

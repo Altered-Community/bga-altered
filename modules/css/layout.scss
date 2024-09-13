@@ -1,3 +1,15 @@
+.bgabutton {
+    border-radius: 0.2rem;
+    border-top-left-radius: 0.7rem;
+    border-bottom-right-radius: 0.7rem;
+    transition: border-radius 0.2s;
+
+    &:hover,
+    &.selected {
+        border-radius: 0.3rem;
+    }
+}
+
 #page-content,
 #page-title,
 #right-side-first-part {

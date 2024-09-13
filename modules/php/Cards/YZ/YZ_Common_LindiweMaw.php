@@ -18,6 +18,7 @@ class YZ_Common_LindiweMaw extends \ALT\Models\Card
       'name' => clienttranslate('Lindiwe & Maw'),
       'typeline' => clienttranslate('Yzmir Hero'),
       'type' => HERO,
+      'thumbnail' => 1,
       'flavorText' => clienttranslate('To master magic, one must be willing to sacrifice.'),
       'artist' => 'Edward Cheekokseang',
       'effectDesc' => clienttranslate(

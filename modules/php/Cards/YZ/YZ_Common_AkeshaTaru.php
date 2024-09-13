@@ -17,6 +17,7 @@ class YZ_Common_AkeshaTaru extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Akesha & Taru'),
       'type' => HERO,
+      'thumbnail' => 0,
       'typeline' => clienttranslate('Yzmir Hero'),
       'flavorText' => clienttranslate('Whatever ordeals we may face, good manners and politeness are always in fashion!'),
       'artist' => 'Taras Susak',

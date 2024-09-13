@@ -18,6 +18,7 @@ class LY_Common_AuraqKibble extends \ALT\Models\Card
       'name' => clienttranslate('Auraq & Kibble'),
       'typeline' => clienttranslate('Lyra Hero'),
       'type' => HERO,
+      'thumbnail' => 1,
       'flavorText' => clienttranslate('True beauty lies outside of the conventional.'),
       'artist' => 'Edward Cheekokseang',
       'effectDesc' => clienttranslate(

@@ -17,6 +17,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Nevenka & Blotch'),
       'type' => HERO,
+      'thumbnail' => 0,
       'typeline' => clienttranslate('Lyra Hero'),
       'effectDesc' => clienttranslate(
         '{T} : Target a Character you control, then roll a die. On a:  • 6+, it gains <ANCHORED>. (During Rest, it doesn\'t go to Reserve and it loses Anchored.)  • 2-5, it gains 1 boost$<BB>.  • 1, send it to Reserve.'

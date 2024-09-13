@@ -53,6 +53,7 @@ class Card extends \ALT\Helpers\DB_Model
     'supportIcon' => 'str',
     'artist' => 'str',
     'setIcon' => 'str',
+    'thumbnail' => 'int', // Only used for Heros for UI
 
     'rarity' => 'int',
     'asset' => 'str',
@@ -272,7 +273,7 @@ class Card extends \ALT\Helpers\DB_Model
     // Remove meeples
     $meeples = Meeples::getInLocation('card-' . $this->id);
     if ($location == RESERVE && $this->isSeasoned()) {
-      $meeples = $meeples->filter(fn ($m) => $m->getType() != BOOST); // Seasoned card keep their boost
+      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep their boost
     }
     $meepleIds = $meeples->getIds();
     if (!empty($meepleIds)) {

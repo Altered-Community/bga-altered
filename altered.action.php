@@ -71,10 +71,9 @@ class action_altered extends APP_GameAction
   public function actLoadAPIDecks()
   {
     self::setAjaxMode();
-    // $login = self::getArg('lo', AT_json, true);
-    // $this->validateJSonAlphaNum($login, 'lo');
-    // $secret = self::getArg('sec', AT_json, true);
-    $deckList = $this->game->actLoaAPIdDecks();
+    $request = self::getArg('request', AT_json, true);
+    $this->validateJSonAlphaNum($request);
+    $deckList = $this->game->actLoaAPIdDecks($request);
     self::ajaxResponseWithResult($deckList);
   }
 
@@ -85,7 +84,7 @@ class action_altered extends APP_GameAction
     // $login = self::getArg('lo', AT_json, true);
     // $this->validateJSonAlphaNum($login, 'lo');
     // $secret = self::getArg('sec', AT_json, true);
-    $deckId = self::getArg('deckID', AT_json, true);
+    $deckId = self::getArg('deckId', AT_json, true);
     $deckContent = $this->game->actGetDeckInfos($deckId);
     self::ajaxResponseWithResult($deckContent);
   }
