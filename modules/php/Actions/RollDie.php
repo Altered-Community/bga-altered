@@ -123,11 +123,11 @@ class RollDie extends \ALT\Models\Action
         'n' => $extraRolls,
       ]);
     }
-
+    // $fake = 5;
     for ($i = 0; $i < $nTotal; $i++) {
       $roll = bga_rand(1, 6);
       if (Game::get()->getBgaEnvironment() == 'studio') {
-        // $roll = 5;
+        // $roll = $fake++;
       }
       $rolls[] = $roll;
     }
@@ -156,7 +156,7 @@ class RollDie extends \ALT\Models\Action
       ->count() > 0;
 
     return [
-      'rolls' => array_unique(Globals::getDiceRolls(), SORT_NUMERIC),
+      'rolls' => array_values(array_unique(Globals::getDiceRolls(), SORT_NUMERIC)),
       'canDiscard' => $canDiscard,
       'cardIds' => Players::getActive()
         ->getReserveCards()
