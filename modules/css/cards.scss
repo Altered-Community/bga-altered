@@ -165,7 +165,7 @@
     width: calc(var(--cardScale) * 324px);
     height: calc(var(--cardScale) * 450px);
     box-shadow: none;
-    border-radius: calc(var(--cardScale) * 17px);
+    border-radius: calc(var(--cardScale) * 26px);
 
     & > .altered-meeple {
         position: absolute;
@@ -542,7 +542,8 @@
             position: absolute;
             z-index: 2;
             top: 317px;
-            bottom: 31px;
+            height: 102px;
+            //            bottom: 31px;
             left: 20px;
             right: 20px;
             font-family: "Jali Greek Variable";
@@ -677,18 +678,21 @@
         .card-frame[data-support="1"][data-size="1"] ~ .card-text,
         .card-frame[data-support="0"][data-size="2"] ~ .card-text {
             top: 280px;
+            height: 139px;
             .card-qrcode-container {
                 shape-outside: polygon(0px 70px, 0px 142px, 70px 142px, 70px 70px);
             }
         }
         .card-frame[data-support="1"][data-size="2"] ~ .card-text {
             top: 245px;
+            height: 174px;
             .card-qrcode-container {
                 shape-outside: polygon(0px 106px, 0px 182px, 70px 182px, 70px 106px);
             }
         }
         .card-frame[data-type="token"] ~ .card-text {
             top: 365px;
+            height: 54px;
             .card-qrcode-container {
                 shape-outside: polygon(0px 0px, 0px 53px, 70px 52px, 70px 0px);
             }
@@ -729,7 +733,8 @@
         }
         .card-text {
             top: 311px;
-            bottom: 31px;
+            height: 108px;
+            //            bottom: 31px;
             left: 21px;
             right: 21px;
         }

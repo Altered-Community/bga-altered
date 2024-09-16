@@ -62,6 +62,11 @@ trait SetupTrait
       }
       $args['_private'][$pId]['decks'] = $decks;
       $args['_private'][$pId]['selection'] = $selection[$pId] ?? null;
+
+      if ($args['_private'][$pId]['selection'] == 'API') {
+        $gContent = Globals::getDeckContent();
+        $args['_private'][$pId]['API'] = $gContent[$pId];
+      }
     }
 
     return $args;
@@ -88,7 +93,7 @@ trait SetupTrait
     $selection = Globals::getDeckSelection();
     unset($selection[$player->getId()]);
     Globals::setDeckSelection($selection);
-    Notifications::updateInitialPrecoDeckSelection($player, self::argsPrecoDeckSelection());
+    Notifications::updateInitialPrecoDeckSelection($player, $this->argsPrecoDeckSelection());
 
     $this->updateActivePlayersPrecoDeckSelection();
   }
@@ -133,15 +138,16 @@ trait SetupTrait
     // Default value of parameters
     $request['name'] = $request['name'] ?? '';
     $request['page'] = $request['page'] ?? 1;
-    $request['factions'] = $request['factions'] ?? ['MU', 'LY'];
+    $request['factions'] = $request['factions'] ?? ['AX', 'BR', 'MU', 'LY', 'OR', 'YZ'];
+    // $request['factions'] = ['AX'];
     $request['hero'] = $request['hero'] ?? '';
 
     // Fetch them from MS
-    $deckList = self::getGenericGameInfos('get_player_decks', $request);
-    if ($deckList['success'] != 1) {
-      throw new \BgaVisibleSystemException("###API ERROR###" . $deckList['message']);
+    $response = self::getGenericGameInfos('get_player_decks', $request);
+    if ($response['success'] != 1) {
+      throw new \BgaVisibleSystemException("API ERROR###" . $response['message'] . "###");
     }
-    $content = $deckList['content'];
+    $content = $response['content'];
     $content['request'] = $request;
 
     // Add infos to the deck
@@ -158,12 +164,12 @@ trait SetupTrait
 
   public function actGetDeckInfos($deckId)
   {
-    $deck = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $deckId]);
-    if ($deck['success'] != 1) {
-      throw new \BgaVisibleSystemException($deck['message']);
+    $response = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $deckId]);
+    if ($response['success'] != 1) {
+      throw new \BgaVisibleSystemException("API ERROR###" . $response['message'] . "###");
     }
 
-    $deck = $deck['content'];
+    $deck = $response['content'];
     $deckContent = [];
     $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO]), 'n' => 1];
     foreach ($deck['cards'] as $cardRef => $card) {
@@ -176,15 +182,16 @@ trait SetupTrait
         }
         $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
       } else {
-        $deckContent[] = ['card' => Cards::getCardClass($cardRef), 'n' => $card['quantity']];
+        $deckContent[] = ['card' => ['properties' => Cards::getCardClass($cardRef)->getProperties()], 'n' => $card['quantity']];
       }
     }
+    $deck['cards'] = $deckContent;
 
     $gContent = Globals::getDeckContent();
-    $gContent[Players::getCurrentId()] = $deckContent;
+    $gContent[Players::getCurrentId()] = $deck;
     Globals::setDeckContent($gContent);
 
-    return $deckContent;
+    return $deck;
   }
 
   public function actConfirmAPIDeck()
@@ -201,69 +208,6 @@ trait SetupTrait
   }
 
 
-  //////////////////////////////////////////////////////////////////
-  //    ____ _                                _           _
-  //   / ___| |__   ___   ___  ___  ___    __| | ___  ___| | __
-  //  | |   | '_ \ / _ \ / _ \/ __|/ _ \  / _` |/ _ \/ __| |/ /
-  //  | |___| | | | (_) | (_) \__ \  __/ | (_| |  __/ (__|   <
-  //   \____|_| |_|\___/ \___/|___/\___|  \__,_|\___|\___|_|\_\
-  //////////////////////////////////////////////////////////////////
-
-  // function argsDeckSelection()
-  // {
-  //   $args = [
-  //     '_private' => [],
-  //   ];
-  //   $allDecks = Globals::getPlayerDecks();
-  //   $selection = Globals::getDeckSelection();
-  //   foreach (Players::getAll() as $pId => $player) {
-  //     $decks = $allDecks[$pId];
-  //     foreach ($decks as &$deck) {
-  //       $deck['hero'] = $this->getDeckHero($deck['deckNum']);
-  //     }
-  //     $args['_private'][$pId]['decks'] = $decks;
-  //     $args['_private'][$pId]['selection'] = $selection[$pId] ?? null;
-  //   }
-
-  //   return $args;
-  // }
-
-  // public function actSelectDeck($choice)
-  // {
-  //   $this->gamestate->checkPossibleAction('actSelectDeck');
-
-  //   $player = Players::getCurrent();
-  //   $selection = Globals::getDeckSelection();
-  //   $selection[$player->getId()] = $choice;
-  //   Globals::setDeckSelection($selection);
-  //   Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
-
-  //   $this->updateActivePlayersDeckSelection();
-  // }
-
-  // public function actCancelDeckSelection()
-  // {
-  //   $this->gamestate->checkPossibleAction('actCancelDeckSelection');
-
-  //   $player = Players::getCurrent();
-  //   $selection = Globals::getDeckSelection();
-  //   unset($selection[$player->getId()]);
-  //   Globals::setDeckSelection($selection);
-  //   Notifications::updateInitialDeckSelection($player, self::argsDeckSelection());
-
-  //   $this->updateActivePlayersDeckSelection();
-  // }
-
-  // function actGetDeck($deckNumber)
-  // {
-  //   self::checkAction('actGetDeck');
-  //   $player = Players::getCurrent();
-  //   if (!in_array($deckNumber, array_keys(Globals::getPlayerDecks()[$player->getId()]))) {
-  //     throw new \BgaVisibleSystemException('You do not have a deck with this number. Should not happen');
-  //   }
-  //   return $player->getDeck($deckNumber)->toArray();
-  // }
-
   /////////////////////////////////////////////////////////
   //  ____       _                     _           _
   // / ___|  ___| |_ _   _ _ __     __| | ___  ___| | __
@@ -276,12 +220,11 @@ trait SetupTrait
   function stDeckSetup()
   {
     $selection = Globals::getDeckSelection();
-    // throw new \feException(print_r(Globals::getDeckContent()));
     $factionMap = [FACTION_AX => 1, FACTION_BR => 2, FACTION_LY => 3, FACTION_MU => 4, FACTION_OD => 5, FACTION_YZ => 6];
     $factions = [];
     foreach (Players::getAll() as $pId => $player) {
       if ($selection[$pId] == 'API') {
-        $deckContent = Globals::getDeckContent()[$pId];
+        $deckContent = Globals::getDeckContent()[$pId]['cards'];
         $faction = Cards::createDeck($player, $deckContent);
       } elseif ($selection[$pId] == 'random') {
         $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);

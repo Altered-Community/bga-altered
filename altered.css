@@ -1903,7 +1903,7 @@ html {
   width: calc(var(--cardScale) * 324px);
   height: calc(var(--cardScale) * 450px);
   box-shadow: none;
-  border-radius: calc(var(--cardScale) * 17px); }
+  border-radius: calc(var(--cardScale) * 26px); }
   .altered-card > .altered-meeple {
     position: absolute;
     top: 0;
@@ -2135,7 +2135,7 @@ html {
       position: absolute;
       z-index: 2;
       top: 317px;
-      bottom: 31px;
+      height: 102px;
       left: 20px;
       right: 20px;
       font-family: "Jali Greek Variable";
@@ -2231,16 +2231,19 @@ html {
       top: auto; }
     .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="1"] ~ .card-text,
     .altered-card .altered-card-wrapper .card-frame[data-support="0"][data-size="2"] ~ .card-text {
-      top: 280px; }
+      top: 280px;
+      height: 139px; }
       .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="1"] ~ .card-text .card-qrcode-container,
       .altered-card .altered-card-wrapper .card-frame[data-support="0"][data-size="2"] ~ .card-text .card-qrcode-container {
         shape-outside: polygon(0px 70px, 0px 142px, 70px 142px, 70px 70px); }
     .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="2"] ~ .card-text {
-      top: 245px; }
+      top: 245px;
+      height: 174px; }
       .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="2"] ~ .card-text .card-qrcode-container {
         shape-outside: polygon(0px 106px, 0px 182px, 70px 182px, 70px 106px); }
     .altered-card .altered-card-wrapper .card-frame[data-type="token"] ~ .card-text {
-      top: 365px; }
+      top: 365px;
+      height: 54px; }
       .altered-card .altered-card-wrapper .card-frame[data-type="token"] ~ .card-text .card-qrcode-container {
         shape-outside: polygon(0px 0px, 0px 53px, 70px 52px, 70px 0px); }
     .altered-card .altered-card-wrapper .card-frame[data-type="permanent"] ~ .card-text {
@@ -2267,7 +2270,7 @@ html {
     font-size: 15px; }
   .altered-card.card-hero .card-text {
     top: 311px;
-    bottom: 31px;
+    height: 108px;
     left: 21px;
     right: 21px; }
 
@@ -3243,8 +3246,7 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
     top: -5px;
     z-index: 10;
     left: 0;
-    right: 0;
-    margin-right: 240px; }
+    right: 0; }
 
 #page-title {
   position: relative;
@@ -3304,8 +3306,7 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
         color: white; }
 
 #right-side {
-  float: left;
-  margin-left: -240px;
+  z-index: 10;
   margin-top: -7px;
   width: 240px; }
   #right-side #player_boards .player-board:nth-child(1) {
@@ -5167,17 +5168,80 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
       animation: rotation 1s linear infinite; }
     #altered-board-overlay #altered-overlay-content #api-loader {
       width: 150px;
-      height: 150px;
-      margin: 100px auto; }
+      height: 150px; }
 @keyframes rotation {
   0% {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
+    #altered-board-overlay #altered-overlay-content #api-error:not(:empty) {
+      background: #df4d4d;
+      border-radius: 4px;
+      border-top-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      color: black;
+      padding: 15px 10px;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: "Tiller";
+      box-shadow: 1px 1px 3px black;
+      border: 1px solid #d20707;
+      text-align: center; }
+    #altered-board-overlay #altered-overlay-content #api-fetch-decks {
+      text-align: center; }
+      #altered-board-overlay #altered-overlay-content #api-fetch-decks #api-loader {
+        display: none;
+        margin: 100px auto; }
+      #altered-board-overlay #altered-overlay-content #api-fetch-decks.fetching #api-loader {
+        display: block; }
+      #altered-board-overlay #altered-overlay-content #api-fetch-decks #api-error:not(:empty) {
+        margin: 100px auto;
+        max-width: 700px; }
+      #altered-board-overlay #altered-overlay-content #api-fetch-decks #btnCancelState,
+      #altered-board-overlay #altered-overlay-content #api-fetch-decks #btnRetry {
+        font-size: 28px; }
+      #altered-board-overlay #altered-overlay-content #api-fetch-decks #btnRetry {
+        margin-left: 40px; }
     #altered-board-overlay #altered-overlay-content #overlay-deck-selection {
       display: flex;
       flex-flow: column;
-      justify-content: center; }
+      justify-content: center;
+      position: relative; }
+      #altered-board-overlay #altered-overlay-content #overlay-deck-selection #api-loader {
+        display: none; }
+      #altered-board-overlay #altered-overlay-content #overlay-deck-selection #api-error:not(:empty) {
+        font-size: 18px;
+        padding: 7px 12px;
+        margin-bottom: 5px;
+        position: relative;
+        cursor: pointer; }
+        #altered-board-overlay #altered-overlay-content #overlay-deck-selection #api-error:not(:empty)::before {
+          content: "\f00d";
+          font-family: var(--fa-style-family, "Font Awesome 6 Free");
+          font-weight: var(--fa-style, 900);
+          position: absolute;
+          right: 5px; }
+      #altered-board-overlay #altered-overlay-content #overlay-deck-selection::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: -10px;
+        right: 0;
+        pointer-events: none;
+        transition: background 0.4s;
+        z-index: 2;
+        border-radius: 8px; }
+      #altered-board-overlay #altered-overlay-content #overlay-deck-selection.fetching #api-loader {
+        display: block;
+        position: absolute;
+        z-index: 3;
+        left: calc(50% - 75px);
+        top: calc(50% - 75px); }
+      #altered-board-overlay #altered-overlay-content #overlay-deck-selection.fetching::before {
+        background: rgba(0, 0, 0, 0.568);
+        pointer-events: all; }
       #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-search-holder {
         display: none;
         background: white;
@@ -5242,7 +5306,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
             bottom: 0;
             right: 0;
             pointer-events: none;
-            transition: background 0.4s; }
+            transition: background 0.4s;
+            border-radius: 10px; }
           #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail.selectable {
             cursor: pointer; }
             #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail.selectable:hover {
@@ -5309,7 +5374,8 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
             display: block;
             z-index: 2; }
           #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail.fetching::before {
-            background: rgba(0, 0, 0, 0.568); }
+            background: rgba(0, 0, 0, 0.568);
+            pointer-events: all; }
       #altered-board-overlay #altered-overlay-content #overlay-deck-selection #pagination-holder {
         margin-top: 15px;
         margin-bottom: 15px;
@@ -5353,6 +5419,172 @@ body.focus-board #bga-help_buttons #toggle-focus-mode {
             margin: 0px 15px;
             font-size: 26px;
             font-weight: bold; }
+    #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details {
+      --cardScale: 1; }
+      #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-cards {
+        max-width: 1400px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; }
+      #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px; }
+        #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card {
+          box-shadow: 2px 2px 5px 1px black, 0px 0px 14px 8px #ffe300; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .card-frame::before {
+            display: none; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner {
+            width: 40px;
+            height: 64px;
+            background-image: url("img/banners.png");
+            background-size: 600% 100%;
+            position: absolute;
+            top: 0px;
+            left: 20px; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction="BR"] {
+              background-position-x: 20%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction="LY"] {
+              background-position-x: 40%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction="MU"] {
+              background-position-x: 60%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction="OD"] {
+              background-position-x: 80%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction="YZ"] {
+              background-position-x: 100%; }
+      #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card {
+        margin: 6px 10px;
+        width: calc(var(--cardScale) * 324px);
+        height: calc(var(--cardScale) * 70px);
+        border-radius: calc(var(--cardScale) * 16px);
+        box-shadow: 1px 1px 3px black;
+        border: 0; }
+        #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper {
+          background-position: 228px -10px;
+          background-size: auto 200%;
+          height: 70px; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame {
+            border: 2px solid black; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-rarity="1"] {
+              border: 2px solid white; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-rarity="2"] {
+              border: 2px solid #ffe454;
+              box-shadow: 0px 0px 5px 2px #d0bd23; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-faction="AX"] {
+              background: linear-gradient(90deg, #f9ece4 0%, #f9ece4 71%, transparent 90%); }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-faction="BR"] {
+              background: linear-gradient(90deg, #f7ece8 0%, #f7ece8 71%, transparent 90%); }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
+              background: linear-gradient(90deg, #f3e8ec 0%, #f3e8ec 71%, transparent 90%); }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
+              background: linear-gradient(90deg, #eaf2eb 0%, #eaf2eb 71%, transparent 90%); }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-faction="OD"] {
+              background: linear-gradient(90deg, #d4dfeb 0%, #d4dfeb 71%, transparent 90%); }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-faction="YZ"] {
+              background: linear-gradient(90deg, #edebf6 0%, #edebf6 71%, transparent 90%); }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame::before {
+              content: attr(data-copies) " / 3";
+              display: block;
+              position: absolute;
+              background: #c4c4c4cf;
+              z-index: 10;
+              right: 7px;
+              bottom: 6px;
+              font-family: "Tiller";
+              font-weight: bold;
+              padding: 2px 7px;
+              border-radius: 20px;
+              border: 1px solid rgba(255, 255, 255, 0.9);
+              font-size: 12px; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-rarity="2"]::before {
+              background: #d4af37e7;
+              content: attr(data-copies) " / 1"; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-name {
+            top: 4px;
+            left: 66px;
+            right: 70px;
+            color: black; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-typeline {
+            top: 27px;
+            left: 66px;
+            right: 70px;
+            font-size: 12px; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-hand-cost {
+            font-size: 20px; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-reserve-cost {
+            top: 37px;
+            left: 46px;
+            font-size: 18px; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-costs-bg {
+            z-index: 2;
+            display: block;
+            position: absolute;
+            top: 12px;
+            left: 8px;
+            width: 60px;
+            height: 50px;
+            background-image: url("img/costs.png");
+            background-size: 100% 600%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-costs-bg[data-faction="AX"] {
+              background-position-y: 0%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-costs-bg[data-faction="BR"] {
+              background-position-y: 20%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-costs-bg[data-faction="LY"] {
+              background-position-y: 40%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-costs-bg[data-faction="MU"] {
+              background-position-y: 60%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-costs-bg[data-faction="OD"] {
+              background-position-y: 80%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-costs-bg[data-faction="YZ"] {
+              background-position-y: 100%; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem {
+            display: block;
+            position: absolute;
+            top: -5px;
+            left: calc(50% - 14px);
+            width: 27px;
+            height: 15px;
+            background-image: url("img/rarity-gems.png");
+            background-size: 100% 300%;
+            z-index: 4; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="0"] {
+              background-position-y: 0%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="1"] {
+              background-position-y: 50%; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="2"] {
+              background-position-y: 100%; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest,
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain,
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean {
+            position: absolute;
+            z-index: 4;
+            top: 45px;
+            height: 19px;
+            border-radius: 11px;
+            box-shadow: 1px 1px 1px #2c2c2cdd;
+            line-height: 24px;
+            font-size: 16px;
+            padding-left: 1px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0px 0px 4px black; }
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest, #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest[data-size],
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain,
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain[data-size],
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean,
+            #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean[data-size] {
+              width: 33px !important; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest {
+            left: 102px; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain {
+            left: 144px; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean {
+            left: 184px; }
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-text,
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-support,
+          #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-footer {
+            visibility: hidden;
+            pointer-events: none; }
 
 #focus-storm-overlay {
   position: absolute;

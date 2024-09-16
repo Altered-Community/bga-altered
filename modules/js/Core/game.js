@@ -593,7 +593,6 @@ define([
             return;
           }
           // Pref type => just move the user pref around
-          debug(config.prefId);
           dojo.place($('preference_control_' + config.prefId).parentNode.parentNode, localContainer);
           return;
         }
@@ -1210,6 +1209,9 @@ define([
     },
 
     destroy(elem) {
+      elem = $(elem);
+      if (!elem) return;
+
       if (this.tooltips[elem.id]) {
         this.tooltips[elem.id].destroy();
         delete this.tooltips[elem.id];

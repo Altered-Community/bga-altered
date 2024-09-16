@@ -273,7 +273,6 @@
         #api-loader {
             width: 150px;
             height: 150px;
-            margin: 100px auto;
         }
         @keyframes rotation {
             0% {
@@ -284,11 +283,103 @@
             }
         }
 
+        #api-error:not(:empty) {
+            background: #df4d4d;
+            border-radius: 4px;
+            border-top-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            color: black;
+            padding: 15px 10px;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: "Tiller";
+            box-shadow: 1px 1px 3px black;
+            border: 1px solid #d20707;
+            text-align: center;
+        }
+
+        #api-fetch-decks {
+            text-align: center;
+
+            #api-loader {
+                display: none;
+                margin: 100px auto;
+            }
+
+            &.fetching #api-loader {
+                display: block;
+            }
+
+            #api-error:not(:empty) {
+                margin: 100px auto;
+                max-width: 700px;
+            }
+
+            #btnCancelState,
+            #btnRetry {
+                font-size: 28px;
+            }
+
+            #btnRetry {
+                margin-left: 40px;
+            }
+        }
+
         #overlay-deck-selection {
             //            style='background: white; padding: 20px; border-radius: 15px; border: 1px solid black;font-size:20px;
             display: flex;
             flex-flow: column;
             justify-content: center;
+            position: relative;
+
+            #api-loader {
+                display: none;
+            }
+
+            #api-error:not(:empty) {
+                font-size: 18px;
+                padding: 7px 12px;
+                margin-bottom: 5px;
+                position: relative;
+                cursor: pointer;
+
+                &::before {
+                    content: "\f00d";
+                    font-family: var(--fa-style-family, "Font Awesome 6 Free");
+                    font-weight: var(--fa-style, 900);
+                    position: absolute;
+                    right: 5px;
+                }
+            }
+
+            &::before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: -10px;
+                right: 0;
+                pointer-events: none;
+                transition: background 0.4s;
+                z-index: 2;
+                border-radius: 8px;
+            }
+
+            &.fetching {
+                #api-loader {
+                    display: block;
+                    position: absolute;
+                    z-index: 3;
+                    left: calc(50% - 75px);
+                    top: calc(50% - 75px);
+                }
+
+                &::before {
+                    background: rgba(0, 0, 0, 0.568);
+                    pointer-events: all;
+                }
+            }
 
             #deck-search-holder {
                 display: none;
@@ -369,6 +460,7 @@
                         right: 0;
                         pointer-events: none;
                         transition: background 0.4s;
+                        border-radius: 10px;
                     }
 
                     &.selectable {
@@ -472,6 +564,7 @@
 
                         &::before {
                             background: rgba(0, 0, 0, 0.568);
+                            pointer-events: all;
                         }
                     }
                 }
@@ -533,6 +626,238 @@
                 }
             }
         }
+
+        #overlay-APIdeck-details {
+            --cardScale: 1;
+
+            #deck-cards {
+                max-width: 1400px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            #deck-hero {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+
+                .altered-card {
+                    .card-frame::before {
+                        display: none;
+                    }
+
+                    box-shadow:
+                        2px 2px 5px 1px black,
+                        0px 0px 14px 8px #ffe300;
+
+                    .faction-banner {
+                        width: 40px;
+                        height: 64px;
+                        background-image: url("img/banners.png");
+                        background-size: 600% 100%;
+                        position: absolute;
+                        top: 0px;
+                        left: 20px;
+
+                        &[data-faction="BR"] {
+                            background-position-x: 20%;
+                        }
+                        &[data-faction="LY"] {
+                            background-position-x: 40%;
+                        }
+                        &[data-faction="MU"] {
+                            background-position-x: 60%;
+                        }
+                        &[data-faction="OD"] {
+                            background-position-x: 80%;
+                        }
+                        &[data-faction="YZ"] {
+                            background-position-x: 100%;
+                        }
+                    }
+                }
+            }
+
+            .altered-card {
+                margin: 6px 10px;
+                width: calc(var(--cardScale) * 324px);
+                height: calc(var(--cardScale) * 70px);
+                border-radius: calc(var(--cardScale) * 16px);
+                box-shadow: 1px 1px 3px black;
+                border: 0;
+
+                .altered-card-wrapper {
+                    background-position: 228px -10px;
+                    background-size: auto 200%;
+                    height: 70px;
+
+                    .card-frame {
+                        border: 2px solid black;
+                        &[data-rarity="1"] {
+                            border: 2px solid white;
+                        }
+                        &[data-rarity="2"] {
+                            border: 2px solid #ffe454;
+                            box-shadow: 0px 0px 5px 2px #d0bd23;
+                        }
+
+                        &[data-faction="AX"] {
+                            background: linear-gradient(90deg, #f9ece4 0%, #f9ece4 71%, transparent 90%);
+                        }
+                        &[data-faction="BR"] {
+                            background: linear-gradient(90deg, #f7ece8 0%, #f7ece8 71%, transparent 90%);
+                        }
+                        &[data-faction="LY"] {
+                            background: linear-gradient(90deg, #f3e8ec 0%, #f3e8ec 71%, transparent 90%);
+                        }
+                        &[data-faction="MU"] {
+                            background: linear-gradient(90deg, #eaf2eb 0%, #eaf2eb 71%, transparent 90%);
+                        }
+                        &[data-faction="OD"] {
+                            background: linear-gradient(90deg, #d4dfeb 0%, #d4dfeb 71%, transparent 90%);
+                        }
+                        &[data-faction="YZ"] {
+                            background: linear-gradient(90deg, #edebf6 0%, #edebf6 71%, transparent 90%);
+                        }
+
+                        &::before {
+                            content: attr(data-copies) " / 3";
+                            display: block;
+                            position: absolute;
+                            background: #c4c4c4cf;
+                            z-index: 10;
+                            right: 7px;
+                            bottom: 6px;
+                            font-family: "Tiller";
+                            font-weight: bold;
+                            padding: 2px 7px;
+                            border-radius: 20px;
+                            border: 1px solid rgba(255, 255, 255, 0.9);
+                            font-size: 12px;
+                        }
+                        &[data-rarity="2"]::before {
+                            background: #d4af37e7;
+                            content: attr(data-copies) " / 1";
+                        }
+                    }
+
+                    .card-name {
+                        top: 4px;
+                        left: 66px;
+                        right: 70px;
+                        color: black;
+                    }
+
+                    .card-typeline {
+                        top: 27px;
+                        left: 66px;
+                        right: 70px;
+                        font-size: 12px;
+                    }
+
+                    .card-hand-cost {
+                        font-size: 20px;
+                    }
+                    .card-reserve-cost {
+                        top: 37px;
+                        left: 46px;
+                        font-size: 18px;
+                    }
+
+                    .card-costs-bg {
+                        z-index: 2;
+                        display: block;
+                        position: absolute;
+                        top: 12px;
+                        left: 8px;
+                        width: 60px;
+                        height: 50px;
+                        background-image: url("img/costs.png");
+                        background-size: 100% 600%;
+
+                        &[data-faction="AX"] {
+                            background-position-y: 0%;
+                        }
+                        &[data-faction="BR"] {
+                            background-position-y: 20%;
+                        }
+                        &[data-faction="LY"] {
+                            background-position-y: 40%;
+                        }
+                        &[data-faction="MU"] {
+                            background-position-y: 60%;
+                        }
+                        &[data-faction="OD"] {
+                            background-position-y: 80%;
+                        }
+                        &[data-faction="YZ"] {
+                            background-position-y: 100%;
+                        }
+                    }
+
+                    .rarity-gem {
+                        display: block;
+                        position: absolute;
+                        top: -5px;
+                        left: calc(50% - 14px);
+                        width: 27px;
+                        height: 15px;
+                        background-image: url("img/rarity-gems.png");
+                        background-size: 100% 300%;
+                        z-index: 4;
+
+                        &[data-rarity="0"] {
+                            background-position-y: 0%;
+                        }
+                        &[data-rarity="1"] {
+                            background-position-y: 50%;
+                        }
+                        &[data-rarity="2"] {
+                            background-position-y: 100%;
+                        }
+                    }
+
+                    .card-forest,
+                    .card-mountain,
+                    .card-ocean {
+                        &,
+                        &[data-size] {
+                            width: 33px !important;
+                        }
+                        position: absolute;
+                        z-index: 4;
+                        top: 45px;
+                        height: 19px;
+                        border-radius: 11px;
+                        box-shadow: 1px 1px 1px #2c2c2cdd;
+                        line-height: 24px;
+                        font-size: 16px;
+                        padding-left: 1px;
+                        text-align: center;
+                        font-weight: bold;
+                        text-shadow: 0px 0px 4px black;
+                    }
+                    .card-forest {
+                        left: 102px;
+                    }
+                    .card-mountain {
+                        left: 144px;
+                    }
+                    .card-ocean {
+                        left: 184px;
+                    }
+
+                    .card-text,
+                    .card-support,
+                    .card-footer {
+                        visibility: hidden;
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
+
         // #vs-left {
         //     position: absolute;
         //     left: 0;

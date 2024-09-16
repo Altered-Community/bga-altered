@@ -798,7 +798,10 @@ define([
       this._awaitingAPIReturn = false;
       if (!args._private) return;
       let deckNum = args._private.selection;
-      if (deckNum == 'API') return;
+      if (deckNum == 'API') {
+        this.showAPIDeckDetails(args);
+        return;
+      }
       if (deckNum == 'random') return;
 
       const FACTION_NAMES = {
@@ -888,6 +891,7 @@ define([
           );
         }
       };
+      this.destroy('btnCancelFooter');
 
       decks = args._private.decks;
       decks.forEach((deck) => {
@@ -933,18 +937,21 @@ define([
 
       // API
       let canUseAPI = !this._beginner;
-      if (canUseAPI && !$('card-fake-API')) {
-        $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
-        $('card-fake-API')
-          .querySelector('.altered-card-wrapper')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+      if (canUseAPI) {
+        if (!$('card-fake-API')) {
+          $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-API' }));
+          $('card-fake-API')
+            .querySelector('.altered-card-wrapper')
+            .insertAdjacentHTML(
+              'beforeend',
+              `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
-              Custom deck
+              ${_('Custom deck')}
             </div>
           </div>`
-          );
+            );
+        }
+
         this.onClick('card-fake-API', () => {
           this.clientState('fetchDecks', _('Connecting to Equinox to fetch your decks'), {});
         });
@@ -998,7 +1005,9 @@ define([
         'beforeend',
         `
         <h2>${_('Fetching your decks from Equinox')}</h2>
+        <div id='api-fetch-decks' class='fetching'>
           <div id='api-loader' class="spinning-loader"></div>
+          <div id="api-error"></div>
         </div>`
       );
       this.openOverlay();
@@ -1007,21 +1016,42 @@ define([
     ////////////////////////
     // CHOOSE DECKS
     ////////////////////////
-    changeDeckPage(request, page) {
-      request.page = page;
-      this.clientState('fetchDecks', _('Connecting to Equinox to fetch your decks'), request);
+    changeDeckPage(page) {
+      if (this._awaitingAPIReturn) return;
+
+      let tmp = this._apiRequest.page;
+      this._apiRequest.page = page;
+      let strRequest = JSON.stringify(this._apiRequest);
+      this._apiRequest.page = tmp;
+
+      this._awaitingAPIReturn = true;
+      $('api-error').innerHTML = '';
+      $('overlay-deck-selection').classList.add('fetching');
+      this.takeAction('actLoadAPIDecks', { request: strRequest, lock: false }, false).then((response) => {
+        if (!this._awaitingAPIReturn) return;
+
+        $('overlay-deck-selection').classList.remove('fetching');
+        let args = response.data;
+        args.update = true;
+        this.clientState('chooseFetchedDeck', _('Choose one of your deck'), args);
+      });
     },
 
     onEnteringStateChooseFetchedDeck(args) {
       this.addCancelStateBtn();
       this._awaitingAPIReturn = false;
+      this._apiRequest = args.request;
 
-      $('altered-overlay-content').innerHTML = '';
-      $('altered-overlay-content').insertAdjacentHTML(
-        'beforeend',
-        `
+      let isUpdateOnly = args.update || false;
+      if (!isUpdateOnly) {
+        $('altered-overlay-content').innerHTML = '';
+        $('altered-overlay-content').insertAdjacentHTML(
+          'beforeend',
+          `
         <h2>${_('Choose your deck')}</h2>
         <div id='overlay-deck-selection'>
+          <div id="api-loader" class='spinning-loader'></div>
+          <div id="api-error"></div>
           <div id="deck-search-holder">
             <form>
               <input type="text" placeholder="..." id="deck-search-input" />
@@ -1043,7 +1073,8 @@ define([
             </div>
           </div>
         </div>`
-      );
+        );
+      }
 
       // PAGINATION
       let current = parseInt(args.pagination.current);
@@ -1053,22 +1084,24 @@ define([
       // Previous
       let previous = current - 1;
       $('prev-page').classList.toggle('disabled', args.pagination.previous === '');
-      if (args.pagination.previous !== '') {
-        this.onClick(`prev-page`, () => this.changeDeckPage(args.request, previous));
-      }
       if (previous > 0 && !pages.includes(previous)) pages.push(previous);
       // Current
       if (!pages.includes(current)) pages.push(current);
       // next
       let next = current + 1;
       $('next-page').classList.toggle('disabled', args.pagination.next === '');
-      if (args.pagination.next !== '') {
-        this.onClick(`next-page`, () => this.changeDeckPage(args.request, next));
-      }
       if (next < last && !pages.includes(next)) pages.push(next);
       // Last
       if (!pages.includes(last)) pages.push(last);
 
+      if (args.pagination.previous !== '') {
+        this.onClick(`prev-page`, () => this.changeDeckPage(previous));
+      }
+      if (args.pagination.next !== '') {
+        this.onClick(`next-page`, () => this.changeDeckPage(next));
+      }
+
+      $('deck-pages').innerHTML = '';
       for (let i = 0; i < pages.length; i++) {
         let page = pages[i],
           isCurrent = page == current;
@@ -1081,9 +1114,11 @@ define([
         }
 
         if (!isCurrent) {
-          this.onClick(`page-${page}`, () => this.changeDeckPage(args.request, page));
+          this.onClick(`page-${page}`, () => this.changeDeckPage(page));
         }
       }
+
+      this.onClick('api-error', () => ($('api-error').innerHTML = ''));
 
       // Confirm button
       this.addPrimaryActionButton(
@@ -1109,6 +1144,7 @@ define([
       };
 
       let selected = null;
+      $(`deck-list`).innerHTML = '';
       args.decks.forEach((deck) => {
         let factionName = FACTION_NAMES[deck.faction];
         $(`deck-list`).insertAdjacentHTML(
@@ -1138,6 +1174,7 @@ define([
           $('btnConfirmDeck').classList.add('disabled');
 
           this._awaitingAPIReturn = true;
+          $('api-error').innerHTML = '';
           this.takeAction('actGetDeckInfos', { deckId: JSON.stringify(deck.apiId), lock: false }, false).then((deckContent) => {
             debug(deckContent);
             this._awaitingAPIReturn = false;
@@ -1148,66 +1185,72 @@ define([
         });
       });
     },
-    onLeavingStateChooseFetchedDeck() {
-      this.closeOverlay();
+
+    showAPIDeckDetails(args) {
+      let deck = args._private.API;
       $('altered-overlay-content').innerHTML = '';
+      $('altered-overlay-content').insertAdjacentHTML(
+        'beforeend',
+        `
+        <h2>${_('Your deck:')} ${deck.deckName}</h2>
+        <div id='overlay-APIdeck-details'>
+          <div id="deck-hero"></div>
+          <div id="deck-cards"></div>
+        </div>
+      `
+      );
+      this.openOverlay();
+
+      this.addCard({ id: '-hero', properties: deck.cards.hero.card.properties }, 'deck-hero');
+      $(`card--hero`).insertAdjacentHTML('beforeend', `<div class='faction-banner' data-faction='${deck.faction}'></div>`);
+
+      Object.entries(deck.cards).forEach(([i, card]) => {
+        if (i == 'hero') return;
+
+        let id = -i;
+        this.addCard({ id, properties: card.card.properties }, 'deck-cards');
+        $(`card-${id}`).querySelector('.card-frame').dataset.copies = card.n;
+      });
+
+      this.addSecondaryActionButton('btnCancel', _('Cancel'), () => this.takeAction('actCancelPrecoDeckSelection', {}, false));
     },
 
-    // onEnteringStateSelectDeck(args) {
-    //   if (!args._private) return;
+    //////////////////////////////
+    // HANDLING API ERRORS
+    showMessage() {
+      if (!this._awaitingAPIReturn || arguments[0].indexOf('API ERROR###') < 0) {
+        return this.inherited(arguments);
+      } else {
+        let l = arguments[0].split('###');
+        this.handleAPIError(l[1]);
+        return true;
+      }
+    },
 
-    //   decks = args._private.decks;
-    //   decks.forEach((deck) => {
-    //     this.addPrimaryActionButton('btnSelectDeck' + deck.deckNum, 'Deck n°' + deck.deckNum + ' Faction ' + deck.faction, () =>
-    //       this.takeAction('actSelectDeck', { choice: deck.deckNum }, false)
-    //     );
-    //   });
+    handleAPIError(l) {
+      this._awaitingAPIReturn = false;
+      let fetchingElt = $('altered-overlay-content').querySelector('.fetching');
+      if (fetchingElt) fetchingElt.classList.remove('fetching');
+      $('api-error').innerHTML = _(l);
 
-    //   // Open deck container
-    //   if (!$('overlay-deck-container')) {
-    //     $('altered-overlay-content').innerHTML = '';
-    //     $('altered-overlay-content').insertAdjacentHTML(
-    //       'beforeend',
-    //       `
-    //       <h2>${_('Choose your deck')}</h2>
-    //       <div id='overlay-deck-container'></div>
-    //     `
-    //     );
-
-    //     decks.forEach((deck) => {
-    //       this.addCard(deck.hero, 'overlay-deck-container');
-    //       this.onClick(`card-${deck.hero.id}`, () => this.takeAction('actSelectDeck', { choice: deck.deckNum }, false));
-    //     });
-    //   }
-    //   this.openOverlay();
-
-    //   // Already made a selection => allow to cancel it
-    //   let deckNum = args._private.selection;
-    //   if (deckNum != null) {
-    //     let previousCard = $('overlay-deck-container').querySelector('.altered-card.selected');
-    //     if (previousCard) previousCard.classList.remove('selected');
-    //     let previousBtn = $('customActions').querySelector('.bgabutton.selected');
-    //     if (previousBtn) previousBtn.classList.remove('selected');
-
-    //     $(`btnSelectDeck${deckNum}`).classList.add('selected');
-    //     $(`card-${decks[deckNum].hero.id}`).classList.add('selected');
-    //   }
-    // },
-
-    // onLeavingStateSelectDeck() {
-    //   this.closeOverlay();
-    //   $('altered-overlay-content').innerHTML = '';
-    // },
-
-    // notif_updateInitialDeckSelection(n) {
-    //   this.clearPossible();
-    //   this.updatePageTitle();
-    //   this.onEnteringStateSelectDeck(n.args.args);
-    // },
+      // Error during "fetchDecks" state : add buttons
+      if (this.gamedatas.gamestate.name == 'fetchDecks') {
+        this.addSecondaryActionButton('btnCancelState', _('Cancel'), () => this.clearClientState(), 'api-fetch-decks');
+        this.addPrimaryActionButton(
+          'btnRetry',
+          _('Retry'),
+          () => {
+            this.clientState('fetchDecks', _('Connecting to Equinox to fetch your decks'), {});
+          },
+          'api-fetch-decks'
+        );
+      }
+    },
 
     notif_vsScreen(n) {
       debug('Notif: VS screen', n);
-      // $('altered-overlay-content').innerHTML = '';
+      this.closeOverlayIfOpened();
+      $('altered-overlay-content').innerHTML = '';
       // $('altered-overlay-content').insertAdjacentHTML(
       //   'beforeend',
       //   `<div id='vs-left'>

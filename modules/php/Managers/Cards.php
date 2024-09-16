@@ -322,38 +322,6 @@ class Cards extends \ALT\Helpers\CachedPieces
     // $debug[1] = $properties;
     // throw new \feException(print_r($debug));
     return $properties;
-
-    // old
-    // foreach ($unique['cardElements'] as $i => $cardElement) {
-    //   if (
-    //     $cardElement['cardElementType']['reference'] != 'MAIN_EFFECT' &&
-    //     $cardElement['cardElementType']['reference'] != 'ECHO_EFFECT'
-    //   ) {
-    //     continue;
-    //   }
-    //   foreach ($cardElement['cardEffectDisplays'] as $i2 => $effect) {
-    //     $trinity = [];
-    //     foreach ($effect['cardEffect']['cardEffectElements'] as $i3 => $indivEffect) {
-    //       if (in_array($indivEffect['idGd'], TRIGGER)) {
-    //         $trinity['trigger'] = $indivEffect['idGd'];
-    //       } elseif (in_array($indivEffect['idGd'], \CONDITION)) {
-    //         $trinity['condition'] = $indivEffect['idGd'];
-    //       } elseif (in_array($indivEffect['idGd'], OUTPUT)) {
-    //         $trinity['output'] = $indivEffect['idGd'];
-    //       }
-    //     }
-    //     if (empty($trinity)) {
-    //       continue;
-    //     }
-    //     if (count($trinity) != 3) {
-    //       return null;
-    //     }
-    //     $valid = FlowConvertor::constructEffect($trinity, $properties);
-    //     $properties['uEffects'][] = array_values($trinity);
-    //   }
-    // }
-    // // throw new \feException(print_r($properties));
-    // return $properties;
   }
 
   public static function generateRandomUnique($faction)
