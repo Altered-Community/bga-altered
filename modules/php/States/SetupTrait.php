@@ -241,7 +241,7 @@ trait SetupTrait
       }
       $player->setFaction($faction);
       $factions[$pId] = $faction;
-      Stats::setFaction($player, $factionMap[$faction]);
+      Stats::setFaction($player, $factionMap[$faction] ?? 'BR');
     }
     Notifications::vsScreen($factions);
 
