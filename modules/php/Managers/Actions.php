@@ -79,7 +79,7 @@ class Actions
     $action = self::get($actionId, $ctx);
     $methodName = 'args' . $action->getClassName();
     $args = \method_exists($action, $methodName) ? $action->$methodName() : [];
-    return array_merge($args, ['optionalAction' => $ctx->isOptional(Players::getActive())]);
+    return array_merge($args, ['optionalAction' => $action->isOptional(Players::getActive())]);
   }
 
   public static function takeAction($actionId, $actionName, $args, &$ctx, $automatic = false)

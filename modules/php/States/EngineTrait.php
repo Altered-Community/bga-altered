@@ -80,22 +80,6 @@ trait EngineTrait
     $player = Players::getActive();
     $actions = [];
 
-    // // Player may pay venom upfront
-    // if (Globals::isVenomTriggered() && VenomPay::needToPay($player) && $this->gamestate->state_id() != ST_DISCARD_SCORING) {
-    //   $actions[] = [
-    //     'action' => \VENOM_PAY,
-    //     'pId' => $player->getId(),
-    //   ];
-    // }
-
-    // // Map 4 anytime action : discard 1 card for 3 money
-    // if ($player->canUseMap(4) && !in_array($this->gamestate->state_id(), MAP4_FORBIDDEN) && !Globals::isBreak()) {
-    //   $actions[] = [
-    //     'action' => \MAP4,
-    //     'pId' => $player->getId(),
-    //   ];
-    // }
-
     // Keep only doable actions
     $anytimeActions = [];
     foreach ($actions as $flow) {
@@ -193,13 +177,9 @@ trait EngineTrait
     Engine::chooseNode($player, $choiceId);
   }
 
-  public function stResolveStack()
-  {
-  }
+  public function stResolveStack() {}
 
-  public function stResolveChoice()
-  {
-  }
+  public function stResolveChoice() {}
 
   function argsImpossibleAction()
   {
