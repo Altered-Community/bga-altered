@@ -102,6 +102,11 @@ class Action
     return $t;
   }
 
+  public function getEvent()
+  {
+    return $this->ctx->getEvent();
+  }
+
   public function getSourceId()
   {
     return $this->ctx->getSourceId();

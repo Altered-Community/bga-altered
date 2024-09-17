@@ -237,6 +237,11 @@ class AbstractNode
     return $this->infos['sourceId'] ?? null;
   }
 
+  public function getEvent()
+  {
+    return $this->infos['event'] ?? null;
+  }
+
   public function isDoable($player)
   {
     return true;

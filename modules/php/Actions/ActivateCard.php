@@ -37,13 +37,14 @@ class ActivateCard extends \ALT\Models\Action
       return null;
     }
 
+    $event = $this->getCtxArg('event');
     $flow =
       $card->isPlayed() || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
       ? Cards::applyEffect(
         $card,
         $player,
-        $this->getCtxArgs()['event']['method'],
-        $this->getCtxArgs()['event'],
+        $event['method'],
+        $event,
         false // Throw error if no such listener
       )
       : null;
@@ -52,11 +53,13 @@ class ActivateCard extends \ALT\Models\Action
       return null;
     }
 
-    return Utils::tagTree($flow, [
+    $flow = Utils::tagTree($flow, [
       'sourceId' => $this->getCtxArg('cardId'),
-      'event' => $this->getCtxArg('event'),
+      'event' => $event,
       'pId' => Cards::get($this->getCtxArg('cardId'))->getPId(),
     ]);
+
+    return $flow;
   }
 
   public function getFlowTree($player)

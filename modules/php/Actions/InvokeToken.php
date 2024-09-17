@@ -74,11 +74,16 @@ class InvokeToken extends \ALT\Models\Action
     $displayLocation = [];
     foreach ($locations as $loc) {
       if ($loc == 'source') {
-        $source = $this->getSource();
-        if (!is_null($source)) {
-          $loc = $this->getSource()->getLocation();
+        $event = $this->getEvent();
+        if (!is_null($event) && isset($event['from'])) {
+          $loc = $event['from'];
         } else {
-          $loc = clienttranslate('Source');
+          $source = $this->getSource();
+          if (!is_null($source)) {
+            $loc = $this->getSource()->getLocation();
+          } else {
+            $loc = clienttranslate('Source');
+          }
         }
       } elseif ($loc == 'oppositeSource') {
         $source = $this->getSource();
@@ -124,7 +129,12 @@ class InvokeToken extends \ALT\Models\Action
     }
 
     if ($location == 'source') {
-      $location = $this->getSource()->getLocation();
+      $event = $this->getEvent();
+      if (!is_null($event) && isset($event['from'])) {
+        $location = $event['from'];
+      } else {
+        $location = $this->getSource()->getLocation();
+      }
     } elseif ($location == 'oppositeSource') {
       $srcLoc = $this->getSource()->getLocation();
       $location = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
