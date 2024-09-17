@@ -436,10 +436,10 @@ class Card extends \ALT\Helpers\DB_Model
 
     switch ($this->getLocation()) {
       case HAND:
-        return $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction;
+        return max(0, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction);
         break;
       case RESERVE:
-        return $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction;
+        return max(0, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction);
         break;
     }
   }
