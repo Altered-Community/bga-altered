@@ -1135,6 +1135,16 @@ abstract class FlowConvertor
       self::addOutputToNode($calculated['output'], $node);
     }
 
+    // Specific interaction
+    foreach ($node as $tr => &$eff) {
+      // specific case for "When an opponent draws one or more cards or does Resupply "
+      if ($tr == 'Morning') {
+        if ($eff['conditions'] == ['isOpponentDraw', 'realResupply']) {
+          $eff['conditions'] = ['isMe'];
+        }
+      }
+    }
+
     // needed for passive effects in reaction to a classical output (171 for example)
     if (isset($calculated['passiveEffect'])) {
       if (isset($calculated['output'])) {
