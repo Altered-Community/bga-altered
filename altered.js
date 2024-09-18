@@ -1080,7 +1080,7 @@ define([
 
       // PAGINATION
       let current = parseInt(args.pagination.current);
-      let last = parseInt(args.pagination.last);
+      let last = args.pagination.last == '' ? 1 : parseInt(args.pagination.last);
 
       let pages = [1];
       // Previous
