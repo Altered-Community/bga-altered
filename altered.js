@@ -650,7 +650,9 @@ define([
       if ($('popin_manaDisplay_subtitle')) {
         $('popin_manaDisplay_subtitle').remove();
       }
-      this._manaModal.hide();
+      if (this._manaModal && this._manaModal.isDisplayed()) {
+        this._manaModal.hide();
+      }
 
       this.inherited(arguments);
     },
