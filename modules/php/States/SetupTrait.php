@@ -220,7 +220,7 @@ trait SetupTrait
   function stDeckSetup()
   {
     $selection = Globals::getDeckSelection();
-    $factionMap = [FACTION_AX => 1, FACTION_BR => 2, FACTION_LY => 3, FACTION_MU => 4, FACTION_OD => 5, FACTION_YZ => 6];
+    $factionMap = [FACTION_AX => 1, FACTION_BR => 2, FACTION_LY => 3, FACTION_MU => 4, FACTION_OD => 5, 'OR' => 5, FACTION_YZ => 6];
     $factions = [];
     foreach (Players::getAll() as $pId => $player) {
       if ($selection[$pId] == 'API') {
@@ -241,7 +241,7 @@ trait SetupTrait
       }
       $player->setFaction($faction);
       $factions[$pId] = $faction;
-      Stats::setFaction($player, $factionMap[$faction] ?? 'BR');
+      Stats::setFaction($player, $factionMap[$faction] ?? 1);
     }
     Notifications::vsScreen($factions);
 
