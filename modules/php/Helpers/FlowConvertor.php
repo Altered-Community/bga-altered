@@ -523,7 +523,7 @@ abstract class FlowConvertor
       ],
       104 => [
         'description' => clienttranslate('You may discard target Permanent with Hand Cost {4} or more.'),
-        'output' =>  FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+        'output' =>  FT::ACTION(TARGET, ['minHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
       ],
       105 => [
         'description' => clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
