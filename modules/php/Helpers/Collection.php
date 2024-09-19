@@ -109,6 +109,9 @@ class Collection extends \ArrayObject
       ? $this
       : $this->filter(function ($obj) use ($field, $value) {
         $method = 'get' . ucfirst($field);
+        if (is_null($obj)) {
+          return;
+        }
         $objValue = $obj->$method();
         return is_array($value)
           ? in_array($objValue, $value)

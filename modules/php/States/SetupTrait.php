@@ -65,7 +65,7 @@ trait SetupTrait
 
       if ($args['_private'][$pId]['selection'] == 'API') {
         $gContent = Globals::getDeckContent();
-        $args['_private'][$pId]['API'] = $gContent[$pId];
+        $args['_private'][$pId]['API'] = $gContent[$pId] ?? null;
       }
     }
 
@@ -224,7 +224,10 @@ trait SetupTrait
     $factions = [];
     foreach (Players::getAll() as $pId => $player) {
       if ($selection[$pId] == 'API') {
-        $deckContent = Globals::getDeckContent()[$pId]['cards'];
+        $deckContent = Globals::getDeckContent()[$pId]['cards'] ?? null;
+        if (is_null($deckContent)) {
+          throw new \feException(clienttranslate('Your deck is not valid. It should not happen'));
+        }
         $faction = Cards::createDeck($player, $deckContent);
       } elseif ($selection[$pId] == 'random') {
         $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
