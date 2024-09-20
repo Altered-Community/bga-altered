@@ -152,7 +152,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         //it's a unique!
         if (is_null(Cards::generateUnique($card['content']))) {
           throw new \BgaVisibleSystemException(
-            clienttranslate('This unique has an unimplemented power' . $card['content']['reference'])
+            'This unique has an unimplemented power' . $card['content']['reference']
           );
         }
         $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
