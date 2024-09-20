@@ -68,34 +68,49 @@ class InvokeToken extends \ALT\Models\Action
     return count($this->argsInvokeToken()['locations']) == 1;
   }
 
+  public function getLocationInfos($location)
+  {
+    $realLocation = $location;
+    $strLocation = $location;
+
+    if (in_array($location, ['source', 'oppositeSource'])) {
+      $source = $this->getSource();
+
+      // No actual source => is that even possible ??
+      if (is_null($source)) {
+        $strLocation = $location == 'source' ? clienttranslate('Source') : clienttranslate('Opposite source');
+      }
+      // Get the source location
+      else {
+        $srcLoc = $this->getSource()->getLocation();
+
+        // Check event in case of leaving expedition
+        $event = $this->getEvent();
+        if (!is_null($event) && in_array($event['method'], ['LeaveExpedition', 'LeaveLandmark']) && isset($event['from'])) {
+          $srcLoc = $event['from'];
+        }
+
+        // Switch if needed
+        if ($location == 'oppositeSource') {
+          $realLocation = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+        } else {
+          $realLocation = $srcLoc;
+        }
+
+        $strLocation = $realLocation == STORM_LEFT ? clienttranslate('Hero\'s expedition') : clienttranslate('Companion\'s expedition');
+      }
+    }
+
+    return [$realLocation, $strLocation];
+  }
+
   public function getDisplayLocation()
   {
     $locations = $this->getCtxArg('targetLocation') ?? STORMS;
     $displayLocation = [];
     foreach ($locations as $loc) {
-      if ($loc == 'source') {
-        $event = $this->getEvent();
-        if (!is_null($event) && isset($event['from'])) {
-          $loc = $event['from'];
-        } else {
-          $source = $this->getSource();
-          if (!is_null($source)) {
-            $loc = $this->getSource()->getLocation();
-          } else {
-            $loc = clienttranslate('Source');
-          }
-        }
-      } elseif ($loc == 'oppositeSource') {
-        $source = $this->getSource();
-        if (!is_null($source)) {
-          $srcLoc = $this->getSource()->getLocation();
-          $loc = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
-        } else {
-          $loc = clienttranslate('opposite source');
-        }
-      }
-      $displayLocation[] =
-        $loc == STORM_LEFT ? clienttranslate('Hero\'s expedition') : clienttranslate('Companion\'s expedition');
+      list($realLocation, $strLocation) = $this->getLocationInfos($loc);
+      $displayLocation[] = $strLocation;
     }
 
     return $displayLocation;
@@ -128,17 +143,8 @@ class InvokeToken extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
     }
 
-    if ($location == 'source') {
-      $event = $this->getEvent();
-      if (!is_null($event) && isset($event['from'])) {
-        $location = $event['from'];
-      } else {
-        $location = $this->getSource()->getLocation();
-      }
-    } elseif ($location == 'oppositeSource') {
-      $srcLoc = $this->getSource()->getLocation();
-      $location = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
-    }
+    list($realLocation, $strLocation) = $this->getLocationInfos($location);
+    $location = $realLocation;
 
     for ($i = 0; $i < ($this->getCtxArg('n') ?? 1); $i++) {
       $card = $this->getToken();

@@ -92,7 +92,9 @@ class action_altered extends APP_GameAction
   public function actConfirmAPIDeck()
   {
     self::setAjaxMode();
-    $this->game->actConfirmAPIDeck();
+    $deckContent = self::getArg('deckContent', AT_json, true);
+    //    $this->validateJSonAlphaNum($deckContent); TODO: enable but it currently fails on unique
+    $this->game->actConfirmAPIDeck($deckContent);
     self::ajaxResponse();
   }
 

@@ -1121,11 +1121,12 @@ define([
       this.onClick('api-error', () => ($('api-error').innerHTML = ''));
 
       // Confirm button
+      this._deckContentAPI = null;
       this.addPrimaryActionButton(
         'btnConfirmDeck',
         _('Confirm'),
         () => {
-          this.takeAction('actConfirmAPIDeck', {}, false);
+          this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(this._deckContentAPI) }, false);
         },
         'overlay-deck-selection'
       );
@@ -1175,8 +1176,9 @@ define([
 
           this._awaitingAPIReturn = true;
           $('api-error').innerHTML = '';
-          this.takeAction('actGetDeckInfos', { deckId: JSON.stringify(deck.apiId), lock: false }, false).then((deckContent) => {
-            debug(deckContent);
+          this.takeAction('actGetDeckInfos', { deckId: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
+            let deckContent = response.data;
+            this._deckContentAPI = deckContent;
             this._awaitingAPIReturn = false;
             $(`deck-${selected}`).classList.remove('fetching');
             $(`deck-${selected}`).classList.add('selected');

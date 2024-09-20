@@ -65,6 +65,9 @@ class altered extends Table
     Engine::boot();
     // Stats::checkExistence();
     Notifications::resetCache();
+
+    // EXPERIMENTAL to avoid deadlocks. This locks the global table early in the game constructor.
+    $this->bSelectGlobalsForUpdate = true;
   }
 
   public static function get()
@@ -324,10 +327,7 @@ class altered extends Table
     
     */
 
-  function upgradeTableDb($from_version)
-  {
-    //test
-  }
+  function upgradeTableDb($from_version) {}
 
   /////////////////////////////////////////////////////////////
   // Exposing protected methods, please use at your own risk //

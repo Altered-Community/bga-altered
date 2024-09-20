@@ -119,6 +119,7 @@ define([
       } else if (data.lock === false) {
         delete data.lock;
       }
+      let method = data.method === undefined ? 'get' : data.method;
       return new Promise((resolve, reject) => {
         this.ajaxcall(
           '/' + this.game_name + '/' + this.game_name + '/' + action + '.html',
@@ -127,7 +128,8 @@ define([
           (data) => resolve(data),
           (isError, message, code) => {
             if (isError) reject(message, code);
-          }
+          },
+          method
         );
       });
     },

@@ -354,7 +354,7 @@ abstract class FlowConvertor
         ]),
       ],
       70 => [
-        'description' => clienttranslate('Up to one target Character gains <FLEETING>].'),
+        'description' => clienttranslate('Up to one target Character gains <FLEETING>.'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,
           'targetType' => [CHARACTER, TOKEN],

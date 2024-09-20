@@ -104,6 +104,15 @@ trait SetupTrait
     // => use that instead of BGA framework feature because in some rare case a player
     //    might become inactive eventhough the selection failed (seen in Agricola and Rauha at least already)
     $selection = Globals::getDeckSelection();
+    // TEMPORARY PATCH : some players confirmed their deck with no deck stored => cancel that
+    $deckContent = Globals::getDeckContent();
+    foreach ($selection as $pId => $choice) {
+      if ($choice == 'API' && !isset($deckContent[$pId])) {
+        unset($selection[$pId]);
+      }
+    }
+    //////////////////////////////////////
+
     $players = Players::getAll();
     $ids = $players->getIds();
     $ids = array_diff($ids, array_keys($selection));
@@ -194,9 +203,13 @@ trait SetupTrait
     return $deck;
   }
 
-  public function actConfirmAPIDeck()
+  public function actConfirmAPIDeck($deckContent)
   {
     $this->gamestate->checkPossibleAction('actConfirmAPIDeck');
+
+    $gContent = Globals::getDeckContent();
+    $gContent[Players::getCurrentId()] = $deckContent;
+    Globals::setDeckContent($gContent);
 
     $player = Players::getCurrent();
     $selection = Globals::getDeckSelection();

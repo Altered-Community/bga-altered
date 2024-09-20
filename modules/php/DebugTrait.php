@@ -363,7 +363,9 @@ trait DebugTrait
 
     // Active player
     $ap = Globals::getActivePId();
-    Globals::setActivePId($map[$ap]);
+    if ($ap != 0) {
+      Globals::setActivePId($map[$ap]);
+    }
 
     // firstDayManaSelection
     $t = Globals::getDeckSelection();
@@ -380,6 +382,15 @@ trait DebugTrait
       $u[$map[$pId]] = $choice;
     }
     Globals::setFirstDayManaSelection($u);
+
+    // deckContent
+    $t = Globals::getDeckContent();
+    $u = [];
+    foreach ($t as $pId => $choice) {
+      $u[$map[$pId]] = $choice;
+    }
+    Globals::setDeckContent($u);
+
 
     // firstDayManaSelection
     $t = Globals::getPlayerDecks();
