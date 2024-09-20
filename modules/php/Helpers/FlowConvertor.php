@@ -737,7 +737,7 @@ abstract class FlowConvertor
       ],
       147 => [
         'description' => clienttranslate('You may discard target Character.'),
-        'output' => FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
+        'output' => FT::ACTION(TARGET, ['targetType' => [CHARACTER], 'upTo' => true, 'effect' => FT::ACTION(DISCARD, [])]),
       ],
       148 => [
         'description' => clienttranslate('All Characters in target Expedition gain <ASLEEP>.'),
