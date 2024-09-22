@@ -200,7 +200,8 @@
                 &[data-faction="MU"] {
                     background-position-y: 60%;
                 }
-                &[data-faction="OD"] {
+                &[data-faction="OD"],
+                &[data-faction="OR"] {
                     background-position-y: 80%;
                 }
                 &[data-faction="YZ"] {
@@ -225,7 +226,8 @@
                     &[data-faction="MU"] {
                         background-position-x: 60%;
                     }
-                    &[data-faction="OD"] {
+                    &[data-faction="OD"],
+                    &[data-faction="OR"] {
                         background-position-x: 80%;
                     }
                     &[data-faction="YZ"] {
@@ -491,9 +493,7 @@
                     &[data-faction="MU"] {
                         background-position-y: 60%;
                     }
-                    &[data-faction="OD"] {
-                        background-position-y: 80%;
-                    }
+                    &[data-faction="OD"],
                     &[data-faction="OR"] {
                         background-position-y: 80%;
                     }
@@ -669,7 +669,8 @@
                         &[data-faction="MU"] {
                             background-position-x: 60%;
                         }
-                        &[data-faction="OD"] {
+                        &[data-faction="OD"],
+                        &[data-faction="OR"] {
                             background-position-x: 80%;
                         }
                         &[data-faction="YZ"] {
@@ -714,7 +715,8 @@
                         &[data-faction="MU"] {
                             background: linear-gradient(90deg, #eaf2eb 0%, #eaf2eb 71%, transparent 90%);
                         }
-                        &[data-faction="OD"] {
+                        &[data-faction="OD"],
+                        &[data-faction="OR"] {
                             background: linear-gradient(90deg, #d4dfeb 0%, #d4dfeb 71%, transparent 90%);
                         }
                         &[data-faction="YZ"] {
@@ -788,7 +790,8 @@
                         &[data-faction="MU"] {
                             background-position-y: 60%;
                         }
-                        &[data-faction="OD"] {
+                        &[data-faction="OD"],
+                        &[data-faction="OR"] {
                             background-position-y: 80%;
                         }
                         &[data-faction="YZ"] {
