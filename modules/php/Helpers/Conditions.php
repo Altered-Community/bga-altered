@@ -338,22 +338,23 @@ abstract class Conditions
   //                 |___/
   /////////////////////////////////////////////////////////////
 
-  public static function isPlayEvent($card, $event, $meOnly = true)
+  public static function isAddedCardEvent($card, $event, $playedOnly = false)
   {
     if (!($event['playCard'] ?? false)) {
       return false;
     }
 
-    if ($meOnly && !self::isMe($card, $event)) {
+    // Distinguish play and put
+    if ($playedOnly && ($event['putAndNotPlayed'] ?? false)) {
       return false;
     }
 
     return true;
   }
 
-  public static function isCardPlayed($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '')
+  public function isCardAdded($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
-    if (!self::isPlayEvent($card, $event)) {
+    if (!self::isAddedCardEvent($card, $event)) {
       return false;
     }
 
@@ -391,6 +392,11 @@ abstract class Conditions
     }
 
     return true;
+  }
+
+  public static function isCardPlayed($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '')
+  {
+    return self::isCardAdded($card, $event, $type, $cost, $op, $excludeMyself, true);
   }
 
   public static function isCardPlayedWithZeroStat($card, $event)

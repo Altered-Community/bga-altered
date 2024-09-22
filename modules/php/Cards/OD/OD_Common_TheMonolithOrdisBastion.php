@@ -27,11 +27,11 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'costReserve' => 5,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCardPlayed:character',
+          'condition' => 'isCardAdded:character',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
         'InvokeToken' => [
-          'condition' => 'isCardPlayed:character',
+          'condition' => 'isCardAdded:character',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],

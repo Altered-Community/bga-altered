@@ -265,6 +265,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'from' => $fromLocation,
       'to' => $location,
       'playedFree' => $cost == 0 ? true : false,
+      'putAndNotPlayed' => !$effectHand,
       'additionalEffects' => Globals::getAdditionalEffect()
     ]);
 
