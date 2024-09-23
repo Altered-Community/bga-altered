@@ -259,6 +259,17 @@ class ChooseAssignment extends \ALT\Models\Action
       Notifications::message(clienttranslate('Effects are not triggered, due to an effect in the opponent\'s expedition'), []);
     }
 
+    $this->checkImmediateListeners($player, [
+      'playCard' => true,
+      'cardId' => $cardId,
+      'cardType' => $card->getType(),
+      'from' => $fromLocation,
+      'to' => $location,
+      'playedFree' => $cost == 0 ? true : false,
+      'putAndNotPlayed' => !$effectHand,
+      'additionalEffects' => Globals::getAdditionalEffect()
+    ]);
+
     $this->checkAfterListeners($player, [
       'playCard' => true,
       'cardId' => $cardId,
@@ -269,6 +280,8 @@ class ChooseAssignment extends \ALT\Models\Action
       'putAndNotPlayed' => !$effectHand,
       'additionalEffects' => Globals::getAdditionalEffect()
     ]);
+
+    // throw new \feException(print_r(Globals::getEngine()));
 
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
     Globals::setAdditionalEffect([]);

@@ -27,7 +27,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'landmarkSlots' => 2,
 
       'effectPassive' => [
-        'ChooseAssignment' => [
+        'ImmediateChooseAssignment' => [
           'conditions' => ['notUsed', 'isCardPlayed:character'],
           'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), ['action' => SPECIAL_EFFECT, 'args' => ['effect' => 'useCard']]),
         ],

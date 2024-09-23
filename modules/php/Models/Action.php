@@ -201,7 +201,7 @@ class Action
 
     $reaction = Cards::getReaction($event);
     // throw new \feException(print_r($reaction));
-    $this->pushAfterFinishingChilds($reaction);
+    $this->pushParallelChilds($reaction);
   }
 
   public function checkAfterListeners($player, $args = [], $duringActionListener = true)
@@ -212,6 +212,25 @@ class Action
     // removed, not sure it's consistent in Altered
     // $this->checkListeners('ImmediatelyAfter' . $this->getClassName(), $player, $args);
     // $this->checkListeners('After' . $this->getClassName(), $player, $args);
+  }
+
+  public function checkImmediateListeners($player, $args = [], $duringActionListener = true)
+  {
+    $event = array_merge(
+      [
+        'pId' => $player->getId(),
+        'type' => 'action',
+        'action' => 'Immediate' . $this->getClassName(),
+        'method' => 'Immediate' . $this->getClassName(),
+      ],
+      $args
+    );
+
+    $reaction = Cards::getReaction($event);
+    // var_dump($reaction);
+    if ($reaction  !== null) {
+      Engine::insertAtRoot(['type' => NODE_SEQ, 'childs' => $reaction], false);
+    }
   }
 
   public function checkModifiers($method, &$data, $name, $player, $args = [])

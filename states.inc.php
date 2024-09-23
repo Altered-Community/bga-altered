@@ -398,6 +398,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stAtomicAction',
     'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ST_MOVE_CARD => [
