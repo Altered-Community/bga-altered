@@ -126,6 +126,7 @@ class ChooseAssignment extends \ALT\Models\Action
         unset($costReduction[$player->getId()][ALL]);
       }
       Globals::setCostReduction($costReduction);
+      Globals::incPlayedCards();
 
       // management of CostReductionDiscard, discarding a card from reserve to reduce cost
       if ($card->getCostReductionDiscard() > 0) {
@@ -165,6 +166,7 @@ class ChooseAssignment extends \ALT\Models\Action
       // Pay cost
       $player->payMana($cost);
     } elseif ($newCost > 0) {
+      Globals::incPlayedCards();
       $player->payMana($newCost);
       $cost = $newCost;
     } else {
@@ -177,7 +179,6 @@ class ChooseAssignment extends \ALT\Models\Action
     // Move card
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
-    Globals::incPlayedCards();
 
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
