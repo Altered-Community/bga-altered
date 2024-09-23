@@ -98,7 +98,7 @@ class Discard extends \ALT\Models\Action
     if (!is_null($cardId)) {
       $cardIds = is_array($cardId) ? $cardId : [$cardId];
       // Replace ME by source
-      $cardIds = array_map(fn ($cId) => $cId == ME ? $this->getSourceId() : $cId, $cardIds);
+      $cardIds = array_map(fn($cId) => $cId == ME ? $this->getSourceId() : $cId, $cardIds);
     }
     // Any source specified ? From Hand
     elseif ($source == HAND) {
@@ -286,13 +286,15 @@ class Discard extends \ALT\Models\Action
       elseif ($destination == MANA) {
         // One notif per player
         foreach ($players as $pId => $p2) {
-          $playerCards = $cards->filter(fn ($c) => $c->getPId() == $pId);
-          $visiblePlayerCards = $cards->filter(fn ($c) => in_array($c->getId(), $visibleCards));
+          $playerCards = $cards->filter(fn($c) => $c->getPId() == $pId);
+          $visiblePlayerCards = $cards->filter(fn($c) => in_array($c->getId(), $visibleCards));
+          // used in the case of Mighty Jinn that could have already been discarded, to not update the total number of cards
+          $alreadyDiscarded = $originalLocation == 'discard';
 
           if (!$visiblePlayerCards->empty()) {
             Notifications::publicDiscardToMana($p2, $visiblePlayerCards);
           } else {
-            Notifications::discardMana($p2, $playerCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+            Notifications::discardMana($p2, $playerCards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'), ['alreadyDiscarded' => $alreadyDiscarded ? 1 : 0]);
           }
         }
       }

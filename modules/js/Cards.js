@@ -658,6 +658,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         counter = 'deckCount';
       }
       let nonTappedMana = 0;
+      let alreadyDiscarded = 0;
+      if (n.args.hasOwnProperty('alreadyDiscarded')) {
+        alreadyDiscarded = n.args.alreadyDiscarded;
+      }
       this.closeOverlayIfOpened();
 
       if (this.isFastMode()) {
@@ -673,7 +677,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           }
           nonTappedMana += !card.properties.hasOwnProperty('tapped') || card.properties.tapped ? 1 : 0;
         });
-        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
+        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length + alreadyDiscarded);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
         if (n.args.toMana) {
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
@@ -728,7 +732,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           }
         })
       ).then(() => {
-        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length);
+        this._playerCounters[this.player_id][counter].incValue(-n.args.cards.length + alreadyDiscarded);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(n.args.cards.length);
         if (n.args.toMana) {
           this._playerCounters[this.player_id]['totalMana'].incValue(n.args.cards.length);
@@ -758,6 +762,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       let nCards = n.args.n;
+      let alreadyDiscarded = 0;
+      if (n.args.hasOwnProperty('alreadyDiscarded')) {
+        alreadyDiscarded = n.args.alreadyDiscarded;
+      }
       let oCards = [...$(`hand-${n.args.player_id}`).querySelectorAll('.altered-card')];
       // FROM DECK
       if (n.args.fromLocation && n.args.fromLocation.startsWith('deck')) {
@@ -771,7 +779,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       if (this.isFastMode()) {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
+        this._playerCounters[n.args.player_id][counter].incValue(-nCards + alreadyDiscarded);
         if (n.args.toMana) {
           this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
           this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
@@ -800,7 +808,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           });
         })
       ).then(() => {
-        this._playerCounters[n.args.player_id][counter].incValue(-nCards);
+        this._playerCounters[n.args.player_id][counter].incValue(-nCards + alreadyDiscarded);
         if (n.args.toMana) {
           this._playerCounters[n.args.player_id]['totalMana'].incValue(nCards);
           this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
