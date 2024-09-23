@@ -352,7 +352,7 @@ abstract class Conditions
     return true;
   }
 
-  public function isCardAdded($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
+  public static function isCardAdded($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
     if (!self::isAddedCardEvent($card, $event)) {
       return false;
