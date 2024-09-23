@@ -217,6 +217,7 @@ $machinestates = [
     'name' => 'checkCondition',
     'type' => 'game',
     'action' => 'stAtomicAction',
+    'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ST_AFTER_YOU => [
@@ -415,6 +416,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stAtomicAction',
     'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ST_TAP => [
@@ -423,6 +425,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stAtomicAction',
     'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ST_PAY => [
@@ -431,6 +434,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stAtomicAction',
     'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ////////////////////////////////////
