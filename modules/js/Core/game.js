@@ -57,7 +57,7 @@ define([
     unsetModeInstantaneous() {
       if (this.instantaneousMode) {
         this.instantaneousMode = false;
-        dojo.style('leftright_page_wrapper', 'display', 'block');
+        dojo.style('leftright_page_wrapper', 'display', 'flex');
         dojo.style('loader_mask', 'display', 'none');
         this.onLeavingFastMode();
       }

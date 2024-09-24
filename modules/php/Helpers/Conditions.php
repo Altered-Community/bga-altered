@@ -329,6 +329,22 @@ abstract class Conditions
     die('Unknown op for hasCounterOnCard');
   }
 
+  public static function hasGainedBoost($card, $event, $n = 1)
+  {
+    if (($event['action'] ?? null) != GAIN) {
+      return false;
+    }
+    if ($event['gain']['cardId'] != $card->getId()) {
+      return false;
+    }
+
+    if ($event['gain']['type']  != 'boost') {
+      return false;
+    }
+
+    return true;
+  }
+
   /////////////////////////////////////////////////////////////
   //   ____  _                      _    ____              _
   //  |  _ \| | __ _ _   _  ___  __| |  / ___|__ _ _ __ __| |
