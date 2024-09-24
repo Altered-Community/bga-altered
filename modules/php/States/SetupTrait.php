@@ -195,7 +195,6 @@ trait SetupTrait
       }
     }
     $deck['cards'] = $deckContent;
-
     $gContent = Globals::getDeckContent();
     $gContent[Players::getCurrentId()] = $deck;
     Globals::setDeckContent($gContent);

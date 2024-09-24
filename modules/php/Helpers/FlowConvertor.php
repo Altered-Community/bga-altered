@@ -1184,7 +1184,7 @@ abstract class FlowConvertor
     }
 
     if (isset($calculated['outputPassive'])) {
-      $properties['effectPassive'] = array_merge($properties['effectPassive'], $calculated['outputPassive']);
+      $properties['effectPassive'] = array_merge($properties['effectPassive'] ?? [], $calculated['outputPassive']);
     }
 
     // Description
