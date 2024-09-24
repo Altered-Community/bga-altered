@@ -1143,6 +1143,7 @@ define([
         OR: _('Ordis'),
         YZ: _('Yzmir'),
       };
+      let hand = _('hand');
 
       let selected = null;
       $(`deck-list`).innerHTML = '';
