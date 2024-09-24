@@ -218,20 +218,38 @@ class ChooseAssignment extends \ALT\Models\Action
       // insert effect flow
       $effect = $card->getEffectPlayed();
       if (!empty($effect)) {
-        $effects[] = $effect;
+        if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
+          foreach ($effect['childs'] as $t => $child) {
+            $effects[] = $child;
+          }
+        } else {
+          $effects[] = $effect;
+        }
       }
 
       if ($fromLocation == HAND && $effectHand) {
         $effect = $card->getEffectHand();
         if (!empty($effect)) {
-          $effects[] = $effect;
+          if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
+            foreach ($effect['childs'] as $t => $child) {
+              $effects[] = $child;
+            }
+          } else {
+            $effects[] = $effect;
+          }
         }
       }
 
       if ($fromLocation == RESERVE) {
         $effect = $card->getEffectReserve();
         if (!empty($effect)) {
-          $effects[] = $effect;
+          if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
+            foreach ($effect['childs'] as $t => $child) {
+              $effects[] = $child;
+            }
+          } else {
+            $effects[] = $effect;
+          }
         }
       }
 

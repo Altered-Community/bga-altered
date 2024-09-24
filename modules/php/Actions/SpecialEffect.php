@@ -24,23 +24,117 @@ class SpecialEffect extends \ALT\Models\Action
   {
     $effect = $this->getArg('effect');
 
-    if ($effect == 'gainCounter') {
-      return [
-        'log' => clienttranslate('Gain ${n} ${counter_name}'),
-        'args' => [
-          'n' => $this->getArg('args')['counter'],
-          'counter_name' => $this->getArg('args')['counterName'],
-          'i18n' => ['counter_name'],
-        ],
-      ];
-    } elseif ($effect == 'nextCharacterGains1Boost') {
-      return clienttranslate('Next character <BOOST>');
-    } elseif ($effect == 'nextCharacterGains2Boost') {
-      return clienttranslate('Next character 2<BOOST>');
-    } elseif ($effect == 'AuraqKibble') {
-      return clienttranslate('Draw and keep card or play it for free');
-      // } elseif ($effect == 'boost3Stat0') {
-      //   return clienttranslate('Gain 1<BOOST> if there are 3 base statistic at 0');
+    switch ($effect) {
+      case 'gainCounter':
+        return [
+          'log' => clienttranslate('Gain ${n} ${counter_name}'),
+          'args' => [
+            'n' => $this->getArg('args')['counter'],
+            'counter_name' => $this->getArg('args')['counterName'],
+            'i18n' => ['counter_name'],
+          ],
+        ];
+      case 'nextCharacterGains1Boost':
+        return clienttranslate('Next character <BOOST>');
+      case 'nextCharacterGains2Boost':
+        return clienttranslate('Next character 2<BOOST>');
+      case 'AuraqKibble':
+        return clienttranslate('Draw and keep card or play it for free');
+      case 'useCard':
+        return clienttranslate('Flag the card');
+      case 'costReduction':
+        return clienttranslate('Reduce cost of next card');
+        break;
+      case 'gainCounter':
+        return clienttranslate('Gain a counter');
+        break;
+      case 'incCounter':
+        return clienttranslate('Increment a counter');
+        break;
+      case 'activateAllPermanents':
+        return clienttranslate('Activate all permanents');
+        break;
+      case 'activateAllOtherCharacters':
+        return clienttranslate('Activate all other abilities');
+        break;
+      case 'nextCharacterGains1Boost':
+        return clienttranslate('Next character gains <BOOST>');
+        break;
+      case 'nextCharacterGains2Boost':
+        return clienttranslate('Next character gains 2 <BOOST>');
+        break;
+      case 'nextSpellIsFree':
+        return clienttranslate('Next spell is free');
+        break;
+      case 'nextCharacterCost3Anchored':
+        return clienttranslate('Next character gains <ANCHORED>');
+        break;
+      case 'removeFleetingIfPlayedHand':
+        return clienttranslate('Remove fleeting if played from hand');
+        break;
+      case 'removeFleetingSpellPlayed':
+        return clienttranslate('Remove fleeting if next card is a spell');
+        break;
+      case 'removeFleetingCharacterPlayed':
+        return clienttranslate('Remove fleeting if next card is a character');
+        break;
+      case 'removeFleetingIfSpellPlayedHand':
+        return clienttranslate('Remove fleeting if next card is a spell played from hand');
+        break;
+      case 'boostAllSubtype':
+        return clienttranslate('Boost all subtype');
+        break;
+      case 'boostXReserve':
+        return clienttranslate('Boost number of cards in reserve');
+        break;
+      case 'boostXLandmark':
+        return clienttranslate('Boost number of landmarks');
+        break;
+      case 'boostXReserveAll':
+        return clienttranslate('Boost number of all cards in reserve');
+        break;
+      case 'boost3Stat0':
+        return clienttranslate('Boost if more than 3 0 statistics');
+        break;
+      case 'boost23Stat0':
+        return clienttranslate('Boost if more than 3 0 statistics');
+        break;
+      case 'discardAllHand':
+        return clienttranslate('Discard all hands');
+        break;
+      case 'discardAllHandReserve':
+        return clienttranslate('Discard all hands and reserve');
+        break;
+      case 'instantWin':
+        return clienttranslate('Immediate win');
+        break;
+      case 'MindApotheosis':
+        return clienttranslate('Mind Apotheosis');
+        break;
+      case 'triggerEffectOfNextCharacter':
+        return clienttranslate('Trigger ability of next character');
+        break;
+      case 'AfterRestSabotage':
+        return clienttranslate('Sabotage after rest');
+        break;
+      case 'AfterRestOrdisRecruit':
+        return clienttranslate('Invoke Ordis recruit after rest');
+        break;
+      case 'AfterRest2OrdisRecruit':
+        return clienttranslate('Invoke 2 Ordis recruit after rest');
+        break;
+      case 'afterRest':
+        return clienttranslate('Trigger the effect after rest');
+      case 'AllPlayersSacrifice1':
+        return clienttranslate('All players sacrifice 1 character');
+        break;
+      case 'eachPlayerOptionalResupply':
+        return clienttranslate('All players may resupply');
+      case 'fleetingAllCharacters':
+        return clienttranslate('All characters gain fleeting');
+      case 'sleepingAllCharactersinExpedition':
+        return clienttranslate('Put to sleep character in the expedition');
+        break;
     }
     return '';
   }
@@ -52,7 +146,20 @@ class SpecialEffect extends \ALT\Models\Action
 
   public function isIndependent($player = null)
   {
+    $source = $this->getSource();
+    if ($source != null) {
+      if ($source->getRarity() == RARITY_UNIQUE) {
+        return false;
+      }
+    }
+
     return true;
+
+    // $effect = $this->getArg('effect');
+    // // Manage blockAutomaticAction
+    // if (in_array($effect, [])) {
+    // }
+    // return true;
   }
 
   public function getCard()

@@ -551,6 +551,7 @@ abstract class FlowConvertor
       108 => [
         'description' => clienttranslate('I gain 1 boost for each card in each player\'s Reserve.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXReserveAll']),
+        'attributes' => ['blockAutomaticAction' => [GAIN => [BOOST => 1]]]
       ],
       109 => [
         'description' => clienttranslate('Up to one target Plant gains 2 boosts.'),
