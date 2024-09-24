@@ -47,6 +47,21 @@ class ParallelNode extends AbstractNode
         }));
   }
 
+  public function getUndoableMandatoryNode($player)
+  {
+    if ($this->isOptional($player)) {
+      return null;
+    }
+    foreach ($this->childs as $child) {
+      $node = $child->getUndoableMandatoryNode($player);
+      if (!is_null($node)) {
+        return $node;
+      }
+    }
+    return null;
+  }
+
+
   /**
    * An PARALLEL node is resolved either when marked as resolved, either when all children are resolved already
    */
