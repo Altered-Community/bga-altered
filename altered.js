@@ -1209,7 +1209,7 @@ define([
       Object.entries(deck.cards).forEach(([i, card]) => {
         if (i == 'hero') return;
 
-        let id = -i;
+        let id = 'preview-' + i;
         this.addCard({ id, properties: card.card.properties }, 'deck-cards');
         $(`card-${id}`).querySelector('.card-frame').dataset.copies = card.n;
       });

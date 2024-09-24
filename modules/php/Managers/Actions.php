@@ -156,12 +156,12 @@ class Actions
 
   public static function pass($actionId, $ctx)
   {
-    if (!$ctx->isOptional(Players::getActive())) {
-      // self::error($ctx->toArray());
+    $player = Players::getActive();
+    $action = self::get($actionId, $ctx);
+    if (!$ctx->isOptional($player) && !$action->isOptional($player)) {
       throw new \BgaVisibleSystemException('This action is not optional');
     }
 
-    $action = self::get($actionId, $ctx);
     $methodName = 'actPass' . $action->getClassName();
     if (\method_exists($action, $methodName)) {
       $action->$methodName();
