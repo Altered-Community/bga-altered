@@ -44,7 +44,7 @@
     }
 
     &.selectable {
-        box-shadow: 0px 0px 10px 0px lime;
+        box-shadow: 0px 0px 10px 4px lime;
         cursor: pointer;
         border-color: #04c104;
         &:hover {
@@ -52,6 +52,15 @@
             z-index: 100;
         }
         transition: none;
+
+        &.mini-card.card-permanent {
+            background: #00bc03;
+            box-shadow: 0px 0px 10px 4px lime;
+
+            &:hover::after {
+                display: none;
+            }
+        }
     }
 
     &.selected {
@@ -60,6 +69,16 @@
         // border: 4px solid #bbff00;
         // box-shadow: 0px 0px 10px 8px #2fb814;
         margin: -4px;
+
+        &.mini-card.card-permanent {
+            border: 2px solid #ffe300;
+            background: #ffe300;
+            box-shadow: 0px 0px 10px 10px #9e8c00;
+
+            &:hover::after {
+                display: none;
+            }
+        }
     }
 
     &.selectedToMana {

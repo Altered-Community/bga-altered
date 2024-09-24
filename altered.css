@@ -321,7 +321,7 @@ html {
     opacity: 0.5; }
   .altered-card.selectable,
   .altered-card.mini-card.selectable {
-    box-shadow: 0px 0px 10px 0px lime;
+    box-shadow: 0px 0px 10px 4px lime;
     cursor: pointer;
     border-color: #04c104;
     transition: none; }
@@ -329,11 +329,26 @@ html {
     .altered-card.mini-card.selectable:hover {
       transform: scale(1.1);
       z-index: 100; }
+    .altered-card.selectable.mini-card.card-permanent,
+    .altered-card.mini-card.selectable.mini-card.card-permanent {
+      background: #00bc03;
+      box-shadow: 0px 0px 10px 4px lime; }
+      .altered-card.selectable.mini-card.card-permanent:hover::after,
+      .altered-card.mini-card.selectable.mini-card.card-permanent:hover::after {
+        display: none; }
   .altered-card.selected,
   .altered-card.mini-card.selected {
     border: 4px solid #ffe300;
     box-shadow: 0px 0px 10px 10px #9e8c00;
     margin: -4px; }
+    .altered-card.selected.mini-card.card-permanent,
+    .altered-card.mini-card.selected.mini-card.card-permanent {
+      border: 2px solid #ffe300;
+      background: #ffe300;
+      box-shadow: 0px 0px 10px 10px #9e8c00; }
+      .altered-card.selected.mini-card.card-permanent:hover::after,
+      .altered-card.mini-card.selected.mini-card.card-permanent:hover::after {
+        display: none; }
   .altered-card.selectedToMana,
   .altered-card.mini-card.selectedToMana {
     border-color: #1059c5;
