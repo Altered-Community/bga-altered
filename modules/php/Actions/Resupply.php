@@ -47,6 +47,12 @@ class Resupply extends \ALT\Models\Action
     'n' => 1,
   ];
 
+  public function getPlayer()
+  {
+    $pId = $this->ctx->getPId() ?? $this->getSource()->getPId();
+    return Players::get($pId);
+  }
+
   public function stResupply()
   {
     $n = $this->getArg('n');
