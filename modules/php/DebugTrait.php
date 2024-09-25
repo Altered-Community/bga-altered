@@ -90,6 +90,13 @@ trait DebugTrait
     Globals::setEndTriggered(true);
   }
 
+  function debug_deck($deckId)
+  {
+    $deckContent = $this->actGetDeckInfos($deckId);
+    $deckContent['cards'][HERO]['card'] = $deckContent['cards'][HERO]['card']->jsonSerialize();
+    $this->actConfirmAPIDeck($deckContent);
+  }
+
   function vt()
   {
     // Globals::setupNewGame([], []);

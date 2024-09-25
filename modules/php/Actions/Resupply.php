@@ -49,7 +49,7 @@ class Resupply extends \ALT\Models\Action
 
   public function getPlayer()
   {
-    $pId = $this->ctx->getPId() ?? $this->getSource()->getPId();
+    $pId = $this->ctx->getPId() ?? ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
     return Players::get($pId);
   }
 
