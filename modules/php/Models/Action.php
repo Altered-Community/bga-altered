@@ -201,7 +201,8 @@ class Action
 
     $reaction = Cards::getReaction($event);
     // throw new \feException(print_r($reaction));
-    $this->pushParallelChilds($reaction);
+    // $this->pushParallelChilds($reaction);
+    $this->pushAfterFinishingChilds($reaction);
   }
 
   public function checkAfterListeners($player, $args = [], $duringActionListener = true)

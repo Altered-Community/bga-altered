@@ -271,6 +271,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
       if (!empty($effects)) {
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+        // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
         $this->pushParallelChilds($effects['childs']);
       }
     } else {
@@ -341,6 +342,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $effect = $card->getEffectSupport();
     if (!empty($effect)) {
       $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
+      // $effect = Utils::tagTree($effect, ['pId' => $player->getId()]);
       $this->insertAsChild($effect);
     }
 
@@ -375,6 +377,8 @@ class ChooseAssignment extends \ALT\Models\Action
     $effect = $card->getEffectTap();
     if (!empty($effect)) {
       $effect = Utils::tagTree($effect, ['sourceId' => $card->getId()]);
+      // $effect = Utils::tagTree($effect, ['pId' => $player->getId()]);
+      // throw new \feException(print_r($effect));
       $this->insertAsChild($effect);
     }
   }
