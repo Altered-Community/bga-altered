@@ -65,7 +65,11 @@ class Discard extends \ALT\Models\Action
     $cardId = $this->getArg('cardId');
     $card = '';
     if ($cardId == ME) {
-      $card = Cards::get($this->getSourceId());
+      if ($this->getSourceId() == null) {
+        $card = '';
+      } else {
+        $card = Cards::get($this->getSourceId());
+      }
     } else if (!is_null($cardId)) {
       $card = Cards::get($cardId, false);
     }

@@ -369,6 +369,54 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $power = $passive[$event['action'] ?? $event['type']];
+
+    // we are on a listener with multiple effects
+    if (isset($power['childs'])) {
+      $parallelOutput = [];
+      // looks like Payment is not used anymore
+      foreach ($power['childs'] as $i => $pow) {
+        list($payment, $output) = $this->checkReaction($pow, $event);
+        if (!is_null($output) && !empty($output)) {
+          $parallelOutput[] = $output;
+        }
+      }
+      return [null, ['type' => NODE_PARALLEL, 'childs' => $parallelOutput]];
+    } else {
+      return $this->checkReaction($power, $event);
+    }
+    // $n = $power['n'] ?? 'once';
+    // switch ($n) {
+    //   case 'eachExpedition':
+    //     $output = [];
+    //     foreach (STORMS as $storm) {
+    //       $event['expedition'] = $storm;
+    //       if (Conditions::check($power, $this, $event) === false) {
+    //         continue;
+    //       }
+    //       $output[] = $power['output'];
+    //     }
+    //     if (empty($output)) {
+    //       return [null, null];
+    //     }
+    //     $power['output'] = FT::SEQ(...$output);
+    //     break;
+    //   case 'once':
+    //     // structured : ['Noon'=>['condition' =>, 'output'=>]]
+    //     if (Conditions::check($power, $this, $event) === false) {
+    //       return [null, null];
+    //     }
+
+    //     break;
+    // }
+
+    // // put the source as the card triggering itself
+    // $power['output']['sourceId'] = $this->id;
+
+    // return [$power['payment'] ?? [], $power['output']];
+  }
+
+  protected function checkReaction($power, $event)
+  {
     $n = $power['n'] ?? 'once';
     switch ($n) {
       case 'eachExpedition':
@@ -393,10 +441,8 @@ class Card extends \ALT\Helpers\DB_Model
 
         break;
     }
-
     // put the source as the card triggering itself
     $power['output']['sourceId'] = $this->id;
-
     return [$power['payment'] ?? [], $power['output']];
   }
 

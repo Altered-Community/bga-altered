@@ -1177,7 +1177,21 @@ abstract class FlowConvertor
           }
         } else {
           // PassiveEffects
-          $properties[$key] = array_merge($properties[$key], $node);
+          // we need to merge per trigger if needed
+          foreach ($properties[$key] as $existingTrigger => &$existingNode) {
+            // Nothing to merge as it doesn't exist
+            if (!isset($node[$existingTrigger])) {
+              continue;
+            }
+            // throw new \feException("titi");
+            // we already have childs
+            if (isset($existingNode['childs'])) {
+              $existingNode['childs'][] = $node[$existingTrigger];
+            } else {
+              $existingNode = ['childs' => array_merge([$existingNode], [$node[$existingTrigger]])];
+            }
+          }
+          // $properties[$key] = array_merge($properties[$key], $node);
         }
       } else {
         $properties[$key] = $node;
