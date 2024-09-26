@@ -457,7 +457,7 @@ class Notifications
       'location' => $location,
       'fromLocation' => $fromLocation,
       'displayLocation' => $location,
-      'i18n' => ['location', 'fromLocation', 'displayLocation'],
+      'i18n' => ['displayLocation'],
     ]);
   }
 

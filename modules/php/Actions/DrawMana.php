@@ -65,7 +65,7 @@ class DrawMana extends \ALT\Models\Action
       $card->setTapped($this->getArg('tapped'));
     }
 
-    Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} draws ${n} card(s) and put them as mana'));
+    Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} draws ${n} card(s) and put them as mana'), ['fromLocation' => 'deck']);
 
     $this->resolveAction(null, true);
   }
