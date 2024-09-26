@@ -32,6 +32,12 @@ class Pay extends \ALT\Models\Action
     return $player->getMana() >= ($this->getCtxArg('pay') ?? 0);
   }
 
+  public function isMandatory()
+  {
+    // we must do it to get the effect
+    return true;
+  }
+
   public function stPay()
   {
     $player = $this->getPlayer();

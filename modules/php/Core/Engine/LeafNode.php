@@ -42,7 +42,7 @@ class LeafNode extends AbstractNode
 
   public function isOptional($player)
   {
-    if (isset($this->infos['mandatory']) && $this->infos['mandatory']) {
+    if ((isset($this->infos['mandatory']) && $this->infos['mandatory']) || Actions::get($this->infos['action'], $this)->isMandatory()) {
       return false;
     }
 

@@ -49,6 +49,11 @@ class Action
     return false;
   }
 
+  public function isMandatory()
+  {
+    return false;
+  }
+
   public function getDescription()
   {
     return $this->description;
