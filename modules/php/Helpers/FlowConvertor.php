@@ -195,7 +195,7 @@ abstract class FlowConvertor
       ],
       30 => ['description' => clienttranslate('Target opponent draws a card.'), 'output' =>  FT::ACTION(DRAW, ['players' => OPPONENT])],
       31 => ['description' => clienttranslate('I can\'t be played if you have less than seven Mana Orbs.'), 'attributes' => ['minManaOrbs' => 7]],
-      32 => ['description' => clienttranslate('I am <DEFENDER>.'), 'attributes' => ['defender' => true]],
+      32 => ['description' => clienttranslate('I am <DEFENDER>.'), 'noTrigger' => true, 'attributes' => ['dynamicDefender' => true]],
       33 => ['description' => clienttranslate('I gain <ASLEEP>.'), 'output' => FT::GAIN(ME, ASLEEP)],
       34 => ['description' => clienttranslate('I gain <FLEETING>.'), 'output' => FT::GAIN(ME, FLEETING)],
       35 => ['description' => clienttranslate('I can\'t be played if you have less than six Mana Orbs.'), 'attributes' => ['minManaOrbs' => 6]],
@@ -1088,9 +1088,10 @@ abstract class FlowConvertor
     if (isset($calculated['noTrigger']) && $calculated['noTrigger'] === true) {
       // DynamicAttributes wll be used
       // if it exists, condition must be added at the end of the dynamic attribute
+      // throw new \feException(print_r($calculated));
       if (isset($calculated['triggerConditions'])) {
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
-          if (is_string($attribute)) {
+          if (is_string($attribute) || is_bool($attribute)) {
             $calculated['outputAttributes'][$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
           }
         }

@@ -646,6 +646,11 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
+    if ($dynamicDefender != '') {
+      return !is_null(Utils::checkAttributeCondition('defender', $dynamicDefender, $this->getPlayer(), $this));
+    }
+
+
     // OD_Common_GulrangTocsin
     if (
       in_array(
