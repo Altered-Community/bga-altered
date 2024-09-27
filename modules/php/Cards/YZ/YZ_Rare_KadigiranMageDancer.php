@@ -34,7 +34,7 @@ class YZ_Rare_KadigiranMageDancer extends \ALT\Models\Card
           'condition' => 'isCardPlayed:spell',
           'output' => FT::GAIN($this, BOOST),
         ],
-        'BeforeDusk' => [
+        'AtDusk' => [
           'condition' => 'hasBoost:3',
           'output' => FT::ACTION(DRAW, ['players' => ME]),
         ],

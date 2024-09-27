@@ -24,7 +24,7 @@ abstract class FlowConvertor
       14 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved', 'afterRest' => true],
       15 => ['description' => clienttranslate('When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardPlayed::::true', 'isCardPlayedWithZeroStat']],
       16 => ['description' => clienttranslate('When you play a Permanent —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:permanent'],
-      17 => ['description' => clienttranslate('At Dusk —'), 'trigger' => 'BeforeDusk'],
+      17 => ['description' => clienttranslate('At Dusk —'), 'trigger' => 'AtDusk'],
       19 => ['description' => clienttranslate('When another non-token Character joins your Expeditions —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:characterOnly:::true'],
       20 => ['description' => clienttranslate('At Noon —'), 'trigger' => 'Noon', 'condition' => 'isMe'],
       21 => ['description' => clienttranslate('When another Character joins your Expeditions —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => 'isCardPlayed:character:::true'],

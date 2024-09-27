@@ -154,8 +154,7 @@ trait TurnTrait
       $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
       return;
     }
-
-    $this->stDusk();
+    $this->checkCardListeners('AtDusk', 'stDusk');
   }
 
   // Move companion and hero
