@@ -1068,6 +1068,7 @@ abstract class FlowConvertor
   public static function constructEffect($trinity, &$properties)
   {
     $calculated = [];
+
     if (isset($trinity['trigger'])) {
       self::computeTrigger($trinity['trigger'], $calculated);
     }
@@ -1191,8 +1192,11 @@ abstract class FlowConvertor
             } else {
               $existingNode = ['childs' => array_merge([$existingNode], [$node[$existingTrigger]])];
             }
+            unset($node[$existingTrigger]);
           }
-          // $properties[$key] = array_merge($properties[$key], $node);
+          if (!empty($node)) {
+            $properties[$key] = array_merge($properties[$key], $node);
+          }
         }
       } else {
         $properties[$key] = $node;
