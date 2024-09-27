@@ -217,6 +217,8 @@ class Discard extends \ALT\Models\Action
         $visibleCards[] = $cId;
       } else if ($originalLocation == HAND) {
         $hand = true;
+      } elseif ($originalLocation == MANA) {
+        $manaCards[] = $cId;
       }
 
       // Special case of MoonlightJellyFish
@@ -318,10 +320,10 @@ class Discard extends \ALT\Models\Action
         } elseif ($automatic) {
           $msg = clienttranslate('${player_name} discards ${n} card(s)');
         }
-
         Notifications::publicDiscard($player, $cards, $msg, [
           'source' => $args['source'],
           'hand' => $hand,
+          'originalLocation' => $originalLocation,
           'destination' => $args['destination'],
         ]);
       }
