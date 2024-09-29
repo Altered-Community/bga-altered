@@ -536,7 +536,6 @@ abstract class Conditions
     return self::isSacrifice($card, $event) && self::isMyselfDiscarded($card, $event);
   }
 
-
   ///////////////////////////////////
   //   ___  _   _                   
   //  / _ \| |_| |__   ___ _ __ ___ 

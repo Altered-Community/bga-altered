@@ -1165,6 +1165,12 @@ abstract class FlowConvertor
       $properties = array_merge($properties, $calculated['outputAttributes']);
     }
 
+    // edge cases:
+    if (in_array($trinity['trigger'], [8, 231]) && $trinity['condition'] == 190 && $trinity['output'] == 44) {
+      $properties['sacrificeAndNotFleetingGoToReserve'] = true;
+      $node = [];
+    }
+
     // dynamic attributes generate empty node
     if (!empty($node)) {
       if (isset($properties[$key])) {
