@@ -646,7 +646,7 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
-    if ($dynamicDefender != '') {
+    if ($dynamicDefender != '' && $subType == '') {
       return !is_null(Utils::checkAttributeCondition('defender', $dynamicDefender, $this->getPlayer(), $this));
     }
 
