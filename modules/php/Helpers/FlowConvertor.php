@@ -195,7 +195,7 @@ abstract class FlowConvertor
       ],
       30 => ['description' => clienttranslate('Target opponent draws a card.'), 'output' =>  FT::ACTION(DRAW, ['players' => OPPONENT])],
       31 => ['description' => clienttranslate('I can\'t be played if you have less than seven Mana Orbs.'), 'attributes' => ['minManaOrbs' => 7]],
-      32 => ['description' => clienttranslate('I am <DEFENDER>.'), 'noTrigger' => true, 'attributes' => ['dynamicDefender' => true]],
+      32 => ['description' => clienttranslate('I am <DEFENDER>.'), 'noTrigger' => true, 'attributes' => ['dynamicDefender' => 'fullDefender']],
       33 => ['description' => clienttranslate('I gain <ASLEEP>.'), 'output' => FT::GAIN(ME, ASLEEP)],
       34 => ['description' => clienttranslate('I gain <FLEETING>.'), 'output' => FT::GAIN(ME, FLEETING)],
       35 => ['description' => clienttranslate('I can\'t be played if you have less than six Mana Orbs.'), 'attributes' => ['minManaOrbs' => 6]],

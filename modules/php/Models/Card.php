@@ -628,6 +628,9 @@ class Card extends \ALT\Helpers\DB_Model
       case '2OtherBureaucrats':
         $subType = BUREAUCRAT;
         break;
+      case 'fullDefender':
+        return true;
+        break;
     }
 
     if ($subType != '') {
