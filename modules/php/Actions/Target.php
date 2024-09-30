@@ -108,13 +108,14 @@ class Target extends \ALT\Models\Action
 
   public function isOptional($player)
   {
+
     return $this->getArg('upTo') ||
-      count($this->getTargetableCards(Players::getActive())) == 0 ||
+      count($this->getTargetableCards(Players::getActive(), true)) == 0 ||
       !$this->isDoable($player) ||
       $this->getCtx()->getOptional();
   }
 
-  public function getTargetableCards($player)
+  public function getTargetableCards($player, $checkTough = false)
   {
     // Who is the target ?
     $pId = $player->getId();
@@ -154,7 +155,7 @@ class Target extends \ALT\Models\Action
     $subType = $this->getArg('subType');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -177,6 +178,10 @@ class Target extends \ALT\Models\Action
       }
 
       if ($subType != 'disabled' && !in_array($subType, $c->getSubtypes())) {
+        return false;
+      }
+
+      if ($checkTough && $c->getPId() != $player->getId() && $c->getTough() > $player->getMana()) {
         return false;
       }
 
