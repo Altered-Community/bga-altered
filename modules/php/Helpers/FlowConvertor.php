@@ -55,6 +55,7 @@ abstract class FlowConvertor
         'effect' => FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetLocation' => [MANA],
+          'upTo' => true,
           'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
           'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT')
         ]),
