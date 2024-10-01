@@ -13,6 +13,7 @@ use ALT\Core\Engine;
 use ALT\Helpers\Collection;
 use ALT\Helpers\Conditions;
 use ALT\Helpers\Utils;
+use ALT\Managers\Players;
 
 /*
  * Player: all utility functions concerning a player
@@ -406,6 +407,11 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $strengths = [];
     $cards = $this->getPlayedCards();
+    $validBiomes = [FOREST => 0, OCEAN => 0, MOUNTAIN => 0];
+
+    if (Globals::isTieBreakerMode()) {
+      Players::biomesModifier($validBiomes, $this, '', true);
+    }
 
     foreach ($expeditions as $i => $exp) {
       $strength = [OCEAN => 0, MOUNTAIN => 0, FOREST => 0]; // OCEAN/MOUNTAIN/FOREST
@@ -422,8 +428,16 @@ class Player extends \ALT\Helpers\DB_Model
           $strength[$bi] += $value;
         }
       }
+      foreach ($strength as $biome => $s) {
+        if (!isset($validBiomes[$biome])) {
+          $strength[$biome] = 0;
+        }
+      }
       $strengths[$exp] = $strength;
     }
+
+
+
     return $strengths;
   }
 

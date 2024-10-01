@@ -179,7 +179,7 @@ trait TurnTrait
         $expeditions = $player->getBiomeStrength(STORMS, true);
 
         $validBiomes = [FOREST => 0, OCEAN => 0, MOUNTAIN => 0];
-        Players::biomesModifier($validBiomes, $player, '');
+        Players::biomesModifier($validBiomes, $player, '', true);
 
         foreach (array_keys($validBiomes) as $biome) {
           $value = $expeditions[STORM_LEFT][$biome] + $expeditions[STORM_RIGHT][$biome];

@@ -357,10 +357,13 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         if ($blockedExpeditions[$pId][$expedition]) {
           continue;
         }
+        $newBiomes = [];
+        foreach ($biomes as $biome) {
+          $newBiomes[$biome] = $biome;
+        }
+        self::biomesModifier($newBiomes, $player, $expedition);
 
-        self::biomesModifier($biomes, $player, $expedition);
-
-        foreach ($biomes as $i => $biome) {
+        foreach ($newBiomes as $i => $biome) {
           $win = $winners[$expedition][$biome]['pId'] == $pId;
           $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
@@ -378,7 +381,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $movements;
   }
 
-  public static function biomesModifier(&$biomes, $player, $expedition)
+  public static function biomesModifier(&$biomes, $player, $expedition, $tiebreak = false)
   {
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       $updateExpeditions = $card->getUpdateExpeditions();
@@ -386,32 +389,35 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         continue;
       }
       if (($updateExpeditions['type'] ?? '') == 'all') {
-        self::updateBiomesModifier($biomes, $updateExpeditions);
+        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
       }
 
       if (($updateExpeditions['type'] ?? '') == ME && $card->getPId() == $player->getId()) {
-        self::updateBiomesModifier($biomes, $updateExpeditions);
+        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
       }
 
       if (($updateExpeditions['type'] ?? '') == OPPONENT && $card->getPId() != $player->getId()) {
-        self::updateBiomesModifier($biomes, $updateExpeditions);
+        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
       }
     }
   }
 
-  public static function updateBiomesModifier(&$biomes, $updateExpeditions)
+  public static function updateBiomesModifier(&$biomes, $updateExpeditions, $tiebreak)
   {
     // remove all the one to remove
     foreach ($updateExpeditions['regionsRemove'] ?? [] as $region) {
-      foreach (array_keys($biomes, $region) as $key) {
-        unset($biomes[$key]);
+      // foreach (array_keys($biomes, $region) as $key) {
+      if (isset($biomes[$region])) {
+        unset($biomes[$region]);
       }
     }
 
     // add
     foreach ($updateExpeditions['regionsAdd'] ?? [] as $region) {
-      if (!in_array($region, $biomes)) {
+      if (!$tiebreak && !in_array($region, $biomes)) {
         $biomes[] = $region;
+      } elseif ($tiebreak && !isset($biomes[$region])) {
+        $biomes[$region] = 0;
       }
     }
   }
