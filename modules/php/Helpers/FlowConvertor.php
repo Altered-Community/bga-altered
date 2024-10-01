@@ -1080,6 +1080,8 @@ abstract class FlowConvertor
       self::computeOutput($trinity['output'], $calculated);
     }
 
+    // throw new \feException(print_r($calculated));
+
     if (!isset($calculated['type'])) {
       var_dump($trinity);
       throw new \feException(print_r($properties));
@@ -1134,6 +1136,7 @@ abstract class FlowConvertor
         }
       }
     }
+    // throw new \feException(print_r($node));
     // output
     if (isset($calculated['output'])) {
       self::addOutputToNode($calculated['output'], $node);
@@ -1211,6 +1214,17 @@ abstract class FlowConvertor
     }
 
     if (isset($calculated['outputPassive'])) {
+      // add the condition to the passive effect, if it exists
+      if (isset($calculated['triggerConditions'])) {
+        foreach ($calculated['outputPassive'] as $trigger => &$passive) {
+          $conditions = [];
+          if (isset($passive['condition'])) {
+            $conditions[] = $passive['condition'];
+            unset($passive['condition']);
+          }
+          $passive['conditions'] = array_merge($passive['conditions'] ?? [], $conditions, $calculated['triggerConditions']);
+        }
+      }
       $properties['effectPassive'] = array_merge($properties['effectPassive'] ?? [], $calculated['outputPassive']);
     }
 
