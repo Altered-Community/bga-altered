@@ -423,11 +423,21 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'triggerEffectOfNextCharacter':
         $addEffects = Globals::getAdditionalEffect();
-        $addEffects = array_merge($addEffects, [['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]]);
-        Globals::setAdditionalEffect($addEffects);
-        Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), [
-          'player' => Players::getActive(),
-        ]);
+        $found = false;
+        foreach ($addEffects as $i => $effect) {
+          if ($effect == ['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]) {
+            Notifications::message(clienttranslate('Effect is ignored as already triggered'));
+            $found = true;
+            break;
+          }
+        }
+        if ($found === false) {
+          $addEffects = array_merge($addEffects, [['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]]);
+          Globals::setAdditionalEffect($addEffects);
+          Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), [
+            'player' => Players::getActive(),
+          ]);
+        }
         break;
       case 'AfterRestSabotage':
         $afterRest = Globals::getAfterRest();
