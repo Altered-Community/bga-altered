@@ -485,7 +485,7 @@ abstract class FlowConvertor
       ],
       94 => [
         'description' => clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains <ANCHORED>.'),
-        'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
+        'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'upTo' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
       ],
       95 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCharacterCost' => '1']],
       96 => [
@@ -880,7 +880,7 @@ abstract class FlowConvertor
       204 => ['description' => clienttranslate('I have <SEASONED>. (OOF)'), 'attributes' => ['seasoned' => true]],
       205 => [
         'description' => clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains <ANCHORED>.'),
-        'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
+        'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'upTo' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
       ],
       206 => [
         'description' => clienttranslate('Roll a die. On a 4+, I gain 2 boosts. On a 1-3, I gain 1 boost.'),
