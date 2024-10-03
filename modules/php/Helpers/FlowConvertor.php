@@ -524,7 +524,7 @@ abstract class FlowConvertor
       ],
       104 => [
         'description' => clienttranslate('You may discard target Permanent with Hand Cost {4} or more.'),
-        'output' =>  FT::ACTION(TARGET, ['minHandCost' => 4, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+        'output' =>  FT::ACTION(TARGET, ['minHandCost' => 4, 'upTo' => true, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
       ],
       105 => [
         'description' => clienttranslate('You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
@@ -582,7 +582,7 @@ abstract class FlowConvertor
       114 => ['description' => clienttranslate('Reduce my cost by {2}.'), 'noTrigger' => true, 'attributes' => ['dynamicCostReduction' => '2']],
       115 => [
         'description' => clienttranslate('You may return target Character or Permanent with Hand Cost {5} or less to its owner\'s hand.'),
-        'output' => FT::ACTION(TARGET, ['maxHandCost' => 5, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
+        'output' => FT::ACTION(TARGET, ['maxHandCost' => 5, 'upTo' => true, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
       ],
       116 => [
         'description' => clienttranslate('Target Character other than me gains [FLEETING], [ANCHORED] or [ASLEEP].'),
@@ -656,7 +656,7 @@ abstract class FlowConvertor
       ],
       129 => [
         'description' => clienttranslate('You may send to Reserve target Character with Hand Cost {3} or less.'),
-        'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
+        'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
       ],
       130 => [
         'description' => clienttranslate('Target opponent discards a card from their hand.'),
@@ -753,6 +753,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may return target Character or Permanent to the top of its owner\'s deck.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN, PERMANENT],
+          'upTo' => true,
           'effect' => FT::ACTION(DISCARD, ['destination' => 'topOfDeck']),
         ])
       ],
@@ -1043,6 +1044,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may activate the {j} abilities of target Permanent you control.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
+          'upTo' => true,
           'targetPlayer' => ME,
           'hasEffects' => ['Played'],
           'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
