@@ -498,7 +498,7 @@ abstract class FlowConvertor
       97 => ['description' => clienttranslate('I gain 2 boosts.'), 'output' => FT::GAIN(ME, BOOST, 2),],
       98 => [
         'description' => clienttranslate('You may return target Character or Permanent with Hand Cost {4} or less to its owner\'s hand.'),
-        'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
+        'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'upTo' => true, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])
       ],
       99 => [
         'description' => clienttranslate('Roll a die. On a 4+, I gain 3 boosts. On a 1-3, I gain 1 boost.'),
