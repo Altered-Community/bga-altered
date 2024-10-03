@@ -1392,7 +1392,12 @@ define([
     addActionChoiceBtn(choice, disabled = false) {
       if ($('btnChoice' + choice.id)) return;
 
-      let desc = this.translate(choice.description);
+      let desc = '';
+      if (Array.isArray(choice.description)) {
+        desc = choice.description.map((s) => this.translate(s)).join(' ');
+      } else {
+        desc = this.translate(choice.description);
+      }
       desc = this.formatString(desc);
 
       // Add source if any

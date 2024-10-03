@@ -1103,7 +1103,7 @@ abstract class FlowConvertor
     } elseif ($key != 'effectPassive') {
       // no natural condition check, we need to insert CheckConditions
       if (isset($calculated['triggerConditions'])) {
-        self::insertCheckCondition($calculated['triggerConditions'], $node);
+        self::insertCheckCondition($calculated['triggerConditions'], $node, [$calculated['conditionDescription'] ?? null, $calculated['outputDescription'] ?? null]);
       }
       if (isset($calculated['conditionEffect'])) {
         self::addEffectToCondition($calculated['conditionEffect'], $node);
@@ -1334,10 +1334,10 @@ abstract class FlowConvertor
     // manage unique power attributes (tough/gigantic/) awaiting info from GDs
   }
 
-  public static function insertCheckCondition($conditions, &$node)
+  public static function insertCheckCondition($conditions, &$node, $description)
   {
     if (empty($node)) {
-      $node = FT::ACTION(CHECK_CONDITION, ['conditions' => $conditions, 'effect' => 'OUTPUT']);
+      $node = FT::ACTION(CHECK_CONDITION, ['conditions' => $conditions, 'effect' => 'OUTPUT', 'description' => $description]);
     } else {
       $nKey = Utils::search($node, function ($child) {
         return ($child['action'] ?? '') == CHECK_CONDITION;

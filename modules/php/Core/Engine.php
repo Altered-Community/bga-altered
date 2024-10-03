@@ -189,6 +189,7 @@ class Engine
           !$choices[$id]['irreversibleAction'] ||
           (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
       ) {
+
         self::chooseNode($player, $id, true);
       } else {
         // Otherwise, go in the RESOLVE_CHOICE state
@@ -429,6 +430,29 @@ class Engine
         $node->pushChild(self::buildTree($newChild));
       }
       self::save();
+    }
+  }
+
+  // update the parallel node for speeific cases
+  public static function updateParallelChilds($attributes, &$node = null)
+  {
+    if (empty($attributes)) {
+      return;
+    }
+    if (is_null($node)) {
+      $node = self::$tree->getNextUnresolved();
+    }
+
+    if ($node->getType() == NODE_PARALLEL) {
+      foreach ($attributes as $attribute => $value) {
+        $node->setInfo($attribute, $value);
+      }
+      self::save();
+      return;
+    } elseif ($node->getType() == NODE_SEQ) {
+      foreach ($node->getChilds() as $child) {
+        self::updateParallelChilds($attributes, $child);
+      }
     }
   }
 

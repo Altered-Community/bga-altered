@@ -273,11 +273,13 @@ class ChooseAssignment extends \ALT\Models\Action
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
         $this->pushParallelChilds($effects['childs']);
+        if ($card->getRarity() == RARITY_UNIQUE) {
+          $this->updateParallelChilds(['noIndependent' => true]);
+        }
       }
     } else {
       Notifications::message(clienttranslate('Effects are not triggered, due to an effect in the opponent\'s expedition'), []);
     }
-
     $this->checkImmediateListeners($player, [
       'playCard' => true,
       'cardId' => $cardId,

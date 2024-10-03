@@ -37,13 +37,15 @@ class CheckCondition extends \ALT\Models\Action
   public function getDescription()
   {
     $conditions = $this->getConditions();
-    $desc = '';
+    $desc = $this->getCtxArg('description');
     foreach ($conditions as $condition) {
       if ($condition == 'hasBoost:4:LTE') {
-        $desc = clienttranslate('Check if there are less than 4 <BOOST>');
+        $desc = ['log' => clienttranslate('Check if there are less than 4 <BOOST>'), 'args' => []];
       }
     }
-
+    if ($desc == null) {
+      $desc = ['log' => clienttranslate('Check the conditions of the played card'), 'args' => []];
+    }
     return $desc;
   }
 

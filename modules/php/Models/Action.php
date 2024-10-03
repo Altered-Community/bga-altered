@@ -163,6 +163,11 @@ class Action
     Engine::insertOrUpdateParallelChilds($childs, $this->ctx);
   }
 
+  public function updateParallelChilds($attributes)
+  {
+    Engine::updateParallelChilds($attributes, $this->ctx);
+  }
+
   /**
    * Given bonuses, compute the flow and insert them as childs (or on insertAfterFinishing node)
    */

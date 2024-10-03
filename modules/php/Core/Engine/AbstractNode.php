@@ -417,6 +417,11 @@ class AbstractNode
     $this->infos['flagToto'] = $v;
   }
 
+  public function setInfo($attribute, $v)
+  {
+    $this->infos[$attribute] = $v;
+  }
+
   /************************
    *** Action resolution ***
    ************************/
