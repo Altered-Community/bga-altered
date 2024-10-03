@@ -21,10 +21,10 @@ class OD_Rare_Ozma extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)'
       ),
-      'supportDesc' => clienttranslate(
-        '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
-      ),
-      'supportIcon' => 'discard',
+      // 'supportDesc' => clienttranslate(
+      //   '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
+      // ),
+      // 'supportIcon' => 'discard',
       'typeline' => clienttranslate('Character - Noble'),
       'flavorText' => clienttranslate('"Never give up. No one knows what’s going to happen next."'),
       'artist' => 'Taras Susak',
@@ -40,10 +40,10 @@ class OD_Rare_Ozma extends \ALT\Models\Card
         'condition' => 'hasControl::3:true',
         'effect' => FT::ACTION(DRAW, ['players' => ME]),
       ]),
-      'effectSupport' => [
-        'action' => SPECIAL_EFFECT,
-        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
-      ],
+      // 'effectSupport' => [
+      //   'action' => SPECIAL_EFFECT,
+      //   'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
+      // ],
     ];
   }
 }
