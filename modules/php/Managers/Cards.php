@@ -489,6 +489,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     $player = Players::get(explode('-', $location)[1]);
     Notifications::shuffleDeck($player, $location, self::countInLocation($location));
+    Notifications::refreshUI(Game::get()->getAllDatas(true));
   }
 
   /**
