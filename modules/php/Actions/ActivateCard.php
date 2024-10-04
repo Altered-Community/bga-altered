@@ -59,6 +59,9 @@ class ActivateCard extends \ALT\Models\Action
       'pId' => Cards::get($this->getCtxArg('cardId'))->getPId(),
     ]);
 
+    // if we have a card invoking with the parameter source we substitute it with current location
+    $flow = Utils::updateTree($flow, [0 => 'source'], [$event['from'] ?? $card->getLocation()], ['targetLocation']);
+    // throw new \feException(print_r($flow));
     return $flow;
   }
 
