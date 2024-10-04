@@ -503,7 +503,7 @@ abstract class FlowConvertor
       99 => [
         'description' => clienttranslate('Roll a die. On a 4+, I gain 3 boosts. On a 1-3, I gain 1 boost.'),
         'output' => FT::ACTION(ROLL_DIE, [
-          'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 2)],
+          'effect' => ['1-3' => FT::GAIN(ME, BOOST, 1), '4+' => FT::GAIN(ME, BOOST, 3)],
         ]),
       ],
       100 => ['description' => clienttranslate('Target Character gains [ANCHORED].'), 'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),],
