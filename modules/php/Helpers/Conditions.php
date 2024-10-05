@@ -514,6 +514,11 @@ abstract class Conditions
     return $event['cardId'] == $card->getId() && self::isDiscarded($card, $event, $from, $to);
   }
 
+  public static function notDiscarded($card, $event)
+  {
+    return $event['cardId'] == $card->getId()  && ($event['to'] ?? '') == RESERVE;
+  }
+
   public static function isSacrifice($card, $event, $type = null)
   {
     if (!($event['sacrifice'] ?? false)) {
