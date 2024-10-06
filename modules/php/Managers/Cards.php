@@ -606,7 +606,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     foreach ($listeningCards as $cardId) {
       $childs[] = [
         'action' => ACTIVATE_CARD,
-        'pId' => $event['pId'],
+        // 'pId' => $event['pId'],
+        'pId' => self::get($cardId)->getPId(),
         'args' => [
           'cardId' => $cardId,
           'event' => $event,

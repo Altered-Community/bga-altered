@@ -150,6 +150,8 @@ class Engine
       self::proceedToState($node, $isUndo);
       return;
     }
+    // throw new \feException(print_r($node->toArray()));
+    // throw new \feException($oldPId . " " . $pId);
 
     if (
       (Globals::isUndo() || (!Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_ENABLED)) &&
@@ -178,6 +180,7 @@ class Engine
     // If node with choice, switch to choice state
     $choices = $node->getChoices($player);
     $allChoices = $node->getChoices($player, true);
+    // throw new \feException(print_r($node->toArray()));
     if (!empty($allChoices) && $node->getType() != NODE_LEAF) {
       // Only one choice : auto choose
       $id = array_keys($choices)[0] ?? null;

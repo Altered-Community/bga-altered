@@ -355,12 +355,13 @@ class AbstractNode
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
           'args' => $child->getArgs(),
-          'optionalAction' => $child->isOptional($player),
+          'optionalAction' => $child->isOptional($player) && ($child->getPId() ?? $player->getId()) == $player->getId(), // added in case if 1 action of another player is optional
           'automaticAction' => $child->isAutomatic($player),
           'independentAction' => $child->isIndependent($player),
           'irreversibleAction' => $child->isIrreversible($player),
           'source' => $child->getSource(),
           'sourceId' => $child->getSourceId(),
+          'player' => $child->getPId() ?? $player->getId()
         ];
         if ($choice['description'] != '' || $isDoable) {
           $choices[$id] = $choice;
