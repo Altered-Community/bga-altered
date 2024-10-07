@@ -123,7 +123,7 @@ class altered extends Table
       $distance = min($distance, $d);
     }
 
-    return (7 - $d) / 7 * 100;
+    return (7 - $distance) / 7 * 100;
   }
 
   function actChangePreference($pref, $value)
