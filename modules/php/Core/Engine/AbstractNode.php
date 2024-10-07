@@ -161,9 +161,6 @@ class AbstractNode
       $name = 'action' . $i++;
       $tmp = $child->getDescription();
       if ($tmp != '') {
-        $args[$name] = $tmp;
-        $args['i18n'][] = $name;
-
         if ($child->forceConfirmation()) {
           $tmp = [
             'log' => clienttranslate('Allow ${player_name} to take a triggered action'),
