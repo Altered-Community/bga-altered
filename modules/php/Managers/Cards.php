@@ -595,7 +595,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   /**
    * Get reaction in form of an ARRAY of node that can be used to activate a card
    */
-  public static function getReaction($event, $returnNullIfEmpty = true)
+  public static function getReaction($event, $returnNullIfEmpty = true, $ownerPId = true)
   {
     $listeningCards = self::getListeningCards($event);
     if (empty($listeningCards) && $returnNullIfEmpty) {
@@ -607,7 +607,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       $childs[] = [
         'action' => ACTIVATE_CARD,
         // 'pId' => $event['pId'],
-        'pId' => self::get($cardId)->getPId(),
+        'pId' => $ownerPId == true ? self::get($cardId)->getPId() : $event['pId'],
         'args' => [
           'cardId' => $cardId,
           'event' => $event,

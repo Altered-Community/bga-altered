@@ -201,6 +201,7 @@ class Discard extends \ALT\Models\Action
     $players = [];
     $visibleCards = [];
     $hand = false;
+    $cardsToListen = [];
 
     foreach ($cards as $cId => $card) {
       $players[$card->getPId()] = $card->getPlayer();
@@ -256,20 +257,24 @@ class Discard extends \ALT\Models\Action
       // we add the source to the listening cards if it's not in the storms anymore
       // linked to effect 171
       if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
-        $cardIds[] = $this->getSourceId();
+        $cardsToListen[] = $this->getSourceId();
       }
-
-      // Check listener
-      $this->checkAfterListeners($player, [
-        'discardCard' => true,
-        'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
-        'cardId' => $cId,
-        'from' => $originalLocation,
-        'to' => $destination,
-        'sacrifice' => $this->isSacrifice(),
-        'sourceId' => $this->getSourceId(),
-      ]);
+      // we add the cards being discarded (but in Landmark or Storms) to react
+      if ($destination == DISCARD_PILE && in_array($originalLocation, [LANDMARK, STORM_LEFT, STORM_RIGHT])) {
+        $cardsToListen[] = $cId;
+      }
     }
+
+    // Check listener
+    $this->checkAfterListeners($player, [
+      'discardCard' => true,
+      'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
+      'cardId' => $cId,
+      'from' => $originalLocation,
+      'to' => $destination,
+      'sacrifice' => $this->isSacrifice(),
+      'sourceId' => $this->getSourceId(),
+    ]);
     // throw new \feException(print_r(Globals::getEngine()));
     // Notify deleting meeples first
     if (!empty($deletedMeeples)) {

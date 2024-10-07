@@ -237,7 +237,7 @@ class Action
       $args
     );
 
-    $reaction = Cards::getReaction($event);
+    $reaction = Cards::getReaction($event, true, false);
     // var_dump($reaction);
     if ($reaction  !== null) {
       Engine::insertAtRoot(['type' => NODE_SEQ, 'childs' => $reaction], false);
