@@ -122,15 +122,16 @@ abstract class Conditions
   public static function movesStormsWithForest($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
+    $storm = $event['expedition'] ?? $card->getLocation();
     if (
       !isset($stormMoves[$card->getPId()]) ||
       $card->getPId() != $event['pId'] ||
-      !isset($stormMoves[$card->getPId()][$event['expedition']])
+      !isset($stormMoves[$card->getPId()][$storm])
     ) {
       return false;
     }
 
-    $move = $stormMoves[$card->getPId()][$event['expedition']];
+    $move = $stormMoves[$card->getPId()][$storm];
     if (in_array(FOREST, $move['biomes']) && $move['moves'] >= 1) {
       return true;
     }
