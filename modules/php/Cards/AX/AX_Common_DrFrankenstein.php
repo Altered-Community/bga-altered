@@ -32,6 +32,7 @@ class AX_Common_DrFrankenstein extends \ALT\Models\Card
       'effectReserve' => FT::ACTION(TARGET, [
         'targetType' => [PERMANENT],
         'targetPlayer' => ME,
+        'upTo' => true,
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),

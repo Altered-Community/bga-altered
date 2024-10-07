@@ -32,6 +32,7 @@ class AX_Rare_DrFrankenstein extends \ALT\Models\Card
         'targetType' => [PERMANENT],
         'targetPlayer' => ME,
         'hasEffects' => ['Played'],
+        'upTo' => true,
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
     ];

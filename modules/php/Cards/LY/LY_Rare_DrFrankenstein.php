@@ -30,6 +30,7 @@ class LY_Rare_DrFrankenstein extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectReserve' => FT::ACTION(TARGET, [
         'targetType' => [PERMANENT],
+        'upTo' => true,
         'targetPlayer' => ME,
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
