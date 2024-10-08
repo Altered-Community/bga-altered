@@ -214,7 +214,7 @@ class Discard extends \ALT\Models\Action
       }
       // Save information about original location
       $originalLocation = $card->getLocation();
-      if (in_array($originalLocation, array_merge(IN_PLAY, [RESERVE]))) {
+      if (in_array($originalLocation, array_merge(IN_PLAY, [RESERVE], [DISCARD_PILE]))) {
         $visibleCards[] = $cId;
       } else if ($originalLocation == HAND) {
         $hand = true;
