@@ -475,12 +475,17 @@ class Player extends \ALT\Helpers\DB_Model
         }
       }
 
-      $penalty =  $card->getIncreaseOpponentCardsCost();
-      if (is_int($penalty)) {
-        $cost += $penalty;
-      } else {
-        if (!is_null(Utils::checkAttributeCondition('tough', $penalty, $this, $card))) {
-          $cost += (int) explode(':', $card->getIncreaseOpponentCardsCost())[0];
+      $penalties =  $card->getIncreaseOpponentCardsCost();
+      if (!is_array($penalties)) {
+        $penalties = [$penalties];
+      }
+      foreach ($penalties as $penalty) {
+        if (is_int($penalty)) {
+          $cost += $penalty;
+        } else {
+          if (!is_null(Utils::checkAttributeCondition('tough', $penalty, $this, $card))) {
+            $cost += (int) explode(':', $penalty)[0];
+          }
         }
       }
     }

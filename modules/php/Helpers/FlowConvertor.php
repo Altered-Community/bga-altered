@@ -1097,8 +1097,18 @@ abstract class FlowConvertor
       // throw new \feException(print_r($calculated));
       if (isset($calculated['triggerConditions'])) {
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
-          if (is_string($attribute) || is_bool($attribute)) {
-            $calculated['outputAttributes'][$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
+          if (!isset($calculated['outputAttributes'][$keyAttribute])) {
+            if (is_string($attribute) || is_bool($attribute)) {
+              $calculated['outputAttributes'][$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
+            }
+          } else {
+            if (!is_array($calculated['outputAttributes'][$keyAttribute])) {
+              $tmp = [$calculated['outputAttributes'][$keyAttribute]];
+            }
+            if (is_string($attribute) || is_bool($attribute)) {
+              $tmp[] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
+            }
+            $calculated['outputAttributes'][$keyAttribute] = $tmp;
           }
         }
       }
