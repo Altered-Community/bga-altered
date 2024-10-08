@@ -71,6 +71,11 @@ abstract class Conditions
     return Cards::get($cardId)->getPId() == $card->getPId();
   }
 
+  public static function excludeSelf($card, $event)
+  {
+    return $card->getId() != $event['cardId'];
+  }
+
   ///////////////////////////////////////////////
   //  ____  _                         ___    _
   // |  _ \| | __ _ _   _  ___ _ __  |_ _|__| |

@@ -34,7 +34,7 @@ abstract class FlowConvertor
       25 => ['description' => clienttranslate('When you create a token —'), 'trigger' => 'InvokeToken', 'condition' => 'isMe'],
       26 => ['description' => clienttranslate('When you roll one or more dice —'), 'trigger' => 'RollDie', 'condition' => 'isMe'],
       27 => ['description' => clienttranslate('When you play a Spell —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:spell'],
-      28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'condition' => ['isAfternoon', 'hasSameOwner', 'isFromReserve']],
+      28 => ['description' => clienttranslate('When a card leaves your Reserve during the Afternoon —'), 'trigger' => ['ChooseAssignment', 'Discard'], 'condition' => ['isAfternoon', 'hasSameOwner', 'isFromReserve', 'excludeSelf']],
       192 => ['description' => clienttranslate('{D}'), 'trigger' => '', 'type' => 'effectSupport'],
       231 => ['description' => clienttranslate('When I\'m sacrificed —'),  'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved', 'afterRest' => true],
