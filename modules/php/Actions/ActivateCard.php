@@ -60,7 +60,10 @@ class ActivateCard extends \ALT\Models\Action
     ]);
 
     // if we have a card invoking with the parameter source we substitute it with current location
-    $flow = Utils::updateTree($flow, [0 => 'source'], [$event['from'] ?? $card->getLocation()], ['targetLocation']);
+    // Only if the card is in Storms
+    if ((isset($event['from']) && in_array($event['from'], [STORM_LEFT, STORM_RIGHT]))) { // || in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT])) {
+      $flow = Utils::updateTree($flow, [0 => 'source'], [$event['from'] ?? $card->getLocation()], ['targetLocation']);
+    }
     // throw new \feException(print_r($flow));
     return $flow;
   }
