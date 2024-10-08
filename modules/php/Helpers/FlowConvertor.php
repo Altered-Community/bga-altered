@@ -656,7 +656,7 @@ abstract class FlowConvertor
       ],
       129 => [
         'description' => clienttranslate('You may send to Reserve target Character with Hand Cost {3} or less.'),
-        'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
+        'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
       ],
       130 => [
         'description' => clienttranslate('Target opponent discards a card from their hand.'),
