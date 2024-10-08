@@ -1175,6 +1175,11 @@ abstract class FlowConvertor
     if (in_array($trinity['trigger'], [8, 231]) && $trinity['condition'] == 190 && $trinity['output'] == 44) {
       $properties['sacrificeAndNotFleetingGoToReserve'] = true;
       $node = [];
+    } elseif ($trinity['trigger'] == 239) {
+      // Edge case for When an opponent draws one or more
+      // bug #140378
+      $node['Morning']['conditions'] = ['isMe'];
+      $node['Resupply']['conditions'][] = 'realResupply';
     }
 
     // dynamic attributes generate empty node
