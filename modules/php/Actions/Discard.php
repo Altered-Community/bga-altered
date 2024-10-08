@@ -262,6 +262,9 @@ class Discard extends \ALT\Models\Action
       // we add the cards being discarded (but in Landmark or Storms) to react
       if ($destination == DISCARD_PILE && in_array($originalLocation, [LANDMARK, STORM_LEFT, STORM_RIGHT])) {
         $cardsToListen[] = $cId;
+      } elseif (!in_array($destination, [DISCARD_PILE, LANDMARK, STORM_LEFT, STORM_RIGHT])) {
+        // we add only the cards not going to discard or triggering classical listener
+        $cardsToListen[] = $cId;
       }
     }
 
