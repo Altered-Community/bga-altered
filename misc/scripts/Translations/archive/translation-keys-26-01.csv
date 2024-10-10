@@ -1,0 +1,607 @@
+trk_id;str_to_translate;fr_FR;de_DE;it_IT;es_ES;LOCK
+343101;"""Achoo!""";;;;;0
+343128;"""All right, lad, show me what you’ve learned.""";;;;;0
+343081;"""Chin up and stand tall. You’re shieldbearers of the Aegis now!""";;;;;0
+343027;"""Don't just wait for magic to happen. Go out and make your own!""";;;;;0
+343093;"""Dosukoi! Let’s put it in the ground!""";;;;;0
+343126;"""I only feel alive when I hear the wind whistling in my ears.""";;;;;0
+343060;"""I’ve a feeling we’re not in Kansas anymore.""";;;;;0
+343062;"""One day, I will show you the wonders of Avalon and the true might of the Fae realms.""";;;;;0
+343057;"""One good turn deserves another.""";;;;;0
+343121;"""Pom! Pompoko, pom!""";;;;;0
+343131;"""Push through the pain. Giving up would hurt far more.""";;;;;0
+317777;"""Restart turn"" and ""Undo last step"" buttons";;;;;0
+343071;"""Show me those pearly whites.""";;;;;0
+343124;"""Stay on the path, they say. I make my own path!""";;;;;0
+343151;"""Suspira's mines will soon run dry. Your precious Kelon will run dry.""";;;;;0
+343070;"""The form has been filled out incorrectly. Please make a new appointment tomorrow.""";;;;;0
+343138;"""The most effective way to do it, is to do it.""";;;;;0
+343146;"""This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...""";;;;;0
+343096;"""Want to play a game of headman-hunter-fox with me? I promise not to cheat!""";;;;;0
+343099;"""We are the sentinels of the Skein, always keeping a finger on the pulse of nature.""";;;;;0
+341686;#$[TOUGH_1].#;;;;;0
+341687;#{1}#, {T} : Draw a card.;;;;;0
+339760;#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.);;;;;0
+340302;#{D} : Draw a card.# (Discard me from Reserve to do this.);;;;;0
+327547;#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect);;;;;0
+340308;#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.);;;;;0
+340312;#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from Reserve to do this.);;;;;0
+327599;#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect);;;;;0
+341260;#{H} If you control a token, $[RESUPPLY].#;;;;;0
+341674;#{J} [RESUPPLY].#  If you would #$[RESUPPLY], instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other.#;;;;;0
+327564;#{J}# $[RESUPPLY].;;;;;0
+343108;#{J}# Target Character gains [ANCHORED]. (During Rest, it doesn't go to Reserve and it loses Anchored.);;;;;0
+339731;#{J}# You may send target Character to Reserve.;;;;;0
+342636;$[DEFENDER].;;;;;0
+336477;$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].;;;;;0
+336482;$[FLEETING].  Characters you control gain 1 boost$[BB]. (Cards in Reserve are not controlled.);;;;;0
+339754;$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.;;;;;0
+339737;$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.;;;;;0
+342632;$[FLEETING].  Discard target Character or Permanent.;;;;;0
+336573;$[FLEETING].  Return target Character or Permanent with Hand Cost {4} or less to its owner's hand.;;;;;0
+336471;$[FLEETING].  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.;;;;;0
+343029;$[FLEETING].  You may discard a card from your Reserve to reduce my cost by #{1}#.  Return target Character or Permanent to the top of its owner's deck.;;;;;0
+336549;$[FLEETING].  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner's deck.;;;;;0
+327569;$[GIGANTIC].;;;;;0
+317543;${actplayer} can't take the mandatory action and must restart his turn or exchange/cook;;;;;0
+323673;${actplayer} may discard ${n} card(s) from ${source} to ${destination};;;;;0
+317533;${actplayer} may invoke ${tokenType};;;;;0
+331149;${actplayer} may play ${card_name};;;;;0
+331151;${actplayer} may play ${card_name} for free;;;;;0
+317527;${actplayer} must choose an action or pass;;;;;0
+317541;${actplayer} must choose exactly one effect;;;;;0
+317539;${actplayer} must choose which effect to resolve;;;;;0
+317535;${actplayer} must confirm or restart their turn;;;;;0
+317537;${actplayer} must confirm the switch of player;;;;;0
+317529;${actplayer} must discard ${n} card(s) from ${source} to ${destination};;;;;0
+327509;${actplayer} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s);;;;;0
+343887;${biome_0} and ${biome_1};;;;;0
+343888;${biome_0}, ${biome_1} and ${biome_2};;;;;0
+336464;${card_name} gains ${increase} ${counterName};;;;;0
+317576;${card_name} gains ${n} ${power};;;;;0
+317574;${card_name} gains ${n} ${power} (${card_name2}'s effect);;;;;0
+317575;${card_name} gains ${power};;;;;0
+317573;${card_name} gains ${power} (${card_name2}'s effect);;;;;0
+317578;${card_name} looses ${n} ${power};;;;;0
+343033;${n} dice are added to the roll (Ouroboros Lyra Bastion's effect);;;;;0
+343818;${phase_icon} Day n°${day}: afternoon ${phase_icon2};;;;;0
+343819;${phase_icon} Day n°${day}: dusk ${phase_icon2};;;;;0
+343816;${phase_icon} Day n°${day}: morning ${phase_icon2};;;;;0
+343820;${phase_icon} Day n°${day}: night ${phase_icon2};;;;;0
+343817;${phase_icon} Day n°${day}: noon ${phase_icon2};;;;;0
+327601;${player_name} activates ${card_name} {J} effect;;;;;0
+323685;${player_name} activates support effect of ${card_name} and discards it;;;;;0
+343878;${player_name} advances in ${expedition} expedition by winning in ${biomes_desc};;;;;0
+317557;${player_name} becomes First player;;;;;0
+317548;${player_name} choses ${n} card(s) as mana;;;;;0
+317562;${player_name} discards ${card_names};;;;;0
+324019;${player_name} discards ${card_names} (${n} card(s));;;;;0
+317560;${player_name} discards ${card_names} and moves ${card_names2} to reserve;;;;;0
+341268;${player_name} discards ${card_names} as they are not targeted;;;;;0
+317563;${player_name} discards ${n} card(s);;;;;0
+324022;${player_name} discards ${n} card(s) from the ${source};;;;;0
+320921;${player_name} draws ${card_names} from his deck;;;;;0
+320920;${player_name} draws ${card_names} from its deck (${card_name2}'s effect);;;;;0
+341678;${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}'s effect combined with  The Ouroboros, Lyra Bastion);;;;;0
+336650;${player_name} draws ${n} card(s) and put them as mana;;;;;0
+317567;${player_name} draws ${n} card(s) from its deck;;;;;0
+320123;${player_name} draws ${n} card(s) from its deck (${card_name2}'s effect);;;;;0
+317591;${player_name} draws ${n} scoring cards from the deck;;;;;0
+323686;${player_name} exhauts its deck and shuffle the discard;;;;;0
+323680;${player_name} expedition cannot move;;;;;0
+323687;${player_name} invokes ${card_name} in ${displayLocation} (${card_name2}'s effect);;;;;0
+317561;${player_name} moves ${card_names2} to reserve;;;;;0
+331153;${player_name} moves ${card_name} to opposite expedition (${card_name2}'s effect);;;;;0
+323681;${player_name} moves in ${expedition} due to ${card_name}'s effect;;;;;0
+343827;${player_name} passes and ends its afternoon;;;;;0
+343883;${player_name} pays ${mana_cost};;;;;0
+343880;${player_name} pays ${mana_cost} and reduce by ${consume} the counter (${card_name}'s effect);;;;;0
+343882;${player_name} pays ${mana_cost} and taps ${card_name} to activate it's effect;;;;;0
+320922;${player_name} places ${card_names} from its deck to Reserve (${card_name2}'s effect);;;;;0
+317556;${player_name} places ${n} card(s) as mana;;;;;0
+317566;${player_name} places ${n} card(s) in his hand;;;;;0
+345531;${player_name} plays ${card_name} for ${mana_cost};;;;;0
+345533;${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation};;;;;0
+345530;${player_name} plays ${card_name} from Reserve for ${mana_cost};;;;;0
+345532;${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation};;;;;0
+343021;${player_name} puts ${card_names} on top of its deck;;;;;0
+317754;${player_name} puts ${n} card(s) to players' hand;;;;;0
+331154;${player_name} reduce by ${consume} the counter (${card_name}'s effect);;;;;0
+317551;${player_name} restarts their turn;;;;;0
+320417;${player_name} rolls ${roll_text} (${card_name2}'s effect);;;;;0
+317580;${player_name} taps ${card_name} to activate it's effect;;;;;0
+317577;${player_name} targets ${card_names} for ${card_name}'s effect;;;;;0
+343881;${player_name} targets ${card_names} for ${card_name}'s effect and pays ${mana_cost} (Tough effect);;;;;0
+320902;${player_name} triggers After You effect (${card_name}'s effect);;;;;0
+343879;${player_name} triggers After You effect and pays ${mana_cost} (${card_name}'s effect);;;;;0
+320897;${player_name} will play the faction ${faction_name} with the hero ${card_name};;;;;0
+336652;${player_name} wins the game with ${card_name}'s effect;;;;;0
+323684;${player_name} wins the tiebreaker with ${n} attributes;;;;;0
+343019;${source}: ${actplayer} must choose 1 die result;;;;;0
+343020;${source}: ${you} must choose 1 die result;;;;;0
+317544;${you} can't take the mandatory action. Restart your turn or exchange/cook to make it possible;;;;;0
+323674;${you} may discard ${n} card(s) from ${source} to ${destination};;;;;0
+317534;${you} may invoke ${tokenType};;;;;0
+331150;${you} may play ${card_name};;;;;0
+331152;${you} may play ${card_name} for free;;;;;0
+317528;${you} must choose an action or pass;;;;;0
+317542;${you} must choose exactly one effect;;;;;0
+317540;${you} must choose which effect to resolve;;;;;0
+317536;${you} must confirm or restart your turn;;;;;0
+317538;${you} must confirm the switch of player. You will not be able to restart turn;;;;;0
+317530;${you} must discard ${n} card(s) from ${source} to ${destination};;;;;0
+327510;${you} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s);;;;;0
+317526;${you} must select 3 cards to discard as mana;;;;;0
+317522;${you} must select the deck you want to play;;;;;0
+336461;${you} must select the faction you want to play with;;;;;0
+327563;(*He can't swim.*);;;;;0
+336491;(If I leave the Expedition zone, remove me from the game.);;;;;0
+343110;100 crunches, 100 push-ups, 100 squats, a 10-km run and a desire to prove yourself. Just your typical morning of Bravos training.;;;;;0
+343123;A Hero can practice Alteration through their Companion, no matter the distance between them.;;;;;0
+343086;A beacon of knowledge and order, a lighthouse towering high above the world.;;;;;0
+345538;A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.;;;;;0
+336669;After You;;;;;0
+336664;"Akesha ""the astute""";;;;;0
+318080;Akesha & Taru;;;;;0
+343061;Alchemy is not just a matter of turning lead to gold. It's about purifying yourself of imperfections to become your true self.;;;;;0
+318083;Alice;;;;;0
+318173;All In!;;;;;0
+317755;All players draw ${n} card(s);;;;;0
+317559;All remaining cards of ${player_name} loose Anchored and Asleep;;;;;0
+317693;Allow ${player_name} to take a triggered action;;;;;0
+343242;Altered is an innovative TCG which offers a new, refreshing approach to both competitive and casual players. Set in a universe of rich lore and visual design (influenced by Miyazaki's work and Dixit-like illustrations), this game is about exploring a new, reshaped Earth after a mysterious event, the Confluence, profoundly altered it.;;;;;0
+318226;Amelia Earhart;;;;;0
+336661;Anchor and boost your allies over the long haul and reap the rewards of your good deeds.;;;;;0
+336671;Anchored;;;;;0
+343034;Anchored: during Rest, I don't go to Reserve and I lose Anchored.;;;;;0
+343845;"Apply ""At Night"" effects";;;;;0
+343835;"Apply ""At Noon"" effects";;;;;0
+336673;Asleep;;;;;0
+318175;Asmodeus;;;;;0
+343132;At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.;;;;;0
+343139;At Noon — $[RESUPPLY].;;;;;0
+343077;At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Companion Expedition.;;;;;0
+343082;At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Hero Expedition.;;;;;0
+317724;Atlas;;;;;0
+318259;Axiom;;;;;0
+318249;Axiom Hero;;;;;0
+318230;Axiom Reprocessor;;;;;0
+318232;Axiom Salvager;;;;;0
+327581;Axiom Scrambler;;;;;0
+342629;Baba Yaga;;;;;0
+342631;Banishing Gate;;;;;0
+343135;Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.;;;;;0
+341262;Beauty Sleep;;;;;0
+320906;Board height;;;;;0
+317727;Booda;;;;;0
+336676;Booda 2/2/2;;;;;0
+336677;Boosted;;;;;0
+343245;Born and led from the mind of talented game designer Régis Bonnessée (founder of the Libellud studio, which published Dixit, Mysterium, Dice Forge, and Seasons), this project is brought to you by the French studio Equinox, based in Paris, in partnership with and exclusively distributed by Asmodee.;;;;;0
+336678;Brassbug 2/2/2;;;;;0
+318235;Brassbug Hive;;;;;0
+327583;Brassbug Hub;;;;;0
+317552;Bravos;;;;;0
+318220;Bravos Hero;;;;;0
+318209;Bravos Pathfinder;;;;;0
+318211;Bravos Tracer;;;;;0
+343153;COMPANION;;;;;0
+317783;Cancel;;;;;0
+318151;Cernunnos;;;;;0
+343830;Change first player;;;;;0
+343119;Chaos can bring disappointment, sure, but it's also where ye'll find the most wonderfullest hidden gems!;;;;;0
+336563;Character - Adventurer;;;;;0
+336570;Character - Apprentice;;;;;0
+336521;Character - Artist;;;;;0
+336526;Character - Artist Deity;;;;;0
+342635;Character - Bureaucrat;;;;;0
+339735;Character - Bureaucrat Noble;;;;;0
+320904;Character - Citizen;;;;;0
+336476;Character - Deity;;;;;0
+336590;Character - Dragon Deity;;;;;0
+336506;Character - Druid;;;;;0
+336497;Character - Druid Deity;;;;;0
+336593;Character - Elemental;;;;;0
+336600;Character - Engineer;;;;;0
+336647;Character - Fairy;;;;;0
+336473;Character - Fairy Spirit;;;;;0
+336470;Character - Mage;;;;;0
+336479;Character - Mage Apprentice;;;;;0
+336480;Character - Mage Scholar;;;;;0
+343026;Character - Mage Soldier;;;;;0
+336586;Character - Messenger;;;;;0
+336499;Character - Plant;;;;;0
+336508;Character - Plant Animal;;;;;0
+336518;Character - Scholar;;;;;0
+327567;Character - Soldier;;;;;0
+336486;Character - Soldier Noble;;;;;0
+336502;Character - Spirit;;;;;0
+336579;Character - Spirit Trainer;;;;;0
+336555;Character - Titan;;;;;0
+343136;Characters you control have $[TOUGH_2]. (Cards in Reserve are not controlled.);;;;;0
+318118;Charge!;;;;;0
+317751;Choose an assignment;;;;;0
+336666;Choose your faction;;;;;0
+336667;Choose your starting mana cards;;;;;0
+317789;Companion side;;;;;0
+323689;Companion's expedition;;;;;0
+343843;Compare statistics and check which expeditions move forward;;;;;0
+343877;Computing the progress in the Tumult;;;;;0
+317785;Confirm;;;;;0
+317784;Confirm Mana;;;;;0
+317797;Confirm discard;;;;;0
+317793;Confirm target;;;;;0
+317698;Coniferal Coneman;;;;;0
+336655;Construct powerful machines and let their strength carry you to victory!;;;;;0
+343089;Create #four# [ORDIS_RECRUIT] Soldier tokens, #distributed as you choose among any number of target Expeditions#.;;;;;0
+343115;Dance is the language of the soul.;;;;;0
+318155;Daughter of Yggdrasil;;;;;0
+341680;Decks;;;;;0
+336679;Defender;;;;;0
+341681;Demo decks;;;;;0
+317517;Disabled;;;;;0
+341675;Discard ${card};;;;;0
+327604;Discard of ${player_name};;;;;0
+336693;Discard up to one target card from a Reserve.;;;;;0
+317799;Display some settings about the game.;;;;;0
+317515;Display tooltips;;;;;0
+343098;Don't think you are, know you are.;;;;;0
+318086;Dorothy Gale;;;;;0
+317757;Draw ${n} card(s);;;;;0
+343832;Draw two cards;;;;;0
+336674;During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep.;;;;;0
+336672;During Rest, I don't go to Reserve and I lose Anchored.;;;;;0
+336682;During Rest, I don't go to Reserve.;;;;;0
+343116;Eidolon or human, we are all shaped by stories. They're the building blocks of our identity. ;;;;;0
+343114;Eidolon or not, you are our Shepherdess. You lead and we follow.;;;;;0
+317516;Enabled;;;;;0
+317519;Enabled with timer;;;;;0
+317545;End of game;;;;;0
+336670;End your turn as if you had played a card. You may still play cards later this Day.;;;;;0
+318180;Esmeralda;;;;;0
+336681;Eternal;;;;;0
+343134;Ever the trickster, always the rebel.;;;;;0
+343852;Exhaust;;;;;0
+343072;Facing terrible odds and an unfathomably huge Leviathan, the Ordis legion charged nonetheless.;;;;;0
+323678;Faction;;;;;0
+343133;Faster, ever faster! Our fire rages highest when the race is afoot! ;;;;;0
+336615;Few people visit the depths of the Foundry, and even fewer can explain how the Brassbugs came to be.;;;;;0
+336683;Fleeting;;;;;0
+317798;Fleeting: if I would be send to reserve, banish me instead.;;;;;0
+343083;Follow me, friends! If we stand together, nothing can stop us! ;;;;;0
+343090;For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.;;;;;0
+327587;Foundry Armorer;;;;;0
+331171;Foundry Mechanic;;;;;0
+331173;Frankenstein;;;;;0
+339734;Frog Prince;;;;;0
+331196;Gain ${n} ${counter_name};;;;;0
+317758;Gain ${resources_desc};;;;;0
+317767;Game Flow;;;;;0
+336686;Gigantic;;;;;0
+343837;Go back and forth taking turns;;;;;0
+343105;Green is good.;;;;;0
+343152;HERO;;;;;0
+343095;Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. ;;;;;0
+318184;Hathor;;;;;0
+318215;Haven Bouncer;;;;;0
+320433;Haven Trainee;;;;;0
+339745;Haven Warrior;;;;;0
+343058;Help or harm? Only the card will tell.;;;;;0
+317788;Hero side;;;;;0
+323688;Hero's expedition;;;;;0
+336558;Heroism counter;;;;;0
+343107;Hope you're not afraid of heights!;;;;;0
+336687;I am considered present in each of your Expeditions.;;;;;0
+343149;I don't know if there's a better reward than seeing something you've built come to life.;;;;;0
+336695;I keep my boosts when I go to Reserve.;;;;;0
+343848;Icons;;;;;0
+336684;If I would be sent to Reserve, discard me instead.;;;;;0
+340257;If you take this action, you won't be able to undo past this step because you will either roll a dice, draw card(s) from the deck or the discard, or someone else is going to make a decision;;;;;0
+343031;If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.;;;;;0
+324023;In tie-breaker this power have no effect.;;;;;0
+336636;In true Axiom fashion, Kelon Elementals like to put everything to the taste.;;;;;0
+317703;Inari;;;;;0
+317736;Intimidation;;;;;0
+327602;Invoke ${tokenName};;;;;0
+331634;Issun-Boshi;;;;;0
+318121;Jeanne d'Arc;;;;;0
+318241;Jian, Assembly Overseer;;;;;0
+318088;Kadigiran Alchemist;;;;;0
+343025;Kadigiran Mage-Dancer;;;;;0
+318124;Kakoba, Legion Commander;;;;;0
+336578;Kappa;;;;;0
+343847;Keep up to 2 cards in Reserve and 2 in Landmarks, discard the rest;;;;;0
+339753;Kelon Burst;;;;;0
+318243;Kelon Elemental;;;;;0
+327585;Kelon counter;;;;;0
+331180;Kelon counters;;;;;0
+339755;Kelonic Generator;;;;;0
+317704;Kitsune;;;;;0
+336656;"Kojo ""the rising star""";;;;;0
+318219;Kojo & Booda;;;;;0
+318092;Kraken's Wrath;;;;;0
+318096;Lady of the Lake;;;;;0
+327517;Landmark;;;;;0
+317765;Layout;;;;;0
+317759;Let ${player_name} gain ${resources_desc};;;;;0
+331639;Let ${player_name} loose ${resources_desc};;;;;0
+343059;Let me walk you to the door.;;;;;0
+336665;Let your opponent take the initiative to better thwart their plans, slowly but surely.;;;;;0
+343023;Like the Bravos, Lyras are drawn to freedom and the distant horizon.;;;;;0
+318260;Lyra;;;;;0
+318186;Lyra Chronicler;;;;;0
+343106;Lyra Cloth Dancer;;;;;0
+318192;Lyra Hero;;;;;0
+318190;Lyra Skald;;;;;0
+336702;MANA;;;;;0
+336688;Maw 0/0/0;;;;;0
+345540;Max landmark slots at night:;;;;;0
+345539;Max reserve slots at night:;;;;;0
+318158;Meditation Training;;;;;0
+342634;Monolith Archivist;;;;;0
+341259;Monolith Rune-Scribe;;;;;0
+323690;Move expedition;;;;;0
+317553;Muna;;;;;0
+317707;Muna Druid;;;;;0
+318164;Muna Hero;;;;;0
+336680;My Expedition can't advance during Dusk.;;;;;0
+343103;Nature must be nurtured to fully express its generosity.;;;;;0
+336658;"Nevenka ""the unpredictable""";;;;;0
+345534;Nevenka & Blotch with a longer name;;;;;0
+331197;Next character <BOOST>;;;;;0
+317691;No;;;;;0
+343145;No Brassbug would survive in the Tumult without armor.;;;;;0
+323679;No winner is found. New tiebreaker round starts;;;;;0
+343122;Not even the weight of the sky could make him buckle.;;;;;0
+336606;Nothing is created, nothing is lost, everything is transformed.;;;;;0
+323677;Number of days;;;;;0
+317546;Number of turns;;;;;0
+318160;Nurture;;;;;0
+327526;Off you go!;;;;;0
+317776;"Only ""Restart turn"" button";;;;;0
+317778;"Only ""Undo last step"" button";;;;;0
+343109;Only in harmony can the world thrive.;;;;;0
+343127;Only the bravest can enter Haven.;;;;;0
+340303;Open the Gates;;;;;0
+318258;Ordis;;;;;0
+318128;Ordis Carrier;;;;;0
+341257;Ordis Gatekeeper;;;;;0
+318138;Ordis Hero;;;;;0
+318130;Ordis Recruit;;;;;0
+336689;Ordis Recruit 1/1/1;;;;;0
+318133;Ordis Spy;;;;;0
+318134;Ordis Trooper;;;;;0
+336543;Ouroboros Croupier;;;;;0
+318196;Ouroboros Trickster;;;;;0
+336548;Paint Prison;;;;;0
+341263;Parvati;;;;;0
+317694;Pass;;;;;0
+317800;Pass action;;;;;0
+343841;Pass the turn and end your Afternoon;;;;;0
+345535;Pay ${cost_mana};;;;;0
+345537;Pay ${mana_cost} and use ${consume}{COUNTER};;;;;0
+336490;Permanent - Landmark;;;;;0
+343829;Phase 1: Morning;;;;;0
+343834;Phase 2: Noon;;;;;0
+343836;Phase 3: Afternoon;;;;;0
+343842;Phase 4: Dusk;;;;;0
+343844;Phase 5: Night;;;;;0
+343828;Phases of the day;;;;;0
+317742;Physical Training;;;;;0
+331194;Play ${card_name};;;;;0
+336651;Play a card;;;;;0
+343840;Play a card from your hand or Reserve;;;;;0
+343141;Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.;;;;;0
+336649;Put ${n} to mana;;;;;0
+343833;Put a card in Mana;;;;;0
+336691;Put the top card of your deck in Reserve.;;;;;0
+318222;Ratatoskr;;;;;0
+343831;Ready your cards;;;;;0
+320911;Reserve;;;;;0
+343846;Rest: Characters go to Reserve;;;;;0
+317782;Restart turn;;;;;0
+317775;Restart turn buttons;;;;;0
+336690;Resupply;;;;;0
+331195;Resupply ${n};;;;;0
+320423;Roll ${n} die;;;;;0
+336515;Roll a die. Target Character gains X boosts$[BB], where X is the result.;;;;;0
+336692;Sabotage;;;;;0
+341676;Sacrifice ${card};;;;;0
+318100;Sakarabru;;;;;0
+336694;Seasoned;;;;;0
+336668;Selected cards will join your mana pool;;;;;0
+336685;Send me to Discard instead of Reserve after my effect resolves.;;;;;0
+336474;Send to Reserve target Character with Hand Cost {3} or less.;;;;;0
+317795;Settings;;;;;0
+343243;Shape your own adventure, choose a faction and lead your expeditions through an ever-changing world. Be the first to discover what the universe of Altered has in store for you!;;;;;0
+343067;She won't read the future in the stars, she'll change it herself.;;;;;0
+343074;She'll be followed long after she's gone.;;;;;0
+336589;Shenlong;;;;;0
+317796;Show cards;;;;;0
+336654;"Sierra ""the renowned engineer""";;;;;0
+318248;Sierra & Oddball;;;;;0
+336662;"Sigismar ""the commander""";;;;;0
+318137;Sigismar & Wingspan;;;;;0
+317712;Sneezer Shroom;;;;;0
+343066;So far behind, and still so much to learn!;;;;;0
+343084;Some lessons stick better than others.;;;;;0
+343102;Some say the harvesters are the caretakers of the world-trees.;;;;;0
+317792;Spell;;;;;0
+336504;Spell - Boon;;;;;0
+336472;Spell - Disruption;;;;;0
+336483;Spell - Maneuver;;;;;0
+317761;Spell cleanup;;;;;0
+318162;Spindle Harvesters;;;;;0
+318103;Spy Craft;;;;;0
+341683;Starter decks;;;;;0
+339736;Sticky Note Seals;;;;;0
+343080;Stirred, but not shaken.;;;;;0
+327530;Studious Disciple;;;;;0
+336657;Summon your firecat Companion to seize the advantage without delay, for only the brave make history!;;;;;0
+327512;Sun Wukong;;;;;0
+323691;Support ability;;;;;0
+336663;Take the reins of the Ordis Legion and secure victory through sheer numbers!;;;;;0
+336550;Tanuki;;;;;0
+324036;Target ${n} card(s) to ${effect_desc};;;;;0
+324030;Target ${n} character(s) to ${effect_desc};;;;;0
+324033;Target ${n} permanent(s) to ${effect_desc};;;;;0
+336585;Target Character gains 3 boosts$[BB].;;;;;0
+340310;Target Character gains 3 boosts$[BB].  #Draw a card.#;;;;;0
+343068;Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn't go to Reserve and it loses Asleep.);;;;;0
+343097;Target Character with Hand Cost {3} or less gains [ANCHORED]. (During Rest, it doesn't go to Reserve and it loses Anchored.);;;;;0
+324034;Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc};;;;;0
+324035;Target up to ${n} card(s) to ${effect_desc};;;;;0
+324028;Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc};;;;;0
+324029;Target up to ${n} character(s) to ${effect_desc};;;;;0
+324031;Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc};;;;;0
+324032;Target up to ${n} permanent(s) to ${effect_desc};;;;;0
+336660;"Teija ""the druidess""";;;;;0
+318163;Teija & Nauraa;;;;;0
+343079;The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.;;;;;0
+343140;The Axiom's limited resources pushed them to reuse whatever they could.;;;;;0
+343030;The Expeditionary Corps' mobile outpost soars high, like a spinning wheel weaving the wind. ;;;;;0
+341684;The Monolith, Ordis Bastion;;;;;0
+343076;The Ordis manifest their Alteration through the use of glyphs of power.;;;;;0
+341672;The Ouroboros, Lyra Bastion;;;;;0
+328053;The Spindle, Muna Bastion;;;;;0
+343094;The children of Yggdrasil now take care of the world trees.;;;;;0
+336509;The first Character you play each Afternoon gains 1 boost$[BB].;;;;;0
+343078;The flow of Ordis Recruits seems to go on forever.;;;;;0
+343075;"The general who became a scholar; the scholar who became a senator.";;;;;0
+343120;The house never loses.;;;;;0
+317756;The opponent draws ${n} card(s);;;;;0
+343022;The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.;;;;;0
+343130;The terrible beast shrank and cowered before the might of the Bravos.;;;;;0
+340256;The tiebreaker is triggered as heroes reached their companions at the same time;;;;;0
+343839;Then either:;;;;;0
+343112;There's a time to be cautious, and a time to bet it all!;;;;;0
+343147;There's an enduring legend in the Suspira quarries: the existence of another type of Kelon.;;;;;0
+317514;This game action is impossible right now;;;;;0
+343065;This message will self-destruct in five seconds.;;;;;0
+339756;Three Little Pigs;;;;;0
+343063;Time to kiss Kansas goodbye.;;;;;0
+339758;Together they can build more than just a stone house.;;;;;0
+317794;Toggle help/safe mode.;;;;;0
+336561;Token - Companion;;;;;0
+336492;Token - Soldier;;;;;0
+340301;Tooth Fairy;;;;;0
+324027;Total hand cost exceeds the limit of the effect;;;;;0
+336696;Tough 1;;;;;0
+336698;Tough 2;;;;;0
+336700;Tough X;;;;;0
+317518;Turn confirmation;;;;;0
+317550;Undo here;;;;;0
+317781;Undo last step;;;;;0
+317520;Undoable actions confirmation;;;;;0
+339740;Up to two target Characters each gain #2 boosts$[BB]#.;;;;;0
+336507;Up to two target Characters each gain 1 boost$[BB].;;;;;0
+345536;Use ${consume}{COUNTER};;;;;0
+320419;Wait next turn;;;;;0
+323672;Waiting for other players to select cards to discard as mana;;;;;0
+317521;Waiting for others to choose their deck;;;;;0
+336460;Waiting for others to choose their faction;;;;;0
+343113;Wanna play a game?;;;;;0
+336628;We sometimes look for companionship in the strangest life forms.;;;;;0
+343117;We're all stories, in the end.;;;;;0
+343129;We've all lived through some things. But she's been through worse.;;;;;0
+343143;What could possibly go wrong with an adorable little self-replicating autonomous robot?;;;;;0
+343244;What really lies at the heart of this revolution is a ton of expertly tailored details — a new rarity system, deep evolving lore, innovative game mechanisms and design — and a phygital experience that comes along with its myriad of life-quality improvements, both for the players, tournaments organizers and store owners alike.;;;;;0
+336659;What's better than invoking fate to spice up a game? Are you ready to embrace the whims of destiny?;;;;;0
+343056;Whatever ordeals we may face, good manners and politeness are always in fashion!;;;;;0
+343088;When I leave the Expedition zone — Create #two# [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.;;;;;0
+343073;When I leave the Expedition zone — Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.;;;;;0
+343849;When I'm played from anywhere...;;;;;0
+343850;When I'm played from hand...;;;;;0
+343851;When I'm played from your Reserve;;;;;0
+343085;When a Character joins your Expeditions — It gains 1 boost$[BB].;;;;;0
+343064;When such a terrifying being appears in your path, taking a step back is only natural.;;;;;0
+343100;When the sun shines, we'll shine together.;;;;;0
+343028;When you #roll one or more dice# — I gain 1 boost$[BB].;;;;;0
+343148;When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.;;;;;0
+317787;Where do you want to play that card?;;;;;0
+327511;Winner;;;;;0
+343137;Within the Spindle's trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.;;;;;0
+317692;Yes;;;;;0
+343069;Yet beware of splinters of flax.;;;;;0
+341265;Yong-Su, Verdant Weaver;;;;;0
+317801;You;;;;;0
+343838;You can activate Quick actions;;;;;0
+343092;You can feel it in the trees, deep beneath their roots – the very heartbeat of nature.;;;;;0
+343087;You can't choose when and where a quick fix will be needed.;;;;;0
+343331;You can't take an irreversible action if there is a mandatory undoable action pending;;;;;0
+328059;You cannot pay the additional cost (Tough effect);;;;;0
+317564;You discard ${card_names};;;;;0
+317590;You draw ${card_names} from the deck (scoring cards);;;;;0
+317568;You draw ${card_names} from your deck;;;;;0
+320122;You draw ${card_names} from your deck (${card_name2}'s effect);;;;;0
+341677;You draw ${card_names} from your deck and must keep 1 (${card_name2}'s effect combined with The Ouroboros, Lyra Bastion);;;;;0
+317547;You must select the correct number of cards to put as mana;;;;;0
+317555;You place ${card_names} as mana;;;;;0
+320421;You put ${card_names} from your deck in Reserve (${card_name2}'s effect);;;;;0
+327605;Your mana cards;;;;;0
+336697;Your opponent's Spells and abilities that target me cost {1} more.;;;;;0
+336699;Your opponent's Spells and abilities that target me cost {2} more.;;;;;0
+336701;Your opponent's Spells and abilities that target me cost {X} more.;;;;;0
+343024;Your problem is a lack of perspective.;;;;;0
+343091;You’re nuts if you think you can keep up with this little one!;;;;;0
+318261;Yzmir;;;;;0
+318081;Yzmir Hero;;;;;0
+318108;Yzmir Stargazer;;;;;0
+341682;[Demo decks];;;;;0
+327600;activate {J} effect;;;;;0
+331190;activate {J} effect of ${card_name};;;;;0
+317513;altered_displayed;;;;;0
+324020;discard to ${location} ${card};;;;;0
+343884;forest;;;;;0
+331638;loose ${resources_desc};;;;;0
+343885;mountain;;;;;0
+331193;move ${card_name} to opposite expedition;;;;;0
+331192;move a character to opposite expedition;;;;;0
+341679;opposite of played card;;;;;0
+343032;put ${card} on top of it's owner deck;;;;;0
+331976;source;;;;;0
+343886;water;;;;;0
+336525;{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.);;;;;0
+336505;{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.);;;;;0
+336574;{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.);;;;;0
+336625;{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.);;;;;0
+336478;{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.);;;;;0
+336467;{D} : [AFTER_YOU]. (Discard me from Reserve to do this.);;;;;0
+336524;{H} $[RESUPPLY].;;;;;0
+336493;{H} $[SABOTAGE].;;;;;0
+340306;{H} $[SABOTAGE].  #{R} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.#;;;;;0
+340309;{H} $[SABOTAGE].  #{R} Roll a die. On a 4 or higher, [SABOTAGE].#;;;;;0
+336567;{H} $[SABOTAGE].  {R} I gain 1 boost.;;;;;0
+342630;{H} Draw a card.;;;;;0
+336501;{H} Each player draws a card.;;;;;0
+339732;{H} I gain #3 boosts$[BB]#.;;;;;0
+336469;{H} I gain 2 boosts$[BB].;;;;;0
+336635;{H} Put a card from your hand in Reserve.;;;;;0
+339742;{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $[RESUPPLY].;;;;;0
+336500;{H} Target opponent draws a card.;;;;;0
+336529;{H} Up to one target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.);;;;;0
+336468;{H} You may send target Character to Reserve.;;;;;0
+336475;{H} Your opponent's Expedition facing mine moves backwards one region.;;;;;0
+343142;{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.;;;;;0
+343150;{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#;;;;;0
+341258;{J} Create an [ORDIS_RECRUIT] Soldier token in your other Expedition.;;;;;0
+336498;{J} I gain $[ANCHORED].;;;;;0
+343111;{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost$[BB].#;;;;;0
+343125;{J} I gain [FLEETING_CHAR]. (If I would be sent to Reserve, discard me instead.);;;;;0
+343144;{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.;;;;;0
+339739;{J} If you control three or more other Characters, I gain #3 boosts$[BB]#. (Cards in Reserve are not controlled.);;;;;0
+336485;{J} If you control three or more other Characters, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.);;;;;0
+339761;{J} If you control two or more Landmarks, I gain #2 boosts$[BB]#. (Cards in Reserve are not controlled.);;;;;0
+339757;{J} If you control two or more Landmarks, I gain 1 boost$[BB]. (Cards in Reserve are not controlled.);;;;;0
+343104;{J} If you control two or more Plants, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.);;;;;0
+339743;{J} Roll a die. On a 4 or higher, I gain #3 boosts#. Otherwise, I gain 1 boost$[BB].;;;;;0
+336522;{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts$[BB].;;;;;0
+336547;{J} Roll a die. On a 4 or higher, I gain 2 boosts. Otherwise, I gain 1 boost$[BB].;;;;;0
+340307;{R} #Create two [ORDIS_RECRUIT] Soldier tokens in my Expedition.#;;;;;0
+336607;{R} $[RESUPPLY].;;;;;0
+336621;{R} Create a [BRASSBUG] Robot token in target Expedition.;;;;;0
+339750;{R} I gain #3 boosts$[BB]#.;;;;;0
+339751;{R} I gain 2 boosts$[BB] #and lose [FLEETING_CHAR]#.;;;;;0
+336569;{R} I gain 2 boosts$[BB].;;;;;0
+336627;{R} You may activate the {j} triggers of target Permanent you control.;;;;;0
+336465;{T} : $[AFTER_YOU]. You can only activate this if you are the first player.;;;;;0
+343118;{T} : Target a Character you control, then roll a die. On a:  • 6+, it gains [ANCHORED]. (During Rest, it doesn't go to Reserve and it loses Anchored.)  • 2-5, it gains 1 boost$[BB].  • 1, send it to Reserve.;;;;;0

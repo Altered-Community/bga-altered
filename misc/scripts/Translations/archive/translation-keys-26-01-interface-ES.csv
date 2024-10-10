@@ -1,0 +1,296 @@
+trk_id,str_to_translate,ES_es,LOCK,,,,
+317777,"""Restart turn"" and ""Undo last step"" buttons","Botones ""Reiniciar turno"" y ""Deshacer último paso""",0,,,0,0
+327547,#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect),#{D} : El siguiente Personaje que juegues este turno cuesta {1} menos.# (Descártame de tu Reserva para activar este efecto),0,,,0,0
+327599,#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect),#{D} : El siguiente Permanente que juegues este turno cuesta {1} menos.# (Descártame de tu Reserva para activar este efecto),0,,,0,0
+317543,${actplayer} can't take the mandatory action and must restart his turn or exchange/cook,${actplayer} no puede realizar la acción obligatoria y debe reiniciar su turno o intercambiar/cocinar,0,,,0,0
+323673,${actplayer} may discard ${n} card(s) from ${source} to ${destination},${actplayer} puede descartar ${n} carta(s) de ${source} a ${destination},0,,,0,0
+317533,${actplayer} may invoke ${tokenType},${actplayer} puede invocar ${tokenType},0,,,0,0
+331149,${actplayer} may play ${card_name},${actplayer} puede jugar ${card_name},0,,,0,0
+331151,${actplayer} may play ${card_name} for free,${actplayer} puede jugar ${card_name} gratis,0,,,0,0
+317527,${actplayer} must choose an action or pass,${actplayer} debe elegir una acción o pasar,0,,,0,0
+317541,${actplayer} must choose exactly one effect,${actplayer} debe elegir una acción o pasar,0,,,0,0
+317539,${actplayer} must choose which effect to resolve,${actplayer} debe elegir exactamente un efecto,0,,,0,0
+317535,${actplayer} must confirm or restart their turn,${actplayer} debe confirmar o reiniciar su turno,0,,,0,0
+317537,${actplayer} must confirm the switch of player,${actplayer} debe confirmar el cambio de jugador,0,,,0,0
+317529,${actplayer} must discard ${n} card(s) from ${source} to ${destination},${actplayer} debe descartar ${n} carta(s) de ${source} a ${destination},0,,,0,0
+327509,${actplayer} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s),${actplayer} debe descartar ${n} carta(s) de reserva y ${nLandmarks} carta(s) de punto de referencia,0,,,0,0
+343887,${biome_0} and ${biome_1},${biome_0} y ${biome_1},0,,,0,0
+343888,"${biome_0}, ${biome_1} and ${biome_2}","${biome_0}, ${biome_1} y ${biome_2}",0,,,0,0
+336464,${card_name} gains ${increase} ${counterName},${card_name} gana ${increase} ${counterName},0,,,0,0
+317576,${card_name} gains ${n} ${power},${card_name} gana ${n} ${power},0,,,0,0
+317574,${card_name} gains ${n} ${power} (${card_name2}'s effect),${card_name} gana ${n} ${power} (efecto de ${card_name2}),0,,,0,0
+317575,${card_name} gains ${power},${card_name} gana ${power},0,,,0,0
+317573,${card_name} gains ${power} (${card_name2}'s effect),${card_name} gana ${power} (efecto de ${card_name2}),0,,,0,0
+317578,${card_name} looses ${n} ${power},${card_name} pierde ${n} ${power},0,,,0,0
+343033,${n} dice are added to the roll (Ouroboros Lyra Bastion's effect),"${n} dados se añaden a la tirada (efecto de Ouroboros, Bastión de Lyra)",0,,,0,0
+343818,${phase_icon} Day n°${day}: afternoon ${phase_icon2},${phase_icon} Día n°${day}: tarde ${phase_icon2},0,,,0,0
+343819,${phase_icon} Day n°${day}: dusk ${phase_icon2},${phase_icon} Día n°${day}: atardecer ${phase_icon2},0,,,0,0
+343816,${phase_icon} Day n°${day}: morning ${phase_icon2},${phase_icon} Día n°${day}: mañana ${phase_icon2},0,,,0,0
+343820,${phase_icon} Day n°${day}: night ${phase_icon2},${phase_icon} Día n°${day}: noche ${phase_icon2},0,,,0,0
+343817,${phase_icon} Day n°${day}: noon ${phase_icon2},${phase_icon} Día n°${day}: mediodía ${phase_icon2},0,,,0,0
+327601,${player_name} activates ${card_name} {J} effect,${player_name} activa ${card_name} efecto {J},0,,,0,0
+323685,${player_name} activates support effect of ${card_name} and discards it,${player_name} activa el efecto de apoyo de ${card_name} y lo descarta,0,,,0,0
+343878,${player_name} advances in ${expedition} expedition by winning in ${biomes_desc},${player_name} avanza en la expedición ${expedition} al ganar en ${biomes_desc},0,,,0,0
+317557,${player_name} becomes First player,${player_name} se convierte en Primer jugador,0,,,0,0
+317548,${player_name} choses ${n} card(s) as mana,${player_name} elige ${n} carta(s) como maná,0,,,0,0
+317562,${player_name} discards ${card_names},${player_name} descarta ${card_names},0,,,0,0
+324019,${player_name} discards ${card_names} (${n} card(s)),${player_name} descarta ${card_names} (${n} card(s)),0,,,0,0
+317560,${player_name} discards ${card_names} and moves ${card_names2} to reserve,${player_name} descarta ${card_names} y mueve ${card_names2} a la reserva,0,,,0,0
+341268,${player_name} discards ${card_names} as they are not targeted,${player_name} descarta ${card_names} ya que no son objetivo,0,,,0,0
+317563,${player_name} discards ${n} card(s),${player_name} descarta ${n} carta(s),0,,,0,0
+324022,${player_name} discards ${n} card(s) from the ${source},${player_name} descarta ${n} carta(s) de la ${source},0,,,0,0
+320921,${player_name} draws ${card_names} from his deck,${player_name} roba ${card_names} de su mazo,0,,,0,0
+320920,${player_name} draws ${card_names} from its deck (${card_name2}'s effect),${player_name} roba ${card_names} de su mazo (efecto de ${card_name2}),0,,,0,0
+341678,"${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}'s effect combined with  The Ouroboros, Lyra Bastion)","${player_name} roba ${card_names} de su mazo y debe quedarse con 1 (efecto de ${card_name2} combinado con El Ouroboros, Bastión de Lyra)",0,,,0,0
+336650,${player_name} draws ${n} card(s) and put them as mana,${player_name} roba ${n} carta(s) y las pone como maná,0,,,0,0
+317567,${player_name} draws ${n} card(s) from its deck,${player_name} roba ${n} carta(s) de su mazo,0,,,0,0
+320123,${player_name} draws ${n} card(s) from its deck (${card_name2}'s effect),${player_name} roba ${n} carta(s) de su mazo (efecto de ${card_name2}),0,,,0,0
+317591,${player_name} draws ${n} scoring cards from the deck,${player_name} roba ${n} cartas de puntuación del mazo,0,,,0,0
+323686,${player_name} exhauts its deck and shuffle the discard,${player_name} agota su mazo y baraja el descarte,0,,,0,0
+323680,${player_name} expedition cannot move,La expedición de ${player_name} no puede moverse,0,,,0,0
+323687,${player_name} invokes ${card_name} in ${displayLocation} (${card_name2}'s effect),${player_name} invoca ${card_name} en ${displayLocation} (efecto de ${card_name2}),0,,,0,0
+317561,${player_name} moves ${card_names2} to reserve,${player_name} mueve ${card_names2} a la reserva,0,,,0,0
+331153,${player_name} moves ${card_name} to opposite expedition (${card_name2}'s effect),${player_name} mueve ${card_name} a la expedición opuesta (efecto de ${card_name2}),0,,,0,0
+323681,${player_name} moves in ${expedition} due to ${card_name}'s effect,${player_name} se mueve en ${expedition} debido al efecto de ${card_name},0,,,0,0
+343827,${player_name} passes and ends its afternoon,${player_name} pasa y termina su tarde,0,,,0,0
+343883,${player_name} pays ${mana_cost},${player_name} paga ${mana_cost},0,,,0,0
+343880,${player_name} pays ${mana_cost} and reduce by ${consume} the counter (${card_name}'s effect),${player_name} paga ${mana_cost} y reduce en ${consume} el contador (efecto de ${card_name}),0,,,0,0
+343882,${player_name} pays ${mana_cost} and taps ${card_name} to activate it's effect,${player_name} paga ${mana_cost} y gira ${card_name} para activar su efecto,0,,,0,0
+320922,${player_name} places ${card_names} from its deck to Reserve (${card_name2}'s effect),${player_name} coloca ${card_names} de su mazo a la Reserva (efecto de ${card_name2}),0,,,0,0
+317556,${player_name} places ${n} card(s) as mana,${player_name} coloca ${n} carta(s) como maná,0,,,0,0
+317566,${player_name} places ${n} card(s) in his hand,${player_name} coloca ${n} carta(s) en su mano,0,,,0,0
+345531,${player_name} plays ${card_name} for ${mana_cost},${player_name} juega ${card_name} por ${mana_cost},0,,,0,0
+345533,${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation},${player_name} juega ${card_name} por ${mana_cost} y la coloca en ${displayLocation}.,0,,,0,0
+345530,${player_name} plays ${card_name} from Reserve for ${mana_cost},${player_name} juega ${card_name} de la Reserva por ${mana_cost},0,,,0,0
+345532,${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation},${player_name} juega ${card_name} de la Reserva por ${mana_cost} y la coloca en ${displayLocation},0,,,0,0
+343021,${player_name} puts ${card_names} on top of its deck,${player_name} pone ${card_names} en la parte superior de su mazo,0,,,0,0
+317754,${player_name} puts ${n} card(s) to players' hand,${player_name} pone ${n} carta(s) en la mano de los jugadores,0,,,0,0
+331154,${player_name} reduce by ${consume} the counter (${card_name}'s effect),${player_name} reduce en ${consume} el contador (efecto de ${card_name}),0,,,0,0
+317551,${player_name} restarts their turn,${player_name} reinicia su turno,0,,,0,0
+320417,${player_name} rolls ${roll_text} (${card_name2}'s effect),${player_name} tira ${roll_text} (efecto de ${card_name2}),0,,,0,0
+317580,${player_name} taps ${card_name} to activate it's effect,${player_name} gira ${card_name} para activar su efecto,0,,,0,0
+317577,${player_name} targets ${card_names} for ${card_name}'s effect,${player_name} apunta a ${card_names} para el efecto de ${card_name},0,,,0,0
+343881,${player_name} targets ${card_names} for ${card_name}'s effect and pays ${mana_cost} (Tough effect),${player_name} apunta a ${card_names} por el efecto de ${card_name} y paga ${mana_cost} (efecto Difícil),0,,,0,0
+320902,${player_name} triggers After You effect (${card_name}'s effect),${player_name} desencadena el efecto Después de ti (efecto de ${card_name}),0,,,0,0
+343879,${player_name} triggers After You effect and pays ${mana_cost} (${card_name}'s effect),${player_name} activa el efecto Después de ti y paga ${mana_cost} (efecto de ${card_name}),0,,,0,0
+320897,${player_name} will play the faction ${faction_name} with the hero ${card_name},${player_name} jugará la facción ${faction_name} con el héroe ${card_name},0,,,0,0
+336652,${player_name} wins the game with ${card_name}'s effect,${player_name} gana la partida con el efecto de ${card_name},0,,,0,0
+323684,${player_name} wins the tiebreaker with ${n} attributes,${player_name} gana el desempate con ${n} atributos,0,,,0,0
+343019,${source}: ${actplayer} must choose 1 die result,${source}: ${actplayer} debe elegir el resultado de 1 dado,0,,,0,0
+343020,${source}: ${you} must choose 1 die result,${source}: ${you} debes elegir el resultado de 1 dado,0,,,0,0
+317544,${you} can't take the mandatory action. Restart your turn or exchange/cook to make it possible,${you} no puedes realizar la acción obligatoria. Reinicia tu turno o intercambia/cocina para hacerlo posible,0,,,0,0
+323674,${you} may discard ${n} card(s) from ${source} to ${destination},${you} puedes descartar ${n} carta(s) de ${source} a ${destination},0,,,0,0
+317534,${you} may invoke ${tokenType},${you} puedes invocar ${tokenType},0,,,0,0
+331150,${you} may play ${card_name},${you} puedes jugar ${card_name},0,,,0,0
+331152,${you} may play ${card_name} for free,${you} puedes jugar ${card_name} gratis,0,,,0,0
+317528,${you} must choose an action or pass,${you} debes elegir una acción o pasar,0,,,0,0
+317542,${you} must choose exactly one effect,${you} debes elegir exactamente un efecto,0,,,0,0
+317540,${you} must choose which effect to resolve,${you} debes elegir qué efecto resolver,0,,,0,0
+317536,${you} must confirm or restart your turn,${you} debes confirmar o reiniciar tu turno,0,,,0,0
+317538,${you} must confirm the switch of player. You will not be able to restart turn,${you} debes confirmar el cambio de jugador. No podrás reiniciar el turno,0,,,0,0
+317530,${you} must discard ${n} card(s) from ${source} to ${destination},${you} debes descartar ${n} carta(s) de ${source} a ${destination},0,,,0,0
+327510,${you} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s),${you} debes descartar ${n} carta(s) de reserva y ${nLandmarks} carta(s) de punto de referencia,0,,,0,0
+317526,${you} must select 3 cards to discard as mana,${you} debes elegir 3 cartas para descartar como maná,0,,,0,0
+317522,${you} must select the deck you want to play,${you} debes elegir el mazo que quieres jugar,0,,,0,0
+336461,${you} must select the faction you want to play with,${you} debes elegir la facción con la que quieres jugar,0,,,0,0
+327563,(*He can't swim.*),(*No sabe nadar.*),0,,,0,0
+336664,"Akesha ""the astute""",Akesha “la astuta”,0,,,0,0
+317755,All players draw ${n} card(s),Todos los jugadores roban ${n} carta(s),0,,,0,0
+317559,All remaining cards of ${player_name} loose Anchored and Asleep,Todas las cartas restantes de ${player_name} pierden Anclado y Dormido,0,,,0,0
+317693,Allow ${player_name} to take a triggered action,Permitir que ${player_name} realice una acción activada,0,,,0,0
+343242,"Altered is an innovative TCG which offers a new, refreshing approach to both competitive and casual players. Set in a universe of rich lore and visual design (influenced by Miyazaki's work and Dixit-like illustrations), this game is about exploring a new, reshaped Earth after a mysterious event, the Confluence, profoundly altered it.","Altered es un innovador TCG que ofrece un nuevo y refrescante enfoque tanto a los jugadores competitivos como a los ocasionales. Ambientado en un universo de rica historia y diseño visual (influenciado por la obra de Miyazaki y las ilustraciones de Dixit), este juego trata sobre la exploración de una nueva y remodelada Tierra después de que un misterioso acontecimiento, la Confluencia, la alterara profundamente.",0,,,0,0
+336661,Anchor and boost your allies over the long haul and reap the rewards of your good deeds.,Afianza e incentiva a tus aliados a largo plazo y recoge las recompensas de tus buenas acciones.,0,,,0,0
+343034,"Anchored: during Rest, I don't go to Reserve and I lose Anchored.","Anclado: durante el Descanso, no voy a la Reserva y pierdo Anclado.",0,,,0,0
+343845,"Apply ""At Night"" effects","Aplicar efectos ""De Noche""",0,,,0,0
+343835,"Apply ""At Noon"" effects","Aplicar efectos ""Al Mediodía""",0,,,0,0
+318259,Axiom,Axioma,0,,,0,0
+320906,Board height,Altura del tablero,0,,,0,0
+343245,"Born and led from the mind of talented game designer Régis Bonnessée (founder of the Libellud studio, which published Dixit, Mysterium, Dice Forge, and Seasons), this project is brought to you by the French studio Equinox, based in Paris, in partnership with and exclusively distributed by Asmodee.","Nacido y dirigido desde la mente del talentoso diseñador de juegos Régis Bonnessée (fundador del estudio Libellud, que publicó Dixit, Mysterium, Dice Forge y Seasons), este proyecto llega de la mano del estudio francés Equinox, con sede en París, en colaboración con Asmodee y distribuido en exclusiva por ésta.",0,,,0,0
+317552,Bravos,Bravos,0,,,0,0
+343153,COMPANION,COMPAÑERO,0,,,0,0
+317783,Cancel,Cancelar,0,,,0,0
+343830,Change first player,Cambiar primer jugador,0,,,0,0
+336570,Character - Apprentice,Personaje – Aprendiz,0,,,0,0
+336526,Character - Artist Deity,Personaje - Deidad Artista,0,,,0,0
+339735,Character - Bureaucrat Noble,Personaje - Noble Burócrata,0,,,0,0
+336590,Character - Dragon Deity,Personaje - Deidad Dragón,0,,,0,0
+336497,Character - Druid Deity,Personaje - Deidad Druída,0,,,0,0
+336473,Character - Fairy Spirit,Personaje - Espíritu de Hada,0,,,0,0
+336479,Character - Mage Apprentice,Personaje – Aprendiz de Mago,0,,,0,0
+336480,Character - Mage Scholar,Personaje – Erudito Mago,0,,,0,0
+343026,Character - Mage Soldier,Personaje – Soldado Mago,0,,,0,0
+336508,Character - Plant Animal,Personaje – Animal Planta,0,,,0,0
+336518,Character - Scholar,Personaje – Erudito,0,,,0,0
+336486,Character - Soldier Noble,Personaje – Noble Soldado,0,,,0,0
+336579,Character - Spirit Trainer,Personaje - Entrenador de Espíritus,0,,,0,0
+317751,Choose an assignment,Elige una misión,0,,,0,0
+336666,Choose your faction,Escoge tu facción,0,,,0,0
+336667,Choose your starting mana cards,Escoge tus cartas iniciales de maná,0,,,0,0
+317789,Companion side,Lado del Compañero,0,,,0,0
+323689,Companion's expedition,Expedición del compañero,0,,,0,0
+343843,Compare statistics and check which expeditions move forward,Comparar estadísticas y comprobar qué expediciones siguen adelante,0,,,0,0
+343877,Computing the progress in the Tumult,Calculando el progreso en el Tumulto,0,,,0,0
+317785,Confirm,Confirmar,0,,,0,0
+317784,Confirm Mana,Confirmar Maná,0,,,0,0
+317797,Confirm discard,Confirmar descartar,0,,,0,0
+317793,Confirm target,Confirmar objetivo,0,,,0,0
+336655,Construct powerful machines and let their strength carry you to victory!,¡Construye potentes máquinas y deja que su fuerza te lleve a la victoria!,0,,,0,0
+341680,Decks,Mazos,0,,,0,0
+341681,Demo decks,Mazos de demostración,0,,,0,0
+317517,Disabled,Desactivado,0,,,0,0
+341675,Discard ${card},Descartar ${card},0,,,0,0
+327604,Discard of ${player_name},Descarte de ${player_name},0,,,0,0
+317799,Display some settings about the game.,Mostrar algunos ajustes sobre el juego.,0,,,0,0
+317515,Display tooltips,Mostrar información sobre herramientas,0,,,0,0
+317757,Draw ${n} card(s),Robar ${n} carta(s),0,,,0,0
+343832,Draw two cards,Robar dos cartas,0,,,0,0
+343116,"Eidolon or human, we are all shaped by stories. They're the building blocks of our identity. ","Eidolon o humano, todos estamos formados por historias. Son los cimientos de nuestra identidad.",0,,,0,0
+317516,Enabled,Activado,0,,,0,0
+317519,Enabled with timer,Activado con temporizador,0,,,0,0
+317545,End of game,Final de la partida,0,,,0,0
+343852,Exhaust,Agotado,0,,,0,0
+323678,Faction,Facción,0,,,0,0
+343133,"Faster, ever faster! Our fire rages highest when the race is afoot! ","¡Más rápido, cada vez más rápido! ¡Nuestro fuego arde más cuando la carrera está en marcha!",0,,,0,0
+317798,"Fleeting: if I would be send to reserve, banish me instead.","Fugaz: si me enviasen a la reserva, destiérrenme en su lugar.",0,,,0,0
+343083,"Follow me, friends! If we stand together, nothing can stop us! ","¡Síganme, amigos! ¡Si permanecemos juntos, nada podrá detenernos!",0,,,0,0
+331173,Frankenstein,Frankenstein,0,,,0,0
+339734,Frog Prince,Príncipe Rana,0,,,0,0
+331196,Gain ${n} ${counter_name},Gana ${n} ${counter_name},0,,,0,0
+317758,Gain ${resources_desc},Gana ${resources_desc},0,,,0,0
+317767,Game Flow,Flujo de la Partida,0,,,0,0
+343837,Go back and forth taking turns,Ir y venir por turnos,0,,,0,0
+343152,HERO,HÉROE,0,,,0,0
+343095,"Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. ","La armonía puede florecer de un solo acto de bondad, como un arrozal puede brotar de un solo grano de arroz.",0,,,0,0
+317788,Hero side,Lado del Héroe,0,,,0,0
+323688,Hero's expedition,Expedición del Héroe,0,,,0,0
+336558,Heroism counter,Contador de heroísmo,0,,,0,0
+343848,Icons,Iconos,0,,,0,0
+340257,"If you take this action, you won't be able to undo past this step because you will either roll a dice, draw card(s) from the deck or the discard, or someone else is going to make a decision","Si realizas esta acción, no podrás deshacer más allá de este paso porque o bien tirarás un dado, robarás carta(s) del mazo o del descarte, o bien otra persona tomará una decisión",0,,,0,0
+324023,In tie-breaker this power have no effect.,En el desempate este poder no tiene ningún efecto.,0,,,0,0
+327602,Invoke ${tokenName},Invocar ${tokenName},0,,,0,0
+331634,Issun-Boshi,Issun-Boshi,0,,,0,0
+343847,"Keep up to 2 cards in Reserve and 2 in Landmarks, discard the rest","Guarda hasta 2 cartas en Reserva y 2 en Puntos de Referencia, descarta el resto",0,,,0,0
+327585,Kelon counter,Contador de Kelon,0,,,0,0
+331180,Kelon counters,Contadores de Kelon,0,,,0,0
+336656,"Kojo ""the rising star""","Kojo ""la estrella emergente""",0,,,0,0
+327517,Landmark,Punto de referencia,0,,,0,0
+317765,Layout,Diseño,0,,,0,0
+317759,Let ${player_name} gain ${resources_desc},Permitir a ${player_name} ganar ${resources_desc},0,,,0,0
+331639,Let ${player_name} loose ${resources_desc},Permitir a ${player_name} perder ${resources_desc},0,,,0,0
+336665,"Let your opponent take the initiative to better thwart their plans, slowly but surely.","Permite a tu oponente tomar la iniciativa para desbaratar mejor sus planes, sin prisa pero sin pausa.",0,,,0,0
+318260,Lyra,Lyra,0,,,0,0
+336702,MANA,MANÁ,0,,,0,0
+345540,Max landmark slots at night:,Número máximo de espacios para puntos de referencia por la noche:,0,,,0,0
+345539,Max reserve slots at night:,Número máximo de espacios de reserva por la noche:,0,,,0,0
+323690,Move expedition,Mover expedición,0,,,0,0
+317553,Muna,Muna,0,,,0,0
+336658,"Nevenka ""the unpredictable""","Nevenka ""la impredecible""",0,,,0,0
+345534,Nevenka & Blotch with a longer name,Nevenka y Blotch con un nombre más largo,0,,,0,0
+331197,Next character <BOOST>,Siguiente personaje <BOOST>,0,,,0,0
+317691,No,No,0,,,0,0
+323679,No winner is found. New tiebreaker round starts,No se encuentra ganador. Comienza una nueva ronda de desempate,0,,,0,0
+323677,Number of days,Número de días,0,,,0,0
+317546,Number of turns,Número de turnos,0,,,0,0
+317776,"Only ""Restart turn"" button",Sólo botón de “Reiniciar turno”,0,,,0,0
+317778,"Only ""Undo last step"" button",Sólo botón de “Deshacer último paso”,0,,,0,0
+318258,Ordis,Ordis,0,,,0,0
+317694,Pass,Pasar,0,,,0,0
+317800,Pass action,Acción de pasar,0,,,0,0
+343841,Pass the turn and end your Afternoon,Pasa el turno y acaba tu Tarde,0,,,0,0
+345535,Pay ${cost_mana},Pagar ${cost_mana},0,,,0,0
+345537,Pay ${mana_cost} and use ${consume}{COUNTER},Paga ${mana_cost} y usa ${consume}{COUNTER},0,,,0,0
+336490,Permanent - Landmark,Permanente – Punto de Referencia,0,,,0,0
+343829,Phase 1: Morning,Fase 1: Mañana,0,,,0,0
+343834,Phase 2: Noon,Fase 2: Mediodía,0,,,0,0
+343836,Phase 3: Afternoon,Fase 3: Tarde,0,,,0,0
+343842,Phase 4: Dusk,Fase 4: Atardecer,0,,,0,0
+343844,Phase 5: Night,Fase 5: Noche,0,,,0,0
+343828,Phases of the day,Fases del día,0,,,0,0
+331194,Play ${card_name},Jugar ${card_name},0,,,0,0
+336651,Play a card,Jugar una carta,0,,,0,0
+343840,Play a card from your hand or Reserve,Jugar una carta de tu mano o de la Reserva,0,,,0,0
+336649,Put ${n} to mana,Pon ${n} a maná,0,,,0,0
+343833,Put a card in Mana,Poner una carta en Maná,0,,,0,0
+343831,Ready your cards,Prepara tus cartas,0,,,0,0
+320911,Reserve,Reserva,0,,,0,0
+343846,Rest: Characters go to Reserve,Descanso: Los Personajes van a la Reserva,0,,,0,0
+317782,Restart turn,Reiniciar turno,0,,,0,0
+317775,Restart turn buttons,Reiniciar botones de turno,0,,,0,0
+331195,Resupply ${n},Reabastecer ${n},0,,,0,0
+320423,Roll ${n} die,Tirar ${n} dado,0,,,0,0
+341676,Sacrifice ${card},Sacrificar ${card},0,,,0,0
+336668,Selected cards will join your mana pool,Las cartas seleccionadas se unirán a tu reserva de maná,0,,,0,0
+317795,Settings,Ajustes,0,,,0,0
+343243,"Shape your own adventure, choose a faction and lead your expeditions through an ever-changing world. Be the first to discover what the universe of Altered has in store for you!","Da forma a tu propia aventura, elige una facción y lidera tus expediciones a través de un mundo en constante cambio. ¡Sé el primero en descubrir lo que el universo de Altered tiene reservado para ti!",0,,,0,0
+317796,Show cards,Mostrar cartas,0,,,0,0
+336654,"Sierra ""the renowned engineer""","Sierra ""el renombrado ingeniero""",0,,,0,0
+336662,"Sigismar ""the commander""","Sigismar ""el comandante""",0,,,0,0
+317792,Spell,Hechizo,0,,,0,0
+317761,Spell cleanup,Limpieza de hechizos,0,,,0,0
+341683,Starter decks,Mazos de inicio,0,,,0,0
+336657,"Summon your firecat Companion to seize the advantage without delay, for only the brave make history!","Convoca a tu Compañero gato de fuego para aprovechar la ventaja sin demora, ¡porque sólo los valientes hacen historia!",0,,,0,0
+323691,Support ability,Habilidad de apoyo,0,,,0,0
+336663,Take the reins of the Ordis Legion and secure victory through sheer numbers!,¡Toma las riendas de la Legión Ordis y consigue la victoria por la fuerza de los números!,0,,,0,0
+324036,Target ${n} card(s) to ${effect_desc},Apunta ${n} carta(s) a ${effect_desc},0,,,0,0
+324030,Target ${n} character(s) to ${effect_desc},Apunta ${n} personaje(s) a ${effect_desc},0,,,0,0
+324033,Target ${n} permanent(s) to ${effect_desc},Apunta ${n} permanente(s) a ${effect_desc},0,,,0,0
+324034,Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc},Apunta hasta ${n} carta(s) (de coste máximo en mano de ${totalCost}) a ${effect_desc},0,,,0,0
+324035,Target up to ${n} card(s) to ${effect_desc},Apunta hasta ${n} carta(s) a ${effect_desc},0,,,0,0
+324028,Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc},Apunta hasta ${n} personaje(s) (de coste de mano máximo de ${totalCost}) a ${effect_desc},0,,,0,0
+324029,Target up to ${n} character(s) to ${effect_desc},Apunta hasta ${n} personaje(s) a ${effect_desc},0,,,0,0
+324031,Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc},Apunta hasta ${n} permanente(s) (de coste máximo en mano de ${totalCost}) a ${effect_desc},0,,,0,0
+324032,Target up to ${n} permanent(s) to ${effect_desc},Apunta hasta ${n} permanente(s) a ${effect_desc},0,,,0,0
+336660,"Teija ""the druidess""","Teija ""la druída""",0,,,0,0
+317756,The opponent draws ${n} card(s),El oponente roba ${n} carta(s),0,,,0,0
+340256,The tiebreaker is triggered as heroes reached their companions at the same time,El desempate se activa cuando los héroes alcanzan a sus compañeros al mismo tiempo,0,,,0,0
+343839,Then either:,Entonces tampoco:,0,,,0,0
+317514,This game action is impossible right now,Esta acción de juego es imposible ahora mismo,0,,,0,0
+317794,Toggle help/safe mode.,Activar el modo de ayuda/seguro.,0,,,0,0
+336561,Token - Companion,Ficha – Compañero,0,,,0,0
+324027,Total hand cost exceeds the limit of the effect,El coste total de la mano supera el límite del efecto,0,,,0,0
+317518,Turn confirmation,Confirmación de turno,0,,,0,0
+317550,Undo here,Deshacer aquí,0,,,0,0
+317781,Undo last step,Deshacer último paso,0,,,0,0
+317520,Undoable actions confirmation,Confirmación de acciones que se pueden deshacer,0,,,0,0
+345536,Use ${consume}{COUNTER},Usar ${consume}{COUNTER},0,,,0,0
+320419,Wait next turn,Espera al siguiente turno,0,,,0,0
+323672,Waiting for other players to select cards to discard as mana,Esperando a que otros jugadores seleccionen cartas para descartar como maná,0,,,0,0
+317521,Waiting for others to choose their deck,Esperando por los otros para escoger su mazo,0,,,0,0
+336460,Waiting for others to choose their faction,Esperando por los otros para escoger su facción,0,,,0,0
+336628,We sometimes look for companionship in the strangest life forms.,A veces buscamos compañía en las formas de vida más extrañas.,0,,,0,0
+343244,"What really lies at the heart of this revolution is a ton of expertly tailored details — a new rarity system, deep evolving lore, innovative game mechanisms and design — and a phygital experience that comes along with its myriad of life-quality improvements, both for the players, tournaments organizers and store owners alike.","Lo que realmente subyace en el corazón de esta revolución es una tonelada de detalles expertamente confeccionados a medida -un nuevo sistema de rarezas, un profundo y cambiante hilo argumental, mecanismos y diseño de juego innovadores- y una experiencia física y digital que viene acompañada de su miríada de mejoras en la calidad de vida, tanto para los jugadores como para los organizadores de torneos y los propietarios de las tiendas.",0,,,0,0
+336659,What's better than invoking fate to spice up a game? Are you ready to embrace the whims of destiny?,¿Qué hay mejor que invocar al destino para dar sabor a una partida? ¿Estás listo para abrazar los caprichos del destino?,0,,,0,0
+343849,When I'm played from anywhere...,Cuando juego desde cualquier lugar...,0,,,0,0
+343850,When I'm played from hand...,Cuando soy jugado de tu mano,0,,,0,0
+343851,When I'm played from your Reserve,Cuando soy jugado de tu Reserva,0,,,0,0
+317787,Where do you want to play that card?,¿Dónde quieres jugar esa carta?,0,,,0,0
+327511,Winner,Ganador,0,,,0,0
+317692,Yes,Si,0,,,0,0
+317801,You,Tú,0,,,0,0
+343838,You can activate Quick actions,Puedes activar acciones Rápidas,0,,,0,0
+343331,You can't take an irreversible action if there is a mandatory undoable action pending,No puedes realizar una acción irreversible si hay pendiente una acción obligatoria que no se puede deshacer,0,,,0,0
+328059,You cannot pay the additional cost (Tough effect),No puedes pagar el coste adicional (efecto Duro),0,,,0,0
+317564,You discard ${card_names},Descartas ${card_names},0,,,0,0
+317590,You draw ${card_names} from the deck (scoring cards),Robas ${card_names} del mazo (cartas de puntuación),0,,,0,0
+317568,You draw ${card_names} from your deck,Robas ${card_names} de tu mazo,0,,,0,0
+320122,You draw ${card_names} from your deck (${card_name2}'s effect),Robas ${card_names} de tu mazo (efecto de ${card_name2}),0,,,0,0
+341677,"You draw ${card_names} from your deck and must keep 1 (${card_name2}'s effect combined with The Ouroboros, Lyra Bastion)","Robas ${card_names} de tu mazo y debes quedarte con 1 (efecto de ${card_name2} combinado con El Ouroboros, Bastión de Lyra)",0,,,0,0
+317547,You must select the correct number of cards to put as mana,Debes seleccionar el número correcto de cartas para poner como maná,0,,,0,0
+317555,You place ${card_names} as mana,Colocas ${card_names} como maná,0,,,0,0
+320421,You put ${card_names} from your deck in Reserve (${card_name2}'s effect),Pones ${card_names} de tu mazo en Reserva (efecto de ${card_name2}),0,,,0,0
+327605,Your mana cards,Tus cartas de maná,0,,,0,0
+318261,Yzmir,Yzmir,0,,,0,0
+341682,[Demo decks],[Mazos de demostración],0,,,0,0
+327600,activate {J} effect,activar efecto {J},0,,,0,0
+331190,activate {J} effect of ${card_name},activar efecto {J} de ${card_name},0,,,0,0
+317513,altered_displayed,visualización_modificada,0,,,0,0
+324020,discard to ${location} ${card},descartar a ${location} ${card},0,,,0,0
+343884,forest,bosque,0,,,0,0
+331638,loose ${resources_desc},suelta ${resources_desc},0,,,0,0
+343885,mountain,montaña,0,,,0,0
+331193,move ${card_name} to opposite expedition,mover ${nombre_tarjeta} a la expedición opuesta,0,,,0,0
+331192,move a character to opposite expedition,mover un personaje a la expedición opuesta,0,,,0,0
+341679,opposite of played card,opuesto a la carta jugada,0,,,0,0
+343032,put ${card} on top of it's owner deck,poner ${card} en la parte superior del mazo de su propietario,0,,,0,0
+331976,source,fuente,0,,,0,0
+343886,water,agua,0,,,0,0

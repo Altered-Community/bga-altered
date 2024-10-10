@@ -1,0 +1,601 @@
+trk_id;str_to_translate;context;fr_FR;" es_ES";" it_IT";" de_DE";LOCK
+317693;"Allow ${player_name} to take a triggered action";AbstractNode;;;;
+317694;Pass;"AbstractNode;Altered";;;;
+327601;"${player_name} activates ${card_name} {J} effect";ActivateEffect;;;;
+327600;"activate {J} effect";ActivateEffect;;;;
+331190;"activate {J} effect of ${card_name}";ActivateEffect;;;;
+320419;"Wait next turn";AfterYou;;;;
+317777;"""Restart turn"" and ""Undo last step"" buttons";Altered;;;;
+336664;"Akesha ""the astute""";Altered;;;;
+336661;"Anchor and boost your allies over the long haul and reap the rewards of your good deeds.";Altered;;;;
+320906;"Board height";Altered;;;;
+336666;"Choose your faction";Altered;;;;
+336667;"Choose your starting mana cards";Altered;;;;
+317789;"Companion side";Altered;;;;
+317784;"Confirm Mana";Altered;;;;
+317793;"Confirm target";Altered;;;;
+336655;"Construct powerful machines and let their strength carry you to victory!";Altered;;;;
+317767;"Game Flow";Altered;;;;
+317788;"Hero side";Altered;;;;
+340257;"If you take this action, you won't be able to undo past this step because you will either roll a dice, draw card(s) from the deck or the discard, or someone else is going to make a decision";Altered;;;;
+336656;"Kojo ""the rising star""";Altered;;;;
+327517;Landmark;Altered;;;;
+317765;Layout;Altered;;;;
+336665;"Let your opponent take the initiative to better thwart their plans, slowly but surely.";Altered;;;;
+336658;"Nevenka ""the unpredictable""";Altered;;;;
+317776;"Only ""Restart turn"" button";Altered;;;;
+317778;"Only ""Undo last step"" button";Altered;;;;
+317768;Other;Altered;;;;
+317766;"Player Board/Panel";Altered;;;;
+320911;Reserve;Altered;;;;
+317782;"Restart turn";Altered;;;;
+317775;"Restart turn buttons";Altered;;;;
+336668;"Selected cards will join your mana pool";Altered;;;;
+317795;Settings;Altered;;;;
+336654;"Sierra ""the renowned engineer""";Altered;;;;
+336662;"Sigismar ""the commander""";Altered;;;;
+317792;Spell;Altered;;;;
+336657;"Summon your firecat Companion to seize the advantage without delay, for only the brave make history!";Altered;;;;
+323691;"Support ability";Altered;;;;
+336663;"Take the reins of the Ordis Legion and secure victory through sheer numbers!";Altered;;;;
+336660;"Teija ""the druidess""";Altered;;;;
+317514;"This game action is impossible right now";Altered;;;;
+317794;"Toggle help/safe mode.";Altered;;;;
+317781;"Undo last step";Altered;;;;
+336659;"What's better than invoking fate to spice up a game? Are you ready to embrace the whims of destiny?";Altered;;;;
+317787;"Where do you want to play that card?";Altered;;;;
+341679;"opposite of played card";Altered;;;;
+331976;source;Altered;;;;
+317783;Cancel;"Altered;Game";;;;
+317785;Confirm;"Altered;Game";;;;
+331159;"Ada Lovelace";AX_Common_AdaLovelace;"Ada Lovelace";"Ada Lovelace";"Ada Lovelace";"Ada Lovelace";1
+336599;"Imagination is the discovering faculty. It is that which penetrates the unseen worlds around us.";AX_Common_AdaLovelace;;;;
+336598;"{R} You may put a card from your hand in Reserve. If it's a Permanent, draw a card.";AX_Common_AdaLovelace;"{R} Vous pouvez mettre une carte de votre main en Réserve. Si c'est un Permanent, piochez une carte.";"{R} Puedes colocar 1 carta de tu mano en tu reserva. Si es un permanente, roba 1 carta.";"{R} Puoi mettere una carta dalla tua mano nella Riserva. Se è un permanente, pesca una carta.";"{R} Du darfst eine Karte aus deiner Hand in deine Reserve legen. Wenn es eine bleibende Karte ist, ziehe eine Karte.";1
+318226;"Amelia Earhart";AX_Common_AmeliaEarhart;"Amelia Earhart";"Amelia Earhart";"Amelia Earhart";"Amelia Earhart";1
+336601;"The most effective way to do it, is to do it.";AX_Common_AmeliaEarhart;;;;
+318228;"Armored Jammer";AX_Common_ArmoredJammer;"Brouilleur Blindé";"Interferente blindado";"Disturbatore di Frequenze Corazzato";"Gepanzerter Störsender";1
+336602;"In a jam? Sorry, mate. Maybe a side-effect of our scrambling...";AX_Common_ArmoredJammer;;;;
+331161;"{J} $[SABOTAGE].";AX_Common_ArmoredJammer;"{J} $[SABOTAGE].";"{J} $[SABOTAGE].";"{J} $[SABOTAGE].";"{J} $[SABOTAGE].";1
+331162;Athena;AX_Common_Athena;Athéna;Atenea;Atena;Athene;1
+336604;"I’ve lifted the mist from off your eyes that’s blurred them up to now.";AX_Common_Athena;;;;
+336603;"{R} If you control two or more Landmarks, I lose [FLEETING_CHAR].";AX_Common_Athena;"{R} Si vous contrôlez au moins deux Repères, je perds [FLEETING_CHAR].";"{R} Si controlas 2 hitos o más, pierdo [FLEETING_CHAR].";"{R} Se controlli due o più fulcri, perdo [FLEETING_CHAR].";"{R} Wenn du mindestens zwei Wahrzeichen kontrollierst, verliere ich [FLEETING_CHAR].";1
+336605;"At Noon — $[RESUPPLY].";AX_Common_AxiomReprocessor;;;;
+318230;"Axiom Reprocessor";"AX_Common_AxiomReprocessor;AX_Rare_AxiomReprocessor";"Recycleur Axiom";"Reprocesador de Axiom";"Ricondizionatore Axiom";Axiom-Aufbereiter;1
+336606;"Nothing is created, nothing is lost, everything is transformed.";"AX_Common_AxiomReprocessor;AX_Rare_AxiomReprocessor";"Rien ne se perd, rien ne se crée, tout se transforme.";"Nada se pierde, nada se crea, todo se transforma.";"Nulla si crea, nulla si distrugge, tutto si trasforma.";"Nichts wird geschaffen, nichts geht verloren, alles verwandelt sich.";1
+318232;"Axiom Salvager";AX_Common_AxiomSalvager;"Récupérateur Axiom";"Chatarrero de Axiom";"Rovistatore Axiom";Axiom-Bergungsarbeiter;1
+336608;"The Axiom's limited ressources pushed them to reuse whatever could be.";AX_Common_AxiomSalvager;;;;
+336607;"{R} $[RESUPPLY].";AX_Common_AxiomSalvager;"{R} $[RESUPPLY].";"{R} $[RESUPPLY].";"{R} $[RESUPPLY].";"{R} $[RESUPPLY].";1
+327581;"Axiom Scrambler";"AX_Common_AxiomScrambler;AX_Rare_AxiomScrambler";"Brouilleur Axiom";"Codificadora de Axiom";"Codificatrice Axiom";Axiom-Scramblerin;1
+336609;"Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. This is regrettable.";"AX_Common_AxiomScrambler;AX_Rare_AxiomScrambler";;;;
+336610;"$[FLEETING].  Sacrifice a Character. If you do, discard target Character or Permanent.";AX_Common_Boom;"$[FLEETING].  Sacrifiez un Personnage. Si vous le faites, défaussez le Personnage ou le Permanent ciblé.";"$[FLEETING].  Sacrifica un personaje. Si lo haces, descarta un personaje o permanente objetivo.";"$[FLEETING].  Sacrifica un personaggio. Se lo fai, scarta il personaggio o il permanente bersaglio.";"$[FLEETING].  Opfere einen Charakter, um einen Charakter oder eine bleibende Karte deiner Wahl abzulegen.";1
+331165;Boom!;AX_Common_Boom;Boum !;¡Bum!;Boom!;Bumm!;1
+336611;"Catastrophic failure ? I prefer the term 'learning opportunity'.";AX_Common_Boom;;;;
+336616;"01010001 01110101 01100101 01100101 01101110 00100000 01101001 01101110 00100000 01000010 00101101 01001000 01101001 01110110 01100101";AX_Common_Brassbug;;;;
+318237;Brassbug;AX_Common_Brassbug;Scarabot;Bicholata;Ottonblatta;Blechkäfer;1
+336617;"Token - Robot";AX_Common_Brassbug;;;;
+336612;"{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.";AX_Common_BrassbugHive;;;;
+318235;"Brassbug Hive";"AX_Common_BrassbugHive;AX_Rare_BrassbugHive";"Ruche des Scarabots";"Colmena de bicholatas";"Alveare delle Ottonblatte";Blechkäfer-Nest;1
+336613;"What could possibly go wrong with an absorbing, self-replicating cute little robot?";"AX_Common_BrassbugHive;AX_Rare_BrassbugHive";;;;
+327583;"Brassbug Hub";AX_Common_BrassbugHub;"Hub des Scarabots";"Central de bicholatas";"Ritrovo delle Ottonblatte";Blechkäfer-Basis;1
+336615;"Few people visit the depths of the Foundry, and even fewer can explain how the Brassbugs came to be.";AX_Common_BrassbugHub;"Rares sont ceux qui visitent les profondeurs de la Fonderie, et encore plus rares ceux qui savent expliquer d'où viennent les Scarabots.";"Pocos visitan las profundidades de la Fundición, y aún menos pueden explicar cómo fueron creados los bicholatas.";"Poche persone si addentrano nelle profondità della Fonderia e ancora meno riescono a spiegare l'origine delle ottonblatte.";"Nur wenige Menschen besuchen die Tiefen der Gießerei, und noch weniger können erklären, wie die Blechkäfer entstanden sind.";1
+327585;"Kelon counter";AX_Common_BrassbugHub;;;;
+336614;"{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.";AX_Common_BrassbugHub;;;;
+336619;"Because of its artificial nature, it served as a model for the Faction's first Automata prototypes.";AX_Common_Coppelia;;;;
+336620;"Character - Robot";AX_Common_Coppelia;;;;
+331167;Coppélia;AX_Common_Coppelia;Coppélia;Coppélia;Coppélia;Coppélia;1
+336618;"When I go to Reserve from your hand — You may play me for free and I gain $[ASLEEP].";AX_Common_Coppelia;;;;
+327587;"Foundry Armorer";AX_Common_FoundryArmorer;"Armurière de la Fonderie";"Blindadora de la Fundición";"Armaiola della Fonderia";Gießerei-Rüstungsspezialistin;1
+336622;"No Brassbug would survive in the Tumult without their armor.";AX_Common_FoundryArmorer;;;;
+336621;"{R} Create a [BRASSBUG] Robot token in target Expedition.";AX_Common_FoundryArmorer;"{R} Créez un jeton Robot [BRASSBUG] dans l'Expédition ciblée.";"{R} Crea 1 ficha de robot [BRASSBUG] en una expedición objetivo.";"{R} Crea una pedina Robot [BRASSBUG] nella spedizione bersaglio.";"{R} Erschaffe eine [BRASSBUG]-Robotermarke in einer Expedition deiner Wahl.";1
+336624;"Behind every Axiom masterwork, there are Foundry Engineers.";AX_Common_FoundryEngineer;"Derrière chaque chef-d'œuvre Axiom, il y a des ingénieurs de la Fonderie.";"Detrás de cada obra maestra de Axiom, hay un ingeniero de la Fundición.";"Dietro ogni capolavoro degli Axiom ci sono gli ingegneri della Fonderia.";"Hinter jedem Axiom-Meisterwerk stehen Gießerei-Ingenieurinnen.";1
+331169;"Foundry Engineer";AX_Common_FoundryEngineer;"Ingénieure de la Fonderie";"Ingeniera de la Fundición";"Ingegnera della Fonderia";Gießerei-Ingenieurin;1
+336623;"{R} The next Permanent you play this Afternoon costs {1} less.";AX_Common_FoundryEngineer;"{R} Le prochain Permanent que vous jouez cet Après-midi coûte {1} de moins.";"{R} El siguiente permanente que juegues esta tarde cuesta {1} menos.";"{R} Il prossimo permanente che giochi questo pomeriggio costa {1} in meno.";"{R} Die nächste bleibende Karte, die du heute Nachmittag spielst, kostet {1} weniger.";1
+331173;Frankenstein;AX_Common_Frankenstein;;;;
+336628;"We sometimes look for companionship in the strangest life forms.";AX_Common_Frankenstein;;;;
+336627;"{R} You may activate the {j} triggers of target Permanent you control.";AX_Common_Frankenstein;"{R} Vous pouvez activer les déclencheurs {j} du Permanent ciblé que vous contrôlez.";"{R} Puedes activar los efectos disparados {j} de un permanente objetivo que controles.";"{R} Puoi attivare gli inneschi {j} di un permanente bersaglio che controlli.";"{R} Du darfst die {j} Auslöser einer bleibenden Karte deiner Wahl aktivieren, die du kontrollierst.";1
+318239;Ganesha;AX_Common_Ganesha;Ganesh;Ganesha;Ganesha;Ganesha;1
+336629;"Knowledge and wisdom must walk side by side.";AX_Common_Ganesha;"Savoir et sagesse doivent avancer de concert.";"El conocimiento y la sabiduría deben ir de la mano.";"La conoscenza e la saggezza devono camminare fianco a fianco.";"Wissen und Weisheit müssen Hand in Hand gehen.";1
+339752;"{J} For each Permanent you control, you may activate its {j} triggers.";AX_Common_Ganesha;"{J} Pour chaque Permanent que vous contrôlez, vous pouvez activer ses déclencheurs {j}.";"{J} Por cada permanente que controles, puedes activar sus efectos disparados {j}.";"{J} Per ogni permanente che controlli, puoi attivare i suoi inneschi {j}.";"{J} Für jede bleibende Karte, die du kontrollierst, darfst du ihre {j} Auslöser aktivieren.";1
+336631;"Get over here!";AX_Common_Hooked;"C'est ce qu'on appelle se faire mettre le grappin dessus.";"¡Ven aquí!";"Vieni subito qui!";"Komm her!";1
+331176;Hooked;AX_Common_Hooked;Happé;Enganche;Agganciamento;"Am Haken";1
+336630;"Target Character switches Expeditions. (It leaves its Expedition and joins its controller's other Expedition.)";AX_Common_Hooked;"Le Personnage ciblé échange d'Expédition. (Il quitte son Expédition et rejoint l'autre Expédition de son contrôleur.)";"Un personaje objetivo se traslada de expedición. (Abandona su expedición y se incorpora a la otra expedición de su controlador).";"Il personaggio bersaglio cambia spedizione. (Lascia la sua spedizione e si unisce all'altra spedizione del suo controllore.)";"Ein Charakter deiner Wahl wechselt Expeditionen. (Er verlässt seine Expedition und schließt sich der anderen Expedition des kontrollierenden Spielers an.)";1
+318241;"Jian, Assembly Overseer";"AX_Common_JianAssemblyOverseer;AX_Rare_JianAssemblyOverseer";"Jian, Superviseur d'Assemblage";"Jian, supervisor de ensamblaje";"Jian, Supervisore dell'Assemblaggio";"Jian, Vorabeiter der Versammlung";1
+336632;"This material does not seem to be affected by gravity. By harnessing the properties of this Aerolithe, we could create flying ships and cities, and fly close to the clouds...";"AX_Common_JianAssemblyOverseer;AX_Rare_JianAssemblyOverseer";;;;
+339754;"$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.";AX_Common_KelonBurst;"$[FLEETING].  Choisissez l'un :  • Envoyez en Réserve le Personnage ciblé avec un Coût de Main {4} ou moins.  • Défaussez le Permanent ciblé avec un Coût de Main {4} ou moins.";"$[FLEETING].  Elige una opción:  • Envía a tu reserva un personaje objetivo con coste desde la mano de {4} o menos.  • Descarta un permanente objetivo con coste desde la mano de {4} o menos.";"$[FLEETING].  Scegli uno:  • Manda un personaggio bersaglio con costo dalla mano pari o inferiore a {4} nella Riserva.  • Scarta un permanente bersaglio con costo dalla mano pari o inferiore a {4}.";"$[FLEETING].  Wähle eine Aktion:  • Schicke einen Charakter deiner Wahl mit Handkosten {4} oder weniger in deine Reserve.  • Lege eine bleibende Karte deiner Wahl mit Handkosten {4} oder weniger ab.";1
+339753;"Kelon Burst";AX_Common_KelonBurst;"Décharge de Kelon";"Descarga de kelón";"Esplosione di Kelon";Kelon-Explosion;1
+331178;"Kelon Cylinder";AX_Common_KelonCylinder;"Cylindre de Kélon";"Cilindro de kelón";"Cilindro di Kelon";Kelon-Zylinder;1
+331180;"Kelon counters";AX_Common_KelonCylinder;;;;
+336634;"This little battery is Axiom's trump card. The Kelon produces phenomenal energy, for which engineers find new applications every day.";AX_Common_KelonCylinder;;;;
+336633;"{T} : I gain two Kelon counters.  {T}, Spend one of my Kelon counters: the next Character you play this turn gains 1 boost$[BB].";AX_Common_KelonCylinder;"{T} : Je gagne deux compteurs Kelon.  {T}, Dépensez un de mes compteurs Kelon : le prochain Personnage que vous jouez ce tour gagne 1 boost$[BB].";"{T} Gano 2 contadores de kelón.  {T}: Gasta 1 de mis contadores de kelón para que el siguiente personaje que juegues este turno gane 1 potenciador$[BB].";"{T} : Ottengo due segnalini Kelon.  {T}, Spendi uno dei miei segnalini Kelon: il prossimo personaggio che giochi in questo turno ottiene 1 rinforzo$[BB].";"{T} : Ich erhalte zwei Kelon-Zähler.  {T} : Gib einen meiner Kelon-Zähler aus: Der nächste Charakter, den du in dieser Runde spielst, erhält 1 Verstärkung$[BB].";1
+336636;"In true Axiom fashion, Kelon Elementals like to put everything to the taste.";AX_Common_KelonElemental;"Tout comme les ingénieurs Axiom, les Elémentaires de Kelon ont le goût de la découverte.";"Como es costumbre en Axiom, a los elementales de kelón les encanta probarlo todo, a veces literalmente.";"In perfetto stile Axiom, agli elementali di Kelon piace sperimentare con qualsiasi cosa.";"In typischer Axiom-Manier probieren Kelon-Elementare gerne alles.";1
+318243;"Kelon Elemental";AX_Common_KelonElemental;"Élémentaire de Kélon";"Elemental de kelón";"Elementale di Kelon";Kelon-Elementar;1
+336635;"{H} Put a card from your hand in Reserve.";AX_Common_KelonElemental;"{H} Mettez une carte de votre main en Réserve.";"{H} Coloca 1 carta de tu mano en tu reserva.";"{H} Metti una carta dalla tua mano nella Riserva.";"{H} Lege eine Karte aus deiner Hand in deine Reserve.";1
+331182;"{2}, {T} : Draw a card.";AX_Common_KelonicGenerator;"{2}, {T} : Piochez une carte.";"{2}, {T}: Roba 1 carta.";"{2}, {T} : Pesca una carta.";"{2}, {T} : Ziehe eine Karte.";1
+339755;"Kelonic Generator";"AX_Common_KelonicGenerator;AX_Rare_KelonicGenerator";"Générateur Kélonique";"Generador kelónico";"Generatore Kelonico";Kelon-Generator;1
+336637;"Activate the {j} triggers of target Permanent you control.";AX_Common_MechanicalTraining;"Activez les déclencheurs {j} du Permanent ciblé que vous contrôlez.";"Activa los efectos disparados {j} de 1 permanente objetivo que controles.";"Attiva gli inneschi {j} di un permanente bersaglio che controlli.";"Aktiviere die {j} Auslöser einer bleibenden Karte deiner Wahl, die du kontrollierst.";1
+331183;"Mechanical Training";AX_Common_MechanicalTraining;"Entraînement Mécanique";"Prácticas de mecánica";"Addestramento Meccanico";Maschinenausbildung;1
+336638;"To learn to create, first learn to fix.";AX_Common_MechanicalTraining;"Pour apprendre à créer, il faut d'abord apprendre à réparer.";"Para aprender a crear, primero tienes que aprender a arreglar.";"Per imparare a creare bisogna prima imparare ad aggiustare.";"Um das Erschaffen zu lernen, muss man zuerst das Reparieren lernen.";1
+336641;"Character - Engineer Deity";AX_Common_Ogun;;;;
+331185;Ogun;AX_Common_Ogun;Ogun;Ogun;Ogun;Ogun;1
+336640;"With every blow of his hammer, Ogun forges the Axiom's destiny.";AX_Common_Ogun;"À chaque coup de marteau, Ogun forge le destin des Axiom.";"Con cada golpe de su martillo, Ogun forja el destino de Axiom.";"Con ogni colpo di martello, Ogun forgia il destino degli Axiom.";"Mit jedem Schlag seines Hammers schmiedet Ogun das Schicksal der Axiom.";1
+336639;"{J} Robots you control gain 1 boost$[BB].";AX_Common_Ogun;"{J} Les Robots que vous contrôlez gagnent 1 boost$[BB].";"{J} Los robots que controlas ganan 1 potenciador$[BB].";"{J} I Robot che controlli ottengono 1 rinforzo$[BB].";"{J} Roboter, die du kontrollierst, erhalten 1 Verstärkung$[BB].";1
+318248;"Sierra & Oddball";AX_Common_SierraOddball;"Sierra & Oddball";"Sierra y Estrambot";"Sierra e Strambo";"Sierra & Botball";1
+336643;"There's nothing crazier than seeing what you've built come to life! TEST THAI";AX_Common_SierraOddball;;;;
+336642;"When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.";AX_Common_SierraOddball;;;;
+318249;"Axiom Hero";"AX_Common_SierraOddball;AX_Common_SubhashMarmo";;;;
+336644;"At Noon — You may pay {1} and put a card from your hand in Reserve to create a [BRASSBUG] Robot token in target Expedition.";AX_Common_SubhashMarmo;;;;
+331187;"Subhash & Marmo";AX_Common_SubhashMarmo;"Subhash & Marmo";"Subhash y Marmo";"Subhash e Marmo";"Subhash & Marmo";1
+339757;"{J} If you control two or more Landmarks, I gain 1 boost$[BB]. (Cards in Reserve are not controlled.)";AX_Common_ThreeLittlePigs;"{J} Si vous contrôlez au moins deux Repères, je gagne 1 boost$[BB]. (Les cartes en Réserve ne sont pas contrôlées.)";"{J} Si controlas 2 hitos o más, gano 1 potenciador$[BB]. (Las cartas de tu reserva no las controla nadie).";"{J} Se controlli due o più fulcri, ottengo 1 rinforzo$[BB]. (Le carte nella Riserva non sono controllate.)";"{J} Wenn du mindestens zwei Wahrzeichen kontrollierst, erhalte ich 1 Verstärkung$[BB]. (Karten in der Reserve werden nicht kontrolliert.)";1
+339756;"Three Little Pigs";"AX_Common_ThreeLittlePigs;AX_Rare_ThreeLittlePigs";"Trois Petits Cochons";"Los tres cerditos";"Tre Porcellini";"Drei kleine Schweinchen";1
+339758;"Together they can build more than just a stone house.";"AX_Common_ThreeLittlePigs;AX_Rare_ThreeLittlePigs";"Ensemble, ils peuvent construire bien plus qu'une simple maison de pierre.";"Juntos pueden construir mucho más que una casa de ladrillo.";"Insieme sono in grado di costruire molto più di una semplice casa di pietra.";"Gemeinsam können sie mehr bauen als nur ein Haus aus Stein.";1
+336646;"Ting! Ting-a-ling! There's something magical in mischievous tinkering...";AX_Common_TinkerBell;"Ding ding ! Quand quelque chose cloche, autant passer par la case rafistolage.";"¡Ding, ding, ding! Cacharrear con picardía es mágico.";"Din! Din! Din! C'è qualcosa di magico nel combinare qualche marachella...";"Ting! Ting-ting-ting! Die frohgemute Flickerei hat etwas Magisches an sich …";1
+318251;"Tinker Bell";AX_Common_TinkerBell;"Fée Clochette";Campanilla;Campanellino;Tinkerbell;1
+336645;"{R} $[SABOTAGE].";AX_Common_TinkerBell;"{R} $[SABOTAGE].";"{R} $[SABOTAGE].";"{R} $[SABOTAGE].";"{R} $[SABOTAGE].";1
+339759;"#{J} [RESUPPLY].#  At Noon — $[RESUPPLY].";AX_Rare_AxiomReprocessor;;;;
+340311;"{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#";AX_Rare_BrassbugHive;;;;
+340312;"#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from Reserve to do this.)";AX_Rare_FrogPrince;"#{D} : Le prochain Permanent que vous jouez ce tour coûte {1} de moins.# (Défaussez-moi de la Réserve pour ça.)";"#{D}: El siguiente permanente que juegues este turno cuesta {1} menos.# (Descártame de tu reserva para jugar esta acción).";"#{D} : Il prossimo permanente che giochi in questo turno costa {1} in meno.# (Scartami dalla Riserva per giocare questa azione.)";"#{D} : Die nächste bleibende Karte, die du in dieser Runde spielst, kostet {1} weniger.# (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+339760;"#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.)";AX_Rare_JianAssemblyOverseer;"#{D} : Activez les déclencheurs {j} du Permanent ciblé que vous contrôlez.# (Défaussez-moi de la Réserve pour ça.)";"#{D}: Activa los efectos disparados {j} de un permanente objetivo que controles.# (Descártame de tu reserva para jugar esta acción).";"#{D} : Attiva gli inneschi {j} di un permanente bersaglio che controlli.# (Scartami dalla Riserva per giocare questa azione.)";"#{D} : Aktiviere die {j} Auslöser einer bleibenden Karte deiner Wahl, die du kontrollierst.# (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+341688;" ""Suspira's mines will soon run dry. Your precious Kelon will run dry. """;AX_Rare_KelonicGenerator;;;;
+341687;"#{1}#, {T} : Draw a card.";AX_Rare_KelonicGenerator;"#{1}#, {T} : Piochez une carte.";"#{1}#, {T}: Roba 1 carta.";"#{1}#, {T} : Pesca una carta.";"#{1}#, {T} : Ziehe eine Karte.";1
+341674;"#{J} [RESUPPLY].#  If you would #$[RESUPPLY], instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other.#";AX_Rare_TheOuroborosLyraBastion;"#{J} [RESUPPLY].#  Si vous deviez #$[RESUPPLY], à la place, révélez les deux premières cartes de votre deck. Mettez-en une en Réserve, et défaussez l'autre.#";"#{J} [RESUPPLY].#  Si fueses a #$[RESUPPLY], en vez de eso, revela las 2 primeras cartas de tu mazo. Coloca 1 en tu reserva y descarta la otra.#";"#{J} [RESUPPLY].#  Se stai per usare #$[RESUPPLY], rivela invece le prime due carte del tuo mazzo. Mettine una nella Riserva e scarta l'altra.#";"#{J} [RESUPPLY].#  Wenn du #$[RESUPPLY] spielen würdest, decke stattdessen die obersten zwei Karten deines Decks auf. Lege eine in deine Reserve und die andere ab.#";1
+341673;"The Expeditionary Corps' mobile outpost soars high, like a spinning wheel weaving the wind.";AX_Rare_TheOuroborosLyraBastion;;;;
+341672;"The Ouroboros, Lyra Bastion";AX_Rare_TheOuroborosLyraBastion;"L'Ouroboros, Bastion Lyra";"El Uroboros, bastión de Lyra";"L'Uroboro, Bastione Lyra";"Der Ouroboros, Lyra-Bastion";1
+327599;"#{D} : The next Permanent you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)";AX_Rare_ThreeLittlePigs;;;;
+339761;"{J} If you control two or more Landmarks, I gain #2 boosts$[BB]#. (Cards in Reserve are not controlled.)";AX_Rare_ThreeLittlePigs;"{J} Si vous contrôlez au moins deux Repères, je gagne #2 boosts$[BB]#. (Les cartes en Réserve ne sont pas contrôlées.)";"{J} Si controlas 2 hitos o más, gano #2 potenciadores$[BB]#. (Las cartas de tu reserva no las controla nadie).";"{J} Se controlli due o più fulcri, ottengo #2 rinforzi$[BB]#. (Le carte nella Riserva non sono controllate.)";"{J} Wenn du mindestens zwei Wahrzeichen kontrollierst, erhalte ich #2 Verstärkungen$[BB]#. (Karten in der Reserve werden nicht kontrolliert.)";1
+328055;$[TOUGH_1].;BR_Common_Achilles;$[TOUGH_1].;$[TOUGH_1].;$[TOUGH_1].;$[TOUGH_1].;1
+327566;Achilles;BR_Common_Achilles;Achille;Aquiles;Achille;Achilles;1
+327569;$[GIGANTIC].;BR_Common_Atlas;$[GIGANTIC].;$[GIGANTIC].;$[GIGANTIC].;$[GIGANTIC].;1
+317724;Atlas;BR_Common_Atlas;Atlas;Atlas;Atlante;Atlas;1
+336555;"Character - Titan";BR_Common_Atlas;;;;
+336556;"Atsadi & Surge";BR_Common_AtsadiSurge;"Atsadi & Surge";"Atsadi y Chispazo";"Atsadi e Folgore";"Atsadi & Blitz";1
+336558;"Heroism counter";BR_Common_AtsadiSurge;;;;
+336557;"I begin the game with five Heroism counters.  When you play a Character with Hand Cost greater than or equal to my number of Heroism counters — Draw a card and I gain a Heroism counter.";BR_Common_AtsadiSurge;;;;
+318220;"Bravos Hero";"BR_Common_AtsadiSurge;BR_Common_BasiraKaizaimon;BR_Common_KojoBooda";;;;
+336559;"Basira & Kaizaimon";BR_Common_BasiraKaizaimon;"Basira & Kaizaimon";"Basira y Kaizaimon";"Basira e Kaizaimon";"Basira & Kaizaimon";1
+336560;"When a Character you control gains 1 or more boosts — You may exhaust me ({T}) to have target Character gain 1 boost$[BB].";BR_Common_BasiraKaizaimon;;;;
+317727;Booda;BR_Common_Booda;Booda;Booda;Booda;Booda;1
+336561;"Token - Companion";BR_Common_Booda;;;;
+336562;"$[SEASONED].  {J} I gain 1 boost.";BR_Common_BravosBladedancer;"$[SEASONED].  {J} Je gagne 1 boost.";"$[SEASONED].  {J} Gano 1 potenciador.";"$[SEASONED].  {J} Ottengo 1 rinforzo.";"$[SEASONED].  {J} Ich erhalte 1 Verstärkung.";1
+331157;"Bravos Bladedancer";BR_Common_BravosBladedancer;"Danseuse de Lames Bravos";"Hojadanzante de Bravos";"Danzatrice delle Lame Bravos";Bravos-Klingenwirblerin;1
+318209;"Bravos Pathfinder";BR_Common_BravosPathfinder;"Pionnière Bravos";"Exploradora de Bravos";"Apripista Bravos";Bravos-Pfadfinderin;1
+336563;"Character - Adventurer";"BR_Common_BravosPathfinder;BR_Common_BravosTracer;BR_Common_BravosVanguard;BR_Common_HavenBouncer;BR_Common_HuaMulan;BR_Common_IssunBoshi;BR_Common_Red;BR_Rare_BravosTracer;AX_Common_AmeliaEarhart";;;;
+318211;"Bravos Tracer";"BR_Common_BravosTracer;BR_Rare_BravosTracer";"Traceuse Bravos";"Parkurista de Bravos";"Rintracciatrice Bravos";Bravos-Sucherin;1
+336564;"{J} I gain $[FLEETING_CHAR].";"BR_Common_BravosTracer;BR_Rare_BravosTracer";;;;
+331626;"Bravos Vanguard";BR_Common_BravosVanguard;"Avant-Garde Bravos";"Vanguardia de Bravos";"Avanguardia Bravos";Bravos-Vorhut;1
+339744;"{J} You may have another target Character lose [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)";BR_Common_BravosVanguard;;;;
+320434;"Character - Trainer";BR_Common_Chiron;;;;
+318212;Chiron;BR_Common_Chiron;Chiron;Quirón;Chirone;Cheiron;1
+336566;"{J} Target Character gains 1 boost$[BB].";BR_Common_Chiron;"{J} Le Personnage ciblé gagne 1 boost$[BB].";"{J} Un personaje objetivo gana 1 potenciador$[BB].";"{J} Il personaggio bersaglio ottiene 1 rinforzo$[BB].";"{J} Ein Charakter deiner Wahl erhält 1 Verstärkung$[BB].";1
+318215;"Haven Bouncer";BR_Common_HavenBouncer;"Videuse Bravos";"Guarda del Refugio";"Buttafuori del Rifugio";Haven-Türsteher;1
+336567;"{H} $[SABOTAGE].  {R} I gain 1 boost.";BR_Common_HavenBouncer;"{H} $[SABOTAGE].  {R} Je gagne 1 boost.";"{H} $[SABOTAGE].  {R} Gano 1 potenciador.";"{H} $[SABOTAGE].  {R} Ottengo 1 rinforzo.";"{H} $[SABOTAGE].  {R} Ich erhalte 1 Verstärkung.";1
+331629;"Haven, Bravos Bastion";BR_Common_HavenBravosBastion;"Havre, Bastion Bravos";"El Refugio, bastión de Bravos";"Rifugio, Bastione Bravos";"Haven, Bravos-Bastion";1
+336568;"Your Characters have: ""{R} I gain 1 boost$[BB].""";BR_Common_HavenBravosBastion;"Vos Personnages ont : « {R} Je gagne 1 boost$[BB]. »";"Tus personajes tienen: ""{R} Gano 1 potenciador$[BB]"".";"I tuoi personaggi hanno: ""{R} Ottengo 1 rinforzo$[BB].""";"Deine Charaktere haben: ""{R} Ich erhalte 1 Verstärkung$[BB].""";1
+336570;"Character - Apprentice";BR_Common_HavenTrainee;;;;
+320433;"Haven Trainee";BR_Common_HavenTrainee;"Aspirant de Havre";"Discípulo del Refugio";"Allievo del Rifugio";Haven-Lehrling;1
+336569;"{R} I gain 2 boosts$[BB].";"BR_Common_HavenTrainee;BR_Common_Ratatoskr;BR_Common_SunWukong";"{R} Je gagne 2 boosts$[BB].";"{R} Gano 2 potenciadores$[BB].";"{R} Ottengo 2 rinforzi$[BB].";"{R} Ich erhalte 2 Verstärkungen$[BB].";1
+339745;"Haven Warrior";"BR_Common_HavenWarrior;BR_Rare_HavenWarrior";"Guerrière de Havre";"Guerrera del Refugio";"Guerriera del Rifugio";Haven-Kriegerin;1
+331631;"Helping Hand";BR_Common_HelpingHand;"Main Tendue";"Mano amiga";"Mano Tesa";"Helfende Hand";1
+336571;"Target Character gains 1 boost$[BB] and loses [FLEETING_CHAR].";BR_Common_HelpingHand;"Le Personnage ciblé gagne 1 boost$[BB] et perd [FLEETING_CHAR].";"Un personaje objetivo gana 1 potenciador$[BB] y pierde [FLEETING_CHAR].";"Il personaggio bersaglio ottiene 1 rinforzo$[BB] e perde [FLEETING_CHAR].";"Ein Charakter deiner Wahl erhält 1 Verstärkung$[BB] und verliert $[FLEETING_CHAR].";1
+318218;"Hua Mulan";BR_Common_HuaMulan;"Hua Mulan";"Hua Mulan";"Hua Mulan";"Hua Mulan";1
+336572;"{R} I lose [FLEETING_CHAR].";BR_Common_HuaMulan;"{R} Je perds [FLEETING_CHAR].";"{R} Pierdo [FLEETING_CHAR].";"{R} Perdo [FLEETING_CHAR].";"{R} Ich verliere [FLEETING_CHAR].";1
+336573;"$[FLEETING].  Return target Character or Permanent with Hand Cost {4} or less to its owner's hand.";BR_Common_Intimidation;"$[FLEETING].  Renvoyez le Personnage ou Permanent ciblé avec un Coût de Main {4} ou moins dans la main de son propriétaire.";"$[FLEETING].  Devuelve a la mano de su propietario un personaje o permanente objetivo con coste desde la mano de {4} o menos.";"$[FLEETING].  Fai tornare il personaggio o il permanente bersaglio con costo dalla mano pari o inferiore a {4} in mano al suo proprietario.";"$[FLEETING].  Schicke einen Charakter oder eine bleibende Karte deiner Wahl mit Handkosten {4} oder weniger in die Hand ihres Besitzers zurück.";1
+317736;Intimidation;BR_Common_Intimidation;Intimidation;Intimidación;Intimidazione;Einschüchterung;1
+331634;Issun-Boshi;BR_Common_IssunBoshi;;;;
+336574;"{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)";BR_Common_IssunBoshi;"{D} : Le prochain Personnage que vous jouez ce tour gagne 1 boost. (Défaussez-moi de la Réserve pour ça.)";"{D}: El siguiente personaje que juegues este turno gana 1 potenciador. (Descártame de tu reserva para jugar esta acción).";"{D} : Il prossimo personaggio che giochi in questo turno ottiene 1 rinforzo. (Scartami dalla Riserva per giocare questa azione.)";"{D} : Der nächste Charakter, den du in dieser Runde spielst, erhält 1 Verstärkung. (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+336576;"$[GIGANTIC].  $[TOUGH_X], where X is the numbers of regions between your Hero and Companion. (If they are adjacent, X equals 0.)";BR_Common_KaibaraAsgarthanLeviathan;"$[GIGANTIC].  $[TOUGH_X], où X est le nombre de régions entre votre Héros et votre Compagnon. (S'ils sont adjacents, X est égal à 0.)";"$[GIGANTIC]. $[TOUGH_X], donde X equivale al número de regiones que hay entre tu héroe y tu compañero.  (Si están adyacentes, X equivale a 0).";"$[GIGANTIC].  $[TOUGH_X], dove X è il numero di regioni tra il tuo eroe e il tuo compagno. (Se sono adiacenti, X equivale a 0.)";"$[GIGANTIC].  $[TOUGH_X], wobei X die Anzahl der Regionen zwischen deinem Helden und deinem Gefährten ist. (Wenn die beiden Expeditionen nebeneinander liegen, ist X gleich 0).";1
+336577;"Character - Leviathan";BR_Common_KaibaraAsgarthanLeviathan;;;;
+328056;"Kaibara, Asgarthan Leviathan";BR_Common_KaibaraAsgarthanLeviathan;"Kaibara, Léviathan Asgarthi";"Kaibara, leviatán asgarthiano";"Kaibara, Leviatano Asgarthan";"Kaibara, Leviathan von Asgartha";1
+336579;"Character - Spirit Trainer";BR_Common_Kappa;;;;
+336578;Kappa;BR_Common_Kappa;Kappa;Kappa;Kappa;Kappa;1
+336580;"At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.";BR_Common_KojoBooda;;;;
+318219;"Kojo & Booda";BR_Common_KojoBooda;"Kojo & Booda";"Kojo y Booda";"Kojo e Booda";"Kojo & Booda";1
+339747;"$[FLEETING].  Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).";BR_Common_ManaChanneling;"$[FLEETING].  Mettez la première carte de votre deck dans votre zone de Mana (en tant qu'Orbe de Mana épuisé).";"$[FLEETING].  Coloca la primera carta de tu mazo en tu zona de maná (como orbe de maná agotado).";"$[FLEETING].  Metti la prima carta del tuo mazzo nella tua area del mana (come una sfera di mana consumata).";"$[FLEETING].  Lege die oberste Karte deines Decks in deine Manazone (als erschöpfte Manakugel).";1
+339746;"Mana Channeling";BR_Common_ManaChanneling;"Canalisation de Mana";"Canalización de maná";"Canalizzazione del Mana";Mana-Kanalisierung;1
+336584;"$[FLEETING].  Discard one of your Mana Orbs to discard target Character or Permanent.";BR_Common_ManaEruption;;;;
+336583;"Mana Eruption";BR_Common_ManaEruption;"Éruption de Mana";"Erupción de maná";"Eruzione di Mana";Mana­-Eruption;1
+339748;"Mighty Jinn";BR_Common_MightyJinn;"Puissant Jinn";"Jinn poderoso";"Grande Jinn";"Mächtiger Dschinn";1
+339749;"When I leave the Expedition zone — You may put me in my owner's Mana zone (as an exhausted Mana Orb).";BR_Common_MightyJinn;;;;
+336593;"Character - Elemental";"BR_Common_MightyJinn;BR_Common_TinyJinn;AX_Common_KelonElemental";;;;
+336588;$[SEASONED].;BR_Common_Red;$[SEASONED].;$[SEASONED].;$[SEASONED].;$[SEASONED].;1
+336587;Red;BR_Common_Red;Red;Roja;Red;Rotkäppchen;1
+336590;"Character - Dragon Deity";"BR_Common_Shenlong;BR_Rare_Shenlong";;;;
+336589;Shenlong;"BR_Common_Shenlong;BR_Rare_Shenlong";Shenlong;Shenlong;Shenlong;Shenlong;1
+327512;"Sun Wukong";"BR_Common_SunWukong;BR_Rare_SunWukong";"Sun Wukong";"Sun Wukong";"Sun Wukong";"Sun Wukong";1
+336591;"Tiny Jinn";BR_Common_TinyJinn;"Petit Djinn";"Jinn chiquitín";"Piccolo Jinn";Mini-Dschinn;1
+336592;"When I leave the Expedition zone, if I'm [BOOSTED] — Put me in my owner's Mana zone (as an exhausted Mana Orb).  {R} I gain 1 boost.";BR_Common_TinyJinn;;;;
+336595;"I can't be played if you have less than seven Mana Orbs.";BR_Common_TomoeGozen;"Je ne peux pas être joué si vous avez moins de sept Orbes de Mana.";"No puedes jugarme si tienes menos de 7 orbes de maná.";"Non posso essere giocata se hai meno di sette sfere di mana.";"Ich kann nicht gespielt werden, wenn du weniger als sieben Manakugeln hast.";1
+336594;"Tomoe Gozen";BR_Common_TomoeGozen;"Tomoe Gozen";"Tomoe Gozen";"Tomoe Gozen";"Tomoe Gozen";1
+340310;"Target Character gains 3 boosts$[BB].  #Draw a card.#";BR_Rare_PhysicalTraining;"Le Personnage ciblé gagne 3 boosts$[BB].  #Piochez une carte.#";"Un personaje objetivo gana 3 potenciadores$[BB]. #Roba 1 carta.#";"Il personaggio bersaglio ottiene 3 rinforzi$[BB].  #Pesca una carta.#";"Ein Charakter deiner Wahl erhält 3 Verstärkungen$[BB].  #Ziehe eine Karte.#";1
+339750;"{R} I gain #3 boosts$[BB]#.";BR_Rare_Ratatoskr;"{R} Je gagne #3 boosts$[BB]#.";"{R} Gano #3 potenciadores$[BB]#.";"{R} Ottengo #3 rinforzi[BB]#.";"{R} Ich erhalte #3 Verstärkungen$[BB]#.";1
+341686;#$[TOUGH_1].#;BR_Rare_Shenlong;#$[TOUGH_1].#;#$[TOUGH_1].#;#$[TOUGH_1].#;#$[TOUGH_1].#;1
+339751;"{R} I gain 2 boosts$[BB] #and lose [FLEETING_CHAR]#.";BR_Rare_SunWukong;"{R} Je gagne 2 boosts$[BB] #et je perds [FLEETING_CHAR]#.";"{R} Gano 2 potenciadores$[BB] #y pierdo [FLEETING_CHAR]#.";"{R} Ottengo 2 rinforzi$[BB] #e perdo [FLEETING_CHAR]#.";"{R} Ich erhalte 2 Verstärkungen$[BB] #und verliere [FLEETING_CHAR]#.";1
+336675;"A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone";Cards;;;;
+336669;"After You";Cards;;;;
+336671;Anchored;Cards;;;;
+336673;Asleep;Cards;;;;
+336676;"Booda 2/2/2";Cards;;;;
+336677;Boosted;Cards;;;;
+336678;"Brassbug 2/2/2";Cards;;;;
+317797;"Confirm discard";Cards;;;;
+336679;Defender;Cards;;;;
+327604;"Discard of ${player_name}";Cards;;;;
+336693;"Discard up to one target card from a Reserve.";Cards;;;;
+336674;"During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep.";Cards;;;;
+336672;"During Rest, I don't go to Reserve and I lose Anchored.";Cards;;;;
+336682;"During Rest, I don't go to Reserve.";Cards;;;;
+336670;"End your turn as if you had played a card. You may still play cards later this Day.";Cards;;;;
+336681;Eternal;Cards;;;;
+336683;Fleeting;Cards;;;;
+336686;Gigantic;Cards;;;;
+336687;"I am considered present in each of your Expeditions.";Cards;;;;
+336695;"I keep my boosts when I go to Reserve.";Cards;;;;
+336684;"If I would be sent to Reserve, discard me instead.";Cards;;;;
+336688;"Maw 0/0/0";Cards;;;;
+336680;"My Expedition can't advance during Dusk.";Cards;;;;
+336689;"Ordis Recruit 1/1/1";Cards;;;;
+336691;"Put the top card of your deck in Reserve.";Cards;;;;
+336690;Resupply;Cards;;;;
+336692;Sabotage;Cards;;;;
+336694;Seasoned;Cards;;;;
+336685;"Send me to Discard instead of Reserve after my effect resolves.";Cards;;;;
+317796;"Show cards";Cards;;;;
+336696;"Tough 1";Cards;;;;
+336698;"Tough 2";Cards;;;;
+336700;"Tough X";Cards;;;;
+327605;"Your mana cards";Cards;;;;
+336697;"Your opponent's Spells and abilities that target me cost {1} more.";Cards;;;;
+336699;"Your opponent's Spells and abilities that target me cost {2} more.";Cards;;;;
+336701;"Your opponent's Spells and abilities that target me cost {X} more.";Cards;;;;
+317751;"Choose an assignment";ChooseAssignment;;;;
+324022;"${player_name} discards ${n} card(s) from the ${source}";Discard;;;;
+317754;"${player_name} puts ${n} card(s) to players' hand";Discard;;;;
+341675;"Discard ${card}";Discard;;;;
+341676;"Sacrifice ${card}";Discard;;;;
+324020;"discard to ${location} ${card}";Discard;;;;
+317755;"All players draw ${n} card(s)";Draw;;;;
+317757;"Draw ${n} card(s)";Draw;;;;
+317756;"The opponent draws ${n} card(s)";Draw;;;;
+336650;"${player_name} draws ${n} card(s) and put them as mana";DrawMana;;;;
+336649;"Put ${n} to mana";DrawMana;;;;
+317549;"You can't take an irreversible action if there is a mandatory undoable action pending (eg unpayable Venom fee)";Engine;;;;
+317758;"Gain ${resources_desc}";Gain;;;;
+317759;"Let ${player_name} gain ${resources_desc}";Gain;;;;
+317799;"Display some settings about the game.";Game;;;;
+317800;"Pass action";Game;;;;
+317801;You;Game;;;;
+317513;altered_displayed;"Game name";;;;
+341680;Decks;"Gameoptions;gameoptions";;;;
+341681;"Demo decks";"Gameoptions;gameoptions";;;;
+341683;"Starter decks";"Gameoptions;gameoptions";;;;
+341682;"[Demo decks]";"Gameoptions;gameoptions";;;;
+317517;Disabled;"Gameoptions;gamepreferences";;;;
+317516;Enabled;"Gameoptions;gamepreferences";;;;
+317519;"Enabled with timer";"Gameoptions;gamepreferences";;;;
+317518;"Turn confirmation";"Gameoptions;gamepreferences";;;;
+317520;"Undoable actions confirmation";"Gameoptions;gamepreferences";;;;
+317515;"Display tooltips";gamepreferences;;;;
+327602;"Invoke ${tokenName}";InvokeToken;;;;
+331639;"Let ${player_name} loose ${resources_desc}";Loose;;;;
+331638;"loose ${resources_desc}";Loose;;;;
+336512;"A Cappella Training";LY_Common_ACappellaTraining;"Entraînement A Cappella";"Clase de a capela";"Addestramento a Cappella";A-cappella-Ausbildung;1
+336513;"Target Character gains $[FLEETING_CHAR].";LY_Common_ACappellaTraining;;;;
+336514;"Spell - Song";"LY_Common_ACappellaTraining;LY_Common_TwinkleTwinkle";;;;
+318173;"All In!";LY_Common_AllIn;Tapis !;"¡Voy con todo!";"Rischia Tutto!";"Aufs Ganze!";1
+336515;"Roll a die. Target Character gains X boosts$[BB], where X is the result.";LY_Common_AllIn;"Lancez un dé. Le Personnage ciblé gagne X boosts$[BB], X étant le résultat.";"Tira un dado. Un personaje objetivo gana X potenciadores$[BB], donde X equivale al resultado.";"Lancia un dado. Il personaggio bersaglio ottiene X rinforzi$[BB], dove X è il risultato.";"Würfle einmal. Ein Charakter deiner Wahl erhält X Verstärkungen$[BB], wobei X das Endergebnis ist.";1
+336516;"Amahle, Asgarthan Outcast";LY_Common_AmahleAsgarthanOutcast;"Amahle, Paria Asgarthi";"Amahle, paria asgarthiano";"Amahle, Reietto Asgarthan";"Amahle, Ausgestoßener von Asgartha";1
+336517;"{J} You may discard a card from your Reserve to draw a card.";LY_Common_AmahleAsgarthanOutcast;"{J} Vous pouvez défausser une carte de votre Réserve pour piocher une carte.";"{J} Puedes descartar 1 carta de tu reserva para robar 1 carta.";"{J} Puoi scartare una carta dalla tua Riserva per pescare una carta.";"{J} Du darfst eine Karte aus deiner Reserve ablegen, um eine Karte zu ziehen.";1
+336519;Anansi;LY_Common_Anansi;Anansi;Anansi;Anansi;Anansi;1
+336520;"{J} I gain 1 boost$[BB] for each card in your Reserve.";LY_Common_Anansi;"{J} Je gagne 1 boost$[BB] pour chaque carte dans votre Réserve.";"{J} Gano 1 potenciador$[BB] por cada carta que hay en tu reserva.";"{J} Ottengo 1 rinforzo$[BB] per ogni carta nella tua Riserva.";"{J} Ich erhalte 1 Verstärkung$[BB] für jede Karte in deiner Reserve.";1
+318175;Asmodeus;"LY_Common_Asmodeus;LY_Rare_Asmodeus";Asmodée;Asmodeo;Asmodeo;Asmodeus;1
+336522;"{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts$[BB].";"LY_Common_Asmodeus;LY_Rare_Asmodeus";"{J} Lancez un dé. Sur 4 ou plus, je gagne $[ANCHORED]. Sinon, je gagne 3 boosts.";"{J} Tira un dado. Si sacas 4 o más, gano $[ANCHORED]. De lo contrario, gano 3 potenciadores$[BB].";"{J} Lancia un dado. Se il risultato è pari o superiore a 4, ottengo $[ANCHORED]. Altrimenti, ottengo 3 rinforzi$[BB].";"{J} Würfle einmal. Bei einer 4 oder höher erhalte ich $[ANCHORED]. Andernfalls erhalte ich 3 Verstärkungen$[BB].";1
+336523;"$[FLEETING].  Choose one:  • Discard target [FLEETING_CHAR], [ANCHORED] or [ASLEEP] Character.  • Discard target Permanent.";LY_Common_ClothCocoon;"$[FLEETING].  Choisissez l'un:  • Défaussez le Personnage [FLEETING_CHAR], [ANCHORED] or [ASLEEP] ciblé.  • Défaussez le Permanent ciblé.";"$[FLEETING].  Elige una opción:  • Descarta un personaje objetivo con [FLEETING_CHAR], [ANCHORED] o [ASLEEP].  • Descarta un permanente objetivo.";"$[FLEETING].  Scegli uno:  • Scarta un personaggio bersaglio con [FLEETING_CHAR], [ANCHORED] o [ASLEEP].  • Scarta un permanente bersaglio.";"$[FLEETING].  Wähle eine Aktion:  • Lege einen Charakter deiner Wahl mit [FLEETING_CHAR], [ANCHORED] oder [ASLEEP] ab.  • Lege eine bleibende Karte deiner Wahl ab.";1
+318178;"Cloth Cocoon";LY_Common_ClothCocoon;"Cocon d'Étoffe";"Crisálida de tela";"Bozzolo di Tessuto";Stoff-Kokon;1
+336524;"{H} $[RESUPPLY].";LY_Common_Esmeralda;"{H} $[RESUPPLY].";"{H} $[RESUPPLY].";"{H} $[RESUPPLY].";"{H} $[RESUPPLY].";1
+318180;Esmeralda;"LY_Common_Esmeralda;LY_Rare_Esmeralda";Esmeralda;Esmeralda;Esmeralda;Esmeralda;1
+336526;"Character - Artist Deity";LY_Common_Hathor;;;;
+318184;Hathor;LY_Common_Hathor;Hathor;Hathor;Hathor;Hathor;1
+336525;"{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.)";LY_Common_Hathor;"{D} : Renvoyez une autre carte de votre Réserve dans votre main. (Défaussez-moi de la Réserve pour ça.)";"{D}: Devuelve a tu mano otra carta de tu reserva. (Descártame de tu reserva para jugar esta acción).";"{D} : Riprendi in mano un'altra carta dalla tua Riserva. (Scartami dalla Riserva per giocare questa azione.)";"{D} : Nimm eine weitere Karte aus deiner Reserve wieder in deine Hand auf. (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+336527;Loki;LY_Common_Loki;Loki;Loki;Loki;Loki;1
+336528;"{H} Each player discards their hand, then draws three cards.";LY_Common_Loki;"{H} Chaque joueur défausse sa main, puis pioche trois cartes.";"{H} Cada jugador descarta su mano y luego roba 3 cartas.";"{H} Ogni giocatore scarta la sua mano, poi pesca tre carte.";"{H} Jeder Spieler legt seine Hand ab und zieht dann drei Karten.";1
+318186;"Lyra Chronicler";LY_Common_LyraChronicler;"Chroniqueuse Lyra";"Cronista de Lyra";"Cronista Lyra";Lyra-Chronistin;1
+336530;"Lyra Festival";LY_Common_LyraFestival;"Festival Lyra";"Festival de Lyra";"Festival Lyra";Lyra-Fest;1
+336531;"{J} Draw a card.  At Dusk — If you control a [FLEETING] Character, another [ANCHORED] Character and yet another [ASLEEP] Character, you win the game.";LY_Common_LyraFestival;;;;
+336532;"Lyra Navigator";LY_Common_LyraNavigator;"Navigatrice Lyra";"Navegante de Lyra";"Navigatrice Lyra";Lyra-Navigatorin;1
+318190;"Lyra Skald";LY_Common_LyraSkald;"Skald Lyra";"Escaldo de Lyra";"Skald Lyra";Lyra-Skalde;1
+336533;"Lyra Thespian";LY_Common_LyraThespian;"Comédien Lyra";"Actor de Lyra";"Tespiano Lyra";Lyra-Mime;1
+336534;"{J} If you have three or more base statistics of 0 among Characters you control, I gain 1 boost$[BB].";LY_Common_LyraThespian;"{J} Si vous avez au moins trois statistiques de base de 0 parmi les Personnages que vous contrôlez, je gagne 1 boost$[BB].";"{J} Si tienes al menos 3 estadísticas básicas de 0 entre personajes que controles, gano 1 potenciador$[BB].";"{J} Se hai almeno tre statistiche base pari a 0 tra i personaggi che controlli, ottengo 1 rinforzo$[BB].";"{J} Wenn du unter den Charakteren, die du kontrollierst, mindestens drei Basisstatistiken von 0 hast, erhalte ich 1 Verstärkung$[BB].";1
+336537;"Character - Animal Spirit";LY_Common_Martengale;;;;
+336535;Martengale;LY_Common_Martengale;Martengale;Martengala;Martingala;Martengale;1
+336536;"{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)";"LY_Common_Martengale;LY_Common_TwinkleTwinkle";"{D} : La prochaine carte que vous jouez ce tour coûte {1} de moins. (Défaussez-moi de la Réserve pour ça.)";"{D}: La siguiente carta que juegues este turno cuesta {1} menos. (Descártame de tu reserva para jugar esta acción).";"{D} : La prossima carta che giochi in questo turno costa {1} in meno. (Scartami dalla Riserva per giocare questa azione.)";"{D} : Die nächste Karte, die du in dieser Runde spielst, kostet {1} weniger. (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+336539;"$[FLEETING].  Reveal the top four cards of your Deck. Choose up to two Characters from these cards and put them in your Expeditions. They gain [FLEETING]. Discard the other cards. (Don't activate any {h} triggers.)";LY_Common_MindApotheosis;"$[FLEETING].  Révélez les quatre premières cartes de votre Deck. Choisissez jusqu'à deux Personnages parmi ces cartes et mettez les dans vos Expéditions. Ils gagnent [FLEETING]. Défaussez les autres cartes. (N'activez pas de déclencheurs {h}.)";"$[FLEETING].  Revela las 4 primeras cartas de tu mazo. Elige hasta 2 personajes entre estas cartas y colócalos en tus expediciones. Ganan [FLEETING]. Descarta las otras cartas. (No actives ningún efecto disparado {h}).";"$[FLEETING].  Rivela le prime quattro carte del tuo mazzo. Scegli fino a due personaggi tra queste carte e mettili nell'area delle spedizioni. Ottengono [FLEETING]. Scarta le altre carte. (Non attivi alcun innesco {h}.)";"$[FLEETING].  Decke die obersten vier Karten deines Decks auf. Wähle bis zu zwei Charaktere aus diesen Karten und lege sie in deine Expeditionen. Sie erhalten [FLEETING]. Lege die anderen Karten ab. (Aktiviere keine {h} Auslöser.)";1
+336538;"Mind Apotheosis";LY_Common_MindApotheosis;"Apothéose de l'Esprit";"Apoteosis mental";"Apoteosi Mentale";"Geistige Durchdringung";1
+336540;"Spell - Conjuration";"LY_Common_MindApotheosis;BR_Common_ManaChanneling";;;;
+318192;"Lyra Hero";LY_Common_NevenkaBlotch;;;;
+318191;"Nevenka & Blotch";LY_Common_NevenkaBlotch;"Nevenka & Blotch";"Nevenka y Mancha";"Nevenka e Macchia";"Nevenka & Klecks";1
+336542;"{T} : Target a Character you control, then roll a die.  • On a 6 or higher, it gains [ANCHORED]. (During Rest, it doesn't go to Reserve and it loses Anchored.)  • On a 1, send it to Reserve.  • On all other results, it gains 1 boost$[BB].";LY_Common_NevenkaBlotch;;;;
+336543;"Ouroboros Croupier";LY_Common_OuroborosCroupier;"Croupière de l'Ouroboros";"Crupier del Uroboros";"Croupier dell'Uroboro";Ouroboros-Croupier;1
+339742;"{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $[RESUPPLY].";LY_Common_OuroborosCroupier;"{H} Lancez un dé. Sur 4 ou plus, piochez une carte. Sinon, $[RESUPPLY].";"{H} Tira un dado. Si sacas 4 o más, roba 1 carta. De lo contrario, $[RESUPPLY].";"{H} Lancia un dado. Se il risultato è pari o superiore a 4, pesca una carta. Altrimenti, usa $[RESUPPLY].";"{H} Würfle einmal. Bei einer 4 oder höher ziehe eine Karte. Andernfalls $[RESUPPLY].";1
+336545;"Ouroboros Inkcaster";LY_Common_OuroborosInkcaster;"Encrière de l'Ouroboros";"Tejetintas del Uroboros";"Grafomante dell'Uroboro";Ouroboros-Tintengießerin;1
+336546;"When I go to Reserve from the Expedition zone — You may return another card from your Reserve to your hand.";LY_Common_OuroborosInkcaster;;;;
+336547;"{J} Roll a die. On a 4 or higher, I gain 2 boosts. Otherwise, I gain 1 boost$[BB].";LY_Common_OuroborosTrickster;"{J} Lancez un dé. Sur 4 ou plus, je gagne 2 boosts. Sinon, je gagne 1 boost$[BB].";"{J} Tira un dado. Si sacas 4 o más, gano 2 potenciadores. De lo contrario, gano 1 potenciador$[BB].";"{J} Lancia un dado. Se il risultato è pari o superiore a 4, ottengo 2 rinforzi. Altrimenti, ottengo 1 rinforzo$[BB].";"{J} Würfle einmal. Bei einer 4 oder höher erhalte ich 2 Verstärkungen. Andernfalls erhalte ich 1 Verstärkung$[BB].";1
+318196;"Ouroboros Trickster";"LY_Common_OuroborosTrickster;LY_Rare_OuroborosTrickster";"Chapardeuse de l'Ouroboros";"Timadora del Uroboros";"Mistificatrice dell'Uroboro";Ouroboros-Schwindlerin;1
+336549;"$[FLEETING].  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner's deck.";LY_Common_PaintPrison;"$[FLEETING].  Vous pouvez défausser une carte de votre réserve pour réduire mon coût de {2}.  Renvoyez le Personnage ou le Permanent ciblé sur le dessus du deck de son propriétaire.";"$[FLEETING].  Puedes descartar una carta de tu reserva para reducir mi coste en {2}.  Devuelve un personaje o permanente objetivo a la parte superior del mazo de su propietario.";"$[FLEETING].  Puoi scartare una carta dalla tua Riserva per ridurre il mio costo di {2}.  Fai tornare il personaggio o il permanente bersaglio in cima al mazzo del suo proprietario.";"$[FLEETING].  Du darfst eine Karte aus deiner Reserve ablegen, um meine Kosten um {2} zu reduzieren.  Lege einen Charakter oder eine bleibende Karte deiner Wahl oben auf das Deck ihres Besitzers zurück.";1
+336548;"Paint Prison";LY_Common_PaintPrison;"Prison de Peinture";"Prisión de pintura";"Prigione di Vernice";Farben-Falle;1
+336550;Tanuki;"LY_Common_Tanuki;LY_Rare_Tanuki";Tanuki;Tanuki;Tanuki;Tanuki;1
+327563;"(*He can't swim.*)";LY_Common_TheHatter;;;;
+320903;"The Hatter";LY_Common_TheHatter;"Le Chapelier";"El Sombrerero";"Il Cappellaio";"Der Hutmacher";1
+336551;"The Sandman";LY_Common_TheSandman;"Le Marchand de Sable";"El Arenero";"Omino del Sonno";"Der Sandmann";1
+336552;"{H} Up to one target Character gains $[ASLEEP].";LY_Common_TheSandman;;;;
+336553;"Twinkle Twinkle";LY_Common_TwinkleTwinkle;"Meunier, Tu Dors";"Estrellita, ¿dónde estás?";"Stella Stellina";"Schlaf, Kindlein, schlaf";1
+327564;"#{J}# $[RESUPPLY].";LY_Rare_Esmeralda;"#{J}# $[RESUPPLY].";"#{J}# $[RESUPPLY].";"#{J}# $[RESUPPLY].";"#{J}# $[RESUPPLY].";1
+339743;"{J} Roll a die. On a 4 or higher, I gain #3 boosts#. Otherwise, I gain 1 boost$[BB].";LY_Rare_OuroborosTrickster;"{J} Lancez un dé. Sur 4 ou plus, je gagne #3 boosts#. Sinon, je gagne 1 boost$[BB].";"{J} Tira un dado. Si sacas 4 o más, gano #3# potenciadores. De lo contrario, gano 1 potenciador$[BB].";"{J} Lancia un dado. Se il risultato è pari o superiore a 4, ottengo #3 rinforzi#. Altrimenti, ottengo 1 rinforzo$[BB].";"{J} Würfle einmal. Bei einer 4 oder höher erhalte ich #3 Verstärkungen#. Andernfalls erhalte ich 1 Verstärkung$[BB].";1
+340309;"{H} $[SABOTAGE].  #{R} Roll a die. On a 4 or higher, [SABOTAGE].#";LY_Rare_Tanuki;"{H} $[SABOTAGE].  #{R} Lancez un dé. Sur 4 ou plus, [SABOTAGE].#";"{H} $[SABOTAGE].  #{R} Tira un dado. Si sacas 4 o más, [SABOTAGE].#";"{H} $[SABOTAGE].  #{R} Lancia un dado. Se il risultato è pari o superiore a 4, [SABOTAGE].#";"{H} $[SABOTAGE].  #{R} Würfle einmal. Bei einer 4 oder höher — [SABOTAGE].#";1
+317677;"First player";Meeples;;;;
+317798;"Fleeting: if I would be send to reserve, banish me instead.";Meeples;;;;
+331193;"move ${card_name} to opposite expedition";MoveCard;;;;
+331192;"move a character to opposite expedition";MoveCard;;;;
+323690;"Move expedition";"MoveCard;MoveExpedition";;;;
+324023;"In tie-breaker this power have no effect.";MoveExpedition;;;;
+318151;Cernunnos;MU_Common_Cernunnos;Cernunnos;Cernunnos;Cernunnos;Cernunnos;1
+336497;"Character - Druid Deity";MU_Common_Cernunnos;;;;
+336499;"Character - Plant";"MU_Common_ConiferalConeman;MU_Common_DaughterofYggdrasil;MU_Common_SneezerShroom;MU_Rare_ConiferalConeman;MU_Rare_SneezerShroom";;;;
+336498;"{J} I gain $[ANCHORED].";"MU_Common_ConiferalConeman;MU_Common_SneezerShroom;MU_Common_SpindleHarvesters;MU_Rare_ConiferalConeman";"{J} Je gagne $[ANCHORED].";"{J} Gano $[ANCHORED].";"{J} Ottengo $[ANCHORED].";"{J} Ich erhalte $[ANCHORED].";1
+317698;"Coniferal Coneman";"MU_Common_ConiferalConeman;MU_Rare_ConiferalConeman";"Pignon Pugnace";"Piñante conífero";"Uomopigna Conifero";Kiefernzapfenkerl;1
+318155;"Daughter of Yggdrasil";MU_Common_DaughterofYggdrasil;"Fille d'Yggdrasil";"Hija de Yggdrasil";"Figlia di Yggdrasil";"Tochter von Yggdrasil";1
+336500;"{H} Target opponent draws a card.";MU_Common_DaughterofYggdrasil;"{H} L'adversaire ciblé pioche une carte.";"{H} Un oponente objetivo roba 1 carta.";"{H} L'avversario bersaglio pesca una carta.";"{H} Ein Gegner deiner Wahl zieht eine Karte.";1
+317703;Inari;MU_Common_Inari;Inari;Inari;Inari;Inari;1
+317704;Kitsune;MU_Common_Kitsune;Kitsune;Kitsune;Kitsune;Kitsune;1
+336501;"{H} Each player draws a card.";MU_Common_Kitsune;"{H} Chaque joueur pioche une carte.";"{H} Cada jugador roba 1 carta.";"{H} Ogni giocatore pesca una carta.";"{H} Jeder Spieler zieht eine Karte.";1
+336502;"Character - Spirit";"MU_Common_Kitsune;LY_Common_Tanuki;LY_Rare_Tanuki";;;;
+336504;"Spell - Boon";"MU_Common_MeditationTraining;MU_Common_Nurture;MU_Rare_MeditationTraining;MU_Rare_Nurture;MU_Rare_PhysicalTraining;LY_Common_AllIn;BR_Common_HelpingHand;BR_Common_PhysicalTraining;BR_Rare_PhysicalTraining;AX_Common_MechanicalTraining";;;;
+318158;"Meditation Training";"MU_Common_MeditationTraining;MU_Rare_MeditationTraining";"Entraînement à la Méditation";"Clase de meditación";"Addestramento di Meditazione";Meditationstraining;1
+336503;"Target Character with Hand Cost {3} or less gains $[ANCHORED].";"MU_Common_MeditationTraining;MU_Rare_MeditationTraining";;;;
+317707;"Muna Druid";MU_Common_MunaDruid;"Druide Muna";"Druida de Muna";"Druido Muna";Muna-Druide;1
+336505;"{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.)";"MU_Common_MunaDruid;LY_Common_TheHatter";"{D} : Le Personnage ciblé de Coût de Main {3} ou moins gagne [ANCHORED]. (Défaussez-moi de la Réserve pour ça.)";"{D}: Un personaje objetivo con coste desde la mano de {3} o menos gana [ANCHORED]. (Descártame de tu reserva para jugar esta acción).";"{D} : Il personaggio bersaglio con costo dalla mano pari o inferiore a {3} ottiene [ANCHORED]. (Scartami dalla Riserva per giocare questa azione.)";"{D} : Ein Charakter deiner Wahl mit Handkosten {3} oder weniger erhält [ANCHORED]. (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+336506;"Character - Druid";"MU_Common_MunaDruid;MU_Common_YongSuVerdantWeaver;MU_Rare_YongSuVerdantWeaver";;;;
+336507;"Up to two target Characters each gain 1 boost$[BB].";MU_Common_Nurture;"Jusqu'à deux Personnages ciblés gagnent chacun 1 boost$[BB].";"Hasta 2 personajes objetivo ganan 1 potenciador$[BB] cada uno.";"Fino a due personaggi bersaglio ottengono 1 rinforzo$[BB] ciascuno.";"Bis zu zwei Charaktere deiner Wahl erhalten je 1 Verstärkung$[BB].";1
+318160;Nurture;"MU_Common_Nurture;MU_Rare_Nurture";Abreuver;Cuidar;Coltivare;Nähren;1
+341264;"{H} Target Character gains $[ANCHORED].";MU_Common_Parvati;;;;
+341263;Parvati;"MU_Common_Parvati;MU_Rare_Parvati";Parvati;Parvati;Parvati;Parvati;1
+317712;"Sneezer Shroom";"MU_Common_SneezerShroom;MU_Rare_SneezerShroom";"Champignon Éternueur";"Hongo achís";"Funghetto dello Starnuto";Niespilz;1
+336508;"Character - Plant Animal";MU_Common_SpindleHarvesters;;;;
+318162;"Spindle Harvesters";MU_Common_SpindleHarvesters;"Vendangeurs du Fuseau";"Cosechadores del Balaustre";"Mietitori del Fuso";Spindelsammler;1
+318164;"Muna Hero";MU_Common_TeijaNauraa;;;;
+318163;"Teija & Nauraa";MU_Common_TeijaNauraa;"Teija & Nauraa";"Teija y Nauraa";"Teija e Nauraa";"Teija & Nauraa";1
+336509;"The first Character you play each Afternoon gains 1 boost$[BB].";MU_Common_TeijaNauraa;"Le premier Personnage que vous jouez chaque Après-midi gagne 1 boost$[BB].";"El primer personaje que juegues cada tarde gana 1 potenciador$[BB].";"Il primo personaggio che giochi ogni pomeriggio ottiene 1 rinforzo$[BB].";"Der erste Charakter, den du jeden Nachmittag spielst, erhält 1 Verstärkung$[BB].";1
+336510;"Characters you control have $[TOUGH_2].";"MU_Common_TheSpindleMunaBastion;BR_Rare_TheSpindleMunaBastion";"Les Personnages que vous contrôlez ont $[TOUGH_2].";"Los personajes que controles tienen $[TOUGH_2].";"I personaggi che controlli hanno $[TOUGH_2].";"Charaktere, die du kontrollierst, haben $[TOUGH_2].";1
+328053;"The Spindle, Muna Bastion";"MU_Common_TheSpindleMunaBastion;BR_Rare_TheSpindleMunaBastion";"Le Fuseau, Bastion Muna";"El Balaustre, bastión de Muna";"Il Fuso, Bastione Muna";"Die Spindel, Muna-Bastion";1
+341265;"Yong-Su, Verdant Weaver";"MU_Common_YongSuVerdantWeaver;MU_Rare_YongSuVerdantWeaver";"Yong-Su, Tisserand Verdoyant";"Yong-Su, tejedor de plantas";"Yong-Su, Tessitore Rigoglioso";"Yong-Su, Grünweber";1
+341266;"{J} If you control two or more Plants, I gain 2 boosts$[BB].";"MU_Common_YongSuVerdantWeaver;MU_Rare_YongSuVerdantWeaver";;;;
+336521;"Character - Artist";"MU_Rare_LyraClothDancer;LY_Common_Anansi;LY_Common_Esmeralda;LY_Common_LyraChronicler;LY_Common_LyraClothDancer;LY_Common_LyraSkald;LY_Common_LyraThespian;LY_Common_OuroborosInkcaster;LY_Common_TheSandman;LY_Rare_Esmeralda";;;;
+318187;"Lyra Cloth-Dancer";"MU_Rare_LyraClothDancer;LY_Common_LyraClothDancer";;;;
+336529;"{H} Up to one target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.)";"MU_Rare_LyraClothDancer;LY_Common_LyraClothDancer";"{H} Jusqu'à un Personnage ciblé gagne [FLEETING_CHAR]. (S'il devait être envoyé en Réserve, défaussez-le à la place.)";"{H} Hasta 1 personaje objetivo gana $[FLEETING_CHAR]. (Si fuese a ir a la reserva, en vez de eso, descártalo).";"{H} Fino a un personaggio bersaglio ottiene [FLEETING_CHAR]. (Se sta per finire nella Riserva, scartalo invece.)";"{H} Bis zu ein Charakter deiner Wahl erhält [FLEETING_CHAR]. (Wenn er in deine Reserve geschickt werden soll, lege ihn stattdessen ab.)";1
+340308;"#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.)";"MU_Rare_MeditationTraining;BR_Rare_HavenWarrior";"#{D} : Le prochain Personnage que vous jouez ce tour gagne 1 boost.# (Défaussez-moi de la Réserve pour ça.)";"#{D}: El siguiente personaje que juegues este turno gana 1 potenciador.# (Descártame de tu reserva para jugar esta acción).";"#{D} : Il prossimo personaggio che giochi in questo turno ottiene 1 rinforzo.# (Scartami dalla Riserva per giocare questa azione.)";"#{D} : Der nächste Charakter, den du in dieser Runde spielst, erhält 1 Verstärkung.# (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+339740;"Up to two target Characters each gain #2 boosts$[BB]#.";MU_Rare_Nurture;"Jusqu'à deux Personnages ciblés gagnent chacun #2 boosts$[BB]#.";"Hasta 2 personajes objetivo ganan #2 potenciadores$[BB]# cada uno.";"Fino a due personaggi bersaglio ottengono #2 rinforzi$[BB]# ciascuno.";"Bis zu zwei Charaktere deiner Wahl erhalten je #2 Verstärkungen$[BB]#.";1
+341267;"#{J}# Target Character gains $[ANCHORED].";MU_Rare_Parvati;;;;
+336585;"Target Character gains 3 boosts$[BB].";"MU_Rare_PhysicalTraining;BR_Common_PhysicalTraining";"Le Personnage ciblé gagne 3 boosts$[BB].";"Un personaje objetivo gana 3 potenciadores$[BB].";"Il personaggio bersaglio ottiene 3 rinforzi$[BB].";"Ein Charakter deiner Wahl erhält 3 Verstärkungen$[BB].";1
+317742;"Physical Training";"MU_Rare_PhysicalTraining;BR_Common_PhysicalTraining;BR_Rare_PhysicalTraining";"Entraînement Physique";"Entrenamiento físico";"Addestramento Fisico";"Körperliches Training";1
+339741;"{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost$[BB].#";MU_Rare_SneezerShroom;;;;
+317547;"You must select the correct number of cards to put as mana";NewDayTrait;;;;
+317548;"${player_name} choses ${n} card(s) as mana";"NewDayTrait;Discard";;;;
+317674;"${bonus_0} and ${bonus_1}";Notifications;;;;
+317675;"${bonus_0}, ${bonus_1} and ${bonus_2}";Notifications;;;;
+336464;"${card_name} gains ${increase} ${counterName}";Notifications;;;;
+317576;"${card_name} gains ${n} ${power}";Notifications;;;;
+317574;"${card_name} gains ${n} ${power} (${card_name2}'s effect)";Notifications;;;;
+317575;"${card_name} gains ${power}";Notifications;;;;
+317573;"${card_name} gains ${power} (${card_name2}'s effect)";Notifications;;;;
+317578;"${card_name} looses ${n} ${power}";Notifications;;;;
+323685;"${player_name} activates support effect of ${card_name} and discards it";Notifications;;;;
+317558;"${player_name} advances in ${expedition} expedition by winning in ${biome}";Notifications;;;;
+317557;"${player_name} becomes First player";Notifications;;;;
+317562;"${player_name} discards ${card_names}";Notifications;;;;
+317560;"${player_name} discards ${card_names} and moves ${card_names2} to reserve";Notifications;;;;
+320921;"${player_name} draws ${card_names} from his deck";Notifications;;;;
+317567;"${player_name} draws ${n} card(s) from its deck";Notifications;;;;
+317591;"${player_name} draws ${n} scoring cards from the deck";Notifications;;;;
+323686;"${player_name} exhauts its deck and shuffle the discard";Notifications;;;;
+323687;"${player_name} invokes ${card_name} in ${displayLocation} (${card_name2}'s effect)";Notifications;;;;
+317561;"${player_name} moves ${card_names2} to reserve";Notifications;;;;
+331153;"${player_name} moves ${card_name} to opposite expedition (${card_name2}'s effect)";Notifications;;;;
+323681;"${player_name} moves in ${expedition} due to ${card_name}'s effect";Notifications;;;;
+317581;"${player_name} passes and end its day";Notifications;;;;
+317569;"${player_name} pays ${amount} mana";Notifications;;;;
+317570;"${player_name} pays ${amount} mana for ${source}";Notifications;;;;
+331156;"${player_name} pays {${cost}}";Notifications;;;;
+331155;"${player_name} pays {${cost}} and taps ${card_name} to activate it's effect";Notifications;;;;
+327521;"${player_name} pays {${n}} and reduce by ${consume} the counter (${card_name}'s effect)";Notifications;;;;
+317556;"${player_name} places ${n} card(s) as mana";Notifications;;;;
+317566;"${player_name} places ${n} card(s) in his hand";Notifications;;;;
+336463;"${player_name} plays ${card_name} for ${cost}";Notifications;;;;
+323683;"${player_name} plays ${card_name} for ${cost} and places it in ${displayLocation}";Notifications;;;;
+336462;"${player_name} plays ${card_name} from Reserve for ${cost}";Notifications;;;;
+323682;"${player_name} plays ${card_name} from Reserve for ${cost} and places it in ${displayLocation}";Notifications;;;;
+331154;"${player_name} reduce by ${consume} the counter (${card_name}'s effect)";Notifications;;;;
+317551;"${player_name} restarts their turn";Notifications;;;;
+320417;"${player_name} rolls ${roll_text} (${card_name2}'s effect)";Notifications;;;;
+317580;"${player_name} taps ${card_name} to activate it's effect";Notifications;;;;
+317577;"${player_name} targets ${card_names} for ${card_name}'s effect";Notifications;;;;
+328052;"${player_name} targets ${card_names} for ${card_name}'s effect and pays {${n}} (Tough effect)";Notifications;;;;
+320902;"${player_name} triggers After You effect (${card_name}'s effect)";Notifications;;;;
+320901;"${player_name} triggers After You effect and pays ${cost} (${card_name}'s effect)";Notifications;;;;
+320897;"${player_name} will play the faction ${faction_name} with the hero ${card_name}";Notifications;;;;
+323684;"${player_name} wins the tiebreaker with ${n} attributes";Notifications;;;;
+317559;"All remaining cards of ${player_name} loose Anchored and Asleep";Notifications;;;;
+320899;"Dusk phase is over, starting night phase";Notifications;;;;
+320898;"End of the day: computing the progress on the storms";Notifications;;;;
+317550;"Undo here";Notifications;;;;
+317564;"You discard ${card_names}";Notifications;;;;
+317590;"You draw ${card_names} from the deck (scoring cards)";Notifications;;;;
+317568;"You draw ${card_names} from your deck";Notifications;;;;
+317555;"You place ${card_names} as mana";Notifications;;;;
+317670;appeal;Notifications;;;;
+317672;conservation;Notifications;;;;
+317669;money;Notifications;;;;
+317671;reputation;Notifications;;;;
+317673;xtoken;Notifications;;;;
+324019;"${player_name} discards ${card_names} (${n} card(s))";"Notifications;Discard";;;;
+317563;"${player_name} discards ${n} card(s)";"Notifications;Discard";;;;
+323689;"Companion's expedition";"Notifications;InvokeToken";;;;
+323688;"Hero's expedition";"Notifications;InvokeToken";;;;
+336482;"$[FLEETING].  Characters you control gain 1 boost$[BB]. (Cards in Reserve are not controlled.)";OD_Common_Charge;"$[FLEETING].  Les Personnages que vous contrôlez gagnent 1 boost$[BB]. (Les cartes en Réserve ne sont pas contrôlées.)";"$[FLEETING].  Los personajes que controles ganan 1 potenciador$[BB]. (Las cartas de tu reserva no las controla nadie).";"$[FLEETING].  I personaggi che controlli ottengono 1 rinforzo$[BB]. (Le carte nella Riserva non sono controllate.)";"$[FLEETING].  Charaktere, die du kontrollierst, erhalten 1 Verstärkung$[BB]. (Karten in der Reserve werden nicht kontrolliert.)";1
+318118;Charge!;OD_Common_Charge;Chargez !;"¡A la carga!";"Alla Carica!";"Zum Angriff!";1
+336483;"Spell - Maneuver";"OD_Common_Charge;OD_Common_OpentheGates;OD_Rare_OpentheGates;AX_Common_Hooked";;;;
+339735;"Character - Bureaucrat Noble";"OD_Common_FrogPrince;AX_Rare_FrogPrince";;;;
+339734;"Frog Prince";"OD_Common_FrogPrince;AX_Rare_FrogPrince";;;;
+336484;"When I leave the Expedition zone — Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.";OD_Common_JeannedArc;;;;
+327567;"Character - Soldier";"OD_Common_JeannedArc;OD_Common_OrdisGatekeeper;OD_Common_OrdisTrooper;OD_Rare_JeannedArc;OD_Rare_OrdisGatekeeper;OD_Rare_OrdisTrooper;BR_Common_Achilles;BR_Common_BravosBladedancer;BR_Common_HavenWarrior;BR_Common_TomoeGozen;BR_Rare_HavenWarrior";;;;
+318121;"Jeanne d'Arc";"OD_Common_JeannedArc;OD_Rare_JeannedArc";"Jeanne d'Arc";"Jeanne d'Arc";"Giovanna D'Arco";"Jeanne d'Arc";1
+336485;"{J} If you control three or more other Characters, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.)";OD_Common_KakobaLegionCommander;"{J} Si vous contrôlez au moins trois autres Personnages, je gagne 2 boosts$[BB]. (Les cartes en Réserve ne sont pas contrôlées.)";"{J} Si controlas 3 personajes (sin contar este) o más, gano 2 potenciadores$[BB]. (Las cartas de tu reserva no las controla nadie).";"{J} Se controlli altri tre o più personaggi, ottengo 2 rinforzi$[BB]. (Le carte nella Riserva non sono controllate.)";"{J} Wenn du mindestens drei andere Charaktere kontrollierst, erhalte ich 2 Verstärkungen$[BB]. (Karten in der Reserve werden nicht kontrolliert.)";1
+336486;"Character - Soldier Noble";"OD_Common_KakobaLegionCommander;OD_Rare_KakobaLegionCommander";;;;
+318124;"Kakoba, Legion Commander";"OD_Common_KakobaLegionCommander;OD_Rare_KakobaLegionCommander";"Kakoba, Commandant de Légion";"Kakoba, comandante de la legión";"Kakoba, Comandante della Legione";"Kakoba, Legionskommandeur";1
+341259;"Monolith Rune-Scribe";"OD_Common_MonolithRuneScribe;OD_Rare_MonolithRuneScribe";"Scribe Runique du Monolithe";"Escriba de runas del Monolito";"Scriba di Rune del Monolite";Monolith-Runenschreiber;1
+336518;"Character - Scholar";"OD_Common_MonolithRuneScribe;OD_Rare_MonolithRuneScribe;LY_Common_AmahleAsgarthanOutcast";;;;
+340304;"Create two [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.";OD_Common_OpentheGates;"Créez deux jetons Soldat [ORDIS_RECRUIT] dans chacune de vos Expéditions.";"Crea 2 fichas de soldado [ORDIS_RECRUIT] en cada una de tus expediciones.";"Crea due pedine Soldato [ORDIS_RECRUIT] in ciascuna delle tue spedizioni.";"Erschaffe zwei [ORDIS_RECRUIT]-Soldatenmarken in jeder deiner Expeditionen.";1
+340303;"Open the Gates";"OD_Common_OpentheGates;OD_Rare_OpentheGates";"Ouvrez les Portes";"Abrir las puertas";"Aprire i Cancelli";"Öffnet die Tore";1
+336488;"Character - Apprentice Soldier";OD_Common_OrdisCadets;;;;
+318126;"Ordis Cadets";OD_Common_OrdisCadets;"Cadets Ordis";"Cadetes de Ordis";"Cadetti Ordis";Ordis-Kadetten;1
+336487;"{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.";OD_Common_OrdisCadets;"{J} Créez un jeton Soldat [ORDIS_RECRUIT] dans mon Expédition.";"{J} Crea 1 ficha de soldado [ORDIS_RECRUIT] en mi expedición.";"{J} Crea una pedina Soldato [ORDIS_RECRUIT] nella mia spedizione.";"{J} Erschaffe eine [ORDIS_RECRUIT]-Soldatenmarke in meiner Expedition.";1
+336489;"At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Companion Expedition.";OD_Common_OrdisCarrier;;;;
+318128;"Ordis Carrier";OD_Common_OrdisCarrier;"Transporteur Ordis";"Transporte de Ordis";"Vettore Ordis";Ordis-Transporter;1
+336490;"Permanent - Landmark";"OD_Common_OrdisCarrier;OD_Common_TheMonolithOrdisBastion;MU_Common_TheSpindleMunaBastion;LY_Common_LyraFestival;BR_Common_HavenBravosBastion;BR_Rare_TheSpindleMunaBastion;AX_Common_ArmoredJammer;AX_Common_AxiomReprocessor;AX_Common_BrassbugHive;AX_Common_BrassbugHub;AX_Common_KelonCylinder;AX_Common_KelonicGenerator;AX_Rare_AxiomReprocessor;AX_Rare_BrassbugHive;AX_Rare_KelonicGenerator;AX_Rare_TheOuroborosLyraBastion";;;;
+341258;"{J} Create an [ORDIS_RECRUIT] Soldier token in your other Expedition.";OD_Common_OrdisGatekeeper;"{J} Créez un jeton Soldat [ORDIS_RECRUIT] dans votre autre Expédition.";"{J} Crea 1 ficha de soldado [ORDIS_RECRUIT] en tu otra expedición.";"{J} Crea una pedina Soldato [ORDIS_RECRUIT] nell'altra tua spedizione.";"{J} Erschaffe eine [ORDIS_RECRUIT]-Soldatenmarke in deiner anderen Expedition.";1
+341257;"Ordis Gatekeeper";"OD_Common_OrdisGatekeeper;OD_Rare_OrdisGatekeeper";"Gardienne Ordis";"Guarda de Ordis";"Guardiana Ordis";Ordis-Torwächter;1
+318130;"Ordis Recruit";OD_Common_OrdisRecruit;"Recrue Ordis";"Recluta de Ordis";"Recluta Ordis";Ordis-Rekrut;1
+336492;"Token - Soldier";OD_Common_OrdisRecruit;;;;
+336491;"(If I leave the Expedition zone, remove me from the game.)";"OD_Common_OrdisRecruit;BR_Common_Booda;AX_Common_Brassbug";"(Si je quitte la zone d'Expédition, retirez-moi de la partie.)";"(Si abandono la zona de expedición, retírame de la partida).";"(Se lascio l'area delle spedizioni, rimuovimi dalla partita.)";"(Wenn ich die Expeditionszone verlasse, entferne mich aus dem Spiel.)";1
+318133;"Ordis Spy";"OD_Common_OrdisSpy;OD_Rare_OrdisSpy";"Espionne Ordis";"Espía de Ordis";"Spia Ordis";Ordis-Spion;1
+318134;"Ordis Trooper";"OD_Common_OrdisTrooper;OD_Rare_OrdisTrooper";"Troupière Ordis";"Tropa de Ordis";"Fante Ordis";Ordis-Soldatin;1
+336495;"Character - Noble";"OD_Common_Ozma;OD_Rare_Ozma";;;;
+318135;Ozma;"OD_Common_Ozma;OD_Rare_Ozma";Ozma;Ozma;Ozma;Ozma;1
+336494;"{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)";"OD_Common_Ozma;OD_Rare_Ozma";"{J} Si vous contrôlez au moins trois autres Personnages, piochez une carte. (Les cartes en Réserve ne sont pas contrôlées.)";"{J} Si controlas tres personajes (sin contar este) o más, roba 1 carta. (Las cartas de tu reserva no las controla nadie).";"{J} Se controlli altri tre o più personaggi, pesca una carta. (Le carte nella Riserva non sono controllate.)";"{J} Wenn du mindestens drei andere Charaktere kontrollierst, ziehe eine Karte. (Karten in der Reserve werden nicht kontrolliert.)";1
+336496;"At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Hero Expedition.";OD_Common_SigismarWingspan;;;;
+318138;"Ordis Hero";OD_Common_SigismarWingspan;;;;
+318137;"Sigismar & Wingspan";OD_Common_SigismarWingspan;"Sigismar & Wingspan";"Sigismar y Alasregias";"Sigismar e Alagrande";"Sigismar & Spannweit";1
+339737;"$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.";OD_Common_StickyNoteSeals;"$[FLEETING].  Choisissez l'un :  • Envoyez en Réserve le Personnage ciblé avec un Coût de Main {4} ou plus.  • Défaussez le Permanent ciblé avec un Coût de Main {4} ou plus.";"$[FLEETING].  Elige una opción:  • Envía a tu reserva un personaje objetivo con coste desde la mano de {4} o más.  • Descarta un permanente objetivo con coste desde la mano de {4} o más.";"$[FLEETING].  Scegli uno:  • Manda un personaggio bersaglio con costo dalla mano pari o superiore a {4} nella Riserva.  • Scarta un permanente bersaglio con costo dalla mano pari o superiore a {4}.";"$[FLEETING].  Wähle eine Aktion:  • Schicke einen Charakter deiner Wahl mit Handkosten {4} oder mehr in die Reserve.  • Lege eine bleibende Karte deiner Wahl mit Handkosten {4} oder mehr ab.";1
+339736;"Sticky Note Seals";OD_Common_StickyNoteSeals;"Sceaux Adhésifs";"Sellos adhesivos";"Sigilli di Note Adesive";Haftnotiz-Siegel;1
+341684;"The Monolith, Ordis Bastion";OD_Common_TheMonolithOrdisBastion;"Le Monolithe, Bastion Ordis";"El Monolito, bastión de Ordis";"Il Monolite, Bastione Ordis";"Der Monolith, Ordis-Bastion";1
+341685;"When a Character joins your Expeditions — It gains 1 boost$[BB].";OD_Common_TheMonolithOrdisBastion;;;;
+336600;"Character - Engineer";"OD_Rare_FoundryMechanic;AX_Common_AdaLovelace;AX_Common_AxiomSalvager;AX_Common_AxiomScrambler;AX_Common_FoundryArmorer;AX_Common_FoundryEngineer;AX_Common_FoundryMechanic;AX_Common_Frankenstein;AX_Common_JianAssemblyOverseer;AX_Common_ThreeLittlePigs;AX_Rare_AxiomScrambler;AX_Rare_FoundryMechanic;AX_Rare_JianAssemblyOverseer;AX_Rare_ThreeLittlePigs";;;;
+331171;"Foundry Mechanic";"OD_Rare_FoundryMechanic;AX_Common_FoundryMechanic;AX_Rare_FoundryMechanic";"Mécanicienne de la Fonderie";"Mecánica de la Fundición";"Meccanica della Fonderia";Gießerei-Mechanikerin;1
+336626;"You can't choose when and where a quick fix is needed.";"OD_Rare_FoundryMechanic;AX_Common_FoundryMechanic;AX_Rare_FoundryMechanic";;;;
+336625;"{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.)";"OD_Rare_FoundryMechanic;AX_Common_FoundryMechanic;AX_Rare_FoundryMechanic";"{D} : Le prochain Permanent que vous jouez ce tour coûte {1} de moins. (Défaussez-moi de la Réserve pour ça.)";"{D}: El siguiente permanente que juegues este turno cuesta {1} menos. (Descártame de tu reserva para jugar esta acción).";"{D} : Il prossimo permanente che giochi in questo turno costa {1} in meno. (Scartami dalla Riserva per giocare questa azione.)";"{D} : Die nächste bleibende Karte, die du in dieser Runde spielst, kostet {1} weniger. (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+339738;"When I leave the Expedition zone — Create #two# [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.";OD_Rare_JeannedArc;;;;
+339739;"{J} If you control three or more other Characters, I gain #3 boosts$[BB]#. (Cards in Reserve are not controlled.)";OD_Rare_KakobaLegionCommander;"{J} Si vous contrôlez au moins trois autres Personnages, je gagne #3 boosts$[BB]#. (Les cartes en Réserve ne sont pas contrôlées.)";"{J} Si controlas 3 personajes (sin contar este) o más, gano #3 potenciadores$[BB]#. (Las cartas de tu reserva no las controla nadie).";"{J} Se controlli altri tre o più personaggi, ottengo #3 rinforzi$[BB]#. (Le carte nella Riserva non sono controllate.)";"{J} Wenn du mindestens drei andere Charaktere kontrollierst, erhalte ich #3 Verstärkungen$[BB]#. (Karten in der Reserve werden nicht kontrolliert.)";1
+341260;"#{H} If you control a token, $[RESUPPLY].#";OD_Rare_MonolithRuneScribe;"#{H} Si vous contrôlez un jeton, $[RESUPPLY].#";"#{H} Si controlas una ficha, $[RESUPPLY].#";"#{H} Se controlli una pedina, $[RESUPPLY].#";"#{H} Wenn du eine Marke kontrollierst – $[RESUPPLY].#";1
+340305;"Create #four# [ORDIS_RECRUIT] Soldier tokens, distributed as you choose among any number of target Expeditions.";OD_Rare_OpentheGates;;;;
+341261;"{J} Create an [ORDIS_RECRUIT] Soldier token in #each of your# Expeditions.";OD_Rare_OrdisGatekeeper;"{J} Créez un jeton Soldat [ORDIS_RECRUIT] dans #chacune de vos# Expéditions.";"{J} Crea 1 ficha de soldado [ORDIS_RECRUIT] en #cada una de tus# expediciones.";"{J} Crea una pedina Soldato [ORDIS_RECRUIT] in #ciascuna delle tue# spedizioni.";"{J} Erschaffe eine [ORDIS_RECRUIT]-Soldatenmarke in #jeder deiner Expeditionen#.";1
+340306;"{H} $[SABOTAGE].  #{R} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.#";OD_Rare_OrdisSpy;"{H} $[SABOTAGE].  #{R} Créez un jeton Soldat [ORDIS_RECRUIT] dans mon Expédition.#";"{H} $[SABOTAGE].  #{R} Crea 1 ficha de soldado [ORDIS_RECRUIT] en mi expedición.#";"{H} $[SABOTAGE].  #{R} Crea una pedina Soldato [ORDIS_RECRUIT] nella mia spedizione.#";"{H} $[SABOTAGE].  #{R}  Erschaffe eine [ORDIS_RECRUIT]-Soldatenmarke in meiner Expedition.#";1
+327547;"#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)";OD_Rare_Ozma;;;;
+340307;"{R} #Create two [ORDIS_RECRUIT] Soldier tokens in my Expedition.#";OD_Rare_Ratatoskr;"{R} #Créez deux jetons Soldat [ORDIS_RECRUIT] dans mon Expédition.#";"{R} #Crea 2 fichas de soldado [ORDIS_RECRUIT] en mi expedición.#";"{R} #Crea due pedine Soldato [ORDIS_RECRUIT] nella mia spedizione.#";"{R} #Erschaffe zwei [ORDIS_RECRUIT]-Soldatenmarken in meiner Expedition.#";1
+336586;"Character - Messenger";"OD_Rare_Ratatoskr;BR_Common_Ratatoskr;BR_Rare_Ratatoskr";;;;
+318222;Ratatoskr;"OD_Rare_Ratatoskr;BR_Common_Ratatoskr;BR_Rare_Ratatoskr";Ratatosk;Ratatoskr;Ratatoskr;Ratatoskr;1
+331194;"Play ${card_name}";PlayCard;;;;
+336651;"Play a card";PlayCard;;;;
+320920;"${player_name} draws ${card_names} from its deck (${card_name2}'s effect)";Player;;;;
+320123;"${player_name} draws ${n} card(s) from its deck (${card_name2}'s effect)";Player;;;;
+323680;"${player_name} expedition cannot move";Player;;;;
+320122;"You draw ${card_names} from your deck (${card_name2}'s effect)";Player;;;;
+336702;MANA;Players;;;;
+340256;"The tiebreaker is triggered as heroes reached their companions at the same time";Players;;;;
+341678;"${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}'s effect combined with  The Ouroboros, Lyra Bastion)";Resupply;;;;
+320922;"${player_name} places ${card_names} from its deck to Reserve (${card_name2}'s effect)";Resupply;;;;
+331195;"Resupply ${n}";Resupply;;;;
+341677;"You draw ${card_names} from your deck and must keep 1 (${card_name2}'s effect combined with The Ouroboros, Lyra Bastion)";Resupply;;;;
+320421;"You put ${card_names} from your deck in Reserve (${card_name2}'s effect)";Resupply;;;;
+320423;"Roll ${n} die";RollDie;;;;
+336652;"${player_name} wins the game with ${card_name}'s effect";SpecialEffect;;;;
+331196;"Gain ${n} ${counter_name}";SpecialEffect;;;;
+331197;"Next character <BOOST>";SpecialEffect;;;;
+317761;"Spell cleanup";SpellCleanup;;;;
+318259;Axiom;"Statistics;Notifications;Stats;Altered;stats";;;;
+317552;Bravos;"Statistics;Notifications;Stats;Altered;stats";;;;
+318260;Lyra;"Statistics;Notifications;Stats;Altered;stats";;;;
+317553;Muna;"Statistics;Notifications;Stats;Altered;stats";;;;
+318258;Ordis;"Statistics;Notifications;Stats;Altered;stats";;;;
+318261;Yzmir;"Statistics;Notifications;Stats;Altered;stats";;;;
+323678;Faction;"Statistics;stats";;;;
+317691;No;"Statistics;stats";;;;
+323677;"Number of days";"Statistics;stats";;;;
+317546;"Number of turns";"Statistics;stats";;;;
+327511;Winner;"Statistics;stats";;;;
+317692;Yes;"Statistics;stats";;;;
+317543;"${actplayer} can't take the mandatory action and must restart his turn or exchange/cook";"Status bar (game state)";;;;
+323673;"${actplayer} may discard ${n} card(s) from ${source} to ${destination}";"Status bar (game state)";;;;
+317533;"${actplayer} may invoke ${tokenType}";"Status bar (game state)";;;;
+331149;"${actplayer} may play ${card_name}";"Status bar (game state)";;;;
+331151;"${actplayer} may play ${card_name} for free";"Status bar (game state)";;;;
+317527;"${actplayer} must choose an action or pass";"Status bar (game state)";;;;
+317541;"${actplayer} must choose exactly one effect";"Status bar (game state)";;;;
+317539;"${actplayer} must choose which effect to resolve";"Status bar (game state)";;;;
+317535;"${actplayer} must confirm or restart their turn";"Status bar (game state)";;;;
+317537;"${actplayer} must confirm the switch of player";"Status bar (game state)";;;;
+317529;"${actplayer} must discard ${n} card(s) from ${source} to ${destination}";"Status bar (game state)";;;;
+327509;"${actplayer} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s)";"Status bar (game state)";;;;
+317544;"${you} can't take the mandatory action. Restart your turn or exchange/cook to make it possible";"Status bar (game state)";;;;
+323674;"${you} may discard ${n} card(s) from ${source} to ${destination}";"Status bar (game state)";;;;
+317534;"${you} may invoke ${tokenType}";"Status bar (game state)";;;;
+331150;"${you} may play ${card_name}";"Status bar (game state)";;;;
+331152;"${you} may play ${card_name} for free";"Status bar (game state)";;;;
+317528;"${you} must choose an action or pass";"Status bar (game state)";;;;
+317542;"${you} must choose exactly one effect";"Status bar (game state)";;;;
+317540;"${you} must choose which effect to resolve";"Status bar (game state)";;;;
+317536;"${you} must confirm or restart your turn";"Status bar (game state)";;;;
+317538;"${you} must confirm the switch of player. You will not be able to restart turn";"Status bar (game state)";;;;
+317530;"${you} must discard ${n} card(s) from ${source} to ${destination}";"Status bar (game state)";;;;
+327510;"${you} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s)";"Status bar (game state)";;;;
+317526;"${you} must select 3 cards to discard as mana";"Status bar (game state)";;;;
+317522;"${you} must select the deck you want to play";"Status bar (game state)";;;;
+336461;"${you} must select the faction you want to play with";"Status bar (game state)";;;;
+317545;"End of game";"Status bar (game state)";;;;
+323672;"Waiting for other players to select cards to discard as mana";"Status bar (game state)";;;;
+317521;"Waiting for others to choose their deck";"Status bar (game state)";;;;
+336460;"Waiting for others to choose their faction";"Status bar (game state)";;;;
+341268;"${player_name} discards ${card_names} as they are not targeted";Target;;;;
+324036;"Target ${n} card(s) to ${effect_desc}";Target;;;;
+324030;"Target ${n} character(s) to ${effect_desc}";Target;;;;
+324033;"Target ${n} permanent(s) to ${effect_desc}";Target;;;;
+324034;"Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}";Target;;;;
+324035;"Target up to ${n} card(s) to ${effect_desc}";Target;;;;
+324028;"Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc}";Target;;;;
+324029;"Target up to ${n} character(s) to ${effect_desc}";Target;;;;
+324031;"Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc}";Target;;;;
+324032;"Target up to ${n} permanent(s) to ${effect_desc}";Target;;;;
+324027;"Total hand cost exceeds the limit of the effect";Target;;;;
+328059;"You cannot pay the additional cost (Tough effect)";Target;;;;
+323679;"No winner is found. New tiebreaker round starts";TurnTrait;;;;
+327603;{${n}};UseCounter;;;;
+318080;"Akesha & Taru";YZ_Common_AkeshaTaru;"Akesha & Taru";"Akesha y Taru";"Akesha e Taru";"Akesha & Taru";1
+336466;"Magic is the essence of wonder!";YZ_Common_AkeshaTaru;;;;
+318081;"Yzmir Hero";YZ_Common_AkeshaTaru;;;;
+336465;"{T} : $[AFTER_YOU]. You can only activate this if you are the first player.";YZ_Common_AkeshaTaru;"{T} : $[AFTER_YOU]. Vous pouvez seulement activer cela si vous êtes le premier joueur.";"{T}: $[AFTER_YOU]. Solo puedes activar esto si eres el primer jugador.";"{T} : $[AFTER_YOU]. Puoi attivare questa azione solo se sei il primo giocatore.";"{T} : $[AFTER_YOU]. Du kannst dies nur aktivieren, falls du der erste Spieler bist.";1
+320904;"Character - Citizen";"YZ_Common_Alice;YZ_Common_DorothyGale;YZ_Rare_Alice;YZ_Rare_DorothyGale;OD_Common_OrdisSpy;OD_Rare_OrdisSpy;LY_Common_LyraNavigator;LY_Common_OuroborosCroupier;LY_Common_OuroborosTrickster;LY_Common_TheHatter;LY_Rare_OuroborosTrickster;BR_Rare_DorothyGale";;;;
+318083;Alice;"YZ_Common_Alice;YZ_Rare_Alice";Alice;Alicia;Alice;Alice;1
+336467;"{D} : [AFTER_YOU]. (Discard me from Reserve to do this.)";"YZ_Common_Alice;YZ_Rare_Alice";"{D} : [AFTER_YOU]. (Défaussez-moi de la Réserve pour ça.)";"{D}: [AFTER_YOU]. (Descártame de tu reserva para jugar esta acción).";"{D} : [AFTER_YOU]. (Scartami dalla Riserva per giocare questa azione.)";"{D} : [AFTER_YOU]. (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+336468;"{H} You may send target Character to Reserve.";"YZ_Common_DorothyGale;BR_Rare_DorothyGale";"{H} Vous pouvez envoyer le Personnage ciblé en Réserve.";"{H} Puedes enviar a tu reserva un personaje objetivo.";"{H} Puoi mandare un personaggio bersaglio nella Riserva.";"{H} Du darfst einen Charakter deiner Wahl in die Reserve schicken.";1
+318086;"Dorothy Gale";"YZ_Common_DorothyGale;YZ_Rare_DorothyGale;BR_Rare_DorothyGale";"Dorothy Gale";"Dorothy Gale";"Dorothy Gale";"Dorothy Gale";1
+336469;"{H} I gain 2 boosts$[BB].";YZ_Common_KadigiranAlchemist;"{H} Je gagne 2 boosts$[BB].";"{H} Gano 2 potenciadores$[BB].";"{H} Ottengo 2 rinforzi$[BB].";"{H} Ich erhalte 2 Verstärkungen$[BB].";1
+336470;"Character - Mage";"YZ_Common_KadigiranAlchemist;YZ_Rare_KadigiranAlchemist";;;;
+318088;"Kadigiran Alchemist";"YZ_Common_KadigiranAlchemist;YZ_Rare_KadigiranAlchemist";"Alchimiste du Kadigir";"Alquimista del Kadigir";"Alchimista Kadigiran";Kadigir-Alchemist;1
+336471;"$[FLEETING].  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.";YZ_Common_KrakensWrath;"$[FLEETING].  Envoyez en Réserve jusqu'à trois Personnages ciblés avec un Coût de Main total de {5} ou moins.";"$[FLEETING].  Envía a tu reserva hasta 3 personajes objetivo con coste desde la mano de {5} o menos.";"$[FLEETING].  Manda nella Riserva fino a tre personaggi bersaglio con un costo dalla mano totale pari o inferiore a {5}.";"$[FLEETING].  Schicke bis zu drei Charaktere deiner Wahl mit Gesamt-Handkosten von {5} oder weniger in die Reserve.";1
+318092;"Kraken's Wrath";YZ_Common_KrakensWrath;"Furie du Kraken";"Ira del Kraken";"Ira del Kraken";"Zorn des Kraken";1
+336472;"Spell - Disruption";"YZ_Common_KrakensWrath;YZ_Common_Offyougo;YZ_Common_SpyCraft;YZ_Rare_BeautySleep;YZ_Rare_SpyCraft;OD_Common_StickyNoteSeals;MU_Common_BeautySleep;LY_Common_ClothCocoon;LY_Common_PaintPrison;LY_Rare_Offyougo;BR_Common_Intimidation;BR_Common_ManaEruption;AX_Common_Boom;AX_Common_KelonBurst";;;;
+336473;"Character - Fairy Spirit";YZ_Common_LadyoftheLake;;;;
+318096;"Lady of the Lake";YZ_Common_LadyoftheLake;"Dame du Lac";"La Dama del Lago";"Dama del Lago";"Die Dame vom See";1
+327526;"Off you go!";"YZ_Common_Offyougo;LY_Rare_Offyougo";Zou !;"¡Hasta más ver!";"Fuori di qui!";"Ab mit dir!";1
+336474;"Send to Reserve target Character with Hand Cost {3} or less.";"YZ_Common_Offyougo;LY_Rare_Offyougo";"Envoyez en Réserve le Personnage ciblé de Coût de Main {3} ou moins.";"Envía a tu reserva un personaje objetivo con coste desde la mano de {3} o menos.";"Manda un personaggio bersaglio con costo dalla mano pari o inferiore a {3} nella Riserva.";"Schicke einen Charakter deiner Wahl mit Handkosten {3} oder weniger in die Reserve.";1
+318100;Sakarabru;"YZ_Common_Sakarabru;YZ_Rare_Sakarabru";Sakarabru;Sakarabru;Sakarabru;Sakarabru;1
+336475;"{H} Your opponent's Expedition facing mine moves backwards one region.";"YZ_Common_Sakarabru;YZ_Rare_Sakarabru";"{H} L'Expédition adverse qui me fait face recule d'une région.";"{H} La expedición de tu oponente enfrentada a la mía retrocede 1 región.";"{H} La spedizione del tuo avversario che affronta la mia arretra di una regione.";"{H} Die Expedition deines Gegners, die meiner Expedition gegenübersteht, bewegt sich eine Region zurück.";1
+336476;"Character - Deity";"YZ_Common_Sakarabru;YZ_Rare_Sakarabru;MU_Common_Inari;MU_Common_Parvati;MU_Rare_Parvati;LY_Common_Asmodeus;LY_Common_Loki;LY_Rare_Asmodeus;BR_Common_SunWukong;BR_Rare_SunWukong;AX_Common_Athena;AX_Common_Ganesha";;;;
+336477;"$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].";YZ_Common_SpyCraft;"$[FLEETING].  $[SABOTAGE], puis $[RESUPPLY].";"$[FLEETING]. $[SABOTAGE] y luego $[RESUPPLY].";"$[FLEETING].  $[SABOTAGE], poi $[RESUPPLY].";"$[FLEETING].  $[SABOTAGE], dann $[RESUPPLY].";1
+318103;"Spy Craft";"YZ_Common_SpyCraft;YZ_Rare_SpyCraft";Espionnage;Espionaje;"Abilità da Spia";Spionage;1
+336479;"Character - Mage Apprentice";YZ_Common_StudiousDisciple;;;;
+327530;"Studious Disciple";YZ_Common_StudiousDisciple;"Disciple Studieux";"Discípulo estudioso";"Discepolo Studioso";"Eifriger Schüler";1
+336478;"{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.)";YZ_Common_StudiousDisciple;"{D} : Le prochain Sort que vous jouez ce tour coûte {1} de moins. (Défaussez-moi de la Réserve pour ça.)";"{D}: El siguiente hechizo que juegues este turno cuesta {1} menos. (Descártame de tu reserva para jugar esta acción).";"{D} : La prossima magia che giochi in questo turno costa {1} in meno. (Scartami dalla Riserva per giocare questa azione.)";"{D} : Der nächste Zauber, den du in dieser Runde spielst, kostet {1} weniger. (Lege mich aus deiner Reserve ab, um diese Aktion auszuführen.)";1
+340301;"Tooth Fairy";"YZ_Common_ToothFairy;YZ_Rare_ToothFairy";"Fée des Dents";"Hada de los dientes";"Fatina dei Denti";Zahnfee;1
+336647;"Character - Fairy";"YZ_Common_ToothFairy;YZ_Rare_ToothFairy;AX_Common_TinkerBell";;;;
+336493;"{H} $[SABOTAGE].";"YZ_Common_ToothFairy;YZ_Rare_ToothFairy;OD_Common_OrdisSpy;LY_Common_Tanuki;AX_Common_AxiomScrambler;AX_Rare_AxiomScrambler";"{H} $[SABOTAGE].";"{H} $[SABOTAGE].";"{H} $[SABOTAGE].";"{H} $[SABOTAGE].";1
+336480;"Character - Mage Scholar";YZ_Common_YzmirStargazer;;;;
+318108;"Yzmir Stargazer";YZ_Common_YzmirStargazer;"Augure Yzmir";"Contemplaestrellas de Yzmir";"Astronoma Yzmir";Yzmir-Astronomin;1
+341262;"Beauty Sleep";"YZ_Rare_BeautySleep;MU_Common_BeautySleep";"Sommeil Réparateur";"Sueño reparador";"Sonno Ristoratore";Schönheitsschlaf;1
+336554;"Target Character gains $[ASLEEP].";"YZ_Rare_BeautySleep;MU_Common_BeautySleep;LY_Common_TwinkleTwinkle";;;;

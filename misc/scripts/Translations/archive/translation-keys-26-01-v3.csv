@@ -1,0 +1,606 @@
+trk_id;str_to_translate;context;fr_FR;es_ES;it_IT;de_DE;LOCK
+343101;"""Achoo!""";"MU_Common_SneezerShroom;MU_Rare_SneezerShroom";;;;;0
+343128;"""All right, lad, show me what you’ve learned.""";BR_Common_HavenTrainee;;;;;0
+343081;"""Chin up and stand tall. You’re shieldbearers of the Aegis now!""";"OD_Common_OrdisTrooper;OD_Rare_OrdisTrooper";;;;;0
+343027;"""Don't just wait for magic to happen. Go out and make your own!""";LY_Rare_KadigiranMageDancer;;;;;0
+343093;"""Dosukoi! Let’s put it in the ground!""";"MU_Common_ConiferalConeman;MU_Rare_ConiferalConeman";;;;;0
+343126;"""I only feel alive when I hear the wind whistling in my ears.""";"BR_Common_BravosTracer;BR_Rare_BravosTracer";;;;;0
+343060;"""I’ve a feeling we’re not in Kansas anymore.""";"YZ_Common_DorothyGale;YZ_Rare_DorothyGale;BR_Rare_DorothyGale";;;;;0
+343062;"""One day, I will show you the wonders of Avalon and the true might of the Fae realms.""";YZ_Common_LadyoftheLake;;;;;0
+343057;"""One good turn deserves another.""";"YZ_Common_Alice;YZ_Rare_Alice";;;;;0
+343121;"""Pom! Pompoko, pom!""";"LY_Common_Tanuki;LY_Rare_Tanuki";;;;;0
+343131;"""Push through the pain. Giving up would hurt far more.""";BR_Common_Kappa;;;;;0
+317777;"""Restart turn"" and ""Undo last step"" buttons";Altered;;;;;0
+343071;"""Show me those pearly whites.""";YZ_Rare_ToothFairy;;;;;0
+343124;"""Stay on the path, they say. I make my own path!""";BR_Common_BravosPathfinder;;;;;0
+343151;"""Suspira's mines will soon run dry. Your precious Kelon will run dry.""";AX_Rare_KelonicGenerator;;;;;0
+343070;"""The form has been filled out incorrectly. Please make a new appointment tomorrow.""";YZ_Rare_MonolithArchivist;;;;;0
+343138;"""The most effective way to do it, is to do it.""";AX_Common_AmeliaEarhart;;;;;0
+343146;"""This material does not seem to be affected by gravity. By harnessing the properties of this Aerolith, we could create flying ships and cities, and fly close to the clouds...""";"AX_Common_JianAssemblyOverseer;AX_Rare_JianAssemblyOverseer";;;;;0
+343096;"""Want to play a game of headman-hunter-fox with me? I promise not to cheat!""";MU_Common_Kitsune;;;;;0
+343099;"""We are the sentinels of the Skein, always keeping a finger on the pulse of nature.""";MU_Common_MunaDruid;;;;;0
+345592;"""You can draw water out of a water-well, so I should think you could draw treacle out of a treacle-well — eh, stupid ?""";LY_Common_TheHatter;;;;;0
+341686;#$[TOUGH_1].#;BR_Rare_Shenlong;;;;;0
+341687;#{1}#, {T} : Draw a card.;AX_Rare_KelonicGenerator;;;;;0
+339760;#{D} : Activate the {j} triggers of target Permanent you control.# (Discard me from Reserve to do this.);AX_Rare_JianAssemblyOverseer;;;;;0
+340302;#{D} : Draw a card.# (Discard me from Reserve to do this.);YZ_Rare_Sakarabru;;;;;0
+327547;#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect);OD_Rare_Ozma;;;;;0
+340308;#{D} : The next Character you play this turn gains 1 boost.# (Discard me from Reserve to do this.);"MU_Rare_MeditationTraining;BR_Rare_HavenWarrior";;;;;0
+341260;#{H} If you control a token, $[RESUPPLY].#;OD_Rare_MonolithRuneScribe;;;;;0
+341674;#{J} [RESUPPLY].#  If you would #$[RESUPPLY], instead, reveal the top two cards of your deck. Put one in Reserve, and discard the other.#;AX_Rare_TheOuroborosLyraBastion;;;;;0
+327564;#{J}# $[RESUPPLY].;LY_Rare_Esmeralda;;;;;0
+343108;#{J}# Target Character gains [ANCHORED]. (During Rest, it doesn't go to Reserve and it loses Anchored.);MU_Rare_Parvati;;;;;0
+339731;#{J}# You may send target Character to Reserve.;YZ_Rare_DorothyGale;;;;;0
+342636;$[DEFENDER].;YZ_Rare_MonolithArchivist;;;;;0
+336477;$[FLEETING].  $[SABOTAGE], then $[RESUPPLY].;YZ_Common_SpyCraft;;;;;0
+336482;$[FLEETING].  Characters you control gain 1 boost$[BB]. (Cards in Reserve are not controlled.);OD_Common_Charge;;;;;0
+339754;$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.;AX_Common_KelonBurst;;;;;0
+339737;$[FLEETING].  Choose one:  • Send to Reserve target Character with Hand Cost {4} or more.  • Discard target Permanent with Hand Cost {4} or more.;OD_Common_StickyNoteSeals;;;;;0
+342632;$[FLEETING].  Discard target Character or Permanent.;YZ_Common_BanishingGate;;;;;0
+336573;$[FLEETING].  Return target Character or Permanent with Hand Cost {4} or less to its owner's hand.;BR_Common_Intimidation;;;;;0
+336471;$[FLEETING].  Send to Reserve up to three target Characters with a total Hand Cost {5} or less.;YZ_Common_KrakensWrath;;;;;0
+343029;$[FLEETING].  You may discard a card from your Reserve to reduce my cost by #{1}#.  Return target Character or Permanent to the top of its owner's deck.;LY_Rare_PaintPrison;;;;;0
+336549;$[FLEETING].  You may discard a card from your Reserve to reduce my cost by {2}.  Return target Character or Permanent to the top of its owner's deck.;LY_Common_PaintPrison;;;;;0
+327569;$[GIGANTIC].;BR_Common_Atlas;;;;;0
+317543;${actplayer} can't take the mandatory action and must restart his turn or exchange/cook;Status bar (game state);;;;;0
+323673;${actplayer} may discard ${n} card(s) from ${source} to ${destination};Status bar (game state);;;;;0
+317533;${actplayer} may invoke ${tokenType};Status bar (game state);;;;;0
+331149;${actplayer} may play ${card_name};Status bar (game state);;;;;0
+331151;${actplayer} may play ${card_name} for free;Status bar (game state);;;;;0
+317527;${actplayer} must choose an action or pass;Status bar (game state);;;;;0
+317541;${actplayer} must choose exactly one effect;Status bar (game state);;;;;0
+317539;${actplayer} must choose which effect to resolve;Status bar (game state);;;;;0
+317535;${actplayer} must confirm or restart their turn;Status bar (game state);;;;;0
+317537;${actplayer} must confirm the switch of player;Status bar (game state);;;;;0
+317529;${actplayer} must discard ${n} card(s) from ${source} to ${destination};Status bar (game state);;;;;0
+327509;${actplayer} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s);Status bar (game state);;;;;0
+343887;${biome_0} and ${biome_1};Notifications;;;;;0
+343888;${biome_0}, ${biome_1} and ${biome_2};Notifications;;;;;0
+336464;${card_name} gains ${increase} ${counterName};Notifications;;;;;0
+317576;${card_name} gains ${n} ${power};Notifications;;;;;0
+317574;${card_name} gains ${n} ${power} (${card_name2}'s effect);Notifications;;;;;0
+317575;${card_name} gains ${power};Notifications;;;;;0
+317573;${card_name} gains ${power} (${card_name2}'s effect);Notifications;;;;;0
+317578;${card_name} looses ${n} ${power};Notifications;;;;;0
+343033;${n} dice are added to the roll (Ouroboros Lyra Bastion's effect);RollDie;;;;;0
+343818;${phase_icon} Day n°${day}: afternoon ${phase_icon2};Notifications;;;;;0
+343819;${phase_icon} Day n°${day}: dusk ${phase_icon2};Notifications;;;;;0
+343816;${phase_icon} Day n°${day}: morning ${phase_icon2};Notifications;;;;;0
+343820;${phase_icon} Day n°${day}: night ${phase_icon2};Notifications;;;;;0
+343817;${phase_icon} Day n°${day}: noon ${phase_icon2};Notifications;;;;;0
+327601;${player_name} activates ${card_name} {J} effect;ActivateEffect;;;;;0
+323685;${player_name} activates support effect of ${card_name} and discards it;Notifications;;;;;0
+343878;${player_name} advances in ${expedition} expedition by winning in ${biomes_desc};Notifications;;;;;0
+317557;${player_name} becomes First player;Notifications;;;;;0
+317548;${player_name} choses ${n} card(s) as mana;"NewDayTrait;Discard";;;;;0
+317562;${player_name} discards ${card_names};Notifications;;;;;0
+324019;${player_name} discards ${card_names} (${n} card(s));"Notifications;Discard";;;;;0
+317560;${player_name} discards ${card_names} and moves ${card_names2} to reserve;Notifications;;;;;0
+341268;${player_name} discards ${card_names} as they are not targeted;Target;;;;;0
+317563;${player_name} discards ${n} card(s);"Notifications;Discard";;;;;0
+324022;${player_name} discards ${n} card(s) from the ${source};Discard;;;;;0
+320921;${player_name} draws ${card_names} from his deck;Notifications;;;;;0
+320920;${player_name} draws ${card_names} from its deck (${card_name2}'s effect);Player;;;;;0
+341678;${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}'s effect combined with  The Ouroboros, Lyra Bastion);Resupply;;;;;0
+336650;${player_name} draws ${n} card(s) and put them as mana;DrawMana;;;;;0
+317567;${player_name} draws ${n} card(s) from its deck;Notifications;;;;;0
+320123;${player_name} draws ${n} card(s) from its deck (${card_name2}'s effect);Player;;;;;0
+317591;${player_name} draws ${n} scoring cards from the deck;Notifications;;;;;0
+323686;${player_name} exhauts its deck and shuffle the discard;Notifications;;;;;0
+323680;${player_name} expedition cannot move;Player;;;;;0
+323687;${player_name} invokes ${card_name} in ${displayLocation} (${card_name2}'s effect);Notifications;;;;;0
+317561;${player_name} moves ${card_names2} to reserve;Notifications;;;;;0
+331153;${player_name} moves ${card_name} to opposite expedition (${card_name2}'s effect);Notifications;;;;;0
+323681;${player_name} moves in ${expedition} due to ${card_name}'s effect;Notifications;;;;;0
+343827;${player_name} passes and ends its afternoon;Notifications;;;;;0
+343883;${player_name} pays ${mana_cost};Notifications;;;;;0
+343880;${player_name} pays ${mana_cost} and reduce by ${consume} the counter (${card_name}'s effect);Notifications;;;;;0
+343882;${player_name} pays ${mana_cost} and taps ${card_name} to activate it's effect;Notifications;;;;;0
+320922;${player_name} places ${card_names} from its deck to Reserve (${card_name2}'s effect);Resupply;;;;;0
+317556;${player_name} places ${n} card(s) as mana;Notifications;;;;;0
+317566;${player_name} places ${n} card(s) in his hand;Notifications;;;;;0
+345531;${player_name} plays ${card_name} for ${mana_cost};Notifications;;;;;0
+345533;${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation};Notifications;;;;;0
+345530;${player_name} plays ${card_name} from Reserve for ${mana_cost};Notifications;;;;;0
+345532;${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation};Notifications;;;;;0
+343021;${player_name} puts ${card_names} on top of its deck;Notifications;;;;;0
+317754;${player_name} puts ${n} card(s) to players' hand;Discard;;;;;0
+331154;${player_name} reduce by ${consume} the counter (${card_name}'s effect);Notifications;;;;;0
+345589;${player_name} remove ${card_names} from play;Notifications;;;;;0
+317551;${player_name} restarts their turn;Notifications;;;;;0
+320417;${player_name} rolls ${roll_text} (${card_name2}'s effect);Notifications;;;;;0
+317580;${player_name} taps ${card_name} to activate it's effect;Notifications;;;;;0
+317577;${player_name} targets ${card_names} for ${card_name}'s effect;Notifications;;;;;0
+343881;${player_name} targets ${card_names} for ${card_name}'s effect and pays ${mana_cost} (Tough effect);Notifications;;;;;0
+320902;${player_name} triggers After You effect (${card_name}'s effect);Notifications;;;;;0
+343879;${player_name} triggers After You effect and pays ${mana_cost} (${card_name}'s effect);Notifications;;;;;0
+320897;${player_name} will play the faction ${faction_name} with the hero ${card_name};Notifications;;;;;0
+336652;${player_name} wins the game with ${card_name}'s effect;SpecialEffect;;;;;0
+323684;${player_name} wins the tiebreaker with ${n} attributes;Notifications;;;;;0
+343019;${source}: ${actplayer} must choose 1 die result;Status bar (game state);;;;;0
+343020;${source}: ${you} must choose 1 die result;Status bar (game state);;;;;0
+317544;${you} can't take the mandatory action. Restart your turn or exchange/cook to make it possible;Status bar (game state);;;;;0
+323674;${you} may discard ${n} card(s) from ${source} to ${destination};Status bar (game state);;;;;0
+317534;${you} may invoke ${tokenType};Status bar (game state);;;;;0
+331150;${you} may play ${card_name};Status bar (game state);;;;;0
+331152;${you} may play ${card_name} for free;Status bar (game state);;;;;0
+317528;${you} must choose an action or pass;Status bar (game state);;;;;0
+317542;${you} must choose exactly one effect;Status bar (game state);;;;;0
+317540;${you} must choose which effect to resolve;Status bar (game state);;;;;0
+317536;${you} must confirm or restart your turn;Status bar (game state);;;;;0
+317538;${you} must confirm the switch of player. You will not be able to restart turn;Status bar (game state);;;;;0
+317530;${you} must discard ${n} card(s) from ${source} to ${destination};Status bar (game state);;;;;0
+327510;${you} must discard ${n} reserve card(s) and ${nLandmarks} landmark card(s);Status bar (game state);;;;;0
+317526;${you} must select 3 cards to discard as mana;Status bar (game state);;;;;0
+317522;${you} must select the deck you want to play;Status bar (game state);;;;;0
+336461;${you} must select the faction you want to play with;Status bar (game state);;;;;0
+336491;(If I leave the Expedition zone, remove me from the game.);"OD_Common_OrdisRecruit;BR_Common_Booda";;;;;0
+343110;100 crunches, 100 push-ups, 100 squats, a 10-km run and a desire to prove yourself. Just your typical morning of Bravos training.;"MU_Rare_PhysicalTraining;BR_Common_PhysicalTraining;BR_Rare_PhysicalTraining";;;;;0
+343123;A Hero can practice Alteration through their Companion, no matter the distance between them.;BR_Common_Booda;;;;;0
+343086;A beacon of knowledge and order, a lighthouse towering high above the world.;OD_Common_TheMonolithOrdisBastion;;;;;0
+345538;A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.;"Cards;Meeples";;;;;0
+336669;After You;Cards;;;;;0
+336664;"Akesha ""the astute""";Altered;;;;;0
+318080;Akesha & Taru;YZ_Common_AkeshaTaru;;;;;0
+343061;Alchemy is not just a matter of turning lead to gold. It's about purifying yourself of imperfections to become your true self.;"YZ_Common_KadigiranAlchemist;YZ_Rare_KadigiranAlchemist";;;;;0
+318083;Alice;"YZ_Common_Alice;YZ_Rare_Alice";;;;;0
+318173;All In!;LY_Common_AllIn;;;;;0
+317755;All players draw ${n} card(s);Draw;;;;;0
+317559;All remaining cards of ${player_name} loose Anchored and Asleep;Notifications;;;;;0
+317693;Allow ${player_name} to take a triggered action;AbstractNode;;;;;0
+343242;Altered is an innovative TCG which offers a new, refreshing approach to both competitive and casual players. Set in a universe of rich lore and visual design (influenced by Miyazaki's work and Dixit-like illustrations), this game is about exploring a new, reshaped Earth after a mysterious event, the Confluence, profoundly altered it.;Gameinfos;;;;;0
+318226;Amelia Earhart;AX_Common_AmeliaEarhart;;;;;0
+336661;Anchor and boost your allies over the long haul and reap the rewards of your good deeds.;Altered;;;;;0
+336671;Anchored;"Altered;Cards";;;;;0
+343034;Anchored: during Rest, I don't go to Reserve and I lose Anchored.;Meeples;;;;;0
+343845;"Apply ""At Night"" effects";Altered;;;;;0
+343835;"Apply ""At Noon"" effects";Altered;;;;;0
+336673;Asleep;"Altered;Cards";;;;;0
+318175;Asmodeus;"LY_Common_Asmodeus;LY_Rare_Asmodeus";;;;;0
+343132;At Noon, if you are the first player — Create a [BOODA] Companion token in your Companion Expedition.;BR_Common_KojoBooda;;;;;0
+343139;At Noon — $[RESUPPLY].;AX_Common_AxiomReprocessor;;;;;0
+343077;At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Companion Expedition.;OD_Common_OrdisCarrier;;;;;0
+343082;At Noon — Create an [ORDIS_RECRUIT] Soldier token in your Hero Expedition.;OD_Common_SigismarWingspan;;;;;0
+317724;Atlas;BR_Common_Atlas;;;;;0
+318259;Axiom;"Statistics;Notifications;Stats;Altered;stats";;;;;0
+318249;Axiom Hero;AX_Common_SierraOddball;;;;;0
+318230;Axiom Reprocessor;AX_Common_AxiomReprocessor;;;;;0
+318232;Axiom Salvager;AX_Common_AxiomSalvager;;;;;0
+327581;Axiom Scrambler;"AX_Common_AxiomScrambler;AX_Rare_AxiomScrambler";;;;;0
+342629;Baba Yaga;"YZ_Common_BabaYaga;YZ_Rare_BabaYaga";;;;;0
+342631;Banishing Gate;YZ_Common_BanishingGate;;;;;0
+343135;Be careful what you wish for. There are challenges that even the Bravos prefer to avoid.;BR_Rare_Shenlong;;;;;0
+341262;Beauty Sleep;"YZ_Rare_BeautySleep;MU_Common_BeautySleep";;;;;0
+320906;Board height;Altered;;;;;0
+317727;Booda;BR_Common_Booda;;;;;0
+336676;Booda 2/2/2;Cards;;;;;0
+336677;Boosted;Cards;;;;;0
+343245;Born and led from the mind of talented game designer Régis Bonnessée (founder of the Libellud studio, which published Dixit, Mysterium, Dice Forge, and Seasons), this project is brought to you by the French studio Equinox, based in Paris, in partnership with and exclusively distributed by Asmodee.;Gameinfos;;;;;0
+336678;Brassbug 2/2/2;Cards;;;;;0
+318235;Brassbug Hive;"AX_Common_BrassbugHive;AX_Rare_BrassbugHive";;;;;0
+327583;Brassbug Hub;AX_Common_BrassbugHub;;;;;0
+317552;Bravos;"Statistics;Notifications;Stats;Altered;stats";;;;;0
+318220;Bravos Hero;BR_Common_KojoBooda;;;;;0
+318209;Bravos Pathfinder;BR_Common_BravosPathfinder;;;;;0
+318211;Bravos Tracer;"BR_Common_BravosTracer;BR_Rare_BravosTracer";;;;;0
+343153;COMPANION;Altered;;;;;0
+317783;Cancel;"Altered;Game";;;;;0
+318151;Cernunnos;MU_Common_Cernunnos;;;;;0
+343830;Change first player;Altered;;;;;0
+343119;Chaos can bring disappointment, sure, but it's also where ye'll find the most wonderfullest hidden gems!;LY_Common_NevenkaBlotch;;;;;0
+336563;Character - Adventurer;"BR_Common_BravosPathfinder;BR_Common_BravosTracer;BR_Common_HavenBouncer;BR_Rare_BravosTracer;AX_Common_AmeliaEarhart";;;;;0
+336570;Character - Apprentice;BR_Common_HavenTrainee;;;;;0
+336488;Character - Apprentice Soldier;OD_Common_OrdisCadets;;;;;0
+336521;Character - Artist;"MU_Rare_LyraClothDancer;LY_Common_Esmeralda;LY_Common_LyraChronicler;LY_Common_LyraClothDancer;LY_Common_LyraSkald;LY_Rare_Esmeralda";;;;;0
+336526;Character - Artist Deity;LY_Common_Hathor;;;;;0
+342635;Character - Bureaucrat;YZ_Rare_MonolithArchivist;;;;;0
+339735;Character - Bureaucrat Noble;OD_Common_TheFrogPrince;;;;;0
+320904;Character - Citizen;"YZ_Common_Alice;YZ_Common_DorothyGale;YZ_Rare_Alice;YZ_Rare_DorothyGale;OD_Common_OrdisSpy;OD_Rare_OrdisSpy;LY_Common_OuroborosCroupier;LY_Common_OuroborosTrickster;LY_Common_TheHatter;LY_Rare_OuroborosTrickster;BR_Rare_DorothyGale";;;;;0
+336476;Character - Deity;"YZ_Common_Sakarabru;YZ_Rare_Sakarabru;MU_Common_Inari;MU_Rare_Parvati;LY_Common_Asmodeus;LY_Rare_Asmodeus;BR_Common_SunWukong;BR_Rare_SunWukong";;;;;0
+336590;Character - Dragon Deity;BR_Rare_Shenlong;;;;;0
+336506;Character - Druid;"MU_Common_MunaDruid;MU_Common_YongSuVerdantWeaver;MU_Rare_YongSuVerdantWeaver";;;;;0
+336497;Character - Druid Deity;MU_Common_Cernunnos;;;;;0
+336593;Character - Elemental;AX_Common_KelonElemental;;;;;0
+336600;Character - Engineer;"OD_Rare_FoundryMechanic;AX_Common_AxiomSalvager;AX_Common_AxiomScrambler;AX_Common_FoundryArmorer;AX_Common_FoundryMechanic;AX_Common_JianAssemblyOverseer;AX_Common_ThreeLittlePigs;AX_Rare_AxiomScrambler;AX_Rare_FoundryMechanic;AX_Rare_JianAssemblyOverseer;AX_Rare_ThreeLittlePigs";;;;;0
+336647;Character - Fairy;YZ_Rare_ToothFairy;;;;;0
+336473;Character - Fairy Spirit;YZ_Common_LadyoftheLake;;;;;0
+336470;Character - Mage;"YZ_Common_BabaYaga;YZ_Common_KadigiranAlchemist;YZ_Rare_BabaYaga;YZ_Rare_KadigiranAlchemist";;;;;0
+336479;Character - Mage Apprentice;YZ_Common_StudiousDisciple;;;;;0
+336480;Character - Mage Scholar;YZ_Common_YzmirStargazer;;;;;0
+343026;Character - Mage Soldier;LY_Rare_KadigiranMageDancer;;;;;0
+336586;Character - Messenger;"OD_Rare_Ratatoskr;BR_Common_Ratatoskr;BR_Rare_Ratatoskr";;;;;0
+336499;Character - Plant;"MU_Common_ConiferalConeman;MU_Common_DaughterofYggdrasil;MU_Common_SneezerShroom;MU_Rare_ConiferalConeman;MU_Rare_SneezerShroom";;;;;0
+336508;Character - Plant Animal;MU_Common_SpindleHarvesters;;;;;0
+336518;Character - Scholar;"OD_Common_MonolithRuneScribe;OD_Rare_MonolithRuneScribe";;;;;0
+327567;Character - Soldier;"OD_Common_JeannedArc;OD_Common_OrdisGatekeeper;OD_Common_OrdisTrooper;OD_Rare_JeannedArc;OD_Rare_OrdisTrooper;BR_Common_HavenWarrior;BR_Rare_HavenWarrior";;;;;0
+336486;Character - Soldier Noble;"OD_Common_KakobaLegionCommander;OD_Rare_KakobaLegionCommander";;;;;0
+336502;Character - Spirit;"MU_Common_Kitsune;LY_Common_Tanuki;LY_Rare_Tanuki";;;;;0
+336579;Character - Spirit Trainer;BR_Common_Kappa;;;;;0
+336555;Character - Titan;BR_Common_Atlas;;;;;0
+343136;Characters you control have $[TOUGH_2]. (Cards in Reserve are not controlled.);BR_Rare_TheSpindleMunaBastion;;;;;0
+318118;Charge!;OD_Common_Charge;;;;;0
+317751;Choose an assignment;ChooseAssignment;;;;;0
+336666;Choose your faction;Altered;;;;;0
+336667;Choose your starting mana cards;Altered;;;;;0
+317789;Companion side;Altered;;;;;0
+323689;Companion's expedition;"Notifications;InvokeToken";;;;;0
+343843;Compare statistics and check which expeditions move forward;Altered;;;;;0
+343877;Computing the progress in the Tumult;Notifications;;;;;0
+317785;Confirm;"Altered;Game";;;;;0
+317784;Confirm Mana;"Altered;Cards";;;;;0
+317797;Confirm discard;Cards;;;;;0
+317793;Confirm target;Altered;;;;;0
+317698;Coniferal Coneman;"MU_Common_ConiferalConeman;MU_Rare_ConiferalConeman";;;;;0
+336655;Construct powerful machines and let their strength carry you to victory!;Altered;;;;;0
+343089;Create #four# [ORDIS_RECRUIT] Soldier tokens, #distributed as you choose among any number of target Expeditions#.;OD_Rare_OpentheGates;;;;;0
+343115;Dance is the language of the soul.;LY_Common_Hathor;;;;;0
+318155;Daughter of Yggdrasil;MU_Common_DaughterofYggdrasil;;;;;0
+336679;Defender;Cards;;;;;0
+317517;Disabled;"Gameoptions;gamepreferences";;;;;0
+341675;Discard ${card};Discard;;;;;0
+327604;Discard of ${player_name};Cards;;;;;0
+336693;Discard up to one target card from a Reserve.;Cards;;;;;0
+317799;Display some settings about the game.;Game;;;;;0
+317515;Display tooltips;gamepreferences;;;;;0
+343098;Don't think you are, know you are.;"MU_Common_MeditationTraining;MU_Rare_MeditationTraining";;;;;0
+318086;Dorothy Gale;"YZ_Common_DorothyGale;YZ_Rare_DorothyGale;BR_Rare_DorothyGale";;;;;0
+317757;Draw ${n} card(s);Draw;;;;;0
+343832;Draw two cards;Altered;;;;;0
+336674;During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep.;"Cards;Meeples";;;;;0
+336672;During Rest, I don't go to Reserve and I lose Anchored.;Cards;;;;;0
+336682;During Rest, I don't go to Reserve.;Cards;;;;;0
+343116;Eidolon or human, we are all shaped by stories. They're the building blocks of our identity. ;LY_Common_LyraChronicler;;;;;0
+343114;Eidolon or not, you are our Shepherdess. You lead and we follow.;"LY_Common_Esmeralda;LY_Rare_Esmeralda";;;;;0
+317516;Enabled;"Gameoptions;gamepreferences";;;;;0
+317519;Enabled with timer;"Gameoptions;gamepreferences";;;;;0
+317545;End of game;Status bar (game state);;;;;0
+336670;End your turn as if you had played a card. You may still play cards later this Day.;Cards;;;;;0
+318180;Esmeralda;"LY_Common_Esmeralda;LY_Rare_Esmeralda";;;;;0
+336681;Eternal;Cards;;;;;0
+343134;Ever the trickster, always the rebel.;"BR_Common_SunWukong;BR_Rare_SunWukong";;;;;0
+343852;Exhaust;Altered;;;;;0
+343072;Facing terrible odds and an unfathomably huge Leviathan, the Ordis legion charged nonetheless.;OD_Common_Charge;;;;;0
+323678;Faction;"Statistics;stats";;;;;0
+343133;Faster, ever faster! Our fire rages highest when the race is afoot! ;BR_Common_KojoBooda;;;;;0
+336615;Few people visit the depths of the Foundry, and even fewer can explain how the Brassbugs came to be.;AX_Common_BrassbugHub;;;;;0
+336683;Fleeting;"Altered;Cards";;;;;0
+317798;Fleeting: if I would be send to reserve, banish me instead.;Meeples;;;;;0
+343083;Follow me, friends! If we stand together, nothing can stop us! ;OD_Common_SigismarWingspan;;;;;0
+343090;For the first time in centuries, the Solstice Gate has opened. For the first time in ages, humanity will discover what lies beyond the gates.;OD_Rare_OpentheGates;;;;;0
+327587;Foundry Armorer;AX_Common_FoundryArmorer;;;;;0
+331171;Foundry Mechanic;"OD_Rare_FoundryMechanic;AX_Common_FoundryMechanic;AX_Rare_FoundryMechanic";;;;;0
+331196;Gain ${n} ${counter_name};SpecialEffect;;;;;0
+317758;Gain ${resources_desc};Gain;;;;;0
+317767;Game Flow;Altered;;;;;0
+336686;Gigantic;Cards;;;;;0
+343837;Go back and forth taking turns;Altered;;;;;0
+343105;Green is good.;"MU_Common_YongSuVerdantWeaver;MU_Rare_YongSuVerdantWeaver";;;;;0
+343152;HERO;Altered;;;;;0
+343095;Harmony may bloom from a single act of kindness, as a rice field may sprout from a single grain of rice. ;MU_Common_Inari;;;;;0
+318184;Hathor;LY_Common_Hathor;;;;;0
+318215;Haven Bouncer;BR_Common_HavenBouncer;;;;;0
+320433;Haven Trainee;BR_Common_HavenTrainee;;;;;0
+339745;Haven Warrior;"BR_Common_HavenWarrior;BR_Rare_HavenWarrior";;;;;0
+343058;Help or harm? Only the card will tell.;"YZ_Common_BabaYaga;YZ_Rare_BabaYaga";;;;;0
+317788;Hero side;Altered;;;;;0
+323688;Hero's expedition;"Notifications;InvokeToken";;;;;0
+336558;Heroism counter;BR_Common_AtsadiSurge;;;;;0
+343107;Hope you're not afraid of heights!;"MU_Rare_LyraClothDancer;LY_Common_LyraClothDancer";;;;;0
+336687;I am considered present in each of your Expeditions.;Cards;;;;;0
+343149;I don't know if there's a better reward than seeing something you've built come to life.;AX_Common_SierraOddball;;;;;0
+336695;I keep my boosts when I go to Reserve.;Cards;;;;;0
+343848;Icons;Altered;;;;;0
+336684;If I would be sent to Reserve, discard me instead.;Cards;;;;;0
+340257;If you take this action, you won't be able to undo past this step because you will either roll a dice, draw card(s) from the deck or the discard, or someone else is going to make a decision;Altered;;;;;0
+343031;If you would roll one or more dice, instead roll that many dice plus one and ignore the roll of your choice.;LY_Rare_TheOuroborosLyraBastion;;;;;0
+324023;In tie-breaker this power have no effect.;MoveExpedition;;;;;0
+336636;In true Axiom fashion, Kelon Elementals like to put everything to the taste.;AX_Common_KelonElemental;;;;;0
+317703;Inari;MU_Common_Inari;;;;;0
+317736;Intimidation;BR_Common_Intimidation;;;;;0
+327602;Invoke ${tokenName};InvokeToken;;;;;0
+318121;Jeanne d'Arc;"OD_Common_JeannedArc;OD_Rare_JeannedArc";;;;;0
+318241;Jian, Assembly Overseer;"AX_Common_JianAssemblyOverseer;AX_Rare_JianAssemblyOverseer";;;;;0
+318088;Kadigiran Alchemist;"YZ_Common_KadigiranAlchemist;YZ_Rare_KadigiranAlchemist";;;;;0
+343025;Kadigiran Mage-Dancer;LY_Rare_KadigiranMageDancer;;;;;0
+318124;Kakoba, Legion Commander;"OD_Common_KakobaLegionCommander;OD_Rare_KakobaLegionCommander";;;;;0
+336578;Kappa;BR_Common_Kappa;;;;;0
+343847;Keep up to 2 cards in Reserve and 2 in Landmarks, discard the rest;Altered;;;;;0
+339753;Kelon Burst;AX_Common_KelonBurst;;;;;0
+318243;Kelon Elemental;AX_Common_KelonElemental;;;;;0
+327585;Kelon counter;AX_Common_BrassbugHub;;;;;0
+331180;Kelon counters;AX_Common_KelonCylinder;;;;;0
+339755;Kelonic Generator;AX_Rare_KelonicGenerator;;;;;0
+317704;Kitsune;MU_Common_Kitsune;;;;;0
+336656;"Kojo ""the rising star""";Altered;;;;;0
+318219;Kojo & Booda;BR_Common_KojoBooda;;;;;0
+318092;Kraken's Wrath;YZ_Common_KrakensWrath;;;;;0
+318096;Lady of the Lake;YZ_Common_LadyoftheLake;;;;;0
+327517;Landmark;Altered;;;;;0
+317765;Layout;Altered;;;;;0
+317759;Let ${player_name} gain ${resources_desc};Gain;;;;;0
+331639;Let ${player_name} loose ${resources_desc};Loose;;;;;0
+343059;Let me walk you to the door.;YZ_Common_BanishingGate;;;;;0
+336665;Let your opponent take the initiative to better thwart their plans, slowly but surely.;Altered;;;;;0
+343023;Like the Bravos, Lyras are drawn to freedom and the distant horizon.;"LY_Common_OuroborosTrickster;LY_Rare_OuroborosTrickster";;;;;0
+318260;Lyra;"Statistics;Notifications;Stats;Altered;stats";;;;;0
+318186;Lyra Chronicler;LY_Common_LyraChronicler;;;;;0
+343106;Lyra Cloth Dancer;"MU_Rare_LyraClothDancer;LY_Common_LyraClothDancer";;;;;0
+318192;Lyra Hero;LY_Common_NevenkaBlotch;;;;;0
+318190;Lyra Skald;LY_Common_LyraSkald;;;;;0
+336702;MANA;Players;;;;;0
+343246;MISSING FLAVOR;OD_Common_OrdisRecruit;;;;;0
+336688;Maw 0/0/0;Cards;;;;;0
+345540;Max landmark slots at night:;Players;;;;;0
+345539;Max reserve slots at night:;Players;;;;;0
+318158;Meditation Training;"MU_Common_MeditationTraining;MU_Rare_MeditationTraining";;;;;0
+342634;Monolith Archivist;YZ_Rare_MonolithArchivist;;;;;0
+341259;Monolith Rune-Scribe;"OD_Common_MonolithRuneScribe;OD_Rare_MonolithRuneScribe";;;;;0
+323690;Move expedition;"MoveCard;MoveExpedition";;;;;0
+317553;Muna;"Statistics;Notifications;Stats;Altered;stats";;;;;0
+317707;Muna Druid;MU_Common_MunaDruid;;;;;0
+318164;Muna Hero;MU_Common_TeijaNauraa;;;;;0
+336680;My Expedition can't advance during Dusk.;Cards;;;;;0
+343103;Nature must be nurtured to fully express its generosity.;MU_Common_TeijaNauraa;;;;;0
+336658;"Nevenka ""the unpredictable""";Altered;;;;;0
+318191;Nevenka & Blotch;LY_Common_NevenkaBlotch;;;;;0
+331197;Next character <BOOST>;SpecialEffect;;;;;0
+317691;No;"Statistics;stats";;;;;0
+343145;No Brassbug would survive in the Tumult without armor.;AX_Common_FoundryArmorer;;;;;0
+323679;No winner is found. New tiebreaker round starts;TurnTrait;;;;;0
+343122;Not even the weight of the sky could make him buckle.;BR_Common_Atlas;;;;;0
+336606;Nothing is created, nothing is lost, everything is transformed.;AX_Common_AxiomReprocessor;;;;;0
+323677;Number of days;"Statistics;stats";;;;;0
+317546;Number of turns;"Statistics;stats";;;;;0
+318160;Nurture;"MU_Common_Nurture;MU_Rare_Nurture";;;;;0
+327526;Off you go!;"YZ_Common_Offyougo;LY_Rare_Offyougo";;;;;0
+317776;"Only ""Restart turn"" button";Altered;;;;;0
+317778;"Only ""Undo last step"" button";Altered;;;;;0
+343109;Only in harmony can the world thrive.;MU_Rare_Parvati;;;;;0
+343127;Only the bravest can enter Haven.;BR_Common_HavenBouncer;;;;;0
+340303;Open the Gates;OD_Rare_OpentheGates;;;;;0
+318258;Ordis;"Statistics;Notifications;Stats;Altered;stats";;;;;0
+318126;Ordis Cadets;OD_Common_OrdisCadets;;;;;0
+318128;Ordis Carrier;OD_Common_OrdisCarrier;;;;;0
+341257;Ordis Gatekeeper;OD_Common_OrdisGatekeeper;;;;;0
+318138;Ordis Hero;OD_Common_SigismarWingspan;;;;;0
+318130;Ordis Recruit;OD_Common_OrdisRecruit;;;;;0
+336689;Ordis Recruit 1/1/1;Cards;;;;;0
+318133;Ordis Spy;"OD_Common_OrdisSpy;OD_Rare_OrdisSpy";;;;;0
+318134;Ordis Trooper;"OD_Common_OrdisTrooper;OD_Rare_OrdisTrooper";;;;;0
+336543;Ouroboros Croupier;LY_Common_OuroborosCroupier;;;;;0
+318196;Ouroboros Trickster;"LY_Common_OuroborosTrickster;LY_Rare_OuroborosTrickster";;;;;0
+336548;Paint Prison;"LY_Common_PaintPrison;LY_Rare_PaintPrison";;;;;0
+341263;Parvati;MU_Rare_Parvati;;;;;0
+317694;Pass;"AbstractNode;Altered";;;;;0
+317800;Pass action;Game;;;;;0
+343841;Pass the turn and end your Afternoon;Altered;;;;;0
+345593;Pay ${mana_cost};Pay;;;;;0
+345537;Pay ${mana_cost} and use ${consume}{COUNTER};UseCounter;;;;;0
+336490;Permanent - Landmark;"OD_Common_OrdisCarrier;OD_Common_TheMonolithOrdisBastion;LY_Rare_TheOuroborosLyraBastion;BR_Rare_TheSpindleMunaBastion;AX_Common_AxiomReprocessor;AX_Common_BrassbugHive;AX_Common_BrassbugHub;AX_Rare_BrassbugHive;AX_Rare_KelonicGenerator;AX_Rare_TheOuroborosLyraBastion";;;;;0
+343829;Phase 1: Morning;Altered;;;;;0
+343834;Phase 2: Noon;Altered;;;;;0
+343836;Phase 3: Afternoon;Altered;;;;;0
+343842;Phase 4: Dusk;Altered;;;;;0
+343844;Phase 5: Night;Altered;;;;;0
+343828;Phases of the day;Altered;;;;;0
+317742;Physical Training;"MU_Rare_PhysicalTraining;BR_Common_PhysicalTraining;BR_Rare_PhysicalTraining";;;;;0
+331194;Play ${card_name};PlayCard;;;;;0
+345594;Play ${card_name} for ${mana_cost};PlayCard;;;;;0
+336651;Play a card;PlayCard;;;;;0
+343840;Play a card from your hand or Reserve;Altered;;;;;0
+343141;Pushing back the Tumult sometimes prevents other Alterers from materializing their Eidolons. Regrettable, but necessary.;"AX_Common_AxiomScrambler;AX_Rare_AxiomScrambler";;;;;0
+336649;Put ${n} to mana;DrawMana;;;;;0
+343833;Put a card in Mana;Altered;;;;;0
+336691;Put the top card of your deck in Reserve.;Cards;;;;;0
+318222;Ratatoskr;"OD_Rare_Ratatoskr;BR_Common_Ratatoskr;BR_Rare_Ratatoskr";;;;;0
+343831;Ready your cards;Altered;;;;;0
+320911;Reserve;Altered;;;;;0
+343846;Rest: Characters go to Reserve;Altered;;;;;0
+317782;Restart turn;Altered;;;;;0
+317775;Restart turn buttons;Altered;;;;;0
+336690;Resupply;Cards;;;;;0
+331195;Resupply ${n};Resupply;;;;;0
+320423;Roll ${n} die;RollDie;;;;;0
+336515;Roll a die. Target Character gains X boosts$[BB], where X is the result.;LY_Common_AllIn;;;;;0
+336692;Sabotage;Cards;;;;;0
+341676;Sacrifice ${card};Discard;;;;;0
+318100;Sakarabru;"YZ_Common_Sakarabru;YZ_Rare_Sakarabru";;;;;0
+336694;Seasoned;Cards;;;;;0
+336668;Selected cards will join your mana pool;Altered;;;;;0
+336685;Send me to Discard instead of Reserve after my effect resolves.;Cards;;;;;0
+336474;Send to Reserve target Character with Hand Cost {3} or less.;"YZ_Common_Offyougo;LY_Rare_Offyougo";;;;;0
+317795;Settings;Altered;;;;;0
+343243;Shape your own adventure, choose a faction and lead your expeditions through an ever-changing world. Be the first to discover what the universe of Altered has in store for you!;Gameinfos;;;;;0
+343067;She won't read the future in the stars, she'll change it herself.;YZ_Common_YzmirStargazer;;;;;0
+343074;She'll be followed long after she's gone.;"OD_Common_JeannedArc;OD_Rare_JeannedArc";;;;;0
+336589;Shenlong;BR_Rare_Shenlong;;;;;0
+317796;Show cards;Cards;;;;;0
+336654;"Sierra ""the renowned engineer""";Altered;;;;;0
+318248;Sierra & Oddball;AX_Common_SierraOddball;;;;;0
+336662;"Sigismar ""the commander""";Altered;;;;;0
+318137;Sigismar & Wingspan;OD_Common_SigismarWingspan;;;;;0
+317712;Sneezer Shroom;"MU_Common_SneezerShroom;MU_Rare_SneezerShroom";;;;;0
+343066;So far behind, and still so much to learn!;YZ_Common_StudiousDisciple;;;;;0
+343084;Some lessons stick better than others.;OD_Common_StickyNoteSeals;;;;;0
+343102;Some say the harvesters are the caretakers of the world-trees.;MU_Common_SpindleHarvesters;;;;;0
+317792;Spell;Altered;;;;;0
+336504;Spell - Boon;"MU_Common_MeditationTraining;MU_Common_Nurture;MU_Rare_MeditationTraining;MU_Rare_Nurture;MU_Rare_PhysicalTraining;LY_Common_AllIn;BR_Common_PhysicalTraining;BR_Rare_PhysicalTraining";;;;;0
+336472;Spell - Disruption;"YZ_Common_BanishingGate;YZ_Common_KrakensWrath;YZ_Common_Offyougo;YZ_Common_SpyCraft;YZ_Rare_BeautySleep;OD_Common_StickyNoteSeals;MU_Common_BeautySleep;LY_Common_PaintPrison;LY_Rare_Offyougo;LY_Rare_PaintPrison;BR_Common_Intimidation;AX_Common_KelonBurst";;;;;0
+336483;Spell - Maneuver;"OD_Common_Charge;OD_Rare_OpentheGates";;;;;0
+317761;Spell cleanup;SpellCleanup;;;;;0
+318162;Spindle Harvesters;MU_Common_SpindleHarvesters;;;;;0
+318103;Spy Craft;YZ_Common_SpyCraft;;;;;0
+339736;Sticky Note Seals;OD_Common_StickyNoteSeals;;;;;0
+343080;Stirred, but not shaken.;"OD_Common_OrdisSpy;OD_Rare_OrdisSpy";;;;;0
+327530;Studious Disciple;YZ_Common_StudiousDisciple;;;;;0
+336657;Summon your firecat Companion to seize the advantage without delay, for only the brave make history!;Altered;;;;;0
+327512;Sun Wukong;"BR_Common_SunWukong;BR_Rare_SunWukong";;;;;0
+323691;Support ability;Altered;;;;;0
+336663;Take the reins of the Ordis Legion and secure victory through sheer numbers!;Altered;;;;;0
+336550;Tanuki;"LY_Common_Tanuki;LY_Rare_Tanuki";;;;;0
+324036;Target ${n} card(s) to ${effect_desc};Target;;;;;0
+324030;Target ${n} character(s) to ${effect_desc};Target;;;;;0
+324033;Target ${n} permanent(s) to ${effect_desc};Target;;;;;0
+336585;Target Character gains 3 boosts$[BB].;"MU_Rare_PhysicalTraining;BR_Common_PhysicalTraining";;;;;0
+340310;Target Character gains 3 boosts$[BB].  #Draw a card.#;BR_Rare_PhysicalTraining;;;;;0
+343068;Target Character gains [ASLEEP]. (During Dusk, ignore its statistics. During Rest, it doesn't go to Reserve and it loses Asleep.);"YZ_Rare_BeautySleep;MU_Common_BeautySleep";;;;;0
+343097;Target Character with Hand Cost {3} or less gains [ANCHORED]. (During Rest, it doesn't go to Reserve and it loses Anchored.);"MU_Common_MeditationTraining;MU_Rare_MeditationTraining";;;;;0
+324034;Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc};Target;;;;;0
+324035;Target up to ${n} card(s) to ${effect_desc};Target;;;;;0
+324028;Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc};Target;;;;;0
+324029;Target up to ${n} character(s) to ${effect_desc};Target;;;;;0
+324031;Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc};Target;;;;;0
+324032;Target up to ${n} permanent(s) to ${effect_desc};Target;;;;;0
+336660;"Teija ""the druidess""";Altered;;;;;0
+318163;Teija & Nauraa;MU_Common_TeijaNauraa;;;;;0
+345591;Thankfully, he doesn't seal his contracts with a kiss.;OD_Common_TheFrogPrince;;;;;0
+343079;The Aegis Sentinel opened the door and stepped aside to let her through, acknowledging her with a nod as she passed.;OD_Common_OrdisGatekeeper;;;;;0
+343140;The Axiom's limited resources pushed them to reuse whatever they could.;AX_Common_AxiomSalvager;;;;;0
+343030;The Expeditionary Corps' mobile outpost soars high, like a spinning wheel weaving the wind. ;"LY_Rare_TheOuroborosLyraBastion;AX_Rare_TheOuroborosLyraBastion";;;;;0
+318142;The Frog Prince;OD_Common_TheFrogPrince;;;;;0
+320903;The Hatter;LY_Common_TheHatter;;;;;0
+341684;The Monolith, Ordis Bastion;OD_Common_TheMonolithOrdisBastion;;;;;0
+343076;The Ordis manifest their Alteration through the use of glyphs of power.;"OD_Common_MonolithRuneScribe;OD_Rare_MonolithRuneScribe";;;;;0
+341672;The Ouroboros, Lyra Bastion;"LY_Rare_TheOuroborosLyraBastion;AX_Rare_TheOuroborosLyraBastion";;;;;0
+328053;The Spindle, Muna Bastion;BR_Rare_TheSpindleMunaBastion;;;;;0
+343094;The children of Yggdrasil now take care of the world trees.;MU_Common_DaughterofYggdrasil;;;;;0
+336509;The first Character you play each Afternoon gains 1 boost$[BB].;MU_Common_TeijaNauraa;;;;;0
+343078;The flow of Ordis Recruits seems to go on forever.;OD_Common_OrdisCarrier;;;;;0
+343075;"The general who became a scholar; the scholar who became a senator.";"OD_Common_KakobaLegionCommander;OD_Rare_KakobaLegionCommander";;;;;0
+343120;The house never loses.;LY_Common_OuroborosCroupier;;;;;0
+317756;The opponent draws ${n} card(s);Draw;;;;;0
+343022;The roaring waves crashed down over the charging armies, and countless soldiers vanished beneath the raging waters.;YZ_Common_KrakensWrath;;;;;0
+343130;The terrible beast shrank and cowered before the might of the Bravos.;BR_Common_Intimidation;;;;;0
+340256;The tiebreaker is triggered as heroes reached their companions at the same time;Notifications;;;;;0
+343839;Then either:;Altered;;;;;0
+343112;There's a time to be cautious, and a time to bet it all!;LY_Common_AllIn;;;;;0
+343147;There's an enduring legend in the Suspira quarries: the existence of another type of Kelon.;AX_Common_KelonBurst;;;;;0
+317514;This game action is impossible right now;Altered;;;;;0
+343065;This message will self-destruct in five seconds.;YZ_Common_SpyCraft;;;;;0
+339756;Three Little Pigs;"AX_Common_ThreeLittlePigs;AX_Rare_ThreeLittlePigs";;;;;0
+343063;Time to kiss Kansas goodbye.;"YZ_Common_Offyougo;LY_Rare_Offyougo";;;;;0
+339758;Together they can build more than just a stone house.;"AX_Common_ThreeLittlePigs;AX_Rare_ThreeLittlePigs";;;;;0
+345590;Together they learn, and together they'll protect.;OD_Common_OrdisCadets;;;;;0
+317794;Toggle help/safe mode.;Altered;;;;;0
+336561;Token - Companion;BR_Common_Booda;;;;;0
+336492;Token - Soldier;OD_Common_OrdisRecruit;;;;;0
+340301;Tooth Fairy;YZ_Rare_ToothFairy;;;;;0
+324027;Total hand cost exceeds the limit of the effect;Target;;;;;0
+336696;Tough 1;Cards;;;;;0
+336698;Tough 2;Cards;;;;;0
+336700;Tough X;Cards;;;;;0
+317518;Turn confirmation;"Gameoptions;gamepreferences";;;;;0
+317550;Undo here;Notifications;;;;;0
+317781;Undo last step;Altered;;;;;0
+317520;Undoable actions confirmation;"Gameoptions;gamepreferences";;;;;0
+339740;Up to two target Characters each gain #2 boosts$[BB]#.;MU_Rare_Nurture;;;;;0
+336507;Up to two target Characters each gain 1 boost$[BB].;MU_Common_Nurture;;;;;0
+345536;Use ${consume}{COUNTER};UseCounter;;;;;0
+320419;Wait next turn;AfterYou;;;;;0
+323672;Waiting for other players to select cards to discard as mana;Status bar (game state);;;;;0
+317521;Waiting for others to choose their deck;Status bar (game state);;;;;0
+336460;Waiting for others to choose their faction;Status bar (game state);;;;;0
+343113;Wanna play a game?;"LY_Common_Asmodeus;LY_Rare_Asmodeus";;;;;0
+343117;We're all stories, in the end.;LY_Common_LyraSkald;;;;;0
+343129;We've all lived through some things. But she's been through worse.;"BR_Common_HavenWarrior;BR_Rare_HavenWarrior";;;;;0
+343143;What could possibly go wrong with an adorable little self-replicating autonomous robot?;"AX_Common_BrassbugHive;AX_Rare_BrassbugHive";;;;;0
+345595;What do you want to do with that card?;Altered;;;;;0
+343244;What really lies at the heart of this revolution is a ton of expertly tailored details — a new rarity system, deep evolving lore, innovative game mechanisms and design — and a phygital experience that comes along with its myriad of life-quality improvements, both for the players, tournaments organizers and store owners alike.;Gameinfos;;;;;0
+336659;What's better than invoking fate to spice up a game? Are you ready to embrace the whims of destiny?;Altered;;;;;0
+343056;Whatever ordeals we may face, good manners and politeness are always in fashion!;YZ_Common_AkeshaTaru;;;;;0
+343088;When I leave the Expedition zone — Create #two# [ORDIS_RECRUIT] Soldier tokens in each of your Expeditions.;OD_Rare_JeannedArc;;;;;0
+343073;When I leave the Expedition zone — Create an [ORDIS_RECRUIT] Soldier token in each of your Expeditions.;OD_Common_JeannedArc;;;;;0
+343849;When I'm played from anywhere...;Altered;;;;;0
+343850;When I'm played from hand...;Altered;;;;;0
+343851;When I'm played from your Reserve;Altered;;;;;0
+343085;When a Character joins your Expeditions — It gains 1 boost$[BB].;OD_Common_TheMonolithOrdisBastion;;;;;0
+343064;When such a terrifying being appears in your path, taking a step back is only natural.;"YZ_Common_Sakarabru;YZ_Rare_Sakarabru";;;;;0
+343100;When the sun shines, we'll shine together.;"MU_Common_Nurture;MU_Rare_Nurture";;;;;0
+343028;When you #roll one or more dice# — I gain 1 boost$[BB].;LY_Rare_KadigiranMageDancer;;;;;0
+343148;When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a [BRASSBUG] Robot token in target Expedition.;AX_Common_SierraOddball;;;;;0
+317787;Where do you want to play that card?;Altered;;;;;0
+327511;Winner;"Statistics;stats";;;;;0
+343137;Within the Spindle's trunk is the Bark Refuge, the sanctuary where the Muna converse with sentient plants.;BR_Rare_TheSpindleMunaBastion;;;;;0
+317692;Yes;"Statistics;stats";;;;;0
+343069;Yet beware of splinters of flax.;"YZ_Rare_BeautySleep;MU_Common_BeautySleep";;;;;0
+341265;Yong-Su, Verdant Weaver;"MU_Common_YongSuVerdantWeaver;MU_Rare_YongSuVerdantWeaver";;;;;0
+317801;You;Game;;;;;0
+343838;You can activate Quick actions;Altered;;;;;0
+343092;You can feel it in the trees, deep beneath their roots – the very heartbeat of nature.;MU_Common_Cernunnos;;;;;0
+343087;You can't choose when and where a quick fix will be needed.;"OD_Rare_FoundryMechanic;AX_Common_FoundryMechanic;AX_Rare_FoundryMechanic";;;;;0
+343331;You can't take an irreversible action if there is a mandatory undoable action pending;Engine;;;;;0
+328059;You cannot pay the additional cost (Tough effect);Target;;;;;0
+317564;You discard ${card_names};Notifications;;;;;0
+317590;You draw ${card_names} from the deck (scoring cards);Notifications;;;;;0
+317568;You draw ${card_names} from your deck;Notifications;;;;;0
+320122;You draw ${card_names} from your deck (${card_name2}'s effect);Player;;;;;0
+341677;You draw ${card_names} from your deck and must keep 1 (${card_name2}'s effect combined with The Ouroboros, Lyra Bastion);Resupply;;;;;0
+317547;You must select the correct number of cards to put as mana;NewDayTrait;;;;;0
+317555;You place ${card_names} as mana;Notifications;;;;;0
+320421;You put ${card_names} from your deck in Reserve (${card_name2}'s effect);Resupply;;;;;0
+327605;Your mana cards;Cards;;;;;0
+336697;Your opponent's Spells and abilities that target me cost {1} more.;Cards;;;;;0
+336699;Your opponent's Spells and abilities that target me cost {2} more.;Cards;;;;;0
+336701;Your opponent's Spells and abilities that target me cost {X} more.;Cards;;;;;0
+343024;Your problem is a lack of perspective.;"LY_Common_PaintPrison;LY_Rare_PaintPrison";;;;;0
+343091;You’re nuts if you think you can keep up with this little one!;"OD_Rare_Ratatoskr;BR_Common_Ratatoskr;BR_Rare_Ratatoskr";;;;;0
+318261;Yzmir;"Statistics;Notifications;Stats;Altered;stats";;;;;0
+318081;Yzmir Hero;YZ_Common_AkeshaTaru;;;;;0
+318108;Yzmir Stargazer;YZ_Common_YzmirStargazer;;;;;0
+327600;activate {J} effect;ActivateEffect;;;;;0
+331190;activate {J} effect of ${card_name};ActivateEffect;;;;;0
+317513;altered_displayed;Game name;;;;;0
+324020;discard to ${location} ${card};Discard;;;;;0
+343884;forest;Notifications;;;;;0
+331638;loose ${resources_desc};Loose;;;;;0
+343885;mountain;Notifications;;;;;0
+331193;move ${card_name} to opposite expedition;MoveCard;;;;;0
+331192;move a character to opposite expedition;MoveCard;;;;;0
+341679;opposite of played card;Altered;;;;;0
+343032;put ${card} on top of it's owner deck;Discard;;;;;0
+331976;source;Altered;;;;;0
+343886;water;Notifications;;;;;0
+336525;{D} : Return another card from your Reserve to your hand. (Discard me from Reserve to do this.);LY_Common_Hathor;;;;;0
+336505;{D} : Target Character with Hand Cost {3} or less gains [ANCHORED]. (Discard me from Reserve to do this.);"MU_Common_MunaDruid;LY_Common_TheHatter";;;;;0
+336625;{D} : The next Permanent you play this turn costs {1} less. (Discard me from Reserve to do this.);"OD_Rare_FoundryMechanic;AX_Common_FoundryMechanic;AX_Rare_FoundryMechanic";;;;;0
+336478;{D} : The next Spell you play this turn costs {1} less. (Discard me from Reserve to do this.);YZ_Common_StudiousDisciple;;;;;0
+336467;{D} : [AFTER_YOU]. (Discard me from Reserve to do this.);"YZ_Common_Alice;YZ_Rare_Alice";;;;;0
+336524;{H} $[RESUPPLY].;LY_Common_Esmeralda;;;;;0
+336493;{H} $[SABOTAGE].;"YZ_Rare_ToothFairy;OD_Common_OrdisSpy;LY_Common_Tanuki;AX_Common_AxiomScrambler;AX_Rare_AxiomScrambler";;;;;0
+340306;{H} $[SABOTAGE].  #{R} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.#;OD_Rare_OrdisSpy;;;;;0
+340309;{H} $[SABOTAGE].  #{R} Roll a die. On a 4 or higher, [SABOTAGE].#;LY_Rare_Tanuki;;;;;0
+336567;{H} $[SABOTAGE].  {R} I gain 1 boost.;BR_Common_HavenBouncer;;;;;0
+342630;{H} Draw a card.;"YZ_Common_BabaYaga;YZ_Rare_BabaYaga";;;;;0
+336501;{H} Each player draws a card.;MU_Common_Kitsune;;;;;0
+339732;{H} I gain #3 boosts$[BB]#.;YZ_Rare_KadigiranAlchemist;;;;;0
+336469;{H} I gain 2 boosts$[BB].;YZ_Common_KadigiranAlchemist;;;;;0
+336635;{H} Put a card from your hand in Reserve.;AX_Common_KelonElemental;;;;;0
+339742;{H} Roll a die. On a 4 or higher, draw a card. Otherwise, $[RESUPPLY].;LY_Common_OuroborosCroupier;;;;;0
+336500;{H} Target opponent draws a card.;MU_Common_DaughterofYggdrasil;;;;;0
+336529;{H} Up to one target Character gains [FLEETING_CHAR]. (If it would be sent to Reserve, discard it instead.);"MU_Rare_LyraClothDancer;LY_Common_LyraClothDancer";;;;;0
+336468;{H} You may send target Character to Reserve.;"YZ_Common_DorothyGale;BR_Rare_DorothyGale";;;;;0
+336475;{H} Your opponent's Expedition facing mine moves backwards one region.;"YZ_Common_Sakarabru;YZ_Rare_Sakarabru";;;;;0
+343142;{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.;AX_Common_BrassbugHive;;;;;0
+343150;{J} Create a [BRASSBUG] Robot token in target Expedition.  At Noon — Create a [BRASSBUG] Robot token in target Expedition.  #When a Robot joins your Expeditions — It gains 1 boost.#;AX_Rare_BrassbugHive;;;;;0
+336487;{J} Create an [ORDIS_RECRUIT] Soldier token in my Expedition.;OD_Common_OrdisCadets;;;;;0
+341258;{J} Create an [ORDIS_RECRUIT] Soldier token in your other Expedition.;OD_Common_OrdisGatekeeper;;;;;0
+336498;{J} I gain $[ANCHORED].;"MU_Common_ConiferalConeman;MU_Common_SneezerShroom;MU_Common_SpindleHarvesters;MU_Rare_ConiferalConeman";;;;;0
+343111;{J} I gain $[ANCHORED].  #At Noon — I gain 1 boost$[BB].#;MU_Rare_SneezerShroom;;;;;0
+343125;{J} I gain [FLEETING_CHAR]. (If I would be sent to Reserve, discard me instead.);"BR_Common_BravosTracer;BR_Rare_BravosTracer";;;;;0
+343144;{J} I gain three Kelon counters.  At Noon — You may pay {1} and spend one of my Kelon counters to create a [BRASSBUG] Robot token in target Expedition.;AX_Common_BrassbugHub;;;;;0
+339739;{J} If you control three or more other Characters, I gain #3 boosts$[BB]#. (Cards in Reserve are not controlled.);OD_Rare_KakobaLegionCommander;;;;;0
+336485;{J} If you control three or more other Characters, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.);OD_Common_KakobaLegionCommander;;;;;0
+339761;{J} If you control two or more Landmarks, I gain #2 boosts$[BB]#. (Cards in Reserve are not controlled.);AX_Rare_ThreeLittlePigs;;;;;0
+339757;{J} If you control two or more Landmarks, I gain 1 boost$[BB]. (Cards in Reserve are not controlled.);AX_Common_ThreeLittlePigs;;;;;0
+343104;{J} If you control two or more Plants, I gain 2 boosts$[BB]. (Cards in Reserve are not controlled.);"MU_Common_YongSuVerdantWeaver;MU_Rare_YongSuVerdantWeaver";;;;;0
+339743;{J} Roll a die. On a 4 or higher, I gain #3 boosts#. Otherwise, I gain 1 boost$[BB].;LY_Rare_OuroborosTrickster;;;;;0
+336522;{J} Roll a die. On a 4 or higher, I gain $[ANCHORED]. Otherwise, I gain 3 boosts$[BB].;"LY_Common_Asmodeus;LY_Rare_Asmodeus";;;;;0
+336547;{J} Roll a die. On a 4 or higher, I gain 2 boosts. Otherwise, I gain 1 boost$[BB].;LY_Common_OuroborosTrickster;;;;;0
+340307;{R} #Create two [ORDIS_RECRUIT] Soldier tokens in my Expedition.#;OD_Rare_Ratatoskr;;;;;0
+336607;{R} $[RESUPPLY].;AX_Common_AxiomSalvager;;;;;0
+336621;{R} Create a [BRASSBUG] Robot token in target Expedition.;AX_Common_FoundryArmorer;;;;;0
+339750;{R} I gain #3 boosts$[BB]#.;BR_Rare_Ratatoskr;;;;;0
+339751;{R} I gain 2 boosts$[BB] #and lose [FLEETING_CHAR]#.;BR_Rare_SunWukong;;;;;0
+336569;{R} I gain 2 boosts$[BB].;"BR_Common_HavenTrainee;BR_Common_Ratatoskr;BR_Common_SunWukong";;;;;0
+336465;{T} : $[AFTER_YOU]. You can only activate this if you are the first player.;YZ_Common_AkeshaTaru;;;;;0
+343118;{T} : Target a Character you control, then roll a die. On a:  • 6+, it gains [ANCHORED]. (During Rest, it doesn't go to Reserve and it loses Anchored.)  • 2-5, it gains 1 boost$[BB].  • 1, send it to Reserve.;LY_Common_NevenkaBlotch;;;;;0

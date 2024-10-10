@@ -1,0 +1,3667 @@
+1
+
+2
+
+ALT Helping Hand
+Spell
+
+Target Character gains 1 boost and
+loses Fleeting.
+
+2
+
+3
+
+5
+
+ALT Mana Channelling
+Spell
+
+Spell
+
+Target Character gains 3 boosts.
+
+Equinox Prototype - ALT_CORE_B_BR_25_R2 - - 14/11/2023
+
+5
+
+Physical Training
+
+3
+
+4
+
+2
+
+ALT Mana Channelling
+Spell
+
+Spell
+
+Target Character gains 3 boosts.
+Draw a card.
+
+Equinox Prototype - ALT_CORE_B_BR_26_C - - 14/11/2023
+
+2
+
+ALT Physical Training
+
+2
+
+2
+
+2
+
+2
+
+Spell
+
+2
+
+2
+
+ALT Intimidation
+Spell
+
+Fleeting.
+Return target Character or Permanent of hand cost
+5 or less to its owner's hand. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_BR_28_R1 - - 14/11/2023
+
+2
+
+2
+
+ALT Intimidation
+
+Fleeting.
+Return target Character or Permanent of hand cost
+5 or less to its owner's hand. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_BR_28_C - - 14/11/2023
+
+2
+
+2
+
+Spell
+
+Fleeting.
+Return target Character or Permanent of hand cost
+4 or less to its owner's hand. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_BR_26_R1 - - 14/11/2023
+
+2
+
+Intimidation
+
+3
+
+3
+
+Booda
+Token
+
+Spell
+
+Fleeting.
+Sacrifice a Mana Orb to discard target
+Character or Permanent. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_BR_28_R2 - - 14/11/2023
+
+2
+
+Mana Eruption
+
+Equinox Prototype - ALT_CORE_B_BR_29_C - - 14/11/2023
+
+2
+
+2
+
+ALT Mana Eruption
+Spell
+
+2
+2
+2
+
+Haven, Bravos Bastion
+
+ALT Haven, Bravos Bastion
+
+Permanent
+
+Fleeting
+Put the top two cards of your deck in
+your Mana Orbs, exhausted. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_BR_27_R1 - - 14/11/2023
+
+2
+
+2
+
+ALT Mana Eruption
+Spell
+
+Fleeting
+Put the top card of your deck in your
+Mana Orbs, exhausted. (Fleeting: Send
+me to Discard instead of Reserve after
+my effect resolves.)
+Equinox Prototype - ALT_CORE_B_BR_27_R2 - - 14/11/2023
+
+Teija & Nauraa
+Muna Hero
+
+Your Characters have : "S I gain 1
+boost."
+
+J Resupply.
+Your Characters have : "S I gain 1
+boost." (Resupply: Put the top card of
+your deck in your Reserve.)
+
+Equinox Prototype - ALT_CORE_B_BR_30_C - - 14/11/2023
+
+Arjun & Spike
+
+Fleeting.
+Sacrifice a Mana Orb to discard target
+Character or Permanent. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_BR_29_R2 - - 14/11/2023
+
+PERMANENTS PP
+
+1
+
+Muna Hero
+
+The first Character you play each Day
+gains 1 boost.
+
+Equinox Prototype - ALT_CORE_B_MU_01_C - - 14/11/2023
+
+MEMORY PP
+
+Permanent
+
+Your Characters have : "S I gain 1
+boost."
+
+Equinox Prototype - ALT_CORE_B_BR_30_R1 - - 14/11/2023
+
+1
+
+Spindle Harvesters
+Character
+
+1
+0
+0
+
+MEMORY PP
+
+ALT Haven, Bravos Bastion
+
+Permanent
+
+I am a token.
+(When I leave the Expedition Zone —
+Discard me).
+
+Equinox Prototype - ALT_CORE_B_BR_30_R2 - - 14/11/2023
+
+1
+
+1
+
+ALT Spindle Harvesters
+Character
+
+1
+0
+0
+
+Fleeting.
+Sacrifice a Mana Orb to discard target
+Character or Permanent. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_BR_31_C - - 14/11/2023
+
+1
+
+1
+
+ALT Spindle Harvesters
+Character
+
+1
+0
+0
+
+Equinox Prototype - ALT_CORE_B_BR_29_R1 - - 14/11/2023
+
+2
+
+2
+
+Sneezer Shroom
+Character
+
+1
+1
+1
+
+PERMANENTS PP
+
+T, discard a card from your Reserve : the next
+Character of hand cost 3 or less you
+play this turn becomes Anchored.
+(Anchored: At Night, I don't go to Reserve
+and I lose Anchored.)
+Equinox Prototype - ALT_CORE_B_MU_02_C - - 14/11/2023
+
+J I become Anchored. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+Equinox Prototype - ALT_CORE_B_MU_06_C - - 14/11/2023
+
+J I become Anchored.
+At Dawn, if I have at least 2 boosts —
+Draw a card. (Anchored: At Night, I don't
+go to Reserve and I lose Anchored.)
+Equinox Prototype - ALT_CORE_B_MU_06_R1 - - 14/11/2023
+
+J I become Anchored. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+Equinox Prototype - ALT_CORE_B_MU_06_R2 - - 14/11/2023
+
+J I become Anchored. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+Equinox Prototype - ALT_CORE_B_MU_08_C - - 14/11/2023
+
+2
+
+2
+
+Kitsune
+
+Character
+
+0
+3
+2
+
+1
+
+1
+
+Muna Caregiver
+Character
+
+0
+1
+0
+
+1
+
+1
+
+ALT Muna Caregiver
+Character
+
+1
+2
+0
+
+1
+
+1
+
+ALT Muna Caregiver
+Character
+
+0
+1
+0
+
+2
+
+1
+
+Mowgli
+
+Character
+
+3
+0
+0
+
+Equinox Prototype - ALT_CORE_B_MU_05_C - - 14/11/2023
+
+2
+
+1
+
+ALT Mowgli
+Character
+
+3
+0
+0
+
+Equinox Prototype - ALT_CORE_B_MU_04_C - - 14/11/2023
+
+2
+
+1
+
+ALT Mowgli
+Character
+
+3
+0
+0
+
+ALT Kodama
+Character
+
+3
+3
+3
+
+D : Target Character with hand cost 3 or
+less gains Anchored. (Discard me from
+your Reserve to activate this effect)
+Equinox Prototype - ALT_CORE_B_MU_09_R1 - - 14/11/2023
+
+Yong-Su, Verdant Weaver
+Character
+
+2
+
+2
+
+ALT Kodama
+Character
+
+Equinox Prototype - ALT_CORE_B_MU_09_R2 - - 14/11/2023
+
+2
+
+2
+
+3
+
+ALT Yong-Su, Verdant Weaver
+Character
+
+J If you have 2 or more Plants in your
+Expedition, I gain 2 boosts.
+
+3
+
+Daughter of Yggdrasil
+Character
+
+3
+
+3
+
+ALT Yong-Su, Verdant Weaver
+Character
+
+J If you have at least 3 base statistics
+0 among your Characters, I gain 2
+boosts.
+
+2
+
+Inari
+
+Character
+
+3
+1
+3
+
+2
+
+ALT Inari
+Character
+
+3
+1
+3
+
+M Each opponent draws a card.
+
+2
+
+2
+
+ALT Sneezer Shroom
+Character
+
+J I become Anchored. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+
+3
+
+ALT Kitsune
+Character
+
+M Each player draws a card.
+
+Equinox Prototype - ALT_CORE_B_MU_05_R2 - - 14/11/2023
+
+2
+
+2
+
+Kodama
+
+Character
+
+M I become Asleep. (Asleep: Ignore
+my statistics during Dusk. At Night, I
+don't join the Reserve and I lose Asleep.)
+
+Equinox Prototype - ALT_CORE_B_MU_08_R2 - - 14/11/2023
+
+2
+
+ALT Inari
+Character
+
+3
+1
+3
+
+Equinox Prototype - ALT_CORE_B_MU_09_C - - 14/11/2023
+
+3
+
+2
+
+Muna Druid
+Character
+
+3
+2
+2
+
+At Dawn — Draw a card.
+D : The next Permanent you play this turn
+costs 1 less. (Discard me from your
+Reserve to activate this effect)
+
+Equinox Prototype - ALT_CORE_B_MU_12_C - - 14/11/2023
+
+2
+
+3
+3
+3
+
+Equinox Prototype - ALT_CORE_B_MU_10_R2 - - 14/11/2023
+
+3
+
+2
+
+Equinox Prototype - ALT_CORE_B_MU_05_R1 - - 14/11/2023
+
+1
+1
+1
+
+Equinox Prototype - ALT_CORE_B_MU_10_R1 - - 14/11/2023
+
+3
+
+Character
+
+0
+3
+2
+
+Equinox Prototype - ALT_CORE_B_MU_07_C - - 14/11/2023
+
+3
+3
+3
+
+Equinox Prototype - ALT_CORE_B_MU_10_C - - 14/11/2023
+
+5
+5
+3
+
+M I become Asleep. (Asleep: Ignore
+my statistics during Dusk. At Night, I
+don't join the Reserve and I lose Asleep.)
+
+Equinox Prototype - ALT_CORE_B_MU_04_R2 - - 14/11/2023
+
+2
+2
+2
+
+Equinox Prototype - ALT_CORE_B_MU_07_R2 - - 14/11/2023
+
+3
+3
+3
+
+M I become Asleep. (Asleep: Ignore my statistics
+during Dusk. At Night, I don't join the Reserve and I
+lose Asleep.)
+
+3
+
+J If you have 2 or more Plants in your
+Expedition, I gain 2 boosts.
+
+Equinox Prototype - ALT_CORE_B_MU_07_R1 - - 14/11/2023
+
+2
+
+3
+
+ALT Kitsune
+
+M Each player may Resupply.
+(Resupply: Put the top card of your deck
+in your Reserve.)
+
+D : Target Character with hand cost 3 or
+less becomes Anchored. (Discard me from
+your Reserve to activate this effect)
+
+Equinox Prototype - ALT_CORE_B_MU_04_R1 - - 14/11/2023
+
+3
+3
+3
+
+D : Target Character with hand cost 3 or
+less becomes Anchored. (Discard me from
+your Reserve to activate this effect)
+
+2
+
+D : Target Character with hand cost 3 or
+less becomes Anchored. (Discard me from
+your Reserve to activate this effect)
+
+2
+
+0
+3
+2
+
+M Each player draws a card.
+D : Target Character with hand cost 3 or
+less becomes Anchored. (Discard me from
+your Reserve to activate this effect)
+
+2
+
+Equinox Prototype - ALT_CORE_B_MU_11_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_MU_11_R1 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_MU_11_R2 - - 14/11/2023
+
+D : Target Character with hand cost 3 or
+less becomes Anchored. (Discard me from
+your Reserve to activate this effect)
+Equinox Prototype - ALT_CORE_B_MU_13_C - - 14/11/2023
+
+3
+
+2
+
+ALT Muna Druid
+Character
+
+2
+1
+1
+
+4
+
+4
+
+Verdantback
+Character
+
+5
+5
+6
+
+3
+
+3
+
+ALT Verdantback
+Character
+
+4
+4
+5
+
+4
+
+4
+
+ALT Verdantback
+Character
+
+5
+5
+6
+
+5
+
+5
+
+Coniferal Coneman
+Character
+
+3
+3
+3
+
+4
+
+4
+
+ALT Coniferal Coneman
+Character
+
+3
+3
+3
+
+4
+
+4
+
+ALT Coniferal Coneman
+Character
+
+3
+3
+3
+
+M Target Plant gains 2 boosts
+
+D : Target Character with hand cost 3 or
+less becomes Anchored. (Discard me from
+your Reserve to activate this effect)
+
+I have Defender unless you have 2 or more other
+Plants in your Expeditions. (Defender:
+My Expedition cannot advance during
+Dusk.)
+
+Equinox Prototype - ALT_CORE_B_MU_13_R1 - - 14/11/2023
+
+6
+
+6
+
+Son of Yggdrasil
+Character
+
+6
+3
+3
+
+I have Defender unless you have 2 or more other
+Plants in your Expeditions. (Defender:
+My Expedition cannot advance during
+Dusk.)
+
+Equinox Prototype - ALT_CORE_B_MU_19_C - - 14/11/2023
+
+4
+
+2
+
+Parvati
+
+Character
+
+3
+0
+3
+
+I have Defender unless you have 2 or more
+Bureaucrats in your Expeditions..
+(Defender: My Expedition cannot
+advance during Dusk.)
+
+Equinox Prototype - ALT_CORE_B_MU_19_R1 - - 14/11/2023
+
+4
+
+3
+
+ALT Parvati
+Character
+
+3
+0
+3
+
+J I become Anchored. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+
+Equinox Prototype - ALT_CORE_B_MU_19_R2 - - 14/11/2023
+
+4
+
+3
+
+ALT Parvati
+Character
+
+J I become Anchored. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+
+Equinox Prototype - ALT_CORE_B_MU_20_C - - 14/11/2023
+
+3
+
+3
+
+Mana Reaping
+Spell
+
+J I become Anchored. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+
+Equinox Prototype - ALT_CORE_B_MU_20_R1 - - 14/11/2023
+
+2
+
+Equinox Prototype - ALT_CORE_B_MU_20_R2 - - 14/11/2023
+
+3
+
+2
+
+3
+
+3
+0
+3
+
+Magical Seeds
+
+ALT Magical Seeds
+
+Permanent
+
+Gigantic. (Gigantic: I am considered
+present in both your Expeditions.)
+
+M Target Character becomes
+Anchored. (Anchored: At Night, I don't
+go to Reserve and I lose Anchored.)
+
+Equinox Prototype - ALT_CORE_B_MU_21_C - - 14/11/2023
+
+2
+
+Equinox Prototype - ALT_CORE_B_MU_18_C - - 14/11/2023
+
+3
+
+2
+
+J Target Character becomes
+Anchored. (Anchored: At Night, I don't
+go to Reserve and I lose Anchored.)
+Equinox Prototype - ALT_CORE_B_MU_18_R1 - - 14/11/2023
+
+3
+
+3
+
+J Target Character becomes
+Anchored. (Anchored: At Night, I don't
+go to Reserve and I lose Anchored.)
+Equinox Prototype - ALT_CORE_B_MU_18_R2 - - 14/11/2023
+
+3
+
+3
+
+Fleeting.
+Put target Character or Permanent in
+its owner's Mana Orbs, exhausted.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_MU_26_C - - 14/11/2023
+
+2
+
+3
+
+2
+
+Tooth Fairy
+Character
+
+1
+1
+1
+
+ALT Magical Seeds
+Permanent
+
+T : The next Bureaucrat you play this
+turn costs 1 less.
+
+Equinox Prototype - ALT_CORE_B_MU_24_R2 - - 14/11/2023
+
+The Spindle, Muna Bastion
+Permanent
+
+Characters in your Expeditions have Tough 2.
+(Tough 2: Your opponent's Spells and
+abilities that target me cost 2 more.)
+
+Equinox Prototype - ALT_CORE_B_MU_30_C - - 14/11/2023
+
+ALT The Spindle, Muna Bastion
+
+ALT The Spindle, Muna Bastion
+
+Characters in your Expeditions have Tough 2.
+At Dawn — Up to one Character in your
+Expeditions gains 1 boost. (Tough 2:
+Your opponent's Spells and abilities that
+target me cost 2 more.)
+
+Characters in your Expeditions have Tough 2.
+(Tough 2: Your opponent's Spells and
+abilities that target me cost 2 more.)
+
+Permanent
+
+Equinox Prototype - ALT_CORE_B_MU_30_R1 - - 14/11/2023
+
+T : The next Plant you play this turn
+costs 1 less.
+
+Permanent
+
+J Resupply.
+T : The next Plant you play this turn
+costs 1 less. (Resupply: Put the top card
+of your deck in your Reserve.)
+
+Equinox Prototype - ALT_CORE_B_MU_24_C - - 14/11/2023
+
+2
+
+1
+
+ALT Tooth Fairy
+Character
+
+1
+1
+1
+
+Equinox Prototype - ALT_CORE_B_MU_24_R1 - - 14/11/2023
+
+2
+
+2
+
+ALT Tooth Fairy
+Character
+
+1
+1
+1
+
+Permanent
+
+Equinox Prototype - ALT_CORE_B_MU_30_R2 - - 14/11/2023
+
+M Sabotage. (Sabotage: Discard up
+to one target card from a Reserve.)
+
+Equinox Prototype - ALT_CORE_B_YZ_06_C - - 14/11/2023
+
+M Sabotage. (Sabotage: Discard up
+to one target card from a Reserve.)
+
+Equinox Prototype - ALT_CORE_B_YZ_06_R1 - - 14/11/2023
+
+M Sabotage. (Sabotage: Discard up
+to one target card from a Reserve.)
+
+Equinox Prototype - ALT_CORE_B_YZ_06_R2 - - 14/11/2023
+
+7
+
+7
+
+ALT Hydracaena
+Character
+
+0
+0
+0
+
+1
+
+1
+
+Character
+
+0
+1
+1
+
+Eternal.
+J and At Dawn — I gain 4 boosts.
+(Eternal: At Night, I don't join the
+Reserve.)
+
+1
+
+1
+
+1
+
+ALT Studious Disciple
+Character
+
+0
+1
+1
+
+D : The next Spell you play this turn costs
+1 less. (Discard me from your Reserve to
+activate this effect)
+
+Equinox Prototype - ALT_CORE_B_MU_22_R2 - - 14/11/2023
+
+1
+
+Studious Disciple
+
+S The next Spell you play this Day
+costs 1 less.
+
+ALT Studious Disciple
+Character
+
+S The next Spell you play this Day
+costs 1 less.
+
+Afanas & Senka
+
+Yzmir Hero
+
+Kadigiran Mage-Dancer
+Character
+
+When I'm sacrificed — if I'm Fleeting,
+draw a card. If I'm not Fleeting, send
+me to Reserve.
+
+1, T : After You. This ability is free if you have the
+first player token. (After You: End your
+turn as if you had played a card. You may
+still play cards later this Day.)
+
+Equinox Prototype - ALT_CORE_B_YZ_05_R2 - - 14/11/2023
+
+4
+
+ALT Mana Reaping
+Spell
+
+PERMANENTS PP
+
+MEMORY PP
+
+At Dawn — You can pay 1 to create a 0/0/0 Maw
+Void Worm token in your Companion Zone with
+"Whenever you sacrifice a Character — I
+gain 2 boosts".
+This ability is free if you have the first
+player token.
+
+Equinox Prototype - ALT_CORE_B_YZ_01_C - - 14/11/2023
+
+3
+
+3
+
+ALT Mana Reaping
+Spell
+
+PERMANENTS PP
+
+MEMORY PP
+
+2
+
+1
+
+3
+
+Beauty Sleep
+Spell
+
+3
+
+3
+
+Character
+
+Muna Merchant
+Character
+
+1
+
+1
+
+When I'm sacrificed, if I'm not
+Fleeting — Send me to Reserve.
+
+Character
+
+When I'm sacrificed — if I'm Fleeting,
+draw a card. If I'm not Fleeting, send
+me to Reserve.
+
+Equinox Prototype - ALT_CORE_B_YZ_05_C - - 14/11/2023
+
+2
+
+ALT Moonlight Jellyfish
+
+1
+0
+1
+
+2
+
+ALT Muna Merchant
+Character
+
+3
+2
+0
+
+S Resupply. (Resupply: Put the top
+card of your deck in your Reserve.)
+
+Equinox Prototype - ALT_CORE_B_YZ_03_C - - 14/11/2023
+
+1
+
+Moonlight Jellyfish
+
+Equinox Prototype - ALT_CORE_B_YZ_05_R1 - - 14/11/2023
+
+2
+
+3
+
+ALT Muna Merchant
+Character
+
+3
+2
+0
+
+PERMANENTS PP
+
+Whenever you play a Spell — One of
+your Characters gains 1 boost.
+
+Equinox Prototype - ALT_CORE_B_YZ_02_C - - 14/11/2023
+
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_07_C - - 14/11/2023
+
+3
+2
+0
+
+MEMORY PP
+
+1
+1
+0
+1
+
+Whenever you play a Spell — I gain 1
+boost.
+
+Yzmir Hero
+
+1
+0
+1
+
+3
+
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_04_R2 - - 14/11/2023
+
+Lindiwe & Maw
+
+Yzmir Hero
+
+2
+1
+1
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_04_R1 - - 14/11/2023
+
+Akesha & Taru
+
+Character
+
+1
+
+0
+1
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_04_C - - 14/11/2023
+
+ALT Moonlight Jellyfish
+
+1
+
+ALT Beauty Sleep
+Spell
+
+S Resupply. (Resupply: Put the top
+card of your deck in your Reserve.)
+
+Equinox Prototype - ALT_CORE_B_MU_23_C - - 14/11/2023
+
+2
+
+3
+
+Meditation Training
+Spell
+
+S Resupply. (Resupply: Put the top
+card of your deck in your Reserve.)
+
+Equinox Prototype - ALT_CORE_B_MU_23_R1 - - 14/11/2023
+
+1
+
+3
+
+ALT Beauty Sleep
+Spell
+
+Equinox Prototype - ALT_CORE_B_MU_23_R2 - - 14/11/2023
+
+2
+
+1
+
+ALT Kadigiran Mage-Dancer
+Character
+
+1
+1
+1
+
+Put target Character or Permanent in
+its owner's Mana Orbs, exhausted.
+
+Equinox Prototype - ALT_CORE_B_MU_26_R1 - - 14/11/2023
+
+Fleeting.
+Put target Character or Permanent in
+its owner's Mana Orbs, exhausted.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_MU_26_R2 - - 14/11/2023
+
+Target Character becomes Asleep. (Asleep: Ignore
+my statistics during Dusk. At Night, I
+don't join the Reserve and I lose Asleep.)
+
+Equinox Prototype - ALT_CORE_B_MU_28_C - - 14/11/2023
+
+Target Character becomes Asleep. You may give it
+2 boosts. (Asleep: Ignore my statistics
+during Dusk. At Night, I don't join the
+Reserve and I lose Asleep.)
+Equinox Prototype - ALT_CORE_B_MU_28_R1 - - 14/11/2023
+
+Target Character of hand cost 3 or less becomes
+Anchored. (Anchored: At Night, I don't
+go to Reserve and I lose Anchored.)
+
+Equinox Prototype - ALT_CORE_B_MU_25_C - - 14/11/2023
+
+Target Character becomes Asleep. (Asleep: Ignore
+my statistics during Dusk. At Night, I
+don't join the Reserve and I lose Asleep.)
+
+Equinox Prototype - ALT_CORE_B_MU_28_R2 - - 14/11/2023
+
+Whenever you roll a dice — I gain 1
+boost.
+
+Equinox Prototype - ALT_CORE_B_YZ_07_R2 - - 14/11/2023
+
+2
+
+1
+
+ALT Yzmir Stargazer
+Character
+
+1
+2
+1
+
+3
+
+Character
+
+2
+1
+2
+
+When I'm sacrificed — up to one target
+Character gains 2 boosts.
+
+3
+
+Alice
+
+Character
+
+2
+2
+4
+
+3
+
+2
+
+M Draw a card.
+
+Character
+
+3
+
+M Draw a card.
+
+ALT Alice
+Character
+
+3
+3
+4
+
+3
+
+2
+
+Character
+
+4
+
+M Draw a card.
+
+Sakarabru
+Character
+
+4
+4
+4
+
+3
+
+1
+
+Character
+
+4
+
+M I gain 2 boosts.
+
+ALT Sakarabru
+Character
+
+5
+5
+5
+
+7
+
+Character
+
+4
+
+ALT Sakarabru
+Character
+
+4
+4
+4
+
+7
+
+7
+
+Gigantic.
+J Sacrifice 2 Characters.
+All regions are E and lose their other
+types. (Gigantic: I am considered present
+in both your Expeditions.)
+
+Character
+
+Gigantic.
+J Sacrifice 2 Characters.
+All regions are E and lose their other
+types. (Gigantic: I am considered present
+in both your Expeditions.)
+
+Equinox Prototype - ALT_CORE_B_YZ_17_C - - 14/11/2023
+
+3
+
+ALT The Kraken
+
+0
+0
+8
+
+Equinox Prototype - ALT_CORE_B_YZ_12_C - - 14/11/2023
+
+7
+
+The Kraken
+
+7
+
+0
+0
+8
+
+Equinox Prototype - ALT_CORE_B_YZ_11_R2 - - 14/11/2023
+
+7
+
+Kadigiran Alchemist
+
+1
+1
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_11_R1 - - 14/11/2023
+
+7
+
+ALT Baba Yaga
+
+3
+1
+2
+
+Equinox Prototype - ALT_CORE_B_YZ_11_C - - 14/11/2023
+
+3
+
+ALT Baba Yaga
+
+3
+1
+2
+
+Equinox Prototype - ALT_CORE_B_YZ_08_R1 - - 14/11/2023
+
+3
+
+Baba Yaga
+
+2
+
+Baku
+
+1
+
+Character
+
+1
+1
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_17_R2 - - 14/11/2023
+
+3
+
+3
+
+ALT Baku
+Character
+
+1
+1
+1
+
+M Your opponent's Expedition facing mine
+moves backwards.
+M Your opponent's Expedition
+facing mine moves backwards.
+D : After You. (Discard me from your
+Reserve to activate this effect)
+
+3
+
+1
+
+ALT Baku
+Character
+
+1
+1
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_13_R2 - - 14/11/2023
+
+2
+
+2
+
+Lady of the Lake
+Character
+
+1
+1
+3
+
+Equinox Prototype - ALT_CORE_B_YZ_10_R2 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_18_C - - 14/11/2023
+
+2
+
+2
+
+ALT Lady of the Lake
+Character
+
+1
+1
+3
+
+M Target opponent discards a card
+from their hand.
+
+Equinox Prototype - ALT_CORE_B_YZ_18_R1 - - 14/11/2023
+
+2
+
+2
+
+ALT Lady of the Lake
+Character
+
+1
+1
+3
+
+Equinox Prototype - ALT_CORE_B_YZ_18_R2 - - 14/11/2023
+
+5
+
+3
+
+Dorothy Gale
+Character
+
+J Target opponent discards a card
+from their hand.
+
+Equinox Prototype - ALT_CORE_B_YZ_09_R1 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_10_C - - 14/11/2023
+
+1
+
+Magical Training
+
+3
+
+Spell
+
+3
+2
+2
+
+Equinox Prototype - ALT_CORE_B_YZ_10_R1 - - 14/11/2023
+
+5
+
+5
+
+ALT Dorothy Gale
+Character
+
+3
+2
+2
+
+M Send to Reserve target Character.
+D : The next Spell you play this turn loses
+Fleeting. (Discard me from your Reserve to
+activate this effect)
+Equinox Prototype - ALT_CORE_B_YZ_09_C - - 14/11/2023
+
+M Target opponent discards a card
+from their hand.
+
+D : Draw a card. (Discard me from your
+Reserve to activate this effect)
+
+D : After You. (Discard me from your
+Reserve to activate this effect)
+
+Equinox Prototype - ALT_CORE_B_YZ_13_C - - 14/11/2023
+
+M Your opponent's Expedition
+facing mine moves backwards.
+
+Draw a card.
+
+J Send to Reserve target Character.
+
+D : The next Character you play this turn
+loses Fleeting. (Discard me from your
+Reserve to activate this effect)
+Equinox Prototype - ALT_CORE_B_YZ_09_R2 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_16_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_19_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_16_R1 - - 14/11/2023
+
+1
+
+ALT Magical Training
+
+3
+
+Spell
+
+2
+
+Off you go!
+
+4
+
+Spell
+
+3
+
+2
+
+3
+
+Baba's Isba
+
+Draw a card.
+
+Equinox Prototype - ALT_CORE_B_YZ_19_R2 - - 14/11/2023
+
+8
+
+Equinox Prototype - ALT_CORE_B_YZ_21_C - - 14/11/2023
+
+8
+
+8
+
+J Draw a card.
+T, Sacrifice a Character: After You.
+(After You: End your turn as if you had
+played a card. You may still play cards
+later this Day.)
+Equinox Prototype - ALT_CORE_B_YZ_28_C - - 14/11/2023
+
+8
+
+8
+
+Equinox Prototype - ALT_CORE_B_YZ_28_R1 - - 14/11/2023
+
+1
+
+8
+
+1
+
+Paper Herald
+Character
+
+0
+0
+1
+
+The Kadigir, Yzmir Bastion
+Permanent
+
+T : Play a Spell for free.
+
+6
+
+6
+
+ALT The Kadigir, Yzmir Bastion
+Permanent
+
+T : Play a Spell for free. If you played it
+from your hand, it loses Fleeting.
+
+Equinox Prototype - ALT_CORE_B_YZ_30_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_30_R1 - - 14/11/2023
+
+ALT Small Step, Giant Leap
+
+Sigismar & Wingspan
+
+Spell
+
+Ordis Hero
+
+1
+
+ALT Paper Herald
+Character
+
+ALT Aether Shard
+
+Permanent
+
+J Draw a card.
+At Dawn — Trigger my J effect.
+
+Equinox Prototype - ALT_CORE_B_YZ_29_C - - 14/11/2023
+
+1
+
+5
+
+ALT Aether Shard
+
+Permanent
+
+At Dawn — Draw a card.
+
+5
+
+5
+
+Aether Shard
+
+Permanent
+
+J Draw a card.
+T, Sacrifice a Character: After You.
+(After You: End your turn as if you had
+played a card. You may still play cards
+later this Day.)
+
+5
+
+5
+
+ALT Baba's Isba
+
+Permanent
+
+Send to Reserve target Character of
+hand cost 3 or less.
+
+5
+
+2
+
+Permanent
+
+J Draw a card.
+At Dawn — Trigger my J effect.
+
+Equinox Prototype - ALT_CORE_B_YZ_29_R1 - - 14/11/2023
+
+6
+
+6
+
+Small Step, Giant Leap
+Spell
+
+Equinox Prototype - ALT_CORE_B_YZ_29_R2 - - 14/11/2023
+
+6
+
+7
+
+ALT Small Step, Giant Leap
+Spell
+
+0
+1
+2
+
+ALT The Kadigir, Yzmir Bastion
+Permanent
+
+T : Play a Spell for free.
+D : Create a 1/1/1 Ordis Recruit Soldier
+token. (Discard me from your Reserve to
+activate this effect)
+Equinox Prototype - ALT_CORE_B_YZ_30_R2 - - 14/11/2023
+
+Waru & Mack
+Ordis Hero
+
+D : Create a 1/1/1 Ordis Recruit Soldier
+token. (Discard me from your Reserve to
+activate this effect)
+
+Equinox Prototype - ALT_CORE_B_OR_04_C - - 14/11/2023
+
+Fleeting.
+Target Expedition moves forward.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_OR_04_R1 - - 14/11/2023
+
+Maw
+
+Gulrang & Tocsin
+
+Token - Void Wurm
+
+Ordis Hero
+
+Target Expedition moves forward.
+
+Equinox Prototype - ALT_CORE_B_YZ_25_C - - 14/11/2023
+
+3
+
+4
+
+ALT Off you go!
+Spell
+
+Equinox Prototype - ALT_CORE_B_YZ_25_R1 - - 14/11/2023
+
+2
+
+4
+
+ALT Off you go!
+Spell
+
+0
+0
+0
+
+MEMORY PP
+
+Fleeting.
+Target Expedition moves forward.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_YZ_25_R2 - - 14/11/2023
+
+PERMANENTS PP
+
+At Dawn — Create a 1/1/1 Ordis Recruit
+Soldier token in your Hero Expedition.
+
+Equinox Prototype - ALT_CORE_B_OR_01_C - - 14/11/2023
+
+MEMORY PP
+
+PERMANENTS PP
+
+At Dawn, if you have a Bureaucrat in your Expeditions —
+Create a 1/1/1 Ordis Recruit Soldier token.
+Whenever you play a Bureaucrat — you
+may have it become Asleep. (Asleep:
+Ignore my statistics during Dusk. At Night, I
+don't join the Reserve and I lose Asleep.)
+Equinox Prototype - ALT_CORE_B_OR_02_C - - 14/11/2023
+
+MEMORY PP
+
+PERMANENTS PP
+
+Whenever you create a token — it gains 1 boost.
+As long as you have less than 8 Mana
+Orbs, your boosted tokens have
+Defender. (Defender: My Expedition
+cannot advance during Dusk.)
+
+Send to Reserve target Character of
+hand cost 5 or less.
+
+I am a token.
+
+Send to Reserve target Character of
+hand cost 3 or less.
+
+(When I leave the Expedition Zone — Discard me)
+Whenever you sacrifice a Character, I gain 2 boosts.
+
+Equinox Prototype - ALT_CORE_B_OR_03_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_31_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_21_R1 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_YZ_21_R2 - - 14/11/2023
+
+2
+
+2
+
+Spy Craft
+Spell
+
+2
+
+2
+
+ALT Gift of Self
+Spell
+
+3
+
+3
+
+Ordis Gatekeeper
+Character
+
+1
+3
+1
+
+Fleeting.
+Sabotage, Resupply. (Fleeting: Send me to Discard
+instead of Reserve after my effect
+resolves.Sabotage: Discard up to one
+target card from a Reserve.Resupply: Put
+the top card of your deck in your Reserve.)
+
+Fleeting.
+Sacrifice a Character to draw 2 cards.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_YZ_22_C - - 14/11/2023
+
+2
+
+2
+
+ALT Monolith Legate
+Character
+
+2
+2
+2
+
+2
+
+ALT Monolith Legate
+Character
+
+2
+1
+2
+
+3
+
+J Create a 1/1/1 Ordis Recruit Soldier
+token in your other Expedition.
+
+Character
+
+2
+
+The Frog Prince
+Character
+
+3
+0
+3
+
+3
+
+3
+
+J Create a 1/1/1 Ordis Recruit Soldier
+token in both of your Expeditions.
+
+Character
+
+1
+
+ALT The Frog Prince
+Character
+
+2
+0
+2
+
+3
+
+3
+
+J Target Character in your other
+Expedition gains 1 boost.
+
+Character
+
+2
+
+ALT The Frog Prince
+Character
+
+3
+0
+3
+
+3
+
+ALT Kakoba, Legion Commander
+
+3
+
+J If you have at least 3 other
+Characters in your Expeditions, I gain 2
+boosts.
+
+J If you have at least 3 other
+Characters in your Expeditions, I gain 3
+boosts.
+
+Equinox Prototype - ALT_CORE_B_OR_15_C - - 14/11/2023
+
+2
+
+Character
+
+2
+2
+2
+
+Equinox Prototype - ALT_CORE_B_OR_13_R2 - - 14/11/2023
+
+2
+
+Kakoba, Legion Commander
+
+2
+2
+2
+
+Equinox Prototype - ALT_CORE_B_OR_13_R1 - - 14/11/2023
+
+1
+
+ALT Ordis Gatekeeper
+
+1
+3
+1
+
+Equinox Prototype - ALT_CORE_B_OR_13_C - - 14/11/2023
+
+2
+
+ALT Ordis Gatekeeper
+
+1
+1
+1
+
+Equinox Prototype - ALT_CORE_B_YZ_20_R2 - - 14/11/2023
+
+2
+
+3
+
+2
+
+Ozma
+
+Character
+
+Equinox Prototype - ALT_CORE_B_OR_15_R1 - - 14/11/2023
+
+5
+
+5
+
+1
+2
+1
+
+The Monolith, Ordis Bastion
+Permanent
+
+When the Expedition facing me moves forward
+during Dusk — Sabotage after Rest. (Sabotage:
+Discard up to one target card from a Reserve.)
+D : Create a 1/1/1 Ordis Recruit Soldier
+token. (Discard me from your Reserve to
+activate this effect)
+
+When my Expedition doesn't advance during
+Dusk — Sabotage after Rest. (Sabotage:
+Discard up to one target card from a
+Reserve.)
+
+Equinox Prototype - ALT_CORE_B_OR_08_R1 - - 14/11/2023
+
+3
+
+Equinox Prototype - ALT_CORE_B_OR_08_R2 - - 14/11/2023
+
+3
+
+3
+
+D : The next Permanent you play this turn
+costs 1 less. (Discard me from your
+Reserve to activate this effect)
+Equinox Prototype - ALT_CORE_B_OR_09_C - - 14/11/2023
+
+6
+
+3
+
+Equinox Prototype - ALT_CORE_B_OR_09_R1 - - 14/11/2023
+
+2
+
+6
+
+2
+
+Teamwork Training
+Spell
+
+J If you have at least 3 other
+Characters in your Expeditions, draw a
+card.
+
+Equinox Prototype - ALT_CORE_B_OR_09_R2 - - 14/11/2023
+
+3
+
+3
+
+ALT Teamwork Training
+Spell
+
+When a Character joins your Expedition
+Zone, it gains 1 boost.
+
+Equinox Prototype - ALT_CORE_B_OR_11_C - - 14/11/2023
+
+2
+
+2
+
+ALT Teamwork Training
+Spell
+
+Equinox Prototype - ALT_CORE_B_OR_28_C - - 14/11/2023
+
+4
+
+4
+
+Jeanne d'Arc
+Character
+
+2
+2
+2
+
+ALT The Monolith, Ordis Bastion
+Permanent
+
+When a nontoken Character joins your
+Expedition Zone, it gains 1 boost.
+
+Equinox Prototype - ALT_CORE_B_OR_28_R1 - - 14/11/2023
+
+ALT The Monolith, Ordis Bastion
+Permanent
+
+When a nontoken Character joins your
+Expedition Zone, it gains 1 boost.
+
+Equinox Prototype - ALT_CORE_B_OR_28_R2 - - 14/11/2023
+
+Grand Endeavor
+Permanent
+
+At Night — Target Expedition advances.
+
+Equinox Prototype - ALT_CORE_B_OR_29_C - - 14/11/2023
+
+Fleeting.
+Send to Reserve target Character of hand cost X
+or less, where X is the number of
+Characters in your Expedition Zone.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_OR_24_C - - 14/11/2023
+
+Fleeting.
+Create a 1/1/1 Ordis Recruit Soldier token, then send to
+Reserve target Character of hand cost X or less,
+where X is the number of Characters in your
+Expedition Zone. (Fleeting: Send me to Discard
+instead of Reserve after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_OR_24_R1 - - 14/11/2023
+
+Fleeting.
+Send to Reserve target Character of hand cost X
+or less, where X is the number of
+Characters in your Expedition Zone.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_OR_24_R2 - - 14/11/2023
+
+When I leave the Expedition Zone —
+Create a 1/1/1 Ordis Recruit Soldier
+token in both of your Expeditions.
+Equinox Prototype - ALT_CORE_B_OR_17_C - - 14/11/2023
+
+5
+
+5
+
+ALT Jeanne d'Arc
+Character
+
+2
+2
+2
+
+5
+
+5
+
+ALT Jeanne d'Arc
+Character
+
+2
+2
+2
+
+5
+
+5
+
+Anubis
+
+Character
+
+3
+4
+3
+
+4
+
+4
+
+ALT Anubis
+Character
+
+3
+3
+3
+
+5
+
+5
+
+ALT Anubis
+Character
+
+3
+
+3
+
+Sticky Notes Seals
+Spell
+
+When I leave the Expedition Zone —
+Create a 2/2/2 Brassbug Robot token in
+both of your Expeditions.
+
+Choose one:
+
+J Each player sacrifices a Character.
+
+J Each player sacrifices a Character.
+
+J Each player sacrifices a Character.
+
+- Send to Reserve target Character of hand cost 4 or more.
+- Discard target Permanent of hand cost 4 or more.
+(Fleeting: Send me to Discard instead of Reserve after my
+effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_OR_17_R1 - - 14/11/2023
+
+3
+
+3
+
+ALT Sticky Note Seals
+Spell
+
+Equinox Prototype - ALT_CORE_B_OR_17_R2 - - 14/11/2023
+
+3
+
+3
+
+Ordis Attorney
+Character
+
+2
+2
+3
+
+Equinox Prototype - ALT_CORE_B_OR_20_C - - 14/11/2023
+
+2
+
+2
+
+ALT Ordis Attorney
+Character
+
+2
+2
+2
+
+Equinox Prototype - ALT_CORE_B_OR_20_R1 - - 14/11/2023
+
+3
+
+4
+
+ALT Sticky Note Seals
+Spell
+
+3
+4
+3
+
+Fleeting.
+
+When I leave the Expedition Zone —
+Create two 1/1/1 Ordis Recruit Soldier
+tokens in both of your Expeditions.
+
+3
+
+3
+
+ALT Ordis Attorney
+Character
+
+2
+2
+3
+
+Equinox Prototype - ALT_CORE_B_OR_20_R2 - - 14/11/2023
+
+4
+
+4
+
+Quetzalcoatl
+Character
+
+4
+4
+4
+
+Choose one:
+- Send to Reserve target Character of
+hand cost 4 or more.
+- Discard target Permanent of hand
+cost 4 or more.
+
+Equinox Prototype - ALT_CORE_B_OR_25_C - - 14/11/2023
+
+3
+
+3
+
+ALT Quetzalcoatl
+Character
+
+3
+3
+3
+
+Equinox Prototype - ALT_CORE_B_OR_25_R1 - - 14/11/2023
+
+4
+
+4
+
+Issitoq
+
+Character
+
+4
+4
+4
+
+Fleeting.
+Choose one:
+- Send to Reserve target Character of hand cost 4 or more.
+- Discard target Permanent of hand cost 4 or more.
+(Fleeting: Send me to Discard instead of Reserve after my
+
+When my Expedition doesn't advance
+during Dusk — Draw a card.
+
+When my Expedition doesn't advance
+during Dusk — Draw a card.
+
+When my Expedition doesn't advance
+during Dusk — Draw a card.
+
+Whenever an opponent draws one or more cards
+or activates Resupply — Create a 1/1/1
+Ordis Recruit Soldier token.
+
+Whenever an opponent draws one or more cards
+or activates Resupply — Create a 1/1/1
+Ordis Recruit Soldier token.
+
+Characters in the opponent's
+Expedition facing me don't trigger their
+J, M and S abilities.
+
+effect resolves.)
+Equinox Prototype - ALT_CORE_B_OR_25_R2 - - 14/11/2023
+
+3
+
+3
+
+ALT Issitoq
+Character
+
+3
+3
+3
+
+Equinox Prototype - ALT_CORE_B_OR_16_C - - 14/11/2023
+
+4
+
+4
+
+ALT Issitoq
+Character
+
+Equinox Prototype - ALT_CORE_B_OR_16_R1 - - 14/11/2023
+
+2
+
+2
+
+Charge!
+Spell
+
+4
+4
+4
+
+Characters in the opponent's
+Expedition facing me don't trigger their
+J, M and S abilities.
+Equinox Prototype - ALT_CORE_B_OR_19_R1 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_OR_16_R2 - - 14/11/2023
+
+4
+
+4
+
+Robin Hood
+Character
+
+3
+2
+2
+
+Characters in the opponent's
+Expedition facing me don't trigger their
+J, M and S abilities.
+Equinox Prototype - ALT_CORE_B_OR_19_R2 - - 14/11/2023
+
+Fleeting.
+Your Characters gain 1 boost. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_OR_23_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_OR_18_C - - 14/11/2023
+
+3
+
+3
+
+Tinker Bell
+Character
+
+1
+3
+3
+
+Your opponent's Characters cost 1
+more.
+
+Equinox Prototype - ALT_CORE_B_OR_21_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_OR_18_R2 - - 14/11/2023
+
+3
+
+1
+
+Amelia Earhart
+Character
+
+2
+2
+2
+
+2
+
+2
+
+Foundry Engineer
+Character
+
+2
+2
+1
+
+S The next Permanent you play
+this Day costs 1 less.
+
+S Sabotage. (Sabotage: Discard up
+to one target card from a Reserve.)
+
+Equinox Prototype - ALT_CORE_B_AX_09_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_OR_19_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_AX_11_C - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_AX_05_C - - 14/11/2023
+
+2
+
+2
+
+ALT Foundry Engineer
+Character
+
+2
+2
+1
+
+3
+
+1
+
+Character
+
+2
+2
+2
+
+S The next Permanent you play
+this Day costs 2 less.
+
+3
+
+Athena
+
+Character
+
+3
+3
+4
+
+3
+
+1
+
+ALT Amelia Earhart
+Character
+
+2
+2
+2
+
+3
+
+2
+
+Character
+
+ALT Athena
+Character
+
+Equinox Prototype - ALT_CORE_B_AX_11_R2 - - 14/11/2023
+
+3
+
+2
+
+ALT Coppélia
+Character
+
+When I'm sent to Reserve from your hand or
+deck — Play me for free and I become Asleep.
+(Asleep: Ignore my statistics during Dusk. At Night, I
+don't join the Reserve and I lose Asleep.)
+D : The next Permanent you play this turn
+costs 1 less. (Discard me from your
+Reserve to activate this effect)
+
+2
+
+ALT Coppélia
+Character
+
+When I'm sent to Reserve from your hand or
+deck — Play me for free and I become
+Asleep. (Asleep: Ignore my statistics
+during Dusk. At Night, I don't join the
+Reserve and I lose Asleep.)
+
+3
+
+ALT Tinker Bell
+Character
+
+S Sabotage. (Sabotage: Discard up
+to one target card from a Reserve.)
+
+Equinox Prototype - ALT_CORE_B_AX_14_R2 - - 14/11/2023
+
+4
+
+2
+
+2
+1
+3
+3
+
+Equinox Prototype - ALT_CORE_B_AX_14_R1 - - 14/11/2023
+
+2
+
+2
+
+2
+2
+2
+0
+
+Equinox Prototype - ALT_CORE_B_AX_14_C - - 14/11/2023
+
+2
+
+3
+
+2
+2
+2
+0
+
+Equinox Prototype - ALT_CORE_B_AX_09_R2 - - 14/11/2023
+
+4
+
+4
+
+4
+
+3
+3
+4
+
+Brassbug Hub
+
+ALT Brassbug Hub
+
+Permanent
+
+S If you have at least 2 Landmarks,
+I lose Fleeting.
+
+M If you have at least 2 Landmarks, I gain 2
+boosts.
+S If you have at least 2 Landmarks,
+I lose Fleeting.
+
+Equinox Prototype - ALT_CORE_B_AX_18_C - - 14/11/2023
+
+1
+
+Coppélia
+
+When I'm sent to Reserve from your hand — Play
+me for free and I become Asleep.
+(Asleep: Ignore my statistics during Dusk.
+At Night, I don't join the Reserve and I
+lose Asleep.)
+
+Equinox Prototype - ALT_CORE_B_AX_11_R1 - - 14/11/2023
+
+5
+
+2
+2
+2
+0
+
+M I gain 1 boost.
+
+Equinox Prototype - ALT_CORE_B_AX_05_R1 - - 14/11/2023
+
+5
+
+ALT Amelia Earhart
+
+Equinox Prototype - ALT_CORE_B_AX_18_R1 - - 14/11/2023
+
+1
+
+1
+
+J I gain 3 Kelon counters.
+At Dawn — You may pay 1 and remove
+a Kelon counter from me to create a
+2/2/2 Brassbug Robot token.
+
+2
+
+Hooked
+Spell
+
+J I gain 3 Kelon counters.
+At Dawn — You may pay 1 and remove
+a Kelon counter from me to create a
+2/2/2 Brassbug Robot token.
+
+Equinox Prototype - ALT_CORE_B_AX_24_C - - 14/11/2023
+
+2
+
+2
+
+ALT Hooked
+Spell
+
+ALT Brassbug Hub
+
+Permanent
+
+J I gain 3 Kelon counters.
+At Dawn — You may pay 1 and remove
+a Kelon counter from me to create a
+2/2/2 Brassbug Robot token.
+
+Equinox Prototype - ALT_CORE_B_AX_24_R1 - - 14/11/2023
+
+1
+
+2
+
+Axiom Reprocessor
+
+Permanent
+
+Permanent
+
+At Dawn — Resupply. (Resupply: Put the
+top card of your deck in your Reserve.)
+
+Equinox Prototype - ALT_CORE_B_AX_24_R2 - - 14/11/2023
+
+ALT Hooked
+
+Brassbug
+
+Spell
+
+Token
+
+2
+2
+2
+
+Equinox Prototype - ALT_CORE_B_AX_25_C - - 14/11/2023
+
+5
+
+3
+
+ALT Athena
+Character
+
+ALT Axiom Reprocessor
+Permanent
+
+J Resupply.
+At Dawn — Activate my J effect.
+(Resupply: Put the top card of your deck
+in your Reserve.)
+Equinox Prototype - ALT_CORE_B_AX_25_R1 - - 14/11/2023
+
+Sierra & Oddball
+Axiom Hero
+
+3
+3
+4
+
+Kelon Cylinder
+Permanent
+
+T : I gain two Kelon Counters.
+T, Remove a Kelon Counter from me:
+The next Character you play gains 1
+boost.
+Equinox Prototype - ALT_CORE_B_AX_26_C - - 14/11/2023
+
+MEMORY PP
+
+Target Character joins the other
+Expedition of its controller.
+
+Equinox Prototype - ALT_CORE_B_AX_20_C - - 14/11/2023
+
+Target Character joins the other
+Expedition of its controller.
+Draw a card.
+Equinox Prototype - ALT_CORE_B_AX_20_R1 - - 14/11/2023
+
+Target Character joins the other
+Expedition of its controller.
+
+Equinox Prototype - ALT_CORE_B_AX_20_R2 - - 14/11/2023
+
+I am a token.
+(When I leave the Expedition Zone —
+Discard me)
+Equinox Prototype - ALT_CORE_B_AX_31_C - - 14/11/2023
+
+S If you have at least 2 other
+Characters, I lose Fleeting.
+
+Equinox Prototype - ALT_CORE_B_AX_18_R2 - - 14/11/2023
+
+PERMANENTS PP
+
+When you play a Permanent with a hand cost 3 or
+more, you may exhaust me (T) to
+create a 2/2/2 Brassbug Robot token.
+
+Equinox Prototype - ALT_CORE_B_AX_01_C - - 14/11/2023
+
+1
+
+2
+
+Mechanical Training
+Spell
+
+You may activate the J effect of one of
+your Permanents.
+
+3
+
+3
+
+3
+
+3
+
+1
+
+ALT Paper Herald
+Character
+
+0
+1
+2
+
+ALT Boom!
+Spell
+
+Fleeting.
+Sacrifice a Character or Permanent to
+discard target Character or Permanent.
+(Fleeting: Send me to Discard instead of
+Reserve after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_AX_21_C - - 14/11/2023
+
+1
+
+4
+
+Spell
+
+Fleeting.
+Sacrifice a Character to discard target
+Character or Permanent. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_AX_22_C - - 14/11/2023
+
+4
+
+Boom!
+
+3
+
+3
+
+2
+
+ALT Sneezer Shroom
+Character
+
+1
+1
+1
+
+Spell
+
+Fleeting.
+Sacrifice a Character to discard target
+Character or Permanent. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_AX_21_R1 - - 14/11/2023
+
+2
+
+ALT Boom!
+
+3
+
+3
+
+3
+
+ALT The Sandman
+Character
+
+Spell
+
+1
+
+2
+
+ALT Mechanical Training
+Spell
+
+Fleeting.
+
+- Discard target Permanent of hand cost 4 or less.
+(Fleeting: Send me to Discard instead of Reserve after my
+
+You may activate the J effect of one of
+your Characters.
+
+ALT Kelon Surge
+Spell
+
+- Send to Reserve target Character of hand cost 4 or less.
+- Discard target Permanent of hand cost 4 or less.
+If you have 2 cards in your Landmarks, create a 2/2/2 Brassbug Robot token.
+
+effect resolves.)
+
+(Fleeting: Send me to Discard instead of Reserve after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_AX_23_C - - 14/11/2023
+
+2
+
+4
+
+Choose one:
+
+- Send to Reserve target Character of hand cost 4 or less.
+
+2
+
+4
+
+Fleeting.
+
+Choose one:
+
+Equinox Prototype - ALT_CORE_B_AX_21_R2 - - 14/11/2023
+
+3
+
+Kelon Surge
+
+Ride the Bifrost
+Spell
+
+Equinox Prototype - ALT_CORE_B_AX_22_R2 - - 14/11/2023
+
+2
+
+2
+
+ALT Ride the Bifrost
+Spell
+
+Equinox Prototype - ALT_CORE_B_AX_23_R1 - - 14/11/2023
+
+2
+
+2
+
+ALT Ride the Bifrost
+Spell
+
+0
+3
+3
+
+ALT Lyra Festival
+Permanent
+
+J Target Character becomes Fleeting, Anchored
+or Asleep.
+At Dusk — If you have a Fleeting
+Character, another Anchored Character
+and another Asleep Character in your
+Expeditions, you win the game.
+
+D : Create a 1/1/1 Ordis Recruit Soldier
+token. (Discard me from your Reserve to
+activate this effect)
+
+Equinox Prototype - ALT_CORE_B_LY_29_R1 - - 14/11/2023
+
+8
+
+ALT Kaibara, Asgarthan Leviathan
+
+8
+
+Character
+
+6
+6
+6
+
+J I become Anchored.
+At Dawn — I gain 1 boost. (Anchored: At
+Night, I don't go to Reserve and I lose
+Anchored.)
+
+Equinox Prototype - ALT_CORE_B_OR_04_R2 - - 14/11/2023
+
+1
+
+1
+
+Ordis Trooper
+Character
+
+1
+1
+1
+
+M Another target Character becomes Asleep. If
+it's one of your Characters, it gains 2
+boosts. (Asleep: Ignore my statistics
+during Dusk. At Night, I don't join the
+Reserve and I lose Asleep.)
+
+Equinox Prototype - ALT_CORE_B_MU_08_R1 - - 14/11/2023
+
+1
+
+1
+
+ALT Ordis Trooper
+Character
+
+2
+1
+2
+
+Equinox Prototype - ALT_CORE_B_LY_15_R2 - - 14/11/2023
+
+1
+
+1
+
+ALT Ordis Trooper
+Character
+
+1
+1
+1
+
+2
+
+2
+
+Ordis Cadets
+Character
+
+Equinox Prototype - ALT_CORE_B_OR_05_R1 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_OR_05_R2 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_OR_06_C - - 14/11/2023
+
+Fleeting.
+Swap all of your Characters between
+your Expeditions. (Fleeting: Send me to
+Discard instead of Reserve after my effect
+resolves.)
+
+Equinox Prototype - ALT_CORE_B_LY_28_R1 - - 14/11/2023
+
+3
+
+3
+
+Tomoe Gozen
+Character
+
+2
+5
+5
+
+J Create a 1/1/1 Ordis Recruit Soldier
+token in my Expedition.
+
+Equinox Prototype - ALT_CORE_B_OR_05_C - - 14/11/2023
+
+Fleeting.
+Swap all of your opponent's Characters
+between their Expeditions. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_LY_28_C - - 14/11/2023
+
+1
+1
+0
+
+Gigantic.
+Tough X, X being the numbers of regions separating
+your Hero and Companion. (Gigantic: I am
+considered present in both your
+Expeditions.Tough X: Your opponent's Spells
+and abilities that target me cost X more.)
+Equinox Prototype - ALT_CORE_B_BR_24_R2 - - 14/11/2023
+
+Fleeting.
+Swap all of your Characters between
+your Expeditions. (Fleeting: Send me to
+Discard instead of Reserve after my effect
+resolves.)
+
+Equinox Prototype - ALT_CORE_B_LY_28_R2 - - 14/11/2023
+
+3
+
+3
+
+Hua Mulan
+Character
+
+1
+3
+3
+
+I can only be played if you have 7 or
+more Mana Orbs.
+
+Equinox Prototype - ALT_CORE_B_BR_23_C - - 14/11/2023
+
+S I lose Fleeting.
+
+Equinox Prototype - ALT_CORE_B_BR_12_C - - 14/11/2023
+
+3
+
+3
+
+ALT Haven Bouncer
+Character
+
+2
+2
+2
+
+1
+
+1
+
+ALT Martengale
+Character
+
+1
+1
+0
+
+4
+
+4
+
+ALT Aja
+
+Character
+
+4
+5
+4
+
+3
+
+3
+
+Ouroboros Inkcaster
+Character
+
+3
+3
+2
+
+D : The next card you play this turn costs
+1 less. (Discard me from your Reserve to
+activate this effect)
+
+Equinox Prototype - ALT_CORE_B_BR_15_R1 - - 14/11/2023
+
+2
+
+2
+
+ALT Twinkle Twinkle
+Spell
+
+J Each player puts the top card of
+their deck in their Mana Orbs,
+exhausted.
+
+Equinox Prototype - ALT_CORE_B_LY_04_R1 - - 14/11/2023
+
+3
+
+3
+
+Cloth Cocoon
+Spell
+
+2
+
+ALT Anansi
+Character
+
+0
+0
+0
+
+Target Character becomes Asleep. (Asleep: Ignore
+my statistics during Dusk. At Night, I don't join the
+Reserve and I lose Asleep.)
+D : The next card you play this turn costs
+1 less. (Discard me from your Reserve to
+activate this effect)
+
+Fleeting. Choose one:
+- Discard target Fleeting, Anchored or Asleep
+Character.
+- Discard target Permanent. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+
+Equinox Prototype - ALT_CORE_B_LY_23_R2 - - 14/11/2023
+
+3
+
+3
+
+All In!
+Spell
+
+4
+
+ALT Aja
+
+Character
+
+Equinox Prototype - ALT_CORE_B_LY_25_C - - 14/11/2023
+
+3
+
+Lyra Chronicler
+Character
+
+5
+
+ALT Paint Prison
+Spell
+
+M Each player puts the top card of
+their deck in their Mana Orbs,
+exhausted.
+Equinox Prototype - ALT_CORE_B_MU_17_R2 - - 14/11/2023
+
+Equinox Prototype - ALT_CORE_B_LY_26_R1 - - 14/11/2023
+
+D : The next card you play this turn costs
+1 less. (Discard me from your Reserve to
+activate this effect)
+
+2
+
+6
+
+6
+
+4
+
+ALT Asmodeus
+Character
+
+J Roll a die. If the result is 4 or more, I gain
+Anchored. Otherwise, I gain 3 boosts.
+(Anchored: At Night, I don't go to Reserve
+and I lose Anchored.)
+
+Equinox Prototype - ALT_CORE_B_LY_12_R1 - - 14/11/2023
+
+4
+
+Equinox Prototype - ALT_CORE_B_LY_16_C - - 14/11/2023
+
+2
+
+ALT Lyra Navigator
+Character
+
+0
+0
+4
+
+Fleeting.
+You may discard a card from your Reserve to reduce my cost
+by 2.
+Send target Character or Permanent to the top
+of it's owner's deck. (Fleeting: Send me to Discard
+instead of Reserve after my effect resolves.)
+
+When I go to Reserve from the Expedition Zone —
+You may return another card in your Reserve to
+your hand.
+
+Ouroboros Dealer
+Character
+
+M Roll a dice, if the result is 4 or more, draw a
+card, otherwise, Resupply. (Resupply:
+Put the top card of your deck in your
+Reserve.)
+
+Equinox Prototype - ALT_CORE_B_LY_13_R1 - - 14/11/2023
+
+5
+
+Character
+
+4
+
+4
+
+ALT Twinkle Twinkle
+Spell
+
+Fleeting.
+The Characters in target Expedition become Asleep. (This only
+affects one player's Characters) (Fleeting: Send me to Discard instead
+of Reserve after my effect resolves.Asleep: Ignore my statistics
+during Dusk. At Night, I don't join the Reserve and I lose Asleep.)
+
+D : The next card you play this turn costs
+1 less. (Discard me from your Reserve to
+activate this effect)
+
+Equinox Prototype - ALT_CORE_B_LY_20_R2 - - 14/11/2023
+
+3
+
+3
+
+ALT Cloth Cocoon
+Spell
+
+Equinox Prototype - ALT_CORE_B_LY_23_R1 - - 14/11/2023
+
+5
+
+5
+
+Paint Prison
+Spell
+
+0
+4
+4
+
+J I gain 1 boost for each card in each
+player's Reserve.
+
+4
+5
+4
+
+Roll a die. Target Character gains X
+boosts, where X is the die's result.
+
+3
+
+ALT Ouroboros Inkcaster
+
+5
+5
+5
+
+Equinox Prototype - ALT_CORE_B_LY_12_C - - 14/11/2023
+
+4
+0
+4
+
+Equinox Prototype - ALT_CORE_B_LY_24_C - - 14/11/2023
+
+4
+
+When I go to Reserve from the Expedition Zone —
+You may return another card in your
+Reserve to your hand.
+
+Equinox Prototype - ALT_CORE_B_MU_17_R1 - - 14/11/2023
+
+4
+
+2
+
+2
+2
+2
+
+When you roll a dice, you may add 1 to the result.
+M Sabotage.
+S I gain 2 boosts. (Sabotage:
+Discard up to one target card from a
+Reserve.)
+
+2
+
+Equinox Prototype - ALT_CORE_B_LY_17_C - - 14/11/2023
+
+2
+
+1
+
+ALT Kadigiran Mage-Dancer
+Character
+
+1
+1
+1
+
+D : Resupply. (Resupply: Put the top card
+of your deck in your Reserve. Discard me
+from your Reserve to activate this effect.)
+Equinox Prototype - ALT_CORE_B_LY_06_R1 - - 14/11/2023
+
+Fleeting. Choose one:
+- Discard target Fleeting, Anchored or Asleep
+Character.
+- Discard target Permanent. (Fleeting:
+Send me to Discard instead of Reserve
+after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_LY_24_R2 - - 14/11/2023
+
+2
+
+2
+
+ALT Ordis Cadets
+Character
+
+1
+1
+1
+
+Whenever you play a Spell — I gain 1 boost.
+At Dusk, if I have 3 or more boosts —
+Draw a card.
+
+Equinox Prototype - ALT_CORE_B_YZ_07_R1 - - 14/11/2023
+
+Fleeting.
+You may discard a card from your Reserve to reduce my cost
+by 1.
+Send target Character or Permanent to the top
+of it's owner's deck. (Fleeting: Send me to Discard
+instead of Reserve after my effect resolves.)
+Equinox Prototype - ALT_CORE_B_LY_26_C - - 14/11/2023
+
+2
+
+2
+
+ALT Ordis Cadets
+Character
+
+1
+1
+0
+
+J Create a 1/1/1 Ordis Recruit Soldier token in my
+Expedition.
+J Create a 1/1/1 Ordis Recruit Soldier
+token in your other Expedition.
+
+Equinox Prototype - ALT_CORE_B_OR_06_R1 - - 14/11/2023
+
+D : The next Spell you play this turn costs
+1 less. (Discard me from your Reserve to
+activate this effect)
+Equinox Prototype - ALT_CORE_B_OR_06_R2 - - 14/11/2023
+
+2
+
+2
+
+Monolith Rune-Scribe
+Character
+
+2
+2
+2
+
+2
+
+2
+
+ALT Monolith Rune-Scribe
+Character
+
+2
+2
+2
+
+D : The next Character you play this turn
+costs 1 less. (Discard me from your
+Reserve to activate this effect)
+Equinox Prototype - ALT_CORE_B_OR_07_C - - 14/11/2023
+
+2
+
+2
+
+ALT Monolith Rune-Scribe
+Character
+
+2
+2
+2
+
+ALT Kakoba, Legion Commander
+
+3
+
+Character
+
+2
+2
+2
+
+M If you have a token in your Expeditions,
+Resupply. (Resupply: Put the top card of your deck
+in your Reserve.)
+
+M If you have a token in your Expeditions,
+Resupply. (Resupply: Put the top card of your deck
+in your Reserve.)
+
+D : The next Character you play this turn
+costs 1 less. (Discard me from your
+Reserve to activate this effect)
+
+D : The next Character you play this turn
+costs 1 less. (Discard me from your
+Reserve to activate this effect)
+
+Equinox Prototype - ALT_CORE_B_OR_07_R1 - - 14/11/2023
+
+3
+
+Equinox Prototype - ALT_CORE_B_OR_07_R2 - - 14/11/2023
+
+2
+
+2
+
+Monolith Legate
+Character
+
+2
+1
+2
+
+J If you have at least 3 other
+Characters in your Expeditions, I gain 3
+boosts.
+Equinox Prototype - ALT_CORE_B_OR_15_R2 - - 14/11/2023
+
+When my Expedition doesn't move forward during
+Dusk — Sabotage after Rest. (Sabotage:
+Discard up to one target card from a
+Reserve.)
+Equinox Prototype - ALT_CORE_B_OR_08_C - - 14/11/2023
+
+

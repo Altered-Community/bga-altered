@@ -1,0 +1,81 @@
+1                                                                   3                                                                   3                                                                   4                                                                   1              ALT Yzmir Stargazer                                                          Ordis Recruit                                                        Ordis Recruit
+     1                                                                   3                                                                   3                                                                   4                                                                   1                     Character                                                                Token                                                                Token
+
+
+
+                                                                                                                                                                                                                                                                                 1                                                                    1                                                                     1
+                                                                                                                                                                                                                                                                                 2                                                                    1                                                                     1
+                                                                                                                                                                                                                                                                                 1                                                                    1                                                                     1
+
+
+
+              ALT Kelon Cylinder                                                    ALT Ordis Carrier                                                   Kelon Generator                                                 ALT Kelon Generator
+                         Permanent                                                           Permanent                                                           Permanent                                                           Permanent
+
+
+
+J : Target Character gains 1 boost.
+                                                                    At Dawn — Create a 1/1/1 Ordis Recruit
+T : I gain two Kelon Counters.
+                                                                    Soldier token in your Companion                                     2, T : Draw a card.                                                 1, T : Draw a card.
+T, Remove a Kelon Counter from me:                                                                                                                                                                                                                                                                                                                   I am a token.                                                         I am a token.
+                                                                    Expedition.
+Target Character gains 1 boost.                                                                                                                                                                                                                                                                                                                      (When I leave the Expedition Zone —                                   (When I leave the Expedition Zone —
+                                                                                                                                                                                                                                                                                                                                                     Discard me).                                                          Discard me).
+           Equinox Prototype - ALT_CORE_B_AX_26_R1 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_OR_30_R2 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_AX_27_C - - 14/11/2023               Equinox Prototype - ALT_CORE_B_AX_27_R1 - - 14/11/2023               Equinox Prototype - ALT_CORE_B_YZ_08_R2 - - 14/11/2023                Equinox Prototype - ALT_CORE_B_OR_31_C - - 14/11/2023                Equinox Prototype - ALT_CORE_B_OR_32_C - - 14/11/2023
+
+
+
+
+2               ALT Bravos Tracer                                   3        ALT Ouroboros Inkcaster                                    4                                                                   2                                                                   2          ALT Ouroboros Trickster                                   3               ALT Lyra Chronicler                                   2
+     2                    Character                                      3                    Character                                      4                                                                   2                                                                   1                     Character                                      3                      Character                                      2
+
+ 4                                                                   3                                                                                                                                                                                                           0                                                                    4
+ 3                                                                   3                                                                                                                                                                                                           0                                                                    0
+ 4                                                                   2                                                                                                                                                                                                           0                                                                    4
+
+
+
+                                                                                                                                                    ALT Kelon Generator                                                    Armored Jammer                                                                                                                                                                                              ALT Armored Jammer
+                                                                                                                                                                 Permanent                                                           Permanent                                                                                                                                                                                                       Permanent
+
+
+
+
+                                                                    When I go to Reserve from the Expedition Zone —                                                                                                                                                                                                                                                                                                        J Sabotage.
+J I become Fleeting. (Fleeting: If I
+                                                                    You may return another card in your                                                                                                     J Sabotage. (Sabotage: Discard up to                                J Roll a die. If the result is 4 or more, I                                                                                                When I leave the Expedition Zone,
+would be sent to Reserve, discard me                                                                                                    1, T : Draw a card.
+                                                                    Reserve to your hand.                                                                                                                   one target card from a Reserve.)                                    gain 2 boosts. Otherwise, I gain 1 boost.                                                                                                  Sabotage. (Sabotage: Discard up to one
+instead.)                                                                                                                                                                                                                                                                                                                                            D : Resupply. (Resupply: Put the top card                             target card from a Reserve.)
+                                                                                                                                                                                                                                                                                                                                                     of your deck in your Reserve. Discard me
+                                                                                                                                                                                                                                                                                                                                                     from your Reserve to activate this effect.)
+           Equinox Prototype - ALT_CORE_B_BR_07_R1 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_LY_12_R2 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_AX_27_R2 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_AX_28_C - - 14/11/2023                Equinox Prototype - ALT_CORE_B_LY_10_R2 - - 14/11/2023                Equinox Prototype - ALT_CORE_B_LY_16_R2 - - 14/11/2023               Equinox Prototype - ALT_CORE_B_AX_28_R1 - - 14/11/2023
+
+
+
+
+6                                                                   2                                                                   4                       ALT Anansi                                  2                  Lyra Navigator                                   3                            Tanuki                                  2                        ALT Hathor                                   2                       ALT Hathor
+     6                                                                   2                                                                   2                    Character                                      3                    Character                                      3                     Character                                      2                      Character                                      2                     Character
+
+
+
+                                                                                                                                         2                                                                   0                                                                   3                                                                    3                                                                     3
+                                                                                                                                         2                                                                   0                                                                   3                                                                    3                                                                     3
+                                                                                                                                         2                                                                   4                                                                   0                                                                    0                                                                     0
+
+
+
+             ALT Grand Endeavor                                                ALT Armored Jammer
+                         Permanent                                                           Permanent
+
+
+
+Tough 2.                                                            J Sabotage.
+At Night — Target Expedition advances.                              When I leave the Expedition Zone,                                   J I gain 1 boost for each card in your                                                                                                  M Sabotage. (Sabotage: Discard up
+(Tough 2: Your opponent's Spells and                                Sabotage. (Sabotage: Discard up to one                              Reserve.                                                                                                                                to one target card from a Reserve.)
+abilities that target me cost 2 more.)                              target card from a Reserve.)                                                                                                                                                                                                                                                     D : Return another card from your                                     D : Return another card from your
+                                                                                                                                                                                                                                                                                                                                                     Reserve to your hand. (Discard me from                                Reserve to your hand. (Discard me from
+                                                                                                                                                                                                                                                                                                                                                     your Reserve to activate this effect)                                 your Reserve to activate this effect)
+           Equinox Prototype - ALT_CORE_B_OR_29_R1 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_AX_28_R2 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_LY_13_R2 - - 14/11/2023              Equinox Prototype - ALT_CORE_B_LY_06_C - - 14/11/2023                Equinox Prototype - ALT_CORE_B_LY_09_C - - 14/11/2023                 Equinox Prototype - ALT_CORE_B_LY_07_R1 - - 14/11/2023               Equinox Prototype - ALT_CORE_B_LY_07_R2 - - 14/11/2023
+
