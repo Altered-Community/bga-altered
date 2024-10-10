@@ -1097,18 +1097,34 @@ abstract class FlowConvertor
       // throw new \feException(print_r($calculated));
       if (isset($calculated['triggerConditions'])) {
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
-          if (!isset($calculated['outputAttributes'][$keyAttribute])) {
+          if (!isset($properties[$keyAttribute])) {
             if (is_string($attribute) || is_bool($attribute)) {
-              $calculated['outputAttributes'][$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
+              $properties[$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
             }
           } else {
-            if (!is_array($calculated['outputAttributes'][$keyAttribute])) {
-              $tmp = [$calculated['outputAttributes'][$keyAttribute]];
+            if (!is_array($properties[$keyAttribute])) {
+              $tmp = [$properties[$keyAttribute]];
             }
             if (is_string($attribute) || is_bool($attribute)) {
               $tmp[] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
             }
-            $calculated['outputAttributes'][$keyAttribute] = $tmp;
+            $properties[$keyAttribute] = $tmp;
+          }
+        }
+        // throw new \feException(print_r($calculated));
+      } else {
+        // no condition on the trigger
+        foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
+          if (!isset($properties[$keyAttribute])) {
+            $properties[$keyAttribute] = $attribute;
+          } else {
+            if (!is_array($properties[$keyAttribute])) {
+              $tmp = [$properties[$keyAttribute]];
+            }
+            if (is_string($attribute) || is_bool($attribute)) {
+              $tmp[] = $attribute;
+            }
+            $properties[$keyAttribute] = $tmp;
           }
         }
       }
@@ -1177,9 +1193,9 @@ abstract class FlowConvertor
       }
     }
 
-    if (isset($calculated['outputAttributes'])) {
-      $properties = array_merge($properties, $calculated['outputAttributes']);
-    }
+    // if (isset($calculated['outputAttributes'])) {
+    //   $properties = array_merge($properties, $calculated['outputAttributes']);
+    // }
 
     // edge cases:
     if (in_array($trinity['trigger'], [8, 231]) && $trinity['condition'] == 190 && $trinity['output'] == 44) {
