@@ -253,6 +253,16 @@ class ChooseAssignment extends \ALT\Models\Action
         }
       }
 
+      // if it's a spell, effect are resolved immediately
+      if ($card->getType() == SPELL && !empty($effects)) {
+        $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+        $this->pushParallelChilds($effects['childs']);
+        $effects = [];
+      } else {
+        // resolving current node as some things are inserted before and after
+        Engine::resolveAction();
+      }
+
       if (Globals::getAdditionalEffect() != []) {
         $addEffects = Globals::getAdditionalEffect();
         foreach ($addEffects as $addEffect) {
@@ -272,9 +282,9 @@ class ChooseAssignment extends \ALT\Models\Action
       if (!empty($effects)) {
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
-        $this->pushParallelChilds($effects['childs']);
+        $this->pushAfterFinishingChilds($effects['childs']);
         if ($card->getRarity() == RARITY_UNIQUE) {
-          $this->updateParallelChilds(['noIndependent' => true]);
+          $this->updateAfterFinishingChilds(['noIndependent' => true]);
         }
       }
     } else {
@@ -302,7 +312,6 @@ class ChooseAssignment extends \ALT\Models\Action
       'additionalEffects' => Globals::getAdditionalEffect()
     ]);
 
-    // throw new \feException(print_r(Globals::getEngine()));
 
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
     Globals::setAdditionalEffect([]);

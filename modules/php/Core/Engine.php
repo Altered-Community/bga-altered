@@ -459,6 +459,20 @@ class Engine
     }
   }
 
+
+  public static function updateAfterFinishingChilds($attributes, &$node = null)
+  {
+    if (empty($attributes)) {
+      return;
+    }
+
+    $node = self::getAfterFinishingNode();
+    foreach ($attributes as $attribute => $value) {
+      $node->setInfo($attribute, $value);
+    }
+    Engine::save();
+  }
+
   public static function updateBrotherArgs($args)
   {
     $node = self::getNextUnresolved();

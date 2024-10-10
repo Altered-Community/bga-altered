@@ -168,6 +168,11 @@ class Action
     Engine::updateParallelChilds($attributes, $this->ctx);
   }
 
+  public function updateAfterFinishingChilds($attributes)
+  {
+    Engine::updateAfterFinishingChilds($attributes, $this->ctx);
+  }
+
   /**
    * Given bonuses, compute the flow and insert them as childs (or on insertAfterFinishing node)
    */
