@@ -1094,7 +1094,6 @@ abstract class FlowConvertor
     if (isset($calculated['noTrigger']) && $calculated['noTrigger'] === true) {
       // DynamicAttributes wll be used
       // if it exists, condition must be added at the end of the dynamic attribute
-      // throw new \feException(print_r($calculated));
       if (isset($calculated['triggerConditions'])) {
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
           if (!isset($properties[$keyAttribute])) {
@@ -1111,7 +1110,6 @@ abstract class FlowConvertor
             $properties[$keyAttribute] = $tmp;
           }
         }
-        // throw new \feException(print_r($calculated));
       } else {
         // no condition on the trigger
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
@@ -1193,9 +1191,9 @@ abstract class FlowConvertor
       }
     }
 
-    // if (isset($calculated['outputAttributes'])) {
-    //   $properties = array_merge($properties, $calculated['outputAttributes']);
-    // }
+    if ((!isset($calculated['noTrigger']) || $calculated['noTrigger'] === false) && isset($calculated['outputAttributes'])) {
+      $properties = array_merge($properties, $calculated['outputAttributes']);
+    }
 
     // edge cases:
     if (in_array($trinity['trigger'], [8, 231]) && $trinity['condition'] == 190 && $trinity['output'] == 44) {
