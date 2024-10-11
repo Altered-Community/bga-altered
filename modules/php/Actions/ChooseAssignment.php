@@ -196,7 +196,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // should we boost the card
     if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getNextCharacterBoost() > 0) {
-      $this->insertAsChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
+      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
       Globals::setNextCharacterBoost(0);
     }
 
@@ -206,7 +206,7 @@ class ChooseAssignment extends \ALT\Models\Action
       in_array($card->getType(), [CHARACTER, TOKEN]) &&
       $card->getCostHand() <= 3
     ) {
-      $this->insertAsChild(FT::GAIN($card, ANCHORED));
+      $this->pushParallelChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterCost3Anchored(false);
     }
 
