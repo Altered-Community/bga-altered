@@ -173,7 +173,7 @@ class ChooseAssignment extends \ALT\Models\Action
       $cost = 0;
     }
 
-    if ($card->getType() == SPELL && Globals::isNextSpellIsFree()) {
+    if (($card->getType() == SPELL && Globals::isNextSpellIsFree()) || $free == true) {
       Globals::setPlayedForFree(true);
     }
     // Move card
