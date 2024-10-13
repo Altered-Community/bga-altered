@@ -280,6 +280,13 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       if (!empty($effects)) {
+        // setting a default PId for the effects
+        foreach ($effects as &$eff) {
+          if (isset($eff['pId'])) {
+            continue;
+          }
+          $eff['pId'] = $card->getPId();
+        }
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
         $this->pushAfterFinishingChilds($effects['childs']);
