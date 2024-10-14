@@ -338,7 +338,7 @@ abstract class FlowConvertor
       ],
       67 => [
         'description' => clienttranslate('Plants you control other than me gain 1 boost.'),
-        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => PLANT]]),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['excludeSelf' => true, 'subType' => PLANT]]),
       ],
       68 => [
         'description' =>  clienttranslate('Roll a die. On a 4+, I gain 2 boosts. On a 1-3, I gain 1 boost.'),
