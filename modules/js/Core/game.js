@@ -762,6 +762,7 @@ define([
           beforeBrother: null,
           to: null,
           zIndex: true,
+          zIndexKeep: false,
 
           phantom: true,
           clearTransform: false,
@@ -843,7 +844,9 @@ define([
             : this.slideToObjectPos(mobile, config.to || targetId, config.pos.x, config.pos.y, config.duration, config.delay);
 
         dojo.connect(animation, 'onEnd', () => {
-          dojo.style(mobile, 'zIndex', null);
+          if (!config.zIndexKeep) {
+            dojo.style(mobile, 'zIndex', null);
+          }
           dojo.removeClass(mobile, config.className);
           if (config.phantomStart) {
             dojo.place(mobileElt, mobile, 'replace');

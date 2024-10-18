@@ -1517,6 +1517,7 @@ define([
       oCard.style.transform = oCard.backup.transform;
       oCard.style.left = oCard.backup.left;
       oCard.style.top = oCard.backup.top;
+      oCard.style.zIndex = null;
       //        this.wait(400).then(() => oCard.classList.remove('selected'));
     },
 
@@ -1639,13 +1640,20 @@ define([
       // Slide it using css transition, unless parent is reserve
       let limbo = $(`board-limbo-${this.player_id}`);
       oCard.style.transform = 'scale(1.2) rotate(0rad) translateY(0px)';
+
       if (oCard.parentNode.classList.contains('player-board-reserve')) {
-        this.slide(oCard, limbo, { duration: 100, changeParent: false, attach: false, phantom: false, clearPos: false });
+        this.slide(oCard, limbo, {
+          duration: 100,
+          changeParent: false,
+          attach: false,
+          zIndexKeep: true,
+          phantom: false,
+          clearPos: false,
+        });
       } else {
         oCard.style.left = limbo.offsetLeft + 'px';
         oCard.style.top = limbo.offsetTop + 'px';
       }
-
       let onChooseLocation = (location) => {
         return () => this.takeAtomicAction('actPlay', [cardId, location]);
       };
