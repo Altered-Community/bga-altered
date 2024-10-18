@@ -230,7 +230,9 @@ class Discard extends \ALT\Models\Action
         }
         // Sacrifice a non fleeting
         else if (!$hasFleeting && $card->isSacrificeAndNotFleetingGoToReserve()) {
-          $destination = RESERVE;
+          // $destination = RESERVE;
+          // we insert an action to move the card from discard as afterFinishing
+          $this->pushAfterFinishingChilds([['action' => DISCARD, 'args' => ['destination' => RESERVE, 'cardId' => $cId]]]);
         }
       }
 
