@@ -80,10 +80,11 @@ class ChooseAssignment extends \ALT\Models\Action
   public static function statPlay($carId)
   {
     $player = Players::getActive();
-    $statMapping = Globals::getStatMapping()[$player->getId()];
-    if (!isset($statMapping[$carId])) {
+    $statMapping = Globals::getStatMapping()[$player->getId()] ?? null;
+    if (is_null($statMapping) || !isset($statMapping[$carId])) {
       return;
     }
+
     $f = 'get' . ucfirst($statMapping[$carId]);
     $stat = Stats::$f($player);
 
