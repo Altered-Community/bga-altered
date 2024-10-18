@@ -213,6 +213,7 @@ trait TurnTrait
         Notifications::winTieBreaker($player, $pWin[$player->getId()]);
         $player->setScore(1);
         Stats::setWinner($player, 1);
+        Stats::setGameWinner(Players::get($victor)->getHero()->getStatData());
         $this->jumpToOrCall(ST_PRE_END_OF_GAME);
         return;
       } else {

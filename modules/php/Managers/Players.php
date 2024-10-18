@@ -231,6 +231,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       // we have a winner => end of game
       Players::get($victor)->setScore(1);
       Stats::setWinner(Players::get($victor), 1);
+      Stats::setGameWinner(Players::get($victor)->getHero()->getStatData());
       Game::get()->jumpToOrCall(ST_PRE_END_OF_GAME);
       return true;
     }
@@ -420,5 +421,42 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $biomes[$region] = 0;
       }
     }
+  }
+
+  public static function setStats()
+  {
+    $matchup = [];
+    $statData = [];
+    foreach (self::getAll() as $pId => $player) {
+      $matchup[] = $player->getHero()->getStatData();
+      $cardStat = [];
+      $count = 1;
+      foreach (Cards::getFiltered($pId)->where('location', "deck-$pId") as $cId => $card) {
+        if ($card->getRarity() == RARITY_UNIQUE) {
+          continue;
+        }
+        // encoding UID into Ints
+        // 103423
+        // 1 = in deck
+        // 0034 = card number
+        // 2 = Rarity R1
+        // 3 = faction code
+        $uid = explode('_', $card->getUid());
+        $rarityUid = $uid[5] == 'C' ? 1 : ($uid[5] == 'R' ? 2 : 3);
+        $factionUid = array_search(($uid[3] == 'OR' ? 'OD' : $uid[3]), FACTIONS) + 1;
+        $s = 'setCard' . $count;
+        $cardStat[$cId] = 'card' . $count;
+
+        Stats::$s($player, 100000 + intval($uid[4]) * 100 + $rarityUid * 10 + $factionUid);
+        $count++;
+        if ($count > 40) {
+          break;
+        }
+      }
+      $statData[$pId] = $cardStat;
+    }
+    sort($matchup);
+    Stats::setMatchUp($matchup[0] * 100 + $matchup[1]);
+    Globals::setStatMapping($statData);
   }
 }

@@ -18,6 +18,7 @@ class AX_Common_SubhashMarmo extends \ALT\Models\Card
       'name' => clienttranslate('Subhash & Marmo'),
       'type' => HERO,
       'thumbnail' => 2,
+      'statData' => 2,
       'typeline' => clienttranslate('Axiom Hero'),
       'effectDesc' => clienttranslate(
         'At Noon — You may pay {1} and put a card from your hand in Reserve to create a <BRASSBUG> Robot token in target Expedition.'

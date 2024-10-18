@@ -1,0 +1,311 @@
+{
+    "table": {
+        "days": {
+            "id": 11,
+            "name": "Number of days",
+            "type": "int"
+        },
+        "matchUp": {
+            "id": 15,
+            "name": "Matchup",
+            "type": "int",
+            "display": "limited"
+        },
+        "gameWinner": {
+            "id": 16,
+            "name": "Game winner",
+            "type": "int"
+        }
+    },
+    "player": {
+        "faction": {
+            "id": 12,
+            "name": "Faction",
+            "type": "int"
+        },
+        "winner": {
+            "id": 14,
+            "name": "Winner",
+            "type": "int"
+        },
+        "turns": {
+            "id": 13,
+            "name": "Number of turns",
+            "type": "int"
+        },
+        "card1": {
+            "id": 21,
+            "name": "card 1",
+            "type": "int",
+            "display": "limited"
+        },
+        "card2": {
+            "id": 22,
+            "name": "card 2",
+            "type": "int",
+            "display": "limited"
+        },
+        "card3": {
+            "id": 23,
+            "name": "card 3",
+            "type": "int",
+            "display": "limited"
+        },
+        "card4": {
+            "id": 24,
+            "name": "card 4",
+            "type": "int",
+            "display": "limited"
+        },
+        "card5": {
+            "id": 25,
+            "name": "card 5",
+            "type": "int",
+            "display": "limited"
+        },
+        "card6": {
+            "id": 26,
+            "name": "card 6",
+            "type": "int",
+            "display": "limited"
+        },
+        "card7": {
+            "id": 27,
+            "name": "card 7",
+            "type": "int",
+            "display": "limited"
+        },
+        "card8": {
+            "id": 28,
+            "name": "card 8",
+            "type": "int",
+            "display": "limited"
+        },
+        "card9": {
+            "id": 29,
+            "name": "card 9",
+            "type": "int",
+            "display": "limited"
+        },
+        "card10": {
+            "id": 30,
+            "name": "card 10",
+            "type": "int",
+            "display": "limited"
+        },
+        "card11": {
+            "id": 31,
+            "name": "card 11",
+            "type": "int",
+            "display": "limited"
+        },
+        "card12": {
+            "id": 32,
+            "name": "card 12",
+            "type": "int",
+            "display": "limited"
+        },
+        "card13": {
+            "id": 33,
+            "name": "card 13",
+            "type": "int",
+            "display": "limited"
+        },
+        "card14": {
+            "id": 34,
+            "name": "card 14",
+            "type": "int",
+            "display": "limited"
+        },
+        "card15": {
+            "id": 35,
+            "name": "card 15",
+            "type": "int",
+            "display": "limited"
+        },
+        "card16": {
+            "id": 36,
+            "name": "card 16",
+            "type": "int",
+            "display": "limited"
+        },
+        "card17": {
+            "id": 37,
+            "name": "card 17",
+            "type": "int",
+            "display": "limited"
+        },
+        "card18": {
+            "id": 38,
+            "name": "card 18",
+            "type": "int",
+            "display": "limited"
+        },
+        "card19": {
+            "id": 39,
+            "name": "card 19",
+            "type": "int",
+            "display": "limited"
+        },
+        "card20": {
+            "id": 40,
+            "name": "card 20",
+            "type": "int",
+            "display": "limited"
+        },
+        "card21": {
+            "id": 41,
+            "name": "card 21",
+            "type": "int",
+            "display": "limited"
+        },
+        "card22": {
+            "id": 42,
+            "name": "card 22",
+            "type": "int",
+            "display": "limited"
+        },
+        "card23": {
+            "id": 43,
+            "name": "card 23",
+            "type": "int",
+            "display": "limited"
+        },
+        "card24": {
+            "id": 44,
+            "name": "card 24",
+            "type": "int",
+            "display": "limited"
+        },
+        "card25": {
+            "id": 45,
+            "name": "card 25",
+            "type": "int",
+            "display": "limited"
+        },
+        "card26": {
+            "id": 46,
+            "name": "card 26",
+            "type": "int",
+            "display": "limited"
+        },
+        "card27": {
+            "id": 47,
+            "name": "card 27",
+            "type": "int",
+            "display": "limited"
+        },
+        "card28": {
+            "id": 48,
+            "name": "card 28",
+            "type": "int",
+            "display": "limited"
+        },
+        "card29": {
+            "id": 49,
+            "name": "card 29",
+            "type": "int",
+            "display": "limited"
+        },
+        "card30": {
+            "id": 50,
+            "name": "card 30",
+            "type": "int",
+            "display": "limited"
+        },
+        "card31": {
+            "id": 51,
+            "name": "card 31",
+            "type": "int",
+            "display": "limited"
+        },
+        "card32": {
+            "id": 52,
+            "name": "card 32",
+            "type": "int",
+            "display": "limited"
+        },
+        "card33": {
+            "id": 53,
+            "name": "card 33",
+            "type": "int",
+            "display": "limited"
+        },
+        "card34": {
+            "id": 54,
+            "name": "card 34",
+            "type": "int",
+            "display": "limited"
+        },
+        "card35": {
+            "id": 55,
+            "name": "card 35",
+            "type": "int",
+            "display": "limited"
+        },
+        "card36": {
+            "id": 56,
+            "name": "card 36",
+            "type": "int",
+            "display": "limited"
+        },
+        "card37": {
+            "id": 57,
+            "name": "card 37",
+            "type": "int",
+            "display": "limited"
+        },
+        "card38": {
+            "id": 58,
+            "name": "card 38",
+            "type": "int",
+            "display": "limited"
+        },
+        "card39": {
+            "id": 59,
+            "name": "card 39",
+            "type": "int",
+            "display": "limited"
+        },
+        "card40": {
+            "id": 60,
+            "name": "card 40",
+            "type": "int",
+            "display": "limited"
+        }
+    },
+    "value_labels": {
+        "12": {
+            "1": "Axiom",
+            "2": "Bravos",
+            "3": "Lyra",
+            "4": "Muna",
+            "5": "Ordis",
+            "6": "Yzmir"
+        },
+        "14": [
+            "No",
+            "Yes"
+        ],
+        "16": {
+            "1": "Sierra Oddball",
+            "2": "Subhash Marmo",
+            "3": "Treyst Rossum",
+            "4": "Atsadi Surge",
+            "5": "Basira Kaizaimon",
+            "6": "Kojo Booda",
+            "7": "Auraq Kibble",
+            "8": "Fen Crowbar",
+            "9": "Nevenka Blotch",
+            "10": "Arjun Spike",
+            "11": "Rin Orchid",
+            "12": "Teija Nauraa",
+            "13": "Gulrang Tocsin",
+            "14": "Sigismar Wingspan",
+            "15": "Waru Mack",
+            "16": "Afanas Senka",
+            "17": "Akesha Taru",
+            "18": "Lindiwe Maw"
+        }
+    }
+}

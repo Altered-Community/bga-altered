@@ -18,6 +18,7 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'name' => clienttranslate('Sigismar & Wingspan'),
       'type' => HERO,
       'thumbnail' => 0,
+      'statData' => 14,
       'typeline' => clienttranslate('Ordis Hero'),
 
       'reserveSlots' => 2,

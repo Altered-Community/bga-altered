@@ -19,6 +19,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'typeline' => clienttranslate('Yzmir Hero'),
       'type' => HERO,
       'thumbnail' => 2,
+      'statData' => 16,
       'flavorText' => clienttranslate('The world feeds on magic, and withers in its absence.'),
       'artist' => 'Edward Cheekokseang',
       'effectDesc' => clienttranslate(

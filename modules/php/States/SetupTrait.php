@@ -280,6 +280,7 @@ trait SetupTrait
       Cards::shuffle("deck-$pId");
       Notifications::setupDeck($player, $meeples, $hero);
     }
+    Players::setStats();
 
     // TODO : remove ???
     //    Notifications::setupCards(Cards::getUiData());

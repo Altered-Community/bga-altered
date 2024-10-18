@@ -18,6 +18,7 @@ class MU_Common_TeijaNauraa extends \ALT\Models\Card
       'name' => clienttranslate('Teija & Nauraa'),
       'type' => HERO,
       'thumbnail' => 0,
+      'statData' => 12,
       'typeline' => clienttranslate('Muna Hero'),
       'effectDesc' => clienttranslate('The first Character you play each Afternoon gains 1 boost$<BB>.'),
       'flavorText' => clienttranslate('Nature must be nurtured to fully express its generosity.'),

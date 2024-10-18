@@ -23,6 +23,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'deckOptions' => 'str',
     'deckContent' => 'obj',
     'undo' => 'bool',
+    'statMapping' => 'obj',
 
     'firstPlayer' => 'int',
     'skippedPlayers' => 'obj',

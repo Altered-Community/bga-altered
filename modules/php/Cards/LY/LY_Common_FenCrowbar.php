@@ -19,6 +19,7 @@ class LY_Common_FenCrowbar extends \ALT\Models\Card
       'typeline' => clienttranslate('Lyra Hero'),
       'type' => HERO,
       'thumbnail' => 2,
+      'statData' => 8,
       'flavorText' => clienttranslate(
         'When you listen to the voice of the Wind, it always carries you where you\'re meant to be.'
       ),

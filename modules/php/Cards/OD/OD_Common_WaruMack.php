@@ -19,6 +19,7 @@ class OD_Common_WaruMack extends \ALT\Models\Card
       'typeline' => clienttranslate('Ordis Hero'),
       'type' => HERO,
       'thumbnail' => 1,
+      'statData' => 15,
       'flavorText' => clienttranslate('Bureaucracy is an art that requires careful planning.'),
       'artist' => 'Taras Susak',
       'effectDesc' => clienttranslate(

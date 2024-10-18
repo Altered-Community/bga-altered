@@ -17,6 +17,7 @@ class BR_Common_AtsadiSurge extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Atsadi & Surge'),
       'type' => HERO,
+      'statData' => 4,
       'thumbnail' => 1,
       'typeline' => clienttranslate('Bravos Hero'),
       'effectDesc' => clienttranslate(

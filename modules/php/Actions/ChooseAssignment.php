@@ -77,6 +77,23 @@ class ChooseAssignment extends \ALT\Models\Action
     return ['_private' => ['active' => $actions]];
   }
 
+  public static function statPlay($carId)
+  {
+    $player = Players::getActive();
+    $statMapping = Globals::getStatMapping()[$player->getId()];
+    if (!isset($statMapping[$carId])) {
+      return;
+    }
+    $f = 'get' . ucfirst($statMapping[$carId]);
+    $stat = Stats::$f($player);
+
+    if ($stat < 200000) {
+      // we flag the card as played
+      $f = 'set' . ucfirst($statMapping[$carId]);
+      Stats::$f($player, $stat + 100000);
+    }
+  }
+
   ///////////////////////////
   //  ____  _
   // |  _ \| | __ _ _   _
@@ -322,6 +339,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
     Globals::setAdditionalEffect([]);
+    self::statPlay($cardId);
 
     if ($card->getType() == SPELL) {
       if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
@@ -356,6 +374,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $card = Cards::get($cardId);
     Cards::discard($cardId, 'discard');
     Notifications::supportEffect($player, $card);
+    self::statPlay($cardId);
 
     $effect = $card->getEffectSupport();
     if (!empty($effect)) {

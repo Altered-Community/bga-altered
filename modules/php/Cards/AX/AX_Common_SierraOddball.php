@@ -18,6 +18,7 @@ class AX_Common_SierraOddball extends \ALT\Models\Card
       'name' => clienttranslate('Sierra & Oddball'),
       'type' => HERO,
       'thumbnail' => 0,
+      'statData' => 1,
       'typeline' => clienttranslate('Axiom Hero'),
       'effectDesc' => clienttranslate(
         'When you play a Permanent with Hand Cost {3} or more — You may exhaust me ({T}) to create a <BRASSBUG> Robot token in target Expedition.'

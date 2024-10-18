@@ -19,6 +19,7 @@ class MU_Common_RinOrchid extends \ALT\Models\Card
       'typeline' => clienttranslate('Muna Hero'),
       'type' => HERO,
       'thumbnail' => 2,
+      'statData' => 11,
       'flavorText' => clienttranslate('The forest always gives back, when you know where to look.'),
       'artist' => 'Zero Wen',
       'effectDesc' => clienttranslate(

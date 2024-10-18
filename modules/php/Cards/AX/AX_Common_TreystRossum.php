@@ -18,6 +18,7 @@ class AX_Common_TreystRossum extends \ALT\Models\Card
       'name' => clienttranslate('Treyst & Rossum'),
       'typeline' => clienttranslate('Axiom Hero'),
       'type' => HERO,
+      'statData' => 3,
       'thumbnail' => 1,
       'flavorText' => clienttranslate('An energy system is a piece of subtle machinery to be optimized for better output.'),
       'artist' => 'Taras Susak',
