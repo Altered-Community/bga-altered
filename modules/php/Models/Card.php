@@ -114,6 +114,9 @@ class Card extends \ALT\Helpers\DB_Model
     // Dynamic info
     'tapped' => 'bool',
     'extraDatas' => 'obj',
+
+    // Alizé
+    'playTappedCards' => 'bool',
   ];
 
   /********* DB ACCESS *********/
@@ -223,6 +226,10 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function canBePlayed($player)
   {
+    if (!$player->canPlayTappedCards() && $this->getLocation() == RESERVE && $this->isTapped()) {
+      return false;
+    }
+
     $cost = $this->getCost();
     $mana = $player->getMana();
     $totalMana = $player->getTotalMana();

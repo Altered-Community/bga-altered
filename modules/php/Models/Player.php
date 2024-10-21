@@ -364,6 +364,7 @@ class Player extends \ALT\Helpers\DB_Model
     $movedToReserve = [];
 
     foreach ($this->getPlayedCards() as $cId => $card) {
+      // TODO update Alizé expedition
       if ($card->getType() == PERMANENT) {
         continue;
       }
@@ -455,6 +456,16 @@ class Player extends \ALT\Helpers\DB_Model
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
       if ($card->isOppositeDefender()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function canPlayTappedCards()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isPlayTappedCards()) {
         return true;
       }
     }

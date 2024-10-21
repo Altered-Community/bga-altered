@@ -57,8 +57,10 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // 2. Support
     $actions['support'] = $reserveCards
-      ->filter(function ($card) {
-        return !empty($card->getEffectSupport());
+      ->filter(function ($card) use ($player) {
+        return !empty($card->getEffectSupport()) && (
+          !$card->isTapped() || ($card->isTapped() && $player->canPlayTappedCards())
+        );
       })
       ->getIds();
 

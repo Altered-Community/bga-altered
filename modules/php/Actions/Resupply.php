@@ -21,15 +21,30 @@ class Resupply extends \ALT\Models\Action
   public function getDescription()
   {
     $player = $this->getPlayer();
-    if ($player->getResupply2()) {
-      return clienttranslate('Lyra Bastion\'s resupply');
+    $exhausted = $this->getArg('exhausted');
+    if (!$exhausted) {
+      if ($player->getResupply2()) {
+        return clienttranslate('Lyra Bastion\'s resupply');
+      } else {
+        return [
+          'log' => clienttranslate('Resupply ${n}'),
+          'args' => [
+            'n' => $this->getArg('n'),
+          ],
+        ];
+      }
     } else {
-      return [
-        'log' => clienttranslate('Resupply ${n}'),
-        'args' => [
-          'n' => $this->getArg('n'),
-        ],
-      ];
+      // The resupply must be exhausted
+      if ($player->getResupply2()) {
+        return clienttranslate('Lyra Bastion\'s resupply (exhausted)');
+      } else {
+        return [
+          'log' => clienttranslate('Exhausted resupply ${n}'),
+          'args' => [
+            'n' => $this->getArg('n'),
+          ],
+        ];
+      }
     }
   }
 
@@ -45,6 +60,7 @@ class Resupply extends \ALT\Models\Action
 
   protected $args = [
     'n' => 1,
+    'exhausted' => false,
   ];
 
   public function getPlayer()
@@ -58,6 +74,7 @@ class Resupply extends \ALT\Models\Action
     $n = $this->getArg('n');
     $player = $this->getPlayer();
     $notResupply = false;
+    $exhausted = $this->getArg('exhausted');
 
     $source = $this->ctx->getSource() ?? null;
     $sourceId = $this->ctx->getSourceId() ?? null;
@@ -97,7 +114,7 @@ class Resupply extends \ALT\Models\Action
           FT::ACTION(
             TARGET,
             [
-              'effect' => FT::ACTION(DISCARD, ['destination' => RESERVE]),
+              'effect' => FT::ACTION(DISCARD, ['destination' => RESERVE, 'tapped' => $exhausted]),
               'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
               'targetLocation' => [LIMBO],
               'targetPlayer' => ME,
@@ -113,8 +130,9 @@ class Resupply extends \ALT\Models\Action
         'deck-' . $player->getId(),
         RESERVE,
         $source,
-        clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
-        clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)')
+        $exhausted ? clienttranslate('You put ${card_names} from your deck in Reserve as exhausted (${card_name2}\'s effect)') : clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
+        $exhausted ? clienttranslate('${player_name} places ${card_names} from its deck to Reserve as exhausted(${card_name2}\'s effect)') : clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'),
+        $exhausted
       );
     }
     $this->checkAfterListeners($player, ['draw' => $n, 'notResupply' => $notResupply]);

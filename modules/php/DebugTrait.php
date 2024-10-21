@@ -191,6 +191,15 @@ trait DebugTrait
     Cards::untapAll();
   }
 
+  function tapReserve()
+  {
+    $player = Players::getCurrent();
+    foreach ($player->getReserveCards() as $cId => $card) {
+      $card->setTapped(true);
+    }
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+  }
+
   function allVisible()
   {
     $sql = "UPDATE `cards` set `card_state` = 1 where `card_location` like 'turn%'";

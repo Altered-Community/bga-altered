@@ -614,6 +614,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         n.args.cards.forEach((card) => {
           this.addCard(card);
           if (card.location == 'hand') nInHand++;
+          if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
+            $(`card-${card.id}`).classList.add('tapped');
+          }
         });
         this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
@@ -631,7 +634,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             let container = this.getCardContainer(card);
             if (!isVisible(container)) to = $('floating-hand-button');
             let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${n.args.player_id}`);
-
+            if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
+              $(`card-${card.id}`).classList.add('tapped');
+            }
             return this.slide(`card-${card.id}`, container, {
               from: source,
               duration: 1000,
@@ -1918,6 +1923,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         RESUPPLY: {
           text: _('Resupply'),
           reminder: _('Put the top card of your deck in Reserve.'),
+        },
+        EXHAUSTED_RESUPPLY: {
+          text: _('Exhausted Resupply'),
+          reminder: _(
+            "(Put the top card of your deck in Reserve, then exhaust it {T}. Exhausted cards can't be played and have no Support abilities.)"
+          ),
         },
         RESUPPLY_INF: {
           text: _('Resupply'),

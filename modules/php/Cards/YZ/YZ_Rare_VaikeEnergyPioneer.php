@@ -1,30 +1,37 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
+use ALT\Helpers\FT;
 
 class YZ_Rare_VaikeEnergyPioneer extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
+    public function __construct($row)
+    {
+        parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_AX_35_R2',
             'asset'  => 'ALT_ALIZE_B_AX_35_R2',
 
-    		'faction'  => FACTION_YZ,
-    		'rarity'  => RARITY_RARE,
-    		'name'  => clienttranslate("Vaike, Energy Pioneer"),
+            'faction'  => FACTION_YZ,
+            'rarity'  => RARITY_RARE,
+            'name'  => clienttranslate("Vaike, Energy Pioneer"),
             'typeline' => clienttranslate("Character - Engineer"),
-    		'type'  => CHARACTER,
-    		'flavorText'  => clienttranslate('Energy and persistence conquer all things.'),
+            'type'  => CHARACTER,
+            'flavorText'  => clienttranslate('Energy and persistence conquer all things.'),
             'artist' => "Zero Wen",
-			'extension'=>'TBF',
-   'subtypes'  => [ENGINEER],
- 				'effectDesc' => clienttranslate('You may play exhausted cards from your Reserve.  #{R} $<EXHAUSTED_RESUPPLY>.#'),
-     'forest' => 1, 
-     'mountain' => 2, 
-     'ocean' => 2, 
-     'costHand' => 2, 
-     'costReserve' => 2, 
-     'changedStats' => ['forest'], 
-];
-  }
+            'extension' => 'TBF',
+            'subtypes'  => [ENGINEER],
+            'effectDesc' => clienttranslate('You may play exhausted cards from your Reserve.  #{R} $<EXHAUSTED_RESUPPLY>.#'),
+            'forest' => 1,
+            'mountain' => 2,
+            'ocean' => 2,
+            'costHand' => 2,
+            'costReserve' => 2,
+            'changedStats' => ['forest'],
+            'playTappedCards' => true,
+            'effectReserve' => FT::ACTION(RESUPPLY, ['exhausted' => true])
+
+        ];
+    }
 }
