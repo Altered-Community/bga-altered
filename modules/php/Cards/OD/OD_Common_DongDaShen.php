@@ -1,0 +1,29 @@
+<?php
+namespace ALT\Cards\OD;
+
+class OD_Common_DongDaShen extends \ALT\Models\Card
+{
+  public function __construct($row){
+		parent::__construct($row);
+        $this->properties = [
+            'uid' => 'ALT_ALIZE_B_OR_35_C',
+            'asset'  => 'ALT_ALIZE_B_OR_35_C',
+
+    		'faction'  => FACTION_OD,
+    		'rarity'  => RARITY_COMMON,
+    		'name'  => clienttranslate("Dong Da Shen"),
+            'typeline' => clienttranslate("Character - Bureaucrat Deity"),
+    		'type'  => CHARACTER,
+    		'flavorText'  => clienttranslate('Justice is best served cold.'),
+            'artist' => "Edward Chee & Seok Yeong",
+			'extension'=>'TBF',
+   'subtypes'  => [BUREAUCRAT,DEITY],
+ 				'effectDesc' => clienttranslate('{J} You may exhaust ({T}) target card in Reserve. (Exhausted cards can\'t be played and have no Support abilities.)'),
+     'forest' => 3, 
+     'mountain' => 4, 
+     'ocean' => 4, 
+     'costHand' => 4, 
+     'costReserve' => 4, 
+];
+  }
+}

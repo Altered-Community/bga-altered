@@ -1,0 +1,27 @@
+<?php
+namespace ALT\Cards\BR;
+
+class BR_Rare_ArcolanoMilk extends \ALT\Models\Card
+{
+  public function __construct($row){
+		parent::__construct($row);
+        $this->properties = [
+            'uid' => 'ALT_ALIZE_B_BR_43_R1',
+            'asset'  => 'ALT_ALIZE_B_BR_43_R',
+
+    		'faction'  => FACTION_BR,
+    		'rarity'  => RARITY_RARE,
+    		'name'  => clienttranslate("Arcolano Milk"),
+            'typeline' => clienttranslate("Expedition_permanent - Gear"),
+    		'type'  => PERMANENT,
+    		'flavorText'  => clienttranslate('Nobody knows where this "milk" actually comes from.'),
+            'artist' => "Kevin Sidharta",
+			'extension'=>'TBF',
+   'subtypes'  => [GEAR,EXPEDITION],
+ 				'effectDesc' => clienttranslate('When a Character joins my Expedition — It gains #2 boosts# and <FLEETING_CHAR>.'),
+     'costHand' => 2, 
+     'costReserve' => 2, 
+     'changedStats' => ['costHand','costReserve'], 
+];
+  }
+}
