@@ -34,6 +34,7 @@ class Target extends \ALT\Models\Action
     'statuses' => 'disabled', // does it has those statuses
     'excludeSelf' => false,
     'totalCost' => INFTY,
+    'totalMountain' => INFTY,
     'hasEffects' => 'disabled',
     'cards' => [],
     'discardRemaining' => false,
@@ -45,11 +46,14 @@ class Target extends \ALT\Models\Action
     $targetType = $this->getArg('targetType');
     $upTo = $this->getCtxArg('upTo') ?? false;
     $totalCost = $this->getArg('totalCost');
+    $totalMountain = $this->getArg('totalMountain');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+        } elseif ($totalMountain != INFTY) {
+          $msg = clienttranslate('Target up to ${n} character(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
             $msg = clienttranslate('All characters ${effect_desc}');
@@ -64,6 +68,8 @@ class Target extends \ALT\Models\Action
       if ($upTo) {
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+        } elseif ($totalMountain != INFTY) {
+          $msg = clienttranslate('Target up to ${n} permanent(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect_desc}');
         }
@@ -74,6 +80,8 @@ class Target extends \ALT\Models\Action
       if ($upTo) {
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+        } elseif ($totalMountain != INFTY) {
+          $msg = clienttranslate('Target up to ${n} card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
             $msg = clienttranslate('All cards ${effect_desc}');
@@ -96,6 +104,7 @@ class Target extends \ALT\Models\Action
         'n' => $this->getCtxArg('n') ?? 1,
         'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
         'totalCost' => $totalCost,
+        'totalMountain' => $totalMountain,
         'i18n' => ['effect_desc'],
       ],
     ];
@@ -228,6 +237,7 @@ class Target extends \ALT\Models\Action
       'upTo' => $this->getArg('upTo'),
       'description' => $this->getDescription(),
       'totalCost' => $this->getArg('totalCost'),
+      'totalMountain' => $this->getArg('totalMountain'),
       'targetCosts' => $this->getTargetCosts($player),
       'manaOrbs' => $this->getArg('targetLocation') == [MANA],
     ];
@@ -246,6 +256,7 @@ class Target extends \ALT\Models\Action
     $player = Players::getActive();
     $args = $this->argsTarget();
     $totalCost = $this->getArg('totalCost');
+    $totalMountain = $this->getArg('totalMountain');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
       throw new \BgaVisibleSystemException('You cannot target these cards. Should not happen');
@@ -306,10 +317,14 @@ class Target extends \ALT\Models\Action
 
       $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
+      $totalMountain -= $card->getMountain();
     }
 
     if ($totalCost < 0) {
       throw new \BgaUserException(clienttranslate('Total hand cost exceeds the limit of the effect'));
+    }
+    if ($totalMountain < 0) {
+      throw new \BgaUserException(clienttranslate('Total mountain attribute exceeds the limit of the effect'));
     }
 
     $cards = Cards::getMany($cardIds);

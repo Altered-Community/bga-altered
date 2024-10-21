@@ -1971,6 +1971,7 @@ define([
         V: 'forest',
         O: 'ocean',
         E: 'ocean',
+        M: 'mountain',
         COUNTER: 'charge',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
