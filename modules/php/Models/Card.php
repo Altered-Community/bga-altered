@@ -117,6 +117,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Alizé
     'playTappedCards' => 'bool',
+    'canAlwaysGainFleeting' => 'bool',
   ];
 
   /********* DB ACCESS *********/

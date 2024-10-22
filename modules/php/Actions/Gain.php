@@ -109,9 +109,15 @@ class Gain extends \ALT\Models\Action
     }
     $card = $this->getCard();
 
+    $args = $this->getCtxArgs();
+    $args['cardId'] = $this->getCard()->getId();
+
     // Increase resource and notify
     list($resource, $amount) = $this->getGain();
     if (in_array($resource, [FLEETING, ANCHORED]) && $card->hasToken($resource)) {
+      if ($card->isCanAlwaysGainFleeting()) {
+        $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
+      }
       // a card cannot have more than one fleeting/anchored token
       $this->resolveAction();
       return;
@@ -119,9 +125,6 @@ class Gain extends \ALT\Models\Action
 
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
-
-    $args = $this->getCtxArgs();
-    $args['cardId'] = $this->getCard()->getId();
 
     $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
 

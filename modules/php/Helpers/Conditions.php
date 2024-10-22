@@ -337,6 +337,11 @@ abstract class Conditions
 
   public static function hasGainedBoost($card, $event, $n = 1)
   {
+    return self::hasGained($card, $event, BOOST, $n);
+  }
+
+  public static function hasGained($card, $event, $type, $n = 1)
+  {
     if (($event['action'] ?? null) != GAIN) {
       return false;
     }
@@ -344,7 +349,7 @@ abstract class Conditions
       return false;
     }
 
-    if ($event['gain']['type']  != 'boost') {
+    if ($event['gain']['type']  != $type) {
       return false;
     }
 
