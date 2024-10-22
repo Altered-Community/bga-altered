@@ -108,12 +108,28 @@ class Gain extends \ALT\Models\Action
       $source = Cards::getSingle($sourceId);
     }
     $card = $this->getCard();
+    $dynamicReplace = $card->getDynamicGainReplace();
 
     $args = $this->getCtxArgs();
     $args['cardId'] = $this->getCard()->getId();
-
     // Increase resource and notify
     list($resource, $amount) = $this->getGain();
+    // Some effects change what is gained
+    if (isset($dynamicReplace[$resource])) {
+      $oldResource = $resource;
+      $resource = $dynamicReplace[$resource];
+      Notifications::message(
+        clienttranslate('${old_resource} is replaced by ${resource} (${card_name}\'s effect)'),
+        [
+          'resource' => $resource,
+          'old_resource' => $oldResource,
+          'card' => $card,
+          'i18n' => ['resource', 'old_resource'],
+        ]
+      );
+      $args['type'] = $resource;
+    }
+
     if (in_array($resource, [FLEETING, ANCHORED]) && $card->hasToken($resource)) {
       if ($card->isCanAlwaysGainFleeting()) {
         $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
