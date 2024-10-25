@@ -305,6 +305,45 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $statuses;
   }
 
+  public static function getBiomesInStorm()
+  {
+    $allBiomes = [];
+    foreach (self::getAll() as $pId => $player) {
+      $playerStorm = $player->getBiomeInStorms();
+      foreach ($playerStorm as $side => $biomes) {
+        $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
+        $newBiomes = [];
+        foreach ($biomes as $biome) {
+          $newBiomes[$biome] = $biome;
+        }
+        self::biomesModifier($newBiomes, $player, $expedition);
+        $allBiomes[$pId][$expedition] = $newBiomes;
+      }
+    }
+    return $allBiomes;
+  }
+
+  public static function filterBiomes($expeditionAttributes)
+  {
+    $allPlayerStorms = self::getBiomesInStorm();
+    $authorizedLocations = [];
+    foreach ($allPlayerStorms as $pId => $playerStorm) {
+      // no constraints
+      if (is_null($expeditionAttributes)) {
+        $authorizedLocations[$pId] = array_keys($playerStorm);
+        continue;
+      }
+      foreach ($expeditionAttributes as $attribute) {
+        if (isset($playerStorm[STORM_LEFT][$attribute])) {
+          $authorizedLocations[$pId][] = STORM_LEFT;
+        } elseif (isset($playerStorm[STORM_RIGHT][$attribute])) {
+          $authorizedLocations[$pId][] = STORM_RIGHT;
+        }
+      }
+    }
+    return $authorizedLocations;
+  }
+
   public static function computeStorm($advance = false)
   {
     if (Globals::isTieBreakerMode()) {

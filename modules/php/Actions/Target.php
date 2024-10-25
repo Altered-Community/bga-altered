@@ -39,6 +39,7 @@ class Target extends \ALT\Models\Action
     'cards' => [],
     'discardRemaining' => false,
     'subType' => 'disabled',
+    'expeditionAttributes' => null,
   ];
 
   public function getDescription()
@@ -56,7 +57,7 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} character(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
-            $msg = clienttranslate('All characters ${effect_desc}');
+            $msg = clienttranslate('All valid characters ${effect_desc}');
           } else {
             $msg = clienttranslate('Target up to ${n} character(s) to ${effect_desc}');
           }
@@ -84,14 +85,14 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
-            $msg = clienttranslate('All cards ${effect_desc}');
+            $msg = clienttranslate('All valid targets ${effect_desc}');
           } else {
             $msg = clienttranslate('Target up to ${n} card(s) to ${effect_desc}');
           }
         }
       } else {
         if ($this->getArg('n') == INFTY) {
-          $msg = clienttranslate('All cards ${effect_desc}');
+          $msg = clienttranslate('All valid targets ${effect_desc}');
         } else {
           $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
         }
@@ -162,10 +163,17 @@ class Target extends \ALT\Models\Action
     $excludeSelf = $this->getArg('excludeSelf');
     $sourceId = $this->getSourceId();
     $subType = $this->getArg('subType');
+    $expeditionAttributes = $this->getArg('expeditionAttributes');
+    $filteredBiomes = Players::filterBiomes($expeditionAttributes);
+
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes) {
       if ($excludeSelf && $c->getId() == $sourceId) {
+        return false;
+      }
+      // if we need to filter by location & attributes 
+      if (in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()])) {
         return false;
       }
 
