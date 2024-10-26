@@ -99,21 +99,17 @@ class Gain extends \ALT\Models\Action
     return [$this->getArg('type'), $this->getArg('n')];
   }
 
-  public function stGain()
+  public function gain($player, $card, $resource, $amount = 1, $source = null, $args = [])
   {
-    $player = $this->getPlayer();
-    $source = $this->ctx->getSource() ?? null;
-    $sourceId = $this->ctx->getSourceId() ?? null;
-    if (is_null($source) && !is_null($sourceId)) {
-      $source = Cards::getSingle($sourceId);
-    }
-    $card = $this->getCard();
     $dynamicReplace = $card->getDynamicGainReplace();
+    $args['cardId'] = $card->getId();
 
-    $args = $this->getCtxArgs();
-    $args['cardId'] = $this->getCard()->getId();
-    // Increase resource and notify
-    list($resource, $amount) = $this->getGain();
+    if (is_null($source)) {
+      $sourceId = -1;
+    } else {
+      $sourceId = $source->getId();
+    }
+
     // Some effects change what is gained
     if (isset($dynamicReplace[$resource])) {
       $oldResource = $resource;
@@ -135,15 +131,29 @@ class Gain extends \ALT\Models\Action
         $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
       }
       // a card cannot have more than one fleeting/anchored token
-      $this->resolveAction();
       return;
     }
 
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
 
-    $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
+    $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' =>  $sourceId]);
+  }
 
+  public function stGain()
+  {
+    $player = $this->getPlayer();
+    $source = $this->ctx->getSource() ?? null;
+    $sourceId = $this->ctx->getSourceId() ?? null;
+    if (is_null($source) && !is_null($sourceId)) {
+      $source = Cards::getSingle($sourceId);
+    }
+    $card = $this->getCard();
+    $args = $this->getCtxArgs();
+
+    list($resource, $amount) = $this->getGain();
+
+    $this->gain($player, $card, $resource, $amount, $source, $args);
     $this->resolveAction();
   }
 }

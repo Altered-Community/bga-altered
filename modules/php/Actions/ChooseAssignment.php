@@ -6,7 +6,7 @@ use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Notifications;
-use ALT\Managers\ActionCards;
+use ALT\Managers\Actions;
 use ALT\Core\Engine;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
@@ -124,6 +124,7 @@ class ChooseAssignment extends \ALT\Models\Action
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
+
     if ($card->getPId() != $player->getId()) {
       throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
     }
@@ -210,8 +211,10 @@ class ChooseAssignment extends \ALT\Models\Action
     }
     // if played from reserve, it gains fleeting
     elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
-      $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
-      Notifications::gainMeeple(FLEETING, $card, $token);
+      // Engine::insertAtRoot(FT::GAIN($card->getId(), FLEETING), false);
+      // $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
+      // Notifications::gainMeeple(FLEETING, $card, $token);
+      Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
     }
 
     // should we boost the card
