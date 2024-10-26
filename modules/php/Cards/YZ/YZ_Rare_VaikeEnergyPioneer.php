@@ -11,7 +11,7 @@ class YZ_Rare_VaikeEnergyPioneer extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_AX_35_R2',
-            'asset'  => 'ALT_ALIZE_B_AX_35_R2',
+            'asset'  => 'ALT_ALIZE_B_AX_35_R',
 
             'faction'  => FACTION_YZ,
             'rarity'  => RARITY_RARE,

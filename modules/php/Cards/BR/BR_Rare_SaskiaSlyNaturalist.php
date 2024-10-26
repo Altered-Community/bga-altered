@@ -11,7 +11,7 @@ class BR_Rare_SaskiaSlyNaturalist extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_MU_35_R2',
-            'asset'  => 'ALT_ALIZE_B_MU_35_R2',
+            'asset'  => 'ALT_ALIZE_B_MU_35_R',
 
             'faction'  => FACTION_BR,
             'rarity'  => RARITY_RARE,

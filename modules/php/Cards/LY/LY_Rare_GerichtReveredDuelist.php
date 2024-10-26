@@ -9,7 +9,7 @@ class LY_Rare_GerichtReveredDuelist extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_BR_37_R2',
-            'asset'  => 'ALT_ALIZE_B_BR_37_R2',
+            'asset'  => 'ALT_ALIZE_B_BR_37_R',
 
             'faction'  => FACTION_LY,
             'rarity'  => RARITY_RARE,
