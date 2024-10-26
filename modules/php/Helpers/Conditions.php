@@ -572,6 +572,15 @@ abstract class Conditions
   }
 
 
+  public static function isHandEmpty($card, $event)
+  {
+    return $card->getPlayer()->getHand()->count() == 0;
+  }
+
+  public static function isReserveEmpty($card, $event)
+  {
+    return $card->getPlayer()->getReserveCards()->count() == 0;
+  }
 
   /**********************************
    **********************************
