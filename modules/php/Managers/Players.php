@@ -256,18 +256,67 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $biomes;
   }
 
-  public static function getDefenders()
+  public static function getDefenders($onlyDefenders = true)
   {
     $defenders = [];
+    $ignoreDefenders = [];
     foreach (self::getAll() as $pId => $player) {
       foreach ($player->getPlayedCards()->where('location', STORMS) as $cId => $card) {
         if ($card->isDefender()) {
           $defenders[$pId][$card->getLocation()][] = $cId;
         }
+        if ($card->isDefenderIgnoreBehind()) {
+          $ignoreDefenders[$pId][$card->getLocation()][] = $cId;
+        }
       }
     }
 
-    return $defenders;
+    if ($onlyDefenders) {
+      return $defenders;
+    }
+    return [$defenders, $ignoreDefenders];
+  }
+
+  public static function getIgnoreDefenders(&$defenders, $ignoreDefenders)
+  {
+    if (empty($ignoreDefenders)) {
+      return;
+    }
+
+    $hero = null;
+    $heroPos = -1;
+    $companion = null;
+    $companionPos = 999;
+    // get player winning on each storms
+    foreach (self::getAll() as $pId => $player) {
+      $companionNew = explode('-', $player->getCompanionToken()->getLocation())[1];
+      if ($companionNew < $companionPos) {
+        $companion = $pId;
+        $companionPos = $companionNew;
+      } elseif ($companionNew == $companionPos) {
+        $companion = null;
+      }
+
+      $heroNew = explode('-', $player->getHeroToken()->getLocation())[1];
+      if ($heroNew > $heroPos) {
+        $hero = $pId;
+        $heroPos = $heroNew;
+      } elseif ($heroPos == $heroNew) {
+        $hero = null;
+      }
+    }
+
+    // if thereare ignoreDefenders, we ignore the ones not impacting
+    foreach ($ignoreDefenders as $pId => $storms) {
+      foreach ($storms as $storm => $cards) {
+        if ($storm == STORM_LEFT && !is_null($hero) && $hero != $pId && isset($defenders[$pId][$storm])) {
+          unset($defenders[$pId][$storm]);
+        }
+        if ($storm == STORM_RIGHT && !is_null($companion) && $companion != $pId && isset($defenders[$pId][$storm])) {
+          unset($defenders[$pId][$storm]);
+        }
+      }
+    }
   }
 
   public static function getBlockedExpeditions()
@@ -280,7 +329,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       $blockedOppositeDefenders[$expedition] = self::hasOppositeDefender($expedition);
     }
     // Blocked by defenders
-    $defenders = self::getDefenders();
+    // $defenders = self::getDefenders();
+    list($defenders, $ignoreDefenders) = self::getDefenders(false);
+    self::getIgnoreDefenders($defenders, $ignoreDefenders);
+    // throw new \feException(print_r($defenders));
 
     $statuses = [];
     foreach (Players::getAll() as $pId => $player) {

@@ -1898,6 +1898,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Defender'),
           reminder: _("My Expedition can't advance during Dusk."),
         },
+        DEFENDER_FS: {
+          text: _('Defender'),
+          reminder: _("My Expedition can't advance during Dusk."),
+        },
+        DEFENDER_CHA_P: {
+          text: _('Defender'),
+          reminder: _("My Expedition can't advance during Dusk."),
+        },
         ETERNAL: {
           text: _('Eternal'),
           reminder: _("During Rest, I don't go to Reserve."),

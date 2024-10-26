@@ -119,6 +119,7 @@ class Card extends \ALT\Helpers\DB_Model
     'playTappedCards' => 'bool',
     'canAlwaysGainFleeting' => 'bool',
     'dynamicGainReplace' => 'obj',
+    'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
   ];
 
   /********* DB ACCESS *********/
