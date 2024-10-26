@@ -653,6 +653,17 @@ class Notifications
     ]);
   }
 
+  public static function readyEffect($player, $card, $source)
+  {
+    self::notifyAll('ready', clienttranslate('${player_name} ready ${card_name} (${card_name2}\'s effect)'), [
+      'player' => $player,
+      'card' => $card,
+      'card2' => $source,
+      // 'totalMana' => $player->getTotalMana(),
+      // 'mana' => $player->getMana(),
+    ]);
+  }
+
   public static function pay($player, $cost)
   {
     self::notifyAll('pay', clienttranslate('${player_name} pays ${mana_cost}'), [

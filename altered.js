@@ -107,6 +107,7 @@ define([
         ['putOnDeck', null],
 
         ['tap', 800],
+        ['ready', 800],
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],

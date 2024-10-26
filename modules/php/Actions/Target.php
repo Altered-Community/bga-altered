@@ -40,6 +40,7 @@ class Target extends \ALT\Models\Action
     'discardRemaining' => false,
     'subType' => 'disabled',
     'expeditionAttributes' => null,
+    'isTapped' => false,
   ];
 
   public function getDescription()
@@ -165,15 +166,19 @@ class Target extends \ALT\Models\Action
     $subType = $this->getArg('subType');
     $expeditionAttributes = $this->getArg('expeditionAttributes');
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
+    $isTapped = $this->getArg('isTapped');
 
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $isTapped) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
       // if we need to filter by location & attributes 
       if (in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()])) {
+        return false;
+      }
+      if ($c->isTapped() != $isTapped) {
         return false;
       }
 

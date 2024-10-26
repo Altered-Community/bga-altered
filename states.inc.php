@@ -446,6 +446,15 @@ $machinestates = [
     'possibleactions' => ['actPassOptionalAction'],
   ],
 
+  ST_READY => [
+    'name' => 'ready',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

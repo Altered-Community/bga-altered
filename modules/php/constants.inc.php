@@ -94,6 +94,8 @@ const ST_DISCARD_DRAW = 44;
 const ST_TARGET_EXPEDITION = 45;
 // Alizé
 const ST_EXHAUST = 46;
+const ST_READY = 47;
+
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -158,6 +160,7 @@ const TARGET_PLAYER = 'TargetPlayer';
 const DISCARD_DRAW = 'DiscardDraw';
 const TARGET_EXPEDITION = 'TargetExpedition';
 const EXHAUST = 'Exhaust';
+const READY = 'Ready';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

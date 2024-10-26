@@ -40,7 +40,8 @@ class Actions
     TARGET_PLAYER,
     DISCARD_DRAW,
     TARGET_EXPEDITION,
-    EXHAUST
+    EXHAUST,
+    READY
   ];
 
   public static function get($actionId, &$ctx = null)

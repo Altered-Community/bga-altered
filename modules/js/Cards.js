@@ -1069,6 +1069,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
     },
 
+    notif_ready(n) {
+      debug('Notif: readying card', n);
+      $(`card-${n.args.card.id}`).classList.add('selectable');
+      $(`card-${n.args.card.id}`).classList.remove('tapped');
+    },
+
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
       n.args.cardIds.forEach((cardId) => {
