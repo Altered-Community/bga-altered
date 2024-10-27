@@ -232,6 +232,52 @@ abstract class Conditions
     }
   }
 
+  // Flawed prototype
+  public static function noRobotnoPermanent($card, $event)
+  {
+    $cards = $card->getPlayer()->getPlayedCards();
+
+    $cards = $cards->filter(function ($c) use ($card) {
+      if ($c->getId() == $card->getId()) {
+        return false;
+      }
+      if ($c->getType() == PERMANENT || in_array(ROBOT, $c->getSubtypes())) {
+        return true;
+      }
+      return false;
+    });
+    return $cards->count() == 0;
+  }
+
+  public static function noPlantnoPermanent($card, $event)
+  {
+    $cards = $card->getPlayer()->getPlayedCards();
+
+    $cards = $cards->filter(function ($c) use ($card) {
+      if ($c->getId() == $card->getId()) {
+        return false;
+      }
+      if ($c->getType() == PERMANENT || in_array(PLANT, $c->getSubtypes())) {
+        return true;
+      }
+      return false;
+    });
+    return $cards->count() == 0;
+  }
+
+  public static function costCheck($card, $event, $cost, $op = 'GTE')
+  {
+    $discardedCard = Cards::get($event['cardId']);
+    $costHand = $discardedCard->getCostHand();
+
+    if ($op == 'GTE') {
+      return $cost <= $costHand;
+    }
+    if ($op == 'LTE') {
+      return $cost >= $costHand;
+    }
+  }
+
   public static function has3WithZeroStat($card, $event)
   {
     $playedCards = $card->getPlayer()->getPlayedCards();

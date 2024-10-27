@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Rare_FlawedPrototype extends \ALT\Models\Card
 {
     public function __construct($row)
@@ -26,6 +28,27 @@ class AX_Rare_FlawedPrototype extends \ALT\Models\Card
             'ocean' => 5,
             'costHand' => 4,
             'costReserve' => 4,
+            'effectPlayed' => FT::XOR(
+                FT::XOR(FT::ACTION(TARGET, [
+                    'targetPlayer' => ME,
+                    'targetType' => [CHARACTER],
+                    'subType' => ROBOT,
+                    'excludeSelf' => true,
+                    'n' => 1,
+                    'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+                ]), FT::ACTION(TARGET, [
+                    'targetPlayer' => ME,
+                    'targetType' => [PERMANENT],
+                    'excludeSelf' => true,
+                    'n' => 1,
+                    'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+                ]),),
+                FT::ACTION(CHECK_CONDITION, ['condition' => 'noRobotnoPermanent', 'description' => clienttranslate('Sacrifice me'), 'effect' => FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),])
+            ),
+            // using passive effect to listen to check what was discarded
+            'effectPassive' => [
+                'Discard' => ['conditions' => ['isSource', 'costCheck:3', 'excludeSelf'], 'output' => FT::GAIN(ME, BOOST, 3)],
+            ],
         ];
     }
 }
