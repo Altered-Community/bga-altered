@@ -250,7 +250,6 @@ trait TurnTrait
     }
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
-    Globals::setStormMoves([]);
     Globals::setPlayedForFree(false);
 
     // We initiate a turn order for only 1 player as everything will follow from those
@@ -272,6 +271,7 @@ trait TurnTrait
 
   function stAfterNightCleanup()
   {
+    Globals::setStormMoves([]); // moved to be able to test Expedition cleanup
     $this->checkCardListeners('BeforeNight', 'stPreNight', []);
   }
 

@@ -42,18 +42,6 @@ class ChooseAssignment extends \ALT\Models\Action
       })
       ->map(function ($card) use ($player) {
         return $card->getPlayableLocation($player);
-        // $type = $card->getType();
-        // $subTypes = $card->getSubtypes();
-        // if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
-        //   return [PERMANENT];
-        // } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
-        //   return [LANDMARK];
-        // } elseif ($type == SPELL) {
-        //   return [LIMBO];
-        // } elseif ($type == CHARACTER) {
-        //   return [STORM_LEFT, STORM_RIGHT];
-        // }
-        // return [];
       });
 
     // 2. Support
@@ -201,6 +189,7 @@ class ChooseAssignment extends \ALT\Models\Action
     // Move card
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
+    $card->setTapped(false);
 
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
@@ -211,10 +200,7 @@ class ChooseAssignment extends \ALT\Models\Action
       Notifications::silentKill($deleted);
     }
     // if played from reserve, it gains fleeting
-    elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
-      // Engine::insertAtRoot(FT::GAIN($card->getId(), FLEETING), false);
-      // $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
-      // Notifications::gainMeeple(FLEETING, $card, $token);
+    elseif ($fromLocation == RESERVE && !in_array(LANDMARK, $card->getSubtypes())) {
       Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
     }
 

@@ -364,9 +364,16 @@ class Player extends \ALT\Helpers\DB_Model
     $movedToReserve = [];
 
     foreach ($this->getPlayedCards() as $cId => $card) {
-      // TODO update Alizé expedition
-      if ($card->getType() == PERMANENT) {
+      if (in_array(LANDMARK, $card->getSubtypes())) {
         continue;
+      }
+
+      // Expedition, if the player hasn't moved, it stays
+      if (in_array(EXPEDITION, $card->getSubtypes())) {
+        $moves = Globals::getStormMoves();
+        if (!isset($moves[$this->id]) || !isset($moves[$this->id][$card->getLocation()]) || $moves[$this->id][$card->getLocation()]['moves'] < 1) {
+          continue;
+        }
       }
 
       // Remove card if Fleeting but is not anchored
@@ -375,6 +382,8 @@ class Player extends \ALT\Helpers\DB_Model
         $deletedCards[$cId] = $card;
         continue;
       }
+
+
 
       // Move card without anchored,asleep to reserve
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
@@ -466,7 +475,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     foreach ($this->getPlayedCards() as $cId => $card) {
       $playTap = $card->getPlayTappedCards();
-      if (is_null($playTap)) {
+      if (is_null($playTap) || empty($playTap)) {
         continue;
       }
       // for all cards

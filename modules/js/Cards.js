@@ -989,6 +989,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let card = n.args.card;
       let id = `card-${card.id}`;
 
+      // if the card is tapped we remove it
+      $(id).classList.remove('tapped');
+
       if (this.isFastMode()) {
         if (!$(id)) {
           let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
