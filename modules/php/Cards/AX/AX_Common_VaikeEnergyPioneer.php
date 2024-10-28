@@ -26,7 +26,8 @@ class AX_Common_VaikeEnergyPioneer extends \ALT\Models\Card
             'ocean' => 2,
             'costHand' => 2,
             'costReserve' => 2,
-            'playTappedCards' => true,
+            'playTappedCards' => ['type' => 'all'],
+
         ];
     }
 }

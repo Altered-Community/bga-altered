@@ -462,10 +462,25 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
-  public function canPlayTappedCards()
+  public function canPlayTappedCards($type = null, $location = null)
   {
     foreach ($this->getPlayedCards() as $cId => $card) {
-      if ($card->isPlayTappedCards()) {
+      $playTap = $card->getPlayTappedCards();
+      if (is_null($playTap)) {
+        continue;
+      }
+      // for all cards
+      if ($playTap['type'] == 'all') {
+        return true;
+      }
+      // location check
+      if (isset($playTap['location']) && !is_null($location)) {
+        if ($location != $card->getLocation()) {
+          continue;
+        }
+      }
+
+      if (!is_null($type) && $playTap['type'] == $type) {
         return true;
       }
     }

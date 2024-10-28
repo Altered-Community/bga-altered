@@ -116,7 +116,7 @@ class Card extends \ALT\Helpers\DB_Model
     'extraDatas' => 'obj',
 
     // Alizé
-    'playTappedCards' => 'bool',
+    'playTappedCards' => 'obj', // ['type'=>ALL / Character, 'location'=>me or unset]
     'canAlwaysGainFleeting' => 'bool',
     'dynamicGainReplace' => 'obj',
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
@@ -230,7 +230,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function canBePlayed($player)
   {
-    if (!$player->canPlayTappedCards() && $this->getLocation() == RESERVE && $this->isTapped()) {
+    if (!$player->canPlayTappedCards($this->getType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
     }
 
@@ -250,6 +250,27 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
+  }
+
+  public function getPlayableLocation($player)
+  {
+    if (in_array(LANDMARK, $this->getSubtypes())) {
+      return [LANDMARK];
+    } elseif ($this->getType() == SPELL) {
+      return [LIMBO];
+    } else {
+      $locations = [];
+      if ($this->getLocation() == RESERVE && $this->isTapped()) {
+        foreach (STORMS as $storm) {
+          if ($player->canPlayTappedCards($this->getType(), $storm)) {
+            $locations[] = $storm;
+          }
+        }
+        return $locations;
+      } else {
+        return STORMS;
+      }
+    }
   }
 
   public function hasToken($token)

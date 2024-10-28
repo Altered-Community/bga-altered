@@ -277,6 +277,10 @@ const MANEUVER = 'maneuver';
 const SCHOLAR = 'scholar';
 const ANIMAL = 'animal';
 
+// Alizé
+const GEAR = 'gear';
+const EXPEDITION = 'expedition';
+
 const SUBTYPES = [
   DIVINITY,
   ADVENTURER,

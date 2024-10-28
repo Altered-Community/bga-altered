@@ -29,7 +29,7 @@ class AX_Rare_VaikeEnergyPioneer extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 2,
             'changedStats' => ['forest'],
-            'playTappedCards' => true,
+            'playTappedCards' => ['type' => 'all'],
             'effectReserve' => FT::ACTION(RESUPPLY, ['exhausted' => true])
 
         ];

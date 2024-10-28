@@ -40,19 +40,20 @@ class ChooseAssignment extends \ALT\Models\Action
       ->filter(function ($card) use ($player) {
         return $card->canBePlayed($player);
       })
-      ->map(function ($card) {
-        $type = $card->getType();
-        $subTypes = $card->getSubtypes();
-        if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
-          return [PERMANENT];
-        } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
-          return [LANDMARK];
-        } elseif ($type == SPELL) {
-          return [LIMBO];
-        } elseif ($type == CHARACTER) {
-          return [STORM_LEFT, STORM_RIGHT];
-        }
-        return [];
+      ->map(function ($card) use ($player) {
+        return $card->getPlayableLocation($player);
+        // $type = $card->getType();
+        // $subTypes = $card->getSubtypes();
+        // if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
+        //   return [PERMANENT];
+        // } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
+        //   return [LANDMARK];
+        // } elseif ($type == SPELL) {
+        //   return [LIMBO];
+        // } elseif ($type == CHARACTER) {
+        //   return [STORM_LEFT, STORM_RIGHT];
+        // }
+        // return [];
       });
 
     // 2. Support
