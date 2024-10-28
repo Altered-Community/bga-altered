@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Rare_Gibil extends \ALT\Models\Card
 {
     public function __construct($row)
@@ -28,6 +30,28 @@ class AX_Rare_Gibil extends \ALT\Models\Card
             'ocean' => 5,
             'costHand' => 6,
             'costReserve' => 6,
+            'effectPlayed' => FT::SEQ(
+                FT::ACTION(INVOKE_TOKEN, [
+                    'pId' => 'source',
+                    'tokenType' => 'AX_Common_Brassbug',
+                    'targetLocation' => STORMS,
+                ]),
+                FT::ACTION(CHECK_CONDITION, [
+                    'condition' => 'hasControl:permanent:2',
+                    'effect' =>
+                    FT::ACTION(INVOKE_TOKEN, [
+                        'pId' => 'source',
+                        'tokenType' => 'AX_Common_Brassbug',
+                        'targetLocation' => STORMS,
+                    ])
+                ])
+            ),
+            'effectSupport' =>  FT::ACTION(TARGET, [
+                'targetType' => [PERMANENT],
+                'targetPlayer' => ME,
+                'hasEffects' => ['Played'],
+                'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
+            ]),
         ];
     }
 }
