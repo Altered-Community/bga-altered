@@ -1106,6 +1106,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         $(id).style.transformOrigin = 'initial';
       } else {
         $(id).classList.add('mini-card');
+
+        if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
+          $(id).classList.add('tapped');
+        }
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {

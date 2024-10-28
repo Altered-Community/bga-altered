@@ -57,6 +57,9 @@ class SpellCleanup extends \ALT\Models\Action
       // moved to reserve
       $deleted = $card->moveToReserve();
     }
+    if ($card->isCooldown()) {
+      $card->setTapped(true);
+    }
     Notifications::spellCleanup($card, $deleted);
 
     $this->resolveAction();

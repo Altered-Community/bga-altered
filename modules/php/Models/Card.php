@@ -120,6 +120,7 @@ class Card extends \ALT\Helpers\DB_Model
     'canAlwaysGainFleeting' => 'bool',
     'dynamicGainReplace' => 'obj',
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
+    'cooldown' => 'bool', // in spell cleanup, card will be tapped
   ];
 
   /********* DB ACCESS *********/
