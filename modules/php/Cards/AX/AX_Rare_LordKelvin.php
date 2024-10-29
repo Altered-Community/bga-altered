@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Helpers\FT;
+
 class AX_Rare_LordKelvin extends \ALT\Models\Card
 {
     public function __construct($row)
@@ -27,6 +29,12 @@ class AX_Rare_LordKelvin extends \ALT\Models\Card
             'costHand' => 4,
             'costReserve' => 3,
             'changedStats' => ['mountain', 'costReserve'],
+            'effectReserve' =>  FT::ACTION(TARGET, [
+                'targetType' => [CHARACTER, SPELL, PERMANENT],
+                'targetLocation' => [RESERVE],
+                'upTo' => true,
+                'effect' => FT::ACTION(EXHAUST, [])
+            ]),
         ];
     }
 }
