@@ -280,6 +280,7 @@ const ANIMAL = 'animal';
 // Alizé
 const GEAR = 'gear';
 const EXPEDITION = 'expedition';
+const CONSTRUCTION = 'construction';
 
 const SUBTYPES = [
   DIVINITY,

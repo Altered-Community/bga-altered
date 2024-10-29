@@ -121,6 +121,7 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicGainReplace' => 'obj',
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
     'cooldown' => 'bool', // in spell cleanup, card will be tapped
+    'exhaustedReserveSlots' => 'int',
   ];
 
   /********* DB ACCESS *********/

@@ -266,6 +266,15 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function getExhaustedReserveSlots()
+  {
+    $slots = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $slots += $card->getExhaustedReserveSlots();
+    }
+    return $slots;
+  }
+
   public function getRegionDifference()
   {
     if (is_null($this->getCompanionToken())) {

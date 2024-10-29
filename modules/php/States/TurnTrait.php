@@ -286,8 +286,18 @@ trait TurnTrait
     $player = Players::getActive();
 
     // Need to discard ?
-    $nExceededReserve = max($player->getReserveCards()->count() - $player->getReserveSlots(), 0);
     $nExceededLandmarks = max($player->getLandmarks()->count() - $player->getLandmarkSlots(), 0);
+
+    $exhaustedReserveCards = $player->getReserveCards()->filter(function ($c) {
+      return $c->isTapped();
+    })->count();
+
+    $exhaustedReserveSlots = $player->getExhaustedReserveSlots();
+    $nExceededReserve = max($player->getReserveCards()->count() - $player->getReserveSlots(), 0);
+    if ($nExceededReserve > 0 && $exhaustedReserveSlots > 0) {
+      // if there are some exhausted slots, we can reduce the exceeding reserve linked to the status
+      $nExceededReserve -= min($exhaustedReserveCards, $exhaustedReserveSlots);
+    }
     $needToDiscard = $nExceededReserve > 0 || $nExceededLandmarks > 0;
 
     if (!$needToDiscard) {
