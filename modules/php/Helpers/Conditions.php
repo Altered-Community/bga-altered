@@ -520,6 +520,11 @@ abstract class Conditions
     return ($event['playedFree'] ?? false) == false && $cardPlayed->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
   }
 
+  public static function specialEffect($card, $event, $effect)
+  {
+    return ($event['specialEffect'] ?? '') == $effect;
+  }
+
 
   //////////////////////////////////////////////////////////////////////////
   //  ____  _                       _          _    ____              _ 

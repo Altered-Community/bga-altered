@@ -11,12 +11,12 @@ class MU_Rare_FrozenReprocessor extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_AX_45_R2',
-            'asset'  => 'ALT_ALIZE_B_AX_45_R2',
+            'asset'  => 'ALT_ALIZE_B_AX_45_R',
 
             'faction'  => FACTION_MU,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Frozen Reprocessor"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Nothing is created, nothing is lost... even to the frost.'),
             'artist' => "Romain Kurdi",

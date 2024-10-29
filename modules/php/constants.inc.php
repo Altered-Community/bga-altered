@@ -225,6 +225,7 @@ const FACTION_LY = 'LY';
 const FACTION_MU = 'MU';
 const FACTION_OD = 'OD';
 const FACTION_YZ = 'YZ';
+const FACTION_NE = 'NE';
 const FACTIONS = [FACTION_AX, FACTION_BR, FACTION_LY, FACTION_MU, FACTION_OD, FACTION_YZ];
 // const FACTIONS = [FACTION_BR, FACTION_MU, FACTION_OD, FACTION_LY, FACTION_YZ];
 
@@ -281,6 +282,8 @@ const ANIMAL = 'animal';
 const GEAR = 'gear';
 const EXPEDITION = 'expedition';
 const CONSTRUCTION = 'construction';
+const SITE = 'site';
+const ILLUSION = 'illusion';
 
 const SUBTYPES = [
   DIVINITY,

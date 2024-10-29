@@ -202,6 +202,7 @@ class SpecialEffect extends \ALT\Models\Action
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($this->getSource(), $args['counter']);
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
         break;
       case 'incCounter':
         $data = $card->getExtraDatas();
@@ -210,6 +211,8 @@ class SpecialEffect extends \ALT\Models\Action
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($this->getSource(), $args['counter']);
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+
         break;
       case 'activateAllPermanents':
         $cards = $card->getPlayer()->getPermanents();
@@ -573,6 +576,19 @@ class SpecialEffect extends \ALT\Models\Action
             continue;
           }
           $nodes[] = FT::GAIN($cId, ASLEEP);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'readyAllReserve':
+        $player = Players::getActive();
+        $nodes = [];
+        foreach ($player->getReserveCards() as $cId => $card) {
+          if (!$card->isTapped()) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(READY, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
         }
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);

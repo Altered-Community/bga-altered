@@ -16,7 +16,7 @@ class AX_Common_FrozenReprocessor extends \ALT\Models\Card
             'faction'  => FACTION_AX,
             'rarity'  => RARITY_COMMON,
             'name'  => clienttranslate("Frozen Reprocessor"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Nothing is created, nothing is lost... even to the frost.'),
             'artist' => "Romain Kurdi",
