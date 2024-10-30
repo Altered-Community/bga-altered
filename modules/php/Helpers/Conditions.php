@@ -633,6 +633,15 @@ abstract class Conditions
     return $card->getPlayer()->getReserveCards()->count() == 0;
   }
 
+  public static function isInBiome($card, $event, $biome)
+  {
+    return $card->getPlayer()->isInBiome($card->getLocation(), $biome);
+  }
+  public static function isNotInBiome($card, $event, $biome)
+  {
+    return !self::isInBiome($card, $event, $biome);
+  }
+
   /**********************************
    **********************************
    ************* HELPERS ************

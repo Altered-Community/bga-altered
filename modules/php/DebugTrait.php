@@ -141,21 +141,22 @@ trait DebugTrait
     // Cards::get(1)->isListeningTo([]);
     // throw new \feException(print_r(Players::get(2305528)->getBiomeInStorms()));
     // Notifications::updateTotalMana();
-    $card = Cards::getCardClass('ALT_COREKS_B_YZ_17_R1');
-    // throw new \feException(print_r($card->getProperties()));
-    // throw new \feException("toto");
-    $player = Players::getCurrent();
+    // $card = Cards::getCardClass('ALT_COREKS_B_YZ_17_R1');
+    // // throw new \feException(print_r($card->getProperties()));
+    // // throw new \feException("toto");
+    // $player = Players::getCurrent();
 
-    Cards::singleCreate([
-      'player_id' => $player->getId(),
-      'location' => HAND,
-      'nbr' => 1,
-      'properties' => $card->getProperties(),
-    ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
-    $player = Players::getCurrent();
-    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
-    Engine::proceed();
+    // Cards::singleCreate([
+    //   'player_id' => $player->getId(),
+    //   'location' => HAND,
+    //   'nbr' => 1,
+    //   'properties' => $card->getProperties(),
+    // ]);
+    // Notifications::refreshUI($this::get()->getAllDatas(true));
+    // $player = Players::getCurrent();
+    // Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    // Engine::proceed();
+    Players::getActive()->isInBiome(STORM_RIGHT, OCEAN);
   }
 
   function tiebreak()

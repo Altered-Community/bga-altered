@@ -321,6 +321,18 @@ class Player extends \ALT\Helpers\DB_Model
     return $locations;
   }
 
+  public function isInBiome($storm, $biome)
+  {
+    $biomes = $this->getBiomeInStorms();
+    $expedition = $storm == STORM_LEFT ? HERO : COMPANION;
+    $newBiomes = [];
+    foreach ($biomes[$expedition] as $b) {
+      $newBiomes[$b] = $b;
+    }
+    Players::biomesModifier($newBiomes, $this, $expedition);
+    return in_array($biome, $newBiomes);
+  }
+
   public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
