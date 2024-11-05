@@ -220,6 +220,8 @@ abstract class Conditions
     if ($state != 'all') {
       if ($state == 'boosted') {
         $cards = $cards->filter(fn($c) => $c->hasToken(BOOST));
+      } elseif ($state == 'fleeting') {
+        $cards = $cards->filter(fn($c) => $c->hasToken(FLEETING));
       }
     }
 

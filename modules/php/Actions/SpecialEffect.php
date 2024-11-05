@@ -135,6 +135,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'sleepingAllCharactersinExpedition':
         return clienttranslate('Put to sleep character in the expedition');
         break;
+      case 'boostXFleetingChar':
+        return clienttranslate('1 Boost for each Fleeting character');
+        break;
     }
     return '';
   }
@@ -307,6 +310,18 @@ class SpecialEffect extends \ALT\Models\Action
         $n = $card
           ->getPlayer()
           ->getLandmarks()
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXFleetingChar';
+        $n = $card
+          ->getPlayer()
+          ->getPlayedCards()
+          ->filter(function ($c) {
+            return $c->hasToken(FLEETING);
+          })
           ->count();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
