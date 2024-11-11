@@ -67,6 +67,7 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Next spell is free');
         break;
       case 'nextCharacterCost3Anchored':
+      case 'nextCharacterAnchored':
         return clienttranslate('Next character gains <ANCHORED>');
         break;
       case 'removeFleetingIfPlayedHand':
@@ -265,6 +266,9 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterCost3Anchored':
         Globals::setNextCharacterCost3Anchored(true);
+        break;
+      case 'nextCharacterAnchored':
+        Globals::setNextCharacterAnchored(true);
         break;
       case 'removeFleetingIfPlayedHand':
         Globals::setRemoveFleetingIfPlayedHand(true);

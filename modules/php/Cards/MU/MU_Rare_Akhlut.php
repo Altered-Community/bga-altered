@@ -11,7 +11,7 @@ class MU_Rare_Akhlut extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_BR_38_R2',
-            'asset'  => 'ALT_ALIZE_B_BR_38_R2',
+            'asset'  => 'ALT_ALIZE_B_BR_38_R',
 
             'faction'  => FACTION_MU,
             'rarity'  => RARITY_RARE,

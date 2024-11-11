@@ -67,6 +67,7 @@ class PlayCard extends \ALT\Models\Action
     'effectHand' => true,
     'location' => '',
     'cost' => 0,
+    'costReduction' => 0,
   ];
 
   public function argsPlayCard()

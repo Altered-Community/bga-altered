@@ -24,8 +24,17 @@ class ChooseAssignment extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return clienttranslate('Choose an assignment');
+    if (count($this->getArg('actions')) == 3) {
+      return clienttranslate('Choose an assignment');
+    } else {
+      return clienttranslate('Play a card');
+    }
   }
+
+  protected $args = [
+    'types' => [PERMANENT, SPELL, CHARACTER],
+    'actions' => ['play', 'support', 'tap'],
+  ];
 
   public function argsChooseAssignment()
   {
@@ -33,37 +42,45 @@ class ChooseAssignment extends \ALT\Models\Action
     $handCards = $player->getHand();
     $reserveCards = $player->getReserveCards();
     $actions = ['play' => [], 'support' => [], 'tap' => []];
+    $authorizedTypes = $this->getArg('types');
+    $authorizedActions = $this->getArg('actions');
 
     // 1. Play cards
-    $actions['play'] = $handCards
-      ->merge($reserveCards)
-      ->filter(function ($card) use ($player) {
-        return $card->canBePlayed($player);
-      })
-      ->map(function ($card) use ($player) {
-        return $card->getPlayableLocation($player);
-      });
+    if (in_array('play', $authorizedActions)) {
+      $actions['play'] = $handCards
+        ->merge($reserveCards)
+        ->filter(function ($card) use ($player, $authorizedTypes) {
+          return in_array($card->getType(), $authorizedTypes) && $card->canBePlayed($player);
+        })
+        ->map(function ($card) use ($player) {
+          return $card->getPlayableLocation($player);
+        });
+    }
 
     // 2. Support
-    $actions['support'] = $reserveCards
-      ->filter(function ($card) use ($player) {
-        return !empty($card->getEffectSupport()) && (
-          !$card->isTapped() || ($card->isTapped() && $player->canPlayTappedCards())
-        );
-      })
-      ->getIds();
+    if (in_array('support', $authorizedActions)) {
+      $actions['support'] = $reserveCards
+        ->filter(function ($card) use ($player) {
+          return !empty($card->getEffectSupport()) && (
+            !$card->isTapped() || ($card->isTapped() && $player->canPlayTappedCards())
+          );
+        })
+        ->getIds();
+    }
 
     // 3. Tap effect
-    $actions['tap'] = $player
-      ->getPlayedCards()
-      ->merge($player->getHeroCollection())
-      ->filter(function ($card) use ($player) {
-        return !$card->isTapped() &&
-          !is_null($card->getEffectTap()) &&
-          !empty($card->getEffectTap()) &&
-          Engine::buildTree($card->getEffectTap())->isDoable($player);
-      })
-      ->getIds();
+    if (in_array('tap', $authorizedActions)) {
+      $actions['tap'] = $player
+        ->getPlayedCards()
+        ->merge($player->getHeroCollection())
+        ->filter(function ($card) use ($player) {
+          return !$card->isTapped() &&
+            !is_null($card->getEffectTap()) &&
+            !empty($card->getEffectTap()) &&
+            Engine::buildTree($card->getEffectTap())->isDoable($player);
+        })
+        ->getIds();
+    }
 
     return ['_private' => ['active' => $actions]];
   }
@@ -223,6 +240,15 @@ class ChooseAssignment extends \ALT\Models\Action
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterCost3Anchored(false);
     }
+
+    if (
+      Globals::getNextCharacterAnchored() == true &&
+      in_array($card->getType(), [CHARACTER, TOKEN])
+    ) {
+      $this->pushParallelChild(FT::GAIN($card, ANCHORED));
+      Globals::setNextCharacterAnchored(false);
+    }
+
 
     if (
       ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($player, $location)) ||

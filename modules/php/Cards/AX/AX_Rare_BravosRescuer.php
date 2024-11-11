@@ -11,7 +11,7 @@ class AX_Rare_BravosRescuer extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_BR_36_R2',
-            'asset'  => 'ALT_ALIZE_B_BR_36_R2',
+            'asset'  => 'ALT_ALIZE_B_BR_36_R',
 
             'faction'  => FACTION_AX,
             'rarity'  => RARITY_RARE,
