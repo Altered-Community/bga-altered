@@ -122,6 +122,7 @@ class Card extends \ALT\Helpers\DB_Model
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
     'cooldown' => 'bool', // in spell cleanup, card will be tapped
     'exhaustedReserveSlots' => 'int',
+    'costReductionIfEmpty' => 'int',
   ];
 
   /********* DB ACCESS *********/
@@ -236,8 +237,18 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $cost = $this->getCost();
+    $costReductionIfEmpty = $this->getCostReductionIfEmpty();
     $mana = $player->getMana();
     $totalMana = $player->getTotalMana();
+    // Amarok case
+    if ($costReductionIfEmpty > 0) {
+      if (
+        $player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER])  == 0 ||
+        $player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0
+      ) {
+        $cost -= $costReductionIfEmpty;
+      }
+    }
 
     if ($this->getCostReductionDiscard() > 0) {
       $reserveCards = $this->getPlayer()
@@ -269,7 +280,22 @@ class Card extends \ALT\Helpers\DB_Model
         }
         return $locations;
       } else {
-        return STORMS;
+        if ($this->getCostReductionIfEmpty() > 0) {
+          // If the cost can be paid no matter what, we put all storms
+          if ($this->getCost() <= $player->getMana()) {
+            return STORMS;
+          }
+          $locations = [];
+          if ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER]) == 0) {
+            $locations[] = STORM_LEFT;
+          }
+          if ($player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0) {
+            $locations[] = STORM_RIGHT;
+          }
+          return $locations;
+        } else {
+          return STORMS;
+        }
       }
     }
   }

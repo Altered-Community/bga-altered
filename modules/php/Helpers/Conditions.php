@@ -409,6 +409,12 @@ abstract class Conditions
     return true;
   }
 
+  public static function isPlayedInSameLocation($card, $event)
+  {
+    // TODO: manage gigantic
+    return $card->getLocation() == ($event['to'] ?? '');
+  }
+
   /////////////////////////////////////////////////////////////
   //   ____  _                      _    ____              _
   //  |  _ \| | __ _ _   _  ___  __| |  / ___|__ _ _ __ __| |

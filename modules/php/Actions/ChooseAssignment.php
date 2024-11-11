@@ -172,6 +172,10 @@ class ChooseAssignment extends \ALT\Models\Action
           return;
         }
       }
+      // Has to update cost here as cost is dynamic where it's played
+      if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0) {
+        $cost -= $card->getCostReductionIfEmpty();
+      }
 
       // Pay cost
       $player->payMana($cost);

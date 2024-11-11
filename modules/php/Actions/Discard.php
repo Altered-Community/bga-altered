@@ -70,6 +70,8 @@ class Discard extends \ALT\Models\Action
       } else {
         $card = Cards::get($this->getSourceId());
       }
+    } elseif ($cardId == 'event') {
+      $card = Cards::get($this->getEvent()['cardId']);
     } else if (!is_null($cardId)) {
       $card = Cards::get($cardId, false);
     }
@@ -103,6 +105,8 @@ class Discard extends \ALT\Models\Action
       $cardIds = is_array($cardId) ? $cardId : [$cardId];
       // Replace ME by source
       $cardIds = array_map(fn($cId) => $cId == ME ? $this->getSourceId() : $cId, $cardIds);
+      // Replace event by the card played
+      $cardIds = array_map(fn($cId) => $cId == 'event' ? $this->getEvent()['cardId'] : $cId, $cardIds);
     }
     // Any source specified ? From Hand
     elseif ($source == HAND) {
@@ -146,7 +150,11 @@ class Discard extends \ALT\Models\Action
     // Any card targeted ? (might be several cards)
     $cardId = $this->getArg('cardId');
     if (!is_null($cardId)) {
-      $cardIds = $args['_private']['active']['cards'];
+      if ($cardId == 'event') {
+        $cardIds = [$this->getEvent()['cardId']];
+      } else {
+        $cardIds = $args['_private']['active']['cards'];
+      }
     }
     // Discard all hand (Loki)
     elseif ($this->getArg('special') == 'allHand') {

@@ -165,6 +165,13 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::getPlayedCards($this->id, $type);
   }
 
+  public function countCardsInLocation($location, $types)
+  {
+    return $this->getPlayedCards()->filter(function ($c) use ($location, $types) {
+      return $c->getLocation() == $location && in_array($c->getType(), $types);
+    })->count();
+  }
+
   public function hasPlayedCard($id)
   {
     return Cards::hasPlayedCard($this->id, $id);
