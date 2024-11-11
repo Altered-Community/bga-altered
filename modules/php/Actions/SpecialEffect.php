@@ -133,12 +133,15 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('All players may resupply');
       case 'fleetingAllCharacters':
         return clienttranslate('All characters gain fleeting');
+        break;
       case 'sleepingAllCharactersinExpedition':
         return clienttranslate('Put to sleep character in the expedition');
         break;
       case 'boostXFleetingChar':
         return clienttranslate('1 Boost for each Fleeting character');
         break;
+      case 'nextCharacterFleeting':
+        return clienttranslate('Next character gains <FLEETING');
     }
     return '';
   }
@@ -281,6 +284,9 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'removeFleetingIfSpellPlayedHand':
         Globals::setRemoveFleetingIfSpellPlayedHand(true);
+        break;
+      case 'nextCharacterFleeting':
+        Globals::setNextCharacterFleeting(true);
         break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {

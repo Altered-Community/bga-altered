@@ -49,6 +49,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nextCharacterBoost' => 'int',
     'nextCharacterCost3Anchored' => 'bool',
     'nextCharacterAnchored' => 'bool',
+    'nextCharacterFleeting' => 'bool',
     'additionalEffect' => 'obj', // use to trigger R/H of next character
     'afterRest' => 'obj', // used for triggers readd during dusk but that should be trigerred after Rest
     'nextSpellIsFree' => 'bool',

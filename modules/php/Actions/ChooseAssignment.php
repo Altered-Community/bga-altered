@@ -225,6 +225,11 @@ class ChooseAssignment extends \ALT\Models\Action
       Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
     }
 
+    if (Globals::getNextCharacterFleeting() == true) {
+      Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
+      Globals::setNextCharacterFleeting(false);
+    }
+
     // should we boost the card
     if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getNextCharacterBoost() > 0) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
