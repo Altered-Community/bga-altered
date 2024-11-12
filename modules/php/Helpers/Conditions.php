@@ -416,6 +416,27 @@ abstract class Conditions
     return true;
   }
 
+  public static function hasGainedFleeting($card, $event)
+  {
+    if (($event['action'] ?? null) != GAIN) {
+      return false;
+    }
+
+    if (Cards::get($event['gain']['cardId'])->getPId() != $card->getPId()) {
+      return false;
+    }
+
+    if (!in_array(Cards::get($event['gain']['cardId'])->getType(), [TOKEN, CHARACTER])) {
+      return false;
+    }
+
+    if ($event['gain']['type']  != FLEETING) {
+      return false;
+    }
+
+    return true;
+  }
+
   public static function isPlayedInSameLocation($card, $event)
   {
     // TODO: manage gigantic

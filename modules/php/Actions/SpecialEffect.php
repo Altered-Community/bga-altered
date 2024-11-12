@@ -85,6 +85,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostAllSubtype':
         return clienttranslate('Boost all subtype');
         break;
+      case 'boostAllCharacters':
+        return clienttranslate('Boost all characters');
+        break;
       case 'boostXReserve':
         return clienttranslate('Boost number of cards in reserve');
         break;
@@ -303,6 +306,16 @@ class SpecialEffect extends \ALT\Models\Action
           }
           if (in_array($subType, $pCard->getSubtypes())) {
             $nodes[] = FT::GAIN($pCard, BOOST, $n);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
+      case 'boostAllCharacters':
+        $player = $card->getPlayer();
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if (in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, BOOST, 1);
           }
         }
         $this->pushParallelChilds($nodes);
