@@ -16,7 +16,7 @@ class BR_Rare_ArcolanoMilk extends \ALT\Models\Card
             'faction'  => FACTION_BR,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Arcolano Milk"),
-            'typeline' => clienttranslate("Expedition_permanent - Gear"),
+            'typeline' => clienttranslate("Expedition Permanent - Gear"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Nobody knows where this "milk" actually comes from.'),
             'artist' => "Kevin Sidharta",
