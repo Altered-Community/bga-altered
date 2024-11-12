@@ -123,6 +123,7 @@ class Card extends \ALT\Helpers\DB_Model
     'cooldown' => 'bool', // in spell cleanup, card will be tapped
     'exhaustedReserveSlots' => 'int',
     'costReductionIfEmpty' => 'int',
+    'giganticOneCharacter' => 'bool', // If in only one exp, it is gigantic. Eat Me Energy Bars
   ];
 
   /********* DB ACCESS *********/
@@ -625,6 +626,19 @@ class Card extends \ALT\Helpers\DB_Model
     if ($this->isToken() && $this->getPlayer()->countUniversalTokenGigantic() > 0) {
       return true;
     }
+
+    if (in_array($this->getType(), [TOKEN, CHARACTER])) {
+      $characterCount = $this->getPlayer()->countCardsInLocation($this->getLocation(), [TOKEN, CHARACTER]);
+      if ($characterCount > 1) {
+        return false;
+      }
+      foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+        if ($card->isGiganticOneCharacter()) {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
