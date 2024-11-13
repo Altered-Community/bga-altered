@@ -492,6 +492,38 @@ class Player extends \ALT\Helpers\DB_Model
     return $cost;
   }
 
+  public function getOpponentMinimumCost($type)
+  {
+    $cost = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($type == CHARACTER) {
+        $penalty = $card->getOpponentCharactersMinimumCost();
+        if (is_int($penalty)) {
+          $cost = max($cost, $card->getOpponentCharactersMinimumCost());
+        } else {
+          if (!is_null(Utils::checkAttributeCondition('tough', $penalty, $this, $card))) {
+            $cost = max($cost, (int) explode(':', $card->getOpponentCharactersMinimumCost())[0]);
+          }
+        }
+      }
+
+      $penalties =  $card->getOpponentCardsMinimumCost();
+      if (!is_array($penalties)) {
+        $penalties = [$penalties];
+      }
+      foreach ($penalties as $penalty) {
+        if (is_int($penalty)) {
+          $cost = max($cost, $penalty);
+        } else {
+          if (!is_null(Utils::checkAttributeCondition('tough', $penalty, $this, $card))) {
+            $cost = max($cost, (int) explode(':', $penalty)[0]);
+          }
+        }
+      }
+    }
+    return $cost;
+  }
+
   /********* Deck setup ***********/
   public function initializeDecks()
   {

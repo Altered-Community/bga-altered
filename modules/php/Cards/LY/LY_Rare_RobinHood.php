@@ -19,7 +19,7 @@ class LY_Rare_RobinHood extends \ALT\Models\Card
       'flavorText' => clienttranslate('Justice comes from a fair redistribution of wealth.'),
       'artist' => 'Taras Susak',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('Characters your opponents play cost {1} more.'),
+      'effectDesc' => clienttranslate('Characters your opponents play can\'t cost less than {2}. (If they would cost {1} or less, they cost {2} instead.)'),
       'supportDesc' => clienttranslate(
         '#{D} : The next card you play this turn costs {1} less.# (Discard me from Reserve to do this.)'
       ),
@@ -29,7 +29,8 @@ class LY_Rare_RobinHood extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['mountain', 'ocean'],
-      'increaseOpponentCharacterCost' => 1,
+      // 'increaseOpponentCharacterCost' => 1,
+      'opponentCharactersMinimumCost' => 2,
       'supportIcon' => 'discard',
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,

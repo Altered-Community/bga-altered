@@ -189,6 +189,18 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
+  public static function getOpponentMinimumCost($player, $type)
+  {
+    $cost = 0;
+    foreach (self::getAll() as $pId => $player2) {
+      if ($pId == $player->getId()) {
+        continue;
+      }
+      $cost = max($cost, $player2->getOpponentMinimumCost($type));
+    }
+    return $cost;
+  }
+
   public static function checkVictory()
   {
     $isVictory = false;
