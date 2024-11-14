@@ -567,7 +567,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(DRAW_MANA, []),
       ],
-      112 => ['description' => clienttranslate('Cards your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCardsCost' => '1']],
+      112 => ['description' => clienttranslate('Cards your opponents play can\'t cost less than {2}.'), 'noTrigger' => true, 'attributes' => ['opponentCardsMinimumCost' => '2']],
       113 => [
         'description' => clienttranslate('You may activate the {j} abilities of up to two target Permanents you control.'),
         'output' => FT::ACTION(TARGET, [
@@ -913,7 +913,7 @@ abstract class FlowConvertor
       211 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
       212 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
       213 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
-      214 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCharacterCost' => '1']],
+      214 => ['description' => clienttranslate('Characters  your opponents play can\'t cost less than {2}.'), 'noTrigger' => true, 'attributes' => ['opponentCharactersMinimumCost' => '2']],
       215 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in each of your Expeditions.'),
         'output' => FT::SEQ(

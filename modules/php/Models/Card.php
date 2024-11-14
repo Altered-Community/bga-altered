@@ -96,6 +96,8 @@ class Card extends \ALT\Helpers\DB_Model
     'increaseOpponentSpellCost' => 'int',
     'increaseOpponentPermanentCost' => 'int',
     'increaseOpponentTokenCost' => 'int',
+    'opponentCharactersMinimumCost' => 'int',
+    'opponentCardsMinimumCost' => 'int',
     'sacrificeAndNotFleetingGoToReserve' => 'bool',
     'sacrificeAndFleetingDraw' => 'bool',
     'updateExpeditions' => 'obj', // type = All, region []
@@ -523,7 +525,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     // TODO: to update in multiplayer
-    $additionalCost = Players::getOpponentAdditionalCost($this->getPlayer(), $this->getType());
+    $minimumCost = Players::getOpponentMinimumCost($this->getPlayer(), $this->getType());
     $dynamicReduction = $this->getDynamicCostReduction();
     $dynSplit = explode(':', $dynamicReduction);
     if (count($dynSplit) > 1) {
@@ -544,10 +546,10 @@ class Card extends \ALT\Helpers\DB_Model
 
     switch ($this->getLocation()) {
       case HAND:
-        return max(0, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction);
+        return max($minimumCost, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
         break;
       case RESERVE:
-        return max(0, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0) + $additionalCost - (int) $dynamicReduction);
+        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
         break;
     }
   }

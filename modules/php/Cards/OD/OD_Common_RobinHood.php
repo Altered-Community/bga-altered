@@ -19,13 +19,14 @@ class OD_Common_RobinHood extends \ALT\Models\Card
       'flavorText' => clienttranslate('Justice comes from a fair redistribution of wealth.'),
       'artist' => 'Taras Susak',
       'subtypes' => [BUREAUCRAT],
-      'effectDesc' => clienttranslate('Characters your opponents play cost {1} more.'),
+      'effectDesc' => clienttranslate('Characters your opponents play can\'t cost less than {2}. (If they would cost {1} or less, they cost {2} instead.)'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 4,
       'costReserve' => 4,
-      'increaseOpponentCharacterCost' => 1,
+      // 'increaseOpponentCharacterCost' => 1,
+      'opponentCharactersMinimumCost' => 2
     ];
   }
 }
