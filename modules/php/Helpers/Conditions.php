@@ -196,6 +196,20 @@ abstract class Conditions
       ->count() > 0;
   }
 
+  public static function checkReserveCards($card, $event, $n, $op = 'GTE')
+  {
+    $count = $card
+      ->getPlayer()
+      ->getReserveCards()
+      ->count();
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+  }
+
   public static function hasLess8Mana($card, $event)
   {
     return $card->getPlayer()->getTotalMana() < 8;
