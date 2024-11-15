@@ -1590,16 +1590,17 @@ define([
           this.onClick(`card-${cardId}`, () => this.takeAtomicAction('actTap', [cardId]));
         });
       }
-
-      this.addDangerActionButton(
-        'btnPass',
-        _('Pass'),
-        () => {
-          this.unselectIfNeeded();
-          this.takeAtomicAction('actPass', []);
-        },
-        'restartAction'
-      );
+      if (args.additionalAction == false) {
+        this.addDangerActionButton(
+          'btnPass',
+          _('Pass'),
+          () => {
+            this.unselectIfNeeded();
+            this.takeAtomicAction('actPass', []);
+          },
+          'restartAction'
+        );
+      }
     },
 
     onEnteringStateChooseAssignmentLocation(args) {

@@ -990,7 +990,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let id = `card-${card.id}`;
 
       // if the card is tapped we remove it
-      $(id).classList.remove('tapped');
+      if ($(id).classList.contains('tapped')) {
+        $(id).classList.remove('tapped');
+      }
 
       if (this.isFastMode()) {
         if (!$(id)) {

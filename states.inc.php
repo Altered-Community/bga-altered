@@ -184,9 +184,11 @@ $machinestates = [
     'name' => 'chooseAssignment',
     'description' => clienttranslate('${actplayer} must choose an action or pass'),
     'descriptionmyturn' => clienttranslate('${you} must choose an action or pass'),
+    'descriptionmyturnadditional' => clienttranslate('${you} may play a card'),
+    'descriptionadditional' => clienttranslate('${actplayer} may play a card'),
     'args' => 'argsAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actPlay', 'actSupport', 'actTap', 'actPass', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actPlay', 'actSupport', 'actTap', 'actPass', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_GAIN => [

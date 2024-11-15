@@ -34,6 +34,8 @@ class ChooseAssignment extends \ALT\Models\Action
   protected $args = [
     'types' => [PERMANENT, SPELL, CHARACTER],
     'actions' => ['play', 'support', 'tap'],
+    'maxHandCost' => INFTY,
+    'free' => false
   ];
 
   public function argsChooseAssignment()
@@ -44,13 +46,16 @@ class ChooseAssignment extends \ALT\Models\Action
     $actions = ['play' => [], 'support' => [], 'tap' => []];
     $authorizedTypes = $this->getArg('types');
     $authorizedActions = $this->getArg('actions');
+    $maxHandCost = $this->getArg('maxHandCost');
+    $free = $this->getArg('free');
 
     // 1. Play cards
     if (in_array('play', $authorizedActions)) {
       $actions['play'] = $handCards
         ->merge($reserveCards)
-        ->filter(function ($card) use ($player, $authorizedTypes) {
-          return in_array($card->getType(), $authorizedTypes) && $card->canBePlayed($player);
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
+          return in_array($card->getType(), $authorizedTypes) &&
+            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost));
         })
         ->map(function ($card) use ($player) {
           return $card->getPlayableLocation($player);
@@ -81,8 +86,8 @@ class ChooseAssignment extends \ALT\Models\Action
         })
         ->getIds();
     }
-
-    return ['_private' => ['active' => $actions]];
+    $additionalAction = count($this->getArg('actions')) != 3;
+    return ['_private' => ['active' => $actions], 'additionalAction' => $additionalAction, 'descSuffix' => $additionalAction ? 'additional' : ''];
   }
 
   public static function statPlay($carId)
@@ -123,7 +128,7 @@ class ChooseAssignment extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
 
-    $this->playCard($cardId, $location);
+    $this->playCard($cardId, $location, $this->getArg('free'));
   }
 
   public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0)

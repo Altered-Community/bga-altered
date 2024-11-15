@@ -145,6 +145,8 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterFleeting':
         return clienttranslate('Next character gains <FLEETING');
+      case 'playAll1Card':
+        return clienttranslate('All players play for free one card with hand cost {3} or less');
     }
     return '';
   }
@@ -631,6 +633,16 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
+        break;
+      case 'playAll1Card':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['pId' => $pId, 'optional' => true]);
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+
         break;
       default:
         break;
