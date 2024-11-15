@@ -188,7 +188,7 @@ class RollDie extends \ALT\Models\Action
       $effect = Utils::updateTree($effect, 'die', $dieValue);
       $effect['sourceId'] = $source->getId();
       $cardId = $this->getCtxArg('cardId') ?? null;
-      if (!is_null($cardId) && $effect['args']['cardId'] != ME) {
+      if (!is_null($cardId) && isset($effect['args']['cardId']) && $effect['args']['cardId'] != ME) {
         $effect['args']['cardId'] = $cardId;
       }
       $effects[] = $effect;

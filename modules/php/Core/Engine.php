@@ -149,6 +149,8 @@ class Engine
       // Proceed to do the action
       self::proceedToState($node, $isUndo);
       return;
+    } elseif ($pId == 'nextPlayer') {
+      $pId = Players::getNextId(Players::getActive());
     }
     // throw new \feException(print_r($node->toArray()));
     // throw new \feException($oldPId . " " . $pId);
