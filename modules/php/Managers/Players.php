@@ -489,19 +489,28 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   {
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       $updateExpeditions = $card->getUpdateExpeditions();
-      if (empty($updateExpeditions)) {
-        continue;
-      }
-      if (($updateExpeditions['type'] ?? '') == 'all') {
-        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+      if (!empty($updateExpeditions)) {
+
+        if (($updateExpeditions['type'] ?? '') == 'all') {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
+
+        if (($updateExpeditions['type'] ?? '') == ME && $card->getPId() == $player->getId()) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
+
+        if (($updateExpeditions['type'] ?? '') == OPPONENT && $card->getPId() != $player->getId()) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
       }
 
-      if (($updateExpeditions['type'] ?? '') == ME && $card->getPId() == $player->getId()) {
-        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
-      }
-
-      if (($updateExpeditions['type'] ?? '') == OPPONENT && $card->getPId() != $player->getId()) {
-        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+      // TODO: manage multiplayer
+      if ($card->getLocation() == $expedition && $player->getId() != $card->getPId()) {
+        if ($card->isOpponentOceanOnly()) {
+          $biomes = [OCEAN => OCEAN];
+        } elseif ($card->isOpponentForestOnly()) {
+          $biomes = [FOREST => FOREST];
+        }
       }
     }
   }
