@@ -1951,6 +1951,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             "(Put the top card of your deck in Reserve, then exhaust it {T}. Exhausted cards can't be played and have no Support abilities.)"
           ),
         },
+        EXHAUSTED_RESUPPLY_LOW: {
+          text: _('Exhausted Resupply'),
+          reminder: _(
+            "(Put the top card of your deck in Reserve, then exhaust it {T}. Exhausted cards can't be played and have no Support abilities.)"
+          ),
+        },
         RESUPPLY_INF: {
           text: _('Resupply'),
           reminder: _('Put the top card of your deck in Reserve.'),
