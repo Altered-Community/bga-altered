@@ -11,7 +11,7 @@ class YZ_Rare_SnowballCommando extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_LY_32_R2',
-            'asset'  => 'ALT_ALIZE_B_LY_32_R2',
+            'asset'  => 'ALT_ALIZE_B_LY_32_R',
 
             'faction'  => FACTION_YZ,
             'rarity'  => RARITY_RARE,
