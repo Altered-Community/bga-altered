@@ -317,7 +317,7 @@ abstract class Conditions
       }
     }
 
-    return $card->getPId() == $event['pId'] && $hasZero >= 3;
+    return $card->getPId() == ($event['pId'] ?? $card->getPId()) && $hasZero >= 3;
   }
 
   public static function canSacrifice($card, $event)

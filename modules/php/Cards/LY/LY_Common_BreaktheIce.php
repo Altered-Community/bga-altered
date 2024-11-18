@@ -1,26 +1,37 @@
 <?php
+
 namespace ALT\Cards\LY;
+
+use ALT\Helpers\FT;
 
 class LY_Common_BreaktheIce extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
+    public function __construct($row)
+    {
+        parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_LY_42_C',
             'asset'  => 'ALT_ALIZE_B_LY_42_C',
 
-    		'faction'  => FACTION_LY,
-    		'rarity'  => RARITY_COMMON,
-    		'name'  => clienttranslate("Break the Ice"),
+            'faction'  => FACTION_LY,
+            'rarity'  => RARITY_COMMON,
+            'name'  => clienttranslate("Break the Ice"),
             'typeline' => clienttranslate("Spell - Disruption"),
-    		'type'  => SPELL,
-    		'flavorText'  => clienttranslate('Well, they didn\'t mean literally.'),
+            'type'  => SPELL,
+            'flavorText'  => clienttranslate('Well, they didn\'t mean literally.'),
             'artist' => "HuoMiao Studio",
-			'extension'=>'TBF',
-   'subtypes'  => [DISRUPTION],
- 				'effectDesc' => clienttranslate('<FLEETING>.  I cost {2} less if you have three or more base statistics of 0 among Characters you control.  Send target Character to Reserve, then exhaust it ({T}). (Exhausted cards can\'t be played and have no Support abilities.)'),
-     'costHand' => 4, 
-     'costReserve' => 4, 
-];
-  }
+            'extension' => 'TBF',
+            'subtypes'  => [DISRUPTION],
+            'effectDesc' => clienttranslate('<FLEETING>.  I cost {2} less if you have three or more base statistics of 0 among Characters you control.  Send target Character to Reserve, then exhaust it ({T}). (Exhausted cards can\'t be played and have no Support abilities.)'),
+            'costHand' => 4,
+            'costReserve' => 4,
+            'dynamicCostReduction' => "2:has3WithZeroStat",
+            'effectPlayed' => FT::SEQ(
+                FT::GAIN(ME, FLEETING),
+                FT::ACTION(TARGET, [
+                    'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(EXHAUST, []))
+                ])
+            )
+        ];
+    }
 }
