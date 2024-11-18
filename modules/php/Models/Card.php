@@ -128,6 +128,7 @@ class Card extends \ALT\Helpers\DB_Model
     'giganticOneCharacter' => 'bool', // If in only one exp, it is gigantic. Eat Me Energy Bars
     'opponentOceanOnly' => 'bool', // Will o the Wisp
     'opponentForestOnly' => 'bool', // Will o the Wisp
+    'increaseBiomesHighest' => 'bool', // WinterOufits
 
   ];
 
@@ -557,7 +558,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
   }
 
-  public function getBiomes($includeModifiers = false)
+  public function getBiomes($includeModifiers = false, $increaseBiomesToHighest = false)
   {
     $biomes = [OCEAN => $this->getOcean(), MOUNTAIN => $this->getMountain(), FOREST => $this->getForest()];
     if ($includeModifiers === true) {
@@ -566,6 +567,14 @@ class Card extends \ALT\Helpers\DB_Model
       foreach ($biomes as $type => &$value) {
         $value += $boost;
       }
+    }
+
+    if ($increaseBiomesToHighest == true) {
+      $max = 0;
+      foreach ($biomes as $type => $value) {
+        $max = max($max, $value);
+      }
+      $biomes = [OCEAN => $max, MOUNTAIN => $max, FOREST => $max];
     }
     return $biomes;
   }
