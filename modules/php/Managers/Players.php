@@ -448,6 +448,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // For each player, check whether hero and/or companion move forward
     foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
+        $n = 1;
         $biomesByStorm = $player->getBiomeInStorms();
         $biomes = $biomesByStorm[$side] ?? null;
         if (is_null($biomes)) {
@@ -478,7 +479,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
 
         if ($advance && $move) {
-          $player->advanceStorm($side, $winningBiomes);
+          if ($player->hasAdvanceTwiceDusk($expedition)) {
+            $n = 2;
+          }
+          $player->advanceStorm($side, $winningBiomes, $n);
         }
       }
     }

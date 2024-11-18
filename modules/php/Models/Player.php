@@ -348,6 +348,8 @@ class Player extends \ALT\Helpers\DB_Model
     $location = $tokenMeeple->getLocationArg();
     $expedition = $token == HERO ? STORM_LEFT : STORM_RIGHT;
 
+
+
     // if hero we increase
     $delta = $token == HERO ? $n : $n * -1;
     $sId = $token == HERO ? max(0, $location + $delta) : min(7, $location + $delta);
@@ -494,6 +496,16 @@ class Player extends \ALT\Helpers\DB_Model
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
       if ($card->isIncreaseBiomesHighest()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasAdvanceTwiceDusk($expedition)
+  {
+    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+      if ($card->isAdvanceTwiceDusk()) {
         return true;
       }
     }

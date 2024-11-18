@@ -129,6 +129,7 @@ class Card extends \ALT\Helpers\DB_Model
     'opponentOceanOnly' => 'bool', // Will o the Wisp
     'opponentForestOnly' => 'bool', // Will o the Wisp
     'increaseBiomesHighest' => 'bool', // WinterOufits
+    'advanceTwiceDusk' => 'bool', // Magic Sleigh
 
   ];
 
