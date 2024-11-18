@@ -1999,6 +1999,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Tough X'),
           reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
         },
+        COOLDOWN: {
+          text: _('Cooldown'),
+          reminder: _(
+            "If I go to Reserve after my effect resolves, exhaust me {T}. Exhausted cards can't be played and have no Support abilities."
+          ),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
