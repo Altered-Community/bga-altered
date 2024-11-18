@@ -697,6 +697,22 @@ abstract class Conditions
     return !self::isInBiome($card, $event, $biome);
   }
 
+  public static function isInBiomeWithZeroStat($card, $event)
+  {
+    if (!self::isCardPlayedWithZeroStat($card, $event)) {
+      return false;
+    }
+
+    $playedCard = Cards::get($event['cardId']);
+    $hasZero = false;
+    foreach ($playedCard->getBiomes() as $biome => $value) {
+      if ($value == 0 && self::isInBiome($card, $event, $biome)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /**********************************
    **********************************
    ************* HELPERS ************
