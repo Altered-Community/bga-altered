@@ -16,7 +16,7 @@ class MU_Rare_WinterOutfits extends \ALT\Models\Card
             'faction'  => FACTION_MU,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Winter Outfits"),
-            'typeline' => clienttranslate("Expedition_permanent - Gear"),
+            'typeline' => clienttranslate("Expedition Permanent - Gear"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('There\'s no such thing as bad weather, only bad clothing.'),
             'artist' => "Fahmi Fauzi",
