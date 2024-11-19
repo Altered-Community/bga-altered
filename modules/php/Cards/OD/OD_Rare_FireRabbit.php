@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\OD;
 
+use ALT\Helpers\FT;
+
 class OD_Rare_FireRabbit extends \ALT\Models\Card
 {
     public function __construct($row)
