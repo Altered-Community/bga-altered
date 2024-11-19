@@ -506,6 +506,14 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         if (($updateExpeditions['type'] ?? '') == OPPONENT && $card->getPId() != $player->getId()) {
           self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
         }
+
+        if (($updateExpeditions['type'] ?? '') == 'source' && $card->getPId() == $player->getId() && $card->getLocation() == $expedition) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
+
+        if (($updateExpeditions['type'] ?? '') == 'sourceAll' && $card->getLocation() == $expedition) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
       }
 
       // TODO: manage multiplayer
