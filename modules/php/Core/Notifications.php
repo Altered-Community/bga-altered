@@ -590,8 +590,10 @@ class Notifications
   {
     if ($additionalCost > 0) {
       $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect and pays ${n} (Tough effect)');
-    } else {
+    } elseif (!is_null($source)) {
       $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect');
+    } else {
+      $msg = clienttranslate('${player_name} targets ${card_names}');
     }
     self::notifyAll('targetCards', $msg, [
       'player' => $player,

@@ -134,6 +134,10 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'eachPlayerOptionalResupply':
         return clienttranslate('All players may resupply');
+      case 'eachPlayerOptionalHandReserve':
+        return clienttranslate('All players may put a card from their Hand in Reserve');
+      case 'eachPlayerOptionalHandReserveDraw':
+        return clienttranslate('All players may put a card from their Hand in Reserve to draw a card');
       case 'fleetingAllCharacters':
         return clienttranslate('All characters gain fleeting');
         break;
@@ -643,6 +647,44 @@ class SpecialEffect extends \ALT\Models\Action
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
 
+        break;
+      case 'eachPlayerOptionalHandReserve':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::DISCARD_TO_RESERVE(),
+            ],
+            ['optional' => true, 'pId' => $pId]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'eachPlayerOptionalHandReserveDraw':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(DRAW, ['players' => ME]))
+            ],
+            ['optional' => true, 'pId' => $pId]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
       default:
         break;

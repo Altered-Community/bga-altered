@@ -989,17 +989,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let card = n.args.card;
       let id = `card-${card.id}`;
 
-      // if the card is tapped we remove it
-      if ($(id).classList.contains('tapped')) {
-        $(id).classList.remove('tapped');
-      }
-
       if (this.isFastMode()) {
         if (!$(id)) {
           let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
           fakeCard.remove();
           this.addCard(card);
         } else {
+          // if the card is tapped we remove it
+          $(id).classList.remove('tapped');
           let container = this.getCardContainer(card);
           $(container).insertAdjacentElement('beforeend', $(id));
           $(id).style.left = '0px';
@@ -1040,6 +1037,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.addCard(card, `hand-${n.args.player_id}`);
         this.flipAndReplace(fakeCard, id).then(slideIt);
       } else {
+        // if the card is tapped we remove it
+        $(id).classList.remove('tapped');
         if ($(id).querySelector('.card-support-icon')) {
           $(id).querySelector('.card-support-icon').classList.remove('selectable');
         }
