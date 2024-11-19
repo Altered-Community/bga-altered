@@ -400,7 +400,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       foreach ($expeditionAttributes as $attribute) {
         if (isset($playerStorm[STORM_LEFT][$attribute])) {
           $authorizedLocations[$pId][] = STORM_LEFT;
-        } elseif (isset($playerStorm[STORM_RIGHT][$attribute])) {
+        }
+        if (isset($playerStorm[STORM_RIGHT][$attribute])) {
           $authorizedLocations[$pId][] = STORM_RIGHT;
         }
       }

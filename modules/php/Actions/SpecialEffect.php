@@ -151,6 +151,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Next character gains <FLEETING');
       case 'playAll1Card':
         return clienttranslate('All players play for free one card with hand cost {3} or less');
+      case 'boostXForForest':
+        return clienttranslate('1 Boost for each expedition in Forest');
     }
     return '';
   }
@@ -685,6 +687,17 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'boostXForForest':
+        $biomes = Players::filterBiomes([FOREST]);
+        $c = 0;
+        foreach ($biomes as $pId => $locations) {
+          $c += count($locations);
+        }
+
+        if ($c > 0) {
+          $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $c));
+        }
         break;
       default:
         break;
