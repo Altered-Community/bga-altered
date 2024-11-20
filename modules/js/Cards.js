@@ -1924,6 +1924,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Eternal'),
           reminder: _("During Rest, I don't go to Reserve."),
         },
+        ETERNAL_FS: {
+          text: _('Eternal'),
+          reminder: _("During Rest, I don't go to Reserve."),
+        },
         FLEETING: {
           text: _('Fleeting'),
           reminder: _('Send me to Discard instead of Reserve after my effect resolves.'),
