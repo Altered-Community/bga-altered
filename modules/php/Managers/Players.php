@@ -409,6 +409,24 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $authorizedLocations;
   }
 
+  public static function excludeBiomes($expeditionAttributes)
+  {
+    $allPlayerStorms = self::getBiomesInStorm();
+    $excludedLocations = [];
+    foreach ($allPlayerStorms as $pId => $playerStorm) {
+      // no constraints
+      foreach ($expeditionAttributes as $attribute) {
+        if (!isset($playerStorm[STORM_LEFT][$attribute])) {
+          $excludedLocations[$pId][] = STORM_LEFT;
+        }
+        if (!isset($playerStorm[STORM_RIGHT][$attribute])) {
+          $excludedLocations[$pId][] = STORM_RIGHT;
+        }
+      }
+    }
+    return $excludedLocations;
+  }
+
   public static function computeStorm($advance = false)
   {
     if (Globals::isTieBreakerMode()) {

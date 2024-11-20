@@ -40,6 +40,7 @@ class Target extends \ALT\Models\Action
     'discardRemaining' => false,
     'subType' => 'disabled',
     'expeditionAttributes' => null,
+    'excludeBiomes' => false,
     'isTapped' => false,
   ];
 
@@ -166,16 +167,20 @@ class Target extends \ALT\Models\Action
     $subType = $this->getArg('subType');
     $expeditionAttributes = $this->getArg('expeditionAttributes');
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
+    $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
     $isTapped = $this->getArg('isTapped');
 
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $isTapped) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
       // if we need to filter by location & attributes 
-      if (in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()])) {
+      if ($excludedBiomes === null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()])) {
+        return false;
+      }
+      if ($excludedBiomes !== null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), ($excludedBiomes[$c->getPId()] ?? []))) {
         return false;
       }
       if ($c->isTapped() != $isTapped) {
