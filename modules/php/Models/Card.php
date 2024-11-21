@@ -130,6 +130,7 @@ class Card extends \ALT\Helpers\DB_Model
     'opponentForestOnly' => 'bool', // Will o the Wisp
     'increaseBiomesHighest' => 'bool', // WinterOufits
     'advanceTwiceDusk' => 'bool', // Magic Sleigh
+    'protectAnchoredInExpedition' => 'bool', // Floral tent
 
   ];
 

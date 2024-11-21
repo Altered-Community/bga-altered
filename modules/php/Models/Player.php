@@ -522,6 +522,16 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function hasProtectAnchoredInExpedition($expedition)
+  {
+    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+      if ($card->isProtectAnchoredInExpedition()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function canPlayTappedCards($type = null, $location = null)
   {
     foreach ($this->getPlayedCards() as $cId => $card) {

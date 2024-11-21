@@ -230,6 +230,14 @@ class Discard extends \ALT\Models\Action
         $manaCards[] = $cId;
       }
 
+      // Floral Tent
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($originalLocation)) {
+        unset($cards[$cId]);
+        Notifications::message(clienttranslate('${card_name} is not discarded but loose <ANCHORED> instead'), ['card' => $card]);
+        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => ANCHORED]]);
+        continue;
+      }
+
       // Special case of MoonlightJellyFish
       if ($this->isSacrifice()) {
         // Sactifice a fleeting
