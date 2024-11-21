@@ -2697,6 +2697,9 @@ html {
     .altered-card .altered-card-wrapper[data-asset="ALT_COREKS_B_YZ_17_U"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_COREKS_B_YZ_17_U"] {
       background-image: url("img/illustrations/YZ/ALT_COREKS_B_YZ_17_U.jpg"); }
+      .altered-card .altered-card-wrapper[data-asset="ALT_ALIZE_B_NE_02_C"],
+    .altered-card.mini-card .altered-card-wrapper[data-asset="ALT_ALIZE_B_NE_02_C"] {
+      background-image: url("img/illustrations/NE/ALT_ALIZE_B_NE_02_C.jpg"); }
     .altered-card .altered-card-wrapper[data-asset="back"],
     .altered-card.mini-card .altered-card-wrapper[data-asset="back"] {
       background-image: url("img/back-main.jpg"); }
@@ -2785,6 +2788,8 @@ html {
         background-image: url("img/frames/BR.png"); }
       .altered-card .altered-card-wrapper .card-frame[data-faction="LY"] {
         background-image: url("img/frames/LY.png"); }
+        .altered-card .altered-card-wrapper .card-frame[data-faction="NE"] {
+          background-image: url("img/frames/NE.png"); }
       .altered-card .altered-card-wrapper .card-frame[data-faction="MU"] {
         background-image: url("img/frames/MU.png"); }
       .altered-card .altered-card-wrapper .card-frame[data-faction="OD"] {

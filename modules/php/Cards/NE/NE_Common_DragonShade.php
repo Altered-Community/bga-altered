@@ -24,6 +24,7 @@ class NE_Common_DragonShade extends \ALT\Models\Card
             'forest' => 5,
             'mountain' => 5,
             'ocean' => 5,
+            'token' => true
         ];
     }
 }
