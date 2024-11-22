@@ -131,6 +131,8 @@ class Card extends \ALT\Helpers\DB_Model
     'increaseBiomesHighest' => 'bool', // WinterOufits
     'advanceTwiceDusk' => 'bool', // Magic Sleigh
     'protectAnchoredInExpedition' => 'bool', // Floral tent
+    'increaseReserveCost' => 'int', // Ebenezer Scrooge
+    'reduceReserveCost' => 'int', // Ebenezer Scrooge
 
   ];
 
@@ -549,13 +551,19 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
+    $increaseReserveCost = Players::getIncreaseReserveCost();
+    $reduceReserveCost = Players::getReduceReserveCost();
+    if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
+      $minimumCost = max(1, $minimumCost);
+    }
+
 
     switch ($this->getLocation()) {
       case HAND:
         return max($minimumCost, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
         break;
       case RESERVE:
-        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
+        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction + $increaseReserveCost - $reduceReserveCost);
         break;
     }
   }

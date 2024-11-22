@@ -334,6 +334,24 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
   }
 
+  public static function getIncreaseReserveCost()
+  {
+    $cost = 0;
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      $cost += $card->getIncreaseReserveCost();
+    }
+    return $cost;
+  }
+
+  public static function getReduceReserveCost()
+  {
+    $cost = 0;
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      $cost += $card->getReduceReserveCost();
+    }
+    return $cost;
+  }
+
   public static function getBlockedExpeditions()
   {
     // Blocked by global (temporary)
