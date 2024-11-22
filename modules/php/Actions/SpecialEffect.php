@@ -127,6 +127,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'AfterRest2OrdisRecruit':
         return clienttranslate('Invoke 2 Ordis recruit after rest');
         break;
+      case 'invokeOrdisRecruitBureaucrat':
+        return clienttranslate('Invoke 1 Ordirs recruit for each Bureaucrat you control');
+        break;
       case 'afterRest':
         return clienttranslate('Trigger the effect after rest');
       case 'AllPlayersSacrifice1':
@@ -526,6 +529,29 @@ class SpecialEffect extends \ALT\Models\Action
           ),
         ]);
         Globals::setAfterRest($afterRest);
+        break;
+      case 'invokeOrdisRecruitBureaucrat':
+        $pId = $card->getPlayer()->getId();
+        $nodes = [];
+
+        $bureaucrats = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
+          return in_array(BUREAUCRAT, $c->getSubtypes());
+        })->count();
+        if ($bureaucrats != 0) {
+          for ($i = 0; $i < $bureaucrats; $i++) {
+            $nodes[] =  FT::ACTION(
+              INVOKE_TOKEN,
+              [
+                'pId' => 'source',
+                'tokenType' => 'OD_Common_OrdisRecruit',
+                'targetLocation' => STORMS,
+              ],
+              ['sourceId' => $card->getId()]
+            );
+          }
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+
         break;
       case 'AfterRest2OrdisRecruit':
         $afterRest = Globals::getAfterRest();
