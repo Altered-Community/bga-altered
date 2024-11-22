@@ -289,12 +289,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return [$defenders, $ignoreDefenders];
   }
 
-  public static function getIgnoreDefenders(&$defenders, $ignoreDefenders)
+  public static function getWinningPlayerByStorms()
   {
-    if (empty($ignoreDefenders)) {
-      return;
-    }
-
     $hero = null;
     $heroPos = -1;
     $companion = null;
@@ -306,7 +302,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $companion = $pId;
         $companionPos = $companionNew;
       } elseif ($companionNew == $companionPos) {
-        $companion = null;
+        $companion = -1;
       }
 
       $heroNew = explode('-', $player->getHeroToken()->getLocation())[1];
@@ -314,17 +310,24 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $hero = $pId;
         $heroPos = $heroNew;
       } elseif ($heroPos == $heroNew) {
-        $hero = null;
+        $hero = -1;
       }
     }
+    return [STORM_LEFT => $hero, STORM_RIGHT => $companion];
+  }
+
+  public static function getIgnoreDefenders(&$defenders, $ignoreDefenders)
+  {
+    if (empty($ignoreDefenders)) {
+      return;
+    }
+
+    $winners = self::getWinningPlayerByStorms();
 
     // if thereare ignoreDefenders, we ignore the ones not impacting
     foreach ($ignoreDefenders as $pId => $storms) {
       foreach ($storms as $storm => $cards) {
-        if ($storm == STORM_LEFT && !is_null($hero) && $hero != $pId && isset($defenders[$pId][$storm])) {
-          unset($defenders[$pId][$storm]);
-        }
-        if ($storm == STORM_RIGHT && !is_null($companion) && $companion != $pId && isset($defenders[$pId][$storm])) {
+        if (!is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
           unset($defenders[$pId][$storm]);
         }
       }

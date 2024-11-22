@@ -167,6 +167,13 @@ abstract class Conditions
     return $event['pId'] == $card->getPId() && !is_null($stormMoves) && ($stormMoves['moves'] ?? 0) > 0;
   }
 
+  public static function myExpeditionIsBehind($card, $event)
+  {
+    $winners = Players::getWinningPlayerByStorms();
+    $win = $winners[$card->getLocation()];
+    return !is_null($win) && $win != -1 && $win != $card->getPId();
+  }
+
   /////////////////////////////////////////
   //   ____            _             _
   //  / ___|___  _ __ | |_ _ __ ___ | |
