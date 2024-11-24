@@ -156,6 +156,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('All players play for free one card with hand cost {3} or less');
       case 'boostXForForest':
         return clienttranslate('1 Boost for each expedition in Forest');
+      case 'eachPlayerAsleep':
+        return clienttranslate('Each player target a Character, gain <ASLEEP>');
     }
     return '';
   }
@@ -724,6 +726,23 @@ class SpecialEffect extends \ALT\Models\Action
         if ($c > 0) {
           $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $c));
         }
+        break;
+      case 'eachPlayerAsleep':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, TOKEN],
+              'targetPlayer' => ME,
+              'effect' => FT::GAIN(EFFECT, ASLEEP)
+            ],
+            ['pId' => $pId]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
       default:
         break;
