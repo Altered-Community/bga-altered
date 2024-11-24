@@ -652,6 +652,17 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     if (in_array($this->getType(), [TOKEN, CHARACTER])) {
+
+      $dynamicGigantic = $this->getDynamicGigantic();
+      // throw new \feException($dynamicGigantic);
+      $dynSplit = explode(':', $dynamicGigantic);
+      if (count($dynSplit) > 1) {
+        // we need to test if ok, add change dynamic tough to the value of 0
+        if (!is_null(Utils::checkAttributeCondition('gigantic', $dynamicGigantic, $this->getPlayer(), $this))) {
+          return $dynSplit[0];
+        }
+      }
+
       $characterCount = $this->getPlayer()->countCardsInLocation($this->getLocation(), [TOKEN, CHARACTER]);
       if ($characterCount > 1) {
         return false;
@@ -679,10 +690,10 @@ class Card extends \ALT\Helpers\DB_Model
     return false;
   }
 
-  public function getDynamicGigantic()
-  {
-    return Utils::checkAttributeCondition('eternal', ($this->properties['dynamicGigantic'] ?? ''), $this->getPlayer(), $this);
-  }
+  // public function getDynamicGigantic()
+  // {
+  //   return Utils::checkAttributeCondition('eternal', ($this->properties['dynamicGigantic'] ?? ''), $this->getPlayer(), $this);
+  // }
 
   public function isBlockingPower()
   {

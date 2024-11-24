@@ -222,6 +222,20 @@ abstract class Conditions
     return $card->getPlayer()->getTotalMana() < 8;
   }
 
+  public static function hasXMana($card, $event, $n, $op = 'GTE')
+  {
+    $mana = $card->getPlayer()->getTotalMana();
+    if ($op == 'GTE') {
+      return $mana >= $n;
+    } elseif ($op == 'LTE') {
+      return $mana <= $n;
+    } elseif ($op == 'LT') {
+      return $mana < $n;
+    } elseif ($op == 'GT') {
+      return $mana > $n;
+    }
+  }
+
   public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
   {
     $types = [CHARACTER, TOKEN];
