@@ -278,7 +278,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           $defenders[$pId][$card->getLocation()][] = $cId;
         }
         if ($card->isDefenderIgnoreBehind()) {
-          $ignoreDefenders[$pId][$card->getLocation()][] = $cId;
+          $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'behind';
+        } elseif ($card->isIgnoreDefender()) {
+          $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'all';
         }
       }
     }
@@ -327,8 +329,12 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // if thereare ignoreDefenders, we ignore the ones not impacting
     foreach ($ignoreDefenders as $pId => $storms) {
       foreach ($storms as $storm => $cards) {
-        if (!is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
-          unset($defenders[$pId][$storm]);
+        foreach ($cards as $cId => $power) {
+          if ($power == 'all') {
+            unset($defenders[$pId][$storm]);
+          } elseif ($power = 'behind' && !is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
+            unset($defenders[$pId][$storm]);
+          }
         }
       }
     }
@@ -365,7 +371,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // $defenders = self::getDefenders();
     list($defenders, $ignoreDefenders) = self::getDefenders(false);
     self::getIgnoreDefenders($defenders, $ignoreDefenders);
-    // throw new \feException(print_r($defenders));
 
     $statuses = [];
     foreach (Players::getAll() as $pId => $player) {

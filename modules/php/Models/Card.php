@@ -122,6 +122,7 @@ class Card extends \ALT\Helpers\DB_Model
     'canAlwaysGainFleeting' => 'bool',
     'dynamicGainReplace' => 'obj',
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
+    'ignoreDefender' => 'bool', // Mobile Armory
     'cooldown' => 'bool', // in spell cleanup, card will be tapped
     'exhaustedReserveSlots' => 'int',
     'costReductionIfEmpty' => 'int',
