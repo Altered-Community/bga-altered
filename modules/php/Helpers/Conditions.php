@@ -174,6 +174,19 @@ abstract class Conditions
     return !is_null($win) && $win != -1 && $win != $card->getPId();
   }
 
+  public static function allExpeditionsAreBehindOrTied($card, $event)
+  {
+    $winners = Players::getWinningPlayerByStorms();
+    $left = $winners[STORM_LEFT];
+    $right = $winners[STORM_RIGHT];
+    return !is_null($left) && !is_null($right) && $left != $card->getPId() && $right != $card->getPId();
+  }
+
+  public static function allExpeditionsAreNotBehindOrTied($card, $event)
+  {
+    return !self::allExpeditionsAreBehindOrTied($card, $event);
+  }
+
   /////////////////////////////////////////
   //   ____            _             _
   //  / ___|___  _ __ | |_ _ __ ___ | |
