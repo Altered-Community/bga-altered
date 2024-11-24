@@ -88,6 +88,12 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostAllCharacters':
         return clienttranslate('Boost all characters');
         break;
+      case 'boostAllCharactersInExpedition':
+        return clienttranslate('Boost all characters');
+        break;
+      case 'boostAllCharactersExceptSelf':
+        return clienttranslate('Boost all characters except me');
+        break;
       case 'boostXReserve':
         return clienttranslate('Boost number of cards in reserve');
         break;
@@ -328,6 +334,27 @@ class SpecialEffect extends \ALT\Models\Action
         $nodes = [];
         foreach ($player->getPlayedCards() as $cId => $pCard) {
           if (in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, BOOST, 1);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
+      case 'boostAllCharactersInExpedition':
+        $player = Players::get($this->getArg('player'));
+        $expedition = $this->getArg('expedition');
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($pCard->getLocation() == $expedition && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, BOOST, 1);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
+      case 'boostAllCharactersExceptSelf':
+        $player = $card->getPlayer();
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($cId != $card->getId() && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
             $nodes[] = FT::GAIN($pCard, BOOST, 1);
           }
         }
