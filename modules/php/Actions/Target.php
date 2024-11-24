@@ -42,6 +42,7 @@ class Target extends \ALT\Models\Action
     'expeditionAttributes' => null,
     'excludeBiomes' => false,
     'isTapped' => false,
+    'maxStatistic' => 99,
   ];
 
   public function getDescription()
@@ -169,10 +170,11 @@ class Target extends \ALT\Models\Action
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
     $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
     $isTapped = $this->getArg('isTapped');
+    $maxStatistic = $this->getArg('maxStatistic');
 
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -210,6 +212,13 @@ class Target extends \ALT\Models\Action
 
       if ($checkTough && $c->getPId() != $player->getId() && $c->getTough() > $player->getMana()) {
         return false;
+      }
+
+      $biomes = $c->getBiomes(true);
+      foreach ($biomes as $b => $value) {
+        if ($value > $maxStatistic) {
+          return false;
+        }
       }
 
       $costCheck =
