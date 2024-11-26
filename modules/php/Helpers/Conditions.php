@@ -173,9 +173,16 @@ abstract class Conditions
     $win = $winners[$card->getLocation()];
     return !is_null($win) && $win != -1 && $win != $card->getPId();
   }
+
   public static function myExpeditionIsNotBehind($card, $event)
   {
     return !self::myExpeditionIsBehind($card, $event);
+  }
+
+  public static function cardPlayedExpeditionIsBehind($card, $event)
+  {
+    $pCard = Cards::get($event['cardId']);
+    return self::myExpeditionIsBehind($pCard, $event);
   }
 
   public static function allExpeditionsAreBehindOrTied($card, $event)
