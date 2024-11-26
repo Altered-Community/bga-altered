@@ -733,6 +733,25 @@ abstract class Conditions
     return $card->getPlayer()->getReserveCards()->count() == 0;
   }
 
+  public static function hasXExhaustedReserve($card, $event, $n, $op = 'GTE', $player = null)
+  {
+    $cards = 0;
+    foreach (Players::getAll() as $pId => $sPlayer) {
+      if (!is_null($player) && $pId != $player) {
+        continue;
+      }
+      $cards += $sPlayer->getReserveCards()->filter(function ($c) {
+        return $c->isTapped() == true;
+      })->count();
+    }
+
+    if ($op == 'GTE') {
+      return $cards >= $n;
+    } elseif ($op == 'LTE') {
+      return $cards <= $n;
+    }
+  }
+
   public static function isInBiome($card, $event, $biome)
   {
     return $card->getPlayer()->isInBiome($card->getLocation(), $biome);
