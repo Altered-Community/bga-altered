@@ -42,9 +42,9 @@ class OrNode extends AbstractNode
   {
     // $player = Players::getActive();
     return parent::isOptional($player) ||
-      $this->childsReduceOr(function ($child) {
+      (is_null($this->getArgs()['n'] ?? null) &&  $this->childsReduceOr(function ($child) {
         return $child->isResolved() && $child->getResolutionArgs() != PASS;
-      });
+      }));
   }
 
   /**
@@ -60,11 +60,23 @@ class OrNode extends AbstractNode
   /**
    * An OR node is resolved either when marked as resolved, either when all children are resolved already
    */
+  /**
+   * An OR node is resolved either when marked as resolved, 
+   * either when all children (or if n children) are resolved already
+   */
   public function isResolved()
   {
-    return parent::isResolved() ||
-      $this->childsReduceAnd(function ($child) {
-        return $child->isResolved();
-      });
+    $args = $this->getArgs();
+
+    $requiredChoices = ($args && isset($args['n'])) ? $args['n'] : count($this->childs);
+    // node is resolved only if the all the choices are done & the child is resolved
+    return parent::isResolved() || ($this->getRemainingChoices() == 0 && $this->childs[$this->infos['choice']]->isResolved());
+  }
+
+  public function getRemainingChoices()
+  {
+    $args = $this->getArgs();
+    $requiredChoices = ($args && isset($args['n'])) ? $args['n'] : count($this->childs);
+    return $requiredChoices - $this->getCountChoices();
   }
 }

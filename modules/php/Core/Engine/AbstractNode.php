@@ -113,6 +113,17 @@ class AbstractNode
     return count($this->childs);
   }
 
+  protected function childsFilterCount($callable): int
+  {
+    return \array_reduce(
+      $this->childs,
+      function ($acc, $child) use ($callable) {
+        return $acc + ($callable($child) ? 1 : 0);
+      },
+      0
+    );
+  }
+
   public function toArray()
   {
     return array_merge($this->infos, [
@@ -266,6 +277,11 @@ class AbstractNode
     return $this->infos['resolveParent'] ?? false;
   }
 
+  public function getCountChoices()
+  {
+    return $this->infos['countChoices'] ?? 0;
+  }
+
   /***********************
    *** Node resolution ***
    ***********************/
@@ -347,7 +363,7 @@ class AbstractNode
 
     foreach ($childs as $id => $child) {
       $isDoable = $child->isDoable($player);
-      if (!$child->isResolved() && ($displayAllChoices || $isDoable)) {
+      if ((!$child->isResolved() || ($this instanceof \ALT\Core\Engine\OrNode && isset($this->getArgs()['canReuse']))) && ($displayAllChoices || $isDoable)) {
         $choice = [
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
@@ -386,8 +402,9 @@ class AbstractNode
   public function choose($childIndex, $auto = false)
   {
     $this->infos['choice'] = $childIndex;
+    $this->infos['countChoices'] = ($this->infos['countChoices'] ?? 0) + 1;
     $child = $this->childs[$this->infos['choice']];
-    if (!$auto && !($child instanceof \ARK\Core\Engine\LeafNode)) {
+    if (!$auto && !($child instanceof \ALT\Core\Engine\LeafNode)) {
       $child->enforceMandatory();
     }
   }

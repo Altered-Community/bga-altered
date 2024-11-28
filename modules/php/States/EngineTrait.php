@@ -167,6 +167,11 @@ trait EngineTrait
       $args['sourceId'] = $sourceId;
       $args['source'] = Cards::get($sourceId)->getName();
     }
+    if ($node instanceof \ALT\Core\Engine\OrNode && isset($args['n'])) {
+      $remaining = $node->getRemainingChoices();
+      $args['nRemaining'] = $remaining;
+      $args['descSuffix'] = isset($args['descSuffix']) ? $args['descSuffix'] : 'remaining';
+    }
     $this->addArgsAnytimeAction($args, 'resolveChoice');
     return $args;
   }
