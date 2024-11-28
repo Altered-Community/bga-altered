@@ -457,6 +457,16 @@ $machinestates = [
     'possibleactions' => ['actPassOptionalAction'],
   ],
 
+  ST_EXCHANGE => [
+    'name' => 'exchange',
+    'description' => clienttranslate('${actplayer} must select 1 card from Hand and Reserve to switch position'),
+    'descriptionmyturn' => clienttranslate('${you} must select 1 card from Hand and Reserve to switch position'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actExchange', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

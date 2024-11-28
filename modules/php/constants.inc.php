@@ -95,6 +95,7 @@ const ST_TARGET_EXPEDITION = 45;
 // Alizé
 const ST_EXHAUST = 46;
 const ST_READY = 47;
+const ST_EXCHANGE = 48;
 
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
@@ -161,6 +162,7 @@ const DISCARD_DRAW = 'DiscardDraw';
 const TARGET_EXPEDITION = 'TargetExpedition';
 const EXHAUST = 'Exhaust';
 const READY = 'Ready';
+const EXCHANGE = 'Exchange';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

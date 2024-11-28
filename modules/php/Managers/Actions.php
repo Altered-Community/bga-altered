@@ -41,7 +41,8 @@ class Actions
     DISCARD_DRAW,
     TARGET_EXPEDITION,
     EXHAUST,
-    READY
+    READY,
+    EXCHANGE
   ];
 
   public static function get($actionId, &$ctx = null)

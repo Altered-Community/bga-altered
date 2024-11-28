@@ -1734,6 +1734,86 @@ define([
       });
     },
 
+    onEnteringStateExchange(args) {
+      handIds = args.handIds;
+      reserveIds = args.reserveIds;
+      let selectedHand = [];
+      let selectedReserve = [];
+
+      let cancelSelection = () => {
+        selectedHand = [];
+        selectedReserve = [];
+        updateStatus();
+      };
+
+      let updateStatus = () => {
+        if ($('btnConfirmChoice')) $('btnConfirmChoice').remove();
+        if (selectedHand.length == 1 && selectedReserve.length == 1) {
+          this.addPrimaryActionButton('btnConfirmChoice', _('Confirm'), () =>
+            this.takeAtomicAction('actExchange', [selectedReserve[0], selectedHand[0]])
+          );
+        }
+
+        if ($('btnCancelChoice')) $('btnCancelChoice').remove();
+        if (selectedHand.length > 0 || selectedReserve.length > 0) {
+          this.addSecondaryActionButton('btnCancelChoice', _('Cancel'), cancelSelection);
+        }
+
+        handIds.forEach((id) => {
+          let elt = $('card-' + id);
+          let selected = selectedHand.includes(id);
+          elt.classList.toggle('selected', selected);
+          elt.classList.toggle('selectable', selected || selectedHand.length < 1);
+        });
+
+        reserveIds.forEach((id) => {
+          let elt = $('card-' + id);
+          let selected = selectedReserve.includes(id);
+          elt.classList.toggle('selected', selected);
+          elt.classList.toggle('selectable', selected || selectedReserve.length < 1);
+        });
+      };
+
+      handIds.forEach((id) => {
+        let elt = 'card-' + id;
+
+        this.onClick(elt, () => {
+          let index = selectedHand.findIndex((t) => t == id);
+
+          if (index === -1) {
+            if (selectedHand.length >= 1) return;
+            selectedHand.push(id);
+          } else {
+            selectedHand.splice(index, 1);
+          }
+          updateStatus();
+        });
+      });
+
+      reserveIds.forEach((id) => {
+        let elt = 'card-' + id;
+
+        this.onClick(elt, () => {
+          let index = selectedReserve.findIndex((t) => t == id);
+
+          if (index === -1) {
+            if (selectedReserve.length >= 1) return;
+            selectedReserve.push(id);
+          } else {
+            selectedReserve.splice(index, 1);
+          }
+          updateStatus();
+        });
+      });
+
+      // handIds.forEach((id) => {
+      //   let elt = 'card-' + id;
+      //   let selected = selectedElements.includes(id);
+      //   elt.classList.toggle('selected', selected);
+      //   elt.classList.toggle('selectable', selected || selectedElements.length < 1);
+      // });
+    },
+
     onEnteringStateDiscardDraw(args) {
       this.onEnteringStateTarget(args);
     },
