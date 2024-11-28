@@ -2016,6 +2016,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             "If I go to Reserve after my effect resolves, exhaust me {T}. Exhausted cards can't be played and have no Support abilities."
           ),
         },
+        MANA_MOTH: {
+          text: _('Mana Moth'),
+          reminder: '',
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
