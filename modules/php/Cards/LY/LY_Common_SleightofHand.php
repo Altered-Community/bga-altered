@@ -2,6 +2,8 @@
 
 namespace ALT\Cards\LY;
 
+use ALT\Helpers\FT;
+
 class LY_Common_SleightofHand extends \ALT\Models\Card
 {
     public function __construct($row)
@@ -23,6 +25,8 @@ class LY_Common_SleightofHand extends \ALT\Models\Card
             'effectDesc' => clienttranslate('<COOLDOWN>. (If I go to Reserve after my effect resolves, exhaust me {T}. Exhausted cards can\'t be played and have no Support abilities.)  Exchange target Character in your Reserve with a card from your Hand.'),
             'costHand' => 1,
             'costReserve' => 1,
+            'cooldown' => true,
+            'effectPlayed' => FT::ACTION(EXCHANGE, []),
         ];
     }
 }
