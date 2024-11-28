@@ -51,6 +51,11 @@ class Exhaust extends \ALT\Models\Action
     }
     $card->setTapped(true);
     Notifications::exhaustEffect($player, $card, $this->getSource());
+    // Check listener
+    $this->checkAfterListeners($player, [
+      'cardId' => $card->getId(),
+      'sourceId' => $this->getSourceId(),
+    ]);
 
     $this->resolveAction();
   }
