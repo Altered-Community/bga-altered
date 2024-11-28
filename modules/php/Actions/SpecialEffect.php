@@ -151,7 +151,7 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('All characters gain fleeting');
         break;
       case 'sleepingAllCharactersinExpedition':
-        return clienttranslate('Put to sleep character in the expedition');
+        return clienttranslate('Put to sleep characters in the expedition');
         break;
       case 'boostXFleetingChar':
         return clienttranslate('1 Boost for each Fleeting character');
@@ -164,6 +164,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('1 Boost for each expedition in Forest');
       case 'eachPlayerAsleep':
         return clienttranslate('Each player target a Character, gain <ASLEEP>');
+      case 'sendToReserveCharactersAndExhaustInExpedition':
+        return clienttranslate('Send to reserve characters and exhaust them');
     }
     return '';
   }
@@ -208,6 +210,7 @@ class SpecialEffect extends \ALT\Models\Action
     $effect = $this->getArg('effect');
     $args = $this->getArg('args') ?? [];
     $card = $this->getSource();
+    $sourceId = $card->getId();
 
     switch ($effect) {
       case 'useCard':
@@ -682,6 +685,29 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;
+      case 'sendToReserveCharactersAndExhaustInExpedition':
+        $expedition = $this->getCtxArg('expedition');
+        $pId = $this->getCtxArg('player');
+        $nodes = [];
+        $exhaust = [];
+
+        foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
+          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->getLocation() != $expedition) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => RESERVE], ['sourceId' => $this->getSourceId()]);
+          $exhaust[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild([
+            'type' => NODE_SEQ,
+            'childs' => [
+              ['type' => NODE_SEQ, 'childs' => $nodes],
+              ['type' => NODE_SEQ, 'childs' => $exhaust],
+            ]
+          ]);
+        }
+        break;
       case 'readyAllReserve':
         $player = Players::getActive();
         $nodes = [];
@@ -699,7 +725,7 @@ class SpecialEffect extends \ALT\Models\Action
         $nodes = [];
         $turnOrder = Players::getTurnOrder(Players::getActiveId());
         foreach ($turnOrder as $pId) {
-          $nodes[] = FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['pId' => $pId, 'optional' => true]);
+          $nodes[] = FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['pId' => $pId, 'optional' => true, 'sourceId' => $this->getSourceId()]);
         }
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
@@ -718,7 +744,7 @@ class SpecialEffect extends \ALT\Models\Action
               'targetLocation' => [HAND],
               'effect' => FT::DISCARD_TO_RESERVE(),
             ],
-            ['optional' => true, 'pId' => $pId]
+            ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
           );
         }
 
@@ -737,7 +763,7 @@ class SpecialEffect extends \ALT\Models\Action
               'targetLocation' => [HAND],
               'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(DRAW, ['players' => ME]))
             ],
-            ['optional' => true, 'pId' => $pId]
+            ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
           );
         }
 
@@ -765,7 +791,7 @@ class SpecialEffect extends \ALT\Models\Action
               'targetPlayer' => ME,
               'effect' => FT::GAIN(EFFECT, ASLEEP)
             ],
-            ['pId' => $pId]
+            ['pId' => $pId, 'sourceId' => $this->getSourceId()]
           );
         }
 
