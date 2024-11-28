@@ -847,7 +847,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             if (container) {
               container.insertAdjacentElement('beforeend', $(id));
               if (n.args.hand === true || card.location == 'reserve') $(id).classList.add('mini-card');
-              if (card.location == 'discard') $(id).classList.remove('mini-card');
+              if (card.location == 'discard') {
+                $(id).classList.remove('mini-card');
+                $(id).classList.remove('tapped');
+              }
               $(id).style.transform = '';
               $(id).style.transformOrigin = 'initial';
             } else if (card.location == 'mana') {
@@ -880,6 +883,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               if (card.location == 'discard') $(id).classList.remove('mini-card');
 
               this.updateStatusIfCard($(id));
+
+              if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == false) {
+                $(id).classList.remove('tapped');
+              }
+
               if (card.location == 'mana') {
                 let container = this.getCardContainer(card);
                 if (container) {
