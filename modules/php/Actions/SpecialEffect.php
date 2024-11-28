@@ -166,6 +166,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Each player target a Character, gain <ASLEEP>');
       case 'sendToReserveCharactersAndExhaustInExpedition':
         return clienttranslate('Send to reserve characters and exhaust them');
+      case 'exhaustAllCards':
+        return clienttranslate('Exhaust all cards in Reseve');
     }
     return '';
   }
@@ -716,6 +718,20 @@ class SpecialEffect extends \ALT\Models\Action
             continue;
           }
           $nodes[] = FT::ACTION(READY, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'exhaustAllCards':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getReserveCards() as $cId => $card) {
+            if ($card->isTapped()) {
+              continue;
+            }
+            $nodes[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+          }
         }
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);

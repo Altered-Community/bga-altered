@@ -21,11 +21,17 @@ class TargetExpedition extends \ALT\Models\Action
     return ST_TARGET_EXPEDITION;
   }
 
-  public function argTargetExpedition()
+  public function argsTargetExpedition()
   {
     $expeditions = [];
+    $expeditionType = $this->getCtxArgs()['type'] ?? null;
+    $winners = Players::getWinningPlayerByStorms();
+
     foreach (Players::getAll() as $pId => $player) {
       foreach (STORMS as $storm) {
+        if ($expeditionType == 'ahead' && $winners[$storm] != $pId) {
+          continue;
+        }
         $expeditions[] = $pId . '-' . $storm;
       }
     }
@@ -42,8 +48,13 @@ class TargetExpedition extends \ALT\Models\Action
   public function actTargetExpedition($expedition)
   {
     $player = $this->getPlayer();
-
+    $args = $this->argsTargetExpedition();
     $expeditions = explode('-', $expedition);
+
+    if (!in_array($expeditions[2] . "-" . $expeditions[1], $args['expeditions'])) {
+      throw new \BgaVisibleSystemException('Invalid target expedition. Should not happen');
+    }
+
     $pId = $expeditions[2];
 
     $node = $this->getArg('effect');

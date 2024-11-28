@@ -1827,11 +1827,16 @@ define([
         return () => this.takeAtomicAction('actTargetExpedition', [location]);
       };
 
-      this.forEachPlayer((player) => {
-        ['stormLeft', 'stormRight'].forEach((location) => {
-          this.onClick(`board-${location}-${player.id}`, onChooseLocation(`board-${location}-${player.id}`));
-        });
+      args.expeditions.forEach((ex) => {
+        data = ex.split('-');
+        this.onClick(`board-${data[1]}-${data[0]}`, onChooseLocation(`board-${data[1]}-${data[0]}`));
       });
+
+      // this.forEachPlayer((player) => {
+      //   ['stormLeft', 'stormRight'].forEach((location) => {
+      //     this.onClick(`board-${location}-${player.id}`, onChooseLocation(`board-${location}-${player.id}`));
+      //   });
+      // });
     },
 
     onEnteringStateTargetPlayer(args) {
