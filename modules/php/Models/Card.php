@@ -134,6 +134,7 @@ class Card extends \ALT\Helpers\DB_Model
     'protectAnchoredInExpedition' => 'bool', // Floral tent
     'increaseReserveCost' => 'int', // Ebenezer Scrooge
     'reduceReserveCost' => 'int', // Ebenezer Scrooge
+    'exhaustCharactersMorning' => 'bool', // Snow queen
 
   ];
 
@@ -631,6 +632,13 @@ class Card extends \ALT\Helpers\DB_Model
         break;
       case 'tough2':
         $tough = 2;
+        break;
+      case 'exhaustedReserve':
+        foreach (Players::getAll() as $pId => $sPlayer) {
+          $tough += $sPlayer->getReserveCards()->filter(function ($c) {
+            return $c->isTapped() == true;
+          })->count();
+        }
         break;
     }
 

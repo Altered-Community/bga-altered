@@ -541,10 +541,13 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function untapAll()
   {
     $untapped = [];
+    $exhaustedCharactersMorning = Players::isExhaustedCharactersMorning();
     foreach (self::getAll() as $cId => $card) {
       if ($card->isTapped()) {
-        $card->setTapped(false);
-        $untapped[] = $cId;
+        if (!$exhaustedCharactersMorning || !in_array($card->getType(), [TOKEN, CHARACTER])) {
+          $card->setTapped(false);
+          $untapped[] = $cId;
+        }
       }
     }
     Notifications::untap($untapped);

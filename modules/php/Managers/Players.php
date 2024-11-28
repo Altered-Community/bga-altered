@@ -358,6 +358,16 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
+  public static function isExhaustedCharactersMorning()
+  {
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      if ($card->isExhaustCharactersMorning() === true) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function getBlockedExpeditions()
   {
     // Blocked by global (temporary)
