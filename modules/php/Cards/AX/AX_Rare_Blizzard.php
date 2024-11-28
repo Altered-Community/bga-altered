@@ -11,7 +11,7 @@ class AX_Rare_Blizzard extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_YZ_42_R2',
-            'asset'  => 'ALT_ALIZE_B_YZ_42_R2',
+            'asset'  => 'ALT_ALIZE_B_YZ_42_R',
 
             'faction'  => FACTION_AX,
             'rarity'  => RARITY_RARE,

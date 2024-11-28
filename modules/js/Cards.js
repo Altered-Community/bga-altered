@@ -2017,8 +2017,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           ),
         },
         MANA_MOTH: {
-          text: _('Mana Moth'),
-          reminder: '',
+          text: _('Mana Moth 2/2/2'),
         },
       };
 

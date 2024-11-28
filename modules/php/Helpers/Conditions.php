@@ -681,7 +681,7 @@ abstract class Conditions
     return $event['cardId'] == $card->getId()  && ($event['to'] ?? '') == RESERVE;
   }
 
-  public static function isSacrifice($card, $event, $type = null)
+  public static function isSacrifice($card, $event, $type = null, $subType = null, $exclude = false)
   {
     if (!($event['sacrifice'] ?? false)) {
       return false;
@@ -691,6 +691,12 @@ abstract class Conditions
     if (!is_null($type)) {
       $discardedCard = Cards::get($event['cardId']);
       if (!self::typeCheck($type, $discardedCard->getType())) {
+        return false;
+      }
+    }
+    if (!is_null($subType)) {
+      $discardedCard = Cards::get($event['cardId']);
+      if (!self::subTypeCheck($subType, $discardedCard->getSubtypes(), $exclude)) {
         return false;
       }
     }
@@ -798,6 +804,20 @@ abstract class Conditions
     }
 
     return true;
+  }
+
+  public static function subTypeCheck($subType, $subTypes, $exclude = false)
+  {
+    if (!$exclude) {
+      if (in_array($subType, $subTypes)) {
+        return true;
+      }
+    } elseif ($exclude) {
+      if (!in_array($subType, $subTypes)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 
