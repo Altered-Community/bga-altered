@@ -128,7 +128,7 @@ trait DebugTrait
     // throw new \feException(print_r(Globals::getDeckContent())); //->isDefender());
   }
 
-  function tv()
+  function tv($a)
   {
     // Cards::get(24)->setTapped(true);
     // Cards::get(3)->setEffectHand([[TARGET_ALL_CHARACTER_2 => [[BOOST => 2], [BOOST => 2]]]]);
@@ -156,7 +156,21 @@ trait DebugTrait
     // $player = Players::getCurrent();
     // Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     // Engine::proceed();
-    Players::getActive()->isInBiome(STORM_RIGHT, OCEAN);
+    // Players::getActive()->isInBiome(STORM_RIGHT, OCEAN);
+    $card = Cards::getCardClass(trim($a))->jsonSerialize();
+
+    Cards::singleCreate([
+      'player_id' => Players::getCurrentId(),
+      'location' => 'hand',
+      'nbr' => 1,
+      'properties' => $card['properties'],
+    ]);
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+    $player = Players::getCurrent();
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
+
+    // throw new \feException(print_r(Cards::getCardClass(trim($a))->jsonSerialize()));
   }
 
   function tiebreak()

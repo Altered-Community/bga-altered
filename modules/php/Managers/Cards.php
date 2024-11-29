@@ -88,6 +88,11 @@ class Cards extends \ALT\Helpers\CachedPieces
     return explode('_', $uid)[1] == 'COREKS';
   }
 
+  public static function isAlternateArt($uid)
+  {
+    return explode('_', $uid)[2] == 'A';
+  }
+
   public static function getAltUid($uid)
   {
     $expUid = explode('_', $uid);
@@ -108,29 +113,75 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $coreUid;
   }
 
+  public static function getMainUid($uid)
+  {
+    $expUid = explode('_', $uid);
+    $expUid[2] = 'B';
+    $coreUid = implode('_', $expUid);
+    return $coreUid;
+  }
+
+  public static function getAlternateUid($uid)
+  {
+    $expUid = explode('_', $uid);
+    if (count($expUid) == 7) {
+      unset($expUid[6]);
+    }
+    unset($expUid[5]);
+    $altUid = implode('_', $expUid);
+    return $altUid;
+  }
+
+  public static function getIconSet($uid)
+  {
+    $expUid = explode('_', $uid);
+    switch ($expUid[1]) {
+      case 'COREKS':
+        return 'ks';
+      case 'ALIZE':
+        return 'tbf';
+      default:
+        return null;
+    }
+  }
+
   public static function getCardClass($uid)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    // Mapping done for heroes for example
+    if (isset(UID_MAPPING[$uid])) {
+      $uid = UID_MAPPING[$uid];
+    }
+
     $ks = self::isKS($uid);
+    $alternate = self::isAlternateArt($uid);
     if ($ks) {
       $coreUid = self::getCoreUid($uid);
       $altUid = self::getAltUid($uid);
+    } elseif ($alternate) {
+      $coreUid = self::getMainUid($uid);
+      $altUid = self::getAlternateUid($uid);
     }
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {
-      if (!$ks || !isset(MAP_REFS_CLASSES[$coreUid])) {
-        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid);
-      } elseif ($ks) {
+      if (!isset(MAP_REFS_CLASSES[$coreUid])) {
+        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . 't');
+      } elseif ($ks || $alternate) {
         $uid = $coreUid;
       }
     }
+
     $cInfo = explode('/', MAP_REFS_CLASSES[$uid]);
     $className = "\\ALT\\Cards\\$cInfo[0]\\$cInfo[1]";
-    $row = $ks == true ? ['properties' => ['setIcon' => 'ks']] : null;
-    // throw new \feException($className);
+    $iconSet = self::getIconSet($uid);
+    $row = null;
+
     $cardO = new $className($row);
-    if ($ks) {
-      $cardO->setSetIcon('ks');
+    if (!is_null($iconSet)) {
+      $cardO->setSetIcon($iconSet);
+    }
+
+    if ($ks || $alternate) {
       if (isset(self::getAltArt()[$altUid])) {
         $cardO->setFlavorText(self::getAltArt()[$altUid]['flavorText']);
         if ($cardO->getRarity() == RARITY_RARE) {
@@ -244,8 +295,6 @@ class Cards extends \ALT\Helpers\CachedPieces
 
       $altUid = self::getAltUid($uid);
       // ALT_COREKS_B_YZ_04_4451
-      // var_dump($uid);
-      // var_dump($altUid);
       if (isset(self::getAltArt()[$altUid])) {
         $properties['flavorText'] = self::getAltArt()[$altUid]['flavorText'];
         $properties['asset']  = $altUid . '_U';
@@ -253,7 +302,6 @@ class Cards extends \ALT\Helpers\CachedPieces
         $properties['asset']  = self::getCoreUid($altUid) . '_U';
       }
     }
-    // $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
     $properties['faction'] = Utils::convertFaction($unique['faction']);
     $properties['name'] = $unique['name'];
     // $properties['type'] = constant($unique['cardType']['reference']);
@@ -655,6 +703,14 @@ class Cards extends \ALT\Helpers\CachedPieces
       ],
       'ALT_COREKS_B_YZ_11' => ['flavorText' => clienttranslate('The real scarecrow is not who you think.')],
       'ALT_COREKS_B_YZ_17' => ['flavorText' => clienttranslate('In the abyssal depths, no one can hear you scream.')],
+      // Alizé
+      'ALT_ALIZE_A_AX_35' => ['flavorText' => clienttranslate('Even over 50 years after her death, her pioneering research in the use of kelon is mentioned in all the history books.')],
+      'ALT_ALIZE_A_BR_37' => ['flavorText' => clienttranslate('"Every scar marks a defeat, and every sword is a trophy."')],
+      'ALT_ALIZE_A_LY_34' => ['flavorText' => clienttranslate('"This trick was a triumph. It’s hard to overstate my satisfaction."')],
+      'ALT_ALIZE_A_MU_35' => ['flavorText' => clienttranslate('"This will be a fine addition to my collection."')],
+      'ALT_ALIZE_A_OR_38' => ['flavorText' => clienttranslate('"Day 28. The intense cold is putting the troops\' morale to the test. I hope the dawn will bring a bit of warmth."')],
+      'ALT_ALIZE_A_YZ_36' => ['flavorText' => clienttranslate('She used her body as a rampart until she was carried away by the waves.')],
+
     ];
   }
 

@@ -58,17 +58,17 @@ $factions = [
 $o = 0;
 $i = 0;
 $map = [];
-if (($handle = fopen("CoreSet2024-02-16.csv", "r")) !== FALSE) {
-  while (($row = fgetcsv($handle, 2000, ",")) !== FALSE && $i++ <= 600) {
+if (($handle = fopen("alize_2024_10_20.csv", "r")) !== FALSE) {
+  while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;
     }
 
     $uid = $row[0];
-		$uid = str_replace('_P_', '_B_', $uid);
+    $uid = str_replace('_P_', '_B_', $uid);
 
     $faction = $row[2];
-    if($faction == 'OR') $faction = 'OD';
+    if ($faction == 'OR') $faction = 'OD';
 
     $name = $row[5];
     $rarity = $row[3];
@@ -78,9 +78,9 @@ if (($handle = fopen("CoreSet2024-02-16.csv", "r")) !== FALSE) {
 
 
     $baseId = $row[1];
-		$baseId = str_replace('_P_', '_B_', $baseId);
+    $baseId = str_replace('_P_', '_B_', $baseId);
 
-		$map[$uid] = $faction. "/" .$className;
+    $map[$uid] = $faction . "/" . $className;
   }
 }
 
