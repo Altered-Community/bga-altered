@@ -2019,6 +2019,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         MANA_MOTH: {
           text: _('Mana Moth 2/2/2'),
         },
+        DRAGON_SHADE: {
+          text: _('Dragon Shade 5/5/5'),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;

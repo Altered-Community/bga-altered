@@ -359,7 +359,6 @@ const UID_MAPPING = [
   'ALT_ALIZE_B_OR_31_C' => 'ALT_CORE_B_OR_31_C',
   'ALT_ALIZE_B_YZ_01_C' => 'ALT_CORE_B_YZ_01_C',
   'ALT_ALIZE_B_YZ_03_C' => 'ALT_CORE_B_YZ_03_C',
-  'ALT_ALIZE_B_YZ_47_C' => 'ALT_CORE_B_YZ_47_C',
 ];
 
 /******************

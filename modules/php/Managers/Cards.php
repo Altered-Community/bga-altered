@@ -199,24 +199,25 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function generateRandomDeck($deck, $player)
   {
-    $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO])->jsonSerialize(), 'n' => 1];
-    foreach ($deck['cards'] as $cardRef => $card) {
-      if (isset($card['content'])) {
-        //it's a unique!
-        if (is_null(Cards::generateUnique($card['content']))) {
-          throw new \BgaVisibleSystemException(
-            'This unique has an unimplemented power' . $card['content']['reference']
-          );
-        }
-        $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
-      } else {
-        $deckContent[] = ['card' => Cards::getCardClass($cardRef)->jsonSerialize(), 'n' => $card['quantity']];
-      }
-    }
+    // For production
+    // $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO])->jsonSerialize(), 'n' => 1];
+    // foreach ($deck['cards'] as $cardRef => $card) {
+    //   if (isset($card['content'])) {
+    //     //it's a unique!
+    //     if (is_null(Cards::generateUnique($card['content']))) {
+    //       throw new \BgaVisibleSystemException(
+    //         'This unique has an unimplemented power' . $card['content']['reference']
+    //       );
+    //     }
+    //     $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
+    //   } else {
+    //     $deckContent[] = ['card' => Cards::getCardClass($cardRef)->jsonSerialize(), 'n' => $card['quantity']];
+    //   }
+    // }
 
-    return self::createDeck($player, $deckContent);
+    // return self::createDeck($player, $deckContent);
 
-    // require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
     // require_once dirname(__FILE__) . '/../Cards/unique.php';
     // require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
@@ -229,29 +230,34 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     // $result = Game::get()->getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
 
-    // $faction = FACTIONS[array_rand(FACTIONS)];
-    // $deckContent = [];
+    $faction = FACTIONS[array_rand(FACTIONS)];
+    $deckContent = [];
 
-    // $deckContent[HERO] = [
-    //   'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
-    //   'n' => 1,
-    // ];
-    // // random cards of the faction
-    // $i = 0;
-    // $totalCards = Globals::getTestingOption() ? 80 : 40;
+    $deckContent[HERO] = [
+      'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
+      'n' => 1,
+    ];
+    // random cards of the faction
+    $i = 0;
+    $totalCards = 40;
+    $repartition = ['' => 20, 'TBF' => 20];
+    $allocation = ['' => 0, 'TBF' => 0];
 
-    // do {
-    //   // $c = RELEASED[array_rand(RELEASED)];
-    //   $c = array_rand(MAP_REFS_CLASSES);
+    do {
+      // $c = RELEASED[array_rand(RELEASED)];
+      $c = array_rand(MAP_REFS_CLASSES);
 
-    //   // $c = MAP_REFS_CLASSES[$a];
-    //   // var_dump($c);
-    //   $objCard = self::getCardClass($c);
-    //   if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
-    //     $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
-    //     $i++;
-    //   }
-    // } while ($i < $totalCards);
+      // $c = MAP_REFS_CLASSES[$a];
+      // var_dump($c);
+      $objCard = self::getCardClass($c);
+      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
+        if ($allocation[$objCard->getExtension()] < $repartition[$objCard->getExtension()]) {
+          $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
+          $allocation[$objCard->getExtension()]++;
+          $i++;
+        }
+      }
+    } while ($i < $totalCards);
 
     // for ($u = 0; $u < 15; $u++) {
     //   // maybe to reenable later
@@ -260,7 +266,10 @@ class Cards extends \ALT\Helpers\CachedPieces
     //   $cardId = uniqueID[array_rand(uniqueID)];
     //   // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
     //   $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-    //     'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId
+    //     'game' => 'alter' . 'ed',
+    //     'mode' => 'card',
+    //     'token' => $BGAToken,
+    //     'cardId' => $cardId
     //   ]);
     //   // throw new \feException(print_r($uniqueCard));
 
@@ -276,7 +285,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     //   $i++;
     // }
 
-    // return self::createDeck($player, $deckContent);
+    return self::createDeck($player, $deckContent);
   }
 
   public static function generateUnique($unique)
