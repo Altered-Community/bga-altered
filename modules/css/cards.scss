@@ -740,7 +740,25 @@
             color: #ffffffa1;
             z-index: 2;
             font-size: 9px;
-        }
+
+            .setIcon {
+                width: 12px;
+                height: 12px;
+                margin-left: -2px;
+                margin-top: 2px;
+                &[data-asset="core"] {
+                    background-image: url("img/icons/core.png");
+                }
+                &[data-asset="ks"] {
+                    background-image: url("img/icons/ks2.png");
+                }
+                &[data-asset="tbf"] {
+                    background-image: url("img/icons/tbf.png");
+                    width:16px;
+                }
+            }
+        }     
+        
     }
 
     &.card-hero {

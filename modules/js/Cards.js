@@ -1406,7 +1406,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${this.formatString(effect, true)}
             </div>
           </div>
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
       </div>`;
     },
@@ -1495,7 +1497,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           </div>
 
           ${supportIcon}
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1553,7 +1557,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             </div>
           </div>
 
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1610,7 +1616,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           </div>
 
           ${supportIcon}
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1663,7 +1671,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           </div>
 
           ${supportIcon}
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
