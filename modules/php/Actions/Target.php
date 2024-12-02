@@ -331,6 +331,7 @@ class Target extends \ALT\Models\Action
             $child['args']['cardId'] = $cardId;
           }
           $child['sourceId'] = $this->getSourceId();
+
           if (isset($child['childs'])) {
             foreach ($child['childs'] as &$grandchild) {
               if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {

@@ -28,8 +28,14 @@ class OD_Rare_RallyingCall extends \ALT\Models\Card
             'changedStats' => ['costHand', 'costReserve'],
             'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::SEQ(
                 FT::ACTION(GAIN, ['type' => BOOST]),
-                FT::GAIN(EFFECT, ANCHORED),
-                FT::LOOSE(EFFECT, ASLEEP)
+                FT::ACTION(CHECK_CONDITION, [
+                    'condition' => 'isTargetAsleep',
+                    'description' => clienttranslate('If target <ASLEEP>, loose <ASLEEP> and gains <ANCHORED>'),
+                    'effect' => FT::SEQ(
+                        FT::GAIN(EFFECT, ANCHORED),
+                        FT::LOOSE(EFFECT, ASLEEP)
+                    )
+                ])
             )]),
         ];
     }

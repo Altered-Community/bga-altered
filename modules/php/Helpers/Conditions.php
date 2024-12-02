@@ -25,6 +25,10 @@ abstract class Conditions
       }
     }
 
+    if (isset($power['cardId'])) {
+      $event['cardId'] = $power['cardId'];
+    }
+
     foreach ($conditions as $cond) {
       $t = explode(':', $cond);
       $condFct = $t[0];
@@ -781,6 +785,11 @@ abstract class Conditions
       }
     }
     return false;
+  }
+
+  public static function isTargetAsleep($card, $event)
+  {
+    return Cards::get($event['cardId'])->hasToken(ASLEEP);
   }
 
   /**********************************
