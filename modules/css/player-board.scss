@@ -110,7 +110,8 @@
 
         border: 2px solid transparent;
         border-radius: 5px;
-        &.selectable {
+        &.selectable,
+        &.droppable {
             border: 2px solid rgb(89, 172, 68);
             background: rgba(24, 219, 24, 0.2);
             cursor: pointer;
@@ -118,6 +119,10 @@
             &:hover {
                 border: 2px solid rgb(51, 129, 32);
                 background: rgba(17, 153, 17, 0.3);
+            }
+            &.dragged-over {
+                border: 2px solid rgb(51, 129, 32);
+                background: rgba(17, 153, 17, 0.5);
             }
         }
 
@@ -212,6 +217,7 @@
             .total-forest,
             .total-mountain,
             .total-ocean {
+                user-select: none;
                 position: relative;
                 z-index: 1;
                 font-family: "Haptic Pro";
@@ -394,6 +400,7 @@
                 line-height: 50px;
                 text-shadow: 0px 0px 3px white;
                 font-size: 26px;
+                user-select: none;
             }
         }
     }
@@ -416,6 +423,7 @@
             align-items: center;
             font-weight: bold;
             font-size: 18px;
+            user-select: none;
 
             h6 {
                 font-size: 14px;
@@ -536,7 +544,8 @@
             border: 2px solid transparent;
             border-radius: 7px;
 
-            &.selectable {
+            &.selectable,
+            &.droppable {
                 border: 2px solid rgb(89, 172, 68);
                 background-color: rgba(24, 219, 24, 0.2);
                 cursor: pointer;
@@ -544,6 +553,10 @@
                 &:hover {
                     border: 2px solid rgb(51, 129, 32);
                     background-color: rgba(17, 153, 17, 0.3);
+                }
+                &.dragged-over {
+                    border: 2px solid rgb(51, 129, 32);
+                    background-color: rgba(17, 153, 17, 0.5);
                 }
 
                 .altered-card {
@@ -597,10 +610,23 @@
             pointer-events: none;
             display: flex;
 
+            &.droppable {
+                border: 2px solid rgb(89, 172, 68);
+                background-color: rgba(24, 219, 24, 0.2);
+                cursor: pointer;
+                pointer-events: all;
+
+                &.dragged-over {
+                    border: 2px solid rgb(51, 129, 32);
+                    background-color: rgba(17, 153, 17, 0.5);
+                }
+            }
+
             .altered-card {
                 transform: scale(1.2);
                 pointer-events: all;
                 margin: 0px;
+                user-select: none;
             }
 
             #btnLaunchSpell {
@@ -639,6 +665,11 @@
         }
 
         .player-hand {
+            position: absolute;
+            left: 50%;
+            right: 50%;
+            top: 0;
+            bottom: 0;
             // display: flex;
             // justify-content: center;
 
@@ -653,6 +684,7 @@
             .altered-card {
                 position: absolute;
                 margin: 0px;
+                user-select: none;
                 transition:
                     transform 0.2s ease-in,
                     left 0.2s ease-in,

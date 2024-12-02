@@ -21,7 +21,6 @@ var debug = isDebug ? console.info.bind(window.console) : function () {};
 define([
   'dojo',
   'dojo/_base/declare',
-  g_gamethemeurl + 'modules/js/vendor/sortable.min.js',
   'ebg/core/gamegui',
   'ebg/counter',
   g_gamethemeurl + 'modules/js/Core/game.js',
@@ -29,7 +28,8 @@ define([
   g_gamethemeurl + 'modules/js/Players.js',
   g_gamethemeurl + 'modules/js/Cards.js',
   g_gamethemeurl + 'modules/js/Meeples.js',
-], function (dojo, declare, Sortable) {
+  ,
+], function (dojo, declare) {
   function openFullscreen() {
     var docElm = document.documentElement;
     if (docElm.requestFullscreen) {
@@ -126,6 +126,12 @@ define([
       this._diceIndex = 1;
       this._undoPossible = true;
       this._beginner = false;
+
+      this.draggables = [];
+      this.draggableCards = [];
+      this.draggedCard = null;
+      this.posBeforeDrag = null;
+      this.droppableZone = null;
     },
     notif_midMessage(n) {},
 
@@ -654,6 +660,8 @@ define([
       if (this._manaModal && this._manaModal.isDisplayed()) {
         this._manaModal.hide();
       }
+
+      this.disableAllDraging();
 
       this.inherited(arguments);
     },
@@ -1498,6 +1506,139 @@ define([
       );
     },
 
+    /*########################
+    ##########################
+    ###### DRAG N DROP #######
+    ##########################
+    ########################*/
+
+    /*
+     * Turn off the draggable cards
+     */
+    disableAllDraging() {
+      Object.keys(this.draggables).forEach((cardId) => ($(`card-${cardId}`).draggable = false));
+      this.draggableCards = [];
+      this.draggables = {};
+      this.draggableCallback = () => {};
+      dojo.query('.droppable').removeClass('droppable');
+    },
+
+    /*
+     * (Init) and enable draggable for given cards
+     * param : cards
+     *    cardId1 : zones
+     *    cardId2 : zones
+     *    ...
+     */
+    makeCardsDraggable(cards, callback) {
+      this.draggableCallback = callback;
+      this.draggableCards = [];
+      this.draggables = {};
+      let allLocations = [];
+      Object.entries(cards).forEach(([cardId, locations]) => {
+        // No available zones
+        if (locations.length == 0) return;
+
+        let zones = {};
+        locations.forEach((location) => {
+          if (!allLocations.includes(location)) {
+            allLocations.push(location);
+          }
+
+          zones[location] = $(`board-${location}-${this.player_id}`);
+        });
+        this.draggableCards[cardId] = zones;
+        if (!this.draggables[cardId]) this.initDraggableCard(cardId);
+      });
+
+      // Attach event to dropzones
+      allLocations.forEach((location) => {
+        let dropzone = $(`board-${location}-${this.player_id}`);
+
+        // ENTER/OVER
+        this.connect(dropzone, 'dragenter', (event) => {
+          if (!dropzone.classList.contains('droppable')) return;
+
+          event.preventDefault();
+          dropzone.classList.add('dragged-over');
+        });
+        this.connect(dropzone, 'dragover', (event) => {
+          if (!dropzone.classList.contains('droppable')) return;
+
+          event.preventDefault();
+          dropzone.classList.add('dragged-over');
+        });
+
+        // LEAVE
+        this.connect(dropzone, 'dragleave', (event) => {
+          if (!dropzone.classList.contains('droppable')) return;
+
+          event.preventDefault();
+          dropzone.classList.remove('dragged-over');
+        });
+
+        // DROP
+        this.connect(dropzone, 'drop', (event) => {
+          if (!dropzone.classList.contains('droppable')) return;
+
+          this.onDropCard(location, event);
+        });
+      });
+    },
+
+    /*
+     * Init draggable : create the draggable object and listen event
+     */
+    initDraggableCard(cardId) {
+      let id = `card-${cardId}`,
+        oCard = $(id);
+      this.connect(oCard, 'dragstart', (evt) => this.onStartDraggingCard(cardId, evt));
+      this.connect(oCard, 'dragend', (evt) => this.onEndDraggingCard(cardId, evt));
+      oCard.draggable = true;
+      this.draggables[cardId] = oCard;
+    },
+
+    /*
+     * When starting to drag => highlight the drop possibilities
+     */
+    onStartDraggingCard(cardId, event) {
+      debug('DragStart', cardId);
+      this.closeCurrentTooltip(false);
+      this._dragndropMode = true;
+      const selectedItem = event.target;
+      this.wait(100).then(() => selectedItem.classList.add('drag-active'));
+      event.dataTransfer.setData('text/plain', cardId);
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.dropEffect = 'move';
+
+      Object.entries(this.draggableCards[cardId]).forEach(([zoneId, o]) => {
+        o.classList.add('droppable');
+      });
+    },
+
+    /*
+     * When we stop dragging => clear highlights
+     */
+    onEndDraggingCard(cardId, event) {
+      debug('DragStop', cardId);
+      this._dragndropMode = false;
+      const selectedItem = event.target;
+      selectedItem.classList.remove('drag-active');
+
+      Object.entries(this.draggableCards[cardId]).forEach(([zoneId, o]) => {
+        o.classList.remove('droppable');
+      });
+    },
+
+    onDropCard(location, event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const cardId = event.dataTransfer.getData('text/plain');
+      debug('DragDrop', location, cardId);
+      this.draggableCallback(cardId, location);
+    },
+
     ///////////////////////////////////////
     //     _        _   _
     //    / \   ___| |_(_) ___  _ __  ___
@@ -1529,7 +1670,6 @@ define([
         Object.keys(t.play).forEach((cardId) => {
           // ALREADY SELECTED CARD
           if (cardId == args.cardId) {
-            console.log('test1');
             this.wait(250).then(() => {
               this.onClick('altered-board-me', () => {
                 this.unselectIfNeeded();
@@ -1537,7 +1677,6 @@ define([
               });
 
               this.onClick(`card-${cardId}`, () => {
-                console.log('test');
                 this.unselectIfNeeded();
                 this.clearClientState();
               });
@@ -1562,6 +1701,9 @@ define([
             });
           }
         });
+
+        // DRAG N DROP
+        this.makeCardsDraggable(t.play, (cardId, location) => this.takeAtomicAction('actPlay', [cardId, location]));
       }
 
       if (t.support) {
@@ -1653,8 +1795,9 @@ define([
           clearPos: false,
         });
       } else {
-        oCard.style.left = limbo.offsetLeft + 'px';
-        oCard.style.top = limbo.offsetTop + 'px';
+        let oHand = $(`hand-${this.player_id}`);
+        oCard.style.left = limbo.offsetLeft - oHand.offsetLeft + 'px';
+        oCard.style.top = limbo.offsetTop - oHand.offsetTop + 'px';
       }
       let onChooseLocation = (location) => {
         return () => this.takeAtomicAction('actPlay', [cardId, location]);
