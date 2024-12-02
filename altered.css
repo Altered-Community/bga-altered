@@ -3151,6 +3151,18 @@ html {
       color: #ffffffa1;
       z-index: 2;
       font-size: 9px; }
+      .altered-card .altered-card-wrapper .card-footer .setIcon {
+        width: 12px;
+        height: 12px;
+        margin-left: -2px;
+        margin-top: 2px; }
+        .altered-card .altered-card-wrapper .card-footer .setIcon[data-asset="core"] {
+          background-image: url("img/icons/core.png"); }
+        .altered-card .altered-card-wrapper .card-footer .setIcon[data-asset="ks"] {
+          background-image: url("img/icons/ks2.png"); }
+        .altered-card .altered-card-wrapper .card-footer .setIcon[data-asset="tbf"] {
+          background-image: url("img/icons/tbf.png");
+          width: 16px; }
   .altered-card.card-hero .card-name {
     top: 24px;
     font-size: 22px;

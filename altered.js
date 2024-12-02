@@ -969,19 +969,19 @@ define([
       }
 
       // RandomDeck
-      let canUseRandom = false;
-      // if (canUseRandom && !$('card-fake-random')) {
-      //   $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-      //   $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
-      //     'beforeend',
-      //     `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
-      //       <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
-      //         Random deck
-      //       </div>
-      //     </div>`
-      //   );
-      //   this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
-      // }
+      let canUseRandom = true;
+      if (canUseRandom && !$('card-fake-random')) {
+        $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
+        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
+          'beforeend',
+          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+            <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
+              Random deck
+            </div>
+          </div>`
+        );
+        this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
+      }
     },
 
     onLeavingStateSelectPrecoDeck() {
