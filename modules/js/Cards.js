@@ -142,7 +142,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     adjustHand(container, pos = 'bottom') {
       // let items = [...container.querySelectorAll('.altered-card'), ...container.querySelectorAll('.flip-container')];
-      let items = [...container.childNodes];
+      let items = [...container.childNodes].filter((t) => !t.classList.contains('draggable-mirror'));
+      console.log(items);
       let n = items.length;
       const THRESHOLD = 8;
       if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
@@ -175,7 +176,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         // Position
         let x = (j - n / 2) * 0.8 * item.offsetWidth;
-        item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+        //        item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+        item.style.left = `${x}px`;
         item.style.top = '0px';
 
         let removeSpeed = () => {
@@ -279,8 +281,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -1536,11 +1538,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-typeline'>${_(p.typeline)}</div>
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${i.boost}'>${
-        p.forest
-      }</div>
+            p.forest
+          }</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${i.boost}'>${
-        p.mountain
-      }</div>
+            p.mountain
+          }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${i.boost}'>${p.ocean}</div>
 
           <div class='card-text' style="font-size:${i.textFontSize}">
