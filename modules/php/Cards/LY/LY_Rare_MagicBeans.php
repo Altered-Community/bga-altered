@@ -27,7 +27,7 @@ class LY_Rare_MagicBeans extends \ALT\Models\Card
             'costReserve' => 2,
             'changedStats' => ['costHand', 'costReserve'],
             'updateExpeditions' => ['type' => 'sourceAll', 'regionsRemove' => [OCEAN, MOUNTAIN], 'regionsAdd' => [FOREST]],
-            'effectPlayed' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'effect' => FT::GAIN(EFFECT, BOOST)]),
+            'effectPlayed' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'targetPlayer' => ME, 'effect' => FT::GAIN(EFFECT, BOOST)]),
         ];
     }
 }
