@@ -11,7 +11,7 @@ class LY_Rare_Avalanche extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_AX_42_R2',
-            'asset'  => 'ALT_ALIZE_B_AX_42_R2',
+            'asset'  => 'ALT_ALIZE_B_AX_42_R',
 
             'faction'  => FACTION_LY,
             'rarity'  => RARITY_RARE,
