@@ -39,12 +39,6 @@ class YZ_Rare_TheNilamWitheredTree extends \ALT\Models\Card
                     )
                 ]
             ],
-            'effectPlayed' => FT::ACTION(TARGET, [
-                'targetType' => [CHARACTER, SPELL, PERMANENT],
-                'upTo' => true,
-                'targetLocation' => [RESERVE],
-                'effect' => FT::ACTION(EXHAUST, [])
-            ])
 
         ];
     }
