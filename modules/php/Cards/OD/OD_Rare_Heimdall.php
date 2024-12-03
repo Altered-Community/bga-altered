@@ -28,7 +28,7 @@ class OD_Rare_Heimdall extends \ALT\Models\Card
             'ocean' => 4,
             'costHand' => 4,
             'costReserve' => 4,
-            'effectPlayed' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'effect' => FT::ACTION(MOVE_CARD, [])]),
+            'effectHand' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'effect' => FT::ACTION(MOVE_CARD, [])]),
 
         ];
     }
