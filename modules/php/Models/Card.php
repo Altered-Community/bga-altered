@@ -686,7 +686,7 @@ class Card extends \ALT\Helpers\DB_Model
         return false;
       }
       foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
-        if ($card->isGiganticOneCharacter()) {
+        if ($card->isGiganticOneCharacter() && $card->getLocation() == $this->getLocation()) {
           return true;
         }
       }
