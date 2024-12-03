@@ -65,7 +65,8 @@ class Exchange extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->getArg('upTo') || count($this->getTargetableCards($player)[0]) != 0;
+    list($reserve, $hand) = $this->getTargetableCards($player);
+    return $this->getArg('upTo') || (count($reserve) > 0 && count($hand) > 0);
   }
 
   public function getTargetableCards($player, $checkTough = false)
