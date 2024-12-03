@@ -35,6 +35,7 @@ class YZ_Rare_OrdisOverseer extends \ALT\Models\Card
                 'effect' => FT::ACTION(INVOKE_TOKEN, [
                     'pId' => 'source',
                     'tokenType' => 'OD_Common_OrdisRecruit',
+                    'targetLocation' => ['source'],
                 ]),
             ]),
             'effectSupport' => FT::ACTION(INVOKE_TOKEN, [

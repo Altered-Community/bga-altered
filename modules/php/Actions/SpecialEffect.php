@@ -578,7 +578,7 @@ class SpecialEffect extends \ALT\Models\Action
               [
                 'pId' => 'source',
                 'tokenType' => 'OD_Common_OrdisRecruit',
-                'targetLocation' => STORMS,
+                'targetLocation' => ['source'],
               ],
               ['sourceId' => $card->getId()]
             );
