@@ -185,7 +185,7 @@ class Target extends \ALT\Models\Action
       if ($excludedBiomes !== null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), ($excludedBiomes[$c->getPId()] ?? []))) {
         return false;
       }
-      if ($c->isTapped() != $isTapped) {
+      if ($isTapped && !$c->isTapped()) {
         return false;
       }
 
