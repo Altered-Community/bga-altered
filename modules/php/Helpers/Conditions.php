@@ -178,6 +178,20 @@ abstract class Conditions
     return !is_null($win) && $win != -1 && $win != $card->getPId();
   }
 
+  public static function companionExpeditionIsBehind($card, $event)
+  {
+    $winners = Players::getWinningPlayerByStorms();
+    $win = $winners[STORM_RIGHT];
+    return !is_null($win) && $win != -1 && $win != $card->getPId();
+  }
+
+  public static function heroExpeditionIsBehind($card, $event)
+  {
+    $winners = Players::getWinningPlayerByStorms();
+    $win = $winners[STORM_LEFT];
+    return !is_null($win) && $win != -1 && $win != $card->getPId();
+  }
+
   public static function myExpeditionIsNotBehind($card, $event)
   {
     return !self::myExpeditionIsBehind($card, $event);
@@ -795,6 +809,18 @@ abstract class Conditions
   public static function isPlayedCardInBiome($card, $event, $biome)
   {
     return $card->getPlayer()->isInBiome(Cards::get($event['cardId'])->getLocation(), $biome);
+  }
+
+  public static function XCharacterInExpedition($card, $event, $n, $op = 'GTE')
+  {
+    $nCards = $card->getPlayer()->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]);
+    if ($op == 'GTE') {
+      return $n >= $nCards;
+    } elseif ($op == 'LTE') {
+      return $n <= $nCards;
+    } elseif ($op == 'E') {
+      return $n == $nCards;
+    }
   }
 
   /**********************************

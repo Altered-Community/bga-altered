@@ -485,77 +485,77 @@ trait DebugTrait
 
   function equinoxAPIConnect($params)
   {
-    $mode = $params['mode'];
-    $user = $params['user'] ?? '';
-    $secret = $params['secret'] ?? '';
-    $token = $params['token'] ?? '';
-    $deckId = $params['deckId'] ?? '';
-    $cardId = $params['cardId'] ?? '';
-    $curl = curl_init();
-    // $baseUrl = 'https://api.equinox-ccg.io';
-    $baseUrl = 'https://api.altered.gg';
-    $setup = [
-      CURLOPT_URL => $baseUrl . '/login',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    ];
+    // $mode = $params['mode'];
+    // $user = $params['user'] ?? '';
+    // $secret = $params['secret'] ?? '';
+    // $token = $params['token'] ?? '';
+    // $deckId = $params['deckId'] ?? '';
+    // $cardId = $params['cardId'] ?? '';
+    // $curl = curl_iVTOnit();
+    // // $baseUrl = 'https://api.equinox-ccg.io';
+    // $baseUrl = 'https://api.altered.gg';
+    // $setup = [
+    //   CURLOPT_URL => $baseUrl . '/login',
+    //   CURLOPT_RETURNTRANSFER => true,
+    //   CURLOPT_ENCODING => '',
+    //   CURLOPT_MAXREDIRS => 10,
+    //   CURLOPT_TIMEOUT => 0,
+    //   CURLOPT_FOLLOWLOCATION => true,
+    //   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    // ];
 
-    switch ($mode) {
-      case 'login':
-        $setup[CURLOPT_URL] = $baseUrl . '/login';
-        $setup[CURLOPT_POSTFIELDS] =
-          '{
-              "email": "' .
-          $user .
-          '",
-              "password": "' .
-          $secret .
-          '"
-          }';
-        $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
-        $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
-        break;
-      case 'BGALogin':
-        $setup[CURLOPT_URL] = $baseUrl . '/login';
-        $setup[CURLOPT_POSTFIELDS] =
-          '{
-          "email": "' .
-          'bga@equinox.fr' .
-          '",
-          "password": "' . 'Q39jXhb7E6HnZEbc' .
-          '"
-      }';
-        $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
-        $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
-        break;
-      case 'deckList':
-        // token of the player
-        $setup[CURLOPT_URL] = $baseUrl . '/deck_user_lists/?isLegal=true';
-        $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
-        $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
-        // throw new \feException(print_r($setup));
-        break;
-      case 'deck':
-        // token of the player
-        $setup[CURLOPT_URL] = $baseUrl . $deckId;
-        $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
-        $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
-        break;
-      case 'card':
-        // BGA token
-        $setup[CURLOPT_URL] = $baseUrl . '/cards/' . $cardId;
-        $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
-        $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
-        break;
-    }
-    curl_setopt_array($curl, $setup);
-    $response = json_decode(curl_exec($curl), true);
-    curl_close($curl);
-    return $response;
+    // switch ($mode) {
+    //   case 'login':
+    //     $setup[CURLOPT_URL] = $baseUrl . '/login';
+    //     $setup[CURLOPT_POSTFIELDS] =
+    //       '{
+    //           "email": "' .
+    //       $user .
+    //       '",
+    //           "password": "' .
+    //       $secret .
+    //       '"
+    //       }';
+    //     $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
+    //     $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
+    //     break;
+    //   case 'BGALogin':
+    //     $setup[CURLOPT_URL] = $baseUrl . '/login';
+    //     $setup[CURLOPT_POSTFIELDS] =
+    //       '{
+    //       "email": "' .
+    //       'bga@equinox.fr' .
+    //       '",
+    //       "password": "' . 'Q39jXhb7E6HnZEbc' .
+    //       '"
+    //   }';
+    //     $setup[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
+    //     $setup[CURLOPT_CUSTOMREQUEST] = 'POST';
+    //     break;
+    //   case 'deckList':
+    //     // token of the player
+    //     $setup[CURLOPT_URL] = $baseUrl . '/deck_user_lists/?isLegal=true';
+    //     $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
+    //     $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
+    //     // throw new \feException(print_r($setup));
+    //     break;
+    //   case 'deck':
+    //     // token of the player
+    //     $setup[CURLOPT_URL] = $baseUrl . $deckId;
+    //     $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
+    //     $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
+    //     break;
+    //   case 'card':
+    //     // BGA token
+    //     $setup[CURLOPT_URL] = $baseUrl . '/cards/' . $cardId;
+    //     $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
+    //     $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
+    //     break;
+    // }
+    // curl_setopt_array($curl, $setup);
+    // $response = json_decode(curl_exec($curl), true);
+    // curl_close($curl);
+    // return $response;
   }
 
 

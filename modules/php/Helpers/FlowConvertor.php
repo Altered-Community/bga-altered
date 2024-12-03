@@ -40,6 +40,19 @@ abstract class FlowConvertor
       236 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved', 'afterRest' => true],
       239 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'isOpponentDraw'],
       240 => ['description' => clienttranslate('When I gain 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'hasGainedBoost'],
+      // Alizé
+      250 => ['description' => clienttranslate('When a card goes from your hand or deck to Reserve —'), 'trigger' => 'Discard', 'condition' => ['hasSameOwner', 'isDiscarded:hand:reserve']],
+      253 => ['description' => clienttranslate('When another Character joins my Expedition —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf']],
+      419 => ['description' => clienttranslate('When another Character joins my Expedition —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf']],
+      263 => ['description' => clienttranslate('When another non-token Character joins one of your Expeditions that is behind —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardAdded:characterOnly', 'cardPlayedExpeditionIsBehind', 'excludeSelf']],
+      256 => ['description' => clienttranslate('When I gain <ASLEEP> —'), 'trigger' => 'Gain', 'condition' => 'hasGained:asleep'],
+      257 => ['description' => clienttranslate('When I gain <FLEETING> —'), 'trigger' => 'Gain', 'condition' => 'hasGained:fleeting'],
+      372 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <FLEETING> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasFleeting'],
+      258 => ['description' => clienttranslate('When my Expedition moves forward —'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasMoved'],
+      259 => ['description' => clienttranslate('When my Expedition moves forward due to {V} —'), 'trigger' => 'AfterDusk', 'condition' => 'movesStormsWithForest'],
+      260 => ['description' => clienttranslate('When you exhaust a card in Reserve —'), 'trigger' => 'Exhaust', 'condition' => 'isMe'],
+      261 => ['description' => clienttranslate('When you play another Character in {V} —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isMe', 'isCardAdded:character:::true', 'isPlayedCardInBiome:forest', 'excludeSelf']],
+
     ];
   }
 
@@ -174,6 +187,141 @@ abstract class FlowConvertor
           FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]),
           'OUTPUT'
         )
+      ],
+      // Alizé
+      354 => ['description' => clienttranslate('If each of your Expeditions is behind or tied:'), 'condition' => 'allExpeditionsAreBehindOrTied'],
+      426 => ['description' => clienttranslate('If I\'m in {M}:'), 'condition' => 'isInBiome:mountain'],
+      352 => ['description' => clienttranslate('If I\'m in {V}:'), 'condition' => 'isInBiome:forest'],
+      405 => ['description' => clienttranslate('If I\'m in {V}:'), 'condition' => 'isInBiome:forest'],
+      353 => ['description' => clienttranslate('If I\'m the only Character in my Expedition:'), 'condition' => 'XCharacterInExpedition:1:E'],
+      378 => ['description' => clienttranslate('If I\'m the only Character in my Expedition:'), 'condition' => 'XCharacterInExpedition:1:E'],
+      423 => ['description' => clienttranslate('If I\'m the only Character in my Expedition:'), 'condition' => 'XCharacterInExpedition:1:E'],
+      355 => ['description' => clienttranslate('If my Expedition is behind:'), 'condition' => 'myExpeditionIsBehind'],
+      383 => ['description' => clienttranslate('If my Expedition is behind:'), 'condition' => 'myExpeditionIsBehind'],
+      357 => ['description' => clienttranslate('If there are no Characters in the Expedition I\'m played in:'), 'condition' => 'XCharacterInExpedition:0:E'],
+      356 => ['description' => clienttranslate('If there are two or more exhausted cards in Reserve:'), 'condition' => 'hasXExhaustedReserve:2'],
+      384 => ['description' => clienttranslate('If you control a <FLEETING> Character:'), 'condition' => 'hasControl::1:true:fleeting'],
+      403 => ['description' => clienttranslate('If you control two or more Permanents:'), 'condition' => 'hasControl:permanent:2',],
+      358 => ['description' => clienttranslate('If you have ten or more Mana Orbs:'), 'condition' => 'hasXMana:10'],
+      359 => ['description' => clienttranslate('If you have two or more cards in Reserve:'), 'condition' => 'checkReserveCards:2'],
+      361 => ['description' => clienttranslate('If your Companion Expedition is behind:'), 'condition' => 'companionExpeditionIsBehind'],
+      362 => ['description' => clienttranslate('If your hand is empty:'), 'condition' => 'isHandEmpty'],
+      364 => ['description' => clienttranslate('If your Hero Expedition is behind:'), 'condition' => 'heroExpeditionIsBehind'],
+      367 => ['description' => clienttranslate('If your Reserve is empty:'), 'condition' => 'isReserveEmpty'],
+      430 => [
+        'description' => clienttranslate('Roll a die. On a 4+:'),
+        'effect' => FT::ACTION(ROLL_DIE, [
+          'effect' => ['4+' => 'OUTPUT'],
+        ])
+      ],
+      368 => [
+        'description' => clienttranslate('Sacrifice a Plant or Permanent. If you can\'t:'),
+        'effect' => FT::XOR(
+          FT::XOR(FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER],
+            'subType' => PLANT,
+            'excludeSelf' => true,
+            'n' => 1,
+            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          ]), FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [PERMANENT],
+            'excludeSelf' => true,
+            'n' => 1,
+            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          ]),),
+          FT::ACTION(CHECK_CONDITION, ['condition' => 'noPlantnoPermanent', 'effect' => OUTPUT])
+        )
+      ],
+      369 => [
+        'description' => clienttranslate('Sacrifice another Robot or Permanent. If you can\'t:'),
+        'effect' => FT::XOR(
+          FT::XOR(FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER],
+            'subType' => ROBOT,
+            'excludeSelf' => true,
+            'n' => 1,
+            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          ]), FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [PERMANENT],
+            'excludeSelf' => true,
+            'n' => 1,
+            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          ]),),
+          FT::ACTION(CHECK_CONDITION, ['condition' => 'noRobotnoPermanent', 'effect' => OUTPUT])
+        )
+      ],
+      371 => ['description' => clienttranslate('Unless I\'m in {O}:'), 'condition' => 'isNotInBiome:ocean'],
+      425 => ['description' => clienttranslate('Unless you control two or more Landmarks:'), 'condition' => 'hasControl:landmark:1:false:all:LTE'],
+      373 => [
+        'description' => clienttranslate('You may discard a Character from your Reserve. If you do:'),
+        'effect' => FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [CHARACTER],
+            'targetPlayer' => ME,
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT')
+          ],
+          ['optional' => true]
+        )
+      ],
+      374 => [
+        'description' => clienttranslate('You may discard a Spell from your Reserve. If you do:'),
+        'effect' => FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [SPELL],
+            'targetPlayer' => ME,
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT')
+          ],
+          ['optional' => true]
+        )
+      ],
+      375 => [
+        'description' => clienttranslate('You may have me gain <FLEETING>. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), OUTPUT)
+      ],
+      385 => [
+        'description' => clienttranslate('You may have me gain <FLEETING>. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), OUTPUT)
+      ],
+      376 => [
+        'description' => clienttranslate('You may ready an exhausted card in Reserve. If you do:'),
+        'effect' =>
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'isTapped' => true,
+          'upTo' => true,
+          'effect' => FT::SEQ(FT::ACTION(READY, []), OUTPUT)
+        ]),
+      ],
+      370 => [
+        'description' => clienttranslate('You may sacrifice another Robot or Permanent. If you do:'),
+        'effect' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER],
+            'subType' => ROBOT,
+            'excludeSelf' => true,
+            'n' => 1,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), OUTPUT)
+          ]),
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [PERMANENT],
+            'excludeSelf' => true,
+            'n' => 1,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), OUTPUT)
+          ]),
+        ),
       ],
 
     ];
@@ -1065,6 +1213,123 @@ abstract class FlowConvertor
           ]
         ),
       ],
+      // Alizé
+      301 => ['description' => clienttranslate('<DEFENDER> Characters don\'t prevent my Expedition from moving forward.'), 'output' => ''],
+      386 => ['description' => clienttranslate('<DEFENDER> Characters don\'t prevent my Expedition from moving forward.'), 'output' => ''],
+      264 => ['description' => clienttranslate('<EXHAUSTED_RESUPPLY>.'), 'output' => ''],
+      404 => ['description' => clienttranslate('<RESUPPLY>, otherwise <EXHAUSTED_RESUPPLY>.'), 'output' => ''],
+      402 => ['description' => clienttranslate('<SABOTAGE>, otherwise you may exhaust target card in Reserve.'), 'output' => ''],
+      266 => ['description' => clienttranslate('Any number of target Characters in {V} gain 2 boosts.'), 'output' => ''],
+      268 => ['description' => clienttranslate('Cards other than me cost {1} more to play from Reserve.'), 'output' => ''],
+      379 => ['description' => clienttranslate('Create a <BRASSBUG> Robot token in my Expedition.'), 'output' => ''],
+      381 => ['description' => clienttranslate('Create a <BRASSBUG> Robot token in your Companion Expedition.'), 'output' => ''],
+      382 => ['description' => clienttranslate('Create a <BRASSBUG> Robot token in your Hero Expedition.'), 'output' => ''],
+      380 => ['description' => clienttranslate('Create a <BRASSBUG> Robot token in your other Expedition (the one I\'m not in).'), 'output' => ''],
+      270 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in each of your Expeditions.'), 'output' => ''],
+      413 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in each of your Expeditions.'), 'output' => ''],
+      271 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in my Expedition.'), 'output' => ''],
+      414 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in my Expedition.'), 'output' => ''],
+      272 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in target Expedition.'), 'output' => ''],
+      415 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in target Expedition.'), 'output' => ''],
+      273 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Companion Expedition.'), 'output' => ''],
+      416 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Companion Expedition.'), 'output' => ''],
+      274 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Hero Expedition.'), 'output' => ''],
+      417 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Hero Expedition.'), 'output' => ''],
+      275 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your other Expedition (the one I\'m not in).'), 'output' => ''],
+      418 => ['description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your other Expedition (the one I\'m not in).'), 'output' => ''],
+      406 => ['description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions, otherwise create one in my Expedition.'), 'output' => ''],
+      276 => ['description' => clienttranslate('Create one <ORDIS_RECRUIT> Soldier token in my Expedition per Bureaucrat you control.'), 'output' => ''],
+      401 => ['description' => clienttranslate('Create two <BRASSBUG> Robot tokens in target Expedition, otherwise create only one.'), 'output' => ''],
+      277 => ['description' => clienttranslate('Create two <MANA_MOTH> Illusion tokens in target Expedition.'), 'output' => ''],
+      399 => ['description' => clienttranslate('Draw a card, otherwise <RESUPPLY>.'), 'output' => ''],
+      279 => ['description' => clienttranslate('Each Character in target Expedition gains 1 boost.'), 'output' => ''],
+      280 => ['description' => clienttranslate('Each Character you control other than me gains 1 boost.'), 'output' => ''],
+      281 => ['description' => clienttranslate('Each player chooses a Character they control. It gains <ASLEEP>.'), 'output' => ''],
+      377 => ['description' => clienttranslate('Each player exhausts a card in their Reserve.'), 'output' => ''],
+      283 => ['description' => clienttranslate('Each player may put a card from their Hand in Reserve to draw a card.'), 'output' => ''],
+      285 => ['description' => clienttranslate('Exchange target Card in your Reserve with a card from your Hand.'), 'output' => ''],
+      286 => ['description' => clienttranslate('Exchange target Character in your Reserve with a card from your Hand.'), 'output' => ''],
+      287 => ['description' => clienttranslate('Exchange target Spell in your Reserve with a card from your Hand.'), 'output' => ''],
+      288 => ['description' => clienttranslate('Exhaust me.'), 'output' => ''],
+      290 => ['description' => clienttranslate('Exhaust up to two cards in Reserve.'), 'output' => ''],
+      291 => ['description' => clienttranslate('Exhausted Characters in Reserve remain exhausted during Morning.'), 'output' => ''],
+      431 => ['description' => clienttranslate('I am <DEFENDER>.'), 'output' => ''],
+      265 => ['description' => clienttranslate('I am <TOUGH_X>, where X is the number of exhausted cards in Reserve.'), 'output' => ''],
+      427 => ['description' => clienttranslate('I can gain <FLEETING> even if I was already <FLEETING>.'), 'output' => ''],
+      292 => ['description' => clienttranslate('I gain 1 boost and <FLEETING>.'), 'output' => ''],
+      294 => ['description' => clienttranslate('I gain 1 boost per <FLEETING> Character you control.'), 'output' => ''],
+      390 => ['description' => clienttranslate('I gain 1 boost per <FLEETING> Character you control.'), 'output' => ''],
+      295 => ['description' => clienttranslate('I gain 1 boost per Expedition in {V}.'), 'output' => ''],
+      296 => ['description' => clienttranslate('I gain 2 boosts and <FLEETING>.'), 'output' => ''],
+      400 => ['description' => clienttranslate('I gain 2 boosts, otherwise I gain 1 boost.'), 'output' => ''],
+      297 => ['description' => clienttranslate('If I would gain <ASLEEP>, I gain <ANCHORED> instead.'), 'output' => ''],
+      298 => ['description' => clienttranslate('If I would gain <FLEETING>, I gain 1 boost instead.'), 'output' => ''],
+      421 => ['description' => clienttranslate('If I would gain <FLEETING>, I gain 1 boost instead.'), 'output' => ''],
+      422 => ['description' => clienttranslate('If the Expedition facing me is in {M}, it can only move forward due to {M}.'), 'output' => ''],
+      299 => ['description' => clienttranslate('If the Expedition facing me is in {O}, it can only move forward due to {O}.'), 'output' => ''],
+      300 => ['description' => clienttranslate('If the Expedition facing me is in {V}, it can only move forward due to {V}.'), 'output' => ''],
+      302 => ['description' => clienttranslate('My region and the region of the Expedition facing me are {V} and lose their other types.'), 'output' => ''],
+      303 => ['description' => clienttranslate('My region is {V} in addition to its other types.'), 'output' => ''],
+      395 => ['description' => clienttranslate('My region is {V} in addition to its other types.'), 'output' => ''],
+      306 => ['description' => clienttranslate('Ready all cards in your Reserve.'), 'output' => ''],
+      308 => ['description' => clienttranslate('Roll a die, then target a Character. On a 4+, it gains <ANCHORED>. On a 1-3, it gains <ASLEEP>.'), 'output' => ''],
+      420 => ['description' => clienttranslate('Sacrifice a Character in my Expedition and I gain 1 boost.'), 'output' => ''],
+      311 => ['description' => clienttranslate('Sacrifice me.'), 'output' => ''],
+      305 => ['description' => clienttranslate('Send me to Reserve.'), 'output' => ''],
+      424 => ['description' => clienttranslate('Send me to Reserve.'), 'output' => ''],
+      282 => ['description' => clienttranslate('Starting with you, each player may immediately play a card with Hand Cost {3} or less for free.'), 'output' => ''],
+      318 => ['description' => clienttranslate('Target a Character, then roll a die. On a 4+, it gains <ANCHORED>. On a 1-3, it gains <ASLEEP>.'), 'output' => ''],
+      319 => ['description' => clienttranslate('Target Character gains 1 boost and <FLEETING>.'), 'output' => ''],
+      320 => ['description' => clienttranslate('Target Character gains 2 boosts and <FLEETING>.'), 'output' => ''],
+      323 => ['description' => clienttranslate('Target Character other than me gains 1 boost.'), 'output' => ''],
+      429 => ['description' => clienttranslate('Target Character with Hand Cost {3} or less gains <ANCHORED>.'), 'output' => ''],
+      428 => ['description' => clienttranslate('Target Character with Hand Cost {3} or less gains <ANCHORED>.'), 'output' => ''],
+      324 => ['description' => clienttranslate('Target Character you control with Hand Cost {4} or less gains <ASLEEP>.'), 'output' => ''],
+      325 => ['description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF> twice.'), 'output' => ''],
+      396 => ['description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF> twice.'), 'output' => ''],
+      326 => ['description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF>.'), 'output' => ''],
+      397 => ['description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF>.'), 'output' => ''],
+      327 => ['description' => clienttranslate('Target player sacrifices a Character.'), 'output' => ''],
+      407 => ['description' => clienttranslate('The next Bureaucrat you play this turn costs {1} less.'), 'output' => ''],
+      408 => ['description' => clienttranslate('The next card you play this turn costs {1} less.'), 'output' => ''],
+      387 => ['description' => clienttranslate('The next Character you play this Afternoon costs {1} less.'), 'output' => ''],
+      412 => ['description' => clienttranslate('The next Character you play this turn costs {1} less.'), 'output' => ''],
+      328 => ['description' => clienttranslate('The next Permanent you play this Afternoon costs {3} less.'), 'output' => ''],
+      329 => ['description' => clienttranslate('The next Permanent you play this Afternoon costs {4} less.'), 'output' => ''],
+      409 => ['description' => clienttranslate('The next Permanent you play this turn costs {1} less.'), 'output' => ''],
+      410 => ['description' => clienttranslate('The next Plant you play this turn costs {1} less.'), 'output' => ''],
+      411 => ['description' => clienttranslate('The next Spell you play this turn costs {1} less.'), 'output' => ''],
+      330 => ['description' => clienttranslate('You may give target <FLEETING> Character 1 boost.'), 'output' => ''],
+      331 => ['description' => clienttranslate('You may give target <FLEETING> Character 2 boosts.'), 'output' => ''],
+      321 => ['description' => clienttranslate('You may give 2 boosts to target Character in {V}.'), 'output' => ''],
+      388 => ['description' => clienttranslate('You may give 2 boosts to target Character in {V}.'), 'output' => ''],
+      332 => ['description' => clienttranslate('You may have target Character or Expedition Permanent switch Expedition.'), 'output' => ''],
+      393 => ['description' => clienttranslate('You may have target Character or Expedition Permanent switch Expedition.'), 'output' => ''],
+      333 => ['description' => clienttranslate('You may have target Character switch Expedition.'), 'output' => ''],
+      394 => ['description' => clienttranslate('You may have target Character switch Expedition.'), 'output' => ''],
+      335 => ['description' => clienttranslate('When a <BOOSTED> Character would leave my Expedition during the Afternoon, it loses its boosts instead.'), 'output' => ''],
+      336 => ['description' => clienttranslate('When an <ANCHORED> Character would leave my Expedition during the Afternoon, it loses <ANCHORED> instead.'), 'output' => ''],
+      337 => ['description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'), 'output' => ''],
+      289 => ['description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'), 'output' => ''],
+      338 => ['description' => clienttranslate('You may exhaust target card in Reserve.'), 'output' => ''],
+      340 => ['description' => clienttranslate('You may have me gain <ASLEEP>.'), 'output' => ''],
+      341 => ['description' => clienttranslate('You may have target Character in the Expedition facing me gain <ASLEEP>.'), 'output' => ''],
+      342 => ['description' => clienttranslate('You may immediately play a Character for {3} less.'), 'output' => ''],
+      343 => ['description' => clienttranslate('You may immediately play a Character for {3} less. It gains <ANCHORED>.'), 'output' => ''],
+      344 => ['description' => clienttranslate('You may immediately play a Character for {3} less. It gains 1 boost.'), 'output' => ''],
+      345 => ['description' => clienttranslate('You may immediately play a Character for {3} less. It gains 2 boosts.'), 'output' => ''],
+      346 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'output' => ''],
+      391 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'output' => ''],
+      347 => ['description' => clienttranslate('You may play exhausted Characters from your Reserve.'), 'output' => ''],
+      348 => ['description' => clienttranslate('You may ready an exhausted card in Reserve.'), 'output' => ''],
+      349 => ['description' => clienttranslate('You may return target Character or Permanent to its owner\'s hand.'), 'output' => ''],
+      350 => ['description' => clienttranslate('You may send target Character in {V} to Reserve.'), 'output' => ''],
+      314 => ['description' => clienttranslate('You may send target Character to Reserve, then exhaust it.'), 'output' => ''],
+      351 => ['description' => clienttranslate('You may send target Character to Reserve. Unless it was in {V}, its controller draws a card.'), 'output' => ''],
+      312 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 4 or less.'), 'output' => ''],
+      313 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 5 or less.'), 'output' => ''],
+      315 => ['description' => clienttranslate('You may send to Reserve target Character with no statistic over 3.'), 'output' => ''],
+
     ];
   }
 
