@@ -592,8 +592,8 @@ class Card extends \ALT\Helpers\DB_Model
 
     if ($increaseBiomesToHighest == true) {
       $max = 0;
-      foreach ($biomes as $type => $value) {
-        $max = max($max, $value);
+      foreach ($biomes as $type => $value2) {
+        $max = max($max, $value2);
       }
       $biomes = [OCEAN => $max, MOUNTAIN => $max, FOREST => $max];
     }
