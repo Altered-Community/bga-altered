@@ -36,6 +36,7 @@ class BR_Rare_ArcolanoMilk extends \ALT\Models\Card
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST, 2))
                 ],
             ],
+            'blockAutomaticAction' => [LOOSE => [FLEETING => 1], GAIN => [FLEETING => 1]],
         ];
     }
 }

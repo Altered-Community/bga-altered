@@ -35,6 +35,8 @@ class BR_Common_ArcolanoMilk extends \ALT\Models\Card
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
             ],
+            'blockAutomaticAction' => [LOOSE => [FLEETING => 1], GAIN => [FLEETING => 1]],
+
         ];
     }
 }

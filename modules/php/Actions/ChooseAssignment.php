@@ -368,7 +368,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'putAndNotPlayed' => !$effectHand,
       'additionalEffects' => Globals::getAdditionalEffect()
     ]);
-
+    // throw new \feException(print_r(Globals::getEngine()));
 
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
     Globals::setAdditionalEffect([]);
