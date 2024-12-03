@@ -30,8 +30,8 @@ class LY_Rare_Heimdall extends \ALT\Models\Card
             'costReserve' => 4,
             'changedStats' => ['forest', 'mountain', 'ocean'],
             'effectPlayed' => FT::XOR(
-                FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
-                FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'subtype' => EXPEDITION, 'effect' => FT::ACTION(MOVE_CARD, [])]),
+                FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'effect' => FT::ACTION(MOVE_CARD, [])]),
+                FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'upTo' => true, 'subtype' => EXPEDITION, 'effect' => FT::ACTION(MOVE_CARD, [])]),
             ),
 
         ];
