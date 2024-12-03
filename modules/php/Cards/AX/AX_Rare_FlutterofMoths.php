@@ -26,7 +26,7 @@ class AX_Rare_FlutterofMoths extends \ALT\Models\Card
             'costHand' => 7,
             'costReserve' => 7,
             'changedStats' => ['costHand', 'costReserve'],
-            'dynamicCostReduction' => "1:hasXExhaustedReserve:2",
+            'dynamicCostReduction' => "exhaustedReserve",
             'effectPlayed' => FT::SEQ(
                 FT::ACTION(INVOKE_TOKEN, [
                     'pId' => 'source',

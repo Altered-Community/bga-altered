@@ -549,6 +549,14 @@ class Card extends \ALT\Helpers\DB_Model
     } else {
       if ($dynamicReduction == '') {
         $dynamicReduction = 0;
+      } elseif ($dynamicReduction == 'exhaustedReserve') {
+        $cards = 0;
+        foreach (Players::getAll() as $pId => $sPlayer) {
+          $cards += $sPlayer->getReserveCards()->filter(function ($c) {
+            return $c->isTapped() == true;
+          })->count();
+        }
+        $dynamicReduction = $cards;
       } else {
         $dynamicReduction = (int) $dynamicReduction;
       }
