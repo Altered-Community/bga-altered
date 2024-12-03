@@ -595,7 +595,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // add
     foreach ($updateExpeditions['regionsAdd'] ?? [] as $region) {
       if (!$tiebreak && !in_array($region, $biomes)) {
-        $biomes[] = $region;
+        $biomes[$region] = $region;
       } elseif ($tiebreak && !isset($biomes[$region])) {
         $biomes[$region] = 0;
       }
