@@ -30,6 +30,7 @@ class YZ_Rare_WinterNova extends \ALT\Models\Card
                 [
                     'type' => NODE_OR,
                     'args' => ['n' => 3, 'canReuse' => 3],
+                    'pId' => 'source',
                     'childs' => [
                         FT::ACTION(TARGET, [
                             'targetType' => [CHARACTER, SPELL, PERMANENT],

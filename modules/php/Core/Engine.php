@@ -8,6 +8,7 @@ use ALT\Managers\Scores;
 use ALT\Helpers\Log;
 use ALT\Helpers\QueryBuilder;
 use ALT\Helpers\UserException;
+use ALT\Managers\Cards;
 
 /*
  * Engine: a class that allows to handle complex flow
@@ -153,6 +154,8 @@ class Engine
       $pId = Players::getNextId(Players::getActive());
     } elseif ($pId == 'active') {
       $pId = $oldPId;
+    } elseif ($pId == 'source') {
+      $pId = Cards::get($node->getSourceId())->getPId();
     }
     // throw new \feException(print_r($node->toArray()));
     // throw new \feException($oldPId . " " . $pId);
