@@ -1643,6 +1643,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let flavor = this.getFlavorTextIfFitting(effect, p);
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       let supportIcon = this.getSupportIcon(p);
+      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
 
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
@@ -1671,7 +1672,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${flavor}
             </div>
           </div>
-
+          <div class='card-support'>
+            ${this.formatString(support, true)}
+          </div>
           ${supportIcon}
           <div class='card-footer'><div class='setIcon' data-asset='${
             p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
