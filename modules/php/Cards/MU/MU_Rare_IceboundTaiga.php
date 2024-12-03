@@ -28,7 +28,7 @@ class MU_Rare_IceboundTaiga extends \ALT\Models\Card
             'changedStats' => ['costReserve'],
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isMe', 'isInBiome:forest'],
+                    'conditions' => ['isMe', 'isCardAdded:character:::true', 'isPlayedCardInBiome:forest'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Trial counter')],

@@ -792,6 +792,11 @@ abstract class Conditions
     return Cards::get($event['cardId'])->hasToken(ASLEEP);
   }
 
+  public static function isPlayedCardInBiome($card, $event, $biome)
+  {
+    return $card->getPlayer()->isInBiome(Cards::get($event['cardId'])->getLocation(), $biome);
+  }
+
   /**********************************
    **********************************
    ************* HELPERS ************
