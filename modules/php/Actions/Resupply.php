@@ -10,6 +10,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 use ALT\Core\Engine;
 use ALT\Helpers\FT;
+use ALT\Models\Player;
 
 class Resupply extends \ALT\Models\Action
 {
@@ -65,7 +66,13 @@ class Resupply extends \ALT\Models\Action
 
   public function getPlayer()
   {
-    $pId = $this->ctx->getPId() ?? ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
+    $pId = $this->ctx->getPId();
+    if (is_null($pId)) {
+      $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
+    } elseif ($pId == 'active') {
+      $pId = Players::getActiveId();
+    }
+
     return Players::get($pId);
   }
 

@@ -28,7 +28,7 @@ class OD_Rare_TheSnowMaiden extends \ALT\Models\Card
             'ocean' => 5,
             'costHand' => 4,
             'costReserve' => 4,
-            'effectHand' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => true, 'effect' => FT::SEQ_OPTIONAL(FT::ACTION(RESUPPLY, ['exhausted' => true]))])
+            'effectHand' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => true, 'effect' => FT::SEQ_OPTIONAL(FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active']))])
 
         ];
     }

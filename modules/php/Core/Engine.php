@@ -151,6 +151,8 @@ class Engine
       return;
     } elseif ($pId == 'nextPlayer') {
       $pId = Players::getNextId(Players::getActive());
+    } elseif ($pId == 'active') {
+      $pId = $oldPId;
     }
     // throw new \feException(print_r($node->toArray()));
     // throw new \feException($oldPId . " " . $pId);

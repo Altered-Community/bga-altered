@@ -29,7 +29,10 @@ class MU_Rare_TheSnowMaiden extends \ALT\Models\Card
             'costHand' => 4,
             'costReserve' => 5,
             'changedStats' => ['forest', 'mountain', 'ocean', 'costReserve'],
-            'effectHand' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => true, 'effect' => FT::SEQ_OPTIONAL(FT::ACTION(RESUPPLY, ['exhausted' => true]), FT::ACTION(RESUPPLY, ['exhausted' => true]))])
+            'effectHand' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => true, 'effect' => FT::SEQ_OPTIONAL(
+                FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active']),
+                FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active'])
+            )])
         ];
     }
 }
