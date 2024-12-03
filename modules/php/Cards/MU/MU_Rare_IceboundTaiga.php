@@ -38,7 +38,7 @@ class MU_Rare_IceboundTaiga extends \ALT\Models\Card
                     'conditions' => ['specialEffect:gainCounter', 'hasCounterOnCard:3'],
                     'output' => FT::SEQ(
                         FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
-                        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
+                        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterAnchored']),
                         FT::ACTION(INVOKE_TOKEN, [
                             'pId' => 'source',
                             'tokenType' => 'NE_Common_DragonShade',
