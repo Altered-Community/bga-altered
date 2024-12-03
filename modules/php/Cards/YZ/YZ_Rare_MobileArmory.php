@@ -25,7 +25,7 @@ class YZ_Rare_MobileArmory extends \ALT\Models\Card
             'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in my Expedition.  #<DEFENDER_CHA_P> Characters don\'t prevent my Expedition from moving forward.#'),
             'costHand' => 1,
             'costReserve' => 1,
-            FT::ACTION(INVOKE_TOKEN, [
+            'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
                 'pId' => 'source',
                 'tokenType' => 'OD_Common_OrdisRecruit',
                 'targetLocation' => ['source'],
