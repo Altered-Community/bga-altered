@@ -2031,6 +2031,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Tough X'),
           reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
         },
+        TOUGH_FS_X: {
+          text: _('Tough X'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
+        },
         COOLDOWN: {
           text: _('Cooldown'),
           reminder: _(
