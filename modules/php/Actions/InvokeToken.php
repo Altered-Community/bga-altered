@@ -167,6 +167,7 @@ class InvokeToken extends \ALT\Models\Action
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),
         'from' => 'invoke',
+        'to' => $location
       ]);
     }
 
