@@ -28,7 +28,7 @@ class BR_Common_BravosTrailblazer extends \ALT\Models\Card
             'ocean' => 2,
             'costHand' => 2,
             'costReserve' => 3,
-            'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'hasControl::1:true:fleeting', 'effect' => FT::GAIN(ME, BOOST)])
+            'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'hasControl::1::fleeting', 'effect' => FT::GAIN(ME, BOOST)])
         ];
     }
 }
