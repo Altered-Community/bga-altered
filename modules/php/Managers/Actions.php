@@ -157,7 +157,7 @@ class Actions
     }
   }
 
-  public static function pass($actionId, $ctx)
+  public static function pass($actionId, $ctx, $proceed = true)
   {
     $player = Players::getActive();
     $action = self::get($actionId, $ctx);
@@ -171,7 +171,8 @@ class Actions
     } else {
       Engine::resolve(PASS);
     }
-
-    Engine::proceed();
+    if ($proceed) {
+      Engine::proceed();
+    }
   }
 }

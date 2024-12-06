@@ -360,15 +360,22 @@ class AbstractNode
     $choices = [];
     $childs = $this->getType() == NODE_SEQ && !empty($this->childs) ? [0 => $this->childs[0]] : $this->childs;
     $allOptional = true;
+    $hasOneAction = false;
 
     foreach ($childs as $id => $child) {
-      $isDoable = $child->isDoable($player);
+      if (!is_null($child->getPId())) {
+        $playerTest = Players::get($child->getPId());
+      } else {
+        $playerTest = $player;
+      }
+
+      $isDoable = $child->isDoable($playerTest);
       if ((!$child->isResolved() || ($this instanceof \ALT\Core\Engine\OrNode && isset($this->getArgs()['canReuse']))) && ($displayAllChoices || $isDoable)) {
         $choice = [
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
           'args' => $child->getArgs(),
-          'optionalAction' => $child->isOptional($player) && ($child->getPId() ?? $player->getId()) == $player->getId(), // added in case if 1 action of another player is optional
+          'optionalAction' => $child->isOptional($player) && ($child->getPId() ?? $playerTest->getId()) == $playerTest->getId(), // added in case if 1 action of another player is optional
           'automaticAction' => $child->isAutomatic($player),
           'independentAction' => $child->isIndependent($player),
           'irreversibleAction' => $child->isIrreversible($player),
@@ -382,10 +389,13 @@ class AbstractNode
         if (!$child->isOptional($player)) {
           $allOptional = false;
         }
+        if ($child->getPId() == $player->getId()) {
+          $hasOneAction = true;
+        }
       }
     }
 
-    if ($this->isOptional($player) || empty($choices) || $allOptional) {
+    if ($hasOneAction && ($this->isOptional($player) || empty($choices) || $allOptional)) {
       if (count($choices) != 1 || !$choice['optionalAction'] || $choice['automaticAction']) {
         $choices[PASS] = [
           'id' => PASS,

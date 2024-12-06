@@ -158,7 +158,7 @@ class Engine
       $pId = Cards::get($node->getSourceId())->getPId();
     }
     // throw new \feException(print_r($node->toArray()));
-    // throw new \feException($oldPId . " " . $pId);
+    // throw new \feException($oldPId . "- " . $pId);
 
     if (
       (Globals::isUndo() || (!Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_ENABLED)) &&
@@ -187,7 +187,7 @@ class Engine
     // If node with choice, switch to choice state
     $choices = $node->getChoices($player);
     $allChoices = $node->getChoices($player, true);
-    // throw new \feException(print_r($node->toArray()));
+    // throw new \feException(print_r($choices));
     if (!empty($allChoices) && $node->getType() != NODE_LEAF) {
       // Only one choice : auto choose
       $id = array_keys($choices)[0] ?? null;
@@ -195,11 +195,13 @@ class Engine
         count($choices) == 1 &&
         count($allChoices) == 1 &&
         array_keys($allChoices) == array_keys($choices) &&
-        ((!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) ||
-          !$choices[$id]['irreversibleAction'] ||
-          (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
+        ((!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) &&
+          (
+            (!$choices[$id]['irreversibleAction'] &&  !$choices[$id]['optionalAction']) ||
+            (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction'])
+          )
+        )
       ) {
-
         self::chooseNode($player, $id, true);
       } else {
         // Otherwise, go in the RESOLVE_CHOICE state
@@ -251,6 +253,31 @@ class Engine
     }
 
     if ($nodeId == PASS) {
+      $nextUnresolved = $node;
+      // throw new \feException(print_r($nextUnresolved->toArray()));
+      if ($nextUnresolved instanceof \ALT\Core\Engine\ParallelNode) {
+        // if we have a parallel node & multiple players id, we pass only the nodes of the player
+        $nodes = $nextUnresolved->getChilds();
+        $otherPIds = null;
+
+        foreach ($nodes as &$child) {
+          if ($child->isResolved()) {
+            continue;
+          }
+          if ($child->getPId() == $player->getId()) {
+            $child->resolve([PASS]);
+          } else {
+            $otherPIds = $child->getPId();
+          }
+        }
+        // if there are other player, we switch context to the other player
+        if (!is_null($otherPIds)) {
+          $nextUnresolved->setInfo('pId', $otherPIds);
+        }
+        self::save();
+        self::proceed();
+        return;
+      }
       self::resolve(PASS);
       self::proceed();
       return;
@@ -266,7 +293,12 @@ class Engine
         $child->unresolveAction();
       }
     }
-    $node->choose($nodeId, $auto);
+    // if the player is choosing for another player & it's an optional action, we shoudl update the current choice node
+    if ($node->getChilds()[$nodeId]->getPId() != $player->getId() && $node->getChilds()[$nodeId]->isOptional(Players::get($node->getPId()))) {
+      $node->setInfo('pId', $node->getChilds()[$nodeId]->getPId());
+    } else {
+      $node->choose($nodeId, $auto);
+    }
 
     self::save();
     self::proceed();
