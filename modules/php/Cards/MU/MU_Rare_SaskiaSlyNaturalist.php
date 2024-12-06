@@ -29,7 +29,7 @@ class MU_Rare_SaskiaSlyNaturalist extends \ALT\Models\Card
             'costHand' => 3,
             'costReserve' => 3,
             'changedStats' => ['forest', 'mountain', 'ocean'],
-            'effectPlayed' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'n' => INFTY, 'excludeSelf' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+            'effectPlayed' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'n' => INFTY, 'upTo' => true, 'excludeSelf' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
 
         ];
     }
