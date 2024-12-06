@@ -40,7 +40,7 @@ class MU_Rare_SnoozerShroom extends \ALT\Models\Card
                 FT::ACTION(PAY, ['pay' => 2]),
                 FT::ACTION(TARGET, [
                     'targetPlayer' => OPPONENT,
-                    'targetLocation' => 'source',
+                    'targetLocation' => ['source'],
                     'targetType' => [CHARACTER, TOKEN],
                     'effect' => FT::GAIN(EFFECT, ASLEEP),
                 ])
