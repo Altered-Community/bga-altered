@@ -389,13 +389,13 @@ class AbstractNode
         if (!$child->isOptional($player)) {
           $allOptional = false;
         }
-        if ($child->getPId() == $player->getId()) {
+        if (($child->getPId() ?? $player->getId()) == $player->getId()) {
           $hasOneAction = true;
         }
       }
     }
 
-    if ($hasOneAction && ($this->isOptional($player) || empty($choices) || $allOptional)) {
+    if (empty($choices) || ($hasOneAction && ($this->isOptional($player) || $allOptional))) {
       if (count($choices) != 1 || !$choice['optionalAction'] || $choice['automaticAction']) {
         $choices[PASS] = [
           'id' => PASS,
