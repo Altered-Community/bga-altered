@@ -195,7 +195,7 @@ class Engine
         count($choices) == 1 &&
         count($allChoices) == 1 &&
         array_keys($allChoices) == array_keys($choices) &&
-        ((!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) &&
+        ((!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) ||
           (
             (!$choices[$id]['irreversibleAction'] &&  !$choices[$id]['optionalAction']) ||
             (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction'])
@@ -294,7 +294,7 @@ class Engine
       }
     }
     // if the player is choosing for another player & it's an optional action, we shoudl update the current choice node
-    if ($node->getChilds()[$nodeId]->getPId() != $player->getId() && $node->getChilds()[$nodeId]->isOptional(Players::get($node->getPId()))) {
+    if (($node->getChilds()[$nodeId]->getPId() ?? $player->getId()) != $player->getId() && $node->getChilds()[$nodeId]->isOptional(Players::get($node->getPId()))) {
       $node->setInfo('pId', $node->getChilds()[$nodeId]->getPId());
     } else {
       $node->choose($nodeId, $auto);

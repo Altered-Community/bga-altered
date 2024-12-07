@@ -29,30 +29,29 @@ class LY_Rare_SnowballCommando extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 2,
             'changedStats' => ['forest'],
-            'effectHand' => FT::SEQ_OPTIONAL(
-                FT::ACTION(TARGET, [
-                    'targetType' => [CHARACTER, SPELL, PERMANENT],
-                    'targetLocation' => [RESERVE],
-                    'targetPlayer' => OPPONENT,
-                    'effect' => FT::SEQ(
-                        FT::ACTION(EXHAUST, []),
-                        FT::ACTION(ROLL_DIE, [
-                            'effect' => [
-                                '1-3' =>  FT::ACTION(
-                                    TARGET,
-                                    [
-                                        'targetType' => [CHARACTER, SPELL, PERMANENT],
-                                        'targetLocation' => [RESERVE],
-                                        'targetPlayer' => OPPONENT,
-                                        'effect' => FT::ACTION(EXHAUST, [])
-                                    ],
-                                    ['pId' => 'nextPlayer'],
-                                )
-                            ],
-                        ]),
-                    )
-                ])
-            ),
+            'effectHand' => FT::ACTION(TARGET, [
+                'targetType' => [CHARACTER, SPELL, PERMANENT],
+                'targetLocation' => [RESERVE],
+                'targetPlayer' => OPPONENT,
+                'upTo' => true,
+                'effect' => FT::SEQ(
+                    FT::ACTION(EXHAUST, []),
+                    FT::ACTION(ROLL_DIE, [
+                        'effect' => [
+                            '1-3' =>  FT::ACTION(
+                                TARGET,
+                                [
+                                    'targetType' => [CHARACTER, SPELL, PERMANENT],
+                                    'targetLocation' => [RESERVE],
+                                    'targetPlayer' => OPPONENT,
+                                    'effect' => FT::ACTION(EXHAUST, [])
+                                ],
+                                ['pId' => 'nextPlayer'],
+                            )
+                        ],
+                    ]),
+                )
+            ])
         ];
     }
 }

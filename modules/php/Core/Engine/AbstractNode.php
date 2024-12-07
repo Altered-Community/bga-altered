@@ -364,7 +364,14 @@ class AbstractNode
 
     foreach ($childs as $id => $child) {
       if (!is_null($child->getPId())) {
-        $playerTest = Players::get($child->getPId());
+        $pIdTest = $child->getPId();
+        if ($pIdTest == 'nextPlayer') {
+          $playerTest = Players::getNext($player);
+        } else {
+          $playerTest = Players::get($child->getPId());
+        }
+      } elseif (is_null($player)) {
+        $playerTest = Players::getActive();
       } else {
         $playerTest = $player;
       }

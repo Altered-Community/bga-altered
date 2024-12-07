@@ -60,6 +60,12 @@ class Actions
     return $res;
   }
 
+  public static function isOptional($actionId, $ctx, $player)
+  {
+    $res = self::get($actionId, $ctx)->isOptional($player);
+    return $res;
+  }
+
   public static function getErrorMessage($actionId)
   {
     $actionId = ucfirst(mb_strtolower($actionId));
@@ -89,7 +95,7 @@ class Actions
   public static function takeAction($actionId, $actionName, $args, &$ctx, $automatic = false)
   {
     $player = Players::getActive();
-    if (!self::isDoable($actionId, $ctx, $player)) {
+    if (!self::isDoable($actionId, $ctx, $player) && !self::isOptional($actionId, $ctx, $player)) {
       throw new \BgaUserException(self::getErrorMessage($actionId));
     }
 
@@ -119,18 +125,19 @@ class Actions
   {
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
-      if (!$ctx->isOptional($player)) {
-        if (self::isDoable($actionId, $ctx, $player, true)) {
-          Game::get()->gamestate->jumpToState(ST_IMPOSSIBLE_MANDATORY_ACTION);
-          return;
-        } else {
-          throw new \BgaUserException(self::getErrorMessage($actionId));
-        }
-      } else {
-        // Auto pass if optional and not doable
-        Game::get()->actPassOptionalAction(true);
-        return;
-      }
+      // removed for Altered, as an undoable node becomes optional
+      // if (!$ctx->isOptional($player)) {
+      //   if (self::isDoable($actionId, $ctx, $player, true)) {
+      //     Game::get()->gamestate->jumpToState(ST_IMPOSSIBLE_MANDATORY_ACTION);
+      //     return;
+      //   } else {
+      //     throw new \BgaUserException(self::getErrorMessage($actionId));
+      //   }
+      // } else {
+      // Auto pass if optional and not doable
+      Game::get()->actPassOptionalAction(true);
+      return;
+      // }
     }
 
     $action = self::get($actionId, $ctx);
