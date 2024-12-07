@@ -14,6 +14,7 @@ use ALT\Helpers\Collection;
 use ALT\Helpers\Conditions;
 use ALT\Helpers\Utils;
 use ALT\Managers\Players;
+use ALT\Helpers\FT;
 
 /*
  * Player: all utility functions concerning a player
@@ -98,7 +99,11 @@ class Player extends \ALT\Helpers\DB_Model
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
     if ($tapped == true) {
       foreach ($cards as $cId => $card) {
-        $card->setTapped(true);
+        if ($toLocation == MANA) {
+          $card->setTapped(true);
+        } else {
+          Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $source->getId()]));
+        }
       }
     }
     if ($toLocation == MANA) {

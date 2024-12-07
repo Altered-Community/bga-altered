@@ -367,9 +367,12 @@ class AbstractNode
         $pIdTest = $child->getPId();
         if ($pIdTest == 'nextPlayer') {
           $playerTest = Players::getNext($player);
+        } elseif ($pIdTest == 'active') {
+          $playerTest = Players::getActive();
         } else {
-          $playerTest = Players::get($child->getPId());
+          $playerTest = Players::get($pIdTest);
         }
+        // var_dump($pIdTest);
       } elseif (is_null($player)) {
         $playerTest = Players::getActive();
       } else {
