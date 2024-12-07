@@ -428,6 +428,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $allPlayerStorms = self::getBiomesInStorm();
     $authorizedLocations = [];
     foreach ($allPlayerStorms as $pId => $playerStorm) {
+      $authorizedLocations[$pId] = [];
       // no constraints
       if (is_null($expeditionAttributes)) {
         $authorizedLocations[$pId] = array_keys($playerStorm);

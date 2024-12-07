@@ -1,7 +1,9 @@
 <?php
 
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
+
 class OD_Rare_SilentNight extends \ALT\Models\Card
 {
     public function __construct($row)
@@ -36,6 +38,7 @@ class OD_Rare_SilentNight extends \ALT\Models\Card
                         ])
                     ],
                 ]),
+            )
         ];
     }
 }

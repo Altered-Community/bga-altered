@@ -411,6 +411,7 @@ class AbstractNode
           'id' => PASS,
           'description' => clienttranslate('Pass'),
           'irreversibleAction' => false,
+          'optionalAction' => false,
           'args' => [],
         ];
       }
