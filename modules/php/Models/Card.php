@@ -380,6 +380,8 @@ class Card extends \ALT\Helpers\DB_Model
       $type = 'LeaveExpedition';
     } elseif ($location == LANDMARK) {
       $type = 'LeaveLandmark';
+    } else {
+      $type = 'LeaveOther';
     }
 
     $event = [

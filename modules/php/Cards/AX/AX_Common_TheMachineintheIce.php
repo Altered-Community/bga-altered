@@ -38,6 +38,15 @@ class AX_Common_TheMachineintheIce extends \ALT\Models\Card
                         ]
                     ),
                 ],
+                'LeaveOther' => [
+                    'condition' => 'isToReserve',
+                    'output' => FT::ACTION(
+                        EXHAUST,
+                        [
+                            'cardId' => ME
+                        ]
+                    ),
+                ],
             ],
             'effectHand' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => RESERVE]),
         ];
