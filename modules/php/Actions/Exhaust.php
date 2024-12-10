@@ -45,6 +45,11 @@ class Exhaust extends \ALT\Models\Action
   {
     $player = $this->getPlayer();
     $card = $this->getCard();
+    // if the card was a token
+    if (is_null($card)) {
+      $this->resolveAction();
+      return;
+    }
 
     if ($card->isTapped()) {
       throw new \BgaVisibleSystemException('Card is already tapped. Should not happen');
