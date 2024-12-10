@@ -101,6 +101,7 @@ class Engine
   public static function proceed($confirmedPartial = false, $isUndo = false)
   {
     $node = self::$tree->getNextUnresolved();
+    // throw new \feException(print_r($node));
     $player = Players::getActive();
 
     // Are we done ?
@@ -273,12 +274,15 @@ class Engine
         // if there are other player, we switch context to the other player
         if (!is_null($otherPIds)) {
           $nextUnresolved->setInfo('pId', $otherPIds);
+        } else {
+          $node->resolve([PASS]);
         }
         self::save();
         self::proceed();
         return;
       }
       self::resolve(PASS);
+      self::save();
       self::proceed();
       return;
     }
