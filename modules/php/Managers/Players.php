@@ -574,9 +574,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
       // TODO: manage multiplayer
       if ($card->getLocation() == $expedition && $player->getId() != $card->getPId()) {
-        if ($card->isOpponentOceanOnly()) {
+        if ($card->isOpponentOceanOnly() && isset($biomes[OCEAN])) {
           $biomes = [OCEAN => OCEAN];
-        } elseif ($card->isOpponentForestOnly()) {
+        } elseif ($card->isOpponentForestOnly() && isset($biomes[FOREST])) {
           $biomes = [FOREST => FOREST];
         }
       }
