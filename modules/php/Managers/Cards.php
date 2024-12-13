@@ -601,7 +601,10 @@ class Cards extends \ALT\Helpers\CachedPieces
     $exhaustedCharactersMorning = Players::isExhaustedCharactersMorning();
     foreach (self::getAll() as $cId => $card) {
       if ($card->isTapped()) {
-        if (!$exhaustedCharactersMorning || (!in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getLocation() != RESERVE)) {
+        if (
+          !$exhaustedCharactersMorning ||
+          ($exhaustedCharactersMorning && (!in_array($card->getType(), [TOKEN, CHARACTER]) || $card->getLocation() != RESERVE))
+        ) {
           $card->setTapped(false);
           $untapped[] = $cId;
         }
