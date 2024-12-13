@@ -11,7 +11,7 @@ class MU_Rare_FrozenDelivery extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_AX_41_R2',
-            'asset'  => 'ALT_ALIZE_B_AX_41_R2',
+            'asset'  => 'ALT_ALIZE_B_AX_41_R',
 
             'faction'  => FACTION_MU,
             'rarity'  => RARITY_RARE,
