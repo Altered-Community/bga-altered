@@ -28,7 +28,7 @@ class AX_Rare_IceboundHollow extends \ALT\Models\Card
             'changedStats' => ['costReserve'],
             'effectPassive' => [
                 'Discard' => [
-                    'conditions' => ['hasSameOwner', 'isDiscarded:hand:reserve'],
+                    'conditions' => ['hasSameOwner', 'isDiscarded:hand:reserve', 'excludeSelf'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Trial counter')],
