@@ -461,15 +461,21 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($expeditions as $i => $exp) {
       $strength = [OCEAN => 0, MOUNTAIN => 0, FOREST => 0]; // OCEAN/MOUNTAIN/FOREST
       $increaseBiomesToHighest = $this->hasIncreaseBiomesHighest($exp);
+      $otherExpedition = $exp == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
       foreach ($cards as $c => $card) {
         if ($card->getLocation() != $exp && !$card->hasToken(GIGANTIC) && !$card->isGigantic()) {
           continue;
         }
+        $giganticIncrease = false;
+
         if ($card->hasToken(ASLEEP)) {
           continue;
         }
+        if ($card->isGigantic() && $this->hasIncreaseBiomesHighest($otherExpedition)) {
+          $giganticIncrease = true;
+        }
 
-        $biome = $card->getBiomes($includeModifiers, $increaseBiomesToHighest);
+        $biome = $card->getBiomes($includeModifiers, $increaseBiomesToHighest || $giganticIncrease);
         foreach ($biome as $bi => $value) {
           $strength[$bi] += $value;
         }
