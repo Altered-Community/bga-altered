@@ -162,6 +162,11 @@ class InvokeToken extends \ALT\Models\Action
         Globals::setNextCharacterBoost(0);
       }
 
+      if (Globals::getNextCharacterAnchored() == true) {
+        $this->insertAsChild(FT::GAIN($card, ANCHORED));
+        Globals::setNextCharacterAnchored(false);
+      }
+
       $this->checkAfterListeners($player, [
         'playCard' => true,
         'cardId' => $card->getId(),
