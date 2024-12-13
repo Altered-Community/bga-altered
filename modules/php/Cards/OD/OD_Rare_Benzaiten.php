@@ -29,7 +29,7 @@ class OD_Rare_Benzaiten extends \ALT\Models\Card
             'costHand' => 6,
             'costReserve' => 6,
             'effectPlayed' => FT::XOR(
-                FT::ACTION(CHECK_CONDITION, ['condition' => 'myExpeditionIsBehind', 'description' => clienttranslate('Expedition is behing'), 'effect' => FT::ACTION(DRAW, ['players' => ME])]),
+                FT::ACTION(CHECK_CONDITION, ['condition' => 'myExpeditionIsBehind', 'description' => clienttranslate('Expedition is behind'), 'effect' => FT::ACTION(DRAW, ['players' => ME])]),
                 FT::ACTION(CHECK_CONDITION, ['condition' => 'myExpeditionIsNotBehind', 'description' => clienttranslate('Expedition is not behind'), 'effect' => FT::ACTION(RESUPPLY, [])]),
             )
 
