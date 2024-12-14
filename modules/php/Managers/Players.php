@@ -550,7 +550,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       $updateExpeditions = $card->getUpdateExpeditions();
       if (!empty($updateExpeditions)) {
-
         if (($updateExpeditions['type'] ?? '') == 'all') {
           self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
         }
@@ -587,7 +586,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   {
     // remove all the one to remove
     foreach ($updateExpeditions['regionsRemove'] ?? [] as $region) {
-      // foreach (array_keys($biomes, $region) as $key) {
       if (isset($biomes[$region])) {
         unset($biomes[$region]);
       }

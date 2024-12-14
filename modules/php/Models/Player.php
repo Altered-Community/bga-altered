@@ -341,7 +341,8 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($biomes[$expedition] as $b) {
       $newBiomes[$b] = $b;
     }
-    Players::biomesModifier($newBiomes, $this, $expedition);
+    Players::biomesModifier($newBiomes, $this, $storm);
+
     return in_array($biome, $newBiomes);
   }
 

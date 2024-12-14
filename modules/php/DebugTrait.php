@@ -105,7 +105,7 @@ trait DebugTrait
     // $this->actDayMana([20]);
 
     // Cards::get(3)->boost(1, 'test', true);
-    // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
+    throw new \feException(print_r(Players::getCurrent()->isInBiome(STORM_LEFT, FOREST)));
     // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actSupport', [226]);
@@ -114,13 +114,13 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actDiscard', [[9]]);
     // $this->actTakeAtomicAction('actTarget', [[17]]);
     // $this->actTakeAtomicAction('actDiscardAdd', [577]);
-    $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      'game' => 'alter' . 'ed',
-      'mode' => 'cards',
-      'cardsid' => ["ALT_COREKS_B_LY_04_U_4874", "ALT_COREKS_B_MU_12_U_1367"]
-    ]);
+    // $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
+    //   'game' => 'alter' . 'ed',
+    //   'mode' => 'cards',
+    //   'cardsid' => ["ALT_COREKS_B_LY_04_U_4874", "ALT_COREKS_B_MU_12_U_1367"]
+    // ]);
     // $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin']);
-    var_dump($BGAToken);
+    // var_dump($BGAToken);
     // ['token'];
     // throw new \feException(Cards::get(11)->countToken(FLEETING));
     // Stats::incDays(2);
