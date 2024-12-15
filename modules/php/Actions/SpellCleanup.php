@@ -60,7 +60,7 @@ class SpellCleanup extends \ALT\Models\Action
       $deleted = $card->moveToReserve();
       if ($card->isCooldown()) {
         // If the card should be cooldown, we need to trigger the exhaust effect
-        Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $card->getId()], ['sourceId' => $card->getId()]));
+        Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $card->getId()], ['pId' => $player->getId(), 'sourceId' => $card->getId()]));
         // $card->setTapped(true);
       }
     }
