@@ -11,7 +11,7 @@ class OD_Rare_SilentNight extends \ALT\Models\Card
         parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_ALIZE_B_LY_41_R2',
-            'asset'  => 'ALT_ALIZE_B_LY_41_R2',
+            'asset'  => 'ALT_ALIZE_B_LY_41_R',
 
             'faction'  => FACTION_OD,
             'rarity'  => RARITY_RARE,
