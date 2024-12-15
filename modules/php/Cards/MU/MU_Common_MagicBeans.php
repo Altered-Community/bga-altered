@@ -25,7 +25,7 @@ class MU_Common_MagicBeans extends \ALT\Models\Card
             'effectDesc' => clienttranslate('{J} Target Character in my Expedition gains 1 boost.  My region is {V} in addition to its other types.'),
             'costHand' => 1,
             'costReserve' => 1,
-            'effectPlayed' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'effect' => FT::GAIN(EFFECT, BOOST)]),
+            'effectPlayed' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'targetPlayer' => ME, 'effect' => FT::GAIN(EFFECT, BOOST)]),
             'updateExpeditions' => ['type' => 'source', 'regionsAdd' => [FOREST]],
 
         ];
