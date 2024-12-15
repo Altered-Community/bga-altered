@@ -174,7 +174,7 @@ abstract class Conditions
   public static function myExpeditionIsBehind($card, $event)
   {
     $winners = Players::getWinningPlayerByStorms();
-    $win = $winners[$card->getLocation()];
+    $win = $winners[$card->getLocation()] ?? null;
     return !is_null($win) && $win != -1 && $win != $card->getPId();
   }
 

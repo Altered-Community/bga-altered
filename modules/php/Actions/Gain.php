@@ -126,7 +126,7 @@ class Gain extends \ALT\Models\Action
       $args['type'] = $resource;
     }
 
-    if (in_array($resource, [FLEETING, ANCHORED]) && $card->hasToken($resource)) {
+    if (in_array($resource, [FLEETING, ASLEEP, ANCHORED]) && $card->hasToken($resource)) {
       if ($card->isCanAlwaysGainFleeting()) {
         $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
       }

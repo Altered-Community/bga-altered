@@ -212,7 +212,11 @@ class SpecialEffect extends \ALT\Models\Action
     $effect = $this->getArg('effect');
     $args = $this->getArg('args') ?? [];
     $card = $this->getSource();
-    $sourceId = $card->getId();
+    if (!is_null($card)) {
+      $sourceId = $card->getId();
+    } else {
+      $sourceId = null;
+    }
 
     switch ($effect) {
       case 'useCard':
