@@ -390,7 +390,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXFleetingChar';
         $n = $card
           ->getPlayer()
-          ->getPlayedCards()
+          ->getPlayedCards([CHARACTER, TOKEN])
           ->filter(function ($c) {
             return $c->hasToken(FLEETING);
           })
