@@ -39,18 +39,12 @@ class LY_Rare_WinterNova extends \ALT\Models\Card
                             'targetLocation' => [RESERVE],
                             'effect' => FT::ACTION(EXHAUST, [])
                         ]),
-                        FT::SEQ(
-                            FT::ACTION(INVOKE_TOKEN, [
-                                'pId' => 'source',
-                                'tokenType' => 'YZ_Common_ManaMoth',
-                                'targetLocation' => STORMS,
-                            ]),
-                            FT::ACTION(INVOKE_TOKEN, [
-                                'pId' => 'source',
-                                'tokenType' => 'YZ_Common_ManaMoth',
-                                'targetLocation' => STORMS,
-                            ]),
-                        ),
+                        FT::ACTION(INVOKE_TOKEN, [
+                            'pId' => 'source',
+                            'n' => 2,
+                            'tokenType' => 'YZ_Common_ManaMoth',
+                            'targetLocation' => STORMS,
+                        ]),
                         FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
                         FT::ACTION(
                             TARGET_PLAYER,
