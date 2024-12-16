@@ -68,6 +68,7 @@ class PlayCard extends \ALT\Models\Action
     'location' => '',
     'cost' => 0,
     'costReduction' => 0,
+    'reallyPlayed' => true,
   ];
 
   public function argsPlayCard()
@@ -125,7 +126,8 @@ class PlayCard extends \ALT\Models\Action
       $location,
       $this->getArg('free'),
       $this->getArg('effectHand'),
-      $this->getArg('cost')
+      $this->getArg('cost'),
+      $this->getArg('reallyPlayed')
     );
   }
 }

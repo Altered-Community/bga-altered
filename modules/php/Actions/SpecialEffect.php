@@ -483,7 +483,7 @@ class SpecialEffect extends \ALT\Models\Action
             [
               'n' => 2,
               'upTo' => true,
-              'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
+              'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'reallyPlayed' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
               'targetLocation' => [HAND],
               'targetPlayer' => ME,
               'cards' => $drawn->getIds(),

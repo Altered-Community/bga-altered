@@ -131,7 +131,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCard($cardId, $location, $this->getArg('free'));
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -363,6 +363,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'cardId' => $cardId,
       'cardType' => $card->getType(),
       'from' => $fromLocation,
+      'reallyPlayed' => true,
       'to' => $location,
       'playedFree' => $cost == 0 ? true : false,
       'putAndNotPlayed' => !$effectHand,
