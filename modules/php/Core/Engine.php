@@ -162,7 +162,7 @@ class Engine
     // throw new \feException($oldPId . "- " . $pId);
 
     if (
-      (Globals::isUndo() || (!Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_ENABLED)) &&
+      (Globals::isUndo() && ($player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_ENABLED || $player->getPref(OPTION_CONFIRM_UNDOABLE) == OPTION_CONFIRM_ENABLED)) &&
       $pId != null &&
       $oldPId != $pId &&
       (!$node->isIndependent(Players::get($pId)) && Globals::getEngineChoices() != 0) &&
