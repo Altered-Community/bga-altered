@@ -129,6 +129,7 @@ class Card extends \ALT\Helpers\DB_Model
     'costReductionIfEmpty' => 'int',
     'giganticOneCharacter' => 'bool', // If in only one exp, it is gigantic. Eat Me Energy Bars
     'opponentOceanOnly' => 'bool', // Will o the Wisp
+    'opponentMountainOnly' => 'bool', // Will o the Wisp
     'opponentForestOnly' => 'bool', // Will o the Wisp
     'increaseBiomesHighest' => 'bool', // WinterOufits
     'advanceTwiceDusk' => 'bool', // Magic Sleigh

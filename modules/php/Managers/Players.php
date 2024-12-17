@@ -577,6 +577,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           $biomes = [OCEAN => OCEAN];
         } elseif ($card->isOpponentForestOnly() && isset($biomes[FOREST])) {
           $biomes = [FOREST => FOREST];
+        } elseif ($card->isOpponentMountainOnly() && isset($biomes[FOREST])) {
+          $biomes = [MOUNTAIN => MOUNTAIN];
         }
       }
     }
