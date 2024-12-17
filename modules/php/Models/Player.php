@@ -313,6 +313,11 @@ class Player extends \ALT\Helpers\DB_Model
     $locations = [];
     $storms = Globals::getStorm();
 
+    if (Globals::isTieBreakerMode()) {
+      // In tie-break each expedition is in all biomes
+      return [HERO => [FOREST, MOUNTAIN, OCEAN], COMPANION => [FOREST, MOUNTAIN, OCEAN]];
+    }
+
     foreach ($tokens as $i => $token) {
       $sId = $token->getLocationArg();
 
