@@ -1670,30 +1670,131 @@ abstract class FlowConvertor
           FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'upTo' => true, 'subtype' => EXPEDITION, 'effect' => FT::ACTION(MOVE_CARD, [])]),
         ),
       ],
-      333 => ['description' => clienttranslate('You may have target Character switch Expedition.'), 'output' => ''],
-      394 => ['description' => clienttranslate('You may have target Character switch Expedition.'), 'output' => ''],
-      335 => ['description' => clienttranslate('When a <BOOSTED> Character would leave my Expedition during the Afternoon, it loses its boosts instead.'), 'output' => ''],
-      336 => ['description' => clienttranslate('When an <ANCHORED> Character would leave my Expedition during the Afternoon, it loses <ANCHORED> instead.'), 'output' => ''],
-      337 => ['description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'), 'output' => ''],
-      289 => ['description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'), 'output' => ''],
-      338 => ['description' => clienttranslate('You may exhaust target card in Reserve.'), 'output' => ''],
-      340 => ['description' => clienttranslate('You may have me gain <ASLEEP>.'), 'output' => ''],
-      341 => ['description' => clienttranslate('You may have target Character in the Expedition facing me gain <ASLEEP>.'), 'output' => ''],
-      342 => ['description' => clienttranslate('You may immediately play a Character for {3} less.'), 'output' => ''],
-      343 => ['description' => clienttranslate('You may immediately play a Character for {3} less. It gains <ANCHORED>.'), 'output' => ''],
-      344 => ['description' => clienttranslate('You may immediately play a Character for {3} less. It gains 1 boost.'), 'output' => ''],
-      345 => ['description' => clienttranslate('You may immediately play a Character for {3} less. It gains 2 boosts.'), 'output' => ''],
-      346 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'output' => ''],
-      391 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'output' => ''],
-      347 => ['description' => clienttranslate('You may play exhausted Characters from your Reserve.'), 'output' => ''],
-      348 => ['description' => clienttranslate('You may ready an exhausted card in Reserve.'), 'output' => ''],
-      349 => ['description' => clienttranslate('You may return target Character or Permanent to its owner\'s hand.'), 'output' => ''],
-      350 => ['description' => clienttranslate('You may send target Character in {V} to Reserve.'), 'output' => ''],
-      314 => ['description' => clienttranslate('You may send target Character to Reserve, then exhaust it.'), 'output' => ''],
-      351 => ['description' => clienttranslate('You may send target Character to Reserve. Unless it was in {V}, its controller draws a card.'), 'output' => ''],
-      312 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 4 or less.'), 'output' => ''],
-      313 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 5 or less.'), 'output' => ''],
-      315 => ['description' => clienttranslate('You may send to Reserve target Character with no statistic over 3.'), 'output' => ''],
+      333 => ['description' => clienttranslate('You may have target Character switch Expedition.'), 'output' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'effect' => FT::ACTION(MOVE_CARD, [])])],
+      394 => ['description' => clienttranslate('You may have target Character switch Expedition.'), 'output' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'effect' => FT::ACTION(MOVE_CARD, [])])],
+      335 => ['description' => clienttranslate('When a <BOOSTED> Character would leave my Expedition during the Afternoon, it loses its boosts instead.'), 'noTrigger' => true, 'attributes' => ['protectBoostedInExpedition' => true]],
+      336 => ['description' => clienttranslate('When an <ANCHORED> Character would leave my Expedition during the Afternoon, it loses <ANCHORED> instead.'), 'noTrigger' => true, 'attributes' => ['protectAnchoredInExpedition' => true]],
+      337 => [
+        'description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'),
+        'output' =>  FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1-3' =>  FT::ACTION(
+              TARGET,
+              [
+                'targetType' => [CHARACTER, SPELL, PERMANENT],
+                'targetLocation' => [RESERVE],
+                'targetPlayer' => OPPONENT,
+                'effect' => FT::ACTION(EXHAUST, [])
+              ],
+              ['pId' => 'nextPlayer'],
+            )
+          ],
+        ]),
+      ],
+      289 => [
+        'description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'),
+        'output' => FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1-3' =>  FT::ACTION(
+              TARGET,
+              [
+                'targetType' => [CHARACTER, SPELL, PERMANENT],
+                'targetLocation' => [RESERVE],
+                'targetPlayer' => OPPONENT,
+                'effect' => FT::ACTION(EXHAUST, [])
+              ],
+              ['pId' => 'nextPlayer'],
+            )
+          ],
+        ]),
+      ],
+      338 => [
+        'description' => clienttranslate('You may exhaust target card in Reserve.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::ACTION(EXHAUST, [])
+        ]),
+      ],
+      340 => ['description' => clienttranslate('You may have me gain <ASLEEP>.'), 'output' => FT::SEQ_OPTIONAL(FT::GAIN(ME, ASLEEP))],
+      341 => [
+        'description' => clienttranslate('You may have target Character in the Expedition facing me gain <ASLEEP>.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'targetPlayer' => OPPONENT,
+          'targetLocation' => ['source'],
+          'targetType' => [CHARACTER, TOKEN],
+          'effect' => FT::GAIN(EFFECT, ASLEEP),
+        ])
+      ],
+      342 => [
+        'description' => clienttranslate('You may immediately play a Character for {3} less.'),
+        'output' => FT::SEQ_OPTIONAL(
+          [
+            'action' => SPECIAL_EFFECT,
+            'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 3, 'permanent' => false]],
+          ],
+          FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']])
+        )
+      ],
+      343 => [
+        'description' => clienttranslate('You may immediately play a Character for {3} less. It gains <ANCHORED>.'),
+        'output' => FT::SEQ_OPTIONAL(
+          [
+            'action' => SPECIAL_EFFECT,
+            'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 3, 'permanent' => false]],
+          ],
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterAnchored']),
+          FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']])
+        )
+      ],
+      344 => [
+        'description' => clienttranslate('You may immediately play a Character for {3} less. It gains 1 boost.'),
+        'output' => FT::SEQ_OPTIONAL(
+          [
+            'action' => SPECIAL_EFFECT,
+            'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 3, 'permanent' => false]],
+          ],
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
+          FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']])
+        )
+      ],
+      345 => [
+        'description' => clienttranslate('You may immediately play a Character for {3} less. It gains 2 boosts.'),
+        'output' => FT::SEQ_OPTIONAL(
+          [
+            'action' => SPECIAL_EFFECT,
+            'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 3, 'permanent' => false]],
+          ],
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains2Boost']),
+          FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']])
+        )
+      ],
+      346 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCards' => ['type' => 'all']]],
+      391 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCards' => ['type' => 'all']]],
+      347 => ['description' => clienttranslate('You may play exhausted Characters from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCards' => ['type' => CHARACTER]]],
+      348 => [
+        'description' => clienttranslate('You may ready an exhausted card in Reserve.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'isTapped' => true,
+          'upTo' => true,
+          'effect' => FT::ACTION(READY, []),
+        ]),
+      ],
+      349 => ['description' => clienttranslate('You may return target Character or Permanent to its owner\'s hand.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::RETURN_TO_HAND()])],
+      350 => ['description' => clienttranslate('You may send target Character in {V} to Reserve.'), 'output' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST],  'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()])],
+      314 => [
+        'description' => clienttranslate('You may send target Character to Reserve, then exhaust it.'),
+        'output' => FT::ACTION(TARGET, [
+          'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(EXHAUST, []))
+        ])
+      ],
+      351 => ['description' => clienttranslate('You may send target Character to Reserve. Unless it was in {V}, its controller draws a card.'), 'output' => 'TODO'],
+      312 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 4 or less.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalMountain' => 4, 'effect' => FT::DISCARD_TO_RESERVE()])],
+      313 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 5 or less.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalMountain' => 5, 'effect' => FT::DISCARD_TO_RESERVE()])],
+      315 => ['description' => clienttranslate('You may send to Reserve target Character with no statistic over 3.'), 'output' =>  FT::ACTION(TARGET, ['upTo' => true, 'maxStatistic' => 3, 'effect' => FT::DISCARD_TO_RESERVE()])],
 
     ];
   }

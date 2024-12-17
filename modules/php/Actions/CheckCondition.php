@@ -21,7 +21,7 @@ class CheckCondition extends \ALT\Models\Action
     return ST_CHECK_CONDITION;
   }
 
-  protected $args = ['condition' => null];
+  protected $args = ['condition' => null, 'effect' => null, 'oppositeEffect' => null];
 
   public function getConditions()
   {
@@ -83,12 +83,17 @@ class CheckCondition extends \ALT\Models\Action
   {
     $player = Players::getActive();
 
+    $node = $this->getArg('effect');
+
     if ($this->checkCondition($player) === false) {
-      $this->resolveAction(['notMet']);
-      return;
+      if (!is_null($this->getArg('oppositeEffect'))) {
+        $node = $this->getArg('oppositeEffect');
+      } else {
+        $this->resolveAction(['notMet']);
+        return;
+      }
     }
 
-    $node = $this->getArg('effect');
     $cardId = $this->getCtxArgs()['cardId'] ?? null;
     if (!is_null($cardId)) {
       foreach ($node['childs'] as &$eChild) {
