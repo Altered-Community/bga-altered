@@ -109,7 +109,7 @@ class Engine
       $skipped = Globals::getSkippedPlayers();
       // if card was played or action passed, we are done
       if (
-        (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array($player->getId(), $skipped))) ||
+        (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array(Globals::getActivePId(), $skipped))) ||
         Globals::getDayPhase() === false
       ) {
         if (Globals::getEngineChoices() == 0 || !Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) {
