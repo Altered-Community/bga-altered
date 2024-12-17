@@ -186,6 +186,13 @@ class SpecialEffect extends \ALT\Models\Action
       }
     }
 
+    switch ($this->getArg('effect')) {
+      case 'boostXFleetingChar':
+        return false;
+        break;
+      default:
+        return true;
+    }
     return true;
 
     // $effect = $this->getArg('effect');
