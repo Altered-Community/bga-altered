@@ -345,7 +345,7 @@ class Target extends \ALT\Models\Action
 
       $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
-      $totalMountain -= $card->getMountain();
+      $totalMountain -= ($card->getMountain() + $card->countToken(BOOST));
     }
 
     if ($totalCost < 0) {
