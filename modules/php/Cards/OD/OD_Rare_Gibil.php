@@ -30,17 +30,24 @@ class OD_Rare_Gibil extends \ALT\Models\Card
             'ocean' => 5,
             'costHand' => 6,
             'costReserve' => 6,
-            'effectPlayed' => FT::SEQ(
-                FT::ACTION(INVOKE_TOKEN, [
-                    'pId' => 'source',
-                    'tokenType' => 'AX_Common_Brassbug',
-                    'targetLocation' => STORMS,
-                ]),
+            'effectPlayed' => FT::XOR(
                 FT::ACTION(CHECK_CONDITION, [
-                    'condition' => 'hasControl:permanent:2',
+                    'condition' => 'hasControl:permanent:1:::LTE',
+                    'description' => clienttranslate('Invoke 1 token'),
                     'effect' =>
                     FT::ACTION(INVOKE_TOKEN, [
                         'pId' => 'source',
+                        'tokenType' => 'AX_Common_Brassbug',
+                        'targetLocation' => STORMS,
+                    ])
+                ]),
+                FT::ACTION(CHECK_CONDITION, [
+                    'condition' => 'hasControl:permanent:2',
+                    'description' => clienttranslate('Invoke 2 tokens'),
+                    'effect' =>
+                    FT::ACTION(INVOKE_TOKEN, [
+                        'pId' => 'source',
+                        'n' => 2,
                         'tokenType' => 'AX_Common_Brassbug',
                         'targetLocation' => STORMS,
                     ])
