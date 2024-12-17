@@ -55,7 +55,7 @@ class ChooseAssignment extends \ALT\Models\Action
         ->merge($reserveCards)
         ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
           return in_array($card->getType(), $authorizedTypes) &&
-            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost));
+            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
         })
         ->map(function ($card) use ($player) {
           return $card->getPlayableLocation($player);
