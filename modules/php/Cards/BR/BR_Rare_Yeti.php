@@ -32,11 +32,11 @@ class BR_Rare_Yeti extends \ALT\Models\Card
             'effectHand' => FT::ACTION(GAIN, ['cardId' => ME, 'type' => ASLEEP, 'n' => 1], ['optional' => true]),
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardPlayed:character:::true'],
+                    'conditions' => ['isCardAdded:character:::true'],
                     'output' => FT::GAIN(EFFECT, BOOST),
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardPlayed:character:::true'],
+                    'conditions' => ['isCardAdded:character:::true'],
                     'output' => FT::GAIN(EFFECT, BOOST),
                 ],
             ],
