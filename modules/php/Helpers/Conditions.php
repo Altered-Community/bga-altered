@@ -794,7 +794,7 @@ abstract class Conditions
     $playedCard = Cards::get($event['cardId']);
     $hasZero = false;
     foreach ($playedCard->getBiomes() as $biome => $value) {
-      if ($value == 0 && self::isInBiome($card, $event, $biome)) {
+      if ($value == 0 && self::isInBiome($playedCard, $event, $biome)) {
         return true;
       }
     }
