@@ -64,10 +64,18 @@ class MoveCard extends \ALT\Models\Action
 
     $map = [STORM_LEFT => STORM_RIGHT, STORM_RIGHT => STORM_LEFT];
     foreach ($cards as $cId => $card) {
+      $fromLocation = $card->getLocation();
       if ($this->getArg('location') == 'opposite') {
         $card->setLocation($map[$card->getLocation()]);
       }
       Notifications::moveCard($source->getPlayer(), $card, $source);
+      $this->checkAfterListeners($source->getPlayer(), [
+        'cardId' => $card->getId(),
+        'playCard' => true,
+        'cardType' => $card->getType(),
+        'from' => $fromLocation,
+        'to' => $card->getLocation()
+      ]);
     }
 
     $this->resolveAction(null);
