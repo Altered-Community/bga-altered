@@ -393,7 +393,7 @@ abstract class Conditions
     $asleep = [];
     $anchored = [];
     $fleeting = [];
-    foreach ($card->getPlayer()->getPlayedCards() as $cId => $c) {
+    foreach ($card->getPlayer()->getPlayedCards([TOKEN, CHARACTER]) as $cId => $c) {
       if ($c->hasToken(ASLEEP)) {
         $asleep[] = $cId;
       }
