@@ -31,7 +31,7 @@ class AX_Rare_FlawedPrototype extends \ALT\Models\Card
             'effectPlayed' => FT::XOR(
                 FT::XOR(FT::ACTION(TARGET, [
                     'targetPlayer' => ME,
-                    'targetType' => [CHARACTER],
+                    'targetType' => [CHARACTER, TOKEN],
                     'subType' => ROBOT,
                     'excludeSelf' => true,
                     'n' => 1,
