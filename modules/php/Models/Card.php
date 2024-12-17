@@ -133,6 +133,7 @@ class Card extends \ALT\Helpers\DB_Model
     'increaseBiomesHighest' => 'bool', // WinterOufits
     'advanceTwiceDusk' => 'bool', // Magic Sleigh
     'protectAnchoredInExpedition' => 'bool', // Floral tent
+    'protectBoostedInExpedition' => 'bool', // Floral tent
     'increaseReserveCost' => 'int', // Ebenezer Scrooge
     'reduceReserveCost' => 'int', // Ebenezer Scrooge
     'exhaustCharactersMorning' => 'bool', // Snow queen

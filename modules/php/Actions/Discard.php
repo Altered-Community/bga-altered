@@ -231,10 +231,17 @@ class Discard extends \ALT\Models\Action
       }
 
       // Floral Tent
-      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($originalLocation)) {
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($originalLocation) && $card->hasToken(ANCHORED)) {
         unset($cards[$cId]);
         Notifications::message(clienttranslate('${card_name} is not discarded but loose <ANCHORED> instead'), ['card' => $card]);
         $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => ANCHORED]]);
+        continue;
+      }
+      // Floral tent bravos
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectBoostedInExpedition($originalLocation) && $card->hasToken(BOOST)) {
+        unset($cards[$cId]);
+        Notifications::message(clienttranslate('${card_name} is not discarded but loose <BOOST> instead'), ['card' => $card]);
+        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => BOOST, 'n' => 99]]);
         continue;
       }
 
