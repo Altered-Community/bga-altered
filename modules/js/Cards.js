@@ -1120,7 +1120,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         $(id).style.transformOrigin = 'initial';
       } else {
         $(id).classList.add('mini-card');
-
+        $(id).style.transform = '';
+        $(id).style.transformOrigin = 'initial';
         if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
           $(id).classList.add('tapped');
         }

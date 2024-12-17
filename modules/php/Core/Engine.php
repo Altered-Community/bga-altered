@@ -204,6 +204,9 @@ class Engine
         )
       ) {
         self::chooseNode($player, $id, true);
+        // To see depending on survey + add player option?
+        // } elseif (count($choices) == 1 && $id == PASS && (!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED))) {
+        //   self::chooseNode($player, $id, true);
       } else {
         // Otherwise, go in the RESOLVE_CHOICE state
         Game::get()->gamestate->jumpToState(ST_RESOLVE_CHOICE);
