@@ -250,7 +250,7 @@
             top: 0;
             bottom: 0;
             border-radius: 15px;
-            background-size: 600% 500%;
+            background-size: 600% 700%;
 
             @each $faction in $factions {
                 &[data-faction="#{$faction}"] {
@@ -259,11 +259,11 @@
             }
 
             &[data-type="hero"] {
-                background-position: 0% 50%;
+                background-position: 0% 33.3333%;
             }
 
             &[data-type="token"] {
-                background-position: 20% 50%;
+                background-position: 20% 33.3333%;
             }
 
             &[data-type="character"] {
@@ -290,15 +290,15 @@
                 &[data-rarity="1"] {
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 80% 50%;
+                        background-position: 80% 33.3333%;
                     }
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 100% 50%;
+                        background-position: 100% 33.3333%;
                     }
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 40% 50%;
+                        background-position: 40% 33.3333%;
                     }
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
@@ -309,19 +309,19 @@
                 &[data-rarity="2"] {
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 80% 100%;
+                        background-position: 80% 66.66666%;
                     }
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 100% 100%;
+                        background-position: 100% 66.66666%;
                     }
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 40% 100%;
+                        background-position: 40% 66.66666%;
                     }
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 60% 100%;
+                        background-position: 60% 66.66666%;
                     }
                 }
             }
@@ -330,38 +330,38 @@
                 &[data-rarity="0"] {
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 80% 25%;
+                        background-position: 80% 16.66666%;
                     }
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 100% 25%;
+                        background-position: 100% 16.66666%;
                     }
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 40% 25%;
+                        background-position: 40% 16.66666%;
                     }
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 60% 25%;
+                        background-position: 60% 16.66666%;
                     }
                 }
                 // RARE
                 &[data-rarity="1"] {
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 0% 100%;
+                        background-position: 0% 66.66666%;
                     }
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 20% 100%;
+                        background-position: 20% 66.66666%;
                     }
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 80% 75%;
+                        background-position: 80% 50%;
                     }
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 100% 75%;
+                        background-position: 100% 50%;
                     }
                 }
             }
@@ -370,11 +370,11 @@
                 &[data-rarity="0"] {
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 0% 25%;
+                        background-position: 0% 16.6666%;
                     }
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 20% 25%;
+                        background-position: 20% 16.6666%;
                     }
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
@@ -389,19 +389,59 @@
                 &[data-rarity="1"] {
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 40% 75%;
+                        background-position: 40% 50%;
                     }
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 60% 75%;
+                        background-position: 60% 50%;
                     }
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 0% 75%;
+                        background-position: 0% 50%;
                     }
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 20% 75%;
+                        background-position: 20% 50%;
+                    }
+                }
+            }
+            &[data-type="gear"] {
+                // BASE
+                &[data-rarity="0"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
+                        background-position: 40% 83.3333%;
+                    }
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
+                        background-position: 60% 83.3333%;
+                    }
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 0% 83.3333%;
+                    }
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 20% 83.3333%;
+                    }
+                }
+                // RARE
+                &[data-rarity="1"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
+                        background-position: 0% 100%;
+                    }
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
+                        background-position: 20% 100%;
+                    }
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 80% 83.3333%;
+                    }
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 100% 83.3333%;
                     }
                 }
             }
@@ -458,6 +498,40 @@
                 }
                 .card-typeline {
                     top: 239px;
+                }
+            }
+            &[data-support="1"][data-size="1"] ~ {
+                .card-name {
+                    top: 219px;
+                }
+                .card-typeline {
+                    top: 239px;
+                }
+            }
+            &[data-support="1"][data-size="2"] ~ {
+                .card-name {
+                    top: 185px;
+                }
+                .card-typeline {
+                    top: 205px;
+                }
+            }
+        }
+        .card-frame[data-type="gear"] {
+            &[data-support="0"][data-size="1"] ~ {
+                .card-name {
+                    top: 250px;
+                }
+                .card-typeline {
+                    top: 272px;
+                }
+            }
+            &[data-support="0"][data-size="2"] ~ {
+                .card-name {
+                    top: 219px;
+                }
+                .card-typeline {
+                    top: 241px;
                 }
             }
             &[data-support="1"][data-size="1"] ~ {
@@ -605,6 +679,7 @@
                 color: #a2a2a2;
                 height: 0px;
                 border-top: none;
+                margin: 3px;
             }
 
             .flavor-text {
@@ -627,6 +702,22 @@
             .parenthesis {
                 font-style: italic;
             }
+        }
+
+        .card-subpermanent {
+            position: absolute;
+            z-index: 2;
+            top: 317px;
+            height: 28px;
+            //            bottom: 31px;
+            left: 54px;
+            right: 16px;
+            font-family: "Jali Greek Variable";
+            font-size: 12px;
+            color: black;
+            color-scheme: only light;
+            line-height: 1.1em;
+            font-style: italic;
         }
 
         // Unique
@@ -728,10 +819,63 @@
         .card-frame[data-type="permanent"] ~ .card-text {
             left: 25px;
             right: 25px;
+            top: 310px;
+            height: 107px;
 
             .card-qrcode-container {
                 margin-right: -5px;
+                shape-outside: polygon(0px 53px, 0px 105px, 70px 105px, 70px 53px);
             }
+        }
+         // Adjust position & width for gear frame
+         .card-frame[data-type="gear"][data-support="1"][data-size="1"] ~ .card-text,
+         .card-frame[data-type="permanent"][data-support="1"][data-size="1"] ~ .card-text,
+         .card-frame[data-type="permanent"][data-support="0"][data-size="2"] ~ .card-text,
+         .card-frame[data-type="gear"][data-support="0"][data-size="2"] ~ .card-text {
+            left: 25px;
+            right: 25px;
+            top: 310px;
+            height: 107px;
+
+            .card-qrcode-container {
+                margin-right: -5px;
+                shape-outside: polygon(10px 52px, 10px 103px, 70px 103px, 70px 52px);
+            }
+        }
+
+        .card-frame[data-type="permanent"][data-support="0"][data-size="1"] ~ .card-text,
+        .card-frame[data-type="gear"][data-support="0"][data-size="1"] ~ .card-text {
+            left: 25px;
+            right: 25px;
+            top: 347px;
+            height: 73px;
+
+            .card-qrcode-container {
+                margin-right: -5px;
+                shape-outside: polygon(8px 10px, 8px 75px, 70px 75px, 70px 10px);
+            }
+        }
+
+        .card-frame[data-type="permanent"][data-support="1"][data-size="2"] ~ .card-text,
+        .card-frame[data-type="gear"][data-support="1"][data-size="2"] ~ .card-text {
+            left: 25px;
+            right: 25px;
+            top: 279px;
+            height: 139px;
+
+            .card-qrcode-container {
+                margin-right: -5px;
+                shape-outside: polygon(8px 77px, 8px 142px, 70px 142px, 70px 77px);
+            }
+        }
+
+        // adjust sub permanent position
+        .card-frame[data-support="1"][data-size="1"] ~ .card-subpermanent,
+        .card-frame[data-support="0"][data-size="2"] ~ .card-subpermanent {
+            top: 276px;
+        }
+        .card-frame[data-support="1"][data-size="2"] ~ .card-subpermanent {
+            top: 245px;
         }
 
         .card-footer {

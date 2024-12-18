@@ -2099,6 +2099,9 @@ abstract class FlowConvertor
     if (isset($output['noTrigger'])) {
       $calculated['noTrigger'] = true;
     }
+    if (isset($output['oppositeOutput'])) {
+      $calculated['oppositeOutput'] = $output['oppositeOutput'];
+    }
 
     // manage unique power attributes (tough/gigantic/) awaiting info from GDs
   }

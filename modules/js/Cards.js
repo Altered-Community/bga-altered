@@ -1645,6 +1645,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       let supportIcon = this.getSupportIcon(p);
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
+      let isLandmark = card.properties.subtypes.includes('landmark');
+      let permDescription = isLandmark
+        ? _('(Play me in your Landmark zone. I don’t gain Fleeting.)')
+        : _('(Play me in an Expedition. If it moves forward, I go to Reserve during Rest.)');
 
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
@@ -1655,7 +1659,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         class='altered-card card-permanent ${mini ? 'mini-card' : ''}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='permanent'></div>
+              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
+        isLandmark ? 'permanent' : 'gear'
+      }'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
@@ -1664,6 +1670,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
+          <div class='card-subpermanent'>${permDescription}</div>
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
@@ -1976,21 +1983,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         EXHAUSTED_RESUPPLY: {
           text: _('Exhausted Resupply'),
-          reminder: _(
-            "(Put the top card of your deck in Reserve, then exhaust it {T}. Exhausted cards can't be played and have no Support abilities.)"
-          ),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
         },
         EXHAUSTED_RESUPPLY_LOW: {
           text: _('Exhausted Resupply'),
-          reminder: _(
-            "(Put the top card of your deck in Reserve, then exhaust it {T}. Exhausted cards can't be played and have no Support abilities.)"
-          ),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
         },
         EXHAUSTED_RESUPPLY_INF: {
           text: _('Exhausted Resupply'),
-          reminder: _(
-            "(Put the top card of your deck in Reserve, then exhaust it {T}. Exhausted cards can't be played and have no Support abilities.)"
-          ),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
         },
         RESUPPLY_INF: {
           text: _('Resupply'),

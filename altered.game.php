@@ -80,7 +80,7 @@ class altered extends Table
     return 'altered';
   }
 
-  public function getAllDatas($refresh = false)
+  public function getAllDatas($refresh = false): array
   {
     $pId = self::getCurrentPId();
     return [
