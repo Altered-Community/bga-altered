@@ -421,6 +421,11 @@ class Player extends \ALT\Helpers\DB_Model
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
         $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard());
         $deletedCards[$cId] = $card;
+        if ($card->isToken()) {
+          // delete the card as it's a token
+          $deletedCardTokens[] = $card;
+          Cards::delete($cId);
+        }
         continue;
       }
 

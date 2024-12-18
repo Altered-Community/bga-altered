@@ -242,12 +242,13 @@ trait SetupTrait
         }
         $faction = Cards::createDeck($player, $deckContent);
       } elseif ($selection[$pId] == 'random') {
-        $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
-        if ($deckContent['success'] != 1) {
-          throw new \BgaVisibleSystemException($deckContent['message']);
-        }
+        // $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
+        // if ($deckContent['success'] != 1) {
+        //   throw new \BgaVisibleSystemException($deckContent['message']);
+        // }
+        // $faction = Cards::generateRandomDeck($deckContent['content'], $player);
+        $faction = Cards::generateRandomDeck([], $player);
 
-        $faction = Cards::generateRandomDeck($deckContent['content'], $player);
         $selection[$pId] = 'API';
       } else {
         $deckNumber = $selection[$pId];
