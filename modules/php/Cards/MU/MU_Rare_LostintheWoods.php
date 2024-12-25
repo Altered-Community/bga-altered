@@ -28,10 +28,13 @@ class MU_Rare_LostintheWoods extends \ALT\Models\Card
             'effectPlayed' => FT::SEQ(
                 FT::GAIN(ME, FLEETING),
                 FT::XOR(
-                    FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'effect' => FT::DISCARD_TO_RESERVE()]),
-                    FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'excludeBiomes' => true, 'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(DRAW, ['players' => OPPONENT]))]),
-                    FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
-                )
+                    FT::ACTION(TARGET, ['effect' =>
+                    FT::SEQ(
+                        FT::DISCARD_TO_RESERVE(),
+                        FT::ACTION(CHECK_CONDITION, ['condition' => 'isDiscardedCardNotInBiome:forest', 'effect' => FT::ACTION(DRAW, ['players' => OPPONENT])])
+                    )])
+                ),
+                FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
             )
         ];
     }

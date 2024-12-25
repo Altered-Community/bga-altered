@@ -2539,6 +2539,10 @@ html {
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_COREKS_B_MU_09_U] {
   background-image: url("img/illustrations/MU/ALT_COREKS_B_MU_09_U.jpg");
 }
+.altered-card .altered-card-wrapper[data-asset=ALT_ALIZE_B_MU_33],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_ALIZE_B_MU_33] {
+  background-image: url("img/illustrations/MU/ALT_ALIZE_B_MU_33.jpg");
+}
 .altered-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_OR_38_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_OR_38_C] {
   background-image: url("img/illustrations/OD/ALT_ALIZE_A_OR_38_C.jpg");

@@ -76,7 +76,11 @@ class CheckCondition extends \ALT\Models\Action
     $source = $this->getSource();
     $event = ['pId' => $player->getId()];
     $card = $source ?? $player->getHero();
-    return Conditions::check($this->getCtxArgs(), $card, $event);
+    $ctxArgs = $this->getCtxArgs();
+    if (isset($ctxArgs['cardFrom'])) {
+      $event['cardFrom'] = $ctxArgs['cardFrom'];
+    }
+    return Conditions::check($ctxArgs, $card, $event);
   }
 
   public function stCheckCondition()
@@ -96,7 +100,7 @@ class CheckCondition extends \ALT\Models\Action
 
     $cardId = $this->getCtxArgs()['cardId'] ?? null;
     if (!is_null($cardId)) {
-      foreach ($node['childs'] as &$eChild) {
+      foreach ($node['childs']?? [] as &$eChild) {
         if (!isset($eChild['args']['cardId'])  || $eChild['args']['cardId'] != ME) {
           $eChild['args']['cardId'] = $cardId;
         }

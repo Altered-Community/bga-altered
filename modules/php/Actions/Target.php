@@ -312,6 +312,8 @@ class Target extends \ALT\Models\Action
     $cards = Cards::getMany($cardIds);
 
     foreach ($cards as $cardId => $card) {
+      $cardFrom = $card->getLocation();
+
       // Select untapped card in mana => untap another card if any
       if ($args['manaOrbs'] && !$card->isTapped()) {
         $card2 = $player->getManaCards(true)->first();
@@ -323,12 +325,14 @@ class Target extends \ALT\Models\Action
       $node = $this->getArg('effect');
       if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
         $node['args']['cardId'] = $cardId;
+        $node['args']['cardFrom'] = $cardFrom;
       }
       $node['sourceId'] = $this->getSourceId();
       if (isset($node['childs'])) {
         foreach ($node['childs'] as &$child) {
           if (!isset($child['args']['cardId']) || $child['args']['cardId'] != ME) {
             $child['args']['cardId'] = $cardId;
+            $child['args']['cardFrom'] = $cardFrom;
           }
           $child['sourceId'] = $this->getSourceId();
 
@@ -336,6 +340,7 @@ class Target extends \ALT\Models\Action
             foreach ($child['childs'] as &$grandchild) {
               if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {
                 $grandchild['args']['cardId'] = $cardId;
+                $grandchild['args']['cardFrom'] = $cardFrom;
               }
               $grandchild['sourceId'] = $this->getSourceId();
             }

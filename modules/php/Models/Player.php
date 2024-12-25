@@ -341,13 +341,17 @@ class Player extends \ALT\Helpers\DB_Model
   public function isInBiome($storm, $biome)
   {
     $biomes = $this->getBiomeInStorms();
+    if ($storm == '') {
+      return false;
+    }
+
     $expedition = $storm == STORM_LEFT ? HERO : COMPANION;
     $newBiomes = [];
     foreach ($biomes[$expedition] as $b) {
       $newBiomes[$b] = $b;
     }
-    Players::biomesModifier($newBiomes, $this, $storm);
 
+    Players::biomesModifier($newBiomes, $this, $storm);
     return in_array($biome, $newBiomes);
   }
 

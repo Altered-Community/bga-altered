@@ -811,6 +811,17 @@ abstract class Conditions
     return $card->getPlayer()->isInBiome(Cards::get($event['cardId'])->getLocation(), $biome);
   }
 
+  public static function isDiscardedCardInBiome($card, $event, $biome)
+  {
+    $card = Cards::get($event['cardId']);
+    return $card->getPlayer()->isInBiome($event['from'] ?? $event['cardFrom'], $biome);
+  }
+
+  public static function isDiscardedCardNotInBiome($card, $event, $biome)
+  {
+    return !self::isDiscardedCardInBiome($card, $event, $biome);
+  }
+
   public static function XCharacterInExpedition($card, $event, $n, $op = 'GTE')
   {
     $nCards = $card->getPlayer()->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]);

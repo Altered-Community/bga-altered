@@ -219,7 +219,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
     // require_once dirname(__FILE__) . '/../Cards/unique.php';
-    // require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
+    require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
 
     // // $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
@@ -259,31 +259,54 @@ class Cards extends \ALT\Helpers\CachedPieces
       }
     } while ($i < $totalCards);
 
-    // for ($u = 0; $u < 15; $u++) {
-    //   // maybe to reenable later
-    //   // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
-    //   // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
-    //   $cardId = uniqueID[array_rand(uniqueID)];
-    //   // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
-    //   $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-    //     'game' => 'alter' . 'ed',
-    //     'mode' => 'card',
-    //     'token' => $BGAToken,
-    //     'cardId' => $cardId
-    //   ]);
-    //   // throw new \feException(print_r($uniqueCard));
-
-    //   $properties = self::generateUnique($uniqueCard);
-    //   if (is_null($properties)) {
-    //     // $u--;
-    //     continue;
-    //   }
-    //   $deckContent[] = [
-    //     'card' => ['properties' => $properties],
-    //     'n' => 1,
-    //   ];
-    //   $i++;
-    // }
+    for ($u = 0; $u < 15; $u++) {
+      // maybe to reenable later
+      // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
+      // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
+      $cardId = CEG[array_rand(CEG)];
+      // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
+      // $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
+      //   'game' => 'alter' . 'ed',
+      //   'mode' => 'card',
+      //   'token' => $BGAToken,
+      //   'cardId' => $cardId
+      // ]);
+      // throw new \feException(print_r($uniqueCard));
+      $ceg = explode('_', $cardId);
+      $uniqueCard = [
+        'reference' => 'ALT_ALIZE_B_MU_33_U',
+        'faction' => 'MU',
+        'name' => 'Fake unique for testing',
+        'cardType' => 'CHARACTER',
+        'illustrator' => 'TOTO',
+        'costHand' => 2,
+        'costReserve' => 2,
+        'forest' => 2,
+        'mountain' => 2,
+        'ocean' => 2,
+        'uniqueReduced' => [
+          [
+            'effects' => [
+              [
+                $ceg[0],
+                $ceg[1],
+                $ceg[2]
+              ]
+            ]
+          ]
+        ]
+      ];
+      $properties = self::generateUnique($uniqueCard);
+      if (is_null($properties)) {
+        $u--;
+        continue;
+      }
+      $deckContent[] = [
+        'card' => ['properties' => $properties],
+        'n' => 1,
+      ];
+      $i++;
+    }
 
     return self::createDeck($player, $deckContent);
   }
@@ -358,6 +381,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       $trinity = [];
       foreach ($cardElement['effects'] as $i => $effect) {
         $trinity = [];
+        // throw new \feException(print_r($effect));
         foreach ($effect as $j => $idGd) {
           if (in_array($idGd, TRIGGER)) {
             $trinity['trigger'] = $idGd;
