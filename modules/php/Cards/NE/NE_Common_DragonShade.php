@@ -14,7 +14,7 @@ class NE_Common_DragonShade extends \ALT\Models\Card
             'faction'  => FACTION_NE,
             'rarity'  => RARITY_COMMON,
             'name'  => clienttranslate("Dragon Shade"),
-            'typeline' => clienttranslate("Token - Illusion"),
+            'typeline' => clienttranslate("Token Character - Illusion"),
             'type'  => TOKEN,
             'flavorText'  => clienttranslate('It is a shadow, a phantom, always hissing, always whispering. It wants to be found. It wants to be unleashed.'),
             'artist' => "Zero Wen",
