@@ -185,6 +185,21 @@ class Engine
       Globals::setEngineChoices(0);
     }
 
+    if ($node instanceof \ALT\Core\Engine\OrNode && isset($node->getArgs()['canReuse']) && $node->getArgs()['canReuse'] == true) {
+      $newNode = $node->toArray();
+      if (!isset($newNode['backupNode'])) {
+        // first time, we put the backupinfo
+        $newNode['backupNode'] = $newNode['childs'];
+      } else {
+        // we put the backup 
+        $newNode['childs'] = $newNode['backupNode'];
+        unset($newNode['choice']);
+      }
+      $node->replace(self::buildTree($newNode));
+      self::save();
+      $node = self::$tree->getNextUnresolved();
+    }
+
     // If node with choice, switch to choice state
     $choices = $node->getChoices($player);
     $allChoices = $node->getChoices($player, true);

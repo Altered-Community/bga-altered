@@ -58,7 +58,7 @@ class LY_Rare_WinterNova extends \ALT\Models\Card
                                 ])
                             ]
                         )
-                    ]
+                    ],
                 ]
             )
 
