@@ -68,7 +68,7 @@ class CheckCondition extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->checkCondition($player);
+    return $this->checkCondition($player) || (!is_null($this->getArg('oppositeEffect') && $this->getArg('oppositeEffect') != 'OPPOSITE'));
   }
 
   public function checkCondition($player)
@@ -90,7 +90,7 @@ class CheckCondition extends \ALT\Models\Action
     $node = $this->getArg('effect');
 
     if ($this->checkCondition($player) === false) {
-      if (!is_null($this->getArg('oppositeEffect'))) {
+      if (!is_null($this->getArg('oppositeEffect')) && $this->getArg('oppositeEffect') != 'OPPOSITE') {
         $node = $this->getArg('oppositeEffect');
       } else {
         $this->resolveAction(['notMet']);
@@ -100,7 +100,7 @@ class CheckCondition extends \ALT\Models\Action
 
     $cardId = $this->getCtxArgs()['cardId'] ?? null;
     if (!is_null($cardId)) {
-      foreach ($node['childs']?? [] as &$eChild) {
+      foreach ($node['childs'] ?? [] as &$eChild) {
         if (!isset($eChild['args']['cardId'])  || $eChild['args']['cardId'] != ME) {
           $eChild['args']['cardId'] = $cardId;
         }

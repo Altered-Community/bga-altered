@@ -502,9 +502,14 @@ class Card extends \ALT\Helpers\DB_Model
         foreach (STORMS as $storm) {
           $event['expedition'] = $storm;
           if (Conditions::check($power, $this, $event) === false) {
-            continue;
+            if (isset($power['oppositeOutput']) && $power['oppositeOutput'] != 'OPPOSITE') {
+              $output[] = $power['oppositeOutput'];
+            } else {
+              continue;
+            }
+          } else {
+            $output[] = $power['output'];
           }
-          $output[] = $power['output'];
         }
         if (empty($output)) {
           return [null, null];
@@ -514,7 +519,11 @@ class Card extends \ALT\Helpers\DB_Model
       case 'once':
         // structured : ['Noon'=>['condition' =>, 'output'=>]]
         if (Conditions::check($power, $this, $event) === false) {
-          return [null, null];
+          if (isset($power['oppositeOutput']) && $power['oppositeOutput'] != 'OPPOSITE') {
+            $power['output'] = $power['oppositeOutput'];
+          } else {
+            return [null, null];
+          }
         }
 
         break;

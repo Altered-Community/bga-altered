@@ -1884,6 +1884,11 @@ abstract class FlowConvertor
         } else {
           $template['output'] = 'OUTPUT';
         }
+        if (isset($calculated['oppositeOutput'])) {
+          $template['oppositeOutput'] = $calculated['oppositeOutput'];
+        } else {
+          $template['oppositeOutput'] = 'OPPOSITE';
+        }
         if (isset($calculated['conditionN'])) {
           $template['n'] = $calculated['conditionN'];
         }
@@ -1905,6 +1910,9 @@ abstract class FlowConvertor
     if (isset($calculated['output'])) {
       self::addOutputToNode($calculated['output'], $node);
     }
+    if (isset($calculated['oppositeOutput'])) {
+      self::addOppositeToNode($calculated['oppositeOutput'], $node);
+    }
 
     // Specific interaction
     foreach ($node as $tr => &$eff) {
@@ -1921,6 +1929,7 @@ abstract class FlowConvertor
       if (isset($calculated['output'])) {
         self::addOutputToNode($calculated['output'], $calculated['passiveEffect']);
       }
+
 
       if (isset($properties['effectPassive'])) {
         $properties['effectPassive'] = array_merge($properties['effectPassive'], $calculated['passiveEffect']);
@@ -2112,7 +2121,7 @@ abstract class FlowConvertor
   public static function insertCheckCondition($conditions, &$node, $description)
   {
     if (empty($node)) {
-      $node = FT::ACTION(CHECK_CONDITION, ['conditions' => $conditions, 'effect' => 'OUTPUT', 'description' => $description]);
+      $node = FT::ACTION(CHECK_CONDITION, ['conditions' => $conditions, 'effect' => 'OUTPUT', 'oppositeEffect' => 'OPPOSITE', 'description' => $description]);
     } else {
       $nKey = Utils::search($node, function ($child) {
         return ($child['action'] ?? '') == CHECK_CONDITION;
@@ -2127,6 +2136,15 @@ abstract class FlowConvertor
       $node = $effect;
     } else {
       $node = Utils::updateTree($node, 'OUTPUT', $effect);
+    }
+  }
+
+  public static function addOppositeToNode($effect, &$node)
+  {
+    if (empty($node)) {
+      $node = $effect;
+    } else {
+      $node = Utils::updateTree($node, 'OPPOSITE', $effect);
     }
   }
 
