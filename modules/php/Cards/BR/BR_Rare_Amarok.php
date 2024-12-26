@@ -37,9 +37,9 @@ class BR_Rare_Amarok extends \ALT\Models\Card
                     'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
                     'output' => FT::SEQ(FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice']), FT::GAIN(ME, BOOST))
                 ],
-                'ChooseAssignment' => [
+                'MoveCard' => [
                     'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
-                    'output' => FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice'])
+                    'output' => FT::SEQ(FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice']), FT::GAIN(ME, BOOST))
                 ],
             ],
             'costReductionIfEmpty' => 2
