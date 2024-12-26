@@ -231,7 +231,7 @@ abstract class FlowConvertor
             'n' => 1,
             'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
           ]),),
-          FT::ACTION(CHECK_CONDITION, ['condition' => 'noPlantnoPermanent', 'effect' => OUTPUT])
+          FT::ACTION(CHECK_CONDITION, ['condition' => 'noPlantnoPermanent', 'effect' => 'OUTPUT'])
         )
       ],
       369 => [
@@ -251,7 +251,7 @@ abstract class FlowConvertor
             'n' => 1,
             'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
           ]),),
-          FT::ACTION(CHECK_CONDITION, ['condition' => 'noRobotnoPermanent', 'effect' => OUTPUT])
+          FT::ACTION(CHECK_CONDITION, ['condition' => 'noRobotnoPermanent', 'effect' => 'OUTPUT'])
         )
       ],
       371 => ['description' => clienttranslate('Unless I\'m in {O}:'), 'condition' => 'isNotInBiome:ocean'],
@@ -286,11 +286,11 @@ abstract class FlowConvertor
       ],
       375 => [
         'description' => clienttranslate('You may have me gain <FLEETING>. If you do:'),
-        'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), OUTPUT)
+        'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), 'OUTPUT')
       ],
       385 => [
         'description' => clienttranslate('You may have me gain <FLEETING>. If you do:'),
-        'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), OUTPUT)
+        'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), 'OUTPUT')
       ],
       376 => [
         'description' => clienttranslate('You may ready an exhausted card in Reserve. If you do:'),
@@ -300,7 +300,7 @@ abstract class FlowConvertor
           'targetLocation' => [RESERVE],
           'isTapped' => true,
           'upTo' => true,
-          'effect' => FT::SEQ(FT::ACTION(READY, []), OUTPUT)
+          'effect' => FT::SEQ(FT::ACTION(READY, []), 'OUTPUT')
         ]),
       ],
       370 => [
@@ -312,14 +312,14 @@ abstract class FlowConvertor
             'subType' => ROBOT,
             'excludeSelf' => true,
             'n' => 1,
-            'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), OUTPUT)
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT')
           ]),
           FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [PERMANENT],
             'excludeSelf' => true,
             'n' => 1,
-            'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), OUTPUT)
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT')
           ]),
         ),
       ],
