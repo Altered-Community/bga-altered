@@ -638,12 +638,40 @@ trait DebugTrait
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
   }
-  function debug_randomUnique()
+  function testUnique($effect, $location = HAND)
   {
-    $properties = Cards::generateRandomUnique(FACTIONS[array_rand(FACTIONS)]);
+    $ceg = explode("_", $effect);
+    if (count($ceg) == 1) {
+      $ceg = explode(' / ', $effect);
+    }
+    $uniqueCard = [
+      'reference' => 'ALT_ALIZE_B_MU_33_U',
+      'faction' => 'MU',
+      'name' => 'Fake unique for testing',
+      'cardType' => 'CHARACTER',
+      'illustrator' => 'TOTO',
+      'costHand' => 2,
+      'costReserve' => 2,
+      'forest' => 2,
+      'mountain' => 2,
+      'ocean' => 2,
+      'uniqueReduced' => [
+        [
+          'effects' => [
+            [
+              $ceg[0],
+              $ceg[1],
+              $ceg[2]
+            ]
+          ]
+        ]
+      ]
+    ];
+
+    $properties = Cards::generateUnique($uniqueCard);
     Cards::singleCreate([
       'player_id' => Players::getCurrentId(),
-      'location' => HAND,
+      'location' => $location,
       'nbr' => 1,
       'properties' => $properties,
     ]);

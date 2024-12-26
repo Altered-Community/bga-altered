@@ -736,11 +736,14 @@ abstract class FlowConvertor
         'description' => clienttranslate('Target Character other than me gains [FLEETING], [ANCHORED] or [ASLEEP].'),
         'output' => FT::ACTION(
           TARGET,
-          ['effect' => FT::XOR(
-            FT::GAIN(EFFECT, FLEETING),
-            FT::GAIN(EFFECT, ANCHORED),
-            FT::GAIN(EFFECT, ASLEEP)
-          )]
+          [
+            'excludeSelf' => true,
+            'effect' => FT::XOR(
+              FT::GAIN(EFFECT, FLEETING),
+              FT::GAIN(EFFECT, ANCHORED),
+              FT::GAIN(EFFECT, ASLEEP)
+            )
+          ]
         ),
       ],
       117 => [
