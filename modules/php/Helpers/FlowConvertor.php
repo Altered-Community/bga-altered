@@ -1653,11 +1653,11 @@ abstract class FlowConvertor
       ],
       321 => [
         'description' => clienttranslate('You may give 2 boosts to target Character in {V}.'),
-        'output' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'upTo' => true, 'excludeSelf' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+        'output' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'upTo' => true,  'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
       ],
       388 => [
         'description' => clienttranslate('You may give 2 boosts to target Character in {V}.'),
-        'output' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'upTo' => true, 'excludeSelf' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+        'output' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'upTo' => true,  'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
       ],
       332 => [
         'description' => clienttranslate('You may have target Character or Expedition Permanent switch Expedition.'),
