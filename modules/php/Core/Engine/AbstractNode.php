@@ -207,7 +207,18 @@ class AbstractNode
 
   public function getPId()
   {
-    return $this->infos['pId'] ?? null;
+    if (!isset($this->infos['pId'])) {
+      return null;
+    }
+    // change of logic due to nextplayer/active node
+    $pIdTest =  $this->infos['pId'];
+    if ($pIdTest == 'nextPlayer') {
+      return Players::getNext(Players::getActive())->getId();
+    } elseif ($pIdTest == 'active') {
+      return Players::getActiveId();
+    } else {
+      return $pIdTest;
+    }
   }
 
   public function getType()
@@ -365,14 +376,7 @@ class AbstractNode
     foreach ($childs as $id => $child) {
       if (!is_null($child->getPId())) {
         $pIdTest = $child->getPId();
-        if ($pIdTest == 'nextPlayer') {
-          $playerTest = Players::getNext($player);
-        } elseif ($pIdTest == 'active') {
-          $playerTest = Players::getActive();
-        } else {
-          $playerTest = Players::get($pIdTest);
-        }
-        // var_dump($pIdTest);
+        $playerTest = Players::get($pIdTest);
       } elseif (is_null($player)) {
         $playerTest = Players::getActive();
       } else {
@@ -385,28 +389,30 @@ class AbstractNode
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
           'args' => $child->getArgs(),
-          'optionalAction' => $child->isOptional($player) && ($child->getPId() ?? $playerTest->getId()) == $playerTest->getId(), // added in case if 1 action of another player is optional
-          'automaticAction' => $child->isAutomatic($player),
-          'independentAction' => $child->isIndependent($player),
-          'irreversibleAction' => $child->isIrreversible($player),
+          'optionalAction' => $child->isOptional($playerTest) && ($child->getPId() ?? $playerTest->getId()) == $playerTest->getId(), // added in case if 1 action of another player is optional
+          'automaticAction' => $child->isAutomatic($playerTest),
+          'independentAction' => $child->isIndependent($playerTest),
+          'irreversibleAction' => $child->isIrreversible($playerTest),
           'source' => $child->getSource(),
           'sourceId' => $child->getSourceId(),
-          'player' => $child->getPId() ?? $player->getId()
+          'player' => $child->getPId() ?? $playerTest->getId()
         ];
         if ($choice['description'] != '' || $isDoable) {
           $choices[$id] = $choice;
         }
-        if (!$child->isOptional($player)) {
+        if (!$child->isOptional($playerTest)) {
           $allOptional = false;
         }
-        if (($child->getPId() ?? $player->getId()) == $player->getId()) {
+
+        if (($child->getPId() ?? $playerTest->getId()) == $playerTest->getId()) {
           $hasOneAction = true;
         }
       }
     }
 
     if (empty($choices) || ($hasOneAction && ($this->isOptional($player) || $allOptional))) {
-      if (count($choices) != 1 || !$choice['optionalAction'] || $choice['automaticAction']) {
+      // we add the pass if there are more than one choice (and all optional) and/or the choice is optional
+      if (count($choices) != 1 || $choice['optionalAction'] || $choice['automaticAction']) {
         $choices[PASS] = [
           'id' => PASS,
           'description' => clienttranslate('Pass'),

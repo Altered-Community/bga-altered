@@ -102,7 +102,7 @@ class Player extends \ALT\Helpers\DB_Model
         if ($toLocation == MANA) {
           $card->setTapped(true);
         } else {
-          Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $source->getId()]));
+          Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $cId], ['optional' => false, 'sourceId' => $source->getId()]));
         }
       }
     }
