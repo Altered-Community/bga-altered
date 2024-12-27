@@ -25,7 +25,7 @@ class AX_Rare_KelonicHeater extends \ALT\Models\Card
             'effectDesc' => clienttranslate('#{H}# $<EXHAUSTED_RESUPPLY>.  You may play exhausted Characters from your Reserve in my Expedition.'),
             'costHand' => 3,
             'costReserve' => 1,
-            'changedStats' => ['costReserve'],
+            'changedStats' => ['costReserve', 'costHand'],
             'effectHand' => FT::ACTION(RESUPPLY, ['exhausted' => true]),
             'playTappedCards' => ['type' => CHARACTER, 'location' => ME],
         ];
