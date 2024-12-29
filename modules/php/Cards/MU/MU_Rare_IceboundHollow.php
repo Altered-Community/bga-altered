@@ -35,7 +35,7 @@ class MU_Rare_IceboundHollow extends \ALT\Models\Card
                     ]),
                 ],
                 'Resupply' => [
-                    'conditions' => ['isMe', 'realResupply', 'excludeSelf'],
+                    'conditions' => ['isMe', 'excludeSelf'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Trial counter')],
