@@ -570,14 +570,17 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
         }
       }
+    }
 
+    // Looped a second time as this takes precedence on the "modifiers"
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
       // TODO: manage multiplayer
       if ($card->getLocation() == $expedition && $player->getId() != $card->getPId()) {
         if ($card->isOpponentOceanOnly() && isset($biomes[OCEAN])) {
           $biomes = [OCEAN => OCEAN];
         } elseif ($card->isOpponentForestOnly() && isset($biomes[FOREST])) {
           $biomes = [FOREST => FOREST];
-        } elseif ($card->isOpponentMountainOnly() && isset($biomes[FOREST])) {
+        } elseif ($card->isOpponentMountainOnly() && isset($biomes[MOUNTAIN])) {
           $biomes = [MOUNTAIN => MOUNTAIN];
         }
       }
