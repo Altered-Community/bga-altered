@@ -300,6 +300,7 @@ trait TurnTrait
       // if there are some exhausted slots, we can reduce the exceeding reserve linked to the status
       $nExceededReserve -= min($exhaustedReserveCards, $exhaustedReserveSlots);
     }
+    $nExceededReserve = max($nExceededReserve, 0);
     $needToDiscard = $nExceededReserve > 0 || $nExceededLandmarks > 0;
 
     if (!$needToDiscard) {
