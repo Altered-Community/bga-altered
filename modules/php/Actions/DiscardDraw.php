@@ -21,6 +21,11 @@ class DiscardDraw extends \ALT\Models\Action
     return ST_DISCARD_DRAW;
   }
 
+  public function getDescription()
+  {
+    return clienttranslate('Discard any number of cards from your reserve to draw as many');
+  }
+
   protected $args = [
     'upTo' => true, // if n > 1, can the player select UP TO n cards or exactly n cards ?
     'targetPlayer' => ME,
