@@ -68,7 +68,7 @@ class CheckCondition extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->checkCondition($player) || (!is_null($this->getArg('oppositeEffect') && $this->getArg('oppositeEffect') != 'OPPOSITE'));
+    return $this->checkCondition($player) || (!is_null($this->getArg('oppositeEffect')) && $this->getArg('oppositeEffect') != 'OPPOSITE');
   }
 
   public function checkCondition($player)
