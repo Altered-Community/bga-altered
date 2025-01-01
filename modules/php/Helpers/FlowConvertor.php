@@ -1878,16 +1878,30 @@ abstract class FlowConvertor
         if (isset($calculated['triggerConditions'])) {
           $template['conditions'] = $calculated['triggerConditions'];
         }
-        // TODO: Manage oppositeOutput (Otherwise keyword)
-        if (isset($calculated['conditionEffect'])) {
-          $template['output'] = $calculated['conditionEffect'];
-        } else {
-          $template['output'] = 'OUTPUT';
-        }
+
         if (isset($calculated['oppositeOutput'])) {
-          $template['oppositeOutput'] = $calculated['oppositeOutput'];
+          // management of Otherwise effect
+          // Need to add another check condition as the trigger condition must be valid, but the condition is with the opposite
+          $template['output'] = FT::ACTION(
+            CHECK_CONDITION,
+            [
+              'conditions' => $calculated['conditionConditions'],
+              'effect' => $calculated['conditionEffect'] ?? 'OUTPUT',
+              'oppositeEffect' => $calculated['oppositeOutput'],
+              'description' => [$calculated['conditionDescription'] ?? null, $calculated['outputDescription'] ?? null]
+            ]
+          );
         } else {
-          $template['oppositeOutput'] = 'OPPOSITE';
+          if (isset($calculated['conditionEffect'])) {
+            $template['output'] = $calculated['conditionEffect'];
+          } else {
+            $template['output'] = 'OUTPUT';
+          }
+          // if (isset($calculated['oppositeOutput'])) {
+          //   $template['oppositeOutput'] = $calculated['oppositeOutput'];
+          // } else {
+          //   $template['oppositeOutput'] = 'OPPOSITE';
+          // }
         }
         if (isset($calculated['conditionN'])) {
           $template['n'] = $calculated['conditionN'];
@@ -2075,7 +2089,12 @@ abstract class FlowConvertor
     }
 
     if (isset($conditions['condition'])) {
-      $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), is_array($conditions['condition']) ? $conditions['condition'] : [$conditions['condition']]);
+      if ($calculated['type'] != 'effectPassive') {
+        $calculated['triggerConditions'] = array_merge(($calculated['triggerConditions'] ?? []), is_array($conditions['condition']) ? $conditions['condition'] : [$conditions['condition']]);
+      } else {
+        // changed due to otherwise effect
+        $calculated['conditionConditions'] = array_merge(($calculated['conditionConditions'] ?? []), is_array($conditions['condition']) ? $conditions['condition'] : [$conditions['condition']]);
+      }
     }
 
     if (isset($conditions['effect'])) {

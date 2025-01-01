@@ -644,6 +644,9 @@ trait DebugTrait
     if (count($ceg) == 1) {
       $ceg = explode(' / ', $effect);
     }
+    if (count($ceg) == 1) {
+      $ceg = explode('/', $effect);
+    }
     $uniqueCard = [
       'reference' => 'ALT_ALIZE_B_MU_33_U',
       'faction' => 'MU',
