@@ -323,30 +323,41 @@ class Target extends \ALT\Models\Action
       }
 
       $node = $this->getArg('effect');
-      if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
-        $node['args']['cardId'] = $cardId;
-        $node['args']['cardFrom'] = $cardFrom;
-      }
-      $node['sourceId'] = $this->getSourceId();
-      if (isset($node['childs'])) {
-        foreach ($node['childs'] as &$child) {
-          if (!isset($child['args']['cardId']) || $child['args']['cardId'] != ME) {
-            $child['args']['cardId'] = $cardId;
-            $child['args']['cardFrom'] = $cardFrom;
-          }
-          $child['sourceId'] = $this->getSourceId();
+      $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId());
+      // if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
+      //   $node['args']['cardId'] = $cardId;
+      //   $node['args']['cardFrom'] = $cardFrom;
+      // }
+      // $node['sourceId'] = $this->getSourceId();
+      // if (isset($node['childs'])) {
+      //   foreach ($node['childs'] as &$child) {
+      //     if (!isset($child['args']['cardId']) || $child['args']['cardId'] != ME) {
+      //       $child['args']['cardId'] = $cardId;
+      //       $child['args']['cardFrom'] = $cardFrom;
+      //     }
+      //     $child['sourceId'] = $this->getSourceId();
 
-          if (isset($child['childs'])) {
-            foreach ($child['childs'] as &$grandchild) {
-              if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {
-                $grandchild['args']['cardId'] = $cardId;
-                $grandchild['args']['cardFrom'] = $cardFrom;
-              }
-              $grandchild['sourceId'] = $this->getSourceId();
-            }
-          }
-        }
-      }
+      //     if (isset($child['childs'])) {
+      //       foreach ($child['childs'] as &$grandchild) {
+      //         if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {
+      //           $grandchild['args']['cardId'] = $cardId;
+      //           $grandchild['args']['cardFrom'] = $cardFrom;
+      //         }
+      //         $grandchild['sourceId'] = $this->getSourceId();
+      //       }
+
+      //       if (isset($grandchild['childs'])) {
+      //         foreach ($grandchild['childs'] as &$ggchild) {
+      //           if (!isset($ggchild['args']['cardId'])  || $ggchild['args']['cardId'] != ME) {
+      //             $ggchild['args']['cardId'] = $cardId;
+      //             $ggchild['args']['cardFrom'] = $cardFrom;
+      //           }
+      //           $ggchild['sourceId'] = $this->getSourceId();
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
 
       $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
@@ -381,5 +392,28 @@ class Target extends \ALT\Models\Action
     }
 
     $this->resolveAction([$cardIds]);
+  }
+
+
+  private function updateCardId($node, $cardId, $cardFrom, $sourceId)
+  {
+    if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
+      $node['args']['cardId'] = $cardId;
+      $node['args']['cardFrom'] = $cardFrom;
+    }
+    $node['sourceId'] = $this->getSourceId();
+
+    if (isset($node['args']['effect'])) {
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId);
+    }
+
+    if (isset($node['childs'])) {
+      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId) {
+        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId);
+      }, $node['childs']);
+    }
+
+
+    return $node;
   }
 }
