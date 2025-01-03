@@ -1897,6 +1897,10 @@ abstract class FlowConvertor
           } else {
             $template['output'] = 'OUTPUT';
           }
+          // If there is a condition on condition, we add it
+          if (isset($calculated['conditionConditions'])) {
+            $template['conditions'] = array_merge($template['conditions'], $calculated['conditionConditions']);
+          }
           // if (isset($calculated['oppositeOutput'])) {
           //   $template['oppositeOutput'] = $calculated['oppositeOutput'];
           // } else {
