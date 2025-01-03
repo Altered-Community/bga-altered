@@ -25,16 +25,16 @@ class LY_Rare_LostintheWoods extends \ALT\Models\Card
             'effectDesc' => clienttranslate('<FLEETING>.  Choose one:  • Send target Character to Reserve. #If it wasn\'t in {V}, its controller draws a card.#  • Discard target Permanent.'),
             'costHand' => 3,
             'costReserve' => 3,
-           'effectPlayed' => FT::SEQ(
+            'effectPlayed' => FT::SEQ(
                 FT::GAIN(ME, FLEETING),
                 FT::XOR(
                     FT::ACTION(TARGET, ['effect' =>
                     FT::SEQ(
                         FT::DISCARD_TO_RESERVE(),
                         FT::ACTION(CHECK_CONDITION, ['condition' => 'isDiscardedCardNotInBiome:forest', 'effect' => FT::ACTION(DRAW, ['players' => OPPONENT])])
-                    )])
-                ),
-                FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+                    )]),
+                    FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
+                )
             )
         ];
     }

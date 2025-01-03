@@ -32,9 +32,9 @@ class MU_Rare_LostintheWoods extends \ALT\Models\Card
                     FT::SEQ(
                         FT::DISCARD_TO_RESERVE(),
                         FT::ACTION(CHECK_CONDITION, ['condition' => 'isDiscardedCardNotInBiome:forest', 'effect' => FT::ACTION(DRAW, ['players' => OPPONENT])])
-                    )])
-                ),
-                FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+                    )]),
+                    FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
+                )
             )
         ];
     }
