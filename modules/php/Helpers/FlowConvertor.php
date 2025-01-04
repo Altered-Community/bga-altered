@@ -1828,6 +1828,14 @@ abstract class FlowConvertor
     if (isset($calculated['noTrigger']) && $calculated['noTrigger'] === true) {
       // DynamicAttributes wll be used
       // if it exists, condition must be added at the end of the dynamic attribute
+
+      if (isset($calculated['conditionConditions'])) {
+        $calculated['triggerConditions'] = array_merge($calculated['triggerConditions'] ?? [], $calculated['conditionConditions']);
+        $calculated['triggerDescription'] = array_merge([$calculated['triggerDescription']] ?? [], [$calculated['conditionDescription']]);
+        unset($calculated['conditionConditions']);
+        unset($calculated['conditionDescription']);
+      }
+
       if (isset($calculated['triggerConditions'])) {
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
           if (!isset($properties[$keyAttribute])) {
