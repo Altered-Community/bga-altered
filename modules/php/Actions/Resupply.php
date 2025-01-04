@@ -142,7 +142,7 @@ class Resupply extends \ALT\Models\Action
         $exhausted
       );
     }
-    $this->checkAfterListeners($player, ['draw' => $n, 'notResupply' => $notResupply]);
+    $this->checkAfterListeners($player, ['draw' => $n, 'sourceId' => $this->getSourceId(), 'notResupply' => $notResupply]);
 
     $this->resolveAction(null, true);
   }

@@ -34,6 +34,33 @@ class ParallelNode extends AbstractNode
       });
   }
 
+  // public function getPId()
+  // {
+  //   $players = [];
+  //   foreach ($this->getChilds() as $child) {
+  //     // var_dump("titi");
+  //     if ($child->isResolved()) {
+  //       continue;
+  //     }
+
+  //     $pId = parent::getPId();
+  //     if (is_null($pId)) {
+  //       $players[-1] = ($players[-1] ?? 0) + 1;
+  //     } else {
+  //       $players[$pId] = ($players[$pId] ?? 0) + 1;
+  //     }
+  //   }
+  //   // throw new \feException(print_r($players));
+  //   // There are no players defined in the child
+  //   if (count($players) == 1 && isset($players[-1])) {
+  //     return null;
+  //   } elseif (count($players) == 1) {
+  //     // Only one player must choose so we put the node to him
+  //     return array_keys($players)[0];
+  //   }
+  //   return null;
+  // }
+
   /**
    * A PARALLEL node is optional if all its mandatory childs are already done
    */

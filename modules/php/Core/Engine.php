@@ -224,6 +224,8 @@ class Engine
         //   self::chooseNode($player, $id, true);
       } else {
         // Otherwise, go in the RESOLVE_CHOICE state
+        // var_dump($pId);
+
         Game::get()->gamestate->jumpToState(ST_RESOLVE_CHOICE);
       }
     } else {

@@ -403,7 +403,7 @@ class Target extends \ALT\Models\Action
     }
     $node['sourceId'] = $this->getSourceId();
 
-    if (isset($node['args']['effect'])) {
+    if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
       $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId);
     }
 

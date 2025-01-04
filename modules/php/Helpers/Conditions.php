@@ -77,7 +77,7 @@ abstract class Conditions
 
   public static function excludeSelf($card, $event)
   {
-    return $card->getId() != $event['cardId'];
+    return $card->getId() != ($event['cardId'] ?? ($event['sourceId']) ?? -1);
   }
 
   ///////////////////////////////////////////////
