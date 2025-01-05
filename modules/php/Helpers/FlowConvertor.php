@@ -1425,7 +1425,7 @@ abstract class FlowConvertor
         ]),
       ],
       399 => ['description' => clienttranslate('Draw a card, otherwise <RESUPPLY>.'), 'output' => FT::ACTION(DRAW, ['players' => ME]), 'oppositeOutput' => FT::ACTION(RESUPPLY, [])],
-      279 => ['description' => clienttranslate('Each Character in target Expedition gains 1 boost.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllCharactersInExpedition'])],
+      279 => ['description' => clienttranslate('Each Character in target Expedition gains 1 boost.'), 'output' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllCharactersInExpedition'])])],
       280 => [
         'description' => clienttranslate('Each Character you control other than me gains 1 boost.'),
         'output' =>  [
