@@ -167,6 +167,19 @@ abstract class Utils extends \APP_DbObject
     return $t;
   }
 
+  public static function searchTree($t, $searched)
+  {
+    foreach ($t as $key => $value) {
+      if ($value === $searched) {
+        return true;
+      } elseif (is_array($value)) {
+        return self::searchTree($value, $searched);
+      }
+    }
+
+    return false;
+  }
+
   public static function formatFee($cost)
   {
     return [

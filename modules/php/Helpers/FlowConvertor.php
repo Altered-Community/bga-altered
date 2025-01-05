@@ -1937,7 +1937,13 @@ abstract class FlowConvertor
       self::addOutputToNode($calculated['output'], $node);
     }
     if (isset($calculated['oppositeOutput'])) {
-      self::addOppositeToNode($calculated['oppositeOutput'], $node);
+      // if "opposite" is already defined we update it
+      if (Utils::searchTree($node, 'OPPOSITE')) {
+        self::addOppositeToNode($calculated['oppositeOutput'], $node);
+      } else {
+        // we nest the actual node in a XOR
+        $node = FT::XOR($node, $calculated['oppositeOutput']);
+      }
     }
 
     // Specific interaction

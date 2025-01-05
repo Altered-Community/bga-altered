@@ -38,6 +38,15 @@ abstract class FT
     ];
   }
 
+  public static function XOR_OPTIONAL(...$childs)
+  {
+    return [
+      'type' => NODE_XOR,
+      'childs' => $childs,
+      'optional' => true,
+    ];
+  }
+
   public static function PAR(...$childs)
   {
     return [
