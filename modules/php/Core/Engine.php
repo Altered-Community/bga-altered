@@ -138,7 +138,9 @@ class Engine
 
     $oldPId = Game::get()->getActivePlayerId();
     $pId = $node->getPId();
-
+    // if ($node->getType() == NODE_PARALLEL) {
+    //   var_dump("new" . $pId);
+    // }
     // Multi active node
     if ($pId == 'all') {
       Game::get()->gamestate->jumpToState(ST_RESOLVE_STACK);
