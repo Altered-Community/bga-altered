@@ -1587,7 +1587,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('The next Character you play this turn costs {1} less.'),
         'output' => [
           'action' => SPECIAL_EFFECT,
-          'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1, 'permanent' => false]],
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1, 'permanent' => false]],
         ],
       ],
       328 => [
