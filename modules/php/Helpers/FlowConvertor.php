@@ -1794,7 +1794,16 @@ abstract class FlowConvertor
           'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(EXHAUST, []))
         ])
       ],
-      351 => ['description' => clienttranslate('You may send target Character to Reserve. Unless it was in {V}, its controller draws a card.'), 'output' => 'TODO'],
+      351 => [
+        'description' => clienttranslate('You may send target Character to Reserve. Unless it was in {V}, its controller draws a card.'),
+        'output' =>
+        FT::ACTION(TARGET, ['effect' =>
+        FT::SEQ(
+          FT::DISCARD_TO_RESERVE(),
+          FT::ACTION(CHECK_CONDITION, ['condition' => 'isDiscardedCardNotInBiome:forest', 'effect' => FT::ACTION(DRAW, ['players' => OPPONENT])])
+        )])
+
+      ],
       312 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 4 or less.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalMountain' => 4, 'effect' => FT::DISCARD_TO_RESERVE()])],
       313 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 5 or less.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalMountain' => 5, 'effect' => FT::DISCARD_TO_RESERVE()])],
       315 => ['description' => clienttranslate('You may send to Reserve target Character with no statistic over 3.'), 'output' =>  FT::ACTION(TARGET, ['upTo' => true, 'maxStatistic' => 3, 'effect' => FT::DISCARD_TO_RESERVE()])],
