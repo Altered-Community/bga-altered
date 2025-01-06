@@ -127,7 +127,7 @@ class RollDie extends \ALT\Models\Action
     for ($i = 0; $i < $nTotal; $i++) {
       $roll = bga_rand(1, 6);
       if (Game::get()->getBgaEnvironment() == 'studio') {
-        $roll = 3;
+        $roll = 4;
       }
       $rolls[] = $roll;
     }
@@ -187,6 +187,7 @@ class RollDie extends \ALT\Models\Action
     if ($effect !== null) {
       $effect = Utils::updateTree($effect, 'die', $dieValue);
       $effect['sourceId'] = $source->getId();
+      $effect = Utils::tagTree($effect, ['sourceId' => $source->getId()]);
       $cardId = $this->getCtxArg('cardId') ?? null;
       if (!is_null($cardId) && isset($effect['args']['cardId']) && $effect['args']['cardId'] != ME) {
         $effect['args']['cardId'] = $cardId;
