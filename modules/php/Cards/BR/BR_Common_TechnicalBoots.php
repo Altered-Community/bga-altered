@@ -28,7 +28,7 @@ class BR_Common_TechnicalBoots extends \ALT\Models\Card
             'effectPassive' => [
                 'AfterDusk' => [
                     'condition' => 'myExpeditionHasMoved',
-                    'output' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'effect' => FT::ACTION(LOOSE, ['type' => FLEETING])]),
+                    'output' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'targetPlayer' => ME, 'effect' => FT::ACTION(LOOSE, ['type' => FLEETING])]),
                 ],
             ],
         ];
