@@ -59,7 +59,7 @@ class ParallelNode extends AbstractNode
       // Only one player must choose so we put the node to him
       return array_keys($players)[0];
     }
-    return Globals::getFirstPlayer();
+    return Globals::getActivePId();
   }
 
   /**
