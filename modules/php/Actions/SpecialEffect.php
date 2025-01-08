@@ -471,6 +471,8 @@ class SpecialEffect extends \ALT\Models\Action
       case 'instantWin':
         if (Globals::getInstantWin() == false) {
           $card->getPlayer()->setScore(1);
+          Stats::setWinner($card->getPlayer(), 1);
+          Stats::setGameWinner($card->getPlayer()->getHero()->getStatData());
           Globals::setInstantWin(true);
           Notifications::message(clienttranslate('${player_name} wins the game with ${card_name}\'s effect'), [
             'player' => $card->getPlayer(),
