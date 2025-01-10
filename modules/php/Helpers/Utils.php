@@ -173,7 +173,9 @@ abstract class Utils extends \APP_DbObject
       if ($value === $searched) {
         return true;
       } elseif (is_array($value)) {
-        return self::searchTree($value, $searched);
+        if (self::searchTree($value, $searched)) {
+          return true;
+        }
       }
     }
 

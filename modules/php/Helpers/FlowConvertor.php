@@ -82,11 +82,14 @@ abstract class FlowConvertor
             'targetPlayer' => ME,
             'upTo' => true,
             'targetLocation' => [HAND],
-            'effect' => FT::DISCARD_TO_RESERVE()
+            'effect' => FT::SEQ(
+              FT::DISCARD_TO_RESERVE(),
+              FT::ACTION(CHECK_CONDITION, ['conditions' => ['isPermanentFromTarget'], 'effect' => 'OUTPUT', 'oppositeEffect' => 'OPPOSITE'])
+            )
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['condition' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'output' => 'OUTPUT']], // to check
+        // 'passiveEffect' => ['Discard' => ['condition' => ['isSource', 'isDiscarded:hand:reserve:permanent'], 'output' => 'OUTPUT']], // to check
       ],
       172 => [
         'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Spell:'),
@@ -1949,9 +1952,12 @@ abstract class FlowConvertor
     if (isset($calculated['oppositeOutput'])) {
       // if "opposite" is already defined we update it
       if (Utils::searchTree($node, 'OPPOSITE')) {
+        // throw new \feException('titi');
+
         self::addOppositeToNode($calculated['oppositeOutput'], $node);
       } else {
         // we nest the actual node in a XOR
+        // throw new \feException("macghin");
         $node = FT::XOR($node, $calculated['oppositeOutput']);
       }
     }
