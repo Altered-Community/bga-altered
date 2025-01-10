@@ -638,7 +638,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Up to one target Character with Hand Cost {3} or less other than me gains <ANCHORED>.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'excludeSelf' => true, 'upTo' => true, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
       ],
-      95 => ['description' => clienttranslate('Characters your opponents play cost {1} more.'), 'noTrigger' => true, 'attributes' => ['increaseOpponentCharacterCost' => '1']],
+      95 => ['description' => clienttranslate('Cards your opponents play can\'t cost less than {2}.'), 'noTrigger' => true, 'attributes' => ['opponentCardsMinimumCost' => '2']],
       96 => [
         'description' => clienttranslate('Put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(
