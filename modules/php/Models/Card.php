@@ -120,6 +120,8 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Alizé
     'playTappedCards' => 'obj', // ['type'=>ALL / Character, 'location'=>me or unset]
+    'playTappedCharacters' => 'bool', // for Uniques
+    'playTappedAllCards'=>'bool', // for Unique
     'canAlwaysGainFleeting' => 'bool',
     'dynamicGainReplace' => 'obj',
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind

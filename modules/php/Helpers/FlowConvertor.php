@@ -1773,9 +1773,9 @@ abstract class FlowConvertor
           FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']])
         )
       ],
-      346 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCards' => ['type' => 'all']]],
-      391 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCards' => ['type' => 'all']]],
-      347 => ['description' => clienttranslate('You may play exhausted Characters from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCards' => ['type' => CHARACTER]]],
+      346 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedAllCards' => true]],
+      391 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedAllCards' => true]],
+      347 => ['description' => clienttranslate('You may play exhausted Characters from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCharacters' => true]],
       348 => [
         'description' => clienttranslate('You may ready an exhausted card in Reserve.'),
         'output' => FT::ACTION(TARGET, [
@@ -1844,7 +1844,7 @@ abstract class FlowConvertor
         unset($calculated['conditionConditions']);
         unset($calculated['conditionDescription']);
       }
-
+      // throw new \feException(print_r($calculated));
       if (isset($calculated['triggerConditions'])) {
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
           if (!isset($properties[$keyAttribute])) {
@@ -1876,6 +1876,7 @@ abstract class FlowConvertor
             $properties[$keyAttribute] = $tmp;
           }
         }
+        // throw new \feException(print_r($properties));
       }
     } elseif ($key != 'effectPassive') {
       // no natural condition check, we need to insert CheckConditions

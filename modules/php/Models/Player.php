@@ -575,11 +575,13 @@ class Player extends \ALT\Helpers\DB_Model
   {
     foreach ($this->getPlayedCards() as $cId => $card) {
       $playTap = $card->getPlayTappedCards();
-      if (is_null($playTap) || empty($playTap)) {
+      $playTappedCharacters = $card->getPlayTappedCharacters();
+      $playAllTapped = $card->getPlayTappedAllCards();
+      if (!$playTappedCharacters && !$playAllTapped && (is_null($playTap) || empty($playTap))) {
         continue;
       }
       // for all cards
-      if ($playTap['type'] == 'all') {
+      if ((isset($playTap['type']) && $playTap['type'] == 'all') || $playAllTapped) {
         return true;
       }
       // location check
@@ -587,6 +589,10 @@ class Player extends \ALT\Helpers\DB_Model
         if ($location != $card->getLocation()) {
           continue;
         }
+      }
+
+      if ($playTappedCharacters && $type == CHARACTER) {
+        return true;
       }
 
       if (!is_null($type) && $playTap['type'] == $type) {
