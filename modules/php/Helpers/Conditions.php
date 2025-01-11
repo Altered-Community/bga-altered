@@ -746,8 +746,9 @@ abstract class Conditions
     return ($event['notResupply'] ?? false) == false;
   }
 
-  public static function isPermanentFromTarget($card, $event){
-    $card= Cards::get($event['cardId']);
+  public static function isPermanentFromTarget($card, $event)
+  {
+    $card = Cards::get($event['cardId']);
     return $card->getType() == PERMANENT;
   }
 

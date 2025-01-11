@@ -203,7 +203,7 @@ abstract class FlowConvertor
       383 => ['description' => clienttranslate('If my Expedition is behind:'), 'condition' => 'myExpeditionIsBehind'],
       357 => ['description' => clienttranslate('If there are no Characters in the Expedition I\'m played in:'), 'condition' => 'XCharacterInExpedition:0:E'],
       356 => ['description' => clienttranslate('If there are two or more exhausted cards in Reserve:'), 'condition' => 'hasXExhaustedReserve:2'],
-      384 => ['description' => clienttranslate('If you control a <FLEETING> Character:'), 'condition' => 'hasControl::1:true'],
+      384 => ['description' => clienttranslate('If you control a <FLEETING> Character:'), 'condition' => 'hasControl::1::fleeting'],
       403 => ['description' => clienttranslate('If you control two or more Permanents:'), 'condition' => 'hasControl:permanent:2',],
       358 => ['description' => clienttranslate('If you have ten or more Mana Orbs:'), 'condition' => 'hasXMana:10'],
       359 => ['description' => clienttranslate('If you have two or more cards in Reserve:'), 'condition' => 'checkReserveCards:2'],
