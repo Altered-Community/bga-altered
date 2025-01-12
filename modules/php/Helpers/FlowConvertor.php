@@ -1953,11 +1953,10 @@ abstract class FlowConvertor
       // if "opposite" is already defined we update it
       if (Utils::searchTree($node, 'OPPOSITE')) {
         // throw new \feException('titi');
-
         self::addOppositeToNode($calculated['oppositeOutput'], $node);
-      } else {
+      } elseif ($key != 'effectPassive') {
         // we nest the actual node in a XOR
-        // throw new \feException("macghin");
+        // throw new \feException(print_r($node));
         $node = FT::XOR($node, $calculated['oppositeOutput']);
       }
     }
