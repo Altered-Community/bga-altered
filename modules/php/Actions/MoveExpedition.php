@@ -103,8 +103,12 @@ class MoveExpedition extends \ALT\Models\Action
   public function actMoveExpedition($expe)
   {
     $args = $this->argsMoveExpedition();
+    $gigantic = false;
     if (!in_array($expe, $args['expeditions'])) {
       throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
+    }
+    if ($this->getSource()->isGigantic()) {
+      $gigantic = true;
     }
 
     $pId = $expe[0];
@@ -117,5 +121,15 @@ class MoveExpedition extends \ALT\Models\Action
 
     $player->advanceStorm($token, null, $n, true, $source);
     $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+
+    if ($gigantic) {
+      // we must move the other expedition
+      $expedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+
+      $token = $expedition == STORM_LEFT ? HERO : COMPANION;
+
+      $player->advanceStorm($token, null, $n, true, $source);
+      $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+    }
   }
 }
