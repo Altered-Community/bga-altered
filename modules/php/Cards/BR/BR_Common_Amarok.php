@@ -38,7 +38,7 @@ class BR_Common_Amarok extends \ALT\Models\Card
           'output' => FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice'])
         ],
         'MoveCard' => [
-          'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
+          'conditions' => ['isCharacterFromTarget', 'isPlayedInSameLocation', 'excludeSelf'],
           'output' => FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice'])
         ],
       ],

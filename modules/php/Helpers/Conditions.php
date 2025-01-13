@@ -752,6 +752,11 @@ abstract class Conditions
     return $card->getType() == PERMANENT;
   }
 
+  public static function isCharacterFromTarget($card, $event)
+  {
+    $card = Cards::get($event['cardId']);
+    return in_array($card->getType(), [CHARACTER, TOKEN]);
+  }
 
   public static function isHandEmpty($card, $event)
   {
