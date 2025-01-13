@@ -575,7 +575,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // Looped a second time as this takes precedence on the "modifiers"
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       // TODO: manage multiplayer
-      if ($card->getLocation() == $expedition && $player->getId() != $card->getPId()) {
+      if (($card->getLocation() == $expedition || $card->isGigantic()) && $player->getId() != $card->getPId()) {
         if ($card->isOpponentOceanOnly() && isset($biomes[OCEAN])) {
           $biomes = [OCEAN => OCEAN];
         } elseif ($card->isOpponentForestOnly() && isset($biomes[FOREST])) {
