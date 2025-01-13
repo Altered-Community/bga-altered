@@ -516,8 +516,7 @@ abstract class Conditions
 
   public static function isPlayedInSameLocation($card, $event)
   {
-    // TODO: manage gigantic
-    return $card->getLocation() == ($event['to'] ?? '');
+    return $card->getLocation() == ($event['to'] ?? '') || ($event['gigantic'] ?? false);
   }
 
   /////////////////////////////////////////////////////////////

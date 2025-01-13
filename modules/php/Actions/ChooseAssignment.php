@@ -365,6 +365,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'from' => $fromLocation,
       'reallyPlayed' => true,
       'to' => $location,
+      'gigantic' => $card->isGigantic(),
       'playedFree' => $cost == 0 ? true : false,
       'putAndNotPlayed' => !$effectHand,
       'additionalEffects' => Globals::getAdditionalEffect()
