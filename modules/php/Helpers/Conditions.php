@@ -751,6 +751,12 @@ abstract class Conditions
     return $card->getType() == PERMANENT;
   }
 
+  public static function isSpellFromTarget($card, $event)
+  {
+    $card = Cards::get($event['cardId']);
+    return $card->getType() == SPELL;
+  }
+
   public static function isCharacterFromTarget($card, $event)
   {
     $card = Cards::get($event['cardId']);

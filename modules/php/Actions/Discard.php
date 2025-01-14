@@ -280,10 +280,10 @@ class Discard extends \ALT\Models\Action
       }
 
       // we add the source to the listening cards if it's not in the storms anymore
-      // linked to effect 171
-      if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
-        $cardsToListen[] = $this->getSourceId();
-      }
+      // linked to effect 171 ==> Removed as effect 171/172 revamped
+      // if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
+      //   $cardsToListen[] = $this->getSourceId();
+      // }
       // we add the cards being discarded (but in Landmark or Storms) to react
       if ($destination == DISCARD_PILE && in_array($originalLocation, [LANDMARK, STORM_LEFT, STORM_RIGHT])) {
         $cardsToListen[] = $cId;

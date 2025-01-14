@@ -100,11 +100,15 @@ abstract class FlowConvertor
             'targetPlayer' => ME,
             'upTo' => true,
             'targetLocation' => [HAND],
-            'effect' => FT::DISCARD_TO_RESERVE(),
+            'effect' => FT::SEQ(
+              FT::DISCARD_TO_RESERVE(),
+              FT::ACTION(CHECK_CONDITION, ['conditions' => ['isSpellFromTarget'], 'effect' => 'OUTPUT', 'oppositeEffect' => 'OPPOSITE'])
+            )
+
           ],
           ['optional' => true]
         ),
-        'passiveEffect' => ['Discard' => ['condition' => ['isSource', 'isDiscarded:hand:reserve:spell'], 'output' => 'OUTPUT']], // to check
+        // 'passiveEffect' => ['Discard' => ['condition' => ['isSource', 'isDiscarded:hand:reserve:spell'], 'output' => 'OUTPUT']], // to check
       ],
       173 => ['description' => clienttranslate('If you control four or more Characters:'), 'condition' => 'hasControl::4'],
       175 => [
