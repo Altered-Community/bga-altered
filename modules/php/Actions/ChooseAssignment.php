@@ -363,7 +363,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'cardId' => $cardId,
       'cardType' => $card->getType(),
       'from' => $fromLocation,
-      'reallyPlayed' => true,
+      'reallyPlayed' => $reallyPlayed,
       'to' => $location,
       'gigantic' => $card->isGigantic(),
       'playedFree' => $cost == 0 ? true : false,
