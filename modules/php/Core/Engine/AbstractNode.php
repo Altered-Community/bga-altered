@@ -410,7 +410,11 @@ class AbstractNode
       }
     }
 
-    if (empty($choices) || ($hasOneAction && ($this->isOptional($player) || $allOptional))) {
+    if (
+      empty($choices)
+      || ($hasOneAction && ($this->isOptional($player) || $allOptional))
+      || Globals::getEngineChoices() > 20 // added in case on infinite loop
+    ) {
       // we add the pass if there are more than one choice (and all optional) and/or the choice is optional
       if (count($choices) != 1 || $choice['optionalAction'] || $choice['automaticAction']) {
         $choices[PASS] = [
