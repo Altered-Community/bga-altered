@@ -1152,7 +1152,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       // we slide it from the card triggering the effect
       if (!$(id)) {
-        this.addCard(card, n.args.card2.location == 'hand' ? 'page-title' : `card-${n.args.card2.id}`);
+        this.addCard(
+          card,
+          n.args.card2.location == 'hand' || n.args.card2.location.indexOf('deck') > -1 ? 'page-title' : `card-${n.args.card2.id}`
+        );
         $(id).classList.add('mini-card');
       }
       let container = this.getCardContainer(card);
