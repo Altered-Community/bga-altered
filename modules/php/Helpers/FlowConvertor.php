@@ -581,10 +581,10 @@ abstract class FlowConvertor
         ]),
       ],
       84 => [
-        'description' =>  clienttranslate('Your Characters have: \"{R} I gain 1 boost.\"'),
+        'description' =>  clienttranslate('Your Characters other than me have: \"{R} I gain 1 boost.\"'),
         'passive' => [
           'ChooseAssignment' => [
-            'condition' => 'isCharacterFromReserveNotBlocked',
+            'conditions' => ['isCharacterFromReserveNotBlocked', 'excludeSelf'],
             'output' => FT::GAIN(EFFECT, BOOST),
           ],
         ],
