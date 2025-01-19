@@ -238,6 +238,9 @@ trait EngineTrait
   public function actRestart()
   {
     self::checkAction('actRestart');
+    if (!Globals::isUndo()) {
+      throw new \BgaVisibleSystemException('Undo is disabled');
+    }
     if (Globals::getEngineChoices() < 1) {
       throw new \BgaVisibleSystemException('No choice to undo');
     }
@@ -247,6 +250,9 @@ trait EngineTrait
   public function actUndoToStep($stepId)
   {
     self::checkAction('actRestart');
+    if (!Globals::isUndo()) {
+      throw new \BgaVisibleSystemException('Undo is disabled');
+    }
     Engine::undoToStep($stepId);
   }
 }
