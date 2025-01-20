@@ -93,6 +93,16 @@ class Cards extends \ALT\Helpers\CachedPieces
     return explode('_', $uid)[2] == 'A';
   }
 
+  public static function getNextPlayedState()
+  {
+    $max = -1;
+    $played = self::getFiltered(null, IN_PLAY);
+    foreach ($played as $cId => $card) {
+      $max = max($max, $card->getState());
+    }
+    return $max;
+  }
+
   public static function getAltUid($uid)
   {
     $expUid = explode('_', $uid);
@@ -578,7 +588,7 @@ class Cards extends \ALT\Helpers\CachedPieces
    */
   public static function getPlayedCards($pId, $type = null)
   {
-    return self::getFiltered($pId, IN_PLAY, $type);
+    return self::getFiltered($pId, IN_PLAY, $type)->orderBy('state', 'ASC');
   }
 
   public static function getReserveCards($pId, $type = null)
