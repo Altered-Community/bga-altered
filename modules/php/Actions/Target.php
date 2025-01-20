@@ -179,10 +179,10 @@ class Target extends \ALT\Models\Action
         return false;
       }
       // if we need to filter by location & attributes 
-      if ($excludedBiomes === null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()])) {
+      if ($excludedBiomes === null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()]) && !$c->isGigantic()) {
         return false;
       }
-      if ($excludedBiomes !== null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), ($excludedBiomes[$c->getPId()] ?? []))) {
+      if ($excludedBiomes !== null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), ($excludedBiomes[$c->getPId()] ?? [])) && $c->isGigantic()) {
         return false;
       }
       if ($isTapped && !$c->isTapped()) {
