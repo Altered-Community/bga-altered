@@ -31,12 +31,8 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 3,
       'effectReserve' => FT::GAIN($this, BOOST),
-      'effectPassive' => [
-        'LeaveExpedition' => [
-          'condition' => 'hasBoost',
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true]),
-        ],
-      ],
+      'leaveExpeditionBoostedToMana' => true,
+
     ];
   }
 }

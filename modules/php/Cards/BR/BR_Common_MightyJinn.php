@@ -19,7 +19,7 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ELEMENTAL],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'
+        'If I would leave the Expedition zone, you may put me in my owner\'s Mana zone (as an exhausted Mana Orb).'
       ),
       'typeline' => clienttranslate('Character - Elemental'),
       'flavorText' => clienttranslate('A single spark can start a wildfire.'),
@@ -30,18 +30,7 @@ class BR_Common_MightyJinn extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 4,
       'costReserve' => 3,
-
-      'effectPassive' => [
-        'LeaveExpedition' => [
-          'output' => FT::ACTION(DISCARD, [
-            'cardId' => ME,
-            'destination' => MANA,
-            'tapped' => true,
-            'canPass' => true,
-            'force' => true,
-          ]),
-        ],
-      ],
+      'leaveExpeditionToMana' => true,
     ];
   }
 }

@@ -13,6 +13,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
+use ALT\Helpers\FT;
 
 class Discard extends \ALT\Models\Action
 {
@@ -228,6 +229,41 @@ class Discard extends \ALT\Models\Action
         $hand = true;
       } elseif ($originalLocation == MANA) {
         $manaCards[] = $cId;
+      }
+
+      // Jinn's effect (ask question to put in mana instead of discarding)
+      if (($card->isLeaveExpeditionToMana() // Mighty Jinn
+          || $card->isLeaveExpeditionToManaOrDraw() // Mighty Jinn rare
+          || ($card->isLeaveExpeditionBoostedToMana() && $card->countToken(BOOST) > 0) // Tiny Jinn
+        )
+        && in_array($originalLocation, STORMS) && !$this->getArg('force')
+      ) {
+        $nodes = [FT::ACTION(DISCARD, [
+          'cardId' => $cId,
+          'destination' => MANA,
+          'tapped' => true,
+          'force' => true,
+        ])];
+        if ($destination == TOP_OF_DECK) {
+          $newNodes = FT::ACTION(DISCARD, [
+            'cardId' => $cId,
+            'destination' => TOP_OF_DECK,
+            'force' => true,
+          ]);
+        } else {
+          $newNodes = FT::ACTION(DISCARD, [
+            'cardId' => $cId,
+            'destination' => $args['destination'],
+            'force' => true,
+          ]);
+        }
+        if ($card->isLeaveExpeditionToManaOrDraw()) {
+          $newNodes = FT::SEQ($newNodes, FT::ACTION(DRAW, ['players' => ME]));
+        }
+        $nodes[] = $newNodes;
+        $this->insertAsChild(FT::XOR(...$nodes));
+        unset($cards[$cId]);
+        continue;
       }
 
       // Floral Tent

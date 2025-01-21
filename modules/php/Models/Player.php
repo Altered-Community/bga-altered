@@ -413,6 +413,35 @@ class Player extends \ALT\Helpers\DB_Model
         continue;
       }
 
+      // Jinn's effect (ask question to put in mana instead of discarding)
+      if (
+        $card->isLeaveExpeditionToMana() // Mighty Jinn
+        || $card->isLeaveExpeditionToManaOrDraw() // Mighty Jinn rare
+        || ($card->isLeaveExpeditionBoostedToMana() && $card->countToken(BOOST) > 0) // Tiny Jinn
+      ) {
+        $nodes[] = FT::ACTION(DISCARD, [
+          'cardId' => $cId,
+          'destination' => MANA,
+          'tapped' => true,
+          'force' => true,
+        ]);
+        $newNode = FT::ACTION(DISCARD, [
+          'cardId' => $cId,
+          'destination' => RESERVE,
+          'force' => true,
+        ]);
+
+        if ($card->isLeaveExpeditionToManaOrDraw()) {
+          $newNode = FT::SEQ($newNode, FT::ACTION(DRAW, ['players' => ME]));
+        }
+        $nodes[] = $newNode;
+
+
+        Engine::pushAfterFinishingChilds([FT::XOR(...$nodes)]);
+        continue;
+      }
+
+
       // Expedition, if the player hasn't moved, it stays
       if (in_array(EXPEDITION, $card->getSubtypes())) {
         $moves = Globals::getStormMoves();
