@@ -861,7 +861,7 @@ abstract class FlowConvertor
       139 => [
         'description' => clienttranslate('You may put target Character or Permanent in its owner\'s Mana zone (as an exhausted Mana Orb).'),
         'output' => FT::ACTION(TARGET, [
-          'targetType' => [PERMANENT, CHARACTER],
+          'targetType' => [PERMANENT, CHARACTER, TOKEN],
           'upTo' => true,
           'effect' => FT::ACTION(DISCARD, ['destination' => MANA, 'tapped' => true]),
         ])
