@@ -44,7 +44,7 @@ class BR_Rare_AroroSaviorofAsgartha extends \ALT\Models\Card
             ),
             'effectSupport' => [
                 'action' => SPECIAL_EFFECT,
-                'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1]],
+                'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
             ],
         ];
     }
