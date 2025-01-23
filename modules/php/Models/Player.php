@@ -424,15 +424,15 @@ class Player extends \ALT\Helpers\DB_Model
           'destination' => MANA,
           'tapped' => true,
           'force' => true,
-        ]);
+        ], ['pId' => $card->getPId()]);
         $newNode = FT::ACTION(DISCARD, [
           'cardId' => $cId,
           'destination' => RESERVE,
           'force' => true,
-        ]);
+        ], ['pId' => $card->getPId()]);
 
         if ($card->isLeaveExpeditionToManaOrDraw()) {
-          $newNode = FT::SEQ($newNode, FT::ACTION(DRAW, ['players' => ME]));
+          $newNode = FT::SEQ($newNode, FT::ACTION(DRAW, ['players' => ME], ['pId' => $card->getPId()]));
         }
         $nodes[] = $newNode;
 

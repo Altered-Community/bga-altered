@@ -243,19 +243,19 @@ class Discard extends \ALT\Models\Action
           'destination' => MANA,
           'tapped' => true,
           'force' => true,
-        ])];
+        ], ['pId' => $card->getPId()])];
         if ($destination == TOP_OF_DECK) {
           $newNodes = FT::ACTION(DISCARD, [
             'cardId' => $cId,
             'destination' => TOP_OF_DECK,
             'force' => true,
-          ]);
+          ], ['pId' => $card->getPId()]);
         } else {
           $newNodes = FT::ACTION(DISCARD, [
             'cardId' => $cId,
             'destination' => $args['destination'],
             'force' => true,
-          ]);
+          ], ['pId' => $card->getPId()]);
         }
         if ($card->isLeaveExpeditionToManaOrDraw()) {
           $newNodes = FT::SEQ($newNodes, FT::ACTION(DRAW, ['players' => ME]));
