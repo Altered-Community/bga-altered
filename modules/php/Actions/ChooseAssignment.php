@@ -195,7 +195,7 @@ class ChooseAssignment extends \ALT\Models\Action
         }
       }
       // Has to update cost here as cost is dynamic where it's played
-      if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0) {
+      if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic()) {
         $cost -= $card->getCostReductionIfEmpty();
       }
 

@@ -554,6 +554,16 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function hasGigantic()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isGigantic()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function hasIncreaseBiomesHighest($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {

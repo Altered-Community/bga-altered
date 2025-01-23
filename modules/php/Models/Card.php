@@ -265,8 +265,9 @@ class Card extends \ALT\Helpers\DB_Model
     // Amarok case
     if ($costReductionIfEmpty > 0) {
       if (
-        $player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER])  == 0 ||
-        $player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0
+        ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER])  == 0 ||
+          $player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0)
+        && !$player->hasGigantic()
       ) {
         $cost -= $costReductionIfEmpty;
       }
