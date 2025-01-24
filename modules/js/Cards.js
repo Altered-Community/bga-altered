@@ -1516,7 +1516,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       if (p.rarity == 2) {
         rareExtraDetails += 'Reference : ' + p.uid;
-        if (p.uEffects) {
+        if (isDebug == true && p.uEffects) {
           rareExtraDetails +=
             '<br /><br />' + p.uEffects.map((t, i) => `Effect ${i}: &nbsp;&nbsp; ${t.join(' / ')}`).join('<br />');
         }
