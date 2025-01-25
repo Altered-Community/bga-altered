@@ -142,6 +142,7 @@ class Card extends \ALT\Helpers\DB_Model
     'protectAnchoredInExpedition' => 'bool', // Floral tent
     'protectBoostedInExpedition' => 'bool', // Floral tent
     'increaseReserveCost' => 'int', // Ebenezer Scrooge
+    'dynamicIncreaseReserveCost' => 'str',
     'reduceReserveCost' => 'int', // Ebenezer Scrooge
     'exhaustCharactersMorning' => 'bool', // Snow queen
 
@@ -726,6 +727,19 @@ class Card extends \ALT\Helpers\DB_Model
       return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
     }
     return false;
+  }
+
+  public function getIncreaseReserveCost()
+  {
+    if (($this->properties['increaseReserveCost'] ?? 0) > 0) {
+      return $this->properties['increaseReserveCost'];
+    }
+
+    $dynamicBlocking = $this->getDynamicIncreaseReserveCost();
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return 0;
   }
 
   // public function getDynamicGigantic()

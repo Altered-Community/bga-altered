@@ -1244,7 +1244,7 @@ abstract class FlowConvertor
         ])
       ],
       266 => ['description' => clienttranslate('Any number of target Characters in {V} gain 2 boosts.'), 'output' => FT::ACTION(TARGET, ['expeditionAttributes' => [FOREST], 'n' => INFTY, 'upTo' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),],
-      268 => ['description' => clienttranslate('Cards other than me cost {1} more to play from Reserve.'), 'attributes' => ['increaseReserveCost' => 1]],
+      268 => ['description' => clienttranslate('Cards other than me cost {1} more to play from Reserve.'), 'noTrigger' => true, 'attributes' => ['dynamicIncreaseReserveCost' => '1']],
       379 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
