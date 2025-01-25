@@ -545,8 +545,8 @@ class Player extends \ALT\Helpers\DB_Model
   public function hasBlockingPower($expedition)
   {
     foreach ($this->getPlayedCards() as $cId => $card) {
-      // ifthere are eat me energy bars
-      if (!$card->getLocation() != $expedition && !$card->isGigantic()) {
+      // if there are eat me energy bars
+      if ($card->getLocation() != $expedition && !$card->isGigantic()) {
         continue;
       }
 
