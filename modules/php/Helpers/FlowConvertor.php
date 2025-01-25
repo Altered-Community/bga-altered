@@ -1814,7 +1814,24 @@ abstract class FlowConvertor
       312 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 4 or less.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalMountain' => 4, 'effect' => FT::DISCARD_TO_RESERVE()])],
       313 => ['description' => clienttranslate('You may send to Reserve any number of target Characters with total {M} of 5 or less.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalMountain' => 5, 'effect' => FT::DISCARD_TO_RESERVE()])],
       315 => ['description' => clienttranslate('You may send to Reserve target Character with no statistic over 3.'), 'output' =>  FT::ACTION(TARGET, ['upTo' => true, 'maxStatistic' => 3, 'effect' => FT::DISCARD_TO_RESERVE()])],
-
+      309 => [
+        'description' => clienttranslate('Roll a die. On a 4+, <RESUPPLY_LOW>. On a 1-3, <EXHAUSTED_RESUPPLY_LOW>.'),
+        'output' =>FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1-3' => FT::ACTION(RESUPPLY, ['exhausted'=>true]),
+            '4+' => FT::ACTION(RESUPPLY, []),
+          ],
+        ]),    
+      ],
+      389 => [
+        'description' => clienttranslate('Roll a die. On a 4+, <RESUPPLY_LOW>. On a 1-3, <EXHAUSTED_RESUPPLY_LOW>.'),
+        'output' =>FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1-3' => FT::ACTION(RESUPPLY, ['exhausted'=>true]),
+            '4+' => FT::ACTION(RESUPPLY, []),
+          ],
+        ]),    
+      ],
     ];
   }
 
@@ -2075,7 +2092,7 @@ abstract class FlowConvertor
     // debug
     //$properties['calculated'] = $calculated;
 
-    // throw new \feException(print_r($calculated));
+    // throw new \feException(print_r($properties));
     // use calculated to generate the effect in properties
     // if conditionEffect dans condition => noeud SEQ
     // Trigger condition => vrai check condition ! Array

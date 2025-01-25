@@ -408,7 +408,9 @@ class Cards extends \ALT\Helpers\CachedPieces
           return null;
         }
         $valid = FlowConvertor::constructEffect($trinity, $properties);
+        // throw new \feException(print_r($trinity));
         $properties['uEffects'][] = array_values($trinity);
+        // throw new \feException(print_r($properties));
       }
     }
     // $debug[0] = $unique;
