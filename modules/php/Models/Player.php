@@ -438,8 +438,9 @@ class Player extends \ALT\Helpers\DB_Model
         }
         $nodes[] = $newNode;
 
-
-        Engine::pushAfterFinishingChilds([FT::XOR(...$nodes)]);
+        $toAdd = FT::XOR(...$nodes);
+        $toAdd['pId'] = $card->getPId();
+        Engine::pushAfterFinishingChilds([$toAdd]);
         continue;
       }
 
