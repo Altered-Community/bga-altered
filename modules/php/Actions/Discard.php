@@ -261,7 +261,9 @@ class Discard extends \ALT\Models\Action
           $newNodes = FT::SEQ($newNodes, FT::ACTION(DRAW, ['players' => ME]));
         }
         $nodes[] = $newNodes;
-        $this->insertAsChild(FT::XOR(...$nodes));
+        $toAdd = FT::XOR(...$nodes);
+        $toAdd['pId'] = $card->getPId();
+        $this->insertAsChild($toAdd);
         unset($cards[$cId]);
         continue;
       }
