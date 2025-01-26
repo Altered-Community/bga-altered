@@ -409,6 +409,7 @@ class Player extends \ALT\Helpers\DB_Model
     $movedToReserve = [];
 
     foreach ($this->getPlayedCards() as $cId => $card) {
+      $nodes = [];
       if (in_array(LANDMARK, $card->getSubtypes())) {
         continue;
       }
