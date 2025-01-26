@@ -1816,21 +1816,21 @@ abstract class FlowConvertor
       315 => ['description' => clienttranslate('You may send to Reserve target Character with no statistic over 3.'), 'output' =>  FT::ACTION(TARGET, ['upTo' => true, 'maxStatistic' => 3, 'effect' => FT::DISCARD_TO_RESERVE()])],
       309 => [
         'description' => clienttranslate('Roll a die. On a 4+, <RESUPPLY_LOW>. On a 1-3, <EXHAUSTED_RESUPPLY_LOW>.'),
-        'output' =>FT::ACTION(ROLL_DIE, [
+        'output' => FT::ACTION(ROLL_DIE, [
           'effect' => [
-            '1-3' => FT::ACTION(RESUPPLY, ['exhausted'=>true]),
+            '1-3' => FT::ACTION(RESUPPLY, ['exhausted' => true]),
             '4+' => FT::ACTION(RESUPPLY, []),
           ],
-        ]),    
+        ]),
       ],
       389 => [
         'description' => clienttranslate('Roll a die. On a 4+, <RESUPPLY_LOW>. On a 1-3, <EXHAUSTED_RESUPPLY_LOW>.'),
-        'output' =>FT::ACTION(ROLL_DIE, [
+        'output' => FT::ACTION(ROLL_DIE, [
           'effect' => [
-            '1-3' => FT::ACTION(RESUPPLY, ['exhausted'=>true]),
+            '1-3' => FT::ACTION(RESUPPLY, ['exhausted' => true]),
             '4+' => FT::ACTION(RESUPPLY, []),
           ],
-        ]),    
+        ]),
       ],
     ];
   }
@@ -2061,16 +2061,16 @@ abstract class FlowConvertor
 
     if (isset($calculated['outputPassive'])) {
       // add the condition to the passive effect, if it exists
-      if (isset($calculated['triggerConditions'])) {
-        foreach ($calculated['outputPassive'] as $trigger => &$passive) {
-          $conditions = [];
-          if (isset($passive['condition'])) {
-            $conditions[] = $passive['condition'];
-            unset($passive['condition']);
-          }
-          $passive['conditions'] = array_merge($passive['conditions'] ?? [], $conditions, $calculated['triggerConditions']);
+      // if (isset($calculated['triggerConditions'])) {
+      foreach ($calculated['outputPassive'] as $trigger => &$passive) {
+        $conditions = [];
+        if (isset($passive['condition'])) {
+          $conditions[] = $passive['condition'];
+          unset($passive['condition']);
         }
+        $passive['conditions'] = array_merge($passive['conditions'] ?? [], $conditions, $calculated['triggerConditions'] ?? [], $calculated['conditionConditions'] ?? []);
       }
+      // }
       $properties['effectPassive'] = array_merge($properties['effectPassive'] ?? [], $calculated['outputPassive']);
     }
 
