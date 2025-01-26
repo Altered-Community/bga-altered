@@ -40,6 +40,7 @@ class Pay extends \ALT\Models\Action
 
   public function stPay()
   {
+    // throw new \feException(print_r(debug_print_backtrace()));
     $player = $this->getPlayer();
 
     $pay = $this->getCtxArg('pay') ?? 0;

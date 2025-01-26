@@ -207,6 +207,7 @@ class Engine
     $allChoices = $node->getChoices($player, true);
     // throw new \feException(print_r($choices));
     if (!empty($allChoices) && $node->getType() != NODE_LEAF) {
+      // var_dump($choices);
       // Only one choice : auto choose
       $id = array_keys($choices)[0] ?? null;
       if (
