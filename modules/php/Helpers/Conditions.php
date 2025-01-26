@@ -554,6 +554,10 @@ abstract class Conditions
 
     $playedCard = Cards::get($event['cardId']);
 
+    if ($playedOnly && ($event['reallyPlayed'] ?? false) == false) {
+      return false;
+    }
+
     // Exclude myself
     if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
       return false;
