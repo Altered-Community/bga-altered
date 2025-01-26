@@ -35,7 +35,7 @@ class MU_Rare_Eros extends \ALT\Models\Card
                     'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 3, 'permanent' => false]],
                 ],
                 FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterAnchored']),
-                FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']])
+                FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']], ['optional' => true])
             )
         ];
     }
