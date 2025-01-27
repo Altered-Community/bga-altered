@@ -140,7 +140,9 @@ abstract class Utils extends \APP_DbObject
   {
     foreach ($tags as $tag => $v) {
       if (!$replaceOnly || ($replaceOnly && isset($t[$tag]))) {
+        // if (is_array($t)) {
         $t[$tag] = $v;
+        // }
       }
     }
 
