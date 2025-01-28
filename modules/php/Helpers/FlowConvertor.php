@@ -1535,8 +1535,8 @@ abstract class FlowConvertor
       319 => ['description' => clienttranslate('Target Character gains 1 boost and <FLEETING>.'), 'output' => FT::ACTION(TARGET, ['effect' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))])],
       320 => ['description' => clienttranslate('Target Character gains 2 boosts and <FLEETING>.'), 'output' => FT::ACTION(TARGET, ['effect' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST, 2))])],
       323 => ['description' => clienttranslate('Target Character other than me gains 1 boost.'), 'output' => FT::ACTION(TARGET, ['excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, BOOST)]),],
-      429 => ['description' => clienttranslate('Target Character with Hand Cost {3} or less gains <ANCHORED>.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(ME, ANCHORED)])],
-      428 => ['description' => clienttranslate('Target Character with Hand Cost {3} or less gains <ANCHORED>.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(ME, ANCHORED)])],
+      429 => ['description' => clienttranslate('Target Character with Hand Cost {3} or less gains <ANCHORED>.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)])],
+      428 => ['description' => clienttranslate('Target Character with Hand Cost {3} or less gains <ANCHORED>.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)])],
       324 => ['description' => clienttranslate('Target Character you control with Hand Cost {4} or less gains <ASLEEP>.'), 'output' => ''],
       325 => [
         'description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF> twice.'),
