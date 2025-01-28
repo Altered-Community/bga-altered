@@ -408,7 +408,7 @@ class Player extends \ALT\Helpers\DB_Model
     $cleanupCards = [];
     $movedToReserve = [];
 
-    foreach ($this->getPlayedCards() as $cId => $card) {
+    foreach ($this->getPlayedCards()->sortBy('type') as $cId => $card) {
       $nodes = [];
       if (in_array(LANDMARK, $card->getSubtypes())) {
         continue;
@@ -446,7 +446,7 @@ class Player extends \ALT\Helpers\DB_Model
       }
 
 
-      // Expedition, if the player hasn't moved, it stays
+      // Expedition permanent, if the player hasn't moved, it stays
       if (in_array(EXPEDITION, $card->getSubtypes())) {
         $moves = Globals::getStormMoves();
         if (!isset($moves[$this->id]) || !isset($moves[$this->id][$card->getLocation()]) || $moves[$this->id][$card->getLocation()]['moves'] < 1) {
