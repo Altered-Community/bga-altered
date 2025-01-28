@@ -35,6 +35,7 @@ abstract class Conditions
       $condArgs = array_slice($t, 1);
 
       if (self::$condFct($card, $event, ...$condArgs) === false) {
+        // var_dump($card->getName(), $cond, $event);
         return false;
       }
     }
@@ -68,7 +69,7 @@ abstract class Conditions
 
   public static function hasSameOwner($card, $event)
   {
-    $cardId = $event['cardId'] ?? null;
+    $cardId = $event['cardId'] ??  null;
     if (is_null($cardId)) {
       return false;
     }
@@ -493,6 +494,19 @@ abstract class Conditions
     return true;
   }
 
+  public static function isGain($card, $event, $type, $n = 1)
+  {
+    if (($event['action'] ?? null) != GAIN) {
+      return false;
+    }
+   
+    if ($event['gain']['type']  != $type) {
+      return false;
+    }
+
+    return true;
+  }
+
   public static function hasGainedFleeting($card, $event)
   {
     if (($event['action'] ?? null) != GAIN) {
@@ -554,9 +568,10 @@ abstract class Conditions
 
     $playedCard = Cards::get($event['cardId']);
 
-    if ($playedOnly && ($event['reallyPlayed'] ?? false) == false) {
-      return false;
-    }
+    // TO SEEE
+    // if ($playedOnly && ($event['reallyPlayed'] ?? false) == false) {
+    //   return false;
+    // }
 
     // Exclude myself
     if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
@@ -916,6 +931,11 @@ abstract class Conditions
     return $event['pId'] == $card->getPId() &&
       $event['gain']['type'] == BOOST &&
       Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
+  }
+
+  public static function isControlledCharacterGain($card, $event){
+    $event['cardId'] = $event['gain']['cardId'];
+    return self::hasSameOwner($card, $event) && self::isCharacterFromTarget($card, $event);
   }
 
   public static function isCharacterBoostedAndUntap($card, $event)
