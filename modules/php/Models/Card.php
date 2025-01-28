@@ -130,6 +130,7 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicGainReplace' => 'obj',
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
     'ignoreDefender' => 'bool', // Mobile Armory
+    'dynamicIgnoreDefender'=>'str', // Unique version
     'cooldown' => 'bool', // in spell cleanup, card will be tapped
     'exhaustedReserveSlots' => 'int',
     'costReductionIfEmpty' => 'int',
@@ -740,6 +741,19 @@ class Card extends \ALT\Helpers\DB_Model
       return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
     }
     return 0;
+  }
+
+  public function isIgnoreDefender()
+  {
+    if (($this->properties['ignoreDefender'] ?? false) == true) {
+      return true;
+    }
+
+    $dynamicBlocking = $this->getDynamicIgnoreDefender();
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('ignoreDefender', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return false;
   }
 
   // public function getDynamicGigantic()

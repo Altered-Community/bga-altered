@@ -1225,8 +1225,8 @@ abstract class FlowConvertor
         ),
       ],
       // Alizé
-      301 => ['description' => clienttranslate('<DEFENDER> Characters don\'t prevent my Expedition from moving forward.'), 'noTrigger' => true, 'attributes' => ['ignoreDefender' => true]],
-      386 => ['description' => clienttranslate('<DEFENDER> Characters don\'t prevent my Expedition from moving forward.'), 'noTrigger' => true, 'attributes' => ['ignoreDefender' => true]],
+      301 => ['description' => clienttranslate('<DEFENDER> Characters don\'t prevent my Expedition from moving forward.'), 'noTrigger' => true, 'attributes' => ['dynamicIgnoreDefender' => '1']],
+      386 => ['description' => clienttranslate('<DEFENDER> Characters don\'t prevent my Expedition from moving forward.'), 'noTrigger' => true, 'attributes' => ['dynamicIgnoreDefender' => '1']],
       264 => ['description' => clienttranslate('<EXHAUSTED_RESUPPLY>.'), 'output' => FT::ACTION(RESUPPLY, ['exhausted' => true])],
       404 => ['description' => clienttranslate('<RESUPPLY>, otherwise <EXHAUSTED_RESUPPLY>.'), 'output' => FT::ACTION(RESUPPLY, []), 'oppositeOutput' => FT::ACTION(RESUPPLY, ['exhausted' => true])],
       402 => [
