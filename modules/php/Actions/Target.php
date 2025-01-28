@@ -324,6 +324,9 @@ class Target extends \ALT\Models\Action
 
       $node = $this->getArg('effect');
       $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId());
+      if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
+        $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
+      }
       // if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
       //   $node['args']['cardId'] = $cardId;
       //   $node['args']['cardFrom'] = $cardFrom;
