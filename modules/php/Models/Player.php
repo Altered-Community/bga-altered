@@ -416,7 +416,7 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Jinn's effect (ask question to put in mana instead of discarding)
       if (
-        !$card->hasToken(ASLEEP) &&
+        !$card->hasToken(ASLEEP) && !card->hasToken(ANCHORED) && 
         ($card->isLeaveExpeditionToMana() // Mighty Jinn
           || $card->isLeaveExpeditionToManaOrDraw() // Mighty Jinn rare
           || ($card->isLeaveExpeditionBoostedToMana() && $card->countToken(BOOST) > 0) // Tiny Jinn
