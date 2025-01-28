@@ -764,6 +764,10 @@ abstract class Conditions
     return ($event['notResupply'] ?? false) == false;
   }
 
+  public static function amIResupplied($card, $event) {
+    return $event['action'] == 'Resupply' && in_array($card->getId(), $event['cardIds']);
+  }
+
   public static function isPermanentFromTarget($card, $event)
   {
     $card = Cards::get($event['cardId']);

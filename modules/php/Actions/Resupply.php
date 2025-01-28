@@ -131,8 +131,9 @@ class Resupply extends \ALT\Models\Action
           )
         )
       );
+      $cards= $drawn;
     } else {
-      $player->draw(
+      $cards = $player->draw(
         $n,
         'deck-' . $player->getId(),
         RESERVE,
@@ -141,6 +142,21 @@ class Resupply extends \ALT\Models\Action
         $exhausted ? clienttranslate('${player_name} places ${card_names} from its deck to Reserve as exhausted(${card_name2}\'s effect)') : clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'),
         $exhausted
       );
+    }
+    // Machine in the ice effect
+    $node = [];
+    foreach ($cards as $cId => $card){
+      if ($card->isResupplyExhaust()) {
+        $node[] = FT::ACTION(
+          EXHAUST,
+          [
+              'cardId' => $cId
+          ], 
+          ['sourceId' => $cId]);
+      }
+    }
+    if (!empty($node)) {
+      $this->pushAfterFinishingChilds($node);
     }
     $this->checkAfterListeners($player, ['draw' => $n, 'sourceId' => $this->getSourceId(), 'notResupply' => $notResupply]);
 

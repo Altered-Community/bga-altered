@@ -29,6 +29,7 @@ class AX_Rare_TheMachineintheIce extends \ALT\Models\Card
             'costHand' => 1,
             'costReserve' => 2,
             'changedStats' => ['forest', 'mountain', 'ocean', 'costReserve'],
+            'resupplyExhaust' => true,
             'effectPassive' => [
                 'LeaveExpedition' => [
                     'condition' => 'isToReserve',
@@ -40,15 +41,6 @@ class AX_Rare_TheMachineintheIce extends \ALT\Models\Card
                     ),
                 ],
                 'LeaveOther' => [
-                    'condition' => 'isToReserve',
-                    'output' => FT::ACTION(
-                        EXHAUST,
-                        [
-                            'cardId' => ME
-                        ]
-                    ),
-                ],
-                'Resupply' => [
                     'condition' => 'isToReserve',
                     'output' => FT::ACTION(
                         EXHAUST,

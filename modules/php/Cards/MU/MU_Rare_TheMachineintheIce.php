@@ -28,6 +28,7 @@ class MU_Rare_TheMachineintheIce extends \ALT\Models\Card
             'ocean' => 5,
             'costHand' => 1,
             'costReserve' => 3,
+            'resupplyExhaust' => true,
             'effectPassive' => [
                 'LeaveExpedition' => [
                     'condition' => 'isToReserve',
@@ -39,15 +40,6 @@ class MU_Rare_TheMachineintheIce extends \ALT\Models\Card
                     ),
                 ],
                 'LeaveOther' => [
-                    'condition' => 'isToReserve',
-                    'output' => FT::ACTION(
-                        EXHAUST,
-                        [
-                            'cardId' => ME
-                        ]
-                    ),
-                ],
-                'Resupply' => [
                     'condition' => 'isToReserve',
                     'output' => FT::ACTION(
                         EXHAUST,
