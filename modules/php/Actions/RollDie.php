@@ -103,7 +103,9 @@ class RollDie extends \ALT\Models\Action
         $effect = $gain;
       }
     }
-
+    if ($effect == 'OPPOSITE') {
+      return null;
+    }
     return $effect;
   }
 
