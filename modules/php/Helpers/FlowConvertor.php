@@ -1837,6 +1837,11 @@ abstract class FlowConvertor
         'description' => clienttranslate('Each player may put a card from their Hand in Reserve.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalHandReserve'])
       ],
+      267 => [
+        'description' => clienttranslate('Cards other than me cost {1} less to play from Reserve. This effect can\'t make them cost less than {1}.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicReduceReserveCost' => '1']
+      ]
     ];
   }
 
@@ -1988,11 +1993,13 @@ abstract class FlowConvertor
     }
 
     // Specific interaction
-    foreach ($node as $tr => &$eff) {
-      // specific case for "When an opponent draws one or more cards or does Resupply "
-      if ($tr == 'Morning') {
-        if ($eff['conditions'] == ['isOpponentDraw', 'realResupply']) {
-          $eff['conditions'] = ['isMe'];
+    if (is_array($node)) {
+      foreach ($node as $tr => &$eff) {
+        // specific case for "When an opponent draws one or more cards or does Resupply "
+        if ($tr == 'Morning') {
+          if ($eff['conditions'] == ['isOpponentDraw', 'realResupply']) {
+            $eff['conditions'] = ['isMe'];
+          }
         }
       }
     }

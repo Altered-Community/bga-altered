@@ -130,7 +130,7 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicGainReplace' => 'obj',
     'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
     'ignoreDefender' => 'bool', // Mobile Armory
-    'dynamicIgnoreDefender'=>'str', // Unique version
+    'dynamicIgnoreDefender' => 'str', // Unique version
     'cooldown' => 'bool', // in spell cleanup, card will be tapped
     'exhaustedReserveSlots' => 'int',
     'costReductionIfEmpty' => 'int',
@@ -145,6 +145,7 @@ class Card extends \ALT\Helpers\DB_Model
     'increaseReserveCost' => 'int', // Ebenezer Scrooge
     'dynamicIncreaseReserveCost' => 'str',
     'reduceReserveCost' => 'int', // Ebenezer Scrooge
+    'dynamicReduceReserveCost' => 'int', // Ebenezer Scrooge
     'exhaustCharactersMorning' => 'bool', // Snow queen
     'resupplyExhaust' => 'bool', // Machine in the ice
 
@@ -740,6 +741,19 @@ class Card extends \ALT\Helpers\DB_Model
     $dynamicBlocking = $this->getDynamicIncreaseReserveCost();
     if ($dynamicBlocking != '') {
       return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return 0;
+  }
+
+  public function getReduceReserveCost()
+  {
+    if (($this->properties['reduceReserveCost'] ?? 0) > 0) {
+      return $this->properties['reduceReserveCost'];
+    }
+
+    $dynamicBlocking = $this->getDynamicReduceReserveCost();
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('reduceReserveCost', $dynamicBlocking, $this->getPlayer(), $this));
     }
     return 0;
   }
