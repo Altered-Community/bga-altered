@@ -1833,6 +1833,10 @@ abstract class FlowConvertor
           ],
         ]),
       ],
+      284 => [
+        'description' => clienttranslate('Each player may put a card from their Hand in Reserve.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalHandReserve'])
+      ],
     ];
   }
 
