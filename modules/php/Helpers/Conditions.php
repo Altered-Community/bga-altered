@@ -499,7 +499,7 @@ abstract class Conditions
     if (($event['action'] ?? null) != GAIN) {
       return false;
     }
-   
+
     if ($event['gain']['type']  != $type) {
       return false;
     }
@@ -764,7 +764,8 @@ abstract class Conditions
     return ($event['notResupply'] ?? false) == false;
   }
 
-  public static function amIResupplied($card, $event) {
+  public static function amIResupplied($card, $event)
+  {
     return $event['action'] == 'Resupply' && in_array($card->getId(), $event['cardIds']);
   }
 
@@ -817,7 +818,9 @@ abstract class Conditions
 
   public static function isInBiome($card, $event, $biome)
   {
-    return $card->getPlayer()->isInBiome($card->getLocation(), $biome);
+    return $card->isGigantic() ?
+      ($card->getPlayer()->isInBiome(STORM_LEFT, $biome) || $card->getPlayer()->isInBiome(STORM_RIGHT, $biome)) :
+      $card->getPlayer()->isInBiome($card->getLocation(), $biome);
   }
   public static function isNotInBiome($card, $event, $biome)
   {
@@ -937,7 +940,8 @@ abstract class Conditions
       Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
   }
 
-  public static function isControlledCharacterGain($card, $event){
+  public static function isControlledCharacterGain($card, $event)
+  {
     $event['cardId'] = $event['gain']['cardId'];
     return self::hasSameOwner($card, $event) && self::isCharacterFromTarget($card, $event);
   }
