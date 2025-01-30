@@ -9,7 +9,7 @@ class AX_Common_Brassbug extends \ALT\Models\Card
     parent::__construct($row);
     $this->properties = [
       'uid' => 'ALT_CORE_B_AX_31_C',
-      'asset' => 'ALT_CORE_B_AX_31_C',
+      'asset' => 'ALT_ALIZE_B_AX_31_C',
 
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
