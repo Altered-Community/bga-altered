@@ -145,7 +145,7 @@ class Card extends \ALT\Helpers\DB_Model
     'increaseReserveCost' => 'int', // Ebenezer Scrooge
     'dynamicIncreaseReserveCost' => 'str',
     'reduceReserveCost' => 'int', // Ebenezer Scrooge
-    'dynamicReduceReserveCost' => 'int', // Ebenezer Scrooge
+    'dynamicReduceReserveCost' => 'str', // Ebenezer Scrooge
     'exhaustCharactersMorning' => 'bool', // Snow queen
     'resupplyExhaust' => 'bool', // Machine in the ice
 
