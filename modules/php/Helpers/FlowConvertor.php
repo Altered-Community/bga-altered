@@ -1454,6 +1454,7 @@ abstract class FlowConvertor
       377 => ['description' => clienttranslate('Each player exhausts a card in their Reserve.'), 'output' => ''],
       283 => ['description' => clienttranslate('Each player may put a card from their Hand in Reserve to draw a card.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalHandReserveDraw'])],
       285 => ['description' => clienttranslate('Exchange target Card in your Reserve with a card from your Hand.'), 'output' => FT::ACTION(EXCHANGE, ['targetType' => [PERMANENT, SPELL, CHARACTER]]),],
+      392 => ['description' => clienttranslate('Exchange target Card in your Reserve with a card from your Hand.'), 'output' => FT::ACTION(EXCHANGE, ['targetType' => [PERMANENT, SPELL, CHARACTER]]),],
       286 => ['description' => clienttranslate('Exchange target Character in your Reserve with a card from your Hand.'), 'output' => FT::ACTION(EXCHANGE, []),],
       287 => ['description' => clienttranslate('Exchange target Spell in your Reserve with a card from your Hand.'), 'output' => FT::ACTION(EXCHANGE, ['targetType' => [SPELL]]),],
       288 => ['description' => clienttranslate('Exhaust me.'), 'output' => FT::ACTION(EXHAUST, ['cardId' => ME])],
