@@ -562,11 +562,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
         }
 
-        if (($updateExpeditions['type'] ?? '') == 'source' && $card->getPId() == $player->getId() && ($card->getLocation() == $expedition || $card->isGigantic())) {
+        if (($updateExpeditions['type'] ?? '') == 'source' && $card->getPId() == $player->getId() && ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode())) {
           self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
         }
 
-        if (($updateExpeditions['type'] ?? '') == 'sourceAll' && ($card->getLocation() == $expedition || $card->isGigantic())) {
+        if (($updateExpeditions['type'] ?? '') == 'sourceAll' && ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode())) {
           self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
         }
       }
