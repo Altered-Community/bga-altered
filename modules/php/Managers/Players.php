@@ -276,6 +276,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       foreach ($player->getPlayedCards()->where('location', STORMS) as $cId => $card) {
         if ($card->isDefender()) {
           $defenders[$pId][$card->getLocation()][] = $cId;
+          if ($card->isGigantic()) {
+            $defenders[$pId][$card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT][] = $cId;
+          }
         }
         if ($card->isDefenderIgnoreBehind()) {
           $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'behind';
@@ -284,7 +287,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
       }
     }
-
     if ($onlyDefenders) {
       return $defenders;
     }
