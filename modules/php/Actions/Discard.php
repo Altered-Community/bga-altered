@@ -211,8 +211,12 @@ class Discard extends \ALT\Models\Action
     $visibleCards = [];
     $hand = false;
     $cardsToListen = [];
+    $newCId = null;
+    $originalLocation = '';
+    $destination = '';
 
     foreach ($cards as $cId => $card) {
+      $newCId = $cId;
       $players[$card->getPId()] = $card->getPlayer();
       $destination = $args['destination'];
       $hasFleeting = $card->hasToken(FLEETING);
@@ -335,7 +339,7 @@ class Discard extends \ALT\Models\Action
     $this->checkAfterListeners($player, [
       'discardCard' => true,
       'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
-      'cardId' => $cId,
+      'cardId' => $newCId,
       'from' => $originalLocation,
       'to' => $destination,
       'sacrifice' => $this->isSacrifice(),

@@ -1941,7 +1941,7 @@ abstract class FlowConvertor
           $template['output'] = FT::ACTION(
             CHECK_CONDITION,
             [
-              'conditions' => $calculated['conditionConditions'],
+              'conditions' => $calculated['conditionConditions'] ?? [],
               'effect' => $calculated['conditionEffect'] ?? 'OUTPUT',
               'oppositeEffect' => $calculated['oppositeOutput'],
               'description' => [$calculated['conditionDescription'] ?? null, $calculated['outputDescription'] ?? null]

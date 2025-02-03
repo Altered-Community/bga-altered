@@ -265,7 +265,6 @@ class Engine
   public static function chooseNode($player, $nodeId, $auto = false)
   {
     $node = self::$tree->getNextUnresolved();
-    $canReuse = $node->getArgs()['canReuse'] ?? false;
     $args = $node->getChoices($player);
     if (!isset($args[$nodeId])) {
       throw new \BgaVisibleSystemException('This choice is not possible');
@@ -309,6 +308,7 @@ class Engine
       self::proceed();
       return;
     }
+    $canReuse = $node->getArgs()['canReuse'] ?? false;
 
     if ($node->getChilds()[$nodeId]->isResolved() && !$canReuse) {
       throw new \BgaVisibleSystemException('Node is already resolved');
