@@ -177,7 +177,6 @@ trait SetupTrait
     if ($response['success'] != 1) {
       throw new \BgaVisibleSystemException("API ERROR###" . $response['message'] . "###");
     }
-
     $deck = $response['content'];
     $deckContent = [];
     $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO]), 'n' => 1];
@@ -189,9 +188,17 @@ trait SetupTrait
             'This unique has an unimplemented power' . $card['content']['reference']
           );
         }
+        if (in_array($card->getName(), ['Moonlight Jellyfish', 'Foundry Armorer', 'Gericht, Revered Duelist'])) {
+          throw new \BgaUserException(clienttranslate(sprintf(self::_("The unique %s is temporarily banned by Equinox"), $card->getName())));
+        }
+
         $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
       } else {
-        $deckContent[] = ['card' => ['properties' => Cards::getCardClass($cardRef)->getProperties()], 'n' => $card['quantity']];
+        $cProp = Cards::getCardClass($cardRef)->getProperties();
+        $deckContent[] = ['card' => ['properties' => $cProp], 'n' => $card['quantity']];
+        if (in_array($cProp['uid'], ['ALT_CORE_B_BR_30_R2', 'ALT_CORE_B_OR_11_C', 'ALT_CORE_B_OR_11_R'])) {
+          throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), $cProp['name'])));
+        }
       }
     }
     $deck['cards'] = $deckContent;
