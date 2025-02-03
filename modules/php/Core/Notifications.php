@@ -590,8 +590,10 @@ class Notifications
   {
     if ($additionalCost > 0) {
       $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect and pays ${n} (Tough effect)');
-    } else {
+    } elseif (!is_null($source)) {
       $msg = clienttranslate('${player_name} targets ${card_names} for ${card_name}\'s effect');
+    } else {
+      $msg = clienttranslate('${player_name} targets ${card_names}');
     }
     self::notifyAll('targetCards', $msg, [
       'player' => $player,
@@ -639,6 +641,28 @@ class Notifications
       'mana_cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
+    ]);
+  }
+
+  public static function exhaustEffect($player, $card, $source)
+  {
+    self::notifyAll('tap', clienttranslate('${player_name} exhaust ${card_name} (${card_name2}\'s effect)'), [
+      'player' => $player,
+      'card' => $card,
+      'card2' => $source,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
+    ]);
+  }
+
+  public static function readyEffect($player, $card, $source)
+  {
+    self::notifyAll('ready', clienttranslate('${player_name} ready ${card_name} (${card_name2}\'s effect)'), [
+      'player' => $player,
+      'card' => $card,
+      'card2' => $source,
+      // 'totalMana' => $player->getTotalMana(),
+      // 'mana' => $player->getMana(),
     ]);
   }
 

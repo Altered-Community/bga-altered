@@ -113,6 +113,17 @@ class AbstractNode
     return count($this->childs);
   }
 
+  protected function childsFilterCount($callable): int
+  {
+    return \array_reduce(
+      $this->childs,
+      function ($acc, $child) use ($callable) {
+        return $acc + ($callable($child) ? 1 : 0);
+      },
+      0
+    );
+  }
+
   public function toArray()
   {
     return array_merge($this->infos, [
@@ -196,7 +207,18 @@ class AbstractNode
 
   public function getPId()
   {
-    return $this->infos['pId'] ?? null;
+    if (!isset($this->infos['pId'])) {
+      return null;
+    }
+    // change of logic due to nextplayer/active node
+    $pIdTest =  $this->infos['pId'];
+    if ($pIdTest == 'nextPlayer') {
+      return Players::getNext(Players::getActive())->getId();
+    } elseif ($pIdTest == 'active') {
+      return Players::getActiveId();
+    } else {
+      return $pIdTest;
+    }
   }
 
   public function getType()
@@ -264,6 +286,11 @@ class AbstractNode
   public function isResolvingParent()
   {
     return $this->infos['resolveParent'] ?? false;
+  }
+
+  public function getCountChoices()
+  {
+    return $this->infos['countChoices'] ?? 0;
   }
 
   /***********************
@@ -344,37 +371,57 @@ class AbstractNode
     $choices = [];
     $childs = $this->getType() == NODE_SEQ && !empty($this->childs) ? [0 => $this->childs[0]] : $this->childs;
     $allOptional = true;
+    $hasOneAction = false;
 
     foreach ($childs as $id => $child) {
-      $isDoable = $child->isDoable($player);
-      if (!$child->isResolved() && ($displayAllChoices || $isDoable)) {
+      if (!is_null($child->getPId())) {
+        $pIdTest = $child->getPId();
+        $playerTest = Players::get($pIdTest);
+      } elseif (is_null($player)) {
+        $playerTest = Players::getActive();
+      } else {
+        $playerTest = $player;
+      }
+
+      $isDoable = $child->isDoable($playerTest);
+      if ((!$child->isResolved() || ($this instanceof \ALT\Core\Engine\OrNode && isset($this->getArgs()['canReuse']))) && ($displayAllChoices || $isDoable)) {
         $choice = [
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
           'args' => $child->getArgs(),
-          'optionalAction' => $child->isOptional($player) && ($child->getPId() ?? $player->getId()) == $player->getId(), // added in case if 1 action of another player is optional
-          'automaticAction' => $child->isAutomatic($player),
-          'independentAction' => $child->isIndependent($player),
-          'irreversibleAction' => $child->isIrreversible($player),
+          'optionalAction' => $child->isOptional($playerTest) && ($child->getPId() ?? $playerTest->getId()) == $playerTest->getId(), // added in case if 1 action of another player is optional
+          'automaticAction' => $child->isAutomatic($playerTest),
+          'independentAction' => $child->isIndependent($playerTest),
+          'irreversibleAction' => $child->isIrreversible($playerTest),
           'source' => $child->getSource(),
           'sourceId' => $child->getSourceId(),
-          'player' => $child->getPId() ?? $player->getId()
+          'player' => $child->getPId() ?? $playerTest->getId()
         ];
         if ($choice['description'] != '' || $isDoable) {
           $choices[$id] = $choice;
         }
-        if (!$child->isOptional($player)) {
+        if (!$child->isOptional($playerTest)) {
           $allOptional = false;
+        }
+
+        if (($child->getPId() ?? $playerTest->getId()) == $playerTest->getId()) {
+          $hasOneAction = true;
         }
       }
     }
 
-    if ($this->isOptional($player) || empty($choices) || $allOptional) {
-      if (count($choices) != 1 || !$choice['optionalAction'] || $choice['automaticAction']) {
+    if (
+      empty($choices)
+      || ($hasOneAction && ($this->isOptional($player) || $allOptional))
+      || Globals::getEngineChoices() > 20 // added in case on infinite loop
+    ) {
+      // we add the pass if there are more than one choice (and all optional) and/or the choice is optional
+      if (count($choices) != 1 || $choice['optionalAction'] || $choice['automaticAction']) {
         $choices[PASS] = [
           'id' => PASS,
           'description' => clienttranslate('Pass'),
           'irreversibleAction' => false,
+          'optionalAction' => false,
           'args' => [],
         ];
       }
@@ -386,8 +433,9 @@ class AbstractNode
   public function choose($childIndex, $auto = false)
   {
     $this->infos['choice'] = $childIndex;
+    $this->infos['countChoices'] = ($this->infos['countChoices'] ?? 0) + 1;
     $child = $this->childs[$this->infos['choice']];
-    if (!$auto && !($child instanceof \ARK\Core\Engine\LeafNode)) {
+    if (!$auto && !($child instanceof \ALT\Core\Engine\LeafNode)) {
       $child->enforceMandatory();
     }
   }

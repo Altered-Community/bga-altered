@@ -1,0 +1,33 @@
+<?php
+
+namespace ALT\Cards\AX;
+
+class AX_Common_VaikeEnergyPioneer extends \ALT\Models\Card
+{
+    public function __construct($row)
+    {
+        parent::__construct($row);
+        $this->properties = [
+            'uid' => 'ALT_ALIZE_B_AX_35_C',
+            'asset'  => 'ALT_ALIZE_B_AX_35_C',
+
+            'faction'  => FACTION_AX,
+            'rarity'  => RARITY_COMMON,
+            'name'  => clienttranslate("Vaike, Energy Pioneer"),
+            'typeline' => clienttranslate("Character - Engineer"),
+            'type'  => CHARACTER,
+            'flavorText'  => clienttranslate('Energy and persistence conquer all things.'),
+            'artist' => "Zero Wen",
+            'extension' => 'TBF',
+            'subtypes'  => [ENGINEER],
+            'effectDesc' => clienttranslate('You may play exhausted cards from your Reserve.'),
+            'forest' => 2,
+            'mountain' => 2,
+            'ocean' => 2,
+            'costHand' => 2,
+            'costReserve' => 2,
+            'playTappedCards' => ['type' => 'all'],
+
+        ];
+    }
+}

@@ -17,7 +17,7 @@ class LY_Rare_StudiousDisciple extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Apprentice Mage'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
-      'artist' => 'Floriane Bodereau',
+      'artist' => 'Zaël',
       'subtypes' => [APPRENTICE, MAGE],
       'effectDesc' => clienttranslate('#{R} The next Spell you play this Afternoon costs {1} less.#'),
       'supportDesc' => clienttranslate(

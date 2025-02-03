@@ -36,6 +36,7 @@ class NightCleanup extends \ALT\Models\Action
     $player = $this->getPlayer();
     $reserve = $player->getReserveCards();
     $landmarks = $player->getLandmarks();
+    $exhaustedSlots = $player->getExhaustedReserveSlots();
 
     $nReserve = $this->getArg('nReserve');
     $nLandmarks = $this->getArg('nLandmarks');
@@ -43,6 +44,7 @@ class NightCleanup extends \ALT\Models\Action
     return [
       'nReserve' => $nReserve,
       'nLandmarks' => $nLandmarks,
+      'exhaustedSlots' => $exhaustedSlots,
       'descSuffix' => $nReserve == 0 ? 'landmarksOnly' : ($nLandmarks == 0 ? 'reserveOnly' : ''),
       '_private' => [
         'active' => [
@@ -60,6 +62,7 @@ class NightCleanup extends \ALT\Models\Action
     $args = $this->argsNightCleanup();
     $pArgs = $args['_private']['active'];
 
+
     // Number of cards
     if (count($reserveCardIds) != $args['nReserve'] || count($landmarkCardIds) != $args['nLandmarks']) {
       throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
@@ -72,10 +75,25 @@ class NightCleanup extends \ALT\Models\Action
 
     $cardIds = array_merge($reserveCardIds, $landmarkCardIds);
 
-
     $cards = Cards::getMany($cardIds);
     $deletedMeeples = [];
     $destination = DISCARD_PILE;
+
+    // Alizé, some cards can be kept if they are exhausted
+    if ($args['exhaustedSlots'] >= 0 && count($reserveCardIds) > $args['nReserve']) {
+      $exhausted = 0;
+      $nonExhausted = 0;
+      foreach ($cards as $cId => $card) {
+        if ($card->isTapped()) {
+          $exhausted++;
+        } else {
+          $nonExhausted++;
+        }
+      }
+      if ($nonExhausted > ($args['nReserve'] - $args['exhaustedSlots'])) {
+        throw new \BgaUserException(clienttranslate('You selected too many ready cards to keep'));
+      }
+    }
 
     foreach ($cards as $cId => $card) {
       // Save information about original location

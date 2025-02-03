@@ -67,6 +67,7 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Next spell is free');
         break;
       case 'nextCharacterCost3Anchored':
+      case 'nextCharacterAnchored':
         return clienttranslate('Next character gains <ANCHORED>');
         break;
       case 'removeFleetingIfPlayedHand':
@@ -83,6 +84,15 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'boostAllSubtype':
         return clienttranslate('Boost all subtype');
+        break;
+      case 'boostAllCharacters':
+        return clienttranslate('Boost all characters');
+        break;
+      case 'boostAllCharactersInExpedition':
+        return clienttranslate('Boost all characters');
+        break;
+      case 'boostAllCharactersExceptSelf':
+        return clienttranslate('Boost all characters except me');
         break;
       case 'boostXReserve':
         return clienttranslate('Boost number of cards in reserve');
@@ -123,6 +133,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'AfterRest2OrdisRecruit':
         return clienttranslate('Invoke 2 Ordis recruit after rest');
         break;
+      case 'invokeOrdisRecruitBureaucrat':
+        return clienttranslate('Invoke 1 Ordirs recruit for each Bureaucrat you control');
+        break;
       case 'afterRest':
         return clienttranslate('Trigger the effect after rest');
       case 'AllPlayersSacrifice1':
@@ -130,11 +143,31 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'eachPlayerOptionalResupply':
         return clienttranslate('All players may resupply');
+      case 'eachPlayerOptionalHandReserve':
+        return clienttranslate('All players may put a card from their Hand in Reserve');
+      case 'eachPlayerOptionalHandReserveDraw':
+        return clienttranslate('All players may put a card from their Hand in Reserve to draw a card');
       case 'fleetingAllCharacters':
         return clienttranslate('All characters gain fleeting');
-      case 'sleepingAllCharactersinExpedition':
-        return clienttranslate('Put to sleep character in the expedition');
         break;
+      case 'sleepingAllCharactersinExpedition':
+        return clienttranslate('Put to sleep characters in the expedition');
+        break;
+      case 'boostXFleetingChar':
+        return clienttranslate('1 Boost for each Fleeting character');
+        break;
+      case 'nextCharacterFleeting':
+        return clienttranslate('Next character gains <FLEETING');
+      case 'playAll1Card':
+        return clienttranslate('All players play for free one card with hand cost {3} or less');
+      case 'boostXForForest':
+        return clienttranslate('1 Boost for each expedition in Forest');
+      case 'eachPlayerAsleep':
+        return clienttranslate('Each player target a Character, gain <ASLEEP>');
+      case 'sendToReserveCharactersAndExhaustInExpedition':
+        return clienttranslate('Send to reserve characters and exhaust them');
+      case 'exhaustAllCards':
+        return clienttranslate('Exhaust all cards in Reseve');
     }
     return '';
   }
@@ -153,6 +186,13 @@ class SpecialEffect extends \ALT\Models\Action
       }
     }
 
+    switch ($this->getArg('effect')) {
+      case 'boostXFleetingChar':
+        return false;
+        break;
+      default:
+        return true;
+    }
     return true;
 
     // $effect = $this->getArg('effect');
@@ -179,6 +219,11 @@ class SpecialEffect extends \ALT\Models\Action
     $effect = $this->getArg('effect');
     $args = $this->getArg('args') ?? [];
     $card = $this->getSource();
+    if (!is_null($card)) {
+      $sourceId = $card->getId();
+    } else {
+      $sourceId = null;
+    }
 
     switch ($effect) {
       case 'useCard':
@@ -202,6 +247,7 @@ class SpecialEffect extends \ALT\Models\Action
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($this->getSource(), $args['counter']);
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
         break;
       case 'incCounter':
         $data = $card->getExtraDatas();
@@ -210,6 +256,8 @@ class SpecialEffect extends \ALT\Models\Action
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($this->getSource(), $args['counter']);
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+
         break;
       case 'activateAllPermanents':
         $cards = $card->getPlayer()->getPermanents();
@@ -260,6 +308,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'nextCharacterCost3Anchored':
         Globals::setNextCharacterCost3Anchored(true);
         break;
+      case 'nextCharacterAnchored':
+        Globals::setNextCharacterAnchored(true);
+        break;
       case 'removeFleetingIfPlayedHand':
         Globals::setRemoveFleetingIfPlayedHand(true);
         break;
@@ -271,6 +322,9 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'removeFleetingIfSpellPlayedHand':
         Globals::setRemoveFleetingIfSpellPlayedHand(true);
+        break;
+      case 'nextCharacterFleeting':
+        Globals::setNextCharacterFleeting(true);
         break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
@@ -291,6 +345,37 @@ class SpecialEffect extends \ALT\Models\Action
         }
         $this->pushParallelChilds($nodes);
         break;
+      case 'boostAllCharacters':
+        $player = $card->getPlayer();
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if (in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, BOOST, 1);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
+      case 'boostAllCharactersInExpedition':
+        $player = Players::get($this->getArg('player'));
+        $expedition = $this->getArg('expedition');
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($pCard->getLocation() == $expedition && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, BOOST, 1);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
+      case 'boostAllCharactersExceptSelf':
+        $player = $card->getPlayer();
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($cId != $card->getId() && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, BOOST, 1);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
       case 'boostXReserve':
         $n = $card
           ->getPlayer()
@@ -304,6 +389,18 @@ class SpecialEffect extends \ALT\Models\Action
         $n = $card
           ->getPlayer()
           ->getLandmarks()
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXFleetingChar';
+        $n = $card
+          ->getPlayer()
+          ->getPlayedCards([CHARACTER, TOKEN])
+          ->filter(function ($c) {
+            return $c->hasToken(FLEETING);
+          })
           ->count();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
@@ -374,6 +471,8 @@ class SpecialEffect extends \ALT\Models\Action
       case 'instantWin':
         if (Globals::getInstantWin() == false) {
           $card->getPlayer()->setScore(1);
+          Stats::setWinner($card->getPlayer(), 1);
+          Stats::setGameWinner($card->getPlayer()->getHero()->getStatData());
           Globals::setInstantWin(true);
           Notifications::message(clienttranslate('${player_name} wins the game with ${card_name}\'s effect'), [
             'player' => $card->getPlayer(),
@@ -393,7 +492,7 @@ class SpecialEffect extends \ALT\Models\Action
             [
               'n' => 2,
               'upTo' => true,
-              'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
+              'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'reallyPlayed' => false, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
               'targetLocation' => [HAND],
               'targetPlayer' => ME,
               'cards' => $drawn->getIds(),
@@ -477,6 +576,29 @@ class SpecialEffect extends \ALT\Models\Action
           ),
         ]);
         Globals::setAfterRest($afterRest);
+        break;
+      case 'invokeOrdisRecruitBureaucrat':
+        $pId = $card->getPlayer()->getId();
+        $nodes = [];
+
+        $bureaucrats = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
+          return in_array(BUREAUCRAT, $c->getSubtypes());
+        })->count();
+        if ($bureaucrats != 0) {
+          for ($i = 0; $i < $bureaucrats; $i++) {
+            $nodes[] =  FT::ACTION(
+              INVOKE_TOKEN,
+              [
+                'pId' => 'source',
+                'tokenType' => 'OD_Common_OrdisRecruit',
+                'targetLocation' => ['source'],
+              ],
+              ['sourceId' => $card->getId()]
+            );
+          }
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+
         break;
       case 'AfterRest2OrdisRecruit':
         $afterRest = Globals::getAfterRest();
@@ -577,6 +699,132 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
+        break;
+      case 'sendToReserveCharactersAndExhaustInExpedition':
+        $expedition = $this->getCtxArg('expedition');
+        $pId = $this->getCtxArg('player');
+        $nodes = [];
+        $exhaust = [];
+
+        foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
+          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->getLocation() != $expedition) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => RESERVE], ['sourceId' => $this->getSourceId()]);
+          $exhaust[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild([
+            'type' => NODE_SEQ,
+            'childs' => [
+              ['type' => NODE_SEQ, 'childs' => $nodes],
+              ['type' => NODE_SEQ, 'childs' => $exhaust],
+            ]
+          ]);
+        }
+        break;
+      case 'readyAllReserve':
+        $player = Players::getActive();
+        $nodes = [];
+        foreach ($player->getReserveCards() as $cId => $card) {
+          if (!$card->isTapped()) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(READY, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'exhaustAllCards':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getReserveCards() as $cId => $card) {
+            if ($card->isTapped()) {
+              continue;
+            }
+            $nodes[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'playAll1Card':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['pId' => $pId, 'optional' => true, 'sourceId' => $this->getSourceId()]);
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+
+        break;
+      case 'eachPlayerOptionalHandReserve':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::DISCARD_TO_RESERVE(),
+            ],
+            ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'eachPlayerOptionalHandReserveDraw':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(DRAW, ['players' => ME]))
+            ],
+            ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'boostXForForest':
+        $biomes = Players::filterBiomes([FOREST]);
+        $c = 0;
+        foreach ($biomes as $pId => $locations) {
+          $c += count($locations);
+        }
+
+        if ($c > 0) {
+          $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $c));
+        }
+        break;
+      case 'eachPlayerAsleep':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, TOKEN],
+              'targetPlayer' => ME,
+              'effect' => FT::GAIN(EFFECT, ASLEEP)
+            ],
+            ['pId' => $pId, 'sourceId' => $this->getSourceId()]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
       default:
         break;

@@ -157,6 +157,14 @@ class Collection extends \ArrayObject
     });
   }
 
+  public function sortBy($field, $asc = 'ASC')
+  {
+    return $this->order(function ($a, $b) use ($field, $asc) {
+      $method = 'get' . ucfirst($field);
+      return $asc == 'ASC' ? strcmp($a->$method(),$b->$method()) >=0 : strcmp($b->$method(), $a->$method())>=0;
+    });
+  }
+
   public function update($field, $value)
   {
     $method = 'set' . ucfirst($field);

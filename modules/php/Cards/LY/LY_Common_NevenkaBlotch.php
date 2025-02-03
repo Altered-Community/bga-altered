@@ -35,7 +35,7 @@ class LY_Common_NevenkaBlotch extends \ALT\Models\Card
         'targetPlayer' => ME,
         'effect' => FT::ACTION(ROLL_DIE, [
           'effect' => [
-            '1' => FT::DISCARD_TO_RESERVE(),
+            '1' => FT::ACTION(DISCARD, ['cardId' => EFFECT, 'destination' => RESERVE]),
             '2-5' => FT::GAIN(EFFECT, BOOST),
             '6+' => FT::GAIN(EFFECT, ANCHORED),
           ],

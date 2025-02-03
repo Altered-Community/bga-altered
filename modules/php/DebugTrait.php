@@ -99,13 +99,14 @@ trait DebugTrait
 
   function vt()
   {
+    throw new \BgaVisibleSystemException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([17, 21, 22]);
     // $this->actDayMana([20]);
 
     // Cards::get(3)->boost(1, 'test', true);
-    // throw new \feException(print_r(Players::getCurrent()->getBiomeInStorms()));
+    throw new \feException(print_r(Players::getCurrent()->isInBiome(STORM_LEFT, FOREST)));
     // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actSupport', [226]);
@@ -114,13 +115,13 @@ trait DebugTrait
     // $this->actTakeAtomicAction('actDiscard', [[9]]);
     // $this->actTakeAtomicAction('actTarget', [[17]]);
     // $this->actTakeAtomicAction('actDiscardAdd', [577]);
-    $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
-      'game' => 'alter' . 'ed',
-      'mode' => 'cards',
-      'cardsid' => ["ALT_COREKS_B_LY_04_U_4874", "ALT_COREKS_B_MU_12_U_1367"]
-    ]);
+    // $BGAToken = self::masterNodeRequest('getGameSpecificMetaInfos', [
+    //   'game' => 'alter' . 'ed',
+    //   'mode' => 'cards',
+    //   'cardsid' => ["ALT_COREKS_B_LY_04_U_4874", "ALT_COREKS_B_MU_12_U_1367"]
+    // ]);
     // $BGAToken = $this->equinoxAPIConnect(['mode' => 'BGALogin']);
-    var_dump($BGAToken);
+    // var_dump($BGAToken);
     // ['token'];
     // throw new \feException(Cards::get(11)->countToken(FLEETING));
     // Stats::incDays(2);
@@ -128,7 +129,7 @@ trait DebugTrait
     // throw new \feException(print_r(Globals::getDeckContent())); //->isDefender());
   }
 
-  function tv()
+  function tv($a)
   {
     // Cards::get(24)->setTapped(true);
     // Cards::get(3)->setEffectHand([[TARGET_ALL_CHARACTER_2 => [[BOOST => 2], [BOOST => 2]]]]);
@@ -141,21 +142,36 @@ trait DebugTrait
     // Cards::get(1)->isListeningTo([]);
     // throw new \feException(print_r(Players::get(2305528)->getBiomeInStorms()));
     // Notifications::updateTotalMana();
-    $card = Cards::getCardClass('ALT_COREKS_B_YZ_17_R1');
-    // throw new \feException(print_r($card->getProperties()));
-    // throw new \feException("toto");
-    $player = Players::getCurrent();
+    // $card = Cards::getCardClass('ALT_COREKS_B_YZ_17_R1');
+    // // throw new \feException(print_r($card->getProperties()));
+    // // throw new \feException("toto");
+    // $player = Players::getCurrent();
+
+    // Cards::singleCreate([
+    //   'player_id' => $player->getId(),
+    //   'location' => HAND,
+    //   'nbr' => 1,
+    //   'properties' => $card->getProperties(),
+    // ]);
+    // Notifications::refreshUI($this::get()->getAllDatas(true));
+    // $player = Players::getCurrent();
+    // Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    // Engine::proceed();
+    // Players::getActive()->isInBiome(STORM_RIGHT, OCEAN);
+    $card = Cards::getCardClass(trim($a))->jsonSerialize();
 
     Cards::singleCreate([
-      'player_id' => $player->getId(),
-      'location' => HAND,
+      'player_id' => Players::getCurrentId(),
+      'location' => 'hand',
       'nbr' => 1,
-      'properties' => $card->getProperties(),
+      'properties' => $card['properties'],
     ]);
     Notifications::refreshUI($this::get()->getAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
+
+    // throw new \feException(print_r(Cards::getCardClass(trim($a))->jsonSerialize()));
   }
 
   function tiebreak()
@@ -189,6 +205,24 @@ trait DebugTrait
   function untapAll()
   {
     Cards::untapAll();
+  }
+
+  function tapReserve()
+  {
+    $player = Players::getCurrent();
+    foreach ($player->getReserveCards() as $cId => $card) {
+      $card->setTapped(true);
+    }
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+  }
+
+  function tapMana()
+  {
+    $player = Players::getCurrent();
+    foreach ($player->getManaCards() as $cId => $card) {
+      $card->setTapped(true);
+    }
+    Notifications::refreshUI($this::get()->getAllDatas(true));
   }
 
   function allVisible()
@@ -605,12 +639,43 @@ trait DebugTrait
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
   }
-  function debug_randomUnique()
+  function testUnique($effect, $location = HAND)
   {
-    $properties = Cards::generateRandomUnique(FACTIONS[array_rand(FACTIONS)]);
+    $ceg = explode("_", $effect);
+    if (count($ceg) == 1) {
+      $ceg = explode(' / ', $effect);
+    }
+    if (count($ceg) == 1) {
+      $ceg = explode('/', $effect);
+    }
+    $uniqueCard = [
+      'reference' => 'ALT_ALIZE_B_MU_33_U',
+      'faction' => 'MU',
+      'name' => 'Fake unique for testing',
+      'cardType' => 'CHARACTER',
+      'illustrator' => 'TOTO',
+      'costHand' => 2,
+      'costReserve' => 2,
+      'forest' => 2,
+      'mountain' => 2,
+      'ocean' => 2,
+      'uniqueReduced' => [
+        [
+          'effects' => [
+            [
+              $ceg[0],
+              $ceg[1],
+              $ceg[2]
+            ]
+          ]
+        ]
+      ]
+    ];
+
+    $properties = Cards::generateUnique($uniqueCard);
     Cards::singleCreate([
       'player_id' => Players::getCurrentId(),
-      'location' => HAND,
+      'location' => $location,
       'nbr' => 1,
       'properties' => $properties,
     ]);

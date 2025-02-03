@@ -14,6 +14,7 @@ use ALT\Helpers\Collection;
 use ALT\Helpers\Conditions;
 use ALT\Helpers\Utils;
 use ALT\Managers\Players;
+use ALT\Helpers\FT;
 
 /*
  * Player: all utility functions concerning a player
@@ -98,7 +99,11 @@ class Player extends \ALT\Helpers\DB_Model
     $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
     if ($tapped == true) {
       foreach ($cards as $cId => $card) {
-        $card->setTapped(true);
+        if ($toLocation == MANA) {
+          $card->setTapped(true);
+        } else {
+          Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $cId], ['optional' => false, 'sourceId' => $source->getId()]));
+        }
       }
     }
     if ($toLocation == MANA) {
@@ -163,6 +168,13 @@ class Player extends \ALT\Helpers\DB_Model
   public function getPlayedCards($type = null)
   {
     return Cards::getPlayedCards($this->id, $type);
+  }
+
+  public function countCardsInLocation($location, $types)
+  {
+    return $this->getPlayedCards()->filter(function ($c) use ($location, $types) {
+      return $c->getLocation() == $location && in_array($c->getType(), $types);
+    })->count();
   }
 
   public function hasPlayedCard($id)
@@ -266,6 +278,15 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function getExhaustedReserveSlots()
+  {
+    $slots = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $slots += $card->getExhaustedReserveSlots();
+    }
+    return $slots;
+  }
+
   public function getRegionDifference()
   {
     if (is_null($this->getCompanionToken())) {
@@ -292,6 +313,11 @@ class Player extends \ALT\Helpers\DB_Model
     $locations = [];
     $storms = Globals::getStorm();
 
+    if (Globals::isTieBreakerMode()) {
+      // In tie-break each expedition is in all biomes
+      return [HERO => [FOREST, MOUNTAIN, OCEAN], COMPANION => [FOREST, MOUNTAIN, OCEAN]];
+    }
+
     foreach ($tokens as $i => $token) {
       $sId = $token->getLocationArg();
 
@@ -312,6 +338,23 @@ class Player extends \ALT\Helpers\DB_Model
     return $locations;
   }
 
+  public function isInBiome($storm, $biome)
+  {
+    $biomes = $this->getBiomeInStorms();
+    if ($storm == '') {
+      return false;
+    }
+
+    $expedition = $storm == STORM_LEFT ? HERO : COMPANION;
+    $newBiomes = [];
+    foreach ($biomes[$expedition] as $b) {
+      $newBiomes[$b] = $b;
+    }
+
+    Players::biomesModifier($newBiomes, $this, $storm);
+    return in_array($biome, $newBiomes);
+  }
+
   public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
@@ -319,6 +362,8 @@ class Player extends \ALT\Helpers\DB_Model
     // TODO: manage immobile
     $location = $tokenMeeple->getLocationArg();
     $expedition = $token == HERO ? STORM_LEFT : STORM_RIGHT;
+
+
 
     // if hero we increase
     $delta = $token == HERO ? $n : $n * -1;
@@ -363,17 +408,67 @@ class Player extends \ALT\Helpers\DB_Model
     $cleanupCards = [];
     $movedToReserve = [];
 
-    foreach ($this->getPlayedCards() as $cId => $card) {
-      if ($card->getType() == PERMANENT) {
+    foreach ($this->getPlayedCards()->sortBy('type') as $cId => $card) {
+      $nodes = [];
+      if (in_array(LANDMARK, $card->getSubtypes())) {
         continue;
+      }
+
+      // Jinn's effect (ask question to put in mana instead of discarding)
+      if (
+        !$card->hasToken(ASLEEP) && !$card->hasToken(ANCHORED) &&
+        ($card->isLeaveExpeditionToMana() // Mighty Jinn
+          || $card->isLeaveExpeditionToManaOrDraw() // Mighty Jinn rare
+          || ($card->isLeaveExpeditionBoostedToMana() && $card->countToken(BOOST) > 0) // Tiny Jinn
+        )
+      ) {
+        $nodes[] = FT::ACTION(DISCARD, [
+          'cardId' => $cId,
+          'destination' => MANA,
+          'tapped' => true,
+          'force' => true,
+        ], ['pId' => $card->getPId()]);
+        $newNode = FT::ACTION(DISCARD, [
+          'cardId' => $cId,
+          'destination' => RESERVE,
+          'force' => true,
+        ], ['pId' => $card->getPId()]);
+
+        if ($card->isLeaveExpeditionToManaOrDraw()) {
+          $newNode = FT::SEQ($newNode, FT::ACTION(DRAW, ['players' => ME], ['pId' => $card->getPId()]));
+        }
+        $nodes[] = $newNode;
+
+        $toAdd = FT::XOR(...$nodes);
+        $toAdd['pId'] = $card->getPId();
+        Engine::pushAfterFinishingChilds([$toAdd]);
+        continue;
+      }
+
+
+      // Expedition permanent, if the player hasn't moved, it stays
+      if (in_array(EXPEDITION, $card->getSubtypes())) {
+        $moves = Globals::getStormMoves();
+        if (!isset($moves[$this->id]) || !isset($moves[$this->id][$card->getLocation()]) || $moves[$this->id][$card->getLocation()]['moves'] < 1) {
+          continue;
+        }
       }
 
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
         $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard());
-        $deletedCards[$cId] = $card;
+
+        if ($card->isToken()) {
+          // delete the card as it's a token
+          $deletedCardTokens[] = $card;
+          Cards::delete($cId);
+        } else {
+          $deletedCards[$cId] = $card;
+        }
         continue;
       }
+
+
 
       // Move card without anchored,asleep to reserve
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
@@ -415,15 +510,22 @@ class Player extends \ALT\Helpers\DB_Model
 
     foreach ($expeditions as $i => $exp) {
       $strength = [OCEAN => 0, MOUNTAIN => 0, FOREST => 0]; // OCEAN/MOUNTAIN/FOREST
+      $increaseBiomesToHighest = $this->hasIncreaseBiomesHighest($exp);
+      $otherExpedition = $exp == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
       foreach ($cards as $c => $card) {
         if ($card->getLocation() != $exp && !$card->hasToken(GIGANTIC) && !$card->isGigantic()) {
           continue;
         }
+        $giganticIncrease = false;
+
         if ($card->hasToken(ASLEEP)) {
           continue;
         }
+        if ($card->isGigantic() && $this->hasIncreaseBiomesHighest($otherExpedition)) {
+          $giganticIncrease = true;
+        }
 
-        $biome = $card->getBiomes($includeModifiers);
+        $biome = $card->getBiomes($includeModifiers, $increaseBiomesToHighest || $giganticIncrease);
         foreach ($biome as $bi => $value) {
           $strength[$bi] += $value;
         }
@@ -443,8 +545,43 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function hasBlockingPower($expedition)
   {
-    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      // if there are eat me energy bars
+      if ($card->getLocation() != $expedition && !$card->isGigantic()) {
+        continue;
+      }
+
       if ($card->isBlockingPower()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasGigantic()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isGigantic()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasIncreaseBiomesHighest($expedition)
+  {
+    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+      if ($card->isIncreaseBiomesHighest()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasAdvanceTwiceDusk($expedition)
+  {
+    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+      if ($card->isAdvanceTwiceDusk()) {
         return true;
       }
     }
@@ -455,6 +592,58 @@ class Player extends \ALT\Helpers\DB_Model
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
       if ($card->isOppositeDefender()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasProtectAnchoredInExpedition($expedition)
+  {
+    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+      if ($card->isProtectAnchoredInExpedition()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasProtectBoostedInExpedition($expedition)
+  {
+    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+      if ($card->isProtectBoostedInExpedition()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  public function canPlayTappedCards($type = null, $location = null)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $playTap = $card->getPlayTappedCards();
+      $playTappedCharacters = $card->getPlayTappedCharacters();
+      $playAllTapped = $card->getPlayTappedAllCards();
+      if (!$playTappedCharacters && !$playAllTapped && (is_null($playTap) || empty($playTap))) {
+        continue;
+      }
+      // for all cards
+      if ((isset($playTap['type']) && $playTap['type'] == 'all') || $playAllTapped) {
+        return true;
+      }
+      // location check
+      if (isset($playTap['location']) && !is_null($location)) {
+        if ($location != $card->getLocation()) {
+          continue;
+        }
+      }
+
+      if ($playTappedCharacters && $type == CHARACTER) {
+        return true;
+      }
+
+      if (!is_null($type) && $playTap['type'] == $type) {
         return true;
       }
     }
@@ -556,7 +745,15 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return count(
       $this->getPlayedCards()->filter(function ($card) {
-        return $card->getDynamicGigantic() == 'universalGiganticToken';
+        $dynSplit = explode(':', $card->getDynamicGigantic());
+        if (count($dynSplit) > 1) {
+          // we need to test if ok, add change dynamic tough to the value of 0
+          if (!is_null(Utils::checkAttributeCondition('gigantic', $card->getDynamicGigantic(), $this, $card))) {
+            return $dynSplit[0] == 'universalGiganticToken';
+          }
+        } else {
+          return $card->getDynamicGigantic() == 'universalGiganticToken';
+        }
       })
     );
   }

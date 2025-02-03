@@ -88,6 +88,21 @@ class Cards extends \ALT\Helpers\CachedPieces
     return explode('_', $uid)[1] == 'COREKS';
   }
 
+  public static function isAlternateArt($uid)
+  {
+    return explode('_', $uid)[2] == 'A';
+  }
+
+  public static function getNextPlayedState()
+  {
+    $max = -1;
+    $played = self::getFiltered(null, IN_PLAY);
+    foreach ($played as $cId => $card) {
+      $max = max($max, $card->getState());
+    }
+    return $max;
+  }
+
   public static function getAltUid($uid)
   {
     $expUid = explode('_', $uid);
@@ -108,29 +123,75 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $coreUid;
   }
 
+  public static function getMainUid($uid)
+  {
+    $expUid = explode('_', $uid);
+    $expUid[2] = 'B';
+    $coreUid = implode('_', $expUid);
+    return $coreUid;
+  }
+
+  public static function getAlternateUid($uid)
+  {
+    $expUid = explode('_', $uid);
+    if (count($expUid) == 7) {
+      unset($expUid[6]);
+    }
+    unset($expUid[5]);
+    $altUid = implode('_', $expUid);
+    return $altUid;
+  }
+
+  public static function getIconSet($uid)
+  {
+    $expUid = explode('_', $uid);
+    switch ($expUid[1]) {
+      case 'COREKS':
+        return 'ks';
+      case 'ALIZE':
+        return 'tbf';
+      default:
+        return null;
+    }
+  }
+
   public static function getCardClass($uid)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    // Mapping done for heroes for example
+    if (isset(UID_MAPPING[$uid])) {
+      $uid = UID_MAPPING[$uid];
+    }
+
     $ks = self::isKS($uid);
+    $alternate = self::isAlternateArt($uid);
     if ($ks) {
       $coreUid = self::getCoreUid($uid);
       $altUid = self::getAltUid($uid);
+    } elseif ($alternate) {
+      $coreUid = self::getMainUid($uid);
+      $altUid = self::getAlternateUid($uid);
     }
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {
-      if (!$ks || !isset(MAP_REFS_CLASSES[$coreUid])) {
-        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid);
-      } elseif ($ks) {
+      if (!isset(MAP_REFS_CLASSES[$coreUid])) {
+        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . 't');
+      } elseif ($ks || $alternate) {
         $uid = $coreUid;
       }
     }
+
     $cInfo = explode('/', MAP_REFS_CLASSES[$uid]);
     $className = "\\ALT\\Cards\\$cInfo[0]\\$cInfo[1]";
-    $row = $ks == true ? ['properties' => ['setIcon' => 'ks']] : null;
-    // throw new \feException($className);
+    $iconSet = self::getIconSet($uid);
+    $row = null;
+
     $cardO = new $className($row);
-    if ($ks) {
-      $cardO->setSetIcon('ks');
+    if (!is_null($iconSet)) {
+      $cardO->setSetIcon($iconSet);
+    }
+
+    if ($ks || $alternate) {
       if (isset(self::getAltArt()[$altUid])) {
         $cardO->setFlavorText(self::getAltArt()[$altUid]['flavorText']);
         if ($cardO->getRarity() == RARITY_RARE) {
@@ -148,26 +209,27 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function generateRandomDeck($deck, $player)
   {
-    $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO])->jsonSerialize(), 'n' => 1];
-    foreach ($deck['cards'] as $cardRef => $card) {
-      if (isset($card['content'])) {
-        //it's a unique!
-        if (is_null(Cards::generateUnique($card['content']))) {
-          throw new \BgaVisibleSystemException(
-            'This unique has an unimplemented power' . $card['content']['reference']
-          );
-        }
-        $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
-      } else {
-        $deckContent[] = ['card' => Cards::getCardClass($cardRef)->jsonSerialize(), 'n' => $card['quantity']];
-      }
-    }
+    // For production
+    // $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO])->jsonSerialize(), 'n' => 1];
+    // foreach ($deck['cards'] as $cardRef => $card) {
+    //   if (isset($card['content'])) {
+    //     //it's a unique!
+    //     if (is_null(Cards::generateUnique($card['content']))) {
+    //       throw new \BgaVisibleSystemException(
+    //         'This unique has an unimplemented power' . $card['content']['reference']
+    //       );
+    //     }
+    //     $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
+    //   } else {
+    //     $deckContent[] = ['card' => Cards::getCardClass($cardRef)->jsonSerialize(), 'n' => $card['quantity']];
+    //   }
+    // }
 
-    return self::createDeck($player, $deckContent);
+    // return self::createDeck($player, $deckContent);
 
-    // require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
     // require_once dirname(__FILE__) . '/../Cards/unique.php';
-    // require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
+    require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
 
     // // $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
@@ -178,54 +240,85 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     // $result = Game::get()->getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
 
-    // $faction = FACTIONS[array_rand(FACTIONS)];
-    // $deckContent = [];
+    $faction = FACTIONS[array_rand(FACTIONS)];
+    $deckContent = [];
 
-    // $deckContent[HERO] = [
-    //   'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
-    //   'n' => 1,
-    // ];
-    // // random cards of the faction
-    // $i = 0;
-    // $totalCards = Globals::getTestingOption() ? 80 : 40;
+    $deckContent[HERO] = [
+      'card' => Cards::getCardClass(HEROES[$faction][array_rand(HEROES[$faction])])->jsonSerialize(),
+      'n' => 1,
+    ];
+    // random cards of the faction
+    $i = 0;
+    $totalCards = 40;
+    $repartition = ['' => 20, 'TBF' => 20];
+    $allocation = ['' => 0, 'TBF' => 0];
 
-    // do {
-    //   // $c = RELEASED[array_rand(RELEASED)];
-    //   $c = array_rand(MAP_REFS_CLASSES);
+    do {
+      // $c = RELEASED[array_rand(RELEASED)];
+      $c = array_rand(MAP_REFS_CLASSES);
 
-    //   // $c = MAP_REFS_CLASSES[$a];
-    //   // var_dump($c);
-    //   $objCard = self::getCardClass($c);
-    //   if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
-    //     $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
-    //     $i++;
-    //   }
-    // } while ($i < $totalCards);
+      // $c = MAP_REFS_CLASSES[$a];
+      // var_dump($c);
+      $objCard = self::getCardClass($c);
+      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
+        if ($allocation[$objCard->getExtension()] < $repartition[$objCard->getExtension()]) {
+          $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
+          $allocation[$objCard->getExtension()]++;
+          $i++;
+        }
+      }
+    } while ($i < $totalCards);
 
-    // for ($u = 0; $u < 15; $u++) {
-    //   // maybe to reenable later
-    //   // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
-    //   // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
-    //   $cardId = uniqueID[array_rand(uniqueID)];
-    //   // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
-    //   $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-    //     'game' => 'alter' . 'ed', 'mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId
-    //   ]);
-    //   // throw new \feException(print_r($uniqueCard));
+    for ($u = 0; $u < 15; $u++) {
+      // maybe to reenable later
+      // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
+      // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
+      $cardId = CEG[array_rand(CEG)];
+      // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
+      // $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
+      //   'game' => 'alter' . 'ed',
+      //   'mode' => 'card',
+      //   'token' => $BGAToken,
+      //   'cardId' => $cardId
+      // ]);
+      // throw new \feException(print_r($uniqueCard));
+      $ceg = explode('_', $cardId);
+      $uniqueCard = [
+        'reference' => 'ALT_ALIZE_B_MU_33_U',
+        'faction' => 'MU',
+        'name' => 'Fake unique for testing',
+        'cardType' => 'CHARACTER',
+        'illustrator' => 'TOTO',
+        'costHand' => 2,
+        'costReserve' => 2,
+        'forest' => 2,
+        'mountain' => 2,
+        'ocean' => 2,
+        'uniqueReduced' => [
+          [
+            'effects' => [
+              [
+                $ceg[0],
+                $ceg[1],
+                $ceg[2]
+              ]
+            ]
+          ]
+        ]
+      ];
+      $properties = self::generateUnique($uniqueCard);
+      if (is_null($properties)) {
+        $u--;
+        continue;
+      }
+      $deckContent[] = [
+        'card' => ['properties' => $properties],
+        'n' => 1,
+      ];
+      $i++;
+    }
 
-    //   $properties = self::generateUnique($uniqueCard);
-    //   if (is_null($properties)) {
-    //     // $u--;
-    //     continue;
-    //   }
-    //   $deckContent[] = [
-    //     'card' => ['properties' => $properties],
-    //     'n' => 1,
-    //   ];
-    //   $i++;
-    // }
-
-    // return self::createDeck($player, $deckContent);
+    return self::createDeck($player, $deckContent);
   }
 
   public static function generateUnique($unique)
@@ -244,8 +337,6 @@ class Cards extends \ALT\Helpers\CachedPieces
 
       $altUid = self::getAltUid($uid);
       // ALT_COREKS_B_YZ_04_4451
-      // var_dump($uid);
-      // var_dump($altUid);
       if (isset(self::getAltArt()[$altUid])) {
         $properties['flavorText'] = self::getAltArt()[$altUid]['flavorText'];
         $properties['asset']  = $altUid . '_U';
@@ -253,7 +344,6 @@ class Cards extends \ALT\Helpers\CachedPieces
         $properties['asset']  = self::getCoreUid($altUid) . '_U';
       }
     }
-    // $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
     $properties['faction'] = Utils::convertFaction($unique['faction']);
     $properties['name'] = $unique['name'];
     // $properties['type'] = constant($unique['cardType']['reference']);
@@ -301,6 +391,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       $trinity = [];
       foreach ($cardElement['effects'] as $i => $effect) {
         $trinity = [];
+        // throw new \feException(print_r($effect));
         foreach ($effect as $j => $idGd) {
           if (in_array($idGd, TRIGGER)) {
             $trinity['trigger'] = $idGd;
@@ -317,7 +408,9 @@ class Cards extends \ALT\Helpers\CachedPieces
           return null;
         }
         $valid = FlowConvertor::constructEffect($trinity, $properties);
+        // throw new \feException(print_r($trinity));
         $properties['uEffects'][] = array_values($trinity);
+        // throw new \feException(print_r($properties));
       }
     }
     // $debug[0] = $unique;
@@ -497,7 +590,7 @@ class Cards extends \ALT\Helpers\CachedPieces
    */
   public static function getPlayedCards($pId, $type = null)
   {
-    return self::getFiltered($pId, IN_PLAY, $type);
+    return self::getFiltered($pId, IN_PLAY, $type)->orderBy('state', 'ASC');
   }
 
   public static function getReserveCards($pId, $type = null)
@@ -541,10 +634,16 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function untapAll()
   {
     $untapped = [];
+    $exhaustedCharactersMorning = Players::isExhaustedCharactersMorning();
     foreach (self::getAll() as $cId => $card) {
       if ($card->isTapped()) {
-        $card->setTapped(false);
-        $untapped[] = $cId;
+        if (
+          !$exhaustedCharactersMorning ||
+          ($exhaustedCharactersMorning && (!in_array($card->getType(), [TOKEN, CHARACTER]) || $card->getLocation() != RESERVE))
+        ) {
+          $card->setTapped(false);
+          $untapped[] = $cId;
+        }
       }
     }
     Notifications::untap($untapped);
@@ -652,6 +751,14 @@ class Cards extends \ALT\Helpers\CachedPieces
       ],
       'ALT_COREKS_B_YZ_11' => ['flavorText' => clienttranslate('The real scarecrow is not who you think.')],
       'ALT_COREKS_B_YZ_17' => ['flavorText' => clienttranslate('In the abyssal depths, no one can hear you scream.')],
+      // Alizé
+      'ALT_ALIZE_A_AX_35' => ['flavorText' => clienttranslate('Even over 50 years after her death, her pioneering research in the use of kelon is mentioned in all the history books.')],
+      'ALT_ALIZE_A_BR_37' => ['flavorText' => clienttranslate('"Every scar marks a defeat, and every sword is a trophy."')],
+      'ALT_ALIZE_A_LY_34' => ['flavorText' => clienttranslate('"This trick was a triumph. It’s hard to overstate my satisfaction."')],
+      'ALT_ALIZE_A_MU_35' => ['flavorText' => clienttranslate('"This will be a fine addition to my collection."')],
+      'ALT_ALIZE_A_OR_38' => ['flavorText' => clienttranslate('"Day 28. The intense cold is putting the troops\' morale to the test. I hope the dawn will bring a bit of warmth."')],
+      'ALT_ALIZE_A_YZ_36' => ['flavorText' => clienttranslate('She used her body as a rampart until she was carried away by the waves.')],
+
     ];
   }
 

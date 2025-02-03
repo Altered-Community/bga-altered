@@ -23,22 +23,22 @@ class OD_Common_WaruMack extends \ALT\Models\Card
       'flavorText' => clienttranslate('Bureaucracy is an art that requires careful planning.'),
       'artist' => 'Taras Susak',
       'effectDesc' => clienttranslate(
-        'At Noon, if you control a Bureaucrat — Create an <ORDIS_RECRUIT> Soldier token in target Expedition.  When you play a Bureaucrat — You may have it gain <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
+        'When you play a Bureaucrat — It gains <ASLEEP>. (During Dusk, ignore its statistics. During Rest, it doesn\'t go to Reserve and it loses Asleep.)'
       ),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
       'effectPassive' => [
-        'Noon' => [
-          'conditions' => ['isMe', 'hasControl:bureaucrat:1'],
-          'output' => FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
-            'tokenType' => 'OD_Common_OrdisRecruit',
-            'targetLocation' => STORMS,
-          ]),
-        ],
+        // 'Noon' => [
+        //   'conditions' => ['isMe', 'hasControl:bureaucrat:1'],
+        //   'output' => FT::ACTION(INVOKE_TOKEN, [
+        //     'pId' => 'source',
+        //     'tokenType' => 'OD_Common_OrdisRecruit',
+        //     'targetLocation' => STORMS,
+        //   ]),
+        // ],
         'ChooseAssignment' => [
           'condition' => 'isCardPlayed:bureaucrat',
-          'output' => FT::SEQ_OPTIONAL(FT::ACTION(GAIN, ['cardId' => EFFECT, 'type' => ASLEEP, 'n' => 1])),
+          'output' => FT::ACTION(GAIN, ['cardId' => EFFECT, 'type' => ASLEEP, 'n' => 1]),
         ],
       ],
     ];

@@ -6,7 +6,7 @@ use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Notifications;
-use ALT\Managers\ActionCards;
+use ALT\Managers\Actions;
 use ALT\Core\Engine;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
@@ -24,8 +24,19 @@ class ChooseAssignment extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return clienttranslate('Choose an assignment');
+    if (count($this->getArg('actions')) == 3) {
+      return clienttranslate('Choose an assignment');
+    } else {
+      return clienttranslate('Play a card');
+    }
   }
+
+  protected $args = [
+    'types' => [PERMANENT, SPELL, CHARACTER],
+    'actions' => ['play', 'support', 'tap'],
+    'maxHandCost' => INFTY,
+    'free' => false
+  ];
 
   public function argsChooseAssignment()
   {
@@ -33,48 +44,50 @@ class ChooseAssignment extends \ALT\Models\Action
     $handCards = $player->getHand();
     $reserveCards = $player->getReserveCards();
     $actions = ['play' => [], 'support' => [], 'tap' => []];
+    $authorizedTypes = $this->getArg('types');
+    $authorizedActions = $this->getArg('actions');
+    $maxHandCost = $this->getArg('maxHandCost');
+    $free = $this->getArg('free');
 
     // 1. Play cards
-    $actions['play'] = $handCards
-      ->merge($reserveCards)
-      ->filter(function ($card) use ($player) {
-        return $card->canBePlayed($player);
-      })
-      ->map(function ($card) {
-        $type = $card->getType();
-        $subTypes = $card->getSubtypes();
-        if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
-          return [PERMANENT];
-        } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
-          return [LANDMARK];
-        } elseif ($type == SPELL) {
-          return [LIMBO];
-        } elseif ($type == CHARACTER) {
-          return [STORM_LEFT, STORM_RIGHT];
-        }
-        return [];
-      });
+    if (in_array('play', $authorizedActions)) {
+      $actions['play'] = $handCards
+        ->merge($reserveCards)
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
+          return in_array($card->getType(), $authorizedTypes) &&
+            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
+        })
+        ->map(function ($card) use ($player) {
+          return $card->getPlayableLocation($player);
+        });
+    }
 
     // 2. Support
-    $actions['support'] = $reserveCards
-      ->filter(function ($card) {
-        return !empty($card->getEffectSupport());
-      })
-      ->getIds();
+    if (in_array('support', $authorizedActions)) {
+      $actions['support'] = $reserveCards
+        ->filter(function ($card) use ($player) {
+          return !empty($card->getEffectSupport()) && (
+            !$card->isTapped()
+          );
+        })
+        ->getIds();
+    }
 
     // 3. Tap effect
-    $actions['tap'] = $player
-      ->getPlayedCards()
-      ->merge($player->getHeroCollection())
-      ->filter(function ($card) use ($player) {
-        return !$card->isTapped() &&
-          !is_null($card->getEffectTap()) &&
-          !empty($card->getEffectTap()) &&
-          Engine::buildTree($card->getEffectTap())->isDoable($player);
-      })
-      ->getIds();
-
-    return ['_private' => ['active' => $actions]];
+    if (in_array('tap', $authorizedActions)) {
+      $actions['tap'] = $player
+        ->getPlayedCards()
+        ->merge($player->getHeroCollection())
+        ->filter(function ($card) use ($player) {
+          return !$card->isTapped() &&
+            !is_null($card->getEffectTap()) &&
+            !empty($card->getEffectTap()) &&
+            Engine::buildTree($card->getEffectTap())->isDoable($player);
+        })
+        ->getIds();
+    }
+    $additionalAction = count($this->getArg('actions')) != 3;
+    return ['_private' => ['active' => $actions], 'additionalAction' => $additionalAction, 'descSuffix' => $additionalAction ? 'additional' : ''];
   }
 
   public static function statPlay($carId)
@@ -115,13 +128,14 @@ class ChooseAssignment extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
 
-    $this->playCard($cardId, $location);
+    $this->playCard($cardId, $location, $this->getArg('free'));
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
+
     if ($card->getPId() != $player->getId()) {
       throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
     }
@@ -180,6 +194,10 @@ class ChooseAssignment extends \ALT\Models\Action
           return;
         }
       }
+      // Has to update cost here as cost is dynamic where it's played
+      if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic()) {
+        $cost -= $card->getCostReductionIfEmpty();
+      }
 
       // Pay cost
       $player->payMana($cost);
@@ -197,6 +215,10 @@ class ChooseAssignment extends \ALT\Models\Action
     // Move card
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
+    $card->setTapped(false);
+    $newState = Cards::getNextPlayedState();
+    $newState++;
+    $card->setState($newState);
 
     // notification
     Notifications::playCard($player, $card, $cost, $fromLocation, $location);
@@ -207,9 +229,13 @@ class ChooseAssignment extends \ALT\Models\Action
       Notifications::silentKill($deleted);
     }
     // if played from reserve, it gains fleeting
-    elseif ($fromLocation == RESERVE && $card->getType() != PERMANENT) {
-      $token = Meeples::createOnCard(FLEETING, $cardId, $player->getId());
-      Notifications::gainMeeple(FLEETING, $card, $token);
+    elseif ($fromLocation == RESERVE && !in_array(LANDMARK, $card->getSubtypes())) {
+      Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
+    }
+
+    if (Globals::getNextCharacterFleeting() == true) {
+      Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
+      Globals::setNextCharacterFleeting(false);
     }
 
     // should we boost the card
@@ -227,6 +253,15 @@ class ChooseAssignment extends \ALT\Models\Action
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterCost3Anchored(false);
     }
+
+    if (
+      Globals::getNextCharacterAnchored() == true &&
+      in_array($card->getType(), [CHARACTER, TOKEN])
+    ) {
+      $this->pushParallelChild(FT::GAIN($card, ANCHORED));
+      Globals::setNextCharacterAnchored(false);
+    }
+
 
     if (
       ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($player, $location)) ||
@@ -331,12 +366,14 @@ class ChooseAssignment extends \ALT\Models\Action
       'cardId' => $cardId,
       'cardType' => $card->getType(),
       'from' => $fromLocation,
+      'reallyPlayed' => $reallyPlayed,
       'to' => $location,
+      'gigantic' => $card->isGigantic(),
       'playedFree' => $cost == 0 ? true : false,
       'putAndNotPlayed' => !$effectHand,
       'additionalEffects' => Globals::getAdditionalEffect()
     ]);
-
+    // throw new \feException(print_r(Globals::getEngine()));
 
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
     Globals::setAdditionalEffect([]);
@@ -349,7 +386,7 @@ class ChooseAssignment extends \ALT\Models\Action
         Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
       }
 
-      Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()]]);
+      Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
     } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
     }

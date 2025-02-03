@@ -167,6 +167,11 @@ trait EngineTrait
       $args['sourceId'] = $sourceId;
       $args['source'] = Cards::get($sourceId)->getName();
     }
+    if ($node instanceof \ALT\Core\Engine\OrNode && isset($args['n'])) {
+      $remaining = $node->getRemainingChoices();
+      $args['nRemaining'] = $remaining;
+      $args['descSuffix'] = isset($args['descSuffix']) ? $args['descSuffix'] : 'remaining';
+    }
     $this->addArgsAnytimeAction($args, 'resolveChoice');
     return $args;
   }
@@ -233,6 +238,9 @@ trait EngineTrait
   public function actRestart()
   {
     self::checkAction('actRestart');
+    if (!Globals::isUndo()) {
+      throw new \BgaVisibleSystemException('Undo is disabled');
+    }
     if (Globals::getEngineChoices() < 1) {
       throw new \BgaVisibleSystemException('No choice to undo');
     }
@@ -242,6 +250,9 @@ trait EngineTrait
   public function actUndoToStep($stepId)
   {
     self::checkAction('actRestart');
+    if (!Globals::isUndo()) {
+      throw new \BgaVisibleSystemException('Undo is disabled');
+    }
     Engine::undoToStep($stepId);
   }
 }

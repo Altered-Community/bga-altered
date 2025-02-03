@@ -1195,7 +1195,7 @@ define([
           if (tooltip.showTimeout != null) clearTimeout(tooltip.showTimeout);
 
           tooltip.showTimeout = setTimeout(() => {
-            if ($(id)) {
+            if ($(id) && !this._dragndropMode) {
               tooltip.open($(id));
               $('dijit__MasterTooltip_0').classList.add('instant');
             }
@@ -1206,7 +1206,7 @@ define([
 
       dojo.connect($(id), 'mouseleave', (evt) => {
         evt.stopPropagation();
-        if (!this._helpMode && !this._dragndropMode) {
+        if (!this._helpMode) {
           tooltip.close();
           if (tooltip.showTimeout != null) clearTimeout(tooltip.showTimeout);
         }

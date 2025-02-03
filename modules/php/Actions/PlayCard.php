@@ -67,6 +67,8 @@ class PlayCard extends \ALT\Models\Action
     'effectHand' => true,
     'location' => '',
     'cost' => 0,
+    'costReduction' => 0,
+    'reallyPlayed' => true,
   ];
 
   public function argsPlayCard()
@@ -78,18 +80,18 @@ class PlayCard extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Card cannot be played. Should not happen');
     }
 
-    $locations = [];
-    $type = $card->getType();
-    $subTypes = $card->getSubtypes();
-    if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
-      $locations[$cId] = [PERMANENT];
-    } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
-      $locations[$cId] = [LANDMARK];
-    } elseif ($type == SPELL) {
-      $locations[$cId] = [LIMBO];
-    } elseif ($type == CHARACTER) {
-      $locations[$cId] = [STORM_LEFT, STORM_RIGHT];
-    }
+    $locations[$cId] = $card->getPlayableLocation($player);
+    // $type = $card->getType();
+    // $subTypes = $card->getSubtypes();
+    // if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
+    //   $locations[$cId] = [PERMANENT];
+    // } elseif ($type == PERMANENT && in_array(LANDMARK, $subTypes)) {
+    //   $locations[$cId] = [LANDMARK];
+    // } elseif ($type == SPELL) {
+    //   $locations[$cId] = [LIMBO];
+    // } elseif ($type == CHARACTER) {
+    //   $locations[$cId] = [STORM_LEFT, STORM_RIGHT];
+    // }
 
     return [
       'card_name' => $this->getCard()->getName(),
@@ -124,7 +126,8 @@ class PlayCard extends \ALT\Models\Action
       $location,
       $this->getArg('free'),
       $this->getArg('effectHand'),
-      $this->getArg('cost')
+      $this->getArg('cost'),
+      $this->getArg('reallyPlayed')
     );
   }
 }

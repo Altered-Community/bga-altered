@@ -8,6 +8,7 @@ use ALT\Managers\Scores;
 use ALT\Helpers\Log;
 use ALT\Helpers\QueryBuilder;
 use ALT\Helpers\UserException;
+use ALT\Managers\Cards;
 
 /*
  * Engine: a class that allows to handle complex flow
@@ -100,6 +101,7 @@ class Engine
   public static function proceed($confirmedPartial = false, $isUndo = false)
   {
     $node = self::$tree->getNextUnresolved();
+    // throw new \feException(print_r($node));
     $player = Players::getActive();
 
     // Are we done ?
@@ -107,7 +109,7 @@ class Engine
       $skipped = Globals::getSkippedPlayers();
       // if card was played or action passed, we are done
       if (
-        (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array($player->getId(), $skipped))) ||
+        (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array(Globals::getActivePId(), $skipped))) ||
         Globals::getDayPhase() === false
       ) {
         if (Globals::getEngineChoices() == 0 || !Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) {
@@ -136,7 +138,9 @@ class Engine
 
     $oldPId = Game::get()->getActivePlayerId();
     $pId = $node->getPId();
-
+    // if ($node->getType() == NODE_PARALLEL) {
+    //   var_dump("new" . $pId);
+    // }
     // Multi active node
     if ($pId == 'all') {
       Game::get()->gamestate->jumpToState(ST_RESOLVE_STACK);
@@ -149,12 +153,18 @@ class Engine
       // Proceed to do the action
       self::proceedToState($node, $isUndo);
       return;
+    } elseif ($pId == 'nextPlayer') {
+      $pId = Players::getNextId(Players::getActive());
+    } elseif ($pId == 'active') {
+      $pId = $oldPId;
+    } elseif ($pId == 'source') {
+      $pId = Cards::get($node->getSourceId())->getPId();
     }
     // throw new \feException(print_r($node->toArray()));
-    // throw new \feException($oldPId . " " . $pId);
+    // throw new \feException($oldPId . "- " . $pId);
 
     if (
-      (Globals::isUndo() || (!Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_ENABLED)) &&
+      (Globals::isUndo() && ($player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_ENABLED || $player->getPref(OPTION_CONFIRM_UNDOABLE) == OPTION_CONFIRM_ENABLED)) &&
       $pId != null &&
       $oldPId != $pId &&
       (!$node->isIndependent(Players::get($pId)) && Globals::getEngineChoices() != 0) &&
@@ -177,11 +187,27 @@ class Engine
       Globals::setEngineChoices(0);
     }
 
+    if ($node instanceof \ALT\Core\Engine\OrNode && isset($node->getArgs()['canReuse']) && $node->getArgs()['canReuse'] == true) {
+      $newNode = $node->toArray();
+      if (!isset($newNode['backupNode'])) {
+        // first time, we put the backupinfo
+        $newNode['backupNode'] = $newNode['childs'];
+      } else {
+        // we put the backup 
+        $newNode['childs'] = $newNode['backupNode'];
+        unset($newNode['choice']);
+      }
+      $node->replace(self::buildTree($newNode));
+      self::save();
+      $node = self::$tree->getNextUnresolved();
+    }
+
     // If node with choice, switch to choice state
     $choices = $node->getChoices($player);
     $allChoices = $node->getChoices($player, true);
-    // throw new \feException(print_r($node->toArray()));
+    // throw new \feException(print_r($choices));
     if (!empty($allChoices) && $node->getType() != NODE_LEAF) {
+      // var_dump($choices);
       // Only one choice : auto choose
       $id = array_keys($choices)[0] ?? null;
       if (
@@ -189,13 +215,20 @@ class Engine
         count($allChoices) == 1 &&
         array_keys($allChoices) == array_keys($choices) &&
         ((!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED)) ||
-          !$choices[$id]['irreversibleAction'] ||
-          (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction']))
+          (
+            (!$choices[$id]['irreversibleAction'] &&  !$choices[$id]['optionalAction']) ||
+            (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction'])
+          )
+        )
       ) {
-
         self::chooseNode($player, $id, true);
+        // To see depending on survey + add player option?
+        // } elseif (count($choices) == 1 && $id == PASS && (!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED))) {
+        //   self::chooseNode($player, $id, true);
       } else {
         // Otherwise, go in the RESOLVE_CHOICE state
+        // var_dump($pId);
+
         Game::get()->gamestate->jumpToState(ST_RESOLVE_CHOICE);
       }
     } else {
@@ -243,15 +276,57 @@ class Engine
     }
 
     if ($nodeId == PASS) {
+      $nextUnresolved = $node;
+      // throw new \feException(print_r($nextUnresolved->toArray()));
+      if ($nextUnresolved instanceof \ALT\Core\Engine\ParallelNode) {
+        // if we have a parallel node & multiple players id, we pass only the nodes of the player
+        $nodes = $nextUnresolved->getChilds();
+        $otherPIds = null;
+
+        foreach ($nodes as &$child) {
+          if ($child->isResolved()) {
+            continue;
+          }
+          if ($child->getPId() == $player->getId()) {
+            $child->resolve([PASS]);
+          } else {
+            $otherPIds = $child->getPId();
+          }
+        }
+        // if there are other player, we switch context to the other player
+        if (!is_null($otherPIds)) {
+          $nextUnresolved->setInfo('pId', $otherPIds);
+        } else {
+          $node->resolve([PASS]);
+        }
+        self::save();
+        self::proceed();
+        return;
+      }
       self::resolve(PASS);
+      self::save();
       self::proceed();
       return;
     }
+    $canReuse = $node->getArgs()['canReuse'] ?? false;
 
-    if ($node->getChilds()[$nodeId]->isResolved()) {
+    if ($node->getChilds()[$nodeId]->isResolved() && !$canReuse) {
       throw new \BgaVisibleSystemException('Node is already resolved');
     }
-    $node->choose($nodeId, $auto);
+    if ($canReuse) {
+      $node->getChilds()[$nodeId]->unresolveAction();
+
+      foreach ($node->getChilds()[$nodeId]->getChilds() as $cID => &$child) {
+        $child->unresolveAction();
+      }
+    }
+    // if the player is choosing for another player & it's an optional action, we shoudl update the current choice node
+    if (($node->getChilds()[$nodeId]->getPId() ?? $player->getId()) != $player->getId() && $node->getChilds()[$nodeId]->isOptional(Players::get($node->getPId()))) {
+      $node->setInfo('pId', $node->getChilds()[$nodeId]->getPId());
+    } else {
+      $node->choose($nodeId, $auto);
+    }
+
     self::save();
     self::proceed();
   }

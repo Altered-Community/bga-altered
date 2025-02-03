@@ -103,6 +103,8 @@ trait TurnTrait
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
+    Globals::setNextCharacterAnchored(false);
+    Globals::setNextCharacterFleeting(false);
     Globals::setAdditionalEffect([]);
     Globals::setActivePId($player->getId());
     Globals::setNextSpellIsFree(false);
@@ -250,7 +252,6 @@ trait TurnTrait
     }
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
-    Globals::setStormMoves([]);
     Globals::setPlayedForFree(false);
 
     // We initiate a turn order for only 1 player as everything will follow from those
@@ -272,6 +273,7 @@ trait TurnTrait
 
   function stAfterNightCleanup()
   {
+    Globals::setStormMoves([]); // moved to be able to test Expedition cleanup
     $this->checkCardListeners('BeforeNight', 'stPreNight', []);
   }
 
@@ -286,8 +288,19 @@ trait TurnTrait
     $player = Players::getActive();
 
     // Need to discard ?
-    $nExceededReserve = max($player->getReserveCards()->count() - $player->getReserveSlots(), 0);
     $nExceededLandmarks = max($player->getLandmarks()->count() - $player->getLandmarkSlots(), 0);
+
+    $exhaustedReserveCards = $player->getReserveCards()->filter(function ($c) {
+      return $c->isTapped();
+    })->count();
+
+    $exhaustedReserveSlots = $player->getExhaustedReserveSlots();
+    $nExceededReserve = max($player->getReserveCards()->count() - $player->getReserveSlots(), 0);
+    if ($nExceededReserve > 0 && $exhaustedReserveSlots > 0) {
+      // if there are some exhausted slots, we can reduce the exceeding reserve linked to the status
+      $nExceededReserve -= min($exhaustedReserveCards, $exhaustedReserveSlots);
+    }
+    $nExceededReserve = max($nExceededReserve, 0);
     $needToDiscard = $nExceededReserve > 0 || $nExceededLandmarks > 0;
 
     if (!$needToDiscard) {

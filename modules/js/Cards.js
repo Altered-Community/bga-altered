@@ -142,7 +142,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     adjustHand(container, pos = 'bottom') {
       // let items = [...container.querySelectorAll('.altered-card'), ...container.querySelectorAll('.flip-container')];
-      let items = [...container.childNodes];
+      let items = [...container.childNodes].filter((t) => !t.classList.contains('draggable-mirror'));
+      console.log(items);
       let n = items.length;
       const THRESHOLD = 8;
       if (n < THRESHOLD) n = n % 2 == 0 ? THRESHOLD : THRESHOLD + 1;
@@ -175,7 +176,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         // Position
         let x = (j - n / 2) * 0.8 * item.offsetWidth;
-        item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+        //        item.style.left = `calc(50% ${x < 0 ? '- ' : ' +'} ${Math.abs(x)}px)`;
+        item.style.left = `${x}px`;
         item.style.top = '0px';
 
         let removeSpeed = () => {
@@ -614,6 +616,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         n.args.cards.forEach((card) => {
           this.addCard(card);
           if (card.location == 'hand') nInHand++;
+          if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
+            $(`card-${card.id}`).classList.add('tapped');
+          }
         });
         this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
@@ -631,7 +636,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             let container = this.getCardContainer(card);
             if (!isVisible(container)) to = $('floating-hand-button');
             let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${n.args.player_id}`);
-
+            if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
+              $(`card-${card.id}`).classList.add('tapped');
+            }
             return this.slide(`card-${card.id}`, container, {
               from: source,
               duration: 1000,
@@ -842,7 +849,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             if (container) {
               container.insertAdjacentElement('beforeend', $(id));
               if (n.args.hand === true || card.location == 'reserve') $(id).classList.add('mini-card');
-              if (card.location == 'discard') $(id).classList.remove('mini-card');
+              if (card.location == 'discard') {
+                $(id).classList.remove('mini-card');
+                $(id).classList.remove('tapped');
+              }
               $(id).style.transform = '';
               $(id).style.transformOrigin = 'initial';
             } else if (card.location == 'mana') {
@@ -875,6 +885,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               if (card.location == 'discard') $(id).classList.remove('mini-card');
 
               this.updateStatusIfCard($(id));
+
+              if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == false) {
+                $(id).classList.remove('tapped');
+              }
+
               if (card.location == 'mana') {
                 let container = this.getCardContainer(card);
                 if (container) {
@@ -990,6 +1005,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           fakeCard.remove();
           this.addCard(card);
         } else {
+          // if the card is tapped we remove it
+          $(id).classList.remove('tapped');
           let container = this.getCardContainer(card);
           $(container).insertAdjacentElement('beforeend', $(id));
           $(id).style.left = '0px';
@@ -1030,6 +1047,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this.addCard(card, `hand-${n.args.player_id}`);
         this.flipAndReplace(fakeCard, id).then(slideIt);
       } else {
+        // if the card is tapped we remove it
+        $(id).classList.remove('tapped');
         if ($(id).querySelector('.card-support-icon')) {
           $(id).querySelector('.card-support-icon').classList.remove('selectable');
         }
@@ -1064,6 +1083,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
     },
 
+    notif_ready(n) {
+      debug('Notif: readying card', n);
+      $(`card-${n.args.card.id}`).classList.remove('selectable');
+      $(`card-${n.args.card.id}`).classList.remove('tapped');
+    },
+
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
       n.args.cardIds.forEach((cardId) => {
@@ -1095,6 +1120,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         $(id).style.transformOrigin = 'initial';
       } else {
         $(id).classList.add('mini-card');
+        $(id).style.transform = '';
+        $(id).style.transformOrigin = 'initial';
+        if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
+          $(id).classList.add('tapped');
+        }
       }
       let container = this.getCardContainer(card);
       this.slide(id, container).then(() => {
@@ -1122,7 +1152,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       // we slide it from the card triggering the effect
       if (!$(id)) {
-        this.addCard(card, n.args.card2.location == 'hand' ? 'page-title' : `card-${n.args.card2.id}`);
+        this.addCard(
+          card,
+          n.args.card2.location == 'hand' || n.args.card2.location.indexOf('deck') > -1 ? 'page-title' : `card-${n.args.card2.id}`
+        );
         $(id).classList.add('mini-card');
       }
       let container = this.getCardContainer(card);
@@ -1379,7 +1412,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${this.formatString(effect, true)}
             </div>
           </div>
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
       </div>`;
     },
@@ -1468,7 +1503,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           </div>
 
           ${supportIcon}
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1526,7 +1563,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             </div>
           </div>
 
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1583,7 +1622,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           </div>
 
           ${supportIcon}
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1606,6 +1647,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let flavor = this.getFlavorTextIfFitting(effect, p);
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       let supportIcon = this.getSupportIcon(p);
+      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
+      let isLandmark = card.properties.subtypes.includes('landmark');
+      let permDescription = isLandmark
+        ? _('(Play me in your Landmark zone. I don’t gain Fleeting.)')
+        : _('(Play me in an Expedition. If it moves forward, I go to Reserve during Rest.)');
 
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
@@ -1616,7 +1662,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         class='altered-card card-permanent ${mini ? 'mini-card' : ''}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='permanent'></div>
+              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
+        isLandmark ? 'permanent' : 'gear'
+      }'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
@@ -1625,6 +1673,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
+          <div class='card-subpermanent'>${permDescription}</div>
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
@@ -1634,9 +1683,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${flavor}
             </div>
           </div>
-
+          <div class='card-support'>
+            ${this.formatString(support, true)}
+          </div>
           ${supportIcon}
-          <div class='card-footer'>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          <div class='card-footer'><div class='setIcon' data-asset='${
+            p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1893,7 +1946,19 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Defender'),
           reminder: _("My Expedition can't advance during Dusk."),
         },
+        DEFENDER_FS: {
+          text: _('Defender'),
+          reminder: _("My Expedition can't advance during Dusk."),
+        },
+        DEFENDER_CHA_P: {
+          text: _('Defender'),
+          reminder: _("My Expedition can't advance during Dusk."),
+        },
         ETERNAL: {
+          text: _('Eternal'),
+          reminder: _("During Rest, I don't go to Reserve."),
+        },
+        ETERNAL_FS: {
           text: _('Eternal'),
           reminder: _("During Rest, I don't go to Reserve."),
         },
@@ -1918,6 +1983,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         RESUPPLY: {
           text: _('Resupply'),
           reminder: _('Put the top card of your deck in Reserve.'),
+        },
+        EXHAUSTED_RESUPPLY: {
+          text: _('Exhausted Resupply'),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
+        },
+        EXHAUSTED_RESUPPLY_LOW: {
+          text: _('Exhausted Resupply'),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
+        },
+        EXHAUSTED_RESUPPLY_INF: {
+          text: _('Exhausted Resupply'),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
         },
         RESUPPLY_INF: {
           text: _('Resupply'),
@@ -1958,6 +2035,22 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         TOUGH_X: {
           text: _('Tough X'),
           reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
+        },
+        TOUGH_FS_X: {
+          text: _('Tough X'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {X} more."),
+        },
+        COOLDOWN: {
+          text: _('Cooldown'),
+          reminder: _(
+            "If I go to Reserve after my effect resolves, exhaust me {T}. Exhausted cards can't be played and have no Support abilities."
+          ),
+        },
+        MANA_MOTH: {
+          text: _('Mana Moth 2/2/2'),
+        },
+        DRAGON_SHADE: {
+          text: _('Dragon Shade 5/5/5'),
         },
       };
 

@@ -3,10 +3,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once('../Artists/artists.inc.php');
-include_once('../Flavor/flavors.inc.php');
-include_once('starters.inc.php');
-echo count(ARTISTS);
+//include_once('../Artists/artists.inc.php');
+//include_once('../Flavor/flavors.inc.php');
+//include_once('starters.inc.php');
+//echo count(ARTISTS);
 
 function varexport($expression, $return = FALSE)
 {
@@ -49,8 +49,8 @@ function slugify($text)
 
 function replaceBracket(&$str)
 {
-	$str = str_replace("[", "<", $str);
-	$str = str_replace("]", ">", $str);
+  $str = str_replace("[", "<", $str);
+  $str = str_replace("]", ">", $str);
 }
 
 
@@ -67,52 +67,58 @@ $factions = [
 
 $o = 0;
 $i = 0;
-if (($handle = fopen("CoreSet2024-02-16.csv", "r")) !== FALSE) {
-  while (($row = fgetcsv($handle, 2000, ",")) !== FALSE && $i++ <= 600) {
+if (($handle = fopen("alize_2024_10_20.csv", "r")) !== FALSE) {
+  while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;
     }
+    //var_dump($row);
 
     $uid = $row[0];
-		$uid = str_replace('_P_', '_B_', $uid);
+    //$uid = str_replace('_P_', '_B_', $uid);
 
     $faction = $row[2];
-    if($faction == 'OR') $faction = 'OD';
+    if ($faction == 'OR') $faction = 'OD';
 
     $name = $row[5];
     $rarity = $row[3];
-//		if($rarity == 'RARE') continue;
+    //		if($rarity == 'RARE') continue;
 
     $type = $row[6];
     $subtype = $row[7];
     $typeline = '';
-		if($subtype == '') {
-      if($type == 'HERO')
+    if ($subtype == '') {
+      if ($type == 'HERO')
         $typeline = $factions[$faction] . " Hero";
       else
         $typeline = ucwords(strtolower($type));
+    } else
+      $typeline = ucwords(strtolower($type)) . " - " .  ucwords(strtolower(str_replace("_", " ", $subtype)));
+
+    if ($row[6] == 'EXPEDITION_PERMANENT') {
+      $subtype .= ' EXPEDITION';
+    } elseif ($row[6] == 'LANDMARK_PERMANENT') {
+      $subtype .= ' LANDMARK';
     }
-		else
-	    $typeline = ucwords(strtolower($type)) . " - " .  ucwords(strtolower(str_replace("_", " ", $subtype)));
 
     $slug = slugify($name);
     $className = $faction . "_" . ucfirst(strtolower($rarity)) . "_" . $slug;
 
 
     // Clienttranslate only if in starters
-    $inStarter = array_key_exists($className, STARTER);
-    $ctr1 = $inStarter? 'clienttranslate(' : '';
-    $ctr2 = $inStarter? ')' : '';
+    $inStarter = true;
+    $ctr1 = $inStarter ? 'clienttranslate(' : '';
+    $ctr2 = $inStarter ? ')' : '';
 
     //		echo "	\"$className\": '$uid',\n";
-//		continue;
+    //		continue;
 
     $changedStats = [];
-    if(preg_match('/#[0-9]#/', $row[10])) $changedStats[] = 'forest';
-    if(preg_match('/#[0-9]#/', $row[11])) $changedStats[] = 'mountain';
-    if(preg_match('/#[0-9]#/', $row[12])) $changedStats[] = 'ocean';
-    if(preg_match('/#[0-9]#/', $row[8])) $changedStats[] = 'costHand';
-    if(preg_match('/#[0-9]#/', $row[9])) $changedStats[] = 'costReserve';
+    if (preg_match('/#[0-9]#/', $row[10])) $changedStats[] = 'forest';
+    if (preg_match('/#[0-9]#/', $row[11])) $changedStats[] = 'mountain';
+    if (preg_match('/#[0-9]#/', $row[12])) $changedStats[] = 'ocean';
+    if (preg_match('/#[0-9]#/', $row[8])) $changedStats[] = 'costHand';
+    if (preg_match('/#[0-9]#/', $row[9])) $changedStats[] = 'costReserve';
 
     $forest = str_replace('#', '', $row[10]);
     $mountain = str_replace('#', '', $row[11]);
@@ -120,18 +126,23 @@ if (($handle = fopen("CoreSet2024-02-16.csv", "r")) !== FALSE) {
 
     $effect = $row[13];
     $echo = $row[14];
-		replaceBracket($effect);
-		replaceBracket($echo);
+    replaceBracket($effect);
+    replaceBracket($echo);
 
-    $cost = str_replace('#', '' , $row[8]);
+    $cost = str_replace('#', '', $row[8]);
     $costMemory = str_replace('#', '', $row[9]);
 
     $baseId = $row[1];
-		$baseId = str_replace('_P_', '_B_', $baseId);
-    $artist = isset(ARTISTS[$baseId])? ARTISTS[$baseId] : 'MISSING ARTIST';
-    $flavor =  isset(FLAVORS[$baseId])? FLAVORS[$baseId] : 'MISSING FLAVOR';
+    //$baseId = str_replace('_P_', '_B_', $baseId);
+    $artist = $row[15];
+    $flavor =  $row[16];
 
-    $asset = str_replace('_R2', '_R1', $uid);
+    $asset = str_replace('_R2', '_R', $uid);
+    $asset = str_replace('_R1', '_R', $uid);
+    $type =    str_replace('LANDMARK_', '', $row[6]);
+    $type =    str_replace('EXPEDITION_', '', $type);
+
+
     @mkdir($faction);
 
     $fp = fopen("$faction/$className.php", 'w');
@@ -151,11 +162,12 @@ class " . $className . " extends \ALT\Models\Card
     		'name'  => $ctr1\"" . $name . "\"$ctr2,
             'typeline' => $ctr1\"" . $typeline . "\"$ctr2,
     		'type'  => " . strtoupper($type) . ",
-    		'flavorText'  => $ctr1'" . str_replace("'","\'",$flavor) . "'$ctr2,
+    		'flavorText'  => $ctr1'" . str_replace("'", "\'", $flavor) . "'$ctr2,
             'artist' => \"" . $artist . "\",
+			'extension'=>'TBF',
   ");
 
-    		
+
     if ($subtype != '') {
       fwrite($fp, " 'subtypes'  => [" . str_replace(" ", ",", strtoupper($subtype)) . "],\n");
     }
@@ -164,6 +176,7 @@ class " . $className . " extends \ALT\Models\Card
     }
     if ($echo != '') {
       fwrite($fp, " 				'supportDesc' => $ctr1'" . addslashes($echo) . "'$ctr2,\n");
+      fwrite($fp, " 			     'supportIcon' => 'discard',\n");
     }
     if ($forest != '') {
       fwrite($fp, "     'forest' => $forest, \n");
@@ -180,9 +193,9 @@ class " . $className . " extends \ALT\Models\Card
     if ($costMemory != '') {
       fwrite($fp, "     'costReserve' => $costMemory, \n");
     }
-		if(!empty($changedStats)){
-      fwrite($fp, "     'changedStats' => ['". join("','", $changedStats) . "'], \n");
-		}
+    if (!empty($changedStats)) {
+      fwrite($fp, "     'changedStats' => ['" . join("','", $changedStats) . "'], \n");
+    }
 
 
     fwrite($fp, "];

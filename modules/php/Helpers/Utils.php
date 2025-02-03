@@ -140,7 +140,9 @@ abstract class Utils extends \APP_DbObject
   {
     foreach ($tags as $tag => $v) {
       if (!$replaceOnly || ($replaceOnly && isset($t[$tag]))) {
+        // if (is_array($t)) {
         $t[$tag] = $v;
+        // }
       }
     }
 
@@ -165,6 +167,21 @@ abstract class Utils extends \APP_DbObject
     }
 
     return $t;
+  }
+
+  public static function searchTree($t, $searched)
+  {
+    foreach ($t as $key => $value) {
+      if ($value === $searched) {
+        return true;
+      } elseif (is_array($value)) {
+        if (self::searchTree($value, $searched)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   public static function formatFee($cost)

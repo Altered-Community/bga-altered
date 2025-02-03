@@ -50,6 +50,14 @@ class Loose extends \ALT\Models\Action
 
   public function isIndependent($player = null)
   {
+    $cards = Cards::getPlayedCards(null);
+    $gain = $this->getArg('type');
+    foreach ($cards as $cId => $card) {
+      $block = $card->getBlockAutomaticAction();
+      if (isset($block[LOOSE]) && isset($block[LOOSE][$gain])) {
+        return false;
+      }
+    }
     return true;
   }
 

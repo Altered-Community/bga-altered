@@ -55,6 +55,7 @@ class Card extends \ALT\Helpers\DB_Model
     'setIcon' => 'str',
     'thumbnail' => 'int', // Only used for Heros for UI
     'statData' => 'int',
+    'extension' => 'str',
 
     'rarity' => 'int',
     'asset' => 'str',
@@ -104,6 +105,10 @@ class Card extends \ALT\Helpers\DB_Model
     'blockAutomaticAction' => 'obj',
     'addDice' => 'int',
     'resupply2' => 'bool',
+    'leaveExpeditionToMana' => 'bool', // Mighty Jinn
+    'leaveExpeditionToManaOrDraw' => 'bool', // Mighty Jinn
+    'leaveExpeditionBoostedToMana' => 'bool', // Tiny Jinn
+
 
     // Tough management
     'tough' => 'int',
@@ -116,6 +121,34 @@ class Card extends \ALT\Helpers\DB_Model
     // Dynamic info
     'tapped' => 'bool',
     'extraDatas' => 'obj',
+
+    // Alizé
+    'playTappedCards' => 'obj', // ['type'=>ALL / Character, 'location'=>me or unset]
+    'playTappedCharacters' => 'bool', // for Uniques
+    'playTappedAllCards' => 'bool', // for Unique
+    'canAlwaysGainFleeting' => 'bool',
+    'dynamicGainReplace' => 'obj',
+    'defenderIgnoreBehind' => 'bool', // Ignore defender attribute when behind
+    'ignoreDefender' => 'bool', // Mobile Armory
+    'dynamicIgnoreDefender' => 'str', // Unique version
+    'cooldown' => 'bool', // in spell cleanup, card will be tapped
+    'exhaustedReserveSlots' => 'int',
+    'costReductionIfEmpty' => 'int',
+    'giganticOneCharacter' => 'bool', // If in only one exp, it is gigantic. Eat Me Energy Bars
+    'opponentOceanOnly' => 'bool', // Will o the Wisp
+    'opponentMountainOnly' => 'bool', // Will o the Wisp
+    'opponentForestOnly' => 'bool', // Will o the Wisp
+    'increaseBiomesHighest' => 'bool', // WinterOufits
+    'advanceTwiceDusk' => 'bool', // Magic Sleigh
+    'protectAnchoredInExpedition' => 'bool', // Floral tent
+    'protectBoostedInExpedition' => 'bool', // Floral tent
+    'increaseReserveCost' => 'int', // Ebenezer Scrooge
+    'dynamicIncreaseReserveCost' => 'str',
+    'reduceReserveCost' => 'int', // Ebenezer Scrooge
+    'dynamicReduceReserveCost' => 'str', // Ebenezer Scrooge
+    'exhaustCharactersMorning' => 'bool', // Snow queen
+    'resupplyExhaust' => 'bool', // Machine in the ice
+
   ];
 
   /********* DB ACCESS *********/
@@ -225,9 +258,24 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function canBePlayed($player)
   {
+    if (!$player->canPlayTappedCards($this->getType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
+      return false;
+    }
+
     $cost = $this->getCost();
+    $costReductionIfEmpty = $this->getCostReductionIfEmpty();
     $mana = $player->getMana();
     $totalMana = $player->getTotalMana();
+    // Amarok case
+    if ($costReductionIfEmpty > 0) {
+      if (
+        ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER])  == 0 ||
+          $player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0)
+        && !$player->hasGigantic()
+      ) {
+        $cost -= $costReductionIfEmpty;
+      }
+    }
 
     if ($this->getCostReductionDiscard() > 0) {
       $reserveCards = $this->getPlayer()
@@ -241,6 +289,42 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
+  }
+
+  public function getPlayableLocation($player)
+  {
+    if (in_array(LANDMARK, $this->getSubtypes())) {
+      return [LANDMARK];
+    } elseif ($this->getType() == SPELL) {
+      return [LIMBO];
+    } else {
+      $locations = [];
+      if ($this->getLocation() == RESERVE && $this->isTapped()) {
+        foreach (STORMS as $storm) {
+          if ($player->canPlayTappedCards($this->getType(), $storm)) {
+            $locations[] = $storm;
+          }
+        }
+        return $locations;
+      } else {
+        if ($this->getCostReductionIfEmpty() > 0) {
+          // If the cost can be paid no matter what, we put all storms
+          if ($this->getCost() <= $player->getMana()) {
+            return STORMS;
+          }
+          $locations = [];
+          if ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER]) == 0) {
+            $locations[] = STORM_LEFT;
+          }
+          if ($player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0) {
+            $locations[] = STORM_RIGHT;
+          }
+          return $locations;
+        } else {
+          return STORMS;
+        }
+      }
+    }
   }
 
   public function hasToken($token)
@@ -309,6 +393,8 @@ class Card extends \ALT\Helpers\DB_Model
       $type = 'LeaveExpedition';
     } elseif ($location == LANDMARK) {
       $type = 'LeaveLandmark';
+    } else {
+      $type = 'LeaveOther';
     }
 
     $event = [
@@ -427,9 +513,14 @@ class Card extends \ALT\Helpers\DB_Model
         foreach (STORMS as $storm) {
           $event['expedition'] = $storm;
           if (Conditions::check($power, $this, $event) === false) {
-            continue;
+            if (isset($power['oppositeOutput']) && $power['oppositeOutput'] != 'OPPOSITE') {
+              $output[] = $power['oppositeOutput'];
+            } else {
+              continue;
+            }
+          } else {
+            $output[] = $power['output'];
           }
-          $output[] = $power['output'];
         }
         if (empty($output)) {
           return [null, null];
@@ -439,7 +530,11 @@ class Card extends \ALT\Helpers\DB_Model
       case 'once':
         // structured : ['Noon'=>['condition' =>, 'output'=>]]
         if (Conditions::check($power, $this, $event) === false) {
-          return [null, null];
+          if (isset($power['oppositeOutput']) && $power['oppositeOutput'] != 'OPPOSITE') {
+            $power['output'] = $power['oppositeOutput'];
+          } else {
+            return [null, null];
+          }
         }
 
         break;
@@ -478,9 +573,23 @@ class Card extends \ALT\Helpers\DB_Model
     } else {
       if ($dynamicReduction == '') {
         $dynamicReduction = 0;
+      } elseif ($dynamicReduction == 'exhaustedReserve') {
+        $cards = 0;
+        foreach (Players::getAll() as $pId => $sPlayer) {
+          $cards += $sPlayer->getReserveCards()->filter(function ($c) {
+            return $c->isTapped() == true;
+          })->count();
+        }
+        $dynamicReduction = $cards;
       } else {
         $dynamicReduction = (int) $dynamicReduction;
       }
+    }
+
+    $increaseReserveCost = Players::getIncreaseReserveCost();
+    $reduceReserveCost = Players::getReduceReserveCost();
+    if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
+      $minimumCost = max(1, $minimumCost);
     }
 
 
@@ -489,12 +598,12 @@ class Card extends \ALT\Helpers\DB_Model
         return max($minimumCost, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
         break;
       case RESERVE:
-        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
+        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction + $increaseReserveCost - $reduceReserveCost);
         break;
     }
   }
 
-  public function getBiomes($includeModifiers = false)
+  public function getBiomes($includeModifiers = false, $increaseBiomesToHighest = false)
   {
     $biomes = [OCEAN => $this->getOcean(), MOUNTAIN => $this->getMountain(), FOREST => $this->getForest()];
     if ($includeModifiers === true) {
@@ -503,6 +612,14 @@ class Card extends \ALT\Helpers\DB_Model
       foreach ($biomes as $type => &$value) {
         $value += $boost;
       }
+    }
+
+    if ($increaseBiomesToHighest == true) {
+      $max = 0;
+      foreach ($biomes as $type => $value2) {
+        $max = max($max, $value2);
+      }
+      $biomes = [OCEAN => $max, MOUNTAIN => $max, FOREST => $max];
     }
     return $biomes;
   }
@@ -549,6 +666,13 @@ class Card extends \ALT\Helpers\DB_Model
       case 'tough2':
         $tough = 2;
         break;
+      case 'exhaustedReserve':
+        foreach (Players::getAll() as $pId => $sPlayer) {
+          $tough += $sPlayer->getReserveCards()->filter(function ($c) {
+            return $c->isTapped() == true;
+          })->count();
+        }
+        break;
     }
 
     if (in_array($this->getType(), [CHARACTER, TOKEN])) {
@@ -568,6 +692,30 @@ class Card extends \ALT\Helpers\DB_Model
     if ($this->isToken() && $this->getPlayer()->countUniversalTokenGigantic() > 0) {
       return true;
     }
+
+    if (in_array($this->getType(), [TOKEN, CHARACTER])) {
+
+      $dynamicGigantic = $this->getDynamicGigantic();
+      // throw new \feException($dynamicGigantic);
+      $dynSplit = explode(':', $dynamicGigantic);
+      if (count($dynSplit) > 1) {
+        // we need to test if ok, add change dynamic tough to the value of 0
+        if ($dynSplit[0] != 'universalGiganticToken' && !is_null(Utils::checkAttributeCondition('gigantic', $dynamicGigantic, $this->getPlayer(), $this))) {
+          return $dynSplit[0];
+        }
+      }
+
+      $characterCount = $this->getPlayer()->countCardsInLocation($this->getLocation(), [TOKEN, CHARACTER]);
+      if ($characterCount > 1) {
+        return false;
+      }
+      foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+        if ($card->isGiganticOneCharacter() && $card->getLocation() == $this->getLocation()) {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
@@ -584,10 +732,49 @@ class Card extends \ALT\Helpers\DB_Model
     return false;
   }
 
-  public function getDynamicGigantic()
+  public function getIncreaseReserveCost()
   {
-    return Utils::checkAttributeCondition('eternal', ($this->properties['dynamicGigantic'] ?? ''), $this->getPlayer(), $this);
+    if (($this->properties['increaseReserveCost'] ?? 0) > 0) {
+      return $this->properties['increaseReserveCost'];
+    }
+
+    $dynamicBlocking = $this->getDynamicIncreaseReserveCost();
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return 0;
   }
+
+  public function getReduceReserveCost()
+  {
+    if (($this->properties['reduceReserveCost'] ?? 0) > 0) {
+      return $this->properties['reduceReserveCost'];
+    }
+
+    $dynamicBlocking = $this->getDynamicReduceReserveCost();
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('reduceReserveCost', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return 0;
+  }
+
+  public function isIgnoreDefender()
+  {
+    if (($this->properties['ignoreDefender'] ?? false) == true) {
+      return true;
+    }
+
+    $dynamicBlocking = $this->getDynamicIgnoreDefender();
+    if ($dynamicBlocking != '') {
+      return !is_null(Utils::checkAttributeCondition('ignoreDefender', $dynamicBlocking, $this->getPlayer(), $this));
+    }
+    return false;
+  }
+
+  // public function getDynamicGigantic()
+  // {
+  //   return Utils::checkAttributeCondition('eternal', ($this->properties['dynamicGigantic'] ?? ''), $this->getPlayer(), $this);
+  // }
 
   public function isBlockingPower()
   {

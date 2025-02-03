@@ -184,9 +184,11 @@ $machinestates = [
     'name' => 'chooseAssignment',
     'description' => clienttranslate('${actplayer} must choose an action or pass'),
     'descriptionmyturn' => clienttranslate('${you} must choose an action or pass'),
+    'descriptionmyturnadditional' => clienttranslate('${you} may play a card'),
+    'descriptionadditional' => clienttranslate('${actplayer} may play a card'),
     'args' => 'argsAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actPlay', 'actSupport', 'actTap', 'actPass', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actPlay', 'actSupport', 'actTap', 'actPass', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_GAIN => [
@@ -437,6 +439,34 @@ $machinestates = [
     'possibleactions' => ['actPassOptionalAction'],
   ],
 
+  ST_EXHAUST => [
+    'name' => 'exhaust',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
+  ],
+
+  ST_READY => [
+    'name' => 'ready',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
+  ],
+
+  ST_EXCHANGE => [
+    'name' => 'exchange',
+    'description' => clienttranslate('${actplayer} must select 1 card from Hand and Reserve to switch position'),
+    'descriptionmyturn' => clienttranslate('${you} must select 1 card from Hand and Reserve to switch position'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actExchange', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___
@@ -479,6 +509,8 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must choose which effect to resolve'),
     'descriptionxor' => clienttranslate('${actplayer} must choose exactly one effect'),
     'descriptionmyturnxor' => clienttranslate('${you} must choose exactly one effect'),
+    'descriptionremaining' => clienttranslate('${actplayer} must choose ${nRemaining}'),
+    'descriptionmyturnremaining' => clienttranslate('${you} must choose ${nRemaining}'),
     'type' => 'activeplayer',
     'args' => 'argsResolveChoice',
     'action' => 'stResolveChoice',

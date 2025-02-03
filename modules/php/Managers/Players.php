@@ -268,18 +268,106 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $biomes;
   }
 
-  public static function getDefenders()
+  public static function getDefenders($onlyDefenders = true)
   {
     $defenders = [];
+    $ignoreDefenders = [];
     foreach (self::getAll() as $pId => $player) {
       foreach ($player->getPlayedCards()->where('location', STORMS) as $cId => $card) {
         if ($card->isDefender()) {
           $defenders[$pId][$card->getLocation()][] = $cId;
+          if ($card->isGigantic()) {
+            $defenders[$pId][$card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT][] = $cId;
+          }
+        }
+        if ($card->isDefenderIgnoreBehind()) {
+          $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'behind';
+        } elseif ($card->isIgnoreDefender()) {
+          $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'all';
         }
       }
     }
+    if ($onlyDefenders) {
+      return $defenders;
+    }
+    return [$defenders, $ignoreDefenders];
+  }
 
-    return $defenders;
+  public static function getWinningPlayerByStorms()
+  {
+    $hero = null;
+    $heroPos = -1;
+    $companion = null;
+    $companionPos = 999;
+    // get player winning on each storms
+    foreach (self::getAll() as $pId => $player) {
+      $companionNew = explode('-', $player->getCompanionToken()->getLocation())[1];
+      if ($companionNew < $companionPos) {
+        $companion = $pId;
+        $companionPos = $companionNew;
+      } elseif ($companionNew == $companionPos) {
+        $companion = -1;
+      }
+
+      $heroNew = explode('-', $player->getHeroToken()->getLocation())[1];
+      if ($heroNew > $heroPos) {
+        $hero = $pId;
+        $heroPos = $heroNew;
+      } elseif ($heroPos == $heroNew) {
+        $hero = -1;
+      }
+    }
+    return [STORM_LEFT => $hero, STORM_RIGHT => $companion];
+  }
+
+  public static function getIgnoreDefenders(&$defenders, $ignoreDefenders)
+  {
+    if (empty($ignoreDefenders)) {
+      return;
+    }
+
+    $winners = self::getWinningPlayerByStorms();
+
+    // if thereare ignoreDefenders, we ignore the ones not impacting
+    foreach ($ignoreDefenders as $pId => $storms) {
+      foreach ($storms as $storm => $cards) {
+        foreach ($cards as $cId => $power) {
+          if ($power == 'all') {
+            unset($defenders[$pId][$storm]);
+          } elseif ($power = 'behind' && !is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
+            unset($defenders[$pId][$storm]);
+          }
+        }
+      }
+    }
+  }
+
+  public static function getIncreaseReserveCost()
+  {
+    $cost = 0;
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      $cost += $card->getIncreaseReserveCost();
+    }
+    return $cost;
+  }
+
+  public static function getReduceReserveCost()
+  {
+    $cost = 0;
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      $cost += $card->getReduceReserveCost();
+    }
+    return $cost;
+  }
+
+  public static function isExhaustedCharactersMorning()
+  {
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      if ($card->isExhaustCharactersMorning() === true) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static function getBlockedExpeditions()
@@ -292,7 +380,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       $blockedOppositeDefenders[$expedition] = self::hasOppositeDefender($expedition);
     }
     // Blocked by defenders
-    $defenders = self::getDefenders();
+    // $defenders = self::getDefenders();
+    list($defenders, $ignoreDefenders) = self::getDefenders(false);
+    self::getIgnoreDefenders($defenders, $ignoreDefenders);
 
     $statuses = [];
     foreach (Players::getAll() as $pId => $player) {
@@ -315,6 +405,65 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
 
     return $statuses;
+  }
+
+  public static function getBiomesInStorm()
+  {
+    $allBiomes = [];
+    foreach (self::getAll() as $pId => $player) {
+      $playerStorm = $player->getBiomeInStorms();
+      foreach ($playerStorm as $side => $biomes) {
+        $expedition = $side == HERO ? STORM_LEFT : STORM_RIGHT;
+        $newBiomes = [];
+        foreach ($biomes as $biome) {
+          $newBiomes[$biome] = $biome;
+        }
+        self::biomesModifier($newBiomes, $player, $expedition);
+        $allBiomes[$pId][$expedition] = $newBiomes;
+      }
+    }
+    return $allBiomes;
+  }
+
+  public static function filterBiomes($expeditionAttributes)
+  {
+    $allPlayerStorms = self::getBiomesInStorm();
+    $authorizedLocations = [];
+    foreach ($allPlayerStorms as $pId => $playerStorm) {
+      $authorizedLocations[$pId] = [];
+      // no constraints
+      if (is_null($expeditionAttributes)) {
+        $authorizedLocations[$pId] = array_keys($playerStorm);
+        continue;
+      }
+      foreach ($expeditionAttributes as $attribute) {
+        if (isset($playerStorm[STORM_LEFT][$attribute])) {
+          $authorizedLocations[$pId][] = STORM_LEFT;
+        }
+        if (isset($playerStorm[STORM_RIGHT][$attribute])) {
+          $authorizedLocations[$pId][] = STORM_RIGHT;
+        }
+      }
+    }
+    return $authorizedLocations;
+  }
+
+  public static function excludeBiomes($expeditionAttributes)
+  {
+    $allPlayerStorms = self::getBiomesInStorm();
+    $excludedLocations = [];
+    foreach ($allPlayerStorms as $pId => $playerStorm) {
+      // no constraints
+      foreach ($expeditionAttributes as $attribute) {
+        if (!isset($playerStorm[STORM_LEFT][$attribute])) {
+          $excludedLocations[$pId][] = STORM_LEFT;
+        }
+        if (!isset($playerStorm[STORM_RIGHT][$attribute])) {
+          $excludedLocations[$pId][] = STORM_RIGHT;
+        }
+      }
+    }
+    return $excludedLocations;
   }
 
   public static function computeStorm($advance = false)
@@ -357,6 +506,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // For each player, check whether hero and/or companion move forward
     foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
+        $n = 1;
         $biomesByStorm = $player->getBiomeInStorms();
         $biomes = $biomesByStorm[$side] ?? null;
         if (is_null($biomes)) {
@@ -387,7 +537,10 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
 
         if ($advance && $move) {
-          $player->advanceStorm($side, $winningBiomes);
+          if ($player->hasAdvanceTwiceDusk($expedition)) {
+            $n = 2;
+          }
+          $player->advanceStorm($side, $winningBiomes, $n);
         }
       }
     }
@@ -398,19 +551,40 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   {
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       $updateExpeditions = $card->getUpdateExpeditions();
-      if (empty($updateExpeditions)) {
-        continue;
-      }
-      if (($updateExpeditions['type'] ?? '') == 'all') {
-        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
-      }
+      if (!empty($updateExpeditions)) {
+        if (($updateExpeditions['type'] ?? '') == 'all') {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
 
-      if (($updateExpeditions['type'] ?? '') == ME && $card->getPId() == $player->getId()) {
-        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
-      }
+        if (($updateExpeditions['type'] ?? '') == ME && $card->getPId() == $player->getId()) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
 
-      if (($updateExpeditions['type'] ?? '') == OPPONENT && $card->getPId() != $player->getId()) {
-        self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        if (($updateExpeditions['type'] ?? '') == OPPONENT && $card->getPId() != $player->getId()) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
+
+        if (($updateExpeditions['type'] ?? '') == 'source' && $card->getPId() == $player->getId() && ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode())) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
+
+        if (($updateExpeditions['type'] ?? '') == 'sourceAll' && ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode())) {
+          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        }
+      }
+    }
+
+    // Looped a second time as this takes precedence on the "modifiers"
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      // TODO: manage multiplayer
+      if (($card->getLocation() == $expedition || $card->isGigantic()) && $player->getId() != $card->getPId()) {
+        if ($card->isOpponentOceanOnly() && isset($biomes[OCEAN])) {
+          $biomes = [OCEAN => OCEAN];
+        } elseif ($card->isOpponentForestOnly() && isset($biomes[FOREST])) {
+          $biomes = [FOREST => FOREST];
+        } elseif ($card->isOpponentMountainOnly() && isset($biomes[MOUNTAIN])) {
+          $biomes = [MOUNTAIN => MOUNTAIN];
+        }
       }
     }
   }
@@ -419,7 +593,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   {
     // remove all the one to remove
     foreach ($updateExpeditions['regionsRemove'] ?? [] as $region) {
-      // foreach (array_keys($biomes, $region) as $key) {
       if (isset($biomes[$region])) {
         unset($biomes[$region]);
       }
@@ -428,7 +601,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     // add
     foreach ($updateExpeditions['regionsAdd'] ?? [] as $region) {
       if (!$tiebreak && !in_array($region, $biomes)) {
-        $biomes[] = $region;
+        $biomes[$region] = $region;
       } elseif ($tiebreak && !isset($biomes[$region])) {
         $biomes[$region] = 0;
       }

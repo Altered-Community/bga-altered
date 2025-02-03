@@ -40,6 +40,9 @@ class Actions
     TARGET_PLAYER,
     DISCARD_DRAW,
     TARGET_EXPEDITION,
+    EXHAUST,
+    READY,
+    EXCHANGE
   ];
 
   public static function get($actionId, &$ctx = null)
@@ -54,6 +57,12 @@ class Actions
   public static function isDoable($actionId, $ctx, $player)
   {
     $res = self::get($actionId, $ctx)->isDoable($player);
+    return $res;
+  }
+
+  public static function isOptional($actionId, $ctx, $player)
+  {
+    $res = self::get($actionId, $ctx)->isOptional($player);
     return $res;
   }
 
@@ -86,7 +95,7 @@ class Actions
   public static function takeAction($actionId, $actionName, $args, &$ctx, $automatic = false)
   {
     $player = Players::getActive();
-    if (!self::isDoable($actionId, $ctx, $player)) {
+    if (!self::isDoable($actionId, $ctx, $player) && !self::isOptional($actionId, $ctx, $player)) {
       throw new \BgaUserException(self::getErrorMessage($actionId));
     }
 
@@ -116,18 +125,19 @@ class Actions
   {
     $player = Players::getActive();
     if (!self::isDoable($actionId, $ctx, $player)) {
-      if (!$ctx->isOptional($player)) {
-        if (self::isDoable($actionId, $ctx, $player, true)) {
-          Game::get()->gamestate->jumpToState(ST_IMPOSSIBLE_MANDATORY_ACTION);
-          return;
-        } else {
-          throw new \BgaUserException(self::getErrorMessage($actionId));
-        }
-      } else {
-        // Auto pass if optional and not doable
-        Game::get()->actPassOptionalAction(true);
-        return;
-      }
+      // removed for Altered, as an undoable node becomes optional
+      // if (!$ctx->isOptional($player)) {
+      //   if (self::isDoable($actionId, $ctx, $player, true)) {
+      //     Game::get()->gamestate->jumpToState(ST_IMPOSSIBLE_MANDATORY_ACTION);
+      //     return;
+      //   } else {
+      //     throw new \BgaUserException(self::getErrorMessage($actionId));
+      //   }
+      // } else {
+      // Auto pass if optional and not doable
+      Game::get()->actPassOptionalAction(true);
+      return;
+      // }
     }
 
     $action = self::get($actionId, $ctx);
@@ -154,7 +164,7 @@ class Actions
     }
   }
 
-  public static function pass($actionId, $ctx)
+  public static function pass($actionId, $ctx, $proceed = true)
   {
     $player = Players::getActive();
     $action = self::get($actionId, $ctx);
@@ -168,7 +178,8 @@ class Actions
     } else {
       Engine::resolve(PASS);
     }
-
-    Engine::proceed();
+    if ($proceed) {
+      Engine::proceed();
+    }
   }
 }

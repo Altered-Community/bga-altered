@@ -13,6 +13,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
+use ALT\Helpers\FT;
 
 class Discard extends \ALT\Models\Action
 {
@@ -70,6 +71,8 @@ class Discard extends \ALT\Models\Action
       } else {
         $card = Cards::get($this->getSourceId());
       }
+    } elseif ($cardId == 'event') {
+      $card = Cards::get($this->getEvent()['cardId']);
     } else if (!is_null($cardId)) {
       $card = Cards::get($cardId, false);
     }
@@ -103,6 +106,8 @@ class Discard extends \ALT\Models\Action
       $cardIds = is_array($cardId) ? $cardId : [$cardId];
       // Replace ME by source
       $cardIds = array_map(fn($cId) => $cId == ME ? $this->getSourceId() : $cId, $cardIds);
+      // Replace event by the card played
+      $cardIds = array_map(fn($cId) => $cId == 'event' ? $this->getEvent()['cardId'] : $cId, $cardIds);
     }
     // Any source specified ? From Hand
     elseif ($source == HAND) {
@@ -146,7 +151,11 @@ class Discard extends \ALT\Models\Action
     // Any card targeted ? (might be several cards)
     $cardId = $this->getArg('cardId');
     if (!is_null($cardId)) {
-      $cardIds = $args['_private']['active']['cards'];
+      if ($cardId == 'event') {
+        $cardIds = [$this->getEvent()['cardId']];
+      } else {
+        $cardIds = $args['_private']['active']['cards'];
+      }
     }
     // Discard all hand (Loki)
     elseif ($this->getArg('special') == 'allHand') {
@@ -202,8 +211,12 @@ class Discard extends \ALT\Models\Action
     $visibleCards = [];
     $hand = false;
     $cardsToListen = [];
+    $newCId = null;
+    $originalLocation = '';
+    $destination = '';
 
     foreach ($cards as $cId => $card) {
+      $newCId = $cId;
       $players[$card->getPId()] = $card->getPlayer();
       $destination = $args['destination'];
       $hasFleeting = $card->hasToken(FLEETING);
@@ -214,12 +227,64 @@ class Discard extends \ALT\Models\Action
       }
       // Save information about original location
       $originalLocation = $card->getLocation();
-      if (in_array($originalLocation, array_merge(IN_PLAY, [RESERVE], [DISCARD_PILE]))) {
+      if (in_array($originalLocation, array_merge(IN_PLAY, [RESERVE], [DISCARD_PILE], [LIMBO]))) {
         $visibleCards[] = $cId;
       } else if ($originalLocation == HAND) {
         $hand = true;
       } elseif ($originalLocation == MANA) {
         $manaCards[] = $cId;
+      }
+
+      // Jinn's effect (ask question to put in mana instead of discarding)
+      if (($card->isLeaveExpeditionToMana() // Mighty Jinn
+          || $card->isLeaveExpeditionToManaOrDraw() // Mighty Jinn rare
+          || ($card->isLeaveExpeditionBoostedToMana() && $card->countToken(BOOST) > 0) // Tiny Jinn
+        )
+        && in_array($originalLocation, STORMS) && !$this->getArg('force')
+      ) {
+        $nodes = [FT::ACTION(DISCARD, [
+          'cardId' => $cId,
+          'destination' => MANA,
+          'tapped' => true,
+          'force' => true,
+        ], ['pId' => $card->getPId()])];
+        if ($destination == TOP_OF_DECK) {
+          $newNodes = FT::ACTION(DISCARD, [
+            'cardId' => $cId,
+            'destination' => TOP_OF_DECK,
+            'force' => true,
+          ], ['pId' => $card->getPId()]);
+        } else {
+          $newNodes = FT::ACTION(DISCARD, [
+            'cardId' => $cId,
+            'destination' => $args['destination'],
+            'force' => true,
+          ], ['pId' => $card->getPId()]);
+        }
+        if ($card->isLeaveExpeditionToManaOrDraw()) {
+          $newNodes = FT::SEQ($newNodes, FT::ACTION(DRAW, ['players' => ME]));
+        }
+        $nodes[] = $newNodes;
+        $toAdd = FT::XOR(...$nodes);
+        $toAdd['pId'] = $card->getPId();
+        $this->insertAsChild($toAdd);
+        unset($cards[$cId]);
+        continue;
+      }
+
+      // Floral Tent
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($originalLocation) && $card->hasToken(ANCHORED)) {
+        unset($cards[$cId]);
+        Notifications::message(clienttranslate('${card_name} is not discarded but loose <ANCHORED> instead'), ['card' => $card]);
+        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => ANCHORED]]);
+        continue;
+      }
+      // Floral tent bravos
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectBoostedInExpedition($originalLocation) && $card->hasToken(BOOST)) {
+        unset($cards[$cId]);
+        Notifications::message(clienttranslate('${card_name} is not discarded but loose <BOOST> instead'), ['card' => $card]);
+        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => BOOST, 'n' => 99]]);
+        continue;
       }
 
       // Special case of MoonlightJellyFish
@@ -257,10 +322,10 @@ class Discard extends \ALT\Models\Action
       }
 
       // we add the source to the listening cards if it's not in the storms anymore
-      // linked to effect 171
-      if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
-        $cardsToListen[] = $this->getSourceId();
-      }
+      // linked to effect 171 ==> Removed as effect 171/172 revamped
+      // if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
+      //   $cardsToListen[] = $this->getSourceId();
+      // }
       // we add the cards being discarded (but in Landmark or Storms) to react
       if ($destination == DISCARD_PILE && in_array($originalLocation, [LANDMARK, STORM_LEFT, STORM_RIGHT])) {
         $cardsToListen[] = $cId;
@@ -274,7 +339,7 @@ class Discard extends \ALT\Models\Action
     $this->checkAfterListeners($player, [
       'discardCard' => true,
       'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
-      'cardId' => $cId,
+      'cardId' => $newCId,
       'from' => $originalLocation,
       'to' => $destination,
       'sacrifice' => $this->isSacrifice(),

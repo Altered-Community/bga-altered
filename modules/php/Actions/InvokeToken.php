@@ -72,13 +72,12 @@ class InvokeToken extends \ALT\Models\Action
   {
     $realLocation = $location;
     $strLocation = $location;
-
-    if (in_array($location, ['source', 'oppositeSource'])) {
+    if (in_array($location, ['source', 'oppositeSource', 'initialSource'])) {
       $source = $this->getSource();
 
       // No actual source => is that even possible ??
       if (is_null($source)) {
-        $strLocation = $location == 'source' ? clienttranslate('Source') : clienttranslate('Opposite source');
+        $strLocation = $location != 'oppositeSource' ? clienttranslate('Source') : clienttranslate('Opposite source');
       }
       // Get the source location
       else {
@@ -163,11 +162,17 @@ class InvokeToken extends \ALT\Models\Action
         Globals::setNextCharacterBoost(0);
       }
 
+      if (Globals::getNextCharacterAnchored() == true) {
+        $this->insertAsChild(FT::GAIN($card, ANCHORED));
+        Globals::setNextCharacterAnchored(false);
+      }
+
       $this->checkAfterListeners($player, [
         'playCard' => true,
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),
         'from' => 'invoke',
+        'to' => $location
       ]);
     }
 

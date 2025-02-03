@@ -67,7 +67,8 @@ class ActivateEffect extends \ALT\Models\Action
       ]);
       if (!empty($card->$effect())) {
         $node = $card->$effect();
-        $node['sourceId'] = $card->getId();
+        $node = Utils::tagTree($node, ['sourceId' => $card->getId()]);
+        // $node['sourceId'] = $card->getId();
         $this->pushParallelChild($node);
       }
     } else {

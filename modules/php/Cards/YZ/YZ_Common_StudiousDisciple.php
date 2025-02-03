@@ -22,7 +22,7 @@ class YZ_Common_StudiousDisciple extends \ALT\Models\Card
       'supportIcon' => 'discard',
       'typeline' => clienttranslate('Character - Apprentice Mage'),
       'flavorText' => clienttranslate('So far behind, and still so much to learn!'),
-      'artist' => 'Floriane Bodereau',
+      'artist' => 'Zaël',
 
       'forest' => 0,
       'mountain' => 1,

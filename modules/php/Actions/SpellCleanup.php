@@ -8,6 +8,8 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Core\Engine;
+use ALT\Helpers\FT;
 
 class SpellCleanup extends \ALT\Models\Action
 {
@@ -56,7 +58,13 @@ class SpellCleanup extends \ALT\Models\Action
     } else {
       // moved to reserve
       $deleted = $card->moveToReserve();
+      if ($card->isCooldown()) {
+        // If the card should be cooldown, we need to trigger the exhaust effect
+        Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $card->getId()], ['pId' => $player->getId(), 'sourceId' => $card->getId()]));
+        // $card->setTapped(true);
+      }
     }
+
     Notifications::spellCleanup($card, $deleted);
 
     $this->resolveAction();

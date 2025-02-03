@@ -99,6 +99,47 @@ class Gain extends \ALT\Models\Action
     return [$this->getArg('type'), $this->getArg('n')];
   }
 
+  public function gain($player, $card, $resource, $amount = 1, $source = null, $args = [])
+  {
+    $dynamicReplace = $card->getDynamicGainReplace();
+    $args['cardId'] = $card->getId();
+
+    if (is_null($source)) {
+      $sourceId = -1;
+    } else {
+      $sourceId = $source->getId();
+    }
+
+    // Some effects change what is gained
+    if (isset($dynamicReplace[$resource])) {
+      $oldResource = $resource;
+      $resource = $dynamicReplace[$resource];
+      Notifications::message(
+        clienttranslate('${old_resource} is replaced by ${resource} (${card_name}\'s effect)'),
+        [
+          'resource' => $resource,
+          'old_resource' => $oldResource,
+          'card' => $card,
+          'i18n' => ['resource', 'old_resource'],
+        ]
+      );
+      $args['type'] = $resource;
+    }
+
+    if (in_array($resource, [FLEETING, ASLEEP, ANCHORED]) && $card->hasToken($resource)) {
+      if ($card->isCanAlwaysGainFleeting()) {
+        $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
+      }
+      // a card cannot have more than one fleeting/anchored token
+      return;
+    }
+
+    $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
+    Notifications::gainMeeple($resource, $card, $tokens, $source, false);
+
+    $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' =>  $sourceId]);
+  }
+
   public function stGain()
   {
     $player = $this->getPlayer();
@@ -108,23 +149,11 @@ class Gain extends \ALT\Models\Action
       $source = Cards::getSingle($sourceId);
     }
     $card = $this->getCard();
-
-    // Increase resource and notify
-    list($resource, $amount) = $this->getGain();
-    if (in_array($resource, [FLEETING, ANCHORED]) && $card->hasToken($resource)) {
-      // a card cannot have more than one fleeting/anchored token
-      $this->resolveAction();
-      return;
-    }
-
-    $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
-    Notifications::gainMeeple($resource, $card, $tokens, $source, false);
-
     $args = $this->getCtxArgs();
-    $args['cardId'] = $this->getCard()->getId();
 
-    $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
+    list($resource, $amount) = $this->getGain();
 
+    $this->gain($player, $card, $resource, $amount, $source, $args);
     $this->resolveAction();
   }
 }

@@ -22,21 +22,14 @@ class BR_Rare_MightyJinn extends \ALT\Models\Card
       'artist' => 'HuoMiao Studio',
       'subtypes' => [ELEMENTAL],
       'effectDesc' => clienttranslate(
-        'When I leave the Expedition zone — You may put me in my owner\'s Mana zone (as an exhausted Mana Orb). #If you don\'t, draw a card.#'
+        'If I would leave the Expedition zone, you may put me in my owner\'s Mana zone (as an exhausted Mana Orb). #If you don\'t, draw a card.#'
       ),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 0,
       'costHand' => 4,
       'costReserve' => 3,
-      'effectPassive' => [
-        'LeaveExpedition' => [
-          'output' => FT::XOR(
-            FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'force' => true, 'tapped' => true]),
-            FT::ACTION(DRAW, ['players' => ME])
-          ),
-        ],
-      ],
+      'leaveExpeditionToManaOrDraw' => true,
     ];
   }
 }

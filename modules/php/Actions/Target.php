@@ -34,10 +34,15 @@ class Target extends \ALT\Models\Action
     'statuses' => 'disabled', // does it has those statuses
     'excludeSelf' => false,
     'totalCost' => INFTY,
+    'totalMountain' => INFTY,
     'hasEffects' => 'disabled',
     'cards' => [],
     'discardRemaining' => false,
     'subType' => 'disabled',
+    'expeditionAttributes' => null,
+    'excludeBiomes' => false,
+    'isTapped' => false,
+    'maxStatistic' => 99,
   ];
 
   public function getDescription()
@@ -45,14 +50,17 @@ class Target extends \ALT\Models\Action
     $targetType = $this->getArg('targetType');
     $upTo = $this->getCtxArg('upTo') ?? false;
     $totalCost = $this->getArg('totalCost');
+    $totalMountain = $this->getArg('totalMountain');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+        } elseif ($totalMountain != INFTY) {
+          $msg = clienttranslate('Target up to ${n} character(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
-            $msg = clienttranslate('All characters ${effect_desc}');
+            $msg = clienttranslate('All valid characters ${effect_desc}');
           } else {
             $msg = clienttranslate('Target up to ${n} character(s) to ${effect_desc}');
           }
@@ -64,6 +72,8 @@ class Target extends \ALT\Models\Action
       if ($upTo) {
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+        } elseif ($totalMountain != INFTY) {
+          $msg = clienttranslate('Target up to ${n} permanent(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect_desc}');
         }
@@ -74,16 +84,18 @@ class Target extends \ALT\Models\Action
       if ($upTo) {
         if ($totalCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+        } elseif ($totalMountain != INFTY) {
+          $msg = clienttranslate('Target up to ${n} card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
-            $msg = clienttranslate('All cards ${effect_desc}');
+            $msg = clienttranslate('All valid targets ${effect_desc}');
           } else {
             $msg = clienttranslate('Target up to ${n} card(s) to ${effect_desc}');
           }
         }
       } else {
         if ($this->getArg('n') == INFTY) {
-          $msg = clienttranslate('All cards ${effect_desc}');
+          $msg = clienttranslate('All valid targets ${effect_desc}');
         } else {
           $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
         }
@@ -96,6 +108,7 @@ class Target extends \ALT\Models\Action
         'n' => $this->getCtxArg('n') ?? 1,
         'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
         'totalCost' => $totalCost,
+        'totalMountain' => $totalMountain,
         'i18n' => ['effect_desc'],
       ],
     ];
@@ -153,10 +166,26 @@ class Target extends \ALT\Models\Action
     $excludeSelf = $this->getArg('excludeSelf');
     $sourceId = $this->getSourceId();
     $subType = $this->getArg('subType');
+    $expeditionAttributes = $this->getArg('expeditionAttributes');
+    $filteredBiomes = Players::filterBiomes($expeditionAttributes);
+    $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
+    $isTapped = $this->getArg('isTapped');
+    $maxStatistic = $this->getArg('maxStatistic');
+
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic) {
       if ($excludeSelf && $c->getId() == $sourceId) {
+        return false;
+      }
+      // if we need to filter by location & attributes 
+      if ($excludedBiomes === null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()]) && !$c->isGigantic()) {
+        return false;
+      }
+      if ($excludedBiomes !== null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), ($excludedBiomes[$c->getPId()] ?? [])) && $c->isGigantic()) {
+        return false;
+      }
+      if ($isTapped && !$c->isTapped()) {
         return false;
       }
 
@@ -183,6 +212,13 @@ class Target extends \ALT\Models\Action
 
       if ($checkTough && $c->getPId() != $player->getId() && $c->getTough() > $player->getMana()) {
         return false;
+      }
+
+      $biomes = $c->getBiomes(true);
+      foreach ($biomes as $b => $value) {
+        if ($value > $maxStatistic) {
+          return false;
+        }
       }
 
       $costCheck =
@@ -228,6 +264,7 @@ class Target extends \ALT\Models\Action
       'upTo' => $this->getArg('upTo'),
       'description' => $this->getDescription(),
       'totalCost' => $this->getArg('totalCost'),
+      'totalMountain' => $this->getArg('totalMountain'),
       'targetCosts' => $this->getTargetCosts($player),
       'manaOrbs' => $this->getArg('targetLocation') == [MANA],
     ];
@@ -246,6 +283,7 @@ class Target extends \ALT\Models\Action
     $player = Players::getActive();
     $args = $this->argsTarget();
     $totalCost = $this->getArg('totalCost');
+    $totalMountain = $this->getArg('totalMountain');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
       throw new \BgaVisibleSystemException('You cannot target these cards. Should not happen');
@@ -274,6 +312,8 @@ class Target extends \ALT\Models\Action
     $cards = Cards::getMany($cardIds);
 
     foreach ($cards as $cardId => $card) {
+      $cardFrom = $card->getLocation();
+
       // Select untapped card in mana => untap another card if any
       if ($args['manaOrbs'] && !$card->isTapped()) {
         $card2 = $player->getManaCards(true)->first();
@@ -283,33 +323,55 @@ class Target extends \ALT\Models\Action
       }
 
       $node = $this->getArg('effect');
-      if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
-        $node['args']['cardId'] = $cardId;
+      $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId());
+      if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
+        $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
       }
-      $node['sourceId'] = $this->getSourceId();
-      if (isset($node['childs'])) {
-        foreach ($node['childs'] as &$child) {
-          if (!isset($child['args']['cardId']) || $child['args']['cardId'] != ME) {
-            $child['args']['cardId'] = $cardId;
-          }
-          $child['sourceId'] = $this->getSourceId();
-          if (isset($child['childs'])) {
-            foreach ($child['childs'] as &$grandchild) {
-              if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {
-                $grandchild['args']['cardId'] = $cardId;
-              }
-              $grandchild['sourceId'] = $this->getSourceId();
-            }
-          }
-        }
-      }
+      // if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
+      //   $node['args']['cardId'] = $cardId;
+      //   $node['args']['cardFrom'] = $cardFrom;
+      // }
+      // $node['sourceId'] = $this->getSourceId();
+      // if (isset($node['childs'])) {
+      //   foreach ($node['childs'] as &$child) {
+      //     if (!isset($child['args']['cardId']) || $child['args']['cardId'] != ME) {
+      //       $child['args']['cardId'] = $cardId;
+      //       $child['args']['cardFrom'] = $cardFrom;
+      //     }
+      //     $child['sourceId'] = $this->getSourceId();
+
+      //     if (isset($child['childs'])) {
+      //       foreach ($child['childs'] as &$grandchild) {
+      //         if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {
+      //           $grandchild['args']['cardId'] = $cardId;
+      //           $grandchild['args']['cardFrom'] = $cardFrom;
+      //         }
+      //         $grandchild['sourceId'] = $this->getSourceId();
+      //       }
+
+      //       if (isset($grandchild['childs'])) {
+      //         foreach ($grandchild['childs'] as &$ggchild) {
+      //           if (!isset($ggchild['args']['cardId'])  || $ggchild['args']['cardId'] != ME) {
+      //             $ggchild['args']['cardId'] = $cardId;
+      //             $ggchild['args']['cardFrom'] = $cardFrom;
+      //           }
+      //           $ggchild['sourceId'] = $this->getSourceId();
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
 
       $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
+      $totalMountain -= ($card->getMountain() + $card->countToken(BOOST));
     }
 
     if ($totalCost < 0) {
       throw new \BgaUserException(clienttranslate('Total hand cost exceeds the limit of the effect'));
+    }
+    if ($totalMountain < 0) {
+      throw new \BgaUserException(clienttranslate('Total mountain attribute exceeds the limit of the effect'));
     }
 
     $cards = Cards::getMany($cardIds);
@@ -333,5 +395,28 @@ class Target extends \ALT\Models\Action
     }
 
     $this->resolveAction([$cardIds]);
+  }
+
+
+  private function updateCardId($node, $cardId, $cardFrom, $sourceId)
+  {
+    if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
+      $node['args']['cardId'] = $cardId;
+      $node['args']['cardFrom'] = $cardFrom;
+    }
+    $node['sourceId'] = $this->getSourceId();
+
+    if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId);
+    }
+
+    if (isset($node['childs'])) {
+      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId) {
+        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId);
+      }, $node['childs']);
+    }
+
+
+    return $node;
   }
 }
