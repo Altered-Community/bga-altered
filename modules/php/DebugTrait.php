@@ -99,6 +99,7 @@ trait DebugTrait
 
   function vt()
   {
+    throw new \BgaVisibleSystemException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([17, 21, 22]);
