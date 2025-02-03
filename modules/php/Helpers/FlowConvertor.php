@@ -1736,6 +1736,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may have target Character in the Expedition facing me gain <ASLEEP>.'),
         'output' =>  FT::ACTION(TARGET, [
           'targetPlayer' => OPPONENT,
+          'upTo' => true,
           'targetLocation' => ['source'],
           'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::GAIN(EFFECT, ASLEEP),
