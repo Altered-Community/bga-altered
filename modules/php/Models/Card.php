@@ -633,46 +633,53 @@ class Card extends \ALT\Helpers\DB_Model
 
     $tough = $this->properties['tough'] ?? 0;
     $dynamicTough = $this->getDynamicTough();
-    $dynSplit = explode(':', $dynamicTough);
-    if (count($dynSplit) > 1) {
-      // we need to test if ok, add change dynamic tough to the value of 0
-      if (!is_null(Utils::checkAttributeCondition('tough', $dynamicTough, $this->getPlayer(), $this))) {
-        $dynamicTough = $dynSplit[0];
-      }
+    if (!is_array($dynamicTough) && $dynamicTough != '') {
+      $dynamicTough = [$dynamicTough];
     }
-    switch ($dynamicTough) {
-      case '':
-        // no dynamic
-        break;
-      case 'region':
-        if (Globals::isTieBreakerMode()) {
-          break;
-        }
-        $diff = $this->getPlayer()->getRegionDifference() - 1;
-        if ($diff >= 1) {
-          $tough += $diff;
-        }
-        break;
-      case 'controlledPlants':
-        foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
-          if (in_array(PLANT, $card->getSubtypes())) {
-            $tough++;
+    if ($dynamicTough != '') {
+      foreach ($dynamicTough as $singleTough) {
+        $dynSplit = explode(':', $singleTough);
+        if (count($dynSplit) > 1) {
+          // we need to test if ok, add change dynamic tough to the value of 0
+          if (!is_null(Utils::checkAttributeCondition('tough', $singleTough, $this->getPlayer(), $this))) {
+            $singleTough = $dynSplit[0];
           }
         }
-        break;
-      case 'tough1':
-        $tough = 1;
-        break;
-      case 'tough2':
-        $tough = 2;
-        break;
-      case 'exhaustedReserve':
-        foreach (Players::getAll() as $pId => $sPlayer) {
-          $tough += $sPlayer->getReserveCards()->filter(function ($c) {
-            return $c->isTapped() == true;
-          })->count();
+        switch ($singleTough) {
+          case '':
+            // no dynamic
+            break;
+          case 'region':
+            if (Globals::isTieBreakerMode()) {
+              break;
+            }
+            $diff = $this->getPlayer()->getRegionDifference() - 1;
+            if ($diff >= 1) {
+              $tough += $diff;
+            }
+            break;
+          case 'controlledPlants':
+            foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+              if (in_array(PLANT, $card->getSubtypes())) {
+                $tough++;
+              }
+            }
+            break;
+          case 'tough1':
+            $tough += 1;
+            break;
+          case 'tough2':
+            $tough += 2;
+            break;
+          case 'exhaustedReserve':
+            foreach (Players::getAll() as $pId => $sPlayer) {
+              $tough += $sPlayer->getReserveCards()->filter(function ($c) {
+                return $c->isTapped() == true;
+              })->count();
+            }
+            break;
         }
-        break;
+      }
     }
 
     if (in_array($this->getType(), [CHARACTER, TOKEN])) {

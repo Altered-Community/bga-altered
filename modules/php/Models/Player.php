@@ -732,11 +732,31 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return count(
       $this->getPlayedCards()->filter(function ($card) {
-        return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter2';
+        $dynamicTough = $card->getDynamicTough();
+        if (!is_array($dynamicTough)) {
+          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter2';
+        } else {
+          foreach ($dynamicTough as $singleTough) {
+            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'universalCharacter2') {
+              return true;
+            }
+          }
+          return false;
+        }
       })
     ) * 2 + count(
       $this->getPlayedCards()->filter(function ($card) {
-        return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter1';
+        $dynamicTough = $card->getDynamicTough();
+        if (!is_array($dynamicTough)) {
+          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter1';
+        } else {
+          foreach ($dynamicTough as $singleTough) {
+            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'universalCharacter1') {
+              return true;
+            }
+          }
+          return false;
+        }
       })
     );
   }

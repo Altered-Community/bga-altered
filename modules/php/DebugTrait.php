@@ -501,7 +501,7 @@ trait DebugTrait
     $token = $params['token'] ?? '';
     $deckId = $params['deckId'] ?? '';
     $cardId = $params['cardId'] ?? '';
-    // $curl = curl_VTOinit();
+    $curl = curl_init();
     // $baseUrl = 'https://api.equinox-ccg.io';
     $baseUrl = 'https://api.altered.gg';
     $setup = [
