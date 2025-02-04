@@ -707,7 +707,7 @@ class SpecialEffect extends \ALT\Models\Action
         $exhaust = [];
 
         foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
-          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->getLocation() != $expedition) {
+          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || ($card->getLocation() != $expedition && !$card->isGigantic())) {
             continue;
           }
           $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => RESERVE], ['sourceId' => $this->getSourceId()]);
