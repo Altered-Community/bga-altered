@@ -125,7 +125,10 @@ abstract class FlowConvertor
       177 => [
         'description' => clienttranslate('Roll a die. On a 4+:'),
         'effect' => FT::ACTION(ROLL_DIE, [
-          'effect' => ['4+' => 'OUTPUT'],
+          'effect' => [
+            '4+' => 'OUTPUT',
+            '1-3' => 'OPPOSITE'
+          ],
         ])
       ],
       178 => [
