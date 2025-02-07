@@ -364,7 +364,15 @@ class Target extends \ALT\Models\Action
 
       $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
-      $totalMountain -= ($card->getMountain() + $card->countToken(BOOST));
+      $giganticIncrease = false;
+      if (
+        $card->getPlayer()->hasIncreaseBiomesHighest($card->getLocation()) ||
+        ($card->isGigantic() && $card->getPlayer()->hasIncreaseBiomesHighest($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT))
+      ) {
+        $giganticIncrease = true;
+      }
+      $biomes = $card->getBiomes(true,  $giganticIncrease);
+      $totalMountain -= $biomes[MOUNTAIN];
     }
 
     if ($totalCost < 0) {
