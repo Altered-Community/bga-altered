@@ -32,7 +32,7 @@ class AX_Rare_TheMachineintheIce extends \ALT\Models\Card
             'resupplyExhaust' => true,
             'effectPassive' => [
                 'LeaveExpedition' => [
-                    'condition' => 'isToReserve',
+                    'conditions' => ['isToReserve', 'notTapped'],
                     'output' => FT::ACTION(
                         EXHAUST,
                         [
@@ -41,7 +41,7 @@ class AX_Rare_TheMachineintheIce extends \ALT\Models\Card
                     ),
                 ],
                 'LeaveOther' => [
-                    'condition' => 'isToReserve',
+                    'conditions' => ['isToReserve', 'notTapped'],
                     'output' => FT::ACTION(
                         EXHAUST,
                         [
