@@ -1733,6 +1733,7 @@ define([
         });
       }
       if (args.additionalAction == false) {
+        // Pass turn button
         this.addDangerActionButton(
           'btnPass',
           _('Pass'),

@@ -35,7 +35,7 @@ class ChooseAssignment extends \ALT\Models\Action
     'types' => [PERMANENT, SPELL, CHARACTER],
     'actions' => ['play', 'support', 'tap'],
     'maxHandCost' => INFTY,
-    'free' => false
+    'free' => false,
   ];
 
   public function argsChooseAssignment()
@@ -87,7 +87,13 @@ class ChooseAssignment extends \ALT\Models\Action
         ->getIds();
     }
     $additionalAction = count($this->getArg('actions')) != 3;
+
     return ['_private' => ['active' => $actions], 'additionalAction' => $additionalAction, 'descSuffix' => $additionalAction ? 'additional' : ''];
+  }
+
+  public function isOptional($player)
+  {
+    return $this->getCtx()->getOptional() == true || (count($this->getArg('actions')) != 3 && empty($this->argsChooseAssignment()['_private']['active']['play']->toArray() ?? []));
   }
 
   public static function statPlay($carId)
