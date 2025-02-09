@@ -157,10 +157,12 @@ class Target extends \ALT\Models\Action
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
-        return in_array($c->getLocation(), $targetLocation) && in_array($c->getType(), $targetType);
+        return (in_array($c->getLocation(), $targetLocation) || (in_array($c->getLocation(), STORMS) && $c->isGigantic()))  && in_array($c->getType(), $targetType);
       });
     } else {
-      $cards = Cards::getFiltered($pIds, $targetLocation, $targetType);
+      $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation) {
+        return (in_array($c->getLocation(), $targetLocation) || (in_array($c->getLocation(), STORMS) && $c->isGigantic()));
+      });
     }
 
     $excludeSelf = $this->getArg('excludeSelf');
