@@ -253,7 +253,7 @@ abstract class FlowConvertor
         'effect' => FT::XOR(
           FT::XOR(FT::ACTION(TARGET, [
             'targetPlayer' => ME,
-            'targetType' => [CHARACTER],
+            'targetType' => [CHARACTER, TOKEN],
             'subType' => ROBOT,
             'excludeSelf' => true,
             'n' => 1,
