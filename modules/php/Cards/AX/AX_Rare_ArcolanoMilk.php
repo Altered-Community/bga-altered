@@ -34,6 +34,10 @@ class AX_Rare_ArcolanoMilk extends \ALT\Models\Card
                     'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
+                'MoveCard' => [
+                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation'],
+                    'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
+                ],
             ],
             'blockAutomaticAction' => [LOOSE => [FLEETING => 1], GAIN => [FLEETING => 1]],
 
