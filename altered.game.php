@@ -276,6 +276,16 @@ class altered extends Table
 
   function zombieTurn($state, $activePlayer)
   {
+    // test to stop inifinte loop
+    $nextPlayer = Players::getNext(Players::get($activePlayer));
+    $nextPlayer->setScore(1);
+    Stats::setWinner($nextPlayer, 1);
+    if (!is_null($nextPlayer->getHero())) {
+      Stats::setGameWinner($nextPlayer->getHero()->getStatData());
+    }
+    $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+    return;
+
     $stateName = $state['name'];
     if ($state['type'] == 'activeplayer') {
       if ($stateName == 'confirmTurn') {

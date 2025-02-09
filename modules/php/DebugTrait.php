@@ -486,6 +486,10 @@ trait DebugTrait
     }
   }
 
+  function testZomb()
+  {
+    $this->zombieTurn([], 2305527);
+  }
 
 
 
