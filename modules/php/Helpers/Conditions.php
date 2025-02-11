@@ -155,21 +155,21 @@ abstract class Conditions
       (!isset(Globals::getStormMoves()[$card->getPId()]) ||
         (Globals::getStormMoves()[$card->getPId()][STORM_LEFT]['moves'] ?? 0) +
         (Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0) ==
-        0);
+        0) && !Globals::isTieBreakerMode();
   }
 
   public static function myExpeditionHasNotMoved($card, $event)
   {
     $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? null;
     $stormMoves = $stormMoves[$card->getLocation()] ?? null;
-    return $event['pId'] == $card->getPId() && (is_null($stormMoves) || ($stormMoves['moves'] ?? 0) == 0);
+    return $event['pId'] == $card->getPId() && (is_null($stormMoves) || ($stormMoves['moves'] ?? 0) == 0) && !Globals::isTieBreakerMode();
   }
 
   public static function myExpeditionHasMoved($card, $event)
   {
     $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? null;
     $stormMoves = $stormMoves[$card->getLocation()] ?? null;
-    return $event['pId'] == $card->getPId() && !is_null($stormMoves) && ($stormMoves['moves'] ?? 0) > 0;
+    return $event['pId'] == $card->getPId() && !is_null($stormMoves) && ($stormMoves['moves'] ?? 0) > 0 && !Globals::isTieBreakerMode();
   }
 
   public static function myExpeditionIsBehind($card, $event)
@@ -177,7 +177,7 @@ abstract class Conditions
     $winners = Players::getWinningPlayerByStorms();
     $location = ($event['to'] ?? $card->getLocation()) == 'limbo' ? $card->getLocation() : $event['to'];
     $win = $winners[$location] ?? null;
-    return !is_null($win) && $win != -1 && $win != $card->getPId();
+    return !is_null($win) && $win != -1 && $win != $card->getPId() && !Globals::isTieBreakerMode();
   }
 
   public static function companionExpeditionIsBehind($card, $event)
