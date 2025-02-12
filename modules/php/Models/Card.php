@@ -690,7 +690,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $tough;
   }
 
-  public function isGigantic()
+  public function isGigantic($ignoreOneGigantic = false)
   {
     if (($this->properties['gigantic'] ?? false) == true) {
       return true;
@@ -712,14 +712,38 @@ class Card extends \ALT\Helpers\DB_Model
         }
       }
 
+
       $characterCount = $this->getPlayer()->countCardsInLocation($this->getLocation(), [TOKEN, CHARACTER]);
-      if ($characterCount > 1) {
+      if ($characterCount > 1 || $ignoreOneGigantic) {
         return false;
       }
-      foreach ($this->getPlayer()->getPlayedCards() as $cId => $card) {
+
+      $oneCharacterGigantic = false;
+      foreach ($this->getPlayer()->getPlayedCards([PERMANENT]) as $cId => $card) {
         if ($card->isGiganticOneCharacter() && $card->getLocation() == $this->getLocation()) {
-          return true;
+          $oneCharacterGigantic = true;
         }
+      }
+
+      // Additional check to see if we do not have a gigantic character in the other expedition
+      if ($oneCharacterGigantic) {
+        $otherExpedition = $this->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+        foreach ($this->getPlayer()->getPlayedCards([TOKEN, CHARACTER]) as $cId => $card) {
+          if ($card->getLocation() != $otherExpedition) {
+            continue;
+          }
+          if ($card->isGigantic(true)) {
+            return false;
+          }
+          if ($card->getState() > $this->getState()) {
+            // if the card has been played after this one we do not check it
+            continue;
+          }
+          if ($card->isGigantic()) {
+            return false;
+          }
+        }
+        return true;
       }
     }
 
