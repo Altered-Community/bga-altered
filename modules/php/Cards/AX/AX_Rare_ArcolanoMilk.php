@@ -35,7 +35,7 @@ class AX_Rare_ArcolanoMilk extends \ALT\Models\Card
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
                 'MoveCard' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation'],
+                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'hasSameOwner'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
             ],
