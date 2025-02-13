@@ -44,7 +44,7 @@ abstract class FlowConvertor
       250 => ['description' => clienttranslate('When a card goes from your hand or deck to Reserve —'), 'trigger' => 'Discard', 'condition' => ['hasSameOwner', 'isDiscarded:hand:reserve']],
       253 => ['description' => clienttranslate('When another Character joins my Expedition —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf']],
       254 => ['description' => clienttranslate('When another Character you control gains <FLEETING> —'), 'trigger' => ['Gain'], 'condition' => ['isControlledCharacterGain', 'isGain:fleeting', 'excludeSelf']],
-      419 => ['description' => clienttranslate('When another Character joins my Expedition —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf']],
+      419 => ['description' => clienttranslate('When another Character joins my Expedition —'), 'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'], 'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf']],
       263 => ['description' => clienttranslate('When another non-token Character joins one of your Expeditions that is behind —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardAdded:characterOnly', 'cardPlayedExpeditionIsBehind', 'excludeSelf']],
       256 => ['description' => clienttranslate('When I gain <ASLEEP> —'), 'trigger' => 'Gain', 'condition' => 'hasGained:asleep'],
       257 => ['description' => clienttranslate('When I gain <FLEETING> —'), 'trigger' => 'Gain', 'condition' => 'hasGained:fleeting'],
