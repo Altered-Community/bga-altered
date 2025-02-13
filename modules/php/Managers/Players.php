@@ -407,7 +407,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $statuses;
   }
 
-  public static function getBiomesInStorm()
+  public static function getBiomesInStorm($excludeMoveInfo = false)
   {
     $allBiomes = [];
     foreach (self::getAll() as $pId => $player) {
@@ -418,7 +418,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         foreach ($biomes as $biome) {
           $newBiomes[$biome] = $biome;
         }
-        self::biomesModifier($newBiomes, $player, $expedition);
+        self::biomesModifier($newBiomes, $player, $expedition, false, $excludeMoveInfo);
         $allBiomes[$pId][$expedition] = $newBiomes;
       }
     }
@@ -427,7 +427,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
   public static function filterBiomes($expeditionAttributes)
   {
-    $allPlayerStorms = self::getBiomesInStorm();
+    $allPlayerStorms = self::getBiomesInStorm(true);
     $authorizedLocations = [];
     foreach ($allPlayerStorms as $pId => $playerStorm) {
       $authorizedLocations[$pId] = [];
@@ -450,7 +450,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
   public static function excludeBiomes($expeditionAttributes)
   {
-    $allPlayerStorms = self::getBiomesInStorm();
+    $allPlayerStorms = self::getBiomesInStorm(true);
     $excludedLocations = [];
     foreach ($allPlayerStorms as $pId => $playerStorm) {
       // no constraints
@@ -547,7 +547,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $movements;
   }
 
-  public static function biomesModifier(&$biomes, $player, $expedition, $tiebreak = false)
+  public static function biomesModifier(&$biomes, $player, $expedition, $tiebreak = false, $excludeMoveInfo = false)
   {
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       $updateExpeditions = $card->getUpdateExpeditions();
@@ -574,16 +574,18 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       }
     }
 
-    // Looped a second time as this takes precedence on the "modifiers"
-    foreach (Cards::getPlayedCards(null) as $cId => $card) {
-      // TODO: manage multiplayer
-      if (($card->getLocation() == $expedition || $card->isGigantic()) && $player->getId() != $card->getPId()) {
-        if ($card->isOpponentOceanOnly() && isset($biomes[OCEAN])) {
-          $biomes = [OCEAN => OCEAN];
-        } elseif ($card->isOpponentForestOnly() && isset($biomes[FOREST])) {
-          $biomes = [FOREST => FOREST];
-        } elseif ($card->isOpponentMountainOnly() && isset($biomes[MOUNTAIN])) {
-          $biomes = [MOUNTAIN => MOUNTAIN];
+    if (!$excludeMoveInfo) {
+      // Looped a second time as this takes precedence on the "modifiers"
+      foreach (Cards::getPlayedCards(null) as $cId => $card) {
+        // TODO: manage multiplayer
+        if (($card->getLocation() == $expedition || $card->isGigantic()) && $player->getId() != $card->getPId()) {
+          if ($card->isOpponentOceanOnly() && isset($biomes[OCEAN])) {
+            $biomes = [OCEAN => OCEAN];
+          } elseif ($card->isOpponentForestOnly() && isset($biomes[FOREST])) {
+            $biomes = [FOREST => FOREST];
+          } elseif ($card->isOpponentMountainOnly() && isset($biomes[MOUNTAIN])) {
+            $biomes = [MOUNTAIN => MOUNTAIN];
+          }
         }
       }
     }
