@@ -250,6 +250,10 @@ trait TurnTrait
     if (Players::checkVictory()) {
       return;
     }
+    if (Globals::isEnterTieBreakerMode()) {
+      Globals::setTieBreakerMode(true);
+      Globals::setEnterTieBreakerMode(false);
+    }
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setPlayedForFree(false);

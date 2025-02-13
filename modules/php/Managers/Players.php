@@ -230,7 +230,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
     // players have moved the same number in the phase
     if ($tiebreaker === true) {
-      Globals::setTieBreakerMode(true);
+      // Globals::setTieBreakerMode(true);
+      Globals::setEnterTieBreakerMode(true);
       $meeples = new Collection();
       foreach (Players::getAll() as $pId => $player) {
         $player->getCompanionToken()->setLocation('storm-4');

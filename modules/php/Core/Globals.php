@@ -38,6 +38,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'stormMoves' => 'obj',
     'blockedExpeditions' => 'obj', // pId => StormLet/Right
     'tieBreakerMode' => 'bool',
+    'enterTieBreakerMode' => 'bool',
     'instantWin' => 'bool',
 
     'diceRolls' => 'obj',
