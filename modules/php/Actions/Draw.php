@@ -46,6 +46,13 @@ class Draw extends \ALT\Models\Action
           'n' => $n,
         ],
       ];
+    } elseif ($players == 'owner') {
+      return [
+        'log' => clienttranslate('The owner of the card draws ${n} card(s)'),
+        'args' => [
+          'n' => $n,
+        ],
+      ];
     }
     // The reward is for the player
     else {
@@ -73,6 +80,7 @@ class Draw extends \ALT\Models\Action
     'players' => ALL,
     'location' => HAND,
     'tapped' => false,
+    'ownerId' => null,
   ];
 
   public function stDraw()
@@ -90,6 +98,11 @@ class Draw extends \ALT\Models\Action
       $players = [Players::getActive()];
     } elseif ($who == ALL) {
       $players = Players::getAll();
+    } elseif ($who == 'owner') {
+      if (is_null($this->getArg('ownerId'))) {
+        throw new \BgaVisibleSystemException('No owner of card. Should not happen');
+      }
+      $players = [Players::get($this->getArg('ownerId'))];
     } else {
       $players = [Players::getNext(Players::getActive())];
     }

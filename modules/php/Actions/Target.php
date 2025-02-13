@@ -325,7 +325,7 @@ class Target extends \ALT\Models\Action
       }
 
       $node = $this->getArg('effect');
-      $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId());
+      $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
       if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
         $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
       }
@@ -408,21 +408,22 @@ class Target extends \ALT\Models\Action
   }
 
 
-  private function updateCardId($node, $cardId, $cardFrom, $sourceId)
+  private function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId)
   {
     if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
       $node['args']['cardId'] = $cardId;
       $node['args']['cardFrom'] = $cardFrom;
+      $node['args']['ownerId'] = $ownerId;
     }
     $node['sourceId'] = $this->getSourceId();
 
     if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
-      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId);
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId, $ownerId);
     }
 
     if (isset($node['childs'])) {
-      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId) {
-        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId);
+      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId) {
+        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId);
       }, $node['childs']);
     }
 
