@@ -282,6 +282,9 @@ class Engine
         // if we have a parallel node & multiple players id, we pass only the nodes of the player
         $nodes = $nextUnresolved->getChilds();
         $otherPIds = null;
+        if (is_null($player)) {
+          $player = Players::getActive();
+        }
 
         foreach ($nodes as &$child) {
           if ($child->isResolved()) {
