@@ -112,6 +112,20 @@ class Action
     return $this->ctx->getEvent();
   }
 
+  public function getEventRecursive($ctx = null)
+  {
+    if (is_null($ctx)) {
+      $ctx = $this->ctx;
+    }
+    if (is_null($ctx->getEvent())) {
+      if (!is_null($ctx->getParent())) {
+        return $this->getEventRecursive($ctx->getParent());
+      }
+      return null;
+    }
+    return  $ctx->getEvent();
+  }
+
   public function getSourceId()
   {
     return $this->ctx->getSourceId();

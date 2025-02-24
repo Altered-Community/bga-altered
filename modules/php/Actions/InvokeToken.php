@@ -84,7 +84,7 @@ class InvokeToken extends \ALT\Models\Action
         $srcLoc = $this->getSource()->getLocation();
 
         // Check event in case of leaving expedition
-        $event = $this->getEvent();
+        $event = $this->getEventRecursive();
         if (!is_null($event) && in_array($event['method'], ['LeaveExpedition', 'LeaveLandmark']) && isset($event['from'])) {
           $srcLoc = $event['from'];
         }
