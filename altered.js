@@ -2011,13 +2011,29 @@ define([
         return () => this.takeAtomicAction('actInvokeToken', [location]);
       };
 
-      args.locations.forEach((location, i) => {
-        debug(location);
-        this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
-        if (location == 'stormLeft' || location == 'stormRight') {
-          this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
-        }
-      });
+      if (args.allPlayers == true) {
+        i = 0;
+        this.forEachPlayer((player) => {
+          args.locations.forEach((location, i) => {
+            this.addPrimaryActionButton(
+              'btnLocation' + player.id + i,
+              player.name + ' ' + names[location],
+              onChooseLocation(location + '-' + player.id)
+            );
+            if (location == 'stormLeft' || location == 'stormRight') {
+              this.onClick(`board-${location}-${player.id}`, onChooseLocation(location + '-' + player.id));
+            }
+          });
+        });
+      } else {
+        args.locations.forEach((location, i) => {
+          debug(location);
+          this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
+          if (location == 'stormLeft' || location == 'stormRight') {
+            this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
+          }
+        });
+      }
     },
 
     onEnteringStateBlockExpedition(args) {

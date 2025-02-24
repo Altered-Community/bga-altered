@@ -47,6 +47,7 @@ class InvokeToken extends \ALT\Models\Action
       'n' => $this->getCtxArg('n') ?? 1,
       'canPass' => $this->getCtxArg('optional') ?? false,
       'locations' => $targetLocations,
+      'allPlayers' => count($targetLocations) > 1
     ];
   }
 
@@ -138,17 +139,24 @@ class InvokeToken extends \ALT\Models\Action
     $player = $this->getPlayer();
     $args = $this->argsInvokeToken();
 
-    if (!in_array($location, $args['locations'])) {
+    $explodedLocation = explode('-', $location);
+    if (count($explodedLocation) == 1) {
+      $invokePId = $player->getId();
+    } else {
+      $invokePId = $explodedLocation[1];
+    }
+
+    if (!in_array($explodedLocation[0], $args['locations'])) {
       throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
     }
 
-    list($realLocation, $strLocation) = $this->getLocationInfos($location);
+    list($realLocation, $strLocation) = $this->getLocationInfos($explodedLocation[0]);
     $location = $realLocation;
 
     for ($i = 0; $i < ($this->getCtxArg('n') ?? 1); $i++) {
       $card = $this->getToken();
       $card = Cards::singleCreate([
-        'player_id' => $player->getId(),
+        'player_id' => $invokePId,
         'location' => $location,
         'nbr' => 1,
         'properties' => $card->getProperties(),
@@ -157,17 +165,18 @@ class InvokeToken extends \ALT\Models\Action
       Notifications::invokeToken($player, $card, $this->getSource());
 
       // should we boost the card
-      if (Globals::getNextCharacterBoost() > 0) {
-        $this->insertAsChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
-        Globals::setNextCharacterBoost(0);
-      }
+      // 20250224 - Disabling with discussion with Maverick
+      // if (Globals::getNextCharacterBoost() > 0) {
+      //   $this->insertAsChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
+      //   Globals::setNextCharacterBoost(0);
+      // }
 
-      if (Globals::getNextCharacterAnchored() == true) {
+      if (Globals::getNextTokenAnchored() == true) {
         $this->insertAsChild(FT::GAIN($card, ANCHORED));
-        Globals::setNextCharacterAnchored(false);
+        Globals::setNextTokenAnchored(false);
       }
 
-      $this->checkAfterListeners($player, [
+      $this->checkAfterListeners(Players::get($invokePId), [
         'playCard' => true,
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),

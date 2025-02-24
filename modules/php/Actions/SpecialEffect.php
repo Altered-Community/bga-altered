@@ -68,6 +68,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterCost3Anchored':
       case 'nextCharacterAnchored':
+      case 'nextTokenAnchored':
         return clienttranslate('Next character gains <ANCHORED>');
         break;
       case 'removeFleetingIfPlayedHand':
@@ -311,6 +312,10 @@ class SpecialEffect extends \ALT\Models\Action
       case 'nextCharacterAnchored':
         Globals::setNextCharacterAnchored(true);
         break;
+      case 'nextTokenAnchored':
+        Globals::setNextTokenAnchored(true);
+        break;
+
       case 'removeFleetingIfPlayedHand':
         Globals::setRemoveFleetingIfPlayedHand(true);
         break;

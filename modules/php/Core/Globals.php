@@ -58,6 +58,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     'removeFleetingSpellPlayed' => 'bool',
     'removeFleetingCharacterPlayed' => 'bool',
     'playedForFree' => 'bool',
+    'nextTokenAnchored' => 'bool', // Icebound Taiga
+
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
