@@ -30,7 +30,7 @@ class BR_Rare_TwinkleTwinkle extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'supportIcon' => 'discard',
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ASLEEP)]),
+      'effectPlayed' => FT::ACTION(TARGET, ['excludedStatuses' => [ASLEEP], 'effect' => FT::GAIN(EFFECT, ASLEEP)]),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1]],

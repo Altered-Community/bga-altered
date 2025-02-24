@@ -818,6 +818,7 @@ class SpecialEffect extends \ALT\Models\Action
             [
               'targetType' => [CHARACTER, TOKEN],
               'targetPlayer' => ME,
+              'excludedStatuses' => [ASLEEP],
               'effect' => FT::GAIN(EFFECT, ASLEEP)
             ],
             ['pId' => $pId, 'sourceId' => $this->getSourceId()]

@@ -42,7 +42,7 @@ class YZ_Rare_IceboundLake extends \ALT\Models\Card
                             'pId' => 'source',
                             'tokenType' => 'NE_Common_DragonShade',
                         ]),
-                        FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ASLEEP)]),
+                        FT::ACTION(TARGET, ['excludedStatuses' => [ASLEEP], 'effect' => FT::GAIN(EFFECT, ASLEEP)]),
                     )
                 ]
             ],

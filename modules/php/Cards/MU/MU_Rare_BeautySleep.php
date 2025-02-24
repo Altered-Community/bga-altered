@@ -27,6 +27,7 @@ class MU_Rare_BeautySleep extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, [
+        'excludedStatuses' => [ASLEEP],
         'effect' => FT::SEQ(FT::GAIN(EFFECT, ASLEEP), FT::SEQ_OPTIONAL(FT::GAIN(EFFECT, BOOST, 2))),
       ]),
     ];

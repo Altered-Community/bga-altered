@@ -27,7 +27,7 @@ class YZ_Rare_BeautySleep extends \ALT\Models\Card
 
       'costHand' => 1,
       'costReserve' => 3,
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ASLEEP)]),
+      'effectPlayed' => FT::ACTION(TARGET, ['excludedStatuses' => [ASLEEP], 'effect' => FT::GAIN(EFFECT, ASLEEP)]),
     ];
   }
 }

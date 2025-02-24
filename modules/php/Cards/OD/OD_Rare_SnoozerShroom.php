@@ -34,6 +34,7 @@ class OD_Rare_SnoozerShroom extends \ALT\Models\Card
                 'targetPlayer' => ME,
                 'targetType' => [CHARACTER, TOKEN],
                 'maxHandCost' => 4,
+                'excludedStatuses' => [ASLEEP],
                 'effect' => FT::GAIN(EFFECT, ASLEEP),
             ]),
             'effectHand' => FT::SEQ_OPTIONAL(
@@ -41,6 +42,7 @@ class OD_Rare_SnoozerShroom extends \ALT\Models\Card
                 FT::ACTION(TARGET, [
                     'targetPlayer' => OPPONENT,
                     'targetLocation' => ['source'],
+                    'excludedStatuses' => [ASLEEP],
                     'targetType' => [CHARACTER, TOKEN],
                     'effect' => FT::GAIN(EFFECT, ASLEEP),
                 ])

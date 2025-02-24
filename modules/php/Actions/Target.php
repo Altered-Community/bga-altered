@@ -32,6 +32,7 @@ class Target extends \ALT\Models\Action
     'minHandCost' => 0, // limitation
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
+    'excludedStatuses' => [],
     'excludeSelf' => false,
     'totalCost' => INFTY,
     'totalMountain' => INFTY,
@@ -194,6 +195,7 @@ class Target extends \ALT\Models\Action
       $handCost = $c->getCostHand();
       $reserveCost = $c->getCostReserve();
       $statuses = $this->getArg('statuses');
+      $excludedStatuses = $this->getArg('excludedStatuses');
       $effects = $this->getArg('hasEffects');
       if ($effects != 'disabled') {
         $found = false;
@@ -219,6 +221,12 @@ class Target extends \ALT\Models\Action
       $biomes = $c->getBiomes(true);
       foreach ($biomes as $b => $value) {
         if ($value > $maxStatistic) {
+          return false;
+        }
+      }
+
+      foreach ($excludedStatuses as $statusExcluded) {
+        if ($c->hasToken($statusExcluded)) {
           return false;
         }
       }
