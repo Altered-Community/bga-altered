@@ -319,7 +319,7 @@ abstract class FlowConvertor
       ],
       370 => [
         'description' => clienttranslate('You may sacrifice another Robot or Permanent. If you do:'),
-        'effect' => FT::XOR(
+        'effect' => FT::XOR_OPTIONAL(
           FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER, TOKEN],
