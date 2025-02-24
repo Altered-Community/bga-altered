@@ -643,7 +643,7 @@ class Player extends \ALT\Helpers\DB_Model
         return true;
       }
 
-      if (!is_null($type) && $playTap['type'] == $type) {
+      if (!is_null($type) && isset($playTap['type']) && $playTap['type'] == $type) {
         return true;
       }
     }
