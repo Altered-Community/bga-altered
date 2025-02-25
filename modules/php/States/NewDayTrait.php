@@ -218,6 +218,10 @@ trait NewDayTrait
     Globals::setPhase(1);
     Notifications::newPhase(PHASE_NOON);
 
+    if (Globals::isEnterTieBreakerMode()) {
+      Globals::setTieBreakerMode(true);
+      Globals::setEnterTieBreakerMode(false);
+    }
     $this->checkCardListeners('Noon', ST_BEFORE_ASSIGNMENT);
   }
 }
