@@ -407,6 +407,13 @@ class Player extends \ALT\Helpers\DB_Model
     $deletedMeepleIds = [];
     $cleanupCards = [];
     $movedToReserve = [];
+    $eternals = [];
+
+    foreach ($this->getPlayedCards() as $cId2 => $card2) {
+      if ($card2->isEternal()) {
+        $eternals[] = $cId2;
+      }
+    }
 
     foreach ($this->getPlayedCards()->sortBy('type') as $cId => $card) {
       $nodes = [];
@@ -455,7 +462,7 @@ class Player extends \ALT\Helpers\DB_Model
       }
 
       // Remove card if Fleeting but is not anchored
-      if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
+      if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
         $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard());
 
         if ($card->isToken()) {
@@ -471,7 +478,7 @@ class Player extends \ALT\Helpers\DB_Model
 
 
       // Move card without anchored,asleep to reserve
-      if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !$card->isEternal()) {
+      if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
         // move card to reserve
         $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve());
         if ($card->isToken()) {
