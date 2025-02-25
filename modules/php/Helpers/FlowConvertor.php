@@ -2020,8 +2020,24 @@ abstract class FlowConvertor
         self::addOutputToNode($calculated['output'], $calculated['passiveEffect']);
       }
 
-
       if (isset($properties['effectPassive'])) {
+        // /////////////
+        // foreach ($properties['effectPassive'] as $existingTrigger => &$existingPassive) {
+        //   // Nothing to merge as it doesn't exist
+        //   if (!isset($calculated['passiveEffect'][$existingTrigger])) {
+        //     continue;
+        //   }
+        //   throw new \feException("titi");
+        //   // we already have childs
+        //   if (isset($existingPassive['childs'])) {
+        //     $existingPassive['childs'][] = $node[$existingTrigger];
+        //   } else {
+        //     $existingPassive = ['childs' => array_merge([$existingPassive], [$calculated['passiveEffect'][$existingTrigger]])];
+        //   }
+        //   unset($calculated['passiveEffect'][$existingTrigger]);
+        // }
+
+        ////////////////////
         $properties['effectPassive'] = array_merge($properties['effectPassive'], $calculated['passiveEffect']);
       } else {
         $properties['effectPassive'] = $calculated['passiveEffect'];
@@ -2093,6 +2109,19 @@ abstract class FlowConvertor
         $passive['conditions'] = array_merge($passive['conditions'] ?? [], $conditions, $calculated['triggerConditions'] ?? [], $calculated['conditionConditions'] ?? []);
       }
       // }
+      foreach ($properties[$key] as $existingTrigger => &$existingNode) {
+        // Nothing to merge as it doesn't exist
+        if (!isset($calculated['outputPassive'][$existingTrigger])) {
+          continue;
+        }
+        // we already have childs
+        if (isset($existingNode['childs'])) {
+          $existingNode['childs'][] = $calculated['outputPassive'][$existingTrigger];
+        } else {
+          $existingNode = ['childs' => array_merge([$existingNode], [$calculated['outputPassive'][$existingTrigger]])];
+        }
+        unset($calculated['outputPassive'][$existingTrigger]);
+      }
       $properties['effectPassive'] = array_merge($properties['effectPassive'] ?? [], $calculated['outputPassive']);
     }
 
