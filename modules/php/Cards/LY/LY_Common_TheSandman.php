@@ -33,7 +33,7 @@ class LY_Common_TheSandman extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
 
-      'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'excludedStatuses' => [ASLEEP], 'effect' => FT::GAIN(EFFECT, ASLEEP)]),
+      'effectHand' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, ASLEEP)]),
     ];
   }
 }

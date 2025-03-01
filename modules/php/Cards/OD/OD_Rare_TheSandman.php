@@ -34,7 +34,6 @@ class OD_Rare_TheSandman extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectHand' => FT::ACTION(TARGET, [
         'upTo' => true,
-        'excludedStatuses' => [ASLEEP],
         'effect' => FT::XOR(FT::GAIN(EFFECT, ASLEEP), FT::SEQ(FT::GAIN(EFFECT, ASLEEP), FT::GAIN(EFFECT, BOOST, 2))),
       ]),
     ];

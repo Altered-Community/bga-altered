@@ -33,7 +33,6 @@ class MU_Common_SnoozerShroom extends \ALT\Models\Card
                 'targetPlayer' => ME,
                 'targetType' => [CHARACTER, TOKEN],
                 'maxHandCost' => 4,
-                'excludedStatuses' => [ASLEEP],
                 'effect' => FT::GAIN(EFFECT, ASLEEP),
             ]),
         ];

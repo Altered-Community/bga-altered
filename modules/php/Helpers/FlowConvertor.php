@@ -512,7 +512,6 @@ abstract class FlowConvertor
         'description' => clienttranslate('Up to one target Character gains <ASLEEP>.'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,
-          'excludedStatuses' => [ASLEEP],
           'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::GAIN(EFFECT, ASLEEP)
         ]),
@@ -633,7 +632,6 @@ abstract class FlowConvertor
         'description' =>  clienttranslate('Up to one target Character gains <ASLEEP>. You may have it gain 2 boosts.'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,
-          'excludedStatuses' => [ASLEEP],
           'effect' => FT::XOR(
             FT::GAIN(EFFECT, ASLEEP),
             FT::SEQ(
@@ -1742,7 +1740,6 @@ abstract class FlowConvertor
         'output' =>  FT::ACTION(TARGET, [
           'targetPlayer' => OPPONENT,
           'upTo' => true,
-          'excludedStatuses' => [ASLEEP],
           'targetLocation' => ['source'],
           'targetType' => [CHARACTER, TOKEN],
           'effect' => FT::GAIN(EFFECT, ASLEEP),
