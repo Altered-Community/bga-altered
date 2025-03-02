@@ -565,12 +565,22 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
         }
 
-        if (($updateExpeditions['type'] ?? '') == 'source' && $card->getPId() == $player->getId() && ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode())) {
-          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        if (($updateExpeditions['type'] ?? '') == 'source') {
+          $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          $cardToken = $card->getPlayer()->$token()->getLocation();
+          $playerToken = $player->$token()->getLocation();
+          if (($playerToken == $cardToken && $card->getLocation() == $expedition) || $card->isGigantic() || Globals::isTieBreakerMode()) {
+            self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+          }
         }
 
-        if (($updateExpeditions['type'] ?? '') == 'sourceAll' && ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode())) {
-          self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+        if (($updateExpeditions['type'] ?? '') == 'sourceAll') {
+          $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          $cardToken = $card->getPlayer()->$token()->getLocation();
+          $playerToken = $player->$token()->getLocation();
+          if ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode()) {
+            self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+          }
         }
       }
     }
