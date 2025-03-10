@@ -1,0 +1,31 @@
+<?php
+namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
+
+class MU_Common_FloreCaringGardener extends \ALT\Models\Card
+{
+  public function __construct($row){
+		parent::__construct($row);
+        $this->properties = [
+            'uid' => 'ALT_BISE_B_MU_54_C',
+            'asset'  => 'ALT_BISE_B_MU_54_C',
+
+    		'faction'  => FACTION_MU,
+    		'rarity'  => RARITY_COMMON,
+    		'name'  => clienttranslate("Flore, Caring Gardener"),
+            'typeline' => clienttranslate("Character - Druid"),
+    		'type'  => CHARACTER,
+    		'flavorText'  => clienttranslate('Every day that goes by without a Drillmole showing up is a blessing.'),
+            'artist' => "Ba Vo",
+			'extension'=>'WFTM',
+   'subtypes'  => [DRUID],
+ 				'supportDesc' => clienttranslate('{I} At Noon — Another target Character in play or in Reserve gains 1 boost.'),
+ 			     'supportIcon' => 'infinity',
+     'forest' => 3, 
+     'mountain' => 3, 
+     'ocean' => 0, 
+     'costHand' => 3, 
+     'costReserve' => 2, 
+];
+  }
+}
