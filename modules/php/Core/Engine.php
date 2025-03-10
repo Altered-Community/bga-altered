@@ -220,7 +220,11 @@ class Engine
             (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction'])
           )
         )
+        && !$choices[$id]['forceManualChoice']
       ) {
+        // var_dump(debug_print_backtrace());
+        // var_dump(Globals::getEngineChoices());
+        // throw new \feException(print_r($choices[$id]));
         self::chooseNode($player, $id, true);
         // To see depending on survey + add player option?
         // } elseif (count($choices) == 1 && $id == PASS && (!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED))) {

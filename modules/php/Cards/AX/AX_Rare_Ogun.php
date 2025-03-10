@@ -30,7 +30,7 @@ class AX_Rare_Ogun extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
-        FT::SEQ_OPTIONAL(
+        FT::SEQ_OPTIONAL_MANUAL(
           FT::ACTION(PAY, ['pay' => 2]),
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
