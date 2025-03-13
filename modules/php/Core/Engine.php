@@ -220,7 +220,7 @@ class Engine
             (Globals::getEngineChoices() == 0 && !$choices[$id]['optionalAction'])
           )
         )
-        && !$choices[$id]['forceManualChoice']
+        && !($choices[$id]['forceManualChoice'] ?? false)
       ) {
         // var_dump(debug_print_backtrace());
         // var_dump(Globals::getEngineChoices());
