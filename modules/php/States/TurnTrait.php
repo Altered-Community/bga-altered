@@ -51,6 +51,7 @@ trait TurnTrait
     Globals::setSkippedPlayers([]);
     Globals::setCostReduction([]);
     Globals::setNextCharacterBoost(0);
+    Globals::setNextReserveCharacterBoost(0);
     Globals::setPlayedForFree(false);
 
     Globals::setDayPhase(true);
@@ -102,6 +103,7 @@ trait TurnTrait
 
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
+    Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
     Globals::setNextCharacterAnchored(false);
     Globals::setNextCharacterFleeting(false);

@@ -21,15 +21,16 @@ class AX_Rare_HavenBravosBastion extends \ALT\Models\Card
       'flavorText' => clienttranslate('Haven isn\'t where legends are born... it\'s where they live forever.'),
       'artist' => 'HuoMiao Studio',
       'subtypes' => [LANDMARK],
-      'effectDesc' => clienttranslate('#{J} $<RESUPPLY>.#  Your Characters have: \" {R} I gain 1 boost.\"'),
+      'effectDesc' => clienttranslate('#{J} $<RESUPPLY>. {T} The next Character you play from your Reserve this gains 1 boost'),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPassive' => [
-        'ChooseAssignment' => [
-          'condition' => 'isCharacterFromReserveNotBlocked',
-          'output' => FT::GAIN(EFFECT, BOOST),
-        ],
-      ],
+      // 'effectPassive' => [
+      //   'ChooseAssignment' => [
+      //     'condition' => 'isCharacterFromReserveNotBlocked',
+      //     'output' => FT::GAIN(EFFECT, BOOST),
+      //   ],
+      // ],
+      'effectTap' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextReserveCharacterGains1Boost']),
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
     ];
   }

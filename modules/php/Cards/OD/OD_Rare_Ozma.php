@@ -19,7 +19,7 @@ class OD_Rare_Ozma extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [NOBLE],
       'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)'
+        '{J} If you control three or more other Characters, <RESUPPLY_LOW>. (Put the top card of your deck in Reserve. Cards in Reserve are not controlled.)'
       ),
       // 'supportDesc' => clienttranslate(
       //   '#{D} : The next Character you play this turn costs {1} less.# (Discard me from your Reserve to activate this effect)'
@@ -38,7 +38,7 @@ class OD_Rare_Ozma extends \ALT\Models\Card
 
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'hasControl::3:true',
-        'effect' => FT::ACTION(DRAW, ['players' => ME]),
+        'effect' => FT::ACTION(RESUPPLY, []),
       ]),
       // 'effectSupport' => [
       //   'action' => SPECIAL_EFFECT,
