@@ -2052,6 +2052,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         DRAGON_SHADE: {
           text: _('Dragon Shade 5/5/5'),
         },
+        SCOUT_1: {
+          text: _('Scout'),
+          reminder: _('You may play me from hand for 1 with "{h} Send me to Reserve".'),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
