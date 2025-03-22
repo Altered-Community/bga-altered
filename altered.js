@@ -1762,7 +1762,11 @@ define([
         // this.addCancelStateBtn();
         this.onEnteringStateChooseAssignment({
           cardId: args.cardId,
-          _private: { play: args.play, support: args.support, tap: args.tap },
+          _private: {
+            play: args.play,
+            support: args.support,
+            tap: args.tap,
+          },
         });
       }
 
@@ -1810,6 +1814,8 @@ define([
         landmark: _('Landmark'),
         reserve: _('Reserve'),
         limbo: _('Spell'),
+        stormLeft_scout: _('Scout Hero side'),
+        stormRight_scout: _('Scout Companion side'),
       };
 
       if (args.play[cardId] != undefined) {

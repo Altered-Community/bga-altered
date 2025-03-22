@@ -7389,6 +7389,38 @@ body.focus-board .altered-player-board .player-board-infos {
   border-top-right-radius: 36px 18px;
   border-bottom-right-radius: 36px 18px;
 }
+.altered-player-board .player-board-storm.scout {
+  height: 10px;
+  position: absolute;
+  top: -55px;
+  width: 70px;
+  height: 70px;
+  display: none;
+}
+.altered-player-board .player-board-storm.scout.storm-left {
+  left: 507px;
+}
+.altered-player-board .player-board-storm.scout.storm-right {
+  left: 1089px;
+}
+.altered-player-board .player-board-storm.scout.droppable, .altered-player-board .player-board-storm.scout.selectable {
+  display: flex;
+}
+.altered-player-board .player-board-storm .scout-marker {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.937254902);
+  border-radius: 50%;
+  box-shadow: 1px 1px 5px 3px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  z-index: 5;
+}
 .altered-player-board .player-board-discard {
   width: 120px;
   position: absolute;
@@ -7768,6 +7800,9 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-me .altered-player-board .player-board-storm .powers-blocked {
   bottom: auto;
   top: -20px;
+}
+#altered-board-me .altered-player-board .player-board-storm.scout {
+  top: 0px;
 }
 #altered-board-me .altered-player-board .player-board-deck {
   top: 211px;

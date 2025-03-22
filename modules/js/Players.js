@@ -157,7 +157,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               </div>
             </div>
           </div>
-
+          <div id='board-stormLeft_scout-${pId}' class='player-board-storm storm-left scout '>
+            <i class="fa6 fa-regular fa-binoculars scout-marker"></i>
+          </div>
+          <div id='board-stormRight_scout-${pId}' class='player-board-storm storm-right scout '>
+            <i class="fa6 fa-regular fa-binoculars scout-marker"></i>
+          </div>
           <div class='player-board-storm storm-left' id='board-stormLeft-${pId}'>
             <div class="total-biomes">
               <div class='total-forest'></div>
@@ -232,8 +237,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${
-            player.id
-          }-totalMana"></span>
+        player.id
+      }-totalMana"></span>
           
           ${this.formatIcon('first-player')}
         </div>

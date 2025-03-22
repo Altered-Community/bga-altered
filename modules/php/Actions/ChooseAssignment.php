@@ -60,6 +60,21 @@ class ChooseAssignment extends \ALT\Models\Action
         ->map(function ($card) use ($player) {
           return $card->getPlayableLocation($player);
         });
+
+      // Scout is only for hand cards
+      $scouts =  $handCards
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
+          return $card->getScout() > 0 && in_array($card->getType(), $authorizedTypes) &&
+            ((!$free && $card->canBePlayed($player, true)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
+        })
+        ->map(function ($card) use ($player) {
+          return $card->getScoutableLocations($player);
+        });
+      foreach ($scouts as $key => $locs) {
+        $actions['play'][$key] = array_merge($actions['play'][$key] ?? [], $locs);
+      }
+      // $actions['play'] = $actions['play']; //->merge($scouts);
+      $actions['toto'] = $scouts;
     }
 
     // 2. Support
@@ -125,6 +140,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
   public function actPlay($cardId, $location)
   {
+    $scout = false;
     $args = $this->argsChooseAssignment()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
@@ -133,14 +149,19 @@ class ChooseAssignment extends \ALT\Models\Action
     if (!in_array($location, $locations)) {
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
+    $locExploded = explode('_', $location);
+    if ($locExploded[1] == 'scout') {
+      $scout = true;
+    }
 
-    $this->playCard($cardId, $location, $this->getArg('free'));
+    $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
+    $location = explode('_', $location)[0];
 
     if ($card->getPId() != $player->getId()) {
       throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
@@ -148,7 +169,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     if ($free == false) {
       // Calculate cost
-      $cost = $card->getCost();
+      $cost = $card->getCost($scout);
       $costReduction = Globals::getCostReduction();
       if (isset($costReduction[$player->getId()][$card->getType()])) {
         unset($costReduction[$player->getId()][$card->getType()]);
@@ -274,6 +295,11 @@ class ChooseAssignment extends \ALT\Models\Action
       $card->getType() != CHARACTER
     ) {
       $effects = [];
+
+      if ($scout) {
+        $effects[] = FT::ACTION(DISCARD, ['cardId' => $card->getId(), 'destination' => RESERVE]);
+      }
+
       // insert effect flow
       $effect = $card->getEffectPlayed();
       if (!empty($effect)) {

@@ -149,6 +149,8 @@ class Card extends \ALT\Helpers\DB_Model
     'exhaustCharactersMorning' => 'bool', // Snow queen
     'resupplyExhaust' => 'bool', // Machine in the ice
 
+    // Bise
+    'scout' => 'int',
   ];
 
   /********* DB ACCESS *********/
@@ -256,13 +258,14 @@ class Card extends \ALT\Helpers\DB_Model
     return Players::get($this->pId);
   }
 
-  public function canBePlayed($player)
+  // $scout = can be played at scout cost
+  public function canBePlayed($player, $scout = false)
   {
     if (!$player->canPlayTappedCards($this->getType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
     }
 
-    $cost = $this->getCost();
+    $cost = $this->getCost($scout);
     $costReductionIfEmpty = $this->getCostReductionIfEmpty();
     $mana = $player->getMana();
     $totalMana = $player->getTotalMana();
@@ -324,6 +327,28 @@ class Card extends \ALT\Helpers\DB_Model
           return STORMS;
         }
       }
+    }
+  }
+
+  public function getScoutableLocations($player)
+  {
+    $locations = [];
+
+    if ($this->getCostReductionIfEmpty() > 0) {
+      // If the cost can be paid no matter what, we put all storms
+      if ($this->getCost(true) <= $player->getMana()) {
+        return ['stormLeft_scout', 'stormRight_scout'];
+      }
+      $locations = [];
+      if ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER]) == 0) {
+        $locations[] = 'stormLeft_scout';
+      }
+      if ($player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0) {
+        $locations[] = 'stormRight_scout';
+      }
+      return $locations;
+    } else {
+      return ['stormLeft_scout', 'stormRight_scout'];
     }
   }
 
@@ -544,7 +569,7 @@ class Card extends \ALT\Helpers\DB_Model
     return [$power['payment'] ?? [], $power['output']];
   }
 
-  public function getCost()
+  public function getCost($scout = false)
   {
     if ($this->getType() == SPELL && Globals::isNextSpellIsFree()) {
       return 0;
@@ -595,7 +620,12 @@ class Card extends \ALT\Helpers\DB_Model
 
     switch ($this->getLocation()) {
       case HAND:
-        return max($minimumCost, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
+        if ($scout && $this->getScout() > 0) {
+          $initialCost = $this->getScout();
+        } else {
+          $initialCost = $this->getCostHand();
+        }
+        return max($minimumCost, $initialCost - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
         break;
       case RESERVE:
         return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction + $increaseReserveCost - $reduceReserveCost);

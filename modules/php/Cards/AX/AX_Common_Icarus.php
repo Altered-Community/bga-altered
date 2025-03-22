@@ -29,6 +29,7 @@ class AX_Common_Icarus extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 3,
       'scout' => 1,
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'readyAllReserve'])
     ];
   }
 }
