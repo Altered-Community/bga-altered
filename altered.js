@@ -2227,6 +2227,7 @@ define([
         E: 'ocean',
         M: 'mountain',
         COUNTER: 'charge',
+        I: 'infinity',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');

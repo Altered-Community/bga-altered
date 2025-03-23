@@ -30,7 +30,11 @@ class AX_Rare_Icarus extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 4,
       'costReserve' => 3,
-      'scout' => 99,
+      'scout' => 1,
+      'effectInfinity' => [
+        'playTappedCards' => ['type' => 'all']
+      ],
+
     ];
   }
 }

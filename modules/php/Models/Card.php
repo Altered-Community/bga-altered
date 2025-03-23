@@ -79,6 +79,7 @@ class Card extends \ALT\Helpers\DB_Model
     'effectSupport' => 'obj',
     'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
     'effectTap' => 'obj',
+    'effectInfinity' => 'obj',
 
     'gigantic' => 'bool',
     'dynamicGigantic' => 'str',
@@ -171,6 +172,13 @@ class Card extends \ALT\Helpers\DB_Model
               return $this->properties[$name][$args[0]];
             } else {
               return $this->properties[$name];
+            }
+          } // Chec if card is in reserve, not tapped & have infinity effect 
+          elseif ($name != 'effectInfinity' && $this->getLocation() == RESERVE && !$this->isTapped() && isset($this->properties['effectInfinity'][$name])) {
+            if (count($args) > 0 && $type == 'obj' && is_array($this->properties['effectInfinity'][$name])) {
+              return $this->properties['effectInfinity'][$name][$args[0]];
+            } else {
+              return $this->properties['effectInfinity'][$name];
             }
           }
           // Default value
