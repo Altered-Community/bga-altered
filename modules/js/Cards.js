@@ -2052,6 +2052,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         DRAGON_SHADE: {
           text: _('Dragon Shade 5/5/5'),
         },
+        // Bise
+        AUGMENT: {
+          text: _('Augment'),
+          reminder: _("If it has counters, it gains 1 more. This can't target Hero cards."),
+        },
+        AUGMENT_IMP: {
+          text: _('Augment'),
+          reminder: _("If it has counters, it gains 1 more. This can't target Hero cards."),
+        },
         SCOUT_1: {
           text: _('Scout'),
           reminder: _('You may play me from hand for 1 with "{h} Send me to Reserve".'),

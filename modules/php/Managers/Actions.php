@@ -42,7 +42,7 @@ class Actions
     TARGET_EXPEDITION,
     EXHAUST,
     READY,
-    EXCHANGE
+    EXCHANGE,
   ];
 
   public static function get($actionId, &$ctx = null)

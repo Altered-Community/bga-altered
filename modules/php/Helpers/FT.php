@@ -72,6 +72,16 @@ abstract class FT
     return self::ACTION(GAIN, ['cardId' => $cardId, 'type' => $token, 'n' => $n]);
   }
 
+  public static function AUGMENT($card)
+  {
+    if (!($card instanceof \ALT\Models\Card)) {
+      $cardId = $card;
+    } else {
+      $cardId = $card->getId() ?? ME;
+    }
+    return self::ACTION(GAIN, ['cardId' => $cardId, 'augment' => true]);
+  }
+
   public static function LOOSE($card, $token, $n = 1)
   {
     if (!($card instanceof \ALT\Models\Card)) {

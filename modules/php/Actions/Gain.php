@@ -22,6 +22,13 @@ class Gain extends \ALT\Models\Action
     $gain = $this->getGain();
     $desc = Utils::resourcesToStr([$gain[0] => $gain[1]], true);
 
+    if ($this->getArg('augment') == true) {
+      return [
+        'log' => clienttranslate('augment'),
+        'args' => [],
+      ];
+    }
+
     if ($player->getId() == Players::getActiveId()) {
       return [
         'log' => clienttranslate('Gain ${resources_desc}'),
@@ -59,7 +66,11 @@ class Gain extends \ALT\Models\Action
   {
     // return false;
     $cards = Cards::getPlayedCards(null);
-    $gain = $this->getArg('type');
+    if ($this->getArg('augment')) {
+      $gain = BOOST;
+    } else {
+      $gain = $this->getArg('type');
+    }
     foreach ($cards as $cId => $card) {
       $block = $card->getBlockAutomaticAction();
       if (isset($block[GAIN]) && isset($block[GAIN][$gain])) {
@@ -92,10 +103,15 @@ class Gain extends \ALT\Models\Action
 
   protected $args = [
     'n' => 1,
+    'augment' => false,
+    'type' => ''
   ];
 
   public function getGain()
   {
+    if ($this->getArg('augment') === true) {
+      return ['augment', 1];
+    }
     return [$this->getArg('type'), $this->getArg('n')];
   }
 
@@ -152,6 +168,21 @@ class Gain extends \ALT\Models\Action
     $args = $this->getCtxArgs();
 
     list($resource, $amount) = $this->getGain();
+
+    if ($resource == 'augment') {
+      if ($card->countToken(BOOST) > 0) {
+        $resource = BOOST;
+      } else {
+        // we need to increase the counter
+        $data = $card->getExtraDatas();
+        $data['counter'] = $data['counter'] + 1;
+        $card->setExtraDatas($data);
+
+        Notifications::gainCounter($this->getSource(), 1);
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        return [];
+      }
+    }
 
     $this->gain($player, $card, $resource, $amount, $source, $args);
     $this->resolveAction();

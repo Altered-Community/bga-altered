@@ -150,7 +150,7 @@ class ChooseAssignment extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $locExploded = explode('_', $location);
-    if ($locExploded[1] == 'scout') {
+    if ($locExploded[1] ?? '' == 'scout') {
       $scout = true;
     }
 

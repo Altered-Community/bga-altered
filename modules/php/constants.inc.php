@@ -96,6 +96,7 @@ const ST_TARGET_EXPEDITION = 45;
 const ST_EXHAUST = 46;
 const ST_READY = 47;
 const ST_EXCHANGE = 48;
+// Bise
 
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting

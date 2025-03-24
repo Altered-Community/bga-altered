@@ -44,6 +44,7 @@ class Target extends \ALT\Models\Action
     'excludeBiomes' => false,
     'isTapped' => false,
     'maxStatistic' => 99,
+    'augmentOnly' => false,
   ];
 
   public function getDescription()
@@ -175,9 +176,10 @@ class Target extends \ALT\Models\Action
     $isTapped = $this->getArg('isTapped');
     $maxStatistic = $this->getArg('maxStatistic');
 
+    $augmentOnly = $this->getArg('augmentOnly');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -189,6 +191,11 @@ class Target extends \ALT\Models\Action
         return false;
       }
       if ($isTapped && !$c->isTapped()) {
+        return false;
+      }
+
+      // Only card with a boost or a counter can be augmented
+      if ($augmentOnly && $c->countToken(BOOST) == 0 && is_null($c->getExtraDatas()['counter'] ?? null)) {
         return false;
       }
 
