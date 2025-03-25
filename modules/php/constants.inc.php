@@ -209,6 +209,7 @@ const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';
 const STORMS = [STORM_LEFT, STORM_RIGHT];
 const IN_PLAY = [STORM_LEFT, STORM_RIGHT, LANDMARK];
+const CONTROLLED_RESERVE = [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE, 'board-hero-%'];
 
 const STORM_CARDS = [
   [[], [FOREST, MOUNTAIN, OCEAN]],

@@ -487,7 +487,14 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getReactions($event)
   {
-    $passive = $this->getEffectPassive();
+    if ($this->getLocation() == RESERVE) {
+      $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
+      if (is_null($passive)) {
+        return false;
+      }
+    } else {
+      $passive = $this->getEffectPassive();
+    }
     $effects = [];
     // manage player events?
     if (empty($passive)) {

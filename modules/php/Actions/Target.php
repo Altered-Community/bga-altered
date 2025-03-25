@@ -162,8 +162,8 @@ class Target extends \ALT\Models\Action
         return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && in_array($c->getType(), $targetType);
       });
     } else {
-      $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation) {
-        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()));
+      $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation, $targetType) {
+        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic())) || ($c->getType() == HERO && in_array(HERO, $targetType));
       });
     }
 

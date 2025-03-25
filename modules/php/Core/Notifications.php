@@ -689,7 +689,7 @@ class Notifications
     self::notifyAll('useCounter', $msg, [
       'player' => $player,
       'consume' => $consume,
-      'card' => $source,
+      'card' => $card,
       'value' => $card->getExtraDatas()['counter'],
       'decrease' => $consume,
     ]);
