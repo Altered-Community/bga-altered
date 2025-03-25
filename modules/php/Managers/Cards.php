@@ -690,6 +690,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     return self::getInLocation(STORM_LEFT)
       ->merge(self::getInLocation(STORM_RIGHT))
       ->merge(self::getInLocation(LANDMARK))
+      ->merge(self::getInLocation(RESERVE))
       ->merge(self::getInLocation('board-hero%'));
   }
 

@@ -307,4 +307,27 @@ class Action
     }
     // Engine::proceed();
   }
+
+  public function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId)
+  {
+    if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
+      $node['args']['cardId'] = $cardId;
+      $node['args']['cardFrom'] = $cardFrom;
+      $node['args']['ownerId'] = $ownerId;
+    }
+    $node['sourceId'] = $this->getSourceId();
+
+    if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId, $ownerId);
+    }
+
+    if (isset($node['childs'])) {
+      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId) {
+        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId);
+      }, $node['childs']);
+    }
+
+
+    return $node;
+  }
 }

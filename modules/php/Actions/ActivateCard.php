@@ -39,7 +39,7 @@ class ActivateCard extends \ALT\Models\Action
 
     $event = $this->getCtxArg('event');
     $flow =
-      $card->isPlayed() || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
+      $card->isPlayed() || $card->getLocation() == RESERVE || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
       ? Cards::applyEffect(
         $card,
         $player,

@@ -666,6 +666,35 @@ class Notifications
     ]);
   }
 
+  /////////:********************* BISE ************************//
+  public static function spend($power, $card, $meeples, $silent = true)
+  {
+    $msg = '';
+    if (!$silent) {
+      $msg = clienttranslate('${card_name} spends ${n} ${power}');
+    }
+    self::notifyAll('looseMeeples', $msg, [
+      'card' => $card,
+      'power' => $power,
+      'i18n' => ['power'],
+      'meeples' => $meeples->toArray(),
+      'n' => count($meeples),
+    ]);
+  }
+
+  public static function spendCounter($player, $card, $consume, $source)
+  {
+    $msg = clienttranslate('${player_name} reduce by ${consume} the counter (${card_name}\'s effect)');
+
+    self::notifyAll('useCounter', $msg, [
+      'player' => $player,
+      'consume' => $consume,
+      'card' => $source,
+      'value' => $card->getExtraDatas()['counter'],
+      'decrease' => $consume,
+    ]);
+  }
+
   public static function pay($player, $cost)
   {
     self::notifyAll('pay', clienttranslate('${player_name} pays ${mana_cost}'), [

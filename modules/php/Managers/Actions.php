@@ -43,6 +43,7 @@ class Actions
     EXHAUST,
     READY,
     EXCHANGE,
+    SPEND
   ];
 
   public static function get($actionId, &$ctx = null)

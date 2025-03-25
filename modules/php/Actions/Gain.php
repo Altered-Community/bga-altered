@@ -21,6 +21,7 @@ class Gain extends \ALT\Models\Action
     $player = $this->getPlayer();
     $gain = $this->getGain();
     $desc = Utils::resourcesToStr([$gain[0] => $gain[1]], true);
+    $upTo = $this->getArg('upTo');
 
     if ($this->getArg('augment') == true) {
       return [
@@ -29,23 +30,46 @@ class Gain extends \ALT\Models\Action
       ];
     }
 
-    if ($player->getId() == Players::getActiveId()) {
-      return [
-        'log' => clienttranslate('Gain ${resources_desc}'),
-        'args' => [
-          'resources_desc' => $desc,
-        ],
-      ];
-    }
-    // The reward is for someone else
-    else {
-      return [
-        'log' => clienttranslate('Let ${player_name} gain ${resources_desc}'),
-        'args' => [
-          'player_name' => $player->getName(),
-          'resources_desc' => $desc,
-        ],
-      ];
+    if ($upTo == 99) {
+      if ($player->getId() == Players::getActiveId()) {
+        return [
+          'log' => clienttranslate('Gain ${resources_desc}'),
+          'args' => [
+            'resources_desc' => $desc,
+          ],
+        ];
+      }
+      // The reward is for someone else
+      else {
+        return [
+          'log' => clienttranslate('Let ${player_name} gain ${resources_desc}'),
+          'args' => [
+            'player_name' => $player->getName(),
+            'resources_desc' => $desc,
+          ],
+        ];
+      }
+    } else {
+      if ($player->getId() == Players::getActiveId()) {
+        return [
+          'log' => clienttranslate('Gain ${resources_desc}  (up to ${upTo})'),
+          'args' => [
+            'resources_desc' => $desc,
+            'upTo' => $upTo,
+          ],
+        ];
+      }
+      // The reward is for someone else
+      else {
+        return [
+          'log' => clienttranslate('Let ${player_name} gain ${resources_desc} (up to ${upTo})'),
+          'args' => [
+            'player_name' => $player->getName(),
+            'resources_desc' => $desc,
+            'upTo' => $upTo
+          ],
+        ];
+      }
     }
   }
 
@@ -104,7 +128,8 @@ class Gain extends \ALT\Models\Action
   protected $args = [
     'n' => 1,
     'augment' => false,
-    'type' => ''
+    'type' => '',
+    'upTo' => 99
   ];
 
   public function getGain()
@@ -166,6 +191,7 @@ class Gain extends \ALT\Models\Action
     }
     $card = $this->getCard();
     $args = $this->getCtxArgs();
+    $upTo = $this->getArg('upTo');
 
     list($resource, $amount) = $this->getGain();
 
@@ -183,6 +209,16 @@ class Gain extends \ALT\Models\Action
         return [];
       }
     }
+
+    // check that we are not going to gain more than necessary
+    $owned = $card->countToken($resource);
+    if ($owned >= $upTo) {
+      $this->resolveAction([]);
+      return;
+    } elseif (($owned + $amount) > $upTo) {
+      $amount = $upTo - $owned;
+    }
+
 
     $this->gain($player, $card, $resource, $amount, $source, $args);
     $this->resolveAction();

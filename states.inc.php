@@ -467,6 +467,17 @@ $machinestates = [
     'possibleactions' => ['actExchange', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
+  // Bise
+  ST_SPEND => [
+    'name' => 'spend',
+    'type' => 'activeplayer',
+    'action' => 'stAtomicAction',
+    'description' => clienttranslate('${source}: ${actplayer} spends 1 counter'),
+    'descriptionmyturn' => clienttranslate('${source}: ${you}spends 1 counter'),
+    'args' => 'argsAtomicAction',
+    'possibleactions' => ['actSpend', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___
