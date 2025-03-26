@@ -123,7 +123,8 @@ class Spend extends \ALT\Models\Action
 
     $effect = $this->getArg('effect');
     if ($effect !== null) {
-      $this->updateCardId($effect, $card->getId(), $card->getLocation(), $this->getSourceId(), $card->getPlayer()->getId());
+      $effect = $this->updateCardId($effect, $card->getId(), $card->getLocation(), $this->getSourceId(), $card->getPlayer()->getId());
+      // throw new \feException(print_r($effect));
       $this->insertAsChild($effect);
     }
     $this->resolveAction();

@@ -108,6 +108,8 @@ define([
 
         ['tap', 800],
         ['ready', 800],
+        ['publicReadyMana', 800, (notif) => notif.args.player_id == this.player_id],
+        ['privateReadyMana', 800],
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],

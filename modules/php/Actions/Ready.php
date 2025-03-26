@@ -8,6 +8,7 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Core\Globals;
 
 class Ready extends \ALT\Models\Action
 {
@@ -18,11 +19,21 @@ class Ready extends \ALT\Models\Action
 
   public function getDescription()
   {
-    return clienttranslate('Ready the card');
+    if ($this->getCtxArg('cardId') == MANA) {
+      return clienttranslate('Ready a mana orb');
+    } else {
+      return clienttranslate('Ready the card');
+    }
   }
 
   public function isDoable($player)
   {
+    return true;
+    // if ($this->getCtxArg('cardId') == MANA) {
+    //   if (empty($this->getSource()->getPlayer()->getManaCards(true))) {
+    //     return false;
+    //   }
+    // }
     return $this->getCard()->isTapped() == true;
   }
 
@@ -33,10 +44,12 @@ class Ready extends \ALT\Models\Action
       $cardId = $this->ctx->getSourceId() ?? null;
     } elseif ($cardId == EFFECT) {
       $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
+    } elseif ($cardId == MANA) {
+      return $this->getSource()->getPlayer()->getManaCards(true)->first();
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args (Gain). Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (Ready). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -47,7 +60,7 @@ class Ready extends \ALT\Models\Action
     $card = $this->getCard();
 
     if (!$card->isTapped()) {
-      throw new \BgaVisibleSystemException('Card is already tapped. Should not happen');
+      throw new \BgaVisibleSystemException('Card is not tapped. Should not happen');
     }
     $card->setTapped(false);
     Notifications::readyEffect($player, $card, $this->getSource());

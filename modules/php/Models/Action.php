@@ -310,7 +310,7 @@ class Action
 
   public function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId)
   {
-    if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
+    if (!isset($node['args']['cardId']) || ($node['args']['cardId'] != ME && $node['args']['cardId'] != MANA)) {
       $node['args']['cardId'] = $cardId;
       $node['args']['cardFrom'] = $cardFrom;
       $node['args']['ownerId'] = $ownerId;

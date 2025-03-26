@@ -1089,6 +1089,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       $(`card-${n.args.card.id}`).classList.remove('tapped');
     },
 
+    notif_publicReadyMana(n) {
+      debug('Notif: readying card mana', n);
+      this._playerCounters[n.args.player_id]['mana'].setValue(n.args.mana);
+    },
+
+    notif_privateReadyMana(n) {
+      this.notif_ready(n);
+      this._playerCounters[n.args.player_id]['mana'].setValue(n.args.mana);
+      $(`card-${n.args.card.id}`).classList.remove('tapped');
+    },
+
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
       n.args.cardIds.forEach((cardId) => {
