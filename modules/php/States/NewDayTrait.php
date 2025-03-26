@@ -140,6 +140,7 @@ trait NewDayTrait
     Globals::setSkippedPlayers([]);
     Globals::setStormMoves([]);
     Globals::setNextCharacterBoost(0);
+    Globals::setNextReserveCharacterBoost(0);
     Globals::setBlockedExpeditions([]);
     Cards::untapAll();
     Stats::incDays();

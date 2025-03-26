@@ -640,7 +640,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         // 2 = Rarity R1
         // 3 = faction code
         $uid = explode('_', $card->getUid());
-        $rarityUid = $uid[5] == 'C' ? 1 : ($uid[5] == 'R' ? 2 : 3);
+        $rarityUid = $uid[5] == 'C' ? 1 : ((($uid[5] == 'R') || ($uid[5] == 'R1')) ? 2 : 3);
         $factionUid = array_search(($uid[3] == 'OR' ? 'OD' : $uid[3]), FACTIONS) + 1;
         $s = 'setCard' . $count;
         $cardStat[$cId] = 'card' . $count;

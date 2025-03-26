@@ -36,6 +36,8 @@ class SpecialEffect extends \ALT\Models\Action
         ];
       case 'nextCharacterGains1Boost':
         return clienttranslate('Next character <BOOST>');
+      case 'nextReserveCharacterGains1Boost':
+        return clienttranslate('Next character played from Reserve <BOOST>');
       case 'nextCharacterGains2Boost':
         return clienttranslate('Next character 2<BOOST>');
       case 'AuraqKibble':
@@ -296,6 +298,9 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
+        break;
+      case 'nextReserveCharacterGains1Boost':
+        Globals::incNextReserveCharacterBoost(1);
         break;
       case 'nextCharacterGains2Boost':
         Globals::incNextCharacterBoost(2);

@@ -350,6 +350,11 @@ class AbstractNode
     return $this->infos['optional'] ?? $this->parent != null && $this->parent->areChildrenOptional();
   }
 
+  public function isManualChoice()
+  {
+    return $this->infos['manualChoice'] ?? false;
+  }
+
   public function isAutomatic($player = null)
   {
     $choices = $this->getChoices($player);
@@ -389,13 +394,14 @@ class AbstractNode
           'id' => $id,
           'description' => $this->getType() == NODE_SEQ ? $this->getDescription() : $child->getDescription(),
           'args' => $child->getArgs(),
-          'optionalAction' => $child->isOptional($playerTest) && ($child->getPId() ?? $playerTest->getId()) == $playerTest->getId(), // added in case if 1 action of another player is optional
+          'optionalAction' => $child->isOptional($playerTest) && (($child->getPId() ?? $playerTest->getId()) == $playerTest->getId()) ||  $this->isManualChoice(), // added in case if 1 action of another player is optional
           'automaticAction' => $child->isAutomatic($playerTest),
           'independentAction' => $child->isIndependent($playerTest),
           'irreversibleAction' => $child->isIrreversible($playerTest),
           'source' => $child->getSource(),
           'sourceId' => $child->getSourceId(),
-          'player' => $child->getPId() ?? $playerTest->getId()
+          'player' => $child->getPId() ?? $playerTest->getId(),
+          'forceManualChoice' => $this->isManualChoice()
         ];
         if ($choice['description'] != '' || $isDoable) {
           $choices[$id] = $choice;

@@ -22,6 +22,16 @@ abstract class FT
     ];
   }
 
+  public static function SEQ_OPTIONAL_MANUAL(...$childs)
+  {
+    return [
+      'type' => NODE_SEQ,
+      'optional' => true,
+      'manualChoice' => true,
+      'childs' => $childs,
+    ];
+  }
+
   public static function OR(...$childs)
   {
     return [

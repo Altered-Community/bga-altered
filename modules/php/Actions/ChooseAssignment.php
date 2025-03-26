@@ -270,6 +270,10 @@ class ChooseAssignment extends \ALT\Models\Action
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
       Globals::setNextCharacterBoost(0);
     }
+    if ($fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
+      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
+      Globals::setNextReserveCharacterBoost(0);
+    }
 
     // should we anchor the character?
     if (

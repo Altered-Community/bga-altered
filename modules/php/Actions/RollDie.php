@@ -194,6 +194,10 @@ class RollDie extends \ALT\Models\Action
       if (!is_null($cardId) && isset($effect['args']['cardId']) && $effect['args']['cardId'] != ME) {
         $effect['args']['cardId'] = $cardId;
       }
+      // Snowball commando's effect
+      if (isset($effect['pId']) && $effect['pId'] == 'nextPlayer') {
+        $effect['pId'] = Players::getNext($player)->getId();
+      }
       $effects[] = $effect;
     }
 

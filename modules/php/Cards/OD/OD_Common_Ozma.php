@@ -19,7 +19,7 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [NOBLE],
       'effectDesc' => clienttranslate(
-        '{J} If you control three or more other Characters, draw a card. (Cards in Reserve are not controlled.)'
+        '{J} If you control three or more other Characters, <RESUPPLY_LOW>. (Put the top card of your deck in Reserve. Cards in Reserve are not controlled.)'
       ),
       'typeline' => clienttranslate('Character - Noble'),
       'flavorText' => clienttranslate('"Never give up. No one knows what’s going to happen next."'),
@@ -32,7 +32,7 @@ class OD_Common_Ozma extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'hasControl::3:true',
-        'effect' => FT::ACTION(DRAW, ['players' => ME]),
+        'effect' => FT::ACTION(RESUPPLY, []),
       ]),
     ];
   }

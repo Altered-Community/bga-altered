@@ -48,6 +48,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'deckSelection' => 'obj',
     'costReduction' => 'obj', // pId => character => cost
     'nextCharacterBoost' => 'int',
+    'nextReserveCharacterBoost' => 'int',
     'nextCharacterCost3Anchored' => 'bool',
     'nextCharacterAnchored' => 'bool',
     'nextCharacterFleeting' => 'bool',
