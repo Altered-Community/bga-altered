@@ -35,10 +35,13 @@ class AX_Rare_Bugfix extends \ALT\Models\Card
           'augmentOnly' => true,
           'targetType' => TYPES,
           'upTo' => true,
-          'effect' => FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
-            'tokenType' => 'AX_Common_Brassbug',
-            'targetLocation' => STORMS,
+          'effect' => FT::ACTION(SPEND, [
+            'cardId' => ME,
+            'effect' => FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'AX_Common_Brassbug',
+              'targetLocation' => STORMS,
+            ])
           ])
         ]
       ),
