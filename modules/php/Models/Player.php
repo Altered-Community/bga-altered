@@ -48,6 +48,7 @@ class Player extends \ALT\Helpers\DB_Model
     $data['handCount'] = $this->getHand()->count();
     $data['hand'] = $current ? $this->getHand()->ui() : [];
     $data['manaCards'] = $current ? $this->getManaCards() : [];
+    $data['reserveSlots'] = $this->getReserveSlots();
     return $data;
   }
 
@@ -196,7 +197,11 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getReserveSlots()
   {
-    return $this->getHero()->getReserveSlots();
+    $reserve =  $this->getHero()->getReserveSlots();
+    foreach ($this->getPlayedCards() as $cId => $c) {
+      $reserve += $c->getReserveSlots();
+    }
+    return $reserve;
   }
 
   public function getLandmarkSlots()

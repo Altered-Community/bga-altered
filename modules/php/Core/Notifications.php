@@ -30,6 +30,10 @@ class Notifications
       'name' => 'defenders',
       'method' => ['ALT\Managers\Players', 'getDefenders'],
     ],
+    [
+      'name' => 'reserveSlots',
+      'method' => ['ALT\Managers\Players', 'getReserveSlots']
+    ]
   ];
 
   protected static $cachedValues = [];

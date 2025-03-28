@@ -104,6 +104,7 @@ class altered extends Table
       'blockedExpeditions' => Players::getBlockedExpeditions(),
       'powersBlockedExpeditions' => Players::getPowersBlockedExpeditions(),
       'defenders' => Players::getDefenders(),
+      'reserveSlots' => Players::getReserveSlots()
     ];
   }
 

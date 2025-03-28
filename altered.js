@@ -290,6 +290,10 @@ define([
         this.gamedatas.defenders = n.args.defenders;
         this.updateDefenders();
       }
+      if (n.args.reserveSlots !== undefined) {
+        this.gamedatas.reserveSlots = n.args.reserveSlots;
+        this.updateReserveSlots();
+      }
     },
 
     /**
