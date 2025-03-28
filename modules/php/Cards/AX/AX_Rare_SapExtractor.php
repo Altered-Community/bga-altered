@@ -16,7 +16,7 @@ class AX_Rare_SapExtractor extends \ALT\Models\Card
             'faction'  => FACTION_AX,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Sap Extractor"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('The Sap courses through the whole city like blood in a mortal\'s veins.'),
             'artist' => "Jean-Baptiste Andrier",
