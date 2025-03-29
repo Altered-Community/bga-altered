@@ -174,6 +174,12 @@ class SpecialEffect extends \ALT\Models\Action
         // Bise
       case 'boostReserve':
         return clienttranslate('Characters in your Reserve gain 1 boost');
+      case 'boostXBoostedChar':
+        return clienttranslate('1 Boost for each Boosted character');
+        break;
+      case 'boostXAnchoredChar':
+        return clienttranslate('1 Boost for each Anchored character');
+        break;
     }
     return '';
   }
@@ -194,6 +200,8 @@ class SpecialEffect extends \ALT\Models\Action
 
     switch ($this->getArg('effect')) {
       case 'boostXFleetingChar':
+      case 'boostXAnchoredChar':
+      case 'boostXBoostedChar':
         return false;
         break;
       default:
@@ -849,6 +857,30 @@ class SpecialEffect extends \ALT\Models\Action
         }
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'boostXBoostedChar';
+        $n = $card
+          ->getPlayer()
+          ->getPlayedCards([CHARACTER, TOKEN])
+          ->filter(function ($c) {
+            return $c->hasToken(BOOST);
+          })
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXAnchoredChar';
+        $n = $card
+          ->getPlayer()
+          ->getPlayedCards([CHARACTER, TOKEN])
+          ->filter(function ($c) {
+            return $c->hasToken(ANCHORED);
+          })
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
         break;
       default:
