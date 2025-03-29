@@ -439,7 +439,6 @@ class Card extends \ALT\Helpers\DB_Model
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
     ];
-
     if ($this->isListeningTo($event)) {
       $event['cardsToListen'] = [$this->id];
       Engine::pushAfterFinishingChilds([
@@ -487,7 +486,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getReactions($event)
   {
-    if ($this->getLocation() == RESERVE) {
+    if (!in_array($this->id, $event['cardsToListen'] ?? []) && $this->getLocation() == RESERVE) {
       $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
       if (is_null($passive)) {
         return false;

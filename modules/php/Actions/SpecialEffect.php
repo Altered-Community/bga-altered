@@ -180,6 +180,10 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXAnchoredChar':
         return clienttranslate('1 Boost for each Anchored character');
         break;
+      case 'boostXreserveBoost':
+        return clienttranslate('For each boost, boost 1 character in reserve');
+      case 'augmentXreserveBoost':
+        return clienttranslate('For each boost, augment 1 card');
     }
     return '';
   }
@@ -881,6 +885,37 @@ class SpecialEffect extends \ALT\Models\Action
           ->count();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXreserveBoost':
+        $boost = $this->getEvent()['boost'] ?? 0;
+        $nodes = [];
+        for ($i = 0; $i < $boost; $i++) {
+          $nodes[] = FT::ACTION(TARGET, [
+            'targetLocation' => [RESERVE],
+            'targetPlayer' => ME,
+            'excludeSelf' => true,
+            'effect' => FT::GAIN(EFFECT, BOOST)
+          ], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'augmentXreserveBoost':
+        $boost = $this->getEvent()['boost'] ?? 0;
+        $nodes = [];
+        for ($i = 0; $i < $boost; $i++) {
+          $nodes[] = FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE],
+            'upTo' => true,
+            'augmentOnly' => true,
+            'effect' => FT::AUGMENT($this)
+          ]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;
       default:
