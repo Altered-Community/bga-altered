@@ -184,6 +184,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('For each boost, boost 1 character in reserve');
       case 'augmentXreserveBoost':
         return clienttranslate('For each boost, augment 1 card');
+      case 'boostXMana':
+        return clienttranslate('1 Boost for each Mana Orb');
     }
     return '';
   }
@@ -916,6 +918,14 @@ class SpecialEffect extends \ALT\Models\Action
         }
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'boostXMana':
+        $n = $card
+          ->getPlayer()
+          ->getTotalMana();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
         break;
       default:
