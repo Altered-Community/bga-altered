@@ -152,6 +152,8 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Bise
     'scout' => 'int',
+    'dynamicSeasoned' => 'str',
+    'expeditionSeasoned' => 'bool',
   ];
 
   /********* DB ACCESS *********/
@@ -375,17 +377,17 @@ class Card extends \ALT\Helpers\DB_Model
     return Meeples::getOfType('card-' . $this->id, $type);
   }
 
-  public function discard()
+  public function discard($seasoned = [])
   {
-    return $this->discardTo(DISCARD_PILE);
+    return $this->discardTo(DISCARD_PILE, $seasoned);
   }
 
-  public function moveToReserve()
+  public function moveToReserve($seasoned = [])
   {
-    return $this->discardTo(RESERVE);
+    return $this->discardTo(RESERVE, $seasoned);
   }
 
-  public function discardTo($location)
+  public function discardTo($location, $seasoned = [])
   {
     $this->checkLeaveListener($location);
     $this->setLocation($location);
@@ -393,7 +395,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Remove meeples
     $meeples = Meeples::getInLocation('card-' . $this->id);
-    if ($location == RESERVE && $this->isSeasoned()) {
+    if ($location == RESERVE && ($this->isSeasoned() || in_array($this->id, $seasoned))) {
       $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep their boost
     }
     $meepleIds = $meeples->getIds();
@@ -740,6 +742,22 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
     return $tough;
+  }
+
+  public function isSeasoned()
+  {
+    if (($this->properties['seasoned'] ?? false) == true) {
+      return true;
+    }
+
+    if (in_array($this->getType(), [TOKEN, CHARACTER])) {
+      if ($this->getPlayer()->hasExpeditionSeasoned($this->getLocation())) {
+        return true;
+      } elseif ($this->isGigantic() && $this->getPlayer()->hasExpeditionSeasoned()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public function isGigantic($ignoreOneGigantic = false)

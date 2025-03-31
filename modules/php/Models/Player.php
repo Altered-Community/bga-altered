@@ -420,10 +420,14 @@ class Player extends \ALT\Helpers\DB_Model
     $cleanupCards = [];
     $movedToReserve = [];
     $eternals = [];
+    $seasoned = [];
 
     foreach ($this->getPlayedCards() as $cId2 => $card2) {
       if ($card2->isEternal()) {
         $eternals[] = $cId2;
+      }
+      if ($card2->isSeasoned()) {
+        $seasoned[] = $cId2;
       }
     }
 
@@ -475,7 +479,7 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
-        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard());
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard($seasoned));
 
         if ($card->isToken()) {
           // delete the card as it's a token
@@ -492,7 +496,7 @@ class Player extends \ALT\Helpers\DB_Model
       // Move card without anchored,asleep to reserve
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
         // move card to reserve
-        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve());
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve($seasoned));
         if ($card->isToken()) {
           // delete the card as it's a token
           $deletedCardTokens[] = $card;
@@ -581,6 +585,19 @@ class Player extends \ALT\Helpers\DB_Model
   {
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       if ($card->isGigantic()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasExpeditionSeasoned($expedition = null)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if (!is_null($expedition) && $card->getLocation() != $expedition) {
+        continue;
+      }
+      if ($card->isExpeditionSeasoned()) {
         return true;
       }
     }

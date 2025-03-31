@@ -2031,6 +2031,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Seasoned'),
           reminder: _('I keep my boosts when I go to Reserve.'),
         },
+        SEASONED_CHA_P: {
+          text: _('Seasoned'),
+          reminder: _('I keep my boosts when I go to Reserve.'),
+        },
         SEASONED_ME_FS: {
           text: _('Seasoned'),
           reminder: _('I keep my boosts when I go to Reserve.'),
