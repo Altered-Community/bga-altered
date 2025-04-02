@@ -11,6 +11,7 @@ use ALT\Core\Notifications;
 use ALT\Helpers\Conditions;
 use ALT\Helpers\FT;
 use ALT\Helpers\Utils;
+use ALT\Managers\Cards;
 
 /*
  * Card
@@ -454,6 +455,15 @@ class Card extends \ALT\Helpers\DB_Model
         ],
       ]);
     }
+
+    // trigger reactions of listeners on onther leave
+    $event['type'] = 'Other' . $event['type'];
+    $event['method'] = 'Other' . $event['method'];
+    $event['pId'] = $this->getPId();
+    $reaction = Cards::getReaction($event);
+    // throw new \feException(print_r($reaction));
+    // $this->pushParallelChilds($reaction);
+    Engine::pushAfterFinishingChilds($reaction);
   }
 
   /**

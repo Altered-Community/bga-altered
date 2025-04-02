@@ -16,7 +16,7 @@ class BR_Rare_TheStew extends \ALT\Models\Card
             'faction'  => FACTION_BR,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("The Stew"),
-            'typeline' => clienttranslate("Expedition_permanent - Gear"),
+            'typeline' => clienttranslate("Expedition Permanent - Gear"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Can you guess the secret ingredient? It\'s seasoned with Sap.'),
             'artist' => "Ed Chee, S.Yong & Stephen",

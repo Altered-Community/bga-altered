@@ -746,6 +746,17 @@ abstract class Conditions
     return self::isSacrifice($card, $event) && self::isMyselfDiscarded($card, $event);
   }
 
+  public static function isDiscardedType($card, $event, $type = null)
+  {
+    if (!is_null($type)) {
+      $discardedCard = Cards::get($event['cardId']);
+      if (!self::typeCheck($type, $discardedCard->getType())) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   ///////////////////////////////////
   //   ___  _   _                   
   //  / _ \| |_| |__   ___ _ __ ___ 
