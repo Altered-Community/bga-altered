@@ -508,6 +508,16 @@ abstract class Conditions
     return true;
   }
 
+  public static function isMyGainInReserve($card, $event)
+  {
+    return ($event['action'] ?? null) == GAIN && $event['location'] == RESERVE && $card->getPId() == Cards::get($event['gain']['cardId'])->getPId();
+  }
+
+  public static function isGainCardType($card, $event, $type)
+  {
+    return self::typeCheck($type, $event['cardType']);
+  }
+
   public static function hasGainedFleeting($card, $event)
   {
     if (($event['action'] ?? null) != GAIN) {
