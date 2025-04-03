@@ -155,6 +155,8 @@ class Card extends \ALT\Helpers\DB_Model
     'scout' => 'int',
     'dynamicSeasoned' => 'str',
     'expeditionSeasoned' => 'bool',
+    'increaseAllOtherCharactersBiomesHighest' => 'bool', // Bliss Bassist
+
   ];
 
   /********* DB ACCESS *********/

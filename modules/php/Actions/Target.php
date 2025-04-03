@@ -330,6 +330,7 @@ class Target extends \ALT\Models\Action
       throw new \BgaUserException(clienttranslate('You cannot pay the additional cost (Tough effect)'));
     }
     $player->payMana($additionalCost);
+    list($excludeIncreaseCard, $increaseOther) = $player->hasIncreaseAllOtherCharactersBiomesHighest();
 
     $cards = Cards::getMany($cardIds);
 
@@ -393,7 +394,13 @@ class Target extends \ALT\Models\Action
       ) {
         $giganticIncrease = true;
       }
-      $biomes = $card->getBiomes(true,  $giganticIncrease);
+
+      $increaseBiome = $giganticIncrease || $increaseOther;
+      if ($excludeIncreaseCard == $cardId) {
+        $increaseBiome = $giganticIncrease;
+      }
+
+      $biomes = $card->getBiomes(true,  $increaseBiome);
       $totalMountain -= $biomes[MOUNTAIN];
     }
 

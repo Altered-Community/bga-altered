@@ -534,6 +534,7 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($expeditions as $i => $exp) {
       $strength = [OCEAN => 0, MOUNTAIN => 0, FOREST => 0]; // OCEAN/MOUNTAIN/FOREST
       $increaseBiomesToHighest = $this->hasIncreaseBiomesHighest($exp);
+      list($excludeIncreaseStats, $allIncrease) = $this->hasIncreaseAllOtherCharactersBiomesHighest();
       $otherExpedition = $exp == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
       foreach ($cards as $c => $card) {
         if ($card->getLocation() != $exp && !$card->hasToken(GIGANTIC) && !$card->isGigantic()) {
@@ -548,7 +549,12 @@ class Player extends \ALT\Helpers\DB_Model
           $giganticIncrease = true;
         }
 
-        $biome = $card->getBiomes($includeModifiers, $increaseBiomesToHighest || $giganticIncrease);
+        $increase = $increaseBiomesToHighest || $giganticIncrease || $allIncrease;
+        if ($excludeIncreaseStats == $c) {
+          $increase = $increaseBiomesToHighest || $giganticIncrease;
+        }
+        $biome = $card->getBiomes($includeModifiers, $increase);
+
         foreach ($biome as $bi => $value) {
           $strength[$bi] += $value;
         }
@@ -611,7 +617,26 @@ class Player extends \ALT\Helpers\DB_Model
         return true;
       }
     }
+
     return false;
+  }
+
+  public function hasIncreaseAllOtherCharactersBiomesHighest()
+  {
+    $excludeList = null;
+    $found = false;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->countToken(BOOST) > 0 && $card->isIncreaseAllOtherCharactersBiomesHighest()) {
+        if (is_null($excludeList)) {
+          $excludeList = $cId;
+          $found = true;
+        } else {
+          $excludeList = null;
+          return [$excludeList, $found];
+        }
+      }
+    }
+    return [$excludeList, $found];
   }
 
   public function hasAdvanceTwiceDusk($expedition)
