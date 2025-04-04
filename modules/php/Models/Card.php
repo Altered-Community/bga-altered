@@ -156,6 +156,7 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicSeasoned' => 'str',
     'expeditionSeasoned' => 'bool',
     'increaseAllOtherCharactersBiomesHighest' => 'bool', // Bliss Bassist
+    'ignoreReserveLimit' => 'bool', // Lyra Contortionist
 
   ];
 

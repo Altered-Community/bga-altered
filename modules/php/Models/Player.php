@@ -201,6 +201,11 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($this->getPlayedCards() as $cId => $c) {
       $reserve += $c->getReserveSlots();
     }
+    foreach ($this->getReserveCards() as $cId => $c) {
+      if (!$c->isTapped() && $c->getIgnoreReserveLimit() == true) {
+        $reserve++;
+      }
+    }
     return $reserve;
   }
 
