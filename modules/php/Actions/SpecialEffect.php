@@ -186,6 +186,12 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('For each boost, augment 1 card');
       case 'boostXMana':
         return clienttranslate('1 Boost for each Mana Orb');
+      case 'boostedRevealBaseStat':
+        return clienttranslate('If boosted, draw a card and keep Character with a base statistic of 0');
+      case 'boostedRevealArtistSong':
+        return clienttranslate('If boosted, draw a card and keep Artist or Song');
+      case 'boostedRevealRobotPermanent':
+        return clienttranslate('If boosted, draw a card and keep Robot or Permanent');
     }
     return '';
   }
@@ -926,6 +932,74 @@ class SpecialEffect extends \ALT\Models\Action
           ->getTotalMana();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostedRevealBaseStat':
+        if ($card->countToken(BOOST) > 0) {
+          Engine::checkpoint();
+          $player = $card->getPlayer();
+          $drawn = $player->draw(1, null, LIMBO, $card)->first();
+
+          $baseStat = false;
+          foreach ($drawn->getBiomes() as $biome => $value) {
+            if ($value == 0) {
+              $baseStat = true;
+            }
+          }
+          if ($drawn->getType() != CHARACTER) {
+            $baseStat = false;
+          }
+          if ($baseStat == true) {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
+            );
+          } else {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
+            );
+          }
+        }
+        break;
+      case 'boostedRevealArtistSong':
+        if ($card->countToken(BOOST) > 0) {
+          Engine::checkpoint();
+          $player = $card->getPlayer();
+          $drawn = $player->draw(1, null, LIMBO, $card)->first();
+
+          $baseStat = false;
+          if (in_array(ARTIST, $drawn->getSubtypes()) || in_array(SONG, $drawn->getSubtypes())) {
+            $baseStat = true;
+          }
+          if ($baseStat == true) {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
+            );
+          } else {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
+            );
+          }
+        }
+        break;
+      case 'boostedRevealRobotPermanent':
+        if ($card->countToken(BOOST) > 0) {
+          Engine::checkpoint();
+          $player = $card->getPlayer();
+          $drawn = $player->draw(1, null, LIMBO, $card)->first();
+
+          $baseStat = false;
+          if (in_array(ROBOT, $drawn->getSubtypes()) || $drawn->getType() == PERMANENT) {
+            $baseStat = true;
+          }
+          if ($baseStat == true) {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
+            );
+          } else {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
+            );
+          }
         }
         break;
       default:
