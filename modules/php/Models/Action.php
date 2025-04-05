@@ -315,6 +315,14 @@ class Action
       $node['args']['cardFrom'] = $cardFrom;
       $node['args']['ownerId'] = $ownerId;
     }
+
+    if (isset($node['1-3'])) {
+      $node['1-3'] = $this->updateCardId($node['1-3'], $cardId, $cardFrom, $sourceId, $ownerId);
+    }
+    if (isset($node['4+'])) {
+      $node['4+'] = $this->updateCardId($node['4+'], $cardId, $cardFrom, $sourceId, $ownerId);
+    }
+
     $node['sourceId'] = $this->getSourceId();
 
     if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
