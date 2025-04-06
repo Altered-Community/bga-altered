@@ -648,8 +648,8 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
-    $increaseReserveCost = Players::getIncreaseReserveCost();
-    $reduceReserveCost = Players::getReduceReserveCost();
+    $increaseReserveCost = Players::getIncreaseReserveCost($this->getType());
+    $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes());
     if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
       $minimumCost = max(1, $minimumCost);
     }
@@ -846,7 +846,7 @@ class Card extends \ALT\Helpers\DB_Model
     return false;
   }
 
-  public function getIncreaseReserveCost()
+  public function getIncreaseReserveCost($type = null)
   {
     if (($this->properties['increaseReserveCost'] ?? 0) > 0) {
       return $this->properties['increaseReserveCost'];
@@ -854,12 +854,19 @@ class Card extends \ALT\Helpers\DB_Model
 
     $dynamicBlocking = $this->getDynamicIncreaseReserveCost();
     if ($dynamicBlocking != '') {
-      return !is_null(Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this));
+      $result = Utils::checkAttributeCondition('oppositeDefender', $dynamicBlocking, $this->getPlayer(), $this);
+      if ($result == 'character' && $type == CHARACTER) {
+        return 1;
+      } elseif ($result == 'character') {
+        return 0;
+      } elseif (!is_null($result)) {
+        return $result;
+      }
     }
     return 0;
   }
 
-  public function getReduceReserveCost()
+  public function getReduceReserveCost($type, $subtypes)
   {
     if (($this->properties['reduceReserveCost'] ?? 0) > 0) {
       return $this->properties['reduceReserveCost'];
@@ -867,7 +874,28 @@ class Card extends \ALT\Helpers\DB_Model
 
     $dynamicBlocking = $this->getDynamicReduceReserveCost();
     if ($dynamicBlocking != '') {
-      return !is_null(Utils::checkAttributeCondition('reduceReserveCost', $dynamicBlocking, $this->getPlayer(), $this));
+      $result = Utils::checkAttributeCondition('reduceReserveCost', $dynamicBlocking, $this->getPlayer(), $this);
+      if ($result == 'character') {
+        if ($type == CHARACTER) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } elseif ($result == 'artist') {
+        if (in_array(ARTIST, $subtypes)) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } elseif ($result == 'robot') {
+        if (in_array(ROBOT, $subtypes)) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } elseif (!is_null($result)) {
+        return $result;
+      }
     }
     return 0;
   }
