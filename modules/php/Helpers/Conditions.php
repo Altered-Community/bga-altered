@@ -935,6 +935,21 @@ abstract class Conditions
     return false;
   }
 
+  /******************ROLLS*******************/
+
+  public static function hasRolled($card, $event, $result = 1, $op = 'GTE')
+  {
+    $rolls = $event['rolls'] ?? [];
+    foreach ($rolls as $roll) {
+      if ($op == 'GTE' && $roll >= $result) {
+        return true;
+      } elseif ($op == 'LTE' && $roll <= $result) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
 
 
