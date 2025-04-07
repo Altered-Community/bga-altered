@@ -192,6 +192,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('If boosted, draw a card and keep Artist or Song');
       case 'boostedRevealRobotPermanent':
         return clienttranslate('If boosted, draw a card and keep Robot or Permanent');
+      case 'ManInTheMaze':
+      case 'ManInTheMazeRare':
+        return clienttranslate('Remove all boost and resolve effect');
     }
     return '';
   }
@@ -1000,6 +1003,98 @@ class SpecialEffect extends \ALT\Models\Action
               FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
             );
           }
+        }
+        break;
+      case 'ManInTheMaze':
+        $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
+        $deleted = [];
+        foreach ($cards as $lId => $lCard) {
+          $meeples = Meeples::getInLocation('card-' . $lId);
+          $meepleIds = $meeples->getIds();
+          if (!empty($meepleIds)) {
+            Meeples::delete($meepleIds);
+            $deleted = array_merge($deleted, $meepleIds);
+            Notifications::looseMeeples(BOOST, $lCard, $meeples, false);
+          }
+        }
+        switch (count($deleted)) {
+          case 0:
+            break;
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+            $this->insertAsChild(FT::GAIN($card->getId(), BOOST, 2));
+            break;
+          case 5:
+          case 6:
+          case 7:
+          case 8:
+            $this->insertAsChild(FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['sourceId' => $this->getSourceId()]));
+            break;
+          case 9:
+          default:
+            $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'pId' => $card->getPId()], ['sourceId' => $this->getSourceId()]));
+            break;
+        }
+        break;
+      case 'ManInTheMazeRare':
+        $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
+        $deleted = [];
+        foreach ($cards as $lId => $lCard) {
+          $meeples = Meeples::getInLocation('card-' . $lId);
+          $meepleIds = $meeples->getIds();
+          if (!empty($meepleIds)) {
+            Meeples::delete($meepleIds);
+            $deleted = array_merge($deleted, $meepleIds);
+            Notifications::looseMeeples(BOOST, $lCard, $meeples, false);
+          }
+        }
+        $nodes = [];
+        if (count($deleted) >= 1) {
+          $nodes[] = FT::GAIN($card->getId(), BOOST, 2);
+        }
+        if (count($deleted) >= 5) {
+          $nodes[] = FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['sourceId' => $this->getSourceId()]);
+        }
+        if (count($deleted) >= 9) {
+          $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'pId' => $card->getPId()], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'ManInTheMazeYzmir':
+        $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
+        $deleted = [];
+        foreach ($cards as $lId => $lCard) {
+          $meeples = Meeples::getInLocation('card-' . $lId);
+          $meepleIds = $meeples->getIds();
+          if (!empty($meepleIds)) {
+            Meeples::delete($meepleIds);
+            $deleted = array_merge($deleted, $meepleIds);
+            Notifications::looseMeeples(BOOST, $lCard, $meeples, false);
+          }
+        }
+        switch (count($deleted)) {
+          case 0:
+            break;
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+            $this->insertAsChild(FT::GAIN($card->getId(), BOOST, 2));
+            break;
+          case 5:
+          case 6:
+          case 7:
+          case 8:
+            $this->insertAsChild(FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['sourceId' => $this->getSourceId()]));
+            break;
+          case 9:
+          default:
+            $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT]));
+            break;
         }
         break;
       default:
