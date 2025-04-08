@@ -197,6 +197,9 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getReserveSlots()
   {
+    if (is_null($this->getHero())) {
+      return 0;
+    }
     $reserve =  $this->getHero()->getReserveSlots();
     foreach ($this->getPlayedCards() as $cId => $c) {
       $reserve += $c->getReserveSlots();
