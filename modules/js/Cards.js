@@ -2027,6 +2027,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Sabotage'),
           reminder: _('Discard up to one target card from a Reserve.'),
         },
+        SABOTAGE_INF: {
+          text: _('Sabotage'),
+          reminder: _('Discard up to one target card from a Reserve.'),
+        },
         SEASONED: {
           text: _('Seasoned'),
           reminder: _('I keep my boosts when I go to Reserve.'),
