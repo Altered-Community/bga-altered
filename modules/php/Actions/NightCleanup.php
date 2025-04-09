@@ -35,7 +35,7 @@ class NightCleanup extends \ALT\Models\Action
   {
     $player = $this->getPlayer();
     $reserve = $player->getReserveCards()->filter(function ($c) {
-      return !$c->isIgnoreReserveLimit();
+      return !$c->isIgnoreReserveLimit() || $c->isTapped();
     });
     $landmarks = $player->getLandmarks();
     $exhaustedSlots = $player->getExhaustedReserveSlots();
