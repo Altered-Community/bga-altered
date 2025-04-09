@@ -35,7 +35,6 @@ class OD_Rare_Bugfix extends \ALT\Models\Card
           'targetType' => TYPES,
           'upTo' => true,
           'effect' => FT::ACTION(SPEND, [
-            'cardId' => ME,
             'effect' => FT::ACTION(INVOKE_TOKEN, [
               'pId' => 'source',
               'tokenType' => 'AX_Common_Brassbug',

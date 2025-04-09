@@ -36,7 +36,6 @@ class OD_Rare_SapOverflow extends \ALT\Models\Card
                             'augmentOnly' => true,
                             'targetType' => TYPES,
                             'effect' => FT::ACTION(SPEND, [
-                                'cardId' => ME,
                                 'effect' => FT::ACTION(TARGET, [
                                     'targetType' => [PERMANENT],
                                     'effect' => FT::ACTION(DISCARD, []),
