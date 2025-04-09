@@ -304,7 +304,6 @@ class Card extends \ALT\Helpers\DB_Model
         $cost -= $this->getCostReductionDiscard();
       }
     }
-
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
