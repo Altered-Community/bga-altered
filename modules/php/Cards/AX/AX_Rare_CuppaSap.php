@@ -25,7 +25,7 @@ class AX_Rare_CuppaSap extends \ALT\Models\Card
             'effectDesc' => clienttranslate('Target Character in Reserve gains 2 boosts.'),
             'costHand' => 1,
             'costReserve' => 2,
-            'effectReserve' =>  FT::ACTION(TARGET, [
+            'effectPlayed' =>  FT::ACTION(TARGET, [
                 'targetType' => [CHARACTER],
                 'targetLocation' => [RESERVE],
                 'effect' => FT::GAIN(EFFECT, BOOST, 2)
