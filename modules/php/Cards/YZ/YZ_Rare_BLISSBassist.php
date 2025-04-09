@@ -34,7 +34,7 @@ class YZ_Rare_BLISSBassist extends \ALT\Models\Card
             'effectInfinity' => [
                 'effectPassive' => [
                     'ChooseAssignment' => [
-                        'conditions' => ['isCardPlayedWithZeroStat', 'excludeSelf'],
+                        'conditions' => ['isCardPlayed:spell', 'excludeSelf'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2)
                     ],
                 ]
