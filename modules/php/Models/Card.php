@@ -393,13 +393,14 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function discardTo($location, $seasoned = [])
   {
+    $isSeasoned = $this->isSeasoned();
     $this->checkLeaveListener($location);
     $this->setLocation($location);
     $this->setTapped(false);
 
     // Remove meeples
     $meeples = Meeples::getInLocation('card-' . $this->id);
-    if ($location == RESERVE && ($this->isSeasoned() || in_array($this->id, $seasoned))) {
+    if ($location == RESERVE && ($isSeasoned || in_array($this->id, $seasoned))) {
       $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep their boost
     }
     $meepleIds = $meeples->getIds();
