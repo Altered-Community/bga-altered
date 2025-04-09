@@ -869,6 +869,9 @@ class SpecialEffect extends \ALT\Models\Action
         $player = Players::getActive();
         $nodes = [];
         foreach ($player->getReserveCards() as $cId => $card) {
+          if ($card->getType() != CHARACTER) {
+            continue;
+          }
           $nodes[] = FT::ACTION(GAIN, ['cardId' => $cId, 'type' => BOOST], ['sourceId' => $this->getSourceId()]);
         }
         if (!empty($nodes)) {

@@ -29,7 +29,7 @@ class AX_Common_SapExtractor extends \ALT\Models\Card
                 'Noon' => [
                     'condition' => 'isMe',
                     'output' => FT::ACTION(TARGET, [
-                        'targetType' => [CHARACTER, SPELL, PERMANENT],
+                        'targetType' => [CHARACTER, SPELL, PERMANENT, TOKEN],
                         'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE],
                         'upTo' => true,
                         'augmentOnly' => true,

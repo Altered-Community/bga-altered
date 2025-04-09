@@ -29,7 +29,7 @@ class AX_Common_SapSniffer extends \ALT\Models\Card
             'costHand' => 1,
             'costReserve' => 1,
             'effectReserve' => FT::ACTION(TARGET, [
-                'targetType' => [CHARACTER, SPELL, PERMANENT],
+                'targetType' => [CHARACTER, SPELL, PERMANENT, TOKEN],
                 'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE],
                 'upTo' => true,
                 'augmentOnly' => true,
