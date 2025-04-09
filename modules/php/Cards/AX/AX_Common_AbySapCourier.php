@@ -30,7 +30,7 @@ class AX_Common_AbySapCourier extends \ALT\Models\Card
       'costReserve' => 3,
       'scout' => 1,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetType' => [CHARACTER, SPELL, PERMANENT, TOKEN],
         'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE],
         'upTo' => true,
         'augmentOnly' => true,

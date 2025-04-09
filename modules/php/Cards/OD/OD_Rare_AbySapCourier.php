@@ -30,7 +30,7 @@ class OD_Rare_AbySapCourier extends \ALT\Models\Card
       'costReserve' => 3,
       'scout' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetType' => [CHARACTER, SPELL, PERMANENT, TOKEN],
         'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE],
         'upTo' => true,
         'n' => INFTY,
