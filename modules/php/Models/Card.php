@@ -443,6 +443,8 @@ class Card extends \ALT\Helpers\DB_Model
       'cardId' => $this->id,
       'from' => $this->getLocation(),
       'to' => $target,
+      'pId' => $this->getPId(),
+      'cardType' => $this->getType(),
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
     ];
