@@ -45,9 +45,9 @@ class AX_Rare_TheRefinery extends \ALT\Models\Card
                 'condition' => 'hasCounterOnCard:3',
                 'effect' => FT::SEQ(
                     FT::ACTION(USE_COUNTER, ['consume' => 3]),
-                    FT::ACTION(TARGET, ['targetLocation' => RESERVE, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
-                    FT::ACTION(TARGET, ['targetLocation' => RESERVE, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
-                    FT::ACTION(TARGET, ['targetLocation' => RESERVE, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+                    FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+                    FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+                    FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
                 )
             ], ['sourceId' => $this->id]), // VERY Important!!
         ];
