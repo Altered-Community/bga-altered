@@ -194,6 +194,7 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('If boosted, draw a card and keep Robot or Permanent');
       case 'ManInTheMaze':
       case 'ManInTheMazeRare':
+      case 'ManInTheMazeYzmir':
         return clienttranslate('Remove all boost and resolve effect');
     }
     return '';
@@ -1009,7 +1010,7 @@ class SpecialEffect extends \ALT\Models\Action
         $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
         $deleted = [];
         foreach ($cards as $lId => $lCard) {
-          $meeples = Meeples::getInLocation('card-' . $lId);
+          $meeples = Meeples::getInLocation('card-' . $lId)->where('type', BOOST);
           $meepleIds = $meeples->getIds();
           if (!empty($meepleIds)) {
             Meeples::delete($meepleIds);
@@ -1042,7 +1043,7 @@ class SpecialEffect extends \ALT\Models\Action
         $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
         $deleted = [];
         foreach ($cards as $lId => $lCard) {
-          $meeples = Meeples::getInLocation('card-' . $lId);
+          $meeples = Meeples::getInLocation('card-' . $lId)->where('type', BOOST);;
           $meepleIds = $meeples->getIds();
           if (!empty($meepleIds)) {
             Meeples::delete($meepleIds);
@@ -1068,7 +1069,7 @@ class SpecialEffect extends \ALT\Models\Action
         $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
         $deleted = [];
         foreach ($cards as $lId => $lCard) {
-          $meeples = Meeples::getInLocation('card-' . $lId);
+          $meeples = Meeples::getInLocation('card-' . $lId)->where('type', BOOST);;
           $meepleIds = $meeples->getIds();
           if (!empty($meepleIds)) {
             Meeples::delete($meepleIds);
