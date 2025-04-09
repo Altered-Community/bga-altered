@@ -34,10 +34,18 @@ class BR_Common_TheMess extends \ALT\Models\Card
                     ]),
                 ],
             ],
-            'effectTap' => FT::SEQ(
-                FT::ACTION(USE_COUNTER, ['consume' => 3], ['sourceId' => $this->id]),
-                FT::ACTION(RESUPPLY, [])
+            'effectTap' => FT::ACTION(
+                CHECK_CONDITION,
+                [
+                    'condition' => 'hasCounterOnCard:3',
+                    'effect' => FT::SEQ(
+                        FT::ACTION(USE_COUNTER, ['consume' => 3], ['sourceId' => $this->id]),
+                        FT::ACTION(RESUPPLY, [])
+                    )
+                ],
+                ['sourceId' => $this->id]
             )
+
         ];
     }
 }

@@ -53,7 +53,6 @@ class AX_Rare_EnhancedPrototype extends \ALT\Models\Card
                     'targetType' => TYPES,
                     'upTo' => true,
                     'effect' => FT::ACTION(SPEND, [
-                        'cardId' => ME,
                         'effect' => FT::SEQ(
                             FT::ACTION(READY, ['cardId' => MANA]),
                             FT::ACTION(READY, ['cardId' => MANA])

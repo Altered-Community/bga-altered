@@ -34,10 +34,18 @@ class BR_Rare_TheMess extends \ALT\Models\Card
                     ]),
                 ],
             ],
-            'effectTap' => FT::SEQ(
-                FT::ACTION(USE_COUNTER, ['consume' => 4], ['sourceId' => $this->id]),
-                FT::ACTION(DRAW, ['players' => ME])
+            'effectTap' => FT::ACTION(
+                CHECK_CONDITION,
+                [
+                    'condition' => 'hasCounterOnCard:4',
+                    'effect' => FT::SEQ(
+                        FT::ACTION(USE_COUNTER, ['consume' => 4], ['sourceId' => $this->id]),
+                        FT::ACTION(DRAW, ['players' => ME])
+                    )
+                ],
+                ['sourceId' => $this->id]
             )
+
         ];
     }
 }

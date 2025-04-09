@@ -108,7 +108,7 @@ class Spend extends \ALT\Models\Action
       // we consume a counter
       $extraDatas = $card->getExtraDatas();
       if (!isset($extraDatas['counter']) || $extraDatas['counter'] == 0) {
-        throw new \BgaVisibleSystemException('No counter on card. Cannot spend. Should not happen');
+        throw new \BgaUserException(clienttranslate('No counter to spend'));
       }
 
       if (($extraDatas['counter'] ?? 0) < $amount) {
