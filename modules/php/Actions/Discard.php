@@ -35,6 +35,8 @@ class Discard extends \ALT\Models\Action
 
     'canPass' => false, // Is this optional ?
     'force' => false,  // NO IDEA
+    'position' => null,
+    'readyIfCostLower' => false, // X Marks the spot
   ];
 
   public function isOptional($player)
@@ -313,6 +315,15 @@ class Discard extends \ALT\Models\Action
         $deletedMeeples = array_merge($deletedMeeples, $m);
         if ($destination == TOP_OF_DECK) {
           Cards::insertOnTop($cId, 'deck-' . $card->getPlayer()->getId());
+          if (!is_null($this->getArg('position'))) {
+            Cards::moveAtPosition($cId, 'deck-' . $card->getPlayer()->getId(), $this->getArg('position'));
+            // X Marks the spot
+            if ($this->getArg('readyIfCostLower')) {
+              if ($this->getArg('position') > $card->getCostHand()) {
+                $this->insertAsChild(FT::ACTION(READY, ['cardId' => MANA], ['sourceId' => $this->getSourceId()]));
+              }
+            }
+          }
         }
 
         // Do we need to tap the card ? (LY_Rare_MightyJinn)

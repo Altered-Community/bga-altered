@@ -441,6 +441,24 @@ class CachedPieces extends DB_Manager
     self::move($id, $location, $pos - 1);
   }
 
+  public static function moveAtPosition($id, $location, $position)
+  {
+    $pieces = self::getInLocation($location);
+    $pos = $pieces->count();
+    foreach ($pieces as $pieceId => $piece) {
+      if ($pieceId == $id) {
+        continue;
+      }
+      if ($position == 1) {
+        $pieces[$id]->setState($pos);
+        $pos--;
+      }
+      $piece->setState($pos);
+      $pos--;
+      $position--;
+    }
+  }
+
   /*********************************
    ******** DELETE PIECES **********
    ********************************/
