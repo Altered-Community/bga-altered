@@ -476,7 +476,7 @@ class Card extends \ALT\Helpers\DB_Model
    **/
   public function isListeningTo($event)
   {
-    if ($this->getLocation() == RESERVE) {
+    if ($this->getLocation() == RESERVE && !$this->isTapped()) {
       $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
       if (is_null($passive)) {
         return false;
