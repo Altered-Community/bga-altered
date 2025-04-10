@@ -27,14 +27,14 @@ class LY_Rare_TheRefinery extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isAfternoon', 'hasSameOwner', 'isFromReserve'],
+                    'conditions' => ['isAfternoon', 'hasSameOwner', 'isFromReserve', 'excludeSelf'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Sap counter')],
                     ]),
                 ],
                 'Discard' => [
-                    'conditions' => ['isAfternoon', 'hasSameOwner', 'isDiscarded:reserve'],
+                    'conditions' => ['isAfternoon', 'hasSameOwner', 'isDiscarded:reserve', 'excludeSelf'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Sap counter')],
