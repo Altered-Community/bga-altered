@@ -74,7 +74,7 @@ abstract class Conditions
       return false;
     }
 
-    if (Cards::get($cardId, false)->count() == 0) {
+    if (is_null(Cards::getSingle($cardId, false))) {
       return ($event['pId'] ?? null) == $card->getPId();
     }
 
@@ -764,8 +764,8 @@ abstract class Conditions
   public static function isDiscardedType($card, $event, $type = null)
   {
     if (!is_null($type)) {
-      $discardedCard = Cards::get($event['cardId'], false);
-      if ($discardedCard->count() == 0) {
+      $discardedCard = Cards::getSingle($event['cardId'], false);
+      if (is_null($discardedCard)) {
         $discardedType = $event['cardType'] ?? 'notgood';
       } else {
         $discardedType = $discardedCard->getType();
