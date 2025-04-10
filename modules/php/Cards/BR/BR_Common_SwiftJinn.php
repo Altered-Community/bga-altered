@@ -31,6 +31,7 @@ class BR_Common_SwiftJinn extends \ALT\Models\Card
       'scout' => 3,
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetLocation' => [RESERVE],
+        'targetType' => TYPES,
         'targetPlayer' => ME,
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, [
