@@ -995,8 +995,10 @@ abstract class Conditions
 
   public static function isCharacterBoostedAndUntap($card, $event)
   {
+    $gainedCard = Cards::get($event['gain']['cardId']);
     return !$card->isTapped() &&
       $event['gain']['type'] == BOOST &&
-      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
+      $gainedCard->getPId() == $card->getPId() &&
+      in_array($gainedCard->getLocation(), STORMS);
   }
 }
