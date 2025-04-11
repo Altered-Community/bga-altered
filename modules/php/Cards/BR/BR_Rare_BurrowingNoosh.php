@@ -28,6 +28,20 @@ class BR_Rare_BurrowingNoosh extends \ALT\Models\Card
             'ocean' => 0,
             'costHand' => 1,
             'costReserve' => 1,
+            'effectPassive' => [
+                'Draw' => [
+                    'condition' => 'isOpponentDraw',
+                    'output' => FT::GAIN(ME, BOOST)
+                ],
+                'Resupply' => [
+                    'conditions' => ['isOpponentDraw', 'realResupply'],
+                    'output' => FT::GAIN(ME, BOOST)
+                ],
+                'Morning' => [
+                    'condition' => 'isMe',
+                    'output' => FT::GAIN(ME, BOOST)
+                ],
+            ],
         ];
     }
 }
