@@ -200,6 +200,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Remove fleeting if next card is a character with base statistic 0');
       case 'removeFleetingSongArtistPlayed':
         return clienttranslate('Remove fleeting if next card is an Artist or Song');
+      case 'doubleBoosts':
+        return clienttranslate('Double the boosts in reserve & storms');
     }
     return '';
   }
@@ -1110,6 +1112,18 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'removeFleetingSongArtistPlayed':
         Globals::setRemoveFleetingSongArtistPlayed(true);
+        break;
+      case 'doubleBoosts':
+        $player = $card->getPlayer();
+        $nodes = [];
+        foreach ($player->getReserveCards()->merge($player->getPlayedCards()) as $bId => $bCard) {
+          if ($bCard->hasToken(BOOST)) {
+            $nodes[] = FT::GAIN($bId, BOOST, $bCard->countToken(BOOST));
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       default:
         break;
