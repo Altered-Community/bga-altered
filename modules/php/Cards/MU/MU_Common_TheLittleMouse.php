@@ -28,6 +28,16 @@ class MU_Common_TheLittleMouse extends \ALT\Models\Card
             'ocean' => 2,
             'costHand' => 3,
             'costReserve' => 2,
+            'effectHand' => FT::ACTION(TARGET, [
+                'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+                'targetLocation' => [RESERVE],
+                'upTo' => true,
+                'effect' => FT::SEQ(
+                    FT::ACTION(DISCARD, []),
+                    FT::ACTION(RESUPPLY, ['player' => 'owner', 'exhausted' => true])
+                )
+            ]),
+
         ];
     }
 }

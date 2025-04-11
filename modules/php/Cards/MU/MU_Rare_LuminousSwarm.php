@@ -1,30 +1,45 @@
 <?php
+
 namespace ALT\Cards\MU;
+
 use ALT\Helpers\FT;
 
 class MU_Rare_LuminousSwarm extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
+    public function __construct($row)
+    {
+        parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_BISE_B_MU_55_R1',
             'asset'  => 'ALT_BISE_B_MU_55_R',
 
-    		'faction'  => FACTION_MU,
-    		'rarity'  => RARITY_RARE,
-    		'name'  => clienttranslate("Luminous Swarm"),
+            'faction'  => FACTION_MU,
+            'rarity'  => RARITY_RARE,
+            'name'  => clienttranslate("Luminous Swarm"),
             'typeline' => clienttranslate("Character - Plant Animal"),
-    		'type'  => CHARACTER,
-    		'flavorText'  => clienttranslate('They buzz about at night and spread their nectar when the sun is at its height.'),
+            'type'  => CHARACTER,
+            'flavorText'  => clienttranslate('They buzz about at night and spread their nectar when the sun is at its height.'),
             'artist' => "Khoa Viet",
-			'extension'=>'WFTM',
-   'subtypes'  => [PLANT,ANIMAL],
- 				'effectDesc' => clienttranslate('{J} I gain <ANCHORED>.  At Noon — #Up to two# target Characters in play or in Reserve each gain 1 boost.'),
-     'forest' => 0, 
-     'mountain' => 3, 
-     'ocean' => 3, 
-     'costHand' => 4, 
-     'costReserve' => 4, 
-];
-  }
+            'extension' => 'WFTM',
+            'subtypes'  => [PLANT, ANIMAL],
+            'effectDesc' => clienttranslate('{J} I gain <ANCHORED>.  At Noon — #Up to two# target Characters in play or in Reserve each gain 1 boost.'),
+            'forest' => 0,
+            'mountain' => 3,
+            'ocean' => 3,
+            'costHand' => 4,
+            'costReserve' => 4,
+            'effectPlayed' => FT::GAIN(ME, ANCHORED),
+            'effectPassive' => [
+                'Noon' => [
+                    'condition' => 'isMe',
+                    'output' => FT::ACTION(TARGET, [
+                        'n' => 2,
+                        'upTo' => true,
+                        'targetLocation' => [RESERVE, STORM_LEFT, STORM_RIGHT],
+                        'effect' => FT::GAIN(EFFECT, BOOST)
+                    ])
+                ],
+            ],
+        ];
+    }
 }

@@ -64,12 +64,16 @@ class Resupply extends \ALT\Models\Action
     'exhausted' => false,
     'character2Less' => false,
     'characterHand' => false,
+    'ownerId' => null,
+    'player' => null
   ];
 
   public function getPlayer()
   {
     $pId = $this->ctx->getPId();
-    if (is_null($pId)) {
+    if ($this->getArg('player') == 'owner') {
+      $pId = $this->getArg('ownerId');
+    } elseif (is_null($pId)) {
       $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
     } elseif ($pId == 'active') {
       $pId = Players::getActiveId();

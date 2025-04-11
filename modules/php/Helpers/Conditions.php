@@ -544,6 +544,23 @@ abstract class Conditions
     return true;
   }
 
+  public static function hasPlayerGained($card, $event, $type)
+  {
+    if (($event['action'] ?? null) != GAIN) {
+      return false;
+    }
+
+    if (Cards::get($event['gain']['cardId'])->getPId() != $card->getPId()) {
+      return false;
+    }
+
+    if ($event['gain']['type'] != $type) {
+      return false;
+    }
+
+    return true;
+  }
+
   public static function isPlayedInSameLocation($card, $event)
   {
     return $card->getLocation() == ($event['to'] ?? '') || ($event['gigantic'] ?? false);

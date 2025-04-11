@@ -414,6 +414,12 @@ class ChooseAssignment extends \ALT\Models\Action
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
     Globals::setAdditionalEffect([]);
     self::statPlay($cardId);
+    $baseStat0 = false;
+    foreach ($card->getBiomes() as $biome => $value) {
+      if ($value == 0) {
+        $baseStat0 = true;
+      }
+    }
 
     if ($card->getType() == SPELL) {
       if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
@@ -424,6 +430,10 @@ class ChooseAssignment extends \ALT\Models\Action
 
       Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
     } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
+      Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterStat0Played() && $baseStat0) {
+      Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    } elseif (in_array($card->getSubtypes(), [ARTIST, SONG]) && Globals::getRemoveFleetingArtistSongPlayed()) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
     }
   }

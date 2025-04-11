@@ -114,6 +114,8 @@ trait TurnTrait
     Globals::setRemoveFleetingIfSpellPlayedHand(false);
     Globals::setRemoveFleetingSpellPlayed(false);
     Globals::setRemoveFleetingCharacterPlayed(false);
+    Globals::setRemoveFleetingCharacterStat0Played(false);
+    Globals::setRemoveFleetingSongArtistPlayed(false);
     Globals::setPlayedForFree(false);
 
     self::giveExtraTime($player->getId());

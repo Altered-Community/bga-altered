@@ -60,6 +60,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     'removeFleetingCharacterPlayed' => 'bool',
     'playedForFree' => 'bool',
     'nextTokenAnchored' => 'bool', // Icebound Taiga
+    'removeFleetingCharacterStat0Played' => 'bool', // Bise - The stage
+    'removeFleetingSongArtistPlayed' => 'bool', // Bise - The stage rare
 
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games

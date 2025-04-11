@@ -2019,6 +2019,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Resupply'),
           reminder: _('Put the top card of your deck in Reserve.'),
         },
+        RESUPPLIES: {
+          text: _('Resupplies'),
+          reminder: _('Put the top card of your deck in Reserve.'),
+        },
         SABOTAGE: {
           text: _('Sabotage'),
           reminder: _('Discard up to one target card from a Reserve.'),

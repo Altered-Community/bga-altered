@@ -196,6 +196,10 @@ class SpecialEffect extends \ALT\Models\Action
       case 'ManInTheMazeRare':
       case 'ManInTheMazeYzmir':
         return clienttranslate('Remove all boost and resolve effect');
+      case 'removeFleetingCharacterStat0Played':
+        return clienttranslate('Remove fleeting if next card is a character with base statistic 0');
+      case 'removeFleetingSongArtistPlayed':
+        return clienttranslate('Remove fleeting if next card is an Artist or Song');
     }
     return '';
   }
@@ -1100,6 +1104,12 @@ class SpecialEffect extends \ALT\Models\Action
             $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT]));
             break;
         }
+        break;
+      case 'removeFleetingCharacterStat0Played':
+        Globals::setRemoveFleetingCharacterStat0Played(true);
+        break;
+      case 'removeFleetingSongArtistPlayed':
+        Globals::setRemoveFleetingSongArtistPlayed(true);
         break;
       default:
         break;
