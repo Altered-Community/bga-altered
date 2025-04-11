@@ -16,7 +16,7 @@ class OD_Rare_TheFarm extends \ALT\Models\Card
             'faction'  => FACTION_OD,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("The Farm"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('The Mess requires a farm that can consistently provide for its day-to-day needs.'),
             'artist' => "Khoa Viet",
