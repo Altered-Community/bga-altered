@@ -1125,6 +1125,20 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;
+      case 'counterPerCharacter':
+        $player = $card->getPlayer();
+        $count = $player->getPlayedCards()->filter(function ($c) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]);
+        })->count();
+        if ($count > 0) {
+          $data = $card->getExtraDatas();
+          $data['counter'] = ($data['counter'] ?? 0) + $count;
+          $card->setExtraDatas($data);
+
+          Notifications::gainCounter($this->getSource(), $count);
+          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        }
+        break;
       default:
         break;
     }
