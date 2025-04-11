@@ -29,7 +29,8 @@ class MU_Rare_Arawn extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['ocean', 'costHand', 'costReserve'],
-      'scout' => 99,
+      'scout' => 2,
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllSubtype', 'args' => ['subType' => ANIMAL]]),
     ];
   }
 }
