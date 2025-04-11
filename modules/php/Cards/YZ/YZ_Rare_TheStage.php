@@ -16,7 +16,7 @@ class YZ_Rare_TheStage extends \ALT\Models\Card
             'faction'  => FACTION_YZ,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("The Stage"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Day or night, the music of BLISS reinvigorates weary hearts and bodies.'),
             'artist' => "Zero Wen",
@@ -27,7 +27,7 @@ class YZ_Rare_TheStage extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardPlayed:spell',, 'excludeSelf'],
+                    'conditions' => ['isCardPlayed:spell', 'excludeSelf'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Performance counter')],

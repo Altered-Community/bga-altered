@@ -16,7 +16,7 @@ class LY_Common_TheStage extends \ALT\Models\Card
             'faction'  => FACTION_LY,
             'rarity'  => RARITY_COMMON,
             'name'  => clienttranslate("The Stage"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Day or night, the music of BLISS reinvigorates weary hearts and bodies.'),
             'artist' => "Zero Wen",
