@@ -274,6 +274,11 @@ class ChooseAssignment extends \ALT\Models\Action
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);
     }
+    // The undergrowth
+    if (Globals::getNextCharacterBoostV() > 0 && $player->isInBiome($location, FOREST)) {
+      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoostV()));
+      Globals::setNextCharacterBoostV(0);
+    }
 
     // should we anchor the character?
     if (

@@ -1139,6 +1139,9 @@ class SpecialEffect extends \ALT\Models\Action
           $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
         }
         break;
+      case 'nextCharacterVGainsBoost':
+        Globals::incNextCharacterBoostV(1);
+        break;
       default:
         break;
     }

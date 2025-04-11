@@ -25,6 +25,8 @@ class MU_Common_TheUndergrowth extends \ALT\Models\Card
             'effectDesc' => clienttranslate('{T} : The next Character you play in {V} this turn gains 1 boost.'),
             'costHand' => 2,
             'costReserve' => 2,
+            'effectTap' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterVGainsBoost'])
+
         ];
     }
 }

@@ -117,6 +117,7 @@ trait TurnTrait
     Globals::setRemoveFleetingCharacterStat0Played(false);
     Globals::setRemoveFleetingSongArtistPlayed(false);
     Globals::setPlayedForFree(false);
+    Globals::setNextCharacterBoostV(0);
 
     self::giveExtraTime($player->getId());
 
