@@ -40,6 +40,10 @@ class OD_Rare_OrdisAccountant extends \ALT\Models\Card
                         'conditions' => ['isCardAdded:character:::true'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
+                    'MoveCard' => [
+                        'conditions' => ['isCardAdded:character:::true'],
+                        'output' => FT::GAIN(ME, BOOST, 1, 2),
+                    ],
                 ],
             ],
             'effectReserve' => FT::SEQ_OPTIONAL(

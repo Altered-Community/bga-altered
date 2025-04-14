@@ -41,6 +41,10 @@ class OD_Rare_OrdisCrier extends \ALT\Models\Card
                         'conditions' => ['isCardAdded:character:::true'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
+                    'MoveCard' => [
+                        'conditions' => ['isCardAdded:character:::true'],
+                        'output' => FT::GAIN(ME, BOOST, 1, 2),
+                    ],
                 ],
             ],
             'effectReserve' => FT::SEQ_OPTIONAL(
