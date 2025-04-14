@@ -202,6 +202,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Remove fleeting if next card is an Artist or Song');
       case 'doubleBoosts':
         return clienttranslate('Double the boosts in reserve & storms');
+      case 'counterPerCharacter':
+        return clienttranslate('Gain 1 counter per Character you control');
     }
     return '';
   }
@@ -224,6 +226,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXFleetingChar':
       case 'boostXAnchoredChar':
       case 'boostXBoostedChar':
+      case 'counterPerCharacter':
         return false;
         break;
       default:
@@ -1103,7 +1106,7 @@ class SpecialEffect extends \ALT\Models\Action
             break;
           case 9:
           default:
-            $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT]));
+            $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT], ['sourceId' => $this->getSourceId()]));
             break;
         }
         break;

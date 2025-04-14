@@ -25,18 +25,21 @@ class MU_Common_Requiem extends \ALT\Models\Card
             'effectDesc' => clienttranslate('$<FLEETING>.  Choose one:  • Discard target <FLEETING> Character with Hand Cost {4} or less.  • Discard target Permanent with Hand Cost {4} or less.'),
             'costHand' => 2,
             'costReserve' => 2,
-            'effectPlayed' => FT::XOR(
-                FT::ACTION(TARGET, [
-                    'targetType' => [CHARACTER, TOKEN],
-                    'maxHandCost' => 4,
-                    'statuses' => [FLEETING],
-                    'effect' => FT::ACTION(DISCARD, []),
-                ]),
-                FT::ACTION(TARGET, [
-                    'targetType' => [PERMANENT],
-                    'maxHandCost' => 4,
-                    'effect' => FT::ACTION(DISCARD, []),
-                ])
+            'effectPlayed' => FT::SEQ(
+                FT::GAIN(ME, FLEETING),
+                FT::XOR(
+                    FT::ACTION(TARGET, [
+                        'targetType' => [CHARACTER, TOKEN],
+                        'maxHandCost' => 4,
+                        'statuses' => [FLEETING],
+                        'effect' => FT::ACTION(DISCARD, []),
+                    ]),
+                    FT::ACTION(TARGET, [
+                        'targetType' => [PERMANENT],
+                        'maxHandCost' => 4,
+                        'effect' => FT::ACTION(DISCARD, []),
+                    ])
+                )
             )
         ];
     }

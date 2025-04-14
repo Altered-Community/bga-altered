@@ -308,6 +308,12 @@ class Discard extends \ALT\Models\Action
         $deletedTokens[] = $cId;
         $m = $card->discardTo('destroy');
         $deletedMeeples = array_merge($deletedMeeples, $m);
+        // X Marks the spot
+        if ($this->getArg('readyIfCostLower')) {
+          if ($this->getArg('position') > $card->getCostHand()) {
+            $this->insertAsChild(FT::ACTION(READY, ['cardId' => MANA], ['sourceId' => $this->getSourceId()]));
+          }
+        }
       }
       // Otherwise move the card
       else {

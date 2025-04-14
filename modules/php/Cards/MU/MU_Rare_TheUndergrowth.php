@@ -29,15 +29,15 @@ class MU_Rare_TheUndergrowth extends \ALT\Models\Card
             'effectPassive' => [
                 'Draw' => [
                     'condition' => 'isOpponentDraw',
-                    'output' => FT::ACTION(READY, ['cardId' => ME])
+                    'output' => FT::ACTION(READY, ['cardId' => ME, 'optionalExhaust' => true])
                 ],
                 'Resupply' => [
                     'conditions' => ['isOpponentDraw', 'realResupply'],
-                    'output' => FT::ACTION(READY, ['cardId' => ME])
+                    'output' => FT::ACTION(READY, ['cardId' => ME, 'optionalExhaust' => true])
                 ],
                 'Morning' => [
                     'condition' => 'isMe',
-                    'output' => FT::ACTION(READY, ['cardId' => ME])
+                    'output' => FT::ACTION(READY, ['cardId' => ME, 'optionalExhaust' => true])
                 ],
             ],
         ];
