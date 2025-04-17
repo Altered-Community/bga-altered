@@ -200,7 +200,7 @@ class Target extends \ALT\Models\Action
       }
 
       // Only card with a boost or a counter can be augmented
-      if ($augmentOnly && $c->countToken(BOOST) == 0 && (is_null($c->getExtraDatas()['counter'] ?? null) || ($c->getExtraDatas()['counter'] ?? 0 == 0))) {
+      if ($augmentOnly && !$c->hasCounters()) {
         return false;
       }
 
