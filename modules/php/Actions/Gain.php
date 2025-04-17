@@ -198,7 +198,20 @@ class Gain extends \ALT\Models\Action
 
     list($resource, $amount) = $this->getGain();
 
+    if ($card->getLocation() == RESERVE && Players::hasBlockOpponentReserveGain($player)) {
+      Notifications::message(clienttranslate('No counter can be gained in Reserve'), []);
+      $this->resolveAction([]);
+      return;
+    }
+
+
     if ($resource == 'augment') {
+      if (in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && Players::hasBlockGainNewCounters()) {
+        Notifications::message(clienttranslate('No new counter can be added to cards'), []);
+        $this->resolveAction([]);
+        return;
+      }
+
       if ($card->countToken(BOOST) > 0) {
         $resource = BOOST;
       } else {
@@ -212,6 +225,12 @@ class Gain extends \ALT\Models\Action
         $this->resolveAction([]);
         return;
       }
+    }
+
+    if ($resource == BOOST && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
+      Notifications::message(clienttranslate('No new boost can be added to cards'), []);
+      $this->resolveAction([]);
+      return;
     }
 
     // check that we are not going to gain more than necessary

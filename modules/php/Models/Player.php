@@ -667,6 +667,26 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function hasBlockOpponentReserveGain()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isBlockOpponentReserveGain()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasBlockGainNewCounters()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isBlockGainNewCounters()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function hasProtectAnchoredInExpedition($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {

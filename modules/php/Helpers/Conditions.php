@@ -566,6 +566,11 @@ abstract class Conditions
     return $card->getLocation() == ($event['to'] ?? '') || ($event['gigantic'] ?? false);
   }
 
+  public static function isNotPlayedInSameLocation($card, $event)
+  {
+    return $card->getLocation() != ($event['to'] ?? '');
+  }
+
   /////////////////////////////////////////////////////////////
   //   ____  _                      _    ____              _
   //  |  _ \| | __ _ _   _  ___  __| |  / ___|__ _ _ __ __| |
@@ -598,7 +603,6 @@ abstract class Conditions
     if (!self::isAddedCardEvent($card, $event)) {
       return false;
     }
-
     $playedCard = Cards::get($event['cardId']);
 
     // TO SEEE
@@ -693,6 +697,58 @@ abstract class Conditions
   {
     return ($event['specialEffect'] ?? '') == $effect;
   }
+
+  public static function isAddedCardOpponentEvent($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
+  {
+    if (!($event['playCard'] ?? false)) {
+      return false;
+    }
+
+    if (self::isMe($card, $event)) {
+      return false;
+    }
+
+    // Distinguish play and put
+    if ($playedOnly && ($event['putAndNotPlayed'] ?? false)) {
+      return false;
+    }
+
+    $playedCard = Cards::get($event['cardId']);
+
+    // Exclude myself
+    if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
+      return false;
+    }
+
+    // Type check
+    if (!self::typeCheck($type, $event['cardType'])) {
+      return false;
+    }
+
+    // Subtype check
+    if (in_array($type, SUBTYPES)) {
+      if (!in_array($type, $playedCard->getSubtypes())) {
+        return false;
+      }
+    }
+
+    // Cost check
+    if (!is_null($cost)) {
+      $costHand = $playedCard->getCostHand();
+      if ($op == 'GTE' && $costHand < $cost) {
+        return false;
+      }
+      if ($op == 'LTE' && $costHand > $cost) {
+        return false;
+      }
+      if ($op == 'E' && $costHand != $cost) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
 
 
   //////////////////////////////////////////////////////////////////////////
@@ -923,6 +979,18 @@ abstract class Conditions
     } elseif ($op == 'E') {
       return $n == $nCards;
     }
+  }
+
+  public static function isOpponentExpeditionEmpty($card, $event)
+  {
+    $opponent = null;
+    foreach (Players::getAll() as $pId => $player) {
+      if ($pId != $card->getPId()) {
+        $opponent = $player;
+      }
+    }
+    $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+    return  $player->countCardsInLocation($oppositeExpedition, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic();
   }
 
   /**********************************

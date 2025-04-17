@@ -157,7 +157,8 @@ class Card extends \ALT\Helpers\DB_Model
     'expeditionSeasoned' => 'bool',
     'increaseAllOtherCharactersBiomesHighest' => 'bool', // Bliss Bassist
     'ignoreReserveLimit' => 'bool', // Lyra Contortionist
-
+    'blockOpponentReserveGain' => 'bool', // Health Inspector
+    'blockGainNewCounters' => 'bool', // Health Inspector Rare
   ];
 
   /********* DB ACCESS *********/
@@ -373,6 +374,16 @@ class Card extends \ALT\Helpers\DB_Model
   public function countToken($token)
   {
     return Meeples::countMeeples('card-' . $this->id, $token);
+  }
+
+  public function hasCounters()
+  {
+    $tokens = Meeples::countMeeples('card-' . $this->id, null);
+    $counters = $this->getExtraDatas()['counter'] ?? 0;
+    if ($tokens > 0 || $counters > 0) {
+      return true;
+    }
+    return false;
   }
 
   public function getOfType($type)

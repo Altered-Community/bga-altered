@@ -201,6 +201,27 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
+  public static function hasBlockOpponentReserveGain($player)
+  {
+    foreach (self::getAll() as $pId => $player2) {
+      if ($pId == $player->getId()) {
+        continue;
+      }
+      return $player2->hasBlockOpponentReserveGain();
+    }
+    return false;
+  }
+
+  public static function hasBlockGainNewCounters()
+  {
+    foreach (self::getAll() as $pId => $player2) {
+      if ($player2->hasBlockGainNewCounters()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function checkVictory()
   {
     $isVictory = false;

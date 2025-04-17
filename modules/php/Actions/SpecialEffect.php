@@ -204,6 +204,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Double the boosts in reserve & storms');
       case 'counterPerCharacter':
         return clienttranslate('Gain 1 counter per Character you control');
+      case 'boostAndRemoveFromExpedition':
+        return clienttranslate('Gain 1 boost per character then remove characters');
     }
     return '';
   }
@@ -281,6 +283,11 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'gainCounter':
         $data = $card->getExtraDatas();
+        if (($data['counter'] ?? 0) > 0 && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
+          Notifications::message(clienttranslate('No new counter can be added to cards'), []);
+          $this->resolveAction([]);
+          return;
+        }
         $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
@@ -290,6 +297,11 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'incCounter':
         $data = $card->getExtraDatas();
+        if (($data['counter'] ?? 0) > 0 && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
+          Notifications::message(clienttranslate('No new counter can be added to cards'), []);
+          $this->resolveAction([]);
+          return;
+        }
         $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
@@ -1144,6 +1156,24 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterVGainsBoost':
         Globals::incNextCharacterBoostV(1);
+        break;
+      case 'boostAndRemoveFromExpedition':
+        $player = $card->getPlayer();
+        $expeditionCards = $player->getPlayedCards()->filter(function ($c) use ($card) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]) && $card->getLocation() == $c->getLocation() && $card->getId() != $c->getId();
+        });
+        if ($expeditionCards->count() > 0) {
+          $nodes = [];
+          foreach ($expeditionCards as $eId => $expCard) {
+            $nodes[] = FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => $eId], ['sourceId' => $card->getId()]);
+          }
+          $this->insertAsChild(
+            FT::SEQ(
+              FT::GAIN($card->getId(), BOOST, $expeditionCards->count()),
+              ['type' => NODE_SEQ, 'childs' => $nodes]
+            )
+          );
+        }
         break;
       default:
         break;
