@@ -266,6 +266,17 @@ abstract class Conditions
     }
   }
 
+  public static function hasLessReserveCards($card, $event)
+  {
+    $count = $card
+      ->getPlayer()
+      ->getReserveCards()
+      ->count();
+    $opponent = Players::getNext($card->getPlayer())->getReserveCards()
+      ->count();
+    return $count < $opponent;
+  }
+
   public static function hasLess8Mana($card, $event)
   {
     return $card->getPlayer()->getTotalMana() < 8;

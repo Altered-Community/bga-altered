@@ -324,6 +324,15 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $reserve;
   }
 
+  public static function getAllReserveSlots()
+  {
+    $reserve = 0;
+    foreach (self::getAll() as $pId => $player) {
+      $reserve += $player->getAlLReserveSlots();
+    }
+    return $reserve;
+  }
+
   public static function getWinningPlayerByStorms()
   {
     $hero = null;

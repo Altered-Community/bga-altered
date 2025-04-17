@@ -159,6 +159,7 @@ class Card extends \ALT\Helpers\DB_Model
     'ignoreReserveLimit' => 'bool', // Lyra Contortionist
     'blockOpponentReserveGain' => 'bool', // Health Inspector
     'blockGainNewCounters' => 'bool', // Health Inspector Rare
+    'allReserveSlots' => 'int', // Simurgh
   ];
 
   /********* DB ACCESS *********/

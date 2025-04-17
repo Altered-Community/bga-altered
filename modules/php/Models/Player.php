@@ -195,6 +195,17 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::getReserveCards($this->id);
   }
 
+  public function getAllReserveSlots()
+  {
+    $reserve = 0;
+    foreach ($this->getReserveCards() as $cId => $c) {
+      if (!$c->isTapped()) {
+        $reserve += $c->getAllReserveSlots();
+      }
+    }
+    return $reserve;
+  }
+
   public function getReserveSlots()
   {
     if (is_null($this->getHero())) {
@@ -209,7 +220,8 @@ class Player extends \ALT\Helpers\DB_Model
         $reserve++;
       }
     }
-    return $reserve;
+    $reserve += Players::getAllReserveSlots();
+    return max(0, $reserve);
   }
 
   public function getLandmarkSlots()
