@@ -32,7 +32,7 @@ class BR_Rare_SwiftJinn extends \ALT\Models\Card
       'scout' => 3,
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetLocation' => [RESERVE],
-        'targetType' => TYPES,
+        'targetType' => [TOKEN, CHARACTER, PERMANENT, SPELL],
         'targetPlayer' => ME,
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, [
