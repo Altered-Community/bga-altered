@@ -45,7 +45,7 @@ class AX_Rare_BLISSDrummer extends \ALT\Models\Card
                     ],
                 ],
             ],
-            'dynamicReduceReserveCost' => 'robot:hasBoost'
+            'dynamicReduceReserveCost' => 'myRobot:hasBoost'
         ];
     }
 }

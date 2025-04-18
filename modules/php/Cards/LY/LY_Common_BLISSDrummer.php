@@ -38,7 +38,7 @@ class LY_Common_BLISSDrummer extends \ALT\Models\Card
                     ],
                 ]
             ],
-            'dynamicReduceReserveCost' => 'character:hasBoost'
+            'dynamicReduceReserveCost' => 'myCharacter:hasBoost'
         ];
     }
 }

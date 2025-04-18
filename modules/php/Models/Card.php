@@ -663,7 +663,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $increaseReserveCost = Players::getIncreaseReserveCost($this->getType());
-    $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes());
+    $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes(), $this->getPId());
     if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
       $minimumCost = max(1, $minimumCost);
     }
@@ -880,7 +880,7 @@ class Card extends \ALT\Helpers\DB_Model
     return 0;
   }
 
-  public function getReduceReserveCost($type, $subtypes)
+  public function getReduceReserveCost($type, $subtypes, $ownerId)
   {
     if (($this->properties['reduceReserveCost'] ?? 0) > 0) {
       return $this->properties['reduceReserveCost'];
@@ -889,19 +889,19 @@ class Card extends \ALT\Helpers\DB_Model
     $dynamicBlocking = $this->getDynamicReduceReserveCost();
     if ($dynamicBlocking != '') {
       $result = Utils::checkAttributeCondition('reduceReserveCost', $dynamicBlocking, $this->getPlayer(), $this);
-      if ($result == 'character') {
-        if ($type == CHARACTER) {
+      if ($result == 'myCharacter') {
+        if ($type == CHARACTER && $ownerId == $this->getPId()) {
           return 1;
         } else {
           return 0;
         }
-      } elseif ($result == 'artist') {
+      } elseif ($result == 'myArtist' && $ownerId == $this->getPId()) {
         if (in_array(ARTIST, $subtypes)) {
           return 1;
         } else {
           return 0;
         }
-      } elseif ($result == 'robot') {
+      } elseif ($result == 'myRobot' && $ownerId == $this->getPId()) {
         if (in_array(ROBOT, $subtypes)) {
           return 1;
         } else {

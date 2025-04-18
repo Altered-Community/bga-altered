@@ -328,7 +328,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
   {
     $reserve = 0;
     foreach (self::getAll() as $pId => $player) {
-      $reserve += $player->getAlLReserveSlots();
+      $reserve += $player->getAllReserveSlots();
     }
     return $reserve;
   }
@@ -391,11 +391,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
-  public static function getReduceReserveCost($type, $subtypes)
+  public static function getReduceReserveCost($type, $subtypes, $ownerId)
   {
     $cost = 0;
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
-      $cost += $card->getReduceReserveCost($type, $subtypes);
+      $cost += $card->getReduceReserveCost($type, $subtypes, $ownerId);
     }
     return $cost;
   }

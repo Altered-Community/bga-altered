@@ -40,7 +40,7 @@ class OD_Common_OrdisCrier extends \ALT\Models\Card
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'MoveCard' => [
-                        'conditions' => ['isCardAdded:character:::true'],
+                        'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                 ],

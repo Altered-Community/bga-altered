@@ -39,7 +39,7 @@ class LY_Rare_BLISSDrummer extends \ALT\Models\Card
                     ],
                 ]
             ],
-            'dynamicReduceReserveCost' => 'artist:hasBoost'
+            'dynamicReduceReserveCost' => 'myArtist:hasBoost'
         ];
     }
 }
