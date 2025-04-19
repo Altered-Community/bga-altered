@@ -206,6 +206,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Gain 1 counter per Character you control');
       case 'boostAndRemoveFromExpedition':
         return clienttranslate('Gain 1 boost per character then remove characters');
+      case 'RunesTestamentLook4':
+        return clienttranslate('Look at the 4 first cards, keep 1 and discard the others');
     }
     return '';
   }
@@ -1187,6 +1189,27 @@ class SpecialEffect extends \ALT\Models\Action
             'targetLocation' => [$expedition],
           ], ['sourceId' => $card->getId()]));
         }
+        break;
+      case 'RunesTestamentLook4':
+        Engine::checkpoint();
+        // draw 4 cards
+        $player = $card->getPlayer();
+        $drawn = $player->draw(4, null, null, $card);
+        // Target only Characters drawn
+        $this->insertAsChild(
+          FT::ACTION(
+            TARGET,
+            [
+              'n' => 1,
+              'targetLocation' => [HAND],
+              'targetType' => [PERMANENT, SPELL, CHARACTER],
+              'targetPlayer' => ME,
+              'cards' => $drawn->getIds(),
+              'discardRemaining' => true,
+            ],
+            ['sourceId' => $card->getId()]
+          )
+        );
         break;
       default:
         break;

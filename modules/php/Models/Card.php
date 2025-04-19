@@ -160,6 +160,7 @@ class Card extends \ALT\Helpers\DB_Model
     'blockOpponentReserveGain' => 'bool', // Health Inspector
     'blockGainNewCounters' => 'bool', // Health Inspector Rare
     'allReserveSlots' => 'int', // Simurgh
+    'actionInsteadAdvance' => 'str', // Rune's testament
   ];
 
   /********* DB ACCESS *********/

@@ -165,8 +165,13 @@ trait TurnTrait
     $this->checkCardListeners('AtDusk', 'stDusk');
   }
 
-  // Move companion and hero
   function stDusk()
+  {
+    $this->initCustomTurnOrder('advancePhase', [Players::getActiveId()],  'stAdvanceDusk', 'stAfterDusk');
+  }
+
+  // Move companion and hero
+  function stAdvanceDusk()
   {
     Notifications::startDusk();
 
@@ -175,7 +180,9 @@ trait TurnTrait
     $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
 
     if (Globals::getTieBreakerMode() == false) {
+      Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'advancePhase']);
       Players::computeStorm(true);
+      Engine::proceed();
     } else {
       // Tie breaker mode
       $winners = [
@@ -227,14 +234,16 @@ trait TurnTrait
       } else {
         Notifications::message(clienttranslate('No winner is found. New tiebreaker round starts'));
       }
+      $this->stAfterDusk();
     }
 
-    Notifications::endDusk();
-    $this->stAfterDusk();
+    // Notifications::endDusk();
+    // $this->stAfterDusk();
   }
 
   function stAfterDusk()
   {
+    Notifications::endDusk();
     if (Players::checkVictory()) {
       return;
     }

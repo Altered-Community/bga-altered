@@ -45,6 +45,7 @@ class Target extends \ALT\Models\Action
     'isTapped' => false,
     'maxStatistic' => 99,
     'augmentOnly' => false,
+    'effect' => null
   ];
 
   public function getDescription()
@@ -346,46 +347,14 @@ class Target extends \ALT\Models\Action
       }
 
       $node = $this->getArg('effect');
-      $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
-      if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
-        $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
+      if (!is_null($node)) {
+        $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
+        if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
+          $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
+        }
+
+        $this->pushParallelChild($node);
       }
-      // if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
-      //   $node['args']['cardId'] = $cardId;
-      //   $node['args']['cardFrom'] = $cardFrom;
-      // }
-      // $node['sourceId'] = $this->getSourceId();
-      // if (isset($node['childs'])) {
-      //   foreach ($node['childs'] as &$child) {
-      //     if (!isset($child['args']['cardId']) || $child['args']['cardId'] != ME) {
-      //       $child['args']['cardId'] = $cardId;
-      //       $child['args']['cardFrom'] = $cardFrom;
-      //     }
-      //     $child['sourceId'] = $this->getSourceId();
-
-      //     if (isset($child['childs'])) {
-      //       foreach ($child['childs'] as &$grandchild) {
-      //         if (!isset($grandchild['args']['cardId'])  || $grandchild['args']['cardId'] != ME) {
-      //           $grandchild['args']['cardId'] = $cardId;
-      //           $grandchild['args']['cardFrom'] = $cardFrom;
-      //         }
-      //         $grandchild['sourceId'] = $this->getSourceId();
-      //       }
-
-      //       if (isset($grandchild['childs'])) {
-      //         foreach ($grandchild['childs'] as &$ggchild) {
-      //           if (!isset($ggchild['args']['cardId'])  || $ggchild['args']['cardId'] != ME) {
-      //             $ggchild['args']['cardId'] = $cardId;
-      //             $ggchild['args']['cardFrom'] = $cardFrom;
-      //           }
-      //           $ggchild['sourceId'] = $this->getSourceId();
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
-
-      $this->pushParallelChild($node);
       $totalCost -= $card->getCostHand();
       $giganticIncrease = false;
       if (
