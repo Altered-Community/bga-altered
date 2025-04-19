@@ -31,7 +31,7 @@ class AX_Rare_StaffClerk extends \ALT\Models\Card
             'changedStats' => ['ocean', 'costHand', 'costReserve'],
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isMe', 'isFromReserve', 'excludeSelf'],
+                    'conditions' => ['isMe', 'isFromReserve', 'excludeSelf', 'isCardAdded'],
                     'output' => FT::ACTION(INVOKE_TOKEN, [
                         'pId' => 'source',
                         'tokenType' => 'OD_Common_OrdisRecruit',

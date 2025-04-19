@@ -30,7 +30,7 @@ class OD_Common_StaffClerk extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isNotMe', 'isFromReserve'],
+                    'conditions' => ['isNotMe', 'isFromReserve', 'isAddedCardOpponentEvent'],
                     'output' => FT::ACTION(INVOKE_TOKEN, [
                         'pId' => 'source',
                         'tokenType' => 'OD_Common_OrdisRecruit',

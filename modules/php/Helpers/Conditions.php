@@ -609,7 +609,7 @@ abstract class Conditions
     return true;
   }
 
-  public static function isCardAdded($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
+  public static function isCardAdded($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
     if (!self::isAddedCardEvent($card, $event)) {
       return false;
@@ -709,7 +709,7 @@ abstract class Conditions
     return ($event['specialEffect'] ?? '') == $effect;
   }
 
-  public static function isAddedCardOpponentEvent($card, $event, $type, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
+  public static function isAddedCardOpponentEvent($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
     if (!($event['playCard'] ?? false)) {
       return false;
