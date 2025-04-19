@@ -16,7 +16,7 @@ class OD_Rare_RunesTestament extends \ALT\Models\Card
             'faction'  => FACTION_OD,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Rune's Testament"),
-            'typeline' => clienttranslate("Expedition_permanent - Gear"),
+            'typeline' => clienttranslate("Expedition Permanent - Gear"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('The first High King of Asgartha urges us to venture forth!'),
             'artist' => "Fahmi Fauzi",
