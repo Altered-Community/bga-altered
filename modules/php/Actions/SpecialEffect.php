@@ -208,6 +208,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Gain 1 boost per character then remove characters');
       case 'RunesTestamentLook4':
         return clienttranslate('Look at the 4 first cards, keep 1 and discard the others');
+      case 'invokeRecruitBehind':
+        return clienttranslate('Invoke 1 Ordis recruit on each tied/behind expedition');
+      case 'invokeBrassbugBehind':
+        return clienttranslate('Invoke 1 Brassbug on each tied/behind expedition');
     }
     return '';
   }
@@ -1210,6 +1214,33 @@ class SpecialEffect extends \ALT\Models\Action
             ['sourceId' => $card->getId()]
           )
         );
+        break;
+      case 'invokeRecruitBehind':
+      case 'invokeBrassbugBehind':
+        $winners = Players::getWinningPlayerByStorms();
+        $nodes = [];
+        $invoke = 'OD_Common_OrdisRecruit';
+        if ($effect == 'invokeBrassbugBehind') {
+          $invoke = 'AX_Common_Brassbug';
+        }
+        foreach (STORMS as $storm) {
+          $win = $winners[$storm] ?? null;
+          if (!is_null($win) && $win != -1 && $win != $card->getPId() && !Globals::isTieBreakerMode()) {
+            $nodes[] = FT::ACTION(
+              INVOKE_TOKEN,
+              [
+                'pId' => $card->getPId(),
+                'tokenType' => $invoke,
+                'targetLocation' => [$storm],
+              ],
+              ['sourceId' => $card->getId()]
+            );
+          }
+        }
+
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       default:
         break;
