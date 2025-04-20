@@ -539,6 +539,9 @@ abstract class Conditions
     if (($event['action'] ?? null) != GAIN) {
       return false;
     }
+    if (is_null($event['gain'] ?? null)) {
+      return false;
+    }
 
     if (Cards::get($event['gain']['cardId'])->getPId() != $card->getPId()) {
       return false;
