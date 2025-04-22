@@ -16,7 +16,7 @@ class YZ_Rare_TheMess extends \ALT\Models\Card
             'faction'  => FACTION_YZ,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("The Mess"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Every evening, the Mess overflows with laughter and shouting as explorers share their daily exploits.'),
             'artist' => "Fahmi Fauzi",

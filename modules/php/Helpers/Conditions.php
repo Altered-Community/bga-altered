@@ -1004,7 +1004,7 @@ abstract class Conditions
       }
     }
     $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
-    return  $player->countCardsInLocation($oppositeExpedition, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic();
+    return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
   }
 
   /**********************************
