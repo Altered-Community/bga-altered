@@ -30,7 +30,7 @@ class BR_Rare_CuddlyCorgi extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPassive' => [
                 'Gain' => [
-                    'conditions' => ['hasPlayerGained:fleeting'],
+                    'conditions' => ['hasGainedFleeting'],
                     'output' => FT::GAIN(ME, BOOST)
                 ],
             ]
