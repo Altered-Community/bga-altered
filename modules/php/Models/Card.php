@@ -380,7 +380,7 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function hasCounters()
   {
-    $tokens = Meeples::countMeeples('card-' . $this->id, null);
+    $tokens = $this->countToken(BOOST);
     $counters = $this->getExtraDatas()['counter'] ?? 0;
     if ($tokens > 0 || $counters > 0) {
       return true;
