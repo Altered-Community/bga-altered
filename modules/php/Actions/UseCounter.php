@@ -28,7 +28,7 @@ class UseCounter extends \ALT\Models\Action
 
     return [
       'log' =>
-        $pay == 0 ? clienttranslate('Use ${consume}{COUNTER}') : clienttranslate('Pay ${mana_cost} and use ${consume}{COUNTER}'),
+      $pay == 0 ? clienttranslate('Use ${consume}{COUNTER}') : clienttranslate('Pay ${mana_cost} and use ${consume}{COUNTER}'),
       'args' => [
         'mana_cost' => $pay,
         'consume' => $consume,

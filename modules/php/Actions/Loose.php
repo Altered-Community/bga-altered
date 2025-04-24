@@ -9,6 +9,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
+use ALT\Helpers\FT;
 
 class Loose extends \ALT\Models\Action
 {
@@ -45,7 +46,7 @@ class Loose extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
-    return true;
+    return $this->getArg('upTo') == false;
   }
 
   public function isIndependent($player = null)
@@ -58,7 +59,7 @@ class Loose extends \ALT\Models\Action
         return false;
       }
     }
-    return true;
+    return $this->getArg('upTo') == false;
   }
 
   public function getPlayer()
@@ -83,6 +84,7 @@ class Loose extends \ALT\Models\Action
 
   protected $args = [
     'n' => 1,
+    'upTo' => false
   ];
 
   public function getLoose()
@@ -104,6 +106,19 @@ class Loose extends \ALT\Models\Action
 
     // Increase resource and notify
     list($resource, $amount) = $this->getLoose();
+
+    // Loose one counter
+    if ($resource == 'counter') {
+      if ($card->countToken(BOOST) > 0) {
+        $resource = BOOST;
+      } else {
+        // we need to remove counter
+        $this->insertAsChild(FT::ACTION(USE_COUNTER, ['cardId' => $card->getId(), 'consume' => $amount], ['sourceId' => $card->getId()]));
+        $this->resolveAction();
+        return;
+      }
+    }
+
     $meeples = $card->getOfType($resource);
 
     foreach ($meeples as $mId => $m) {

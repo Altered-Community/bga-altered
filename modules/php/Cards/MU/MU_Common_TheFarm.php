@@ -31,7 +31,7 @@ class MU_Common_TheFarm extends \ALT\Models\Card
                     'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'counterPerCharacter'])
                 ]
             ],
-            'extraDatas' => ['counter' => 0, 'counterName' => clienttranslate('Foods counter')],
+            'extraDatas' => ['counter' => 4, 'counterName' => clienttranslate('Foods counter')],
             'effectTap' => FT::ACTION(CHECK_CONDITION, [
                 'condition' => 'hasCounterOnCard:2',
                 'effect' => FT::SEQ(
