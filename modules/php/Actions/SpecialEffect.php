@@ -212,6 +212,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Invoke 1 Ordis recruit on each tied/behind expedition');
       case 'invokeBrassbugBehind':
         return clienttranslate('Invoke 1 Brassbug on each tied/behind expedition');
+      case 'counterPerOpponentCharacter':
+        return clienttranslate('1 boost per opponent controlled characters');
     }
     return '';
   }
@@ -235,6 +237,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXAnchoredChar':
       case 'boostXBoostedChar':
       case 'counterPerCharacter':
+      case 'counterPerOpponentCharacter':
         return false;
         break;
       default:
@@ -1148,6 +1151,8 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'counterPerCharacter':
         $player = $card->getPlayer();
+        if ($effect == 'counterPerOpponentCharacter') {
+        }
         $count = $player->getPlayedCards()->filter(function ($c) {
           return in_array($c->getType(), [TOKEN, CHARACTER]);
         })->count();
@@ -1240,6 +1245,19 @@ class SpecialEffect extends \ALT\Models\Action
 
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'counterPerOpponentCharacter':
+        $player = $card->getPlayer();
+        $count = Players::getNext($player)->getPlayedCards()->filter(function ($c) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]);
+        })->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
         }
         break;
       default:
