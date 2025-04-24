@@ -214,6 +214,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Invoke 1 Brassbug on each tied/behind expedition');
       case 'counterPerOpponentCharacter':
         return clienttranslate('1 boost per opponent controlled characters');
+      case 'boostHandCards':
+        return clienttranslate('Gain 1 boost per card in hand');
     }
     return '';
   }
@@ -238,6 +240,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXBoostedChar':
       case 'counterPerCharacter':
       case 'counterPerOpponentCharacter':
+      case 'boostHandCards':
         return false;
         break;
       default:
@@ -1252,6 +1255,17 @@ class SpecialEffect extends \ALT\Models\Action
         $count = Players::getNext($player)->getPlayedCards()->filter(function ($c) {
           return in_array($c->getType(), [TOKEN, CHARACTER]);
         })->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'boostHandCards':
+        $player = $card->getPlayer();
+        $count = $player->getHand()->count();
         if ($count > 0) {
           $this->insertAsChild(FT::ACTION(GAIN, [
             'cardId' => ME,
