@@ -793,10 +793,10 @@ abstract class Conditions
       return false;
     }
 
-    if (!is_null($from) && $from != $event['from']) {
+    if (!is_null($from) && $from != '' && $from != $event['from']) {
       return false;
     }
-    if (!is_null($to) && $to != $event['to']) {
+    if (!is_null($to) && $to != '' && $to != $event['to']) {
       return false;
     }
 
