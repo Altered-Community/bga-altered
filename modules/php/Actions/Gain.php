@@ -140,7 +140,14 @@ class Gain extends \ALT\Models\Action
     if ($this->getArg('augment') === true) {
       return ['augment', 1];
     }
-    return [$this->getArg('type'), $this->getArg('n')];
+    $n = $this->getArg('n');
+    if ($n == 'sourceCounter2') {
+      $source = $this->getSource();
+      if (!is_null($source)) {
+        $n = ($source->getExtraDatas()['counter'] ?? 0) + 2;
+      }
+    }
+    return [$this->getArg('type'), $n];
   }
 
   public function gain($player, $card, $resource, $amount = 1, $source = null, $args = [])

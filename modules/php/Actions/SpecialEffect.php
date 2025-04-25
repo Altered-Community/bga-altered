@@ -300,12 +300,18 @@ class SpecialEffect extends \ALT\Models\Action
           $this->resolveAction([]);
           return;
         }
+
+        if (($data['counter'] ?? 0 + $args['counter'] ?? 0) > $args['maxCounter'] ?? 99) {
+          $args['counter'] = $args['maxCounter'] ?? 99 - $data['counter'] ?? 0;
+        }
+
         $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
-
-        Notifications::gainCounter($this->getSource(), $args['counter']);
-        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        if ($args['counter'] ?? 0 > 0) {
+          Notifications::gainCounter($this->getSource(), $args['counter']);
+          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        }
         break;
       case 'incCounter':
         $data = $card->getExtraDatas();
@@ -314,13 +320,18 @@ class SpecialEffect extends \ALT\Models\Action
           $this->resolveAction([]);
           return;
         }
+        if (($data['counter'] ?? 0 + $args['counter'] ?? 0) > $args['maxCounter'] ?? 99) {
+          $args['counter'] = $args['maxCounter'] ?? 99 - $data['counter'] ?? 0;
+        }
+
         $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
 
-        Notifications::gainCounter($this->getSource(), $args['counter']);
-        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
-
+        if ($args['counter'] ?? 0 > 0) {
+          Notifications::gainCounter($this->getSource(), $args['counter']);
+          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        }
         break;
       case 'activateAllPermanents':
         $cards = $card->getPlayer()->getPermanents();
@@ -1272,6 +1283,18 @@ class SpecialEffect extends \ALT\Models\Action
             'type' => BOOST,
             'n' => $count
           ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'doCounter1':
+        $count = ($card->getExtraDatas()['counter'] ?? 0) + 1;
+        $nodes = [];
+        $effect = $args['effect'];
+        $effect['pId'] = $card->getPlayer()->getId();
+        for ($i = 0; $i < $count; $i++) {
+          $nodes[] = $effect;
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;
       default:
