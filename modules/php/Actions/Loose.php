@@ -113,7 +113,7 @@ class Loose extends \ALT\Models\Action
         $resource = BOOST;
       } else {
         // we need to remove counter
-        $this->insertAsChild(FT::ACTION(USE_COUNTER, ['cardId' => $card->getId(), 'consume' => $amount], ['sourceId' => $card->getId()]));
+        $this->insertAsChild(FT::ACTION(USE_COUNTER, ['cardId' => $card->getId(), 'consume' => $amount, 'upTo' => $this->getArg('upTo')], ['sourceId' => $card->getId()]));
         $this->resolveAction();
         return;
       }

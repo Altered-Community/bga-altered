@@ -29,7 +29,7 @@ class LY_Rare_WinterNova extends \ALT\Models\Card
                 FT::GAIN(ME, FLEETING),
                 [
                     'type' => NODE_OR,
-                    'args' => ['n' => 3, 'canReuse' => 3],
+                    'args' => ['n' => 3, 'canReuse' => true],
                     'pId' => 'source',
                     'childs' => [
                         FT::ACTION(TARGET, [

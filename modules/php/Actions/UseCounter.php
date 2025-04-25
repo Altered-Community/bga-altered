@@ -36,7 +36,7 @@ class UseCounter extends \ALT\Models\Action
     ];
   }
 
-  protected $args = ['pay' => 0, 'consume' => 99];
+  protected $args = ['pay' => 0, 'consume' => 99, 'upTo' => false];
 
   public function isDoable($player)
   {
@@ -58,11 +58,12 @@ class UseCounter extends \ALT\Models\Action
       $player->payMana($cost);
     }
 
-    if (($extraDatas['counter'] ?? 0) < $consume) {
+    if ($this->getArg('upTo') == false && ($extraDatas['counter'] ?? 0) < $consume) {
       throw new \BgaVisibleSystemException('Cannot consume counter. Should not happen');
     }
 
     $extraDatas['counter'] -= $consume;
+    $extraDatas['counter'] = max(0, $extraDatas['counter']);
     $card->setExtraDatas($extraDatas);
 
     Notifications::useCounter($player, $card, $consume, $cost, $this->getSource());
