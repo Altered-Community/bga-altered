@@ -152,6 +152,8 @@ class Target extends \ALT\Models\Action
       foreach ($player->getPlayedCards(CHARACTER) as $cId => $cardSearch) {
         $maxHandCost = max($maxHandCost, $cardSearch->getCostHand());
       }
+    } elseif (!is_int($maxHandCost) && $maxHandCost == 'sourceCounter2') {
+      $maxHandCost = ($this->getSource()->getExtraDatas()['counter'] ?? 0) + 2;
     }
 
     // What cards ?
