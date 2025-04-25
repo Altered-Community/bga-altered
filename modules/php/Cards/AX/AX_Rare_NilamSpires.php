@@ -16,7 +16,7 @@ class AX_Rare_NilamSpires extends \ALT\Models\Card
             'faction'  => FACTION_AX,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Nilam Spires"),
-            'typeline' => clienttranslate("Landmark_permanent - Construction"),
+            'typeline' => clienttranslate("Landmark Permanent - Construction"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('Observing the Tumult requires taking a high-level perspective on it, and mastering it requires knowledge.'),
             'artist' => "Jean-Baptiste Andrier",
