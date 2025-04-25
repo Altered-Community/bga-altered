@@ -161,6 +161,8 @@ class Card extends \ALT\Helpers\DB_Model
     'blockGainNewCounters' => 'bool', // Health Inspector Rare
     'allReserveSlots' => 'int', // Simurgh
     'actionInsteadAdvance' => 'str', // Rune's testament
+    'dynamicReserveSlots' => 'str', // Scholar's Vault
+    'reduceCostType' => 'obj', // // Scholar's Vault - Rare
   ];
 
   /********* DB ACCESS *********/
@@ -669,6 +671,9 @@ class Card extends \ALT\Helpers\DB_Model
       $minimumCost = max(1, $minimumCost);
     }
 
+    // Scholar's Vault
+    $reduceCostType = $this->getPlayer()->getReduceCostType($this);
+    $dynamicReduction = (int) $dynamicReduction + $reduceCostType;
 
     switch ($this->getLocation()) {
       case HAND:
@@ -846,6 +851,22 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     return false;
+  }
+
+  public function getReserveSlots()
+  {
+    if (($this->properties['reserveSlots'] ?? false) !== false) {
+      return $this->properties['reserveSlots'];
+    }
+    $dynamicSlot = $this->getDynamicReserveSlots();
+    if ($dynamicSlot != '') {
+      $result = Utils::checkAttributeCondition('reserveSlots', $dynamicSlot, $this->getPlayer(), $this);
+      if (is_null($result)) {
+        return 0;
+      }
+      return intval($result);
+    }
+    return 0;
   }
 
   public function isOppositeDefender()

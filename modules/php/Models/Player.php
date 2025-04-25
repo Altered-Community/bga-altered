@@ -310,6 +310,24 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function getReduceCostType($playedCard)
+  {
+    $reduction = 0;
+    foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
+      if (!empty($card->getReduceCostType())) {
+        $type = $card->getReduceCostType();
+        if (isset($type[$playedCard->getType()])) {
+          if (isset($type[$playedCard->getType()]['maxHandCost']) && $playedCard->getCostHand() <= $type[$playedCard->getType()]['maxHandCost']) {
+            $reduction += $type[$playedCard->getType()]['reduction'];
+          } elseif (isset($type[$playedCard->getType()]['minHandCost']) && $playedCard->getCostHand() >= $type[$playedCard->getType()]['minHandCost']) {
+            $reduction += $type[$playedCard->getType()]['reduction'];
+          }
+        }
+      }
+    }
+    return $reduction;
+  }
+
   public function getExhaustedReserveSlots()
   {
     $slots = 0;

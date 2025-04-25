@@ -39,7 +39,6 @@ abstract class Conditions
         return false;
       }
     }
-
     return true;
   }
 
@@ -244,12 +243,28 @@ abstract class Conditions
       ->count() > 0;
   }
 
-  public static function hasReserve($card, $event)
+  public static function hasReserve($card, $event, $type = null, $costHand = null, $op = 'GTE')
   {
-    return $card
+    $cards = $card
       ->getPlayer()
-      ->getReserveCards()
-      ->count() > 0;
+      ->getReserveCards();
+
+    if (!is_null($type) && $type != '') {
+      $cards = $cards->filter(function ($c) use ($type) {
+        return $c->getType() == $type;
+      });
+    }
+
+    if (!is_null($costHand) && $costHand != '') {
+      $cards = $cards->filter(function ($c) use ($costHand, $op) {
+        if ($op == 'GTE') {
+          return $c->getCostHand() >= $costHand;
+        } elseif ($op == 'LTE') {
+          return $c->getCostHand() <= $costHand;
+        }
+      });
+    }
+    return $cards->count() > 0;
   }
 
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
