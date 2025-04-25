@@ -27,6 +27,7 @@ class OD_Rare_YzmirMothbreeder extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 4,
+      'costReserve' => 2,
       'scout' => 2,
       'effectHand' > FT::ACTION(INVOKE_TOKEN, [
         'pId' => 'source',
