@@ -29,7 +29,7 @@ class AX_Rare_Merlin extends \ALT\Models\Card
       'costHand' => 6,
       'costReserve' => 3,
       'scout' => 4,
-      FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER, TOKEN, PERMANENT],
         'effect' => FT::ACTION(DISCARD, []),
       ])
