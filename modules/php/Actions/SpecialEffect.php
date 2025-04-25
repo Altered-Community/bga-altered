@@ -320,8 +320,8 @@ class SpecialEffect extends \ALT\Models\Action
           $this->resolveAction([]);
           return;
         }
-        if (($data['counter'] ?? 0 + $args['counter'] ?? 0) > $args['maxCounter'] ?? 99) {
-          $args['counter'] = $args['maxCounter'] ?? 99 - $data['counter'] ?? 0;
+        if (($data['counter'] ?? 0 + $args['counter'] ?? 0) > ($args['maxCounter'] ?? 99)) {
+          $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
         }
 
         $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
