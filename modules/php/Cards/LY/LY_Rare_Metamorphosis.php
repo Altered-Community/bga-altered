@@ -31,12 +31,14 @@ class LY_Rare_Metamorphosis extends \ALT\Models\Card
                 FT::ACTION(TARGET, [
                     'targetType' => [CHARACTER, TOKEN],
                     'maxHandCost' => 5,
-                    'effect' => FT::ACTION(DISCARD, [])
-                ]),
-                FT::ACTION(INVOKE_TOKEN, [
-                    'pId' => 'source',
-                    'tokenType' => 'YZ_Common_ManaMoth',
-                    'targetLocation' => ['source'],
+                    'effect' => FT::SEQ(
+                        FT::ACTION(DISCARD, []),
+                        FT::ACTION(INVOKE_TOKEN, [
+                            'pId' => 'source',
+                            'tokenType' => 'YZ_Common_ManaMoth',
+                            'targetLocation' => ['source'],
+                        ]),
+                    )
                 ]),
             )
         ];
