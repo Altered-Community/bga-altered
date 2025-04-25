@@ -30,7 +30,7 @@ class YZ_Rare_YzmirMothbreeder extends \ALT\Models\Card
       'costReserve' => 1,
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'scout' => 2,
-      'effectHand' > FT::ACTION(INVOKE_TOKEN, [
+      'effectHand' => FT::ACTION(INVOKE_TOKEN, [
         'pId' => 'source',
         'tokenType' => 'YZ_Common_ManaMoth',
         'targetLocation' => STORMS,
