@@ -1201,12 +1201,12 @@ class SpecialEffect extends \ALT\Models\Action
         }
         break;
       case 'invokeXRecruitReserve':
-        $player = $this->getCtxArg('player');
+        $player = $this->getCtxArg('pId');
         $expedition = $this->getCtxArg('expedition');
         $n = Players::get($player)->getReserveCards()->count();
         if ($n > 0) {
           $this->insertAsChild(FT::ACTION(INVOKE_TOKEN, [
-            'pId' => $player,
+            'pId' => $this->getCtxArg('player'),
             'tokenType' => 'OD_Common_OrdisRecruit',
             'n' => $n,
             'targetLocation' => [$expedition],

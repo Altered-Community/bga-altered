@@ -26,7 +26,13 @@ class OD_Rare_Conscription extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'cooldown' => true,
-      'effectPlayed' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'invokeXRecruitReserve'])])
+      'effectPlayed' => FT::ACTION(TARGET_EXPEDITION, [
+        'effect' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => false,
+          'effect' =>
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'invokeXRecruitReserve'])
+        ])
+      ])
     ];
   }
 }

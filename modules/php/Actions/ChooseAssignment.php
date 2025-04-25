@@ -507,6 +507,11 @@ class ChooseAssignment extends \ALT\Models\Action
       // throw new \feException(print_r($effect));
       $this->insertAsChild($effect);
     }
+
+    $this->checkAfterListeners($player, [
+      'cardId' => $card->getId(),
+      'sourceId' => $card->getId(),
+    ], true, 'Exhaust');
   }
 
   ////////////////////////////

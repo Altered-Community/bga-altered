@@ -53,6 +53,11 @@ class Tap extends \ALT\Models\Action
     }
     $card->setTapped(true);
     Notifications::tapEffect($player, $card, $pay);
+    // Check listener
+    $this->checkAfterListeners($player, [
+      'cardId' => $card->getId(),
+      'sourceId' => $this->getSourceId(),
+    ], true, 'Exhaust');
 
     $this->resolveAction();
   }

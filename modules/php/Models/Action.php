@@ -216,14 +216,14 @@ class Action
     return $classname;
   }
 
-  protected function checkListeners($method, $player, $args = [])
+  protected function checkListeners($method, $player, $args = [], $overrideMethod = null)
   {
     $event = array_merge(
       [
         'pId' => $player->getId(),
         'type' => 'action',
-        'action' => $this->getClassName(),
-        'method' => $method,
+        'action' => $overrideMethod ?? $this->getClassName(),
+        'method' => $overrideMethod ?? $method,
       ],
       $args
     );
@@ -234,10 +234,10 @@ class Action
     $this->pushAfterFinishingChilds($reaction);
   }
 
-  public function checkAfterListeners($player, $args = [], $duringActionListener = true)
+  public function checkAfterListeners($player, $args = [], $duringActionListener = true, $overrideMethod = null)
   {
     if ($duringActionListener) {
-      $this->checkListeners($this->getClassName(), $player, $args);
+      $this->checkListeners($this->getClassName(), $player, $args, $overrideMethod);
     }
     // removed, not sure it's consistent in Altered
     // $this->checkListeners('ImmediatelyAfter' . $this->getClassName(), $player, $args);

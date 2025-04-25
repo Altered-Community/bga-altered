@@ -64,15 +64,31 @@ class TargetPlayer extends \ALT\Models\Action
     if ($opponentsOnly == true && $pId == $player->getId()) {
       throw new \BgaVisibleSystemException('You cannot target yourself. Should not happen');
     }
+    $args = $this->getCtxArgs();
 
     $node = $this->getArg('effect');
     $node['sourceId'] = $this->getSourceId();
+    if (isset($args['expedition'])) {
+      $node['args']['expedition'] = $args['expedition'];
+    }
+    if (isset($args['player'])) {
+      $node['args']['player'] = $args['player'];
+    }
+
     if (isset($node['childs'])) {
       foreach ($node['childs'] as &$child) {
         $child['sourceId'] = $this->getSourceId();
+        if (isset($args['expedition'])) {
+          $child['args']['expedition'] = $args['expedition'];
+        }
+        if (isset($args['player'])) {
+          $$child['args']['player'] = $args['player'];
+        }
+        $node['args']['pId'] = $pId;
       }
     }
     $node['pId'] = $pId;
+    $node['args']['pId'] = $pId;
 
     $this->insertAsChild($node);
     Notifications::message(clienttranslate('${player_name} targets ${player_name2} for ${card_name}\'s effect'), [

@@ -27,7 +27,13 @@ class OD_Common_Conscription extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPlayed' => FT::SEQ(
                 FT::GAIN(ME, FLEETING),
-                FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'invokeXRecruitReserve'])])
+                FT::ACTION(TARGET_EXPEDITION, [
+                    'effect' => FT::ACTION(TARGET_PLAYER, [
+                        'opponentsOnly' => false,
+                        'effect' =>
+                        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'invokeXRecruitReserve'])
+                    ])
+                ])
             )
         ];
     }
