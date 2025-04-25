@@ -38,8 +38,17 @@ class ActivateCard extends \ALT\Models\Action
     }
 
     $event = $this->getCtxArg('event');
+    // if (
+    //   $card->isPlayed() || $card->getLocation() == RESERVE || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
+    // ) {
+    //   throw new \feException($card->getId());
+    // }
+
     $flow =
-      $card->isPlayed() || $card->getLocation() == RESERVE || in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? [])
+      $card->isPlayed() ||
+      $card->getLocation() == RESERVE ||
+      in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? []) ||
+      in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['reserveToListen'] ?? []) // cas of infinity effect to listen after discard
       ? Cards::applyEffect(
         $card,
         $player,

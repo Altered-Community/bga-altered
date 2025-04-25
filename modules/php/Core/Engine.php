@@ -106,6 +106,8 @@ class Engine
 
     // Are we done ?
     if ($node == null) {
+      // throw new \feException(print_r(Globals::getEngine()));
+      // throw new \feException(print_r(debug_print_backtrace()));
       $skipped = Globals::getSkippedPlayers();
       // if card was played or action passed, we are done
       if (
@@ -224,7 +226,7 @@ class Engine
       ) {
         // var_dump(debug_print_backtrace());
         // var_dump(Globals::getEngineChoices());
-        // throw new \feException(print_r($choices[$id]));
+        // throw new \feException(print_r($allChoices));
         self::chooseNode($player, $id, true);
         // To see depending on survey + add player option?
         // } elseif (count($choices) == 1 && $id == PASS && (!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED))) {

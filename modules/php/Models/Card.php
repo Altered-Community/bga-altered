@@ -518,7 +518,9 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getReactions($event)
   {
-    if (!in_array($this->id, $event['cardsToListen'] ?? []) && $this->getLocation() == RESERVE) {
+    if ((!in_array($this->id, $event['cardsToListen'] ?? []) && $this->getLocation() == RESERVE) ||
+      in_array($this->id, $event['reserveToListen'] ?? [])
+    ) {
       $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
       if (is_null($passive)) {
         return false;

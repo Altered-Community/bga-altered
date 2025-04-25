@@ -679,6 +679,17 @@ class Cards extends \ALT\Helpers\CachedPieces
       );
     }
 
+    if (isset($event['reserveToListen'])) {
+      $cards = array_merge(
+        $cards,
+        Cards::getMany($event['reserveToListen'], false)
+          ->filter(function ($card) use ($event) {
+            return $card->isListeningTo($event);
+          })
+          ->getIds()
+      );
+    }
+
     return $cards;
   }
 
@@ -702,7 +713,12 @@ class Cards extends \ALT\Helpers\CachedPieces
     }
 
     $childs = [];
+    $backupEvent = $event;
     foreach ($listeningCards as $cardId) {
+      $event = $backupEvent;
+      if (self::get($cardId)->getLocation() == RESERVE) {
+        $event['reserveToListen'][] = $cardId;
+      }
       $childs[] = [
         'action' => ACTIVATE_CARD,
         // 'pId' => $event['pId'],
@@ -822,7 +838,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $node = ['type' => NODE_SEQ, 'optional' => true, 'childs' => []];
 
     list($payment, $output) = $card->getReactions($args);
-
+    // throw new \feException(print_r($output));
     if (is_null($output) || empty($output)) {
       $listened = false;
       return null;
