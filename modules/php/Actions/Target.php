@@ -353,6 +353,8 @@ class Target extends \ALT\Models\Action
         $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
         if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
           $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
+          $discardSource = $cardFrom . '-' . $card->getPId();
+          $node = Utils::updateTree($node, [0 => 'discardedSource'], [$discardSource], ['targetLocation']);
         }
 
         $this->pushParallelChild($node);

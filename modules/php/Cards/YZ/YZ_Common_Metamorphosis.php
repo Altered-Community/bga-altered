@@ -34,7 +34,7 @@ class YZ_Common_Metamorphosis extends \ALT\Models\Card
                         FT::ACTION(INVOKE_TOKEN, [
                             'pId' => 'source',
                             'tokenType' => 'YZ_Common_ManaMoth',
-                            'targetLocation' => ['source'],
+                            'targetLocation' => ['discardedSource'],
                         ])
                     )
                 ])
