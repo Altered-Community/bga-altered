@@ -176,6 +176,7 @@ class Gain extends \ALT\Models\Action
       );
       $args['type'] = $resource;
     }
+    $args['type'] = $resource;
 
     if (in_array($resource, [FLEETING, ASLEEP, ANCHORED]) && $card->hasToken($resource)) {
       if ($card->isCanAlwaysGainFleeting()) {
