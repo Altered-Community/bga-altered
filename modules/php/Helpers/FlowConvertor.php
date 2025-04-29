@@ -2680,18 +2680,20 @@ abstract class FlowConvertor
         $passive['conditions'] = array_merge($passive['conditions'] ?? [], $conditions, $calculated['triggerConditions'] ?? [], $calculated['conditionConditions'] ?? []);
       }
       // }
-      foreach ($properties[$key] as $existingTrigger => &$existingNode) {
-        // Nothing to merge as it doesn't exist
-        if (!isset($calculated['outputPassive'][$existingTrigger])) {
-          continue;
+      if (isset($properties[$key])) {
+        foreach ($properties[$key] as $existingTrigger => &$existingNode) {
+          // Nothing to merge as it doesn't exist
+          if (!isset($calculated['outputPassive'][$existingTrigger])) {
+            continue;
+          }
+          // we already have childs
+          if (isset($existingNode['childs'])) {
+            $existingNode['childs'][] = $calculated['outputPassive'][$existingTrigger];
+          } else {
+            $existingNode = ['childs' => array_merge([$existingNode], [$calculated['outputPassive'][$existingTrigger]])];
+          }
+          unset($calculated['outputPassive'][$existingTrigger]);
         }
-        // we already have childs
-        if (isset($existingNode['childs'])) {
-          $existingNode['childs'][] = $calculated['outputPassive'][$existingTrigger];
-        } else {
-          $existingNode = ['childs' => array_merge([$existingNode], [$calculated['outputPassive'][$existingTrigger]])];
-        }
-        unset($calculated['outputPassive'][$existingTrigger]);
       }
       $properties['effectPassive'] = array_merge($properties['effectPassive'] ?? [], $calculated['outputPassive']);
     }
