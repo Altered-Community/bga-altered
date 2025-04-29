@@ -627,6 +627,11 @@ abstract class Conditions
     return true;
   }
 
+  public static function isExhaustedInLocation($card, $event, $location)
+  {
+    return ($event['cardLocation'] ?? '') == $location;
+  }
+
   public static function isCardAdded($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
     if (!self::isAddedCardEvent($card, $event)) {

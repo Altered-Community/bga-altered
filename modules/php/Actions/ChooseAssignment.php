@@ -510,6 +510,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $this->checkAfterListeners($player, [
       'cardId' => $card->getId(),
+      'cardLocation' => $card->getLocation(),
       'sourceId' => $card->getId(),
     ], true, 'Exhaust');
   }

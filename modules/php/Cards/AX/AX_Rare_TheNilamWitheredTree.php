@@ -27,7 +27,7 @@ class AX_Rare_TheNilamWitheredTree extends \ALT\Models\Card
             'costReserve' => 4,
             'effectPassive' => [
                 'Exhaust' => [
-                    'conditions' => ['notTapped', 'isMe'],
+                    'conditions' => ['notTapped', 'isMe', 'isExhaustedInLocation:reserve'],
                     'output' => FT::SEQ_OPTIONAL(
                         FT::ACTION(TAP, []),
                         FT::ACTION(INVOKE_TOKEN, [

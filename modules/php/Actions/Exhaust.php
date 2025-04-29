@@ -59,6 +59,7 @@ class Exhaust extends \ALT\Models\Action
     // Check listener
     $this->checkAfterListeners($player, [
       'cardId' => $card->getId(),
+      'cardLocation' => $card->getLocation(),
       'sourceId' => $this->getSourceId(),
     ]);
 

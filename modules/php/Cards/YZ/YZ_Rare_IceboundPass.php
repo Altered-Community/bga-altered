@@ -28,7 +28,7 @@ class YZ_Rare_IceboundPass extends \ALT\Models\Card
             'changedStats' => ['costHand', 'costReserve'],
             'effectPassive' => [
                 'Exhaust' => [
-                    'condition' => 'isMe',
+                    'conditions' => ['isMe', 'isExhaustedInLocation:reserve'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Trial counter')],

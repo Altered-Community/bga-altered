@@ -28,7 +28,7 @@ class YZ_Rare_TheNilamWitheredTree extends \ALT\Models\Card
             'changedStats' => ['costHand', 'costReserve'],
             'effectPassive' => [
                 'Exhaust' => [
-                    'conditions' => ['notTapped', 'isMe'],
+                    'conditions' => ['notTapped', 'isMe', 'isExhaustedInLocation:reserve'],
                     'output' => FT::SEQ_OPTIONAL(
                         FT::ACTION(TAP, []),
                         FT::ACTION(INVOKE_TOKEN, [
