@@ -348,9 +348,20 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       // if it's a spell, effect are resolved immediately
-      if ($card->getType() == SPELL && !empty($effects)) {
-        $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
-        $this->pushParallelChilds($effects['childs']);
+      if ($card->getType() == SPELL) {
+
+        if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
+          $effects[] = FT::LOOSE($card->getId(), FLEETING);
+        } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
+          $effects = FT::LOOSE($card->getId(), FLEETING);
+        }
+        if (!empty($effects)) {
+          $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+          $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
+        } else {
+          $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()];
+        }
+        $this->insertAsChild($spellAction);
         $effects = [];
       } else {
         // resolving current node as some things are inserted before and after
@@ -426,15 +437,17 @@ class ChooseAssignment extends \ALT\Models\Action
       }
     }
 
-    if ($card->getType() == SPELL) {
-      if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
-        Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
-      } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
-        Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
-      }
+    // Cleanup resolution at end of spell not end of turn
+    // if ($card->getType() == SPELL) {
+    //   if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
+    //     Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    //   } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
+    //     Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    //   }
 
-      Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
-    } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
+    //   Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
+    // } else
+    if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
     } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterStat0Played() && $baseStat0) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
