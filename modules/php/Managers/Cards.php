@@ -230,7 +230,6 @@ class Cards extends \ALT\Helpers\CachedPieces
     // return self::createDeck($player, $deckContent);
 
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
-    // require_once dirname(__FILE__) . '/../Cards/unique.php';
     require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
 
@@ -270,52 +269,68 @@ class Cards extends \ALT\Helpers\CachedPieces
       }
     } while ($i < $totalCards);
 
-    // for ($u = 0; $u < 15; $u++) {
-    //   // maybe to reenable later
-    //   $cardId = CEG[array_rand(CEG)];
-    //   // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
-    //   // $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-    //   //   'game' => 'alter' . 'ed',
-    //   //   'mode' => 'card',
-    //   //   'token' => $BGAToken,
-    //   //   'cardId' => $cardId
-    //   // ]);
-    //   // throw new \feException(print_r($uniqueCard));
-    //   $ceg = explode('_', $cardId);
-    //   $uniqueCard = [
-    //     'reference' => 'ALT_ALIZE_B_MU_33_U',
-    //     'faction' => 'MU',
-    //     'name' => 'Fake unique for testing',
-    //     'cardType' => 'CHARACTER',
-    //     'illustrator' => 'TOTO',
-    //     'costHand' => 2,
-    //     'costReserve' => 2,
-    //     'forest' => 2,
-    //     'mountain' => 2,
-    //     'ocean' => 2,
-    //     'uniqueReduced' => [
-    //       [
-    //         'effects' => [
-    //           [
-    //             $ceg[0],
-    //             $ceg[1],
-    //             $ceg[2]
-    //           ]
-    //         ]
-    //       ]
-    //     ]
-    //   ];
-    //   $properties = self::generateUnique($uniqueCard);
-    //   if (is_null($properties)) {
-    //     $u--;
-    //     continue;
-    //   }
-    //   $deckContent[] = [
-    //     'card' => ['properties' => $properties],
-    //     'n' => 1,
-    //   ];
-    //   $i++;
-    // }
+    for ($u = 0; $u < 15; $u++) {
+      // maybe to reenable later  
+      // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
+      // $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
+      //   'game' => 'alter' . 'ed',
+      //   'mode' => 'card',
+      //   'token' => $BGAToken,
+      //   'cardId' => $cardId
+      // ]);
+      // throw new \feException(print_r($uniqueCard));
+      $effects = [];
+      for ($b = 0; $b < 2; $b++) {
+        $cardId = CEG[array_rand(CEG)];
+        $ceg = explode('_', $cardId);
+        $found = false;
+        foreach ($ceg as $c) {
+          if (in_array($c, testedCEGS)) {
+            $found = true;
+          }
+          if (in_array($c, [519, 520, 521, 522])) { // Man in the Maze exclusion
+            $found = false;
+          }
+        }
+        if (!$found) {
+          $b--;
+          continue;
+        }
+        $effects[] = [
+          $ceg[0],
+          $ceg[1],
+          $ceg[2]
+        ];
+      }
+
+      $uniqueCard = [
+        'reference' => 'ALT_ALIZE_B_MU_33_U',
+        'faction' => 'MU',
+        'name' => 'Fake unique for testing',
+        'cardType' => 'CHARACTER',
+        'illustrator' => 'TOTO',
+        'costHand' => 2,
+        'costReserve' => 2,
+        'forest' => 2,
+        'mountain' => 2,
+        'ocean' => 2,
+        'uniqueReduced' => [
+          [
+            'effects' => $effects
+          ]
+        ]
+      ];
+      $properties = self::generateUnique($uniqueCard);
+      if (is_null($properties)) {
+        $u--;
+        continue;
+      }
+      $deckContent[] = [
+        'card' => ['properties' => $properties],
+        'n' => 1,
+      ];
+      $i++;
+    }
 
     return self::createDeck($player, $deckContent);
   }
