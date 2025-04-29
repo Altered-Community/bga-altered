@@ -63,6 +63,9 @@ abstract class Conditions
 
   public static function isStillSameLocation($card, $event)
   {
+    if (!isset($event['cardId]'])) {
+      return false;
+    }
     return Cards::get($event['cardId'])->getLocation() == ($event['to'] ?? '');
   }
 

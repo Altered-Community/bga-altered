@@ -37,6 +37,7 @@ class Discard extends \ALT\Models\Action
     'force' => false,  // NO IDEA
     'position' => null,
     'readyIfCostLower' => false, // X Marks the spot
+    'from' => null // Scout management
   ];
 
   public function isOptional($player)
@@ -87,6 +88,11 @@ class Discard extends \ALT\Models\Action
         'i18n' => ['location'],
       ],
     ];
+  }
+
+  public function isDoable($player)
+  {
+    return is_null($this->getArg('from')) || Cards::get($this->getArg('cardId'))->getLocation() == $this->getArg('from');
   }
 
   public function getPlayer()

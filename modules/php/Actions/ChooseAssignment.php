@@ -306,7 +306,7 @@ class ChooseAssignment extends \ALT\Models\Action
       $effects = [];
 
       if ($scout) {
-        $effects[] = FT::ACTION(DISCARD, ['cardId' => $card->getId(), 'destination' => RESERVE]);
+        $effects[] = FT::ACTION(DISCARD, ['cardId' => $card->getId(), 'from' => $location, 'destination' => RESERVE]);
       }
 
       // insert effect flow
