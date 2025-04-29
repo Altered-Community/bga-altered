@@ -23,6 +23,7 @@ class SpecialEffect extends \ALT\Models\Action
   public function getDescription()
   {
     $effect = $this->getArg('effect');
+    $args = $this->getArg('args') ?? [];
 
     switch ($effect) {
       case 'gainCounter':
@@ -187,10 +188,19 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXMana':
         return clienttranslate('1 Boost for each Mana Orb');
       case 'boostedRevealBaseStat':
+        if ($args['bypass'] ?? false) {
+          return clienttranslate('Draw a card and keep Character with a base statistic of 0');
+        }
         return clienttranslate('If boosted, draw a card and keep Character with a base statistic of 0');
       case 'boostedRevealArtistSong':
+        if ($args['bypass'] ?? false) {
+          return clienttranslate('Draw a card and keep Artist or Song');
+        }
         return clienttranslate('If boosted, draw a card and keep Artist or Song');
       case 'boostedRevealRobotPermanent':
+        if ($args['bypass'] ?? false) {
+          return clienttranslate('Draw a card and keep Robot or Permanent');
+        }
         return clienttranslate('If boosted, draw a card and keep Robot or Permanent');
       case 'ManInTheMaze':
       case 'ManInTheMazeRare':
@@ -216,6 +226,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('1 boost per opponent controlled characters');
       case 'boostHandCards':
         return clienttranslate('Gain 1 boost per card in hand');
+      case 'boostReserveCards':
+        return clienttranslate('Gain 1 boost per card in reserve');
     }
     return '';
   }
@@ -986,7 +998,8 @@ class SpecialEffect extends \ALT\Models\Action
         }
         break;
       case 'boostedRevealBaseStat':
-        if ($card->countToken(BOOST) > 0) {
+        $bypass = $args['bypass'] ?? false;
+        if ($card->countToken(BOOST) > 0 || $bypass) {
           Engine::checkpoint();
           $player = $card->getPlayer();
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
@@ -1012,7 +1025,8 @@ class SpecialEffect extends \ALT\Models\Action
         }
         break;
       case 'boostedRevealArtistSong':
-        if ($card->countToken(BOOST) > 0) {
+        $bypass = $args['bypass'] ?? false;
+        if ($card->countToken(BOOST) > 0 || $bypass) {
           Engine::checkpoint();
           $player = $card->getPlayer();
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
@@ -1033,7 +1047,8 @@ class SpecialEffect extends \ALT\Models\Action
         }
         break;
       case 'boostedRevealRobotPermanent':
-        if ($card->countToken(BOOST) > 0) {
+        $bypass = $args['bypass'] ?? false;
+        if ($card->countToken(BOOST) > 0 || $bypass) {
           Engine::checkpoint();
           $player = $card->getPlayer();
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
@@ -1277,6 +1292,17 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostHandCards':
         $player = $card->getPlayer();
         $count = $player->getHand()->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'boostReserveCards':
+        $player = $card->getPlayer();
+        $count = $player->getReserve()->count();
         if ($count > 0) {
           $this->insertAsChild(FT::ACTION(GAIN, [
             'cardId' => ME,

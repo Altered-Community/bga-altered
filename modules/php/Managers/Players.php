@@ -393,11 +393,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
-  public static function getReduceReserveCost($type, $subtypes, $ownerId)
+  public static function getReduceReserveCost($type, $subtypes, $ownerId, $cardId)
   {
     $cost = 0;
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
-      $cost += $card->getReduceReserveCost($type, $subtypes, $ownerId);
+      $cost += $card->getReduceReserveCost($type, $subtypes, $ownerId, $cardId);
     }
     return $cost;
   }

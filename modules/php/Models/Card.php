@@ -668,7 +668,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $increaseReserveCost = Players::getIncreaseReserveCost($this->getType());
-    $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes(), $this->getPId());
+    $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes(), $this->getPId(), $this->id);
     if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
       $minimumCost = max(1, $minimumCost);
     }
@@ -904,12 +904,14 @@ class Card extends \ALT\Helpers\DB_Model
     return 0;
   }
 
-  public function getReduceReserveCost($type, $subtypes, $ownerId)
+  public function getReduceReserveCost($type, $subtypes, $ownerId, $cardId)
   {
     if (($this->properties['reduceReserveCost'] ?? 0) > 0) {
       return $this->properties['reduceReserveCost'];
     }
-
+    if ($cardId == $this->id) {
+      return 0;
+    }
     $dynamicBlocking = $this->getDynamicReduceReserveCost();
     if ($dynamicBlocking != '') {
       $result = Utils::checkAttributeCondition('reduceReserveCost', $dynamicBlocking, $this->getPlayer(), $this);

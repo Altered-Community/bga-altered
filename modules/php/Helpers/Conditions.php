@@ -1106,6 +1106,14 @@ abstract class Conditions
       Cards::get($event['gain']['cardId'])->getPId() == $card->getPId();
   }
 
+  public static function GainFirstBoost($card, $event)
+  {
+    return $event['pId'] == $card->getPId() &&
+      $event['gain']['type'] == BOOST &&
+      Cards::get($event['gain']['cardId'])->getPId() == $card->getPId() &&
+      ($event['initialBoost'] ?? -1) == 0;
+  }
+
   public static function isControlledCharacterGain($card, $event)
   {
     $event['cardId'] = $event['gain']['cardId'];
