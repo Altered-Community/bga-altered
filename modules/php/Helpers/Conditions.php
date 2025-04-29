@@ -61,6 +61,11 @@ abstract class Conditions
     return ($event['to'] ?? null) == RESERVE;
   }
 
+  public static function isStillSameLocation($card, $event)
+  {
+    return Cards::get($event['cardId'])->getLocation() == ($event['to'] ?? '');
+  }
+
   public static function isSource($card, $event)
   {
     return $card->getId() == $event['sourceId'];
