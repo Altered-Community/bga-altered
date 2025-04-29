@@ -26,7 +26,7 @@ class YZ_Common_ScholarsVault extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 2,
             'effectPlayed' => FT::ACTION(RESUPPLY, []),
-            'reduceCostType' => '1:hasReserve:spell'
+            'dynamicReserveSlots' => '1:hasReserve:spell'
         ];
     }
 }
