@@ -290,6 +290,7 @@ class Cards extends \ALT\Helpers\CachedPieces
           }
           if (in_array($c, [519, 520, 521, 522])) { // Man in the Maze exclusion
             $found = false;
+            break;
           }
         }
         if (!$found) {
