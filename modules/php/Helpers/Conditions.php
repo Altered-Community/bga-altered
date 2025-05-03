@@ -63,7 +63,7 @@ abstract class Conditions
 
   public static function isStillSameLocation($card, $event)
   {
-    if (!isset($event['cardId]'])) {
+    if (!isset($event['cardId'])) {
       return false;
     }
     return Cards::get($event['cardId'])->getLocation() == ($event['to'] ?? '');
@@ -187,7 +187,12 @@ abstract class Conditions
   public static function myExpeditionIsBehind($card, $event)
   {
     $winners = Players::getWinningPlayerByStorms();
-    $location = in_array(($event['to'] ?? $card->getLocation()), ['limbo', LANDMARK]) ? $card->getLocation() : ($event['to'] ?? $card->getLocation());
+    if ($card->getId() != ($event['cardId'] ?? -1)) {
+      // passive effect
+      $location = $card->getLocation();
+    } else {
+      $location = in_array(($event['to'] ?? $card->getLocation()), ['limbo', LANDMARK]) ? $card->getLocation() : ($event['to'] ?? $card->getLocation());
+    }
     $win = $winners[$location] ?? null;
     return !is_null($win) && $win != -1 && $win != $card->getPId() && !Globals::isTieBreakerMode();
   }

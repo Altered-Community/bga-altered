@@ -193,7 +193,7 @@ class Gain extends \ALT\Models\Action
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
 
-    $this->checkAfterListeners($player, ['gain' => $args, 'location' => $card->getLocation(), 'initialBoost' => $initialBoost, 'cardType' => $card->getType(), 'sourceId' =>  $sourceId]);
+    $this->checkAfterListeners($player, ['gain' => $args, 'cardId' => $card->getId(), 'location' => $card->getLocation(), 'initialBoost' => $initialBoost, 'cardType' => $card->getType(), 'sourceId' =>  $sourceId]);
   }
 
   public function stGain()

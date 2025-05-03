@@ -72,7 +72,7 @@ abstract class FlowConvertor
       445 => ['description' => clienttranslate('When an opponent plays a Character —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isNotMe', 'isAddedCardOpponentEvent:character']],
       446 => ['description' => clienttranslate('When I leave the Expedition zone, for each of my boosts —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
       526 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
-      447 => ['description' => clienttranslate('When you play another card from Reserve —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isMe', 'isFromReserve']],
+      447 => ['description' => clienttranslate('When you play another card from Reserve —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isMe', 'excludeSelf', 'isFromReserve']],
       448 => ['description' => clienttranslate('When you sacrifice a Character —'),  'trigger' => 'Discard', 'condition' => ['isMe', 'isSacrifice:character']],
       532 => ['description' => clienttranslate('{I} At Noon —'), 'trigger' => 'Noon', 'type' => 'effectInfinity', 'condition' => 'isMe'],
       540 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
@@ -371,7 +371,7 @@ abstract class FlowConvertor
       511 => [
         'description' => clienttranslate('You may have target opponent draw a card. If you do:'),
         'effect' => FT::SEQ_OPTIONAL_MANUAL(
-          FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => true, 'effect' => FT::ACTION(DRAW, ['players' => ME])]),
+          FT::ACTION(DRAW, ['players' => OPPONENT]),
           'OUTPUT'
         )
       ],
@@ -2164,7 +2164,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,
           'n' => 2,
-          'targetLocation' => [RESERVE],
+          'targetLocation' => [RESERVE, STORM_LEFT, STORM_RIGHT],
           'effect' => FT::GAIN(EFFECT, BOOST)
         ])
       ],

@@ -538,8 +538,10 @@ class Card extends \ALT\Helpers\DB_Model
       return [null, null];
     }
 
-    $power = $passive[$event['action'] ?? $event['type']];
-
+    $power = $passive[$event['action'] ?? $event['type']] ?? null;
+    if (is_null($power)) {
+      return [null, null];
+    }
     // we are on a listener with multiple effects
     if (isset($power['childs'])) {
       $parallelOutput = [];
