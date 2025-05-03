@@ -713,6 +713,8 @@ class Notifications
       'card' => $card,
       'value' => $card->getExtraDatas()['counter'],
       'decrease' => $consume,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
     ]);
   }
 
