@@ -353,7 +353,9 @@ class ChooseAssignment extends \ALT\Models\Action
         if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
         } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
-          $effects = FT::LOOSE($card->getId(), FLEETING);
+          $effects[] = FT::LOOSE($card->getId(), FLEETING);
+        } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
+          $effects[] = FT::LOOSE($card->getId(), FLEETING);
         }
         if (!empty($effects)) {
           $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
@@ -451,7 +453,7 @@ class ChooseAssignment extends \ALT\Models\Action
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
     } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterStat0Played() && $baseStat0) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
-    } elseif (in_array($card->getSubtypes(), [ARTIST, SONG]) && Globals::getRemoveFleetingSongArtistPlayed()) {
+    } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
     }
   }

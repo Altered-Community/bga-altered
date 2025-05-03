@@ -49,7 +49,7 @@ class LY_Rare_TheStage extends \ALT\Models\Card
                 'condition' => 'hasCounterOnCard:3',
                 'effect' => FT::SEQ(
                     FT::ACTION(USE_COUNTER, ['consume' => 3]),
-                    FT::ACTION(SPECIAL_EFFECT, ['effect' => 'removeFleetingCharacterSongArtistPlayed'])
+                    FT::ACTION(SPECIAL_EFFECT, ['effect' => 'removeFleetingSongArtistPlayed'])
                 )
             ], ['sourceId' => $this->id]), // VERY Important!!
 
