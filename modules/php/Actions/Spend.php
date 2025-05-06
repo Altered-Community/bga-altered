@@ -80,6 +80,16 @@ class Spend extends \ALT\Models\Action
     ];
   }
 
+  public function isDoable($player)
+  {
+    $card = $this->getCard();
+    $n = $this->getArg('n');
+    if ($card->countToken(BOOST) > 0) {
+      return $card->countToken(BOOST) >= $n;
+    }
+    return true;
+  }
+
   public function stSpend()
   {
     $player = Players::getActive();
