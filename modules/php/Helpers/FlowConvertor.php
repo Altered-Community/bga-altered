@@ -2535,6 +2535,9 @@ abstract class FlowConvertor
           if ($eff['conditions'] == ['isOpponentDraw', 'realResupply']) {
             $eff['conditions'] = ['isMe'];
           }
+          if ($eff['conditions'] == ['isOpponentDraw']) {
+            $eff['conditions'] = ['isMe'];
+          }
         }
       }
     }
