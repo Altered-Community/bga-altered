@@ -784,7 +784,7 @@ class SpecialEffect extends \ALT\Models\Action
         $nodes = [];
 
         foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
-          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(ASLEEP) || $card->getLocation() != $expedition) {
+          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(ASLEEP) || ($card->getLocation() != $expedition && !$card->isGigantic())) {
             continue;
           }
           $nodes[] = FT::GAIN($cId, ASLEEP);
