@@ -123,7 +123,10 @@ class Resupply extends \ALT\Models\Action
               'targetPlayer' => ME,
               'cards' => $drawn->getIds(),
             ],
-            ['sourceId' => $sourceId]
+            [
+              'sourceId' => $sourceId,
+              'pId' => $player->getId()
+            ]
           ),
           FT::ACTION(
             TARGET,
@@ -134,7 +137,10 @@ class Resupply extends \ALT\Models\Action
               'targetPlayer' => ME,
               'cards' => $drawn->getIds(),
             ],
-            ['sourceId' => $sourceId]
+            [
+              'sourceId' => $sourceId,
+              'pId' => $player->getId()
+            ]
           )
         )
       );

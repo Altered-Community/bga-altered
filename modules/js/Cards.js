@@ -2000,6 +2000,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Exhausted Resupply'),
           reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
         },
+        EXHAUSTED_RESUPPLIES: {
+          text: _('Exhausted Resupplies'),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
+        },
         EXHAUSTED_RESUPPLY_LOW: {
           text: _('Exhausted Resupply'),
           reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
