@@ -1319,8 +1319,9 @@ class SpecialEffect extends \ALT\Models\Action
         for ($i = 0; $i < $count; $i++) {
           $nodes[] = $effect;
         }
+        $nodes = Utils::tagTree(['childs' => $nodes], ['sourceId' => $card->getId()]);
         if (!empty($nodes)) {
-          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
         }
         break;
       default:
