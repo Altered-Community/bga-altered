@@ -1324,6 +1324,19 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
         }
         break;
+      case 'doEachBoost':
+        $count = $this->getEvent()['boost'] ?? 0;
+        $nodes = [];
+        $effect = $args['effect'];
+        $effect['pId'] = $card->getPlayer()->getId();
+        for ($i = 0; $i < $count; $i++) {
+          $nodes[] = $effect;
+        }
+        $nodes = Utils::tagTree(['childs' => $nodes], ['sourceId' => $card->getId()]);
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
+        }
+        break;
       default:
         break;
     }

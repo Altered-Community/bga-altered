@@ -2602,6 +2602,9 @@ abstract class FlowConvertor
         'conditions' => ['isDiscarded::discard'],
         'output' => FT::GAIN(ME, BOOST)
       ];
+    } elseif ($trinity['trigger'] == 446) {
+      // We need to add the special effect
+      $node['LeaveExpedition']['output'] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'doEachBoost', 'args' => ['effect' => $node['LeaveExpedition']['output']]]);
     }
 
     // dynamic attributes generate empty node
