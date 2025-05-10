@@ -25,6 +25,17 @@ class LY_Common_SapDuende extends \ALT\Models\Card
             'effectDesc' => clienttranslate('$<FLEETING>.  Target two <BOOSTED_CHA_P> Characters in play or in Reserve and exchange their boosts.  Draw a card.'),
             'costHand' => 2,
             'costReserve' => 2,
+            'effectPlayed' => FT::SEQ(
+                FT::GAIN(ME, FLEETING),
+                FT::ACTION(TARGET, [
+                    'n' => 2,
+                    'statuses' => BOOST,
+                    'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
+                    'allIds' => true,
+                    'effect' => FT::ACTION(BOOST_EXCHANGE, [])
+                ]),
+                FT::ACTION(DRAW, ['players' => ME])
+            )
         ];
     }
 }

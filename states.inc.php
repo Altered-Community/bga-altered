@@ -473,9 +473,19 @@ $machinestates = [
     'type' => 'activeplayer',
     'action' => 'stAtomicAction',
     'description' => clienttranslate('${source}: ${actplayer} spends 1 counter'),
-    'descriptionmyturn' => clienttranslate('${source}: ${you}spends 1 counter'),
+    'descriptionmyturn' => clienttranslate('${source}: ${you} spends 1 counter'),
     'args' => 'argsAtomicAction',
     'possibleactions' => ['actSpend', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
+  ],
+
+  ST_BOOST_EXCHANGE => [
+    'name' => 'boostExchange',
+    'type' => 'activeplayer',
+    'action' => 'stAtomicAction',
+    'description' => clienttranslate('${source}: ${actplayer} exchange boosts on 2 cards'),
+    'descriptionmyturn' => clienttranslate('${source}: ${you} exchange boosts on 2 cards'),
+    'args' => 'argsAtomicAction',
+    'possibleactions' => ['actBoostExchange', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ////////////////////////////////////

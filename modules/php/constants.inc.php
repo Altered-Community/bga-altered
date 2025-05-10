@@ -98,6 +98,7 @@ const ST_READY = 47;
 const ST_EXCHANGE = 48;
 // Bise
 const ST_SPEND = 49;
+const ST_BOOST_EXCHANGE = 50;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -165,6 +166,7 @@ const EXHAUST = 'Exhaust';
 const READY = 'Ready';
 const EXCHANGE = 'Exchange';
 const SPEND = 'Spend';
+const BOOST_EXCHANGE = 'BoostExchange';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

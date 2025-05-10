@@ -45,7 +45,8 @@ class Target extends \ALT\Models\Action
     'isTapped' => false,
     'maxStatistic' => 99,
     'augmentOnly' => false,
-    'effect' => null
+    'effect' => null,
+    'allIds' => false, // we put all the Ids instead of duplicating for each card
   ];
 
   public function getDescription()
@@ -336,98 +337,81 @@ class Target extends \ALT\Models\Action
     list($excludeIncreaseCard, $increaseOther) = $player->hasIncreaseAllOtherCharactersBiomesHighest();
 
     $cards = Cards::getMany($cardIds);
-
-    foreach ($cards as $cardId => $card) {
-      $cardFrom = $card->getLocation();
-
-      // Select untapped card in mana => untap another card if any
-      if ($args['manaOrbs'] && !$card->isTapped()) {
-        $card2 = $player->getManaCards(true)->first();
-        if (!is_null($card2)) {
-          $card2->setTapped(false);
-        }
-      }
-
+    if ($this->getArg('allIds') === true) {
       $node = $this->getArg('effect');
       if (!is_null($node)) {
-        $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
-        if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
-          $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
-          $discardSource = $cardFrom . '-' . $card->getPId();
-          $node = Utils::updateTree($node, [0 => 'discardedSource'], [$discardSource], ['targetLocation']);
-        }
-
+        $node = $this->updateCardId($node, $cardIds, '', $this->getSourceId(), $player->getId());
         $this->pushParallelChild($node);
       }
-      $totalCost -= $card->getCostHand();
-      $giganticIncrease = false;
-      if (
-        $card->getPlayer()->hasIncreaseBiomesHighest($card->getLocation()) ||
-        ($card->isGigantic() && $card->getPlayer()->hasIncreaseBiomesHighest($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT))
-      ) {
-        $giganticIncrease = true;
+    } else {
+      foreach ($cards as $cardId => $card) {
+        $cardFrom = $card->getLocation();
+
+        // Select untapped card in mana => untap another card if any
+        if ($args['manaOrbs'] && !$card->isTapped()) {
+          $card2 = $player->getManaCards(true)->first();
+          if (!is_null($card2)) {
+            $card2->setTapped(false);
+          }
+        }
+
+        $node = $this->getArg('effect');
+        if (!is_null($node)) {
+          $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
+          if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
+            $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
+            $discardSource = $cardFrom . '-' . $card->getPId();
+            $node = Utils::updateTree($node, [0 => 'discardedSource'], [$discardSource], ['targetLocation']);
+          }
+
+          $this->pushParallelChild($node);
+        }
+        $totalCost -= $card->getCostHand();
+        $giganticIncrease = false;
+        if (
+          $card->getPlayer()->hasIncreaseBiomesHighest($card->getLocation()) ||
+          ($card->isGigantic() && $card->getPlayer()->hasIncreaseBiomesHighest($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT))
+        ) {
+          $giganticIncrease = true;
+        }
+
+        $increaseBiome = $giganticIncrease || $increaseOther;
+        if ($excludeIncreaseCard == $cardId) {
+          $increaseBiome = $giganticIncrease;
+        }
+
+        $biomes = $card->getBiomes(true,  $increaseBiome);
+        $totalMountain -= $biomes[MOUNTAIN];
       }
 
-      $increaseBiome = $giganticIncrease || $increaseOther;
-      if ($excludeIncreaseCard == $cardId) {
-        $increaseBiome = $giganticIncrease;
+      if ($totalCost < 0) {
+        throw new \BgaUserException(clienttranslate('Total hand cost exceeds the limit of the effect'));
+      }
+      if ($totalMountain < 0) {
+        throw new \BgaUserException(clienttranslate('Total mountain attribute exceeds the limit of the effect'));
       }
 
-      $biomes = $card->getBiomes(true,  $increaseBiome);
-      $totalMountain -= $biomes[MOUNTAIN];
-    }
+      $cards = Cards::getMany($cardIds);
+      Notifications::targetCards($player, $cards, $additionalCost, $this->getSource());
 
-    if ($totalCost < 0) {
-      throw new \BgaUserException(clienttranslate('Total hand cost exceeds the limit of the effect'));
-    }
-    if ($totalMountain < 0) {
-      throw new \BgaUserException(clienttranslate('Total mountain attribute exceeds the limit of the effect'));
-    }
+      if ($this->getArg('discardRemaining') == true) {
+        foreach (array_diff($this->getArg('cards'), $cardIds) as $cId) {
+          Cards::discard($cId);
+        }
 
-    $cards = Cards::getMany($cardIds);
-    Notifications::targetCards($player, $cards, $additionalCost, $this->getSource());
-
-    if ($this->getArg('discardRemaining') == true) {
-      foreach (array_diff($this->getArg('cards'), $cardIds) as $cId) {
-        Cards::discard($cId);
+        Notifications::publicDiscard(
+          $player,
+          Cards::getMany(array_diff($this->getArg('cards'), $cardIds)),
+          clienttranslate('${player_name} discards ${card_names} as they are not targeted'),
+          [
+            'source' => HAND,
+            'hand' => true,
+            'destination' => DISCARD,
+          ]
+        );
       }
-
-      Notifications::publicDiscard(
-        $player,
-        Cards::getMany(array_diff($this->getArg('cards'), $cardIds)),
-        clienttranslate('${player_name} discards ${card_names} as they are not targeted'),
-        [
-          'source' => HAND,
-          'hand' => true,
-          'destination' => DISCARD,
-        ]
-      );
     }
 
     $this->resolveAction([$cardIds]);
   }
-
-
-  // private function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId)
-  // {
-  //   if (!isset($node['args']['cardId']) || $node['args']['cardId'] != ME) {
-  //     $node['args']['cardId'] = $cardId;
-  //     $node['args']['cardFrom'] = $cardFrom;
-  //     $node['args']['ownerId'] = $ownerId;
-  //   }
-  //   $node['sourceId'] = $this->getSourceId();
-
-  //   if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
-  //     $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId, $ownerId);
-  //   }
-
-  //   if (isset($node['childs'])) {
-  //     $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId) {
-  //       return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId);
-  //     }, $node['childs']);
-  //   }
-
-
-  //   return $node;
-  // }
 }
