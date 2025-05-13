@@ -513,6 +513,21 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
+    if (!empty($passive[$event['action']]['listeningConditions'] ?? [])) {
+      // in some rare cases, check must be done before, (like Icebound taiga)
+      $conditions = $passive[$event['action']]['listeningConditions'];
+      foreach ($conditions as $cond) {
+        $t = explode(':', $cond);
+        $condFct = $t[0];
+        $condArgs = array_slice($t, 1);
+
+        if (Conditions::$condFct($this, $event, ...$condArgs) === false) {
+          // var_dump($card->getName(), $cond, $event);
+          return false;
+        }
+      }
+    }
+
     return true;
   }
 
