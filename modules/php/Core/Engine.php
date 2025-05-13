@@ -301,12 +301,13 @@ class Engine
           if ($child->isResolved()) {
             continue;
           }
-          if ($child->getPId() == $player->getId()) {
+          if ($child->getPId() == $player->getId() || is_null($child->getPId())) {
             $child->resolve([PASS]);
           } else {
             $otherPIds = $child->getPId();
           }
         }
+
         // if there are other player, we switch context to the other player
         if (!is_null($otherPIds)) {
           $nextUnresolved->setInfo('pId', $otherPIds);
