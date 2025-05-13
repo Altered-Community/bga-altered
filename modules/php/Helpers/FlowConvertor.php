@@ -1864,7 +1864,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create an <BRASSBUG> Robot token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
-          'tokenType' => 'AX_Rare_BrassbugHub',
+          'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => ['source'],
         ]),
       ],
