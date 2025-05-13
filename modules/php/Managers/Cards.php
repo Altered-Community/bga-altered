@@ -733,8 +733,13 @@ class Cards extends \ALT\Helpers\CachedPieces
     $backupEvent = $event;
     foreach ($listeningCards as $cardId) {
       $event = $backupEvent;
-      if (self::get($cardId)->getLocation() == RESERVE) {
+      $listenCard = self::get($cardId);
+      if ($listenCard->getLocation() == RESERVE) {
         $event['reserveToListen'][] = $cardId;
+      }
+      // #147483: "Unique lyra - Timing limbo effect/cleanup
+      if (($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
+        $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
       }
       $childs[] = [
         'action' => ACTIVATE_CARD,

@@ -2605,6 +2605,10 @@ abstract class FlowConvertor
     } elseif ($trinity['trigger'] == 446) {
       // We need to add the special effect
       $node['LeaveExpedition']['output'] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'doEachBoost', 'args' => ['effect' => $node['LeaveExpedition']['output']]]);
+    } elseif ($trinity['trigger'] == 26 && !in_array($trinity['output'], [56, 97])) {
+      // #147483: "Unique lyra - Timing limbo effect/cleanup
+      // We add a flag to force listening except for power I gain 1 boost/2 boost
+      $node['RollDie']['forceListening'] = true;
     }
 
     // dynamic attributes generate empty node
