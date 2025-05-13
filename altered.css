@@ -7467,6 +7467,7 @@ body.focus-board .altered-player-board .player-board-infos {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  z-index: 40;
 }
 .altered-player-board .player-board-mana-wrapper {
   position: absolute;

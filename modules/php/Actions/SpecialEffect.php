@@ -228,6 +228,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Gain 1 boost per card in hand');
       case 'boostReserveCards':
         return clienttranslate('Gain 1 boost per card in reserve');
+      case 'revealTopAndDraw':
+        return clienttranslate('Reveal the top card. If cost = die, draw it');
+      case 'exhaustPlayFree':
+        return clienttranslate('Exhaust Wayfarer and play card for free');
     }
     return '';
   }
@@ -1335,6 +1339,57 @@ class SpecialEffect extends \ALT\Models\Action
         $nodes = Utils::tagTree(['childs' => $nodes], ['sourceId' => $card->getId()]);
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
+        }
+        break;
+      case 'revealTop':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        if (Cards::countInLocation("reveal-$pId") == 0) {
+          $draw = $player->draw(1, null, 'reveal-' . $player->getId(), $this->getSource(), clienttranslate('${player_name} reveals ${card_names} from its deck (${card_name2}\'s effect)'), clienttranslate('${you} reveals ${card_names} from its deck (${card_name2}\'s effect)'));
+        }
+        break;
+      case 'drawTopIfRoll':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        $done = false;
+
+        $selectedRoll = $this->getCtx()->toArray()['event']['selectedRoll'] ?? $this->getCtxArg('roll');
+        $draw = Cards::getInLocation("reveal-$pId");
+        foreach ($draw as $dId => $drawn) {
+          if ($selectedRoll == $drawn->getCostHand()) {
+            $drawn->setLocation('hand-' . $pId);
+            $done = true;
+          }
+        }
+        if ($done) {
+          Notifications::drawCards($player, Cards::getMany($draw->getIds()));
+        }
+        break;
+      case 'exhaustPlayFree':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        $done = false;
+        $nodes = [];
+
+        $selectedRoll = $this->getCtx()->toArray()['event']['selectedRoll'];
+        $draw = Cards::getInLocation("reveal-$pId");
+        foreach ($draw as $dId => $drawn) {
+          if ($selectedRoll == $drawn->getCostHand()) {
+            $nodes[] = FT::ACTION(TAP, ['cardId' => $card->getId()], ['sourceId' => $card->getId()]);
+            $nodes[] = FT::ACTION(
+              PLAY_CARD,
+              [
+                'cardId' => $drawn->getId(),
+                'free' => true,
+                'effectHand' => false,
+              ],
+              ['sourceId' => $card->getId()]
+            );
+            $done = true;
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;
       default:

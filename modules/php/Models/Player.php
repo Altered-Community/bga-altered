@@ -54,7 +54,7 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getDeckCount()
   {
-    return Cards::countInLocation("deck-$this->id");
+    return Cards::countInLocation("deck-$this->id") + Cards::countInLocation("reveal-$this->id");
   }
 
   public function getHero()
@@ -97,7 +97,24 @@ class Player extends \ALT\Helpers\DB_Model
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
     $public = $toLocation == 'hand' ? false : true;
-    $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation);
+    $cards = new Collection();
+
+    // we check if we have a revealed card
+    if ($fromLocation == 'deck-' . $this->id && Cards::countInLocation("reveal-$this->id") > 0) {
+      // we reduce $nb as there is already a card that has been revealed
+      $nb--;
+      $cards = Cards::getInLocation("reveal-$this->id");
+      foreach ($cards as $ccId => $cc) {
+        $cc->setLocation($toLocation);
+      }
+      Notifications::silentKill([], $cards->getIds());
+      $cards = Cards::getMany($cards->getIds());
+    }
+
+    if ($nb > 0) {
+      $cards = Cards::pickForLocation($nb, $fromLocation, $toLocation)->merge($cards);
+    }
+
     if ($tapped == true) {
       foreach ($cards as $cId => $card) {
         if ($toLocation == MANA) {

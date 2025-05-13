@@ -159,10 +159,11 @@ class Actions
     $action = self::get($actionId, $ctx);
     $methodName = 'stPre' . $action->getClassName();
     if (\method_exists($action, $methodName)) {
-      $action->$methodName();
+      $interrupt = $action->$methodName();
       if ($ctx->isIrreversible(Players::get($ctx->getPId()))) {
         Engine::checkpoint();
       }
+      return $interrupt;
     }
   }
 

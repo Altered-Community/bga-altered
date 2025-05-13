@@ -67,7 +67,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           container.classList.contains('player-hand') ||
           container.classList.contains('player-board-discard') ||
           container.classList.contains('player-board-limbo') ||
-          container.classList.contains('mana-modal');
+          container.classList.contains('mana-modal') ||
+          card.location.indexOf('reveal-') >= 0;
         o.classList.toggle('mini-card', !isFull);
 
         return card.id;
@@ -95,6 +96,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     addCard(card, container = null) {
+      let ob = $(`card-${card.id}`);
+      // if it already exist with the id
+      if (ob) {
+        this.destroy(ob);
+      }
+
       if (card.fake) {
         this.place('tplFakeCard', card, container);
         return;
@@ -135,6 +142,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return $(card.location);
       } else if (card.location == 'mana') {
         return $(`mana-cards-${card.pId}`);
+      } else if (card.location == 'reveal-' + card.pId) {
+        return $(card.location);
       }
 
       return $('test-cards');
@@ -606,7 +615,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_publicDrawCards(n) {
-      debug('Notif: public drawing cards', n);
+      debug('Notif: public drawing cards public', n);
       // this.closeChooseCardsModal();
       let counter = 'handCount';
       let nInHand = 0;

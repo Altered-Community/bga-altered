@@ -12,6 +12,7 @@ use ALT\Core\Globals;
 use ALT\Helpers\Log;
 use ALT\Core\Game;
 use ALT\Helpers\FT;
+use ALT\Core\Engine;
 
 class RollDie extends \ALT\Models\Action
 {
@@ -116,7 +117,7 @@ class RollDie extends \ALT\Models\Action
     $rolls = [];
 
     $source = $this->getSource();
-    if ($this->getArg('hasRolled')) {
+    if ($this->getArg('hasRolled') || $this->getCtx()->getFlag() == PRE_ACTION_DONE) {
       return;
     }
 
@@ -129,7 +130,7 @@ class RollDie extends \ALT\Models\Action
     for ($i = 0; $i < $nTotal; $i++) {
       $roll = bga_rand(1, 6);
       if (Game::get()->getBgaEnvironment() == 'studio') {
-        $roll = 6;
+        $roll = 2;
       }
       $rolls[] = $roll;
     }
@@ -147,6 +148,8 @@ class RollDie extends \ALT\Models\Action
     Notifications::roll($player, $rolls, $source);
     Globals::setDiceRolls($newRolls);
     Log::checkpoint(true);
+    $this->checkImmediateListeners($player,  ['rolls' => Globals::getDiceRolls(), 'sourceId' => $source->getId()]);
+    return true;
   }
 
   public function argsRollDie()
@@ -160,6 +163,7 @@ class RollDie extends \ALT\Models\Action
     return [
       'rolls' => array_values(array_unique(Globals::getDiceRolls(), SORT_NUMERIC)),
       'canDiscard' => $canDiscard,
+      'source' => '',
       'cardIds' => Players::getActive()
         ->getReserveCards()
         ->getIds(),
@@ -208,7 +212,7 @@ class RollDie extends \ALT\Models\Action
       $this->insertAsChild($effects[0]);
     }
 
-    $this->checkAfterListeners($player, ['rolls' => Globals::getDiceRolls(), 'sourceId' => $source->getId()]);
+    $this->checkAfterListeners($player, ['rolls' => Globals::getDiceRolls(), 'selectedRoll' => $dieValue, 'sourceId' => $source->getId()]);
 
     Globals::setDiceRolls([]);
     $this->resolveAction([$dieValue]);

@@ -496,7 +496,8 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->merge(self::getInLocation(RESERVE))
       ->merge(self::getInLocation('board-hero-%'))
       ->merge(self::getInLocation('limbo'))
-      ->merge(self::getInLocation('discard'));
+      ->merge(self::getInLocation('discard'))
+      ->merge(self::getInLocation('reveal-%'));
 
     if (!$refresh && $current) {
       $cards = $cards->merge(self::getHand($pId))->merge(self::getFiltered($pId, MANA));

@@ -250,9 +250,14 @@ class Engine
     $actionId = $node->getAction();
     // Do some pre-action code if needed and if we are not undoing to an irreversible node
     if ((!$isUndo || !$node->isIrreversible(Players::get($node->getPId()))) && $node->getFlag() != PRE_ACTION_DONE) {
-      Actions::stPreAction($actionId, $node);
+      $interrupt = Actions::stPreAction($actionId, $node);
       $node->flagStPreAction();
       self::save();
+      if ($interrupt === true) {
+        // throw new \feException("titi");
+        Engine::proceed();
+        return;
+      }
     }
     Game::get()->gamestate->jumpToState($state);
   }

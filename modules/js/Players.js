@@ -127,7 +127,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return `<div class='altered-player-board' id='player-board-${pId}' data-faction='${player.faction}'>
           <div class='player-board-discard' id='board-discard-${player.id}'></div>
           <div class='player-board-deck' id='board-deck-${player.id}'>
-            <div class='deck-counter-holder'>
+            <div class='deck-counter-holder'  id='reveal-${player.id}'>
               <div class='deck-counter' id="counter-${player.id}-deckCount"></div>
             </div>
           </div>
