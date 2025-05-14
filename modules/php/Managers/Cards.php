@@ -689,8 +689,8 @@ class Cards extends \ALT\Helpers\CachedPieces
       $cards = array_merge(
         $cards,
         Cards::getMany($event['cardsToListen'], false)
-          ->filter(function ($card) use ($event) {
-            return $card->isListeningTo($event);
+          ->filter(function ($card) use ($event, $cards) {
+            return !in_array($card->getId(), $cards) && $card->isListeningTo($event);
           })
           ->getIds()
       );
@@ -700,8 +700,8 @@ class Cards extends \ALT\Helpers\CachedPieces
       $cards = array_merge(
         $cards,
         Cards::getMany($event['reserveToListen'], false)
-          ->filter(function ($card) use ($event) {
-            return $card->isListeningTo($event);
+          ->filter(function ($card) use ($event, $cards) {
+            return !in_array($card->getId(), $cards) && $card->isListeningTo($event);
           })
           ->getIds()
       );
@@ -728,7 +728,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     if (empty($listeningCards) && $returnNullIfEmpty) {
       return null;
     }
-
+    // throw new \feException(print_r($listeningCards));
     $childs = [];
     $backupEvent = $event;
     foreach ($listeningCards as $cardId) {
@@ -738,7 +738,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         $event['reserveToListen'][] = $cardId;
       }
       // #147483: "Unique lyra - Timing limbo effect/cleanup
-      if (($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
+      if (isset($event['action']) && ($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
         $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
       }
       $childs[] = [

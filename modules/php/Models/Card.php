@@ -491,7 +491,7 @@ class Card extends \ALT\Helpers\DB_Model
    **/
   public function isListeningTo($event)
   {
-    if ($this->getLocation() == RESERVE && !$this->isTapped()) {
+    if (!in_array($this->id, $event['cardsToListen'] ?? []) && $this->getLocation() == RESERVE && !$this->isTapped()) {
       $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
       if (is_null($passive)) {
         return false;
@@ -513,7 +513,7 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
-    if (!empty($passive[$event['action']]['listeningConditions'] ?? [])) {
+    if (isset($event['action']) && !empty($passive[$event['action']]['listeningConditions'] ?? [])) {
       // in some rare cases, check must be done before, (like Icebound taiga)
       $conditions = $passive[$event['action']]['listeningConditions'];
       foreach ($conditions as $cond) {
@@ -533,8 +533,10 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getReactions($event)
   {
-    if ((!in_array($this->id, $event['cardsToListen'] ?? []) && $this->getLocation() == RESERVE) ||
-      in_array($this->id, $event['reserveToListen'] ?? [])
+    if (
+      !in_array($this->id, $event['cardsToListen'] ?? []) &&
+      ($this->getLocation() == RESERVE ||
+        in_array($this->id, $event['reserveToListen'] ?? []))
     ) {
       $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
       if (is_null($passive)) {

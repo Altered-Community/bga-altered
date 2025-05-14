@@ -43,6 +43,7 @@ class ActivateCard extends \ALT\Models\Action
     // ) {
     //   throw new \feException($card->getId());
     // }
+    // throw new \feException($this->getCtxArg('cardId'));
 
     $flow =
       $card->isPlayed() ||

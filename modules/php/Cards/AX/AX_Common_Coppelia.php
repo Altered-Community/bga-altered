@@ -33,7 +33,9 @@ class AX_Common_Coppelia extends \ALT\Models\Card
 
       'effectPassive' => [
         'Discard' => [
+          // 'listeningConditions' => ['isMyselfDiscarded:hand:reserve'],
           'condition' => 'isMyselfDiscarded:hand:reserve',
+          // 'forceListening' => true,
           'output' => FT::SEQ_OPTIONAL(FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]), FT::GAIN($this, ASLEEP)),
         ],
       ],
