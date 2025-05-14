@@ -1144,4 +1144,19 @@ abstract class Conditions
       $gainedCard->getPId() == $card->getPId() &&
       in_array($gainedCard->getLocation(), STORMS);
   }
+
+  public static function isRollEqualCostHand($card, $event)
+  {
+    $player = $card->getPlayer();
+    $pId = $player->getId();
+
+    $selectedRoll = $event['selectedRoll'] ?? 0;
+    $draw = Cards::getInLocation("reveal-$pId");
+    foreach ($draw as $dId => $drawn) {
+      if ($selectedRoll == $drawn->getCostHand()) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

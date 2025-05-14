@@ -31,7 +31,7 @@ class LY_Rare_TheWayfarer extends \ALT\Models\Card
                     'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'revealTop'])
                 ],
                 'RollDie' => [
-                    'condition' => ['isMe', 'notTapped'],
+                    'condition' => ['isMe', 'notTapped', 'isRollEqualCostHand'],
                     'output' => FT::SEQ_OPTIONAL_MANUAL(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'exhaustPlayFree']))
                 ]
             ]
