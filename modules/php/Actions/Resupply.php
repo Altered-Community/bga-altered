@@ -165,16 +165,20 @@ class Resupply extends \ALT\Models\Action
                   'effect' => 'costReduction',
                   'args' => ['type' => ALL, 'reduction' => 2],
                 ],
-                'sourceId' => $sourceId
+                'sourceId' => $sourceId,
+                'pId' => $player->getId()
               ],
               FT::ACTION(
                 PLAY_CARD,
                 [
                   'cardId' => $card->getId(),
                 ],
-                ['sourceId' => $sourceId]
+                ['sourceId' => $sourceId, 'pId' => $player->getId()]
               )
             );
+          }
+          foreach ($node as &$n) {
+            $n['pId'] = $player->getId();
           }
         }
       }
