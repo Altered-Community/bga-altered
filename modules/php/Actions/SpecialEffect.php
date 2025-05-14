@@ -1362,6 +1362,7 @@ class SpecialEffect extends \ALT\Models\Action
           }
         }
         if ($done) {
+          Notifications::silentKill([], $draw->getIds());
           Notifications::drawCards($player, Cards::getMany($draw->getIds()));
         }
         break;
