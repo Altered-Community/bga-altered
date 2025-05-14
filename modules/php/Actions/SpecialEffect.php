@@ -1357,7 +1357,7 @@ class SpecialEffect extends \ALT\Models\Action
         $draw = Cards::getInLocation("reveal-$pId");
         foreach ($draw as $dId => $drawn) {
           if ($selectedRoll == $drawn->getCostHand()) {
-            $drawn->setLocation('hand-' . $pId);
+            $drawn->setLocation('hand');
             $done = true;
           }
         }
