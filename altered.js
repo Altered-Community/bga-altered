@@ -868,17 +868,19 @@ define([
         $(`btnSelectDeck${selectedDeck.deckNum}`).classList.add('selected');
 
         $(`overlay-deck-details`).innerHTML = '';
-        $(`overlay-deck-details`).insertAdjacentHTML(
-          'beforeend',
-          `<div class='deck-details' data-faction='${deck.faction}'>
-          <div class='faction-banner' data-faction='${deck.faction}'></div>
-          <h3>${FACTION_NAMES[deck.faction]}</h3>
-          <p>
-            ${FACTION_DESC[deck.faction]}
-          </p>
-          <div class='details-footer'></div>
-        </div>`
-        );
+        if (args.demodeck == false) {
+          $(`overlay-deck-details`).insertAdjacentHTML(
+            'beforeend',
+            `<div class='deck-details' data-faction='${deck.faction}'>
+            <div class='faction-banner' data-faction='${deck.faction}'></div>
+            <h3>${FACTION_NAMES[deck.faction]}</h3>
+            <p>
+              ${FACTION_DESC[deck.faction]}
+            </p>
+            <div class='details-footer'></div>
+          </div>`
+          );
+        }
 
         if (deckNum === null || deckNum != selectedDeck.deckNum) {
           if ($('btnCancel') && deckNum === null) $('btnCancel').remove();
@@ -976,7 +978,7 @@ define([
 
       // RandomDeck
       let canUseRandom = true;
-      if (canUseRandom && !$('card-fake-random')) {
+      if (args.demodeck == false && canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
         $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
           'beforeend',

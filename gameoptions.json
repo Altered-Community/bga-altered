@@ -1,17 +1,21 @@
 {
   "150": {
-    "name": "Allow custom decks",
+    "name": "Game mode",
     "default": 0,
     "values": {
       "1": {
-        "name": "Disabled",
+        "name": "Starter deck",
         "tmdisplay": "Beginner mode",
         "description": "Game can be played only with starter decks",
         "firstgameonly": true
       },
       "0": {
-        "name": "Enabled",
+        "name": "Starter & custom decks",
         "description": "Custom & starter decks can be used"
+      },
+      "2": {
+        "name": "Whisper from the maze demo decks",
+        "description": "WFM demo decks"
       }
     }
   },
