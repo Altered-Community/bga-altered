@@ -149,7 +149,7 @@ class Target extends \ALT\Models\Action
     if (!is_int($maxHandCost) && $maxHandCost == 'controlledCharacter') {
       $maxHandCost = $player->getPlayedCards(CHARACTER)->count() + $player->getPlayedCards(TOKEN)->count();
     } elseif (!is_int($maxHandCost) && $maxHandCost == 'maxCharacter') {
-      $maxHandCost = 0;
+      $maxHandCost = -1;
       foreach ($player->getPlayedCards(CHARACTER) as $cId => $cardSearch) {
         $maxHandCost = max($maxHandCost, $cardSearch->getCostHand());
       }
