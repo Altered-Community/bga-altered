@@ -1386,7 +1386,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'YZ_Common_ManaMoth',
-          'targetLocation' => ['source'],
+          'targetLocation' => ['initialSource'],
         ]),
       ],
       414 => [
@@ -1394,7 +1394,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'YZ_Common_ManaMoth',
-          'targetLocation' => ['source'],
+          'targetLocation' => ['initialSource'],
         ]),
       ],
       272 => [
