@@ -868,7 +868,7 @@ define([
         $(`btnSelectDeck${selectedDeck.deckNum}`).classList.add('selected');
 
         $(`overlay-deck-details`).innerHTML = '';
-        if (args.demodeck == false) {
+        if (args.demoDeck == false) {
           $(`overlay-deck-details`).insertAdjacentHTML(
             'beforeend',
             `<div class='deck-details' data-faction='${deck.faction}'>
@@ -978,7 +978,7 @@ define([
 
       // RandomDeck
       let canUseRandom = true;
-      if (args.demodeck == false && canUseRandom && !$('card-fake-random')) {
+      if (args.demoDeck == false && canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
         $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
           'beforeend',

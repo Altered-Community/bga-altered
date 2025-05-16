@@ -68,7 +68,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
-    'beginner' => 'bool',
+    'beginner' => 'int',
   ];
 
   protected static $table = 'global_variables';
@@ -216,7 +216,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setDayPhase(false);
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
     self::setDeckOptions(OPTION_DECKS_STARTER);
-    self::setBeginner($options[OPTION_BEGINNER] ?? true);
+    self::setBeginner($options[OPTION_BEGINNER] ?? 1);
     self::setUndo($options[OPTION_UNDO] ?? 0);
   }
 
