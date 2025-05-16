@@ -172,6 +172,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Send to reserve characters and exhaust them');
       case 'exhaustAllCards':
         return clienttranslate('Exhaust all cards in Reseve');
+      case 'eachPlayerExhaust':
+        return clienttranslate('Each player exhausts a card in reserve');
         // Bise
       case 'boostReserve':
         return clienttranslate('Characters in your Reserve gain 1 boost');
@@ -888,6 +890,25 @@ class SpecialEffect extends \ALT\Models\Action
               'upTo' => true,
               'targetLocation' => [HAND],
               'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(DRAW, ['players' => ME]))
+            ],
+            ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'eachPlayerExhaust':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::ACTION(EXHAUST, [])
             ],
             ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
           );

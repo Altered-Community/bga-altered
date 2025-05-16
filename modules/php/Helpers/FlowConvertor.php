@@ -1521,7 +1521,7 @@ abstract class FlowConvertor
           'args' => ['effect' => 'eachPlayerAsleep'],
         ],
       ],
-      377 => ['description' => clienttranslate('Each player exhausts a card in their Reserve.'), 'output' => ''],
+      377 => ['description' => clienttranslate('Each player exhausts a card in their Reserve.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerExhaust'])],
       283 => ['description' => clienttranslate('Each player may put a card from their Hand in Reserve to draw a card.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalHandReserveDraw'])],
       285 => ['description' => clienttranslate('Exchange target Card in your Reserve with a card from your Hand.'), 'output' => FT::ACTION(EXCHANGE, ['targetType' => [PERMANENT, SPELL, CHARACTER]]),],
       392 => ['description' => clienttranslate('Exchange target Card in your Reserve with a card from your Hand.'), 'output' => FT::ACTION(EXCHANGE, ['targetType' => [PERMANENT, SPELL, CHARACTER]]),],
@@ -2728,7 +2728,6 @@ abstract class FlowConvertor
     // debug
     //$properties['calculated'] = $calculated;
 
-    // throw new \feException(print_r($properties));
     // use calculated to generate the effect in properties
     // if conditionEffect dans condition => noeud SEQ
     // Trigger condition => vrai check condition ! Array
