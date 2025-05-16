@@ -9093,8 +9093,8 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-thumbnail="1"] {
   background-position-x: 50%;
 }
-#altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-faction="2"] {
-  background-position-y: 100%;
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-thumbnail="2"] {
+  background-position-x: 100%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail .deck-name {
   font-size: 22px;
