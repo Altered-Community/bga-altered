@@ -151,7 +151,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       case 'ALIZE':
         return 'tbf';
       case 'BISE':
-        return 'wftm';
+        return 'wfm';
       default:
         return null;
     }

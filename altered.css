@@ -5314,6 +5314,10 @@ html {
   background-image: url("img/icons/tbf.png");
   width: 16px;
 }
+.altered-card .altered-card-wrapper .card-footer .setIcon[data-asset=wfm] {
+  background-image: url("img/icons/wfm.png");
+  width: 16px;
+}
 .altered-card.card-hero .card-name {
   top: 24px;
   font-size: 22px;
