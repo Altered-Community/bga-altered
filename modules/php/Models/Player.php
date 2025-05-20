@@ -434,7 +434,7 @@ class Player extends \ALT\Helpers\DB_Model
 
     // if hero we increase
     $delta = $token == HERO ? $n : $n * -1;
-    $sId = $token == HERO ? max(0, $location + $delta) : min(7, $location + $delta);
+    $sId = $token == HERO ? min(max(0, $location + $delta), 7) : max(0, min(7, $location + $delta));
 
     if ($sId == $location) {
       Notifications::message(clienttranslate('${player_name} expedition cannot move'), ['player' => $this]);

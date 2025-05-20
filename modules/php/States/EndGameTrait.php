@@ -18,7 +18,7 @@ trait EndGameTrait
     // TODO remove in alpha
     if ($this->getBgaEnvironment() == 'studio') {
       // throw new \feException(print_r(debug_print_backtrace()));
-      // throw new \feException('winner');
+      throw new \feException('winner');
     }
 
     // TODO: API call
