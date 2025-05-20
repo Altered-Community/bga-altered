@@ -43,7 +43,7 @@ class LY_Common_SnowballCommando extends \ALT\Models\Card
                                     'targetType' => [CHARACTER, SPELL, PERMANENT],
                                     'targetLocation' => [RESERVE],
                                     'targetPlayer' => OPPONENT,
-                                    'effect' => FT::ACTION(EXHAUST, [])
+                                    'effect' => FT::ACTION(EXHAUST, [], ['pId' => 'nextPlayer'])
                                 ],
                                 ['pId' => 'nextPlayer'],
                             )

@@ -2,7 +2,8 @@
 
 namespace ALT\Core\Engine;
 
-use ALT\Managers\Players;
+use ALT\Managers\Cards;
+use ALT\Core\Globals;
 
 /*
  * OrNode: a class that represent an Node with a choice (parallel)
@@ -68,15 +69,29 @@ class OrNode extends AbstractNode
   {
     $args = $this->getArgs();
 
-    $requiredChoices = ($args && isset($args['n'])) ? $args['n'] : count($this->childs);
+    // $requiredChoices = $this->getN();
     // node is resolved only if the all the choices are done & the child is resolved
-    return parent::isResolved() || ($this->getRemainingChoices() == 0 && $this->childs[$this->infos['choice']]->isResolved());
+    return parent::isResolved() || ($this->getRemainingChoices() <= 0 && $this->childs[$this->infos['choice']]->isResolved());
+  }
+
+  public function getN()
+  {
+    $args = $this->getArgs();
+    if (isset($args['n']) && $args['n'] == 'sourceCounter1') {
+      if (is_null($this->getSourceId())) {
+        return count($this->childs);
+      }
+      $source = Cards::get($this->getSourceId());
+      $args['n'] = ($source->getExtraDatas()['counter'] ?? 0) + 1;
+    }
+    return ($args && isset($args['n'])) ? $args['n'] : count($this->childs);
   }
 
   public function getRemainingChoices()
   {
     $args = $this->getArgs();
-    $requiredChoices = ($args && isset($args['n'])) ? $args['n'] : count($this->childs);
+
+    $requiredChoices =  $this->getN();
     return $requiredChoices - $this->getCountChoices();
   }
 }

@@ -30,6 +30,10 @@ class Notifications
       'name' => 'defenders',
       'method' => ['ALT\Managers\Players', 'getDefenders'],
     ],
+    [
+      'name' => 'reserveSlots',
+      'method' => ['ALT\Managers\Players', 'getReserveSlots']
+    ]
   ];
 
   protected static $cachedValues = [];
@@ -657,12 +661,60 @@ class Notifications
 
   public static function readyEffect($player, $card, $source)
   {
-    self::notifyAll('ready', clienttranslate('${player_name} ready ${card_name} (${card_name2}\'s effect)'), [
-      'player' => $player,
+    if ($card->getLocation() == MANA) {
+      // must not reveal hidden info
+      self::notifyAll('publicReadyMana', clienttranslate('${player_name} ready a mana orb (${card_name2}\'s effect)'), [
+        'player' => $player,
+        // 'card' => $card,
+        'card2' => $source,
+        'mana' => $player->getMana(),
+      ]);
+      self::notify($player, 'privateReadyMana',  clienttranslate('${player_name} ready ${card_name} (mana orb) (${card_name2}\'s effect)'), [
+        'player' => $player,
+        'card' => $card,
+        'card2' => $source,
+        'totalMana' => $player->getTotalMana(),
+        'mana' => $player->getMana(),
+      ]);
+    } else {
+      self::notifyAll('ready', clienttranslate('${player_name} ready ${card_name} (${card_name2}\'s effect)'), [
+        'player' => $player,
+        'card' => $card,
+        'card2' => $source,
+        // 'totalMana' => $player->getTotalMana(),
+        // 'mana' => $player->getMana(),
+      ]);
+    }
+  }
+
+  /////////:********************* BISE ************************//
+  public static function spend($power, $card, $meeples, $silent = true)
+  {
+    $msg = '';
+    if (!$silent) {
+      $msg = clienttranslate('${card_name} spends ${n} ${power}');
+    }
+    self::notifyAll('looseMeeples', $msg, [
       'card' => $card,
-      'card2' => $source,
-      // 'totalMana' => $player->getTotalMana(),
-      // 'mana' => $player->getMana(),
+      'power' => $power,
+      'i18n' => ['power'],
+      'meeples' => $meeples->toArray(),
+      'n' => count($meeples),
+    ]);
+  }
+
+  public static function spendCounter($player, $card, $consume, $source)
+  {
+    $msg = clienttranslate('${player_name} reduce by ${consume} the counter (${card_name}\'s effect)');
+
+    self::notifyAll('useCounter', $msg, [
+      'player' => $player,
+      'consume' => $consume,
+      'card' => $card,
+      'value' => $card->getExtraDatas()['counter'],
+      'decrease' => $consume,
+      'totalMana' => $player->getTotalMana(),
+      'mana' => $player->getMana(),
     ]);
   }
 

@@ -114,7 +114,10 @@ trait TurnTrait
     Globals::setRemoveFleetingIfSpellPlayedHand(false);
     Globals::setRemoveFleetingSpellPlayed(false);
     Globals::setRemoveFleetingCharacterPlayed(false);
+    Globals::setRemoveFleetingCharacterStat0Played(false);
+    Globals::setRemoveFleetingSongArtistPlayed(false);
     Globals::setPlayedForFree(false);
+    Globals::setNextCharacterBoostV(0);
 
     self::giveExtraTime($player->getId());
 
@@ -162,8 +165,13 @@ trait TurnTrait
     $this->checkCardListeners('AtDusk', 'stDusk');
   }
 
-  // Move companion and hero
   function stDusk()
+  {
+    $this->initCustomTurnOrder('advancePhase', [Players::getActiveId()],  'stAdvanceDusk', 'stAfterDusk');
+  }
+
+  // Move companion and hero
+  function stAdvanceDusk()
   {
     Notifications::startDusk();
 
@@ -172,7 +180,9 @@ trait TurnTrait
     $strengths = [STORM_LEFT => [], STORM_RIGHT => []];
 
     if (Globals::getTieBreakerMode() == false) {
+      Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'advancePhase']);
       Players::computeStorm(true);
+      Engine::proceed();
     } else {
       // Tie breaker mode
       $winners = [
@@ -219,23 +229,26 @@ trait TurnTrait
         $player->setScore(1);
         Stats::setWinner($player, 1);
         Stats::setGameWinner(Players::get($victor)->getHero()->getStatData());
+        Stats::setGameLooser(Players::getNext(Players::get($victor))->getHero()->getStatData());
         $this->jumpToOrCall(ST_PRE_END_OF_GAME);
         return;
       } else {
         Notifications::message(clienttranslate('No winner is found. New tiebreaker round starts'));
       }
+      $this->stAfterDusk();
     }
 
-    Notifications::endDusk();
-    $this->stAfterDusk();
+    // Notifications::endDusk();
+    // $this->stAfterDusk();
   }
 
   function stAfterDusk()
   {
+    Notifications::endDusk();
     // if (Players::checkVictory()) {
     //   return;
     // }
-
+    
     $this->checkCardListeners('AfterDusk', 'stBeforeNight');
   }
 

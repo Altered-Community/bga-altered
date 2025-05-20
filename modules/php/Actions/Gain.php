@@ -21,24 +21,55 @@ class Gain extends \ALT\Models\Action
     $player = $this->getPlayer();
     $gain = $this->getGain();
     $desc = Utils::resourcesToStr([$gain[0] => $gain[1]], true);
+    $upTo = $this->getArg('upTo');
 
-    if ($player->getId() == Players::getActiveId()) {
+    if ($this->getArg('augment') == true) {
       return [
-        'log' => clienttranslate('Gain ${resources_desc}'),
-        'args' => [
-          'resources_desc' => $desc,
-        ],
+        'log' => clienttranslate('augment'),
+        'args' => [],
       ];
     }
-    // The reward is for someone else
-    else {
-      return [
-        'log' => clienttranslate('Let ${player_name} gain ${resources_desc}'),
-        'args' => [
-          'player_name' => $player->getName(),
-          'resources_desc' => $desc,
-        ],
-      ];
+
+    if ($upTo == 99) {
+      if ($player->getId() == Players::getActiveId()) {
+        return [
+          'log' => clienttranslate('Gain ${resources_desc}'),
+          'args' => [
+            'resources_desc' => $desc,
+          ],
+        ];
+      }
+      // The reward is for someone else
+      else {
+        return [
+          'log' => clienttranslate('Let ${player_name} gain ${resources_desc}'),
+          'args' => [
+            'player_name' => $player->getName(),
+            'resources_desc' => $desc,
+          ],
+        ];
+      }
+    } else {
+      if ($player->getId() == Players::getActiveId()) {
+        return [
+          'log' => clienttranslate('Gain ${resources_desc}  (up to ${upTo})'),
+          'args' => [
+            'resources_desc' => $desc,
+            'upTo' => $upTo,
+          ],
+        ];
+      }
+      // The reward is for someone else
+      else {
+        return [
+          'log' => clienttranslate('Let ${player_name} gain ${resources_desc} (up to ${upTo})'),
+          'args' => [
+            'player_name' => $player->getName(),
+            'resources_desc' => $desc,
+            'upTo' => $upTo
+          ],
+        ];
+      }
     }
   }
 
@@ -59,7 +90,11 @@ class Gain extends \ALT\Models\Action
   {
     // return false;
     $cards = Cards::getPlayedCards(null);
-    $gain = $this->getArg('type');
+    if ($this->getArg('augment')) {
+      $gain = BOOST;
+    } else {
+      $gain = $this->getArg('type');
+    }
     foreach ($cards as $cId => $card) {
       $block = $card->getBlockAutomaticAction();
       if (isset($block[GAIN]) && isset($block[GAIN][$gain])) {
@@ -82,6 +117,9 @@ class Gain extends \ALT\Models\Action
       $cardId = $this->ctx->getSourceId() ?? null;
     } elseif ($cardId == EFFECT) {
       $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
+      if (is_null($cardId)) {
+        $cardId = $this->getCtx()->toArray()['event']['gain']['cardId'] ?? null;
+      }
     }
 
     if (is_null($cardId)) {
@@ -92,11 +130,24 @@ class Gain extends \ALT\Models\Action
 
   protected $args = [
     'n' => 1,
+    'augment' => false,
+    'type' => '',
+    'upTo' => 99
   ];
 
   public function getGain()
   {
-    return [$this->getArg('type'), $this->getArg('n')];
+    if ($this->getArg('augment') === true) {
+      return ['augment', 1];
+    }
+    $n = $this->getArg('n');
+    if ($n == 'sourceCounter2') {
+      $source = $this->getSource();
+      if (!is_null($source)) {
+        $n = ($source->getExtraDatas()['counter'] ?? 0) + 2;
+      }
+    }
+    return [$this->getArg('type'), $n];
   }
 
   public function gain($player, $card, $resource, $amount = 1, $source = null, $args = [])
@@ -125,6 +176,7 @@ class Gain extends \ALT\Models\Action
       );
       $args['type'] = $resource;
     }
+    $args['type'] = $resource;
 
     if (in_array($resource, [FLEETING, ASLEEP, ANCHORED]) && $card->hasToken($resource)) {
       if ($card->isCanAlwaysGainFleeting()) {
@@ -133,11 +185,15 @@ class Gain extends \ALT\Models\Action
       // a card cannot have more than one fleeting/anchored token
       return;
     }
+    $initialBoost = 0;
+    if ($resource == BOOST) {
+      $initialBoost = $card->countToken(BOOST);
+    }
 
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
 
-    $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' =>  $sourceId]);
+    $this->checkAfterListeners($player, ['gain' => $args, 'cardId' => $card->getId(), 'location' => $card->getLocation(), 'initialBoost' => $initialBoost, 'cardType' => $card->getType(), 'sourceId' =>  $sourceId]);
   }
 
   public function stGain()
@@ -150,8 +206,54 @@ class Gain extends \ALT\Models\Action
     }
     $card = $this->getCard();
     $args = $this->getCtxArgs();
+    $upTo = $this->getArg('upTo');
 
     list($resource, $amount) = $this->getGain();
+
+    if ($card->getLocation() == RESERVE && Players::hasBlockOpponentReserveGain($player)) {
+      Notifications::message(clienttranslate('No counter can be gained in Reserve'), []);
+      $this->resolveAction([]);
+      return;
+    }
+
+
+    if ($resource == 'augment') {
+      if (in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && Players::hasBlockGainNewCounters()) {
+        Notifications::message(clienttranslate('No new counter can be added to cards'), []);
+        $this->resolveAction([]);
+        return;
+      }
+
+      if ($card->countToken(BOOST) > 0) {
+        $resource = BOOST;
+      } else {
+        // we need to increase the counter
+        $data = $card->getExtraDatas();
+        $data['counter'] = $data['counter'] + 1;
+        $card->setExtraDatas($data);
+
+        Notifications::gainCounter($card, 1);
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        $this->resolveAction([]);
+        return;
+      }
+    }
+
+    if ($resource == BOOST && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
+      Notifications::message(clienttranslate('No new boost can be added to cards'), []);
+      $this->resolveAction([]);
+      return;
+    }
+
+    // check that we are not going to gain more than necessary
+    $owned = $card->countToken($resource);
+    if ($owned >= $upTo) {
+      $this->resolveAction([]);
+      return;
+    } elseif (($owned + $amount) > $upTo) {
+      $amount = $upTo - $owned;
+    }
+
 
     $this->gain($player, $card, $resource, $amount, $source, $args);
     $this->resolveAction();

@@ -34,7 +34,8 @@ class OD_Common_IceboundLake extends \ALT\Models\Card
                     ]),
                 ],
                 'SpecialEffect' => [
-                    'conditions' => ['specialEffect:gainCounter', 'hasCounterOnCard:3'],
+                    'listeningConditions' => ['hasCounterOnCard:3'],
+                    'conditions' => ['specialEffect:gainCounter'],
                     'output' => FT::SEQ(
                         FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
                         FT::ACTION(INVOKE_TOKEN, [

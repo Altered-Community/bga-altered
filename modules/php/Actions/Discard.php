@@ -35,6 +35,9 @@ class Discard extends \ALT\Models\Action
 
     'canPass' => false, // Is this optional ?
     'force' => false,  // NO IDEA
+    'position' => null,
+    'readyIfCostLower' => false, // X Marks the spot
+    'from' => null // Scout management
   ];
 
   public function isOptional($player)
@@ -85,6 +88,11 @@ class Discard extends \ALT\Models\Action
         'i18n' => ['location'],
       ],
     ];
+  }
+
+  public function isDoable($player)
+  {
+    return is_null($this->getArg('from')) || Cards::get($this->getArg('cardId'))->getLocation() == $this->getArg('from');
   }
 
   public function getPlayer()
@@ -306,6 +314,12 @@ class Discard extends \ALT\Models\Action
         $deletedTokens[] = $cId;
         $m = $card->discardTo('destroy');
         $deletedMeeples = array_merge($deletedMeeples, $m);
+        // X Marks the spot
+        if ($this->getArg('readyIfCostLower')) {
+          if ($this->getArg('position') > $card->getCostHand()) {
+            $this->insertAsChild(FT::ACTION(READY, ['cardId' => MANA], ['sourceId' => $this->getSourceId()]));
+          }
+        }
       }
       // Otherwise move the card
       else {
@@ -313,6 +327,15 @@ class Discard extends \ALT\Models\Action
         $deletedMeeples = array_merge($deletedMeeples, $m);
         if ($destination == TOP_OF_DECK) {
           Cards::insertOnTop($cId, 'deck-' . $card->getPlayer()->getId());
+          if (!is_null($this->getArg('position'))) {
+            Cards::moveAtPosition($cId, 'deck-' . $card->getPlayer()->getId(), $this->getArg('position'));
+            // X Marks the spot
+            if ($this->getArg('readyIfCostLower')) {
+              if ($this->getArg('position') > $card->getCostHand()) {
+                $this->insertAsChild(FT::ACTION(READY, ['cardId' => MANA], ['sourceId' => $this->getSourceId()]));
+              }
+            }
+          }
         }
 
         // Do we need to tap the card ? (LY_Rare_MightyJinn)

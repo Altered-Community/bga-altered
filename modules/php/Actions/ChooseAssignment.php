@@ -60,6 +60,21 @@ class ChooseAssignment extends \ALT\Models\Action
         ->map(function ($card) use ($player) {
           return $card->getPlayableLocation($player);
         });
+
+      // Scout is only for hand cards
+      $scouts =  $handCards
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
+          return $card->getScout() > 0 && in_array($card->getType(), $authorizedTypes) &&
+            ((!$free && $card->canBePlayed($player, true)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
+        })
+        ->map(function ($card) use ($player) {
+          return $card->getScoutableLocations($player);
+        });
+      foreach ($scouts as $key => $locs) {
+        $actions['play'][$key] = array_merge($actions['play'][$key] ?? [], $locs);
+      }
+      // $actions['play'] = $actions['play']; //->merge($scouts);
+      $actions['toto'] = $scouts;
     }
 
     // 2. Support
@@ -125,6 +140,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
   public function actPlay($cardId, $location)
   {
+    $scout = false;
     $args = $this->argsChooseAssignment()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
@@ -133,14 +149,19 @@ class ChooseAssignment extends \ALT\Models\Action
     if (!in_array($location, $locations)) {
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
+    $locExploded = explode('_', $location);
+    if ($locExploded[1] ?? '' == 'scout') {
+      $scout = true;
+    }
 
-    $this->playCard($cardId, $location, $this->getArg('free'));
+    $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
+    $location = explode('_', $location)[0];
 
     if ($card->getPId() != $player->getId()) {
       throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
@@ -148,7 +169,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     if ($free == false) {
       // Calculate cost
-      $cost = $card->getCost();
+      $cost = $card->getCost($scout);
       $costReduction = Globals::getCostReduction();
       if (isset($costReduction[$player->getId()][$card->getType()])) {
         unset($costReduction[$player->getId()][$card->getType()]);
@@ -253,6 +274,11 @@ class ChooseAssignment extends \ALT\Models\Action
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);
     }
+    // The undergrowth
+    if (Globals::getNextCharacterBoostV() > 0 && $player->isInBiome($location, FOREST)) {
+      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoostV()));
+      Globals::setNextCharacterBoostV(0);
+    }
 
     // should we anchor the character?
     if (
@@ -278,6 +304,11 @@ class ChooseAssignment extends \ALT\Models\Action
       $card->getType() != CHARACTER
     ) {
       $effects = [];
+
+      if ($scout) {
+        $effects[] = FT::ACTION(DISCARD, ['cardId' => $card->getId(), 'from' => $location, 'destination' => RESERVE]);
+      }
+
       // insert effect flow
       $effect = $card->getEffectPlayed();
       if (!empty($effect)) {
@@ -317,9 +348,22 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       // if it's a spell, effect are resolved immediately
-      if ($card->getType() == SPELL && !empty($effects)) {
-        $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
-        $this->pushParallelChilds($effects['childs']);
+      if ($card->getType() == SPELL) {
+
+        if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
+          $effects[] = FT::LOOSE($card->getId(), FLEETING);
+        } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
+          $effects[] = FT::LOOSE($card->getId(), FLEETING);
+        } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
+          $effects[] = FT::LOOSE($card->getId(), FLEETING);
+        }
+        if (!empty($effects)) {
+          $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+          $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
+        } else {
+          $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()];
+        }
+        $this->insertAsChild($spellAction);
         $effects = [];
       } else {
         // resolving current node as some things are inserted before and after
@@ -388,16 +432,28 @@ class ChooseAssignment extends \ALT\Models\Action
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
     Globals::setAdditionalEffect([]);
     self::statPlay($cardId);
-
-    if ($card->getType() == SPELL) {
-      if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
-        Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
-      } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
-        Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    $baseStat0 = false;
+    foreach ($card->getBiomes() as $biome => $value) {
+      if ($value == 0) {
+        $baseStat0 = true;
       }
+    }
 
-      Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
-    } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
+    // Cleanup resolution at end of spell not end of turn
+    // if ($card->getType() == SPELL) {
+    //   if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
+    //     Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    //   } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
+    //     Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    //   }
+
+    //   Engine::insertAtRoot(['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
+    // } else
+    if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
+      Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterStat0Played() && $baseStat0) {
+      Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+    } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
     }
   }
@@ -466,6 +522,12 @@ class ChooseAssignment extends \ALT\Models\Action
       // throw new \feException(print_r($effect));
       $this->insertAsChild($effect);
     }
+
+    $this->checkAfterListeners($player, [
+      'cardId' => $card->getId(),
+      'cardLocation' => $card->getLocation(),
+      'sourceId' => $card->getId(),
+    ], true, 'Exhaust');
   }
 
   ////////////////////////////

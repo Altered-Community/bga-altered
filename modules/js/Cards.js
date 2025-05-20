@@ -67,7 +67,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           container.classList.contains('player-hand') ||
           container.classList.contains('player-board-discard') ||
           container.classList.contains('player-board-limbo') ||
-          container.classList.contains('mana-modal');
+          container.classList.contains('mana-modal') ||
+          card.location.indexOf('reveal-') >= 0;
         o.classList.toggle('mini-card', !isFull);
 
         return card.id;
@@ -95,6 +96,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     addCard(card, container = null) {
+      let ob = $(`card-${card.id}`);
+      // if it already exist with the id
+      if (ob) {
+        this.destroy(ob);
+      }
+
       if (card.fake) {
         this.place('tplFakeCard', card, container);
         return;
@@ -135,6 +142,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         return $(card.location);
       } else if (card.location == 'mana') {
         return $(`mana-cards-${card.pId}`);
+      } else if (card.location == 'reveal-' + card.pId) {
+        return $(card.location);
       }
 
       return $('test-cards');
@@ -606,7 +615,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     notif_publicDrawCards(n) {
-      debug('Notif: public drawing cards', n);
+      debug('Notif: public drawing cards public', n);
       // this.closeChooseCardsModal();
       let counter = 'handCount';
       let nInHand = 0;
@@ -1089,6 +1098,17 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       $(`card-${n.args.card.id}`).classList.remove('tapped');
     },
 
+    notif_publicReadyMana(n) {
+      debug('Notif: readying card mana', n);
+      this._playerCounters[n.args.player_id]['mana'].setValue(n.args.mana);
+    },
+
+    notif_privateReadyMana(n) {
+      this.notif_ready(n);
+      this._playerCounters[n.args.player_id]['mana'].setValue(n.args.mana);
+      $(`card-${n.args.card.id}`).classList.remove('tapped');
+    },
+
     notif_untap(n) {
       debug('Notif: untapping card(s)', n);
       n.args.cardIds.forEach((cardId) => {
@@ -1516,6 +1536,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       if (p.rarity == 2) {
         rareExtraDetails += 'Reference : ' + p.uid;
+        isDebug = true;
         if (isDebug == true && p.uEffects) {
           rareExtraDetails +=
             '<br /><br />' + p.uEffects.map((t, i) => `Effect ${i}: &nbsp;&nbsp; ${t.join(' / ')}`).join('<br />');
@@ -1988,6 +2009,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Exhausted Resupply'),
           reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
         },
+        EXHAUSTED_RESUPPLIES: {
+          text: _('Exhausted Resupplies'),
+          reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
+        },
         EXHAUSTED_RESUPPLY_LOW: {
           text: _('Exhausted Resupply'),
           reminder: _('Put the top card of your deck in Reserve, then exhaust it {T}.'),
@@ -2008,6 +2033,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Resupply'),
           reminder: _('Put the top card of your deck in Reserve.'),
         },
+        RESUPPLIES: {
+          text: _('Resupplies'),
+          reminder: _('Put the top card of your deck in Reserve.'),
+        },
         SABOTAGE: {
           text: _('Sabotage'),
           reminder: _('Discard up to one target card from a Reserve.'),
@@ -2016,7 +2045,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Sabotage'),
           reminder: _('Discard up to one target card from a Reserve.'),
         },
+        SABOTAGE_INF: {
+          text: _('Sabotage'),
+          reminder: _('Discard up to one target card from a Reserve.'),
+        },
         SEASONED: {
+          text: _('Seasoned'),
+          reminder: _('I keep my boosts when I go to Reserve.'),
+        },
+        SEASONED_CHA_P: {
           text: _('Seasoned'),
           reminder: _('I keep my boosts when I go to Reserve.'),
         },
@@ -2051,6 +2088,31 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         DRAGON_SHADE: {
           text: _('Dragon Shade 5/5/5'),
+        },
+        // Bise
+        AUGMENT: {
+          text: _('Augment'),
+          reminder: _("If it has counters, it gains 1 more. This can't target Hero cards."),
+        },
+        AUGMENT_IMP: {
+          text: _('Augment'),
+          reminder: _("If it has counters, it gains 1 more. This can't target Hero cards."),
+        },
+        SCOUT_1: {
+          text: _('Scout'),
+          reminder: _('You may play me from hand for 1 with "{h} Send me to Reserve".'),
+        },
+        SCOUT_2: {
+          text: _('Scout'),
+          reminder: _('You may play me from hand for 2 with "{h} Send me to Reserve".'),
+        },
+        SCOUT_3: {
+          text: _('Scout'),
+          reminder: _('You may play me from hand for 3 with "{h} Send me to Reserve".'),
+        },
+        SCOUT_4: {
+          text: _('Scout'),
+          reminder: _('You may play me from hand for 4 with "{h} Send me to Reserve".'),
         },
       };
 

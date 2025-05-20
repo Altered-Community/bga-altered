@@ -76,7 +76,7 @@ class PlayCard extends \ALT\Models\Action
     $card = $this->getCard();
     $cId = $card->getId();
     $player = Players::getActive();
-    if (!$this->getArg('free') && $card->canBePlayed($player)) {
+    if (!$this->getArg('free') && !$card->canBePlayed($player)) {
       throw new \BgaVisibleSystemException('Card cannot be played. Should not happen');
     }
 

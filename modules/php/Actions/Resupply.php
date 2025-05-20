@@ -62,12 +62,18 @@ class Resupply extends \ALT\Models\Action
   protected $args = [
     'n' => 1,
     'exhausted' => false,
+    'character2Less' => false,
+    'characterHand' => false,
+    'ownerId' => null,
+    'player' => null
   ];
 
   public function getPlayer()
   {
     $pId = $this->ctx->getPId();
-    if (is_null($pId)) {
+    if ($this->getArg('player') == 'owner') {
+      $pId = $this->getArg('ownerId');
+    } elseif (is_null($pId)) {
       $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
     } elseif ($pId == 'active') {
       $pId = Players::getActiveId();
@@ -88,6 +94,7 @@ class Resupply extends \ALT\Models\Action
     if (is_null($source) && !is_null($sourceId)) {
       $source = Cards::getSingle($sourceId);
     }
+    $node = [];
 
     // manage of AX_Rare_TheOuroborosLyraBastion
     if ($player->getResupply2()) {
@@ -116,7 +123,10 @@ class Resupply extends \ALT\Models\Action
               'targetPlayer' => ME,
               'cards' => $drawn->getIds(),
             ],
-            ['sourceId' => $sourceId]
+            [
+              'sourceId' => $sourceId,
+              'pId' => $player->getId()
+            ]
           ),
           FT::ACTION(
             TARGET,
@@ -127,11 +137,14 @@ class Resupply extends \ALT\Models\Action
               'targetPlayer' => ME,
               'cards' => $drawn->getIds(),
             ],
-            ['sourceId' => $sourceId]
+            [
+              'sourceId' => $sourceId,
+              'pId' => $player->getId()
+            ]
           )
         )
       );
-      $cards= $drawn;
+      $cards = $drawn;
     } else {
       $cards = $player->draw(
         $n,
@@ -142,17 +155,51 @@ class Resupply extends \ALT\Models\Action
         $exhausted ? clienttranslate('${player_name} places ${card_names} from its deck to Reserve as exhausted(${card_name2}\'s effect)') : clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'),
         $exhausted
       );
+      if ($this->getArg('character2Less')) {
+        foreach ($cards as $cId => $card) {
+          if ($card->getType() == CHARACTER) {
+            $node[] = FT::SEQ_OPTIONAL(
+              [
+                'action' => SPECIAL_EFFECT,
+                'args' => [
+                  'effect' => 'costReduction',
+                  'args' => ['type' => ALL, 'reduction' => 2],
+                ],
+                'sourceId' => $sourceId,
+                'pId' => $player->getId()
+              ],
+              FT::ACTION(
+                PLAY_CARD,
+                [
+                  'cardId' => $card->getId(),
+                ],
+                ['sourceId' => $sourceId, 'pId' => $player->getId()]
+              )
+            );
+          }
+          foreach ($node as &$n) {
+            $n['pId'] = $player->getId();
+          }
+        }
+      }
+      if ($this->getArg('characterHand')) {
+        foreach ($cards as $cId => $card) {
+          if ($card->getType() == CHARACTER) {
+            $node[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => HAND], ['optional' => true]);
+          }
+        }
+      }
     }
     // Machine in the ice effect
-    $node = [];
-    foreach ($cards as $cId => $card){
+    foreach ($cards as $cId => $card) {
       if ($card->isResupplyExhaust()) {
         $node[] = FT::ACTION(
           EXHAUST,
           [
-              'cardId' => $cId
-          ], 
-          ['sourceId' => $cId]);
+            'cardId' => $cId
+          ],
+          ['sourceId' => $cId]
+        );
       }
     }
     if (!empty($node)) {

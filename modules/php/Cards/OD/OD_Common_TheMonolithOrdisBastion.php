@@ -27,11 +27,15 @@ class OD_Common_TheMonolithOrdisBastion extends \ALT\Models\Card
       'costReserve' => 5,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCardAdded:character',
+          'conditions' => ['isCardAdded:character', 'isStillSameLocation'],
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
         'InvokeToken' => [
-          'condition' => 'isCardAdded:character',
+          'conditions' => ['isCardAdded:character', 'isStillSameLocation'],
+          'output' => FT::GAIN(EFFECT, BOOST),
+        ],
+        'MoveCard' => [
+          'conditions' => ['isCardAdded:character', 'hasSameOwner', 'isStillSameLocation'],
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],

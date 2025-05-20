@@ -350,6 +350,43 @@
                 border-bottom-right-radius: 36px 18px;
             }
         }
+
+        &.scout {
+            height: 10px;
+            position: absolute;
+            top: -55px;
+            width: 70px;
+            height: 70px;
+            display: none;
+
+            &.storm-left {
+                left: 507px;
+            }
+            &.storm-right {
+                left: 1089px;
+            }
+            &.droppable,
+            &.selectable {
+                display: flex;
+            }
+        }
+        
+        .scout-marker {
+            position: absolute;
+            // top: -55px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background-color: #ffffffef;
+            border-radius: 50%;
+            box-shadow: 1px 1px 5px 3px black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+            z-index: 5;
+        }
     }
 
     .player-board-discard {
@@ -401,6 +438,7 @@
                 text-shadow: 0px 0px 3px white;
                 font-size: 26px;
                 user-select: none;
+                z-index:40;
             }
         }
     }
@@ -813,6 +851,10 @@
         .powers-blocked {
             bottom: auto;
             top: -20px;
+        }
+
+        &.scout{
+            top: 0px;
         }
     }
 

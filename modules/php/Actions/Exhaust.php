@@ -55,10 +55,12 @@ class Exhaust extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Card is already tapped. Should not happen');
     }
     $card->setTapped(true);
+
     Notifications::exhaustEffect($player, $card, $this->getSource());
     // Check listener
     $this->checkAfterListeners($player, [
       'cardId' => $card->getId(),
+      'cardLocation' => $card->getLocation(),
       'sourceId' => $this->getSourceId(),
     ]);
 

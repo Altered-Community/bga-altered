@@ -27,14 +27,15 @@ class YZ_Common_IceboundPass extends \ALT\Models\Card
             'costReserve' => 4,
             'effectPassive' => [
                 'Exhaust' => [
-                    'condition' => 'isMe',
+                    'conditions' => ['isMe', 'isExhaustedInLocation:reserve'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',
                         'args' => ['counter' => 1, 'counterName' => clienttranslate('Trial counter')],
                     ]),
                 ],
                 'SpecialEffect' => [
-                    'conditions' => ['specialEffect:gainCounter', 'hasCounterOnCard:3'],
+                    'listeningConditions' => ['hasCounterOnCard:3'],
+                    'conditions' => ['specialEffect:gainCounter'],
                     'output' => FT::SEQ(
                         FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
                         FT::ACTION(INVOKE_TOKEN, [

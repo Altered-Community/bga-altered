@@ -67,7 +67,7 @@ $factions = [
 
 $o = 0;
 $i = 0;
-if (($handle = fopen("alize_2024_10_20.csv", "r")) !== FALSE) {
+if (($handle = fopen("bise_2025.csv", "r")) !== FALSE) {
   while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;
@@ -80,12 +80,12 @@ if (($handle = fopen("alize_2024_10_20.csv", "r")) !== FALSE) {
     $faction = $row[2];
     if ($faction == 'OR') $faction = 'OD';
 
-    $name = $row[5];
+    $name = $row[4];
     $rarity = $row[3];
     //		if($rarity == 'RARE') continue;
 
-    $type = $row[6];
-    $subtype = $row[7];
+    $type = $row[9];
+    $subtype = $row[10];
     $typeline = '';
     if ($subtype == '') {
       if ($type == 'HERO')
@@ -95,10 +95,12 @@ if (($handle = fopen("alize_2024_10_20.csv", "r")) !== FALSE) {
     } else
       $typeline = ucwords(strtolower($type)) . " - " .  ucwords(strtolower(str_replace("_", " ", $subtype)));
 
-    if ($row[6] == 'EXPEDITION_PERMANENT') {
+    if ($row[9] == 'EXPEDITION_PERMANENT') {
       $subtype .= ' EXPEDITION';
-    } elseif ($row[6] == 'LANDMARK_PERMANENT') {
+      $type = 'PERMANENT';
+    } elseif ($row[9] == 'LANDMARK_PERMANENT') {
       $subtype .= ' LANDMARK';
+      $type = 'PERMANENT';
     }
 
     $slug = slugify($name);
@@ -114,40 +116,42 @@ if (($handle = fopen("alize_2024_10_20.csv", "r")) !== FALSE) {
     //		continue;
 
     $changedStats = [];
-    if (preg_match('/#[0-9]#/', $row[10])) $changedStats[] = 'forest';
-    if (preg_match('/#[0-9]#/', $row[11])) $changedStats[] = 'mountain';
-    if (preg_match('/#[0-9]#/', $row[12])) $changedStats[] = 'ocean';
-    if (preg_match('/#[0-9]#/', $row[8])) $changedStats[] = 'costHand';
-    if (preg_match('/#[0-9]#/', $row[9])) $changedStats[] = 'costReserve';
+    if (preg_match('/#[0-9]#/', $row[13])) $changedStats[] = 'forest';
+    if (preg_match('/#[0-9]#/', $row[14])) $changedStats[] = 'mountain';
+    if (preg_match('/#[0-9]#/', $row[15])) $changedStats[] = 'ocean';
+    if (preg_match('/#[0-9]#/', $row[11])) $changedStats[] = 'costHand';
+    if (preg_match('/#[0-9]#/', $row[12])) $changedStats[] = 'costReserve';
 
-    $forest = str_replace('#', '', $row[10]);
-    $mountain = str_replace('#', '', $row[11]);
-    $water = str_replace('#', '', $row[12]);
+    $forest = str_replace('#', '', $row[13]);
+    $mountain = str_replace('#', '', $row[14]);
+    $water = str_replace('#', '', $row[15]);
 
-    $effect = $row[13];
-    $echo = $row[14];
+    $effect = $row[16];
+    $echo = $row[17];
     replaceBracket($effect);
     replaceBracket($echo);
 
-    $cost = str_replace('#', '', $row[8]);
-    $costMemory = str_replace('#', '', $row[9]);
+    $cost = str_replace('#', '', $row[11]);
+    $costMemory = str_replace('#', '', $row[12]);
 
     $baseId = $row[1];
     //$baseId = str_replace('_P_', '_B_', $baseId);
-    $artist = $row[15];
-    $flavor =  $row[16];
+    $artist = $row[32];
+    $flavor =  $row[26];
 
     $asset = str_replace('_R2', '_R', $uid);
-    $asset = str_replace('_R1', '_R', $uid);
-    $type =    str_replace('LANDMARK_', '', $row[6]);
-    $type =    str_replace('EXPEDITION_', '', $type);
+    $asset = str_replace('_R1', '_R', $asset);
+    // $type =    str_replace('LANDMARK_', '', $row[6]);
+    // $type =    str_replace('EXPEDITION_', '', $type);
 
 
     @mkdir($faction);
 
     $fp = fopen("$faction/$className.php", 'w');
+    // print($className);
     fwrite($fp, "<?php
 namespace ALT\Cards\\" . $faction . ";
+use ALT\Helpers\FT;
 
 class " . $className . " extends \ALT\Models\Card
 {
@@ -164,7 +168,7 @@ class " . $className . " extends \ALT\Models\Card
     		'type'  => " . strtoupper($type) . ",
     		'flavorText'  => $ctr1'" . str_replace("'", "\'", $flavor) . "'$ctr2,
             'artist' => \"" . $artist . "\",
-			'extension'=>'TBF',
+			'extension'=>'WFTM',
   ");
 
 
@@ -176,7 +180,11 @@ class " . $className . " extends \ALT\Models\Card
     }
     if ($echo != '') {
       fwrite($fp, " 				'supportDesc' => $ctr1'" . addslashes($echo) . "'$ctr2,\n");
-      fwrite($fp, " 			     'supportIcon' => 'discard',\n");
+      if (str_contains($echo, '{I}')) {
+        fwrite($fp, " 			     'supportIcon' => 'infinity',\n");
+      } else {
+        fwrite($fp, " 			     'supportIcon' => 'discard',\n");
+      }
     }
     if ($forest != '') {
       fwrite($fp, "     'forest' => $forest, \n");
@@ -196,6 +204,18 @@ class " . $className . " extends \ALT\Models\Card
     if (!empty($changedStats)) {
       fwrite($fp, "     'changedStats' => ['" . join("','", $changedStats) . "'], \n");
     }
+    if ($effect != '') {
+      if (str_contains($effect, "SCOUT")) {
+        fwrite($fp, " 		'scout' => 99,\n");
+      } elseif (str_contains($effect, '<COOLDOWN>')) {
+        fwrite($fp, " 		'cooldown' => true,\n");
+      } elseif (str_contains($effect, '<SEASONED>')) {
+        fwrite($fp, " 		'seasoned' => true,\n");
+      } elseif (str_contains($effect, '<GIGANTIC>')) {
+        fwrite($fp, " 		'gigantic' => true,\n");
+      }
+    }
+
 
 
     fwrite($fp, "];

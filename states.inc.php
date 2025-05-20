@@ -244,8 +244,8 @@ $machinestates = [
     'name' => 'rollDie',
     'type' => 'activeplayer',
     'action' => 'stAtomicAction',
-    'description' => clienttranslate('${source}: ${actplayer} must choose 1 die result'),
-    'descriptionmyturn' => clienttranslate('${source}: ${you} must choose 1 die result'),
+    'description' => clienttranslate('${actplayer} must choose 1 die result'),
+    'descriptionmyturn' => clienttranslate('${you} must choose 1 die result'),
     'descriptionbastion' => clienttranslate('${actplayer} must choose 1 die result or select a card to add 2'),
     'descriptionmyturnbastion' => clienttranslate('${you} must choose 1 die result or select a card to add 2'),
     'args' => 'argsAtomicAction',
@@ -465,6 +465,27 @@ $machinestates = [
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
     'possibleactions' => ['actExchange', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
+  // Bise
+  ST_SPEND => [
+    'name' => 'spend',
+    'type' => 'activeplayer',
+    'action' => 'stAtomicAction',
+    'description' => clienttranslate('${source}: ${actplayer} spends 1 counter'),
+    'descriptionmyturn' => clienttranslate('${source}: ${you} spends 1 counter'),
+    'args' => 'argsAtomicAction',
+    'possibleactions' => ['actSpend', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
+  ],
+
+  ST_BOOST_EXCHANGE => [
+    'name' => 'boostExchange',
+    'type' => 'activeplayer',
+    'action' => 'stAtomicAction',
+    'description' => clienttranslate('${source}: ${actplayer} exchange boosts on 2 cards'),
+    'descriptionmyturn' => clienttranslate('${source}: ${you} exchange boosts on 2 cards'),
+    'args' => 'argsAtomicAction',
+    'possibleactions' => ['actBoostExchange', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ////////////////////////////////////

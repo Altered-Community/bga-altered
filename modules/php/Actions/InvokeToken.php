@@ -101,6 +101,10 @@ class InvokeToken extends \ALT\Models\Action
       }
     }
 
+    if ($location == 'discardedSource') {
+      return [STORM_LEFT, 'discarded card source'];
+    }
+
     return [$realLocation, $strLocation];
   }
 
@@ -119,6 +123,12 @@ class InvokeToken extends \ALT\Models\Action
   public function stInvokeToken()
   {
     $args = $this->argsInvokeToken();
+
+    if (($this->getCtxArg('targetLocation') ?? []) == ['oppositeSource'] && !is_null($this->getSourceId()) && Cards::get($this->getSourceId())->isGigantic()) {
+      // Source is gigantic so no opposite expedition
+      $this->resolveAction([PASS]);
+      return;
+    }
     if (count($args['locations']) == 1) {
       $this->actInvokeToken($args['locations'][0], true);
     }
@@ -139,6 +149,8 @@ class InvokeToken extends \ALT\Models\Action
     $player = $this->getPlayer();
     $args = $this->argsInvokeToken();
 
+    // throw new \feException($location);
+
     $explodedLocation = explode('-', $location);
     if (count($explodedLocation) == 1) {
       $invokePId = $player->getId();
@@ -146,7 +158,7 @@ class InvokeToken extends \ALT\Models\Action
       $invokePId = $explodedLocation[1];
     }
 
-    if (!in_array($explodedLocation[0], $args['locations'])) {
+    if (!in_array($explodedLocation[0], $args['locations']) && count($explodedLocation) == 1) {
       throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
     }
 

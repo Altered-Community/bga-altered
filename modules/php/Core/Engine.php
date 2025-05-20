@@ -106,6 +106,8 @@ class Engine
 
     // Are we done ?
     if ($node == null) {
+      // throw new \feException(print_r(Globals::getEngine()));
+      // throw new \feException(print_r(debug_print_backtrace()));
       $skipped = Globals::getSkippedPlayers();
       // if card was played or action passed, we are done
       if (
@@ -224,7 +226,7 @@ class Engine
       ) {
         // var_dump(debug_print_backtrace());
         // var_dump(Globals::getEngineChoices());
-        // throw new \feException(print_r($choices[$id]));
+        // throw new \feException(print_r($allChoices));
         self::chooseNode($player, $id, true);
         // To see depending on survey + add player option?
         // } elseif (count($choices) == 1 && $id == PASS && (!Globals::isUndo() || (Globals::isUndo() && $player->getPref(OPTION_PLAYER_UNDO) == OPTION_PLAYER_UNDO_DISABLED))) {
@@ -248,9 +250,14 @@ class Engine
     $actionId = $node->getAction();
     // Do some pre-action code if needed and if we are not undoing to an irreversible node
     if ((!$isUndo || !$node->isIrreversible(Players::get($node->getPId()))) && $node->getFlag() != PRE_ACTION_DONE) {
-      Actions::stPreAction($actionId, $node);
+      $interrupt = Actions::stPreAction($actionId, $node);
       $node->flagStPreAction();
       self::save();
+      if ($interrupt === true) {
+        // throw new \feException("titi");
+        Engine::proceed();
+        return;
+      }
     }
     Game::get()->gamestate->jumpToState($state);
   }
@@ -294,12 +301,13 @@ class Engine
           if ($child->isResolved()) {
             continue;
           }
-          if ($child->getPId() == $player->getId()) {
+          if ($child->getPId() == $player->getId() || is_null($child->getPId())) {
             $child->resolve([PASS]);
           } else {
             $otherPIds = $child->getPId();
           }
         }
+
         // if there are other player, we switch context to the other player
         if (!is_null($otherPIds)) {
           $nextUnresolved->setInfo('pId', $otherPIds);

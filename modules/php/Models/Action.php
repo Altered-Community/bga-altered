@@ -216,14 +216,14 @@ class Action
     return $classname;
   }
 
-  protected function checkListeners($method, $player, $args = [])
+  protected function checkListeners($method, $player, $args = [], $overrideMethod = null)
   {
     $event = array_merge(
       [
         'pId' => $player->getId(),
         'type' => 'action',
-        'action' => $this->getClassName(),
-        'method' => $method,
+        'action' => $overrideMethod ?? $this->getClassName(),
+        'method' => $overrideMethod ?? $method,
       ],
       $args
     );
@@ -234,10 +234,10 @@ class Action
     $this->pushAfterFinishingChilds($reaction);
   }
 
-  public function checkAfterListeners($player, $args = [], $duringActionListener = true)
+  public function checkAfterListeners($player, $args = [], $duringActionListener = true, $overrideMethod = null)
   {
     if ($duringActionListener) {
-      $this->checkListeners($this->getClassName(), $player, $args);
+      $this->checkListeners($this->getClassName(), $player, $args, $overrideMethod);
     }
     // removed, not sure it's consistent in Altered
     // $this->checkListeners('ImmediatelyAfter' . $this->getClassName(), $player, $args);
@@ -306,5 +306,36 @@ class Action
       Engine::checkpoint();
     }
     // Engine::proceed();
+  }
+
+  public function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId)
+  {
+    if (!isset($node['args']['cardId']) || ($node['args']['cardId'] != ME && $node['args']['cardId'] != MANA)) {
+      $node['args']['cardId'] = $cardId;
+      $node['args']['cardFrom'] = $cardFrom;
+      $node['args']['ownerId'] = $ownerId;
+    }
+
+    if (isset($node['1-3'])) {
+      $node['1-3'] = $this->updateCardId($node['1-3'], $cardId, $cardFrom, $sourceId, $ownerId);
+    }
+    if (isset($node['4+'])) {
+      $node['4+'] = $this->updateCardId($node['4+'], $cardId, $cardFrom, $sourceId, $ownerId);
+    }
+
+    $node['sourceId'] = $this->getSourceId();
+
+    if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId, $ownerId);
+    }
+
+    if (isset($node['childs'])) {
+      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId) {
+        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId);
+      }, $node['childs']);
+    }
+
+
+    return $node;
   }
 }

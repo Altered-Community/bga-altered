@@ -106,6 +106,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     getZoneMaxLimit(player, zone) {
       // TODO: do something smart here :)
+      if (zone == 'reserve') {
+        return this.gamedatas.reserveSlots[player.id];
+      }
       return 2;
     },
 
@@ -124,7 +127,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return `<div class='altered-player-board' id='player-board-${pId}' data-faction='${player.faction}'>
           <div class='player-board-discard' id='board-discard-${player.id}'></div>
           <div class='player-board-deck' id='board-deck-${player.id}'>
-            <div class='deck-counter-holder'>
+            <div class='deck-counter-holder'  id='reveal-${player.id}'>
               <div class='deck-counter' id="counter-${player.id}-deckCount"></div>
             </div>
           </div>
@@ -157,7 +160,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
               </div>
             </div>
           </div>
-
+          <div id='board-stormLeft_scout-${pId}' class='player-board-storm storm-left scout '>
+            <i class="fa6 fa-regular fa-binoculars scout-marker"></i>
+          </div>
+          <div id='board-stormRight_scout-${pId}' class='player-board-storm storm-right scout '>
+            <i class="fa6 fa-regular fa-binoculars scout-marker"></i>
+          </div>
           <div class='player-board-storm storm-left' id='board-stormLeft-${pId}'>
             <div class="total-biomes">
               <div class='total-forest'></div>
@@ -232,8 +240,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       <div class='player-info'>
         <div class='mana-counter-holder'>
           <span class="mana-counter" id="counter-${player.id}-mana"></span>/<span class="mana-counter" id="counter-${
-            player.id
-          }-totalMana"></span>
+        player.id
+      }-totalMana"></span>
           
           ${this.formatIcon('first-player')}
         </div>
@@ -442,6 +450,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       let skipped = this.gamedatas.passedPlayers;
       $('focus-storm-overlay').classList.toggle('mePassed', skipped.includes(this.bottomPId));
       $('focus-storm-overlay').classList.toggle('opponentPassed', skipped.includes(this.topPId));
+    },
+
+    updateReserveSlots(pId = null) {
+      this.forEachPlayer((player) => {
+        let pId = player.id;
+        let reserveContainer = $(`board-reserve-${pId}`);
+        this.displayWarningSizeLimitIfNeeded(player, 'reserve', reserveContainer);
+      });
     },
 
     notif_passTurn(n) {

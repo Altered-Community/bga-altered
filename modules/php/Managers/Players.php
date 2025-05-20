@@ -9,6 +9,8 @@ use ALT\Helpers\Utils;
 use ALT\Helpers\Collection;
 use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
+use ALT\Core\Engine;
+use ALT\Helpers\FT;
 
 /*
  * Players manager : allows to easily access players ...
@@ -201,6 +203,27 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
+  public static function hasBlockOpponentReserveGain($player)
+  {
+    foreach (self::getAll() as $pId => $player2) {
+      if ($pId == $player->getId()) {
+        continue;
+      }
+      return $player2->hasBlockOpponentReserveGain();
+    }
+    return false;
+  }
+
+  public static function hasBlockGainNewCounters()
+  {
+    foreach (self::getAll() as $pId => $player2) {
+      if ($player2->hasBlockGainNewCounters()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function checkVictory()
   {
     $isVictory = false;
@@ -245,6 +268,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       Players::get($victor)->setScore(1);
       Stats::setWinner(Players::get($victor), 1);
       Stats::setGameWinner(Players::get($victor)->getHero()->getStatData());
+      Stats::setGameLooser(Players::getNext(Players::get($victor))->getHero()->getStatData());
+
       Game::get()->jumpToOrCall(ST_PRE_END_OF_GAME);
       return true;
     }
@@ -292,6 +317,24 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       return $defenders;
     }
     return [$defenders, $ignoreDefenders];
+  }
+
+  public static function getReserveSlots()
+  {
+    $reserve = [];
+    foreach (self::getAll() as $pId => $player) {
+      $reserve[$pId] = $player->getReserveSlots();
+    }
+    return $reserve;
+  }
+
+  public static function getAllReserveSlots()
+  {
+    $reserve = 0;
+    foreach (self::getAll() as $pId => $player) {
+      $reserve += $player->getAllReserveSlots();
+    }
+    return $reserve;
   }
 
   public static function getWinningPlayerByStorms()
@@ -343,20 +386,20 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
   }
 
-  public static function getIncreaseReserveCost()
+  public static function getIncreaseReserveCost($type = null)
   {
     $cost = 0;
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
-      $cost += $card->getIncreaseReserveCost();
+      $cost += $card->getIncreaseReserveCost($type);
     }
     return $cost;
   }
 
-  public static function getReduceReserveCost()
+  public static function getReduceReserveCost($type, $subtypes, $ownerId, $cardId)
   {
     $cost = 0;
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
-      $cost += $card->getReduceReserveCost();
+      $cost += $card->getReduceReserveCost($type, $subtypes, $ownerId, $cardId);
     }
     return $cost;
   }
@@ -406,6 +449,17 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
 
     return $statuses;
+  }
+
+  public static function getActionInsteadOfAdvance()
+  {
+    $actions = [];
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      if ($card->getActionInsteadAdvance() != '') {
+        $actions[$card->getPId()][$card->getLocation()][$cId] = $card->getActionInsteadAdvance();
+      }
+    }
+    return $actions;
   }
 
   public static function getBiomesInStorm($excludeMoveInfo = false)
@@ -504,6 +558,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
     $movements = [];
     $blockedExpeditions = self::getBlockedExpeditions();
+    $actionInsteadAdvance = self::getActionInsteadOfAdvance();
     // For each player, check whether hero and/or companion move forward
     foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
@@ -540,6 +595,28 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         if ($advance && $move) {
           if ($player->hasAdvanceTwiceDusk($expedition)) {
             $n = 2;
+          }
+          if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
+            $nodes = [];
+            $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]);
+            foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
+              if ($action == 'draw2') {
+                $nodes[] =
+                  FT::SEQ(
+                    FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
+                    FT::ACTION(DRAW, ['players' => ME, 'n' => 2], ['pId' => $pId, 'sourceId' => $cId])
+                  );
+              } elseif ($action == 'look4') {
+                $nodes[] =  FT::SEQ(
+                  FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
+                  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RunesTestamentLook4'], ['pId' => $pId, 'sourceId' => $cId])
+                );
+              }
+            }
+            Engine::pushAfterFinishingChilds(
+              [['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]]
+            );
+            continue;
           }
           $player->advanceStorm($side, $winningBiomes, $n);
         }

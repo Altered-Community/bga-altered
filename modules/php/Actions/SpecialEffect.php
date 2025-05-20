@@ -23,6 +23,7 @@ class SpecialEffect extends \ALT\Models\Action
   public function getDescription()
   {
     $effect = $this->getArg('effect');
+    $args = $this->getArg('args') ?? [];
 
     switch ($effect) {
       case 'gainCounter':
@@ -171,6 +172,68 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Send to reserve characters and exhaust them');
       case 'exhaustAllCards':
         return clienttranslate('Exhaust all cards in Reseve');
+      case 'eachPlayerExhaust':
+        return clienttranslate('Each player exhausts a card in reserve');
+        // Bise
+      case 'boostReserve':
+        return clienttranslate('Characters in your Reserve gain 1 boost');
+      case 'boostXBoostedChar':
+        return clienttranslate('1 Boost for each Boosted character');
+        break;
+      case 'boostXAnchoredChar':
+        return clienttranslate('1 Boost for each Anchored character');
+        break;
+      case 'boostXreserveBoost':
+        return clienttranslate('For each boost, boost 1 character in reserve');
+      case 'augmentXreserveBoost':
+        return clienttranslate('For each boost, augment 1 card');
+      case 'boostXMana':
+        return clienttranslate('1 Boost for each Mana Orb');
+      case 'boostedRevealBaseStat':
+        if ($args['bypass'] ?? false) {
+          return clienttranslate('Draw a card and keep Character with a base statistic of 0');
+        }
+        return clienttranslate('If boosted, draw a card and keep Character with a base statistic of 0');
+      case 'boostedRevealArtistSong':
+        if ($args['bypass'] ?? false) {
+          return clienttranslate('Draw a card and keep Artist or Song');
+        }
+        return clienttranslate('If boosted, draw a card and keep Artist or Song');
+      case 'boostedRevealRobotPermanent':
+        if ($args['bypass'] ?? false) {
+          return clienttranslate('Draw a card and keep Robot or Permanent');
+        }
+        return clienttranslate('If boosted, draw a card and keep Robot or Permanent');
+      case 'ManInTheMaze':
+      case 'ManInTheMazeRare':
+      case 'ManInTheMazeYzmir':
+        return clienttranslate('Remove all boost and resolve effect');
+      case 'removeFleetingCharacterStat0Played':
+        return clienttranslate('Remove fleeting if next card is a character with base statistic 0');
+      case 'removeFleetingSongArtistPlayed':
+        return clienttranslate('Remove fleeting if next card is an Artist or Song');
+      case 'doubleBoosts':
+        return clienttranslate('Double the boosts in reserve & storms');
+      case 'counterPerCharacter':
+        return clienttranslate('Gain 1 counter per Character you control');
+      case 'boostAndRemoveFromExpedition':
+        return clienttranslate('Gain 1 boost per character then remove characters');
+      case 'RunesTestamentLook4':
+        return clienttranslate('Look at the 4 first cards, keep 1 and discard the others');
+      case 'invokeRecruitBehind':
+        return clienttranslate('Invoke 1 Ordis recruit on each tied/behind expedition');
+      case 'invokeBrassbugBehind':
+        return clienttranslate('Invoke 1 Brassbug on each tied/behind expedition');
+      case 'counterPerOpponentCharacter':
+        return clienttranslate('1 boost per opponent controlled characters');
+      case 'boostHandCards':
+        return clienttranslate('Gain 1 boost per card in hand');
+      case 'boostReserveCards':
+        return clienttranslate('Gain 1 boost per card in reserve');
+      case 'revealTopAndDraw':
+        return clienttranslate('Reveal the top card. If cost = die, draw it');
+      case 'exhaustPlayFree':
+        return clienttranslate('Exhaust Wayfarer and play card for free');
     }
     return '';
   }
@@ -191,6 +254,11 @@ class SpecialEffect extends \ALT\Models\Action
 
     switch ($this->getArg('effect')) {
       case 'boostXFleetingChar':
+      case 'boostXAnchoredChar':
+      case 'boostXBoostedChar':
+      case 'counterPerCharacter':
+      case 'counterPerOpponentCharacter':
+      case 'boostHandCards':
         return false;
         break;
       default:
@@ -245,22 +313,43 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'gainCounter':
         $data = $card->getExtraDatas();
+        if (($data['counter'] ?? 0) > 0 && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
+          Notifications::message(clienttranslate('No new counter can be added to cards'), []);
+          $this->resolveAction([]);
+          return;
+        }
+
+        if ((($data['counter'] ?? 0) + ($args['counter'] ?? 0)) > ($args['maxCounter'] ?? 99)) {
+          $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
+        }
+
         $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
-
-        Notifications::gainCounter($this->getSource(), $args['counter']);
-        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        if ($args['counter'] ?? 0 > 0) {
+          Notifications::gainCounter($this->getSource(), $args['counter']);
+          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        }
         break;
       case 'incCounter':
         $data = $card->getExtraDatas();
+        if (($data['counter'] ?? 0) > 0 && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
+          Notifications::message(clienttranslate('No new counter can be added to cards'), []);
+          $this->resolveAction([]);
+          return;
+        }
+        if ((($data['counter'] ?? 0) + ($args['counter'] ?? 0)) > ($args['maxCounter'] ?? 99)) {
+          $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
+        }
+
         $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
         $data['counterName'] = $args['counterName'] ?? '';
         $card->setExtraDatas($data);
 
-        Notifications::gainCounter($this->getSource(), $args['counter']);
-        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
-
+        if ($args['counter'] ?? 0 > 0) {
+          Notifications::gainCounter($this->getSource(), $args['counter']);
+          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        }
         break;
       case 'activateAllPermanents':
         $cards = $card->getPlayer()->getPermanents();
@@ -483,6 +572,7 @@ class SpecialEffect extends \ALT\Models\Action
           $card->getPlayer()->setScore(1);
           Stats::setWinner($card->getPlayer(), 1);
           Stats::setGameWinner($card->getPlayer()->getHero()->getStatData());
+          Stats::setGameLooser(Players::getNext($card->getPlayer())->getHero()->getStatData());
           Globals::setInstantWin(true);
           Notifications::message(clienttranslate('${player_name} wins the game with ${card_name}\'s effect'), [
             'player' => $card->getPlayer(),
@@ -642,6 +732,8 @@ class SpecialEffect extends \ALT\Models\Action
 
         // if we have a card invoking with the parameter source we substitute it with current location
         $args = Utils::updateTree($args, [0 => 'source'], [$card->getLocation()], ['targetLocation']);
+        $args = Utils::updateTree($args, [0 => 'initialSource'], [$card->getLocation()], ['targetLocation']);
+
 
 
         $afterRest[$pId] = array_merge($afterRest[$pId], [$args]);
@@ -701,7 +793,7 @@ class SpecialEffect extends \ALT\Models\Action
         $nodes = [];
 
         foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
-          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(ASLEEP) || $card->getLocation() != $expedition) {
+          if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(ASLEEP) || ($card->getLocation() != $expedition && !$card->isGigantic())) {
             continue;
           }
           $nodes[] = FT::GAIN($cId, ASLEEP);
@@ -808,6 +900,25 @@ class SpecialEffect extends \ALT\Models\Action
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
+      case 'eachPlayerExhaust':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::ACTION(EXHAUST, [])
+            ],
+            ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
+          );
+        }
+
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
       case 'boostXForForest':
         $biomes = Players::filterBiomes([FOREST]);
         $c = 0;
@@ -836,6 +947,475 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      // Bise
+      case 'boostReserve':
+        $player = Players::getActive();
+        $nodes = [];
+        foreach ($player->getReserveCards() as $cId => $card) {
+          if ($card->getType() != CHARACTER) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(GAIN, ['cardId' => $cId, 'type' => BOOST], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'boostXBoostedChar';
+        $n = $card
+          ->getPlayer()
+          ->getPlayedCards([CHARACTER, TOKEN])
+          ->filter(function ($c) {
+            return $c->hasToken(BOOST);
+          })
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXAnchoredChar';
+        $n = $card
+          ->getPlayer()
+          ->getPlayedCards([CHARACTER, TOKEN])
+          ->filter(function ($c) {
+            return $c->hasToken(ANCHORED);
+          })
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXreserveBoost':
+        $boost = $this->getEvent()['boost'] ?? 0;
+        $nodes = [];
+        for ($i = 0; $i < $boost; $i++) {
+          $nodes[] = FT::ACTION(TARGET, [
+            'targetLocation' => [RESERVE],
+            'targetPlayer' => ME,
+            'excludeSelf' => true,
+            'effect' => FT::GAIN(EFFECT, BOOST)
+          ], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'augmentXreserveBoost':
+        $boost = $this->getEvent()['boost'] ?? 0;
+        $nodes = [];
+        for ($i = 0; $i < $boost; $i++) {
+          $nodes[] = FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE],
+            'upTo' => true,
+            'augmentOnly' => true,
+            'effect' => FT::AUGMENT($this)
+          ]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'boostXMana':
+        $n = $card
+          ->getPlayer()
+          ->getTotalMana();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostedRevealBaseStat':
+        $bypass = $args['bypass'] ?? false;
+        if ($card->countToken(BOOST) > 0 || $bypass) {
+          Engine::checkpoint();
+          $player = $card->getPlayer();
+          $drawn = $player->draw(1, null, LIMBO, $card)->first();
+
+          $baseStat = false;
+          foreach ($drawn->getBiomes() as $biome => $value) {
+            if ($value == 0) {
+              $baseStat = true;
+            }
+          }
+          if ($drawn->getType() != CHARACTER) {
+            $baseStat = false;
+          }
+          if ($baseStat == true) {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
+            );
+          } else {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
+            );
+          }
+        }
+        break;
+      case 'boostedRevealArtistSong':
+        $bypass = $args['bypass'] ?? false;
+        if ($card->countToken(BOOST) > 0 || $bypass) {
+          Engine::checkpoint();
+          $player = $card->getPlayer();
+          $drawn = $player->draw(1, null, LIMBO, $card)->first();
+
+          $baseStat = false;
+          if (in_array(ARTIST, $drawn->getSubtypes()) || in_array(SONG, $drawn->getSubtypes())) {
+            $baseStat = true;
+          }
+          if ($baseStat == true) {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
+            );
+          } else {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
+            );
+          }
+        }
+        break;
+      case 'boostedRevealRobotPermanent':
+        $bypass = $args['bypass'] ?? false;
+        if ($card->countToken(BOOST) > 0 || $bypass) {
+          Engine::checkpoint();
+          $player = $card->getPlayer();
+          $drawn = $player->draw(1, null, LIMBO, $card)->first();
+
+          $baseStat = false;
+          if (in_array(ROBOT, $drawn->getSubtypes()) || $drawn->getType() == PERMANENT) {
+            $baseStat = true;
+          }
+          if ($baseStat == true) {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
+            );
+          } else {
+            $this->insertAsChild(
+              FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
+            );
+          }
+        }
+        break;
+      case 'ManInTheMaze':
+        $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
+        $deleted = [];
+        foreach ($cards as $lId => $lCard) {
+          $meeples = Meeples::getInLocation('card-' . $lId)->where('type', BOOST);
+          $meepleIds = $meeples->getIds();
+          if (!empty($meepleIds)) {
+            Meeples::delete($meepleIds);
+            $deleted = array_merge($deleted, $meepleIds);
+            Notifications::looseMeeples(BOOST, $lCard, $meeples, false);
+          }
+        }
+        switch (count($deleted)) {
+          case 0:
+            break;
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+            $this->insertAsChild(FT::GAIN($card->getId(), BOOST, 2));
+            break;
+          case 5:
+          case 6:
+          case 7:
+          case 8:
+            $this->insertAsChild(FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['sourceId' => $this->getSourceId()]));
+            break;
+          case 9:
+          default:
+            $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'pId' => $card->getPId()], ['sourceId' => $this->getSourceId()]));
+            break;
+        }
+        break;
+      case 'ManInTheMazeRare':
+        $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
+        $deleted = [];
+        foreach ($cards as $lId => $lCard) {
+          $meeples = Meeples::getInLocation('card-' . $lId)->where('type', BOOST);;
+          $meepleIds = $meeples->getIds();
+          if (!empty($meepleIds)) {
+            Meeples::delete($meepleIds);
+            $deleted = array_merge($deleted, $meepleIds);
+            Notifications::looseMeeples(BOOST, $lCard, $meeples, false);
+          }
+        }
+        $nodes = [];
+        if (count($deleted) >= 1) {
+          $nodes[] = FT::GAIN($card->getId(), BOOST, 2);
+        }
+        if (count($deleted) >= 5) {
+          $nodes[] = FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['sourceId' => $this->getSourceId()]);
+        }
+        if (count($deleted) >= 9) {
+          $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'pId' => $card->getPId()], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'ManInTheMazeYzmir':
+        $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
+        $deleted = [];
+        foreach ($cards as $lId => $lCard) {
+          $meeples = Meeples::getInLocation('card-' . $lId)->where('type', BOOST);;
+          $meepleIds = $meeples->getIds();
+          if (!empty($meepleIds)) {
+            Meeples::delete($meepleIds);
+            $deleted = array_merge($deleted, $meepleIds);
+            Notifications::looseMeeples(BOOST, $lCard, $meeples, false);
+          }
+        }
+        switch (count($deleted)) {
+          case 0:
+            break;
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+            $this->insertAsChild(FT::GAIN($card->getId(), BOOST, 2));
+            break;
+          case 5:
+          case 6:
+          case 7:
+          case 8:
+            $this->insertAsChild(FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxHandCost' => 3, 'free' => true], ['sourceId' => $this->getSourceId()]));
+            break;
+          case 9:
+          default:
+            $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT], ['sourceId' => $this->getSourceId()]));
+            break;
+        }
+        break;
+      case 'removeFleetingCharacterStat0Played':
+        Globals::setRemoveFleetingCharacterStat0Played(true);
+        break;
+      case 'removeFleetingSongArtistPlayed':
+        Globals::setRemoveFleetingSongArtistPlayed(true);
+        break;
+      case 'doubleBoosts':
+        $player = $card->getPlayer();
+        $nodes = [];
+        foreach ($player->getReserveCards()->merge($player->getPlayedCards()) as $bId => $bCard) {
+          if ($bCard->hasToken(BOOST)) {
+            $nodes[] = FT::GAIN($bId, BOOST, $bCard->countToken(BOOST));
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'counterPerCharacter':
+        $player = $card->getPlayer();
+        if ($effect == 'counterPerOpponentCharacter') {
+        }
+        $count = $player->getPlayedCards()->filter(function ($c) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]);
+        })->count();
+        if ($count > 0) {
+          $data = $card->getExtraDatas();
+          $data['counter'] = ($data['counter'] ?? 0) + $count;
+          $card->setExtraDatas($data);
+
+          Notifications::gainCounter($this->getSource(), $count);
+          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+        }
+        break;
+      case 'nextCharacterVGainsBoost':
+        Globals::incNextCharacterBoostV(1);
+        break;
+      case 'boostAndRemoveFromExpedition':
+        $player = $card->getPlayer();
+        $expeditionCards = $player->getPlayedCards()->filter(function ($c) use ($card) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]) && $card->getLocation() == $c->getLocation() && $card->getId() != $c->getId();
+        });
+        if ($expeditionCards->count() > 0) {
+          $nodes = [];
+          foreach ($expeditionCards as $eId => $expCard) {
+            $nodes[] = FT::ACTION(DISCARD, ['destination' => RESERVE, 'cardId' => $eId], ['sourceId' => $card->getId()]);
+          }
+          $this->insertAsChild(
+            FT::SEQ(
+              FT::GAIN($card->getId(), BOOST, $expeditionCards->count()),
+              ['type' => NODE_SEQ, 'childs' => $nodes]
+            )
+          );
+        }
+        break;
+      case 'invokeXRecruitReserve':
+        $player = $this->getCtxArg('pId');
+        $expedition = $this->getCtxArg('expedition');
+        $n = Players::get($player)->getReserveCards()->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::ACTION(INVOKE_TOKEN, [
+            'pId' => $this->getCtxArg('player'),
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'n' => $n,
+            'targetLocation' => [$expedition],
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'RunesTestamentLook4':
+        Engine::checkpoint();
+        // draw 4 cards
+        $player = $card->getPlayer();
+        $drawn = $player->draw(4, null, null, $card);
+        // Target only Characters drawn
+        $this->insertAsChild(
+          FT::ACTION(
+            TARGET,
+            [
+              'n' => 1,
+              'targetLocation' => [HAND],
+              'targetType' => [PERMANENT, SPELL, CHARACTER],
+              'targetPlayer' => ME,
+              'cards' => $drawn->getIds(),
+              'discardRemaining' => true,
+            ],
+            ['sourceId' => $card->getId()]
+          )
+        );
+        break;
+      case 'invokeRecruitBehind':
+      case 'invokeBrassbugBehind':
+        $winners = Players::getWinningPlayerByStorms();
+        $nodes = [];
+        $invoke = 'OD_Common_OrdisRecruit';
+        if ($effect == 'invokeBrassbugBehind') {
+          $invoke = 'AX_Common_Brassbug';
+        }
+        foreach (STORMS as $storm) {
+          $win = $winners[$storm] ?? null;
+          if ((is_null($win) || $win == -1 || $win != $card->getPId()) && !Globals::isTieBreakerMode()) {
+            $nodes[] = FT::ACTION(
+              INVOKE_TOKEN,
+              [
+                'pId' => $card->getPId(),
+                'tokenType' => $invoke,
+                'targetLocation' => [$storm],
+              ],
+              ['sourceId' => $card->getId()]
+            );
+          }
+        }
+
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'counterPerOpponentCharacter':
+        $player = $card->getPlayer();
+        $count = Players::getNext($player)->getPlayedCards()->filter(function ($c) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]);
+        })->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'boostHandCards':
+        $player = $card->getPlayer();
+        $count = $player->getHand()->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'boostReserveCards':
+        $player = $card->getPlayer();
+        $count = $player->getReserve()->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'doCounter1':
+        $count = ($card->getExtraDatas()['counter'] ?? 0) + 1;
+        $nodes = [];
+        $effect = $args['effect'];
+        $effect['pId'] = $card->getPlayer()->getId();
+        for ($i = 0; $i < $count; $i++) {
+          $nodes[] = $effect;
+        }
+        $nodes = Utils::tagTree(['childs' => $nodes], ['sourceId' => $card->getId()]);
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
+        }
+        break;
+      case 'doEachBoost':
+        $count = $this->getEvent()['boost'] ?? 0;
+        $nodes = [];
+        $effect = $args['effect'];
+        $effect['pId'] = $card->getPlayer()->getId();
+        for ($i = 0; $i < $count; $i++) {
+          $nodes[] = $effect;
+        }
+        $nodes = Utils::tagTree(['childs' => $nodes], ['sourceId' => $card->getId()]);
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
+        }
+        break;
+      case 'revealTop':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        if (Cards::countInLocation("reveal-$pId") == 0) {
+          $draw = $player->draw(1, null, 'reveal-' . $player->getId(), $this->getSource(), clienttranslate('${player_name} reveals ${card_names} from its deck (${card_name2}\'s effect)'), clienttranslate('${you} reveals ${card_names} from its deck (${card_name2}\'s effect)'));
+        }
+        break;
+      case 'drawTopIfRoll':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        $done = false;
+
+        $selectedRoll = $this->getCtx()->toArray()['event']['selectedRoll'] ?? $this->getCtxArg('roll');
+        $draw = Cards::getInLocation("reveal-$pId");
+        foreach ($draw as $dId => $drawn) {
+          if ($selectedRoll == $drawn->getCostHand()) {
+            $drawn->setLocation('hand');
+            $done = true;
+          }
+        }
+        if ($done) {
+          Notifications::silentKill([], $draw->getIds());
+          Notifications::drawCards($player, Cards::getMany($draw->getIds()));
+        }
+        break;
+      case 'exhaustPlayFree':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        $done = false;
+        $nodes = [];
+
+        $selectedRoll = $this->getCtx()->toArray()['event']['selectedRoll'];
+        $draw = Cards::getInLocation("reveal-$pId");
+        foreach ($draw as $dId => $drawn) {
+          if ($selectedRoll == $drawn->getCostHand()) {
+            $nodes[] = FT::ACTION(TAP, ['cardId' => $card->getId()], ['sourceId' => $card->getId()]);
+            $nodes[] = FT::ACTION(
+              PLAY_CARD,
+              [
+                'cardId' => $drawn->getId(),
+                'free' => true,
+                'effectHand' => false,
+              ],
+              ['sourceId' => $card->getId()]
+            );
+            $done = true;
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       default:
         break;

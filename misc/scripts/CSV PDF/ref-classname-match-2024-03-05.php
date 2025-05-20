@@ -58,7 +58,7 @@ $factions = [
 $o = 0;
 $i = 0;
 $map = [];
-if (($handle = fopen("alize_2024_10_20.csv", "r")) !== FALSE) {
+if (($handle = fopen("bise_2025.csv", "r")) !== FALSE) {
   while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;

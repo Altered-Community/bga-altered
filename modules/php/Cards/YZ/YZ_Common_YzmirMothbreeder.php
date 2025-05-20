@@ -1,0 +1,39 @@
+<?php
+
+namespace ALT\Cards\YZ;
+
+use ALT\Helpers\FT;
+
+class YZ_Common_YzmirMothbreeder extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_BISE_B_YZ_59_C',
+      'asset'  => 'ALT_BISE_B_YZ_59_C',
+
+      'faction'  => FACTION_YZ,
+      'rarity'  => RARITY_COMMON,
+      'name'  => clienttranslate("Yzmir Mothbreeder"),
+      'typeline' => clienttranslate("Character - Mage"),
+      'type'  => CHARACTER,
+      'flavorText'  => clienttranslate('Have you heard of the butterfly effect?'),
+      'artist' => "Victor Canton",
+      'extension' => 'WFTM',
+      'subtypes'  => [MAGE],
+      'effectDesc' => clienttranslate('$<SCOUT_2> {2}.  {H} Create a <MANA_MOTH> Illusion token in target Expedition.'),
+      'forest' => 2,
+      'mountain' => 2,
+      'ocean' => 2,
+      'costHand' => 4,
+      'costReserve' => 2,
+      'scout' => 2,
+      'effectHand' => FT::ACTION(INVOKE_TOKEN, [
+        'pId' => 'source',
+        'tokenType' => 'YZ_Common_ManaMoth',
+        'targetLocation' => STORMS,
+      ]),
+    ];
+  }
+}

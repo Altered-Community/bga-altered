@@ -27,15 +27,15 @@ class AX_Rare_ArcolanoMilk extends \ALT\Models\Card
             'costReserve' => 1,
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation'],
+                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation'],
+                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
                 'MoveCard' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'hasSameOwner'],
+                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'hasSameOwner', 'isStillSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
             ],

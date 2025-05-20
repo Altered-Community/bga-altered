@@ -15,6 +15,11 @@
             "id": 16,
             "name": "Game winner",
             "type": "int"
+        },
+        "gameLooser": {
+            "id": 17,
+            "name": "Game Looser",
+            "type": "int"
         }
     },
     "player": {
@@ -288,6 +293,26 @@
             "Yes"
         ],
         "16": {
+            "1": "Sierra Oddball",
+            "2": "Subhash Marmo",
+            "3": "Treyst Rossum",
+            "4": "Atsadi Surge",
+            "5": "Basira Kaizaimon",
+            "6": "Kojo Booda",
+            "7": "Auraq Kibble",
+            "8": "Fen Crowbar",
+            "9": "Nevenka Blotch",
+            "10": "Arjun Spike",
+            "11": "Rin Orchid",
+            "12": "Teija Nauraa",
+            "13": "Gulrang Tocsin",
+            "14": "Sigismar Wingspan",
+            "15": "Waru Mack",
+            "16": "Afanas Senka",
+            "17": "Akesha Taru",
+            "18": "Lindiwe Maw"
+        },
+         "17": {
             "1": "Sierra Oddball",
             "2": "Subhash Marmo",
             "3": "Treyst Rossum",

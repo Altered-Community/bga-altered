@@ -150,6 +150,8 @@ class Cards extends \ALT\Helpers\CachedPieces
         return 'ks';
       case 'ALIZE':
         return 'tbf';
+      case 'BISE':
+        return 'wfm';
       default:
         return null;
     }
@@ -228,7 +230,6 @@ class Cards extends \ALT\Helpers\CachedPieces
     // return self::createDeck($player, $deckContent);
 
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
-    // require_once dirname(__FILE__) . '/../Cards/unique.php';
     require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
 
@@ -250,11 +251,10 @@ class Cards extends \ALT\Helpers\CachedPieces
     // random cards of the faction
     $i = 0;
     $totalCards = 40;
-    $repartition = ['' => 20, 'TBF' => 20];
-    $allocation = ['' => 0, 'TBF' => 0];
+    $repartition = ['' => 10, 'TBF' => 10, 'WFTM' => 20];
+    $allocation = ['' => 0, 'TBF' => 0, 'WFTM' => 0];
 
     do {
-      // $c = RELEASED[array_rand(RELEASED)];
       $c = array_rand(MAP_REFS_CLASSES);
 
       // $c = MAP_REFS_CLASSES[$a];
@@ -270,10 +270,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     } while ($i < $totalCards);
 
     for ($u = 0; $u < 15; $u++) {
-      // maybe to reenable later
-      // throw new \feException(print_r($uniqueID[array_rand($uniqueID)]));
-      // $deckContent[] = ['card' => self::generateRandomUnique($faction), 'n' => 1];
-      $cardId = CEG[array_rand(CEG)];
+      // maybe to reenable later  
       // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
       // $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
       //   'game' => 'alter' . 'ed',
@@ -282,7 +279,31 @@ class Cards extends \ALT\Helpers\CachedPieces
       //   'cardId' => $cardId
       // ]);
       // throw new \feException(print_r($uniqueCard));
-      $ceg = explode('_', $cardId);
+      $effects = [];
+      for ($b = 0; $b < 2; $b++) {
+        $cardId = CEG[array_rand(CEG)];
+        $ceg = explode('_', $cardId);
+        $found = false;
+        foreach ($ceg as $c) {
+          if (in_array($c, testedCEGS)) {
+            $found = true;
+          }
+          if (in_array($c, [519, 520, 521, 522])) { // Man in the Maze exclusion
+            $found = false;
+            break;
+          }
+        }
+        if (!$found) {
+          $b--;
+          continue;
+        }
+        $effects[] = [
+          $ceg[0],
+          $ceg[1],
+          $ceg[2]
+        ];
+      }
+
       $uniqueCard = [
         'reference' => 'ALT_ALIZE_B_MU_33_U',
         'faction' => 'MU',
@@ -296,13 +317,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         'ocean' => 2,
         'uniqueReduced' => [
           [
-            'effects' => [
-              [
-                $ceg[0],
-                $ceg[1],
-                $ceg[2]
-              ]
-            ]
+            'effects' => $effects
           ]
         ]
       ];
@@ -481,7 +496,8 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->merge(self::getInLocation(RESERVE))
       ->merge(self::getInLocation('board-hero-%'))
       ->merge(self::getInLocation('limbo'))
-      ->merge(self::getInLocation('discard'));
+      ->merge(self::getInLocation('discard'))
+      ->merge(self::getInLocation('reveal-%'));
 
     if (!$refresh && $current) {
       $cards = $cards->merge(self::getHand($pId))->merge(self::getFiltered($pId, MANA));
@@ -508,7 +524,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $pId = $player->getId();
 
     foreach (FACTIONS as $faction) {
-      $deck = Globals::getDeckOptions() == OPTION_DECKS_DEMO ? DEMO[$faction] : STARTER[$faction];
+      $deck = Globals::getBeginner() == OPTION_DEMO ? DEMO[$faction] : STARTER[$faction];
 
       foreach ($deck as $cardId => $n) {
         // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
@@ -636,7 +652,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $untapped = [];
     $exhaustedCharactersMorning = Players::isExhaustedCharactersMorning();
     foreach (self::getAll() as $cId => $card) {
-      if ($card->isTapped()) {
+      if (!is_null($card) && $card->isTapped()) {
         if (
           !$exhaustedCharactersMorning ||
           ($exhaustedCharactersMorning && (!in_array($card->getType(), [TOKEN, CHARACTER]) || $card->getLocation() != RESERVE))
@@ -673,8 +689,19 @@ class Cards extends \ALT\Helpers\CachedPieces
       $cards = array_merge(
         $cards,
         Cards::getMany($event['cardsToListen'], false)
-          ->filter(function ($card) use ($event) {
-            return $card->isListeningTo($event);
+          ->filter(function ($card) use ($event, $cards) {
+            return !in_array($card->getId(), $cards) && $card->isListeningTo($event);
+          })
+          ->getIds()
+      );
+    }
+
+    if (isset($event['reserveToListen'])) {
+      $cards = array_merge(
+        $cards,
+        Cards::getMany($event['reserveToListen'], false)
+          ->filter(function ($card) use ($event, $cards) {
+            return !in_array($card->getId(), $cards) && $card->isListeningTo($event);
           })
           ->getIds()
       );
@@ -688,6 +715,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     return self::getInLocation(STORM_LEFT)
       ->merge(self::getInLocation(STORM_RIGHT))
       ->merge(self::getInLocation(LANDMARK))
+      ->merge(self::getInLocation(RESERVE))
       ->merge(self::getInLocation('board-hero%'));
   }
 
@@ -700,9 +728,19 @@ class Cards extends \ALT\Helpers\CachedPieces
     if (empty($listeningCards) && $returnNullIfEmpty) {
       return null;
     }
-
+    // throw new \feException(print_r($listeningCards));
     $childs = [];
+    $backupEvent = $event;
     foreach ($listeningCards as $cardId) {
+      $event = $backupEvent;
+      $listenCard = self::get($cardId);
+      if ($listenCard->getLocation() == RESERVE) {
+        $event['reserveToListen'][] = $cardId;
+      }
+      // #147483: "Unique lyra - Timing limbo effect/cleanup
+      if (isset($event['action']) && ($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
+        $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
+      }
       $childs[] = [
         'action' => ACTIVATE_CARD,
         // 'pId' => $event['pId'],
@@ -822,7 +860,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $node = ['type' => NODE_SEQ, 'optional' => true, 'childs' => []];
 
     list($payment, $output) = $card->getReactions($args);
-
+    // throw new \feException(print_r($output));
     if (is_null($output) || empty($output)) {
       $listened = false;
       return null;

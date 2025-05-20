@@ -108,6 +108,8 @@ define([
 
         ['tap', 800],
         ['ready', 800],
+        ['publicReadyMana', 800, (notif) => notif.args.player_id == this.player_id],
+        ['privateReadyMana', 800],
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],
@@ -287,6 +289,10 @@ define([
       if (n.args.defenders !== undefined) {
         this.gamedatas.defenders = n.args.defenders;
         this.updateDefenders();
+      }
+      if (n.args.reserveSlots !== undefined) {
+        this.gamedatas.reserveSlots = n.args.reserveSlots;
+        this.updateReserveSlots();
       }
     },
 
@@ -862,17 +868,19 @@ define([
         $(`btnSelectDeck${selectedDeck.deckNum}`).classList.add('selected');
 
         $(`overlay-deck-details`).innerHTML = '';
-        $(`overlay-deck-details`).insertAdjacentHTML(
-          'beforeend',
-          `<div class='deck-details' data-faction='${deck.faction}'>
-          <div class='faction-banner' data-faction='${deck.faction}'></div>
-          <h3>${FACTION_NAMES[deck.faction]}</h3>
-          <p>
-            ${FACTION_DESC[deck.faction]}
-          </p>
-          <div class='details-footer'></div>
-        </div>`
-        );
+        if (args.demoDeck == false) {
+          $(`overlay-deck-details`).insertAdjacentHTML(
+            'beforeend',
+            `<div class='deck-details' data-faction='${deck.faction}'>
+            <div class='faction-banner' data-faction='${deck.faction}'></div>
+            <h3>${FACTION_NAMES[deck.faction]}</h3>
+            <p>
+              ${FACTION_DESC[deck.faction]}
+            </p>
+            <div class='details-footer'></div>
+          </div>`
+          );
+        }
 
         if (deckNum === null || deckNum != selectedDeck.deckNum) {
           if ($('btnCancel') && deckNum === null) $('btnCancel').remove();
@@ -969,8 +977,8 @@ define([
       }
 
       // RandomDeck
-      let canUseRandom = false;
-      if (canUseRandom && !$('card-fake-random')) {
+      let canUseRandom = true;
+      if (args.demoDeck == false && canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
         $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
           'beforeend',
@@ -1762,7 +1770,11 @@ define([
         // this.addCancelStateBtn();
         this.onEnteringStateChooseAssignment({
           cardId: args.cardId,
-          _private: { play: args.play, support: args.support, tap: args.tap },
+          _private: {
+            play: args.play,
+            support: args.support,
+            tap: args.tap,
+          },
         });
       }
 
@@ -1810,6 +1822,8 @@ define([
         landmark: _('Landmark'),
         reserve: _('Reserve'),
         limbo: _('Spell'),
+        stormLeft_scout: _('Scout Hero side'),
+        stormRight_scout: _('Scout Companion side'),
       };
 
       if (args.play[cardId] != undefined) {
@@ -2221,6 +2235,7 @@ define([
         E: 'ocean',
         M: 'mountain',
         COUNTER: 'charge',
+        I: 'infinity',
       };
       Object.keys(MARKERS_MAP).forEach((marker) => {
         const regex = new RegExp('{' + marker + '}', 'g');

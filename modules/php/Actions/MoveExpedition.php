@@ -9,6 +9,7 @@ use ALT\Core\Globals;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Helpers\FT;
 use ALT\Core\Engine;
 
 class MoveExpedition extends \ALT\Models\Action
@@ -27,6 +28,8 @@ class MoveExpedition extends \ALT\Models\Action
     'expedition' => [],
     'n' => 1,
     'pId' => null,
+    'force' => false,
+    'winningBiomes' => null,
   ];
 
   public function getSides()
@@ -107,7 +110,7 @@ class MoveExpedition extends \ALT\Models\Action
     if (!in_array($expe, $args['expeditions'])) {
       throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
     }
-    if ($this->getSource()->isGigantic()) {
+    if (!is_null($this->getSource()) && $this->getSource()->isGigantic()) {
       $gigantic = true;
     }
 
@@ -119,7 +122,36 @@ class MoveExpedition extends \ALT\Models\Action
     $n = $this->getArg('n');
     $player = Players::get($pId);
 
-    $player->advanceStorm($token, null, $n, true, $source);
+    // Rune's testament
+    if ($this->getArg('force') === false) {
+      $actionInsteadAdvance = Players::getActionInsteadOfAdvance();
+      if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
+        $nodes = [];
+        $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n], ['sourceId' => $this->getSource()->getId()]);
+        foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
+          if ($action == 'draw2') {
+            $nodes[] =
+              FT::SEQ(
+                FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
+                FT::ACTION(DRAW, ['players' => ME, 'n' => 2], ['pId' => $pId, 'sourceId' => $cId])
+              );
+          } elseif ($action == 'look4') {
+            $nodes[] =  FT::SEQ(
+              FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
+              FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RunesTestamentLook4'], ['pId' => $pId, 'sourceId' => $cId])
+            );
+          }
+        }
+        Engine::insertAsChild(
+          ['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]
+        );
+
+        $this->resolveAction(['']);
+        return;
+      }
+    }
+    $winningBiomes = $this->getArg('winningBiomes');
+    $player->advanceStorm($token, $winningBiomes, $n, true, $source);
     $this->checkAfterListeners($player, ['moveExpedition' => $n]);
 
     if ($gigantic) {
@@ -128,7 +160,7 @@ class MoveExpedition extends \ALT\Models\Action
 
       $token = $expedition == STORM_LEFT ? HERO : COMPANION;
 
-      $player->advanceStorm($token, null, $n, true, $source);
+      $player->advanceStorm($token, $winningBiomes, $n, true, $source);
       $this->checkAfterListeners($player, ['moveExpedition' => $n]);
     }
   }

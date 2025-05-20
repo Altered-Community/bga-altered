@@ -30,6 +30,10 @@ class MU_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
           'condition' => 'isCardAdded:characterOnly',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
+        'MoveCard' => [
+          'conditions' => ['isCardAdded:characterOnly', 'hasSameOwner', 'isStillSameLocation'],
+          'output' => FT::GAIN(EFFECT, BOOST),
+        ],
       ],
     ];
   }

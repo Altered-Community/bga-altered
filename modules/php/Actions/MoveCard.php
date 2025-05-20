@@ -23,7 +23,7 @@ class MoveCard extends \ALT\Models\Action
     if ($this->getArg('cards') == ALL) {
       return clienttranslate('move all characters to opposite expedition');
     }
-    if (($this->getCtxArg('cardId') ?? null) == null) {
+    if (($this->getCtxArg('cardId') ?? null) == null || $this->getCtxArg('cardId') == EFFECT) {
       return clienttranslate('move a character to opposite expedition');
     }
 
@@ -47,6 +47,11 @@ class MoveCard extends \ALT\Models\Action
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
       throw new \BgaVisibleSystemException('no card in args. Should not happen');
+    } elseif ($cardId == EFFECT) {
+      $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
+      if (is_null($cardId)) {
+        $cardId = $this->getCtx()->toArray()['event']['gain']['cardId'] ?? null;
+      }
     }
     return Cards::get($cardId);
   }
@@ -74,14 +79,14 @@ class MoveCard extends \ALT\Models\Action
       if (Globals::isDayPhase() && in_array($fromLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($fromLocation) && $card->hasToken(ANCHORED)) {
         unset($cards[$cId]);
         Notifications::message(clienttranslate('${card_name} is not discarded but loose <ANCHORED> instead'), ['card' => $card]);
-        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => ANCHORED]]);
+        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $card->getId(), 'type' => ANCHORED]]);
         continue;
       }
       // Floral tent bravos
       if (Globals::isDayPhase() && in_array($fromLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectBoostedInExpedition($fromLocation) && $card->hasToken(BOOST)) {
         unset($cards[$cId]);
         Notifications::message(clienttranslate('${card_name} is not discarded but loose <BOOST> instead'), ['card' => $card]);
-        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => BOOST, 'n' => 99]]);
+        $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $card->getId(), 'type' => BOOST, 'n' => 99]]);
         continue;
       }
 
