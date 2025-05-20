@@ -376,6 +376,8 @@ class Engine
 
     if (!isset($args['automatic']) || $args['automatic'] === false) {
       Globals::incEngineChoices();
+    } else {
+      Globals::incEngineAutomatic();
     }
     if ($checkpoint) {
       self::checkpoint();
@@ -394,6 +396,7 @@ class Engine
 
     // TODO : flag the tree
     Globals::setEngineChoices(0);
+    Globals::setEngineAutomatic(0);
     Log::checkpoint();
   }
 

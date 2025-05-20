@@ -3,6 +3,7 @@
 namespace ALT\Core\Engine;
 
 use ALT\Managers\Actions;
+use ALT\Core\Globals;
 
 /*
  * Leaf: a class that represent a Leaf
@@ -29,7 +30,7 @@ class LeafNode extends AbstractNode
     if (!isset($this->infos['action'])) {
       return false;
     }
-    return Actions::get($this->infos['action'], $this)->isAutomatic($player);
+    return Actions::get($this->infos['action'], $this)->isAutomatic($player) && Globals::getEngineChoices() <= 20;;
   }
 
   public function isIndependent($player = null)
@@ -37,7 +38,7 @@ class LeafNode extends AbstractNode
     if (!isset($this->infos['action'])) {
       return false;
     }
-    return Actions::get($this->infos['action'], $this)->isIndependent($player);
+    return Actions::get($this->infos['action'], $this)->isIndependent($player) && Globals::getEngineChoices() <= 20;;
   }
 
   public function isOptional($player)

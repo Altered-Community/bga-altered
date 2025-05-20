@@ -358,7 +358,7 @@ class AbstractNode
   public function isAutomatic($player = null)
   {
     $choices = $this->getChoices($player);
-    return count($choices) < 2;
+    return count($choices) < 2 && Globals::getEngineChoices() <= 20;
   }
 
   // Allow for automatic resolution in parallel node
@@ -367,7 +367,7 @@ class AbstractNode
     return $this->isAutomatic($player) &&
       $this->childsReduceAnd(function ($child) use ($player) {
         return $child->isIndependent($player);
-      });
+      }) && Globals::getEngineChoices() <= 20;
   }
 
   public function getChoices($player = null, $displayAllChoices = false)

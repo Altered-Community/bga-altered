@@ -188,15 +188,16 @@ class InvokeToken extends \ALT\Models\Action
         Globals::setNextTokenAnchored(false);
       }
 
+
       $this->checkAfterListeners(Players::get($invokePId), [
         'playCard' => true,
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),
         'from' => 'invoke',
-        'to' => $location
+        'to' => $location,
+        'gigantic' => $card->isGigantic()
       ]);
     }
-
     $this->resolveAction([$card->getId()]);
   }
 }

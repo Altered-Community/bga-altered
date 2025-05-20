@@ -106,6 +106,8 @@ trait EngineTrait
     $flow = $args['anytimeActions'][$choiceId]['flow'];
     if (!$auto) {
       Globals::incEngineChoices();
+    } else {
+      Globals::incEngineAutomatic();
     }
     Engine::insertAtRoot($flow, false);
     Engine::proceed();

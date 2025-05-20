@@ -90,7 +90,7 @@ class ActivateCard extends \ALT\Models\Action
     if (is_null($this->getFlowTree($player))) {
       return true;
     }
-    return $this->getFlowTree($player)->isOptional($player) || !$this->getFlowTree($player)->isDoable($player);
+    return $this->getFlowTree($player)->isOptional($player) || !$this->getFlowTree($player)->isDoable($player) || Globals::getEngineAutomatic() > 20;
   }
 
   public function isAutomatic($player = null)
@@ -118,7 +118,7 @@ class ActivateCard extends \ALT\Models\Action
   {
     $player = $this->getPlayer();
     $flowTree = $this->getFlowTree($player);
-    return is_null($flowTree) ? false : $flowTree->isIndependent($player);
+    return is_null($flowTree) ? false : $flowTree->isIndependent($player)  && Globals::getEngineAutomatic() < 20;
   }
 
   public function getDescription()
@@ -156,7 +156,10 @@ class ActivateCard extends \ALT\Models\Action
     //   'sourceId' => $this->getCtxArg('cardId'),
     //   'event' => $this->getCtxArg('event'),
     // ]);
-    // throw new \feException(print_r($flow));
+    // throw new \feException(Globals::getEngineAutomatic());
+    // if (Globals::getEngineChoices() > 20 || Globals::getEngineAutomatic() > 20) {
+    //   throw new \feException("titi");
+    // }
     $node->replace(Engine::buildTree($flow));
     Engine::save();
     Engine::proceed();

@@ -15,6 +15,7 @@ class Globals extends \ALT\Helpers\DB_Manager
   protected static $variables = [
     'engine' => 'obj', // DO NOT MODIFY, USED IN ENGINE MODULE
     'engineChoices' => 'int', // DO NOT MODIFY, USED IN ENGINE MODULE
+    'engineAutomatic' => 'int', // DO NOT MODIFY, USED IN ENGINE MODULE
     'callbackEngineResolved' => 'obj', // DO NOT MODIFY, USED IN ENGINE MODULE
     'anytimeRecursion' => 'int', // DO NOT MODIFY, USED IN ENGINE MODULE
     'customTurnOrders' => 'obj', // DO NOT MODIFY, USED FOR CUSTOM TURN ORDER FEATURE
