@@ -258,6 +258,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXBoostedChar':
       case 'counterPerCharacter':
       case 'counterPerOpponentCharacter':
+      case 'boostAllCharactersExceptSelf':
       case 'boostHandCards':
         return false;
         break;
