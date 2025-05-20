@@ -268,6 +268,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       Players::get($victor)->setScore(1);
       Stats::setWinner(Players::get($victor), 1);
       Stats::setGameWinner(Players::get($victor)->getHero()->getStatData());
+      Stats::setGameLooser(Players::getNext(Players::get($victor))->getHero()->getStatData());
+
       Game::get()->jumpToOrCall(ST_PRE_END_OF_GAME);
       return true;
     }

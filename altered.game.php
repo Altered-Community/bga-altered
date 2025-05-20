@@ -283,6 +283,7 @@ class altered extends Table
     Stats::setWinner($nextPlayer, 1);
     if (!is_null($nextPlayer->getHero())) {
       Stats::setGameWinner($nextPlayer->getHero()->getStatData());
+      Stats::setGameLooser(Players::getNext($nextPlayer)->getHero()->getStatData());
     }
     $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
     return;
