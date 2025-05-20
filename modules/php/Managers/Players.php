@@ -593,8 +593,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
 
         if ($advance && $move) {
-          if ($player->hasAdvanceTwiceDusk($expedition)) {
-            $n = 2;
+          if ($player->hasAdvanceTwiceDusk($expedition) > 0) {
+            $n = $player->hasAdvanceTwiceDusk($expedition) + 1;
           }
           if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
             $nodes = [];

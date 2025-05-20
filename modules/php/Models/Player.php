@@ -696,12 +696,13 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function hasAdvanceTwiceDusk($expedition)
   {
+    $advance = 0;
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
       if ($card->isAdvanceTwiceDusk()) {
-        return true;
+        $advance++;
       }
     }
-    return false;
+    return $advance;
   }
 
   public function hasOppositeDefender($expedition)
