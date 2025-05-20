@@ -359,6 +359,12 @@ class ChooseAssignment extends \ALT\Models\Action
         }
         if (!empty($effects)) {
           $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+          foreach ($effects as &$eff) {
+            if (isset($eff['pId'])) {
+              continue;
+            }
+            $eff['pId'] = $card->getPId();
+          }
           $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
         } else {
           $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()];
