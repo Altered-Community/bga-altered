@@ -731,6 +731,8 @@ class SpecialEffect extends \ALT\Models\Action
 
         // if we have a card invoking with the parameter source we substitute it with current location
         $args = Utils::updateTree($args, [0 => 'source'], [$card->getLocation()], ['targetLocation']);
+        $args = Utils::updateTree($args, [0 => 'initialSource'], [$card->getLocation()], ['targetLocation']);
+
 
 
         $afterRest[$pId] = array_merge($afterRest[$pId], [$args]);
