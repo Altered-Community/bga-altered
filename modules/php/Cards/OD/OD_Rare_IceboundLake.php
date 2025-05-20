@@ -22,7 +22,7 @@ class OD_Rare_IceboundLake extends \ALT\Models\Card
             'artist' => "Nestor Papatriantafyllou",
             'extension' => 'TBF',
             'subtypes'  => [SITE, LANDMARK],
-            'effectDesc' => clienttranslate('When a non-token Character joins one of your Expeditions, if it\'s behind — I gain a Trial counter.  When I gain my third Trial counter — Sacrifice me. If you do, create a <DRAGON_SHADE> Illusion token in target Expedition, then target Character gains <ASLEEP>.'),
+            'effectDesc' => clienttranslate('When you play a Character — If its Expedition is behind, I gain a Trial counter.  When I gain my third Trial counter — Sacrifice me. If you do, create a <DRAGON_SHADE> Illusion token in target Expedition, then target Character gains <ASLEEP>.'),
             'costHand' => 2,
             'costReserve' => 2,
             'changedStats' => ['costHand', 'costReserve'],
