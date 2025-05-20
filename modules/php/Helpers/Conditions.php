@@ -1159,4 +1159,13 @@ abstract class Conditions
     }
     return false;
   }
+
+  public static function isNonTokenBoostedAndUntap($card, $event)
+  {
+    $gainCard = Cards::get($event['gain']['cardId']);
+    return !$card->isTapped() &&
+      $event['gain']['type'] == BOOST &&
+      $gainCard->getType() == CHARACTER &&
+      $gainCard->getPId() == $card->getPId();
+  }
 }

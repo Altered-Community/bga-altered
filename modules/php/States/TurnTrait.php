@@ -39,9 +39,9 @@ trait TurnTrait
    */
   function stBeforeAssignment()
   {
-    if (Players::checkVictory()) {
-      return;
-    }
+    // if (Players::checkVictory()) {
+    //   return;
+    // }
 
     Globals::setPhase(2);
     Notifications::newPhase(PHASE_AFTERNOON);
@@ -72,11 +72,11 @@ trait TurnTrait
   function stAssignment()
   {
     $player = Players::getActive();
-    if (Players::checkVictory()) {
-      Globals::setDayPhase(false);
-      $this->endCustomOrder('assignment');
-      return;
-    }
+    // if (Players::checkVictory()) {
+    //   Globals::setDayPhase(false);
+    //   $this->endCustomOrder('assignment');
+    //   return;
+    // }
     // check if a player skipped his turn
     $skipped = Globals::getSkippedPlayers();
     if (in_array($player->getId(), $skipped)) {
@@ -146,9 +146,9 @@ trait TurnTrait
 
   function stPreBeforeDusk()
   {
-    if (Players::checkVictory()) {
-      return;
-    }
+    // if (Players::checkVictory()) {
+    //   return;
+    // }
     Globals::setPhase(3);
     Notifications::newPhase(PHASE_DUSK);
 
@@ -245,10 +245,10 @@ trait TurnTrait
   function stAfterDusk()
   {
     Notifications::endDusk();
-    if (Players::checkVictory()) {
-      return;
-    }
-
+    // if (Players::checkVictory()) {
+    //   return;
+    // }
+    
     $this->checkCardListeners('AfterDusk', 'stBeforeNight');
   }
 
@@ -263,13 +263,13 @@ trait TurnTrait
 
   function stBeforeNight()
   {
-    if (Players::checkVictory()) {
-      return;
-    }
-    if (Globals::isEnterTieBreakerMode()) {
-      Globals::setTieBreakerMode(true);
-      Globals::setEnterTieBreakerMode(false);
-    }
+    // if (Players::checkVictory()) {
+    //   return;
+    // }
+    // if (Globals::isEnterTieBreakerMode()) {
+    //   Globals::setTieBreakerMode(true);
+    //   Globals::setEnterTieBreakerMode(false);
+    // }
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setPlayedForFree(false);

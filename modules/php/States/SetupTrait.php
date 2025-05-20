@@ -189,19 +189,19 @@ trait SetupTrait
             'This unique has an unimplemented power' . $card['content']['reference']
           );
         }
-        if (in_array($card['content']['name'], ['Moonlight Jellyfish', 'Foundry Armorer', 'Gericht, Revered Duelist'])) {
-          if ($card['content']['name'] == 'Foundry Armorer' && $card['content']['faction'] != 'BR') {
-            $toto = "titit";
-          } else {
-            throw new \BgaUserException(clienttranslate(sprintf(self::_("The unique %s is temporarily suspended by Equinox"), $card['content']['name'])));
-          }
+        if (in_array($card['content']['name'], ['Moonlight Jellyfish'])) {
+          // if ($card['content']['name'] == 'Foundry Armorer' && $card['content']['faction'] != 'BR') {
+          //   $toto = "titit";
+          // } else {
+          throw new \BgaUserException(clienttranslate(sprintf(self::_("The unique %s is temporarily suspended by Equinox"), $card['content']['name'])));
+          // }
         }
 
         $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
       } else {
         $cProp = Cards::getCardClass($cardRef)->getProperties();
         $deckContent[] = ['card' => ['properties' => $cProp], 'n' => $card['quantity']];
-        if (in_array($cProp['uid'] ?? '', [])) {
+        if (in_array($cProp['uid'] ?? '', ['ALT_CORE_B_YZ_11_R2', 'ALT_COREKS_B_YZ_11_R2', 'ALT_CORE_B_BR_25_R2', 'ALT_COREKS_B_BR_25_R2'])) {
           throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), $cProp['name'] ?? '')));
         }
       }

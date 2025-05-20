@@ -77,6 +77,8 @@ abstract class FlowConvertor
       532 => ['description' => clienttranslate('{I} At Noon —'), 'trigger' => 'Noon', 'type' => 'effectInfinity', 'condition' => 'isMe'],
       540 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
       9 =>  ['description' => clienttranslate('When a non-<BOOSTED> Character you control gains 1 or more boosts —'), 'trigger' => ['Gain'], 'condition' => 'GainFirstBoost'],
+      // Patch note 13/05/2025
+      675 => ['description' => clienttranslate('When a non-Token Character you control gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => ['isNonTokenBoostedAndUntap',]], // condition to check
     ];
   }
 
@@ -2376,7 +2378,24 @@ abstract class FlowConvertor
           'effect' => FT::GAIN(EFFECT, BOOST)
         ])
       ],
-
+      676 => [
+        'description' => clienttranslate('You may have target Character other than me gain <FLEETING>.'),
+        'output' => FT::ACTION(TARGET, [
+          'upTo' => true,
+          'excludeSelf' => true,
+          'targetType' => [CHARACTER, TOKEN],
+          'effect' => FT::GAIN(EFFECT, FLEETING)
+        ]),
+      ],
+      677 => ['description' => clienttranslate('Target Character other than me gains 1 boost and <FLEETING>.'), 'output' => FT::ACTION(TARGET, ['excludeSelf' => true, 'effect' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))])],
+      678 => [
+        'description' => clienttranslate('Create an <BRASSBUG> Robot token in my Expedition.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'AX_Common_Brassbug',
+          'targetLocation' => ['source'],
+        ]),
+      ],
     ];
   }
 
