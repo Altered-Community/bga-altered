@@ -41,7 +41,7 @@ abstract class FlowConvertor
       239 => ['description' => clienttranslate('When an opponent draws one or more cards or does [RESUPPLY_T] —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'isOpponentDraw'],
       240 => ['description' => clienttranslate('When I gain 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'hasGainedBoost'],
       // Alizé
-      250 => ['description' => clienttranslate('When a card goes from your hand or deck to Reserve —'), 'trigger' => ['Discard', 'Resupply'], 'condition' => ['hasSameOwner', 'isDiscarded:hand:reserve']],
+      250 => ['description' => clienttranslate('When a card goes from your hand or deck to Reserve —'), 'trigger' => ['Discard', 'Resupply'], 'condition' => ['hasSameOwner', 'isDiscarded:hand:reserve', 'excludeSelf']],
       253 => ['description' => clienttranslate('When another Character joins my Expedition —'), 'trigger' => ['ChooseAssignment', 'InvokeToken'], 'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf']],
       254 => ['description' => clienttranslate('When another Character you control gains <FLEETING> —'), 'trigger' => ['Gain'], 'condition' => ['isControlledCharacterGain', 'isGain:fleeting', 'excludeSelf']],
       419 => ['description' => clienttranslate('When another Character joins my Expedition —'), 'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'], 'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf']],
