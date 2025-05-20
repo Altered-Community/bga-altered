@@ -192,8 +192,12 @@ class Target extends \ALT\Models\Action
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
+      $otherLocation = in_array($c->getLocation(), STORMS) ? ($c->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT) : null;
       // if we need to filter by location & attributes 
       if ($excludedBiomes === null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()]) && !$c->isGigantic()) {
+        return false;
+      }
+      if ($excludedBiomes === null && $c->isGigantic() && in_array($c->getLocation(), STORMS) && !in_array($otherLocation, $filteredBiomes[$c->getPId()])) {
         return false;
       }
       if ($excludedBiomes !== null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), ($excludedBiomes[$c->getPId()] ?? [])) && $c->isGigantic()) {
@@ -202,6 +206,7 @@ class Target extends \ALT\Models\Action
       if ($isTapped && !$c->isTapped()) {
         return false;
       }
+
 
       // Only card with a boost or a counter can be augmented
       if ($augmentOnly && !$c->hasCounters()) {
