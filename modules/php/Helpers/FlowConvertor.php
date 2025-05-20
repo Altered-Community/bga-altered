@@ -1762,20 +1762,29 @@ abstract class FlowConvertor
       336 => ['description' => clienttranslate('When an <ANCHORED> Character would leave my Expedition during the Afternoon, it loses <ANCHORED> instead.'), 'noTrigger' => true, 'attributes' => ['protectAnchoredInExpedition' => true]],
       337 => [
         'description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'),
-        'output' =>  FT::ACTION(ROLL_DIE, [
-          'effect' => [
-            '1-3' =>  FT::ACTION(
-              TARGET,
-              [
-                'targetType' => [CHARACTER, SPELL, PERMANENT],
-                'targetLocation' => [RESERVE],
-                'targetPlayer' => OPPONENT,
-                'effect' => FT::ACTION(EXHAUST, [])
+        'output' =>  FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'targetPlayer' => OPPONENT,
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(EXHAUST, []),
+            FT::ACTION(ROLL_DIE, [
+              'effect' => [
+                '1-3' =>  FT::ACTION(
+                  TARGET,
+                  [
+                    'targetType' => [CHARACTER, SPELL, PERMANENT],
+                    'targetLocation' => [RESERVE],
+                    'targetPlayer' => OPPONENT,
+                    'effect' => FT::ACTION(EXHAUST, [], ['pId' => 'nextPlayer'])
+                  ],
+                  ['pId' => 'nextPlayer'],
+                )
               ],
-              ['pId' => 'nextPlayer'],
-            )
-          ],
-        ]),
+            ]),
+          )
+        ])
       ],
       289 => [
         'description' => clienttranslate('You may exhaust target card in an opponent\'s Reserve, then roll a die. When you roll a 1-3 this way — That opponent targets a card in your Reserve. Exhaust it.'),
