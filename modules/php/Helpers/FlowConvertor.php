@@ -530,6 +530,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may return a card other than me from your Reserve to your hand.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'targetPlayer' => ME,
           'excludeSelf' => true,
           'targetLocation' => [RESERVE],
           'upTo' => true,
