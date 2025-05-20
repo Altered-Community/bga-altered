@@ -282,6 +282,13 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         });
       });
 
+      let o = $(`card-${hero.id}`);
+      if (hero.properties && hero.properties.extraDatas && hero.properties.extraDatas.counterName) {
+        o.dataset.counter = hero.properties.extraDatas.counter;
+      } else {
+        delete o.dataset.counter;
+      }
+
       // Deck count
       this._playerCounters[pId]['deckCount'].toValue(n.args.deckCount);
     },
