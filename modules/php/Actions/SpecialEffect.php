@@ -909,11 +909,10 @@ class SpecialEffect extends \ALT\Models\Action
             [
               'targetType' => [CHARACTER, SPELL, PERMANENT],
               'targetPlayer' => ME,
-              'upTo' => true,
               'targetLocation' => [HAND],
               'effect' => FT::ACTION(EXHAUST, [])
             ],
-            ['optional' => true, 'pId' => $pId, 'sourceId' => $this->getSourceId()]
+            ['pId' => $pId, 'sourceId' => $this->getSourceId()]
           );
         }
 
