@@ -359,7 +359,7 @@ class ChooseAssignment extends \ALT\Models\Action
         }
         if (!empty($effects)) {
           $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
-          foreach ($effects as &$eff) {
+          foreach ($effects as &$eff['childs']) {
             if (isset($eff['pId'])) {
               continue;
             }
