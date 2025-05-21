@@ -1388,6 +1388,7 @@ class SpecialEffect extends \ALT\Models\Action
         if ($done) {
           Notifications::silentKill([], $draw->getIds());
           Notifications::drawCards($player, Cards::getMany($draw->getIds()));
+          $this->checkAfterListeners($player, ['draw' => 1, 'location' => HAND], true, 'Draw');
         }
         break;
       case 'exhaustPlayFree':
