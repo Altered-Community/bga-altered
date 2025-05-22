@@ -34,7 +34,7 @@ class YZ_Common_Chrysalis extends \ALT\Models\Card
                     'output' => FT::ACTION(INVOKE_TOKEN, [
                         'pId' => 'source',
                         'tokenType' => 'YZ_Common_ManaMoth',
-                        'targetLocation' => ['source'],
+                        'targetLocation' => ['initialSource'],
                     ]),
                 ],
             ],

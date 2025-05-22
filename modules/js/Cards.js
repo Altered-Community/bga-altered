@@ -1174,7 +1174,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (!$(id)) {
         this.addCard(
           card,
-          n.args.card2.location == 'hand' || n.args.card2.location.indexOf('deck') > -1 ? 'page-title' : `card-${n.args.card2.id}`
+          n.args.card2.location == 'hand' || n.args.card2.location.indexOf('deck') > -1 || n.args.card2.location == 'mana'
+            ? 'page-title'
+            : `card-${n.args.card2.id}`
         );
         $(id).classList.add('mini-card');
       }
