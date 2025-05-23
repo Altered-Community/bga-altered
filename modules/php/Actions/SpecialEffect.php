@@ -361,6 +361,7 @@ class SpecialEffect extends \ALT\Models\Action
             'optional' => true,
             'args' => ['cardId' => $cId],
             'sourceId' => $card->getId(),
+            'pId' => $card->getPId()
           ];
         }
         $this->pushParallelChilds($childs);
@@ -382,6 +383,7 @@ class SpecialEffect extends \ALT\Models\Action
             'optional' => true,
             'args' => ['cardId' => $cId],
             'sourceId' => $card->getId(),
+            'pId' => $card->getPId()
           ];
         }
         $this->pushParallelChilds($childs);
