@@ -645,6 +645,15 @@ abstract class Conditions
     return ($event['cardLocation'] ?? '') == $location;
   }
 
+  public static function isCardOfType($card, $event, $type = null)
+  {
+    // Type check
+    if (!self::typeCheck($type, $event['cardType'])) {
+      return false;
+    }
+    return true;
+  }
+
   public static function isCardAdded($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
     if (!self::isAddedCardEvent($card, $event)) {
