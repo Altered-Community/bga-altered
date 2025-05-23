@@ -1045,6 +1045,7 @@ class SpecialEffect extends \ALT\Models\Action
             $this->insertAsChild(
               FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
             );
+            $this->checkAfterListeners($player, ['draw' => 1, 'location' => HAND], true, 'Draw');
           } else {
             $this->insertAsChild(
               FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
@@ -1067,6 +1068,7 @@ class SpecialEffect extends \ALT\Models\Action
             $this->insertAsChild(
               FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
             );
+            $this->checkAfterListeners($player, ['draw' => 1, 'location' => HAND], true, 'Draw');
           } else {
             $this->insertAsChild(
               FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
@@ -1089,6 +1091,7 @@ class SpecialEffect extends \ALT\Models\Action
             $this->insertAsChild(
               FT::ACTION(DISCARD, ['destination' => HAND, 'cardId' => $drawn->getId()])
             );
+            $this->checkAfterListeners($player, ['draw' => 1, 'location' => HAND], true, 'Draw');
           } else {
             $this->insertAsChild(
               FT::ACTION(DISCARD, ['cardId' => $drawn->getId()])
