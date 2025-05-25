@@ -361,12 +361,17 @@ class Target extends \ALT\Models\Action
         }
 
         $node = $this->getArg('effect');
+
         if (!is_null($node)) {
           $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
           if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
             $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
             $discardSource = $cardFrom . '-' . $card->getPId();
             $node = Utils::updateTree($node, [0 => 'discardedSource'], [$discardSource], ['targetLocation']);
+            // if the discarded card is the source, need to update the location
+            if ($cardId == $this->getSourceId() && $card->getUid() == 'ALT_CORE_B_OR_06_U_3184') {
+              $node = Utils::updateTree($node, [0 => 'initialSource'], [$discardSource], ['targetLocation']);
+            }
           }
 
           $this->pushParallelChild($node);
