@@ -281,19 +281,21 @@ class Discard extends \ALT\Models\Action
       }
 
       // Floral Tent
-      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($originalLocation) && $card->hasToken(ANCHORED)) {
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($originalLocation, $card->isGigantic()) && $card->hasToken(ANCHORED)) {
         unset($cards[$cId]);
         Notifications::message(clienttranslate('${card_name} is not discarded but loose <ANCHORED> instead'), ['card' => $card]);
         $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => ANCHORED]]);
         continue;
       }
+
       // Floral tent bravos
-      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectBoostedInExpedition($originalLocation) && $card->hasToken(BOOST)) {
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectBoostedInExpedition($originalLocation, $card->isGigantic()) && $card->hasToken(BOOST)) {
         unset($cards[$cId]);
         Notifications::message(clienttranslate('${card_name} is not discarded but loose <BOOST> instead'), ['card' => $card]);
         $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => BOOST, 'n' => 99]]);
         continue;
       }
+      throw new \feException($originalLocation);
 
       // Special case of MoonlightJellyFish
       if ($this->isSacrifice()) {

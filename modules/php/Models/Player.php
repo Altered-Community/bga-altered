@@ -735,23 +735,44 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
-  public function hasProtectAnchoredInExpedition($expedition)
+  public function hasProtectAnchoredInExpedition($expedition, $gigantic = false)
   {
+    $otherExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
       if ($card->isProtectAnchoredInExpedition()) {
         return true;
       }
     }
+    // #169707: "Floral Tent did not protect Boosted Kaibara"
+    if ($gigantic) {
+      foreach ($this->getPlayedCards()->where('location', $otherExpedition) as $cId => $card) {
+        if ($card->isProtectAnchoredInExpedition()) {
+          return true;
+        }
+      }
+    }
     return false;
   }
 
-  public function hasProtectBoostedInExpedition($expedition)
+  public function hasProtectBoostedInExpedition($expedition, $gigantic = false)
   {
+    $otherExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
       if ($card->isProtectBoostedInExpedition()) {
         return true;
       }
     }
+
+    // #169707: "Floral Tent did not protect Boosted Kaibara"
+    if ($gigantic) {
+      foreach ($this->getPlayedCards()->where('location', $otherExpedition) as $cId => $card) {
+        if ($card->isProtectBoostedInExpedition()) {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
