@@ -295,7 +295,6 @@ class Discard extends \ALT\Models\Action
         $this->insertAsChild(['action' => LOOSE, 'args' => ['cardId' => $cId, 'type' => BOOST, 'n' => 99]]);
         continue;
       }
-      throw new \feException($originalLocation);
 
       // Special case of MoonlightJellyFish
       if ($this->isSacrifice()) {

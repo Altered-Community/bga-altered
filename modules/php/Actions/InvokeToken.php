@@ -189,7 +189,7 @@ class InvokeToken extends \ALT\Models\Action
       }
 
 
-      $this->checkAfterListeners(Players::get($invokePId), [
+      $this->checkAfterListeners($player, [
         'playCard' => true,
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),
