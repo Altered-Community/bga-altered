@@ -952,6 +952,8 @@ class Card extends \ALT\Helpers\DB_Model
         } else {
           return 0;
         }
+      } elseif ($result == "1") {
+        return 1;
       } elseif (!is_null($result) && is_int($result)) {
         return $result;
       }
