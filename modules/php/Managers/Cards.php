@@ -738,7 +738,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         $event['reserveToListen'][] = $cardId;
       }
       // #147483: "Unique lyra - Timing limbo effect/cleanup
-      if (isset($event['action']) && ($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
+      if (isset($event['action']) && in_array($listenCard, STORMS) && ($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
         $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
       }
       $childs[] = [
