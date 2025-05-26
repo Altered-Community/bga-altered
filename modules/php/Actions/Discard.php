@@ -260,12 +260,14 @@ class Discard extends \ALT\Models\Action
           $newNodes = FT::ACTION(DISCARD, [
             'cardId' => $cId,
             'destination' => TOP_OF_DECK,
+            'tapped' => $this->getArg('tapped') ?? false,
             'force' => true,
           ], ['pId' => $card->getPId()]);
         } else {
           $newNodes = FT::ACTION(DISCARD, [
             'cardId' => $cId,
             'destination' => $args['destination'],
+            'tapped' => $this->getArg('tapped') ?? false,
             'force' => true,
           ], ['pId' => $card->getPId()]);
         }
