@@ -312,6 +312,11 @@ class Discard extends \ALT\Models\Action
         }
       }
 
+      // If the card discarded (to hand/mana/reserve) is the source of another node, we need to authorize listening
+      if (in_array($originalLocation, IN_PLAY)) {
+        Engine::forceListeningNode($cId);
+      }
+
       // Destroy the card if token
       if ($card->isToken()) {
         $deletedTokens[] = $cId;

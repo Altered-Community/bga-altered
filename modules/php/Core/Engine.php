@@ -673,4 +673,29 @@ class Engine
     $actions = self::getResolvedActions($types);
     return empty($actions) ? null : $actions[count($actions) - 1];
   }
+
+  // in the case of a discard event (or other case), we need to force the discarded card in listening mode
+  public static function forceListeningNode($sourceId, &$nodes = null)
+  {
+    if (is_null($nodes)) {
+      $nodes = self::$tree;
+    }
+
+    if ($nodes->getAction() == ACTIVATE_CARD && ($nodes->getArgs()['cardId'] ?? -1) == $sourceId) {
+      $args = $nodes->getArgs();
+      $args['event']['cardsToListen'][] = $sourceId;
+      $nodes->setInfo('args', $args);
+    }
+    // var_dump($nodes->toArray());
+    foreach ($nodes->getChilds() as $node) {
+      // throw new \feException(print_r($nodes->toArray()));
+      // var_dump($node->toArray());
+      if ($node->isResolved()) {
+        continue;
+      }
+      self::forceListeningNode($sourceId, $node);
+    }
+
+    Engine::save();
+  }
 }
