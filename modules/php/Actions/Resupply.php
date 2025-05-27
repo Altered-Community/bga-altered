@@ -88,6 +88,7 @@ class Resupply extends \ALT\Models\Action
     $player = $this->getPlayer();
     $notResupply = false;
     $exhausted = $this->getArg('exhausted');
+    $checkpoint = true;
 
     $source = $this->ctx->getSource() ?? null;
     $sourceId = $this->ctx->getSourceId() ?? null;
@@ -145,6 +146,7 @@ class Resupply extends \ALT\Models\Action
         )
       );
       $cards = $drawn;
+      $checkpoint = false;
     } else {
       $cards = $player->draw(
         $n,
@@ -207,6 +209,6 @@ class Resupply extends \ALT\Models\Action
     }
     $this->checkAfterListeners($player, ['draw' => $n, 'sourceId' => $this->getSourceId(), 'notResupply' => $notResupply]);
 
-    $this->resolveAction(null, true);
+    $this->resolveAction(null, $checkpoint);
   }
 }
