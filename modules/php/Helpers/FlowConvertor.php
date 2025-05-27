@@ -1885,6 +1885,7 @@ abstract class FlowConvertor
       314 => [
         'description' => clienttranslate('You may send target Character to Reserve, then exhaust it.'),
         'output' => FT::ACTION(TARGET, [
+          'upTo' => true,
           'effect' => FT::SEQ(FT::DISCARD_TO_RESERVE(), FT::ACTION(EXHAUST, []))
         ])
       ],
