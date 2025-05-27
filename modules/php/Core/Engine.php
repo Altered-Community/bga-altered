@@ -686,10 +686,8 @@ class Engine
       $args['event']['cardsToListen'][] = $sourceId;
       $nodes->setInfo('args', $args);
     }
-    // var_dump($nodes->toArray());
+
     foreach ($nodes->getChilds() as $node) {
-      // throw new \feException(print_r($nodes->toArray()));
-      // var_dump($node->toArray());
       if ($node->isResolved()) {
         continue;
       }
