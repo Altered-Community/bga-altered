@@ -832,7 +832,8 @@ abstract class FlowConvertor
       ],
       117 => [
         'description' => clienttranslate('Characters you control other than me have <TOUGH_2>.'),
-        'attributes' => ['excludeUniversalTough' => true, 'dynamicTough' => 'universalCharacter2',]
+        'attributes' => ['excludeUniversalTough' => true, 'dynamicTough' => 'universalCharacter2',],
+        'noTrigger' => true,
       ],
       118 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in target Expedition.'),
@@ -2446,6 +2447,10 @@ abstract class FlowConvertor
       // throw new \feException(print_r($calculated));
       if (isset($calculated['triggerConditions'])) {
         foreach (($calculated['outputAttributes'] ?? []) as $keyAttribute => $attribute) {
+          if ($keyAttribute == 'excludeUniversalTough') {
+            $properties[$keyAttribute] = $attribute;
+            continue;
+          }
           if (!isset($properties[$keyAttribute])) {
             if (is_string($attribute) || is_bool($attribute)) {
               $properties[$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
