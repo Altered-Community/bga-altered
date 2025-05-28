@@ -1718,7 +1718,6 @@ abstract class FlowConvertor
           [
             'targetType' => [CHARACTER, TOKEN],
             'upTo' => true,
-            'excludeSelf' => true,
             'statuses' => FLEETING,
             'effect' => FT::GAIN(EFFECT, BOOST)
           ]
