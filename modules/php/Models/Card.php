@@ -515,6 +515,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     if (isset($event['action']) && !empty($passive[$event['action']]['listeningConditions'] ?? [])) {
       // in some rare cases, check must be done before, (like Icebound taiga)
+      // var_dump(debug_print_backtrace());
       $conditions = $passive[$event['action']]['listeningConditions'];
       foreach ($conditions as $cond) {
         $t = explode(':', $cond);
@@ -525,6 +526,7 @@ class Card extends \ALT\Helpers\DB_Model
           // var_dump($card->getName(), $cond, $event);
           return false;
         }
+        // var_dump(debug_print_backtrace());
       }
     }
 

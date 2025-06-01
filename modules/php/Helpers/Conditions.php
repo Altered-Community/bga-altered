@@ -515,6 +515,9 @@ abstract class Conditions
     if ($op == 'LTE') {
       return $m <= $n;
     }
+    if ($op == 'EQ') {
+      return $m == $n;
+    }
     die('Unknown op for hasCounterOnCard');
   }
 

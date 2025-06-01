@@ -34,7 +34,7 @@ class BR_Common_IceboundPeak extends \ALT\Models\Card
                     ]),
                 ],
                 'SpecialEffect' => [
-                    'listeningConditions' => ['hasCounterOnCard:3'],
+                    'listeningConditions' => ['hasCounterOnCard:3:EQ', 'isSource'],
                     'conditions' => ['specialEffect:gainCounter'],
                     'output' => FT::SEQ(
                         FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),

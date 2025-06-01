@@ -329,7 +329,7 @@ class SpecialEffect extends \ALT\Models\Action
         $card->setExtraDatas($data);
         if ($args['counter'] ?? 0 > 0) {
           Notifications::gainCounter($this->getSource(), $args['counter']);
-          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+          $this->checkAfterListeners($card->getPlayer(), ['sourceId' => $card->getId(), 'specialEffect' => 'gainCounter']);
         }
         break;
       case 'incCounter':
@@ -349,7 +349,7 @@ class SpecialEffect extends \ALT\Models\Action
 
         if ($args['counter'] ?? 0 > 0) {
           Notifications::gainCounter($this->getSource(), $args['counter']);
-          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+          $this->checkAfterListeners($card->getPlayer(), ['sourceId' => $card->getId(), 'specialEffect' => 'gainCounter']);
         }
         break;
       case 'activateAllPermanents':
@@ -1224,7 +1224,7 @@ class SpecialEffect extends \ALT\Models\Action
           $card->setExtraDatas($data);
 
           Notifications::gainCounter($this->getSource(), $count);
-          $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter']);
+          $this->checkAfterListeners($card->getPlayer(), ['sourceId' => $card->getId(), 'specialEffect' => 'gainCounter']);
         }
         break;
       case 'nextCharacterVGainsBoost':
