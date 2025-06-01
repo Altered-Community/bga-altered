@@ -810,13 +810,14 @@ class SpecialEffect extends \ALT\Models\Action
         $pId = $this->getCtxArg('player');
         $nodes = [];
         $exhaust = [];
+        $ownerId = $card->getId();
 
         foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
           if (!in_array($card->getType(), [CHARACTER, TOKEN]) || ($card->getLocation() != $expedition && !$card->isGigantic())) {
             continue;
           }
-          $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => RESERVE], ['sourceId' => $this->getSourceId(), 'pId' => $pId]);
-          $exhaust[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId(), 'pId' => $pId]);
+          $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => RESERVE], ['sourceId' => $this->getSourceId(), 'pId' => $ownerId]);
+          $exhaust[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId(), 'pId' => $ownerId]);
         }
         if (!empty($nodes)) {
           $this->insertAsChild([
