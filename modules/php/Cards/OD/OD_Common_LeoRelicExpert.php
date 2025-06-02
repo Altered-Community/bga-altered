@@ -28,7 +28,6 @@ class OD_Common_LeoRelicExpert extends \ALT\Models\Card
             'ocean' => 3,
             'costHand' => 3,
             'costReserve' => 3,
-            'costReserve' => 2,
             'effectPassive' => [
                 'AfterDusk' => [
                     'condition' => 'isMe',
