@@ -29,7 +29,7 @@ class BR_Rare_TheGrems extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 2,
             'effectReserve' => FT::XOR_OPTIONAL(
-                FT::ACTION(TARGET, ['maxHandCost' => 3, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+                FT::ACTION(TARGET, ['maxHandCost' => 3, 'targetPlayer' => OPPONENT, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
                 FT::ACTION(TARGET, [
                     'targetPlayer' => ME,
                     'targetType' => [PERMANENT],

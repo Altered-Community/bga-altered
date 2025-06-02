@@ -30,7 +30,7 @@ class AX_Rare_TheGrems extends \ALT\Models\Card
             'costReserve' => 2,
             'changedStats' => ['forest'],
             'effectReserve' => FT::XOR_OPTIONAL(
-                FT::ACTION(TARGET, ['maxHandCost' => 5, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+                FT::ACTION(TARGET, ['maxHandCost' => 5, 'targetPlayer' => OPPONENT, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
                 FT::ACTION(TARGET, [
                     'targetPlayer' => ME,
                     'targetType' => [PERMANENT],
