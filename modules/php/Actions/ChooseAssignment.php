@@ -275,7 +275,7 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextReserveCharacterBoost(0);
     }
     // The undergrowth
-    if (Globals::getNextCharacterBoostV() > 0 && $player->isInBiome($location, FOREST)) {
+    if (Globals::getNextCharacterBoostV() > 0 && $card->getType() == CHARACTER && $player->isInBiome($location, FOREST)) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoostV()));
       Globals::setNextCharacterBoostV(0);
     }
