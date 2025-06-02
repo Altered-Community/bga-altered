@@ -7835,6 +7835,7 @@ body.focus-board .altered-player-board .player-board-infos {
   align-items: flex-start;
   padding-top: 15px;
   padding-left: 22px;
+  width: 70%;
 }
 #altered-board-me .altered-player-board .player-board-grass .player-board-separator {
   margin-top: -20px;
