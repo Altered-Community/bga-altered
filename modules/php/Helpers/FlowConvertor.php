@@ -2735,6 +2735,12 @@ abstract class FlowConvertor
           if (!isset($calculated['outputPassive'][$existingTrigger])) {
             continue;
           }
+
+          // update of existing node as there is still an output 
+          if ($trinity['output'] == 478) {
+            self::addEffectToCondition($calculated['outputPassive'][$existingTrigger]['output'], $existingNode);
+            continue;
+          }
           // we already have childs
           if (isset($existingNode['childs'])) {
             $existingNode['childs'][] = $calculated['outputPassive'][$existingTrigger];
