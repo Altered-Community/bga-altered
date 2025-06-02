@@ -57,7 +57,9 @@ class UseCounter extends \ALT\Models\Action
     if ($cost > 0) {
       $player->payMana($cost);
     }
-
+    if ($consume < 0) {
+      throw new \BgaVisibleSystemException('Consume is negative, should not happen');
+    }
     if ($this->getArg('upTo') == false && ($extraDatas['counter'] ?? 0) < $consume) {
       throw new \BgaVisibleSystemException('Cannot consume counter. Should not happen');
     }

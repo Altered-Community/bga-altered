@@ -229,7 +229,7 @@ class Gain extends \ALT\Models\Action
       } else {
         // we need to increase the counter
         $data = $card->getExtraDatas();
-        $data['counter'] = $data['counter'] + 1;
+        $data['counter'] = ($data['counter'] ?? 0) + 1;
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($card, 1);

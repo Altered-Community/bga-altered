@@ -260,6 +260,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'counterPerOpponentCharacter':
       case 'boostAllCharactersExceptSelf':
       case 'boostHandCards':
+      case 'boostXreserveBoost':
         return false;
         break;
       default:
@@ -1338,7 +1339,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'boostReserveCards':
         $player = $card->getPlayer();
-        $count = $player->getReserve()->count();
+        $count = $player->getReserveCards()->count();
         if ($count > 0) {
           $this->insertAsChild(FT::ACTION(GAIN, [
             'cardId' => ME,
