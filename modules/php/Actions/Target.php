@@ -47,6 +47,7 @@ class Target extends \ALT\Models\Action
     'augmentOnly' => false,
     'effect' => null,
     'allIds' => false, // we put all the Ids instead of duplicating for each card
+    'ignoreTough' => false,
   ];
 
   public function getDescription()
@@ -272,9 +273,10 @@ class Target extends \ALT\Models\Action
   {
     $cards = $this->getTargetableCards($player);
     $costs = [];
-    // if (Globals::isPlayedForFree()) {
-    //   return $costs;
-    // }
+
+    if ($this->getArg('ignoreTough') == true) {
+      return $costs;
+    }
 
     foreach ($cards as $cId => $card) {
       if ($card->getTough() > 0 && $card->getPId() != $player->getId()) {

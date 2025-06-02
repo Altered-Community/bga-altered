@@ -2628,6 +2628,7 @@ abstract class FlowConvertor
         'targetLocation' => [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE],
         'targetType' => [TOKEN, CHARACTER, SPELL, PERMANENT],
         'excludeSelf' => true,
+        'ignoreTough' => true,
         'effect' => FT::ACTION(DISCARD, [])
       ]);
       $key = 'effectPassive';

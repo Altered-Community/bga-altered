@@ -34,6 +34,7 @@ class BR_Rare_TheHunger extends \ALT\Models\Card
         'targetLocation' => [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE],
         'targetType' => [TOKEN, CHARACTER, SPELL, PERMANENT],
         'excludeSelf' => true,
+        'ignoreTough' => true,
         'effect' => FT::ACTION(DISCARD, [])
       ]),
       'effectPassive' => [
