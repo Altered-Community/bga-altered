@@ -980,11 +980,18 @@ abstract class Conditions
     }
   }
 
-  public static function isInBiome($card, $event, $biome)
+  public static function isInBiome($card, $event, $biome, $excludeMove = false)
   {
+    if (is_string($excludeMove)) {
+      if ($excludeMove == 'true') {
+        $excludeMove = true;
+      } else {
+        $excludeMove = false;
+      }
+    }
     return $card->isGigantic() ?
-      ($card->getPlayer()->isInBiome(STORM_LEFT, $biome) || $card->getPlayer()->isInBiome(STORM_RIGHT, $biome)) :
-      $card->getPlayer()->isInBiome($card->getLocation(), $biome);
+      ($card->getPlayer()->isInBiome(STORM_LEFT, $biome, $excludeMove) || $card->getPlayer()->isInBiome(STORM_RIGHT, $biome, $excludeMove)) :
+      $card->getPlayer()->isInBiome($card->getLocation(), $biome, $excludeMove);
   }
   public static function isNotInBiome($card, $event, $biome)
   {

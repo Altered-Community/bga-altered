@@ -405,7 +405,7 @@ class Player extends \ALT\Helpers\DB_Model
     return $locations;
   }
 
-  public function isInBiome($storm, $biome)
+  public function isInBiome($storm, $biome, $excludeMove = false)
   {
     $biomes = $this->getBiomeInStorms();
     if ($storm == '') {
@@ -418,7 +418,7 @@ class Player extends \ALT\Helpers\DB_Model
       $newBiomes[$b] = $b;
     }
 
-    Players::biomesModifier($newBiomes, $this, $storm);
+    Players::biomesModifier($newBiomes, $this, $storm, false, $excludeMove);
     return in_array($biome, $newBiomes);
   }
 

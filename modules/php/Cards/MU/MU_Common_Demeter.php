@@ -26,7 +26,7 @@ class MU_Common_Demeter extends \ALT\Models\Card
             'ocean' => 5,
             'costHand' => 6,
             'costReserve' => 6,
-            'dynamicEternal' => '1:isInBiome:forest'
+            'dynamicEternal' => '1:isInBiome:forest:true'
         ];
     }
 }

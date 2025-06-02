@@ -226,9 +226,9 @@ abstract class FlowConvertor
       ],
       // Alizé
       354 => ['description' => clienttranslate('If each of your Expeditions is behind or tied:'), 'condition' => 'allExpeditionsAreBehindOrTied'],
-      426 => ['description' => clienttranslate('If I\'m in {M}:'), 'condition' => 'isInBiome:mountain'],
-      352 => ['description' => clienttranslate('If I\'m in {V}:'), 'condition' => 'isInBiome:forest'],
-      405 => ['description' => clienttranslate('If I\'m in {V}:'), 'condition' => 'isInBiome:forest'],
+      426 => ['description' => clienttranslate('If I\'m in {M}:'), 'condition' => 'isInBiome:mountain:true'],
+      352 => ['description' => clienttranslate('If I\'m in {V}:'), 'condition' => 'isInBiome:forest:true'],
+      405 => ['description' => clienttranslate('If I\'m in {V}:'), 'condition' => 'isInBiome:forest:true'],
       353 => ['description' => clienttranslate('If I\'m the only Character in my Expedition:'), 'condition' => 'XCharacterInExpedition:1:E'],
       378 => ['description' => clienttranslate('If I\'m the only Character in my Expedition:'), 'condition' => 'XCharacterInExpedition:1:E'],
       423 => ['description' => clienttranslate('If I\'m the only Character in my Expedition:'), 'condition' => 'XCharacterInExpedition:1:E'],
