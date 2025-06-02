@@ -321,6 +321,12 @@ class SpecialEffect extends \ALT\Models\Action
           return;
         }
 
+        // No counter can be gained in hand
+        if ($card->getLocation() == HAND) {
+          $this->resolveAction();
+          return;
+        }
+
         if ((($data['counter'] ?? 0) + ($args['counter'] ?? 0)) > ($args['maxCounter'] ?? 99)) {
           $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
         }
@@ -338,6 +344,11 @@ class SpecialEffect extends \ALT\Models\Action
         if (($data['counter'] ?? 0) > 0 && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
           Notifications::message(clienttranslate('No new counter can be added to cards'), []);
           $this->resolveAction([]);
+          return;
+        }
+        // No counter can be gained in hand
+        if ($card->getLocation() == HAND) {
+          $this->resolveAction();
           return;
         }
         if ((($data['counter'] ?? 0) + ($args['counter'] ?? 0)) > ($args['maxCounter'] ?? 99)) {
