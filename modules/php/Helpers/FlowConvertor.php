@@ -2644,6 +2644,10 @@ abstract class FlowConvertor
       // #147483: "Unique lyra - Timing limbo effect/cleanup
       // We add a flag to force listening except for power I gain 1 boost/2 boost
       $node['RollDie']['forceListening'] = true;
+    } elseif ($trinity['trigger'] == 419) {
+      // #170850: "Amarok and hooked token "
+      // needs to manage movecard with Amarok
+      $node['MoveCard']['conditions'] = ['isCharacterFromTarget', 'isPlayedInSameLocation', 'excludeSelf'];
     }
 
     // dynamic attributes generate empty node
