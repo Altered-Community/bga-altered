@@ -350,6 +350,8 @@ class Target extends \ALT\Models\Action
         $node = $this->updateCardId($node, $cardIds, '', $this->getSourceId(), $player->getId());
         $this->pushParallelChild($node);
       }
+      $cards = Cards::getMany($cardIds);
+      Notifications::targetCards($player, $cards, $additionalCost, $this->getSource());
     } else {
       foreach ($cards as $cardId => $card) {
         $cardFrom = $card->getLocation();
