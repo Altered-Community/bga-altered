@@ -261,6 +261,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostAllCharactersExceptSelf':
       case 'boostHandCards':
       case 'boostXreserveBoost':
+      case 'boostXReserve':
         return false;
         break;
       default:
