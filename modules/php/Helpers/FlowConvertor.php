@@ -2138,7 +2138,18 @@ abstract class FlowConvertor
           ])
         ])
       ],
-      487 => ['description' => clienttranslate('Target a Character other than me in Reserve. Then, roll a die: • On a 4+, we both gain 1 boost. • On a 1-3, it gains 1 boost.'), 'output' => ''],
+      487 => ['description' => clienttranslate('Target a Character other than me in Reserve. Then, roll a die: • On a 4+, we both gain 1 boost. • On a 1-3, it gains 1 boost.'), 'output' => FT::ACTION(TARGET, [
+        'targetLocation' => [RESERVE],
+        'effect' => FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1-3' => FT::GAIN(EFFECT, BOOST),
+            '4+' => FT::SEQ(
+              FT::GAIN(EFFECT, BOOST),
+              FT::GAIN(ME, BOOST)
+            ),
+          ],
+        ])
+      ])],
       488 => ['description' => clienttranslate('Target Character in play or in Reserve gains 1 boost.'), 'output' => FT::ACTION(TARGET, [
         'targetLocation' => [RESERVE, STORM_LEFT, STORM_RIGHT],
         'effect' => FT::GAIN(EFFECT, BOOST)
