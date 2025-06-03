@@ -70,10 +70,6 @@ class MoveCard extends \ALT\Models\Action
     $map = [STORM_LEFT => STORM_RIGHT, STORM_RIGHT => STORM_LEFT];
     foreach ($cards as $cId => $card) {
       $fromLocation = $card->getLocation();
-      if ($this->getArg('location') == 'opposite') {
-        $card->setLocation($map[$card->getLocation()]);
-      }
-
 
       // Floral Tent
       if (Globals::isDayPhase() && in_array($fromLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($fromLocation) && $card->hasToken(ANCHORED)) {
@@ -90,6 +86,9 @@ class MoveCard extends \ALT\Models\Action
         continue;
       }
 
+      if ($this->getArg('location') == 'opposite') {
+        $card->setLocation($map[$card->getLocation()]);
+      }
 
       Notifications::moveCard($source->getPlayer(), $card, $source);
       $this->checkAfterListeners($source->getPlayer(), [
