@@ -262,6 +262,8 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostHandCards':
       case 'boostXreserveBoost':
       case 'boostXReserve':
+      case 'drawTopIfRoll':
+      case 'exhaustPlayFree':
         return false;
         break;
       default:
