@@ -925,7 +925,7 @@ class SpecialEffect extends \ALT\Models\Action
             [
               'targetType' => [CHARACTER, SPELL, PERMANENT],
               'targetPlayer' => ME,
-              'targetLocation' => [HAND],
+              'targetLocation' => [RESERVE],
               'effect' => FT::ACTION(EXHAUST, [])
             ],
             ['pId' => $pId, 'sourceId' => $this->getSourceId()]
