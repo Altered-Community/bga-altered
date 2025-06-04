@@ -1867,9 +1867,9 @@ abstract class FlowConvertor
           FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']])
         )
       ],
-      346 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedAllCards' => true]],
-      391 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedAllCards' => true]],
-      347 => ['description' => clienttranslate('You may play exhausted Characters from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedCharacters' => true]],
+      346 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedAllCards' => ['type' => 'all']]],
+      391 => ['description' => clienttranslate('You may play exhausted cards from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedAllCards' => ['type' => 'all']]],
+      347 => ['description' => clienttranslate('You may play exhausted Characters from your Reserve.'), 'noTrigger' => true, 'attributes' => ['playTappedAllCards' => ['type' => CHARACTER, 'location' => ME]]],
       348 => [
         'description' => clienttranslate('You may ready an exhausted card in Reserve.'),
         'output' => FT::ACTION(TARGET, [
