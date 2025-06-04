@@ -55,7 +55,7 @@ $machinestates = [
     'description' => clienttranslate('Waiting for others to choose their deck'),
     'descriptionmyturn' => clienttranslate('${you} must select the deck you want to play'),
     'type' => 'multipleactiveplayer',
-    'args' => 'argsDeckSelection',
+    // 'args' => 'argsDeckSelection',
     'possibleactions' => ['actSelectDeck', 'actCancelDeckSelection'],
     'transitions' => ['done' => ST_SETUP, 'zombiePass' => ST_SETUP],
   ],
@@ -166,7 +166,7 @@ $machinestates = [
     'type' => 'game',
     'action' => 'stBeforeNight',
     'transitions' => [
-      'done' => ST_NIGHT,
+      'done' => ST_NIGHT_CLEANUP,
       'newDay' => ST_BEFORE_ASSIGNMENT,
     ],
   ],
@@ -511,7 +511,7 @@ $machinestates = [
     'args' => 'argsConfirmTurn',
     'action' => 'stConfirmTurn',
     'possibleactions' => ['actConfirmTurn', 'actRestart'],
-    'transitions' => ['endOfDay' => ''],
+    'transitions' => ['endOfDay' => ST_CONFIRM_TURN],
   ],
 
   ST_CONFIRM_PARTIAL_TURN => [

@@ -825,7 +825,7 @@ class SpecialEffect extends \ALT\Models\Action
         $pId = $this->getCtxArg('player');
         $nodes = [];
         $exhaust = [];
-        $ownerId = $card->getId();
+        $ownerId = $card->getPId();
 
         foreach (Players::get($pId)->getPlayedCards() as $cId => $card) {
           if (!in_array($card->getType(), [CHARACTER, TOKEN]) || ($card->getLocation() != $expedition && !$card->isGigantic())) {
