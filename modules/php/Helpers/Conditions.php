@@ -909,6 +909,11 @@ abstract class Conditions
     return true;
   }
 
+  public static function isNotToken($card, $event)
+  {
+    return !($event['token'] ?? false);
+  }
+
   ///////////////////////////////////
   //   ___  _   _                   
   //  / _ \| |_| |__   ___ _ __ ___ 

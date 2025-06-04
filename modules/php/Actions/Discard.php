@@ -228,6 +228,7 @@ class Discard extends \ALT\Models\Action
       $players[$card->getPId()] = $card->getPlayer();
       $destination = $args['destination'];
       $hasFleeting = $card->hasToken(FLEETING);
+      $isToken = $card->isToken();
 
       // We discard a card that has fleeting and should go to reserve
       if (in_array($destination, [RESERVE, DISCARD_PILE]) && $hasFleeting) {
@@ -371,6 +372,7 @@ class Discard extends \ALT\Models\Action
       'discardCard' => true,
       'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
       'cardId' => $newCId,
+      'token' => $isToken,
       'from' => $originalLocation,
       'to' => $destination,
       'sacrifice' => $this->isSacrifice(),

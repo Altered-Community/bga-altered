@@ -38,7 +38,7 @@ class YZ_Common_TheHunger extends \ALT\Models\Card
             ]),
             'effectPassive' => [
                 'Discard' => [
-                    'conditions' => ['isDiscarded::discard'],
+                    'conditions' => ['isDiscarded::discard', 'isNotToken'],
                     'output' => FT::GAIN(ME, BOOST)
                 ],
             ],
