@@ -27,6 +27,7 @@ class SpecialEffect extends \ALT\Models\Action
 
     switch ($effect) {
       case 'gainCounter':
+      case 'incCounter':
         return [
           'log' => clienttranslate('Gain ${n} ${counter_name}'),
           'args' => [
