@@ -1042,7 +1042,10 @@ abstract class Conditions
 
   public static function XCharacterInExpedition($card, $event, $n, $op = 'GTE')
   {
-    $nCards = $card->getPlayer()->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]);
+    $loc = $card->getLocation();
+    $nCards = $card->getPlayer()->getPlayedCards([TOKEN, CHARACTER])->filter(function ($c) use ($loc) {
+      return $c->isGigantic()  || $c->getLocation() == $loc;
+    })->count();
     if ($op == 'GTE') {
       return $n >= $nCards;
     } elseif ($op == 'LTE') {
