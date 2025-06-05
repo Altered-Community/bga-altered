@@ -54,6 +54,7 @@ abstract class FlowConvertor
       260 => ['description' => clienttranslate('When you exhaust a card in Reserve —'), 'trigger' => 'Exhaust', 'condition' => ['isMe', 'isExhaustedInLocation:reserve']],
       261 => ['description' => clienttranslate('When you play another Character in {V} —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isMe', 'isCardAdded:character:::true', 'isPlayedCardInBiome:forest', 'excludeSelf']],
       // Bise
+      18 => ['description' => clienttranslate('At Night —'), 'trigger' => 'AfterDusk'],
       432 => ['description' => clienttranslate('{I}'), 'type' => 'effectInfinity'],
       433 => ['description' => clienttranslate('{I} At Noon —'), 'trigger' => 'Noon', 'type' => 'effectInfinity', 'condition' => 'isMe'],
       434 => ['description' => clienttranslate('{I} When an opponent draws one or more cards —'), 'trigger' => ['Draw', 'Resupply', 'Morning'], 'condition' => 'isOpponentDraw', 'type' => 'effectInfinity'],
@@ -1942,6 +1943,7 @@ abstract class FlowConvertor
         ]),
       ],
       450 => ['description' => clienttranslate('<SABOTAGE> after Rest.'), 'output' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRestSabotage'])],
+      74 => ['description' => clienttranslate('<SABOTAGE> after Rest.'), 'output' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRestSabotage'])],
       451 => [
         'description' => clienttranslate('<SABOTAGE>, otherwise <RESUPPLY>.'),
         'output' => FT::ACTION(TARGET, [
