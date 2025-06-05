@@ -10,8 +10,8 @@ class YZ_Rare_KuraokamiUnbound extends \ALT\Models\Card
     {
         parent::__construct($row);
         $this->properties = [
-            'uid' => 'ALT_ALIZE_P_YZ_48_R1',
-            'asset'  => 'ALT_ALIZE_P_YZ_48_R',
+            'uid' => 'ALT_ALIZE_P_OR_48_R2',
+            'asset'  => 'ALT_ALIZE_P_OR_48_R',
 
             'faction'  => FACTION_YZ,
             'rarity'  => RARITY_RARE,
