@@ -2058,7 +2058,8 @@ abstract class FlowConvertor
       523 => ['description' => clienttranslate('Each Character in target Expedition gains <FLEETING>.'), 'output' =>  FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllCharactersInExpedition'])])],
       477 => [
         'description' => clienttranslate('I am <ETERNAL>. At Night — I lose 1 boost.'),
-        'attributes' => ['eternal' => true],
+        'noTrigger' => true,
+        'attributes' => ['dynamicEternal' => '1'],
         'passive' => ['AfterDusk' => [
           'conditions' => ['isMe', 'hasBoost'],
           'output' => FT::LOOSE(ME, BOOST)
