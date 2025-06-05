@@ -107,10 +107,10 @@ class Resupply extends \ALT\Models\Action
         LIMBO,
         $source,
         clienttranslate(
-          'You draw ${card_names} from your deck and must keep 1 (${card_name2}\'s effect combined with The Ouroboros, Lyra Bastion)'
+          '${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}\'s effect combined with  The Ouroboros, Lyra Bastion)'
         ),
         clienttranslate(
-          '${player_name} draws ${card_names} from its deck and must keep 1 (${card_name2}\'s effect combined with  The Ouroboros, Lyra Bastion)'
+          'You draw ${card_names} from your deck and must keep 1 (${card_name2}\'s effect combined with The Ouroboros, Lyra Bastion)'
         )
       );
       $this->insertAsChild(
@@ -153,8 +153,8 @@ class Resupply extends \ALT\Models\Action
         'deck-' . $player->getId(),
         RESERVE,
         $source,
-        $exhausted ? clienttranslate('You put ${card_names} from your deck in Reserve as exhausted (${card_name2}\'s effect)') : clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
         $exhausted ? clienttranslate('${player_name} places ${card_names} from its deck to Reserve as exhausted(${card_name2}\'s effect)') : clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'),
+        $exhausted ? clienttranslate('You put ${card_names} from your deck in Reserve as exhausted (${card_name2}\'s effect)') : clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
         $exhausted
       );
       if ($this->getArg('character2Less')) {
