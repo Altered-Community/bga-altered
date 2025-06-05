@@ -121,7 +121,7 @@ class Target extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->getArg('upTo') || count($this->getTargetableCards($player)) != 0;
+    return $this->getArg('upTo') || (!$this->getArg('allIds') && count($this->getTargetableCards($player)) != 0) ||  ($this->getArg('allIds') && count($this->getTargetableCards($player)) >= $this->getArg('n'));
   }
 
   public function isOptional($player)
@@ -373,7 +373,7 @@ class Target extends \ALT\Models\Action
             $discardSource = $cardFrom . '-' . $card->getPId();
             $node = Utils::updateTree($node, [0 => 'discardedSource'], [$discardSource], ['targetLocation']);
             // if the discarded card is the source, need to update the location
-            if ($cardId == $this->getSourceId() && $card->getUid() == 'ALT_CORE_B_OR_06_U_3184') {
+            if ($cardId == $this->getSourceId() && in_array($card->getUid(), ['ALT_CORE_B_OR_06_U_3184', 'ALT_CORE_B_OR_06_U_3184'])) {
               $node = Utils::updateTree($node, [0 => 'initialSource'], [$discardSource], ['targetLocation']);
             }
           }
