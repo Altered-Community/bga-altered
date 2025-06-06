@@ -233,7 +233,7 @@ class Gain extends \ALT\Models\Action
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($card, 1);
-        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter'], true, 'SpecialEffect');
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter', 'augment' => true, 'cardId' => $card->getId()], true, 'SpecialEffect');
         $this->resolveAction([]);
         return;
       }

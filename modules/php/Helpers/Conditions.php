@@ -71,7 +71,12 @@ abstract class Conditions
 
   public static function isSource($card, $event)
   {
-    return $card->getId() == $event['sourceId'];
+    return $card->getId() == ($event['sourceId'] ?? -1);
+  }
+
+  public static function isSourceOrAugment($card, $event)
+  {
+    return $card->getId() == ($event['sourceId'] ?? -1) || (($event['augment'] ?? false) == true && ($event['cardId'] ?? -1) == $card->getId());
   }
 
   public static function hasSameOwner($card, $event)

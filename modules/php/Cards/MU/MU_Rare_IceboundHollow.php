@@ -42,7 +42,7 @@ class MU_Rare_IceboundHollow extends \ALT\Models\Card
                     ]),
                 ],
                 'SpecialEffect' => [
-                    'listeningConditions' => ['hasCounterOnCard:3:EQ', 'isSource'],
+                    'listeningConditions' => ['hasCounterOnCard:3:EQ', 'isSourceOrAugment'],
                     'conditions' => ['specialEffect:gainCounter'],
                     'output' => FT::SEQ(
                         FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
