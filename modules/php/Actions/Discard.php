@@ -37,7 +37,8 @@ class Discard extends \ALT\Models\Action
     'force' => false,  // NO IDEA
     'position' => null,
     'readyIfCostLower' => false, // X Marks the spot
-    'from' => null // Scout management
+    'from' => null, // Scout management
+    'seasoned' => false
   ];
 
   public function isOptional($player)
@@ -270,6 +271,7 @@ class Discard extends \ALT\Models\Action
             'destination' => $args['destination'],
             'tapped' => $this->getArg('tapped') ?? false,
             'force' => true,
+            'seasoned' => $card->isSeasoned()
           ], ['pId' => $card->getPId()]);
         }
         if ($card->isLeaveExpeditionToManaOrDraw()) {
@@ -332,7 +334,12 @@ class Discard extends \ALT\Models\Action
       }
       // Otherwise move the card
       else {
-        $m = $card->discardTo($destination);
+        if ($this->getArg('seasoned')) {
+          $season = [$cId];
+        } else {
+          $season = [];
+        }
+        $m = $card->discardTo($destination, $season);
         $deletedMeeples = array_merge($deletedMeeples, $m);
         if ($destination == TOP_OF_DECK) {
           Cards::insertOnTop($cId, 'deck-' . $card->getPlayer()->getId());

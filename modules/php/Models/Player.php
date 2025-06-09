@@ -510,6 +510,7 @@ class Player extends \ALT\Helpers\DB_Model
           'cardId' => $cId,
           'destination' => RESERVE,
           'force' => true,
+          'seasoned' => in_array($cId, $seasoned)
         ], ['pId' => $card->getPId()]);
 
         if ($card->isLeaveExpeditionToManaOrDraw()) {
