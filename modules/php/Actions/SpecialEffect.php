@@ -860,12 +860,13 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'exhaustAllCards':
         $nodes = [];
+        $cPId = $card->getPId();
         foreach (Players::getAll() as $pId => $player) {
           foreach ($player->getReserveCards() as $cId => $card) {
             if ($card->isTapped()) {
               continue;
             }
-            $nodes[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+            $nodes[] = FT::ACTION(EXHAUST, ['cardId' => $cId], ['sourceId' => $this->getSourceId(), 'pId' => $cPId]);
           }
         }
         if (!empty($nodes)) {
