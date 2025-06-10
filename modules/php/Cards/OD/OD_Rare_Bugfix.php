@@ -43,6 +43,7 @@ class OD_Rare_Bugfix extends \ALT\Models\Card
           ])
         ]
       ),
+      'blockAutomaticAction' => [GAIN => [BOOST => 1]]
     ];
   }
 }

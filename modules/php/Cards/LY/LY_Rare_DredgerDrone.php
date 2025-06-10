@@ -49,7 +49,8 @@ class LY_Rare_DredgerDrone extends \ALT\Models\Card
                         'output' => FT::ACTION(GAIN, ['cardId' => ME, 'upTo' => 2, 'type' => BOOST])
                     ]
                 ]
-            ]
+            ],
+            'blockAutomaticAction' => [GAIN => [BOOST => 1]]
 
         ];
     }

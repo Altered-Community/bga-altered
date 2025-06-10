@@ -65,7 +65,8 @@ class OD_Rare_Drillmole extends \ALT\Models\Card
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                 ],
-            ]
+            ],
+            'blockAutomaticAction' => [GAIN => [BOOST => 1]]
         ];
     }
 }

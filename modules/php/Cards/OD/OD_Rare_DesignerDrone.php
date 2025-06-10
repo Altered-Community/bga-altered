@@ -57,7 +57,8 @@ class OD_Rare_DesignerDrone extends \ALT\Models\Card
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                 ],
-            ]
+            ],
+            'blockAutomaticAction' => [GAIN => [BOOST => 1]]
 
         ];
     }

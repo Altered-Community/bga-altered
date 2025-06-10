@@ -53,7 +53,8 @@ class BR_Rare_EnhancedPrototype extends \ALT\Models\Card
                         'output' => FT::ACTION(GAIN, ['cardId' => ME, 'upTo' => 3, 'type' => BOOST])
                     ]
                 ]
-            ]
+            ],
+            'blockAutomaticAction' => [GAIN => [BOOST => 1]]
         ];
     }
 }

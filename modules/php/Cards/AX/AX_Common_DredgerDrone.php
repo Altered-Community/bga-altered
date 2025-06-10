@@ -46,7 +46,8 @@ class AX_Common_DredgerDrone extends \ALT\Models\Card
                         ),
                     ],
                 ],
-            ]
+            ],
+            'blockAutomaticAction' => [GAIN => [BOOST => 1]]
         ];
     }
 }

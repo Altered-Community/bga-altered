@@ -44,6 +44,8 @@ class YZ_Common_YzmirEngraver extends \ALT\Models\Card
                     'effect' => FT::ACTION(TARGET, ['maxHandCost' => 2, 'effect' => FT::DISCARD_TO_RESERVE()]),
                 ])
             ),
+            'blockAutomaticAction' => [GAIN => [BOOST => 1]]
+
         ];
     }
 }

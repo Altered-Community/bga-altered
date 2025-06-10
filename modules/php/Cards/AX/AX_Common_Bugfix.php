@@ -43,6 +43,8 @@ class AX_Common_Bugfix extends \ALT\Models\Card
           ])
         ]
       ),
+      'blockAutomaticAction' => [GAIN => [BOOST => 1]]
+
     ];
   }
 }
