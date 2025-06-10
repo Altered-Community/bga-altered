@@ -16,7 +16,7 @@ class AX_Rare_IceboundHollow extends \ALT\Models\Card
             'faction'  => FACTION_AX,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Icebound Hollow"),
-            'typeline' => clienttranslate("Landmark_permanent - Site"),
+            'typeline' => clienttranslate("Landmark Permanent - Site"),
             'type'  => PERMANENT,
             'flavorText'  => clienttranslate('In the caves and crevices, it wails and calls to us.'),
             'artist' => "Kevin Sidharta",

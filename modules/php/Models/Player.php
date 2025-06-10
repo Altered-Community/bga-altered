@@ -785,7 +785,7 @@ class Player extends \ALT\Helpers\DB_Model
       $playTappedCharacters = $card->getPlayTappedCharacters();
       $playAllTapped = $card->getPlayTappedAllCards();
 
-      if (!is_bool($playAllTapped)) {
+      if (!is_bool($playAllTapped) && !is_array($playAllTapped)) {
         if (Utils::checkAttributeCondition('tough', $playAllTapped, $this, $card) == "1") {
           $playAllTapped = true;
         } else {
