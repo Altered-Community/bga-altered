@@ -423,7 +423,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     // Clear counter
-    if (!is_null($this->getExtraDatas()['counterName'] ?? null) && $location == DISCARD) {
+    if (!is_null($this->getExtraDatas()['counterName'] ?? null) && in_array($location,  [DISCARD, HAND])) {
       $this->setExtraDatas([]);
       Notifications::deleteCounter($this);
     }

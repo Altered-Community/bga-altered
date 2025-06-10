@@ -1101,9 +1101,9 @@ const MAP_REFS_CLASSES = [
   'ALT_ALIZE_B_YZ_46_R1' => 'YZ/YZ_Rare_IceboundPass',
   'ALT_ALIZE_B_YZ_46_R2' => 'AX/AX_Rare_IceboundPass',
   'ALT_ALIZE_B_YZ_47_C' => 'YZ/YZ_Common_ManaMoth',
-  'ALT_ALIZE_B_OR_48_C' => 'OD/OD_Common_KuraokamiUnbound',
-  'ALT_ALIZE_B_OR_48_R1' => 'OD/OD_Rare_KuraokamiUnbound',
-  'ALT_ALIZE_B_OR_48_R2' => 'YZ/YZ_Rare_KuraokamiUnbound',
+  'ALT_ALIZE_P_OR_48_C' => 'OD/OD_Common_KuraokamiUnbound',
+  'ALT_ALIZE_P_OR_48_R1' => 'OD/OD_Rare_KuraokamiUnbound',
+  'ALT_ALIZE_P_OR_48_R2' => 'YZ/YZ_Rare_KuraokamiUnbound',
   ////////////////////////// BISE
   'ALT_BISE_B_AX_49_C' => 'AX/AX_Common_SapSniffer',
   'ALT_BISE_B_AX_49_R1' => 'AX/AX_Rare_SapSniffer',
