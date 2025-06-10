@@ -32,7 +32,8 @@ class BR_Common_AtsadiSurge extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCharacterCostHigherThanCounter',
+          'listeningConditions' => ['isCharacterCostHigherThanCounter'],
+          'conditions' => ['isMe'],
           'output' => FT::SEQ(
             FT::ACTION(DRAW, ['players' => ME]),
             FT::ACTION(SPECIAL_EFFECT, [
