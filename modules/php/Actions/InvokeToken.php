@@ -195,6 +195,7 @@ class InvokeToken extends \ALT\Models\Action
         'cardType' => $card->getType(),
         'from' => 'invoke',
         'to' => $location,
+        'locationPId' => $invokePId,
         'gigantic' => $card->isGigantic()
       ]);
     }
