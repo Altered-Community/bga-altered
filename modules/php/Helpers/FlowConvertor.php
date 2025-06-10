@@ -1939,7 +1939,7 @@ abstract class FlowConvertor
           'upTo' => true,
           'n' => INFTY,
           'augmentOnly' => true,
-          'effect' => FT::AUGMENT(ME)
+          'effect' => FT::AUGMENT(EFFECT)
         ]),
       ],
       450 => ['description' => clienttranslate('<SABOTAGE> after Rest.'), 'output' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AfterRestSabotage'])],
