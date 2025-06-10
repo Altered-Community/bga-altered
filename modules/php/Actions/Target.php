@@ -198,7 +198,7 @@ class Target extends \ALT\Models\Action
       if ($excludedBiomes === null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()]) && !$c->isGigantic()) {
         return false;
       }
-      if ($excludedBiomes === null && $c->isGigantic() && in_array($c->getLocation(), STORMS) && !in_array($otherLocation, $filteredBiomes[$c->getPId()])) {
+      if ($excludedBiomes === null && $c->isGigantic() && in_array($c->getLocation(), STORMS) && !in_array($otherLocation, $filteredBiomes[$c->getPId()]) && !in_array($c->getLocation(), $filteredBiomes[$c->getPId()])) {
         return false;
       }
       if ($excludedBiomes !== null && in_array($c->getLocation(), STORMS) && !in_array($c->getLocation(), ($excludedBiomes[$c->getPId()] ?? [])) && $c->isGigantic()) {
