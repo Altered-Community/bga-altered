@@ -2364,7 +2364,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may give 1 boost to target Character in play or in Reserve other than me.'),
         'output' =>  FT::ACTION(TARGET, [
           'upTo' => true,
-          'targetLocation' => [STORM_LEFT, STORM_LEFT, RESERVE],
+          'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
           'excludeSelf' => true,
           'effect' => FT::GAIN(EFFECT, BOOST)
         ])
