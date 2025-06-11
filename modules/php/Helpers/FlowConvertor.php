@@ -2179,7 +2179,7 @@ abstract class FlowConvertor
       527 => [
         'description' => clienttranslate('You may activate the {j} abilities of target Character you control other than me.'),
         'output' => FT::ACTION(TARGET, [
-          'targetType' => [PERMANENT],
+          'targetType' => [CHARACTER],
           'targetPlayer' => ME,
           'hasEffects' => ['Played'],
           'excludeSelf' => true,
