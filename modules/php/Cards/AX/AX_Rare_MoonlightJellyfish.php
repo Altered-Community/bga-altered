@@ -34,11 +34,11 @@ class AX_Rare_MoonlightJellyfish extends \ALT\Models\Card
       'sacrificeAndNotFleetingGoToReserve' => true,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCardAdded:robot',
+          'conditions' => ['isCardAdded:robot', 'isInStorms'],
           'output' => FT::SEQ_OPTIONAL(FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]), FT::GAIN(EFFECT, BOOST, 2)),
         ],
         'InvokeToken' => [
-          'condition' => 'isCardAdded:robot',
+          'conditions' => ['isCardAdded:robot', 'isInStorms'],
           'output' => FT::SEQ_OPTIONAL(FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]), FT::GAIN(EFFECT, BOOST, 2)),
         ],
       ],
