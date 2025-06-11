@@ -55,6 +55,14 @@ class SpellCleanup extends \ALT\Models\Action
     // Card must be discarded
     if ($card->hasToken(FLEETING)) {
       $deleted = $card->discard();
+      $this->checkAfterListeners($player, [
+        'discardCard' => true,
+        'cardId' => $card->getId(),
+        'token' => $card->getType() == TOKEN,
+        'from' => LIMBO,
+        'to' => DISCARD_PILE,
+        'sourceId' => $card->getId(),
+      ], true, 'Discard');
     } else {
       // moved to reserve
       $deleted = $card->moveToReserve();
