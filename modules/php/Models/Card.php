@@ -799,6 +799,9 @@ class Card extends \ALT\Helpers\DB_Model
       if ($this->getExcludeUniversalTough() && $singleTough == 'universalCharacter2') {
         $universal = $universal - 2;
       }
+      if ($this->getExcludeUniversalTough() && $singleTough == 'universalCharacter1') {
+        $universal = $universal - 1;
+      }
       $tough += $universal;
     }
     return $tough;
