@@ -2452,6 +2452,14 @@ abstract class FlowConvertor
       // DynamicAttributes wll be used
       // if it exists, condition must be added at the end of the dynamic attribute
 
+      // if the no trigger is linked to infinite reserve effect
+      // throw new \feException(print_r($calculated));
+      if (isset($calculated['type']) && $calculated['type'] == 'effectInfinity') {
+        $tmp = $calculated['outputAttributes'];
+        unset($calculated['outputAttributes']);
+        $calculated['outputAttributes']['effectInfinity'] = $tmp;
+      }
+
       if (isset($calculated['conditionConditions'])) {
         $calculated['triggerConditions'] = array_merge($calculated['triggerConditions'] ?? [], $calculated['conditionConditions']);
         $calculated['triggerDescription'] = array_merge([$calculated['triggerDescription']] ?? [], [$calculated['conditionDescription']]);
