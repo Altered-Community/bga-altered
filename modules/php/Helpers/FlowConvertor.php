@@ -2203,7 +2203,7 @@ abstract class FlowConvertor
           'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE],
           'upTo' => true,
           'augmentOnly' => true,
-          'effect' => FT::AUGMENT(ME)
+          'effect' => FT::AUGMENT(EFFECT)
         ]),
       ],
       496 => [
