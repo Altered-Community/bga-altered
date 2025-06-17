@@ -373,7 +373,7 @@ class Target extends \ALT\Models\Action
             $discardSource = $cardFrom . '-' . $card->getPId();
             $node = Utils::updateTree($node, [0 => 'discardedSource'], [$discardSource], ['targetLocation']);
             // if the discarded card is the source, need to update the location
-            if ($cardId == $this->getSourceId() && in_array($card->getUid(), ['ALT_CORE_B_OR_06_U_3184', 'ALT_CORE_B_OR_06_U_3184'])) {
+            if ($cardId == $this->getSourceId() && in_array($card->getUid(), ['ALT_CORE_B_OR_06_U_3184', 'ALT_COREKS_B_AX_07_U_5235', 'ALT_CORE_B_OR_06_U_3184'])) {
               $node = Utils::updateTree($node, [0 => 'initialSource'], [$discardSource], ['targetLocation']);
             }
           }
