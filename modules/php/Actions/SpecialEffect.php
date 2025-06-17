@@ -1175,7 +1175,7 @@ class SpecialEffect extends \ALT\Models\Action
           $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'pId' => $card->getPId()], ['sourceId' => $this->getSourceId()]);
         }
         if (!empty($nodes)) {
-          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+          $this->insertAsChild(['type' => NODE_PARALLEL, 'childs' => $nodes]);
         }
         break;
       case 'ManInTheMazeYzmir':
@@ -1209,6 +1209,32 @@ class SpecialEffect extends \ALT\Models\Action
           default:
             $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'expedition' => [EFFECT], 'pId' => OPPONENT], ['sourceId' => $this->getSourceId()]));
             break;
+        }
+        break;
+      case 'manInTheMazeUnique':
+        $cards = Cards::getPlayedCards(null, [CHARACTER, TOKEN])->merge(Cards::getReserveCards(null, [CHARACTER, TOKEN]));
+        $deleted = [];
+        foreach ($cards as $lId => $lCard) {
+          $meeples = Meeples::getInLocation('card-' . $lId)->where('type', BOOST);;
+          $meepleIds = $meeples->getIds();
+          if (!empty($meepleIds)) {
+            Meeples::delete($meepleIds);
+            $deleted = array_merge($deleted, $meepleIds);
+            Notifications::looseMeeples(BOOST, $lCard, $meeples, false);
+          }
+        }
+        $nodes = [];
+        if (count($deleted) >= 1) {
+          $nodes[] = $args['1+'];
+        }
+        if (count($deleted) >= 5) {
+          $nodes[] = $args['4+'];
+        }
+        if (count($deleted) >= 9) {
+          $nodes[] = $args['9+'];
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_PARALLEL, 'childs' => $nodes]);
         }
         break;
       case 'removeFleetingCharacterStat0Played':

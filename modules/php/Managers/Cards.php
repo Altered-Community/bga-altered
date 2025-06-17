@@ -404,9 +404,9 @@ class Cards extends \ALT\Helpers\CachedPieces
     foreach ($unique['uniqueReduced'] as $i => $cardElement) {
       // throw new \feException(print_r($cardElement));
       $trinity = [];
+      // throw new \feException(print_r($cardElement));
       foreach ($cardElement['effects'] as $i => $effect) {
         $trinity = [];
-        // throw new \feException(print_r($effect));
         foreach ($effect as $j => $idGd) {
           if (in_array($idGd, TRIGGER)) {
             $trinity['trigger'] = $idGd;
@@ -420,9 +420,12 @@ class Cards extends \ALT\Helpers\CachedPieces
           continue;
         }
         if (count($trinity) != 3) {
+          // throw new \feException(print_r($effect));
           return null;
         }
+        // var_dump($trinity);
         $valid = FlowConvertor::constructEffect($trinity, $properties);
+        // var_dump($properties);
         // throw new \feException(print_r($trinity));
         $properties['uEffects'][] = array_values($trinity);
         // throw new \feException(print_r($properties));
@@ -430,7 +433,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     }
     // $debug[0] = $unique;
     // $debug[1] = $properties;
-    // throw new \feException(print_r($debug));
+    // throw new \feException(print_r($properties));
     return $properties;
   }
 

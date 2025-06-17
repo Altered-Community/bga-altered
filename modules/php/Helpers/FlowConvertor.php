@@ -64,7 +64,7 @@ abstract class FlowConvertor
       437 => ['description' => clienttranslate('{I} When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardPlayedWithZeroStat', 'excludeSelf'], 'type' => 'effectInfinity'],
       438 => ['description' => clienttranslate('{I} When you roll one or more dice —'), 'trigger' => 'RollDie', 'condition' => 'isMe', 'type' => 'effectInfinity'],
       439 => ['description' => clienttranslate('{I} When you sacrifice a Character —'), 'trigger' => 'Discard', 'condition' => ['isMe', 'isSacrifice:character'], 'type' => 'effectInfinity'],
-      519 => ['description' => '•', 'trigger' => ''],
+      519 => ['description' => '•', 'type' => 'manInTheMazeUnique'],
       440 => ['description' => clienttranslate('When a card goes to the discard pile —'), 'trigger' => 'Discard', 'condition' => 'isDiscarded::discard'],
       441 => ['description' => clienttranslate('When a Character in your Reserve gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => ['isMyGainInReserve', 'isGain:boost', 'isGainCardType:character']],
       442 => ['description' => clienttranslate('When a Character you control gains <ANCHORED> —'), 'trigger' => 'Gain', 'condition' => 'hasPlayerGained:anchored'],
@@ -364,13 +364,16 @@ abstract class FlowConvertor
         ),
       ],
       // Bise
-      521 => ['description' => clienttranslate('4+:'), 'condition' => ''], // TODO: attente clarification Jacques
-      522 => ['description' => clienttranslate('9+:'), 'condition' => ''], // TODO: attente clarification Jacques
+      521 => ['description' => clienttranslate('4+:'), 'condition' => '4+'], // TODO: attente clarification Jacques
+      522 => ['description' => clienttranslate('9+:'), 'condition' => '9+'], // TODO: attente clarification Jacques
       515 => ['description' => clienttranslate('If I have 1 or more boosts:'), 'condition' => 'hasBoost'],
       516 => ['description' => clienttranslate('If I have 2 or more boosts:'), 'condition' => 'hasBoost:2'],
       509 => ['description' => clienttranslate('If I\'m <FLEETING>:'), 'condition' => 'hasFleeting'],
       510 => ['description' => clienttranslate('If you have less cards in Reserve than target opponent:'), 'condition' => 'hasLessReserveCards'],
-      520 => ['description' => clienttranslate('Remove all boosts from Characters in play and in Reserve. Then, depending on the number of boosts removed this way: • 1+:'), 'condition' => ''], // TODO: Attente clarifications Jacques
+      520 => [
+        'description' => clienttranslate('Remove all boosts from Characters in play and in Reserve. Then, depending on the number of boosts removed this way: • 1+:'),
+        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'manInTheMazeUnique', 'args' => ['1+' => 'OUTPUT', '4+' => 'OUTPUT4', '9+' => 'OUTPUT9']])
+      ],
       511 => [
         'description' => clienttranslate('You may have target opponent draw a card. If you do:'),
         'effect' => FT::SEQ_OPTIONAL_MANUAL(
@@ -2422,6 +2425,10 @@ abstract class FlowConvertor
           'targetLocation' => ['source'],
         ]),
       ],
+      161 => [
+        'description' => clienttranslate('Target Expedition moves forward one region.'),
+        'output' => FT::ACTION(MOVE_EXPEDITION, []),
+      ],
     ];
   }
 
@@ -2503,6 +2510,13 @@ abstract class FlowConvertor
           }
         }
         // throw new \feException(print_r($properties));
+      }
+    } elseif ($key == 'manInTheMazeUnique') {
+      $toAdd[$calculated['triggerConditions'][0]] = $calculated['output'];
+      if ($calculated['triggerConditions'][0] == '4+') {
+        $properties = Utils::updateTree($properties, 'OUTPUT4', $calculated['output']);
+      } elseif ($calculated['triggerConditions'][0] == '9+') {
+        $properties = Utils::updateTree($properties, 'OUTPUT9', $calculated['output']);
       }
     } elseif ($key != 'effectPassive' && $key != 'effectInfinity') {
       // no natural condition check, we need to insert CheckConditions
@@ -2794,6 +2808,7 @@ abstract class FlowConvertor
     }
 
     // debug
+    // throw new \feException(print_r($properties));
     //$properties['calculated'] = $calculated;
 
     // use calculated to generate the effect in properties
