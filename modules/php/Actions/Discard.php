@@ -375,17 +375,19 @@ class Discard extends \ALT\Models\Action
       }
     }
 
-    // Check listener
-    $this->checkAfterListeners($player, [
-      'discardCard' => true,
-      'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
-      'cardId' => $newCId,
-      'token' => $isToken,
-      'from' => $originalLocation,
-      'to' => $destination,
-      'sacrifice' => $this->isSacrifice(),
-      'sourceId' => $this->getSourceId(),
-    ]);
+    if (count($cards) > 0) {
+      // Check listener only if one card is discarded
+      $this->checkAfterListeners($player, [
+        'discardCard' => true,
+        'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
+        'cardId' => $newCId,
+        'token' => $isToken,
+        'from' => $originalLocation,
+        'to' => $destination,
+        'sacrifice' => $this->isSacrifice(),
+        'sourceId' => $this->getSourceId(),
+      ]);
+    }
     // throw new \feException(print_r(Globals::getEngine()));
     // Notify deleting meeples first
     if (!empty($deletedMeeples)) {
