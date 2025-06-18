@@ -163,8 +163,14 @@ class Target extends \ALT\Models\Action
     $targetLocation = $this->getArg('targetLocation');
     if ($targetLocation == ['source']) {
       $targetLocation = [$this->getSource()->getLocation()];
+      if (Cards::get($this->getSourceId())->isGigantic()) {
+        $targetLocation = STORMS;
+      }
     } elseif ($targetLocation == ['oppositeSource']) {
       $targetLocation = [$this->getSource()->getLocation() == STORM_RIGHT ? STORM_LEFT : STORM_RIGHT];
+      if (Cards::get($this->getSourceId())->isGigantic()) {
+        $targetLocation = STORMS;
+      }
     }
 
     if (!empty($this->getArg('cards'))) {
