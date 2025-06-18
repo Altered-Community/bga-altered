@@ -223,6 +223,7 @@ class Discard extends \ALT\Models\Action
     $newCId = null;
     $originalLocation = '';
     $destination = '';
+    $isToken = false;
 
     foreach ($cards as $cId => $card) {
       $newCId = $cId;

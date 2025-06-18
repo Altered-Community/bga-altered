@@ -173,7 +173,9 @@ class Target extends \ALT\Models\Action
       });
     } else {
       $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation, $targetType) {
-        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation[0], STORMS) && $c->isGigantic())) || ($c->getType() == HERO && in_array(HERO, $targetType));
+        return (in_array($c->getLocation(), $targetLocation)
+          || ((in_array(STORM_LEFT, $targetLocation) || in_array(STORM_RIGHT, $targetLocation)) && in_array($c->getLocation(), STORMS) && $c->isGigantic()))
+          || ($c->getType() == HERO && in_array(HERO, $targetType));
       });
     }
 
