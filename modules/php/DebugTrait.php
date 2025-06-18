@@ -99,14 +99,15 @@ trait DebugTrait
 
   function vt()
   {
-    throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
+    // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
+    throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([17, 21, 22]);
     // $this->actDayMana([20]);
 
     // Cards::get(3)->boost(1, 'test', true);
-    throw new \feException(print_r(Players::getCurrent()->isInBiome(STORM_LEFT, FOREST)));
+    // throw new \feException(print_r(Players::getCurrent()->isInBiome(STORM_LEFT, FOREST)));
     // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actSupport', [226]);

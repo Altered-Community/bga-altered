@@ -141,6 +141,7 @@ class Engine
 
     $oldPId = Game::get()->getActivePlayerId();
     $pId = $node->getPId();
+    // throw new \feException($pId);
     // if ($node->getType() == NODE_PARALLEL) {
     //   var_dump("new" . $pId);
     // }
@@ -339,7 +340,7 @@ class Engine
       }
     }
     // if the player is choosing for another player & it's an optional action, we shoudl update the current choice node
-    if (($node->getChilds()[$nodeId]->getPId() ?? $player->getId()) != $player->getId() && $node->getChilds()[$nodeId]->isOptional(Players::get($node->getPId()))) {
+    if (($node->getChilds()[$nodeId]->getPId() ?? $player->getId()) != $player->getId() && $node->getChilds()[$nodeId]->isOptional(Players::get($node->getChilds()[$nodeId]->getPId()))) {
       $node->setInfo('pId', $node->getChilds()[$nodeId]->getPId());
     } else {
       $node->choose($nodeId, $auto);

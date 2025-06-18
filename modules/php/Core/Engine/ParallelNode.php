@@ -45,6 +45,7 @@ class ParallelNode extends AbstractNode
       }
 
       $pId = $child->getPId();
+      // throw new \feException($pId);
       if (is_null($pId)) {
         $players[-1] = ($players[-1] ?? 0) + 1;
       } else {
@@ -59,7 +60,7 @@ class ParallelNode extends AbstractNode
       // Only one player must choose so we put the node to him
       return array_keys($players)[0];
     }
-    return Globals::getActivePId();
+    return $this->infos['pId'] ?? Globals::getActivePId();
   }
 
   /**
