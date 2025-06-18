@@ -751,7 +751,7 @@ abstract class Conditions
     }
 
     return ($event['from'] == RESERVE || $additionalEffect) &&
-      !Players::hasOpponentBlockingPower($card->getPlayer(), $event['to']);
+      !Players::hasOpponentBlockingPower($card->getPlayer(), $event['to'], $card->isGigantic());
   }
 
   public static function isCharacterCostHigherThanCounter($card, $event)

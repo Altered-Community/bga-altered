@@ -154,14 +154,14 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $statuses;
   }
 
-  public static function hasOpponentBlockingPower($player, $expedition)
+  public static function hasOpponentBlockingPower($player, $expedition, $isGigantic = false)
   {
     // TODO: manage multiplayers
     foreach (self::getAll() as $pId => $player2) {
       if ($pId == $player->getId()) {
         continue;
       }
-      if ($player2->hasBlockingPower($expedition)) {
+      if ($player2->hasBlockingPower($expedition, $isGigantic)) {
         return true;
       }
     }

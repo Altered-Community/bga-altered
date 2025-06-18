@@ -300,7 +300,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
 
     if (
-      ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($player, $location)) ||
+      ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($player, $location, $card->isGigantic())) ||
       $card->getType() != CHARACTER
     ) {
       $effects = [];

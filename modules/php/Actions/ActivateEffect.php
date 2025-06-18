@@ -57,7 +57,7 @@ class ActivateEffect extends \ALT\Models\Action
     $card = $this->getCard();
 
     if (
-      ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($card->getPlayer(), $card->getLocation())) ||
+      ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($card->getPlayer(), $card->getLocation(), $card->isGigantic())) ||
       $card->getType() != CHARACTER
     ) {
       $effect = 'getEffect' . $this->getArg('effectType');

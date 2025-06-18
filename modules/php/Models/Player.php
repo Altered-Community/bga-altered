@@ -628,11 +628,11 @@ class Player extends \ALT\Helpers\DB_Model
     return $strengths;
   }
 
-  public function hasBlockingPower($expedition)
+  public function hasBlockingPower($expedition, $isGigantic = false)
   {
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       // if there are eat me energy bars
-      if ($card->getLocation() != $expedition && !$card->isGigantic()) {
+      if ($card->getLocation() != $expedition && !$card->isGigantic() && !$isGigantic) {
         continue;
       }
 
