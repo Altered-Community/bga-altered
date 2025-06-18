@@ -235,6 +235,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Reveal the top card. If cost = die, draw it');
       case 'exhaustPlayFree':
         return clienttranslate('Exhaust Wayfarer and play card for free');
+      case 'manInTheMazeUnique':
+        return clienttranslate('Trigger Man in the maze unique effects');
     }
     return '';
   }
@@ -1234,6 +1236,10 @@ class SpecialEffect extends \ALT\Models\Action
           $nodes[] = $args['9+'];
         }
         if (!empty($nodes)) {
+          foreach ($nodes as &$node) {
+            $node['sourceId'] = $this->getSourceId();
+            $node['pId'] = $card->getPId();
+          }
           $this->insertAsChild(['type' => NODE_PARALLEL, 'childs' => $nodes]);
         }
         break;
