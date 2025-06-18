@@ -421,9 +421,8 @@ class Card extends \ALT\Helpers\DB_Model
     if (!empty($meepleIds)) {
       Meeples::delete($meepleIds);
     }
-
     // Clear counter
-    if (!is_null($this->getExtraDatas()['counterName'] ?? null) && in_array($location,  [DISCARD, HAND, TOP_OF_DECK])) {
+    if (!is_null($this->getExtraDatas()['counterName'] ?? null) && in_array($location,  [DISCARD_PILE, HAND, TOP_OF_DECK])) {
       $this->setExtraDatas([]);
       Notifications::deleteCounter($this);
     }
