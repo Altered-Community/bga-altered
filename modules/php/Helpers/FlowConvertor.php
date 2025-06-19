@@ -2061,7 +2061,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(DRAW, ['players' => ME, 'n' => 2]),
         'oppositeOutput' => FT::ACTION(DRAW, ['players' => ME])
       ],
-      523 => ['description' => clienttranslate('Each Character in target Expedition gains <FLEETING>.'), 'output' =>  FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostAllCharactersInExpedition'])])],
+      523 => ['description' => clienttranslate('Each Character in target Expedition gains <FLEETING>.'), 'output' =>  FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'fleetingAllCharactersInExpedition'])])],
       477 => [
         'description' => clienttranslate('I am <ETERNAL>. At Night — I lose 1 boost.'),
         'noTrigger' => true,

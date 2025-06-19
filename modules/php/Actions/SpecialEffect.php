@@ -96,6 +96,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostAllCharactersInExpedition':
         return clienttranslate('Boost all characters');
         break;
+      case 'fleetingAllCharactersInExpedition':
+        return clienttranslate('Fleeting all characters in target expedition');
+        break;
       case 'boostAllCharactersExceptSelf':
         return clienttranslate('Boost all characters except me');
         break;
@@ -482,6 +485,17 @@ class SpecialEffect extends \ALT\Models\Action
         foreach ($player->getPlayedCards() as $cId => $pCard) {
           if ($pCard->getLocation() == $expedition && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
             $nodes[] = FT::GAIN($pCard, BOOST, 1);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
+      case 'fleetingAllCharactersInExpedition':
+        $player = Players::get($this->getArg('player'));
+        $expedition = $this->getArg('expedition');
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($pCard->getLocation() == $expedition && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, FLEETING, 1);
           }
         }
         $this->pushParallelChilds($nodes);
