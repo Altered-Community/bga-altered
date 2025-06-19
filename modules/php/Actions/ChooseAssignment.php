@@ -267,16 +267,37 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // should we boost the card
     if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getNextCharacterBoost() > 0) {
-      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
+      $toBoost = Globals::getNextCharacterBoost();
+      $occur = Globals::getNextCharacterBoostOccurence();
+
+      for ($v = 0; $v < $occur - 1; $v++) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, 1));
+        $toBoost--;
+      }
+      if ($toBoost > 0) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, $toBoost));
+      }
       Globals::setNextCharacterBoost(0);
+      Globals::setNextCharacterBoostOccurence(0);
     }
+
     if ($fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);
     }
     // The undergrowth
     if (Globals::getNextCharacterBoostV() > 0 && $card->getType() == CHARACTER && $player->isInBiome($location, FOREST, true)) {
-      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoostV()));
+      $toBoost = Globals::getNextCharacterBoostV();
+      $occur = Globals::getNextCharacterBoostOccurence();
+
+      for ($v = 0; $v < $occur - 1; $v++) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, 1));
+        $toBoost--;
+      }
+      if ($toBoost > 0) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, $toBoost));
+      }
+      Globals::setNextCharacterBoostOccurence(0);
       Globals::setNextCharacterBoostV(0);
     }
 

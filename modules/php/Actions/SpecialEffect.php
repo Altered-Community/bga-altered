@@ -411,12 +411,14 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
+        Globals::incNextCharacterBoostOccurence(1);
         break;
       case 'nextReserveCharacterGains1Boost':
         Globals::incNextReserveCharacterBoost(1);
         break;
       case 'nextCharacterGains2Boost':
         Globals::incNextCharacterBoost(2);
+        Globals::incNextCharacterBoostOccurence(1);
         break;
       case 'nextSpellIsFree':
         Globals::setNextSpellIsFree(true);
@@ -1293,6 +1295,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterVGainsBoost':
         Globals::incNextCharacterBoostV(1);
+        Globals::incNextCharacterBoostOccurence(1);
         break;
       case 'boostAndRemoveFromExpedition':
         $player = $card->getPlayer();

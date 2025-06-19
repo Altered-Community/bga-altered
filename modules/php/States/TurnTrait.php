@@ -51,6 +51,7 @@ trait TurnTrait
     Globals::setSkippedPlayers([]);
     Globals::setCostReduction([]);
     Globals::setNextCharacterBoost(0);
+    Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setPlayedForFree(false);
 
@@ -103,6 +104,7 @@ trait TurnTrait
 
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
+    Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
     Globals::setNextCharacterAnchored(false);
@@ -248,7 +250,7 @@ trait TurnTrait
     // if (Players::checkVictory()) {
     //   return;
     // }
-    
+
     $this->checkCardListeners('AfterDusk', 'stBeforeNight');
   }
 
