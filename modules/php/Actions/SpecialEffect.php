@@ -1245,7 +1245,7 @@ class SpecialEffect extends \ALT\Models\Action
         if (count($deleted) >= 1) {
           $nodes[] = $args['1+'];
         }
-        if (count($deleted) >= 5) {
+        if (count($deleted) >= 4) {
           $nodes[] = $args['4+'];
         }
         if (count($deleted) >= 9) {

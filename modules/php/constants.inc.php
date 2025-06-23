@@ -180,7 +180,7 @@ const SABOTAGE = 'sabotage';
 const ACTIVE = 1;
 const INACTIVE = 0;
 
-const INFTY = 100;
+const INFTY = 1000;
 const MOUNTAIN = 'mountain';
 const FOREST = 'forest';
 const OCEAN = 'ocean';
