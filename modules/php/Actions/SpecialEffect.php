@@ -96,6 +96,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostAllCharactersInExpedition':
         return clienttranslate('Boost all characters');
         break;
+      case 'fleetingAllCharactersInExpedition':
+        return clienttranslate('Fleeting all characters in target expedition');
+        break;
       case 'boostAllCharactersExceptSelf':
         return clienttranslate('Boost all characters except me');
         break;
@@ -408,12 +411,14 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
+        Globals::incNextCharacterBoostOccurence(1);
         break;
       case 'nextReserveCharacterGains1Boost':
         Globals::incNextReserveCharacterBoost(1);
         break;
       case 'nextCharacterGains2Boost':
         Globals::incNextCharacterBoost(2);
+        Globals::incNextCharacterBoostOccurence(1);
         break;
       case 'nextSpellIsFree':
         Globals::setNextSpellIsFree(true);
@@ -482,6 +487,17 @@ class SpecialEffect extends \ALT\Models\Action
         foreach ($player->getPlayedCards() as $cId => $pCard) {
           if ($pCard->getLocation() == $expedition && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
             $nodes[] = FT::GAIN($pCard, BOOST, 1);
+          }
+        }
+        $this->pushParallelChilds($nodes);
+        break;
+      case 'fleetingAllCharactersInExpedition':
+        $player = Players::get($this->getArg('player'));
+        $expedition = $this->getArg('expedition');
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($pCard->getLocation() == $expedition && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+            $nodes[] = FT::GAIN($pCard, FLEETING, 1);
           }
         }
         $this->pushParallelChilds($nodes);
@@ -1229,7 +1245,7 @@ class SpecialEffect extends \ALT\Models\Action
         if (count($deleted) >= 1) {
           $nodes[] = $args['1+'];
         }
-        if (count($deleted) >= 5) {
+        if (count($deleted) >= 4) {
           $nodes[] = $args['4+'];
         }
         if (count($deleted) >= 9) {
@@ -1279,6 +1295,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterVGainsBoost':
         Globals::incNextCharacterBoostV(1);
+        Globals::incNextCharacterBoostOccurence(1);
         break;
       case 'boostAndRemoveFromExpedition':
         $player = $card->getPlayer();

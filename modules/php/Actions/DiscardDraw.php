@@ -170,9 +170,14 @@ class DiscardDraw extends \ALT\Models\Action
     }
 
     $cards = Cards::getMany($cardIds);
+    $nodes = [];
+    foreach ($cardIds as $cId) {
+      $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+    }
+
     $this->insertAsChild(
       FT::SEQ(
-        FT::ACTION(DISCARD, ['cardId' => $cardIds], ['sourceId' => $this->getSourceId()]),
+        FT::SEQ(...$nodes),
         FT::ACTION(DRAW, ['players' => ME, 'n' => count($cardIds)], ['sourceId' => $this->getSourceId()])
       )
     );

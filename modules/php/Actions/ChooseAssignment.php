@@ -267,16 +267,37 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // should we boost the card
     if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getNextCharacterBoost() > 0) {
-      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoost()));
+      $toBoost = Globals::getNextCharacterBoost();
+      $occur = Globals::getNextCharacterBoostOccurence();
+
+      for ($v = 0; $v < $occur - 1; $v++) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, 1));
+        $toBoost--;
+      }
+      if ($toBoost > 0) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, $toBoost));
+      }
       Globals::setNextCharacterBoost(0);
+      Globals::setNextCharacterBoostOccurence(0);
     }
+
     if ($fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);
     }
     // The undergrowth
     if (Globals::getNextCharacterBoostV() > 0 && $card->getType() == CHARACTER && $player->isInBiome($location, FOREST, true)) {
-      $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextCharacterBoostV()));
+      $toBoost = Globals::getNextCharacterBoostV();
+      $occur = Globals::getNextCharacterBoostOccurence();
+
+      for ($v = 0; $v < $occur - 1; $v++) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, 1));
+        $toBoost--;
+      }
+      if ($toBoost > 0) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, $toBoost));
+      }
+      Globals::setNextCharacterBoostOccurence(0);
       Globals::setNextCharacterBoostV(0);
     }
 
@@ -365,9 +386,27 @@ class ChooseAssignment extends \ALT\Models\Action
             }
             $eff['pId'] = $card->getPId();
           }
-          $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()]);
+          $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
+            'playCard' => true,
+            'cardId' => $cardId,
+            'cardType' => $card->getType(),
+            'from' => $fromLocation,
+            'to' => $location,
+            'playedFree' => $cost == 0 ? true : false,
+            'putAndNotPlayed' => !$effectHand,
+            'additionalEffects' => Globals::getAdditionalEffect()
+          ]], 'pId' => $player->getId()]);
         } else {
-          $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId()], 'pId' => $player->getId()];
+          $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
+            'playCard' => true,
+            'cardId' => $cardId,
+            'cardType' => $card->getType(),
+            'from' => $fromLocation,
+            'to' => $location,
+            'playedFree' => $cost == 0 ? true : false,
+            'putAndNotPlayed' => !$effectHand,
+            'additionalEffects' => Globals::getAdditionalEffect()
+          ]], 'pId' => $player->getId()];
         }
         $this->insertAsChild($spellAction);
         $effects = [];
@@ -410,30 +449,34 @@ class ChooseAssignment extends \ALT\Models\Action
     } else {
       Notifications::message(clienttranslate('Effects are not triggered, due to an effect in the opponent\'s expedition'), []);
     }
-    $this->checkImmediateListeners($player, [
-      'playCard' => true,
-      'cardId' => $cardId,
-      'cardType' => $card->getType(),
-      'from' => $fromLocation,
-      'to' => $location,
-      'playedFree' => $cost == 0 ? true : false,
-      'putAndNotPlayed' => !$effectHand,
-      'additionalEffects' => Globals::getAdditionalEffect()
-    ]);
 
-    $this->checkAfterListeners($player, [
-      'playCard' => true,
-      'cardId' => $cardId,
-      'cardType' => $card->getType(),
-      'from' => $fromLocation,
-      'reallyPlayed' => $reallyPlayed,
-      'locationPId' => $player->getId(),
-      'to' => $location,
-      'gigantic' => $card->isGigantic(),
-      'playedFree' => $cost == 0 ? true : false,
-      'putAndNotPlayed' => !$effectHand,
-      'additionalEffects' => Globals::getAdditionalEffect()
-    ]);
+    //  #171615: "Use of Sleight of Hand on Scribbling Starfish"
+    if ($card->getType() != SPELL) {
+      $this->checkImmediateListeners($player, [
+        'playCard' => true,
+        'cardId' => $cardId,
+        'cardType' => $card->getType(),
+        'from' => $fromLocation,
+        'to' => $location,
+        'playedFree' => $cost == 0 ? true : false,
+        'putAndNotPlayed' => !$effectHand,
+        'additionalEffects' => Globals::getAdditionalEffect()
+      ]);
+
+      $this->checkAfterListeners($player, [
+        'playCard' => true,
+        'cardId' => $cardId,
+        'cardType' => $card->getType(),
+        'from' => $fromLocation,
+        'reallyPlayed' => $reallyPlayed,
+        'locationPId' => $player->getId(),
+        'to' => $location,
+        'gigantic' => $card->isGigantic(),
+        'playedFree' => $cost == 0 ? true : false,
+        'putAndNotPlayed' => !$effectHand,
+        'additionalEffects' => Globals::getAdditionalEffect()
+      ]);
+    }
     // throw new \feException(print_r(Globals::getEngine()));
 
     // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
