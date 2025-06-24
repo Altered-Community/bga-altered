@@ -29,14 +29,15 @@ class BR_Rare_TheHunger extends \ALT\Models\Card
       'costHand' => 8,
       'costReserve' => 6,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectHand' => FT::ACTION(TARGET, [
-        'n' => INFTY,
-        'targetLocation' => [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE],
-        'targetType' => [TOKEN, CHARACTER, SPELL, PERMANENT],
-        'excludeSelf' => true,
-        'ignoreTough' => true,
-        'effect' => FT::ACTION(DISCARD, [])
-      ]),
+      // 'effectHand' => FT::ACTION(TARGET, [
+      //   'n' => INFTY,
+      //   'targetLocation' => [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE],
+      //   'targetType' => [TOKEN, CHARACTER, SPELL, PERMANENT],
+      //   'excludeSelf' => true,
+      //   'ignoreTough' => true,
+      //   'effect' => FT::ACTION(DISCARD, [])
+      // ]),
+      'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'hunger']),
       'effectPassive' => [
         'Discard' => [
           'conditions' => ['isDiscarded::discard', 'isNotToken'],

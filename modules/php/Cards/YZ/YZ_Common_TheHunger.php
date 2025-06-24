@@ -28,14 +28,15 @@ class YZ_Common_TheHunger extends \ALT\Models\Card
             'ocean' => 3,
             'costHand' => 9,
             'costReserve' => 3,
-            'effectHand' => FT::ACTION(TARGET, [
-                'n' => INFTY,
-                'targetLocation' => [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE],
-                'targetType' => [TOKEN, CHARACTER, SPELL, PERMANENT],
-                'excludeSelf' => true,
-                'ignoreTough' => true,
-                'effect' => FT::ACTION(DISCARD, [])
-            ]),
+            // 'effectHand' => FT::ACTION(TARGET, [
+            //     'n' => INFTY,
+            //     'targetLocation' => [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE],
+            //     'targetType' => [TOKEN, CHARACTER, SPELL, PERMANENT],
+            //     'excludeSelf' => true,
+            //     'ignoreTough' => true,
+            //     'effect' => FT::ACTION(DISCARD, [])
+            // ]),
+            'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'hunger']),
             'effectPassive' => [
                 'Discard' => [
                     'conditions' => ['isDiscarded::discard', 'isNotToken'],
