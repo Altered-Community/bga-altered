@@ -41,6 +41,10 @@ class YZ_Common_TheHunger extends \ALT\Models\Card
                     'conditions' => ['isDiscarded::discard', 'isNotToken'],
                     'output' => FT::GAIN(ME, BOOST)
                 ],
+                'ChooseAssignment' => [
+                    'conditions' => ['isAfternoon', 'isFromReserve', 'isSupportEffect'],
+                    'output' => FT::GAIN(ME, BOOST)
+                ],
             ],
         ];
     }

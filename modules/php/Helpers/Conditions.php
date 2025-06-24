@@ -1079,6 +1079,11 @@ abstract class Conditions
     return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
   }
 
+  public static function isSupportEffect($card, $event)
+  {
+    return ($event['isSupport'] ?? false) == true;
+  }
+
   /**********************************
    **********************************
    ************* HELPERS ************

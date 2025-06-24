@@ -542,17 +542,8 @@ class ChooseAssignment extends \ALT\Models\Action
       'playCard' => false,
       'cardType' => $card->getType(),
       'from' => RESERVE,
+      'isSupport' => true
     ]);
-
-    $this->checkAfterListeners($player, [
-      'discardCard' => true,
-      'cardId' => $cardId,
-      'token' => false,
-      'from' => RESERVE,
-      'to' => DISCARD_PILE,
-      'sacrifice' => false,
-      'sourceId' => $cardId,
-    ], true, 'Discard');
   }
 
   ////////////////////////

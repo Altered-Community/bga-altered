@@ -42,6 +42,10 @@ class YZ_Rare_TheHunger extends \ALT\Models\Card
           'conditions' => ['isDiscarded::discard', 'isNotToken'],
           'output' => FT::GAIN(ME, BOOST)
         ],
+        'ChooseAssignment' => [
+          'conditions' => ['isAfternoon', 'isFromReserve', 'isSupportEffect'],
+          'output' => FT::GAIN(ME, BOOST)
+        ],
       ],
       'dynamicGigantic' => '1:hasFleeting',
     ];
