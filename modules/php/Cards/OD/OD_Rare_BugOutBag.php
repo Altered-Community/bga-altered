@@ -29,8 +29,8 @@ class OD_Rare_BugOutBag extends \ALT\Models\Card
                 'pId' => 'source',
                 'tokenType' => 'AX_Common_Brassbug',
                 'targetLocation' => ['source'],
-            ]),
-            'effectReserve' => FT::ACTION(RESUPPLY, [])
+            ], ['automatic' => false, 'independent' => false]),
+            'effectReserve' => FT::ACTION(RESUPPLY, [], ['automatic' => false, 'independent' => false])
         ];
     }
 }

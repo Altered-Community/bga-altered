@@ -51,6 +51,9 @@ class Resupply extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
+    if (isset($this->ctx->getInfos()['automatic'])) {
+      return $this->ctx->getInfos()['automatic'];
+    }
     return !$this->isOptional($player);
   }
 

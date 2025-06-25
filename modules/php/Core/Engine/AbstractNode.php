@@ -337,6 +337,11 @@ class AbstractNode
     }
   }
 
+  public function getInfos()
+  {
+    return $this->infos;
+  }
+
   /********************
    *** Node choices ***
    ********************/
