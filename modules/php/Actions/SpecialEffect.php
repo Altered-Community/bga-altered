@@ -340,10 +340,11 @@ class SpecialEffect extends \ALT\Models\Action
           $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
         }
 
-        $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
-        $data['counterName'] = $args['counterName'] ?? '';
-        $card->setExtraDatas($data);
         if ($args['counter'] ?? 0 > 0) {
+          $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
+          $data['counterName'] = $args['counterName'] ?? '';
+          $card->setExtraDatas($data);
+
           Notifications::gainCounter($this->getSource(), $args['counter']);
           $this->checkAfterListeners($card->getPlayer(), ['sourceId' => $card->getId(), 'specialEffect' => 'gainCounter']);
         }
@@ -364,11 +365,11 @@ class SpecialEffect extends \ALT\Models\Action
           $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
         }
 
-        $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
-        $data['counterName'] = $args['counterName'] ?? '';
-        $card->setExtraDatas($data);
-
         if ($args['counter'] ?? 0 > 0) {
+          $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
+          $data['counterName'] = $args['counterName'] ?? '';
+          $card->setExtraDatas($data);
+
           Notifications::gainCounter($this->getSource(), $args['counter']);
           $this->checkAfterListeners($card->getPlayer(), ['sourceId' => $card->getId(), 'specialEffect' => 'gainCounter']);
         }
