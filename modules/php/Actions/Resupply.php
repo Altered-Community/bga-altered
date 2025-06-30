@@ -159,7 +159,8 @@ class Resupply extends \ALT\Models\Action
         $source,
         $exhausted ? clienttranslate('${player_name} places ${card_names} from its deck to Reserve as exhausted(${card_name2}\'s effect)') : clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'),
         $exhausted ? clienttranslate('You put ${card_names} from your deck in Reserve as exhausted (${card_name2}\'s effect)') : clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
-        $exhausted
+        $exhausted,
+        $player->getId()
       );
       if ($this->getArg('character2Less')) {
         foreach ($cards as $cId => $card) {
