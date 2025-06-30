@@ -61,11 +61,17 @@ class InvokeToken extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
+    if (isset($this->ctx->getInfos()['automatic'])) {
+      return $this->ctx->getInfos()['automatic'];
+    }
     return count($this->argsInvokeToken()['locations']) == 1;
   }
 
   public function isIndependent($player = null)
   {
+    if (isset($this->ctx->getInfos()['independent'])) {
+      return $this->ctx->getInfos()['independent'];
+    }
     return count($this->argsInvokeToken()['locations']) == 1;
   }
 

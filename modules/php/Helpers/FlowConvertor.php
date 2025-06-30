@@ -2660,18 +2660,15 @@ abstract class FlowConvertor
       $node['Resupply']['conditions'] = ['isMe'];
     } elseif ($trinity['output'] == 529) {
       // The hunger
-      $properties['effectHand'] = FT::ACTION(TARGET, [
-        'n' => INFTY,
-        'targetLocation' => [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE],
-        'targetType' => [TOKEN, CHARACTER, SPELL, PERMANENT],
-        'excludeSelf' => true,
-        'ignoreTough' => true,
-        'effect' => FT::ACTION(DISCARD, [])
-      ]);
+      $properties['effectHand'] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'hunger']);
       $key = 'effectPassive';
       $node = [];
       $node['Discard'] = [
         'conditions' => ['isDiscarded::discard'],
+        'output' => FT::GAIN(ME, BOOST)
+      ];
+      $node['ChooseAssignment'] = [
+        'conditions' => ['isAfternoon', 'isFromReserve', 'isSupportEffect'],
         'output' => FT::GAIN(ME, BOOST)
       ];
     } elseif ($trinity['trigger'] == 446) {

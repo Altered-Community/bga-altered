@@ -340,10 +340,11 @@ class SpecialEffect extends \ALT\Models\Action
           $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
         }
 
-        $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
-        $data['counterName'] = $args['counterName'] ?? '';
-        $card->setExtraDatas($data);
         if ($args['counter'] ?? 0 > 0) {
+          $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
+          $data['counterName'] = $args['counterName'] ?? '';
+          $card->setExtraDatas($data);
+
           Notifications::gainCounter($this->getSource(), $args['counter']);
           $this->checkAfterListeners($card->getPlayer(), ['sourceId' => $card->getId(), 'specialEffect' => 'gainCounter']);
         }
@@ -364,11 +365,11 @@ class SpecialEffect extends \ALT\Models\Action
           $args['counter'] = ($args['maxCounter'] ?? 99) - ($data['counter'] ?? 0);
         }
 
-        $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
-        $data['counterName'] = $args['counterName'] ?? '';
-        $card->setExtraDatas($data);
-
         if ($args['counter'] ?? 0 > 0) {
+          $data['counter'] = ($data['counter'] ?? 0) + ($args['counter'] ?? 0);
+          $data['counterName'] = $args['counterName'] ?? '';
+          $card->setExtraDatas($data);
+
           Notifications::gainCounter($this->getSource(), $args['counter']);
           $this->checkAfterListeners($card->getPlayer(), ['sourceId' => $card->getId(), 'specialEffect' => 'gainCounter']);
         }
@@ -1491,6 +1492,61 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
+        break;
+      case 'hunger':
+        $toDiscard = Cards::getAll()->filter(function ($c) {
+          return in_array($c->getLocation(), [STORM_RIGHT, STORM_LEFT, LANDMARK, RESERVE]);
+        });
+        $players = Players::getAll();
+        $floralTents = [];
+        $nodes = [];
+        foreach ($players as $tId => $tPlayer) {
+          if ($tPlayer->hasProtectBoostedInExpedition(STORM_LEFT)) {
+            $floralTents['boosted'][$tId][STORM_LEFT] = true;
+          }
+          if ($tPlayer->hasProtectBoostedInExpedition(STORM_RIGHT)) {
+            $floralTents['boosted'][$tId][STORM_LEFT] = true;
+          }
+          if ($tPlayer->hasProtectAnchoredInExpedition(STORM_LEFT)) {
+            $floralTents['anchored'][$tId][STORM_LEFT] = true;
+          }
+          if ($tPlayer->hasProtectAnchoredInExpedition(STORM_RIGHT)) {
+            $floralTents['anchored'][$tId][STORM_LEFT] = true;
+          }
+        }
+
+        foreach ($toDiscard as $dId => $dCard) {
+          $dPId = $dCard->getPId();
+
+          if ($dId == $card->getId()) {
+            continue;
+          }
+
+          if (in_array($dCard->getLocation(), STORMS) && $dCard->hasToken(BOOST) && in_array($dCard->getType(), [TOKEN, CHARACTER])) {
+            $otherExpedition = $dCard->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+            if (isset($floralTents['boosted'][$dPId][$dCard->getLocation()]) || ($dCard->isGigantic() && isset($floralTents['boosted'][$dPId][$otherExpedition]))) {
+              // unset($toDiscard[$dId]);
+              Notifications::message(clienttranslate('${card_name} is not discarded but loose <BOOST> instead'), ['card' => $dCard]);
+              $nodes[] = ['action' => LOOSE, 'args' => ['cardId' => $dId, 'type' => BOOST, 'n' => 99]];
+              continue;
+            }
+          }
+
+          if (in_array($dCard->getLocation(), STORMS) && $dCard->hasToken(ANCHORED) && in_array($dCard->getType(), [TOKEN, CHARACTER])) {
+            $otherExpedition = $dCard->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+            if (isset($floralTents['anchored'][$dPId][$dCard->getLocation()]) || ($dCard->isGigantic() && isset($floralTents['anchored'][$dPId][$otherExpedition]))) {
+              // unset($toDiscard[$dId]);
+              Notifications::message(clienttranslate('${card_name} is not discarded but loose <ANCHORED> instead'), ['card' => $dCard]);
+              $nodes[] = ['action' => LOOSE, 'args' => ['cardId' => $dId, 'type' => ANCHORED]];
+              continue;
+            }
+          }
+          $nodes[] = FT::ACTION(DISCARD, ['cardId' => $dId]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+
         break;
       default:
         break;

@@ -92,12 +92,16 @@ class Player extends \ALT\Helpers\DB_Model
     $source = null,
     $publicMsg = null,
     $privateMsg = null,
-    $tapped = false
+    $tapped = false,
+    $exhaustingPlayer = null
   ) {
     $fromLocation = $fromLocation ?? 'deck-' . $this->id;
     $toLocation = $toLocation ?? 'hand';
     $public = $toLocation == 'hand' ? false : true;
     $cards = new Collection();
+    if (is_null($exhaustingPlayer)) {
+      $exhaustingPlayer = Players::getActiveId();
+    }
 
     // we check if we have a revealed card
     if ($fromLocation == 'deck-' . $this->id && Cards::countInLocation("reveal-$this->id") > 0) {
@@ -120,7 +124,7 @@ class Player extends \ALT\Helpers\DB_Model
         if ($toLocation == MANA) {
           $card->setTapped(true);
         } else {
-          Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $cId], ['optional' => false, 'sourceId' => $source->getId()]));
+          Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $cId], ['pId' => $exhaustingPlayer, 'optional' => false, 'sourceId' => $source->getId()]));
         }
       }
     }

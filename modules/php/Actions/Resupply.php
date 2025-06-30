@@ -51,6 +51,9 @@ class Resupply extends \ALT\Models\Action
 
   public function isAutomatic($player = null)
   {
+    if (isset($this->ctx->getInfos()['automatic'])) {
+      return $this->ctx->getInfos()['automatic'];
+    }
     return !$this->isOptional($player);
   }
 
@@ -99,6 +102,7 @@ class Resupply extends \ALT\Models\Action
 
     // manage of AX_Rare_TheOuroborosLyraBastion
     if ($player->getResupply2()) {
+      Engine::checkpoint();
       $notResupply = true;
       // draw 2, 1 goes to reserve, the other one is discarded
       $drawn = $player->draw(
@@ -155,7 +159,8 @@ class Resupply extends \ALT\Models\Action
         $source,
         $exhausted ? clienttranslate('${player_name} places ${card_names} from its deck to Reserve as exhausted(${card_name2}\'s effect)') : clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'),
         $exhausted ? clienttranslate('You put ${card_names} from your deck in Reserve as exhausted (${card_name2}\'s effect)') : clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'),
-        $exhausted
+        $exhausted,
+        $player->getId()
       );
       if ($this->getArg('character2Less')) {
         foreach ($cards as $cId => $card) {
