@@ -37,7 +37,10 @@ class BR_Rare_TheHunger extends \ALT\Models\Card
       //   'ignoreTough' => true,
       //   'effect' => FT::ACTION(DISCARD, [])
       // ]),
-      'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'hunger']),
+      'effectHand' => FT::ACTION(
+        SPECIAL_EFFECT,
+        ['effect' => 'hunger']
+      ),
       'effectPassive' => [
         'Discard' => [
           'conditions' => ['isDiscarded::discard', 'isNotToken'],

@@ -102,6 +102,7 @@ class Resupply extends \ALT\Models\Action
 
     // manage of AX_Rare_TheOuroborosLyraBastion
     if ($player->getResupply2()) {
+      Engine::checkpoint();
       $notResupply = true;
       // draw 2, 1 goes to reserve, the other one is discarded
       $drawn = $player->draw(
