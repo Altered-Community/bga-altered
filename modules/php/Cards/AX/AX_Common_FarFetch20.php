@@ -31,13 +31,10 @@ class AX_Common_FarFetch20 extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetPlayer' => ME,
         'targetType' => [PERMANENT],
+        'upTo' => true,
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
-          FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
-            'tokenType' => 'NE_Common_Aerolith',
-            'targetLocation' => [LANDMARK],
-          ]),
+          FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::ACTION(MOVE_CARD, [])]),
         ),
       ])
     ];
