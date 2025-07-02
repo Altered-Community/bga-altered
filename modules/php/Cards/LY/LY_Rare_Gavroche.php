@@ -31,6 +31,7 @@ class LY_Rare_Gavroche extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectReserve' => FT::ACTION(TARGET, [
         'targetPlayer' => ME,
+        'upTo' => true,
         'targetType' => [PERMANENT, SPELL, CHARACTER],
         'targetLocation' => [RESERVE],
         'effect' => FT::SEQ(

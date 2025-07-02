@@ -32,6 +32,7 @@ class AX_Rare_Gavroche extends \ALT\Models\Card
       'effectReserve' => FT::ACTION(TARGET, [
         'targetPlayer' => ME,
         'targetType' => [PERMANENT],
+        'upTo' => true,
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
           FT::ACTION(INVOKE_TOKEN, [
