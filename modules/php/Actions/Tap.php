@@ -58,6 +58,7 @@ class Tap extends \ALT\Models\Action
       'cardId' => $card->getId(),
       'cardLocation' => $card->getLocation(),
       'sourceId' => $this->getSourceId(),
+      'token' => $card->isToken(),
     ], true, 'Exhaust');
 
     $this->resolveAction();

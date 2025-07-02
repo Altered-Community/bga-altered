@@ -572,7 +572,7 @@ abstract class Conditions
 
   public static function isGainCardType($card, $event, $type)
   {
-    return self::typeCheck($type, $event['cardType']);
+    return self::typeCheck($type, $event['cardType'], $event['token']);
   }
 
   public static function hasGainedFleeting($card, $event)
@@ -663,7 +663,7 @@ abstract class Conditions
   public static function isCardOfType($card, $event, $type = null)
   {
     // Type check
-    if (!self::typeCheck($type, $event['cardType'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
       return false;
     }
     if (in_array($type, SUBTYPES)) {
@@ -692,7 +692,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (!self::typeCheck($type, $event['cardType'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
       return false;
     }
 
@@ -797,7 +797,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (!self::typeCheck($type, $event['cardType'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
       return false;
     }
 
@@ -864,7 +864,7 @@ abstract class Conditions
 
     if (!is_null($type)) {
       $discardedCard = Cards::get($event['cardId']);
-      if (!self::typeCheck($type, $discardedCard->getType())) {
+      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken())) {
         return false;
       }
     }
@@ -891,7 +891,7 @@ abstract class Conditions
     // Type check if needed
     if (!is_null($type)) {
       $discardedCard = Cards::get($event['cardId']);
-      if (!self::typeCheck($type, $discardedCard->getType())) {
+      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken())) {
         return false;
       }
     }
@@ -916,10 +916,12 @@ abstract class Conditions
       $discardedCard = Cards::getSingle($event['cardId'], false);
       if (is_null($discardedCard)) {
         $discardedType = $event['cardType'] ?? 'notgood';
+        $isToken = $event['token'] ?? false;
       } else {
         $discardedType = $discardedCard->getType();
+        $isToken = $discardedCard->isToken();
       }
-      if (!self::typeCheck($type, $discardedType)) {
+      if (!self::typeCheck($type, $discardedType, $isToken)) {
         return false;
       }
     }
@@ -1095,7 +1097,7 @@ abstract class Conditions
    **********************************
    *********************************/
 
-  public static function typeCheck($type, $cardType)
+  public static function typeCheck($type, $cardType, $isToken)
   {
     if (in_array($type, [PERMANENT, TOKEN, SPELL])) {
       if ($cardType != $type) {
@@ -1105,7 +1107,7 @@ abstract class Conditions
     if ($type == CHARACTER && !in_array($cardType, [CHARACTER, TOKEN])) {
       return false;
     }
-    if ($type == 'characterOnly' && $cardType != CHARACTER) {
+    if ($type == 'characterOnly' && $cardType != CHARACTER && $isToken) {
       return false;
     }
 

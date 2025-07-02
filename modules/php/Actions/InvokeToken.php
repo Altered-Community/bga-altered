@@ -164,6 +164,14 @@ class InvokeToken extends \ALT\Models\Action
       $invokePId = $explodedLocation[1];
     }
 
+    if (!is_null($this->getCtxArg('targetPlayer'))) {
+      $targetPlayer = $this->getCtxArg('targetPlayer');
+      if ($targetPlayer == 'owner') {
+        $effectId = $this->getCtxArg('cardId');
+        $invokePId = Cards::get($effectId)->getPId();
+      }
+    }
+
     if (!in_array($explodedLocation[0], $args['locations']) && count($explodedLocation) == 1) {
       throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
     }

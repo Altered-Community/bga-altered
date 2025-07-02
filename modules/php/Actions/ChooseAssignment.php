@@ -460,7 +460,8 @@ class ChooseAssignment extends \ALT\Models\Action
         'to' => $location,
         'playedFree' => $cost == 0 ? true : false,
         'putAndNotPlayed' => !$effectHand,
-        'additionalEffects' => Globals::getAdditionalEffect()
+        'additionalEffects' => Globals::getAdditionalEffect(),
+        'token' => $card->isToken(),
       ]);
 
       $this->checkAfterListeners($player, [
@@ -474,7 +475,8 @@ class ChooseAssignment extends \ALT\Models\Action
         'gigantic' => $card->isGigantic(),
         'playedFree' => $cost == 0 ? true : false,
         'putAndNotPlayed' => !$effectHand,
-        'additionalEffects' => Globals::getAdditionalEffect()
+        'additionalEffects' => Globals::getAdditionalEffect(),
+        'token' => $card->isToken(),
       ]);
     }
     // throw new \feException(print_r(Globals::getEngine()));
@@ -542,7 +544,8 @@ class ChooseAssignment extends \ALT\Models\Action
       'playCard' => false,
       'cardType' => $card->getType(),
       'from' => RESERVE,
-      'isSupport' => true
+      'isSupport' => true,
+      'token' => $card->isToken(),
     ]);
   }
 

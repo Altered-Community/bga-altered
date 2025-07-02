@@ -294,6 +294,9 @@ const CONSTRUCTION = 'construction';
 const SITE = 'site';
 const ILLUSION = 'illusion';
 
+// Cyclone
+const ORE = 'ore';
+
 const SUBTYPES = [
   DIVINITY,
   ADVENTURER,
