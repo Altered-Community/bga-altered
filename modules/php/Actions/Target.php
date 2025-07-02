@@ -185,7 +185,7 @@ class Target extends \ALT\Models\Action
           || ((in_array(STORM_LEFT, $targetLocation) || in_array(STORM_RIGHT, $targetLocation)) && in_array($c->getLocation(), STORMS) && $c->isGigantic()))
           || ($c->getType() == HERO && in_array(HERO, $targetType))) &&
           // Token exclusion
-          ($excludeTokens && !$c->isToken());
+          ($excludeTokens === false  || ($excludeTokens === true && !$c->isToken()));
       });
     }
 
