@@ -27,6 +27,7 @@ class MU_Rare_MechanicalTraining extends \ALT\Models\Card
       'changedStats' => ['costHand'],
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER],
+        'excludeTokens' => true,
         'targetPlayer' => ME,
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
