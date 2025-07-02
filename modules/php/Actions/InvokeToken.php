@@ -47,7 +47,7 @@ class InvokeToken extends \ALT\Models\Action
       'n' => $this->getCtxArg('n') ?? 1,
       'canPass' => $this->getCtxArg('optional') ?? false,
       'locations' => $targetLocations,
-      'allPlayers' => count($targetLocations) > 1
+      'allPlayers' => count($targetLocations) > 1 || ($this->getCtxArg('allPlayers') ?? false)
     ];
   }
 
