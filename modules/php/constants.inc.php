@@ -92,7 +92,7 @@ const ST_PAY = 40;
 const ST_DRAW_MANA = 41;
 const ST_BLOCK_EXPEDITION = 42;
 const ST_TARGET_PLAYER = 43;
-const ST_DISCARD_DRAW = 44;
+const ST_DISCARD_DO = 44;
 const ST_TARGET_EXPEDITION = 45;
 // Alizé
 const ST_EXHAUST = 46;
@@ -162,7 +162,7 @@ const PAY = 'Pay';
 const DRAW_MANA = 'DrawMana';
 const BLOCK_EXPEDITION = 'BlockExpedition';
 const TARGET_PLAYER = 'TargetPlayer';
-const DISCARD_DRAW = 'DiscardDraw';
+const DISCARD_DO = 'DiscardDo';
 const TARGET_EXPEDITION = 'TargetExpedition';
 const EXHAUST = 'Exhaust';
 const READY = 'Ready';

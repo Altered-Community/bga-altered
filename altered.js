@@ -1972,7 +1972,7 @@ define([
       // });
     },
 
-    onEnteringStateDiscardDraw(args) {
+    onEnteringStateDiscardDo(args) {
       this.onEnteringStateTarget(args);
     },
 
