@@ -88,6 +88,10 @@ class YZ_Rare_PajuAxiomPilot extends \ALT\Models\Card
           ],
         ],
       ],
+      'effectSupport' =>  [
+        'action' => INVOKE_TOKEN,
+        'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK], 'allPlayers' => true],
+      ],
     ];
   }
 }
