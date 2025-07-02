@@ -163,6 +163,9 @@ class Card extends \ALT\Helpers\DB_Model
     'actionInsteadAdvance' => 'str', // Rune's testament
     'dynamicReserveSlots' => 'str', // Scholar's Vault
     'reduceCostType' => 'obj', // // Scholar's Vault - Rare
+
+    // Cyclone
+    'costReductionSacrificePermanent' => 'int', // Detonation
   ];
 
   /********* DB ACCESS *********/
@@ -307,6 +310,12 @@ class Card extends \ALT\Helpers\DB_Model
         $cost -= $this->getCostReductionDiscard();
       } elseif ($reserveCards >= 1) {
         $cost -= $this->getCostReductionDiscard();
+      }
+    }
+    if ($this->getCostReductionSacrificePermanent() > 0) {
+      $permanent = $this->getPlayer()->getPlayedCards(PERMANENT)->count();
+      if ($permanent > 0) {
+        $cost -= $this->getCostReductionSacrificePermanent();
       }
     }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
