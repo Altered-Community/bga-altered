@@ -666,6 +666,11 @@ abstract class Conditions
     if (!self::typeCheck($type, $event['cardType'])) {
       return false;
     }
+    if (in_array($type, SUBTYPES)) {
+      if (!in_array($type, $event['cardSubtypes'])) {
+        return false;
+      }
+    }
     return true;
   }
 
