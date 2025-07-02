@@ -296,6 +296,7 @@ const ILLUSION = 'illusion';
 
 // Cyclone
 const ORE = 'ore';
+const SCIENTIST = 'scientist';
 
 const SUBTYPES = [
   DIVINITY,
