@@ -217,7 +217,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'removeFleetingSongArtistPlayed':
         return clienttranslate('Remove fleeting if next card is an Artist or Song');
       case 'doubleBoosts':
-        return clienttranslate('Double the boosts in reserve & storms');
+        return clienttranslate('Double the boosts in reserve & expeditions');
       case 'counterPerCharacter':
         return clienttranslate('Gain 1 counter per Character you control');
       case 'boostAndRemoveFromExpedition':
