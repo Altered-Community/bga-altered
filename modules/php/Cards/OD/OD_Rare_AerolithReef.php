@@ -32,7 +32,10 @@ class OD_Rare_AerolithReef extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
-      'effectTap' => FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
+      'effectTap' => FT::SEQ(
+        FT::ACTION(PAY, ['pay' => 1]),
+        FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
+      )
     ];
   }
 }
