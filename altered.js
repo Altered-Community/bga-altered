@@ -2142,6 +2142,17 @@ define([
       });
     },
 
+    onEnteringStateSpend(args) {
+      let chooseSpend = (n) => {
+        return () => this.takeAtomicAction('actSpend', [n]);
+      };
+      debug('toto');
+      for (j = 1; j <= args.n; j++) {
+        debug(j);
+        this.addPrimaryActionButton('btnSpend' + j, j, chooseSpend(j));
+      }
+    },
+
     ////////////////////////////////////////////////////////////
     // _____                          _   _   _
     // |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _

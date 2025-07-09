@@ -94,10 +94,13 @@ class ChooseAssignment extends \ALT\Models\Action
         ->getPlayedCards()
         ->merge($player->getHeroCollection())
         ->filter(function ($card) use ($player) {
+          $effectTap = $card->getEffectTap();
+          if (is_null('effectTap') || empty($effectTap)) {
+            return false;
+          }
+          $effectTap['sourceId'] = $card->getId();
           return !$card->isTapped() &&
-            !is_null($card->getEffectTap()) &&
-            !empty($card->getEffectTap()) &&
-            Engine::buildTree($card->getEffectTap())->isDoable($player);
+            Engine::buildTree($effectTap)->isDoable($player);
         })
         ->getIds();
     }

@@ -399,6 +399,13 @@ class Card extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function countCounters()
+  {
+    $tokens = $this->countToken(BOOST);
+    $counters = $this->getExtraDatas()['counter'] ?? 0;
+    return $tokens + $counters;
+  }
+
   public function getOfType($type)
   {
     return Meeples::getOfType('card-' . $this->id, $type);
