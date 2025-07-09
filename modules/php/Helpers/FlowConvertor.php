@@ -73,7 +73,7 @@ abstract class FlowConvertor
       445 => ['description' => clienttranslate('When an opponent plays a Character —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isNotMe', 'isAddedCardOpponentEvent:character']],
       446 => ['description' => clienttranslate('When I leave the Expedition zone, for each of my boosts —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
       526 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
-      447 => ['description' => clienttranslate('When you play another card from Reserve —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isMe', 'excludeSelf', 'isFromReserve']],
+      447 => ['description' => clienttranslate('When you play another card from Reserve —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isMe', 'excludeSelf', 'isFromReserve', 'isCardAdded']],
       448 => ['description' => clienttranslate('When you sacrifice a Character —'),  'trigger' => 'Discard', 'condition' => ['isMe', 'isSacrifice:character']],
       532 => ['description' => clienttranslate('{I} At Noon —'), 'trigger' => 'Noon', 'type' => 'effectInfinity', 'condition' => 'isMe'],
       540 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
