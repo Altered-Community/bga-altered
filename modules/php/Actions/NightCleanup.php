@@ -97,26 +97,37 @@ class NightCleanup extends \ALT\Models\Action
       }
     }
 
+
     foreach ($cards as $cId => $card) {
       // Save information about original location
       $originalLocation = $card->getLocation();
       if (in_array($originalLocation, [RESERVE, STORM_LEFT, STORM_RIGHT])) {
-        $card->checkLeaveListener($destination); // Check leave listener
+        $card->checkLeaveListener($destination, true); // Check leave listener
       }
 
       // Discard the card
-      $m = $card->discardTo($destination);
+      $m = $card->discardTo($destination, [], true);
       $deletedMeeples = array_merge($deletedMeeples, $m);
 
+      $afterCleanup = Globals::getAfterNightCleanup();
+
+
       // Check listener
-      $this->checkListeners('Discard', $player, [
+      $reactions = $this->logReactions('Discard', $player, [
         'discardCard' => true,
         'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
         'discarded' => $cId,
         'from' => $originalLocation,
         'to' => $destination,
       ]);
+      if (!is_null($reactions)) {
+        foreach ($reactions as $r => $reaction) {
+          $afterCleanup[$reaction['pId']][] = $reaction;
+        }
+      }
+      Globals::setAfterNightCleanup($afterCleanup);
     }
+
 
     // Notify deleting meeples first
     if (!empty($deletedMeeples)) {

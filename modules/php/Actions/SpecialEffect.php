@@ -240,6 +240,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Exhaust Wayfarer and play card for free');
       case 'manInTheMazeUnique':
         return clienttranslate('Trigger Man in the maze unique effects');
+      case 'hunger':
+        return clienttranslate('Discard all other cards in play or in Reserve');
     }
     return '';
   }
@@ -270,6 +272,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXReserve':
       case 'drawTopIfRoll':
       case 'exhaustPlayFree':
+      case 'hunger':
         return false;
         break;
       default:

@@ -108,6 +108,7 @@ const ST_AFTER_DUSK = 87;
 const ST_BEFORE_NIGHT = 85;
 const ST_NIGHT = 86; // clean up !! may need some choice
 const ST_NIGHT_CLEANUP = 88;
+const ST_END_OF_NIGHT = 89;
 const ST_RESOLVE_STACK = 90;
 const ST_RESOLVE_CHOICE = 91;
 const ST_IMPOSSIBLE_MANDATORY_ACTION = 92;

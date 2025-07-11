@@ -56,6 +56,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nextCharacterFleeting' => 'bool',
     'additionalEffect' => 'obj', // use to trigger R/H of next character
     'afterRest' => 'obj', // used for triggers readd during dusk but that should be trigerred after Rest
+    'afterNightCleanup' => 'obj', // used to process the reactions after all players cleaned up their reserve & landmark
     'nextSpellIsFree' => 'bool',
     'removeFleetingIfSpellPlayedHand' => 'bool',
     'removeFleetingSpellPlayed' => 'bool',

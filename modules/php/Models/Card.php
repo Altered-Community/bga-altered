@@ -421,10 +421,10 @@ class Card extends \ALT\Helpers\DB_Model
     return $this->discardTo(RESERVE, $seasoned);
   }
 
-  public function discardTo($location, $seasoned = [])
+  public function discardTo($location, $seasoned = [], $afterNight = false)
   {
     $isSeasoned = $this->isSeasoned();
-    $this->checkLeaveListener($location);
+    $this->checkLeaveListener($location, $afterNight);
     $this->setLocation($location);
     $this->setTapped(false);
 
@@ -454,7 +454,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $meepleIds;
   }
 
-  public function checkLeaveListener($target)
+  public function checkLeaveListener($target, $afterNight)
   {
     $type = null;
     $location = $this->getLocation();
@@ -477,18 +477,30 @@ class Card extends \ALT\Helpers\DB_Model
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
     ];
+    $afterCleanup = Globals::getAfterNightCleanup();
     if ($this->isListeningTo($event)) {
       $event['cardsToListen'] = [$this->id];
-      Engine::pushAfterFinishingChilds([
-        [
+      if ($afterNight) {
+        $afterCleanup[$this->getPId()][] = [
           'action' => ACTIVATE_CARD,
           'args' => [
             'cardId' => $this->id,
             'event' => $event,
           ],
           'pId' => $this->getPId(),
-        ],
-      ]);
+        ];
+      } else {
+        Engine::pushAfterFinishingChilds([
+          [
+            'action' => ACTIVATE_CARD,
+            'args' => [
+              'cardId' => $this->id,
+              'event' => $event,
+            ],
+            'pId' => $this->getPId(),
+          ],
+        ]);
+      }
     }
 
     // trigger reactions of listeners on onther leave
@@ -496,9 +508,17 @@ class Card extends \ALT\Helpers\DB_Model
     $event['method'] = 'Other' . $event['method'];
     $event['pId'] = $this->getPId();
     $reaction = Cards::getReaction($event);
-    // throw new \feException(print_r($reaction));
-    // $this->pushParallelChilds($reaction);
-    Engine::pushAfterFinishingChilds($reaction);
+
+    if ($afterNight == true) {
+      if (!is_null($reaction)) {
+        foreach ($reaction as $r => $reactio) {
+          $afterCleanup[$reactio['pId']][] = $reactio;
+        }
+      }
+    } else {
+      Engine::pushAfterFinishingChilds($reaction);
+    }
+    Globals::setAfterNightCleanup($afterCleanup);
   }
 
   /**

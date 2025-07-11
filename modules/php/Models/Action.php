@@ -234,6 +234,24 @@ class Action
     $this->pushAfterFinishingChilds($reaction);
   }
 
+  protected function logReactions($method, $player, $args = [], $overrideMethod = null)
+  {
+    $event = array_merge(
+      [
+        'pId' => $player->getId(),
+        'type' => 'action',
+        'action' => $overrideMethod ?? $this->getClassName(),
+        'method' => $overrideMethod ?? $method,
+      ],
+      $args
+    );
+
+    $reaction = Cards::getReaction($event);
+    // throw new \feException(print_r($reaction));
+    // $this->pushParallelChilds($reaction);
+    return $reaction;
+  }
+
   public function checkAfterListeners($player, $args = [], $duringActionListener = true, $overrideMethod = null)
   {
     if ($duringActionListener) {
