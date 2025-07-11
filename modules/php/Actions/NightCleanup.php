@@ -102,7 +102,7 @@ class NightCleanup extends \ALT\Models\Action
       // Save information about original location
       $originalLocation = $card->getLocation();
       if (in_array($originalLocation, [RESERVE, STORM_LEFT, STORM_RIGHT])) {
-        $card->checkLeaveListener($destination); // Check leave listener
+        $card->checkLeaveListener($destination, true); // Check leave listener
       }
 
       // Discard the card
