@@ -47,6 +47,7 @@ trait TurnTrait
     Notifications::newPhase(PHASE_AFTERNOON);
     Globals::setStormMoves([]);
     Globals::setAfterRest([]);
+    Globals::setAfterNightCleanup([]);
     Globals::setPlayedCards(0);
     Globals::setSkippedPlayers([]);
     Globals::setCostReduction([]);
@@ -302,7 +303,7 @@ trait TurnTrait
   function stPreNight()
   {
     Globals::setPlayedCards(1);
-    $this->initCustomDefaultTurnOrder('nightPhase', 'stNight', ST_NEW_DAY);
+    $this->initCustomDefaultTurnOrder('nightPhase', 'stNight', ST_END_OF_NIGHT);
   }
 
   public function stNight()
@@ -346,5 +347,12 @@ trait TurnTrait
     ];
     Engine::setup($node, ['order' => 'nightPhase']);
     Engine::proceed();
+  }
+
+  function stEndOfNight()
+  {
+    // throw new \feException(print_r(Globals::getAfterNightCleanup()));
+
+    $this->checkCardListeners('EndOfNight', ST_NEW_DAY);
   }
 }

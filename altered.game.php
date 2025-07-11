@@ -246,6 +246,18 @@ class altered extends Table
         }
       }
     }
+    if ($event['type'] == 'EndOfNight') {
+      $afterNight = Globals::getAfterNightCleanup()[$pId] ?? [];
+      // throw new \feException(print_r($afterNight));
+      if (!empty($afterNight)) {
+        // throw new \feException(print_r($afterRest));
+        if (is_null($reaction)) {
+          $reaction = $afterNight;
+        } else {
+          $reaction = array_push($reaction, ...$afterNight);
+        }
+      }
+    }
 
     if (is_null($reaction)) {
       // No reaction => just go to next player

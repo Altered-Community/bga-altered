@@ -171,6 +171,16 @@ $machinestates = [
     ],
   ],
 
+  ST_END_OF_NIGHT => [
+    'name' => 'endOfNight',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stEndOfNight',
+    'transitions' => [
+      'newDay' => ST_BEFORE_ASSIGNMENT,
+    ],
+  ],
+
   ////////////////////////////////////////////////////////////////////////////
   //     _   _                  _         _        _   _
   //    / \ | |_ ___  _ __ ___ (_) ___   / \   ___| |_(_) ___  _ __  ___
