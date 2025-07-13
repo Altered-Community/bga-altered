@@ -1259,7 +1259,12 @@ class SpecialEffect extends \ALT\Models\Action
           foreach ($nodes as &$node) {
             $node['sourceId'] = $this->getSourceId();
             $node['pId'] = $card->getPId();
+            if (isset($node['childs'])) {
+              $node = Utils::tagTree($node, ['sourceId' => $this->getSourceId(), 'pId' => $card->getPId()]);
+            }
           }
+          // $nodes = Utils::tagTree($nodes, ['sourceId' => $this->getSourceId(), 'pId' => $card->getPId()]);
+          // throw new \feException(print_r($nodes));
           $this->insertAsChild(['type' => NODE_PARALLEL, 'childs' => $nodes]);
         }
         break;
