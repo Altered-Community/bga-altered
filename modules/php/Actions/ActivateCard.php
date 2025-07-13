@@ -23,7 +23,7 @@ class ActivateCard extends \ALT\Models\Action
 
     // Tokens are not really destroyed, they got to location "destroy"
     //  but they cant be activated from here => only case is Maw
-    if (!is_null($card) && $card->getLocation() == 'destroy') {
+    if (!is_null($card) && ($card->getLocation() == 'destroy' && !in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? []))) {
       return null;
     }
     return $card;
@@ -44,13 +44,13 @@ class ActivateCard extends \ALT\Models\Action
     //   throw new \feException($card->getId());
     // }
     // throw new \feException($this->getCtxArg('cardId'));
-
     $flow =
       $card->isPlayed() ||
       $card->getLocation() == RESERVE ||
       in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? []) ||
       in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['reserveToListen'] ?? []) // cas of infinity effect to listen after discard
-      ? Cards::applyEffect(
+      ?
+      Cards::applyEffect(
         $card,
         $player,
         $event['method'],
@@ -81,6 +81,8 @@ class ActivateCard extends \ALT\Models\Action
   public function getFlowTree($player)
   {
     $flow = $this->getFlow($player);
+    // throw new \feException(print_r(debug_print_backtrace()));
+
     return is_null($flow) ? null : Engine::buildTree($flow);
   }
 
@@ -103,7 +105,6 @@ class ActivateCard extends \ALT\Models\Action
     $player = $this->getPlayer();
     $flowTree = $this->getFlowTree($player);
 
-    // throw new \feException(print_r($flowTree));
     return is_null($flowTree) ? false : $flowTree->isDoable($player);
   }
 

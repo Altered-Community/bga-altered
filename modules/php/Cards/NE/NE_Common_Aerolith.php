@@ -23,7 +23,18 @@ class NE_Common_Aerolith extends \ALT\Models\Card
       'extension' => 'SO',
       'subtypes'  => [ORE],
       'effectDesc' => clienttranslate('When I\'m sacrificed — <RESUPPLY>. (Put the top card of your deck in Reserve. Excess Landmarks are sacrificed at the end of the Day.)  {T}, {1} : Sacrifice me.'),
-      'token' => true
+      'token' => true,
+      // 'sacrificeResupply' => true,
+      'effectPassive' => [
+        'Discard' => [
+          'condition' => 'isSacrificed',
+          'output' => FT::ACTION(RESUPPLY, []),
+        ],
+      ],
+      'effectTap' => FT::SEQ(
+        FT::ACTION(PAY, ['pay' => 1]),
+        FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
+      )
     ];
   }
 }

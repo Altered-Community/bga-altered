@@ -376,6 +376,7 @@ class Discard extends \ALT\Models\Action
       // if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
       //   $cardsToListen[] = $this->getSourceId();
       // }
+
       $this->checkAfterListeners($player, [
         'discardCard' => true,
         'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
@@ -447,6 +448,7 @@ class Discard extends \ALT\Models\Action
         ]);
       }
     }
+    // throw new \feException(print_r(Globals::getEngine()));
 
     // Resolve action if automatic since we are bypassing usual flow with return
     if ($automatic) {
