@@ -628,5 +628,6 @@ class ChooseAssignment extends \ALT\Models\Action
     $skipped[] = $player->getId();
     Globals::setSkippedPlayers($skipped);
     Notifications::pass($player);
+    $this->checkAfterListeners($player, [], true, 'EndTurn');
   }
 }

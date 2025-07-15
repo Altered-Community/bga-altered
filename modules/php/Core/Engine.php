@@ -102,7 +102,9 @@ class Engine
   public static function proceed($confirmedPartial = false, $isUndo = false)
   {
     $node = self::$tree->getNextUnresolved();
-    // throw new \feException(print_r($node->toArray()));
+    // if ($node->toArray()['type'] != NODE_LEAF) {
+    //   throw new \feException(print_r($node->toArray()));
+    // }
     $player = Players::getActive();
 
     // Are we done ?
@@ -211,6 +213,10 @@ class Engine
     // If node with choice, switch to choice state
     $choices = $node->getChoices($player);
     $allChoices = $node->getChoices($player, true);
+    // if ($node->toArray()['type'] != NODE_LEAF) {
+    //   throw new \feException(Globals::getEngineChoices());
+    //   throw new \feException(print_r($allChoices));
+    // }
     // throw new \feException(print_r($choices));
     if (!empty($allChoices) && $node->getType() != NODE_LEAF) {
       // var_dump($choices);
@@ -400,7 +406,7 @@ class Engine
 
     // TODO : flag the tree
     Globals::setEngineChoices(0);
-    Globals::setEngineAutomatic(0);
+    // Globals::setEngineAutomatic(0);
     Log::checkpoint();
   }
 

@@ -42,6 +42,11 @@ abstract class Conditions
     return true;
   }
 
+  public static function isFirstPassing($card, $event)
+  {
+    return count(Globals::getSkippedPlayers()) == 1 && in_array($card->getPId(), Globals::getSkippedPlayers());
+  }
+
 
   ///////////////////////////////////////
   //    ____                           _ 
@@ -338,7 +343,7 @@ abstract class Conditions
   {
     $types = [CHARACTER, TOKEN];
     if ($type == TOKEN) {
-      $types = [TOKEN];
+      $types = [CHARACTER, PERMANENT];
     }
     if ($type == PERMANENT) {
       $types = [PERMANENT];
@@ -348,6 +353,10 @@ abstract class Conditions
     }
 
     $cards = $card->getPlayer()->getPlayedCards($types);
+
+    if ($type == TOKEN) {
+      $cards = $cards->filter(fn($c) => $c->isToken());
+    }
 
     if (in_array($type, SUBTYPES)) {
       $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
