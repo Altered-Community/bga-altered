@@ -1513,13 +1513,13 @@ class SpecialEffect extends \ALT\Models\Action
             $floralTents['boosted'][$tId][STORM_LEFT] = true;
           }
           if ($tPlayer->hasProtectBoostedInExpedition(STORM_RIGHT)) {
-            $floralTents['boosted'][$tId][STORM_LEFT] = true;
+            $floralTents['boosted'][$tId][STORM_RIGHT] = true;
           }
           if ($tPlayer->hasProtectAnchoredInExpedition(STORM_LEFT)) {
             $floralTents['anchored'][$tId][STORM_LEFT] = true;
           }
           if ($tPlayer->hasProtectAnchoredInExpedition(STORM_RIGHT)) {
-            $floralTents['anchored'][$tId][STORM_LEFT] = true;
+            $floralTents['anchored'][$tId][STORM_RIGHT] = true;
           }
         }
 
