@@ -192,7 +192,7 @@ class Engine
       Log::enable();
       Log::checkpoint();
       Globals::setEngineChoices(0);
-      Globals::setEngineAutomatic(0);
+      // Globals::setEngineAutomatic(0);
     }
 
     if ($node instanceof \ALT\Core\Engine\OrNode && isset($node->getArgs()['canReuse']) && $node->getArgs()['canReuse'] == true) {
