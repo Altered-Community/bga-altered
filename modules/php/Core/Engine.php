@@ -400,7 +400,7 @@ class Engine
 
     // TODO : flag the tree
     Globals::setEngineChoices(0);
-    Globals::setEngineAutomatic(0);
+    // Globals::setEngineAutomatic(0);
     Log::checkpoint();
   }
 
