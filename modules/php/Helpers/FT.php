@@ -111,4 +111,9 @@ abstract class FT
   {
     return self::ACTION(DISCARD, ['destination' => RESERVE]);
   }
+
+  public static function RUSH()
+  {
+    return FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play']]);
+  }
 }
