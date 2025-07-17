@@ -2135,6 +2135,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         AEROLITH: {
           text: _('Aerolith'),
         },
+        HALUA: {
+          text: _('Halua'),
+        },
+        RUSH: {
+          text: _('Rush'),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
