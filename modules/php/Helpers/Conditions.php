@@ -540,6 +540,11 @@ abstract class Conditions
     die('Unknown op for hasCounterOnCard');
   }
 
+  public static function heroHasCounter($card, $event, $n = 1, $op = 'GTE')
+  {
+    return self::hasCounterOnCard($card->getPlayer()->getHero(), $event, $n, $op);
+  }
+
   public static function hasGainedBoost($card, $event, $n = 1)
   {
     return self::hasGained($card, $event, BOOST, $n);

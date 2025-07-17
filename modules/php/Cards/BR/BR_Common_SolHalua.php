@@ -29,10 +29,21 @@ class BR_Common_SolHalua extends \ALT\Models\Card
       'effectPassive' => [
         'EndTurn' => [
           'conditions' => ['isFirstPassing'],
-          'output' => FT::ACTION(SPECIAL_EFFECT, [
-            'effect' => 'incCounter',
-            'args' => ['counter' => 1, 'counterName' => clienttranslate('Quest counters')],
-          ])
+          'output' => FT::SEQ(
+            FT::ACTION(SPECIAL_EFFECT, [
+              'effect' => 'incCounter',
+              'args' => ['counter' => 1, 'counterName' => clienttranslate('Quest counters')],
+            ]),
+            FT::ACTION(CHECK_CONDITION, [
+              'condition' => 'hasCounterOnCard:3',
+              'effect' =>
+              FT::ACTION(INVOKE_TOKEN, [
+                'pId' => 'source',
+                'tokenType' => 'BR_Common_Halua',
+                'targetLocation' => [STORM_RIGHT],
+              ]),
+            ])
+          )
         ]
       ]
     ];

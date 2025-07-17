@@ -27,7 +27,7 @@ class BR_Common_Halua extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'token' => true,
-      // 'gigantic' => true,
+      'dynamicGigantic' => '1:heroHasCounter:5'
     ];
   }
 }
