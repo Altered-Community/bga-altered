@@ -113,6 +113,7 @@ define([
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],
+        ['revealCard', 1000, (notif) => notif.args.player_id == this.player_id],
 
         // TODO??
         ['blockAllExpeditions', 100],

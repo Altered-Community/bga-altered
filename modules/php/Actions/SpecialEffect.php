@@ -242,6 +242,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Trigger Man in the maze unique effects');
       case 'hunger':
         return clienttranslate('Discard all other cards in play or in Reserve');
+      case 'reveal':
+        return clienttranslate('Reveal a card');
     }
     return '';
   }
@@ -1555,6 +1557,11 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
 
+        break;
+      case 'reveal':
+        $toReveal = $this->getCard();
+        $toReveal->setRevealed(true);
+        Notifications::reveal($toReveal, $card);
         break;
       default:
         break;

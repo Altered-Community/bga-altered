@@ -166,6 +166,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Cyclone
     'costReductionSacrificePermanent' => 'int', // Detonation
+    'revealed' => 'bool', // Leviathan Observer
   ];
 
   /********* DB ACCESS *********/

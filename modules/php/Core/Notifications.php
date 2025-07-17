@@ -728,6 +728,15 @@ class Notifications
     ]);
   }
 
+  public static function reveal($toReveal, $source)
+  {
+    self::notifyAll('revealCard', clienttranslate('${player_name} reveals ${card_name} (${card_name2}\'s effect)'), [
+      'player' => $toReveal->getPlayer(),
+      'card' => $toReveal,
+      'card2' => $source
+    ]);
+  }
+
   public static function pass($player)
   {
     self::notifyAll('passTurn', clienttranslate('${player_name} passes and ends its afternoon'), ['player' => $player]);

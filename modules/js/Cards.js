@@ -1342,6 +1342,28 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
+    notif_revealCard(n) {
+      debug('Notif: reveal card');
+      // Slide the card
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+
+      if (this.isFastMode()) {
+        if (!$(id)) {
+          let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+          fakeCard.remove();
+          this.addCard(card);
+        }
+        return;
+      }
+
+      if (!$(id)) {
+        let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+        this.addCard(card, `hand-${n.args.player_id}`);
+        this.flipAndReplace(fakeCard, id);
+      }
+    },
+
     //////////////////////////////////////////////
     //  _____ ____  _
     // |_   _|  _ \| |

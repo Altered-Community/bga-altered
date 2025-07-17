@@ -353,7 +353,7 @@ const ASLEEP = 'asleep';
  *********************/
 const API_URL = 'https://api.equinox-ccg.io';
 
-const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas', 'setIcon', 'flavorText', 'asset'];
+const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas', 'setIcon', 'flavorText', 'asset', 'revealed'];
 const UID_MAPPING = [
   'ALT_ALIZE_B_AX_01_C' => 'ALT_CORE_B_AX_01_C',
   'ALT_ALIZE_B_AX_03_C' => 'ALT_CORE_B_AX_03_C',

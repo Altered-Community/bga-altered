@@ -273,6 +273,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
     $card->setTapped(false);
+    $card->setRevealed(false);
     $newState = Cards::getNextPlayedState();
     $newState++;
     $card->setState($newState);
