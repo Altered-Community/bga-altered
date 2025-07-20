@@ -291,6 +291,7 @@ trait TurnTrait
     foreach (Players::getAll() as $pId => $player) {
       $player->nightCleanup();
     }
+    Meeples::nightCleanup();
     Engine::proceed();
   }
 

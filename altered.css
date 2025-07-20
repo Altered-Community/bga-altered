@@ -7709,6 +7709,12 @@ html {
   width: 30px;
   height: 30px;
 }
+.altered-meeple[data-type=ascend] {
+  background-image: url("img/icons/ascend.png");
+  background-size: 100% 100%;
+  width: 62px;
+  height: 62px;
+}
 
 .action-button .icon-container ~ .altered-meeple {
   margin-left: 0.5em;

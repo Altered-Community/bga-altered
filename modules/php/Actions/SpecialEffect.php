@@ -244,6 +244,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Discard all other cards in play or in Reserve');
       case 'reveal':
         return clienttranslate('Reveal a card');
+      case 'ascend':
+        return clienttranslate('Ascend');
     }
     return '';
   }
@@ -1562,6 +1564,24 @@ class SpecialEffect extends \ALT\Models\Action
         $toReveal = $this->getCard();
         $toReveal->setRevealed(true);
         Notifications::reveal($toReveal, $card);
+        break;
+      case 'ascend':
+        $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
+        $expedition = $this->getCtxArg('expedition');
+        // manage my expedition
+        if ($expedition == 'source') {
+          $expedition = $card->getLocation();
+        }
+        $oPlayer = Players::get($player);
+        $token = $expedition != STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+        $oToken = $oPlayer->$token();
+        $ascended = Meeples::singleCreate([
+          'player_id' => $player,
+          'location' => $oToken->getLocation(),
+          'nbr' => 1,
+          'type' => 'ascend'
+        ]);
+        Notifications::ascend($ascended, $oPlayer, $card, $expedition);
         break;
       default:
         break;

@@ -296,6 +296,20 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getStormToken(HERO);
   }
 
+  public function isAscended($side)
+  {
+    if ($side == HERO) {
+      $storm = $this->getHeroToken();
+    } else {
+      $storm = $this->getCompanionToken();
+    }
+    $tokens = Meeples::getAscended($this->id, $storm->getLocation());
+    if (count($tokens) == 0) {
+      return false;
+    }
+    return true;
+  }
+
   public function getDeck($deckNumber)
   {
     return Cards::getFiltered($this->id, 'deck-' . $deckNumber)->merge(

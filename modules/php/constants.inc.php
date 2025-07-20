@@ -209,6 +209,7 @@ const PHASE_NOON = 'noon';
 const PHASE_AFTERNOON = 'afternoon';
 const PHASE_DUSK = 'dusk';
 const PHASE_NIGHT = 'night';
+const ASCEND = 'ascend';
 
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';

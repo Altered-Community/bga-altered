@@ -4,6 +4,7 @@ namespace ALT\Managers;
 
 use ALT\Core\Stats;
 use ALT\Core\Globals;
+use ALT\Core\Notifications;
 use ALT\Helpers\UserException;
 use ALT\Helpers\Collection;
 use ALT\Models\Meeple;
@@ -66,6 +67,11 @@ class Meeples extends \ALT\Helpers\CachedPieces
     return self::getFilteredQuery($pId, null, [COMPANION, HERO])->get();
   }
 
+  public static function getAscended($pId, $location)
+  {
+    return self::getFilteredQuery($pId, $location, [ASCEND])->get();
+  }
+
   /**
    * Generic base query
    */
@@ -95,6 +101,16 @@ class Meeples extends \ALT\Helpers\CachedPieces
       return [self::singleCreate(['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId])];
     } else {
       return self::create([['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId, 'nbr' => $nbr]]);
+    }
+  }
+
+  public static function nightCleanup()
+  {
+    $ascended =  self::getFilteredQuery(null, null, [ASCEND])->get();
+    $toDelete = $ascended->getIds();
+    if (count($ascended) >= 1) {
+      self::delete($ascended->getIds());
+      Notifications::silentKill($toDelete);
     }
   }
 }

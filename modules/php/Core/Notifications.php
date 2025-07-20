@@ -590,6 +590,16 @@ class Notifications
     ]);
   }
 
+  public static function ascend($meeple, $player, $source, $expedition)
+  {
+    $msg = $expedition == STORM_LEFT ? clienttranslate('${player_name}\'s Hero expedition ascends (${card_name2}\'s effect)') : clienttranslate('${player_name}\'s Companion expedition ascends (${card_name2}\'s effect)');
+    self::notifyAll('addMeeples', $msg, [
+      'player' => $player,
+      'meeples' => [$meeple],
+      'card2' => $source,
+    ]);
+  }
+
   public static function targetCards($player, $cards, $additionalCost, $source)
   {
     if ($additionalCost > 0) {
