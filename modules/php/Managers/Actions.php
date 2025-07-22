@@ -44,7 +44,8 @@ class Actions
     READY,
     EXCHANGE,
     SPEND,
-    BOOST_EXCHANGE
+    BOOST_EXCHANGE,
+    END_AFTERNOON
   ];
 
   public static function get($actionId, &$ctx = null)

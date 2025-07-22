@@ -500,6 +500,16 @@ $machinestates = [
     'possibleactions' => ['actBoostExchange', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
+  // Cyclone
+  ST_END_AFTERNOON => [
+    'name' => 'endAfternoon',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___
