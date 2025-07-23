@@ -169,6 +169,8 @@ class InvokeToken extends \ALT\Models\Action
       if ($targetPlayer == 'owner') {
         $effectId = $this->getCtxArg('cardId');
         $invokePId = Cards::get($effectId)->getPId();
+      } elseif ($targetPlayer == OPPONENT) {
+        $invokePId = Players::getNextId($player);
       }
     }
 

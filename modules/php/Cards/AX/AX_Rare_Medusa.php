@@ -38,7 +38,12 @@ class AX_Rare_Medusa extends \ALT\Models\Card
             'pId' => 'source',
             'tokenType' => 'NE_Common_Aerolith',
             'targetLocation' => [LANDMARK],
-            'targetPlayer' => 'owner'
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Aerolith',
+            'targetLocation' => [LANDMARK],
+            'targetPlayer' => OPPONENT
           ]),
         )
       ])
