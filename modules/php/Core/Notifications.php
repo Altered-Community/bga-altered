@@ -202,6 +202,13 @@ class Notifications
     ]);
   }
 
+  public static function switchPlayer($firstPlayer)
+  {
+    self::notifyAll('switchPlayer', clienttranslate('${player_name} becomes First player'), [
+      'player' => $firstPlayer,
+    ]);
+  }
+
   //////////////////////////////////////////////////////
   //  ____            _      _   _ _       _     _
   // |  _ \ _   _ ___| | __ | \ | (_) __ _| |__ | |_

@@ -246,6 +246,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       this.gamedatas.firstPlayer = pId;
     },
 
+    notif_switchPlayer(n) {
+      debug('Notif: switch first player', n);
+
+      // Slide first player
+      let pId = n.args.player_id;
+
+      this.slideResources([{ id: 'firstPlayer' }], {
+        from: $(`firstPlayer-${this.gamedatas.firstPlayer}`),
+        target: $(`firstPlayer-${pId}`),
+      });
+      this.gamedatas.firstPlayer = pId;
+    },
+
     notif_startDusk(n) {
       debug('Notif: starting dusk phase');
       $('focus-storm-overlay').classList.remove('mePassed');

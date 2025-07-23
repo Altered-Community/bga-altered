@@ -72,6 +72,7 @@ define([
         ['nightCleanup', null],
         ['cleanupCards', null],
         ['newFirstPlayer', null],
+        ['switchPlayer', null],
         ['startDusk', 1200],
         ['endDusk', 900],
         ['passTurn', 800],

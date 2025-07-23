@@ -1583,6 +1583,11 @@ class SpecialEffect extends \ALT\Models\Action
         ]);
         Notifications::ascend($ascended, $oPlayer, $card, $expedition);
         break;
+      case 'switchPlayer':
+        $newFirstPId = $this->getCtxArgs()['pId'];
+        Globals::setFirstPlayer($newFirstPId);
+        Notifications::switchPlayer(Players::get($newFirstPId));
+        break;
       default:
         break;
     }
