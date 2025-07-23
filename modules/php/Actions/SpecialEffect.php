@@ -246,6 +246,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Reveal a card');
       case 'ascend':
         return clienttranslate('Ascend');
+      case 'switchPlayer':
+        return clienttranslate('Change First player');
+      case 'allCharacterFleeting':
+        return clienttranslate('All characters gain <FLEETING>');
     }
     return '';
   }
@@ -1587,6 +1591,34 @@ class SpecialEffect extends \ALT\Models\Action
         $newFirstPId = $this->getCtxArgs()['pId'];
         Globals::setFirstPlayer($newFirstPId);
         Notifications::switchPlayer(Players::get($newFirstPId));
+        break;
+      case 'allCharacterFleeting':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getPlayedCards() as $cId => $card) {
+            if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(FLEETING)) {
+              continue;
+            }
+            $nodes[] = FT::GAIN($cId, FLEETING);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'allOtherCharacterFleeting':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getPlayedCards() as $cId => $card) {
+            if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(FLEETING) || $card->getId() == $this->getSourceId()) {
+              continue;
+            }
+            $nodes[] = FT::GAIN($cId, FLEETING);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       default:
         break;
