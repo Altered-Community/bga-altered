@@ -116,4 +116,14 @@ abstract class FT
   {
     return FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play']]);
   }
+
+  public static function SABOTAGE()
+  {
+    return  FT::ACTION(TARGET, [
+      'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+      'targetLocation' => [RESERVE],
+      'upTo' => true,
+      'effect' => FT::ACTION(DISCARD, []),
+    ]);
+  }
 }
