@@ -601,6 +601,11 @@ class Cards extends \ALT\Helpers\CachedPieces
       // $faction = $card->getFaction();
     }
     self::create($toCreate, null);
+
+    if (($deckContent[HERO]['card']['properties']['createMarkers'] ?? false) == true) {
+      Meeples::createHeroMarkers();
+    }
+
     return $faction;
   }
 

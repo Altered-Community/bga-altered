@@ -406,6 +406,16 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($tokens as $i => $token) {
       $sId = $token->getLocationArg();
 
+      // check if there is a terrain marker
+      $markers = Meeples::getOfType('storm-' . $sId, [OCEAN, FOREST, MOUNTAIN]);
+      if ($markers->count() > 0) {
+        foreach ($markers as $mId => $marker) {
+          $locations[$token->getType()] = [$marker->getType()];
+        }
+        continue;
+      }
+
+
       if ($sId == 0 || $sId == 7) {
         $locations[$token->getType()] = [FOREST, MOUNTAIN, OCEAN];
         continue;
@@ -418,8 +428,10 @@ class Player extends \ALT\Helpers\DB_Model
         $storm = array_reverse($storm);
       }
       $sId--;
+
       $locations[$token->getType()] = $storm[$sId % 2];
     }
+
     return $locations;
   }
 

@@ -6744,8 +6744,7 @@ html {
 .altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper,
 .altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper,
 .player-board-hero .altered-card:not(.force-frame).card-permanent .altered-card-wrapper {
-  -webkit-clip-path: polygon(-15% -15%, 100% -15%, 100% 60%, 91% 70%, 91% 100%, 9% 100%, 9% 70%, 0% 60%, 0% 20%, -15% 20%);
-          clip-path: polygon(-15% -15%, 100% -15%, 100% 60%, 91% 70%, 91% 100%, 9% 100%, 9% 70%, 0% 60%, 0% 20%, -15% 20%);
+  clip-path: polygon(-15% -15%, 100% -15%, 100% 60%, 91% 70%, 91% 100%, 9% 100%, 9% 70%, 0% 60%, 0% 20%, -15% 20%);
 }
 .altered-card.no-frame:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type=permanent][data-size][data-support],
 .altered-card.mini-card:not(.force-frame).card-permanent .altered-card-wrapper .card-frame[data-type=permanent][data-size][data-support],
@@ -7542,6 +7541,10 @@ html {
   content: "\e90a";
 }
 
+.icon-forest:before {
+  content: "\e90a";
+}
+
 .svgicon-hand:before {
   content: "\e90b";
 }
@@ -7556,6 +7559,14 @@ html {
 }
 
 .svgicon-mountain:before {
+  content: "\e90e";
+}
+
+.icon-ocean:before {
+  content: "\e90f";
+}
+
+.icon-mountain:before {
   content: "\e90e";
 }
 

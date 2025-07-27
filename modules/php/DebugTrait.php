@@ -99,8 +99,10 @@ trait DebugTrait
 
   function vt()
   {
+    Meeples::createHeroMarkers();
+    // throw new \feException(print_r(Globals::getVisibleRegions()));
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
-    throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
+    // throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([17, 21, 22]);

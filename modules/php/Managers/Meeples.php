@@ -52,6 +52,20 @@ class Meeples extends \ALT\Helpers\CachedPieces
     return self::create($meeples);
   }
 
+  public static function createHeroMarkers()
+  {
+    $toCreate = [];
+    foreach (Players::getAll() as $pId => $player) {
+      $hero = $player->getHero();
+      if ($hero->isCreateMarkers()) {
+        $toCreate[] = ['type' => OCEAN, 'location' => 'card-' . $hero->getId(), 'player_id' => $player->getId()];
+        $toCreate[] = ['type' => FOREST, 'location' => 'card-' . $hero->getId(), 'player_id' => $player->getId()];
+        $toCreate[] = ['type' => MOUNTAIN, 'location' => 'card-' . $hero->getId(), 'player_id' => $player->getId()];
+      }
+    }
+    return self::create($toCreate);
+  }
+
   public static function countMeeples($location, $type)
   {
     return self::getOfType($location, $type)->count();
@@ -92,6 +106,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
         $query = $query->where('type', strpos($type, '%') === false ? '=' : 'LIKE', $type);
       }
     }
+    $query = $query->orderBy('meeple_state', 'ASC');
     return $query;
   }
 

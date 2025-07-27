@@ -79,6 +79,7 @@ define([
 
         ['addMeeples', null],
         ['looseMeeples', null],
+        ['setTerrainMarker', null],
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -2148,11 +2149,50 @@ define([
       let chooseSpend = (n) => {
         return () => this.takeAtomicAction('actSpend', [n]);
       };
-      debug('toto');
       for (j = 1; j <= args.n; j++) {
         debug(j);
         this.addPrimaryActionButton('btnSpend' + j, j, chooseSpend(j));
       }
+    },
+
+    onEnteringStateMarkRegion(args) {
+      let targetRegion = (id) => {
+        return () =>
+          this.clientState('markRegionExpedition', _('Select region to add the marker'), {
+            marker: args.markers[id],
+            regions: args.regions,
+          });
+      };
+
+      Object.keys(args.markers).forEach((id) => {
+        mark = args.markers[id];
+        this.addPrimaryActionButton('btnMark' + mark.id, this.formatSvgIcon(mark.type), targetRegion(id));
+      });
+    },
+
+    // todo_tim: est-ce que tu peux faire en sorte que les marker soient visibles sur le carte du héro (Nadir)
+    // todo_tim: ensuite qu'on puisse les selectionner que ca s'affiche correctement quand on cible la région
+    // todo_tim: et faire en sorte que ca soit joli... car la c'est déguéu mon truc :(
+    onEnteringStateMarkRegionExpedition(args) {
+      let target = (markerId, stormId) => {
+        return () => this.takeAtomicAction('actMarkRegion', [markerId, stormId]);
+      };
+      Object.keys(args.regions).forEach((id) => {
+        storm = $(`storm-${id}`);
+        storm.classList.add('selectable');
+        storm.style.zIndex = 999;
+        this.onClick(storm, target(args.marker.id, id));
+      });
+
+      this.addSecondaryActionButton(
+        'btnCancel',
+        _('Cancel'),
+        () => {
+          this.unselectIfNeeded();
+          this.clearClientState();
+        },
+        'restartAction'
+      );
     },
 
     ////////////////////////////////////////////////////////////

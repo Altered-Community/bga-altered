@@ -45,7 +45,8 @@ class Actions
     EXCHANGE,
     SPEND,
     BOOST_EXCHANGE,
-    END_AFTERNOON
+    END_AFTERNOON,
+    MARK_REGION,
   ];
 
   public static function get($actionId, &$ctx = null)

@@ -510,6 +510,16 @@ $machinestates = [
     'possibleactions' => ['actPassOptionalAction'],
   ],
 
+  ST_MARK_REGION => [
+    'name' => 'markRegion',
+    'description' => clienttranslate('${actplayer} may mark a visible region'),
+    'descriptionmyturn' => clienttranslate('${you} may mark a visible region'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actMarkRegion', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

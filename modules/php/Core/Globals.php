@@ -240,4 +240,33 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     return $storm;
   }
+
+  public static function getVisibleRegions()
+  {
+    $stormCards = self::getStorm();
+    $storms = [];
+    $index = 0;
+    foreach ($stormCards as $i => $stormCard) {
+      $storm = STORM_CARDS[$stormCard['cardId']];
+
+      if ($stormCard['visible'] == false) {
+        $index += 2;
+        continue;
+      }
+
+      if ($stormCard['rotated']) {
+        $storm = array_reverse($storm);
+      }
+
+      foreach ($storm as $j => $biomes) {
+        if (empty($biomes)) {
+          continue;
+        }
+        $storms[$index] = $biomes;
+        $index++;
+      }
+    }
+
+    return $storms;
+  }
 }

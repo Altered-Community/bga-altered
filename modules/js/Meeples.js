@@ -51,6 +51,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return o;
     },
 
+    notif_setTerrainMarker(args) {
+      debug('Notif: adding terrain Marker', args);
+    },
+
     getMeepleTooltip(meeple) {
       let type = meeple.type;
       // if (type == 'first-player') {
