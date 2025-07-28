@@ -99,7 +99,7 @@ trait DebugTrait
 
   function vt()
   {
-    Meeples::createHeroMarkers();
+    // Meeples::createHeroMarkers();
     // throw new \feException(print_r(Globals::getVisibleRegions()));
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
     // throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
@@ -110,7 +110,7 @@ trait DebugTrait
 
     // Cards::get(3)->boost(1, 'test', true);
     // throw new \feException(print_r(Players::getCurrent()->isInBiome(STORM_LEFT, FOREST)));
-    // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
+    $this->actTakeAtomicAction('actMoveRegionMarker', [8]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actSupport', [226]);
     // $this->actTakeAtomicAction('actTap', [236]);

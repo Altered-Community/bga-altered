@@ -1088,6 +1088,7 @@ abstract class Conditions
     }
   }
 
+  // TODO multiplayer
   public static function isOpponentExpeditionEmpty($card, $event)
   {
     $opponent = null;
@@ -1098,6 +1099,17 @@ abstract class Conditions
     }
     $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
     return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
+  }
+
+  public static function isOpponentExpeditionIn($card, $event, $biome)
+  {
+    $opponent = null;
+    foreach (Players::getAll() as $pId => $player) {
+      if ($pId != $card->getPId()) {
+        $opponent = $player;
+      }
+    }
+    return $opponent->isInBiome($card->getLocation(), $biome);
   }
 
   public static function isSupportEffect($card, $event)

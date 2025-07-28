@@ -520,6 +520,17 @@ $machinestates = [
     'possibleactions' => ['actMarkRegion', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_MOVE_REGION_MARKER => [
+    'name' => 'moveRegionMarker',
+    'description' => clienttranslate('${actplayer} may move a ${markerType} terrain marker to its region'),
+    'descriptionmyturn' => clienttranslate('${you} may move a ${markerType} terrain marker to its region'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actMoveRegionMarker', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

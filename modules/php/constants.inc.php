@@ -104,6 +104,7 @@ const ST_BOOST_EXCHANGE = 50;
 // Cyclone
 const ST_END_AFTERNOON = 51;
 const ST_MARK_REGION = 52;
+const ST_MOVE_REGION_MARKER = 53;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -175,6 +176,7 @@ const SPEND = 'Spend';
 const BOOST_EXCHANGE = 'BoostExchange';
 const END_AFTERNOON = 'EndAfternoon';
 const MARK_REGION = 'MarkRegion';
+const MOVE_REGION_MARKER = 'MoveRegionMarker';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';

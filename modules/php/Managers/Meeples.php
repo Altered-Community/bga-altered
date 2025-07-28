@@ -97,7 +97,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
       $query = $query->wherePlayer($pId);
     }
     if ($location != null) {
-      $query = $query->where('meeple_location', $location);
+      $query = $query->where('meeple_location', strpos($location, '%') === false ? '=' : 'LIKE', $location);
     }
     if ($type != null) {
       if (is_array($type)) {

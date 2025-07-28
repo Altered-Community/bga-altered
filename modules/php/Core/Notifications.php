@@ -220,6 +220,17 @@ class Notifications
     ]);
   }
 
+  public static function moveTerrainMarker($player, $marker, $source)
+  {
+    // todo_tim: je comprends pas pourquoi format recursive me sort pas ce dont j'ai besoin pour marker type (j'ai fait plein de tests)
+    self::notifyAll('addMeeples', clienttranslate('${player_name} moves a terrain marker ${markerType} on a region (${card_name}\'s effect)'), [
+      'player' => $player,
+      'meeples' => [$marker],
+      'markerType' => $marker->getType(),
+      'card' => $source
+    ]);
+  }
+
   //////////////////////////////////////////////////////
   //  ____            _      _   _ _       _     _
   // |  _ \ _   _ ___| | __ | \ | (_) __ _| |__ | |_

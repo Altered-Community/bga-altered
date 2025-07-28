@@ -2195,6 +2195,19 @@ define([
       );
     },
 
+    onEnteringStateMoveRegionMarker(args) {
+      let targetMarker = (id) => {
+        return () => this.takeAtomicAction('actMoveRegionMarker', [markerId]);
+      };
+
+      Object.keys(args.markers).forEach((id) => {
+        mark = args.markers[id];
+        meep = $(`meeple-${id}`);
+        meep.classList.add('selectable');
+        this.onClick(meep, targetMarker(mark.id));
+      });
+    },
+
     ////////////////////////////////////////////////////////////
     // _____                          _   _   _
     // |  ___|__  _ __ _ __ ___   __ _| |_| |_(_)_ __   __ _
