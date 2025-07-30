@@ -258,6 +258,8 @@ class ChooseAssignment extends \ALT\Models\Action
     // if played from reserve, it gains fleeting
     elseif ($fromLocation == RESERVE && !in_array(LANDMARK, $card->getSubtypes())) {
       Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
+    } elseif ($player->getHero()->isAllSpell1Fleeting() && $card->getType() == SPELL && $card->getCostHand() <= 1) {
+      Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
     }
 
     if (Globals::getNextCharacterFleeting() == true) {
