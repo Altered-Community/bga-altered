@@ -74,11 +74,10 @@ class SpellCleanup extends \ALT\Models\Action
     }
 
     Notifications::spellCleanup($card, $deleted);
-    $event = $this->getCtxArgs()['event'];
-    $event['token'] = false;
-    $this->checkImmediateListeners($player, $event, true, 'ChooseAssignment');
 
-    $this->checkAfterListeners($player, $event, true, 'ChooseAssignment');
+    $this->checkImmediateListeners($player, $this->getCtxArgs()['event'], true, 'ChooseAssignment');
+
+    $this->checkAfterListeners($player, $this->getCtxArgs()['event'], true, 'ChooseAssignment');
 
     $this->resolveAction();
   }

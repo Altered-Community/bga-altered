@@ -51,10 +51,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return o;
     },
 
-    notif_setTerrainMarker(args) {
-      debug('Notif: adding terrain Marker', args);
-    },
-
     getMeepleTooltip(meeple) {
       let type = meeple.type;
       // if (type == 'first-player') {
@@ -239,19 +235,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         let total = this._playerCounters[player.id]['totalMana'].getValue();
         this._playerCounters[player.id]['mana'].toValue(total);
       });
-
-      // Slide first player
-      let pId = n.args.player_id;
-
-      this.slideResources([{ id: 'firstPlayer' }], {
-        from: $(`firstPlayer-${this.gamedatas.firstPlayer}`),
-        target: $(`firstPlayer-${pId}`),
-      });
-      this.gamedatas.firstPlayer = pId;
-    },
-
-    notif_switchPlayer(n) {
-      debug('Notif: switch first player', n);
 
       // Slide first player
       let pId = n.args.player_id;

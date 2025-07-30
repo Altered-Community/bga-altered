@@ -17,7 +17,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Maw'),
       'typeline' => clienttranslate('Token Character - Companion'),
-      'type' => CHARACTER,
+      'type' => TOKEN,
       'token' => true,
       'flavorText' => clienttranslate('Always hungry for new ideas...'),
       'artist' => 'Edward Cheekokseang',

@@ -14,22 +14,16 @@ use ALT\Helpers\Collection;
 use ALT\Helpers\FT;
 use ALT\Models\Player;
 
-class DiscardDo extends \ALT\Models\Action
+class DiscardDraw extends \ALT\Models\Action
 {
   public function getState()
   {
-    return ST_DISCARD_DO;
+    return ST_DISCARD_DRAW;
   }
 
   public function getDescription()
   {
-
-    return [
-      'log' => clienttranslate('Discard any number of cards from your reserve to ${effect_desc}'),
-      'args' => [
-        'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
-      ]
-    ];
+    return clienttranslate('Discard any number of cards from your reserve to draw as many');
   }
 
   protected $args = [
@@ -49,8 +43,6 @@ class DiscardDo extends \ALT\Models\Action
     'cards' => [],
     'discardRemaining' => false,
     'subType' => 'disabled',
-    'effect' => null,
-    'sacrifice' => false,
   ];
 
   public function isOptional($player)
@@ -141,7 +133,7 @@ class DiscardDo extends \ALT\Models\Action
     return $cards;
   }
 
-  public function argsDiscardDo()
+  public function argsDiscardDraw()
   {
     $player = Players::getActive();
     $cards = $this->getTargetableCards($player);
@@ -154,14 +146,13 @@ class DiscardDo extends \ALT\Models\Action
       'totalCost' => $this->getArg('totalCost'),
       'manaOrbs' => $this->getArg('targetLocation') == [MANA],
       'targetCosts' => [],
-      'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
     ];
   }
 
   public function actTarget($cardIds)
   {
     $player = Players::getActive();
-    $args = $this->argsDiscardDo();
+    $args = $this->argsDiscardDraw();
     $totalCost = $this->getArg('totalCost');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
@@ -178,25 +169,16 @@ class DiscardDo extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('You havent selected enough cards. Should not happen');
     }
 
-    $isSacrifice = $this->getArg('sacrifice');
     $cards = Cards::getMany($cardIds);
     $nodes = [];
     foreach ($cardIds as $cId) {
-      if ($isSacrifice) {
-        $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'desc' => 'sacrifice'], ['sourceId' => $this->getSourceId()]);
-      } else {
-        $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
-      }
+      $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
     }
-    $effect = $this->getArg('effect');
-    $effect['args']['n'] = count($cardIds);
-    $effect['sourceId'] = $this->getSourceId();
 
     $this->insertAsChild(
       FT::SEQ(
         FT::SEQ(...$nodes),
-        $effect
-        // FT::ACTION(DRAW, ['players' => ME, 'n' => count($cardIds)], ['sourceId' => $this->getSourceId()])
+        FT::ACTION(DRAW, ['players' => ME, 'n' => count($cardIds)], ['sourceId' => $this->getSourceId()])
       )
     );
 

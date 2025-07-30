@@ -135,7 +135,7 @@ class Loose extends \ALT\Models\Action
         Notifications::looseMeeples($resource, $card, $deleted, false);
       }
 
-      $this->checkAfterListeners($player, ['loose' => $args, 'token' => $card->isToken(),]);
+      $this->checkAfterListeners($player, ['loose' => $args]);
     }
     $this->resolveAction();
   }

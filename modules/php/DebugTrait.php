@@ -99,10 +99,8 @@ trait DebugTrait
 
   function vt()
   {
-    // Meeples::createHeroMarkers();
-    // throw new \feException(print_r(Globals::getVisibleRegions()));
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
-    // throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
+    throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([17, 21, 22]);
@@ -110,7 +108,7 @@ trait DebugTrait
 
     // Cards::get(3)->boost(1, 'test', true);
     // throw new \feException(print_r(Players::getCurrent()->isInBiome(STORM_LEFT, FOREST)));
-    $this->actTakeAtomicAction('actMoveRegionMarker', [8]);
+    // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actSupport', [226]);
     // $this->actTakeAtomicAction('actTap', [236]);
@@ -508,7 +506,7 @@ trait DebugTrait
     $token = $params['token'] ?? '';
     $deckId = $params['deckId'] ?? '';
     $cardId = $params['cardId'] ?? '';
-    $curl = curl_init();
+    // $curl = curl_VTOinit();
     // $baseUrl = 'https://api.equinox-ccg.io';
     $baseUrl = 'https://api.altered.gg';
     $setup = [

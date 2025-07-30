@@ -72,14 +72,12 @@ define([
         ['nightCleanup', null],
         ['cleanupCards', null],
         ['newFirstPlayer', null],
-        ['switchPlayer', null],
         ['startDusk', 1200],
         ['endDusk', 900],
         ['passTurn', 800],
 
         ['addMeeples', null],
         ['looseMeeples', null],
-        ['setTerrainMarker', null],
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -115,7 +113,6 @@ define([
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],
-        ['revealCard', 1000, (notif) => notif.args.player_id == this.player_id],
 
         // TODO??
         ['blockAllExpeditions', 100],
@@ -1975,7 +1972,7 @@ define([
       // });
     },
 
-    onEnteringStateDiscardDo(args) {
+    onEnteringStateDiscardDraw(args) {
       this.onEnteringStateTarget(args);
     },
 
@@ -2142,69 +2139,6 @@ define([
           desc = location == 'stormLeft' ? _('Opponent Hero expedition') : _('Opponent Companion expedition');
         }
         this.addPrimaryActionButton('btnLocation' + i, desc, onChooseLocation(expe));
-      });
-    },
-
-    onEnteringStateSpend(args) {
-      let chooseSpend = (n) => {
-        return () => this.takeAtomicAction('actSpend', [n]);
-      };
-      for (j = 1; j <= args.n; j++) {
-        debug(j);
-        this.addPrimaryActionButton('btnSpend' + j, j, chooseSpend(j));
-      }
-    },
-
-    onEnteringStateMarkRegion(args) {
-      let targetRegion = (id) => {
-        return () =>
-          this.clientState('markRegionExpedition', _('Select region to add the marker'), {
-            marker: args.markers[id],
-            regions: args.regions,
-          });
-      };
-
-      Object.keys(args.markers).forEach((id) => {
-        mark = args.markers[id];
-        this.addPrimaryActionButton('btnMark' + mark.id, this.formatSvgIcon(mark.type), targetRegion(id));
-      });
-    },
-
-    // todo_tim: est-ce que tu peux faire en sorte que les marker soient visibles sur le carte du héro (Nadir)
-    // todo_tim: ensuite qu'on puisse les selectionner que ca s'affiche correctement quand on cible la région
-    // todo_tim: et faire en sorte que ca soit joli... car la c'est déguéu mon truc :(
-    onEnteringStateMarkRegionExpedition(args) {
-      let target = (markerId, stormId) => {
-        return () => this.takeAtomicAction('actMarkRegion', [markerId, stormId]);
-      };
-      Object.keys(args.regions).forEach((id) => {
-        storm = $(`storm-${id}`);
-        storm.classList.add('selectable');
-        storm.style.zIndex = 999;
-        this.onClick(storm, target(args.marker.id, id));
-      });
-
-      this.addSecondaryActionButton(
-        'btnCancel',
-        _('Cancel'),
-        () => {
-          this.unselectIfNeeded();
-          this.clearClientState();
-        },
-        'restartAction'
-      );
-    },
-
-    onEnteringStateMoveRegionMarker(args) {
-      let targetMarker = (id) => {
-        return () => this.takeAtomicAction('actMoveRegionMarker', [markerId]);
-      };
-
-      Object.keys(args.markers).forEach((id) => {
-        mark = args.markers[id];
-        meep = $(`meeple-${id}`);
-        meep.classList.add('selectable');
-        this.onClick(meep, targetMarker(mark.id));
       });
     },
 

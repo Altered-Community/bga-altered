@@ -335,12 +335,12 @@ $machinestates = [
     'possibleactions' => ['actTarget', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
-  ST_DISCARD_DO => [
-    'name' => 'discardDo',
+  ST_DISCARD_DRAW => [
+    'name' => 'discardDraw',
     // 'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
     // 'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
-    'description' => clienttranslate('${actplayer} may discard cards to ${effect_desc}'),
-    'descriptionmyturn' => clienttranslate('${you} may discard cards to ${effect_desc}'),
+    'description' => clienttranslate('${actplayer} may discard cards to draw the same amount of cards'),
+    'descriptionmyturn' => clienttranslate('${you} may discard cards to draw the same amount of cards'),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
@@ -482,10 +482,8 @@ $machinestates = [
     'name' => 'spend',
     'type' => 'activeplayer',
     'action' => 'stAtomicAction',
-    'description' => clienttranslate('${actplayer} spends 1 counter'),
-    'descriptionmyturn' => clienttranslate('${you} spends 1 counter'),
-    'descriptionchoice' =>  clienttranslate('${actplayer} spends X counters to ${effect_desc}'),
-    'descriptionmyturnchoice' =>  clienttranslate('${you} spends X counters to ${effect_desc}'),
+    'description' => clienttranslate('${source}: ${actplayer} spends 1 counter'),
+    'descriptionmyturn' => clienttranslate('${source}: ${you} spends 1 counter'),
     'args' => 'argsAtomicAction',
     'possibleactions' => ['actSpend', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
@@ -499,37 +497,6 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'possibleactions' => ['actBoostExchange', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
-
-  // Cyclone
-  ST_END_AFTERNOON => [
-    'name' => 'endAfternoon',
-    'description' => '',
-    'type' => 'game',
-    'action' => 'stAtomicAction',
-    'transitions' => [],
-    'possibleactions' => ['actPassOptionalAction'],
-  ],
-
-  ST_MARK_REGION => [
-    'name' => 'markRegion',
-    'description' => clienttranslate('${actplayer} may mark a visible region'),
-    'descriptionmyturn' => clienttranslate('${you} may mark a visible region'),
-    'args' => 'argsAtomicAction',
-    'action' => 'stAtomicAction',
-    'type' => 'activeplayer',
-    'possibleactions' => ['actMarkRegion', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
-  ],
-
-  ST_MOVE_REGION_MARKER => [
-    'name' => 'moveRegionMarker',
-    'description' => clienttranslate('${actplayer} may move a ${markerType} terrain marker to its region'),
-    'descriptionmyturn' => clienttranslate('${you} may move a ${markerType} terrain marker to its region'),
-    'args' => 'argsAtomicAction',
-    'action' => 'stAtomicAction',
-    'type' => 'activeplayer',
-    'possibleactions' => ['actMoveRegionMarker', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
-  ],
-
 
   ////////////////////////////////////
   //  _____             _

@@ -45,8 +45,6 @@ class Spend extends \ALT\Models\Action
   protected $args = [
     'n' => 1,
     'effect' => [],
-    'automatic' => true,
-    'updateN' => false,
   ];
 
   public function getSource()
@@ -79,9 +77,6 @@ class Spend extends \ALT\Models\Action
   {
     return [
       'source' => $this->getSource(),
-      'n' => $this->getArg('automatic') == false  ? $this->getCard()->countCounters() : $this->getArg('n'),
-      'descSuffix' => $this->getArg('automatic') == false ? 'choice' : '',
-      'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
     ];
   }
 
@@ -97,17 +92,10 @@ class Spend extends \ALT\Models\Action
 
   public function stSpend()
   {
-    if ($this->getArg('automatic') === true) {
-      $this->actSpend($this->getArg('n'));
-    }
-  }
-
-  public function actSpend($n)
-  {
     $player = Players::getActive();
     $source = $this->getSource();
     $card = $this->getCard();
-    $amount = $n;
+    $amount = $this->getArg('n');
     if ($card->countToken(BOOST) > 0) {
       $deleted = new Collection();
       $meeples = $card->getOfType(BOOST);
@@ -146,9 +134,6 @@ class Spend extends \ALT\Models\Action
     $effect = $this->getArg('effect');
     if ($effect !== null) {
       $effect = $this->updateCardId($effect, $card->getId(), $card->getLocation(), $this->getSourceId(), $card->getPlayer()->getId());
-      if ($this->getArg('updateN') == true) {
-        $effect['args']['n'] = $amount;
-      }
       // throw new \feException(print_r($effect));
       $this->insertAsChild($effect);
     }

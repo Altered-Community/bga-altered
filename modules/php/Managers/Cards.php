@@ -494,7 +494,6 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function getUiData($pId, $refresh = false)
   {
     $current = Players::getCurrent() == null ? false : Players::getCurrent()->getId() == $pId;
-    $currentPId = Players::getCurrent() == null ? -1 : Players::getCurrent()->getId();
     $cards = self::getAll()
       ->where('location', IN_PLAY)
       ->merge(self::getInLocation(RESERVE))
@@ -506,12 +505,6 @@ class Cards extends \ALT\Helpers\CachedPieces
     if (!$refresh && $current) {
       $cards = $cards->merge(self::getHand($pId))->merge(self::getFiltered($pId, MANA));
     }
-    $cards = $cards->merge(
-      self::getAll()->where('location', HAND)
-        ->filter(function ($c) use ($currentPId) {
-          return $c->getPId() != $currentPId && $c->isRevealed();
-        })
-    );
 
     return $cards->orderBy('state')->toArray();
   }
@@ -601,11 +594,6 @@ class Cards extends \ALT\Helpers\CachedPieces
       // $faction = $card->getFaction();
     }
     self::create($toCreate, null);
-
-    if (($deckContent[HERO]['card']['properties']['createMarkers'] ?? false) == true) {
-      Meeples::createHeroMarkers();
-    }
-
     return $faction;
   }
 

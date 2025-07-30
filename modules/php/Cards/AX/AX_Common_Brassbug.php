@@ -14,7 +14,7 @@ class AX_Common_Brassbug extends \ALT\Models\Card
       'faction' => FACTION_AX,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Brassbug'),
-      'type' => CHARACTER,
+      'type' => TOKEN,
       'subtypes' => [ROBOT],
       'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),
       'flavorText' => clienttranslate(

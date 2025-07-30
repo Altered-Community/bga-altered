@@ -38,16 +38,13 @@ class Actions
     DRAW_MANA,
     BLOCK_EXPEDITION,
     TARGET_PLAYER,
-    DISCARD_DO,
+    DISCARD_DRAW,
     TARGET_EXPEDITION,
     EXHAUST,
     READY,
     EXCHANGE,
     SPEND,
-    BOOST_EXCHANGE,
-    END_AFTERNOON,
-    MARK_REGION,
-    MOVE_REGION_MARKER
+    BOOST_EXCHANGE
   ];
 
   public static function get($actionId, &$ctx = null)

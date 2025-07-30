@@ -82,7 +82,7 @@ class TargetPlayer extends \ALT\Models\Action
           $child['args']['expedition'] = $args['expedition'];
         }
         if (isset($args['player'])) {
-          $child['args']['player'] = $args['player'];
+          $$child['args']['player'] = $args['player'];
         }
         $node['args']['pId'] = $pId;
       }

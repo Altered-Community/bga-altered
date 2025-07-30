@@ -14,7 +14,7 @@ class BR_Common_Booda extends \ALT\Models\Card
       'faction' => FACTION_BR,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Booda'),
-      'type' => CHARACTER,
+      'type' => TOKEN,
       'subtypes' => [COMPANION],
       'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),
       'flavorText' => clienttranslate(

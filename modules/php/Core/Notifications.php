@@ -202,35 +202,6 @@ class Notifications
     ]);
   }
 
-  public static function switchPlayer($firstPlayer)
-  {
-    self::notifyAll('switchPlayer', clienttranslate('${player_name} becomes First player'), [
-      'player' => $firstPlayer,
-    ]);
-  }
-
-  public static function setTerrainMarker($player, $marker, $source)
-  {
-    // todo_tim: je comprends pas pourquoi format recursive me sort pas ce dont j'ai besoin pour marker type (j'ai fait plein de tests)
-    self::notifyAll('addMeeples', clienttranslate('${player_name} places a terrain marker ${markerType} on a region (${card_name}\'s effect)'), [
-      'player' => $player,
-      'meeples' => [$marker],
-      'markerType' => $marker->getType(),
-      'card' => $source
-    ]);
-  }
-
-  public static function moveTerrainMarker($player, $marker, $source)
-  {
-    // todo_tim: je comprends pas pourquoi format recursive me sort pas ce dont j'ai besoin pour marker type (j'ai fait plein de tests)
-    self::notifyAll('addMeeples', clienttranslate('${player_name} moves a terrain marker ${markerType} on a region (${card_name}\'s effect)'), [
-      'player' => $player,
-      'meeples' => [$marker],
-      'markerType' => $marker->getType(),
-      'card' => $source
-    ]);
-  }
-
   //////////////////////////////////////////////////////
   //  ____            _      _   _ _       _     _
   // |  _ \ _   _ ___| | __ | \ | (_) __ _| |__ | |_
@@ -619,16 +590,6 @@ class Notifications
     ]);
   }
 
-  public static function ascend($meeple, $player, $source, $expedition)
-  {
-    $msg = $expedition == STORM_LEFT ? clienttranslate('${player_name}\'s Hero expedition ascends (${card_name2}\'s effect)') : clienttranslate('${player_name}\'s Companion expedition ascends (${card_name2}\'s effect)');
-    self::notifyAll('addMeeples', $msg, [
-      'player' => $player,
-      'meeples' => [$meeple],
-      'card2' => $source,
-    ]);
-  }
-
   public static function targetCards($player, $cards, $additionalCost, $source)
   {
     if ($additionalCost > 0) {
@@ -764,15 +725,6 @@ class Notifications
       'mana_cost' => $cost,
       'totalMana' => $player->getTotalMana(),
       'mana' => $player->getMana(),
-    ]);
-  }
-
-  public static function reveal($toReveal, $source)
-  {
-    self::notifyAll('revealCard', clienttranslate('${player_name} reveals ${card_name} (${card_name2}\'s effect)'), [
-      'player' => $toReveal->getPlayer(),
-      'card' => $toReveal,
-      'card2' => $source
     ]);
   }
 
