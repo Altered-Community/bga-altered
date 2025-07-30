@@ -42,6 +42,11 @@ abstract class Conditions
     return true;
   }
 
+  public static function isFirstPassing($card, $event)
+  {
+    return count(Globals::getSkippedPlayers()) == 1 && in_array($card->getPId(), Globals::getSkippedPlayers());
+  }
+
 
   ///////////////////////////////////////
   //    ____                           _ 
@@ -338,7 +343,7 @@ abstract class Conditions
   {
     $types = [CHARACTER, TOKEN];
     if ($type == TOKEN) {
-      $types = [TOKEN];
+      $types = [CHARACTER, PERMANENT];
     }
     if ($type == PERMANENT) {
       $types = [PERMANENT];
@@ -348,6 +353,10 @@ abstract class Conditions
     }
 
     $cards = $card->getPlayer()->getPlayedCards($types);
+
+    if ($type == TOKEN) {
+      $cards = $cards->filter(fn($c) => $c->isToken());
+    }
 
     if (in_array($type, SUBTYPES)) {
       $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
@@ -531,6 +540,11 @@ abstract class Conditions
     die('Unknown op for hasCounterOnCard');
   }
 
+  public static function heroHasCounter($card, $event, $n = 1, $op = 'GTE')
+  {
+    return self::hasCounterOnCard($card->getPlayer()->getHero(), $event, $n, $op);
+  }
+
   public static function hasGainedBoost($card, $event, $n = 1)
   {
     return self::hasGained($card, $event, BOOST, $n);
@@ -572,7 +586,7 @@ abstract class Conditions
 
   public static function isGainCardType($card, $event, $type)
   {
-    return self::typeCheck($type, $event['cardType']);
+    return self::typeCheck($type, $event['cardType'], $event['token']);
   }
 
   public static function hasGainedFleeting($card, $event)
@@ -663,8 +677,13 @@ abstract class Conditions
   public static function isCardOfType($card, $event, $type = null)
   {
     // Type check
-    if (!self::typeCheck($type, $event['cardType'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
       return false;
+    }
+    if (in_array($type, SUBTYPES)) {
+      if (!in_array($type, $event['cardSubtypes'])) {
+        return false;
+      }
     }
     return true;
   }
@@ -687,7 +706,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (!self::typeCheck($type, $event['cardType'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
       return false;
     }
 
@@ -792,7 +811,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (!self::typeCheck($type, $event['cardType'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
       return false;
     }
 
@@ -859,7 +878,7 @@ abstract class Conditions
 
     if (!is_null($type)) {
       $discardedCard = Cards::get($event['cardId']);
-      if (!self::typeCheck($type, $discardedCard->getType())) {
+      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken())) {
         return false;
       }
     }
@@ -886,7 +905,7 @@ abstract class Conditions
     // Type check if needed
     if (!is_null($type)) {
       $discardedCard = Cards::get($event['cardId']);
-      if (!self::typeCheck($type, $discardedCard->getType())) {
+      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken())) {
         return false;
       }
     }
@@ -911,10 +930,12 @@ abstract class Conditions
       $discardedCard = Cards::getSingle($event['cardId'], false);
       if (is_null($discardedCard)) {
         $discardedType = $event['cardType'] ?? 'notgood';
+        $isToken = $event['token'] ?? false;
       } else {
         $discardedType = $discardedCard->getType();
+        $isToken = $discardedCard->isToken();
       }
-      if (!self::typeCheck($type, $discardedType)) {
+      if (!self::typeCheck($type, $discardedType, $isToken)) {
         return false;
       }
     }
@@ -1067,6 +1088,7 @@ abstract class Conditions
     }
   }
 
+  // TODO multiplayer
   public static function isOpponentExpeditionEmpty($card, $event)
   {
     $opponent = null;
@@ -1077,6 +1099,17 @@ abstract class Conditions
     }
     $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
     return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
+  }
+
+  public static function isOpponentExpeditionIn($card, $event, $biome)
+  {
+    $opponent = null;
+    foreach (Players::getAll() as $pId => $player) {
+      if ($pId != $card->getPId()) {
+        $opponent = $player;
+      }
+    }
+    return $opponent->isInBiome($card->getLocation(), $biome);
   }
 
   public static function isSupportEffect($card, $event)
@@ -1090,7 +1123,7 @@ abstract class Conditions
    **********************************
    *********************************/
 
-  public static function typeCheck($type, $cardType)
+  public static function typeCheck($type, $cardType, $isToken)
   {
     if (in_array($type, [PERMANENT, TOKEN, SPELL])) {
       if ($cardType != $type) {
@@ -1100,7 +1133,7 @@ abstract class Conditions
     if ($type == CHARACTER && !in_array($cardType, [CHARACTER, TOKEN])) {
       return false;
     }
-    if ($type == 'characterOnly' && $cardType != CHARACTER) {
+    if ($type == 'characterOnly' && $cardType != CHARACTER && $isToken) {
       return false;
     }
 

@@ -47,7 +47,7 @@ class InvokeToken extends \ALT\Models\Action
       'n' => $this->getCtxArg('n') ?? 1,
       'canPass' => $this->getCtxArg('optional') ?? false,
       'locations' => $targetLocations,
-      'allPlayers' => count($targetLocations) > 1
+      'allPlayers' => count($targetLocations) > 1 || ($this->getCtxArg('allPlayers') ?? false)
     ];
   }
 
@@ -164,6 +164,16 @@ class InvokeToken extends \ALT\Models\Action
       $invokePId = $explodedLocation[1];
     }
 
+    if (!is_null($this->getCtxArg('targetPlayer'))) {
+      $targetPlayer = $this->getCtxArg('targetPlayer');
+      if ($targetPlayer == 'owner') {
+        $effectId = $this->getCtxArg('cardId');
+        $invokePId = Cards::get($effectId)->getPId();
+      } elseif ($targetPlayer == OPPONENT) {
+        $invokePId = Players::getNextId($player);
+      }
+    }
+
     if (!in_array($explodedLocation[0], $args['locations']) && count($explodedLocation) == 1) {
       throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
     }
@@ -202,7 +212,8 @@ class InvokeToken extends \ALT\Models\Action
         'from' => 'invoke',
         'to' => $location,
         'locationPId' => $invokePId,
-        'gigantic' => $card->isGigantic()
+        'gigantic' => $card->isGigantic(),
+        'token' => true
       ]);
     }
     $this->resolveAction([$card->getId()]);

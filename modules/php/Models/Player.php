@@ -296,6 +296,20 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getStormToken(HERO);
   }
 
+  public function isAscended($side)
+  {
+    if ($side == HERO) {
+      $storm = $this->getHeroToken();
+    } else {
+      $storm = $this->getCompanionToken();
+    }
+    $tokens = Meeples::getAscended($this->id, $storm->getLocation());
+    if (count($tokens) == 0) {
+      return false;
+    }
+    return true;
+  }
+
   public function getDeck($deckNumber)
   {
     return Cards::getFiltered($this->id, 'deck-' . $deckNumber)->merge(
@@ -392,6 +406,16 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($tokens as $i => $token) {
       $sId = $token->getLocationArg();
 
+      // check if there is a terrain marker
+      $markers = Meeples::getOfType('storm-' . $sId, [OCEAN, FOREST, MOUNTAIN]);
+      if ($markers->count() > 0) {
+        foreach ($markers as $mId => $marker) {
+          $locations[$token->getType()] = [$marker->getType()];
+        }
+        continue;
+      }
+
+
       if ($sId == 0 || $sId == 7) {
         $locations[$token->getType()] = [FOREST, MOUNTAIN, OCEAN];
         continue;
@@ -404,8 +428,10 @@ class Player extends \ALT\Helpers\DB_Model
         $storm = array_reverse($storm);
       }
       $sId--;
+
       $locations[$token->getType()] = $storm[$sId % 2];
     }
+
     return $locations;
   }
 

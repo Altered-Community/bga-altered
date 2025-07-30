@@ -180,7 +180,7 @@ class Gain extends \ALT\Models\Action
 
     if (in_array($resource, [FLEETING, ASLEEP, ANCHORED]) && $card->hasToken($resource)) {
       if ($card->isCanAlwaysGainFleeting()) {
-        $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId]);
+        $this->checkAfterListeners($player, ['gain' => $args, 'sourceId' => $sourceId, 'token' => $card->isToken(),]);
       }
       // a card cannot have more than one fleeting/anchored token
       return;
@@ -193,7 +193,7 @@ class Gain extends \ALT\Models\Action
     $tokens = Meeples::createOnCard($resource, $card->getId(), $player->getId(), $amount);
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
 
-    $this->checkAfterListeners($player, ['gain' => $args, 'cardId' => $card->getId(), 'location' => $card->getLocation(), 'initialBoost' => $initialBoost, 'cardType' => $card->getType(), 'sourceId' =>  $sourceId]);
+    $this->checkAfterListeners($player, ['gain' => $args, 'cardId' => $card->getId(), 'location' => $card->getLocation(), 'initialBoost' => $initialBoost, 'cardType' => $card->getType(), 'sourceId' =>  $sourceId, 'token' => $card->isToken(),]);
   }
 
   public function stGain()
@@ -233,7 +233,7 @@ class Gain extends \ALT\Models\Action
         $card->setExtraDatas($data);
 
         Notifications::gainCounter($card, 1);
-        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter', 'augment' => true, 'cardId' => $card->getId()], true, 'SpecialEffect');
+        $this->checkAfterListeners($card->getPlayer(), ['specialEffect' => 'gainCounter', 'augment' => true, 'cardId' => $card->getId(), 'token' => $card->isToken(),], true, 'SpecialEffect');
         $this->resolveAction([]);
         return;
       }

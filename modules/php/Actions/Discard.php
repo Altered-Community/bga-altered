@@ -226,6 +226,16 @@ class Discard extends \ALT\Models\Action
     $isToken = false;
 
     foreach ($cards as $cId => $card) {
+      // we add the cards being discarded (but in Landmark or Storms) to react
+      if ($destination == DISCARD_PILE && in_array($originalLocation, [LANDMARK, STORM_LEFT, STORM_RIGHT])) {
+        $cardsToListen[] = $cId;
+      } elseif (!in_array($destination, [DISCARD_PILE, LANDMARK, STORM_LEFT, STORM_RIGHT])) {
+        // we add only the cards not going to discard or triggering classical listener
+        $cardsToListen[] = $cId;
+      }
+    }
+
+    foreach ($cards as $cId => $card) {
       $newCId = $cId;
       $players[$card->getPId()] = $card->getPlayer();
       $destination = $args['destination'];
@@ -366,17 +376,7 @@ class Discard extends \ALT\Models\Action
       // if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {
       //   $cardsToListen[] = $this->getSourceId();
       // }
-      // we add the cards being discarded (but in Landmark or Storms) to react
-      if ($destination == DISCARD_PILE && in_array($originalLocation, [LANDMARK, STORM_LEFT, STORM_RIGHT])) {
-        $cardsToListen[] = $cId;
-      } elseif (!in_array($destination, [DISCARD_PILE, LANDMARK, STORM_LEFT, STORM_RIGHT])) {
-        // we add only the cards not going to discard or triggering classical listener
-        $cardsToListen[] = $cId;
-      }
-    }
 
-    if (count($cards) > 0) {
-      // Check listener only if one card is discarded
       $this->checkAfterListeners($player, [
         'discardCard' => true,
         'cardsToListen' => $cardsToListen, // we add the discarded cards as they should react even if not played
@@ -388,6 +388,8 @@ class Discard extends \ALT\Models\Action
         'sourceId' => $this->getSourceId(),
       ]);
     }
+
+
     // throw new \feException(print_r(Globals::getEngine()));
     // Notify deleting meeples first
     if (!empty($deletedMeeples)) {
@@ -446,6 +448,7 @@ class Discard extends \ALT\Models\Action
         ]);
       }
     }
+    // throw new \feException(print_r(Globals::getEngine()));
 
     // Resolve action if automatic since we are bypassing usual flow with return
     if ($automatic) {

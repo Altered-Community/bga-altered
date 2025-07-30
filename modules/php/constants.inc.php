@@ -92,7 +92,7 @@ const ST_PAY = 40;
 const ST_DRAW_MANA = 41;
 const ST_BLOCK_EXPEDITION = 42;
 const ST_TARGET_PLAYER = 43;
-const ST_DISCARD_DRAW = 44;
+const ST_DISCARD_DO = 44;
 const ST_TARGET_EXPEDITION = 45;
 // Alizé
 const ST_EXHAUST = 46;
@@ -101,6 +101,10 @@ const ST_EXCHANGE = 48;
 // Bise
 const ST_SPEND = 49;
 const ST_BOOST_EXCHANGE = 50;
+// Cyclone
+const ST_END_AFTERNOON = 51;
+const ST_MARK_REGION = 52;
+const ST_MOVE_REGION_MARKER = 53;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -163,13 +167,16 @@ const PAY = 'Pay';
 const DRAW_MANA = 'DrawMana';
 const BLOCK_EXPEDITION = 'BlockExpedition';
 const TARGET_PLAYER = 'TargetPlayer';
-const DISCARD_DRAW = 'DiscardDraw';
+const DISCARD_DO = 'DiscardDo';
 const TARGET_EXPEDITION = 'TargetExpedition';
 const EXHAUST = 'Exhaust';
 const READY = 'Ready';
 const EXCHANGE = 'Exchange';
 const SPEND = 'Spend';
 const BOOST_EXCHANGE = 'BoostExchange';
+const END_AFTERNOON = 'EndAfternoon';
+const MARK_REGION = 'MarkRegion';
+const MOVE_REGION_MARKER = 'MoveRegionMarker';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';
@@ -209,6 +216,7 @@ const PHASE_NOON = 'noon';
 const PHASE_AFTERNOON = 'afternoon';
 const PHASE_DUSK = 'dusk';
 const PHASE_NIGHT = 'night';
+const ASCEND = 'ascend';
 
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';
@@ -295,6 +303,10 @@ const CONSTRUCTION = 'construction';
 const SITE = 'site';
 const ILLUSION = 'illusion';
 
+// Cyclone
+const ORE = 'ore';
+const SCIENTIST = 'scientist';
+
 const SUBTYPES = [
   DIVINITY,
   ADVENTURER,
@@ -349,7 +361,7 @@ const ASLEEP = 'asleep';
  *********************/
 const API_URL = 'https://api.equinox-ccg.io';
 
-const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas', 'setIcon', 'flavorText', 'asset'];
+const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas', 'setIcon', 'flavorText', 'asset', 'revealed'];
 const UID_MAPPING = [
   'ALT_ALIZE_B_AX_01_C' => 'ALT_CORE_B_AX_01_C',
   'ALT_ALIZE_B_AX_03_C' => 'ALT_CORE_B_AX_03_C',

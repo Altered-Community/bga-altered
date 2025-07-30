@@ -48,6 +48,7 @@ class Target extends \ALT\Models\Action
     'effect' => null,
     'allIds' => false, // we put all the Ids instead of duplicating for each card
     'ignoreTough' => false,
+    'excludeToken' => false,
   ];
 
   public function getDescription()
@@ -172,16 +173,19 @@ class Target extends \ALT\Models\Action
         $targetLocation = STORMS;
       }
     }
+    $excludeTokens = $this->getArg('excludeToken');
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
         return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && in_array($c->getType(), $targetType);
       });
     } else {
-      $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation, $targetType) {
-        return (in_array($c->getLocation(), $targetLocation)
+      $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation, $targetType, $excludeTokens) {
+        return ((in_array($c->getLocation(), $targetLocation)
           || ((in_array(STORM_LEFT, $targetLocation) || in_array(STORM_RIGHT, $targetLocation)) && in_array($c->getLocation(), STORMS) && $c->isGigantic()))
-          || ($c->getType() == HERO && in_array(HERO, $targetType));
+          || ($c->getType() == HERO && in_array(HERO, $targetType))) &&
+          // Token exclusion
+          ($excludeTokens === false  || ($excludeTokens === true && !$c->isToken()));
       });
     }
 

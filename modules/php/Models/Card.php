@@ -164,8 +164,15 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicReserveSlots' => 'str', // Scholar's Vault
     'reduceCostType' => 'obj', // // Scholar's Vault - Rare
 
+
     // Patch note 20250729
     'allSpell1Fleeting' => 'bool', // Afanas
+
+    // Cyclone
+    'costReductionSacrificePermanent' => 'int', // Detonation
+    'revealed' => 'bool', // Leviathan Observer
+    'createMarkers' => 'bool', // Nadir & bubbles
+
   ];
 
   /********* DB ACCESS *********/
@@ -312,6 +319,12 @@ class Card extends \ALT\Helpers\DB_Model
         $cost -= $this->getCostReductionDiscard();
       }
     }
+    if ($this->getCostReductionSacrificePermanent() > 0) {
+      $permanent = $this->getPlayer()->getPlayedCards(PERMANENT)->count();
+      if ($permanent > 0) {
+        $cost -= $this->getCostReductionSacrificePermanent();
+      }
+    }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
@@ -391,6 +404,13 @@ class Card extends \ALT\Helpers\DB_Model
       return true;
     }
     return false;
+  }
+
+  public function countCounters()
+  {
+    $tokens = $this->countToken(BOOST);
+    $counters = $this->getExtraDatas()['counter'] ?? 0;
+    return $tokens + $counters;
   }
 
   public function getOfType($type)

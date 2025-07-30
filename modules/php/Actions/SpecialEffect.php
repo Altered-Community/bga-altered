@@ -217,7 +217,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'removeFleetingSongArtistPlayed':
         return clienttranslate('Remove fleeting if next card is an Artist or Song');
       case 'doubleBoosts':
-        return clienttranslate('Double the boosts in reserve & storms');
+        return clienttranslate('Double the boosts in reserve & expeditions');
       case 'counterPerCharacter':
         return clienttranslate('Gain 1 counter per Character you control');
       case 'boostAndRemoveFromExpedition':
@@ -242,6 +242,14 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Trigger Man in the maze unique effects');
       case 'hunger':
         return clienttranslate('Discard all other cards in play or in Reserve');
+      case 'reveal':
+        return clienttranslate('Reveal a card');
+      case 'ascend':
+        return clienttranslate('Ascend');
+      case 'switchPlayer':
+        return clienttranslate('Change First player');
+      case 'allCharacterFleeting':
+        return clienttranslate('All characters gain <FLEETING>');
     }
     return '';
   }
@@ -1555,6 +1563,62 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
 
+        break;
+      case 'reveal':
+        $toReveal = $this->getCard();
+        $toReveal->setRevealed(true);
+        Notifications::reveal($toReveal, $card);
+        break;
+      case 'ascend':
+        $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
+        $expedition = $this->getCtxArg('expedition');
+        // manage my expedition
+        if ($expedition == 'source') {
+          $expedition = $card->getLocation();
+        }
+        $oPlayer = Players::get($player);
+        $token = $expedition != STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+        $oToken = $oPlayer->$token();
+        $ascended = Meeples::singleCreate([
+          'player_id' => $player,
+          'location' => $oToken->getLocation(),
+          'nbr' => 1,
+          'type' => 'ascend'
+        ]);
+        Notifications::ascend($ascended, $oPlayer, $card, $expedition);
+        break;
+      case 'switchPlayer':
+        $newFirstPId = $this->getCtxArgs()['pId'];
+        Globals::setFirstPlayer($newFirstPId);
+        Notifications::switchPlayer(Players::get($newFirstPId));
+        break;
+      case 'allCharacterFleeting':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getPlayedCards() as $cId => $card) {
+            if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(FLEETING)) {
+              continue;
+            }
+            $nodes[] = FT::GAIN($cId, FLEETING);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'allOtherCharacterFleeting':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getPlayedCards() as $cId => $card) {
+            if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(FLEETING) || $card->getId() == $this->getSourceId()) {
+              continue;
+            }
+            $nodes[] = FT::GAIN($cId, FLEETING);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       default:
         break;

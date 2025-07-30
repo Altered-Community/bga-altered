@@ -540,6 +540,18 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         OCEAN => ['pId' => null, 'value' => 0],
       ],
     ];
+    $equality = [
+      STORM_LEFT => [
+        FOREST => false,
+        MOUNTAIN => false,
+        OCEAN => false,
+      ],
+      STORM_RIGHT => [
+        FOREST => false,
+        MOUNTAIN => false,
+        OCEAN => false,
+      ],
+    ];
 
     // Winner calculation
     foreach ($players as $pId => $player) {
@@ -551,6 +563,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
             $winners[$expedition][$biome]['pId'] = $pId;
           } elseif ($winners[$expedition][$biome]['value'] == $value) {
             $winners[$expedition][$biome]['pId'] = null;
+            if ($value >= 1) {
+              $equality[$expedition][$biome] = true;
+            }
           }
         }
       }
@@ -576,19 +591,24 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         if ($blockedExpeditions[$pId][$expedition]) {
           continue;
         }
+
         $newBiomes = [];
         foreach ($biomes as $biome) {
           $newBiomes[$biome] = $biome;
         }
         self::biomesModifier($newBiomes, $player, $expedition);
 
+        $isAscended = $player->isAscended($side);
+
         foreach ($newBiomes as $i => $biome) {
-          $win = $winners[$expedition][$biome]['pId'] == $pId;
+          $win = $winners[$expedition][$biome]['pId'] == $pId || $equality[$expedition][$biome] == true && $isAscended;
           $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
           if ($win) {
             $move = true;
             $winningBiomes[] = $biome;
+          } elseif ($equality[$expedition][$biome] == true && $isAscended) {
+            $move = true;
           }
         }
 

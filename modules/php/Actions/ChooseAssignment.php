@@ -36,6 +36,7 @@ class ChooseAssignment extends \ALT\Models\Action
     'actions' => ['play', 'support', 'tap'],
     'maxHandCost' => INFTY,
     'free' => false,
+    'maxBaseCost' => INFTY
   ];
 
   public function argsChooseAssignment()
@@ -47,15 +48,18 @@ class ChooseAssignment extends \ALT\Models\Action
     $authorizedTypes = $this->getArg('types');
     $authorizedActions = $this->getArg('actions');
     $maxHandCost = $this->getArg('maxHandCost');
+    $maxBaseCost = $this->getArg('maxBaseCost');
     $free = $this->getArg('free');
 
     // 1. Play cards
     if (in_array('play', $authorizedActions)) {
       $actions['play'] = $handCards
         ->merge($reserveCards)
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost) {
           return in_array($card->getType(), $authorizedTypes) &&
-            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
+            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped() &&
+              (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost))
+            ));;
         })
         ->map(function ($card) use ($player) {
           return $card->getPlayableLocation($player);
@@ -94,10 +98,13 @@ class ChooseAssignment extends \ALT\Models\Action
         ->getPlayedCards()
         ->merge($player->getHeroCollection())
         ->filter(function ($card) use ($player) {
+          $effectTap = $card->getEffectTap();
+          if (is_null('effectTap') || empty($effectTap)) {
+            return false;
+          }
+          $effectTap['sourceId'] = $card->getId();
           return !$card->isTapped() &&
-            !is_null($card->getEffectTap()) &&
-            !empty($card->getEffectTap()) &&
-            Engine::buildTree($card->getEffectTap())->isDoable($player);
+            Engine::buildTree($effectTap)->isDoable($player);
         })
         ->getIds();
     }
@@ -220,6 +227,33 @@ class ChooseAssignment extends \ALT\Models\Action
           $this->resolveAction(['CostReduction']);
           return;
         }
+      } elseif ($card->getCostReductionSacrificePermanent() > 0) {
+        if ($player->getPlayedCards(PERMANENT)->count() > 0) {
+          $this->insertAsChild(
+            FT::XOR(
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              FT::SEQ(
+                FT::ACTION(
+                  TARGET,
+                  [
+                    'targetType' => [PERMANENT],
+                    'targetPlayer' => ME,
+                    'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+                  ],
+                  ['sourceId' => $cardId]
+                ),
+                FT::ACTION(PLAY_CARD, [
+                  'cardId' => $cardId,
+                  'free' => true,
+                  'cost' => $cost - $card->getCostReductionSacrificePermanent(),
+                  'location' => $location,
+                ])
+              )
+            )
+          );
+          $this->resolveAction(['CostReduction']);
+          return;
+        }
       }
       // Has to update cost here as cost is dynamic where it's played
       if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic()) {
@@ -243,6 +277,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $fromLocation = $card->getLocation();
     $card->setLocation($location);
     $card->setTapped(false);
+    $card->setRevealed(false);
     $newState = Cards::getNextPlayedState();
     $newState++;
     $card->setState($newState);
@@ -462,7 +497,8 @@ class ChooseAssignment extends \ALT\Models\Action
         'to' => $location,
         'playedFree' => $cost == 0 ? true : false,
         'putAndNotPlayed' => !$effectHand,
-        'additionalEffects' => Globals::getAdditionalEffect()
+        'additionalEffects' => Globals::getAdditionalEffect(),
+        'token' => $card->isToken(),
       ]);
 
       $this->checkAfterListeners($player, [
@@ -476,7 +512,8 @@ class ChooseAssignment extends \ALT\Models\Action
         'gigantic' => $card->isGigantic(),
         'playedFree' => $cost == 0 ? true : false,
         'putAndNotPlayed' => !$effectHand,
-        'additionalEffects' => Globals::getAdditionalEffect()
+        'additionalEffects' => Globals::getAdditionalEffect(),
+        'token' => $card->isToken(),
       ]);
     }
     // throw new \feException(print_r(Globals::getEngine()));
@@ -544,7 +581,8 @@ class ChooseAssignment extends \ALT\Models\Action
       'playCard' => false,
       'cardType' => $card->getType(),
       'from' => RESERVE,
-      'isSupport' => true
+      'isSupport' => true,
+      'token' => $card->isToken(),
     ]);
   }
 
@@ -597,5 +635,6 @@ class ChooseAssignment extends \ALT\Models\Action
     $skipped[] = $player->getId();
     Globals::setSkippedPlayers($skipped);
     Notifications::pass($player);
+    $this->checkAfterListeners($player, [], true, 'EndTurn');
   }
 }
