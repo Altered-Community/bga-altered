@@ -23,7 +23,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
       'flavorText' => clienttranslate('The world feeds on magic, and withers in its absence.'),
       'artist' => 'Edward Cheekokseang',
       'effectDesc' => clienttranslate(
-        'When you play a Spell — Target Character you control gains 1 boost$<BB>. (Do this after the spell resolves.)'
+        'Spells you play with Hand Cost {1} or less are <FLEETING>. When you play a Spell — Target Character you control gains 1 boost$<BB>. (Do this after the spell resolves.)'
       ),
 
       'reserveSlots' => 2,
@@ -39,6 +39,7 @@ class YZ_Common_AfanasSenka extends \ALT\Models\Card
           ]),
         ],
       ],
+      'allSpell1Fleeting' => true
     ];
   }
 }

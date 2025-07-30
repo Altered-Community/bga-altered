@@ -164,10 +164,15 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicReserveSlots' => 'str', // Scholar's Vault
     'reduceCostType' => 'obj', // // Scholar's Vault - Rare
 
+
+    // Patch note 20250729
+    'allSpell1Fleeting' => 'bool', // Afanas
+
     // Cyclone
     'costReductionSacrificePermanent' => 'int', // Detonation
     'revealed' => 'bool', // Leviathan Observer
     'createMarkers' => 'bool', // Nadir & bubbles
+
   ];
 
   /********* DB ACCESS *********/
