@@ -172,6 +172,7 @@ class Card extends \ALT\Helpers\DB_Model
     'costReductionSacrificePermanent' => 'int', // Detonation
     'revealed' => 'bool', // Leviathan Observer
     'createMarkers' => 'bool', // Nadir & bubbles
+    'dynamicIncreaseBiomeHighestSelf' => 'str', // Lyra Aerialist
 
   ];
 
@@ -765,8 +766,19 @@ class Card extends \ALT\Helpers\DB_Model
         $value += $boost;
       }
     }
+    $dynamicIncrease = $this->getDynamicIncreaseBiomeHighestSelf();
+    $dynSplit = explode(':', $dynamicIncrease);
+    $dynamicIncreaseSelf = 0;
+    if (count($dynSplit) > 1) {
+      // we need to test if ok, add change dynamic tough to the value of 0
+      if (!is_null(Utils::checkAttributeCondition('cost', $dynamicIncrease, $this->getPlayer(), $this))) {
+        $dynamicIncreaseSelf = (int) $dynSplit[0];
+      } else {
+        $dynamicIncreaseSelf = 0;
+      }
+    }
 
-    if ($increaseBiomesToHighest == true) {
+    if ($increaseBiomesToHighest == true || $dynamicIncreaseSelf == 1) {
       $max = 0;
       foreach ($biomes as $type => $value2) {
         $max = max($max, $value2);
