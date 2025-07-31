@@ -250,6 +250,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Change First player');
       case 'allCharacterFleeting':
         return clienttranslate('All characters gain <FLEETING>');
+      case 'allPass':
+        return clienttranslate('All players pass');
     }
     return '';
   }
@@ -1614,6 +1616,18 @@ class SpecialEffect extends \ALT\Models\Action
               continue;
             }
             $nodes[] = FT::GAIN($cId, FLEETING);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'allPass':
+        $nodes = [];
+        $skipped = Globals::getSkippedPlayers();
+        foreach (Players::getTurnOrder($card->getPId()) as $pId) {
+          if (!isset($skipped[$pId])) {
+            $nodes[] = FT::ACTION(END_AFTERNOON, [], ['pId' => $pId]);
           }
         }
         if (!empty($nodes)) {

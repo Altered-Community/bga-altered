@@ -25,10 +25,10 @@ class EndAfternoon extends \ALT\Models\Action
     ];
   }
 
-  public function isOptional($player)
-  {
-    return true;
-  }
+  // public function isOptional($player)
+  // {
+  //   return true;
+  // }
 
   public function stEndAfternoon()
   {

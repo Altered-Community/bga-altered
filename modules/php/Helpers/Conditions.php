@@ -448,6 +448,34 @@ abstract class Conditions
     return $card->getPId() == ($event['pId'] ?? $card->getPId()) && $hasZero >= 3;
   }
 
+  public static function hasXWithZeroStat($card, $event, $location = 'all', $n = 1, $op = 'GTE')
+  {
+    $playedCards = $card->getPlayer()->getPlayedCards();
+    if ($location == 'all') {
+      $playedCards = $playedCards->merge($card->getPlayer()->getReserveCards());
+    }
+    $hasZero = 0;
+    foreach ($playedCards as $cId => $playedCard) {
+      if (!in_array($playedCard->getType(), [TOKEN, CHARACTER])) {
+        continue;
+      }
+
+      foreach ($playedCard->getBiomes() as $biome => $value) {
+        if ($value == 0) {
+          $hasZero++;
+        }
+      }
+    }
+
+    if ($hasZero >= $n && $op == 'GTE') {
+      return true;
+    } elseif ($hasZero <= $n && $op == 'LTE') {
+      return true;
+    }
+
+    return false;
+  }
+
   public static function canSacrifice($card, $event)
   {
     return self::hasControl($card, $event, CHARACTER, 1);
