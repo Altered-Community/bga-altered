@@ -1117,6 +1117,23 @@ abstract class Conditions
     return ($event['isSupport'] ?? false) == true;
   }
 
+  public static function countMonoVisibleRegions($card, $event, $n = 1, $op = 'GTE')
+  {
+    $visibleRegions = Players::getRegionsInfo();
+    $count = 0;
+    foreach ($visibleRegions as $vId => $regions) {
+      if (count($regions) == 1) {
+        $count++;
+      }
+    }
+    if ($op == 'GTE' && $count >= $n) {
+      return true;
+    } elseif ($op == 'LTE' && $count <= $n) {
+      return true;
+    }
+    return false;
+  }
+
   /**********************************
    **********************************
    ************* HELPERS ************

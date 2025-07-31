@@ -718,6 +718,38 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
   }
 
+  public static function getRegionsInfo()
+  {
+    $visibleRegions = Globals::getVisibleRegions();
+    $tiebreak = Globals::isTieBreakerMode();
+    foreach ($visibleRegions as $vId => &$region) {
+      // check if there is a terrain marker
+      $markers = Meeples::getOfType('storm-' . $vId, [OCEAN, FOREST, MOUNTAIN]);
+      if ($markers->count() > 0) {
+        foreach ($markers as $mId => $marker) {
+          $region =  [$marker->getType()];
+        }
+      }
+    }
+
+    foreach (['getHeroToken', 'getCompanionToken'] as $side) {
+      foreach (self::getAll() as $pId => $player) {
+        $token = $player->$side();
+        $location = explode('-', $token->getLocation())[1];
+        $expedition = $side == 'getHeroToken' ? STORM_LEFT : STORM_RIGHT;
+        if (isset($visibleRegions[$location])) {
+          $newBiomes = [];
+          foreach ($visibleRegions[$location] as $biome) {
+            $newBiomes[$biome] = $biome;
+          }
+          self::biomesModifier($newBiomes, $player, $expedition, $tiebreak);
+          $visibleRegions[$location] = array_values($newBiomes);
+        }
+      }
+    }
+    return $visibleRegions;
+  }
+
   public static function setStats()
   {
     $matchup = [];

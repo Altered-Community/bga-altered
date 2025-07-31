@@ -53,6 +53,8 @@ class MarkRegion extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Invalid terrain marker. Should not happen');
     }
 
+    // TODO : manage tiebreaker
+
     // move the marker
     $marker = $args['markers'][$markerId];
     $marker->setLocation('storm-' . $stormId);
