@@ -618,7 +618,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           }
           if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
             $nodes = [];
-            $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]);
+            if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition])) {
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]);
+            }
             foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
               if ($action == 'draw2') {
                 $nodes[] =
@@ -631,6 +633,20 @@ class Players extends \ALT\Helpers\CachedDB_Manager
                   FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
                   FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RunesTestamentLook4'], ['pId' => $pId, 'sourceId' => $cId])
                 );
+              } elseif ($action == 'ErisCommon') {
+                $nodes[] = FT::ACTION(ROLL_DIE, [
+                  'effect' => [
+                    '1-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]),
+                    '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes], ['pId' => $pId])
+                  ]
+                ], ['sourceId' => $cId]);
+              } elseif ($action == 'ErisRare') {
+                $nodes[] = FT::ACTION(ROLL_DIE, [
+                  'effect' => [
+                    '2-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]),
+                    '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes], ['pId' => $pId])
+                  ]
+                ], ['sourceId' => $cId]);
               }
             }
             Engine::pushAfterFinishingChilds(
