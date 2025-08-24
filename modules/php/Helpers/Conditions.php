@@ -1064,6 +1064,18 @@ abstract class Conditions
     return !self::isInBiome($card, $event, $biome);
   }
 
+  public static function allExpeditionsNotIn($card, $event, $biome, $excludeMove = false)
+  {
+    if (is_string($excludeMove)) {
+      if ($excludeMove == 'true') {
+        $excludeMove = true;
+      } else {
+        $excludeMove = false;
+      }
+    }
+    return !$card->getPlayer()->isInBiome(STORM_LEFT, $biome, $excludeMove) && !$card->getPlayer()->isInBiome(STORM_RIGHT, $biome, $excludeMove);
+  }
+
   public static function isInBiomeWithZeroStat($card, $event)
   {
     if (!self::isCardPlayedWithZeroStat($card, $event)) {

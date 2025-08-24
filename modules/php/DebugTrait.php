@@ -82,7 +82,7 @@ trait DebugTrait
 
   function tp()
   {
-    Players::initializeDecks();
+    Meeples::createHeroMarkers();
   }
 
   function dv()
