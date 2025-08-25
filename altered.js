@@ -78,6 +78,7 @@ define([
         ['passTurn', 800],
 
         ['addMeeples', null],
+        ['slideMeeples', null],
         ['looseMeeples', null],
         ['setTerrainMarker', null],
 
@@ -502,6 +503,7 @@ define([
         $('storm-container').insertAdjacentHTML(
           'beforeend',
           `<div class='storm-space' id='storm-${i}'>
+            <div class='storm-terrain-markers' id='storm-${i}-markers' data-x="${i}"></div>
             <div class='storm-slot' id='storm-${i}-opponent' data-x="${i}"></div>
             <div class='storm-slot' id='storm-${i}-player' data-x="${i}"></div>
           </div>`
@@ -983,14 +985,16 @@ define([
       let canUseRandom = false;
       if (args.demoDeck == false && canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
-          'beforeend',
-          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-random')
+          .querySelector('.altered-card-wrapper')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Random deck
             </div>
           </div>`
-        );
+          );
         this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
       }
     },
@@ -2170,18 +2174,11 @@ define([
       });
     },
 
-    // todo_tim: est-ce que tu peux faire en sorte que les marker soient visibles sur le carte du héro (Nadir)
-    // todo_tim: ensuite qu'on puisse les selectionner que ca s'affiche correctement quand on cible la région
-    // todo_tim: et faire en sorte que ca soit joli... car la c'est déguéu mon truc :(
     onEnteringStateMarkRegionExpedition(args) {
-      let target = (markerId, stormId) => {
-        return () => this.takeAtomicAction('actMarkRegion', [markerId, stormId]);
-      };
       Object.keys(args.regions).forEach((id) => {
         storm = $(`storm-${id}`);
         storm.classList.add('selectable');
-        storm.style.zIndex = 999;
-        this.onClick(storm, target(args.marker.id, id));
+        this.onClick(storm, () => this.takeAtomicAction('actMarkRegion', [args.marker.id, id]));
       });
 
       this.addSecondaryActionButton(
@@ -2196,15 +2193,11 @@ define([
     },
 
     onEnteringStateMoveRegionMarker(args) {
-      let targetMarker = (id) => {
-        return () => this.takeAtomicAction('actMoveRegionMarker', [markerId]);
-      };
-
       Object.keys(args.markers).forEach((id) => {
         mark = args.markers[id];
         meep = $(`meeple-${id}`);
         meep.classList.add('selectable');
-        this.onClick(meep, targetMarker(mark.id));
+        this.onClick(meep, () => this.takeAtomicAction('actMoveRegionMarker', [mark.id]));
       });
     },
 
