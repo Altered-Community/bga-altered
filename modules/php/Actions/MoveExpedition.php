@@ -30,6 +30,7 @@ class MoveExpedition extends \ALT\Models\Action
     'pId' => null,
     'force' => false,
     'winningBiomes' => null,
+    'moveOtherExpedition' => false,
   ];
 
   public function getSides()
@@ -37,6 +38,10 @@ class MoveExpedition extends \ALT\Models\Action
     $expeditions = $this->getArg('expedition');
     if (empty($expeditions)) {
       $expeditions = STORMS;
+    }
+
+    if (is_string($expeditions)) {
+      $expeditions = [$expeditions];
     }
 
     foreach ($expeditions as &$expe) {
@@ -55,6 +60,8 @@ class MoveExpedition extends \ALT\Models\Action
     $forcedPId = $this->getArg('pId');
     if ($forcedPId == OPPONENT) {
       $forcedPId = Players::getNextId(Players::getActive());
+    } elseif ($forcedPId == ME) {
+      $forcedPId = Players::getActiveId();
     }
     $blocked = Players::getBlockedExpeditions();
 
@@ -167,8 +174,15 @@ class MoveExpedition extends \ALT\Models\Action
       }
     }
     $winningBiomes = $this->getArg('winningBiomes');
-    $player->advanceStorm($token, $winningBiomes, $n, true, $source);
-    $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+    $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+    if ($moved) {
+      $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+      if ($this->getArg('moveOtherExpedition') === true) {
+        // only done through a spell
+        $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
+        $this->checkAfterListeners($player, ['moveExpedition' => $n * -1]);
+      }
+    }
 
     if ($gigantic) {
       // we must move the other expedition
@@ -176,8 +190,10 @@ class MoveExpedition extends \ALT\Models\Action
 
       $token = $expedition == STORM_LEFT ? HERO : COMPANION;
 
-      $player->advanceStorm($token, $winningBiomes, $n, true, $source);
-      $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+      $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+      if ($moved) {
+        $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+      }
     }
   }
 }

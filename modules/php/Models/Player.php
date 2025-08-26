@@ -468,7 +468,7 @@ class Player extends \ALT\Helpers\DB_Model
 
     if ($sId == $location) {
       Notifications::message(clienttranslate('${player_name} expedition cannot move'), ['player' => $this]);
-      return;
+      return false;
     }
 
     // Set new location
@@ -495,6 +495,7 @@ class Player extends \ALT\Helpers\DB_Model
     if ($notify) {
       Notifications::moveStormToken($this, $biomes, $tokenMeeple, $stormIndex, $revealed, $source);
     }
+    return true;
   }
 
   public function nightCleanup()
