@@ -30,6 +30,7 @@ class AX_Common_IsareePebble extends \ALT\Models\Card
       'effectDesc' => clienttranslate('At Noon — If you are first player, create an <AEROLITH> token in your Landmarks. (It\'s a Permanent with \"When I\'m sacrificed — Resupply. {T}, {1}: Sacrifice me.\")'),
       'effectPassive' => [
         'Noon' => [
+          'listeningConditions' => ['isMe'],
           'condition' => 'isFirstPlayer',
           'output' => [
             'action' => INVOKE_TOKEN,
