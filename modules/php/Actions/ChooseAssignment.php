@@ -36,7 +36,8 @@ class ChooseAssignment extends \ALT\Models\Action
     'actions' => ['play', 'support', 'tap'],
     'maxHandCost' => INFTY,
     'free' => false,
-    'maxBaseCost' => INFTY
+    'maxBaseCost' => INFTY,
+    'minBaseCost' => 0,
   ];
 
   public function argsChooseAssignment()
@@ -49,16 +50,18 @@ class ChooseAssignment extends \ALT\Models\Action
     $authorizedActions = $this->getArg('actions');
     $maxHandCost = $this->getArg('maxHandCost');
     $maxBaseCost = $this->getArg('maxBaseCost');
+    $minBaseCost = $this->getArg('minBaseCost');
     $free = $this->getArg('free');
 
     // 1. Play cards
     if (in_array('play', $authorizedActions)) {
       $actions['play'] = $handCards
         ->merge($reserveCards)
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost) {
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost) {
           return in_array($card->getType(), $authorizedTypes) &&
             ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped() &&
-              (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost))
+              (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost)) &&
+              (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
             ));;
         })
         ->map(function ($card) use ($player) {
