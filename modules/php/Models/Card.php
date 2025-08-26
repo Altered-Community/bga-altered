@@ -173,7 +173,8 @@ class Card extends \ALT\Helpers\DB_Model
     'revealed' => 'bool', // Leviathan Observer
     'createMarkers' => 'bool', // Nadir & bubbles
     'dynamicIncreaseBiomeHighestSelf' => 'str', // Lyra Aerialist
-
+    'costReductionLimitation' => 'int', // Lost In the riptide
+    'effectPlayedLimited' => 'obj', // Lost In the riptide
   ];
 
   /********* DB ACCESS *********/
@@ -325,6 +326,10 @@ class Card extends \ALT\Helpers\DB_Model
       if ($permanent > 0) {
         $cost -= $this->getCostReductionSacrificePermanent();
       }
+    }
+
+    if ($this->getCostReductionLimitation() > 0) {
+      $cost -= $this->getCostReductionLimitation();
     }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }

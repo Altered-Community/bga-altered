@@ -38,6 +38,7 @@ class ChooseAssignment extends \ALT\Models\Action
     'free' => false,
     'maxBaseCost' => INFTY,
     'minBaseCost' => 0,
+    'limited' => false,
   ];
 
   public function argsChooseAssignment()
@@ -257,6 +258,15 @@ class ChooseAssignment extends \ALT\Models\Action
           $this->resolveAction(['CostReduction']);
           return;
         }
+      } elseif ($card->getCostReductionLimitation() > 0) {
+        $this->insertAsChild(
+          FT::XOR(
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost - $card->getCostReductionLimitation(), 'limited' => true]),
+          )
+        );
+        $this->resolveAction(['CostReduction']);
+        return;
       }
       // Has to update cost here as cost is dynamic where it's played
       if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic()) {
@@ -371,7 +381,11 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       // insert effect flow
-      $effect = $card->getEffectPlayed();
+      if ($this->getArg('limited') === true) {
+        $effect = $card->getEffectPlayedLimited();
+      } else {
+        $effect = $card->getEffectPlayed();
+      }
       if (!empty($effect)) {
         if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
           foreach ($effect['childs'] as $t => $child) {
