@@ -1141,6 +1141,11 @@ abstract class Conditions
     return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
   }
 
+  public static function isOpponentExpeditionNotEmpty($card, $event)
+  {
+    return !self::isOpponentExpeditionEmpty($card, $event);
+  }
+
   public static function isOpponentExpeditionIn($card, $event, $biome)
   {
     $opponent = null;

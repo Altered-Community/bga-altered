@@ -1580,7 +1580,7 @@ class SpecialEffect extends \ALT\Models\Action
           $expedition = $card->getLocation();
         }
         $oPlayer = Players::get($player);
-        $token = $expedition != STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+        $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
         $oToken = $oPlayer->$token();
         $ascended = Meeples::singleCreate([
           'player_id' => $player,

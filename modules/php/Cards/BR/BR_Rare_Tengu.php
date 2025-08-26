@@ -30,7 +30,7 @@ class BR_Rare_Tengu extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ_OPTIONAL(
         FT::RUSH(),
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expdition' => 'source'])
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
       )
     ];
   }
