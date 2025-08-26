@@ -1131,19 +1131,57 @@ abstract class Conditions
   // TODO multiplayer
   public static function isOpponentExpeditionEmpty($card, $event)
   {
+    return self::countOpponentExpedition($card, $event) == 0;
+    // $opponent = null;
+    // foreach (Players::getAll() as $pId => $player) {
+    //   if ($pId != $card->getPId()) {
+    //     $opponent = $player;
+    //   }
+    // }
+    // $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+    // return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
+  }
+
+  public static function countOpponentExpedition($card, $event, $type = null)
+  {
     $opponent = null;
     foreach (Players::getAll() as $pId => $player) {
       if ($pId != $card->getPId()) {
         $opponent = $player;
       }
     }
+    $opponentCards = $opponent->getPlayedCards($type);
     $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
-    return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
+
+    $n = 0;
+    foreach ($opponentCards as $oId => $oCard) {
+      if ($oCard->getLocation() == $card->getLocation() || ($oCard->getLocation() == $oppositeExpedition && $oCard->hasGigantic())) {
+        $n++;
+      }
+    }
+    return  $n;
   }
 
   public static function isOpponentExpeditionNotEmpty($card, $event)
   {
     return !self::isOpponentExpeditionEmpty($card, $event);
+  }
+
+  public static function isOpponentExpeditionFilled($card, $event, $type = '', $n = 1, $op = 'EQ')
+  {
+    if ($op == 'EQ') {
+      return self::countOpponentExpedition($card, $event, $type) == $n;
+    } elseif ($op == 'GTE') {
+      return self::countOpponentExpedition($card, $event, $type) >= $n;
+    } elseif ($op == 'LTE') {
+      return self::countOpponentExpedition($card, $event, $type) <= $n;
+    }
+  }
+
+  public static function isPlayedInOpponentExpedition($card, $event)
+  {
+    $playedCard = Cards::get($event['cardId']);
+    return ($event['to'] ?? '') == $card->getLocation() && $playedCard->getPId() != $card->getPId();
   }
 
   public static function isOpponentExpeditionIn($card, $event, $biome)
@@ -1155,6 +1193,12 @@ abstract class Conditions
       }
     }
     return $opponent->isInBiome($card->getLocation(), $biome);
+  }
+
+  public static function isCardExpeditionAscended($card, $event)
+  {
+    $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
+    return $card->getPlayer()->isAscended($side);
   }
 
   public static function isSupportEffect($card, $event)

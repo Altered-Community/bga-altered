@@ -571,7 +571,7 @@ class Card extends \ALT\Helpers\DB_Model
         $condArgs = array_slice($t, 1);
 
         if (Conditions::$condFct($this, $event, ...$condArgs) === false) {
-          // var_dump($card->getName(), $cond, $event);
+          // var_dump(self::getName(), $cond, $event);
           return false;
         }
         // var_dump(debug_print_backtrace());
