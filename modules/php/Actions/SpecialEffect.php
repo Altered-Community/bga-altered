@@ -254,6 +254,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('All players pass');
       case 'boostTargetReserveCards':
         return clienttranslate('Gain 1 boost per card in reserve');
+      case 'boostXOpponentExpedition':
+        return clienttranslate('Gain 1 boost per character in expedition facing card');
     }
     return '';
   }
@@ -286,8 +288,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'exhaustPlayFree':
       case 'hunger':
       case 'boostTargetReserveCards':
+      case 'boostXOpponentExpedition':
       default:
-        return true;
+        return false;
     }
     return true;
 
@@ -1673,6 +1676,20 @@ class SpecialEffect extends \ALT\Models\Action
           Notifications::silentKill([], $draw->getIds());
           Notifications::drawCards($player, Cards::getMany($draw->getIds()), clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'), clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'), ['card2' => $card], true);
           $this->checkAfterListeners($player, ['draw' => 1, 'location' => RESERVE], true, 'Draw');
+        }
+        break;
+      case 'boostXOpponentExpedition':
+        $player = $card->getPlayer();
+        $expedition = $card->getLocation();
+        $count = Players::getNext($player)->getPlayedCards()->filter(function ($c) use ($expedition) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]) && ($expedition == $c->getLocation() || $c->isGigantic() && in_array($c->getLocation(), STORMS));
+        })->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
         }
         break;
       default:
