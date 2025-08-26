@@ -172,6 +172,12 @@ class Target extends \ALT\Models\Action
       if (Cards::get($this->getSourceId())->isGigantic()) {
         $targetLocation = STORMS;
       }
+    } elseif ($targetLocation == ['opponentSource']) {
+      $targetLocation = [$this->getSource()->getLocation()];
+      if (Cards::get($this->getSourceId())->isGigantic()) {
+        $targetLocation = STORMS;
+      }
+      $targetPlayer = $pIds = array_diff($pIds, [$pId]);
     }
     $excludeTokens = $this->getArg('excludeToken');
 
