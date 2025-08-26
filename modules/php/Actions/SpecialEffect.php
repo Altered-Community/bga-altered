@@ -252,6 +252,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('All characters gain <FLEETING>');
       case 'allPass':
         return clienttranslate('All players pass');
+      case 'boostTargetReserveCards':
+        return clienttranslate('Gain 1 boost per card in reserve');
     }
     return '';
   }
@@ -283,8 +285,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'drawTopIfRoll':
       case 'exhaustPlayFree':
       case 'hunger':
-        return false;
-        break;
+      case 'boostTargetReserveCards':
       default:
         return true;
     }
@@ -1632,6 +1633,17 @@ class SpecialEffect extends \ALT\Models\Action
         }
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'boostTargetReserveCards':
+        $player = $card->getPlayer();
+        $count = $player->getReserveCards()->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => $this->getCard()->getId(),
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
         }
         break;
       default:

@@ -1,27 +1,48 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_LyraSignet extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_CYCLONE_B_LY_78_C',
-            'asset'  => 'ALT_CYCLONE_B_LY_78_C',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_CYCLONE_B_LY_78_C',
+      'asset'  => 'ALT_CYCLONE_B_LY_78_C',
 
-    	'faction'  => FACTION_LY,
-    	'rarity'  => RARITY_COMMON,
-    	'name'  => clienttranslate("Lyra Signet"),
+      'faction'  => FACTION_LY,
+      'rarity'  => RARITY_COMMON,
+      'name'  => clienttranslate("Lyra Signet"),
       'typeline' => clienttranslate("Spell - Conjuration"),
-    	'type'  => SPELL,
-    	'flavorText'  => clienttranslate('Creation and transformation.'),
+      'type'  => SPELL,
+      'flavorText'  => clienttranslate('Creation and transformation.'),
       'artist' => "Ed Chee, S.yong & Stephen",
-			'extension'=>'SO',
-   'subtypes'  => [CONJURATION],
- 				'effectDesc' => clienttranslate('Choose one:  • Up to two target Characters gain <FLEETING>.  • Draw a card, then roll a die. On a 4+, <RESUPPLY_LOW>.  • Target Character gains 1 boost per card in your Reserve.'),
-     'costHand' => 2, 
-     'costReserve' => 4, 
-];
+      'extension' => 'SO',
+      'subtypes'  => [CONJURATION],
+      'effectDesc' => clienttranslate('Choose one:  • Up to two target Characters gain <FLEETING>.  • Draw a card, then roll a die. On a 4+, <RESUPPLY_LOW>.  • Target Character gains 1 boost per card in your Reserve.'),
+      'costHand' => 2,
+      'costReserve' => 4,
+      'effectPlayed' => FT::XOR(
+        FT::ACTION(TARGET, [
+          'upTo' => true,
+          'n' => 2,
+          'effect' => FT::GAIN(EFFECT, FLEETING)
+        ]),
+        FT::SEQ(
+          FT::ACTION(DRAW, ['players' => ME]),
+          FT::ACTION(ROLL_DIE, [
+            'effect' => [
+              '4+' => FT::ACTION(RESUPPLY, [])
+            ]
+          ])
+        ),
+        FT::ACTION(TARGET, [
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostTargetReserveCards'])
+        ]),
+      )
+    ];
   }
 }
