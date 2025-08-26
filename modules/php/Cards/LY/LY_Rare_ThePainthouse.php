@@ -16,7 +16,7 @@ class LY_Rare_ThePainthouse extends \ALT\Models\Card
       'faction'  => FACTION_LY,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("The Painthouse"),
-      'typeline' => clienttranslate("Landmark_permanent - Site"),
+      'typeline' => clienttranslate("Landmark Permanent - Site"),
       'type'  => PERMANENT,
       'flavorText'  => clienttranslate('The paints of the Tisdhera still perfume the heights of the Wayfarer.'),
       'artist' => "Tristan Bideau",
