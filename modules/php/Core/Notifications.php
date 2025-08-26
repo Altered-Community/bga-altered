@@ -211,22 +211,22 @@ class Notifications
 
   public static function setTerrainMarker($player, $marker, $source)
   {
-    // todo_tim: je comprends pas pourquoi format recursive me sort pas ce dont j'ai besoin pour marker type (j'ai fait plein de tests)
-    self::notifyAll('addMeeples', clienttranslate('${player_name} places a terrain marker ${markerType} on a region (${card_name}\'s effect)'), [
+    self::notifyAll('slideMeeples', clienttranslate('${player_name} places a ${biome_icon}${biome_name} terrain marker on a region (${card_name}\'s effect)'), [
       'player' => $player,
       'meeples' => [$marker],
-      'markerType' => $marker->getType(),
+      'biome_name' => $marker->getType(),
+      'biome_icon' => '',
       'card' => $source
     ]);
   }
 
   public static function moveTerrainMarker($player, $marker, $source)
   {
-    // todo_tim: je comprends pas pourquoi format recursive me sort pas ce dont j'ai besoin pour marker type (j'ai fait plein de tests)
-    self::notifyAll('addMeeples', clienttranslate('${player_name} moves a terrain marker ${markerType} on a region (${card_name}\'s effect)'), [
+    self::notifyAll('slideMeeples', clienttranslate('${player_name} moves a ${biome_icon}${biome_name} terrain marker on a region (${card_name}\'s effect)'), [
       'player' => $player,
       'meeples' => [$marker],
-      'markerType' => $marker->getType(),
+      'biome_name' => $marker->getType(),
+      'biome_icon' => '',
       'card' => $source
     ]);
   }

@@ -39,7 +39,8 @@ class MoveRegionMarker extends \ALT\Models\Action
 
   public function getMarkers()
   {
-    return Meeples::getOfType('storm-%', [$this->getArg('markerType')]);
+    $types = [$this->getArg('markerType')];
+    return Meeples::getOfType('storm-%', $types);
   }
 
   public function isDoable($player)
