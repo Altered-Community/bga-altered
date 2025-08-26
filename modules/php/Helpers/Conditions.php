@@ -74,6 +74,11 @@ abstract class Conditions
     return Cards::get($event['cardId'])->getLocation() == ($event['to'] ?? '');
   }
 
+  public static function isSourceSameLocation($card, $event)
+  {
+    return $card->getLocation() == ($event['sourceLocation'] ?? '');
+  }
+
   public static function isInStorms($card, $event)
   {
     return in_array($card->getLocation(), STORMS);

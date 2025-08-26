@@ -756,6 +756,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       if (isset($event['action']) && in_array($listenCard, STORMS) && ($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
         $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
       }
+      $event['sourceLocation'] = self::get($cardId)->getLocation();
       $childs[] = [
         'action' => ACTIVATE_CARD,
         // 'pId' => $event['pId'],

@@ -52,6 +52,8 @@ class MoveCard extends \ALT\Models\Action
       if (is_null($cardId)) {
         $cardId = $this->getCtx()->toArray()['event']['gain']['cardId'] ?? null;
       }
+    } elseif ($cardId == ME) {
+      $cardId = $this->getSourceId();
     }
     return Cards::get($cardId);
   }
