@@ -67,7 +67,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     'removeFleetingSongArtistPlayed' => 'bool', // Bise - The stage rare
     'nextCharacterBoostV' => 'int', // Bise - The Undergrowth
 
-
+    // Cyclone
+    'globalTough' => 'obj', // 'Kauri's intervention
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',

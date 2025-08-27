@@ -863,6 +863,17 @@ class Card extends \ALT\Helpers\DB_Model
       }
       $tough += $universal;
     }
+
+    // Global Tough
+    $globalTough = Globals::getGlobalTough();
+    if (isset($globalTough[$this->pId])) {
+      foreach ($globalTough[$this->pId] as $i => $gTough) {
+        if ($this->getType() == $gTough['type'] && $gTough['minHandCost'] <= $this->getCostHand()) {
+          $tough += $gTough['tough'];
+        }
+      }
+    }
+
     return $tough;
   }
 

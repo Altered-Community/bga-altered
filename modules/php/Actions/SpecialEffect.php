@@ -1692,6 +1692,11 @@ class SpecialEffect extends \ALT\Models\Action
           ], ['sourceId' => $card->getId()]));
         }
         break;
+      case 'globalTough':
+        $globalTough = Globals::getGlobalTough();
+        $globalTough[$card->getPId()][] = $args;
+        Globals::setGlobalTough($globalTough);
+        break;
       default:
         break;
     }

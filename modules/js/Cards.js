@@ -2163,6 +2163,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         RUSH: {
           text: _('Rush'),
         },
+        TOUGH_CHA_P_5: {
+          text: _('Tough 5'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {5} more."),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
