@@ -100,7 +100,8 @@ trait DebugTrait
   function vt()
   {
     // Meeples::createHeroMarkers();
-    throw new \feException(print_r(Players::getRegionsInfo()));
+    // throw new \feException(print_r(Players::getRegionsInfo()));
+    throw new \feException(Players::getCurrent()->isAscended(COMPANION));
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
     // throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
     // Globals::setupNewGame([], []);

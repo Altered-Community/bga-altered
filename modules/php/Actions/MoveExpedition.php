@@ -29,8 +29,9 @@ class MoveExpedition extends \ALT\Models\Action
     'n' => 1,
     'pId' => null,
     'force' => false,
-    'winningBiomes' => null,
+    'winningBiomes' => [],
     'moveOtherExpedition' => false,
+    'ascended' => false,
   ];
 
   public function getSides()
@@ -128,6 +129,7 @@ class MoveExpedition extends \ALT\Models\Action
     $source = $this->getSource();
     $n = $this->getArg('n');
     $player = Players::get($pId);
+    $winningBiomes = $this->getArg('winningBiomes');
 
     // Rune's testament
     if ($this->getArg('force') === false) {

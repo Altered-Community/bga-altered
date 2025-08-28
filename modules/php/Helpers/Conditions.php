@@ -181,6 +181,48 @@ abstract class Conditions
     return false;
   }
 
+  public static function movesAscendedAnyExpeditions($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) {
+      if (
+        !isset($stormMoves[$card->getPId()]) ||
+        $card->getPId() != $event['pId'] ||
+        !isset($stormMoves[$card->getPId()][$storm])
+      ) {
+        return false;
+      }
+
+      $side = $storm == STORM_LEFT ? HERO : COMPANION;
+      $move = $stormMoves[$card->getPId()][$storm];
+      if ($card->getPlayer()->isAscended($side) && $move['moves'] >= 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public static function zhenZephyr($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) {
+      $side = $storm == STORM_LEFT ? HERO : COMPANION;
+      // are there characters facing it?
+      if (Players::getNext($card->getPlayer())->countCardsInLocation($storm, [CHARACTER]) > 0) {
+        continue;
+      }
+
+      // is it ascended?
+      if ($stormMoves[$card->getPId()][$storm]['ascended'] === false) {
+        continue;
+      }
+      if ($stormMoves[$card->getPId()][$storm]['moves'] >= 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function hasNotMoved($card, $event)
   {
     return $event['pId'] == $card->getPId() &&

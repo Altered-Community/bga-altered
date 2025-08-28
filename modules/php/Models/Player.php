@@ -459,7 +459,7 @@ class Player extends \ALT\Helpers\DB_Model
     // TODO: manage immobile
     $location = $tokenMeeple->getLocationArg();
     $expedition = $token == HERO ? STORM_LEFT : STORM_RIGHT;
-
+    $isAscended = $this->isAscended($token);
 
 
     // if hero we increase
@@ -479,6 +479,7 @@ class Player extends \ALT\Helpers\DB_Model
     $moves[$this->id][$expedition] = [
       'biomes' => is_array($biomes) ? $biomes : [],
       'moves' => $n,
+      'ascended' => $isAscended
     ];
     Globals::setStormMoves($moves);
 
