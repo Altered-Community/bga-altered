@@ -40,6 +40,10 @@ class InvokeToken extends \ALT\Models\Action
 
     $tokenType = $this->getCtxArg('tokenType');
     $targetLocations = $this->getCtxArg('targetLocation') ?? STORMS;
+    if (isset($this->getCtxArgs()['expedition'])) {
+      // we come from a target Expedition
+      $targetLocations = [$this->getCtxArgs()['expedition']];
+    }
 
     return [
       'token' => $tokenType,
@@ -47,7 +51,8 @@ class InvokeToken extends \ALT\Models\Action
       'n' => $this->getCtxArg('n') ?? 1,
       'canPass' => $this->getCtxArg('optional') ?? false,
       'locations' => $targetLocations,
-      'allPlayers' => count($targetLocations) > 1 || ($this->getCtxArg('allPlayers') ?? false)
+      'allPlayers' => count($targetLocations) > 1 || ($this->getCtxArg('allPlayers') ?? false),
+      'targetPlayer' => null,
     ];
   }
 
@@ -158,7 +163,9 @@ class InvokeToken extends \ALT\Models\Action
     // throw new \feException($location);
 
     $explodedLocation = explode('-', $location);
-    if (count($explodedLocation) == 1) {
+    if (isset($this->getCtxArgs()['expedition'])) {
+      $invokePId = $this->getCtxArgs()['player'];
+    } elseif (count($explodedLocation) == 1) {
       $invokePId = $player->getId();
     } else {
       $invokePId = $explodedLocation[1];

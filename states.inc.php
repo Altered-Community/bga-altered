@@ -385,8 +385,8 @@ $machinestates = [
 
   ST_TARGET_EXPEDITION => [
     'name' => 'targetExpedition',
-    'description' => clienttranslate('${actplayer} must target an expedition'),
-    'descriptionmyturn' => clienttranslate('${you} must target an expedition'),
+    'description' => clienttranslate('${actplayer} must target ${n} expedition(s)'),
+    'descriptionmyturn' => clienttranslate('${you} must target ${n} expedition(s)'),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',

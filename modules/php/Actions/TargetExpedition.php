@@ -21,6 +21,20 @@ class TargetExpedition extends \ALT\Models\Action
     return ST_TARGET_EXPEDITION;
   }
 
+  protected $args = ['n' => 1];
+
+  public function getDescription()
+  {
+    $msg = clienttranslate('Target ${n} expeditions to ${effect_desc}');
+    return [
+      'log' => $msg,
+      'args' => [
+        'n' => $this->getCtxArg('n') ?? 1,
+        'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
+      ],
+    ];
+  }
+
   public function argsTargetExpedition()
   {
     $expeditions = [];
@@ -35,7 +49,7 @@ class TargetExpedition extends \ALT\Models\Action
         $expeditions[] = $pId . '-' . $storm;
       }
     }
-    return ['expeditions' => $expeditions];
+    return ['expeditions' => $expeditions, 'n' => $this->getArg('n')];
   }
 
   public function stTargetExpedition()
@@ -49,27 +63,29 @@ class TargetExpedition extends \ALT\Models\Action
   {
     $player = $this->getPlayer();
     $args = $this->argsTargetExpedition();
-    $expeditions = explode('-', $expedition);
 
-    if (!in_array($expeditions[2] . "-" . $expeditions[1], $args['expeditions'])) {
-      throw new \BgaVisibleSystemException('Invalid target expedition. Should not happen');
-    }
-
-    $pId = $expeditions[2];
-
-    $node = $this->getArg('effect');
-    $node['sourceId'] = $this->getSourceId();
-    $node['args']['player'] = $pId;
-    $node['args']['expedition'] = $expeditions[1];
-    if (isset($node['childs'])) {
-      foreach ($node['childs'] as &$child) {
-        $child['sourceId'] = $this->getSourceId();
-        $child['args']['player'] = $pId;
-        $child['args']['expedition'] = $expeditions[1];
+    foreach ($expedition as $exp) {
+      $expeditions = explode('-', $exp);
+      if (!in_array($exp, $args['expeditions'])) {
+        throw new \BgaVisibleSystemException('Invalid target expedition. Should not happen');
       }
+
+      $pId = $expeditions[0];
+
+      $node = $this->getArg('effect');
+      $node['sourceId'] = $this->getSourceId();
+      $node['args']['player'] = $pId;
+      $node['args']['expedition'] = $expeditions[1];
+      if (isset($node['childs'])) {
+        foreach ($node['childs'] as &$child) {
+          $child['sourceId'] = $this->getSourceId();
+          $child['args']['player'] = $pId;
+          $child['args']['expedition'] = $expeditions[1];
+        }
+      }
+      $this->pushParallelChild($node);
     }
 
-    $this->pushParallelChild($node);
 
     return [$expedition];
   }

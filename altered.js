@@ -985,16 +985,14 @@ define([
       let canUseRandom = false;
       if (args.demoDeck == false && canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-        $('card-fake-random')
-          .querySelector('.altered-card-wrapper')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
+          'beforeend',
+          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Random deck
             </div>
           </div>`
-          );
+        );
         this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
       }
     },
@@ -2084,19 +2082,28 @@ define([
         oppositeSource: _('opposite of played card'),
       };
 
-      let onChooseLocation = (location) => {
-        return () => this.takeAtomicAction('actTargetExpedition', [location]);
-      };
-
+      let elements = {};
       args.expeditions.forEach((ex) => {
         data = ex.split('-');
-        this.onClick(`board-${data[1]}-${data[0]}`, onChooseLocation(`board-${data[1]}-${data[0]}`));
+        $(`board-${data[1]}-${data[0]}`).classList.add('selectable');
+        elements[ex] = $(`board-${data[1]}-${data[0]}`);
       });
 
-      // this.forEachPlayer((player) => {
-      //   ['stormLeft', 'stormRight'].forEach((location) => {
-      //     this.onClick(`board-${location}-${player.id}`, onChooseLocation(`board-${location}-${player.id}`));
-      //   });
+      this.onSelectN({
+        n: args.n,
+        elements: elements,
+        class: 'selectable',
+        confirmText: _('Confirm target'),
+        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTargetExpedition', [selectedElements]),
+      });
+
+      // let onChooseLocation = (location) => {
+      //   return () => this.takeAtomicAction('actTargetExpedition', [location]);
+      // };
+
+      // args.expeditions.forEach((ex) => {
+      //   data = ex.split('-');
+      //   this.onClick(`board-${data[1]}-${data[0]}`, onChooseLocation(`board-${data[1]}-${data[0]}`));
       // });
     },
 

@@ -126,6 +126,17 @@
             }
         }
 
+        &.selected {
+            border: 2px solid rgb(251, 200, 31);
+            background: rgb(241, 211, 114, 0.2);
+            cursor: pointer;
+
+            &:hover {
+                border: 2px solid rgb(251, 200, 31);
+                background: rgb(241, 211, 114, 0.2);
+            }
+        }
+
         .flip-container {
             width: calc(#{$miniCardScale * 324px} + 14px);
             height: calc(#{$miniCardScale * 324px} + 10px);

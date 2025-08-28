@@ -24,7 +24,10 @@ class MarkRegion extends \ALT\Models\Action
     return clienttranslate('Mark a visible region');
   }
 
-  protected $args = [];
+  protected $args = [
+    'create' => false,
+    'regionType' => null
+  ];
 
   public function argsMarkRegion()
   {
@@ -43,7 +46,14 @@ class MarkRegion extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return count($this->getMarkers()) > 0;
+    return count($this->getMarkers()) > 0 || $this->getArg('create') === true;
+  }
+
+  public function stPreMarkRegion()
+  {
+    if ($this->getArg('create') === true) {
+      $marker = Meeples::singleCreate(['type' => $this->getArg('regionType'), 'location' => 'card-' . $this->getSourceId(), 'player_id' => Players::getCurrentId()]);
+    }
   }
 
   public function actMarkRegion($markerId, $stormId)
