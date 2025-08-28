@@ -64,6 +64,9 @@ class TargetExpedition extends \ALT\Models\Action
     $player = $this->getPlayer();
     $args = $this->argsTargetExpedition();
 
+    if ($expedition == 'all') {
+      $expedition = $args['expeditions'];
+    }
     foreach ($expedition as $exp) {
       $expeditions = explode('-', $exp);
       if (!in_array($exp, $args['expeditions'])) {
