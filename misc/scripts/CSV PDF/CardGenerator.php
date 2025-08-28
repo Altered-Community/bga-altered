@@ -25,6 +25,9 @@ function varexport($expression, $return = FALSE)
 
 function slugify($text)
 {
+	 $text = str_replace('ō', 'o', $text);
+  $text = str_replace('ö', 'o', $text);
+  $text = str_replace('ā', 'a', $text);
   // replace non letter or digits by -
   $text = preg_replace('~[^\pL\d]+~u', '', $text);
 

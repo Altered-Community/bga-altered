@@ -12,6 +12,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Game;
 use ALT\Core\Engine;
 use ALT\Helpers\Utils;
+use ReturnTypeWillChange;
 
 class SpecialEffect extends \ALT\Models\Action
 {
@@ -258,6 +259,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Gain 1 boost per character in expedition facing card');
       case 'nextTokenAsleep':
         return clienttranslate('Token gains <ASLEEP>');
+      case 'boostReserveSubtype':
+        return clienttranslate('Each reserve of specific subtype gain 1 <BOOST>');
     }
     return '';
   }
@@ -1701,6 +1704,20 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextTokenAsleep':
         Globals::setNextTokenAsleep(true);
+        break;
+      case 'boostReserveSubtype':
+        $player = Players::getActive();
+        $subType = $args['subType'];
+        $nodes = [];
+        foreach ($player->getReserveCards() as $cId => $card) {
+          if (!in_array($subType, $card->getSubtypes())) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(GAIN, ['cardId' => $cId, 'type' => BOOST], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       default:
         break;
