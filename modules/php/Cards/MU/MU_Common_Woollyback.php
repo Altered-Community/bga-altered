@@ -16,7 +16,7 @@ class MU_Common_Woollyback extends \ALT\Models\Card
       'faction'  => FACTION_MU,
       'rarity'  => RARITY_COMMON,
       'name'  => clienttranslate("Woollyback"),
-      'typeline' => clienttranslate("Token - Animal"),
+      'typeline' => clienttranslate("Token Character - Animal"),
       'type'  => CHARACTER,
       'flavorText'  => clienttranslate('The warmth of wool and the softness of cotton candy, now together on four legs.'),
       'artist' => "Fahmi Fauzi",
