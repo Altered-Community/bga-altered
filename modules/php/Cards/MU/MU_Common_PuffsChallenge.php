@@ -25,6 +25,12 @@ class MU_Common_PuffsChallenge extends \ALT\Models\Card
       'effectDesc' => clienttranslate('$<FLEETING>.  If an opponent controls three or more Characters, I cost {1} less.  Send target Character to Reserve.'),
       'costHand' => 4,
       'costReserve' => 4,
+      'dynamicCostReduction' => "1:hasOpponentControl:character:3",
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN(ME, FLEETING),
+        FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()])
+      ),
+
     ];
   }
 }

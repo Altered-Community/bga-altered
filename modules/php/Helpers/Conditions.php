@@ -344,7 +344,7 @@ abstract class Conditions
     }
   }
 
-  public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
+  public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE', $opponent = false)
   {
     $types = [CHARACTER, TOKEN];
     if ($type == TOKEN) {
@@ -357,7 +357,12 @@ abstract class Conditions
       $types = [CHARACTER, TOKEN, PERMANENT];
     }
 
-    $cards = $card->getPlayer()->getPlayedCards($types);
+    if ($opponent) {
+      $player = Players::getNext($card->getPlayer());
+    } else {
+      $player = $card->getPlayer();
+    }
+    $cards = $player->getPlayedCards($types);
 
     if ($type == TOKEN) {
       $cards = $cards->filter(fn($c) => $c->isToken());
@@ -387,6 +392,12 @@ abstract class Conditions
       return $m <= $n;
     }
   }
+
+  public static function hasOpponentControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
+  {
+    return self::hasControl($card, $event, $type, $n, $excludeMyself, $state, $op, true);
+  }
+
 
   // Flawed prototype
   public static function noRobotnoPermanent($card, $event)
