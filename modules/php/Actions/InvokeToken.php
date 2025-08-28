@@ -171,6 +171,11 @@ class InvokeToken extends \ALT\Models\Action
         $invokePId = Cards::get($effectId)->getPId();
       } elseif ($targetPlayer == OPPONENT) {
         $invokePId = Players::getNextId($player);
+      } elseif ($targetPlayer == 'owner') {
+        $invokePId = $this->getCtxArgs()['ownerId'] ?? -1;
+        if ($invokePId == -1) {
+          throw new \BgaVisibleSystemException('Error in invoke token, should not happen');
+        }
       }
     }
 
@@ -202,6 +207,10 @@ class InvokeToken extends \ALT\Models\Action
       if (Globals::getNextTokenAnchored() == true) {
         $this->insertAsChild(FT::GAIN($card, ANCHORED));
         Globals::setNextTokenAnchored(false);
+      }
+      if (Globals::getNextTokenAsleep() == true) {
+        $this->insertAsChild(FT::GAIN($card, ASLEEP));
+        Globals::setNextTokenAsleep(false);
       }
 
 

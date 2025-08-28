@@ -69,6 +69,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     // Cyclone
     'globalTough' => 'obj', // 'Kauri's intervention
+    'nextTokenAsleep' => 'bool', // Pan
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',

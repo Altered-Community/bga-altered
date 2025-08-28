@@ -256,6 +256,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Gain 1 boost per card in reserve');
       case 'boostXOpponentExpedition':
         return clienttranslate('Gain 1 boost per character in expedition facing card');
+      case 'nextTokenAsleep':
+        return clienttranslate('Token gains <ASLEEP>');
     }
     return '';
   }
@@ -1696,6 +1698,9 @@ class SpecialEffect extends \ALT\Models\Action
         $globalTough = Globals::getGlobalTough();
         $globalTough[$card->getPId()][] = $args;
         Globals::setGlobalTough($globalTough);
+        break;
+      case 'nextTokenAsleep':
+        Globals::setNextTokenAsleep(true);
         break;
       default:
         break;
