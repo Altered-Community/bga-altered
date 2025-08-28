@@ -537,6 +537,7 @@
                 }
             }
         }
+
         .card-frame[data-type="gear"] {
             &[data-support="0"][data-size="1"] ~ {
                 .card-name {
@@ -896,6 +897,24 @@
         }
         .card-frame[data-support="1"][data-size="2"] ~ .card-subpermanent {
             top: 245px;
+        }
+
+        // Management of NE permanent
+        .card-frame[data-type="permanent"][data-faction="NE"] {
+            &[data-support="0"][data-size="2"] ~ {
+                .card-name {
+                    top: 250px;
+                }
+                .card-typeline {
+                    top: 270px;
+                }
+                .card-subpermanent{
+                    top: 314px;
+                }
+                .card-text {
+                    top: 350px;
+                }
+            }
         }
 
         .card-footer {

@@ -21,7 +21,7 @@ class NE_Common_Aerolith extends \ALT\Models\Card
       'flavorText'  => clienttranslate('With aerolith, gravity no longer constrains how we build.'),
       'artist' => "Jean-Baptiste Andrier",
       'extension' => 'SO',
-      'subtypes'  => [ORE],
+      'subtypes'  => [ORE, LANDMARK],
       'effectDesc' => clienttranslate('When I\'m sacrificed — <RESUPPLY>. (Put the top card of your deck in Reserve. Excess Landmarks are sacrificed at the end of the Day.)  {T}, {1} : Sacrifice me.'),
       'token' => true,
       // 'sacrificeResupply' => true,

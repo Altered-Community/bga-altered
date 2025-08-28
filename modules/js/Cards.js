@@ -1719,7 +1719,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
-        isLandmark ? (p.hasOwnProperty('token') ? 'token' : 'permanent') : 'gear'
+        isLandmark ? (p.hasOwnProperty('token') ? 'permanent' : 'permanent') : 'gear'
       }'></div>
           `;
       if (!p.hasOwnProperty('token')) {

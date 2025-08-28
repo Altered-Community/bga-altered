@@ -6650,6 +6650,18 @@ html {
 .altered-card .altered-card-wrapper .card-frame[data-support="1"][data-size="2"] ~ .card-subpermanent {
   top: 245px;
 }
+.altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-faction=NE][data-support="0"][data-size="2"] ~ .card-name {
+  top: 250px;
+}
+.altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-faction=NE][data-support="0"][data-size="2"] ~ .card-typeline {
+  top: 270px;
+}
+.altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-faction=NE][data-support="0"][data-size="2"] ~ .card-subpermanent {
+  top: 314px;
+}
+.altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-faction=NE][data-support="0"][data-size="2"] ~ .card-text {
+  top: 350px;
+}
 .altered-card .altered-card-wrapper .card-footer {
   position: absolute;
   bottom: 16px;
