@@ -39,6 +39,7 @@ class ChooseAssignment extends \ALT\Models\Action
     'maxBaseCost' => INFTY,
     'minBaseCost' => 0,
     'limited' => false,
+    'forcedLocation' => null,
   ];
 
   public function argsChooseAssignment()
@@ -53,6 +54,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $maxBaseCost = $this->getArg('maxBaseCost');
     $minBaseCost = $this->getArg('minBaseCost');
     $free = $this->getArg('free');
+    $forcedLocation = $this->getArg('forcedLocation');
 
     // 1. Play cards
     if (in_array('play', $authorizedActions)) {
@@ -65,8 +67,8 @@ class ChooseAssignment extends \ALT\Models\Action
               (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
             ));;
         })
-        ->map(function ($card) use ($player) {
-          return $card->getPlayableLocation($player);
+        ->map(function ($card) use ($player, $forcedLocation) {
+          return $card->getPlayableLocation($player, $forcedLocation);
         });
 
       // Scout is only for hand cards
@@ -75,8 +77,8 @@ class ChooseAssignment extends \ALT\Models\Action
           return $card->getScout() > 0 && in_array($card->getType(), $authorizedTypes) &&
             ((!$free && $card->canBePlayed($player, true)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
         })
-        ->map(function ($card) use ($player) {
-          return $card->getScoutableLocations($player);
+        ->map(function ($card) use ($player, $forcedLocation) {
+          return $card->getScoutableLocations($player, $forcedLocation);
         });
       foreach ($scouts as $key => $locs) {
         $actions['play'][$key] = array_merge($actions['play'][$key] ?? [], $locs);

@@ -334,7 +334,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
-  public function getPlayableLocation($player)
+  public function getPlayableLocation($player, $forcedLocation = null)
   {
     if (in_array(LANDMARK, $this->getSubtypes())) {
       return [LANDMARK];
@@ -344,7 +344,9 @@ class Card extends \ALT\Helpers\DB_Model
       $locations = [];
       if ($this->getLocation() == RESERVE && $this->isTapped()) {
         foreach (STORMS as $storm) {
-          if ($player->canPlayTappedCards($this->getType(), $storm)) {
+          if (($player->canPlayTappedCards($this->getType(), $storm) && is_null($forcedLocation)) ||
+            ($player->canPlayTappedCards($this->getType(), $storm) && !is_null($forcedLocation) && $forcedLocation == $storm)
+          ) {
             $locations[] = $storm;
           }
         }
@@ -353,41 +355,61 @@ class Card extends \ALT\Helpers\DB_Model
         if ($this->getCostReductionIfEmpty() > 0) {
           // If the cost can be paid no matter what, we put all storms
           if ($this->getCost() <= $player->getMana()) {
+            if (!is_null($forcedLocation)) {
+              return [$forcedLocation];
+            }
             return STORMS;
           }
           $locations = [];
           if ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER]) == 0) {
-            $locations[] = STORM_LEFT;
+            if ((!is_null($forcedLocation) && $forcedLocation == STORM_LEFT) || is_null($forcedLocation)) {
+              $locations[] = STORM_LEFT;
+            }
           }
           if ($player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0) {
-            $locations[] = STORM_RIGHT;
+            if ((!is_null($forcedLocation) && $forcedLocation == STORM_RIGHT) || is_null($forcedLocation)) {
+              $locations[] = STORM_RIGHT;
+            }
           }
           return $locations;
         } else {
+          if (!is_null($forcedLocation)) {
+            return [$forcedLocation];
+          }
           return STORMS;
         }
       }
     }
   }
 
-  public function getScoutableLocations($player)
+  public function getScoutableLocations($player, $forcedLocation = null)
   {
     $locations = [];
 
     if ($this->getCostReductionIfEmpty() > 0) {
       // If the cost can be paid no matter what, we put all storms
       if ($this->getCost(true) <= $player->getMana()) {
+        if (!is_null($forcedLocation)) {
+          return [$forcedLocation . '_scout'];
+        }
         return ['stormLeft_scout', 'stormRight_scout'];
       }
       $locations = [];
       if ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER]) == 0) {
-        $locations[] = 'stormLeft_scout';
+        if ((!is_null($forcedLocation) && $forcedLocation == STORM_LEFT) || is_null($forcedLocation)) {
+          $locations[] = 'stormLeft_scout';
+        }
       }
       if ($player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0) {
-        $locations[] = 'stormRight_scout';
+        if ((!is_null($forcedLocation) && $forcedLocation == STORM_RIGHT) || is_null($forcedLocation)) {
+          $locations[] = 'stormRight_scout';
+        }
       }
       return $locations;
     } else {
+      if (!is_null($forcedLocation)) {
+        return [$forcedLocation . '_scout'];
+      }
       return ['stormLeft_scout', 'stormRight_scout'];
     }
   }
