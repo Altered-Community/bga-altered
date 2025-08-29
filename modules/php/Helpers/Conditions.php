@@ -227,8 +227,8 @@ abstract class Conditions
   {
     return $event['pId'] == $card->getPId() &&
       (!isset(Globals::getStormMoves()[$card->getPId()]) ||
-        (Globals::getStormMoves()[$card->getPId()][STORM_LEFT]['moves'] ?? 0) +
-        (Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0) ==
+        (abs(Globals::getStormMoves()[$card->getPId()][STORM_LEFT]['moves'] ?? 0)) +
+        (abs(Globals::getStormMoves()[$card->getPId()][STORM_RIGHT]['moves'] ?? 0)) ==
         0) && !Globals::isTieBreakerMode();
   }
 
@@ -237,6 +237,14 @@ abstract class Conditions
     $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? null;
     $stormMoves = $stormMoves[$card->getLocation()] ?? null;
     return $event['pId'] == $card->getPId() && (is_null($stormMoves) || ($stormMoves['moves'] ?? 0) == 0) && !Globals::isTieBreakerMode();
+  }
+
+  public static function myOtherExpeditionHasMoved($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? null;
+    $otherExp = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+    $stormMoves = $stormMoves[$otherExp] ?? null;
+    return $event['pId'] == $card->getPId() && (!is_null($stormMoves) && ($stormMoves['moves'] ?? 0) >= 0) && !Globals::isTieBreakerMode();
   }
 
   public static function myExpeditionHasMoved($card, $event)
