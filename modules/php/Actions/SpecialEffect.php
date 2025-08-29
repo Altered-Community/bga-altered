@@ -1582,6 +1582,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'ascend':
         $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
+        $player = $this->getCtxArg('player') ?? $player;
         $expedition = $this->getCtxArg('expedition');
         // manage my expedition
         if ($expedition == 'source') {
