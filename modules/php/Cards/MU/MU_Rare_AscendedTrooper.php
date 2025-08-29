@@ -28,14 +28,12 @@ class MU_Rare_AscendedTrooper extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::XOR(
-        FT::ACTION(CHECK_CONDITION, [
-          'condition' => 'isCardExpeditionAscended',
-          'effect' => FT::GAIN(ME, BOOST),
-          'oppositeEffect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
-        ]),
-
-      )
+      'effectPlayed' =>
+      FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'isCardExpeditionAscended',
+        'effect' => FT::GAIN(ME, BOOST),
+        'oppositeEffect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
+      ]),
     ];
   }
 }

@@ -1289,6 +1289,19 @@ abstract class Conditions
     return false;
   }
 
+  public static function cardInMonoRegion($card, $event)
+  {
+    $visibleRegions = Players::getRegionsInfo();
+    $count = 0;
+    $tokenF = $card->getLocation() == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+    $token = $card->getPlayer()->$tokenF()->getLocationArg();
+
+    if (count($visibleRegions[$token]) == 1) {
+      return true;
+    }
+    return false;
+  }
+
   /**********************************
    **********************************
    ************* HELPERS ************
