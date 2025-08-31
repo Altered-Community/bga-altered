@@ -870,6 +870,11 @@ class Notifications
     ]);
   }
 
+  public static function refreshCard($card)
+  {
+    self::notifyAll('refreshCard', '', ['card' => $card]);
+  }
+
   /////////////////////////////////
   //  ____       _
   // / ___|  ___| |_ _   _ _ __

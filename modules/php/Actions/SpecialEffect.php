@@ -1720,6 +1720,39 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;
+      case 'doppelganger':
+        // throw new \feException(print_r($this->getCtxArgs()));
+        $extra = $card->getExtraDatas();
+        $extra['subtypes'] = $card->getSubtypes();
+        $extra['typeline'] = $card->getTypeline();
+        $card->setSubtypes(Cards::get($this->getCtxArgs()['cardId'])->getSubtypes());
+        $card->setTypeline(Cards::get($this->getCtxArgs()['cardId'])->getTypeline());
+
+        $card->setExtraDatas($extra);
+        Notifications::refreshCard($card);
+        // Gain boost
+        $max = 0;
+        $biomes = Cards::get($this->getCtxArgs()['cardId'])->getBiomes(true);
+        foreach ($biomes as $b => $value) {
+          if ($value > $max) {
+            $max = $value;
+          }
+        }
+        if ($max > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => $card->getId(),
+            'type' => BOOST,
+            'n' => $max
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'resetCard':
+        $extra = $card->getExtraDatas();
+        $card->setSubtypes($extra['subtypes']);
+        $card->setTypeline($extra['typeline']);
+        Notifications::refreshCard($card);
+
+        break;
       default:
         break;
     }

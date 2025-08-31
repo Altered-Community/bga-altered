@@ -1364,6 +1364,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
     },
 
+    notif_refreshCard(n) {
+      debug('refreshing one card', n);
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+      CARDS_DATA[card.id] = card;
+    },
+
     //////////////////////////////////////////////
     //  _____ ____  _
     // |_   _|  _ \| |
