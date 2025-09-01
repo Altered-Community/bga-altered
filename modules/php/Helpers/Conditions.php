@@ -326,7 +326,7 @@ abstract class Conditions
       ->count() > 0;
   }
 
-  public static function hasReserve($card, $event, $type = null, $costHand = null, $op = 'GTE')
+  public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE')
   {
     $cards = $card
       ->getPlayer()
@@ -344,6 +344,16 @@ abstract class Conditions
           return $c->getCostHand() >= $costHand;
         } elseif ($op == 'LTE') {
           return $c->getCostHand() <= $costHand;
+        }
+      });
+    }
+
+    if (!is_null($costReserve) && $costReserve != '') {
+      $cards = $cards->filter(function ($c) use ($costReserve, $op) {
+        if ($op == 'GTE') {
+          return $c->getCostReserve() >= $costReserve;
+        } elseif ($op == 'LTE') {
+          return $c->getCostReserve() <= $costReserve;
         }
       });
     }
@@ -1265,6 +1275,16 @@ abstract class Conditions
   {
     $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
     return $card->getPlayer()->isAscended($side);
+  }
+
+  public static function countSourceAscended($card, $event)
+  {
+    return ($card->getPlayer()->isAscended(HERO) == true ? 1 : 0) + ($card->getPlayer()->isAscended(COMPANION) == true ? 1 : 0);
+  }
+
+  public static function hasSourcePlayerAscended($card, $event)
+  {
+    return self::countSourceAscended($card, $event)  > 0;
   }
 
   public static function isSupportEffect($card, $event)

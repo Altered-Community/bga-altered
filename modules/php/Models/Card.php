@@ -778,6 +778,8 @@ class Card extends \ALT\Helpers\DB_Model
           })->count();
         }
         $dynamicReduction = $cards;
+      } elseif ($dynamicReduction == 'eachwOwnerAscended') {
+        $dynamicReduction = ($this->getPlayer()->isAscended(HERO) == true ? 1 : 0) + ($this->getPlayer()->isAscended(COMPANION) == true ? 1 : 0);
       } else {
         $dynamicReduction = (int) $dynamicReduction;
       }
