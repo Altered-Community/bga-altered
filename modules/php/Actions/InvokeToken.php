@@ -140,7 +140,7 @@ class InvokeToken extends \ALT\Models\Action
       $this->resolveAction([PASS]);
       return;
     }
-    if (count($args['locations']) == 1) {
+    if (count($args['locations']) == 1 && $this->getArg('allPlayers') == false) {
       $this->actInvokeToken($args['locations'][0], true);
     }
   }

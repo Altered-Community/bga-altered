@@ -2025,6 +2025,7 @@ define([
         source: _('source'),
         initialSource: _('source'),
         oppositeSource: _('opposite of played card'),
+        landmark: _('Landmark'),
       };
 
       let onChooseLocation = (location) => {
