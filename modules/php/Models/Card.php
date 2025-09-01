@@ -489,7 +489,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $meepleIds;
   }
 
-  public function checkLeaveListener($target, $afterNight)
+  public function checkLeaveListener($target, $afterNight, $isSacrifice = false)
   {
     $type = null;
     $location = $this->getLocation();
@@ -535,6 +535,31 @@ class Card extends \ALT\Helpers\DB_Model
             'pId' => $this->getPId(),
           ],
         ]);
+      }
+    }
+
+    // Additions if landmark and is removed at night, it becames a sacrifice
+    if ($isSacrifice && $afterNight) {
+      $event2 = [
+        'type' => 'Discard',
+        'method' => 'Discard',
+        'discardCard' => true,
+        'cardsToListen' => [$this->id], // we add the discarded cards as they should react even if not played
+        'cardId' => $this->id,
+        'token' => $this->isToken(),
+        'from' => LANDMARK,
+        'to' => DISCARD_PILE,
+        'sacrifice' => $isSacrifice
+      ];
+      if ($this->isListeningTo($event2)) {
+        $afterCleanup[$this->getPId()][] = [
+          'action' => ACTIVATE_CARD,
+          'args' => [
+            'cardId' => $this->id,
+            'event' => $event2,
+          ],
+          'pId' => $this->getPId(),
+        ];
       }
     }
 
