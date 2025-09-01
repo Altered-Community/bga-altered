@@ -94,6 +94,12 @@ abstract class Conditions
     return $card->getId() == ($event['sourceId'] ?? -1) || (($event['augment'] ?? false) == true && ($event['cardId'] ?? -1) == $card->getId());
   }
 
+  public static function isFacingSource($card, $event)
+  {
+    $targetCard = Cards::get($event['cardId']);
+    return $card->getPId() != $targetCard->getPId() && ($card->getLocation() == $targetCard->getLocation() || $targetCard->isGigantic());
+  }
+
   public static function hasSameOwner($card, $event)
   {
     $cardId = $event['cardId'] ??  null;
