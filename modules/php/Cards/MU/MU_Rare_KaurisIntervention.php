@@ -25,10 +25,8 @@ class MU_Rare_KaurisIntervention extends \ALT\Models\Card
       'effectDesc' => clienttranslate('#Target a player.# This Day, Characters with Hand Cost #{3} or more that they control# are <TOUGH_CHA_P_5>.'),
       'costHand' => 1,
       'costReserve' => 1,
-      'effectPlayed' => FT::SEQ(
-        FT::GAIN(ME, FLEETING),
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'globalTough', 'args' => ['type' => CHARACTER, 'minHandCost' => 3, 'tough' => 5]])
-      )
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'globalTough', 'args' => ['type' => CHARACTER, 'minHandCost' => 3, 'tough' => 5]])
+
     ];
   }
 }
