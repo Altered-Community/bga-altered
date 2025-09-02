@@ -1584,20 +1584,26 @@ class SpecialEffect extends \ALT\Models\Action
         $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
         $player = $this->getCtxArg('player') ?? $player;
         $expedition = $this->getCtxArg('expedition');
+        $resupplyIfAscended = $this->getCtxArgs('resupplyIfAscended') ?? false;
         // manage my expedition
         if ($expedition == 'source') {
           $expedition = $card->getLocation();
         }
         $oPlayer = Players::get($player);
-        $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
-        $oToken = $oPlayer->$token();
-        $ascended = Meeples::singleCreate([
-          'player_id' => $player,
-          'location' => $oToken->getLocation(),
-          'nbr' => 1,
-          'type' => 'ascend'
-        ]);
-        Notifications::ascend($ascended, $oPlayer, $card, $expedition);
+        $side = $expedition == STORM_LEFT ? HERO : COMPANION;
+        if ($resupplyIfAscended && $oPlayer->isAscended($side)) {
+          $this->insertAsChild(FT::ACTION(RESUPPLY, []));
+        } elseif (!$oPlayer->isAscended($side)) {
+          $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          $oToken = $oPlayer->$token();
+          $ascended = Meeples::singleCreate([
+            'player_id' => $player,
+            'location' => $oToken->getLocation(),
+            'nbr' => 1,
+            'type' => 'ascend'
+          ]);
+          Notifications::ascend($ascended, $oPlayer, $card, $expedition);
+        }
         break;
       case 'switchPlayer':
         $newFirstPId = $this->getCtxArgs()['pId'];

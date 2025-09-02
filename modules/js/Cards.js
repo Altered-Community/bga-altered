@@ -2181,6 +2181,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Ascends'),
           reminder: _("Until Rest, it can move forward even if matched in its region's terrains by the opponent's Expedition."),
         },
+        ASCEND_INF: {
+          text: _('Ascend'),
+          reminder: _("Until Rest, it can move forward even if matched in its region's terrains by the opponent's Expedition."),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
