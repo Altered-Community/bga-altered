@@ -30,7 +30,7 @@ class MU_Rare_MunaSignet extends \ALT\Models\Card
         FT::GAIN(ME, FLEETING),
         [
           'type' => NODE_OR,
-          'args' => ['n' => 2, 'canReuse' => false],
+          'args' => ['n' => 2],
           'pId' => 'source',
           'childs' => [
             FT::ACTION(TARGET_EXPEDITION, [

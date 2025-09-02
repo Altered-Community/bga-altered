@@ -30,7 +30,7 @@ class AX_Rare_AxiomSignet extends \ALT\Models\Card
         FT::GAIN(ME, FLEETING),
         [
           'type' => NODE_OR,
-          'args' => ['n' => 2, 'canReuse' => true],
+          'args' => ['n' => 2],
           'pId' => 'source',
           'childs' => [
             FT::ACTION(INVOKE_TOKEN, [

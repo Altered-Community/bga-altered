@@ -30,7 +30,7 @@ class YZ_Rare_BravosSignet extends \ALT\Models\Card
         FT::GAIN(ME, FLEETING),
         [
           'type' => NODE_OR,
-          'args' => ['n' => 2, 'canReuse' => true],
+          'args' => ['n' => 2],
           'pId' => 'source',
           'childs' => [
             FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 3])]),
