@@ -311,6 +311,12 @@ abstract class Conditions
     return !self::allExpeditionsAreBehindOrTied($card, $event);
   }
 
+  public static function cardPlayedAscended($card, $event)
+  {
+    $pCard = Cards::get($event['cardId']);
+    return self::isCardExpeditionAscended($pCard, $event);
+  }
+
   /////////////////////////////////////////
   //   ____            _             _
   //  / ___|___  _ __ | |_ _ __ ___ | |
@@ -1321,7 +1327,7 @@ abstract class Conditions
     $count = 0;
     $tokenF = $card->getLocation() == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
     $token = $card->getPlayer()->$tokenF()->getLocationArg();
-
+    // TODO: manage gigntic?
     if (count($visibleRegions[$token]) == 1) {
       return true;
     }

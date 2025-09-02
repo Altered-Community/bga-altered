@@ -13,6 +13,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
+use ALT\Helpers\Conditions;
 
 class Target extends \ALT\Models\Action
 {
@@ -50,6 +51,7 @@ class Target extends \ALT\Models\Action
     'ignoreTough' => false,
     'excludeToken' => false,
     'ascendedOnly' => false,
+    'monoBiome' => false, // Rare Lyra Origamium
   ];
 
   public function getDescription()
@@ -207,9 +209,10 @@ class Target extends \ALT\Models\Action
     $maxStatistic = $this->getArg('maxStatistic');
 
     $augmentOnly = $this->getArg('augmentOnly');
+    $monoBiome = $this->getArg('monoBiome');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -235,6 +238,10 @@ class Target extends \ALT\Models\Action
       }
 
       if ($ascendedOnly && !$c->isInAscended()) {
+        return false;
+      }
+
+      if ($monoBiome && !Conditions::cardInMonoRegion($c, [])) {
         return false;
       }
 
