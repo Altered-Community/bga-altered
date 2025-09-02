@@ -49,6 +49,7 @@ class Target extends \ALT\Models\Action
     'allIds' => false, // we put all the Ids instead of duplicating for each card
     'ignoreTough' => false,
     'excludeToken' => false,
+    'ascendedOnly' => false,
   ];
 
   public function getDescription()
@@ -180,6 +181,7 @@ class Target extends \ALT\Models\Action
       $targetPlayer = $pIds = array_diff($pIds, [$pId]);
     }
     $excludeTokens = $this->getArg('excludeToken');
+    $ascendedOnly = $this->getArg('ascendedOnly');
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
@@ -207,7 +209,7 @@ class Target extends \ALT\Models\Action
     $augmentOnly = $this->getArg('augmentOnly');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -229,6 +231,10 @@ class Target extends \ALT\Models\Action
 
       // Only card with a boost or a counter can be augmented
       if ($augmentOnly && !$c->hasCounters()) {
+        return false;
+      }
+
+      if ($ascendedOnly && !$c->isInAscended()) {
         return false;
       }
 

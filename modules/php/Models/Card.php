@@ -1189,4 +1189,20 @@ class Card extends \ALT\Helpers\DB_Model
     }
     return false;
   }
+
+  public function isInAscended()
+  {
+    if (!in_array($this->getLocation(), STORMS)) {
+      return false;
+    }
+
+    $side = $this->getLocation() == STORM_LEFT ? HERO : COMPANION;
+    $otherSide = $side == HERO ? COMPANION : HERO;
+
+    if ($this->isGigantic()) {
+      return $this->getPlayer()->isAscended($side) || $this->getPlayer()->isAscended($otherSide);
+    } else {
+      return $this->getPlayer()->isAscended($side);
+    }
+  }
 }
