@@ -21,6 +21,10 @@ class InvokeToken extends \ALT\Models\Action
     return ST_INVOKE_TOKEN;
   }
 
+  protected $args = [
+    'allPlayers' => false
+  ];
+
   public function getDescription()
   {
     $msg = clienttranslate('Invoke ${tokenName}');

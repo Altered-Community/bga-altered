@@ -101,7 +101,7 @@ class Action
       if (array_key_exists($v, $this->args)) {
         $t = $this->args[$v];
       } else {
-        throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v);
+        throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v . ' action' . $this->getClassName());
       }
     }
     return $t;
