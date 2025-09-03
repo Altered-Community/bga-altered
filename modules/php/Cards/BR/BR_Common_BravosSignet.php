@@ -26,7 +26,7 @@ class BR_Common_BravosSignet extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 4,
       'effectPlayed' => FT::XOR(
-        FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 3])]),
+        FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 3])]),
         FT::ACTION(TARGET, ['maxHandCost' => 3, 'targetType' => [CHARACTER], 'effect' => FT::RETURN_TO_HAND()]),
         FT::ACTION(DRAW_MANA, [])
       )
