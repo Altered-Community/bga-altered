@@ -103,6 +103,7 @@ class NightCleanup extends \ALT\Models\Action
       $originalLocation = $card->getLocation();
       if ($originalLocation == LANDMARK) {
         $card->checkLeaveListener($destination, true, true); // Check leave listener
+        $destination = 'destroy';
       } elseif (in_array($originalLocation, [RESERVE, STORM_LEFT, STORM_RIGHT])) {
         $card->checkLeaveListener($destination, true); // Check leave listener
       }
