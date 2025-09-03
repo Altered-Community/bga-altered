@@ -24,6 +24,11 @@ trait NewDayTrait
       $nCards = 15;
     }
 
+    $markers = Meeples::createHeroMarkers();
+    if (!empty($markers)) {
+      Notifications::addTerrainMarkers($markers);
+    }
+
     // Draw cards and make everyone active
     $pIds = [];
 

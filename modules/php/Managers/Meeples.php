@@ -63,7 +63,10 @@ class Meeples extends \ALT\Helpers\CachedPieces
         $toCreate[] = ['type' => MOUNTAIN, 'location' => 'card-' . $hero->getId(), 'player_id' => $player->getId()];
       }
     }
-    return self::create($toCreate);
+    if (!empty($toCreate)) {
+      return self::create($toCreate);
+    }
+    return $toCreate;
   }
 
   public static function countMeeples($location, $type)

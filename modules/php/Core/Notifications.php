@@ -220,6 +220,13 @@ class Notifications
     ]);
   }
 
+  public static function addTerrainMarkers($markers)
+  {
+    self::notifyAll('slideMeeples', '', [
+      'meeples' => $markers->toArray(),
+    ]);
+  }
+
   public static function moveTerrainMarker($player, $marker, $source)
   {
     self::notifyAll('slideMeeples', clienttranslate('${player_name} moves a ${biome_icon}${biome_name} terrain marker on a region (${card_name}\'s effect)'), [

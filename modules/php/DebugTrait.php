@@ -82,7 +82,10 @@ trait DebugTrait
 
   function tp()
   {
-    Meeples::createHeroMarkers();
+    $markers = Meeples::createHeroMarkers();
+    if (!empty($markers)) {
+      Notifications::addTerrainMarkers($markers);
+    }
   }
 
   function dv()
