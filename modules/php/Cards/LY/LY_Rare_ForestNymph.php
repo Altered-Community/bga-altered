@@ -30,7 +30,7 @@ class LY_Rare_ForestNymph extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'isOpponentExpeditionIn:forest',
-        'effect' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, ASLEEP)])
+        'effect' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)])
       ]),
       'effectReserve' => FT::ACTION(MOVE_REGION_MARKER, ['markerType' => FOREST])
     ];

@@ -30,7 +30,7 @@ class MU_Rare_ForestNymph extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'isOpponentExpeditionIn:forest',
-        'effect' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, ASLEEP)])
+        'effect' => FT::ACTION(TARGET, ['upTo' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)])
       ])
     ];
   }
