@@ -1342,7 +1342,7 @@ abstract class Conditions
 
   public static function typeCheck($type, $cardType, $isToken)
   {
-    if (in_array($type, [PERMANENT, TOKEN, SPELL])) {
+    if (in_array($type, [PERMANENT, SPELL])) {
       if ($cardType != $type) {
         return false;
       }
@@ -1351,6 +1351,9 @@ abstract class Conditions
       return false;
     }
     if ($type == 'characterOnly' && $cardType != CHARACTER && $isToken) {
+      return false;
+    }
+    if ($type == TOKEN && !$isToken) {
       return false;
     }
 
