@@ -1243,7 +1243,7 @@ abstract class Conditions
 
     $n = 0;
     foreach ($opponentCards as $oId => $oCard) {
-      if ($oCard->getLocation() == $card->getLocation() || ($oCard->getLocation() == $oppositeExpedition && $oCard->hasGigantic())) {
+      if ($oCard->getLocation() == $card->getLocation() || ($oCard->getLocation() == $oppositeExpedition && $oCard->isGigantic())) {
         $n++;
       }
     }
