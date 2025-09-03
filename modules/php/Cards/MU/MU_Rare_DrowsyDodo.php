@@ -34,16 +34,16 @@ class MU_Rare_DrowsyDodo extends \ALT\Models\Card
         'ChooseAssignment' => [
           'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
-          'output' =>  FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
+          'output' =>  FT::GAIN(ME, BOOST)
         ],
         'InvokeToken' => [
           'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
-          'output' =>  FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
+          'output' =>  FT::GAIN(ME, BOOST)
         ],
         'MoveCard' => [
           'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition'],
-          'output' =>  FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
+          'output' =>  FT::GAIN(ME, BOOST)
         ],
       ],
     ];
