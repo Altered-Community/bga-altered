@@ -29,7 +29,7 @@ class LY_Rare_Daikokuten extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['ocean'],
-      'effectPlayed' => FT::ACTION(TARGET_PLAYER, ['effect' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'minBaseCost' => 4, 'free' => true, 'types' => [SPELL]], ['optional' => true])])
+      'effectPlayed' => FT::ACTION(TARGET_PLAYER, ['effect' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'minBaseCost' => 4, 'free' => true], ['optional' => true])])
     ];
   }
 }
