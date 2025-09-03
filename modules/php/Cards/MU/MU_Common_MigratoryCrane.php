@@ -30,12 +30,12 @@ class MU_Common_MigratoryCrane extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
           'output' =>  FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true])
         ],
         'InvokeToken' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
           'output' =>  FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true])
         ],

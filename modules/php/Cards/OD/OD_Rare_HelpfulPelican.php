@@ -31,12 +31,12 @@ class OD_Rare_HelpfulPelican extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectPassive' => [
         'ChooseAssignment' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isCardExpeditionAscended'],
           'output' => FT::ACTION(RESUPPLY, [])
         ],
         'InvokeToken' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isCardExpeditionAscended'],
           'output' => FT::ACTION(RESUPPLY, [])
         ],

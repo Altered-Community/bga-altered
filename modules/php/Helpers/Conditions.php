@@ -904,6 +904,20 @@ abstract class Conditions
     return ($event['specialEffect'] ?? '') == $effect;
   }
 
+  public static function isAddedCardAnyPlayer($card, $event, $type = null)
+  {
+    if (!($event['playCard'] ?? false)) {
+      return false;
+    }
+
+    // Type check
+    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
+      return false;
+    }
+
+    return true;
+  }
+
   public static function isAddedCardOpponentEvent($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
     if (!($event['playCard'] ?? false)) {

@@ -32,12 +32,12 @@ class OD_Rare_DrowsyDodo extends \ALT\Models\Card
       'effectPlayed' => FT::GAIN(ME, ASLEEP),
       'effectPassive' => [
         'ChooseAssignment' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
           'output' =>  FT::GAIN(ME, BOOST)
         ],
         'InvokeToken' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
           'output' =>  FT::GAIN(ME, BOOST)
         ],

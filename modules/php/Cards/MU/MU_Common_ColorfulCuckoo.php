@@ -31,11 +31,11 @@ class MU_Common_ColorfulCuckoo extends \ALT\Models\Card
       'effectPlayed' => FT::GAIN(ME, ANCHORED),
       'effectPassive' => [
         'ChooseAssignment' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'output' => FT::GAIN(ME, BOOST)
         ],
         'InvokeToken' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'output' => FT::GAIN(ME, BOOST)
         ],
         'MoveCard' => [

@@ -31,12 +31,12 @@ class MU_Rare_MigratoryCrane extends \ALT\Models\Card
       'changedStats' => ['mountain', 'ocean'],
       'effectPassive' => [
         'ChooseAssignment' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
           'output' =>  FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true])
         ],
         'InvokeToken' => [
-          'listeningConditions' => ['isAddedCardOpponentEvent:character', 'isPlayedInOpponentExpedition'],
+          'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
           'conditions' => ['isSourceSameLocation'],
           'output' =>  FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true])
         ],
