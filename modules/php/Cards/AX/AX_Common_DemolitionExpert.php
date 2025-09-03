@@ -32,6 +32,16 @@ class AX_Common_DemolitionExpert extends \ALT\Models\Card
         'action' => INVOKE_TOKEN,
         'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
       ],
+      'effectReserve' => FT::ACTION(
+        TARGET,
+        [
+          'targetPlayer' => ME,
+          'targetType' => [PERMANENT],
+          'upTo' => true,
+          'effect' =>
+          FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+        ]
+      )
     ];
   }
 }
