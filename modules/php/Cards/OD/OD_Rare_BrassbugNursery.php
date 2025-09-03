@@ -29,19 +29,21 @@ class OD_Rare_BrassbugNursery extends \ALT\Models\Card
         'tokenType' => 'NE_Common_Aerolith',
         'targetLocation' => [LANDMARK],
       ]),
-      'effectTap' =>  FT::ACTION(TARGET, [
-        'targetPlayer' => ME,
-        'targetType' => [PERMANENT],
-        'effect' => FT::SEQ(
-          FT::ACTION(PAY, ['pay' => 1]),
-          FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
-          FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
-            'tokenType' => 'AX_Common_Brassbug',
-            'targetLocation' => STORMS,
-          ]),
-        )
-      ])
+      'effectTap' =>  FT::SEQ(
+        FT::ACTION(PAY, ['pay' => 1]),
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetType' => [PERMANENT],
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'AX_Common_Brassbug',
+              'targetLocation' => STORMS,
+            ]),
+          )
+        ])
+      )
     ];
   }
 }
