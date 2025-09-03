@@ -30,7 +30,7 @@ class BR_Rare_ThePainthouse extends \ALT\Models\Card
         'Noon' => [
           'listeningConditions' => ['isMe'],
           'condition' => 'countMonoVisibleRegions:3',
-          'effect' => FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'upTo' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+          'output' => FT::ACTION(TARGET, ['targetLocation' => [RESERVE], 'upTo' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
         ]
       ]
     ];
