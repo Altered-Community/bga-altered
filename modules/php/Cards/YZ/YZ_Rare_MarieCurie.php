@@ -29,7 +29,7 @@ class YZ_Rare_MarieCurie extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand'],
-      FT::XOR(
+      'effectHand' => FT::XOR(
         FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetType' => [PERMANENT, CHARACTER],
