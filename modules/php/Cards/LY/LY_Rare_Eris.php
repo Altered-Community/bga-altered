@@ -29,7 +29,7 @@ class LY_Rare_Eris extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],
-      'actionInsteadAdvance' => 'ErisCommon'
+      'actionInsteadAdvance' => 'ErisRare'
     ];
   }
 }
