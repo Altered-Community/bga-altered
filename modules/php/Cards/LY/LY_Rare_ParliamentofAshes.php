@@ -26,7 +26,7 @@ class LY_Rare_ParliamentofAshes extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
-      'tough' => 'universalCharacter1'
+      'dynamicTough' => 'universalCharacter1'
     ];
   }
 }
