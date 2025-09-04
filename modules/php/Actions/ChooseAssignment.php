@@ -40,6 +40,7 @@ class ChooseAssignment extends \ALT\Models\Action
     'minBaseCost' => 0,
     'limited' => false,
     'forcedLocation' => null,
+    'mandatory' => false
   ];
 
   public function argsChooseAssignment()
@@ -121,7 +122,20 @@ class ChooseAssignment extends \ALT\Models\Action
 
   public function isOptional($player)
   {
-    return $this->getCtx()->getOptional() == true || (count($this->getArg('actions')) != 3 && empty($this->argsChooseAssignment()['_private']['active']['play']->toArray() ?? []));
+    return $this->getCtx()->getOptional() == true || (count($this->getArg('actions')) != 3 && empty($this->argsChooseAssignment()['_private']['active']['play']->toArray() ?? []) && !$this->getArg('mandatory'));
+  }
+
+  public function isDoable($player)
+  {
+    if ($this->isOptional($player) || !$this->getArg('mandatory')) {
+      return true;
+    }
+
+    if (count($this->getArg('actions')) != 3 && !empty($this->argsChooseAssignment()['_private']['active']['play']->toArray() ?? [])) {
+      return true;
+    }
+
+    return false;
   }
 
   public static function statPlay($carId)

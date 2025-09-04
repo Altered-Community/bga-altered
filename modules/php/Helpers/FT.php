@@ -114,7 +114,7 @@ abstract class FT
 
   public static function RUSH()
   {
-    return FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play']]);
+    return FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'mandatory' => true]);
   }
 
   public static function SABOTAGE()
