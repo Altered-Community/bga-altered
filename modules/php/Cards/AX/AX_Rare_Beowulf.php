@@ -30,7 +30,7 @@ class AX_Rare_Beowulf extends \ALT\Models\Card
       'costReserve' => 5,
       'effectPassive' => [
         'LeaveExpedition' => [
-          'output' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxBaseCost' => 3, 'free' => true, 'types' => [CHARACTER]], ['optional' => true])
+          'output' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxBaseCost' => 3, 'free' => true, 'types' => [PERMANENT]], ['optional' => true])
         ]
       ]
     ];
