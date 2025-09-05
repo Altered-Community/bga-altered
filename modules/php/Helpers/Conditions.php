@@ -119,6 +119,16 @@ abstract class Conditions
     return $card->getId() != ($event['cardId'] ?? ($event['sourceId']) ?? -1);
   }
 
+  public static function isCardPlayedSameOwner($card, $event)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if (is_null($cardId)) {
+      return false;
+    }
+
+    return $card->getPId() == Cards::get($cardId)->getPId();
+  }
+
   ///////////////////////////////////////////////
   //  ____  _                         ___    _
   // |  _ \| | __ _ _   _  ___ _ __  |_ _|__| |
