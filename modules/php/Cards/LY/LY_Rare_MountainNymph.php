@@ -34,6 +34,7 @@ class LY_Rare_MountainNymph extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'NE_Common_Aerolith',
           'targetLocation' => [LANDMARK],
+          'allPlayers' => true
         ]),
       ]),
       'effectReserve' => FT::ACTION(MOVE_REGION_MARKER, ['markerType' => MOUNTAIN])
