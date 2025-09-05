@@ -23,9 +23,13 @@ class DiscardDo extends \ALT\Models\Action
 
   public function getDescription()
   {
-
+    if ($this->getArg('targetLocation') == IN_PLAY) {
+      $msg = clienttranslate('Discard any number of cards to ${effect_desc}');
+    } else {
+      $msg = clienttranslate('Discard any number of cards from your reserve to ${effect_desc}');
+    }
     return [
-      'log' => clienttranslate('Discard any number of cards from your reserve to ${effect_desc}'),
+      'log' => $msg,
       'args' => [
         'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
       ]
