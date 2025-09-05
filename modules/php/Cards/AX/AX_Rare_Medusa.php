@@ -30,7 +30,6 @@ class AX_Rare_Medusa extends \ALT\Models\Card
       'costReserve' => 5,
       'changedStats' => ['mountain'],
       'effectReserve' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, TOKEN, PERMANENT],
         'upTo' => true,
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, []),

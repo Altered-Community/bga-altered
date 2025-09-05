@@ -29,7 +29,6 @@ class BR_Rare_Medusa extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 5,
       'effectReserve' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, TOKEN, PERMANENT],
         'upTo' => true,
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, []),
