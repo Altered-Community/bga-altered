@@ -6693,6 +6693,10 @@ html {
   background-image: url("img/icons/wfm.png");
   width: 16px;
 }
+.altered-card .altered-card-wrapper .card-footer .setIcon[data-asset=so] {
+  background-image: url("img/icons/so.png");
+  width: 22px;
+}
 .altered-card.card-hero .card-name {
   top: 24px;
   font-size: 22px;

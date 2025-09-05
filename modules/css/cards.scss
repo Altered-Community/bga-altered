@@ -947,6 +947,10 @@
                     background-image: url("img/icons/wfm.png");
                     width: 16px;
                 }
+                 &[data-asset="so"] {
+                    background-image: url("img/icons/so.png");
+                    width: 22px;
+                }
             }
         }
     }
