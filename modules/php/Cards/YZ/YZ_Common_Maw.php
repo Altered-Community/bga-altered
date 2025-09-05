@@ -28,7 +28,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'ocean' => 0,
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isMe', 'isSacrifice:character'],
+          'conditions' => ['isMe', 'isSacrifice:character', 'notDestroyed'],
           'output' => FT::GAIN($this, BOOST, 2),
         ],
       ],

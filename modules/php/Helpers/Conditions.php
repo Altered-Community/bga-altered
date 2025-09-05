@@ -1026,6 +1026,11 @@ abstract class Conditions
     return $event['cardId'] == $card->getId()  && ($event['to'] ?? '') == RESERVE;
   }
 
+  public static function notDestroyed($card, $event)
+  {
+    return $card->getLocation() != 'destroy';
+  }
+
   public static function isSacrifice($card, $event, $type = null, $subType = null, $exclude = false)
   {
     if (!($event['sacrifice'] ?? false)) {
