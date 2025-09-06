@@ -44,7 +44,7 @@ abstract class Conditions
 
   public static function isFirstPassing($card, $event)
   {
-    return count(Globals::getSkippedPlayers()) == 1 && in_array($card->getPId(), Globals::getSkippedPlayers());
+    return Globals::getFirstPass() == $card->getPId();
   }
 
 

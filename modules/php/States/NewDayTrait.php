@@ -153,6 +153,7 @@ trait NewDayTrait
     Globals::setNextReserveCharacterBoost(0);
     Globals::setBlockedExpeditions([]);
     Globals::setGlobalTough([]);
+    Globals::setFirstPass(-1);
     Cards::untapAll();
     Stats::incDays();
     Notifications::updateTotalMana();

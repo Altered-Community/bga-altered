@@ -74,6 +74,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
     'beginner' => 'int',
+    'firstPass' => 'int',
   ];
 
   protected static $table = 'global_variables';

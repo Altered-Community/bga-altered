@@ -665,6 +665,9 @@ class ChooseAssignment extends \ALT\Models\Action
   {
     $player = Players::getActive();
     $skipped = Globals::getSkippedPlayers();
+    if (empty($skipped)) {
+      Globals::setFirstPass($player->getId());
+    }
     $skipped[] = $player->getId();
     Globals::setSkippedPlayers($skipped);
     Notifications::pass($player);
