@@ -256,7 +256,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostTargetReserveCards':
         return clienttranslate('Gain 1 boost per card in reserve');
       case 'boostXOpponentExpedition':
-        return clienttranslate('Gain 1 boost per character in expedition facing card');
+        return clienttranslate('Gain 1 boost per character in expeditions facing card');
       case 'nextTokenAsleep':
         return clienttranslate('Token gains <ASLEEP>');
       case 'boostReserveSubtype':
@@ -1694,7 +1694,7 @@ class SpecialEffect extends \ALT\Models\Action
         $player = $card->getPlayer();
         $expedition = $card->getLocation();
         $count = Players::getNext($player)->getPlayedCards()->filter(function ($c) use ($expedition) {
-          return in_array($c->getType(), [TOKEN, CHARACTER]) && ($expedition == $c->getLocation() || $c->isGigantic() && in_array($c->getLocation(), STORMS));
+          return in_array($c->getType(), [TOKEN, CHARACTER]) && in_array($c->getLocation(), STORMS);
         })->count();
         if ($count > 0) {
           $this->insertAsChild(FT::ACTION(GAIN, [
