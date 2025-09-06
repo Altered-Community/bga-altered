@@ -44,7 +44,7 @@ class AX_Rare_AxiomSignet extends \ALT\Models\Card
               'hasEffects' => ['Played'],
               'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
             ]),
-            FT::ACTION(TARGET, ['maxHandCost' => 3, 'targetPlayer' => OPPONENT, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+            FT::ACTION(TARGET, ['maxHandCost' => 3,  'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
           ]
         ]
       )
