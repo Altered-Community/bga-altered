@@ -29,7 +29,7 @@ class OD_Common_TheOrigamium extends \ALT\Models\Card
       'effectPassive' => [
         'ChooseAssignment' => [
           'listeningConditions' => ['notTapped'],
-          'conditions' => ['cardPlayedAscended', 'notTapped'],
+          'conditions' => ['cardPlayedAscended', 'notTapped', 'isCardAdded:character:::true'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, []),
             FT::GAIN(EFFECT, BOOST)

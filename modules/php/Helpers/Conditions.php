@@ -1314,6 +1314,9 @@ abstract class Conditions
 
   public static function isCardExpeditionAscended($card, $event)
   {
+    if (!in_array($card->getLocation(), STORMS)) {
+      return false;
+    }
     $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
     return $card->getPlayer()->isAscended($side);
   }
