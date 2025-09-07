@@ -29,7 +29,7 @@ class LY_Common_NadirBubbles extends \ALT\Models\Card
       'createMarkers' => true,
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'isMe',
+          'conditions' => ['isMe', 'hasMarkers'],
           'output' => FT::ACTION(MARK_REGION, [], ['optional' => true])
         ],
       ]

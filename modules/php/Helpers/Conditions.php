@@ -5,6 +5,7 @@ namespace ALT\Helpers;
 use ALT\Core\Globals;
 use ALT\Managers\Cards;
 use ALT\Managers\Players;
+use ALT\Managers\Meeples;
 
 // Conditions
 abstract class Conditions
@@ -979,6 +980,11 @@ abstract class Conditions
     return true;
   }
 
+
+  public static function hasMarkers($card, $event)
+  {
+    return Meeples::getOfType('card-' . $card->getId(), [OCEAN, FOREST, MOUNTAIN])->count() > 0;
+  }
 
 
   //////////////////////////////////////////////////////////////////////////
