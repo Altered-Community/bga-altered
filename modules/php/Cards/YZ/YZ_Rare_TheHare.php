@@ -29,7 +29,7 @@ class YZ_Rare_TheHare extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
-      'effectHand' => fT::ACTION(CHECK_CONDITION, [
+      'effectHand' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'isFirstPlayer',
         'effect' =>
         FT::ACTION(TARGET_PLAYER, [
