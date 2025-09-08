@@ -21,7 +21,7 @@ class CheckCondition extends \ALT\Models\Action
     return ST_CHECK_CONDITION;
   }
 
-  protected $args = ['condition' => null, 'effect' => null, 'oppositeEffect' => null];
+  protected $args = ['condition' => null, 'effect' => null, 'oppositeEffect' => null, 'previousEvent' => false];
 
   public function getConditions()
   {
@@ -75,6 +75,9 @@ class CheckCondition extends \ALT\Models\Action
   {
     $source = $this->getSource();
     $event = ['pId' => $player->getId()];
+    if ($this->getArg('previousEvent')) {
+      $event = $this->getCtx()->toArray()['event'];
+    }
     $card = $source ?? $player->getHero();
     $ctxArgs = $this->getCtxArgs();
     if (isset($ctxArgs['cardFrom'])) {

@@ -899,6 +899,32 @@ abstract class Conditions
     return false;
   }
 
+  public static function cardPlayedCostCheck($card, $event, $cost, $check = 'base', $op = 'GTE')
+  {
+    if (!isset($event['cardId'])) {
+      return false;
+    }
+
+    $playedCard = Cards::get($event['cardId']);
+    if ($check == 'base') {
+      if ($event['from'] == 'reserve') {
+        $compare = $playedCard->getCostReserve();
+      } else {
+        $compare = $playedCard->getCostHand();
+      }
+    } elseif ($check == 'hand') {
+      $compare = $playedCard->getCostHand();
+    } else {
+      $compare = $playedCard->getCostReserve();
+    }
+    if ($op == 'GTE') {
+      return $compare >= $cost;
+    }
+    if ($op == 'LTE') {
+      return $compare <= $cost;
+    }
+  }
+
   public static function isCharacterFromReserveNotBlocked($card, $event)
   {
     if (!self::isCardPlayed($card, $event, CHARACTER)) {
