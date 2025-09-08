@@ -130,6 +130,7 @@ class MoveExpedition extends \ALT\Models\Action
     $n = $this->getArg('n');
     $player = Players::get($pId);
     $winningBiomes = $this->getArg('winningBiomes');
+    $ascended = $player->isAscended($token);
 
     // Rune's testament
     if ($this->getArg('force') === false) {
@@ -178,11 +179,11 @@ class MoveExpedition extends \ALT\Models\Action
     $winningBiomes = $this->getArg('winningBiomes');
     $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
     if ($moved) {
-      $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+      $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $ascended, 'expedition' => $expedition]);
       if ($this->getArg('moveOtherExpedition') === true) {
         // only done through a spell
         $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
-        $this->checkAfterListeners($player, ['moveExpedition' => $n * -1]);
+        $this->checkAfterListeners($player, ['moveExpedition' => $n * -1, 'ascended' => $ascended, 'expedition' => $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]);
       }
     }
 
@@ -194,7 +195,7 @@ class MoveExpedition extends \ALT\Models\Action
 
       $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
       if ($moved) {
-        $this->checkAfterListeners($player, ['moveExpedition' => $n]);
+        $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $player->isAscended($token), 'expedition' => $expedition]);
       }
     }
   }

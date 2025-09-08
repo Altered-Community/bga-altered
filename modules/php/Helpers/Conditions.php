@@ -240,6 +240,22 @@ abstract class Conditions
     return false;
   }
 
+  public static function zhenZephyrMoveExpedition($card, $event)
+  {
+    $storm = $event['expedition'];
+    if ($event['moveExpedition'] < 1 || $event['ascended'] == false) {
+      return false;
+    }
+
+    $side = $storm == STORM_LEFT ? HERO : COMPANION;
+    // are there characters facing it?
+    if (Players::getNext($card->getPlayer())->countCardsInLocation($storm, [CHARACTER]) > 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   public static function hasNotMoved($card, $event)
   {
     return $event['pId'] == $card->getPId() &&

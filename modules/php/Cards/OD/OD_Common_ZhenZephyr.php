@@ -40,6 +40,10 @@ class OD_Common_ZhenZephyr extends \ALT\Models\Card
           'condition' => 'zhenZephyr',
           'output' => FT::ACTION(DRAW, ['players' => ME])
         ],
+        'MoveExpedition' => [
+          'conditions' => ['isMe', 'zhenZephyrMoveExpedition'],
+          'output' => FT::ACTION(DRAW, ['players' => ME])
+        ]
       ],
     ];
   }
