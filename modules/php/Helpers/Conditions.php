@@ -461,7 +461,9 @@ abstract class Conditions
     } else {
       $player = $card->getPlayer();
     }
-    $cards = $player->getPlayedCards($types);
+    $cards = $player->getPlayedCards()->filter(function ($c) use ($types) {
+      return in_array($c->getType(), $types) || count(array_intersect($types, $c->getAdditionalType())) > 0;
+    });
 
     if ($type == TOKEN) {
       $cards = $cards->filter(fn($c) => $c->isToken());
