@@ -63,10 +63,16 @@ class ActivateCard extends \ALT\Models\Action
       return null;
     }
 
+    if (($flow['pId'] ?? -1) == CONTROLLER) {
+      $tagPId = $event['controller'] ?? $event['pId'];
+    } else {
+      $tagPId = $event['owner'] ?? $event['pId'];
+    }
+
     $flow = Utils::tagTree($flow, [
       'sourceId' => $this->getCtxArg('cardId'),
       'event' => $event,
-      'pId' => Cards::get($this->getCtxArg('cardId'))->getPId(),
+      'pId' => $tagPId,
     ]);
 
     // if we have a card invoking with the parameter source we substitute it with current location
@@ -149,9 +155,15 @@ class ActivateCard extends \ALT\Models\Action
     if ($node->isMandatory()) {
       $flow['optional'] = false; // Remove optional to avoid double confirmation UX
     }
-    $flow['pId'] = $this->getCard()
-      ->getPlayer()
-      ->getId();
+
+    // throw new \feException(print_r($flow));
+    // Test Defect
+    // $flow['pId'] = $this->getCard()
+    //   ->getPlayer()
+    //   ->getId();
+
+    // $flow['pId'] = $player->getId();
+
     // Add tag about that card
     // $flow = Utils::tagTree($flow, [
     //   'sourceId' => $this->getCtxArg('cardId'),

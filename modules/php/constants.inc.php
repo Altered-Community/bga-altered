@@ -355,6 +355,8 @@ const GIGANTIC = 'gigantic';
 const ANCHORED = 'anchored';
 const ASLEEP = 'asleep';
 
+const CONTROLLER = 'controller';
+const OWNER = 'owner';
 
 /*********************
  ******* MISC ********

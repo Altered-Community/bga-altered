@@ -19,7 +19,7 @@ abstract class FlowConvertor
       8 => ['description' => clienttranslate('When I\'m sacrificed —'), 'trigger' => 'Discard', 'condition' => 'isSacrificed'],
       10 => ['description' => clienttranslate('When you play a Permanent with Hand Cost {3} or more —'), 'trigger' => 'ChooseAssignment', 'condition' => 'isCardPlayed:permanent:3'],
       11 => ['description' => clienttranslate('When I go to Reserve from the Expedition zone —'), 'trigger' => 'LeaveExpedition', 'condition' => ['notFleeting', 'notDiscarded']],
-      12 => ['description' => clienttranslate('When I leave the Expedition zone —'), 'trigger' => 'LeaveExpedition'],
+      12 => ['description' => clienttranslate('When I leave the Expedition zone —'), 'trigger' => 'LeaveExpedition', 'pId' => CONTROLLER],
       13 => ['description' => clienttranslate('When a Character you control gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => 'isCharacterBoostedAndUntap'], // condition to check
       14 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk — After Rest:'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasNotMoved', 'afterRest' => true],
       15 => ['description' => clienttranslate('When you play another Character with a base statistic of 0 —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardPlayed::::true', 'isCardPlayedWithZeroStat']],
@@ -48,7 +48,7 @@ abstract class FlowConvertor
       263 => ['description' => clienttranslate('When another non-token Character joins one of your Expeditions that is behind —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isCardAdded:characterOnly', 'cardPlayedExpeditionIsBehind', 'excludeSelf']],
       256 => ['description' => clienttranslate('When I gain <ASLEEP> —'), 'trigger' => 'Gain', 'condition' => 'hasGained:asleep'],
       257 => ['description' => clienttranslate('When I gain <FLEETING> —'), 'trigger' => 'Gain', 'condition' => 'hasGained:fleeting'],
-      372 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <FLEETING> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasFleeting'],
+      372 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <FLEETING> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasFleeting', 'pId' => CONTROLLER,],
       258 => ['description' => clienttranslate('When my Expedition moves forward —'), 'trigger' => 'AfterDusk', 'condition' => 'myExpeditionHasMoved'],
       259 => ['description' => clienttranslate('When my Expedition moves forward due to {V} —'), 'trigger' => 'AfterDusk', 'condition' => 'movesStormsWithForest'],
       260 => ['description' => clienttranslate('When you exhaust a card in Reserve —'), 'trigger' => 'Exhaust', 'condition' => ['isMe', 'isExhaustedInLocation:reserve']],
@@ -71,12 +71,12 @@ abstract class FlowConvertor
       443 => ['description' => clienttranslate('When a Character you control gains <FLEETING> —'), 'trigger' => 'Gain', 'condition' => 'hasGainedFleeting'],
       444 => ['description' => clienttranslate('When an opponent plays a card from Reserve —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isNotMe', 'isFromReserve', 'isAddedCardOpponentEvent']],
       445 => ['description' => clienttranslate('When an opponent plays a Character —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isNotMe', 'isAddedCardOpponentEvent:character']],
-      446 => ['description' => clienttranslate('When I leave the Expedition zone, for each of my boosts —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
-      526 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
+      446 => ['description' => clienttranslate('When I leave the Expedition zone, for each of my boosts —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost', 'pId' => CONTROLLER,],
+      526 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost', 'pId' => CONTROLLER,],
       447 => ['description' => clienttranslate('When you play another card from Reserve —'), 'trigger' => 'ChooseAssignment', 'condition' => ['isMe', 'excludeSelf', 'isFromReserve', 'isCardAdded']],
       448 => ['description' => clienttranslate('When you sacrifice a Character —'),  'trigger' => 'Discard', 'condition' => ['isMe', 'isSacrifice:character']],
       532 => ['description' => clienttranslate('{I} At Noon —'), 'trigger' => 'Noon', 'type' => 'effectInfinity', 'condition' => 'isMe'],
-      540 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost'],
+      540 => ['description' => clienttranslate('When I leave the Expedition zone, if I was <BOOSTED> —'), 'trigger' => 'LeaveExpedition', 'condition' => 'hasBoost', 'pId' => CONTROLLER,],
       9 =>  ['description' => clienttranslate('When a non-<BOOSTED> Character you control gains 1 or more boosts —'), 'trigger' => ['Gain'], 'condition' => 'GainFirstBoost'],
       // Patch note 13/05/2025
       675 => ['description' => clienttranslate('When a non-Token Character you control gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => ['isNonTokenBoostedAndUntap',]], // condition to check
@@ -551,7 +551,7 @@ abstract class FlowConvertor
       64 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['source'],
         ]),
@@ -559,7 +559,7 @@ abstract class FlowConvertor
       65 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your Companion Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_RIGHT],
         ]),
@@ -567,7 +567,7 @@ abstract class FlowConvertor
       66 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your Hero Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_LEFT],
         ]),
@@ -608,7 +608,7 @@ abstract class FlowConvertor
       75 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in your other Expedition (the one I\'m not in).'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['oppositeSource'],
         ]),
@@ -774,12 +774,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in my Expedition.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['initialSource'],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['initialSource'],
           ])
@@ -871,12 +871,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'),
         'output' =>  FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_RIGHT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
           ])
@@ -1018,12 +1018,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in each of your Expeditions.'),
         'output' =>  FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => [STORM_RIGHT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => [STORM_LEFT],
           ])
@@ -1033,22 +1033,22 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in each of your Expeditions.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_RIGHT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_RIGHT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
           ])
@@ -1059,22 +1059,22 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create four <ORDIS_RECRUIT> Soldier tokens, distributed as you choose among any number of target Expeditions.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
           ])
@@ -1158,12 +1158,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in each of your Expeditions.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => [STORM_RIGHT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => [STORM_LEFT],
           ])
@@ -1253,7 +1253,7 @@ abstract class FlowConvertor
       232 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['source'],
         ]),
@@ -1261,7 +1261,7 @@ abstract class FlowConvertor
       233 => [
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in target Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'OD_Common_OrdisRecruit',
         ]),
       ],
@@ -1330,7 +1330,7 @@ abstract class FlowConvertor
       379 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => ['source'],
         ]),
@@ -1338,7 +1338,7 @@ abstract class FlowConvertor
       381 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in your Companion Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => [STORM_RIGHT],
         ]),
@@ -1346,7 +1346,7 @@ abstract class FlowConvertor
       382 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in your Hero Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => [STORM_LEFT],
         ]),
@@ -1354,7 +1354,7 @@ abstract class FlowConvertor
       380 => [
         'description' => clienttranslate('Create a <BRASSBUG> Robot token in your other Expedition (the one I\'m not in).'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => ['oppositeSource'],
         ]),
@@ -1363,12 +1363,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in each of your Expeditions.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'YZ_Common_ManaMoth',
             'targetLocation' => [STORM_LEFT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'YZ_Common_ManaMoth',
             'targetLocation' => [STORM_RIGHT],
           ]),
@@ -1378,12 +1378,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in each of your Expeditions.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'YZ_Common_ManaMoth',
             'targetLocation' => [STORM_LEFT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'YZ_Common_ManaMoth',
             'targetLocation' => [STORM_RIGHT],
           ]),
@@ -1392,7 +1392,7 @@ abstract class FlowConvertor
       271 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => ['initialSource'],
         ]),
@@ -1400,7 +1400,7 @@ abstract class FlowConvertor
       414 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => ['initialSource'],
         ]),
@@ -1408,7 +1408,7 @@ abstract class FlowConvertor
       272 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in target Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => STORMS,
         ]),
@@ -1416,7 +1416,7 @@ abstract class FlowConvertor
       415 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in target Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => STORMS,
         ]),
@@ -1424,7 +1424,7 @@ abstract class FlowConvertor
       273 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Companion Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => [STORM_RIGHT],
         ]),
@@ -1432,7 +1432,7 @@ abstract class FlowConvertor
       416 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Companion Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => [STORM_RIGHT],
         ]),
@@ -1440,7 +1440,7 @@ abstract class FlowConvertor
       274 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Hero Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => [STORM_LEFT],
         ]),
@@ -1448,7 +1448,7 @@ abstract class FlowConvertor
       417 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your Hero Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => [STORM_LEFT],
         ]),
@@ -1456,7 +1456,7 @@ abstract class FlowConvertor
       275 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your other Expedition (the one I\'m not in).'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => ['oppositeSource'],
         ]),
@@ -1464,7 +1464,7 @@ abstract class FlowConvertor
       418 => [
         'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in your other Expedition (the one I\'m not in).'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => ['oppositeSource'],
         ]),
@@ -1473,18 +1473,18 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions, otherwise create one in my Expedition.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_RIGHT],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
           ])
         ),
         'oppositeOutput' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['source'],
         ])
@@ -1493,13 +1493,13 @@ abstract class FlowConvertor
       401 => [
         'description' => clienttranslate('Create two <BRASSBUG> Robot tokens in target Expedition, otherwise create only one.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'n' => 2,
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => STORMS,
         ]),
         'oppositeOutput' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => STORMS,
         ])
@@ -1507,7 +1507,7 @@ abstract class FlowConvertor
       277 => [
         'description' => clienttranslate('Create two <MANA_MOTH> Illusion tokens in target Expedition.'),
         'output' =>  FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'n' => 2,
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => STORMS,
@@ -1995,12 +1995,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens distributed among any Expeditions.'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
           ])
@@ -2010,12 +2010,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in your other Expedition (the one I\'m not in).'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['oppositeSource'],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['oppositeSource'],
           ]),
@@ -2025,12 +2025,12 @@ abstract class FlowConvertor
         'description' => clienttranslate('Create two <ORDIS_RECRUIT> Soldier tokens in your other Expedition (the one I\'m not in).'),
         'output' => FT::SEQ(
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['oppositeSource'],
           ]),
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['oppositeSource'],
           ]),
@@ -2242,7 +2242,7 @@ abstract class FlowConvertor
           'effect' => FT::SEQ(
             FT::ACTION(DISCARD, []),
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
+              'pId' => CONTROLLER,
               'tokenType' => 'YZ_Common_ManaMoth',
               'targetLocation' => ['discardedSource'],
             ])
@@ -2420,7 +2420,7 @@ abstract class FlowConvertor
       678 => [
         'description' => clienttranslate('Create an <BRASSBUG> Robot token in my Expedition.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
+          'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => ['source'],
         ]),
@@ -2609,6 +2609,10 @@ abstract class FlowConvertor
           if ($eff['conditions'] == ['isOpponentDraw']) {
             $eff['conditions'] = ['isMe'];
           }
+        }
+        // Management of defect
+        if (isset($calculated['pId'])) {
+          $eff['pId'] = $calculated['pId'];
         }
       }
     }
@@ -2843,6 +2847,9 @@ abstract class FlowConvertor
     }
     if (isset($trigger['n'])) {
       $calculated['conditionN'] = $trigger['n'];
+    }
+    if (isset($trigger['pId'])) {
+      $calculated['pId'] = $trigger['pId'];
     }
   }
 

@@ -31,8 +31,9 @@ class YZ_Common_Chrysalis extends \ALT\Models\Card
             'defender' => true,
             'effectPassive' => [
                 'LeaveExpedition' => [
+                    'pId' => CONTROLLER,
                     'output' => FT::ACTION(INVOKE_TOKEN, [
-                        'pId' => 'source',
+                        'pId' => CONTROLLER,
                         'tokenType' => 'YZ_Common_ManaMoth',
                         'targetLocation' => ['initialSource'],
                     ]),

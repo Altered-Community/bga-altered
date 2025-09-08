@@ -30,6 +30,7 @@ class BR_Common_HavenSeiringar extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPassive' => [
                 'LeaveExpedition' => [
+                    'pId' => CONTROLLER,
                     'condition' => 'hasFleeting',
                     'output' => FT::ACTION(DRAW, ['players' => ME]),
                 ],

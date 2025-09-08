@@ -31,9 +31,10 @@ class OD_Common_AegisTemplar extends \ALT\Models\Card
       'scout' => 1,
       'effectPassive' => [
         'LeaveExpedition' => [
+          'pId' => CONTROLLER,
           'output' =>
           FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['source'],
           ]),

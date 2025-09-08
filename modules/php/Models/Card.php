@@ -496,6 +496,15 @@ class Card extends \ALT\Helpers\DB_Model
     return $meepleIds;
   }
 
+  public function getOwner()
+  {
+    $extra = $this->getExtraDatas()['pId'] ?? $this->getPId();
+    if ($extra != $this->getPId()) {
+      return $extra;
+    }
+    return $this->getPId();
+  }
+
   public function checkLeaveListener($target, $afterNight, $isSacrifice = false)
   {
     $type = null;
@@ -515,6 +524,8 @@ class Card extends \ALT\Helpers\DB_Model
       'from' => $this->getLocation(),
       'to' => $target,
       'pId' => $this->getPId(),
+      'owner' => $this->getOwner(),
+      'controller' => $this->getPId(),
       'cardType' => $this->getType(),
       'additionalType' => $this->getAdditionalType(),
       'boost' => $this->countToken(BOOST),
@@ -714,6 +725,15 @@ class Card extends \ALT\Helpers\DB_Model
   protected function checkReaction($power, $event)
   {
     $n = $power['n'] ?? 'once';
+
+    // Management of Defect power
+    if (isset($power['pId'])) {
+      $power['output']['pId'] = $power['pId'];
+      if (isset($power['oppositeOutput'])) {
+        $power['oppositeOutput']['pId'] = $power['pId'];
+      }
+    }
+
     switch ($n) {
       case 'eachExpedition':
         $output = [];
@@ -746,6 +766,7 @@ class Card extends \ALT\Helpers\DB_Model
 
         break;
     }
+
     // put the source as the card triggering itself
     $power['output']['sourceId'] = $this->id;
     return [$power['payment'] ?? [], $power['output']];

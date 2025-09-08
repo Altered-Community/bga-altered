@@ -33,6 +33,7 @@ class BR_Rare_BravosExcavator extends \ALT\Models\Card
             'changedStats' => ['costReserve'],
             'effectPassive' => [
                 'LeaveExpedition' => [
+                    'pId' => CONTROLLER,
                     'condition' => 'hasBoost',
                     'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXreserveBoost']),
                 ],

@@ -32,14 +32,15 @@ class AX_Rare_JeannedArc extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'effectPassive' => [
         'LeaveExpedition' => [
+          'pId' => CONTROLLER,
           'output' => FT::SEQ(
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
+              'pId' => CONTROLLER,
               'tokenType' => 'AX_Common_Brassbug',
               'targetLocation' => [STORM_RIGHT],
             ]),
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
+              'pId' => CONTROLLER,
               'tokenType' => 'AX_Common_Brassbug',
               'targetLocation' => [STORM_LEFT],
             ])

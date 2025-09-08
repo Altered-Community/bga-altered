@@ -38,6 +38,7 @@ $machinestates = [
   ST_GENERIC_NEXT_PLAYER => [
     'name' => 'genericNextPlayer',
     'type' => 'game',
+    'description' => '',
   ],
 
   ST_PRECO_DECK_SELECTION => [
@@ -64,6 +65,7 @@ $machinestates = [
     'name' => 'deckSetup',
     'type' => 'game',
     'action' => 'stDeckSetup',
+    'description' => '',
     'transitions' => ['' => ST_FIRST_DAY],
   ],
 
@@ -204,24 +206,28 @@ $machinestates = [
   ST_GAIN => [
     'name' => 'gain',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_LOOSE => [
     'name' => 'loose',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_DRAW => [
     'name' => 'draw',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_SPECIAL_EFFECT => [
     'name' => 'specialEffect',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -229,24 +235,28 @@ $machinestates = [
     'name' => 'checkCondition',
     'type' => 'game',
     'action' => 'stAtomicAction',
+    'description' => '',
     'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ST_AFTER_YOU => [
     'name' => 'afterYou',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_DRAW_MANA => [
     'name' => 'drawMana',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_USE_COUNTER => [
     'name' => 'useCounter',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -265,6 +275,7 @@ $machinestates = [
   ST_RESUPPLY => [
     'name' => 'resupply',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -360,6 +371,7 @@ $machinestates = [
   ST_SPELL_CLEANUP => [
     'name' => 'spellCleanup',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -542,6 +554,7 @@ $machinestates = [
   ST_RESOLVE_STACK => [
     'name' => 'resolveStack',
     'type' => 'game',
+    'description' => '',
     'action' => 'stResolveStack',
     'transitions' => [],
   ],
@@ -597,6 +610,7 @@ $machinestates = [
   ST_PRE_END_OF_GAME => [
     'name' => 'preEndOfGame',
     'type' => 'game',
+    'description' => '',
     'action' => 'stPreEndOfGame',
     'updateGameProgression' => true,
     'transitions' => ['' => ST_END_GAME],
