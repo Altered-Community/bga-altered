@@ -178,7 +178,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function getHand($type = null)
   {
     return Cards::getHand($this->id)->filter(function ($card) use ($type) {
-      return is_null($type) || $card->getType() == $type;
+      return is_null($type) || $card->getType() == $type || in_array($type, $card->getAdditionalType());
     });
   }
 
@@ -202,7 +202,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function countCardsInLocation($location, $types)
   {
     return $this->getPlayedCards()->filter(function ($c) use ($location, $types) {
-      return $c->getLocation() == $location && in_array($c->getType(), $types);
+      return $c->getLocation() == $location && (in_array($c->getType(), $types) || count(array_intersect($types, $c->getAdditionalType())) > 0);
     })->count();
   }
 
@@ -351,18 +351,20 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       if (!empty($card->getReduceCostType())) {
         $type = $card->getReduceCostType();
-        if (isset($type[$playedCard->getType()])) {
-          if (isset($type[$playedCard->getType()]['maxHandCost']) && $playedCard->getCostHand() <= $type[$playedCard->getType()]['maxHandCost']) {
-            $reduction += $type[$playedCard->getType()]['reduction'];
-          } elseif (isset($type[$playedCard->getType()]['minHandCost']) && $playedCard->getCostHand() >= $type[$playedCard->getType()]['minHandCost']) {
-            $reduction += $type[$playedCard->getType()]['reduction'];
-          } elseif (isset($type[$playedCard->getType()]['minBaseCost'])) {
-            $baseCost = $type[$playedCard->getType()]['minBaseCost'];
-            // Studious Acolyte
-            if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
-              $reduction += $type[$playedCard->getType()]['reduction'];
-            } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
-              $reduction += $type[$playedCard->getType()]['reduction'];
+        foreach ($type as $playedType => $info) {
+          if ($playedType == $playedCard->getType() || in_array($playedType, $playedCard->getAdditionalType())) {
+            if (isset($info['maxHandCost']) && $playedCard->getCostHand() <= $info['maxHandCost']) {
+              $reduction += $info['reduction'];
+            } elseif (isset($info['minHandCost']) && $playedCard->getCostHand() >= $info['minHandCost']) {
+              $reduction += $info['reduction'];
+            } elseif (isset($info['minBaseCost'])) {
+              $baseCost = $info['minBaseCost'];
+              // Studious Acolyte
+              if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
+                $reduction += $info['reduction'];
+              } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
+                $reduction += $info['reduction'];
+              }
             }
           }
         }
@@ -818,7 +820,7 @@ class Player extends \ALT\Helpers\DB_Model
   }
 
 
-  public function canPlayTappedCards($type = null, $location = null)
+  public function canPlayTappedCards($type = null, $location = null, $additionalType = [])
   {
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       $playTap = $card->getPlayTappedCards();
@@ -851,7 +853,7 @@ class Player extends \ALT\Helpers\DB_Model
         return true;
       }
 
-      if (!is_null($type) && isset($playTap['type']) && $playTap['type'] == $type) {
+      if (!is_null($type) && isset($playTap['type']) && ($playTap['type'] == $type || in_array($playTap['type'], $additionalType))) {
         return true;
       }
     }

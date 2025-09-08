@@ -210,6 +210,13 @@ class Cards extends \ALT\Helpers\CachedPieces
     // return new $className($row);
   }
 
+  public static function getFiltered($pId, $location = null, $type = null, $additionalType = false)
+  {
+    return self::getSelectWhere(null, $location, null)
+      ->where('pId', $pId)
+      ->whereType('type', $type, $additionalType);
+  }
+
   public static function generateRandomDeck($deck, $player)
   {
     // For production

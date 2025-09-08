@@ -1145,7 +1145,7 @@ class SpecialEffect extends \ALT\Models\Action
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
 
           $baseStat = false;
-          if (in_array(ROBOT, $drawn->getSubtypes()) || $drawn->getType() == PERMANENT) {
+          if (in_array(ROBOT, $drawn->getSubtypes()) || $drawn->getType() == PERMANENT || in_array(PERMANENT, $drawn->getAdditionalType())) {
             $baseStat = true;
           }
           if ($baseStat == true) {
@@ -1671,10 +1671,10 @@ class SpecialEffect extends \ALT\Models\Action
 
         $draw = Cards::getInLocation("reveal-$pId");
         foreach ($draw as $dId => $drawn) {
-          if ($type == $drawn->getType()) {
+          if ($type == $drawn->getType() || in_array($type, $drawn->getAdditionalType())) {
             $drawn->setLocation('hand');
             $done = true;
-          } elseif ($reserve == $drawn->getType()) {
+          } elseif ($reserve == $drawn->getType() || in_array($reserve, $drawn->getAdditionalType())) {
             $drawn->setLocation(RESERVE);
             $resupply = true;
           }

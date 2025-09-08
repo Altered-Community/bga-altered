@@ -92,10 +92,10 @@ class DiscardDo extends \ALT\Models\Action
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
-        return in_array($c->getLocation(), $targetLocation) && in_array($c->getType(), $targetType);
+        return in_array($c->getLocation(), $targetLocation) && (in_array($c->getType(), $targetType) || count(array_intersect($targetType, $c->getAdditionalType())) > 0);
       });
     } else {
-      $cards = Cards::getFiltered($pIds, $targetLocation, $targetType);
+      $cards = Cards::getFiltered($pIds, $targetLocation, $targetType, true);
     }
 
     $excludeSelf = $this->getArg('excludeSelf');

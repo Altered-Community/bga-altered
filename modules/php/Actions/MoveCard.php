@@ -97,6 +97,7 @@ class MoveCard extends \ALT\Models\Action
         'cardId' => $card->getId(),
         'playCard' => true,
         'cardType' => $card->getType(),
+        'additionalType' => $card->getAdditionalType(),
         'cardSubtypes' => $card->getSubtypes(),
         'from' => $fromLocation,
         'to' => $card->getLocation(),

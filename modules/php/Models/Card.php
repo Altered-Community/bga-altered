@@ -175,6 +175,7 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicIncreaseBiomeHighestSelf' => 'str', // Lyra Aerialist
     'costReductionLimitation' => 'int', // Lost In the riptide
     'effectPlayedLimited' => 'obj', // Lost In the riptide
+    'additionalType' => 'obj', // Alelo
   ];
 
   /********* DB ACCESS *********/
@@ -292,7 +293,7 @@ class Card extends \ALT\Helpers\DB_Model
   // $scout = can be played at scout cost
   public function canBePlayed($player, $scout = false)
   {
-    if (!$player->canPlayTappedCards($this->getType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
+    if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
     }
 
@@ -509,6 +510,7 @@ class Card extends \ALT\Helpers\DB_Model
       'to' => $target,
       'pId' => $this->getPId(),
       'cardType' => $this->getType(),
+      'additionalType' => $this->getAdditionalType(),
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
       'token' => $this->isToken(),
@@ -547,6 +549,7 @@ class Card extends \ALT\Helpers\DB_Model
         'discardCard' => true,
         'cardsToListen' => [$this->id], // we add the discarded cards as they should react even if not played
         'cardId' => $this->id,
+        'additionalType' => $this->getAdditionalType(),
         'token' => $this->isToken(),
         'from' => LANDMARK,
         'to' => DISCARD_PILE,
@@ -744,15 +747,18 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getCost($scout = false)
   {
-    if ($this->getType() == SPELL && Globals::isNextSpellIsFree()) {
+    if (($this->getType() == SPELL || in_array(SPELL, $this->getAdditionalType())) && Globals::isNextSpellIsFree()) {
       return 0;
     }
 
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
-    if (isset($costReduction[$this->getType()])) {
-      $typeReduction = $costReduction[$this->getType()]['reduction'];
+    foreach ($costReduction as $reducType => $reduction) {
+      if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType())) {
+        $typeReduction += $reduction['reduction'];
+      }
     }
+
     foreach ($this->getSubtypes() as $subtype) {
       $typeReduction += isset($costReduction[$subtype]) ? $costReduction[$subtype]['reduction'] : 0;
     }

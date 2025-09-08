@@ -187,10 +187,10 @@ class Target extends \ALT\Models\Action
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
-        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && in_array($c->getType(), $targetType);
+        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && (in_array($c->getType(), $targetType) || count(array_intersect($targetType, $c->getAdditionalType())) > 0);
       });
     } else {
-      $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation, $targetType, $excludeTokens) {
+      $cards = Cards::getFiltered($pIds, null, $targetType, true)->filter(function ($c) use ($targetLocation, $targetType, $excludeTokens) {
         return ((in_array($c->getLocation(), $targetLocation)
           || ((in_array(STORM_LEFT, $targetLocation) || in_array(STORM_RIGHT, $targetLocation)) && in_array($c->getLocation(), STORMS) && $c->isGigantic()))
           || ($c->getType() == HERO && in_array(HERO, $targetType))) &&

@@ -373,7 +373,7 @@ abstract class Conditions
 
     if (!is_null($type) && $type != '') {
       $cards = $cards->filter(function ($c) use ($type) {
-        return $c->getType() == $type;
+        return $c->getType() == $type || in_array($type, $c->getAdditionalType());
       });
     }
 
@@ -507,7 +507,7 @@ abstract class Conditions
       if ($c->getId() == $card->getId()) {
         return false;
       }
-      if ($c->getType() == PERMANENT || in_array(ROBOT, $c->getSubtypes())) {
+      if ($c->getType() == PERMANENT || in_array(ROBOT, $c->getSubtypes()) || in_array(PERMANENT, $c->getAdditionalType())) {
         return true;
       }
       return false;
@@ -523,7 +523,7 @@ abstract class Conditions
       if ($c->getId() == $card->getId()) {
         return false;
       }
-      if ($c->getType() == PERMANENT || in_array(PLANT, $c->getSubtypes())) {
+      if ($c->getType() == PERMANENT || in_array(PLANT, $c->getSubtypes()) || in_array(PERMANENT, $c->getAdditionalType())) {
         return true;
       }
       return false;
@@ -820,7 +820,7 @@ abstract class Conditions
   public static function isCardOfType($card, $event, $type = null)
   {
     // Type check
-    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'], $event['additionalType'])) {
       return false;
     }
     if (in_array($type, SUBTYPES)) {
@@ -849,7 +849,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'], $event['additionalType'])) {
       return false;
     }
 
@@ -964,7 +964,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'], $event['additionalType'])) {
       return false;
     }
 
@@ -994,7 +994,7 @@ abstract class Conditions
     }
 
     // Type check
-    if (!self::typeCheck($type, $event['cardType'], $event['token'])) {
+    if (!self::typeCheck($type, $event['cardType'], $event['token'], $event['additionalType'])) {
       return false;
     }
 
@@ -1066,7 +1066,7 @@ abstract class Conditions
 
     if (!is_null($type)) {
       $discardedCard = Cards::get($event['cardId']);
-      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken())) {
+      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken(), $discardedCard->getAdditionalType())) {
         return false;
       }
     }
@@ -1098,7 +1098,7 @@ abstract class Conditions
     // Type check if needed
     if (!is_null($type)) {
       $discardedCard = Cards::get($event['cardId']);
-      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken())) {
+      if (!self::typeCheck($type, $discardedCard->getType(), $discardedCard->isToken(), $discardedCard->getAdditionalType())) {
         return false;
       }
     }
@@ -1124,11 +1124,13 @@ abstract class Conditions
       if (is_null($discardedCard)) {
         $discardedType = $event['cardType'] ?? 'notgood';
         $isToken = $event['token'] ?? false;
+        $additionalType = $event['additionalType'] ??  [];
       } else {
         $discardedType = $discardedCard->getType();
         $isToken = $discardedCard->isToken();
+        $additionalType = $discardedCard->getAdditionalType();
       }
-      if (!self::typeCheck($type, $discardedType, $isToken)) {
+      if (!self::typeCheck($type, $discardedType, $isToken, $additionalType)) {
         return false;
       }
     }
@@ -1177,13 +1179,13 @@ abstract class Conditions
   public static function isPermanentFromTarget($card, $event)
   {
     $card = Cards::get($event['cardId']);
-    return $card->getType() == PERMANENT;
+    return $card->getType() == PERMANENT || in_array(PERMANENT, $card->getAdditionalType());
   }
 
   public static function isSpellFromTarget($card, $event)
   {
     $card = Cards::get($event['cardId']);
-    return $card->getType() == SPELL;
+    return $card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType());
   }
 
   public static function isCharacterFromTarget($card, $event)
@@ -1430,11 +1432,14 @@ abstract class Conditions
    **********************************
    *********************************/
 
-  public static function typeCheck($type, $cardType, $isToken)
+  public static function typeCheck($type, $cardType, $isToken, $additionalType = [])
   {
-    if (in_array($cardType, [PERMANENT, SPELL])) {
-      if ($cardType != $type) {
+    if (in_array($type, [PERMANENT, SPELL])) {
+      if ($cardType != $type && !in_array($type, $additionalType)) {
         return false;
+      }
+      if (in_array($type, $additionalType)) {
+        return true;
       }
     }
     if ($type == CHARACTER && !in_array($cardType, [CHARACTER, TOKEN])) {

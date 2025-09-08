@@ -62,7 +62,7 @@ class ChooseAssignment extends \ALT\Models\Action
       $actions['play'] = $handCards
         ->merge($reserveCards)
         ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost) {
-          return in_array($card->getType(), $authorizedTypes) &&
+          return (in_array($card->getType(), $authorizedTypes) || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0) &&
             ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped() &&
               (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost)) &&
               (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
@@ -198,8 +198,10 @@ class ChooseAssignment extends \ALT\Models\Action
       // Calculate cost
       $cost = $card->getCost($scout);
       $costReduction = Globals::getCostReduction();
-      if (isset($costReduction[$player->getId()][$card->getType()])) {
-        unset($costReduction[$player->getId()][$card->getType()]);
+      foreach ($costReduction as $costType => $reductionCost) {
+        if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType())) {
+          unset($costReduction[$player->getId()][$costType]);
+        }
       }
 
       foreach ($card->getSubtypes() as $subtype) {
@@ -248,7 +250,11 @@ class ChooseAssignment extends \ALT\Models\Action
           return;
         }
       } elseif ($card->getCostReductionSacrificePermanent() > 0) {
-        if ($player->getPlayedCards(PERMANENT)->count() > 0) {
+        $nbPermanents = $player->getPlayedCards()->filter(function ($c2) {
+          return $c2->getType() == PERMANENT || in_array(PERMANENT, $c2->getAdditionalType());
+        })->count();
+
+        if ($nbPermanents > 0) {
           $this->insertAsChild(
             FT::XOR(
               FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
@@ -299,7 +305,7 @@ class ChooseAssignment extends \ALT\Models\Action
       $cost = 0;
     }
 
-    if (($card->getType() == SPELL && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
+    if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
     }
     // Move card
@@ -439,7 +445,7 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       // if it's a spell, effect are resolved immediately
-      if ($card->getType() == SPELL) {
+      if ($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) {
 
         if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
@@ -448,38 +454,40 @@ class ChooseAssignment extends \ALT\Models\Action
         } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
         }
-        if (!empty($effects)) {
-          $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
-          foreach ($effects as &$eff['childs']) {
-            if (isset($eff['pId'])) {
-              continue;
+        if ($card->getType() == SPELL) {
+          if (!empty($effects)) {
+            $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+            foreach ($effects as &$eff['childs']) {
+              if (isset($eff['pId'])) {
+                continue;
+              }
+              $eff['pId'] = $card->getPId();
             }
-            $eff['pId'] = $card->getPId();
+            $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
+              'playCard' => true,
+              'cardId' => $cardId,
+              'cardType' => $card->getType(),
+              'from' => $fromLocation,
+              'to' => $location,
+              'playedFree' => $cost == 0 ? true : false,
+              'putAndNotPlayed' => !$effectHand,
+              'additionalEffects' => Globals::getAdditionalEffect()
+            ]], 'pId' => $player->getId()]);
+          } else {
+            $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
+              'playCard' => true,
+              'cardId' => $cardId,
+              'cardType' => $card->getType(),
+              'from' => $fromLocation,
+              'to' => $location,
+              'playedFree' => $cost == 0 ? true : false,
+              'putAndNotPlayed' => !$effectHand,
+              'additionalEffects' => Globals::getAdditionalEffect()
+            ]], 'pId' => $player->getId()];
           }
-          $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
-            'playCard' => true,
-            'cardId' => $cardId,
-            'cardType' => $card->getType(),
-            'from' => $fromLocation,
-            'to' => $location,
-            'playedFree' => $cost == 0 ? true : false,
-            'putAndNotPlayed' => !$effectHand,
-            'additionalEffects' => Globals::getAdditionalEffect()
-          ]], 'pId' => $player->getId()]);
-        } else {
-          $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
-            'playCard' => true,
-            'cardId' => $cardId,
-            'cardType' => $card->getType(),
-            'from' => $fromLocation,
-            'to' => $location,
-            'playedFree' => $cost == 0 ? true : false,
-            'putAndNotPlayed' => !$effectHand,
-            'additionalEffects' => Globals::getAdditionalEffect()
-          ]], 'pId' => $player->getId()];
+          $this->insertAsChild($spellAction);
+          $effects = [];
         }
-        $this->insertAsChild($spellAction);
-        $effects = [];
       } else {
         // resolving current node as some things are inserted before and after
         Engine::resolveAction();
@@ -526,6 +534,7 @@ class ChooseAssignment extends \ALT\Models\Action
         'playCard' => true,
         'cardId' => $cardId,
         'cardType' => $card->getType(),
+        'additionalType' => $card->getAdditionalType(),
         'from' => $fromLocation,
         'to' => $location,
         'playedFree' => $cost == 0 ? true : false,
@@ -538,6 +547,7 @@ class ChooseAssignment extends \ALT\Models\Action
         'playCard' => true,
         'cardId' => $cardId,
         'cardType' => $card->getType(),
+        'additionalType' => $card->getAdditionalType(),
         'from' => $fromLocation,
         'reallyPlayed' => $reallyPlayed,
         'locationPId' => $player->getId(),
@@ -613,6 +623,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'cardId' => $cardId,
       'playCard' => false,
       'cardType' => $card->getType(),
+      'additionalType' => $card->getAdditionalType(),
       'from' => RESERVE,
       'isSupport' => true,
       'token' => $card->isToken(),
