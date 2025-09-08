@@ -33,8 +33,6 @@ class BR_Common_Eros extends \ALT\Models\Card
                     'action' => SPECIAL_EFFECT,
                     'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 3, 'permanent' => false]],
                 ],
-                FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']], ['optional' => true]),
-
                 FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [CHARACTER], 'actions' => ['play']], ['optional' => true])
             )
         ];
