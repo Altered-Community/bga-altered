@@ -462,6 +462,12 @@ class Card extends \ALT\Helpers\DB_Model
     $isSeasoned = $this->isSeasoned();
     $this->checkLeaveListener($location, $afterNight);
     $this->setLocation($location);
+    $extra = $this->getExtraDatas();
+    if (isset($extra['pId'])) {
+      $this->setPId($extra['pId']);
+      unset($extra['pId']);
+      $this->setExtraDatas($extra);
+    }
     $this->setTapped(false);
 
     // Remove meeples

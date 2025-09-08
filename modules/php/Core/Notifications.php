@@ -334,6 +334,15 @@ class Notifications
     );
   }
 
+  public static function defect($card, $player, $source)
+  {
+    self::notifyAll(
+      'moveCard',
+      clienttranslate('${card_name} defects to ${player_name}\'s side(${card_name2}\'s effect)'),
+      ['player' => $player, 'card' => $card, 'card2' => $source]
+    );
+  }
+
   /////////////////////////////////
   //    ____              _
   //   / ___|__ _ _ __ __| |___

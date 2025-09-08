@@ -1212,7 +1212,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (this.isFastMode()) {
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
           this.updateCardStatuses(card.id);
-          let container = $(card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`);
+          let container = $(card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`);
           container.insertAdjacentElement('beforeend', $(`card-${card.id}`));
           if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
         });
@@ -1227,9 +1227,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
           return this.wait(200 * i).then(() => {
             this.updateCardStatuses(card.id);
-            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`).then(() => {
-              if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
-            });
+            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`).then(
+              () => {
+                if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+              }
+            );
           });
         })
       )

@@ -261,6 +261,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Token gains <ASLEEP>');
       case 'boostReserveSubtype':
         return clienttranslate('Each reserve of specific subtype gain 1 <BOOST>');
+      case 'defect':
+        return clienttranslate('defect');
     }
     return '';
   }
@@ -1758,6 +1760,27 @@ class SpecialEffect extends \ALT\Models\Action
         $card->setTypeline($extra['typeline']);
         Notifications::refreshCard($card);
 
+        break;
+      case 'defect':
+        $defectCard = $this->getCard();
+        // TODO: multiplayer
+        $newPId = Players::getNextId($defectCard->getPlayer());
+        $extraDatas = $defectCard->getExtraDatas();
+        $extraDatas['pId'] = $defectCard->getPId();
+        $defectCard->setExtraDatas($extraDatas);
+        $defectCard->setPId($newPId);
+        Notifications::defect($defectCard, $defectCard->getPlayer(), $card);
+        $this->checkAfterListeners($defectCard->getPlayer(), [
+          'cardId' => $defectCard->getId(),
+          'playCard' => true,
+          'cardType' => $defectCard->getType(),
+          'additionalType' => $defectCard->getAdditionalType(),
+          'cardSubtypes' => $defectCard->getSubtypes(),
+          'from' => $defectCard->getLocation(),
+          'to' => $defectCard->getLocation(),
+          'locationPId' => $defectCard->getPId(),
+          'token' => $defectCard->isToken()
+        ], true, 'MoveCard');
         break;
       default:
         break;
