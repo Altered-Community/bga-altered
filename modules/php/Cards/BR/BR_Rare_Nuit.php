@@ -29,8 +29,8 @@ class BR_Rare_Nuit extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 1,
       'changedStats' => ['ocean', 'costHand', 'costReserve'],
-      'blockAutomaticAction' => [CHECK_CONDITION => ['hasXWithZeroStat:all:7']],
-      'effectHand' => FT::ACTION(CHECK_CONDITION, ['condition' => 'hasXWithZeroStat:all:7', 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'allPass'])])
+      'blockAutomaticAction' => [CHECK_CONDITION => ['countOwnerBoosts:7']],
+      'effectHand' => FT::ACTION(CHECK_CONDITION, ['condition' => 'countOwnerBoosts:7', 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'allPass'])])
 
     ];
   }

@@ -1098,6 +1098,16 @@ abstract class Conditions
     return !($event['token'] ?? false);
   }
 
+  public static function countOwnerBoosts($card, $event, $n = 1, $op = 'GTE')
+  {
+    $boosts = Meeples::getFilteredQuery($card->getPId(), null, BOOST)->get()->count();
+    if ($op == 'GTE') {
+      return $boosts >= $n;
+    } elseif ($op == 'LTE') {
+      return $boosts <= $n;
+    }
+  }
+
   ///////////////////////////////////
   //   ___  _   _                   
   //  / _ \| |_| |__   ___ _ __ ___ 
