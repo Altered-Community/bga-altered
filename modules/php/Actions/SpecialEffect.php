@@ -1782,6 +1782,21 @@ class SpecialEffect extends \ALT\Models\Action
           'token' => $defectCard->isToken()
         ], true, 'MoveCard');
         break;
+      case 'discardAllAndBackward':
+        // Sakarabru's fury
+        $player = Players::get($this->getArg('player'));
+        $expedition = $this->getArg('expedition');
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $card) {
+          if ($card->getType() != CHARACTER) {
+            continue;
+          }
+          if ($card->getLocation() == $expedition || (in_array($expedition, STORMS) && $card->isGigantic())) {
+            $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+          }
+        }
+        $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'forceExpedition' => [$player->getId(), $expedition]]);
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
       default:
         break;
     }

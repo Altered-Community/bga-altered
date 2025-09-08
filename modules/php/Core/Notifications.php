@@ -808,7 +808,7 @@ class Notifications
 
   public static function spellCleanup($card, $deleted)
   {
-    self::notifyAll('spellCleanup', '', ['card' => $card, 'deleted' => $deleted]);
+    self::notifyAll('spellCleanup', ' ', ['card' => $card, 'deleted' => $deleted]);
   }
 
   public static function invokeToken($player, $card, $source)

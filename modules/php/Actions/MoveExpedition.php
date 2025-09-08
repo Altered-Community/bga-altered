@@ -29,6 +29,7 @@ class MoveExpedition extends \ALT\Models\Action
     'n' => 1,
     'pId' => null,
     'force' => false,
+    'forceExpedition' => null,
     'winningBiomes' => [],
     'moveOtherExpedition' => false,
     'ascended' => false,
@@ -58,28 +59,33 @@ class MoveExpedition extends \ALT\Models\Action
   {
     $sides = $this->getSides();
     $n = $this->getArg('n');
-    $forcedPId = $this->getArg('pId');
-    if ($forcedPId == OPPONENT) {
-      $forcedPId = Players::getNextId(Players::getActive());
-    } elseif ($forcedPId == ME) {
-      $forcedPId = Players::getActiveId();
-    }
-    $blocked = Players::getBlockedExpeditions();
-
-    $expeditions = [];
-    foreach ($blocked as $pId => $statuses) {
-      if (!is_null($forcedPId) && $forcedPId != $pId) {
-        continue;
+    $forceExpedition = $this->getArg('forceExpedition');
+    if (!is_null($forceExpedition)) {
+      $expeditions = $forceExpedition;
+    } else {
+      $forcedPId = $this->getArg('pId');
+      if ($forcedPId == OPPONENT) {
+        $forcedPId = Players::getNextId(Players::getActive());
+      } elseif ($forcedPId == ME) {
+        $forcedPId = Players::getActiveId();
       }
+      $blocked = Players::getBlockedExpeditions();
 
-      foreach ($statuses as $side => $isBlocked) {
-        if (in_array($side, $sides) && ($n < 0 || !$isBlocked)) {
-          $expeditions[] = [$pId, $side];
+      $expeditions = [];
+      foreach ($blocked as $pId => $statuses) {
+        if (!is_null($forcedPId) && $forcedPId != $pId) {
+          continue;
+        }
+
+        foreach ($statuses as $side => $isBlocked) {
+          if (in_array($side, $sides) && ($n < 0 || !$isBlocked)) {
+            $expeditions[] = [$pId, $side];
+          }
         }
       }
     }
-
     return [
+      'forceExpedition' => $this->getArg('forceExpedition'),
       'expeditions' => $expeditions,
       'descSuffix' => $n < 0 ? "backward" : "",
     ];
@@ -105,6 +111,10 @@ class MoveExpedition extends \ALT\Models\Action
       return;
     }
 
+    if (!is_null($this->getArg('forceExpedition'))) {
+      return $this->getArg('forceExpedition');
+    }
+
     $args = $this->argsMoveExpedition();
     if (count($args['expeditions']) == 1) {
       return [$args['expeditions'][0]];
@@ -122,9 +132,13 @@ class MoveExpedition extends \ALT\Models\Action
       $gigantic = true;
     }
 
+    if (!is_null($this->getArg('forceExpedition'))) {
+      $expe = $this->getArg('forceExpedition');
+    }
+
     $pId = $expe[0];
     $expedition = $expe[1];
-
+    // throw new \feException("titi");
     $token = $expedition == STORM_LEFT ? HERO : COMPANION;
     $source = $this->getSource();
     $n = $this->getArg('n');

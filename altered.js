@@ -2140,6 +2140,9 @@ define([
     },
 
     onEnteringStateMoveExpedition(args) {
+      if (args.forceExpedition !== null) {
+        return;
+      }
       let onChooseLocation = (expe) => {
         return () => this.takeAtomicAction('actMoveExpedition', [expe]);
       };
