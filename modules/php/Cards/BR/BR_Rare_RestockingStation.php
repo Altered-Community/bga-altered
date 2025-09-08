@@ -29,16 +29,20 @@ class BR_Rare_RestockingStation extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'gainCounter', 'args' => ['counter' => 2, 'counterName' => clienttranslate('Kelon counter')]],
       ],
-      'effectTap' => FT::SEQ(
-        FT::ACTION(USE_COUNTER, ['consume' => 1]),
-        FT::ACTION(
-          TARGET,
-          [
-            'targetType' => [CHARACTER, TOKEN],
-            'effect' => FT::LOOSE(EFFECT, FLEETING)
-          ]
+      'effectTap' =>
+      FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'hasCounterOnCard',
+        'effect' => FT::SEQ(
+          FT::ACTION(USE_COUNTER, ['consume' => 1]),
+          FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, TOKEN],
+              'effect' => FT::LOOSE(EFFECT, FLEETING)
+            ]
+          )
         )
-      )
+      ])
     ];
   }
 }

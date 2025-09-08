@@ -30,18 +30,21 @@ class AX_Rare_RestockingStation extends \ALT\Models\Card
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'gainCounter', 'args' => ['counter' => 3, 'counterName' => clienttranslate('Kelon counter')]],
       ],
-      'effectTap' =>  FT::ACTION(SPEND, [
-        'cardId' => ME,
-        'automatic' => false,
-        'updateN' => true,
-        'effect' => FT::ACTION(
-          TARGET,
-          [
-            'targetType' => [CHARACTER, TOKEN],
-            'n' => 'X',
-            'effect' => FT::LOOSE(EFFECT, FLEETING)
-          ]
-        ),
+      'effectTap' =>  FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'hasCounterOnCard',
+        'effect' => FT::ACTION(SPEND, [
+          'cardId' => ME,
+          'automatic' => false,
+          'updateN' => true,
+          'effect' => FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, TOKEN],
+              'n' => 'X',
+              'effect' => FT::LOOSE(EFFECT, FLEETING)
+            ]
+          ),
+        ])
       ])
     ];
   }
