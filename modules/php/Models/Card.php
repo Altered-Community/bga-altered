@@ -511,6 +511,7 @@ class Card extends \ALT\Helpers\DB_Model
       'cardType' => $this->getType(),
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
+      'token' => $this->isToken(),
     ];
     $afterCleanup = Globals::getAfterNightCleanup();
     if ($this->isListeningTo($event)) {
