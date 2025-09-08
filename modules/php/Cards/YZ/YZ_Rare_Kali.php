@@ -39,7 +39,12 @@ class YZ_Rare_Kali extends \ALT\Models\Card
             'effect' => FT::DISCARD_TO_RESERVE(),
           ]
         ),
-        FT::ACTION(DISCARD, ['cardId' => ME, 'desc' => 'sacrifice']),
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetType' => [CHARACTER],
+          'effect' =>
+          FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
+        ])
       )
     ];
   }
