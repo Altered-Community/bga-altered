@@ -356,6 +356,14 @@ class Player extends \ALT\Helpers\DB_Model
             $reduction += $type[$playedCard->getType()]['reduction'];
           } elseif (isset($type[$playedCard->getType()]['minHandCost']) && $playedCard->getCostHand() >= $type[$playedCard->getType()]['minHandCost']) {
             $reduction += $type[$playedCard->getType()]['reduction'];
+          } elseif (isset($type[$playedCard->getType()]['minBaseCost'])) {
+            $baseCost = $type[$playedCard->getType()]['minBaseCost'];
+            // Studious Acolyte
+            if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
+              $reduction += $type[$playedCard->getType()]['reduction'];
+            } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
+              $reduction += $type[$playedCard->getType()]['reduction'];
+            }
           }
         }
       }
