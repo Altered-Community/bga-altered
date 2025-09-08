@@ -25,7 +25,7 @@ class AX_Common_AerolithReef extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{J} You may send to Reserve target Character with Hand Cost {2} or less.'),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 2, 'effect' => FT::DISCARD_TO_RESERVE()]),
+      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 2, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
 
     ];
   }
