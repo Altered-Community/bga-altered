@@ -50,6 +50,7 @@ class Target extends \ALT\Models\Action
     'allIds' => false, // we put all the Ids instead of duplicating for each card
     'ignoreTough' => false,
     'excludeToken' => false,
+    'onlyToken' => false,
     'ascendedOnly' => false,
     'monoBiome' => false, // Rare Lyra Origamium
   ];
@@ -183,6 +184,7 @@ class Target extends \ALT\Models\Action
       $targetPlayer = $pIds = array_diff($pIds, [$pId]);
     }
     $excludeTokens = $this->getArg('excludeToken');
+    $onlyTokens = $this->getArg('onlyToken');
     $ascendedOnly = $this->getArg('ascendedOnly');
 
     if (!empty($this->getArg('cards'))) {
@@ -190,12 +192,13 @@ class Target extends \ALT\Models\Action
         return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && (in_array($c->getType(), $targetType) || count(array_intersect($targetType, $c->getAdditionalType())) > 0);
       });
     } else {
-      $cards = Cards::getFiltered($pIds, null, $targetType, true)->filter(function ($c) use ($targetLocation, $targetType, $excludeTokens) {
+      $cards = Cards::getFiltered($pIds, null, $targetType, true)->filter(function ($c) use ($targetLocation, $targetType, $excludeTokens, $onlyTokens) {
         return ((in_array($c->getLocation(), $targetLocation)
           || ((in_array(STORM_LEFT, $targetLocation) || in_array(STORM_RIGHT, $targetLocation)) && in_array($c->getLocation(), STORMS) && $c->isGigantic()))
           || ($c->getType() == HERO && in_array(HERO, $targetType))) &&
           // Token exclusion
-          ($excludeTokens === false  || ($excludeTokens === true && !$c->isToken()));
+          ($excludeTokens === false  || ($excludeTokens === true && !$c->isToken())) &&
+          ($onlyTokens == false || ($onlyTokens === true && $c->isToken()));
       });
     }
 
