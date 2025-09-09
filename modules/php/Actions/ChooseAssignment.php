@@ -198,7 +198,7 @@ class ChooseAssignment extends \ALT\Models\Action
       // Calculate cost
       $cost = $card->getCost($scout);
       $costReduction = Globals::getCostReduction();
-      foreach ($costReduction[$player->getId()] as $costType => $reductionCost) {
+      foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
         if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType())) {
           unset($costReduction[$player->getId()][$costType]);
         }

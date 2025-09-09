@@ -652,6 +652,11 @@ abstract class Conditions
     return ($card->getExtraDatas()['userPower'] ?? false) == false;
   }
 
+  public static function hasNoBoost($card, $event)
+  {
+    return self::hasBoost($card, $event, 0, 'LTE');
+  }
+
   public static function hasBoost($card, $event, $n = 1, $op = 'GTE')
   {
     // USELESS ?? self::isMe($card, $event) &&
@@ -831,6 +836,16 @@ abstract class Conditions
       }
     }
     return true;
+  }
+
+  public static function isCardOfTypeRobotOrToken($card, $event)
+  {
+    return self::isCardOfType($card, $event, ROBOT) || self::isCardOfType($card, $event, TOKEN);
+  }
+
+  public static function isCardAddedRobotOrToken($card, $event)
+  {
+    return self::isCardAdded($card, $event, ROBOT) || self::isCardAdded($card, $event, TOKEN);
   }
 
   public static function isCardAdded($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)

@@ -37,59 +37,29 @@ class AX_Rare_PajuAxiomPilot extends \ALT\Models\Card
       ],
       'effectPassive' => [
         'ChooseAssignment' => [
-          'childs' => [
-            [
-              'conditions' => ['isCardAdded:token', 'isPlayedInSameLocation', 'isStillSameLocation'],
-              'output' => FT::SEQ(
-                FT::GAIN($this, BOOST, 1, 1),
-                FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
-              )
-            ],
-            [
-              'conditions' => ['isCardAdded:robot', 'isPlayedInSameLocation', 'isStillSameLocation', 'isNotToken'],
-              'output' => FT::SEQ(
-                FT::GAIN($this, BOOST, 1, 1),
-                FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
-              )
-            ],
-          ],
+          'listeningConditions' => ['isCardAddedRobotOrToken'],
+          'conditions' => ['hasNoBoost', 'isPlayedInSameLocation', 'isStillSameLocation'],
+          'output' => FT::SEQ(
+            FT::GAIN($this, BOOST, 1),
+            FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
+          )
         ],
 
         'InvokeToken' => [
-          'childs' => [
-            [
-              'conditions' => ['isCardAdded:token', 'isPlayedInSameLocation', 'isStillSameLocation'],
-              'output' => FT::SEQ(
-                FT::GAIN($this, BOOST, 1, 1),
-                FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
-              )
-            ],
-            [
-              'conditions' => ['isCardAdded:robot', 'isPlayedInSameLocation', 'isStillSameLocation', 'isNotToken'],
-              'output' => FT::SEQ(
-                FT::GAIN($this, BOOST, 1, 1),
-                FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
-              )
-            ],
-          ],
+          'listeningConditions' => ['isCardAddedRobotOrToken'],
+          'conditions' => ['hasNoBoost', 'isPlayedInSameLocation', 'isStillSameLocation'],
+          'output' => FT::SEQ(
+            FT::GAIN($this, BOOST, 1),
+            FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
+          )
         ],
         'MoveCard' => [
-          'childs' => [
-            [
-              'conditions' => ['isCardOfType:token', 'isPlayedInSameLocation', 'isStillSameLocation', 'hasSameOwner'],
-              'output' => FT::SEQ(
-                FT::GAIN($this, BOOST, 1, 1),
-                FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
-              )
-            ],
-            [
-              'conditions' => ['isCardOfType:robot', 'isPlayedInSameLocation', 'isStillSameLocation', 'hasSameOwner', 'isNotToken'],
-              'output' => FT::SEQ(
-                FT::GAIN($this, BOOST, 1, 1),
-                FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
-              )
-            ],
-          ],
+          'listeningConditions' => ['isCardOfTypeRobotOrToken'],
+          'conditions' => ['hasNoBoost', 'isPlayedInSameLocation', 'isStillSameLocation', 'hasSameOwner'],
+          'output' => FT::SEQ(
+            FT::GAIN($this, BOOST, 1),
+            FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
+          )
         ],
       ],
     ];
