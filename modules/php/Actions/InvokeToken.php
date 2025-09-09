@@ -231,6 +231,7 @@ class InvokeToken extends \ALT\Models\Action
         'playCard' => true,
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),
+        'additionalType' => $card->getAdditionalType(),
         'from' => 'invoke',
         'to' => $location,
         'locationPId' => $invokePId,
