@@ -344,6 +344,12 @@ const SUBTYPES = [
   SCHOLAR,
   ANIMAL,
   LANDMARK,
+  ILLUSION,
+  ORE,
+  SCIENTIST,
+  GEAR,
+  EXPEDITION,
+  CONSTRUCTION
 ];
 
 /*********************

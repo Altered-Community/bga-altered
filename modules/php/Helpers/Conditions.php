@@ -453,7 +453,7 @@ abstract class Conditions
       $types = [PERMANENT];
     }
     if (in_array($type, SUBTYPES)) {
-      $types = [CHARACTER, TOKEN, PERMANENT];
+      $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
     }
 
     if ($opponent) {
@@ -484,7 +484,6 @@ abstract class Conditions
         $cards = $cards->filter(fn($c) => $c->hasToken(FLEETING));
       }
     }
-
     $m = $cards->count();
     if ($op == 'GTE') {
       return $m >= $n;
