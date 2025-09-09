@@ -27,6 +27,7 @@ class YZ_Rare_MothtoaSpring extends \ALT\Models\Card
       'costReserve' => 5,
       'changedStats' => ['costHand'],
       'effectPlayed' => FT::SEQ(
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'YZ_Common_ManaMoth',

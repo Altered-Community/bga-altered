@@ -26,8 +26,13 @@ class YZ_Rare_SakarabrusFury extends \ALT\Models\Card
       'costHand' => 8,
       'costReserve' => 8,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' => FT::ACTION(TARGET_EXPEDITION, ['opponentsOnly' => false, 'effect' =>
-      FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllAndBackward'])]),
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN(ME, FLEETING),
+        FT::ACTION(TARGET_EXPEDITION, [
+          'opponentsOnly' => false,
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllAndBackward'])
+        ])
+      ),
     ];
   }
 }
