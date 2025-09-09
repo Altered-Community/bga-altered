@@ -28,7 +28,7 @@ class BR_Rare_FlyingDockyard extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isFirstPassing'],
+          'conditions' => ['isFirstPassing', 'isMe'],
           'output' => FT::SEQ(
             FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
             FT::ACTION(

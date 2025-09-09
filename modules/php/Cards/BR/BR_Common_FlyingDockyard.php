@@ -27,7 +27,7 @@ class BR_Common_FlyingDockyard extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isFirstPassing'],
+          'conditions' => ['isFirstPassing', 'isMe'],
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'NE_Common_Aerolith',

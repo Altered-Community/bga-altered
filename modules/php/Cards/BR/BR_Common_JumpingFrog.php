@@ -30,7 +30,7 @@ class BR_Common_JumpingFrog extends \ALT\Models\Card
       'costReserve' => 1,
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isFirstPassing'],
+          'conditions' => ['isFirstPassing', 'isMe'],
           'output' => FT::GAIN(ME, BOOST)
         ]
       ]

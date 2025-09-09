@@ -30,7 +30,7 @@ class LY_Rare_JumpingFrog extends \ALT\Models\Card
       'costReserve' => 1,
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isFirstPassing'],
+          'conditions' => ['isFirstPassing', 'isMe'],
           'output' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
         ]
       ]

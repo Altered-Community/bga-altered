@@ -28,7 +28,7 @@ class BR_Common_SolHalua extends \ALT\Models\Card
       'statData' => 20,
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isFirstPassing'],
+          'conditions' => ['isFirstPassing', 'isMe'],
           'output' => FT::SEQ(
             FT::ACTION(SPECIAL_EFFECT, [
               'effect' => 'incCounter',

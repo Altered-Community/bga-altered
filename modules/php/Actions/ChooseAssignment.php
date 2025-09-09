@@ -468,6 +468,7 @@ class ChooseAssignment extends \ALT\Models\Action
               'cardId' => $cardId,
               'cardType' => $card->getType(),
               'from' => $fromLocation,
+              'additionalType' => $card->getAdditionalType(),
               'to' => $location,
               'playedFree' => $cost == 0 ? true : false,
               'putAndNotPlayed' => !$effectHand,
@@ -478,6 +479,7 @@ class ChooseAssignment extends \ALT\Models\Action
               'playCard' => true,
               'cardId' => $cardId,
               'cardType' => $card->getType(),
+              'additionalType' => $card->getAdditionalType(),
               'from' => $fromLocation,
               'to' => $location,
               'playedFree' => $cost == 0 ? true : false,
@@ -682,6 +684,6 @@ class ChooseAssignment extends \ALT\Models\Action
     $skipped[] = $player->getId();
     Globals::setSkippedPlayers($skipped);
     Notifications::pass($player);
-    $this->checkAfterListeners($player, [], true, 'EndTurn');
+    $this->checkAfterListeners($player, ['pass'], true, 'EndTurn');
   }
 }

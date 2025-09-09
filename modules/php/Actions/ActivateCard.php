@@ -65,8 +65,10 @@ class ActivateCard extends \ALT\Models\Action
 
     if (($flow['pId'] ?? -1) == CONTROLLER) {
       $tagPId = $event['controller'] ?? $event['pId'];
-    } else {
+    } elseif (isset($event['owner'])) {
       $tagPId = $event['owner'] ?? $event['pId'];
+    } else {
+      $tagPId = Cards::get($this->getCtxArg('cardId'))->getPId();
     }
 
     $flow = Utils::tagTree($flow, [
