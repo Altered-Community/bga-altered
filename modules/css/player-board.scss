@@ -381,6 +381,25 @@
                 display: flex;
             }
         }
+
+         &.ascend {
+            height: 10px;
+            position: absolute;
+            top: -12px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            // border: 1px solid red;
+
+            &.storm-left {
+                left: 18%;
+                top: -12px;
+            }
+            &.storm-right {
+                left: 82%;
+                top: -12px;
+            }
+        }
         
         .scout-marker {
             position: absolute;
@@ -780,6 +799,9 @@
 
     .player-board-storm {
         top: 309px;
+          &.ascend{
+            top: 420px;
+        }
     }
 
     .player-board-deck {
@@ -866,6 +888,9 @@
 
         &.scout{
             top: 0px;
+        }
+         &.ascend{
+            top: -12px;
         }
     }
 

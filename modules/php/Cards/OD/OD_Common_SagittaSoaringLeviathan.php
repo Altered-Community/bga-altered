@@ -29,7 +29,7 @@ class OD_Common_SagittaSoaringLeviathan extends \ALT\Models\Card
       'costHand' => 6,
       'costReserve' => 6,
       'gigantic' => true,
-      'dynamicCostReduction' => 'eachwOwnerAscended'
+      'dynamicCostReduction' => 'eachOwnerAscended'
     ];
   }
 }

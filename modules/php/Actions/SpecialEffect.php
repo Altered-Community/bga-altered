@@ -1593,14 +1593,14 @@ class SpecialEffect extends \ALT\Models\Action
         }
         $oPlayer = Players::get($player);
         $side = $expedition == STORM_LEFT ? HERO : COMPANION;
-        if ($resupplyIfAscended && $oPlayer->isAscended($side)) {
+        if ($resupplyIfAscended && $oPlayer->isAscended($expedition)) {
           $this->insertAsChild(FT::ACTION(RESUPPLY, []));
-        } elseif (!$oPlayer->isAscended($side)) {
-          $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
-          $oToken = $oPlayer->$token();
+        } elseif (!$oPlayer->isAscended($expedition)) {
+          // $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          // $oToken = $oPlayer->$token();
           $ascended = Meeples::singleCreate([
             'player_id' => $player,
-            'location' => $oToken->getLocation(),
+            'location' => $expedition,
             'nbr' => 1,
             'type' => 'ascend'
           ]);

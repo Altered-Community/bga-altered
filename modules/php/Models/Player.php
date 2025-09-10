@@ -296,14 +296,9 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getStormToken(HERO);
   }
 
-  public function isAscended($side)
+  public function isAscended($expedition)
   {
-    if ($side == HERO) {
-      $storm = $this->getHeroToken();
-    } else {
-      $storm = $this->getCompanionToken();
-    }
-    $tokens = Meeples::getAscended($this->id, $storm->getLocation());
+    $tokens = Meeples::getAscended($this->id, $expedition);
     if (count($tokens) == 0) {
       return false;
     }
@@ -469,7 +464,7 @@ class Player extends \ALT\Helpers\DB_Model
     // TODO: manage immobile
     $location = $tokenMeeple->getLocationArg();
     $expedition = $token == HERO ? STORM_LEFT : STORM_RIGHT;
-    $isAscended = $this->isAscended($token);
+    $isAscended = $this->isAscended($expedition);
 
 
     // if hero we increase

@@ -812,8 +812,8 @@ class Card extends \ALT\Helpers\DB_Model
           })->count();
         }
         $dynamicReduction = $cards;
-      } elseif ($dynamicReduction == 'eachwOwnerAscended') {
-        $dynamicReduction = ($this->getPlayer()->isAscended(HERO) == true ? 1 : 0) + ($this->getPlayer()->isAscended(COMPANION) == true ? 1 : 0);
+      } elseif ($dynamicReduction == 'eachOwnerAscended') {
+        $dynamicReduction = ($this->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($this->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
       } else {
         $dynamicReduction = (int) $dynamicReduction;
       }
@@ -1230,13 +1230,13 @@ class Card extends \ALT\Helpers\DB_Model
       return false;
     }
 
-    $side = $this->getLocation() == STORM_LEFT ? HERO : COMPANION;
-    $otherSide = $side == HERO ? COMPANION : HERO;
+    // $side = $this->getLocation() == STORM_LEFT ? HERO : COMPANION;
+    $otherSide = $this->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
 
     if ($this->isGigantic()) {
-      return $this->getPlayer()->isAscended($side) || $this->getPlayer()->isAscended($otherSide);
+      return $this->getPlayer()->isAscended($this->getLocation()) || $this->getPlayer()->isAscended($otherSide);
     } else {
-      return $this->getPlayer()->isAscended($side);
+      return $this->getPlayer()->isAscended($this->getLocation());
     }
   }
 }

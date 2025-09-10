@@ -210,9 +210,9 @@ abstract class Conditions
         return false;
       }
 
-      $side = $storm == STORM_LEFT ? HERO : COMPANION;
+      // $side = $storm == STORM_LEFT ? HERO : COMPANION;
       $move = $stormMoves[$card->getPId()][$storm];
-      if ($card->getPlayer()->isAscended($side) && $move['moves'] >= 1) {
+      if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1) {
         return true;
       }
     }
@@ -223,7 +223,7 @@ abstract class Conditions
   {
     $stormMoves = Globals::getStormMoves();
     foreach (STORMS as $storm) {
-      $side = $storm == STORM_LEFT ? HERO : COMPANION;
+      // $side = $storm == STORM_LEFT ? HERO : COMPANION;
       // are there characters facing it?
       if (Players::getNext($card->getPlayer())->countCardsInLocation($storm, [CHARACTER]) > 0) {
         continue;
@@ -1398,13 +1398,13 @@ abstract class Conditions
     if (!in_array($card->getLocation(), STORMS)) {
       return false;
     }
-    $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
-    return $card->getPlayer()->isAscended($side);
+    // $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
+    return $card->getPlayer()->isAscended($card->getLocation());
   }
 
   public static function countSourceAscended($card, $event)
   {
-    return ($card->getPlayer()->isAscended(HERO) == true ? 1 : 0) + ($card->getPlayer()->isAscended(COMPANION) == true ? 1 : 0);
+    return ($card->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($card->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
   }
 
   public static function hasSourcePlayerAscended($card, $event)

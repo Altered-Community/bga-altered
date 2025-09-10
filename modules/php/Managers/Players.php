@@ -598,7 +598,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
         self::biomesModifier($newBiomes, $player, $expedition);
 
-        $isAscended = $player->isAscended($side);
+        $isAscended = $player->isAscended($expedition);
 
         foreach ($newBiomes as $i => $biome) {
           $win = $winners[$expedition][$biome]['pId'] == $pId || $equality[$expedition][$biome] == true && $isAscended;

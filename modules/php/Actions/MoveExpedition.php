@@ -144,7 +144,7 @@ class MoveExpedition extends \ALT\Models\Action
     $n = $this->getArg('n');
     $player = Players::get($pId);
     $winningBiomes = $this->getArg('winningBiomes');
-    $ascended = $player->isAscended($token);
+    $ascended = $player->isAscended($expedition);
 
     // Rune's testament
     if ($this->getArg('force') === false) {
@@ -209,7 +209,7 @@ class MoveExpedition extends \ALT\Models\Action
 
       $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
       if ($moved) {
-        $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $player->isAscended($token), 'expedition' => $expedition]);
+        $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $player->isAscended($expedition), 'expedition' => $expedition]);
       }
     }
   }

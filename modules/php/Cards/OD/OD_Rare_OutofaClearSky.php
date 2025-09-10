@@ -29,7 +29,7 @@ class OD_Rare_OutofaClearSky extends \ALT\Models\Card
         FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()])
       ),
-      'dynamicCostReduction' => 'eachwOwnerAscended'
+      'dynamicCostReduction' => 'eachOwnerAscended'
     ];
   }
 }

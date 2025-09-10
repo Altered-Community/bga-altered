@@ -100,6 +100,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           let position = meeple.pId == this.bottomPId ? 'player' : 'opponent';
           return $(`storm-${t[1]}-${position}`);
         }
+      } else if (meeple.type == 'ascend') {
+        return $(`board-${meeple.location}_ascend-${meeple.pId}`);
       } else if ($(meeple.location)) {
         return $(meeple.location);
       }

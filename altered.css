@@ -8925,6 +8925,22 @@ body.focus-board .altered-player-board .player-board-infos {
 .altered-player-board .player-board-storm.scout.droppable, .altered-player-board .player-board-storm.scout.selectable {
   display: flex;
 }
+.altered-player-board .player-board-storm.ascend {
+  height: 10px;
+  position: absolute;
+  top: -12px;
+  width: 70px;
+  height: 70px;
+  display: flex;
+}
+.altered-player-board .player-board-storm.ascend.storm-left {
+  left: 18%;
+  top: -12px;
+}
+.altered-player-board .player-board-storm.ascend.storm-right {
+  left: 82%;
+  top: -12px;
+}
 .altered-player-board .player-board-storm .scout-marker {
   position: absolute;
   left: 50%;
@@ -9256,6 +9272,9 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-opponent .altered-player-board .player-board-storm {
   top: 309px;
 }
+#altered-board-opponent .altered-player-board .player-board-storm.ascend {
+  top: 420px;
+}
 #altered-board-opponent .altered-player-board .player-board-deck {
   top: 136px;
 }
@@ -9323,6 +9342,9 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-me .altered-player-board .player-board-storm.scout {
   top: 0px;
+}
+#altered-board-me .altered-player-board .player-board-storm.ascend {
+  top: -12px;
 }
 #altered-board-me .altered-player-board .player-board-deck {
   top: 211px;
