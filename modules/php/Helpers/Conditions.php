@@ -1105,6 +1105,11 @@ abstract class Conditions
     return $card->getLocation() != 'destroy';
   }
 
+  public static function notInDiscard($card, $event)
+  {
+    return $card->getLocation() != DISCARD_PILE;
+  }
+
   public static function isSacrifice($card, $event, $type = null, $subType = null, $exclude = false)
   {
     if (!($event['sacrifice'] ?? false)) {
