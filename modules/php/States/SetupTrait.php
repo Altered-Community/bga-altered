@@ -52,7 +52,7 @@ trait SetupTrait
   {
     $args = [
       '_private' => [],
-      'demoDeck' => Globals::getBeginner() == OPTION_DEMO
+      'demoDeck' => Globals::getBeginner() == OPTION_ENABLED
     ];
     $allDecks = Globals::getPlayerDecks();
     $selection = Globals::getDeckSelection();

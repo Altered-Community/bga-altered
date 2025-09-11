@@ -47,7 +47,7 @@ const OPTION_BEGINNER = 150;
 const OPTION_DISABLED = 0;
 const OPTION_ENABLED = 1;
 const OPTION_DEMO = 2;
-
+const OPTION_SO = 3;
 
 
 /*

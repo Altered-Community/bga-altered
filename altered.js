@@ -874,7 +874,7 @@ define([
         $(`btnSelectDeck${selectedDeck.deckNum}`).classList.add('selected');
 
         $(`overlay-deck-details`).innerHTML = '';
-        if (args.demoDeck == false) {
+        if (args.demoDeck == true) {
           $(`overlay-deck-details`).insertAdjacentHTML(
             'beforeend',
             `<div class='deck-details' data-faction='${deck.faction}'>

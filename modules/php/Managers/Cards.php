@@ -533,7 +533,18 @@ class Cards extends \ALT\Helpers\CachedPieces
     $pId = $player->getId();
 
     foreach (FACTIONS as $faction) {
-      $deck = Globals::getBeginner() == OPTION_DEMO ? DEMO[$faction] : STARTER[$faction];
+      switch (Globals::getBeginner()) {
+        case OPTION_DEMO:
+          $deck = DEMO[$faction];
+          break;
+        case OPTION_SO:
+          $deck = DEMO_SO[$faction];
+          break;
+        default:
+          $deck = STARTER[$faction];
+      }
+
+      // $deck = Globals::getBeginner() == OPTION_DEMO ? DEMO[$faction] : STARTER[$faction];
 
       foreach ($deck as $cardId => $n) {
         // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
