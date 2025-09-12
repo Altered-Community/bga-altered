@@ -28,7 +28,7 @@ class YZ_Common_MoyoSilk extends \ALT\Models\Card
       'statData' => 24,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'conditions' => ['isCardPlayed:spell', 'cardPlayedCostCheck:4'],
+          'conditions' => ['notTapped', 'isCardPlayed:spell', 'cardPlayedCostCheck:4'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, []),
             FT::ACTION(INVOKE_TOKEN, [
