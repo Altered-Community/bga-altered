@@ -68,6 +68,7 @@ class MarkRegion extends \ALT\Models\Action
     // move the marker
     $marker = $args['markers'][$markerId];
     $marker->setLocation('storm-' . $stormId);
+    $marker->setState(Meeples::getNextPlayedMarker());
 
     // Notify
     Notifications::setTerrainMarker(Players::getActive(), Meeples::get($markerId), $this->getSource());

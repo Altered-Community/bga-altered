@@ -131,4 +131,14 @@ class Meeples extends \ALT\Helpers\CachedPieces
       Notifications::silentKill($toDelete);
     }
   }
+
+  public static function getNextPlayedMarker()
+  {
+    $max = 1;
+    $played = self::getOfType('storm-%', [OCEAN, FOREST, MOUNTAIN]);
+    foreach ($played as $cId => $card) {
+      $max = max($max, $card->getState());
+    }
+    return $max;
+  }
 }
