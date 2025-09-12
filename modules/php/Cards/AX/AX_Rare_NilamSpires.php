@@ -51,6 +51,30 @@ class AX_Rare_NilamSpires extends \ALT\Models\Card
                         )
                     ),
                 ],
+                'InvokeToken' => [
+                    'conditions' => ['isCardPlayed:permanent', 'excludeSelf'],
+                    'output' => FT::SEQ(
+                        FT::ACTION(SPECIAL_EFFECT, [
+                            'effect' => 'incCounter',
+                            'args' => ['counter' => 1, 'counterName' => clienttranslate('Arcane counter')]
+                        ]),
+                        FT::ACTION(
+                            CHECK_CONDITION,
+                            [
+                                'condition' => 'hasCounterOnCard:3',
+                                'effect' => FT::SEQ_OPTIONAL(
+                                    FT::ACTION(TAP, []),
+                                    FT::ACTION(USE_COUNTER, ['consume' => 3]),
+                                    FT::ACTION(INVOKE_TOKEN, [
+                                        'pId' => 'source',
+                                        'tokenType' => 'AX_Common_Brassbug',
+                                        'targetLocation' => STORMS,
+                                    ]),
+                                )
+                            ]
+                        )
+                    ),
+                ],
             ]
         ];
     }
