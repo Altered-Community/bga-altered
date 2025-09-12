@@ -740,7 +740,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $tiebreak = Globals::isTieBreakerMode();
     foreach ($visibleRegions as $vId => &$region) {
       // check if there is a terrain marker
-      $markers = Meeples::getOfType('storm-' . $vId, [OCEAN, FOREST, MOUNTAIN])->sortBy('state', 'DESC');
+      $markers = Meeples::getOfType('storm-' . $vId, [OCEAN, FOREST, MOUNTAIN])->sortBy('state');
       if ($markers->count() > 0) {
         foreach ($markers as $mId => $marker) {
           $region =  [$marker->getType()];

@@ -194,10 +194,22 @@ trait TurnTrait
         MOUNTAIN => ['pId' => null, 'value' => 0],
         OCEAN => ['pId' => null, 'value' => 0],
       ];
+
+      $region = null;
+      $markers = Meeples::getOfType('storm-4', [OCEAN, FOREST, MOUNTAIN])->sortBy('state');
+      if ($markers->count() > 0) {
+        foreach ($markers as $mId => $marker) {
+          $region =  [$marker->getType()];
+        }
+      }
+
       foreach ($players as $pId => $player) {
         $expeditions = $player->getBiomeStrength(STORMS, true);
 
         $validBiomes = [FOREST => 0, OCEAN => 0, MOUNTAIN => 0];
+        if (!is_null($region)) {
+          $validBiomes = [$region => 0];
+        }
         Players::biomesModifier($validBiomes, $player, '', true);
 
         foreach (array_keys($validBiomes) as $biome) {
