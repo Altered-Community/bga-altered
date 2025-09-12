@@ -535,7 +535,7 @@ class Card extends \ALT\Helpers\DB_Model
     $afterCleanup = Globals::getAfterNightCleanup();
     if ($this->isListeningTo($event)) {
       $event['cardsToListen'] = [$this->id];
-      if ($afterNight) {
+      if ($afterNight && !$isSacrifice) {
         $afterCleanup[$this->getPId()][] = [
           'action' => ACTIVATE_CARD,
           'args' => [
