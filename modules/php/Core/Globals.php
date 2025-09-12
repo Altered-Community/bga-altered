@@ -246,6 +246,10 @@ class Globals extends \ALT\Helpers\DB_Manager
 
   public static function getVisibleRegions()
   {
+    if (self::isTieBreakerMode()) {
+      return ['4' => [FOREST, MOUNTAIN, OCEAN]];
+    }
+
     $stormCards = self::getStorm();
     $storms = [];
     $index = 0;

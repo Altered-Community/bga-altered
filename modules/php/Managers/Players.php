@@ -753,6 +753,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $token = $player->$side();
         $location = explode('-', $token->getLocation())[1];
         $expedition = $side == 'getHeroToken' ? STORM_LEFT : STORM_RIGHT;
+        if (Globals::isTieBreakerMode()) {
+          $location = 4;
+        }
         if (isset($visibleRegions[$location])) {
           $newBiomes = [];
           foreach ($visibleRegions[$location] as $biome) {
