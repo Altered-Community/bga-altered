@@ -24,7 +24,7 @@ class OD_Common_ZhenZephyr extends \ALT\Models\Card
       'effectDesc' => clienttranslate('At Noon — If you are first player, your Hero Expedition <ASCENDS>. (Until Rest, it can move forward even if matched in its region\'s terrains by the opponent\'s Expedition.)  When one or more of your Ascended Expeditions moves forward — If there is no Character facing it, draw a card.'),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
-      'thumbnail' => 4,
+      'thumbnail' => 3,
       'statData' => 23,
       'effectPassive' => [
         'Noon' => [

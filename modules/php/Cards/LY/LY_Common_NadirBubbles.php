@@ -24,7 +24,7 @@ class LY_Common_NadirBubbles extends \ALT\Models\Card
       'effectDesc' => clienttranslate('I begin the game with one {V}, one {M} and one {O} Terrain Marker.  At Noon — You may place one of my Markers on target visible region. (It gains the terrain of the Marker and loses its other terrains until the Marker is removed.)'),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
-      'thumbnail' => 4,
+      'thumbnail' => 3,
       'statData' => 21,
       'createMarkers' => true,
       'effectPassive' => [

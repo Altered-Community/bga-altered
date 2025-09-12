@@ -24,7 +24,7 @@ class BR_Common_SolHalua extends \ALT\Models\Card
       'effectDesc' => clienttranslate('When you pass first (stop taking turns before other players) — I gain 1 Quest counter. Then, if I have 3 or more Quest counters, create a <HALUA> token in your Companion Expedition. (It\'s a Leviathan Companion token with \"If your Hero has 5 or more Quest counters, I am Gigantic.\")'),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
-      'thumbnail' => 4,
+      'thumbnail' => 3,
       'statData' => 20,
       'effectPassive' => [
         'EndTurn' => [

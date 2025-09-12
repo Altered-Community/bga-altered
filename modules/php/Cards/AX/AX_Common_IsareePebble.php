@@ -18,7 +18,7 @@ class AX_Common_IsareePebble extends \ALT\Models\Card
       'name'  => clienttranslate("Isaree & Pebble"),
       'typeline' => clienttranslate("Axiom Hero"),
       'type'  => HERO,
-      'thumbnail' => 4,
+      'thumbnail' => 3,
       'statData' => 19,
       'flavorText'  => clienttranslate('Science\'s role is to serve the people, not the other way around'),
       'artist' => "Justice Wong",

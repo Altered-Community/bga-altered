@@ -24,7 +24,7 @@ class YZ_Common_MoyoSilk extends \ALT\Models\Card
       'effectDesc' => clienttranslate('When you play a Spell with Base Cost {4} or more — You may exhaust me ({T}) to create a <MANA_MOTH> Illusion token in your Hero Expedition. If the Base Cost was {7} or more, also draw a card. (Reserve Cost if from Reserve, Hand Cost otherwise.)'),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
-      'thumbnail' => 4,
+      'thumbnail' => 3,
       'statData' => 24,
       'effectPassive' => [
         'ChooseAssignment' => [

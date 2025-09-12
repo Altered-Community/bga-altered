@@ -24,7 +24,7 @@ class MU_Common_KauriPuff extends \ALT\Models\Card
       'effectDesc' => clienttranslate('At Noon — If you are first player, create a <WOOLLYBACK> Animal token in target opponent\'s Companion Expedition, then draw a card.'),
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
-      'thumbnail' => 4,
+      'thumbnail' => 3,
       'statData' => 22,
       'effectPassive' => [
         'Noon' => [
