@@ -261,16 +261,15 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $player->getHeroToken()->setLocation('storm-3');
         $meeples = $meeples->merge(Meeples::getStormTokens($pId));
       }
-
       // Delete/remove markers
       $markers = Meeples::getOfType('storm-3', [OCEAN, FOREST, MOUNTAIN])->merge(Meeples::getOfType('storm-4', [OCEAN, FOREST, MOUNTAIN]));
       foreach ($markers as $mId => &$marker) {
-        $marker->setLocation('storm-2');
+        Meeples::delete($marker->getId());
       }
 
       // notif startTiebreak
       Notifications::startTiebreak($meeples->toArray());
-      Notifications::addTerrainMarkers($markers);
+      Notifications::silentKill($markers->getIds());
     } elseif ($victor != -1) {
       // we have a winner => end of game
       Players::get($victor)->setScore(1);
