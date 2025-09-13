@@ -190,8 +190,16 @@ trait DebugTrait
       $player->getHeroToken()->setLocation('storm-3');
       $meeples = $meeples->merge(Meeples::getStormTokens($pId));
     }
+
+    // Delete/remove markers
+    $markers = Meeples::getOfType('storm-3', [OCEAN, FOREST, MOUNTAIN])->merge(Meeples::getOfType('storm-4', [OCEAN, FOREST, MOUNTAIN]));
+    foreach ($markers as $mId => &$marker) {
+      $marker->setLocation('storm-2');
+    }
+
     // notif startTiebreak
     Notifications::startTiebreak($meeples->toArray());
+    Notifications::addTerrainMarkers($markers);
   }
 
   function resolveDebug()
