@@ -29,7 +29,9 @@ class MU_Common_ZaratanSocialLeviathan extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
       'gigantic' => true,
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXOpponentExpedition'])
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXOpponentExpedition']),
+      'blockAutomaticAction' => [GAIN => [BOOST => 1]]
+
     ];
   }
 }

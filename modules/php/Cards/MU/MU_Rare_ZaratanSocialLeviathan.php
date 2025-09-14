@@ -35,7 +35,8 @@ class MU_Rare_ZaratanSocialLeviathan extends \ALT\Models\Card
           'tokenType' => 'MU_Common_Woollyback',
         ], ['automatic' => false]),
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXOpponentExpedition']),
-      )
+      ),
+      'blockAutomaticAction' => [GAIN => [BOOST => 1]]
 
     ];
   }
