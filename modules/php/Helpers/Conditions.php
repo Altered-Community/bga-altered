@@ -821,9 +821,9 @@ abstract class Conditions
       return false;
     }
 
-    if (!self::isMe($card, $event)) {
-      return false;
-    }
+    // if (!self::isMe($card, $event)) {
+    //   return false;
+    // }
 
     // Distinguish play and put
     if ($playedOnly && ($event['putAndNotPlayed'] ?? false)) {
