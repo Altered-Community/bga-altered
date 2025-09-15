@@ -225,7 +225,18 @@ abstract class Conditions
     foreach (STORMS as $storm) {
       // $side = $storm == STORM_LEFT ? HERO : COMPANION;
       // are there characters facing it?
-      if (Players::getNext($card->getPlayer())->countCardsInLocation($storm, [CHARACTER]) > 0) {
+      // if (Players::getNext($card->getPlayer())->countCardsInLocation($storm, [CHARACTER]) > 0) {
+      //   continue;
+      // }
+
+      $found = false;
+      foreach (Players::getNext($card->getPlayer())->getPlayedCards() as $cId => $pCard) {
+        if ($pCard->getLocation() == $storm || (in_array($pCard->getLocation(), STORMS) && $pCard->isGigantic())) {
+          $found = true;
+          break;
+        }
+      }
+      if ($found) {
         continue;
       }
 
@@ -249,8 +260,12 @@ abstract class Conditions
 
     $side = $storm == STORM_LEFT ? HERO : COMPANION;
     // are there characters facing it?
-    if (Players::getNext($card->getPlayer())->countCardsInLocation($storm, [CHARACTER]) > 0) {
-      return false;
+
+    $found = false;
+    foreach (Players::getNext($card->getPlayer())->getPlayedCards() as $cId => $pCard) {
+      if ($pCard->getLocation() == $storm || (in_array($pCard->getLocation(), STORMS) && $pCard->isGigantic())) {
+        return false;
+      }
     }
 
     return true;
