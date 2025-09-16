@@ -1505,10 +1505,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let i = this.getCardFrontInfos(card, tooltip);
       let sizes = this.getBiomesUISizes(p);
 
-      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let effect = this.replaceKeyWordsAndGetReminders(p.effectDesc || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
-      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
+      let support = this.replaceKeyWordsAndGetReminders(p.supportDesc || '');
       let supportIcon = this.getSupportIcon(p);
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
@@ -1963,11 +1963,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     replaceKeyWordsAndGetReminders(str) {
       if (Array.isArray(str)) {
-        return str.map((s) => this.replaceKeyWordsAndGetReminders(s)).join(' ');
+        return str.map((s) => this.replaceKeyWordsAndGetReminders(_(s))).join(' ');
       } else {
         let t = str.split('  ');
         if (t.length > 1) {
-          return t.map((s) => this.replaceKeyWordsAndGetReminders(s)).join('<br />');
+          return t.map((s) => this.replaceKeyWordsAndGetReminders(_(s))).join('<br />');
         }
       }
 
