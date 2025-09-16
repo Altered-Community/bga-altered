@@ -70,6 +70,7 @@ class MoveRegionMarker extends \ALT\Models\Action
     }
 
     $marker->setLocation($source->getPlayer()->$playerToken()->getLocation());
+    $marker->setState(Meeples::getNextPlayedMarker());
 
     // Notify
     Notifications::moveTerrainMarker(Players::getActive(), Meeples::get($markerId), $this->getSource());
