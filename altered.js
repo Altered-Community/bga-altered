@@ -2209,7 +2209,7 @@ define([
         mark = args.markers[id];
         meep = $(`meeple-${id}`);
         meep.classList.add('selectable');
-        this.onClick(meep, () => this.takeAtomicAction('actMoveRegionMarker', [mark.id]));
+        this.onClick(meep, () => this.takeAtomicAction('actMoveRegionMarker', [id]));
       });
     },
 
