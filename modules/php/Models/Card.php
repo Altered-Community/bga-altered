@@ -176,6 +176,7 @@ class Card extends \ALT\Helpers\DB_Model
     'costReductionLimitation' => 'int', // Lost In the riptide
     'effectPlayedLimited' => 'obj', // Lost In the riptide
     'additionalType' => 'obj', // Alelo
+    'resupplyIfAscended' => 'bool', // Mandjet
   ];
 
   /********* DB ACCESS *********/

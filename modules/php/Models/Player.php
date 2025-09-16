@@ -743,6 +743,17 @@ class Player extends \ALT\Helpers\DB_Model
     return $advance;
   }
 
+  public function hasResupplyIfAscended()
+  {
+    $advance = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isResupplyIfAscended()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function hasOppositeDefender($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {

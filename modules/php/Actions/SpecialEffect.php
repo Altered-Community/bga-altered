@@ -1586,7 +1586,7 @@ class SpecialEffect extends \ALT\Models\Action
         $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
         $player = $this->getCtxArg('player') ?? $player;
         $expedition = $this->getCtxArg('expedition');
-        $resupplyIfAscended = $this->getCtxArgs()['resupplyIfAscended'] ?? false;
+        $resupplyIfAscended = $player->hasResupplyIfAscended();
         // manage my expedition
         if ($expedition == 'source') {
           $expedition = $card->getLocation();

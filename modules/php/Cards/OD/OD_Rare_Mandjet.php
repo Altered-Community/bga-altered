@@ -26,8 +26,8 @@ class OD_Rare_Mandjet extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectTap' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'resupplyIfAscended' => true])])
-
+      'effectTap' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'resupplyIfAscended' => true])]),
+      'resupplyIfAscended' => true,
     ];
   }
 }
