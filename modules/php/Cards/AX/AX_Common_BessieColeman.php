@@ -30,7 +30,7 @@ class AX_Common_BessieColeman extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isMe', 'isSacrifice:permanent', 'hasBoost:0:LTE'],
+          'conditions' => ['isMe', 'isSacrifice:permanent', 'hasBoost:0:LTE', 'isInStorms'],
           'output' => FT::GAIN($this, BOOST, 1),
         ],
       ],
