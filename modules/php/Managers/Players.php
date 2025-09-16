@@ -686,15 +686,15 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
 
         if (($updateExpeditions['type'] ?? '') == 'source') {
-          foreach (['getHeroToken', 'getCompanionToken'] as $token) {
-            $otherToken = $token == 'getHeroToken' ? 'getCompanionToken' : 'getHeroToken';
-            $cardToken = $card->getPlayer()->$token()->getLocation();
-            $playerToken = $player->$token()->getLocation();
-            $otherPlayerToken = $player->$otherToken()->getLocation();
-            // if (($playerToken == $cardToken && $card->getLocation() == $expedition) || $card->isGigantic() || Globals::isTieBreakerMode()) {
-            if (($playerToken == $cardToken) || $card->isGigantic() || Globals::isTieBreakerMode() || $otherPlayerToken == $cardToken) {
-              self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
-            }
+          if ($card->getLocation() == STORM_LEFT) {
+            $cardToken = $card->getPlayer()->getHeroToken()->getLocation();
+          } else {
+            $cardToken = $card->getPlayer()->getCompanionToken()->getLocation();
+          }
+          $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          $playerToken = $player->$token()->getLocation();
+          if (($playerToken == $cardToken) || $card->isGigantic() || Globals::isTieBreakerMode()) {
+            self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
           }
         }
 
