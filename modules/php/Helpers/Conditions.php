@@ -815,15 +815,15 @@ abstract class Conditions
   //                 |___/
   /////////////////////////////////////////////////////////////
 
-  public static function isAddedCardEvent($card, $event, $playedOnly = false)
+  public static function isAddedCardEvent($card, $event, $playedOnly = false, $allPlayers = false)
   {
     if (!($event['playCard'] ?? false)) {
       return false;
     }
 
-    // if (!self::isMe($card, $event)) {
-    //   return false;
-    // }
+    if (!self::isMe($card, $event) && !$allPlayers) {
+      return false;
+    }
 
     // Distinguish play and put
     if ($playedOnly && ($event['putAndNotPlayed'] ?? false)) {
@@ -859,7 +859,49 @@ abstract class Conditions
 
   public static function isCardAddedRobotOrToken($card, $event)
   {
-    return self::isCardAdded($card, $event, ROBOT) || self::isCardAdded($card, $event, TOKEN);
+    return self::isCardAddedAnyPlayer($card, $event, ROBOT) || self::isCardAddedAnyPlayer($card, $event, TOKEN);
+  }
+
+  public static function isCardAddedAnyPlayer($card,  $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
+  {
+    if (!self::isAddedCardEvent($card, $event, $playedOnly, true)) {
+      return false;
+    }
+    $playedCard = Cards::get($event['cardId']);
+
+
+    // Exclude myself
+    if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
+      return false;
+    }
+
+    // Type check
+    if (!self::typeCheck($type, $event['cardType'], $event['token'], $event['additionalType'])) {
+      return false;
+    }
+
+    // Subtype check
+    if (in_array($type, SUBTYPES)) {
+      if (!in_array($type, $playedCard->getSubtypes())) {
+        return false;
+      }
+    }
+
+    // Cost check
+    if (!is_null($cost)) {
+      $costHand = $playedCard->getCostHand();
+      if ($op == 'GTE' && $costHand < $cost) {
+        return false;
+      }
+      if ($op == 'LTE' && $costHand > $cost) {
+        return false;
+      }
+      if ($op == 'E' && $costHand != $cost) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   public static function isCardAdded($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)

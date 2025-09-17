@@ -27,11 +27,11 @@ class BR_Common_ArcolanoMilk extends \ALT\Models\Card
             'costReserve' => 1,
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
+                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
+                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
                 'MoveCard' => [

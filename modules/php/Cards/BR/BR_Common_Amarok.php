@@ -30,11 +30,11 @@ class BR_Common_Amarok extends \ALT\Models\Card
       'costReserve' => 5,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
+          'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'excludeSelf'],
           'output' => FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice'])
         ],
         'InvokeToken' => [
-          'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
+          'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'excludeSelf'],
           'output' => FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice'])
         ],
         'MoveCard' => [

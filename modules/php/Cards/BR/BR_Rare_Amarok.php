@@ -30,11 +30,11 @@ class BR_Rare_Amarok extends \ALT\Models\Card
             'costReserve' => 5,
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
+                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'excludeSelf'],
                     'output' => FT::SEQ(FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice']), FT::GAIN(ME, BOOST))
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
+                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'excludeSelf'],
                     'output' => FT::SEQ(FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice']), FT::GAIN(ME, BOOST))
                 ],
                 'MoveCard' => [
