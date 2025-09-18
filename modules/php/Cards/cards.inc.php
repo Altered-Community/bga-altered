@@ -370,7 +370,7 @@ const DEMO_SO = [
     'LY_Rare_LostintheRiptide' => 1,
     'LY_Rare_Brainwash' => 1,
     'LY_Common_ThePainthouse' => 3,
-    'LY_Rare_ThePainthouse' => 1,
+    'LY_Rare_ParliamentofAshes' => 1,
   ],
   FACTION_MU => [
     'MU_Common_KauriPuff' => 1,

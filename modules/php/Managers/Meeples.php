@@ -139,6 +139,6 @@ class Meeples extends \ALT\Helpers\CachedPieces
     foreach ($played as $cId => $card) {
       $max = max($max, $card->getState());
     }
-    return $max;
+    return $max + 1;
   }
 }
