@@ -545,7 +545,7 @@ class Card extends \ALT\Helpers\DB_Model
           ],
           'pId' => $this->getPId(),
         ];
-      } else {
+      } elseif (!$isSacrifice) {
         Engine::pushAfterFinishingChilds([
           [
             'action' => ACTIVATE_CARD,
