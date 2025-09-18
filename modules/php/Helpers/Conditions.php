@@ -1520,10 +1520,11 @@ abstract class Conditions
         return true;
       }
     }
+
     if ($type == CHARACTER && !in_array($cardType, [CHARACTER, TOKEN])) {
       return false;
     }
-    if ($type == 'characterOnly' && $cardType == CHARACTER && $isToken) {
+    if ($type == 'characterOnly' && ($cardType != CHARACTER || $isToken)) {
       return false;
     }
     if ($type == TOKEN && !$isToken) {
