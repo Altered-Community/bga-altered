@@ -1586,12 +1586,13 @@ class SpecialEffect extends \ALT\Models\Action
         $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
         $player = $this->getCtxArg('player') ?? $player;
         $expedition = $this->getCtxArg('expedition');
-        $resupplyIfAscended = $player->hasResupplyIfAscended();
+        $oPlayer = Players::get($player);
+        $resupplyIfAscended = $oPlayer->hasResupplyIfAscended();
         // manage my expedition
         if ($expedition == 'source') {
           $expedition = $card->getLocation();
         }
-        $oPlayer = Players::get($player);
+
         $side = $expedition == STORM_LEFT ? HERO : COMPANION;
         if ($resupplyIfAscended && $oPlayer->isAscended($expedition)) {
           $this->insertAsChild(FT::ACTION(RESUPPLY, []));
