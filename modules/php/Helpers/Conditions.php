@@ -380,6 +380,14 @@ abstract class Conditions
       ->count() > 0;
   }
 
+  public static function hasBiggerHand($card, $event)
+  {
+    return $card
+      ->getPlayer()
+      ->getHand()
+      ->count() > Players::getNext($card->getPlayer())->getHand()->count();;
+  }
+
   public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE')
   {
     $cards = $card
@@ -1422,6 +1430,35 @@ abstract class Conditions
     return  $n;
   }
 
+  public static function controlInAllExpeditions($card, $event, $type = null)
+  {
+    $player = $card->getPlayer();;
+
+    $cards = $player->getPlayedCards($type);
+    $left = false;
+    $right = false;
+
+    $n = 0;
+    foreach ($cards as $oId => $oCard) {
+      if (!is_null($type) && $card->getType() != $type) {
+        continue;
+      }
+      if ($oCard->isGigantic()) {
+        return true;
+      }
+      if ($oCard->getLocation() == STORM_LEFT) {
+        $left = true;
+      }
+      if ($oCard->getLocation() == STORM_RIGHT) {
+        $right = true;
+      }
+      if ($left && $right) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function isOpponentExpeditionNotEmpty($card, $event)
   {
     return !self::isOpponentExpeditionEmpty($card, $event);
@@ -1472,6 +1509,11 @@ abstract class Conditions
   public static function hasSourcePlayerAscended($card, $event)
   {
     return self::countSourceAscended($card, $event)  > 0;
+  }
+
+  public static function hasSourcePlayerAllAscended($card, $event)
+  {
+    return self::countSourceAscended($card, $event) == 2;
   }
 
   public static function isSupportEffect($card, $event)

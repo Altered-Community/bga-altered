@@ -422,49 +422,146 @@ abstract class FlowConvertor
       ],
       538 => ['description' => clienttranslate('If your hand is empty:'), 'condition' => 'isHandEmpty'],
       // Cyclone
-      633 => ['description' => clienttranslate('If an opponent controls three Characters or more:'), 'condition' => ''],
-      610 => ['description' => clienttranslate('If both of your Expeditions are Ascended:'), 'condition' => ''],
-      611 => ['description' => clienttranslate('If five or more single-terrain regions are visible:'), 'condition' => ''],
-      612 => ['description' => clienttranslate('If I have less than 2 boosts:'), 'condition' => ''],
-      613 => ['description' => clienttranslate('If I have less than 3 boosts:'), 'condition' => ''],
-      614 => ['description' => clienttranslate('If I have no boosts:'), 'condition' => ''],
-      625 => ['description' => clienttranslate('If I\'m facing a Character:'), 'condition' => ''],
-      626 => ['description' => clienttranslate('If I\'m facing a Character:'), 'condition' => ''],
-      620 => ['description' => clienttranslate('If I\'m facing an Expedition in {M}:'), 'condition' => ''],
-      621 => ['description' => clienttranslate('If I\'m facing an Expedition in {O}:'), 'condition' => ''],
-      622 => ['description' => clienttranslate('If I\'m facing an Expedition in {V}:'), 'condition' => ''],
-      628 => ['description' => clienttranslate('If I\'m facing only one Character:'), 'condition' => ''],
-      648 => ['description' => clienttranslate('If I\'m in a single-terrain region:'), 'condition' => ''],
-      615 => ['description' => clienttranslate('If I\'m in an Ascended Expedition:'), 'condition' => ''],
-      616 => ['description' => clienttranslate('If I\'m in an Ascended Expedition:'), 'condition' => ''],
-      617 => ['description' => clienttranslate('If neither of your Expeditions is in {M}:'), 'condition' => ''],
-      618 => ['description' => clienttranslate('If one or more of your Expeditions is Ascended:'), 'condition' => ''],
-      619 => ['description' => clienttranslate('If one or more of your Expeditions is Ascended:'), 'condition' => ''],
-      623 => ['description' => clienttranslate('If there are 7 or more boosts among Characters you control and in your Reserve:'), 'condition' => ''],
-      624 => ['description' => clienttranslate('If there are nine or more base statistics of 0 among Characters you control and in your Reserve:'), 'condition' => ''],
-      660 => ['description' => clienttranslate('If there\'s a Spell in your Reserve:'), 'condition' => ''],
-      627 => ['description' => clienttranslate('If there\'s a Spell with Reserve Cost {4} or more in your Reserve:'), 'condition' => ''],
-      661 => ['description' => clienttranslate('If there\'s an Animal in your Reserve:'), 'condition' => ''],
-      629 => ['description' => clienttranslate('If three or more single-terrain regions are visible:'), 'condition' => ''],
-      630 => ['description' => clienttranslate('If three or more single-terrain regions are visible:'), 'condition' => ''],
-      631 => ['description' => clienttranslate('If you are first player:'), 'condition' => ''],
-      632 => ['description' => clienttranslate('If you are first player:'), 'condition' => ''],
-      665 => ['description' => clienttranslate('If you are not first player:'), 'condition' => ''],
-      664 => ['description' => clienttranslate('If you control a Character in each of your Expeditions:'), 'condition' => ''],
-      662 => ['description' => clienttranslate('If you have less cards in hand than target opponent:'), 'condition' => ''],
-      663 => ['description' => clienttranslate('If you have six or more Mana Orbs:'), 'condition' => ''],
-      634 => ['description' => clienttranslate('Unless I\'m facing two or more Characters:'), 'condition' => ''],
-      635 => ['description' => clienttranslate('You may <RUSH>. If you do:'), 'condition' => ''],
-      636 => ['description' => clienttranslate('You may <RUSH>. If you do:'), 'condition' => ''],
-      637 => ['description' => clienttranslate('You may have target Character facing me gain [ANCHORED]. If you do:'), 'condition' => ''],
-      638 => ['description' => clienttranslate('You may immediately pass. If you do:'), 'condition' => ''],
-      639 => ['description' => clienttranslate('You may immediately pass. If you do:'), 'condition' => ''],
-      640 => ['description' => clienttranslate('You may put a Permanent from your hand in Reserve. If you don\'t:'), 'condition' => ''],
-      641 => ['description' => clienttranslate('You may put a Spell from your hand in Reserve. If you don\'t:'), 'condition' => ''],
-      642 => ['description' => clienttranslate('You may reveal a Character with Hand Cost {4} or more from your hand. If you do:'), 'condition' => ''],
-      643 => ['description' => clienttranslate('You may reveal a Spell with Hand Cost {4} or more from your hand. If you do:'), 'condition' => ''],
-      644 => ['description' => clienttranslate('You may sacrifice a Character or Permanent. If you don\'t:'), 'condition' => ''],
-      645 => ['description' => clienttranslate('You may sacrifice a Permanent. If you don\'t:'), 'condition' => ''],
+      633 => ['description' => clienttranslate('If an opponent controls three Characters or more:'), 'condition' => 'hasOpponentControl:character:3'],
+      610 => ['description' => clienttranslate('If both of your Expeditions are Ascended:'), 'condition' => 'hasSourcePlayerAllAscended'],
+      611 => ['description' => clienttranslate('If five or more single-terrain regions are visible:'), 'condition' => 'countMonoVisibleRegions:5'],
+      612 => ['description' => clienttranslate('If I have less than 2 boosts:'), 'condition' => 'hasBoost:1:LTE'],
+      613 => ['description' => clienttranslate('If I have less than 3 boosts:'), 'condition' => 'hasBoost:2:LTE'],
+      614 => ['description' => clienttranslate('If I have no boosts:'), 'condition' => 'hasBoost:0:LTE'],
+      625 => ['description' => clienttranslate('If I\'m facing a Character:'), 'condition' => 'isOpponentExpeditionNotEmpty'],
+      626 => ['description' => clienttranslate('If I\'m facing a Character:'), 'condition' => 'isOpponentExpeditionNotEmpty'],
+      620 => ['description' => clienttranslate('If I\'m facing an Expedition in {M}:'), 'condition' => 'isOpponentExpeditionIn:mountain'],
+      621 => ['description' => clienttranslate('If I\'m facing an Expedition in {O}:'), 'condition' => 'isOpponentExpeditionIn:ocean'],
+      622 => ['description' => clienttranslate('If I\'m facing an Expedition in {V}:'), 'condition' => 'isOpponentExpeditionIn:forest'],
+      628 => ['description' => clienttranslate('If I\'m facing only one Character:'), 'condition' => 'isOpponentExpeditionFilled:character:1'],
+      648 => ['description' => clienttranslate('If I\'m in a single-terrain region:'), 'condition' => 'cardInMonoRegion'],
+      615 => ['description' => clienttranslate('If I\'m in an Ascended Expedition:'), 'condition' => 'isCardExpeditionAscended'],
+      616 => ['description' => clienttranslate('If I\'m in an Ascended Expedition:'), 'condition' => 'isCardExpeditionAscended'],
+      617 => ['description' => clienttranslate('If neither of your Expeditions is in {M}:'), 'condition' => 'allExpeditionsNotIn:mountain'],
+      618 => ['description' => clienttranslate('If one or more of your Expeditions is Ascended:'), 'condition' => 'hasSourcePlayerAscended'],
+      619 => ['description' => clienttranslate('If one or more of your Expeditions is Ascended:'), 'condition' => 'hasSourcePlayerAscended'],
+      623 => ['description' => clienttranslate('If there are 7 or more boosts among Characters you control and in your Reserve:'), 'condition' => 'countOwnerBoosts:7'],
+      624 => ['description' => clienttranslate('If there are nine or more base statistics of 0 among Characters you control and in your Reserve:'), 'condition' => 'hasXWithZeroStat:all:9'],
+      660 => ['description' => clienttranslate('If there\'s a Spell in your Reserve:'), 'condition' => 'hasReserve:spell'],
+      627 => ['description' => clienttranslate('If there\'s a Spell with Reserve Cost {4} or more in your Reserve:'), 'condition' => 'hasReserve:spell::4'],
+      661 => ['description' => clienttranslate('If there\'s an Animal in your Reserve:'), 'condition' => 'hasReserve:animal'],
+      629 => ['description' => clienttranslate('If three or more single-terrain regions are visible:'), 'condition' => 'countMonoVisibleRegions:3'],
+      630 => ['description' => clienttranslate('If three or more single-terrain regions are visible:'), 'condition' => 'countMonoVisibleRegions:3'],
+      631 => ['description' => clienttranslate('If you are first player:'), 'condition' => 'isFirstPlayer'],
+      632 => ['description' => clienttranslate('If you are first player:'), 'condition' => 'isFirstPlayer'],
+      665 => ['description' => clienttranslate('If you are not first player:'), 'condition' => 'isNotFirstPlayer'],
+      664 => ['description' => clienttranslate('If you control a Character in each of your Expeditions:'), 'condition' => 'controlInAllExpeditions'],
+      662 => ['description' => clienttranslate('If you have less cards in hand than target opponent:'), 'condition' => 'hasBiggerHand'],
+      663 => ['description' => clienttranslate('If you have six or more Mana Orbs:'), 'condition' => 'hasXMana:6'],
+      634 => ['description' => clienttranslate('Unless I\'m facing two or more Characters:'), 'condition' => 'isOpponentExpeditionFilled:character:1:LTE'],
+      635 => [
+        'description' => clienttranslate('You may <RUSH>. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(
+          FT::RUSH(),
+          'OUTPUT'
+        )
+      ],
+      636 => [
+        'description' => clienttranslate('You may <RUSH>. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(
+          FT::RUSH(),
+          'OUTPUT'
+        )
+      ],
+      637 => ['description' => clienttranslate('You may have target Character facing me gain <ANCHORED>. If you do:'), 'effect' => FT::ACTION(
+        TARGET,
+        [
+          'targetLocation' => ['opponentSource'],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::GAIN(EFFECT, ANCHORED),
+            'OUTPUT',
+          )
+        ]
+      )],
+      638 => ['description' => clienttranslate('You may immediately pass. If you do:'), 'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::ACTION(END_AFTERNOON, []), 'OUTPUT')],
+      639 => ['description' => clienttranslate('You may immediately pass. If you do:'), 'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::ACTION(END_AFTERNOON, []), 'OUTPUT')],
+      640 => [
+        'description' => clienttranslate('You may put a Permanent from your hand in Reserve. If you don\'t:'),
+        'effect' =>  FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'hasControl:permanent:1',
+          'description' => clienttranslate('if control permanent'),
+          'effect' =>
+          FT::XOR(
+            FT::ACTION(
+              TARGET,
+              [
+                'targetLocation' => [HAND],
+                'targetPlayer' => ME,
+                'targetType' => [PERMANENT],
+                'effect' => FT::DISCARD_TO_RESERVE(),
+              ]
+            ),
+            'OUTPUT'
+          )
+        ]),
+      ],
+      641 => ['description' => clienttranslate('You may put a Spell from your hand in Reserve. If you don\'t:'), 'effect' => FT::XOR(
+        FT::ACTION(
+          TARGET,
+          [
+            'targetLocation' => [HAND],
+            'targetPlayer' => ME,
+            'targetType' => [SPELL],
+            'effect' => FT::DISCARD_TO_RESERVE(),
+          ]
+        ),
+        'OUTPUT'
+      )],
+      642 => [
+        'description' => clienttranslate('You may reveal a Character with Hand Cost {4} or more from your hand. If you do:'),
+        'effect' =>
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'upTo' => true,
+          'targetType' => [CHARACTER],
+          'minHandCost' => 4,
+          'effect' => FT::SEQ(
+            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'reveal']),
+            'OUTPUT'
+          )
+        ])
+      ],
+      643 => [
+        'description' => clienttranslate('You may reveal a Spell with Hand Cost {4} or more from your hand. If you do:'),
+        'effect' =>
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'upTo' => true,
+          'targetType' => [CHARACTER],
+          'minHandCost' => 4,
+          'effect' => FT::SEQ(
+            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'reveal']),
+            'OUTPUT'
+          )
+        ])
+      ],
+      644 => [
+        'description' => clienttranslate('You may sacrifice a Character or Permanent. If you don\'t:'),
+        'effect' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [PERMANENT, CHARACTER],
+            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+          ]),
+          'OUTPUT'
+        )
+      ],
+      645 => ['description' => clienttranslate('You may sacrifice a Permanent. If you don\'t:'), 'effect' => FT::XOR(
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetType' => [PERMANENT],
+          'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+        ]),
+        'OUTPUT'
+      )],
     ];
   }
 
