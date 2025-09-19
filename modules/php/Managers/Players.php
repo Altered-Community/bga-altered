@@ -262,7 +262,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $meeples = $meeples->merge(Meeples::getStormTokens($pId));
       }
       // Delete/remove markers
-      $markers = Meeples::getOfType('storm-3', [OCEAN, FOREST, MOUNTAIN])->merge(Meeples::getOfType('storm-4', [OCEAN, FOREST, MOUNTAIN]));
+      $markers = Meeples::getOfType('storm-%', [OCEAN, FOREST, MOUNTAIN]);
       foreach ($markers as $mId => &$marker) {
         Meeples::delete($marker->getId());
       }
