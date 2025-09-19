@@ -81,17 +81,16 @@ abstract class FlowConvertor
       // Patch note 13/05/2025
       675 => ['description' => clienttranslate('When a non-Token Character you control gains 1 or more boosts —'), 'trigger' => 'Gain', 'condition' => ['isNonTokenBoostedAndUntap',]], // condition to check
       // Cyclone
-      542 => ['description' => clienttranslate('When a Character joins the Expedition facing me —'), 'trigger' => ''],
-      675 => ['description' => clienttranslate('When a non-token Character you control gains 1 or more boosts —'), 'trigger' => ''],
-      543 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk —'), 'trigger' => ''],
-      544 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk —'), 'trigger' => ''],
-      674 => ['description' => clienttranslate('When my Expedition moves forward —'), 'trigger' => ''],
-      656 => ['description' => clienttranslate('When you create one or more tokens —'), 'trigger' => ''],
-      545 => ['description' => clienttranslate('When you pass first —'), 'trigger' => ''],
-      546 => ['description' => clienttranslate('When you pass first —'), 'trigger' => ''],
-      547 => ['description' => clienttranslate('When you play a Spell with Base Cost {4} or more —'), 'trigger' => ''],
-      549 => ['description' => clienttranslate('When you sacrifice a Character or Permanent —'), 'trigger' => ''],
-      548 => ['description' => clienttranslate('When you sacrifice a Permanent —'), 'trigger' => ''],
+      542 => ['description' => clienttranslate('When a Character joins the Expedition facing me —'), 'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'], 'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'], 'condition' => ['isOpponentExpeditionFilled:character:1']],
+      543 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk —'), 'trigger' => 'AfterDusk', 'condition' => ['myExpeditionHasNotMoved']],
+      544 => ['description' => clienttranslate('When my Expedition fails to move forward during Dusk —'), 'trigger' => 'AfterDusk', 'condition' => ['myExpeditionHasNotMoved']],
+      674 => ['description' => clienttranslate('When my Expedition moves forward —'), 'trigger' => 'AfterDusk', 'condition' => ['myExpeditionHasMoved']],
+      656 => ['description' => clienttranslate('When you create one or more tokens —'), 'trigger' => ''], // TODO!!!
+      545 => ['description' => clienttranslate('When you pass first —'), 'trigger' => 'EndTurn', 'condition' => ['isFirstPassing', 'isMe']],
+      546 => ['description' => clienttranslate('When you pass first —'), 'trigger' => 'EndTurn', 'condition' => ['isFirstPassing', 'isMe']],
+      547 => ['description' => clienttranslate('When you play a Spell with Base Cost {4} or more —'), 'trigger' => 'ChooseAssignment', 'condition' => ['notTapped', 'isCardPlayed:spell', 'cardPlayedCostCheck:4']],
+      549 => ['description' => clienttranslate('When you sacrifice a Character or Permanent —'), 'trigger' => 'Discard', 'condition' => ['isMe', 'isSacrificeCharacterPermanent']],
+      548 => ['description' => clienttranslate('When you sacrifice a Permanent —'), 'trigger' => 'Discard', 'condition' => ['isMe', 'isSacrifice:permanent']],
     ];
   }
 
@@ -2680,6 +2679,9 @@ abstract class FlowConvertor
         if (isset($calculated['triggerConditions'])) {
           $template['conditions'] = $calculated['triggerConditions'];
         }
+        if (isset($calculated['triggerListeningConditions'])) {
+          $template['listeningConditions'] = $calculated['triggerListeningConditions'];
+        }
 
         if (isset($calculated['oppositeOutput'])) {
           // management of Otherwise effect
@@ -2994,6 +2996,9 @@ abstract class FlowConvertor
     }
     if (isset($trigger['pId'])) {
       $calculated['pId'] = $trigger['pId'];
+    }
+    if (isset($trigger['listeningConditions'])) {
+      $calculated['triggerListeningConditions'] = $trigger['listeningConditions'];
     }
   }
 

@@ -1190,6 +1190,11 @@ abstract class Conditions
     return true;
   }
 
+  public static function isSacrificeCharacterPermanent($card, $event)
+  {
+    return self::isSacrifice($card, $event, PERMANENT) || self::isSacrifice($card, $event, CHARACTER);
+  }
+
   public static function isSacrificed($card, $event)
   {
     return self::isSacrifice($card, $event) && self::isMyselfDiscarded($card, $event);
