@@ -199,7 +199,7 @@ trait TurnTrait
       $markers = Meeples::getOfType('storm-4', [OCEAN, FOREST, MOUNTAIN])->sortBy('state');
       if ($markers->count() > 0) {
         foreach ($markers as $mId => $marker) {
-          $region =  [$marker->getType()];
+          $region =  $marker->getType();
         }
       }
 
