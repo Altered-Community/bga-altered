@@ -80,6 +80,8 @@ class Resupply extends \ALT\Models\Action
       $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
     } elseif ($pId == 'active') {
       $pId = Players::getActiveId();
+    } elseif ($this->getArg('player') == 'nextPlayer') {
+      $pId = Players::getNextId(Players::getActive());
     }
 
     return Players::get($pId);

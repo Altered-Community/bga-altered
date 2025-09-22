@@ -2581,38 +2581,215 @@ abstract class FlowConvertor
         'output' => FT::ACTION(MOVE_EXPEDITION, []),
       ],
       // Cyclone
-      550 => ['description' => clienttranslate('<EXHAUSTED_RESUPPLY>, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
-      681 => ['description' => clienttranslate('<GIGANTIC>, <TOUGH_1>.'), 'output' => ''],
-      568 => ['description' => clienttranslate('<GIGANTIC>.  {J} I gain 1 boost per Character in the Expeditions facing me.'), 'output' => ''],
-      593 => ['description' => clienttranslate('<GIGANTIC>.  {J} You may discard any number of cards from your Reserve to give me that many boosts.'), 'output' => ''],
+      550 => ['description' => clienttranslate('<EXHAUSTED_RESUPPLY>, otherwise my Expedition <ASCENDS>.'), 'output' =>  FT::ACTION(RESUPPLY, ['exhausted' => true]), 'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])],
+      681 => ['description' => clienttranslate('<GIGANTIC>, <TOUGH_1>.'), 'attributes' => ['gigantic' => true, 'tough' => 1]],
+      568 => ['description' => clienttranslate('<GIGANTIC>.  {J} I gain 1 boost per Character in the Expeditions facing me.')], // Hardcoded
+      593 => ['description' => clienttranslate('<GIGANTIC>.  {J} You may discard any number of cards from your Reserve to give me that many boosts.'),], // Hardcoded
       607 => ['description' => clienttranslate('<GIGANTIC>.  {J} You may sacrifice any number of Permanents to give me that many boosts.'), 'output' => ''],
-      570 => ['description' => clienttranslate('<GIGANTIC>.  I\'m also considered a Spell, even when not in play.'), 'output' => ''],
-      650 => ['description' => clienttranslate('<GIGANTIC>.  I\'m also considered an Expedition Permanent, even when not in play.'), 'output' => ''],
-      659 => ['description' => clienttranslate('<RESUPPLY>, otherwise create an <AEROLITH> token in your Landmarks.'), 'output' => ''],
-      671 => ['description' => clienttranslate('<RESUPPLY>, otherwise each player <RESUPPLIES>.'), 'output' => ''],
-      551 => ['description' => clienttranslate('<RESUPPLY>, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
-      553 => ['description' => clienttranslate('<SABOTAGE>, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
+      570 => ['description' => clienttranslate('<GIGANTIC>.  I\'m also considered a Spell, even when not in play.'), 'attributes' => ['gigantic' => true, 'additionalType' => [SPELL]]],
+      650 => ['description' => clienttranslate('<GIGANTIC>.  I\'m also considered an Expedition Permanent, even when not in play.'), 'attributes' => ['gigantic' => true, 'additionalType' => [PERMANENT]]],
+      659 => ['description' => clienttranslate('<RESUPPLY>, otherwise create an <AEROLITH> token in your Landmarks.'), 'output' => FT::ACTION(RESUPPLY, []), 'oppositeOutput' => [
+        'action' => INVOKE_TOKEN,
+        'automatic' => true,
+        'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+      ],],
+      671 => ['description' => clienttranslate('<RESUPPLY>, otherwise each player <RESUPPLIES>.'), 'output' => FT::ACTION(RESUPPLY, []), 'oppositeOutput' => FT::SEQ(
+        FT::ACTION(RESUPPLY, []),
+        FT::ACTION(RESUPPLY, ['player' => 'nextPlayer'])
+      )],
+      551 => ['description' => clienttranslate('<RESUPPLY>, otherwise my Expedition <ASCENDS>.'), 'output' => FT::ACTION(RESUPPLY, []), 'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])],
+      553 => ['description' => clienttranslate('<SABOTAGE>, otherwise my Expedition <ASCENDS>.'), 'output' => FT::SABOTAGE(), 'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])],
       552 => ['description' => clienttranslate('<SABOTAGE>. If you discarded a card this way, create a <WOOLLYBACK> Animal token in the Companion Expedition of its owner.'), 'output' => ''],
-      579 => ['description' => clienttranslate('<SEASONED>.  {H} Target a Character facing me. I gain its subtype and X boosts, where X equals its highest statistic.'), 'output' => ''],
-      554 => ['description' => clienttranslate('All Characters gain <FLEETING>.'), 'output' => ''],
-      555 => ['description' => clienttranslate('All Characters other than me gain <FLEETING>.'), 'output' => ''],
-      557 => ['description' => clienttranslate('Any number of target Characters other than me lose <FLEETING>.'), 'output' => ''],
-      669 => ['description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target Expedition, otherwise create one in target opponent\'s Companion Expedition.'), 'output' => ''],
-      558 => ['description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target Expedition.'), 'output' => ''],
-      559 => ['description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target opponent\'s Companion Expedition, then draw a card.'), 'output' => ''],
-      560 => ['description' => clienttranslate('Create an <AEROLITH> token in each player\'s Landmarks.'), 'output' => ''],
-      647 => ['description' => clienttranslate('Create an <AEROLITH> token in target player\'s Landmarks, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
-      561 => ['description' => clienttranslate('Create an <AEROLITH> token in target player\'s Landmarks.'), 'output' => ''],
-      658 => ['description' => clienttranslate('Create an <AEROLITH> token in your Landmarks, otherwise <RESUPPLY>.'), 'output' => ''],
-      672 => ['description' => clienttranslate('Create an <AEROLITH> token in your Landmarks, otherwise create one in each player\'s Landmarks.'), 'output' => ''],
-      562 => ['description' => clienttranslate('Create an <AEROLITH> token in your Landmarks.'), 'output' => ''],
-      563 => ['description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks, otherwise create only one.'), 'output' => ''],
-      653 => ['description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks, otherwise create only one.'), 'output' => ''],
-      649 => ['description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks.'), 'output' => ''],
-      652 => ['description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks.'), 'output' => ''],
-      670 => ['description' => clienttranslate('Draw a card, otherwise each player draws a card.'), 'output' => ''],
-      564 => ['description' => clienttranslate('Each Animal and Adventurer in your Reserve gains 1 boost.'), 'output' => ''],
-      565 => ['description' => clienttranslate('Each Animal in your Reserve gains 1 boost.'), 'output' => ''],
+      579 => ['description' => clienttranslate('<SEASONED>.  {H} Target a Character facing me. I gain its subtype and X boosts, where X equals its highest statistic.')], // hardcoded
+      554 => ['description' => clienttranslate('All Characters gain <FLEETING>.'), 'output' => FT::ACTION(TARGET, ['n' => INFTY, 'effect' => FT::GAIN(EFFECT, FLEETING)])],
+      555 => ['description' => clienttranslate('All Characters other than me gain <FLEETING>.'), 'output' => FT::ACTION(TARGET, ['n' => INFTY, 'excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)])],
+      557 => ['description' => clienttranslate('Any number of target Characters other than me lose <FLEETING>.'), 'output' => FT::ACTION(TARGET, ['n' => INFTY, 'upTo' => true, 'excludeSelf' => true, 'effect' => FT::GAIN(EFFECT, FLEETING)])],
+      669 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target Expedition, otherwise create one in target opponent\'s Companion Expedition.'),
+        'output' =>  FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'MU_Common_Woollyback',
+        ], ['automatic' => false]),
+        'oppositeOutput' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'MU_Common_Woollyback',
+          'targetLocation' => [STORM_RIGHT],
+          'targetPlayer' => OPPONENT,
+        ]),
+      ],
+      558 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target Expedition.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'MU_Common_Woollyback',
+        ], ['automatic' => false]),
+      ],
+      559 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target opponent\'s Companion Expedition, then draw a card.'),
+        'output' => FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'MU_Common_Woollyback',
+            'targetLocation' => [STORM_RIGHT],
+            'targetPlayer' => OPPONENT,
+          ]),
+          FT::ACTION(DRAW, ['players' => ME])
+        )
+      ],
+      560 => [
+        'description' => clienttranslate('Create an <AEROLITH> token in each player\'s Landmarks.'),
+        'output' => FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Aerolith',
+            'targetLocation' => [LANDMARK],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Aerolith',
+            'targetLocation' => [LANDMARK],
+            'targetPlayer' => OPPONENT
+          ]),
+        )
+      ],
+      647 => [
+        'description' => clienttranslate('Create an <AEROLITH> token in target player\'s Landmarks, otherwise my Expedition <ASCENDS>.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'NE_Common_Aerolith',
+          'targetLocation' => [LANDMARK],
+        ]),
+        FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'NE_Common_Aerolith',
+          'targetLocation' => [LANDMARK],
+          'targetPlayer' => OPPONENT
+        ]),
+        'oppositeOutput' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
+      ],
+      561 => [
+        'description' => clienttranslate('Create an <AEROLITH> token in target player\'s Landmarks.'),
+        'output' => [
+          'action' => INVOKE_TOKEN,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK], 'allPlayers' => true],
+        ],
+      ],
+      658 => [
+        'description' => clienttranslate('Create an <AEROLITH> token in your Landmarks, otherwise <RESUPPLY>.'),
+        'output' => [
+          'action' => INVOKE_TOKEN,
+          'automatic' => true,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+        ],
+      ],
+      672 => [
+        'description' => clienttranslate('Create an <AEROLITH> token in your Landmarks, otherwise create one in each player\'s Landmarks.'),
+        'output' => [
+          'action' => INVOKE_TOKEN,
+          'automatic' => true,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+        ],
+        'oppositeOutput' => FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Aerolith',
+            'targetLocation' => [LANDMARK],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Aerolith',
+            'targetLocation' => [LANDMARK],
+            'targetPlayer' => OPPONENT
+          ]),
+        )
+      ],
+      562 => [
+        'description' => clienttranslate('Create an <AEROLITH> token in your Landmarks.'),
+        'output' => [
+          'action' => INVOKE_TOKEN,
+          'automatic' => true,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+        ],
+      ],
+      563 => [
+        'description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks, otherwise create only one.'),
+        'output' => FT::SEQ(
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+        ),
+        'oppositeOutput' => [
+          'action' => INVOKE_TOKEN,
+          'automatic' => true,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+        ],
+      ],
+      653 => [
+        'description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks, otherwise create only one.'),
+        'output' => FT::SEQ(
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+        ),
+        'oppositeOutput' => [
+          'action' => INVOKE_TOKEN,
+          'automatic' => true,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+        ],
+      ],
+      649 => [
+        'description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks.'),
+        'output' => FT::SEQ(
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+        ),
+      ],
+      652 => [
+        'description' => clienttranslate('Create two <AEROLITH> tokens in your Landmarks.'),
+        'output' => FT::SEQ(
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+          [
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+          ],
+        ),
+      ],
+      670 => ['description' => clienttranslate('Draw a card, otherwise each player draws a card.'), 'output' => FT::ACTION(DRAW, ['players' => ME]), 'oppositeOutput' => FT::ACTION(DRAW, [])],
+      564 => [
+        'description' => clienttranslate('Each Animal and Adventurer in your Reserve gains 1 boost.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostReserveSubtype', 'args' => ['subType' => ANIMAL]]),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostReserveSubtype', 'args' => ['subType' => ADVENTURER]])
+        )
+      ],
+      565 => ['description' => clienttranslate('Each Animal in your Reserve gains 1 boost.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostReserveSubtype', 'args' => ['subType' => ANIMAL]])],
       556 => ['description' => clienttranslate('Each player passes.'), 'output' => ''],
       566 => ['description' => clienttranslate('Exhaust target card in Reserve, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
       567 => ['description' => clienttranslate('I cost {1} less for each of your Ascended Expeditions.'), 'output' => ''],
@@ -2926,6 +3103,34 @@ abstract class FlowConvertor
       // #170850: "Amarok and hooked token "
       // needs to manage movecard with Amarok
       $node['MoveCard']['conditions'] = ['isCharacterFromTarget', 'isPlayedInSameLocation', 'excludeSelf'];
+    } elseif ($trinity['output'] == 568) {
+      // Zaratan uniques
+      $properties['gigantic'] = true;
+      $properties['effectPlayed'] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXOpponentExpedition']);
+    } elseif ($trinity['output'] = 593) {
+      // Lucan uniques
+      $properties['gigantic'] = true;
+      $properties['effectPlayed'] = FT::ACTION(DISCARD_DO, ['effect' => FT::GAIN(ME, BOOST, 'X')]);
+    } elseif ($trinity['output'] == 607) {
+      // Lucan uniques
+      $properties['gigantic'] = true;
+      $properties['effectPlayed'] = FT::ACTION(DISCARD_DO, [
+        'sacrifice' => true,
+        'targetType' => [PERMANENT],
+        'targetLocation' => IN_PLAY,
+        'effect' => FT::GAIN(ME, BOOST, 'X')
+      ]);
+    } elseif ($trinity['output'] == 579) {
+      // DoppelGanger
+      $properties['effectPlayed'] = FT::ACTION(TARGET, [
+        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'doppelganger']),
+        'targetLocation' => ['opponentSource']
+      ]);
+      $properties['effectPassive'] = [
+        'LeaveExpedition' => [
+          'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'resetCard'])
+        ]
+      ];
     }
 
     // dynamic attributes generate empty node
