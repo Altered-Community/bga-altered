@@ -2790,59 +2790,203 @@ abstract class FlowConvertor
         )
       ],
       565 => ['description' => clienttranslate('Each Animal in your Reserve gains 1 boost.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostReserveSubtype', 'args' => ['subType' => ANIMAL]])],
-      556 => ['description' => clienttranslate('Each player passes.'), 'output' => ''],
-      566 => ['description' => clienttranslate('Exhaust target card in Reserve, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
-      567 => ['description' => clienttranslate('I cost {1} less for each of your Ascended Expeditions.'), 'output' => ''],
-      682 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => ''],
-      683 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => ''],
-      569 => ['description' => clienttranslate('I gain 1 boost, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
-      572 => ['description' => clienttranslate('If my Expedition would move forward during Dusk, roll a die:  • On a 4+: it moves forward one more region instead.  • On a 1: it doesn\'t move instead.'), 'output' => ''],
-      571 => ['description' => clienttranslate('If my Expedition would move forward during Dusk, roll a die. On a 4+: it moves forward one more region instead.'), 'output' => ''],
-      573 => ['description' => clienttranslate('My {V}, {M}, and {O} are equal to my highest statistic.'), 'output' => ''],
-      574 => ['description' => clienttranslate('My Expedition <ASCENDS>.'), 'output' => ''],
-      575 => ['description' => clienttranslate('My Expedition <ASCENDS>.'), 'output' => ''],
-      576 => ['description' => clienttranslate('Place a {V} Terrain Marker on target visible region.'), 'output' => ''],
-      655 => ['description' => clienttranslate('Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'), 'output' => ''],
-      577 => ['description' => clienttranslate('Reveal the top card of your deck. If it\'s a Spell, draw it.'), 'output' => ''],
-      578 => ['description' => clienttranslate('Reveal the top card of your deck. If it\'s a Spell, draw it. If it\'s a Permanent, put it in Reserve.'), 'output' => ''],
-      680 => ['description' => clienttranslate('Sacrifice a Permanent.'), 'output' => ''],
-      580 => ['description' => clienttranslate('Target a Character in any Reserve with Reserve Cost {2} or less. Immediately play it for free.'), 'output' => ''],
-      581 => ['description' => clienttranslate('Target Character gains 1 boost per card in your Reserve.'), 'output' => ''],
-      582 => ['description' => clienttranslate('Target Character gains 1 boost, otherwise my Expedition <ASCENDS>.'), 'output' => ''],
-      673 => ['description' => clienttranslate('Target Character gains 2 boosts, otherwise it gains 1 boost.'), 'output' => ''],
-      583 => ['description' => clienttranslate('Target Character with Hand Cost {1} or less defects.'), 'output' => ''],
-      584 => ['description' => clienttranslate('Target Character with Hand Cost {2} or less defects.'), 'output' => ''],
-      585 => ['description' => clienttranslate('Target Expedition <ASCENDS>.'), 'output' => ''],
-      586 => ['description' => clienttranslate('Target Expedition <ASCENDS>.'), 'output' => ''],
-      587 => ['description' => clienttranslate('Target opponent may immediately play a card with Base Cost {4} or more for free.'), 'output' => ''],
-      588 => ['description' => clienttranslate('Target opponent may immediately play a Spell for free.'), 'output' => ''],
-      679 => ['description' => clienttranslate('Target Permanent you control activates its {j} abilities.'), 'output' => ''],
-      589 => ['description' => clienttranslate('Target player becomes first player.'), 'output' => ''],
-      590 => ['description' => clienttranslate('Target player puts a card from their hand in Reserve.'), 'output' => ''],
-      591 => ['description' => clienttranslate('Target token Character defects.'), 'output' => ''],
-      651 => ['description' => clienttranslate('The next Spell you play this turn loses <FLEETING>.'), 'output' => ''],
-      592 => ['description' => clienttranslate('You may create a <WOOLLYBACK> Animal token in target opponent\'s Companion Expedition.'), 'output' => ''],
-      594 => ['description' => clienttranslate('You may discard target Character. If you do, create an <AEROLITH> token in its controller\'s Landmarks.'), 'output' => ''],
-      595 => ['description' => clienttranslate('You may discard target Permanent. If you don\'t, I gain 2 boosts.'), 'output' => ''],
-      596 => ['description' => clienttranslate('You may discard target Permanent. If you don\'t, or if you discard a Permanent you control this way, I gain 2 boosts.'), 'output' => ''],
-      597 => ['description' => clienttranslate('You may give me 1 boost and have me lose <ASLEEP>.'), 'output' => ''],
-      598 => ['description' => clienttranslate('You may have me lose <ASLEEP>.'), 'output' => ''],
-      599 => ['description' => clienttranslate('You may have me switch Expeditions.'), 'output' => ''],
-      646 => ['description' => clienttranslate('You may have target Character gain <ASLEEP>. If it\'s facing me, <SABOTAGE>.'), 'output' => ''],
-      667 => ['description' => clienttranslate('You may have target Character other than me gain 1 boost.'), 'output' => ''],
-      600 => ['description' => clienttranslate('You may have target non-Fleeting Character gains 2 boosts and <FLEETING>.'), 'output' => ''],
-      604 => ['description' => clienttranslate('You may immediately pass.'), 'output' => ''],
-      601 => ['description' => clienttranslate('You may immediately play a Character with Base Cost {2} or less for free.'), 'output' => ''],
-      602 => ['description' => clienttranslate('You may immediately play a Character with Base Cost {3} or less for free.'), 'output' => ''],
-      657 => ['description' => clienttranslate('You may immediately play a Permanent with Base Cost {3} or less for free.'), 'output' => ''],
-      603 => ['description' => clienttranslate('You may move a {V}, {M} or {O} Terrain Marker from any region to my region.'), 'output' => ''],
-      654 => ['description' => clienttranslate('You may play Permanents for {1} less if their Base Cost is {4} or more.'), 'output' => ''],
-      605 => ['description' => clienttranslate('You may play Spells for {1} less if their Base Cost is {4} or more.'), 'output' => ''],
-      606 => ['description' => clienttranslate('You may play Spells for {2} less if their Base Cost is {7} or more.'), 'output' => ''],
-      668 => ['description' => clienttranslate('You may send target Character to Reserve, otherwise you may return it to its owner\'s hand.'), 'output' => ''],
-      608 => ['description' => clienttranslate('You may send target Character to Reserve. If you do, create an <AEROLITH> token in its controller\'s Landmarks.'), 'output' => ''],
-      666 => ['description' => clienttranslate('You may send to Reserve target Character with Hand Cost {4} or less.'), 'output' => ''],
-      609 => ['description' => clienttranslate('You may send to Reserve up to two target Characters with Hand Cost {1} or less.'), 'output' => ''],
+      556 => ['description' => clienttranslate('Each player passes.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'allPass'])],
+      566 => [
+        'description' => clienttranslate('Exhaust target card in Reserve, otherwise my Expedition <ASCENDS>.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'effect' => FT::ACTION(EXHAUST, [])
+        ]),
+        'oppositeOutput' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
+      ],
+      567 => ['description' => clienttranslate('I cost {1} less for each of your Ascended Expeditions.'), 'attributes' => ['dynamicCostReduction' => 'eachOwnerAscended']],
+      682 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
+      683 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
+      569 => ['description' => clienttranslate('I gain 1 boost, otherwise my Expedition <ASCENDS>.'), 'output' => FT::GAIN(ME, BOOST), 'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])],
+      572 => ['description' => clienttranslate('If my Expedition would move forward during Dusk, roll a die:  • On a 4+: it moves forward one more region instead.  • On a 1: it doesn\'t move instead.'), 'attributes' => ['actionInsteadAdvance' => 'ErisRare']],
+      571 => ['description' => clienttranslate('If my Expedition would move forward during Dusk, roll a die. On a 4+: it moves forward one more region instead.'), 'attributes' => ['actionInsteadAdvance' => 'ErisCommon']],
+      573 => ['description' => clienttranslate('My {V}, {M}, and {O} are equal to my highest statistic.'), 'attributes' => ['dynamicIncreaseBiomeHighestSelf' => '1']],
+      574 => ['description' => clienttranslate('My Expedition <ASCENDS>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])],
+      575 => ['description' => clienttranslate('My Expedition <ASCENDS>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])],
+      576 => ['description' => clienttranslate('Place a {V} Terrain Marker on target visible region.'), 'output' => FT::ACTION(MARK_REGION, ['create' => true, 'regionType' => FOREST])],
+      655 => ['description' => clienttranslate('Put the top card of your deck in your Mana zone (as an exhausted Mana Orb).'), 'output' => FT::ACTION(DRAW_MANA, [])],
+      577 => [
+        'description' => clienttranslate('Reveal the top card of your deck. If it\'s a Spell, draw it.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'revealTop']),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'drawRevealed', 'args' => ['type' => SPELL]])
+        )
+      ],
+      578 => [
+        'description' => clienttranslate('Reveal the top card of your deck. If it\'s a Spell, draw it. If it\'s a Permanent, put it in Reserve.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'revealTop']),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'drawRevealed', 'args' => ['type' => SPELL, 'reserve' => PERMANENT]])
+        )
+      ],
+      680 => ['description' => clienttranslate('Sacrifice a Permanent.'), 'output' =>  FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
+        'targetType' => [PERMANENT],
+        'effect' =>
+        FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
+      ])],
+      580 => [
+        'description' => clienttranslate('Target a Character in any Reserve with Reserve Cost {2} or less. Immediately play it for free.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetLocation' => [RESERVE],
+          'maxReserveCost' => 2,
+          'effect' => FT::ACTION(PLAY_CARD, ['stealOwnership' => true, 'free' => true])
+        ])
+      ],
+      581 => ['description' => clienttranslate('Target Character gains 1 boost per card in your Reserve.'), 'output' => FT::ACTION(TARGET, [
+        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostTargetReserveCards'])
+      ]),],
+      582 => [
+        'description' => clienttranslate('Target Character gains 1 boost, otherwise my Expedition <ASCENDS>.'),
+        'output' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+        'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
+      ],
+      673 => [
+        'description' => clienttranslate('Target Character gains 2 boosts, otherwise it gains 1 boost.'),
+        'output' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST, 'n' => 2])]),
+        'oppositeOutput' => FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+      ],
+      583 => ['description' => clienttranslate('Target Character with Hand Cost {1} or less defects.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 1, 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect'])])],
+      584 => ['description' => clienttranslate('Target Character with Hand Cost {2} or less defects.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 2, 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect'])])],
+      585 => ['description' => clienttranslate('Target Expedition <ASCENDS>.'), 'output' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend'])])],
+      586 => ['description' => clienttranslate('Target Expedition <ASCENDS>.'), 'output' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend'])])],
+      587 => ['description' => clienttranslate('Target opponent may immediately play a card with Base Cost {4} or more for free.'), 'output' => FT::ACTION(TARGET_PLAYER, ['effect' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'minBaseCost' => 4, 'free' => true], ['optional' => true])])],
+      588 => ['description' => clienttranslate('Target opponent may immediately play a Spell for free.'), 'output' => FT::ACTION(TARGET_PLAYER, ['effect' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'free' => true, 'types' => [SPELL]], ['optional' => true])])],
+      679 => [
+        'description' => clienttranslate('Target Permanent you control activates its {j} abilities.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'targetType' => [PERMANENT],
+          'targetPlayer' => ME,
+          'hasEffects' => ['Played'],
+          'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
+        ]),
+      ],
+      589 => [
+        'description' => clienttranslate('Target player becomes first player.'),
+        'output' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => false,
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'switchPlayer'])
+        ])
+      ],
+      590 => [
+        'description' => clienttranslate('Target player puts a card from their hand in Reserve.'),
+        'output' => FT::ACTION(
+          TARGET_PLAYER,
+          [
+            'opponentsOnly' => false,
+            'effect' => FT::ACTION(
+              TARGET,
+              [
+                'targetType' => [CHARACTER, SPELL, PERMANENT],
+                'targetPlayer' => ME,
+                'targetLocation' => [HAND],
+                'effect' => FT::DISCARD_TO_RESERVE(),
+              ],
+            )
+          ]
+        ),
+      ],
+      591 => [
+        'description' => clienttranslate('Target token Character defects.'),
+        'output' => FT::ACTION(TARGET, [
+          'onlyToken' => true,
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect'])
+        ])
+      ],
+      651 => ['description' => clienttranslate('The next Spell you play this turn loses <FLEETING>.'), 'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'removeFleetingSpellPlayed']),],
+      592 => [
+        'description' => clienttranslate('You may create a <WOOLLYBACK> Animal token in target opponent\'s Companion Expedition.'),
+        'output' =>  FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'MU_Common_Woollyback',
+          'targetLocation' => [STORM_RIGHT],
+          'targetPlayer' => OPPONENT,
+        ], ['optional' => true]),
+      ],
+      594 => [
+        'description' => clienttranslate('You may discard target Character. If you do, create an <AEROLITH> token in its controller\'s Landmarks.'),
+        'output' => FT::ACTION(TARGET, [
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'NE_Common_Aerolith',
+              'targetLocation' => [LANDMARK],
+              'targetPlayer' => 'owner'
+            ]),
+          )
+        ])
+      ],
+      595 => [
+        'description' => clienttranslate('You may discard target Permanent. If you don\'t, I gain 2 boosts.'),
+        'output' => FT::XOR(
+          FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+          FT::GAIN(ME, BOOST, 2)
+        )
+      ],
+      //TODO 596 => ['description' => clienttranslate('You may discard target Permanent. If you don\'t, or if you discard a Permanent you control this way, I gain 2 boosts.'), 'output' => ''],
+      597 => ['description' => clienttranslate('You may give me 1 boost and have me lose <ASLEEP>.'), 'output' => FT::SEQ_OPTIONAL(FT::GAIN(ME, BOOST), FT::LOOSE(ME, ASLEEP))],
+      598 => ['description' => clienttranslate('You may have me lose <ASLEEP>.'), 'output' => FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),],
+      599 => ['description' => clienttranslate('You may have me switch Expeditions.'), 'output' => FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true])],
+      646 => [
+        'description' => clienttranslate('You may have target Character gain <ASLEEP>. If it\'s facing me, <SABOTAGE>.'),
+      ], // Hardcoded
+      667 => ['description' => clienttranslate('You may have target Character other than me gain 1 boost.'), 'output' => FT::ACTION(TARGET, ['upTo' => true, 'excludeSelf' => true, 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),],
+      600 => [
+        'description' => clienttranslate('You may have target non-Fleeting Character gains 2 boosts and <FLEETING>.'),
+        'output' => FT::ACTION(TARGET, [
+          'excludedStatuses' => [FLEETING],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::GAIN(EFFECT, FLEETING),
+            FT::GAIN(EFFECT, BOOST, 2)
+          )
+        ])
+      ],
+      604 => ['description' => clienttranslate('You may immediately pass.'), 'output' => FT::ACTION(END_AFTERNOON, [], ['optional' => true])],
+      601 => ['description' => clienttranslate('You may immediately play a Character with Base Cost {2} or less for free.'), 'output' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxBaseCost' => 2, 'free' => true, 'types' => [CHARACTER]], ['optional' => true])],
+      602 => ['description' => clienttranslate('You may immediately play a Character with Base Cost {3} or less for free.'), 'output' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxBaseCost' => 3, 'free' => true, 'types' => [CHARACTER]], ['optional' => true])],
+      657 => ['description' => clienttranslate('You may immediately play a Permanent with Base Cost {3} or less for free.'), 'output' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'maxBaseCost' => 3, 'free' => true, 'types' => [CHARACTER]], ['optional' => true])],
+      603 => ['description' => clienttranslate('You may move a {V}, {M} or {O} Terrain Marker from any region to my region.'), 'output' => FT::XOR(
+        FT::ACTION(MOVE_REGION_MARKER, ['markerType' => FOREST]),
+        FT::ACTION(MOVE_REGION_MARKER, ['markerType' => OCEAN]),
+        FT::ACTION(MOVE_REGION_MARKER, ['markerType' => MOUNTAIN])
+      )],
+      654 => ['description' => clienttranslate('You may play Permanents for {1} less if their Base Cost is {4} or more.'), 'attributes' => ['reduceCostType' => [PERMANENT => ['minBaseCost' => 4, 'reduction' => 1]]]],
+      605 => ['description' => clienttranslate('You may play Spells for {1} less if their Base Cost is {4} or more.'), 'attributes' => ['reduceCostType' => [SPELL => ['minBaseCost' => 4, 'reduction' => 1]]]],
+      606 => ['description' => clienttranslate('You may play Spells for {2} less if their Base Cost is {7} or more.'), 'attributes' => ['reduceCostType' => [SPELL => ['minBaseCost' => 7, 'reduction' => 2]]]],
+      668 => [
+        'description' => clienttranslate('You may send target Character to Reserve, otherwise you may return it to its owner\'s hand.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'upTo' => true,
+          'effect' => FT::DISCARD_TO_RESERVE()
+        ]),
+        'oppositeOutput' => FT::ACTION(TARGET, ['upTo' => true, 'targetType' => [CHARACTER], 'effect' => FT::RETURN_TO_HAND()])
+      ],
+      608 => [
+        'description' => clienttranslate('You may send target Character to Reserve. If you do, create an <AEROLITH> token in its controller\'s Landmarks.'),
+        'output' => FT::ACTION(TARGET, [
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::DISCARD_TO_RESERVE(),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'NE_Common_Aerolith',
+              'targetLocation' => [LANDMARK],
+              'targetPlayer' => 'owner'
+            ]),
+          )
+        ])
+      ],
+      666 => ['description' => clienttranslate('You may send to Reserve target Character with Hand Cost {4} or less.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 4, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),],
+      609 => ['description' => clienttranslate('You may send to Reserve up to two target Characters with Hand Cost {1} or less.'), 'output' => FT::ACTION(TARGET, ['maxHandCost' => 1, 'n' => 2, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),],
     ];
   }
 
@@ -3130,6 +3274,15 @@ abstract class FlowConvertor
         'LeaveExpedition' => [
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'resetCard'])
         ]
+      ];
+    } elseif ($trinity['output'] == 646) {
+      $properties['effectPlayed'] = FT::ACTION(TARGET, [
+        'upTo' => true,
+        'effect' => FT::GAIN(EFFECT, ASLEEP)
+      ]);
+      $properties['effectPassive']['Gain'] = [
+        'conditions' => ['isSource', 'isFacingSource'],
+        'output' => FT::SABOTAGE()
       ];
     }
 
