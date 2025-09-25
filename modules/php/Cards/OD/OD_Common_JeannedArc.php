@@ -43,6 +43,7 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
               'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_LEFT],
+              'moreThan1' => true,
             ])
           ),
         ],

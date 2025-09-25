@@ -41,6 +41,7 @@ class OD_Rare_OrdisGatekeeper extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_LEFT],
+          'moreThan1' => true,
         ])
       ),
     ];

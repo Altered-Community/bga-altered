@@ -38,6 +38,7 @@ class OD_Rare_Ratatoskr extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => ['source'],
+          'moreThan1' => true,
         ])
       ),
     ];

@@ -42,7 +42,8 @@ class AX_Rare_Medusa extends \ALT\Models\Card
             'pId' => 'source',
             'tokenType' => 'NE_Common_Aerolith',
             'targetLocation' => [LANDMARK],
-            'targetPlayer' => OPPONENT
+            'targetPlayer' => OPPONENT,
+            'moreThan1' => true,
           ]),
         )
       ])

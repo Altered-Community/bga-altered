@@ -322,7 +322,7 @@ abstract class FlowConvertor
         'trigger' => 'AfterDusk',
         'condition' => ['myExpeditionHasMoved'],
       ],
-      656 => ['description' => clienttranslate('When you create one or more tokens —'), 'trigger' => ''], // TODO!!!
+      656 => ['description' => clienttranslate('When you create one or more tokens —'), 'trigger' => 'InvokeTokenOnce', 'condition' => ['isMe']],
       545 => [
         'description' => clienttranslate('When you pass first —'),
         'trigger' => 'EndTurn',
@@ -1370,6 +1370,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['initialSource'],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -1483,6 +1484,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -1644,6 +1646,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => [STORM_LEFT],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -1659,16 +1662,19 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_RIGHT],
+            'moreThan1' => true,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
+            'moreThan1' => true,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -1687,16 +1693,19 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
+            'moreThan1' => true,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
+            'moreThan1' => true,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -1801,6 +1810,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => [STORM_LEFT],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -2037,6 +2047,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'YZ_Common_ManaMoth',
             'targetLocation' => [STORM_RIGHT],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -2052,6 +2063,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'YZ_Common_ManaMoth',
             'targetLocation' => [STORM_RIGHT],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -2149,6 +2161,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => [STORM_LEFT],
+            'moreThan1' => true,
           ])
         ),
         'oppositeOutput' => FT::ACTION(INVOKE_TOKEN, [
@@ -2962,6 +2975,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => STORMS,
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -2979,6 +2993,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['oppositeSource'],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -2996,6 +3011,7 @@ abstract class FlowConvertor
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',
             'targetLocation' => ['oppositeSource'],
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -3592,6 +3608,7 @@ abstract class FlowConvertor
             'tokenType' => 'NE_Common_Aerolith',
             'targetLocation' => [LANDMARK],
             'targetPlayer' => OPPONENT,
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -3599,17 +3616,10 @@ abstract class FlowConvertor
         'description' => clienttranslate(
           'Create an <AEROLITH> token in target player\'s Landmarks, otherwise my Expedition <ASCENDS>.'
         ),
-        'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
-          'tokenType' => 'NE_Common_Aerolith',
-          'targetLocation' => [LANDMARK],
-        ]),
-        FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
-          'tokenType' => 'NE_Common_Aerolith',
-          'targetLocation' => [LANDMARK],
-          'targetPlayer' => OPPONENT,
-        ]),
+        'output' => [
+          'action' => INVOKE_TOKEN,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK], 'allPlayers' => true],
+        ],
         'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source']),
       ],
       561 => [
@@ -3647,6 +3657,7 @@ abstract class FlowConvertor
             'tokenType' => 'NE_Common_Aerolith',
             'targetLocation' => [LANDMARK],
             'targetPlayer' => OPPONENT,
+            'moreThan1' => true,
           ])
         ),
       ],
@@ -3669,7 +3680,7 @@ abstract class FlowConvertor
           [
             'action' => INVOKE_TOKEN,
             'automatic' => true,
-            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK], 'moreThan1' => true,],
           ]
         ),
         'oppositeOutput' => [
@@ -3689,7 +3700,7 @@ abstract class FlowConvertor
           [
             'action' => INVOKE_TOKEN,
             'automatic' => true,
-            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK], 'moreThan1' => true,],
           ]
         ),
         'oppositeOutput' => [
@@ -3709,7 +3720,7 @@ abstract class FlowConvertor
           [
             'action' => INVOKE_TOKEN,
             'automatic' => true,
-            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK], 'moreThan1' => true,],
           ]
         ),
       ],
@@ -3724,7 +3735,7 @@ abstract class FlowConvertor
           [
             'action' => INVOKE_TOKEN,
             'automatic' => true,
-            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+            'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK], 'moreThan1' => true,],
           ]
         ),
       ],

@@ -40,16 +40,19 @@ class OD_Rare_OpentheGates extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => STORMS,
+          'moreThan1' => true,
         ]),
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => STORMS,
+          'moreThan1' => true,
         ]),
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => STORMS,
+          'moreThan1' => true,
         ])
       ),
     ];

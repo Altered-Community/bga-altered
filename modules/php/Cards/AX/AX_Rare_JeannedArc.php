@@ -43,6 +43,7 @@ class AX_Rare_JeannedArc extends \ALT\Models\Card
               'pId' => CONTROLLER,
               'tokenType' => 'AX_Common_Brassbug',
               'targetLocation' => [STORM_LEFT],
+              'moreThan1' => true,
             ])
           ),
         ],

@@ -44,16 +44,19 @@ class OD_Rare_JeannedArc extends \ALT\Models\Card
               'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_RIGHT],
+              'moreThan1' => true,
             ]),
             FT::ACTION(INVOKE_TOKEN, [
               'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_LEFT],
+              'moreThan1' => true,
             ]),
             FT::ACTION(INVOKE_TOKEN, [
               'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_LEFT],
+              'moreThan1' => true,
             ])
           ),
         ],

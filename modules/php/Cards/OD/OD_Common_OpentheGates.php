@@ -37,16 +37,19 @@ class OD_Common_OpentheGates extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_LEFT],
+          'moreThan1' => true,
         ]),
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_RIGHT],
+          'moreThan1' => true,
         ]),
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_RIGHT],
+          'moreThan1' => true,
         ])
       ),
     ];

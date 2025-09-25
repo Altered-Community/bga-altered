@@ -37,6 +37,7 @@ class AX_Rare_OpentheGates extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'AX_Common_Brassbug',
           'targetLocation' => [STORM_RIGHT],
+          'moreThan1' => true,
         ])
       ),
     ];

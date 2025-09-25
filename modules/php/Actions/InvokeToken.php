@@ -22,7 +22,8 @@ class InvokeToken extends \ALT\Models\Action
   }
 
   protected $args = [
-    'allPlayers' => false
+    'allPlayers' => false,
+    'moreThan1' => false,
   ];
 
   public function getDescription()
@@ -238,6 +239,19 @@ class InvokeToken extends \ALT\Models\Action
         'gigantic' => $card->isGigantic(),
         'token' => true
       ]);
+      if (!$this->getArg('moreThan1') && $i == 0) {
+        $this->checkAfterListeners($player, [
+          'playCard' => true,
+          'cardId' => $card->getId(),
+          'cardType' => $card->getType(),
+          'additionalType' => $card->getAdditionalType(),
+          'from' => 'invoke',
+          'to' => $location,
+          'locationPId' => $invokePId,
+          'gigantic' => $card->isGigantic(),
+          'token' => true
+        ], true, 'InvokeTokenOnce');
+      }
     }
     $this->resolveAction([$card->getId()]);
   }

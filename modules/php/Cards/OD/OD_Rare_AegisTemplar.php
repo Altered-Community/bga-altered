@@ -43,6 +43,7 @@ class OD_Rare_AegisTemplar extends \ALT\Models\Card
               'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => ['source'],
+              'moreThan1' => true,
             ]),
           )
         ],

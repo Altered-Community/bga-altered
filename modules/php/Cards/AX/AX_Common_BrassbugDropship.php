@@ -42,6 +42,7 @@ class AX_Common_BrassbugDropship extends \ALT\Models\Card
               'pId' => 'source',
               'tokenType' => 'AX_Common_Brassbug',
               'targetLocation' => [STORM_LEFT],
+              'moreThan1' => true,
             ])
           ),
         ],

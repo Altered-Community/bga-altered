@@ -37,6 +37,7 @@ class OD_Rare_MothtoaSpring extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'YZ_Common_ManaMoth',
           'targetLocation' => STORMS,
+          'moreThan1' => true,
         ]),
         FT::ACTION(DRAW, ['players' => ME])
       )
