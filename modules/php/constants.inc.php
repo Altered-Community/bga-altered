@@ -459,7 +459,12 @@ const STAT_HEROES = [
   16 => "YZ_Common_AfanasSenka",
   17 => "YZ_Common_AkeshaTaru",
   18 => "YZ_Common_LindiweMaw",
-  19 => 
+  19 => "AX_Common_IsareePebble",
+  20 => "BR_Common_SolHalua",
+  21 => "LY_Common_NadirBubbles",
+  22 => "MU_Common_KauriPuff",
+  23 => "OD_Common_ZhenZephyr",
+  24 => "YZ_Common_MoyoSilk"
 ];
 
 /******************************
