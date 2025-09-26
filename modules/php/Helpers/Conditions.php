@@ -67,6 +67,11 @@ abstract class Conditions
     return ($event['to'] ?? null) == RESERVE;
   }
 
+  public static function isToDiscard($card, $event)
+  {
+    return ($event['to'] ?? null) == DISCARD_PILE;
+  }
+
   public static function isStillSameLocation($card, $event)
   {
     if (!isset($event['cardId'])) {
@@ -176,6 +181,11 @@ abstract class Conditions
   public static function isNotFirstTurn($card, $event)
   {
     return Globals::getDay() != 1;
+  }
+
+  public static function isNight($card, $event)
+  {
+    return Globals::getPhase() == 4;
   }
 
   public static function movesStormsWithForest($card, $event)

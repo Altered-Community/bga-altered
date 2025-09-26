@@ -578,6 +578,7 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
+        $originalLocation = $card->getLocation();
         $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard($seasoned));
 
         if ($card->isToken()) {
@@ -585,6 +586,15 @@ class Player extends \ALT\Helpers\DB_Model
           $deletedCardTokens[] = $card;
           Cards::delete($cId);
         } else {
+          Actions::get(DISCARD)->checkAfterListeners($this, [
+            'discardCard' => true,
+            'cardsToListen' => [], // we add the discarded cards as they should react even if not played
+            'cardId' => $cId,
+            'token' => false,
+            'from' => $originalLocation,
+            'to' => DISCARD_PILE,
+            'sacrifice' => false,
+          ]);
           $deletedCards[$cId] = $card;
         }
         continue;
