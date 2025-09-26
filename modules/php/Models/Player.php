@@ -953,7 +953,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function countUniversalCharacterTough()
   {
     return count(
-      $this->getPlayedCards()->merge($this->getInfinityCards())->filter(function ($card) {
+      $this->getPlayedCards()->filter(function ($card) {
         $dynamicTough = $card->getDynamicTough();
         if (!is_array($dynamicTough)) {
           return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter2';
@@ -967,7 +967,7 @@ class Player extends \ALT\Helpers\DB_Model
         }
       })
     ) * 2 + count(
-      $this->getPlayedCards()->merge($this->getInfinityCards())->filter(function ($card) {
+      $this->getPlayedCards()->filter(function ($card) {
         $dynamicTough = $card->getDynamicTough();
         if (!is_array($dynamicTough)) {
           return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter1';
@@ -986,7 +986,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function countUniversalTokenGigantic()
   {
     return count(
-      $this->getPlayedCards()->merge($this->getInfinityCards())->filter(function ($card) {
+      $this->getPlayedCards()->filter(function ($card) {
         $dynSplit = explode(':', $card->getDynamicGigantic());
         if (count($dynSplit) > 1) {
           // we need to test if ok, add change dynamic tough to the value of 0
