@@ -442,6 +442,12 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function isInBiome($storm, $biome, $excludeMove = false)
   {
+    return in_array($biome, self::getBiomes($storm, $excludeMove));
+  }
+
+  public function getBiomes($storm, $excludeMove = false)
+  {
+
     $biomes = $this->getBiomeInStorms();
     if ($storm == '') {
       return false;
@@ -454,7 +460,7 @@ class Player extends \ALT\Helpers\DB_Model
     }
 
     Players::biomesModifier($newBiomes, $this, $storm, false, $excludeMove);
-    return in_array($biome, $newBiomes);
+    return $newBiomes;
   }
 
   public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)

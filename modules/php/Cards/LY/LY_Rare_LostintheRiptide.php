@@ -29,18 +29,28 @@ class LY_Rare_LostintheRiptide extends \ALT\Models\Card
         FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER],
-          'effect' => FT::SEQ(
-            FT::ACTION(DISCARD, ['destination' => 'topOfDeck']),
+          'effect' => FT::XOR(
             FT::ACTION(
               CHECK_CONDITION,
-              ['condition' => 'isDiscardedCardInBiome:ocean', 'effect' => FT::SEQ(
-                FT::ACTION(READY, ['cardId' => MANA]),
-                FT::ACTION(READY, ['cardId' => MANA])
-              )]
+              [
+                'condition' => 'isDiscardedCardInBiome:ocean',
+                'description' => clienttranslate('is in {O}'),
+                'effect' =>
+                FT::SEQ(
+                  FT::ACTION(DISCARD, ['destination' => 'topOfDeck']),
+                  FT::ACTION(READY, ['cardId' => MANA]),
+                  FT::ACTION(READY, ['cardId' => MANA])
+                )
+              ]
+            ),
+            FT::ACTION(
+              CHECK_CONDITION,
+              ['condition' => 'isDiscardedCardNotInBiome:ocean', 'description' => clienttranslate('is not in {O}'), 'effect' =>
+              FT::ACTION(DISCARD, ['destination' => 'topOfDeck'])]
             )
           )
         ])
-      ),
+      )
     ];
   }
 }
