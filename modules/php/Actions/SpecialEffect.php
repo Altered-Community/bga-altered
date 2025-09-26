@@ -1767,7 +1767,9 @@ class SpecialEffect extends \ALT\Models\Action
         // TODO: multiplayer
         $newPId = Players::getNextId($defectCard->getPlayer());
         $extraDatas = $defectCard->getExtraDatas();
-        $extraDatas['pId'] = $defectCard->getPId();
+        if (!isset($extraDatas['pId'])) {
+          $extraDatas['pId'] = $defectCard->getPId();
+        }
         $defectCard->setExtraDatas($extraDatas);
         $defectCard->setPId($newPId);
         Notifications::defect($defectCard, $defectCard->getPlayer(), $card);
