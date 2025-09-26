@@ -824,11 +824,11 @@ abstract class FlowConvertor
       ],
       635 => [
         'description' => clienttranslate('You may <RUSH>. If you do:'),
-        'effect' => FT::SEQ_OPTIONAL(FT::RUSH(), 'OUTPUT'),
+        'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::RUSH(), 'OUTPUT'),
       ],
       636 => [
         'description' => clienttranslate('You may <RUSH>. If you do:'),
-        'effect' => FT::SEQ_OPTIONAL(FT::RUSH(), 'OUTPUT'),
+        'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::RUSH(), 'OUTPUT'),
       ],
       637 => [
         'description' => clienttranslate('You may have target Character facing me gain <ANCHORED>. If you do:'),

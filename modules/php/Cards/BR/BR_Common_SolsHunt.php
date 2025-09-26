@@ -30,7 +30,7 @@ class BR_Common_SolsHunt extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'effect' => FT::DISCARD_TO_RESERVE()
         ]),
-        FT::SEQ_OPTIONAL(
+        FT::SEQ_OPTIONAL_MANUAL(
           FT::RUSH(),
           FT::SABOTAGE()
         )

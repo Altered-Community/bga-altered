@@ -34,7 +34,7 @@ class LY_Rare_SolsHunt extends \ALT\Models\Card
         FT::ACTION(CHECK_CONDITION, [
           'condition' => 'isFirstPlayer',
           'effect' =>
-          FT::SEQ_OPTIONAL(
+          FT::SEQ_OPTIONAL_MANUAL(
             FT::RUSH(),
             FT::SABOTAGE()
           )
