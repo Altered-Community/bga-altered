@@ -1700,6 +1700,7 @@ abstract class Conditions
     return !$card->isTapped() &&
       $event['gain']['type'] == BOOST &&
       $gainCard->getType() == CHARACTER &&
+      $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
   }
 }
