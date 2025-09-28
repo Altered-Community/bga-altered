@@ -585,10 +585,13 @@ class ChooseAssignment extends \ALT\Models\Action
     // } else
     if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterPlayed()) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+      Globals::setRemoveFleetingCharacterPlayed(false);
     } elseif (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getRemoveFleetingCharacterStat0Played() && $baseStat0) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+      Globals::setRemoveFleetingCharacterStat0Played(false);
     } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
       Engine::insertAtRoot(FT::LOOSE($card->getId(), FLEETING));
+      Globals::setRemoveFleetingSongArtistPlayed(false);
     }
   }
 
