@@ -32,6 +32,10 @@ class AX_Rare_TechnicalBoots extends \ALT\Models\Card
                     'condition' => 'myExpeditionHasMoved',
                     'output' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'targetPlayer' => ME, 'effect' => FT::ACTION(LOOSE, ['type' => FLEETING])]),
                 ],
+                'MoveExpedition' => [
+                    'condition' => 'myExpeditionHasMoved',
+                    'output' => FT::ACTION(TARGET, ['targetLocation' => ['source'], 'targetPlayer' => ME, 'effect' => FT::ACTION(LOOSE, ['type' => FLEETING])]),
+                ],
             ],
         ];
     }

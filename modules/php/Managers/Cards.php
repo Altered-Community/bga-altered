@@ -174,6 +174,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     } elseif ($alternate) {
       $coreUid = self::getMainUid($uid);
       $altUid = self::getAlternateUid($uid);
+    } else {
+      $coreeUid = 'toto';
     }
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {

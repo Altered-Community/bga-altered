@@ -155,7 +155,7 @@ abstract class FlowConvertor
       ],
       258 => [
         'description' => clienttranslate('When my Expedition moves forward —'),
-        'trigger' => 'AfterDusk',
+        'trigger' => ['AfterDusk', 'MoveExpedition'],
         'condition' => 'myExpeditionHasMoved',
       ],
       259 => [

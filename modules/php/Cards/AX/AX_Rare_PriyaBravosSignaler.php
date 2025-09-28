@@ -39,6 +39,14 @@ class AX_Rare_PriyaBravosSignaler extends \ALT\Models\Card
             'targetLocation' => [LANDMARK],
           ]),
         ],
+        'MoveExpedition' => [
+          'condition' => 'myExpeditionHasMoved',
+          'output' =>  FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Aerolith',
+            'targetLocation' => [LANDMARK],
+          ]),
+        ],
       ],
     ];
   }
