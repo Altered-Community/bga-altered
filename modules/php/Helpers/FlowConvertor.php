@@ -891,7 +891,7 @@ abstract class FlowConvertor
           'targetPlayer' => ME,
           'targetLocation' => [HAND],
           'upTo' => true,
-          'targetType' => [CHARACTER],
+          'targetType' => [SPELL],
           'minHandCost' => 4,
           'effect' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'reveal']), 'OUTPUT'),
         ]),
