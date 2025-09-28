@@ -305,7 +305,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('When a Character joins the Expedition facing me —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
         'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
-        'condition' => ['isOpponentExpeditionFilled:character:1'],
+        'condition' => ['isSourceSameLocation'],
       ],
       543 => [
         'description' => clienttranslate('When my Expedition fails to move forward during Dusk —'),
