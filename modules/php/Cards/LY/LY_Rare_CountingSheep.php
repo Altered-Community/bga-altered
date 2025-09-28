@@ -37,6 +37,7 @@ class LY_Rare_CountingSheep extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'maxHandCost' => 1,
           'n' => INFTY,
+          'ignoreTough' => true,
           'effect' => FT::GAIN(EFFECT, ASLEEP)
         ])
       )
