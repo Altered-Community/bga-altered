@@ -237,6 +237,7 @@ define([
         var functionName = 'notif_' + notif[0];
 
         let wrapper = (args) => {
+          debug(args);
           let msg = this.formatString(this.format_string_recursive(args.log, args.args));
           if (msg != '') {
             this.clearTitleBar();

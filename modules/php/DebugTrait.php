@@ -82,7 +82,10 @@ trait DebugTrait
 
   function tp()
   {
-    Players::initializeDecks();
+    $markers = Meeples::createHeroMarkers();
+    if (!empty($markers)) {
+      Notifications::addTerrainMarkers($markers);
+    }
   }
 
   function dv()
@@ -99,8 +102,11 @@ trait DebugTrait
 
   function vt()
   {
+    // Meeples::createHeroMarkers();
+    // throw new \feException(print_r(Players::getRegionsInfo()));
+    throw new \feException(Players::getCurrent()->isAscended(COMPANION));
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
-    throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
+    // throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
     // Globals::setupNewGame([], []);
     // Cards::setupNewGame(Players::getAll()->getIds(), []);
     // $this->actFirstDayMana([17, 21, 22]);
@@ -108,7 +114,7 @@ trait DebugTrait
 
     // Cards::get(3)->boost(1, 'test', true);
     // throw new \feException(print_r(Players::getCurrent()->isInBiome(STORM_LEFT, FOREST)));
-    // $this->actTakeAtomicAction('actHand', [3, STORM_LEFT]);
+    // $this->actTakeAtomicAction('actMoveRegionMarker', [8]);
     // $this->actTakeAtomicAction('actReserve', [29, STORM_LEFT]);
     // $this->actTakeAtomicAction('actSupport', [226]);
     // $this->actTakeAtomicAction('actTap', [236]);
@@ -184,8 +190,16 @@ trait DebugTrait
       $player->getHeroToken()->setLocation('storm-3');
       $meeples = $meeples->merge(Meeples::getStormTokens($pId));
     }
+
+    // Delete/remove markers
+    $markers = Meeples::getOfType('storm-3', [OCEAN, FOREST, MOUNTAIN])->merge(Meeples::getOfType('storm-4', [OCEAN, FOREST, MOUNTAIN]));
+    foreach ($markers as $mId => &$marker) {
+      Meeples::delete($marker->getId());
+    }
+
     // notif startTiebreak
     Notifications::startTiebreak($meeples->toArray());
+    Notifications::silentKill($markers->getIds());
   }
 
   function resolveDebug()
@@ -506,7 +520,7 @@ trait DebugTrait
     $token = $params['token'] ?? '';
     $deckId = $params['deckId'] ?? '';
     $cardId = $params['cardId'] ?? '';
-    // $curl = curl_VTOinit();
+    $curl = curl_init();
     // $baseUrl = 'https://api.equinox-ccg.io';
     $baseUrl = 'https://api.altered.gg';
     $setup = [

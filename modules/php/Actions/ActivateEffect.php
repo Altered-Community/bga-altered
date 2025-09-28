@@ -58,7 +58,7 @@ class ActivateEffect extends \ALT\Models\Action
 
     if (
       ($card->getType() == CHARACTER && !Players::hasOpponentBlockingPower($card->getPlayer(), $card->getLocation(), $card->isGigantic())) ||
-      $card->getType() != CHARACTER
+      $card->getType() != CHARACTER || !in_array(CHARACTER, $card->getAdditionalType())
     ) {
       $effect = 'getEffect' . $this->getArg('effectType');
       Notifications::message(clienttranslate('${player_name} activates ${card_name} {J} effect'), [

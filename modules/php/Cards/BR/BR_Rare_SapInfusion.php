@@ -31,7 +31,7 @@ class BR_Rare_SapInfusion extends \ALT\Models\Card
             'effectInfinity' => [
                 'effectPassive' => [
                     'ChooseAssignment' => [
-                        'conditions' => ['isCardAdded:character:::true', 'excludeSelf'],
+                        'conditions' => ['isMe', 'isCardAdded:character:::true', 'excludeSelf'],
                         'output' => FT::ACTION(SPECIAL_EFFECT, [
                             'effect' => 'incCounter',
                             'args' => ['counter' => 1, 'counterName' => clienttranslate('Arcane counter'), 'maxCounter' => 3]

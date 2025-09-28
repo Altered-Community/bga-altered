@@ -14,7 +14,7 @@ class OD_Common_OrdisRecruit extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Ordis Recruit'),
-      'type' => TOKEN,
+      'type' => CHARACTER,
       'subtypes' => [SOLDIER],
       'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game.)'),
       'typeline' => clienttranslate('Token Character - Soldier'),

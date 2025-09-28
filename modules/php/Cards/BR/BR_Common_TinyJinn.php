@@ -34,6 +34,7 @@ class BR_Common_TinyJinn extends \ALT\Models\Card
       // 'leaveExpeditionBoostedToMana' => true,
       'effectPassive' => [
         'LeaveExpedition' => [
+          'pId' => CONTROLLER,
           'condition' => 'hasBoost',
           'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => MANA, 'tapped' => true]),
         ],

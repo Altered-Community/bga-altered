@@ -37,6 +37,7 @@ class OD_Rare_MothtoaFlame extends \ALT\Models\Card
                     'pId' => 'source',
                     'tokenType' => 'YZ_Common_ManaMoth',
                     'targetLocation' => [STORM_RIGHT],
+                    'moreThan1' => true,
                 ]),
             )
         ];

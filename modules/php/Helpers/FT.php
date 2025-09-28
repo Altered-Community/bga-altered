@@ -111,4 +111,19 @@ abstract class FT
   {
     return self::ACTION(DISCARD, ['destination' => RESERVE]);
   }
+
+  public static function RUSH()
+  {
+    return FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'mandatory' => true]);
+  }
+
+  public static function SABOTAGE()
+  {
+    return  FT::ACTION(TARGET, [
+      'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+      'targetLocation' => [RESERVE],
+      'upTo' => true,
+      'effect' => FT::ACTION(DISCARD, []),
+    ]);
+  }
 }

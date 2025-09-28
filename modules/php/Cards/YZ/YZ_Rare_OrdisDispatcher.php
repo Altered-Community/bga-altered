@@ -43,6 +43,7 @@ class YZ_Rare_OrdisDispatcher extends \ALT\Models\Card
                             'pId' => 'source',
                             'tokenType' => 'OD_Common_OrdisRecruit',
                             'targetLocation' => ['oppositeSource'],
+                            'moreThan1' => true,
                         ]),
                     )
                 ])

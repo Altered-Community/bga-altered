@@ -17,6 +17,7 @@ function slugify($text)
 {
   $text = str_replace('ō', 'o', $text);
   $text = str_replace('ö', 'o', $text);
+  $text = str_replace('ā', 'a', $text);
   $text = preg_replace('~[^\pL\d]+~u', '', $text);
   $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
   $text = preg_replace('~[^-\w]+~', '', $text);
@@ -209,6 +210,13 @@ class Cards extends \ALT\Helpers\CachedPieces
     // return new $className($row);
   }
 
+  public static function getFiltered($pId, $location = null, $type = null, $additionalType = false)
+  {
+    return self::getSelectWhere(null, $location, null)
+      ->where('pId', $pId)
+      ->whereType('type', $type, $additionalType);
+  }
+
   public static function generateRandomDeck($deck, $player)
   {
     // For production
@@ -251,8 +259,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     // random cards of the faction
     $i = 0;
     $totalCards = 40;
-    $repartition = ['' => 10, 'TBF' => 10, 'WFTM' => 20];
-    $allocation = ['' => 0, 'TBF' => 0, 'WFTM' => 0];
+    $repartition = ['' => 7, 'TBF' => 7, 'WFTM' => 7, 'SO' => 20];
+    $allocation = ['' => 0, 'TBF' => 0, 'WFTM' => 0, 'SO' => 0];
 
     do {
       $c = array_rand(MAP_REFS_CLASSES);
@@ -270,15 +278,6 @@ class Cards extends \ALT\Helpers\CachedPieces
     } while ($i < $totalCards);
 
     for ($u = 0; $u < 15; $u++) {
-      // maybe to reenable later  
-      // $uniqueCard = Game::get()->equinoxAPIConnect(['mode' => 'card', 'token' => $BGAToken, 'cardId' => $cardId]);
-      // $uniqueCard = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-      //   'game' => 'alter' . 'ed',
-      //   'mode' => 'card',
-      //   'token' => $BGAToken,
-      //   'cardId' => $cardId
-      // ]);
-      // throw new \feException(print_r($uniqueCard));
       $effects = [];
       for ($b = 0; $b < 2; $b++) {
         $cardId = CEG[array_rand(CEG)];
@@ -494,6 +493,7 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function getUiData($pId, $refresh = false)
   {
     $current = Players::getCurrent() == null ? false : Players::getCurrent()->getId() == $pId;
+    $currentPId = Players::getCurrent() == null ? -1 : Players::getCurrent()->getId();
     $cards = self::getAll()
       ->where('location', IN_PLAY)
       ->merge(self::getInLocation(RESERVE))
@@ -505,6 +505,12 @@ class Cards extends \ALT\Helpers\CachedPieces
     if (!$refresh && $current) {
       $cards = $cards->merge(self::getHand($pId))->merge(self::getFiltered($pId, MANA));
     }
+    $cards = $cards->merge(
+      self::getAll()->where('location', HAND)
+        ->filter(function ($c) use ($currentPId) {
+          return $c->getPId() != $currentPId && $c->isRevealed();
+        })
+    );
 
     return $cards->orderBy('state')->toArray();
   }
@@ -527,7 +533,18 @@ class Cards extends \ALT\Helpers\CachedPieces
     $pId = $player->getId();
 
     foreach (FACTIONS as $faction) {
-      $deck = Globals::getBeginner() == OPTION_DEMO ? DEMO[$faction] : STARTER[$faction];
+      switch (Globals::getBeginner()) {
+        case OPTION_DEMO:
+          $deck = DEMO[$faction];
+          break;
+        case OPTION_SO:
+          $deck = DEMO_SO[$faction];
+          break;
+        default:
+          $deck = STARTER[$faction];
+      }
+
+      // $deck = Globals::getBeginner() == OPTION_DEMO ? DEMO[$faction] : STARTER[$faction];
 
       foreach ($deck as $cardId => $n) {
         // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
@@ -594,6 +611,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       // $faction = $card->getFaction();
     }
     self::create($toCreate, null);
+
     return $faction;
   }
 
@@ -744,6 +762,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       if (isset($event['action']) && in_array($listenCard, STORMS) && ($listenCard->getEffectPassive()[$event['action']]['forceListening'] ?? false) == true) {
         $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
       }
+      $event['sourceLocation'] = self::get($cardId)->getLocation();
       $childs[] = [
         'action' => ACTIVATE_CARD,
         // 'pId' => $event['pId'],

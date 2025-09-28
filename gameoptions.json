@@ -17,6 +17,11 @@
         "name": "Whispers from the Maze Demo Deck",
         "tmdisplay": "WFM Demo decks",
         "description": "WFM demo decks"
+      },
+       "3": {
+        "name": "Skybound Odyssey Demo Deck",
+        "tmdisplay": "SKY Demo decks",
+        "description": "SKY demo decks"
       }
     }
   },

@@ -21,6 +21,11 @@ class InvokeToken extends \ALT\Models\Action
     return ST_INVOKE_TOKEN;
   }
 
+  protected $args = [
+    'allPlayers' => false,
+    'moreThan1' => false,
+  ];
+
   public function getDescription()
   {
     $msg = clienttranslate('Invoke ${tokenName}');
@@ -40,6 +45,10 @@ class InvokeToken extends \ALT\Models\Action
 
     $tokenType = $this->getCtxArg('tokenType');
     $targetLocations = $this->getCtxArg('targetLocation') ?? STORMS;
+    if (isset($this->getCtxArgs()['expedition'])) {
+      // we come from a target Expedition
+      $targetLocations = [$this->getCtxArgs()['expedition']];
+    }
 
     return [
       'token' => $tokenType,
@@ -47,7 +56,8 @@ class InvokeToken extends \ALT\Models\Action
       'n' => $this->getCtxArg('n') ?? 1,
       'canPass' => $this->getCtxArg('optional') ?? false,
       'locations' => $targetLocations,
-      'allPlayers' => count($targetLocations) > 1
+      'allPlayers' => count($targetLocations) > 1 || ($this->getCtxArg('allPlayers') ?? false),
+      'targetPlayer' => null,
     ];
   }
 
@@ -135,7 +145,7 @@ class InvokeToken extends \ALT\Models\Action
       $this->resolveAction([PASS]);
       return;
     }
-    if (count($args['locations']) == 1) {
+    if (count($args['locations']) == 1 && $this->getArg('allPlayers') == false) {
       $this->actInvokeToken($args['locations'][0], true);
     }
   }
@@ -144,8 +154,10 @@ class InvokeToken extends \ALT\Models\Action
   {
     $args = $this->getCtxArgs();
     $pId = $args['pId'] ?? Players::getActiveId();
-    if ($pId == 'source') {
+    if ($pId == 'source' || $pId == OWNER) {
       $pId = $this->getSource()->getPId();
+    } elseif ($pId == CONTROLLER) {
+      $pId = $this->getEvent()['controller'] ?? $this->getSource()->getPId();
     }
     return Players::get($pId);
   }
@@ -158,10 +170,27 @@ class InvokeToken extends \ALT\Models\Action
     // throw new \feException($location);
 
     $explodedLocation = explode('-', $location);
-    if (count($explodedLocation) == 1) {
+    if (isset($this->getCtxArgs()['expedition'])) {
+      $invokePId = $this->getCtxArgs()['player'];
+    } elseif (count($explodedLocation) == 1) {
       $invokePId = $player->getId();
     } else {
       $invokePId = $explodedLocation[1];
+    }
+
+    if (!is_null($this->getCtxArg('targetPlayer'))) {
+      $targetPlayer = $this->getCtxArg('targetPlayer');
+      if ($targetPlayer == 'owner') {
+        $effectId = $this->getCtxArg('cardId');
+        $invokePId = Cards::get($effectId)->getPId();
+      } elseif ($targetPlayer == OPPONENT) {
+        $invokePId = Players::getNextId($player);
+      } elseif ($targetPlayer == 'owner') {
+        $invokePId = $this->getCtxArgs()['ownerId'] ?? -1;
+        if ($invokePId == -1) {
+          throw new \BgaVisibleSystemException('Error in invoke token, should not happen');
+        }
+      }
     }
 
     if (!in_array($explodedLocation[0], $args['locations']) && count($explodedLocation) == 1) {
@@ -193,17 +222,36 @@ class InvokeToken extends \ALT\Models\Action
         $this->insertAsChild(FT::GAIN($card, ANCHORED));
         Globals::setNextTokenAnchored(false);
       }
+      if (Globals::getNextTokenAsleep() == true) {
+        $this->insertAsChild(FT::GAIN($card, ASLEEP));
+        Globals::setNextTokenAsleep(false);
+      }
 
 
       $this->checkAfterListeners($player, [
         'playCard' => true,
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),
+        'additionalType' => $card->getAdditionalType(),
         'from' => 'invoke',
         'to' => $location,
         'locationPId' => $invokePId,
-        'gigantic' => $card->isGigantic()
+        'gigantic' => $card->isGigantic(),
+        'token' => true
       ]);
+      if (!$this->getArg('moreThan1') && $i == 0) {
+        $this->checkAfterListeners($player, [
+          'playCard' => true,
+          'cardId' => $card->getId(),
+          'cardType' => $card->getType(),
+          'additionalType' => $card->getAdditionalType(),
+          'from' => 'invoke',
+          'to' => $location,
+          'locationPId' => $invokePId,
+          'gigantic' => $card->isGigantic(),
+          'token' => true
+        ], true, 'InvokeTokenOnce');
+      }
     }
     $this->resolveAction([$card->getId()]);
   }

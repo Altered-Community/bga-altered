@@ -51,6 +51,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       return o;
     },
 
+    notif_setTerrainMarker(args) {
+      debug('Notif: adding terrain Marker', args);
+    },
+
     getMeepleTooltip(meeple) {
       let type = meeple.type;
       // if (type == 'first-player') {
@@ -87,8 +91,17 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     getMeepleContainer(meeple) {
       let t = meeple.location.split('-');
       if (t[0] == 'storm') {
-        let position = meeple.pId == this.bottomPId ? 'player' : 'opponent';
-        return $(`storm-${t[1]}-${position}`);
+        // Terrain markers
+        if (['ocean', 'forest', 'mountain'].includes(meeple.type)) {
+          return $(`storm-${t[1]}-markers`);
+        }
+        // Hero/companion tokens
+        else {
+          let position = meeple.pId == this.bottomPId ? 'player' : 'opponent';
+          return $(`storm-${t[1]}-${position}`);
+        }
+      } else if (meeple.type == 'ascend') {
+        return $(`board-${meeple.location}_ascend-${meeple.pId}`);
       } else if ($(meeple.location)) {
         return $(meeple.location);
       }
@@ -186,12 +199,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_slideMeeples(n) {
       debug('Notif: sliding meeples', n);
-      this.slideResources(n.args.meeples).then(() => this.updateCardCosts());
-
-      if (n.args.icons) {
-        this.gamedatas.players[n.args.player_id].icons = n.args.icons;
-        this.updatePlayersIconsSummaries();
-      }
+      this.slideResources(n.args.meeples);
     },
 
     notif_discardTokens(n) {
@@ -235,6 +243,19 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         let total = this._playerCounters[player.id]['totalMana'].getValue();
         this._playerCounters[player.id]['mana'].toValue(total);
       });
+
+      // Slide first player
+      let pId = n.args.player_id;
+
+      this.slideResources([{ id: 'firstPlayer' }], {
+        from: $(`firstPlayer-${this.gamedatas.firstPlayer}`),
+        target: $(`firstPlayer-${pId}`),
+      });
+      this.gamedatas.firstPlayer = pId;
+    },
+
+    notif_switchPlayer(n) {
+      debug('Notif: switch first player', n);
 
       // Slide first player
       let pId = n.args.player_id;

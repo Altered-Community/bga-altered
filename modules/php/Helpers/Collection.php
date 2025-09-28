@@ -123,6 +123,31 @@ class Collection extends \ArrayObject
       });
   }
 
+  // Specific method added to filter additional Type of a card
+  public function whereType($field, $value, $additionalType)
+  {
+    return is_null($value)
+      ? $this
+      : $this->filter(function ($obj) use ($field, $value, $additionalType) {
+        $method = 'get' . ucfirst($field);
+        if (is_null($obj)) {
+          return;
+        }
+        $objValue = $obj->$method();
+        if ($additionalType) {
+          $objValue = array_merge([$objValue], $obj->getAdditionalType());
+        }
+        return is_array($value)
+          ? (is_array($objValue) ? count(array_intersect($value, $objValue)) > 0 : in_array($objValue, $value))
+          : (is_array($objValue)
+            ? in_array($value, $objValue)
+            : (strpos($value, '%') !== false
+              ? like_match($value, $objValue)
+              : $objValue == $value));
+      });
+  }
+
+
   public function whereNot($field, $value)
   {
     return is_null($value)
@@ -161,7 +186,7 @@ class Collection extends \ArrayObject
   {
     return $this->order(function ($a, $b) use ($field, $asc) {
       $method = 'get' . ucfirst($field);
-      return $asc == 'ASC' ? strcmp($a->$method(),$b->$method()) >=0 : strcmp($b->$method(), $a->$method())>=0;
+      return $asc == 'ASC' ? strcmp($a->$method(), $b->$method()) >= 0 : strcmp($b->$method(), $a->$method()) >= 0;
     });
   }
 

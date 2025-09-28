@@ -186,7 +186,7 @@
                 position: relative;
                 box-sizing: border-box;
                 background-image: url("img/deck-thumbnails.jpg");
-                background-size: 300% 600%;
+                background-size: 400% 600%;
                 margin: auto;
                 border: 2px solid #ffe300;
                 box-shadow: 0px 0px 10px 0px #ffe300;
@@ -444,7 +444,7 @@
                     border-radius: 10px;
                     box-shadow: 1px 1px 5px black;
                     background-image: url("img/deck-thumbnails.jpg");
-                    background-size: 300% 600%;
+                    background-size: 400% 600%;
                     color: white;
                     padding: 10px;
                     position: relative;
@@ -505,9 +505,12 @@
                         background-position-x: 0%;
                     }
                     &[data-thumbnail="1"] {
-                        background-position-x: 50%;
+                        background-position-x: 33%;
                     }
                     &[data-thumbnail="2"] {
+                        background-position-x: 66%;
+                    }
+                    &[data-thumbnail="3"] {
                         background-position-x: 100%;
                     }
 

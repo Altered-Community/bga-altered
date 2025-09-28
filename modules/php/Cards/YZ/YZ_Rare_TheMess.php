@@ -27,6 +27,7 @@ class YZ_Rare_TheMess extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPassive' => [
                 'OtherLeaveExpedition' => [
+                    'pId' => CONTROLLER,
                     'conditions' => ['hasSameOwner', 'isDiscardedType:characterOnly'],
                     'output' => FT::ACTION(SPECIAL_EFFECT, [
                         'effect' => 'incCounter',

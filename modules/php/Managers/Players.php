@@ -168,6 +168,20 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
+  public static function hasOpponentBlockMoveExpedition($player, $expedition)
+  {
+    // TODO: manage multiplayers
+    foreach (self::getAll() as $pId => $player2) {
+      if ($pId == $player->getId()) {
+        continue;
+      }
+      if ($player2->hasBlockMoveExpedition($expedition)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function hasOppositeDefender($expedition)
   {
     $oppositeExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
@@ -261,8 +275,15 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $player->getHeroToken()->setLocation('storm-3');
         $meeples = $meeples->merge(Meeples::getStormTokens($pId));
       }
+      // Delete/remove markers
+      $markers = Meeples::getOfType('storm-%', [OCEAN, FOREST, MOUNTAIN]);
+      foreach ($markers as $mId => &$marker) {
+        Meeples::delete($marker->getId());
+      }
+
       // notif startTiebreak
       Notifications::startTiebreak($meeples->toArray());
+      Notifications::silentKill($markers->getIds());
     } elseif ($victor != -1) {
       // we have a winner => end of game
       Players::get($victor)->setScore(1);
@@ -540,6 +561,18 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         OCEAN => ['pId' => null, 'value' => 0],
       ],
     ];
+    $equality = [
+      STORM_LEFT => [
+        FOREST => false,
+        MOUNTAIN => false,
+        OCEAN => false,
+      ],
+      STORM_RIGHT => [
+        FOREST => false,
+        MOUNTAIN => false,
+        OCEAN => false,
+      ],
+    ];
 
     // Winner calculation
     foreach ($players as $pId => $player) {
@@ -551,6 +584,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
             $winners[$expedition][$biome]['pId'] = $pId;
           } elseif ($winners[$expedition][$biome]['value'] == $value) {
             $winners[$expedition][$biome]['pId'] = null;
+            if ($value >= 1) {
+              $equality[$expedition][$biome] = true;
+            }
           }
         }
       }
@@ -576,19 +612,24 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         if ($blockedExpeditions[$pId][$expedition]) {
           continue;
         }
+
         $newBiomes = [];
         foreach ($biomes as $biome) {
           $newBiomes[$biome] = $biome;
         }
         self::biomesModifier($newBiomes, $player, $expedition);
 
+        $isAscended = $player->isAscended($expedition);
+
         foreach ($newBiomes as $i => $biome) {
-          $win = $winners[$expedition][$biome]['pId'] == $pId;
+          $win = $winners[$expedition][$biome]['pId'] == $pId || $equality[$expedition][$biome] == true && $isAscended;
           $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
           if ($win) {
             $move = true;
             $winningBiomes[] = $biome;
+          } elseif ($equality[$expedition][$biome] == true && $isAscended) {
+            $move = true;
           }
         }
 
@@ -598,7 +639,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           }
           if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
             $nodes = [];
-            $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]);
+            if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition])) {
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+            }
             foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
               if ($action == 'draw2') {
                 $nodes[] =
@@ -611,6 +654,20 @@ class Players extends \ALT\Helpers\CachedDB_Manager
                   FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
                   FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RunesTestamentLook4'], ['pId' => $pId, 'sourceId' => $cId])
                 );
+              } elseif ($action == 'ErisCommon') {
+                $nodes[] = FT::ACTION(ROLL_DIE, [
+                  'effect' => [
+                    '1-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]),
+                    '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId])
+                  ]
+                ], ['sourceId' => $cId]);
+              } elseif ($action == 'ErisRare') {
+                $nodes[] = FT::ACTION(ROLL_DIE, [
+                  'effect' => [
+                    '2-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]),
+                    '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId])
+                  ]
+                ], ['sourceId' => $cId]);
               }
             }
             Engine::pushAfterFinishingChilds(
@@ -643,20 +700,27 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
 
         if (($updateExpeditions['type'] ?? '') == 'source') {
+          if ($card->getLocation() == STORM_LEFT) {
+            $cardToken = $card->getPlayer()->getHeroToken()->getLocation();
+          } else {
+            $cardToken = $card->getPlayer()->getCompanionToken()->getLocation();
+          }
           $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
-          $cardToken = $card->getPlayer()->$token()->getLocation();
           $playerToken = $player->$token()->getLocation();
-          if (($playerToken == $cardToken && $card->getLocation() == $expedition) || $card->isGigantic() || Globals::isTieBreakerMode()) {
+          if (($playerToken == $cardToken) || $card->isGigantic() || Globals::isTieBreakerMode()) {
             self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
           }
         }
 
         if (($updateExpeditions['type'] ?? '') == 'sourceAll') {
-          $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
-          $cardToken = $card->getPlayer()->$token()->getLocation();
-          $playerToken = $player->$token()->getLocation();
-          if ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode()) {
-            self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+          foreach (['getHeroToken', 'getCompanionToken'] as $token) {
+            $cardToken = $card->getPlayer()->$token()->getLocation();
+            $otherToken = $token == 'getHeroToken' ? 'getCompanionToken' : 'getHeroToken';
+            $playerToken = $player->$token()->getLocation();
+            $otherPlayerToken = $player->$otherToken()->getLocation();
+            if ($card->getLocation() == $expedition || $card->isGigantic() || Globals::isTieBreakerMode() || $otherPlayerToken == $cardToken) {
+              self::updateBiomesModifier($biomes, $updateExpeditions, $tiebreak);
+            }
           }
         }
       }
@@ -696,6 +760,41 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $biomes[$region] = 0;
       }
     }
+  }
+
+  public static function getRegionsInfo()
+  {
+    $visibleRegions = Globals::getVisibleRegions();
+    $tiebreak = Globals::isTieBreakerMode();
+    foreach ($visibleRegions as $vId => &$region) {
+      // check if there is a terrain marker
+      $markers = Meeples::getOfType('storm-' . $vId, [OCEAN, FOREST, MOUNTAIN])->sortBy('state');
+      if ($markers->count() > 0) {
+        foreach ($markers as $mId => $marker) {
+          $region =  [$marker->getType()];
+        }
+      }
+    }
+
+    foreach (['getHeroToken', 'getCompanionToken'] as $side) {
+      foreach (self::getAll() as $pId => $player) {
+        $token = $player->$side();
+        $location = explode('-', $token->getLocation())[1];
+        $expedition = $side == 'getHeroToken' ? STORM_LEFT : STORM_RIGHT;
+        if (Globals::isTieBreakerMode()) {
+          $location = 4;
+        }
+        if (isset($visibleRegions[$location])) {
+          $newBiomes = [];
+          foreach ($visibleRegions[$location] as $biome) {
+            $newBiomes[$biome] = $biome;
+          }
+          self::biomesModifier($newBiomes, $player, $expedition, $tiebreak);
+          $visibleRegions[$location] = array_values($newBiomes);
+        }
+      }
+    }
+    return $visibleRegions;
   }
 
   public static function setStats()

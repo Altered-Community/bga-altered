@@ -20,7 +20,7 @@ class LY_Rare_WillotheWisp extends \ALT\Models\Card
             'artist' => "Khoa Viet",
             'extension' => 'TBF',
             'subtypes'  => [SPIRIT],
-            'effectDesc' => clienttranslate('If the Expedition facing me is in {O}, it can only move forward due to {O}.'),
+            'effectDesc' => clienttranslate('If an Expedition facing me is in {O}, it can’t move forward during Dusk, except due to {O}.'),
             'supportDesc' => clienttranslate('{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'),
             'supportIcon' => 'discard',
             'forest' => 0,

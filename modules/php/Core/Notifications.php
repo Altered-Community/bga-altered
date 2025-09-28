@@ -202,6 +202,42 @@ class Notifications
     ]);
   }
 
+  public static function switchPlayer($firstPlayer)
+  {
+    self::notifyAll('switchPlayer', clienttranslate('${player_name} becomes First player'), [
+      'player' => $firstPlayer,
+    ]);
+  }
+
+  public static function setTerrainMarker($player, $marker, $source)
+  {
+    self::notifyAll('slideMeeples', clienttranslate('${player_name} places a ${biome_icon}${biome_name} terrain marker on a region (${card_name}\'s effect)'), [
+      'player' => $player,
+      'meeples' => [$marker],
+      'biome_name' => $marker->getType(),
+      'biome_icon' => '',
+      'card' => $source
+    ]);
+  }
+
+  public static function addTerrainMarkers($markers)
+  {
+    self::notifyAll('slideMeeples', '', [
+      'meeples' => $markers->toArray(),
+    ]);
+  }
+
+  public static function moveTerrainMarker($player, $marker, $source)
+  {
+    self::notifyAll('slideMeeples', clienttranslate('${player_name} moves a ${biome_icon}${biome_name} terrain marker on a region (${card_name}\'s effect)'), [
+      'player' => $player,
+      'meeples' => [$marker],
+      'biome_name' => $marker->getType(),
+      'biome_icon' => '',
+      'card' => $source
+    ]);
+  }
+
   //////////////////////////////////////////////////////
   //  ____            _      _   _ _       _     _
   // |  _ \ _   _ ___| | __ | \ | (_) __ _| |__ | |_
@@ -294,6 +330,15 @@ class Notifications
     self::notifyAll(
       'moveCard',
       clienttranslate('${player_name} moves ${card_name} to opposite expedition (${card_name2}\'s effect)'),
+      ['player' => $player, 'card' => $card, 'card2' => $source]
+    );
+  }
+
+  public static function defect($card, $player, $source)
+  {
+    self::notifyAll(
+      'moveCard',
+      clienttranslate('${card_name} defects to ${player_name}\'s side(${card_name2}\'s effect)'),
       ['player' => $player, 'card' => $card, 'card2' => $source]
     );
   }
@@ -590,6 +635,16 @@ class Notifications
     ]);
   }
 
+  public static function ascend($meeple, $player, $source, $expedition)
+  {
+    $msg = $expedition == STORM_LEFT ? clienttranslate('${player_name}\'s Hero expedition ascends (${card_name2}\'s effect)') : clienttranslate('${player_name}\'s Companion expedition ascends (${card_name2}\'s effect)');
+    self::notifyAll('addMeeples', $msg, [
+      'player' => $player,
+      'meeples' => [$meeple],
+      'card2' => $source,
+    ]);
+  }
+
   public static function targetCards($player, $cards, $additionalCost, $source)
   {
     if ($additionalCost > 0) {
@@ -728,6 +783,15 @@ class Notifications
     ]);
   }
 
+  public static function reveal($toReveal, $source)
+  {
+    self::notifyAll('revealCard', clienttranslate('${player_name} reveals ${card_name} (${card_name2}\'s effect)'), [
+      'player' => $toReveal->getPlayer(),
+      'card' => $toReveal,
+      'card2' => $source
+    ]);
+  }
+
   public static function pass($player)
   {
     self::notifyAll('passTurn', clienttranslate('${player_name} passes and ends its afternoon'), ['player' => $player]);
@@ -744,7 +808,7 @@ class Notifications
 
   public static function spellCleanup($card, $deleted)
   {
-    self::notifyAll('spellCleanup', '', ['card' => $card, 'deleted' => $deleted]);
+    self::notifyAll('spellCleanup', ' ', ['card' => $card, 'deleted' => $deleted]);
   }
 
   public static function invokeToken($player, $card, $source)
@@ -820,6 +884,11 @@ class Notifications
       'hand' => $hand,
       'mana' => $mana,
     ]);
+  }
+
+  public static function refreshCard($card)
+  {
+    self::notifyAll('refreshCard', '', ['card' => $card]);
   }
 
   /////////////////////////////////

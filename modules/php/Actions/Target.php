@@ -13,6 +13,7 @@ use ALT\Core\Stats;
 use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
 use ALT\Models\Player;
+use ALT\Helpers\Conditions;
 
 class Target extends \ALT\Models\Action
 {
@@ -48,6 +49,10 @@ class Target extends \ALT\Models\Action
     'effect' => null,
     'allIds' => false, // we put all the Ids instead of duplicating for each card
     'ignoreTough' => false,
+    'excludeToken' => false,
+    'onlyToken' => false,
+    'ascendedOnly' => false,
+    'monoBiome' => false, // Rare Lyra Origamium
   ];
 
   public function getDescription()
@@ -171,17 +176,29 @@ class Target extends \ALT\Models\Action
       if (Cards::get($this->getSourceId())->isGigantic()) {
         $targetLocation = STORMS;
       }
+    } elseif ($targetLocation == ['opponentSource']) {
+      $targetLocation = [$this->getSource()->getLocation()];
+      if (Cards::get($this->getSourceId())->isGigantic()) {
+        $targetLocation = STORMS;
+      }
+      $targetPlayer = $pIds = array_diff($pIds, [$pId]);
     }
+    $excludeTokens = $this->getArg('excludeToken');
+    $onlyTokens = $this->getArg('onlyToken');
+    $ascendedOnly = $this->getArg('ascendedOnly');
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
-        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && in_array($c->getType(), $targetType);
+        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && (in_array($c->getType(), $targetType) || count(array_intersect($targetType, $c->getAdditionalType())) > 0);
       });
     } else {
-      $cards = Cards::getFiltered($pIds, null, $targetType)->filter(function ($c) use ($targetLocation, $targetType) {
-        return (in_array($c->getLocation(), $targetLocation)
+      $cards = Cards::getFiltered($pIds, null, $targetType, true)->filter(function ($c) use ($targetLocation, $targetType, $excludeTokens, $onlyTokens) {
+        return ((in_array($c->getLocation(), $targetLocation)
           || ((in_array(STORM_LEFT, $targetLocation) || in_array(STORM_RIGHT, $targetLocation)) && in_array($c->getLocation(), STORMS) && $c->isGigantic()))
-          || ($c->getType() == HERO && in_array(HERO, $targetType));
+          || ($c->getType() == HERO && in_array(HERO, $targetType))) &&
+          // Token exclusion
+          ($excludeTokens === false  || ($excludeTokens === true && !$c->isToken())) &&
+          ($onlyTokens == false || ($onlyTokens === true && $c->isToken()));
       });
     }
 
@@ -195,9 +212,10 @@ class Target extends \ALT\Models\Action
     $maxStatistic = $this->getArg('maxStatistic');
 
     $augmentOnly = $this->getArg('augmentOnly');
+    $monoBiome = $this->getArg('monoBiome');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -219,6 +237,14 @@ class Target extends \ALT\Models\Action
 
       // Only card with a boost or a counter can be augmented
       if ($augmentOnly && !$c->hasCounters()) {
+        return false;
+      }
+
+      if ($ascendedOnly && !$c->isInAscended()) {
+        return false;
+      }
+
+      if ($monoBiome && !Conditions::cardInMonoRegion($c, [])) {
         return false;
       }
 

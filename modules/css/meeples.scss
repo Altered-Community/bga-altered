@@ -120,6 +120,51 @@
         width: 30px;
         height: 30px;
     }
+    &[data-type="ascend"] {
+        background-image: url("img/icons/ascend.png");
+        background-size: 100% 100%;
+        width: 62px;
+        height: 62px;
+    }
+
+    &[data-type="ocean"],
+    &[data-type="forest"],
+    &[data-type="mountain"] {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-size: 19px;
+        line-height: 26px;
+        color: white;
+        box-shadow: 0px 0px 3px black;
+        text-shadow: none;
+        text-align: center;
+        font-family: "icomoon" !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        &.selectable {
+            margin: 0px 4px;
+            cursor: pointer;
+            box-shadow: 0px 0px 7px 10px lime;
+            &:hover {
+                scale: 1.1;
+            }
+        }
+    }
+
+    &[data-type="ocean"] {
+        background: #006d97;
+        border: 1px solid #8cb6c7;
+    }
+    &[data-type="forest"] {
+        background: #799c00;
+        border: 1px solid #c0cf89;
+    }
+    &[data-type="mountain"] {
+        background: #bb690f;
+        border: 1px solid #d3b596;
+    }
 }
 
 .action-button {

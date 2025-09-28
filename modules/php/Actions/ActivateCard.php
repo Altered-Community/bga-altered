@@ -23,7 +23,7 @@ class ActivateCard extends \ALT\Models\Action
 
     // Tokens are not really destroyed, they got to location "destroy"
     //  but they cant be activated from here => only case is Maw
-    if (!is_null($card) && $card->getLocation() == 'destroy') {
+    if (!is_null($card) && ($card->getLocation() == 'destroy' && !in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? []))) {
       return null;
     }
     return $card;
@@ -44,13 +44,13 @@ class ActivateCard extends \ALT\Models\Action
     //   throw new \feException($card->getId());
     // }
     // throw new \feException($this->getCtxArg('cardId'));
-
     $flow =
       $card->isPlayed() ||
       $card->getLocation() == RESERVE ||
       in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['cardsToListen'] ?? []) ||
       in_array($this->getCtxArg('cardId'), $this->getCtxArgs()['event']['reserveToListen'] ?? []) // cas of infinity effect to listen after discard
-      ? Cards::applyEffect(
+      ?
+      Cards::applyEffect(
         $card,
         $player,
         $event['method'],
@@ -63,10 +63,18 @@ class ActivateCard extends \ALT\Models\Action
       return null;
     }
 
+    if (($flow['pId'] ?? -1) == CONTROLLER) {
+      $tagPId = $event['controller'] ?? $event['pId'];
+    } elseif (isset($event['owner'])) {
+      $tagPId = $event['owner'] ?? $event['pId'];
+    } else {
+      $tagPId = Cards::get($this->getCtxArg('cardId'))->getPId();
+    }
+
     $flow = Utils::tagTree($flow, [
       'sourceId' => $this->getCtxArg('cardId'),
       'event' => $event,
-      'pId' => Cards::get($this->getCtxArg('cardId'))->getPId(),
+      'pId' => $tagPId,
     ]);
 
     // if we have a card invoking with the parameter source we substitute it with current location
@@ -81,6 +89,8 @@ class ActivateCard extends \ALT\Models\Action
   public function getFlowTree($player)
   {
     $flow = $this->getFlow($player);
+    // throw new \feException(print_r(debug_print_backtrace()));
+
     return is_null($flow) ? null : Engine::buildTree($flow);
   }
 
@@ -103,7 +113,6 @@ class ActivateCard extends \ALT\Models\Action
     $player = $this->getPlayer();
     $flowTree = $this->getFlowTree($player);
 
-    // throw new \feException(print_r($flowTree));
     return is_null($flowTree) ? false : $flowTree->isDoable($player);
   }
 
@@ -148,9 +157,15 @@ class ActivateCard extends \ALT\Models\Action
     if ($node->isMandatory()) {
       $flow['optional'] = false; // Remove optional to avoid double confirmation UX
     }
-    $flow['pId'] = $this->getCard()
-      ->getPlayer()
-      ->getId();
+
+    // throw new \feException(print_r($flow));
+    // Test Defect
+    // $flow['pId'] = $this->getCard()
+    //   ->getPlayer()
+    //   ->getId();
+
+    // $flow['pId'] = $player->getId();
+
     // Add tag about that card
     // $flow = Utils::tagTree($flow, [
     //   'sourceId' => $this->getCtxArg('cardId'),

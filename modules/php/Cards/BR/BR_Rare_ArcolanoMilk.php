@@ -28,11 +28,11 @@ class BR_Rare_ArcolanoMilk extends \ALT\Models\Card
             'changedStats' => ['costHand', 'costReserve'],
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
+                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST, 2))
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardAdded:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
+                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'isStillSameLocation'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST, 2))
                 ],
                 'MoveCard' => [

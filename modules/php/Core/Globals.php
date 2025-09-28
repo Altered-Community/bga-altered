@@ -67,11 +67,14 @@ class Globals extends \ALT\Helpers\DB_Manager
     'removeFleetingSongArtistPlayed' => 'bool', // Bise - The stage rare
     'nextCharacterBoostV' => 'int', // Bise - The Undergrowth
 
-
+    // Cyclone
+    'globalTough' => 'obj', // 'Kauri's intervention
+    'nextTokenAsleep' => 'bool', // Pan
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
     'beginner' => 'int',
+    'firstPass' => 'int',
   ];
 
   protected static $table = 'global_variables';
@@ -239,5 +242,38 @@ class Globals extends \ALT\Helpers\DB_Manager
     }
 
     return $storm;
+  }
+
+  public static function getVisibleRegions()
+  {
+    if (self::isTieBreakerMode()) {
+      return ['4' => [FOREST, MOUNTAIN, OCEAN]];
+    }
+
+    $stormCards = self::getStorm();
+    $storms = [];
+    $index = 0;
+    foreach ($stormCards as $i => $stormCard) {
+      $storm = STORM_CARDS[$stormCard['cardId']];
+
+      if ($stormCard['visible'] == false) {
+        $index += 2;
+        continue;
+      }
+
+      if ($stormCard['rotated']) {
+        $storm = array_reverse($storm);
+      }
+
+      foreach ($storm as $j => $biomes) {
+        if (empty($biomes)) {
+          continue;
+        }
+        $storms[$index] = $biomes;
+        $index++;
+      }
+    }
+
+    return $storms;
   }
 }

@@ -31,11 +31,11 @@ class MU_Common_Yeti extends \ALT\Models\Card
             'effectHand' => FT::GAIN(ME, ASLEEP),
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardAdded:character:::true'],
+                    'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
                     'output' => FT::GAIN(EFFECT, BOOST),
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardAdded:character:::true'],
+                    'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
                     'output' => FT::GAIN(EFFECT, BOOST),
                 ],
             ],

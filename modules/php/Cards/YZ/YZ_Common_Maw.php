@@ -17,7 +17,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Maw'),
       'typeline' => clienttranslate('Token Character - Companion'),
-      'type' => TOKEN,
+      'type' => CHARACTER,
       'token' => true,
       'flavorText' => clienttranslate('Always hungry for new ideas...'),
       'artist' => 'Edward Cheekokseang',
@@ -28,7 +28,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'ocean' => 0,
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isMe', 'isSacrifice:character'],
+          'conditions' => ['isMe', 'isSacrifice:character', 'notDestroyed'],
           'output' => FT::GAIN($this, BOOST, 2),
         ],
       ],

@@ -69,6 +69,7 @@ class PlayCard extends \ALT\Models\Action
     'cost' => 0,
     'costReduction' => 0,
     'reallyPlayed' => true,
+    'stealOwnership' => false,
   ];
 
   public function argsPlayCard()
@@ -118,6 +119,13 @@ class PlayCard extends \ALT\Models\Action
     }
     if (!in_array($location, $locations)) {
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
+    }
+    $card = Cards::get($cardId);
+    if ($this->getArg('stealOwnership') && $card->getPId() != Players::getActiveId()) {
+      $extraDatas = $card->getExtraDatas();
+      $extraDatas['pId'] = $card->getPId();
+      $card->setExtraDatas($extraDatas);
+      $card->setPId(Players::getActiveId());
     }
 
     $context = &$this->getCtx();

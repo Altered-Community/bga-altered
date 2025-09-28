@@ -32,16 +32,18 @@ class OD_Common_JeannedArc extends \ALT\Models\Card
       'costReserve' => 4,
       'effectPassive' => [
         'LeaveExpedition' => [
+          'pId' => CONTROLLER,
           'output' => FT::SEQ(
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
+              'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_RIGHT],
             ]),
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
+              'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_LEFT],
+              'moreThan1' => true,
             ])
           ),
         ],

@@ -38,6 +38,7 @@ class OD_Rare_OrdisCarrier extends \ALT\Models\Card
               'pId' => 'source',
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => [STORM_RIGHT],
+              'moreThan1' => true,
             ])
           ),
         ],

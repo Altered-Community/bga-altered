@@ -23,6 +23,7 @@ class TargetPlayer extends \ALT\Models\Action
 
   protected $args = [
     'opponentsOnly' => true,
+    'onlyMe' => false
   ];
 
   public function getDescription()
@@ -51,7 +52,9 @@ class TargetPlayer extends \ALT\Models\Action
 
   public function stTargetPlayer()
   {
-    if ($this->getArg('opponentsOnly') == true && Players::getAll()->count() == 2) {
+    if ($this->getArg('onlyMe') == true) {
+      return [Players::getActive()->getId()];
+    } elseif ($this->getArg('opponentsOnly') == true && Players::getAll()->count() == 2) {
       return [Players::getNextId(Players::getActive())];
     }
   }
@@ -82,7 +85,7 @@ class TargetPlayer extends \ALT\Models\Action
           $child['args']['expedition'] = $args['expedition'];
         }
         if (isset($args['player'])) {
-          $$child['args']['player'] = $args['player'];
+          $child['args']['player'] = $args['player'];
         }
         $node['args']['pId'] = $pId;
       }

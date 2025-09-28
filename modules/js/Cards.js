@@ -1212,7 +1212,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (this.isFastMode()) {
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
           this.updateCardStatuses(card.id);
-          let container = $(card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`);
+          let container = $(card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`);
           container.insertAdjacentElement('beforeend', $(`card-${card.id}`));
           if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
         });
@@ -1227,9 +1227,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
           return this.wait(200 * i).then(() => {
             this.updateCardStatuses(card.id);
-            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${pId}` : `board-reserve-${pId}`).then(() => {
-              if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
-            });
+            return this.slide(`card-${card.id}`, card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`).then(
+              () => {
+                if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+              }
+            );
           });
         })
       )
@@ -1340,6 +1342,35 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         });
         this.notifqueue.setSynchronousDuration(100);
       });
+    },
+
+    notif_revealCard(n) {
+      debug('Notif: reveal card');
+      // Slide the card
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+
+      if (this.isFastMode()) {
+        if (!$(id)) {
+          let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+          fakeCard.remove();
+          this.addCard(card);
+        }
+        return;
+      }
+
+      if (!$(id)) {
+        let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+        this.addCard(card, `hand-${n.args.player_id}`);
+        this.flipAndReplace(fakeCard, id);
+      }
+    },
+
+    notif_refreshCard(n) {
+      debug('refreshing one card', n);
+      let card = n.args.card;
+      let id = `card-${card.id}`;
+      CARDS_DATA[card.id] = card;
     },
 
     //////////////////////////////////////////////
@@ -1474,10 +1505,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let i = this.getCardFrontInfos(card, tooltip);
       let sizes = this.getBiomesUISizes(p);
 
-      let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let effect = this.replaceKeyWordsAndGetReminders(p.effectDesc || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
-      let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
+      let support = this.replaceKeyWordsAndGetReminders(p.supportDesc || '');
       let supportIcon = this.getSupportIcon(p);
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
@@ -1485,15 +1516,24 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-character ${mini ? 'mini-card' : ''}' data-boost='${i.boost}' ${counter}>
+      tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+        class='altered-card card-character ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
+        mini ? 'mini-card' : ''
+      }' data-boost='${i.boost}' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='character'></div>
-          <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
+              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
+        p.hasOwnProperty('token') ? 'token' : 'character'
+      }'></div>
+          `;
+      if (!p.hasOwnProperty('token')) {
+        tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
+        <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
-          <div class='card-costs-bg' data-faction='${p.faction}'></div>
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>`;
+      }
+
+      tplData += `
 
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
@@ -1532,6 +1572,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         <div class='altered-card-statuses'></div>
       </div>`;
+      return tplData;
     },
     tplCharacterCardTooltip(card) {
       let rareExtraDetails = '';
@@ -1680,18 +1721,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         counter = ` data-counter='${p.extraDatas.counter}'`;
       }
 
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-permanent ${mini ? 'mini-card' : ''}' ${counter}>
+      tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+        class='altered-card card-permanent ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
+        mini ? 'mini-card' : ''
+      }' ${counter}>
         <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
-        isLandmark ? 'permanent' : 'gear'
+        isLandmark ? (p.hasOwnProperty('token') ? 'permanent' : 'permanent') : 'gear'
       }'></div>
-          <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
+          `;
+      if (!p.hasOwnProperty('token')) {
+        tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
+        <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
-          <div class='card-costs-bg' data-faction='${p.faction}'></div>
-
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>`;
+      }
+      tplData += `
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
@@ -1716,6 +1762,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         <div class='altered-card-statuses'></div>
       </div>`;
+      return tplData;
     },
 
     tplPermanentCardTooltip(card) {
@@ -1916,11 +1963,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     replaceKeyWordsAndGetReminders(str) {
       if (Array.isArray(str)) {
-        return str.map((s) => this.replaceKeyWordsAndGetReminders(s)).join(' ');
+        return str.map((s) => this.replaceKeyWordsAndGetReminders(_(s))).join(' ');
       } else {
         let t = str.split('  ');
         if (t.length > 1) {
-          return t.map((s) => this.replaceKeyWordsAndGetReminders(s)).join('<br />');
+          return t.map((s) => this.replaceKeyWordsAndGetReminders(_(s))).join('<br />');
         }
       }
 
@@ -2114,6 +2161,39 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         SCOUT_4: {
           text: _('Scout'),
           reminder: _('You may play me from hand for 4 with "{h} Send me to Reserve".'),
+        },
+        // Cyclone
+        AEROLITH: {
+          text: _('Aerolith'),
+        },
+        HALUA: {
+          text: _('Halua'),
+        },
+        RUSH: {
+          text: _('Rush'),
+        },
+        TOUGH_CHA_P_5: {
+          text: _('Tough 5'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {5} more."),
+        },
+        WOOLLYBACK: {
+          text: _('Woollyback 1/1/1'),
+        },
+        ASCENDS: {
+          text: _('Ascends'),
+          reminder: _("Until Rest, it can move forward even if matched in its region's terrains by the opponent's Expedition."),
+        },
+        ASCEND: {
+          text: _('Ascend'),
+          reminder: _("Until Rest, it can move forward even if matched in its region's terrains by the opponent's Expedition."),
+        },
+        ASCEND_INF: {
+          text: _('Ascend'),
+          reminder: _("Until Rest, it can move forward even if matched in its region's terrains by the opponent's Expedition."),
+        },
+        TOUGH_CHA_P_1: {
+          text: _('Tough 1'),
+          reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
         },
       };
 

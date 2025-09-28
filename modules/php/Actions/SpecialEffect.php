@@ -12,6 +12,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Game;
 use ALT\Core\Engine;
 use ALT\Helpers\Utils;
+use ReturnTypeWillChange;
 
 class SpecialEffect extends \ALT\Models\Action
 {
@@ -217,7 +218,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'removeFleetingSongArtistPlayed':
         return clienttranslate('Remove fleeting if next card is an Artist or Song');
       case 'doubleBoosts':
-        return clienttranslate('Double the boosts in reserve & storms');
+        return clienttranslate('Double the boosts in reserve & expeditions');
       case 'counterPerCharacter':
         return clienttranslate('Gain 1 counter per Character you control');
       case 'boostAndRemoveFromExpedition':
@@ -242,6 +243,26 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Trigger Man in the maze unique effects');
       case 'hunger':
         return clienttranslate('Discard all other cards in play or in Reserve');
+      case 'reveal':
+        return clienttranslate('Reveal a card');
+      case 'ascend':
+        return clienttranslate('Ascend');
+      case 'switchPlayer':
+        return clienttranslate('Change First player');
+      case 'allCharacterFleeting':
+        return clienttranslate('All characters gain <FLEETING>');
+      case 'allPass':
+        return clienttranslate('All players pass');
+      case 'boostTargetReserveCards':
+        return clienttranslate('Gain 1 boost per card in reserve');
+      case 'boostXOpponentExpedition':
+        return clienttranslate('Gain 1 boost per character in expeditions facing card');
+      case 'nextTokenAsleep':
+        return clienttranslate('Token gains <ASLEEP>');
+      case 'boostReserveSubtype':
+        return clienttranslate('Each reserve of specific subtype gain 1 <BOOST>');
+      case 'defect':
+        return clienttranslate('defect');
     }
     return '';
   }
@@ -273,10 +294,10 @@ class SpecialEffect extends \ALT\Models\Action
       case 'drawTopIfRoll':
       case 'exhaustPlayFree':
       case 'hunger':
-        return false;
-        break;
+      case 'boostTargetReserveCards':
+      case 'boostXOpponentExpedition':
       default:
-        return true;
+        return false;
     }
     return true;
 
@@ -1126,7 +1147,7 @@ class SpecialEffect extends \ALT\Models\Action
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
 
           $baseStat = false;
-          if (in_array(ROBOT, $drawn->getSubtypes()) || $drawn->getType() == PERMANENT) {
+          if (in_array(ROBOT, $drawn->getSubtypes()) || $drawn->getType() == PERMANENT || in_array(PERMANENT, $drawn->getAdditionalType())) {
             $baseStat = true;
           }
           if ($baseStat == true) {
@@ -1556,6 +1577,229 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         break;
+      case 'reveal':
+        $toReveal = $this->getCard();
+        $toReveal->setRevealed(true);
+        Notifications::reveal($toReveal, $card);
+        break;
+      case 'ascend':
+        $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
+        $player = $this->getCtxArg('player') ?? $player;
+        $expedition = $this->getCtxArg('expedition');
+        $oPlayer = Players::get($player);
+        $resupplyIfAscended = $oPlayer->hasResupplyIfAscended();
+        // manage my expedition
+        if ($expedition == 'source') {
+          $expedition = $card->getLocation();
+        }
+
+        $side = $expedition == STORM_LEFT ? HERO : COMPANION;
+        if ($resupplyIfAscended && $oPlayer->isAscended($expedition)) {
+          $this->insertAsChild(FT::ACTION(RESUPPLY, []));
+        } elseif (!$oPlayer->isAscended($expedition)) {
+          // $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          // $oToken = $oPlayer->$token();
+          $ascended = Meeples::singleCreate([
+            'player_id' => $player,
+            'location' => $expedition,
+            'nbr' => 1,
+            'type' => 'ascend'
+          ]);
+          Notifications::ascend($ascended, $oPlayer, $card, $expedition);
+        }
+        break;
+      case 'switchPlayer':
+        $newFirstPId = $this->getCtxArgs()['pId'];
+        Globals::setFirstPlayer($newFirstPId);
+        Notifications::switchPlayer(Players::get($newFirstPId));
+        break;
+      case 'allCharacterFleeting':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getPlayedCards() as $cId => $card) {
+            if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(FLEETING)) {
+              continue;
+            }
+            $nodes[] = FT::GAIN($cId, FLEETING);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'allOtherCharacterFleeting':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          foreach ($player->getPlayedCards() as $cId => $card) {
+            if (!in_array($card->getType(), [CHARACTER, TOKEN]) || $card->hasToken(FLEETING) || $card->getId() == $this->getSourceId()) {
+              continue;
+            }
+            $nodes[] = FT::GAIN($cId, FLEETING);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'allPass':
+        $nodes = [];
+        $skipped = Globals::getSkippedPlayers();
+        foreach (Players::getTurnOrder($card->getPId()) as $pId) {
+          if (!isset($skipped[$pId])) {
+            $nodes[] = FT::ACTION(END_AFTERNOON, [], ['pId' => $pId]);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'boostTargetReserveCards':
+        $player = $card->getPlayer();
+        $count = $player->getReserveCards()->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => $this->getCard()->getId(),
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'drawRevealed':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        $type = $args['type'];
+        $reserve = $args['reserve'] ?? null;
+        $done = false;
+        $resupply = false;
+
+        $draw = Cards::getInLocation("reveal-$pId");
+        foreach ($draw as $dId => $drawn) {
+          if ($type == $drawn->getType() || in_array($type, $drawn->getAdditionalType())) {
+            $drawn->setLocation('hand');
+            $done = true;
+          } elseif ($reserve == $drawn->getType() || in_array($reserve, $drawn->getAdditionalType())) {
+            $drawn->setLocation(RESERVE);
+            $resupply = true;
+          }
+        }
+        if ($done) {
+          Notifications::silentKill([], $draw->getIds());
+          Notifications::drawCards($player, Cards::getMany($draw->getIds()));
+          $this->checkAfterListeners($player, ['draw' => 1, 'location' => HAND], true, 'Draw');
+        }
+        if ($resupply) {
+          Notifications::silentKill([], $draw->getIds());
+          Notifications::drawCards($player, Cards::getMany($draw->getIds()), clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'), clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'), ['card2' => $card], true);
+          $this->checkAfterListeners($player, ['draw' => 1, 'location' => RESERVE], true, 'Draw');
+        }
+        break;
+      case 'boostXOpponentExpedition':
+        $player = $card->getPlayer();
+        $expedition = $card->getLocation();
+        $count = Players::getNext($player)->getPlayedCards()->filter(function ($c) use ($expedition) {
+          return in_array($c->getType(), [TOKEN, CHARACTER]) && in_array($c->getLocation(), STORMS);
+        })->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => ME,
+            'type' => BOOST,
+            'n' => $count
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'globalTough':
+        $globalTough = Globals::getGlobalTough();
+        $globalTough[$card->getPId()][] = $args;
+        Globals::setGlobalTough($globalTough);
+        break;
+      case 'nextTokenAsleep':
+        Globals::setNextTokenAsleep(true);
+        break;
+      case 'boostReserveSubtype':
+        $player = Players::getActive();
+        $subType = $args['subType'];
+        $nodes = [];
+        foreach ($player->getReserveCards() as $cId => $card) {
+          if (!in_array($subType, $card->getSubtypes())) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(GAIN, ['cardId' => $cId, 'type' => BOOST], ['sourceId' => $this->getSourceId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
+      case 'doppelganger':
+        // throw new \feException(print_r($this->getCtxArgs()));
+        $extra = $card->getExtraDatas();
+        $extra['subtypes'] = $card->getSubtypes();
+        $extra['typeline'] = $card->getTypeline();
+        $card->setSubtypes(Cards::get($this->getCtxArgs()['cardId'])->getSubtypes());
+        $card->setTypeline(Cards::get($this->getCtxArgs()['cardId'])->getTypeline());
+
+        $card->setExtraDatas($extra);
+        Notifications::refreshCard($card);
+        // Gain boost
+        $max = 0;
+        $biomes = Cards::get($this->getCtxArgs()['cardId'])->getBiomes(true);
+        foreach ($biomes as $b => $value) {
+          if ($value > $max) {
+            $max = $value;
+          }
+        }
+        if ($max > 0) {
+          $this->insertAsChild(FT::ACTION(GAIN, [
+            'cardId' => $card->getId(),
+            'type' => BOOST,
+            'n' => $max
+          ], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'resetCard':
+        $extra = $card->getExtraDatas();
+        $card->setSubtypes($extra['subtypes']);
+        $card->setTypeline($extra['typeline']);
+        Notifications::refreshCard($card);
+
+        break;
+      case 'defect':
+        $defectCard = $this->getCard();
+        // TODO: multiplayer
+        $newPId = Players::getNextId($defectCard->getPlayer());
+        $extraDatas = $defectCard->getExtraDatas();
+        if (!isset($extraDatas['pId'])) {
+          $extraDatas['pId'] = $defectCard->getPId();
+        }
+        $defectCard->setExtraDatas($extraDatas);
+        $defectCard->setPId($newPId);
+        Notifications::defect($defectCard, $defectCard->getPlayer(), $card);
+        $this->checkAfterListeners($defectCard->getPlayer(), [
+          'cardId' => $defectCard->getId(),
+          'playCard' => true,
+          'cardType' => $defectCard->getType(),
+          'additionalType' => $defectCard->getAdditionalType(),
+          'cardSubtypes' => $defectCard->getSubtypes(),
+          'from' => $defectCard->getLocation(),
+          'to' => $defectCard->getLocation(),
+          'locationPId' => $defectCard->getPId(),
+          'token' => $defectCard->isToken()
+        ], true, 'MoveCard');
+        break;
+      case 'discardAllAndBackward':
+        // Sakarabru's fury
+        $player = Players::get($this->getArg('player'));
+        $expedition = $this->getArg('expedition');
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $card) {
+          if ($card->getType() != CHARACTER) {
+            continue;
+          }
+          if ($card->getLocation() == $expedition || (in_array($expedition, STORMS) && $card->isGigantic())) {
+            $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $this->getSourceId()]);
+          }
+        }
+        $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'forceExpedition' => [$player->getId(), $expedition]]);
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
       default:
         break;
     }

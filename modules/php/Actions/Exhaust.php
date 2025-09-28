@@ -62,6 +62,7 @@ class Exhaust extends \ALT\Models\Action
       'cardId' => $card->getId(),
       'cardLocation' => $card->getLocation(),
       'sourceId' => $this->getSourceId(),
+      'token' => $card->isToken(),
     ]);
 
     $this->resolveAction();

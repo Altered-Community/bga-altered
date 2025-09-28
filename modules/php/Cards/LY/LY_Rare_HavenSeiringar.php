@@ -31,6 +31,7 @@ class LY_Rare_HavenSeiringar extends \ALT\Models\Card
             'changedStats' => ['mountain', 'ocean'],
             'effectPassive' => [
                 'LeaveExpedition' => [
+                    'pId' => CONTROLLER,
                     'condition' => 'hasFleeting',
                     'output' => FT::ACTION(DRAW, ['players' => ME]),
                 ],

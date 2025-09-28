@@ -15,7 +15,7 @@ class YZ_Common_ManaMoth extends \ALT\Models\Card
             'rarity'  => RARITY_COMMON,
             'name'  => clienttranslate("Mana Moth"),
             'typeline' => clienttranslate("Token Character - Illusion"),
-            'type'  => TOKEN,
+            'type'  => CHARACTER,
             // 'flavorText'  => clienttranslate('During their short existence, they continuously leak an incredibly pure Mana into their environment.'),
             'artist' => "HuoMiao Studio",
             'extension' => 'TBF',

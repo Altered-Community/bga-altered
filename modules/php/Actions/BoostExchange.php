@@ -74,7 +74,7 @@ class BoostExchange extends \ALT\Models\Action
       $tokens = Meeples::createOnCard(BOOST, $allCards[$card2]->getId(), $allCards[$card2]->getPlayer()->getId(), $existingBoost[$card2]);
       Notifications::gainMeeple(BOOST, $allCards[$card2], $tokens, $source, false);
       if ($existingBoost[$card2] > $existingBoost[$card1]) {
-        $this->checkAfterListeners($player, ['gain' => ['cardId' => $allCards[$card2]->getId(), 'type' => BOOST, 'n' => $existingBoost[$card2]], 'cardId' => $allCards[$card2]->getId(), 'location' => $allCards[$card2]->getLocation(), 'initialBoost' => $existingBoost[$card1], 'cardType' => $allCards[$card2]->getType(), 'sourceId' =>  $sourceId], true, 'Gain');
+        $this->checkAfterListeners($player, ['gain' => ['cardId' => $allCards[$card2]->getId(), 'type' => BOOST, 'n' => $existingBoost[$card2]], 'token' => $allCards[$card2]->isToken(), 'cardId' => $allCards[$card2]->getId(), 'location' => $allCards[$card2]->getLocation(), 'initialBoost' => $existingBoost[$card1], 'cardType' => $allCards[$card2]->getType(), 'additionalType' => $allCards[$card2]->getAdditionalType(), 'sourceId' =>  $sourceId], true, 'Gain');
       }
     }
 
@@ -86,7 +86,7 @@ class BoostExchange extends \ALT\Models\Action
       $tokens = Meeples::createOnCard(BOOST, $allCards[$card1]->getId(), $allCards[$card1]->getPlayer()->getId(), $existingBoost[$card1]);
       Notifications::gainMeeple(BOOST, $allCards[$card1], $tokens, $source, false);
       if ($existingBoost[$card1] > $existingBoost[$card2]) {
-        $this->checkAfterListeners($player, ['gain' => ['cardId' => $allCards[$card1]->getId(), 'type' => BOOST, 'n' => $existingBoost[$card1]], 'cardId' => $allCards[$card1]->getId(), 'location' => $allCards[$card1]->getLocation(), 'initialBoost' => $existingBoost[$card2], 'cardType' => $allCards[$card1]->getType(), 'sourceId' =>  $sourceId], true, 'Gain');
+        $this->checkAfterListeners($player, ['gain' => ['cardId' => $allCards[$card1]->getId(), 'type' => BOOST, 'n' => $existingBoost[$card1]], 'token' => $allCards[$card1]->isToken(), 'cardId' => $allCards[$card1]->getId(), 'location' => $allCards[$card1]->getLocation(), 'initialBoost' => $existingBoost[$card2], 'cardType' => $allCards[$card1]->getType(), 'additionalType' => $allCards[$card1]->getAdditionalType(), 'sourceId' =>  $sourceId], true, 'Gain');
       }
     }
 

@@ -24,6 +24,11 @@ trait NewDayTrait
       $nCards = 15;
     }
 
+    $markers = Meeples::createHeroMarkers();
+    if (!empty($markers)) {
+      Notifications::addTerrainMarkers($markers);
+    }
+
     // Draw cards and make everyone active
     $pIds = [];
 
@@ -147,6 +152,8 @@ trait NewDayTrait
     Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setBlockedExpeditions([]);
+    Globals::setGlobalTough([]);
+    Globals::setFirstPass(-1);
     Cards::untapAll();
     Stats::incDays();
     Notifications::updateTotalMana();

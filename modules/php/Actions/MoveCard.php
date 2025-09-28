@@ -52,6 +52,8 @@ class MoveCard extends \ALT\Models\Action
       if (is_null($cardId)) {
         $cardId = $this->getCtx()->toArray()['event']['gain']['cardId'] ?? null;
       }
+    } elseif ($cardId == ME) {
+      $cardId = $this->getSourceId();
     }
     return Cards::get($cardId);
   }
@@ -95,10 +97,12 @@ class MoveCard extends \ALT\Models\Action
         'cardId' => $card->getId(),
         'playCard' => true,
         'cardType' => $card->getType(),
+        'additionalType' => $card->getAdditionalType(),
+        'cardSubtypes' => $card->getSubtypes(),
         'from' => $fromLocation,
         'to' => $card->getLocation(),
         'locationPId' => $card->getPId(),
-
+        'token' => $card->isToken()
       ]);
     }
 

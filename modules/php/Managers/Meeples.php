@@ -4,6 +4,7 @@ namespace ALT\Managers;
 
 use ALT\Core\Stats;
 use ALT\Core\Globals;
+use ALT\Core\Notifications;
 use ALT\Helpers\UserException;
 use ALT\Helpers\Collection;
 use ALT\Models\Meeple;
@@ -51,6 +52,23 @@ class Meeples extends \ALT\Helpers\CachedPieces
     return self::create($meeples);
   }
 
+  public static function createHeroMarkers()
+  {
+    $toCreate = [];
+    foreach (Players::getAll() as $pId => $player) {
+      $hero = $player->getHero();
+      if ($hero->isCreateMarkers()) {
+        $toCreate[] = ['type' => OCEAN, 'location' => 'card-' . $hero->getId(), 'player_id' => $player->getId()];
+        $toCreate[] = ['type' => FOREST, 'location' => 'card-' . $hero->getId(), 'player_id' => $player->getId()];
+        $toCreate[] = ['type' => MOUNTAIN, 'location' => 'card-' . $hero->getId(), 'player_id' => $player->getId()];
+      }
+    }
+    if (!empty($toCreate)) {
+      return self::create($toCreate);
+    }
+    return $toCreate;
+  }
+
   public static function countMeeples($location, $type)
   {
     return self::getOfType($location, $type)->count();
@@ -66,6 +84,11 @@ class Meeples extends \ALT\Helpers\CachedPieces
     return self::getFilteredQuery($pId, null, [COMPANION, HERO])->get();
   }
 
+  public static function getAscended($pId, $location)
+  {
+    return self::getFilteredQuery($pId, $location, [ASCEND])->get();
+  }
+
   /**
    * Generic base query
    */
@@ -77,7 +100,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
       $query = $query->wherePlayer($pId);
     }
     if ($location != null) {
-      $query = $query->where('meeple_location', $location);
+      $query = $query->where('meeple_location', strpos($location, '%') === false ? '=' : 'LIKE', $location);
     }
     if ($type != null) {
       if (is_array($type)) {
@@ -86,6 +109,7 @@ class Meeples extends \ALT\Helpers\CachedPieces
         $query = $query->where('type', strpos($type, '%') === false ? '=' : 'LIKE', $type);
       }
     }
+    $query = $query->orderBy('meeple_state', 'ASC');
     return $query;
   }
 
@@ -96,5 +120,25 @@ class Meeples extends \ALT\Helpers\CachedPieces
     } else {
       return self::create([['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId, 'nbr' => $nbr]]);
     }
+  }
+
+  public static function nightCleanup()
+  {
+    $ascended =  self::getFilteredQuery(null, null, [ASCEND])->get();
+    $toDelete = $ascended->getIds();
+    if (count($ascended) >= 1) {
+      self::delete($ascended->getIds());
+      Notifications::silentKill($toDelete);
+    }
+  }
+
+  public static function getNextPlayedMarker()
+  {
+    $max = 1;
+    $played = self::getOfType('storm-%', [OCEAN, FOREST, MOUNTAIN]);
+    foreach ($played as $cId => $card) {
+      $max = max($max, $card->getState());
+    }
+    return $max + 1;
   }
 }

@@ -178,7 +178,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function getHand($type = null)
   {
     return Cards::getHand($this->id)->filter(function ($card) use ($type) {
-      return is_null($type) || $card->getType() == $type;
+      return is_null($type) || $card->getType() == $type || in_array($type, $card->getAdditionalType());
     });
   }
 
@@ -202,7 +202,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function countCardsInLocation($location, $types)
   {
     return $this->getPlayedCards()->filter(function ($c) use ($location, $types) {
-      return $c->getLocation() == $location && in_array($c->getType(), $types);
+      return $c->getLocation() == $location && (in_array($c->getType(), $types) || count(array_intersect($types, $c->getAdditionalType())) > 0);
     })->count();
   }
 
@@ -296,6 +296,15 @@ class Player extends \ALT\Helpers\DB_Model
     return $this->getStormToken(HERO);
   }
 
+  public function isAscended($expedition)
+  {
+    $tokens = Meeples::getAscended($this->id, $expedition);
+    if (count($tokens) == 0) {
+      return false;
+    }
+    return true;
+  }
+
   public function getDeck($deckNumber)
   {
     return Cards::getFiltered($this->id, 'deck-' . $deckNumber)->merge(
@@ -337,11 +346,21 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       if (!empty($card->getReduceCostType())) {
         $type = $card->getReduceCostType();
-        if (isset($type[$playedCard->getType()])) {
-          if (isset($type[$playedCard->getType()]['maxHandCost']) && $playedCard->getCostHand() <= $type[$playedCard->getType()]['maxHandCost']) {
-            $reduction += $type[$playedCard->getType()]['reduction'];
-          } elseif (isset($type[$playedCard->getType()]['minHandCost']) && $playedCard->getCostHand() >= $type[$playedCard->getType()]['minHandCost']) {
-            $reduction += $type[$playedCard->getType()]['reduction'];
+        foreach ($type as $playedType => $info) {
+          if ($playedType == $playedCard->getType() || in_array($playedType, $playedCard->getAdditionalType())) {
+            if (isset($info['maxHandCost']) && $playedCard->getCostHand() <= $info['maxHandCost']) {
+              $reduction += $info['reduction'];
+            } elseif (isset($info['minHandCost']) && $playedCard->getCostHand() >= $info['minHandCost']) {
+              $reduction += $info['reduction'];
+            } elseif (isset($info['minBaseCost'])) {
+              $baseCost = $info['minBaseCost'];
+              // Studious Acolyte
+              if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
+                $reduction += $info['reduction'];
+              } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
+                $reduction += $info['reduction'];
+              }
+            }
           }
         }
       }
@@ -392,6 +411,16 @@ class Player extends \ALT\Helpers\DB_Model
     foreach ($tokens as $i => $token) {
       $sId = $token->getLocationArg();
 
+      // check if there is a terrain marker
+      $markers = Meeples::getOfType('storm-' . $sId, [OCEAN, FOREST, MOUNTAIN]);
+      if ($markers->count() > 0) {
+        foreach ($markers as $mId => $marker) {
+          $locations[$token->getType()] = [$marker->getType()];
+        }
+        continue;
+      }
+
+
       if ($sId == 0 || $sId == 7) {
         $locations[$token->getType()] = [FOREST, MOUNTAIN, OCEAN];
         continue;
@@ -404,13 +433,21 @@ class Player extends \ALT\Helpers\DB_Model
         $storm = array_reverse($storm);
       }
       $sId--;
+
       $locations[$token->getType()] = $storm[$sId % 2];
     }
+
     return $locations;
   }
 
   public function isInBiome($storm, $biome, $excludeMove = false)
   {
+    return in_array($biome, self::getBiomes($storm, $excludeMove));
+  }
+
+  public function getBiomes($storm, $excludeMove = false)
+  {
+
     $biomes = $this->getBiomeInStorms();
     if ($storm == '') {
       return false;
@@ -423,7 +460,7 @@ class Player extends \ALT\Helpers\DB_Model
     }
 
     Players::biomesModifier($newBiomes, $this, $storm, false, $excludeMove);
-    return in_array($biome, $newBiomes);
+    return $newBiomes;
   }
 
   public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
@@ -433,7 +470,7 @@ class Player extends \ALT\Helpers\DB_Model
     // TODO: manage immobile
     $location = $tokenMeeple->getLocationArg();
     $expedition = $token == HERO ? STORM_LEFT : STORM_RIGHT;
-
+    $isAscended = $this->isAscended($expedition);
 
 
     // if hero we increase
@@ -442,7 +479,7 @@ class Player extends \ALT\Helpers\DB_Model
 
     if ($sId == $location) {
       Notifications::message(clienttranslate('${player_name} expedition cannot move'), ['player' => $this]);
-      return;
+      return false;
     }
 
     // Set new location
@@ -453,6 +490,7 @@ class Player extends \ALT\Helpers\DB_Model
     $moves[$this->id][$expedition] = [
       'biomes' => is_array($biomes) ? $biomes : [],
       'moves' => $n,
+      'ascended' => $isAscended
     ];
     Globals::setStormMoves($moves);
 
@@ -469,6 +507,7 @@ class Player extends \ALT\Helpers\DB_Model
     if ($notify) {
       Notifications::moveStormToken($this, $biomes, $tokenMeeple, $stormIndex, $revealed, $source);
     }
+    return true;
   }
 
   public function nightCleanup()
@@ -539,6 +578,7 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
+        $originalLocation = $card->getLocation();
         $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard($seasoned));
 
         if ($card->isToken()) {
@@ -546,6 +586,15 @@ class Player extends \ALT\Helpers\DB_Model
           $deletedCardTokens[] = $card;
           Cards::delete($cId);
         } else {
+          Actions::get(DISCARD)->checkAfterListeners($this, [
+            'discardCard' => true,
+            'cardsToListen' => [], // we add the discarded cards as they should react even if not played
+            'cardId' => $cId,
+            'token' => false,
+            'from' => $originalLocation,
+            'to' => DISCARD_PILE,
+            'sacrifice' => false,
+          ]);
           $deletedCards[$cId] = $card;
         }
         continue;
@@ -710,10 +759,31 @@ class Player extends \ALT\Helpers\DB_Model
     return $advance;
   }
 
+  public function hasResupplyIfAscended()
+  {
+    $advance = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isResupplyIfAscended()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function hasOppositeDefender($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
       if ($card->isOppositeDefender()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasBlockMoveExpedition($expedition)
+  {
+    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+      if ($card->isBlockMoveExpedition()) {
         return true;
       }
     }
@@ -782,7 +852,7 @@ class Player extends \ALT\Helpers\DB_Model
   }
 
 
-  public function canPlayTappedCards($type = null, $location = null)
+  public function canPlayTappedCards($type = null, $location = null, $additionalType = [])
   {
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       $playTap = $card->getPlayTappedCards();
@@ -815,7 +885,7 @@ class Player extends \ALT\Helpers\DB_Model
         return true;
       }
 
-      if (!is_null($type) && isset($playTap['type']) && $playTap['type'] == $type) {
+      if (!is_null($type) && isset($playTap['type']) && ($playTap['type'] == $type || in_array($playTap['type'], $additionalType))) {
         return true;
       }
     }
@@ -903,7 +973,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function countUniversalCharacterTough()
   {
     return count(
-      $this->getPlayedCards()->merge($this->getInfinityCards())->filter(function ($card) {
+      $this->getPlayedCards()->filter(function ($card) {
         $dynamicTough = $card->getDynamicTough();
         if (!is_array($dynamicTough)) {
           return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter2';
@@ -917,7 +987,7 @@ class Player extends \ALT\Helpers\DB_Model
         }
       })
     ) * 2 + count(
-      $this->getPlayedCards()->merge($this->getInfinityCards())->filter(function ($card) {
+      $this->getPlayedCards()->filter(function ($card) {
         $dynamicTough = $card->getDynamicTough();
         if (!is_array($dynamicTough)) {
           return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter1';
@@ -936,7 +1006,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function countUniversalTokenGigantic()
   {
     return count(
-      $this->getPlayedCards()->merge($this->getInfinityCards())->filter(function ($card) {
+      $this->getPlayedCards()->filter(function ($card) {
         $dynSplit = explode(':', $card->getDynamicGigantic());
         if (count($dynSplit) > 1) {
           // we need to test if ok, add change dynamic tough to the value of 0

@@ -33,11 +33,11 @@ class OD_Rare_OrdisAccountant extends \ALT\Models\Card
             'effectInfinity' => [
                 'effectPassive' => [
                     'ChooseAssignment' => [
-                        'conditions' => ['isCardAdded:character:::true'],
+                        'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'InvokeToken' => [
-                        'conditions' => ['isCardAdded:character:::true'],
+                        'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'MoveCard' => [

@@ -30,6 +30,7 @@ class BR_Common_BravosExcavator extends \ALT\Models\Card
             'costReserve' => 2,
             'effectPassive' => [
                 'LeaveExpedition' => [
+                    'pId' => CONTROLLER,
                     'condition' => 'hasBoost',
                     'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXreserveBoost']),
                 ],

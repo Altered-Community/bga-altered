@@ -29,7 +29,7 @@ class LY_Rare_AmahleAsgarthanOutcast extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 5,
       'costReserve' => 5,
-      'effectPlayed' => FT::ACTION(DISCARD_DRAW, []),
+      'effectPlayed' => FT::ACTION(DISCARD_DO, ['effect' => FT::ACTION(DRAW, ['players' => ME, 'n' => 'X'])]),
     ];
   }
 }

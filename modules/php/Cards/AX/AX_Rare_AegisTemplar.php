@@ -31,8 +31,9 @@ class AX_Rare_AegisTemplar extends \ALT\Models\Card
       'scout' => 2,
       'effectPassive' => [
         'LeaveExpedition' => [
+          'pId' => CONTROLLER,
           'output' => FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
+            'pId' => CONTROLLER,
             'tokenType' => 'AX_Common_Brassbug',
             'targetLocation' => ['source'],
           ]),

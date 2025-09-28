@@ -164,8 +164,22 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicReserveSlots' => 'str', // Scholar's Vault
     'reduceCostType' => 'obj', // // Scholar's Vault - Rare
 
+
     // Patch note 20250729
     'allSpell1Fleeting' => 'bool', // Afanas
+
+    // Cyclone
+    'costReductionSacrificePermanent' => 'int', // Detonation
+    'revealed' => 'bool', // Leviathan Observer
+    'createMarkers' => 'bool', // Nadir & bubbles
+    'dynamicIncreaseBiomeHighestSelf' => 'str', // Lyra Aerialist
+    'costReductionLimitation' => 'int', // Lost In the riptide
+    'effectPlayedLimited' => 'obj', // Lost In the riptide
+    'additionalType' => 'obj', // Alelo
+    'resupplyIfAscended' => 'bool', // Mandjet
+
+    // Patch note 20251003
+    'blockMoveExpedition' => 'bool', // Unique Will O the Wisp
   ];
 
   /********* DB ACCESS *********/
@@ -283,7 +297,7 @@ class Card extends \ALT\Helpers\DB_Model
   // $scout = can be played at scout cost
   public function canBePlayed($player, $scout = false)
   {
-    if (!$player->canPlayTappedCards($this->getType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
+    if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
     }
 
@@ -312,10 +326,20 @@ class Card extends \ALT\Helpers\DB_Model
         $cost -= $this->getCostReductionDiscard();
       }
     }
+    if ($this->getCostReductionSacrificePermanent() > 0) {
+      $permanent = $this->getPlayer()->getPlayedCards(PERMANENT)->count();
+      if ($permanent > 0) {
+        $cost -= $this->getCostReductionSacrificePermanent();
+      }
+    }
+
+    if ($this->getCostReductionLimitation() > 0) {
+      $cost -= $this->getCostReductionLimitation();
+    }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
-  public function getPlayableLocation($player)
+  public function getPlayableLocation($player, $forcedLocation = null)
   {
     if (in_array(LANDMARK, $this->getSubtypes())) {
       return [LANDMARK];
@@ -325,7 +349,9 @@ class Card extends \ALT\Helpers\DB_Model
       $locations = [];
       if ($this->getLocation() == RESERVE && $this->isTapped()) {
         foreach (STORMS as $storm) {
-          if ($player->canPlayTappedCards($this->getType(), $storm)) {
+          if (($player->canPlayTappedCards($this->getType(), $storm) && is_null($forcedLocation)) ||
+            ($player->canPlayTappedCards($this->getType(), $storm) && !is_null($forcedLocation) && $forcedLocation == $storm)
+          ) {
             $locations[] = $storm;
           }
         }
@@ -334,41 +360,61 @@ class Card extends \ALT\Helpers\DB_Model
         if ($this->getCostReductionIfEmpty() > 0) {
           // If the cost can be paid no matter what, we put all storms
           if ($this->getCost() <= $player->getMana()) {
+            if (!is_null($forcedLocation)) {
+              return [$forcedLocation];
+            }
             return STORMS;
           }
           $locations = [];
           if ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER]) == 0) {
-            $locations[] = STORM_LEFT;
+            if ((!is_null($forcedLocation) && $forcedLocation == STORM_LEFT) || is_null($forcedLocation)) {
+              $locations[] = STORM_LEFT;
+            }
           }
           if ($player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0) {
-            $locations[] = STORM_RIGHT;
+            if ((!is_null($forcedLocation) && $forcedLocation == STORM_RIGHT) || is_null($forcedLocation)) {
+              $locations[] = STORM_RIGHT;
+            }
           }
           return $locations;
         } else {
+          if (!is_null($forcedLocation)) {
+            return [$forcedLocation];
+          }
           return STORMS;
         }
       }
     }
   }
 
-  public function getScoutableLocations($player)
+  public function getScoutableLocations($player, $forcedLocation = null)
   {
     $locations = [];
 
     if ($this->getCostReductionIfEmpty() > 0) {
       // If the cost can be paid no matter what, we put all storms
       if ($this->getCost(true) <= $player->getMana()) {
+        if (!is_null($forcedLocation)) {
+          return [$forcedLocation . '_scout'];
+        }
         return ['stormLeft_scout', 'stormRight_scout'];
       }
       $locations = [];
       if ($player->countCardsInLocation(STORM_LEFT, [TOKEN, CHARACTER]) == 0) {
-        $locations[] = 'stormLeft_scout';
+        if ((!is_null($forcedLocation) && $forcedLocation == STORM_LEFT) || is_null($forcedLocation)) {
+          $locations[] = 'stormLeft_scout';
+        }
       }
       if ($player->countCardsInLocation(STORM_RIGHT, [TOKEN, CHARACTER]) == 0) {
-        $locations[] = 'stormRight_scout';
+        if ((!is_null($forcedLocation) && $forcedLocation == STORM_RIGHT) || is_null($forcedLocation)) {
+          $locations[] = 'stormRight_scout';
+        }
       }
       return $locations;
     } else {
+      if (!is_null($forcedLocation)) {
+        return [$forcedLocation . '_scout'];
+      }
       return ['stormLeft_scout', 'stormRight_scout'];
     }
   }
@@ -393,6 +439,13 @@ class Card extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function countCounters()
+  {
+    $tokens = $this->countToken(BOOST);
+    $counters = $this->getExtraDatas()['counter'] ?? 0;
+    return $tokens + $counters;
+  }
+
   public function getOfType($type)
   {
     return Meeples::getOfType('card-' . $this->id, $type);
@@ -413,6 +466,12 @@ class Card extends \ALT\Helpers\DB_Model
     $isSeasoned = $this->isSeasoned();
     $this->checkLeaveListener($location, $afterNight);
     $this->setLocation($location);
+    $extra = $this->getExtraDatas();
+    if (isset($extra['pId'])) {
+      $this->setPId($extra['pId']);
+      unset($extra['pId']);
+      $this->setExtraDatas($extra);
+    }
     $this->setTapped(false);
 
     // Remove meeples
@@ -441,7 +500,16 @@ class Card extends \ALT\Helpers\DB_Model
     return $meepleIds;
   }
 
-  public function checkLeaveListener($target, $afterNight)
+  public function getOwner()
+  {
+    $extra = $this->getExtraDatas()['pId'] ?? $this->getPId();
+    if ($extra != $this->getPId()) {
+      return $extra;
+    }
+    return $this->getPId();
+  }
+
+  public function checkLeaveListener($target, $afterNight, $isSacrifice = false)
   {
     $type = null;
     $location = $this->getLocation();
@@ -460,14 +528,18 @@ class Card extends \ALT\Helpers\DB_Model
       'from' => $this->getLocation(),
       'to' => $target,
       'pId' => $this->getPId(),
+      'owner' => $this->getOwner(),
+      'controller' => $this->getPId(),
       'cardType' => $this->getType(),
+      'additionalType' => $this->getAdditionalType(),
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
+      'token' => $this->isToken(),
     ];
     $afterCleanup = Globals::getAfterNightCleanup();
     if ($this->isListeningTo($event)) {
       $event['cardsToListen'] = [$this->id];
-      if ($afterNight) {
+      if ($afterNight && !$isSacrifice) {
         $afterCleanup[$this->getPId()][] = [
           'action' => ACTIVATE_CARD,
           'args' => [
@@ -476,7 +548,7 @@ class Card extends \ALT\Helpers\DB_Model
           ],
           'pId' => $this->getPId(),
         ];
-      } else {
+      } elseif (!$isSacrifice) {
         Engine::pushAfterFinishingChilds([
           [
             'action' => ACTIVATE_CARD,
@@ -487,6 +559,32 @@ class Card extends \ALT\Helpers\DB_Model
             'pId' => $this->getPId(),
           ],
         ]);
+      }
+    }
+
+    // Additions if landmark and is removed at night, it becames a sacrifice
+    if ($isSacrifice && $afterNight) {
+      $event2 = [
+        'type' => 'Discard',
+        'method' => 'Discard',
+        'discardCard' => true,
+        'cardsToListen' => [$this->id], // we add the discarded cards as they should react even if not played
+        'cardId' => $this->id,
+        'additionalType' => $this->getAdditionalType(),
+        'token' => $this->isToken(),
+        'from' => LANDMARK,
+        'to' => DISCARD_PILE,
+        'sacrifice' => $isSacrifice
+      ];
+      if ($this->isListeningTo($event2)) {
+        $afterCleanup[$this->getPId()][] = [
+          'action' => ACTIVATE_CARD,
+          'args' => [
+            'cardId' => $this->id,
+            'event' => $event2,
+          ],
+          'pId' => $this->getPId(),
+        ];
       }
     }
 
@@ -545,7 +643,7 @@ class Card extends \ALT\Helpers\DB_Model
         $condArgs = array_slice($t, 1);
 
         if (Conditions::$condFct($this, $event, ...$condArgs) === false) {
-          // var_dump($card->getName(), $cond, $event);
+          // var_dump(self::getName(), $cond, $event);
           return false;
         }
         // var_dump(debug_print_backtrace());
@@ -631,6 +729,15 @@ class Card extends \ALT\Helpers\DB_Model
   protected function checkReaction($power, $event)
   {
     $n = $power['n'] ?? 'once';
+
+    // Management of Defect power
+    if (isset($power['pId'])) {
+      $power['output']['pId'] = $power['pId'];
+      if (isset($power['oppositeOutput'])) {
+        $power['oppositeOutput']['pId'] = $power['pId'];
+      }
+    }
+
     switch ($n) {
       case 'eachExpedition':
         $output = [];
@@ -663,6 +770,7 @@ class Card extends \ALT\Helpers\DB_Model
 
         break;
     }
+
     // put the source as the card triggering itself
     $power['output']['sourceId'] = $this->id;
     return [$power['payment'] ?? [], $power['output']];
@@ -670,15 +778,18 @@ class Card extends \ALT\Helpers\DB_Model
 
   public function getCost($scout = false)
   {
-    if ($this->getType() == SPELL && Globals::isNextSpellIsFree()) {
+    if (($this->getType() == SPELL || in_array(SPELL, $this->getAdditionalType())) && Globals::isNextSpellIsFree()) {
       return 0;
     }
 
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
-    if (isset($costReduction[$this->getType()])) {
-      $typeReduction = $costReduction[$this->getType()]['reduction'];
+    foreach ($costReduction as $reducType => $reduction) {
+      if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType())) {
+        $typeReduction += $reduction['reduction'];
+      }
     }
+
     foreach ($this->getSubtypes() as $subtype) {
       $typeReduction += isset($costReduction[$subtype]) ? $costReduction[$subtype]['reduction'] : 0;
     }
@@ -705,6 +816,8 @@ class Card extends \ALT\Helpers\DB_Model
           })->count();
         }
         $dynamicReduction = $cards;
+      } elseif ($dynamicReduction == 'eachOwnerAscended') {
+        $dynamicReduction = ($this->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($this->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
       } else {
         $dynamicReduction = (int) $dynamicReduction;
       }
@@ -745,8 +858,19 @@ class Card extends \ALT\Helpers\DB_Model
         $value += $boost;
       }
     }
+    $dynamicIncrease = $this->getDynamicIncreaseBiomeHighestSelf();
+    $dynSplit = explode(':', $dynamicIncrease);
+    $dynamicIncreaseSelf = 0;
+    if (count($dynSplit) > 1) {
+      // we need to test if ok, add change dynamic tough to the value of 0
+      if (!is_null(Utils::checkAttributeCondition('cost', $dynamicIncrease, $this->getPlayer(), $this))) {
+        $dynamicIncreaseSelf = (int) $dynSplit[0];
+      } else {
+        $dynamicIncreaseSelf = 0;
+      }
+    }
 
-    if ($increaseBiomesToHighest == true) {
+    if ($increaseBiomesToHighest == true || $dynamicIncreaseSelf == 1) {
       $max = 0;
       foreach ($biomes as $type => $value2) {
         $max = max($max, $value2);
@@ -826,6 +950,17 @@ class Card extends \ALT\Helpers\DB_Model
       }
       $tough += $universal;
     }
+
+    // Global Tough
+    $globalTough = Globals::getGlobalTough();
+    if (isset($globalTough[$this->pId])) {
+      foreach ($globalTough[$this->pId] as $i => $gTough) {
+        if ($this->getType() == $gTough['type'] && $gTough['minHandCost'] <= $this->getCostHand()) {
+          $tough += $gTough['tough'];
+        }
+      }
+    }
+
     return $tough;
   }
 
@@ -1091,5 +1226,21 @@ class Card extends \ALT\Helpers\DB_Model
       return $this->isToken() && $this->hasToken(BOOST);
     }
     return false;
+  }
+
+  public function isInAscended()
+  {
+    if (!in_array($this->getLocation(), STORMS)) {
+      return false;
+    }
+
+    // $side = $this->getLocation() == STORM_LEFT ? HERO : COMPANION;
+    $otherSide = $this->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+
+    if ($this->isGigantic()) {
+      return $this->getPlayer()->isAscended($this->getLocation()) || $this->getPlayer()->isAscended($otherSide);
+    } else {
+      return $this->getPlayer()->isAscended($this->getLocation());
+    }
   }
 }

@@ -205,6 +205,26 @@
             top: 5px;
             right: calc(50% - 33px);
         }
+
+        &[data-type="ocean"],
+        &[data-type="forest"],
+        &[data-type="mountain"] {
+            top: 3px;
+            right: 3px;
+            visibility: visible;
+
+            & + .altered-meeple[data-type="ocean"],
+            & + .altered-meeple[data-type="forest"],
+            & + .altered-meeple[data-type="mountain"] {
+                top: 23px;
+
+                & + .altered-meeple[data-type="ocean"],
+                & + .altered-meeple[data-type="forest"],
+                & + .altered-meeple[data-type="mountain"] {
+                    top: 43px;
+                }
+            }
+        }
     }
 
     .altered-card-statuses {
@@ -517,6 +537,7 @@
                 }
             }
         }
+
         .card-frame[data-type="gear"] {
             &[data-support="0"][data-size="1"] ~ {
                 .card-name {
@@ -827,11 +848,11 @@
                 shape-outside: polygon(0px 53px, 0px 105px, 70px 105px, 70px 53px);
             }
         }
-         // Adjust position & width for gear frame
-         .card-frame[data-type="gear"][data-support="1"][data-size="1"] ~ .card-text,
-         .card-frame[data-type="permanent"][data-support="1"][data-size="1"] ~ .card-text,
-         .card-frame[data-type="permanent"][data-support="0"][data-size="2"] ~ .card-text,
-         .card-frame[data-type="gear"][data-support="0"][data-size="2"] ~ .card-text {
+        // Adjust position & width for gear frame
+        .card-frame[data-type="gear"][data-support="1"][data-size="1"] ~ .card-text,
+        .card-frame[data-type="permanent"][data-support="1"][data-size="1"] ~ .card-text,
+        .card-frame[data-type="permanent"][data-support="0"][data-size="2"] ~ .card-text,
+        .card-frame[data-type="gear"][data-support="0"][data-size="2"] ~ .card-text {
             left: 25px;
             right: 25px;
             top: 310px;
@@ -878,6 +899,24 @@
             top: 245px;
         }
 
+        // Management of NE permanent
+        .card-frame[data-type="permanent"][data-faction="NE"] {
+            &[data-support="0"][data-size="2"] ~ {
+                .card-name {
+                    top: 250px;
+                }
+                .card-typeline {
+                    top: 270px;
+                }
+                .card-subpermanent{
+                    top: 314px;
+                }
+                .card-text {
+                    top: 350px;
+                }
+            }
+        }
+
         .card-footer {
             position: absolute;
             bottom: 16px;
@@ -902,15 +941,18 @@
                 }
                 &[data-asset="tbf"] {
                     background-image: url("img/icons/tbf.png");
-                    width:16px;
+                    width: 16px;
                 }
                 &[data-asset="wfm"] {
                     background-image: url("img/icons/wfm.png");
-                    width:16px;
+                    width: 16px;
+                }
+                 &[data-asset="so"] {
+                    background-image: url("img/icons/so.png");
+                    width: 22px;
                 }
             }
-        }     
-        
+        }
     }
 
     &.card-hero {

@@ -85,7 +85,7 @@ class Exchange extends \ALT\Models\Action
     // What cards ?
     $targetType = $this->getArg('targetType');
 
-    $reserveCards = Cards::getFiltered($pIds, RESERVE, $targetType);
+    $reserveCards = Cards::getFiltered($pIds, RESERVE, $targetType, true);
     $handCards = Cards::getFiltered($pIds, HAND);
 
     return [$reserveCards, $handCards];

@@ -72,12 +72,15 @@ define([
         ['nightCleanup', null],
         ['cleanupCards', null],
         ['newFirstPlayer', null],
+        ['switchPlayer', null],
         ['startDusk', 1200],
         ['endDusk', 900],
         ['passTurn', 800],
 
         ['addMeeples', null],
+        ['slideMeeples', null],
         ['looseMeeples', null],
+        ['setTerrainMarker', null],
 
         ['pDrawCards', null],
         ['drawCards', null, (notif) => notif.args.player_id == this.player_id],
@@ -113,6 +116,8 @@ define([
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],
+        ['revealCard', 1000, (notif) => notif.args.player_id == this.player_id],
+        ['refreshCard', 500],
 
         // TODO??
         ['blockAllExpeditions', 100],
@@ -499,6 +504,7 @@ define([
         $('storm-container').insertAdjacentHTML(
           'beforeend',
           `<div class='storm-space' id='storm-${i}'>
+            <div class='storm-terrain-markers' id='storm-${i}-markers' data-x="${i}"></div>
             <div class='storm-slot' id='storm-${i}-opponent' data-x="${i}"></div>
             <div class='storm-slot' id='storm-${i}-player' data-x="${i}"></div>
           </div>`
@@ -868,7 +874,7 @@ define([
         $(`btnSelectDeck${selectedDeck.deckNum}`).classList.add('selected');
 
         $(`overlay-deck-details`).innerHTML = '';
-        if (args.demoDeck == false) {
+        if (args.demoDeck == true) {
           $(`overlay-deck-details`).insertAdjacentHTML(
             'beforeend',
             `<div class='deck-details' data-faction='${deck.faction}'>
@@ -1972,7 +1978,7 @@ define([
       // });
     },
 
-    onEnteringStateDiscardDraw(args) {
+    onEnteringStateDiscardDo(args) {
       this.onEnteringStateTarget(args);
     },
 
@@ -2019,6 +2025,7 @@ define([
         source: _('source'),
         initialSource: _('source'),
         oppositeSource: _('opposite of played card'),
+        landmark: _('Landmark'),
       };
 
       let onChooseLocation = (location) => {
@@ -2077,19 +2084,28 @@ define([
         oppositeSource: _('opposite of played card'),
       };
 
-      let onChooseLocation = (location) => {
-        return () => this.takeAtomicAction('actTargetExpedition', [location]);
-      };
-
+      let elements = {};
       args.expeditions.forEach((ex) => {
         data = ex.split('-');
-        this.onClick(`board-${data[1]}-${data[0]}`, onChooseLocation(`board-${data[1]}-${data[0]}`));
+        $(`board-${data[1]}-${data[0]}`).classList.add('selectable');
+        elements[ex] = $(`board-${data[1]}-${data[0]}`);
       });
 
-      // this.forEachPlayer((player) => {
-      //   ['stormLeft', 'stormRight'].forEach((location) => {
-      //     this.onClick(`board-${location}-${player.id}`, onChooseLocation(`board-${location}-${player.id}`));
-      //   });
+      this.onSelectN({
+        n: args.n,
+        elements: elements,
+        class: 'selectable',
+        confirmText: _('Confirm target'),
+        callback: (selectedElements, ignoredElements) => this.takeAtomicAction('actTargetExpedition', [selectedElements]),
+      });
+
+      // let onChooseLocation = (location) => {
+      //   return () => this.takeAtomicAction('actTargetExpedition', [location]);
+      // };
+
+      // args.expeditions.forEach((ex) => {
+      //   data = ex.split('-');
+      //   this.onClick(`board-${data[1]}-${data[0]}`, onChooseLocation(`board-${data[1]}-${data[0]}`));
       // });
     },
 
@@ -2124,6 +2140,9 @@ define([
     },
 
     onEnteringStateMoveExpedition(args) {
+      if (args.forceExpedition !== null) {
+        return;
+      }
       let onChooseLocation = (expe) => {
         return () => this.takeAtomicAction('actMoveExpedition', [expe]);
       };
@@ -2139,6 +2158,58 @@ define([
           desc = location == 'stormLeft' ? _('Opponent Hero expedition') : _('Opponent Companion expedition');
         }
         this.addPrimaryActionButton('btnLocation' + i, desc, onChooseLocation(expe));
+      });
+    },
+
+    onEnteringStateSpend(args) {
+      let chooseSpend = (n) => {
+        return () => this.takeAtomicAction('actSpend', [n]);
+      };
+      for (j = 1; j <= args.n; j++) {
+        debug(j);
+        this.addPrimaryActionButton('btnSpend' + j, j, chooseSpend(j));
+      }
+    },
+
+    onEnteringStateMarkRegion(args) {
+      let targetRegion = (id) => {
+        return () =>
+          this.clientState('markRegionExpedition', _('Select region to add the marker'), {
+            marker: args.markers[id],
+            regions: args.regions,
+          });
+      };
+
+      Object.keys(args.markers).forEach((id) => {
+        mark = args.markers[id];
+        this.addPrimaryActionButton('btnMark' + mark.id, this.formatSvgIcon(mark.type), targetRegion(id));
+      });
+    },
+
+    onEnteringStateMarkRegionExpedition(args) {
+      Object.keys(args.regions).forEach((id) => {
+        storm = $(`storm-${id}`);
+        storm.classList.add('selectable');
+        this.onClick(storm, () => this.takeAtomicAction('actMarkRegion', [args.marker.id, id]));
+      });
+
+      this.addSecondaryActionButton(
+        'btnCancel',
+        _('Cancel'),
+        () => {
+          this.unselectIfNeeded();
+          this.clearClientState();
+        },
+        'restartAction'
+      );
+    },
+
+    onEnteringStateMoveRegionMarker(args) {
+      Object.keys(args.markers).forEach((id) => {
+        mark = args.markers[id];
+        meep = $(`meeple-${id}`);
+        meep.classList.add('selectable');
+        this.onClick(meep, () => this.takeAtomicAction('actMoveRegionMarker', [id]));
       });
     },
 

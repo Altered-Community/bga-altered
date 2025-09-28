@@ -37,11 +37,13 @@ class YZ_Rare_FlutterofMoths extends \ALT\Models\Card
                     'pId' => 'source',
                     'tokenType' => 'YZ_Common_ManaMoth',
                     'targetLocation' => STORMS,
+                    'moreThan1' => true,
                 ]),
                 FT::ACTION(INVOKE_TOKEN, [
                     'pId' => 'source',
                     'tokenType' => 'YZ_Common_ManaMoth',
                     'targetLocation' => STORMS,
+                    'moreThan1' => true,
                 ]),
             )
         ];

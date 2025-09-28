@@ -37,6 +37,7 @@ class OD_Rare_HavenTrainee extends \ALT\Models\Card
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
           'targetLocation' => [STORM_LEFT],
+          'moreThan1' => true,
         ])
       ),
     ];

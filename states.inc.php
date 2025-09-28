@@ -38,6 +38,7 @@ $machinestates = [
   ST_GENERIC_NEXT_PLAYER => [
     'name' => 'genericNextPlayer',
     'type' => 'game',
+    'description' => '',
   ],
 
   ST_PRECO_DECK_SELECTION => [
@@ -64,6 +65,7 @@ $machinestates = [
     'name' => 'deckSetup',
     'type' => 'game',
     'action' => 'stDeckSetup',
+    'description' => '',
     'transitions' => ['' => ST_FIRST_DAY],
   ],
 
@@ -204,24 +206,28 @@ $machinestates = [
   ST_GAIN => [
     'name' => 'gain',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_LOOSE => [
     'name' => 'loose',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_DRAW => [
     'name' => 'draw',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_SPECIAL_EFFECT => [
     'name' => 'specialEffect',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -229,24 +235,28 @@ $machinestates = [
     'name' => 'checkCondition',
     'type' => 'game',
     'action' => 'stAtomicAction',
+    'description' => '',
     'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ST_AFTER_YOU => [
     'name' => 'afterYou',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_DRAW_MANA => [
     'name' => 'drawMana',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
   ST_USE_COUNTER => [
     'name' => 'useCounter',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -265,6 +275,7 @@ $machinestates = [
   ST_RESUPPLY => [
     'name' => 'resupply',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -335,12 +346,12 @@ $machinestates = [
     'possibleactions' => ['actTarget', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
-  ST_DISCARD_DRAW => [
-    'name' => 'discardDraw',
+  ST_DISCARD_DO => [
+    'name' => 'discardDo',
     // 'description' => clienttranslate('${actplayer} must target ${n} card(s)}'),
     // 'descriptionmyturn' => clienttranslate('${you} must target ${n} card(s)'),
-    'description' => clienttranslate('${actplayer} may discard cards to draw the same amount of cards'),
-    'descriptionmyturn' => clienttranslate('${you} may discard cards to draw the same amount of cards'),
+    'description' => clienttranslate('${actplayer} may discard cards to ${effect_desc}'),
+    'descriptionmyturn' => clienttranslate('${you} may discard cards to ${effect_desc}'),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
@@ -360,6 +371,7 @@ $machinestates = [
   ST_SPELL_CLEANUP => [
     'name' => 'spellCleanup',
     'type' => 'game',
+    'description' => '',
     'action' => 'stAtomicAction',
   ],
 
@@ -385,8 +397,8 @@ $machinestates = [
 
   ST_TARGET_EXPEDITION => [
     'name' => 'targetExpedition',
-    'description' => clienttranslate('${actplayer} must target an expedition'),
-    'descriptionmyturn' => clienttranslate('${you} must target an expedition'),
+    'description' => clienttranslate('${actplayer} must target ${n} expedition(s)'),
+    'descriptionmyturn' => clienttranslate('${you} must target ${n} expedition(s)'),
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
@@ -482,8 +494,10 @@ $machinestates = [
     'name' => 'spend',
     'type' => 'activeplayer',
     'action' => 'stAtomicAction',
-    'description' => clienttranslate('${source}: ${actplayer} spends 1 counter'),
-    'descriptionmyturn' => clienttranslate('${source}: ${you} spends 1 counter'),
+    'description' => clienttranslate('${actplayer} spends 1 counter'),
+    'descriptionmyturn' => clienttranslate('${you} spends 1 counter'),
+    'descriptionchoice' =>  clienttranslate('${actplayer} spends X counters to ${effect_desc}'),
+    'descriptionmyturnchoice' =>  clienttranslate('${you} spends X counters to ${effect_desc}'),
     'args' => 'argsAtomicAction',
     'possibleactions' => ['actSpend', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
@@ -498,6 +512,37 @@ $machinestates = [
     'possibleactions' => ['actBoostExchange', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
+  // Cyclone
+  ST_END_AFTERNOON => [
+    'name' => 'endAfternoon',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
+  ],
+
+  ST_MARK_REGION => [
+    'name' => 'markRegion',
+    'description' => clienttranslate('${actplayer} may mark a visible region'),
+    'descriptionmyturn' => clienttranslate('${you} may mark a visible region'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actMarkRegion', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
+  ST_MOVE_REGION_MARKER => [
+    'name' => 'moveRegionMarker',
+    'description' => clienttranslate('${actplayer} may move a ${markerType} terrain marker to its region'),
+    'descriptionmyturn' => clienttranslate('${you} may move a ${markerType} terrain marker to its region'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actMoveRegionMarker', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___
@@ -509,6 +554,7 @@ $machinestates = [
   ST_RESOLVE_STACK => [
     'name' => 'resolveStack',
     'type' => 'game',
+    'description' => '',
     'action' => 'stResolveStack',
     'transitions' => [],
   ],
@@ -564,6 +610,7 @@ $machinestates = [
   ST_PRE_END_OF_GAME => [
     'name' => 'preEndOfGame',
     'type' => 'game',
+    'description' => '',
     'action' => 'stPreEndOfGame',
     'updateGameProgression' => true,
     'transitions' => ['' => ST_END_GAME],

@@ -126,6 +126,17 @@
             }
         }
 
+        &.selected {
+            border: 2px solid rgb(251, 200, 31);
+            background: rgb(241, 211, 114, 0.2);
+            cursor: pointer;
+
+            &:hover {
+                border: 2px solid rgb(251, 200, 31);
+                background: rgb(241, 211, 114, 0.2);
+            }
+        }
+
         .flip-container {
             width: calc(#{$miniCardScale * 324px} + 14px);
             height: calc(#{$miniCardScale * 324px} + 10px);
@@ -368,6 +379,25 @@
             &.droppable,
             &.selectable {
                 display: flex;
+            }
+        }
+
+         &.ascend {
+            height: 10px;
+            position: absolute;
+            top: -12px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            // border: 1px solid red;
+
+            &.storm-left {
+                left: 18%;
+                top: -12px;
+            }
+            &.storm-right {
+                left: 82%;
+                top: -12px;
             }
         }
         
@@ -769,6 +799,9 @@
 
     .player-board-storm {
         top: 309px;
+          &.ascend{
+            top: 420px;
+        }
     }
 
     .player-board-deck {
@@ -855,6 +888,9 @@
 
         &.scout{
             top: 0px;
+        }
+         &.ascend{
+            top: -12px;
         }
     }
 

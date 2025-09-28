@@ -32,16 +32,18 @@ class OD_Rare_AegisTemplar extends \ALT\Models\Card
       'scout' => 2,
       'effectPassive' => [
         'LeaveExpedition' => [
+          'pId' => CONTROLLER,
           'output' => FT::SEQ(
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
+              'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => ['source'],
             ]),
             FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
+              'pId' => CONTROLLER,
               'tokenType' => 'OD_Common_OrdisRecruit',
               'targetLocation' => ['source'],
+              'moreThan1' => true,
             ]),
           )
         ],
