@@ -197,7 +197,7 @@ class MoveExpedition extends \ALT\Models\Action
       if ($this->getArg('moveOtherExpedition') === true) {
         // only done through a spell
         $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
-        $this->checkAfterListeners($player, ['moveExpedition' => $n * -1, 'ascended' => $ascended, 'expedition' => $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]);
+        $this->checkAfterListeners($player, ['moveExpedition' => $n * -1, 'ascended' => $player->isAscended($expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT), 'expedition' => $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]);
       }
     }
 
