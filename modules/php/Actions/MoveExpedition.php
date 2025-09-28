@@ -191,13 +191,20 @@ class MoveExpedition extends \ALT\Models\Action
       }
     }
     $winningBiomes = $this->getArg('winningBiomes');
-    $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+    if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
+      $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+    } else {
+      $moved = false;
+    }
     if ($moved) {
       $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $ascended, 'expedition' => $expedition]);
       if ($this->getArg('moveOtherExpedition') === true) {
         // only done through a spell
-        $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
-        $this->checkAfterListeners($player, ['moveExpedition' => $n * -1, 'ascended' => $player->isAscended($expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT), 'expedition' => $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]);
+        $otherExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+        if ((($n * -1) > 0 && !Players::hasOpponentBlockMoveExpedition($player, $otherExpedition)) || ($n * -1) < 0) {
+          $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
+          $this->checkAfterListeners($player, ['moveExpedition' => $n * -1, 'ascended' => $player->isAscended($otherExpedition), 'expedition' => $otherExpedition]);
+        }
       }
     }
 
@@ -206,10 +213,11 @@ class MoveExpedition extends \ALT\Models\Action
       $expedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
 
       $token = $expedition == STORM_LEFT ? HERO : COMPANION;
-
-      $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
-      if ($moved) {
-        $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $player->isAscended($expedition), 'expedition' => $expedition]);
+      if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
+        $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+        if ($moved) {
+          $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $player->isAscended($expedition), 'expedition' => $expedition]);
+        }
       }
     }
   }

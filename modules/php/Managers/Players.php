@@ -168,6 +168,20 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return false;
   }
 
+  public static function hasOpponentBlockMoveExpedition($player, $expedition)
+  {
+    // TODO: manage multiplayers
+    foreach (self::getAll() as $pId => $player2) {
+      if ($pId == $player->getId()) {
+        continue;
+      }
+      if ($player2->hasBlockMoveExpedition($expedition)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static function hasOppositeDefender($expedition)
   {
     $oppositeExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;

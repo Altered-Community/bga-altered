@@ -2324,7 +2324,7 @@ abstract class FlowConvertor
       299 => [
         'description' => clienttranslate('If the Expedition facing me is in {O}, it can only move forward due to {O}.'),
         'noTrigger' => true,
-        'attributes' => ['opponentOceanOnly' => true],
+        'attributes' => ['opponentOceanOnly' => true, 'blockMoveExpedition' => true],
       ],
       300 => [
         'description' => clienttranslate('If the Expedition facing me is in {V}, it can only move forward due to {V}.'),

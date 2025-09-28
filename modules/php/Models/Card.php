@@ -177,6 +177,9 @@ class Card extends \ALT\Helpers\DB_Model
     'effectPlayedLimited' => 'obj', // Lost In the riptide
     'additionalType' => 'obj', // Alelo
     'resupplyIfAscended' => 'bool', // Mandjet
+
+    // Patch note 20251003
+    'blockMoveExpedition' => 'bool', // Unique Will O the Wisp
   ];
 
   /********* DB ACCESS *********/
