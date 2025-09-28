@@ -9,6 +9,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 use ALT\Managers\Actions;
+use ALT\Core\Globals;
 
 class EndAfternoon extends \ALT\Models\Action
 {
@@ -29,6 +30,11 @@ class EndAfternoon extends \ALT\Models\Action
   // {
   //   return true;
   // }
+
+  public function isDoable($player)
+  {
+    return Globals::isDayPhase();
+  }
 
   public function stEndAfternoon()
   {
