@@ -815,7 +815,7 @@ abstract class FlowConvertor
       ],
       662 => [
         'description' => clienttranslate('If you have less cards in hand than target opponent:'),
-        'condition' => 'hasBiggerHand',
+        'condition' => 'hasSmallerHand',
       ],
       663 => ['description' => clienttranslate('If you have six or more Mana Orbs:'), 'condition' => 'hasXMana:6'],
       634 => [

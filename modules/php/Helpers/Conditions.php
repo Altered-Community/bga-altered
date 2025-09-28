@@ -405,6 +405,12 @@ abstract class Conditions
       ->count() > Players::getNext($card->getPlayer())->getHand()->count();;
   }
 
+  public static function hasSmallerHand($card, $event)
+  {
+    return !self::hasBiggerHand($card, $event);
+  }
+
+
   public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE')
   {
     $cards = $card
