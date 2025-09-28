@@ -241,6 +241,10 @@ abstract class Conditions
 
       $found = false;
       foreach (Players::getNext($card->getPlayer())->getPlayedCards() as $cId => $pCard) {
+        if ($pCard->getType() != CHARACTER) {
+          continue;
+        }
+
         if ($pCard->getLocation() == $storm || (in_array($pCard->getLocation(), STORMS) && $pCard->isGigantic())) {
           $found = true;
           break;
@@ -273,6 +277,9 @@ abstract class Conditions
 
     $found = false;
     foreach (Players::getNext($card->getPlayer())->getPlayedCards() as $cId => $pCard) {
+      if ($pCard->getType() != CHARACTER) {
+        continue;
+      }
       if ($pCard->getLocation() == $storm || (in_array($pCard->getLocation(), STORMS) && $pCard->isGigantic())) {
         return false;
       }
