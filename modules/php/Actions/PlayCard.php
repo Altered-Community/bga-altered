@@ -72,6 +72,12 @@ class PlayCard extends \ALT\Models\Action
     'stealOwnership' => false,
   ];
 
+  public function isDoable($player)
+  {
+    $card = $this->getCard();
+    return !$card->isTapped() && !empty($card->getPlayableLocation($player));
+  }
+
   public function argsPlayCard()
   {
     $card = $this->getCard();
