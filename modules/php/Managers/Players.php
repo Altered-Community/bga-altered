@@ -478,6 +478,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     foreach (Cards::getPlayedCards(null) as $cId => $card) {
       if ($card->getActionInsteadAdvance() != '') {
         $actions[$card->getPId()][$card->getLocation()][$cId] = $card->getActionInsteadAdvance();
+        if ($card->isGigantic() && in_array($card->getActionInsteadAdvance(), ['ErisRare', 'ErisCommon'])) {
+          $actions[$card->getPId()][$card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT][$cId] = 'blockMove';
+        }
       }
     }
     return $actions;
@@ -639,7 +642,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           }
           if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
             $nodes = [];
-            if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition])) {
+            if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition]) && !in_array('blockMove', $actionInsteadAdvance[$pId][$expedition])) {
               $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
             }
             foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
@@ -670,9 +673,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
                 ], ['sourceId' => $cId]);
               }
             }
-            Engine::pushAfterFinishingChilds(
-              [['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]]
-            );
+            if (!empty($nodes)) {
+              Engine::pushAfterFinishingChilds(
+                [['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]]
+              );
+            }
             continue;
           }
           $player->advanceStorm($side, $winningBiomes, $n);
