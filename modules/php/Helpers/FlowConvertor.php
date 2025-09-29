@@ -80,7 +80,7 @@ abstract class FlowConvertor
       21 => [
         'description' => clienttranslate('When another Character joins your Expeditions —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
-        'condition' => ['isCardPlayed:character:::true', 'hasSameOwner'],
+        'condition' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
       ],
       22 => ['description' => clienttranslate('{H}'), 'trigger' => '', 'type' => 'effectHand'],
       23 => ['description' => clienttranslate('[]]')],
@@ -124,7 +124,7 @@ abstract class FlowConvertor
       253 => [
         'description' => clienttranslate('When another Character joins my Expedition —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken'],
-        'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
+        'condition' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'excludeSelf'],
       ],
       254 => [
         'description' => clienttranslate('When another Character you control gains <FLEETING> —'),
@@ -191,7 +191,7 @@ abstract class FlowConvertor
       517 => [
         'description' => clienttranslate('{I} When another Character joins your Expeditions —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
-        'condition' => 'isCardPlayed:character:::true',
+        'condition' => 'isCardAddedAnyPlayer:character:::true',
         'type' => 'effectInfinity',
       ],
       435 => [

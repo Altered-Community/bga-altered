@@ -32,11 +32,11 @@ class MU_Rare_Yeti extends \ALT\Models\Card
             'effectHand' => FT::ACTION(GAIN, ['cardId' => ME, 'type' => ASLEEP, 'n' => 1], ['optional' => true]),
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
+                    'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
                     'output' => FT::GAIN(EFFECT, BOOST),
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
+                    'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
                     'output' => FT::GAIN(EFFECT, BOOST),
                 ],
             ],

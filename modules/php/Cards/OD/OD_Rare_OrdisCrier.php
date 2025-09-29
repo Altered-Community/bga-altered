@@ -38,7 +38,7 @@ class OD_Rare_OrdisCrier extends \ALT\Models\Card
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'InvokeToken' => [
-                        'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
+                        'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'MoveCard' => [

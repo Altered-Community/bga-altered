@@ -38,7 +38,7 @@ class OD_Rare_Bumblebeet extends \ALT\Models\Card
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'InvokeToken' => [
-                        'conditions' => ['isCardAdded:character:::true'],
+                        'conditions' => ['isCardAddedAnyPlayer:character:::true'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'MoveCard' => [
