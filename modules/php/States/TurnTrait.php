@@ -156,6 +156,34 @@ trait TurnTrait
     Globals::setPhase(3);
     Notifications::newPhase(PHASE_DUSK);
 
+    $reductionsAll = Globals::getCostReduction();
+    foreach ($reductionsAll as $pId => &$reductions) {
+      foreach ($reductions as $type => &$reduction) {
+        if (!isset($reduction['permanent']) || $reduction['permanent'] == false) {
+          $reduction['reduction'] = 0;
+        }
+      }
+    }
+
+    Globals::setCostReduction($reductionsAll);
+    Globals::setNextCharacterBoost(0);
+    Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextReserveCharacterBoost(0);
+    Globals::setNextCharacterCost3Anchored(false);
+    Globals::setNextCharacterAnchored(false);
+    Globals::setNextCharacterFleeting(false);
+    Globals::setNextTokenAnchored(false);
+    Globals::setNextTokenAsleep(false);
+    Globals::setAdditionalEffect([]);
+    Globals::setNextSpellIsFree(false);
+    Globals::setRemoveFleetingIfSpellPlayedHand(false);
+    Globals::setRemoveFleetingSpellPlayed(false);
+    Globals::setRemoveFleetingCharacterPlayed(false);
+    Globals::setRemoveFleetingCharacterStat0Played(false);
+    Globals::setRemoveFleetingSongArtistPlayed(false);
+    Globals::setPlayedForFree(false);
+    Globals::setNextCharacterBoostV(0);
+
     Globals::setStormMoves([]);
     $this->checkCardListeners('BeforeDusk', 'stBeforeDusk');
   }
