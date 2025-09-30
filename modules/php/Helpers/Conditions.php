@@ -62,6 +62,11 @@ abstract class Conditions
     return ($event['from'] ?? null) == RESERVE;
   }
 
+  public static function isFromHand($card, $event)
+  {
+    return ($event['from'] ?? null) == HAND;
+  }
+
   public static function isToReserve($card, $event)
   {
     return ($event['to'] ?? null) == RESERVE;

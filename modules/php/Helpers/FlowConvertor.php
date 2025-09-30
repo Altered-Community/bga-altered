@@ -4402,7 +4402,7 @@ abstract class FlowConvertor
         'effect' => FT::GAIN(EFFECT, ASLEEP),
       ]);
       $properties['effectPassive']['Gain'] = [
-        'conditions' => ['isSource', 'isFacingSource'],
+        'conditions' => ['isSource', 'isFacingSource', 'isFromHand'],
         'output' => FT::SABOTAGE(),
       ];
     }
