@@ -4395,6 +4395,7 @@ abstract class FlowConvertor
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'resetCard']),
         ],
       ];
+      $properties['seasoned'] = true;
     } elseif ($trinity['output'] == 646) {
       $properties['effectPlayed'] = FT::ACTION(TARGET, [
         'upTo' => true,

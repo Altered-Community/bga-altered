@@ -851,25 +851,26 @@ class Card extends \ALT\Helpers\DB_Model
   public function getBiomes($includeModifiers = false, $increaseBiomesToHighest = false)
   {
     $biomes = [OCEAN => $this->getOcean(), MOUNTAIN => $this->getMountain(), FOREST => $this->getForest()];
+    $dynamicIncreaseSelf = 0;
     if ($includeModifiers === true) {
       // BOOST
       $boost = $this->countToken(BOOST);
       foreach ($biomes as $type => &$value) {
         $value += $boost;
       }
-    }
-    $dynamicIncrease = $this->getDynamicIncreaseBiomeHighestSelf();
-    $dynSplit = explode(':', $dynamicIncrease);
-    $dynamicIncreaseSelf = 0;
-    if (count($dynSplit) > 1) {
-      // we need to test if ok, add change dynamic tough to the value of 0
-      if (!is_null(Utils::checkAttributeCondition('cost', $dynamicIncrease, $this->getPlayer(), $this))) {
-        $dynamicIncreaseSelf = (int) $dynSplit[0];
-      } else {
-        $dynamicIncreaseSelf = 0;
+
+      $dynamicIncrease = $this->getDynamicIncreaseBiomeHighestSelf();
+      $dynSplit = explode(':', $dynamicIncrease);
+
+      if (count($dynSplit) > 1) {
+        // we need to test if ok, add change dynamic tough to the value of 0
+        if (!is_null(Utils::checkAttributeCondition('cost', $dynamicIncrease, $this->getPlayer(), $this))) {
+          $dynamicIncreaseSelf = (int) $dynSplit[0];
+        } else {
+          $dynamicIncreaseSelf = 0;
+        }
       }
     }
-
     if ($increaseBiomesToHighest == true || $dynamicIncreaseSelf == 1) {
       $max = 0;
       foreach ($biomes as $type => $value2) {
