@@ -27,8 +27,9 @@ class LY_Rare_TheWellofTears extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'conditions' => ['cardPlayedCostCheck:4'],
+          'conditions' => ['cardPlayedCostCheck:4', 'isMe'],
           'output' => FT::ACTION(TARGET, [
+            'upTo' => true,
             'effect' => FT::GAIN(EFFECT, BOOST),
           ]),
         ],
