@@ -33,7 +33,7 @@ class BR_Rare_HavenSeiringar extends \ALT\Models\Card
             'effectPassive' => [
                 'LeaveExpedition' => [
                     'pId' => CONTROLLER,
-                    'condition' => 'hasFleeting',
+                    'condition' => 'leaveAndFleeting',
                     'output' => FT::ACTION(DRAW, ['players' => ME]),
                 ],
             ],

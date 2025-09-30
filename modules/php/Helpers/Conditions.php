@@ -687,6 +687,11 @@ abstract class Conditions
     return $card->hasToken(FLEETING) || ($event['fleeting'] ?? false);
   }
 
+  public static function leaveAndFleeting($card, $event)
+  {
+    return ($event['fleeting'] ?? false);
+  }
+
   public static function notTapped($card, $event)
   {
     return !$card->isTapped();
