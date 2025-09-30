@@ -3527,7 +3527,20 @@ abstract class FlowConvertor
         'description' => clienttranslate(
           '<SABOTAGE>. If you discarded a card this way, create a <WOOLLYBACK> Animal token in the Companion Expedition of its owner.'
         ),
-        'output' => '',
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'MU_Common_Woollyback',
+              'targetLocation' => [STORM_RIGHT],
+              'targetPlayer' => 'owner',
+            ]),
+          )
+        ]),
       ],
       579 => [
         'description' => clienttranslate(
