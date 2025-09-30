@@ -480,7 +480,7 @@ class Notifications
   // /_/   \_\___|\__|_|\___/|_| |_|___/
   /////////////////////////////////////////
 
-  public static function playCard($player, $card, $cost, $fromLocation, $location)
+  public static function playCard($player, $card, $cost, $fromLocation, $location, $meeples = [])
   {
     $msg = '';
     if ($location == 'limbo') {
@@ -493,6 +493,10 @@ class Notifications
         $fromLocation == RESERVE
         ? clienttranslate('${player_name} plays ${card_name} from Reserve for ${mana_cost} and places it in ${displayLocation}')
         : clienttranslate('${player_name} plays ${card_name} for ${mana_cost} and places it in ${displayLocation}');
+    }
+
+    if (!empty($meeples)) {
+      self::silentKill($meeples);
     }
 
     self::notifyAll('playCard', $msg, [

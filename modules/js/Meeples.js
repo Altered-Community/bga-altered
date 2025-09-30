@@ -234,6 +234,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       n.args.cardsDeleted.forEach((cardId) => {
         this.fadeOutAndDestroy($(`card-${cardId}`));
       });
+      this.gamedatas.cards.forEach((card) => {
+        this.updateCardStatuses(card.id);
+      });
     },
 
     notif_newFirstPlayer(n) {
