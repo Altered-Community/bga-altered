@@ -28,7 +28,6 @@ define([
   g_gamethemeurl + 'modules/js/Players.js',
   g_gamethemeurl + 'modules/js/Cards.js',
   g_gamethemeurl + 'modules/js/Meeples.js',
-  ,
 ], function (dojo, declare) {
   function openFullscreen() {
     var docElm = document.documentElement;

@@ -317,8 +317,10 @@ class ChooseAssignment extends \ALT\Models\Action
     // if card has boosts (from incorrect passive effect), we remove them
     $meeples = Meeples::getInLocation('card-' . $card->getId());
     $meepleIds = $meeples->getIds();
-    if (!empty($meepleIds)) {
-      Meeples::delete($meepleIds);
+    if ($fromLocation == HAND) {
+      if (!empty($meepleIds)) {
+        Meeples::delete($meepleIds);
+      }
     }
 
     $newState = Cards::getNextPlayedState();

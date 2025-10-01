@@ -1921,9 +1921,18 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       this.tooltips[`card-${cardId}`].setContent(this.tplCardTooltip(this.getCardInfos(cardId)));
     },
 
+    tempGroupBy(meeples) {
+      return meeples.reduce(function (rv, x) {
+        (rv[x['dataset']['type']] ??= []).push(x);
+        return rv;
+      }, {});
+    },
+
     getCardTooltipExplanation(card) {
       let explanation = '';
-      let meeplesByTypes = this.getMeeplesOnCard(card.id).groupBy((oMeeple) => oMeeple.dataset.type);
+      // debug(this.getMeeplesOnCard(card.id));
+      // let meeplesByTypes = this.getMeeplesOnCard(card.id).groupBy((oMeeple) => oMeeple.dataset.type);
+      let meeplesByTypes = this.tempGroupBy(this.getMeeplesOnCard(card.id));
       Object.keys(meeplesByTypes).forEach((type) => {
         let tooltipDesc = this.getMeepleTooltip({ type });
         if (tooltipDesc != null) {
