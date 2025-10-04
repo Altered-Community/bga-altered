@@ -201,7 +201,7 @@ trait SetupTrait
       } else {
         $cProp = Cards::getCardClass($cardRef)->getProperties();
         $deckContent[] = ['card' => ['properties' => $cProp], 'n' => $card['quantity']];
-        if (in_array($cProp['uid'] ?? '', ['ALT_CORE_B_YZ_11_R2', 'ALT_COREKS_B_YZ_11_R2', 'ALT_CORE_B_BR_25_R2', 'ALT_COREKS_B_BR_25_R2'])) {
+        if (in_array($cProp['uid'] ?? '', ['ALT_CORE_B_YZ_11_R2', 'ALT_COREKS_B_YZ_11_R2'])) {
           throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), $cProp['name'] ?? '')));
         }
       }
