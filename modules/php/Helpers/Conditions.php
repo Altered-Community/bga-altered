@@ -1511,7 +1511,7 @@ abstract class Conditions
   public static function isPlayedInOpponentExpedition($card, $event)
   {
     $playedCard = Cards::get($event['cardId']);
-    return (($event['to'] ?? '') == $card->getLocation() || ($playedCard->isGigantic() && in_array($event['to'], STORMS))) && $playedCard->getPId() != $card->getPId();
+    return (($event['to'] ?? '') == $card->getLocation() || ($playedCard->isGigantic() && in_array($event['to'], STORMS)) || ($card->isGigantic() &&  in_array($event['to'], STORMS))) && $playedCard->getPId() != $card->getPId();
   }
 
   public static function isOpponentExpeditionIn($card, $event, $biome)
