@@ -3256,6 +3256,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN, PERMANENT],
           'maxHandCost' => 2,
+          'upTo' => true,
           'effect' => FT::ACTION(DISCARD, []),
         ]),
       ],
