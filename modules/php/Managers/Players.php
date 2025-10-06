@@ -625,7 +625,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         $isAscended = $player->isAscended($expedition);
 
         foreach ($newBiomes as $i => $biome) {
-          $win = $winners[$expedition][$biome]['pId'] == $pId || $equality[$expedition][$biome] == true && $isAscended;
+          $win = $winners[$expedition][$biome]['pId'] == $pId || ($equality[$expedition][$biome] == true && $isAscended);
           $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
           if ($win) {
