@@ -910,6 +910,10 @@ abstract class Conditions
     }
     $playedCard = Cards::get($event['cardId']);
 
+    // is played card has PID controller?
+    if ($card->getPId() != $playedCard->getPId()) {
+      return false;
+    }
 
     // Exclude myself
     if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
