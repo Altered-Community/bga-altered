@@ -119,9 +119,11 @@ class Draw extends \ALT\Models\Action
           $this->getArg('tapped')
         );
       } else {
-        $player->draw($n, null, null, $source);
+        $cards = $player->draw($n, null, null, $source);
       }
-      $this->checkAfterListeners($player, ['draw' => $n, 'location' => $this->getArg('location')]);
+      if ($cards->count() > 0) {
+        $this->checkAfterListeners($player, ['draw' => $n, 'location' => $this->getArg('location')]);
+      }
     }
 
     $this->resolveAction(null, true);
