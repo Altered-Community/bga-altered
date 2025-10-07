@@ -4406,6 +4406,9 @@ abstract class FlowConvertor
         'conditions' => ['isSource', 'isFacingSource', 'isFromHand'],
         'output' => FT::SABOTAGE(),
       ];
+    } elseif ($trinity['output'] == 114 && $trinity['condition'] == 357) {
+      $properties['costReductionIfEmpty'] = 2;
+      unset($properties['dynamicCostReduction']);
     }
 
     // dynamic attributes generate empty node
