@@ -941,8 +941,8 @@ class Card extends \ALT\Helpers\DB_Model
 
     if (in_array($this->getType(), [CHARACTER, TOKEN])) {
       $universal = $this->getPlayer()->countUniversalCharacterTough();
-      $dynTough = $this->getDynamicTough();
-      $tt = explode(':', $dynTough);
+      // $dynTough = $this->getDynamicTough();
+      // $tt = explode(':', $dynTough);
       if ($this->getExcludeUniversalTough() && $singleTough == 'universalCharacter2') {
         $universal = $universal - 2;
       }
