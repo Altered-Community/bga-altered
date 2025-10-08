@@ -187,7 +187,12 @@ class RollDie extends \ALT\Models\Action
 
     $player = Players::getActive();
     $source = $this->getSource();
+    $args = $this->argsRollDie();
     $effects = [];
+
+    if (count($args['rolls']) > 1) {
+      Notifications::message(clienttranslate('Die ${dieValue} is selected'), ['dieValue' => $dieValue]);
+    }
 
     $effect = $this->getGain($dieValue);
     if ($effect !== null) {
