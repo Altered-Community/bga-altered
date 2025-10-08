@@ -92,10 +92,10 @@ class Loose extends \ALT\Models\Action
     return [$this->getArg('type'), $this->getArg('n')];
   }
 
-  public function isDoable($player)
-  {
-    return $this->getCard()->hasToken($this->getArg('type'));
-  }
+  // public function isDoable($player)
+  // {
+  //   return $this->getCard()->hasToken($this->getArg('type'));
+  // }
 
   public function stLoose()
   {

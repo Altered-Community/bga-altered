@@ -687,6 +687,11 @@ abstract class Conditions
     return !$card->hasToken(FLEETING) && !($event['fleeting'] ?? false);
   }
 
+  public static function isAsleep($card, $event)
+  {
+    return $card->hasToken(ASLEEP);
+  }
+
   public static function hasFleeting($card, $event)
   {
     return $card->hasToken(FLEETING) || ($event['fleeting'] ?? false);

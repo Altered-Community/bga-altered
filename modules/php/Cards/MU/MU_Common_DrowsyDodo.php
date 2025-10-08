@@ -32,16 +32,16 @@ class MU_Common_DrowsyDodo extends \ALT\Models\Card
       'effectPassive' => [
         'ChooseAssignment' => [
           'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
-          'conditions' => ['isSourceSameLocation'],
+          'conditions' => ['isSourceSameLocation', 'isAsleep'],
           'output' =>  FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
         ],
         'InvokeToken' => [
           'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
-          'conditions' => ['isSourceSameLocation'],
+          'conditions' => ['isSourceSameLocation', 'isAsleep'],
           'output' =>  FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
         ],
         'MoveCard' => [
-          'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition'],
+          'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition', 'isAsleep'],
           'output' =>  FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
         ],
       ],

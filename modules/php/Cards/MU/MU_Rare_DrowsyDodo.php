@@ -38,7 +38,7 @@ class MU_Rare_DrowsyDodo extends \ALT\Models\Card
         ],
         'InvokeToken' => [
           'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
-          'conditions' => ['isSourceSameLocation'],
+          'conditions' => ['isSourceSameLocation', 'isAsleep'],
           'output' =>  FT::GAIN(ME, BOOST)
         ],
         'MoveCard' => [
