@@ -329,10 +329,16 @@ trait TurnTrait
     // Initiate engine in case some cards are reacting
     Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
     // Move cards / remove tokens => possible reaction of cards moving to reserve or being discarded
-    foreach (Players::getAll() as $pId => $player) {
-      $player->nightCleanup();
+    $turnOrder = Players::getTurnOrder();
+    foreach ($turnOrder as $pId) {
+      Players::get($pId)->nightCleanup();
     }
+    // foreach (Players::getAll() as $pId => $player) {
+    //   $player->nightCleanup();
+    // }
     Meeples::nightCleanup();
+    Globals::setActivePId(Globals::getFirstPlayer());
+    $this->gamestate->changeActivePlayer(Globals::getFirstPlayer());
     Engine::proceed();
   }
 
