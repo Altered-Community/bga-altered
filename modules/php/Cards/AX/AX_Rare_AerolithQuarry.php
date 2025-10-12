@@ -38,7 +38,7 @@ class AX_Rare_AerolithQuarry extends \ALT\Models\Card
         'Discard' => [
           'conditions' => ['isMe', 'isSacrifice:permanent', 'notTapped', 'notInDiscard'],
           'output' => FT::SEQ_OPTIONAL(
-            FT::ACTION(EXHAUST, ['cardId' => ME]),
+            FT::ACTION(TAP, ['cardId' => ME]),
             FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
           )
         ],

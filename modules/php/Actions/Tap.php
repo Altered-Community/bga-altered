@@ -30,7 +30,9 @@ class Tap extends \ALT\Models\Action
   {
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? $this->getSourceId();
-
+    if ($cardId == ME) {
+      $cardId = $this->ctx->getSourceId() ?? null;
+    }
     if ($cardId === null) {
       throw new \feException($this->getSourceId());
       throw new \BgaVisibleSystemException('no card in args (tap). Should not happen');
