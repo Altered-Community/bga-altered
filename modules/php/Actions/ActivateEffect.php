@@ -68,6 +68,7 @@ class ActivateEffect extends \ALT\Models\Action
       if (!empty($card->$effect())) {
         $node = $card->$effect();
         $node = Utils::tagTree($node, ['sourceId' => $card->getId()]);
+        $node = Utils::tagTree($node, ['pId' => $card->getPId()]);
         // $node['sourceId'] = $card->getId();
         $this->pushParallelChild($node);
       }
