@@ -194,7 +194,7 @@ class Resupply extends \ALT\Models\Action
       if ($this->getArg('characterHand')) {
         foreach ($cards as $cId => $card) {
           if ($card->getType() == CHARACTER) {
-            $node[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => HAND], ['optional' => true]);
+            $node[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'destination' => HAND], ['optional' => true, 'pId' => $player->getId()]);
           }
         }
       }
