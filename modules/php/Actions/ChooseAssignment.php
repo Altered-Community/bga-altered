@@ -510,7 +510,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
       if (Globals::getAdditionalEffect() != []) {
         $addEffects = Globals::getAdditionalEffect();
-        foreach ($addEffects as $addEffect) {
+        foreach ($addEffects as $i => &$addEffect) {
           if ($addEffect['type'] == $card->getType()) {
             if ($addEffect['from'] == $fromLocation) {
               $effectType = $addEffect['effect'];
@@ -519,9 +519,11 @@ class ChooseAssignment extends \ALT\Models\Action
               if (!empty($newEffect)) {
                 $effects[] = $newEffect;
               }
+              unset($addEffects[$i]);
             }
           }
         }
+        Globals::setAdditionalEffect($addEffects);
       }
 
       if (!empty($effects)) {
@@ -576,8 +578,6 @@ class ChooseAssignment extends \ALT\Models\Action
     }
     // throw new \feException(print_r(Globals::getEngine()));
 
-    // we reset this at this stage, as if we do it previously, checkAFterListeners doesn't have the correct info (for trigger of Bravos Bastion)
-    Globals::setAdditionalEffect([]);
     self::statPlay($cardId);
     $baseStat0 = false;
     foreach ($card->getBiomes() as $biome => $value) {
