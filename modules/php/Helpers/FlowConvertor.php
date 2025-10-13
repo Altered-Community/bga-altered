@@ -133,7 +133,7 @@ abstract class FlowConvertor
       ],
       419 => [
         'description' => clienttranslate('When another Character joins my Expedition —'),
-        'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
+        'trigger' => ['ChooseAssignment', 'InvokeToken'],
         'condition' => ['isCardAdded:character', 'isPlayedInSameLocation', 'excludeSelf'],
       ],
       263 => [
@@ -4364,10 +4364,11 @@ abstract class FlowConvertor
       // #147483: "Unique lyra - Timing limbo effect/cleanup
       // We add a flag to force listening except for power I gain 1 boost/2 boost
       $node['RollDie']['forceListening'] = true;
-    } elseif ($trinity['trigger'] == 419) {
+    } elseif (in_array($trinity['trigger'], [419, 253])) {
       // #170850: "Amarok and hooked token "
       // needs to manage movecard with Amarok
       $node['MoveCard']['conditions'] = ['isCharacterFromTarget', 'isPlayedInSameLocation', 'excludeSelf'];
+      $node['MoveCard']['output'] = $node['InvokeToken']['output'];
     } elseif ($trinity['output'] == 568) {
       // Zaratan uniques
       $properties['gigantic'] = true;
