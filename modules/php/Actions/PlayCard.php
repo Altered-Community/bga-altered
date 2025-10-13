@@ -129,8 +129,10 @@ class PlayCard extends \ALT\Models\Action
     $card = Cards::get($cardId);
     if ($this->getArg('stealOwnership') && $card->getPId() != Players::getActiveId()) {
       $extraDatas = $card->getExtraDatas();
-      $extraDatas['pId'] = $card->getPId();
-      $card->setExtraDatas($extraDatas);
+      if (!isset($extraDatas['pId'])) {
+        $extraDatas['pId'] = $card->getPId();
+        $card->setExtraDatas($extraDatas);
+      }
       $card->setPId(Players::getActiveId());
     }
 
