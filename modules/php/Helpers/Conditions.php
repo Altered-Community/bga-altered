@@ -1080,6 +1080,14 @@ abstract class Conditions
     return ($event['specialEffect'] ?? '') == $effect;
   }
 
+  public static function isPlayCard($card, $event)
+  {
+    if (!($event['playCard'] ?? false)) {
+      return false;
+    }
+    return true;
+  }
+
   public static function isAddedCardAnyPlayer($card, $event, $type = null)
   {
     if (!($event['playCard'] ?? false)) {

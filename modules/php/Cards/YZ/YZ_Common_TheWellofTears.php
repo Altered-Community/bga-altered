@@ -27,7 +27,7 @@ class YZ_Common_TheWellofTears extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPassive' => [
         'ChooseAssignment' => [
-          'conditions' => ['isCardPlayed:spell', 'cardPlayedCostCheck:4'],
+          'conditions' => ['isCardPlayed:spell', 'cardPlayedCostCheck:4', 'isPlayCard'],
           'output' => FT::ACTION(TARGET, [
             'upTo' => true,
             'effect' => FT::GAIN(EFFECT, BOOST),
