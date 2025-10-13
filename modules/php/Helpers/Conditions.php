@@ -122,6 +122,11 @@ abstract class Conditions
       return ($event['pId'] ?? null) == $card->getPId();
     }
 
+    // 186238 - Combo Treyst + brainwash
+    if (($event['stealOwnership'] ?? false) && Cards::get($cardId)->getPId() != $card->getPId()) {
+      return true;
+    }
+
     return Cards::get($cardId)->getPId() == $card->getPId();
   }
 

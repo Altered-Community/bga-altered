@@ -184,7 +184,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -485,7 +485,8 @@ class ChooseAssignment extends \ALT\Models\Action
               'to' => $location,
               'playedFree' => $cost == 0 ? true : false,
               'putAndNotPlayed' => !$effectHand,
-              'additionalEffects' => Globals::getAdditionalEffect()
+              'additionalEffects' => Globals::getAdditionalEffect(),
+              'stealOwnership' => $stealOwnership,
             ]], 'pId' => $player->getId()]);
           } else {
             $spellAction = ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
@@ -497,7 +498,8 @@ class ChooseAssignment extends \ALT\Models\Action
               'to' => $location,
               'playedFree' => $cost == 0 ? true : false,
               'putAndNotPlayed' => !$effectHand,
-              'additionalEffects' => Globals::getAdditionalEffect()
+              'additionalEffects' => Globals::getAdditionalEffect(),
+              'stealOwnership' => $stealOwnership,
             ]], 'pId' => $player->getId()];
           }
           $this->insertAsChild($spellAction);
@@ -558,6 +560,7 @@ class ChooseAssignment extends \ALT\Models\Action
         'putAndNotPlayed' => !$effectHand,
         'additionalEffects' => Globals::getAdditionalEffect(),
         'token' => $card->isToken(),
+        'stealOwnership' => $stealOwnership,
       ]);
 
       $this->checkAfterListeners($player, [
@@ -574,6 +577,7 @@ class ChooseAssignment extends \ALT\Models\Action
         'putAndNotPlayed' => !$effectHand,
         'additionalEffects' => Globals::getAdditionalEffect(),
         'token' => $card->isToken(),
+        'stealOwnership' => $stealOwnership,
       ]);
     }
     // throw new \feException(print_r(Globals::getEngine()));

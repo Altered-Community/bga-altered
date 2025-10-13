@@ -143,7 +143,9 @@ class PlayCard extends \ALT\Models\Action
       $this->getArg('free'),
       $this->getArg('effectHand'),
       $this->getArg('cost'),
-      $this->getArg('reallyPlayed')
+      $this->getArg('reallyPlayed'),
+      false,
+      $this->getArg('stealOwnership')
     );
   }
 }
