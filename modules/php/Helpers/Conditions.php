@@ -412,12 +412,15 @@ abstract class Conditions
     return $card
       ->getPlayer()
       ->getHand()
-      ->count() > Players::getNext($card->getPlayer())->getHand()->count();;
+      ->count() > Players::getNext($card->getPlayer())->getHand()->count();
   }
 
   public static function hasSmallerHand($card, $event)
   {
-    return !self::hasBiggerHand($card, $event);
+    return $card
+      ->getPlayer()
+      ->getHand()
+      ->count() < Players::getNext($card->getPlayer())->getHand()->count();
   }
 
 
