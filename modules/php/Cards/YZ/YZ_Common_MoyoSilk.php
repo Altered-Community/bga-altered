@@ -26,25 +26,73 @@ class YZ_Common_MoyoSilk extends \ALT\Models\Card
       'landmarkSlots' => 2,
       'thumbnail' => 3,
       'statData' => 24,
+      // try but not that good as the effect is not clear
+      // 'effectPassive' => [
+      //   'ChooseAssignment' => [
+      //     'conditions' => ['notTapped', 'isCardPlayed:spell', 'cardPlayedCostCheck:4'],
+      //     'output' => [
+      //       'type' => NODE_SEQ,
+      //       'optional' => true,
+      //       'noIndependent' => true,
+      //       'customDescription' => clienttranslate('Check reaction to ${eventCardName}'),
+      //       'childs' => [
+      //         FT::ACTION(TAP, []),
+      //         FT::ACTION(INVOKE_TOKEN, [
+      //           'pId' => 'source',
+      //           'tokenType' => 'YZ_Common_ManaMoth',
+      //           'targetLocation' => [STORM_LEFT],
+      //         ]),
+      //         FT::ACTION(CHECK_CONDITION, [
+      //           'condition' => 'cardPlayedCostCheck:7',
+      //           'previousEvent' => true,
+      //           'description' => clienttranslate('Draw a card if base cost >= 7'),
+      //           'effect' => FT::ACTION(DRAW, ['players' => ME])
+      //         ])
+      //       ],
+      //     ]
+      //   ],
+      // ]
+
       'effectPassive' => [
         'ChooseAssignment' => [
           'conditions' => ['notTapped', 'isCardPlayed:spell', 'cardPlayedCostCheck:4'],
-          'output' => FT::SEQ_OPTIONAL(
-            FT::ACTION(TAP, []),
-            FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
-              'tokenType' => 'YZ_Common_ManaMoth',
-              'targetLocation' => [STORM_LEFT],
-            ]),
-            FT::ACTION(CHECK_CONDITION, [
-              'condition' => 'cardPlayedCostCheck:7',
-              'previousEvent' => true,
-              'description' => clienttranslate('Draw a card if base cost >= 7'),
-              'effect' => FT::ACTION(DRAW, ['players' => ME])
-            ])
-          )
-        ],
-      ],
+          'output' => [
+            'type' => NODE_XOR,
+            'noIndependent' => true,
+            'customDescription' => clienttranslate('Check reaction to ${eventCardName}'),
+            'childs' => [
+              FT::ACTION(CHECK_CONDITION, [
+                'conditions' => ['cardPlayedCostCheck:4', 'cardPlayedCostCheck:6:base:LTE'],
+                'description' => clienttranslate('Spell is less than {7}'),
+                'previousEvent' => true,
+                'effect' =>  FT::SEQ_OPTIONAL(
+                  FT::ACTION(TAP, []),
+                  FT::ACTION(INVOKE_TOKEN, [
+                    'pId' => 'source',
+                    'tokenType' => 'YZ_Common_ManaMoth',
+                    'targetLocation' => [STORM_LEFT],
+                  ]),
+                )
+              ]),
+              FT::ACTION(CHECK_CONDITION, [
+                'conditions' => ['cardPlayedCostCheck:7'],
+                'description' => clienttranslate('Spell is higher than {7}'),
+                'previousEvent' => true,
+                'effect' =>  FT::SEQ_OPTIONAL(
+                  FT::ACTION(TAP, []),
+                  FT::ACTION(INVOKE_TOKEN, [
+                    'pId' => 'source',
+                    'tokenType' => 'YZ_Common_ManaMoth',
+                    'targetLocation' => [STORM_LEFT],
+                  ]),
+                  FT::ACTION(DRAW, ['players' => ME])
+                )
+              ]),
+
+            ]
+          ]
+        ]
+      ]
     ];
   }
 }

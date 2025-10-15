@@ -4,6 +4,7 @@ namespace ALT\Core\Engine;
 
 use ALT\Core\Globals;
 use ALT\Managers\Players;
+use ALT\Managers\Cards;
 
 /*
  * AbstractNode: a class that represent an abstract Node
@@ -165,6 +166,18 @@ class AbstractNode
     $args = [];
 
     if (isset($this->infos['customDescription'])) {
+      // event card management (Moyo for the moment)
+      $description = $this->infos['customDescription'];
+      if (strpos($description, '${eventCardName}') && isset($this->infos['event']['cardId'])) {
+        $cardId = $this->infos['event']['cardId'];
+
+        return  [
+          'log' => $description,
+          'args' => [
+            'eventCardName' => Cards::get($cardId)->getName()
+          ],
+        ];
+      }
       return $this->infos['customDescription'];
     }
 
@@ -369,7 +382,8 @@ class AbstractNode
   // Allow for automatic resolution in parallel node
   public function isIndependent($player = null)
   {
-    return $this->isAutomatic($player) &&
+    // add of no independant in specific cases of Moyo
+    return !($this->infos['noIndependent'] ?? false) && $this->isAutomatic($player) &&
       $this->childsReduceAnd(function ($child) use ($player) {
         return $child->isIndependent($player);
       }) && Globals::getEngineChoices() <= 20;
