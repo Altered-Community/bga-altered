@@ -126,7 +126,23 @@ class Target extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->getArg('upTo') || (!$this->getArg('allIds') && count($this->getTargetableCards($player)) != 0) ||  ($this->getArg('allIds') && count($this->getTargetableCards($player)) >= $this->getArg('n'));
+    $targetCards = $this->getTargetableCards($player);
+    if ($this->getArg('allIds')) {
+      // check if we have cards to pay and not enough mana
+      $targetCosts = $this->getTargetCosts($player);
+      $totalCost = 0;
+      if ((count($targetCards) - count($targetCosts)) <= 2) {
+        foreach ($targetCosts as $cId => $cost) {
+          $totalCost += $cost;
+        }
+      }
+      if ($totalCost > $player->getMana()) {
+        return false;
+      }
+    }
+    return $this->getArg('upTo') ||
+      (!$this->getArg('allIds') && count($targetCards) != 0) ||
+      ($this->getArg('allIds') && count($targetCards) >= $this->getArg('n'));
   }
 
   public function isOptional($player)
