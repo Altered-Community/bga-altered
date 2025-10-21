@@ -691,6 +691,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
               } else {
                 $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
               }
+            } elseif ($action == 'blockMove') {
+              // Eris, we need to check if it was triggered, else we do need to move the expedition
+              if (!isset($playerMoves[$triggeredCard->getLocation()])) {
+                $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+              }
             }
           }
           if (!empty($nodes)) {
