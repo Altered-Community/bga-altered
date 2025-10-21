@@ -4388,7 +4388,7 @@ abstract class FlowConvertor
       ]);
     } elseif ($trinity['output'] == 579) {
       // DoppelGanger
-      $properties['effectPlayed'] = FT::ACTION(TARGET, [
+      $properties['effectHand'] = FT::ACTION(TARGET, [
         'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'doppelganger']),
         'targetLocation' => ['opponentSource'],
       ]);
