@@ -198,6 +198,11 @@ abstract class Conditions
     return Globals::getPhase() == 4;
   }
 
+  public static function isNotNight($card, $event)
+  {
+    return !self::isNight($card, $event);
+  }
+
   public static function movesStormsWithForest($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
