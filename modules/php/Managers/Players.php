@@ -598,6 +598,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $movements = [];
     $blockedExpeditions = self::getBlockedExpeditions();
     $actionInsteadAdvance = self::getActionInsteadOfAdvance();
+    $toMove = [];
     // For each player, check whether hero and/or companion move forward
     foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
@@ -637,53 +638,72 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
 
         if ($advance && $move) {
-          if ($player->hasAdvanceTwiceDusk($expedition) > 0) {
-            $n = $player->hasAdvanceTwiceDusk($expedition) + 1;
+          $toMove[$pId][$expedition] = $winningBiomes;
+        }
+      }
+    }
+
+    foreach ($toMove as $pId => $playerMoves) {
+      $player = Players::get($pId);
+      $isAscended = $player->isAscended($expedition);
+      foreach ($playerMoves as $expedition => $winningBiomes) {
+        $side = $expedition == STORM_LEFT ? HERO : COMPANION;
+        if ($player->hasAdvanceTwiceDusk($expedition) > 0) {
+          $n = $player->hasAdvanceTwiceDusk($expedition) + 1;
+        }
+        if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
+          $nodes = [];
+          if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition]) && !in_array('blockMove', $actionInsteadAdvance[$pId][$expedition])) {
+            $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
           }
-          if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
-            $nodes = [];
-            if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition]) && !in_array('blockMove', $actionInsteadAdvance[$pId][$expedition])) {
-              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
-            }
-            foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
-              if ($action == 'draw2') {
-                $nodes[] =
-                  FT::SEQ(
-                    FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
-                    FT::ACTION(DRAW, ['players' => ME, 'n' => 2], ['pId' => $pId, 'sourceId' => $cId])
-                  );
-              } elseif ($action == 'look4') {
-                $nodes[] =  FT::SEQ(
+          foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
+            $triggeredCard = Cards::get($cId);
+            if ($action == 'draw2') {
+              $nodes[] =
+                FT::SEQ(
                   FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
-                  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RunesTestamentLook4'], ['pId' => $pId, 'sourceId' => $cId])
+                  FT::ACTION(DRAW, ['players' => ME, 'n' => 2], ['pId' => $pId, 'sourceId' => $cId])
                 );
-              } elseif ($action == 'ErisCommon') {
+            } elseif ($action == 'look4') {
+              $nodes[] =  FT::SEQ(
+                FT::ACTION(DISCARD, ['cardId' => $cId], ['sourceId' => $cId]),
+                FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RunesTestamentLook4'], ['pId' => $pId, 'sourceId' => $cId])
+              );
+            } elseif ($action == 'ErisCommon') {
+              if (($triggeredCard->isGigantic() && count($playerMoves) == 2) || !$triggeredCard->isGigantic()) {
                 $nodes[] = FT::ACTION(ROLL_DIE, [
                   'effect' => [
                     '1-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]),
                     '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId])
                   ]
                 ], ['sourceId' => $cId]);
-              } elseif ($action == 'ErisRare') {
+              } else {
+                $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+              }
+            } elseif ($action == 'ErisRare') {
+              if (($triggeredCard->isGigantic() && count($playerMoves) == 2) || !$triggeredCard->isGigantic()) {
                 $nodes[] = FT::ACTION(ROLL_DIE, [
                   'effect' => [
                     '2-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]),
                     '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId])
                   ]
                 ], ['sourceId' => $cId]);
+              } else {
+                $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
               }
             }
-            if (!empty($nodes)) {
-              Engine::pushAfterFinishingChilds(
-                [['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]]
-              );
-            }
-            continue;
           }
-          $player->advanceStorm($side, $winningBiomes, $n);
+          if (!empty($nodes)) {
+            Engine::pushAfterFinishingChilds(
+              [['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]]
+            );
+          }
+          continue;
         }
+        $player->advanceStorm($side, $winningBiomes, $n);
       }
     }
+
     return $movements;
   }
 
