@@ -435,9 +435,15 @@ abstract class Conditions
       ->getPlayer()
       ->getReserveCards();
 
-    if (!is_null($type) && $type != '') {
+    if (!is_null($type) && $type != '' && in_array($type, TYPES)) {
       $cards = $cards->filter(function ($c) use ($type) {
         return $c->getType() == $type || in_array($type, $c->getAdditionalType());
+      });
+    }
+
+    if (!is_null($type) && $type != '' && in_array($type, SUBTYPES)) {
+      $cards = $cards->filter(function ($c) use ($type) {
+        return in_array($type, SUBTYPES);
       });
     }
 
