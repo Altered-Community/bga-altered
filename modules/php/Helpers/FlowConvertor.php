@@ -4399,14 +4399,25 @@ abstract class FlowConvertor
       ];
       $properties['seasoned'] = true;
     } elseif ($trinity['output'] == 646) {
-      $properties['effectPlayed'] = FT::ACTION(TARGET, [
-        'upTo' => true,
-        'effect' => FT::GAIN(EFFECT, ASLEEP),
-      ]);
-      $properties['effectPassive']['Gain'] = [
-        'conditions' => ['isSource', 'isFacingSource', 'isFromHand'],
-        'output' => FT::SABOTAGE(),
-      ];
+      if ($trinity['trigger'] == 22) {
+        $properties['effectHand'] = FT::ACTION(TARGET, [
+          'upTo' => true,
+          'effect' => FT::GAIN(EFFECT, ASLEEP),
+        ]);
+        $properties['effectPassive']['Gain'] = [
+          'conditions' => ['isSource', 'isFacingSource', 'isFromHand'],
+          'output' => FT::SABOTAGE(),
+        ];
+      } elseif ($trinity['trigger'] == 24) {
+        $properties['effectPlayed'] = FT::ACTION(TARGET, [
+          'upTo' => true,
+          'effect' => FT::GAIN(EFFECT, ASLEEP),
+        ]);
+        $properties['effectPassive']['Gain'] = [
+          'conditions' => ['isSource', 'isFacingSource'],
+          'output' => FT::SABOTAGE(),
+        ];
+      }
     } elseif ($trinity['output'] == 114 && $trinity['condition'] == 357) {
       $properties['costReductionIfEmpty'] = 2;
       unset($properties['dynamicCostReduction']);
