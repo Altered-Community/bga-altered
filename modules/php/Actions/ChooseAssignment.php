@@ -505,6 +505,9 @@ class ChooseAssignment extends \ALT\Models\Action
           $this->insertAsChild($spellAction);
           $effects = [];
         }
+        if (in_array(SPELL, $card->getAdditionalType())) {
+          Engine::resolveAction();
+        }
       } else {
         // resolving current node as some things are inserted before and after
         Engine::resolveAction();
