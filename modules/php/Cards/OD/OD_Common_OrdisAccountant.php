@@ -41,7 +41,7 @@ class OD_Common_OrdisAccountant extends \ALT\Models\Card
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                     'MoveCard' => [
-                        'conditions' => ['isCardAdded:character:::true', 'hasSameOwner'],
+                        'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
                         'output' => FT::GAIN(ME, BOOST, 1, 2),
                     ],
                 ],

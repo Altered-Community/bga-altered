@@ -934,6 +934,10 @@ abstract class Conditions
     }
     $playedCard = Cards::get($event['cardId']);
 
+    if ($event['method'] == 'MoveCard' && ($event['defect'] ?? false) == false) {
+      return false;
+    }
+
     // is played card has PID controller?
     if ($card->getPId() != $playedCard->getPId()) {
       return false;

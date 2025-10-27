@@ -1784,7 +1784,8 @@ class SpecialEffect extends \ALT\Models\Action
           'from' => $defectCard->getLocation(),
           'to' => $defectCard->getLocation(),
           'locationPId' => $defectCard->getPId(),
-          'token' => $defectCard->isToken()
+          'token' => $defectCard->isToken(),
+          'defect' => true,
         ], true, 'MoveCard');
         break;
       case 'discardAllAndBackward':

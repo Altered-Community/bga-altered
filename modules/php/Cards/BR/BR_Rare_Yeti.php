@@ -39,6 +39,10 @@ class BR_Rare_Yeti extends \ALT\Models\Card
                     'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
                     'output' => FT::GAIN(EFFECT, BOOST),
                 ],
+                'MoveCard' => [
+                    'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
+                    'output' => FT::GAIN(EFFECT, BOOST),
+                ],
             ],
         ];
     }
