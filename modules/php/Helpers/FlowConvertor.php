@@ -2755,17 +2755,17 @@ abstract class FlowConvertor
       346 => [
         'description' => clienttranslate('You may play exhausted cards from your Reserve.'),
         'noTrigger' => true,
-        'attributes' => ['playTappedAllCards' => ['type' => 'all']],
+        'attributes' => ['playTappedAllCards' => true],
       ],
       391 => [
         'description' => clienttranslate('You may play exhausted cards from your Reserve.'),
         'noTrigger' => true,
-        'attributes' => ['playTappedAllCards' => ['type' => 'all']],
+        'attributes' => ['playTappedAllCards' => true],
       ],
       347 => [
         'description' => clienttranslate('You may play exhausted Characters from your Reserve.'),
         'noTrigger' => true,
-        'attributes' => ['playTappedAllCards' => ['type' => CHARACTER, 'location' => ME]],
+        'attributes' => ['playTappedCharacters' => true],
       ],
       348 => [
         'description' => clienttranslate('You may ready an exhausted card in Reserve.'),

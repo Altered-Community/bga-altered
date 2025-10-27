@@ -867,6 +867,14 @@ class Player extends \ALT\Helpers\DB_Model
         }
       }
 
+      if (!is_bool($playTappedCharacters) && !is_array($playTappedCharacters)) {
+        if (Utils::checkAttributeCondition('tough', $playTappedCharacters, $this, $card) == "1") {
+          $playTappedCharacters = true;
+        } else {
+          $playTappedCharacters = false;
+        }
+      }
+
       if (!$playTappedCharacters && !$playAllTapped && (is_null($playTap) || empty($playTap))) {
         continue;
       }
