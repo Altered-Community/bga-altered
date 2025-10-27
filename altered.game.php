@@ -250,7 +250,7 @@ class altered extends Table
       $afterNight = Globals::getAfterNightCleanup()[$pId] ?? [];
       // throw new \feException(print_r($afterNight));
       if (!empty($afterNight)) {
-        // throw new \feException(print_r($afterRest));
+        // throw new \feException(print_r($afterNight));
         if (is_null($reaction)) {
           $reaction = $afterNight;
         } else {

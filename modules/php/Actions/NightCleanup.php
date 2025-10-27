@@ -101,11 +101,15 @@ class NightCleanup extends \ALT\Models\Action
     foreach ($cards as $cId => $card) {
       // Save information about original location
       $originalLocation = $card->getLocation();
+      $newId = $cId;
+      $sacrifice = false;
+      $isToken = $card->isToken();
       if ($originalLocation == LANDMARK) {
         $card->checkLeaveListener($destination, true, true); // Check leave listener
         if ($card->isToken()) {
           $destination = 'destroy';
         }
+        $sacrifice = true;
       } elseif (in_array($originalLocation, [RESERVE, STORM_LEFT, STORM_RIGHT])) {
         $card->checkLeaveListener($destination, true); // Check leave listener
       }
@@ -121,12 +125,18 @@ class NightCleanup extends \ALT\Models\Action
       $reactions = $this->logReactions('Discard', $player, [
         'discardCard' => true,
         'cardsToListen' => $cardIds, // we add the discarded cards as they should react even if not played
-        'discarded' => $cId,
         'from' => $originalLocation,
         'to' => $destination,
-      ]);
+        'sacrifice' => $sacrifice,
+        'cardId' => $newId,
+        'token' => $isToken,
+      ], true);
       if (!is_null($reactions)) {
         foreach ($reactions as $r => $reaction) {
+          if ($reaction['args']['cardId'] == $cId) {
+            // Effect has already been processed via the "check leave listener"
+            continue;
+          }
           $afterCleanup[$reaction['pId']][] = $reaction;
         }
       }

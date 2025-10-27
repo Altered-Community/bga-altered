@@ -240,12 +240,12 @@ class Action
       [
         'pId' => $player->getId(),
         'type' => 'action',
-        'action' => $overrideMethod ?? $this->getClassName(),
-        'method' => $overrideMethod ?? $method,
+        'action' => $overrideMethod == true ? $method : $this->getClassName(),
+        'method' =>  $method,
       ],
       $args
     );
-
+    // throw new \feException(print_r($event));
     $reaction = Cards::getReaction($event);
     // throw new \feException(print_r($reaction));
     // $this->pushParallelChilds($reaction);
