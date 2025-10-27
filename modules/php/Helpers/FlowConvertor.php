@@ -4041,7 +4041,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may immediately play a Permanent with Base Cost {3} or less for free.'),
         'output' => FT::ACTION(
           CHOOSE_ASSIGNMENT,
-          ['actions' => ['play'], 'maxBaseCost' => 3, 'free' => true, 'types' => [CHARACTER]],
+          ['actions' => ['play'], 'maxBaseCost' => 3, 'free' => true, 'types' => [PERMANENT]],
           ['optional' => true]
         ),
       ],
