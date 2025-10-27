@@ -394,6 +394,7 @@ class Target extends \ALT\Models\Action
     list($excludeIncreaseCard, $increaseOther) = $player->hasIncreaseAllOtherCharactersBiomesHighest();
 
     $cards = Cards::getMany($cardIds);
+    $source = $this->getSource();
     if ($this->getArg('allIds') === true) {
       $node = $this->getArg('effect');
       if (!is_null($node)) {
@@ -420,7 +421,7 @@ class Target extends \ALT\Models\Action
           $node = $this->updateCardId($node, $cardId, $cardFrom, $this->getSourceId(), $card->getPlayer()->getId());
           if (in_array($cardFrom, [STORM_LEFT, STORM_RIGHT])) {  // in case of invoking token combined with a sacrifice
             $node = Utils::updateTree($node, [0 => 'source'], [$cardFrom], ['targetLocation']);
-            $node = Utils::updateTree($node, [0 => 'oppositeSource'], [$cardFrom == STORM_LEFT ? STORM_RIGHT : STORM_LEFT], ['targetLocation']);
+            $node = Utils::updateTree($node, [0 => 'oppositeSource'], [$source->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT], ['targetLocation']);
             $discardSource = $cardFrom . '-' . $card->getPId();
             $node = Utils::updateTree($node, [0 => 'discardedSource'], [$discardSource], ['targetLocation']);
             // if the discarded card is the source, need to update the location
