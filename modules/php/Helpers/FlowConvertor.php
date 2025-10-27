@@ -497,7 +497,7 @@ abstract class FlowConvertor
       ],
       188 => ['description' => clienttranslate('If you control a token:'), 'condition' => 'hasControl:token:1'],
       189 => ['description' => clienttranslate('If you control one or more Landmarks:'), 'condition' => 'hasControl:landmark:1'],
-      190 => ['description' => clienttranslate('If I\'m not [FLEETING]:'), 'condition' => 'notFleeting'],
+      190 => ['description' => clienttranslate('If I\'m not <FLEETING>:'), 'condition' => 'notFleeting'],
       191 => ['description' => clienttranslate('[]]')],
       198 => ['description' => clienttranslate('If you have less than eight Mana Orbs:'), 'condition' => 'hasLess8Mana'],
       201 => [
@@ -1254,7 +1254,7 @@ abstract class FlowConvertor
         ]),
       ],
       88 => [
-        'description' => clienttranslate('You may have target Character other than me lose [FLEETING] and gain 1 boost.'),
+        'description' => clienttranslate('You may have target Character other than me lose <FLEETING> and gain 1 boost.'),
         'output' => FT::ACTION(TARGET, [
           'upTo' => true,
           'excludeSelf' => true,
@@ -1425,7 +1425,7 @@ abstract class FlowConvertor
         ]),
       ],
       116 => [
-        'description' => clienttranslate('Target Character other than me gains [FLEETING], [ANCHORED] or [ASLEEP].'),
+        'description' => clienttranslate('Target Character other than me gains <FLEETING>, <ANCHORED> or <ASLEEP>.'),
         'output' => FT::ACTION(TARGET, [
           'excludeSelf' => true,
           'effect' => FT::XOR(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, ANCHORED), FT::GAIN(EFFECT, ASLEEP)),
@@ -2355,19 +2355,17 @@ abstract class FlowConvertor
         'description' => clienttranslate(
           'Roll a die, then target a Character. On a 4+, it gains <ANCHORED>. On a 1-3, it gains <ASLEEP>.'
         ),
-        'output' => FT::SEQ(
-          FT::GAIN(ME, FLEETING),
-          FT::ACTION(ROLL_DIE, [
-            'effect' => [
-              '1-3' => FT::ACTION(TARGET, [
-                'effect' => FT::GAIN(EFFECT, ASLEEP),
-              ]),
-              '4+' => FT::ACTION(TARGET, [
-                'effect' => FT::GAIN(EFFECT, ANCHORED),
-              ]),
-            ],
-          ])
-        ),
+        'output' =>
+        FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1-3' => FT::ACTION(TARGET, [
+              'effect' => FT::GAIN(EFFECT, ASLEEP),
+            ]),
+            '4+' => FT::ACTION(TARGET, [
+              'effect' => FT::GAIN(EFFECT, ANCHORED),
+            ]),
+          ],
+        ])
       ],
       420 => [
         'description' => clienttranslate('Sacrifice a Character in my Expedition and I gain 1 boost.'),
