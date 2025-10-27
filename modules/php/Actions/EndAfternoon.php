@@ -33,7 +33,7 @@ class EndAfternoon extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return Globals::isDayPhase();
+    return Globals::isDayPhase() && !in_array($player->getId(), Globals::getSkippedPlayers());
   }
 
   public function stEndAfternoon()
