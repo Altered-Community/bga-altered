@@ -7,7 +7,7 @@ use ALT\Core\Game;
 use ALT\Core\Notifications;
 use ALT\Helpers\FlowConvertor;
 use ALT\Helpers\Utils;
-use ALT\Helpers\Log;
+use ALT\Core\Engine;
 use ALT\Managers\Players;
 use ALT\Models\Card;
 
@@ -620,6 +620,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function shuffleDeck($location)
   {
+    Engine::checkpoint();
     $player = Players::get(explode('-', $location)[1]);
     Notifications::shuffleDeck($player, $location, self::countInLocation($location));
     Notifications::refreshUI(Game::get()->getAllDatas(true));
