@@ -4421,7 +4421,7 @@ abstract class FlowConvertor
       unset($properties['dynamicCostReduction']);
     } elseif ($trinity['trigger'] == 258) {
       $node['MoveExpedition']['conditions'][] = 'isNotNight';
-      $node['AfterDusk']['conditions'][] = 'isNight';
+      // $node['AfterDusk']['conditions'][] = 'isNight'; // removed as afterdusk is necessarily during night
     }
 
     // dynamic attributes generate empty node
