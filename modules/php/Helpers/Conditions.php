@@ -1472,7 +1472,7 @@ abstract class Conditions
   // TODO multiplayer
   public static function isOpponentExpeditionEmpty($card, $event)
   {
-    return self::countOpponentExpedition($card, $event) == 0;
+    return self::countOpponentExpedition($card, $event, CHARACTER) == 0;
     // $opponent = null;
     // foreach (Players::getAll() as $pId => $player) {
     //   if ($pId != $card->getPId()) {
