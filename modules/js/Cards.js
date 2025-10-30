@@ -480,6 +480,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       let cards = args._private.cards;
       cards.forEach((cardId) => {
+        if (!$(`card-${cardId}`)) {
+          return;
+        }
         this.onClick(`card-${cardId}`, () => {
           if (cardId == selectedCard) {
             unselectIfNeeded();
