@@ -1015,14 +1015,23 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return count(
       $this->getPlayedCards()->filter(function ($card) {
-        $dynSplit = explode(':', $card->getDynamicGigantic());
-        if (count($dynSplit) > 1) {
-          // we need to test if ok, add change dynamic tough to the value of 0
-          if (!is_null(Utils::checkAttributeCondition('gigantic', $card->getDynamicGigantic(), $this, $card))) {
-            return $dynSplit[0] == 'universalGiganticToken';
+        $dynamicGigantic = $card->getDynamicGigantic();
+        if (!is_array($dynamicGigantic) && $dynamicGigantic != '') {
+          $dynamicGigantic = [$dynamicGigantic];
+        } elseif ($dynamicGigantic == '') {
+          $dynamicGigantic = [];
+        }
+
+        foreach ($dynamicGigantic as $singleGigantic) {
+          $dynSplit = explode(':', $singleGigantic);
+          if (count($dynSplit) > 1) {
+            // we need to test if ok, add change dynamic tough to the value of 0
+            if (!is_null(Utils::checkAttributeCondition('gigantic', $singleGigantic, $this, $card))) {
+              return $dynSplit[0] == 'universalGiganticToken';
+            }
+          } else {
+            return $singleGigantic == 'universalGiganticToken';
           }
-        } else {
-          return $card->getDynamicGigantic() == 'universalGiganticToken';
         }
       })
     );

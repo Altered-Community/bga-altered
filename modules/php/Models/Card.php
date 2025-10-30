@@ -994,12 +994,19 @@ class Card extends \ALT\Helpers\DB_Model
     if (in_array($this->getType(), [TOKEN, CHARACTER])) {
 
       $dynamicGigantic = $this->getDynamicGigantic();
-      // throw new \feException($dynamicGigantic);
-      $dynSplit = explode(':', $dynamicGigantic);
-      if (count($dynSplit) > 1) {
-        // we need to test if ok, add change dynamic tough to the value of 0
-        if ($dynSplit[0] != 'universalGiganticToken' && !is_null(Utils::checkAttributeCondition('gigantic', $dynamicGigantic, $this->getPlayer(), $this))) {
-          return $dynSplit[0];
+      if (!is_array($dynamicGigantic) && $dynamicGigantic != '') {
+        $dynamicGigantic = [$dynamicGigantic];
+      } elseif ($dynamicGigantic == '') {
+        $dynamicGigantic = [];
+      }
+
+      foreach ($dynamicGigantic as $singleGigantic) {
+        $dynSplit = explode(':', $singleGigantic);
+        if (count($dynSplit) > 1) {
+          // we need to test if ok, add change dynamic tough to the value of 0
+          if ($dynSplit[0] != 'universalGiganticToken' && !is_null(Utils::checkAttributeCondition('gigantic', $dynamicGigantic, $this->getPlayer(), $this))) {
+            return $dynSplit[0];
+          }
         }
       }
 
