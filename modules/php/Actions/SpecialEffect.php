@@ -1330,7 +1330,9 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostAndRemoveFromExpedition':
         $player = $card->getPlayer();
         $expeditionCards = $player->getPlayedCards()->filter(function ($c) use ($card) {
-          return in_array($c->getType(), [TOKEN, CHARACTER]) && $card->getLocation() == $c->getLocation() && $card->getId() != $c->getId();
+          return in_array($c->getType(), [TOKEN, CHARACTER]) &&
+            ($card->getLocation() == $c->getLocation() || ($card->isGigantic() && in_array($c->getLocation(), STORMS))) &&
+            $card->getId() != $c->getId();
         });
         if ($expeditionCards->count() > 0) {
           $nodes = [];

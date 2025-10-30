@@ -842,7 +842,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         // encoding UID into Ints
         // 103423
         // 1 = in deck
-        // 0034 = card number
+        // 034 = card number
         // 2 = Rarity R1
         // 3 = faction code
         $uid = explode('_', $card->getUid());

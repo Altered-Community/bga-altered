@@ -130,7 +130,7 @@ class RollDie extends \ALT\Models\Action
     for ($i = 0; $i < $nTotal; $i++) {
       $roll = bga_rand(1, 6);
       if (Game::get()->getBgaEnvironment() == 'studio') {
-        $roll = 3;
+        $roll = 5;
       }
       $rolls[] = $roll;
     }
