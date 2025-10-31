@@ -98,6 +98,7 @@ trait EngineTrait
 
   function actAnytimeAction($choiceId, $auto = false)
   {
+    Notifications::resetCache();
     $args = $this->gamestate->state()['args'];
     if (!isset($args['anytimeActions'][$choiceId])) {
       throw new \BgaVisibleSystemException('You can\'t take this anytime action');
@@ -118,6 +119,7 @@ trait EngineTrait
    */
   function actTakeAtomicAction($actionName, $args)
   {
+    Notifications::resetCache();
     self::checkAction($actionName);
     $action = $this->getCurrentAtomicAction();
     $ctx = Engine::getNextUnresolved();
@@ -129,6 +131,7 @@ trait EngineTrait
    */
   function actPassOptionalAction($auto = false)
   {
+    Notifications::resetCache();
     if ($auto) {
       $this->gamestate->checkPossibleAction('actPassOptionalAction');
     } else {
@@ -144,6 +147,7 @@ trait EngineTrait
    */
   function stAtomicAction()
   {
+    Notifications::resetCache();
     $action = $this->getCurrentAtomicAction();
     Actions::stAction($action, Engine::getNextUnresolved());
   }

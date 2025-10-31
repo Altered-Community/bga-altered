@@ -64,7 +64,7 @@ class altered extends Table
     ]);
     Engine::boot();
     // Stats::checkExistence();
-    Notifications::resetCache();
+    // Notifications::resetCache(); // commented as issue as it's needed for Storm calculation
 
     // EXPERIMENTAL to avoid deadlocks. This locks the global table early in the game constructor.
     $this->bSelectGlobalsForUpdate = true;
@@ -83,6 +83,7 @@ class altered extends Table
   public function getAllDatas($refresh = false): array
   {
     $pId = self::getCurrentPId();
+
     return [
       'prefs' => Preferences::getUiData($pId),
       'players' => Players::getUiData($pId),
