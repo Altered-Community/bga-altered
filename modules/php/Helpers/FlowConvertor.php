@@ -4415,6 +4415,15 @@ abstract class FlowConvertor
           'conditions' => ['isSource', 'isFacingSource'],
           'output' => FT::SABOTAGE(),
         ];
+      } elseif ($trinity['trigger'] == 1) {
+        $properties['effectReserve'] = FT::ACTION(TARGET, [
+          'upTo' => true,
+          'effect' => FT::GAIN(EFFECT, ASLEEP),
+        ]);
+        $properties['effectPassive']['Gain'] = [
+          'conditions' => ['isSource', 'isFacingSource'],
+          'output' => FT::SABOTAGE(),
+        ];
       }
     } elseif ($trinity['output'] == 114 && $trinity['condition'] == 357) {
       $properties['costReductionIfEmpty'] = 2;
