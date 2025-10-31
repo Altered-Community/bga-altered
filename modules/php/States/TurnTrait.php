@@ -336,7 +336,6 @@ trait TurnTrait
     // foreach (Players::getAll() as $pId => $player) {
     //   $player->nightCleanup();
     // }
-    Meeples::nightCleanup();
     Globals::setActivePId(Globals::getFirstPlayer());
     $this->gamestate->changeActivePlayer(Globals::getFirstPlayer());
     Engine::proceed();
@@ -344,6 +343,7 @@ trait TurnTrait
 
   function stAfterNightCleanup()
   {
+    Meeples::nightCleanup();
     Globals::setStormMoves([]); // moved to be able to test Expedition cleanup
     $this->checkCardListeners('BeforeNight', 'stPreNight', []);
   }

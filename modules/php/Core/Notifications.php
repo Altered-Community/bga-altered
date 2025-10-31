@@ -52,7 +52,7 @@ class Notifications
       $name = $listener['name'];
       $method = $listener['method'];
       $val = call_user_func($method);
-      if ($val !== self::$cachedValues[$name]) {
+      if ($val !== (self::$cachedValues[$name] ?? 'toto')) {
         self::$cachedValues[$name] = $val;
         $toSend[$name] = $val;
       }
