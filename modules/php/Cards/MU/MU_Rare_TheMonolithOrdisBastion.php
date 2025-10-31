@@ -27,11 +27,11 @@ class MU_Rare_TheMonolithOrdisBastion extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCardAdded:characterOnly',
+          'condition' => 'isCardAddedAnyPlayer:characterOnly',
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
         'MoveCard' => [
-          'conditions' => ['isCardAdded:characterOnly', 'hasSameOwner', 'isStillSameLocation'],
+          'conditions' => ['isCardAddedAnyPlayer:characterOnly', 'hasSameOwner', 'isStillSameLocation'],
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
