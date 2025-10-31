@@ -631,6 +631,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
             $(`card-${card.id}`).classList.add('tapped');
           }
+           if (card.location.indexOf('reveal') == 0) {
+                this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
+            }
         });
         this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
@@ -650,6 +653,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             let source = n.args.stealing ? $(`counter-${n.args.stealing}-${counter}`) : $(`board-deck-${n.args.player_id}`);
             if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
               $(`card-${card.id}`).classList.add('tapped');
+            }
+            if (card.location.indexOf('reveal') == 0) {
+                this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
             }
             return this.slide(`card-${card.id}`, container, {
               from: source,
