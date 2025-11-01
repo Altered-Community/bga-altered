@@ -29,9 +29,10 @@ class AX_Common_TheGrems extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 2,
             'effectReserve' => FT::XOR_OPTIONAL(
-                FT::ACTION(TARGET, ['maxHandCost' => 3, 'targetPlayer' => OPPONENT, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+                FT::ACTION(TARGET, ['maxHandCost' => 3, 'upTo' => true, 'targetPlayer' => OPPONENT, 'targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
                 FT::ACTION(TARGET, [
                     'targetPlayer' => ME,
+                    'upTo' => true,
                     'targetType' => [PERMANENT],
                     'effect' => FT::SEQ(
                         FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
