@@ -332,7 +332,7 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getResupply2()
   {
-    foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
+    foreach ($this->getPlayedCards() as $cId => $card) {
       if ($card->getResupply2()) {
         return true;
       }
