@@ -1583,8 +1583,10 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'reveal':
         $toReveal = $this->getCard();
-        $toReveal->setRevealed(true);
+        $toReveal->setLocation(LIMBO);
         Notifications::reveal($toReveal, $card);
+        // Interrupt to check that player saw the card
+        $this->insertAsChild(FT::ACTION(INTERUPT_REVEAL, [], ['pId' => Players::getNext(Players::getActive())->getId()]));
         break;
       case 'ascend':
         $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();

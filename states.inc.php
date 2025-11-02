@@ -542,6 +542,15 @@ $machinestates = [
     'possibleactions' => ['actMoveRegionMarker', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_INTERRUPT_REVEAL => [
+    'name' => 'interuptReveal',
+    'description' => clienttranslate('${actplayer} must confirm that the card is seen'),
+    'descriptionmyturn' => clienttranslate('${you} must confirm that the card is seen'),
+    'args' => 'argsAtomicAction',
+    'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
+    'possibleactions' => ['actInteruptReveal', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
 
   ////////////////////////////////////
   //  _____             _

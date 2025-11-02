@@ -334,6 +334,10 @@ class Action
       $node['args']['ownerId'] = $ownerId;
     }
 
+    if (!isset($node['pId'])) {
+      $node['pId'] = $ownerId;
+    }
+
     if (isset($node['1-3'])) {
       $node['1-3'] = $this->updateCardId($node['1-3'], $cardId, $cardFrom, $sourceId, $ownerId);
     }

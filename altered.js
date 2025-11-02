@@ -2185,6 +2185,10 @@ define([
       });
     },
 
+    onEnteringStateInteruptReveal(args) {
+        this.addPrimaryActionButton('btnConfirmReveal', _("Confirm"), () =>this.takeAtomicAction('actInteruptReveal',[]));
+    },
+
     onEnteringStateMarkRegionExpedition(args) {
       Object.keys(args.regions).forEach((id) => {
         storm = $(`storm-${id}`);

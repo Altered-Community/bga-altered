@@ -47,7 +47,8 @@ class Actions
     BOOST_EXCHANGE,
     END_AFTERNOON,
     MARK_REGION,
-    MOVE_REGION_MARKER
+    MOVE_REGION_MARKER,
+    INTERUPT_REVEAL
   ];
 
   public static function get($actionId, &$ctx = null)
