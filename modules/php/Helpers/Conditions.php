@@ -443,7 +443,7 @@ abstract class Conditions
 
     if (!is_null($type) && $type != '' && in_array($type, SUBTYPES)) {
       $cards = $cards->filter(function ($c) use ($type) {
-        return in_array($type, SUBTYPES);
+        return in_array($type, $c->getSubtypes());
       });
     }
 
