@@ -76,12 +76,12 @@ class Resupply extends \ALT\Models\Action
     $pId = $this->ctx->getPId();
     if ($this->getArg('player') == 'owner') {
       $pId = $this->getArg('ownerId');
-    } elseif (is_null($pId)) {
-      $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
     } elseif ($pId == 'active') {
       $pId = Players::getActiveId();
     } elseif ($this->getArg('player') == 'nextPlayer') {
       $pId = Players::getNextId(Players::getActive());
+    } elseif (is_null($pId)) {
+      $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
     }
 
     return Players::get($pId);
