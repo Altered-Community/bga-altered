@@ -37,7 +37,7 @@ class BR_Rare_LeviathanSpotter extends \ALT\Models\Card
         'minHandCost' => 4,
         'effect' => FT::SEQ(
           FT::ACTION(SPECIAL_EFFECT, ['effect' => 'reveal']),
-          FT::ACTION(DRAW, ['players' => ME])
+          FT::ACTION(DRAW, ['players' => ME], ['pId' => 'owner'])
         )
       ])
     ];

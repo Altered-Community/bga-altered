@@ -334,7 +334,7 @@ class Action
       $node['args']['ownerId'] = $ownerId;
     }
 
-    if (!isset($node['pId'])) {
+    if (isset($node['pId']) && $node['pId'] == 'owner') {
       $node['pId'] = $ownerId;
     }
 
