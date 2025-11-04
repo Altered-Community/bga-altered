@@ -1004,7 +1004,7 @@ class Card extends \ALT\Helpers\DB_Model
         $dynSplit = explode(':', $singleGigantic);
         if (count($dynSplit) > 1) {
           // we need to test if ok, add change dynamic tough to the value of 0
-          if ($dynSplit[0] != 'universalGiganticToken' && !is_null(Utils::checkAttributeCondition('gigantic', $dynamicGigantic, $this->getPlayer(), $this))) {
+          if ($dynSplit[0] != 'universalGiganticToken' && !is_null(Utils::checkAttributeCondition('gigantic', $singleGigantic, $this->getPlayer(), $this))) {
             return $dynSplit[0];
           }
         }
