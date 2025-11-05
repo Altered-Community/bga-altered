@@ -131,9 +131,13 @@ class Target extends \ALT\Models\Action
       // check if we have cards to pay and not enough mana
       $targetCosts = $this->getTargetCosts($player);
       $totalCost = 0;
+
       if ((count($targetCards) - count($targetCosts)) <= 2) {
-        foreach ($targetCosts as $cId => $cost) {
-          $totalCost += $cost;
+        $costs = array_values($targetCosts);
+        asort($costs);
+        $valuesToGet = count($targetCards) - count($targetCosts) - 1;
+        for ($i = 0; $i <= $valuesToGet; $i++) {
+          $totalCost += $costs[$i];
         }
       }
       if ($totalCost > $player->getMana()) {
