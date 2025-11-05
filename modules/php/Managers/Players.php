@@ -648,6 +648,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       $isAscended = $player->isAscended($expedition);
       foreach ($playerMoves as $expedition => $winningBiomes) {
         $side = $expedition == STORM_LEFT ? HERO : COMPANION;
+        $n = 1;
         if ($player->hasAdvanceTwiceDusk($expedition) > 0) {
           $n = $player->hasAdvanceTwiceDusk($expedition) + 1;
         }
