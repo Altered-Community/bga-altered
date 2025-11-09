@@ -4449,7 +4449,7 @@ abstract class FlowConvertor
           'effect' => FT::GAIN(EFFECT, ASLEEP),
         ]);
         $properties['effectPassive']['Gain'] = [
-          'conditions' => ['isSource', 'isFacingSource', 'isFromHand'],
+          'conditions' => ['isSource', 'isFacingSource'],
           'output' => FT::SABOTAGE(),
         ];
       } elseif ($trinity['trigger'] == 24) {
