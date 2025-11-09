@@ -376,6 +376,7 @@ abstract class FlowConvertor
           'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
           'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       171 => [
         'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Permanent:'),
@@ -430,6 +431,7 @@ abstract class FlowConvertor
           'upTo' => true,
           'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       176 => ['description' => clienttranslate('If you control two or more Landmarks:'), 'condition' => 'hasControl:landmark:2'],
       177 => [
@@ -449,6 +451,7 @@ abstract class FlowConvertor
           'upTo' => true,
           'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       179 => ['description' => clienttranslate('If you control three or more Characters:'), 'condition' => 'hasControl::3'],
       180 => [
@@ -459,6 +462,7 @@ abstract class FlowConvertor
           'upTo' => true,
           'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       181 => ['description' => clienttranslate('If I have 1 or more boosts:'), 'condition' => 'hasBoost'],
       182 => [
@@ -474,12 +478,14 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
+        'ifYouDo' => true,
       ],
       183 => ['description' => clienttranslate('If I have 2 or more boosts:'), 'condition' => 'hasBoost:2'],
       186 => [
         'description' => clienttranslate('You may pay {1}. If you do:'),
         'effect' => FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 1]), 'OUTPUT'),
         'optional' => true,
+        'ifYouDo' => true,
       ],
       187 => [
         'description' => clienttranslate('You may discard a card from your Reserve. If you do:'),
@@ -494,6 +500,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
+        'ifYouDo' => true,
       ],
       188 => ['description' => clienttranslate('If you control a token:'), 'condition' => 'hasControl:token:1'],
       189 => ['description' => clienttranslate('If you control one or more Landmarks:'), 'condition' => 'hasControl:landmark:1'],
@@ -511,6 +518,7 @@ abstract class FlowConvertor
       247 => [
         'description' => clienttranslate('You may sacrifice me. If you do:'),
         'effect' => FT::SEQ_OPTIONAL(FT::ACTION(DISCARD, ['desc' => 'sacrifice', 'cardId' => ME]), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       // Alizé
       354 => [
@@ -635,6 +643,7 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
+        'ifYouDo' => true,
       ],
       374 => [
         'description' => clienttranslate('You may discard a Spell from your Reserve. If you do:'),
@@ -649,14 +658,17 @@ abstract class FlowConvertor
           ],
           ['optional' => true]
         ),
+        'ifYouDo' => true,
       ],
       375 => [
         'description' => clienttranslate('You may have me gain <FLEETING>. If you do:'),
         'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       385 => [
         'description' => clienttranslate('You may have me gain <FLEETING>. If you do:'),
         'effect' => FT::SEQ_OPTIONAL(FT::GAIN(ME, FLEETING), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       376 => [
         'description' => clienttranslate('You may ready an exhausted card in Reserve. If you do:'),
@@ -667,6 +679,7 @@ abstract class FlowConvertor
           'upTo' => true,
           'effect' => FT::SEQ(FT::ACTION(READY, []), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       370 => [
         'description' => clienttranslate('You may sacrifice another Robot or Permanent. If you do:'),
@@ -687,6 +700,7 @@ abstract class FlowConvertor
             'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT'),
           ])
         ),
+        'ifYouDo' => true,
       ],
       // Bise
       521 => ['description' => clienttranslate('4+:'), 'condition' => '4+'], // TODO: attente clarification Jacques
@@ -710,14 +724,17 @@ abstract class FlowConvertor
       511 => [
         'description' => clienttranslate('You may have target opponent draw a card. If you do:'),
         'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::ACTION(DRAW, ['players' => OPPONENT]), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       512 => [
         'description' => clienttranslate('You may spend 1 of my boosts. If you do:'),
         'effect' => FT::SEQ_OPTIONAL(FT::ACTION(SPEND, ['cardId' => ME, 'effect' => 'OUTPUT'])),
+        'ifYouDo' => true,
       ],
       513 => [
         'description' => clienttranslate('You may spend 2 of my boosts. If you do:'),
         'effect' => FT::SEQ_OPTIONAL(FT::ACTION(SPEND, ['cardId' => ME, 'n' => 2, 'effect' => 'OUTPUT'])),
+        'ifYouDo' => true,
       ],
       514 => [
         'description' => clienttranslate('You may spend 1 counter from a card you control or in your Reserve. If you do:'),
@@ -731,6 +748,7 @@ abstract class FlowConvertor
             'effect' => 'OUTPUT',
           ]),
         ]),
+        'ifYouDo' => true,
       ],
       538 => ['description' => clienttranslate('If your hand is empty:'), 'condition' => 'isHandEmpty'],
       // Cyclone
@@ -825,10 +843,12 @@ abstract class FlowConvertor
       635 => [
         'description' => clienttranslate('You may <RUSH>. If you do:'),
         'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::RUSH(), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       636 => [
         'description' => clienttranslate('You may <RUSH>. If you do:'),
         'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::RUSH(), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       637 => [
         'description' => clienttranslate('You may have target Character facing me gain <ANCHORED>. If you do:'),
@@ -837,14 +857,17 @@ abstract class FlowConvertor
           'upTo' => true,
           'effect' => FT::SEQ(FT::GAIN(EFFECT, ANCHORED), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       638 => [
         'description' => clienttranslate('You may immediately pass. If you do:'),
         'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::ACTION(END_AFTERNOON, []), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       639 => [
         'description' => clienttranslate('You may immediately pass. If you do:'),
         'effect' => FT::SEQ_OPTIONAL_MANUAL(FT::ACTION(END_AFTERNOON, []), 'OUTPUT'),
+        'ifYouDo' => true,
       ],
       640 => [
         'description' => clienttranslate('You may put a Permanent from your hand in Reserve. If you don\'t:'),
@@ -884,6 +907,7 @@ abstract class FlowConvertor
           'minHandCost' => 4,
           'effect' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'reveal']), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       643 => [
         'description' => clienttranslate('You may reveal a Spell with Hand Cost {4} or more from your hand. If you do:'),
@@ -895,6 +919,7 @@ abstract class FlowConvertor
           'minHandCost' => 4,
           'effect' => FT::SEQ(FT::ACTION(SPECIAL_EFFECT, ['effect' => 'reveal']), 'OUTPUT'),
         ]),
+        'ifYouDo' => true,
       ],
       644 => [
         'description' => clienttranslate('You may sacrifice a Character or Permanent. If you don\'t:'),
@@ -3648,6 +3673,7 @@ abstract class FlowConvertor
           'automatic' => true,
           'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
         ],
+        'oppositeOutput' => FT::ACTION(RESUPPLY, [])
       ],
       672 => [
         'description' => clienttranslate(
@@ -4218,14 +4244,23 @@ abstract class FlowConvertor
         }
 
         if (isset($calculated['oppositeOutput'])) {
-          // management of Otherwise effect
-          // Need to add another check condition as the trigger condition must be valid, but the condition is with the opposite
-          $template['output'] = FT::ACTION(CHECK_CONDITION, [
-            'conditions' => $calculated['conditionConditions'] ?? [],
-            'effect' => $calculated['conditionEffect'] ?? 'OUTPUT',
-            'oppositeEffect' => $calculated['oppositeOutput'],
-            'description' => [$calculated['conditionDescription'] ?? null, $calculated['outputDescription'] ?? null],
-          ]);
+          // if it's a "if you do " with otherwise, it cannot be a check condition as an action from the user is expected
+          if ($calculated['ifYouDo']) {
+            // put a XOR node
+            $template['output'] = FT::XOR(
+              $calculated['conditionEffect'] ?? 'OUTPUT',
+              $calculated['oppositeOutput']
+            );
+          } else {
+            // management of Otherwise effect
+            // Need to add another check condition as the trigger condition must be valid, but the condition is with the opposite
+            $template['output'] = FT::ACTION(CHECK_CONDITION, [
+              'conditions' => $calculated['conditionConditions'] ?? [],
+              'effect' => $calculated['conditionEffect'] ?? 'OUTPUT',
+              'oppositeEffect' => $calculated['oppositeOutput'],
+              'description' => [$calculated['conditionDescription'] ?? null, $calculated['outputDescription'] ?? null],
+            ]);
+          }
         } else {
           if (isset($calculated['conditionEffect'])) {
             $template['output'] = $calculated['conditionEffect'];
@@ -4292,6 +4327,12 @@ abstract class FlowConvertor
           $eff['pId'] = $calculated['pId'];
         }
       }
+    }
+
+    if ($calculated['ifYouDo'] && isset($calculated['oppositeOutput'])) {
+      // we remove the optional values
+      $node = Utils::updateTree($node, true, false, ['optional']);
+      $node = Utils::updateTree($node, true, false, ['upTo']);
     }
 
     // needed for passive effects in reaction to a classical output (171 for example)
@@ -4640,6 +4681,7 @@ abstract class FlowConvertor
     if (isset($conditions['passiveEffect'])) {
       $calculated['passiveEffect'] = $conditions['passiveEffect'];
     }
+    $calculated['ifYouDo'] = $conditions['ifYouDo'] ?? false;
   }
 
   public static function computeOutput($effect, &$calculated)
