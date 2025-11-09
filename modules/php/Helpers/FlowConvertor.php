@@ -4295,6 +4295,11 @@ abstract class FlowConvertor
     }
     // throw new \feException(print_r($node));
     // output
+
+    if (in_array($trinity['condition'], [642, 643])) {
+      $calculated['output'] = Utils::tagTree($calculated['output'], ['pId' => 'owner']);
+    }
+
     if (isset($calculated['output'])) {
       self::addOutputToNode($calculated['output'], $node);
     }
@@ -4473,6 +4478,10 @@ abstract class FlowConvertor
       $node['MoveExpedition']['conditions'][] = 'isNotNight';
       // $node['AfterDusk']['conditions'][] = 'isNight'; // removed as afterdusk is necessarily during night
     }
+    // elseif (in_array($trinity['condition'], [642, 643])) {
+    //   // we need to force owner after reveal
+    //   $node = Utils::tagTree($node, ['pId' => 'owner']);
+    // }
 
     // dynamic attributes generate empty node
     if (!empty($node)) {
