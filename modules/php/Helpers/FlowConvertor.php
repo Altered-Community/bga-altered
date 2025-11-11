@@ -871,19 +871,39 @@ abstract class FlowConvertor
       ],
       640 => [
         'description' => clienttranslate('You may put a Permanent from your hand in Reserve. If you don\'t:'),
-        'effect' => FT::ACTION(CHECK_CONDITION, [
-          'condition' => 'hasControl:permanent:1',
-          'description' => clienttranslate('if control permanent'),
-          'effect' => FT::XOR(
-            FT::ACTION(TARGET, [
-              'targetLocation' => [HAND],
-              'targetPlayer' => ME,
-              'targetType' => [PERMANENT],
-              'effect' => FT::DISCARD_TO_RESERVE(),
-            ]),
-            'OUTPUT'
-          ),
-        ]),
+        'effect' => FT::XOR(
+          FT::ACTION(CHECK_CONDITION, [
+            'condition' => 'hasControl:permanent:1',
+            'description' => clienttranslate('if control permanent'),
+            'effect' =>
+            FT::XOR(
+              FT::ACTION(
+                TARGET,
+                [
+                  'targetLocation' => [HAND],
+                  'targetPlayer' => ME,
+                  'targetType' => [PERMANENT],
+                  'effect' => FT::DISCARD_TO_RESERVE(),
+                ]
+              ),
+              'OUTPUT'
+            )
+          ]),
+          FT::ACTION(CHECK_CONDITION, [
+            'condition' => 'hasControl:permanent:0:false:all:LTE',
+            'description' => clienttranslate('if no permanent'),
+            'effect' => FT::ACTION(
+              TARGET,
+              [
+                'targetLocation' => [HAND],
+                'targetPlayer' => ME,
+                'upTo' => true,
+                'targetType' => [PERMANENT],
+                'effect' => FT::DISCARD_TO_RESERVE(),
+              ]
+            ),
+          ]),
+        )
       ],
       641 => [
         'description' => clienttranslate('You may put a Spell from your hand in Reserve. If you don\'t:'),
