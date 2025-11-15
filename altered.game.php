@@ -125,7 +125,12 @@ class altered extends Table
       $distance = min($distance, $d);
     }
 
-    return (7 - $distance) / 7 * 100;
+    $progression = (7 - $distance) / 7 * 100;
+    if (Globals::getDay() >= 4) {
+      return min(50, $progression);
+    } else {
+      return $progression;
+    }
   }
 
   function actChangePreference($pref, $value)
