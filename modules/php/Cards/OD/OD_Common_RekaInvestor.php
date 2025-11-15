@@ -1,0 +1,30 @@
+<?php
+namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
+
+class OD_Common_RekaInvestor extends \ALT\Models\Card
+{
+  public function __construct($row){
+		parent::__construct($row);
+        $this->properties = [
+            'uid' => 'ALT_DUSTER_B_OR_92_C',
+            'asset'  => 'ALT_DUSTER_B_OR_92_C',
+
+    	'faction'  => FACTION_OD,
+    	'rarity'  => RARITY_COMMON,
+    	'name'  => clienttranslate("Reka Investor"),
+      'typeline' => clienttranslate("Character - Bureaucrat Rogue"),
+    	'type'  => CHARACTER,
+    	'flavorText'  => clienttranslate('"Trust me, it will all trickle down for everyone\'s benefit."'),
+      'artist' => "Anh Tung",
+			'extension'=>'SDU',
+   'subtypes'  => [BUREAUCRAT,ROGUE],
+ 				'effectDesc' => clienttranslate('At Dusk — Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
+     'forest' => 3, 
+     'mountain' => 3, 
+     'ocean' => 0, 
+     'costHand' => 3, 
+     'costReserve' => 3, 
+];
+  }
+}

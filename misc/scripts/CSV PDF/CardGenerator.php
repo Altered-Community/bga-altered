@@ -67,7 +67,7 @@ $factions = [
 
 $o = 0;
 $i = 0;
-if (($handle = fopen("bise_2025.csv", "r")) !== FALSE) {
+if (($handle = fopen("duster.csv", "r")) !== FALSE) {
   while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;
@@ -81,6 +81,7 @@ if (($handle = fopen("bise_2025.csv", "r")) !== FALSE) {
     if ($faction == 'OR') $faction = 'OD';
 
     $name = $row[4];
+    // echo ($name);
     $rarity = $row[3];
     //		if($rarity == 'RARE') continue;
 
@@ -112,7 +113,7 @@ if (($handle = fopen("bise_2025.csv", "r")) !== FALSE) {
     $ctr1 = $inStarter ? 'clienttranslate(' : '';
     $ctr2 = $inStarter ? ')' : '';
 
-    //		echo "	\"$className\": '$uid',\n";
+    echo "	\"$className\": '$uid',\n";
     //		continue;
 
     $changedStats = [];
@@ -161,14 +162,14 @@ class " . $className . " extends \ALT\Models\Card
             'uid' => '" . $uid . "',
             'asset'  => '" . $asset . "',
 
-    		'faction'  => FACTION_" . strtoupper($faction) . ",
-    		'rarity'  => RARITY_" . strtoupper($rarity) . ",
-    		'name'  => $ctr1\"" . $name . "\"$ctr2,
-            'typeline' => $ctr1\"" . $typeline . "\"$ctr2,
-    		'type'  => " . strtoupper($type) . ",
-    		'flavorText'  => $ctr1'" . str_replace("'", "\'", $flavor) . "'$ctr2,
-            'artist' => \"" . $artist . "\",
-			'extension'=>'WFTM',
+    	'faction'  => FACTION_" . strtoupper($faction) . ",
+    	'rarity'  => RARITY_" . strtoupper($rarity) . ",
+    	'name'  => $ctr1\"" . $name . "\"$ctr2,
+      'typeline' => $ctr1\"" . $typeline . "\"$ctr2,
+    	'type'  => " . strtoupper($type) . ",
+    	'flavorText'  => $ctr1'" . str_replace("'", "\'", $flavor) . "'$ctr2,
+      'artist' => \"" . $artist . "\",
+			'extension'=>'SDU',
   ");
 
 
@@ -207,12 +208,21 @@ class " . $className . " extends \ALT\Models\Card
     if ($effect != '') {
       if (str_contains($effect, "SCOUT")) {
         fwrite($fp, " 		'scout' => 99,\n");
-      } elseif (str_contains($effect, '<COOLDOWN>')) {
+      }
+      if (str_contains($effect, '<COOLDOWN>')) {
         fwrite($fp, " 		'cooldown' => true,\n");
-      } elseif (str_contains($effect, '<SEASONED>')) {
+      }
+      if (str_contains($effect, '<SEASONED>')) {
         fwrite($fp, " 		'seasoned' => true,\n");
-      } elseif (str_contains($effect, '<GIGANTIC>')) {
+      }
+      if (str_contains($effect, '<GIGANTIC>')) {
         fwrite($fp, " 		'gigantic' => true,\n");
+      }
+      if (str_contains($effect, '<RUSH>')) {
+        fwrite($fp, " 		'rush' => 'todo',\n");
+      }
+      if (str_contains($effect, '<TOUGH_1>')) {
+        fwrite($fp, " 		'tough'=>1,\n");
       }
     }
 
