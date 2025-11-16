@@ -21,7 +21,7 @@ class Gain extends \ALT\Models\Action
     $player = $this->getPlayer();
     $gain = $this->getGain();
     $desc = Utils::resourcesToStr([$gain[0] => $gain[1]], true);
-    $upTo = $this->getArg('upTo');
+    $upTo = $this->getUpTo();
 
     if ($this->getArg('augment') == true) {
       return [
@@ -30,7 +30,7 @@ class Gain extends \ALT\Models\Action
       ];
     }
 
-    if ($upTo == 99) {
+    if ($upTo >= 99) {
       if ($player->getId() == Players::getActiveId()) {
         return [
           'log' => clienttranslate('Gain ${resources_desc}'),
@@ -150,6 +150,16 @@ class Gain extends \ALT\Models\Action
     return [$this->getArg('type'), $n];
   }
 
+  public function getUpTo()
+  {
+    $upTo = $this->getArg('upTo');
+    if ($this->getCard()->getLocation() == RESERVE) {
+      return $this->getCard()->getPlayer()->getReserveAdd() + $upTo;
+    } else {
+      return $upTo;
+    }
+  }
+
   public function gain($player, $card, $resource, $amount = 1, $source = null, $args = [])
   {
     $dynamicReplace = $card->getDynamicGainReplace();
@@ -206,7 +216,7 @@ class Gain extends \ALT\Models\Action
     }
     $card = $this->getCard();
     $args = $this->getCtxArgs();
-    $upTo = $this->getArg('upTo');
+    $upTo = $this->getUpTo();
 
     list($resource, $amount) = $this->getGain();
 

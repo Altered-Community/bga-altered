@@ -2303,6 +2303,14 @@ html {
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_CYCLONE_B_BR_83_C] {
   background-image: url("img/illustrations/BR/ALT_CYCLONE_B_BR_83_C.jpg");
 }
+.altered-card .altered-card-wrapper[data-asset=ALT_BISE_P_BR_64_C],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_BISE_P_BR_64_C] {
+  background-image: url("img/illustrations/BR/ALT_BISE_P_BR_64_C.jpg");
+}
+.altered-card .altered-card-wrapper[data-asset=ALT_BISE_P_BR_64_R],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_BISE_P_BR_64_R] {
+  background-image: url("img/illustrations/BR/ALT_BISE_P_BR_64_R.jpg");
+}
 .altered-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_LY_34_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_LY_34_C] {
   background-image: url("img/illustrations/LY/ALT_ALIZE_A_LY_34_C.jpg");

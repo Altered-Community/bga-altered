@@ -180,6 +180,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Patch note 20251003
     'blockMoveExpedition' => 'bool', // Unique Will O the Wisp
+    'reserveAdd' => 'int',
   ];
 
   /********* DB ACCESS *********/
