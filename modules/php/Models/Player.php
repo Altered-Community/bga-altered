@@ -330,6 +330,15 @@ class Player extends \ALT\Helpers\DB_Model
     return $add;
   }
 
+  public function getReserveAdd()
+  {
+    $add = 0;
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      $add += $card->getReserveAdd();
+    }
+    return $add;
+  }
+
   public function getResupply2()
   {
     foreach ($this->getPlayedCards() as $cId => $card) {

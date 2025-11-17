@@ -30,28 +30,45 @@ class AX_Rare_Kali extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['mountain'],
       'effectHand' =>
-      FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'hasControl:permanent:1',
-        'description' => clienttranslate('if control permanent'),
-        'effect' =>
-        FT::XOR(
+      FT::XOR(
+        FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'hasControl:permanent:1',
+          'description' => clienttranslate('if control permanent'),
+          'effect' =>
+          FT::XOR(
+            FT::ACTION(
+              TARGET,
+              [
+                'targetLocation' => [HAND],
+                'targetPlayer' => ME,
+                'targetType' => [PERMANENT],
+                'effect' => FT::DISCARD_TO_RESERVE(),
+              ]
+            ),
+            FT::ACTION(TARGET, [
+              'targetPlayer' => ME,
+              'targetType' => [PERMANENT],
+              'effect' =>
+              FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
+            ])
+          )
+        ]),
+        FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'hasControl:permanent:0:false:all:LTE',
+          'description' => clienttranslate('if no permanent'),
+          'effect' =>
           FT::ACTION(
             TARGET,
             [
               'targetLocation' => [HAND],
               'targetPlayer' => ME,
+              'upTo' => true,
               'targetType' => [PERMANENT],
               'effect' => FT::DISCARD_TO_RESERVE(),
             ]
           ),
-          FT::ACTION(TARGET, [
-            'targetPlayer' => ME,
-            'targetType' => [PERMANENT],
-            'effect' =>
-            FT::ACTION(DISCARD, ['desc' => 'sacrifice'])
-          ])
-        )
-      ]),
+        ]),
+      )
     ];
   }
 }

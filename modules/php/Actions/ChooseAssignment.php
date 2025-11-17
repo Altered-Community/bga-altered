@@ -524,6 +524,11 @@ class ChooseAssignment extends \ALT\Models\Action
               if (!empty($newEffect)) {
                 $effects[] = $newEffect;
               }
+              if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
+                return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
+              })->count() > 0) {
+                $effects[] = FT::GAIN($card->getId(), BOOST);
+              }
               unset($addEffects[$i]);
             }
           }

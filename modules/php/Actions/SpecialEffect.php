@@ -263,6 +263,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Each reserve of specific subtype gain 1 <BOOST>');
       case 'defect':
         return clienttranslate('defect');
+      case 'drawReveal':
+        return clienttranslate('Draw the reveal card');
     }
     return '';
   }
@@ -666,11 +668,12 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'AuraqKibble':
         Engine::checkpoint();
-        // draw 1 card
+
         $player = $card->getPlayer();
-        $drawn = $player->draw(1, null, null, $card)->first();
-        // Target only Characters drawn
-        $this->insertAsChild(
+        $pId = $player->getId();
+        $drawn = $player->draw(1, null, 'reveal-' . $player->getId(), $this->getSource(), clienttranslate('${player_name} reveals ${card_names} from its deck (${card_name2}\'s effect)'), clienttranslate('${you} reveals ${card_names} from its deck (${card_name2}\'s effect)'))->first();
+
+        $this->insertAsChild(FT::XOR(
           FT::ACTION(
             PLAY_CARD,
             [
@@ -679,8 +682,25 @@ class SpecialEffect extends \ALT\Models\Action
               'effectHand' => false,
             ],
             ['sourceId' => $card->getId(), 'optional' => true]
-          )
-        );
+          ),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'drawReveal'], ['sourceId' => $card->getId()])
+        ));
+
+        // draw 1 card
+        // $player = $card->getPlayer();
+        // $drawn = $player->draw(1, null, null, $card)->first();
+        // // Target only Characters drawn
+        // $this->insertAsChild(
+        //   FT::ACTION(
+        //     PLAY_CARD,
+        //     [
+        //       'cardId' => $drawn->getId(),
+        //       'free' => true,
+        //       'effectHand' => false,
+        //     ],
+        //     ['sourceId' => $card->getId(), 'optional' => true]
+        //   )
+        // );
         break;
       case 'triggerEffectOfNextCharacter':
         $addEffects = Globals::getAdditionalEffect();
@@ -1479,6 +1499,19 @@ class SpecialEffect extends \ALT\Models\Action
           $draw = $player->draw(1, null, 'reveal-' . $player->getId(), $this->getSource(), clienttranslate('${player_name} reveals ${card_names} from its deck (${card_name2}\'s effect)'), clienttranslate('${you} reveals ${card_names} from its deck (${card_name2}\'s effect)'));
         }
 
+        break;
+      case 'drawReveal':
+        $player = $card->getPlayer();
+        $pId = $player->getId();
+        $done = false;
+
+        $draw = Cards::getInLocation("reveal-$pId");
+        foreach ($draw as $dId => $drawn) {
+          $drawn->setLocation('hand');
+        }
+        Notifications::silentKill([], $draw->getIds());
+        Notifications::drawCards($player, Cards::getMany($draw->getIds()));
+        $this->checkAfterListeners($player, ['draw' => 1, 'location' => HAND], true, 'Draw');
         break;
       case 'drawTopIfRoll':
         $player = $card->getPlayer();
