@@ -7030,7 +7030,7 @@ html {
   width: 27px;
   height: 15px;
   background-image: url("img/rarity-gems.png");
-  background-size: 100% 300%;
+  background-size: 100% 400%;
   z-index: 4;
 }
 .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="0"],
@@ -7041,11 +7041,16 @@ html {
 .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="1"],
 .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="1"],
 .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="1"] {
-  background-position-y: 50%;
+  background-position-y: 33%;
 }
 .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"],
 .altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"],
 .player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="2"] {
+  background-position-y: 66%;
+}
+.altered-card.no-frame:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="3"],
+.altered-card.mini-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="3"],
+.player-board-hero .altered-card:not(.force-frame) .altered-card-wrapper .rarity-gem[data-rarity="3"] {
   background-position-y: 100%;
 }
 .altered-card.no-frame:not(.force-frame) .altered-card-wrapper .card-support-icon,
