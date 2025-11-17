@@ -35,7 +35,7 @@ class BR_Common_ArcolanoMilk extends \ALT\Models\Card
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
                 'MoveCard' => [
-                    'conditions' => ['isCardOfType:character', 'isPlayedInSameLocation', 'hasSameOwner', 'isStillSameLocation'],
+                    'conditions' => ['isCardOfType:character', 'isPlayedInSameLocation', 'hasSameOwner', 'isStillSameLocation', 'isNotGigantic'],
                     'output' => FT::SEQ(FT::GAIN(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST))
                 ],
             ],
