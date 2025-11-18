@@ -1,6 +1,6 @@
 <?php
 
-namespace ALT\Cards\BR;
+namespace ALT\Cards\MU;
 
 use ALT\Helpers\FT;
 
