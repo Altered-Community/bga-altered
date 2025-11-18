@@ -19,7 +19,7 @@ class OD_Common_RekaPatron extends \ALT\Models\Card
       'artist' => "Nestor Papatriantafyllou",
 			'extension'=>'SDU',
    'subtypes'  => [BUREAUCRAT,NOBLE],
- 				'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
+ 				'effectDesc' => clienttranslate('When my Expedition fails to move forward during DuskÂ â€” Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
      'forest' => 2, 
      'mountain' => 1, 
      'ocean' => 1, 

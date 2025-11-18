@@ -15,7 +15,7 @@ class YZ_Rare_SunisaOrdisBodyguard extends \ALT\Models\Card
     	'name'  => clienttranslate("Sunisa, Ordis Bodyguard"),
       'typeline' => clienttranslate("Character - Soldier"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('"Behind the smiles and jubilation, I sense a growing tension…"'),
+    	'flavorText'  => clienttranslate('"Behind the smiles and jubilation, I sense a growing tensionâ€¦"'),
       'artist' => "Tristan Bideau",
 			'extension'=>'SDU',
    'subtypes'  => [SOLDIER],

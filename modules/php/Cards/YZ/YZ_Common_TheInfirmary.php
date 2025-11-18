@@ -15,7 +15,7 @@ class YZ_Common_TheInfirmary extends \ALT\Models\Card
     	'name'  => clienttranslate("The Infirmary"),
       'typeline' => clienttranslate("Landmark_permanent - Site"),
     	'type'  => PERMANENT,
-    	'flavorText'  => clienttranslate('"I told you it was a bad idea to drink all that Sap Cola…"'),
+    	'flavorText'  => clienttranslate('"I told you it was a bad idea to drink all that Sap Colaâ€¦"'),
       'artist' => "HuoMiao Studio",
 			'extension'=>'SDU',
    'subtypes'  => [SITE,LANDMARK],

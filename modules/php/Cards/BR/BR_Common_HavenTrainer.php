@@ -15,7 +15,7 @@ class BR_Common_HavenTrainer extends \ALT\Models\Card
     	'name'  => clienttranslate("Haven Trainer"),
       'typeline' => clienttranslate("Character - Trainer"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('"Yeah, you\'ve still got a few things to learn…"'),
+    	'flavorText'  => clienttranslate('"Yeah, you\'ve still got a few things to learnâ€¦"'),
       'artist' => "Khoa Viet",
 			'extension'=>'SDU',
    'subtypes'  => [TRAINER],

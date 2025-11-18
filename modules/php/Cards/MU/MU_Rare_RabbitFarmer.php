@@ -19,7 +19,7 @@ class MU_Rare_RabbitFarmer extends \ALT\Models\Card
       'artist' => "Ba Vo",
 			'extension'=>'SDU',
    'subtypes'  => [ANIMAL,DRUID],
- 				'effectDesc' => clienttranslate('When you make a <GIFT> — If I have no boosts, I gain 1 boost.'),
+ 				'effectDesc' => clienttranslate('When you make a <GIFT>Â â€” If I have no boosts, I gain 1 boost.'),
      'forest' => 1, 
      'mountain' => 1, 
      'ocean' => 0, 

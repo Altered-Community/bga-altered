@@ -19,7 +19,7 @@ class BR_Rare_ThomasEdison extends \ALT\Models\Card
       'artist' => "Victor Canton",
 			'extension'=>'SDU',
    'subtypes'  => [ENGINEER,ROGUE],
- 				'effectDesc' => clienttranslate('{J} You may discard #up to two# Characters from your Reserve. If you do, I activate #up to two# of their {r} abilities as if they were mine.'),
+ 				'effectDesc' => clienttranslate('{J} You may discard #up to two# Characters from your Reserve. If you do, I activate #up to two# of theirÂ {r} abilities as if they were mine.'),
      'forest' => 4, 
      'mountain' => 4, 
      'ocean' => 4, 

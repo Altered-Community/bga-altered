@@ -19,7 +19,7 @@ class MU_Rare_DaughterofNaos extends \ALT\Models\Card
       'artist' => "Khoa Viet",
 			'extension'=>'SDU',
    'subtypes'  => [PLANT],
- 				'effectDesc' => clienttranslate('If I\'m <ANCHORED_FS>, I\'m <DEFENDER_FS>.  {J} I gain <ANCHORED>.  #When you make a <GIFT> — If I have less than 2 boosts, I gain 1 boost.#'),
+ 				'effectDesc' => clienttranslate('If I\'m <ANCHORED_FS>, I\'m <DEFENDER_FS>.  {J} I gain <ANCHORED>.  #When you make a <GIFT>Â â€” If I have less than 2 boosts, I gain 1 boost.#'),
      'forest' => 2, 
      'mountain' => 3, 
      'ocean' => 3, 

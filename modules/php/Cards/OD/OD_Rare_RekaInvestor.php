@@ -19,7 +19,7 @@ class OD_Rare_RekaInvestor extends \ALT\Models\Card
       'artist' => "Anh Tung",
 			'extension'=>'SDU',
    'subtypes'  => [BUREAUCRAT,ROGUE],
- 				'effectDesc' => clienttranslate('At Dusk — Create a <MANASEED> token in your Landmarks.  #When I leave the Expedition zone — Create an <ORDIS_RECRUIT> Soldier token in my Expedition.#'),
+ 				'effectDesc' => clienttranslate('At DuskÂ â€” Create a <MANASEED> token in your Landmarks.  #When I leave the Expedition zoneÂ â€” Create an <ORDIS_RECRUIT> Soldier token in my Expedition.#'),
      'forest' => 3, 
      'mountain' => 3, 
      'ocean' => 0, 

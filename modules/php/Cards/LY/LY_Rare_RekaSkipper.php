@@ -19,7 +19,7 @@ class LY_Rare_RekaSkipper extends \ALT\Models\Card
       'artist' => "Jefrey Yonathan",
 			'extension'=>'SDU',
    'subtypes'  => [CITIZEN],
- 				'effectDesc' => clienttranslate('When my Expedition moves forward — Create a <MANASEED> token in your Landmarks.'),
+ 				'effectDesc' => clienttranslate('When my Expedition moves forwardÂ â€” Create a <MANASEED> token in your Landmarks.'),
      'forest' => 0, 
      'mountain' => 0, 
      'ocean' => 3, 

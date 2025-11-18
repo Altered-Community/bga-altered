@@ -19,7 +19,7 @@ class YZ_Common_StudiousRookie extends \ALT\Models\Card
       'artist' => "HuoMiao Studio",
 			'extension'=>'SDU',
    'subtypes'  => [MAGE,SCHOLAR],
- 				'effectDesc' => clienttranslate('When you play a Spell with Base Cost {4} or more — If I have no boosts, I gain 1 boost. (It\'s the Reserve Cost if played from Reserve, or the Hand Cost if not.)'),
+ 				'effectDesc' => clienttranslate('When you play a Spell with Base Cost {4} or moreÂ â€” If I have no boosts, I gain 1 boost. (It\'s the Reserve Cost if played from Reserve, or the Hand Cost if not.)'),
      'forest' => 0, 
      'mountain' => 0, 
      'ocean' => 1, 

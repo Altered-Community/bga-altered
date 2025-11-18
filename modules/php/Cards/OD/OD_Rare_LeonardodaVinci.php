@@ -15,7 +15,7 @@ class OD_Rare_LeonardodaVinci extends \ALT\Models\Card
     	'name'  => clienttranslate("Leonardo da Vinci"),
       'typeline' => clienttranslate("Character - Artist Engineer"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('"The noblest pleasure is the joy of understanding." — Leonardo da Vinci'),
+    	'flavorText'  => clienttranslate('"The noblest pleasure is the joy of understanding."Â â€”Â Leonardo da Vinci'),
       'artist' => "Atanas Lozanski",
 			'extension'=>'SDU',
    'subtypes'  => [ARTIST,ENGINEER],

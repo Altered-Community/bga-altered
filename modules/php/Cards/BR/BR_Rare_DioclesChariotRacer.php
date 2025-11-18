@@ -19,7 +19,7 @@ class BR_Rare_DioclesChariotRacer extends \ALT\Models\Card
       'artist' => "Damian Audino",
 			'extension'=>'SDU',
    'subtypes'  => [ADVENTURER],
- 				'effectDesc' => clienttranslate('#Pay {3} more# to play me in a starting region.  {J} My Expedition moves backwards one region.  When I leave the Expedition zone — My Expedition moves forward one region.'),
+ 				'effectDesc' => clienttranslate('#Pay {3} more# to play me in a starting region.  {J} My Expedition moves backwards one region.  When I leave the Expedition zoneÂ â€” My Expedition moves forward one region.'),
      'forest' => 4, 
      'mountain' => 4, 
      'ocean' => 0, 

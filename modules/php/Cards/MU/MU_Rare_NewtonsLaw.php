@@ -15,7 +15,7 @@ class MU_Rare_NewtonsLaw extends \ALT\Models\Card
     	'name'  => clienttranslate("Newton's Law"),
       'typeline' => clienttranslate("Spell - Disruption"),
     	'type'  => SPELL,
-    	'flavorText'  => clienttranslate('A truly stunning discovery…'),
+    	'flavorText'  => clienttranslate('A truly stunning discoveryâ€¦'),
       'artist' => "HuoMiao Studio",
 			'extension'=>'SDU',
    'subtypes'  => [DISRUPTION],

@@ -19,7 +19,7 @@ class YZ_Rare_Finisher extends \ALT\Models\Card
       'artist' => "DOBA",
 			'extension'=>'SDU',
    'subtypes'  => [DISRUPTION,MANEUVER],
- 				'effectDesc' => clienttranslate('<FLEETING>.  Choose up to three, #you may choose the same option multiple times:#  • Discard target Character.  • Discard target Permanent.  • <SABOTAGE>.'),
+ 				'effectDesc' => clienttranslate('<FLEETING>.  Choose up to three, #you may choose the same option multiple times:#  â€¢ Discard target Character.  â€¢ Discard target Permanent.  â€¢ <SABOTAGE>.'),
      'costHand' => 7, 
      'costReserve' => 7, 
 ];

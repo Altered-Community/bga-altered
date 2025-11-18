@@ -15,7 +15,7 @@ class BR_Common_DepartedBrother extends \ALT\Models\Card
     	'name'  => clienttranslate("Departed Brother"),
       'typeline' => clienttranslate("Character - Adventurer"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('"In my memory, you\'re there every time I cross paths with a Leviathan." — Sol'),
+    	'flavorText'  => clienttranslate('"In my memory, you\'re there every time I cross paths with a Leviathan."Â â€”Â Sol'),
       'artist' => "Zero Wen",
 			'extension'=>'SDU',
    'subtypes'  => [ADVENTURER],

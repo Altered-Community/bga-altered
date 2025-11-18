@@ -19,7 +19,7 @@ class YZ_Rare_TheLectern extends \ALT\Models\Card
       'artist' => "Ba Vo",
 			'extension'=>'SDU',
    'subtypes'  => [SITE,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} #If there\'s another card in your Landmarks, draw a card.# Otherwise, <RESUPPLY_LOW>.  When I\'m sacrificed — Create an <ORDIS_RECRUIT> in a Hero Expedition.'),
+ 				'effectDesc' => clienttranslate('{J} #If there\'s another card in your Landmarks, draw a card.# Otherwise, <RESUPPLY_LOW>.  When I\'m sacrificedÂ â€” Create an <ORDIS_RECRUIT> in a Hero Expedition.'),
      'costHand' => 2, 
      'costReserve' => 2, 
 ];

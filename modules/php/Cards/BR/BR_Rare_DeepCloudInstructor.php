@@ -19,7 +19,7 @@ class BR_Rare_DeepCloudInstructor extends \ALT\Models\Card
       'artist' => "Victor Canton",
 			'extension'=>'SDU',
    'subtypes'  => [TRAINER],
- 				'effectDesc' => clienttranslate('#{J}# You may <RUSH> a Character. If played from your hand, it activates one of its {r} abilities.  {R} I gain #1 boost.#'),
+ 				'effectDesc' => clienttranslate('#{J}# You may <RUSH> a Character. If played from your hand, it activates one of itsÂ {r} abilities.  {R} I gain #1 boost.#'),
      'forest' => 1, 
      'mountain' => 3, 
      'ocean' => 1, 

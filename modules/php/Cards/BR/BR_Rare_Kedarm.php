@@ -19,7 +19,7 @@ class BR_Rare_Kedarm extends \ALT\Models\Card
       'artist' => "Zael",
 			'extension'=>'SDU',
    'subtypes'  => [ANIMAL],
- 				'effectDesc' => clienttranslate('#When I go to Reserve from the Expedition zone — You may return another target Character from your Reserve to your hand.#'),
+ 				'effectDesc' => clienttranslate('#When I go to Reserve from the Expedition zoneÂ â€” You may return another target Character from your Reserve to your hand.#'),
  				'supportDesc' => clienttranslate('{D} : The next Character played from your hand this turn activates one of its {r} abilities.'),
  			     'supportIcon' => 'discard',
      'forest' => 3, 

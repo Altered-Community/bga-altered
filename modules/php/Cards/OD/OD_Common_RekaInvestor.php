@@ -19,7 +19,7 @@ class OD_Common_RekaInvestor extends \ALT\Models\Card
       'artist' => "Anh Tung",
 			'extension'=>'SDU',
    'subtypes'  => [BUREAUCRAT,ROGUE],
- 				'effectDesc' => clienttranslate('At Dusk — Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
+ 				'effectDesc' => clienttranslate('At DuskÂ â€” Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
      'forest' => 3, 
      'mountain' => 3, 
      'ocean' => 0, 

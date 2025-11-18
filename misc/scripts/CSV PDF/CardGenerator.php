@@ -76,7 +76,6 @@ if (($handle = fopen("duster.csv", "r")) !== FALSE) {
 
     $uid = $row[0];
     //$uid = str_replace('_P_', '_B_', $uid);
-
     $faction = $row[2];
     if ($faction == 'OR') $faction = 'OD';
 
@@ -103,7 +102,7 @@ if (($handle = fopen("duster.csv", "r")) !== FALSE) {
       $subtype .= ' LANDMARK';
       $type = 'PERMANENT';
     }
-
+	
     $slug = slugify($name);
     $className = $faction . "_" . ucfirst(strtolower($rarity)) . "_" . $slug;
 

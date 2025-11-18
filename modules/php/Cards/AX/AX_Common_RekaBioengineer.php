@@ -15,7 +15,7 @@ class AX_Common_RekaBioengineer extends \ALT\Models\Card
     	'name'  => clienttranslate("Reka Bioengineer"),
       'typeline' => clienttranslate("Character - Engineer"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('In the wild rush to find new uses for Manaseeds, it seems the sky\'s the limit…'),
+    	'flavorText'  => clienttranslate('In the wild rush to find new uses for Manaseeds, it seems the sky\'s the limitâ€¦'),
       'artist' => "Victor Canton",
 			'extension'=>'SDU',
    'subtypes'  => [ENGINEER],

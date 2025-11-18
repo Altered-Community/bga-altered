@@ -19,7 +19,7 @@ class OD_Rare_TheReunion extends \ALT\Models\Card
       'artist' => "Kevin Sidharta",
 			'extension'=>'SDU',
    'subtypes'  => [CONSTRUCTION,LANDMARK],
- 				'effectDesc' => clienttranslate('{T} : Choose up to the number of cards in your Landmarks:  • Create an <ORDIS_RECRUIT> Soldier token in a Companion Expedition.  • Create one in a Hero Expedition.  • Up to two target Characters gain 1 boost.  • #Draw a card.#'),
+ 				'effectDesc' => clienttranslate('{T}Â : Choose up to the number of cards in your Landmarks:  â€¢ Create an <ORDIS_RECRUIT> Soldier token in a Companion Expedition.  â€¢ Create one in a Hero Expedition.  â€¢ Up to two target Characters gain 1 boost.  â€¢ #Draw a card.#'),
      'costHand' => 6, 
      'costReserve' => 6, 
 ];

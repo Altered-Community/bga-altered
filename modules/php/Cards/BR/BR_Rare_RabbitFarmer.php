@@ -19,7 +19,7 @@ class BR_Rare_RabbitFarmer extends \ALT\Models\Card
       'artist' => "Ba Vo",
 			'extension'=>'SDU',
    'subtypes'  => [ANIMAL,DRUID],
- 				'effectDesc' => clienttranslate('When you make a <GIFT> — If I have no boosts, I gain 1 boost. (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)'),
+ 				'effectDesc' => clienttranslate('When you make a <GIFT>Â â€” If I have no boosts, I gain 1 boost. (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)'),
      'forest' => 1, 
      'mountain' => 1, 
      'ocean' => 0, 

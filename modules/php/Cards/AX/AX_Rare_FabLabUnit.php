@@ -19,7 +19,7 @@ class AX_Rare_FabLabUnit extends \ALT\Models\Card
       'artist' => "Anh Tung",
 			'extension'=>'SDU',
    'subtypes'  => [GEAR,EXPEDITION],
- 				'effectDesc' => clienttranslate('{T} : The next Character played from your hand in my Expedition this turn activates one of its {r} abilities, #then gains 1 boost.#'),
+ 				'effectDesc' => clienttranslate('{T} : The next Character played from your hand in my Expedition this turn activates one of itsÂ {r} abilities, #then gains 1 boost.#'),
      'costHand' => 2, 
      'costReserve' => 1, 
 ];

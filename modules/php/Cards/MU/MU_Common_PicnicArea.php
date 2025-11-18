@@ -19,7 +19,7 @@ class MU_Common_PicnicArea extends \ALT\Models\Card
       'artist' => "Kevin Sidharta",
 			'extension'=>'SDU',
    'subtypes'  => [SITE,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} Each player <RESUPPLIES>.  When you make a <GIFT> — You may exhaust me ({T}) to have target Character gain 1 boost. (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)'),
+ 				'effectDesc' => clienttranslate('{J} Each player <RESUPPLIES>.  When you make a <GIFT>Â â€” You may exhaust me ({T}) to have target Character gain 1 boost. (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)'),
      'costHand' => 2, 
      'costReserve' => 2, 
 ];

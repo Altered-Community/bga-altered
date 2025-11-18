@@ -19,7 +19,7 @@ class BR_Rare_SonofNaos extends \ALT\Models\Card
       'artist' => "Zael",
 			'extension'=>'SDU',
    'subtypes'  => [PLANT],
- 				'effectDesc' => clienttranslate('<GIGANTIC>.  {J} #You may# target an opponent, they draw a card.  #When you make a <GIFT> — I gain 1 boost.# (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)'),
+ 				'effectDesc' => clienttranslate('<GIGANTIC>.  {J} #You may# target an opponent, they draw a card.  #When you make a <GIFT>Â â€” I gain 1 boost.# (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)'),
      'forest' => 3, 
      'mountain' => 3, 
      'ocean' => 3, 

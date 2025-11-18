@@ -19,7 +19,7 @@ class MU_Common_PloutosRekaHexarch extends \ALT\Models\Card
       'artist' => "Kevin Sidharta",
 			'extension'=>'SDU',
    'subtypes'  => [DRUID,NOBLE],
- 				'effectDesc' => clienttranslate('{J} Target player <EXHAUSTED_RESUPPLIES>.  When you make a <GIFT> — Target Character gains <ANCHORED>.'),
+ 				'effectDesc' => clienttranslate('{J} Target player <EXHAUSTED_RESUPPLIES>.  When you make a <GIFT>Â â€” Target Character gains <ANCHORED>.'),
      'forest' => 5, 
      'mountain' => 5, 
      'ocean' => 5, 

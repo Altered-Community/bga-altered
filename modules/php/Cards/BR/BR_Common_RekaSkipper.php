@@ -19,7 +19,7 @@ class BR_Common_RekaSkipper extends \ALT\Models\Card
       'artist' => "Jefrey Yonathan",
 			'extension'=>'SDU',
    'subtypes'  => [CITIZEN],
- 				'effectDesc' => clienttranslate('When my Expedition moves forward — Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
+ 				'effectDesc' => clienttranslate('When my Expedition moves forwardÂ â€” Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
      'forest' => 0, 
      'mountain' => 0, 
      'ocean' => 3, 

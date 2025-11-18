@@ -19,7 +19,7 @@ class MU_Rare_SonofNaos extends \ALT\Models\Card
       'artist' => "Zael",
 			'extension'=>'SDU',
    'subtypes'  => [PLANT],
- 				'effectDesc' => clienttranslate('<GIGANTIC>.  {J} #You may# target an opponent, they draw a card.  #When you make a <GIFT> — I gain 1 boost.#'),
+ 				'effectDesc' => clienttranslate('<GIGANTIC>.  {J} #You may# target an opponent, they draw a card.  #When you make a <GIFT>Â â€” I gain 1 boost.#'),
      'forest' => 3, 
      'mountain' => 3, 
      'ocean' => 3, 

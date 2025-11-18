@@ -19,7 +19,7 @@ class YZ_Rare_RomanticEncounter extends \ALT\Models\Card
       'artist' => "Zero Wen",
 			'extension'=>'SDU',
    'subtypes'  => [MANEUVER],
- 				'effectDesc' => clienttranslate('#<FLEETING>.#  #Do this for each player, starting with you:#  • That player reveals the top four cards of their deck. You may play a Character #with Base Cost {3} or less# from these cards for free and it gains <FLEETING>, then discard the rest.'),
+ 				'effectDesc' => clienttranslate('#<FLEETING>.#  #Do this for each player, starting with you:#  â€¢Â That player reveals the top four cards of their deck. You may play a Character #with Base Cost {3} or less# from these cards for free and it gains <FLEETING>, then discard the rest.'),
      'costHand' => 7, 
      'costReserve' => 7, 
      'changedStats' => ['costHand','costReserve'], 

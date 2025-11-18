@@ -19,7 +19,7 @@ class AX_Common_RekaMagnate extends \ALT\Models\Card
       'artist' => "Nestor Papatriantafyllou",
 			'extension'=>'SDU',
    'subtypes'  => [BUREAUCRAT],
- 				'effectDesc' => clienttranslate('{R} Choose one:  • <SABOTAGE>.  • Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
+ 				'effectDesc' => clienttranslate('{R} Choose one:  â€¢ <SABOTAGE>.  â€¢ Create a <MANASEED> token in your Landmarks. (It\'s a Permanent with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
      'forest' => 2, 
      'mountain' => 2, 
      'ocean' => 3, 

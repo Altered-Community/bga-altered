@@ -2,7 +2,7 @@
 namespace ALT\Cards\MU;
 use ALT\Helpers\FT;
 
-class MU_Common_n-a extends \ALT\Models\Card
+class MU_Common_NewtonsLaw extends \ALT\Models\Card
 {
   public function __construct($row){
 		parent::__construct($row);
@@ -12,10 +12,10 @@ class MU_Common_n-a extends \ALT\Models\Card
 
     	'faction'  => FACTION_MU,
     	'rarity'  => RARITY_COMMON,
-    	'name'  => clienttranslate(""),
+    	'name'  => clienttranslate("Newton's Law"),
       'typeline' => clienttranslate("Spell - Disruption"),
     	'type'  => SPELL,
-    	'flavorText'  => clienttranslate('A truly stunning discovery…'),
+    	'flavorText'  => clienttranslate('A truly stunning discoveryâ€¦'),
       'artist' => "HuoMiao Studio",
 			'extension'=>'SDU',
    'subtypes'  => [DISRUPTION],

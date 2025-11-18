@@ -19,7 +19,7 @@ class OD_Common_TheLectern extends \ALT\Models\Card
       'artist' => "Ba Vo",
 			'extension'=>'SDU',
    'subtypes'  => [SITE,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} $<RESUPPLY>.  When I\'m sacrificed — Create an <ORDIS_RECRUIT> in a Hero Expedition. (Excess Landmarks are sacrificed at the end of the Day.)'),
+ 				'effectDesc' => clienttranslate('{J} $<RESUPPLY>.  When I\'m sacrificedÂ â€” Create an <ORDIS_RECRUIT> in a Hero Expedition. (Excess Landmarks are sacrificed at the end of the Day.)'),
      'costHand' => 2, 
      'costReserve' => 2, 
 ];

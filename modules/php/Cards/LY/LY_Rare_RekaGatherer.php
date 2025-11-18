@@ -19,7 +19,7 @@ class LY_Rare_RekaGatherer extends \ALT\Models\Card
       'artist' => "Bastien Jez",
 			'extension'=>'SDU',
    'subtypes'  => [CITIZEN],
- 				'effectDesc' => clienttranslate('#At Noon — Create a <MANASEED> token in your Landmarks.#'),
+ 				'effectDesc' => clienttranslate('#At NoonÂ â€” Create a <MANASEED> token in your Landmarks.#'),
  				'supportDesc' => clienttranslate('{D} : Create a <MANASEED> token in each player\'s Landmarks.'),
  			     'supportIcon' => 'discard',
      'forest' => 3, 

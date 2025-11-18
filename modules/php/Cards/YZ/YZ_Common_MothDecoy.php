@@ -15,7 +15,7 @@ class YZ_Common_MothDecoy extends \ALT\Models\Card
     	'name'  => clienttranslate("Moth Decoy"),
       'typeline' => clienttranslate("Spell - Conjuration"),
     	'type'  => SPELL,
-    	'flavorText'  => clienttranslate('"You\'re not the only ones who can use substitution." — Moyo'),
+    	'flavorText'  => clienttranslate('"You\'re not the only ones who can use substitution." â€”Â Moyo'),
       'artist' => "Fahmi Fauzi",
 			'extension'=>'SDU',
    'subtypes'  => [CONJURATION],

@@ -15,7 +15,7 @@ class OD_Rare_LouisSullivan extends \ALT\Models\Card
     	'name'  => clienttranslate("Louis Sullivan"),
       'typeline' => clienttranslate("Character - Engineer"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('"Form ever follows function. This is the law." — Louis Sullivan'),
+    	'flavorText'  => clienttranslate('"Form ever follows function. This is the law."Â â€”Â Louis Sullivan'),
       'artist' => "Kevin Sidharta",
 			'extension'=>'SDU',
    'subtypes'  => [ENGINEER],

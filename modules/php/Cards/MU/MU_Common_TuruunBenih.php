@@ -18,7 +18,7 @@ class MU_Common_TuruunBenih extends \ALT\Models\Card
     	'flavorText'  => clienttranslate('Bringing a fruit of the Spindle Tree to the Reka is a way for me to recapture my youth.'),
       'artist' => "Ba Vo",
 			'extension'=>'SDU',
-   				'effectDesc' => clienttranslate('When you make a <GIFT> — You may exhaust me ({T}) to also receive it. (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)  Ignore my ability during the first Day.'),
+   				'effectDesc' => clienttranslate('When you make a <GIFT>Â â€” You may exhaust me ({T}) to also receive it. (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)  Ignore my ability during the first Day.'),
 ];
   }
 }

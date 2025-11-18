@@ -19,7 +19,7 @@ class BR_Rare_RekaSkipper extends \ALT\Models\Card
       'artist' => "Jefrey Yonathan",
 			'extension'=>'SDU',
    'subtypes'  => [CITIZEN],
- 				'effectDesc' => clienttranslate('#{R} I gain 1 boost.#  When my Expedition moves forward — Create a <MANASEED> token in your Landmarks.'),
+ 				'effectDesc' => clienttranslate('#{R} I gain 1 boost.#  When my Expedition moves forwardÂ â€” Create a <MANASEED> token in your Landmarks.'),
      'forest' => 0, 
      'mountain' => 0, 
      'ocean' => 3, 

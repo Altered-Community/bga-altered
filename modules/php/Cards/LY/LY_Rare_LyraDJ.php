@@ -15,7 +15,7 @@ class LY_Rare_LyraDJ extends \ALT\Models\Card
     	'name'  => clienttranslate("Lyra DJ"),
       'typeline' => clienttranslate("Character - Artist"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('There\'s something a bit unusual about this set…'),
+    	'flavorText'  => clienttranslate('There\'s something a bit unusual about this setâ€¦'),
       'artist' => "Zero Wen",
 			'extension'=>'SDU',
    'subtypes'  => [ARTIST],

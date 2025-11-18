@@ -19,7 +19,7 @@ class AX_Rare_RekaMagnate extends \ALT\Models\Card
       'artist' => "Nestor Papatriantafyllou",
 			'extension'=>'SDU',
    'subtypes'  => [BUREAUCRAT],
- 				'effectDesc' => clienttranslate('{R} Choose one, #or exhaust a Permanent you control to choose both:#  • <SABOTAGE>.  • Create a <MANASEED> token in your Landmarks.'),
+ 				'effectDesc' => clienttranslate('{R} Choose one, #or exhaust a Permanent you control to choose both:#  â€¢ <SABOTAGE>.  â€¢ Create a <MANASEED> token in your Landmarks.'),
      'forest' => 2, 
      'mountain' => 2, 
      'ocean' => 3, 

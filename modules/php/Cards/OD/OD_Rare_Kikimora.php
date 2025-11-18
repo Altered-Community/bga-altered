@@ -19,7 +19,7 @@ class OD_Rare_Kikimora extends \ALT\Models\Card
       'artist' => "Matteo Spirito",
 			'extension'=>'SDU',
    'subtypes'  => [ANIMAL,SPIRIT],
- 				'effectDesc' => clienttranslate('#When you play a Permanent — If I have no boosts, I gain 1 boost.#'),
+ 				'effectDesc' => clienttranslate('#When you play a PermanentÂ â€” If I have no boosts, I gain 1 boost.#'),
  				'supportDesc' => clienttranslate('{D} : Pay {1} less for the next Permanent you play this turn, down to a minimum of {1}.'),
  			     'supportIcon' => 'discard',
      'forest' => 1, 

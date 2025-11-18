@@ -19,7 +19,7 @@ class MU_Common_TheNaos extends \ALT\Models\Card
       'artist' => "Jean-Baptiste Andrier",
 			'extension'=>'SDU',
    'subtypes'  => [SITE,LANDMARK],
- 				'effectDesc' => clienttranslate('$<TOUGH_1>.  At Noon — Draw a card, then create two <MANASEED> tokens in your Landmarks. (They are Permanents with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
+ 				'effectDesc' => clienttranslate('$<TOUGH_1>.  At NoonÂ â€” Draw a card, then create two <MANASEED> tokens in your Landmarks. (They are Permanents with \"{T}, Sacrifice me: Ready a Mana Orb.\")'),
      'costHand' => 6, 
      'costReserve' => 6, 
  		'tough'=>1,

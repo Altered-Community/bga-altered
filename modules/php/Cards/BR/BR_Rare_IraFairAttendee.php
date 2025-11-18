@@ -15,7 +15,7 @@ class BR_Rare_IraFairAttendee extends \ALT\Models\Card
     	'name'  => clienttranslate("Ira, Fair Attendee"),
       'typeline' => clienttranslate("Character - Citizen"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('"One day, son, you\'ll show off your own creations here." — Della'),
+    	'flavorText'  => clienttranslate('"One day, son, you\'ll show off your own creations here."Â â€”Â Della'),
       'artist' => "Tristan Bideau",
 			'extension'=>'SDU',
    'subtypes'  => [CITIZEN],

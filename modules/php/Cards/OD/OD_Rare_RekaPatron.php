@@ -19,7 +19,7 @@ class OD_Rare_RekaPatron extends \ALT\Models\Card
       'artist' => "Nestor Papatriantafyllou",
 			'extension'=>'SDU',
    'subtypes'  => [BUREAUCRAT,NOBLE],
- 				'effectDesc' => clienttranslate('When my Expedition fails to move forward during Dusk — Create a <MANASEED> token in your Landmarks.'),
+ 				'effectDesc' => clienttranslate('When my Expedition fails to move forward during DuskÂ â€” Create a <MANASEED> token in your Landmarks.'),
      'forest' => 2, 
      'mountain' => 2, 
      'ocean' => 2, 

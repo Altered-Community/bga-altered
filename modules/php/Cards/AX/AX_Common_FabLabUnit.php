@@ -19,7 +19,7 @@ class AX_Common_FabLabUnit extends \ALT\Models\Card
       'artist' => "Anh Tung",
 			'extension'=>'SDU',
    'subtypes'  => [GEAR,EXPEDITION],
- 				'effectDesc' => clienttranslate('{T} : The next Character played from your hand in my Expedition this turn activates one of its {r} abilities.'),
+ 				'effectDesc' => clienttranslate('{T} : The next Character played from your hand in my Expedition this turn activates one of itsÂ {r} abilities.'),
      'costHand' => 2, 
      'costReserve' => 1, 
 ];

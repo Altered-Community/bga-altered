@@ -19,7 +19,7 @@ class BR_Common_Kedarm extends \ALT\Models\Card
       'artist' => "Zael",
 			'extension'=>'SDU',
    'subtypes'  => [ANIMAL],
- 				'supportDesc' => clienttranslate('{D} : The next Character played from your hand this turn activates one of its {r} abilities.'),
+ 				'supportDesc' => clienttranslate('{D} : The next Character played from your hand this turn activates one of itsÂ {r} abilities.'),
  			     'supportIcon' => 'discard',
      'forest' => 3, 
      'mountain' => 3, 
