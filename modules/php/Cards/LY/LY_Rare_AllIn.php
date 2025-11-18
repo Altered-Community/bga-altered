@@ -28,7 +28,7 @@ class LY_Rare_AllIn extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
         'canDiscard' => true,
-        'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN('effect', BOOST, 'die')])],
+        'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST, 'die')])],
       ]),
     ];
   }

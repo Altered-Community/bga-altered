@@ -26,7 +26,7 @@ class LY_Common_AllIn extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(ROLL_DIE, [
-        'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN('effect', BOOST, 'die')])],
+        'effect' => ['1+' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST, 'die')])],
       ]),
     ];
   }
