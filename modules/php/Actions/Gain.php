@@ -153,7 +153,13 @@ class Gain extends \ALT\Models\Action
   public function getUpTo()
   {
     $upTo = $this->getArg('upTo');
+    if ($upTo >= 99) {
+      return $upTo;
+    }
     if ($this->getCtxArg('cardId') != EFFECT && !is_null($this->getCtxArg('cardId')) && $this->getCard()->getLocation() == RESERVE) {
+      if ($this->getCtxArg('cardId') == ME && is_null($this->ctx->getSourceId())) {
+        return $upTo;
+      }
       return $this->getCard()->getPlayer()->getReserveAdd() + $upTo;
     } else {
       return $upTo;
