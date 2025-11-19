@@ -136,7 +136,7 @@ class Target extends \ALT\Models\Action
         $costs = array_values($targetCosts);
         asort($costs);
         $valuesToGet = count($targetCards) - count($targetCosts) - 1;
-        for ($i = 0; $i <= $valuesToGet; $i++) {
+        for ($i = 0; $i < $valuesToGet; $i++) {
           $totalCost += $costs[$i];
         }
       }
