@@ -265,6 +265,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('defect');
       case 'drawReveal':
         return clienttranslate('Draw the reveal card');
+        // DUSTER
+      case 'boostXExhaustedMax3':
+        return clienttranslate('Boost 1 per exhausted');
     }
     return '';
   }
@@ -298,6 +301,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'hunger':
       case 'boostTargetReserveCards':
       case 'boostXOpponentExpedition':
+      case 'boostXExhaustedMax3':
       default:
         return false;
     }
@@ -1841,6 +1845,27 @@ class SpecialEffect extends \ALT\Models\Action
         }
         $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'forceExpedition' => [$player->getId(), $expedition]]);
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      /////// DUSTER /////////////////////////////////////
+      case 'boostXExhaustedMax3':
+        $n = 0;
+        $cards = $card
+          ->getPlayer()
+          ->getPlayedCards(PERMANENT);
+
+        $cards = $cards->filter(fn($c) => $c->isTapped());
+        $n += $cards->count();
+
+        $cards = $card
+          ->getPlayer()
+          ->getReserveCards();
+        $cards = $cards->filter(fn($c) => $c->isTapped());
+        $n += $cards->count();
+
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n, 3));
+        }
+        break;
       default:
         break;
     }

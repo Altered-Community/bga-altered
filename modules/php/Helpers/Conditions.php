@@ -429,7 +429,7 @@ abstract class Conditions
   }
 
 
-  public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE')
+  public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE', $state = 'all')
   {
     $cards = $card
       ->getPlayer()
@@ -465,6 +465,16 @@ abstract class Conditions
           return $c->getCostReserve() <= $costReserve;
         }
       });
+    }
+
+    if ($state != 'all') {
+      if ($state == 'boosted') {
+        $cards = $cards->filter(fn($c) => $c->hasToken(BOOST));
+      } elseif ($state == 'fleeting') {
+        $cards = $cards->filter(fn($c) => $c->hasToken(FLEETING));
+      } elseif ($state == 'exhausted') {
+        $cards = $cards->filter(fn($c) => $c->isTapped());
+      }
     }
     return $cards->count() > 0;
   }
@@ -552,6 +562,8 @@ abstract class Conditions
         $cards = $cards->filter(fn($c) => $c->hasToken(BOOST));
       } elseif ($state == 'fleeting') {
         $cards = $cards->filter(fn($c) => $c->hasToken(FLEETING));
+      } elseif ($state == 'exhausted') {
+        $cards = $cards->filter(fn($c) => $c->isTapped());
       }
     }
     $m = $cards->count();
@@ -566,6 +578,11 @@ abstract class Conditions
   public static function hasOpponentControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
   {
     return self::hasControl($card, $event, $type, $n, $excludeMyself, $state, $op, true);
+  }
+
+  public static function hasControlExhaustedPermanentOrReserve($card, $event)
+  {
+    return self::hasControl($card, $event, PERMANENT, 1, false, 'exhausted') || self::hasReserve($card, $event, null, null, null, 'GTE', 'exhausted');
   }
 
 
