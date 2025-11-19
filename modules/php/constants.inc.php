@@ -309,6 +309,9 @@ const ILLUSION = 'illusion';
 const ORE = 'ore';
 const SCIENTIST = 'scientist';
 
+// Duster
+const SAP = 'sap';
+
 const SUBTYPES = [
   DIVINITY,
   ADVENTURER,
@@ -351,7 +354,8 @@ const SUBTYPES = [
   SCIENTIST,
   GEAR,
   EXPEDITION,
-  CONSTRUCTION
+  CONSTRUCTION,
+  SAP
 ];
 
 /*********************
