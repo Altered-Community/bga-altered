@@ -218,6 +218,16 @@ trait DebugTrait
     }
   }
 
+  function tapLandmarks()
+  {
+    foreach (Cards::getAll() as $cId => $card) {
+      if ($card->getLocation() == LANDMARK) {
+        $card->setTapped(true);
+      }
+    }
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+  }
+
   function untapAll()
   {
     Cards::untapAll();

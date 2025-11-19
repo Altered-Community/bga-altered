@@ -1,30 +1,44 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Rare_LeonardodaVinci extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_DUSTER_B_AX_94_R2',
-            'asset'  => 'ALT_DUSTER_B_AX_94_R',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_DUSTER_B_AX_94_R2',
+      'asset'  => 'ALT_DUSTER_B_AX_94_R',
 
-    	'faction'  => FACTION_OD,
-    	'rarity'  => RARITY_RARE,
-    	'name'  => clienttranslate("Leonardo da Vinci"),
+      'faction'  => FACTION_OD,
+      'rarity'  => RARITY_RARE,
+      'name'  => clienttranslate("Leonardo da Vinci"),
       'typeline' => clienttranslate("Character - Artist Engineer"),
-    	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('"The noblest pleasure is the joy of understanding." — Leonardo da Vinci'),
+      'type'  => CHARACTER,
+      'flavorText'  => clienttranslate('"The noblest pleasure is the joy of understanding." — Leonardo da Vinci'),
       'artist' => "Atanas Lozanski",
-			'extension'=>'SDU',
-   'subtypes'  => [ARTIST,ENGINEER],
- 				'effectDesc' => clienttranslate('{R} You may exhaust ({T}) a Permanent you control to #draw a card.#'),
-     'forest' => 2, 
-     'mountain' => 3, 
-     'ocean' => 0, 
-     'costHand' => 2, 
-     'costReserve' => 2, 
-];
+      'extension' => 'SDU',
+      'subtypes'  => [ARTIST, ENGINEER],
+      'effectDesc' => clienttranslate('{R} You may exhaust ({T}) a Permanent you control to #draw a card.#'),
+      'forest' => 2,
+      'mountain' => 3,
+      'ocean' => 0,
+      'costHand' => 2,
+      'costReserve' => 2,
+      'effectReserve' => FT::SEQ(
+        FT::ACTION(TARGET, [
+          'upTo' => true,
+          'targetType' => [PERMANENT],
+          'targetPlayer' => ME,
+          'effect' => FT::SEQ(
+            FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+            FT::ACTION(DRAW, ['players' => ME]),
+          )
+        ])
+      )
+    ];
   }
 }
