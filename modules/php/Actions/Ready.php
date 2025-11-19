@@ -59,12 +59,13 @@ class Ready extends \ALT\Models\Action
     $player = $this->getPlayer();
     $card = $this->getCard();
 
-    if (!$card->isTapped() && is_null($this->getCtxArg('optionalExhaust'))) {
-      throw new \BgaVisibleSystemException('Card is not tapped. Should not happen');
+    if (!is_null($card)) {
+      if (!$card->isTapped() && is_null($this->getCtxArg('optionalExhaust'))) {
+        throw new \BgaVisibleSystemException('Card is not tapped. Should not happen');
+      }
+      $card->setTapped(false);
+      Notifications::readyEffect($player, $card, $this->getSource());
     }
-    $card->setTapped(false);
-    Notifications::readyEffect($player, $card, $this->getSource());
-
     $this->resolveAction();
   }
 }
