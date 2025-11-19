@@ -2213,6 +2213,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Tough 1'),
           reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
         },
+        // Duster
+         MANASEED: {
+          text: _('Manaseed'),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
