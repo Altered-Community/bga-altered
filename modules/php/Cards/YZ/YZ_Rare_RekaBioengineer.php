@@ -1,31 +1,47 @@
 <?php
+
 namespace ALT\Cards\YZ;
+
 use ALT\Helpers\FT;
 
 class YZ_Rare_RekaBioengineer extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_DUSTER_B_AX_92_R2',
-            'asset'  => 'ALT_DUSTER_B_AX_92_R',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_DUSTER_B_AX_92_R2',
+      'asset'  => 'ALT_DUSTER_B_AX_92_R',
 
-    	'faction'  => FACTION_YZ,
-    	'rarity'  => RARITY_RARE,
-    	'name'  => clienttranslate("Reka Bioengineer"),
+      'faction'  => FACTION_YZ,
+      'rarity'  => RARITY_RARE,
+      'name'  => clienttranslate("Reka Bioengineer"),
       'typeline' => clienttranslate("Character - Engineer"),
-    	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate('In the wild rush to find new uses for Manaseeds, it seems the sky\'s the limit…'),
+      'type'  => CHARACTER,
+      'flavorText'  => clienttranslate('In the wild rush to find new uses for Manaseeds, it seems the sky\'s the limit…'),
       'artist' => "Victor Canton",
-			'extension'=>'SDU',
-   'subtypes'  => [ENGINEER],
- 				'effectDesc' => clienttranslate('{J} You may exhaust ({T}) target card in #any player\'s# Reserve. If you do, create a <MANASEED> token in #that player\'s# Landmarks.'),
-     'forest' => 3, 
-     'mountain' => 4, 
-     'ocean' => 4, 
-     'costHand' => 4, 
-     'costReserve' => 3, 
-     'changedStats' => ['costReserve'], 
-];
+      'extension' => 'SDU',
+      'subtypes'  => [ENGINEER],
+      'effectDesc' => clienttranslate('{J} You may exhaust ({T}) target card in #any player\'s# Reserve. If you do, create a <MANASEED> token in #that player\'s# Landmarks.'),
+      'forest' => 3,
+      'mountain' => 4,
+      'ocean' => 4,
+      'costHand' => 4,
+      'costReserve' => 3,
+      'changedStats' => ['costReserve'],
+      'effectPlayed' =>  FT::ACTION(TARGET, [
+        'upTo' => true,
+        'targetType' => [CHARACTER, PERMANENT, SPELL],
+        'targetLocation' => [RESERVE],
+        'effect' => FT::SEQ(
+          FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'targetPlayer' => 'owner',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+          ]),
+        )
+      ])
+    ];
   }
 }
