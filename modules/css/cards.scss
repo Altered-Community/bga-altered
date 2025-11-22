@@ -344,6 +344,26 @@
                         background-position: 60% 66.66666%;
                     }
                 }
+
+                // EXALTED
+                &[data-rarity="3"] {
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
+                        background-position: 40% 100%;
+                    }
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
+                        background-position: 40% 100%;
+                    }
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 40% 100%;
+                    }
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 40% 100%;
+                    }
+                }
             }
             &[data-type="spell"] {
                 // BASE
@@ -833,6 +853,15 @@
             height: 54px;
             .card-qrcode-container {
                 shape-outside: polygon(0px 0px, 0px 53px, 70px 52px, 70px 0px);
+            }
+        }
+        .card-frame[data-rarity="3"][data-size="2"][data-support="0"] ~ .card-text {
+            color: white;
+            .card-qrcode-container {
+                shape-outside: polygon(0px 70px, 0px 126px, 70px 126px, 70px 70px);
+            }
+           .svgicon-mana-1 .path2:before {
+                color: black;
             }
         }
 

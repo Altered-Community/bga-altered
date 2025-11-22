@@ -54,6 +54,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       RARITY_COMMON => 'Common',
       RARITY_RARE => 'Rare',
       RARITY_UNIQUE => 'Unique',
+      RARITY_EXALTED => 'Exalted',
     ];
     $p = json_decode($data['properties'], true);
     $faction = $p['faction'];

@@ -7518,6 +7518,18 @@ html {
 .altered-card .altered-card-wrapper .card-frame[data-type=character][data-rarity="2"][data-support="1"][data-size="2"] {
   background-position: 60% 66.66666%;
 }
+.altered-card .altered-card-wrapper .card-frame[data-type=character][data-rarity="3"][data-support="0"][data-size="1"] {
+  background-position: 40% 100%;
+}
+.altered-card .altered-card-wrapper .card-frame[data-type=character][data-rarity="3"][data-support="0"][data-size="2"] {
+  background-position: 40% 100%;
+}
+.altered-card .altered-card-wrapper .card-frame[data-type=character][data-rarity="3"][data-support="1"][data-size="1"] {
+  background-position: 40% 100%;
+}
+.altered-card .altered-card-wrapper .card-frame[data-type=character][data-rarity="3"][data-support="1"][data-size="2"] {
+  background-position: 40% 100%;
+}
 .altered-card .altered-card-wrapper .card-frame[data-type=spell][data-rarity="0"][data-support="0"][data-size="1"] {
   background-position: 80% 16.66666%;
 }
@@ -7908,6 +7920,15 @@ html {
 }
 .altered-card .altered-card-wrapper .card-frame[data-type=token] ~ .card-text .card-qrcode-container {
   shape-outside: polygon(0px 0px, 0px 53px, 70px 52px, 70px 0px);
+}
+.altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="2"][data-support="0"] ~ .card-text {
+  color: white;
+}
+.altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="2"][data-support="0"] ~ .card-text .card-qrcode-container {
+  shape-outside: polygon(0px 70px, 0px 126px, 70px 126px, 70px 70px);
+}
+.altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="2"][data-support="0"] ~ .card-text .svgicon-mana-1 .path2:before {
+  color: black;
 }
 .altered-card .altered-card-wrapper .card-frame[data-type=permanent] ~ .card-text {
   left: 25px;

@@ -1877,7 +1877,6 @@ const MAP_REFS_CLASSES = [
   'ALT_DUSTER_B_AX_92_C' => 'AX/AX_Common_RekaBioengineer',
   'ALT_DUSTER_B_AX_92_R1' => 'AX/AX_Rare_RekaBioengineer',
   'ALT_DUSTER_B_AX_92_R2' => 'YZ/YZ_Rare_RekaBioengineer',
-  'ALT_DUSTER_B_AX_95_C' => 'AX/AX_Common_SphuraRekaHexarch',
   'ALT_DUSTER_B_AX_95_E' => 'AX/AX_Exalted_SphuraRekaHexarch',
   'ALT_DUSTER_B_AX_90_C' => 'AX/AX_Common_ThomasEdison',
   'ALT_DUSTER_B_AX_90_R1' => 'AX/AX_Rare_ThomasEdison',

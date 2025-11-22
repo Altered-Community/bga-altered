@@ -238,6 +238,7 @@ const STORM_BACK = 6;
 const RARITY_COMMON = 0;
 const RARITY_RARE = 1;
 const RARITY_UNIQUE = 2;
+const RARITY_EXALTED = 3;
 
 const FACTION_AX = 'AX';
 const FACTION_BR = 'BR';

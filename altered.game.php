@@ -25,6 +25,7 @@ $swdNamespaceAutoload = function ($class) {
     if (file_exists($file)) {
       require_once $file;
     } else {
+      var_dump(debug_print_backtrace());
       var_dump('Cannot find file : ' . $file);
     }
   }
