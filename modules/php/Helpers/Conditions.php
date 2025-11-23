@@ -585,6 +585,17 @@ abstract class Conditions
     return self::hasControl($card, $event, PERMANENT, 1, false, 'exhausted') || self::hasReserve($card, $event, null, null, null, 'GTE', 'exhausted');
   }
 
+  public static function has4PermanentsOrReserveExhausted($card, $event)
+  {
+    $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
+      return (in_array($c->getType(), [PERMANENT]) || count(array_intersect([PERMANENT], $c->getAdditionalType())) > 0) && $c->isTapped();
+    });
+
+    $cards = $cards->merge($card->getPlayer()->getReserveCards()->filter(function ($c) {
+      return $c->isTapped();
+    }));
+    return $cards->count() >= 4;
+  }
 
   // Flawed prototype
   public static function noRobotnoPermanent($card, $event)

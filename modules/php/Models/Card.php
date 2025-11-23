@@ -797,30 +797,33 @@ class Card extends \ALT\Helpers\DB_Model
 
     // TODO: to update in multiplayer
     $minimumCost = Players::getOpponentMinimumCost($this->getPlayer(), $this->getType());
-    $dynamicReduction = $this->getDynamicCostReduction();
-    $dynSplit = explode(':', $dynamicReduction);
-    if (count($dynSplit) > 1) {
-      // we need to test if ok, add change dynamic tough to the value of 0
-      if (!is_null(Utils::checkAttributeCondition('cost', $dynamicReduction, $this->getPlayer(), $this))) {
-        $dynamicReduction = (int) $dynSplit[0];
-      } else {
-        $dynamicReduction = 0;
-      }
-    } else {
-      if ($dynamicReduction == '') {
-        $dynamicReduction = 0;
-      } elseif ($dynamicReduction == 'exhaustedReserve') {
-        $cards = 0;
-        foreach (Players::getAll() as $pId => $sPlayer) {
-          $cards += $sPlayer->getReserveCards()->filter(function ($c) {
-            return $c->isTapped() == true;
-          })->count();
+    $dynamicReduc = 0;
+    $dynamicReductions = $this->getDynamicCostReduction();
+    if (!is_array($dynamicReductions)) {
+      $dynamicReductions = [$dynamicReductions];
+    }
+    foreach ($dynamicReductions as $dynamicReduction) {
+      $dynSplit = explode(':', $dynamicReduction);
+      if (count($dynSplit) > 1) {
+        // we need to test if ok, add change dynamic tough to the value of 0
+        if (!is_null(Utils::checkAttributeCondition('cost', $dynamicReduction, $this->getPlayer(), $this))) {
+          $dynamicReduc += (int) $dynSplit[0];
         }
-        $dynamicReduction = $cards;
-      } elseif ($dynamicReduction == 'eachOwnerAscended') {
-        $dynamicReduction = ($this->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($this->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
       } else {
-        $dynamicReduction = (int) $dynamicReduction;
+        if ($dynamicReduction == '') {
+        } elseif ($dynamicReduction == 'exhaustedReserve') {
+          $cards = 0;
+          foreach (Players::getAll() as $pId => $sPlayer) {
+            $cards += $sPlayer->getReserveCards()->filter(function ($c) {
+              return $c->isTapped() == true;
+            })->count();
+          }
+          $dynamicReduc += $cards;
+        } elseif ($dynamicReduction == 'eachOwnerAscended') {
+          $dynamicReduc += ($this->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($this->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
+        } else {
+          $dynamicReduc += (int) $dynamicReduction;
+        }
       }
     }
 
@@ -841,10 +844,10 @@ class Card extends \ALT\Helpers\DB_Model
         } else {
           $initialCost = $this->getCostHand();
         }
-        return max($minimumCost, $initialCost - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction);
+        return max($minimumCost, $initialCost - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc);
         break;
       case RESERVE:
-        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduction + $increaseReserveCost - $reduceReserveCost);
+        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost);
         break;
     }
   }
