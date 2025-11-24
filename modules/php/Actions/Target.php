@@ -31,6 +31,7 @@ class Target extends \ALT\Models\Action
     'maxHandCost' => INFTY, // limitation
     'minReserveCost' => 0, // limitation
     'minHandCost' => 0, // limitation
+    'maxBaseCost' => INFTY,
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
     'excludedStatuses' => [],
@@ -234,8 +235,11 @@ class Target extends \ALT\Models\Action
     $augmentOnly = $this->getArg('augmentOnly');
     $monoBiome = $this->getArg('monoBiome');
 
+    // Duster
+    $maxBaseCost = $this->getArg('maxBaseCost');
+
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -311,7 +315,8 @@ class Target extends \ALT\Models\Action
         $this->getArg('minHandCost') <= $handCost &&
         $handCost <= $maxHandCost &&
         $this->getArg('minReserveCost') <= $reserveCost &&
-        $reserveCost <= $this->getArg('maxReserveCost');
+        $reserveCost <= $this->getArg('maxReserveCost') &&
+        (($c->hasToken(FLEETING) && $reserveCost <= $maxBaseCost) || (!$c->hasToken(FLEETING) && $handCost <= $maxBaseCost));
 
       if ($statuses == 'disabled' || $c->getType() == PERMANENT) {
         return $costCheck;
@@ -319,7 +324,6 @@ class Target extends \ALT\Models\Action
         return $costCheck && $c->hasToken($statuses);
       }
     });
-
     return $cards;
   }
 
