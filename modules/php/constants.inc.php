@@ -313,6 +313,7 @@ const SCIENTIST = 'scientist';
 // Duster
 const SAP = 'sap';
 const MERCHANT = 'merchant';
+const ROGUE = 'rogue';
 
 const SUBTYPES = [
   DIVINITY,
@@ -358,7 +359,8 @@ const SUBTYPES = [
   EXPEDITION,
   CONSTRUCTION,
   SAP,
-  MERCHANT
+  MERCHANT,
+  ROGUE
 ];
 
 /*********************

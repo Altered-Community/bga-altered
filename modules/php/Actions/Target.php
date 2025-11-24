@@ -137,7 +137,7 @@ class Target extends \ALT\Models\Action
         asort($costs);
         $valuesToGet = count($targetCards) - count($targetCosts) - 1;
         for ($i = 0; $i < $valuesToGet; $i++) {
-          $totalCost += $costs[$i];
+          $totalCost += ($costs[$i] ?? 0);
         }
       }
       if ($totalCost > $player->getMana()) {
