@@ -117,6 +117,11 @@ abstract class FT
     return FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'mandatory' => true]);
   }
 
+  public static function RUSH_CHARACTER()
+  {
+    return FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'mandatory' => true, 'types' => [CHARACTER]]);
+  }
+
   public static function SABOTAGE()
   {
     return  FT::ACTION(TARGET, [
