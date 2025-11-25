@@ -521,6 +521,16 @@ class ChooseAssignment extends \ALT\Models\Action
               $effectType = $addEffect['effect'];
               $f = 'getEffect' . ucfirst($effectType);
               $newEffect = $card->$f();
+              if (isset($addEffect['to']) && !is_null($addEffect['to'])) {
+                if ($addEffect['to'] == 'sourceLocation') {
+                  $source = Cards::get($addEffect['sourceId']);
+                  if ($location != $source->getLocation()) {
+                    continue;
+                  }
+                } elseif ($addEffect['to'] != $location) {
+                  continue;
+                }
+              }
               if (!empty($newEffect)) {
                 $effects[] = $newEffect;
               }
@@ -528,6 +538,9 @@ class ChooseAssignment extends \ALT\Models\Action
                 return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
               })->count() > 0) {
                 $effects[] = FT::GAIN($card->getId(), BOOST);
+              }
+              if (($addEffect['boost'] ?? 0) > 0) {
+                $effects[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
               }
               unset($addEffects[$i]);
             }

@@ -710,14 +710,36 @@ class SpecialEffect extends \ALT\Models\Action
         $addEffects = Globals::getAdditionalEffect();
         $found = false;
         foreach ($addEffects as $i => $effect) {
-          if ($effect == ['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]) {
+          if (isset($effect['source'])) {
+            unset($effect['source']);
+          }
+          if (isset($effect['boost'])) {
+            unset($effect['boost']);
+          }
+
+          if ($effect == [
+            'type' => $args['type'],
+            'from' => $args['from'],
+            'effect' => $args['effect'],
+            'to' => ($args['to'] ?? null)
+          ]) {
             Notifications::message(clienttranslate('Effect is ignored as already triggered'));
             $found = true;
             break;
           }
         }
         if ($found === false) {
-          $addEffects = array_merge($addEffects, [['type' => $args['type'], 'from' => $args['from'], 'effect' => $args['effect']]]);
+          $eff = [
+            'type' => $args['type'],
+            'from' => $args['from'],
+            'effect' => $args['effect'],
+            'to' => ($args['to'] ?? null),
+            'sourceId' => $card->getId(),
+          ];
+          if (($args['boost'] ?? 0) > 0) {
+            $eff['boost'] = $args['boost'];
+          }
+          $addEffects = array_merge($addEffects, [$eff]);
           Globals::setAdditionalEffect($addEffects);
           Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), [
             'player' => Players::getActive(),
