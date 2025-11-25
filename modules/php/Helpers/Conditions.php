@@ -720,6 +720,29 @@ abstract class Conditions
     return count($combination) >= 1;
   }
 
+  public static function isInContact($card, $event)
+  {
+    if (!in_array($card->getLocation(), STORMS)) {
+      return false;
+    }
+    $opponent = Players::getNext($card->getPlayer());
+    $opponentTokens = Meeples::getStormTokens($opponent->getId());
+    $tokenF = [$card->getLocation() == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken'];
+    if ($card->isGigantic()) {
+      $tokenF = ['getHeroToken', 'getCompanionToken'];
+    }
+
+    foreach ($tokenF as $tok) {
+      $token = $card->getPlayer()->$tok()->getLocation();
+      foreach ($opponentTokens as $mId => $meeple) {
+        if ($token == $meeple->getLocation()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   ///////////////////////////////////////////////////////////////////////////////
   //   ____              _   ____                            _   _
   //  / ___|__ _ _ __ __| | |  _ \ _ __ ___  _ __   ___ _ __| |_(_) ___  ___

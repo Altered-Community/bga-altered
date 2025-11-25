@@ -102,9 +102,9 @@ trait DebugTrait
 
   function vt()
   {
-    throw new \feException(print_r(Engine::getNextUnresolved()->getParent()->toArray()));
+    // throw new \feException(print_r(Engine::getNextUnresolved()->getParent()->toArray()));
     // Meeples::createHeroMarkers();
-    // throw new \feException(print_r(Players::getRegionsInfo()));
+    throw new \feException(print_r(Players::getCurrent()->getStormToken()));
     // throw new \feException(Players::getCurrent()->isAscended(COMPANION));
     // Cards::getCardClass('ALT_BISE_P_BR_64_R2');
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
