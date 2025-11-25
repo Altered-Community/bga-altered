@@ -27,7 +27,7 @@ class AX_Rare_FabLabUnit extends \ALT\Models\Card
       'costReserve' => 1,
       'effectTap' => FT::ACTION(SPECIAL_EFFECT, [
         'effect' => 'triggerEffectOfNextCharacter',
-        'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE, 'boost' => 1],
+        'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE, 'boost' => 1, 'to' => 'sourceLocation'],
       ]),
     ];
   }
