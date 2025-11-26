@@ -296,13 +296,13 @@ class Card extends \ALT\Helpers\DB_Model
   }
 
   // $scout = can be played at scout cost
-  public function canBePlayed($player, $scout = false)
+  public function canBePlayed($player, $scout = false, $reserveFlipCost = false)
   {
     if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
     }
 
-    $cost = $this->getCost($scout);
+    $cost = $this->getCost($scout, $reserveFlipCost);
     $costReductionIfEmpty = $this->getCostReductionIfEmpty();
     $mana = $player->getMana();
     $totalMana = $player->getTotalMana();
@@ -777,7 +777,7 @@ class Card extends \ALT\Helpers\DB_Model
     return [$power['payment'] ?? [], $power['output']];
   }
 
-  public function getCost($scout = false)
+  public function getCost($scout = false, $reserveFlipCost = false)
   {
     if (($this->getType() == SPELL || in_array(SPELL, $this->getAdditionalType())) && Globals::isNextSpellIsFree()) {
       return 0;
@@ -847,6 +847,12 @@ class Card extends \ALT\Helpers\DB_Model
         return max($minimumCost, $initialCost - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc);
         break;
       case RESERVE:
+        if ($reserveFlipCost) {
+          return min(
+            max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost),
+            max($minimumCost, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost)
+          );
+        }
         return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost);
         break;
     }

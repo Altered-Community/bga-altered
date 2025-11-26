@@ -40,7 +40,8 @@ class ChooseAssignment extends \ALT\Models\Action
     'minBaseCost' => 0,
     'limited' => false,
     'forcedLocation' => null,
-    'mandatory' => false
+    'mandatory' => false,
+    'reserveFlipCost' => false
   ];
 
   public function argsChooseAssignment()
@@ -54,6 +55,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $maxHandCost = $this->getArg('maxHandCost');
     $maxBaseCost = $this->getArg('maxBaseCost');
     $minBaseCost = $this->getArg('minBaseCost');
+    $reserveFlipCost = $this->getArg('reserveFlipCost');
     $free = $this->getArg('free');
     $forcedLocation = $this->getArg('forcedLocation');
 
@@ -61,9 +63,9 @@ class ChooseAssignment extends \ALT\Models\Action
     if (in_array('play', $authorizedActions)) {
       $actions['play'] = $handCards
         ->merge($reserveCards)
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost) {
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost, $reserveFlipCost) {
           return (in_array($card->getType(), $authorizedTypes) || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0) &&
-            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost  && $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped() &&
+            ((!$free && $card->canBePlayed($player, false, $reserveFlipCost)) || ($free && $card->getCostHand() <= $maxHandCost  && $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped() &&
               (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost)) &&
               (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
             ));;
@@ -196,7 +198,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     if ($free == false) {
       // Calculate cost
-      $cost = $card->getCost($scout);
+      $cost = $card->getCost($scout, $this->getArg('reserveFlipCost'));
       $costReduction = Globals::getCostReduction();
       foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
         if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType())) {
