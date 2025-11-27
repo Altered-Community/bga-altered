@@ -72,6 +72,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nextTokenAsleep' => 'bool', // Pan
 
     // Duster
+    'turnCards' => 'obj',
+
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',

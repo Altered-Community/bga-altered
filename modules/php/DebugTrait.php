@@ -104,7 +104,10 @@ trait DebugTrait
   {
     // throw new \feException(print_r(Engine::getNextUnresolved()->getParent()->toArray()));
     // Meeples::createHeroMarkers();
-    throw new \feException(print_r(Players::getCurrent()->getStormToken()));
+    $turnCards = Globals::getTurnCards();
+    $turnCards[Players::getCurrent()->getId()] = ($turnCards[Players::getCurrent()->getId()] ?? 0) + 1;
+    Globals::setTurnCards($turnCards);
+    // throw new \feException(print_r(Players::getCurrent()->getStormToken()));
     // throw new \feException(Players::getCurrent()->isAscended(COMPANION));
     // Cards::getCardClass('ALT_BISE_P_BR_64_R2');
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));

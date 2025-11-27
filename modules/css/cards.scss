@@ -864,6 +864,15 @@
                 color: black;
             }
         }
+         .card-frame[data-rarity="3"][data-size="1"][data-support="0"] ~ .card-text {
+            color: white;
+            .card-qrcode-container {
+                shape-outside: polygon(0px 70px, 0px 126px, 70px 126px, 70px 70px);
+            }
+           .svgicon-mana-1 .path2:before {
+                color: black;
+            }
+        }
 
         // Adjust width for permanent frame
         .card-frame[data-type="permanent"] ~ .card-text {

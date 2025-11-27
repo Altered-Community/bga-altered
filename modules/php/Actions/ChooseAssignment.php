@@ -316,6 +316,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $card->setTapped(false);
     $card->setRevealed(false);
 
+    $turnCards = Globals::getTurnCards();
+    $turnCards[$player->getId()] = ($turnCards[$player->getId()] ?? 0) + 1;
+    Globals::setTurnCards($turnCards);
+
     // if card has boosts (from incorrect passive effect), we remove them
 
     if ($fromLocation == HAND) {

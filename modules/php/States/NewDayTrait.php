@@ -154,6 +154,7 @@ trait NewDayTrait
     Globals::setBlockedExpeditions([]);
     Globals::setGlobalTough([]);
     Globals::setFirstPass(-1);
+    Globals::setTurnCards([]);
     Cards::untapAll();
     Stats::incDays();
     Notifications::updateTotalMana();

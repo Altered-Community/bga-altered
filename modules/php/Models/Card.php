@@ -821,6 +821,8 @@ class Card extends \ALT\Helpers\DB_Model
           $dynamicReduc += $cards;
         } elseif ($dynamicReduction == 'eachOwnerAscended') {
           $dynamicReduc += ($this->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($this->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
+        } elseif ($dynamicReduction == 'playedCards') {
+          $dynamicReduc += (Globals::getTurnCards()[$this->getPId()] ?? 0);
         } else {
           $dynamicReduc += (int) $dynamicReduction;
         }
