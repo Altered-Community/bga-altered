@@ -24,6 +24,7 @@ class InvokeToken extends \ALT\Models\Action
   protected $args = [
     'allPlayers' => false,
     'moreThan1' => false,
+    'forcedLocation' => null,
   ];
 
   public function getDescription()
@@ -199,6 +200,10 @@ class InvokeToken extends \ALT\Models\Action
 
     list($realLocation, $strLocation) = $this->getLocationInfos($explodedLocation[0]);
     $location = $realLocation;
+
+    if (!is_null($this->getArg('forcedLocation'))) {
+      $location = $this->getArg('forcedLocation');
+    }
 
     for ($i = 0; $i < ($this->getCtxArg('n') ?? 1); $i++) {
       $card = $this->getToken();
