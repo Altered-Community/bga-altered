@@ -728,6 +728,19 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function hasExpeditionToughBoosted($expedition = null)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if (!is_null($expedition) && $card->getLocation() != $expedition) {
+        continue;
+      }
+      if ($card->getExpeditionTough() == 'boosted') {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function hasIncreaseBiomesHighest($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {

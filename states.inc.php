@@ -454,11 +454,13 @@ $machinestates = [
 
   ST_PAY => [
     'name' => 'pay',
-    'description' => '',
-    'type' => 'game',
+    'description' => clienttranslate('${actplayer} must pay mana'),
+    'descriptionmyturn' => clienttranslate('${you} must pay mana'),
+    'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
     'transitions' => [],
-    'possibleactions' => ['actPassOptionalAction'],
+    'possibleactions' => ['actPay', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_EXHAUST => [

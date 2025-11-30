@@ -73,6 +73,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     // Duster
     'turnCards' => 'obj',
+    'nextCharacterInExpeditionBoost' => 'obj',
 
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games

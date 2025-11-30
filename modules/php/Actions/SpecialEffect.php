@@ -1888,6 +1888,21 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::GAIN($card, BOOST, $n, 3));
         }
         break;
+      case 'nextCharactInExpeditionBoost':
+        // throw new \feException(print_r($this->getCtx()->getParent()->toArray()));
+        $n = 2;
+        if (($args['X'] ?? '') == 'paidMana') {
+          $n = $this->getCtx()->getParent()->toArray()['childs'][0]['actionResolutionArgs'][0];
+        }
+        // throw new \feException($n);
+        $boosts = Globals::getNextCharacterInExpeditionBoost();
+        $boosts[$card->getPId()][$card->getLocation()] = $n + ($boosts[$card->getPId()][$card->getLocation()] ?? 0);
+        Globals::setNextCharacterInExpeditionBoost($boosts);
+        Notifications::message(clienttranslate('${player_name} will boost next character played in ${card_name}\'s expedition'), [
+          'player' => Players::getActive(),
+          'card' => $card
+        ]);
+        break;
       default:
         break;
     }

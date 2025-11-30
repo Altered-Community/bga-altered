@@ -29,6 +29,9 @@ class Pay extends \ALT\Models\Action
 
   public function isDoable($player)
   {
+    if ($this->getArg('pay') == 'X') {
+      return true;
+    }
     return $player->getMana() >= ($this->getCtxArg('pay') ?? 0);
   }
 
@@ -38,17 +41,36 @@ class Pay extends \ALT\Models\Action
     return true;
   }
 
-  public function stPay()
+  public function argsPay()
   {
-    // throw new \feException(print_r(debug_print_backtrace()));
-    $player = $this->getPlayer();
-
+    $player = Players::getActive();
     $pay = $this->getCtxArg('pay') ?? 0;
-    if ($pay > 0) {
-      $player->payMana($pay);
-      Notifications::pay($player, $pay);
+    if (is_int($pay) && $pay > 0) {
+      return [];
     }
 
-    $this->resolveAction();
+    return [
+      'pay' => $this->getCtxArg('pay'),
+      'mana' => $player->getMana()
+    ];
+  }
+
+  public function stPay()
+  {
+    if (is_int($this->getCtxArg('pay')) && $this->getCtxArg('pay') > 0) {
+      $this->actPay($this->getCtxArg('pay'));
+    }
+  }
+
+  public function actPay($mana)
+  {
+    $player = $this->getPlayer();
+
+    if ($mana > 0) {
+      $player->payMana($mana);
+      Notifications::pay($player, $mana);
+    }
+
+    $this->resolveAction([$mana]);
   }
 }

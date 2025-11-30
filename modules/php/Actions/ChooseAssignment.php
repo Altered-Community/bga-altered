@@ -555,6 +555,13 @@ class ChooseAssignment extends \ALT\Models\Action
         Globals::setAdditionalEffect($addEffects);
       }
 
+      $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+      if ($card->getType() == CHARACTER && isset($expeditionsBoosts[$player->getId()][$location])) {
+        $effects[] = FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]);
+        unset($expeditionsBoosts[$player->getId()][$location]);
+        Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
+      }
+
       if (!empty($effects)) {
         // setting a default PId for the effects
         foreach ($effects as &$eff) {

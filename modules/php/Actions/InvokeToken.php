@@ -232,6 +232,13 @@ class InvokeToken extends \ALT\Models\Action
         Globals::setNextTokenAsleep(false);
       }
 
+      $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+      if ($card->getType() == CHARACTER && isset($expeditionsBoosts[$player->getId()][$location])) {
+        $effects[] = FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]);
+        unset($expeditionsBoosts[$player->getId()][$location]);
+        Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
+      }
+
 
       $this->checkAfterListeners($player, [
         'playCard' => true,

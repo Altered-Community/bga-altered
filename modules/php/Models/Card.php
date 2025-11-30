@@ -181,6 +181,9 @@ class Card extends \ALT\Helpers\DB_Model
     // Patch note 20251003
     'blockMoveExpedition' => 'bool', // Unique Will O the Wisp
     'reserveAdd' => 'int',
+
+    // Duster
+    'expeditionTough' => 'str'
   ];
 
   /********* DB ACCESS *********/
@@ -962,6 +965,11 @@ class Card extends \ALT\Helpers\DB_Model
         $universal = $universal - 1;
       }
       $tough += $universal;
+
+      // Rider's Mask
+      if ($this->getPlayer()->hasExpeditionToughBoosted($this->getLocation()) && self::hasToken(BOOST)) {
+        $tough += 1;
+      }
     }
 
     // Global Tough

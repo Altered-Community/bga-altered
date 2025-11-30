@@ -1,19 +1,19 @@
 <?php
 
-namespace ALT\Cards\BR;
+namespace ALT\Cards\AX;
 
 use ALT\Helpers\FT;
 
-class BR_Rare_RidersMask extends \ALT\Models\Card
+class AX_Rare_RidersMask extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_DUSTER_B_BR_102_R1',
+      'uid' => 'ALT_DUSTER_B_BR_102_R2',
       'asset'  => 'ALT_DUSTER_B_BR_102_R',
 
-      'faction'  => FACTION_BR,
+      'faction'  => FACTION_AX,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("Rider's Mask"),
       'typeline' => clienttranslate("Expedition Permanent - Gear"),
@@ -22,13 +22,12 @@ class BR_Rare_RidersMask extends \ALT\Models\Card
       'artist' => "Jean-Baptiste Andrier",
       'extension' => 'SDU',
       'subtypes'  => [GEAR, EXPEDITION],
-      'effectDesc' => clienttranslate('#<BOOSTED_CHA_P> Characters in my Expedition are <TOUGH_CHA_P_1>.# (Opponents must pay {1} to target them.)  {T}, #{X}# : The next Character that joins my Expedition this turn gains #X boosts.#'),
+      'effectDesc' => clienttranslate('{T}, {1} : The next Character that joins my Expedition this turn gains 2 boosts. (Characters joining when you pass still join this turn.)'),
       'costHand' => 1,
       'costReserve' => 1,
-      'expeditionTough' => 'boosted',
       'effectTap' => FT::SEQ(
-        FT::ACTION(PAY, ['pay' => 'X']),
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharactInExpeditionBoost', 'args' => ['X' => 'paidMana']])
+        FT::ACTION(PAY, ['pay' => 1]),
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharactInExpeditionBoost'])
       )
     ];
   }

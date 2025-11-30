@@ -1486,6 +1486,16 @@ define([
       this.addConfirmTurn(args, 'actConfirmPartialTurn');
     },
 
+    onEnteringStatePay(args) {
+       payMana = (i) => {
+        return () => this.takeAtomicAction('actPay', [i]);
+      };
+      for(i = 1; i <= args.mana;i++){
+         this.addPrimaryActionButton('btnMana'+i, this.formatString('{'+i+'}'), payMana(i)
+        );
+      }
+    },
+
     askConfirmation(warning, callback) {
       if (warning === false || this.prefs[104].value == 0) {
         callback();
