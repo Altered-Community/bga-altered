@@ -743,6 +743,11 @@ abstract class Conditions
     return false;
   }
 
+  public static function isNotInContact($card, $event)
+  {
+    return !self::isInContact($card, $event);
+  }
+
   ///////////////////////////////////////////////////////////////////////////////
   //   ____              _   ____                            _   _
   //  / ___|__ _ _ __ __| | |  _ \ _ __ ___  _ __   ___ _ __| |_(_) ___  ___
