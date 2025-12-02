@@ -270,10 +270,10 @@ abstract class Conditions
       }
 
       // is it ascended?
-      if ($stormMoves[$card->getPId()][$storm]['ascended'] === false) {
+      if (($stormMoves[$card->getPId()][$storm]['ascended'] ?? false) === false) {
         continue;
       }
-      if ($stormMoves[$card->getPId()][$storm]['moves'] >= 1) {
+      if (($stormMoves[$card->getPId()][$storm]['moves'] ?? 0) >= 1) {
         return true;
       }
     }

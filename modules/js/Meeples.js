@@ -235,7 +235,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         this.fadeOutAndDestroy($(`card-${cardId}`));
       });
       this.gamedatas.cards.forEach((card) => {
-        this.updateCardStatuses(card.id);
+        if ($(`card-${card.id}`)) {
+          this.updateCardStatuses(card.id);
+        }
       });
     },
 
