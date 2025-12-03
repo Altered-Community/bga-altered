@@ -183,7 +183,8 @@ class Card extends \ALT\Helpers\DB_Model
     'reserveAdd' => 'int',
 
     // Duster
-    'expeditionTough' => 'str'
+    'expeditionTough' => 'str',
+    'playLimitation' => 'str',
   ];
 
   /********* DB ACCESS *********/
@@ -381,10 +382,35 @@ class Card extends \ALT\Helpers\DB_Model
             }
           }
           return $locations;
+        } elseif ($this->getPlayLimitation() == 'nonStartingRegion') {
+          $locations = [];
+          if ($player->getHeroToken()->getLocation() != 'storm-0') {
+            $locations[] = STORM_LEFT;
+          }
+          if ($player->getCompanionToken()->getLocation() != 'storm-7') {
+            $locations[] = STORM_RIGHT;
+          }
+          return $locations;
+        } elseif ($this->getPlayLimitation() == '+3StartingRegion') {
+          // Diocles Chariot Racer Rare
+          $locations = [];
+          if ($player->getHeroToken()->getLocation() == 'storm-0' && ($this->getCost() + 3) <= $player->getMana()) {
+            $locations[] = STORM_LEFT;
+          } elseif ($player->getHeroToken()->getLocation() != 'storm-0') {
+            $locations[] = STORM_LEFT;
+          }
+
+          if ($player->getCompanionToken()->getLocation() == 'storm-7' && ($this->getCost() + 3) <= $player->getMana()) {
+            $locations[] = STORM_RIGHT;
+          } elseif ($player->getCompanionToken()->getLocation() != 'storm-7') {
+            $locations[] = STORM_RIGHT;
+          }
+          return $locations;
         } else {
           if (!is_null($forcedLocation)) {
             return [$forcedLocation];
           }
+
           return STORMS;
         }
       }

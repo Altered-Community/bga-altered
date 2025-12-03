@@ -199,6 +199,15 @@ class ChooseAssignment extends \ALT\Models\Action
     if ($free == false) {
       // Calculate cost
       $cost = $card->getCost($scout, $this->getArg('reserveFlipCost'));
+      // Diocles Chariot racer Rare
+      if ($card->getPlayLimitation() == '+3StartingRegion') {
+        if ($location == STORM_LEFT && $player->getHeroToken()->getLocation() == 'storm-0') {
+          $cost += 3;
+        }
+        if ($location == STORM_RIGHT && $player->getCompanionToken()->getLocation() == 'storm-7') {
+          $cost += 3;
+        }
+      }
       $costReduction = Globals::getCostReduction();
       foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
         if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType())) {

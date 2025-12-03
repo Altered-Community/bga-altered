@@ -49,6 +49,12 @@ class MoveExpedition extends \ALT\Models\Action
     foreach ($expeditions as &$expe) {
       if ($expe == EFFECT) {
         $expe = $this->getSource()->getLocation();
+      } elseif ($expe = 'fromEvent') {
+        // Check event in case of leaving expedition
+        $event = $this->getEventRecursive();
+        if (!is_null($event) && in_array($event['method'], ['LeaveExpedition', 'LeaveLandmark']) && isset($event['from'])) {
+          $expe = $event['from'];
+        }
       }
     }
 
