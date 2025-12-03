@@ -208,6 +208,10 @@ class ChooseAssignment extends \ALT\Models\Action
           $cost += 3;
         }
       }
+      // Lyra DJ
+      if ($card->getPlayLimitation() == '-2Contact' && $player->isInContact($location)) {
+        $cost -= 2;
+      }
       $costReduction = Globals::getCostReduction();
       foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
         if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType())) {

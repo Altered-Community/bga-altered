@@ -160,7 +160,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $cards = $this->getManaCards(false)->limit($n);
     if ($cards->count() < $n) {
-      throw new \BgaVisibleSystemException('You don\'t have enough mana to pay. Should not happen');
+      throw new \BgaUserException(clienttranslate('You don\'t have enough mana to pay'));
     }
 
     foreach ($cards as $card) {
@@ -1067,5 +1067,30 @@ class Player extends \ALT\Helpers\DB_Model
         }
       })
     );
+  }
+
+  public function isInContact($location = null)
+  {
+    $opponent = Players::getNext($this);
+    $opponentTokens = Meeples::getStormTokens($opponent->getId());
+    if (is_null($location)) {
+      $tokenF = ['getHeroToken', 'getCompanionToken'];
+    } elseif ($location == STORM_LEFT) {
+      $tokenF = ['getHeroToken'];
+    } elseif ($location == STORM_RIGHT) {
+      $tokenF = ['getCompanionToken'];
+    } else {
+      return false;
+    }
+
+    foreach ($tokenF as $tok) {
+      $token = $this->$tok()->getLocation();
+      foreach ($opponentTokens as $mId => $meeple) {
+        if ($token == $meeple->getLocation()) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

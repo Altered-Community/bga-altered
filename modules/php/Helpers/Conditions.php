@@ -743,6 +743,11 @@ abstract class Conditions
     return false;
   }
 
+  public static function allInContact($card, $event)
+  {
+    return $card->getPlayer()->isInContact(STORM_LEFT) && $card->getPlayer()->isInContact(STORM_RIGHT);
+  }
+
   public static function isNotInContact($card, $event)
   {
     return !self::isInContact($card, $event);

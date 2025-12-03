@@ -342,6 +342,11 @@ class Card extends \ALT\Helpers\DB_Model
     if ($this->getCostReductionLimitation() > 0) {
       $cost -= $this->getCostReductionLimitation();
     }
+
+    // Lyra DJ
+    if ($this->getPlayLimitation() == '-2Contact' && $player->isInContact()) {
+      $cost -= 2;
+    }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
