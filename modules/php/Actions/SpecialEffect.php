@@ -321,6 +321,9 @@ class SpecialEffect extends \ALT\Models\Action
     if ($cardId === null) {
       throw new \BgaVisibleSystemException('no card in args (special effect). Should not happen');
     }
+    if ($cardId == ME) {
+      $cardId = $this->getSource()->getId();
+    }
     return Cards::get($cardId);
   }
 

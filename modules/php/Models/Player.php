@@ -576,6 +576,16 @@ class Player extends \ALT\Helpers\DB_Model
         continue;
       }
 
+      if (!$card->hasToken(ASLEEP) && !$card->hasToken(ANCHORED) && !$card->hasToken(FLEETING) && $card->isLeaveExpeditionDefect()) {
+        $toAdd = FT::SEQ(
+          FT::GAIN($cId, FLEETING),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'cardId' => $cId], ['sourceId' => $cId])
+        );
+        $toAdd['pId'] = $card->getPId();
+        Engine::pushAfterFinishingChilds([$toAdd]);
+        continue;
+      }
+
 
       // Expedition permanent, if the player hasn't moved, it stays
       if (in_array(EXPEDITION, $card->getSubtypes())) {

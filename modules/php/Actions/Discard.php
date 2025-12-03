@@ -296,6 +296,17 @@ class Discard extends \ALT\Models\Action
         continue;
       }
 
+      if ($destination == RESERVE && $card->isLeaveExpeditionDefect()) {
+        $toAdd = FT::SEQ(
+          FT::GAIN($cId, FLEETING),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'cardId' => $cId], ['sourceId' => $cId])
+        );
+        $toAdd['pId'] = $card->getPId();
+        $this->insertAsChild($toAdd);
+        unset($cards[$cId]);
+        continue;
+      }
+
       // Floral Tent
       if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->getPlayer()->hasProtectAnchoredInExpedition($originalLocation, $card->isGigantic()) && $card->hasToken(ANCHORED)) {
         unset($cards[$cId]);
