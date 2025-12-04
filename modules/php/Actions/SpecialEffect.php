@@ -12,7 +12,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Game;
 use ALT\Core\Engine;
 use ALT\Helpers\Utils;
-use ReturnTypeWillChange;
+use ALT\Helpers\Conditions;
 
 class SpecialEffect extends \ALT\Models\Action
 {
@@ -1905,6 +1905,35 @@ class SpecialEffect extends \ALT\Models\Action
           'player' => Players::getActive(),
           'card' => $card
         ]);
+        break;
+      case 'Phoibos':
+        // Reveal random card
+        $player = $card->getPlayer();
+        $opponent = Players::getNext($player);
+        $opponentHand = $opponent->getHand();
+        if ($opponentHand->count() > 0) {
+          $revealedCard = $opponentHand->rand();
+          $revealedCard->setLocation(LIMBO);
+          Notifications::reveal($revealedCard, $card);
+          if (Conditions::isInContact($card, [])) {
+            // if in contact, may play
+            $this->insertAsChild(FT::XOR(
+              FT::ACTION(
+                PLAY_CARD,
+                [
+                  'cardId' => $revealedCard->getId(),
+                  'free' => true,
+                  'stealOwnership' => true,
+                ],
+                ['sourceId' => $card->getId()]
+              ),
+              FT::ACTION(DISCARD, ['cardId' => $revealedCard->getId()])
+            ));
+          } else {
+            // else (or not played) discard
+            $this->insertAsChild(FT::ACTION(DISCARD, ['cardId' => $revealedCard->getId()]));
+          }
+        }
         break;
       default:
         break;
