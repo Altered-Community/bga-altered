@@ -27,7 +27,7 @@ class BR_Common_RidersMask extends \ALT\Models\Card
       'costReserve' => 1,
       'effectTap' => FT::SEQ(
         FT::ACTION(PAY, ['pay' => 1]),
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharactInExpeditionBoost'])
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharactInExpeditionBoost', 'args' => ['n' => 2]])
       )
     ];
   }

@@ -1893,7 +1893,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharactInExpeditionBoost':
         // throw new \feException(print_r($this->getCtx()->getParent()->toArray()));
-        $n = 2;
+        $n = $args['n'] ?? 1;
         if (($args['X'] ?? '') == 'paidMana') {
           $n = $this->getCtx()->getParent()->toArray()['childs'][0]['actionResolutionArgs'][0];
         }

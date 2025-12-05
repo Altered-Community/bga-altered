@@ -1075,10 +1075,19 @@ class Player extends \ALT\Helpers\DB_Model
     $opponentTokens = Meeples::getStormTokens($opponent->getId());
     if (is_null($location)) {
       $tokenF = ['getHeroToken', 'getCompanionToken'];
+      if ($this->hasOverrideInContact(STORM_LEFT) || $this->hasOverrideInContact(STORM_RIGHT)) {
+        return true;
+      }
     } elseif ($location == STORM_LEFT) {
       $tokenF = ['getHeroToken'];
+      if ($this->hasOverrideInContact(STORM_LEFT)) {
+        return true;
+      }
     } elseif ($location == STORM_RIGHT) {
       $tokenF = ['getCompanionToken'];
+      if ($this->hasOverrideInContact(STORM_RIGHT)) {
+        return true;
+      }
     } else {
       return false;
     }
@@ -1089,6 +1098,16 @@ class Player extends \ALT\Helpers\DB_Model
         if ($token == $meeple->getLocation()) {
           return true;
         }
+      }
+    }
+    return false;
+  }
+
+  public function hasOverrideInContact($location)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if (($card->getLocation() == $location || ($card->isGigantic() && in_array($card->getLocation(), STORMS))) && $card->isOverrideContact()) {
+        return true;
       }
     }
     return false;

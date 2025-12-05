@@ -725,6 +725,12 @@ abstract class Conditions
     if (!in_array($card->getLocation(), STORMS)) {
       return false;
     }
+
+    // Reka headset
+    if ($card->getPlayer()->hasOverrideInContact($card->getLocation())) {
+      return true;
+    }
+
     $opponent = Players::getNext($card->getPlayer());
     $opponentTokens = Meeples::getStormTokens($opponent->getId());
     $tokenF = [$card->getLocation() == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken'];

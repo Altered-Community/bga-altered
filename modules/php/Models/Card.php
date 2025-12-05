@@ -185,7 +185,8 @@ class Card extends \ALT\Helpers\DB_Model
     // Duster
     'expeditionTough' => 'str',
     'playLimitation' => 'str',
-    'leaveExpeditionDefect' => 'bool'
+    'leaveExpeditionDefect' => 'bool',
+    'overrideContact' => 'bool'
   ];
 
   /********* DB ACCESS *********/
