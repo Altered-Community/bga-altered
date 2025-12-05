@@ -1,27 +1,42 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Rare_CableCarStation extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_DUSTER_B_LY_102_R2',
-            'asset'  => 'ALT_DUSTER_B_LY_102_R',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_DUSTER_B_LY_102_R2',
+      'asset'  => 'ALT_DUSTER_B_LY_102_R',
 
-    	'faction'  => FACTION_OD,
-    	'rarity'  => RARITY_RARE,
-    	'name'  => clienttranslate("Cable-Car Station"),
+      'faction'  => FACTION_OD,
+      'rarity'  => RARITY_RARE,
+      'name'  => clienttranslate("Cable-Car Station"),
       'typeline' => clienttranslate("Landmark_permanent - Site"),
-    	'type'  => PERMANENT,
-    	'flavorText'  => clienttranslate('Reka cable-cars are the safest way to get around the city.'),
+      'type'  => PERMANENT,
+      'flavorText'  => clienttranslate('Reka cable-cars are the safest way to get around the city.'),
       'artist' => "Anh Tung",
-			'extension'=>'SDU',
-   'subtypes'  => [SITE,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} #Draw a card,# then I gain 2 Move counters.  {T}, Spend 1 of my Move counters: One of your Expeditions moves backwards one region. If it does, your other Expedition moves forward one region.'),
-     'costHand' => 2, 
-     'costReserve' => 2, 
-];
+      'extension' => 'SDU',
+      'subtypes'  => [SITE, LANDMARK],
+      'effectDesc' => clienttranslate('{J} #Draw a card,# then I gain 2 Move counters.  {T}, Spend 1 of my Move counters: One of your Expeditions moves backwards one region. If it does, your other Expedition moves forward one region.'),
+      'costHand' => 2,
+      'costReserve' => 2,
+       'effectPlayed' => FT::SEQ(
+        FT::ACTION(DRAW, ['players' => ME]),
+        FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'gainCounter',
+          'args' => ['counter' => 2, 'counterName' => clienttranslate('Move counters')],
+        ]),
+      ),
+      'effectTap' => FT::SEQ(
+        FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]),
+        FT::ACTION(TARGET_EXPEDITION, ['players' => ME, 'effect' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'pId' => ME, 'moveOtherExpedition' => true])])
+      )
+    ];
+    ];
   }
 }

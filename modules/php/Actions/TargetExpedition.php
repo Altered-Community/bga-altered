@@ -21,7 +21,7 @@ class TargetExpedition extends \ALT\Models\Action
     return ST_TARGET_EXPEDITION;
   }
 
-  protected $args = ['n' => 1];
+  protected $args = ['n' => 1, 'players' => ALL];
 
   public function getDescription()
   {
@@ -41,7 +41,15 @@ class TargetExpedition extends \ALT\Models\Action
     $expeditionType = $this->getCtxArgs()['type'] ?? null;
     $winners = Players::getWinningPlayerByStorms();
 
-    foreach (Players::getAll() as $pId => $player) {
+    if ($this->getArg('players') == ALL) {
+      $players = Players::getAll();
+    } elseif ($this->getArg('players') == ME) {
+      $players = [$this->getPlayer()->getId() => $this->getPlayer()];
+    } else {
+      $players = [Players::getNext($this->getPlayer())->getId() => Players::getNext($this->getPlayer())];
+    }
+
+    foreach ($players as $pId => $player) {
       foreach (STORMS as $storm) {
         if ($expeditionType == 'ahead' && $winners[$storm] != $pId) {
           continue;
@@ -79,11 +87,14 @@ class TargetExpedition extends \ALT\Models\Action
       $node['sourceId'] = $this->getSourceId();
       $node['args']['player'] = $pId;
       $node['args']['expedition'] = $expeditions[1];
+      $node['args']['forceExpedition'] = [$pId, $expeditions[1]];
+
       if (isset($node['childs'])) {
         foreach ($node['childs'] as &$child) {
           $child['sourceId'] = $this->getSourceId();
           $child['args']['player'] = $pId;
           $child['args']['expedition'] = $expeditions[1];
+          $child['args']['forceExpedition'] = [$pId, $expeditions[1]];
         }
       }
       $this->pushParallelChild($node);
