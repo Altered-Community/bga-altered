@@ -858,6 +858,11 @@ class Card extends \ALT\Helpers\DB_Model
           $dynamicReduc += ($this->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($this->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
         } elseif ($dynamicReduction == 'playedCards') {
           $dynamicReduc += (Globals::getTurnCards()[$this->getPId()] ?? 0);
+        } elseif ($dynamicReduction == 'hasInContact') {
+          $dynamicReduc += $this->getPlayer()->isInContact() ? 1 : 0;
+        } elseif ($dynamicReduction == 'expeditionsInContact') {
+          $dynamicReduc += $this->getPlayer()->isInContact(STORM_LEFT) ? 1 : 0;
+          $dynamicReduc += $this->getPlayer()->isInContact(STORM_RIGHT) ? 1 : 0;
         } else {
           $dynamicReduc += (int) $dynamicReduction;
         }
