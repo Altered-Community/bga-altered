@@ -1935,6 +1935,41 @@ class SpecialEffect extends \ALT\Models\Action
           }
         }
         break;
+      case 'RomanticEncounter':
+        Engine::checkpoint();
+        // draw 4 cards
+
+        $player = $card->getPlayer();
+        if ($args['player'] == ME) {
+          $opponent = $player;
+        } else {
+          $opponent = Players::getNext($player);
+        }
+        $drawn = $opponent->draw(4, null, LIMBO, $card);
+        // Target only Characters drawn
+        $this->insertAsChild(
+          FT::ACTION(
+            TARGET,
+            [
+              'n' => 2,
+              'upTo' => true,
+              'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'stealOwnership' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
+              'targetLocation' => [LIMBO],
+              'targetPlayer' => ME,
+              'cards' => $drawn->getIds(),
+              'maxBaseCost' => ($args['rare'] ?? false) ? 3 : INFTY,
+              'discardRemaining' => true,
+            ],
+            ['sourceId' => $card->getId()]
+          )
+        );
+        break;
+      case 'RomanticEncounterRare':
+        $nodes = [];
+        $nodes[] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticEncounter', 'args' => ['player' => ME, 'rare' => true]], ['sourceId' => $card->getId()]);
+        $nodes[] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticEncounter', 'args' => ['player' => OPPONENT, 'rare' => true]], ['sourceId' => $card->getId()]);
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
       default:
         break;
     }
