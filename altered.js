@@ -982,7 +982,7 @@ define([
       }
 
       // RandomDeck
-      let canUseRandom = false;
+      let canUseRandom = true;
       if (args.demoDeck == false && canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
         $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
