@@ -2,7 +2,7 @@
 
 namespace ALT\Cards\LY;
 
-use AlT\Helpers\FT;
+use ALT\Helpers\FT;
 
 class LY_Rare_SleightofHand extends \ALT\Models\Card
 {
