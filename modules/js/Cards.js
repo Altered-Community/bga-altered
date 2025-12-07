@@ -2221,6 +2221,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('In contact'),
           reminder: _('I\'m In Contact if another player\'s Expedition is in my region.'),
         },
+        GIFT: {
+          text:_('Gift')
+        }
       };
 
       const regexParentheses = /\(([^)]+)\)/;

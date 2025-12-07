@@ -215,7 +215,7 @@ class Resupply extends \ALT\Models\Action
       $this->pushAfterFinishingChilds($node);
     }
     if ($cards->count() > 0) {
-      $this->checkAfterListeners($player, ['draw' => $n, 'sourceId' => $this->getSourceId(), 'notResupply' => $notResupply]);
+      $this->checkAfterListeners($player, ['draw' => $n, 'sourceId' => $this->getSourceId(), 'notResupply' => $notResupply, 'exhausted' => $exhausted]);
     }
 
     $this->resolveAction(null, $checkpoint);

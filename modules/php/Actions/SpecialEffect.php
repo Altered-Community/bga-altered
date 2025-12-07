@@ -268,6 +268,8 @@ class SpecialEffect extends \ALT\Models\Action
         // DUSTER
       case 'boostXExhaustedMax3':
         return clienttranslate('Boost 1 per exhausted');
+      case 'copyGift':
+        return clienttranslate('Copy the Gift');
     }
     return '';
   }
@@ -1969,6 +1971,22 @@ class SpecialEffect extends \ALT\Models\Action
         $nodes[] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticEncounter', 'args' => ['player' => ME, 'rare' => true]], ['sourceId' => $card->getId()]);
         $nodes[] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticEncounter', 'args' => ['player' => OPPONENT, 'rare' => true]], ['sourceId' => $card->getId()]);
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'copyGift':
+        $event = $this->getEventRecursive();
+
+        if ($event['action'] == 'InvokeToken') {
+          $this->insertAsChild(FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => $event['invoked'],
+            'targetLocation' => [$event['to']],
+            'targetPlayer' => ME,
+          ], ['sourceId' => $card->getId()]));
+        } elseif ($event['action'] == 'Draw') {
+          $this->insertAsChild(FT::ACTION(DRAW, ['n' => 1, 'players' => ME]));
+        } elseif ($event['action'] == 'Resupply') {
+          $this->insertAsChild(FT::ACTION(RESUPPLY, ['n' => 1, 'exhausted' => $event['exhausted']]));
+        }
         break;
       default:
         break;

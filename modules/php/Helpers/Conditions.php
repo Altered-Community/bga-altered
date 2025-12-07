@@ -183,6 +183,11 @@ abstract class Conditions
   //              |___/
   ////////////////////////////////////////////////////////////
 
+  public static function isMyTurn($card, $event)
+  {
+    return Globals::getActivePId() == $card->getPId();
+  }
+
   public static function isAfternoon($card, $event)
   {
     return Globals::isDayPhase();
@@ -931,6 +936,11 @@ abstract class Conditions
     return $card->getPId() == ($event['locationPId']  ?? -1) && (
       $card->getLocation() == ($event['to'] ?? '') || ($event['gigantic'] ?? false) || $card->isGigantic()
     );
+  }
+
+  public static function isNotMeInvoke($card, $event)
+  {
+    return $card->getPId() != ($event['locationPId']  ?? $card->getPId());
   }
 
   public static function isNotPlayedInSameLocation($card, $event)

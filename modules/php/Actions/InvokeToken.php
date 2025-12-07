@@ -249,7 +249,8 @@ class InvokeToken extends \ALT\Models\Action
         'to' => $location,
         'locationPId' => $invokePId,
         'gigantic' => $card->isGigantic(),
-        'token' => true
+        'token' => true,
+        'invoked' => $this->getCtxArg('tokenType')
       ]);
       if (!$this->getArg('moreThan1') && $i == 0) {
         $this->checkAfterListeners($player, [
@@ -261,7 +262,8 @@ class InvokeToken extends \ALT\Models\Action
           'to' => $location,
           'locationPId' => $invokePId,
           'gigantic' => $card->isGigantic(),
-          'token' => true
+          'token' => true,
+          'invoked' => $this->getCtxArg('tokenType')
         ], true, 'InvokeTokenOnce');
       }
     }
