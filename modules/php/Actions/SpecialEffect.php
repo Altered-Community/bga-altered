@@ -1983,9 +1983,9 @@ class SpecialEffect extends \ALT\Models\Action
             'targetPlayer' => ME,
           ], ['sourceId' => $card->getId()]));
         } elseif ($event['action'] == 'Draw') {
-          $this->insertAsChild(FT::ACTION(DRAW, ['n' => 1, 'players' => ME]));
+          $this->insertAsChild(FT::ACTION(DRAW, ['n' => 1, 'players' => ME], ['sourceId' => $card->getId()]));
         } elseif ($event['action'] == 'Resupply') {
-          $this->insertAsChild(FT::ACTION(RESUPPLY, ['n' => 1, 'exhausted' => $event['exhausted']]));
+          $this->insertAsChild(FT::ACTION(RESUPPLY, ['n' => 1, 'exhausted' => $event['exhausted']], ['sourceId' => $card->getId()]));
         }
         break;
       default:
