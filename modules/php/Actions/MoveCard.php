@@ -95,8 +95,8 @@ class MoveCard extends \ALT\Models\Action
       Notifications::moveCard($source->getPlayer(), $card, $source);
 
       $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
-      if ($card->getType() == CHARACTER && isset($expeditionsBoosts[$player->getId()][$map[$card->getLocation()]])) {
-        $this->insertAsChild(['action' => BOOST, 'args' => ['cardId' => $card->getId(), 'type' => BOOST, 'n' => $expeditionsBoosts[$player->getId()][$map[$card->getLocation()]]]]);
+      if ($card->getType() == CHARACTER && isset($expeditionsBoosts[$card->getPId()][$map[$card->getLocation()]])) {
+        $this->insertAsChild(['action' => BOOST, 'args' => ['cardId' => $card->getId(), 'type' => BOOST, 'n' => $expeditionsBoosts[$card->getPId()][$map[$card->getLocation()]]]]);
         unset($expeditionsBoosts[$player->getId()][$map[$card->getLocation()]]);
         Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
       }

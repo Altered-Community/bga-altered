@@ -267,8 +267,8 @@ class Cards extends \ALT\Helpers\CachedPieces
     // random cards of the faction
     $i = 0;
     $totalCards = 40;
-    $repartition = ['' => 7, 'TBF' => 7, 'WFTM' => 7, 'SO' => 7, 'SDU' => 20];
-    $allocation = ['' => 0, 'TBF' => 0, 'WFTM' => 0, 'SO' => 0, 'SDU' => 0];
+    $repartition = ['' => 7, 'TBF' => 7, 'WTFM' => 7, 'SO' => 7, 'SDU' => 20];
+    $allocation = ['' => 0, 'TBF' => 0, 'WTFM' => 0, 'SO' => 0, 'SDU' => 0];
 
     do {
       $c = array_rand(MAP_REFS_CLASSES);

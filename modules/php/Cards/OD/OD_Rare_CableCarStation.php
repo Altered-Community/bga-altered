@@ -25,7 +25,7 @@ class OD_Rare_CableCarStation extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{J} #Draw a card,# then I gain 2 Move counters.  {T}, Spend 1 of my Move counters: One of your Expeditions moves backwards one region. If it does, your other Expedition moves forward one region.'),
       'costHand' => 2,
       'costReserve' => 2,
-       'effectPlayed' => FT::SEQ(
+      'effectPlayed' => FT::SEQ(
         FT::ACTION(DRAW, ['players' => ME]),
         FT::ACTION(SPECIAL_EFFECT, [
           'effect' => 'gainCounter',
@@ -36,7 +36,6 @@ class OD_Rare_CableCarStation extends \ALT\Models\Card
         FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]),
         FT::ACTION(TARGET_EXPEDITION, ['players' => ME, 'effect' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'pId' => ME, 'moveOtherExpedition' => true])])
       )
-    ];
     ];
   }
 }
