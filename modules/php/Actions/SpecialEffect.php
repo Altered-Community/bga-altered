@@ -1443,7 +1443,7 @@ class SpecialEffect extends \ALT\Models\Action
         foreach (STORMS as $storm) {
           $win = $winners[$storm] ?? null;
           if (((is_null($win) || $win == -1 || $win != $card->getPId()) && !Globals::isTieBreakerMode())  ||
-            Globals::isTieBreakerMode()
+            Globals::isTieBreakerMode() || $card->getPlayer()->hasOverrideBehind($storm)
           ) {
             $nodes[] = FT::ACTION(
               INVOKE_TOKEN,

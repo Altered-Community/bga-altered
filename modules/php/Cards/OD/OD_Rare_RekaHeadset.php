@@ -26,7 +26,7 @@ class OD_Rare_RekaHeadset extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 1,
       'changedStats' => ['costReserve'],
-      'overrideContact' => true,
+      'overrideBehind' => true,
       'effectTap' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharactInExpeditionBoost', 'args' => ['n' => 1]])
     ];
   }

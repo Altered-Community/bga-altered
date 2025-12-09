@@ -1112,4 +1112,14 @@ class Player extends \ALT\Helpers\DB_Model
     }
     return false;
   }
+
+  public function hasOverrideBehind($location)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if (($card->getLocation() == $location || ($card->isGigantic() && in_array($card->getLocation(), STORMS))) && $card->isOverrideBehind()) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

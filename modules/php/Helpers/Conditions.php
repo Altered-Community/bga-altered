@@ -342,6 +342,11 @@ abstract class Conditions
   public static function myExpeditionIsBehind($card, $event)
   {
     $winners = Players::getWinningPlayerByStorms();
+
+    if ($card->getPlayer()->hasOverrideBehind($card->getLocation())) {
+      return true;
+    }
+
     if ($card->getId() != ($event['cardId'] ?? -1)) {
       // passive effect
       $location = $card->getLocation();
@@ -355,6 +360,9 @@ abstract class Conditions
   public static function companionExpeditionIsBehind($card, $event)
   {
     $winners = Players::getWinningPlayerByStorms();
+    if ($card->getPlayer()->hasOverrideBehind(STORM_RIGHT)) {
+      return true;
+    }
     $win = $winners[STORM_RIGHT];
     return !is_null($win) && $win != -1 && $win != $card->getPId();
   }
@@ -362,6 +370,9 @@ abstract class Conditions
   public static function heroExpeditionIsBehind($card, $event)
   {
     $winners = Players::getWinningPlayerByStorms();
+    if ($card->getPlayer()->hasOverrideBehind(STORM_LEFT)) {
+      return true;
+    }
     $win = $winners[STORM_LEFT];
     return !is_null($win) && $win != -1 && $win != $card->getPId();
   }
@@ -380,8 +391,12 @@ abstract class Conditions
   public static function allExpeditionsAreBehindOrTied($card, $event)
   {
     $winners = Players::getWinningPlayerByStorms();
-    $left = $winners[STORM_LEFT];
-    $right = $winners[STORM_RIGHT];
+    $player = $card->getPlayer();
+    if ($card->getPlayer()->hasOverrideBehind(STORM_LEFT)) {
+      return true;
+    }
+    $left = $player->hasOverrideBehind(STORM_LEFT) ? -1 : $winners[STORM_LEFT];
+    $right = $player->hasOverrideBehind(STORM_RIGHT) ? -1 : $winners[STORM_RIGHT];
     return !is_null($left) && !is_null($right) && $left != $card->getPId() && $right != $card->getPId();
   }
 
