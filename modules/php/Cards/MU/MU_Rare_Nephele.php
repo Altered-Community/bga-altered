@@ -33,7 +33,7 @@ class MU_Rare_Nephele extends \ALT\Models\Card
         FT::ACTION(END_AFTERNOON, []),
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
-          'allPlayers' => true,
+          'targetPlayer' => OPPONENT,
           'tokenType' => 'NE_Common_Manaseed',
           'targetLocation' => [LANDMARK],
         ]),
