@@ -1239,6 +1239,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             return this.slide(`card-${card.id}`, card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`).then(
               () => {
                 if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+                debug(card);
+                if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == false) $(`card-${card.id}`).classList.remove('tapped');
               }
             );
           });
