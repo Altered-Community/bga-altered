@@ -30,7 +30,6 @@ class AX_Rare_TheConsortium extends \ALT\Models\Card
         FT::ACTION(RESUPPLY, []),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER],
-          'targetPlayer' => ME,
           'upTo' => true,
           'targetLocation' => [RESERVE],
           'effect' => FT::GAIN(EFFECT, BOOST, 2)

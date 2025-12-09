@@ -28,7 +28,6 @@ class OD_Rare_TheConsortium extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'effectTap' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER],
-        'targetPlayer' => ME,
         'targetLocation' => [RESERVE],
         'effect' => FT::GAIN(EFFECT, BOOST, 2)
       ])
