@@ -34,6 +34,7 @@ class BR_Common_CatchoftheDay extends \ALT\Models\Card
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'NE_Common_Manaseed',
+            'targetPlayer' => 'owner',
             'targetLocation' => ['discardedSource'],
             'forcedLocation' => LANDMARK
           ]),
