@@ -2225,6 +2225,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         GIFT: {
           text:_('Gift')
+        },
+        ANCHORED_FS: {
+          text:_('Anchored')
         }
       };
 
