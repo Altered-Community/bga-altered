@@ -37,7 +37,7 @@ class AX_Common_TikTok extends \ALT\Models\Card
           )
         ]),
         FT::ACTION(TARGET, [
-          'targetType' => TYPES,
+          'targetType' => [SPELL, CHARACTER, PERMANENT],
           'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
           'effect' => FT::SEQ(
