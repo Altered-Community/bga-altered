@@ -54,6 +54,7 @@ class Target extends \ALT\Models\Action
     'onlyToken' => false,
     'ascendedOnly' => false,
     'monoBiome' => false, // Rare Lyra Origamium
+    'isNotTapped' => false,
   ];
 
   public function getDescription()
@@ -230,6 +231,7 @@ class Target extends \ALT\Models\Action
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
     $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
     $isTapped = $this->getArg('isTapped');
+    $isNotTapped = $this->getArg('isNotTapped');
     $maxStatistic = $this->getArg('maxStatistic');
 
     $augmentOnly = $this->getArg('augmentOnly');
@@ -239,7 +241,7 @@ class Target extends \ALT\Models\Action
     $maxBaseCost = $this->getArg('maxBaseCost');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $isNotTapped) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -258,6 +260,9 @@ class Target extends \ALT\Models\Action
         return false;
       }
 
+      if ($isNotTapped && $c->isTapped()) {
+        return false;
+      }
 
       // Only card with a boost or a counter can be augmented
       if ($augmentOnly && !$c->hasCounters()) {

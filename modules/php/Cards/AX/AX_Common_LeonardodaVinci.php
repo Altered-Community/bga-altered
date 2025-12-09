@@ -33,6 +33,7 @@ class AX_Common_LeonardodaVinci extends \ALT\Models\Card
           'upTo' => true,
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
+          'isNotTapped' => true,
           'effect' => FT::SEQ(
             FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
             FT::ACTION(RESUPPLY, []),
