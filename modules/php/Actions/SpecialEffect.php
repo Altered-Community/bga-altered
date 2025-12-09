@@ -1953,7 +1953,7 @@ class SpecialEffect extends \ALT\Models\Action
           FT::ACTION(
             TARGET,
             [
-              'n' => 2,
+              'n' => 1,
               'upTo' => true,
               'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'stealOwnership' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
               'targetLocation' => [LIMBO],
