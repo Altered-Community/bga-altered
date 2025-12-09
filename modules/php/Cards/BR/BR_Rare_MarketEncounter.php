@@ -30,7 +30,7 @@ class BR_Rare_MarketEncounter extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, [
         'effect' => 'triggerEffectOfNextCharacter',
-        'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE],
+        'args' => ['type' => CHARACTER, 'from' => HAND, 'limit' => 1, 'effect' => RESERVE],
       ]),
       'effectPlayed' => FT::ACTION(DRAW_MANA, [])
     ];

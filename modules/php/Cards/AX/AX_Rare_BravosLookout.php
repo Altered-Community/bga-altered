@@ -34,7 +34,7 @@ class AX_Rare_BravosLookout extends \ALT\Models\Card
       'effectReserve' => FT::GAIN(ME, BOOST, 2),
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, [
         'effect' => 'triggerEffectOfNextCharacter',
-        'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE],
+        'args' => ['type' => CHARACTER, 'from' => HAND, 'limit' => 1, 'effect' => RESERVE],
       ]),
     ];
   }
