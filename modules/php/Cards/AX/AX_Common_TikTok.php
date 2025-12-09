@@ -32,6 +32,7 @@ class AX_Common_TikTok extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
+          'isNotTapped' => true,
           'effect' => FT::SEQ(
             FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
           )
@@ -39,6 +40,7 @@ class AX_Common_TikTok extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'targetType' => [SPELL, CHARACTER, PERMANENT],
           'targetPlayer' => ME,
+          'isNotTapped' => true,
           'targetLocation' => [RESERVE],
           'effect' => FT::SEQ(
             FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
