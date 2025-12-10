@@ -42,16 +42,17 @@ class BR_Rare_RekaMagnate extends \ALT\Models\Card
               'targetPlayer' => ME,
               'effect' => FT::SEQ(
                 FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+                FT::PAR(
+                  FT::SABOTAGE(),
+                  FT::ACTION(INVOKE_TOKEN, [
+                    'pId' => 'source',
+                    'tokenType' => 'NE_Common_Manaseed',
+                    'targetLocation' => [LANDMARK],
+                  ]),
+                )
               )
             ]),
-            FT::PAR(
-              FT::SABOTAGE(),
-              FT::ACTION(INVOKE_TOKEN, [
-                'pId' => 'source',
-                'tokenType' => 'NE_Common_Manaseed',
-                'targetLocation' => [LANDMARK],
-              ]),
-            )
+
           )
         )
       )
