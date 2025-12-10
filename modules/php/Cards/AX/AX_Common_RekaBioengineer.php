@@ -30,7 +30,7 @@ class AX_Common_RekaBioengineer extends \ALT\Models\Card
       'costReserve' => 4,
       'effectPlayed' =>  FT::ACTION(TARGET, [
         'upTo' => true,
-        'targetType' => TYPES,
+        'targetType' => [CHARACTER, PERMANENT, SPELL],
         'targetPlayer' => ME,
         'targetLocation' => [RESERVE],
         'effect' => FT::SEQ(
