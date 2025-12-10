@@ -1949,29 +1949,54 @@ class SpecialEffect extends \ALT\Models\Action
           $opponent = Players::getNext($player);
         }
         $drawn = $opponent->draw(4, null, LIMBO, $card);
+
         // Target only Characters drawn
         $this->insertAsChild(
-          FT::ACTION(
-            TARGET,
-            [
-              'n' => 1,
-              'upTo' => true,
-              'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'stealOwnership' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
-              'targetLocation' => [LIMBO],
-              'targetPlayer' => ME,
-              'cards' => $drawn->getIds(),
-              'maxBaseCost' => ($args['rare'] ?? false) ? 3 : INFTY,
-              'discardRemaining' => true,
-            ],
-            ['sourceId' => $card->getId()]
+          FT::SEQ(
+            FT::ACTION(
+              TARGET,
+              [
+                'n' => 1,
+                'upTo' => true,
+                'effect' => FT::SEQ(FT::ACTION(PLAY_CARD, ['free' => true, 'stealOwnership' => true, 'effectHand' => false]), FT::GAIN(EFFECT, FLEETING)),
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+                'maxBaseCost' => ($args['rare'] ?? false) ? 3 : INFTY,
+                // 'discardRemaining' => true,
+              ],
+              ['sourceId' => $card->getId()]
+            ),
+            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticCleanLimbo'], ['sourceId' => $card->getId()])
           )
         );
+
         break;
       case 'RomanticEncounterRare':
         $nodes = [];
         $nodes[] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticEncounter', 'args' => ['player' => ME, 'rare' => true]], ['sourceId' => $card->getId()]);
         $nodes[] = FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticEncounter', 'args' => ['player' => OPPONENT, 'rare' => true]], ['sourceId' => $card->getId()]);
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'RomanticCleanLimbo':
+        $discard = [];
+        foreach (Cards::getInLocation(LIMBO) as $cId => $ign) {
+          if ($cId != $card->getId()) {
+            $discard[] = $cId;
+            Cards::discard($cId);
+          }
+        }
+
+        Notifications::publicDiscard(
+          $card->getPlayer(),
+          Cards::getMany($discard),
+          clienttranslate('${player_name} discards ${card_names} as they are not targeted'),
+          [
+            'source' => LIMBO,
+            'hand' => true,
+            'destination' => DISCARD,
+          ]
+        );
         break;
       case 'copyGift':
         $event = $this->getEventRecursive();
