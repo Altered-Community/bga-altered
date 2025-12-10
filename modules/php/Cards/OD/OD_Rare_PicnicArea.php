@@ -16,7 +16,7 @@ class OD_Rare_PicnicArea extends \ALT\Models\Card
       'faction'  => FACTION_OD,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("Picnic Area"),
-      'typeline' => clienttranslate("Landmark_permanent - Site"),
+      'typeline' => clienttranslate("Landmark Permanent - Site"),
       'type'  => PERMANENT,
       'flavorText'  => clienttranslate('Just good, casual feasting.'),
       'artist' => "Kevin Sidharta",
