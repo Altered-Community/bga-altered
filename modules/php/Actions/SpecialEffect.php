@@ -1921,14 +1921,17 @@ class SpecialEffect extends \ALT\Models\Action
           if (Conditions::isInContact($card, [])) {
             // if in contact, may play
             $this->insertAsChild(FT::XOR(
-              FT::ACTION(
-                PLAY_CARD,
-                [
-                  'cardId' => $revealedCard->getId(),
-                  'free' => true,
-                  'stealOwnership' => true,
-                ],
-                ['sourceId' => $card->getId()]
+              FT::SEQ(
+                FT::GAIN($revealedCard->getId(), FLEETING),
+                FT::ACTION(
+                  PLAY_CARD,
+                  [
+                    'cardId' => $revealedCard->getId(),
+                    'free' => true,
+                    'stealOwnership' => true,
+                  ],
+                  ['sourceId' => $card->getId()]
+                ),
               ),
               FT::ACTION(DISCARD, ['cardId' => $revealedCard->getId()])
             ));

@@ -296,7 +296,7 @@ class Discard extends \ALT\Models\Action
         continue;
       }
 
-      if ($destination == RESERVE && $card->isLeaveExpeditionDefect()) {
+      if ($destination == RESERVE && in_array($originalLocation, STORMS) && $card->isLeaveExpeditionDefect()) {
         $toAdd = FT::SEQ(
           FT::GAIN($cId, FLEETING),
           FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'cardId' => $cId], ['sourceId' => $cId])
