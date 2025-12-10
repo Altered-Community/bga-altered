@@ -186,7 +186,8 @@ class Card extends \ALT\Helpers\DB_Model
     'expeditionTough' => 'str',
     'playLimitation' => 'str',
     'leaveExpeditionDefect' => 'bool',
-    'overrideContact' => 'bool'
+    'overrideContact' => 'bool',
+    'overrideBehind' => 'bool',
   ];
 
   /********* DB ACCESS *********/

@@ -22,7 +22,7 @@ class BR_Rare_SofiaFirstOutpost extends \ALT\Models\Card
       'typeline' => clienttranslate('Landmark Permanent - Construction'),
       'flavorText' => '',
       'artist' => 'Tristan Bideau',
-      'extension' => 'WTFM',
+      'extension' => 'WFTM',
       'changedStats' => ['costHand', 'costReserve'],
 
       'costHand' => 3,
