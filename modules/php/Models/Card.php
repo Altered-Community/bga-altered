@@ -1009,6 +1009,11 @@ class Card extends \ALT\Helpers\DB_Model
       if ($this->getPlayer()->hasExpeditionToughBoosted($this->getLocation()) && self::hasToken(BOOST)) {
         $tough += 1;
       }
+
+      $anchoredAsleep = $this->getPlayer()->countUniversalToughAnchoredAsleep();
+      if ($anchoredAsleep > 0 && $this->hasToken(ANCHORED) && $this->hasToken(ASLEEP)) {
+        $tough += 1;
+      }
     }
 
     // Global Tough

@@ -2228,7 +2228,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         ANCHORED_FS: {
           text:_('Anchored')
-        }
+        },
+        ANCHORED_CHA_P: {
+          text: _('Anchored'),
+          reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
+        },
+        ASLEEP_CHA_P: {
+          text: _('Asleep'),
+          reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;

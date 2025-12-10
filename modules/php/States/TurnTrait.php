@@ -108,6 +108,7 @@ trait TurnTrait
     Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
+    Globals::setNextCharacterBaseCost3Anchored(false);
     Globals::setNextCharacterAnchored(false);
     Globals::setNextCharacterFleeting(false);
     Globals::setNextTokenAnchored(false);

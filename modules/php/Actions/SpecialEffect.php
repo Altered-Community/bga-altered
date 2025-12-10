@@ -74,6 +74,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'nextCharacterCost3Anchored':
       case 'nextCharacterAnchored':
       case 'nextTokenAnchored':
+      case 'nextCharacterBaseCost3Anchored':
         return clienttranslate('Next character gains <ANCHORED>');
         break;
       case 'removeFleetingIfPlayedHand':
@@ -2016,6 +2017,9 @@ class SpecialEffect extends \ALT\Models\Action
         } elseif ($event['action'] == 'Resupply') {
           $this->insertAsChild(FT::ACTION(RESUPPLY, ['n' => 1, 'exhausted' => $event['exhausted']], ['sourceId' => $card->getId()]));
         }
+        break;
+      case 'nextCharacterBaseCost3Anchored':
+        Globals::setNextCharacterBaseCost3Anchored(true);
         break;
       default:
         break;

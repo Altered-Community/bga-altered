@@ -1043,6 +1043,25 @@ class Player extends \ALT\Helpers\DB_Model
     );
   }
 
+  public function countUniversalToughAnchoredAsleep()
+  {
+    return count(
+      $this->getPlayedCards()->filter(function ($card) {
+        $dynamicTough = $card->getDynamicTough();
+        if (!is_array($dynamicTough)) {
+          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'anchoredAndAsleep';
+        } else {
+          foreach ($dynamicTough as $singleTough) {
+            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'anchoredAndAsleep') {
+              return true;
+            }
+          }
+          return false;
+        }
+      })
+    );
+  }
+
   public function countUniversalTokenGigantic()
   {
     return count(
