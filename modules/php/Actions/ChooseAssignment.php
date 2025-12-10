@@ -552,8 +552,10 @@ class ChooseAssignment extends \ALT\Models\Action
               }
 
               if (($addEffect['limit'] ?? INFTY) == 1) {
-                if (!isset($newEffect['type'])) {
+                if (!isset($newEffect['type']) && isset($newEffect['childs'])) {
                   $newEffect = $newEffect['childs'];
+                } else {
+                  $newEffect = [$newEffect];
                 }
 
                 if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
@@ -561,19 +563,26 @@ class ChooseAssignment extends \ALT\Models\Action
                 })->count() > 0) {
                   $newEffect[] = FT::GAIN($card->getId(), BOOST);
                 }
-                $effects[] = FT::XOR(...$newEffect);
+
+                $newEffect = [FT::XOR(...$newEffect)];
               } else {
                 if (!empty($newEffect)) {
-                  $effects[] = $newEffect;
+                  $newEffect = [$newEffect];
                 }
                 if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
                   return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
                 })->count() > 0) {
-                  $effects[] = FT::GAIN($card->getId(), BOOST);
+                  $newEffect[] = FT::GAIN($card->getId(), BOOST);
                 }
               }
-              if (($addEffect['boost'] ?? 0) > 0) {
+
+              if (empty($newEffect) && ($addEffect['boost'] ?? 0) > 0) {
                 $effects[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+              } else {
+                if (($addEffect['boost'] ?? 0) > 0) {
+                  $newEffect[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+                }
+                $effects[] = FT::SEQ(...$newEffect);
               }
               unset($addEffects[$i]);
             }

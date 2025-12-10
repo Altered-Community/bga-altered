@@ -29,7 +29,8 @@ class OD_Rare_NikolaTesla extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand'],
-      'effectReserve' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXExhaustedMax3'])
+      'effectReserve' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXExhaustedMax3']),
+      'blockAutomaticAction' => [GAIN => [BOOST => 1]]
     ];
   }
 }

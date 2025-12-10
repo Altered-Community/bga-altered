@@ -267,7 +267,7 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Draw the reveal card');
         // DUSTER
       case 'boostXExhaustedMax3':
-        return clienttranslate('Boost 1 per exhausted');
+        return clienttranslate('Boost 1 per exhausted (max 3)');
       case 'copyGift':
         return clienttranslate('Copy the Gift');
     }
