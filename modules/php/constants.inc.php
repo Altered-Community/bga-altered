@@ -475,7 +475,9 @@ const STAT_HEROES = [
   21 => "LY_Common_NadirBubbles",
   22 => "MU_Common_KauriPuff",
   23 => "OD_Common_ZhenZephyr",
-  24 => "YZ_Common_MoyoSilk"
+  24 => "YZ_Common_MoyoSilk",
+  25 => "AX_Common_DellaBolt",
+  26 => "MU_Common_TuruunBenih"
 ];
 
 /******************************
