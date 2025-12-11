@@ -329,6 +329,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
         if ($card->isDefenderIgnoreBehind()) {
           $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'behind';
+        } elseif ($card->isDefenderIgnoreContact()) {
+          $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'contact';
         } elseif ($card->isIgnoreDefender()) {
           $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'all';
         }
@@ -409,6 +411,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           if ($power == 'all') {
             unset($defenders[$pId][$storm]);
           } elseif ($power = 'behind' && !is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
+            unset($defenders[$pId][$storm]);
+          } elseif ($power = 'contact' && Players::get($pId)->isInContact($storm)) {
             unset($defenders[$pId][$storm]);
           }
         }

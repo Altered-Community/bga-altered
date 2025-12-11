@@ -188,6 +188,7 @@ class Card extends \ALT\Helpers\DB_Model
     'leaveExpeditionDefect' => 'bool',
     'overrideContact' => 'bool',
     'overrideBehind' => 'bool',
+    'defenderIgnoreContact' => 'bool', // Ignore defender attribute when in contact
   ];
 
   /********* DB ACCESS *********/
