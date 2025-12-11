@@ -248,6 +248,9 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getLandmarkSlots()
   {
+    if (is_null($this->getHero())) {
+      return 0;
+    }
     return $this->getHero()->getLandmarkSlots();
   }
 
