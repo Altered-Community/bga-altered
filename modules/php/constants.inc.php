@@ -477,7 +477,8 @@ const STAT_HEROES = [
   23 => "OD_Common_ZhenZephyr",
   24 => "YZ_Common_MoyoSilk",
   25 => "AX_Common_DellaBolt",
-  26 => "MU_Common_TuruunBenih"
+  26 => "MU_Common_TuruunBenih",
+  27 => "OD_Common_MatzHive"
 ];
 
 /******************************

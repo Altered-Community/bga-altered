@@ -33,6 +33,10 @@ class Notifications
     [
       'name' => 'reserveSlots',
       'method' => ['ALT\Managers\Players', 'getReserveSlots']
+    ],
+    [
+      'name' => 'landmarkSlots',
+      'method' => ['ALT\Managers\Players', 'getLandmarkSlots']
     ]
   ];
 

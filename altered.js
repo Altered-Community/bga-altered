@@ -298,6 +298,10 @@ define([
         this.gamedatas.reserveSlots = n.args.reserveSlots;
         this.updateReserveSlots();
       }
+       if (n.args.landmarkSlots !== undefined) {
+        this.gamedatas.landmarkSlots = n.args.landmarkSlots;
+        this.updateLandmarkSlots();
+      }
     },
 
     /**

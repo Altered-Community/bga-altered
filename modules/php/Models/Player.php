@@ -49,6 +49,7 @@ class Player extends \ALT\Helpers\DB_Model
     $data['hand'] = $current ? $this->getHand()->ui() : [];
     $data['manaCards'] = $current ? $this->getManaCards() : [];
     $data['reserveSlots'] = $this->getReserveSlots();
+    $data['landmarkSlots'] = $this->getLandmarkSlots();
     return $data;
   }
 

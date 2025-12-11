@@ -108,6 +108,8 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       // TODO: do something smart here :)
       if (zone == 'reserve') {
         return this.gamedatas.reserveSlots[player.id];
+      } else if (zone == 'landmark') {
+        return this.gamedatas.landmarkSlots[player.id];
       }
       return 2;
     },
@@ -468,6 +470,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
         let pId = player.id;
         let reserveContainer = $(`board-reserve-${pId}`);
         this.displayWarningSizeLimitIfNeeded(player, 'reserve', reserveContainer);
+      });
+    },
+
+    updateLandmarkSlots(pId = null) {
+      this.forEachPlayer((player) => {
+        let pId = player.id;
+        let landmarkContainer = $(`board-landmark-${pId}`);
+        this.displayWarningSizeLimitIfNeeded(player, 'landmark', landmarkContainer);
       });
     },
 

@@ -183,6 +183,13 @@ class Target extends \ALT\Models\Action
       }
     } elseif (!is_int($maxHandCost) && $maxHandCost == 'sourceCounter2') {
       $maxHandCost = ($this->getSource()->getExtraDatas()['counter'] ?? 0) + 2;
+    } elseif (!is_int($maxHandCost) && $maxHandCost == 'discard2') {
+      $previousCardId = $this->getCtxArg('cardId');
+      if (is_null($previousCardId)) {
+        $maxHandCost = 2;
+      } else {
+        $maxHandCost = 2 + Cards::get($previousCardId)->getCostHand();
+      }
     }
 
     // What cards ?
