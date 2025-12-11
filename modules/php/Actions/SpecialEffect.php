@@ -356,6 +356,9 @@ class SpecialEffect extends \ALT\Models\Action
           ($reduction[$card->getPId()][$args['type']]['reduction'] ?? 0) + $args['reduction'];
         $reduction[$card->getPId()][$args['type']]['permanent'] =
           ($reduction[$card->getPId()][$args['type']]['permanent'] ?? false) || ($args['permanent'] ?? false);
+        if (isset($args['minimum'])) {
+          $reduction[$card->getPId()][$args['type']]['minimum'] = $args['minimum'];
+        }
         Globals::setCostReduction($reduction);
         break;
       case 'gainCounter':

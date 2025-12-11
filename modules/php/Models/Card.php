@@ -819,12 +819,16 @@ class Card extends \ALT\Helpers\DB_Model
     if (($this->getType() == SPELL || in_array(SPELL, $this->getAdditionalType())) && Globals::isNextSpellIsFree()) {
       return 0;
     }
+    $minimumCost = Players::getOpponentMinimumCost($this->getPlayer(), $this->getType());
 
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
     foreach ($costReduction as $reducType => $reduction) {
       if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType())) {
         $typeReduction += $reduction['reduction'];
+        if (isset($reduction['minimum'])) {
+          $minimumCost = max($minimumCost, $reduction['minimum']);
+        }
       }
     }
 
@@ -833,7 +837,6 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     // TODO: to update in multiplayer
-    $minimumCost = Players::getOpponentMinimumCost($this->getPlayer(), $this->getType());
     $dynamicReduc = 0;
     $dynamicReductions = $this->getDynamicCostReduction();
     if (!is_array($dynamicReductions)) {
