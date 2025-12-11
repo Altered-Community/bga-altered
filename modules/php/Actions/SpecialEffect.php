@@ -271,6 +271,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Boost 1 per exhausted (max 3)');
       case 'copyGift':
         return clienttranslate('Copy the Gift');
+      case 'boostXLandmarkMax3':
+        return clienttranslate('Boost max up to 3');
     }
     return '';
   }
@@ -305,6 +307,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostTargetReserveCards':
       case 'boostXOpponentExpedition':
       case 'boostXExhaustedMax3':
+      case 'boostXLandmarkMax3':
       default:
         return false;
     }
@@ -2023,6 +2026,16 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'nextCharacterBaseCost3Anchored':
         Globals::setNextCharacterBaseCost3Anchored(true);
+        break;
+      case 'boostXLandmarkMax3':
+        $n = $card
+          ->getPlayer()
+          ->getLandmarks()
+          ->count();
+        $n = min((3 - $card->countToken(BOOST)), $n);
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
         break;
       default:
         break;
