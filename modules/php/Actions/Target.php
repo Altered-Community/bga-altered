@@ -63,6 +63,7 @@ class Target extends \ALT\Models\Action
     $upTo = $this->getCtxArg('upTo') ?? false;
     $totalCost = $this->getArg('totalCost');
     $totalMountain = $this->getArg('totalMountain');
+    $baseCost = $this->getArg('maxBaseCost');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
@@ -98,6 +99,8 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
           $msg = clienttranslate('Target up to ${n} card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } elseif ($baseCost != INFTY) {
+          $msg = clienttranslate('Target up to ${n} card(s) (of max base cost of ${baseCost}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
             $msg = clienttranslate('All valid targets ${effect_desc}');
@@ -108,6 +111,8 @@ class Target extends \ALT\Models\Action
       } else {
         if ($this->getArg('n') == INFTY) {
           $msg = clienttranslate('All valid targets ${effect_desc}');
+        } elseif ($baseCost != INFTY) {
+          $msg = clienttranslate('Target ${n} card(s) (of max base cost of ${baseCost}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
         }
@@ -121,6 +126,7 @@ class Target extends \ALT\Models\Action
         'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
         'totalCost' => $totalCost,
         'totalMountain' => $totalMountain,
+        'baseCost' => $baseCost,
         'i18n' => ['effect_desc'],
       ],
     ];
