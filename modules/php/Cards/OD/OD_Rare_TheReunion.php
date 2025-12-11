@@ -1,27 +1,53 @@
 <?php
+
 namespace ALT\Cards\OD;
+
 use ALT\Helpers\FT;
 
 class OD_Rare_TheReunion extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_DUSTER_B_OR_101_R1',
-            'asset'  => 'ALT_DUSTER_B_OR_101_R',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_DUSTER_B_OR_101_R1',
+      'asset'  => 'ALT_DUSTER_B_OR_101_R',
 
-    	'faction'  => FACTION_OD,
-    	'rarity'  => RARITY_RARE,
-    	'name'  => clienttranslate("The Reunion"),
-      'typeline' => clienttranslate("Landmark_permanent - Construction"),
-    	'type'  => PERMANENT,
-    	'flavorText'  => clienttranslate('"Two people separated by fate, now reunited once more! This reunion shall forever be carved in stone!"'),
+      'faction'  => FACTION_OD,
+      'rarity'  => RARITY_RARE,
+      'name'  => clienttranslate("The Reunion"),
+      'typeline' => clienttranslate("Landmark Permanent - Construction"),
+      'type'  => PERMANENT,
+      'flavorText'  => clienttranslate('"Two people separated by fate, now reunited once more! This reunion shall forever be carved in stone!"'),
       'artist' => "Kevin Sidharta",
-			'extension'=>'SDU',
-   'subtypes'  => [CONSTRUCTION,LANDMARK],
- 				'effectDesc' => clienttranslate('{T} : Choose up to the number of cards in your Landmarks:  • Create an <ORDIS_RECRUIT> Soldier token in a Companion Expedition.  • Create one in a Hero Expedition.  • Up to two target Characters gain 1 boost.  • #Draw a card.#'),
-     'costHand' => 6, 
-     'costReserve' => 6, 
-];
+      'extension' => 'SDU',
+      'subtypes'  => [CONSTRUCTION, LANDMARK],
+      'effectDesc' => clienttranslate('{T} : Choose up to the number of cards in your Landmarks:  • Create an <ORDIS_RECRUIT> Soldier token in a Companion Expedition.  • Create one in a Hero Expedition.  • Up to two target Characters gain 1 boost.  • #Draw a card.#'),
+      'costHand' => 6,
+      'costReserve' => 6,
+      'effectTap' => [
+        'type' => NODE_OR,
+        'args' => ['n' => 'landmarks'],
+        // 'pId' => 'source',
+        'childs' => [
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_LEFT]
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'OD_Common_OrdisRecruit',
+            'targetLocation' => [STORM_RIGHT]
+          ]),
+          FT::ACTION(TARGET, [
+            'upTo' => true,
+            'n' => 2,
+            'effect' => FT::ACTION(GAIN, ['type' => BOOST]),
+          ]),
+          FT::ACTION(DRAW, ['players' => ME])
+        ]
+      ]
+    ];
   }
 }

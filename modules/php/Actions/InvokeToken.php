@@ -30,7 +30,7 @@ class InvokeToken extends \ALT\Models\Action
 
   public function getDescription()
   {
-    $msg = clienttranslate('Invoke ${tokenName}');
+    $msg = clienttranslate('Invoke ${tokenName} in ${location}');
     return [
       'log' => $msg,
       'args' => [
@@ -132,6 +132,13 @@ class InvokeToken extends \ALT\Models\Action
     if ($location == 'discardedSource') {
       return [STORM_LEFT, 'discarded card source'];
     }
+    if ($location == STORM_LEFT) {
+      return [STORM_LEFT, clienttranslate('Hero expedition')];
+    }
+    if ($location == STORM_RIGHT) {
+      return [STORM_RIGHT, clienttranslate('Companion expedition')];
+    }
+
 
     return [$realLocation, $strLocation];
   }
