@@ -1011,7 +1011,7 @@ class Card extends \ALT\Helpers\DB_Model
       }
 
       $anchoredAsleep = $this->getPlayer()->countUniversalToughAnchoredAsleep();
-      if ($anchoredAsleep > 0 && $this->hasToken(ANCHORED) && $this->hasToken(ASLEEP)) {
+      if ($anchoredAsleep > 0 && ($this->hasToken(ANCHORED) || $this->hasToken(ASLEEP))) {
         $tough += 1;
       }
     }

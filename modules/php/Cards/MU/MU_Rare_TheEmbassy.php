@@ -29,7 +29,7 @@ class MU_Rare_TheEmbassy extends \ALT\Models\Card
         FT::ACTION(RESUPPLY, ['player' => 'nextPlayer']),
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterBaseCost3Anchored'])
       ),
-      'dynamicTough' => 'anchoredAndAsleep'
+      'dynamicTough' => 'anchoredOrAsleep'
     ];
   }
 }

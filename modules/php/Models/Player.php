@@ -1049,10 +1049,10 @@ class Player extends \ALT\Helpers\DB_Model
       $this->getPlayedCards()->filter(function ($card) {
         $dynamicTough = $card->getDynamicTough();
         if (!is_array($dynamicTough)) {
-          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'anchoredAndAsleep';
+          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'anchoredOrAsleep';
         } else {
           foreach ($dynamicTough as $singleTough) {
-            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'anchoredAndAsleep') {
+            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'anchoredOrAsleep') {
               return true;
             }
           }
