@@ -25,6 +25,7 @@ class InvokeToken extends \ALT\Models\Action
     'allPlayers' => false,
     'moreThan1' => false,
     'forcedLocation' => null,
+    'n' => 1
   ];
 
   public function getDescription()
@@ -54,12 +55,22 @@ class InvokeToken extends \ALT\Models\Action
     return [
       'token' => $tokenType,
       'tokenType' => $this->getToken()->getName(),
-      'n' => $this->getCtxArg('n') ?? 1,
+      'n' => $this->getN(),
       'canPass' => $this->getCtxArg('optional') ?? false,
       'locations' => $targetLocations,
       'allPlayers' => count($targetLocations) > 1 || ($this->getCtxArg('allPlayers') ?? false),
       'targetPlayer' => null,
     ];
+  }
+
+  public function getN()
+  {
+    $n = $this->getArg('n');
+    if (is_int($n)) {
+      return $n;
+    } elseif ($n == 'landmarks3') {
+      return min($this->getPlayer()->getLandmarks()->count(), 3);
+    }
   }
 
   public function getToken()
@@ -205,7 +216,7 @@ class InvokeToken extends \ALT\Models\Action
       $location = $this->getArg('forcedLocation');
     }
 
-    for ($i = 0; $i < ($this->getCtxArg('n') ?? 1); $i++) {
+    for ($i = 0; $i < $this->getN(); $i++) {
       $card = $this->getToken();
       $card = Cards::singleCreate([
         'player_id' => $invokePId,
