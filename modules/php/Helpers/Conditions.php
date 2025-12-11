@@ -449,7 +449,7 @@ abstract class Conditions
   }
 
 
-  public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE', $state = 'all')
+  public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE', $state = 'all', $n = 0)
   {
     $cards = $card
       ->getPlayer()
@@ -496,7 +496,7 @@ abstract class Conditions
         $cards = $cards->filter(fn($c) => $c->isTapped());
       }
     }
-    return $cards->count() > 0;
+    return $cards->count() > $n;
   }
 
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
