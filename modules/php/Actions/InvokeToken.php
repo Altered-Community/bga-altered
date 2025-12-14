@@ -199,15 +199,13 @@ class InvokeToken extends \ALT\Models\Action
 
     if (!is_null($this->getCtxArg('targetPlayer'))) {
       $targetPlayer = $this->getCtxArg('targetPlayer');
-      if ($targetPlayer == 'owner') {
-        $effectId = $this->getCtxArg('cardId');
-        $invokePId = Cards::get($effectId)->getPId();
-      } elseif ($targetPlayer == OPPONENT) {
+      if ($targetPlayer == OPPONENT) {
         $invokePId = Players::getNextId($player);
       } elseif ($targetPlayer == 'owner') {
         $invokePId = $this->getCtxArgs()['ownerId'] ?? -1;
         if ($invokePId == -1) {
-          throw new \BgaVisibleSystemException('Error in invoke token, should not happen');
+          $effectId = $this->getCtxArg('cardId');
+          $invokePId = Cards::get($effectId)->getPId();
         }
       }
     }
