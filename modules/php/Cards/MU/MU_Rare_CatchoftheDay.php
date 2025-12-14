@@ -36,7 +36,7 @@ class MU_Rare_CatchoftheDay extends \ALT\Models\Card
             'tokenType' => 'NE_Common_Manaseed',
             'targetLocation' => ['discardedSource'],
             'targetPlayer' => 'owner',
-            'forcedLocation' => LANDMARK
+            'forcedLocation' => LANDMARK,
           ]),
         )
       ]),

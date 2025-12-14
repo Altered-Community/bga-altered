@@ -37,7 +37,8 @@ class LY_Common_HostelNightkeeper extends \ALT\Models\Card
             'pId' => 'source',
             'tokenType' => 'NE_Common_Manaseed',
             'targetLocation' => ['discardedSource'],
-            'forcedLocation' => LANDMARK
+            'forcedLocation' => LANDMARK,
+            'targetPlayer' => 'owner'
           ]),
         )
       ]),

@@ -36,7 +36,7 @@ class BR_Common_CatchoftheDay extends \ALT\Models\Card
             'tokenType' => 'NE_Common_Manaseed',
             'targetPlayer' => 'owner',
             'targetLocation' => ['discardedSource'],
-            'forcedLocation' => LANDMARK
+            'forcedLocation' => LANDMARK,
           ]),
         )
       ]),
