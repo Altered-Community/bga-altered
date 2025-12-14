@@ -40,6 +40,7 @@ class BR_Rare_RekaMagnate extends \ALT\Models\Card
             FT::ACTION(TARGET, [
               'targetType' => [PERMANENT],
               'targetPlayer' => ME,
+              'isNotTapped' => true,
               'effect' => FT::SEQ(
                 FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
                 FT::PAR(
