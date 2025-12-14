@@ -31,7 +31,7 @@ class AX_Rare_FailedDemo extends \ALT\Models\Card
       FT::ACTION(TARGET, [
         'targetPlayer' => ME,
         'targetLocation' => [RESERVE],
-        'targetType' => [CHARACTER, PERMANENT, LANDMARK],
+        'targetType' => [CHARACTER, PERMANENT, SPELL],
         'effect' => FT::SEQ(
           FT::ACTION(EXHAUST, []),
           FT::ACTION(TARGET, [
