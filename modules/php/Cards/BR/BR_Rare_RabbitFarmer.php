@@ -31,15 +31,15 @@ class BR_Rare_RabbitFarmer extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'effectPassive' => [
         'InvokeToken' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMeInvoke'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
           'output' => FT::GAIN(ME, BOOST, 1, 1)
         ],
         'Draw' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1, 1)
         ],
         'Resupply' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1, 1)
         ]
       ]

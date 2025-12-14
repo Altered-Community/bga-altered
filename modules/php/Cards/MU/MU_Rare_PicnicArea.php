@@ -28,21 +28,21 @@ class MU_Rare_PicnicArea extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(DRAW, []),
       'effectPassive' => [
         'InvokeToken' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMeInvoke'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, ['cardId' => ME]),
             FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST)])
           )
         ],
         'Draw' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, ['cardId' => ME]),
             FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST)])
           )
         ],
         'Resupply' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, ['cardId' => ME]),
             FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST)])

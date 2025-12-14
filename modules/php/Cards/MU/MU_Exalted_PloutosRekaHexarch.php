@@ -31,15 +31,15 @@ class MU_Exalted_PloutosRekaHexarch extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => false, 'effect' => FT::ACTION(RESUPPLY, [])]),
       'effectPassive' => [
         'InvokeToken' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMeInvoke'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
           'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
         ],
         'Draw' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
         ],
         'Resupply' => [
-          'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
         ]
       ]
