@@ -49,7 +49,7 @@ class MoveExpedition extends \ALT\Models\Action
     foreach ($expeditions as &$expe) {
       if ($expe == EFFECT) {
         $expe = $this->getSource()->getLocation();
-      } elseif ($expe = 'fromEvent') {
+      } elseif ($expe == 'fromEvent') {
         // Check event in case of leaving expedition
         $event = $this->getEventRecursive();
         if (!is_null($event) && in_array($event['method'], ['LeaveExpedition', 'LeaveLandmark']) && isset($event['from'])) {
@@ -82,7 +82,6 @@ class MoveExpedition extends \ALT\Models\Action
         if (!is_null($forcedPId) && $forcedPId != $pId) {
           continue;
         }
-
         foreach ($statuses as $side => $isBlocked) {
           if (in_array($side, $sides) && ($n < 0 || !$isBlocked)) {
             $expeditions[] = [$pId, $side];
