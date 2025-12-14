@@ -33,6 +33,7 @@ class AX_Rare_RekaBioengineer extends \ALT\Models\Card
         'upTo' => true,
         'targetType' => [CHARACTER, PERMANENT, SPELL],
         'targetLocation' => [RESERVE],
+        'isNotTapped' => true,
         'effect' => FT::SEQ(
           FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
           FT::ACTION(INVOKE_TOKEN, [
