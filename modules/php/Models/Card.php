@@ -883,7 +883,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Scholar's Vault
     $reduceCostType = $this->getPlayer()->getReduceCostType($this);
-    $dynamicReduction = (int) $dynamicReduction + $reduceCostType;
+    $dynamicReduc = (int) $dynamicReduc + $reduceCostType;
 
     switch ($this->getLocation()) {
       case HAND:
