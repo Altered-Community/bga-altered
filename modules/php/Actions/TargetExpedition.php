@@ -26,6 +26,9 @@ class TargetExpedition extends \ALT\Models\Action
   public function getDescription()
   {
     $msg = clienttranslate('Target ${n} expeditions to ${effect_desc}');
+    if ($this->getArg('players') == OPPONENT) {
+      $msg = clienttranslate('Target ${n} opponent\'s expeditions to ${effect_desc}');
+    }
     return [
       'log' => $msg,
       'args' => [
