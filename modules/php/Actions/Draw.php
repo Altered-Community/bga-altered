@@ -121,7 +121,7 @@ class Draw extends \ALT\Models\Action
       } else {
         $cards = $player->draw($n, null, null, $source);
       }
-      if ($cards->count() > 0) {
+      if ($cards->count() > 0 && $this->getArg('location') != MANA) {
         $this->checkAfterListeners($player, ['draw' => $n, 'location' => $this->getArg('location')]);
       }
     }
