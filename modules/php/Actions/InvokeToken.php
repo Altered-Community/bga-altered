@@ -255,7 +255,7 @@ class InvokeToken extends \ALT\Models\Action
           ($card->isGigantic() && isset($expeditionsBoosts[$player->getId()][$location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]))
         )
       ) {
-        $effects[] = FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]);
+        $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]));
         unset($expeditionsBoosts[$player->getId()][$location]);
         Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
       }
