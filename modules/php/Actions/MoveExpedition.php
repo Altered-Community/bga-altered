@@ -133,7 +133,14 @@ class MoveExpedition extends \ALT\Models\Action
     if (!in_array($expe, $args['expeditions'])) {
       throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
     }
+
     if (!is_null($this->getSource()) && $this->getSource()->isGigantic()) {
+      $gigantic = true;
+    }
+
+    // Combo Diocles & eat me energy bars
+    $event = $this->getEvent();
+    if ($event['method'] == 'LeaveExpedition' && $event['gigantic'] == true) {
       $gigantic = true;
     }
 

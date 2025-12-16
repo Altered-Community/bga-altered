@@ -532,6 +532,7 @@ class Player extends \ALT\Helpers\DB_Model
     $movedToReserve = [];
     $eternals = [];
     $seasoned = [];
+    $gigantic = [];
 
     foreach ($this->getPlayedCards() as $cId2 => $card2) {
       if ($card2->isEternal()) {
@@ -539,6 +540,9 @@ class Player extends \ALT\Helpers\DB_Model
       }
       if ($card2->isSeasoned()) {
         $seasoned[] = $cId2;
+      }
+      if ($card2->isGigantic()) {
+        $gigantic[] = $cId2;
       }
     }
 
@@ -602,7 +606,7 @@ class Player extends \ALT\Helpers\DB_Model
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
         $originalLocation = $card->getLocation();
-        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard($seasoned));
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard($seasoned, $gigantic));
 
         if ($card->isToken()) {
           // delete the card as it's a token
@@ -628,7 +632,7 @@ class Player extends \ALT\Helpers\DB_Model
       // Move card without anchored,asleep to reserve
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
         // move card to reserve
-        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve($seasoned));
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve($seasoned, $gigantic));
         if ($card->isToken()) {
           // delete the card as it's a token
           $deletedCardTokens[] = $card;

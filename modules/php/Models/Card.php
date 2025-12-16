@@ -490,20 +490,20 @@ class Card extends \ALT\Helpers\DB_Model
     return Meeples::getOfType('card-' . $this->id, $type);
   }
 
-  public function discard($seasoned = [])
+  public function discard($seasoned = [], $gigantic = [])
   {
-    return $this->discardTo(DISCARD_PILE, $seasoned);
+    return $this->discardTo(DISCARD_PILE, $seasoned, false, $gigantic);
   }
 
-  public function moveToReserve($seasoned = [])
+  public function moveToReserve($seasoned = [], $gigantic = [])
   {
-    return $this->discardTo(RESERVE, $seasoned);
+    return $this->discardTo(RESERVE, $seasoned, false, $gigantic);
   }
 
-  public function discardTo($location, $seasoned = [], $afterNight = false)
+  public function discardTo($location, $seasoned = [], $afterNight = false, $gigantic = [])
   {
     $isSeasoned = $this->isSeasoned();
-    $this->checkLeaveListener($location, $afterNight);
+    $this->checkLeaveListener($location, $afterNight, false, $gigantic);
     $this->setLocation($location);
     $extra = $this->getExtraDatas();
     if (isset($extra['pId'])) {
@@ -548,7 +548,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $this->getPId();
   }
 
-  public function checkLeaveListener($target, $afterNight, $isSacrifice = false)
+  public function checkLeaveListener($target, $afterNight, $isSacrifice = false, $gigantic = [])
   {
     $type = null;
     $location = $this->getLocation();
@@ -574,6 +574,7 @@ class Card extends \ALT\Helpers\DB_Model
       'boost' => $this->countToken(BOOST),
       'fleeting' => $this->hasToken(FLEETING),
       'token' => $this->isToken(),
+      'gigantic' => $this->isGigantic() || in_array($this->id, $gigantic)
     ];
     $afterCleanup = Globals::getAfterNightCleanup();
     if ($this->isListeningTo($event)) {
