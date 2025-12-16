@@ -28,21 +28,21 @@ class MU_Common_TuruunBenih extends \ALT\Models\Card
 			'effectDesc' => clienttranslate('When you make a <GIFT> — You may exhaust me ({T}) to also receive it. (A Gift is when on your turn, an opponent draws a card, Resupplies or receives a token.)  Ignore my ability during the first Day.'),
 			'effectPassive' => [
 				'InvokeToken' => [
-					'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMeInvoke'],
+					'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMeInvoke', 'notTapped'],
 					'output' => FT::SEQ_OPTIONAL(
 						FT::ACTION(TAP, ['cardId' => ME]),
 						FT::ACTION(SPECIAL_EFFECT, ['effect' => 'copyGift'])
 					)
 				],
 				'Draw' => [
-					'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+					'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
 					'output' => FT::SEQ_OPTIONAL(
 						FT::ACTION(TAP, ['cardId' => ME]),
 						FT::ACTION(SPECIAL_EFFECT, ['effect' => 'copyGift'])
 					)
 				],
 				'Resupply' => [
-					'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe'],
+					'conditions' => ['isMyTurn', 'isNotFirstTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
 					'output' => FT::SEQ_OPTIONAL(
 						FT::ACTION(TAP, ['cardId' => ME]),
 						FT::ACTION(SPECIAL_EFFECT, ['effect' => 'copyGift'])
