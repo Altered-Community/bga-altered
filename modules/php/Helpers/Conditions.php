@@ -1481,6 +1481,8 @@ abstract class Conditions
       return $cards >= $n;
     } elseif ($op == 'LTE') {
       return $cards <= $n;
+    } elseif ($op == 'EQ') {
+      return $cards == $n;
     }
   }
 
