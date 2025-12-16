@@ -92,6 +92,7 @@ class OrNode extends AbstractNode
       if (isset($args['canReuse']) || ($args['canReuse'] ?? false) == false) {
         $args['n'] = min($args['n'], count($this->childs));
       }
+      $this->setInfo('args', $args);
     }
     return ($args && isset($args['n'])) ? $args['n'] : count($this->childs);
   }
