@@ -28,7 +28,7 @@ class MU_Exalted_PloutosRekaHexarch extends \ALT\Models\Card
       'ocean' => 5,
       'costHand' => 7,
       'costReserve' => 7,
-      'effectPlayed' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => false, 'effect' => FT::ACTION(RESUPPLY, ['exhauted' => true])]),
+      'effectPlayed' => FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => false, 'effect' => FT::ACTION(RESUPPLY, ['exhausted' => true])]),
       'effectPassive' => [
         'InvokeToken' => [
           'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
