@@ -34,7 +34,7 @@ class OD_Rare_AdamantReceptionist extends \ALT\Models\Card
           'targetType' => [PERMANENT],
           'targetPlayer' => ME,
           'isNotTapped' => true,
-          'effect' => FFT::SEQ(
+          'effect' => FT::SEQ(
             FT::ACTION(EXHAUST, []),
             FT::SABOTAGE()
           )
