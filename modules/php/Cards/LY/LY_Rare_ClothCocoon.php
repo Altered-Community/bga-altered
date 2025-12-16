@@ -26,7 +26,7 @@ class LY_Rare_ClothCocoon extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'statuses' => [FLEETING, ANCHORED, ASLEEP],
           'targetType' => [CHARACTER, TOKEN],

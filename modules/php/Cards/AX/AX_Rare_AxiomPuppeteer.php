@@ -45,7 +45,7 @@ class AX_Rare_AxiomPuppeteer extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'conditions' => ['isMe', 'isSacrifice:permanent', 'hasBoost:0:LTE'],
-          'output' => FT::GAIN($this, BOOST, 1),
+          'output' => FT::GAIN(ME, BOOST, 1),
         ],
       ],
     ];

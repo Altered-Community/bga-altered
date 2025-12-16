@@ -30,7 +30,7 @@ class MU_Common_MunaCaregiver extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
-      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

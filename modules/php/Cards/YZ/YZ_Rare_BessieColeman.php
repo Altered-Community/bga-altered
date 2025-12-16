@@ -33,11 +33,11 @@ class YZ_Rare_BessieColeman extends \ALT\Models\Card
           'childs' => [
             [
               'conditions' => ['isMe', 'isSacrifice:permanent', 'hasBoost:0:LTE', 'isInStorms'],
-              'output' => FT::GAIN($this, BOOST, 1),
+              'output' => FT::GAIN(ME, BOOST, 1),
             ],
             [
               'conditions' => ['isMe', 'isSacrifice:character', 'hasBoost:0:LTE', 'isInStorms'],
-              'output' => FT::GAIN($this, BOOST, 1),
+              'output' => FT::GAIN(ME, BOOST, 1),
             ],
           ],
         ],

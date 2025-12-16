@@ -31,7 +31,7 @@ class MU_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
-      'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'hasControl:plant:2', 'effect' => FT::GAIN($this, BOOST, 2)]),
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'hasControl:plant:2', 'effect' => FT::GAIN(ME, BOOST, 2)]),
     ];
   }
 }

@@ -30,7 +30,7 @@ class MU_Rare_Demeter extends \ALT\Models\Card
             'costReserve' => 7,
             'changedStats' => ['costHand', 'costReserve'],
             'dynamicEternal' => '1:isInBiome:forest:true',
-            'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
+            'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),
         ];
     }
 }

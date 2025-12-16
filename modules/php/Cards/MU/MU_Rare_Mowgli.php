@@ -30,7 +30,7 @@ class MU_Rare_Mowgli extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 1,
       'supportIcon' => 'discard',
-      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

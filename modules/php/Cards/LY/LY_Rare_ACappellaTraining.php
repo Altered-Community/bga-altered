@@ -28,7 +28,7 @@ class LY_Rare_ACappellaTraining extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
         FT::ACTION(DRAW, ['players' => ME])
       ),

@@ -27,7 +27,7 @@ class LY_Common_MindApotheosis extends \ALT\Models\Card
 
       'costHand' => 9,
       'costReserve' => 9,
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'MindApotheosis'])),
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING), FT::ACTION(SPECIAL_EFFECT, ['effect' => 'MindApotheosis'])),
     ];
   }
 }

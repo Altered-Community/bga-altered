@@ -31,7 +31,7 @@ class LY_Rare_TheMinotaur extends \ALT\Models\Card
       'costHand' => 6,
       'costReserve' => 6,
       'scout' => 3,
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
+      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),
       'effectInfinity' => [
         'effectPassive' => [
           'ChooseAssignment' => [

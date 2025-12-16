@@ -30,11 +30,11 @@ class LY_Rare_Hydracaena extends \ALT\Models\Card
       'costHand' => 7,
       'costReserve' => 7,
       'eternal' => true,
-      'effectPlayed' => FT::GAIN($this, BOOST, 4),
+      'effectPlayed' => FT::GAIN(ME, BOOST, 4),
       'effectPassive' => [
         'Noon' => [
           'condition' => 'isMe',
-          'output' => FT::GAIN($this, BOOST, 4),
+          'output' => FT::GAIN(ME, BOOST, 4),
         ],
       ],
     ];

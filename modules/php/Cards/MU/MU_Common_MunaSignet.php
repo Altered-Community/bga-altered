@@ -33,7 +33,7 @@ class MU_Common_MunaSignet extends \ALT\Models\Card
             'tokenType' => 'MU_Common_Woollyback',
           ]),
         ]),
-        FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+        FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
         FT::ACTION(MARK_REGION, ['create' => true, 'regionType' => FOREST],)
       )
     ];

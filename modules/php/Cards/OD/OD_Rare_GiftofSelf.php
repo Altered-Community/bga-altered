@@ -27,7 +27,7 @@ class OD_Rare_GiftofSelf extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(CHECK_CONDITION, [
           'condition' => 'canSacrifice',
           'effect' => FT::SEQ(

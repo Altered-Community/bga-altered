@@ -30,7 +30,7 @@ class AX_Rare_MunaDruid extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 2,
       'supportIcon' => 'discard',
-      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

@@ -29,11 +29,11 @@ class BR_Rare_Dracaena extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPlayed' => FT::GAIN(ME, ANCHORED),
       'effectPassive' => [
         'Noon' => [
           'condition' => 'isMe',
-          'output' => FT::GAIN($this, BOOST),
+          'output' => FT::GAIN(ME, BOOST),
         ],
       ],
     ];

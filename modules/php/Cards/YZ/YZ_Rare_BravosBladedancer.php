@@ -29,7 +29,7 @@ class YZ_Rare_BravosBladedancer extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['costReserve'],
       'seasoned' => true,
-      'effectPlayed' => FT::GAIN($this, BOOST),
+      'effectPlayed' => FT::GAIN(ME, BOOST),
     ];
   }
 }

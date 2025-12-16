@@ -26,7 +26,7 @@ class MU_Rare_ManaChanneling extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(DRAW_MANA, [])),
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING), FT::ACTION(DRAW_MANA, [])),
     ];
   }
 }

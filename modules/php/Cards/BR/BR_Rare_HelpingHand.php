@@ -26,7 +26,7 @@ class BR_Rare_HelpingHand extends \ALT\Models\Card
       'costReserve' => 1,
       'changedStats' => ['costReserve'],
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'effect' => FT::SEQ(FT::GAIN(EFFECT, BOOST, 2), FT::LOOSE(EFFECT, FLEETING)),
         ])

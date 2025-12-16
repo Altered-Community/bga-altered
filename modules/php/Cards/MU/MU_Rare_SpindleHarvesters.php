@@ -27,7 +27,7 @@ class MU_Rare_SpindleHarvesters extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 1,
       'costReserve' => 1,
-      'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPlayed' => FT::GAIN(ME, ANCHORED),
       'effectPassive' => [
         'Noon' => [
           'condition' => 'hasBoost:2',

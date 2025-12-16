@@ -30,7 +30,7 @@ class BR_Rare_TinyJinn extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 2,
       'changedStats' => ['mountain', 'costHand', 'costReserve'],
-      'effectReserve' => FT::GAIN($this, BOOST),
+      'effectReserve' => FT::GAIN(ME, BOOST),
       // 'leaveExpeditionBoostedToMana' => true,
       'effectPassive' => [
         'LeaveExpedition' => [

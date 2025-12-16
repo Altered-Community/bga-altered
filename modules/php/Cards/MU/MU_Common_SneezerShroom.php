@@ -28,7 +28,7 @@ class MU_Common_SneezerShroom extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPlayed' => FT::GAIN(ME, ANCHORED),
     ];
   }
 }

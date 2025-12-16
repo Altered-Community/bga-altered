@@ -30,7 +30,7 @@ class MU_Rare_ManaEruption extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetLocation' => [MANA],

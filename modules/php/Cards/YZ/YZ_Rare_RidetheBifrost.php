@@ -26,7 +26,7 @@ class YZ_Rare_RidetheBifrost extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(MOVE_CARD, ['player' => ME, 'cards' => ALL])),
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING), FT::ACTION(MOVE_CARD, ['player' => ME, 'cards' => ALL])),
     ];
   }
 }

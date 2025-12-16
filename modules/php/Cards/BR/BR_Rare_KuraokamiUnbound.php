@@ -30,7 +30,7 @@ class BR_Rare_KuraokamiUnbound extends \ALT\Models\Card
             'costReserve' => 6,
             'changedStats' => ['forest', 'mountain', 'ocean', 'costReserve'],
             'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'exhaustAllCards']),
-            'effectReserve' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'statuses' => FLEETING, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST, 2)]),
+            'effectReserve' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'statuses' => FLEETING, 'n' => INFTY, 'effect' => FT::GAIN(EFFECT, BOOST, 2)]),
         ];
     }
 }

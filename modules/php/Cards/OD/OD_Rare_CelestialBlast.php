@@ -25,7 +25,7 @@ class OD_Rare_CelestialBlast extends \ALT\Models\Card
       'costHand' => 7,
       'costReserve' => 7,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN, PERMANENT],
           'n' => 2,

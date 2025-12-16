@@ -30,7 +30,7 @@ class BR_Rare_HavenTrainee extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 4,
-      'effectReserve' => FT::GAIN($this, BOOST, 2),
+      'effectReserve' => FT::GAIN(ME, BOOST, 2),
       'supportIcon' => 'discard',
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
     ];

@@ -31,7 +31,7 @@ class AX_Rare_BessieColeman extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'conditions' => ['isMe', 'isSacrifice:permanent', 'hasBoost:1:LTE', 'isInStorms'],
-          'output' => FT::GAIN($this, BOOST, 1),
+          'output' => FT::GAIN(ME, BOOST, 1),
         ],
       ],
     ];

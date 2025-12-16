@@ -26,7 +26,7 @@ class OD_Common_CelebrationDay extends \ALT\Models\Card
       'effectDesc' => clienttranslate('$<FLEETING>.  Target Expedition can\'t move forward this Day.'),
       'costHand' => 5,
       'costReserve' => 5,
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(BLOCK_EXPEDITION, [])),
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING), FT::ACTION(BLOCK_EXPEDITION, [])),
     ];
   }
 }

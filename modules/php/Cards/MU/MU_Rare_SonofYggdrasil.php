@@ -33,7 +33,7 @@ class MU_Rare_SonofYggdrasil extends \ALT\Models\Card
       'gigantic' => true,
       'tough' => 1,
       'supportIcon' => 'discard',
-      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

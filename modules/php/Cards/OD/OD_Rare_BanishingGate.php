@@ -26,7 +26,7 @@ class OD_Rare_BanishingGate extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
       ),
     ];

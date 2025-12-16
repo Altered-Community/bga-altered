@@ -33,7 +33,7 @@ class LY_Common_TheHatter extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 4,
       'costReserve' => 5,
-      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

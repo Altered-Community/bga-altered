@@ -24,7 +24,7 @@ class YZ_Common_SmallStepGiantLeap extends \ALT\Models\Card
       'effectDesc' => clienttranslate('$<FLEETING>.  Target Expedition moves forward one region.'),
       'costHand' => 6,
       'costReserve' => 6,
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(MOVE_EXPEDITION, [])),
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING), FT::ACTION(MOVE_EXPEDITION, [])),
     ];
   }
 }

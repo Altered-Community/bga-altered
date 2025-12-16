@@ -40,7 +40,7 @@ class YZ_Rare_PajuAxiomPilot extends \ALT\Models\Card
           'listeningConditions' => ['isCardAddedRobotOrToken'],
           'conditions' => ['hasNoBoost', 'isPlayedInSameLocation', 'isStillSameLocation'],
           'output' => FT::SEQ(
-            FT::GAIN($this, BOOST, 1),
+            FT::GAIN(ME, BOOST, 1),
             FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
           )
         ],
@@ -49,7 +49,7 @@ class YZ_Rare_PajuAxiomPilot extends \ALT\Models\Card
           'listeningConditions' => ['isCardAddedRobotOrToken'],
           'conditions' => ['hasNoBoost', 'isPlayedInSameLocation', 'isStillSameLocation'],
           'output' => FT::SEQ(
-            FT::GAIN($this, BOOST, 1),
+            FT::GAIN(ME, BOOST, 1),
             FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
           )
         ],
@@ -57,7 +57,7 @@ class YZ_Rare_PajuAxiomPilot extends \ALT\Models\Card
           'listeningConditions' => ['isCardOfTypeRobotOrToken'],
           'conditions' => ['hasNoBoost', 'isPlayedInSameLocation', 'isStillSameLocation', 'hasSameOwner'],
           'output' => FT::SEQ(
-            FT::GAIN($this, BOOST, 1),
+            FT::GAIN(ME, BOOST, 1),
             FT::ACTION(INVOKE_TOKEN, ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]])
           )
         ],

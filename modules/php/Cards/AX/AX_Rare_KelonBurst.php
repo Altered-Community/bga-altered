@@ -30,7 +30,7 @@ class AX_Rare_KelonBurst extends \ALT\Models\Card
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         [
           'optional' => true,
           'type' => NODE_XOR,

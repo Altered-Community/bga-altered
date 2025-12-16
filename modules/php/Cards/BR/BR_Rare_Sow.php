@@ -29,7 +29,7 @@ class BR_Rare_Sow extends \ALT\Models\Card
             'costReserve' => 1,
             'cooldown' => true,
             'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST)]),
-            'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+            'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
         ];
     }
 }

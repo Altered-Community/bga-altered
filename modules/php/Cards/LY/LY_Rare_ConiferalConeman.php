@@ -28,7 +28,7 @@ class LY_Rare_ConiferalConeman extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPlayed' => FT::GAIN(ME, ANCHORED),
     ];
   }
 }
