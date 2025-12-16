@@ -600,7 +600,12 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
-      if ($card->getType() == CHARACTER && (isset($expeditionsBoosts[$player->getId()][$location]) || $card->isGigantic())) {
+      if (
+        $card->getType() == CHARACTER && (
+          isset($expeditionsBoosts[$player->getId()][$location]) ||
+          ($card->isGigantic() && isset($expeditionsBoosts[$player->getId()][$location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]))
+        )
+      ) {
         $effects[] = FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]);
         unset($expeditionsBoosts[$player->getId()][$location]);
         Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
