@@ -28,7 +28,7 @@ class YZ_Rare_TikTok extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectHand' =>  FT::SEQ(
+      'effectHand' =>  FT::PAR(
         FT::XOR(
           FT::ACTION(TARGET, [
             'targetType' => [PERMANENT],
