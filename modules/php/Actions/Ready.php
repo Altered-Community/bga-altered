@@ -45,7 +45,7 @@ class Ready extends \ALT\Models\Action
     } elseif ($cardId == EFFECT) {
       $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
     } elseif ($cardId == MANA) {
-      return $this->getSource()->getPlayer()->getManaCards(true)->first();
+      return $this->getPlayer()->getManaCards(true)->first();
     }
 
     if (is_null($cardId)) {
