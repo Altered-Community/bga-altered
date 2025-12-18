@@ -543,6 +543,12 @@ abstract class Conditions
     }
   }
 
+  public static function ownerOneReserve($card, $event)
+  {
+    $player = Cards::get($event['cardId'])->getPlayer();
+    return $player->getReserveCards()->count() == 1;
+  }
+
   public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE', $opponent = false)
   {
     $types = [CHARACTER, TOKEN];
@@ -1535,6 +1541,11 @@ abstract class Conditions
   public static function isTargetAsleep($card, $event)
   {
     return Cards::get($event['cardId'])->hasToken(ASLEEP);
+  }
+
+  public static function isTargetSameOwner($card, $event)
+  {
+    return Cards::get($event['cardId'])->getPId() == $card->getPId();
   }
 
   public static function isPlayedCardInBiome($card, $event, $biome)
