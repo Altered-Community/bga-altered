@@ -1849,6 +1849,9 @@ class SpecialEffect extends \ALT\Models\Action
         if (!isset($extraDatas['pId'])) {
           $extraDatas['pId'] = $defectCard->getPId();
         }
+        if (isset($args['moveToMe']) && $args['moveToMe'] == true && !in_array(LANDMARK, $defectCard->getSubtypes())) {
+          $defectCard->setLocation($card->getLocation());
+        }
         $defectCard->setExtraDatas($extraDatas);
         $defectCard->setPId($newPId);
         Notifications::defect($defectCard, $defectCard->getPlayer(), $card);
