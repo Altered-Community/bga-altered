@@ -70,6 +70,8 @@ class InvokeToken extends \ALT\Models\Action
       return $n;
     } elseif ($n == 'landmarks3') {
       return min($this->getPlayer()->getLandmarks()->count(), 3);
+    } elseif ($n == 'paidMana') {
+      return $n = $this->getCtx()->getParent()->toArray()['childs'][0]['actionResolutionArgs'][0];
     }
   }
 
