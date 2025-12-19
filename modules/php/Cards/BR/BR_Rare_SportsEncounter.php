@@ -30,8 +30,8 @@ class BR_Rare_SportsEncounter extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'cooldown' => true,
       'effectPlayed' => FT::SEQ(
-        FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
-        FT::ACTION(TARGET, ['effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+        FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+        FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
       ),
       'effectSupport' => FT::ACTION(AFTER_YOU, []),
     ];
