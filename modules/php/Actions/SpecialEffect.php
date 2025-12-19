@@ -273,6 +273,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Copy the Gift');
       case 'boostXLandmarkMax3':
         return clienttranslate('Boost max up to 3');
+      case 'sacrificeHighestCharacter':
+        return clienttranslate('Sacrifice highest opponent character');
+      case 'sacrificeHighestCharacterPermanent':
+        return clienttranslate('Sacrifice highest opponent character or permanent');
     }
     return '';
   }
@@ -2038,6 +2042,46 @@ class SpecialEffect extends \ALT\Models\Action
         $n = min((3 - $card->countToken(BOOST)), $n);
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'sacrificeHighestCharacter':
+      case 'sacrificeHighestCharacterPermanent':
+        $opponent = Players::getNext($card->getPlayer());
+        if ($effect == 'sacrificeHighestCharacterPermanent') {
+          $targets = [CHARACTER, PERMANENT];
+        } else {
+          $targets = [CHARACTER];
+        }
+        $cards = $opponent->getPlayedCards()->filter(function ($c) use ($targets) {
+          return in_array($c->getType(), $targets);
+        });
+        $maxCost = 0;
+        $maxIds = [];
+
+
+        foreach ($cards as $oId => $oCard) {
+          if ($oCard->hasToken(FLEETING)) {
+            $cost = $oCard->getCostReserve();
+          } else {
+            $cost = $oCard->getCostHand();
+          }
+          if ($maxCost < $cost) {
+            $maxCost = $cost;
+            $maxIds = [];
+            $maxIds[] = $oId;
+          } elseif ($maxCost == $cost) {
+            $maxIds[] = $oId;
+          }
+        }
+        if (empty($maxIds)) {
+          return [];
+        } elseif (count($maxIds) == 1) {
+          $this->insertAsChild(FT::ACTION(DISCARD, ['cardId' => $maxIds[0], 'desc' => 'sacrifice'], ['pId' => $opponent->getId(), 'sourceId' => $card->getId()]));
+        } else {
+          $this->insertAsChild(FT::ACTION(TARGET, [
+            'effect' => FT::ACTION(DISCARD, ['cardId' => $maxIds[0], 'desc' => 'sacrifice']),
+            'cards' => $maxIds
+          ], ['pId' => $opponent->getId(), 'sourceId' => $card->getId()]));
         }
         break;
       default:
