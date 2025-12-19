@@ -7927,10 +7927,16 @@ html {
 .altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="2"][data-support="0"] ~ .card-text .svgicon-mana-1 .path2:before {
   color: black;
 }
+.altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="2"][data-support="0"] ~ .card-text .svgicon-mana-7 .path2:before {
+  color: black;
+}
 .altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="1"][data-support="0"] ~ .card-text {
   color: white;
 }
 .altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="1"][data-support="0"] ~ .card-text .svgicon-mana-1 .path2:before {
+  color: black;
+}
+.altered-card .altered-card-wrapper .card-frame[data-rarity="3"][data-size="1"][data-support="0"] ~ .card-text .svgicon-mana-7 .path2:before {
   color: black;
 }
 .altered-card .altered-card-wrapper .card-frame[data-type=permanent] ~ .card-text {

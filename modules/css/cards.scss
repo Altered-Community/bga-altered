@@ -863,6 +863,10 @@
            .svgicon-mana-1 .path2:before {
                 color: black;
             }
+
+            .svgicon-mana-7 .path2:before {
+                color: black;
+            }
         }
          .card-frame[data-rarity="3"][data-size="1"][data-support="0"] ~ .card-text {
             color: white;
@@ -870,6 +874,10 @@
             //     shape-outside: polygon(0px 70px, 0px 126px, 70px 126px, 70px 70px);
             // }
            .svgicon-mana-1 .path2:before {
+                color: black;
+            }
+            
+            .svgicon-mana-7 .path2:before {
                 color: black;
             }
         }
