@@ -32,6 +32,7 @@ class Target extends \ALT\Models\Action
     'minReserveCost' => 0, // limitation
     'minHandCost' => 0, // limitation
     'maxBaseCost' => INFTY,
+    'minBaseCost' => 0,
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
     'excludedStatuses' => [],
@@ -64,6 +65,7 @@ class Target extends \ALT\Models\Action
     $totalCost = $this->getArg('totalCost');
     $totalMountain = $this->getArg('totalMountain');
     $baseCost = $this->getArg('maxBaseCost');
+    $minBaseCost = $this->getArg('minBaseCost');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
@@ -113,6 +115,8 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('All valid targets ${effect_desc}');
         } elseif ($baseCost != INFTY) {
           $msg = clienttranslate('Target ${n} card(s) (of max base cost of ${baseCost}) to ${effect_desc}');
+        } elseif ($minBaseCost != 0) {
+          $msg = clienttranslate('Target ${n} card(s) (of min base cost of ${minBaseCost}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
         }
@@ -127,6 +131,7 @@ class Target extends \ALT\Models\Action
         'totalCost' => $totalCost,
         'totalMountain' => $totalMountain,
         'baseCost' => $baseCost,
+        'minBaseCost' => $minBaseCost,
         'i18n' => ['effect_desc'],
       ],
     ];
@@ -252,9 +257,10 @@ class Target extends \ALT\Models\Action
 
     // Duster
     $maxBaseCost = $this->getArg('maxBaseCost');
+    $minBaseCost = $this->getArg('minBaseCost');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $isNotTapped) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -334,7 +340,8 @@ class Target extends \ALT\Models\Action
         $handCost <= $maxHandCost &&
         $this->getArg('minReserveCost') <= $reserveCost &&
         $reserveCost <= $this->getArg('maxReserveCost') &&
-        (($c->hasToken(FLEETING) && $reserveCost <= $maxBaseCost) || (!$c->hasToken(FLEETING) && $handCost <= $maxBaseCost));
+        (($c->hasToken(FLEETING) && $reserveCost <= $maxBaseCost) || (!$c->hasToken(FLEETING) && $handCost <= $maxBaseCost)) &&
+        (($c->hasToken(FLEETING) && $reserveCost >= $minBaseCost) || (!$c->hasToken(FLEETING) && $handCost >= $minBaseCost));
 
       if ($statuses == 'disabled' || $c->getType() == PERMANENT) {
         return $costCheck;
