@@ -189,6 +189,8 @@ class Card extends \ALT\Helpers\DB_Model
     'overrideContact' => 'bool',
     'overrideBehind' => 'bool',
     'defenderIgnoreContact' => 'bool', // Ignore defender attribute when in contact
+    'costReductionTap' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
+
   ];
 
   /********* DB ACCESS *********/
@@ -335,6 +337,20 @@ class Card extends \ALT\Helpers\DB_Model
         $cost -= $this->getCostReductionDiscard();
       }
     }
+
+    if ($this->getCostReductionTap() > 0) {
+      $reserveCards = $this->getPlayer()
+        ->getReserveCards()->filter(function ($c) {
+          return !$c->isTapped();
+        })
+        ->count();
+      if ($this->getLocation() == RESERVE && $reserveCards >= 2) {
+        $cost -= $this->getCostReductionTap();
+      } elseif ($reserveCards >= 1) {
+        $cost -= $this->getCostReductionTap();
+      }
+    }
+
     if ($this->getCostReductionSacrificePermanent() > 0) {
       $permanent = $this->getPlayer()->getPlayedCards(PERMANENT)->count();
       if ($permanent > 0) {

@@ -304,6 +304,43 @@ class ChooseAssignment extends \ALT\Models\Action
         );
         $this->resolveAction(['CostReduction']);
         return;
+      } elseif ($card->getCostReductionTap() > 0) {
+        if (
+          ($card->getLocation() == RESERVE && $player->getReserveCards()->filter(function ($c) {
+            return !$c->isTapped();
+          })->count() > 1) ||
+          ($card->getLocation() != RESERVE && $player->getReserveCards()->filter(function ($c) {
+            return !$c->isTapped();
+          })->count() > 0)
+        ) {
+          $this->insertAsChild(
+            FT::XOR(
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              FT::SEQ(
+                FT::ACTION(
+                  TARGET,
+                  [
+                    'targetLocation' => [RESERVE],
+                    'targetPlayer' => ME,
+                    'excludeSelf' => true,
+                    'isNotTapped' => true,
+                    'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                    'effect' => FT::ACTION(EXHAUST, []),
+                  ],
+                  ['sourceId' => $cardId]
+                ),
+                FT::ACTION(PLAY_CARD, [
+                  'cardId' => $cardId,
+                  'free' => true,
+                  'cost' => $cost - $card->getCostReductionTap(),
+                  'location' => $location,
+                ])
+              )
+            )
+          );
+          $this->resolveAction(['CostReduction']);
+          return;
+        }
       }
       // Has to update cost here as cost is dynamic where it's played
       if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic()) {
