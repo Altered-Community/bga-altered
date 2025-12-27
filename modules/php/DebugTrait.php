@@ -301,6 +301,22 @@ trait DebugTrait
     $this->playCardAux($cardId, true);
   }
 
+  function addAlt($uId, $location = 'hand')
+  {
+    $card = Cards::getCardClass($uId);
+    $player = Players::getCurrent();
+    Cards::singleCreate([
+      'player_id' => $player->getId(),
+      'location' => $location,
+      'nbr' => 1,
+      'properties' => $card->getProperties(),
+    ]);
+    Notifications::refreshUI($this::get()->getAllDatas(true));
+    $player = Players::getCurrent();
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
+  }
+
   function addCard($cardId, $location = 'hand')
   {
     $player = Players::getCurrent();

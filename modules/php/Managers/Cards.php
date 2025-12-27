@@ -93,7 +93,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function isAlternateArt($uid)
   {
-    return explode('_', $uid)[2] == 'A';
+    return explode('_', $uid)[2] == 'A' || in_array(explode('_', $uid)[1],  ['DUSTERTOP', 'DUSTERCB', 'DUSTEROP']);
   }
 
   public static function getNextPlayedState()
@@ -129,6 +129,9 @@ class Cards extends \ALT\Helpers\CachedPieces
   public static function getMainUid($uid)
   {
     $expUid = explode('_', $uid);
+    if (in_array($expUid[1], ['DUSTEROP', 'DUSTERCB', 'DUSTERTOP'])) {
+      $expUid[1] = 'DUSTER';
+    }
     $expUid[2] = 'B';
     $coreUid = implode('_', $expUid);
     return $coreUid;
@@ -209,6 +212,8 @@ class Cards extends \ALT\Helpers\CachedPieces
           $cardO->setAsset($altUid . '_R');
         } elseif ($cardO->getRarity() == RARITY_COMMON) {
           $cardO->setAsset($altUid . '_C');
+        } elseif ($cardO->getRarity() == RARITY_EXALTED) {
+          $cardO->setAsset($altUid . '_E');
         } else {
           $cardO->setAsset($altUid . '_U');
         }
@@ -827,7 +832,50 @@ class Cards extends \ALT\Helpers\CachedPieces
       'ALT_ALIZE_A_MU_35' => ['flavorText' => clienttranslate('"This will be a fine addition to my collection."')],
       'ALT_ALIZE_A_OR_38' => ['flavorText' => clienttranslate('"Day 28. The intense cold is putting the troops\' morale to the test. I hope the dawn will bring a bit of warmth."')],
       'ALT_ALIZE_A_YZ_36' => ['flavorText' => clienttranslate('She used her body as a rampart until she was carried away by the waves.')],
-
+      'ALT_ALIZE_A_AX_46' => ['flavorText' => ''],
+      'ALT_ALIZE_A_BR_46' => ['flavorText' => ''],
+      'ALT_ALIZE_A_LY_45' => ['flavorText' => ''],
+      'ALT_ALIZE_A_MU_45' => ['flavorText' => ''],
+      'ALT_ALIZE_A_OR_47' => ['flavorText' => ''],
+      'ALT_ALIZE_A_YZ_46' => ['flavorText' => ''],
+      'ALT_CORE_A_AX_22' => ['flavorText' => ''],
+      'ALT_CORE_A_BR_26' => ['flavorText' => ''],
+      'ALT_CORE_A_LY_22' => ['flavorText' => ''],
+      'ALT_CORE_A_MU_25' => ['flavorText' => ''],
+      'ALT_CORE_A_OR_24' => ['flavorText' => ''],
+      'ALT_CORE_A_YZ_19' => ['flavorText' => ''],
+      'ALT_DUSTEROP_A_AX_98' => ['flavorText' => ''],
+      'ALT_DUSTEROP_A_BR_99' => ['flavorText' => ''],
+      'ALT_DUSTEROP_A_LY_100' => ['flavorText' => ''],
+      'ALT_DUSTEROP_A_MU_98' => ['flavorText' => ''],
+      'ALT_DUSTEROP_A_OR_98' => ['flavorText' => ''],
+      'ALT_DUSTEROP_A_YZ_97' => ['flavorText' => ''],
+      'ALT_BISE_A_AX_63' => ['flavorText' => ''],
+      'ALT_BISE_A_BR_63' => ['flavorText' => ''],
+      'ALT_BISE_A_LY_63' => ['flavorText' => ''],
+      'ALT_BISE_A_MU_62' => ['flavorText' => ''],
+      'ALT_BISE_A_OR_63' => ['flavorText' => ''],
+      'ALT_BISE_A_YZ_62' => ['flavorText' => ''],
+      'ALT_ALIZE_A_AX_35' => ['flavorText' => ''],
+      'ALT_ALIZE_A_BR_37' => ['flavorText' => ''],
+      'ALT_ALIZE_A_LY_34' => ['flavorText' => ''],
+      'ALT_ALIZE_A_MU_35' => ['flavorText' => ''],
+      'ALT_ALIZE_A_OR_38' => ['flavorText' => ''],
+      'ALT_ALIZE_A_YZ_36' => ['flavorText' => ''],
+      'ALT_BISE_A_AX_56' => ['flavorText' => ''],
+      'ALT_BISE_A_BR_58' => ['flavorText' => ''],
+      'ALT_BISE_A_LY_53' => ['flavorText' => ''],
+      'ALT_BISE_A_MU_58' => ['flavorText' => ''],
+      'ALT_BISE_A_OR_57' => ['flavorText' => ''],
+      'ALT_BISE_A_YZ_52' => ['flavorText' => ''],
+      'ALT_CYCLONE_A_AX_74' => ['flavorText' => ''],
+      'ALT_CYCLONE_A_BR_77' => ['flavorText' => ''],
+      'ALT_CYCLONE_A_LY_74' => ['flavorText' => ''],
+      'ALT_CYCLONE_A_MU_74' => ['flavorText' => ''],
+      'ALT_CYCLONE_A_OR_74' => ['flavorText' => ''],
+      'ALT_CYCLONE_A_YZ_73' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_AX_93' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_AX_97' => ['flavorText' => ''],
     ];
   }
 
