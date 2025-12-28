@@ -809,6 +809,11 @@ abstract class Conditions
     return $card->hasToken(ANCHORED);
   }
 
+  public static function isNotAnchored($card, $event)
+  {
+    return !self::isAnchored($card, $event);
+  }
+
   public static function hasFleeting($card, $event)
   {
     return $card->hasToken(FLEETING) || ($event['fleeting'] ?? false);

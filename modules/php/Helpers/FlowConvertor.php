@@ -988,6 +988,172 @@ abstract class FlowConvertor
           'OUTPUT'
         ),
       ],
+      775 => [
+        'description' => clienttranslate('You may pass. If you don\'t:'),
+        'effect' => FT::XOR(
+          FT::ACTION(END_AFTERNOON, []),
+          'OUTPUT'
+        )
+      ],
+      758 => ['description' => clienttranslate('If I\'m <ANCHORED>:'), 'condition' => 'isAnchored'],
+      759 => ['description' => clienttranslate('If I\'m <IN_CONTACT>:'), 'condition' => 'isInContact'],
+      760 => ['description' => clienttranslate('If I\'m <IN_CONTACT>:'), 'condition' => 'isInContact'],
+      764 => ['description' => clienttranslate('If there\'s an exhausted card in your Reserve or you control an exhausted Permanent:'), 'condition' => 'hasControlExhaustedPermanentOrReserve'],
+      766 => [
+        'description' => clienttranslate('You may <RUSH>. If you don\'t:'),
+        'effect' => FT::XOR(
+          FT::RUSH(),
+          'OUTPUT'
+        )
+      ],
+      767 => ['description' => clienttranslate('You may <RUSH>. Unless you played a Character this way:'), 'effect' => ''],
+      769 => [
+        'description' => clienttranslate('You may create a <MANASEED> token in target opponent\'s Landmarks. If you do:'),
+        'effect' =>  FT::SEQ_OPTIONAL(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'targetPlayer' => OPPONENT,
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+          ]),
+          'OUTPUT'
+        )
+      ],
+      761 => ['description' => clienttranslate('If I\'m <IN_CONTACT>:'), 'condition' => 'isInContact'],
+      770 => [
+        'description' => clienttranslate('You may exhaust a card in your Reserve. If you do:'),
+        'effect' =>
+        FT::ACTION(TARGET, [
+          'targetLocation' => [RESERVE],
+          'targetPlayer' => ME,
+          'upTo' => true,
+          'isNotTapped' => true,
+          'targetType' => [PERMANENT, SPELL, CHARACTER],
+          'effect' => FT::SEQ(
+            FT::ACTION(EXHAUST, []),
+            'OUTPUT'
+          )
+        ])
+      ],
+      773 => [
+        'description' => clienttranslate('You may exhaust a Permanent you control. If you do:'),
+        'effect' => FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [PERMANENT],
+            'targetPlayer' => ME,
+            'upTo' => true,
+            'isNotTapped' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              'OUTPUT'
+            )
+          ]
+        )
+      ],
+      772 => [
+        'description' => clienttranslate('You may exhaust a Permanent you control or a card in your Reserve. If you do:'),
+        'effect' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT],
+            'targetPlayer' => ME,
+            'upTo' => true,
+            'isNotTapped' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              'OUTPUT'
+            )
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [SPELL, CHARACTER, PERMANENT],
+            'targetPlayer' => ME,
+            'isNotTapped' => true,
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              'OUTPUT'
+            )
+          ])
+        )
+      ],
+      774 => [
+        'description' => clienttranslate('You may have target opponent <RESUPPLY_INF>. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(
+          FT::ACTION(RESUPPLY, ['player' => 'nextPlayer']),
+          'OUTPUT'
+        )
+      ],
+      768 => [
+        'description' => clienttranslate('You may create a <MANA_MOTH> Illusion token in an opponent\'s Expedition. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(
+          FT::ACTION(TARGET_EXPEDITION, [
+            'players' => OPPONENT,
+            'effect' =>
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'YZ_Common_ManaMoth',
+            ]),
+          ]),
+          'OUTPUT'
+        )
+      ],
+      763 => ['description' => clienttranslate('If there\'s an exhausted card in Reserve:'), 'condition' => 'hasXExhaustedReserve:1'],
+      765 => ['description' => clienttranslate('Unless I\'m <IN_CONTACT>:'), 'condition' => 'isNotInContact'],
+      757 => [
+        'description' => clienttranslate('<SABOTAGE>. If you discarded a Character this way:'),
+        'effect' =>  FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+        // hard code the discarded check
+      ],
+      762 => ['description' => clienttranslate('If I\'m not <ANCHORED>:'), 'condition' => 'isNotAnchored'],
+      771 => [
+        'description' => clienttranslate('You may exhaust a Character in your Reserve. If you do:'),
+        'effect' =>  FT::ACTION(TARGET, [
+          'upTo' => true,
+          'targetType' => [CHARACTER],
+          'targetPlayer' => ME,
+          'targetLocation' => [RESERVE],
+          'isNotTapped' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+            'OUTPUT'
+          )
+        ])
+      ],
+      776 => [
+        'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Character:'),
+        'effect' => FT::XOR(
+          FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::DISCARD_TO_RESERVE(),
+            ],
+          ),
+          FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::SEQ(
+                FT::DISCARD_TO_RESERVE(),
+                'OUTPUT'
+              )
+            ],
+          ),
+        )
+      ],
+
     ];
   }
 
