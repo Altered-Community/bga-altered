@@ -348,6 +348,31 @@ abstract class FlowConvertor
         'trigger' => 'Discard',
         'condition' => ['isMe', 'isSacrifice:permanent'],
       ],
+      688 => [
+        'description' => clienttranslate('When an opponent receives a <GIFT> —'),
+        'trigger' => ['InvokeToken', 'Draw', 'Resupply'],
+        'condition' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+      ],
+      689 => [
+        'description' => clienttranslate('When an opponent receives a <GIFT> —'),
+        'trigger' => ['InvokeToken', 'Draw', 'Resupply'],
+        'condition' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+      ],
+      780 => [
+        'description' => clienttranslate('When you play a Permanent with Base Cost {4} or more —'),
+        'trigger' => 'ChooseAssigment',
+        'condition' => ['isCardPlayed:permanent', 'cardPlayedCostCheck:4'],
+      ],
+      781 => [
+        'description' => clienttranslate('When you <RESUPPLY_YOU> —'),
+        'trigger' => 'Resupply',
+        'condition' => ['isMe'],
+      ],
+      794 => [
+        'description' => clienttranslate('When you pass —'),
+        'trigger' => 'EndTurn',
+        'condition' => ['isMe'],
+      ],
     ];
   }
 
