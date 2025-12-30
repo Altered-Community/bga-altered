@@ -211,10 +211,15 @@ class ChooseAssignment extends \ALT\Models\Action
       // Lyra DJ
       if ($card->getPlayLimitation() == '-2Contact' && $player->isInContact($location)) {
         $cost -= 2;
+      } elseif ($card->getPlayLimitation() == '-2Multi') {
+        $opponent = Players::getNext($player);
+        if ($opponent->countCardsInLocation(STORM_LEFT, CHARACTER) || $opponent->countCardsInLocation(STORM_RIGHT, CHARACTER)) {
+          $cost -= 2;
+        }
       }
       $costReduction = Globals::getCostReduction();
       foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
-        if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType())) {
+        if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType()) || $costType == ALL) {
           unset($costReduction[$player->getId()][$costType]);
         }
       }

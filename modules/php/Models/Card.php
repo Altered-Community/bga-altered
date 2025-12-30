@@ -365,6 +365,11 @@ class Card extends \ALT\Helpers\DB_Model
     // Lyra DJ
     if ($this->getPlayLimitation() == '-2Contact' && $player->isInContact()) {
       $cost -= 2;
+    } elseif ($this->getPlayLimitation() == '-2Multi') {
+      $opponent = Players::getNext($player);
+      if ($opponent->countCardsInLocation(STORM_LEFT, CHARACTER) || $opponent->countCardsInLocation(STORM_RIGHT, CHARACTER)) {
+        $cost -= 2;
+      }
     }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
@@ -842,7 +847,7 @@ class Card extends \ALT\Helpers\DB_Model
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
     foreach ($costReduction as $reducType => $reduction) {
-      if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType())) {
+      if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType()) || $reducType == ALL) {
         $typeReduction += $reduction['reduction'];
         if (isset($reduction['minimum'])) {
           $minimumCost = max($minimumCost, $reduction['minimum']);
@@ -881,6 +886,8 @@ class Card extends \ALT\Helpers\DB_Model
           $dynamicReduc += ($this->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($this->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
         } elseif ($dynamicReduction == 'playedCards') {
           $dynamicReduc += (Globals::getPlayedCards() ?? 0);
+        } elseif ($dynamicReduction == 'hasPlayedCards') {
+          $dynamicReduc += (Globals::getPlayedCards() ?? 0) > 0;
         } elseif ($dynamicReduction == 'hasInContact') {
           $dynamicReduc += $this->getPlayer()->isInContact() ? 1 : 0;
         } elseif ($dynamicReduction == 'expeditionsInContact') {

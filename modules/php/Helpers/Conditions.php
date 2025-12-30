@@ -785,6 +785,11 @@ abstract class Conditions
     return !self::isInContact($card, $event);
   }
 
+  public static function hasOneContact($card, $event)
+  {
+    return $card->getPlayer()->isInContact(STORM_LEFT) || $card->getPlayer()->isInContact(STORM_RIGHT);
+  }
+
   ///////////////////////////////////////////////////////////////////////////////
   //   ____              _   ____                            _   _
   //  / ___|__ _ _ __ __| | |  _ \ _ __ ___  _ __   ___ _ __| |_(_) ___  ___

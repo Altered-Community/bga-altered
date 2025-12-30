@@ -1955,6 +1955,33 @@ class SpecialEffect extends \ALT\Models\Action
           }
         }
         break;
+      case 'PhoibosUnique':
+        // Reveal random card
+        $player = $card->getPlayer();
+        $opponent = Players::getNext($player);
+        $opponentHand = $opponent->getHand();
+        if ($opponentHand->count() > 0) {
+          $revealedCard = $opponentHand->rand();
+          $revealedCard->setLocation(LIMBO);
+          Notifications::reveal($revealedCard, $card);
+          // if in contact, may play
+          $this->insertAsChild(FT::XOR(
+            FT::SEQ(
+              FT::GAIN($revealedCard->getId(), FLEETING),
+              FT::ACTION(
+                PLAY_CARD,
+                [
+                  'cardId' => $revealedCard->getId(),
+                  'free' => true,
+                  'stealOwnership' => true,
+                ],
+                ['sourceId' => $card->getId()]
+              ),
+            ),
+            FT::ACTION(DISCARD, ['cardId' => $revealedCard->getId()])
+          ));
+        }
+        break;
       case 'RomanticEncounter':
         Engine::checkpoint();
         // draw 4 cards
