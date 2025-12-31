@@ -25,6 +25,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'deckContent' => 'obj',
     'undo' => 'bool',
     'statMapping' => 'obj',
+    'deckFormat' => 'str',
 
     'firstPlayer' => 'int',
     'skippedPlayers' => 'obj',
@@ -221,6 +222,17 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setPlayedCards(0);
     self::setDayPhase(false);
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
+    switch ($options[OPTION_DECK_FORMAT]) {
+      case 0:
+        self::setDeckFormat('STANDARD');
+        break;
+      case 1:
+        self::setDeckFormat('NO_UNIQUE');
+        break;
+      case 2:
+        self::setDeckFormat('SINGLETON');
+        break;
+    }
     self::setDeckOptions(OPTION_DECKS_STARTER);
     self::setBeginner($options[OPTION_BEGINNER] ?? 1);
     self::setUndo($options[OPTION_UNDO] ?? 0);
