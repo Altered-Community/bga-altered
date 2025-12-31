@@ -151,6 +151,8 @@ trait SetupTrait
     $request['factions'] = $request['factions'] ?? ['AX', 'BR', 'MU', 'LY', 'OR', 'YZ'];
     // $request['factions'] = ['AX'];
     $request['hero'] = $request['hero'] ?? '';
+    $request['eventFormat'] = Globals::getDeckFormat();
+    // STANDARD, NO_UNIQUE, SINGLETON
 
     // Fetch them from MS
     $response = self::getGenericGameInfos('get_player_decks', $request);

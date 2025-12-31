@@ -38,5 +38,26 @@
         "description": "Undo can be disabled as a player preference"
       }
     }
+  },
+  "155": {
+     "name": "Deck format",
+     "level": "major",
+    "values": {
+      "0": {
+        "name": "Standard",
+        "tmdisplay": "Standard deck",
+        "description": "Standard decks only can be selected"
+      },
+      "1": {
+        "name": "No unique",
+        "tmdisplay": "No unique",
+        "description": "Only decks with no uniques"
+      },
+      "2": {
+        "name": "Singleton",
+        "tmdisplay": "Singleton",
+        "description": "Only decks following singleton"
+      }
+    }
   }
 }

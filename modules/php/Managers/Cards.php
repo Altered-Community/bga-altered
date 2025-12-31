@@ -177,6 +177,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     $ks = self::isKS($uid);
     $alternate = self::isAlternateArt($uid);
+    $coreUid = '';
     if ($ks) {
       $coreUid = self::getCoreUid($uid);
       $altUid = self::getAltUid($uid);
