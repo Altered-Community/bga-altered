@@ -30,11 +30,13 @@ class AX_Common_DellaBolt extends \ALT\Models\Card
 				FT::ACTION(TARGET, [
 					'targetType' => [PERMANENT],
 					'maxHandCost' => 4,
+					'isTapped' => true,
 					'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
 				]),
 				FT::ACTION(TARGET, [
 					'targetType' => [PERMANENT],
 					'minHandCost' => 5,
+					'isTapped' => true,
 					'effect' => FT::SEQ(
 						FT::ACTION(PAY, ['pay' => 2]),
 						FT::ACTION(READY, ['cardId' => EFFECT])
@@ -43,6 +45,7 @@ class AX_Common_DellaBolt extends \ALT\Models\Card
 				FT::ACTION(TARGET, [
 					'targetType' => [PERMANENT, CHARACTER, SPELL],
 					'targetLocation' => [RESERVE],
+					'isTapped' => true,
 					'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
 				])
 
