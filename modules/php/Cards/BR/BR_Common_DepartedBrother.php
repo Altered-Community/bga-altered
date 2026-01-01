@@ -28,7 +28,7 @@ class BR_Common_DepartedBrother extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectReserve' => FT::SEQ_OPTIONAL(
+      'effectReserve' => FT::SEQ_OPTIONAL_MANUAL(
         FT::ACTION(PAY, ['pay' => 1]),
         FT::ACTION(DRAW, ['players' => ME])
       )
