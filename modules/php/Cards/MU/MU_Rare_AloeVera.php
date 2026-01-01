@@ -33,7 +33,7 @@ class MU_Rare_AloeVera extends \ALT\Models\Card
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],
-      'effectPlayed' => FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 1]), FT::GAIN(EFFECT, ANCHORED)),
+      'effectPlayed' => FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 1]), FT::GAIN(ME, ANCHORED)),
     ];
   }
 }
