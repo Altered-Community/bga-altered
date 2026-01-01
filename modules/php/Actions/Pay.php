@@ -49,8 +49,8 @@ class Pay extends \ALT\Models\Action
   public function argsPay()
   {
     $player = Players::getActive();
-    $pay = $this->getCtxArg('pay') ?? 0;
-    $maximum = $this->getCtxArg('maximum');
+    $pay = $this->getArg('pay') ?? 0;
+    $maximum = $this->getArg('maximum');
     if (is_int($pay) && $pay > 0) {
       return [];
     }
@@ -62,12 +62,13 @@ class Pay extends \ALT\Models\Action
           return $c->isTapped();
         })->count();
       }
+
+      if ($maximum == 'exhaustedReserveAndPermanent') {
+        $exhausted += $player->getPlayedCards()->filter(function ($c) {
+          return ($c->getType() == PERMANENT || in_array(PERMANENT, $c->getAdditionalType())) && $c->isTapped();
+        })->count();
+      }
       $maximum = $exhausted;
-    }
-    if ($maximum == 'exhaustedReserveAndPermanent') {
-      $exhausted += $player->getPlayedCards()->filter(function ($c) {
-        return ($c->getType() == PERMANENT || in_array(PERMANENT, $c->getAdditionalType())) && $c->isTapped();
-      })->count();
     }
 
     return [
