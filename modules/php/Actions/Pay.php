@@ -34,6 +34,10 @@ class Pay extends \ALT\Models\Action
 
   public function isDoable($player)
   {
+    if ($player->getMana() == 0) {
+      return false;
+    }
+
     if ($this->getArg('pay') == 'X') {
       return true;
     }
