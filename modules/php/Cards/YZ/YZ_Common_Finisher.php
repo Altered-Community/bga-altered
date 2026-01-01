@@ -25,13 +25,13 @@ class YZ_Common_Finisher extends \ALT\Models\Card
       'effectDesc' => clienttranslate('<FLEETING>.  Choose up to three:  • Discard target Character.  • Discard target Permanent.  • <SABOTAGE>.'),
       'costHand' => 7,
       'costReserve' => 7,
-      'effecPlayed' => FT::SEQ(
+      'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
         [
           'type' => NODE_OR,
           'args' => ['n' => 3],
           'pId' => 'source',
-          'option' => true,
+          'optional' => true,
           'childs' => [
             FT::SABOTAGE(),
             FT::ACTION(TARGET, ['effect' => FT::ACTION(DISCARD, [])]),

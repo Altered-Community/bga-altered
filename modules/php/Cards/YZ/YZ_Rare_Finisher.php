@@ -25,7 +25,7 @@ class YZ_Rare_Finisher extends \ALT\Models\Card
       'effectDesc' => clienttranslate('<FLEETING>.  Choose up to three, #you may choose the same option multiple times:#  • Discard target Character.  • Discard target Permanent.  • <SABOTAGE>.'),
       'costHand' => 7,
       'costReserve' => 7,
-      'effecPlayed' => FT::SEQ(
+      'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
         [
           'type' => NODE_OR,
