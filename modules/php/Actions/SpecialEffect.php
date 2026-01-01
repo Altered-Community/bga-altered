@@ -1850,6 +1850,10 @@ class SpecialEffect extends \ALT\Models\Action
         // TODO: multiplayer
         $newPId = Players::getNextId($defectCard->getPlayer());
         $extraDatas = $defectCard->getExtraDatas();
+        if (isset($args['takeControl']) && $args['takeControl'] == true) {
+          $newPId = $card->getPId();
+        }
+
         if (!isset($extraDatas['pId'])) {
           $extraDatas['pId'] = $defectCard->getPId();
         }

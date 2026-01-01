@@ -33,7 +33,7 @@ class YZ_Rare_MiladydeWinter extends \ALT\Models\Card
         'targetLocation' => IN_PLAY,
         'targetType' => [PERMANENT],
         'maxBaseCost' => 2,
-        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true]])
+        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true, 'takeControl' => true]])
       ])
     ];
   }

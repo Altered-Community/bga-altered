@@ -32,7 +32,7 @@ class YZ_Common_MiladydeWinter extends \ALT\Models\Card
         'targetLocation' => IN_PLAY,
         'targetType' => [PERMANENT],
         'onlyToken' => true,
-        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect'])
+        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['takeControl' => true]])
       ])
     ];
   }
