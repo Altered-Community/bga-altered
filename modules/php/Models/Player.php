@@ -1100,6 +1100,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $opponent = Players::getNext($this);
     $opponentTokens = Meeples::getStormTokens($opponent->getId());
+
     if (is_null($location)) {
       $tokenF = ['getHeroToken', 'getCompanionToken'];
       if ($this->hasOverrideInContact(STORM_LEFT) || $this->hasOverrideInContact(STORM_RIGHT)) {

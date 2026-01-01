@@ -410,9 +410,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         foreach ($cards as $cId => $power) {
           if ($power == 'all') {
             unset($defenders[$pId][$storm]);
-          } elseif ($power = 'behind' && !is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
+          } elseif ($power == 'behind' && !is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
             unset($defenders[$pId][$storm]);
-          } elseif ($power = 'contact' && Players::get($pId)->isInContact($storm)) {
+          } elseif ($power == 'contact' && Players::get($pId)->isInContact($storm)) {
             unset($defenders[$pId][$storm]);
           }
         }
