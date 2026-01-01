@@ -2041,7 +2041,7 @@ class SpecialEffect extends \ALT\Models\Action
           clienttranslate('${player_name} discards ${card_names} as they are not targeted'),
           [
             'source' => LIMBO,
-            'hand' => true,
+            'hand' => false,
             'destination' => DISCARD,
           ]
         );
