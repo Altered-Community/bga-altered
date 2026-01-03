@@ -33,15 +33,15 @@ class MU_Rare_SonofNaos extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(DRAW, ['players' => OPPONENT], ['optional' => true]),
       'effectPassive' => [
         'InvokeToken' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
           'output' => FT::GAIN(ME, BOOST, 1)
         ],
         'Draw' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1)
         ],
         'Resupply' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1)
         ]
       ]

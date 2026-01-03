@@ -31,21 +31,21 @@ class MU_Common_PicnicArea extends \ALT\Models\Card
       ),
       'effectPassive' => [
         'InvokeToken' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke', 'notTapped'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke', 'notTapped'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, ['cardId' => ME]),
             FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST)])
           )
         ],
         'Draw' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, ['cardId' => ME]),
             FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST)])
           )
         ],
         'Resupply' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, ['cardId' => ME]),
             FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, BOOST)])

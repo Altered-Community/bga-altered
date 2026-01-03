@@ -31,15 +31,15 @@ class MU_Rare_RabbitFarmer extends \ALT\Models\Card
       'changedStats' => ['forest', 'mountain', 'ocean', 'costHand', 'costReserve'],
       'effectPassive' => [
         'InvokeToken' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
           'output' => FT::GAIN(ME, BOOST, 1, 1)
         ],
         'Draw' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1, 1)
         ],
         'Resupply' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1, 1)
         ]
       ]

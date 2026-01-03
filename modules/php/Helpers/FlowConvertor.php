@@ -351,12 +351,12 @@ abstract class FlowConvertor
       688 => [
         'description' => clienttranslate('When an opponent receives a <GIFT> —'),
         'trigger' => ['InvokeToken', 'Draw', 'Resupply'],
-        'condition' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+        'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
       ],
       689 => [
         'description' => clienttranslate('When an opponent receives a <GIFT> —'),
         'trigger' => ['InvokeToken', 'Draw', 'Resupply'],
-        'condition' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+        'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
       ],
       780 => [
         'description' => clienttranslate('When you play a Permanent with Base Cost {4} or more —'),

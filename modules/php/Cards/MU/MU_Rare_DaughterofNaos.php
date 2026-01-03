@@ -32,15 +32,15 @@ class MU_Rare_DaughterofNaos extends \ALT\Models\Card
       'dynamicDefender' => '1:isAnchored',
       'effectPassive' => [
         'InvokeToken' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMeInvoke'],
           'output' => FT::GAIN(ME, BOOST, 1, 2)
         ],
         'Draw' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1, 2)
         ],
         'Resupply' => [
-          'conditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
+          'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe'],
           'output' => FT::GAIN(ME, BOOST, 1, 2)
         ]
       ]
