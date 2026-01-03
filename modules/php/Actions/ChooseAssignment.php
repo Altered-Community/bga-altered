@@ -590,6 +590,11 @@ class ChooseAssignment extends \ALT\Models\Action
               $effectType = $addEffect['effect'];
               $f = 'getEffect' . ucfirst($effectType);
               $newEffect = $card->$f();
+
+              if ($newEffect ==  []) {
+                continue;
+              }
+
               if (isset($addEffect['to']) && !is_null($addEffect['to'])) {
                 if ($addEffect['to'] == 'sourceLocation') {
                   $source = Cards::get($addEffect['sourceId']);
