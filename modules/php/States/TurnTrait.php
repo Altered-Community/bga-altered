@@ -55,6 +55,7 @@ trait TurnTrait
     Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setPlayedForFree(false);
+    Globals::setNextCharacterInExpeditionBoost([]);
 
     Globals::setDayPhase(true);
     // Update cards with extra datas set
@@ -123,6 +124,7 @@ trait TurnTrait
     Globals::setRemoveFleetingSongArtistPlayed(false);
     Globals::setPlayedForFree(false);
     Globals::setNextCharacterBoostV(0);
+    Globals::setNextCharacterInExpeditionBoost([]);
 
     self::giveExtraTime($player->getId());
 
