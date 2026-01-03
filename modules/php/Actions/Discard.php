@@ -237,6 +237,7 @@ class Discard extends \ALT\Models\Action
 
     foreach ($cards as $cId => $card) {
       $newCId = $cId;
+      $pId = $card->getPId();
       $players[$card->getPId()] = $card->getPlayer();
       $destination = $args['destination'];
       $hasFleeting = $card->hasToken(FLEETING);
@@ -397,6 +398,7 @@ class Discard extends \ALT\Models\Action
         'to' => $destination,
         'sacrifice' => $this->isSacrifice(),
         'sourceId' => $this->getSourceId(),
+        'pId' => $pId
       ]);
     }
 
