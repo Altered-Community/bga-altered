@@ -31,6 +31,7 @@ class AX_Common_FailedDemo extends \ALT\Models\Card
           'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
           'targetType' => [CHARACTER, PERMANENT, SPELL],
+          'isNotTapped' => true,
           'effect' => FT::SEQ(
             FT::ACTION(EXHAUST, []),
             FT::ACTION(TARGET, [
