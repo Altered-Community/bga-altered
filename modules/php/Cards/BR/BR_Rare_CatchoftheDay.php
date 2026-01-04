@@ -26,19 +26,18 @@ class BR_Rare_CatchoftheDay extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 5,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' =>
-      FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, PERMANENT],
-        'targetPlayer' => OPPONENT,
-        'effect' => FT::SEQ(
-          FT::RETURN_TO_HAND(),
-          FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
-            'tokenType' => 'NE_Common_Manaseed',
-            'targetLocation' => [LANDMARK]
-          ]),
-        )
-      ]),
+      'effectPlayed' => FT::SEQ(
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, PERMANENT],
+          'targetPlayer' => OPPONENT,
+          'effect' => FT::RETURN_TO_HAND(),
+        ]),
+        FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'NE_Common_Manaseed',
+          'targetLocation' => [LANDMARK]
+        ]),
+      )
     ];
   }
 }
