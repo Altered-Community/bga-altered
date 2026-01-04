@@ -2053,7 +2053,7 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => $event['invoked'],
-            'targetLocation' => [$event['to']],
+            'targetLocation' => $event['to'] == LANDMARK ? [LANDMARK] : STORMS,
             'targetPlayer' => ME,
           ], ['sourceId' => $card->getId()]));
         } elseif ($event['action'] == 'Draw') {
