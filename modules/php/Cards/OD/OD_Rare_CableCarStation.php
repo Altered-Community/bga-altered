@@ -32,10 +32,13 @@ class OD_Rare_CableCarStation extends \ALT\Models\Card
           'args' => ['counter' => 2, 'counterName' => clienttranslate('Move counters')],
         ]),
       ),
-      'effectTap' => FT::SEQ(
-        FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]),
-        FT::ACTION(TARGET_EXPEDITION, ['players' => ME, 'effect' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'pId' => ME, 'moveOtherExpedition' => true])])
-      )
+      'effectTap' =>  FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'hasCounterOnCard',
+        'effect' => FT::SEQ(
+          FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]),
+          FT::ACTION(TARGET_EXPEDITION, ['players' => ME, 'effect' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'pId' => ME, 'moveOtherExpedition' => true])])
+        )
+      ])
     ];
   }
 }
