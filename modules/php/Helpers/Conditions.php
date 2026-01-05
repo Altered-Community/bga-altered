@@ -127,7 +127,7 @@ abstract class Conditions
       return true;
     }
 
-    return Cards::get($cardId)->getPId() == $card->getPId();
+    return Cards::get($cardId)->getPId() == $card->getPId() || $card->getPId() == $event['controller'];
   }
 
   public static function excludeSelf($card, $event)
