@@ -31,7 +31,7 @@ class BR_Common_DeepCloudInstructor extends \ALT\Models\Card
       'effectHand' => FT::SEQ_OPTIONAL(
         FT::ACTION(SPECIAL_EFFECT, [
           'effect' => 'triggerEffectOfNextCharacter',
-          'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE],
+          'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE, 'limit' => 1],
         ]),
         FT::RUSH_CHARACTER()
       ),
