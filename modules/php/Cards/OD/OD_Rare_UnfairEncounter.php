@@ -28,16 +28,27 @@ class OD_Rare_UnfairEncounter extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
-        FT::ACTION(TARGET, [
-          'targetPlayer' => OPPONENT,
-          'targetLocation' => [LANDMARK],
-          'targetType' => [PERMANENT],
-          'maxHandCost' => 2,
-          'effect' => FT::SEQ(
-            FT::ACTION(RESUPPLY, ['player' => 'nextPlayer']),
-            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect'])
-          )
-        ])
+        FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetPlayer' => OPPONENT,
+            'targetLocation' => [LANDMARK],
+            'targetType' => [PERMANENT],
+            'maxHandCost' => 2,
+            'effect' => FT::SEQ(
+              FT::ACTION(RESUPPLY, ['player' => 'nextPlayer']),
+              FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect'])
+            )
+          ]),
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetLocation' => [LANDMARK],
+            'targetType' => [PERMANENT],
+            'maxHandCost' => 2,
+            'effect' => FT::SEQ(
+              FT::ACTION(RESUPPLY, []),
+            )
+          ])
+        )
       )
     ];
   }
