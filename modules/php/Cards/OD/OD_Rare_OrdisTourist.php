@@ -29,7 +29,8 @@ class OD_Rare_OrdisTourist extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean'],
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXLandmarkMax3'])
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXLandmarkMax3']),
+      'blockAutomaticAction' => [GAIN => [BOOST => 1]]
     ];
   }
 }
