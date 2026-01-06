@@ -2015,7 +2015,7 @@ class SpecialEffect extends \ALT\Models\Action
               ],
               ['sourceId' => $card->getId()]
             ),
-            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticCleanLimbo'], ['sourceId' => $card->getId()])
+            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticCleanLimbo', 'args' => ['cards' => $drawn->getIds()]], ['sourceId' => $card->getId()])
           )
         );
 
@@ -2028,7 +2028,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'RomanticCleanLimbo':
         $discard = [];
-        foreach (Cards::getInLocation(LIMBO) as $cId => $ign) {
+        foreach ($args['cards'] as $cId) {
           if ($cId != $card->getId()) {
             $discard[] = $cId;
             Cards::discard($cId);
