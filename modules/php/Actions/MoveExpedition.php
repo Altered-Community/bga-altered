@@ -140,7 +140,7 @@ class MoveExpedition extends \ALT\Models\Action
 
     // Combo Diocles & eat me energy bars
     $event = $this->getEvent();
-    if ($event['method'] == 'LeaveExpedition' && $event['gigantic'] == true) {
+    if (!is_null($event) && $event['method'] == 'LeaveExpedition' && $event['gigantic'] == true) {
       $gigantic = true;
     }
 
