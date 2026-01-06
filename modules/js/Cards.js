@@ -2237,6 +2237,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Asleep'),
           reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
         },
+        RESUPPLY_THEY_S: {
+          text: _('Resupply'),
+          reminder: _('Put the top card of your deck in Reserve.'),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
