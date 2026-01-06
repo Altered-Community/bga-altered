@@ -300,6 +300,41 @@ const STARTER = [
     'YZ_Rare_MonolithArchivist' => 1,
     'YZ_Rare_BeautySleep' => 1,
   ],
+
+  'MU2' => [
+    'MU_Common_HelpfulPelican' => 3,
+    'MU_Common_Inari' => 3,
+    'MU_Rare_Kitsune' => 3,
+    'MU_Common_CharitableReka' => 3,
+    'MU_Common_DaughterofYggdrasil' => 3,
+    'MU_Common_FairFox' => 2,
+    'MU_Common_EruEmissaryoftheWild' => 3,
+    'MU_Rare_SouvenirSeller' => 3,
+    'MU_Common_SoulEncounter' => 3,
+    'MU_Common_BurrowingNoosh' => 3,
+    'MU_Common_TuruunBenih' => 1,
+    'MU_Common_RekaAgronomist' => 3,
+    'MU_Common_RabbitFarmer' => 3,
+    'MU_Rare_Hesperide' => 1,
+    'MU_Common_SonofNaos' => 2
+  ],
+  'OD2' => [
+    'OD_Common_RekaCaterer' => 2,
+    'OD_Rare_RekaSupporter' => 3,
+    'OD_Common_OrdisTrooper' => 3,
+    'OD_Common_OrdisCadets' => 3,
+    'OD_Common_OrdisGatekeeper' => 3,
+    'OD_Common_TheFrogPrince' => 3,
+    'OD_Common_MonolithRuneScribe' => 3,
+    'OD_Common_AngryCrowd' => 2,
+    'OD_Common_TheConsulate' => 3,
+    'OD_Rare_TheConsortium' => 2,
+    'OD_Rare_ArmoredJammer' => 2,
+    'OD_Common_MatzHive' => 1,
+    'OD_Common_OrdisTourist' => 3,
+    'OD_Common_TheReunion' => 3,
+    'OD_Common_TheLectern' => 3
+  ]
 ];
 
 const DEMO_SO = [

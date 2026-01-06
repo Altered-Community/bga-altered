@@ -12741,7 +12741,7 @@ body.focus-board .altered-player-board .player-board-infos {
   position: relative;
   box-sizing: border-box;
   background-image: url("img/deck-thumbnails.jpg");
-  background-size: 400% 600%;
+  background-size: 500% 600%;
   margin: auto;
   border: 2px solid #ffe300;
   box-shadow: 0px 0px 10px 0px #ffe300;
@@ -12761,6 +12761,12 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=YZ] {
   background-position-y: 100%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=MU2] {
+  background-position: 100% 60%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=OD2] {
+  background-position: 100% 80%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner {
   width: 50px;
@@ -12785,6 +12791,12 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction=YZ] {
   background-position-x: 100%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction=MU2] {
+  background-position-x: 60%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction=OD2], #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner[data-faction=OR2] {
+  background-position-x: 80%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details h3 {
   text-align: left;
@@ -12968,7 +12980,7 @@ body.focus-board .altered-player-board .player-board-infos {
   border-radius: 10px;
   box-shadow: 1px 1px 5px black;
   background-image: url("img/deck-thumbnails.jpg");
-  background-size: 400% 600%;
+  background-size: 500% 600%;
   color: white;
   padding: 10px;
   position: relative;
@@ -13016,16 +13028,25 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-faction=YZ] {
   background-position-y: 100%;
 }
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-faction=MU2] {
+  background-position: 100% 60%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-faction=OD2] {
+  background-position: 100% 80%;
+}
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-thumbnail="0"] {
   background-position-x: 0%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-thumbnail="1"] {
-  background-position-x: 33%;
+  background-position-x: 25%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-thumbnail="2"] {
-  background-position-x: 66%;
+  background-position-x: 50%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-thumbnail="3"] {
+  background-position-x: 75%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail[data-thumbnail="4"] {
   background-position-x: 100%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail .deck-name {

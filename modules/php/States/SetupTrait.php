@@ -269,6 +269,7 @@ trait SetupTrait
         // faction setup
         $faction = Globals::getPlayerDecks()[$pId][$deckNumber]['faction'];
       }
+      $faction = substr($faction, 0, 2);
       $player->setFaction($faction);
       $factions[$pId] = $faction;
       Stats::setFaction($player, $factionMap[$faction] ?? 1);

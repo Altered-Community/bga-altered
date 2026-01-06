@@ -831,6 +831,8 @@ define([
       if (deckNum == 'random') return;
 
       const FACTION_NAMES = {
+        MU2: _('Muna Seeds of Unity'),
+        OD2: _('Ordis Seeds of Unity'),
         AX: _('Axiom'),
         BR: _('Bravos'),
         LY: _('Lyra'),
@@ -864,6 +866,14 @@ define([
           _('Akesha "the astute"') +
           '<br/>' +
           _('Let your opponent take the initiative to better thwart their plans, slowly but surely.'),
+        MU2:
+          _('Turuun "the xx"')+
+          '<br/>'+
+          _('Sharing makes us stronger (Gift Deck)'),
+        OD2:
+          _('Matz "the xx"')+
+          '<br/>'+
+          _('Every project needs solid foundations (Landmark Deck)')
       };
 
       let selectedDeck = null;

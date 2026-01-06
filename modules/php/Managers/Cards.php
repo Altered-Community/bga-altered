@@ -545,8 +545,14 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     $toCreate = [];
     $pId = $player->getId();
+    $factions = FACTIONS;
 
-    foreach (FACTIONS as $faction) {
+    if (Globals::getBeginner() == 1) {
+      array_unshift($factions, 'OD2');
+      array_unshift($factions, 'MU2');
+    }
+
+    foreach ($factions as $faction) {
       switch (Globals::getBeginner()) {
         case OPTION_DEMO:
           $deck = DEMO[$faction];
@@ -562,7 +568,8 @@ class Cards extends \ALT\Helpers\CachedPieces
 
       foreach ($deck as $cardId => $n) {
         // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
-        $className = "\\ALT\\Cards\\$faction\\$cardId";
+        $factionSub = substr($cardId, 0, 2);
+        $className = "\\ALT\\Cards\\$factionSub\\$cardId";
         $card = new $className(null);
         $location = "deck-$deckNumber";
         if ($card->getType() == HERO) {
