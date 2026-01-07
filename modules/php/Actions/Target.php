@@ -168,7 +168,8 @@ class Target extends \ALT\Models\Action
     return $this->getArg('upTo') ||
       count($this->getTargetableCards(Players::getActive(), true)) == 0 ||
       !$this->isDoable($player) ||
-      $this->getCtx()->getOptional();
+      $this->getCtx()->getOptional() ||
+      (count($this->getTargetableCards($player)) == count($this->getTargetCosts($player)) && $this->getTargetCosts($player) > 0);
   }
 
   public function getTargetableCards($player, $checkTough = false)
