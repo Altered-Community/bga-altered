@@ -531,10 +531,13 @@ class ChooseAssignment extends \ALT\Models\Action
 
         if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
+          Globals::setRemoveFleetingIfSpellPlayedHand(false);
         } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
+          Globals::setRemoveFleetingSpellPlayed(false);
         } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
+          Globals::setRemoveFleetingSongArtistPlayed(false);
         }
         if ($card->getType() == SPELL) {
           if (!empty($effects)) {
