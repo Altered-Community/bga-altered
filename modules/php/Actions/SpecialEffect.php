@@ -2029,7 +2029,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'RomanticCleanLimbo':
         $discard = [];
         foreach ($args['cards'] as $cId) {
-          if ($cId != $card->getId()) {
+          if ($cId != $card->getId() && Cards::get($cId)->getLocation() == LIMBO) {
             $discard[] = $cId;
             Cards::discard($cId);
           }
