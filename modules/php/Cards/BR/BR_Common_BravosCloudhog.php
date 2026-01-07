@@ -36,7 +36,7 @@ class BR_Common_BravosCloudhog extends \ALT\Models\Card
       ]),
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isMe', 'isSource', 'isDiscarded:reserve:discard:character'],
+          'conditions' => ['isSource', 'isDiscarded:reserve:discard:character'],
           'output' => FT::GAIN(ME, BOOST)
         ]
       ]

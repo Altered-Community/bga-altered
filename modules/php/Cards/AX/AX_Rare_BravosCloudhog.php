@@ -39,15 +39,15 @@ class AX_Rare_BravosCloudhog extends \ALT\Models\Card
         'Discard' => [
           'childs' => [
             [
-              'conditions' => ['isMe', 'isSource', 'isDiscarded:reserve:discard:character'],
+              'conditions' => ['isSource', 'isDiscarded:reserve:discard:character'],
               'output' => FT::GAIN(ME, BOOST, 2)
             ],
             [
-              'conditions' => ['isMe', 'isSource', 'isDiscarded:reserve:discard:spell'],
+              'conditions' => ['isSource', 'isDiscarded:reserve:discard:spell'],
               'output' => FT::GAIN(ME, BOOST)
             ],
             [
-              'conditions' => ['isMe', 'isSource', 'isDiscarded:reserve:discard:permanent'],
+              'conditions' => ['isSource', 'isDiscarded:reserve:discard:permanent'],
               'output' => FT::GAIN(ME, BOOST)
             ]
           ]
