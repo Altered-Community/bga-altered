@@ -194,7 +194,7 @@ define([
       container = $(container);
       container.childNodes.forEach((node) => {
         if (this.tooltips[node.id]) {
-          this.tooltips[node.id].close();
+          this.tooltips[node.id].disable();
           delete this.tooltips[node.id];
         }
       });

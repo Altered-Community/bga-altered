@@ -292,6 +292,7 @@ class Discard extends \ALT\Models\Action
         $nodes[] = $newNodes;
         $toAdd = FT::XOR(...$nodes);
         $toAdd['pId'] = $card->getPId();
+        $toAdd['sourceId'] = $cId;
         $this->insertAsChild($toAdd);
         unset($cards[$cId]);
         continue;
@@ -304,6 +305,7 @@ class Discard extends \ALT\Models\Action
         );
         $toAdd['pId'] = $card->getPId();
         $this->insertAsChild($toAdd);
+        $toAdd['sourceId'] = $cId;
         unset($cards[$cId]);
         continue;
       }

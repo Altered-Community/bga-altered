@@ -580,6 +580,7 @@ class Player extends \ALT\Helpers\DB_Model
 
         $toAdd = FT::XOR(...$nodes);
         $toAdd['pId'] = $card->getPId();
+        $toAdd['sourceId'] = $cId;
         Engine::pushAfterFinishingChilds([$toAdd]);
         continue;
       }
@@ -590,6 +591,7 @@ class Player extends \ALT\Helpers\DB_Model
           FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'cardId' => $cId], ['sourceId' => $cId])
         );
         $toAdd['pId'] = $card->getPId();
+        $toAdd['sourceId'] = $cId;
         Engine::pushAfterFinishingChilds([$toAdd]);
         continue;
       }

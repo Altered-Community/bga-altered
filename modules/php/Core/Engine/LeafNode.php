@@ -115,4 +115,9 @@ class LeafNode extends AbstractNode
     }
     return parent::getDescription();
   }
+
+  // public function getSourceId()
+  // {
+  //   throw new \feException($this->infos['sourceId']);
+  // }
 }
