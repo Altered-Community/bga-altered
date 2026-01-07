@@ -1461,7 +1461,7 @@ define([
       if (choice.sourceId) {
         // TODO?
         let card = this.getCardInfos(choice.sourceId);
-        if (!this.isMobile) {
+        if (!this.isMobile()) {
           this.addCustomTippyTooltip(`btnChoice${choice.id}`, this.tplCardTooltip(card),{
             disablingParentClasses: ['mana-modal', 'no-tooltip'],
             forceRecreate: true,
