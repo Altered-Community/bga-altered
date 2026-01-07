@@ -290,6 +290,10 @@ class InvokeToken extends \ALT\Models\Action
         ], true, 'InvokeTokenOnce');
       }
     }
-    $this->resolveAction([$card->getId()]);
+    if ($this->getN() <= 0) {
+      $this->resolveAction(['']);
+    } else {
+      $this->resolveAction([$card->getId()]);
+    }
   }
 }

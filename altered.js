@@ -1504,7 +1504,7 @@ define([
        payMana = (i) => {
         return () => this.takeAtomicAction('actPay', [i]);
       };
-      for(i = 1; i <= Math.min(args.mana, args.maximum);i++){
+      for(i = 0; i <= Math.min(args.mana, args.maximum);i++){
          this.addPrimaryActionButton('btnMana'+i, this.formatString('{'+i+'}'), payMana(i)
         );
       }
