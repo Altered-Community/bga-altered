@@ -133,7 +133,7 @@ abstract class FT
       'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
       'targetLocation' => [RESERVE],
       'upTo' => true,
-      'effect' => FT::ACTION(DISCARD, []),
+      'effect' => FT::ACTION(DISCARD, ['desc' => 'sabotage']),
     ]);
   }
 }

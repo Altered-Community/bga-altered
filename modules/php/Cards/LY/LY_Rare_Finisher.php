@@ -34,8 +34,8 @@ class LY_Rare_Finisher extends \ALT\Models\Card
           'option' => true,
           'childs' => [
             FT::SABOTAGE(),
-            FT::ACTION(TARGET, ['effect' => FT::ACTION(DISCARD, [])]),
-            FT::ACTION(TARGET, ['targetType' => [CHARACTER, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+            FT::ACTION(TARGET, ['targetType' => [CHARACTER], 'effect' => FT::ACTION(DISCARD, [])]),
+            FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
           ]
         ]
       )

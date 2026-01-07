@@ -34,8 +34,8 @@ class YZ_Common_Finisher extends \ALT\Models\Card
           'optional' => true,
           'childs' => [
             FT::SABOTAGE(),
-            FT::ACTION(TARGET, ['effect' => FT::ACTION(DISCARD, [])]),
-            FT::ACTION(TARGET, ['targetType' => [CHARACTER, PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
+            FT::ACTION(TARGET, ['targetType' => [CHARACTER], 'effect' => FT::ACTION(DISCARD, [])]),
+            FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])]),
           ]
         ]
       )

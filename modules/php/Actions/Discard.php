@@ -51,6 +51,11 @@ class Discard extends \ALT\Models\Action
     return ($this->getCtxArg('desc') ?? '') == 'sacrifice';
   }
 
+  public function isSabotage()
+  {
+    return ($this->getCtxArg('desc') ?? '') == 'sabotage';
+  }
+
   public function getDescription()
   {
     $location = $this->getArg('destination');
@@ -64,6 +69,8 @@ class Discard extends \ALT\Models\Action
     $msg = $msgs[$location] ?? clienttranslate('discard to ${location} ${card}');
     if ($this->isSacrifice()) {
       $msg = clienttranslate('Sacrifice ${card}');
+    } elseif ($this->isSabotage()) {
+      $msg = clienttranslate('sabotage');
     }
 
     // Card (if any)
