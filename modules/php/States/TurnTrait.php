@@ -340,6 +340,7 @@ trait TurnTrait
     //   $player->nightCleanup();
     // }
     Globals::setActivePId(Globals::getFirstPlayer());
+    Engine::updateParallelChilds(['noIndependent' => true]);
     $this->gamestate->changeActivePlayer(Globals::getFirstPlayer());
     Engine::proceed();
   }
