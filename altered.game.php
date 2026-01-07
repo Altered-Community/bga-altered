@@ -129,7 +129,7 @@ class altered extends Table
 
     $progression = (7 - $distance) / 7 * 100;
     if (Globals::getDay() >= 4) {
-      return min(50, $progression);
+      return max(50, $progression);
     } else {
       return $progression;
     }
