@@ -32,7 +32,7 @@ class OD_Rare_CelestialBlast extends \ALT\Models\Card
           'upTo' => true,
           'effect' => FT::ACTION(DISCARD, []),
         ]),
-        FT::ACTION(DRAW, ['players' => ME])
+        FT::ACTION(DRAW, ['players' => ME], ['pId' => 'source'])
       ),
     ];
   }
