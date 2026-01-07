@@ -316,10 +316,10 @@ const STARTER = [
     'MU_Common_RekaAgronomist' => 3,
     'MU_Common_RabbitFarmer' => 3,
     'MU_Rare_Hesperide' => 1,
-    'MU_Common_SonofNaos' => 2
+    'MU_Common_SonofNaos' => 3
   ],
   'OD2' => [
-    'OD_Common_RekaCaterer' => 2,
+    'OD_Common_RekaCaterer' => 3,
     'OD_Rare_RekaSupporter' => 3,
     'OD_Common_OrdisTrooper' => 3,
     'OD_Common_OrdisCadets' => 3,
