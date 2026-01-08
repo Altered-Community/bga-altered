@@ -547,6 +547,10 @@ class Engine
     }
     if (is_null($node)) {
       $node = self::$tree->getNextUnresolved();
+      if (is_null($node)) {
+        // Nothing to do
+        return;
+      }
     }
 
     if ($node->getType() == NODE_PARALLEL) {
