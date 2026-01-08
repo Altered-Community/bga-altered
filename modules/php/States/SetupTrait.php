@@ -153,7 +153,7 @@ trait SetupTrait
     $request['hero'] = $request['hero'] ?? '';
     $request['eventFormat'] = Globals::getDeckFormat();
     // STANDARD, NO_UNIQUE, SINGLETON
-
+    // throw new \feException(print_r($request));
     // Fetch them from MS
     $response = self::getGenericGameInfos('get_player_decks', $request);
     if ($response['success'] != 1) {

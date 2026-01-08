@@ -291,60 +291,60 @@ class Cards extends \ALT\Helpers\CachedPieces
       }
     } while ($i < $totalCards);
 
-    // for ($u = 0; $u < 15; $u++) {
-    //   $effects = [];
-    //   for ($b = 0; $b < 2; $b++) {
-    //     $cardId = CEG[array_rand(CEG)];
-    //     $ceg = explode('_', $cardId);
-    //     $found = false;
-    //     foreach ($ceg as $c) {
-    //       if (in_array($c, testedCEGS)) {
-    //         $found = true;
-    //       }
-    //       if (in_array($c, [519, 520, 521, 522])) { // Man in the Maze exclusion
-    //         $found = false;
-    //         break;
-    //       }
-    //     }
-    //     if (!$found) {
-    //       $b--;
-    //       continue;
-    //     }
-    //     $effects[] = [
-    //       $ceg[0],
-    //       $ceg[1],
-    //       $ceg[2]
-    //     ];
-    //   }
+    for ($u = 0; $u < 15; $u++) {
+      $effects = [];
+      for ($b = 0; $b < 2; $b++) {
+        $cardId = CEG[array_rand(CEG)];
+        $ceg = explode('_', $cardId);
+        $found = false;
+        foreach ($ceg as $c) {
+          if (in_array($c, testedCEGS)) {
+            $found = true;
+          }
+          if (in_array($c, [519, 520, 521, 522])) { // Man in the Maze exclusion
+            $found = false;
+            break;
+          }
+        }
+        if (!$found) {
+          $b--;
+          continue;
+        }
+        $effects[] = [
+          $ceg[0],
+          $ceg[1],
+          $ceg[2]
+        ];
+      }
 
-    //   $uniqueCard = [
-    //     'reference' => 'ALT_ALIZE_B_MU_33_U',
-    //     'faction' => 'MU',
-    //     'name' => 'Fake unique for testing',
-    //     'cardType' => 'CHARACTER',
-    //     'illustrator' => 'TOTO',
-    //     'costHand' => 2,
-    //     'costReserve' => 2,
-    //     'forest' => 2,
-    //     'mountain' => 2,
-    //     'ocean' => 2,
-    //     'uniqueReduced' => [
-    //       [
-    //         'effects' => $effects
-    //       ]
-    //     ]
-    //   ];
-    //   $properties = self::generateUnique($uniqueCard);
-    //   if (is_null($properties)) {
-    //     $u--;
-    //     continue;
-    //   }
-    //   $deckContent[] = [
-    //     'card' => ['properties' => $properties],
-    //     'n' => 1,
-    //   ];
-    //   $i++;
-    // }
+      $uniqueCard = [
+        'reference' => 'ALT_ALIZE_B_MU_33_U',
+        'faction' => $faction,
+        'name' => 'Fake unique for testing',
+        'cardType' => 'CHARACTER',
+        'illustrator' => 'TOTO',
+        'costHand' => 2,
+        'costReserve' => 2,
+        'forest' => 2,
+        'mountain' => 2,
+        'ocean' => 2,
+        'uniqueReduced' => [
+          [
+            'effects' => $effects
+          ]
+        ]
+      ];
+      $properties = self::generateUnique($uniqueCard);
+      if (is_null($properties)) {
+        $u--;
+        continue;
+      }
+      $deckContent[] = [
+        'card' => ['properties' => $properties],
+        'n' => 1,
+      ];
+      $i++;
+    }
 
     return self::createDeck($player, $deckContent);
   }
@@ -547,7 +547,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     $pId = $player->getId();
     $factions = FACTIONS;
 
-    if (Globals::getBeginner() == 1) {
+    if (Globals::getBeginner() == 1 || Globals::getBeginner() == 0) {
       array_unshift($factions, 'OD2');
       array_unshift($factions, 'MU2');
     }

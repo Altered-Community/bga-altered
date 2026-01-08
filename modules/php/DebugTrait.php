@@ -677,7 +677,7 @@ trait DebugTrait
     $uniqueReduced = self::getGenericGameInfos('get_unique_card_definition', ['card_id' => $v]);
 
     // throw new \feException(print_r($uniqueReduced));
-    $properties = Cards::generateUnique($uniqueReduced);
+    $properties = Cards::generateUnique($uniqueReduced['content']);
     // throw new \feException(print_r($properties));
 
     Cards::singleCreate([
