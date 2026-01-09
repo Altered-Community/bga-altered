@@ -5015,14 +5015,12 @@ abstract class FlowConvertor
       ],
       699 => [
         'description' => clienttranslate('Draw a card, otherwise create a <MANASEED> token in your Landmarks.'),
-        'output' => FT::XOR(
-          FT::ACTION(DRAW, ['players' => ME]),
-          FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
-            'tokenType' => 'NE_Common_Manaseed',
-            'targetLocation' => [LANDMARK],
-          ]),
-        )
+        'output' => FT::ACTION(DRAW, ['players' => ME]),
+        'oppositeOutput' =>  FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'NE_Common_Manaseed',
+          'targetLocation' => [LANDMARK],
+        ]),
       ],
       777 => [
         'description' => clienttranslate('You may target a Character, it gains 1 boost and <FLEETING>.'),
