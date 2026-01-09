@@ -319,7 +319,7 @@ abstract class FlowConvertor
       ],
       674 => [
         'description' => clienttranslate('When my Expedition moves forward —'),
-        'trigger' => 'AfterDusk',
+        'trigger' => ['AfterDusk', 'MoveExpedition'],
         'condition' => ['myExpeditionHasMoved'],
       ],
       656 => ['description' => clienttranslate('When you create one or more tokens —'), 'trigger' => 'InvokeTokenOnce', 'condition' => ['isMe']],
