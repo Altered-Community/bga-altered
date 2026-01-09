@@ -74,6 +74,8 @@ class Resupply extends \ALT\Models\Action
   public function getPlayer()
   {
     $pId = $this->ctx->getPId();
+    // throw new \feException($pId);
+
     // throw new \feException()
     if ($this->getArg('player') == 'owner') {
       $pId = $this->getArg('ownerId');
@@ -83,10 +85,10 @@ class Resupply extends \ALT\Models\Action
       $pId = Players::getNextId(Players::getActive());
     } elseif (is_null($pId)) {
       $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
-    } elseif (isset($this->getEventRecursive()['pId'])) {
+    } elseif (isset($this->getEventRecursive()['pId']) && ($this->getEventRecursive()['cardId'] ?? -1) == $this->getSourceId()) {
       $pId = $this->getEventRecursive()['pId'];
     }
-
+    // throw new \feException($pId);
     return Players::get($pId);
   }
 
