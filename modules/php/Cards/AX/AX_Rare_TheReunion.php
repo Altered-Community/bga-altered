@@ -33,12 +33,14 @@ class AX_Rare_TheReunion extends \ALT\Models\Card
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
-            'targetLocation' => [STORM_LEFT]
+            'targetLocation' => [STORM_LEFT],
+            'allPlayers' => true,
           ]),
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
-            'targetLocation' => [STORM_RIGHT]
+            'targetLocation' => [STORM_RIGHT],
+            'allPlayers' => true,
           ]),
           FT::ACTION(TARGET, [
             'upTo' => true,
