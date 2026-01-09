@@ -4980,7 +4980,27 @@ abstract class FlowConvertor
         'description' => clienttranslate('Target player sacrifices the Character or Permanent they control with the highest Base Cost.'),
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sacrificeHighestCharacterPermanent']),
       ],
-      735 => ['description' => clienttranslate('You may choose both, otherwise choose one:  • <SABOTAGE>.  • Create a <MANASEED> token in target player\'s Landmarks.'), 'output' => ''], // To see, hard code
+      735 => [
+        'description' => clienttranslate('You may choose both, otherwise choose one:  • <SABOTAGE>.  • Create a <MANASEED> token in target player\'s Landmarks.'),
+        'output' => FT::OR(
+          FT::SABOTAGE(),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+            'allPlayers' => true,
+          ]),
+        ),
+        'oppositeOutput' => FT::XOR(
+          FT::SABOTAGE(),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+            'allPlayers' => true,
+          ]),
+        )
+      ], // To see, hard code
       712 => ['description' => clienttranslate('I gain 1 boost and lose <FLEETING>.'), 'output' => FT::SEQ(FT::GAIN(ME, BOOST), FT::LOOSE(ME, FLEETING)),],
       711 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
       723 => ['description' => clienttranslate('Target Character gains <ANCHORED>.'), 'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),],
