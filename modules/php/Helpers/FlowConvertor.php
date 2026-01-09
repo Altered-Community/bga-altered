@@ -5116,7 +5116,6 @@ abstract class FlowConvertor
         'output' => FT::ACTION(TARGET, [
           'maxBaseCost' => 4,
           'targetType' => [CHARACTER],
-          'targetLocation' => [RESERVE],
           'effect' => FT::DISCARD_TO_RESERVE()
         ])
       ],
