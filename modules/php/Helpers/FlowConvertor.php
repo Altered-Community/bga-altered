@@ -4417,7 +4417,7 @@ abstract class FlowConvertor
       ],
       700 => [
         'description' => clienttranslate('Draw a card, then create a <MANASEED> token in your Landmarks.'),
-        FT::SEQ(
+        'output' => FT::SEQ(
           FT::ACTION(DRAW, ['players' => ME]),
           FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
