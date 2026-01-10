@@ -5122,6 +5122,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may discard target Character with Base Cost {3} or less.'),
         'output' => FT::ACTION(TARGET, [
           'maxBaseCost' => 3,
+          'upTo' => true,
           'targetType' => [CHARACTER],
           'effect' => FT::ACTION(DISCARD, [])
         ])
