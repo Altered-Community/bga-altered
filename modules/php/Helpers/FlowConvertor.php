@@ -4962,8 +4962,8 @@ abstract class FlowConvertor
       697 => [
         'description' => clienttranslate('Distribute 2 boosts among any target Characters in play.'),
         'output' => FT::SEQ(
-          FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
-          FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+          FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+          FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
         ),
       ],
       719 => [
