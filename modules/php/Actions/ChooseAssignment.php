@@ -712,6 +712,25 @@ class ChooseAssignment extends \ALT\Models\Action
         'token' => $card->isToken(),
         'stealOwnership' => $stealOwnership,
       ]);
+
+      if (in_array($card->getUid(), ['ALT_ALIZE_B_BR_45_C', 'ALT_ALIZE_B_BR_45_R1', 'ALT_ALIZE_B_BR_45_R2'])) {
+        $this->checkAfterListeners($player, [
+          'playCard' => true,
+          'cardId' => $cardId,
+          'cardType' => $card->getType(),
+          'additionalType' => $card->getAdditionalType(),
+          'from' => $fromLocation,
+          'reallyPlayed' => $reallyPlayed,
+          'locationPId' => $player->getId(),
+          'to' => $location,
+          'gigantic' => $card->isGigantic(),
+          'playedFree' => $cost == 0 ? true : false,
+          'putAndNotPlayed' => !$effectHand,
+          'additionalEffects' => Globals::getAdditionalEffect(),
+          'token' => $card->isToken(),
+          'stealOwnership' => $stealOwnership,
+        ], true, 'EatMeEnergyBars');
+      }
     }
     // throw new \feException(print_r(Globals::getEngine()));
 

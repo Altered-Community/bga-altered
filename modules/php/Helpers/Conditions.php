@@ -1674,6 +1674,13 @@ abstract class Conditions
     return (($event['to'] ?? '') == $card->getLocation() || ($playedCard->isGigantic() && in_array($event['to'], STORMS)) || ($card->isGigantic() &&  in_array($event['to'], STORMS))) && $playedCard->getPId() != $card->getPId();
   }
 
+  public static function isPlayedInOpponentOtherExp($card, $event)
+  {
+    $playedCard = Cards::get($event['cardId']);
+    $otherExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+    return ($event['to'] ?? '') == $otherExpedition && $playedCard->getPId() != $card->getPId() && Players::getNext($card->getPId())->countCardsInLocation($otherExpedition, [CHARACTER]) == 1;
+  }
+
   public static function isNotGigantic($card, $event)
   {
     $playedCard = Cards::get($event['cardId']);

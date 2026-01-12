@@ -44,6 +44,10 @@ class MU_Rare_MigratoryCrane extends \ALT\Models\Card
           'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition'],
           'output' =>  FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true])
         ],
+        'EatMeEnergyBars' => [
+          'conditions' => ['isPlayedInOpponentOtherExp'],
+          'output' => FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true])
+        ]
       ],
     ];
   }

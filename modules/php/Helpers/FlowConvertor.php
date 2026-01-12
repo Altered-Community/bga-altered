@@ -303,7 +303,7 @@ abstract class FlowConvertor
       // Cyclone
       542 => [
         'description' => clienttranslate('When a Character joins the Expedition facing me —'),
-        'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
+        'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard', 'EatMeEnergyBars'],
         'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
         'condition' => ['isSourceSameLocation'],
       ],
@@ -5508,6 +5508,9 @@ abstract class FlowConvertor
       // $node['AfterDusk']['conditions'][] = 'isNight'; // removed as afterdusk is necessarily during night
     } elseif ($trinity['output'] == 752 || $trinity['output'] == 753 || $trinity['output'] == 754) {
       $properties['effectPlayed'] = FT::ACTION(END_AFTERNOON, []);
+    } elseif ($trinity['trigger'] == 542) {
+      $node['EatMeEnergyBars']['conditions'] = ['isPlayedInOpponentOtherExp'];
+      unset($node['EatMeEnergyBars']['listeningConditions']);
     }
     // elseif (in_array($trinity['condition'], [642, 643])) {
     //   // we need to force owner after reveal

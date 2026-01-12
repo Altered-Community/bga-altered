@@ -42,6 +42,10 @@ class MU_Common_ColorfulCuckoo extends \ALT\Models\Card
           'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition'],
           'output' => FT::GAIN(ME, BOOST)
         ],
+        'EatMeEnergyBars' => [
+          'conditions' => ['isPlayedInOpponentOtherExp'],
+          'output' => FT::GAIN(ME, BOOST)
+        ]
       ],
     ];
   }

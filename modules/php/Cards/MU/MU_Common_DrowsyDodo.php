@@ -44,6 +44,10 @@ class MU_Common_DrowsyDodo extends \ALT\Models\Card
           'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition', 'isAsleep'],
           'output' =>  FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
         ],
+        'EatMeEnergyBars' => [
+          'conditions' => ['isPlayedInOpponentOtherExp'],
+          'output' => FT::ACTION(LOOSE, ['type' => ASLEEP, 'cardId' => ME], ['optional' => true]),
+        ]
       ],
     ];
   }
