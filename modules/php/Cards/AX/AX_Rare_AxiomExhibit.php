@@ -39,7 +39,6 @@ class AX_Rare_AxiomExhibit extends \ALT\Models\Card
           'targetType' => [CHARACTER],
           'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
-          'isTapped' => true,
           'effect' => FT::SEQ(
             FT::GAIN(EFFECT, BOOST),
             FT::ACTION(READY, ['cardId' => EFFECT])
