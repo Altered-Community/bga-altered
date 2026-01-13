@@ -1109,12 +1109,20 @@ abstract class FlowConvertor
       765 => ['description' => clienttranslate('Unless I\'m <IN_CONTACT>:'), 'condition' => 'isNotInContact'],
       757 => [
         'description' => clienttranslate('<SABOTAGE>. If you discarded a Character this way:'),
-        'effect' =>  FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
-          'targetLocation' => [RESERVE],
-          'upTo' => true,
-          'effect' => FT::ACTION(DISCARD, []),
-        ]),
+        'effect' =>  FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [SPELL, PERMANENT],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(DISCARD, []),
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT')
+          ]),
+        )
         // hard code the discarded check
       ],
       762 => ['description' => clienttranslate('If I\'m not <ANCHORED>:'), 'condition' => 'isNotAnchored'],
