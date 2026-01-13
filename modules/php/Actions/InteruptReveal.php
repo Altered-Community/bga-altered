@@ -39,11 +39,11 @@ class InteruptReveal extends \ALT\Models\Action
   public function actInteruptReveal()
   {
     $revelead = Cards::getInLocation(LIMBO);
-    foreach ($revelead as $cId => &$card) {
+    foreach ($revelead as $cId => $card) {
       $card->setLocation(HAND);
       $player = $card->getPlayer();
     }
-    Notifications::silentKill([], $revelead->getIds());
-    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Notifications::endReveal($revelead->getIds(), $player);
+    // Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
   }
 }

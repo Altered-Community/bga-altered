@@ -811,6 +811,18 @@ class Notifications
     // ]);
   }
 
+  public static function endReveal($revealed, $player)
+  {
+    self::notifyAll(
+      'endReveal',
+      '',
+      [
+        'player_id' => $player->getId(),
+        'cardsRevealed' => $revealed
+      ]
+    );
+  }
+
   public static function pass($player)
   {
     self::notifyAll('passTurn', clienttranslate('${player_name} passes and ends its afternoon'), ['player' => $player]);

@@ -1384,6 +1384,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       CARDS_DATA[card.id] = card;
     },
 
+    notif_endReveal(n){
+      debug('Notif: end reveal', n);
+      if (n.args.player_id != this.player_id) {
+        n.args.cardsRevealed.forEach((cardId) => {
+        this.fadeOutAndDestroy($(`card-${cardId}`));
+      });
+      } else {
+        n.args.cardsRevealed.forEach((cardId) => {
+        id= `card-${cardId}`;
+        this.changeParent($(id), $(`hand-${n.args.player_id}`));      
+      });
+    }
+    },
+
     //////////////////////////////////////////////
     //  _____ ____  _
     // |_   _|  _ \| |
