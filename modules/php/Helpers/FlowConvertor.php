@@ -4545,7 +4545,7 @@ abstract class FlowConvertor
       709 => [
         'description' => clienttranslate('You may play me for {2} less in an Expedition that\'s <IN_CONTACT>.'),
         'noTrigger' => true,
-        'attributes' => ['dynamicCostReduction' => '1:hasOneContact']
+        'attributes' => ['dynamicCostReduction' => '2:hasOneContact']
       ],
       713 => [
         'description' => clienttranslate('I gain 1 boost per card in your Landmarks, up to a max of 3 boosts on me.'),
