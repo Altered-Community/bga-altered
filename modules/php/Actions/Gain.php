@@ -86,6 +86,20 @@ class Gain extends \ALT\Models\Action
     return true;
   }
 
+  public function isDoable($player)
+  {
+    if ($this->getCtxArg('cardId') == ME) {
+      $event = $this->getEventRecursive();
+      if ($event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
+        return false;
+      }
+      // if (in_array(($event['sourceLocation']) ?? 'all'), []
+      return true;
+    } else {
+      return true;
+    }
+  }
+
   public function isIndependent($player = null)
   {
     // return false;
