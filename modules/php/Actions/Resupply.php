@@ -77,7 +77,7 @@ class Resupply extends \ALT\Models\Action
     // throw new \feException($pId);
 
     // throw new \feException()
-    if ($this->getArg('player') == 'owner') {
+    if ($this->getArg('player') == 'owner' || $pId == 'owner') {
       $pId = $this->getArg('ownerId');
     } elseif ($pId == 'active') {
       $pId = Players::getActiveId();
@@ -88,7 +88,7 @@ class Resupply extends \ALT\Models\Action
     } elseif (isset($this->getEventRecursive()['pId']) && ($this->getEventRecursive()['cardId'] ?? -1) == $this->getSourceId()) {
       $pId = $this->getEventRecursive()['pId'];
     }
-    // throw new \feException($pId);
+
     return Players::get($pId);
   }
 
