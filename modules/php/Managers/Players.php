@@ -852,7 +852,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           foreach ($visibleRegions[$location] as $biome) {
             $newBiomes[$biome] = $biome;
           }
-          self::biomesModifier($newBiomes, $player, $expedition, $tiebreak);
+          self::biomesModifier($newBiomes, $player, $expedition, $tiebreak, true);
           $visibleRegions[$location] = array_values($newBiomes);
         }
       }
