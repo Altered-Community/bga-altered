@@ -1753,12 +1753,24 @@ abstract class Conditions
   {
     $visibleRegions = Players::getRegionsInfo();
     $count = 0;
+    $gigantic = $card->isGigantic();
     $tokenF = $card->getLocation() == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
     $token = $card->getPlayer()->$tokenF()->getLocationArg();
     // TODO: manage gigntic?
     if (isset($visibleRegions[$token]) && count($visibleRegions[$token]) == 1) {
       return true;
     }
+
+    // gigantic
+    if ($gigantic) {
+      $tokenF = $card->getLocation() == STORM_LEFT ? 'getCompanionToken' : 'getHeroToken';
+      $token = $card->getPlayer()->$tokenF()->getLocationArg();
+      // TODO: manage gigntic?
+      if (isset($visibleRegions[$token]) && count($visibleRegions[$token]) == 1) {
+        return true;
+      }
+    }
+
     return false;
   }
 
