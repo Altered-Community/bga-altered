@@ -1756,7 +1756,7 @@ abstract class Conditions
     $tokenF = $card->getLocation() == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
     $token = $card->getPlayer()->$tokenF()->getLocationArg();
     // TODO: manage gigntic?
-    if (count($visibleRegions[$token]) == 1) {
+    if (isset($visibleRegions[$token]) && count($visibleRegions[$token]) == 1) {
       return true;
     }
     return false;
