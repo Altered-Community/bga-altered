@@ -542,12 +542,21 @@ class ChooseAssignment extends \ALT\Models\Action
         if ($card->getType() == SPELL) {
           if (!empty($effects)) {
             $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
-            foreach ($effects as &$eff['childs']) {
-              if (isset($eff['pId'])) {
-                continue;
-              }
-              $eff['pId'] = $card->getPId();
-            }
+            $effects = Utils::tagPId($effects, $card->getPId());
+            // foreach ($effects as &$eff['childs']) {
+            //   if (isset($eff['pId'])) {
+            //     continue;
+            //   }
+            //   $eff['pId'] = $card->getPId();
+            //   if (isset($eff['childs'])) {
+            //     foreach ($eff['childs'] as &$child) {
+            //       if (isset($child['pId'])) {
+            //         continue;
+            //       }
+            //       $child['pId'] = $card->getPId();
+            //     }
+            //   }
+            // }
             $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
               'playCard' => true,
               'cardId' => $cardId,
@@ -668,6 +677,14 @@ class ChooseAssignment extends \ALT\Models\Action
             continue;
           }
           $eff['pId'] = $card->getPId();
+          if (isset($eff['childs'])) {
+            foreach ($eff['childs'] as &$child) {
+              if (isset($child['pId'])) {
+                continue;
+              }
+              $child['pId'] = $card->getPId();
+            }
+          }
         }
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);

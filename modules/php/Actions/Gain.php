@@ -90,7 +90,7 @@ class Gain extends \ALT\Models\Action
   {
     if ($this->getCtxArg('cardId') == ME) {
       $event = $this->getEventRecursive();
-      if ($event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
+      if (!is_null($event) && $event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
         return false;
       }
       // if (in_array(($event['sourceLocation']) ?? 'all'), []
