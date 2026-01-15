@@ -90,6 +90,11 @@ abstract class Conditions
     return $card->getLocation() == ($event['sourceLocation'] ?? '');
   }
 
+  public static function hasDeckCards($card, $event)
+  {
+    return $card->getPlayer()->getDeckCount() > 0;
+  }
+
   public static function isInStorms($card, $event)
   {
     return in_array($card->getLocation(), STORMS);

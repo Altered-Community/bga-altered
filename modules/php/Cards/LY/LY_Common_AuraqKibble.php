@@ -37,7 +37,7 @@ class LY_Common_AuraqKibble extends \ALT\Models\Card
           ]),
         ],
         'Noon' => [
-          'condition' => 'hasCounterOnCard:5',
+          'conditions' => ['hasCounterOnCard:5', 'hasDeckCards'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(USE_COUNTER, ['consume' => 5]),
             FT::ACTION(SPECIAL_EFFECT, ['effect' => 'AuraqKibble'])
