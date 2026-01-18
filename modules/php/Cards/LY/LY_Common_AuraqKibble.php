@@ -30,7 +30,7 @@ class LY_Common_AuraqKibble extends \ALT\Models\Card
 
       'effectPassive' => [
         'ChooseAssignment' => [
-          'condition' => 'isCardPlayedWithZeroStat',
+          'conditions' => ['isCardPlayedWithZeroStat', 'isReallyPlayed'],
           'output' => FT::ACTION(SPECIAL_EFFECT, [
             'effect' => 'incCounter',
             'args' => ['counter' => 1, 'counterName' => clienttranslate('Performance')],

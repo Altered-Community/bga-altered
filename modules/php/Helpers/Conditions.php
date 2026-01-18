@@ -1216,6 +1216,11 @@ abstract class Conditions
     return ($event['reallyPlayed'] ?? true) == true && $cardPlayed->getCostHand() >= ($card->getExtraDatas()['counter'] ?? 0);
   }
 
+  public static function isReallyPlayed($card, $event)
+  {
+    return ($event['reallyPlayed'] ?? true) == true;
+  }
+
   public static function specialEffect($card, $event, $effect)
   {
     return ($event['specialEffect'] ?? '') == $effect;
