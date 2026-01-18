@@ -80,7 +80,7 @@ abstract class FlowConvertor
       21 => [
         'description' => clienttranslate('When another Character joins your Expeditions —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
-        'condition' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
+        'condition' => ['isCardAddedAnyPlayer:character:::true', 'isStillSameLocation', 'hasSameOwner'],
       ],
       22 => ['description' => clienttranslate('{H}'), 'trigger' => '', 'type' => 'effectHand'],
       23 => ['description' => clienttranslate('[]]')],
