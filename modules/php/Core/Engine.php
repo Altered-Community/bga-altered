@@ -181,11 +181,16 @@ class Engine
       return;
     }
 
+
     $player = Players::get($pId);
     // Jump to resolveStack state to ensure we can change active pId
     if ($pId != null && $oldPId != $pId) {
       Game::get()->gamestate->jumpToState(ST_RESOLVE_STACK);
       Game::get()->gamestate->changeActivePlayer($pId);
+    }
+
+    if ($pId == null) {
+      $player = Players::getActive();
     }
 
     if ($confirmedPartial || ($pId != null && $oldPId != $pId)) {
