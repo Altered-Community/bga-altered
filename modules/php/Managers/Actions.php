@@ -107,7 +107,7 @@ class Actions
 
     // Check action
     if (!$automatic) {
-      Game::get()->checkAction($actionName);
+      Game::get()->localCheckAction($actionName);
       $stepId = Log::step();
       Notifications::newUndoableStep($player, $stepId);
     } else {

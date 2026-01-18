@@ -68,7 +68,7 @@ trait NewDayTrait
 
   public function actFirstDayManaSelection($cardIds)
   {
-    self::checkAction('actFirstDayManaSelection');
+    self::localCheckAction('actFirstDayManaSelection');
     $player = Players::getCurrent();
     $args = $this->argsFirstDayManaSelection()['_private'][$player->getId()];
 
