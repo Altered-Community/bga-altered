@@ -15,13 +15,30 @@ trait EndGameTrait
 {
   function stPreEndOfGame()
   {
+    // TODO: API call
+    $request = [];
+    foreach (Players::getAll() as $pId => $player) {
+      if (Stats::getWinner($player) == 0) {
+        $request['loser'] = [
+          'id' => $pId,
+          'faction' => $player->getFaction() == FACTION_OD ? 'OR' : $player->getFaction()
+        ];
+      } else {
+        $request['winner'] = [
+          'id' => $pId,
+          'faction' => $player->getFaction() == FACTION_OD ? 'OR' : $player->getFaction()
+        ];
+      }
+    }
+
+    // $valid = self::getGenericGameInfos('push_adventure_pass', $request);
+    // throw new \feException(print_r($valid));
     // TODO remove in alpha
     if ($this->getBgaEnvironment() == 'studio') {
       // throw new \feException(print_r(debug_print_backtrace()));
       throw new \feException('winner');
     }
 
-    // TODO: API call
     $this->gamestate->nextState('');
   }
 
