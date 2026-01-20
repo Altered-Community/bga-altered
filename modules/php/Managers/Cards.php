@@ -560,7 +560,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         case OPTION_SO:
           $deck = DEMO_SO[$faction];
           break;
-        case OPTION_SO:
+        case OPTION_SDU:
           $deck = DEMO_SDU[$faction];
           break;
         default:
