@@ -18,10 +18,15 @@
         "tmdisplay": "WFM Demo decks",
         "description": "WFM demo decks"
       },
-       "3": {
+      "3": {
         "name": "Skybound Odyssey Demo Deck",
         "tmdisplay": "SKY Demo decks",
         "description": "SKY demo decks"
+      },
+      "4": {
+        "name": "Seeds of Unity Demo Deck",
+        "tmdisplay": "SDU Demo decks",
+        "description": "SDU demo decks"
       }
     }
   },
@@ -40,8 +45,8 @@
     }
   },
   "155": {
-     "name": "Deck format",
-     "level": "major",
+    "name": "Deck format",
+    "level": "major",
     "values": {
       "0": {
         "name": "Standard",

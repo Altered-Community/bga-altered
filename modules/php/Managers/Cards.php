@@ -560,6 +560,9 @@ class Cards extends \ALT\Helpers\CachedPieces
         case OPTION_SO:
           $deck = DEMO_SO[$faction];
           break;
+        case OPTION_SO:
+          $deck = DEMO_SDU[$faction];
+          break;
         default:
           $deck = STARTER[$faction];
       }
@@ -885,6 +888,12 @@ class Cards extends \ALT\Helpers\CachedPieces
       'ALT_CYCLONE_A_YZ_73' => ['flavorText' => ''],
       'ALT_DUSTEROP_P_AX_93' => ['flavorText' => ''],
       'ALT_DUSTEROP_P_AX_97' => ['flavorText' => ''],
+      'ALT_TCS3_P_AX_53' => ['flavorText' => ''],
+      'ALT_TCS3_P_BR_61' => ['flavorText' => ''],
+      'ALT_TCS3_P_LY_49' => ['flavorText' => ''],
+      'ALT_TCS3_P_MU_51' => ['flavorText' => ''],
+      'ALT_TCS3_P_OR_54' => ['flavorText' => ''],
+      'ALT_TCS3_P_YZ_59' => ['flavorText' => ''],
     ];
   }
 
