@@ -208,7 +208,7 @@ class Log extends \APP_DbObject
     Players::invalidate();
     Meeples::invalidate();
     // Notify
-    $datas = Game::get()->getAllDatas(true);
+    $datas = Game::get()->localGetAllDatas(true);
     Notifications::refreshUI($datas);
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());

@@ -89,7 +89,7 @@ define([
       this.attachRegisteredTooltips();
 
       this.setupNotifications();
-      this.initPreferences();
+      // this.initPreferences();
       dojo.connect(this.notifqueue, 'addToLog', () => {
         this.checkLogCancel(this._last_notif == null ? null : this._last_notif.msg.uid);
         this.addLogClass();

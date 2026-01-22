@@ -93,7 +93,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function isAlternateArt($uid)
   {
-    return explode('_', $uid)[2] == 'A' || in_array(explode('_', $uid)[1],  ['DUSTERTOP', 'DUSTERCB', 'DUSTEROP']);
+    return explode('_', $uid)[2] == 'A' || in_array(explode('_', $uid)[1],  ['DUSTERTOP', 'DUSTERCB', 'DUSTEROP', 'TCS3', 'WCS25', 'MUSUBI']) || explode("_", $uid)[2] == 'P';
   }
 
   public static function getNextPlayedState()
@@ -130,10 +130,21 @@ class Cards extends \ALT\Helpers\CachedPieces
   {
     $expUid = explode('_', $uid);
     if (in_array($expUid[1], ['DUSTEROP', 'DUSTERCB', 'DUSTERTOP'])) {
-      $expUid[1] = 'DUSTER';
+      if ($expUid[4] < 25) {
+        $expUid[1] = 'CORE';
+      } elseif ($expUid[4] < 45) {
+        $expUid[1] = 'ALIZE';
+      } else {
+        $expUid[1] = 'DUSTER';
+      }
+    } elseif (in_array($expUid[1], ['TCS3'])) {
+      $expUid[1] = 'BISE';
+    } elseif (in_array($expUid[1], ['WCQ25', 'WCS25', 'MUSUBI'])) {
+      $expUid[1] = 'CORE';
     }
     $expUid[2] = 'B';
     $coreUid = implode('_', $expUid);
+
     return $coreUid;
   }
 
@@ -208,7 +219,8 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if ($ks || $alternate) {
       if (isset(self::getAltArt()[$altUid])) {
-        $cardO->setFlavorText(self::getAltArt()[$altUid]['flavorText']);
+        $altArt = self::getAltArt()[$altUid];
+        $cardO->setFlavorText($altArt['flavorText']);
         if ($cardO->getRarity() == RARITY_RARE) {
           $cardO->setAsset($altUid . '_R');
         } elseif ($cardO->getRarity() == RARITY_COMMON) {
@@ -217,6 +229,16 @@ class Cards extends \ALT\Helpers\CachedPieces
           $cardO->setAsset($altUid . '_E');
         } else {
           $cardO->setAsset($altUid . '_U');
+        }
+
+        if (isset(self::getAltArt()[$altUid]['mainAsset'])) {
+          $cardO->setMainAsset(self::getAltArt()[$altUid]['mainAsset']);
+        } else {
+          $cardO->setMainAsset($uid);
+        }
+
+        if (isset($altArt['fullArt'])) {
+          $cardO->setFullArt(true);
         }
       }
     }
@@ -644,7 +666,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     Engine::checkpoint();
     $player = Players::get(explode('-', $location)[1]);
     Notifications::shuffleDeck($player, $location, self::countInLocation($location));
-    Notifications::refreshUI(Game::get()->getAllDatas(true));
+    Notifications::refreshUI(Game::get()->localGetAllDatas(true));
   }
 
   /**
@@ -894,6 +916,145 @@ class Cards extends \ALT\Helpers\CachedPieces
       'ALT_TCS3_P_MU_51' => ['flavorText' => ''],
       'ALT_TCS3_P_OR_54' => ['flavorText' => ''],
       'ALT_TCS3_P_YZ_59' => ['flavorText' => ''],
+      'ALT_WCS25_P_AX_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_AX_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_AX_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_BR_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_BR_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_BR_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_LY_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_LY_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_LY_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_MU_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_MU_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_MU_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_OR_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_OR_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_OR_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_YZ_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_YZ_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_WCS25_P_YZ_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_AX_04' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_AX_20' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_BR_19' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_BR_30' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_LY_07' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_LY_04' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_MU_13' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_MU_12' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_OR_14' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_OR_08' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_YZ_06' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_YZ_12' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_AX_41' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_AX_32' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_BR_32' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_BR_38' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_LY_31' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_LY_39' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_MU_44' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_MU_33' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_OR_42' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_OR_43' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_YZ_41' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERTOP_P_YZ_44' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_AX_100' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_AX_101' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_LY_102' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_MU_100' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_AX_87' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_AX_91' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_AX_95' => ['flavorText' => '', 'fullArt' => true, 'mainAsset' => 'ALT_DUSTERCB_P_AX_95_E_F'],
+      'ALT_DUSTERCB_P_BR_88' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_BR_89' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_BR_91' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_BR_96' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_BR_98' => ['flavorText' => '', 'fullArt' => true, 'mainAsset' => 'ALT_DUSTERCB_P_BR_98_E_F'],
+      'ALT_DUSTERCB_P_LY_89' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_LY_90' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_LY_93' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_LY_98' => ['flavorText' => '', 'fullArt' => true, 'mainAsset' => 'ALT_DUSTERCB_P_LY_98_E_F'],
+      'ALT_DUSTERCB_P_MU_86' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_MU_88' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_MU_96' => ['flavorText' => '', 'fullArt' => true, 'mainAsset' => 'ALT_DUSTERCB_P_MU_96_E_F'],
+      'ALT_DUSTERCB_P_MU_99' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_OR_89' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_OR_90' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_OR_92' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_OR_93' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_OR_97' => ['flavorText' => '', 'fullArt' => true, 'mainAsset' => 'ALT_DUSTERCB_P_OR_97_E_F'],
+      'ALT_DUSTERCB_P_YZ_88' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_YZ_92' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_YZ_94' => ['flavorText' => '', 'fullArt' => true, 'mainAsset' => 'ALT_DUSTERCB_P_YZ_94_E_F'],
+      'ALT_DUSTERCB_P_YZ_96' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_YZ_98' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_A_AX_95' => ['flavorText' => ''],
+      'ALT_DUSTER_A_BR_98' => ['flavorText' => ''],
+      'ALT_DUSTER_A_LY_98' => ['flavorText' => ''],
+      'ALT_DUSTER_A_MU_96' => ['flavorText' => ''],
+      'ALT_DUSTER_A_OR_97' => ['flavorText' => ''],
+      'ALT_DUSTER_A_YZ_94' => ['flavorText' => ''],
+      'ALT_DUSTERCB_P_AX_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_BR_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_LY_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_MU_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_OR_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTERCB_P_YZ_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_A_AX_85' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_A_BR_65' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_A_LY_65' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_A_MU_85' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_A_OR_85' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_A_YZ_65' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_P_AX_85' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_P_BR_65' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_P_LY_65' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_P_MU_85' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_P_OR_85' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTER_P_YZ_65' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_AX_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_AX_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_AX_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_BR_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_BR_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_BR_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_LY_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_LY_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_LY_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_MU_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_MU_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_MU_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_OR_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_OR_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_OR_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_YZ_01' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_YZ_02' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_CORE_P_YZ_03' => ['flavorText' => '', 'fullArt' => true],
+      'ALT_DUSTEROP_P_AX_93' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_AX_97' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_BR_94' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_BR_95' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_LY_87' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_LY_94' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_MU_89' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_MU_94' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_OR_100' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_OR_101' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_OR_86' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_YZ_89' => ['flavorText' => ''],
+      'ALT_DUSTEROP_P_YZ_91' => ['flavorText' => ''],
+      'ALT_MUSUBI_B_AX_09' => ['flavorText' => ''],
+      'ALT_MUSUBI_B_BR_04' => ['flavorText' => ''],
+      'ALT_MUSUBI_B_LY_06' => ['flavorText' => ''],
+      'ALT_MUSUBI_B_MU_22' => ['flavorText' => ''],
+      'ALT_MUSUBI_B_OR_09' => ['flavorText' => ''],
+      'ALT_MUSUBI_B_YZ_09' => ['flavorText' => ''],
+      'ALT_WCQ25_P_AX_08' => ['flavorText' => ''],
+      'ALT_WCQ25_P_BR_06' => ['flavorText' => ''],
+      'ALT_WCQ25_P_LY_10' => ['flavorText' => ''],
+      'ALT_WCQ25_P_MU_16' => ['flavorText' => ''],
+      'ALT_WCQ25_P_OR_05' => ['flavorText' => ''],
+      'ALT_WCQ25_P_YZ_05' => ['flavorText' => ''],
     ];
   }
 

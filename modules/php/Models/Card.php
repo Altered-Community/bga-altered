@@ -57,9 +57,11 @@ class Card extends \ALT\Helpers\DB_Model
     'thumbnail' => 'int', // Only used for Heros for UI
     'statData' => 'int',
     'extension' => 'str',
+    'fullArt' => 'bool',
 
     'rarity' => 'int',
     'asset' => 'str',
+    'mainAsset' => 'str',
     'frame' => 'int',
     'reserveSlots' => 'int',
     'landmarkSlots' => 'int',

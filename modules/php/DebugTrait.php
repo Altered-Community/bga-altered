@@ -178,7 +178,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $card['properties'],
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
@@ -229,7 +229,7 @@ trait DebugTrait
         $card->setTapped(true);
       }
     }
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
   function untapAll()
@@ -243,7 +243,7 @@ trait DebugTrait
     foreach ($player->getReserveCards() as $cId => $card) {
       $card->setTapped(true);
     }
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
   function tapMana()
@@ -252,7 +252,7 @@ trait DebugTrait
     foreach ($player->getManaCards() as $cId => $card) {
       $card->setTapped(true);
     }
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
   function allVisible()
@@ -311,7 +311,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $card->getProperties(),
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
@@ -330,7 +330,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $card->getProperties(),
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
@@ -686,7 +686,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $properties,
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
@@ -731,7 +731,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $properties,
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();

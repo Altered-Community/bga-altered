@@ -54,7 +54,6 @@ const OPTION_SO = 3;
 const OPTION_SDU = 4;
 
 
-
 /*
  * State constants
  */
@@ -385,7 +384,7 @@ const OWNER = 'owner';
  *********************/
 const API_URL = 'https://api.equinox-ccg.io';
 
-const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas', 'setIcon', 'flavorText', 'asset', 'revealed', 'subtypes', 'typeline'];
+const DYNAMIC_PROPERTIES = ['tapped', 'extraDatas', 'setIcon', 'flavorText', 'asset', 'revealed', 'subtypes', 'typeline', 'fullArt', 'mainAsset'];
 const UID_MAPPING = [
   'ALT_ALIZE_B_AX_01_C' => 'ALT_CORE_B_AX_01_C',
   'ALT_ALIZE_B_AX_03_C' => 'ALT_CORE_B_AX_03_C',

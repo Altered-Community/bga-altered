@@ -179,6 +179,16 @@ define([
           },
           section: 'layout',
         },
+        displayFullArt: {
+          default: 0,
+          name: _('Display full art'),
+          type: 'select',
+          values: {
+            0: _('No'),
+            1: _('Yes'),
+          },
+          section: 'layout',
+        },
 
         // handLocation: {
         //   default: (isMobile, isTouchDevice) => (isTouchDevice ? 1 : 3),
@@ -299,7 +309,7 @@ define([
         this.gamedatas.reserveSlots = n.args.reserveSlots;
         this.updateReserveSlots();
       }
-       if (n.args.landmarkSlots !== undefined) {
+      if (n.args.landmarkSlots !== undefined) {
         this.gamedatas.landmarkSlots = n.args.landmarkSlots;
         this.updateLandmarkSlots();
       }
@@ -354,6 +364,9 @@ define([
       });
 
       this.setupInfoPanel();
+      this.initPreferences();
+
+      // this.inherited(arguments);
       this.setupBoard();
       this.setupPlayers();
       this.setupCards();
@@ -867,14 +880,8 @@ define([
           _('Akesha "the astute"') +
           '<br/>' +
           _('Let your opponent take the initiative to better thwart their plans, slowly but surely.'),
-        MU2:
-          _('Turuun "the xx"')+
-          '<br/>'+
-          _('Sharing makes us stronger (Gift Deck)'),
-        OD2:
-          _('Matz "the xx"')+
-          '<br/>'+
-          _('Every project needs solid foundations (Landmark Deck)')
+        MU2: _('Turuun "the xx"') + '<br/>' + _('Sharing makes us stronger (Gift Deck)'),
+        OD2: _('Matz "the xx"') + '<br/>' + _('Every project needs solid foundations (Landmark Deck)'),
       };
 
       let selectedDeck = null;
@@ -1000,14 +1007,16 @@ define([
       let canUseRandom = true;
       if (args.demoDeck == false && canUseRandom && !$('card-fake-random')) {
         $('overlay-deck-container').insertAdjacentHTML('beforeend', this.tplFakeCard({ id: 'fake-random' }));
-        $('card-fake-random').querySelector('.altered-card-wrapper').insertAdjacentHTML(
-          'beforeend',
-          `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
+        $('card-fake-random')
+          .querySelector('.altered-card-wrapper')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div style='width:100%; height:100%; display:flex; justify-content:center; align-items:center;'>
             <div style='background: #ffffffe8;padding: 15px;border-radius: 15px;font-size: 37px;border: 4px solid black;box-shadow: 1px 1px 4px black;font-weight: bold;'>
               Random deck
             </div>
           </div>`
-        );
+          );
         this.onClick('card-fake-random', () => this.takeAction('actSelectPrecoDeck', { choice: 'random' }, false));
       }
     },
@@ -1439,7 +1448,7 @@ define([
 
       // Add source if any
       let source = _(choice.source ? choice.source : '');
-      
+
       if (source != '') {
         desc += ` (${source})`;
       }
@@ -1463,17 +1472,17 @@ define([
         // TODO?
         let card = this.getCardInfos(choice.sourceId);
         if (!this.isMobile()) {
-          this.addCustomTippyTooltip(`btnChoice${choice.id}`, this.tplCardTooltip(card),{
+          this.addCustomTippyTooltip(`btnChoice${choice.id}`, this.tplCardTooltip(card), {
             disablingParentClasses: ['mana-modal', 'no-tooltip'],
             forceRecreate: true,
           });
         }
         $(`btnChoice${choice.id}`).setAttribute('sourceId', choice.sourceId);
-        $(`btnChoice${choice.id}`).addEventListener("mouseenter", function(event) {
-            source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable',true);
+        $(`btnChoice${choice.id}`).addEventListener('mouseenter', function (event) {
+          source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable', true);
         });
-        $(`btnChoice${choice.id}`).addEventListener("mouseleave", function(event) {
-            source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable',false);
+        $(`btnChoice${choice.id}`).addEventListener('mouseleave', function (event) {
+          source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable', false);
         });
         // source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
       }
@@ -1515,12 +1524,11 @@ define([
     },
 
     onEnteringStatePay(args) {
-       payMana = (i) => {
+      payMana = (i) => {
         return () => this.takeAtomicAction('actPay', [i]);
       };
-      for(i = 0; i <= Math.min(args.mana, args.maximum);i++){
-         this.addPrimaryActionButton('btnMana'+i, this.formatString('{'+i+'}'), payMana(i)
-        );
+      for (i = 0; i <= Math.min(args.mana, args.maximum); i++) {
+        this.addPrimaryActionButton('btnMana' + i, this.formatString('{' + i + '}'), payMana(i));
       }
     },
 
@@ -2224,7 +2232,7 @@ define([
     },
 
     onEnteringStateInteruptReveal(args) {
-        this.addPrimaryActionButton('btnConfirmReveal', _("Confirm"), () =>this.takeAtomicAction('actInteruptReveal',[]));
+      this.addPrimaryActionButton('btnConfirmReveal', _('Confirm'), () => this.takeAtomicAction('actInteruptReveal', []));
     },
 
     onEnteringStateMarkRegionExpedition(args) {
@@ -2511,6 +2519,15 @@ define([
 
     onChangeFitToSetting(val) {
       this.updateLayout();
+    },
+
+    onChangeDisplayFullArtSetting(val) {
+      document.querySelectorAll('.altered-card').forEach((oCard) => {
+        if (!oCard.classList.contains('card-back')) {
+          this.destroy(oCard);
+        }
+      });
+      this.setupCards();
     },
 
     updateLayout() {

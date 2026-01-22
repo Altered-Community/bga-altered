@@ -81,7 +81,12 @@ class altered extends Table
     return 'altered';
   }
 
-  public function getAllDatas($refresh = false): array
+  public function getAllDatas(): array
+  {
+    return self::localGetAllDatas(false);
+  }
+
+  public function localGetAllDatas($refresh = false): array
   {
     $pId = self::getCurrentPId();
 
