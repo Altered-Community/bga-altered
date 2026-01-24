@@ -33,6 +33,7 @@ class BR_Rare_ThomasEdison extends \ALT\Models\Card
         'upTo' => true,
         'n' => 2,
         'allIds' => true,
+        'targetPlayer' => ME,
         'targetType' => [CHARACTER],
         'targetLocation' => [RESERVE],
         'hasEffects' => ['Reserve'],
