@@ -5144,6 +5144,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may discard target Character. If you do, create a <WOOLLYBACK> Animal token in its Expedition.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER],
+          'upTo' => true,
           'effect' => FT::SEQ(
             FT::ACTION(DISCARD, []),
             FT::ACTION(INVOKE_TOKEN, [
