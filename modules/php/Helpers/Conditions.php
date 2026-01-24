@@ -1146,6 +1146,11 @@ abstract class Conditions
     return self::isCardAdded($card, $event, $type, $cost, $op, $excludeMyself, true);
   }
 
+  public static function isCardPlayedNotCharacter($card, $event)
+  {
+    return !self::isCardAdded($card, $event, CHARACTER);
+  }
+
   public static function isCardPlayedWithZeroStat($card, $event)
   {
     if (!self::isCardPlayed($card, $event, CHARACTER)) {

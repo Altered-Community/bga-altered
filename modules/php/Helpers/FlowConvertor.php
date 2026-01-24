@@ -1007,7 +1007,13 @@ abstract class FlowConvertor
           'OUTPUT'
         )
       ],
-      767 => ['description' => clienttranslate('You may <RUSH>. Unless you played a Character this way:'), 'effect' => ''],
+      767 => [
+        'description' => clienttranslate('You may <RUSH>. Unless you played a Character this way:'),
+        'effect' => FT::SEQ_OPTIONAL_MANUAL(
+          FT::RUSH(),
+          FT::ACTION(CHECK_CONDITION, ['conditions' => ['isCardPlayedNotCharacter'], 'effect' => 'OUTPUT'])
+        )
+      ],
       769 => [
         'description' => clienttranslate('You may create a <MANASEED> token in target opponent\'s Landmarks. If you do:'),
         'effect' =>  FT::SEQ_OPTIONAL(
