@@ -188,6 +188,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     $ks = self::isKS($uid);
     $alternate = self::isAlternateArt($uid);
+    $altUid = '';
     $coreUid = '';
     if ($ks) {
       $coreUid = self::getCoreUid($uid);
@@ -201,7 +202,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {
       if (!isset(MAP_REFS_CLASSES[$coreUid])) {
-        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . 't');
+        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . ' ' . $altUid . 't');
       } elseif ($ks || $alternate) {
         $uid = $coreUid;
       }
@@ -223,18 +224,22 @@ class Cards extends \ALT\Helpers\CachedPieces
         $cardO->setFlavorText($altArt['flavorText']);
         if ($cardO->getRarity() == RARITY_RARE) {
           $cardO->setAsset($altUid . '_R');
+          $altUid .= '_R';
         } elseif ($cardO->getRarity() == RARITY_COMMON) {
           $cardO->setAsset($altUid . '_C');
+          $altUid .= '_C';
         } elseif ($cardO->getRarity() == RARITY_EXALTED) {
           $cardO->setAsset($altUid . '_E');
+          $altUid .= '_E';
         } else {
           $cardO->setAsset($altUid . '_U');
+          $altUid .= '_U';
         }
 
         if (isset(self::getAltArt()[$altUid]['mainAsset'])) {
           $cardO->setMainAsset(self::getAltArt()[$altUid]['mainAsset']);
         } else {
-          $cardO->setMainAsset($uid);
+          $cardO->setMainAsset($altUid);
         }
 
         if (isset($altArt['fullArt'])) {
