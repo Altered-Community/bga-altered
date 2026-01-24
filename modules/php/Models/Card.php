@@ -1101,6 +1101,8 @@ class Card extends \ALT\Helpers\DB_Model
           if ($dynSplit[0] != 'universalGiganticToken' && !is_null(Utils::checkAttributeCondition('gigantic', $singleGigantic, $this->getPlayer(), $this))) {
             return $dynSplit[0];
           }
+        } elseif ($singleGigantic == '1') {
+          return true;
         }
       }
 
