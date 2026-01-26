@@ -4933,7 +4933,7 @@ abstract class FlowConvertor
           'targetLocation' => IN_PLAY,
           'targetType' => [PERMANENT],
           'maxBaseCost' => 2,
-          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true]])
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true, 'takeControl' => true]])
         ])
       ],
       722 => [
@@ -4942,7 +4942,7 @@ abstract class FlowConvertor
           'targetLocation' => IN_PLAY,
           'targetType' => [PERMANENT],
           'onlyToken' => true,
-          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true]])
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true, 'takeControl' => true]])
         ])
       ],
       750 => [
