@@ -43,6 +43,7 @@ class OD_Rare_AngryCrowd extends \ALT\Models\Card
           ),
           FT::ACTION(TARGET, [
             'targetType' => [CHARACTER, PERMANENT],
+            'minBaseCost' => 3,
             'effect' => FT::ACTION(DISCARD, [])
           ]),
         )
