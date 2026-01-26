@@ -657,7 +657,6 @@ class ChooseAssignment extends \ALT\Models\Action
         }
         Globals::setAdditionalEffect($addEffects);
       }
-
       $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
       if (
         $card->getType() == CHARACTER && (
