@@ -153,6 +153,8 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'eachPlayerOptionalResupply':
         return clienttranslate('All players may resupply');
+      case 'eachPlayerResupply':
+        return clienttranslate('All players resupply');
       case 'eachPlayerOptionalHandReserve':
         return clienttranslate('All players may put a card from their Hand in Reserve');
       case 'eachPlayerOptionalHandReserveDraw':
@@ -892,6 +894,17 @@ class SpecialEffect extends \ALT\Models\Action
           $nodes[] = [
             'type' => NODE_SEQ,
             'optional' => true,
+            'pId' => $pId,
+            'childs' => [FT::ACTION(RESUPPLY, [], ['pId' => $pId, 'sourceId' => $this->getSourceId()])],
+          ];
+        }
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
+      case 'eachPlayerResupply':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = [
+            'type' => NODE_SEQ,
             'pId' => $pId,
             'childs' => [FT::ACTION(RESUPPLY, [], ['pId' => $pId, 'sourceId' => $this->getSourceId()])],
           ];

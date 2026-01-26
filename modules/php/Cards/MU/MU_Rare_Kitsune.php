@@ -28,7 +28,7 @@ class MU_Rare_Kitsune extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['ocean'],
-      'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerOptionalResupply']),
+      'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerResupply']),
     ];
   }
 }
