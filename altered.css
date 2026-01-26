@@ -13588,16 +13588,19 @@ body.focus-board .altered-player-board .player-board-infos {
   width: 27px;
   height: 15px;
   background-image: url("img/rarity-gems.png");
-  background-size: 100% 300%;
+  background-size: 100% 400%;
   z-index: 4;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="0"] {
   background-position-y: 0%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="1"] {
-  background-position-y: 50%;
+  background-position-y: 33%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="2"] {
+  background-position-y: 66%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="3"] {
   background-position-y: 100%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest,
