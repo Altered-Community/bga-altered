@@ -112,7 +112,7 @@ class ActivateEffect extends \ALT\Models\Action
           }
           $node = Utils::tagTree($node, ['pId' => $card->getPId()]);
           // $node['sourceId'] = $card->getId();
-          if (($node['type'] ?? NODE_LEAF) == NODE_PARALLEL) {
+          if (($node['type'] ?? NODE_PARALLEL) == NODE_PARALLEL) {
             foreach ($node['childs'] as $n) {
               $nodes[] = $n;
             }
@@ -130,7 +130,7 @@ class ActivateEffect extends \ALT\Models\Action
         $nodes = ['type' => NODE_OR, 'optional' => true, 'args' => ['n' => $this->getArg('n')], 'childs' => $nodes];
       } elseif ($this->getArg('n') == 1 && count($nodes) > 1) {
         // only 1 potential choice
-        $nodes = FT::XOR($nodes);
+        $nodes = FT::XOR(...$nodes);
       } else {
         // only 1 node
         $nodes = $node;
