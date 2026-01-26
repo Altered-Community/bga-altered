@@ -851,12 +851,9 @@ class Card extends \ALT\Helpers\DB_Model
     foreach ($costReduction as $reducType => $reduction) {
       if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType()) || $reducType == ALL) {
         $typeReduction += $reduction['reduction'];
-        if (isset($reduction['minimum'])) {
-          $minimumCost = max($minimumCost, $reduction['minimum']);
-        }
+        $minimumCost = min($minimumCost, ($reduction['minimum'] ?? 0));
       }
     }
-
     foreach ($this->getSubtypes() as $subtype) {
       $typeReduction += isset($costReduction[$subtype]) ? $costReduction[$subtype]['reduction'] : 0;
     }
@@ -918,16 +915,16 @@ class Card extends \ALT\Helpers\DB_Model
         } else {
           $initialCost = $this->getCostHand();
         }
-        return max($minimumCost, $initialCost - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc);
+        return max($minimumCost, $initialCost - $typeReduction  - (int) $dynamicReduc);
         break;
       case RESERVE:
         if ($reserveFlipCost) {
           return min(
-            max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost),
-            max($minimumCost, $this->getCostHand() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost)
+            max($minimumCost, $this->getCostReserve() - $typeReduction - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost),
+            max($minimumCost, $this->getCostHand() - $typeReduction  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost)
           );
         }
-        return max($minimumCost, $this->getCostReserve() - $typeReduction - ($costReduction[ALL]['reduction'] ?? 0)  - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost);
+        return max($minimumCost, $this->getCostReserve() - $typeReduction - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost);
         break;
     }
   }
