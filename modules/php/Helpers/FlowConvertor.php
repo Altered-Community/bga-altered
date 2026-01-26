@@ -5128,6 +5128,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may send to Reserve target Character with Base Cost {4} or less.'),
         'output' => FT::ACTION(TARGET, [
           'maxBaseCost' => 4,
+          'upTo' => true,
           'targetType' => [CHARACTER],
           'effect' => FT::DISCARD_TO_RESERVE()
         ])
