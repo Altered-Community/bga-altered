@@ -19,7 +19,7 @@ class LY_Rare_LyraNavigator extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
       'flavorText' => clienttranslate(
-        'The black liquid traced shapes on the stone, and from these lines sprang innumerable creatures of soot.'
+        'Like the Bravos, Lyras are drawn to freedom and the distant horizon.'
       ),
       'artist' => 'Taras Susak',
       'subtypes' => [CITIZEN],

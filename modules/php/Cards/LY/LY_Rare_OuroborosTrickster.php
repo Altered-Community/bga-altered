@@ -20,7 +20,7 @@ class LY_Rare_OuroborosTrickster extends \ALT\Models\Card
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{J} Roll a die. On a 4+, I gain #3 boosts#. On a 1-3, I gain 1 boost$<BB>.'),
       'typeline' => clienttranslate('Character - Citizen'),
-      'flavorText' => clienttranslate('Like the Bravos, Lyras are drawn to freedom and the distant horizon.'),
+      'flavorText' => clienttranslate('When luck joins in the game, cleverness scores double.'),
       'artist' => 'Zero Wen',
 
       'forest' => 0,
