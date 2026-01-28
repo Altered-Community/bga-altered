@@ -5527,6 +5527,8 @@ abstract class FlowConvertor
     } elseif ($trinity['trigger'] == 542) {
       $node['EatMeEnergyBars']['conditions'] = ['isPlayedInOpponentOtherExp'];
       unset($node['EatMeEnergyBars']['listeningConditions']);
+    } elseif (in_array($trinity['trigger'], [688, 689])) {
+      $node['InvokeToken']['listeningConditions'] = ['isMyTurn', 'isAfternoon', 'isNotMeInvoke', 'notTapped'];
     }
     // elseif (in_array($trinity['condition'], [642, 643])) {
     //   // we need to force owner after reveal
