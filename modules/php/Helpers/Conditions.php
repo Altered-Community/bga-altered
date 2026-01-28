@@ -1842,6 +1842,16 @@ abstract class Conditions
     return false;
   }
 
+  public static function selectedRoll($card, $event, $result, $op = 'GTE')
+  {
+    $roll = $event['selectedRoll'] ?? -1;
+    if ($op == 'GTE' && $roll >= $result) {
+      return true;
+    } elseif ($op == 'LTE' && $roll <= $result) {
+      return true;
+    }
+    return false;
+  }
 
 
 
