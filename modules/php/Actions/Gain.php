@@ -185,6 +185,10 @@ class Gain extends \ALT\Models\Action
     $dynamicReplace = $card->getDynamicGainReplace();
     $args['cardId'] = $card->getId();
 
+    if (in_array($card->getLocation(), [HAND, DISCARD_PILE])) {
+      return;
+    }
+
     if (is_null($source)) {
       $sourceId = -1;
     } else {
