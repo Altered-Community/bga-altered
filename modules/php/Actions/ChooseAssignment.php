@@ -432,7 +432,12 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextReserveCharacterBoost(0);
     }
     // The undergrowth
-    if (Globals::getNextCharacterBoostV() > 0 && $card->getType() == CHARACTER && $player->isInBiome($location, FOREST, true)) {
+    $otherLocation = $location == STORM_LEFT ? STORM_RIGHT : ($location == STORM_RIGHT ? STORM_LEFT : 'none');
+    if (
+      Globals::getNextCharacterBoostV() > 0
+      && $card->getType() == CHARACTER &&
+      ($player->isInBiome($location, FOREST, true) || ($card->isGigantic() && $player->isInBiome($otherLocation, FOREST, true)))
+    ) {
       $toBoost = Globals::getNextCharacterBoostV();
       $occur = Globals::getNextCharacterBoostOccurence();
 
