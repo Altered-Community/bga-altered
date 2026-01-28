@@ -31,16 +31,17 @@ trait EndGameTrait
       }
     }
 
-    $valid = self::getGenericGameInfos('push_adventure_pass', $request);
-    if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
-      Notifications::message(
-        clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
-        [
-          'player' => Players::get($request['winner']['id']),
-          'pass' => $valid['winner_bga_adventure_pass_progress']
-        ]
-      );
-    }
+    // $valid = self::getGenericGameInfos('push_adventure_pass', $request);
+    // if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
+    //   Notifications::message(
+    //     clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
+    //     [
+    //       'player' => Players::get($request['winner']['id']),
+    //       'pass' => $valid['winner_bga_adventure_pass_progress']
+    //     ]
+    //   );
+    // }
+
     // throw new \feException(print_r($valid));
     // TODO remove in alpha
     // [success] => 1
