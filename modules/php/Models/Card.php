@@ -901,7 +901,7 @@ class Card extends \ALT\Helpers\DB_Model
     $increaseReserveCost = Players::getIncreaseReserveCost($this->getType());
     $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes(), $this->getPId(), $this->id);
     if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
-      $minimumCost = max(1, $minimumCost);
+      $minimumCost = min(1, $minimumCost);
     }
 
     // Scholar's Vault
