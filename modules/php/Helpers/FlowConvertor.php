@@ -1548,9 +1548,9 @@ abstract class FlowConvertor
         ]),
       ],
       95 => [
-        'description' => clienttranslate('Cards your opponents play can\'t cost less than {2}.'),
+        'description' => clienttranslate('Characters your opponents play can\'t cost less than {2}.'),
         'noTrigger' => true,
-        'attributes' => ['opponentCardsMinimumCost' => '2'],
+        'attributes' => ['opponentCharactersMinimumCost' => '2'],
       ],
       96 => [
         'description' => clienttranslate('Put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
