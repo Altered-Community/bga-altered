@@ -93,6 +93,12 @@ class Gain extends \ALT\Models\Action
       if (!is_null($event) && $event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
         return false;
       }
+      if (!is_null($event) && $event['action'] == 'ChooseAssignment' && $event['sourceLocation'] == RESERVE) {
+        $card = Cards::get($this->ctx->getSourceId());
+        if (in_array($card->getId(), $event['reserveToListen'] ?? []) && $card->getLocation() != RESERVE) {
+          return false;
+        }
+      }
       // if (in_array(($event['sourceLocation']) ?? 'all'), []
       return true;
     } else {
