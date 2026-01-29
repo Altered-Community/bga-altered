@@ -439,6 +439,7 @@ abstract class FlowConvertor
               FT::ACTION(CHECK_CONDITION, [
                 'conditions' => ['isSpellFromTarget'],
                 'effect' => 'OUTPUT',
+                // 'description' => clienttranslate('if it\'s a spell'),
                 'oppositeEffect' => 'OPPOSITE',
               ])
             ),
