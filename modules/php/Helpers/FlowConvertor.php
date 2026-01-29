@@ -2266,7 +2266,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
-          'targetLocation' => ['source'],
+          'targetLocation' => ['initialSource'],
         ]),
       ],
       381 => [

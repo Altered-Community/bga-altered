@@ -463,7 +463,6 @@ class Target extends \ALT\Models\Action
               $node = Utils::updateTree($node, [0 => 'initialSource'], [$discardSource], ['targetLocation']);
             }
           }
-
           $this->pushParallelChild($node);
         }
         $totalCost -= $card->getCostHand();
