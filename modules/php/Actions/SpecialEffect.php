@@ -1294,7 +1294,7 @@ class SpecialEffect extends \ALT\Models\Action
           $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'pId' => $card->getPId()], ['sourceId' => $this->getSourceId()]);
         }
         if (!empty($nodes)) {
-          $this->insertAsChild(['type' => NODE_PARALLEL, 'childs' => $nodes]);
+          $this->insertAsChild(['type' => NODE_PARALLEL,  'noIndependent' => true, 'childs' => $nodes]);
         }
         break;
       case 'ManInTheMazeYzmir':
@@ -1362,7 +1362,7 @@ class SpecialEffect extends \ALT\Models\Action
           }
           // $nodes = Utils::tagTree($nodes, ['sourceId' => $this->getSourceId(), 'pId' => $card->getPId()]);
           // throw new \feException(print_r($nodes));
-          $this->insertAsChild(['type' => NODE_PARALLEL, 'childs' => $nodes]);
+          $this->insertAsChild(['type' => NODE_PARALLEL, 'noIndependent' => true, 'childs' => $nodes]);
         }
         break;
       case 'removeFleetingCharacterStat0Played':
