@@ -36,7 +36,6 @@ class AX_Rare_ThomasEdison extends \ALT\Models\Card
         'targetType' => [CHARACTER],
         'targetPlayer' => ME,
         'targetLocation' => [RESERVE],
-        'hasEffects' => ['Reserve'],
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, ['cardId' => EFFECT]),
           FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'n' => 2, 'ownEffect' => true]),

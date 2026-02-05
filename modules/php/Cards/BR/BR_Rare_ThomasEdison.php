@@ -36,7 +36,6 @@ class BR_Rare_ThomasEdison extends \ALT\Models\Card
         'targetPlayer' => ME,
         'targetType' => [CHARACTER],
         'targetLocation' => [RESERVE],
-        'hasEffects' => ['Reserve'],
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, ['cardId' => EFFECT]),
           FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'n' => 2, 'ownEffect' => true]),

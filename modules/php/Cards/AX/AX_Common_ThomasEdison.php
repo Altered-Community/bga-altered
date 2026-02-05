@@ -33,7 +33,6 @@ class AX_Common_ThomasEdison extends \ALT\Models\Card
         'targetType' => [CHARACTER],
         'targetLocation' => [RESERVE],
         'targetPlayer' => ME,
-        'hasEffects' => ['Reserve'],
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, ['cardId' => EFFECT]),
           FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'n' => 1, 'ownEffect' => true]),

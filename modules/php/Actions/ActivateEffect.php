@@ -99,11 +99,12 @@ class ActivateEffect extends \ALT\Models\Action
             $msg = clienttranslate('${player_name} activates ${card_name} {R} effect');
             break;
         }
-        Notifications::message($msg, [
-          'player' => Players::getActive(),
-          'card' => $card,
-        ]);
+
         if (!empty($card->$effect())) {
+          Notifications::message($msg, [
+            'player' => Players::getActive(),
+            'card' => $card,
+          ]);
           $node = $card->$effect();
           if ($this->getArg('ownEffect')) {
             $node = Utils::tagTree($node, ['sourceId' => $source->getId()]);
