@@ -75,7 +75,7 @@ class PlayCard extends \ALT\Models\Action
   public function isDoable($player)
   {
     $card = $this->getCard();
-    return !$card->isTapped() && !empty($card->getPlayableLocation($player));
+    return !$card->isTapped() && !empty($card->getPlayableLocation($player)) && $card->getMinManaOrbs() <= $player->getTotalMana();
   }
 
   public function argsPlayCard()
