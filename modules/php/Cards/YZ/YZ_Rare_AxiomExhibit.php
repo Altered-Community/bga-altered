@@ -41,7 +41,7 @@ class YZ_Rare_AxiomExhibit extends \ALT\Models\Card
           'targetLocation' => [RESERVE],
           'effect' => FT::SEQ(
             FT::GAIN(EFFECT, BOOST),
-            FT::ACTION(READY, ['cardId' => EFFECT])
+            FT::ACTION(READY, ['cardId' => EFFECT, 'optionalExhaust' => true])
           )
         ])
       )
