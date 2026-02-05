@@ -112,7 +112,7 @@ class ActivateEffect extends \ALT\Models\Action
           }
           $node = Utils::tagTree($node, ['pId' => $card->getPId()]);
           // $node['sourceId'] = $card->getId();
-          if (($node['type'] ?? NODE_PARALLEL) == NODE_PARALLEL) {
+          if (!isset($node['action']) && ($node['type'] ?? NODE_PARALLEL) == NODE_PARALLEL) {
             foreach ($node['childs'] as $n) {
               $nodes[] = $n;
             }
