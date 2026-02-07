@@ -24,13 +24,13 @@ class OD_Common_SigismarWingspan extends \ALT\Models\Card
       'reserveSlots' => 2,
       'landmarkSlots' => 2,
 
-      'effectDesc' => clienttranslate('At Noon — Create an <ORDIS_RECRUIT> Soldier token in your Hero Expedition.'),
+      'effectDesc' => clienttranslate('At Noon — Create an <ORDIS_RECRUIT> Soldier token in your Hero Expedition. Ignore my abilities during the first day'),
       'flavorText' => clienttranslate('Follow me, friends! If we stand together, nothing can stop us! '),
       'artist' => 'Edward Cheekokseang',
 
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'isMe',
+          'conditions' => ['isMe', 'isNotFirstTurn'],
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
