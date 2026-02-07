@@ -52,7 +52,7 @@ class AX_Rare_NilamSpires extends \ALT\Models\Card
                     ),
                 ],
                 'InvokeToken' => [
-                    'conditions' => ['isCardPlayed:permanent', 'excludeSelf'],
+                    'conditions' => ['isCardPlayed:permanent', 'excludeSelf', 'isMeInvoke'],
                     'output' => FT::SEQ(
                         FT::ACTION(SPECIAL_EFFECT, [
                             'effect' => 'incCounter',
