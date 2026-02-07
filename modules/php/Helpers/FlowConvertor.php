@@ -26,7 +26,7 @@ abstract class FlowConvertor
       5 => [
         'description' => clienttranslate('When a Robot joins your Expeditions —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken'],
-        'condition' => 'isCardPlayed:robot:::true',
+        'condition' => ['isCardPlayed:robot:::true'],
       ],
       7 => [
         'description' => clienttranslate('When I go to Reserve from your hand —'),
@@ -5530,6 +5530,8 @@ abstract class FlowConvertor
       unset($node['EatMeEnergyBars']['listeningConditions']);
     } elseif (in_array($trinity['trigger'], [688, 689])) {
       $node['InvokeToken']['listeningConditions'] = ['isMyTurn', 'isAfternoon', 'isNotMeInvoke', 'notTapped'];
+    } elseif ($trinity['trigger'] == 5) {
+      $node['InvokeToken']['conditions'][] = 'isMeInvoke';
     }
     // elseif (in_array($trinity['condition'], [642, 643])) {
     //   // we need to force owner after reveal

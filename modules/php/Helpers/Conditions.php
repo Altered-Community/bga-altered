@@ -984,6 +984,11 @@ abstract class Conditions
     return $card->getPId() != ($event['locationPId']  ?? $card->getPId());
   }
 
+  public static function isMeInvoke($card, $event)
+  {
+    return $card->getPId() == ($event['locationPId']  ?? $card->getPId());
+  }
+
   public static function isNotPlayedInSameLocation($card, $event)
   {
     return $card->getLocation() != ($event['to'] ?? '');
