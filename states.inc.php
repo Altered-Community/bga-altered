@@ -402,7 +402,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actTargetExpedition', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actTargetExpedition', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_PLAY_CARD => [

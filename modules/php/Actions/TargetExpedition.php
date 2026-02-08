@@ -63,6 +63,11 @@ class TargetExpedition extends \ALT\Models\Action
     return ['expeditions' => $expeditions, 'n' => $this->getArg('n')];
   }
 
+  public function isDoable($player)
+  {
+    return count($this->argsTargetExpedition()['expeditions']) > 0;
+  }
+
   public function stTargetExpedition()
   {
     if (($this->getCtxArg('expedition') ?? '') == 'all') {
