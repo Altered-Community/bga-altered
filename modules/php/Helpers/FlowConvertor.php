@@ -3520,6 +3520,7 @@ abstract class FlowConvertor
       518 => [
         'description' => clienttranslate('You may discard target Character or Permanent with Hand Cost {2} or less.'),
         'output' => FT::ACTION(TARGET, [
+          'upTo' => true,
           'targetType' => [CHARACTER, TOKEN, PERMANENT],
           'maxHandCost' => 2,
           'effect' => FT::ACTION(DISCARD, []),
