@@ -90,14 +90,19 @@ class Gain extends \ALT\Models\Action
   {
     if ($this->getCtxArg('cardId') == ME) {
       $event = $this->getEventRecursive();
-      if (!is_null($event) && $event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
+      if (!is_null($event) && isset($event['action']) && $event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
         return false;
       }
-      if (!is_null($event) && $event['action'] == 'ChooseAssignment' && $event['sourceLocation'] == RESERVE) {
+      if (!is_null($event) && isset($event['action']) && $event['action'] == 'ChooseAssignment' && $event['sourceLocation'] == RESERVE) {
         $card = Cards::get($this->ctx->getSourceId());
         if (in_array($card->getId(), $event['reserveToListen'] ?? []) && $card->getLocation() != RESERVE) {
           return false;
         }
+      }
+      $card = Cards::get($this->ctx->getSourceId());
+      list($gain, $n) = $this->getGain();
+      if ($gain == FLEETING && $card->hasToken(FLEETING)) {
+        return false;
       }
       // if (in_array(($event['sourceLocation']) ?? 'all'), []
       return true;
