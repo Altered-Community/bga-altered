@@ -727,43 +727,43 @@ class SpecialEffect extends \ALT\Models\Action
       case 'triggerEffectOfNextCharacter':
         $addEffects = Globals::getAdditionalEffect();
         $found = false;
-        // foreach ($addEffects as $i => $effect) {
-        //   if (isset($effect['source'])) {
-        //     unset($effect['source']);
-        //   }
-        //   if (isset($effect['boost'])) {
-        //     unset($effect['boost']);
-        //   }
+        foreach ($addEffects as $i => $effect) {
+          if (isset($effect['source'])) {
+            unset($effect['source']);
+          }
+          if (isset($effect['boost'])) {
+            unset($effect['boost']);
+          }
 
-        //   if ($effect == [
-        //     'type' => $args['type'],
-        //     'from' => $args['from'],
-        //     'effect' => $args['effect'],
-        //     'to' => ($args['to'] ?? null)
-        //   ]) {
-        //     Notifications::message(clienttranslate('Effect is ignored as already triggered'));
-        //     $found = true;
-        //     break;
-        //   }
-        // }
-        // if ($found === false) {
-        $eff = [
-          'type' => $args['type'],
-          'from' => $args['from'],
-          'effect' => $args['effect'],
-          'to' => ($args['to'] ?? null),
-          'sourceId' => $card->getId(),
-          'limit' => $args['limit'] ?? INFTY,
-        ];
-        if (($args['boost'] ?? 0) > 0) {
-          $eff['boost'] = $args['boost'];
+          if ($effect == [
+            'type' => $args['type'],
+            'from' => $args['from'],
+            'effect' => $args['effect'],
+            'to' => ($args['to'] ?? null)
+          ]) {
+            Notifications::message(clienttranslate('Effect is ignored as already triggered'));
+            $found = true;
+            break;
+          }
         }
-        $addEffects = array_merge($addEffects, [$eff]);
-        Globals::setAdditionalEffect($addEffects);
-        Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), [
-          'player' => Players::getActive(),
-        ]);
-        // }
+        if ($found === false) {
+          $eff = [
+            'type' => $args['type'],
+            'from' => $args['from'],
+            'effect' => $args['effect'],
+            'to' => ($args['to'] ?? null),
+            'sourceId' => $card->getId(),
+            'limit' => $args['limit'] ?? INFTY,
+          ];
+          if (($args['boost'] ?? 0) > 0) {
+            $eff['boost'] = $args['boost'];
+          }
+          $addEffects = array_merge($addEffects, [$eff]);
+          Globals::setAdditionalEffect($addEffects);
+          Notifications::message(clienttranslate('${player_name} will trigger {R} effect of next played character'), [
+            'player' => Players::getActive(),
+          ]);
+        }
         break;
       case 'AfterRestSabotage':
         $afterRest = Globals::getAfterRest();
