@@ -554,6 +554,13 @@ $machinestates = [
     'possibleactions' => ['actInteruptReveal', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
+  ST_SHUFFLE => [
+    'name' => 'shuffle',
+    'type' => 'game',
+    'description' => '',
+    'action' => 'stAtomicAction',
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

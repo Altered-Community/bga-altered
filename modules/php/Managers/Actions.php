@@ -48,7 +48,8 @@ class Actions
     END_AFTERNOON,
     MARK_REGION,
     MOVE_REGION_MARKER,
-    INTERUPT_REVEAL
+    INTERUPT_REVEAL,
+    SHUFFLE,
   ];
 
   public static function get($actionId, &$ctx = null)
