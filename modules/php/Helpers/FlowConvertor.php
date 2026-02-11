@@ -5171,6 +5171,16 @@ abstract class FlowConvertor
           FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)])
         )
       ],
+      914 => [
+        'description' => clienttranslate('You may immediately play a Permanent for {2} less.'),
+        'output' => FT::SEQ_OPTIONAL(
+          [
+            'action' => SPECIAL_EFFECT,
+            'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 3, 'permanent' => false]],
+          ],
+          FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [PERMANENT], 'actions' => ['play']])
+        ),
+      ],
     ];
   }
 
