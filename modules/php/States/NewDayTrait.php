@@ -126,7 +126,7 @@ trait NewDayTrait
 
         Cards::discard($cardIds, MANA);
         $cards = Cards::getMany($cardIds);
-        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} chooses ${n} card(s) as mana'));
       }
 
       $this->checkCardListeners('Noon', ST_BEFORE_ASSIGNMENT);

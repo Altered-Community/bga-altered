@@ -14,7 +14,7 @@ class Shuffle extends \ALT\Models\Action
 {
   public function getState()
   {
-    return ST_DRAW;
+    return ST_SHUFFLE;
   }
 
   public function getDescription()
