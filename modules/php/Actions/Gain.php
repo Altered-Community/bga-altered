@@ -101,7 +101,7 @@ class Gain extends \ALT\Models\Action
       }
       $card = Cards::get($this->ctx->getSourceId());
       list($gain, $n) = $this->getGain();
-      if ($gain == FLEETING && $card->hasToken(FLEETING)) {
+      if ($card->getType() == CHARACTER && $gain == FLEETING && $card->hasToken(FLEETING)) {
         return false;
       }
       // if (in_array(($event['sourceLocation']) ?? 'all'), []
