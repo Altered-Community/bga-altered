@@ -30,11 +30,11 @@ class MU_Rare_Dracaena extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['mountain', 'ocean'],
-      'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPlayed' => FT::GAIN(ME, ANCHORED),
       'effectPassive' => [
         'Noon' => [
           'condition' => 'isMe',
-          'output' => FT::GAIN($this, BOOST, 2),
+          'output' => FT::GAIN(ME, BOOST, 2),
         ],
       ],
     ];

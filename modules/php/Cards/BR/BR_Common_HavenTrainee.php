@@ -28,7 +28,7 @@ class BR_Common_HavenTrainee extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 4,
-      'effectReserve' => FT::GAIN($this, BOOST, 2),
+      'effectReserve' => FT::GAIN(ME, BOOST, 2),
     ];
   }
 }

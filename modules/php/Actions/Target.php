@@ -31,6 +31,8 @@ class Target extends \ALT\Models\Action
     'maxHandCost' => INFTY, // limitation
     'minReserveCost' => 0, // limitation
     'minHandCost' => 0, // limitation
+    'maxBaseCost' => INFTY,
+    'minBaseCost' => 0,
     'n' => 1, // number of targets
     'statuses' => 'disabled', // does it has those statuses
     'excludedStatuses' => [],
@@ -53,6 +55,7 @@ class Target extends \ALT\Models\Action
     'onlyToken' => false,
     'ascendedOnly' => false,
     'monoBiome' => false, // Rare Lyra Origamium
+    'isNotTapped' => false,
   ];
 
   public function getDescription()
@@ -61,6 +64,8 @@ class Target extends \ALT\Models\Action
     $upTo = $this->getCtxArg('upTo') ?? false;
     $totalCost = $this->getArg('totalCost');
     $totalMountain = $this->getArg('totalMountain');
+    $baseCost = $this->getArg('maxBaseCost');
+    $minBaseCost = $this->getArg('minBaseCost');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
@@ -96,6 +101,8 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
           $msg = clienttranslate('Target up to ${n} card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } elseif ($baseCost != INFTY) {
+          $msg = clienttranslate('Target up to ${n} card(s) (of max base cost of ${baseCost}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
             $msg = clienttranslate('All valid targets ${effect_desc}');
@@ -106,6 +113,10 @@ class Target extends \ALT\Models\Action
       } else {
         if ($this->getArg('n') == INFTY) {
           $msg = clienttranslate('All valid targets ${effect_desc}');
+        } elseif ($baseCost != INFTY) {
+          $msg = clienttranslate('Target ${n} card(s) (of max base cost of ${baseCost}) to ${effect_desc}');
+        } elseif ($minBaseCost != 0) {
+          $msg = clienttranslate('Target ${n} card(s) (of min base cost of ${minBaseCost}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target ${n} card(s) to ${effect_desc}');
         }
@@ -119,6 +130,8 @@ class Target extends \ALT\Models\Action
         'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
         'totalCost' => $totalCost,
         'totalMountain' => $totalMountain,
+        'baseCost' => $baseCost,
+        'minBaseCost' => $minBaseCost,
         'i18n' => ['effect_desc'],
       ],
     ];
@@ -137,7 +150,7 @@ class Target extends \ALT\Models\Action
         asort($costs);
         $valuesToGet = count($targetCards) - count($targetCosts) - 1;
         for ($i = 0; $i < $valuesToGet; $i++) {
-          $totalCost += $costs[$i];
+          $totalCost += ($costs[$i] ?? 0);
         }
       }
       if ($totalCost > $player->getMana()) {
@@ -155,7 +168,8 @@ class Target extends \ALT\Models\Action
     return $this->getArg('upTo') ||
       count($this->getTargetableCards(Players::getActive(), true)) == 0 ||
       !$this->isDoable($player) ||
-      $this->getCtx()->getOptional();
+      $this->getCtx()->getOptional() ||
+      (count($this->getTargetableCards($player)) == count($this->getTargetCosts($player)) && $this->getTargetCosts($player) > 0);
   }
 
   public function getTargetableCards($player, $checkTough = false)
@@ -181,6 +195,13 @@ class Target extends \ALT\Models\Action
       }
     } elseif (!is_int($maxHandCost) && $maxHandCost == 'sourceCounter2') {
       $maxHandCost = ($this->getSource()->getExtraDatas()['counter'] ?? 0) + 2;
+    } elseif (!is_int($maxHandCost) && $maxHandCost == 'discard2') {
+      $previousCardId = $this->getCtxArg('cardId');
+      if (is_null($previousCardId)) {
+        $maxHandCost = 2;
+      } else {
+        $maxHandCost = 2 + Cards::get($previousCardId)->getCostHand();
+      }
     }
 
     // What cards ?
@@ -229,13 +250,18 @@ class Target extends \ALT\Models\Action
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
     $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
     $isTapped = $this->getArg('isTapped');
+    $isNotTapped = $this->getArg('isNotTapped');
     $maxStatistic = $this->getArg('maxStatistic');
 
     $augmentOnly = $this->getArg('augmentOnly');
     $monoBiome = $this->getArg('monoBiome');
 
+    // Duster
+    $maxBaseCost = $this->getArg('maxBaseCost');
+    $minBaseCost = $this->getArg('minBaseCost');
+
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -254,6 +280,9 @@ class Target extends \ALT\Models\Action
         return false;
       }
 
+      if ($isNotTapped && $c->isTapped()) {
+        return false;
+      }
 
       // Only card with a boost or a counter can be augmented
       if ($augmentOnly && !$c->hasCounters()) {
@@ -311,7 +340,9 @@ class Target extends \ALT\Models\Action
         $this->getArg('minHandCost') <= $handCost &&
         $handCost <= $maxHandCost &&
         $this->getArg('minReserveCost') <= $reserveCost &&
-        $reserveCost <= $this->getArg('maxReserveCost');
+        $reserveCost <= $this->getArg('maxReserveCost') &&
+        (($c->hasToken(FLEETING) && $reserveCost <= $maxBaseCost) || (!$c->hasToken(FLEETING) && $handCost <= $maxBaseCost)) &&
+        (($c->hasToken(FLEETING) && $reserveCost >= $minBaseCost) || (!$c->hasToken(FLEETING) && $handCost >= $minBaseCost));
 
       if ($statuses == 'disabled' || $c->getType() == PERMANENT) {
         return $costCheck;
@@ -319,7 +350,6 @@ class Target extends \ALT\Models\Action
         return $costCheck && $c->hasToken($statuses);
       }
     });
-
     return $cards;
   }
 
@@ -433,7 +463,6 @@ class Target extends \ALT\Models\Action
               $node = Utils::updateTree($node, [0 => 'initialSource'], [$discardSource], ['targetLocation']);
             }
           }
-
           $this->pushParallelChild($node);
         }
         $totalCost -= $card->getCostHand();

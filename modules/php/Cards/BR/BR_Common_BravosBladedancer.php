@@ -30,7 +30,7 @@ class BR_Common_BravosBladedancer extends \ALT\Models\Card
       'costReserve' => 3,
 
       'seasoned' => true,
-      'effectPlayed' => FT::GAIN($this, BOOST),
+      'effectPlayed' => FT::GAIN(ME, BOOST),
     ];
   }
 }

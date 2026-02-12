@@ -27,7 +27,7 @@ class LY_Rare_RidetheBifrost extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET_PLAYER, [
           'opponentsOnly' => false,
           'effect' => FT::ACTION(MOVE_CARD, ['player' => ME, 'cards' => ALL]),

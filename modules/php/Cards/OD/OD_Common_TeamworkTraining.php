@@ -27,7 +27,7 @@ class OD_Common_TeamworkTraining extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, ['maxHandCost' => 'controlledCharacter', 'effect' => FT::DISCARD_TO_RESERVE()])
       ),
     ];

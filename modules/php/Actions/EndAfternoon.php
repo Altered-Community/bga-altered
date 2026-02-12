@@ -38,6 +38,7 @@ class EndAfternoon extends \ALT\Models\Action
 
   public function stEndAfternoon()
   {
+    // throw new \feException(print_r(Globals::getEngine()));
     Actions::get(CHOOSE_ASSIGNMENT)->actPass();
     $this->resolveAction();
   }

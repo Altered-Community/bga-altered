@@ -29,7 +29,7 @@ class YZ_Common_Maw extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'conditions' => ['isMe', 'isSacrifice:character', 'notDestroyed'],
-          'output' => FT::GAIN($this, BOOST, 2),
+          'output' => FT::GAIN(ME, BOOST, 2),
         ],
       ],
     ];

@@ -27,7 +27,7 @@ class OD_Rare_CelebrationDay extends \ALT\Models\Card
       'costHand' => 8,
       'costReserve' => 8,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), FT::ACTION(BLOCK_EXPEDITION, ['expedition' => 'all'])),
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING), FT::ACTION(BLOCK_EXPEDITION, ['expedition' => 'all'])),
     ];
   }
 }

@@ -28,7 +28,7 @@ class LY_Common_ClothCocoon extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::XOR(
           FT::ACTION(TARGET, [
             'statuses' => [FLEETING, ANCHORED, ASLEEP],

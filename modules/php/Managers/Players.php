@@ -329,6 +329,8 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         }
         if ($card->isDefenderIgnoreBehind()) {
           $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'behind';
+        } elseif ($card->isDefenderIgnoreContact()) {
+          $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'contact';
         } elseif ($card->isIgnoreDefender()) {
           $ignoreDefenders[$pId][$card->getLocation()][$cId] = 'all';
         }
@@ -345,6 +347,15 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $reserve = [];
     foreach (self::getAll() as $pId => $player) {
       $reserve[$pId] = $player->getReserveSlots();
+    }
+    return $reserve;
+  }
+
+  public static function getLandmarkSlots()
+  {
+    $reserve = [];
+    foreach (self::getAll() as $pId => $player) {
+      $reserve[$pId] = $player->getLandmarkSlots();
     }
     return $reserve;
   }
@@ -399,7 +410,9 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         foreach ($cards as $cId => $power) {
           if ($power == 'all') {
             unset($defenders[$pId][$storm]);
-          } elseif ($power = 'behind' && !is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
+          } elseif ($power == 'behind' && !is_null($winners[$storm]) && $winners[$storm] != -1 && $winners[$storm] != $pId && isset($defenders[$pId][$storm])) {
+            unset($defenders[$pId][$storm]);
+          } elseif ($power == 'contact' && Players::get($pId)->isInContact($storm)) {
             unset($defenders[$pId][$storm]);
           }
         }
@@ -839,7 +852,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           foreach ($visibleRegions[$location] as $biome) {
             $newBiomes[$biome] = $biome;
           }
-          self::biomesModifier($newBiomes, $player, $expedition, $tiebreak);
+          self::biomesModifier($newBiomes, $player, $expedition, $tiebreak, true);
           $visibleRegions[$location] = array_values($newBiomes);
         }
       }

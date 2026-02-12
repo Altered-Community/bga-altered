@@ -27,7 +27,7 @@ class MU_Rare_Charge extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
-      'effectPlayed' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)]),
+      'effectPlayed' => FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN(EFFECT, BOOST)]),
     ];
   }
 }

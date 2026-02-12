@@ -86,6 +86,31 @@ class Gain extends \ALT\Models\Action
     return true;
   }
 
+  public function isDoable($player)
+  {
+    if ($this->getCtxArg('cardId') == ME) {
+      $event = $this->getEventRecursive();
+      if (!is_null($event) && isset($event['action']) && $event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
+        return false;
+      }
+      if (!is_null($event) && isset($event['action']) && $event['action'] == 'ChooseAssignment' && $event['sourceLocation'] == RESERVE) {
+        $card = Cards::get($this->ctx->getSourceId());
+        if (in_array($card->getId(), $event['reserveToListen'] ?? []) && $card->getLocation() != RESERVE) {
+          return false;
+        }
+      }
+      $card = Cards::get($this->ctx->getSourceId());
+      list($gain, $n) = $this->getGain();
+      if ($card->getType() == CHARACTER && $gain == FLEETING && $card->hasToken(FLEETING)) {
+        return false;
+      }
+      // if (in_array(($event['sourceLocation']) ?? 'all'), []
+      return true;
+    } else {
+      return true;
+    }
+  }
+
   public function isIndependent($player = null)
   {
     // return false;
@@ -170,6 +195,10 @@ class Gain extends \ALT\Models\Action
   {
     $dynamicReplace = $card->getDynamicGainReplace();
     $args['cardId'] = $card->getId();
+
+    if (in_array($card->getLocation(), [HAND, DISCARD_PILE])) {
+      return;
+    }
 
     if (is_null($source)) {
       $sourceId = -1;

@@ -74,7 +74,10 @@ class Resupply extends \ALT\Models\Action
   public function getPlayer()
   {
     $pId = $this->ctx->getPId();
-    if ($this->getArg('player') == 'owner') {
+    // throw new \feException($pId);
+
+    // throw new \feException()
+    if ($this->getArg('player') == 'owner' || $pId == 'owner') {
       $pId = $this->getArg('ownerId');
     } elseif ($pId == 'active') {
       $pId = Players::getActiveId();
@@ -82,6 +85,8 @@ class Resupply extends \ALT\Models\Action
       $pId = Players::getNextId(Players::getActive());
     } elseif (is_null($pId)) {
       $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
+    } elseif (isset($this->getEventRecursive()['pId']) && ($this->getEventRecursive()['cardId'] ?? -1) == $this->getSourceId()) {
+      $pId = $this->getEventRecursive()['pId'];
     }
 
     return Players::get($pId);
@@ -215,7 +220,7 @@ class Resupply extends \ALT\Models\Action
       $this->pushAfterFinishingChilds($node);
     }
     if ($cards->count() > 0) {
-      $this->checkAfterListeners($player, ['draw' => $n, 'sourceId' => $this->getSourceId(), 'notResupply' => $notResupply]);
+      $this->checkAfterListeners($player, ['draw' => $n, 'sourceId' => $this->getSourceId(), 'notResupply' => $notResupply, 'exhausted' => $exhausted]);
     }
 
     $this->resolveAction(null, $checkpoint);

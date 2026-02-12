@@ -30,8 +30,8 @@ class OD_Common_Charge extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
-        FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN($this, BOOST)])
+        FT::GAIN(ME, FLEETING),
+        FT::ACTION(TARGET, ['targetPlayer' => ME, 'n' => INFTY, 'effect' => FT::GAIN(EFFECT, BOOST)])
       ),
     ];
   }

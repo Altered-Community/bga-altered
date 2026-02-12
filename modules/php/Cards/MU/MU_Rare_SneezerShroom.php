@@ -28,8 +28,8 @@ class MU_Rare_SneezerShroom extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::GAIN($this, ANCHORED),
-      'effectPassive' => ['Noon' => ['condition' => 'isMe', 'output' => FT::GAIN($this, BOOST)]],
+      'effectPlayed' => FT::GAIN(ME, ANCHORED),
+      'effectPassive' => ['Noon' => ['condition' => 'isMe', 'output' => FT::GAIN(ME, BOOST)]],
     ];
   }
 }

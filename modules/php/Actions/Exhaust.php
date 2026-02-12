@@ -46,7 +46,7 @@ class Exhaust extends \ALT\Models\Action
     $player = $this->getPlayer();
     $card = $this->getCard();
     // if the card was a token or has been discarded / put to hand
-    if (is_null($card) || $card->getLocation() != RESERVE) {
+    if (is_null($card)) {
       $this->resolveAction();
       return;
     }

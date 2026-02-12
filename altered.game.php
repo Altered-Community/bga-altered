@@ -25,6 +25,7 @@ $swdNamespaceAutoload = function ($class) {
     if (file_exists($file)) {
       require_once $file;
     } else {
+      var_dump(debug_print_backtrace());
       var_dump('Cannot find file : ' . $file);
     }
   }
@@ -80,7 +81,12 @@ class altered extends Table
     return 'altered';
   }
 
-  public function getAllDatas($refresh = false): array
+  public function getAllDatas(): array
+  {
+    return self::localGetAllDatas(false);
+  }
+
+  public function localGetAllDatas($refresh = false): array
   {
     $pId = self::getCurrentPId();
 
@@ -105,7 +111,8 @@ class altered extends Table
       'blockedExpeditions' => Players::getBlockedExpeditions(),
       'powersBlockedExpeditions' => Players::getPowersBlockedExpeditions(),
       'defenders' => Players::getDefenders(),
-      'reserveSlots' => Players::getReserveSlots()
+      'reserveSlots' => Players::getReserveSlots(),
+      'landmarkSlots' => Players::getLandmarkSlots()
     ];
   }
 
@@ -375,9 +382,9 @@ class altered extends Table
     return self::get()->_($text);
   }
 
-  public function checkAction($actionName, $bThrowException = true)
+  public function localCheckAction($actionName, $bThrowException = true)
   {
-    $doable = parent::checkAction($actionName, false);
+    $doable = self::checkAction($actionName, false);
     if (!$doable && $bThrowException) {
       throw new feException(_('This game action is impossible right now') . $actionName, true, true, FEX_game_action_no_allowed);
     }

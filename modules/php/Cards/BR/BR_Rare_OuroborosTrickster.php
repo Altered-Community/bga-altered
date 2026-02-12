@@ -18,7 +18,7 @@ class BR_Rare_OuroborosTrickster extends \ALT\Models\Card
       'name' => clienttranslate('Ouroboros Trickster'),
       'typeline' => clienttranslate('Character - Citizen'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate('Like the Bravos, Lyras are drawn to freedom and the distant horizon.'),
+      'flavorText' => clienttranslate('When luck joins in the game, cleverness scores double.'),
       'artist' => 'Zero Wen',
       'subtypes' => [CITIZEN],
       'effectDesc' => clienttranslate('{J} Roll a die. On a 4+, I gain 2 boosts. On a 1-3, I gain 1 boost.'),

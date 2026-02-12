@@ -26,7 +26,7 @@ abstract class FlowConvertor
       5 => [
         'description' => clienttranslate('When a Robot joins your Expeditions —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken'],
-        'condition' => 'isCardPlayed:robot:::true',
+        'condition' => ['isCardPlayed:robot:::true'],
       ],
       7 => [
         'description' => clienttranslate('When I go to Reserve from your hand —'),
@@ -80,7 +80,7 @@ abstract class FlowConvertor
       21 => [
         'description' => clienttranslate('When another Character joins your Expeditions —'),
         'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
-        'condition' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
+        'condition' => ['isCardAddedAnyPlayer:character:::true', 'isStillSameLocation', 'hasSameOwner'],
       ],
       22 => ['description' => clienttranslate('{H}'), 'trigger' => '', 'type' => 'effectHand'],
       23 => ['description' => clienttranslate('[]]')],
@@ -303,7 +303,7 @@ abstract class FlowConvertor
       // Cyclone
       542 => [
         'description' => clienttranslate('When a Character joins the Expedition facing me —'),
-        'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
+        'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard', 'EatMeEnergyBars'],
         'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
         'condition' => ['isSourceSameLocation'],
       ],
@@ -319,7 +319,7 @@ abstract class FlowConvertor
       ],
       674 => [
         'description' => clienttranslate('When my Expedition moves forward —'),
-        'trigger' => 'AfterDusk',
+        'trigger' => ['AfterDusk', 'MoveExpedition'],
         'condition' => ['myExpeditionHasMoved'],
       ],
       656 => ['description' => clienttranslate('When you create one or more tokens —'), 'trigger' => 'InvokeTokenOnce', 'condition' => ['isMe']],
@@ -347,6 +347,31 @@ abstract class FlowConvertor
         'description' => clienttranslate('When you sacrifice a Permanent —'),
         'trigger' => 'Discard',
         'condition' => ['isMe', 'isSacrifice:permanent'],
+      ],
+      688 => [
+        'description' => clienttranslate('When an opponent receives a <GIFT> —'),
+        'trigger' => ['InvokeToken', 'Draw', 'Resupply'],
+        'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+      ],
+      689 => [
+        'description' => clienttranslate('When an opponent receives a <GIFT> —'),
+        'trigger' => ['InvokeToken', 'Draw', 'Resupply'],
+        'listeningConditions' => ['isMyTurn', 'isAfternoon', 'isNotMe', 'notTapped'],
+      ],
+      780 => [
+        'description' => clienttranslate('When you play a Permanent with Base Cost {4} or more —'),
+        'trigger' => 'ChooseAssigment',
+        'condition' => ['isCardPlayed:permanent', 'cardPlayedCostCheck:4'],
+      ],
+      781 => [
+        'description' => clienttranslate('When you <RESUPPLY_YOU> —'),
+        'trigger' => 'Resupply',
+        'condition' => ['isMe'],
+      ],
+      794 => [
+        'description' => clienttranslate('When you pass —'),
+        'trigger' => 'EndTurn',
+        'condition' => ['isMe'],
       ],
     ];
   }
@@ -414,6 +439,7 @@ abstract class FlowConvertor
               FT::ACTION(CHECK_CONDITION, [
                 'conditions' => ['isSpellFromTarget'],
                 'effect' => 'OUTPUT',
+                // 'description' => clienttranslate('if it\'s a spell'),
                 'oppositeEffect' => 'OPPOSITE',
               ])
             ),
@@ -963,6 +989,194 @@ abstract class FlowConvertor
           'OUTPUT'
         ),
       ],
+      // Duster
+      775 => [
+        'description' => clienttranslate('You may pass. If you don\'t:'),
+        'effect' => FT::XOR(
+          FT::ACTION(END_AFTERNOON, []),
+          'OUTPUT'
+        )
+      ],
+      758 => ['description' => clienttranslate('If I\'m <ANCHORED>:'), 'condition' => 'isAnchored'],
+      759 => ['description' => clienttranslate('If I\'m <IN_CONTACT>:'), 'condition' => 'isInContact'],
+      760 => ['description' => clienttranslate('If I\'m <IN_CONTACT>:'), 'condition' => 'isInContact'],
+      764 => ['description' => clienttranslate('If there\'s an exhausted card in your Reserve or you control an exhausted Permanent:'), 'condition' => 'hasControlExhaustedPermanentOrReserve'],
+      766 => [
+        'description' => clienttranslate('You may <RUSH>. If you don\'t:'),
+        'effect' => FT::XOR(
+          FT::RUSH(),
+          'OUTPUT'
+        )
+      ],
+      767 => [
+        'description' => clienttranslate('You may <RUSH>. Unless you played a Character this way:'),
+        'effect' => FT::SEQ_OPTIONAL_MANUAL(
+          FT::RUSH(),
+          FT::ACTION(CHECK_CONDITION, ['conditions' => ['isCardPlayedNotCharacter'], 'effect' => 'OUTPUT'])
+        )
+      ],
+      769 => [
+        'description' => clienttranslate('You may create a <MANASEED> token in target opponent\'s Landmarks. If you do:'),
+        'effect' =>  FT::SEQ_OPTIONAL(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'targetPlayer' => OPPONENT,
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+          ]),
+          'OUTPUT'
+        ),
+        'ifYouDo' => true,
+      ],
+      761 => ['description' => clienttranslate('If I\'m <IN_CONTACT>:'), 'condition' => 'isInContact'],
+      770 => [
+        'description' => clienttranslate('You may exhaust a card in your Reserve. If you do:'),
+        'effect' =>
+        FT::ACTION(TARGET, [
+          'targetLocation' => [RESERVE],
+          'targetPlayer' => ME,
+          'upTo' => true,
+          'isNotTapped' => true,
+          'targetType' => [PERMANENT, SPELL, CHARACTER],
+          'effect' => FT::SEQ(
+            FT::ACTION(EXHAUST, []),
+            'OUTPUT'
+          )
+        ]),
+        'ifYouDo' => true,
+      ],
+      773 => [
+        'description' => clienttranslate('You may exhaust a Permanent you control. If you do:'),
+        'effect' => FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [PERMANENT],
+            'targetPlayer' => ME,
+            'upTo' => true,
+            'isNotTapped' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              'OUTPUT'
+            )
+          ]
+        ),
+        'ifYouDo' => true,
+      ],
+      772 => [
+        'description' => clienttranslate('You may exhaust a Permanent you control or a card in your Reserve. If you do:'),
+        'effect' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT],
+            'targetPlayer' => ME,
+            'upTo' => true,
+            'isNotTapped' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              'OUTPUT'
+            )
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [SPELL, CHARACTER, PERMANENT],
+            'targetPlayer' => ME,
+            'isNotTapped' => true,
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              'OUTPUT'
+            )
+          ])
+        ),
+        'ifYouDo' => true,
+      ],
+      774 => [
+        'description' => clienttranslate('You may have target opponent <RESUPPLY_INF>. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(
+          FT::ACTION(RESUPPLY, ['player' => 'nextPlayer']),
+          'OUTPUT'
+        ),
+        'ifYouDo' => true,
+      ],
+      768 => [
+        'description' => clienttranslate('You may create a <MANA_MOTH> Illusion token in an opponent\'s Expedition. If you do:'),
+        'effect' => FT::SEQ_OPTIONAL(
+          FT::ACTION(TARGET_EXPEDITION, [
+            'players' => OPPONENT,
+            'effect' =>
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'YZ_Common_ManaMoth',
+            ]),
+          ]),
+          'OUTPUT'
+        ),
+        'ifYouDo' => true,
+      ],
+      763 => ['description' => clienttranslate('If there\'s an exhausted card in Reserve:'), 'condition' => 'hasXExhaustedReserve:1'],
+      765 => ['description' => clienttranslate('Unless I\'m <IN_CONTACT>:'), 'condition' => 'isNotInContact'],
+      757 => [
+        'description' => clienttranslate('<SABOTAGE>. If you discarded a Character this way:'),
+        'effect' =>  FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [SPELL, PERMANENT],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(DISCARD, []),
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT')
+          ]),
+        )
+        // hard code the discarded check
+      ],
+      762 => ['description' => clienttranslate('If I\'m not <ANCHORED>:'), 'condition' => 'isNotAnchored'],
+      771 => [
+        'description' => clienttranslate('You may exhaust a Character in your Reserve. If you do:'),
+        'effect' =>  FT::ACTION(TARGET, [
+          'upTo' => true,
+          'targetType' => [CHARACTER],
+          'targetPlayer' => ME,
+          'targetLocation' => [RESERVE],
+          'isNotTapped' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+            'OUTPUT'
+          )
+        ]),
+        'ifYouDo' => true,
+      ],
+      776 => [
+        'description' => clienttranslate('You may put a card from your hand in Reserve. If it\'s a Character:'),
+        'effect' => FT::XOR(
+          FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [SPELL, PERMANENT],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::DISCARD_TO_RESERVE(),
+            ],
+          ),
+          FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'targetLocation' => [HAND],
+              'effect' => FT::SEQ(
+                FT::DISCARD_TO_RESERVE(),
+                'OUTPUT'
+              )
+            ],
+          ),
+        )
+      ],
+
     ];
   }
 
@@ -1335,9 +1549,9 @@ abstract class FlowConvertor
         ]),
       ],
       95 => [
-        'description' => clienttranslate('Cards your opponents play can\'t cost less than {2}.'),
+        'description' => clienttranslate('Characters your opponents play can\'t cost less than {2}.'),
         'noTrigger' => true,
-        'attributes' => ['opponentCardsMinimumCost' => '2'],
+        'attributes' => ['opponentCharactersMinimumCost' => '2'],
       ],
       96 => [
         'description' => clienttranslate('Put me in my owner\'s Mana zone (as an exhausted Mana Orb).'),
@@ -2053,7 +2267,7 @@ abstract class FlowConvertor
         'output' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => CONTROLLER,
           'tokenType' => 'AX_Common_Brassbug',
-          'targetLocation' => ['source'],
+          'targetLocation' => ['initialSource'],
         ]),
       ],
       381 => [
@@ -3306,6 +3520,7 @@ abstract class FlowConvertor
       518 => [
         'description' => clienttranslate('You may discard target Character or Permanent with Hand Cost {2} or less.'),
         'output' => FT::ACTION(TARGET, [
+          'upTo' => true,
           'targetType' => [CHARACTER, TOKEN, PERMANENT],
           'maxHandCost' => 2,
           'effect' => FT::ACTION(DISCARD, []),
@@ -4144,6 +4359,828 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may send to Reserve up to two target Characters with Hand Cost {1} or less.'),
         'output' => FT::ACTION(TARGET, ['maxHandCost' => 1, 'n' => 2, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
       ],
+      // Duster
+      690 => [
+        'description' => clienttranslate('<RESUPPLY>, then you may <RUSH>.'),
+        'output' => FT::SEQ(
+          FT::ACTION(RESUPPLY, []),
+          FT::RUSH_OPTIONAL(),
+        )
+      ],
+      692 => [
+        'description' => clienttranslate('Create a <MANASEED> token in each player\'s Landmarks.'),
+        'output' => FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+          ]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+            'targetPlayer' => OPPONENT
+          ]),
+        ),
+      ],
+      693 => [
+        'description' => clienttranslate('Create a <MANASEED> token in target opponent\'s Landmarks.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'targetPlayer' => OPPONENT,
+          'tokenType' => 'NE_Common_Manaseed',
+          'targetLocation' => [LANDMARK],
+        ]),
+      ],
+      694 => [
+        'description' => clienttranslate('Create a <MANASEED> token in target player\'s Landmarks.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'NE_Common_Manaseed',
+          'targetLocation' => [LANDMARK],
+          'allPlayers' => true,
+        ]),
+      ],
+      695 => [
+        'description' => clienttranslate('Create three <MANASEED> tokens in your Landmarks.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'n' => 3,
+          'tokenType' => 'NE_Common_Manaseed',
+          'targetLocation' => [LANDMARK],
+        ]),
+      ],
+      696 => [
+        'description' => clienttranslate('Create two <MANASEED> tokens in your Landmarks.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'n' => 2,
+          'tokenType' => 'NE_Common_Manaseed',
+          'targetLocation' => [LANDMARK],
+        ]),
+      ],
+      698 => [
+        'description' => clienttranslate('Draw a card, then create two <MANASEED> tokens in your Landmarks.'),
+        'output' => FT::SEQ(
+          FT::ACTION(DRAW, ['players' => ME]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'n' => 2,
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+          ]),
+        )
+      ],
+      700 => [
+        'description' => clienttranslate('Draw a card, then create a <MANASEED> token in your Landmarks.'),
+        'output' => FT::SEQ(
+          FT::ACTION(DRAW, ['players' => ME]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+          ]),
+        )
+      ],
+      701 => [
+        'description' => clienttranslate('Draw a card, then put a card from your hand in Reserve.'),
+        'output' => FT::SEQ(
+          FT::ACTION(DRAW, ['players' => ME]),
+          FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'effect' => FT::DISCARD_TO_RESERVE(),
+          ])
+        ),
+      ],
+      702 => [
+        'description' => clienttranslate('Each player <RESUPPLIES>.'),
+        'output' => FT::SEQ(
+          FT::ACTION(RESUPPLY, []),
+          FT::ACTION(RESUPPLY, ['player' => 'nextPlayer'])
+        )
+      ],
+      703 => [
+        'description' => clienttranslate('Each player exhausts a Permanent they control or a card in their Reserve.'),
+        'output' => FT::PAR(
+          FT::XOR(
+            FT::ACTION(TARGET, [
+              'targetType' => [PERMANENT],
+              'targetPlayer' => ME,
+              'isNotTapped' => true,
+              'effect' => FT::SEQ(
+                FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              )
+            ]),
+            FT::ACTION(TARGET, [
+              'targetType' => [SPELL, CHARACTER, PERMANENT],
+              'targetPlayer' => ME,
+              'isNotTapped' => true,
+              'targetLocation' => [RESERVE],
+              'effect' => FT::SEQ(
+                FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+              )
+            ])
+          ),
+          [
+            'type' => NODE_XOR,
+            'pId' => 'nextPlayer',
+            'childs' => [
+              FT::ACTION(TARGET, [
+                'targetType' => [PERMANENT],
+                'targetPlayer' => ME,
+                'isNotTapped' => true,
+                'effect' => FT::SEQ(
+                  FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+                )
+              ]),
+              FT::ACTION(TARGET, [
+                'targetType' => [SPELL, CHARACTER, PERMANENT],
+                'targetPlayer' => ME,
+                'isNotTapped' => true,
+                'targetLocation' => [RESERVE],
+                'effect' => FT::SEQ(
+                  FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+                )
+              ])
+            ]
+          ]
+        )
+      ],
+      704 => [
+        'description' => clienttranslate('Exhaust a Permanent you control or a card in your Reserve.'),
+        'output' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT],
+            'targetPlayer' => ME,
+            'isNotTapped' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+            )
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [SPELL, CHARACTER, PERMANENT],
+            'targetPlayer' => ME,
+            'isNotTapped' => true,
+            'targetLocation' => [RESERVE],
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+            )
+          ])
+        )
+      ],
+      706 => [
+        'description' => clienttranslate('My Expedition moves backwards one region. If it does, your other Expedition moves forward one region.'),
+        'output' => FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'moveOtherExpedition' => true,])
+      ],
+      710 => [
+        'description' => clienttranslate('An Expedition facing mine moves backwards one region. If it does, its controller moves their other Expedition forward one region.'),
+        'output' => FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'n' => -1, 'moveOtherExpedition' => true,])
+      ],
+      707 => [
+        'description' => clienttranslate('Play me for {1} less if you control an exhausted Permanent, and also {1} less if there\'s an exhausted card in your Reserve.'),
+        'noTrigger' => true,
+        'attributes' => [
+          'dynamicCostReduction' => ['1:hasControl:permanent:1:false:exhausted', '1:hasReserve::::GTE:exhausted'],
+        ]
+      ],
+      708 => [
+        'description' => clienttranslate('You may play me for {1} less in an Expedition that\'s <IN_CONTACT>.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicCostReduction' => '1:hasOneContact']
+      ],
+      709 => [
+        'description' => clienttranslate('You may play me for {2} less in an Expedition that\'s <IN_CONTACT>.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicCostReduction' => '2:hasOneContact']
+      ],
+      713 => [
+        'description' => clienttranslate('I gain 1 boost per card in your Landmarks, up to a max of 3 boosts on me.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXLandmarkMax3'])
+      ],
+      714 => [
+        'description' => clienttranslate('If I would go to Reserve from the Expedition zone, I gain <FLEETING> and defect instead.'),
+        'noTrigger' => true,
+        'attributes' => ['leaveExpeditionDefect' => true,]
+      ],
+      715 => [
+        'description' => clienttranslate('Return another Character from your Reserve to your hand.'),
+        'output' =>  FT::ACTION(
+          TARGET,
+          [
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER],
+            'excludeSelf' => true,
+            'effect' => FT::RETURN_TO_HAND(),
+          ],
+        ),
+      ],
+      716 => [
+        'description' => clienttranslate('Target opponent reveals a random card from their hand. You may immediately play it for free or discard it.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'PhoibosUnique'])
+      ],
+      718 => [
+        'description' => clienttranslate('You may send to Reserve target Character with Base Cost {3} or less.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'upTo' => true,
+          'maxBaseCost' => 3,
+          'effect' => FT::DISCARD_TO_RESERVE()
+        ])
+      ],
+      724 => [
+        'description' => clienttranslate('Target opponent <EXHAUSTED_RESUPPLIES>.'),
+        'output' => FT::ACTION(RESUPPLY, ['player' => 'nextPlayer', 'exhausted' => true])
+      ],
+      725 => [
+        'description' => clienttranslate('Target opponent draws a card. Then, create a <MANASEED> token in their Landmarks.'),
+        'output' => FT::SEQ(
+          FT::ACTION(DRAW, ['players' => OPPONENT]),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'targetPlayer' => OPPONENT,
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+          ]),
+        )
+      ],
+      726 => [
+        'description' => clienttranslate('Target player <EXHAUSTED_RESUPPLIES>.'),
+        'output' => FT::ACTION(RESUPPLY, ['player' => 'nextPlayer', 'exhausted' => true])
+      ],
+      728 => [
+        'description' => clienttranslate('Pay {1} less for the next card you play this turn, down to a minimum of {1}.'),
+        'output' =>  [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => ALL, 'reduction' => 1, 'minimum' => 1, 'permanent' => false]],
+        ],
+      ],
+      729 => [
+        'description' => clienttranslate('The next Character played from your hand this turn activates one of its {r} abilities.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'triggerEffectOfNextCharacter',
+          'args' => ['type' => CHARACTER, 'from' => HAND, 'limit' => 1, 'effect' => RESERVE],
+        ]),
+      ],
+      730 => [
+        'description' => clienttranslate('Pay {1} less for the next Character you play this turn, down to a minimum of {1}.'),
+        'output' =>  [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1, 'minimum' => 1, 'permanent' => false]],
+        ],
+      ],
+      731 => [
+        'description' => clienttranslate('Pay {1} less for the next Permanent you play this turn, down to a minimum of {1}.'),
+        'output' =>  [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1, 'minimum' => 1, 'permanent' => false]],
+        ],
+      ],
+      732 => [
+        'description' => clienttranslate('Pay {1} less for the next Spell you play this turn, down to a minimum of {1}.'),
+        'output' =>  [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 1, 'minimum' => 1, 'permanent' => false]],
+        ],
+      ],
+      733 => [
+        'description' => clienttranslate('You may <RUSH> a Character. If played from your hand, it activates one of its {r} abilities.'),
+        'output' => FT::SEQ_OPTIONAL(
+          FT::ACTION(SPECIAL_EFFECT, [
+            'effect' => 'triggerEffectOfNextCharacter',
+            'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE],
+          ]),
+          FT::RUSH_CHARACTER()
+        ),
+      ],
+      734 => [
+        'description' => clienttranslate('You may <RUSH>. If you would play a card from Reserve this way, you may pay its Hand Cost instead of its Reserve Cost.'),
+        'output' => FT::SEQ_OPTIONAL(
+          FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play'], 'reserveFlipCost' => true, 'mandatory' => true])
+        )
+      ],
+      736 => [
+        'description' => clienttranslate('You may discard target Character or Permanent. If its Base Cost was {3} or more, its controller draws a card.'),
+        'output' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'minBaseCost' => 3,
+            'targetType' => [CHARACTER, PERMANENT],
+            'effect' => FT::SEQ(
+              FT::ACTION(DISCARD, []),
+              FT::ACTION(DRAW, ['players' => 'owner'])
+            )
+          ]),
+          FT::ACTION(TARGET, [
+            'maxBaseCost' => 2,
+            'targetType' => [CHARACTER, PERMANENT],
+            'effect' => FT::ACTION(DISCARD, []),
+          ]),
+        )
+      ],
+      737 => [
+        'description' => clienttranslate('You may discard target Character. If its Base Cost was {3} or more, its controller draws a card.'),
+        'output' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'minBaseCost' => 3,
+            'targetType' => [CHARACTER],
+            'effect' => FT::SEQ(
+              FT::ACTION(DISCARD, []),
+              FT::ACTION(DRAW, ['players' => 'owner'])
+            )
+          ]),
+          FT::ACTION(TARGET, [
+            'maxBaseCost' => 2,
+            'targetType' => [CHARACTER],
+            'effect' => FT::ACTION(DISCARD, []),
+          ]),
+        )
+      ],
+      739 => [
+        'description' => clienttranslate('You may return target Permanent to its owner\'s hand. If you do, create a <MANASEED> token in its controller\'s Landmarks.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [PERMANENT],
+          'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::RETURN_TO_HAND(),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'NE_Common_Manaseed',
+              'targetLocation' => ['discardedSource'],
+              'forcedLocation' => LANDMARK,
+              'targetPlayer' => 'owner'
+            ]),
+          )
+        ])
+      ],
+      756 => [
+        'description' => clienttranslate('You may return target Permanent to its owner\'s hand.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [PERMANENT],
+          'upTo' => true,
+          'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK],
+          'effect' => FT::RETURN_TO_HAND()
+        ])
+      ],
+      740 => [
+        'description' => clienttranslate('You may exhaust target card in any player\'s Reserve. If you do, create a <MANASEED> token in their Landmarks.'),
+        'output' => FT::ACTION(TARGET, [
+          'upTo' => true,
+          'targetType' => [CHARACTER, PERMANENT, SPELL],
+          'targetLocation' => [RESERVE],
+          'isNotTapped' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'targetPlayer' => 'owner',
+              'tokenType' => 'NE_Common_Manaseed',
+              'targetLocation' => [LANDMARK],
+            ]),
+          )
+        ])
+      ],
+      741 => [
+        'description' => clienttranslate('You may exhaust target card in Reserve. If it\'s in your Reserve, <RESUPPLY_LOW>.'),
+        'output' => FT::ACTION(
+          TARGET,
+          [
+            'targetLocation' => [RESERVE],
+            'targetType' => [SPELL, CHARACTER, LANDMARK],
+            'isNotTapped' => true,
+            'upTo' => true,
+            'effect' => FT::SEQ(
+              FT::ACTION(EXHAUST, []),
+              FT::ACTION(CHECK_CONDITION, ['condition' => 'isTargetSameOwner', 'effect' => FT::ACTION(RESUPPLY, [])])
+            )
+          ]
+        )
+      ],
+      742 => [
+        'description' => clienttranslate('You may exhaust target Permanent or target card in Reserve.'),
+        'output' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT],
+            'upTo' => true,
+            'effect' => FT::ACTION(EXHAUST, ['cardId' => EFFECT])
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT, CHARACTER, SPELL],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(EXHAUST, ['cardId' => EFFECT])
+          ])
+        )
+      ],
+      743 => [
+        'description' => clienttranslate('You may exhaust target Permanent, then you may exhaust target card in Reserve.'),
+        'output' => FT::SEQ(
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT],
+            'upTo' => true,
+            'effect' => FT::ACTION(EXHAUST, ['cardId' => EFFECT])
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT, CHARACTER, SPELL],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(EXHAUST, ['cardId' => EFFECT])
+          ])
+        )
+      ],
+      744 => [
+        'description' => clienttranslate('You may target a Character other than me with Base Cost {3} or less, it gains <ANCHORED>.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'upTo' => true,
+          'excludeSelf' => true,
+          'maxBaseCost' => 3,
+          'effect' => FT::GAIN(EFFECT, ANCHORED)
+        ])
+      ],
+      745 => [
+        'description' => clienttranslate('You may target a Character other than me with Base Cost {3} or less, it gains <ANCHORED>.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'upTo' => true,
+          'excludeSelf' => true,
+          'maxBaseCost' => 3,
+          'effect' => FT::GAIN(EFFECT, ANCHORED)
+        ])
+      ],
+      746 => [
+        'description' => clienttranslate('You may target a Character, it gains <ASLEEP>. If you control it, create a <MANASEED> token in your Landmarks.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::GAIN(EFFECT, ASLEEP),
+            FT::ACTION(CHECK_CONDITION, [
+              'condition' => 'hasSameOwner',
+              'effect' =>
+              FT::ACTION(INVOKE_TOKEN, [
+                'pId' => 'source',
+                'tokenType' => 'NE_Common_Manaseed',
+                'targetLocation' => ['discardedSource'],
+                'forcedLocation' => LANDMARK,
+                'targetPlayer' => 'owner'
+              ]),
+            ])
+          )
+        ]),
+      ],
+      747 => [
+        'description' => clienttranslate('You may target a Character, it gains <ASLEEP>. If you do, create a <MANASEED> token in its controller\'s Landmarks.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::GAIN(EFFECT, ASLEEP),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'NE_Common_Manaseed',
+              'targetLocation' => ['discardedSource'],
+              'forcedLocation' => LANDMARK,
+              'targetPlayer' => 'owner'
+            ]),
+          )
+        ]),
+      ],
+      752 => [
+        'description' => clienttranslate('Play me for {1} less per other card you played this turn.  {J} Pass.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicCostReduction' => 'playedCards']
+        // hard  code
+      ],
+      753 => [
+        'description' => clienttranslate('Play me for {2} less if you played another card this turn.  {J} Pass.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicCostReduction' => 'hasPlayedCards']
+        // hard code
+      ],
+      755 => [
+        'description' => clienttranslate('You may ready target Permanent or target card in Reserve.'),
+        'output' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT],
+            'upTo' => true,
+            'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT, CHARACTER, SPELL],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
+          ])
+        )
+      ],
+      790 => [
+        'description' => clienttranslate('You may ready target Permanent or target card in Reserve.'),
+        'output' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT],
+            'upTo' => true,
+            'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [PERMANENT, CHARACTER, SPELL],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
+          ])
+        )
+      ],
+      791 => [
+        'description' => clienttranslate('Ready up to two targets, Permanents or cards in Reserve.'),
+        'output' => [
+          'type' => NODE_OR,
+          'args' => ['n' => 2, 'canReuse' => true],
+          // 'pId' => 'source',
+          'childs' => [
+            FT::ACTION(TARGET, [
+              'targetType' => [PERMANENT],
+              'upTo' => true,
+              'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
+            ]),
+            FT::ACTION(TARGET, [
+              'targetType' => [PERMANENT, CHARACTER, SPELL],
+              'targetLocation' => [RESERVE],
+              'upTo' => true,
+              'effect' => FT::ACTION(READY, ['cardId' => EFFECT])
+            ])
+          ]
+        ]
+      ],
+      738 => ['description' => clienttranslate('Create a <MANASEED> token in target player\'s Landmarks.'), 'output' =>  [
+        'action' => INVOKE_TOKEN,
+        'args' => ['tokenType' => 'NE_Common_Manaseed', 'targetLocation' => [LANDMARK], 'allPlayers' => true],
+      ],],
+      691 => ['description' => clienttranslate('<SABOTAGE_LOW>, otherwise I gain 1 boost.'), 'output' => FT::SABOTAGE(), 'oppositeOutput' => FT::GAIN(ME, BOOST)],
+      717 => [
+        'description' => clienttranslate('Target opponent reveals the top four cards of their deck. You may play a Character from these cards for free and it gains <FLEETING>, then discard the rest.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticEncounter', 'args' => ['player' => OPPONENT]]),
+      ],
+      720 => [
+        'description' => clienttranslate('Take control of target Permanent with Base Cost {1} or less. If it\'s an Expedition Permanent, it joins my Expedition.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetLocation' => IN_PLAY,
+          'targetType' => [PERMANENT],
+          'maxBaseCost' => 1,
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true]])
+        ])
+      ],
+      721 => [
+        'description' => clienttranslate('Take control of target Permanent with Base Cost {2} or less. If it\'s an Expedition Permanent, it joins my Expedition.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetLocation' => IN_PLAY,
+          'targetType' => [PERMANENT],
+          'maxBaseCost' => 2,
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true, 'takeControl' => true]])
+        ])
+      ],
+      722 => [
+        'description' => clienttranslate('Take control of target token Permanent. If it\'s an Expedition Permanent, it joins my Expedition.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetLocation' => IN_PLAY,
+          'targetType' => [PERMANENT],
+          'onlyToken' => true,
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'args' => ['moveToMe' => true, 'takeControl' => true]])
+        ])
+      ],
+      750 => [
+        'description' => clienttranslate('Pay {4} less for the next Spell you play this Afternoon.'),
+        'output' => [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 4, 'permanent' => true]],
+        ]
+      ],
+      751 => [
+        'description' => clienttranslate('Pay {7} less for the next Spell you play this Afternoon.'),
+        'output' => [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => SPELL, 'reduction' => 7, 'permanent' => true]],
+        ]
+      ],
+      748 => [
+        'description' => clienttranslate('Pay {4} less for the next Permanent you play this Afternoon.'),
+        'output' => [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 4, 'permanent' => true]],
+        ]
+      ],
+      749 => [
+        'description' => clienttranslate('Pay {7} less for the next Permanent you play this Afternoon.'),
+        'output' => [
+          'action' => SPECIAL_EFFECT,
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 4, 'permanent' => true]],
+        ]
+      ],
+      697 => [
+        'description' => clienttranslate('Distribute 2 boosts among any target Characters in play.'),
+        'output' => FT::SEQ(
+          FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+          FT::ACTION(TARGET, ['targetLocation' => [STORM_LEFT, STORM_RIGHT], 'effect' => FT::ACTION(GAIN, ['type' => BOOST])]),
+        ),
+      ],
+      719 => [
+        'description' => clienttranslate('Send to Reserve target Character with Base Cost {4} or less, then exhaust it.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'maxBaseCost' => 4,
+          'effect' => FT::SEQ(
+            FT::DISCARD_TO_RESERVE(),
+            FT::ACTION(EXHAUST, [])
+          )
+        ]),
+      ],
+      727 => [
+        'description' => clienttranslate('Target player sacrifices the Character or Permanent they control with the highest Base Cost.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sacrificeHighestCharacterPermanent']),
+      ],
+      735 => [
+        'description' => clienttranslate('You may choose both, otherwise choose one:  • <SABOTAGE>.  • Create a <MANASEED> token in target player\'s Landmarks.'),
+        'output' => FT::OR(
+          FT::SABOTAGE(),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+            'allPlayers' => true,
+          ]),
+        ),
+        'oppositeOutput' => FT::XOR(
+          FT::SABOTAGE(),
+          FT::ACTION(INVOKE_TOKEN, [
+            'pId' => 'source',
+            'tokenType' => 'NE_Common_Manaseed',
+            'targetLocation' => [LANDMARK],
+            'allPlayers' => true,
+          ]),
+        )
+      ], // To see, hard code
+      712 => ['description' => clienttranslate('I gain 1 boost and lose <FLEETING>.'), 'output' => FT::SEQ(FT::GAIN(ME, BOOST), FT::LOOSE(ME, FLEETING)),],
+      711 => ['description' => clienttranslate('I gain <ANCHORED>.'), 'output' => FT::GAIN(ME, ANCHORED)],
+      723 => ['description' => clienttranslate('Target Character gains <ANCHORED>.'), 'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),],
+      754 => [
+        'description' => clienttranslate('You may play me for {2} less in an Expedition facing two or more Characters.  {J} Pass.'),
+        'noTrigger' => true,
+        'attributes' => ['playLimitation' => '-2Multi']
+      ],
+      705 => [
+        'description' => clienttranslate('I activate its {r} abilities as if they were mine.'),
+        'output' => FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'n' => 1, 'ownEffect' => true]),
+      ],
+      699 => [
+        'description' => clienttranslate('Draw a card, otherwise create a <MANASEED> token in your Landmarks.'),
+        'output' => FT::ACTION(DRAW, ['players' => ME]),
+        'oppositeOutput' =>  FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'NE_Common_Manaseed',
+          'targetLocation' => [LANDMARK],
+        ]),
+      ],
+      777 => [
+        'description' => clienttranslate('You may target a Character, it gains 1 boost and <FLEETING>.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::GAIN(EFFECT, BOOST),
+            FT::GAIN(EFFECT, FLEETING),
+          )
+        ])
+      ],
+      778 => [
+        'description' => clienttranslate('You may target a Character, it gains 2 boosts and <FLEETING>.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::GAIN(EFFECT, BOOST, 2),
+            FT::GAIN(EFFECT, FLEETING),
+          )
+        ])
+      ],
+      779 => ['description' => clienttranslate('<EXHAUSTED_RESUPPLY>.'), 'output' => FT::ACTION(RESUPPLY, ['exhausted' => true])],
+      684 => [
+        'description' => clienttranslate('Discard up to one target Character, otherwise send up to one target Character to Reserve.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+        'oppositeOutput' => FT::ACTION(TARGET, ['effect' => FT::DISCARD_TO_RESERVE()])
+      ],
+      685 => [
+        'description' => clienttranslate('You may exchange a card other than me from your Reserve with a card from your hand.'),
+        'output' => FT::ACTION(EXCHANGE, ['targetType' => [PERMANENT, SPELL, CHARACTER], 'excludeSelf' => true], ['optional' => true])
+      ],
+      686 => [
+        'description' => clienttranslate('You may exchange a Character other than me from your Reserve with a card from your hand.'),
+        'output' => FT::ACTION(EXCHANGE, ['targetType' => [CHARACTER], 'excludeSelf' => true], ['optional' => true])
+      ],
+      687 => [
+        'description' => clienttranslate('You may exchange a Spell from your Reserve with a card from your hand.'),
+        'output' => FT::ACTION(EXCHANGE, ['targetType' => [SPELL], 'excludeSelf' => true], ['optional' => true])
+      ],
+      782 => [
+        'description' => clienttranslate('Play me for {1} less if you control an exhausted Permanent.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicCostReduction' => ['1:hasControl:permanent:1:false:exhausted']]
+      ],
+      783 => [
+        'description' => clienttranslate('Play me for {1} less if there\'s an exhausted card in your Reserve.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicCostReduction' => ['1:hasReserve::::GTE:exhausted']]
+      ],
+      784 => [
+        'description' => clienttranslate('You may discard target Character. If you do, create a <MANA_MOTH> Illusion token in its Expedition.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'YZ_Common_ManaMoth',
+              'targetLocation' => ['discardedSource'],
+            ]),
+          )
+        ]),
+      ],
+      785 => [
+        'description' => clienttranslate('You may return target Character other than me to its owner\'s hand.'),
+        'output' => FT::ACTION(TARGET, ['excludeSelf' => true, 'targetType' => [CHARACTER], 'effect' => FT::RETURN_TO_HAND()]),
+      ],
+      786 => [
+        'description' => clienttranslate('You may discard target Character or Permanent with Base Cost {2} or less.'),
+        'output' => FT::ACTION(TARGET, [
+          'maxBaseCost' => 2,
+          'targetType' => [PERMANENT, CHARACTER],
+          'effect' => FT::ACTION(DISCARD, [])
+        ])
+      ],
+      787 => [
+        'description' => clienttranslate('You may discard target Permanent with Base Cost {3} or less.'),
+        'output' => FT::ACTION(TARGET, [
+          'maxBaseCost' => 3,
+          'targetType' => [PERMANENT],
+          'effect' => FT::ACTION(DISCARD, [])
+        ])
+      ],
+      788 => [
+        'description' => clienttranslate('You may send to Reserve target Character with Base Cost {4} or less.'),
+        'output' => FT::ACTION(TARGET, [
+          'maxBaseCost' => 4,
+          'upTo' => true,
+          'targetType' => [CHARACTER],
+          'effect' => FT::DISCARD_TO_RESERVE()
+        ])
+      ],
+      789 => [
+        'description' => clienttranslate('You may discard target Character with Base Cost {3} or less.'),
+        'output' => FT::ACTION(TARGET, [
+          'maxBaseCost' => 3,
+          'upTo' => true,
+          'targetType' => [CHARACTER],
+          'effect' => FT::ACTION(DISCARD, [])
+        ])
+      ],
+      792 => [
+        'description' => clienttranslate('I am <GIGANTIC> and <DEFENDER>.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicGigantic' => '1', 'dynamicDefender' => '1'],
+      ],
+      793 => [
+        'description' => clienttranslate('You may discard target Character. If you do, create a <WOOLLYBACK> Animal token in its Expedition.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'MU_Common_Woollyback',
+              'targetLocation' => ['discardedSource'],
+            ]),
+          )
+        ])
+      ],
+      795 => [
+        'description' => clienttranslate('You may have target opponent draw a card. If you do, target Character gains <ANCHORED>.'),
+        'output' => FT::SEQ_OPTIONAL_MANUAL(
+          FT::ACTION(TARGET_PLAYER, ['opponentsOnly' => true, 'effect' => FT::ACTION(DRAW, ['players' => ME])]),
+          FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)])
+        )
+      ],
+      914 => [
+        'description' => clienttranslate('You may immediately play a Permanent for {2} less.'),
+        'output' => FT::SEQ_OPTIONAL(
+          [
+            'action' => SPECIAL_EFFECT,
+            'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 3, 'permanent' => false]],
+          ],
+          FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [PERMANENT], 'actions' => ['play']])
+        ),
+      ],
     ];
   }
 
@@ -4497,6 +5534,15 @@ abstract class FlowConvertor
     } elseif ($trinity['trigger'] == 258) {
       $node['MoveExpedition']['conditions'][] = 'isNotNight';
       // $node['AfterDusk']['conditions'][] = 'isNight'; // removed as afterdusk is necessarily during night
+    } elseif ($trinity['output'] == 752 || $trinity['output'] == 753 || $trinity['output'] == 754) {
+      $properties['effectPlayed'] = FT::ACTION(END_AFTERNOON, []);
+    } elseif ($trinity['trigger'] == 542) {
+      $node['EatMeEnergyBars']['conditions'] = ['isPlayedInOpponentOtherExp'];
+      unset($node['EatMeEnergyBars']['listeningConditions']);
+    } elseif (in_array($trinity['trigger'], [688, 689])) {
+      $node['InvokeToken']['listeningConditions'] = ['isMyTurn', 'isAfternoon', 'isNotMeInvoke', 'notTapped'];
+    } elseif ($trinity['trigger'] == 5) {
+      $node['InvokeToken']['conditions'][] = 'isMeInvoke';
     }
     // elseif (in_array($trinity['condition'], [642, 643])) {
     //   // we need to force owner after reveal

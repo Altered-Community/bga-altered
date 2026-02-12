@@ -32,7 +32,7 @@ class YZ_Rare_KadigiranMageDancer extends \ALT\Models\Card
       'effectPassive' => [
         'ChooseAssignment' => [
           'condition' => 'isCardPlayed:spell',
-          'output' => FT::GAIN($this, BOOST),
+          'output' => FT::GAIN(ME, BOOST),
         ],
         'AtDusk' => [
           'condition' => 'hasBoost:3',

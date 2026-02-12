@@ -11,6 +11,7 @@ use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Managers\Meeples;
 use ALT\Helpers\Log;
+use ALT\Helpers\FT;
 
 trait NewDayTrait
 {
@@ -68,7 +69,7 @@ trait NewDayTrait
 
   public function actFirstDayManaSelection($cardIds)
   {
-    self::checkAction('actFirstDayManaSelection');
+    self::localCheckAction('actFirstDayManaSelection');
     $player = Players::getCurrent();
     $args = $this->argsFirstDayManaSelection()['_private'][$player->getId()];
 
@@ -125,7 +126,7 @@ trait NewDayTrait
 
         Cards::discard($cardIds, MANA);
         $cards = Cards::getMany($cardIds);
-        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} choses ${n} card(s) as mana'));
+        Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} chooses ${n} card(s) as mana'));
       }
 
       $this->checkCardListeners('Noon', ST_BEFORE_ASSIGNMENT);
@@ -136,6 +137,11 @@ trait NewDayTrait
 
   // Clear previous stuff and draw new cards
   function stNewDay()
+  {
+    $this->initCustomTurnOrder('morning', [Players::getActiveId()], 'stNewDayInit', 'stCheckMorning');
+  }
+
+  function stNewDayInit()
   {
     if (Players::checkVictory()) {
       return;
@@ -154,6 +160,8 @@ trait NewDayTrait
     Globals::setBlockedExpeditions([]);
     Globals::setGlobalTough([]);
     Globals::setFirstPass(-1);
+    Globals::setTurnCards([]);
+    Globals::setNextCharacterInExpeditionBoost([]);
     Cards::untapAll();
     Stats::incDays();
     Notifications::updateTotalMana();
@@ -166,24 +174,93 @@ trait NewDayTrait
     Globals::setFirstPlayer($newFirstPId);
     Notifications::newFirstPlayer(Players::get($newFirstPId));
 
+    $nodes = [];
+
     foreach (Players::getAll() as $player) {
+      $node = [];
       if ($player->getHero()->getUid() == 'ALT_CORE_B_LY_03_C') {
-        $player->draw(1, null, null, $player->getHero());
-        $player->draw(
-          1,
-          null,
-          MANA,
-          $player->getHero(),
-          clienttranslate('${player_name} draws 1 card from its deck and put it in mana (${card_name2}\'s effect)'),
-          clienttranslate('You draw ${card_names} from your deck and put it in mana (${card_name2}\'s effect)')
-        );
+        if ($player->getDeckCount() == 0) {
+          // interrupt as deck is empty
+          $node[] = FT::SEQ_OPTIONAL(
+            FT::ACTION(SHUFFLE, [], ['pId' => $player->getId(), 'optional' => true]),
+            FT::ACTION(DRAW, ['n' => 1, 'players' => ME], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()]),
+            FT::ACTION(DRAW_MANA, ['n' => 1, 'tapped' => false], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()])
+          );
+        } elseif ($player->getDeckCount() == 1) {
+          // interrupt as only 1 card in deck
+          $node[] = FT::SEQ(
+            FT::ACTION(DRAW, ['n' => 1, 'players' => ME], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()]),
+            FT::SEQ_OPTIONAL(
+              FT::ACTION(SHUFFLE, [], ['pId' => $player->getId(), 'optional' => true]),
+              FT::ACTION(DRAW_MANA, ['n' => 1, 'tapped' => false], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()])
+            )
+          );
+        } elseif ($player->getDeckCount() == 2) {
+          // interrupt as only 1 card in deck
+          $node[] = FT::SEQ(
+            FT::ACTION(DRAW, ['n' => 1, 'players' => ME], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()]),
+            FT::ACTION(DRAW_MANA, ['n' => 1, 'tapped' => false], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()]),
+            FT::SEQ_OPTIONAL(FT::ACTION(SHUFFLE, [], ['pId' => $player->getId(), 'optional' => true]),),
+          );
+        } else {
+          $player->draw(1, null, null, $player->getHero());
+          $player->draw(
+            1,
+            null,
+            MANA,
+            $player->getHero(),
+            clienttranslate('${player_name} draws 1 card from its deck and put it in mana (${card_name2}\'s effect)'),
+            clienttranslate('You draw ${card_names} from your deck and put it in mana (${card_name2}\'s effect)')
+          );
+        }
         $skipped[] = $player->getId();
         Globals::setSkippedPlayers($skipped);
       } else {
-        $player->draw(2, null, null, null);
+        if ($player->getDeckCount() == 0) {
+          $node[] = FT::SEQ_OPTIONAL(
+            FT::ACTION(SHUFFLE, [], ['pId' => $player->getId(), 'optional' => true]),
+            FT::ACTION(DRAW, ['n' => 2, 'players' => ME], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()])
+          );
+        } elseif ($player->getDeckCount() == 1) {
+          // interrupt as only 1 card in deck
+          $node[] = FT::SEQ(
+            FT::ACTION(DRAW, ['n' => 1, 'players' => ME], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()]),
+            FT::SEQ_OPTIONAL(
+              FT::ACTION(SHUFFLE, [], ['pId' => $player->getId(), 'optional' => true]),
+              FT::ACTION(DRAW, ['n' => 1, 'players' => ME], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()]),
+            )
+          );
+        } elseif ($player->getDeckCount() == 2) {
+          // interrupt as only 1 card in deck
+          $node[] = FT::SEQ(
+            FT::ACTION(DRAW, ['n' => 2, 'players' => ME], ['pId' => $player->getId(), 'sourceId' => $player->getHero()->getId()]),
+            FT::SEQ_OPTIONAL(FT::ACTION(SHUFFLE, [], ['pId' => $player->getId(), 'optional' => true]),),
+          );
+        } else {
+          $player->draw(2, null, null, $player->getHero());
+        }
+      }
+      if (count($node) > 0) {
+        foreach ($node as $n => &$no) {
+          $no['pId'] = $player->getId();
+        }
+
+        $nodes = array_merge($nodes, $node);
       }
     }
+    // throw new \feException(print_r($nodes));
+    if (count($nodes) > 0) {
+      Engine::setup(FT::SEQ(...$nodes), ['order' => 'morning']);
+      Engine::proceed();
+    } else {
+      // $this->stCheckMorning();
+      $this->endCustomOrder('morning');
+    }
+  }
 
+  public function stCheckMorning()
+  {
+    // throw new \feException(print_r(debug_print_backtrace()));
     $this->checkCardListeners('Morning', 'initNewDay');
   }
 

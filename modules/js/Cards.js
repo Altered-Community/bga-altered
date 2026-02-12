@@ -290,8 +290,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             `<div class='card-compare'>
               ${this.tplCard(card)}
               <div class='card-mockup' style='background-image:url("${g_gamethemeurl}misc/API/assets/${
-              card.properties.uid
-            }.jpg");'></div>
+                card.properties.uid
+              }.jpg");'></div>
             </div>`
           );
         });
@@ -631,9 +631,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == true) {
             $(`card-${card.id}`).classList.add('tapped');
           }
-           if (card.location.indexOf('reveal') == 0) {
-                this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
-            }
+          if (card.location.indexOf('reveal') == 0) {
+            this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
+          }
         });
         this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
@@ -655,7 +655,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               $(`card-${card.id}`).classList.add('tapped');
             }
             if (card.location.indexOf('reveal') == 0) {
-                this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
+              this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
             }
             return this.slide(`card-${card.id}`, container, {
               from: source,
@@ -1239,6 +1239,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             return this.slide(`card-${card.id}`, card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`).then(
               () => {
                 if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+                debug(card);
+                if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == false)
+                  $(`card-${card.id}`).classList.remove('tapped');
               }
             );
           });
@@ -1382,6 +1385,20 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       CARDS_DATA[card.id] = card;
     },
 
+    notif_endReveal(n) {
+      debug('Notif: end reveal', n);
+      if (n.args.player_id != this.player_id) {
+        n.args.cardsRevealed.forEach((cardId) => {
+          this.fadeOutAndDestroy($(`card-${cardId}`));
+        });
+      } else {
+        n.args.cardsRevealed.forEach((cardId) => {
+          id = `card-${cardId}`;
+          this.changeParent($(id), $(`hand-${n.args.player_id}`));
+        });
+      }
+    },
+
     //////////////////////////////////////////////
     //  _____ ____  _
     // |_   _|  _ \| |
@@ -1458,10 +1475,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       let i = this.getCardFrontInfos(card, tooltip);
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
+      let fullArt = card.properties.hasOwnProperty('fullArt') ? card.properties.fullArt : false;
 
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+      tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
           class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
-        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
+        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>`;
+
+      if (fullArt == false) {
+        tplData += `
           <div class='card-frame' data-faction='${p.faction}' data-type='hero'></div>
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
@@ -1476,9 +1497,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           </div>
           <div class='card-footer'><div class='setIcon' data-asset='${
             p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
-          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
-        </div>
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>`;
+      }
+      tplData += `</div>
       </div>`;
+      return tplData;
     },
     tplHeroCardTooltip(card) {
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
@@ -1519,34 +1542,45 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       //let reminders = effect.reminders.length > 0 ? '(' + effect.reminders.join('<br />') + ')' : '';
       let support = this.replaceKeyWordsAndGetReminders(p.supportDesc || '');
       let supportIcon = this.getSupportIcon(p);
+      let fullArt = card.properties.hasOwnProperty('fullArt') ? card.properties.fullArt : false;
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
         counter = ` data-counter='${p.extraDatas.counter}'`;
       }
 
+      if (!p.hasOwnProperty('mainAsset')) {
+        p.mainAsset = p.asset;
+      }
+
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
       tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-character ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
-        mini ? 'mini-card' : ''
-      }' data-boost='${i.boost}' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
-          <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
+          mini ? 'mini-card' : ''
+        }' data-boost='${i.boost}' ${counter}>
+        <div class='altered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
+
+      if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
+        tplData += `<div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
-        p.hasOwnProperty('token') ? 'token' : 'character'
-      }'></div>
+                p.hasOwnProperty('token') ? 'token' : 'character'
+              }'></div>
           `;
-      if (!p.hasOwnProperty('token')) {
-        tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
+
+        if (!p.hasOwnProperty('token')) {
+          tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
         <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>`;
+        }
       }
 
-      tplData += `
+      if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
+        tplData += `
 
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
-          <div class='card-typeline'>${_(p.typeline)}</div>
+          <div class='card-typeline'>${_(p.typeline)}</div>`;
 
+        tplData += `
           <div class='card-forest ${changed('forest')}' data-size='${sizes.forest}' 
             data-initial='${p.forest}' data-boost='${i.boost}'>
             ${p.forest}
@@ -1558,8 +1592,21 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-ocean ${changed('ocean')}' data-size='${sizes.ocean}' 
             data-initial='${p.ocean}' data-boost='${i.boost}'>
             ${p.ocean}
+          </div>`;
+      } else if (tooltip) {
+        tplData += `
+          <div class='card-forest card-fullArt' data-size='' 
+            data-initial='' data-boost='${i.boost}'>
           </div>
-
+          <div class='card-mountain card-fullArt' data-size='' 
+            data-initial='' data-boost='${i.boost}'> 
+          </div>
+          <div class='card-ocean card-fullArt' data-size='' 
+            data-initial='' data-boost='${i.boost}'> 
+          </div>`;
+      }
+      if (this.settings.displayFullArt == '0' || fullArt == false) {
+        tplData += `
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
               <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
@@ -1576,7 +1623,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           ${supportIcon}
           <div class='card-footer'><div class='setIcon' data-asset='${
             p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
-          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
+          }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>`;
+      }
+      tplData += `
         </div>
 
         <div class='altered-card-statuses'></div>
@@ -1618,11 +1667,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-typeline'>${_(p.typeline)}</div>
 
           <div class='card-forest' data-size='${sizes.forest}' data-initial='${p.forest}' data-boost='${i.boost}'>${
-        p.forest
-      }</div>
+            p.forest
+          }</div>
           <div class='card-mountain' data-size='${sizes.mountain}' data-initial='${p.mountain}' data-boost='${i.boost}'>${
-        p.mountain
-      }</div>
+            p.mountain
+          }</div>
           <div class='card-ocean' data-size='${sizes.ocean}' data-initial='${p.ocean}' data-boost='${i.boost}'>${p.ocean}</div>
 
           <div class='card-text' style="font-size:${i.textFontSize}">
@@ -1660,6 +1709,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
       let supportIcon = this.getSupportIcon(p);
+      let fullArt = card.properties.hasOwnProperty('fullArt') ? card.properties.fullArt : false;
 
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
@@ -1667,9 +1717,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
-      return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
+
+      tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-spell ${mini ? 'mini-card' : ''}' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
+        <div class='altered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
+
+      if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
+        tplData += `
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='spell'></div>
           <div class='rarity-gem' data-rarity='${p.rarity}'></div>
@@ -1697,11 +1751,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-footer'><div class='setIcon' data-asset='${
             p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
           }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
-        </div>
-
+        </div>`;
+      }
+      tplData += `
         <div class='altered-card-statuses'></div>
       </div>`;
+      return tplData;
     },
+
     tplSpellCardTooltip(card) {
       let p = card.properties;
       return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
@@ -1721,9 +1778,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let supportIcon = this.getSupportIcon(p);
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
       let isLandmark = card.properties.subtypes.includes('landmark');
+      let fullArt = card.properties.hasOwnProperty('fullArt') ? card.properties.fullArt : false;
       let permDescription = isLandmark
         ? _('(Play me in your Landmark zone. I don’t gain Fleeting.)')
         : _('(Play me in an Expedition. If it moves forward, I go to Reserve during Rest.)');
+
+      if (!p.hasOwnProperty('mainAsset')) {
+        p.mainAsset = p.asset;
+      }
 
       let counter = '';
       if (p.extraDatas && p.extraDatas.counterName) {
@@ -1732,21 +1794,23 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
         class='altered-card card-permanent ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
-        mini ? 'mini-card' : ''
-      }' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
-          <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
+          mini ? 'mini-card' : ''
+        }' ${counter}>
+        <div class='altered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
+
+      if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
+        tplData += `<div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
-        isLandmark ? (p.hasOwnProperty('token') ? 'permanent' : 'permanent') : 'gear'
-      }'></div>
+                isLandmark ? (p.hasOwnProperty('token') ? 'permanent' : 'permanent') : 'gear'
+              }'></div>
           `;
-      if (!p.hasOwnProperty('token')) {
-        tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
+        if (!p.hasOwnProperty('token')) {
+          tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
         <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
           <div class='card-costs-bg' data-faction='${p.faction}'></div>`;
-      }
-      tplData += `
+        }
+        tplData += `
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
 
@@ -1768,7 +1832,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             p.hasOwnProperty('setIcon') ? p.setIcon : 'core'
           }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
-
+          `;
+      }
+      tplData += `
         <div class='altered-card-statuses'></div>
       </div>`;
       return tplData;
@@ -1785,7 +1851,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     getCardFrontInfos(card, tooltip) {
-      if (tooltip) {
+      if (
+        tooltip &&
+        (!card.properties.hasOwnProperty('fullArt') || (this.settings.displayFullArt == '0' && card.properties.type != 'hero'))
+      ) {
         let oCard = $(`card-${card.id}`);
         return {
           frameSize: oCard.querySelector('.card-frame').dataset.size,
@@ -1793,6 +1862,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           nameFontSize: oCard.querySelector('.card-name').style.fontSize,
           boost: oCard.dataset.boost,
           textPaddingTop: oCard.querySelector('.card-effect').style.paddingTop,
+        };
+      } else if (tooltip) {
+        let oCard = $(`card-${card.id}`);
+        return {
+          frameSize: 0,
+          textFontSize: 0,
+          nameFontSize: 0,
+          boost: oCard.dataset.boost,
+          textPaddingTop: 0,
         };
       }
 
@@ -1941,6 +2019,28 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let explanation = '';
       // debug(this.getMeeplesOnCard(card.id));
       // let meeplesByTypes = this.getMeeplesOnCard(card.id).groupBy((oMeeple) => oMeeple.dataset.type);
+      if (
+        (this.settings.displayFullArt == 1 && card.properties.hasOwnProperty('fullArt') && card.properties.fullArt == true) ||
+        (this.settings.displayFullArt == '0' &&
+          card.properties.hasOwnProperty('fullArt') &&
+          card.properties.fullArt == true &&
+          card.properties.type == 'hero')
+      ) {
+        if (card.properties.hasOwnProperty('effectDesc')) {
+          explanation += `<div class='explanation'>
+            <p>
+              ${this.formatString(card.properties.effectDesc)}
+            </p>
+          </div>`;
+        }
+        if (card.properties.hasOwnProperty('supportDesc')) {
+          explanation += `<div class='explanation'>
+            <p>
+              ${this.formatString(card.properties.supportDesc)}
+            </p>
+          </div>`;
+        }
+      }
       let meeplesByTypes = this.tempGroupBy(this.getMeeplesOnCard(card.id));
       Object.keys(meeplesByTypes).forEach((type) => {
         let tooltipDesc = this.getMeepleTooltip({ type });
@@ -2212,6 +2312,32 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         TOUGH_CHA_P_1: {
           text: _('Tough 1'),
           reminder: _("Your opponent's Spells and abilities that target me cost {1} more."),
+        },
+        // Duster
+        MANASEED: {
+          text: _('Manaseed'),
+        },
+        IN_CONTACT: {
+          text: _('In contact'),
+          reminder: _("I'm In Contact if another player's Expedition is in my region."),
+        },
+        GIFT: {
+          text: _('Gift'),
+        },
+        ANCHORED_FS: {
+          text: _('Anchored'),
+        },
+        ANCHORED_CHA_P: {
+          text: _('Anchored'),
+          reminder: _("During Rest, I don't go to Reserve and I lose Anchored."),
+        },
+        ASLEEP_CHA_P: {
+          text: _('Asleep'),
+          reminder: _("During Dusk, ignore my statistics. During Rest, I don't go to Reserve and I lose Asleep."),
+        },
+        RESUPPLY_THEY_S: {
+          text: _('Resupply'),
+          reminder: _('Put the top card of your deck in Reserve.'),
         },
       };
 

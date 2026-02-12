@@ -28,7 +28,7 @@ class MU_Common_ConiferalConeman extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 5,
       'costReserve' => 5,
-      'effectPlayed' => FT::GAIN($this, ANCHORED),
+      'effectPlayed' => FT::GAIN(ME, ANCHORED),
     ];
   }
 }

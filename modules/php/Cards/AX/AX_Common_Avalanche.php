@@ -26,7 +26,7 @@ class AX_Common_Avalanche extends \ALT\Models\Card
             'costHand' => 3,
             'costReserve' => 3,
             'effectPlayed' => FT::SEQ(
-                FT::GAIN($this, FLEETING),
+                FT::GAIN(ME, FLEETING),
                 FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalMountain' => 4, 'effect' => FT::DISCARD_TO_RESERVE()])
             ),
         ];

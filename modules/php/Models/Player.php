@@ -49,6 +49,7 @@ class Player extends \ALT\Helpers\DB_Model
     $data['hand'] = $current ? $this->getHand()->ui() : [];
     $data['manaCards'] = $current ? $this->getManaCards() : [];
     $data['reserveSlots'] = $this->getReserveSlots();
+    $data['landmarkSlots'] = $this->getLandmarkSlots();
     return $data;
   }
 
@@ -160,7 +161,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $cards = $this->getManaCards(false)->limit($n);
     if ($cards->count() < $n) {
-      throw new \BgaVisibleSystemException('You don\'t have enough mana to pay. Should not happen');
+      throw new \BgaUserException(clienttranslate('You don\'t have enough mana to pay'));
     }
 
     foreach ($cards as $card) {
@@ -247,6 +248,9 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function getLandmarkSlots()
   {
+    if (is_null($this->getHero())) {
+      return 0;
+    }
     return $this->getHero()->getLandmarkSlots();
   }
 
@@ -528,6 +532,7 @@ class Player extends \ALT\Helpers\DB_Model
     $movedToReserve = [];
     $eternals = [];
     $seasoned = [];
+    $gigantic = [];
 
     foreach ($this->getPlayedCards() as $cId2 => $card2) {
       if ($card2->isEternal()) {
@@ -535,6 +540,9 @@ class Player extends \ALT\Helpers\DB_Model
       }
       if ($card2->isSeasoned()) {
         $seasoned[] = $cId2;
+      }
+      if ($card2->isGigantic()) {
+        $gigantic[] = $cId2;
       }
     }
 
@@ -572,6 +580,18 @@ class Player extends \ALT\Helpers\DB_Model
 
         $toAdd = FT::XOR(...$nodes);
         $toAdd['pId'] = $card->getPId();
+        $toAdd['sourceId'] = $cId;
+        Engine::pushAfterFinishingChilds([$toAdd]);
+        continue;
+      }
+
+      if (!$card->hasToken(ASLEEP) && !$card->hasToken(ANCHORED) && !$card->hasToken(FLEETING) && $card->isLeaveExpeditionDefect()) {
+        $toAdd = FT::SEQ(
+          FT::GAIN($cId, FLEETING),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'cardId' => $cId], ['sourceId' => $cId])
+        );
+        $toAdd['pId'] = $card->getPId();
+        $toAdd['sourceId'] = $cId;
         Engine::pushAfterFinishingChilds([$toAdd]);
         continue;
       }
@@ -588,7 +608,7 @@ class Player extends \ALT\Helpers\DB_Model
       // Remove card if Fleeting but is not anchored
       if ($card->hasToken(FLEETING) && !$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
         $originalLocation = $card->getLocation();
-        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard($seasoned));
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->discard($seasoned, $gigantic));
 
         if ($card->isToken()) {
           // delete the card as it's a token
@@ -614,7 +634,7 @@ class Player extends \ALT\Helpers\DB_Model
       // Move card without anchored,asleep to reserve
       if (!$card->hasToken(ANCHORED) && !$card->hasToken(ASLEEP) && !in_array($cId, $eternals)) {
         // move card to reserve
-        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve($seasoned));
+        $deletedMeepleIds = array_merge($deletedMeepleIds, $card->moveToReserve($seasoned, $gigantic));
         if ($card->isToken()) {
           // delete the card as it's a token
           $deletedCardTokens[] = $card;
@@ -722,6 +742,19 @@ class Player extends \ALT\Helpers\DB_Model
         continue;
       }
       if ($card->isExpeditionSeasoned()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasExpeditionToughBoosted($expedition = null)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if (!is_null($expedition) && $card->getLocation() != $expedition) {
+        continue;
+      }
+      if ($card->getExpeditionTough() == 'boosted') {
         return true;
       }
     }
@@ -1020,6 +1053,25 @@ class Player extends \ALT\Helpers\DB_Model
     );
   }
 
+  public function countUniversalToughAnchoredAsleep()
+  {
+    return count(
+      $this->getPlayedCards()->filter(function ($card) {
+        $dynamicTough = $card->getDynamicTough();
+        if (!is_array($dynamicTough)) {
+          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'anchoredOrAsleep';
+        } else {
+          foreach ($dynamicTough as $singleTough) {
+            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'anchoredOrAsleep') {
+              return true;
+            }
+          }
+          return false;
+        }
+      })
+    );
+  }
+
   public function countUniversalTokenGigantic()
   {
     return count(
@@ -1044,5 +1096,60 @@ class Player extends \ALT\Helpers\DB_Model
         }
       })
     );
+  }
+
+  public function isInContact($location = null)
+  {
+    $opponent = Players::getNext($this);
+    $opponentTokens = Meeples::getStormTokens($opponent->getId());
+
+    if (is_null($location)) {
+      $tokenF = ['getHeroToken', 'getCompanionToken'];
+      if ($this->hasOverrideInContact(STORM_LEFT) || $this->hasOverrideInContact(STORM_RIGHT)) {
+        return true;
+      }
+    } elseif ($location == STORM_LEFT) {
+      $tokenF = ['getHeroToken'];
+      if ($this->hasOverrideInContact(STORM_LEFT)) {
+        return true;
+      }
+    } elseif ($location == STORM_RIGHT) {
+      $tokenF = ['getCompanionToken'];
+      if ($this->hasOverrideInContact(STORM_RIGHT)) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+
+    foreach ($tokenF as $tok) {
+      $token = $this->$tok()->getLocation();
+      foreach ($opponentTokens as $mId => $meeple) {
+        if ($token == $meeple->getLocation()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public function hasOverrideInContact($location)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if (($card->getLocation() == $location || ($card->isGigantic() && in_array($card->getLocation(), STORMS))) && $card->isOverrideContact()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasOverrideBehind($location)
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if (($card->getLocation() == $location || ($card->isGigantic() && in_array($card->getLocation(), STORMS))) && $card->isOverrideBehind()) {
+        return true;
+      }
+    }
+    return false;
   }
 }

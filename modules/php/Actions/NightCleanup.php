@@ -80,6 +80,7 @@ class NightCleanup extends \ALT\Models\Action
     $cards = Cards::getMany($cardIds);
     $deletedMeeples = [];
     $destination = DISCARD_PILE;
+    $originalDestination = $destination;
 
     // Alizé, some cards can be kept if they are exhausted
     if ($args['exhaustedSlots'] >= 0 && count($reserveCardIds) > $args['nReserve']) {
@@ -100,6 +101,7 @@ class NightCleanup extends \ALT\Models\Action
 
     foreach ($cards as $cId => $card) {
       // Save information about original location
+      $destination = $originalDestination;
       $originalLocation = $card->getLocation();
       $newId = $cId;
       $sacrifice = false;

@@ -27,7 +27,7 @@ class OD_Rare_AmeliaEarhart extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 1,
-      'effectHand' => FT::GAIN($this, BOOST),
+      'effectHand' => FT::GAIN(ME, BOOST),
     ];
   }
 }

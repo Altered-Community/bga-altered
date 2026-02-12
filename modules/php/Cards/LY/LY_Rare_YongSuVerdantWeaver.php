@@ -29,7 +29,7 @@ class LY_Rare_YongSuVerdantWeaver extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'has3WithZeroStat', 'effect' => FT::GAIN($this, BOOST, 2)]),
+      'effectPlayed' => FT::ACTION(CHECK_CONDITION, ['condition' => 'has3WithZeroStat', 'effect' => FT::GAIN(ME, BOOST, 2)]),
     ];
   }
 }

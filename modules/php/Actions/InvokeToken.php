@@ -24,11 +24,13 @@ class InvokeToken extends \ALT\Models\Action
   protected $args = [
     'allPlayers' => false,
     'moreThan1' => false,
+    'forcedLocation' => null,
+    'n' => 1
   ];
 
   public function getDescription()
   {
-    $msg = clienttranslate('Invoke ${tokenName}');
+    $msg = clienttranslate('Invoke ${tokenName} in ${location}');
     return [
       'log' => $msg,
       'args' => [
@@ -53,12 +55,24 @@ class InvokeToken extends \ALT\Models\Action
     return [
       'token' => $tokenType,
       'tokenType' => $this->getToken()->getName(),
-      'n' => $this->getCtxArg('n') ?? 1,
+      'n' => $this->getN(),
       'canPass' => $this->getCtxArg('optional') ?? false,
       'locations' => $targetLocations,
-      'allPlayers' => count($targetLocations) > 1 || ($this->getCtxArg('allPlayers') ?? false),
+      'allPlayers' => (is_null($this->getCtxArg('targetPlayer')) && count($targetLocations) > 1) || ($this->getCtxArg('allPlayers') ?? false),
       'targetPlayer' => null,
     ];
+  }
+
+  public function getN()
+  {
+    $n = $this->getArg('n');
+    if (is_int($n)) {
+      return $n;
+    } elseif ($n == 'landmarks3') {
+      return min($this->getPlayer()->getLandmarks()->count(), 3);
+    } elseif ($n == 'paidMana') {
+      return $n = $this->getCtx()->getParent()->toArray()['childs'][0]['actionResolutionArgs'][0];
+    }
   }
 
   public function getToken()
@@ -120,6 +134,13 @@ class InvokeToken extends \ALT\Models\Action
     if ($location == 'discardedSource') {
       return [STORM_LEFT, 'discarded card source'];
     }
+    if ($location == STORM_LEFT) {
+      return [STORM_LEFT, clienttranslate('Hero expedition')];
+    }
+    if ($location == STORM_RIGHT) {
+      return [STORM_RIGHT, clienttranslate('Companion expedition')];
+    }
+
 
     return [$realLocation, $strLocation];
   }
@@ -180,15 +201,13 @@ class InvokeToken extends \ALT\Models\Action
 
     if (!is_null($this->getCtxArg('targetPlayer'))) {
       $targetPlayer = $this->getCtxArg('targetPlayer');
-      if ($targetPlayer == 'owner') {
-        $effectId = $this->getCtxArg('cardId');
-        $invokePId = Cards::get($effectId)->getPId();
-      } elseif ($targetPlayer == OPPONENT) {
+      if ($targetPlayer == OPPONENT) {
         $invokePId = Players::getNextId($player);
       } elseif ($targetPlayer == 'owner') {
         $invokePId = $this->getCtxArgs()['ownerId'] ?? -1;
         if ($invokePId == -1) {
-          throw new \BgaVisibleSystemException('Error in invoke token, should not happen');
+          $effectId = $this->getCtxArg('cardId');
+          $invokePId = Cards::get($effectId)->getPId();
         }
       }
     }
@@ -200,7 +219,11 @@ class InvokeToken extends \ALT\Models\Action
     list($realLocation, $strLocation) = $this->getLocationInfos($explodedLocation[0]);
     $location = $realLocation;
 
-    for ($i = 0; $i < ($this->getCtxArg('n') ?? 1); $i++) {
+    if (!is_null($this->getArg('forcedLocation'))) {
+      $location = $this->getArg('forcedLocation');
+    }
+
+    for ($i = 0; $i < $this->getN(); $i++) {
       $card = $this->getToken();
       $card = Cards::singleCreate([
         'player_id' => $invokePId,
@@ -227,6 +250,18 @@ class InvokeToken extends \ALT\Models\Action
         Globals::setNextTokenAsleep(false);
       }
 
+      $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+      if (
+        $card->getType() == CHARACTER && (
+          isset($expeditionsBoosts[$player->getId()][$location]) ||
+          ($card->isGigantic() && isset($expeditionsBoosts[$player->getId()][$location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]))
+        )
+      ) {
+        $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]));
+        unset($expeditionsBoosts[$player->getId()][$location]);
+        Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
+      }
+
 
       $this->checkAfterListeners($player, [
         'playCard' => true,
@@ -237,7 +272,8 @@ class InvokeToken extends \ALT\Models\Action
         'to' => $location,
         'locationPId' => $invokePId,
         'gigantic' => $card->isGigantic(),
-        'token' => true
+        'token' => true,
+        'invoked' => $this->getCtxArg('tokenType')
       ]);
       if (!$this->getArg('moreThan1') && $i == 0) {
         $this->checkAfterListeners($player, [
@@ -249,10 +285,15 @@ class InvokeToken extends \ALT\Models\Action
           'to' => $location,
           'locationPId' => $invokePId,
           'gigantic' => $card->isGigantic(),
-          'token' => true
+          'token' => true,
+          'invoked' => $this->getCtxArg('tokenType')
         ], true, 'InvokeTokenOnce');
       }
     }
-    $this->resolveAction([$card->getId()]);
+    if ($this->getN() <= 0) {
+      $this->resolveAction(['']);
+    } else {
+      $this->resolveAction([$card->getId()]);
+    }
   }
 }

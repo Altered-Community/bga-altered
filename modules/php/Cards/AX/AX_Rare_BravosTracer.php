@@ -27,7 +27,7 @@ class AX_Rare_BravosTracer extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::GAIN($this, FLEETING),
+      'effectPlayed' => FT::GAIN(ME, FLEETING),
     ];
   }
 }

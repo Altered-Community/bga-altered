@@ -29,7 +29,7 @@ class BR_Rare_BravosTracer extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest', 'ocean'],
-      'effectPlayed' => FT::GAIN($this, FLEETING),
+      'effectPlayed' => FT::GAIN(ME, FLEETING),
     ];
   }
 }

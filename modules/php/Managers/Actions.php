@@ -48,7 +48,8 @@ class Actions
     END_AFTERNOON,
     MARK_REGION,
     MOVE_REGION_MARKER,
-    INTERUPT_REVEAL
+    INTERUPT_REVEAL,
+    SHUFFLE,
   ];
 
   public static function get($actionId, &$ctx = null)
@@ -107,7 +108,7 @@ class Actions
 
     // Check action
     if (!$automatic) {
-      Game::get()->checkAction($actionName);
+      Game::get()->localCheckAction($actionName);
       $stepId = Log::step();
       Notifications::newUndoableStep($player, $stepId);
     } else {

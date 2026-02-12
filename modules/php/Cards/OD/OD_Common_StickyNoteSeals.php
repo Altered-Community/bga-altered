@@ -27,7 +27,7 @@ class OD_Common_StickyNoteSeals extends \ALT\Models\Card
 
       'costHand' => 3,
       'costReserve' => 3,
-      'effectPlayed' => FT::SEQ(FT::GAIN($this, FLEETING), [
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING), [
         'optional' => true,
         'type' => NODE_XOR,
         'childs' => [

@@ -26,7 +26,7 @@ class AX_Common_SapOverflow extends \ALT\Models\Card
             'costHand' => 4,
             'costReserve' => 4,
             'effectPlayed' => FT::SEQ(
-                FT::GAIN($this, FLEETING),
+                FT::GAIN(ME, FLEETING),
                 FT::ACTION(TARGET, [
                     'targetType' => [CHARACTER, TOKEN],
                     'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],

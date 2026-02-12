@@ -72,6 +72,12 @@ class Globals extends \ALT\Helpers\DB_Manager
     'globalTough' => 'obj', // 'Kauri's intervention
     'nextTokenAsleep' => 'bool', // Pan
 
+    // Duster
+    'turnCards' => 'obj',
+    'nextCharacterInExpeditionBoost' => 'obj',
+    'nextCharacterBaseCost3Anchored' => 'bool',
+
+
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
     'beginner' => 'int',

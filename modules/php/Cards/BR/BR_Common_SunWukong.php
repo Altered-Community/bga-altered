@@ -28,7 +28,7 @@ class BR_Common_SunWukong extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 4,
-      'effectReserve' => FT::GAIN($this, BOOST, 2),
+      'effectReserve' => FT::GAIN(ME, BOOST, 2),
     ];
   }
 }

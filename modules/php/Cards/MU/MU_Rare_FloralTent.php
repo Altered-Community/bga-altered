@@ -30,7 +30,7 @@ class MU_Rare_FloralTent extends \ALT\Models\Card
             'changedStats' => ['costHand'],
             'effectPlayed' =>  FT::ACTION(RESUPPLY, []),
             'protectAnchoredInExpedition' => true,
-            'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+            'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
         ];
     }
 }

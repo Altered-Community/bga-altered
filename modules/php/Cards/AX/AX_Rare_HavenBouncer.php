@@ -33,7 +33,7 @@ class AX_Rare_HavenBouncer extends \ALT\Models\Card
         'upTo' => true,
         'effect' => FT::ACTION(DISCARD, []),
       ]),
-      'effectReserve' => FT::GAIN($this, BOOST, 2),
+      'effectReserve' => FT::GAIN(ME, BOOST, 2),
     ];
   }
 }

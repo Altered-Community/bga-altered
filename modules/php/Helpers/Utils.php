@@ -154,6 +154,20 @@ abstract class Utils extends \APP_DbObject
     return $t;
   }
 
+  public static function tagPId($t, $pId)
+  {
+    if (!isset($t['pId'])) {
+      $t['pId'] = $pId;
+    }
+
+    if (isset($t['childs'])) {
+      $t['childs'] = array_map(function ($child) use ($pId) {
+        return self::tagPId($child, $pId);
+      }, $t['childs']);
+    }
+    return $t;
+  }
+
   public static function updateTree($t, $searched, $newValue, $limitedKeys = [])
   {
     foreach ($t as $key => $value) {

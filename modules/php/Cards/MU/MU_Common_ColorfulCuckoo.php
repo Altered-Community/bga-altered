@@ -32,16 +32,22 @@ class MU_Common_ColorfulCuckoo extends \ALT\Models\Card
       'effectPassive' => [
         'ChooseAssignment' => [
           'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
+          'conditions' => ['isSourceSameLocation'],
           'output' => FT::GAIN(ME, BOOST)
         ],
         'InvokeToken' => [
           'listeningConditions' => ['isAddedCardAnyPlayer:character', 'isPlayedInOpponentExpedition'],
+          'conditions' => ['isSourceSameLocation'],
           'output' => FT::GAIN(ME, BOOST)
         ],
         'MoveCard' => [
-          'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition'],
+          'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition', 'isSourceSameLocation'],
           'output' => FT::GAIN(ME, BOOST)
         ],
+        'EatMeEnergyBars' => [
+          'conditions' => ['isPlayedInOpponentOtherExp'],
+          'output' => FT::GAIN(ME, BOOST)
+        ]
       ],
     ];
   }

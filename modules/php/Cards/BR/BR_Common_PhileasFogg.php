@@ -28,7 +28,7 @@ class BR_Common_PhileasFogg extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectReserve' => FT::ACTION(END_AFTERNOON, [], ['optional' => true])
+      'effectReserve' => FT::SEQ_OPTIONAL_MANUAL(FT::ACTION(END_AFTERNOON, [])), //, ['optional' => true])
     ];
   }
 }

@@ -27,7 +27,7 @@ class MU_Common_Kodama extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectHand' => FT::GAIN($this, ASLEEP),
+      'effectHand' => FT::GAIN(ME, ASLEEP),
     ];
   }
 }

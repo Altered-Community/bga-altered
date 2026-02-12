@@ -40,7 +40,8 @@ class ChooseAssignment extends \ALT\Models\Action
     'minBaseCost' => 0,
     'limited' => false,
     'forcedLocation' => null,
-    'mandatory' => false
+    'mandatory' => false,
+    'reserveFlipCost' => false
   ];
 
   public function argsChooseAssignment()
@@ -54,6 +55,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $maxHandCost = $this->getArg('maxHandCost');
     $maxBaseCost = $this->getArg('maxBaseCost');
     $minBaseCost = $this->getArg('minBaseCost');
+    $reserveFlipCost = $this->getArg('reserveFlipCost');
     $free = $this->getArg('free');
     $forcedLocation = $this->getArg('forcedLocation');
 
@@ -61,9 +63,9 @@ class ChooseAssignment extends \ALT\Models\Action
     if (in_array('play', $authorizedActions)) {
       $actions['play'] = $handCards
         ->merge($reserveCards)
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost) {
+        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost, $reserveFlipCost) {
           return (in_array($card->getType(), $authorizedTypes) || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0) &&
-            ((!$free && $card->canBePlayed($player)) || ($free && $card->getCostHand() <= $maxHandCost  && $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped() &&
+            ((!$free && $card->canBePlayed($player, false, $reserveFlipCost)) || ($free && $card->getCostHand() <= $maxHandCost  && $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped() &&
               (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost)) &&
               (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
             ));;
@@ -196,10 +198,28 @@ class ChooseAssignment extends \ALT\Models\Action
 
     if ($free == false) {
       // Calculate cost
-      $cost = $card->getCost($scout);
+      $cost = $card->getCost($scout, $this->getArg('reserveFlipCost'));
+      // Diocles Chariot racer Rare
+      if ($card->getPlayLimitation() == '+3StartingRegion') {
+        if ($location == STORM_LEFT && $player->getHeroToken()->getLocation() == 'storm-0') {
+          $cost += 3;
+        }
+        if ($location == STORM_RIGHT && $player->getCompanionToken()->getLocation() == 'storm-7') {
+          $cost += 3;
+        }
+      }
+      // Lyra DJ
+      if ($card->getPlayLimitation() == '-2Contact' && $player->isInContact($location)) {
+        $cost -= 2;
+      } elseif ($card->getPlayLimitation() == '-2Multi') {
+        $opponent = Players::getNext($player);
+        if ($opponent->countCardsInLocation(STORM_LEFT, CHARACTER) || $opponent->countCardsInLocation(STORM_RIGHT, CHARACTER)) {
+          $cost -= 2;
+        }
+      }
       $costReduction = Globals::getCostReduction();
       foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
-        if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType())) {
+        if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType()) || $costType == ALL) {
           unset($costReduction[$player->getId()][$costType]);
         }
       }
@@ -289,6 +309,43 @@ class ChooseAssignment extends \ALT\Models\Action
         );
         $this->resolveAction(['CostReduction']);
         return;
+      } elseif ($card->getCostReductionTap() > 0) {
+        if (
+          ($card->getLocation() == RESERVE && $player->getReserveCards()->filter(function ($c) {
+            return !$c->isTapped();
+          })->count() > 1) ||
+          ($card->getLocation() != RESERVE && $player->getReserveCards()->filter(function ($c) {
+            return !$c->isTapped();
+          })->count() > 0)
+        ) {
+          $this->insertAsChild(
+            FT::XOR(
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              FT::SEQ(
+                FT::ACTION(
+                  TARGET,
+                  [
+                    'targetLocation' => [RESERVE],
+                    'targetPlayer' => ME,
+                    'excludeSelf' => true,
+                    'isNotTapped' => true,
+                    'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                    'effect' => FT::ACTION(EXHAUST, []),
+                  ],
+                  ['sourceId' => $cardId]
+                ),
+                FT::ACTION(PLAY_CARD, [
+                  'cardId' => $cardId,
+                  'free' => true,
+                  'cost' => $cost - $card->getCostReductionTap(),
+                  'location' => $location,
+                ])
+              )
+            )
+          );
+          $this->resolveAction(['CostReduction']);
+          return;
+        }
       }
       // Has to update cost here as cost is dynamic where it's played
       if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic()) {
@@ -313,6 +370,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $card->setLocation($location);
     $card->setTapped(false);
     $card->setRevealed(false);
+
+    $turnCards = Globals::getTurnCards();
+    $turnCards[$player->getId()] = ($turnCards[$player->getId()] ?? 0) + 1;
+    Globals::setTurnCards($turnCards);
 
     // if card has boosts (from incorrect passive effect), we remove them
 
@@ -371,7 +432,12 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextReserveCharacterBoost(0);
     }
     // The undergrowth
-    if (Globals::getNextCharacterBoostV() > 0 && $card->getType() == CHARACTER && $player->isInBiome($location, FOREST, true)) {
+    $otherLocation = $location == STORM_LEFT ? STORM_RIGHT : ($location == STORM_RIGHT ? STORM_LEFT : 'none');
+    if (
+      Globals::getNextCharacterBoostV() > 0
+      && $card->getType() == CHARACTER &&
+      ($player->isInBiome($location, FOREST, true) || ($card->isGigantic() && $player->isInBiome($otherLocation, FOREST, true)))
+    ) {
       $toBoost = Globals::getNextCharacterBoostV();
       $occur = Globals::getNextCharacterBoostOccurence();
 
@@ -402,6 +468,14 @@ class ChooseAssignment extends \ALT\Models\Action
     ) {
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterAnchored(false);
+    }
+    if (
+      Globals::getNextCharacterBaseCost3Anchored() == true &&
+      in_array($card->getType(), [CHARACTER, TOKEN]) &&
+      (($fromLocation == HAND && $card->getCostHand() <= 3) || (($fromLocation == RESERVE && $card->getCostReserve() <= 3)))
+    ) {
+      $this->pushParallelChild(FT::GAIN($card, ANCHORED));
+      Globals::setNextCharacterBaseCost3Anchored(false);
     }
 
 
@@ -462,20 +536,32 @@ class ChooseAssignment extends \ALT\Models\Action
 
         if ($fromLocation == HAND && Globals::getRemoveFleetingIfSpellPlayedHand() == true) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
+          Globals::setRemoveFleetingIfSpellPlayedHand(false);
         } elseif (Globals::getRemoveFleetingSpellPlayed() == true) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
+          Globals::setRemoveFleetingSpellPlayed(false);
         } elseif ((in_array(ARTIST, $card->getSubtypes()) || in_array(SONG, $card->getSubtypes())) && Globals::getRemoveFleetingSongArtistPlayed()) {
           $effects[] = FT::LOOSE($card->getId(), FLEETING);
+          Globals::setRemoveFleetingSongArtistPlayed(false);
         }
         if ($card->getType() == SPELL) {
           if (!empty($effects)) {
             $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
-            foreach ($effects as &$eff['childs']) {
-              if (isset($eff['pId'])) {
-                continue;
-              }
-              $eff['pId'] = $card->getPId();
-            }
+            $effects = Utils::tagPId($effects, $card->getPId());
+            // foreach ($effects as &$eff['childs']) {
+            //   if (isset($eff['pId'])) {
+            //     continue;
+            //   }
+            //   $eff['pId'] = $card->getPId();
+            //   if (isset($eff['childs'])) {
+            //     foreach ($eff['childs'] as &$child) {
+            //       if (isset($child['pId'])) {
+            //         continue;
+            //       }
+            //       $child['pId'] = $card->getPId();
+            //     }
+            //   }
+            // }
             $spellAction = FT::SEQ(FT::PAR($effects), ['action' => SPELL_CLEANUP, 'args' => ['cardId' => $card->getId(), 'event' => [
               'playCard' => true,
               'cardId' => $cardId,
@@ -521,19 +607,71 @@ class ChooseAssignment extends \ALT\Models\Action
               $effectType = $addEffect['effect'];
               $f = 'getEffect' . ucfirst($effectType);
               $newEffect = $card->$f();
-              if (!empty($newEffect)) {
-                $effects[] = $newEffect;
+
+              if ($newEffect ==  []) {
+                continue;
               }
-              if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
-                return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
-              })->count() > 0) {
-                $effects[] = FT::GAIN($card->getId(), BOOST);
+
+              if (isset($addEffect['to']) && !is_null($addEffect['to'])) {
+                if ($addEffect['to'] == 'sourceLocation') {
+                  $source = Cards::get($addEffect['sourceId']);
+                  if ($location != $source->getLocation()) {
+                    continue;
+                  }
+                } elseif ($addEffect['to'] != $location) {
+                  continue;
+                }
+              }
+
+              if (($addEffect['limit'] ?? INFTY) == 1) {
+                if (!isset($newEffect['type']) && isset($newEffect['childs'])) {
+                  $newEffect = $newEffect['childs'];
+                } else {
+                  $newEffect = [$newEffect];
+                }
+
+                if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
+                  return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
+                })->count() > 0) {
+                  $newEffect[] = FT::GAIN($card->getId(), BOOST);
+                }
+
+                $newEffect = [FT::XOR(...$newEffect)];
+              } else {
+                if (!empty($newEffect)) {
+                  $newEffect = [$newEffect];
+                }
+                if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
+                  return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
+                })->count() > 0) {
+                  $newEffect[] = FT::GAIN($card->getId(), BOOST);
+                }
+              }
+
+              if (empty($newEffect) && ($addEffect['boost'] ?? 0) > 0) {
+                $effects[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+              } else {
+                if (($addEffect['boost'] ?? 0) > 0) {
+                  $newEffect[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+                }
+                $effects[] = FT::SEQ(...$newEffect);
               }
               unset($addEffects[$i]);
             }
           }
         }
         Globals::setAdditionalEffect($addEffects);
+      }
+      $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+      if (
+        $card->getType() == CHARACTER && (
+          isset($expeditionsBoosts[$player->getId()][$location]) ||
+          ($card->isGigantic() && isset($expeditionsBoosts[$player->getId()][$location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]))
+        )
+      ) {
+        $effects[] = FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]);
+        unset($expeditionsBoosts[$player->getId()][$location]);
+        Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
       }
 
       if (!empty($effects)) {
@@ -543,6 +681,14 @@ class ChooseAssignment extends \ALT\Models\Action
             continue;
           }
           $eff['pId'] = $card->getPId();
+          if (isset($eff['childs'])) {
+            foreach ($eff['childs'] as &$child) {
+              if (isset($child['pId'])) {
+                continue;
+              }
+              $child['pId'] = $card->getPId();
+            }
+          }
         }
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
@@ -587,6 +733,25 @@ class ChooseAssignment extends \ALT\Models\Action
         'token' => $card->isToken(),
         'stealOwnership' => $stealOwnership,
       ]);
+
+      if (in_array($card->getUid(), ['ALT_ALIZE_B_BR_45_C', 'ALT_ALIZE_B_BR_45_R1', 'ALT_ALIZE_B_BR_45_R2'])) {
+        $this->checkAfterListeners($player, [
+          'playCard' => true,
+          'cardId' => $cardId,
+          'cardType' => $card->getType(),
+          'additionalType' => $card->getAdditionalType(),
+          'from' => $fromLocation,
+          'reallyPlayed' => $reallyPlayed,
+          'locationPId' => $player->getId(),
+          'to' => $location,
+          'gigantic' => $card->isGigantic(),
+          'playedFree' => $cost == 0 ? true : false,
+          'putAndNotPlayed' => !$effectHand,
+          'additionalEffects' => Globals::getAdditionalEffect(),
+          'token' => $card->isToken(),
+          'stealOwnership' => $stealOwnership,
+        ], true, 'EatMeEnergyBars');
+      }
     }
     // throw new \feException(print_r(Globals::getEngine()));
 

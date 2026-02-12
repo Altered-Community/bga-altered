@@ -28,7 +28,7 @@ class BR_Rare_BravosPathfinder extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'seasoned' => true,
-      'effectHand' => FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 2]), FT::GAIN($this, BOOST)),
+      'effectHand' => FT::SEQ_OPTIONAL(FT::ACTION(PAY, ['pay' => 2]), FT::GAIN(ME, BOOST)),
     ];
   }
 }

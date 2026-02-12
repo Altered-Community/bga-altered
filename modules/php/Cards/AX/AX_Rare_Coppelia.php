@@ -34,7 +34,7 @@ class AX_Rare_Coppelia extends \ALT\Models\Card
       'effectPassive' => [
         'Discard' => [
           'condition' => 'isMyselfDiscarded:hand:reserve',
-          'output' => FT::SEQ_OPTIONAL(FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]), FT::GAIN($this, ASLEEP)),
+          'output' => FT::SEQ_OPTIONAL(FT::ACTION(PLAY_CARD, ['cardId' => ME, 'free' => true]), FT::GAIN(ME, ASLEEP)),
         ],
       ],
     ];

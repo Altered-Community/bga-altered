@@ -402,7 +402,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actTargetExpedition', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actTargetExpedition', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_PLAY_CARD => [
@@ -454,11 +454,13 @@ $machinestates = [
 
   ST_PAY => [
     'name' => 'pay',
-    'description' => '',
-    'type' => 'game',
+    'description' => clienttranslate('${actplayer} must pay mana'),
+    'descriptionmyturn' => clienttranslate('${you} must pay mana'),
+    'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
+    'type' => 'activeplayer',
     'transitions' => [],
-    'possibleactions' => ['actPassOptionalAction'],
+    'possibleactions' => ['actPay', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
   ],
 
   ST_EXHAUST => [
@@ -550,6 +552,13 @@ $machinestates = [
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
     'possibleactions' => ['actInteruptReveal', 'actPassOptionalAction', 'actConfirmTurn', 'actRestart'],
+  ],
+
+  ST_SHUFFLE => [
+    'name' => 'shuffle',
+    'type' => 'game',
+    'description' => '',
+    'action' => 'stAtomicAction',
   ],
 
   ////////////////////////////////////

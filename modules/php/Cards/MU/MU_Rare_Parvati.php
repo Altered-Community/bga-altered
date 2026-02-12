@@ -31,7 +31,7 @@ class MU_Rare_Parvati extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
-      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
+      'effectPlayed' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

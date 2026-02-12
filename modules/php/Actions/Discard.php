@@ -51,6 +51,11 @@ class Discard extends \ALT\Models\Action
     return ($this->getCtxArg('desc') ?? '') == 'sacrifice';
   }
 
+  public function isSabotage()
+  {
+    return ($this->getCtxArg('desc') ?? '') == 'sabotage';
+  }
+
   public function getDescription()
   {
     $location = $this->getArg('destination');
@@ -64,6 +69,8 @@ class Discard extends \ALT\Models\Action
     $msg = $msgs[$location] ?? clienttranslate('discard to ${location} ${card}');
     if ($this->isSacrifice()) {
       $msg = clienttranslate('Sacrifice ${card}');
+    } elseif ($this->isSabotage()) {
+      $msg = clienttranslate('sabotage');
     }
 
     // Card (if any)
@@ -237,6 +244,7 @@ class Discard extends \ALT\Models\Action
 
     foreach ($cards as $cId => $card) {
       $newCId = $cId;
+      $pId = $card->getPId();
       $players[$card->getPId()] = $card->getPlayer();
       $destination = $args['destination'];
       $hasFleeting = $card->hasToken(FLEETING);
@@ -291,7 +299,20 @@ class Discard extends \ALT\Models\Action
         $nodes[] = $newNodes;
         $toAdd = FT::XOR(...$nodes);
         $toAdd['pId'] = $card->getPId();
+        $toAdd['sourceId'] = $cId;
         $this->insertAsChild($toAdd);
+        unset($cards[$cId]);
+        continue;
+      }
+
+      if ($destination == RESERVE && in_array($originalLocation, STORMS) && $card->isLeaveExpeditionDefect()) {
+        $toAdd = FT::SEQ(
+          FT::GAIN($cId, FLEETING),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'cardId' => $cId], ['sourceId' => $cId])
+        );
+        $toAdd['pId'] = $card->getPId();
+        $this->insertAsChild($toAdd);
+        $toAdd['sourceId'] = $cId;
         unset($cards[$cId]);
         continue;
       }
@@ -386,6 +407,7 @@ class Discard extends \ALT\Models\Action
         'to' => $destination,
         'sacrifice' => $this->isSacrifice(),
         'sourceId' => $this->getSourceId(),
+        'pId' => $pId
       ]);
     }
 

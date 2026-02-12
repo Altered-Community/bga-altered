@@ -51,10 +51,12 @@
         box-shadow: 0px 0px 10px 4px lime;
         cursor: pointer;
         border-color: #04c104;
+
         &:hover {
             transform: scale(1.1);
             z-index: 100;
         }
+
         transition: none;
 
         &.mini-card.card-permanent {
@@ -119,6 +121,7 @@
     &.highlighted-me {
         box-shadow: 0px 0px 13px 5px rgba(0, 76, 255, 0.7);
     }
+
     &.highlighted-opponent {
         box-shadow: 0px 0px 13px 5px rgba(255, 0, 0, 0.7);
     }
@@ -192,7 +195,7 @@
     box-shadow: none;
     border-radius: calc(var(--cardScale) * 26px);
 
-    & > .altered-meeple {
+    &>.altered-meeple {
         position: absolute;
         top: 0;
         right: 0;
@@ -213,14 +216,14 @@
             right: 3px;
             visibility: visible;
 
-            & + .altered-meeple[data-type="ocean"],
-            & + .altered-meeple[data-type="forest"],
-            & + .altered-meeple[data-type="mountain"] {
+            &+.altered-meeple[data-type="ocean"],
+            &+.altered-meeple[data-type="forest"],
+            &+.altered-meeple[data-type="mountain"] {
                 top: 23px;
 
-                & + .altered-meeple[data-type="ocean"],
-                & + .altered-meeple[data-type="forest"],
-                & + .altered-meeple[data-type="mountain"] {
+                &+.altered-meeple[data-type="ocean"],
+                &+.altered-meeple[data-type="forest"],
+                &+.altered-meeple[data-type="mountain"] {
                     top: 43px;
                 }
             }
@@ -244,6 +247,7 @@
                 box-shadow: 0px 0px 5px white;
             }
         }
+
         // .card-status {
         //     width: 1em;
         //     height: 1em;
@@ -287,178 +291,250 @@
             }
 
             &[data-type="character"] {
+
                 // BASE
                 &[data-rarity="0"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 40% 0%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 60% 0%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 0% 0%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 20% 0%;
                     }
                 }
+
                 // RARE
                 &[data-rarity="1"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 80% 33.3333%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 100% 33.3333%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 40% 33.3333%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 60% 0%;
                     }
                 }
+
                 // UNIQUE
                 &[data-rarity="2"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 80% 66.66666%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 100% 66.66666%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 40% 66.66666%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 60% 66.66666%;
                     }
                 }
+
+                // EXALTED
+                &[data-rarity="3"] {
+
+                    // Small frame, no SUPPORT
+                    &[data-support="0"][data-size="1"] {
+                        background-position: 40% 100%;
+                    }
+
+                    // Bigger frame, no SUPPORT
+                    &[data-support="0"][data-size="2"] {
+                        background-position: 40% 100%;
+                    }
+
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 40% 100%;
+                    }
+
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 40% 100%;
+                    }
+                }
             }
+
             &[data-type="spell"] {
+
                 // BASE
                 &[data-rarity="0"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 80% 16.66666%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 100% 16.66666%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 40% 16.66666%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 60% 16.66666%;
                     }
                 }
+
                 // RARE
                 &[data-rarity="1"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 0% 66.66666%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 20% 66.66666%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 80% 50%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 100% 50%;
                     }
                 }
             }
+
             &[data-type="permanent"] {
+
                 // BASE
                 &[data-rarity="0"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 0% 16.6666%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 20% 16.6666%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 80% 0%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 100% 0%;
                     }
                 }
+
                 // RARE
                 &[data-rarity="1"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 40% 50%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 60% 50%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 0% 50%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 20% 50%;
                     }
                 }
             }
+
             &[data-type="gear"] {
+
                 // BASE
                 &[data-rarity="0"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 40% 83.3333%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 60% 83.3333%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 0% 83.3333%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 20% 83.3333%;
                     }
                 }
+
                 // RARE
                 &[data-rarity="1"] {
+
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
                         background-position: 0% 100%;
                     }
+
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
                         background-position: 20% 100%;
                     }
+
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
                         background-position: 80% 83.3333%;
                     }
+
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
                         background-position: 100% 83.3333%;
@@ -466,9 +542,11 @@
                 }
             }
         }
+
         .rarity-gem {
             display: none;
         }
+
         .card-support-icon {
             display: none;
         }
@@ -504,34 +582,41 @@
         }
 
         .card-frame[data-type="permanent"] {
-            &[data-support="0"][data-size="1"] ~ {
+            &[data-support="0"][data-size="1"]~ {
                 .card-name {
                     top: 250px;
                 }
+
                 .card-typeline {
                     top: 270px;
                 }
             }
-            &[data-support="0"][data-size="2"] ~ {
+
+            &[data-support="0"][data-size="2"]~ {
                 .card-name {
                     top: 219px;
                 }
+
                 .card-typeline {
                     top: 239px;
                 }
             }
-            &[data-support="1"][data-size="1"] ~ {
+
+            &[data-support="1"][data-size="1"]~ {
                 .card-name {
                     top: 219px;
                 }
+
                 .card-typeline {
                     top: 239px;
                 }
             }
-            &[data-support="1"][data-size="2"] ~ {
+
+            &[data-support="1"][data-size="2"]~ {
                 .card-name {
                     top: 185px;
                 }
+
                 .card-typeline {
                     top: 205px;
                 }
@@ -539,34 +624,41 @@
         }
 
         .card-frame[data-type="gear"] {
-            &[data-support="0"][data-size="1"] ~ {
+            &[data-support="0"][data-size="1"]~ {
                 .card-name {
                     top: 250px;
                 }
+
                 .card-typeline {
                     top: 272px;
                 }
             }
-            &[data-support="0"][data-size="2"] ~ {
+
+            &[data-support="0"][data-size="2"]~ {
                 .card-name {
                     top: 219px;
                 }
+
                 .card-typeline {
                     top: 241px;
                 }
             }
-            &[data-support="1"][data-size="1"] ~ {
+
+            &[data-support="1"][data-size="1"]~ {
                 .card-name {
                     top: 219px;
                 }
+
                 .card-typeline {
                     top: 239px;
                 }
             }
-            &[data-support="1"][data-size="2"] ~ {
+
+            &[data-support="1"][data-size="2"]~ {
                 .card-name {
                     top: 185px;
                 }
+
                 .card-typeline {
                     top: 205px;
                 }
@@ -582,6 +674,7 @@
             font-family: "Haptic Pro";
             font-weight: bold;
             font-size: 34px;
+
             &.altered {
                 color: $goldRareCostColor;
             }
@@ -627,9 +720,11 @@
                 width: 18px;
                 background: #fdfdfd4a;
             }
+
             &[data-size="1"] {
                 width: 20px;
             }
+
             &[data-size="3"] {
                 width: 40px;
             }
@@ -645,17 +740,24 @@
             border-bottom-right-radius: 4px;
             line-height: 35px;
         }
+
         .card-mountain {
             background: #d58447;
             top: 120px;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
         }
+
         .card-ocean {
             background: #6386bc;
             top: 150px;
             border-top-right-radius: 4px;
             line-height: 29px;
+        }
+
+        .card-fullArt {
+            background: none;
+            box-shadow: none;
         }
 
         .card-text {
@@ -712,6 +814,7 @@
         .card-support {
             .keyword {
                 font-weight: bold;
+
                 &.FLEETING_CHAR,
                 &.FLEETING,
                 &.ANCHORED,
@@ -720,6 +823,7 @@
                     text-decoration: underline;
                 }
             }
+
             .parenthesis {
                 font-style: italic;
             }
@@ -742,7 +846,7 @@
         }
 
         // Unique
-        .card-frame[data-rarity="2"] ~ .card-text {
+        .card-frame[data-rarity="2"]~.card-text {
             color: white;
 
             .svgicon-mana-0,
@@ -794,50 +898,85 @@
             }
         }
 
-        .card-frame[data-faction="AX"] ~ .card-support .rare-marker,
-        .card-frame[data-faction="OD"] ~ .card-support .rare-marker,
-        .card-frame[data-faction="BR"] ~ .card-support .rare-marker,
-        .card-frame[data-faction="MU"] ~ .card-support .rare-marker,
-        .card-frame[data-faction="YZ"] ~ .card-support .rare-marker {
+        .card-frame[data-faction="AX"]~.card-support .rare-marker,
+        .card-frame[data-faction="OD"]~.card-support .rare-marker,
+        .card-frame[data-faction="BR"]~.card-support .rare-marker,
+        .card-frame[data-faction="MU"]~.card-support .rare-marker,
+        .card-frame[data-faction="YZ"]~.card-support .rare-marker {
             color: #e1c24e;
         }
 
-        .card-frame[data-faction="LY"] ~ .card-support .rare-marker {
+        .card-frame[data-faction="LY"]~.card-support .rare-marker {
             color: #f2d261;
         }
 
         // Make sure to remove support if not needed
-        .card-frame[data-support="0"] ~ .card-support {
+        .card-frame[data-support="0"]~.card-support {
             height: 0px;
             top: auto;
         }
 
         // Adjust text position for effect depending on frame
-        .card-frame[data-support="1"][data-size="1"] ~ .card-text,
-        .card-frame[data-support="0"][data-size="2"] ~ .card-text {
+        .card-frame[data-support="1"][data-size="1"]~.card-text,
+        .card-frame[data-support="0"][data-size="2"]~.card-text {
             top: 280px;
             height: 139px;
+
             .card-qrcode-container {
                 shape-outside: polygon(0px 70px, 0px 142px, 70px 142px, 70px 70px);
             }
         }
-        .card-frame[data-support="1"][data-size="2"] ~ .card-text {
+
+        .card-frame[data-support="1"][data-size="2"]~.card-text {
             top: 245px;
             height: 174px;
+
             .card-qrcode-container {
                 shape-outside: polygon(0px 106px, 0px 182px, 70px 182px, 70px 106px);
             }
         }
-        .card-frame[data-type="token"] ~ .card-text {
+
+        .card-frame[data-type="token"]~.card-text {
             top: 365px;
             height: 54px;
+
             .card-qrcode-container {
                 shape-outside: polygon(0px 0px, 0px 53px, 70px 52px, 70px 0px);
             }
         }
 
+        .card-frame[data-rarity="3"][data-size="2"][data-support="0"]~.card-text {
+            color: white;
+
+            // .card-qrcode-container {
+            //     shape-outside: polygon(0px 70px, 0px 126px, 70px 126px, 70px 70px);
+            // }
+            .svgicon-mana-1 .path2:before {
+                color: black;
+            }
+
+            .svgicon-mana-7 .path2:before {
+                color: black;
+            }
+        }
+
+        .card-frame[data-rarity="3"][data-size="1"][data-support="0"]~.card-text {
+            color: white;
+
+            // .card-qrcode-container {
+            //     shape-outside: polygon(0px 70px, 0px 126px, 70px 126px, 70px 70px);
+            // }
+            .svgicon-mana-1 .path2:before {
+                color: black;
+            }
+
+            .svgicon-mana-7 .path2:before {
+                color: black;
+            }
+        }
+
         // Adjust width for permanent frame
-        .card-frame[data-type="permanent"] ~ .card-text {
+        .card-frame[data-type="permanent"]~.card-text {
             left: 25px;
             right: 25px;
             top: 310px;
@@ -848,11 +987,12 @@
                 shape-outside: polygon(0px 53px, 0px 105px, 70px 105px, 70px 53px);
             }
         }
+
         // Adjust position & width for gear frame
-        .card-frame[data-type="gear"][data-support="1"][data-size="1"] ~ .card-text,
-        .card-frame[data-type="permanent"][data-support="1"][data-size="1"] ~ .card-text,
-        .card-frame[data-type="permanent"][data-support="0"][data-size="2"] ~ .card-text,
-        .card-frame[data-type="gear"][data-support="0"][data-size="2"] ~ .card-text {
+        .card-frame[data-type="gear"][data-support="1"][data-size="1"]~.card-text,
+        .card-frame[data-type="permanent"][data-support="1"][data-size="1"]~.card-text,
+        .card-frame[data-type="permanent"][data-support="0"][data-size="2"]~.card-text,
+        .card-frame[data-type="gear"][data-support="0"][data-size="2"]~.card-text {
             left: 25px;
             right: 25px;
             top: 310px;
@@ -864,8 +1004,8 @@
             }
         }
 
-        .card-frame[data-type="permanent"][data-support="0"][data-size="1"] ~ .card-text,
-        .card-frame[data-type="gear"][data-support="0"][data-size="1"] ~ .card-text {
+        .card-frame[data-type="permanent"][data-support="0"][data-size="1"]~.card-text,
+        .card-frame[data-type="gear"][data-support="0"][data-size="1"]~.card-text {
             left: 25px;
             right: 25px;
             top: 347px;
@@ -877,8 +1017,8 @@
             }
         }
 
-        .card-frame[data-type="permanent"][data-support="1"][data-size="2"] ~ .card-text,
-        .card-frame[data-type="gear"][data-support="1"][data-size="2"] ~ .card-text {
+        .card-frame[data-type="permanent"][data-support="1"][data-size="2"]~.card-text,
+        .card-frame[data-type="gear"][data-support="1"][data-size="2"]~.card-text {
             left: 25px;
             right: 25px;
             top: 279px;
@@ -891,26 +1031,30 @@
         }
 
         // adjust sub permanent position
-        .card-frame[data-support="1"][data-size="1"] ~ .card-subpermanent,
-        .card-frame[data-support="0"][data-size="2"] ~ .card-subpermanent {
+        .card-frame[data-support="1"][data-size="1"]~.card-subpermanent,
+        .card-frame[data-support="0"][data-size="2"]~.card-subpermanent {
             top: 276px;
         }
-        .card-frame[data-support="1"][data-size="2"] ~ .card-subpermanent {
+
+        .card-frame[data-support="1"][data-size="2"]~.card-subpermanent {
             top: 245px;
         }
 
         // Management of NE permanent
         .card-frame[data-type="permanent"][data-faction="NE"] {
-            &[data-support="0"][data-size="2"] ~ {
+            &[data-support="0"][data-size="2"]~ {
                 .card-name {
                     top: 250px;
                 }
+
                 .card-typeline {
                     top: 270px;
                 }
-                .card-subpermanent{
+
+                .card-subpermanent {
                     top: 314px;
                 }
+
                 .card-text {
                     top: 350px;
                 }
@@ -933,21 +1077,26 @@
                 height: 12px;
                 margin-left: -2px;
                 margin-top: 2px;
+
                 &[data-asset="core"] {
                     background-image: url("img/icons/core.png");
                 }
+
                 &[data-asset="ks"] {
                     background-image: url("img/icons/ks2.png");
                 }
+
                 &[data-asset="tbf"] {
                     background-image: url("img/icons/tbf.png");
                     width: 16px;
                 }
+
                 &[data-asset="wfm"] {
                     background-image: url("img/icons/wfm.png");
                     width: 16px;
                 }
-                 &[data-asset="so"] {
+
+                &[data-asset="so"] {
                     background-image: url("img/icons/so.png");
                     width: 22px;
                 }
@@ -961,10 +1110,12 @@
             font-size: 22px;
             height: 27px;
         }
+
         .card-typeline {
             top: 50px;
             font-size: 15px;
         }
+
         .card-text {
             top: 311px;
             height: 108px;
@@ -979,6 +1130,7 @@
     transform: scale(1.05);
     margin: 3px 10px;
 }
+
 .altered-card.no-frame.card-hero.keep {
     transform: scale(1.12);
     margin: 3px 20px;
@@ -994,6 +1146,7 @@
 // |_|  |_|_|_| |_|_|
 //
 $miniCardScale: 0.33;
+
 .altered-card.mini-card,
 .player-board-hero .altered-card:not(.force-frame) {
     width: $miniCardScale * 324px;
@@ -1021,7 +1174,9 @@ $miniCardScale: 0.33;
             display: none;
         }
     }
+
     &.card-spell {
+
         &,
         .altered-card-wrapper,
         .altered-card-wrapper .card-frame {
@@ -1042,18 +1197,16 @@ $miniCardScale: 0.33;
         //     border-bottom-right-radius: 40px 100px;
         // }
         .altered-card-wrapper {
-            clip-path: polygon(
-                -15% -15%,
-                100% -15%,
-                100% 60%,
-                91% 70%,
-                91% 100%,
-                9% 100%,
-                9% 70%,
-                0% 60%,
-                0% 20%,
-                -15% 20%
-            );
+            clip-path: polygon(-15% -15%,
+                    100% -15%,
+                    100% 60%,
+                    91% 70%,
+                    91% 100%,
+                    9% 100%,
+                    9% 70%,
+                    0% 60%,
+                    0% 20%,
+                    -15% 20%);
 
             .card-frame[data-type="permanent"][data-size][data-support] {
                 background: url("img/permanent-borders.png");
@@ -1110,6 +1263,7 @@ $miniCardScale: 0.33;
             width: 19px;
             height: 19px;
         }
+
         .card-reserve-cost {
             z-index: 3;
             top: 11px;
@@ -1130,18 +1284,23 @@ $miniCardScale: 0.33;
             &[data-faction="AX"] {
                 background-position-y: 0%;
             }
+
             &[data-faction="BR"] {
                 background-position-y: 20%;
             }
+
             &[data-faction="LY"] {
                 background-position-y: 40%;
             }
+
             &[data-faction="MU"] {
                 background-position-y: 60%;
             }
+
             &[data-faction="OD"] {
                 background-position-y: 80%;
             }
+
             &[data-faction="YZ"] {
                 background-position-y: 100%;
             }
@@ -1173,9 +1332,11 @@ $miniCardScale: 0.33;
                 width: 11px;
                 // background: transparent;
             }
+
             &[data-size="1"] {
                 width: 13px;
             }
+
             &[data-size="3"] {
                 width: 27px;
             }
@@ -1185,23 +1346,28 @@ $miniCardScale: 0.33;
             top: 37px;
             background: #abb648;
             border-bottom-right-radius: 2px;
+
             &[data-size="0"] {
                 background: #bdbeb5ee;
             }
         }
+
         .card-mountain {
             top: 57px;
             background: #af7b51;
             border-top-right-radius: 2px;
             border-bottom-right-radius: 2px;
+
             &[data-size="0"] {
                 background: #ad9684ee;
             }
         }
+
         .card-ocean {
             top: 77px;
             background: #6b93c0;
             border-top-right-radius: 2px;
+
             &[data-size="0"] {
                 background: #a4b4c7ee;
             }
@@ -1222,6 +1388,7 @@ $miniCardScale: 0.33;
             &[data-rarity="1"] {
                 border: 1px solid white;
             }
+
             &[data-rarity="2"] {
                 border: 1px solid #ffe454;
                 box-shadow: 0px 0px 5px 2px #d0bd23;
@@ -1236,16 +1403,22 @@ $miniCardScale: 0.33;
             width: 27px;
             height: 15px;
             background-image: url("img/rarity-gems.png");
-            background-size: 100% 300%;
+            background-size: 100% 400%;
             z-index: 4;
 
             &[data-rarity="0"] {
                 background-position-y: 0%;
             }
+
             &[data-rarity="1"] {
-                background-position-y: 50%;
+                background-position-y: 33%;
             }
+
             &[data-rarity="2"] {
+                background-position-y: 66%;
+            }
+
+            &[data-rarity="3"] {
                 background-position-y: 100%;
             }
         }
@@ -1274,6 +1447,7 @@ $miniCardScale: 0.33;
                 right 0.5s,
                 height 0.5s,
                 border-radius 0.5s;
+
             &.selectable {
                 bottom: -35px;
                 right: 50%;
@@ -1286,51 +1460,62 @@ $miniCardScale: 0.33;
             &[data-faction="AX"] {
                 background: #774a32;
                 border: 1px solid #774a32;
+
                 // box-shadow: 0px 0px 5px #9a7251;
                 // border: 1px solid #9a7251;
                 .svgicon-discard .path2::before {
                     color: #774a32;
                 }
             }
+
             &[data-faction="BR"] {
                 background: #5f1f16;
                 border: 1px solid #5f1f16;
+
                 // box-shadow: 0px 0px 5px #aa212e;
                 // border: 1px solid #aa212e;
                 .svgicon-discard .path2::before {
                     color: #5f1f16;
                 }
             }
+
             &[data-faction="MU"] {
                 background: #2a7533;
                 border: 1px solid #2a7533;
+
                 // box-shadow: 0px 0px 5px #396a3f;
                 // border: 1px solid #396a3f;
                 .svgicon-discard .path2::before {
                     color: #2a7533;
                 }
             }
+
             &[data-faction="LY"] {
                 background: #a82249;
                 border: 1px solid #a82249;
+
                 // box-shadow: 0px 0px 5px #ce3f65;
                 // border: 1px solid #ce3f65;
                 .svgicon-discard .path2::before {
                     color: #a82249;
                 }
             }
+
             &[data-faction="OD"] {
                 background: #2f6187;
                 border: 1px solid #2f6187;
+
                 // box-shadow: 0px 0px 5px #5792c4;
                 // border: 1px solid #5792c4;
                 .svgicon-discard .path2::before {
                     color: #2f6187;
                 }
             }
+
             &[data-faction="YZ"] {
                 background: #4a3f67;
                 border: 1px solid #4a3f67;
+
                 // box-shadow: 0px 0px 5px #846094;
                 // border: 1px solid #846094;
                 .svgicon-discard .path2::before {
@@ -1345,6 +1530,7 @@ $miniCardScale: 0.33;
     }
 
     &[data-boost]:not([data-boost="0"]) .altered-card-wrapper {
+
         .card-forest,
         .card-mountain,
         .card-ocean {
@@ -1415,6 +1601,7 @@ $miniCardScale: 0.33;
                 font-weight: bold;
                 text-align: center;
                 font-family: "Haptic Pro";
+
                 .icon-container {
                     margin: 0.3em 0.2em;
                 }
@@ -1423,11 +1610,28 @@ $miniCardScale: 0.33;
             p {
                 padding-right: 10px;
             }
+
+            .svgicon-mana-0,
+            .svgicon-mana-1,
+            .svgicon-mana-2,
+            .svgicon-mana-3,
+            .svgicon-mana-4,
+            .svgicon-mana-5,
+            .svgicon-mana-6,
+            .svgicon-mana-7,
+            .svgicon-mana-8,
+            .svgicon-mana-9,
+            .svgicon-mana-X {
+                .path2:before {
+                    color: black;
+                }
+            }
         }
     }
 
     .altered-card {
         .altered-card-wrapper {
+
             .card-forest,
             .card-mountain,
             .card-ocean {
@@ -1467,9 +1671,11 @@ $miniCardScale: 0.33;
                 &[data-size="0"][data-boost]:not([data-boost="0"])::after {
                     left: 30px;
                 }
+
                 &[data-size="1"][data-boost]:not([data-boost="0"])::after {
                     left: 32px;
                 }
+
                 &[data-size="2"][data-boost]:not([data-boost="0"])::after {
                     left: 39px;
                 }

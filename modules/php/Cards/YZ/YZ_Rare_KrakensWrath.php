@@ -29,7 +29,7 @@ class YZ_Rare_KrakensWrath extends \ALT\Models\Card
       'costHand' => 5,
       'costReserve' => 5,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, ['upTo' => true, 'n' => 4, 'totalCost' => 6, 'effect' => FT::DISCARD_TO_RESERVE()])
       ),
     ];

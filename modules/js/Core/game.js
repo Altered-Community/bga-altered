@@ -89,7 +89,7 @@ define([
       this.attachRegisteredTooltips();
 
       this.setupNotifications();
-      this.initPreferences();
+      // this.initPreferences();
       dojo.connect(this.notifqueue, 'addToLog', () => {
         this.checkLogCancel(this._last_notif == null ? null : this._last_notif.msg.uid);
         this.addLogClass();
@@ -194,7 +194,7 @@ define([
       container = $(container);
       container.childNodes.forEach((node) => {
         if (this.tooltips[node.id]) {
-          this.tooltips[node.id].close();
+          this.tooltips[node.id].disable();
           delete this.tooltips[node.id];
         }
       });

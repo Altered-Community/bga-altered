@@ -36,7 +36,7 @@ class MU_Rare_Aja extends \ALT\Models\Card
       'costReserve' => 4,
       'effectPlayed' => FT::ACTION(DRAW, ['location' => MANA, 'tapped' => true]),
       'supportIcon' => 'discard',
-      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

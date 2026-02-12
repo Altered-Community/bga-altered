@@ -120,7 +120,7 @@ trait EngineTrait
   function actTakeAtomicAction($actionName, $args)
   {
     Notifications::resetCache();
-    self::checkAction($actionName);
+    self::localCheckAction($actionName);
     $action = $this->getCurrentAtomicAction();
     $ctx = Engine::getNextUnresolved();
     Actions::takeAction($action, $actionName, $args, $ctx);
@@ -135,7 +135,7 @@ trait EngineTrait
     if ($auto) {
       $this->gamestate->checkPossibleAction('actPassOptionalAction');
     } else {
-      self::checkAction('actPassOptionalAction');
+      self::localCheckAction('actPassOptionalAction');
     }
 
     $action = $this->getCurrentAtomicAction();
@@ -230,20 +230,20 @@ trait EngineTrait
   public function actConfirmTurn($auto = false)
   {
     if (!$auto) {
-      self::checkAction('actConfirmTurn');
+      self::localCheckAction('actConfirmTurn');
     }
     Engine::confirm();
   }
 
   public function actConfirmPartialTurn()
   {
-    self::checkAction('actConfirmPartialTurn');
+    self::localCheckAction('actConfirmPartialTurn');
     Engine::confirmPartialTurn();
   }
 
   public function actRestart()
   {
-    self::checkAction('actRestart');
+    self::localCheckAction('actRestart');
     if (!Globals::isUndo()) {
       throw new \BgaVisibleSystemException('Undo is disabled');
     }
@@ -255,7 +255,7 @@ trait EngineTrait
 
   public function actUndoToStep($stepId)
   {
-    self::checkAction('actRestart');
+    self::localCheckAction('actRestart');
     if (!Globals::isUndo()) {
       throw new \BgaVisibleSystemException('Undo is disabled');
     }

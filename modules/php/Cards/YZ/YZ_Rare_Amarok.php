@@ -30,7 +30,7 @@ class YZ_Rare_Amarok extends \ALT\Models\Card
             'costReserve' => 5,
             'effectPassive' => [
                 'ChooseAssignment' => [
-                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'excludeSelf'],
+                    'conditions' => ['isCardAddedAnyPlayer:character', 'isPlayedInSameLocation', 'isStillSameLocation', 'excludeSelf'],
                     'output' => FT::ACTION(DISCARD, ['cardId' => 'event', 'desc' => 'sacrifice'])
                 ],
                 'InvokeToken' => [

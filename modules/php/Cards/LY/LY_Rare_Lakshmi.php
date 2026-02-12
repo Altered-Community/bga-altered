@@ -32,7 +32,7 @@ class LY_Rare_Lakshmi extends \ALT\Models\Card
             'costReserve' => 3,
             'effectPassive' => [
                 'RollDie' => [
-                    'conditions' => ['isMe', 'hasRolled:6'],
+                    'conditions' => ['isMe', 'selectedRoll:6'],
                     'output' => FT::ACTION(DRAW, ['players' => ME])
                 ]
             ],

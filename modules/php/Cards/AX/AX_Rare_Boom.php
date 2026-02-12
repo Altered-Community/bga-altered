@@ -27,7 +27,7 @@ class AX_Rare_Boom extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetType' => [CHARACTER, TOKEN, PERMANENT],

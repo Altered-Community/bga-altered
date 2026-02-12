@@ -55,6 +55,7 @@ trait TurnTrait
     Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setPlayedForFree(false);
+    Globals::setNextCharacterInExpeditionBoost([]);
 
     Globals::setDayPhase(true);
     // Update cards with extra datas set
@@ -108,6 +109,7 @@ trait TurnTrait
     Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
+    Globals::setNextCharacterBaseCost3Anchored(false);
     Globals::setNextCharacterAnchored(false);
     Globals::setNextCharacterFleeting(false);
     Globals::setNextTokenAnchored(false);
@@ -122,6 +124,7 @@ trait TurnTrait
     Globals::setRemoveFleetingSongArtistPlayed(false);
     Globals::setPlayedForFree(false);
     Globals::setNextCharacterBoostV(0);
+    Globals::setNextCharacterInExpeditionBoost([]);
 
     self::giveExtraTime($player->getId());
 
@@ -337,6 +340,7 @@ trait TurnTrait
     //   $player->nightCleanup();
     // }
     Globals::setActivePId(Globals::getFirstPlayer());
+    Engine::updateParallelChilds(['noIndependent' => true]);
     $this->gamestate->changeActivePlayer(Globals::getFirstPlayer());
     Engine::proceed();
   }

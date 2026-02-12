@@ -40,11 +40,20 @@ class CheckCondition extends \ALT\Models\Action
     $desc = $this->getCtxArg('description');
     foreach ($conditions as $condition) {
       if ($condition == 'hasBoost:4:LTE') {
-        $desc = ['log' => clienttranslate('Check if there are less than 4 <BOOST>'), 'args' => []];
+        return $desc = ['log' => clienttranslate('Check if there are less than 4 <BOOST>'), 'args' => []];
       }
     }
     if ($desc == null) {
-      $desc = ['log' => clienttranslate('Check the conditions of the played card'), 'args' => []];
+      $effect = $this->getCtxArg('effect');
+      $flow = Engine::buildTree($effect);
+      $args['action0'] = ['log' => clienttranslate('if valid condition'), 'args' => []];
+      $args['action1'] = $flow->getDescription();
+      $desc = '${action0}: ${action1}';
+      // throw new \feException(print_r($args));
+      return [
+        'log' => $desc,
+        'args' => $args
+      ];
     }
     return $desc;
   }

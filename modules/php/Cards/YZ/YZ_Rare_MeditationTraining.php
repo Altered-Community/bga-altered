@@ -26,7 +26,7 @@ class YZ_Rare_MeditationTraining extends \ALT\Models\Card
       ),
       'costHand' => 2,
       'costReserve' => 3,
-      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectPlayed' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

@@ -30,7 +30,7 @@ class LY_Rare_PaintPrison extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'costReductionDiscard' => 1,
       'effectPlayed' => FT::SEQ(
-        FT::GAIN($this, FLEETING),
+        FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN, PERMANENT],
           'effect' => FT::ACTION(DISCARD, ['destination' => 'topOfDeck']),

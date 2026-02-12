@@ -65,7 +65,7 @@ class UseCounter extends \ALT\Models\Action
     }
 
     $extraDatas['counter'] -= $consume;
-    $extraDatas['counter'] = max(0, $extraDatas['counter']);
+    $extraDatas['counter'] = max(0, ($extraDatas['counter'] ?? 0));
     $card->setExtraDatas($extraDatas);
 
     Notifications::useCounter($player, $card, $consume, $cost, $this->getSource());

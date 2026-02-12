@@ -30,7 +30,7 @@ class MU_Common_Parvati extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 4,
       'costReserve' => 2,
-      'effectHand' => FT::ACTION(TARGET, ['effect' => FT::GAIN($this, ANCHORED)]),
+      'effectHand' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),
     ];
   }
 }

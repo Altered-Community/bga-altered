@@ -45,6 +45,10 @@ class MU_Rare_DrowsyDodo extends \ALT\Models\Card
           'conditions' => ['isCardOfType:character', 'isPlayedInOpponentExpedition'],
           'output' =>  FT::GAIN(ME, BOOST)
         ],
+        'EatMeEnergyBars' => [
+          'conditions' => ['isPlayedInOpponentOtherExp'],
+          'output' => FT::GAIN(ME, BOOST)
+        ]
       ],
     ];
   }

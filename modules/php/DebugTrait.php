@@ -102,9 +102,14 @@ trait DebugTrait
 
   function vt()
   {
+    // throw new \feException(print_r(Engine::getNextUnresolved()->getParent()->toArray()));
     // Meeples::createHeroMarkers();
-    // throw new \feException(print_r(Players::getRegionsInfo()));
-    throw new \feException(Players::getCurrent()->isAscended(COMPANION));
+    $turnCards = Globals::getTurnCards();
+    $turnCards[Players::getCurrent()->getId()] = ($turnCards[Players::getCurrent()->getId()] ?? 0) + 1;
+    Globals::setTurnCards($turnCards);
+    // throw new \feException(print_r(Players::getCurrent()->getStormToken()));
+    // throw new \feException(Players::getCurrent()->isAscended(COMPANION));
+    // Cards::getCardClass('ALT_BISE_P_BR_64_R2');
     // throw new \BgaUserException(clienttranslate(sprintf(self::_("The card %s is temporarily suspended by Equinox"), 'toto')));
     // throw new \feException(print_r(Engine::getNextUnresolved()->toArray()));
     // Globals::setupNewGame([], []);
@@ -173,7 +178,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $card['properties'],
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
@@ -217,6 +222,16 @@ trait DebugTrait
     }
   }
 
+  function tapLandmarks()
+  {
+    foreach (Cards::getAll() as $cId => $card) {
+      if ($card->getLocation() == LANDMARK) {
+        $card->setTapped(true);
+      }
+    }
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
+  }
+
   function untapAll()
   {
     Cards::untapAll();
@@ -228,7 +243,7 @@ trait DebugTrait
     foreach ($player->getReserveCards() as $cId => $card) {
       $card->setTapped(true);
     }
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
   function tapMana()
@@ -237,7 +252,7 @@ trait DebugTrait
     foreach ($player->getManaCards() as $cId => $card) {
       $card->setTapped(true);
     }
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
   function allVisible()
@@ -286,6 +301,22 @@ trait DebugTrait
     $this->playCardAux($cardId, true);
   }
 
+  function addAlt($uId, $location = 'hand')
+  {
+    $card = Cards::getCardClass($uId);
+    $player = Players::getCurrent();
+    Cards::singleCreate([
+      'player_id' => $player->getId(),
+      'location' => $location,
+      'nbr' => 1,
+      'properties' => $card->getProperties(),
+    ]);
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
+    $player = Players::getCurrent();
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
+  }
+
   function addCard($cardId, $location = 'hand')
   {
     $player = Players::getCurrent();
@@ -299,7 +330,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $card->getProperties(),
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
@@ -520,7 +551,7 @@ trait DebugTrait
     $token = $params['token'] ?? '';
     $deckId = $params['deckId'] ?? '';
     $cardId = $params['cardId'] ?? '';
-    // $curl = curl_VTOinit();
+    //$curl = curl_VTOinit();
     // $baseUrl = 'https://api.equinox-ccg.io';
     $baseUrl = 'https://api.altered.gg';
     $setup = [
@@ -646,7 +677,7 @@ trait DebugTrait
     $uniqueReduced = self::getGenericGameInfos('get_unique_card_definition', ['card_id' => $v]);
 
     // throw new \feException(print_r($uniqueReduced));
-    $properties = Cards::generateUnique($uniqueReduced);
+    $properties = Cards::generateUnique($uniqueReduced['content']);
     // throw new \feException(print_r($properties));
 
     Cards::singleCreate([
@@ -655,7 +686,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $properties,
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();
@@ -700,7 +731,7 @@ trait DebugTrait
       'nbr' => 1,
       'properties' => $properties,
     ]);
-    Notifications::refreshUI($this::get()->getAllDatas(true));
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
     $player = Players::getCurrent();
     Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
     Engine::proceed();

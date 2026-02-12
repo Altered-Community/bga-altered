@@ -32,7 +32,7 @@ class MU_Rare_MunaDruid extends \ALT\Models\Card
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean'],
       'supportIcon' => 'discard',
-      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN($this, ANCHORED)]),
+      'effectSupport' => FT::ACTION(TARGET, ['maxHandCost' => 3, 'effect' => FT::GAIN(EFFECT, ANCHORED)]),
       'effectHand' => FT::ACTION(TARGET, [
         'upTo' => true,
         'subType' => PLANT,

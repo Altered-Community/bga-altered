@@ -26,7 +26,7 @@ class BR_Rare_TinyJail extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 2,
             'effectPlayed' => FT::SEQ(
-                FT::GAIN($this, FLEETING),
+                FT::GAIN(ME, FLEETING),
                 FT::ACTION(TARGET, ['maxStatistic' => 3, 'effect' => FT::DISCARD_TO_RESERVE()])
             ),
         ];

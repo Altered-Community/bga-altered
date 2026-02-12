@@ -83,6 +83,16 @@ class OrNode extends AbstractNode
       }
       $source = Cards::get($this->getSourceId());
       $args['n'] = ($source->getExtraDatas()['counter'] ?? 0) + 1;
+    } elseif (isset($args['n']) && $args['n'] == 'landmarks') {
+      if (is_null($this->getSourceId())) {
+        return count($this->childs);
+      }
+      $source = Cards::get($this->getSourceId());
+      $args['n'] = $source->getPlayer()->getLandmarks()->count();
+      if (isset($args['canReuse']) || ($args['canReuse'] ?? false) == false) {
+        $args['n'] = min($args['n'], count($this->childs));
+      }
+      $this->setInfo('args', $args);
     }
     return ($args && isset($args['n'])) ? $args['n'] : count($this->childs);
   }

@@ -33,6 +33,10 @@ class Notifications
     [
       'name' => 'reserveSlots',
       'method' => ['ALT\Managers\Players', 'getReserveSlots']
+    ],
+    [
+      'name' => 'landmarkSlots',
+      'method' => ['ALT\Managers\Players', 'getLandmarkSlots']
     ]
   ];
 
@@ -805,6 +809,18 @@ class Notifications
     //   'card' => $toReveal,
     //   'card2' => $source
     // ]);
+  }
+
+  public static function endReveal($revealed, $player)
+  {
+    self::notifyAll(
+      'endReveal',
+      '',
+      [
+        'player_id' => $player->getId(),
+        'cardsRevealed' => $revealed
+      ]
+    );
   }
 
   public static function pass($player)

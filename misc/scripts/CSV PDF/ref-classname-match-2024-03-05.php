@@ -58,7 +58,7 @@ $factions = [
 $o = 0;
 $i = 0;
 $map = [];
-if (($handle = fopen("bise_2025.csv", "r")) !== FALSE) {
+if (($handle = fopen("duster.csv", "r")) !== FALSE) {
   while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;
@@ -70,7 +70,7 @@ if (($handle = fopen("bise_2025.csv", "r")) !== FALSE) {
     $faction = $row[2];
     if ($faction == 'OR') $faction = 'OD';
 
-    $name = $row[5];
+    $name = $row[4];
     $rarity = $row[3];
 
     $slug = slugify($name);

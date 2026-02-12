@@ -29,7 +29,7 @@ class MU_Rare_TinyJinn extends \ALT\Models\Card
       'ocean' => 0,
       'costHand' => 2,
       'costReserve' => 3,
-      'effectReserve' => FT::GAIN($this, BOOST),
+      'effectReserve' => FT::GAIN(ME, BOOST),
       // 'leaveExpeditionBoostedToMana' => true,
       'effectPassive' => [
         'LeaveExpedition' => [

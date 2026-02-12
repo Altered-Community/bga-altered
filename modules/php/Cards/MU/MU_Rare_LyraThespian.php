@@ -29,7 +29,7 @@ class MU_Rare_LyraThespian extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'hasControl::2::boosted',
-        'effect' => FT::GAIN($this, BOOST, 2),
+        'effect' => FT::GAIN(ME, BOOST, 2),
       ]),
     ];
   }

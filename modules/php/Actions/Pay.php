@@ -16,6 +16,11 @@ class Pay extends \ALT\Models\Action
     return ST_PAY;
   }
 
+  protected $args = [
+    'X' => 1,
+    'maximum' => INFTY
+  ];
+
   public function getDescription()
   {
     $pay = $this->getCtxArg('pay') ?? 0;
@@ -29,6 +34,13 @@ class Pay extends \ALT\Models\Action
 
   public function isDoable($player)
   {
+    if ($player->getMana() == 0) {
+      return false;
+    }
+
+    if ($this->getArg('pay') == 'X') {
+      return true;
+    }
     return $player->getMana() >= ($this->getCtxArg('pay') ?? 0);
   }
 
@@ -38,17 +50,54 @@ class Pay extends \ALT\Models\Action
     return true;
   }
 
-  public function stPay()
+  public function argsPay()
   {
-    // throw new \feException(print_r(debug_print_backtrace()));
-    $player = $this->getPlayer();
-
-    $pay = $this->getCtxArg('pay') ?? 0;
-    if ($pay > 0) {
-      $player->payMana($pay);
-      Notifications::pay($player, $pay);
+    $player = Players::getActive();
+    $pay = $this->getArg('pay') ?? 0;
+    $maximum = $this->getArg('maximum');
+    if (is_int($pay) && $pay > 0) {
+      return [];
     }
 
-    $this->resolveAction();
+    if ($maximum == 'exhaustedReserve' || $maximum == 'exhaustedReserveAndPermanent') {
+      $exhausted = 0;
+      foreach (Players::getAll() as $pId => $pp) {
+        $exhausted += $pp->getReserveCards()->filter(function ($c) {
+          return $c->isTapped();
+        })->count();
+      }
+
+      if ($maximum == 'exhaustedReserveAndPermanent') {
+        $exhausted += $player->getPlayedCards()->filter(function ($c) {
+          return ($c->getType() == PERMANENT || in_array(PERMANENT, $c->getAdditionalType())) && $c->isTapped();
+        })->count();
+      }
+      $maximum = $exhausted;
+    }
+
+    return [
+      'pay' => $this->getCtxArg('pay'),
+      'mana' => $player->getMana(),
+      'maximum' => $maximum
+    ];
+  }
+
+  public function stPay()
+  {
+    if (is_int($this->getCtxArg('pay')) && $this->getCtxArg('pay') > 0) {
+      $this->actPay($this->getCtxArg('pay'));
+    }
+  }
+
+  public function actPay($mana)
+  {
+    $player = $this->getPlayer();
+
+    if ($mana > 0) {
+      $player->payMana($mana);
+      Notifications::pay($player, $mana);
+    }
+
+    $this->resolveAction([$mana]);
   }
 }
