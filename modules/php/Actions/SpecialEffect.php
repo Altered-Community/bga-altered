@@ -2124,7 +2124,8 @@ class SpecialEffect extends \ALT\Models\Action
         } else {
           $this->insertAsChild(FT::ACTION(TARGET, [
             'effect' => FT::ACTION(DISCARD, ['cardId' => $maxIds[0], 'desc' => 'sacrifice']),
-            'cards' => $maxIds
+            'cards' => $maxIds,
+            'targetType' => $targets,
           ], ['pId' => $opponent->getId(), 'sourceId' => $card->getId()]));
         }
         break;
