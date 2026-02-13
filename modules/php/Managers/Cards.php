@@ -674,6 +674,11 @@ class Cards extends \ALT\Helpers\CachedPieces
     Notifications::refreshUI(Game::get()->localGetAllDatas(true));
   }
 
+  public static function pickForLocation($nbr, $fromLocation, $toLocation, $state = 0, $deckReform = false)
+  {
+    return parent::pickForLocation($nbr, $fromLocation, $toLocation, $state, $deckReform);
+  }
+
   /**
    * Get all cards played by player matching the given type
    */
