@@ -208,6 +208,7 @@ $machinestates = [
     'type' => 'game',
     'description' => '',
     'action' => 'stAtomicAction',
+    'possibleactions' => ['actPassOptionalAction'],
   ],
 
   ST_LOOSE => [
@@ -382,7 +383,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actInvokeToken', 'actInvokeTokenPass', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_BLOCK_EXPEDITION => [
@@ -392,7 +393,7 @@ $machinestates = [
     'args' => 'argsAtomicAction',
     'action' => 'stAtomicAction',
     'type' => 'activeplayer',
-    'possibleactions' => ['actBlockExpedition', 'actConfirmTurn', 'actRestart'],
+    'possibleactions' => ['actBlockExpedition', 'actConfirmTurn', 'actRestart', 'actPassOptionalAction'],
   ],
 
   ST_TARGET_EXPEDITION => [

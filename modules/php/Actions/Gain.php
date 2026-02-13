@@ -111,6 +111,28 @@ class Gain extends \ALT\Models\Action
     }
   }
 
+  // public function isOptional($player = null)
+  // {
+  //   if ($this->getCtxArg('cardId') == ME) {
+  //     $event = $this->getEventRecursive();
+  //     if (!is_null($event) && isset($event['action']) && $event['action'] == 'Discard' && $event['sourceLocation'] == DISCARD_PILE) {
+  //       return true;
+  //     }
+  //     if (!is_null($event) && isset($event['action']) && $event['action'] == 'ChooseAssignment' && $event['sourceLocation'] == RESERVE) {
+  //       $card = Cards::get($this->ctx->getSourceId());
+  //       if (in_array($card->getId(), $event['reserveToListen'] ?? []) && $card->getLocation() != RESERVE) {
+  //         return true;
+  //       }
+  //     }
+  //     $card = Cards::get($this->ctx->getSourceId());
+  //     list($gain, $n) = $this->getGain();
+  //     if ($card->getType() == CHARACTER && $gain == FLEETING && $card->hasToken(FLEETING)) {
+  //       return true;
+  //     }
+  //   }
+  //   return parent::isOptional($player);
+  // }
+
   public function isIndependent($player = null)
   {
     // return false;

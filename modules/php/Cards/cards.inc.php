@@ -596,7 +596,7 @@ const DEMO_SDU = [
   ],
   FACTION_YZ => [
     'YZ_Common_MoyoSilk' => 1,
-    'YZ_Common_StudiousRookie' => 3,
+    'YZ_Common_StudiousRookie' => 2,
     'YZ_Common_MochizukiChiyome' => 3,
     'YZ_Common_HextagChaser' => 2,
     'YZ_Common_TeamMascot' => 2,
