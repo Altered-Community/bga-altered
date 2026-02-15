@@ -124,40 +124,77 @@ class Resupply extends \ALT\Models\Action
           'You draw ${card_names} from your deck and must keep 1 (${card_name2}\'s effect combined with The Ouroboros, Lyra Bastion)'
         )
       );
-      $this->insertAsChild(
-        FT::SEQ(
-          FT::ACTION(
-            TARGET,
-            [
-              'effect' => FT::ACTION(DISCARD, []),
-              'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-              'targetLocation' => [LIMBO],
-              'targetPlayer' => ME,
-              'cards' => $drawn->getIds(),
-            ],
-            [
-              'sourceId' => $sourceId,
-              'pId' => $player->getId()
-            ]
-          ),
-          FT::ACTION(
-            TARGET,
-            [
-              'effect' => FT::ACTION(DISCARD, ['destination' => RESERVE]),
-              'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-              'targetLocation' => [LIMBO],
-              'targetPlayer' => ME,
-              'cards' => $drawn->getIds(),
-            ],
-            [
-              'sourceId' => $sourceId,
-              'pId' => $player->getId()
-            ]
+      if ($drawn->count() == 2) {
+        $this->insertAsChild(
+          FT::SEQ(
+            FT::ACTION(
+              TARGET,
+              [
+                'effect' => FT::ACTION(DISCARD, ['destination' => RESERVE]),
+                'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+              ],
+              [
+                'sourceId' => $sourceId,
+                'pId' => $player->getId()
+              ]
+            ),
+            FT::ACTION(
+              TARGET,
+              [
+                'effect' => FT::ACTION(DISCARD, []),
+                'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+              ],
+              [
+                'sourceId' => $sourceId,
+                'pId' => $player->getId()
+              ]
+            )
           )
-        )
-      );
-      $cards = $drawn;
-      $checkpoint = false;
+        );
+        $cards = $drawn;
+        $checkpoint = false;
+      } elseif ($drawn->count() == 1) {
+        $this->insertAsChild(
+          FT::XOR(
+            FT::ACTION(
+              TARGET,
+              [
+                'effect' => FT::ACTION(DISCARD, ['destination' => RESERVE]),
+                'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+              ],
+              [
+                'sourceId' => $sourceId,
+                'pId' => $player->getId()
+              ]
+            ),
+            FT::ACTION(
+              TARGET,
+              [
+                'effect' => FT::ACTION(DISCARD, []),
+                'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+              ],
+              [
+                'sourceId' => $sourceId,
+                'pId' => $player->getId()
+              ]
+            )
+          )
+        );
+        $cards = $drawn;
+        $checkpoint = false;
+      }
     } else {
       $cards = $player->draw(
         $n,
