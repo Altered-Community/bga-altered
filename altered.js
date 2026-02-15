@@ -1471,20 +1471,22 @@ define([
       if (choice.sourceId) {
         // TODO?
         let card = this.getCardInfos(choice.sourceId);
-        if (!this.isMobile()) {
-          this.addCustomTippyTooltip(`btnChoice${choice.id}`, this.tplCardTooltip(card), {
-            disablingParentClasses: ['mana-modal', 'no-tooltip'],
-            forceRecreate: true,
+        if ($(`card-${card.id}`) !== null) {
+          if (!this.isMobile()) {
+            this.addCustomTippyTooltip(`btnChoice${choice.id}`, this.tplCardTooltip(card), {
+              disablingParentClasses: ['mana-modal', 'no-tooltip'],
+              forceRecreate: true,
+            });
+          }
+          $(`btnChoice${choice.id}`).setAttribute('sourceId', choice.sourceId);
+          $(`btnChoice${choice.id}`).addEventListener('mouseenter', function (event) {
+            source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable', true);
           });
+          $(`btnChoice${choice.id}`).addEventListener('mouseleave', function (event) {
+            source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable', false);
+          });
+          // source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
         }
-        $(`btnChoice${choice.id}`).setAttribute('sourceId', choice.sourceId);
-        $(`btnChoice${choice.id}`).addEventListener('mouseenter', function (event) {
-          source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable', true);
-        });
-        $(`btnChoice${choice.id}`).addEventListener('mouseleave', function (event) {
-          source = $(`card-${event.target.getAttribute('sourceId')}`).classList.toggle('selectable', false);
-        });
-        // source = this.fsr('${card_name}', { i18n: ['card_name'], card_name: _(card.name), card_id: card.id });
       }
     },
 
