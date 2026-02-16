@@ -132,12 +132,12 @@ abstract class Conditions
       return true;
     }
 
-    return Cards::get($cardId)->getPId() == $card->getPId() || $card->getPId() == $event['controller'];
+    return Cards::get($cardId)->getPId() == $card->getPId() || $card->getPId() == ($event['controller'] ?? -1);
   }
 
   public static function excludeSelf($card, $event)
   {
-    return $card->getId() != ($event['cardId'] ?? ($event['sourceId']) ?? -1);
+    return $card->getId() != ($event['cardId'] ?? ($event['sourceId'] ?? -1));
   }
 
   public static function isCardPlayedSameOwner($card, $event)

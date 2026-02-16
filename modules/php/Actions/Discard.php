@@ -229,7 +229,7 @@ class Discard extends \ALT\Models\Action
     $cardsToListen = [];
     $newCId = null;
     $originalLocation = '';
-    $destination = '';
+    $destination = $args['destination'];
     $isToken = false;
 
     foreach ($cards as $cId => $card) {
