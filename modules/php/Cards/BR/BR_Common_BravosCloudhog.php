@@ -28,18 +28,21 @@ class BR_Common_BravosCloudhog extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 4,
-      'effectReserve' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
-        'targetLocation' => [RESERVE],
-        'upTo' => true,
-        'effect' => FT::ACTION(DISCARD, []),
-      ]),
-      'effectPassive' => [
-        'Discard' => [
-          'conditions' => ['isSource', 'isDiscarded:reserve:discard:character'],
-          'output' => FT::GAIN(ME, BOOST)
-        ]
-      ]
+      'effectReserve' =>
+      FT::XOR(
+        FT::ACTION(TARGET, [
+          'targetType' => [SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 1))
+        ]),
+      )
     ];
   }
 }

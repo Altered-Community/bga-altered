@@ -29,30 +29,21 @@ class AX_Rare_BravosCloudhog extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 4,
       'changedStats' => ['ocean'],
-      'effectReserve' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
-        'targetLocation' => [RESERVE],
-        'upTo' => true,
-        'effect' => FT::ACTION(DISCARD, []),
-      ]),
-      'effectPassive' => [
-        'Discard' => [
-          'childs' => [
-            [
-              'conditions' => ['isSource', 'isDiscarded:reserve:discard:character'],
-              'output' => FT::GAIN(ME, BOOST, 2)
-            ],
-            [
-              'conditions' => ['isSource', 'isDiscarded:reserve:discard:spell'],
-              'output' => FT::GAIN(ME, BOOST)
-            ],
-            [
-              'conditions' => ['isSource', 'isDiscarded:reserve:discard:permanent'],
-              'output' => FT::GAIN(ME, BOOST)
-            ]
-          ]
-        ]
-      ]
+      'effectReserve' =>
+      FT::XOR(
+        FT::ACTION(TARGET, [
+          'targetType' => [SPELL, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 2))
+        ]),
+      )
     ];
   }
 }
