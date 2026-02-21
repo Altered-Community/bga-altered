@@ -349,6 +349,20 @@ class altered extends Table
     }
   }
 
+  function onConcede($concederTeam)
+  {
+    $loser = $concederTeam->players[0]->id;
+    // test to stop inifinte loop
+    $nextPlayer = Players::getNext(Players::get($loser));
+    $nextPlayer->setScore(1);
+    Stats::setWinner($nextPlayer, 1);
+    if (!is_null($nextPlayer->getHero())) {
+      Stats::setGameWinner($nextPlayer->getHero()->getStatData());
+      Stats::setGameLooser(Players::getNext($nextPlayer)->getHero()->getStatData());
+    }
+    $this->stPreEndOfGame(true);
+  }
+
   ///////////////////////////////////////////////////////////////////////////////////:
   ////////// DB upgrade
   //////////

@@ -13,7 +13,7 @@ use ALT\Managers\Cards;
 
 trait EndGameTrait
 {
-  function stPreEndOfGame()
+  function stPreEndOfGame($concede = false)
   {
     // TODO: API call
     $request = [];
@@ -31,17 +31,29 @@ trait EndGameTrait
       }
     }
 
-    // $valid = self::getGenericGameInfos('push_adventure_pass', $request);
-    // if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
-    //   Notifications::message(
-    //     clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
-    //     [
-    //       'player' => Players::get($request['winner']['id']),
-    //       'pass' => $valid['winner_bga_adventure_pass_progress']
-    //     ]
-    //   );
-    // }
-
+    $valid = self::getGenericGameInfos('push_adventure_pass', $request);
+    Notifications::message(
+      clienttranslate('The game has ended. Calculating BGA Adventure pass progress...'),
+      []
+    );
+    if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
+      Notifications::message(
+        clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
+        [
+          'player' => Players::get($request['winner']['id']),
+          'pass' => $valid['winner_bga_adventure_pass_progress']
+        ]
+      );
+    }
+    if ($valid['success'] == 1 && isset($valid['loser_bga_adventure_pass_progress']) && !is_null($valid['loser_bga_adventure_pass_progress'])) {
+      Notifications::message(
+        clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
+        [
+          'player' => Players::get($request['loser']['id']),
+          'pass' => $valid['loser_bga_adventure_pass_progress']
+        ]
+      );
+    }
     // throw new \feException(print_r($valid));
     // TODO remove in alpha
     // [success] => 1
@@ -54,8 +66,9 @@ trait EndGameTrait
       // throw new \feException(print_r(debug_print_backtrace()));
       throw new \feException('winner');
     }
-
-    $this->gamestate->nextState('');
+    if (!$concede) {
+      $this->gamestate->nextState('');
+    }
   }
 
   /*
