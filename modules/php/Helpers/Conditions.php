@@ -437,6 +437,53 @@ abstract class Conditions
       ->count() > 0;
   }
 
+  public static function hasXCardsInHand($card, $event, $n, $op = 'GTE')
+  {
+    $count = $card
+      ->getPlayer()
+      ->getHand()
+      ->count();
+
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasXCardsInHand');
+  }
+
+  public static function hasNoTokensInLandmarks($card, $event)
+  {
+    $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
+      return $c->getLocation() == LANDMARK && $c->isToken();
+    });
+    return $cards->count() == 0;
+  }
+
+  public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
+  {
+    $count = $card->getPlayer()->getDiscard()->count();
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasDiscardPileCards');
+  }
+
+  public static function hasControlFeat($card, $event)
+  {
+    return self::hasControl($card, $event, FEAT, 1);
+  }
+
   public static function hasBiggerHand($card, $event)
   {
     return $card
@@ -1934,4 +1981,5 @@ abstract class Conditions
       $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
   }
+}
 }

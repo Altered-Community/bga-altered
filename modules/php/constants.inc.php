@@ -321,6 +321,10 @@ const SAP = 'sap';
 const MERCHANT = 'merchant';
 const ROGUE = 'rogue';
 
+// EOLE
+const FEAT = 'feat';
+const CORRUPTION = 'corruption';
+
 const SUBTYPES = [
   DIVINITY,
   ADVENTURER,
@@ -366,7 +370,9 @@ const SUBTYPES = [
   CONSTRUCTION,
   SAP,
   MERCHANT,
-  ROGUE
+  ROGUE,
+  FEAT,
+  CORRUPTION
 ];
 
 /*********************

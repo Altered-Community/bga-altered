@@ -67,7 +67,7 @@ $factions = [
 
 $o = 0;
 $i = 0;
-if (($handle = fopen("duster.csv", "r")) !== FALSE) {
+if (($handle = fopen("eole.csv", "r")) !== FALSE) {
   while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;
@@ -168,7 +168,7 @@ class " . $className . " extends \ALT\Models\Card
     	'type'  => " . strtoupper($type) . ",
     	'flavorText'  => $ctr1'" . str_replace("'", "\'", $flavor) . "'$ctr2,
       'artist' => \"" . $artist . "\",
-			'extension'=>'SDU',
+			'extension'=>'ROC',
   ");
 
 
