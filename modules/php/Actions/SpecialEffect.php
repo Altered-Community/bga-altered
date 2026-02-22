@@ -728,16 +728,16 @@ class SpecialEffect extends \ALT\Models\Action
         $addEffects = Globals::getAdditionalEffect();
         $found = false;
         foreach ($addEffects as $i => $effect) {
-          if (isset($effect['source'])) {
-            unset($effect['source']);
+          if (isset($effect['sourceId'])) {
+            unset($effect['sourceId']);
           }
           if (isset($effect['boost'])) {
             unset($effect['boost']);
           }
-
           if ($effect == [
             'type' => $args['type'],
             'from' => $args['from'],
+            'limit' => $args['limit'] ?? INFTY,
             'effect' => $args['effect'],
             'to' => ($args['to'] ?? null)
           ]) {
