@@ -30,29 +30,31 @@ trait EndGameTrait
         ];
       }
     }
+    if (!Globals::getZombie() || Globals::getDay() >= 4) {
+      $valid = self::getGenericGameInfos('push_adventure_pass', $request);
 
-    $valid = self::getGenericGameInfos('push_adventure_pass', $request);
-    Notifications::message(
-      clienttranslate('The game has ended. Calculating BGA Adventure pass progress...'),
-      []
-    );
-    if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
       Notifications::message(
-        clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
-        [
-          'player' => Players::get($request['winner']['id']),
-          'pass' => $valid['winner_bga_adventure_pass_progress']
-        ]
+        clienttranslate('The game has ended. Calculating BGA Adventure pass progress...'),
+        []
       );
-    }
-    if ($valid['success'] == 1 && isset($valid['loser_bga_adventure_pass_progress']) && !is_null($valid['loser_bga_adventure_pass_progress'])) {
-      Notifications::message(
-        clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
-        [
-          'player' => Players::get($request['loser']['id']),
-          'pass' => $valid['loser_bga_adventure_pass_progress']
-        ]
-      );
+      if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
+        Notifications::message(
+          clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
+          [
+            'player' => Players::get($request['winner']['id']),
+            'pass' => $valid['winner_bga_adventure_pass_progress']
+          ]
+        );
+      }
+      if ($valid['success'] == 1 && isset($valid['loser_bga_adventure_pass_progress']) && !is_null($valid['loser_bga_adventure_pass_progress'])) {
+        Notifications::message(
+          clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
+          [
+            'player' => Players::get($request['loser']['id']),
+            'pass' => $valid['loser_bga_adventure_pass_progress']
+          ]
+        );
+      }
     }
     // throw new \feException(print_r($valid));
     // TODO remove in alpha

@@ -31,6 +31,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'skippedPlayers' => 'obj',
     'dayPhase' => 'bool',
     'activePId' => 'int',
+    'zombie' => 'bool',
 
     'storm' => 'obj',
     'day' => 'int',
