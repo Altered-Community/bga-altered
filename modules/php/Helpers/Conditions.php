@@ -1724,7 +1724,7 @@ abstract class Conditions
       return false;
     }
     // $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
-    return $card->getPlayer()->isAscended($card->getLocation());
+    return $card->getPlayer()->isAscended($card->getLocation()) || ($card->isGigantic() && ($card->getPlayer()->isAscended($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
   }
 
   public static function countSourceAscended($card, $event)
