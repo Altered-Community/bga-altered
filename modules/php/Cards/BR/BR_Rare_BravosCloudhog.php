@@ -35,13 +35,13 @@ class BR_Rare_BravosCloudhog extends \ALT\Models\Card
           'targetType' => [SPELL, PERMANENT],
           'targetLocation' => [RESERVE],
           'upTo' => true,
-          'effect' => FT::ACTION(DISCARD, []),
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 1))
         ]),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER],
           'targetLocation' => [RESERVE],
           'upTo' => true,
-          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 1))
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 2))
         ]),
       )
     ];
