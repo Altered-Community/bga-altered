@@ -855,7 +855,7 @@ abstract class FlowConvertor
       665 => ['description' => clienttranslate('If you are not first player:'), 'condition' => 'isNotFirstPlayer'],
       664 => [
         'description' => clienttranslate('If you control a Character in each of your Expeditions:'),
-        'condition' => 'controlInAllExpeditions',
+        'condition' => 'controlInAllExpeditions:character',
       ],
       662 => [
         'description' => clienttranslate('If you have less cards in hand than target opponent:'),
