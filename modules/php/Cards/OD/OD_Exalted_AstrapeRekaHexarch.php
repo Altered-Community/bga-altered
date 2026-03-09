@@ -21,7 +21,7 @@ class OD_Exalted_AstrapeRekaHexarch extends \ALT\Models\Card
       'flavorText'  => clienttranslate('"I\'m sure the Musubi ritual will help us understand your point of view."'),
       'artist' => "Tristan Bideau",
       'extension' => 'SDU',
-      'subtypes'  => [NOBLE],
+      'subtypes'  => [NOBLE, BUREAUCRAT],
       'effectDesc' => clienttranslate('{J} Create three <MANASEED> tokens in your Landmarks. Then, I gain 1 boost per card in your Landmarks.'),
       'forest' => 0,
       'mountain' => 0,
