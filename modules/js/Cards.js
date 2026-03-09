@@ -1356,8 +1356,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       });
     },
 
-    notif_revealCard(n) {
-      debug('Notif: reveal card');
+    notif_revealHand(n) {
+      debug('Notif: reveal hand', n);
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
@@ -1367,15 +1367,33 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
           fakeCard.remove();
           this.addCard(card);
+        } else {
+          let container = this.getCardContainer(card);
+          this.slide(id, container).then(() => {
+            if (!this.isFastMode()) {
+              this.notifqueue.setSynchronousDuration(100);
+            }
+          });
         }
+        this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
+
         return;
       }
 
+      let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
+
       if (!$(id)) {
-        let fakeCard = $(`hand-${n.args.player_id}`).querySelector('.card-back:last-child');
         this.addCard(card, `hand-${n.args.player_id}`);
         this.flipAndReplace(fakeCard, id);
+      } else {
+        let container = this.getCardContainer(card);
+        this.slide(id, container).then(() => {
+          if (!this.isFastMode()) {
+            this.notifqueue.setSynchronousDuration(100);
+          }
+        });
       }
+      this._playerCounters[n.args.player_id]['handCount'].incValue(-1);
     },
 
     notif_refreshCard(n) {

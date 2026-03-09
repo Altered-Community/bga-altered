@@ -811,6 +811,20 @@ class Notifications
     // ]);
   }
 
+  public static function revealHand($toReveal, $source)
+  {
+
+    self::notifyAll(
+      'revealHand',
+      clienttranslate('${player_name} reveals ${card_name} (${card_name2}\'s effect)'),
+      [
+        'player' => $toReveal->getPlayer(),
+        'card' => $toReveal,
+        'card2' => $source
+      ]
+    );
+  }
+
   public static function endReveal($revealed, $player)
   {
     self::notifyAll(

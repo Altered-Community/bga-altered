@@ -1948,7 +1948,7 @@ class SpecialEffect extends \ALT\Models\Action
         if ($opponentHand->count() > 0) {
           $revealedCard = $opponentHand->rand();
           $revealedCard->setLocation(LIMBO);
-          Notifications::reveal($revealedCard, $card);
+          Notifications::revealHand($revealedCard, $card);
           if (Conditions::isInContact($card, [])) {
             // if in contact, may play
             $this->insertAsChild(FT::XOR(
@@ -1980,7 +1980,7 @@ class SpecialEffect extends \ALT\Models\Action
         if ($opponentHand->count() > 0) {
           $revealedCard = $opponentHand->rand();
           $revealedCard->setLocation(LIMBO);
-          Notifications::reveal($revealedCard, $card);
+          Notifications::revealHand($revealedCard, $card);
           // if in contact, may play
           $this->insertAsChild(FT::XOR(
             FT::SEQ(
