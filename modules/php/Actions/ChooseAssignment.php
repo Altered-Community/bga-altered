@@ -505,7 +505,7 @@ class ChooseAssignment extends \ALT\Models\Action
         }
       }
 
-      if ($fromLocation == HAND && $effectHand) {
+      if (($fromLocation == HAND && $effectHand) || ($fromLocation == LIMBO && $effectHand && $stealOwnership == true)) {
         $effect = $card->getEffectHand();
         if (!empty($effect)) {
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
