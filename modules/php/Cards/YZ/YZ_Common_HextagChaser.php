@@ -32,7 +32,7 @@ class YZ_Common_HextagChaser extends \ALT\Models\Card
         TARGET,
         [
           'targetLocation' => [RESERVE],
-          'targetType' => [SPELL, CHARACTER, LANDMARK],
+          'targetType' => [SPELL, CHARACTER, PERMANENT],
           'isNotTapped' => true,
           'upTo' => true,
           'effect' => FT::SEQ(

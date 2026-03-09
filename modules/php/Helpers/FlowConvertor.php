@@ -4748,7 +4748,7 @@ abstract class FlowConvertor
           TARGET,
           [
             'targetLocation' => [RESERVE],
-            'targetType' => [SPELL, CHARACTER, LANDMARK],
+            'targetType' => [SPELL, CHARACTER, PERMANENT],
             'isNotTapped' => true,
             'upTo' => true,
             'effect' => FT::SEQ(
