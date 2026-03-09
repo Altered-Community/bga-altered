@@ -5028,7 +5028,7 @@ abstract class FlowConvertor
       ],
       705 => [
         'description' => clienttranslate('I activate its {r} abilities as if they were mine.'),
-        'output' => FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'n' => 1, 'ownEffect' => true]),
+        'output' => FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'ownEffect' => true]),
       ],
       699 => [
         'description' => clienttranslate('Draw a card, otherwise create a <MANASEED> token in your Landmarks.'),
