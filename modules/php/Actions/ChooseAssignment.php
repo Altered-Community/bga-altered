@@ -234,7 +234,6 @@ class ChooseAssignment extends \ALT\Models\Action
         unset($costReduction[$player->getId()][ALL]);
       }
       Globals::setCostReduction($costReduction);
-      Globals::incPlayedCards();
 
       // management of CostReductionDiscard, discarding a card from reserve to reduce cost
       if ($card->getCostReductionDiscard() > 0) {
@@ -355,12 +354,13 @@ class ChooseAssignment extends \ALT\Models\Action
       // Pay cost
       $player->payMana($cost);
     } elseif ($newCost > 0) {
-      Globals::incPlayedCards();
+      // Globals::incPlayedCards();
       $player->payMana($newCost);
       $cost = $newCost;
     } else {
       $cost = 0;
     }
+    Globals::incPlayedCards();
 
     if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
