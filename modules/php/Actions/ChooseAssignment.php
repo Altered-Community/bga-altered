@@ -691,6 +691,7 @@ class ChooseAssignment extends \ALT\Models\Action
           }
         }
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+        $effects = Utils::updateTree($effects, [0 => 'dioclesLocation'], $card->getLocation(), ['expedition']);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
         $this->pushAfterFinishingChilds($effects['childs']);
         if ($card->getRarity() == RARITY_UNIQUE) {
