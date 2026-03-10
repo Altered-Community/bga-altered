@@ -70,8 +70,8 @@ class ChooseAssignment extends \ALT\Models\Action
               (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
             ));;
         })
-        ->map(function ($card) use ($player, $forcedLocation) {
-          return $card->getPlayableLocation($player, $forcedLocation);
+        ->map(function ($card) use ($player, $forcedLocation, $free) {
+          return $card->getPlayableLocation($player, $forcedLocation, $free);
         });
 
       // Scout is only for hand cards

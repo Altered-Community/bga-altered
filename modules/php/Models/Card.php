@@ -376,7 +376,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
-  public function getPlayableLocation($player, $forcedLocation = null)
+  public function getPlayableLocation($player, $forcedLocation = null, $free = false)
   {
     if (in_array(LANDMARK, $this->getSubtypes())) {
       return [LANDMARK];
@@ -426,6 +426,9 @@ class Card extends \ALT\Helpers\DB_Model
         } elseif ($this->getPlayLimitation() == '+3StartingRegion') {
           // Diocles Chariot Racer Rare
           $locations = [];
+          if ($free) {
+            return STORMS;
+          }
           if ($player->getHeroToken()->getLocation() == 'storm-0' && ($this->getCost() + 3) <= $player->getMana()) {
             $locations[] = STORM_LEFT;
           } elseif ($player->getHeroToken()->getLocation() != 'storm-0') {
