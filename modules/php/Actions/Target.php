@@ -95,6 +95,18 @@ class Target extends \ALT\Models\Action
       } else {
         $msg = clienttranslate('Target ${n} permanent(s) to ${effect_desc}');
       }
+    } elseif (count($targetType) == 2 && ($targetType == [SPELL, PERMANENT] || $targetType == [PERMANENT, SPELL])) {
+      if ($upTo) {
+        if ($totalCost != INFTY) {
+          $msg = clienttranslate('Target up to ${n} non-character card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+        } elseif ($totalMountain != INFTY) {
+          $msg = clienttranslate('Target up to ${n} non-character card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } else {
+          $msg = clienttranslate('Target up to ${n} non-character card(s) to ${effect_desc}');
+        }
+      } else {
+        $msg = clienttranslate('Target ${n} non-character card(s) to ${effect_desc}');
+      }
     } else {
       if ($upTo) {
         if ($totalCost != INFTY) {
