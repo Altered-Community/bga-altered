@@ -28,50 +28,7 @@ class YZ_Rare_TikTok extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectHand' =>  FT::SEQ(
-        FT::XOR(
-          FT::ACTION(TARGET, [
-            'targetType' => [PERMANENT],
-            'targetPlayer' => ME,
-            'isNotTapped' => true,
-            'effect' => FT::SEQ(
-              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
-            )
-          ]),
-          FT::ACTION(TARGET, [
-            'targetType' => [SPELL, CHARACTER, PERMANENT],
-            'targetPlayer' => ME,
-            'isNotTapped' => true,
-            'targetLocation' => [RESERVE],
-            'effect' => FT::SEQ(
-              FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
-            )
-          ])
-        ),
-        [
-          'type' => NODE_XOR,
-          'pId' => 'nextPlayer',
-          'childs' => [
-            FT::ACTION(TARGET, [
-              'targetType' => [PERMANENT],
-              'targetPlayer' => ME,
-              'isNotTapped' => true,
-              'effect' => FT::SEQ(
-                FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
-              )
-            ]),
-            FT::ACTION(TARGET, [
-              'targetType' => [SPELL, CHARACTER, PERMANENT],
-              'targetPlayer' => ME,
-              'isNotTapped' => true,
-              'targetLocation' => [RESERVE],
-              'effect' => FT::SEQ(
-                FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
-              )
-            ])
-          ]
-        ]
-      )
+      'effectHand' =>  FT::ACTION(SPECIAL_EFFECT, ['effect' => 'tiktok'])
     ];
   }
 }

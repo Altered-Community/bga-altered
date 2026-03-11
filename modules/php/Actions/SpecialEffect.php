@@ -2129,6 +2129,40 @@ class SpecialEffect extends \ALT\Models\Action
           ], ['pId' => $opponent->getId(), 'sourceId' => $card->getId()]));
         }
         break;
+      case "tiktok":
+        $activePlayer = Players::getActive();
+        $player = $activePlayer;
+        $nodes = null;
+        do {
+          $nodes[] = [
+            'type' => NODE_XOR,
+            'pId' => $player->getId(),
+            'sourceId' => $card->getId(),
+            'childs' => [
+              FT::ACTION(TARGET, [
+                'targetType' => [PERMANENT],
+                'targetPlayer' => ME,
+                'isNotTapped' => true,
+                'sourceId' => $card->getId(),
+                'effect' => FT::SEQ(
+                  FT::ACTION(EXHAUST, ['cardId' => EFFECT], ['sourceId' => $card->getId()]),
+                )
+              ], ['sourceId' => $card->getId()]),
+              FT::ACTION(TARGET, [
+                'targetType' => [SPELL, CHARACTER, PERMANENT],
+                'targetPlayer' => ME,
+                'isNotTapped' => true,
+                'targetLocation' => [RESERVE],
+                'effect' => FT::SEQ(
+                  FT::ACTION(EXHAUST, ['cardId' => EFFECT], ['sourceId' => $card->getId()]),
+                )
+              ], ['sourceId' => $card->getId(),])
+            ]
+          ];
+          $player = Players::getNext($player);
+        } while ($player->getId() != $activePlayer->getId());
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;
       default:
         break;
     }
