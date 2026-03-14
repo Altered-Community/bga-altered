@@ -2041,10 +2041,22 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'RomanticCleanLimbo':
         $discard = [];
+        $player = Players::getActive();
         foreach ($args['cards'] as $cId) {
           if ($cId != $card->getId() && Cards::get($cId)->getLocation() == LIMBO) {
             $discard[] = $cId;
             Cards::discard($cId);
+            $this->checkAfterListeners($player, [
+              'discardCard' => true,
+              'cardsToListen' => [], // we add the discarded cards as they should react even if not played
+              'cardId' => $cId,
+              'token' => false,
+              'from' => LIMBO,
+              'to' => DISCARD_PILE,
+              'sacrifice' => false,
+              'sourceId' => $this->getSourceId(),
+              'pId' => $player->getId(),
+            ], true, 'Discard');
           }
         }
 
