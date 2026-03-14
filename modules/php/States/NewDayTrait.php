@@ -154,6 +154,7 @@ trait NewDayTrait
     Globals::incDay(1);
     Globals::setSkippedPlayers([]);
     Globals::setStormMoves([]);
+    Globals::setExpeditionMoves([]);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);

@@ -218,12 +218,19 @@ class MoveExpedition extends \ALT\Models\Action
       $moved = false;
     }
     if ($moved) {
+      $expeditionMoves = Globals::getExpeditionMoves();
+      $expeditionMoves[$player->getId()][$expedition] = ($expeditionMoves[$player->getId()][$expedition] ?? 0) + $n;
+      Globals::setExpeditionMoves($expeditionMoves);
+
       $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $ascended, 'expedition' => $expedition]);
       if ($this->getArg('moveOtherExpedition') === true) {
         // only done through a spell
         $otherExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
         if ((($n * -1) > 0 && !Players::hasOpponentBlockMoveExpedition($player, $otherExpedition)) || ($n * -1) < 0) {
           $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
+          $expeditionMoves = Globals::getExpeditionMoves();
+          $expeditionMoves[$player->getId()][$otherExpedition] = ($expeditionMoves[$player->getId()][$otherExpedition] ?? 0) + ($n * -1);
+          Globals::setExpeditionMoves($expeditionMoves);
           $this->checkAfterListeners($player, ['moveExpedition' => $n * -1, 'ascended' => $player->isAscended($otherExpedition), 'expedition' => $otherExpedition]);
         }
       }
@@ -237,6 +244,10 @@ class MoveExpedition extends \ALT\Models\Action
       if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
         $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
         if ($moved) {
+          $expeditionMoves = Globals::getExpeditionMoves();
+          $expeditionMoves[$player->getId()][$expedition] = ($expeditionMoves[$player->getId()][$expedition] ?? 0) + $n;
+          Globals::setExpeditionMoves($expeditionMoves);
+
           $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $player->isAscended($expedition), 'expedition' => $expedition]);
         }
       }

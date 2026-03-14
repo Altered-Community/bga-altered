@@ -604,8 +604,17 @@ class Player extends \ALT\Helpers\DB_Model
 
       // Expedition permanent, if the player hasn't moved, it stays
       if (in_array(EXPEDITION, $card->getSubtypes())) {
+        $hasMoved = false;
         $moves = Globals::getStormMoves();
-        if (!isset($moves[$this->id]) || !isset($moves[$this->id][$card->getLocation()]) || $moves[$this->id][$card->getLocation()]['moves'] < 1) {
+        $expeditionMoves = Globals::getExpeditionMoves();
+        if (isset($moves[$this->id]) && isset($moves[$this->id][$card->getLocation()]) && $moves[$this->id][$card->getLocation()]['moves'] > 0) {
+          $hasMoved = true;
+        }
+
+        if (isset($expeditionMoves[$this->id]) && isset($expeditionMoves[$this->id][$card->getLocation()]) && $expeditionMoves[$this->id][$card->getLocation()] > 0) {
+          $hasMoved = true;
+        }
+        if (!$hasMoved) {
           continue;
         }
       }
