@@ -317,6 +317,11 @@ trait DebugTrait
     Engine::proceed();
   }
 
+  function debug_addcard(string $cardId, string $location = 'hand')
+  {
+    $this->addCard($cardId, $location);
+  }
+
   function addCard($cardId, $location = 'hand')
   {
     $player = Players::getCurrent();

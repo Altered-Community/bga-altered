@@ -453,6 +453,10 @@ abstract class Conditions
       ->count() < Players::getNext($card->getPlayer())->getHand()->count();
   }
 
+  public static function canSabotage($card, $event)
+  {
+    return Cards::getInLocation(RESERVE)->count() > 0;
+  }
 
   public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE', $state = 'all', $n = 0)
   {

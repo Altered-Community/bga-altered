@@ -30,20 +30,24 @@ class AX_Rare_BravosCloudhog extends \ALT\Models\Card
       'costReserve' => 4,
       'changedStats' => ['ocean'],
       'effectReserve' =>
-      FT::XOR(
-        FT::ACTION(TARGET, [
-          'targetType' => [SPELL, PERMANENT],
-          'targetLocation' => [RESERVE],
-          'upTo' => true,
-          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 1))
-        ]),
-        FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER],
-          'targetLocation' => [RESERVE],
-          'upTo' => true,
-          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 2))
-        ]),
-      )
+      FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'canSabotage',
+        'effect' => FT::XOR(
+          FT::ACTION(TARGET, [
+            'targetType' => [SPELL, PERMANENT],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 1))
+          ]),
+          FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER],
+            'targetLocation' => [RESERVE],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::GAIN(ME, BOOST, 2))
+          ]),
+        ),
+        'oppositeEffect' => FT::GAIN(ME, BOOST, 1)
+      ])
     ];
   }
 }
