@@ -5559,7 +5559,9 @@ abstract class FlowConvertor
             $properties[$key]['childs'][] = $node;
           } else {
             // we add the PAR node
-            $properties[$key] = FT::PAR($properties[$key], $node);
+            $oldNode = $properties[$key];
+            unset($properties[$key]);
+            $properties[$key]['childs'] = [$oldNode, $node];
           }
         } elseif ($key == 'effectInfinity') {
           // We need to merge everything depending on triggers or not.
