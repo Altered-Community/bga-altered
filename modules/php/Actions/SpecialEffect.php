@@ -1785,7 +1785,7 @@ class SpecialEffect extends \ALT\Models\Action
         if ($resupply) {
           Notifications::silentKill([], $draw->getIds());
           Notifications::drawCards($player, Cards::getMany($draw->getIds()), clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'), clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'), ['card2' => $card], true);
-          $this->checkAfterListeners($player, ['draw' => 1, 'sourceId' => $this->getSourceId(), 'notResupply' => false], true, 'Resupply');
+          $this->checkAfterListeners($player, ['draw' => 1, 'sourceId' => $this->getSourceId(), 'notResupply' => true], true, 'Resupply');
           // $this->checkAfterListeners($player, ['draw' => 1, 'location' => RESERVE], true, 'Draw');
         }
         break;
