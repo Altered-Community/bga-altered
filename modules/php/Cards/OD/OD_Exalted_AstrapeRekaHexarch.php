@@ -16,7 +16,7 @@ class OD_Exalted_AstrapeRekaHexarch extends \ALT\Models\Card
       'faction'  => FACTION_OD,
       'rarity'  => RARITY_EXALTED,
       'name'  => clienttranslate("Astrape, Reka Hexarch"),
-      'typeline' => clienttranslate("Character - Noble"),
+      'typeline' => clienttranslate("Character - Bureaucrat, Noble"),
       'type'  => CHARACTER,
       'flavorText'  => clienttranslate('"I\'m sure the Musubi ritual will help us understand your point of view."'),
       'artist' => "Tristan Bideau",
