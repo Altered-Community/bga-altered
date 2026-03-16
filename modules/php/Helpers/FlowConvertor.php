@@ -5122,6 +5122,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may discard target Permanent with Base Cost {3} or less.'),
         'output' => FT::ACTION(TARGET, [
           'maxBaseCost' => 3,
+          'upTo' => true,
           'targetType' => [PERMANENT],
           'effect' => FT::ACTION(DISCARD, [])
         ])
