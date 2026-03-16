@@ -1639,8 +1639,9 @@ abstract class Conditions
     $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
 
     $n = 0;
+
     foreach ($opponentCards as $oId => $oCard) {
-      if ($oCard->getLocation() == $card->getLocation() || ($oCard->getLocation() == $oppositeExpedition && $oCard->isGigantic())) {
+      if ($oCard->getLocation() == $card->getLocation() || ($oCard->getLocation() == $oppositeExpedition && $oCard->isGigantic()) || ($oCard->getLocation() == $oppositeExpedition && $card->isGigantic())) {
         $n++;
       }
     }
