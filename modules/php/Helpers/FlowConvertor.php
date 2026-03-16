@@ -5181,6 +5181,10 @@ abstract class FlowConvertor
           FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [PERMANENT], 'actions' => ['play']])
         ),
       ],
+      103 => [
+        'description' => clienttranslate('You may discard any number of cards from your Reserve to draw that many cards.'),
+        'output' => FT::ACTION(DISCARD_DO, ['effect' => FT::ACTION(DRAW, ['players' => ME, 'n' => 'X'])])
+      ]
     ];
   }
 
