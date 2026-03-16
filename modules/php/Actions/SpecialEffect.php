@@ -1942,6 +1942,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'Phoibos':
         // Reveal random card
+        Engine::checkpoint();
         $player = $card->getPlayer();
         $opponent = Players::getNext($player);
         $opponentHand = $opponent->getHand();
@@ -1974,6 +1975,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'PhoibosUnique':
         // Reveal random card
+        Engine::checkpoint();
         $player = $card->getPlayer();
         $opponent = Players::getNext($player);
         $opponentHand = $opponent->getHand();
