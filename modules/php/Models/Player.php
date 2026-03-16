@@ -395,6 +395,15 @@ class Player extends \ALT\Helpers\DB_Model
     return $slots;
   }
 
+  public function getMinimumReserveCost()
+  {
+    $cost = 0;
+    foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
+      $cost += $card->getMinimumReserveCost();
+    }
+    return $cost;
+  }
+
   public function getRegionDifference()
   {
     if (is_null($this->getCompanionToken())) {

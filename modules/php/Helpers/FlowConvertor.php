@@ -3122,7 +3122,7 @@ abstract class FlowConvertor
           'Cards other than me cost {1} less to play from Reserve. This effect can\'t make them cost less than {1}.'
         ),
         'noTrigger' => true,
-        'attributes' => ['dynamicReduceReserveCost' => '1'],
+        'attributes' => ['dynamicReduceReserveCost' => '1', 'dynamicMinimumReserveCost' => '1'],
       ],
       // Bise
       449 => [

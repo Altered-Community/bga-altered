@@ -217,6 +217,15 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
+  public static function getMinimumReserveCost()
+  {
+    $cost = 0;
+    foreach (self::getAll() as $pId => $player2) {
+      $cost = max($cost, $player2->getMinimumReserveCost());
+    }
+    return $cost;
+  }
+
   public static function hasBlockOpponentReserveGain($player)
   {
     foreach (self::getAll() as $pId => $player2) {

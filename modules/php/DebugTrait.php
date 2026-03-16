@@ -624,9 +624,9 @@ trait DebugTrait
   }
 
 
-  function debug_loadUnique($v = null)
+  function debug_loadUnique(string $v, string $location = HAND)
   {
-    $this->loadUnique($v);
+    $this->loadUnique($v, $location);
   }
 
   function loadUnique($v = null, $location = HAND)
