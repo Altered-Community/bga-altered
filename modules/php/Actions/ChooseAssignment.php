@@ -500,6 +500,12 @@ class ChooseAssignment extends \ALT\Models\Action
           foreach ($effect['childs'] as $t => $child) {
             $effects[] = $child;
           }
+        } elseif (isset($effect['childs']) && !isset($effect['type'])) {
+          $effect['type'] = NODE_PARALLEL;
+          if ($card->getRarity() == RARITY_UNIQUE) {
+            $effect['noIndependent'] = true;
+          }
+          $effects[] = $effect;
         } else {
           $effects[] = $effect;
         }
@@ -512,6 +518,12 @@ class ChooseAssignment extends \ALT\Models\Action
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
+          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+            if ($card->getRarity() == RARITY_UNIQUE) {
+              $effect['noIndependent'] = true;
+            }
+            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }
@@ -525,6 +537,12 @@ class ChooseAssignment extends \ALT\Models\Action
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
+          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+            if ($card->getRarity() == RARITY_UNIQUE) {
+              $effect['noIndependent'] = true;
+            }
+            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }

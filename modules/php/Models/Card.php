@@ -758,7 +758,7 @@ class Card extends \ALT\Helpers\DB_Model
           $parallelOutput[] = $output;
         }
       }
-      return [null, ['type' => NODE_PARALLEL, 'childs' => $parallelOutput]];
+      return [null, ['type' => NODE_PARALLEL, 'childs' => $parallelOutput, 'noIndependent' => $this->getRarity() == RARITY_UNIQUE]];
     } else {
       return $this->checkReaction($power, $event);
     }

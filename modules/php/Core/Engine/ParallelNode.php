@@ -115,6 +115,7 @@ class ParallelNode extends AbstractNode
     if ($this->infos['noIndependent'] ?? false == true) {
       return $choices;
     }
+
     $independentChoices = array_values(
       \array_filter($choices, function ($choice) {
         return ($choice['independentAction'] ?? false) && !($choice['optionalAction'] ?? false);
