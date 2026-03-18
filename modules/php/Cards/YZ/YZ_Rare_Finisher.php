@@ -31,7 +31,7 @@ class YZ_Rare_Finisher extends \ALT\Models\Card
           'type' => NODE_OR,
           'args' => ['n' => 3, 'canReuse' => true],
           'pId' => 'source',
-          'option' => true,
+          'optional' => true,
           'childs' => [
             FT::SABOTAGE(),
             FT::ACTION(TARGET, ['targetType' => [CHARACTER], 'effect' => FT::ACTION(DISCARD, [])]),
