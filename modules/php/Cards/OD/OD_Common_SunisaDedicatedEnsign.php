@@ -27,7 +27,8 @@ class OD_Common_SunisaDedicatedEnsign extends \ALT\Models\Card
             'costHand' => 3,
             'costReserve' => 3,
             'defender' => true,
-            'defenderIgnoreBehind' => true
+            'defenderIgnoreBehind' => true,
+            'dynamicIgnoreDefender' => '1:myExpeditionIsBehind'
         ];
     }
 }
