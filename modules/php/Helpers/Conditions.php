@@ -1720,7 +1720,7 @@ abstract class Conditions
         $opponent = $player;
       }
     }
-    return $opponent->isInBiome($card->getLocation(), $biome) || ($card->isGigantic() && $opponent->isInBiome($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT, $biome));
+    return $opponent->isInBiome($card->getLocation(), $biome, true) || ($card->isGigantic() && $opponent->isInBiome($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT, $biome, true));
   }
 
   public static function isCardExpeditionAscended($card, $event)
