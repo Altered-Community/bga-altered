@@ -78,6 +78,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'turnCards' => 'obj',
     'nextCharacterInExpeditionBoost' => 'obj',
     'nextCharacterBaseCost3Anchored' => 'bool',
+    'abilityActivatedThisTurn' => 'obj',
 
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games

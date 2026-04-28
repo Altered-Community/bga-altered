@@ -845,6 +845,9 @@ define([
       if (deckNum == 'random') return;
 
       const FACTION_NAMES = {
+        BR_Gretel: _('Bravos - Gretel & Rust'),
+        LY_YeongGi: _('Lyra - Yeong-Gi & Ember'),
+        YZ_Sam: _('Yzmir - Sam & Spook'),
         MU2: _('Muna Seeds of Unity'),
         OD2: _('Ordis Seeds of Unity'),
         AX: _('Axiom'),
@@ -880,8 +883,22 @@ define([
           _('Akesha "the astute"') +
           '<br/>' +
           _('Let your opponent take the initiative to better thwart their plans, slowly but surely.'),
-        MU2: _('Turuun "the xx"') + '<br/>' + _('Sharing makes us stronger (Gift Deck)'),
-        OD2: _('Matz "the xx"') + '<br/>' + _('Every project needs solid foundations (Landmark Deck)'),
+        MU2: 
+          _('Turuun "the gifter"') + 
+          '<br/>' + 
+          _('Sharing makes us stronger. Helping the other doesn\'t mean giving without any return !'),
+        OD2: 
+          _('Matz "the builder"') + 
+          '<br/>' + 
+          _('Every project needs solid foundations. The better the foundation, the stronger and bigger the building.'),
+        LY_YeongGi: 
+          _('Yeong-Gi "the magician"') + 
+          '<br/>' + 
+          _('Who said gambling was all about luck? I can use the cards to my advantage, and make the most of every situation.'),
+        YZ_Sam: 
+          _('Sam "the phantom"') + 
+          '<br/>' + 
+          _('The shadows are my ally. I can blend in them, use them to strike at the perfect moment.'),
       };
 
       let selectedDeck = null;

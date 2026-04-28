@@ -25,7 +25,10 @@ class ActivateEffect extends \ALT\Models\Action
         return clienttranslate('activate {J} effect');
       } elseif ($this->getArg('effectType') == 'Reserve') {
         return clienttranslate('activate {R} effect');
+      } elseif ($this->getArg('effectType') == 'Support') {
+        return clienttranslate('activate {D} effect');
       }
+
     } else {
       $card = $this->getCard();
       if ($card instanceof \ALT\Helpers\Collection) {
@@ -33,6 +36,8 @@ class ActivateEffect extends \ALT\Models\Action
           return clienttranslate('activate {J} effect');
         } elseif ($this->getArg('effectType') == 'Reserve') {
           return clienttranslate('activate {R} effect');
+        } elseif ($this->getArg('effectType') == 'Support') {
+          return clienttranslate('activate {D} effect');
         }
       }
       if ($this->getArg('effectType') == 'Played') {
@@ -43,6 +48,11 @@ class ActivateEffect extends \ALT\Models\Action
       } elseif ($this->getArg('effectType') == 'Reserve') {
         return [
           'log' => clienttranslate('activate {R} effect of ${card_name}'),
+          'args' => ['card_name' => $this->getCard()->getName(), 'i18n' => ['card_name']],
+        ];
+      } elseif ($this->getArg('effectType') == 'Support') {
+        return [
+          'log' => clienttranslate('activate {D} effect of ${card_name}'),
           'args' => ['card_name' => $this->getCard()->getName(), 'i18n' => ['card_name']],
         ];
       }
@@ -91,6 +101,7 @@ class ActivateEffect extends \ALT\Models\Action
         $card->getType() != CHARACTER || !in_array(CHARACTER, $card->getAdditionalType())
       ) {
         $effect = 'getEffect' . $this->getArg('effectType');
+        $msg = '';
         switch ($this->getArg('effectType')) {
           case 'Played':
             $msg = clienttranslate('${player_name} activates ${card_name} {J} effect');
@@ -98,16 +109,20 @@ class ActivateEffect extends \ALT\Models\Action
           case 'Reserve':
             $msg = clienttranslate('${player_name} activates ${card_name} {R} effect');
             break;
+          case 'Support':
+            $msg = clienttranslate('${player_name} activates ${card_name} {D} effect');
+            break;
         }
 
-        if (!empty($card->$effect())) {
+        $cardEffect = $card->$effect();
+        if (!empty($cardEffect)) {
           Notifications::message($msg, [
             'player' => Players::getActive(),
             'card' => $card,
           ]);
-          $node = $card->$effect();
+          $node = $cardEffect;
           if ($this->getArg('ownEffect')) {
-            $node = Utils::tagTree($node, ['sourceId' => $source->getId()]);
+            $node = Utils::tagTree($node, ['sourceId' => is_null($source) ? $card->getId() : $source->getId()]);
           } else {
             $node = Utils::tagTree($node, ['sourceId' => $card->getId()]);
           }
@@ -134,7 +149,7 @@ class ActivateEffect extends \ALT\Models\Action
         $nodes = FT::XOR(...$nodes);
       } else {
         // only 1 node
-        $nodes = $node;
+        $nodes = $nodes[0];
       }
       $this->pushParallelChild($nodes);
     }

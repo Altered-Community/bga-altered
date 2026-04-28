@@ -35,6 +35,7 @@ abstract class Conditions
       $condFct = $t[0];
       $condArgs = array_slice($t, 1);
 
+
       if (self::$condFct($card, $event, ...$condArgs) === false) {
         // var_dump($card->getName(), $cond, $event);
         return false;
@@ -437,6 +438,61 @@ abstract class Conditions
       ->count() > 0;
   }
 
+  public static function hasXCardsInHand($card, $event, $n, $op = 'GTE')
+  {
+    $count = $card
+      ->getPlayer()
+      ->getHand()
+      ->count();
+
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasXCardsInHand');
+  }
+
+  public static function hasNoTokensInLandmarks($card, $event)
+  {
+    $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
+      return $c->getLocation() == LANDMARK && $c->isToken();
+    });
+    return $cards->count() == 0;
+  }
+
+  public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
+  {
+    // Use the cards manager directly to avoid relying on a specific player model accessor
+    // during reaction pre-checks, where the card context can be partially hydrated.
+    $count = Cards::getFiltered($card->getPId(), DISCARD_PILE)->count();
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasDiscardPileCards');
+  }
+  
+  public static function hasCompletedFeat($card, $event, $n, $op = 'GTE')
+  {
+    // to be completed
+    return $card->getPlayer()->getCompletedFeat() >= $n;
+  }
+
+  public static function hasControlFeat($card, $event)
+  {
+    return self::hasControl($card, $event, FEAT, 1);
+  }
+
   public static function hasBiggerHand($card, $event)
   {
     return $card
@@ -508,6 +564,24 @@ abstract class Conditions
     return $cards->count() > $n;
   }
 
+  public static function hasOtherSupportCardInReserveOrExpeditions($card, $event)
+  {
+    $player = $card->getPlayer();
+    $otherCards = $player->getReserveCards()
+      ->merge($player->getPlayedCards())
+      ->filter(function ($c) use ($card) {
+        if ($c->getId() == $card->getId()) {
+          return false;
+        }
+        if ($c->getLocation() == LANDMARK || $c->getType() == HERO) {
+          return false;
+        }
+        return !empty($c->getEffectSupport());
+      });
+
+    return !$otherCards->empty();
+  }
+
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
   {
     $count = $card
@@ -520,6 +594,26 @@ abstract class Conditions
     if ($op == 'LTE') {
       return $count <= $n;
     }
+  }
+
+  public static function checkAbilityActivatedThisTurn($card, $event, $type = 'any')
+  {
+    $abilities = Globals::getAbilityActivatedThisTurn();
+    $playerAbilities = $abilities[$card->getPId()] ?? [];
+    if ($type == 'any') {
+      return !empty($playerAbilities);
+    }
+    return !empty($playerAbilities[$type]);
+  }
+
+  public static function checkSupportActivatedThisTurn($card, $event, $supportType = 'any')
+  {
+    return self::checkAbilityActivatedThisTurn($card, $event, 'discard');
+  }
+
+  public static function checkTapAbilityActivatedThisTurn($card, $event)
+  {
+    return self::checkAbilityActivatedThisTurn($card, $event, 'tap');
   }
 
   public static function hasLessReserveCards($card, $event)

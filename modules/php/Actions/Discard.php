@@ -392,6 +392,15 @@ class Discard extends \ALT\Models\Action
         }
       }
 
+      if (in_array($originalLocation, [HAND, RESERVE])) {
+        $abilityActivated = Globals::getAbilityActivatedThisTurn();
+        $abilityActivated[$pId] = array_merge(
+          $abilityActivated[$pId] ?? [],
+          ['discardOrReserve' => true]
+        );
+        Globals::setAbilityActivatedThisTurn($abilityActivated);
+      }
+
       // we add the source to the listening cards if it's not in the storms anymore
       // linked to effect 171 ==> Removed as effect 171/172 revamped
       // if (!is_null($this->getSource()) && !in_array($this->getSource()->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK]) && $this->getSource()->getType() != HERO) {

@@ -825,6 +825,12 @@ class ChooseAssignment extends \ALT\Models\Action
     Cards::discard($cardId, 'discard');
     Notifications::supportEffect($player, $card);
     self::statPlay($cardId);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = array_merge(
+      $abilityActivated[$player->getId()] ?? [],
+      ['discard' => true, 'discardOrReserve' => true]
+    );
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
 
     $effect = $card->getEffectSupport();
     if (!empty($effect)) {
@@ -863,6 +869,12 @@ class ChooseAssignment extends \ALT\Models\Action
     $card = Cards::get($cardId);
     $card->setTapped(true);
     Notifications::tapEffect($player, $card);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = array_merge(
+      $abilityActivated[$player->getId()] ?? [],
+      ['tap' => true]
+    );
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
 
     $effect = $card->getEffectTap();
     if (!empty($effect)) {
