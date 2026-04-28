@@ -257,7 +257,7 @@ class Action
     if ($duringActionListener) {
       $this->checkListeners($this->getClassName(), $player, $args, $overrideMethod);
     }
-    // removed, not sure it's consistent in Altered
+    // removed, not sure it's consistent in nylaltered
     // $this->checkListeners('ImmediatelyAfter' . $this->getClassName(), $player, $args);
     // $this->checkListeners('After' . $this->getClassName(), $player, $args);
   }
@@ -345,12 +345,14 @@ class Action
       $node['4+'] = $this->updateCardId($node['4+'], $cardId, $cardFrom, $sourceId, $ownerId);
     }
 
-    $node['sourceId'] = $this->getSourceId();
+    $node['sourceId'] = $sourceId;
 
     if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
-      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId, $ownerId);
+      $childCardFrom = isset($node['args']['effect']['args']['targetLocation']) 
+        ? $node['args']['effect']['args']['targetLocation'] 
+        : $cardFrom;
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $childCardFrom, $sourceId, $ownerId);
     }
-
     if (isset($node['childs'])) {
       $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId) {
         return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId);

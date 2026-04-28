@@ -373,6 +373,9 @@ class Card extends \ALT\Helpers\DB_Model
         $cost -= 2;
       }
     }
+    if ($this->getPlayLimitation() == 'discardGTE6' && $player->getDiscard()->count() < 6) {
+      return false;
+    }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
@@ -383,6 +386,9 @@ class Card extends \ALT\Helpers\DB_Model
     } elseif ($this->getType() == SPELL) {
       return [LIMBO];
     } else {
+      if ($this->getPlayLimitation() == 'discardGTE6' && $player->getDiscard()->count() < 6) {
+        return [];
+      }
       $locations = [];
       if ($this->getLocation() == RESERVE && $this->isTapped()) {
         foreach (STORMS as $storm) {
@@ -476,6 +482,10 @@ class Card extends \ALT\Helpers\DB_Model
   public function getScoutableLocations($player, $forcedLocation = null)
   {
     $locations = [];
+
+    if ($this->getPlayLimitation() == 'discardGTE6' && $player->getDiscard()->count() < 6) {
+      return [];
+    }
 
     if ($this->getCostReductionIfEmpty() > 0) {
       // If the cost can be paid no matter what, we put all storms

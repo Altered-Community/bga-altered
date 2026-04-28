@@ -23,6 +23,7 @@ class Target extends \ALT\Models\Action
   }
 
   protected $args = [
+    'desc' => null,
     'upTo' => false, // if n > 1, can the player select UP TO n cards or exactly n cards ?
     'targetPlayer' => ALL,
     'targetType' => [CHARACTER, TOKEN], // must be an array
@@ -60,6 +61,10 @@ class Target extends \ALT\Models\Action
 
   public function getDescription()
   {
+    if (!is_null($this->getArg('desc'))) {
+      return $this->getArg('desc');
+    }
+
     $targetType = $this->getArg('targetType');
     $upTo = $this->getCtxArg('upTo') ?? false;
     $totalCost = $this->getArg('totalCost');
@@ -207,6 +212,9 @@ class Target extends \ALT\Models\Action
     // What cards ?
     $targetType = $this->getArg('targetType');
     $targetLocation = $this->getArg('targetLocation');
+    if (!is_array($targetLocation)) {
+      $targetLocation = [$targetLocation];
+    }
     if ($targetLocation == ['source']) {
       $targetLocation = [$this->getSource()->getLocation()];
       if (Cards::get($this->getSourceId())->isGigantic()) {
@@ -230,7 +238,10 @@ class Target extends \ALT\Models\Action
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
-        return (in_array($c->getLocation(), $targetLocation) || (in_array($targetLocation, STORMS) && $c->isGigantic()))  && (in_array($c->getType(), $targetType) || count(array_intersect($targetType, $c->getAdditionalType())) > 0);
+        return (
+          in_array($c->getLocation(), $targetLocation)
+          || ((in_array(STORM_LEFT, $targetLocation) || in_array(STORM_RIGHT, $targetLocation)) && in_array($c->getLocation(), STORMS) && $c->isGigantic())
+        ) && (in_array($c->getType(), $targetType) || count(array_intersect($targetType, $c->getAdditionalType())) > 0);
       });
     } else {
       $cards = Cards::getFiltered($pIds, null, $targetType, true)->filter(function ($c) use ($targetLocation, $targetType, $excludeTokens, $onlyTokens) {
@@ -446,6 +457,7 @@ class Target extends \ALT\Models\Action
           $card2 = $player->getManaCards(true)->first();
           if (!is_null($card2)) {
             $card2->setTapped(false);
+            Notifications::untap([$card2->getId()]);
           }
         }
 

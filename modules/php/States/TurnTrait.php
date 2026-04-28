@@ -125,6 +125,9 @@ trait TurnTrait
     Globals::setPlayedForFree(false);
     Globals::setNextCharacterBoostV(0);
     Globals::setNextCharacterInExpeditionBoost([]);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = [];
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
 
     self::giveExtraTime($player->getId());
 
