@@ -70,8 +70,8 @@ class ChooseAssignment extends \ALT\Models\Action
               (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
             ));;
         })
-        ->map(function ($card) use ($player, $forcedLocation) {
-          return $card->getPlayableLocation($player, $forcedLocation);
+        ->map(function ($card) use ($player, $forcedLocation, $free) {
+          return $card->getPlayableLocation($player, $forcedLocation, $free);
         });
 
       // Scout is only for hand cards
@@ -234,7 +234,6 @@ class ChooseAssignment extends \ALT\Models\Action
         unset($costReduction[$player->getId()][ALL]);
       }
       Globals::setCostReduction($costReduction);
-      Globals::incPlayedCards();
 
       // management of CostReductionDiscard, discarding a card from reserve to reduce cost
       if ($card->getCostReductionDiscard() > 0) {
@@ -355,12 +354,13 @@ class ChooseAssignment extends \ALT\Models\Action
       // Pay cost
       $player->payMana($cost);
     } elseif ($newCost > 0) {
-      Globals::incPlayedCards();
+      // Globals::incPlayedCards();
       $player->payMana($newCost);
       $cost = $newCost;
     } else {
       $cost = 0;
     }
+    Globals::incPlayedCards();
 
     if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
@@ -500,18 +500,30 @@ class ChooseAssignment extends \ALT\Models\Action
           foreach ($effect['childs'] as $t => $child) {
             $effects[] = $child;
           }
+        } elseif (isset($effect['childs']) && !isset($effect['type'])) {
+          $effect['type'] = NODE_PARALLEL;
+          if ($card->getRarity() == RARITY_UNIQUE) {
+            $effect['noIndependent'] = true;
+          }
+          $effects[] = $effect;
         } else {
           $effects[] = $effect;
         }
       }
 
-      if ($fromLocation == HAND && $effectHand) {
+      if (($fromLocation == HAND && $effectHand) || ($fromLocation == LIMBO && $effectHand && $stealOwnership == true)) {
         $effect = $card->getEffectHand();
         if (!empty($effect)) {
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
+          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+            if ($card->getRarity() == RARITY_UNIQUE) {
+              $effect['noIndependent'] = true;
+            }
+            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }
@@ -525,6 +537,12 @@ class ChooseAssignment extends \ALT\Models\Action
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
+          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+            if ($card->getRarity() == RARITY_UNIQUE) {
+              $effect['noIndependent'] = true;
+            }
+            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }
@@ -691,6 +709,7 @@ class ChooseAssignment extends \ALT\Models\Action
           }
         }
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
+        $effects = Utils::updateTree($effects, [0 => 'dioclesLocation'], $card->getLocation(), ['expedition']);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
         $this->pushAfterFinishingChilds($effects['childs']);
         if ($card->getRarity() == RARITY_UNIQUE) {

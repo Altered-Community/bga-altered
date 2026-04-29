@@ -32,7 +32,7 @@ class AX_Rare_DeepCloudInstructor extends \ALT\Models\Card
       'effectPlayed' => FT::SEQ_OPTIONAL(
         FT::ACTION(SPECIAL_EFFECT, [
           'effect' => 'triggerEffectOfNextCharacter',
-          'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE],
+          'args' => ['type' => CHARACTER, 'from' => HAND, 'limit' => 1, 'effect' => RESERVE],
         ]),
         FT::RUSH_CHARACTER()
       ),

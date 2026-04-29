@@ -728,16 +728,16 @@ class SpecialEffect extends \ALT\Models\Action
         $addEffects = Globals::getAdditionalEffect();
         $found = false;
         foreach ($addEffects as $i => $effect) {
-          if (isset($effect['source'])) {
-            unset($effect['source']);
+          if (isset($effect['sourceId'])) {
+            unset($effect['sourceId']);
           }
           if (isset($effect['boost'])) {
             unset($effect['boost']);
           }
-
           if ($effect == [
             'type' => $args['type'],
             'from' => $args['from'],
+            'limit' => $args['limit'] ?? INFTY,
             'effect' => $args['effect'],
             'to' => ($args['to'] ?? null)
           ]) {
@@ -1785,7 +1785,7 @@ class SpecialEffect extends \ALT\Models\Action
         if ($resupply) {
           Notifications::silentKill([], $draw->getIds());
           Notifications::drawCards($player, Cards::getMany($draw->getIds()), clienttranslate('${player_name} places ${card_names} from its deck to Reserve (${card_name2}\'s effect)'), clienttranslate('You put ${card_names} from your deck in Reserve (${card_name2}\'s effect)'), ['card2' => $card], true);
-          $this->checkAfterListeners($player, ['draw' => 1, 'sourceId' => $this->getSourceId(), 'notResupply' => false], true, 'Resupply');
+          $this->checkAfterListeners($player, ['draw' => 1, 'sourceId' => $this->getSourceId(), 'notResupply' => true], true, 'Resupply');
           // $this->checkAfterListeners($player, ['draw' => 1, 'location' => RESERVE], true, 'Draw');
         }
         break;
@@ -1942,13 +1942,14 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'Phoibos':
         // Reveal random card
+        Engine::checkpoint();
         $player = $card->getPlayer();
         $opponent = Players::getNext($player);
         $opponentHand = $opponent->getHand();
         if ($opponentHand->count() > 0) {
           $revealedCard = $opponentHand->rand();
           $revealedCard->setLocation(LIMBO);
-          Notifications::reveal($revealedCard, $card);
+          Notifications::revealHand($revealedCard, $card);
           if (Conditions::isInContact($card, [])) {
             // if in contact, may play
             $this->insertAsChild(FT::XOR(
@@ -1974,13 +1975,14 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'PhoibosUnique':
         // Reveal random card
+        Engine::checkpoint();
         $player = $card->getPlayer();
         $opponent = Players::getNext($player);
         $opponentHand = $opponent->getHand();
         if ($opponentHand->count() > 0) {
           $revealedCard = $opponentHand->rand();
           $revealedCard->setLocation(LIMBO);
-          Notifications::reveal($revealedCard, $card);
+          Notifications::revealHand($revealedCard, $card);
           // if in contact, may play
           $this->insertAsChild(FT::XOR(
             FT::SEQ(
@@ -2041,10 +2043,22 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'RomanticCleanLimbo':
         $discard = [];
+        $player = Players::getActive();
         foreach ($args['cards'] as $cId) {
           if ($cId != $card->getId() && Cards::get($cId)->getLocation() == LIMBO) {
             $discard[] = $cId;
             Cards::discard($cId);
+            $this->checkAfterListeners($player, [
+              'discardCard' => true,
+              'cardsToListen' => [], // we add the discarded cards as they should react even if not played
+              'cardId' => $cId,
+              'token' => false,
+              'from' => LIMBO,
+              'to' => DISCARD_PILE,
+              'sacrifice' => false,
+              'sourceId' => $this->getSourceId(),
+              'pId' => $player->getId(),
+            ], true, 'Discard');
           }
         }
 
@@ -2128,6 +2142,40 @@ class SpecialEffect extends \ALT\Models\Action
             'targetType' => $targets,
           ], ['pId' => $opponent->getId(), 'sourceId' => $card->getId()]));
         }
+        break;
+      case "tiktok":
+        $activePlayer = Players::getActive();
+        $player = $activePlayer;
+        $nodes = null;
+        do {
+          $nodes[] = [
+            'type' => NODE_XOR,
+            'pId' => $player->getId(),
+            'sourceId' => $card->getId(),
+            'childs' => [
+              FT::ACTION(TARGET, [
+                'targetType' => [PERMANENT],
+                'targetPlayer' => ME,
+                'isNotTapped' => true,
+                'sourceId' => $card->getId(),
+                'effect' => FT::SEQ(
+                  FT::ACTION(EXHAUST, ['cardId' => EFFECT], ['sourceId' => $card->getId()]),
+                )
+              ], ['sourceId' => $card->getId()]),
+              FT::ACTION(TARGET, [
+                'targetType' => [SPELL, CHARACTER, PERMANENT],
+                'targetPlayer' => ME,
+                'isNotTapped' => true,
+                'targetLocation' => [RESERVE],
+                'effect' => FT::SEQ(
+                  FT::ACTION(EXHAUST, ['cardId' => EFFECT], ['sourceId' => $card->getId()]),
+                )
+              ], ['sourceId' => $card->getId(),])
+            ]
+          ];
+          $player = Players::getNext($player);
+        } while ($player->getId() != $activePlayer->getId());
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
       default:
         break;

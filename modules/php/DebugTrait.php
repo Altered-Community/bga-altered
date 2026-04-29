@@ -317,6 +317,11 @@ trait DebugTrait
     Engine::proceed();
   }
 
+  function debug_addcard(string $cardId, string $location = 'hand')
+  {
+    $this->addCard($cardId, $location);
+  }
+
   function addCard($cardId, $location = 'hand')
   {
     $player = Players::getCurrent();
@@ -619,9 +624,9 @@ trait DebugTrait
   }
 
 
-  function debug_loadUnique($v = null)
+  function debug_loadUnique(string $v, string $location = HAND)
   {
-    $this->loadUnique($v);
+    $this->loadUnique($v, $location);
   }
 
   function loadUnique($v = null, $location = HAND)

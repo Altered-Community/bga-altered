@@ -31,7 +31,7 @@ class BR_Rare_DioclesChariotRacer extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(MOVE_EXPEDITION, [
         'pId' => ME,
         'n' => -1,
-        'expedition' => [EFFECT]
+        'expedition' => ['dioclesLocation']
       ]),
       'effectPassive' => [
         'LeaveExpedition' => [
