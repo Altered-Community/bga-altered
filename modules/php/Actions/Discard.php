@@ -183,6 +183,9 @@ class Discard extends \ALT\Models\Action
         ->merge($this->getPlayer()->getReserveCards())
         ->getIds();
     }
+    else if ($this->getArg('special') == 'allReserve') {
+      $cardIds = $this->getPlayer()->getReserveCards()->getIds();
+    }
     // Discard myself
     else if ($this->getArg('n') == ME) {
       $cardIds = [$this->getCtx()->getSourceId()];
