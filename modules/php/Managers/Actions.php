@@ -50,6 +50,7 @@ class Actions
     MOVE_REGION_MARKER,
     INTERUPT_REVEAL,
     SHUFFLE,
+    DRAW_DISCARD
   ];
 
   public static function get($actionId, &$ctx = null)

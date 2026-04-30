@@ -98,6 +98,7 @@ const ST_BLOCK_EXPEDITION = 42;
 const ST_TARGET_PLAYER = 43;
 const ST_DISCARD_DO = 44;
 const ST_TARGET_EXPEDITION = 45;
+const ST_DRAW_DISCARD = 46;
 // Alizé
 const ST_EXHAUST = 46;
 const ST_READY = 47;
@@ -185,6 +186,7 @@ const MARK_REGION = 'MarkRegion';
 const MOVE_REGION_MARKER = 'MoveRegionMarker';
 const INTERUPT_REVEAL = 'InteruptReveal';
 const SHUFFLE = 'Shuffle';
+const DRAW_DISCARD = 'DrawDiscard';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';
