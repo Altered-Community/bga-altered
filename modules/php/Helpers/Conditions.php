@@ -569,6 +569,26 @@ abstract class Conditions
     }
   }
 
+  
+  public static function checkAbilityActivatedThisTurn($card, $event, $type = 'any')
+  {
+    $abilities = Globals::getAbilityActivatedThisTurn();
+    $playerAbilities = $abilities[$card->getPId()] ?? [];
+    if ($type == 'any') {
+      return !empty($playerAbilities);
+    }
+    return !empty($playerAbilities[$type]);
+  }
+
+  public static function checkSupportActivatedThisTurn($card, $event, $supportType = 'any')
+  {
+    return
+      self::checkAbilityActivatedThisTurn($card, $event, 'discard') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'tap') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'discardOrReserve') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'support');
+  }
+
   public static function hasLessReserveCards($card, $event)
   {
     $count = $card
