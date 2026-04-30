@@ -185,6 +185,7 @@ class InvokeToken extends \ALT\Models\Action
 
   public function actInvokeToken($location, $auto = false)
   {
+    // throw new \feException(print_r(debug_print_backtrace()));
     $player = $this->getPlayer();
     $args = $this->argsInvokeToken();
 

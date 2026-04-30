@@ -500,6 +500,10 @@ abstract class Conditions
       ->count() < Players::getNext($card->getPlayer())->getHand()->count();
   }
 
+  public static function canSabotage($card, $event)
+  {
+    return Cards::getInLocation(RESERVE)->count() > 0;
+  }
 
   public static function hasReserve($card, $event, $type = null, $costHand = null, $costReserve = null,  $op = 'GTE', $state = 'all', $n = 0)
   {
@@ -1682,8 +1686,9 @@ abstract class Conditions
     $oppositeExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
 
     $n = 0;
+
     foreach ($opponentCards as $oId => $oCard) {
-      if ($oCard->getLocation() == $card->getLocation() || ($oCard->getLocation() == $oppositeExpedition && $oCard->isGigantic())) {
+      if ($oCard->getLocation() == $card->getLocation() || ($oCard->getLocation() == $oppositeExpedition && $oCard->isGigantic()) || ($oCard->getLocation() == $oppositeExpedition && $card->isGigantic())) {
         $n++;
       }
     }
@@ -1762,7 +1767,7 @@ abstract class Conditions
         $opponent = $player;
       }
     }
-    return $opponent->isInBiome($card->getLocation(), $biome) || ($card->isGigantic() && $opponent->isInBiome($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT, $biome));
+    return $opponent->isInBiome($card->getLocation(), $biome, true) || ($card->isGigantic() && $opponent->isInBiome($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT, $biome, true));
   }
 
   public static function isCardExpeditionAscended($card, $event)
@@ -1771,7 +1776,7 @@ abstract class Conditions
       return false;
     }
     // $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
-    return $card->getPlayer()->isAscended($card->getLocation());
+    return $card->getPlayer()->isAscended($card->getLocation()) || ($card->isGigantic() && ($card->getPlayer()->isAscended($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
   }
 
   public static function countSourceAscended($card, $event)

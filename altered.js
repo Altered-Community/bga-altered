@@ -115,7 +115,7 @@ define([
         ['untap', 500],
         ['updateTotalMana', 200],
         ['roll', 3000],
-        ['revealCard', 1000, (notif) => notif.args.player_id == this.player_id],
+        ['revealHand', 1000],
         ['refreshCard', 500],
         ['endReveal', 1000],
 

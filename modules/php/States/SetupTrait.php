@@ -182,6 +182,11 @@ trait SetupTrait
     }
     $deck = $response['content'];
     $deckContent = [];
+
+    if ($deck['legality'] != true) {
+      throw new \BgaUserException(clienttranslate('This deck is not legal'));
+    }
+
     $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO]), 'n' => 1];
     foreach ($deck['cards'] as $cardRef => $card) {
       if (isset($card['content'])) {

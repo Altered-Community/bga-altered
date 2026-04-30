@@ -70,7 +70,7 @@ class Pay extends \ALT\Models\Action
       if ($maximum == 'exhaustedReserveAndPermanent') {
         $exhausted += $player->getPlayedCards()->filter(function ($c) {
           return ($c->getType() == PERMANENT || in_array(PERMANENT, $c->getAdditionalType())) && $c->isTapped();
-        })->count();
+        })->count() - 1; // exclude the card itself
       }
       $maximum = $exhausted;
     }

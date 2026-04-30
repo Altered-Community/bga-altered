@@ -150,6 +150,7 @@ class Card extends \ALT\Helpers\DB_Model
     'dynamicIncreaseReserveCost' => 'str',
     'reduceReserveCost' => 'int', // Ebenezer Scrooge
     'dynamicReduceReserveCost' => 'str', // Ebenezer Scrooge
+    'dynamicMinimumReserveCost' => 'str', // Ebenezer Scrooge Unique
     'exhaustCharactersMorning' => 'bool', // Snow queen
     'resupplyExhaust' => 'bool', // Machine in the ice
 
@@ -376,7 +377,7 @@ class Card extends \ALT\Helpers\DB_Model
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
-  public function getPlayableLocation($player, $forcedLocation = null)
+  public function getPlayableLocation($player, $forcedLocation = null, $free = false)
   {
     if (in_array(LANDMARK, $this->getSubtypes())) {
       return [LANDMARK];
@@ -450,6 +451,9 @@ class Card extends \ALT\Helpers\DB_Model
         } elseif ($this->getPlayLimitation() == '+3StartingRegion') {
           // Diocles Chariot Racer Rare
           $locations = [];
+          if ($free) {
+            return STORMS;
+          }
           if ($player->getHeroToken()->getLocation() == 'storm-0' && ($this->getCost() + 3) <= $player->getMana()) {
             $locations[] = STORM_LEFT;
           } elseif ($player->getHeroToken()->getLocation() != 'storm-0') {
@@ -778,7 +782,7 @@ class Card extends \ALT\Helpers\DB_Model
           $parallelOutput[] = $output;
         }
       }
-      return [null, ['type' => NODE_PARALLEL, 'childs' => $parallelOutput]];
+      return [null, ['type' => NODE_PARALLEL, 'childs' => $parallelOutput, 'noIndependent' => $this->getRarity() == RARITY_UNIQUE]];
     } else {
       return $this->checkReaction($power, $event);
     }
@@ -869,6 +873,8 @@ class Card extends \ALT\Helpers\DB_Model
       return 0;
     }
     $minimumCost = Players::getOpponentMinimumCost($this->getPlayer(), $this->getType());
+
+    $minimumCost = min($minimumCost, Players::getMinimumReserveCost());
 
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
@@ -1244,6 +1250,24 @@ class Card extends \ALT\Helpers\DB_Model
           return 0;
         }
       } elseif ($result == "1") {
+        return 1;
+      } elseif (!is_null($result) && is_int($result)) {
+        return $result;
+      }
+    }
+    return 0;
+  }
+
+  public function getMinimumReserveCost()
+  {
+    if (($this->properties['minimumReserveCost'] ?? 0) > 0) {
+      return $this->properties['minimumReserveCost'];
+    }
+
+    $dynamicBlocking = $this->getDynamicMinimumReserveCost();
+    if ($dynamicBlocking != '') {
+      $result = Utils::checkAttributeCondition('minimumReserveCost', $dynamicBlocking, $this->getPlayer(), $this);
+      if ($result == "1") {
         return 1;
       } elseif (!is_null($result) && is_int($result)) {
         return $result;

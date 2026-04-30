@@ -855,7 +855,7 @@ abstract class FlowConvertor
       665 => ['description' => clienttranslate('If you are not first player:'), 'condition' => 'isNotFirstPlayer'],
       664 => [
         'description' => clienttranslate('If you control a Character in each of your Expeditions:'),
-        'condition' => 'controlInAllExpeditions',
+        'condition' => 'controlInAllExpeditions:character',
       ],
       662 => [
         'description' => clienttranslate('If you have less cards in hand than target opponent:'),
@@ -3122,7 +3122,7 @@ abstract class FlowConvertor
           'Cards other than me cost {1} less to play from Reserve. This effect can\'t make them cost less than {1}.'
         ),
         'noTrigger' => true,
-        'attributes' => ['dynamicReduceReserveCost' => '1'],
+        'attributes' => ['dynamicReduceReserveCost' => '1', 'dynamicMinimumReserveCost' => '1'],
       ],
       // Bise
       449 => [
@@ -4651,7 +4651,7 @@ abstract class FlowConvertor
         'output' => FT::SEQ_OPTIONAL(
           FT::ACTION(SPECIAL_EFFECT, [
             'effect' => 'triggerEffectOfNextCharacter',
-            'args' => ['type' => CHARACTER, 'from' => HAND, 'effect' => RESERVE],
+            'args' => ['type' => CHARACTER, 'from' => HAND, 'limit' => 1, 'effect' => RESERVE],
           ]),
           FT::RUSH_CHARACTER()
         ),
@@ -4748,7 +4748,7 @@ abstract class FlowConvertor
           TARGET,
           [
             'targetLocation' => [RESERVE],
-            'targetType' => [SPELL, CHARACTER, LANDMARK],
+            'targetType' => [SPELL, CHARACTER, PERMANENT],
             'isNotTapped' => true,
             'upTo' => true,
             'effect' => FT::SEQ(
@@ -5028,7 +5028,7 @@ abstract class FlowConvertor
       ],
       705 => [
         'description' => clienttranslate('I activate its {r} abilities as if they were mine.'),
-        'output' => FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'n' => 1, 'ownEffect' => true]),
+        'output' => FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Reserve', 'ownEffect' => true]),
       ],
       699 => [
         'description' => clienttranslate('Draw a card, otherwise create a <MANASEED> token in your Landmarks.'),
@@ -5122,6 +5122,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may discard target Permanent with Base Cost {3} or less.'),
         'output' => FT::ACTION(TARGET, [
           'maxBaseCost' => 3,
+          'upTo' => true,
           'targetType' => [PERMANENT],
           'effect' => FT::ACTION(DISCARD, [])
         ])
@@ -5181,6 +5182,10 @@ abstract class FlowConvertor
           FT::ACTION(CHOOSE_ASSIGNMENT, ['types' => [PERMANENT], 'actions' => ['play']])
         ),
       ],
+      103 => [
+        'description' => clienttranslate('You may discard any number of cards from your Reserve to draw that many cards.'),
+        'output' => FT::ACTION(DISCARD_DO, ['effect' => FT::ACTION(DRAW, ['players' => ME, 'n' => 'X'])])
+      ]
     ];
   }
 
@@ -5559,7 +5564,9 @@ abstract class FlowConvertor
             $properties[$key]['childs'][] = $node;
           } else {
             // we add the PAR node
-            $properties[$key] = FT::PAR($properties[$key], $node);
+            $oldNode = $properties[$key];
+            unset($properties[$key]);
+            $properties[$key]['childs'] = [$oldNode, $node];
           }
         } elseif ($key == 'effectInfinity') {
           // We need to merge everything depending on triggers or not.
