@@ -58,7 +58,7 @@ $factions = [
 $o = 0;
 $i = 0;
 $map = [];
-if (($handle = fopen("duster.csv", "r")) !== FALSE) {
+if (($handle = fopen("eole.csv", "r")) !== FALSE) {
   while (($row = fgetcsv($handle, 2000, ";")) !== FALSE && $i++ <= 600) {
     if ($i <= 1) {
       continue;
