@@ -608,6 +608,7 @@ abstract class Conditions
   public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE', $opponent = false)
   {
     $types = [CHARACTER, TOKEN];
+    $subTypes = null;
     if ($type == TOKEN) {
       $types = [CHARACTER, PERMANENT];
     }
@@ -617,6 +618,15 @@ abstract class Conditions
     if (in_array($type, SUBTYPES)) {
       $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
     }
+    if (strpos($type, '|') !== false) {
+      $maybeSubtypes = explode('|', $type);
+      $allSubtypes = count(array_intersect($maybeSubtypes, SUBTYPES)) == count($maybeSubtypes);
+      if ($allSubtypes) {
+        $subTypes = $maybeSubtypes;
+        $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+      }
+    }
+    
 
     if ($opponent) {
       $player = Players::getNext($card->getPlayer());
@@ -633,6 +643,9 @@ abstract class Conditions
 
     if (in_array($type, SUBTYPES)) {
       $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
+    }
+    if (!is_null($subTypes)) {
+      $cards = $cards->filter(fn($c) => count(array_intersect($subTypes, $c->getSubtypes())) > 0);
     }
 
     if ($excludeMyself === 'true') {
@@ -1986,5 +1999,4 @@ abstract class Conditions
       $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
   }
-}
 }
