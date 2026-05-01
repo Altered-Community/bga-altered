@@ -335,9 +335,9 @@ class Target extends \ALT\Models\Action
 
       if (is_array($notSubTypes) && count($notSubTypes) > 0) {
         $candidateSubTypes = $c->getSubtypes();
-        foreach ($candidateSubTypes as $notSubType) {
-          // "non-robot" means the target cannot have robot in its subtypes
-          if (in_array($notSubType, $notSubTypes)) {
+        foreach ($candidateSubTypes as $subType) {
+          // "non-Animal character" means the target cannot have subtype Animal as any of its subtype
+          if (in_array($subType, $notSubTypes)) {
             return false;
           }
         }
