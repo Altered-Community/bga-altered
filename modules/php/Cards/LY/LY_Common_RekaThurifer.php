@@ -38,7 +38,7 @@ class LY_Common_RekaThurifer extends \ALT\Models\Card
       ]),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,
-        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1, 'minimum' => 1]],
       ],
     ];
   }
