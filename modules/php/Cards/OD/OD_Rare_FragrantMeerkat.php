@@ -1,17 +1,19 @@
 <?php
+
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class OD_Rare_FragrantMeerkat extends \ALT\Models\Card
 {
     public function __construct($row)
     {
-		parent::__construct($row);
+        parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_EOLE_B_LY_108_R2',
             'asset'  => 'ALT_EOLE_B_LY_108_R',
 
-        	  'faction'  => FACTION_OD,
+            'faction'  => FACTION_OD,
             'rarity'  => RARITY_RARE,
             'name'  => clienttranslate("Fragrant Meerkat"),
             'typeline' => clienttranslate("Character - Animal Artist"),
@@ -26,7 +28,7 @@ class OD_Rare_FragrantMeerkat extends \ALT\Models\Card
             'ocean' => 3,
             'costHand' => 2,
             'costReserve' => 2,
-            'changedStats' => ['mountain','costReserve'],
+            'changedStats' => ['mountain', 'costReserve'],
             'addRoll' => 1,
         ];
     }

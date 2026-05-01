@@ -30,7 +30,7 @@ class LY_Common_SmokingSkunk extends \ALT\Models\Card
         'costReserve' => 3, 
         'effectSupport' => [
           'action' => SPECIAL_EFFECT,
-          'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
+          'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1, 'minimum' => 1]],
         ],
     ];
   }

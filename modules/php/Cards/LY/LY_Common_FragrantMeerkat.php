@@ -1,13 +1,14 @@
 <?php
 
 namespace ALT\Cards\LY;
+
 use ALT\Helpers\FT;
 
 class LY_Common_FragrantMeerkat extends \ALT\Models\Card
 {
     public function __construct($row)
     {
-	    parent::__construct($row);
+        parent::__construct($row);
         $this->properties = [
             'uid' => 'ALT_EOLE_B_LY_108_C',
             'asset'  => 'ALT_EOLE_B_LY_108_C',
@@ -27,5 +28,5 @@ class LY_Common_FragrantMeerkat extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 3,
         ];
-  }
+    }
 }
