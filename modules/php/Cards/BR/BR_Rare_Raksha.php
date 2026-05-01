@@ -12,7 +12,6 @@ class BR_Rare_Raksha extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_EOLE_B_MU_110_R2',
       'asset'  => 'ALT_EOLE_B_MU_110_R',
-
       'faction'  => FACTION_BR,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("Raksha"),
@@ -29,6 +28,12 @@ class BR_Rare_Raksha extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest'],
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER],
+        'excludeSelf' => true,
+        'compareTargetBiomeToSource' => ['biome' => FOREST, 'op' => 'lte'],
+        'effect' => FT::GAIN(TARGET, BOOST),
+      ]),
     ];
   }
 }
