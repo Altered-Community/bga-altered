@@ -24,7 +24,7 @@ class YZ_Rare_Thunderbird extends \ALT\Models\Card
       'ocean' => 2, 
       'costHand' => 3, 
       'costReserve' => 3,       
-      'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source']),
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source']),
       'effectPassive' => [
           'AfterDusk' => [
               'condition' => 'movesStormsWithAscended',
