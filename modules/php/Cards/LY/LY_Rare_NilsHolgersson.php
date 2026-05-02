@@ -10,7 +10,7 @@ class LY_Rare_NilsHolgersson extends \ALT\Models\Card
         'uid' => 'ALT_EOLE_B_OR_106_R2',
         'asset'  => 'ALT_EOLE_B_OR_106_R',
 
-        'faction'  => FACTION_OD,
+        'faction'  => FACTION_LY,
         'rarity'  => RARITY_RARE,
         'name'  => clienttranslate("Nils Holgersson"),
         'typeline' => clienttranslate("Character - Citizen"),
