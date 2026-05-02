@@ -36,7 +36,7 @@ class LY_Rare_MiaPrimaBallerina extends \ALT\Models\Card
       ],
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isFirstPassing', 'isMe'],
+          'conditions' => ['isMe'],
           'output' => FT::ACTION(TARGET, [
             'upTo' => true,
             'effect' => FT::SEQ(

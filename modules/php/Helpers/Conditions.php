@@ -556,6 +556,24 @@ abstract class Conditions
     }
     return $cards->count() > $n;
   }
+  
+  public static function hasOtherSupportCardInReserveOrExpeditions($card, $event)
+  {
+    $player = $card->getPlayer();
+    $otherCards = $player->getReserveCards()
+      ->merge($player->getPlayedCards())
+      ->filter(function ($c) use ($card) {
+        if ($c->getId() == $card->getId()) {
+          return false;
+        }
+        if ($c->getLocation() == LANDMARK || $c->getType() == HERO) {
+          return false;
+        }
+        return !empty($c->getEffectSupport());
+      });
+
+    return !$otherCards->empty();
+  }
 
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
   {
