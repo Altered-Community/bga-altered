@@ -28,7 +28,7 @@ class OD_Rare_TotingArmadillo extends \ALT\Models\Card
       'changedStats' => ['costReserve'], 
       'effectReserve' => [
         'action' => SPECIAL_EFFECT,
-        'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1, 'permanent' => true]],
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1, 'minimum' => 1, 'permanent' => true]],
       ],
     ];
   }
