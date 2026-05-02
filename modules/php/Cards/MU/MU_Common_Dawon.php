@@ -30,7 +30,7 @@ class MU_Common_Dawon extends \ALT\Models\Card
       'effectHand' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER],
         'excludeSelf' => true,
-        'compareTargetBiomeToSource' => ['biome' => FOREST, 'op' => 'lte'],
+        'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::GAIN(TARGET, ANCHORED),
       ]),
     ];

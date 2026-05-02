@@ -31,7 +31,7 @@ class BR_Rare_Raksha extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER],
         'excludeSelf' => true,
-        'compareTargetBiomeToSource' => ['biome' => FOREST, 'op' => 'lte'],
+        'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::GAIN(TARGET, BOOST),
       ]),
     ];

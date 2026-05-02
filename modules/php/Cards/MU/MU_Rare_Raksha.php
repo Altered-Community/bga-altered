@@ -32,7 +32,7 @@ class MU_Rare_Raksha extends \ALT\Models\Card
         'excludeSelf' => true,
         'upTo' => true,
         'n' => 2,
-        'compareTargetBiomeToSource' => ['biome' => FOREST, 'op' => 'lte'],
+        'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::GAIN(TARGET, BOOST),
       ]),
     ];

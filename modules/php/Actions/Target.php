@@ -56,7 +56,7 @@ class Target extends \ALT\Models\Action
     'ascendedOnly' => false,
     'monoBiome' => false, // Rare Lyra Origamium
     'isNotTapped' => false,
-    'compareTargetBiomeToSource' => null, // e.g. ['biome' => FOREST, 'op' => 'lte'] — requires a card source
+    'compareTargetBiome' => null, // e.g. ['biome' => FOREST, 'op' => 'lte', 'source' => 'source' or 'cardId']
   ];
 
   public function getDescription()
@@ -136,12 +136,16 @@ class Target extends \ALT\Models\Action
       }
     }
 
-    $compareSpec = $this->getArg('compareTargetBiomeToSource');
+    $compareSpec = $this->getArg('compareTargetBiome');
     $i18n = ['effect_desc'];
     $biomeLabel = null;
-    if ($this->isCompareTargetBiomeToSourceSpecActive($compareSpec)) {
+    if ($this->isCompareTargetBiomeSpecActive($compareSpec)) {
       $biomeLabel = $this->getCompareBiomeDescriptionLabel($compareSpec['biome']);
-      $msg .= ' ' . clienttranslate('(with ${biome_label} less than or equal to mine).');
+      if (($compareSpec['source'] ?? null) === 'cardId') {
+        $msg .= ' ' . clienttranslate('(with ${biome_label} less than or equal to the chosen card\'s).');
+      } else {
+        $msg .= ' ' . clienttranslate('(with ${biome_label} less than or equal to mine).');
+      }
       $i18n[] = 'biome_label';
     }
 
@@ -287,7 +291,7 @@ class Target extends \ALT\Models\Action
     $maxBaseCost = $this->getArg('maxBaseCost');
     $minBaseCost = $this->getArg('minBaseCost');
 
-    $compareFilter = $this->resolveCompareTargetBiomeToSourceFilter();
+    $compareFilter = $this->resolveCompareTargetBiomeFilter();
 
     // Which criteria ?
     $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter) {
@@ -551,43 +555,88 @@ class Target extends \ALT\Models\Action
     $this->resolveAction([$cardIds]);
   }
 
-  private function isCompareTargetBiomeToSourceSpecActive($spec)
+  private function isCompareTargetBiomeSpecActive($spec)
   {
-    return is_array($spec) && isset($spec['biome'], $spec['op']) && $spec['op'] === 'lte';
+    return is_array($spec)
+      && isset($spec['biome'], $spec['op'], $spec['source'])
+      && $spec['op'] === 'lte'
+      && in_array($spec['source'], ['source', 'cardId'], true);
   }
 
   /**
    * @return array{biome: string, cap: int}|null
    */
-  private function resolveCompareTargetBiomeToSourceFilter()
+  private function resolveCompareTargetBiomeFilter()
   {
-    $spec = $this->getArg('compareTargetBiomeToSource');
+    $spec = $this->getArg('compareTargetBiome');
     if ($spec === null) {
       return null;
     }
-    if (!$this->isCompareTargetBiomeToSourceSpecActive($spec)) {
+    if (!is_array($spec)) {
+      throw new \BgaVisibleSystemException('compareTargetBiome must be null or an array');
+    }
+    if (!isset($spec['biome'], $spec['op'])) {
       throw new \BgaVisibleSystemException(
-        'compareTargetBiomeToSource must be null or an array with keys biome and op === lte'
+        'compareTargetBiome requires keys biome and op (op must be lte)'
+      );
+    }
+    if (!array_key_exists('source', $spec)) {
+      throw new \BgaVisibleSystemException(
+        'compareTargetBiome requires key source (use source or cardId)'
+      );
+    }
+    if ($spec['op'] !== 'lte') {
+      throw new \BgaVisibleSystemException(
+        'compareTargetBiome op must be lte'
       );
     }
     $biome = $spec['biome'];
     if (!in_array($biome, [FOREST, MOUNTAIN, OCEAN], true)) {
-      throw new \BgaVisibleSystemException('compareTargetBiomeToSource biome must be one of FOREST, MOUNTAIN, OCEAN');
+      throw new \BgaVisibleSystemException('compareTargetBiome biome must be one of FOREST, MOUNTAIN, OCEAN');
     }
-    $sourceId = $this->getSourceId();
-    if ($sourceId === null) {
+    $refSource = $spec['source'];
+    if (!in_array($refSource, ['source', 'cardId'], true)) {
       throw new \BgaVisibleSystemException(
-        'compareTargetBiomeToSource requires a source card (ctx source id is null)'
+        'compareTargetBiome source must be source or cardId'
       );
     }
-    $source = $this->getSource();
-    if ($source === null || !($source instanceof \ALT\Models\Card)) {
-      throw new \BgaVisibleSystemException(
-        'compareTargetBiomeToSource requires a source card that could be loaded as a Card model'
-      );
+
+    $refCard = null;
+    if ($refSource === 'source') {
+      $sourceId = $this->getSourceId();
+      if ($sourceId === null) {
+        throw new \BgaVisibleSystemException(
+          'compareTargetBiome with source source requires ctx source id'
+        );
+      }
+      $refCard = $this->getSource();
+      if ($refCard === null || !($refCard instanceof \ALT\Models\Card)) {
+        throw new \BgaVisibleSystemException(
+          'compareTargetBiome with source source requires a Card model at sourceId'
+        );
+      }
+      if (!in_array($refCard->getType(), [CHARACTER, TOKEN], true)) {
+        throw new \BgaVisibleSystemException(
+          'compareTargetBiome with source source requires source card type CHARACTER or TOKEN'
+        );
+      }
+    } else {
+      $ctxCardId = $this->getCtxArg('cardId');
+      if ($ctxCardId === null) {
+        throw new \BgaVisibleSystemException(
+          'compareTargetBiome with source cardId requires ctx cardId'
+        );
+      }
+      $refCard = Cards::get($ctxCardId);
+      if ($refCard === null || !($refCard instanceof \ALT\Models\Card)) {
+        throw new \BgaVisibleSystemException(
+          'compareTargetBiome with source cardId requires a valid Card at ctx cardId'
+        );
+      }
     }
-    $sourceBiomes = $source->getBiomes(true);
-    $cap = (int) ($sourceBiomes[$biome] ?? 0);
+
+    $refBiomes = $refCard->getBiomes(true);
+    $cap = (int) ($refBiomes[$biome] ?? 0);
 
     return ['biome' => $biome, 'cap' => $cap];
   }

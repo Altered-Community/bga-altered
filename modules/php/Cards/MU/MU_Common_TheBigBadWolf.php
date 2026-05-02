@@ -31,7 +31,7 @@ class MU_Common_TheBigBadWolf extends \ALT\Models\Card
         'targetType' => [CHARACTER],
         'targetLocation' => [RESERVE],
         'upTo' => true,
-        'compareTargetBiomeToSource' => ['biome' => FOREST, 'op' => 'lte'],
+        'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::ACTION(DISCARD, []),
       ]),
     ];

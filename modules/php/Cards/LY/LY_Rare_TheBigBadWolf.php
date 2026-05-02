@@ -33,7 +33,7 @@ class LY_Rare_TheBigBadWolf extends \ALT\Models\Card
         'targetType' => [CHARACTER],
         'targetLocation' => [RESERVE],
         'upTo' => true,
-        'compareTargetBiomeToSource' => ['biome' => FOREST, 'op' => 'lte'],
+        'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::ACTION(DISCARD, []),
       ]),
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored'])
