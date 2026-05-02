@@ -37,6 +37,7 @@ class Target extends \ALT\Models\Action
     'statuses' => 'disabled', // does it has those statuses
     'excludedStatuses' => [],
     'excludeSelf' => false,
+    'excludePreviousTarget' => false, // exclude ctx cardId (nested target after updateCardId)
     'totalCost' => INFTY,
     'totalMountain' => INFTY,
     'hasEffects' => 'disabled',
@@ -276,6 +277,11 @@ class Target extends \ALT\Models\Action
 
     $excludeSelf = $this->getArg('excludeSelf');
     $sourceId = $this->getSourceId();
+    $excludePreviousTarget = $this->getArg('excludePreviousTarget');
+    $previousTargetId = null;
+    if ($excludePreviousTarget) {
+      $previousTargetId = $this->getCtxArg('cardId');
+    }
     $subType = $this->getArg('subType');
     $expeditionAttributes = $this->getArg('expeditionAttributes');
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
@@ -294,8 +300,11 @@ class Target extends \ALT\Models\Action
     $compareFilter = $this->resolveCompareTargetBiomeFilter();
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter) {
       if ($excludeSelf && $c->getId() == $sourceId) {
+        return false;
+      }
+      if ($excludePreviousTarget && $previousTargetId && $c->getId() == $previousTargetId) {
         return false;
       }
       $otherLocation = in_array($c->getLocation(), STORMS) ? ($c->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT) : null;
