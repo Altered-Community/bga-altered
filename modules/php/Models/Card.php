@@ -194,6 +194,8 @@ class Card extends \ALT\Helpers\DB_Model
     'defenderIgnoreContact' => 'bool', // Ignore defender attribute when in contact
     'costReductionTap' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
 
+    // Eole
+    'playCondition' => 'str', // Conditions required to play the card
   ];
 
   /********* DB ACCESS *********/
@@ -313,6 +315,13 @@ class Card extends \ALT\Helpers\DB_Model
   {
     if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
+    }
+
+    $playCondition = $this->getPlayCondition();
+    if ($playCondition != null) {
+      if (!Conditions::check(['condition' => $playCondition], $this, null)) {
+        return false;
+      }
     }
 
     $cost = $this->getCost($scout, $reserveFlipCost);

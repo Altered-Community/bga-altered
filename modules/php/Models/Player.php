@@ -321,6 +321,11 @@ class Player extends \ALT\Helpers\DB_Model
     );
   }
 
+  public function getDiscard()
+  {
+    return Cards::getFiltered($this->id, DISCARD_PILE);
+  }
+
   public function getAddRoll()
   {
     $add = 0;

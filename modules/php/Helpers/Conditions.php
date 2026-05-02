@@ -466,7 +466,9 @@ abstract class Conditions
 
   public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
   {
-    $count = $card->getPlayer()->getDiscard()->count();
+    // Use the cards manager directly to avoid relying on a specific player model accessor
+    // during reaction pre-checks, where the card context can be partially hydrated.
+    $count = Cards::getFiltered($card->getPId(), DISCARD_PILE)->count();
     if ($op == 'GTE') {
       return $count >= $n;
     }
@@ -1674,7 +1676,11 @@ abstract class Conditions
     // return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
   }
 
-  public static function countOpponentExpedition($card, $event, $type = null)
+  /**
+   * For internal use, counts the opponent's in-play cards matching $type (null = no type filter) on the
+   * same storm as $card, or on the opposite storm when $card or that opponent card is gigantic.
+   */
+  private static function countOpponentExpedition($card, $event, $type = null)
   {
     $opponent = null;
     foreach (Players::getAll() as $pId => $player) {
@@ -1986,5 +1992,4 @@ abstract class Conditions
       $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
   }
-}
 }
