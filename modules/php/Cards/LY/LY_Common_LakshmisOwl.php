@@ -1,20 +1,20 @@
 <?php
 
-namespace ALT\Cards\BR;
+namespace ALT\Cards\LY;
 
 use ALT\Helpers\FT;
 
-class BR_Rare_LakshmisOwl extends \ALT\Models\Card
+class LY_Common_LakshmisOwl extends \ALT\Models\Card
 {
     public function __construct($row)
     {
         parent::__construct($row);
         $this->properties = [
-            'uid' => 'ALT_EOLE_B_LY_119_R2',
-            'asset'  => 'ALT_EOLE_B_LY_119_R',
+            'uid' => 'ALT_EOLE_B_LY_119_C',
+            'asset'  => 'ALT_EOLE_B_LY_119_C',
 
-            'faction'  => FACTION_BR,
-            'rarity'  => RARITY_RARE,
+            'faction'  => FACTION_LY,
+            'rarity'  => RARITY_COMMON,
             'name'  => clienttranslate("Lakshmi's Owl"),
             'typeline' => clienttranslate("Character - Animal, Spirit"),
             'type'  => CHARACTER,
@@ -22,24 +22,18 @@ class BR_Rare_LakshmisOwl extends \ALT\Models\Card
             'artist' => "Fahmi Fauzi",
             'extension' => 'ROC',
             'subtypes'  => [ANIMAL, SPIRIT],
-            'effectDesc' => clienttranslate('When #a Character gains one or more boosts# — If I have no boosts, #I gain 1 boost#. $<BB>'), 
-            'supportDesc' => clienttranslate('{D} : Pay {1} less for the next Character you play this turn, down to a minimum of {1}. (Discard me from Reserve to do this.)'),
+            'effectDesc' => clienttranslate('When you roll one or more dice — If I have no boosts, you may give me 1 boost and <FLEETING_CHAR> .'),
             'forest' => 0,
             'mountain' => 1,
             'ocean' => 0,
             'costHand' => 1,
             'costReserve' => 1,
-            'supportIcon' => 'discard',
             'effectPassive' => [
-                'Gain' => [ 
-                    'conditions' => ['isGain:boost', 'isControlledCharacterGain', 'isMe', 'hasBoost:0:LTE', 'isInStorms'],
-                    'output' => FT::GAIN(ME, BOOST),
-                ],
-            ],
-            'effectSupport' => [
-              'action' => SPECIAL_EFFECT,
-              'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
-            ],
+                'RollDie' => FT::SEQ_OPTIONAL([
+                    'conditions' => ['isMe', 'hasBoost:0:LTE', 'isInStorms'],
+                    'output' => FT::SEQ(FT::GAIN(ME, BOOST), FT::GAIN(ME, FLEETING))
+                ]),
+            ]
         ];
     }
 }
