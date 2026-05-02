@@ -43,7 +43,7 @@ class Target extends \ALT\Models\Action
     'hasEffects' => 'disabled',
     'cards' => [],
     'discardRemaining' => false,
-    'subType' => 'disabled',
+    'subType' => 'disabled', // Either a string or an array, array uses OR logic
     'expeditionAttributes' => null,
     'excludeBiomes' => false,
     'isTapped' => false,
@@ -357,7 +357,9 @@ class Target extends \ALT\Models\Action
         }
       }
 
-      if ($subType != 'disabled' && !in_array($subType, $c->getSubtypes())) {
+      if ($subType != 'disabled' &&
+        (!is_array($subType) && !in_array($subType, $c->getSubtypes())) ||
+        (is_array($subType) && count(array_intersect($subType, $c->getSubtypes())) == 0)) {
         return false;
       }
 
