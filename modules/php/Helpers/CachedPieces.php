@@ -210,6 +210,10 @@ class CachedPieces extends DB_Manager
       $ids = [$ids];
     }
 
+    // A caller can pass duplicated ids when several effects chain in one atomic
+    // resolution. We only need to fetch each piece once from cache.
+    $ids = array_values(array_unique(array_map(fn($id) => (string) $id, $ids)));
+
     self::checkIdArray($ids);
     static::fetchIfNeeded();
     $result = new Collection([]);
@@ -220,8 +224,8 @@ class CachedPieces extends DB_Manager
     }
 
     if (count($result) != count($ids) && $raiseExceptionIfNotEnough) {
-      throw new \feException(print_r(\debug_print_backtrace()));
-      throw new \feException('Class Pieces: getMany, some pieces have not been found !' . json_encode($ids));
+      $missingIds = array_values(array_diff($ids, array_keys($result->toArray())));
+      throw new \feException('Class Pieces: getMany, some pieces have not been found ! missing=' . json_encode($missingIds) . ' asked=' . json_encode($ids));
     }
 
     return $result;

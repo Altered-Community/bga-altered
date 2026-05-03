@@ -187,6 +187,11 @@ class Player extends \ALT\Helpers\DB_Model
       return is_null($type) || $card->getType() == $type || in_array($type, $card->getAdditionalType());
     });
   }
+  
+  public function getDiscard()
+  {
+    return Cards::getFiltered($this->id, DISCARD_PILE);
+  }
 
   // public function getManaChoice()
   // {
