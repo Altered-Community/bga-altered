@@ -43,6 +43,7 @@ class Target extends \ALT\Models\Action
     'cards' => [],
     'discardRemaining' => false,
     'subType' => 'disabled',
+    'notSubTypes' => null, // array of subtypes to disallow
     'expeditionAttributes' => null,
     'excludeBiomes' => false,
     'isTapped' => false,
@@ -258,6 +259,7 @@ class Target extends \ALT\Models\Action
     $excludeSelf = $this->getArg('excludeSelf');
     $sourceId = $this->getSourceId();
     $subType = $this->getArg('subType');
+    $notSubTypes = $this->getArg('notSubTypes');
     $expeditionAttributes = $this->getArg('expeditionAttributes');
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
     $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
@@ -273,7 +275,7 @@ class Target extends \ALT\Models\Action
     $minBaseCost = $this->getArg('minBaseCost');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -329,6 +331,16 @@ class Target extends \ALT\Models\Action
 
       if ($subType != 'disabled' && !in_array($subType, $c->getSubtypes())) {
         return false;
+      }
+
+      if (is_array($notSubTypes) && count($notSubTypes) > 0) {
+        $candidateSubTypes = $c->getSubtypes();
+        foreach ($candidateSubTypes as $subType) {
+          // "non-Animal character" means the target cannot have subtype Animal as any of its subtype
+          if (in_array($subType, $notSubTypes)) {
+            return false;
+          }
+        }
       }
 
       if ($checkTough && $c->getPId() != $player->getId() && $c->getTough() > $player->getMana()) {
