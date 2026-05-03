@@ -30,7 +30,7 @@ class OD_Rare_SunisaDedicatedEnsign extends \ALT\Models\Card
             'costReserve' => 3,
             'changedStats' => ['forest', 'mountain', 'ocean'],
             'defender' => true,
-            'defenderIgnoreBehind' => true,
+            'dynamicIgnoreDefender' => '1:myExpeditionIsBehind',
             'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
                 'pId' => 'source',
                 'tokenType' => 'OD_Common_OrdisRecruit',
