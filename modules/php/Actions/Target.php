@@ -42,7 +42,7 @@ class Target extends \ALT\Models\Action
     'hasEffects' => 'disabled',
     'cards' => [],
     'discardRemaining' => false,
-    'subType' => 'disabled',
+    'subType' => 'disabled', // String or Array. If Array, uses OR logic
     'expeditionAttributes' => null,
     'excludeBiomes' => false,
     'isTapped' => false,
@@ -257,7 +257,9 @@ class Target extends \ALT\Models\Action
 
     $excludeSelf = $this->getArg('excludeSelf');
     $sourceId = $this->getSourceId();
-    $subType = $this->getArg('subType');
+    $subTypeArg = $this->getArg('subType');
+    $subTypes = !is_null($subTypeArg) && $subTypeArg != 'disabled' ?
+      (is_array($subTypeArg) ? $subTypeArg : [$subTypeArg]) : null;
     $expeditionAttributes = $this->getArg('expeditionAttributes');
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
     $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
@@ -273,7 +275,7 @@ class Target extends \ALT\Models\Action
     $minBaseCost = $this->getArg('minBaseCost');
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $sourceId, $maxHandCost, $subTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -327,7 +329,7 @@ class Target extends \ALT\Models\Action
         }
       }
 
-      if ($subType != 'disabled' && !in_array($subType, $c->getSubtypes())) {
+      if (!is_null($subTypes) && count($subTypes) > 0 && count(array_intersect($subTypes, $c->getSubtypes())) == 0) {
         return false;
       }
 

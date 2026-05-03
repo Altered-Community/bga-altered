@@ -2073,6 +2073,55 @@ class SpecialEffect extends \ALT\Models\Action
           ]
         );
         break;
+      case 'RunningwiththeWolves':
+        $effectHand = $args['effectHand'] ?? false;
+        $subTypes = $args['subTypes'] ?? 'disabled';
+
+        Engine::checkpoint();
+        // draw 5 cards
+
+        $player = $card->getPlayer();
+        $drawn = $player->draw(5, null, LIMBO, $card);
+
+        // Target only Characters drawn
+        $this->insertAsChild(
+          FT::SEQ(
+            FT::ACTION(
+              TARGET,
+              [
+                'n' => 5,
+                'upTo' => true,
+                'effect' => FT::ACTION(PLAY_CARD, [
+                  'free' => true,
+                  'effectHand' => $effectHand,
+                  // Reset the Target arguments for the PlayCard action, in case it has effects that target
+                  // This is weird, but it seemed to fix issues where:
+                  // - Fair Fox resupplied 5 cards
+                  // - Lyra Cloth Dancer could not target anything
+                  // This requires more testing, and ideally making sure the arguments are not inherited
+                  // or have some easier way to reset them.
+                  'n' => 1,
+                  'targetLocation' => IN_PLAY,
+                  'targetPlayer' => ALL,
+                  'cards' => [],
+                  'subType' => 'disabled',
+                  'totalCost' => INFTY,
+                ]),
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+                'subType' => $subTypes,
+                'totalCost' => 7,
+                // 'discardRemaining' => true,
+              ],
+              ['sourceId' => $card->getId()]
+            ),
+            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticCleanLimbo', 'args' => ['cards' => $drawn->getIds()]], ['sourceId' => $card->getId()])
+          )
+        );
+
+        break;
+
       case 'copyGift':
         $event = $this->getEventRecursive();
 
