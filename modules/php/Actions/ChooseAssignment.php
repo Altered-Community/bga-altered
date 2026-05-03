@@ -619,17 +619,44 @@ class ChooseAssignment extends \ALT\Models\Action
 
       if (Globals::getAdditionalEffect() != []) {
         $addEffects = Globals::getAdditionalEffect();
+
+        // Pre-pass: determine if effect signatures have an INFTY limit
+        $infiniteEffectSignatures = [];
+        foreach ($addEffects as $e) {
+            if (($e['limit'] ?? INFTY) == INFTY) {
+                $sig = $e['effect'] . '|' . $e['type'] . '|' . $e['from'];
+                $infiniteEffectSignatures[$sig] = true;
+            }
+        }
+        
+        $processedEffects = [];
+
         foreach ($addEffects as $i => &$addEffect) {
           if ($addEffect['type'] == $card->getType()) {
             if ($addEffect['from'] == $fromLocation) {
               $effectType = $addEffect['effect'];
-              $f = 'getEffect' . ucfirst($effectType);
-              $newEffect = $card->$f();
-
-              if ($newEffect ==  []) {
+              $signature = $effectType . '|' . $addEffect['type'] . '|' . $addEffect['from'] . '|' . ($addEffect['limit'] ?? INFTY);
+          
+              // If this is a limit=1 effect but an INFTY effect exists for the same group, skip it
+              $groupSig = $effectType . '|' . $addEffect['type'] . '|' . $addEffect['from'];
+              if (($addEffect['limit'] ?? INFTY) == 1 && isset($infiniteEffectSignatures[$groupSig])) {
+                unset($addEffects[$i]);
                 continue;
               }
-
+          
+              // Skip if we already processed an effect with this signature
+              if (in_array($signature, $processedEffects)) {
+                unset($addEffects[$i]);
+                continue;
+              }
+          
+              $f = 'getEffect' . ucfirst($effectType);
+              $newEffect = $card->$f();
+          
+              if ($newEffect == []) {
+                continue;
+              }
+          
               if (isset($addEffect['to']) && !is_null($addEffect['to'])) {
                 if ($addEffect['to'] == 'sourceLocation') {
                   $source = Cards::get($addEffect['sourceId']);
@@ -640,46 +667,79 @@ class ChooseAssignment extends \ALT\Models\Action
                   continue;
                 }
               }
-
+          
+              $matchCount = count(array_filter($addEffects, function ($e) use ($addEffect) {
+                return $e['type'] == $addEffect['type']
+                  && $e['from'] == $addEffect['from']
+                  && $e['effect'] == $addEffect['effect']
+                  && ($e['limit'] ?? INFTY) == ($addEffect['limit'] ?? INFTY);
+              }));
+          
               if (($addEffect['limit'] ?? INFTY) == 1) {
                 if (!isset($newEffect['type']) && isset($newEffect['childs'])) {
                   $newEffect = $newEffect['childs'];
                 } else {
                   $newEffect = [$newEffect];
                 }
-
+          
                 if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
                   return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
                 })->count() > 0) {
                   $newEffect[] = FT::GAIN($card->getId(), BOOST);
                 }
-
-                $newEffect = [FT::XOR(...$newEffect)];
+          
+                if (($addEffect['boost'] ?? 0) > 0) {
+                  $newEffect[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+                }
+          
+                if ($matchCount > 1) {
+                  $effects[] = [
+                    'type' => NODE_OR,
+                    'args' => ['n' => $matchCount],
+                    'pId' => $player->getId(),
+                    'sourceId' => $addEffect['sourceId'],
+                    'childs' => $newEffect
+                  ];
+                } else {
+                  $effects[] = FT::XOR(...$newEffect);
+                }
               } else {
                 if (!empty($newEffect)) {
                   $newEffect = [$newEffect];
                 }
+          
                 if ($effectType == RESERVE && $player->getPlayedCards()->filter(function ($c) {
                   return in_array($c->getUid(), ['ALT_CORE_B_BR_30_R', 'ALT_CORE_B_BR_30_C']);
                 })->count() > 0) {
                   $newEffect[] = FT::GAIN($card->getId(), BOOST);
                 }
-              }
-
-              if (empty($newEffect) && ($addEffect['boost'] ?? 0) > 0) {
-                $effects[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
-              } else {
-                if (($addEffect['boost'] ?? 0) > 0) {
-                  $newEffect[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+          
+                if (empty($newEffect) && ($addEffect['boost'] ?? 0) > 0) {
+                  $effects[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+                } else {
+                  if (($addEffect['boost'] ?? 0) > 0) {
+                    $newEffect[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+                  }
+                  $effects[] = FT::SEQ(...$newEffect);
                 }
-                $effects[] = FT::SEQ(...$newEffect);
               }
-              unset($addEffects[$i]);
+          
+              // Mark as processed and remove all matching entries
+              $processedEffects[] = $signature;
+              foreach ($addEffects as $j => $e) {
+                if ($e['type'] == $addEffect['type']
+                  && $e['from'] == $addEffect['from']
+                  && $e['effect'] == $addEffect['effect']
+                  && ($e['limit'] ?? INFTY) == ($addEffect['limit'] ?? INFTY)) {
+                  unset($addEffects[$j]);
+                }
+              }
             }
           }
         }
         Globals::setAdditionalEffect($addEffects);
       }
+
       $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
       if (
         $card->getType() == CHARACTER && (
