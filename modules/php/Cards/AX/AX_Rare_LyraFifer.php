@@ -20,7 +20,7 @@ class AX_Rare_LyraFifer extends \ALT\Models\Card
             'artist' => "Zero Wen",
             'extension'=>'ROC',
             'subtypes'  => [ARTIST],
-            'effectDesc' => clienttranslate('If a #{T}# ability #was activated this turn#, I gain 1 boost.'),
+            'effectDesc' => clienttranslate('{J} If a #{T}# ability #was activated this turn#, I gain 1 boost.'),
             'supportDesc' => clienttranslate(
                 '#{D} : The next Character you play this turn gains 1 boost. (Discard me from Reserve to do this.)#'
             ),

@@ -28,7 +28,7 @@ class LY_Rare_Carbunclo extends \ALT\Models\Card
             'costHand' => 2, 
             'costReserve' => 2,
             'changedStats' => ['mountain'],
-            'effectHand' => FT::ACTION(CHECK_CONDITION, [
+            'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
                 'condition' => 'hasOtherSupportCardInReserveOrExpeditions',
                 'effect' => FT::ACTION(RESUPPLY, [])
             ]),
