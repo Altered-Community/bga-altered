@@ -80,7 +80,9 @@ class Card extends \ALT\Helpers\DB_Model
     'effectHand' => 'obj', // played from hand
     'effectReserve' => 'obj', // played from reserve
     'effectSupport' => 'obj',
-    'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
+    'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish    
+    // Passive-style modifiers that apply while the Feat is completed (FEAT_COMPLETED meeple on card).
+    'effectCompleted' => 'obj',
     'effectTap' => 'obj',
     'effectInfinity' => 'obj',
 
@@ -567,7 +569,7 @@ class Card extends \ALT\Helpers\DB_Model
     // Remove meeples
     $meeples = Meeples::getInLocation('card-' . $this->id);
     if ($location == RESERVE && ($isSeasoned || in_array($this->id, $seasoned))) {
-      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep their boost
+      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST && $m->getType() != FEAT_COMPLETED); // Seasoned card keep boost + completed Feat marker
     }
     $meepleIds = $meeples->getIds();
     if (!empty($meepleIds)) {

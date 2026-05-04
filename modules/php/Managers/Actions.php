@@ -50,6 +50,7 @@ class Actions
     MOVE_REGION_MARKER,
     INTERUPT_REVEAL,
     SHUFFLE,
+    COMPLETE_FEAT,
   ];
 
   public static function get($actionId, &$ctx = null)

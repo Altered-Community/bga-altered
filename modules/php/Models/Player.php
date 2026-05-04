@@ -256,7 +256,23 @@ class Player extends \ALT\Helpers\DB_Model
     if (is_null($this->getHero())) {
       return 0;
     }
-    return $this->getHero()->getLandmarkSlots();
+    $n = (int) $this->getHero()->getLandmarkSlots();
+    foreach ($this->getLandmarks() as $card) {
+      if (!in_array(FEAT, $card->getSubtypes())) {
+        continue;
+      }
+      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      $completed = $card->getEffectCompleted();
+      if (empty($completed) || !is_array($completed)) {
+        continue;
+      }
+      if (isset($completed['landmarkSlots']) && $completed['landmarkSlots'] > $n) {
+        $n = (int) $completed['landmarkSlots'];
+      }
+    }
+    return $n;
   }
 
   public function getPermanents()

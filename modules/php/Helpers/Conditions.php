@@ -163,6 +163,12 @@ abstract class Conditions
   {
     return ($event['pId'] ?? null) == $card->getPId();
   }
+  
+  /** True when this card is the one that entered play (playCard + cardId on the event). Used for InvokeToken with onPlay effects. */
+  public static function isSelfPlayCardEvent($card, $event)
+  {
+    return ($event['playCard'] ?? false) && (int) ($event['cardId'] ?? -1) === (int) $card->getId();
+  }
 
   public static function isNotMe($card, $event)
   {
@@ -479,9 +485,49 @@ abstract class Conditions
     die('Unknown op for hasDiscardPileCards');
   }
 
-  public static function hasControlFeat($card, $event)
+  /** True if this player has n completed feat. */
+  public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {
-    return self::hasControl($card, $event, FEAT, 1);
+    $count = $card->getPlayer()->getCompletedFeat();
+    $n = (int) $n;
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    if ($op == 'LT') {
+      return $count < $n;
+    }
+    if ($op == 'GT') {
+      return $count > $n;
+    }
+    throw new \BgaVisibleSystemException('Unknown op for hasCompletedFeat: ' . $op);
+  }
+
+  /** True if this card has no feat-completed meeple (COMPLETE_FEAT passive not yet applied). */
+  public static function isThisFeatIncomplete($card, $event)
+  {
+    return Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1;
+  }
+
+  /**
+   * Counts Feat permanents you control in play (same zones / filters as hasControl for subtype feat).
+   *
+   * Condition string segments (after the name), same order as hasControl minus type and opponent:
+   *   hasControlFeat
+   *   hasControlFeat:{n}
+   *   hasControlFeat:{n}:{excludeMyself true|false}
+   *   hasControlFeat:{n}:{excludeMyself}:{state all|boosted|fleeting|exhausted}
+   *   hasControlFeat:{n}:{excludeMyself}:{state}:{op GTE|LTE|EQ|LT|GT}
+   */
+  public static function hasControlFeat($card, $event, $n = 1, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
+  {
+    return self::hasControl($card, $event, FEAT, (int) $n, $excludeMyself, $state, $op, false);
+
   }
 
   public static function hasBiggerHand($card, $event)

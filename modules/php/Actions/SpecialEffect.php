@@ -187,10 +187,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Characters in your Reserve gain 1 boost');
       case 'boostXBoostedChar':
         return clienttranslate('1 Boost for each Boosted character');
-        break;
       case 'boostXAnchoredChar':
         return clienttranslate('1 Boost for each Anchored character');
-        break;
       case 'boostXreserveBoost':
         return clienttranslate('For each boost, boost 1 character in reserve');
       case 'augmentXreserveBoost':
@@ -279,6 +277,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Sacrifice highest opponent character');
       case 'sacrificeHighestCharacterPermanent':
         return clienttranslate('Sacrifice highest opponent character or permanent');
+        // EOLE
+      case 'boostXCompletedFeat':
+        return clienttranslate('1 Boost for each Completed Feat in your Landmarks');
     }
     return '';
   }
@@ -314,6 +315,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXOpponentExpedition':
       case 'boostXExhaustedMax3':
       case 'boostXLandmarkMax3':
+      case 'boostXCompletedFeat':
       default:
         return false;
     }
@@ -1109,6 +1111,12 @@ class SpecialEffect extends \ALT\Models\Action
             return $c->hasToken(BOOST);
           })
           ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
+      case 'boostXCompletedFeat';
+        $n = $card->getPlayer()->getCompletedFeat();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
