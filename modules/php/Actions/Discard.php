@@ -414,7 +414,7 @@ class Discard extends \ALT\Models\Action
       }
       
       if (in_array($originalLocation, [HAND, RESERVE])) {
-        $abilityFlags = ['discardOrReserve' => true];
+        $abilityFlags = ['discardFromHandOrReserve' => true];
         if ($originalLocation == HAND) {
           $abilityFlags['discardFromHand'] = true;
         }

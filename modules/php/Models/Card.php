@@ -440,14 +440,6 @@ class Card extends \ALT\Helpers\DB_Model
             return [$forcedLocation];
           }
           return STORMS;
-        } elseif ($this->getPlayLimitation() == 'discardPile6') {
-          if ($player->getDiscard()->count() < 6) {
-            return [];
-          }
-          if (!is_null($forcedLocation)) {
-            return [$forcedLocation];
-          }
-          return STORMS;
         } elseif ($this->getPlayLimitation() == 'nonStartingRegion') {
           $locations = [];
           if ($player->getHeroToken()->getLocation() != 'storm-0') {

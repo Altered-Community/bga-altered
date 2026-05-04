@@ -679,11 +679,6 @@ abstract class Conditions
     }
   }
   
-  public static function discardGTE6($card, $event)
-  {
-    return $card->getPlayer()->getDiscard()->count() >= 6;
-  }
-
   public static function hasOpponentControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
   {
     return self::hasControl($card, $event, $type, $n, $excludeMyself, $state, $op, true);

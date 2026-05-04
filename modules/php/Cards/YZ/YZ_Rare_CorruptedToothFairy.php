@@ -27,7 +27,7 @@ class YZ_Rare_CorruptedToothFairy extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean'],
-      'playCondition' => 'discardGTE6',
+      'playCondition' => 'hasDiscardPileCards:6',
       'effectHand' =>
       FT::ACTION(TARGET, [
         'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],

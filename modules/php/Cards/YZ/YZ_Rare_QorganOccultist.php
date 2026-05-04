@@ -30,7 +30,7 @@ class YZ_Rare_QorganOccultist extends \ALT\Models\Card
       'costReserve' => 1,
       'changedStats' => ['ocean'],
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'checkAbilityActivatedThisTurn:discardOrReserve',
+        'condition' => 'checkAbilityActivatedThisTurn:discardFromHandOrReserve',
         'effect' => 'OPPOSITE',
         'oppositeEffect' => FT::GAIN(ME, FLEETING),
       ]),
