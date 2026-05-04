@@ -472,11 +472,8 @@ class ChooseAssignment extends \ALT\Models\Action
    if (
       Globals::getNextCharacterBaseCost3Anchored() == true &&
       in_array($card->getType(), [CHARACTER, TOKEN]) &&
-      (
-        ($fromLocation == HAND && $card->getCostHand() <= 3) ||
-        (($fromLocation == RESERVE && $card->getCostReserve() <= 3)) ||
-        (($fromLocation == LIMBO && $card->getCostReserve() <= 3))
-      )
+      $card->getCostHand() <= 3 && 
+      in_array($fromLocation, [HAND, RESERVE, LIMBO])
     ) {
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterBaseCost3Anchored(false);
