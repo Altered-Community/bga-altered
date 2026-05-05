@@ -284,6 +284,18 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return Cards::getPlayedCards($this->id, PERMANENT)->where('subtypes', LANDMARK);
   }
+  
+  /**
+   * Number of completed Feats among this player's Landmark permanents (see FEAT_COMPLETED meeple).
+   */
+  public function getCompletedFeat()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      $n += Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED);
+    }
+    return $n;
+  }
 
   public function getManaCards($tapped = null)
   {

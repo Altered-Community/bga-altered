@@ -1114,7 +1114,7 @@ class SpecialEffect extends \ALT\Models\Action
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
-        break;
+          break;
       case 'boostXCompletedFeat';
         $n = $card->getPlayer()->getCompletedFeat();
         if ($n > 0) {

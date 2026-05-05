@@ -31,9 +31,6 @@ class CompleteFeat extends \ALT\Models\Action
     if ($cardId === ME || $cardId === 'source') {
       $cardId = $this->getSourceId();
     }
-    if ($cardId === EFFECT) {
-      $cardId = $this->getEvent()['cardId'] ?? $this->getSourceId();
-    }
     if ($cardId === null) {
       throw new \BgaVisibleSystemException('CompleteFeat: missing cardId');
     }
