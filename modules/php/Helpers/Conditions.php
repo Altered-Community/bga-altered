@@ -233,7 +233,7 @@ abstract class Conditions
     return false;
   }
 
-    public static function movesStormsWithAscended($card, $event)
+  public static function movesStormsDueToAscension($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
     $storm = $event['expedition'] ?? $card->getLocation();
@@ -246,7 +246,7 @@ abstract class Conditions
     }
 
     $move = $stormMoves[$card->getPId()][$storm];
-    if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1) {
+    if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1 && $move['hasMovedDueToAscension'] == true) {
       return true;
     }
 
