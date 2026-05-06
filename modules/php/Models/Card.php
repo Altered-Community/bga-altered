@@ -569,7 +569,7 @@ class Card extends \ALT\Helpers\DB_Model
     // Remove meeples
     $meeples = Meeples::getInLocation('card-' . $this->id);
     if ($location == RESERVE && ($isSeasoned || in_array($this->id, $seasoned))) {
-      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST && $m->getType() != FEAT_COMPLETED); // Seasoned card keep boost + completed Feat marker
+      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep boost
     }
     $meepleIds = $meeples->getIds();
     if (!empty($meepleIds)) {

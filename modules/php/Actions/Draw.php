@@ -100,7 +100,7 @@ class Draw extends \ALT\Models\Action
       $players = Players::getAll();
     } elseif ($who == 'owner') {
       if (is_null($this->getArg('ownerId'))) {
-        throw new \BgaVisibleSystemException('No owner of card. Should not happen');
+        throw new \Bga\GameFramework\VisibleSystemException('No owner of card. Should not happen');
       }
       $players = [Players::get($this->getArg('ownerId'))];
     } else {

@@ -572,7 +572,7 @@ abstract class Conditions
     if ($op == 'GT') {
       return $m > $n;
     }
-    throw new \BgaVisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
+    throw new \Bga\GameFramework\VisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
   }
 
   public static function hasBiggerHand($card, $event)

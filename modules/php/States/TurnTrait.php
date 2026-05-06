@@ -19,7 +19,7 @@ trait TurnTrait
     foreach ($cardIds as $i => $cardId) {
       $card = Cards::getSingle($cardId);
       if (is_null($card) || $card->isPlayed() || $card->getPId() != $player->getId()) {
-        throw new \BgaVisibleSystemException("You can't reorder that card:" . $card->getId());
+        throw new \Bga\GameFramework\VisibleSystemException("You can't reorder that card:" . $card->getId());
       }
 
       Cards::setState($cardId, $i);

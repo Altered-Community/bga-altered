@@ -170,7 +170,7 @@ class Gain extends \ALT\Models\Action
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args (Gain). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (Gain). Should not happen');
     }
     return Cards::getSingle($cardId);
   }

@@ -333,7 +333,7 @@ class SpecialEffect extends \ALT\Models\Action
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
-      throw new \BgaVisibleSystemException('no card in args (special effect). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (special effect). Should not happen');
     }
     if ($cardId == ME) {
       $cardId = $this->getSource()->getId();
@@ -504,7 +504,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
-          throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
+          throw new \Bga\GameFramework\VisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
         }
         $subType = $args['subType'];
         $excludeSelf = $args['excludeSelf'] ?? false;

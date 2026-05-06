@@ -36,7 +36,7 @@ class Exhaust extends \ALT\Models\Action
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args (Gain). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (Gain). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -52,7 +52,7 @@ class Exhaust extends \ALT\Models\Action
     }
 
     if ($card->isTapped()) {
-      throw new \BgaVisibleSystemException('Card is already tapped. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Card is already tapped. Should not happen');
     }
     $card->setTapped(true);
 

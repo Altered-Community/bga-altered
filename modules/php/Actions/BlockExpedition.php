@@ -48,7 +48,7 @@ class BlockExpedition extends \ALT\Models\Action
     $player = $this->getPlayer();
 
     if ($expedition == 'all' && ($this->getCtxArg('expedition') ?? '') != 'all') {
-      throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Invalid expedition all. Should not happen');
     }
 
     if ($expedition == 'all') {

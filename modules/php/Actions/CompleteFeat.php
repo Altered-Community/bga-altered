@@ -32,7 +32,7 @@ class CompleteFeat extends \ALT\Models\Action
       $cardId = $this->getSourceId();
     }
     if ($cardId === null) {
-      throw new \BgaVisibleSystemException('CompleteFeat: missing cardId');
+      throw new \Bga\GameFramework\VisibleSystemException('CompleteFeat: missing cardId');
     }
     return Cards::get($cardId);
   }

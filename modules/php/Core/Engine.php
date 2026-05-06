@@ -294,7 +294,7 @@ class Engine
     $node = self::$tree->getNextUnresolved();
     $args = $node->getChoices($player);
     if (!isset($args[$nodeId])) {
-      throw new \BgaVisibleSystemException('This choice is not possible');
+      throw new \Bga\GameFramework\VisibleSystemException('This choice is not possible');
     }
 
     if (!$auto) {
@@ -342,7 +342,7 @@ class Engine
     $canReuse = $node->getArgs()['canReuse'] ?? false;
 
     if ($node->getChilds()[$nodeId]->isResolved() && !$canReuse) {
-      throw new \BgaVisibleSystemException('Node is already resolved');
+      throw new \Bga\GameFramework\VisibleSystemException('Node is already resolved');
     }
     if ($canReuse) {
       $node->getChilds()[$nodeId]->unresolveAction();
