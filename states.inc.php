@@ -562,6 +562,14 @@ $machinestates = [
     'action' => 'stAtomicAction',
   ],
 
+  // Eole
+  ST_DISCARD_FROM_DECK => [
+    'name' => 'discardFromDeck',
+    'type' => 'game',
+    'description' => '',
+    'action' => 'stAtomicAction',
+  ],
+
   ////////////////////////////////////
   //  _____             _
   // | ____|_ __   __ _(_)_ __   ___

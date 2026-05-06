@@ -2027,4 +2027,3 @@ abstract class Conditions
       $gainCard->getPId() == $card->getPId();
   }
 }
-}
