@@ -554,6 +554,24 @@ abstract class Conditions
     }
     return $cards->count() > $n;
   }
+  
+  public static function hasOtherSupportCardInReserveOrExpeditions($card, $event)
+  {
+    $player = $card->getPlayer();
+    $otherCards = $player->getReserveCards()
+      ->merge($player->getPlayedCards())
+      ->filter(function ($c) use ($card) {
+        if ($c->getId() == $card->getId()) {
+          return false;
+        }
+        if ($c->getLocation() == LANDMARK || $c->getType() == HERO) {
+          return false;
+        }
+        return !empty($c->getEffectSupport());
+      });
+
+    return !$otherCards->empty();
+  }
 
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
   {
@@ -577,15 +595,6 @@ abstract class Conditions
       return !empty($playerAbilities);
     }
     return !empty($playerAbilities[$type]);
-  }
-
-  public static function checkSupportActivatedThisTurn($card, $event, $supportType = 'any')
-  {
-    return
-      self::checkAbilityActivatedThisTurn($card, $event, 'discard') ||
-      self::checkAbilityActivatedThisTurn($card, $event, 'tap') ||
-      self::checkAbilityActivatedThisTurn($card, $event, 'discardOrReserve') ||
-      self::checkAbilityActivatedThisTurn($card, $event, 'support');
   }
 
   public static function hasLessReserveCards($card, $event)
