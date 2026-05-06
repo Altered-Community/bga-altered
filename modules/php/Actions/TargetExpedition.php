@@ -21,7 +21,7 @@ class TargetExpedition extends \ALT\Models\Action
     return ST_TARGET_EXPEDITION;
   }
 
-  protected $args = ['n' => 1, 'players' => ALL];
+  protected $args = ['n' => 1, 'players' => ALL, 'otherThanMe' => false];
 
   public function getDescription()
   {
@@ -43,6 +43,14 @@ class TargetExpedition extends \ALT\Models\Action
     $expeditions = [];
     $expeditionType = $this->getCtxArgs()['type'] ?? null;
     $winners = Players::getWinningPlayerByStorms();
+    $otherThanMe = $this->getArg('otherThanMe');
+
+    $sourceExpedition = null;
+    if ($otherThanMe) {
+      $source = $this->getSource();
+      $sourceLocation = $source->getLocation();
+      $sourcePId = $source->getPId();
+    }
 
     if ($this->getArg('players') == ALL) {
       $players = Players::getAll();
@@ -55,6 +63,9 @@ class TargetExpedition extends \ALT\Models\Action
     foreach ($players as $pId => $player) {
       foreach (STORMS as $storm) {
         if ($expeditionType == 'ahead' && $winners[$storm] != $pId) {
+          continue;
+        }
+        if ($otherThanMe === true && $sourceLocation == $storm && $sourcePId == $pId) {
           continue;
         }
         $expeditions[] = $pId . '-' . $storm;
