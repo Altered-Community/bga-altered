@@ -466,7 +466,9 @@ abstract class Conditions
 
   public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
   {
-    $count = $card->getPlayer()->getDiscard()->count();
+    // Use the cards manager directly to avoid relying on a specific player model accessor
+    // during reaction pre-checks, where the card context can be partially hydrated.
+    $count = Cards::getFiltered($card->getPId(), DISCARD_PILE)->count();
     if ($op == 'GTE') {
       return $count >= $n;
     }

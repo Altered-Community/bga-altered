@@ -320,12 +320,7 @@ class Player extends \ALT\Helpers\DB_Model
       Cards::getFiltered($this->id, 'board-hero-' . $deckNumber)
     );
   }
-
-  public function getDiscard()
-  {
-    return Cards::getFiltered($this->id, DISCARD_PILE);
-  }
-
+  
   public function getAddRoll()
   {
     $add = 0;
