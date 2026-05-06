@@ -233,7 +233,7 @@ abstract class Conditions
     return false;
   }
 
-  public static function movesStormsDueToAscension($card, $event)
+  public static function movesStormDueToAscension($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
     $storm = $event['expedition'] ?? $card->getLocation();

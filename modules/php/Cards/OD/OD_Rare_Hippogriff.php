@@ -29,7 +29,7 @@ class OD_Rare_Hippogriff extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source']),
       'effectPassive' => [
         'AfterDusk' => [
-          'condition' => 'movesStormsDueToAscension',
+          'condition' => 'movesStormDueToAscension',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',

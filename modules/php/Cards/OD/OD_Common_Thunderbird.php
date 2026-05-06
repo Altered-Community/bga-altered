@@ -27,7 +27,7 @@ class OD_Common_Thunderbird extends \ALT\Models\Card
       'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source']),
       'effectPassive' => [
           'AfterDusk' => [
-              'condition' => 'movesStormsDueToAscension',
+              'condition' => 'movesStormDueToAscension',
               'output' => FT::ACTION(DRAW, ['players' => ME])
           ],
       ],
