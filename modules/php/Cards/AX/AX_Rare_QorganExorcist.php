@@ -2,6 +2,7 @@
 
 namespace ALT\Cards\AX;
 
+use ALT\Actions\DiscardFromDeck;
 use ALT\Helpers\FT;
 use ALT\Models\Card;
 
@@ -33,7 +34,7 @@ class AX_Rare_QorganExorcist extends Card
             'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
                 'condition' => ['hasDiscardPileCards:6:GTE'],
                 'effect' => FT::GAIN(ME, BOOST, 1),
-                'oppositeEffect' => FT::ACTION(DISCARD_FROM_DECK, ['players' => ME, 'n' => 1])
+                'oppositeEffect' => FT::ACTION(DISCARD_FROM_DECK, [ARG_PLAYERS => ME, ARG_N => 1])
             ])
         ];
     }

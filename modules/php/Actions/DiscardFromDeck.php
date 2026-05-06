@@ -25,7 +25,7 @@ class DiscardFromDeck extends Action
         return [
             'log' => clienttranslate('Discard ${n} from deck'),
             'args' => [
-                'n' => $this->getArg('n'),
+                ARG_N => $this->getArg(ARG_N),
             ],
         ];
     }
@@ -42,7 +42,7 @@ class DiscardFromDeck extends Action
 
     public function getPlayer(): array|Collection
     {
-        $targetPlayers = $this->getCtxArg('players') ?? $this->getArg('players');
+        $targetPlayers = $this->getCtxArg(ARG_PLAYERS) ?? $this->getArg(ARG_PLAYERS);
         $currentPlayer = Players::getActive();
         $target = [];
 
@@ -57,13 +57,13 @@ class DiscardFromDeck extends Action
     }
 
     protected $args = [
-        'players' => ME,
-        'n' => 1,
+        ARG_PLAYERS => ME,
+        ARG_N => 1,
     ];
 
     public function stDiscardFromDeck(): void
     {
-        $n = $this->getArg('n');
+        $n = $this->getArg(ARG_N);
         $players = $this->getPlayer();
 
         $source = $this->ctx->getSource() ?? null;

@@ -189,6 +189,10 @@ const INTERUPT_REVEAL = 'InteruptReveal';
 const SHUFFLE = 'Shuffle';
 const DISCARD_FROM_DECK = 'DiscardFromDeck';
 
+///// Action ARGS /////
+const ARG_PLAYERS = 'players';
+const ARG_N = 'n';
+
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';
 const TARGET_ALL_CHARACTER_2 = 'target_all_character_2';
