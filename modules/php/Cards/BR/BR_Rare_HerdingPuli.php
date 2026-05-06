@@ -12,7 +12,6 @@ class BR_Rare_HerdingPuli extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_EOLE_B_MU_106_R2',
       'asset'  => 'ALT_EOLE_B_MU_106_R',
-
       'faction'  => FACTION_BR,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("Herding Puli"),
@@ -31,13 +30,10 @@ class BR_Rare_HerdingPuli extends \ALT\Models\Card
       'changedStats' => ['forest'],
       'effectPlayed' => FT::SEQ(
         FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextTokenAsleep']),
-        FT::ACTION(TARGET_EXPEDITION, [
-          'players' => OPPONENT,
-          'effect' => FT::ACTION(INVOKE_TOKEN, [
-            'pId' => 'source',
-            'tokenType' => 'MU_Common_Woollyback',
-          ]),
-
+        FT::ACTION(INVOKE_TOKEN, [
+          'targetPlayer' => OPPONENT,
+          'targetLocation' => ['source'],
+          'tokenType' => 'MU_Common_Woollyback',
         ]),
       )
     ];
