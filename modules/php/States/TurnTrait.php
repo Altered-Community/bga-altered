@@ -328,7 +328,7 @@ trait TurnTrait
   function stNightCleanup()
   {
     // $player = Players::getActive();
-
+    Meeples::nightCleanup();
     // Initiate engine in case some cards are reacting
     Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
     // Move cards / remove tokens => possible reaction of cards moving to reserve or being discarded
@@ -347,7 +347,6 @@ trait TurnTrait
 
   function stAfterNightCleanup()
   {
-    Meeples::nightCleanup();
     Globals::setStormMoves([]); // moved to be able to test Expedition cleanup
     $this->checkCardListeners('BeforeNight', 'stPreNight', []);
   }

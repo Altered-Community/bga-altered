@@ -253,6 +253,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Reveal a card');
       case 'ascend':
         return clienttranslate('Ascend');
+      case 'ascendOnLeave':
+        return clienttranslate('Ascend when character is leaving expedition zone');          
       case 'switchPlayer':
         return clienttranslate('Change First player');
       case 'allCharacterFleeting':
@@ -1715,6 +1717,31 @@ class SpecialEffect extends \ALT\Models\Action
           Notifications::ascend($ascended, $oPlayer, $card, $expedition);
         }
         break;
+      case 'ascendOnLeave':
+        $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
+        $player = $this->getCtxArg('player') ?? $player;
+        $oPlayer = Players::get($player);
+        $expedition = $this->getCtxArg('expedition');
+        // Check event in case of leaving expedition
+        $event = $this->getEventRecursive();
+        $srcLoc = $event['from'];
+        if ($expedition == 'oppositeSource') {
+          $realLocation = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+        } else {
+          $realLocation = $srcLoc;
+        }
+        if (!$oPlayer->isAscended($realLocation)) {
+          // $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          // $oToken = $oPlayer->$token();
+          $ascended = Meeples::singleCreate([
+            'player_id' => $player,
+            'location' => $realLocation,
+            'nbr' => 1,
+            'type' => 'ascend'
+          ]);
+          Notifications::ascend($ascended, $oPlayer, $card, $realLocation);
+        }
+        break;          
       case 'switchPlayer':
         $newFirstPId = $this->getCtxArgs()['pId'];
         Globals::setFirstPlayer($newFirstPId);
