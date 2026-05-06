@@ -372,7 +372,8 @@ const SUBTYPES = [
   MERCHANT,
   ROGUE,
   FEAT,
-  CORRUPTION
+  CORRUPTION,
+  FEAT
 ];
 
 /*********************
