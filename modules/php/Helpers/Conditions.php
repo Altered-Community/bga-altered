@@ -466,7 +466,9 @@ abstract class Conditions
 
   public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
   {
-    $count = $card->getPlayer()->getDiscard()->count();
+    // Use the cards manager directly to avoid relying on a specific player model accessor
+    // during reaction pre-checks, where the card context can be partially hydrated.
+    $count = Cards::getFiltered($card->getPId(), DISCARD_PILE)->count();
     if ($op == 'GTE') {
       return $count >= $n;
     }
@@ -554,6 +556,24 @@ abstract class Conditions
     }
     return $cards->count() > $n;
   }
+  
+  public static function hasOtherSupportCardInReserveOrExpeditions($card, $event)
+  {
+    $player = $card->getPlayer();
+    $otherCards = $player->getReserveCards()
+      ->merge($player->getPlayedCards())
+      ->filter(function ($c) use ($card) {
+        if ($c->getId() == $card->getId()) {
+          return false;
+        }
+        if ($c->getLocation() == LANDMARK || $c->getType() == HERO) {
+          return false;
+        }
+        return !empty($c->getEffectSupport());
+      });
+
+    return !$otherCards->empty();
+  }
 
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
   {
@@ -567,6 +587,26 @@ abstract class Conditions
     if ($op == 'LTE') {
       return $count <= $n;
     }
+  }
+
+  
+  public static function checkAbilityActivatedThisTurn($card, $event, $type = 'any')
+  {
+    $abilities = Globals::getAbilityActivatedThisTurn();
+    $playerAbilities = $abilities[$card->getPId()] ?? [];
+    if ($type == 'any') {
+      return !empty($playerAbilities);
+    }
+    return !empty($playerAbilities[$type]);
+  }
+
+  public static function checkSupportActivatedThisTurn($card, $event, $supportType = 'any')
+  {
+    return
+      self::checkAbilityActivatedThisTurn($card, $event, 'discard') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'tap') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'discardOrReserve') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'support');
   }
 
   public static function hasLessReserveCards($card, $event)
@@ -608,6 +648,7 @@ abstract class Conditions
   public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE', $opponent = false)
   {
     $types = [CHARACTER, TOKEN];
+    $subTypes = null;
     if ($type == TOKEN) {
       $types = [CHARACTER, PERMANENT];
     }
@@ -617,6 +658,15 @@ abstract class Conditions
     if (in_array($type, SUBTYPES)) {
       $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
     }
+    if (strpos($type, '|') !== false) {
+      $maybeSubtypes = explode('|', $type);
+      $allSubtypes = count(array_intersect($maybeSubtypes, SUBTYPES)) == count($maybeSubtypes);
+      if ($allSubtypes) {
+        $subTypes = $maybeSubtypes;
+        $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+      }
+    }
+    
 
     if ($opponent) {
       $player = Players::getNext($card->getPlayer());
@@ -633,6 +683,9 @@ abstract class Conditions
 
     if (in_array($type, SUBTYPES)) {
       $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
+    }
+    if (!is_null($subTypes)) {
+      $cards = $cards->filter(fn($c) => count(array_intersect($subTypes, $c->getSubtypes())) > 0);
     }
 
     if ($excludeMyself === 'true') {
@@ -1986,5 +2039,4 @@ abstract class Conditions
       $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
   }
-}
 }

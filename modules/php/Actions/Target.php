@@ -44,6 +44,7 @@ class Target extends \ALT\Models\Action
     'cards' => [],
     'discardRemaining' => false,
     'subType' => 'disabled', // Either a string or an array, array uses OR logic
+    'notSubTypes' => null, // array of subtypes to disallow
     'expeditionAttributes' => null,
     'excludeBiomes' => false,
     'isTapped' => false,
@@ -283,6 +284,7 @@ class Target extends \ALT\Models\Action
       $previousTargetId = $this->getCtxArg('cardId');
     }
     $subType = $this->getArg('subType');
+    $notSubTypes = $this->getArg('notSubTypes');
     $expeditionAttributes = $this->getArg('expeditionAttributes');
     $filteredBiomes = Players::filterBiomes($expeditionAttributes);
     $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
@@ -300,7 +302,7 @@ class Target extends \ALT\Models\Action
     $compareFilter = $this->resolveCompareTargetBiomeFilter();
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -361,6 +363,16 @@ class Target extends \ALT\Models\Action
         (!is_array($subType) && !in_array($subType, $c->getSubtypes())) ||
         (is_array($subType) && count(array_intersect($subType, $c->getSubtypes())) == 0)) {
         return false;
+      }
+
+      if (is_array($notSubTypes) && count($notSubTypes) > 0) {
+        $candidateSubTypes = $c->getSubtypes();
+        foreach ($candidateSubTypes as $subType) {
+          // "non-Animal character" means the target cannot have subtype Animal as any of its subtype
+          if (in_array($subType, $notSubTypes)) {
+            return false;
+          }
+        }
       }
 
       if ($checkTough && $c->getPId() != $player->getId() && $c->getTough() > $player->getMana()) {
