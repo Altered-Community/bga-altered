@@ -28,7 +28,7 @@ class MU_Rare_MoltingCrab extends \ALT\Models\Card
       'costReserve' => 3,
       'changedStats' => ['forest', 'mountain'],
       'effectPlayed' => FT::SEQ(
-        FT::ACTION(DRAW, ['players' => ME, 'amount' => 2]),
+        FT::ACTION(DRAW, ['players' => ME, 'n' => 1]),
         FT::ACTION(DISCARD, ['source' => HAND]),
       ),
     ];

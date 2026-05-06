@@ -26,7 +26,7 @@ class YZ_Common_CorruptedBabaYaga extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
-      'effectHand' => FT::SEQ(
+      'effectHand' => FT::PAR(
         FT::ACTION(CHECK_CONDITION, [
           'conditions' => ['hasDiscardPileCards:5:LTE'],
           'effect' => FT::GAIN(ME, FLEETING),

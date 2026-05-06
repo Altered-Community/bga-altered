@@ -27,7 +27,7 @@ class YZ_Common_MoltingCrab extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectHand' => FT::SEQ(
-        FT::ACTION(DRAW, ['players' => ME, 'amount' => 1]),
+        FT::ACTION(DRAW, ['players' => ME, 'n' => 1]),
         FT::ACTION(DISCARD, ['source' => HAND]),
       ),
     ];
