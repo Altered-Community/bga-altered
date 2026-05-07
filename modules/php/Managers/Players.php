@@ -598,7 +598,6 @@ class Players extends \ALT\Helpers\CachedDB_Manager
         OCEAN => false,
       ],
     ];
-    $hasMovedDueToAscension = false;
 
     // Winner calculation
     foreach ($players as $pId => $player) {
@@ -655,12 +654,11 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           $win = $pIdWinner == $pId || ($isEqual && $isAscended);
           $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
-          if ($pIdWinner == $pId) {
+          if ($isEqual && $isAscended){
+              $move = true;
+          } elseif ($pIdWinner == $pId)  {
               $move = true;
               $winningBiomes[] = $biome;
-          } elseif ($isEqual && $isAscended) {
-              $move = true;
-              $hasMovedDueToAscension = true;
           }
         }
 
@@ -733,7 +731,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           }
           continue;
         }
-        $player->advanceStorm($side, $winningBiomes, $n, $hasMovedDueToAscension);
+        $player->advanceStorm($side, $winningBiomes, $n);
       }
     }
 
