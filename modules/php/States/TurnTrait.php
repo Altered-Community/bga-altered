@@ -317,6 +317,10 @@ trait TurnTrait
     //   Globals::setTieBreakerMode(true);
     //   Globals::setEnterTieBreakerMode(false);
     // }
+    if (Globals::getInstantWin() === true) {
+      $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+      return;
+    }
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setPlayedForFree(false);
