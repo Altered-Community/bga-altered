@@ -242,15 +242,14 @@ class Resupply extends \ALT\Models\Action
           }
         }
       }
-    }
-
-    if ($this->getArg('boostIfMatchCondition') != null) {
-      // Extract number of boost and condition
-      list ($boostN, $condition) = explode(':', $this->getArg('boostIfMatchCondition'), 2);
-      foreach ($cards as $cId => $card) {
-        $match = Conditions::check(['condition' => $condition], $card, null);
-        if ($match) {
-          $node[] = FT::GAIN($card, BOOST, $boostN);
+      if ($this->getArg('boostIfMatchCondition') != null) {
+        // Extract number of boost and condition
+        list ($boostN, $condition) = explode(':', $this->getArg('boostIfMatchCondition'), 2);
+        foreach ($cards as $cId => $card) {
+          $match = Conditions::check(['condition' => $condition], $card, null);
+          if ($match) {
+            $node[] = FT::GAIN($card, BOOST, $boostN);
+          }
         }
       }
     }
