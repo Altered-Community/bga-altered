@@ -29,7 +29,6 @@ class AX_Common_RekaRecycler extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(TARGET, [
-        'upTo' => true,
         'n' => 2,
         'allIds' => true,
         'targetPlayer' => ME,
@@ -37,8 +36,10 @@ class AX_Common_RekaRecycler extends \ALT\Models\Card
         'targetLocation' => [RESERVE],
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, ['cardId' => EFFECT]),
+          FT::ACTION(DISCARD, ['cardId' => EFFECT]),
           FT::ACTION(DRAW, ['players' => ME])),
-        ]),
+        ], 
+        ['optional' => true])
     ];
   }
 }

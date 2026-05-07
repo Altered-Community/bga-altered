@@ -34,7 +34,8 @@ class LY_Rare_RekaRecycler extends \ALT\Models\Card
           FT::ACTION(DISCARD, []),
           FT::ACTION(DRAW, ['players' => ME])
         ),
-      ]),
+      ], 
+      ['optional' => true]),
     ];
   }
 }
