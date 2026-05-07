@@ -837,7 +837,6 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function hasBoostIfAscended()
   {
-    $advance = 0;
     foreach ($this->getPlayedCards() as $cId => $card) {
       if ($card->isBoostIfAscended()) {
         return true;

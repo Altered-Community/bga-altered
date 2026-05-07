@@ -899,15 +899,13 @@ abstract class Conditions
     return $card->getPlayer()->isInContact(STORM_LEFT) || $card->getPlayer()->isInContact(STORM_RIGHT);
   }
 
-  public static function countAnimals($card, $event)
+  public static function countAnimals($card)
   {
     $cards = $card->getPlayer()->getPlayedCards();
 
     $cards = $cards->filter(function ($c) use ($card) {
-      if ($c->getId() != $card->getId()) {
-        if ($c->getType() == PERMANENT || in_array(ANIMAL, $c->getSubtypes())) {
+      if ($c->getId() != $card->getId() && in_array(ANIMAL, $c->getSubtypes())) {
           return true;
-        }
       }
     });
     return $cards->count();
