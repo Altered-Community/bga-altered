@@ -12,7 +12,6 @@ class BR_Rare_WildlifeMedic extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_EOLE_B_MU_116_R2',
       'asset'  => 'ALT_EOLE_B_MU_116_R',
-
       'faction'  => FACTION_BR,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("Wildlife Medic"),
@@ -28,6 +27,7 @@ class BR_Rare_WildlifeMedic extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
+      'effectPlayed' => FT::ACTION(RESUPPLY, ['boostIfMatchCondition' => '1:isType:character']),
     ];
   }
 }
