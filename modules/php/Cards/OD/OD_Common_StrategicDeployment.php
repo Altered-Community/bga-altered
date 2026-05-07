@@ -35,9 +35,7 @@ class OD_Common_StrategicDeployment extends \ALT\Models\Card
           ]),
           FT::ACTION(TARGET, [
             'maxBaseCost' => 2,
-            'effect' => FT::SEQ(
-              FT::ACTION(MOVE_CARD, [])
-            )
+            'effect' => FT::ACTION(MOVE_CARD, [])
           ])
         ],
       ])
