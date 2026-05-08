@@ -20,7 +20,7 @@ class YZ_Common_PushBacktheNight extends \ALT\Models\Card
 			'extension'=>'ROC',
    'subtypes'  => [FEAT,LANDMARK],
  				'effectDesc' => clienttranslate('{J} Draw a card.  At Noon — If six or more cards are in your discard pile, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: When a card is discarded from your hand — You may exhaust me ({T}) to create a <MANA_MOTH> Illusion token in target Expedition.'),
+ 				'supportDesc' => clienttranslate('<COMPLETED_LOW>: When a card is discarded from your hand — You may exhaust me ({T}) to create a <MANA_MOTH> Illusion token in target Expedition.'),
  			     'supportIcon' => 'discard',
      'costHand' => 3, 
      'costReserve' => 3, 

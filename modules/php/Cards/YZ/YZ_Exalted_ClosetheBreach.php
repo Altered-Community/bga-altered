@@ -20,7 +20,7 @@ class YZ_Exalted_ClosetheBreach extends \ALT\Models\Card
 			'extension'=>'ROC',
    'subtypes'  => [FEAT,LANDMARK],
  				'effectDesc' => clienttranslate('{J} Discard target Character with Base Cost {3} or less.  When you pass after your opponents — If you are first player, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: {T}, {1} : Target Character you control gains 1 boost, then <AFTER_YOU>.'),
+ 				'supportDesc' => clienttranslate('<COMPLETED_LOW>: {T}, {1} : Target Character you control gains 1 boost, then <AFTER_YOU>.'),
  			     'supportIcon' => 'discard',
      'costHand' => 3, 
      'costReserve' => 3, 

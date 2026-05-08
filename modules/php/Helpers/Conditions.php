@@ -350,6 +350,22 @@ abstract class Conditions
     $stormMoves = $stormMoves[$card->getLocation()] ?? null;
     return $event['pId'] == $card->getPId() && !is_null($stormMoves) && ($stormMoves['moves'] ?? 0) > 0 && !Globals::isTieBreakerMode() && (!isset($event['expedition']) || $event['expedition'] == $card->getLocation());
   }
+  
+  public static function anyOfMyExpeditionsHasMoved($card, $event)
+  {
+    if (($event['pId'] ?? null) != $card->getPId() || Globals::isTieBreakerMode()) {
+      return false;
+    }
+
+    $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? [];
+    foreach (STORMS as $storm) {
+      if (($stormMoves[$storm]['moves'] ?? 0) > 0) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   public static function myExpeditionIsBehind($card, $event)
   {
@@ -491,7 +507,7 @@ abstract class Conditions
   /** True if this player has n completed feat. */
   public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {
-    return hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
+    return self::hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
   }
 
   /** True if this card has no feat-completed meeple (COMPLETE_FEAT passive not yet applied). */
@@ -575,7 +591,7 @@ abstract class Conditions
     if ($op == 'GT') {
       return $m > $n;
     }
-    throw new \Bga\GameFramework\VisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
+    throw new \BgaVisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
   }
 
   public static function hasBiggerHand($card, $event)

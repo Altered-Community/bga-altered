@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_CorruptedAoife extends \ALT\Models\Card
@@ -29,7 +27,7 @@ class BR_Rare_CorruptedAoife extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costReserve'],
-      'playLimitation' => 'controlFeat',
+      'playCondition' => 'hasControl:feat:1',
       'effectReserve' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER],
         'excludeSelf' => true,

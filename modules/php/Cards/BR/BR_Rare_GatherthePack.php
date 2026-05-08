@@ -20,7 +20,7 @@ class BR_Rare_GatherthePack extends \ALT\Models\Card
 			'extension'=>'ROC',
    'subtypes'  => [FEAT,LANDMARK],
  				'effectDesc' => clienttranslate('{J} Target Character with Base Cost {3} or less gains <ANCHORED>.  When you pass — If three or more #Characters# in your Expeditions have a different Base Cost, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: #All Characters# in your Expeditions are <TOUGH_CHA_P_1>.'),
+ 				'supportDesc' => clienttranslate('<COMPLETED_LOW>: #All Characters# in your Expeditions are <TOUGH_CHA_P_1>.'),
  			     'supportIcon' => 'discard',
      'costHand' => 2, 
      'costReserve' => 2, 

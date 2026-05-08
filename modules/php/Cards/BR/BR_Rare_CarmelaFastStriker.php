@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_CarmelaFastStriker extends \ALT\Models\Card
@@ -27,14 +25,17 @@ class BR_Rare_CarmelaFastStriker extends \ALT\Models\Card
       'supportIcon' => 'discard',
       'forest' => 4,
       'mountain' => 4,
-      //VTO
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'hasControl:feat:1',
+        'condition' => 'hasCompletedFeat:1',
         'effect' => FT::LOOSE(ME, FLEETING),
       ]),
+      'effectSupport' => [
+        'action' => SPECIAL_EFFECT,
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => FEAT, 'reduction' => 1, 'minimum' => 1]],
+      ],
     ];
   }
 }

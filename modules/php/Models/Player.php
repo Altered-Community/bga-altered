@@ -297,6 +297,40 @@ class Player extends \ALT\Helpers\DB_Model
     return $n;
   }
 
+  /**
+   * Number of completed Feats among this player's Landmark permanents (see FEAT_COMPLETED meeple).
+   */
+  public function getCompletedFeat()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      $n += Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED);
+    }
+    return $n;
+  }
+
+  /**
+   * Sum of reserve-character Tough granted by completed Feat effects.
+   */
+  public function getCompletedFeatReserveCharacterTough()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      if (!in_array(FEAT, $card->getSubtypes())) {
+        continue;
+      }
+      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      $completed = $card->getEffectCompleted();
+      if (empty($completed) || !is_array($completed)) {
+        continue;
+      }
+      $n += (int) ($completed['reserveCharacterTough'] ?? 0);
+    }
+    return max(0, $n);
+  }
+
   public function getManaCards($tapped = null)
   {
     return Cards::getFiltered($this->id, MANA)->filter(function ($card) use ($tapped) {

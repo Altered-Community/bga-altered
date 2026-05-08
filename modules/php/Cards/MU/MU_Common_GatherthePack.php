@@ -20,7 +20,7 @@ class MU_Common_GatherthePack extends \ALT\Models\Card
 			'extension'=>'ROC',
    'subtypes'  => [FEAT,LANDMARK],
  				'effectDesc' => clienttranslate('{J} Target Character with Base Cost {3} or less gains <ANCHORED>. (Its Base Cost is the Reserve Cost if Fleeting, or the Hand Cost if not.)  When you pass — If three or more Animals in your Expeditions have a different Base Cost, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: <ANCHORED_CHA_P> Characters in your Expeditions are <TOUGH_CHA_P_1>. (Opponents must pay {1} to target them.)'),
+ 				'supportDesc' => clienttranslate('<COMPLETED_LOW>: <ANCHORED_CHA_P> Characters in your Expeditions are <TOUGH_CHA_P_1>. (Opponents must pay {1} to target them.)'),
  			     'supportIcon' => 'discard',
      'costHand' => 2, 
      'costReserve' => 2, 

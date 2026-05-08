@@ -20,7 +20,7 @@ class AX_Rare_SmokeThemOut extends \ALT\Models\Card
 			'extension'=>'ROC',
    'subtypes'  => [FEAT,LANDMARK],
  				'effectDesc' => clienttranslate('{J} #Draw a card, then put a card from your hand in Reserve.#  When #three {T} abilities# are activated on one of your turns — Complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: {T} : The next time a #{T} ability# is activated this turn, target Character #in play or in Reserve# gains 1 boost.'),
+ 				'supportDesc' => clienttranslate('<COMPLETED_LOW>: {T} : The next time a #{T} ability# is activated this turn, target Character #in play or in Reserve# gains 1 boost.'),
  			     'supportIcon' => 'discard',
      'costHand' => 2, 
      'costReserve' => 2, 
