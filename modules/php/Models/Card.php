@@ -318,6 +318,13 @@ class Card extends \ALT\Helpers\DB_Model
     if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
     }
+    
+    $playCondition = $this->getPlayCondition();
+    if ($playCondition != null) {
+      if (!Conditions::check(['condition' => $playCondition], $this, null)) {
+        return false;
+      }
+    }
 
     $playCondition = $this->getPlayCondition();
     if ($playCondition != null) {
@@ -436,14 +443,6 @@ class Card extends \ALT\Helpers\DB_Model
           return STORMS;
         } elseif ($this->getPlayLimitation() == 'controlFeat') {
           if (!$player->getPlayedCards()->filter(fn($c) => in_array(FEAT, $c->getSubtypes()))->count()) {
-            return [];
-          }
-          if (!is_null($forcedLocation)) {
-            return [$forcedLocation];
-          }
-          return STORMS;
-        } elseif ($this->getPlayLimitation() == 'discardPile6') {
-          if ($player->getDiscard()->count() < 6) {
             return [];
           }
           if (!is_null($forcedLocation)) {

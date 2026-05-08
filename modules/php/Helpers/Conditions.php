@@ -680,6 +680,26 @@ abstract class Conditions
       return $count <= $n;
     }
   }
+  
+
+  public static function checkAbilityActivatedThisTurn($card, $event, $type = 'any')
+  {
+    $abilities = Globals::getAbilityActivatedThisTurn();
+    $playerAbilities = $abilities[$card->getPId()] ?? [];
+    if ($type == 'any') {
+      return !empty($playerAbilities);
+    }
+    return !empty($playerAbilities[$type]);
+  }
+
+  public static function checkSupportActivatedThisTurn($card, $event, $supportType = 'any')
+  {
+    return
+      self::checkAbilityActivatedThisTurn($card, $event, 'discard') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'tap') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'discardOrReserve') ||
+      self::checkAbilityActivatedThisTurn($card, $event, 'support');
+  }
 
   
   public static function checkAbilityActivatedThisTurn($card, $event, $type = 'any')
@@ -801,7 +821,7 @@ abstract class Conditions
       return $m <= $n;
     }
   }
-
+  
   public static function hasOpponentControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
   {
     return self::hasControl($card, $event, $type, $n, $excludeMyself, $state, $op, true);
