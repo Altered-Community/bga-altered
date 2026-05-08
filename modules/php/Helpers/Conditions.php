@@ -164,6 +164,12 @@ abstract class Conditions
   {
     return ($event['pId'] ?? null) == $card->getPId();
   }
+  
+  /** True when this card is the one that entered play (playCard + cardId on the event). Used for InvokeToken with onPlay effects. */
+  public static function isSelfPlayCardEvent($card, $event)
+  {
+    return ($event['playCard'] ?? false) && (int) ($event['cardId'] ?? -1) === (int) $card->getId();
+  }
 
   public static function isNotMe($card, $event)
   {
@@ -482,9 +488,94 @@ abstract class Conditions
     die('Unknown op for hasDiscardPileCards');
   }
 
-  public static function hasControlFeat($card, $event)
+  /** True if this player has n completed feat. */
+  public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {
-    return self::hasControl($card, $event, FEAT, 1);
+    return hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
+  }
+
+  /** True if this card has no feat-completed meeple (COMPLETE_FEAT passive not yet applied). */
+  public static function isThisFeatIncomplete($card, $event)
+  {
+    return Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1;
+  }
+
+  /** True if this card has a feat-completed meeple. */
+  public static function isThisFeatCompleted($card, $event)
+  {
+    return Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) >= 1;
+  }
+
+  /**
+   * Counts Feat permanents you control in play (same zones / filters as hasControl for subtype feat).
+   *
+   * Condition string segments (after the name), same order as hasControl minus type and opponent:
+   *   hasControlFeat
+   *   hasControlFeat:{n}
+   *   hasControlFeat:{n}:{excludeMyself true|false}
+   *   hasControlFeat:{n}:{excludeMyself}:{state all|completed|notcompleted|exhausted}
+   *   hasControlFeat:{n}:{excludeMyself}:{state}:{op GTE|LTE|EQ|LT|GT}
+   */
+  public static function hasControlFeat($card, $event, $n = 1, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
+  {
+    return self::hasControl($card, $event, FEAT, (int) $n, $excludeMyself, $state, $op, false);
+
+  }
+  
+  /**
+   * Feat permanents in play whose min(Hand, Reserve cost) is at most maxBaseCost; same optional segments as hasControlFeat after maxBaseCost.
+   */
+  public static function hasControlFeatWithMaxBaseCost(
+    $card,
+    $event,
+    $n = 1,
+    $excludeMyself = 'false',
+    $maxBaseCost = 99,
+    $state = 'all',
+    $op = 'GTE'
+  ) {
+    $player = $card->getPlayer();
+    $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+    $cards = $player->getPlayedCards()->filter(function ($c) use ($types) {
+      return in_array($c->getType(), $types) || count(array_intersect($types, $c->getAdditionalType())) > 0;
+    });
+    $cards = $cards->filter(fn($c) => in_array(FEAT, $c->getSubtypes()));
+    $maxBaseCost = (int) $maxBaseCost;
+    $cards = $cards->filter(function ($c) use ($maxBaseCost) {
+      return min($c->getCostHand(), $c->getCostReserve()) <= $maxBaseCost;
+    });
+    if ($excludeMyself === 'true') {
+      $cards = $cards->filter(fn($c) => $c->getId() != $card->getId());
+    }
+    if ($state != 'all') {
+      if ($state == 'exhausted') {
+        $cards = $cards->filter(fn($c) => $c->isTapped());
+      }
+      elseif ($state == 'completed') {
+        $cards = $cards->filter(fn($c) => Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) > 0);
+      }
+      elseif ($state == 'notcompleted') {
+        $cards = $cards->filter(fn($c) => Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) == 0);
+      }
+    }
+    $m = $cards->count();
+    $n = (int) $n;
+    if ($op == 'GTE') {
+      return $m >= $n;
+    }
+    if ($op == 'LTE') {
+      return $m <= $n;
+    }
+    if ($op == 'EQ') {
+      return $m == $n;
+    }
+    if ($op == 'LT') {
+      return $m < $n;
+    }
+    if ($op == 'GT') {
+      return $m > $n;
+    }
+    throw new \Bga\GameFramework\VisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
   }
 
   public static function hasBiggerHand($card, $event)

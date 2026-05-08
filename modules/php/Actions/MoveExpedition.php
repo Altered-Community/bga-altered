@@ -131,7 +131,7 @@ class MoveExpedition extends \ALT\Models\Action
     $args = $this->argsMoveExpedition();
     $gigantic = false;
     if (!in_array($expe, $args['expeditions'])) {
-      throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Invalid expedition all. Should not happen');
     }
 
     if (!is_null($this->getSource()) && $this->getSource()->isGigantic()) {

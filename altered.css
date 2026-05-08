@@ -10421,6 +10421,12 @@ html {
   width: 62px;
   height: 62px;
 }
+.altered-meeple[data-type=featCompleted] {
+  background-image: url("img/icons/completed.png");
+  background-size: 100% 100%;
+  width: 44px;
+  height: 44px;
+}
 .altered-meeple[data-type=ocean], .altered-meeple[data-type=forest], .altered-meeple[data-type=mountain] {
   width: 28px;
   height: 28px;
@@ -10454,6 +10460,13 @@ html {
 .altered-meeple[data-type=mountain] {
   background: #bb690f;
   border: 1px solid #d3b596;
+}
+.altered-card > .altered-meeple[data-type=featCompleted] {
+  top: 60%;
+  left: 50%;
+  right: auto;
+  visibility: visible;
+  z-index: 8;
 }
 
 .action-button .icon-container ~ .altered-meeple {

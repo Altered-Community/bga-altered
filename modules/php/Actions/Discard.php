@@ -209,13 +209,13 @@ class Discard extends \ALT\Models\Action
       $n = $args['n'] + ($args['nLandmarks'] ?? 0);
       $upTo = $args['upTo'];
       if ((!$upTo && count($cardIds) != $n) || ($upTo && count($cardIds) > $n)) {
-        throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
+        throw new \Bga\GameFramework\VisibleSystemException('You must select the correct number of cards. Should not happen');
       }
 
       // Valid card ids
       $validIds = ($pArgs['cards'] ?? []) + ($pArgs['reserveCards'] ?? []) + ($pArgs['landmarkCards'] ?? []);
       if (!empty(array_diff($cardIds, $validIds))) {
-        throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
+        throw new \Bga\GameFramework\VisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
     }
 

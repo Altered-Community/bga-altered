@@ -69,7 +69,7 @@ class Spend extends \ALT\Models\Action
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args (Spend). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (Spend). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -134,7 +134,7 @@ class Spend extends \ALT\Models\Action
       }
 
       if (($extraDatas['counter'] ?? 0) < $amount) {
-        throw new \BgaVisibleSystemException('Cannot consume counter. Should not happen');
+        throw new \Bga\GameFramework\VisibleSystemException('Cannot consume counter. Should not happen');
       }
 
       $extraDatas['counter'] -= $amount;

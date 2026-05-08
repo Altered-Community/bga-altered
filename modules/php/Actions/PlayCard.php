@@ -56,7 +56,7 @@ class PlayCard extends \ALT\Models\Action
     if (is_null($cardId) && $description) {
       return null;
     } elseif (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args (play card). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (play card). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -84,7 +84,7 @@ class PlayCard extends \ALT\Models\Action
     $cId = $card->getId();
     $player = Players::getActive();
     if (!$this->getArg('free') && !$card->canBePlayed($player)) {
-      throw new \BgaVisibleSystemException('Card cannot be played. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Card cannot be played. Should not happen');
     }
 
     $locations[$cId] = $card->getPlayableLocation($player);
@@ -121,10 +121,10 @@ class PlayCard extends \ALT\Models\Action
     $args = $this->argsPlayCard()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
-      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played. Should not happen');
     }
     if (!in_array($location, $locations)) {
-      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $card = Cards::get($cardId);
     if ($this->getArg('stealOwnership') && $card->getPId() != Players::getActiveId()) {
