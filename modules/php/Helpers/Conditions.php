@@ -456,6 +456,28 @@ abstract class Conditions
     die('Unknown op for hasXCardsInHand');
   }
 
+  public static function hasXCardsInHandExceptCurrentCard($card, $n, $op = 'GTE')
+  {
+    $count = $card->getLocation() == RESERVE ? $card
+      ->getPlayer()
+      ->getHand()
+      ->count() : $card
+      ->getPlayer()
+      ->getHand()
+      ->count() - 1;
+
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasXCardsInHand');
+  }
+
   public static function hasNoTokensInLandmarks($card, $event)
   {
     $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
