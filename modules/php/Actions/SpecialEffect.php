@@ -2220,7 +2220,13 @@ class SpecialEffect extends \ALT\Models\Action
         }
         break;     
       case 'boostXAnimalsMax2':
-        $n = Conditions::countAnimals($card);
+        $cards = $card->getPlayer()->getPlayedCards();
+        $cards = $cards->filter(function ($c) use ($card) {
+          if ($c->getId() != $card->getId() && in_array(ANIMAL, $c->getSubtypes())) {
+              return true;
+          }
+        });
+        $n = $cards->count();
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n, 2));
         }
