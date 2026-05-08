@@ -2231,6 +2231,30 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::GAIN($card, BOOST, $n, 2));
         }
         break;    
+      case 'PlagueofIntolerance':
+        $count = Players::getActive()->getPlayedCards()->filter(function ($c) {
+          return in_array($c->getType(), [CHARACTER]);
+        })->count();
+        $player = $card->getPlayer();
+        $effects = [
+            2 => fn() => $this->insertAsChild(FT::ACTION(DRAW, ['players' => ME])),
+            4 => fn() => $this->insertAsChild(FT::GAIN($card->getId(), BOOST, 2)),
+            6 => function () use ($player, $card) {
+                $nodes = [];
+                foreach ($player->getPlayedCards() as $cId => $pCard) {
+                    if ($cId != $card->getId() && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+                        $nodes[] = FT::GAIN($pCard, BOOST, 1);
+                    }
+                }
+                $this->pushParallelChilds($nodes);
+            },
+        ];
+        foreach ($effects as $threshold => $effect) {
+            if ($count >= $threshold) {
+                $effect();
+            }
+        }
+        break;   
       default:
         break;
     }

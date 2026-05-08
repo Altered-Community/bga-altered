@@ -6,6 +6,7 @@ use ALT\Core\Globals;
 use ALT\Managers\Cards;
 use ALT\Managers\Players;
 use ALT\Managers\Meeples;
+use ALT\Core\Notifications;
 
 // Conditions
 abstract class Conditions
@@ -1896,6 +1897,30 @@ abstract class Conditions
     }
 
     return false;
+  }
+
+  /**
+   * Simple Card condition checks
+   */
+
+  /**
+   * Check if card is of a given type
+   * @param string $type - a single card type, or a list of types separated by |
+   */
+  public static function isType($card, $_event, $type)
+  {
+    $types = explode('|', $type);
+    return in_array($card->getType(), $types);
+  }
+
+  /**
+   * Check subtypes of a card
+   * @param string $subType - a single subtype, or a list of subtypes separated by |
+   */
+  public static function isSubtype($card, $_event, $subType)
+  {
+    $subTypes = explode('|', $subType);
+    return count(array_intersect($card->getSubtypes(), $subTypes)) > 0;
   }
 
   /**********************************
