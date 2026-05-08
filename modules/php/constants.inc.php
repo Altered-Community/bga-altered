@@ -111,6 +111,8 @@ const ST_MARK_REGION = 52;
 const ST_MOVE_REGION_MARKER = 53;
 const ST_INTERRUPT_REVEAL = 54;
 const ST_SHUFFLE = 55;
+// Eole
+const ST_COMPLETE_FEAT = 56;
 
 const ST_PRE_DUSK_PHASE = 83; // some effects give choice before counting
 const ST_DUSK = 84; // resolution of the tempest
@@ -185,6 +187,7 @@ const MARK_REGION = 'MarkRegion';
 const MOVE_REGION_MARKER = 'MoveRegionMarker';
 const INTERUPT_REVEAL = 'InteruptReveal';
 const SHUFFLE = 'Shuffle';
+const COMPLETE_FEAT = 'CompleteFeat';
 
 ////////////// Flow convertor constants
 const TARGET_ALL_CHARACTER = 'target_all_character';
@@ -225,6 +228,8 @@ const PHASE_AFTERNOON = 'afternoon';
 const PHASE_DUSK = 'dusk';
 const PHASE_NIGHT = 'night';
 const ASCEND = 'ascend';
+/** Meeple on a Feat card that has been completed (visual marker). */
+const FEAT_COMPLETED = 'featCompleted';
 
 const STORM_LEFT = 'stormLeft';
 const STORM_RIGHT = 'stormRight';
@@ -372,7 +377,8 @@ const SUBTYPES = [
   MERCHANT,
   ROGUE,
   FEAT,
-  CORRUPTION
+  CORRUPTION,
+  FEAT
 ];
 
 /*********************

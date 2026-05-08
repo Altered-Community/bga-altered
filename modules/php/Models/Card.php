@@ -80,7 +80,9 @@ class Card extends \ALT\Helpers\DB_Model
     'effectHand' => 'obj', // played from hand
     'effectReserve' => 'obj', // played from reserve
     'effectSupport' => 'obj',
-    'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
+    'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish    
+    // Passive-style modifiers that apply while the Feat is completed (FEAT_COMPLETED meeple on card).
+    'effectCompleted' => 'obj',
     'effectTap' => 'obj',
     'effectInfinity' => 'obj',
 
@@ -194,6 +196,8 @@ class Card extends \ALT\Helpers\DB_Model
     'defenderIgnoreContact' => 'bool', // Ignore defender attribute when in contact
     'costReductionTap' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
 
+    // Eole
+    'playCondition' => 'str', // Conditions required to play the card
   ];
 
   /********* DB ACCESS *********/
@@ -314,6 +318,20 @@ class Card extends \ALT\Helpers\DB_Model
     if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
       return false;
     }
+    
+    $playCondition = $this->getPlayCondition();
+    if ($playCondition != null) {
+      if (!Conditions::check(['condition' => $playCondition], $this, null)) {
+        return false;
+      }
+    }
+
+    $playCondition = $this->getPlayCondition();
+    if ($playCondition != null) {
+      if (!Conditions::check(['condition' => $playCondition], $this, null)) {
+        return false;
+      }
+    }
 
     $cost = $this->getCost($scout, $reserveFlipCost);
     $costReductionIfEmpty = $this->getCostReductionIfEmpty();
@@ -425,14 +443,6 @@ class Card extends \ALT\Helpers\DB_Model
           return STORMS;
         } elseif ($this->getPlayLimitation() == 'controlFeat') {
           if (!$player->getPlayedCards()->filter(fn($c) => in_array(FEAT, $c->getSubtypes()))->count()) {
-            return [];
-          }
-          if (!is_null($forcedLocation)) {
-            return [$forcedLocation];
-          }
-          return STORMS;
-        } elseif ($this->getPlayLimitation() == 'discardPile6') {
-          if ($player->getDiscard()->count() < 6) {
             return [];
           }
           if (!is_null($forcedLocation)) {
@@ -567,7 +577,7 @@ class Card extends \ALT\Helpers\DB_Model
     // Remove meeples
     $meeples = Meeples::getInLocation('card-' . $this->id);
     if ($location == RESERVE && ($isSeasoned || in_array($this->id, $seasoned))) {
-      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep their boost
+      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep boost
     }
     $meepleIds = $meeples->getIds();
     if (!empty($meepleIds)) {

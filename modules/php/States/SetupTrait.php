@@ -157,7 +157,7 @@ trait SetupTrait
     // Fetch them from MS
     $response = self::getGenericGameInfos('get_player_decks', $request);
     if ($response['success'] != 1) {
-      throw new \BgaVisibleSystemException("API ERROR###" . $response['message'] . "###");
+      throw new \Bga\GameFramework\VisibleSystemException("API ERROR###" . $response['message'] . "###");
     }
     $content = $response['content'];
     $content['request'] = $request;
@@ -178,7 +178,7 @@ trait SetupTrait
   {
     $response = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $deckId]);
     if ($response['success'] != 1) {
-      throw new \BgaVisibleSystemException("API ERROR###" . $response['message'] . "###");
+      throw new \Bga\GameFramework\VisibleSystemException("API ERROR###" . $response['message'] . "###");
     }
     $deck = $response['content'];
     $deckContent = [];
@@ -263,7 +263,7 @@ trait SetupTrait
       } elseif ($selection[$pId] == 'random') {
         // $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
         // if ($deckContent['success'] != 1) {
-        //   throw new \BgaVisibleSystemException($deckContent['message']);
+        //   throw new \Bga\GameFramework\VisibleSystemException($deckContent['message']);
         // }
         // $faction = Cards::generateRandomDeck($deckContent['content'], $player);
         $faction = Cards::generateRandomDeck([], $player);

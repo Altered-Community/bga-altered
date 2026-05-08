@@ -212,6 +212,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Reveal a card');
       case 'ascend':
         return clienttranslate('Ascend');
+      case 'ascendOnLeave':
+        return clienttranslate('Ascend when character is leaving expedition zone');          
       case 'switchPlayer':
         return clienttranslate('Change First player');
       case 'allCharacterFleeting':
@@ -244,6 +246,8 @@ class SpecialEffect extends \ALT\Models\Action
         // EOLE
       case 'nextCharacterGains1BoostAndAsleep':
         return clienttranslate('Next character gains <BOOST> and <ASLEEP>');
+      case 'boostXCompletedFeat':
+        return clienttranslate('1 Boost for each Completed Feat in your Landmarks');
     }
     return '';
   }
@@ -279,6 +283,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXOpponentExpedition':
       case 'boostXExhaustedMax3':
       case 'boostXLandmarkMax3':
+      case 'boostXCompletedFeat':
       default:
         return false;
     }
@@ -296,7 +301,7 @@ class SpecialEffect extends \ALT\Models\Action
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
-      throw new \BgaVisibleSystemException('no card in args (special effect). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (special effect). Should not happen');
     }
     if ($cardId == ME) {
       $cardId = $this->getSource()->getId();
@@ -472,7 +477,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
-          throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
+          throw new \Bga\GameFramework\VisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
         }
         $subType = $args['subType'];
         $excludeSelf = $args['excludeSelf'] ?? false;
@@ -1082,6 +1087,12 @@ class SpecialEffect extends \ALT\Models\Action
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
+          break;
+      case 'boostXCompletedFeat';
+        $n = $card->getPlayer()->getCompletedFeat();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
         break;
       case 'boostXAnchoredChar';
         $n = $card
@@ -1673,6 +1684,31 @@ class SpecialEffect extends \ALT\Models\Action
           Notifications::ascend($ascended, $oPlayer, $card, $expedition);
         }
         break;
+      case 'ascendOnLeave':
+        $player = $this->getCtxArg('pId') ?? $card->getPlayer()->getId();
+        $player = $this->getCtxArg('player') ?? $player;
+        $oPlayer = Players::get($player);
+        $expedition = $this->getCtxArg('expedition');
+        // Check event in case of leaving expedition
+        $event = $this->getEventRecursive();
+        $srcLoc = $event['from'];
+        if ($expedition == 'oppositeSource') {
+          $realLocation = $srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+        } else {
+          $realLocation = $srcLoc;
+        }
+        if (!$oPlayer->isAscended($realLocation)) {
+          // $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
+          // $oToken = $oPlayer->$token();
+          $ascended = Meeples::singleCreate([
+            'player_id' => $player,
+            'location' => $realLocation,
+            'nbr' => 1,
+            'type' => 'ascend'
+          ]);
+          Notifications::ascend($ascended, $oPlayer, $card, $realLocation);
+        }
+        break;          
       case 'switchPlayer':
         $newFirstPId = $this->getCtxArgs()['pId'];
         Globals::setFirstPlayer($newFirstPId);
@@ -2147,6 +2183,30 @@ class SpecialEffect extends \ALT\Models\Action
         } while ($player->getId() != $activePlayer->getId());
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
+      case 'PlagueofIntolerance':
+        $count = Players::getActive()->getPlayedCards()->filter(function ($c) {
+          return in_array($c->getType(), [CHARACTER]);
+        })->count();
+        $player = $card->getPlayer();
+        $effects = [
+            2 => fn() => $this->insertAsChild(FT::ACTION(DRAW, ['players' => ME])),
+            4 => fn() => $this->insertAsChild(FT::GAIN($card->getId(), BOOST, 2)),
+            6 => function () use ($player, $card) {
+                $nodes = [];
+                foreach ($player->getPlayedCards() as $cId => $pCard) {
+                    if ($cId != $card->getId() && in_array($pCard->getType(), [TOKEN, CHARACTER])) {
+                        $nodes[] = FT::GAIN($pCard, BOOST, 1);
+                    }
+                }
+                $this->pushParallelChilds($nodes);
+            },
+        ];
+        foreach ($effects as $threshold => $effect) {
+            if ($count >= $threshold) {
+                $effect();
+            }
+        }
+        break;   
       default:
         break;
     }

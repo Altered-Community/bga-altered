@@ -128,7 +128,7 @@ class Log extends \APP_DbObject
       ->get()
       ->first();
     if (is_null($step)) {
-      throw new \BgaVisibleSystemException('Cant undo here');
+      throw new \Bga\GameFramework\VisibleSystemException('Cant undo here');
     }
 
     self::revertTo($stepId - 1);

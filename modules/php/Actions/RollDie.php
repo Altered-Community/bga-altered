@@ -59,6 +59,7 @@ class RollDie extends \ALT\Models\Action
     'n' => 1,
     'effect' => [],
     'canDiscard' => false,
+    'allowCounterIncrease' => false,
     'hasRolled' => false,
   ];
 
@@ -110,6 +111,57 @@ class RollDie extends \ALT\Models\Action
     return $effect;
   }
 
+  private function getSourceCounterValue()
+  {
+    if (!$this->getArg('allowCounterIncrease')) {
+      return 0;
+    }
+
+    $source = $this->getSource();
+    if (is_null($source)) {
+      return 0;
+    }
+
+    return (int) ($source->getExtraDatas()['counter'] ?? 0);
+  }
+
+  private function getSelectableRolls($rolls, $counterValue)
+  {
+    $selectableRolls = [];
+    foreach ($rolls as $roll) {
+      $selectableRolls[] = $roll;
+      for ($i = 1; $i <= $counterValue; $i++) {
+        $selectableRolls[] = $roll + $i;
+      }
+    }
+    sort($selectableRolls, SORT_NUMERIC);
+    return array_values(array_unique($selectableRolls, SORT_NUMERIC));
+  }
+
+  private function getCounterSpendForRoll($selectedRoll, $rawRolls, $counterValue)
+  {
+    if ($counterValue <= 0 || !$this->getArg('allowCounterIncrease')) {
+      return 0;
+    }
+
+    $minSpend = null;
+    foreach ($rawRolls as $roll) {
+      if ($selectedRoll < $roll) {
+        continue;
+      }
+      $needed = $selectedRoll - $roll;
+      if ($needed <= $counterValue && (is_null($minSpend) || $needed < $minSpend)) {
+        $minSpend = $needed;
+      }
+    }
+
+    if (is_null($minSpend)) {
+      throw new \BgaVisibleSystemException('Selected die value cannot be reached with available Luck counters.');
+    }
+
+    return $minSpend;
+  }
+
   public function stPreRollDie()
   {
     $player = Players::getActive();
@@ -154,6 +206,10 @@ class RollDie extends \ALT\Models\Action
 
   public function argsRollDie()
   {
+    $source = $this->getSource();
+    $sourceCounterValue = $this->getSourceCounterValue();
+    $rawRolls = Globals::getDiceRolls();
+    $rolls = $this->getSelectableRolls($rawRolls, $sourceCounterValue);
     $canDiscard =
       $this->getArg('canDiscard') &&
       Players::getActive()
@@ -161,9 +217,12 @@ class RollDie extends \ALT\Models\Action
       ->count() > 0;
 
     return [
-      'rolls' => array_values(array_unique(Globals::getDiceRolls(), SORT_NUMERIC)),
+      'rolls' => $rolls,
+      'rawRolls' => $rawRolls,
       'canDiscard' => $canDiscard,
-      'source' => '',
+      'source' => is_null($source) ? '' : $source,
+      'counterValue' => $sourceCounterValue,
+      'allowCounterIncrease' => $this->getArg('allowCounterIncrease'),
       'cardIds' => Players::getActive()
         ->getReserveCards()
         ->getIds(),
@@ -184,11 +243,24 @@ class RollDie extends \ALT\Models\Action
 
   public function actRollDie($dieValue)
   {
-
+    $dieValue = (int) $dieValue;
     $player = Players::getActive();
     $source = $this->getSource();
     $args = $this->argsRollDie();
     $effects = [];
+
+    if (!in_array($dieValue, $args['rolls'], true)) {
+      throw new \BgaVisibleSystemException('You cannot select this die value. Should not happen');
+    }
+
+    $counterSpend = $this->getCounterSpendForRoll($dieValue, $args['rawRolls'], $args['counterValue']);
+
+    if ($counterSpend > 0) {
+      $data = $source->getExtraDatas();
+      $data['counter'] = max(0, ($data['counter'] ?? 0) - $counterSpend);
+      $source->setExtraDatas($data);
+      Notifications::spendCounter($player, $source, $counterSpend, $source);
+    }
 
     if (count($args['rolls']) > 1) {
       Notifications::message(clienttranslate('Die ${dieValue} is selected'), ['dieValue' => $dieValue]);
@@ -230,7 +302,7 @@ class RollDie extends \ALT\Models\Action
     $args = $this->argsRollDie();
 
     if (count(array_diff($cardId, $args['cardIds'])) != 0) {
-      throw new \BgaVisibleSystemException('You cannot target this card. should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target this card. should not happen');
     }
     $this->duplicateAction(['canDiscard' => false, 'hasRolled' => true]);
     $this->insertAsChild(FT::ACTION(DISCARD, ['cardId' => $cardId]));

@@ -6,23 +6,28 @@ class YZ_Rare_OutofaDarkSky extends \ALT\Models\Card
 {
   public function __construct($row){
 		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_EOLE_B_OR_120_R2',
-            'asset'  => 'ALT_EOLE_B_OR_120_R',
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_OR_120_R2',
+      'asset'  => 'ALT_EOLE_B_OR_120_R',
 
-    	'faction'  => FACTION_YZ,
-    	'rarity'  => RARITY_RARE,
-    	'name'  => clienttranslate("Out of a Dark Sky"),
+      'faction'  => FACTION_YZ,
+      'rarity'  => RARITY_RARE,
+      'name'  => clienttranslate("Out of a Dark Sky"),
       'typeline' => clienttranslate("Spell - Disruption"),
-    	'type'  => SPELL,
-    	'flavorText'  => clienttranslate(''),
+      'type'  => SPELL,
+      'flavorText'  => clienttranslate(''),
       'artist' => "Justice Wong",
-			'extension'=>'ROC',
-   'subtypes'  => [DISRUPTION],
- 				'effectDesc' => clienttranslate('<FLEETING>.  Send to Reserve target Character with Base Cost #{2} or less.# Then, if both of your Expeditions are #behind or tied,# <RESUPPLY_LOW>.'),
-     'costHand' => 2, 
-     'costReserve' => 2, 
-     'changedStats' => ['costHand','costReserve'], 
-];
+      'extension'=>'ROC',
+      'subtypes'  => [DISRUPTION],
+      'effectDesc' => clienttranslate('<FLEETING>.  Send to Reserve target Character with Base Cost #{2} or less.# Then, if both of your Expeditions are #behind or tied,# <RESUPPLY_LOW>.'),
+      'costHand' => 2, 
+      'costReserve' => 2, 
+      'changedStats' => ['costHand','costReserve'], 
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN(ME, FLEETING),
+        FT::ACTION(TARGET, ['maxBaseCost' => 2, 'upTo' => true, 'effect' => FT::DISCARD_TO_RESERVE()]),
+        FT::ACTION(CHECK_CONDITION, ['condition' => 'allExpeditionsAreBehindOrTied', 'effect' => FT::ACTION(RESUPPLY, [])])
+      ),
+    ];
   }
 }

@@ -49,7 +49,7 @@ class AfterYou extends \ALT\Models\Action
     $player = Players::getActive();
     $cost = $this->getCost($player);
     if ($player->getMana() < $cost) {
-      throw new \BgaVisibleSystemException('Cannot pay cost of After You. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Cannot pay cost of After You. Should not happen');
     }
 
     if ($cost > 0) {

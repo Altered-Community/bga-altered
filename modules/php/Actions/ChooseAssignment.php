@@ -173,10 +173,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
-      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played. Should not happen');
     }
     if (!in_array($location, $locations)) {
-      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $locExploded = explode('_', $location);
     if ($locExploded[1] ?? '' == 'scout') {
@@ -193,7 +193,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $location = explode('_', $location)[0];
 
     if ($card->getPId() != $player->getId()) {
-      throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You do not own this card. Should not happen');
     }
 
     if ($free == false) {
@@ -823,7 +823,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['support'];
 
     if (!in_array($cardId, $args)) {
-      throw new \BgaVisibleSystemException('This card cannot be played as support. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played as support. Should not happen');
     }
 
     $card = Cards::get($cardId);
@@ -873,7 +873,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['tap'];
 
     if (!in_array($cardId, $args)) {
-      throw new \BgaVisibleSystemException('This card cannot be tapped. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be tapped. Should not happen');
     }
     $card = Cards::get($cardId);
     $card->setTapped(true);

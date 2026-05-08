@@ -19,7 +19,7 @@ trait TurnTrait
     foreach ($cardIds as $i => $cardId) {
       $card = Cards::getSingle($cardId);
       if (is_null($card) || $card->isPlayed() || $card->getPId() != $player->getId()) {
-        throw new \BgaVisibleSystemException("You can't reorder that card:" . $card->getId());
+        throw new \Bga\GameFramework\VisibleSystemException("You can't reorder that card:" . $card->getId());
       }
 
       Cards::setState($cardId, $i);
@@ -331,7 +331,7 @@ trait TurnTrait
   function stNightCleanup()
   {
     // $player = Players::getActive();
-
+    Meeples::nightCleanup();
     // Initiate engine in case some cards are reacting
     Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
     // Move cards / remove tokens => possible reaction of cards moving to reserve or being discarded
@@ -350,7 +350,6 @@ trait TurnTrait
 
   function stAfterNightCleanup()
   {
-    Meeples::nightCleanup();
     Globals::setStormMoves([]); // moved to be able to test Expedition cleanup
     $this->checkCardListeners('BeforeNight', 'stPreNight', []);
   }
