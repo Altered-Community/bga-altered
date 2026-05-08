@@ -56,6 +56,7 @@ trait TurnTrait
     Globals::setNextReserveCharacterBoost(0);
     Globals::setPlayedForFree(false);
     Globals::setNextCharacterInExpeditionBoost([]);
+    Globals::setAbilityActivatedThisTurn([]);
 
     Globals::setDayPhase(true);
     // Update cards with extra datas set
@@ -110,6 +111,7 @@ trait TurnTrait
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
     Globals::setNextCharacterBaseCost3Anchored(false);
+    Globals::setNextCharacterAsleep(false);
     Globals::setNextCharacterAnchored(false);
     Globals::setNextCharacterFleeting(false);
     Globals::setNextTokenAnchored(false);
@@ -173,6 +175,7 @@ trait TurnTrait
     Globals::setNextCharacterBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
+    Globals::setNextCharacterAsleep(false);
     Globals::setNextCharacterAnchored(false);
     Globals::setNextCharacterFleeting(false);
     Globals::setNextTokenAnchored(false);

@@ -49,108 +49,75 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Flag the card');
       case 'costReduction':
         return clienttranslate('Reduce cost of next card');
-        break;
       case 'gainCounter':
         return clienttranslate('Gain a counter');
-        break;
       case 'incCounter':
         return clienttranslate('Increment a counter');
-        break;
       case 'activateAllPermanents':
         return clienttranslate('Activate all permanents');
-        break;
       case 'activateAllOtherCharacters':
         return clienttranslate('Activate all other abilities');
-        break;
       case 'nextCharacterGains1Boost':
         return clienttranslate('Next character gains <BOOST>');
-        break;
       case 'nextCharacterGains2Boost':
         return clienttranslate('Next character gains 2 <BOOST>');
-        break;
       case 'nextSpellIsFree':
         return clienttranslate('Next spell is free');
-        break;
       case 'nextCharacterCost3Anchored':
       case 'nextCharacterAnchored':
       case 'nextTokenAnchored':
       case 'nextCharacterBaseCost3Anchored':
         return clienttranslate('Next character gains <ANCHORED>');
-        break;
       case 'removeFleetingIfPlayedHand':
         return clienttranslate('Remove fleeting if played from hand');
-        break;
       case 'removeFleetingSpellPlayed':
         return clienttranslate('Remove fleeting if next card is a spell');
-        break;
       case 'removeFleetingCharacterPlayed':
         return clienttranslate('Remove fleeting if next card is a character');
-        break;
       case 'removeFleetingIfSpellPlayedHand':
         return clienttranslate('Remove fleeting if next card is a spell played from hand');
-        break;
       case 'boostAllSubtype':
         return clienttranslate('Boost all subtype');
-        break;
       case 'boostAllCharacters':
         return clienttranslate('Boost all characters');
-        break;
       case 'boostAllCharactersInExpedition':
         return clienttranslate('Boost all characters');
-        break;
       case 'fleetingAllCharactersInExpedition':
         return clienttranslate('Fleeting all characters in target expedition');
-        break;
       case 'boostAllCharactersExceptSelf':
         return clienttranslate('Boost all characters except me');
-        break;
       case 'boostXReserve':
         return clienttranslate('Boost number of cards in reserve');
-        break;
       case 'boostXLandmark':
         return clienttranslate('Boost number of landmarks');
-        break;
       case 'boostXReserveAll':
         return clienttranslate('Boost number of all cards in reserve');
-        break;
       case 'boost3Stat0':
         return clienttranslate('Boost if more than 3 0 statistics');
-        break;
       case 'boost23Stat0':
         return clienttranslate('Boost if more than 3 0 statistics');
-        break;
       case 'discardAllHand':
         return clienttranslate('Discard all hands');
-        break;
       case 'discardAllHandReserve':
         return clienttranslate('Discard all hands and reserve');
-        break;
       case 'instantWin':
         return clienttranslate('Immediate win');
-        break;
       case 'MindApotheosis':
         return clienttranslate('Mind Apotheosis');
-        break;
       case 'triggerEffectOfNextCharacter':
         return clienttranslate('Trigger ability of next character');
-        break;
       case 'AfterRestSabotage':
         return clienttranslate('Sabotage after rest');
-        break;
       case 'AfterRestOrdisRecruit':
         return clienttranslate('Invoke Ordis recruit after rest');
-        break;
       case 'AfterRest2OrdisRecruit':
         return clienttranslate('Invoke 2 Ordis recruit after rest');
-        break;
       case 'invokeOrdisRecruitBureaucrat':
         return clienttranslate('Invoke 1 Ordirs recruit for each Bureaucrat you control');
-        break;
       case 'afterRest':
         return clienttranslate('Trigger the effect after rest');
       case 'AllPlayersSacrifice1':
         return clienttranslate('All players sacrifice 1 character');
-        break;
       case 'eachPlayerOptionalResupply':
         return clienttranslate('All players may resupply');
       case 'eachPlayerResupply':
@@ -161,13 +128,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('All players may put a card from their Hand in Reserve to draw a card');
       case 'fleetingAllCharacters':
         return clienttranslate('All characters gain fleeting');
-        break;
       case 'sleepingAllCharactersinExpedition':
         return clienttranslate('Put to sleep characters in the expedition');
-        break;
       case 'boostXFleetingChar':
         return clienttranslate('1 Boost for each Fleeting character');
-        break;
       case 'nextCharacterFleeting':
         return clienttranslate('Next character gains <FLEETING');
       case 'playAll1Card':
@@ -280,6 +244,8 @@ class SpecialEffect extends \ALT\Models\Action
       case 'sacrificeHighestCharacterPermanent':
         return clienttranslate('Sacrifice highest opponent character or permanent');
         // EOLE
+      case 'nextCharacterGains1BoostAndAsleep':
+        return clienttranslate('Next character gains <BOOST> and <ASLEEP>');
       case 'boostXCompletedFeat':
         return clienttranslate('1 Boost for each Completed Feat in your Landmarks');
     }
@@ -465,6 +431,11 @@ class SpecialEffect extends \ALT\Models\Action
       case 'nextCharacterGains1Boost':
         Globals::incNextCharacterBoost(1);
         Globals::incNextCharacterBoostOccurence(1);
+        break;
+      case 'nextCharacterGains1BoostAndAsleep':
+        Globals::incNextCharacterBoost(1);
+        Globals::incNextCharacterBoostOccurence(1);
+        Globals::setNextCharacterAsleep(true);
         break;
       case 'nextReserveCharacterGains1Boost':
         Globals::incNextReserveCharacterBoost(1);
