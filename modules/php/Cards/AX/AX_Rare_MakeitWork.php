@@ -37,7 +37,7 @@ class AX_Rare_MakeitWork extends \ALT\Models\Card
         ]
       ],
       'effectTap' =>  FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'isHandEmpty',
+        'condition' => ['isHandEmpty', 'isThisFeatCompleted'],
         'effect' => FT::ACTION(RESUPPLY, []),
       ])
     ];
