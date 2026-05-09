@@ -1,31 +1,40 @@
 <?php
 
-const DEMO = [
-  FACTION_AX => [
-    'AX_Common_SubhashMarmo' => 1,
-    'AX_Common_SapSniffer' => 2,
-    'AX_Rare_SapSniffer' => 1,
-    'AX_Common_DredgerDrone' => 3,
-    'AX_Common_DesignerDrone' => 3,
-    'AX_Common_EnhancedPrototype' => 3,
-    'AX_Common_Ogun' => 2,
-    'AX_Common_AmeliaEarhart' => 3,
-    'AX_Common_WalrusScout' => 3,
-    'AX_Common_TheLittleMatchGirl' => 2,
-    'AX_Rare_TheLittleMatchGirl' => 1,
-    'AX_Rare_BLISSDrummer' => 1,
-    'AX_Common_TinkerBell' => 2,
-    'AX_Common_FoundryArmorer' => 2,
-    'AX_Rare_FoundryArmorer' => 1,
-    'AX_Rare_CuppaSap' => 1,
-    'AX_Rare_Avalanche' => 1,
-    'AX_Common_Avalanche' => 2,
-    'AX_Common_SapExtractor' => 2,
-    'AX_Rare_SapExtractor' => 1,
-    'AX_Common_TechLabUnit' => 2,
-    'AX_Rare_TechLabUnit' => 1,
-  ],
+require_once (dirname(__FILE__)) . '/StarterDecks/ax_1_sierra.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/ax_2_treyst.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/ax_3_subhash.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/ax_65_isaree.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/ax_85_della.inc.php';
 
+require_once (dirname(__FILE__)) . '/StarterDecks/br_1_kojo.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/br_2_atsadi.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/br_3_basira.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/br_65_sol.inc.php';
+
+require_once (dirname(__FILE__)) . '/StarterDecks/ly_1_nevenka.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/ly_2_auraq.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/ly_3_fen.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/ly_65_nadir.inc.php';
+
+require_once (dirname(__FILE__)) . '/StarterDecks/mu_1_teija.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/mu_2_arjun.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/mu_3_rin.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/mu_65_kauri.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/mu_85_turuun.inc.php';
+
+require_once (dirname(__FILE__)) . '/StarterDecks/or_1_sigismar.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/or_2_waru.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/or_3_gulrang.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/or_65_zhen.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/or_85_matz.inc.php';
+
+require_once (dirname(__FILE__)) . '/StarterDecks/yz_1_akesha.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/yz_2_lindiwe.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/yz_3_afanas.inc.php';
+require_once (dirname(__FILE__)) . '/StarterDecks/yz_65_moyo.inc.php';
+
+const DEMO = [
+  FACTION_AX => STARTER_SIERRA,
   FACTION_BR => [
     'BR_Common_AtsadiSurge' => 1,
     'BR_Common_TalarianSkater' => 3,
