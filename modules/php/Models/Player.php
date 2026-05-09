@@ -1123,6 +1123,27 @@ class Player extends \ALT\Helpers\DB_Model
     );
   }
 
+  public function countUniversalLandmarksToughFromCompletedFeat()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      if (!in_array(FEAT, $card->getSubtypes())) {
+        continue;
+      }
+      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      $completed = $card->getEffectCompleted();
+      if (empty($completed) || !is_array($completed)) {
+        continue;
+      }
+      if (isset($completed['dynamicTough'])) {
+        $n += explode("universalLandmarks", $completed['dynamicTough'])[1];
+      }
+    }
+    return $n;
+  }
+
   public function countUniversalTokenGigantic()
   {
     return count(

@@ -2206,7 +2206,25 @@ class SpecialEffect extends \ALT\Models\Action
                 $effect();
             }
         }
-        break;   
+        break;  
+      case 'invokeRecruitOnAscendedExpeditions':
+        foreach (STORMS as $storm) {
+          if($card->getPlayer()->isAscended($storm)){
+            $nodes[] = FT::ACTION(
+              INVOKE_TOKEN,
+              [
+                'pId' => $card->getPId(),
+                'tokenType' => 'OD_Common_OrdisRecruit',
+                'targetLocation' => [$storm],
+              ],
+              ['sourceId' => $card->getId()]
+            );
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;             
       default:
         break;
     }

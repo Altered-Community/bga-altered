@@ -6,9 +6,9 @@ class YZ_Rare_CovertheRetreat extends \ALT\Models\Card
 {
   public function __construct($row){
 		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_EOLE_B_OR_121_R2',
-            'asset'  => 'ALT_EOLE_B_OR_121_R',
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_OR_121_R2',
+      'asset'  => 'ALT_EOLE_B_OR_121_R',
 
     	'faction'  => FACTION_YZ,
     	'rarity'  => RARITY_RARE,
@@ -18,13 +18,38 @@ class YZ_Rare_CovertheRetreat extends \ALT\Models\Card
     	'flavorText'  => clienttranslate(''),
       'artist' => "Kevin Sidharta",
 			'extension'=>'ROC',
-   'subtypes'  => [FEAT,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} Create a #<MANA_MOTH> Illusion# token in each of your Expeditions.  #At Noon# — If #six or more cards are in your discard pile,# complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: When you create a token Character — You may exhaust me ({T}) to give it 1 boost. '),
- 			     'supportIcon' => 'discard',
-     'costHand' => 3, 
-     'costReserve' => 3, 
-     'changedStats' => ['costHand','costReserve'], 
-];
+      'subtypes'  => [FEAT,LANDMARK],
+      'effectDesc' => clienttranslate('{J} Create a #<MANA_MOTH> Illusion# token in each of your Expeditions.  #At Noon# — If #six or more cards are in your discard pile,# complete me.'),
+      'supportDesc' => clienttranslate('<COMPLETED>: When you create a token Character — You may exhaust me ({T}) to give it 1 boost. '),
+      'costHand' => 3, 
+      'costReserve' => 3, 
+      'changedStats' => ['costHand','costReserve'], 
+      'effectPlayed' => FT::SEQ(
+        FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'YZ_Common_ManaMoth',
+          'targetLocation' => [STORM_RIGHT],
+        ]),
+        FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'YZ_Common_ManaMoth',
+          'targetLocation' => [STORM_LEFT],
+          'moreThan1' => true,
+        ])
+      ),
+      'effectPassive' => [
+        'EndTurn' => [
+          'conditions' => ['isMe', 'hasControl:character:7', 'isThisFeatIncomplete'],
+          'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
+        ],
+        'InvokeToken' => [
+          'conditions' => ['isMe', 'isCardPlayed:character', 'isThisFeatCompleted', 'notTapped'],
+          'output' => FT::SEQ_OPTIONAL(
+            FT::ACTION(TAP, []),
+            FT::GAIN(EFFECT, BOOST),
+          )
+        ],
+      ],
+    ];
   }
 }
