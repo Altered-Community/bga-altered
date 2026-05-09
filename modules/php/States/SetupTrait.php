@@ -59,7 +59,7 @@ trait SetupTrait
     foreach (Players::getAll() as $pId => $player) {
       $decks = $allDecks[$pId] ?? [];
       foreach ($decks as &$deck) {
-        $deck['hero'] = $this->getDeckHero($deck['deckNum']);
+        $deck['hero'] = $this->getDeckHero($deck['deckId']);
       }
       $args['_private'][$pId]['decks'] = $decks;
       $args['_private'][$pId]['selection'] = $selection[$pId] ?? null;

@@ -4,7 +4,7 @@ namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-class YZ_Common_Offyougo extends \ALT\Models\Card
+class YZ_Common_OffYouGo extends \ALT\Models\Card
 {
   public function __construct($row)
   {
@@ -15,7 +15,7 @@ class YZ_Common_Offyougo extends \ALT\Models\Card
 
       'faction' => FACTION_YZ,
       'rarity' => RARITY_COMMON,
-      'name' => clienttranslate('Off you go!'),
+      'name' => clienttranslate('Off You Go!'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Send to Reserve target Character with Hand Cost {3} or less.'),
