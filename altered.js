@@ -28,6 +28,7 @@ define([
   g_gamethemeurl + 'modules/js/Players.js',
   g_gamethemeurl + 'modules/js/Cards.js',
   g_gamethemeurl + 'modules/js/Meeples.js',
+  g_gamethemeurl + 'modules/js/StarterDecks.js',
 ], function (dojo, declare) {
   function openFullscreen() {
     var docElm = document.documentElement;
@@ -54,7 +55,7 @@ define([
     }
   }
 
-  return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
+  return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples, altered.starterDecks], {
     constructor: function () {
       this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection', 'gameEnd'];
       this._notifications = [
@@ -844,76 +845,9 @@ define([
       }
       if (deckNumber == 'random') return;
 
-      const FACTION_NAMES = {
-        BR_Gretel: _('Bravos - Gretel & Rust'),
-        LY_YeongGi: _('Lyra - Yeong-Gi & Ember'),
-        YZ_Sam: _('Yzmir - Sam & Spook'),
-        MU2: _('Muna - Turuun & Benih'),
-        OD2: _('Ordis - Matz & Hive'),
-        AX: _('Axiom - Sierra & Oddball'),
-        BR: _('Bravos - Kojo & Booda'),
-        LY: _('Lyra - Nevenka & Blotch'),
-        MU: _('Muna - Teija & Nauraa'),
-        OD: _('Ordis - Sigismar & Wingspan'),
-        YZ: _('Yzmir - Akesha & Taru'),
-      };
-
-      const FACTION_DESC = {
-        AX:
-          _('Sierra "the renowned engineer"') +
-          '<br/>' +
-          _('Construct powerful machines and let their strength carry you to victory!'),
-        BR:
-          _('Kojo "the rising star"') +
-          '<br/>' +
-          _('Summon your firecat Companion to seize the advantage without delay, for only the brave make history!'),
-        LY:
-          _('Nevenka "the unpredictable"') +
-          '<br/>' +
-          _("What's better than invoking fate to spice up a game? Are you ready to embrace the whims of destiny?"),
-        MU:
-          _('Teija "the druidess"') +
-          '<br/>' +
-          _('Anchor and boost your allies over the long haul and reap the rewards of your good deeds.'),
-        OD:
-          _('Sigismar "the commander"') +
-          '<br/>' +
-          _('Take the reins of the Ordis Legion and secure victory through sheer numbers!'),
-        YZ:
-          _('Akesha "the astute"') +
-          '<br/>' +
-          _('Let your opponent take the initiative to better thwart their plans, slowly but surely.'),
-        MU2: 
-          _('Turuun "the gifter"') + 
-          '<br/>' + 
-          _('Sharing makes us stronger. Helping the other doesn\'t mean giving without any return !'),
-        OD2: 
-          _('Matz "the builder"') + 
-          '<br/>' + 
-          _('Every project needs solid foundations. The better the foundation, the stronger and bigger the building.'),
-        LY_YeongGi: 
-          _('Yeong-Gi "the magician"') + 
-          '<br/>' + 
-          _('Who said gambling was all about luck? I can use the cards to my advantage, and make the most of every situation.'),
-        YZ_Sam: 
-          _('Sam "the phantom"') + 
-          '<br/>' + 
-          _('The shadows are my ally. I can blend in them, use them to strike at the perfect moment.'),
-      };
-
       let decks = args._private.decks || [];
       let previousDeck = decks.find((deck) => '' + deck.deckNumber == '' + deckNumber) || null;
-      const factionGroupMap = {
-        BR_Gretel: 'BR',
-        LY_YeongGi: 'LY',
-        YZ_Sam: 'YZ',
-        MU2: 'MU',
-        OD2: 'OD',
-        OR: 'OD',
-      };
-      const getFactionGroup = (faction) => factionGroupMap[faction] || faction;
-      const demoFactionKeys = ['BR_Gretel', 'LY_YeongGi', 'YZ_Sam', 'MU2', 'OD2'];
-      const isDemoDeck = (deck) => demoFactionKeys.includes(deck.faction);
+      const getFactionGroup = (faction) => faction;
       let factions = [...new Set(decks.map((deck) => getFactionGroup(deck.faction)))];
       let defaultFaction = previousDeck ? getFactionGroup(previousDeck.faction) : null;
       const bannerFactionMap = {
@@ -1041,6 +975,9 @@ define([
       };
 
       const renderStep2Preconfigured = () => {
+
+        const starterDecks = this.getStarterDecks();
+
         let selectedDeck = null;
         let themeUrl = typeof g_gamethemeurl !== 'undefined' ? g_gamethemeurl : '';
         if (
@@ -1049,10 +986,9 @@ define([
         ) {
           this._deckWizardState.selectedFaction = factions[0];
         }
-        const showingAllFactions = this._deckWizardState.selectedFaction == 'ALL';
         let filteredDecks = decks.filter(
           (deck) =>
-            showingAllFactions || getFactionGroup(deck.faction) == this._deckWizardState.selectedFaction
+            getFactionGroup(deck.faction) == this._deckWizardState.selectedFaction
         );
 
         $('nylaltered-overlay-content').innerHTML = `
@@ -1073,9 +1009,7 @@ define([
             <div id='deck-wizard-footer'></div>
           </div>
         `;
-        let selectedFactionName = showingAllFactions
-          ? _('All factions')
-          : factionDisplayNames[getFactionGroup(this._deckWizardState.selectedFaction)] ||
+        let selectedFactionName = factionDisplayNames[getFactionGroup(this._deckWizardState.selectedFaction)] ||
             this._deckWizardState.selectedFaction;
         $('deck-selected-faction-title').innerHTML = selectedFactionName;
 
@@ -1085,27 +1019,16 @@ define([
           $('deck-faction-banners').insertAdjacentHTML(
             'beforeend',
             `<div class='deck-faction-banner-option ${isSelectedFaction ? 'selected' : ''}' id='banner-faction-${faction}'>
-              <img src='${bannerImagePath(faction, isSelectedFaction)}' alt='${FACTION_NAMES[faction] || faction}' />
+              <img src='${bannerImagePath(faction, isSelectedFaction)}' alt='${factionDisplayNames[faction] || faction}' />
             </div>`
           );
           this.onClick(`banner-faction-${faction}`, () => {
             if (this._deckWizardState.selectedFaction == faction) return;
             this._deckWizardState.selectedFaction = faction;
             this._deckWizardState.selectedDeckNum = null;
+            debug("Selected faction: " + faction);
             renderStep2Preconfigured();
           });
-        });
-        $('deck-faction-banners').insertAdjacentHTML(
-          'beforeend',
-          `<div class='deck-faction-banner-option all-decks-banner ${showingAllFactions ? 'selected' : ''}' id='banner-faction-all'>
-            <div class='custom-deck-banner' style="background-image:url('${themeUrl}img/Factions/ALT_OFFICIAL_CARDBACK.png')"></div>
-          </div>`
-        );
-        this.onClick('banner-faction-all', () => {
-          if (showingAllFactions) return;
-          this._deckWizardState.selectedFaction = 'ALL';
-          this._deckWizardState.selectedDeckNum = null;
-          renderStep2Preconfigured();
         });
 
         this.onClick('deck-source-starters', () => {
@@ -1129,9 +1052,11 @@ define([
         }
 
         filteredDecks.forEach((deck) => {
-          let deckLabel = FACTION_NAMES[deck.faction] || FACTION_NAMES[getFactionGroup(deck.faction)] || selectedFactionName;
+          let deckLabel = selectedFactionName;
           if (deck.hero && deck.hero.properties && deck.hero.properties.name) {
             deckLabel = deck.hero.properties.name;
+          } else {
+            debug("No hero name found for deck: " + JSON.stringify(deck));
           }
           $('overlay-deck-container').insertAdjacentHTML(
             'beforeend',
@@ -1154,7 +1079,10 @@ define([
           $(`card-${selectedDeck.hero.id}`).classList.add('selected');
 
           $('overlay-deck-details').innerHTML = '';
-          if (args.demoDeck == true) {
+
+          const maybeSelectedStarter = starterDecks[getFactionGroup(deck.faction)].find((deck) => deck.deckId == selectedDeck.deckId);
+
+          if (maybeSelectedStarter != null) {
             const detailFaction = getFactionGroup(deck.faction);
             const heroKey = (deck.hero && (deck.hero.type || deck.hero.id)) || deck.faction;
             const heroThumbnail =
@@ -1165,10 +1093,12 @@ define([
                   : 0;
             $('overlay-deck-details').insertAdjacentHTML(
               'beforeend',
+              // TODO: localize description / author
               `<div class='deck-details' data-faction='${detailFaction}' data-hero='${heroKey}' data-thumbnail='${heroThumbnail}'>
               <div class='faction-banner' data-faction='${detailFaction}'></div>
-              <h3>${FACTION_NAMES[deck.faction]}</h3>
-              <p>${FACTION_DESC[deck.faction] || ''}</p>
+              <h3>${deck.hero.properties.name}</h3>
+              <p>Deck designed by ${maybeSelectedStarter.author}</p>
+              <p>${maybeSelectedStarter.description || ''}</p>
             </div>`
             );
           }
