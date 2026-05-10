@@ -1097,8 +1097,8 @@ define([
               `<div class='deck-details' data-faction='${detailFaction}' data-hero='${heroKey}' data-thumbnail='${heroThumbnail}'>
               <div class='faction-banner' data-faction='${detailFaction}'></div>
               <h3>${deck.hero.properties.name}</h3>
-              <p>Deck designed by ${maybeSelectedStarter.author}</p>
-              <p>${maybeSelectedStarter.description || ''}</p>
+              <p class='deck-details-author'>Deck designed by ${maybeSelectedStarter.author}</p>
+              <p class='deck-details-description'>${maybeSelectedStarter.description || ''}</p>
             </div>`
             );
           }

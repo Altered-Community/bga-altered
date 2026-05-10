@@ -13112,11 +13112,18 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details p {
   text-align: left;
   color: white;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-author {
   margin-top: 30px;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-description {
+  margin-top: 10px;
   font-size: 22px;
-  width: 500px;
-  height: 120px;
-  margin-bottom: 5px;
+  height: 125px;
+  margin-bottom: 0;
+  overflow-y: auto;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer {
   text-align: center;
