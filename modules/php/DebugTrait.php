@@ -93,9 +93,9 @@ trait DebugTrait
     Globals::setEndTriggered(true);
   }
 
-  function debug_deck($deckId)
+  function debug_deck($deckNumber)
   {
-    $deckContent = $this->actGetDeckInfos($deckId);
+    $deckContent = $this->actGetDeckInfos($deckNumber);
     $deckContent['cards'][HERO]['card'] = $deckContent['cards'][HERO]['card']->jsonSerialize();
     $this->actConfirmAPIDeck($deckContent);
   }
@@ -556,7 +556,7 @@ trait DebugTrait
     $user = $params['user'] ?? '';
     $secret = $params['secret'] ?? '';
     $token = $params['token'] ?? '';
-    $deckId = $params['deckId'] ?? '';
+    $deckNumber = $params['deckNumber'] ?? '';
     $cardId = $params['cardId'] ?? '';
     //$curl = curl_VTOinit();
     // $baseUrl = 'https://api.equinox-ccg.io';
@@ -608,7 +608,7 @@ trait DebugTrait
         break;
       case 'deck':
         // token of the player
-        $setup[CURLOPT_URL] = $baseUrl . $deckId;
+        $setup[CURLOPT_URL] = $baseUrl . $deckNumber;
         $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
         $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
         break;

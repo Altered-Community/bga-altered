@@ -582,9 +582,9 @@ class Cards extends \ALT\Helpers\CachedPieces
         $factionSub = substr($cardId, 0, 2);
         $className = "\\ALT\\Cards\\$factionSub\\$cardId";
         $card = new $className(null);
-        $location = "deck-" . $deckId;
+        $location = "deck-" . $deckNumber;
         if ($card->getType() == HERO) {
-          $deckList[$deckNumber] = ['deckId' => $deckId, 'faction' => $faction];
+          $deckList[$deckNumber] = ['deckNumber' => $deckNumber, 'deckId' => $deckId, 'faction' => $faction];
         }
 
         // we do not create token as they will be created on the fly

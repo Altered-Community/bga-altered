@@ -837,12 +837,12 @@ define([
     onEnteringStateSelectPrecoDeck(args) {
       this._awaitingAPIReturn = false;
       if (!args._private) return;
-      let deckNum = args._private.selection;
-      if (deckNum == 'API') {
+      let deckNumber = args._private.selection;
+      if (deckNumber == 'API') {
         this.showAPIDeckDetails(args);
         return;
       }
-      if (deckNum == 'random') return;
+      if (deckNumber == 'random') return;
 
       const FACTION_NAMES = {
         BR_Gretel: _('Bravos - Gretel & Rust'),
@@ -902,7 +902,7 @@ define([
       };
 
       let decks = args._private.decks || [];
-      let previousDeck = decks.find((deck) => '' + deck.deckNum == '' + deckNum) || null;
+      let previousDeck = decks.find((deck) => '' + deck.deckNumber == '' + deckNumber) || null;
       const factionGroupMap = {
         BR_Gretel: 'BR',
         LY_YeongGi: 'LY',
@@ -965,7 +965,7 @@ define([
           previousWizardState.selectedDeckNum !== undefined
             ? previousWizardState.selectedDeckNum
             : previousDeck
-              ? previousDeck.deckNum
+              ? previousDeck.deckNumber
               : null,
       };
 
@@ -981,15 +981,15 @@ define([
 
         if (!selectedDeck) return;
 
-        if (deckNum === null || '' + deckNum != '' + selectedDeck.deckNum) {
+        if (deckNumber === null || '' + deckNumber != '' + selectedDeck.deckNumber) {
           this.addPrimaryActionButton('btnConfirm', _('Confirm'), () =>
-            this.takeAction('actSelectPrecoDeck', { choice: selectedDeck.deckNum }, false)
+            this.takeAction('actSelectPrecoDeck', { choice: selectedDeck.deckNumber }, false)
           );
           if ($('deck-wizard-footer')) {
             this.addPrimaryActionButton(
               'btnConfirmFooter',
               _('Confirm'),
-              () => this.takeAction('actSelectPrecoDeck', { choice: selectedDeck.deckNum }, false),
+              () => this.takeAction('actSelectPrecoDeck', { choice: selectedDeck.deckNumber }, false),
               'deck-wizard-footer'
             );
           }
@@ -1135,14 +1135,14 @@ define([
           }
           $('overlay-deck-container').insertAdjacentHTML(
             'beforeend',
-            `<div id='deck-option-${deck.deckNum}' class='deck-option'>
-              <div id='deck-card-holder-${deck.deckNum}' class='deck-card-holder'></div>
+            `<div id='deck-option-${deck.deckNumber}' class='deck-option'>
+              <div id='deck-card-holder-${deck.deckNumber}' class='deck-card-holder'></div>
               <div class='deck-option-name'>${deckLabel}</div>
             </div>`
           );
-          this.addCard(deck.hero, `deck-card-holder-${deck.deckNum}`);
+          this.addCard(deck.hero, `deck-card-holder-${deck.deckNumber}`);
           $(`card-${deck.hero.id}`).classList.add('no-frame');
-          $(`card-${deck.hero.id}`).dataset.deckNum = deck.deckNum;
+          $(`card-${deck.hero.id}`).dataset.deckNumber = deck.deckNumber;
         });
 
         const selectDeck = (deck) => {
@@ -1150,7 +1150,7 @@ define([
             $(`card-${selectedDeck.hero.id}`).classList.remove('selected');
           }
           selectedDeck = deck;
-          this._deckWizardState.selectedDeckNum = deck.deckNum;
+          this._deckWizardState.selectedDeckNum = deck.deckNumber;
           $(`card-${selectedDeck.hero.id}`).classList.add('selected');
 
           $('overlay-deck-details').innerHTML = '';
@@ -1177,13 +1177,13 @@ define([
         };
 
         filteredDecks.forEach((deck) => {
-          this.onClick(`deck-option-${deck.deckNum}`, () => selectDeck(deck));
+          this.onClick(`deck-option-${deck.deckNumber}`, () => selectDeck(deck));
           this.onClick(`card-${deck.hero.id}`, () => selectDeck(deck));
         });
 
         if (this._deckWizardState.selectedDeckNum !== null) {
           let previouslySelected = filteredDecks.find(
-            (deck) => '' + deck.deckNum == '' + this._deckWizardState.selectedDeckNum
+            (deck) => '' + deck.deckNumber == '' + this._deckWizardState.selectedDeckNum
           );
           if (previouslySelected) {
             selectDeck(previouslySelected);
@@ -1420,7 +1420,7 @@ define([
 
           this._awaitingAPIReturn = true;
           $('api-error').innerHTML = '';
-          this.takeAction('actGetDeckInfos', { deckId: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
+          this.takeAction('actGetDeckInfos', { deckNumber: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
             let deckContent = response.data;
             this._deckContentAPI = deckContent;
             this._awaitingAPIReturn = false;
