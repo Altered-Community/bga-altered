@@ -114,6 +114,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Invoke 2 Ordis recruit after rest');
       case 'invokeOrdisRecruitBureaucrat':
         return clienttranslate('Invoke 1 Ordirs recruit for each Bureaucrat you control');
+      case 'invokeManaMothPerStigmaInDiscard':
+        return clienttranslate('Invoke 1 Mana Moth for each Stigma of Fallacy in your discard pile');
       case 'afterRest':
         return clienttranslate('Trigger the effect after rest');
       case 'AllPlayersSacrifice1':
@@ -301,7 +303,7 @@ class SpecialEffect extends \ALT\Models\Action
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
-      throw new \Bga\GameFramework\VisibleSystemException('no card in args (special effect). Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (special effect). Should not happen');
     }
     if ($cardId == ME) {
       $cardId = $this->getSource()->getId();
@@ -477,7 +479,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
-          throw new \Bga\GameFramework\VisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
+          throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
         }
         $subType = $args['subType'];
         $excludeSelf = $args['excludeSelf'] ?? false;
@@ -801,6 +803,27 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
 
+        break;
+      case 'invokeManaMothPerStigmaInDiscard':
+        $nodes = [];
+        $discardedCards = Cards::getFiltered($card->getPId(), DISCARD_PILE);
+        foreach ($discardedCards as $discardedCard) {
+          if (!Conditions::isCardMatchingSearch($discardedCard, 'ALT_EOLE_B_YZ_115')) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(
+            INVOKE_TOKEN,
+            [
+              'pId' => 'source',
+              'tokenType' => 'YZ_Common_ManaMoth',
+              'targetLocation' => STORMS,
+            ],
+            ['sourceId' => $card->getId()]
+          );
+        }
+        if (count($nodes) > 0) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       case 'AfterRest2OrdisRecruit':
         $afterRest = Globals::getAfterRest();

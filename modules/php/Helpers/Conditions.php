@@ -487,11 +487,40 @@ abstract class Conditions
     }
     die('Unknown op for hasDiscardPileCards');
   }
+  
+  public static function hasCardInDiscardPile($card, $event, $name)
+  {
+    if (is_null($name) || $name === '') {
+      return false;
+    }
+
+    $discardedCards = Cards::getFiltered($card->getPId(), DISCARD_PILE);
+    foreach ($discardedCards as $discardedCard) {
+      if (self::isCardMatchingSearch($discardedCard, $name)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * True when $name appears as a substring of the card UID (literal match: case and punctuation preserved).
+   */
+  public static function isCardMatchingSearch($card, $name)
+  {
+    if ($name === null || $name === '') {
+      return false;
+    }
+
+    $uid = (string) $card->getUid();
+    return $uid !== '' && strpos($uid, (string) $name) !== false;
+  }
 
   /** True if this player has n completed feat. */
   public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {
-    return hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
+    return self::hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
   }
 
   /** True if this card has no feat-completed meeple (COMPLETE_FEAT passive not yet applied). */
@@ -575,7 +604,7 @@ abstract class Conditions
     if ($op == 'GT') {
       return $m > $n;
     }
-    throw new \Bga\GameFramework\VisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
+    throw new \BgaVisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
   }
 
   public static function hasBiggerHand($card, $event)
