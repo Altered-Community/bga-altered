@@ -9364,14 +9364,11 @@ html {
 }
 
 .altered-card.no-frame.card-hero.selected {
-  transform: scale(1.05);
-  margin: 3px 10px;
+  margin: 2px 5px;
 }
 
 .altered-card.no-frame.card-hero.keep {
-  transform: scale(1.12);
-  margin: 3px 20px;
-  margin-top: -1px;
+  margin: 2px 5px;
   border: 2px solid #f3b200;
   box-shadow: 0px 0px 15px 0px #ffd000;
 }
@@ -13000,11 +12997,28 @@ body.focus-board .altered-player-board .player-board-infos {
   max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
   --cardScale: 0.5;
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
+  max-height: calc(82vh / var(--boardScale));
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container::-webkit-scrollbar {
+  display: none;
 }
 .mobile_version #altered-board-overlay #altered-overlay-content #overlay-deck-container, .focus-board #altered-board-overlay #altered-overlay-content #overlay-deck-container {
   max-width: calc(90vw / var(--boardScale));
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.selectable:not(.selected):not(.keep),
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable:not(.selected):not(.keep) {
+  box-shadow: none;
+  border-color: transparent;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.selectable:hover,
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable:hover {
+  transform: none;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card {
   margin: 2px 5px;
@@ -13043,11 +13057,20 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=YZ] {
   background-position-y: 100%;
 }
-#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=MU2] {
-  background-position: 100% 60%;
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-thumbnail="0"] {
+  background-position-x: 0%;
 }
-#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=OD2] {
-  background-position: 100% 80%;
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-thumbnail="1"] {
+  background-position-x: 25%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-thumbnail="2"] {
+  background-position-x: 50%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-thumbnail="3"] {
+  background-position-x: 75%;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-thumbnail="4"] {
+  background-position-x: 100%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details .faction-banner {
   width: 50px;
@@ -13249,14 +13272,16 @@ body.focus-board .altered-player-board .player-board-infos {
   border-bottom-left-radius: 5px;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list {
-  width: 1430px;
+  width: min(1430px, 90vw / var(--boardScale));
   grid-gap: 10px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  max-height: calc(72vh / var(--boardScale));
+  overflow-y: auto;
+  padding-right: 6px;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail {
-  width: 450px;
+  width: auto;
   height: 110px;
   border-radius: 10px;
   box-shadow: 1px 1px 5px black;
@@ -13426,6 +13451,265 @@ body.focus-board .altered-player-board .player-board-infos {
   margin: 0px 15px;
   font-size: 26px;
   font-weight: bold;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard {
+  max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
+}
+.mobile_version #altered-board-overlay #altered-overlay-content #deck-wizard, .focus-board #altered-board-overlay #altered-overlay-content #deck-wizard {
+  max-width: calc(90vw / var(--boardScale));
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-subtitle,
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-section-title {
+  text-align: center;
+  color: gold;
+  font-family: "Tiller";
+  font-weight: bold;
+  margin: 0px auto 20px;
+  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-subtitle::after,
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-section-title::after {
+  content: "";
+  position: absolute;
+  left: -20px;
+  right: -20px;
+  bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #bc8441 15%, #f3c769 50%, #bc8441 85%, transparent 100%);
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-subtitle {
+  font-size: 34px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-section-title {
+  font-size: 28px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-options {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-option,
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #c0b68c;
+  border-radius: 10px;
+  color: #3e3529;
+  font-family: "Tiller";
+  font-size: 20px;
+  padding: 9px 16px;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-option:hover,
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option:hover {
+  transform: translateY(-2px);
+  border-color: #dfbf5e;
+  box-shadow: 0px 0px 6px rgba(255, 198, 65, 0.85);
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-option.selected,
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option.selected {
+  border-color: #7ac74a;
+  box-shadow: 0px 0px 7px rgba(99, 201, 40, 0.75);
+  cursor: default;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-faction-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option {
+  width: 180px;
+  text-align: center;
+  padding: 0px 10px 4px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: white;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 4px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option .deck-faction-label {
+  font-size: 25px;
+  line-height: 1.1;
+  color: white;
+  text-shadow: 0px 1px 2px black;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option:hover {
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option.selected {
+  border: none;
+  box-shadow: none;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-faction-banners {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-selection {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 20px 0 10px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-card {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-card .deck-source-image {
+  width: 170px;
+  height: 250px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4);
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-card .deck-source-title {
+  font-family: "Tiller";
+  font-size: 30px;
+  color: white;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.65);
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-card.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-type-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-type-toggle .deck-type-button {
+  font-family: "Tiller";
+  font-size: 22px;
+  color: #f0f5ff;
+  background: linear-gradient(180deg, #2a6dbf 0%, #1d4f93 100%);
+  border: 1px solid #7eb4ff;
+  border-radius: 14px;
+  padding: 5px 14px;
+  cursor: pointer;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.35);
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.35);
+  line-height: 1;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-type-toggle .deck-type-button.selected {
+  border-color: #9ad17d;
+  box-shadow: 0px 0px 6px rgba(154, 209, 125, 0.65);
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-type-toggle .deck-type-button.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle .deck-source-toggle-button {
+  width: 220px;
+  min-width: 220px;
+  flex: 0 0 220px;
+  font-size: 22px;
+  padding: 7px 18px;
+  text-align: center;
+  display: inline-block;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle .deck-source-toggle-button.selected {
+  border: 4px solid #ffe300;
+  box-shadow: 0px 0px 10px 0px #ffe300;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-type-description {
+  text-align: center;
+  color: #f0f5ff;
+  font-size: 20px;
+  margin: 0px auto 10px;
+  max-width: 980px;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-selected-faction-title {
+  text-align: center;
+  color: gold;
+  font-family: "Tiller";
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0px auto 6px;
+  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option {
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option img {
+  display: block;
+  width: 90px;
+  height: auto;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option .custom-deck-banner {
+  width: 90px;
+  height: 157px;
+  border-radius: 6px;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.45);
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option:hover {
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option.selected {
+  cursor: default;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-wizard-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard.deck-wizard-step-2 {
+  margin-top: 10px;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .deck-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .deck-option-name {
+  font-family: "Tiller";
+  font-size: 24px;
+  color: white;
+  text-shadow: 0px 1px 2px black;
+  text-align: center;
+  line-height: 1.05;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details {
   --cardScale: 1;
