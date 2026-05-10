@@ -349,6 +349,9 @@ def main() -> int:
         php_path.write_text(render_php_include(deck.hero_const, class_counts), encoding="utf-8")
 
         faction_key = infer_faction_lower(hero_card_id).upper()
+        # Override OR to OD for consistency with the JavaScript code.
+        if faction_key == 'OR':
+            faction_key = 'OD'
         js_entries_by_faction.setdefault(faction_key, []).append(
             "    {"
             f' deckId: "{deck_id}",'
