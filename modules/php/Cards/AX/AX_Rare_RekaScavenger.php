@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\AX;
-
 use ALT\Helpers\FT;
 
 class AX_Rare_RekaScavenger extends \ALT\Models\Card
@@ -31,10 +29,8 @@ class AX_Rare_RekaScavenger extends \ALT\Models\Card
       'changedStats' => ['forest'],
       'effectPassive' => [
         'EndTurn' => [
-          [
-            'conditions' => ['isMe', 'isHandEmpty'],
-            'output' => FT::GAIN(ME, BOOST, 2),
-          ],
+          'conditions' => ['isMe', 'isHandEmpty'],
+          'output' => FT::GAIN(ME, BOOST, 2),
         ],
       ],
     ];
