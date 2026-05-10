@@ -277,7 +277,7 @@ class Action
     $reaction = Cards::getReaction($event, true, false);
     // var_dump($reaction);
     if ($reaction  !== null) {
-      Engine::insertAtRoot(['type' => NODE_SEQ, 'childs' => $reaction], false);
+      Engine::insertAtRoot(['type' => NODE_PARALLEL, 'childs' => $reaction], false);
     }
   }
 

@@ -81,7 +81,11 @@ class Globals extends \ALT\Helpers\DB_Manager
     
     // Eole
     'nextCharacterAsleep' => 'obj',
+    'nextTurnAsleep' => 'bool', // Give Fate a Twist!
+    'nextTurnAsleepOccurence' => 'int', // Give Fate a Twist!
     'abilityActivatedThisTurn' => 'obj',
+    'abilityActivatedThisTurnCount' => 'obj',
+    'abilityActivatedThisTurnTypeCount' => 'obj',
 
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games

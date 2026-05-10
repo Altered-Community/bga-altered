@@ -59,6 +59,7 @@ class Discard extends \ALT\Models\Action
   public function getDescription()
   {
     $location = $this->getArg('destination');
+    $cardId = $this->getArg('cardId');
 
     // Msg
     $msgs = [
@@ -71,6 +72,9 @@ class Discard extends \ALT\Models\Action
       $msg = clienttranslate('Sacrifice ${card}');
     } elseif ($this->isSabotage()) {
       $msg = clienttranslate('sabotage');
+    } elseif ($location == RESERVE && $cardId == EFFECT) {
+      // EFFECT placeholders represent the just-discarded event card.
+      $msg = clienttranslate('Send back discarded card to Reserve');
     }
 
     // Card (if any)
@@ -81,6 +85,13 @@ class Discard extends \ALT\Models\Action
         $card = '';
       } else {
         $card = Cards::get($this->getSourceId());
+      }
+    } elseif ($cardId == EFFECT) {
+      $eventCardId = $this->getEvent()['cardId'] ?? null;
+      if (!is_null($eventCardId)) {
+        $card = Cards::get($eventCardId, false);
+      } elseif (!is_null($this->getSourceId())) {
+        $card = Cards::get($this->getSourceId(), false);
       }
     } elseif ($cardId == 'event') {
       $card = Cards::get($this->getEvent()['cardId']);
@@ -223,13 +234,13 @@ class Discard extends \ALT\Models\Action
       $n = $args['n'] + ($args['nLandmarks'] ?? 0);
       $upTo = $args['upTo'];
       if ((!$upTo && count($cardIds) != $n) || ($upTo && count($cardIds) > $n)) {
-        throw new \Bga\GameFramework\VisibleSystemException('You must select the correct number of cards. Should not happen');
+        throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
       }
 
       // Valid card ids
       $validIds = ($pArgs['cards'] ?? []) + ($pArgs['reserveCards'] ?? []) + ($pArgs['landmarkCards'] ?? []);
       if (!empty(array_diff($cardIds, $validIds))) {
-        throw new \Bga\GameFramework\VisibleSystemException('You selected a card that should not be discarded. Should not happen');
+        throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
       }
     }
 
@@ -413,7 +424,11 @@ class Discard extends \ALT\Models\Action
         }
       }
       
-      if (in_array($originalLocation, [HAND, RESERVE])) {
+      // LY Smoke Them Out
+      // Only count true discard-ability events: card moves from hand/reserve to discard pile.
+      // Moves like hand -> reserve are not {D} discards and must not increase discard counters.
+      if (in_array($originalLocation, [HAND, RESERVE]) && $destination == DISCARD_PILE) {
+       
         $abilityFlags = ['discardFromHandOrReserve' => true];
         if ($originalLocation == HAND) {
           $abilityFlags['discardFromHand'] = true;
@@ -424,6 +439,13 @@ class Discard extends \ALT\Models\Action
           $abilityFlags
         );
         Globals::setAbilityActivatedThisTurn($abilityActivated);
+        $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+        $abilityActivatedCount[$pId] = ($abilityActivatedCount[$pId] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+        $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+        $abilityActivatedTypeCount[$pId] = $abilityActivatedTypeCount[$pId] ?? [];
+        $abilityActivatedTypeCount[$pId]['discard'] = ($abilityActivatedTypeCount[$pId]['discard'] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
       }
 
       if (in_array($originalLocation, [HAND, RESERVE])) {
