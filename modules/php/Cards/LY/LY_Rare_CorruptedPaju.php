@@ -31,7 +31,7 @@ class LY_Rare_CorruptedPaju extends \ALT\Models\Card
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'isHandEmpty',
         'effect' => null,
-        'oppositeOutput' => FT::GAIN(ME, FLEETING),
+        'oppositeEffect' => FT::GAIN(ME, FLEETING),
       ]),
       'effectPlayed' => [
         'action' => INVOKE_TOKEN,
