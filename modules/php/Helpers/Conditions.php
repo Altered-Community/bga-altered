@@ -245,7 +245,7 @@ abstract class Conditions
     $stormMoves = Globals::getStormMoves();
     foreach (STORMS as $storm) { 
       if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$storm]) ) { 
-        return false; 
+        continue;
       } 
       $move = $stormMoves[$card->getPId()][$storm]; 
       if ($card->getPlayer()->isAscended($storm) && empty($move['biomes'])) { 

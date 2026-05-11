@@ -20,14 +20,14 @@ class OD_Common_DelaytheCollapse extends \ALT\Models\Card
       'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],
       'effectDesc' => clienttranslate('{J} <RESUPPLY>.  When you pass — If the total Hand Cost of cards in your Landmarks is {6} or more, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: Other cards in your Landmarks are <TOUGH_PER_P_1>. (Opponents must pay {1} to target them.)'),
+      'supportDesc' => clienttranslate('<COMPLETED>: Other cards in your Landmarks are <TOUGH_CHA_P_1>. (Opponents must pay {1} to target them.)'),
       'costHand' => 2, 
       'costReserve' => 2, 
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'excludeUniversalTough' => true,
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isMe', 'hasXHandCostLandmarks', 'isThisFeatIncomplete'],
+          'conditions' => ['isMe', 'has6HandCostLandmarks', 'isThisFeatIncomplete'],
           'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
         ],
       ],

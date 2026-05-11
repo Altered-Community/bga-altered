@@ -37,7 +37,7 @@ class OD_Rare_CovertheRetreat extends \ALT\Models\Card
       ),
       'effectPassive' => [
         'EndTurn' => [
-          'conditions' => ['isMe', 'hasControl:character:7', 'isThisFeatIncomplete'],
+          'conditions' => ['isMe', 'hasControl:character:6', 'isThisFeatIncomplete'],
           'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
         ],
         'InvokeToken' => [
