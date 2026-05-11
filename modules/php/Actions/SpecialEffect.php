@@ -1664,24 +1664,33 @@ class SpecialEffect extends \ALT\Models\Action
         $expedition = $this->getCtxArg('expedition');
         $oPlayer = Players::get($player);
         $resupplyIfAscended = $oPlayer->hasResupplyIfAscended();
+        $boostIfAscended = $oPlayer->hasBoostIfAscended();
         // manage my expedition
         if ($expedition == 'source') {
           $expedition = $card->getLocation();
         }
 
         $side = $expedition == STORM_LEFT ? HERO : COMPANION;
-        if ($resupplyIfAscended && $oPlayer->isAscended($expedition)) {
-          $this->insertAsChild(FT::ACTION(RESUPPLY, []));
-        } elseif (!$oPlayer->isAscended($expedition)) {
-          // $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
-          // $oToken = $oPlayer->$token();
+        $isAscended = $oPlayer->isAscended($expedition);
+        if (!$isAscended) {
           $ascended = Meeples::singleCreate([
             'player_id' => $player,
-            'location' => $expedition,
-            'nbr' => 1,
-            'type' => 'ascend'
+            'location'  => $expedition,
+            'nbr'       => 1,
+            'type'      => 'ascend'
           ]);
           Notifications::ascend($ascended, $oPlayer, $card, $expedition);
+        } else {
+          if ($resupplyIfAscended) {
+            $this->insertAsChild(FT::ACTION(RESUPPLY, []));
+          }
+          if ($boostIfAscended) {
+            foreach ($oPlayer->getPlayedCards() as $cId => $card) {
+              if ($card->isBoostIfAscended()) {
+                $this->insertAsChild(FT::GAIN($card, BOOST, 1));
+              }
+            }
+          }
         }
         break;
       case 'ascendOnLeave':
@@ -2183,6 +2192,24 @@ class SpecialEffect extends \ALT\Models\Action
         } while ($player->getId() != $activePlayer->getId());
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
+      case 'boostXAscended':
+        $n = Conditions::countSourceAscended($card, $this->getEvent());
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;     
+      case 'boostXAnimalsMax2':
+        $cards = $card->getPlayer()->getPlayedCards();
+        $cards = $cards->filter(function ($c) use ($card) {
+          if ($c->getId() != $card->getId() && in_array(ANIMAL, $c->getSubtypes())) {
+              return true;
+          }
+        });
+        $n = $cards->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n, 2));
+        }
+        break;    
       case 'PlagueofIntolerance':
         $count = Players::getActive()->getPlayedCards()->filter(function ($c) {
           return in_array($c->getType(), [CHARACTER]);
