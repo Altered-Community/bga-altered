@@ -27,7 +27,7 @@ class LY_Rare_PaperEnvoy extends \ALT\Models\Card
       'costReserve' => 1, 
       'changedStats' => ['ocean'], 
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'checkSupportActivatedThisTurn',
+        'condition' => 'checkAbilityActivatedThisTurn:discard',
         'effect' => FT::SEQ(),
         'oppositeEffect' => FT::GAIN(ME, FLEETING),
       ]),
