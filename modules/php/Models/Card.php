@@ -944,10 +944,11 @@ class Card extends \ALT\Helpers\DB_Model
       $minimumCost = min(1, $minimumCost);
     }
 
-    // Scholar's Vault
-    $reduceCostType = $this->getPlayer()->getReduceCostType($this);
-    $dynamicReduc = (int) $dynamicReduc + $reduceCostType;
-
+    // Scholar's Vault, Reka Welder (reduceCostType minimum floor)
+    $reduceCostTypeData = $this->getPlayer()->getReduceCostType($this);
+    $minimumCost = max($minimumCost, $reduceCostTypeData['minimum'] ?? 0);
+    $dynamicReduc = (int) $dynamicReduc + $reduceCostTypeData['reduction'];
+    
     switch ($this->getLocation()) {
       case HAND:
         if ($scout && $this->getScout() > 0) {

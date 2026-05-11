@@ -389,6 +389,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function getReduceCostType($playedCard)
   {
     $reduction = 0;
+    $minimumFloor = 0;
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       if (!empty($card->getReduceCostType())) {
         $type = $card->getReduceCostType();
@@ -396,22 +397,34 @@ class Player extends \ALT\Helpers\DB_Model
           if ($playedType == $playedCard->getType() || in_array($playedType, $playedCard->getAdditionalType())) {
             if (isset($info['maxHandCost']) && $playedCard->getCostHand() <= $info['maxHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minHandCost']) && $playedCard->getCostHand() >= $info['minHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minBaseCost'])) {
               $baseCost = $info['minBaseCost'];
               // Studious Acolyte
               if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               }
             }
           }
         }
       }
     }
-    return $reduction;
+    return ['reduction' => $reduction, 'minimum' => $minimumFloor];
   }
 
   public function getExhaustedReserveSlots()

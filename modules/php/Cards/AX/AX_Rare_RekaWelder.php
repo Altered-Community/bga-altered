@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\AX;
-
 use ALT\Helpers\FT;
 
 class AX_Rare_RekaWelder extends \ALT\Models\Card
@@ -29,8 +27,7 @@ class AX_Rare_RekaWelder extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['forest', 'ocean'],
-      'reduceCostType' => [PERMANENT => ['minBaseCost' => 0, 'reduction' => 1]],
-      // TODO: VTO check minimum
+      'reduceCostType' => [PERMANENT => ['minBaseCost' => 0, 'reduction' => 1, 'minimum' => 1]],
     ];
   }
 }
