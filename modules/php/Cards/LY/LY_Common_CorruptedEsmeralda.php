@@ -29,7 +29,7 @@ class LY_Common_CorruptedEsmeralda extends \ALT\Models\Card
       'effectHand' => FT::SEQ(
         FT::ACTION(CHECK_CONDITION, [
           'condition' => 'checkAbilityActivatedThisTurn:discard',
-          'effect' => 'OPPOSITE',
+          'effect' => null,
           'oppositeEffect' => FT::GAIN(ME, FLEETING),
         ]),
         FT::ACTION(RESUPPLY, []),
