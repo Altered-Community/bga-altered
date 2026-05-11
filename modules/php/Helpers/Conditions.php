@@ -713,16 +713,6 @@ abstract class Conditions
     return !empty($playerAbilities[$type]);
   }
 
-  public static function checkAbilityActivatedThisTurn($card, $event, $type = 'any')
-  {
-    $abilities = Globals::getAbilityActivatedThisTurn();
-    $playerAbilities = $abilities[$card->getPId()] ?? [];
-    if ($type == 'any') {
-      return !empty($playerAbilities);
-    }
-    return !empty($playerAbilities[$type]);
-  }
-
   public static function checkSupportActivatedThisTurn($card, $event, $supportType = 'any')
   {
     return
