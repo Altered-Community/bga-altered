@@ -259,7 +259,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--csv",
-        default=str(repo_root / "starter-decks.csv"),
+        default=str(repo_root / "misc" / "starter-decks.csv"),
         help="Path to starter-decks.csv",
     )
     parser.add_argument(
