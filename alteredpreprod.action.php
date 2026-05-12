@@ -22,7 +22,7 @@
  *
  */
 
-class action_altered extends APP_GameAction
+class action_alteredpreprod extends APP_GameAction
 {
   // Constructor: please do not modify
   public function __default()
@@ -31,7 +31,7 @@ class action_altered extends APP_GameAction
       $this->view = 'common_notifwindow';
       $this->viewArgs['table'] = self::getArg('table', AT_posint, true);
     } else {
-      $this->view = 'altered_altered';
+      $this->view = 'alteredpreprod_alteredpreprod';
       self::trace('Complete reinitialization of board game');
     }
   }

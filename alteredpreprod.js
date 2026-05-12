@@ -54,7 +54,7 @@ define([
     }
   }
 
-  return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples], {
+  return declare('bgagame.alteredpreprod', [customgame.game, altered.players, altered.cards, altered.meeples], {
     constructor: function () {
       this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection', 'gameEnd'];
       this._notifications = [
