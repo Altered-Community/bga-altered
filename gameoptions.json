@@ -12,21 +12,6 @@
       "0": {
         "name": "Normal - Custom Decks & Starter Decks",
         "description": "Custom & starter decks can be used"
-      },
-      "2": {
-        "name": "Whispers from the Maze Demo Deck",
-        "tmdisplay": "WFM Demo decks",
-        "description": "WFM demo decks"
-      },
-      "3": {
-        "name": "Skybound Odyssey Demo Deck",
-        "tmdisplay": "SKY Demo decks",
-        "description": "SKY demo decks"
-      },
-      "4": {
-        "name": "Seeds of Unity Demo Deck",
-        "tmdisplay": "SDU Demo decks",
-        "description": "SDU demo decks"
       }
     }
   },
@@ -49,19 +34,19 @@
     "level": "major",
     "values": {
       "0": {
-        "name": "Standard",
-        "tmdisplay": "Standard deck",
-        "description": "Standard decks only can be selected"
+        "name": "No Unique Cards",
+        "tmdisplay": "No Unique Cards",
+        "description": "Only decks with no unique cards can be selected"
       },
       "1": {
-        "name": "No unique",
-        "tmdisplay": "No unique",
-        "description": "Only decks with no uniques"
+        "name": "Sandbox",
+        "tmdisplay": "Sandbox mode",
+        "description": "All cards can be selected, without restrictions"
       },
       "2": {
-        "name": "Singleton",
-        "tmdisplay": "Singleton",
-        "description": "Only decks following singleton"
+        "name": "No Unique Cards - Singleton",
+        "tmdisplay": "No Unique Cards - Singleton",
+        "description": "Only decks without unique cards, and with only one copy of each card can be selected"
       }
     }
   }
