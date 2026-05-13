@@ -97,7 +97,7 @@ class TargetExpedition extends \ALT\Models\Action
     foreach ($expedition as $exp) {
       $expeditions = explode('-', $exp);
       if (!in_array($exp, $args['expeditions'])) {
-        throw new \BgaVisibleSystemException('Invalid target expedition. Should not happen');
+        throw new \Bga\GameFramework\VisibleSystemException('Invalid target expedition. Should not happen');
       }
 
       $pId = $expeditions[0];

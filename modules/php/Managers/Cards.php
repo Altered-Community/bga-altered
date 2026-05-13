@@ -202,7 +202,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {
       if (!isset(MAP_REFS_CLASSES[$coreUid])) {
-        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . ' ' . $altUid . 't');
+        throw new \Bga\GameFramework\VisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . ' ' . $altUid . 't');
       } elseif ($ks || $alternate) {
         $uid = $coreUid;
       }
@@ -266,7 +266,7 @@ class Cards extends \ALT\Helpers\CachedPieces
     //   if (isset($card['content'])) {
     //     //it's a unique!
     //     if (is_null(Cards::generateUnique($card['content']))) {
-    //       throw new \BgaVisibleSystemException(
+    //       throw new \Bga\GameFramework\VisibleSystemException(
     //         'This unique has an unimplemented power' . $card['content']['reference']
     //       );
     //     }
@@ -1149,7 +1149,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if ($throwErrorIfNone && !$listened) {
       // throw new \feException(print_r(debug_print_backtrace()));
-      throw new \BgaVisibleSystemException(
+      throw new \Bga\GameFramework\VisibleSystemException(
         'Trying to apply effect of a card without corresponding listener : ' . $methodName . ' ' . $card->getId()
       );
     }

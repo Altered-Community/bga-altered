@@ -299,10 +299,13 @@ class Target extends \ALT\Models\Action
     $maxBaseCost = $this->getArg('maxBaseCost');
     $minBaseCost = $this->getArg('minBaseCost');
 
+    // Eole
+    $noBoostIfBoosted = $this->getArg('noBoostIfBoosted');
+
     $compareFilter = $this->resolveCompareTargetBiomeFilter();
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter,$noBoostIfBoosted) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -338,6 +341,10 @@ class Target extends \ALT\Models\Action
       }
 
       if ($monoBiome && !Conditions::cardInMonoRegion($c, [])) {
+        return false;
+      }
+
+      if($noBoostIfBoosted && $c->countToken(BOOST) > 0){
         return false;
       }
 
@@ -467,17 +474,17 @@ class Target extends \ALT\Models\Action
     $totalMountain = $this->getArg('totalMountain');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
-      throw new \BgaVisibleSystemException('You cannot target these cards. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target these cards. Should not happen');
     }
     if (count($cardIds) > $args['n']) {
-      throw new \BgaVisibleSystemException('You selected too many cards. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You selected too many cards. Should not happen');
     }
     if (
       !$args['upTo'] &&
       ((count($args['cardIds']) >= $args['n'] && count($cardIds) < $args['n']) ||
         (count($args['cardIds']) < $args['n'] && count($cardIds) != count($args['cardIds'])))
     ) {
-      throw new \BgaVisibleSystemException('You havent selected enough cards. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You havent selected enough cards. Should not happen');
     }
 
     // Tough

@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_InariSpiritofIndustry extends \ALT\Models\Card
@@ -29,6 +27,20 @@ class BR_Rare_InariSpiritofIndustry extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 3,
       'changedStats' => ['costReserve'],
+      'effectPassive' => [
+        'EndTurn' => [
+          'childs' => [
+            [
+              'conditions' => ['isMe', 'isHandEmpty'],
+              'output' => FT::ACTION(DRAW, ['players' => ME]),
+            ],
+            [
+              'conditions' => ['isMe', 'hasCardsInHand'],
+              'output' => FT::ACTION(RESUPPLY, []),
+            ],
+          ],
+        ],
+      ],
     ];
   }
 }

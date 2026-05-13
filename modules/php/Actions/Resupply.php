@@ -8,6 +8,7 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Helpers\Conditions;
 use ALT\Core\Engine;
 use ALT\Helpers\FT;
 use ALT\Models\Player;
@@ -67,6 +68,7 @@ class Resupply extends \ALT\Models\Action
     'exhausted' => false,
     'character2Less' => false,
     'characterHand' => false,
+    'boostIfMatchCondition' => null, // format: N:condition e.g. 1:isType:character or 1:isSubtype:animal
     'ownerId' => null,
     'player' => null
   ];
@@ -240,7 +242,18 @@ class Resupply extends \ALT\Models\Action
           }
         }
       }
+      if ($this->getArg('boostIfMatchCondition') != null) {
+        // Extract number of boost and condition
+        list ($boostN, $condition) = explode(':', $this->getArg('boostIfMatchCondition'), 2);
+        foreach ($cards as $cId => $card) {
+          $match = Conditions::check(['condition' => $condition], $card, null);
+          if ($match) {
+            $node[] = FT::GAIN($card, BOOST, $boostN);
+          }
+        }
+      }
     }
+
     // Machine in the ice effect
     foreach ($cards as $cId => $card) {
       if ($card->isResupplyExhaust()) {

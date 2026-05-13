@@ -173,10 +173,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
-      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played. Should not happen');
     }
     if (!in_array($location, $locations)) {
-      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $locExploded = explode('_', $location);
     if ($locExploded[1] ?? '' == 'scout') {
@@ -193,7 +193,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $location = explode('_', $location)[0];
 
     if ($card->getPId() != $player->getId()) {
-      throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You do not own this card. Should not happen');
     }
 
     if ($free == false) {
@@ -460,6 +460,11 @@ class ChooseAssignment extends \ALT\Models\Action
     ) {
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterCost3Anchored(false);
+    }
+    
+    if (Globals::getNextCharacterAsleep() == true) {
+      $this->pushParallelChild(FT::GAIN($card, ASLEEP));
+      Globals::setNextCharacterAsleep(false);
     }
 
     if (
@@ -818,13 +823,19 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['support'];
 
     if (!in_array($cardId, $args)) {
-      throw new \BgaVisibleSystemException('This card cannot be played as support. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played as support. Should not happen');
     }
 
     $card = Cards::get($cardId);
     Cards::discard($cardId, 'discard');
     Notifications::supportEffect($player, $card);
     self::statPlay($cardId);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = array_merge(
+      $abilityActivated[$player->getId()] ?? [],
+      ['discard' => true, 'discardFromHandOrReserve' => true]
+    );
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
 
     $effect = $card->getEffectSupport();
     if (!empty($effect)) {
@@ -835,12 +846,16 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $this->checkAfterListeners($player, [
       'cardId' => $cardId,
+      'discardCard' => true,
       'playCard' => false,
       'cardType' => $card->getType(),
       'additionalType' => $card->getAdditionalType(),
       'from' => RESERVE,
+      'to' => DISCARD_PILE,
       'isSupport' => true,
       'token' => $card->isToken(),
+      'sourceId' => $cardId,
+      'pId' => $player->getId(),
     ]);
   }
 
@@ -858,11 +873,17 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['tap'];
 
     if (!in_array($cardId, $args)) {
-      throw new \BgaVisibleSystemException('This card cannot be tapped. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be tapped. Should not happen');
     }
     $card = Cards::get($cardId);
     $card->setTapped(true);
     Notifications::tapEffect($player, $card);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = array_merge(
+      $abilityActivated[$player->getId()] ?? [],
+      ['tap' => true]
+    );
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
 
     $effect = $card->getEffectTap();
     if (!empty($effect)) {

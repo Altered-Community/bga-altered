@@ -214,7 +214,7 @@ class InvokeToken extends \ALT\Models\Action
     }
 
     if (!in_array($explodedLocation[0], $args['locations']) && count($explodedLocation) == 1) {
-      throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot invoke in this location. Should not happen');
     }
 
     list($realLocation, $strLocation) = $this->getLocationInfos($explodedLocation[0]);

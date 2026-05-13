@@ -149,7 +149,7 @@ class Pieces extends DB_Manager
   final static function checkLocation(&$location, $like = false)
   {
     if (is_null($location)) {
-      throw new \BgaVisibleSystemException('Class Pieces: location cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: location cannot be null');
     }
 
     if (is_array($location)) {
@@ -158,7 +158,7 @@ class Pieces extends DB_Manager
 
     $extra = $like ? '%' : '';
     if (preg_match("/^[A-Za-z0-9${extra}-][A-Za-z_0-9${extra}-]*$/", $location) == 0) {
-      throw new \BgaVisibleSystemException("Class Pieces: location must be alphanum and underscore non empty string '$location'");
+      throw new \Bga\GameFramework\VisibleSystemException("Class Pieces: location must be alphanum and underscore non empty string '$location'");
     }
   }
 
@@ -168,23 +168,23 @@ class Pieces extends DB_Manager
   final static function checkId(&$id, $like = false)
   {
     if (is_null($id)) {
-      throw new \BgaVisibleSystemException('Class Pieces: id cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: id cannot be null');
     }
 
     $extra = $like ? '%' : '';
     if (preg_match("/^[A-Za-z_0-9${extra}]+$/", $id) == 0) {
-      throw new \BgaVisibleSystemException("Class Pieces: id must be alphanum and underscore non empty string '$id'");
+      throw new \Bga\GameFramework\VisibleSystemException("Class Pieces: id must be alphanum and underscore non empty string '$id'");
     }
   }
 
   final static function checkIdArray($arr)
   {
     if (is_null($arr)) {
-      throw new \BgaVisibleSystemException('Class Pieces: tokens cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: tokens cannot be null');
     }
 
     if (!is_array($arr)) {
-      throw new \BgaVisibleSystemException('Class Pieces: tokens must be an array');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: tokens must be an array');
       foreach ($arr as $id) {
         self::checkId($id);
       }
@@ -197,11 +197,11 @@ class Pieces extends DB_Manager
   final static function checkState($state, $canBeNull = false)
   {
     if (is_null($state) && !$canBeNull) {
-      throw new \BgaVisibleSystemException('Class Pieces: state cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: state cannot be null');
     }
 
     if (!is_null($state) && preg_match('/^-*[0-9]+$/', $state) == 0) {
-      throw new \BgaVisibleSystemException('Class Pieces: state must be integer number');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: state must be integer number');
     }
   }
 
@@ -211,7 +211,7 @@ class Pieces extends DB_Manager
   final static function checkPosInt($n)
   {
     if ($n && preg_match('/^[0-9]+$/', $n) == 0) {
-      throw new \BgaVisibleSystemException('Class Pieces: number of pieces must be integer number');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: number of pieces must be integer number');
     }
   }
 
@@ -467,7 +467,7 @@ class Pieces extends DB_Manager
   {
     self::checkLocation($fromLocation);
     if (!array_key_exists($fromLocation, static::$autoreshuffleCustom)) {
-      throw new \BgaVisibleSystemException("Class Pieces:reformDeckFromDiscard: Unknown discard location for $fromLocation !");
+      throw new \Bga\GameFramework\VisibleSystemException("Class Pieces:reformDeckFromDiscard: Unknown discard location for $fromLocation !");
     }
 
     $discard = static::$autoreshuffleCustom[$fromLocation];
@@ -557,11 +557,11 @@ class Pieces extends DB_Manager
 
       // SANITY
       if (is_null($id) && !static::$autoIncrement) {
-        throw new \BgaVisibleSystemException('Class Pieces: create: id cannot be null if not autoincrement');
+        throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: create: id cannot be null if not autoincrement');
       }
 
       if (is_null($location)) {
-        throw new \BgaVisibleSystemException(
+        throw new \Bga\GameFramework\VisibleSystemException(
           'Class Pieces : create location cannot be null (set per token location or location_global'
         );
       }

@@ -101,7 +101,7 @@ trait EngineTrait
     Notifications::resetCache();
     $args = $this->gamestate->state()['args'];
     if (!isset($args['anytimeActions'][$choiceId])) {
-      throw new \BgaVisibleSystemException('You can\'t take this anytime action');
+      throw new \Bga\GameFramework\VisibleSystemException('You can\'t take this anytime action');
     }
 
     $flow = $args['anytimeActions'][$choiceId]['flow'];
@@ -245,10 +245,10 @@ trait EngineTrait
   {
     self::localCheckAction('actRestart');
     if (!Globals::isUndo()) {
-      throw new \BgaVisibleSystemException('Undo is disabled');
+      throw new \Bga\GameFramework\VisibleSystemException('Undo is disabled');
     }
     if (Globals::getEngineChoices() < 1) {
-      throw new \BgaVisibleSystemException('No choice to undo');
+      throw new \Bga\GameFramework\VisibleSystemException('No choice to undo');
     }
     Engine::restart();
   }
@@ -257,7 +257,7 @@ trait EngineTrait
   {
     self::localCheckAction('actRestart');
     if (!Globals::isUndo()) {
-      throw new \BgaVisibleSystemException('Undo is disabled');
+      throw new \Bga\GameFramework\VisibleSystemException('Undo is disabled');
     }
     Engine::undoToStep($stepId);
   }

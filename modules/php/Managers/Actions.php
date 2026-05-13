@@ -50,12 +50,13 @@ class Actions
     MOVE_REGION_MARKER,
     INTERUPT_REVEAL,
     SHUFFLE,
+    COMPLETE_FEAT,
   ];
 
   public static function get($actionId, &$ctx = null)
   {
     if (!in_array($actionId, self::$classes)) {
-      throw new \BgaVisibleSystemException('Trying to get an atomic action not defined in Actions.php : ' . $actionId);
+      throw new \Bga\GameFramework\VisibleSystemException('Trying to get an atomic action not defined in Actions.php : ' . $actionId);
     }
     $name = '\ALT\Actions\\' . $actionId;
     return new $name($ctx);
@@ -177,7 +178,7 @@ class Actions
     $player = Players::getActive();
     $action = self::get($actionId, $ctx);
     if (!$ctx->isOptional($player) && !$action->isOptional($player)) {
-      throw new \BgaVisibleSystemException('This action is not optional');
+      throw new \Bga\GameFramework\VisibleSystemException('This action is not optional');
     }
 
     $methodName = 'actPass' . $action->getClassName();

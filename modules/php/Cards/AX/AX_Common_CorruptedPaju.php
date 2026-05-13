@@ -28,7 +28,7 @@ class AX_Common_CorruptedPaju extends \ALT\Models\Card
      'effectHand' => FT::ACTION(CHECK_CONDITION, [
       'condition' => 'isHandEmpty',
       'effect' => null,
-      'oppositeOutput' => FT::GAIN(ME, FLEETING),
+      'oppositeEffect' => FT::GAIN(ME, FLEETING),
     ]),
      'effectReserve' => [
       'action' => INVOKE_TOKEN,

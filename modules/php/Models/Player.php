@@ -187,7 +187,7 @@ class Player extends \ALT\Helpers\DB_Model
       return is_null($type) || $card->getType() == $type || in_array($type, $card->getAdditionalType());
     });
   }
-
+  
   // public function getManaChoice()
   // {
   //   return Cards::getManaChoice($this->id);
@@ -256,7 +256,23 @@ class Player extends \ALT\Helpers\DB_Model
     if (is_null($this->getHero())) {
       return 0;
     }
-    return $this->getHero()->getLandmarkSlots();
+    $n = (int) $this->getHero()->getLandmarkSlots();
+    foreach ($this->getLandmarks() as $card) {
+      if (!in_array(FEAT, $card->getSubtypes())) {
+        continue;
+      }
+      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      $completed = $card->getEffectCompleted();
+      if (empty($completed) || !is_array($completed)) {
+        continue;
+      }
+      if (isset($completed['landmarkSlots']) && $completed['landmarkSlots'] > $n) {
+        $n = (int) $completed['landmarkSlots'];
+      }
+    }
+    return $n;
   }
 
   public function getPermanents()
@@ -267,6 +283,18 @@ class Player extends \ALT\Helpers\DB_Model
   public function getLandmarks()
   {
     return Cards::getPlayedCards($this->id, PERMANENT)->where('subtypes', LANDMARK);
+  }
+  
+  /**
+   * Number of completed Feats among this player's Landmark permanents (see FEAT_COMPLETED meeple).
+   */
+  public function getCompletedFeat()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      $n += Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED);
+    }
+    return $n;
   }
 
   public function getManaCards($tapped = null)
@@ -361,6 +389,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function getReduceCostType($playedCard)
   {
     $reduction = 0;
+    $minimumFloor = 0;
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       if (!empty($card->getReduceCostType())) {
         $type = $card->getReduceCostType();
@@ -368,22 +397,34 @@ class Player extends \ALT\Helpers\DB_Model
           if ($playedType == $playedCard->getType() || in_array($playedType, $playedCard->getAdditionalType())) {
             if (isset($info['maxHandCost']) && $playedCard->getCostHand() <= $info['maxHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minHandCost']) && $playedCard->getCostHand() >= $info['minHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minBaseCost'])) {
               $baseCost = $info['minBaseCost'];
               // Studious Acolyte
               if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               }
             }
           }
         }
       }
     }
-    return $reduction;
+    return ['reduction' => $reduction, 'minimum' => $minimumFloor];
   }
 
   public function getExhaustedReserveSlots()
@@ -829,6 +870,16 @@ class Player extends \ALT\Helpers\DB_Model
     $advance = 0;
     foreach ($this->getPlayedCards() as $cId => $card) {
       if ($card->isResupplyIfAscended()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function hasBoostIfAscended()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isBoostIfAscended()) {
         return true;
       }
     }
