@@ -259,6 +259,10 @@ trait SetupTrait
         if (is_null($deckContent)) {
           throw new \feException(clienttranslate('Your deck is not valid. It should not happen'));
         }
+        // Changing all alt-art into basic art
+        foreach ($deckContent as $cardInfo) {
+          $cardInfo['card']['reference'] = $this->transformingAltArtToBasicArt($cardInfo['card']['reference']);
+        }
         $faction = Cards::createDeck($player, $deckContent);
       } elseif ($selection[$pId] == 'random') {
         // $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
@@ -308,4 +312,17 @@ trait SetupTrait
 
     $this->gamestate->nextState('');
   }
+
+  /////////////////////////////////////////////////////////
+  // Temporary Transforming all Alt-art card into the basic art one.
+  // We dont want to display alt-art into BGA for the transitionn period to Re:Union until we get players collections back.
+  /////////////////////////////////////////////////////////
+  private function transformingAltArtToBasicArt($cardRef)
+  {
+      // e.g. ALT_CYCLONE_A_BR_77_C -> ALT_CYCLONE_B_BR_77_C ; changing the 3rd part 'A' alt-art to 'B' basic-art
+      $cardExploded = explode('_', $cardRef);
+      $cardExploded[2] = 'B';
+      return implode('_',$cardExploded);
+  }
+
 }
