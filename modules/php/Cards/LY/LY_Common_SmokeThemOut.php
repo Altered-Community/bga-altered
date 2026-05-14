@@ -31,10 +31,6 @@ class LY_Common_SmokeThemOut extends \ALT\Models\Card
         'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'useCard']),
       ]),
       'effectPassive' => [
-        'Exhaust' => [
-          'conditions' => ['isMe', 'isMyTurn', 'isThisFeatIncomplete', 'checkAbilityActivatedThisTurnTypeCount:discard:2'],
-          'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
-        ],
         'Discard' => [
           'conditions' => ['smokeThemOutLyTrigger'],
           'output' => FT::ACTION(CHECK_CONDITION, [

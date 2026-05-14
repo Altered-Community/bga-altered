@@ -37,7 +37,7 @@ class LY_Exalted_PlagueofDespair extends \ALT\Models\Card
               'output' => FT::GAIN(ME, BOOST),
             ],
             [
-              'conditions' => ['isMe', 'isInStorms', 'selectedRoll:1:GTE', 'selectedRoll:1:LTE'],
+              'conditions' => ['isMe', 'isInStorms', 'selectedRoll:1:EQ'],
               'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => RESERVE]),
             ],
           ],

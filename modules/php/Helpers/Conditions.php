@@ -2145,6 +2145,8 @@ abstract class Conditions
       return true;
     } elseif ($op == 'LTE' && $roll <= $result) {
       return true;
+    } elseif ($op == 'EQ' && $roll == $result) {
+      return true;
     }
     return false;
   }
