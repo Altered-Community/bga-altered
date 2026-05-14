@@ -1003,6 +1003,65 @@ class Card extends \ALT\Helpers\DB_Model
     return $biomes;
   }
 
+  /**
+   * Completed-feat {@see effectCompleted} <code>dynamicTough</code> is defined on Gather the Pack (Rare), Delay the Collapse, etc.
+   * Stored {@see subtypes} can omit {@see FEAT} (it is in {@see DYNAMIC_PROPERTIES} and may be overwritten by DB rows); still treat
+   * a Landmark with a non-empty completed <code>dynamicTough</code> as eligible so expedition Tough auras keep working.
+   */
+  public function mayMergeCompletedFeatDynamicTough(): bool
+  {
+    if (in_array(FEAT, $this->getSubtypes())) {
+      return true;
+    }
+    if (!in_array(LANDMARK, $this->getSubtypes())) {
+      return false;
+    }
+    $completed = $this->properties['effectCompleted'] ?? [];
+    if (!is_array($completed)) {
+      return false;
+    }
+    $extra = $completed['dynamicTough'] ?? null;
+    return $extra !== null && $extra !== '';
+  }
+
+  /**
+   * Merges {@see effectCompleted} <code>dynamicTough</code> while the Feat is completed (same idea as landmark-only completed auras).
+   */
+  public function getDynamicTough()
+  {
+    $base = $this->properties['dynamicTough'] ?? '';
+
+    if (!$this->mayMergeCompletedFeatDynamicTough()) {
+      return $base;
+    }
+    if (Meeples::countMeeples('card-' . $this->getId(), FEAT_COMPLETED) < 1) {
+      return $base;
+    }
+    $completed = $this->properties['effectCompleted'] ?? [];
+    if (!is_array($completed)) {
+      return $base;
+    }
+    $extra = $completed['dynamicTough'] ?? null;
+    if ($extra === null || $extra === '') {
+      return $base;
+    }
+
+    $toList = function ($v) {
+      if ($v === '' || $v === null) {
+        return [];
+      }
+      return is_array($v) ? $v : [$v];
+    };
+
+    $merged = array_merge($toList($base), $toList($extra));
+    if (count($merged) === 0) {
+      return '';
+    }
+    if (count($merged) === 1) {
+      return $merged[0];
+    }
+    return $merged;
+  }
   public function getTough()
   {
     // Tough impacts only a card in Storms or landmark
@@ -1062,9 +1121,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     if (in_array($this->getType(), [CHARACTER, TOKEN])) {
-      $universal = $this->getPlayer()->countUniversalCharacterTough();
-      // $dynTough = $this->getDynamicTough();
-      // $tt = explode(':', $dynTough);
+      $universal = $this->getPlayer()->countUniversalCharacterTough($this);
       if ($this->getExcludeUniversalTough() && $singleTough == 'universalCharacter2') {
         $universal = $universal - 2;
       }
@@ -1082,6 +1139,26 @@ class Card extends \ALT\Helpers\DB_Model
       if ($anchoredAsleep > 0 && ($this->hasToken(ANCHORED) || $this->hasToken(ASLEEP))) {
         $tough += 1;
       }
+    }
+
+    if (in_array($this->getType(), [PERMANENT])) {
+      $universal = $this->getPlayer()->countUniversalLandmarksToughFromCompletedFeat();
+      if ($this->getExcludeUniversalTough()) {
+        $completed = $this->getEffectCompleted();
+        if (
+          !empty($completed) &&
+          isset($completed['dynamicTough']) &&
+          str_starts_with($completed['dynamicTough'], 'universalLandmarks')
+        ) {
+          $value = (int) str_replace(
+            'universalLandmarks',
+            '',
+            $completed['dynamicTough']
+          );
+          $universal -= $value;
+        } 
+      }
+      $tough += $universal;
     }
 
     // Global Tough

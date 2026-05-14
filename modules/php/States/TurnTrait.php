@@ -53,6 +53,8 @@ trait TurnTrait
     Globals::setCostReduction([]);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextAnimalBoost(0);
+    Globals::setNextAnimalBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setPlayedForFree(false);
     Globals::setNextCharacterInExpeditionBoost([]);
@@ -108,6 +110,8 @@ trait TurnTrait
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextAnimalBoost(0);
+    Globals::setNextAnimalBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
     Globals::setNextCharacterBaseCost3Anchored(false);
@@ -173,6 +177,8 @@ trait TurnTrait
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextAnimalBoost(0);
+    Globals::setNextAnimalBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
     Globals::setNextCharacterAsleep(false);

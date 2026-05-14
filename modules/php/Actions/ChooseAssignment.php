@@ -427,6 +427,26 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextCharacterBoostOccurence(0);
     }
 
+    // Sound the Howl
+    if (
+      in_array($card->getType(), [CHARACTER, TOKEN]) &&
+      in_array(ANIMAL, $card->getSubtypes()) &&
+      Globals::getNextAnimalBoost() > 0
+    ) {
+      $toBoost = Globals::getNextAnimalBoost();
+      $occur = Globals::getNextAnimalBoostOccurence();
+
+      for ($v = 0; $v < $occur - 1; $v++) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, 1));
+        $toBoost--;
+      }
+      if ($toBoost > 0) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, $toBoost));
+      }
+      Globals::setNextAnimalBoost(0);
+      Globals::setNextAnimalBoostOccurence(0);
+    }
+
     if ($fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);

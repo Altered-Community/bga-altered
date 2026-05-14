@@ -157,6 +157,8 @@ trait NewDayTrait
     Globals::setExpeditionMoves([]);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextAnimalBoost(0);
+    Globals::setNextAnimalBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setBlockedExpeditions([]);
     Globals::setGlobalTough([]);

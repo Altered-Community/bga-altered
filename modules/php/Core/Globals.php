@@ -82,7 +82,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     // Eole
     'nextCharacterAsleep' => 'obj',
     'abilityActivatedThisTurn' => 'obj',
-
+    'nextAnimalBoost' => 'int',
+    'nextAnimalBoostOccurence' => 'int',
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
