@@ -1,0 +1,95 @@
+# Sync the repository to an SFTP server on push.
+##
+# GitHub Environments (secrets / variables) are chosen from the branch (push) or the
+# manual "Target environment" input (workflow_dispatch). Map branches → environments in
+# `jobs.sftp-sync.environment` below (e.g. master/main → production, preprod → preprod).
+#
+# Required per-environment variable:
+#   SFTP_SYNC_BRANCH     Git branch(es) allowed to deploy to this environment (comma-separated, e.g. "preprod" or "master,main").
+#                        Push and manual runs must use that branch in the GitHub UI / ref.
+#   SFTP_USERNAME        The username to use for the SFTP connection.
+#   SFTP_REMOTE_PATH     The BGA Project name, e.g. "alteredpreprod".
+#   SFTP_PRIVATE_KEY     A **SECRET** that contains the SSH private key.
+#
+# Optional per-environment variables:
+#   SFTP_LOCAL_PATH      Local glob passed to the action (default: ./*)
+#   SFTP_RSYNC_ARGS      Extra rsync flags (default excludes .git, node_modules, .github)
+#   SFTP_DELETE_REMOTE   Set to "true" to delete remote files before upload (dangerous)
+#   SFTP_SKIP_IMAGES     Push: omit img/ by default; set to "false" to upload img/. Manual: use "Skip images".
+
+name: SFTP sync
+
+on:
+  push:
+    branches:
+      - preprod
+      - master
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "GitHub Environment (and thus vars/secrets) to use"
+        type: choice
+        options:
+          - preprod
+          - production
+        default: preprod
+      skip_images:
+        description: "Append --exclude=img (omit img/ from upload)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: sftp-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sftp-sync:
+    runs-on: ubuntu-latest
+    # Branch → environment mapping (extend the expression as you add branches).
+    # Manual runs use `target` because github.ref_name is the UI branch, not the deploy target.
+    # Last line 'preprod' is the default environment.
+    environment: |
+      ${{
+        github.event_name == 'workflow_dispatch' && github.event.inputs.environment ||
+        (github.ref_name == 'master' || github.ref_name == 'main') && 'production' ||
+        github.ref_name == 'preprod' && 'preprod' ||
+        'preprod'
+      }}
+
+    steps:
+      - name: Gate (branch matches environment policy)
+        env:
+          ALLOWED_BRANCHES: ${{ vars.SFTP_SYNC_BRANCH }}
+          CURRENT_BRANCH: ${{ github.ref_name }}
+        run: |
+          if [ "$(printf '%s' "$ALLOWED_BRANCHES" | tr -d '[:space:]')" = '' ]; then
+            echo '::error::Set SFTP_SYNC_BRANCH on this GitHub Environment (e.g. preprod or master,main).'
+            exit 1
+          fi
+          ok=0
+          IFS=',' read -ra parts <<< "$ALLOWED_BRANCHES"
+          for b in "${parts[@]}"; do
+            b_trim=$(printf '%s' "$b" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+            if [ -z "$b_trim" ]; then continue; fi
+            if [ "$CURRENT_BRANCH" = "$b_trim" ]; then ok=1; break; fi
+          done
+          if [ "$ok" != 1 ]; then
+            echo "::error::Branch '$CURRENT_BRANCH' cannot deploy to this environment. Allowed (SFTP_SYNC_BRANCH): $ALLOWED_BRANCHES"
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          username: ${{ vars.SFTP_USERNAME }}
+          server: ${{ vars.SFTP_HOST || '1.studio.boardgamearena.com' }}
+          port: ${{ vars.SFTP_PORT || '2022' }}
+          ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+          local_path: ${{ vars.SFTP_LOCAL_PATH || './*' }}
+          remote_path: ${{ vars.SFTP_REMOTE_PATH }}
+          sftp_only: "true"
+          delete_remote_files: ${{ vars.SFTP_DELETE_REMOTE == 'true' && 'true' || 'false' }}
+          rsyncArgs: ${{ vars.SFTP_RSYNC_ARGS || '--exclude=.git --exclude=node_modules --exclude=.github --exclude=misc --exclude=docs' }}${{ ((github.event_name == 'push' && vars.SFTP_SKIP_IMAGES != 'false') || (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_images == 'true')) && ' --exclude=img' || '' }}
