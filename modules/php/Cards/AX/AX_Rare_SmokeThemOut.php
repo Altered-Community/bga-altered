@@ -26,7 +26,7 @@ class AX_Rare_SmokeThemOut extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::ACTION(DRAW, ['players' => ME]),
-        FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [HAND], 'effect' => FT::DISCARD_TO_RESERVE()])
+        FT::ACTION(TARGET, ['targetPlayer' => ME, 'targetLocation' => [HAND], 'targetType' => [CHARACTER, SPELL, PERMANENT], 'effect' => FT::DISCARD_TO_RESERVE()])
       ),
       // Arm the completed support: the next {T} ability this turn grants +1 boost.
       'effectTap' => FT::ACTION(CHECK_CONDITION, [
