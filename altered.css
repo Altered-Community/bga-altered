@@ -13282,13 +13282,14 @@ body.focus-board .altered-player-board .player-board-infos {
   width: min(1430px, 90vw / var(--boardScale));
   grid-gap: 10px;
   display: grid;
+  place-items: center;
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   max-height: calc(72vh / var(--boardScale));
   overflow-y: auto;
-  padding-right: 6px;
+  padding: 10px;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-list .deck-thumbnail {
-  width: auto;
+  width: 450px;
   height: 110px;
   border-radius: 10px;
   box-shadow: 1px 1px 5px black;

@@ -44,9 +44,14 @@
         "description": "All cards can be selected, without restrictions"
       },
       "2": {
-        "name": "No Unique Cards - Singleton",
-        "tmdisplay": "No Unique Cards - Singleton",
-        "description": "Only decks without unique cards, and with only one copy of each card can be selected"
+        "name": "Singleton",
+        "tmdisplay": "Singleton",
+        "description": "Only decks with only one copy of each card can be selected"
+      },
+      "3": {
+        "name": "Standard",
+        "tmdisplay": "Standard",
+        "description": "All cards can be selected, including those with uniques"
       }
     }
   }
