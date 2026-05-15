@@ -29,7 +29,7 @@ class OD_Common_Hippogriff extends \ALT\Models\Card
       'effectPassive' => [
         'LeaveExpedition' => [
           'pId' => CONTROLLER,
-          'condition' => 'isCardExpeditionAscended',
+          'condition' => 'wasCardExpeditionAscended',
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => CONTROLLER,
             'tokenType' => 'OD_Common_OrdisRecruit',

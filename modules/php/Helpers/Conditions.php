@@ -1814,6 +1814,15 @@ abstract class Conditions
     // $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
     return $card->getPlayer()->isAscended($card->getLocation()) || ($card->isGigantic() && ($card->getPlayer()->isAscended($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
   }
+  
+  public static function wasCardExpeditionAscended($card, $event)
+  {
+    $srcLoc = $event["from"];
+    if (!in_array($srcLoc, STORMS)) {
+      return false;
+    }
+    return $card->getPlayer()->isAscended($srcLoc) || ($card->isGigantic() && ($card->getPlayer()->isAscended($srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
+  } 
 
   public static function countSourceAscended($card, $event)
   {
