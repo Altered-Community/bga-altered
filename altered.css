@@ -24,9 +24,12 @@ html {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
+  -ms-touch-action: none;
   touch-action: none;
+  -ms-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -83,6 +86,7 @@ html {
 }
 
 .noUi-handle {
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   position: absolute;
 }
@@ -93,6 +97,7 @@ html {
 }
 
 .noUi-state-tap .noUi-connect, .noUi-state-tap .noUi-origin {
+  -webkit-transition: transform 0.3s;
   transition: transform 0.3s;
 }
 
@@ -197,6 +202,7 @@ html {
 }
 
 .noUi-pips, .noUi-pips * {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -238,10 +244,12 @@ html {
 }
 
 .noUi-value-horizontal {
+  -webkit-transform: translate(-50%, 50%);
   transform: translate(-50%, 50%);
 }
 
 .noUi-rtl .noUi-value-horizontal {
+  -webkit-transform: translate(50%, 50%);
   transform: translate(50%, 50%);
 }
 
@@ -267,11 +275,13 @@ html {
 }
 
 .noUi-value-vertical {
+  -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
   padding-left: 25px;
 }
 
 .noUi-rtl .noUi-value-vertical {
+  -webkit-transform: translate(0, 50%);
   transform: translate(0, 50%);
 }
 
@@ -302,24 +312,28 @@ html {
 }
 
 .noUi-horizontal .noUi-tooltip {
+  -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
   left: 50%;
   bottom: 120%;
 }
 
 .noUi-vertical .noUi-tooltip {
+  -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
   top: 50%;
   right: 120%;
 }
 
 .noUi-horizontal .noUi-origin > .noUi-tooltip {
+  -webkit-transform: translate(50%, 0);
   transform: translate(50%, 0);
   left: auto;
   bottom: 10px;
 }
 
 .noUi-vertical .noUi-origin > .noUi-tooltip {
+  -webkit-transform: translate(0, -18px);
   transform: translate(0, -18px);
   top: auto;
   right: 28px;
@@ -379,12 +393,15 @@ html {
   box-shadow: 0px 0px 10px 4px lime;
   cursor: pointer;
   border-color: #04c104;
-  transition: none;
 }
 .altered-card.selectable:hover,
 .altered-card.mini-card.selectable:hover {
   transform: scale(1.1);
   z-index: 100;
+}
+.altered-card.selectable,
+.altered-card.mini-card.selectable {
+  transition: none;
 }
 .altered-card.selectable.mini-card.card-permanent,
 .altered-card.mini-card.selectable.mini-card.card-permanent {
@@ -398,14 +415,12 @@ html {
 .altered-card.selected,
 .altered-card.mini-card.selected {
   border: 4px solid #ffe300;
-  box-shadow: 0px 0px 10px 10px #9e8c00;
   margin: -4px;
 }
 .altered-card.selected.mini-card.card-permanent,
 .altered-card.mini-card.selected.mini-card.card-permanent {
   border: 2px solid #ffe300;
   background: #ffe300;
-  box-shadow: 0px 0px 10px 10px #9e8c00;
 }
 .altered-card.selected.mini-card.card-permanent:hover::after,
 .altered-card.mini-card.selected.mini-card.card-permanent:hover::after {
@@ -9368,7 +9383,8 @@ html {
 }
 
 .altered-card.no-frame.card-hero.keep {
-  margin: 2px 5px;
+  transform: scale(1.12);
+  margin: 3px 5px;
   border: 2px solid #f3b200;
   box-shadow: 0px 0px 15px 0px #ffd000;
 }
@@ -9835,14 +9851,14 @@ html {
   display: flex;
   --cardScale: var(--cardScaleTooltip);
 }
+.altered-card-tooltip .tooltip-explanation:empty {
+  display: none;
+}
 .altered-card-tooltip .tooltip-explanation {
   max-width: 220px;
   font-family: "Jali Greek Variable";
   margin-left: 10px;
   font-size: 15px;
-}
-.altered-card-tooltip .tooltip-explanation:empty {
-  display: none;
 }
 .altered-card-tooltip .tooltip-explanation .explanation {
   background: #242642;
@@ -10689,8 +10705,7 @@ body.focus-board #bga-help_buttons #toggle-focus-mode::before {
 
 #player_board_config {
   position: relative;
-  -o-border-image: none;
-     border-image: none;
+  border-image: none;
   margin-top: -2px;
   padding-bottom: 7px;
 }
@@ -10844,11 +10859,13 @@ body.focus-board #bga-help_buttons #toggle-focus-mode::before {
   border-radius: 17px;
   border: 1px solid #d6aa49;
   display: none;
-  justify-content: center;
-  align-items: center;
 }
 body.focus-board #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 {
   display: flex;
+}
+#altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 {
+  justify-content: center;
+  align-items: center;
 }
 #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #help-mode-switch2 .checkbox {
   display: none;
@@ -10893,12 +10910,14 @@ body.focus-board #altered-main-container #altered-board-resizable #altered-board
   border: 1px solid #d6aa49;
   color: #d6aa49;
   display: none;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 }
 body.focus-board #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2 {
   display: flex;
+}
+#altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2 {
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #show-settings2 svg {
   width: 30px;
@@ -11079,7 +11098,6 @@ body.focus-board #altered-main-container #altered-board-resizable #altered-board
 #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container {
   grid-row: 1/span 1;
   grid-column-end: span 2;
-  transition: opacity 0.7s, filter 0.7s;
 }
 #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container:nth-child(1) {
   grid-column-start: 1;
@@ -11095,6 +11113,9 @@ body.focus-board #altered-main-container #altered-board-resizable #altered-board
 }
 #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container:nth-child(5) {
   grid-column-start: 9;
+}
+#altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container {
+  transition: opacity 0.7s, filter 0.7s;
 }
 #altered-main-container #altered-board-resizable #altered-board #middle-line-wrapper #storm-container .storm-card-container.useless {
   opacity: 0.7;
@@ -11270,12 +11291,14 @@ body.focus-board #altered-main-container #altered-board-resizable #altered-board
   border: 1px solid #d4a743;
   border-radius: 7px;
   display: none;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0px 0px 4px black;
 }
 body.focus-board .altered-player-board .player-board-infos {
   display: flex;
+}
+.altered-player-board .player-board-infos {
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 0px 4px black;
 }
 .altered-player-board .player-board-infos .player-board-name {
   color: #d4a743;
@@ -11333,14 +11356,16 @@ body.focus-board .altered-player-board .player-board-infos {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid transparent;
-  border-radius: 5px;
 }
 .altered-player-board .player-board-storm.storm-left {
   left: 289px;
 }
 .altered-player-board .player-board-storm.storm-right {
   left: 871px;
+}
+.altered-player-board .player-board-storm {
+  border: 2px solid transparent;
+  border-radius: 5px;
 }
 .altered-player-board .player-board-storm.selectable, .altered-player-board .player-board-storm.droppable {
   border: 2px solid rgb(89, 172, 68);
@@ -11370,6 +11395,11 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 .altered-player-board .player-board-storm .powers-blocked {
   display: none;
+}
+.altered-player-board .player-board-storm .powers-blocked.active {
+  display: block;
+}
+.altered-player-board .player-board-storm .powers-blocked {
   position: absolute;
   bottom: -20px;
   height: 18px;
@@ -11382,9 +11412,6 @@ body.focus-board .altered-player-board .player-board-infos {
   font-size: 18px;
   line-height: 20px;
 }
-.altered-player-board .player-board-storm .powers-blocked.active {
-  display: block;
-}
 .altered-player-board .player-board-storm .powers-blocked .fa6-times {
   color: red;
 }
@@ -11396,6 +11423,11 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 .altered-player-board .player-board-storm .total-biomes .storm-blocked {
   display: none;
+}
+.altered-player-board .player-board-storm .total-biomes .storm-blocked.active {
+  display: flex;
+}
+.altered-player-board .player-board-storm .total-biomes .storm-blocked {
   position: absolute;
   top: -4px;
   bottom: 0px;
@@ -11410,9 +11442,6 @@ body.focus-board .altered-player-board .player-board-infos {
   line-height: 20px;
   flex-direction: column;
   justify-content: space-around;
-}
-.altered-player-board .player-board-storm .total-biomes .storm-blocked.active {
-  display: flex;
 }
 .altered-player-board .player-board-storm .total-biomes .storm-blocked .fa6-times {
   color: red;
@@ -11444,9 +11473,7 @@ body.focus-board .altered-player-board .player-board-infos {
 .altered-player-board .player-board-storm .total-biomes .total-forest,
 .altered-player-board .player-board-storm .total-biomes .total-mountain,
 .altered-player-board .player-board-storm .total-biomes .total-ocean {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   position: relative;
   z-index: 1;
   font-family: "Haptic Pro";
@@ -11664,9 +11691,7 @@ body.focus-board .altered-player-board .player-board-infos {
   line-height: 50px;
   text-shadow: 0px 0px 3px white;
   font-size: 26px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   z-index: 40;
 }
 .altered-player-board .player-board-mana-wrapper {
@@ -11687,9 +11712,7 @@ body.focus-board .altered-player-board .player-board-infos {
   align-items: center;
   font-weight: bold;
   font-size: 18px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 .altered-player-board .player-board-mana-wrapper .player-board-mana-indicator h6 {
   font-size: 14px;
@@ -11754,10 +11777,12 @@ body.focus-board .altered-player-board .player-board-infos {
 .altered-player-board .player-board-grass .player-board-reserve .altered-card {
   z-index: 30;
   margin-left: 10px;
-  transition: left 0.2s ease-in, top 0.2s ease-in;
 }
 .altered-player-board .player-board-grass .player-board-reserve .altered-card.selected {
   margin-left: 8px;
+}
+.altered-player-board .player-board-grass .player-board-reserve .altered-card {
+  transition: left 0.2s ease-in, top 0.2s ease-in;
 }
 .altered-player-board .player-board-grass .player-board-reserve .altered-card[data-animation-speed=none] {
   transition: none;
@@ -11857,9 +11882,7 @@ body.focus-board .altered-player-board .player-board-infos {
   transform: scale(1.2);
   pointer-events: all;
   margin: 0px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 .altered-player-board .player-board-hand .player-board-limbo #btnLaunchSpell {
   pointer-events: all;
@@ -11874,11 +11897,13 @@ body.focus-board .altered-player-board .player-board-infos {
   justify-content: center;
   align-items: center;
   font-size: 40px;
-  animation: pulse-animation 1.2s infinite;
 }
 .altered-player-board .player-board-hand .player-board-limbo #btnLaunchSpell.on-mini-card {
   left: 50px;
   bottom: -30px;
+}
+.altered-player-board .player-board-hand .player-board-limbo #btnLaunchSpell {
+  animation: pulse-animation 1.2s infinite;
 }
 @keyframes pulse-animation {
   0% {
@@ -11908,9 +11933,7 @@ body.focus-board .altered-player-board .player-board-infos {
 .altered-player-board .player-board-hand .player-hand .altered-card {
   position: absolute;
   margin: 0px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   transition: transform 0.2s ease-in, left 0.2s ease-in, top 0.2s ease-in;
 }
 .altered-player-board .player-board-hand .player-hand .altered-card[data-animation-speed=medium] {
@@ -12153,10 +12176,12 @@ body.focus-board .altered-player-board .player-board-infos {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 #player_config #show-settings:hover {
   color: grey;
+}
+#player_config #show-settings {
+  cursor: pointer;
 }
 #player_config #show-settings svg {
   width: auto;
@@ -12251,6 +12276,7 @@ body.focus-board .altered-player-board .player-board-infos {
   position: relative;
   background-color: #a6a6a6;
   cursor: pointer;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 34px;
 }
@@ -12609,7 +12635,8 @@ body.focus-board .altered-player-board .player-board-infos {
 .flip-container.vertical .flip-inner .flip-back {
   position: absolute;
   width: 100%;
-  height: 100%; /* Safari */
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
   transform: rotateY(0deg);
 }
@@ -12638,7 +12665,8 @@ body.focus-board .altered-player-board .player-board-infos {
 .flip-container.horizontal .flip-inner .flip-back {
   position: absolute;
   width: 100%;
-  height: 100%; /* Safari */
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
   transform: rotateX(0deg);
 }
@@ -12906,14 +12934,15 @@ body.focus-board .altered-player-board .player-board-infos {
   padding-top: 134px;
 }
 #altered-board-overlay #altered-overlay-content h2 {
-  text-align: center;
   color: gold;
-  font-size: 55px;
-  font-weight: bold;
-  margin: 0px auto 40px;
   background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  font-size: 55px;
+  font-weight: bold;
+  margin: 0px auto 40px;
   position: relative;
 }
 #altered-board-overlay #altered-overlay-content h2::after {
@@ -12934,10 +12963,12 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-hand-container {
   max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
-  --cardScale: 0.5;
 }
 .mobile_version #altered-board-overlay #altered-overlay-content #overlay-hand-container, .focus-board #altered-board-overlay #altered-overlay-content #overlay-hand-container {
   max-width: calc(90vw / var(--boardScale));
+}
+#altered-board-overlay #altered-overlay-content #overlay-hand-container {
+  --cardScale: 0.5;
 }
 #altered-board-overlay #altered-overlay-content #overlay-hand-container .player-hand {
   display: flex;
@@ -12995,9 +13026,13 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-container {
   max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
+}
+.mobile_version #altered-board-overlay #altered-overlay-content #overlay-deck-container, .focus-board #altered-board-overlay #altered-overlay-content #overlay-deck-container {
+  max-width: calc(90vw / var(--boardScale));
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container {
   --cardScale: 0.5;
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
   max-height: calc(82vh / var(--boardScale));
@@ -13007,18 +13042,6 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-container::-webkit-scrollbar {
   display: none;
-}
-.mobile_version #altered-board-overlay #altered-overlay-content #overlay-deck-container, .focus-board #altered-board-overlay #altered-overlay-content #overlay-deck-container {
-  max-width: calc(90vw / var(--boardScale));
-}
-#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.selectable:not(.selected):not(.keep),
-#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable:not(.selected):not(.keep) {
-  box-shadow: none;
-  border-color: transparent;
-}
-#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.selectable:hover,
-#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable:hover {
-  transform: none;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card {
   margin: 2px 5px;
@@ -13039,8 +13062,10 @@ body.focus-board .altered-player-board .player-board-infos {
   background-size: 500% 600%;
   margin: auto;
   border: 2px solid #ffe300;
-  box-shadow: 0px 0px 10px 0px #ffe300;
   color: white;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=AX] {
+  background-position-y: 0%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details[data-faction=BR] {
   background-position-y: 20%;
@@ -13112,24 +13137,33 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details p {
   text-align: left;
   color: white;
-}
-#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-author {
   margin-top: 30px;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-description {
-  margin-top: 10px;
   font-size: 22px;
-  height: 125px;
-  margin-bottom: 0;
-  overflow-y: auto;
+  width: 500px;
+  height: 120px;
+  margin-bottom: 5px;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer {
   text-align: center;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details div.details-footer a {
   font-size: 24px;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-author {
+  margin-top: 30px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  height: auto !important;
+  width: 100% !important;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-description {
+  margin-top: 5px !important;
+  font-size: 22px;
+  height: 125px;
+  margin: 0;
+  overflow-y: auto;
+  height: 150px !important;
+  width: 100% !important;
 }
 #altered-board-overlay #altered-overlay-content .spinning-loader {
   width: 50px;
@@ -13194,6 +13228,63 @@ body.focus-board .altered-player-board .player-board-infos {
   justify-content: center;
   position: relative;
 }
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-faction-banners {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-selected-faction-title {
+  text-align: center;
+  color: gold;
+  font-family: "Tiller";
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0px auto 6px;
+  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option {
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option img {
+  display: block;
+  width: 72px;
+  height: auto;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option.deck-faction-banner-all {
+  width: 72px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3a3a4a 0%, #1a1a28 100%);
+  border: 2px solid #6a6a7a;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option.deck-faction-banner-all .deck-faction-banner-all-label {
+  font-family: "Tiller";
+  font-size: 14px;
+  font-weight: bold;
+  color: gold;
+  text-align: center;
+  line-height: 1.1;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option.deck-faction-banner-all.selected {
+  border-color: #eaab57;
+  box-shadow: 0 0 8px rgba(234, 171, 87, 0.5);
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option:hover {
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option.selected {
+  cursor: default;
+}
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #api-loader {
   display: none;
 }
@@ -13223,6 +13314,10 @@ body.focus-board .altered-player-board .player-board-infos {
   transition: background 0.4s;
   z-index: 2;
   border-radius: 8px;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection.fetching > *:not(#api-loader) {
+  position: relative;
+  z-index: 1;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection.fetching #api-loader {
   display: block;
@@ -13494,12 +13589,25 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-section-title {
   font-size: 28px;
 }
-#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-options {
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle .deck-source-toggle-button {
+  width: 220px;
+  min-width: 220px;
+  flex: 0 0 220px;
+  font-size: 22px;
+  padding: 7px 18px;
+  text-align: center;
+  display: inline-block;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle .deck-source-toggle-button.selected {
+  border: 4px solid #ffe300;
+  box-shadow: 0px 0px 10px 0px #ffe300;
 }
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-source-option,
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option {
@@ -13532,6 +13640,10 @@ body.focus-board .altered-player-board .player-board-infos {
   justify-content: center;
   gap: 10px;
   margin-bottom: 8px;
+  max-height: calc(82vh / var(--boardScale));
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
 }
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-option {
   width: 180px;
@@ -13630,26 +13742,6 @@ body.focus-board .altered-player-board .player-board-infos {
   opacity: 0.45;
   cursor: not-allowed;
 }
-#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle .deck-source-toggle-button {
-  width: 220px;
-  min-width: 220px;
-  flex: 0 0 220px;
-  font-size: 22px;
-  padding: 7px 18px;
-  text-align: center;
-  display: inline-block;
-}
-#altered-board-overlay #altered-overlay-content #deck-wizard #deck-source-toggle .deck-source-toggle-button.selected {
-  border: 4px solid #ffe300;
-  box-shadow: 0px 0px 10px 0px #ffe300;
-}
 #altered-board-overlay #altered-overlay-content #deck-wizard #deck-type-description {
   text-align: center;
   color: #f0f5ff;
@@ -13677,12 +13769,12 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option img {
   display: block;
-  width: 90px;
+  width: 72px;
   height: auto;
 }
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option .custom-deck-banner {
-  width: 90px;
-  height: 157px;
+  width: 72px;
+  height: 107px;
   border-radius: 6px;
   background-size: cover;
   background-position: center;
@@ -13705,6 +13797,18 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #deck-wizard.deck-wizard-step-2 {
   margin-top: 10px;
 }
+#altered-board-overlay #altered-overlay-content #deck-wizard.deck-wizard-step-2.account-not-configured-screen a.account-not-configured-link {
+  color: gold;
+  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  font-weight: bold;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard.deck-wizard-step-2.account-not-configured-screen a.account-not-configured-link:hover {
+  text-decoration: underline;
+}
 #altered-board-overlay #altered-overlay-content #overlay-deck-container .deck-option {
   display: flex;
   flex-direction: column;
@@ -13713,11 +13817,24 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-container .deck-option-name {
   font-family: "Tiller";
-  font-size: 24px;
+  font-size: 20px;
   color: white;
   text-shadow: 0px 1px 2px black;
   text-align: center;
   line-height: 1.05;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.selectable,
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable {
+  box-shadow: none !important;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.selectable:not(.selected):not(.keep),
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable:not(.selected):not(.keep) {
+  box-shadow: none;
+  border-color: transparent;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.selectable:hover,
+#altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable:hover {
+  transform: none;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details {
   --cardScale: 1;
@@ -13732,9 +13849,6 @@ body.focus-board .altered-player-board .player-board-infos {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-}
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card {
-  box-shadow: 2px 2px 5px 1px black, 0px 0px 14px 8px #ffe300;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .card-frame::before {
   display: none;
@@ -13751,7 +13865,7 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=BR] {
   background-position-x: 20%;
 }
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=LY] {
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=LY], #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=LY_YeongGi] {
   background-position-x: 40%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=MU] {
@@ -13760,7 +13874,7 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=OD], #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=OR] {
   background-position-x: 80%;
 }
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=YZ] {
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=YZ], #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details #deck-hero .altered-card .faction-banner[data-faction=YZ_Sam] {
   background-position-x: 100%;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card {
@@ -13895,6 +14009,13 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .rarity-gem[data-rarity="3"] {
   background-position-y: 100%;
 }
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest, #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest[data-size],
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain,
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain[data-size],
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean,
+#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean[data-size] {
+  width: 33px !important;
+}
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest,
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain,
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean {
@@ -13910,13 +14031,6 @@ body.focus-board .altered-player-board .player-board-infos {
   text-align: center;
   font-weight: bold;
   text-shadow: 0px 0px 4px black;
-}
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest, #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest[data-size],
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain,
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-mountain[data-size],
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean,
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-ocean[data-size] {
-  width: 33px !important;
 }
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-forest {
   left: 102px;
@@ -13980,6 +14094,22 @@ body.focus-board .altered-player-board .player-board-infos {
   width: 100%;
   background: rgba(0, 0, 0, 0.8);
   flex-grow: 1;
+}
+
+#altered-overlay-content #deck-wizard {
+  max-width: calc(0.9 * (100vw - 250px) / var(--boardScale));
+}
+#altered-overlay-content #deck-wizard .deck-wizard-step-2.account-not-configured-screen a.account-not-configured-link {
+  color: gold;
+  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  font-weight: bold;
+}
+#altered-overlay-content #deck-wizard .deck-wizard-step-2.account-not-configured-screen a.account-not-configured-link:hover {
+  text-decoration: underline;
 }
 
 .dice-wrapper {
@@ -14067,7 +14197,6 @@ body.focus-board .altered-player-board .player-board-infos {
   border-radius: 50%;
   background-color: #333;
   box-shadow: inset 0 3px #111, inset 0 -3px #555;
-  /* This selects the last pip of odd-valued dice (1, 3, 5) and positions the pip in the center */
 }
 .dice-wrapper .dice .dice-face .pip:nth-child(2) {
   grid-area: b;
@@ -14083,6 +14212,9 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 .dice-wrapper .dice .dice-face .pip:nth-child(6) {
   grid-area: f;
+}
+.dice-wrapper .dice .dice-face .pip {
+  /* This selects the last pip of odd-valued dice (1, 3, 5) and positions the pip in the center */
 }
 .dice-wrapper .dice .dice-face .pip:nth-child(odd):last-child {
   grid-area: g;
@@ -14488,6 +14620,9 @@ body.focus-board .altered-player-board .player-board-infos {
   }
 }
 .notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
   transition: none !important;
 }
 
@@ -14671,4 +14806,6 @@ body.focus-board .altered-player-board .player-board-infos {
 #customActions .action-button.bgabutton,
 #customActions .bgabutton {
   text-overflow: initial;
-}/*# sourceMappingURL=altered.css.map */
+}
+
+/*# sourceMappingURL=altered.css.map */

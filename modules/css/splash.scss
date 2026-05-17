@@ -415,6 +415,74 @@
             justify-content: center;
             position: relative;
 
+            #deck-faction-banners {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-bottom: 12px;
+            }
+
+            #deck-selected-faction-title {
+                text-align: center;
+                color: gold;
+                font-family: "Tiller";
+                font-size: 36px;
+                font-weight: bold;
+                margin: 0px auto 6px;
+                background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .deck-faction-banner-option {
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                transition:
+                    transform 0.15s,
+                    box-shadow 0.2s;
+
+                img {
+                    display: block;
+                    width: 72px;
+                    height: auto;
+                }
+
+                &.deck-faction-banner-all {
+                    width: 72px;
+                    min-height: 48px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #3a3a4a 0%, #1a1a28 100%);
+                    border: 2px solid #6a6a7a;
+
+                    .deck-faction-banner-all-label {
+                        font-family: "Tiller";
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: gold;
+                        text-align: center;
+                        line-height: 1.1;
+                    }
+
+                    &.selected {
+                        border-color: #eaab57;
+                        box-shadow: 0 0 8px rgba(234, 171, 87, 0.5);
+                    }
+                }
+
+                &:hover {
+                    transform: translateY(-1px);
+                    box-shadow: none;
+                }
+
+                &.selected {
+                    cursor: default;
+                }
+            }
+
             #api-loader {
                 display: none;
             }
@@ -450,6 +518,11 @@
             }
 
             &.fetching {
+                > *:not(#api-loader) {
+                    position: relative;
+                    z-index: 1;
+                }
+
                 #api-loader {
                     display: block;
                     position: absolute;
@@ -516,7 +589,7 @@
                 width: min(1430px, calc(90vw / var(--boardScale)));
                 grid-gap: 10px;
                 display: grid;
-                place-items: center;;
+                place-items: center;
                 grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
                 max-height: calc(72vh / var(--boardScale));
                 overflow-y: auto;

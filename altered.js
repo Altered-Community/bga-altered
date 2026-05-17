@@ -899,6 +899,7 @@
        this.openOverlay();
        this.addSecondaryActionButton('btnBackFromCustom', _('Back'), () => {
          if ($('btnBackFromCustom')) $('btnBackFromCustom').remove();
+         this._customDeckSelectedFaction = null;
          this.onEnteringStateSelectPrecoDeck(this._lastSelectPrecoDeckArgs);
        });
        this.addToggleOverlayButton();
@@ -908,19 +909,142 @@
       * Starts the deck list fetch from RE:Union. Account binding is validated by the fetch result
       * (see onEnteringStateFetchDecks): failure or empty deck list shows the account / linking message.
       */
-     requestFetchDecksOrAccountConfigurationMessage() {
-       this.clientState('fetchDecks', _('Connecting to RE:Union to fetch your decks'), {});
-     },
- 
-     ///////////////////////////////////////////////////////////
-     //  ____
-     // |  _ \ _ __ ___  ___ ___  ___
-     // | |_) | '__/ _ \/ __/ _ \/ __|
-     // |  __/| | |  __/ (_| (_) \__ \
-     // |_|   |_|  \___|\___\___/|___/
-     ///////////////////////////////////////////////////////////
- 
-     onEnteringStateSelectPrecoDeck(args) {
+    requestFetchDecksOrAccountConfigurationMessage() {
+      this._customDeckSelectedFaction = null;
+      this.clientState('fetchDecks', _('Connecting to RE:Union to fetch your decks'), {});
+    },
+
+    _getAllApiFactions() {
+      return ['AX', 'BR', 'MU', 'LY', 'OR', 'YZ'];
+    },
+
+    _getCustomDeckBannerFactions() {
+      return ['ALL', 'AX', 'BR', 'LY', 'MU', 'OD', 'YZ'];
+    },
+
+    _isAllFactionsBanner(faction) {
+      return faction === 'ALL';
+    },
+
+    _apiFactionFromBannerFaction(faction) {
+      return faction === 'OD' ? 'OR' : faction;
+    },
+
+    _apiFactionsFromBannerFaction(faction) {
+      if (this._isAllFactionsBanner(faction)) {
+        return this._getAllApiFactions();
+      }
+      return [this._apiFactionFromBannerFaction(faction)];
+    },
+
+    _bannerFactionFromApiFaction(faction) {
+      const normalized = faction === 'OR' ? 'OD' : faction || 'AX';
+      return normalized.length > 2 ? normalized.substring(0, 2) : normalized;
+    },
+
+    _bannerFactionFromRequestFactions(requestFactions) {
+      if (!requestFactions || !Array.isArray(requestFactions)) return null;
+      if (this._apiRequestFactionsMatch(requestFactions, this._getAllApiFactions())) {
+        return 'ALL';
+      }
+      if (requestFactions.length === 1) {
+        return this._bannerFactionFromApiFaction(requestFactions[0]);
+      }
+      return null;
+    },
+
+    _apiRequestFactionsMatch(actual, expected) {
+      if (!actual || !expected || actual.length !== expected.length) return false;
+      const sortedActual = [...actual].sort();
+      const sortedExpected = [...expected].sort();
+      return sortedActual.every((faction, index) => faction === sortedExpected[index]);
+    },
+
+    _getDeckFactionBannerConfig() {
+      if (!this._deckFactionBannerConfig) {
+        const bannerFactionMap = {
+          AX: 'AXIOM',
+          BR: 'BRAVOS',
+          LY: 'LYRA',
+          MU: 'MUNA',
+          OD: 'ORDIS',
+          YZ: 'YZMIR',
+        };
+        const factionDisplayNames = {
+          ALL: _('All'),
+          AX: _('Axiom'),
+          BR: _('Bravos'),
+          LY: _('Lyra'),
+          MU: _('Muna'),
+          OD: _('Ordis'),
+          YZ: _('Yzmir'),
+        };
+        const bannerImagePath = (faction, isSelected) => {
+          let canonicalFaction = bannerFactionMap[faction] || 'AXIOM';
+          let themeUrl = typeof g_gamethemeurl !== 'undefined' ? g_gamethemeurl : '';
+          return `${themeUrl}img/Factions/${canonicalFaction}-faction-banner${isSelected ? '-selected' : ''}.png`;
+        };
+        const preloadFactionBannerImages = () => {
+          if (!this._preloadedFactionBanners) {
+            this._preloadedFactionBanners = {};
+          }
+          const canonicalFactions = ['AXIOM', 'BRAVOS', 'LYRA', 'MUNA', 'ORDIS', 'YZMIR'];
+          let themeUrl = typeof g_gamethemeurl !== 'undefined' ? g_gamethemeurl : '';
+          canonicalFactions.forEach((canonicalFaction) => {
+            [false, true].forEach((isSelected) => {
+              const url = `${themeUrl}img/Factions/${canonicalFaction}-faction-banner${isSelected ? '-selected' : ''}.png`;
+              if (this._preloadedFactionBanners[url]) return;
+              const img = new Image();
+              img.src = url;
+              this._preloadedFactionBanners[url] = true;
+            });
+          });
+        };
+        preloadFactionBannerImages();
+        this._deckFactionBannerConfig = { bannerFactionMap, factionDisplayNames, bannerImagePath };
+      }
+      return this._deckFactionBannerConfig;
+    },
+
+    _renderDeckFactionBanners(factions, selectedFaction, onSelect) {
+      const { factionDisplayNames, bannerImagePath } = this._getDeckFactionBannerConfig();
+      if (!$('deck-faction-banners')) return;
+      $('deck-selected-faction-title').innerHTML =
+        factionDisplayNames[selectedFaction] || selectedFaction;
+      $('deck-faction-banners').innerHTML = '';
+      factions.forEach((faction) => {
+        let isSelectedFaction = selectedFaction == faction;
+        if (this._isAllFactionsBanner(faction)) {
+          $('deck-faction-banners').insertAdjacentHTML(
+            'beforeend',
+            `<div class='deck-faction-banner-option deck-faction-banner-all ${isSelectedFaction ? 'selected' : ''}' id='banner-faction-ALL'>
+              <span class='deck-faction-banner-all-label'>${factionDisplayNames.ALL}</span>
+            </div>`
+          );
+        } else {
+          $('deck-faction-banners').insertAdjacentHTML(
+            'beforeend',
+            `<div class='deck-faction-banner-option ${isSelectedFaction ? 'selected' : ''}' id='banner-faction-${faction}'>
+              <img src='${bannerImagePath(faction, isSelectedFaction)}' alt='${factionDisplayNames[faction] || faction}' />
+            </div>`
+          );
+        }
+        this.onClick(`banner-faction-${faction}`, () => {
+          if (selectedFaction == faction) return;
+          onSelect(faction);
+        });
+      });
+    },
+
+    ///////////////////////////////////////////////////////////
+    //  ____
+    // |  _ \ _ __ ___  ___ ___  ___
+    // | |_) | '__/ _ \/ __/ _ \/ __|
+    // |  __/| | |  __/ (_| (_) \__ \
+    // |_|   |_|  \___|\___\___/|___/
+    ///////////////////////////////////////////////////////////
+
+    onEnteringStateSelectPrecoDeck(args) {
        this._awaitingAPIReturn = false;
        if (!args._private) return;
        if ($('btnBackFromCustom')) {
@@ -943,46 +1067,9 @@
        let decks = args._private.decks || [];
        let previousDeck = decks.find((deck) => '' + deck.deckNumber == '' + deckNumber) || null;
        const getFactionGroup = (faction) => faction;
-       let factions = [...new Set(decks.map((deck) => getFactionGroup(deck.faction)))];
-       let defaultFaction = previousDeck ? getFactionGroup(previousDeck.faction) : null;
-       const bannerFactionMap = {
-         AX: 'AXIOM',
-         BR: 'BRAVOS',
-         LY: 'LYRA',
-         MU: 'MUNA',
-         OD: 'ORDIS',
-         YZ: 'YZMIR',
-       };
-       const factionDisplayNames = {
-         AX: _('Axiom'),
-         BR: _('Bravos'),
-         LY: _('Lyra'),
-         MU: _('Muna'),
-         OD: _('Ordis'),
-         YZ: _('Yzmir'),
-       };
-       const bannerImagePath = (faction, isSelected) => {
-         let canonicalFaction = bannerFactionMap[getFactionGroup(faction)] || 'AXIOM';
-         let themeUrl = typeof g_gamethemeurl !== 'undefined' ? g_gamethemeurl : '';
-         return `${themeUrl}img/Factions/${canonicalFaction}-faction-banner${isSelected ? '-selected' : ''}.png`;
-       };
-       const preloadFactionBannerImages = () => {
-         if (!this._preloadedFactionBanners) {
-           this._preloadedFactionBanners = {};
-         }
-         const canonicalFactions = ['AXIOM', 'BRAVOS', 'LYRA', 'MUNA', 'ORDIS', 'YZMIR'];
-         let themeUrl = typeof g_gamethemeurl !== 'undefined' ? g_gamethemeurl : '';
-         canonicalFactions.forEach((canonicalFaction) => {
-           [false, true].forEach((isSelected) => {
-             const url = `${themeUrl}img/Factions/${canonicalFaction}-faction-banner${isSelected ? '-selected' : ''}.png`;
-             if (this._preloadedFactionBanners[url]) return;
-             const img = new Image();
-             img.src = url;
-             this._preloadedFactionBanners[url] = true;
-           });
-         });
-       };
-       preloadFactionBannerImages();
+      let factions = [...new Set(decks.map((deck) => getFactionGroup(deck.faction)))];
+      let defaultFaction = previousDeck ? getFactionGroup(previousDeck.faction) : null;
+      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
  
        let previousWizardState = this._deckWizardState || {};
        this._deckWizardState = {
@@ -1069,32 +1156,18 @@
          `;
          let selectedFactionName = factionDisplayNames[getFactionGroup(this._deckWizardState.selectedFaction)] ||
              this._deckWizardState.selectedFaction;
-         $('deck-selected-faction-title').innerHTML = selectedFactionName;
- 
-         $('deck-faction-banners').innerHTML = '';
-         factions.forEach((faction) => {
-           let isSelectedFaction = this._deckWizardState.selectedFaction == faction;
-           $('deck-faction-banners').insertAdjacentHTML(
-             'beforeend',
-             `<div class='deck-faction-banner-option ${isSelectedFaction ? 'selected' : ''}' id='banner-faction-${faction}'>
-               <img src='${bannerImagePath(faction, isSelectedFaction)}' alt='${factionDisplayNames[faction] || faction}' />
-             </div>`
-           );
-           this.onClick(`banner-faction-${faction}`, () => {
-             if (this._deckWizardState.selectedFaction == faction) return;
-             this._deckWizardState.selectedFaction = faction;
-             this._deckWizardState.selectedDeckNum = null;
-             debug("Selected faction: " + faction);
-             renderStep2Preconfigured();
-           });
-         });
- 
-         if (!this._beginner) {
+        this._renderDeckFactionBanners(factions, this._deckWizardState.selectedFaction, (faction) => {
+          this._deckWizardState.selectedFaction = faction;
+          this._deckWizardState.selectedDeckNum = null;
+          debug('Selected faction: ' + faction);
+          renderStep2Preconfigured();
+        });
+
+        if (!this._beginner) {
            this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
          filteredDecks.forEach((deck) => {
-           debugger
            let deckLabel = selectedFactionName;
            if (deck.hero && deck.hero.properties && deck.hero.properties.name) {
              deckLabel = deck.hero.properties.name;
@@ -1200,6 +1273,7 @@
      ////////////////////////
      onEnteringStateFetchDecks(args) {
        args = args || {};
+       this._customDeckSelectedFaction = null;
        this.addCancelStateBtn();
        this._awaitingAPIReturn = true;
  
@@ -1212,7 +1286,7 @@
          this.clearClientState();
          this.showAccountNotConfiguredDeckPickerContent();
        };
- 
+
        this.takeAction('actLoadAPIDecks', { request: JSON.stringify(requestPayload), lock: false }, false)
          .then((response) => {
            if (!this._awaitingAPIReturn) return;
@@ -1241,45 +1315,93 @@
        this.openOverlay();
      },
  
-     ////////////////////////
-     // CHOOSE DECKS
-     ////////////////////////
-     changeDeckPage(page) {
-       if (this._awaitingAPIReturn) return;
- 
-       let tmp = this._apiRequest.page;
-       this._apiRequest.page = page;
-       let strRequest = JSON.stringify(this._apiRequest);
-       this._apiRequest.page = tmp;
- 
-       this._awaitingAPIReturn = true;
-       $('api-error').innerHTML = '';
-       $('overlay-deck-selection').classList.add('fetching');
-       this.takeAction('actLoadAPIDecks', { request: strRequest, lock: false }, false).then((response) => {
-         if (!this._awaitingAPIReturn) return;
- 
-         $('overlay-deck-selection').classList.remove('fetching');
-         let args = response.data;
-         args.update = true;
-         this.clientState('chooseFetchedDeck', _('Choose one of your deck'), args);
-       });
-     },
+    ////////////////////////
+    // CHOOSE DECKS
+    ////////////////////////
+    reloadFetchedDecks(overrides = {}) {
+      if (this._awaitingAPIReturn) return;
+
+      this._apiRequest = Object.assign({}, this._apiRequest, overrides);
+      const strRequest = JSON.stringify(this._apiRequest);
+
+      this._awaitingAPIReturn = true;
+      $('api-error').innerHTML = '';
+      if ($('overlay-deck-selection')) {
+        $('overlay-deck-selection').classList.add('fetching');
+      }
+      this.takeAction('actLoadAPIDecks', { request: strRequest, lock: false }, false).then((response) => {
+        if (!this._awaitingAPIReturn) return;
+
+        if ($('overlay-deck-selection')) {
+          $('overlay-deck-selection').classList.remove('fetching');
+        }
+        let args = response.data;
+        args.update = true;
+        this.clientState('chooseFetchedDeck', _('Choose one of your deck'), args);
+      });
+    },
+
+    selectCustomDeckFaction(faction) {
+      this._customDeckSelectedFaction = faction;
+      this._deckContentAPI = null;
+      if ($('btnConfirmDeck')) {
+        $('btnConfirmDeck').classList.add('disabled');
+      }
+      this.reloadFetchedDecks({
+        factions: this._apiFactionsFromBannerFaction(faction),
+        page: 1,
+      });
+    },
+
+    changeDeckPage(page) {
+      this.reloadFetchedDecks({ page });
+    },
  
      onEnteringStateChooseFetchedDeck(args) {
        this.addCancelStateBtn();
        this._awaitingAPIReturn = false;
-       this._apiRequest = args.request;
- 
-       let isUpdateOnly = args.update || false;
-       if (!isUpdateOnly) {
+      this._apiRequest = args.request;
+
+      const bannerFactions = this._getCustomDeckBannerFactions();
+      let selectedFaction =
+        this._customDeckSelectedFaction ||
+        this._bannerFactionFromRequestFactions(args.request && args.request.factions) ||
+        bannerFactions[0];
+      this._customDeckSelectedFaction = selectedFaction;
+
+      const expectedApiFactions = this._apiFactionsFromBannerFaction(selectedFaction);
+      const requestMatches =
+        args.request &&
+        args.request.factions &&
+        this._apiRequestFactionsMatch(args.request.factions, expectedApiFactions);
+
+      let isUpdateOnly = args.update || false;
+      const hasDeckSelectionChrome =
+        $('overlay-deck-selection') && $('prev-page') && $('deck-list');
+
+      if (!requestMatches && !isUpdateOnly) {
+        $('altered-overlay-content').innerHTML = `
+        <div id='overlay-deck-selection' class='fetching'>
+          <h2>${_('Choose your deck')}</h2>
+          <div id="api-loader" class='spinning-loader'></div>
+          <div id="api-error"></div>
+        </div>`;
+        this.openOverlay();
+        this._apiRequest.factions = expectedApiFactions;
+        this.reloadFetchedDecks({ factions: expectedApiFactions, page: 1 });
+        return;
+      }
+       if (!isUpdateOnly || !hasDeckSelectionChrome) {
          $('altered-overlay-content').innerHTML = '';
          $('altered-overlay-content').insertAdjacentHTML(
            'beforeend',
            `
-         <h2>${_('Choose your deck')}</h2>
          <div id='overlay-deck-selection'>
+           <h2>${_('Choose your deck')}</h2>
            <div id="api-loader" class='spinning-loader'></div>
            <div id="api-error"></div>
+           <div id='deck-selected-faction-title'></div>
+           <div id='deck-faction-banners'></div>
            <div id="deck-search-holder">
              <form>
                <input type="text" placeholder="..." id="deck-search-input" />
@@ -1303,7 +1425,14 @@
          </div>`
          );
        }
- 
+
+      if ($('deck-faction-banners')) {
+        this._renderDeckFactionBanners(bannerFactions, selectedFaction, (faction) => {
+          if (this._customDeckSelectedFaction === faction) return;
+          this.selectCustomDeckFaction(faction);
+        });
+      }
+
        // PAGINATION
        let current = parseInt(args.pagination.current);
        let last = args.pagination.last == '' ? 1 : parseInt(args.pagination.last);
@@ -1362,21 +1491,14 @@
        this.openOverlay();
  
        // Thumbnails
-       const FACTION_NAMES = {
-         AX: _('Axiom'),
-         BR: _('Bravos'),
-         LY: _('Lyra'),
-         MU: _('Muna'),
-         OD: _('Ordis'),
-         OR: _('Ordis'),
-         YZ: _('Yzmir'),
-       };
+      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
+      const factionNames = Object.assign({ OR: _('Ordis') }, factionDisplayNames);
        let hand = _('hand');
- 
+
        let selected = null;
        $(`deck-list`).innerHTML = '';
        args.decks.forEach((deck) => {
-         let factionName = FACTION_NAMES[deck.faction];
+         let factionName = factionNames[deck.faction];
          $(`deck-list`).insertAdjacentHTML(
            'beforeEnd',
            `<div id='deck-${deck.apiId}' class='deck-thumbnail' data-faction="${deck.faction}" data-thumbnail="${deck.heroThumbnail}">
