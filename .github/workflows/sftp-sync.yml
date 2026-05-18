@@ -12,9 +12,9 @@
 #   SFTP_PRIVATE_KEY     A **SECRET** that contains the SSH private key.
 #
 # Optional per-environment variables:
-#   SFTP_LOCAL_PATH      Local glob passed to the action (default: ./*)
-#   SFTP_RSYNC_ARGS      Extra rsync flags (default excludes .git, node_modules, .github)
-#   SFTP_DELETE_REMOTE   Set to "true" to delete remote files before upload (dangerous)
+#   SFTP_LOCAL_PATH      Local directory to mirror from (default: ./)
+#   SFTP_PARALLEL        Number of parallel SFTP transfers (default: 8)
+#   SFTP_DELETE_REMOTE   Set to "true" to delete remote files that no longer exist locally (dangerous)
 #   SFTP_SKIP_IMAGES     Push: omit img/ by default; set to "false" to upload img/. Manual: use "Skip images".
 
 name: SFTP sync
@@ -107,15 +107,50 @@ jobs:
           fi
           python3 misc/python-tools/rename-game-slug.py --target "$TARGET_SLUG"
 
-      - name: Upload via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          username: ${{ vars.SFTP_USERNAME }}
-          server: ${{ vars.SFTP_HOST || '1.studio.boardgamearena.com' }}
-          port: ${{ vars.SFTP_PORT || '2022' }}
-          ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-          local_path: ${{ vars.SFTP_LOCAL_PATH || './*' }}
-          remote_path: ${{ vars.SFTP_REMOTE_PATH }}
-          sftp_only: "true"
-          delete_remote_files: ${{ vars.SFTP_DELETE_REMOTE == 'true' && 'true' || 'false' }}
-          rsyncArgs: ${{ vars.SFTP_RSYNC_ARGS || '--exclude=.git --exclude=node_modules --exclude=.github --exclude=misc --exclude=docs' }}${{ ((github.event_name == 'push' && vars.SFTP_SKIP_IMAGES != 'false') || (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_images == 'true')) && ' --exclude=img' || '' }}
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload via SFTP (parallel mirror)
+        env:
+          SFTP_HOST: ${{ vars.SFTP_HOST || '1.studio.boardgamearena.com' }}
+          SFTP_PORT: ${{ vars.SFTP_PORT || '2022' }}
+          SFTP_USERNAME: ${{ vars.SFTP_USERNAME }}
+          SFTP_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
+          SFTP_REMOTE_PATH: ${{ vars.SFTP_REMOTE_PATH }}
+          SFTP_LOCAL_PATH: ${{ vars.SFTP_LOCAL_PATH || './' }}
+          SFTP_DELETE_REMOTE: ${{ vars.SFTP_DELETE_REMOTE }}
+          SFTP_PARALLEL: ${{ vars.SFTP_PARALLEL || '8' }}
+          SKIP_IMAGES: ${{ ((github.event_name == 'push' && vars.SFTP_SKIP_IMAGES != 'false') || (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_images == 'true')) && 'true' || 'false' }}
+        run: |
+          set -euo pipefail
+
+          KEYFILE=$(mktemp)
+          chmod 600 "$KEYFILE"
+          printf '%s\n' "$SFTP_PRIVATE_KEY" > "$KEYFILE"
+          trap 'rm -f "$KEYFILE"' EXIT
+
+          EXCLUDES="--exclude-glob .git --exclude-glob node_modules --exclude-glob .github --exclude-glob misc --exclude-glob docs"
+          if [ "$SKIP_IMAGES" = "true" ]; then
+            EXCLUDES="$EXCLUDES --exclude-glob img"
+          fi
+
+          DELETE_FLAG=""
+          if [ "$SFTP_DELETE_REMOTE" = "true" ]; then
+            DELETE_FLAG="--delete"
+          fi
+
+          # lftp mirror -R: reverse mirror (upload). Default behavior already skips
+          # files with identical size + mtime, so we don't pass --only-newer (which
+          # would be sensitive to clock skew between runner and SFTP server).
+          # The trailing comma in `-u "$USER,"` tells lftp the user has an empty
+          # password and to skip the password prompt — auth is fully delegated to
+          # ssh via sftp:connect-program (key-based, no password ever exchanged).
+          lftp <<LFTP_EOF
+          set sftp:auto-confirm yes
+          set cmd:fail-exit yes
+          set net:max-retries 3
+          set net:timeout 30
+          set sftp:connect-program "ssh -a -x -i $KEYFILE -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+          open -u "$SFTP_USERNAME," -p $SFTP_PORT sftp://$SFTP_HOST
+          mirror -R --parallel=$SFTP_PARALLEL --verbose $DELETE_FLAG $EXCLUDES -- "$SFTP_LOCAL_PATH" "$SFTP_REMOTE_PATH"
+          LFTP_EOF
