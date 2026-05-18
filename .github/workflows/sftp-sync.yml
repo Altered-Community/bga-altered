@@ -31,6 +31,7 @@ on:
     branches:
       - preprod
       - master
+      - test
       - alteredbrancha
       - alteredbranchb
       - alteredbranchc
@@ -43,6 +44,7 @@ on:
         options:
           - preprod
           - production
+          - test
           - alteredbrancha
           - alteredbranchb
           - alteredbranchc
@@ -68,6 +70,7 @@ jobs:
         github.event_name == 'workflow_dispatch' && github.event.inputs.environment ||
         (github.ref_name == 'master' || github.ref_name == 'main') && 'production' ||
         github.ref_name == 'preprod' && 'preprod' ||
+        github.ref_name == 'test' && 'test' ||
         github.ref_name == 'alteredbrancha' && 'alteredbrancha' ||
         github.ref_name == 'alteredbranchb' && 'alteredbranchb' ||
         github.ref_name == 'alteredbranchc' && 'alteredbranchc' ||
