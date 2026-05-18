@@ -572,38 +572,19 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     $toCreate = [];
     $pId = $player->getId();
-    $factions = FACTIONS;
 
-    if (Globals::getBeginner() == 1 || Globals::getBeginner() == 0) {
-      array_unshift($factions, 'OD2');
-      array_unshift($factions, 'MU2');
-    }
+    foreach (STARTER_DECKS as $deck) {
+      
+      $faction = $deck['faction'];
+      $deckId = $deck['deckId'];
 
-    foreach ($factions as $faction) {
-      switch (Globals::getBeginner()) {
-        case OPTION_DEMO:
-          $deck = DEMO[$faction];
-          break;
-        case OPTION_SO:
-          $deck = DEMO_SO[$faction];
-          break;
-        case OPTION_SDU:
-          $deck = DEMO_SDU[$faction];
-          break;
-        default:
-          $deck = STARTER[$faction];
-      }
-
-      // $deck = Globals::getBeginner() == OPTION_DEMO ? DEMO[$faction] : STARTER[$faction];
-
-      foreach ($deck as $cardId => $n) {
-        // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
+      foreach ($deck['contents'] as $cardId => $n) {
         $factionSub = substr($cardId, 0, 2);
         $className = "\\ALT\\Cards\\$factionSub\\$cardId";
         $card = new $className(null);
-        $location = "deck-$deckNumber";
+        $location = "deck-" . $deckNumber;
         if ($card->getType() == HERO) {
-          $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction];
+          $deckList[$deckNumber] = ['deckNumber' => $deckNumber, 'deckId' => $deckId, 'faction' => $faction];
         }
 
         // we do not create token as they will be created on the fly
@@ -627,7 +608,6 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     self::create($toCreate, null);
     return $deckList;
-    // self::shuffle('deck-' . $pId);
   }
 
   public static function createDeck($player, $deckContent)

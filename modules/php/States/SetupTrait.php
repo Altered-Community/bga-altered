@@ -59,7 +59,7 @@ trait SetupTrait
     foreach (Players::getAll() as $pId => $player) {
       $decks = $allDecks[$pId] ?? [];
       foreach ($decks as &$deck) {
-        $deck['hero'] = $this->getDeckHero($deck['deckNum']);
+        $deck['hero'] = $this->getDeckHero($deck['deckNumber']);
       }
       $args['_private'][$pId]['decks'] = $decks;
       $args['_private'][$pId]['selection'] = $selection[$pId] ?? null;
@@ -174,9 +174,9 @@ trait SetupTrait
 
 
 
-  public function actGetDeckInfos($deckId)
+  public function actGetDeckInfos($deckNumber)
   {
-    $response = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $deckId]);
+    $response = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $deckNumber]);
     if ($response['success'] != 1) {
       throw new \BgaVisibleSystemException("API ERROR###" . $response['message'] . "###");
     }

@@ -65,7 +65,7 @@ const STARTER = [
     'LY_Rare_Asmodeus' => 1,
     'LY_Rare_TheOuroborosLyraBastion' => 1,
     'LY_Rare_KadigiranMageDancer' => 1,
-    'LY_Rare_Offyougo' => 1,
+    'LY_Rare_OffYouGo' => 1,
 
     'MU_Common_TeijaNauraa' => 1,
     'MU_Common_Kitsune' => 3,
@@ -113,7 +113,7 @@ const STARTER = [
     'OD_Common_OrdisRecruit' => 3,
 
     'YZ_Common_AkeshaTaru' => 1,
-    'YZ_Common_Offyougo' => 3,
+    'YZ_Common_OffYouGo' => 3,
     'YZ_Common_YzmirStargazer' => 3,
     'YZ_Common_StudiousDisciple' => 3,
     'YZ_Common_KrakensWrath' => 3,
@@ -222,7 +222,7 @@ const STARTER = [
 		'YZ_Rare_Alice' => 1,
 		'YZ_Common_DorothyGale' => 2,
 		'YZ_Rare_DorothyGale' => 1,
-		'YZ_Common_Offyougo' => 3,
+		'YZ_Common_OffYouGo' => 3,
 		'YZ_Common_SpyCraft' => 3,
 		'YZ_Common_Sakarabru' => 3,
 ];
