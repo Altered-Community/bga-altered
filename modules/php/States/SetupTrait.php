@@ -187,6 +187,21 @@ trait SetupTrait
       throw new \BgaUserException(clienttranslate('This deck is not legal'));
     }
 
+    /////////////////////////////////////////
+    // Changing all alt-art into basic art
+    /////////////////////////////////////////
+    $deck[HERO] = $this->transformingAltArtToBasicArt($deck[HERO]);
+    $cards = $deck['cards'];
+    $sanitizeAltArtCards = [];
+    foreach ($cards as $ref => $quantity) {
+      $sanitizeAltArtCards[$this->transformingAltArtToBasicArt($ref)] = $quantity;
+      unset($cards[$ref]);
+    }
+    $deck['cards'] = $sanitizeAltArtCards;
+    /////////////////////////////////////////
+    // Changing all alt-art into basic art
+    /////////////////////////////////////////
+
     $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO]), 'n' => 1];
     foreach ($deck['cards'] as $cardRef => $card) {
       if (isset($card['content'])) {
@@ -307,5 +322,109 @@ trait SetupTrait
     //    Notifications::setupCards(Cards::getUiData());
 
     $this->gamestate->nextState('');
+  }
+
+  /////////////////////////////////////////////////////////
+  // Temporary Transforming all Alt-art card into the basic art one.
+  // We dont want to display alt-art into BGA for the transitionn period to Re:Union until we get players collections back.
+  /////////////////////////////////////////////////////////
+  private function transformingAltArtToBasicArt(string $cardRef): string
+  {
+    // e.g. ALT_CYCLONE_A_BR_77_C -> ALT_CYCLONE_B_BR_77_C ; changing the 3rd part 'A' alt-art to 'B' basic-art
+
+    // Commented because all alt-art are not all present in getAltArt
+    // if (key_exists($cardRef, Cards::getAltArt())) {
+
+    $cardExploded = explode('_', $cardRef);
+    $cardRefWithoutRarity = implode(
+      '_',
+      [$cardExploded[0], $cardExploded[1], $cardExploded[2], $cardExploded[3], $cardExploded[4]]
+    );
+
+    // Exception
+    // ALT_ALIZE_P_OR_48 and ALT_BISE_P_BR_64
+    if (in_array($cardRefWithoutRarity, ['ALT_ALIZE_P_OR_48', 'ALT_ALIZE_P_OR_48'])) {
+      return $cardRef;
+    }
+
+    // Musubi Specific case
+    if ($cardExploded[1] === 'MUSUBI') {
+      $musubiCorrespondingCards = [
+        'ALT_MUSUBI_B_AX_09' => 'ALT_CORE_B_AX_09',
+        'ALT_MUSUBI_B_BR_04' => 'ALT_CORE_B_BR_04',
+        'ALT_MUSUBI_B_LY_06' => 'ALT_CORE_B_LY_06',
+        'ALT_MUSUBI_B_MU_22' => 'ALT_CORE_B_MU_22',
+        'ALT_MUSUBI_B_OR_09' => 'ALT_CORE_B_OR_09',
+        'ALT_MUSUBI_B_YZ_09' => 'ALT_CORE_B_YZ_09',
+        'ALT_MUSUBI_B_AX_30' => 'ALT_CORE_B_AX_30',
+        'ALT_MUSUBI_B_BR_74' => 'ALT_CYCLONE_B_BR_74',
+        'ALT_MUSUBI_B_LY_29' => 'ALT_CORE_B_LY_29',
+        'ALT_MUSUBI_B_MU_70' => 'ALT_CYCLONE_B_MU_70',
+        'ALT_MUSUBI_B_OR_66' => 'ALT_CYCLONE_B_OR_66',
+        'ALT_MUSUBI_B_YZ_21' => 'ALT_CORE_B_YZ_21',
+      ];
+
+      if (key_exists($cardRefWithoutRarity, $musubiCorrespondingCards)) {
+        $cardRef = implode('_', [$musubiCorrespondingCards[$cardRefWithoutRarity], $cardExploded[5]]);
+      }
+    } elseif ($cardExploded[1] === 'DUSTERTOP') {
+      // DusterTop Specific case
+      $dustertopCorrespondingCards = [
+        // CORE Set
+        'ALT_DUSTERTOP_P_AX_04_C' => 'ALT_CORE_B_AX_04_C',
+        'ALT_DUSTERTOP_P_AX_20_R1' => 'ALT_CORE_B_AX_20_R1',
+        'ALT_DUSTERTOP_P_BR_19_C' => 'ALT_CORE_B_BR_19_C',
+        'ALT_DUSTERTOP_P_BR_30_R1' => 'ALT_CORE_B_BR_30_R1',
+        'ALT_DUSTERTOP_P_LY_07' => 'ALT_CORE_B_AX_04_C',
+        'ALT_DUSTERTOP_P_LY_04_R1' => 'ALT_CORE_B_AX_04_R1',
+        'ALT_DUSTERTOP_P_MU_13_C' => 'ALT_CORE_B_AX_04_C',
+        'ALT_DUSTERTOP_P_MU_12_R1' => 'ALT_CORE_B_AX_04_R1',
+        'ALT_DUSTERTOP_P_OR_14_C' => 'ALT_CORE_B_OR_14_C',
+        'ALT_DUSTERTOP_P_OR_08_R1' => 'ALT_CORE_B_OR_08_R1',
+        'ALT_DUSTERTOP_P_YZ_06_C' => 'ALT_CORE_B_YZ_06_C',
+        'ALT_DUSTERTOP_P_YZ_12_R1' => 'ALT_CORE_B_YZ_12_R1',
+        // ALIZE Set
+        'ALT_DUSTERTOP_P_AX_41_C' => 'ALT_ALIZE_B_AX_41_C',
+        'ALT_DUSTERTOP_P_AX_32_R1' => 'ALT_ALIZE_B_AX_32_R1',
+        'ALT_DUSTERTOP_P_BR_32_C' => 'ALT_ALIZE_B_BR_32_C',
+        'ALT_DUSTERTOP_P_BR_38_R1' => 'ALT_ALIZE_B_BR_38_R1',
+        'ALT_DUSTERTOP_P_LY_31_C' => 'ALT_ALIZE_B_LY_31_C',
+        'ALT_DUSTERTOP_P_LY_39_R1' => 'ALT_ALIZE_B_LY_39_R1',
+        'ALT_DUSTERTOP_P_MU_44_C' => 'ALT_ALIZE_B_MU_44_C',
+        'ALT_DUSTERTOP_P_MU_33_R1' => 'ALT_ALIZE_B_MU_33_R1',
+        'ALT_DUSTERTOP_P_OR_42_C' => 'ALT_ALIZE_B_OR_42_C',
+        'ALT_DUSTERTOP_P_OR_43_R1' => 'ALT_ALIZE_B_OR_43_R1',
+        'ALT_DUSTERTOP_P_YZ_41_C' => 'ALT_ALIZE_B_YZ_41_C',
+        'ALT_DUSTERTOP_P_YZ_44_R1' => 'ALT_ALIZE_B_YZ_44_R1',
+      ];
+      if (key_exists($cardRef, $dustertopCorrespondingCards)) {
+        $cardRef = $dustertopCorrespondingCards[$cardRef];
+      }
+    } else {
+      // Normal handling, just replacing the Alt or Promo tag by the Basic tag
+      if (in_array($cardExploded[2], ['A', 'P'])) {
+        $cardExploded[2] = 'B';
+      }
+
+      // Replacing PromoSet by corresponding Basic set (when corresponding to only one set)
+      $promoSetsToReplace = [
+        'COREKS' => 'CORE',
+        'WCF25' => 'CORE',
+        'WCS25' => 'CORE',
+        'WCQ25' => 'CORE',
+        'JUDGE' => 'CORE',
+        'TCS3' => 'BISE',
+        'DUSTEROP' => 'DUSTER',
+        'DUSTERCB' => 'DUSTER',
+        'WCS26' => 'DUSTER',
+      ];
+      if (key_exists($cardExploded[1], $promoSetsToReplace)) {
+        $cardExploded[1] = $promoSetsToReplace[$cardExploded[1]];
+      }
+
+      $cardRef = implode('_', $cardExploded);
+    }
+
+    return $cardRef;
   }
 }
