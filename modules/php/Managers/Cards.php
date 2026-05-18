@@ -443,20 +443,20 @@ class Cards extends \ALT\Helpers\CachedPieces
         } elseif (in_array($idGd, OUTPUT)) {
           $trinity['output'] = $idGd;
         }
-        if (empty($trinity)) {
-          continue;
-        }
-        if (count($trinity) != 3) {
-          // throw new \feException(print_r($effect));
-          return null;
-        }
-        // var_dump($trinity);
-        $valid = FlowConvertor::constructEffect($trinity, $properties);
-        // var_dump($properties);
-        // throw new \feException(print_r($trinity));
-        $properties['uEffects'][] = array_values($trinity);
-        // throw new \feException(print_r($properties));
       }
+      if (empty($trinity)) {
+        continue;
+      }
+      if (count($trinity) != 3) {
+        // throw new \feException(print_r($effect));
+        return null;
+      }
+      // var_dump($trinity);
+      $valid = FlowConvertor::constructEffect($trinity, $properties);
+      // var_dump($properties);
+      // throw new \feException(print_r($trinity));
+      $properties['uEffects'][] = array_values($trinity);
+      // throw new \feException(print_r($properties));
     }
     // $debug[0] = $unique;
     // $debug[1] = $properties;
