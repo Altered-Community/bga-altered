@@ -1,5 +1,5 @@
 # Sync the repository to an SFTP server on push.
-##
+###
 # GitHub Environments (secrets / variables) are chosen from the branch (push) or the
 # manual "Target environment" input (workflow_dispatch). Map branches → environments in
 # `jobs.sftp-sync.environment` below (e.g. master/main → production, preprod → preprod).
@@ -16,6 +16,13 @@
 #   SFTP_PARALLEL        Number of parallel SFTP transfers (default: 8)
 #   SFTP_DELETE_REMOTE   Set to "true" to delete remote files that no longer exist locally (dangerous)
 #   SFTP_SKIP_IMAGES     Push: omit img/ by default; set to "false" to upload img/. Manual: use "Skip images".
+#
+# Hash-gated folders:
+#   Some heavy folders (img/, modules/php/Cards/) are gated by content hash.
+#   On each run we sha256 the folder contents and compare to <SFTP_REMOTE_PATH>/.deploy-hashes/<name>.
+#   When the hash matches, the whole folder is excluded from the mirror walk.
+#   The gate is automatically bypassed when SFTP_DELETE_REMOTE=true so orphans get cleaned.
+#   Changes to GATED list are in the "Upload via SFTP" step below.
 
 name: SFTP sync
 
@@ -110,7 +117,7 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: Upload via SFTP (parallel mirror)
+      - name: Upload via SFTP (hash-gated parallel mirror)
         env:
           SFTP_HOST: ${{ vars.SFTP_HOST || '1.studio.boardgamearena.com' }}
           SFTP_PORT: ${{ vars.SFTP_PORT || '2022' }}
@@ -128,10 +135,83 @@ jobs:
           chmod 600 "$KEYFILE"
           printf '%s\n' "$SFTP_PRIVATE_KEY" > "$KEYFILE"
           trap 'rm -f "$KEYFILE"' EXIT
+          SSH_PROG="ssh -a -x -i $KEYFILE -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-          EXCLUDES="--exclude-glob .git --exclude-glob node_modules --exclude-glob .github --exclude-glob misc --exclude-glob docs"
+          # Hash-gated folders. For each, we compute a deterministic content hash
+          # locally and compare against a remote hash file at $REMOTE_HASH_DIR/<name>.
+          # If they match, the whole folder is excluded from the SFTP walk (big win
+          # on cold runs where nothing changed). Format: "<name> <local-path>".
+          # The gate is bypassed when SFTP_DELETE_REMOTE=true so the walk happens
+          # and orphans get cleaned; the post-mirror hash upload then refreshes state.
+          GATED=(
+            "img img"
+            "cards modules/php/Cards"
+          )
+          REMOTE_HASH_DIR=".deploy-hashes"
+
+          mkdir -p /tmp/local-hashes /tmp/remote-hashes
+
+          # 1) Compute local hashes (sorted paths + content → covers renames/deletes)
+          for entry in "${GATED[@]}"; do
+            name=${entry%% *}; path=${entry#* }
+            : > "/tmp/remote-hashes/$name"
+            if [ -d "$path" ]; then
+              ( cd "$path" && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum ) \
+                | sha256sum | awk '{print $1}' > "/tmp/local-hashes/$name"
+            else
+              : > "/tmp/local-hashes/$name"
+            fi
+          done
+
+          # 2) Fetch remote hashes (best-effort: missing files / first deploy → empty)
+          {
+            echo "set sftp:auto-confirm yes"
+            echo "set xfer:clobber yes"
+            echo "set sftp:connect-program \"$SSH_PROG\""
+            echo "open -u \"$SFTP_USERNAME,\" -p $SFTP_PORT sftp://$SFTP_HOST"
+            echo "lcd /tmp/remote-hashes"
+            for entry in "${GATED[@]}"; do
+              name=${entry%% *}
+              echo "get \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/$name\""
+            done
+          } | lftp || true
+
+          echo "[hash-gate] Local vs remote hash files after fetch:"
+          for entry in "${GATED[@]}"; do
+            name=${entry%% *}
+            local_size=$(stat -c%s "/tmp/local-hashes/$name" 2>/dev/null || echo 0)
+            remote_size=$(stat -c%s "/tmp/remote-hashes/$name" 2>/dev/null || echo 0)
+            local_h=$(cat "/tmp/local-hashes/$name" 2>/dev/null | tr -d '[:space:]')
+            remote_h=$(cat "/tmp/remote-hashes/$name" 2>/dev/null | tr -d '[:space:]')
+            echo "  $name: local=${local_h:-<empty>} (${local_size}B), remote=${remote_h:-<empty>} (${remote_size}B)"
+          done
+
+          # 3) Compare; build per-folder exclude regex and remember which changed.
+          # When SFTP_DELETE_REMOTE=true, force all gates open so orphans inside
+          # gated folders get cleaned (the new hash is uploaded at the end anyway).
+          GATE_EXCLUDES=""
+          declare -A CHANGED
+          for entry in "${GATED[@]}"; do
+            name=${entry%% *}; path=${entry#* }
+            local_h=$(tr -d '[:space:]' < "/tmp/local-hashes/$name" || true)
+            remote_h=$(tr -d '[:space:]' < "/tmp/remote-hashes/$name" || true)
+            if [ "$SFTP_DELETE_REMOTE" = "true" ]; then
+              echo "[hash-gate] $path: SFTP_DELETE_REMOTE=true, bypassing gate to clean orphans"
+              CHANGED[$name]=1
+            elif [ -n "$local_h" ] && [ "$local_h" = "$remote_h" ]; then
+              echo "[hash-gate] $path unchanged (sha256=${local_h:0:12}...), excluding from mirror"
+              GATE_EXCLUDES="$GATE_EXCLUDES --exclude=^${path}/"
+              CHANGED[$name]=0
+            else
+              echo "[hash-gate] $path changed (local=${local_h:0:12}... remote=${remote_h:0:12}...), will sync"
+              CHANGED[$name]=1
+            fi
+          done
+
+          # 4) Static excludes — .deploy-hashes excluded so --delete won't wipe our state
+          STATIC_EXCLUDES="--exclude-glob .git --exclude-glob node_modules --exclude-glob .github --exclude-glob misc --exclude-glob docs --exclude-glob .deploy-hashes"
           if [ "$SKIP_IMAGES" = "true" ]; then
-            EXCLUDES="$EXCLUDES --exclude-glob img"
+            STATIC_EXCLUDES="$STATIC_EXCLUDES --exclude-glob img"
           fi
 
           DELETE_FLAG=""
@@ -139,18 +219,43 @@ jobs:
             DELETE_FLAG="--delete"
           fi
 
-          # lftp mirror -R: reverse mirror (upload). Default behavior already skips
-          # files with identical size + mtime, so we don't pass --only-newer (which
-          # would be sensitive to clock skew between runner and SFTP server).
-          # The trailing comma in `-u "$USER,"` tells lftp the user has an empty
-          # password and to skip the password prompt — auth is fully delegated to
-          # ssh via sftp:connect-program (key-based, no password ever exchanged).
-          lftp <<LFTP_EOF
+          # 5) Main mirror. lftp mirror -R = reverse mirror (upload). Default behavior
+          # already skips files with identical size+mtime, so we don't pass --only-newer
+          # (which would be sensitive to clock skew). The trailing comma in
+          # `-u "$USER,"` tells lftp the user has an empty password — auth is fully
+          # delegated to ssh via sftp:connect-program (key-based, no prompt).
+          lftp <<LFTP_MIRROR
           set sftp:auto-confirm yes
           set cmd:fail-exit yes
           set net:max-retries 3
           set net:timeout 30
-          set sftp:connect-program "ssh -a -x -i $KEYFILE -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+          set sftp:connect-program "$SSH_PROG"
           open -u "$SFTP_USERNAME," -p $SFTP_PORT sftp://$SFTP_HOST
-          mirror -R --parallel=$SFTP_PARALLEL --verbose $DELETE_FLAG $EXCLUDES -- "$SFTP_LOCAL_PATH" "$SFTP_REMOTE_PATH"
-          LFTP_EOF
+          mirror -R --parallel=$SFTP_PARALLEL --verbose $DELETE_FLAG $STATIC_EXCLUDES $GATE_EXCLUDES -- "$SFTP_LOCAL_PATH" "$SFTP_REMOTE_PATH"
+          LFTP_MIRROR
+
+          # 6) After mirror succeeds, push fresh hash files for folders we just synced.
+          # Separate session so a failed mirror leaves the remote hash stale → next
+          # run detects mismatch and retries (idempotent recovery).
+          SOMETHING_CHANGED=0
+          for entry in "${GATED[@]}"; do
+            name=${entry%% *}
+            [ "${CHANGED[$name]:-0}" = "1" ] && SOMETHING_CHANGED=1
+          done
+          if [ "$SOMETHING_CHANGED" = "1" ]; then
+          echo "[hash-gate] Uploading fresh hash files to remote..."
+          {
+            echo "set sftp:auto-confirm yes"
+            echo "set cmd:fail-exit yes"
+            echo "set sftp:connect-program \"$SSH_PROG\""
+            echo "open -u \"$SFTP_USERNAME,\" -p $SFTP_PORT sftp://$SFTP_HOST"
+            echo "mkdir -p \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR\""
+            for entry in "${GATED[@]}"; do
+              name=${entry%% *}
+              if [ "${CHANGED[$name]:-0}" = "1" ]; then
+                echo "put -O \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR\" \"/tmp/local-hashes/$name\""
+              fi
+            done
+            echo "cls -l \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/\""
+          } | lftp
+          fi
