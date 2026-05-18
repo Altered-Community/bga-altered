@@ -44,7 +44,7 @@
         "description": "All cards can be selected, without restrictions"
       },
       "2": {
-        "name": "Singleton",
+        "name": "Singleton No Uniques",
         "tmdisplay": "Singleton",
         "description": "Only decks with only one copy of each card can be selected"
       },
