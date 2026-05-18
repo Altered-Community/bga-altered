@@ -1,5 +1,5 @@
 # Sync the repository to an SFTP server on push.
-##
+###
 # GitHub Environments (secrets / variables) are chosen from the branch (push) or the
 # manual "Target environment" input (workflow_dispatch). Map branches → environments in
 # `jobs.sftp-sync.environment` below (e.g. master/main → production, preprod → preprod).
