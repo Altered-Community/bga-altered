@@ -164,12 +164,11 @@ jobs:
           done
 
           # 2) Fetch remote hashes (best-effort: missing files / first deploy → empty)
-          echo "[hash-gate] Listing remote $SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/ to diagnose gate state:"
           {
             echo "set sftp:auto-confirm yes"
+            echo "set xfer:clobber yes"
             echo "set sftp:connect-program \"$SSH_PROG\""
             echo "open -u \"$SFTP_USERNAME,\" -p $SFTP_PORT sftp://$SFTP_HOST"
-            echo "cls -l \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/\""
             echo "lcd /tmp/remote-hashes"
             for entry in "${GATED[@]}"; do
               name=${entry%% *}
