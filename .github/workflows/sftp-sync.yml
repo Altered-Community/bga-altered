@@ -142,12 +142,15 @@ jobs:
           # lftp mirror -R: reverse mirror (upload). Default behavior already skips
           # files with identical size + mtime, so we don't pass --only-newer (which
           # would be sensitive to clock skew between runner and SFTP server).
+          # The trailing comma in `-u "$USER,"` tells lftp the user has an empty
+          # password and to skip the password prompt — auth is fully delegated to
+          # ssh via sftp:connect-program (key-based, no password ever exchanged).
           lftp <<LFTP_EOF
           set sftp:auto-confirm yes
           set cmd:fail-exit yes
           set net:max-retries 3
           set net:timeout 30
           set sftp:connect-program "ssh -a -x -i $KEYFILE -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-          open -p $SFTP_PORT sftp://$SFTP_USERNAME@$SFTP_HOST
+          open -u "$SFTP_USERNAME," -p $SFTP_PORT sftp://$SFTP_HOST
           mirror -R --parallel=$SFTP_PARALLEL --verbose $DELETE_FLAG $EXCLUDES -- "$SFTP_LOCAL_PATH" "$SFTP_REMOTE_PATH"
           LFTP_EOF
