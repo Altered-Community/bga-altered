@@ -99,11 +99,13 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Restore mtimes from git history
         run: |
           sudo apt-get install -y -qq git-restore-mtime
-          git restore-mtime
+          git restore-mtime -v
 
       - name: Rename game slug to deployment target
         env:
