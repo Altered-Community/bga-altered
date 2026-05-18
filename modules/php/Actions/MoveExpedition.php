@@ -163,7 +163,7 @@ class MoveExpedition extends \ALT\Models\Action
       $actionInsteadAdvance = Players::getActionInsteadOfAdvance();
       if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
         $nodes = [];
-        if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition])) {
+        if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition]) && !in_array('PegasusCommon', $actionInsteadAdvance[$pId][$expedition])) {
           $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]);
         }
         foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
@@ -198,8 +198,16 @@ class MoveExpedition extends \ALT\Models\Action
                   '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes], ['pId' => $pId])
                 ]
               ], ['sourceId' => $cId]);
-            } else {
+            } 
+            else {
               $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+            }
+          } elseif ($action == 'PegasusCommon') {
+            if (empty($winningBiomes) && $ascended && !$triggeredCard->isGigantic()) {
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes, 'ascended' => $ascended], ['pId' => $pId]);
+            }
+            else {
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $ascended], ['pId' => $pId]);
             }
           }
         }

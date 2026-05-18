@@ -25,12 +25,7 @@ class OD_Common_Pegasus extends \ALT\Models\Card
       'ocean' => 4, 
       'costHand' => 5, 
       'costReserve' => 5, 
-      'effectPassive' => [
-        'AfterDusk' => [
-          'condition' => 'movesStormDueToAscension',
-          'output' =>  FT::ACTION(MOVE_EXPEDITION, ['expedition' => [EFFECT], 'pId' => ME]),
-        ],
-      ],
+      'actionInsteadAdvance' => 'PegasusCommon'
     ];
   }
 }
