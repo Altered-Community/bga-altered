@@ -930,8 +930,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 this.addCard(card, this.getVisibleTitleContainer());
                 $(id).classList.remove('mini-card');
                 if (n.args.hasOwnProperty('originalLocation') && n.args.originalLocation == 'mana') {
-                  first = $('mana-gauge-' + pId).firstChild;
-                  return this.flipAndReplace(first, id).then(() => slideIt());
+                  const last = $('mana-gauge-' + pId).lastChild;
+                  return this.flipAndReplace(last, id).then(() => slideIt());
                 } else {
                   return this.flipAndReplace(oCards[indexCardReplacement++], id).then(() => slideIt());
                 }

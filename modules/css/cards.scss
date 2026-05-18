@@ -60,7 +60,7 @@
         transition: none;
 
         &.mini-card.card-permanent {
-            background: #00bc03;
+            background: #00bc03;            
             box-shadow: 0px 0px 10px 4px lime;
 
             &:hover::after {
@@ -71,7 +71,6 @@
 
     &.selected {
         border: 4px solid #ffe300;
-        box-shadow: 0px 0px 10px 10px #9e8c00;
         // border: 4px solid #bbff00;
         // box-shadow: 0px 0px 10px 8px #2fb814;
         margin: -4px;
@@ -79,7 +78,6 @@
         &.mini-card.card-permanent {
             border: 2px solid #ffe300;
             background: #ffe300;
-            box-shadow: 0px 0px 10px 10px #9e8c00;
 
             &:hover::after {
                 display: none;
@@ -1127,14 +1125,12 @@
 }
 
 .altered-card.no-frame.card-hero.selected {
-    transform: scale(1.05);
-    margin: 3px 10px;
+    margin: 2px 5px;
 }
 
 .altered-card.no-frame.card-hero.keep {
     transform: scale(1.12);
-    margin: 3px 20px;
-    margin-top: -1px;
+    margin: 3px 5px;
     border: 2px solid #f3b200;
     box-shadow: 0px 0px 15px 0px #ffd000;
 }

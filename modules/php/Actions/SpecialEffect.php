@@ -728,9 +728,6 @@ class SpecialEffect extends \ALT\Models\Action
         $addEffects = Globals::getAdditionalEffect();
         $found = false;
         foreach ($addEffects as $i => $effect) {
-          if (isset($effect['sourceId'])) {
-            unset($effect['sourceId']);
-          }
           if (isset($effect['boost'])) {
             unset($effect['boost']);
           }
@@ -739,7 +736,8 @@ class SpecialEffect extends \ALT\Models\Action
             'from' => $args['from'],
             'limit' => $args['limit'] ?? INFTY,
             'effect' => $args['effect'],
-            'to' => ($args['to'] ?? null)
+            'to' => ($args['to'] ?? null),
+            'sourceId' => $card->getId(),
           ]) {
             Notifications::message(clienttranslate('Effect is ignored as already triggered'));
             $found = true;
