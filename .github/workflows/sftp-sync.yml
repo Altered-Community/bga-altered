@@ -164,16 +164,28 @@ jobs:
           done
 
           # 2) Fetch remote hashes (best-effort: missing files / first deploy → empty)
+          echo "[hash-gate] Listing remote $SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/ to diagnose gate state:"
           {
             echo "set sftp:auto-confirm yes"
             echo "set sftp:connect-program \"$SSH_PROG\""
             echo "open -u \"$SFTP_USERNAME,\" -p $SFTP_PORT sftp://$SFTP_HOST"
+            echo "cls -l \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/\""
             echo "lcd /tmp/remote-hashes"
             for entry in "${GATED[@]}"; do
               name=${entry%% *}
               echo "get \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/$name\""
             done
           } | lftp || true
+
+          echo "[hash-gate] Local vs remote hash files after fetch:"
+          for entry in "${GATED[@]}"; do
+            name=${entry%% *}
+            local_size=$(stat -c%s "/tmp/local-hashes/$name" 2>/dev/null || echo 0)
+            remote_size=$(stat -c%s "/tmp/remote-hashes/$name" 2>/dev/null || echo 0)
+            local_h=$(cat "/tmp/local-hashes/$name" 2>/dev/null | tr -d '[:space:]')
+            remote_h=$(cat "/tmp/remote-hashes/$name" 2>/dev/null | tr -d '[:space:]')
+            echo "  $name: local=${local_h:-<empty>} (${local_size}B), remote=${remote_h:-<empty>} (${remote_size}B)"
+          done
 
           # 3) Compare; build per-folder exclude regex and remember which changed.
           # When SFTP_DELETE_REMOTE=true, force all gates open so orphans inside
@@ -232,17 +244,19 @@ jobs:
             [ "${CHANGED[$name]:-0}" = "1" ] && SOMETHING_CHANGED=1
           done
           if [ "$SOMETHING_CHANGED" = "1" ]; then
+          echo "[hash-gate] Uploading fresh hash files to remote..."
           {
             echo "set sftp:auto-confirm yes"
             echo "set cmd:fail-exit yes"
             echo "set sftp:connect-program \"$SSH_PROG\""
             echo "open -u \"$SFTP_USERNAME,\" -p $SFTP_PORT sftp://$SFTP_HOST"
-            echo "mkdir -fp \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR\""
+            echo "mkdir -p \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR\""
             for entry in "${GATED[@]}"; do
               name=${entry%% *}
               if [ "${CHANGED[$name]:-0}" = "1" ]; then
                 echo "put -O \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR\" \"/tmp/local-hashes/$name\""
               fi
             done
+            echo "cls -l \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/\""
           } | lftp
           fi
