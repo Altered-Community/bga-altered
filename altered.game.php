@@ -45,7 +45,7 @@ use ALT\Core\Stats;
 use ALT\Core\Engine;
 use ALT\Core\Notifications;
 
-class alteredpreprod extends Table
+class altered extends Table
 {
   use ALT\DebugTrait;
   use ALT\States\SetupTrait;
@@ -78,7 +78,7 @@ class alteredpreprod extends Table
 
   protected function getGameName()
   {
-    return 'alteredpreprod';
+    return 'altered';
   }
 
   public function getAllDatas(): array

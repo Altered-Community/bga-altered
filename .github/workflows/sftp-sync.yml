@@ -24,6 +24,10 @@ on:
     branches:
       - preprod
       - master
+      - alteredbrancha
+      - alteredbranchb
+      - alteredbranchc
+      - alteredbranchd
   workflow_dispatch:
     inputs:
       environment:
@@ -32,6 +36,10 @@ on:
         options:
           - preprod
           - production
+          - alteredbrancha
+          - alteredbranchb
+          - alteredbranchc
+          - alteredbranchd
         default: preprod
       skip_images:
         description: "Append --exclude=img (omit img/ from upload)"
@@ -53,6 +61,10 @@ jobs:
         github.event_name == 'workflow_dispatch' && github.event.inputs.environment ||
         (github.ref_name == 'master' || github.ref_name == 'main') && 'production' ||
         github.ref_name == 'preprod' && 'preprod' ||
+        github.ref_name == 'alteredbrancha' && 'alteredbrancha' ||
+        github.ref_name == 'alteredbranchb' && 'alteredbranchb' ||
+        github.ref_name == 'alteredbranchc' && 'alteredbranchc' ||
+        github.ref_name == 'alteredbranchd' && 'alteredbranchd' ||
         'preprod'
       }}
 
@@ -80,6 +92,20 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Rename game slug to deployment target
+        env:
+          TARGET_SLUG: ${{ vars.SFTP_REMOTE_PATH }}
+        run: |
+          if [ -z "$TARGET_SLUG" ]; then
+            echo "::error::SFTP_REMOTE_PATH is empty; cannot determine rename target."
+            exit 1
+          fi
+          if [ -f "${TARGET_SLUG}.game.php" ]; then
+            echo "Slug already '${TARGET_SLUG}'; skipping rename."
+            exit 0
+          fi
+          python3 misc/python-tools/rename-game-slug.py --target "$TARGET_SLUG"
 
       - name: Upload via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
