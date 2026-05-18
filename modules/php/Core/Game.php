@@ -1,6 +1,6 @@
 <?php
 namespace ALT\Core;
-use alteredpreprod;
+use altered;
 
 /*
  * Game: a wrapper over table object to allow more generic modules
@@ -9,6 +9,6 @@ class Game
 {
   public static function get()
   {
-    return alteredpreprod::get();
+    return altered::get();
   }
 }
