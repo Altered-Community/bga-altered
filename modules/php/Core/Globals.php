@@ -238,7 +238,7 @@ class Globals extends \ALT\Helpers\DB_Manager
         self::setDeckFormat('SANDBOX');
         break;
       case 2:
-        self::setDeckFormat('SINGLETON');
+        self::setDeckFormat('SINGLETON_NUC');
         break;
       case 3:
         self::setDeckFormat('STANDARD');
