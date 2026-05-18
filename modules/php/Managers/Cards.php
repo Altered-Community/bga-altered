@@ -399,10 +399,11 @@ class Cards extends \ALT\Helpers\CachedPieces
         $properties['asset']  = self::getCoreUid($altUid) . '_U';
       }
     }
-    $properties['faction'] = Utils::convertFaction($unique['faction']);
+    $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
     $properties['name'] = $unique['name'];
     // $properties['type'] = constant($unique['cardType']['reference']);
-    $properties['type'] = constant($unique['cardType']);
+    $properties['type'] = constant($unique['cardType']['reference']);
+
 
     $subtypes = [];
     $typeline = [];
@@ -416,28 +417,17 @@ class Cards extends \ALT\Helpers\CachedPieces
     foreach ($unique['subTypes'] ?? [] as $v => $sub) {
       // ?? [] is temp!
       $subtypes[] = constant($sub);
-    }
-    foreach ($unique['typeline'] ?? [] as $v => $sub) {
-      // ?? [] is temp!
-      $typeline[] = clienttranslate($sub);
-    }
+    }   
     $properties['subtypes'] = $subtypes;
-    $properties['typeline'] = implode(' - ', $typeline);
+    $properties['typeline'] = $unique['typeline'];
     // $properties['artist'] = $unique['illustrator']['nickName']; old
     $properties['artist'] = $unique['illustrator'];
 
-    // old
-    // $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
-    // $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
-    // $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
-    // $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
-    // $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
-
-    $properties['costHand'] = $unique['costHand'];
-    $properties['costReserve'] = $unique['costReserve'];
-    $properties['forest'] = $unique['forest'];
-    $properties['mountain'] = $unique['mountain'];
-    $properties['ocean'] = $unique['ocean'];
+    $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
+    $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+    $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
+    $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+    $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
 
     // add effects
     $properties['uEffects'] = [];
@@ -445,16 +435,13 @@ class Cards extends \ALT\Helpers\CachedPieces
       // throw new \feException(print_r($cardElement));
       $trinity = [];
       // throw new \feException(print_r($cardElement));
-      foreach ($cardElement['effects'] as $i => $effect) {
-        $trinity = [];
-        foreach ($effect as $j => $idGd) {
-          if (in_array($idGd, TRIGGER)) {
-            $trinity['trigger'] = $idGd;
-          } elseif (in_array($idGd, \CONDITION)) {
-            $trinity['condition'] = $idGd;
-          } elseif (in_array($idGd, OUTPUT)) {
-            $trinity['output'] = $idGd;
-          }
+      foreach ($cardElement['effects'] as $i => $idGd) {
+        if (in_array($idGd, TRIGGER)) {
+          $trinity['trigger'] = $idGd;
+        } elseif (in_array($idGd, \CONDITION)) {
+          $trinity['condition'] = $idGd;
+        } elseif (in_array($idGd, OUTPUT)) {
+          $trinity['output'] = $idGd;
         }
         if (empty($trinity)) {
           continue;
