@@ -99,13 +99,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Restore mtimes from git history
-        run: |
-          sudo apt-get install -y -qq git-restore-mtime
-          git restore-mtime -v
 
       - name: Rename game slug to deployment target
         env:
@@ -180,7 +173,7 @@ jobs:
               name=${entry%% *}
               echo "get \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR/$name\""
             done
-          } | lftp -q || true
+          } | lftp || true
 
           # 3) Compare; build per-folder exclude regex and remember which changed.
           # When SFTP_DELETE_REMOTE=true, force all gates open so orphans inside
