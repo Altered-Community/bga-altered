@@ -36,7 +36,7 @@
       "0": {
         "name": "Standard No Unique",
         "tmdisplay": "Standard No Unique",
-        "description": "40-60 cards, standard rules without unique. "
+        "description": "40-60 cards, standard rules without unique."
       },
       "1": {
         "name": "Sandbox",
@@ -49,8 +49,8 @@
         "description": "60-80 cards, Singleton rules without unique. "
       },
       "3": {
-        "name": "All Uniques",
-        "tmdisplay": "All Uniques",
+        "name": "Standard All Uniques",
+        "tmdisplay": "Standard All Uniques",
         "description": "40-60 cards, standard rules, all uniques unlocked."
       }
     }
