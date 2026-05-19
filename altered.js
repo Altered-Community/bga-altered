@@ -134,6 +134,7 @@
        this._diceIndex = 1;
        this._undoPossible = true;
        this._beginner = false;
+       this._deckFormat = 'STANDARD';
  
        this.draggables = [];
        this.draggableCards = [];
@@ -383,6 +384,7 @@
        this.updateDefenders();
        this._undoPossible = gamedatas.undo;
        this._beginner = gamedatas.beginner;
+       this._deckFormat = gamedatas.deckFormat || 'STANDARD';
  
        this.inherited(arguments);
        this._tryCacheAccountConfiguredFromGamestateArgs();
@@ -838,6 +840,10 @@
          this._cachedAccountConfiguredForApiDecks = !!a._private.accountConfigured;
        }
      },
+      
+     isSingletonDeckFormat() {
+       return this._deckFormat.indexOf('SINGLETON') !== -1;
+     },
  
      /**
       * Deck picker / fetchDecks: whether this player's BGA account is linked / ready for custom API decks.
@@ -896,14 +902,16 @@
            </div>
          </div>
        `;
-       this.openOverlay();
-       this.addSecondaryActionButton('btnBackFromCustom', _('Back'), () => {
-         if ($('btnBackFromCustom')) $('btnBackFromCustom').remove();
-         this._customDeckSelectedFaction = null;
-         this.onEnteringStateSelectPrecoDeck(this._lastSelectPrecoDeckArgs);
-       });
-       this.addToggleOverlayButton();
-     },
+      this.openOverlay();
+      if (!this.isSingletonDeckFormat()) {
+        this.addSecondaryActionButton('btnBackFromCustom', _('Back'), () => {
+          if ($('btnBackFromCustom')) $('btnBackFromCustom').remove();
+          this._customDeckSelectedFaction = null;
+          this.onEnteringStateSelectPrecoDeck(this._lastSelectPrecoDeckArgs);
+        });
+      }
+      this.addToggleOverlayButton();
+    },
  
      /**
       * Starts the deck list fetch from RE:Union. Account binding is validated by the fetch result
@@ -1064,7 +1072,19 @@
        }
        if (deckNumber == 'random') return;
  
-       let decks = args._private.decks || [];
+      if (this.isSingletonDeckFormat()) {
+        const gsName = this.gamedatas.gamestate && this.gamedatas.gamestate.name;
+        if (gsName === 'fetchDecks' || gsName === 'chooseFetchedDeck') {
+          return;
+        }
+        if ($('overlay-deck-selection') || $('api-fetch-decks')) {
+          return;
+        }
+        this.requestFetchDecksOrAccountConfigurationMessage();
+        return;
+      }
+
+      let decks = args._private.decks || [];
        let previousDeck = decks.find((deck) => '' + deck.deckNumber == '' + deckNumber) || null;
        const getFactionGroup = (faction) => faction;
       let factions = [...new Set(decks.map((deck) => getFactionGroup(deck.faction)))];
