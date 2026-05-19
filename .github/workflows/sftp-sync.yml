@@ -254,10 +254,14 @@ jobs:
           echo "[hash-gate] Uploading fresh hash files to remote..."
           {
             echo "set sftp:auto-confirm yes"
-            echo "set cmd:fail-exit yes"
             echo "set sftp:connect-program \"$SSH_PROG\""
             echo "open -u \"$SFTP_USERNAME,\" -p $SFTP_PORT sftp://$SFTP_HOST"
+            # mkdir tolerates the "already exists" error (lftp's `mkdir -p` is
+            # not idempotent on every SFTP server). The strict fail-exit is
+            # re-enabled before the actual uploads so any put failure aborts.
+            echo "set cmd:fail-exit no"
             echo "mkdir -p \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR\""
+            echo "set cmd:fail-exit yes"
             for entry in "${GATED[@]}"; do
               name=${entry%% *}
               if [ "${CHANGED[$name]:-0}" = "1" ]; then
