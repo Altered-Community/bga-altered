@@ -1306,7 +1306,7 @@
        $('altered-overlay-content').insertAdjacentHTML(
          'beforeend',
          `
-         <h2>${_('Fetching your decks from RE:Union')}</h2>
+         <h2>${_('Fetching your decks from Re:Union')}</h2>
          <div id='api-fetch-decks' class='fetching'>
            <div id='api-loader' class="spinning-loader"></div>
            <div id="api-error"></div>
