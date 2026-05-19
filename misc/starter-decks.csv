@@ -1,5 +1,5 @@
-1. Name or Nickname;3. Hero;4. Decklist;5. Deck Description  ;6. Cards;
-Viko;Afanas & Senka;https://www.altered.gg/decks/01KQ515FND3DZ5EGENY7BE4QCM;An easy to pilot, pleasant Afanas recipe where you do what you do best : lots of spell slinging, and lots of little guys to carry the boosts. ;"1 ALT_CORE_B_YZ_03_C
+Creator;Hero;Description;Description Claude Revised;Deck Letter;Decklist_URL;Decklist
+Viko;Afanas & Senka;An easy to pilot, pleasant Afanas recipe where you do what you do best : lots of spell slinging, and lots of little guys to carry the boosts.;A streamlined spell-slinger deck built around Afanas' ability to boost small characters with repeated spell casts. The game plan is to flood the board with low-cost units and use constant spell slinging to stack boosts onto them, snowballing card advantage through the midgame. Key engines include Alize's cheap spells for consistent activation and small Yzmir creatures that absorb and redistribute boosts. Break the Ice and bounce effects protect the board from threats while maintaining tempo. This deck is easy to pilot and ideal for beginners, teaching the core Yzmir loop of spells and small bodies working in tandem.;Afanas A;https://www.altered.gg/decks/01KR4QH72VS4KQZXPKTNC8HQD6;"1 ALT_CORE_B_YZ_03_C
 2 ALT_ALIZE_B_YZ_42_C
 1 ALT_COREKS_B_YZ_24_C
 3 ALT_ALIZE_B_YZ_41_C
@@ -15,78 +15,73 @@ Viko;Afanas & Senka;https://www.altered.gg/decks/01KQ515FND3DZ5EGENY7BE4QCM;An e
 2 ALT_COREKS_B_BR_16_R2
 2 ALT_COREKS_B_MU_08_R2
 3 ALT_COREKS_B_YZ_22_C
-1 ALT_COREKS_B_YZ_14_C";
-CoraSan;Akesha & Taru;https://www.altered.gg/decks/01KQ5GM97XFWG59DZKDFQ3H1D7;"This deck shows the core mechanics of Akesha, a mage control archetype.
-The main objective is to maintain equality in early game progress to finish with a strong end. To succeed, players need to benefit the spells with cost reduction and bounce mechanic. Control your enemies and finish the game with strong combos !";"1 ALT_CORE_B_YZ_01_C
-3 ALT_CORE_B_YZ_21_C
-3 ALT_CORE_B_YZ_19_C
-2 ALT_CORE_B_MU_28_R2
-2 ALT_CORE_B_YZ_14_C
-2 ALT_BISE_B_YZ_52_C
-2 ALT_BISE_B_YZ_56_R1
-2 ALT_CORE_B_YZ_06_C
-3 ALT_CORE_B_YZ_04_C
-2 ALT_ALIZE_B_LY_39_R2
-2 ALT_ALIZE_B_YZ_42_C
-3 ALT_CORE_B_LY_07_R2
+1 ALT_COREKS_B_YZ_14_C"
+CoraSan;Akesha & Taru;"This deck shows the core mechanics of Akesha, a mage control archetype.
+The main objective is to maintain equality in early game progress to finish with a strong end. To succeed, players need to benefit the spells with cost reduction and bounce mechanic. Control your enemies and finish the game with strong combos !";A mage control deck built around Akesha's ability to leverage spell cost reductions and bounce mechanics. The goal is to maintain parity in the early game through efficient trades, then take over with high-value spell combos in the late game. Key tools include cost-reduction permanents that unlock powerful early plays and bounce effects that recycle threats while disrupting the opponent's board. Control is maintained through exhaust effects and well-timed responses, setting up decisive finishing combos. This deck is a solid introduction to Yzmir's reactive playstyle, teaching players how to manage tempo and timing their spells for maximum impact.;Akesha B;https://www.altered.gg/decks/01KR4SYCHPGN5WZW7KMF17WQGV;"1 ALT_CORE_B_YZ_01_C
 2 ALT_CYCLONE_B_YZ_72_C
-3 ALT_CORE_B_YZ_13_R1
 2 ALT_CYCLONE_B_YZ_69_C
-3 ALT_CORE_B_YZ_11_R1
+2 ALT_CORE_B_YZ_14_C
+3 ALT_CORE_B_YZ_13_R1
 2 ALT_CORE_B_YZ_12_C
-1 ALT_COREKS_B_YZ_06_C";
-Mason Ulves;Arjun & Spike;https://www.altered.gg/en-us/decks/01KQ38H1SWBRHRHESEXG0859YD;"This deck is built around the Anchored mechanic, using Arjun’s ability and various discard effects to turn the Reserve into an active resource rather than just a second hand.
+3 ALT_CORE_B_YZ_11_R1
+3 ALT_CORE_B_YZ_06_C
+3 ALT_COREKS_B_YZ_04_C
+3 ALT_COREKS_B_LY_07_R2
+2 ALT_BISE_B_YZ_56_R1
+2 ALT_BISE_B_YZ_52_C
+3 ALT_CORE_B_YZ_19_C
+2 ALT_COREKS_B_MU_28_R2
+2 ALT_ALIZE_B_YZ_42_C
+2 ALT_ALIZE_B_LY_39_R2
+3 ALT_CORE_B_YZ_21_C"
+Zadibouc;Arjun & Spike;"Arjun Resupply has been one the most standard ways to play Arjun since set 2 and has the advantage not to be a Gift Deck (like the Quetzal version), giving him a unique gameplay rather than using the same cardpool as Turuun.
 
-The goal is to introduce new players to alternative ways of generating value, showing that cards can be used not only by playing them, but also through discard and Reserve interactions. The inclusion of Resupply further reinforces this loop, creating a simple and repeatable engine that is easy to understand.
+The deck is rather simple to understand; we want to resupply a lot with Aloe Vera, Floral Tent and Harvest, so that we can feed Arjun's power, and also find anchoring support effects. We have 11 support effets, 8 anchor and 3 sleep, to help keeping a strong board presence once the midgame starts. 
 
-The deck maintains a clear and consistent game plan: establish board presence while gaining incremental advantage through Anchored triggers. Card choices focus on readability and synergy, avoiding overly complex interactions.
+The main anchor targets are Inari, Aloe and Reka Investor for the Card/Mana advantage they give; a Corgi or a Skater can be secondary targets for their good stats.
 
-As a starter deck, it highlights Arjun’s unique identity while remaining approachable, helping players learn both core mechanics and more advanced concepts like Reserve management in a natural way.";"1 ALT_CORE_B_MU_02_C
-2 ALT_COREKS_B_MU_23_R1
-3 ALT_COREKS_B_MU_16_C
-2 ALT_COREKS_B_MU_12_R1
-1 ALT_COREKS_B_MU_08_C
-3 ALT_COREKS_B_MU_06_C
-2 ALT_COREKS_B_MU_13_C
+We also run 3 Requiem and 2 Sap Duende as our interaction cards; they can be quite key against some matchups to answer various threats (Festival, The Hunger, Astrape).
+
+I tried to keep cards complexity quite low by using a lot of vanilla cards or single line texts. We could lower complexity even more with Rare Cernunnos instead of Skaters or Investors, but it would also weaken a deck that is already quite in the lower tiers of competition.
+
+Overall, I think it's a very enjoyable deck that offers a vast variety of playlines and can thrive when rightfully mastered. It is also quite thrilling to play Harvest rare and be dependent on the RNG of resupplying the cards you need; we're not throwing dice in Muna, but this deck can make you feel the same sometimes.";A resupply-focused midrange deck built around fueling Arjun's power through repeated reserve refills. The strategy is to resupply aggressively using Aloe Vera, Floral Tent, and Harvest while anchoring key characters like Inari and Reka Investor for sustained card and mana advantage. The deck runs 11 support effects, 8 anchor effects, and 3 sleep effects to dominate the mid-to-late game board, with Requiem and Sap Duende as flexible interaction pieces. Harvest Rare adds an exciting RNG element, making each resupply feel impactful and different. The deck uses mostly low-complexity cards and is approachable for newer players, while offering deep play lines for those who invest time in mastering it.;Arjun C;https://www.altered.gg/decks/01KR4TXW97KV1DSBQ24H2CY8DT;"1 ALT_CORE_B_MU_02_C
+3 ALT_DUSTER_B_OR_92_R2
+3 ALT_DUSTER_B_MU_88_C
+3 ALT_CORE_B_MU_16_C
+3 ALT_CORE_B_MU_13_C
 3 ALT_CORE_B_MU_11_R1
-3 ALT_COREKS_B_MU_04_C
-3 ALT_BISE_B_MU_58_C
-3 ALT_BISE_B_MU_52_R1
-2 ALT_ALIZE_B_MU_31_R1
-2 ALT_COREKS_B_MU_29_C
-2 ALT_COREKS_B_MU_28_C
-2 ALT_COREKS_B_MU_25_C
-2 ALT_ALIZE_B_MU_42_C
-2 ALT_ALIZE_B_MU_44_C
-2 ALT_COREKS_B_MU_08_R1";
-Marc - The Bravos Hatter;Atsadi & Surge;https://www.altered.gg/en-us/decks/01KQAMZF5B1SCH2F0ZDGND7W8D;"For me Atsadi is all about ramping into big giant characters. That is what this deck is about. Small low to the ground ramp cards, followed by big gigantic monsters. To make sure you dont screw yourself with only big cards, i run reunion to draw a lot of cards. 
-
-Early game:
-Play cards to ramp: scout in a swift jinn, or play ramp cards like mana channeling, bravos signet or mighty jinn.
-Draw cards with Spotter, reunion and your hero power.
-
-Mid game:
-Stable yourself with energy bar combos with Sakarabru (put your opponent back on both expeditions) or with big Lernean Hydra. 
-
-End game:
-Finish things of with Kaibara, Hunger (gigantic due milk) or Halua, all protected by Kauri's intervention and buffed by Bravos signet.";"1 ALT_CORE_B_BR_02_C
-3 ALT_BISE_B_YZ_56_R2
-2 ALT_ALIZE_B_BR_45_C
+3 ALT_CORE_B_MU_04_C
+3 ALT_BISE_B_MU_52_C
+2 ALT_BISE_B_BR_52_R2
+3 ALT_ALIZE_B_MU_32_C
+3 ALT_CORE_B_MU_29_R1
+3 ALT_BISE_B_MU_60_C
+2 ALT_BISE_B_LY_61_R2
+2 ALT_ALIZE_B_MU_41_R1
+3 ALT_ALIZE_B_MU_44_C"
+VaderMIB;Atsadi & Surge;"Atsadi ramp resources advantage.
+Atsadi has always be the hero for ramp and so feeling the hero right is feeling the mana advantage you built pay off with huge characters summonings.
+Also, Atsadi's signature moves should be kept: Saka-bar and Hunger.
+So, Atsadi has to adapt ramping without uniques, which is more complicated. I chose  rare mana channeling because of the +. And Djinns.
+Saka helps managing being late in expeditions as you ramp early.";A ramp deck built around Atsadi's ability to accelerate mana and deploy massive characters far ahead of schedule. The game plan is to channel mana early using rare Mana Channeling and Djinns, then convert that advantage into overwhelming board presence with large summons. Saka-bar and The Hunger serve as the deck's signature win conditions, while Saka itself provides crucial tempo management when falling behind in expeditions. The deck exemplifies Atsadi's core identity ï¿½ building a mana engine that eventually becomes too powerful for opponents to answer. It is a compelling option for players who enjoy the satisfaction of ramping up and unleashing powerful late-game plays.;Atsadi A;https://www.altered.gg/decks/01KR4W2FJG7DKC91TE1R3EAV8R;"1 ALT_CORE_B_BR_02_C
 3 ALT_COREKS_B_BR_19_C
 3 ALT_BISE_B_BR_57_C
 3 ALT_CYCLONE_B_BR_79_C
+3 ALT_BISE_B_BR_59_C
+3 ALT_BISE_B_YZ_56_R2
 3 ALT_CYCLONE_B_MU_75_R2
+2 ALT_ALIZE_B_BR_45_C
+1 ALT_ALIZE_B_BR_41_C
 1 ALT_COREKS_B_BR_27_C
-3 ALT_BISE_B_LY_58_R2
-3 ALT_COREKS_B_YZ_18_R2
-2 ALT_BISE_B_BR_59_C
-1 ALT_COREKS_B_BR_24_R1
-3 ALT_CYCLONE_B_BR_69_C
-3 ALT_ALIZE_B_BR_43_C
-2 ALT_BISE_B_BR_52_C
+1 ALT_CYCLONE_B_BR_80_C
+2 ALT_ALIZE_B_BR_43_C
+3 ALT_CYCLONE_B_BR_69_R1
+2 ALT_COREKS_B_BR_24_R1
+2 ALT_COREKS_B_YZ_18_R2
 2 ALT_CYCLONE_B_BR_77_C
-2 ALT_COREKS_B_BR_27_R1";
-The_Vary;Auraq & Kibble;https://www.altered.gg/en-us/decks/01KQ9FZ4XC7HBP6R9D2A69XF5J;Auraq is not the strongest but one of the most funny hero to play. His power is like Heaven or Hell, and that's what i want to do with this starter deck proposal: a deck that aims to trigger the hero power at least 2 times in a game easily to see how it works and to feel the thrill of flipping some big drops for free. Of course you could always top deck a 1 mana body, but that's how Auraq is :) I thought about putting common Nuit in this deck but in the end i gave that up because I think that Nuit plays requires some knowlege of the game, of the cards in deck and some setup. Instead i went for a more aggro / draw strategy, put some cheap removals (break the ice is the best removal in game if played in Auraq) and some winter outfits to help deal with the 0 play that can be hard for a new player.;"1 ALT_CORE_B_LY_02_C
+2 ALT_COREKS_B_BR_27_R1
+3 ALT_BISE_B_BR_52_C"
+The_Vary;Auraq & Kibble;Auraq is not the strongest but one of the most funny hero to play. His power is like Heaven or Hell, and that's what i want to do with this starter deck proposal: a deck that aims to trigger the hero power at least  times in a game easily to see how it works and to feel the thrill of flipping some big drops for free. Of course you could always top deck a  mana body, but that's how Auraq is :) I thought about putting common Nuit in this deck but in the end i gave that up because I think that Nuit plays requires some knowlege of the game, of the cards in deck and some setup. Instead i went for a more aggro / draw strategy, put some cheap removals (break the ice is the best removal in game if played in Auraq) and some winter outfits to help deal with the play that can be hard for a new player.;A high-variance aggro deck built around Auraq's chaotic hero power that can flip cards of any cost for free. The game plan is to trigger the hero power as many times as possible through an aggressive draw strategy, hoping to land big free threats while applying constant pressure. Cheap removal like Break the Ice shines in this deck, as it can be cast during expeditions to maintain tempo and enable hero power triggers. Winter Outfit effects provide resilience against difficult plays that might otherwise overwhelm new pilots. This deck teaches players to embrace calculated risk-taking and is an excellent introduction to Lyra's aggressive tools.;Auraq B;https://www.altered.gg/decks/01KR4X9V9HR5Q5QSGC19EW23BS;"1 ALT_CORE_B_LY_02_C
 3 ALT_CORE_B_MU_22_R2
 3 ALT_CORE_B_LY_27_C
 3 ALT_ALIZE_B_BR_34_R2
@@ -101,30 +96,31 @@ The_Vary;Auraq & Kibble;https://www.altered.gg/en-us/decks/01KQ9FZ4XC7HBP6R9D2A6
 2 ALT_CYCLONE_B_LY_68_C
 3 ALT_DUSTER_B_LY_88_C
 2 ALT_CORE_B_LY_24_C
-3 ALT_BISE_B_BR_59_R2";
-Joli rouge gorge ;Basira & Kaizaimon;https://www.altered.gg/decks/01KQVWHQCTN1T8YDBK305BA5ER;This Basira list focuses on removing fleeting from characters with different pay offs and effect, either #drawing, ramping or just keeping the seasoned characters going to reserve to create value and threats.;"1 ALT_CORE_B_BR_03_C
+3 ALT_BISE_B_BR_59_R2"
+Spartacus;Basira & Kaizaimon;This NUC deck has already proven itself in BGA tournaments. With Basira, the goal is to generate strong boosts and Card advantages. We want access to sabotage and exhaust effects, which is why I included one Akhlut and two Suha, we love this cards. Of course, thereï¿½s also an Hungers to end a game. I added three different removals that are commonly played in Basira builds. The deck is very accessible and easy to pick up, we will love it. And finally, Coucou, my favorite card !;A proven boost-and-control deck built around Basira's ability to generate powerful stat advantages and card draw. The strategy is to accumulate boosts and card advantage while using sabotage and exhaust effects ï¿½ provided by Akhlut and Suha ï¿½ to disrupt the opponent's key pieces. Three distinct removal types round out the suite, keeping the deck flexible across a variety of matchups, and The Hunger serves as a reliable game-ending threat. The deck has already demonstrated its strength in BGA tournament settings and performs consistently against the meta. It is very accessible and easy to pick up, making it an excellent starting point for players learning Bravos faction fundamentals.;Basira F;https://www.altered.gg/decks/01KR4XMZN29DQJ5VB9PS3Y21TZ;"1 ALT_CORE_B_BR_03_C
+1 ALT_ALIZE_B_BR_38_R1
+1 ALT_CORE_B_BR_28_C
 2 ALT_DUSTER_B_BR_86_C
-1 ALT_DUSTER_B_BR_102_C
+2 ALT_BISE_B_BR_50_C
+2 ALT_CYCLONE_B_YZ_70_R2
 3 ALT_CYCLONE_B_MU_70_R2
-3 ALT_CYCLONE_B_YZ_70_R2
-3 ALT_BISE_B_BR_52_C
-2 ALT_BISE_B_BR_61_C
-1 ALT_BISE_B_YZ_56_R2
+3 ALT_CYCLONE_B_BR_81_R1
+3 ALT_COREKS_B_BR_16_C
 3 ALT_ALIZE_B_BR_32_C
-2 ALT_CORE_B_BR_16_C
-3 ALT_CORE_B_BR_11_C
-3 ALT_CORE_B_BR_10_C
-2 ALT_CORE_B_BR_14_R1
-3 ALT_CORE_B_BR_19_R1
-3 ALT_CORE_B_BR_25_C
-2 ALT_CORE_A_BR_26_R1
-1 ALT_CORE_B_LY_06_R2
-2 ALT_CORE_B_BR_29_C";
-Eldritch Madcap;Della & Bolt;https://www.altered.gg/en-us/decks/01KQ5KHNP877CG1YW1SZATY3SX;"Della Exhaust 
+1 ALT_BISE_B_YZ_56_R2
+3 ALT_COREKS_B_BR_11_C
+3 ALT_BISE_B_BR_52_C
+2 ALT_CORE_B_BR_25_C
+3 ALT_COREKS_B_BR_05_C
+3 ALT_COREKS_B_BR_26_R1
+1 ALT_BISE_B_BR_61_C
+1 ALT_DUSTER_B_BR_100_C
+2 ALT_DUSTER_B_MU_88_R2"
+Eldritch Madcap;Della & Bolt;"Della Exhaust 
 
 The deck works extensively on the reserve, with a focus on exhausted characters and landmarks, leveraging the core ability of Della&Bolt (and  other cards) to ready exhausted cards. The exhaust mechanic in this deck also creates useful sinergies such as gaining boosts, reducing mana costs and drawing cards. ( with permanents such as Axiom Exhibit, Science Fair and The Nilam). The deck can be useful to get more confident with the reserve related mechanics typical of Axiom and the sinergies coming from multiple exhaust/ready actions that can occur during a turn.
 Strategy does not require ramping mana fast but focus on drawing cards, expecially in reserve to activate the many ""play from reserve"" abilities of the deck. 
-";"1 ALT_DUSTER_B_AX_85_C
+";An exhaust-synergy control deck built around Della's ability to ready exhausted characters and permanents. The strategy centers on keeping exhausted cards in play and cycling them through repeat activations, using permanents like Axiom Exhibit, Science Fair, and The Nilam to generate boosts, reduce mana costs, and draw cards. A deep reserve-play package allows cards to be cast directly from reserve, making the deck efficient and hard to disrupt. Rather than ramping quickly, this deck rewards patient play and building incremental advantage through layered exhaust-and-ready combinations. It is an excellent way for new Axiom players to explore reserve mechanics and understand how multi-step action sequences generate value.;Della A;https://www.altered.gg/decks/01KR4XP17PN2MN095D2HJC00M6;"1 ALT_DUSTER_B_AX_85_C
 2 ALT_DUSTER_B_AX_87_R1
 3 ALT_ALIZE_B_AX_32_C
 3 ALT_DUSTER_B_AX_89_R1
@@ -140,43 +136,38 @@ Strategy does not require ramping mana fast but focus on drawing cards, expecial
 2 ALT_DUSTER_B_AX_100_R1
 2 ALT_ALIZE_B_YZ_45_R2
 3 ALT_CORE_B_AX_07_C
-2 ALT_DUSTER_B_AX_97_R1";
-Tricen;Fen & Crowbar;https://www.altered.gg/decks/01KQX87TWXD2E1KVTTW9D4QHTG;"Fen is fun with cards that build, and build off of, the reserve. This deck takes some of the early set evergreen Fen cards and adds in cards from the other sets to support the reserve build and play. The goal is to be fun and show off interactions from multiple sets. No card costs more than 3 mana, so you have to set up to let the characters punch above their weight class.
+2 ALT_DUSTER_B_AX_97_R1"
+YllKa;Fen & Crowbar;"This Fen & Crowbar deck is a very classic Lyra deck, designed to teach players how to play reactively. Its game plan is to let the opponent commit first, then respond with efficient cards in order to gain the advantage at the right moment.
 
-Some key aspects:
+There are several key cards, such as Aloe Vera, which can generate significant card advantage, and also helps with playing Anansi, keeping them in play thanks to the anchoring provided by the Hatters, and therefore controlling expeditions more effectively. Even though Fen does not let you choose your mana precisely in the morning, the sleight-of-hand effects allow you to create ï¿½after youï¿½ situations and bring down the right cards at the right time. For a new player, this is also simpler: they do not have to make a mana decision at the very beginning of each day.
 
-Build Your Reserve - Anansi is included as the classic Fen card that builds off your reserve. But this setup gets even better with Lyra Contortionist and Tech Lab Unit to build to a larger max reserve. Lyra Signet gives you the opportunity to turn any character into Anansi with its boost option. 
+The deck protects itself from opposing removal with Parliaments and controls the opponent. Sleep is very strong for closing out a game.
 
-Manage & Boost Your Reserve - Bliss Bassist, Doppelganger, and Soul Encounter let you keep boosts or boost characters in reserve, letting them come out stronger. Ouroboros Inkcaster lets you get key cards back into your hand. This is good for a noon Fen Resupply you'd rather have in hand.
-
-Boost Your Characters - Soul Encounter, Lyra Signet, Winter Outfits, and Eat Me Energy Bars help boost stats out in your expeditions.
-
-Defense - You may not have some of the biggest characters, so remove some of your opponent's with Cloth Cocoon, Requiem, Tanuki, and Sea Nymph. A Capella Training and Lyra Signet also help get rid of characters early by giving fleeting. Early A Capella Training, even day 1 if you are 2nd player can help disrupt your opponent early. Sap Duende is there to grab some late game boosts from an opponent's big character - especially fun to snag back boosts after someone drops The Hunger on your perfectly curated reserve.";"1 ALT_CORE_B_LY_03_C
-2 ALT_CYCLONE_B_BR_81_R2
-2 ALT_BISE_B_MU_60_R2
-3 ALT_BISE_B_AX_61_R2
-2 ALT_CORE_B_LY_22_C
-3 ALT_BISE_B_LY_51_C
+It is an excellent deck for beginners because it teaches important fundamentals of Altered: reading the opponentï¿½s turn, choosing when to spend your resources, positioning your characters well, and turning small answers into a gradual advantage.";A classic reactive control deck built around Lyra's strength in responding to opponents rather than committing first. The game plan is to let the opponent spend their resources, then answer with efficient cards and sleight-of-hand effects to create favorable After You situations, always staying one step ahead. Aloe Vera is the deck's key engine, generating significant card advantage while helping keep Anansi on board, anchored by the Hatters, to control expedition results. Parliament effects protect important characters from removal, and Sleep effects provide decisive closing power in the late game. This deck is an excellent choice for new players, as it teaches essential Altered fundamentals: reading the opponent's turn, managing resources, and turning small positional advantages into a gradual win.;Fen E;https://www.altered.gg/decks/01KR4XXX1MNRVADMTDB28HDGYG;"1 ALT_CORE_B_LY_03_C
+2 ALT_CYCLONE_B_LY_82_C
+1 ALT_CORE_B_AX_20_R2
+3 ALT_CORE_B_LY_10_R1
+2 ALT_CORE_B_LY_04_C
+3 ALT_ALIZE_B_LY_31_C
+3 ALT_CORE_B_LY_07_C
+2 ALT_ALIZE_B_LY_35_C
 3 ALT_CORE_B_LY_13_C
-2 ALT_CYCLONE_B_LY_68_C
-2 ALT_CYCLONE_B_LY_67_C
-2 ALT_CORE_B_LY_24_C
-2 ALT_ALIZE_B_LY_43_C
-2 ALT_DUSTER_B_MU_98_R2
-2 ALT_CORE_B_LY_09_C
-2 ALT_CYCLONE_B_OR_73_R2
-2 ALT_CYCLONE_B_LY_78_R1
-3 ALT_BISE_B_LY_49_C
-1 ALT_BISE_B_LY_61_R1
-1 ALT_ALIZE_B_BR_45_R2
-3 ALT_CORE_B_LY_10_C";
-Rinku;Gulrang & Tocsin;https://www.altered.gg/decks/01KQTNSN79HJ4EZPFQSKHMP797;"Slow and steady
+2 ALT_CORE_B_MU_16_R2
+2 ALT_CORE_B_LY_18_C
+2 ALT_ALIZE_B_LY_39_R1
+3 ALT_CORE_B_YZ_19_R2
+2 ALT_BISE_B_MU_60_R2
+3 ALT_CORE_B_LY_23_C
+3 ALT_CYCLONE_B_LY_78_C
+1 ALT_CORE_B_LY_24_C
+2 ALT_CYCLONE_B_BR_81_R2"
+Rinku;Gulrang & Tocsin;"Slow and steady
 Try to stop your opponents from advancing
 Axiom Signet works very well with all of the Permanents you have
 Don't be afraid to take off a turn to draw cards with Conjuring Seal
 Don't advance at all until Gulrang ability is active that way you can fully utilize Mesektet.
 Try to have your opponent advance equally on the Tumult.
-Has at least 1 card from each of Set 1-5";"1 ALT_CORE_B_OR_03_C
+Has at least 1 card from each of Set 1-5";A slow permanent-control deck built around stalling the Tumult and activating Gulrang's hero ability to unleash Mesektet. The strategy is to prevent the opponent from advancing while setting up a wall of permanents, using Axiom Signet to maximize efficiency across the board. Conjuring Seal provides crucial card draw during slow turns, ensuring the deck never runs out of resources while waiting for Gulrang's condition to activate. Once the hero ability is live, Mesektet becomes a dominant board presence that is extremely difficult for opponents to answer. The deck features at least one card from each of Sets 1ï¿½5, giving new players a broad overview of Ordis permanent tools and the unique patience-rewarding gameplay of Gulrang.;Gulrang B;https://www.altered.gg/decks/01KR4Y2GBP0HYQ0V1VWBMFY96X;"1 ALT_CORE_B_OR_03_C
 3 ALT_CORE_B_OR_16_R1
 3 ALT_ALIZE_B_OR_34_C
 3 ALT_BISE_B_OR_54_C
@@ -190,27 +181,26 @@ Has at least 1 card from each of Set 1-5";"1 ALT_CORE_B_OR_03_C
 2 ALT_BISE_B_OR_60_C
 3 ALT_CYCLONE_B_AX_76_R2
 3 ALT_CORE_B_OR_08_C
-2 ALT_ALIZE_B_OR_44_C";
-Luiginico;Isaree & Pebble;https://www.altered.gg/decks/01KQVYRYNJA0G0Y7J5S0Q9PQDZ;"The deck gets a lot of value for cheap and uses the hero's ability well.
-None of the cards are hard to understand, all of them have sinergies with each other.";"1 ALT_CYCLONE_B_AX_65_C
+2 ALT_ALIZE_B_OR_44_C"
+Vagamebond;Isaree & Pebble;Create aeroliths, profit from your overloaded reserve and your permanents to gain advantage over the opponent on expeditions or through card advantage! Paju, Priya, the Demolition Expert and the Aerolith Quarry create them. Marionnetist, Bessie and Lucan profit from them. Other permanents benefit from the overloaded permanent zone!;A meteorite-engine combo deck built around overloading the reserve at end of day to flood the board with Aerolith tokens. The core strategy is to use Paju, Priya, the Demolition Expert, and the Meteorite Quarry to generate Aeroliths, then exploit them with Puppeteer, Bessie, and Lucan for powerful board-wide effects and card advantage. The overloaded permanent zone also feeds secondary synergies across the rest of the deck, creating a self-sustaining value engine. Managing the reserve intelligently is the key skill, as the deck rewards players who plan their end-of-day setup carefully. This deck introduces players to Axiom's distinctive reserve-heavy playstyle and the unique tempo of building toward a resource payoff.;Isaree G;https://www.altered.gg/decks/01KR4YDHECJBM2RPH3TRDDGP4D;"1 ALT_CYCLONE_B_AX_65_C
 3 ALT_CYCLONE_B_AX_66_R1
+3 ALT_CYCLONE_B_AX_68_C
+3 ALT_CYCLONE_B_AX_67_R1
 3 ALT_CYCLONE_B_AX_70_C
-3 ALT_CYCLONE_B_AX_72_C
-1 ALT_CYCLONE_B_AX_74_R1
-1 ALT_CYCLONE_B_AX_75_C
-3 ALT_BISE_B_AX_53_R1
-3 ALT_BISE_B_AX_62_C
-3 ALT_ALIZE_B_AX_41_C
-3 ALT_ALIZE_B_AX_40_C
-2 ALT_ALIZE_B_AX_42_C
-3 ALT_CORE_B_AX_20_R1
-2 ALT_CORE_B_AX_21_R1
-3 ALT_CORE_B_AX_28_R1
+1 ALT_CYCLONE_B_AX_74_C
+3 ALT_CYCLONE_B_AX_82_C
+2 ALT_CYCLONE_B_AX_77_R1
+3 ALT_CYCLONE_B_AX_79_C
 3 ALT_CYCLONE_B_AX_80_C
-3 ALT_CYCLONE_B_AX_77_C";
-Cernnunos;Kauri & Puff;https://www.altered.gg/decks/01KPZJ589TBKGMGFHT81B5NH4Z;"A Kauri deck focused on animals. It's full of low-cost animals supported by Arawn for stat bursts. The Kauri card draw prevents you from getting too exhausted by playing a lot of low-costs. The other cards include Muna's classic spell set and good 3-mana animals. Special mention goes to the otter, which combos well with Pelican and caregiver.
+2 ALT_CYCLONE_B_BR_74_R2
+3 ALT_CORE_B_AX_28_R1
+3 ALT_CYCLONE_B_AX_72_C
+2 ALT_COREKS_B_AX_21_R1
+3 ALT_ALIZE_B_AX_41_C
+2 ALT_CORE_B_AX_07_C"
+Cernnunos;Kauri & Puff;"A Kauri deck focused on animals. It's full of low-cost animals supported by Arawn for stat bursts. The Kauri card draw prevents you from getting too exhausted by playing a lot of low-costs. The other cards include Muna's classic spell set and good -mana animals. Special mention goes to the otter, which combos well with Pelican and caregiver.
 
-The deck works well as a starter deck because, despite its animal focus, it offers a variety of effects (Ascend, Anchor, Tough, Sleep, Move to reserve, removal, etc.) while remaining fairly straightforward and not requiring many combos to function.";"1 ALT_CYCLONE_B_MU_65_C
+The deck works well as a starter deck because, despite its animal focus, it offers a variety of effects (Ascend, Anchor, Tough, Sleep, Move to reserve, removal, etc.) while remaining fairly straightforward and not requiring many combos to function.";A low-cost animal-tribal deck built around Kauri's card draw ability to sustain a constant stream of cheap threats. The strategy is to flood the board with efficient animals, supported by Arawn for stat bursts, while Kauri's power prevents hand exhaustion from the high volume of plays. Classic Muna spells complement the creature suite, and the Otter provides a notable combo with Pelican and Caregiver for unexpected value generation. Despite its tribal focus, the deck covers a wide range of mechanics ï¿½ Ascend, Anchor, Tough, Sleep, and removal ï¿½ without requiring complex multi-card setups to function. It is a great starter deck for new players, offering a diverse toolkit within a straightforward and intuitive game plan.;Kauri A;https://www.altered.gg/decks/01KR4YGMFCNTZH9WSBR20Y9RPQ;"1 ALT_CYCLONE_B_MU_65_C
 3 ALT_CYCLONE_B_YZ_72_R2
 3 ALT_CYCLONE_B_MU_70_C
 3 ALT_BISE_B_MU_57_R1
@@ -225,16 +215,16 @@ The deck works well as a starter deck because, despite its animal focus, it offe
 3 ALT_CORE_B_MU_04_C
 3 ALT_BISE_B_MU_50_C
 1 ALT_CORE_B_MU_26_C
-2 ALT_ALIZE_B_MU_34_R1";
-Cohlrabi;Kojo & Booda;https://www.altered.gg/decks/01KQFE2F6RMDXJCFJ31Q3FYXGD;"Hungry Hungry Kojo. 
+2 ALT_ALIZE_B_MU_34_R1"
+Cohlrabi;Kojo & Booda;"Hungry Hungry Kojo. 
 
 This is just meant to be a straightforward Kojo as he is currently list. It shows off a lot of what current players are doing with the hero. 
 
-The Hunger is a fun and splashy card that might excite new players, Fisherman is strong and has an interesting strategy, and rage in there to see players eyes light up when they realize they can hit Booda with it. ";"1 ALT_CORE_B_BR_01_C
-3 ALT_ALIZE_B_BR_32_C
+The Hunger is a fun and splashy card that might excite new players, Fisherman is strong and has an interesting strategy, and rage in there to see players eyes light up when they realize they can hit Booda with it. ";A straightforward aggressive deck showcasing the best of Kojo's current toolkit. The strategy is to maintain pressure through powerful Bravos characters and key synergies, building toward The Hunger as a splashy and exciting game-ending threat that tends to captivate new players. Fisherman adds strategic depth through its resource manipulation, while Rage creates memorable moments by targeting Booda for unexpected board-wide effects. The deck reflects what experienced players are doing with Kojo in the current meta and works well as a showcase of the hero's strengths. It is accessible to newcomers while offering enough layers for experienced players to explore.;Kojo A;https://www.altered.gg/decks/01KR4YWCDKWY9YG3GDHTA1PRS2;"1 ALT_CORE_B_BR_01_C
 3 ALT_BISE_B_YZ_56_R2
 3 ALT_CORE_B_BR_05_C
 3 ALT_CORE_B_BR_08_C
+3 ALT_ALIZE_B_BR_32_C
 3 ALT_CORE_B_BR_19_C
 2 ALT_CORE_B_BR_26_R1
 2 ALT_CORE_B_BR_29_R1
@@ -244,102 +234,135 @@ The Hunger is a fun and splashy card that might excite new players, Fisherman is
 2 ALT_CYCLONE_B_BR_81_R1
 3 ALT_DUSTER_B_BR_89_C
 3 ALT_DUSTER_B_BR_94_R1
-3 ALT_COREKS_B_BR_07_C";
-Elfiris;Lindiwe & Maw;https://www.altered.gg/decks/01KQ733M4JFVPAC6R7T7A9E2X4;"Lindiwe is an Exalt with a unique synergy built around balancing the number of characters to sacrifice and the number of cards allowing to sacrifice. Without Uniques, draw also becomes a crucial factor.
+3 ALT_COREKS_B_BR_07_C"
+Arthour;Lindiwe & Maw;"Classic Lindiwe starter deck
 
-This deck is built around a good balance between both the fuel and the cards that sacrifice, while also including cards that provide draw (Medusa, Baba Yaga, Houdini, Baba’s Hut).
+Core strategy : 
+Deal with high value opponent's cards with removal cards and ""after you"" cards, while winning expeditions with an army of mana moths and a highly boosted Maw.
+This requires a good balance between sacrifice effects, low cost characters to sacrifice, removal cards, and of course the draw to get all these cards in hand.
 
-With that balance, reliable draw, and several of the Exalt’s signature cards, this deck is a great way to explore the sacrifice mechanics specific to Lindiwe and Maw.
+Key synergies :
+- Perfect balance between sacrifice effects and characters to sacrifice => sacrifice cards / effects (isba counted thrice, lantern counted twice).
+9 cards / characters to sacrifice (jellyfish and armory counted twice, mana moths excluded because they only transfer stats)
+- Chrysalis and mobile armory => moving forward with defenser characters
+- After you with removal cards => Baba's isba and all the low cost characters provide enough tempo to handle many situations with the removal cards.
 
-It’s still important to be able to interact with and manage the opponent’s resources, so the usual removal/interaction package is included.
-
-The Kraken is the clutch finisher, capable of closing out games in the late game.";"1 ALT_CORE_B_YZ_02_C
-3 ALT_COREKS_B_YZ_28_R1
+This decks works as a starter deck because it contains most of the main cards designed for Lindiwe, useful for the player to learn the basics.";A sacrifice-engine control deck built around Lindiwe's ability to generate boosts and draw through recurring character sacrifice. The game plan is to cycle low-cost characters as sacrifice fuel while using After You removal spells ï¿½ enabled by Baba's Isba and cheap tempo plays ï¿½ to neutralize the opponent's threats, ultimately winning expeditions with a massively boosted Maw. Chrysalis and Mobile Armory create a forward-advancing defender package, letting the deck push into expeditions safely. The deck contains the core cards designed for Lindiwe, making it an ideal introduction to all the mechanics she relies on. It is approachable for new players while rewarding those who learn to balance sacrifice fodder, removal triggers, and board advancement.;Lindiwe B;https://www.altered.gg/decks/01KR4ZEQSR3NCDR85MS0QFEEH5;"1 ALT_CORE_B_YZ_02_C
 2 ALT_ALIZE_B_OR_45_R2
-3 ALT_CORE_B_YZ_21_C
-3 ALT_ALIZE_B_YZ_33_C
-1 ALT_CORE_B_YZ_05_R1
+2 ALT_CORE_B_AX_21_R2
+3 ALT_CORE_B_YZ_05_R1
 3 ALT_CORE_B_YZ_20_C
+3 ALT_ALIZE_B_YZ_33_C
+2 ALT_CYCLONE_B_AX_73_R2
+3 ALT_CORE_B_YZ_28_R1
+2 ALT_ALIZE_B_YZ_42_C
+3 ALT_ALIZE_B_YZ_44_R1
+3 ALT_DUSTER_B_YZ_86_C
 3 ALT_CORE_B_YZ_04_C
 3 ALT_CORE_B_YZ_06_C
-2 ALT_CORE_B_AX_21_R2
-3 ALT_DUSTER_B_YZ_86_C
-2 ALT_COREKS_B_YZ_05_R1
-1 ALT_CORE_B_YZ_17_R1
-3 ALT_ALIZE_B_YZ_44_C
-2 ALT_CYCLONE_B_AX_73_R2
-2 ALT_BISE_B_YZ_51_C
-2 ALT_CORE_B_YZ_11_R1
-1 ALT_ALIZE_B_YZ_42_C";
-Notos;Matz & Hive;https://www.altered.gg/decks/01KJHMV0P4EQGQNQBQBPZPB5R0;The goal is to reach 3 landmarks as quickly as possible thanks to charitable Reka, investor and 2 mana landmarks. Then use Matz to play monolith for free and gain value for the rest of the game. The réunion is also very good when you don't have the monolith.;"1 ALT_DUSTER_B_OR_85_C
-3 ALT_COREKS_B_OR_28_R1
-2 ALT_DUSTER_B_OR_101_C
-3 ALT_DUSTER_A_OR_97_E
-3 ALT_BISE_B_OR_49_C
-2 ALT_DUSTER_B_OR_102_C
-3 ALT_DUSTER_B_OR_90_C
-3 ALT_DUSTER_B_OR_92_C
-3 ALT_DUSTER_B_OR_86_C
+2 ALT_CYCLONE_B_YZ_72_C
+3 ALT_CORE_B_YZ_21_C
+2 ALT_BISE_B_YZ_51_C"
+Lykel;Matz & Hive;This deck is a straightforward presentation of Matz, built around his even permanent curve. The goal is to learn how to place permanents and gradually build up your board while having characters that synergise with those permanents. The deck's purpose is clear: play Reunion and draw enough to reach it. The number of permanents may seem high, but it guarantees you can place one every turn and reliably trigger Matz's power.;A permanent-focused midrange deck built around Matz's ability to trigger value effects whenever a permanent is placed on an even-cost turn. The strategy is straightforward: play a permanent every turn along an even-cost curve, building a synergistic board of characters that benefit from each placement, and draw enough to reach Reunion as the deck's powerful finisher. The high permanent count ensures Matz's power fires reliably each turn without requiring complex setup or decision trees. Characters in the deck are all selected for their synergy with permanents, creating natural cohesion across every draw. This deck is an excellent introduction to Ordis permanent mechanics, teaching players the rhythmic, building play pattern that defines Matz.;Matz A;https://www.altered.gg/decks/01KR4ZPNBHWS73VJZE6FPZJGHZ;"1 ALT_DUSTER_B_OR_85_C
+2 ALT_CYCLONE_B_AX_77_R2
+3 ALT_DUSTER_B_OR_102_C
+3 ALT_CORE_B_AX_28_R2
+3 ALT_BISE_B_OR_59_C
+2 ALT_ALIZE_B_OR_42_C
+2 ALT_CYCLONE_B_AX_78_R2
 2 ALT_DUSTER_B_OR_100_R1
-3 ALT_CYCLONE_B_OR_81_C
-2 ALT_BISE_B_OR_59_C
-2 ALT_CORE_B_AX_28_R2
-3 ALT_CORE_B_OR_05_R1
-2 ALT_CORE_B_OR_16_R1
-3 ALT_DUSTER_B_MU_89_R2";
-Mr. Toast;Moyo & Silk;https://www.altered.gg/en-us/decks/01KQT3KQ6JQQZ9JY5YDNMY7GPM?rarity[]=EXALTED;This Moyo deck focuses around the exhaust mechanic. It is a straightforward flutter deck. It allows the use of cantrips to stall and make flutter cost less. Cost reduction is used to be able to play multiple spells per turn. This deck will use cards to stall while it builds mana. Cards like bravos signet help to ramp while also being a aggressive card that can be removal, or stat increases. Blizzard is also a great addition to this deck. I like that blizzard is way stronger in Moyo because you can use it to win a side. If you stall enough and blizzard the opposing hero expedition, you get a moyo trigger that allows you to move. Essentially a removal Small Step Giant Leap.;"1 ALT_CYCLONE_B_YZ_65_C
-3 ALT_ALIZE_B_YZ_39_C
-3 ALT_ALIZE_B_YZ_42_C
+3 ALT_DUSTER_B_OR_86_C
+3 ALT_DUSTER_B_LY_102_R2
+2 ALT_BISE_B_OR_54_C
+2 ALT_BISE_B_OR_49_C
+3 ALT_DUSTER_B_OR_92_C
+2 ALT_DUSTER_B_OR_97_E
+3 ALT_DUSTER_B_OR_101_R1
+3 ALT_DUSTER_B_OR_90_C
+1 ALT_DUSTER_B_OR_100_C"
+Elfiris;Moyo & Silk;"This deck turns around two main mecanisms
+
+. The power of Moyo with adapted amount of+ and+ spell
+. Exhaust the opponent which an important Yzmir mecanism 
+
+The goal is to be able to play the Flutter of moth as soon as possible.
+That's why there is significant amount of card with cost reduction and Maleros.
+
+The infirmary allows some after you and playing the flutter of moth faster.
+
+The goal is also to show that Yzmir is here to control the opponent with some character and permanent removal and clutch BigSpell such as sakarabru's fury rare and Winter nova Rare.
+
+The deck needs to draw and play BigSpell fast. The addition of card that can draw or gives manaseed is nice way to answer this problematic.
+
+Hope you will enjoy it.
+
+https://www.altered.gg/decks/0KQPF9ERHNBWDPZQARP706";A big-spell control deck built around Moyo's dual-axis strategy of boosting allies with exhaust spells while locking down opponents. The primary objective is to deploy Flutter of Moth as early as possible, using cost-reduction tools and Maleros to accelerate toward it. The Infirmary enables After You plays and speeds up the Moth's deployment, while the control suite ï¿½ Sakarabru's Fury Rare and Winter Nova Rare ï¿½ provides answers to threats and permanents. Card draw and mana seeds are critical to finding and fueling the big spells on time. This deck teaches players the Yzmir archetype of exhaustion control combined with expensive, high-impact spells, and is best suited for players comfortable planning several turns ahead.;Moyo B;https://www.altered.gg/decks/01KR5013XGPY31CHKHTCJ9RY34;"1 ALT_CYCLONE_B_YZ_65_C
 3 ALT_CYCLONE_B_YZ_68_C
-3 ALT_CORE_B_YZ_19_C
-2 ALT_CORE_B_YZ_23_R1
-2 ALT_ALIZE_B_LY_39_R2
-2 ALT_DUSTER_B_AX_98_R2
-2 ALT_DUSTER_B_YZ_101_C
-2 ALT_CORE_B_YZ_04_C
-3 ALT_ALIZE_B_YZ_43_R1
-2 ALT_CYCLONE_B_YZ_80_C
-1 ALT_CORE_B_YZ_25_C
-2 ALT_DUSTER_B_YZ_102_R1
-2 ALT_CYCLONE_B_BR_79_R2
-2 ALT_DUSTER_B_YZ_92_C
+3 ALT_DUSTER_B_YZ_92_C
+3 ALT_ALIZE_B_YZ_39_C
+3 ALT_DUSTER_B_YZ_101_C
 3 ALT_CYCLONE_B_YZ_78_C
-2 ALT_DUSTER_B_YZ_99_R1";
-JoliRougeGorge ;Nadir & Bubbles;https://www.altered.gg/decks/01KQSPZYJFNBG05JSKTJ5YE6N5;This Nadir list uses the strength of Nadir with spiked cards. Also with a few card advantage that is imo often needed on Nadir and a payoff combo with Diocles-energy bar that van take expeditions (but they also are good without each other);"1 ALT_CYCLONE_B_LY_65_C
+2 ALT_DUSTER_B_YZ_94_E
+3 ALT_DUSTER_B_YZ_102_R1
+2 ALT_CYCLONE_B_YZ_80_R1
+1 ALT_ALIZE_B_YZ_37_R1
+3 ALT_DUSTER_B_AX_98_R2
+3 ALT_CYCLONE_B_YZ_75_R1
+2 ALT_CORE_B_YZ_21_C
+2 ALT_CORE_B_YZ_24_C
+3 ALT_ALIZE_B_YZ_43_R1
+3 ALT_DUSTER_B_YZ_91_C"
+NyanKoro;Nadir & Bubbles;"forcus on nadir eff to draw forest maker and water marker
+move enermy back to where you have strong start
+and make them contact to do thing
+use character forcus on forest and water start 
+help player learn nadir is fund hero to play :D (not hard to learn but hard to master)";A terrain-manipulation deck built around Nadir's ability to place Forest and Water landmarks and draw cards from them. The strategy is to create favorable starting positions using Forest Maker and Water Marker, force opponents to contest terrain where the deck has natural advantages, and generate consistent card advantage through Nadir's hero power. The creature suite focuses on forest and water synergies, amplifying the value of each landmark placed. The deck is a great introduction to Lyra's terrain-based game plan, offering a clear and intuitive loop that rewards positional thinking. While the basics are easy to grasp, true mastery of Nadir's landmark placement offers significant room for improvement.;Nadir B;https://www.altered.gg/decks/01KR50XN89WX4SEANAA2898E4X;"1 ALT_CYCLONE_B_LY_65_C
+3 ALT_DUSTER_B_LY_102_R1
 3 ALT_DUSTER_B_LY_86_R1
-3 ALT_DUSTER_B_LY_93_C
-2 ALT_DUSTER_B_LY_94_R1
+3 ALT_DUSTER_B_LY_94_R1
 3 ALT_DUSTER_B_LY_97_C
-1 ALT_DUSTER_B_LY_102_C
+3 ALT_CYCLONE_B_LY_71_C
+3 ALT_DUSTER_B_LY_101_R1
+3 ALT_CYCLONE_B_LY_69_C
+3 ALT_CYCLONE_B_LY_68_C
+3 ALT_CYCLONE_B_LY_72_R1
+3 ALT_CYCLONE_B_LY_79_C
+3 ALT_CORE_B_LY_23_C
+3 ALT_CORE_B_LY_24_C
+3 ALT_ALIZE_B_LY_35_C"
+Knightsong;Nevenka & Blotch;"The core strategy is to play aggressively, using low-cost creatures with good stats or effects to win expeditions and maintain tempo in combination with Nevenka's ability to boost/anchor your best cards when needed.
+
+The key card in this deck is rare Martengale to avoid Nevenka's ability's downside but the card can also be used to buff other dice rolls such as Trickster, Snowball Commando, or Lyra Signet. 
+
+Another key synergy are the return to hand effects from Inkcaster, Hathor, and Reka Guide, which can provide hand advantage while also cycling your key cards for their effects or lower hand cost.
+
+For a starting hand, you want to look for a 1-cost card to play like Martengale or Magical Training and then a card like Inkcaster or Hathor to compete for expeditions while also being able to bounce back another card later for early tempo.
+
+This works as a starter deck because it highlights the strongest aspect of Nevenka, using her hero ability to sneak expeditions wins at the last moment or anchor valuable cards. It also has a lot of synergy for the dice rolling theme that draws people to her in the first place, while aiming to keep the consequences of unlucky rolls to a minimum so that new players aren't discouraged by the mechanic.
+
+The cards in this deck were all chosen for their synergies and relative ease of use and understanding. While there are certain synergy plays possible in this deck, a new player could also just as easily play out cards however they wish and will still be able to net value out of them. Cards are all 2x copies or above for simplicity and consistency.
+
+The spells were selected so that a player will generally have viable options available to them to either gain more card advantage and maintain tempo or remove a key element from the opponent.
+
+The deck also features at least one card from each of the first five sets, giving new players a glimpse into the breadth of the Altered game and universe, but without adding too many complicated mechanics at once.";An aggressive tempo deck built around Nevenka's dice-rolling hero power, which boosts or anchors key characters at critical moments. The strategy is to win expeditions with efficient low-cost creatures while using Nevenka's ability to push for late-game expedition steals or lock down valuable characters. Rare Martengale neutralizes the downside of the hero power while also buffing other dice-roll cards like Trickster and Snowball Commando, and return-to-hand effects from Inkcaster, Hathor, and Reka Guide recycle key pieces for repeated value. All cards are run at two or more copies for consistency, and no card requires complex setup, keeping decision trees simple for new players. This deck is an ideal introduction to Nevenka, showcasing her dice-roll theme while minimizing the impact of unlucky rolls.;Nevenka D;https://www.altered.gg/decks/01KR516BMNDQH329TEK2S90GZP;"1 ALT_CORE_B_LY_01_C
+3 ALT_COREKS_B_LY_04_R1
 2 ALT_CYCLONE_B_LY_66_C
-2 ALT_CYCLONE_B_LY_71_C
-2 ALT_CYCLONE_B_LY_72_R1
-3 ALT_BISE_B_LY_49_C
-3 ALT_BISE_B_LY_51_C
-3 ALT_ALIZE_B_BR_34_R2
-2 ALT_ALIZE_B_BR_45_R2
-2 ALT_ALIZE_B_LY_43_C
-2 ALT_CORE_B_LY_15_C
-3 ALT_CORE_B_LY_23_C
-3 ALT_CORE_B_MU_16_R2";
-Joli rouge gorge ;Nevenka & Blotch;https://www.altered.gg/decks/01KQVM6JJ3KEYAR1N0HSXTBZYF;Here we show a lot of dice roll synergies with different pay offs, playing a lot of card advantage depending on the dice rolls to make sure to have a good engine through out the whole game, try making 6 to anchor good stuff and manipulate dice RNG.;"1 ALT_CORE_B_LY_01_C
-3 ALT_DUSTER_B_LY_97_C
-2 ALT_BISE_B_LY_49_C
-2 ALT_BISE_B_LY_51_C
-3 ALT_BISE_A_LY_53_R1
+3 ALT_COREKS_B_YZ_07_R2
 3 ALT_ALIZE_B_LY_32_C
-3 ALT_CORE_B_LY_04_R1
-3 ALT_CORE_B_LY_06_C
-3 ALT_CORE_B_LY_23_C
-1 ALT_CYCLONE_A_LY_78_C
-3 ALT_BISE_B_LY_55_R1
-2 ALT_BISE_B_LY_60_R1
-3 ALT_BISE_B_LY_62_C
-3 ALT_ALIZE_B_LY_41_C
-3 ALT_CORE_B_LY_30_R1
-1 ALT_CORE_B_LY_17_C
-1 ALT_CORE_B_LY_17_R1";
-Oriazzz;Rin & Orchid;https://www.altered.gg/decks/01KQ83XC6E139J0KA3RXR4PK4P;"The idea is to play lots of good characters with over stats in forest biomes. There are many 3-mana cards to optimize the anchor abilities. Aloe Vera is a great engine in this deck. It can stay on board all game and make you win pretty easily.
+3 ALT_COREKS_B_LY_10_R1
+2 ALT_DUSTER_B_LY_87_C
+2 ALT_COREKS_B_LY_07_C
+2 ALT_COREKS_B_LY_09_C
+2 ALT_DUSTER_B_MU_95_R2
+2 ALT_CORE_A_YZ_19_R2
+2 ALT_COREKS_B_LY_23_C
+2 ALT_CYCLONE_A_LY_78_C
+2 ALT_BISE_B_LY_60_C
+2 ALT_COREKS_B_LY_24_C
+2 ALT_CYCLONE_B_BR_81_R2
+3 ALT_COREKS_B_LY_06_C
+2 ALT_COREKS_B_LY_11_C"
+Oriazzz;Rin & Orchid;"The idea is to play lots of good characters with over stats in forest biomes. There are many 3-mana cards to optimize the anchor abilities. Aloe Vera is a great engine in this deck. It can stay on board all game and make you win pretty easily.
 
 The ascend package gives punch to take early 2-0 or end game.
 
@@ -354,7 +377,7 @@ Attention was made on putting some of the most played muna cards of each set.
 - Set 4 : Cuckoo / Gargoyle
 - Set 5 : Muna botanist
 
-To sum-up : it's a easy-to-play deck with a great learning curve due to the improvement you will make by adapting to match ups and make a great use of Rin hero power. ";"1 ALT_CORE_B_MU_03_C
+To sum-up : it's a easy-to-play deck with a great learning curve due to the improvement you will make by adapting to match ups and make a great use of Rin hero power. ";A forest-anchor midrange deck built around placing over-statted characters in forest biomes and protecting them through Rin's hero power. The strategy is to establish a dominant board using 3-mana characters that anchor well, lock down key pieces with Muna Botanist and anchor-support effects, and use Aloe Vera as a persistent value engine that stays on board all game. The Ascend package provides early-game punch for quick 2-0 openings or a decisive late push, while Rin's hero power filters the hand for the right answer in any matchup. The deck includes signature Muna cards from Sets 1ï¿½5, giving new players a broad introduction to the faction's toolkit. It is easy to pick up and rewards players who invest in adapting their play to different matchups.;Rin D;https://www.altered.gg/decks/01KR51CWMB87JYCCBZ7EP571VS;"1 ALT_CORE_B_MU_03_C
 3 ALT_CYCLONE_B_OR_71_R2
 2 ALT_ALIZE_B_MU_33_R1
 2 ALT_CORE_B_MU_28_C
@@ -369,16 +392,16 @@ To sum-up : it's a easy-to-play deck with a great learning curve due to the impr
 3 ALT_DUSTER_B_MU_89_C
 2 ALT_COREKS_B_AX_14_R2
 2 ALT_CYCLONE_B_OR_67_R2
-3 ALT_COREKS_B_MU_16_R1";
-VaderMIB;Sierra & Oddball;https://www.altered.gg/decks/01KQ30NXM6F09EGGGXSMFMYEBM;"Sierra robots.
+3 ALT_COREKS_B_MU_16_R1"
+VaderMIB;Sierra & Oddball;"Sierra robots.
 Sierra has always be associated primarily with the Hive, together with robots. She sinergizes with permanents and robots.
 So, the core of the deck remains the Hive, which is here to be set up as early as possible and can win games almost by itself. It is the undisputed emblem of Sierra.
 The deck works around robots, with lunar medusa, most precious after you robot ally.
 Foundry armorer is one of the best starting card. And she makes robots.
 The other side of the deck works around drawing capabilities : hooked (draw and expedition win, another Axiom emblem cards), abandoned depot.
-Science fair is a great sinergy with permanents: put one in réserve, draw and play it.
+Science fair is a great sinergy with permanents: put one in rï¿½serve, draw and play it.
 Mechanical training works with hive, depot and bug-out bag for cheap bodies or draw.
-The rest of the deck uses the bunch of other powerful robots.";"1 ALT_CORE_B_AX_01_C
+The rest of the deck uses the bunch of other powerful robots.";A robot-synergy permanents deck built around Sierra's ability to generate value from a network of robots and key Axiom permanents. The Hive is the deck's centerpiece ï¿½ set up as early as possible, it can single-handedly win games while anchoring the entire robot strategy. Foundry Armorer is the best turn-one play, producing robots and enabling Lunar Medusa's powerful After You effect, while Hooked and Abandoned Depot provide card draw and expedition control. Science Fair and Mechanical Training round out the synergy package, turning the Hive, Depot, and Bug-Out Bag into efficient draw engines or cheap body generators. This deck is an excellent showcase of Axiom's distinctive robot and permanent synergy, and is approachable for players learning how to manage complex board states.;Sierra A;https://www.altered.gg/decks/01KR51P1QMSKFB5XG22HV99PPR;"1 ALT_CORE_B_AX_01_C
 3 ALT_COREKS_B_AX_30_R1
 3 ALT_COREKS_B_AX_20_R1
 3 ALT_COREKS_B_AX_16_R1
@@ -393,93 +416,85 @@ The rest of the deck uses the bunch of other powerful robots.";"1 ALT_CORE_B_AX_
 3 ALT_COREKS_B_AX_07_C
 2 ALT_DUSTER_B_AX_96_C
 2 ALT_DUSTER_B_AX_100_C
-2 ALT_CYCLONE_B_AX_80_C";
--Unite-;Sigismar & Wingspan;https://www.altered.gg/fr-fr/decks/01KQFP9Z6JFRZ2CSYSAJ9JDZM0;Deck aggro ou l'idée principal est de placer le monolith bastion grâce aux cartes comme Kikimora/Mécanicienne/ingénieure. Pour la pioche don de sois peut être optimiser via le templier ou l'investisseur ou bien le jetons du héros.;"1 ALT_CORE_B_OR_01_C
-2 ALT_CORE_B_OR_24_C
-3 ALT_CORE_B_OR_28_C
-2 ALT_CORE_B_OR_08_C
+2 ALT_CYCLONE_B_AX_80_C"
+Rinku;Sigismar & Wingspan;"Relentless aggressive deck.
+Reka Investor is your best turn one play, since the mana seed can represent Soar or Ordis Trooper every turn after that.
+The Sandman will win you a lot of late games.
+Use ascend to push through tough spots.
+Has at least 1 card from each of Set 1-5";A relentless aggro deck built around Sigismar's Ascend power and a fast, linear offense from turn one. The strategy is to apply immediate pressure with Reka Investor as the ideal opening play, whose mana seed then fuels Soar or Ordis Trooper every subsequent turn for a continuous aggressive curve. Ascend effects push through defensive setups during tough expeditions, while The Sandman provides a reliable late-game closer when the board is close. The deck features at least one card from each of Sets 1ï¿½5, giving new players a broad overview of Ordis's offensive toolkit. It is a straightforward and punishing deck that teaches the value of early tempo and consistent aggression.;Sigismar C;https://www.altered.gg/decks/01KR51YZFHY0R6EDGBHC18MYH0;"1 ALT_CORE_B_OR_01_C
+3 ALT_CORE_B_OR_05_R1
+3 ALT_CYCLONE_B_OR_67_C
+3 ALT_CYCLONE_B_OR_71_C
 3 ALT_CORE_B_OR_16_R1
-3 ALT_DUSTER_B_OR_95_C
+3 ALT_CORE_B_LY_15_R2
+3 ALT_DUSTER_B_OR_92_R1
+3 ALT_BISE_B_OR_54_C
+2 ALT_CORE_B_OR_24_C
 2 ALT_BISE_B_OR_59_C
+3 ALT_BISE_B_OR_49_C
+3 ALT_CYCLONE_B_OR_66_C
+1 ALT_CORE_B_YZ_20_R2
 1 ALT_ALIZE_B_OR_42_C
-1 ALT_BISE_B_OR_54_C
-3 ALT_CORE_B_AX_05_R2
-2 ALT_COREKS_B_YZ_20_R2
-2 ALT_ALIZE_B_OR_45_C
-3 ALT_CORE_B_OR_05_C
-2 ALT_CORE_B_OR_06_C
-3 ALT_CORE_B_OR_11_C
-2 ALT_COREKS_B_LY_15_R2
-3 ALT_COREKS_B_AX_07_R2
-2 ALT_DUSTER_B_OR_92_R1";
-martin pecheur;Sol & Halua;https://www.altered.gg/decks/01KQHDHGQFDQQ8J9GEWFTHRY32;"I built this deck to show the basic Sol’s archetype. The goal is to get a counter on every turn with Sol to get the most out of his token. Play 1 or 2 cards per turn; so choose carefully which card to keep for later and which to put into your mana.
-The deck is actually easy to learn but has a fairly high skill ceiling. It is stable and well-balanced and is always a pleasure to play ! ";"1 ALT_CYCLONE_B_BR_65_C
-3 ALT_CYCLONE_B_BR_67_C
-3 ALT_CYCLONE_B_BR_69_R1
-3 ALT_CYCLONE_B_BR_77_C
-3 ALT_DUSTER_B_BR_96_C
+3 ALT_CORE_B_OR_09_C
+2 ALT_CYCLONE_B_OR_79_R1
+1 ALT_ALIZE_B_OR_44_C"
+Lyrael;Sol & Halua;Introduce the different mechanics in order to finish your turn before the opponent and activate Halua as quickly and as often as possible.;A tempo deck built around finishing turns ahead of the opponent to repeatedly trigger Sol's companion Halua for board-wide effects. The strategy is to leverage a suite of mechanics ï¿½ cost reduction, After You, and efficient characters ï¿½ to end turns first as consistently as possible throughout the game. The deck is densely packed with creatures that have strong stats or relevant effects, ensuring Halua's triggers always generate meaningful value. Effective hand and mana management are the keys to activating the hero combo reliably, making good resource decisions more important than complex sequencing. This deck is an ideal introduction to Bravos' tempo-driven playstyle, teaching players the critical skill of tracking turn order and managing actions to maximize their hero power.;Sol A;https://www.altered.gg/decks/01KR523ZDS0CYKKCZFTF77EZCC;"1 ALT_CYCLONE_B_BR_65_C
 3 ALT_CYCLONE_B_BR_81_R1
-3 ALT_ALIZE_B_BR_43_C
-2 ALT_BISE_B_BR_61_C
-2 ALT_BISE_B_YZ_56_R2
-3 ALT_CYCLONE_B_BR_74_R1
-2 ALT_ALIZE_B_BR_32_C
-3 ALT_COREKS_B_BR_17_R1
-3 ALT_COREKS_B_BR_19_C
-2 ALT_DUSTER_B_BR_88_C
-1 ALT_DUSTER_B_BR_94_R1
-2 ALT_CYCLONE_B_BR_73_C
-1 ALT_DUSTER_B_BR_98_E";
-Stefan Saettone;Subhash & Marmo;https://www.altered.gg/decks/01KET8PERP4XQK0FK6T4B1Z0FF;"Keep up the pressure constantly, while using the permanents to keep control up and get some needed cards for Subhash. The Sap and Detonation are to be used against the Hunger mainly, but can be used against any powerful threat.
-
-The main focus is to get Dr. Frankenstein while you have a Restocking station up, to keep on the pressure from the reserve while building up your hand. The Foundry Engineer is there to provide a way to get your permanents up without loosing the pressure.";"1 ALT_CORE_B_AX_03_C
-2 ALT_ALIZE_B_AX_40_R1
-3 ALT_CORE_B_AX_17_C
-2 ALT_CORE_B_AX_28_R1
-2 ALT_CYCLONE_B_AX_77_C
-3 ALT_CORE_B_AX_14_C
-2 ALT_BISE_B_AX_53_R1
-3 ALT_CORE_B_AX_05_R1
-3 ALT_CORE_B_AX_11_C
-2 ALT_CORE_B_AX_22_C
-2 ALT_CYCLONE_B_AX_75_C
-2 ALT_BISE_B_AX_62_C
-2 ALT_BISE_B_AX_59_C
-2 ALT_COREKS_B_AX_18_C
+3 ALT_CYCLONE_B_OR_80_R2
+3 ALT_DUSTER_B_BR_88_C
+3 ALT_DUSTER_B_BR_98_E
+3 ALT_CYCLONE_B_BR_67_C
+3 ALT_CYCLONE_B_BR_66_C
+3 ALT_CYCLONE_B_BR_73_R1
+3 ALT_CYCLONE_B_BR_77_C
+3 ALT_CORE_B_BR_17_R1
+3 ALT_ALIZE_B_BR_40_C
+3 ALT_CYCLONE_B_BR_75_R1
+3 ALT_BISE_B_BR_61_C
+3 ALT_CYCLONE_B_BR_71_C"
+Netjery;Subhash & Marmo;This deck combines aggression, robot synergies, and draw power to maintain constant pressure without running out of steam. Its many management cards and solid After You effects let it keep the advantage from the first turns. Fairly accessible, it nonetheless requires good CA and tempo management. Its learning curve helps players discover how to play Altered.;An aggressive robot deck built around Subhash's ability to combine constant pressure with robot synergies and powerful draw tools. The strategy is to apply early aggression using efficient robot characters while maintaining hand advantage through draw effects and After You triggers, never allowing the opponent to stabilize. Strong card advantage management cards ensure the pressure never runs dry, and the After You suite provides flexible answers without sacrificing tempo. The deck is accessible to new players but rewards those who develop a feel for card and tempo management. It is a solid introduction to Axiom's aggressive side and teaches foundational Altered concepts of board presence, resource efficiency, and action advantage.;Subhash C;https://www.altered.gg/decks/01KR52B0C9H6ZK8XBB6FSMGJ1B;"1 ALT_CORE_B_AX_03_C
+3 ALT_DUSTER_B_AX_86_C
+3 ALT_DUSTER_B_AX_96_C
+3 ALT_DUSTER_B_AX_98_C
+1 ALT_CYCLONE_B_AX_77_C
 3 ALT_CYCLONE_B_AX_79_R1
-3 ALT_CYCLONE_B_AX_81_R1
-3 ALT_DUSTEROP_A_AX_98_C";
-SanDeity;Teija & Nauraa;https://www.altered.gg/decks/01KQTV1JW9PE9XJR4TM3SS78P1;Big Plants! Everyone loves boosting plants! No one does it better than Teija!! Get those plants out there and nurture them with love in the form of boosts!!!;"1 ALT_CORE_B_MU_01_C
-1 ALT_CORE_B_MU_22_C
-1 ALT_CORE_B_MU_22_R1
-1 ALT_CORE_B_MU_06_C
-2 ALT_CORE_B_MU_06_R1
-1 ALT_CORE_B_MU_30_R1
-1 ALT_CORE_B_MU_30_C
-1 ALT_CORE_B_MU_08_C
-2 ALT_CORE_B_MU_08_R1
-2 ALT_CORE_B_MU_15_C
-1 ALT_CORE_B_MU_15_R1
-2 ALT_CORE_B_MU_16_R1
-2 ALT_CORE_B_MU_04_C
-1 ALT_CORE_B_MU_04_R1
-1 ALT_CORE_B_MU_13_C
-1 ALT_CORE_B_MU_13_R1
-2 ALT_CORE_B_MU_25_C
-2 ALT_CORE_B_MU_27_C
-1 ALT_CORE_B_MU_27_R1
-2 ALT_BISE_B_LY_61_R2
-3 ALT_BISE_B_MU_61_C
-2 ALT_CORE_B_MU_26_C
+3 ALT_BISE_B_AX_53_R1
+3 ALT_BISE_B_AX_62_C
+3 ALT_ALIZE_B_AX_40_C
+1 ALT_ALIZE_B_AX_42_R1
+3 ALT_CORE_B_AX_05_R1
+3 ALT_CORE_B_AX_06_C
+3 ALT_CORE_B_AX_20_R1
+3 ALT_CORE_B_AX_22_C
+2 ALT_CORE_B_AX_28_C
+2 ALT_CORE_B_YZ_05_R2"
+Floboum;Teija & Nauraa;"The list builds on the original starter concept, adding a few useful cards from the various sets.
+We play plants that anchor when they enter play, to benefit longer from the boost Teija gives them, as well as their very interesting ""At Noon"" effects, and we grow them as the game progresses.
+The idea is to set up one of our resupply engines ï¿½ Aloe, or Grape Harvester boosted by Teija + Ogun or Spindle ï¿½ to recover an extra card into reserve each turn, notably the Druid or the Healer who have a Support effect to re-anchor one of our characters.
+The Rare Spindle, the deck's key card, protects our units while boosting one of them that remains in play each turn.
+The deck is built around one of the Muna faction's flagship concepts: Anchoring.
+And Teija seems to me the best hero to showcase its full potential, allowing the boost she grants to the first character played each day to have an impact across multiple days.";An anchoring plant deck built around Teija's ability to boost the first character played each day, maximizing its impact across multiple turns through persistent anchoring. The strategy is to play plants that anchor on entry, then set up resupply engines ï¿½ Aloe Vera or Grape Harvester boosted by Teija plus Ogun or Spindle ï¿½ to recover extra cards into reserve each turn via Druid or Healer's Support effect, re-anchoring characters repeatedly. Rare Spindle is the deck's key card, protecting characters while boosting one each turn it remains in play, and the overall loop showcases Muna's flagship mechanic: Anchoring. The deck builds on the original starter concept with cards from multiple sets, offering a natural progression of tools. It is a rewarding introduction to Muna's long-game value engine for players who enjoy setting up and executing a cohesive strategy.;Teija E;https://www.altered.gg/decks/01KR52FYNSYQH1AYB69310DTMT;"1 ALT_CORE_B_MU_01_C
+3 ALT_CORE_B_MU_30_R1
+3 ALT_CORE_B_MU_06_R1
+2 ALT_CORE_B_MU_28_C
+3 ALT_CORE_B_MU_16_R1
+2 ALT_BISE_B_MU_50_C
+3 ALT_CORE_B_MU_15_C
+2 ALT_BISE_B_MU_60_C
 3 ALT_ALIZE_B_MU_44_C
-1 ALT_DUSTER_B_MU_99_R1
-3 ALT_CORE_B_MU_24_C";
-Rinku;Treyst & Rossum;https://www.altered.gg/decks/01KQTBZQP97ZZK3A2ZDZC48D4R;"Tries to get the 5 scrap counters as soon as possible.
+3 ALT_CORE_B_MU_04_C
+3 ALT_CORE_B_MU_13_C
+2 ALT_DUSTER_B_MU_98_C
+2 ALT_CORE_B_MU_25_C
+3 ALT_CORE_B_MU_08_R1
+3 ALT_COREKS_B_AX_06_R2
+2 ALT_CYCLONE_B_MU_70_C"
+Rinku;Treyst & Rossum;"Tries to get the 5 scrap counters as soon as possible.
 Utilizies Hooked! to trade 1-1 while gaining card advantage.
 A variety of -> effects with Gibil can help you gain an advantage in the late game.
 Very clear what the game plan is.
 Has a few 1s to keep the opponent on their toes.
-Has cards from Set 1-5";"1 ALT_CORE_B_AX_02_C
+Has cards from Set 1-5";A scrap-engine deck built around Treyst's ability to convert accumulated scrap counters into powerful recurring effects. The primary game plan is to reach five scrap counters as quickly as possible, using Hooked to trade favorably while generating card advantage along the way. Gibil's scrap-triggered effects then take over in the late game, turning each counter into a board-wide swing that is difficult for opponents to recover from. The game plan is clear and linear, making in-game decisions straightforward even for new players. The deck includes cards from Sets 1ï¿½5, offering a good overview of Axiom's scrap tools and teaching the fundamentals of resource accumulation and patience-based win conditions.;Treyst C;https://www.altered.gg/decks/01KR52Q1EBN1QNYCTNS8H0G4JX;"1 ALT_CORE_B_AX_02_C
 3 ALT_BISE_B_AX_49_C
 3 ALT_ALIZE_B_AX_41_C
 3 ALT_CORE_B_AX_08_R1
@@ -497,31 +512,38 @@ Has cards from Set 1-5";"1 ALT_CORE_B_AX_02_C
 2 ALT_ALIZE_B_AX_40_C
 1 ALT_CORE_B_AX_28_R1
 2 ALT_BISE_B_AX_62_C
-2 ALT_CORE_B_AX_07_C";
-Sentenza;Turuun & Benih;https://www.altered.gg/decks/01KQWZHV6RNP9HN16MTGN9YPFR;Card draws are often the strongest Gifts. This Turuun deck is direct, clear and not afraid of card draws for the opponent at all. Daughter of Y., Kitsune and Gran Bwa gift lots of cards to the opponent, but this deck profits more than the opponent, activating Turuun's ability every day. Plenty of own card draws help beginners to have enough resources. Burrowing Noosh and Rabbit Farmer profit from Gifts early-game, Gran Bwa profits later. Muna Caregiver and Botanist (re-)anchor Cuckoo and Daghter of Y.. Mechanical Training re-anchors Cuckoo and even Gran Bwa, gifting even more cards for even more stats. The strongest cards (Gran Bwa, Daughter, Cuckoo) get protection (Spindle, Kauris Intervention, Floral Tent). In this deck, Loki works for beginners because the deck does almost no resupply, so Loki almost certainly gets drawn on hand. This disarms the opponent in late game and boosts own characters.;"1 ALT_DUSTER_B_MU_85_C
-2 ALT_BISE_B_LY_61_R2
-2 ALT_ALIZE_B_MU_44_C
-2 ALT_COREKS_B_MU_12_R1
-3 ALT_BISE_B_MU_56_R1
-2 ALT_CORE_B_MU_30_C
-2 ALT_BISE_B_MU_60_C
-2 ALT_CORE_B_MU_28_C
-2 ALT_COREKS_B_MU_26_C
-1 ALT_COREKS_B_LY_21_R2
-2 ALT_CYCLONE_B_MU_75_R1
-1 ALT_CORE_B_LY_21_R2
-2 ALT_CORE_B_AX_22_R2
+2 ALT_CORE_B_AX_07_C"
+Psyno;Turuun & Benih;"Main strategy: Install Grand Bois or the Fouisseur, grow them and maintain them.
+
+Key pieces: Grand Bois and Fouisseur, which will grow easily.
+Ways to anchor: Druid, Healer, Botanist, Magical Training.
+A bit of control: Requiem and Sleep.
+Protection for Grand Bois with Kauri's Intervention.
+Picnic Air, Vixen and Dapeng to add stats.
+Coucou can relay boosts or be placed opposite Grand Bois, since opponents often prefer to play on the other side.
+
+Always a fairly simple and fun deck. Makes good use of the hero power.";A grow-and-anchor midrange deck built around installing Grand Bois or the Fouisseur early and protecting them while they snowball in stats. The strategy is to anchor key characters using Druid, Healer, Botanist, and Magical Training, then layer in stat boosts from Picnic Air, Vixen, and Dapeng to create an insurmountable board presence. Requiem and Sleep provide interaction for opposing threats, and Kauri's Intervention shields Grand Bois from removal at critical moments. Coucou is a versatile tool that relays boosts or bait opponents into the less favorable expedition. The deck is straightforward and enjoyable, making great use of Turuun's hero power and providing a clear, satisfying game plan that is easy for new players to execute.;Turuun A;https://www.altered.gg/decks/01KR52SM6EY7PFD4K52TJ318ZM;"1 ALT_DUSTER_B_MU_85_C
+3 ALT_DUSTER_B_MU_95_R1
 3 ALT_DUSTER_B_MU_88_C
-3 ALT_CORE_B_MU_05_C
-3 ALT_CYCLONE_B_MU_70_C
+3 ALT_CORE_B_MU_13_C
 3 ALT_CORE_B_MU_04_C
-2 ALT_DUSTER_B_MU_86_C
-2 ALT_BISE_B_MU_49_R1";
-Cernnunos;Waru & Mack;https://www.altered.gg/decks/01KQFKAFGVVMEQB6S2TGXKQ9JJ;"Waru cosplaying turuun ... Ok this sounds a bit weird, but Waru is a Hero would can profit a lot from Quetzal. And surprisingly Ordis have cards like Gran Bwa, picnic, souvenir seller and the snow maiden... 
+3 ALT_BISE_B_MU_56_R1
+3 ALT_BISE_B_MU_49_R1
+2 ALT_CYCLONE_B_MU_75_R1
+2 ALT_CORE_B_MU_28_C
+2 ALT_CORE_B_AX_22_R2
+2 ALT_BISE_B_MU_60_C
+1 ALT_BISE_B_MU_53_C
+2 ALT_DUSTER_B_MU_96_E
+3 ALT_BISE_B_MU_51_C
+2 ALT_BISE_B_LY_61_R2
+2 ALT_DUSTER_B_MU_100_C
+3 ALT_CYCLONE_B_MU_70_C"
+Cernnunos;Waru & Mack;"Waru cosplaying turuun ... Ok this sounds a bit weird, but Waru is a Hero would can profit a lot from Quetzal. And surprisingly Ordis have cards like Gran Bwa, picnic, souvenir seller and the snow maiden... 
 With a good amount of draw the deck can quickly search piece of combo to unleash an absurd board in late game
 
 The deck don't really embody waru's gameplay at first glance ... but setting up some floodgates card like Gran bwa and quetzal and create value from card that stays an extra turn ... seems ""waru"" enough for me. And it's a bit easier to play than heavy control.
-";"1 ALT_CORE_B_OR_02_C
+";A late-game combo deck built around Waru's hero ability using a Turuun-style strategy centered on Quetzal and Ordis growth cards. The strategy is to set up floodgate permanents like Gran Bwa and Quetzal that generate compounding value from characters staying on board an extra turn, then leverage Ordis synergies through Picnic, Souvenir Seller, and Snow Maiden to fuel the engine. Strong card draw accelerates the search for combo pieces and allows the deck to build an overwhelming board presence in the late game. While the deck does not initially look like a traditional Waru build, the value-from-extension playstyle is a natural fit for the hero's kit. It is easier to pilot than heavy control builds and is a great introduction to Waru's unique take on the Ordis value-generation archetype.;Waru A;https://www.altered.gg/decks/01KR537WF96ZKEAP9EGF08DGPK;"1 ALT_CORE_B_OR_02_C
 3 ALT_DUSTER_B_MU_100_R2
 3 ALT_BISE_B_MU_56_R2
 3 ALT_CORE_B_OR_18_R1
@@ -537,36 +559,28 @@ The deck don't really embody waru's gameplay at first glance ... but setting up 
 2 ALT_CORE_B_OR_24_C
 2 ALT_COREKS_B_OR_05_C
 3 ALT_ALIZE_B_OR_44_C
-2 ALT_ALIZE_B_OR_43_C";
-Arthour;Zhen & Zephyr;https://www.altered.gg/en-us/decks/01KQ39HWG2RSNRG09ZZPTX995Q;"Aggressive version of Zhen with many low cost characters and ascend effects.
+2 ALT_ALIZE_B_OR_43_C"
+Mananka;Zhen & Zephyr;"The goal of this deck is to take maximum advantage of Zhen's power while pressuring the opponent to end the game quickly!
 
-Core startegy:
-win the game fast with many characters in ascended expeditions. Get more draw than your opponent and put pressure on both expeditions.
+The Cable Car Station is there for the slower match-ups to maintain draw and aggression throughout the game.
+Its interaction ï¿½ advancing an Elevated expedition ï¿½ lets us draw a card. This gives a potential of 3 draws for 2 mana, which is extremely powerful!
 
-Key synergies and how the decks works:
-- cable-car station and Zhen ability to draw
-- Origamium and characters able to ascend their expedition
-- cable-car station and spike stats : the station can be used to escape the regions where characters have 0 stat (gargoyle, frog king, sandman)
-- removal spells : rapidly progress on expeditions while slowing down the setup of your opponent. These Spells can also be useful to draw thanks to zhen power.
-- Sagitta + soar + origamium to boost the big bird and reduce its cost.
-- rallying call + license withdrawal can discard strong characters
-- Axiom signet triggers both landmarks of the deck, and has a versatile second effect
-- Sandman is useful to finish the game fast
+The spells are there to try to activate the power as often as possible, either through After Yous or control!
 
-This deck works as a starter deck because the cards are simple and are also working very well with Zhen. The numerous small synergies are satisfying and can be learned progressively.";"1 ALT_CYCLONE_B_OR_65_C
-3 ALT_CYCLONE_B_OR_71_C
-3 ALT_DUSTER_B_LY_102_R2
-2 ALT_ALIZE_B_OR_42_C
-2 ALT_ALIZE_B_OR_44_C
-3 ALT_CORE_B_OR_09_C
-3 ALT_BISE_B_OR_49_C
-3 ALT_CYCLONE_B_OR_67_R1
-3 ALT_CYCLONE_B_OR_79_C
-2 ALT_BISE_B_OR_59_C
-2 ALT_CORE_B_LY_15_R2
-3 ALT_CORE_B_OR_14_C
-3 ALT_CYCLONE_B_OR_66_R1
-1 ALT_CYCLONE_B_OR_74_C
-1 ALT_CYCLONE_B_AX_76_R2
+Lots of sabotage in an aggressive deck makes it stable against more explosive starts than ours, by slowing down the opponent's game plan and forcing 1-1 trades.";An aggressive control deck built around Zhen's hero power and maximizing tempo advantage through efficient action management. The strategy is to apply constant forward pressure while activating the hero power as frequently as possible via After You effects and targeted control spells, ending games quickly before the opponent can stabilize. Cable Car Station is the deck's key card in slower matchups, advancing Elevated expeditions to draw up to three cards for two mana ï¿½ an extremely powerful value engine. Heavy sabotage effects stabilize against more explosive opponent starts, forcing 1-1 trades and slowing their game plan. This deck teaches players the Ordis style of combining aggression with smart resource management, and is well-suited for those who enjoy keeping opponents reactive.;Zhen E;https://www.altered.gg/decks/01KR53JYRK98ECMAZBMW5E7X63;"1 ALT_CYCLONE_B_OR_65_C
 2 ALT_CYCLONE_B_OR_82_C
-3 ALT_CORE_B_OR_05_R1";
+3 ALT_CYCLONE_B_OR_67_R1
+2 ALT_CYCLONE_B_OR_71_C
+3 ALT_CYCLONE_B_OR_72_R1
+2 ALT_ALIZE_B_OR_42_R1
+3 ALT_DUSTER_B_LY_102_R2
+3 ALT_BISE_B_OR_54_C
+3 ALT_BISE_B_OR_49_C
+2 ALT_DUSTER_B_OR_91_C
+2 ALT_BISE_B_OR_59_C
+3 ALT_CYCLONE_B_OR_79_C
+2 ALT_MUSUBI_B_OR_09_C
+2 ALT_COREKS_B_OR_08_C
+2 ALT_COREKS_B_BR_17_R2
+2 ALT_CYCLONE_B_OR_77_R1
+3 ALT_CYCLONE_B_OR_66_C"
