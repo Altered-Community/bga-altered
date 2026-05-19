@@ -27,7 +27,6 @@ SET_CODE_TO_NUM = {
 class StarterDeck:
     author: str
     hero_label: str
-    description: str
     cards_raw: str
 
     @property
@@ -250,6 +249,9 @@ def replace_between_markers(original: str, new_block: str) -> str:
     # Use a function replacement to avoid backslash escape handling (e.g. \uXXXX) in repl strings.
     return pattern.sub(lambda _m: replacement, original, count=1)
 
+def relative_path(path: Path, base: Path) -> str:
+    return path.relative_to(base).as_posix()
+
 
 def main() -> int:
     repo_root = Path(__file__).resolve().parents[2]
@@ -290,6 +292,9 @@ def main() -> int:
     php_out_dir = Path(args.php_out_dir)
     js_path = Path(args.js)
 
+    print("Reading from CSV file: ", csv_path)
+    base_path = Path(csv_path).resolve().parents[1]
+
     # Prefer the dedicated mapping file, but fill any gaps from the full cards map.
     id_to_class = parse_map_refs_classes(map_path)
     if map_fallback_path.exists():
@@ -300,7 +305,7 @@ def main() -> int:
     decks: list[StarterDeck] = []
     with csv_path.open("r", encoding="utf-8", errors="replace", newline="") as f:
         reader = csv.DictReader(f, delimiter=";")
-        required = {"1. Name or Nickname", "3. Hero", "5. Deck Description  ", "6. Cards"}
+        required = {"Creator", "Hero", "Decklist"}
         missing = required - set(reader.fieldnames or [])
         if missing:
             raise SystemExit(f"CSV missing expected columns: {sorted(missing)}")
@@ -308,10 +313,9 @@ def main() -> int:
         for row in reader:
             decks.append(
                 StarterDeck(
-                    author=(row.get("1. Name or Nickname") or "").strip(),
-                    hero_label=(row.get("3. Hero") or "").strip(),
-                    description=(row.get("5. Deck Description  ") or "").strip(),
-                    cards_raw=(row.get("6. Cards") or "").strip(),
+                    author=(row.get("Creator") or "").strip(),
+                    hero_label=(row.get("Hero") or "").strip(),
+                    cards_raw=(row.get("Decklist") or "").strip(),
                 )
             )
 
@@ -347,17 +351,19 @@ def main() -> int:
         php_filename = f"{deck_id}.inc.php"
         php_path = php_out_dir / php_filename
         php_path.write_text(render_php_include(deck.hero_const, class_counts), encoding="utf-8")
+        print("Wrote: ", relative_path(php_path, base_path))
 
         faction_key = infer_faction_lower(hero_card_id).upper()
         # Override OR to OD for consistency with the JavaScript code.
         if faction_key == 'OR':
             faction_key = 'OD'
+        hero_slug = deck_id.split("_")[-1]
         js_entries_by_faction.setdefault(faction_key, []).append(
             "    {"
             f' deckId: "{deck_id}",'
-            f' hero: "{deck.hero_label}",'
+            f' hero: _("{deck.hero_label}"),'
             f' author: "{deck.author}",'
-            f" description: {json.dumps(deck.description)}"
+            f' description: _("starter_description_{hero_slug}"),'
             " },"
         )
 
@@ -379,6 +385,10 @@ def main() -> int:
     js_original = ensure_js_file_with_markers(js_path)
     js_updated = replace_between_markers(js_original, js_generated)
     js_path.write_text(js_updated, encoding="utf-8")
+    print("Wrote: ", relative_path(js_path, base_path))
+
+    print("Updated", len(decks), "decks in total")
+    print("Done")
 
     return 0
 
