@@ -211,10 +211,15 @@ jobs:
             fi
           done
 
-          # 4) Static excludes — .deploy-hashes excluded so --delete won't wipe our state
-          STATIC_EXCLUDES="--exclude-glob .git --exclude-glob node_modules --exclude-glob .github --exclude-glob misc --exclude-glob docs --exclude-glob .deploy-hashes"
+          # 4) Static excludes — regex form (same as GATE_EXCLUDES). --exclude-glob was
+          # observed to silently no-op on directory entries in our lftp version; the
+          # anchored regex ^path/ reliably prunes the whole subtree. ^.[^/]+/ covers
+          # every dotfolder at the root (.git, .github, .deploy-hashes, .vscode, ...), so
+          # --delete also can't wipe the remote hash state since .deploy-hashes is excluded
+          # (the fresh hashes are re-uploaded at step 6).
+          STATIC_EXCLUDES="--exclude=^\.[^/]+/ --exclude=^node_modules/ --exclude=^misc/ --exclude=^docs/"
           if [ "$SKIP_IMAGES" = "true" ]; then
-            STATIC_EXCLUDES="$STATIC_EXCLUDES --exclude-glob img"
+            STATIC_EXCLUDES="$STATIC_EXCLUDES --exclude=^img/"
           fi
 
           DELETE_FLAG=""
@@ -249,10 +254,14 @@ jobs:
           echo "[hash-gate] Uploading fresh hash files to remote..."
           {
             echo "set sftp:auto-confirm yes"
-            echo "set cmd:fail-exit yes"
             echo "set sftp:connect-program \"$SSH_PROG\""
             echo "open -u \"$SFTP_USERNAME,\" -p $SFTP_PORT sftp://$SFTP_HOST"
+            # mkdir tolerates the "already exists" error (lftp's `mkdir -p` is
+            # not idempotent on every SFTP server). The strict fail-exit is
+            # re-enabled before the actual uploads so any put failure aborts.
+            echo "set cmd:fail-exit no"
             echo "mkdir -p \"$SFTP_REMOTE_PATH/$REMOTE_HASH_DIR\""
+            echo "set cmd:fail-exit yes"
             for entry in "${GATED[@]}"; do
               name=${entry%% *}
               if [ "${CHANGED[$name]:-0}" = "1" ]; then

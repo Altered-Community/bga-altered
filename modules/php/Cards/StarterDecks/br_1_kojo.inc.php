@@ -1,10 +1,10 @@
 <?php
 const STARTER_KOJO = [
   'BR_Common_KojoBooda' => 1,
-  'BR_Common_FireRabbit' => 3,
   'BR_Rare_TheHunger' => 3,
   'BR_Common_Issunboshi' => 3,
   'BR_Common_BravosPathfinder' => 3,
+  'BR_Common_FireRabbit' => 3,
   'BR_Common_MightyJinn' => 3,
   'BR_Rare_PhysicalTraining' => 2,
   'BR_Rare_ManaEruption' => 2,
