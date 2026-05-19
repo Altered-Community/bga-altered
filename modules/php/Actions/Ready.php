@@ -49,7 +49,7 @@ class Ready extends \ALT\Models\Action
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args (Ready). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (Ready). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -61,7 +61,7 @@ class Ready extends \ALT\Models\Action
 
     if (!is_null($card)) {
       if (!$card->isTapped() && is_null($this->getCtxArg('optionalExhaust'))) {
-        throw new \BgaVisibleSystemException('Card is not tapped. Should not happen');
+        throw new \Bga\GameFramework\VisibleSystemException('Card is not tapped. Should not happen');
       }
       $card->setTapped(false);
       Notifications::readyEffect($player, $card, $this->getSource());

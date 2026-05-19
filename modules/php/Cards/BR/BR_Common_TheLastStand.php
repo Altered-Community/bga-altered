@@ -4,26 +4,43 @@ use ALT\Helpers\FT;
 
 class BR_Common_TheLastStand extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_EOLE_B_BR_118_C',
-            'asset'  => 'ALT_EOLE_B_BR_118_C',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_BR_118_C',
+      'asset'  => 'ALT_EOLE_B_BR_118_C',
 
-    	'faction'  => FACTION_BR,
-    	'rarity'  => RARITY_COMMON,
-    	'name'  => clienttranslate("The Last Stand"),
+      'faction'  => FACTION_BR,
+      'rarity'  => RARITY_COMMON,
+      'name'  => clienttranslate("The Last Stand"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
-    	'type'  => PERMANENT,
-    	'flavorText'  => clienttranslate(''),
+      'type'  => PERMANENT,
+      'flavorText'  => clienttranslate(''),
       'artist' => "Taras Susak",
-			'extension'=>'ROC',
-   'subtypes'  => [FEAT,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} Send to Reserve target Character with Base Cost {3} or less.  When you pass — If you control another Feat, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: Your Landmarks limit is four.'),
- 			     'supportIcon' => 'discard',
-     'costHand' => 3, 
-     'costReserve' => 3, 
-];
+      'extension' => 'ROC',
+      'subtypes'  => [FEAT, LANDMARK],
+      'effectDesc' => clienttranslate('{J} Send to Reserve target Character with Base Cost {3} or less.  When you pass — If you control another Feat, complete me.'),
+      'supportDesc' => clienttranslate('<COMPLETED>: Your Landmarks limit is four.'),
+      'costHand' => 3,
+      'costReserve' => 3,
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, TOKEN],
+        'maxBaseCost' => 3,
+        'upTo' => true,
+        'effect' => FT::DISCARD_TO_RESERVE(),
+      ]),
+      'effectPassive' => [
+        // Pass uses checkAfterListeners(..., 'EndTurn'); ChooseAssignment passives never see that event.
+        'EndTurn' => [
+          'conditions' => ['isMe', 'hasControlFeat:1:true', 'isThisFeatIncomplete'],
+          'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
+        ],
+      ],
+      // Applied while this Feat has a completed marker (see Player::getLandmarkSlots()).
+      'effectCompleted' => [
+        'landmarkSlots' => 4,
+      ],
+    ];
   }
 }

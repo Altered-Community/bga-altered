@@ -52,14 +52,14 @@ class AbstractNode
         return $i;
       }
     }
-    throw new \BgaVisibleSystemException("Can't find index of a child");
+    throw new \Bga\GameFramework\VisibleSystemException("Can't find index of a child");
   }
 
   public function replace($newNode)
   {
     $index = $this->getIndex();
     if (is_null($index)) {
-      throw new \BgaVisibleSystemException('Trying to replace the root');
+      throw new \Bga\GameFramework\VisibleSystemException('Trying to replace the root');
     }
     return $this->parent->replaceAtPos($newNode, $index);
   }
@@ -74,7 +74,7 @@ class AbstractNode
   {
     $index = $this->getIndex();
     if (is_null($index)) {
-      throw new \BgaVisibleSystemException('Trying to insert a brother of the root');
+      throw new \Bga\GameFramework\VisibleSystemException('Trying to insert a brother of the root');
     }
     // Ensure parent is a seq node
     if (!$this->parent instanceof \ALT\Core\Engine\SeqNode) {

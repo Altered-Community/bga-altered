@@ -652,6 +652,17 @@ class Notifications
       'card2' => $source,
     ]);
   }
+  
+  public static function featCompleted($player, $card, $meeple)
+  {
+    self::notifyAll('addMeeples', clienttranslate('${player_name} completes ${card_name} (Feat)'), [
+      'player' => $player,
+      'card' => $card,
+      'meeples' => [$meeple],
+      'i18n' => [],
+      'preserve' => [],
+    ]);
+  }
 
   public static function targetCards($player, $cards, $additionalCost, $source)
   {

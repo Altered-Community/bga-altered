@@ -25,7 +25,7 @@ class AX_Common_EmergencyBurst extends \ALT\Models\Card
       'effectDesc' => clienttranslate('<FLEETING>.  Play me for {1} less if there are no other cards in your hand.  Send to Reserve target Character with Base Cost {3} or less. (Reserve Cost if it\'s Fleeting, Hand Cost if not.)'),
       'costHand' => 3,
       'costReserve' => 3,
-      'dynamicCostReduction' => '1:hasXCardsInHand:1:LTE',
+      'dynamicCostReduction' => '1:hasXCardsInHandExceptCurrentCard:0:LTE',
       'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [

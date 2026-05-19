@@ -25,7 +25,7 @@ class BR_Rare_EmergencyBurst extends \ALT\Models\Card
       'effectDesc' => clienttranslate('<FLEETING>.  Play me for {1} less if there are no other cards in your hand.  #Discard# target Character #or Permanent# with Base Cost #{2} or less.#'),
       'costHand' => 3,
       'costReserve' => 3,
-      'dynamicCostReduction' => '1:hasXCardsInHand:0:LTE',
+      'dynamicCostReduction' => '1:hasXCardsInHandExceptCurrentCard:0:LTE',
       'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [

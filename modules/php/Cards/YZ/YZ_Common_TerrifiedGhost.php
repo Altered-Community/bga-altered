@@ -4,26 +4,27 @@ use ALT\Helpers\FT;
 
 class YZ_Common_TerrifiedGhost extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_EOLE_B_YZ_107_C',
-            'asset'  => 'ALT_EOLE_B_YZ_107_C',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_YZ_107_C',
+      'asset'  => 'ALT_EOLE_B_YZ_107_C',
 
-    	'faction'  => FACTION_YZ,
-    	'rarity'  => RARITY_COMMON,
-    	'name'  => clienttranslate("Terrified Ghost"),
+      'faction'  => FACTION_YZ,
+      'rarity'  => RARITY_COMMON,
+      'name'  => clienttranslate("Terrified Ghost"),
       'typeline' => clienttranslate("Character - Spirit"),
-    	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate(''),
+      'type'  => CHARACTER,
+      'flavorText'  => clienttranslate('A terror that even ghosts can feel...'),
       'artist' => "Jean-Baptiste Andrier",
-			'extension'=>'ROC',
-   'subtypes'  => [SPIRIT],
-     'forest' => 2, 
-     'mountain' => 1, 
-     'ocean' => 1, 
-     'costHand' => 2, 
-     'costReserve' => 1, 
-];
+      'extension' => 'ROC',
+      'subtypes'  => [SPIRIT],
+      'forest' => 2,
+      'mountain' => 1,
+      'ocean' => 1,
+      'costHand' => 2,
+      'costReserve' => 1,
+    ];
   }
 }

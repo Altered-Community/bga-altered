@@ -67,12 +67,12 @@ class NightCleanup extends \ALT\Models\Action
 
     // Number of cards
     if (count($reserveCardIds) != $args['nReserve'] || count($landmarkCardIds) != $args['nLandmarks']) {
-      throw new \BgaVisibleSystemException('You must select the correct number of cards. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You must select the correct number of cards. Should not happen');
     }
 
     // Valid card ids
     if (!empty(array_diff($reserveCardIds, $pArgs['reserveCards'])) || !empty(array_diff($landmarkCardIds, $pArgs['landmarkCards']))) {
-      throw new \BgaVisibleSystemException('You selected a card that should not be discarded. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You selected a card that should not be discarded. Should not happen');
     }
 
     $cardIds = array_merge($reserveCardIds, $landmarkCardIds);
