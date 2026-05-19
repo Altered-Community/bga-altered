@@ -1084,6 +1084,26 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
+    if (in_array($this->getType(), [PERMANENT])) {
+      $universal = $this->getPlayer()->countUniversalLandmarksToughFromCompletedFeat();
+      if ($this->getExcludeUniversalTough()) {
+        $completed = $this->getEffectCompleted();
+        if (
+          !empty($completed) &&
+          isset($completed['dynamicTough']) &&
+          str_starts_with($completed['dynamicTough'], 'universalLandmarks')
+        ) {
+          $value = (int) str_replace(
+            'universalLandmarks',
+            '',
+            $completed['dynamicTough']
+          );
+          $universal -= $value;
+        } 
+      }
+      $tough += $universal;
+    }
+
     // Global Tough
     $globalTough = Globals::getGlobalTough();
     if (isset($globalTough[$this->pId])) {

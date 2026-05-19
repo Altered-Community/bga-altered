@@ -6,9 +6,9 @@ class OD_Rare_TheLastStand extends \ALT\Models\Card
 {
   public function __construct($row){
 		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_EOLE_B_BR_118_R2',
-            'asset'  => 'ALT_EOLE_B_BR_118_R',
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_BR_118_R2',
+      'asset'  => 'ALT_EOLE_B_BR_118_R',
 
     	'faction'  => FACTION_OD,
     	'rarity'  => RARITY_RARE,
@@ -18,13 +18,28 @@ class OD_Rare_TheLastStand extends \ALT\Models\Card
     	'flavorText'  => clienttranslate(''),
       'artist' => "Taras Susak",
 			'extension'=>'ROC',
-   'subtypes'  => [FEAT,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} Send to Reserve target Character with Base Cost #{2} or less.#  When you pass — If you control another Feat, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: Your Landmarks limit is four.'),
- 			     'supportIcon' => 'discard',
-     'costHand' => 2, 
-     'costReserve' => 2, 
-     'changedStats' => ['costHand','costReserve'], 
-];
+      'subtypes'  => [FEAT,LANDMARK],
+      'effectDesc' => clienttranslate('{J} Send to Reserve target Character with Base Cost #{2} or less.#  When you pass — If you control another Feat, complete me.'),
+      'supportDesc' => clienttranslate('<COMPLETED>: Your Landmarks limit is four.'),
+      'supportIcon' => 'discard',
+      'costHand' => 2, 
+      'costReserve' => 2, 
+      'changedStats' => ['costHand','costReserve'], 
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, TOKEN],
+        'maxBaseCost' => 2,
+        'upTo' => true,
+        'effect' => FT::DISCARD_TO_RESERVE(),
+      ]),
+      'effectPassive' => [
+        'EndTurn' => [
+          'conditions' => ['isMe', 'hasControlFeatWithMaxBaseCost:1:true:2', 'isThisFeatIncomplete'],
+          'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
+        ],
+      ],
+      'effectCompleted' => [
+        'landmarkSlots' => 4,
+      ],
+    ];
   }
 }

@@ -20,7 +20,7 @@ class BR_Rare_TheLastStand extends \ALT\Models\Card
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
-      'effectDesc' => clienttranslate('{J} Send to Reserve target Character with Base Cost #{2} or less.#  When you pass — If you control another Feat with Base Cost #{2} or less#, complete me.'),
+      'effectDesc' => clienttranslate('{J} Send to Reserve target Character with Base Cost #{2} or less.#  When you pass — If you control another Feat, complete me.'),
       'supportDesc' => clienttranslate('<COMPLETED>: Your Landmarks limit is four.'),
       'costHand' => 2,
       'costReserve' => 2,

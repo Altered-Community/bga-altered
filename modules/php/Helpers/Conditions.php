@@ -240,6 +240,21 @@ abstract class Conditions
     return false;
   }
 
+  public static function movesAnyExpeditionDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) { 
+      if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$storm]) ) { 
+        continue;
+      } 
+      $move = $stormMoves[$card->getPId()][$storm]; 
+      if ($card->getPlayer()->isAscended($storm) && empty($move['biomes'])) { 
+        return true; 
+      }  
+    } 
+    return false;
+  }
+
   public static function movesAscendedAnyExpeditions($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
@@ -492,6 +507,16 @@ abstract class Conditions
     });
     return $cards->count() == 0;
   }
+
+  public static function has6HandCostLandmarks($card, $n)
+  {
+    $cards = $card->getPlayer()->getLandmarks();
+    $total = 0;
+    foreach ($cards as $c) {
+      $total += $c->getCostHand();
+    }
+    return $total >= 6;
+  }  
 
   public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
   {
