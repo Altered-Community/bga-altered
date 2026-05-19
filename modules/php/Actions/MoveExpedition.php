@@ -50,10 +50,12 @@ class MoveExpedition extends \ALT\Models\Action
       if ($expe == EFFECT) {
         $expe = $this->getSource()->getLocation();
       } elseif ($expe == 'fromEvent') {
-        // Check event in case of leaving expedition
+        // Resolve expedition from the triggering event context.
         $event = $this->getEventRecursive();
         if (!is_null($event) && in_array($event['method'], ['LeaveExpedition', 'LeaveLandmark']) && isset($event['from'])) {
           $expe = $event['from'];
+        } elseif (!is_null($event) && $event['method'] == 'MoveExpedition' && isset($event['expedition'])) {
+          $expe = $event['expedition'];
         }
       }
     }
@@ -158,13 +160,21 @@ class MoveExpedition extends \ALT\Models\Action
     $winningBiomes = $this->getArg('winningBiomes');
     $ascended = $player->isAscended($expedition);
 
-    // Rune's testament
+    // Rune's testament / Pegasus / Eris (non-dusk forced moves from spells and effects)
     if ($this->getArg('force') === false) {
       $actionInsteadAdvance = Players::getActionInsteadOfAdvance();
       if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
         $nodes = [];
+        $forcedMoveArgs = [
+          'pId' => $pId,
+          'expedition' => [$expedition],
+          'force' => true,
+          'forceExpedition' => [$pId, $expedition],
+          'winningBiomes' => $winningBiomes,
+          'ascended' => $ascended,
+        ];
         if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition]) && !in_array('PegasusCommon', $actionInsteadAdvance[$pId][$expedition])) {
-          $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]);
+          $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
         }
         foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
           $triggeredCard = Cards::get($cId);
@@ -183,37 +193,36 @@ class MoveExpedition extends \ALT\Models\Action
             if (!$triggeredCard->isGigantic()) {
               $nodes[] = FT::ACTION(ROLL_DIE, [
                 'effect' => [
-                  '1-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]),
-                  '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes], ['pId' => $pId])
+                  '1-3' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]),
+                  '4+' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n + 1]), ['pId' => $pId])
                 ]
               ], ['sourceId' => $cId]);
             } else {
-              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
             }
           } elseif ($action == 'ErisRare') {
             if (!$triggeredCard->isGigantic()) {
               $nodes[] = FT::ACTION(ROLL_DIE, [
                 'effect' => [
-                  '2-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]),
-                  '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes], ['pId' => $pId])
+                  '2-3' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]),
+                  '4+' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n + 1]), ['pId' => $pId])
                 ]
               ], ['sourceId' => $cId]);
-            } 
-            else {
-              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+            } else {
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
             }
           } elseif ($action == 'PegasusCommon') {
-            if (empty($winningBiomes) && $ascended && !$triggeredCard->isGigantic()) {
-              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes, 'ascended' => $ascended], ['pId' => $pId]);
-            }
-            else {
-              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $ascended], ['pId' => $pId]);
-            }
+            $pegasusN = (empty($winningBiomes) && $ascended) ? $n + 1 : $n;
+            $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $pegasusN]), ['pId' => $pId, 'sourceId' => $cId]);
           }
         }
-        Engine::insertAsChild(
-          ['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]
-        );
+        if (!empty($nodes)) {
+          $this->insertAsChild(
+            count($nodes) == 1
+              ? $nodes[0]
+              : ['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]
+          );
+        }
 
         $this->resolveAction(['']);
         return;
