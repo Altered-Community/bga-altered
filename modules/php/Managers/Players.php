@@ -624,6 +624,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $blockedExpeditions = self::getBlockedExpeditions();
     $actionInsteadAdvance = self::getActionInsteadOfAdvance();
     $toMove = [];
+    $hasMovedFromAscension = false;
     // For each player, check whether hero and/or companion move forward
     foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
@@ -659,6 +660,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
           if ($isEqual && $isAscended){
             $move = true;
+            $hasMovedFromAscension = true;
           } elseif ($pIdWinner == $pId)  {
               $move = true;
               $winningBiomes[] = $biome;
@@ -732,7 +734,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
                 $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
               }
              } elseif ($action == 'PegasusCommon') {
-              $nValue = (empty($winningBiomes) && $isAscended) ? $n + 1 : $n;
+              $nValue = ($hasMovedFromAscension && $isAscended) ? $n + 1 : $n;
               $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $nValue]), ['pId' => $pId]);
             } elseif ($action == 'blockMove') {
               // Eris, we need to check if it was triggered, else we do need to move the expedition
@@ -748,7 +750,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           }
           continue;
         }
-        $player->advanceStorm($side, $winningBiomes, $n);
+        $player->advanceStorm($side, $winningBiomes, $n, $hasMovedFromAscension);
       }
       if (!empty($duskEngineSteps)) {
         Engine::pushAfterFinishingChilds([

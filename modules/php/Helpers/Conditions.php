@@ -253,7 +253,7 @@ abstract class Conditions
     }
 
     $move = $stormMoves[$card->getPId()][$storm];
-    if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1 && empty($move['biomes'])) {
+    if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1 && $move['hasMovedFromAscension']) {
       return true;
     }
 
@@ -269,7 +269,7 @@ abstract class Conditions
           return false;
         }
         $move = $stormMoves[$card->getPId()][$storm];
-        if (!$card->getPlayer()->isAscended($storm) || !empty($move['biomes'])) {
+        if (!$card->getPlayer()->isAscended($storm) || $move['hasMovedFromAscension']) {
           return false;
         }
     }
@@ -284,7 +284,7 @@ abstract class Conditions
         continue;
       } 
       $move = $stormMoves[$card->getPId()][$storm]; 
-      if ($card->getPlayer()->isAscended($storm) && empty($move['biomes'])) { 
+      if ($card->getPlayer()->isAscended($storm) && $move['hasMovedFromAscension']) { 
         return true; 
       }  
     } 

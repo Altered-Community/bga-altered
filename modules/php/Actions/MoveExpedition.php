@@ -230,7 +230,7 @@ class MoveExpedition extends \ALT\Models\Action
     }
     $winningBiomes = $this->getArg('winningBiomes');
     if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
-      $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+      $moved = $player->advanceStorm($token, $winningBiomes, $n, false, true, $source);
     } else {
       $moved = false;
     }
@@ -244,7 +244,7 @@ class MoveExpedition extends \ALT\Models\Action
         // only done through a spell
         $otherExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
         if ((($n * -1) > 0 && !Players::hasOpponentBlockMoveExpedition($player, $otherExpedition)) || ($n * -1) < 0) {
-          $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
+          $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, false, true, $source);
           $expeditionMoves = Globals::getExpeditionMoves();
           $expeditionMoves[$player->getId()][$otherExpedition] = ($expeditionMoves[$player->getId()][$otherExpedition] ?? 0) + ($n * -1);
           Globals::setExpeditionMoves($expeditionMoves);
@@ -259,7 +259,7 @@ class MoveExpedition extends \ALT\Models\Action
 
       $token = $expedition == STORM_LEFT ? HERO : COMPANION;
       if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
-        $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+        $moved = $player->advanceStorm($token, $winningBiomes, $n, false, true, $source);
         if ($moved) {
           $expeditionMoves = Globals::getExpeditionMoves();
           $expeditionMoves[$player->getId()][$expedition] = ($expeditionMoves[$player->getId()][$expedition] ?? 0) + $n;
