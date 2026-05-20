@@ -34,7 +34,7 @@ log = logging.getLogger(__name__)
 # ── Constants ─────────────────────────────────────────────────────────────────
 BGA_BUGS_URL = (
     "https://boardgamearena.com/bugs?game={game_id}"
-    "&statuses=open,infoneeded,confirmed,awaiting,inforequest,acknowledged,implemented,rejected"
+    "&statuses=confirmed"
 )
 BGA_BUG_URL = "https://boardgamearena.com/bug?id={bug_id}"
 
