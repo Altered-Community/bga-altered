@@ -897,7 +897,7 @@
          <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
            <div id='account-not-configured-desc'>
              <p>${_(`To retrieve your decks, you'll now need an account on one of the officially recognized platforms of Altered Re:Union`)}.</p>
-             <p>${_('You can create an account, build or import your decks on any ')} <a class="account-not-configured-link" href="https://altered.re/index.php/deckbuilders/" target="_blank" rel="noopener noreferrer">acknowledged deckbuilders</a></p>
+             <p>${_('You can create an account, build or import your decks on any ')} <a class="account-not-configured-link" href="https://altered.re/pages/news-detail?slug=get-ready-to-continue-your-altered-adventure-on-board-game-arena" target="_blank" rel="noopener noreferrer">acknowledged deckbuilders</a></p>
              <p>${_('Don\'t forget to connect your account on BGA afterward. You can do so here :')} <a class="account-not-configured-link" href="https://boardgamearena.com/preferences?section=account" target="_blank" rel="noopener noreferrer">BGA Accounts</a></p>
            </div>
          </div>
