@@ -46,19 +46,8 @@ EXTRACT_JS_PATH = Path(__file__).parent / "extract_bugs.js"
 
 # Map BGA status text (lowercased substring) → (label_name, color, description)
 BGA_STATUS_LABELS = {
-    "open":           ("bga-open",         "e4e669", "BGA status: Open"),
-    "infoneeded":     ("bga-info-needed",   "FCC94F", "BGA status: Info Needed"),
-    "infos requises": ("bga-info-needed",   "FCC94F", "BGA status: Info Needed"),
     "confirmed":      ("bga-confirmed",     "0075ca", "BGA status: Confirmed"),
     "confirme":       ("bga-confirmed",     "0075ca", "BGA status: Confirmed"),
-    "awaiting":       ("bga-awaiting",      "cfd3d7", "BGA status: Awaiting"),
-    "en attente":     ("bga-awaiting",      "cfd3d7", "BGA status: Awaiting"),
-    "inforequest":    ("bga-info-request",  "d93f0b", "BGA status: Info Request"),
-    "acknowledged":   ("bga-acknowledged",  "1d76db", "BGA status: Acknowledged"),
-    "implemented":    ("bga-implemented",   "0e8a16", "BGA status: Implemented"),
-    "implemente":     ("bga-implemented",   "0e8a16", "BGA status: Implemented"),
-    "rejected":       ("bga-rejected",      "b60205", "BGA status: Rejected"),
-    "rejete":         ("bga-rejected",      "b60205", "BGA status: Rejected"),
 }
 
 ALL_STATUS_LABEL_NAMES = {v[0] for v in BGA_STATUS_LABELS.values()}
