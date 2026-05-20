@@ -32,7 +32,7 @@ jobs:
           BGA_GAME_ID: ${{ vars.BGA_GAME_ID || '1909' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPO: ${{ github.repository }}
-        run: python scripts/sync_bga_bugs.py
+        run: python misc/python-tools/sync_bga_bugs.py
 
       - name: Commit dedup file
         run: |
