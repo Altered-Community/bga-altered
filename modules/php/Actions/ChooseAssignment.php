@@ -35,6 +35,7 @@ class ChooseAssignment extends \ALT\Models\Action
     'types' => [PERMANENT, SPELL, CHARACTER],
     'actions' => ['play', 'support', 'tap'],
     'maxHandCost' => INFTY,
+    'minHandCost' => 0,
     'free' => false,
     'maxBaseCost' => INFTY,
     'minBaseCost' => 0,
@@ -44,6 +45,45 @@ class ChooseAssignment extends \ALT\Models\Action
     'reserveFlipCost' => false
   ];
 
+  
+  /**
+   * Free-play cost limits explicitly set on this engine node (not class defaults).
+   * Each CHOOSE_ASSIGNMENT in the stack only applies its own limits, so e.g. Santa (≤3 hand)
+   * and Daikokuten (≥4 base) or a future ≥4 hand gift do not bleed into one another.
+   */
+  private function getExplicitFreeCostLimits()
+  {
+    $ctxArgs = $this->getCtxArgs();
+    $keys = ['maxHandCost', 'minHandCost', 'maxBaseCost', 'minBaseCost'];
+    $limits = [];
+    foreach ($keys as $key) {
+      if (array_key_exists($key, $ctxArgs)) {
+        $limits[$key] = $ctxArgs[$key];
+      }
+    }
+    return $limits;
+  }
+
+  private function cardMeetsExplicitFreeCostLimits($card, array $limits)
+  {
+    $handCost = $card->getCostHand();
+    $baseCost = $card->getLocation() == RESERVE ? $card->getCostReserve() : $card->getCostHand();
+
+    if (isset($limits['minHandCost']) && $handCost < $limits['minHandCost']) {
+      return false;
+    }
+    if (isset($limits['maxHandCost']) && $handCost > $limits['maxHandCost']) {
+      return false;
+    }
+    if (isset($limits['minBaseCost']) && $baseCost < $limits['minBaseCost']) {
+      return false;
+    }
+    if (isset($limits['maxBaseCost']) && $baseCost > $limits['maxBaseCost']) {
+      return false;
+    }
+    return true;
+  }
+
   public function argsChooseAssignment()
   {
     $player = Players::getActive();
@@ -52,9 +92,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $actions = ['play' => [], 'support' => [], 'tap' => []];
     $authorizedTypes = $this->getArg('types');
     $authorizedActions = $this->getArg('actions');
-    $maxHandCost = $this->getArg('maxHandCost');
-    $maxBaseCost = $this->getArg('maxBaseCost');
-    $minBaseCost = $this->getArg('minBaseCost');
+    $freeCostLimits = $this->getExplicitFreeCostLimits();
     $reserveFlipCost = $this->getArg('reserveFlipCost');
     $free = $this->getArg('free');
     $forcedLocation = $this->getArg('forcedLocation');
@@ -63,12 +101,11 @@ class ChooseAssignment extends \ALT\Models\Action
     if (in_array('play', $authorizedActions)) {
       $actions['play'] = $handCards
         ->merge($reserveCards)
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost, $reserveFlipCost) {
+        ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits, $reserveFlipCost) {
+          $canBePaidAndPlayed = $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped();
+          $meetsFreeCostLimits = !$free || $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
           return (in_array($card->getType(), $authorizedTypes) || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0) &&
-            ((!$free && $card->canBePlayed($player, false, $reserveFlipCost)) || ($free && $card->getCostHand() <= $maxHandCost  && $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped() &&
-              (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost)) &&
-              (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
-            ));;
+            ((!$free && $card->canBePlayed($player, false, $reserveFlipCost)) || ($canBePaidAndPlayed && $meetsFreeCostLimits));
         })
         ->map(function ($card) use ($player, $forcedLocation, $free) {
           return $card->getPlayableLocation($player, $forcedLocation, $free);
@@ -76,9 +113,11 @@ class ChooseAssignment extends \ALT\Models\Action
 
       // Scout is only for hand cards
       $scouts =  $handCards
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
+        ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits) {
+          $meetsFreeScoutCost = $free && !$card->isTapped()
+            && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
           return $card->getScout() > 0 && in_array($card->getType(), $authorizedTypes) &&
-            ((!$free && $card->canBePlayed($player, true)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
+            ((!$free && $card->canBePlayed($player, true)) || $meetsFreeScoutCost);
         })
         ->map(function ($card) use ($player, $forcedLocation) {
           return $card->getScoutableLocations($player, $forcedLocation);
