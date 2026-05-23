@@ -448,7 +448,7 @@ class Engine
 
     // Active player effects run in parallel first, then opponent effects in parallel.
     return self::insertAtRoot([
-      'type' => NODE_PARALLEL,
+      'type' => NODE_SEQ,
       'flag' => \AFTER_FINISHING_ACTION,
       'childs' => [
         ['type' => NODE_PARALLEL, 'flag' => \AFTER_FINISHING_ACTIVE, 'childs' => []],
