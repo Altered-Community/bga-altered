@@ -6,8 +6,7 @@
       "1": {
         "name": "Beginner - Starter Decks",
         "tmdisplay": "Beginner mode",
-        "description": "Game can be played only with starter decks",
-        "firstgameonly": true
+        "description": "Game can be played only with starter decks"
       },
       "0": {
         "name": "Normal - Custom Decks & Starter Decks",
