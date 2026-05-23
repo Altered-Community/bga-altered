@@ -102,10 +102,17 @@ class ChooseAssignment extends \ALT\Models\Action
       $actions['play'] = $handCards
         ->merge($reserveCards)
         ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits, $reserveFlipCost) {
-          $canBePaidAndPlayed = $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped();
-          $meetsFreeCostLimits = !$free || $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
-          return (in_array($card->getType(), $authorizedTypes) || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0) &&
-            ((!$free && $card->canBePlayed($player, false, $reserveFlipCost)) || ($canBePaidAndPlayed && $meetsFreeCostLimits));
+          $typeOk = in_array($card->getType(), $authorizedTypes)
+            || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0;
+          if (!$typeOk) {
+            return false;
+          }
+          if (!$free) {
+            return $card->canBePlayed($player, false, $reserveFlipCost);
+          }
+          return $card->getMinManaOrbs() <= $player->getTotalMana()
+            && !$card->isTapped()
+            && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
         })
         ->map(function ($card) use ($player, $forcedLocation, $free) {
           return $card->getPlayableLocation($player, $forcedLocation, $free);
