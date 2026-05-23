@@ -22,7 +22,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     { deckId: "ly_2_auraq", hero: _("Auraq & Kibble"), author: "The_Vary", description: _("Play many small Characters in order to summon your big ones for free!"), },
     { deckId: "ly_3_fen", hero: _("Fen & Crowbar"), author: "YllKa", description: _("Perform on stage and move all the cards from place to place until your opponent loses track!"), },
     { deckId: "ly_65_nadir", hero: _("Nadir & Bubbles"), author: "NyanKoro", description: _("Paint new Terrains to clear your way and lock your opponent in obstacles!"), },
-    { deckId: "ly_1_nevenka", hero: _("Nevenka & Blotch"), author: "Knightsong", description: _("Ask for fate go give you some help but don't abuse it or you'll regret it!"), },
+    { deckId: "ly_1_nevenka", hero: _("Nevenka & Blotch"), author: "Knightsong", description: _("Ask for fate to give you some help but don't abuse it or you'll regret it!"), },
   ],
   "MU": [
     { deckId: "mu_2_arjun", hero: _("Arjun & Spike"), author: "Zadibouc", description: _("Make your Characters feel eternal by anchoring them over and over again!"), },
