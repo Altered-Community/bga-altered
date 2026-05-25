@@ -34,7 +34,7 @@ trait EndGameTrait
       //$valid = self::getGenericGameInfos('push_adventure_pass', $request);
 
       Notifications::message(
-        clienttranslate('The game has ended. Calculating BGA Adventure pass progress...'),
+        clienttranslate('The game has ended.'),
         []
       );
       // if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
