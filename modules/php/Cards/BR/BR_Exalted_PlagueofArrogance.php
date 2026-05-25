@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Exalted_PlagueofArrogance extends \ALT\Models\Card
@@ -29,6 +27,42 @@ class BR_Exalted_PlagueofArrogance extends \ALT\Models\Card
       'costHand' => 7,
       'costReserve' => 7,
       'gigantic' => true,
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
+        'targetType' => [PERMANENT],
+        'targetLocation' => [LANDMARK],
+        'subType' => FEAT,
+        'n' => 1,
+        'effect' => FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'isTargetFeatCompleted',
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+            [
+              'type' => NODE_OR,
+              'args' => ['n' => 2],
+              'pId' => 'source',
+              'childs' => [
+                FT::SABOTAGE(),
+                FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::DISCARD_TO_RESERVE()]),
+                FT::GAIN(ME, BOOST, 2),
+              ],
+            ],
+          ),
+          'oppositeEffect' => FT::SEQ(
+            FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+            [
+              'type' => NODE_OR,
+              'args' => ['n' => 1],
+              'pId' => 'source',
+              'childs' => [
+                FT::SABOTAGE(),
+                FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'effect' => FT::DISCARD_TO_RESERVE()]),
+                FT::GAIN(ME, BOOST, 2),
+              ],
+            ],
+          ),
+        ]),
+      ]),
     ];
   }
 }

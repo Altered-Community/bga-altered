@@ -554,6 +554,20 @@ abstract class Conditions
   }
 
   /**
+   * True if the card indicated by ctx cardId has a completed-Feat meeple.
+   * Must run before sacrificing that card to discard — discardTo() removes meeples including FEAT_COMPLETED.
+   */
+  public static function isTargetFeatCompleted($card, $event)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if ($cardId === null) {
+      return false;
+    }
+    $c = Cards::get($cardId);
+    return Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) >= 1;
+  }
+
+  /**
    * Counts Feat permanents you control in play (same zones / filters as hasControl for subtype feat).
    *
    * Condition string segments (after the name), same order as hasControl minus type and opponent:
