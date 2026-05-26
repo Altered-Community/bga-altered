@@ -17,7 +17,7 @@ class YZ_Rare_QorganPhantom extends \ALT\Models\Card
       'type'  => CHARACTER,
       'flavorText'  => clienttranslate(''),
       'artist' => "Jefrey Yonathan",
-      'extension'=>'ROC',
+      'extension' => 'ROC',
       'subtypes'  => [MAGE],
       'effectDesc' => clienttranslate('#{H} You may pay {1}. If you do, I activate my {D} ability.#'),
       'supportDesc' => clienttranslate('{D} : Draw a card, then discard a card from your hand.'),
@@ -36,7 +36,7 @@ class YZ_Rare_QorganPhantom extends \ALT\Models\Card
       'effectSupport' => FT::SEQ(
         FT::ACTION(DRAW, ['players' => ME, 'n' => 1]),
         FT::ACTION(DISCARD, ['source' => HAND]),
-      ),     
+      ),
     ];
   }
 }

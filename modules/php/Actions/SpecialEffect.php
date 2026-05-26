@@ -825,7 +825,7 @@ class SpecialEffect extends \ALT\Models\Action
         $nodes = [];
         $discardedCards = Cards::getFiltered($card->getPId(), DISCARD_PILE);
         foreach ($discardedCards as $discardedCard) {
-          if (!Conditions::isCardMatchingSearch($discardedCard, 'ALT_EOLE_B_YZ_115')) {
+          if (!Conditions::isCardMatchingSearch($discardedCard, 'YZ_115')) {
             continue;
           }
           $nodes[] = FT::ACTION(

@@ -4,26 +4,60 @@ use ALT\Helpers\FT;
 
 class YZ_Exalted_ClosetheBreach extends \ALT\Models\Card
 {
-  public function __construct($row){
-		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_EOLE_B_YZ_122_E',
-            'asset'  => 'ALT_EOLE_B_YZ_122_E',
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_YZ_122_E',
+      'asset'  => 'ALT_EOLE_B_YZ_122_E',
 
-    	'faction'  => FACTION_YZ,
-    	'rarity'  => RARITY_EXALTED,
-    	'name'  => clienttranslate("Close the Breach!"),
+      'faction'  => FACTION_YZ,
+      'rarity'  => RARITY_EXALTED,
+      'name'  => clienttranslate("Close the Breach!"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
-    	'type'  => PERMANENT,
-    	'flavorText'  => clienttranslate(''),
+      'type'  => PERMANENT,
+      'flavorText'  => clienttranslate(''),
       'artist' => "Anh Tung & Ba Vo",
-			'extension'=>'ROC',
-   'subtypes'  => [FEAT,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} Discard target Character with Base Cost {3} or less.  When you pass after your opponents — If you are first player, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED>: {T}, {1} : Target Character you control gains 1 boost, then <AFTER_YOU>.'),
- 			     'supportIcon' => 'discard',
-     'costHand' => 3, 
-     'costReserve' => 3, 
-];
+      'extension' => 'ROC',
+      'subtypes'  => [FEAT, LANDMARK],
+      'effectDesc' => clienttranslate('{J} Discard target Character with Base Cost {3} or less.  When you pass after your opponents — If you are first player, complete me.'),
+      'supportDesc' => clienttranslate('<COMPLETED>: {T}, {1} : Target Character you control gains 1 boost, then <AFTER_YOU>.'),
+      'costHand' => 3,
+      'costReserve' => 3,
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, TOKEN],
+        'maxBaseCost' => 3,
+        'upTo' => true,
+        'effect' => FT::ACTION(DISCARD, []),
+      ]),
+      'effectTap' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'isThisFeatCompleted',
+        'effect' => FT::SEQ(
+          FT::ACTION(PAY, ['pay' => 1]),
+          FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER],
+            'targetPlayer' => ME,
+            'effect' => FT::SEQ(
+              FT::GAIN(EFFECT, BOOST),
+              FT::ACTION(AFTER_YOU, []),
+            ),
+          ])
+        ),
+      ]),
+      'effectPassive' => [
+        // Pass uses EndTurn listener in this rules engine.
+        'EndTurn' => [
+          'conditions' => ['isMe', 'isThisFeatIncomplete'],
+          'output' => FT::ACTION(CHECK_CONDITION, [
+            // "After your opponents" means you are not the first to pass this day.
+            'condition' => 'isFirstPassing',
+            'oppositeEffect' => FT::ACTION(CHECK_CONDITION, [
+              'condition' => 'isFirstPlayer',
+              'effect' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
+            ]),
+          ]),
+        ],
+      ],
+    ];
   }
 }
