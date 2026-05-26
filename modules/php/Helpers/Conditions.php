@@ -588,7 +588,8 @@ abstract class Conditions
   }
 
   /**
-   * True when $name appears as a substring of the card UID (literal match: case and punctuation preserved).
+   * True when the card UID contains $name as a set/faction segment (e.g. YZ_115 matches ALT_EOLE_B_YZ_115_C).
+   * Uses /_<name>(_|$)/ so partial numbers like YZ_1150 do not match.
    */
   public static function isCardMatchingSearch($card, $name)
   {
@@ -597,9 +598,14 @@ abstract class Conditions
     }
 
     $uid = (string) $card->getUid();
-    return $uid !== '' && strpos($uid, (string) $name) !== false;
-  }
+    if ($uid === '') {
+      return false;
+    }
 
+    $pattern = '/_' . preg_quote((string) $name, '/') . '(_|$)/';
+    return preg_match($pattern, $uid) === 1;
+  }
+  
   /** True if this player has n completed feat. */
   public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {

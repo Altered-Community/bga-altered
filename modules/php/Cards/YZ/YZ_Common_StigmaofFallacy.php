@@ -29,7 +29,7 @@ class YZ_Common_StigmaofFallacy extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => ['isMe', 'hasCardInDiscardPile:ALT_EOLE_B_YZ_115'],
+        'condition' => ['isMe', 'hasCardInDiscardPile:YZ_115'],
         'effect' => FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'YZ_Common_ManaMoth',
