@@ -28,8 +28,9 @@ class YZ_Common_CorruptedBabaYaga extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::PAR(
         FT::ACTION(CHECK_CONDITION, [
-          'conditions' => ['hasDiscardPileCards:5:LTE'],
-          'effect' => FT::GAIN(ME, FLEETING),
+          'conditions' => ['hasDiscardPileCards:6:GTE'],
+          'effect' => null,
+          'oppositeEffect' => FT::GAIN(ME, FLEETING),
         ]),
         FT::ACTION(DRAW, ['players' => ME]),
       ),

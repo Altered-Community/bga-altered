@@ -82,6 +82,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     // Eole
     'nextCharacterAsleep' => 'obj',
     'abilityActivatedThisTurn' => 'obj',
+    'abilityActivatedThisTurnCount' => 'obj',
+    'abilityActivatedThisTurnTypeCount' => 'obj',
 
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
