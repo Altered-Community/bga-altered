@@ -36,7 +36,7 @@ class YZ_Rare_QorganPhantom extends \ALT\Models\Card
       'effectSupport' => FT::SEQ(
         FT::ACTION(DRAW, ['players' => ME, 'n' => 1]),
         FT::ACTION(DISCARD, ['source' => HAND]),
-      ),     
+      ),
     ];
   }
 }

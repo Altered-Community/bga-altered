@@ -28,6 +28,27 @@ class AX_Rare_PushBacktheNight extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
+       'effectPlayed' => FT::SEQ(
+        FT::ACTION(DRAW, ['players' => ME]),
+        FT::ACTION(DISCARD, ['source' => HAND]),
+      ),
+      'effectPassive' => [
+        'Noon' => [
+          'conditions' => ['isMe', 'isThisFeatIncomplete', 'hasDiscardPileCards:6'],
+          'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
+        ],
+        'Discard' => [
+          'conditions' => ['hasSameOwner', 'isThisFeatCompleted', 'isDiscarded:hand:reserve', 'notTapped'],
+          'output' => FT::SEQ_OPTIONAL(
+            FT::ACTION(TAP, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => 'AX_Common_Brassbug',
+              'targetLocation' => STORMS,
+            ])
+          ),
+        ],
+      ],
     ];
   }
 }

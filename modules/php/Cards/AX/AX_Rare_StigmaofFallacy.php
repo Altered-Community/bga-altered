@@ -30,6 +30,8 @@ class AX_Rare_StigmaofFallacy extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 4,
       'costReserve' => 4,
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'invokeManaMothPerStigmaInDiscard']),
+      'effectSupport' => FT::ACTION(AFTER_YOU, []),
     ];
   }
 }
