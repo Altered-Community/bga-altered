@@ -536,7 +536,7 @@ class ChooseAssignment extends \ALT\Models\Action
         }
       }
 
-      if (($fromLocation == HAND && $effectHand) || ($fromLocation == LIMBO && $effectHand && $stealOwnership == true)) {
+      if ($effectHand && in_array($fromLocation, [HAND, LIMBO])) {
         $effect = $card->getEffectHand();
         if (!empty($effect)) {
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
@@ -843,7 +843,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['support'];
 
     if (!in_array($cardId, $args)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played as support. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be played as support. Should not happen');
     }
 
     $card = Cards::get($cardId);
@@ -856,6 +856,13 @@ class ChooseAssignment extends \ALT\Models\Action
       ['discard' => true, 'discardFromHandOrReserve' => true]
     );
     Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+    $abilityActivatedTypeCount[$player->getId()]['discard'] = ($abilityActivatedTypeCount[$player->getId()]['discard'] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     $effect = $card->getEffectSupport();
     if (!empty($effect)) {
@@ -876,7 +883,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'token' => $card->isToken(),
       'sourceId' => $cardId,
       'pId' => $player->getId(),
-    ]);
+    ], true, 'Discard');
   }
 
   ////////////////////////
@@ -893,7 +900,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['tap'];
 
     if (!in_array($cardId, $args)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be tapped. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be tapped. Should not happen');
     }
     $card = Cards::get($cardId);
     $card->setTapped(true);
@@ -904,6 +911,13 @@ class ChooseAssignment extends \ALT\Models\Action
       ['tap' => true]
     );
     Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+    $abilityActivatedTypeCount[$player->getId()]['tap'] = ($abilityActivatedTypeCount[$player->getId()]['tap'] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     $effect = $card->getEffectTap();
     if (!empty($effect)) {

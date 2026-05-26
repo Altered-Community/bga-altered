@@ -229,6 +229,12 @@ class AbstractNode
       return Players::getNext(Players::getActive())->getId();
     } elseif ($pIdTest == 'active') {
       return Players::getActiveId();
+    } elseif ($pIdTest == 'source') {
+      $sid = $this->getSourceId();
+      if ($sid === null) {
+        return null;
+      }
+      return Cards::get($sid)->getPId();
     } else {
       return $pIdTest;
     }

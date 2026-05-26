@@ -565,7 +565,7 @@ class Player extends \ALT\Helpers\DB_Model
     return $newBiomes;
   }
 
-  public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
+  public function advanceStorm($token, $biomes, $n = 1, $hasMovedFromAscension = false, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
     $tokenMeeple = $this->$getToken();
@@ -592,7 +592,8 @@ class Player extends \ALT\Helpers\DB_Model
     $moves[$this->id][$expedition] = [
       'biomes' => is_array($biomes) ? $biomes : [],
       'moves' => $n,
-      'ascended' => $isAscended
+      'ascended' => $isAscended,
+      'hasMovedFromAscension' => $hasMovedFromAscension
     ];
     Globals::setStormMoves($moves);
 
@@ -1234,10 +1235,7 @@ class Player extends \ALT\Helpers\DB_Model
   {
     $n = 0;
     foreach ($this->getLandmarks() as $card) {
-      if (!$card->mayMergeCompletedFeatDynamicTough()) {
-        continue;
-      }
-      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+      if (!$card->mayMergeCompletedFeatDynamicTough() || Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
         continue;
       }
       $completed = $card->getEffectCompleted();

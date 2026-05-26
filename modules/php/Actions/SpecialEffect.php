@@ -92,6 +92,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Discard all hands');
       case 'discardAllHandReserve':
         return clienttranslate('Discard all hands and reserve');
+      case 'discardAllReserve':
+        return clienttranslate('Each player discards their Reserve');
       case 'instantWin':
         return clienttranslate('Immediate win');
       case 'MindApotheosis':
@@ -106,6 +108,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Invoke 2 Ordis recruit after rest');
       case 'invokeOrdisRecruitBureaucrat':
         return clienttranslate('Invoke 1 Ordirs recruit for each Bureaucrat you control');
+      case 'invokeManaMothPerStigmaInDiscard':
+        return clienttranslate('Invoke 1 Mana Moth for each Stigma of Fallacy in your discard pile');
       case 'afterRest':
         return clienttranslate('Trigger the effect after rest');
       case 'AllPlayersSacrifice1':
@@ -242,6 +246,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('1 Boost for each Completed Feat in your Landmarks');
       case 'nextAnimalGains1Boost':
         return clienttranslate('Next Animal gains <BOOST>');
+      case 'playAnotherTurn':
+        return clienttranslate('Play another turn');
+      case 'tapAndAddToCurrentRolls':
+        return clienttranslate('{T} Exhaust me to add 1 to the die result');
     }
     return '';
   }
@@ -273,6 +281,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'drawTopIfRoll':
       case 'exhaustPlayFree':
       case 'hunger':
+      case 'discardAllReserve':
       case 'boostTargetReserveCards':
       case 'boostXOpponentExpedition':
       case 'boostXExhaustedMax3':
@@ -295,7 +304,7 @@ class SpecialEffect extends \ALT\Models\Action
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
-      throw new \Bga\GameFramework\VisibleSystemException('no card in args (special effect). Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (special effect). Should not happen');
     }
     if ($cardId == ME) {
       $cardId = $this->getSource()->getId();
@@ -320,6 +329,11 @@ class SpecialEffect extends \ALT\Models\Action
       case 'useCard':
         $data = $card->getExtraDatas();
         $data['userPower'] = true;
+        $card->setExtraDatas($data);
+        break;
+      case 'unuseCard':
+        $data = $card->getExtraDatas();
+        $data['userPower'] = false;
         $card->setExtraDatas($data);
         break;
 
@@ -475,7 +489,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'boostAllSubtype':
         if (!isset($args['subType'])) {
-          throw new \Bga\GameFramework\VisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
+          throw new \BgaVisibleSystemException('No subtype defined for boostAllSubtype. Shoud not happen');
         }
         $subType = $args['subType'];
         $excludeSelf = $args['excludeSelf'] ?? false;
@@ -625,6 +639,13 @@ class SpecialEffect extends \ALT\Models\Action
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
 
+        break;
+      case 'discardAllReserve':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = FT::ACTION(DISCARD, ['pId' => $pId, 'special' => 'allReserve']);
+        }
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
       case 'instantWin':
         if (Globals::getInstantWin() == false) {
@@ -799,6 +820,27 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
 
+        break;
+      case 'invokeManaMothPerStigmaInDiscard':
+        $nodes = [];
+        $discardedCards = Cards::getFiltered($card->getPId(), DISCARD_PILE);
+        foreach ($discardedCards as $discardedCard) {
+          if (!Conditions::isCardMatchingSearch($discardedCard, 'ALT_EOLE_B_YZ_115')) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(
+            INVOKE_TOKEN,
+            [
+              'pId' => 'source',
+              'tokenType' => 'YZ_Common_ManaMoth',
+              'targetLocation' => STORMS,
+            ],
+            ['sourceId' => $card->getId()]
+          );
+        }
+        if (count($nodes) > 0) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       case 'AfterRest2OrdisRecruit':
         $afterRest = Globals::getAfterRest();
@@ -1649,6 +1691,7 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         break;
+
       case 'reveal':
         $toReveal = $this->getCard();
         $toReveal->setLocation(LIMBO);
@@ -1720,6 +1763,14 @@ class SpecialEffect extends \ALT\Models\Action
         $newFirstPId = $this->getCtxArgs()['pId'];
         Globals::setFirstPlayer($newFirstPId);
         Notifications::switchPlayer(Players::get($newFirstPId));
+        break;
+      case 'playAnotherTurn':
+        $turnOrders = Globals::getCustomTurnOrders();
+        if (isset($turnOrders['assignment'])) {
+          // Rewind one step so nextPlayerCustomOrder picks the same player once.
+          $turnOrders['assignment']['index']--;
+          Globals::setCustomTurnOrders($turnOrders);
+        }
         break;
       case 'allCharacterFleeting':
         $nodes = [];
@@ -2086,6 +2137,55 @@ class SpecialEffect extends \ALT\Models\Action
           ]
         );
         break;
+      case 'RunningwiththeWolves':
+        $effectHand = $args['effectHand'] ?? false;
+        $subTypes = $args['subTypes'] ?? 'disabled';
+
+        Engine::checkpoint();
+        // draw 5 cards
+
+        $player = $card->getPlayer();
+        $drawn = $player->draw(5, null, LIMBO, $card);
+
+        // Target only Characters drawn
+        $this->insertAsChild(
+          FT::SEQ(
+            FT::ACTION(
+              TARGET,
+              [
+                'n' => 5,
+                'upTo' => true,
+                'effect' => FT::ACTION(PLAY_CARD, [
+                  'free' => true,
+                  'effectHand' => $effectHand,
+                  // Reset the Target arguments for the PlayCard action, in case it has effects that target
+                  // This is weird, but it seemed to fix issues where:
+                  // - Fair Fox resupplied 5 cards
+                  // - Lyra Cloth Dancer could not target anything
+                  // This requires more testing, and ideally making sure the arguments are not inherited
+                  // or have some easier way to reset them.
+                  'n' => 1,
+                  'targetLocation' => IN_PLAY,
+                  'targetPlayer' => ALL,
+                  'cards' => [],
+                  'subType' => 'disabled',
+                  'totalCost' => INFTY,
+                ]),
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+                'subType' => $subTypes,
+                'totalCost' => 7,
+                // 'discardRemaining' => true,
+              ],
+              ['sourceId' => $card->getId()]
+            ),
+            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticCleanLimbo', 'args' => ['cards' => $drawn->getIds()]], ['sourceId' => $card->getId()])
+          )
+        );
+
+        break;
+
       case 'copyGift':
         $event = $this->getEventRecursive();
 
@@ -2154,6 +2254,57 @@ class SpecialEffect extends \ALT\Models\Action
             'cards' => $maxIds,
             'targetType' => $targets,
           ], ['pId' => $opponent->getId(), 'sourceId' => $card->getId()]));
+        }
+        break;
+      case 'addToCurrentRolls':
+        $rolls = Globals::getDiceRolls();
+        $n = (int) ($args['n'] ?? 1);
+        if (!empty($rolls) && $n > 0) {
+          $newRolls = $rolls;
+          foreach ($rolls as $roll) {
+            $newRolls[] = $roll + $n;
+          }
+          sort($newRolls, SORT_NUMERIC);
+          Globals::setDiceRolls(array_values(array_unique($newRolls, SORT_NUMERIC)));
+        }
+        break;
+      case 'tapAndAddToCurrentRolls':
+        $player = $card->getPlayer();
+        if ($card->isTapped()) {
+          throw new \Bga\GameFramework\VisibleSystemException('Card is already tapped. Should not happen');
+        }
+
+        $card->setTapped(true);
+        Notifications::tapEffect($player, $card, 0);
+        $abilityActivated = Globals::getAbilityActivatedThisTurn();
+        $abilityActivated[$player->getId()] = array_merge(
+          $abilityActivated[$player->getId()] ?? [],
+          ['tap' => true]
+        );
+        Globals::setAbilityActivatedThisTurn($abilityActivated);
+        $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+        $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+        $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+        $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+        $abilityActivatedTypeCount[$player->getId()]['tap'] = ($abilityActivatedTypeCount[$player->getId()]['tap'] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
+        $this->checkAfterListeners($player, [
+          'cardId' => $card->getId(),
+          'cardLocation' => $card->getLocation(),
+          'sourceId' => $card->getId(),
+          'token' => $card->isToken(),
+        ], true, 'Exhaust');
+
+        $rolls = Globals::getDiceRolls();
+        $n = (int) ($args['n'] ?? 1);
+        if (!empty($rolls) && $n > 0) {
+          $newRolls = $rolls;
+          foreach ($rolls as $roll) {
+            $newRolls[] = $roll + $n;
+          }
+          sort($newRolls, SORT_NUMERIC);
+          Globals::setDiceRolls(array_values(array_unique($newRolls, SORT_NUMERIC)));
         }
         break;
       case "tiktok":
@@ -2231,7 +2382,25 @@ class SpecialEffect extends \ALT\Models\Action
                 $effect();
             }
         }
-        break;   
+        break;  
+      case 'invokeRecruitOnAscendedExpeditions':
+        foreach (STORMS as $storm) {
+          if($card->getPlayer()->isAscended($storm)){
+            $nodes[] = FT::ACTION(
+              INVOKE_TOKEN,
+              [
+                'pId' => $card->getPId(),
+                'tokenType' => 'OD_Common_OrdisRecruit',
+                'targetLocation' => [$storm],
+              ],
+              ['sourceId' => $card->getId()]
+            );
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;             
       default:
         break;
     }

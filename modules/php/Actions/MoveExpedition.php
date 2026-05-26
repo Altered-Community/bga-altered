@@ -50,10 +50,12 @@ class MoveExpedition extends \ALT\Models\Action
       if ($expe == EFFECT) {
         $expe = $this->getSource()->getLocation();
       } elseif ($expe == 'fromEvent') {
-        // Check event in case of leaving expedition
+        // Resolve expedition from the triggering event context.
         $event = $this->getEventRecursive();
         if (!is_null($event) && in_array($event['method'], ['LeaveExpedition', 'LeaveLandmark']) && isset($event['from'])) {
           $expe = $event['from'];
+        } elseif (!is_null($event) && $event['method'] == 'MoveExpedition' && isset($event['expedition'])) {
+          $expe = $event['expedition'];
         }
       }
     }
@@ -158,13 +160,21 @@ class MoveExpedition extends \ALT\Models\Action
     $winningBiomes = $this->getArg('winningBiomes');
     $ascended = $player->isAscended($expedition);
 
-    // Rune's testament
+    // Rune's testament / Pegasus / Eris (non-dusk forced moves from spells and effects)
     if ($this->getArg('force') === false) {
       $actionInsteadAdvance = Players::getActionInsteadOfAdvance();
       if ($n > 0 && !empty($actionInsteadAdvance[$pId][$expedition] ?? [])) {
         $nodes = [];
-        if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition])) {
-          $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]);
+        $forcedMoveArgs = [
+          'pId' => $pId,
+          'expedition' => [$expedition],
+          'force' => true,
+          'forceExpedition' => [$pId, $expedition],
+          'winningBiomes' => $winningBiomes,
+          'ascended' => $ascended,
+        ];
+        if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition]) && !in_array('PegasusCommon', $actionInsteadAdvance[$pId][$expedition])) {
+          $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
         }
         foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
           $triggeredCard = Cards::get($cId);
@@ -183,29 +193,36 @@ class MoveExpedition extends \ALT\Models\Action
             if (!$triggeredCard->isGigantic()) {
               $nodes[] = FT::ACTION(ROLL_DIE, [
                 'effect' => [
-                  '1-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]),
-                  '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes], ['pId' => $pId])
+                  '1-3' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]),
+                  '4+' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n + 1]), ['pId' => $pId])
                 ]
               ], ['sourceId' => $cId]);
             } else {
-              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
             }
           } elseif ($action == 'ErisRare') {
             if (!$triggeredCard->isGigantic()) {
               $nodes[] = FT::ACTION(ROLL_DIE, [
                 'effect' => [
-                  '2-3' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes], ['pId' => $pId]),
-                  '4+' => FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n + 1, 'winningBiomes' => $winningBiomes], ['pId' => $pId])
+                  '2-3' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]),
+                  '4+' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n + 1]), ['pId' => $pId])
                 ]
               ], ['sourceId' => $cId]);
             } else {
-              $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['pId' => $pId, 'expedition' => [$expedition], 'force' => true, 'n' => $n, 'winningBiomes' => $winningBiomes, 'ascended' => $isAscended], ['pId' => $pId]);
+              $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
             }
+          } elseif ($action == 'PegasusCommon') {
+            $pegasusN = (empty($winningBiomes) && $ascended) ? $n + 1 : $n;
+            $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $pegasusN]), ['pId' => $pId, 'sourceId' => $cId]);
           }
         }
-        Engine::insertAsChild(
-          ['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]
-        );
+        if (!empty($nodes)) {
+          $this->insertAsChild(
+            count($nodes) == 1
+              ? $nodes[0]
+              : ['type' => NODE_XOR, 'childs' => $nodes, 'pId' => $pId]
+          );
+        }
 
         $this->resolveAction(['']);
         return;
@@ -213,7 +230,7 @@ class MoveExpedition extends \ALT\Models\Action
     }
     $winningBiomes = $this->getArg('winningBiomes');
     if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
-      $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+      $moved = $player->advanceStorm($token, $winningBiomes, $n, false, true, $source);
     } else {
       $moved = false;
     }
@@ -227,7 +244,7 @@ class MoveExpedition extends \ALT\Models\Action
         // only done through a spell
         $otherExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
         if ((($n * -1) > 0 && !Players::hasOpponentBlockMoveExpedition($player, $otherExpedition)) || ($n * -1) < 0) {
-          $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, true, $source);
+          $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, false, true, $source);
           $expeditionMoves = Globals::getExpeditionMoves();
           $expeditionMoves[$player->getId()][$otherExpedition] = ($expeditionMoves[$player->getId()][$otherExpedition] ?? 0) + ($n * -1);
           Globals::setExpeditionMoves($expeditionMoves);
@@ -242,7 +259,7 @@ class MoveExpedition extends \ALT\Models\Action
 
       $token = $expedition == STORM_LEFT ? HERO : COMPANION;
       if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
-        $moved = $player->advanceStorm($token, $winningBiomes, $n, true, $source);
+        $moved = $player->advanceStorm($token, $winningBiomes, $n, false, true, $source);
         if ($moved) {
           $expeditionMoves = Globals::getExpeditionMoves();
           $expeditionMoves[$player->getId()][$expedition] = ($expeditionMoves[$player->getId()][$expedition] ?? 0) + $n;
