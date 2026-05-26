@@ -49,18 +49,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Flag the card');
       case 'costReduction':
         return clienttranslate('Reduce cost of next card');
-      case 'gainCounter':
-        return clienttranslate('Gain a counter');
-      case 'incCounter':
-        return clienttranslate('Increment a counter');
       case 'activateAllPermanents':
         return clienttranslate('Activate all permanents');
       case 'activateAllOtherCharacters':
         return clienttranslate('Activate all other abilities');
-      case 'nextCharacterGains1Boost':
-        return clienttranslate('Next character gains <BOOST>');
-      case 'nextCharacterGains2Boost':
-        return clienttranslate('Next character gains 2 <BOOST>');
       case 'nextSpellIsFree':
         return clienttranslate('Next spell is free');
       case 'nextCharacterCost3Anchored':
@@ -252,6 +244,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Next character gains <BOOST> and <ASLEEP>');
       case 'boostXCompletedFeat':
         return clienttranslate('1 Boost for each Completed Feat in your Landmarks');
+      case 'nextAnimalGains1Boost':
+        return clienttranslate('Next Animal gains <BOOST>');
       case 'playAnotherTurn':
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
@@ -450,6 +444,10 @@ class SpecialEffect extends \ALT\Models\Action
         Globals::incNextCharacterBoost(1);
         Globals::incNextCharacterBoostOccurence(1);
         Globals::setNextCharacterAsleep(true);
+        break;
+      case 'nextAnimalGains1Boost':
+        Globals::incNextAnimalBoost(1);
+        Globals::incNextAnimalBoostOccurence(1);
         break;
       case 'nextReserveCharacterGains1Boost':
         Globals::incNextReserveCharacterBoost(1);

@@ -82,6 +82,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     // Eole
     'nextCharacterAsleep' => 'obj',
     'abilityActivatedThisTurn' => 'obj',
+    'nextAnimalBoost' => 'int',
+    'nextAnimalBoostOccurence' => 'int',
     'abilityActivatedThisTurnCount' => 'obj',
     'abilityActivatedThisTurnTypeCount' => 'obj',
 

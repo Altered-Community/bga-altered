@@ -574,7 +574,7 @@ abstract class Conditions
   /** True if this player has n completed feat. */
   public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {
-    return hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
+    return self::hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
   }
 
   /** True if this card has no feat-completed meeple (COMPLETE_FEAT passive not yet applied). */
@@ -1951,6 +1951,47 @@ abstract class Conditions
   public static function isDiscardedCardNotInBiome($card, $event, $biome)
   {
     return !self::isDiscardedCardInBiome($card, $event, $biome);
+  }
+  
+  /**
+   * Gather the Pack (pass): at least three different printed Base Costs among qualifying units in your Expeditions.
+   * Printed Base Cost uses Reserve Cost if Fleeting, otherwise Hand Cost (same as targeting).
+   *
+   * @param string $filter 'animal' (MU) or 'character' (BR Rare: all Characters / tokens in expeditions)
+   */
+  public static function gatherThePackPass($card, $event, $filter = 'animal')
+  {
+    $player = $card->getPlayer();
+    $inExpeditions = $player->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) {
+      return $c->isGigantic() || in_array($c->getLocation(), STORMS);
+    });
+    if ($filter === 'animal') {
+      $inExpeditions = $inExpeditions->filter(fn($c) => in_array(ANIMAL, $c->getSubtypes()));
+    }
+    $distinct = [];
+    foreach ($inExpeditions as $c) {
+      $printed = $c->hasToken(FLEETING) ? $c->getCostReserve() : $c->getCostHand();
+      $distinct[$printed] = true;
+    }
+    return count($distinct) >= 3;
+  }
+
+  /**
+   * Sound the Howl! (pass): at least three different printed Forest ({V}) values among Animals
+   * in your Expeditions (same in-expedition scope as Gather the Pack).
+   */
+  public static function soundTheHowlPass($card, $event)
+  {
+    $player = $card->getPlayer();
+    $inExpeditions = $player->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) {
+      return $c->isGigantic() || in_array($c->getLocation(), STORMS);
+    });
+    $inExpeditions = $inExpeditions->filter(fn($c) => in_array(ANIMAL, $c->getSubtypes()));
+    $distinct = [];
+    foreach ($inExpeditions as $c) {
+      $distinct[$c->getForest()] = true;
+    }
+    return count($distinct) >= 3;
   }
 
   public static function XCharacterInExpedition($card, $event, $n, $op = 'GTE')
