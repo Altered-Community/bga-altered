@@ -50,6 +50,7 @@ class Actions
     MOVE_REGION_MARKER,
     INTERUPT_REVEAL,
     SHUFFLE,
+    DISCARD_FROM_DECK
     COMPLETE_FEAT,
   ];
 
