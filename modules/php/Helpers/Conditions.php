@@ -240,6 +240,42 @@ abstract class Conditions
     return false;
   }
 
+  public static function movesStormDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    $storm = $event['expedition'] ?? $card->getLocation();
+    if (
+      !isset($stormMoves[$card->getPId()]) ||
+      $card->getPId() != $event['pId'] ||
+      !isset($stormMoves[$card->getPId()][$storm])
+    ) {
+      return false;
+    }
+
+    $move = $stormMoves[$card->getPId()][$storm];
+    if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1 && $move['hasMovedFromAscension']) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public static function movesStormsDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) {
+        if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] ||
+            !isset($stormMoves[$card->getPId()][$storm])) {
+          return false;
+        }
+        $move = $stormMoves[$card->getPId()][$storm];
+        if (!$card->getPlayer()->isAscended($storm) || $move['hasMovedFromAscension']) {
+          return false;
+        }
+    }
+    return true;
+  }
+
   public static function movesAnyExpeditionDueToAscension($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
@@ -248,7 +284,7 @@ abstract class Conditions
         continue;
       } 
       $move = $stormMoves[$card->getPId()][$storm]; 
-      if ($card->getPlayer()->isAscended($storm) && empty($move['biomes'])) { 
+      if ($card->getPlayer()->isAscended($storm) && $move['hasMovedFromAscension']) { 
         return true; 
       }  
     } 
@@ -1978,6 +2014,15 @@ abstract class Conditions
     // $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
     return $card->getPlayer()->isAscended($card->getLocation()) || ($card->isGigantic() && ($card->getPlayer()->isAscended($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
   }
+  
+  public static function wasCardExpeditionAscended($card, $event)
+  {
+    $srcLoc = $event["from"];
+    if (!in_array($srcLoc, STORMS)) {
+      return false;
+    }
+    return $card->getPlayer()->isAscended($srcLoc) || ($card->isGigantic() && ($card->getPlayer()->isAscended($srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
+  } 
 
   public static function countSourceAscended($card, $event)
   {
