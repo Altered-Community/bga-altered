@@ -101,7 +101,7 @@ class Action
       if (array_key_exists($v, $this->args)) {
         $t = $this->args[$v];
       } else {
-        throw new \Bga\GameFramework\VisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v . ' action' . $this->getClassName());
+        throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v . ' action' . $this->getClassName());
       }
     }
     return $t;
@@ -216,6 +216,19 @@ class Action
     return $classname;
   }
 
+  /**
+   * Queue passive reactions for an action event (resolved after the current action finishes).
+   *
+   * Merges standard event fields (`pId`, `action`, `method`) with `$args` (e.g. `cardId`, `to`,
+   * `playCard`), finds listening cards via Cards::getReaction(), and pushes ACTIVATE_CARD nodes on
+   * the after-finishing stack. Condition checks on those passives run when each reaction executes,
+   * not at registration time—see Conditions::isStillSameLocation().
+   *
+   * @param string             $method           Current action method name (usually unused when $overrideMethod is set).
+   * @param \ALT\Models\Player $player
+   * @param array              $args             Event payload (cardId, to, playCard, …).
+   * @param string|null        $overrideMethod   Use as `action`/`method` instead of this action class (e.g. MoveCard + defect).
+   */
   protected function checkListeners($method, $player, $args = [], $overrideMethod = null)
   {
     $event = array_merge(
@@ -252,6 +265,15 @@ class Action
     return $reaction;
   }
 
+  /**
+   * Fire “after” passives for this action (e.g. ChooseAssignment, InvokeToken, MoveCard).
+   *
+   * Cards declare listeners under effectPassive[$actionName]. This is the usual entry point
+   * after something enters play or changes zone. Reactions are deferred via checkListeners().
+   *
+   * @param bool        $duringActionListener  When false, skip (legacy hook; rarely used).
+   * @param string|null $overrideMethod        Passed to checkListeners() as the trigger name.
+   */
   public function checkAfterListeners($player, $args = [], $duringActionListener = true, $overrideMethod = null)
   {
     if ($duringActionListener) {
@@ -326,11 +348,39 @@ class Action
     // Engine::proceed();
   }
 
+  
+  /**
+   * Bind a resolved card (or target choice) into an effect-flow tree before execution.
+   *
+   * Card definitions often use placeholders in flow nodes (`ME`, `EFFECT`, `mana`) or leave
+   * `cardId` empty until the player picks a target. After Target::actTarget() or Spend::actSpend(),
+   * the chosen card’s id, zone, owner, and source must be written into the nested actions (GAIN,
+   * DISCARD, MOVE_CARD, …) that will run next, so those nodes know which card they are referring to.
+   *
+   * This function walks the tree recursively (`childs`, `args.effect`, `args.oppositeEffect`, `cost branches`...) 
+   * and updates each node in place, returning the modified tree.
+   *
+   * Rules while walking down the tree:
+   * - Every node gets `sourceId` (card that caused the effect).
+   * - `args.cardId` / `cardFrom` / `ownerId` are set from the parameters unless if there's already a
+   *   placeholder (`ME`, `mana`) or if forced to use `EFFECT` through $preserveEffectPlaceholder.
+   * - `TARGET` nodes are left open: their `cardId` is not overwritten and `cardId` is not
+   *   propagated into their nested `effect` (avoids wrong labels / target pools on nested targeting,
+   *   e.g. Sabotage after sacrificing a Feat).
+   * - `pId` === `'owner'` is replaced with $ownerId (controller of the targeted card).
+   * - If the card comes from an expedition, `wasGigantic` is stored on the node when relevant.
+   *
+   * @param array       $node                         Engine node array (leaf or subtree root).
+   * @param int|int[]   $cardId                       Resolved target id(s).
+   * @param string      $cardFrom                     Zone of the target (e.g. stormLeft); may be overridden by nested `targetLocation`.
+   * @param int         $sourceId                     Id of the card that owns/triggered the effect.
+   * @param int         $ownerId                      Player id controlling the targeted card.
+   * @param bool        $preserveEffectPlaceholder    When true, keep `cardId` === EFFECT so nested effects still refer to the event card (see Spend).
+   *
+   * @return array The same tree shape with ids/zones filled in for execution.
+   */
   public function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder = false)
   {
-    // Open targeting: do not inherit an ancestor's resolved cardId (e.g. Feat chosen to sacrifice)
-    // onto a Target action or its nested effect tree — otherwise Sabotage / send-to-Reserve labels and
-    // valid-target pools are polluted by that card name/id.
     $isTargetAction = (($node['action'] ?? null) === \TARGET);
 
     $cid = $node['args']['cardId'] ?? null;

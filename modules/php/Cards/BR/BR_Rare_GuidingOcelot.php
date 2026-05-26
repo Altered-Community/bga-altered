@@ -34,7 +34,7 @@ class BR_Rare_GuidingOcelot extends \ALT\Models\Card
           'output' => FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER, TOKEN],
-            'targetLocation' => CONTROLLED_RESERVE,
+            'targetLocation' => STORMS,
             'augmentOnly' => true,
             'effect' => FT::ACTION(SPEND, ['effect' => FT::GAIN(EFFECT, BOOST)]),
           ], ['optional' => true]),
@@ -44,7 +44,7 @@ class BR_Rare_GuidingOcelot extends \ALT\Models\Card
           'output' => FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER, TOKEN],
-            'targetLocation' => CONTROLLED_RESERVE,
+            'targetLocation' => STORMS,
             'augmentOnly' => true,
             'effect' => FT::ACTION(SPEND, ['effect' => FT::GAIN(EFFECT, BOOST)]),
           ], ['optional' => true]),
@@ -54,7 +54,7 @@ class BR_Rare_GuidingOcelot extends \ALT\Models\Card
           'output' => FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER, TOKEN],
-            'targetLocation' => CONTROLLED_RESERVE,
+            'targetLocation' => STORMS,
             'augmentOnly' => true,
             'effect' => FT::ACTION(SPEND, ['effect' => FT::GAIN(EFFECT, BOOST)]),
           ], ['optional' => true]),
