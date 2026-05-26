@@ -100,6 +100,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Discard all hands');
       case 'discardAllHandReserve':
         return clienttranslate('Discard all hands and reserve');
+      case 'discardAllReserve':
+        return clienttranslate('Each player discards their Reserve');
       case 'instantWin':
         return clienttranslate('Immediate win');
       case 'MindApotheosis':
@@ -250,6 +252,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Next character gains <BOOST> and <ASLEEP>');
       case 'boostXCompletedFeat':
         return clienttranslate('1 Boost for each Completed Feat in your Landmarks');
+      case 'playAnotherTurn':
+        return clienttranslate('Play another turn');
+      case 'tapAndAddToCurrentRolls':
+        return clienttranslate('{T} Exhaust me to add 1 to the die result');
     }
     return '';
   }
@@ -281,6 +287,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'drawTopIfRoll':
       case 'exhaustPlayFree':
       case 'hunger':
+      case 'discardAllReserve':
       case 'boostTargetReserveCards':
       case 'boostXOpponentExpedition':
       case 'boostXExhaustedMax3':
@@ -328,6 +335,11 @@ class SpecialEffect extends \ALT\Models\Action
       case 'useCard':
         $data = $card->getExtraDatas();
         $data['userPower'] = true;
+        $card->setExtraDatas($data);
+        break;
+      case 'unuseCard':
+        $data = $card->getExtraDatas();
+        $data['userPower'] = false;
         $card->setExtraDatas($data);
         break;
 
@@ -629,6 +641,13 @@ class SpecialEffect extends \ALT\Models\Action
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
 
+        break;
+      case 'discardAllReserve':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = FT::ACTION(DISCARD, ['pId' => $pId, 'special' => 'allReserve']);
+        }
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
       case 'instantWin':
         if (Globals::getInstantWin() == false) {
@@ -1674,6 +1693,7 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         break;
+
       case 'reveal':
         $toReveal = $this->getCard();
         $toReveal->setLocation(LIMBO);
@@ -1745,6 +1765,14 @@ class SpecialEffect extends \ALT\Models\Action
         $newFirstPId = $this->getCtxArgs()['pId'];
         Globals::setFirstPlayer($newFirstPId);
         Notifications::switchPlayer(Players::get($newFirstPId));
+        break;
+      case 'playAnotherTurn':
+        $turnOrders = Globals::getCustomTurnOrders();
+        if (isset($turnOrders['assignment'])) {
+          // Rewind one step so nextPlayerCustomOrder picks the same player once.
+          $turnOrders['assignment']['index']--;
+          Globals::setCustomTurnOrders($turnOrders);
+        }
         break;
       case 'allCharacterFleeting':
         $nodes = [];
@@ -2228,6 +2256,57 @@ class SpecialEffect extends \ALT\Models\Action
             'cards' => $maxIds,
             'targetType' => $targets,
           ], ['pId' => $opponent->getId(), 'sourceId' => $card->getId()]));
+        }
+        break;
+      case 'addToCurrentRolls':
+        $rolls = Globals::getDiceRolls();
+        $n = (int) ($args['n'] ?? 1);
+        if (!empty($rolls) && $n > 0) {
+          $newRolls = $rolls;
+          foreach ($rolls as $roll) {
+            $newRolls[] = $roll + $n;
+          }
+          sort($newRolls, SORT_NUMERIC);
+          Globals::setDiceRolls(array_values(array_unique($newRolls, SORT_NUMERIC)));
+        }
+        break;
+      case 'tapAndAddToCurrentRolls':
+        $player = $card->getPlayer();
+        if ($card->isTapped()) {
+          throw new \Bga\GameFramework\VisibleSystemException('Card is already tapped. Should not happen');
+        }
+
+        $card->setTapped(true);
+        Notifications::tapEffect($player, $card, 0);
+        $abilityActivated = Globals::getAbilityActivatedThisTurn();
+        $abilityActivated[$player->getId()] = array_merge(
+          $abilityActivated[$player->getId()] ?? [],
+          ['tap' => true]
+        );
+        Globals::setAbilityActivatedThisTurn($abilityActivated);
+        $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+        $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+        $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+        $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+        $abilityActivatedTypeCount[$player->getId()]['tap'] = ($abilityActivatedTypeCount[$player->getId()]['tap'] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
+        $this->checkAfterListeners($player, [
+          'cardId' => $card->getId(),
+          'cardLocation' => $card->getLocation(),
+          'sourceId' => $card->getId(),
+          'token' => $card->isToken(),
+        ], true, 'Exhaust');
+
+        $rolls = Globals::getDiceRolls();
+        $n = (int) ($args['n'] ?? 1);
+        if (!empty($rolls) && $n > 0) {
+          $newRolls = $rolls;
+          foreach ($rolls as $roll) {
+            $newRolls[] = $roll + $n;
+          }
+          sort($newRolls, SORT_NUMERIC);
+          Globals::setDiceRolls(array_values(array_unique($newRolls, SORT_NUMERIC)));
         }
         break;
       case "tiktok":

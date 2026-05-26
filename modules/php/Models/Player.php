@@ -531,7 +531,7 @@ class Player extends \ALT\Helpers\DB_Model
     return $newBiomes;
   }
 
-  public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
+  public function advanceStorm($token, $biomes, $n = 1, $hasMovedFromAscension = false, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
     $tokenMeeple = $this->$getToken();
@@ -558,7 +558,8 @@ class Player extends \ALT\Helpers\DB_Model
     $moves[$this->id][$expedition] = [
       'biomes' => is_array($biomes) ? $biomes : [],
       'moves' => $n,
-      'ascended' => $isAscended
+      'ascended' => $isAscended,
+      'hasMovedFromAscension' => $hasMovedFromAscension
     ];
     Globals::setStormMoves($moves);
 

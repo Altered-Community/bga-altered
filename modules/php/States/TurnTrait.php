@@ -57,6 +57,8 @@ trait TurnTrait
     Globals::setPlayedForFree(false);
     Globals::setNextCharacterInExpeditionBoost([]);
     Globals::setAbilityActivatedThisTurn([]);
+    Globals::setAbilityActivatedThisTurnCount([]);
+    Globals::setAbilityActivatedThisTurnTypeCount([]);
 
     Globals::setDayPhase(true);
     // Update cards with extra datas set
@@ -129,6 +131,16 @@ trait TurnTrait
     Globals::setNextCharacterInExpeditionBoost([]);
 
     self::giveExtraTime($player->getId());
+    // Per-turn ability tracking must reset at the start of each player's assignment turn.
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = [];
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = 0;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = [];
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     Stats::incTurns($player);
     $node = [
@@ -320,6 +332,10 @@ trait TurnTrait
     //   Globals::setTieBreakerMode(true);
     //   Globals::setEnterTieBreakerMode(false);
     // }
+    if (Globals::getInstantWin() === true) {
+      $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+      return;
+    }
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setPlayedForFree(false);
