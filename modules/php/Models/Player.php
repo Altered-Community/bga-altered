@@ -389,6 +389,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function getReduceCostType($playedCard)
   {
     $reduction = 0;
+    $minimumFloor = 0;
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       if (!empty($card->getReduceCostType())) {
         $type = $card->getReduceCostType();
@@ -396,22 +397,34 @@ class Player extends \ALT\Helpers\DB_Model
           if ($playedType == $playedCard->getType() || in_array($playedType, $playedCard->getAdditionalType())) {
             if (isset($info['maxHandCost']) && $playedCard->getCostHand() <= $info['maxHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minHandCost']) && $playedCard->getCostHand() >= $info['minHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minBaseCost'])) {
               $baseCost = $info['minBaseCost'];
               // Studious Acolyte
               if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               }
             }
           }
         }
       }
     }
-    return $reduction;
+    return ['reduction' => $reduction, 'minimum' => $minimumFloor];
   }
 
   public function getExhaustedReserveSlots()
@@ -518,7 +531,7 @@ class Player extends \ALT\Helpers\DB_Model
     return $newBiomes;
   }
 
-  public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
+  public function advanceStorm($token, $biomes, $n = 1, $hasMovedFromAscension = false, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
     $tokenMeeple = $this->$getToken();
@@ -545,7 +558,8 @@ class Player extends \ALT\Helpers\DB_Model
     $moves[$this->id][$expedition] = [
       'biomes' => is_array($biomes) ? $biomes : [],
       'moves' => $n,
-      'ascended' => $isAscended
+      'ascended' => $isAscended,
+      'hasMovedFromAscension' => $hasMovedFromAscension
     ];
     Globals::setStormMoves($moves);
 
@@ -863,6 +877,16 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function hasBoostIfAscended()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isBoostIfAscended()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function hasOppositeDefender($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
@@ -1121,6 +1145,27 @@ class Player extends \ALT\Helpers\DB_Model
         }
       })
     );
+  }
+
+  public function countUniversalLandmarksToughFromCompletedFeat()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      if (!in_array(FEAT, $card->getSubtypes())) {
+        continue;
+      }
+      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      $completed = $card->getEffectCompleted();
+      if (empty($completed) || !is_array($completed)) {
+        continue;
+      }
+      if (isset($completed['dynamicTough'])) {
+        $n += explode("universalLandmarks", $completed['dynamicTough'])[1];
+      }
+    }
+    return $n;
   }
 
   public function countUniversalTokenGigantic()

@@ -348,7 +348,6 @@ class Action
     // Engine::proceed();
   }
 
-  
   /**
    * Bind a resolved card (or target choice) into an effect-flow tree before execution.
    *

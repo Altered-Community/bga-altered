@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\AX;
-
 use ALT\Helpers\FT;
 
 class AX_Common_InariSpiritofIndustry extends \ALT\Models\Card
@@ -30,10 +28,8 @@ class AX_Common_InariSpiritofIndustry extends \ALT\Models\Card
       'costReserve' => 4,
       'effectPassive' => [
         'EndTurn' => [
-          [
             'conditions' => ['isMe', 'isHandEmpty'],
             'output' => FT::ACTION(DRAW, ['players' => ME]),
-          ],
         ],
       ],
     ];
