@@ -31,13 +31,15 @@ class AX_Rare_InariSpiritofIndustry extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'effectPassive' => [
         'EndTurn' => [
-          [
-            'conditions' => ['isMe', 'isHandEmpty'],
-            'output' => FT::ACTION(DRAW, ['players' => ME]),
-          ],
-          [
-            'conditions' => ['isMe', 'hasCardsInHand'],
-            'output' => FT::ACTION(RESUPPLY, []),
+          'childs' => [
+            [
+              'conditions' => ['isMe', 'isHandEmpty'],
+              'output' => FT::ACTION(DRAW, ['players' => ME]),
+            ],
+            [
+              'conditions' => ['isMe', 'hasCardsInHand'],
+              'output' => FT::ACTION(RESUPPLY, []),
+            ],
           ],
         ],
       ],

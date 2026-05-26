@@ -427,6 +427,26 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextCharacterBoostOccurence(0);
     }
 
+    // Sound the Howl
+    if (
+      in_array($card->getType(), [CHARACTER, TOKEN]) &&
+      in_array(ANIMAL, $card->getSubtypes()) &&
+      Globals::getNextAnimalBoost() > 0
+    ) {
+      $toBoost = Globals::getNextAnimalBoost();
+      $occur = Globals::getNextAnimalBoostOccurence();
+
+      for ($v = 0; $v < $occur - 1; $v++) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, 1));
+        $toBoost--;
+      }
+      if ($toBoost > 0) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, $toBoost));
+      }
+      Globals::setNextAnimalBoost(0);
+      Globals::setNextAnimalBoostOccurence(0);
+    }
+
     if ($fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);
@@ -516,7 +536,7 @@ class ChooseAssignment extends \ALT\Models\Action
         }
       }
 
-      if (($fromLocation == HAND && $effectHand) || ($fromLocation == LIMBO && $effectHand && $stealOwnership == true)) {
+      if ($effectHand && in_array($fromLocation, [HAND, LIMBO])) {
         $effect = $card->getEffectHand();
         if (!empty($effect)) {
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
@@ -823,7 +843,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['support'];
 
     if (!in_array($cardId, $args)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played as support. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be played as support. Should not happen');
     }
 
     $card = Cards::get($cardId);
@@ -836,6 +856,13 @@ class ChooseAssignment extends \ALT\Models\Action
       ['discard' => true, 'discardFromHandOrReserve' => true]
     );
     Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+    $abilityActivatedTypeCount[$player->getId()]['discard'] = ($abilityActivatedTypeCount[$player->getId()]['discard'] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     $effect = $card->getEffectSupport();
     if (!empty($effect)) {
@@ -856,7 +883,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'token' => $card->isToken(),
       'sourceId' => $cardId,
       'pId' => $player->getId(),
-    ]);
+    ], true, 'Discard');
   }
 
   ////////////////////////
@@ -873,7 +900,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['tap'];
 
     if (!in_array($cardId, $args)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be tapped. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be tapped. Should not happen');
     }
     $card = Cards::get($cardId);
     $card->setTapped(true);
@@ -884,6 +911,13 @@ class ChooseAssignment extends \ALT\Models\Action
       ['tap' => true]
     );
     Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+    $abilityActivatedTypeCount[$player->getId()]['tap'] = ($abilityActivatedTypeCount[$player->getId()]['tap'] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     $effect = $card->getEffectTap();
     if (!empty($effect)) {

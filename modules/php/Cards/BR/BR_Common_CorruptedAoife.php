@@ -27,8 +27,9 @@ class BR_Common_CorruptedAoife extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 3,
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'hasControl:feat:0:false:all:LTE',
-        'effect' => FT::GAIN(ME, FLEETING),
+        'condition' => 'hasControl:feat:1:false:all:GTE',
+        'effect' => null,
+        'oppositeEffect' => FT::GAIN(ME, FLEETING),
       ]),
       'effectReserve' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER],

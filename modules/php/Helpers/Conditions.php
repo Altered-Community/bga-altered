@@ -240,6 +240,57 @@ abstract class Conditions
     return false;
   }
 
+  public static function movesStormDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    $storm = $event['expedition'] ?? $card->getLocation();
+    if (
+      !isset($stormMoves[$card->getPId()]) ||
+      $card->getPId() != $event['pId'] ||
+      !isset($stormMoves[$card->getPId()][$storm])
+    ) {
+      return false;
+    }
+
+    $move = $stormMoves[$card->getPId()][$storm];
+    if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1 && $move['hasMovedFromAscension']) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public static function movesStormsDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) {
+        if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] ||
+            !isset($stormMoves[$card->getPId()][$storm])) {
+          return false;
+        }
+        $move = $stormMoves[$card->getPId()][$storm];
+        if (!$card->getPlayer()->isAscended($storm) || $move['hasMovedFromAscension']) {
+          return false;
+        }
+    }
+    return true;
+  }
+
+  public static function movesAnyExpeditionDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) { 
+      if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$storm]) ) { 
+        continue;
+      } 
+      $move = $stormMoves[$card->getPId()][$storm]; 
+      if ($card->getPlayer()->isAscended($storm) && $move['hasMovedFromAscension']) { 
+        return true; 
+      }  
+    } 
+    return false;
+  }
+
   public static function movesAscendedAnyExpeditions($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
@@ -479,6 +530,28 @@ abstract class Conditions
     die('Unknown op for hasXCardsInHand');
   }
 
+  public static function hasXCardsInHandExceptCurrentCard($card, $n, $op = 'GTE')
+  {
+    $count = $card->getLocation() == RESERVE ? $card
+      ->getPlayer()
+      ->getHand()
+      ->count() : $card
+      ->getPlayer()
+      ->getHand()
+      ->count() - 1;
+
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasXCardsInHand');
+  }
+
   public static function hasNoTokensInLandmarks($card, $event)
   {
     $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
@@ -486,6 +559,16 @@ abstract class Conditions
     });
     return $cards->count() == 0;
   }
+
+  public static function has6HandCostLandmarks($card, $n)
+  {
+    $cards = $card->getPlayer()->getLandmarks();
+    $total = 0;
+    foreach ($cards as $c) {
+      $total += $c->getCostHand();
+    }
+    return $total >= 6;
+  }  
 
   public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
   {
@@ -503,7 +586,42 @@ abstract class Conditions
     }
     die('Unknown op for hasDiscardPileCards');
   }
+  
+  public static function hasCardInDiscardPile($card, $event, $name)
+  {
+    if (is_null($name) || $name === '') {
+      return false;
+    }
 
+    $discardedCards = Cards::getFiltered($card->getPId(), DISCARD_PILE);
+    foreach ($discardedCards as $discardedCard) {
+      if (self::isCardMatchingSearch($discardedCard, $name)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * True when the card UID contains $name as a set/faction segment (e.g. YZ_115 matches ALT_EOLE_B_YZ_115_C).
+   * Uses /_<name>(_|$)/ so partial numbers like YZ_1150 do not match.
+   */
+  public static function isCardMatchingSearch($card, $name)
+  {
+    if ($name === null || $name === '') {
+      return false;
+    }
+
+    $uid = (string) $card->getUid();
+    if ($uid === '') {
+      return false;
+    }
+
+    $pattern = '/_' . preg_quote((string) $name, '/') . '(_|$)/';
+    return preg_match($pattern, $uid) === 1;
+  }
+  
   /** True if this player has n completed feat. */
   public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {
@@ -520,6 +638,20 @@ abstract class Conditions
   public static function isThisFeatCompleted($card, $event)
   {
     return Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) >= 1;
+  }
+
+  /**
+   * True if the card indicated by ctx cardId has a completed-Feat meeple.
+   * Must run before sacrificing that card to discard — discardTo() removes meeples including FEAT_COMPLETED.
+   */
+  public static function isTargetFeatCompleted($card, $event)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if ($cardId === null) {
+      return false;
+    }
+    $c = Cards::get($cardId);
+    return Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) >= 1;
   }
 
   /**
@@ -705,6 +837,22 @@ abstract class Conditions
       return !empty($playerAbilities);
     }
     return !empty($playerAbilities[$type]);
+  }
+  
+  public static function checkAbilityActivatedThisTurnTypeCount($card, $event, $type, $n = 1, $op = 'GTE')
+  {
+    $abilities = Globals::getAbilityActivatedThisTurnTypeCount();
+    $count = ($abilities[$card->getPId()] ?? [])[$type] ?? 0;
+    if ($op == 'GTE') {
+      return $count >= $n;
+    } elseif ($op == 'LTE') {
+      return $count <= $n;
+    } elseif ($op == 'LT') {
+      return $count < $n;
+    } elseif ($op == 'GT') {
+      return $count > $n;
+    }
+    return false;
   }
 
   public static function hasLessReserveCards($card, $event)
@@ -1044,6 +1192,66 @@ abstract class Conditions
   public static function notUsed($card, $event)
   {
     return ($card->getExtraDatas()['userPower'] ?? false) == false;
+  }
+  
+  public static function isUsed($card, $event)
+  {
+    return ($card->getExtraDatas()['userPower'] ?? false) == true;
+  }
+  
+  /**
+   * True only when LY Smoke Them Out should react to this event.
+   * - Incomplete feat: react once discard ability count reaches 2 on your turn.
+   * - Completed+armed: react on discard ability activations (support or discard action) on your turn.
+   */
+  public static function smokeThemOutLyTrigger($card, $event)
+  {
+    if (!self::isMe($card, $event) || !self::isMyTurn($card, $event)) {
+      return false;
+    }
+
+    if (self::isThisFeatIncomplete($card, $event)) {
+      return self::checkAbilityActivatedThisTurnTypeCount($card, $event, 'discard', 2);
+    }
+
+    if (!self::isUsed($card, $event)) {
+      return false;
+    }
+
+    $isDiscardListenerEvent = ($event['action'] ?? '') == 'Discard';
+    $isSupportChooseAssignment = ($event['action'] ?? '') == 'ChooseAssignment' && self::isSupportEffect($card, $event);
+    if (!$isDiscardListenerEvent && !$isSupportChooseAssignment) {
+      return false;
+    }
+
+    return self::checkAbilityActivatedThisTurnTypeCount($card, $event, 'discard', 1);
+  }
+
+  /**
+   * True only when AX Smoke Them Out should react to this Exhaust event.
+   * - Incomplete feat: react once tap ability count reaches 3 on your turn.
+   * - Completed+armed: react on another tap ability (exclude this card's own tap) on your turn.
+   */
+  public static function smokeThemOutAxTrigger($card, $event)
+  {
+    if (!self::isMe($card, $event) || !self::isMyTurn($card, $event)) {
+      return false;
+    }
+
+    if (self::isThisFeatIncomplete($card, $event)) {
+      return self::checkAbilityActivatedThisTurnTypeCount($card, $event, 'tap', 3);
+    }
+
+    if (!self::isUsed($card, $event)) {
+      return false;
+    }
+
+    if (!self::checkAbilityActivatedThisTurnTypeCount($card, $event, 'tap', 1)) {
+      return false;
+    }
+
+    // Do not consume the armed effect on this card's own tap activation.
+    return self::excludeSelf($card, $event);
   }
 
   public static function hasNoBoost($card, $event)
@@ -1795,6 +2003,47 @@ abstract class Conditions
   {
     return !self::isDiscardedCardInBiome($card, $event, $biome);
   }
+  
+  /**
+   * Gather the Pack (pass): at least three different printed Base Costs among qualifying units in your Expeditions.
+   * Printed Base Cost uses Reserve Cost if Fleeting, otherwise Hand Cost (same as targeting).
+   *
+   * @param string $filter 'animal' (MU) or 'character' (BR Rare: all Characters / tokens in expeditions)
+   */
+  public static function gatherThePackPass($card, $event, $filter = 'animal')
+  {
+    $player = $card->getPlayer();
+    $inExpeditions = $player->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) {
+      return $c->isGigantic() || in_array($c->getLocation(), STORMS);
+    });
+    if ($filter === 'animal') {
+      $inExpeditions = $inExpeditions->filter(fn($c) => in_array(ANIMAL, $c->getSubtypes()));
+    }
+    $distinct = [];
+    foreach ($inExpeditions as $c) {
+      $printed = $c->hasToken(FLEETING) ? $c->getCostReserve() : $c->getCostHand();
+      $distinct[$printed] = true;
+    }
+    return count($distinct) >= 3;
+  }
+
+  /**
+   * Sound the Howl! (pass): at least three different printed Forest ({V}) values among Animals
+   * in your Expeditions (same in-expedition scope as Gather the Pack).
+   */
+  public static function soundTheHowlPass($card, $event)
+  {
+    $player = $card->getPlayer();
+    $inExpeditions = $player->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) {
+      return $c->isGigantic() || in_array($c->getLocation(), STORMS);
+    });
+    $inExpeditions = $inExpeditions->filter(fn($c) => in_array(ANIMAL, $c->getSubtypes()));
+    $distinct = [];
+    foreach ($inExpeditions as $c) {
+      $distinct[$c->getForest()] = true;
+    }
+    return count($distinct) >= 3;
+  }
 
   public static function XCharacterInExpedition($card, $event, $n, $op = 'GTE')
   {
@@ -1908,6 +2157,13 @@ abstract class Conditions
     return ($event['to'] ?? '') == $otherExpedition && $playedCard->getPId() != $card->getPId() && Players::getNext($card->getPId())->countCardsInLocation($otherExpedition, [CHARACTER]) == 1;
   }
 
+  public static function isPlayedInOwnOtherExpedition($card, $event)
+  {
+    $playedCard = Cards::get($event['cardId']);
+    $otherExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+    return (($event['to'] ?? '') == $otherExpedition || ($playedCard->isGigantic() && in_array($event['to'], STORMS))) && $playedCard->getPId() == $card->getPId();
+  }
+
   public static function isNotGigantic($card, $event)
   {
     $playedCard = Cards::get($event['cardId']);
@@ -1933,6 +2189,15 @@ abstract class Conditions
     // $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
     return $card->getPlayer()->isAscended($card->getLocation()) || ($card->isGigantic() && ($card->getPlayer()->isAscended($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
   }
+  
+  public static function wasCardExpeditionAscended($card, $event)
+  {
+    $srcLoc = $event["from"];
+    if (!in_array($srcLoc, STORMS)) {
+      return false;
+    }
+    return $card->getPlayer()->isAscended($srcLoc) || ($card->isGigantic() && ($card->getPlayer()->isAscended($srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
+  } 
 
   public static function countSourceAscended($card, $event)
   {
@@ -2084,6 +2349,8 @@ abstract class Conditions
     if ($op == 'GTE' && $roll >= $result) {
       return true;
     } elseif ($op == 'LTE' && $roll <= $result) {
+      return true;
+    } elseif ($op == 'EQ' && $roll == $result) {
       return true;
     }
     return false;
