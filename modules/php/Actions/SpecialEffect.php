@@ -100,6 +100,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Discard all hands');
       case 'discardAllHandReserve':
         return clienttranslate('Discard all hands and reserve');
+      case 'discardAllReserve':
+        return clienttranslate('Each player discards their Reserve');
       case 'instantWin':
         return clienttranslate('Immediate win');
       case 'MindApotheosis':
@@ -279,6 +281,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'drawTopIfRoll':
       case 'exhaustPlayFree':
       case 'hunger':
+      case 'discardAllReserve':
       case 'boostTargetReserveCards':
       case 'boostXOpponentExpedition':
       case 'boostXExhaustedMax3':
@@ -627,6 +630,13 @@ class SpecialEffect extends \ALT\Models\Action
 
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
 
+        break;
+      case 'discardAllReserve':
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = FT::ACTION(DISCARD, ['pId' => $pId, 'special' => 'allReserve']);
+        }
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
       case 'instantWin':
         if (Globals::getInstantWin() == false) {
@@ -1651,6 +1661,7 @@ class SpecialEffect extends \ALT\Models\Action
         }
 
         break;
+
       case 'reveal':
         $toReveal = $this->getCard();
         $toReveal->setLocation(LIMBO);
