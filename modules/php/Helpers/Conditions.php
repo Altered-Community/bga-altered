@@ -240,6 +240,21 @@ abstract class Conditions
     return false;
   }
 
+  public static function movesAnyExpeditionDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) { 
+      if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$storm]) ) { 
+        continue;
+      } 
+      $move = $stormMoves[$card->getPId()][$storm]; 
+      if ($card->getPlayer()->isAscended($storm) && empty($move['biomes'])) { 
+        return true; 
+      }  
+    } 
+    return false;
+  }
+
   public static function movesAscendedAnyExpeditions($card, $event)
   {
     $stormMoves = Globals::getStormMoves();
@@ -463,6 +478,28 @@ abstract class Conditions
     die('Unknown op for hasXCardsInHand');
   }
 
+  public static function hasXCardsInHandExceptCurrentCard($card, $n, $op = 'GTE')
+  {
+    $count = $card->getLocation() == RESERVE ? $card
+      ->getPlayer()
+      ->getHand()
+      ->count() : $card
+      ->getPlayer()
+      ->getHand()
+      ->count() - 1;
+
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasXCardsInHand');
+  }
+
   public static function hasNoTokensInLandmarks($card, $event)
   {
     $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
@@ -470,6 +507,16 @@ abstract class Conditions
     });
     return $cards->count() == 0;
   }
+
+  public static function has6HandCostLandmarks($card, $n)
+  {
+    $cards = $card->getPlayer()->getLandmarks();
+    $total = 0;
+    foreach ($cards as $c) {
+      $total += $c->getCostHand();
+    }
+    return $total >= 6;
+  }  
 
   public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
   {
@@ -533,6 +580,20 @@ abstract class Conditions
   public static function isThisFeatCompleted($card, $event)
   {
     return Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) >= 1;
+  }
+
+  /**
+   * True if the card indicated by ctx cardId has a completed-Feat meeple.
+   * Must run before sacrificing that card to discard — discardTo() removes meeples including FEAT_COMPLETED.
+   */
+  public static function isTargetFeatCompleted($card, $event)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if ($cardId === null) {
+      return false;
+    }
+    $c = Cards::get($cardId);
+    return Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) >= 1;
   }
 
   /**

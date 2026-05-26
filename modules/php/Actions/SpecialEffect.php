@@ -1687,24 +1687,33 @@ class SpecialEffect extends \ALT\Models\Action
         $expedition = $this->getCtxArg('expedition');
         $oPlayer = Players::get($player);
         $resupplyIfAscended = $oPlayer->hasResupplyIfAscended();
+        $boostIfAscended = $oPlayer->hasBoostIfAscended();
         // manage my expedition
         if ($expedition == 'source') {
           $expedition = $card->getLocation();
         }
 
         $side = $expedition == STORM_LEFT ? HERO : COMPANION;
-        if ($resupplyIfAscended && $oPlayer->isAscended($expedition)) {
-          $this->insertAsChild(FT::ACTION(RESUPPLY, []));
-        } elseif (!$oPlayer->isAscended($expedition)) {
-          // $token = $expedition == STORM_LEFT ? 'getHeroToken' : 'getCompanionToken';
-          // $oToken = $oPlayer->$token();
+        $isAscended = $oPlayer->isAscended($expedition);
+        if (!$isAscended) {
           $ascended = Meeples::singleCreate([
             'player_id' => $player,
-            'location' => $expedition,
-            'nbr' => 1,
-            'type' => 'ascend'
+            'location'  => $expedition,
+            'nbr'       => 1,
+            'type'      => 'ascend'
           ]);
           Notifications::ascend($ascended, $oPlayer, $card, $expedition);
+        } else {
+          if ($resupplyIfAscended) {
+            $this->insertAsChild(FT::ACTION(RESUPPLY, []));
+          }
+          if ($boostIfAscended) {
+            foreach ($oPlayer->getPlayedCards() as $cId => $card) {
+              if ($card->isBoostIfAscended()) {
+                $this->insertAsChild(FT::GAIN($card, BOOST, 1));
+              }
+            }
+          }
         }
         break;
       case 'ascendOnLeave':
@@ -2102,6 +2111,55 @@ class SpecialEffect extends \ALT\Models\Action
           ]
         );
         break;
+      case 'RunningwiththeWolves':
+        $effectHand = $args['effectHand'] ?? false;
+        $subTypes = $args['subTypes'] ?? 'disabled';
+
+        Engine::checkpoint();
+        // draw 5 cards
+
+        $player = $card->getPlayer();
+        $drawn = $player->draw(5, null, LIMBO, $card);
+
+        // Target only Characters drawn
+        $this->insertAsChild(
+          FT::SEQ(
+            FT::ACTION(
+              TARGET,
+              [
+                'n' => 5,
+                'upTo' => true,
+                'effect' => FT::ACTION(PLAY_CARD, [
+                  'free' => true,
+                  'effectHand' => $effectHand,
+                  // Reset the Target arguments for the PlayCard action, in case it has effects that target
+                  // This is weird, but it seemed to fix issues where:
+                  // - Fair Fox resupplied 5 cards
+                  // - Lyra Cloth Dancer could not target anything
+                  // This requires more testing, and ideally making sure the arguments are not inherited
+                  // or have some easier way to reset them.
+                  'n' => 1,
+                  'targetLocation' => IN_PLAY,
+                  'targetPlayer' => ALL,
+                  'cards' => [],
+                  'subType' => 'disabled',
+                  'totalCost' => INFTY,
+                ]),
+                'targetLocation' => [LIMBO],
+                'targetPlayer' => ME,
+                'cards' => $drawn->getIds(),
+                'subType' => $subTypes,
+                'totalCost' => 7,
+                // 'discardRemaining' => true,
+              ],
+              ['sourceId' => $card->getId()]
+            ),
+            FT::ACTION(SPECIAL_EFFECT, ['effect' => 'RomanticCleanLimbo', 'args' => ['cards' => $drawn->getIds()]], ['sourceId' => $card->getId()])
+          )
+        );
+
+        break;
+
       case 'copyGift':
         $event = $this->getEventRecursive();
 
@@ -2206,6 +2264,24 @@ class SpecialEffect extends \ALT\Models\Action
         } while ($player->getId() != $activePlayer->getId());
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         break;
+      case 'boostXAscended':
+        $n = Conditions::countSourceAscended($card, $this->getEvent());
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;     
+      case 'boostXAnimalsMax2':
+        $cards = $card->getPlayer()->getPlayedCards();
+        $cards = $cards->filter(function ($c) use ($card) {
+          if ($c->getId() != $card->getId() && in_array(ANIMAL, $c->getSubtypes())) {
+              return true;
+          }
+        });
+        $n = $cards->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n, 2));
+        }
+        break;    
       case 'PlagueofIntolerance':
         $count = Players::getActive()->getPlayedCards()->filter(function ($c) {
           return in_array($c->getType(), [CHARACTER]);
@@ -2229,7 +2305,25 @@ class SpecialEffect extends \ALT\Models\Action
                 $effect();
             }
         }
-        break;   
+        break;  
+      case 'invokeRecruitOnAscendedExpeditions':
+        foreach (STORMS as $storm) {
+          if($card->getPlayer()->isAscended($storm)){
+            $nodes[] = FT::ACTION(
+              INVOKE_TOKEN,
+              [
+                'pId' => $card->getPId(),
+                'tokenType' => 'OD_Common_OrdisRecruit',
+                'targetLocation' => [$storm],
+              ],
+              ['sourceId' => $card->getId()]
+            );
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;             
       default:
         break;
     }
