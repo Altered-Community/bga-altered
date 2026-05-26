@@ -302,7 +302,7 @@ class RollDie extends \ALT\Models\Action
     $args = $this->argsRollDie();
 
     if (count(array_diff($cardId, $args['cardIds'])) != 0) {
-      throw new \BgaVisibleSystemException('You cannot target this card. should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target this card. should not happen');
     }
     $this->duplicateAction(['canDiscard' => false, 'hasRolled' => true]);
     $this->insertAsChild(FT::ACTION(DISCARD, ['cardId' => $cardId]));

@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_CorruptedToothFairy extends \ALT\Models\Card
@@ -18,7 +16,7 @@ class BR_Rare_CorruptedToothFairy extends \ALT\Models\Card
       'name'  => clienttranslate("Corrupted Tooth Fairy"),
       'typeline' => clienttranslate("Character - Corruption Fairy"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Why muzzle the wolf when you can remove it\'s fangs ?'),
       'artist' => "Nestor Papatriantafyllou",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION, FAIRY],
@@ -29,8 +27,14 @@ class BR_Rare_CorruptedToothFairy extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean'],
-      'playLimitation' => 'discardPile6',
-      'effectHand' => FT::SABOTAGE(),
+      'playCondition' => 'hasDiscardPileCards:6',
+      'effectHand' =>
+      FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+        'targetLocation' => [RESERVE],
+        'upTo' => true,
+        'effect' => FT::ACTION(DISCARD, []),
+      ]),
     ];
   }
 }

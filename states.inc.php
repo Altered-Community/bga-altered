@@ -561,6 +561,15 @@ $machinestates = [
     'description' => '',
     'action' => 'stAtomicAction',
   ],
+  
+  ST_COMPLETE_FEAT => [
+    'name' => 'completeFeat',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
+  ],
 
   // Eole
   ST_DISCARD_FROM_DECK => [

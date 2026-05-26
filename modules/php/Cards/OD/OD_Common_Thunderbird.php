@@ -6,25 +6,31 @@ class OD_Common_Thunderbird extends \ALT\Models\Card
 {
   public function __construct($row){
 		parent::__construct($row);
-        $this->properties = [
-            'uid' => 'ALT_EOLE_B_OR_110_C',
-            'asset'  => 'ALT_EOLE_B_OR_110_C',
-
-    	'faction'  => FACTION_OD,
-    	'rarity'  => RARITY_COMMON,
-    	'name'  => clienttranslate("Thunderbird"),
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_OR_110_C',
+      'asset'  => 'ALT_EOLE_B_OR_110_C',
+      'faction'  => FACTION_OD,
+      'rarity'  => RARITY_COMMON,
+      'name'  => clienttranslate("Thunderbird"),
       'typeline' => clienttranslate("Character - Animal"),
-    	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate(''),
+      'type'  => CHARACTER,
+      'flavorText'  => clienttranslate('Extraction imminent!'),
       'artist' => "DOBA",
-			'extension'=>'ROC',
-   'subtypes'  => [ANIMAL],
- 				'effectDesc' => clienttranslate('{H} My Expedition <ASCENDS>.  When my Expedition moves forward <DUE_TO_ASCENSION> (if it moved forward due to at least one matched stat) — Draw a card.'),
-     'forest' => 2, 
-     'mountain' => 2, 
-     'ocean' => 2, 
-     'costHand' => 3, 
-     'costReserve' => 3, 
-];
+      'extension'=>'ROC',
+      'subtypes'  => [ANIMAL],
+      'effectDesc' => clienttranslate('{H} My Expedition <ASCENDS>.  When my Expedition moves forward <DUE_TO_ASCENSION> (if it moved forward due to at least one matched stat) — Draw a card.'),
+      'forest' => 2, 
+      'mountain' => 2, 
+      'ocean' => 2, 
+      'costHand' => 3, 
+      'costReserve' => 3, 
+      'effectHand' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source']),
+      'effectPassive' => [
+          'AfterDusk' => [
+              'condition' => 'movesStormDueToAscension',
+              'output' => FT::ACTION(DRAW, ['players' => ME])
+          ],
+      ],
+    ];
   }
 }

@@ -6,6 +6,7 @@ use ALT\Core\Globals;
 use ALT\Managers\Cards;
 use ALT\Managers\Players;
 use ALT\Managers\Meeples;
+use ALT\Core\Notifications;
 
 // Conditions
 abstract class Conditions
@@ -163,6 +164,12 @@ abstract class Conditions
   {
     return ($event['pId'] ?? null) == $card->getPId();
   }
+  
+  /** True when this card is the one that entered play (playCard + cardId on the event). Used for InvokeToken with onPlay effects. */
+  public static function isSelfPlayCardEvent($card, $event)
+  {
+    return ($event['playCard'] ?? false) && (int) ($event['cardId'] ?? -1) === (int) $card->getId();
+  }
 
   public static function isNotMe($card, $event)
   {
@@ -230,6 +237,57 @@ abstract class Conditions
       return true;
     }
 
+    return false;
+  }
+
+  public static function movesStormDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    $storm = $event['expedition'] ?? $card->getLocation();
+    if (
+      !isset($stormMoves[$card->getPId()]) ||
+      $card->getPId() != $event['pId'] ||
+      !isset($stormMoves[$card->getPId()][$storm])
+    ) {
+      return false;
+    }
+
+    $move = $stormMoves[$card->getPId()][$storm];
+    if ($card->getPlayer()->isAscended($storm) && $move['moves'] >= 1 && $move['hasMovedFromAscension']) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public static function movesStormsDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) {
+        if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] ||
+            !isset($stormMoves[$card->getPId()][$storm])) {
+          return false;
+        }
+        $move = $stormMoves[$card->getPId()][$storm];
+        if (!$card->getPlayer()->isAscended($storm) || $move['hasMovedFromAscension']) {
+          return false;
+        }
+    }
+    return true;
+  }
+
+  public static function movesAnyExpeditionDueToAscension($card, $event)
+  {
+    $stormMoves = Globals::getStormMoves();
+    foreach (STORMS as $storm) { 
+      if (!isset($stormMoves[$card->getPId()]) || $card->getPId() != $event['pId'] || !isset($stormMoves[$card->getPId()][$storm]) ) { 
+        continue;
+      } 
+      $move = $stormMoves[$card->getPId()][$storm]; 
+      if ($card->getPlayer()->isAscended($storm) && $move['hasMovedFromAscension']) { 
+        return true; 
+      }  
+    } 
     return false;
   }
 
@@ -456,6 +514,28 @@ abstract class Conditions
     die('Unknown op for hasXCardsInHand');
   }
 
+  public static function hasXCardsInHandExceptCurrentCard($card, $n, $op = 'GTE')
+  {
+    $count = $card->getLocation() == RESERVE ? $card
+      ->getPlayer()
+      ->getHand()
+      ->count() : $card
+      ->getPlayer()
+      ->getHand()
+      ->count() - 1;
+
+    if ($op == 'GTE') {
+      return $count >= $n;
+    }
+    if ($op == 'LTE') {
+      return $count <= $n;
+    }
+    if ($op == 'EQ') {
+      return $count == $n;
+    }
+    die('Unknown op for hasXCardsInHand');
+  }
+
   public static function hasNoTokensInLandmarks($card, $event)
   {
     $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) {
@@ -463,6 +543,16 @@ abstract class Conditions
     });
     return $cards->count() == 0;
   }
+
+  public static function has6HandCostLandmarks($card, $n)
+  {
+    $cards = $card->getPlayer()->getLandmarks();
+    $total = 0;
+    foreach ($cards as $c) {
+      $total += $c->getCostHand();
+    }
+    return $total >= 6;
+  }  
 
   public static function hasDiscardPileCards($card, $event, $n, $op = 'GTE')
   {
@@ -481,9 +571,108 @@ abstract class Conditions
     die('Unknown op for hasDiscardPileCards');
   }
 
-  public static function hasControlFeat($card, $event)
+  /** True if this player has n completed feat. */
+  public static function hasCompletedFeat($card, $event, $n = 1, $op = 'GTE')
   {
-    return self::hasControl($card, $event, FEAT, 1);
+    return hasControlFeatWithMaxBaseCost($card, $event, $n, false, 99, 'completed', $op);
+  }
+
+  /** True if this card has no feat-completed meeple (COMPLETE_FEAT passive not yet applied). */
+  public static function isThisFeatIncomplete($card, $event)
+  {
+    return Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1;
+  }
+
+  /** True if this card has a feat-completed meeple. */
+  public static function isThisFeatCompleted($card, $event)
+  {
+    return Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) >= 1;
+  }
+
+  /**
+   * True if the card indicated by ctx cardId has a completed-Feat meeple.
+   * Must run before sacrificing that card to discard — discardTo() removes meeples including FEAT_COMPLETED.
+   */
+  public static function isTargetFeatCompleted($card, $event)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if ($cardId === null) {
+      return false;
+    }
+    $c = Cards::get($cardId);
+    return Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) >= 1;
+  }
+
+  /**
+   * Counts Feat permanents you control in play (same zones / filters as hasControl for subtype feat).
+   *
+   * Condition string segments (after the name), same order as hasControl minus type and opponent:
+   *   hasControlFeat
+   *   hasControlFeat:{n}
+   *   hasControlFeat:{n}:{excludeMyself true|false}
+   *   hasControlFeat:{n}:{excludeMyself}:{state all|completed|notcompleted|exhausted}
+   *   hasControlFeat:{n}:{excludeMyself}:{state}:{op GTE|LTE|EQ|LT|GT}
+   */
+  public static function hasControlFeat($card, $event, $n = 1, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
+  {
+    return self::hasControl($card, $event, FEAT, (int) $n, $excludeMyself, $state, $op, false);
+
+  }
+  
+  /**
+   * Feat permanents in play whose min(Hand, Reserve cost) is at most maxBaseCost; same optional segments as hasControlFeat after maxBaseCost.
+   */
+  public static function hasControlFeatWithMaxBaseCost(
+    $card,
+    $event,
+    $n = 1,
+    $excludeMyself = 'false',
+    $maxBaseCost = 99,
+    $state = 'all',
+    $op = 'GTE'
+  ) {
+    $player = $card->getPlayer();
+    $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+    $cards = $player->getPlayedCards()->filter(function ($c) use ($types) {
+      return in_array($c->getType(), $types) || count(array_intersect($types, $c->getAdditionalType())) > 0;
+    });
+    $cards = $cards->filter(fn($c) => in_array(FEAT, $c->getSubtypes()));
+    $maxBaseCost = (int) $maxBaseCost;
+    $cards = $cards->filter(function ($c) use ($maxBaseCost) {
+      return min($c->getCostHand(), $c->getCostReserve()) <= $maxBaseCost;
+    });
+    if ($excludeMyself === 'true') {
+      $cards = $cards->filter(fn($c) => $c->getId() != $card->getId());
+    }
+    if ($state != 'all') {
+      if ($state == 'exhausted') {
+        $cards = $cards->filter(fn($c) => $c->isTapped());
+      }
+      elseif ($state == 'completed') {
+        $cards = $cards->filter(fn($c) => Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) > 0);
+      }
+      elseif ($state == 'notcompleted') {
+        $cards = $cards->filter(fn($c) => Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) == 0);
+      }
+    }
+    $m = $cards->count();
+    $n = (int) $n;
+    if ($op == 'GTE') {
+      return $m >= $n;
+    }
+    if ($op == 'LTE') {
+      return $m <= $n;
+    }
+    if ($op == 'EQ') {
+      return $m == $n;
+    }
+    if ($op == 'LT') {
+      return $m < $n;
+    }
+    if ($op == 'GT') {
+      return $m > $n;
+    }
+    throw new \Bga\GameFramework\VisibleSystemException('Unknown op for hasControlFeatWithMaxBaseCost: ' . $op);
   }
 
   public static function hasBiggerHand($card, $event)
@@ -588,7 +777,6 @@ abstract class Conditions
       return $count <= $n;
     }
   }
-
   
   public static function checkAbilityActivatedThisTurn($card, $event, $type = 'any')
   {
@@ -598,15 +786,6 @@ abstract class Conditions
       return !empty($playerAbilities);
     }
     return !empty($playerAbilities[$type]);
-  }
-
-  public static function checkSupportActivatedThisTurn($card, $event, $supportType = 'any')
-  {
-    return
-      self::checkAbilityActivatedThisTurn($card, $event, 'discard') ||
-      self::checkAbilityActivatedThisTurn($card, $event, 'tap') ||
-      self::checkAbilityActivatedThisTurn($card, $event, 'discardOrReserve') ||
-      self::checkAbilityActivatedThisTurn($card, $event, 'support');
   }
 
   public static function hasLessReserveCards($card, $event)
@@ -648,6 +827,7 @@ abstract class Conditions
   public static function hasControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE', $opponent = false)
   {
     $types = [CHARACTER, TOKEN];
+    $subTypes = null;
     if ($type == TOKEN) {
       $types = [CHARACTER, PERMANENT];
     }
@@ -657,6 +837,15 @@ abstract class Conditions
     if (in_array($type, SUBTYPES)) {
       $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
     }
+    if (strpos($type, '|') !== false) {
+      $maybeSubtypes = explode('|', $type);
+      $allSubtypes = count(array_intersect($maybeSubtypes, SUBTYPES)) == count($maybeSubtypes);
+      if ($allSubtypes) {
+        $subTypes = $maybeSubtypes;
+        $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+      }
+    }
+    
 
     if ($opponent) {
       $player = Players::getNext($card->getPlayer());
@@ -673,6 +862,9 @@ abstract class Conditions
 
     if (in_array($type, SUBTYPES)) {
       $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
+    }
+    if (!is_null($subTypes)) {
+      $cards = $cards->filter(fn($c) => count(array_intersect($subTypes, $c->getSubtypes())) > 0);
     }
 
     if ($excludeMyself === 'true') {
@@ -696,7 +888,7 @@ abstract class Conditions
       return $m <= $n;
     }
   }
-
+  
   public static function hasOpponentControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
   {
     return self::hasControl($card, $event, $type, $n, $excludeMyself, $state, $op, true);
@@ -1714,7 +1906,11 @@ abstract class Conditions
     // return  $opponent->countCardsInLocation($card->getLocation(), [TOKEN, CHARACTER]) == 0 && !$opponent->hasGigantic();
   }
 
-  public static function countOpponentExpedition($card, $event, $type = null)
+  /**
+   * For internal use, counts the opponent's in-play cards matching $type (null = no type filter) on the
+   * same storm as $card, or on the opposite storm when $card or that opponent card is gigantic.
+   */
+  private static function countOpponentExpedition($card, $event, $type = null)
   {
     $opponent = null;
     foreach (Players::getAll() as $pId => $player) {
@@ -1793,6 +1989,13 @@ abstract class Conditions
     return ($event['to'] ?? '') == $otherExpedition && $playedCard->getPId() != $card->getPId() && Players::getNext($card->getPId())->countCardsInLocation($otherExpedition, [CHARACTER]) == 1;
   }
 
+  public static function isPlayedInOwnOtherExpedition($card, $event)
+  {
+    $playedCard = Cards::get($event['cardId']);
+    $otherExpedition = $card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+    return (($event['to'] ?? '') == $otherExpedition || ($playedCard->isGigantic() && in_array($event['to'], STORMS))) && $playedCard->getPId() == $card->getPId();
+  }
+
   public static function isNotGigantic($card, $event)
   {
     $playedCard = Cards::get($event['cardId']);
@@ -1818,6 +2021,15 @@ abstract class Conditions
     // $side = $card->getLocation() == STORM_LEFT ? HERO : COMPANION;
     return $card->getPlayer()->isAscended($card->getLocation()) || ($card->isGigantic() && ($card->getPlayer()->isAscended($card->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
   }
+  
+  public static function wasCardExpeditionAscended($card, $event)
+  {
+    $srcLoc = $event["from"];
+    if (!in_array($srcLoc, STORMS)) {
+      return false;
+    }
+    return $card->getPlayer()->isAscended($srcLoc) || ($card->isGigantic() && ($card->getPlayer()->isAscended($srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
+  } 
 
   public static function countSourceAscended($card, $event)
   {
@@ -1879,6 +2091,30 @@ abstract class Conditions
     }
 
     return false;
+  }
+
+  /**
+   * Simple Card condition checks
+   */
+
+  /**
+   * Check if card is of a given type
+   * @param string $type - a single card type, or a list of types separated by |
+   */
+  public static function isType($card, $_event, $type)
+  {
+    $types = explode('|', $type);
+    return in_array($card->getType(), $types);
+  }
+
+  /**
+   * Check subtypes of a card
+   * @param string $subType - a single subtype, or a list of subtypes separated by |
+   */
+  public static function isSubtype($card, $_event, $subType)
+  {
+    $subTypes = explode('|', $subType);
+    return count(array_intersect($card->getSubtypes(), $subTypes)) > 0;
   }
 
   /**********************************

@@ -101,7 +101,7 @@ class Action
       if (array_key_exists($v, $this->args)) {
         $t = $this->args[$v];
       } else {
-        throw new \BgaVisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v . ' action' . $this->getClassName());
+        throw new \Bga\GameFramework\VisibleSystemException('Trying to get value of an undefined arg without any default value : ' . $v . ' action' . $this->getClassName());
       }
     }
     return $t;
@@ -326,9 +326,19 @@ class Action
     // Engine::proceed();
   }
 
-  public function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId)
+  public function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder = false)
   {
-    if (!isset($node['args']['cardId']) || ($node['args']['cardId'] != ME && $node['args']['cardId'] != MANA)) {
+    // Open targeting: do not inherit an ancestor's resolved cardId (e.g. Feat chosen to sacrifice)
+    // onto a Target action or its nested effect tree — otherwise Sabotage / send-to-Reserve labels and
+    // valid-target pools are polluted by that card name/id.
+    $isTargetAction = (($node['action'] ?? null) === \TARGET);
+
+    $cid = $node['args']['cardId'] ?? null;
+    $keepPlaceholder =
+      $cid === ME ||
+      $cid === MANA ||
+      ($preserveEffectPlaceholder && $cid === EFFECT);
+    if (!$isTargetAction && (!isset($node['args']['cardId']) || !$keepPlaceholder)) {
       $node['args']['cardId'] = $cardId;
       $node['args']['cardFrom'] = $cardFrom;
       $node['args']['ownerId'] = $ownerId;
@@ -339,21 +349,35 @@ class Action
     }
 
     if (isset($node['1-3'])) {
-      $node['1-3'] = $this->updateCardId($node['1-3'], $cardId, $cardFrom, $sourceId, $ownerId);
+      $node['1-3'] = $this->updateCardId($node['1-3'], $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
     }
     if (isset($node['4+'])) {
-      $node['4+'] = $this->updateCardId($node['4+'], $cardId, $cardFrom, $sourceId, $ownerId);
+      $node['4+'] = $this->updateCardId($node['4+'], $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
     }
 
-    $node['sourceId'] = $this->getSourceId();
+    $node['sourceId'] = $sourceId;
+
+    $effectPropagateId = $isTargetAction ? null : $cardId;
 
     if (isset($node['args']['effect']) && is_array($node['args']['effect'])) {
-      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $cardId, $cardFrom, $sourceId, $ownerId);
+      $childCardFrom = isset($node['args']['effect']['args']['targetLocation']) 
+        ? $node['args']['effect']['args']['targetLocation'] 
+        : $cardFrom;
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $effectPropagateId, $childCardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
     }
-
+    if (isset($node['args']['oppositeEffect']) && is_array($node['args']['oppositeEffect'])) {
+      $node['args']['oppositeEffect'] = $this->updateCardId(
+        $node['args']['oppositeEffect'],
+        $cardId,
+        $cardFrom,
+        $sourceId,
+        $ownerId,
+        $preserveEffectPlaceholder
+      );
+    }
     if (isset($node['childs'])) {
-      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId) {
-        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId);
+      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder) {
+        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
       }, $node['childs']);
     }
 

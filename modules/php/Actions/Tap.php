@@ -6,6 +6,7 @@ use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Notifications;
+use ALT\Core\Globals;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
 
@@ -35,7 +36,7 @@ class Tap extends \ALT\Models\Action
     }
     if ($cardId === null) {
       throw new \feException($this->getSourceId());
-      throw new \BgaVisibleSystemException('no card in args (tap). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (tap). Should not happen');
     }
     return Cards::get($cardId);
   }
@@ -51,10 +52,16 @@ class Tap extends \ALT\Models\Action
     }
 
     if ($card->isTapped()) {
-      throw new \BgaVisibleSystemException('Card is already tapped. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Card is already tapped. Should not happen');
     }
     $card->setTapped(true);
     Notifications::tapEffect($player, $card, $pay);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = array_merge(
+      $abilityActivated[$player->getId()] ?? [],
+      ['tap' => true]
+    );
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
     // Check listener
     $this->checkAfterListeners($player, [
       'cardId' => $card->getId(),

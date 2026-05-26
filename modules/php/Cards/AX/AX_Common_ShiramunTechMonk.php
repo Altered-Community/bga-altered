@@ -28,6 +28,16 @@ class AX_Common_ShiramunTechMonk extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 2,
+      'effectHand' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, SPELL, PERMANENT],
+        'targetPlayer' => ME,
+        'targetLocation' => [HAND],
+        'upTo' => true,
+        'effect' => FT::SEQ(
+          FT::DISCARD_TO_RESERVE(),
+          FT::SABOTAGE(),
+        ),
+      ]),
     ];
   }
 }
