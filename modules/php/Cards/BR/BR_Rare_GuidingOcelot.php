@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_GuidingOcelot extends \ALT\Models\Card
@@ -29,6 +27,39 @@ class BR_Rare_GuidingOcelot extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['forest', 'mountain', 'ocean'],
+      'effectPlayed' => FT::GAIN(ME, BOOST, 2),
+      'effectPassive' => [
+        'ChooseAssignment' => [
+          'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner', 'isStillSameLocation'],
+          'output' => FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER, TOKEN],
+            'targetLocation' => STORMS,
+            'augmentOnly' => true,
+            'effect' => FT::ACTION(SPEND, ['effect' => FT::GAIN(EFFECT, BOOST)]),
+          ], ['optional' => true]),
+        ],
+        'InvokeToken' => [
+          'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
+          'output' => FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER, TOKEN],
+            'targetLocation' => STORMS,
+            'augmentOnly' => true,
+            'effect' => FT::ACTION(SPEND, ['effect' => FT::GAIN(EFFECT, BOOST)]),
+          ], ['optional' => true]),
+        ],
+        'MoveCard' => [
+          'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner', 'isStillSameLocation'],
+          'output' => FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER, TOKEN],
+            'targetLocation' => STORMS,
+            'augmentOnly' => true,
+            'effect' => FT::ACTION(SPEND, ['effect' => FT::GAIN(EFFECT, BOOST)]),
+          ], ['optional' => true]),
+        ],
+      ],
     ];
   }
 }

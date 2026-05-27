@@ -163,14 +163,18 @@ class Gain extends \ALT\Models\Action
     if ($cardId == ME) {
       $cardId = $this->ctx->getSourceId() ?? null;
     } elseif ($cardId == EFFECT) {
-      $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
-      if (is_null($cardId)) {
-        $cardId = $this->getCtx()->toArray()['event']['gain']['cardId'] ?? null;
+      $event = $this->getEventRecursive();
+      $cardId = null;
+      if (!is_null($event)) {
+        $cardId = $event['cardId'] ?? null;
+        if (is_null($cardId)) {
+          $cardId = $event['gain']['cardId'] ?? null;
+        }
       }
     }
 
     if (is_null($cardId)) {
-      throw new \Bga\GameFramework\VisibleSystemException('no card in args (Gain). Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (Gain). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
