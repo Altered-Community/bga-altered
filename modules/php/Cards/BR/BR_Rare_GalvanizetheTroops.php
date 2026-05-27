@@ -29,7 +29,6 @@ class BR_Rare_GalvanizetheTroops extends \ALT\Models\Card
       'effectPlayed' => FT::SEQ(
         FT::ACTION(RESUPPLY, []),
         FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER],
           'targetPlayer' => ME,
           'upTo' => true,
           'effect' => FT::GAIN(EFFECT, FLEETING),
@@ -47,7 +46,6 @@ class BR_Rare_GalvanizetheTroops extends \ALT\Models\Card
             'condition' => 'isFirstPlayer',
             'effect' => FT::ACTION(RESUPPLY, []),
             'oppositeEffect' => FT::ACTION(TARGET, [
-              'targetType' => [CHARACTER],
               'targetPlayer' => ME,
               'targetLocation' => [RESERVE],
               'upTo' => true,

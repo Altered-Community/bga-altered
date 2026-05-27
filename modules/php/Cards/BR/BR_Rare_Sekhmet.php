@@ -28,7 +28,6 @@ class BR_Rare_Sekhmet extends \ALT\Models\Card
       'costReserve' => 4,
       'changedStats' => ['costHand'],
       'effectHand' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'targetLocation' => ['opponentSource'],
         'maxBaseCost' => 2,
         'upTo' => true,

@@ -434,11 +434,32 @@ class Target extends \ALT\Models\Action
     }
 
     foreach ($cards as $cId => $card) {
-      if ($card->getTough() > 0 && $card->getPId() != $player->getId()) {
-        $costs[$cId] = $card->getTough();
+      if ($card->getPId() == $player->getId()) {
+        continue;
+      }
+
+      $extraCost = $this->getAdditionalTargetCost($card);
+
+      if ($extraCost > 0) {
+        $costs[$cId] = $extraCost;
       }
     }
     return $costs;
+  }
+
+  private function getAdditionalTargetCost($card)
+  {
+    $extraCost = max(0, (int) $card->getTough());
+
+    // Completed Feats can grant reserve-only targeting protection.
+    if (
+      $card->getLocation() == RESERVE &&
+      ($card->getType() == CHARACTER || in_array(CHARACTER, (array) $card->getAdditionalType(), true))
+    ) {
+      $extraCost += $card->getPlayer()->getCompletedFeatReserveCharacterTough();
+    }
+
+    return $extraCost;
   }
 
   public function argsTarget()

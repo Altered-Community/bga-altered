@@ -10,7 +10,6 @@ class BR_Exalted_HoldtheLine extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_EOLE_B_BR_122_E',
       'asset'  => 'ALT_EOLE_B_BR_122_E',
-
       'faction'  => FACTION_BR,
       'rarity'  => RARITY_EXALTED,
       'name'  => clienttranslate("Hold the Line!"),
@@ -25,7 +24,6 @@ class BR_Exalted_HoldtheLine extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'effect' => FT::GAIN(EFFECT, BOOST, 2),
       ]),
       'effectPassive' => [

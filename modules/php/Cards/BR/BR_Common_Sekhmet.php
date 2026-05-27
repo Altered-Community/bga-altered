@@ -27,7 +27,6 @@ class BR_Common_Sekhmet extends \ALT\Models\Card
       'costHand' => 4,
       'costReserve' => 4,
       'effectHand' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'targetLocation' => ['opponentSource'],
         'maxBaseCost' => 3,
         'upTo' => true,

@@ -29,7 +29,6 @@ class BR_Common_GalvanizetheTroops extends \ALT\Models\Card
       'effectPlayed' => FT::SEQ(
         FT::ACTION(RESUPPLY, []),
         FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER],
           'targetPlayer' => ME,
           'upTo' => true,
           'effect' => FT::GAIN(EFFECT, FLEETING),

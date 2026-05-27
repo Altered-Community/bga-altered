@@ -29,7 +29,6 @@ class BR_Rare_CorruptedAoife extends \ALT\Models\Card
       'changedStats' => ['costReserve'],
       'playCondition' => 'hasControl:feat:1',
       'effectReserve' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'excludeSelf' => true,
         'upTo' => true,
         'effect' => FT::SEQ(FT::LOOSE(EFFECT, FLEETING), FT::GAIN(EFFECT, BOOST)),

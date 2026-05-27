@@ -29,7 +29,6 @@ class OD_Rare_SpryScout extends \ALT\Models\Card
       'effectReserve' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'hasCompletedFeat:1',
         'effect' => FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER],
           'upTo' => true,
           'n' => 2,
           'effect' => FT::ACTION(GAIN, ['type' => BOOST]),

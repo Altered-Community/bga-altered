@@ -25,7 +25,6 @@ class BR_Rare_ProtecttheAssets extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'targetPlayer' => ME,
         'upTo' => true,
         'effect' => FT::SEQ(FT::GAIN(EFFECT, BOOST), FT::LOOSE(EFFECT, FLEETING)),

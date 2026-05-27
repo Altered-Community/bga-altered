@@ -32,7 +32,6 @@ class BR_Common_CorruptedAoife extends \ALT\Models\Card
         'oppositeEffect' => FT::GAIN(ME, FLEETING),
       ]),
       'effectReserve' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'targetPlayer' => ME,
         'excludeSelf' => true,
         'upTo' => true,

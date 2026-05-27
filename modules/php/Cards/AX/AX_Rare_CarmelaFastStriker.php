@@ -29,7 +29,7 @@ class AX_Rare_CarmelaFastStriker extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'hasCompletedFeat:1',
+        'condition' => 'hasCompletedFeat',
         'effect' => FT::LOOSE(ME, FLEETING),
       ]),
       'effectSupport' => [

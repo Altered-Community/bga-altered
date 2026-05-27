@@ -25,7 +25,6 @@ class BR_Common_ProtecttheAssets extends \ALT\Models\Card
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'upTo' => true,
         'effect' => FT::LOOSE(EFFECT, FLEETING),
       ]),

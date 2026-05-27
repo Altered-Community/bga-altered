@@ -18,16 +18,6 @@ class BR_Rare_GatherthePack extends \ALT\Models\Card
       'type'  => PERMANENT,
       'flavorText'  => clienttranslate(''),
       'artist' => "Fahmi Fauzi",
-<<<<<<< HEAD
-			'extension'=>'ROC',
-   'subtypes'  => [FEAT,LANDMARK],
- 				'effectDesc' => clienttranslate('{J} Target Character with Base Cost {3} or less gains <ANCHORED>.  When you pass — If three or more #Characters# in your Expeditions have a different Base Cost, complete me.'),
- 				'supportDesc' => clienttranslate('<COMPLETED_LOW>: #All Characters# in your Expeditions are <TOUGH_CHA_P_1>.'),
- 			     'supportIcon' => 'discard',
-     'costHand' => 2, 
-     'costReserve' => 2, 
-];
-=======
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} Target Character with Base Cost {3} or less gains <ANCHORED>.  When you pass — If three or more #Characters# in your Expeditions have a different Base Cost, complete me.'),
@@ -35,7 +25,6 @@ class BR_Rare_GatherthePack extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'maxBaseCost' => 3,
         'effect' => FT::GAIN(EFFECT, ANCHORED),
       ]),
@@ -50,6 +39,5 @@ class BR_Rare_GatherthePack extends \ALT\Models\Card
         'universalToughScope' => 'expedition',
       ],
     ];
->>>>>>> ee5366d770fca631fb9f5a7c418621655f539c77
   }
 }
