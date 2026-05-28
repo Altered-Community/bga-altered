@@ -264,10 +264,7 @@ class Player extends \ALT\Helpers\DB_Model
       }
       if (
         !in_array(FEAT, $card->getSubtypes())
-        && !(
-          in_array(LANDMARK, $card->getSubtypes())
-          && isset($completed['landmarkSlots'])
-        )
+        && !array_key_exists('landmarkSlots', $completed)
       ) {
         continue;
       }
@@ -316,10 +313,7 @@ class Player extends \ALT\Helpers\DB_Model
       }
       if (
         !in_array(FEAT, $card->getSubtypes())
-        && !(
-          in_array(LANDMARK, $card->getSubtypes())
-          && array_key_exists('reserveCharacterTough', $completed)
-        )
+        && !array_key_exists('reserveCharacterTough', $completed)
       ) {
         continue;
       }

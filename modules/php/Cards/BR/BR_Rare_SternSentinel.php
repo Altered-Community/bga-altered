@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_SternSentinel extends \ALT\Models\Card

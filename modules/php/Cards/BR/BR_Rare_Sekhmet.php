@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_Sekhmet extends \ALT\Models\Card
@@ -27,11 +25,10 @@ class BR_Rare_Sekhmet extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 3,
       'costHand' => 3,
-      //VTO
       'costReserve' => 4,
       'changedStats' => ['costHand'],
       'effectHand' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
+        'targetLocation' => ['opponentSource'],
         'maxBaseCost' => 2,
         'upTo' => true,
         'effect' => FT::RETURN_TO_HAND(),

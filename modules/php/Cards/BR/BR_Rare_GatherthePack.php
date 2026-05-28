@@ -25,7 +25,6 @@ class BR_Rare_GatherthePack extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER],
         'maxBaseCost' => 3,
         'effect' => FT::GAIN(EFFECT, ANCHORED),
       ]),

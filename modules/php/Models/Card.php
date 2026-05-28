@@ -80,7 +80,7 @@ class Card extends \ALT\Helpers\DB_Model
     'effectHand' => 'obj', // played from hand
     'effectReserve' => 'obj', // played from reserve
     'effectSupport' => 'obj',
-    'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish    
+    'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
     // Passive-style modifiers that apply while the Feat is completed (FEAT_COMPLETED meeple on card).
     'effectCompleted' => 'obj',
     'effectTap' => 'obj',

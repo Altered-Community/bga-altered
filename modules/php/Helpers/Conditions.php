@@ -401,6 +401,22 @@ abstract class Conditions
     $stormMoves = $stormMoves[$card->getLocation()] ?? null;
     return $event['pId'] == $card->getPId() && !is_null($stormMoves) && ($stormMoves['moves'] ?? 0) > 0 && !Globals::isTieBreakerMode() && (!isset($event['expedition']) || $event['expedition'] == $card->getLocation());
   }
+  
+  public static function anyOfMyExpeditionsHasMoved($card, $event)
+  {
+    if (($event['pId'] ?? null) != $card->getPId() || Globals::isTieBreakerMode()) {
+      return false;
+    }
+
+    $stormMoves = Globals::getStormMoves()[$card->getPId()] ?? [];
+    foreach (STORMS as $storm) {
+      if (($stormMoves[$storm]['moves'] ?? 0) > 0) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   public static function myExpeditionIsBehind($card, $event)
   {

@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_RekaFixer extends \ALT\Models\Card
@@ -31,6 +29,15 @@ class BR_Rare_RekaFixer extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 3,
       'changedStats' => ['forest'],
+      'effectReserve' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'hasCompletedFeat:1',
+        'effect' => FT::ACTION(DRAW, ['players' => ME]),
+        'oppositeEffect' => FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'hasControl:feat:1',
+          'effect' => FT::ACTION(RESUPPLY, []),
+        ]),
+      ]),
+      'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
     ];
   }
 }

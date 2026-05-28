@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Rare_SpryScout extends \ALT\Models\Card
@@ -28,6 +26,18 @@ class BR_Rare_SpryScout extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
+      'effectReserve' => FT::ACTION(CHECK_CONDITION, [
+        'conditions' => ['hasCompletedFeat:1'],
+        'effect' => FT::ACTION(TARGET, [
+          'upTo' => true,
+          'n' => 2,
+          'effect' => FT::ACTION(GAIN, ['type' => BOOST]),
+        ]),
+        'oppositeEffect' => FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'hasControl:feat:1',
+          'effect' => FT::GAIN(ME, BOOST),
+        ]),
+      ]),
     ];
   }
 }

@@ -19,11 +19,25 @@ class CompleteFeat extends \ALT\Models\Action
     return clienttranslate('Complete Feat');
   }
 
+  /**
+   * Action always resolved automatically in game state.
+   *
+   * @param mixed $player Unused for this action.
+   */
   public function isAutomatic($player = null)
   {
     return true;
   }
 
+  /**
+   * Resolves the Feat card targeted by this action from context arguments.
+   *
+   * Supported context args (from FT::ACTION(COMPLETE_FEAT, ...)):
+   * - cardId (required): target card id, or aliases:
+   *   - ME / 'source': resolves to the current action source card id.
+   *
+   * @throws \BgaVisibleSystemException If no cardId was provided.
+   */
   public function getTargetCard()
   {
     $args = $this->getCtxArgs();
@@ -31,12 +45,21 @@ class CompleteFeat extends \ALT\Models\Action
     if ($cardId === ME || $cardId === 'source') {
       $cardId = $this->getSourceId();
     }
+    if ($cardId === EFFECT) {
+      $cardId = $this->getEvent()['cardId'] ?? $this->getSourceId();
+    }
     if ($cardId === null) {
-      throw new \Bga\GameFramework\VisibleSystemException('CompleteFeat: missing cardId');
+      throw new \BgaVisibleSystemException('CompleteFeat: missing cardId');
     }
     return Cards::get($cardId);
   }
 
+  /**
+   * Complete the targeted Feat by placing one FEAT_COMPLETED meeple on it.
+   *
+   * Idempotent behavior:
+   * - if already completed, the action simply resolves with no new meeple.
+   */
   public function stCompleteFeat()
   {
     $card = $this->getTargetCard();

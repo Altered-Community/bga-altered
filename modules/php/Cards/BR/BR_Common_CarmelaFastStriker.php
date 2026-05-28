@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
 use ALT\Helpers\FT;
 
 class BR_Common_CarmelaFastStriker extends \ALT\Models\Card
@@ -29,9 +27,8 @@ class BR_Common_CarmelaFastStriker extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'hasControl:feat:1',
-        'effect' => null,
-        'oppositeEffect' => FT::GAIN(ME, FLEETING),
+        'condition' => 'hasControl:feat:0:false:all:LTE',
+        'effect' => FT::GAIN(ME, FLEETING),
       ]),
     ];
   }

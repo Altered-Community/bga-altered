@@ -26,7 +26,6 @@ class OD_Rare_TheLastStand extends \ALT\Models\Card
       'costReserve' => 2, 
       'changedStats' => ['costHand','costReserve'], 
       'effectPlayed' => FT::ACTION(TARGET, [
-        'targetType' => [CHARACTER, TOKEN],
         'maxBaseCost' => 2,
         'upTo' => true,
         'effect' => FT::DISCARD_TO_RESERVE(),
