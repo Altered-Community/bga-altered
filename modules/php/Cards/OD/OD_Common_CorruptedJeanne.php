@@ -2,7 +2,7 @@
 namespace ALT\Cards\OD;
 use ALT\Helpers\FT;
 
-class OD_Rare_CorruptedJeanne extends \ALT\Models\Card
+class OD_Common_CorruptedJeanne extends \ALT\Models\Card
 {
   public function __construct($row){
 		parent::__construct($row);
@@ -28,7 +28,11 @@ class OD_Rare_CorruptedJeanne extends \ALT\Models\Card
       'costHand' => 3, 
       'costReserve' => 3, 
       'changedStats' => ['forest','mountain','ocean'],
-      'playCondition' => 'controlInAllExpeditions',
+      'effectHand' => FT::ACTION(CHECK_CONDITION, [
+        'condition' => 'controlInAllExpeditions',
+        'effect' => null,
+        'oppositeEffect' => FT::GAIN(ME, FLEETING),
+      ]),
       'effectPassive' => [
         'LeaveExpedition' => [
           'pId' => CONTROLLER,

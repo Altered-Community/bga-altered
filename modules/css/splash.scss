@@ -1101,6 +1101,30 @@
                         text-decoration: underline;
                     }
                 }
+            
+                &.random-deck-assigned-screen {
+                    text-align: center;
+
+                    .deck-overlay-status-message {
+                        margin: 100px auto;
+                        max-width: 700px;
+                        background: linear-gradient(180deg, #f5e6b8 0%, #d4b86a 100%);
+                        border-radius: 4px;
+                        border-top-left-radius: 15px;
+                        border-bottom-right-radius: 15px;
+                        color: #3e3529;
+                        padding: 20px 16px;
+                        font-size: 22px;
+                        font-weight: bold;
+                        font-family: "Tiller";
+                        box-shadow: 1px 1px 3px black;
+                        border: 1px solid #a8842e;
+
+                        p {
+                            margin: 0;
+                        }
+                    }
+                }
             }
         }
 

@@ -888,6 +888,24 @@
       * Replaces overlay content when game account is not linked (same structure as "Choose your deck").
       * Adjust title/description strings here when finalizing copy.
       */
+     showRandomDeckAssignedContent(args) {
+      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
+      const randomFaction = args._private.randomDeck && args._private.randomDeck.faction;
+      const factionLabel = randomFaction ? factionDisplayNames[randomFaction] || randomFaction : null;
+      const message = factionLabel
+        ? dojo.string.substitute(_('You have been assigned a random ${faction} deck'), { faction: factionLabel })
+        : _('You have been assigned a random deck');
+
+      $('altered-overlay-content').innerHTML = `
+        <h2>${_('Random deck')}</h2>
+        <p>${message}</p>
+      `;
+      this.openOverlay();
+      this.addSecondaryActionButton('btnCancel', _('Cancel'), () =>
+        this.takeAction('actCancelPrecoDeckSelection', {}, false)
+      );
+     },
+
      showAccountNotConfiguredDeckPickerContent() {
        ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
          if ($(id)) $(id).remove();
@@ -1071,8 +1089,11 @@
          this.showAPIDeckDetails(args);
          return;
        }
-       if (deckNumber == 'random') return;
- 
+       if (deckNumber == 'random') {
+         this.showRandomDeckAssignedContent(args);
+         return;
+       }
+
       if (this.isSingletonDeckFormat()) {
         const gsName = this.gamedatas.gamestate && this.gamedatas.gamestate.name;
         if (gsName === 'fetchDecks' || gsName === 'chooseFetchedDeck') {
@@ -1168,6 +1189,7 @@
                  ? ''
                  : `<div id='deck-source-toggle'>
                <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
+               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
              </div>`
              }
              <div id='overlay-deck-container'></div>
@@ -1185,6 +1207,14 @@
         });
 
         if (!this._beginner) {
+           this.onClick('deck-source-random', () => {
+             let faction = this._deckWizardState.selectedFaction;
+             if (this._isAllFactionsBanner(faction)) {
+               const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
+               faction = pickable[Math.floor(Math.random() * pickable.length)];
+             }
+             this.takeAction('actSelectRandomDeck', { faction }, false);
+           });
            this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
