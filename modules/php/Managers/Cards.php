@@ -399,10 +399,11 @@ class Cards extends \ALT\Helpers\CachedPieces
         $properties['asset']  = self::getCoreUid($altUid) . '_U';
       }
     }
-    $properties['faction'] = Utils::convertFaction($unique['faction']);
+    $properties['faction'] = Utils::convertFaction($unique['mainFaction']['reference']);
     $properties['name'] = $unique['name'];
     // $properties['type'] = constant($unique['cardType']['reference']);
-    $properties['type'] = constant($unique['cardType']);
+    $properties['type'] = constant($unique['cardType']['reference']);
+
 
     $subtypes = [];
     $typeline = [];
@@ -416,28 +417,17 @@ class Cards extends \ALT\Helpers\CachedPieces
     foreach ($unique['subTypes'] ?? [] as $v => $sub) {
       // ?? [] is temp!
       $subtypes[] = constant($sub);
-    }
-    foreach ($unique['typeline'] ?? [] as $v => $sub) {
-      // ?? [] is temp!
-      $typeline[] = clienttranslate($sub);
-    }
+    }   
     $properties['subtypes'] = $subtypes;
-    $properties['typeline'] = implode(' - ', $typeline);
+    $properties['typeline'] = $unique['typeline'];
     // $properties['artist'] = $unique['illustrator']['nickName']; old
     $properties['artist'] = $unique['illustrator'];
 
-    // old
-    // $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
-    // $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
-    // $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
-    // $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
-    // $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
-
-    $properties['costHand'] = $unique['costHand'];
-    $properties['costReserve'] = $unique['costReserve'];
-    $properties['forest'] = $unique['forest'];
-    $properties['mountain'] = $unique['mountain'];
-    $properties['ocean'] = $unique['ocean'];
+    $properties['costHand'] = (int) $unique['elements']['MAIN_COST'];
+    $properties['costReserve'] = (int) $unique['elements']['RECALL_COST'];
+    $properties['forest'] = (int) $unique['elements']['FOREST_POWER'];
+    $properties['mountain'] = (int) $unique['elements']['MOUNTAIN_POWER'];
+    $properties['ocean'] = (int) $unique['elements']['OCEAN_POWER'];
 
     // add effects
     $properties['uEffects'] = [];
@@ -445,31 +435,28 @@ class Cards extends \ALT\Helpers\CachedPieces
       // throw new \feException(print_r($cardElement));
       $trinity = [];
       // throw new \feException(print_r($cardElement));
-      foreach ($cardElement['effects'] as $i => $effect) {
-        $trinity = [];
-        foreach ($effect as $j => $idGd) {
-          if (in_array($idGd, TRIGGER)) {
-            $trinity['trigger'] = $idGd;
-          } elseif (in_array($idGd, \CONDITION)) {
-            $trinity['condition'] = $idGd;
-          } elseif (in_array($idGd, OUTPUT)) {
-            $trinity['output'] = $idGd;
-          }
+      foreach ($cardElement['effects'] as $i => $idGd) {
+        if (in_array($idGd, TRIGGER)) {
+          $trinity['trigger'] = $idGd;
+        } elseif (in_array($idGd, \CONDITION)) {
+          $trinity['condition'] = $idGd;
+        } elseif (in_array($idGd, OUTPUT)) {
+          $trinity['output'] = $idGd;
         }
-        if (empty($trinity)) {
-          continue;
-        }
-        if (count($trinity) != 3) {
-          // throw new \feException(print_r($effect));
-          return null;
-        }
-        // var_dump($trinity);
-        $valid = FlowConvertor::constructEffect($trinity, $properties);
-        // var_dump($properties);
-        // throw new \feException(print_r($trinity));
-        $properties['uEffects'][] = array_values($trinity);
-        // throw new \feException(print_r($properties));
       }
+      if (empty($trinity)) {
+        continue;
+      }
+      if (count($trinity) != 3) {
+        // throw new \feException(print_r($effect));
+        return null;
+      }
+      // var_dump($trinity);
+      $valid = FlowConvertor::constructEffect($trinity, $properties);
+      // var_dump($properties);
+      // throw new \feException(print_r($trinity));
+      $properties['uEffects'][] = array_values($trinity);
+      // throw new \feException(print_r($properties));
     }
     // $debug[0] = $unique;
     // $debug[1] = $properties;
@@ -572,38 +559,19 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     $toCreate = [];
     $pId = $player->getId();
-    $factions = FACTIONS;
 
-    if (Globals::getBeginner() == 1 || Globals::getBeginner() == 0) {
-      array_unshift($factions, 'OD2');
-      array_unshift($factions, 'MU2');
-    }
+    foreach (STARTER_DECKS as $deck) {
+      
+      $faction = $deck['faction'];
+      $deckId = $deck['deckId'];
 
-    foreach ($factions as $faction) {
-      switch (Globals::getBeginner()) {
-        case OPTION_DEMO:
-          $deck = DEMO[$faction];
-          break;
-        case OPTION_SO:
-          $deck = DEMO_SO[$faction];
-          break;
-        case OPTION_SDU:
-          $deck = DEMO_SDU[$faction];
-          break;
-        default:
-          $deck = STARTER[$faction];
-      }
-
-      // $deck = Globals::getBeginner() == OPTION_DEMO ? DEMO[$faction] : STARTER[$faction];
-
-      foreach ($deck as $cardId => $n) {
-        // require_once dirname(__FILE__) . '/../Cards/' . $faction . '/' . $cardId . '.php';
+      foreach ($deck['contents'] as $cardId => $n) {
         $factionSub = substr($cardId, 0, 2);
         $className = "\\ALT\\Cards\\$factionSub\\$cardId";
         $card = new $className(null);
-        $location = "deck-$deckNumber";
+        $location = "deck-" . $deckNumber;
         if ($card->getType() == HERO) {
-          $deckList[$deckNumber] = ['deckNum' => $deckNumber, 'faction' => $faction];
+          $deckList[$deckNumber] = ['deckNumber' => $deckNumber, 'deckId' => $deckId, 'faction' => $faction];
         }
 
         // we do not create token as they will be created on the fly
@@ -627,7 +595,6 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     self::create($toCreate, null);
     return $deckList;
-    // self::shuffle('deck-' . $pId);
   }
 
   public static function createDeck($player, $deckContent)

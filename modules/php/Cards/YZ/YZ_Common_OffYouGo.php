@@ -1,25 +1,25 @@
 <?php
 
-namespace ALT\Cards\LY;
+namespace ALT\Cards\YZ;
 
 use ALT\Helpers\FT;
 
-class LY_Rare_Offyougo extends \ALT\Models\Card
+class YZ_Common_OffYouGo extends \ALT\Models\Card
 {
   public function __construct($row)
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CORE_B_YZ_21_R2',
-      'asset' => 'ALT_CORE_B_YZ_21_R',
+      'uid' => 'ALT_CORE_B_YZ_21_C',
+      'asset' => 'ALT_CORE_B_YZ_21_C',
 
-      'faction' => FACTION_LY,
-      'rarity' => RARITY_RARE,
-      'name' => clienttranslate('Off you go!'),
-      'typeline' => clienttranslate('Spell - Disruption'),
+      'faction' => FACTION_YZ,
+      'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('Off You Go!'),
       'type' => SPELL,
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('Send to Reserve target Character with Hand Cost {3} or less.'),
+      'typeline' => clienttranslate('Spell - Disruption'),
       'flavorText' => clienttranslate('Time to kiss Kansas goodbye.'),
       'artist' => 'HuoMiao Studio',
 

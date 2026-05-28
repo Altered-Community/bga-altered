@@ -93,9 +93,9 @@ trait DebugTrait
     Globals::setEndTriggered(true);
   }
 
-  function debug_deck($deckId)
+  function debug_deck($deckNumber)
   {
-    $deckContent = $this->actGetDeckInfos($deckId);
+    $deckContent = $this->actGetDeckInfos($deckNumber);
     $deckContent['cards'][HERO]['card'] = $deckContent['cards'][HERO]['card']->jsonSerialize();
     $this->actConfirmAPIDeck($deckContent);
   }
@@ -317,6 +317,8 @@ trait DebugTrait
     Engine::proceed();
   }
 
+  // cardId is something like BR_Common_RekaFisherman, and location can be hand, reserve, stormLeft, stormRight. 
+  // see all possible location in constants.inc.php
   function debug_addcard(string $cardId, string $location = 'hand')
   {
     $this->addCard($cardId, $location);
@@ -554,7 +556,7 @@ trait DebugTrait
     $user = $params['user'] ?? '';
     $secret = $params['secret'] ?? '';
     $token = $params['token'] ?? '';
-    $deckId = $params['deckId'] ?? '';
+    $deckNumber = $params['deckNumber'] ?? '';
     $cardId = $params['cardId'] ?? '';
     //$curl = curl_VTOinit();
     // $baseUrl = 'https://api.equinox-ccg.io';
@@ -606,7 +608,7 @@ trait DebugTrait
         break;
       case 'deck':
         // token of the player
-        $setup[CURLOPT_URL] = $baseUrl . $deckId;
+        $setup[CURLOPT_URL] = $baseUrl . $deckNumber;
         $setup[CURLOPT_HTTPHEADER] = ['token: ' . $token, 'Authorization: Bearer ' . $token];
         $setup[CURLOPT_CUSTOMREQUEST] = 'GET';
         break;
@@ -623,6 +625,30 @@ trait DebugTrait
     return $response;
   }
 
+  // change this function content if you need a specific setup requiring more than 1 card to test a scenario, 
+  // like adding specific cards on the board or in hand
+  // function debug_setup()
+  // {
+  //   //#210538 - setup for 2 fablab in expeditions, and 1 fisherman in hand
+  //   // $this->addCard('BR_Rare_FabLabUnit', 'stormLeft');
+  //   // $this->addCard('BR_Rare_FabLabUnit', 'stormLeft');
+  //   // $this->addCard('BR_Rare_TheFoundryAxiomBastion', 'landmark');
+  //   // $this->addCard('BR_Common_Kedarm', 'reserve');
+  //   // $this->addCard('BR_Rare_RekaFisherman', 'hand');
+
+  //   //#210538 - setup for 2 fablab in mana, and 1 fisherman in reserve to ensure normal activation is not touched
+  //   // $this->addCard('BR_Rare_FabLabUnit', 'mana');
+  //   // $this->addCard('BR_Rare_FabLabUnit', 'mana');
+  //   // $this->addCard('BR_Rare_RekaFisherman', 'reserve');
+
+  //   //#210538 - setup for 3 Tag in mana, 1 feast of thoughts in reserve, and 1 training in hand 
+  //   // allow testing the feast of thoughts from reserve with or without counters
+  //   // $this->addCard('YZ_Common_Tag', 'mana');
+  //   // $this->addCard('YZ_Common_Tag', 'mana');
+  //   // $this->addCard('YZ_Common_Tag', 'mana');
+  //   // $this->addCard('YZ_Common_FeastofThoughts', 'reserve');
+  //   // $this->addCard('YZ_Common_MagicalTraining', 'hand');
+  // }
 
   function debug_loadUnique(string $v, string $location = HAND)
   {

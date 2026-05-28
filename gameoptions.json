@@ -6,27 +6,11 @@
       "1": {
         "name": "Beginner - Starter Decks",
         "tmdisplay": "Beginner mode",
-        "description": "Game can be played only with starter decks",
-        "firstgameonly": true
+        "description": "Game can be played only with starter decks"
       },
       "0": {
         "name": "Normal - Custom Decks & Starter Decks",
         "description": "Custom & starter decks can be used"
-      },
-      "2": {
-        "name": "Whispers from the Maze Demo Deck",
-        "tmdisplay": "WFM Demo decks",
-        "description": "WFM demo decks"
-      },
-      "3": {
-        "name": "Skybound Odyssey Demo Deck",
-        "tmdisplay": "SKY Demo decks",
-        "description": "SKY demo decks"
-      },
-      "4": {
-        "name": "Seeds of Unity Demo Deck",
-        "tmdisplay": "SDU Demo decks",
-        "description": "SDU demo decks"
       }
     }
   },
@@ -49,19 +33,24 @@
     "level": "major",
     "values": {
       "0": {
-        "name": "Standard",
-        "tmdisplay": "Standard deck",
-        "description": "Standard decks only can be selected"
+        "name": "Standard No Unique",
+        "tmdisplay": "Standard No Unique",
+        "description": "40-60 cards, standard rules without unique."
       },
       "1": {
-        "name": "No unique",
-        "tmdisplay": "No unique",
-        "description": "Only decks with no uniques"
+        "name": "Standard All Uniques",
+        "tmdisplay": "Standard All Uniques",
+        "description": "40-60 cards, standard rules, all uniques unlocked."
       },
       "2": {
-        "name": "Singleton",
-        "tmdisplay": "Singleton",
-        "description": "Only decks following singleton"
+        "name": "Singleton No Unique",
+        "tmdisplay": "Singleton No Unique",
+        "description": "60-80 cards, Singleton rules without unique. "
+      },
+      "3": {
+        "name": "Sandbox",
+        "tmdisplay": "Sandbox",
+        "description": "4-100 cards, all cards available, no faction or rarity restrictions."
       }
     }
   }

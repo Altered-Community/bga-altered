@@ -84,8 +84,8 @@ class action_altered extends APP_GameAction
     // $login = self::getArg('lo', AT_json, true);
     // $this->validateJSonAlphaNum($login, 'lo');
     // $secret = self::getArg('sec', AT_json, true);
-    $deckId = self::getArg('deckId', AT_json, true);
-    $deckContent = $this->game->actGetDeckInfos($deckId);
+    $deckNumber = self::getArg('deckNumber', AT_json, true);
+    $deckContent = $this->game->actGetDeckInfos($deckNumber);
     self::ajaxResponseWithResult($deckContent);
   }
 

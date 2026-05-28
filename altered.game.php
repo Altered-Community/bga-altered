@@ -97,6 +97,7 @@ class altered extends Table
       'meeples' => Meeples::getUiData(),
       'undo' => Globals::isUndo(),
       'beginner' => Globals::getBeginner() != 0,
+      'deckFormat' => Globals::getDeckFormat(),
 
       'firstPlayer' => Globals::getFirstPlayer(),
       'passedPlayers' => Globals::isDayPhase() ? Globals::getSkippedPlayers() : [],

@@ -240,13 +240,16 @@ class Globals extends \ALT\Helpers\DB_Manager
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
     switch ($options[OPTION_DECK_FORMAT]) {
       case 0:
-        self::setDeckFormat('STANDARD');
-        break;
-      case 1:
         self::setDeckFormat('NO_UNIQUE');
         break;
+      case 1:
+        self::setDeckFormat('STANDARD');
+        break;
       case 2:
-        self::setDeckFormat('SINGLETON');
+        self::setDeckFormat('SINGLETON_NUC');
+        break;
+      case 3:
+        self::setDeckFormat('SANDBOX');
         break;
     }
     self::setDeckOptions(OPTION_DECKS_STARTER);
