@@ -301,7 +301,7 @@ class Player extends \ALT\Helpers\DB_Model
   }
 
   /**
-   * Highest reserve-character Tough from completed Feat effects (multiple identical bonuses do not add).
+   * Sum of reserve-character Tough granted by completed Feat effects.
    */
   public function getCompletedFeatReserveCharacterTough()
   {
@@ -320,7 +320,7 @@ class Player extends \ALT\Helpers\DB_Model
       if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
         continue;
       }
-      $n = max($n, (int) ($completed['reserveCharacterTough'] ?? 0));
+      $n += (int) ($completed['reserveCharacterTough'] ?? 0);
     }
     return max(0, $n);
   }
