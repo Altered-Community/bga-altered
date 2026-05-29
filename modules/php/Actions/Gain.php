@@ -266,6 +266,22 @@ class Gain extends \ALT\Models\Action
 
     $this->checkAfterListeners($player, ['gain' => $args, 'cardId' => $card->getId(), 'location' => $card->getLocation(), 'initialBoost' => $initialBoost, 'cardType' => $card->getType(), 'additionalType' => $card->getAdditionalType(), 'sourceId' =>  $sourceId, 'token' => $card->isToken(),]);
   }
+  
+  protected function isBoostGainBlockedByPassive($card, $resource)
+  {
+    if ($resource != BOOST || !in_array($card->getType(), [CHARACTER, TOKEN])) {
+      return false;
+    }
+
+    foreach ($card->getPlayer()->getPlayedCards() as $sourceCard) {
+      $cantGainBoost = $sourceCard->getProperties()['cantGainBoost'] ?? null;
+      if ($cantGainBoost == 'character:excludeSelf' && $sourceCard->getId() != $card->getId()) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   public function stGain()
   {

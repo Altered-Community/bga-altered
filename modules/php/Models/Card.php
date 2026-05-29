@@ -1185,8 +1185,45 @@ class Card extends \ALT\Helpers\DB_Model
         return true;
       } elseif ($this->isGigantic() && $this->getPlayer()->hasExpeditionSeasoned()) {
         return true;
+      } elseif ($this->isSeasonedFromOppositeSourceCharacter()) {
+        return true;
       }
     }
+    return false;
+  }
+
+  /**
+   * Characters facing an opponent with dynamicSeasoned "oppositeSourceCharacter" are seasoned.
+   */
+  public function isSeasonedFromOppositeSourceCharacter()
+  {
+    if (!in_array($this->getLocation(), STORMS)) {
+      return false;
+    }
+
+    $opponent = Players::getNext($this->getPlayer());
+    foreach ($opponent->getPlayedCards([CHARACTER, TOKEN]) as $sourceCard) {
+      if (!in_array($sourceCard->getLocation(), STORMS)) {
+        continue;
+      }
+
+      $dynamicSeasoned = $sourceCard->getDynamicSeasoned();
+      if (!is_array($dynamicSeasoned) && $dynamicSeasoned != '') {
+        $dynamicSeasoned = [$dynamicSeasoned];
+      } elseif ($dynamicSeasoned == '') {
+        continue;
+      }
+
+      foreach ($dynamicSeasoned as $singleSeasoned) {
+        if (Utils::checkAttributeCondition('dynamicSeasoned', $singleSeasoned, $sourceCard->getPlayer(), $sourceCard) !== 'oppositeSourceCharacter') {
+          continue;
+        }
+        if (Conditions::isFacingSource($this, ['cardId' => $sourceCard->getId()])) {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
@@ -1448,7 +1485,25 @@ class Card extends \ALT\Helpers\DB_Model
     if ($dynamicDefender != '' && $subType == '') {
       return !is_null(Utils::checkAttributeCondition('defender', $dynamicDefender, $this->getPlayer(), $this));
     }
-
+    
+    // Aura: "Characters in your other Expedition are Defender."
+    if (in_array($this->getType(), [CHARACTER, TOKEN]) && in_array($this->getLocation(), STORMS)) {
+      foreach ($this->getPlayer()->getPlayedCards()->where('location', STORMS) as $auraCard) {
+        if ($auraCard->getId() == $this->getId()) {
+          continue;
+        }
+        if ($auraCard->getDynamicDefender() != 'otherExpeditionCharacter') {
+          continue;
+        }
+        // Gigantic cards have no "other expedition" to grant.
+        if ($auraCard->isGigantic()) {
+          continue;
+        }
+        if ($auraCard->getLocation() != $this->getLocation()) {
+          return true;
+        }
+      }
+    }
 
     // OD_Common_GulrangTocsin
     if (
