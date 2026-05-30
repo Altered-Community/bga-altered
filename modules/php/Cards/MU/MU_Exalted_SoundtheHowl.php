@@ -16,7 +16,7 @@ class MU_Exalted_SoundtheHowl extends \ALT\Models\Card
       'name'  => clienttranslate("Sound the Howl!"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"The wolf does not wait for the hunt to come to him."'),
       'artist' => "Anh Tung & Ba Vo",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

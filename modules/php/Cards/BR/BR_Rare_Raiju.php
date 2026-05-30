@@ -15,7 +15,7 @@ class BR_Rare_Raiju extends \ALT\Models\Card
     	'name'  => clienttranslate("Raijū"),
       'typeline' => clienttranslate("Character - Animal"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate(''),
+    	'flavorText'  => clienttranslate('It moves and strikes like lightning.'),
       'artist' => "Jamin Amaral Fernandez",
 			'extension'=>'ROC',
    'subtypes'  => [ANIMAL],

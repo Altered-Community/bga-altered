@@ -16,7 +16,7 @@ class BR_Common_Sekhmet extends \ALT\Models\Card
       'name'  => clienttranslate("Sekhmet"),
       'typeline' => clienttranslate("Character - Deity"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Now that\'s what you call taking the lion\'s share.'),
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [DEITY],

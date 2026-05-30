@@ -17,7 +17,7 @@ class LY_Common_BestowingSloth extends \ALT\Models\Card
       'name'  => clienttranslate("Bestowing Sloth"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"I\'m not lazy, I\'m just conserving energy."'),
       'artist' => "Jean-Baptiste Andrier",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

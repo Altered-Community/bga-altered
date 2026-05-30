@@ -16,7 +16,7 @@ class MU_Rare_GatherthePack extends \ALT\Models\Card
       'name'  => clienttranslate("Gather the Pack"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('A wolf\'s strength is in its pack.'),
       'artist' => "Fahmi Fauzi",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

@@ -16,7 +16,7 @@ class AX_Rare_FrankensteinsCreature extends \ALT\Models\Card
       'name'  => clienttranslate("Frankenstein's Creature"),
       'typeline' => clienttranslate("Character - Robot"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('It\'s by shunning differences that true monsters are born.'),
       'artist' => "Gamon Studio",
       'extension' => 'ROC',
       'subtypes'  => [ROBOT],

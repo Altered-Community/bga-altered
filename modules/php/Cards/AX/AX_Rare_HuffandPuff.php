@@ -17,7 +17,7 @@ class AX_Rare_HuffandPuff extends \ALT\Models\Card
       'name'  => clienttranslate("Huff and Puff"),
       'typeline' => clienttranslate("Spell - Disruption"),
       'type'  => SPELL,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"This time, I will blow you all down!"'),
       'artist' => "Kevin Sidharta",
       'extension' => 'ROC',
       'subtypes'  => [DISRUPTION],

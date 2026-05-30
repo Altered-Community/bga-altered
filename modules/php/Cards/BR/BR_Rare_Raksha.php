@@ -17,7 +17,7 @@ class BR_Rare_Raksha extends \ALT\Models\Card
       'name'  => clienttranslate("Raksha"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"The little one is mine! He shall live to run with the pack and to hunt with the pack!"'),
       'artist' => "Jefrey Yonathan",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

@@ -15,7 +15,7 @@ class AX_Rare_APebbleinthePond extends \ALT\Models\Card
     	'name'  => clienttranslate("A Pebble in the Pond"),
       'typeline' => clienttranslate("Spell - Boon"),
     	'type'  => SPELL,
-    	'flavorText'  => clienttranslate(''),
+    	'flavorText'  => clienttranslate('A single pebble can cause quite a ripple.'),
       'artist' => "Jean-Baptiste Andrier",
 			'extension'=>'ROC',
    'subtypes'  => [BOON],

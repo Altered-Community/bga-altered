@@ -16,7 +16,7 @@ class LY_Exalted_GiveFateaTwist extends \ALT\Models\Card
       'name'  => clienttranslate("Give Fate a Twist!"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Even fate appreciates a helping hand!'),
       'artist' => "Anh Tung & Ba Vo",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

@@ -15,7 +15,7 @@ class OD_Common_DelaytheCollapse extends \ALT\Models\Card
       'name'  => clienttranslate("Delay the Collapse"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Hold out for as long as possible. That\'s all that matters."'),
       'artist' => "Saeed Jalabi",
       'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],

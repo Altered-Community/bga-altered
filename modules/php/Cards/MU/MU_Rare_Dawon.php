@@ -17,7 +17,7 @@ class MU_Rare_Dawon extends \ALT\Models\Card
       'name'  => clienttranslate("Dawon"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Come to me, Dawon, that I might summon the spirit of Durga!" — Parvati'),
       'artist' => "Victor Canton",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

@@ -16,7 +16,7 @@ class BR_Common_ProtecttheAssets extends \ALT\Models\Card
       'name'  => clienttranslate("Protect the Assets"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"If you want them, you\'ll have to go through me first!" — Kebba'),
       'artist' => "Zero Wen",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

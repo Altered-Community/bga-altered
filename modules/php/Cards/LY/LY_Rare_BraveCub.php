@@ -17,7 +17,7 @@ class LY_Rare_BraveCub extends \ALT\Models\Card
       'name'  => clienttranslate("Brave Cub"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Graaawr! The whole pack will stand with humankind, for the wolf is feared by all!"'),
       'artist' => "Jean-Baptiste Andrier",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

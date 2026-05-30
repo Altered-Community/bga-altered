@@ -15,7 +15,7 @@ class BR_Exalted_HoldtheLine extends \ALT\Models\Card
       'name'  => clienttranslate("Hold the Line!"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Don\'t let them outflank us!"'),
       'artist' => "Anh Tung & Ba Vo",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

@@ -17,7 +17,7 @@ class OD_Rare_StigmaofBelligerence extends \ALT\Models\Card
       'name'  => clienttranslate("Stigma of Belligerence"),
       'typeline' => clienttranslate("Character - Corruption Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Hostility breeds harm.'),
       'artist' => "Zaeliven",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION, ANIMAL],

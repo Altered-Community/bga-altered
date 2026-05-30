@@ -17,7 +17,7 @@ class MU_Exalted_PlagueofPrejudice extends \ALT\Models\Card
       'name'  => clienttranslate("Plague of Prejudice"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Injustice is fertile ground for evil.'),
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],

@@ -15,7 +15,7 @@ class OD_Rare_OutofaDarkSky extends \ALT\Models\Card
       'name'  => clienttranslate("Out of a Dark Sky"),
       'typeline' => clienttranslate("Spell - Disruption"),
       'type'  => SPELL,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Requests for assistance pour in at the sound of beating wings.'),
       'artist' => "Justice Wong",
       'extension'=>'ROC',
       'subtypes'  => [DISRUPTION],

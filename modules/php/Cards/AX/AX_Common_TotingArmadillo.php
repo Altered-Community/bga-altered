@@ -15,7 +15,7 @@ class AX_Common_TotingArmadillo extends \ALT\Models\Card
     	'name'  => clienttranslate("Toting Armadillo"),
       'typeline' => clienttranslate("Character - Animal"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate(''),
+    	'flavorText'  => clienttranslate('Its shell has inspired the shields’ design.'),
       'artist' => "Anh Tung",
 			'extension'=>'ROC',
    'subtypes'  => [ANIMAL],

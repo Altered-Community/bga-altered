@@ -15,7 +15,7 @@ class BR_Rare_MakeitWork extends \ALT\Models\Card
       'name'  => clienttranslate("Make it Work"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Come on, almost there, you\'ve got this!"'),
       'artist' => "Zero Wen",
       'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],

@@ -16,7 +16,7 @@ class LY_Rare_SmokeThemOut extends \ALT\Models\Card
       'name'  => clienttranslate("Smoke Them Out"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Where there\'s smoke, there\'s fire… and we\'re proof of that!"'),
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

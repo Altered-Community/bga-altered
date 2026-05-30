@@ -15,7 +15,7 @@ class OD_Exalted_PlagueofIntolerance extends \ALT\Models\Card
       'name'  => clienttranslate("Plague of Intolerance"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Intolerance is a mask for fear.'),
       'artist' => "Anh Tung",
       'extension'=>'ROC',
       'subtypes'  => [CORRUPTION],

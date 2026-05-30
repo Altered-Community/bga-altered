@@ -16,7 +16,7 @@ class YZ_Exalted_ClosetheBreach extends \ALT\Models\Card
       'name'  => clienttranslate("Close the Breach!"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Close the breach? I was just getting warmed up…"'),
       'artist' => "Anh Tung & Ba Vo",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

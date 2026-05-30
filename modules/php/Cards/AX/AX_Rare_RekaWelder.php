@@ -16,7 +16,7 @@ class AX_Rare_RekaWelder extends \ALT\Models\Card
       'name'  => clienttranslate("Reka Welder"),
       'typeline' => clienttranslate("Character - Engineer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('It\'s at times like these that we need to stick together.'),
       'artist' => "Anh Tung",
       'extension' => 'ROC',
       'subtypes'  => [ENGINEER],

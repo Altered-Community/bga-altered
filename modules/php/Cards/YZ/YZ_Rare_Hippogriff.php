@@ -15,7 +15,7 @@ class YZ_Rare_Hippogriff extends \ALT\Models\Card
       'name'  => clienttranslate("Hippogriff"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Another survivor located!"'),
       'artist' => "Khoa Viet",
       'extension'=>'ROC',
       'subtypes'  => [ANIMAL],

@@ -18,7 +18,7 @@ class BR_Rare_GalvanizetheTroops extends \ALT\Models\Card
       'name'  => clienttranslate("Galvanize the Troops"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"In the dead of night, we must shine the brightest!"'),
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

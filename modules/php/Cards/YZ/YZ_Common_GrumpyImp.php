@@ -15,7 +15,7 @@ class YZ_Common_GrumpyImp extends \ALT\Models\Card
     	'name'  => clienttranslate("Grumpy Imp"),
       'typeline' => clienttranslate("Character - Spirit"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate(''),
+    	'flavorText'  => clienttranslate('He will fight like the devil, despite his fear.'),
       'artist' => "Jean-Baptiste Andrier",
 			'extension'=>'ROC',
    'subtypes'  => [SPIRIT],

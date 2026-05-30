@@ -16,7 +16,7 @@ class BR_Common_CorruptedAoife extends \ALT\Models\Card
       'name'  => clienttranslate("Corrupted Aoife"),
       'typeline' => clienttranslate("Character - Adventurer Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Are you sure you want to add fuel to the fire?"'),
       'artist' => "Gamon Studio",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER, CORRUPTION],

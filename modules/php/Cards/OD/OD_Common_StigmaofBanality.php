@@ -15,7 +15,7 @@ class OD_Common_StigmaofBanality extends \ALT\Models\Card
       'name'  => clienttranslate("Stigma of Banality"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('To be afraid of being different is to destroy individuality.'),
       'artist' => "Nestor Papatriantafyllou",
       'extension'=>'ROC',
       'subtypes'  => [CORRUPTION],

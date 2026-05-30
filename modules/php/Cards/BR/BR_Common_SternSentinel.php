@@ -16,7 +16,7 @@ class BR_Common_SternSentinel extends \ALT\Models\Card
       'name'  => clienttranslate("Stern Sentinel"),
       'typeline' => clienttranslate("Character - Soldier"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Getting past me means going through hell—with no way back."'),
       'artist' => "DOBA",
       'extension' => 'ROC',
       'subtypes'  => [SOLDIER],
