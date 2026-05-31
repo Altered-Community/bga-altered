@@ -43,19 +43,26 @@
      }
    }
  
-   function closeFullscreen() {
-     if (document.exitFullscreen) {
-       document.exitFullscreen();
-     } else if (document.webkitExitFullscreen) {
-       document.webkitExitFullscreen();
-     } else if (document.mozCancelFullScreen) {
-       document.mozCancelFullScreen();
-     } else if (document.msExitFullscreen) {
-       document.msExitFullscreen();
-     }
-   }
- 
-   return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples, altered.starterDecks], {
+  function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+
+  function renderDeckDifficultyStars(stars) {
+    const filledCount = Math.max(0, Math.min(5, Number(stars) || 0));
+    return `<div class="deck-details-stars"><p>Difficulty:</p> ${Array.from({ length: 5 }, (_, index) =>
+      `<span class="deck-star${index < filledCount ? ' filled' : ''}"></span>`
+    ).join('')}</div>`;
+  }
+
+  return declare('bgagame.altered', [customgame.game, altered.players, altered.cards, altered.meeples, altered.starterDecks], {
      constructor: function () {
        this._inactiveStates = ['selectPrecoDeck', 'firstDayManaSelection', 'newDayManaSelection', 'gameEnd'];
        this._notifications = [
@@ -888,6 +895,24 @@
       * Replaces overlay content when game account is not linked (same structure as "Choose your deck").
       * Adjust title/description strings here when finalizing copy.
       */
+     showRandomDeckAssignedContent(args) {
+      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
+      const randomFaction = args._private.randomDeck && args._private.randomDeck.faction;
+      const factionLabel = randomFaction ? factionDisplayNames[randomFaction] || randomFaction : null;
+      const message = factionLabel
+        ? dojo.string.substitute(_('You have been assigned a random ${faction} deck'), { faction: factionLabel })
+        : _('You have been assigned a random deck');
+
+      $('altered-overlay-content').innerHTML = `
+        <h2>${_('Random deck')}</h2>
+        <p>${message}</p>
+      `;
+      this.openOverlay();
+      this.addSecondaryActionButton('btnCancel', _('Cancel'), () =>
+        this.takeAction('actCancelPrecoDeckSelection', {}, false)
+      );
+     },
+
      showAccountNotConfiguredDeckPickerContent() {
        ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
          if ($(id)) $(id).remove();
@@ -896,10 +921,10 @@
          <h2>${_('There\'s a lot of things ongoing !')}</h2>
          <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
            <div id='account-not-configured-desc'>
-             <p>${_(`To retrieve your decks, you'll now need an account on one of the officially recognized platforms of Altered Re:Union`)}.</p>
+             <p>${_(`To retrieve your decks, you'll now need an account on one of the officially recognized platforms of altered Re:Union`)}.</p>
              <p>${_('You can create an account, build or import your decks on any ')} <a class="account-not-configured-link" href="https://altered.re/index.php/deckbuilders/" target="_blank" rel="noopener noreferrer">acknowledged deckbuilders</a></p>
              <p>${_('Don\'t forget to connect your account on BGA afterward. You can do so here :')} <a class="account-not-configured-link" href="https://boardgamearena.com/preferences?section=account" target="_blank" rel="noopener noreferrer">BGA Accounts</a></p>
-             <p>${_('If you think you are correctly connected to BGA with your Altered Re:Union account, then you might not have any valid decks for the format you have selected.')}</p>
+             <p>${_('If you think you are correctly connected to BGA with your altered Re:Union account, then you might not have any valid decks for the format you have selected.')}</p>
            </div>
          </div>
        `;
@@ -1071,7 +1096,14 @@
          this.showAPIDeckDetails(args);
          return;
        }
-       if (deckNumber == 'random') return;
+       if (deckNumber == 'random') {
+         this.showRandomDeckAssignedContent(args);
+         return;
+       }
+       if (deckNumber != null && args._private.starterDeck) {
+         this.showAPIDeckDetails({ _private: { API: args._private.starterDeck } });
+         return;
+       }
  
       if (this.isSingletonDeckFormat()) {
         const gsName = this.gamedatas.gamestate && this.gamedatas.gamestate.name;
@@ -1166,9 +1198,10 @@
              ${
                this._beginner
                  ? ''
-                 : `<div id='deck-source-toggle'>
-               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
-             </div>`
+                : `<div id='deck-source-toggle'>
+              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
+              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
+            </div>`
              }
              <div id='overlay-deck-container'></div>
              <div id='overlay-deck-details'></div>
@@ -1185,6 +1218,14 @@
         });
 
         if (!this._beginner) {
+           this.onClick('deck-source-random', () => {
+             let faction = this._deckWizardState.selectedFaction;
+             if (this._isAllFactionsBanner(faction)) {
+               const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
+               faction = pickable[Math.floor(Math.random() * pickable.length)];
+             }
+             this.takeAction('actSelectRandomDeck', { faction }, false);
+           });
            this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
@@ -1233,9 +1274,15 @@
                // TODO: localize description / author
                `<div class='deck-details' data-faction='${detailFaction}' data-hero='${heroKey}' data-thumbnail='${heroThumbnail}'>
                <div class='faction-banner' data-faction='${detailFaction}'></div>
-               <h3>${deck.hero.properties.name}</h3>
-               <p class='deck-details-author'>Deck designed by ${maybeSelectedStarter.author}</p>
-               <p class='deck-details-description'>${maybeSelectedStarter.description || ''}</p>
+               <h3>${deck.hero.properties.name} by ${maybeSelectedStarter.author}</h3>
+               ${renderDeckDifficultyStars(maybeSelectedStarter.stars)}
+               <div class='deck-details-content'>
+                <p class='deck-details-hook'>${maybeSelectedStarter.hook || ''}</p>
+                <p class='deck-details-title'>Gameplan</p>
+                <p class='deck-details-description'>${maybeSelectedStarter.description || ''}</p>
+                <p class='deck-details-title'>Key opening Hand Cards</p>
+                <p class='deck-details-keycards'>${maybeSelectedStarter.keycards || ''}</p>
+               </div>
              </div>`
              );
            }
