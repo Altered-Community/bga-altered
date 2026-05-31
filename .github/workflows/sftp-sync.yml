@@ -1,5 +1,5 @@
 # Sync the repository to an SFTP server on push.
-###
+##
 # GitHub Environments (secrets / variables) are chosen from the branch (push) or the
 # manual "Target environment" input (workflow_dispatch). Map branches → environments in
 # `jobs.sftp-sync.environment` below (e.g. master/main → production, preprod → preprod).
@@ -15,7 +15,6 @@
 #   SFTP_LOCAL_PATH      Local directory to mirror from (default: ./)
 #   SFTP_PARALLEL        Number of parallel SFTP transfers (default: 8)
 #   SFTP_DELETE_REMOTE   Set to "true" to delete remote files that no longer exist locally (dangerous)
-#   SFTP_SKIP_IMAGES     Push: omit img/ by default; set to "false" to upload img/. Manual: use "Skip images".
 #
 # Hash-gated folders:
 #   Some heavy folders (img/, modules/php/Cards/) are gated by content hash.
@@ -50,10 +49,6 @@ on:
           - alteredbranchc
           - alteredbranchd
         default: preprod
-      skip_images:
-        description: "Append --exclude=img (omit img/ from upload)"
-        type: boolean
-        default: true
 
 concurrency:
   group: sftp-sync-${{ github.ref }}
@@ -130,7 +125,6 @@ jobs:
           SFTP_LOCAL_PATH: ${{ vars.SFTP_LOCAL_PATH || './' }}
           SFTP_DELETE_REMOTE: ${{ vars.SFTP_DELETE_REMOTE }}
           SFTP_PARALLEL: ${{ vars.SFTP_PARALLEL || '8' }}
-          SKIP_IMAGES: ${{ ((github.event_name == 'push' && vars.SFTP_SKIP_IMAGES != 'false') || (github.event_name == 'workflow_dispatch' && github.event.inputs.skip_images == 'true')) && 'true' || 'false' }}
         run: |
           set -euo pipefail
 
@@ -218,9 +212,6 @@ jobs:
           # --delete also can't wipe the remote hash state since .deploy-hashes is excluded
           # (the fresh hashes are re-uploaded at step 6).
           STATIC_EXCLUDES="--exclude=^\.[^/]+/ --exclude=^node_modules/ --exclude=^misc/ --exclude=^docs/"
-          if [ "$SKIP_IMAGES" = "true" ]; then
-            STATIC_EXCLUDES="$STATIC_EXCLUDES --exclude=^img/"
-          fi
 
           DELETE_FLAG=""
           if [ "$SFTP_DELETE_REMOTE" = "true" ]; then
