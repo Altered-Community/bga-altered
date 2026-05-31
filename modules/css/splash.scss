@@ -6,6 +6,10 @@
     background-clip: text;
 }
 
+@mixin splash-overlay-gold-gradient {
+    background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+}
+
 #altered-overlay {
     position: fixed;
     top: 0;
@@ -302,6 +306,35 @@
                     margin-top: 14px;
                 }
 
+                .deck-details-stars {
+                    position: absolute;
+                    top: 18px;
+                    right: 20px;
+                    display: flex;
+                    gap: 4px;
+
+                    .deck-star {
+                        width: 22px;
+                        height: 22px;
+                        background: url("img/icons/star.svg") no-repeat center / contain;
+                        filter: brightness(0) invert(1);
+                        opacity: 0.45;
+
+                        &.filled {
+                            opacity: 1;
+                            filter: none;
+                            background: white;
+                            -webkit-mask: url("img/icons/star.svg") no-repeat center / contain;
+                            mask: url("img/icons/star.svg") no-repeat center / contain;
+                        }
+                    }
+
+                    p {
+                        width: 120px !important;
+                        margin-top: 0px !important;
+                    }
+                }
+
                 p {
                     text-align: left;
                     color: white;
@@ -321,21 +354,35 @@
                 }
             }
 
-            .deck-details-author {
-                margin-top: 30px;
+            .deck-details-content {
                 font-size: 18px;
-                margin-bottom: 10px;
-                height: auto !important;
+                height: 180px !important;
+                overflow-y: auto;
+                width: 100% !important;
+                padding: 10px 0px 0px 10px;
+            }
+            
+            .deck-details-title {
+                text-decoration: underline;
+                margin-top: 20px !important;
+                margin-bottom: 10px !important;
+                height: 25px !important;
                 width: 100% !important;
             }
 
+            .deck-details-author, .deck-details-keycards, .deck-details-hook {
+                margin-top: 5px !important;
+                margin-bottom: 10px;
+                height: 25px !important;
+                width: 100% !important;
+            }
+            
             .deck-details-description {
                 margin-top: 5px !important;
                 font-size: 22px;
                 height: 125px;
                 margin: 0;
-                overflow-y: auto;
-                height: 150px !important;
+                height: auto !important;
                 width: 100% !important;
               }
         }
@@ -1099,6 +1146,30 @@
 
                     &:hover {
                         text-decoration: underline;
+                    }
+                }
+
+                &.random-deck-assigned-screen {
+                    text-align: center;
+
+                    .deck-overlay-status-message {
+                        margin: 100px auto;
+                        max-width: 700px;
+                        background: linear-gradient(180deg, #f5e6b8 0%, #d4b86a 100%);
+                        border-radius: 4px;
+                        border-top-left-radius: 15px;
+                        border-bottom-right-radius: 15px;
+                        color: #3e3529;
+                        padding: 20px 16px;
+                        font-size: 22px;
+                        font-weight: bold;
+                        font-family: "Tiller";
+                        box-shadow: 1px 1px 3px black;
+                        border: 1px solid #a8842e;
+
+                        p {
+                            margin: 0;
+                        }
                     }
                 }
             }
