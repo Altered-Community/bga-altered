@@ -82,6 +82,12 @@
                         #bc8441 85%,
                         transparent 100%);
             }
+
+            // Deck-selection screens only: stick the faction banners right under
+            // the title bar by removing the default bottom margin.
+            &.deck-selection-title {
+                margin-bottom: 0px;
+            }
         }
 
         p {
@@ -302,6 +308,7 @@
                     text-align: left;
                     font-family: "Tiller";
                     font-size: 30px;
+                    font-weight: bold;
                     text-indent: 75px;
                     margin-top: 14px;
                 }
@@ -370,15 +377,22 @@
             .deck-details-author, .deck-details-keycards, .deck-details-hook {
                 margin-top: 15px !important;
                 margin-bottom: 10px;
-                min-height: 25px !important;
-                font-weight: bold;
+                height: 25px !important;
                 width: 100% !important;
+            }
+
+            .deck-details-hook {
+                font-weight: bold;
+            }
+
+            .deck-details-keycards {
+                font-weight: normal;
             }
 
             .deck-details-description {
                 margin-top: 15px !important;
                 font-size: 16px;
-                font-weight: bold;
+                font-weight: normal;
                 margin: 0;
                 height: auto !important;
                 width: 100% !important;

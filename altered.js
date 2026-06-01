@@ -1192,7 +1192,7 @@
          );
  
          $('altered-overlay-content').innerHTML = `
-           <h2>${_('Choose your deck')}</h2>
+           <h2 class='deck-selection-title'>${_('Choose your deck')}</h2>
            <div id='deck-wizard' class='deck-wizard-step-2'>
              <div id='deck-selected-faction-title'></div>
              <div id='deck-faction-banners'></div>
@@ -1463,7 +1463,7 @@
            'beforeend',
            `
          <div id='overlay-deck-selection'>
-           <h2>${_('Choose your deck')}</h2>
+           <h2 class='deck-selection-title'>${_('Choose your deck')}</h2>
            <div id="api-loader" class='spinning-loader'></div>
            <div id="api-error"></div>
            <div id='deck-selected-faction-title'></div>

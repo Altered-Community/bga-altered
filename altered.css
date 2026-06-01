@@ -12960,6 +12960,9 @@ body.focus-board .altered-player-board .player-board-infos {
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, #bc8441 15%, #f3c769 50%, #bc8441 85%, transparent 100%);
 }
+#altered-board-overlay #altered-overlay-content h2.deck-selection-title {
+  margin-bottom: 0px;
+}
 #altered-board-overlay #altered-overlay-content p {
   text-align: center;
   color: white;
@@ -13137,6 +13140,7 @@ body.focus-board .altered-player-board .player-board-infos {
   text-align: left;
   font-family: "Tiller";
   font-size: 30px;
+  font-weight: bold;
   text-indent: 75px;
   margin-top: 14px;
 }
@@ -13194,14 +13198,19 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-author, #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-keycards, #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-hook {
   margin-top: 15px !important;
   margin-bottom: 10px;
-  min-height: 25px !important;
-  font-weight: bold;
+  height: 25px !important;
   width: 100% !important;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-hook {
+  font-weight: bold;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-keycards {
+  font-weight: normal;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-description {
   margin-top: 15px !important;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: normal;
   margin: 0;
   height: auto !important;
   width: 100% !important;
