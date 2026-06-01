@@ -57,7 +57,7 @@
 
   function renderDeckDifficultyStars(stars) {
     const filledCount = Math.max(0, Math.min(5, Number(stars) || 0));
-    return `<div class="deck-details-stars"><p>Difficulty:</p> ${Array.from({ length: 5 }, (_, index) =>
+    return `<div class="deck-details-stars"><p>${_('Difficulty:')}</p> ${Array.from({ length: 5 }, (_unused, index) =>
       `<span class="deck-star${index < filledCount ? ' filled' : ''}"></span>`
     ).join('')}</div>`;
   }
@@ -1271,17 +1271,14 @@
                    : 0;
              $('overlay-deck-details').insertAdjacentHTML(
                'beforeend',
-               // TODO: localize description / author
                `<div class='deck-details' data-faction='${detailFaction}' data-hero='${heroKey}' data-thumbnail='${heroThumbnail}'>
                <div class='faction-banner' data-faction='${detailFaction}'></div>
                <h3>${deck.hero.properties.name} by ${maybeSelectedStarter.author}</h3>
                ${renderDeckDifficultyStars(maybeSelectedStarter.stars)}
                <div class='deck-details-content'>
                 <p class='deck-details-hook'>${maybeSelectedStarter.hook || ''}</p>
-                <p class='deck-details-title'>Gameplan</p>
-                <p class='deck-details-description'>${maybeSelectedStarter.description || ''}</p>
-                <p class='deck-details-title'>Key opening Hand Cards</p>
-                <p class='deck-details-keycards'>${maybeSelectedStarter.keycards || ''}</p>
+                <p class='deck-details-description'><span class='deck-details-title'>${_('Gameplan:')}</span> ${maybeSelectedStarter.description || ''}</p>
+                <p class='deck-details-keycards'><span class='deck-details-title'>${_('Key opening Hand Cards:')}</span> ${maybeSelectedStarter.keycards || ''}</p>
                </div>
              </div>`
              );

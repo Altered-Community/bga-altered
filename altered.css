@@ -13181,7 +13181,7 @@ body.focus-board .altered-player-board .player-board-infos {
   font-size: 24px;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-content {
-  font-size: 18px;
+  font-size: 15px;
   height: 180px !important;
   overflow-y: auto;
   width: 100% !important;
@@ -13189,21 +13189,15 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-title {
   text-decoration: underline;
-  margin-top: 20px !important;
-  margin-bottom: 10px !important;
-  height: 25px !important;
-  width: 100% !important;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-author, #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-keycards, #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-hook {
   margin-top: 5px !important;
   margin-bottom: 10px;
-  height: 25px !important;
   width: 100% !important;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-description {
   margin-top: 5px !important;
-  font-size: 22px;
-  height: 125px;
+  font-size: 16px;
   margin: 0;
   height: auto !important;
   width: 100% !important;

@@ -355,32 +355,26 @@
             }
 
             .deck-details-content {
-                font-size: 18px;
+                font-size: 15px;
                 height: 180px !important;
                 overflow-y: auto;
                 width: 100% !important;
                 padding: 10px 0px 0px 10px;
             }
-            
+
             .deck-details-title {
                 text-decoration: underline;
-                margin-top: 20px !important;
-                margin-bottom: 10px !important;
-                height: 25px !important;
-                width: 100% !important;
             }
 
             .deck-details-author, .deck-details-keycards, .deck-details-hook {
                 margin-top: 5px !important;
                 margin-bottom: 10px;
-                height: 25px !important;
                 width: 100% !important;
             }
-            
+
             .deck-details-description {
                 margin-top: 5px !important;
-                font-size: 22px;
-                height: 125px;
+                font-size: 16px;
                 margin: 0;
                 height: auto !important;
                 width: 100% !important;
