@@ -113,6 +113,11 @@ trait SetupTrait
         $gContent = Globals::getDeckContent();
         $args['_private'][$pId]['API'] = $gContent[$pId] ?? null;
       }
+      
+      $selectionVal = $args['_private'][$pId]['selection'];
+      if ($selectionVal !== null && $selectionVal !== 'API' && $selectionVal !== 'random') {
+        $args['_private'][$pId]['starterDeck'] = $this->getStarterDeckPreview($pId, $selectionVal);
+      }
     }
 
     return $args;
