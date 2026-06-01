@@ -23,7 +23,8 @@ class LY_Common_YeongGiEmber extends \ALT\Models\Card
       'effectDesc' => clienttranslate(
         '{T} : Roll a die, then spend any number of my Luck counters to increase the result by that much. On a:  • 4+, You may target a Character in your Expeditions. It activates its {D} ability.  • 1-3: I gain a Luck counter.'
       ),
-      'artist' => 'Zero Wen',
+      			'flavorText'  => clienttranslate('"Allow me to enlighten you…"'),
+			'artist' => 'Zero Wen',
 
       'reserveSlots' => 2,
       'landmarkSlots' => 2,

@@ -16,7 +16,7 @@ class BR_Rare_RekaScavenger extends \ALT\Models\Card
       'name'  => clienttranslate("Reka Scavenger"),
       'typeline' => clienttranslate("Character - Engineer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"I need to bring this back to Isaree as soon as possible!"'),
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [ENGINEER],

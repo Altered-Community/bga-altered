@@ -15,7 +15,7 @@ class MU_Rare_CorruptedJeanne extends \ALT\Models\Card
       'name'  => clienttranslate("Corrupted Jeanne"),
       'typeline' => clienttranslate("Character - Corruption Soldier"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"I know they will all be driven out, except for those who die." — Jeanne'),
       'artist' => "Tristan Bideau",
       'extension'=>'ROC',
       'subtypes'  => [CORRUPTION,SOLDIER],

@@ -21,6 +21,7 @@ class YZ_Common_SamSpook extends \ALT\Models\Card
 			'effectDesc' => clienttranslate(
 				'{T} : Draw a card, then discard a card from your hand. You can only activate this if you are first player. As soon as six cards or more are in your discard pile, I permanently gain: \"When you discard a card from your hand — Return it to your Reserve.\".'
 			),
+						'flavorText'  => clienttranslate('"Finally! I think we\'re going to have some fun!"'),
 			'artist' => 'Zero Wen',
 
 			'reserveSlots' => 2,

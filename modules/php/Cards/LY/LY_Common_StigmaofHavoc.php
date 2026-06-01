@@ -17,7 +17,7 @@ class LY_Common_StigmaofHavoc extends \ALT\Models\Card
       'name'  => clienttranslate("Stigma of Havoc"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('If "wolfing down" had a face…'),
       'artist' => "Khoa Viet",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],

@@ -15,7 +15,7 @@ class YZ_Rare_CovertheRetreat extends \ALT\Models\Card
     	'name'  => clienttranslate("Cover the Retreat"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
     	'type'  => PERMANENT,
-    	'flavorText'  => clienttranslate(''),
+    	'flavorText'  => clienttranslate('"Don\'t break ranks!"'),
       'artist' => "Kevin Sidharta",
 			'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],

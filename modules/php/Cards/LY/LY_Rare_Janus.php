@@ -16,7 +16,7 @@ class LY_Rare_Janus extends \ALT\Models\Card
       'name'  => clienttranslate("Janus"),
       'typeline' => clienttranslate("Character - Deity"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"God of gates, it is time to close the Veil." — Sam'),
       'artist' => "Gamon Studio",
       'extension' => 'ROC',
       'subtypes'  => [DEITY],

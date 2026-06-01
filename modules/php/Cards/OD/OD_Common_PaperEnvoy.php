@@ -14,7 +14,7 @@ class OD_Common_PaperEnvoy extends \ALT\Models\Card
       'name'  => clienttranslate("Paper Envoy"),
       'typeline' => clienttranslate("Character - Messenger"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Give the order for all ships to retreat!"'),
       'artist' => "Victor Canton",
       'extension'=>'ROC',
       'subtypes'  => [MESSENGER],

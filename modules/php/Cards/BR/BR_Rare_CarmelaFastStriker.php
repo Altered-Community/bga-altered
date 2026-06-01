@@ -16,7 +16,7 @@ class BR_Rare_CarmelaFastStriker extends \ALT\Models\Card
       'name'  => clienttranslate("Carmela, Fast Striker"),
       'typeline' => clienttranslate("Character - Adventurer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"I only feel alive when I\'m on the very edge!"'),
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],

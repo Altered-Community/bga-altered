@@ -16,7 +16,7 @@ class YZ_Exalted_PlagueofIgnorance extends \ALT\Models\Card
       'name'  => clienttranslate("Plague of Ignorance"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Ignorance is the crucible of evil.'),
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],

@@ -15,7 +15,7 @@ class AX_Exalted_DeploytheShields extends \ALT\Models\Card
       'name'  => clienttranslate("Deploy the Shields!"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Our task is simple: block the Nightmare\'s path!" — Isaree'),
       'artist' => "Anh Tung & Ba Vo",
       'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],

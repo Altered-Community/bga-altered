@@ -18,7 +18,7 @@ class LY_Rare_RunningwiththeWolves extends \ALT\Models\Card
       'name'  => clienttranslate("Running with the Wolves"),
       'typeline' => clienttranslate("Spell - Song Maneuver"),
       'type'  => SPELL,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('If you run with the wolves, you\'d best learn to howl!'),
       'artist' => "DOBA",
       'extension' => 'ROC',
       'subtypes'  => [SONG, MANEUVER],

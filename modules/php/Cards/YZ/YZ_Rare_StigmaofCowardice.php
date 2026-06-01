@@ -15,7 +15,7 @@ class YZ_Rare_StigmaofCowardice extends \ALT\Models\Card
       'name'  => clienttranslate("Stigma of Cowardice"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Sometimes it\'s wiser to be afraid of your own shadow…'),
       'artist' => "Khoa Viet",
       'extension'=>'ROC',
       'subtypes'  => [CORRUPTION],

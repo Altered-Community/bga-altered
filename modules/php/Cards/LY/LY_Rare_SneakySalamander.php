@@ -15,7 +15,7 @@ class LY_Rare_SneakySalamander extends \ALT\Models\Card
     	'name'  => clienttranslate("Sneaky Salamander"),
       'typeline' => clienttranslate("Character - Animal"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate(''),
+    	'flavorText'  => clienttranslate('Perfect for slipping under the radar.'),
       'artist' => "Khoa Viet",
 			'extension'=>'ROC',
       'subtypes'  => [ANIMAL],

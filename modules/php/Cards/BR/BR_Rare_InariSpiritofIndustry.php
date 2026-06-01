@@ -16,7 +16,7 @@ class BR_Rare_InariSpiritofIndustry extends \ALT\Models\Card
       'name'  => clienttranslate("Inari, Spirit of Industry"),
       'typeline' => clienttranslate("Character - Deity Robot"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Everything contains a need to grow, be it a grain of rice or human being.'),
       'artist' => "Julien Carrasco",
       'extension' => 'ROC',
       'subtypes'  => [DEITY, ROBOT],

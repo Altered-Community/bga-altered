@@ -18,7 +18,7 @@ class BR_Common_GuidingOcelot extends \ALT\Models\Card
       'name'  => clienttranslate("Guiding Ocelot"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Who could be better at playing cat and mouse?'),
       'artist' => "Julien Carrasco",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

@@ -16,7 +16,7 @@ class BR_Common_TheLastStand extends \ALT\Models\Card
       'name'  => clienttranslate("The Last Stand"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"If we are to fall, let this be our last stand!"'),
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

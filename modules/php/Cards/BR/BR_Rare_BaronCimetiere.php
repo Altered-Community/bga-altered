@@ -15,7 +15,7 @@ class BR_Rare_BaronCimetiere extends \ALT\Models\Card
     	'name'  => clienttranslate("Baron Cimetière"),
       'typeline' => clienttranslate("Character - Mage"),
     	'type'  => CHARACTER,
-    	'flavorText'  => clienttranslate(''),
+    	'flavorText'  => clienttranslate('"Need someone to slam the gate in their faces?"'),
       'artist' => "Anh Tung",
 			'extension'=>'ROC',
    'subtypes'  => [MAGE],

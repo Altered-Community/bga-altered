@@ -18,7 +18,7 @@ class AX_Rare_ShiramunTechMonk extends \ALT\Models\Card
       'name'  => clienttranslate("Shiramun, Tech Monk"),
       'typeline' => clienttranslate("Character - Engineer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Building walls, to keep the monsters at bay.'),
       'artist' => "Tristan Bideau",
       'extension' => 'ROC',
       'subtypes'  => [ENGINEER],

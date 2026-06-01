@@ -16,7 +16,7 @@ class YZ_Rare_StigmaofFallacy extends \ALT\Models\Card
       'name'  => clienttranslate("Stigma of Fallacy"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Falsehoods behind the mask, hidden under the guise of truth…'),
       'artist' => "Ba Vo",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],

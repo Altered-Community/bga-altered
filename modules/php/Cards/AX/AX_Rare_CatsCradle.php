@@ -16,7 +16,7 @@ class AX_Rare_CatsCradle extends \ALT\Models\Card
       'name' => clienttranslate("Cat's Cradle"),
       'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
-      'flavorText' => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Time to let the cat out of the bag!"'),
       'artist' => 'Gamon Studio',
       'extension' => 'ROC',
       'subtypes' => [MANEUVER],

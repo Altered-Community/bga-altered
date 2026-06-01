@@ -18,7 +18,7 @@ class AX_Rare_PushBacktheNight extends \ALT\Models\Card
       'name'  => clienttranslate("Push Back the Night"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Fear shall not pass!"'),
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

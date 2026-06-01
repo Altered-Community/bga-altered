@@ -18,7 +18,7 @@ class AX_Rare_RekaRecycler extends \ALT\Models\Card
       'name'  => clienttranslate("Reka Recycler"),
       'typeline' => clienttranslate("Character - Engineer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('In with the old, and out comes the new!'),
       'artist' => "Tristan Bideau",
       'extension' => 'ROC',
       'subtypes'  => [ENGINEER],

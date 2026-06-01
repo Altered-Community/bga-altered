@@ -16,7 +16,7 @@ class OD_Rare_RekaFixer extends \ALT\Models\Card
       'name'  => clienttranslate("Reka Fixer"),
       'typeline' => clienttranslate("Character - Adventurer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"It\'s not time to billet yet, but take the opportunity to stock up."'),
       'artist' => "Andy Jauffrit",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],

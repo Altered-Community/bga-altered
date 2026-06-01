@@ -18,7 +18,7 @@ class AX_Rare_EmergencyBurst extends \ALT\Models\Card
       'name'  => clienttranslate("Emergency Burst"),
       'typeline' => clienttranslate("Spell - Disruption"),
       'type'  => SPELL,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('If Aerolith can defy gravity, it can also deny evil!'),
       'artist' => "Khoa Viet",
       'extension' => 'ROC',
       'subtypes'  => [DISRUPTION],

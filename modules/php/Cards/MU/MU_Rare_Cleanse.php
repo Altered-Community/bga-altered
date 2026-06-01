@@ -19,7 +19,7 @@ class MU_Rare_Cleanse extends \ALT\Models\Card
       'name' => clienttranslate("Cleanse"),
       'typeline' => clienttranslate("Spell - Disruption"),
       'type' => SPELL,
-      'flavorText' => clienttranslate(''),
+      'flavorText'  => clienttranslate('"What do you think of my smoldering eyes?"'),
       'artist' => "Victor Canton",
       'extension' => 'ROC',
       'subtypes' => [DISRUPTION],

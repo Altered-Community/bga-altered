@@ -17,7 +17,7 @@ class AX_Rare_NikauKaurisFather extends \ALT\Models\Card
       'name'  => clienttranslate("Nikau, Kauri's Father"),
       'typeline' => clienttranslate("Character - Citizen"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Kauri, remember that courage is the happy medium between fear and recklessness!" — Nikau'),
       'artist' => "Kevin Sidharta",
       'extension' => 'ROC',
       'subtypes'  => [CITIZEN],

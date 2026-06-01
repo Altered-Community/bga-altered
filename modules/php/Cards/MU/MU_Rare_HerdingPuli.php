@@ -17,7 +17,7 @@ class MU_Rare_HerdingPuli extends \ALT\Models\Card
       'name'  => clienttranslate("Herding Puli"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Come on, Bobble, watch over them. Bring them to daddy!"'),
       'artist' => "Victor Canton",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

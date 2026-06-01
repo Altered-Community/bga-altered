@@ -16,7 +16,7 @@ class BR_Exalted_PlagueofArrogance extends \ALT\Models\Card
       'name'  => clienttranslate("Plague of Arrogance"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('The only thing more dangerous than ignorance is arrogance.'),
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],

@@ -18,7 +18,7 @@ class BR_Common_ReaptheMana extends \ALT\Models\Card
       'name'  => clienttranslate("Reap the Mana"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('After Kojo, she\'s the second to have managed this feat.'),
       'artist' => "Zero Wen",
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],

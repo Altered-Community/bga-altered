@@ -17,7 +17,7 @@ class MU_Rare_TheBeastofGevaudan extends \ALT\Models\Card
       'name'  => clienttranslate("The Beast of Gévaudan"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"When the wolf is at the door, the sheep are in danger."'),
       'artist' => "Victor Canton",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

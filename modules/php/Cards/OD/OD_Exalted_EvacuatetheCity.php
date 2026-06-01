@@ -15,7 +15,7 @@ class OD_Exalted_EvacuatetheCity extends \ALT\Models\Card
       'name'  => clienttranslate("Evacuate the City!"),
       'typeline' => clienttranslate("Landmark_permanent - Feat"),
       'type'  => PERMANENT,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"The city is doomed. Prioritize the people!"'),
       'artist' => "Anh Tung & Ba Vo",
       'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],

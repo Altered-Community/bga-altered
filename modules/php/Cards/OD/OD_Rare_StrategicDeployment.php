@@ -15,7 +15,7 @@ class OD_Rare_StrategicDeployment extends \ALT\Models\Card
       'name'  => clienttranslate("Strategic Deployment"),
       'typeline' => clienttranslate("Spell - Maneuver"),
       'type'  => SPELL,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Landing in progress!"'),
       'artist' => "DOBA",
       'extension'=>'ROC',
       'subtypes'  => [MANEUVER],

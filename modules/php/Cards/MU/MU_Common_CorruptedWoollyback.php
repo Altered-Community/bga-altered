@@ -17,7 +17,7 @@ class MU_Common_CorruptedWoollyback extends \ALT\Models\Card
       'name'  => clienttranslate("Corrupted Woollyback"),
       'typeline' => clienttranslate("Character - Corruption Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('There\'s a black sheep in the family.'),
       'artist' => "Zaeliven",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION, ANIMAL],
