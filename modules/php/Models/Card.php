@@ -1039,7 +1039,11 @@ class Card extends \ALT\Helpers\DB_Model
       $tough += $universal;
 
       // Rider's Mask
-      if ($this->getPlayer()->hasExpeditionToughBoosted($this->getLocation()) && self::hasToken(BOOST)) {
+       if (
+        ($this->getPlayer()->hasExpeditionToughBoosted($this->getLocation())
+          || ($this->isGigantic() && $this->getPlayer()->hasExpeditionToughBoosted($this->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)))
+        && self::hasToken(BOOST)
+      ) {
         $tough += 1;
       }
 
