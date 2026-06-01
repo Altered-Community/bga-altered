@@ -343,7 +343,7 @@ trait SetupTrait
 
     // Exception
     // ALT_ALIZE_P_OR_48 and ALT_BISE_P_BR_64
-    if (in_array($cardRefWithoutRarity, ['ALT_ALIZE_P_OR_48', 'ALT_ALIZE_P_OR_48'])) {
+    if (in_array($cardRefWithoutRarity, ['ALT_ALIZE_P_OR_48', 'ALT_BISE_P_BR_64'])) {
       return $cardRef;
     }
 
