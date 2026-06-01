@@ -200,7 +200,7 @@
 
             .deck-details {
                 padding: 10px 15px;
-                height: 280px;
+                height: 300px;
                 width: 990px;
                 background-color: #f8f4db;
                 border-radius: 6px;
@@ -356,7 +356,7 @@
 
             .deck-details-content {
                 font-size: 15px;
-                height: 180px !important;
+                height: 220px !important;
                 overflow-y: auto;
                 width: 100% !important;
                 padding: 10px 0px 0px 10px;
@@ -364,17 +364,21 @@
 
             .deck-details-title {
                 text-decoration: underline;
+                font-weight: normal;
             }
 
             .deck-details-author, .deck-details-keycards, .deck-details-hook {
-                margin-top: 5px !important;
+                margin-top: 15px !important;
                 margin-bottom: 10px;
+                min-height: 25px !important;
+                font-weight: bold;
                 width: 100% !important;
             }
 
             .deck-details-description {
-                margin-top: 5px !important;
+                margin-top: 15px !important;
                 font-size: 16px;
+                font-weight: bold;
                 margin: 0;
                 height: auto !important;
                 width: 100% !important;
@@ -459,24 +463,20 @@
             #deck-faction-banners {
                 display: flex;
                 justify-content: center;
+                align-items: flex-start;
                 flex-wrap: wrap;
                 gap: 6px;
                 margin-bottom: 12px;
             }
 
+            // The faction name is now shown in the gap under the (shorter) selected
+            // banner instead of on a separate line, so banners sit right under the title bar.
             #deck-selected-faction-title {
-                text-align: center;
-                color: gold;
-                font-family: "Tiller";
-                font-size: 36px;
-                font-weight: bold;
-                margin: 0px auto 6px;
-                background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+                display: none;
             }
 
             .deck-faction-banner-option {
+                position: relative;
                 border-radius: 8px;
                 border: none;
                 cursor: pointer;
@@ -488,6 +488,28 @@
                     display: block;
                     width: 72px;
                     height: auto;
+                }
+
+                .deck-faction-banner-name {
+                    display: none;
+                }
+
+                &.selected .deck-faction-banner-name {
+                    display: block;
+                    position: absolute;
+                    top: calc(100% + 4px);
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;
+                    font-family: "Tiller";
+                    font-size: 20px;
+                    font-weight: bold;
+                    line-height: 1;
+                    pointer-events: none;
+                    background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.7));
                 }
 
                 &.deck-faction-banner-all {
@@ -993,6 +1015,7 @@
             #deck-faction-banners {
                 display: flex;
                 justify-content: center;
+                align-items: flex-start;
                 flex-wrap: wrap;
                 gap: 6px;
                 margin-bottom: 12px;
@@ -1077,19 +1100,14 @@
                 text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
             }
 
+            // The faction name is now shown in the gap under the (shorter) selected
+            // banner instead of on a separate line, so banners sit right under the title bar.
             #deck-selected-faction-title {
-                text-align: center;
-                color: gold;
-                font-family: "Tiller";
-                font-size: 36px;
-                font-weight: bold;
-                margin: 0px auto 6px;
-                background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+                display: none;
             }
 
             .deck-faction-banner-option {
+                position: relative;
                 border-radius: 8px;
                 border: none;
                 cursor: pointer;
@@ -1101,6 +1119,28 @@
                     display: block;
                     width: 72px;
                     height: auto;
+                }
+
+                .deck-faction-banner-name {
+                    display: none;
+                }
+
+                &.selected .deck-faction-banner-name {
+                    display: block;
+                    position: absolute;
+                    top: calc(100% + 4px);
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;
+                    font-family: "Tiller";
+                    font-size: 20px;
+                    font-weight: bold;
+                    line-height: 1;
+                    pointer-events: none;
+                    background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.7));
                 }
 
                 .custom-deck-banner {

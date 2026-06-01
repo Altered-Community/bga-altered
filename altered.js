@@ -1060,6 +1060,7 @@
             'beforeend',
             `<div class='deck-faction-banner-option ${isSelectedFaction ? 'selected' : ''}' id='banner-faction-${faction}'>
               <img src='${bannerImagePath(faction, isSelectedFaction)}' alt='${factionDisplayNames[faction] || faction}' />
+              <span class='deck-faction-banner-name'>${factionDisplayNames[faction] || faction}</span>
             </div>`
           );
         }

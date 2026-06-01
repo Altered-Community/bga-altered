@@ -13058,7 +13058,7 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details {
   padding: 10px 15px;
-  height: 280px;
+  height: 300px;
   width: 990px;
   background-color: #f8f4db;
   border-radius: 6px;
@@ -13182,22 +13182,26 @@ body.focus-board .altered-player-board .player-board-infos {
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-content {
   font-size: 15px;
-  height: 180px !important;
+  height: 220px !important;
   overflow-y: auto;
   width: 100% !important;
   padding: 10px 0px 0px 10px;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-title {
   text-decoration: underline;
+  font-weight: normal;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-author, #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-keycards, #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-hook {
-  margin-top: 5px !important;
+  margin-top: 15px !important;
   margin-bottom: 10px;
+  min-height: 25px !important;
+  font-weight: bold;
   width: 100% !important;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-details .deck-details-description {
-  margin-top: 5px !important;
+  margin-top: 15px !important;
   font-size: 16px;
+  font-weight: bold;
   margin: 0;
   height: auto !important;
   width: 100% !important;
@@ -13268,22 +13272,16 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-faction-banners {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 12px;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection #deck-selected-faction-title {
-  text-align: center;
-  color: gold;
-  font-family: "Tiller";
-  font-size: 36px;
-  font-weight: bold;
-  margin: 0px auto 6px;
-  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  display: none;
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option {
+  position: relative;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -13293,6 +13291,26 @@ body.focus-board .altered-player-board .player-board-infos {
   display: block;
   width: 72px;
   height: auto;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option .deck-faction-banner-name {
+  display: none;
+}
+#altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option.selected .deck-faction-banner-name {
+  display: block;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: "Tiller";
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.7));
 }
 #altered-board-overlay #altered-overlay-content #overlay-deck-selection .deck-faction-banner-option.deck-faction-banner-all {
   width: 72px;
@@ -13714,6 +13732,7 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #deck-wizard #deck-faction-banners {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 12px;
@@ -13788,17 +13807,10 @@ body.focus-board .altered-player-board .player-board-infos {
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
 }
 #altered-board-overlay #altered-overlay-content #deck-wizard #deck-selected-faction-title {
-  text-align: center;
-  color: gold;
-  font-family: "Tiller";
-  font-size: 36px;
-  font-weight: bold;
-  margin: 0px auto 6px;
-  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  display: none;
 }
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option {
+  position: relative;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -13808,6 +13820,26 @@ body.focus-board .altered-player-board .player-board-infos {
   display: block;
   width: 72px;
   height: auto;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option .deck-faction-banner-name {
+  display: none;
+}
+#altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option.selected .deck-faction-banner-name {
+  display: block;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: "Tiller";
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, #bc8441 15%, #eaab57 25%, #eaab57 50%, #eaab57 75%, #bc8441 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.7));
 }
 #altered-board-overlay #altered-overlay-content #deck-wizard .deck-faction-banner-option .custom-deck-banner {
   width: 72px;
