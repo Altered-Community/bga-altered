@@ -9524,6 +9524,13 @@ html {
   top: 5px;
   right: calc(50% - 33px);
 }
+.altered-card > .altered-meeple[data-type=featCompleted] {
+  top: 60%;
+  left: 50%;
+  right: auto;
+  visibility: visible;
+  z-index: 8;
+}
 .altered-card > .altered-meeple[data-type=ocean], .altered-card > .altered-meeple[data-type=forest], .altered-card > .altered-meeple[data-type=mountain] {
   top: 3px;
   right: 3px;

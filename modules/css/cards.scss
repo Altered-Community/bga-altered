@@ -209,6 +209,14 @@
             right: calc(50% - 33px);
         }
 
+        &[data-type="featCompleted"] {
+            top: 60%;
+            left: 50%;
+            right: auto;
+            visibility: visible;
+            z-index: 8;
+        }
+
         &[data-type="ocean"],
         &[data-type="forest"],
         &[data-type="mountain"] {
