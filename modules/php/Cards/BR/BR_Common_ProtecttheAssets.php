@@ -21,7 +21,7 @@ class BR_Common_ProtecttheAssets extends \ALT\Models\Card
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} Up to one target Character loses <FLEETING>.  At Noon — If there are two or more cards in your Reserve, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED_LOW>: Characters in your Reserve are <TOUGH_CHA_P_1>. (Opponents must pay {1} to target them.)'),
+      'supportDesc' => clienttranslate('<COMPLETED>: Characters in your Reserve are <TOUGH_CHA_P_1>. (Opponents must pay {1} to target them.)'),
       'costHand' => 1,
       'costReserve' => 1,
       'effectPlayed' => FT::ACTION(TARGET, [

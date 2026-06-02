@@ -20,7 +20,7 @@ class BR_Rare_CarmelaFastStriker extends \ALT\Models\Card
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],
-      'effectDesc' => clienttranslate('#{J}# If you control a #<COMPLETED_LOW># Feat, #I lose <FLEETING>.#'),
+      'effectDesc' => clienttranslate('#{J}# If you control a #<COMPLETED># Feat, #I lose <FLEETING>.#'),
       'supportDesc' => clienttranslate('#{D} : Pay {1} less for the next Feat you play this turn, down to a minimum of {1}.#'),
       'supportIcon' => 'discard',
       'forest' => 4,

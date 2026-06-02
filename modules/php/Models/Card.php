@@ -198,6 +198,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Eole
     'playCondition' => 'str', // Conditions required to play the card
+    'boostIfAscended' => 'bool', // Wigwagging Kiwi
   ];
 
   /********* DB ACCESS *********/

@@ -21,7 +21,7 @@ class MU_Exalted_PlagueofPrejudice extends \ALT\Models\Card
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],
-      'effectDesc' => clienttranslate('{J} I gain <ANCHORED>.  {H} Send to Reserve each other Character with {V} less than or equal to mine.'),
+      'effectDesc' => clienttranslate('{J} I gain <ANCHORED>. {H} Send to Reserve each other Character with {V} less than or equal to mine.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

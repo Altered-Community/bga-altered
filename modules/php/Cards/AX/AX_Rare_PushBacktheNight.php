@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\AX;
-
 use ALT\Helpers\FT;
 
 class AX_Rare_PushBacktheNight extends \ALT\Models\Card
@@ -30,7 +28,17 @@ class AX_Rare_PushBacktheNight extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
        'effectPlayed' => FT::SEQ(
         FT::ACTION(DRAW, ['players' => ME]),
-        FT::ACTION(DISCARD, ['source' => HAND]),
+        FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetPlayer' => ME,
+            'upTo' => true,
+            'targetLocation' => [HAND],
+            'effect' => FT::DISCARD_TO_RESERVE(),
+          ],
+          ['optional' => true]
+        ),
       ),
       'effectPassive' => [
         'Noon' => [

@@ -41,7 +41,8 @@ class ChooseAssignment extends \ALT\Models\Action
     'limited' => false,
     'forcedLocation' => null,
     'mandatory' => false,
-    'reserveFlipCost' => false
+    'reserveFlipCost' => false,
+    'subType' => 'disabled', // Either a string or an array, array uses OR logic
   ];
 
   public function argsChooseAssignment()
@@ -58,6 +59,16 @@ class ChooseAssignment extends \ALT\Models\Action
     $reserveFlipCost = $this->getArg('reserveFlipCost');
     $free = $this->getArg('free');
     $forcedLocation = $this->getArg('forcedLocation');
+    $subType = $this->getArg('subType');
+    $matchesSubType = function ($card) use ($subType) {
+      if ($subType === 'disabled') {
+        return true;
+      }
+      if (!is_array($subType) && in_array($subType, $card->getSubtypes())) {
+        return true;
+      }
+      return is_array($subType) && count(array_intersect($subType, $card->getSubtypes())) > 0;
+    };
 
     // 1. Play cards
     if (in_array('play', $authorizedActions)) {
