@@ -9803,8 +9803,11 @@ html {
 .altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-support="1"][data-size="2"] ~ .card-typeline {
   top: 205px;
 }
-.altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-rarity="3"] ~ .card-typeline {
+.altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-rarity="3"][data-size="2"] ~ .card-typeline {
   top: 208px !important;
+}
+.altered-card .altered-card-wrapper .card-frame[data-type=permanent][data-rarity="3"][data-size="1"] ~ .card-typeline {
+  top: 240px !important;
 }
 .altered-card .altered-card-wrapper .card-frame[data-type=gear][data-support="0"][data-size="1"] ~ .card-name {
   top: 250px;
