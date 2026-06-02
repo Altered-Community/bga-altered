@@ -1098,7 +1098,7 @@
          return;
        }
        if (deckNumber == 'random') {
-         this.showRandomDeckAssignedContent(args);
+         //this.showRandomDeckAssignedContent(args);
          return;
        }
        if (deckNumber != null && args._private.starterDeck) {
@@ -1200,7 +1200,6 @@
                this._beginner
                  ? ''
                 : `<div id='deck-source-toggle'>
-              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
             </div>`
              }
