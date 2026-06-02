@@ -16,7 +16,7 @@ class LY_Rare_BoldOutrider extends \ALT\Models\Card
       'name'  => clienttranslate("Bold Outrider"),
       'typeline' => clienttranslate("Character - Adventurer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"I\'ve found a way! A gap just two klicks away, straight ahead!"'),
       'artist' => "Fahmi Fauzi",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],
