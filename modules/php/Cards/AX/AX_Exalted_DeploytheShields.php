@@ -20,7 +20,7 @@ class AX_Exalted_DeploytheShields extends \ALT\Models\Card
       'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],
       'effectDesc' => clienttranslate('{J} If there are no tokens in your Landmarks, create an <AEROLITH> token there.  When you pass — If three cards or more are in your Landmarks, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: When you sacrifice a Permanent — Target non-<BOOSTED> Character in your Reserve gains 1 boost.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: When you sacrifice a Permanent — Target non-<BOOSTED> Character in your Reserve gains 1 boost.'),
       'costHand' => 2, 
       'costReserve' => 2, 
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [

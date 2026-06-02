@@ -2364,7 +2364,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           reminder: _('Put the top card of your deck in Reserve.'),
         },
         // Eole
-        COMPLETED: {
+        COMPLETED_LOW: {
           text: _('Completed'),
         },
         DUE_TO_ASCENSION: {

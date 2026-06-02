@@ -20,7 +20,7 @@ class OD_Rare_DelaytheCollapse extends \ALT\Models\Card
 			'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],
       'effectDesc' => clienttranslate('{J} #Create an <AEROLITH> token in your Landmarks.#  When you pass — If the total Hand Cost of cards in your Landmarks is {6} or more, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: Other cards in your Landmarks are <TOUGH_CHA_P_1>.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: Other cards in your Landmarks are <TOUGH_CHA_P_1>.'),
       'costHand' => 2, 
       'costReserve' => 2, 
       'excludeUniversalTough' => true,
