@@ -1218,14 +1218,14 @@
         });
 
         if (!this._beginner) {
-           this.onClick('deck-source-random', () => {
-             let faction = this._deckWizardState.selectedFaction;
-             if (this._isAllFactionsBanner(faction)) {
-               const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
-               faction = pickable[Math.floor(Math.random() * pickable.length)];
-             }
-             this.takeAction('actSelectRandomDeck', { faction }, false);
-           });
+          //  this.onClick('deck-source-random', () => {
+          //    let faction = this._deckWizardState.selectedFaction;
+          //    if (this._isAllFactionsBanner(faction)) {
+          //      const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
+          //      faction = pickable[Math.floor(Math.random() * pickable.length)];
+          //    }
+          //    this.takeAction('actSelectRandomDeck', { faction }, false);
+          //  });
            this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
