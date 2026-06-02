@@ -1,5 +1,5 @@
 <?php
-	$directory = 'D:\Projects\BGA\Eole';
+	$directory = 'D:\Projects\BGA\Eole\eole3';
 	/*
 	foreach (glob($directory."*.jpg") as $filename) {
 		$file = realpath($filename);
