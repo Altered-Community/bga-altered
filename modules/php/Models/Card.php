@@ -197,7 +197,8 @@ class Card extends \ALT\Helpers\DB_Model
     'costReductionTap' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
 
     // Eole
-    'playCondition' => 'str', // Conditions required to play the card
+    'playCondition' => 'str', // Conditions required to play the card,
+    'cantGainBoost' => 'str', // conditions to not gain boost
   ];
 
   /********* DB ACCESS *********/
