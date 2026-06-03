@@ -40,6 +40,34 @@ class InvokeToken extends \ALT\Models\Action
       ],
     ];
   }
+  
+  public function getInvokePlayerId()
+  {
+    if (isset($this->getCtxArgs()['expedition'])) {
+      return $this->getCtxArgs()['player'] ?? $this->getPlayer()->getId();
+    }
+
+    $player = $this->getPlayer();
+    $invokePId = $player->getId();
+    $targetPlayer = $this->getCtxArg('targetPlayer');
+    if (is_null($targetPlayer)) {
+      return $invokePId;
+    }
+
+    if ($targetPlayer == OPPONENT) {
+      return Players::getNextId($player);
+    }
+    if ($targetPlayer == 'owner') {
+      $invokePId = $this->getCtxArgs()['ownerId'] ?? -1;
+      if ($invokePId == -1) {
+        $effectId = $this->getCtxArg('cardId');
+        $invokePId = Cards::get($effectId)->getPId();
+      }
+      return $invokePId;
+    }
+
+    return $invokePId;
+  }
 
   public function argsInvokeToken()
   {

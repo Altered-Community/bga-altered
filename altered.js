@@ -2417,44 +2417,60 @@
        // });
      },
  
-     onEnteringStateInvokeToken(args) {
-       const names = {
-         stormLeft: _('Hero side'),
-         stormRight: _('Companion side'),
-         source: _('source'),
-         initialSource: _('source'),
-         oppositeSource: _('opposite of played card'),
-         landmark: _('Landmark'),
-       };
- 
-       let onChooseLocation = (location) => {
-         return () => this.takeAtomicAction('actInvokeToken', [location]);
-       };
- 
-       if (args.allPlayers == true) {
-         i = 0;
-         this.forEachPlayer((player) => {
-           args.locations.forEach((location, i) => {
-             this.addPrimaryActionButton(
-               'btnLocation' + player.id + i,
-               player.name + ' ' + names[location],
-               onChooseLocation(location + '-' + player.id)
-             );
-             if (location == 'stormLeft' || location == 'stormRight') {
-               this.onClick(`board-${location}-${player.id}`, onChooseLocation(location + '-' + player.id));
-             }
-           });
-         });
-       } else {
-         args.locations.forEach((location, i) => {
-           debug(location);
-           this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
-           if (location == 'stormLeft' || location == 'stormRight') {
-             this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
-           }
-         });
-       }
-     },
+    onEnteringStateInvokeToken(args) {
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+        source: _('source'),
+        initialSource: _('source'),
+        oppositeSource: _('opposite of played card'),
+        landmark: _('Landmark'),
+      };
+
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actInvokeToken', [location]);
+      };
+
+      const invokePlayerId = args.invokePlayerId ?? this.player_id;
+      const invokePlayer = this.gamedatas.players[invokePlayerId];
+      const invokePlayerPrefix =
+        args.invokeOnOpponent && invokePlayer ? invokePlayer.name + ' — ' : '';
+
+      const bindStormLocation = (location, locationArg, labelSuffix) => {
+        this.addPrimaryActionButton(
+          'btnLocation' + locationArg,
+          invokePlayerPrefix + (names[location] ?? location) + labelSuffix,
+          onChooseLocation(locationArg)
+        );
+        if (location == 'stormLeft' || location == 'stormRight') {
+          this.onClick(`board-${location}-${invokePlayerId}`, onChooseLocation(locationArg));
+        }
+      };
+
+      if (args.allPlayers == true) {
+        i = 0;
+        this.forEachPlayer((player) => {
+          args.locations.forEach((location, i) => {
+            this.addPrimaryActionButton(
+              'btnLocation' + player.id + i,
+              player.name + ' ' + names[location],
+              onChooseLocation(location + '-' + player.id)
+            );
+            if (location == 'stormLeft' || location == 'stormRight') {
+              this.onClick(`board-${location}-${player.id}`, onChooseLocation(location + '-' + player.id));
+            }
+          });
+        });
+      } else {
+        args.locations.forEach((location, i) => {
+          const locationArg =
+            location == 'stormLeft' || location == 'stormRight'
+              ? location + '-' + invokePlayerId
+              : location;
+          bindStormLocation(location, locationArg, '');
+        });
+      }
+    },
  
      onEnteringStateBlockExpedition(args) {
        const names = {
