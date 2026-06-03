@@ -92,6 +92,9 @@ class CheckCondition extends \ALT\Models\Action
     if (isset($ctxArgs['cardFrom'])) {
       $event['cardFrom'] = $ctxArgs['cardFrom'];
     }
+     if (isset($ctxArgs['wasGigantic'])) {
+      $event['wasGigantic'] = $ctxArgs['wasGigantic'];
+    }
     return Conditions::check($ctxArgs, $card, $event);
   }
 

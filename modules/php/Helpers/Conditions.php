@@ -30,6 +30,10 @@ abstract class Conditions
       $event['cardId'] = $power['cardId'];
     }
 
+    if (isset($power['wasGigantic'])) {
+      $event['wasGigantic'] = $power['wasGigantic'];
+    }
+
     foreach ($conditions as $cond) {
       $t = explode(':', $cond);
       $condFct = $t[0];
@@ -1589,8 +1593,26 @@ abstract class Conditions
 
   public static function isDiscardedCardInBiome($card, $event, $biome)
   {
-    $card = Cards::get($event['cardId']);
-    return $card->getPlayer()->isInBiome($event['from'] ?? $event['cardFrom'], $biome);
+    if (!isset($event['cardId'])) {
+      return false;
+    }
+    $discardedCard = Cards::get($event['cardId']);
+    $player = $discardedCard->getPlayer();
+    $from = $event['from'] ?? $event['cardFrom'] ?? '';
+    if (!in_array($from, STORMS)) {
+      return false;
+    }
+
+    // #198467 - Lost in the Woods interaction with Gigantic
+    // After send-to-reserve, isGigantic() is often false (solo-expedition rule uses current location).
+    // Use wasGigantic that was captured at target time to check if the card was gigantic at the moment of discard
+    $wasGigantic = ($event['wasGigantic'] ?? false) || ($event['gigantic'] ?? false);
+    if ($wasGigantic) {
+      $otherExpedition = $from == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
+      return $player->isInBiome($from, $biome) || $player->isInBiome($otherExpedition, $biome);
+    }
+
+    return $player->isInBiome($from, $biome);
   }
 
   public static function isDiscardedCardNotInBiome($card, $event, $biome)
