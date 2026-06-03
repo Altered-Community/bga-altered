@@ -5447,10 +5447,7 @@ abstract class FlowConvertor
       ],
       811 => [
         'description' => clienttranslate('<RESUPPLY>. If you put a Character in Reserve this way, it gains 1 boost.'),
-        'output' => FT::SEQ(
-          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextReserveCharacterGains1Boost']),
-          FT::ACTION(RESUPPLY, [])
-        ),
+        'output' => FT::ACTION(RESUPPLY, ['boostIfMatchCondition' => '1:isType:character']),
       ],
       812 => [
         'description' => clienttranslate('Reveal the top card of your deck. If it\'s a Character, draw it; if not, <RESUPPLY_LOW> it.'),
@@ -5563,9 +5560,9 @@ abstract class FlowConvertor
       822 => [
         'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in the Expedition facing me.'),
         'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => CONTROLLER,
+          'targetPlayer' => OPPONENT,
+          'targetLocation' => ['source'],
           'tokenType' => 'MU_Common_Woollyback',
-          'targetLocation' => ['oppositeSource'],
         ]),
       ],
       823 => [
