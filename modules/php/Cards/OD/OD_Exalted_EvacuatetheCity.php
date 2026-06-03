@@ -19,7 +19,7 @@ class OD_Exalted_EvacuatetheCity extends \ALT\Models\Card
       'artist' => "Anh Tung & Ba Vo",
       'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],
-      'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in each of your <ASCENDED_P> Expeditions.  When one of your Expeditions moves forward <DUE_TO_ASCENSION> — Complete me.'),
+      'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in each of your <ASCENDED_S> Expeditions.  When one of your Expeditions moves forward <DUE_TO_ASCENSION> — Complete me.'),
       'supportDesc' => clienttranslate('<COMPLETED>: At Noon — Your Companion Expedition <ASCENDS>, then create an <ORDIS_RECRUIT> Soldier token in it.'),
       'costHand' => 2, 
       'costReserve' => 2, 

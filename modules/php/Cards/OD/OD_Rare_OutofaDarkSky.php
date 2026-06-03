@@ -19,7 +19,7 @@ class OD_Rare_OutofaDarkSky extends \ALT\Models\Card
       'artist' => "Justice Wong",
       'extension'=>'ROC',
       'subtypes'  => [DISRUPTION],
-      'effectDesc' => clienttranslate('<FLEETING>.  Send to Reserve target Character with Base Cost #{2} or less.# Then, if both of your Expeditions are <ASCENDED_P>, <RESUPPLY_LOW>.'),
+      'effectDesc' => clienttranslate('<FLEETING>.  Send to Reserve target Character with Base Cost #{2} or less.# Then, if both of your Expeditions are <ASCENDED_S>, <RESUPPLY_LOW>.'),
       'costHand' => 2, 
       'costReserve' => 2, 
       'changedStats' => ['costHand','costReserve'], 
