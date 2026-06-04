@@ -1655,9 +1655,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let p = card.properties;
       if (p.rarity == 2) {
         rareExtraDetails += 'Reference : ' + p.uid;
-        if (isDebug == true && p.uEffects) {
+        if (isDebug && p.uEffects?.length) {
           rareExtraDetails +=
-            '<br /><br />' + p.uEffects.map((t, i) => `Effect ${i}: &nbsp;&nbsp; ${t.join(' / ')}`).join('<br />');
+            '<br /><br />' +
+            p.uEffects
+              .map(
+                (t, i) =>
+                  `Effect ${i}: trigger ${t[0]} / condition ${t[1]} / output ${t[2]}<br />`
+              )
+              .join('<br /><br />');
         }
       }
 
@@ -2357,6 +2363,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           text: _('Resupply'),
           reminder: _('Put the top card of your deck in Reserve.'),
         },
+        // Eole
+        COMPLETED_LOW: {
+          text: _('Completed'),
+        },
+        DUE_TO_ASCENSION: {
+          text: _('Due to Ascension'),
+          reminder: _('if it moved forward due to at least one matched stat.'),
+        }
       };
 
       const regexParentheses = /\(([^)]+)\)/;

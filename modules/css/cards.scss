@@ -209,6 +209,14 @@
             right: calc(50% - 33px);
         }
 
+        &[data-type="featCompleted"] {
+            top: 60%;
+            left: 50%;
+            right: auto;
+            visibility: visible;
+            z-index: 8;
+        }
+
         &[data-type="ocean"],
         &[data-type="forest"],
         &[data-type="mountain"] {
@@ -274,7 +282,7 @@
             top: 0;
             bottom: 0;
             border-radius: 15px;
-            background-size: 600% 700%;
+            background-size: 600% 800%;
 
             @each $faction in $factions {
                 &[data-faction="#{$faction}"] {
@@ -283,11 +291,11 @@
             }
 
             &[data-type="hero"] {
-                background-position: 0% 33.3333%;
+                background-position: 0% 28.57%;
             }
 
             &[data-type="token"] {
-                background-position: 20% 33.3333%;
+                background-position: 20% 28.57%;
             }
 
             &[data-type="character"] {
@@ -321,17 +329,17 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 80% 33.3333%;
+                        background-position: 80% 28.57%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 100% 33.3333%;
+                        background-position: 100% 28.57%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 40% 33.3333%;
+                        background-position: 40% 28.57%;
                     }
 
                     // Bigger frame, with SUPPORT
@@ -345,22 +353,22 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 80% 66.66666%;
+                        background-position: 80% 57.14%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 100% 66.66666%;
+                        background-position: 100% 57.14%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 40% 66.66666%;
+                        background-position: 40% 57.14%;
                     }
 
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 60% 66.66666%;
+                        background-position: 60% 57.14%;
                     }
                 }
 
@@ -369,22 +377,22 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 40% 100%;
+                        background-position: 80% 85.71%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 40% 100%;
+                        background-position: 100% 85.71%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 40% 100%;
+                        background-position: 40% 85.71%;
                     }
 
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 40% 100%;
+                        background-position: 60% 85.71%;
                     }
                 }
             }
@@ -396,22 +404,22 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 80% 16.66666%;
+                        background-position: 80% 14.28%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 100% 16.66666%;
+                        background-position: 100% 14.28%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 40% 16.66666%;
+                        background-position: 40% 14.28%;
                     }
 
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 60% 16.66666%;
+                        background-position: 60% 14.28%;
                     }
                 }
 
@@ -420,22 +428,22 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 0% 66.66666%;
+                        background-position: 0% 57.14%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 20% 66.66666%;
+                        background-position: 20% 57.14%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 80% 50%;
+                        background-position: 80% 42.85%;
                     }
 
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 100% 50%;
+                        background-position: 100% 42.85%;
                     }
                 }
             }
@@ -447,12 +455,12 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 0% 16.6666%;
+                        background-position: 0% 14.28%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 20% 16.6666%;
+                        background-position: 20% 14.28%;
                     }
 
                     // Small frame, with SUPPORT
@@ -471,22 +479,35 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 40% 50%;
+                        background-position: 40% 42.85%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 60% 50%;
+                        background-position: 60% 42.85%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 0% 50%;
+                        background-position: 0% 42.85%;
                     }
 
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 20% 50%;
+                        background-position: 20% 42.85%;
+                    }
+                }
+                
+                // EXALTED
+                &[data-rarity="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 80% 100%;
+                    }
+
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 100% 100%;
                     }
                 }
             }
@@ -498,22 +519,22 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 40% 83.3333%;
+                        background-position: 40% 71.4286%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 60% 83.3333%;
+                        background-position: 60% 71.4286%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 0% 83.3333%;
+                        background-position: 0% 71.4286%;
                     }
 
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 20% 83.3333%;
+                        background-position: 20% 71.4286%;
                     }
                 }
 
@@ -522,22 +543,64 @@
 
                     // Small frame, no SUPPORT
                     &[data-support="0"][data-size="1"] {
-                        background-position: 0% 100%;
+                        background-position: 0% 85.71%;
                     }
 
                     // Bigger frame, no SUPPORT
                     &[data-support="0"][data-size="2"] {
-                        background-position: 20% 100%;
+                        background-position: 20% 85.71%;
                     }
 
                     // Small frame, with SUPPORT
                     &[data-support="1"][data-size="1"] {
-                        background-position: 80% 83.3333%;
+                        background-position: 80% 71.4286%;
                     }
 
                     // Bigger frame, with SUPPORT
                     &[data-support="1"][data-size="2"] {
-                        background-position: 100% 83.3333%;
+                        background-position: 100% 71.4286%;
+                    }
+                }
+            }
+
+            &[data-type="feat"] {
+
+                // BASE
+                &[data-rarity="0"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 0% 100%;
+                    }
+
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 20% 100%;
+                    }
+                }
+
+                // RARE
+                &[data-rarity="1"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 40% 100%;
+                    }
+
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 60% 100%;
+                    }
+                }
+                
+                // EXALTED
+                &[data-rarity="3"] {
+                    // Small frame, with SUPPORT
+                    &[data-support="1"][data-size="1"] {
+                        background-position: 80% 100%;
+                    }
+
+                    // Bigger frame, with SUPPORT
+                    &[data-support="1"][data-size="2"] {
+                        background-position: 100% 100%;
                     }
                 }
             }
@@ -619,6 +682,17 @@
 
                 .card-typeline {
                     top: 205px;
+                }
+            }
+            
+            &[data-rarity="3"][data-size="2"]~ {
+                .card-typeline {
+                    top: 208px !important;
+                }
+            }
+            &[data-rarity="3"][data-size="1"]~ {
+                .card-typeline {
+                    top: 240px !important;
                 }
             }
         }
@@ -916,6 +990,10 @@
             top: auto;
         }
 
+        .card-frame[data-type="feat"]~.card-support {
+            padding-top: 5px;
+        }
+
         // Adjust text position for effect depending on frame
         .card-frame[data-support="1"][data-size="1"]~.card-text,
         .card-frame[data-support="0"][data-size="2"]~.card-text {
@@ -945,22 +1023,7 @@
             }
         }
 
-        .card-frame[data-rarity="3"][data-size="2"][data-support="0"]~.card-text {
-            color: white;
-
-            // .card-qrcode-container {
-            //     shape-outside: polygon(0px 70px, 0px 126px, 70px 126px, 70px 70px);
-            // }
-            .svgicon-mana-1 .path2:before {
-                color: black;
-            }
-
-            .svgicon-mana-7 .path2:before {
-                color: black;
-            }
-        }
-
-        .card-frame[data-rarity="3"][data-size="1"][data-support="0"]~.card-text {
+        .card-frame[data-rarity="3"]~.card-text {
             color: white;
 
             // .card-qrcode-container {
@@ -987,6 +1050,20 @@
                 shape-outside: polygon(0px 53px, 0px 105px, 70px 105px, 70px 53px);
             }
         }
+
+        // Adjust width for feat frame
+        .card-frame[data-type="feat"][data-landmark="1"]~.card-text {
+            left: 25px;
+            right: 25px;
+            top: 310px;
+            height: 107px;
+
+            .card-qrcode-container {
+                margin-right: -5px;
+                shape-outside: polygon(0px 53px, 0px 105px, 70px 105px, 70px 53px);
+            }
+        }
+
 
         // Adjust position & width for gear frame
         .card-frame[data-type="gear"][data-support="1"][data-size="1"]~.card-text,
@@ -1038,6 +1115,10 @@
 
         .card-frame[data-support="1"][data-size="2"]~.card-subpermanent {
             top: 245px;
+        }
+
+        .card-frame[data-rarity="3"]~.card-subpermanent {
+            color: white;
         }
 
         // Management of NE permanent

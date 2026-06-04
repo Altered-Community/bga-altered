@@ -1,8 +1,5 @@
 <?php
-
-namespace ALT\Cards\LY;
-
-use ALT\Helpers\FT;
+namespace ALT\Cards\OD;
 
 class OD_Rare_FragrantMeerkat extends \ALT\Models\Card
 {

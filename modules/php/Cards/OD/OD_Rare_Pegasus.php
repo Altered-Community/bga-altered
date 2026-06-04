@@ -26,6 +26,10 @@ class OD_Rare_Pegasus extends \ALT\Models\Card
       'costHand' => 5, 
       'costReserve' => 5, 
       'changedStats' => ['mountain'], 
+      'effectPlayed' => FT::SEQ(
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => STORM_LEFT]),
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => STORM_RIGHT]),
+      ),
       'effectPassive' => [
         'AfterDusk' => [
           'condition' => 'movesStormsDueToAscension',
