@@ -2369,6 +2369,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         ASCENDED_S: {
           text: _('Ascended'),
+          reminder: _("Until Rest, it can move forward even if matched in its region's terrains by the opponent's Expedition."),
         },
         DUE_TO_ASCENSION: {
           text: _('Due to Ascension'),
