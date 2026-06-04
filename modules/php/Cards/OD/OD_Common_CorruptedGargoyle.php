@@ -31,7 +31,7 @@ class OD_Common_CorruptedGargoyle extends \ALT\Models\Card
         'effect' => FT::SEQ(),
         'oppositeEffect' => FT::GAIN(ME, FLEETING),
         ]),
-        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
+        FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend'])])
       )
     ];
   }

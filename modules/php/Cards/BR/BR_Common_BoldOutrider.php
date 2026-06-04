@@ -1,8 +1,5 @@
 <?php
-
 namespace ALT\Cards\BR;
-
-use ALT\Helpers\FT;
 
 class BR_Common_BoldOutrider extends \ALT\Models\Card
 {

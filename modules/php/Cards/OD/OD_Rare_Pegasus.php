@@ -15,7 +15,7 @@ class OD_Rare_Pegasus extends \ALT\Models\Card
       'name'  => clienttranslate("Pegasus"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Even one life saved is a victory for us!'),
       'artist' => "DOBA",
       'extension'=>'ROC',
       'subtypes'  => [ANIMAL],

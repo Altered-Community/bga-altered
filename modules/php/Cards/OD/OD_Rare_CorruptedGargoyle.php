@@ -27,7 +27,7 @@ class OD_Rare_CorruptedGargoyle extends \ALT\Models\Card
       'costReserve' => 2, 
       'changedStats' => ['ocean'],
       'playCondition' => 'controlInAllExpeditions',
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
+      'effectPlayed' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend'])]),
     ];
   }
 }

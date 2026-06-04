@@ -10,13 +10,12 @@ class LY_Rare_BoldOutrider extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_EOLE_B_BR_112_R2',
       'asset'  => 'ALT_EOLE_B_BR_112_R',
-
       'faction'  => FACTION_LY,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("Bold Outrider"),
       'typeline' => clienttranslate("Character - Adventurer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"I\'ve found a way! A gap just two klicks away, straight ahead!"'),
       'artist' => "Fahmi Fauzi",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],
