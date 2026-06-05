@@ -1,6 +1,6 @@
 <?php
-
 namespace ALT\Cards\AX;
+use ALT\Helpers\FT;
 
 class AX_Common_FaneofAeolus extends \ALT\Models\Card
 {
