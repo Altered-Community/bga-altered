@@ -1877,6 +1877,7 @@ define([
         limbo: _('Spell'),
         stormLeft_scout: _('Scout Hero side'),
         stormRight_scout: _('Scout Companion side'),
+        landmark_temple: _('Temple (Landmark)'),
       };
 
       if (args.play[cardId] != undefined) {

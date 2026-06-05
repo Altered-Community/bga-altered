@@ -73,6 +73,7 @@ class Card extends \ALT\Helpers\DB_Model
     'costModifier' => 'obj', // ['hand'=> action check, 'reserve' => action check]
     'costHand' => 'int',
     'costReserve' => 'int',
+    'costTemple' => 'int',
     'costReductionDiscard' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
     'dynamicCostReduction' => 'str',
 
@@ -199,6 +200,9 @@ class Card extends \ALT\Helpers\DB_Model
     // Eole
     'playCondition' => 'str', // Conditions required to play the card
     'boostIfAscended' => 'bool', // Wigwagging Kiwi
+
+    // Fugue
+    'costReductionIfConstructionPlayed' => 'int',
   ];
 
   /********* DB ACCESS *********/
@@ -313,10 +317,95 @@ class Card extends \ALT\Helpers\DB_Model
     return Players::get($this->pId);
   }
 
-  // $scout = can be played at scout cost
-  public function canBePlayed($player, $scout = false, $reserveFlipCost = false)
+  public function hasTemple()
   {
-    if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
+    return $this->getCostTemple() > 0;
+  }
+
+  public function isPlayedAsTemple()
+  {
+    return ($this->getExtraDatas()['playedAsTemple'] ?? false) === true;
+  }
+
+  public function getTemplePlayableLocations($player)
+  {
+    if (!$this->hasTemple() || $this->isTapped()) {
+      return [];
+    }
+
+    if ($this->canBePlayed($player, false, false, true)) {
+      return ['landmark_temple'];
+    }
+
+    return [];
+  }
+
+  public function applyTemplePlay()
+  {
+    $extra = $this->getExtraDatas();
+    if ($this->isPlayedAsTemple()) {
+      return;
+    }
+
+    $extra['playedAsTemple'] = true;
+    $extra['templeOriginal'] = [
+      'type' => $this->getType(),
+      'subtypes' => $this->getSubtypes(),
+      'typeline' => $this->getTypeline(),
+      'effectPassive' => $this->getEffectPassive(),
+      'effectPlayed' => $this->getEffectPlayed(),
+      'effectHand' => $this->getEffectHand(),
+      'effectReserve' => $this->getEffectReserve(),
+    ];
+    $this->setExtraDatas($extra);
+
+    $this->setType(PERMANENT);
+    $this->setSubtypes([CONSTRUCTION, LANDMARK]);
+    $this->setTypeline(clienttranslate('Landmark Permanent - Construction'));
+    $this->setEffectPlayed([]);
+    $this->setEffectHand([]);
+    $this->setEffectReserve([]);
+    $this->setEffectPassive([
+      'Noon' => [
+        'condition' => 'isMe',
+        'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => RESERVE], ['optional' => true]),
+      ],
+    ]);
+    Notifications::refreshCard($this);
+  }
+
+  public function revertFromTemplePlay()
+  {
+    if (!$this->isPlayedAsTemple()) {
+      return;
+    }
+
+    $extra = $this->getExtraDatas();
+    $original = $extra['templeOriginal'] ?? null;
+    if (!is_null($original)) {
+      $this->setType($original['type']);
+      $this->setSubtypes($original['subtypes']);
+      $this->setTypeline($original['typeline']);
+      $this->setEffectPassive($original['effectPassive'] ?? []);
+      $this->setEffectPlayed($original['effectPlayed'] ?? []);
+      $this->setEffectHand($original['effectHand'] ?? []);
+      $this->setEffectReserve($original['effectReserve'] ?? []);
+    }
+
+    unset($extra['playedAsTemple'], $extra['templeOriginal']);
+    $this->setExtraDatas($extra);
+    Notifications::refreshCard($this);
+  }
+
+  // $scout = can be played at scout cost
+  // $temple = can be played at temple cost as a Landmark Construction
+  public function canBePlayed($player, $scout = false, $reserveFlipCost = false, $temple = false)
+  {
+    if (!$temple && !$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
+      return false;
+    }
+
+    if ($temple && !$this->hasTemple()) {
       return false;
     }
     
@@ -334,7 +423,7 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
-    $cost = $this->getCost($scout, $reserveFlipCost);
+    $cost = $this->getCost($scout, $reserveFlipCost, $temple);
     $costReductionIfEmpty = $this->getCostReductionIfEmpty();
     $mana = $player->getMana();
     $totalMana = $player->getTotalMana();
@@ -347,6 +436,11 @@ class Card extends \ALT\Helpers\DB_Model
       ) {
         $cost -= $costReductionIfEmpty;
       }
+    }
+
+    $costReductionIfConstructionPlayed = $this->getCostReductionIfConstructionPlayed();
+    if ($costReductionIfConstructionPlayed > 0 && $player->hasPlayedConstructionThisDay()) {
+      $cost -= $costReductionIfConstructionPlayed;
     }
 
     if ($this->getCostReductionDiscard() > 0) {
@@ -566,6 +660,9 @@ class Card extends \ALT\Helpers\DB_Model
   {
     $isSeasoned = $this->isSeasoned();
     $this->checkLeaveListener($location, $afterNight, false, $gigantic);
+    if ($location == RESERVE) {
+      $this->revertFromTemplePlay();
+    }
     $this->setLocation($location);
     $extra = $this->getExtraDatas();
     if (isset($extra['pId'])) {
@@ -878,7 +975,7 @@ class Card extends \ALT\Helpers\DB_Model
     return [$power['payment'] ?? [], $power['output']];
   }
 
-  public function getCost($scout = false, $reserveFlipCost = false)
+  public function getCost($scout = false, $reserveFlipCost = false, $temple = false)
   {
     if (($this->getType() == SPELL || in_array(SPELL, $this->getAdditionalType())) && Globals::isNextSpellIsFree()) {
       return 0;
@@ -949,6 +1046,10 @@ class Card extends \ALT\Helpers\DB_Model
     $reduceCostTypeData = $this->getPlayer()->getReduceCostType($this);
     $minimumCost = max($minimumCost, $reduceCostTypeData['minimum'] ?? 0);
     $dynamicReduc = (int) $dynamicReduc + $reduceCostTypeData['reduction'];
+
+    if ($temple && $this->hasTemple()) {
+      return max($minimumCost, $this->getCostTemple() - $typeReduction - (int) $dynamicReduc);
+    }
     
     switch ($this->getLocation()) {
       case HAND:
