@@ -40,6 +40,7 @@ class Target extends \ALT\Models\Action
     'excludePreviousTarget' => false, // exclude ctx cardId (nested target after updateCardId)
     'totalCost' => INFTY,
     'totalMountain' => INFTY,
+    'totalOcean' => INFTY,
     'hasEffects' => 'disabled',
     'cards' => [],
     'discardRemaining' => false,
@@ -49,6 +50,7 @@ class Target extends \ALT\Models\Action
     'excludeBiomes' => false,
     'isTapped' => false,
     'maxStatistic' => 99,
+    'maxStatisticBiome' => null, // FOREST, MOUNTAIN, or OCEAN; null checks all biomes
     'augmentOnly' => false,
     'effect' => null,
     'allIds' => false, // we put all the Ids instead of duplicating for each card
@@ -67,7 +69,8 @@ class Target extends \ALT\Models\Action
     $upTo = $this->getCtxArg('upTo') ?? false;
     $totalCost = $this->getArg('totalCost');
     $totalMountain = $this->getArg('totalMountain');
-    $baseCost = $this->getArg('maxBaseCost');
+    $totalOcean = $this->getArg('totalOcean');
+    $baseCost = Utils::resolveMaxBaseCost($this->getArg('maxBaseCost'), $this->getPlayer());
     $minBaseCost = $this->getArg('minBaseCost');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
@@ -76,6 +79,8 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} character(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
           $msg = clienttranslate('Target up to ${n} character(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } elseif ($totalOcean != INFTY) {
+          $msg = clienttranslate('Target up to ${n} character(s) (of max ocean attribute of ${totalOcean}) to ${effect_desc}');
         } else {
           if ($this->getArg('n') == INFTY) {
             $msg = clienttranslate('All valid characters ${effect_desc}');
@@ -92,6 +97,8 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
           $msg = clienttranslate('Target up to ${n} permanent(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } elseif ($totalOcean != INFTY) {
+          $msg = clienttranslate('Target up to ${n} permanent(s) (of max ocean attribute of ${totalOcean}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect_desc}');
         }
@@ -104,6 +111,8 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} non-character card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
           $msg = clienttranslate('Target up to ${n} non-character card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } elseif ($totalOcean != INFTY) {
+          $msg = clienttranslate('Target up to ${n} non-character card(s) (of max ocean attribute of ${totalOcean}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target up to ${n} non-character card(s) to ${effect_desc}');
         }
@@ -116,6 +125,8 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} card(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
           $msg = clienttranslate('Target up to ${n} card(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } elseif ($totalOcean != INFTY) {
+          $msg = clienttranslate('Target up to ${n} card(s) (of max ocean attribute of ${totalOcean}) to ${effect_desc}');
         } elseif ($baseCost != INFTY) {
           $msg = clienttranslate('Target up to ${n} card(s) (of max base cost of ${baseCost}) to ${effect_desc}');
         } else {
@@ -156,6 +167,7 @@ class Target extends \ALT\Models\Action
       'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
       'totalCost' => $totalCost,
       'totalMountain' => $totalMountain,
+      'totalOcean' => $totalOcean,
       'baseCost' => $baseCost,
       'minBaseCost' => $minBaseCost,
       'i18n' => $i18n,
@@ -291,12 +303,13 @@ class Target extends \ALT\Models\Action
     $isTapped = $this->getArg('isTapped');
     $isNotTapped = $this->getArg('isNotTapped');
     $maxStatistic = $this->getArg('maxStatistic');
+    $maxStatisticBiome = $this->getArg('maxStatisticBiome');
 
     $augmentOnly = $this->getArg('augmentOnly');
     $monoBiome = $this->getArg('monoBiome');
 
     // Duster
-    $maxBaseCost = $this->getArg('maxBaseCost');
+    $maxBaseCost = Utils::resolveMaxBaseCost($this->getArg('maxBaseCost'), $player);
     $minBaseCost = $this->getArg('minBaseCost');
 
     // Eole
@@ -305,7 +318,7 @@ class Target extends \ALT\Models\Action
     $compareFilter = $this->resolveCompareTargetBiomeFilter();
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter,$noBoostIfBoosted) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $maxStatisticBiome, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter,$noBoostIfBoosted) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -387,9 +400,15 @@ class Target extends \ALT\Models\Action
       }
 
       $biomes = $c->getBiomes(true);
-      foreach ($biomes as $b => $value) {
-        if ($value > $maxStatistic) {
+      if ($maxStatisticBiome !== null) {
+        if (($biomes[$maxStatisticBiome] ?? 0) > $maxStatistic) {
           return false;
+        }
+      } else {
+        foreach ($biomes as $value) {
+          if ($value > $maxStatistic) {
+            return false;
+          }
         }
       }
 
@@ -474,6 +493,7 @@ class Target extends \ALT\Models\Action
       'description' => $this->getDescription(),
       'totalCost' => $this->getArg('totalCost'),
       'totalMountain' => $this->getArg('totalMountain'),
+      'totalOcean' => $this->getArg('totalOcean'),
       'targetCosts' => $this->getTargetCosts($player),
       'manaOrbs' => $this->getArg('targetLocation') == [MANA],
     ];
@@ -493,6 +513,7 @@ class Target extends \ALT\Models\Action
     $args = $this->argsTarget();
     $totalCost = $this->getArg('totalCost');
     $totalMountain = $this->getArg('totalMountain');
+    $totalOcean = $this->getArg('totalOcean');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
       throw new \Bga\GameFramework\VisibleSystemException('You cannot target these cards. Should not happen');
@@ -573,6 +594,7 @@ class Target extends \ALT\Models\Action
 
         $biomes = $card->getBiomes(true,  $increaseBiome);
         $totalMountain -= $biomes[MOUNTAIN];
+        $totalOcean -= $biomes[OCEAN];
       }
 
       if ($totalCost < 0) {
@@ -580,6 +602,9 @@ class Target extends \ALT\Models\Action
       }
       if ($totalMountain < 0) {
         throw new \BgaUserException(clienttranslate('Total mountain attribute exceeds the limit of the effect'));
+      }
+      if ($totalOcean < 0) {
+        throw new \BgaUserException(clienttranslate('Total ocean attribute exceeds the limit of the effect'));
       }
 
       $cards = Cards::getMany($cardIds);
