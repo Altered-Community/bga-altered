@@ -818,6 +818,19 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function hasPlayedConstructionThisDay()
+  {
+    $constructionPlayed = Globals::getConstructionPlayedThisDay();
+    return !empty($constructionPlayed[$this->id]);
+  }
+
+  public function markConstructionPlayedThisDay()
+  {
+    $constructionPlayed = Globals::getConstructionPlayedThisDay();
+    $constructionPlayed[$this->id] = true;
+    Globals::setConstructionPlayedThisDay($constructionPlayed);
+  }
+
   public function hasGigantic()
   {
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {

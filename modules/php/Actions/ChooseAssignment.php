@@ -378,6 +378,9 @@ class ChooseAssignment extends \ALT\Models\Action
       if ($card->getCostReductionIfEmpty() > 0 && $player->countCardsInLocation($location, [TOKEN, CHARACTER]) == 0 && !$player->hasGigantic()) {
         $cost -= $card->getCostReductionIfEmpty();
       }
+      if ($card->getCostReductionIfConstructionPlayed() > 0 && $player->hasPlayedConstructionThisDay()) {
+        $cost -= $card->getCostReductionIfConstructionPlayed();
+      }
 
       // Pay cost
       $player->payMana($cost);
@@ -405,6 +408,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $turnCards = Globals::getTurnCards();
     $turnCards[$player->getId()] = ($turnCards[$player->getId()] ?? 0) + 1;
     Globals::setTurnCards($turnCards);
+
+    if ($reallyPlayed && in_array(CONSTRUCTION, $card->getSubtypes())) {
+      $player->markConstructionPlayedThisDay();
+    }
 
     // if card has boosts (from incorrect passive effect), we remove them
 
