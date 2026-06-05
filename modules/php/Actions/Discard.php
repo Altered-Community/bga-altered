@@ -405,6 +405,7 @@ class Discard extends \ALT\Models\Action
         'token' => $isToken,
         'from' => $originalLocation,
         'to' => $destination,
+        'gigantic' => in_array($originalLocation, STORMS) && $card->isGigantic(),
         'sacrifice' => $this->isSacrifice(),
         'sourceId' => $this->getSourceId(),
         'pId' => $pId
