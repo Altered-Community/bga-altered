@@ -47,6 +47,51 @@ trait SetupTrait
       ->where('type', HERO)
       ->first();
   }
+  
+  function getStarterDeckPreview($pId, $deckNumber)
+  {
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+
+    $playerDecks = Globals::getPlayerDecks()[$pId] ?? [];
+    $deckInfo = $playerDecks[$deckNumber] ?? null;
+    if ($deckInfo === null) {
+      return null;
+    }
+
+    $starterDef = null;
+    foreach (STARTER_DECKS as $deck) {
+      if ($deck['deckId'] === ($deckInfo['deckId'] ?? null)) {
+        $starterDef = $deck;
+        break;
+      }
+    }
+    if ($starterDef === null) {
+      return null;
+    }
+
+    $hero = Cards::getFiltered($pId, "deck-$deckNumber", HERO)->first();
+    if ($hero === null) {
+      return null;
+    }
+
+    $deckContent = [];
+    $deckContent[HERO] = ['card' => ['properties' => $hero->getProperties()], 'n' => 1];
+    foreach ($starterDef['contents'] as $cardId => $n) {
+      $factionSub = substr($cardId, 0, 2);
+      $className = "\\ALT\\Cards\\$factionSub\\$cardId";
+      $card = new $className(null);
+      if ($card->getType() == HERO || $card->isToken()) {
+        continue;
+      }
+      $deckContent[] = ['card' => ['properties' => $card->getProperties()], 'n' => $n];
+    }
+
+    return [
+      'deckName' => $hero->getName(),
+      'faction' => $deckInfo['faction'],
+      'cards' => $deckContent,
+    ];
+  }
 
   function argsPrecoDeckSelection()
   {
@@ -67,6 +112,11 @@ trait SetupTrait
       if ($args['_private'][$pId]['selection'] == 'API') {
         $gContent = Globals::getDeckContent();
         $args['_private'][$pId]['API'] = $gContent[$pId] ?? null;
+      }
+      
+      $selectionVal = $args['_private'][$pId]['selection'];
+      if ($selectionVal !== null && $selectionVal !== 'API' && $selectionVal !== 'random') {
+        $args['_private'][$pId]['starterDeck'] = $this->getStarterDeckPreview($pId, $selectionVal);
       }
     }
 
