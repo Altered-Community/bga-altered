@@ -740,15 +740,19 @@ class ChooseAssignment extends \ALT\Models\Action
         Globals::setAdditionalEffect($addEffects);
       }
 
-      $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+     $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+      $boostExpedition = $location;
+      $oppositeExpedition = $location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
       if (
-        $card->getType() == CHARACTER && (
-          isset($expeditionsBoosts[$player->getId()][$location]) ||
-          ($card->isGigantic() && isset($expeditionsBoosts[$player->getId()][$location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]))
-        )
+        !isset($expeditionsBoosts[$player->getId()][$location]) &&
+        $card->isGigantic() &&
+        isset($expeditionsBoosts[$player->getId()][$oppositeExpedition])
       ) {
-        $effects[] = FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]);
-        unset($expeditionsBoosts[$player->getId()][$location]);
+        $boostExpedition = $oppositeExpedition;
+      }
+      if ($card->getType() == CHARACTER && isset($expeditionsBoosts[$player->getId()][$boostExpedition])) {
+        $effects[] = FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$boostExpedition]);
+        unset($expeditionsBoosts[$player->getId()][$boostExpedition]);
         Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
       }
 
