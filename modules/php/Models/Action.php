@@ -332,6 +332,12 @@ class Action
       $node['args']['cardId'] = $cardId;
       $node['args']['cardFrom'] = $cardFrom;
       $node['args']['ownerId'] = $ownerId;
+      if (!is_null($cardId) && !is_array($cardId) && in_array($cardFrom, STORMS)) {
+        $targetCard = Cards::get($cardId, false);
+        if ($targetCard !== null) {
+          $node['args']['wasGigantic'] = $targetCard->isGigantic();
+        }
+      }
     }
 
     if (isset($node['pId']) && $node['pId'] == 'owner') {

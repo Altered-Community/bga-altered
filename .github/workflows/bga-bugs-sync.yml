@@ -1,0 +1,43 @@
+name: Sync BGA Bug Reports to GitHub Issues
+
+on:
+  schedule:
+    # Runs every Monday at 8 hours
+    - cron: '0 8 * * 1'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  sync-bugs:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write  # needed to commit the dedup file
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install playwright PyGithub
+          playwright install chromium --with-deps
+
+      - name: Fetch BGA bugs and create GitHub issues
+        env:
+          BGA_GAME_ID: ${{ vars.BGA_GAME_ID || '1909' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+        run: python misc/python-tools/sync_bga_bugs.py
+
+      - name: Commit dedup file
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .bga_synced_bugs.json || true
+          git diff --cached --quiet || git commit -m "chore: update BGA synced bugs index [skip ci]"
+          git push || true

@@ -252,14 +252,18 @@ class InvokeToken extends \ALT\Models\Action
       }
 
       $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+      $boostExpedition = $location;
+      $oppositeExpedition = $location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
       if (
-        $card->getType() == CHARACTER && (
-          isset($expeditionsBoosts[$player->getId()][$location]) ||
-          ($card->isGigantic() && isset($expeditionsBoosts[$player->getId()][$location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]))
-        )
+        !isset($expeditionsBoosts[$player->getId()][$location]) &&
+        $card->isGigantic() &&
+        isset($expeditionsBoosts[$player->getId()][$oppositeExpedition])
       ) {
-        $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]));
-        unset($expeditionsBoosts[$player->getId()][$location]);
+        $boostExpedition = $oppositeExpedition;
+      }
+      if ($card->getType() == CHARACTER && isset($expeditionsBoosts[$player->getId()][$boostExpedition])) {
+        $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$boostExpedition]));
+        unset($expeditionsBoosts[$player->getId()][$boostExpedition]);
         Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
       }
 
