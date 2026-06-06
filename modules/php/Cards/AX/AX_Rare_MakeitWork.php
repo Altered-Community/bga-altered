@@ -23,7 +23,7 @@ class AX_Rare_MakeitWork extends \ALT\Models\Card
 			'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],
       'effectDesc' => clienttranslate('{J} Put a card from your hand in Reserve.  When you pass — If your hand is empty, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: {T} : If your hand is empty, <RESUPPLY_LOW>.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: {T} : If your hand is empty, <RESUPPLY_LOW>.'),
       'costHand' => 2, 
       'costReserve' => 2, 
       'changedStats' => ['costHand','costReserve'], 

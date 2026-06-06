@@ -2364,7 +2364,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           reminder: _('Put the top card of your deck in Reserve.'),
         },
         // Eole
-        COMPLETED: {
+        COMPLETED_LOW: {
           text: _('Completed'),
         },
         ASCENDED_S: {
@@ -2373,7 +2373,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         DUE_TO_ASCENSION: {
           text: _('Due to Ascension'),
-          reminder: _('My Expedition moves forward due to Ascension if it equals the opponent\'s statistics in the required biomes.'),
+          reminder: _('if it moved forward due to at least one matched stat.'),
         }
       };
 

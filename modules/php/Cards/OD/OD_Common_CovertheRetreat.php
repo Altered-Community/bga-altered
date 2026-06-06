@@ -20,7 +20,7 @@ class OD_Common_CovertheRetreat extends \ALT\Models\Card
 			'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],
       'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.  When you pass — If seven or more Characters are in your Expeditions, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: When you create a token Character — You may exhaust me ({T}) to give it 1 boost. '),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: When you create a token Character — You may exhaust me ({T}) to give it 1 boost. '),
       'costHand' => 2, 
       'costReserve' => 2, 
       'effectPlayed' => FT::SEQ(

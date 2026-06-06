@@ -685,9 +685,14 @@
                 }
             }
             
-            &[data-rarity="3"]~ {
+            &[data-rarity="3"][data-size="2"]~ {
                 .card-typeline {
                     top: 208px !important;
+                }
+            }
+            &[data-rarity="3"][data-size="1"]~ {
+                .card-typeline {
+                    top: 240px !important;
                 }
             }
         }

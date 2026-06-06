@@ -20,7 +20,7 @@ class YZ_Rare_CovertheRetreat extends \ALT\Models\Card
 			'extension'=>'ROC',
       'subtypes'  => [FEAT,LANDMARK],
       'effectDesc' => clienttranslate('{J} Create a #<MANA_MOTH> Illusion# token in each of your Expeditions.  #At Noon# — If #six or more cards are in your discard pile,# complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: When you create a token Character — You may exhaust me ({T}) to give it 1 boost. '),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: When you create a token Character — You may exhaust me ({T}) to give it 1 boost. '),
       'costHand' => 3, 
       'costReserve' => 3, 
       'changedStats' => ['costHand','costReserve'], 
