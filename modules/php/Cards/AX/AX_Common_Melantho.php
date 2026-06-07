@@ -1,5 +1,6 @@
 <?php
 namespace ALT\Cards\AX;
+use ALT\Helpers\FT;
 
 class AX_Common_Melantho extends \ALT\Models\Card
 {
@@ -13,7 +14,7 @@ class AX_Common_Melantho extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Melantho'),
       'typeline' => clienttranslate('Character'),
-      'flavorText'  => clienttranslate('\"Do and undo...This must end.\"'),
+      'flavorText'  => clienttranslate('"Do and undo...This must end."'),
       'artist' => 'Zaeliven',
       'extension' => 'NEJ',
       'type' => CHARACTER,
@@ -22,7 +23,7 @@ class AX_Common_Melantho extends \ALT\Models\Card
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 2,
-      'costReserve' => 0,
+      'costReserve' => 2,
       'effectReserve' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
         'targetLocation' => [RESERVE],

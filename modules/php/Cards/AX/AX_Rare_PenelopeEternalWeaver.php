@@ -17,7 +17,7 @@ class AX_Rare_PenelopeEternalWeaver extends \ALT\Models\Card
       'artist' => 'Damian Audino',
       'extension' => 'NEJ',
       'type' => CHARACTER,
-      'effectDesc' => clienttranslate('{H} Pay {1} less for the next Permanent you play this Afternoon, down to a minimum of {1}. #{R}# Sacrifice a Permanent. If you do, #draw a card#.'),
+      'effectDesc' => clienttranslate('{H} Pay {1} less for the next Permanent you play this Afternoon, down to a minimum of {1}.  #{R}# Sacrifice a Permanent. If you do, #draw a card#.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 3,

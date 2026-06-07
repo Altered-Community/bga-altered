@@ -18,7 +18,7 @@ class AX_Common_PenelopeEternalWeaver extends \ALT\Models\Card
       'extension' => 'NEJ',
       'type' => CHARACTER,
       'subtypes' => [NOBLE],
-      'effectDesc' => clienttranslate('#{H}# Pay {1} less for the next Permanent you play this Afternoon, down to a minimum of {0}. At Dusk — Sacrifice a Permanent with Base Cost {2} or less.'),
+      'effectDesc' => clienttranslate('{H} Pay {1} less for the next Permanent you play this Afternoon, down to a minimum of {1}.  At Dusk — Sacrifice a Permanent with Base Cost {2} or less.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 3,
