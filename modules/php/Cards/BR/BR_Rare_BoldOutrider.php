@@ -10,7 +10,6 @@ class BR_Rare_BoldOutrider extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_EOLE_B_BR_112_R1',
       'asset'  => 'ALT_EOLE_B_BR_112_R',
-
       'faction'  => FACTION_BR,
       'rarity'  => RARITY_RARE,
       'name'  => clienttranslate("Bold Outrider"),

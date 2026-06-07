@@ -21,7 +21,7 @@ class MU_Rare_ReaptheMana extends \ALT\Models\Card
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} You may put a card from your Reserve in your Mana zone, exhausted. #If you do, <RESUPPLY_LOW>.#  When you pass — If there are twelve or more Mana Orbs in your Mana zone, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED_LOW>: If one of your Expeditions would move forward during Dusk, you may exhaust me ({T}) to make it move forward one more region instead.'),
+      'supportDesc' => clienttranslate('<COMPLETED>: If one of your Expeditions would move forward during Dusk, you may exhaust me ({T}) to make it move forward one more region instead.'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [

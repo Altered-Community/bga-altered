@@ -19,7 +19,7 @@ class OD_Rare_WigwaggingKiwi extends \ALT\Models\Card
       'artist' => "Zaeliven",
       'extension'=>'ROC',
       'subtypes'  => [ANIMAL],
-      'effectDesc' => clienttranslate('{J} I gain 1 boost per <ASCENDED_S> Expedition you control.  #If one of your <ASCENDED_P> Expeditions would attempt to <ASCEND_INF> again, I also gain 1 boost.#'),
+      'effectDesc' => clienttranslate('{J} I gain 1 boost per <ASCENDED_S> Expedition you control.  #If one of your <ASCENDED_S> Expeditions would attempt to <ASCEND_INF> again, I also gain 1 boost.#'),
       'forest' => 1, 
       'mountain' => 1, 
       'ocean' => 1, 

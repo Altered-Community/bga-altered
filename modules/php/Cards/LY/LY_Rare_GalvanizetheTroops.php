@@ -23,7 +23,7 @@ class LY_Rare_GalvanizetheTroops extends \ALT\Models\Card
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} <RESUPPLY>. Then, you may have target Character you control gain <FLEETING>.  When you pass — If you control two or more <FLEETING> Characters, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED_LOW>: At Noon — If you are first player, <RESUPPLY_LOW>. #Otherwise, target Character in your Reserve gains 1 boost.#'),
+      'supportDesc' => clienttranslate('<COMPLETED>: At Noon — If you are first player, <RESUPPLY_LOW>. #Otherwise, target Character in your Reserve gains 1 boost.#'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
