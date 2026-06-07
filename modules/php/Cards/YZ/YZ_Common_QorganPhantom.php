@@ -15,7 +15,7 @@ class YZ_Common_QorganPhantom extends \ALT\Models\Card
       'name'  => clienttranslate("Qorgan Phantom"),
       'typeline' => clienttranslate("Character - Mage"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Our role is to create a diversion so a small group can make it to the breach."'),
       'artist' => "Jefrey Yonathan",
       'extension'=>'ROC',
       'subtypes'  => [MAGE],

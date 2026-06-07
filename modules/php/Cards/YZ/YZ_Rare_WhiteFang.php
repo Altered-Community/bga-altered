@@ -17,7 +17,7 @@ class YZ_Rare_WhiteFang extends \ALT\Models\Card
       'name'  => clienttranslate("White Fang"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"The unknown was one of the chief elements that went into the making of fear." — Jack London'),
       'artist' => "Jefrey Yonathan",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

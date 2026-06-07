@@ -18,7 +18,7 @@ class AX_Rare_HopomyThumb extends \ALT\Models\Card
       'name'  => clienttranslate("Hop-o'-my-Thumb"),
       'typeline' => clienttranslate("Character - Citizen"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('It\'s not easy to lead the way…'),
       'artist' => "Zero Wen",
       'extension' => 'ROC',
       'subtypes'  => [CITIZEN],

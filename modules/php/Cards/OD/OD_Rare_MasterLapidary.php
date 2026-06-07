@@ -15,7 +15,7 @@ class OD_Rare_MasterLapidary extends \ALT\Models\Card
       'name'  => clienttranslate("Master Lapidary"),
       'typeline' => clienttranslate("Character - Engineer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Cutting Aerolith requires a deft and delicate touch.'),
       'artist' => "Zero Wen",
       'extension'=>'ROC',
       'subtypes'  => [ENGINEER],

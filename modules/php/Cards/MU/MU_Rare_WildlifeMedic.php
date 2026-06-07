@@ -17,7 +17,7 @@ class MU_Rare_WildlifeMedic extends \ALT\Models\Card
       'name' => clienttranslate("Wildlife Medic"),
       'typeline' => clienttranslate("Character - Druid"),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate(''),
+      'flavorText'  => clienttranslate('Basira’s husband has been called back to treat the wounded animals.'),
       'artist' => "Zaeliven",
       'extension' => 'ROC',
       'subtypes'  => [DRUID],

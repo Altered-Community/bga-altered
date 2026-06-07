@@ -18,7 +18,7 @@ class AX_Common_StigmaofStagnation extends \ALT\Models\Card
       'name'  => clienttranslate("Stigma of Stagnation"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Fear of change leads to stagnation.'),
       'artist' => "Anh Tung",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],

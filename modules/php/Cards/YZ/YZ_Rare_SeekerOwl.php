@@ -14,7 +14,7 @@ class YZ_Rare_SeekerOwl extends \ALT\Models\Card
       'name'  => clienttranslate("Seeker Owl"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Its flight is silent and its talons sharp.'),
       'artist' => "Kevin Sidharta",
       'extension'=>'ROC',
       'subtypes'  => [ANIMAL],

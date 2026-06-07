@@ -15,7 +15,7 @@ class MU_Rare_AyxasRepentedTyrant extends \ALT\Models\Card
       'name'  => clienttranslate("Ayxas, Repented Tyrant"),
       'typeline' => clienttranslate("Character - Noble Rogue"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"I warned you of the danger you were heading into." — Ayxas'),
       'artist' => "Tristan Bideau",
       'extension'=>'ROC',
       'subtypes'  => [NOBLE,ROGUE],

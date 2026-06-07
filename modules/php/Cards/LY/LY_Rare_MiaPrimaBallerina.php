@@ -30,10 +30,9 @@ class LY_Rare_MiaPrimaBallerina extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 4,
       'costReserve' => 4,
-      'effectSupport' => [
-        'targetPlayer' => ME,
-        'effect' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, FLEETING)]),
-      ],
+      'effectSupport' => FT::ACTION(TARGET, [
+        'effect' => FT::GAIN(EFFECT, FLEETING),
+      ]),
       'effectPassive' => [
         'EndTurn' => [
           'conditions' => ['isMe'],

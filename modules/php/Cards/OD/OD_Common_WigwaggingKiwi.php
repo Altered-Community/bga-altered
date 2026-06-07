@@ -15,7 +15,7 @@ class OD_Common_WigwaggingKiwi extends \ALT\Models\Card
       'name'  => clienttranslate("Wigwagging Kiwi"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Air corridor clear!"'),
       'artist' => "Zaeliven",
       'extension'=>'ROC',
       'subtypes'  => [ANIMAL],

@@ -15,7 +15,7 @@ class BR_Rare_DevotedProtector extends \ALT\Models\Card
       'name'  => clienttranslate("Devoted Protector"),
       'typeline' => clienttranslate("Character - Soldier"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Come on! If we give up, it\'s game over!" — Kebba'),
       'artist' => "Martin Mottet",
       'extension'=>'ROC',
       'subtypes'  => [SOLDIER],

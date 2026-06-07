@@ -15,7 +15,7 @@ class AX_Exalted_PlagueofAvarice extends \ALT\Models\Card
       'name'  => clienttranslate("Plague of Avarice"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('The pursuit of progress is like an insatiable hunger.'),
       'artist' => "Khoa Viet",
       'extension'=>'ROC',
       'subtypes'  => [CORRUPTION],

@@ -16,7 +16,7 @@ class BR_Common_SpryScout extends \ALT\Models\Card
       'name'  => clienttranslate("Spry Scout"),
       'typeline' => clienttranslate("Character - Adventurer"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Contact in sector 3. Try to outflank on the other side!"'),
       'artist' => "Kevin Sidharta",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],

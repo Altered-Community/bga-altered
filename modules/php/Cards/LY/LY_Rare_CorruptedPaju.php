@@ -15,7 +15,7 @@ class LY_Rare_CorruptedPaju extends \ALT\Models\Card
       'name'  => clienttranslate("Corrupted Paju"),
       'typeline' => clienttranslate("Character - Adventurer Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Why did you survive, Treyst… but I died?"'),
       'artist' => "Gamon Studio",
       'extension'=>'ROC',
       'subtypes'  => [ADVENTURER,CORRUPTION],

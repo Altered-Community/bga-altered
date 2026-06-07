@@ -198,6 +198,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Eole
     'playCondition' => 'str', // Conditions required to play the card,
+    'boostIfAscended' => 'bool', // Wigwagging Kiwi
     'cantGainBoost' => 'str', // conditions to not gain boost
   ];
 
@@ -892,11 +893,16 @@ class Card extends \ALT\Helpers\DB_Model
     foreach ($costReduction as $reducType => $reduction) {
       if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType()) || $reducType == ALL) {
         $typeReduction += $reduction['reduction'];
-        $minimumCost = min($minimumCost, ($reduction['minimum'] ?? 0));
+        $minimumCost = max($minimumCost, ($reduction['minimum'] ?? 0));
       }
     }
+    
     foreach ($this->getSubtypes() as $subtype) {
-      $typeReduction += isset($costReduction[$subtype]) ? $costReduction[$subtype]['reduction'] : 0;
+      if (!isset($costReduction[$subtype])) {
+        continue;
+      }
+      $typeReduction += $costReduction[$subtype]['reduction'];
+      $minimumCost = max($minimumCost, ($costReduction[$subtype]['minimum'] ?? 0));
     }
 
     // TODO: to update in multiplayer

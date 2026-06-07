@@ -17,7 +17,7 @@ class MU_Rare_KarhuLordofBears extends \ALT\Models\Card
       'name'  => clienttranslate("Karhu, Lord of Bears"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"Karhu, my old friend, wake from your slumber." — Rin'),
       'artist' => "Matteo Spirito",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

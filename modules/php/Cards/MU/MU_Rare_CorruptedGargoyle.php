@@ -15,7 +15,7 @@ class MU_Rare_CorruptedGargoyle extends \ALT\Models\Card
       'name'  => clienttranslate("Corrupted Gargoyle"),
       'typeline' => clienttranslate("Character - Corruption Elemental"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('They have always instilled fear. As a group, they instill terror.'),
       'artist' => "Zero Wen",
       'extension'=>'ROC',
       'subtypes'  => [CORRUPTION,ELEMENTAL],
@@ -27,7 +27,7 @@ class MU_Rare_CorruptedGargoyle extends \ALT\Models\Card
       'costReserve' => 2, 
       'changedStats' => ['ocean'], 
       'playCondition' => 'controlInAllExpeditions',
-      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source'])
+      'effectPlayed' => FT::ACTION(TARGET_EXPEDITION, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend'])]),
     ];
   }
 }

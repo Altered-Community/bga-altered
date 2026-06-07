@@ -15,11 +15,11 @@ class OD_Common_OutofaDarkSky extends \ALT\Models\Card
       'name'  => clienttranslate("Out of a Dark Sky"),
       'typeline' => clienttranslate("Spell - Disruption"),
       'type'  => SPELL,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Requests for assistance pour in at the sound of beating wings.'),
       'artist' => "Justice Wong",
       'extension'=>'ROC',
       'subtypes'  => [DISRUPTION],
-      'effectDesc' => clienttranslate('<FLEETING>.  Send to Reserve target Character with Base Cost {3} or less. Then, if both of your Expeditions are <ASCENDED_P>, <RESUPPLY_LOW>.'),
+      'effectDesc' => clienttranslate('<FLEETING>.  Send to Reserve target Character with Base Cost {3} or less. Then, if both of your Expeditions are <ASCENDED_S>, <RESUPPLY_LOW>.'),
       'costHand' => 3, 
       'costReserve' => 3, 
       'effectPlayed' => FT::SEQ(

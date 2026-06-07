@@ -17,7 +17,7 @@ class MU_Common_TheBigBadWolf extends \ALT\Models\Card
       'name'  => clienttranslate("The Big Bad Wolf"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"My, what big teeth I have!"'),
       'artist' => "Justice Wong",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],

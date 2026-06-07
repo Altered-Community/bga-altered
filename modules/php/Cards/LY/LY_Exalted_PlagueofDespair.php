@@ -16,7 +16,7 @@ class LY_Exalted_PlagueofDespair extends \ALT\Models\Card
       'name'  => clienttranslate("Plague of Despair"),
       'typeline' => clienttranslate("Character - Corruption"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('"The soul does not give itself up to despair until it has exhausted all illusions." – Victor Hugo'),
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],

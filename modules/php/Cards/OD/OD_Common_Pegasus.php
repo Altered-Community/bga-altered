@@ -1,6 +1,5 @@
 <?php
 namespace ALT\Cards\OD;
-use ALT\Helpers\FT;
 
 class OD_Common_Pegasus extends \ALT\Models\Card
 {
@@ -15,7 +14,7 @@ class OD_Common_Pegasus extends \ALT\Models\Card
       'name'  => clienttranslate("Pegasus"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate(''),
+      'flavorText'  => clienttranslate('Even one life saved is a victory for us!'),
       'artist' => "DOBA",
       'extension'=>'ROC',
       'subtypes'  => [ANIMAL],
