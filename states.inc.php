@@ -47,7 +47,7 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must select the faction you want to play with'),
     'type' => 'multipleactiveplayer',
     'args' => 'argsPrecoDeckSelection',
-    'possibleactions' => ['actSelectPrecoDeck', 'actConfirmAPIDeck', 'actLoadAPIDecks', 'actCancelPrecoDeckSelection'],
+    'possibleactions' => ['actSelectPrecoDeck', 'actSelectRandomDeck', 'actConfirmAPIDeck', 'actLoadAPIDecks', 'actCancelPrecoDeckSelection'],
     'transitions' => ['done' => ST_SETUP, 'zombiePass' => ST_SETUP],
   ],
 

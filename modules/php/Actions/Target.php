@@ -59,6 +59,7 @@ class Target extends \ALT\Models\Action
     'monoBiome' => false, // Rare Lyra Origamium
     'isNotTapped' => false,
     'compareTargetBiome' => null, // e.g. ['biome' => FOREST, 'op' => 'lte', 'source' => 'source' or 'cardId']
+    'noBoostIfBoosted' => false, // Eole: e.g. Deploy the Shields; omit from card defs unless true
   ];
 
   public function getDescription()

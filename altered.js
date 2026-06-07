@@ -913,6 +913,24 @@
       );
      },
 
+     showRandomDeckAssignedContent(args) {
+      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
+      const randomFaction = args._private.randomDeck && args._private.randomDeck.faction;
+      const factionLabel = randomFaction ? factionDisplayNames[randomFaction] || randomFaction : null;
+      const message = factionLabel
+        ? dojo.string.substitute(_('You have been assigned a random ${faction} deck'), { faction: factionLabel })
+        : _('You have been assigned a random deck');
+
+      $('altered-overlay-content').innerHTML = `
+        <h2>${_('Random deck')}</h2>
+        <p>${message}</p>
+      `;
+      this.openOverlay();
+      this.addSecondaryActionButton('btnCancel', _('Cancel'), () =>
+        this.takeAction('actCancelPrecoDeckSelection', {}, false)
+      );
+     },
+
      showAccountNotConfiguredDeckPickerContent() {
        ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
          if ($(id)) $(id).remove();
@@ -1098,9 +1116,9 @@
          return;
        }
        if (deckNumber == 'random') {
-         //this.showRandomDeckAssignedContent(args);
-         return;
-       }
+        this.showRandomDeckAssignedContent(args);
+        return;
+      }
        if (deckNumber != null && args._private.starterDeck) {
          this.showAPIDeckDetails({ _private: { API: args._private.starterDeck } });
          return;
@@ -1201,6 +1219,7 @@
                  ? ''
                 : `<div id='deck-source-toggle'>
               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
+              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
             </div>`
              }
              <div id='overlay-deck-container'></div>
@@ -1218,15 +1237,15 @@
         });
 
         if (!this._beginner) {
-          //  this.onClick('deck-source-random', () => {
-          //    let faction = this._deckWizardState.selectedFaction;
-          //    if (this._isAllFactionsBanner(faction)) {
-          //      const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
-          //      faction = pickable[Math.floor(Math.random() * pickable.length)];
-          //    }
-          //    this.takeAction('actSelectRandomDeck', { faction }, false);
-          //  });
-           this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
+            this.onClick('deck-source-random', () => {
+              let faction = this._deckWizardState.selectedFaction;
+              if (this._isAllFactionsBanner(faction)) {
+                const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
+                faction = pickable[Math.floor(Math.random() * pickable.length)];
+              }
+              this.takeAction('actSelectRandomDeck', { faction }, false);
+            });
+            this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
          filteredDecks.forEach((deck) => {
