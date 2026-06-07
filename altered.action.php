@@ -68,6 +68,14 @@ class action_altered extends APP_GameAction
     self::ajaxResponse();
   }
 
+  public function actSelectRandomDeck()
+  {
+    self::setAjaxMode();
+    $faction = self::getArg('faction', AT_alphanum, true);
+    $this->game->actSelectRandomDeck($faction);
+    self::ajaxResponse();
+  }
+
   public function actLoadAPIDecks()
   {
     self::setAjaxMode();

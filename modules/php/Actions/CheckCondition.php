@@ -23,6 +23,11 @@ class CheckCondition extends \ALT\Models\Action
 
   protected $args = ['condition' => null, 'effect' => null, 'oppositeEffect' => null, 'previousEvent' => false];
 
+  private function isFlowEffect($effect): bool
+  {
+    return is_array($effect) && (isset($effect['action']) || isset($effect['type']) || isset($effect['childs']));
+  }
+
   public function getConditions()
   {
     $conditions = $this->getCtxArg('conditions');
@@ -45,11 +50,13 @@ class CheckCondition extends \ALT\Models\Action
     }
     if ($desc == null) {
       $effect = $this->getCtxArg('effect');
+      if (!$this->isFlowEffect($effect)) {
+        return ['log' => clienttranslate('if valid condition'), 'args' => []];
+      }
       $flow = Engine::buildTree($effect);
       $args['action0'] = ['log' => clienttranslate('if valid condition'), 'args' => []];
       $args['action1'] = $flow->getDescription();
       $desc = '${action0}: ${action1}';
-      // throw new \feException(print_r($args));
       return [
         'log' => $desc,
         'args' => $args
@@ -108,6 +115,12 @@ class CheckCondition extends \ALT\Models\Action
         $this->resolveAction(['notMet']);
         return;
       }
+    }
+
+    // effect may be null (or a stray placeholder string): condition met, nothing to run
+    if (!$this->isFlowEffect($node)) {
+      $this->resolveAction(['met']);
+      return;
     }
 
     $cardId = $this->getCtxArgs()['cardId'] ?? null;
