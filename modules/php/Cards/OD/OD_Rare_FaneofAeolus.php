@@ -18,7 +18,7 @@ class OD_Rare_FaneofAeolus extends \ALT\Models\Card
       'artist' => 'Anh Tung',
       'extension' => 'NEJ',
       'subtypes' => [CONSTRUCTION, LANDMARK],
-      'effectDesc' => clienttranslate('{J} I gain #4# Kelon counters. {T}, Spend 1 of my Kelon counters: Ready a Mana Orb. #When I\'m sacrificed — Sabotage.#'),
+      'effectDesc' => clienttranslate('{J} I gain #4# Kelon counters.  {T}, Spend 1 of my Kelon counters: Ready a Mana Orb.  #When I\'m sacrificed — Sabotage.#'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => [

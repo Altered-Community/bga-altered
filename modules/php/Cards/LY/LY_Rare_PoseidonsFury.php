@@ -17,14 +17,15 @@ class LY_Rare_PoseidonsFury extends \ALT\Models\Card
       'type' => SPELL,
       'artist' => 'Kevin Sidharta',
       'extension' => 'NEJ',
-      'effectDesc' => clienttranslate('#Choose one#:  • Send to Reserve #any number of target Characters# with #total# {O} 4 or less.  • #Discard target Permanent.#'),
+      'effectDesc' => clienttranslate('$<FLEETING>.  #Choose one#:  • Send to Reserve #any number of target Characters# with #total# {O} 4 or less.  • #Discard target Permanent.#'),
       'costHand' => 3,
       'costReserve' => 3,
       'fleeting' => true,
-      'effectPlayed' => FT::XOR(
-        FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalOcean' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
-        FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
-      ),
+      'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING),
+        FT::XOR(
+          FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalOcean' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
+          FT::ACTION(TARGET, ['targetType' => [PERMANENT], 'effect' => FT::ACTION(DISCARD, [])])
+        )),
     ];
   }
 }

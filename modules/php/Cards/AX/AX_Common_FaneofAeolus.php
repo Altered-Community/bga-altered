@@ -18,7 +18,7 @@ class AX_Common_FaneofAeolus extends \ALT\Models\Card
       'artist' => 'Anh Tung',
       'extension' => 'NEJ',
       'subtypes' => [CONSTRUCTION, LANDMARK],
-      'effectDesc' => clienttranslate('{J} I gain 3 Kelon counters. {T}, Spend 1 of my Kelon counters: Ready a Mana Orb.'),
+      'effectDesc' => clienttranslate('{J} I gain 3 Kelon counters.  {T}, Spend 1 of my Kelon counters: Ready a Mana Orb.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => [
