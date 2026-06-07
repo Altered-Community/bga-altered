@@ -441,6 +441,86 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $properties;
   }
 
+   public static function parseTrigramTriggerId(string $trigger): int
+  {
+    $zoneTriggers = ['H' => 22, 'R' => 1, 'J' => 24, 'P' => 24];
+    $upper = strtoupper(trim($trigger));
+    if (isset($zoneTriggers[$upper])) {
+      return $zoneTriggers[$upper];
+    }
+    return (int) $trigger;
+  }
+
+  /**
+   * @param array<int, array{trigger: int|string, condition: int|string, output: int|string}> $trigrams
+   */
+  public static function generateUniqueFromTrigrams($faction, array $trigrams)
+  {
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+
+    $found = false;
+    $cardO = null;
+    $cardList = array_keys(MAP_REFS_CLASSES);
+    do {
+      $card = $cardList[array_rand($cardList)];
+      $cardO = self::getCardClass($card);
+
+      if ($cardO->getFaction() != $faction || $cardO->getType() != CHARACTER || $cardO->getRarity() != RARITY_COMMON) {
+        continue;
+      } else {
+       }
+      $found = true;
+    } while (!$found);
+    $card = $cardO->jsonSerialize()['properties'];
+    $card['rarity'] = RARITY_UNIQUE;
+    $card['asset'] = substr($card['asset'], 0, strlen($card['asset']) - 1) . 'U';
+    foreach (
+      [
+        'effectDesc',
+        'supportDesc',
+        'supportIcon',
+        'effectHand',
+        'effectReserve',
+        'effectPlayed',
+        'effectPassive',
+        'gigantic',
+        'defender',
+        'oppositeDefender',
+        'eternal',
+        'dynamicDefender',
+        'dynamicTough',
+        'tough',
+      ]
+      as $eff
+    ) {
+      if (isset($card[$eff])) {
+        unset($card[$eff]);
+      }
+    }
+    
+    $card['uEffects'] = [];
+    foreach ($trigrams as $trigram) {
+      $trinity = [
+        'trigger' => self::parseTrigramTriggerId((string) $trigram['trigger']),
+        'condition' => (int) $trigram['condition'],
+        'output' => (int) $trigram['output'],
+      ];
+      FlowConvertor::constructEffect($trinity, $card);
+      $card['uEffects'][] = array_values($trinity);
+    }
+
+    return $card;
+  }
+
+  public static function generateUniqueFromTrigram($faction, $trigger, $condition, $output)
+  {
+    return self::generateUniqueFromTrigrams($faction, [[
+      'trigger' => $trigger,
+      'condition' => $condition,
+      'output' => $output,
+    ]]);
+  }
+
   public static function generateRandomUnique($faction)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';

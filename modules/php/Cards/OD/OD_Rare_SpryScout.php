@@ -20,7 +20,7 @@ class OD_Rare_SpryScout extends \ALT\Models\Card
       'artist' => "Kevin Sidharta",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],
-      'effectDesc' => clienttranslate('{R} If you control a Feat, I gain 1 boost. #If it\'s <COMPLETED>, up to two target Characters each gain 1 boost instead.#'),
+      'effectDesc' => clienttranslate('{R} If you control a Feat, I gain 1 boost. #If it\'s <COMPLETED_LOW>, up to two target Characters each gain 1 boost instead.#'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,

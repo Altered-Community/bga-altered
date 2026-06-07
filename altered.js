@@ -2079,6 +2079,22 @@ define([
         return () => this.takeAtomicAction('actInvokeToken', [location]);
       };
 
+      const invokePlayerId = args.invokePlayerId ?? this.player_id;
+      const invokePlayer = this.gamedatas.players[invokePlayerId];
+      const invokePlayerPrefix =
+        args.invokeOnOpponent && invokePlayer ? invokePlayer.name + ' — ' : '';
+
+      const bindStormLocation = (location, locationArg, labelSuffix) => {
+        this.addPrimaryActionButton(
+          'btnLocation' + locationArg,
+          invokePlayerPrefix + (names[location] ?? location) + labelSuffix,
+          onChooseLocation(locationArg)
+        );
+        if (location == 'stormLeft' || location == 'stormRight') {
+          this.onClick(`board-${location}-${invokePlayerId}`, onChooseLocation(locationArg));
+        }
+      };
+
       if (args.allPlayers == true) {
         i = 0;
         this.forEachPlayer((player) => {
@@ -2095,11 +2111,11 @@ define([
         });
       } else {
         args.locations.forEach((location, i) => {
-          debug(location);
-          this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
-          if (location == 'stormLeft' || location == 'stormRight') {
-            this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
-          }
+          const locationArg =
+            location == 'stormLeft' || location == 'stormRight'
+              ? location + '-' + invokePlayerId
+              : location;
+          bindStormLocation(location, locationArg, '');
         });
       }
     },

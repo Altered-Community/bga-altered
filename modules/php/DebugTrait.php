@@ -624,6 +624,61 @@ trait DebugTrait
   }
 
 
+
+  /**
+   * Load a unique card with one or more effect trigrams.
+   *
+   * Spec format: "trigger/condition/output" groups separated by ";".
+   * For on-play effects, use zone letters as trigger: H (hand), R (reserve), J or P (played).
+   * For passive effects, use the numeric trigger id (e.g. 17 for At Dusk).
+   *
+   * Examples:
+   *   H/166/29;R/167/30;J/168/31
+   *   22/166/29;1/167/30;24/168/31
+   *   17/166/29;H/882/833
+   */
+  function debug_loadUniqueTrigrams(string $spec, string $location = HAND)
+  {
+    $this->loadUniqueFromTrigrams($spec, $location);
+  }
+
+  private function loadUniqueFromTrigrams(string $spec, string $location = HAND)
+  {
+    $trigrams = [];
+    foreach (explode(';', $spec) as $part) {
+      $part = trim($part);
+      if ($part === '') {
+        continue;
+      }
+      $pieces = preg_split('#/+#', $part);
+      if (count($pieces) !== 3) {
+        throw new \feException("Invalid trigram '$part' (expected trigger/condition/output, groups separated by ';')");
+      }
+      $trigrams[] = [
+        'trigger' => $pieces[0],
+        'condition' => $pieces[1],
+        'output' => $pieces[2],
+      ];
+    }
+    if (empty($trigrams)) {
+      throw new \feException('No trigrams provided');
+    }
+
+    $player = Players::getCurrent();
+    $faction = $player->getFaction() ?: FACTION_BR;
+    $properties = Cards::generateUniqueFromTrigrams($faction, $trigrams);
+
+    Cards::singleCreate([
+      'player_id' => $player->getId(),
+      'location' => $location,
+      'nbr' => 1,
+      'properties' => $properties,
+    ]);
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
+  }
+
   function debug_loadUnique(string $v, string $location = HAND)
   {
     $this->loadUnique($v, $location);

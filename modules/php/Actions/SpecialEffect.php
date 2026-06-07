@@ -244,12 +244,20 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Next character gains <BOOST> and <ASLEEP>');
       case 'boostXCompletedFeat':
         return clienttranslate('1 Boost for each Completed Feat in your Landmarks');
+      case 'drawXCompletedFeat':
+        return clienttranslate('Draw one card per Completed Feat');
       case 'nextAnimalGains1Boost':
         return clienttranslate('Next Animal gains <BOOST>');
       case 'playAnotherTurn':
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+      case 'boostXAnimalsInExpeditions':
+        return clienttranslate('1 Boost per other Animal in expeditions');
+      case 'discardTopDeck':
+        return clienttranslate('Discard top card(s) of your deck');
+      case 'swapBoostsWithSource':
+        return clienttranslate('Exchange boosts with source character');
     }
     return '';
   }
@@ -287,6 +295,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXExhaustedMax3':
       case 'boostXLandmarkMax3':
       case 'boostXCompletedFeat':
+      case 'drawXCompletedFeat':
       default:
         return false;
     }
@@ -1134,6 +1143,41 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
         break;
+      case 'drawXCompletedFeat':
+        $n = $card->getPlayer()->getCompletedFeat();
+        if ($n > 0) {
+          $this->insertAsChild(FT::ACTION(DRAW, ['players' => ME, 'n' => $n], ['sourceId' => $card->getId()]));
+        }
+        break;
+      case 'boostXAnimalsInExpeditions':
+        $count = $card->getPlayer()->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) use ($card) {
+          if ($c->getId() == $card->getId()) {
+            return false;
+          }
+          return in_array($c->getLocation(), STORMS) && in_array(ANIMAL, $c->getSubtypes());
+        })->count();
+        if ($count > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $count));
+        }
+        break;
+      case 'discardTopDeck':
+        $n = max(1, (int) ($args['n'] ?? 1));
+        $player = $card->getPlayer();
+        $nodes = [];
+        for ($i = 0; $i < $n; $i++) {
+          if (!$player->hasDeckCards()) {
+            break;
+          }
+          $drawn = $player->draw(1, null, LIMBO, $card)->first();
+          if (is_null($drawn)) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(DISCARD, ['cardId' => $drawn->getId()], ['sourceId' => $card->getId()]);
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;
       case 'boostXAnchoredChar';
         $n = $card
           ->getPlayer()
@@ -1828,6 +1872,7 @@ class SpecialEffect extends \ALT\Models\Action
         $pId = $player->getId();
         $type = $args['type'];
         $reserve = $args['reserve'] ?? null;
+        $reserveIfNotType = $args['reserveIfNotType'] ?? false;
         $done = false;
         $resupply = false;
 
@@ -1836,7 +1881,7 @@ class SpecialEffect extends \ALT\Models\Action
           if ($type == $drawn->getType() || in_array($type, $drawn->getAdditionalType())) {
             $drawn->setLocation('hand');
             $done = true;
-          } elseif ($reserve == $drawn->getType() || in_array($reserve, $drawn->getAdditionalType())) {
+          } elseif ($reserveIfNotType || $reserve == $drawn->getType() || in_array($reserve, $drawn->getAdditionalType())) {
             $drawn->setLocation(RESERVE);
             $resupply = true;
           }
