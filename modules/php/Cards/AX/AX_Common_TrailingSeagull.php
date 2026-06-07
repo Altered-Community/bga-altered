@@ -18,11 +18,11 @@ class AX_Common_TrailingSeagull extends \ALT\Models\Card
       'extension' => 'NEJ',
       'type' => CHARACTER,
       'subtypes' => [ANIMAL],
-      'forest' => 1,
-      'mountain' => 1,
-      'ocean' => 0,
-      'costHand' => 0,
-      'costReserve' => 2,
+      'forest' => 0,
+      'mountain' => 0,
+      'ocean' => 2,
+      'costHand' => 1,
+      'costReserve' => 1,
     ];
   }
 }

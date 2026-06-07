@@ -10,7 +10,7 @@ class YZ_Rare_TrailingSeagull extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_FUGUE_B_AX_131_R2',
       'asset' => 'ALT_FUGUE_B_AX_131_R',
-      'faction' => FACTION_AX,
+      'faction' => FACTION_YZ,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Trailing Seagull'),
       'typeline' => clienttranslate('Character - Animal'),
@@ -20,11 +20,11 @@ class YZ_Rare_TrailingSeagull extends \ALT\Models\Card
       'type' => CHARACTER,
       'subtypes' => [ANIMAL],
       'effectDesc' => clienttranslate('#{R} I gain 1 boost.#'),
-      'forest' => 1,
-      'mountain' => 1,
-      'ocean' => 0,
-      'costHand' => 0,
-      'costReserve' => 2,
+      'forest' => 0,
+      'mountain' => 0,
+      'ocean' => 2,
+      'costHand' => 1,
+      'costReserve' => 1,
       'effectReserve' => FT::GAIN(ME, BOOST),
     ];
   }

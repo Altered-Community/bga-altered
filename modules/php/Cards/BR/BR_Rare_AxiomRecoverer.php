@@ -25,7 +25,7 @@ class BR_Rare_AxiomRecoverer extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 2,
       'costReserve' => 2,
-      'changedStats' => ['ocean'],
+      'changedStats' => ['forest'],
       'effectReserve' => FT::ACTION(RESUPPLY, []),
     ];
   }
