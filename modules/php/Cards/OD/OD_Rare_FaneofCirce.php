@@ -18,11 +18,10 @@ class OD_Rare_FaneofCirce extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'extension' => 'NEJ',
       'subtypes' => [CONSTRUCTION, LANDMARK],
-      'effectDesc' => clienttranslate('When you play a Character with Base Cost {3} or more — You may exhaust me to give it 1 boost.'),
+      'effectDesc' => clienttranslate('When you play a Character with Base Cost {2} or more — You may exhaust me to give it 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
-      'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'effectPassive' => [
         'ChooseAssignment' => [
           'conditions' => ['notTapped', 'isCardPlayed:character', 'cardPlayedCostCheck:2'],

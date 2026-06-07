@@ -18,7 +18,7 @@ class AX_Common_FaneofCirce extends \ALT\Models\Card
       'artist' => 'Jean-Baptiste Andrier',
       'extension' => 'NEJ',
       'subtypes' => [CONSTRUCTION, LANDMARK],
-      'effectDesc' => clienttranslate('{J} $<Resupply>. (Put the top card of your deck in Reserve.)  When you play a Character with Base Cost {2} or more — You may exhaust me to give it 1 boost.'),
+      'effectDesc' => clienttranslate('{J} $<RESUPPLY>. (Put the top card of your deck in Reserve.)  When you play a Character with Base Cost {2} or more — You may exhaust me to give it 1 boost.'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(RESUPPLY, []),

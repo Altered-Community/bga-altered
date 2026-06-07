@@ -16,7 +16,7 @@ class AX_Rare_TheShipwreck extends \ALT\Models\Card
       'typeline' => clienttranslate('Landmark Permanent - Construction'),
       'type' => PERMANENT,
       'subtypes' => [CONSTRUCTION, LANDMARK],
-      'effectDesc' => clienttranslate('{J} I gain 3 Kelon counters. At Noon — You may spend 1 of my Kelon counters to $<RESUPPLY>. #When I\'m sacrificed — Draw a card.#'),
+      'effectDesc' => clienttranslate('{J} I gain 3 Kelon counters.  At Noon — You may spend 1 of my Kelon counters to $<RESUPPLY>.  #When I\'m sacrificed — Draw a card.#'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => [
@@ -25,7 +25,7 @@ class AX_Rare_TheShipwreck extends \ALT\Models\Card
       ],
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'isNoon',
+          'conditions' => ['isMe', 'hasCounterOnCard'],
           'output' =>  FT::SEQ_OPTIONAL_MANUAL(
             FT::ACTION(USE_COUNTER, ['consume' => 1], ['sourceId' => $this->id]),
             FT::ACTION(RESUPPLY, [])

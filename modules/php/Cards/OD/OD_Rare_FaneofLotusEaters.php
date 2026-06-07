@@ -18,7 +18,7 @@ class OD_Rare_FaneofLotusEaters extends \ALT\Models\Card
       'artist' => 'DOBA',
       'extension' => 'NEJ',
       'subtypes' => [SITE, LANDMARK],
-      'effectDesc' => clienttranslate('{J} Sabotage. At Noon — #If you\'re first player#, target Character in your Reserve gains 1 boost.'),
+      'effectDesc' => clienttranslate('{J} Sabotage.  At Noon — #If you\'re first player#, target Character in your Reserve gains 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
