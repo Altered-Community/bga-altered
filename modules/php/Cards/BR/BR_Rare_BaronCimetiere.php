@@ -20,7 +20,7 @@ class BR_Rare_BaronCimetiere extends \ALT\Models\Card
       'artist' => "Anh Tung",
       'extension' => 'ROC',
       'subtypes'  => [MAGE],
-      'effectDesc' => clienttranslate('#{J} If you control a <COMPLETED> Feat,# create a <MANA_MOTH> Illusion token in target Expedition. #Otherwise, I gain 1 boost.#'),
+      'effectDesc' => clienttranslate('#{J} If you control a <COMPLETED_LOW> Feat,# create a <MANA_MOTH> Illusion token in target Expedition. #Otherwise, I gain 1 boost.#'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,

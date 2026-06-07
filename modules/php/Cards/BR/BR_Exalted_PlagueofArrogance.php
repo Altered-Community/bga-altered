@@ -20,7 +20,7 @@ class BR_Exalted_PlagueofArrogance extends \ALT\Models\Card
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION],
-      'effectDesc' => clienttranslate('<GIGANTIC>.  {J} Sacrifice a Feat to choose one, or sacrifice a <COMPLETED> Feat to choose two:  • <SABOTAGE>.  • Send target Character to Reserve.  • I gain 2 boosts.'),
+      'effectDesc' => clienttranslate('<GIGANTIC>.  {J} Sacrifice a Feat to choose one, or sacrifice a <COMPLETED_LOW> Feat to choose two:  • <SABOTAGE>.  • Send target Character to Reserve.  • I gain 2 boosts.'),
       'forest' => 4,
       'mountain' => 4,
       'ocean' => 3,

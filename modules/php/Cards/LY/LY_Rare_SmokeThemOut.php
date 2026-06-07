@@ -21,7 +21,7 @@ class LY_Rare_SmokeThemOut extends \ALT\Models\Card
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} #Draw a card, then put a card from your hand in Reserve.#  When two {D} abilities are activated on one of your turns — Complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: {T} : The next time a {D} ability is activated this turn, target Character gains 1 boost.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: {T} : The next time a {D} ability is activated this turn, target Character gains 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(

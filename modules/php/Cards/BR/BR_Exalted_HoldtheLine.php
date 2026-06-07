@@ -20,7 +20,7 @@ class BR_Exalted_HoldtheLine extends \ALT\Models\Card
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} Target Character gains 2 boosts.  When you pass — If you control two or more <BOOSTED_CHA_P> Characters, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: When a Companion joins your Expeditions — It gains 1 boost.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: When a Companion joins your Expeditions — It gains 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::ACTION(TARGET, [
