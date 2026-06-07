@@ -145,7 +145,8 @@ class Spend extends \ALT\Models\Action
 
     $effect = $this->getArg('effect');
     if ($effect !== null) {
-      $effect = $this->updateCardId($effect, $card->getId(), $card->getLocation(), $this->getSourceId(), $card->getPlayer()->getId());
+      // Keep GAIN(EFFECT)/etc. referring to the trigger event card, not the card boosts were spent from.
+      $effect = $this->updateCardId($effect, $card->getId(), $card->getLocation(), $this->getSourceId(), $card->getPlayer()->getId(), true);
       if ($this->getArg('updateN') == true) {
         $effect['args']['n'] = $amount;
       }

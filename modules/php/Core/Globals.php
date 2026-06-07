@@ -78,6 +78,14 @@ class Globals extends \ALT\Helpers\DB_Manager
     'turnCards' => 'obj',
     'nextCharacterInExpeditionBoost' => 'obj',
     'nextCharacterBaseCost3Anchored' => 'bool',
+    
+    // Eole
+    'nextCharacterAsleep' => 'obj',
+    'abilityActivatedThisTurn' => 'obj',
+    'nextAnimalBoost' => 'int',
+    'nextAnimalBoostOccurence' => 'int',
+    'abilityActivatedThisTurnCount' => 'obj',
+    'abilityActivatedThisTurnTypeCount' => 'obj',
 
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games

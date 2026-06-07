@@ -1,0 +1,39 @@
+<?php
+namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
+
+class OD_Common_DelaytheCollapse extends \ALT\Models\Card
+{
+  public function __construct($row){
+		parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_OR_119_C',
+      'asset'  => 'ALT_EOLE_B_OR_119_C',
+
+      'faction'  => FACTION_OD,
+      'rarity'  => RARITY_COMMON,
+      'name'  => clienttranslate("Delay the Collapse"),
+      'typeline' => clienttranslate("Landmark_permanent - Feat"),
+      'type'  => PERMANENT,
+      'flavorText'  => clienttranslate('"Hold out for as long as possible. That\'s all that matters."'),
+      'artist' => "Saeed Jalabi",
+      'extension'=>'ROC',
+      'subtypes'  => [FEAT,LANDMARK],
+      'effectDesc' => clienttranslate('{J} <RESUPPLY>.  When you pass — If the total Hand Cost of cards in your Landmarks is {6} or more, complete me.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: Other cards in your Landmarks are <TOUGH_1>. (Opponents must pay {1} to target them.)'),
+      'costHand' => 2, 
+      'costReserve' => 2, 
+      'effectPlayed' => FT::ACTION(RESUPPLY, []),
+      'excludeUniversalTough' => true,
+      'effectPassive' => [
+        'EndTurn' => [
+          'conditions' => ['isMe', 'has6HandCostLandmarks', 'isThisFeatIncomplete'],
+          'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
+        ],
+      ],
+      'effectCompleted' => [
+        'dynamicTough' => 'universalLandmarks1',
+      ],
+    ];
+  }
+}

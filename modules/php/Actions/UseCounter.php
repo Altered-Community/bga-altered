@@ -51,17 +51,17 @@ class UseCounter extends \ALT\Models\Action
     $cost = $this->getArg('pay');
     $consume = $this->getArg('consume');
     if ($player->getMana() < $cost) {
-      throw new \BgaVisibleSystemException('Cannot pay cost of use Counter. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Cannot pay cost of use Counter. Should not happen');
     }
 
     if ($cost > 0) {
       $player->payMana($cost);
     }
     if ($consume < 0) {
-      throw new \BgaVisibleSystemException('Consume is negative, should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Consume is negative, should not happen');
     }
     if ($this->getArg('upTo') == false && ($extraDatas['counter'] ?? 0) < $consume) {
-      throw new \BgaVisibleSystemException('Cannot consume counter. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Cannot consume counter. Should not happen');
     }
 
     $extraDatas['counter'] -= $consume;
