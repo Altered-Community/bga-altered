@@ -88,6 +88,9 @@ class PlayCard extends \ALT\Models\Action
     }
 
     $locations[$cId] = $card->getPlayableLocation($player);
+    if ($card->hasTemple() && $card->canBePlayed($player, false, false, true)) {
+      $locations[$cId] = array_values(array_unique(array_merge($locations[$cId], $card->getTemplePlayableLocations($player))));
+    }
     // $type = $card->getType();
     // $subTypes = $card->getSubtypes();
     // if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
@@ -127,6 +130,11 @@ class PlayCard extends \ALT\Models\Action
       throw new \Bga\GameFramework\VisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $card = Cards::get($cardId);
+    $player = Players::getActive();
+    $temple = false;
+    if ($location == LANDMARK && $card->hasTemple() && !in_array(LANDMARK, $card->getPlayableLocation($player))) {
+      $temple = true;
+    }
     if ($this->getArg('stealOwnership') && $card->getPId() != Players::getActiveId()) {
       $extraDatas = $card->getExtraDatas();
       if (!isset($extraDatas['pId'])) {
@@ -145,7 +153,8 @@ class PlayCard extends \ALT\Models\Action
       $this->getArg('cost'),
       $this->getArg('reallyPlayed'),
       false,
-      $this->getArg('stealOwnership')
+      $this->getArg('stealOwnership'),
+      $temple
     );
   }
 }

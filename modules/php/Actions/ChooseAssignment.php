@@ -207,8 +207,16 @@ class ChooseAssignment extends \ALT\Models\Action
     if (($locExploded[1] ?? '') == 'scout') {
       $scout = true;
     }
-    if (($locExploded[1] ?? '') == 'temple') {
-      $temple = true;
+
+    if (!$temple && ($locExploded[0] ?? $location) == LANDMARK) {
+      $card = Cards::get($cardId);
+      if ($card->hasTemple() && !in_array(LANDMARK, $card->getPlayableLocation(
+        Players::getActive(),
+        $this->getArg('forcedLocation'),
+        $this->getArg('free')
+      ))) {
+        $temple = true;
+      }
     }
 
     $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout, false, $temple);
@@ -437,8 +445,8 @@ class ChooseAssignment extends \ALT\Models\Action
       $deleted = $card->discard();
       Notifications::silentKill($deleted);
     }
-    // if played from reserve, it gains fleeting
-    elseif ($fromLocation == RESERVE && !in_array(LANDMARK, $card->getSubtypes())) {
+    // if played from reserve, it gains fleeting (temple plays become Landmark Constructions)
+    elseif ($fromLocation == RESERVE && !$temple && !in_array(LANDMARK, $card->getSubtypes())) {
       Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
     } elseif ($player->getHero()->isAllSpell1Fleeting() && $card->getType() == SPELL && $card->getCostHand() <= 1) {
       Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);

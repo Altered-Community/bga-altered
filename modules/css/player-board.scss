@@ -46,33 +46,6 @@
         }
     }
 
-    .player-board-landmark-temple.temple {
-        position: absolute;
-        top: 95px;
-        left: 780px;
-        width: 120px;
-        height: 40px;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 5;
-
-        &.droppable,
-        &.selectable {
-            display: flex;
-        }
-
-        .temple-marker {
-            background-color: #ffffffef;
-            border-radius: 8px;
-            box-shadow: 1px 1px 5px 3px black;
-            padding: 4px 10px;
-            font-size: 13px;
-            font-weight: bold;
-            pointer-events: none;
-        }
-    }
-
     .player-board-hero {
         position: absolute;
         width: $cardWidth; // + 2 * $boardMargin;
@@ -629,6 +602,7 @@
             background-size: 100% 100%;
         }
         .player-board-landmarks {
+            position: relative;
             min-width: 276px;
             background: url("img/landmark-slot.png");
             background-size: auto 95%;

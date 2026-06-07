@@ -128,7 +128,9 @@ trait NewDayTrait
         $cards = Cards::getMany($cardIds);
         Notifications::discardMana($player, $cards, null, clienttranslate('${player_name} chooses ${n} card(s) as mana'));
       }
-
+      
+      Globals::setPhase(1);
+      Notifications::newPhase(PHASE_NOON);
       $this->checkCardListeners('Noon', ST_BEFORE_ASSIGNMENT);
     }
   }

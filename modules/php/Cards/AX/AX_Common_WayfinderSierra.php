@@ -15,9 +15,9 @@ class AX_Common_WayfinderSierra extends \ALT\Models\Card
       'name' => clienttranslate('Wayfinder Sierra'),
       'typeline' => clienttranslate('Axiom Hero'),
       'type' => HERO,
-      'effectDesc' => clienttranslate('At Noon — If you\'re first player, create my Signature token: Oddball 2/2/2 in your Reserve. (It\'s a Robot Companion with Reserve Cost {2} and "I cost {1} less if you played a Construction this Day.")'),
+      'effectDesc' => clienttranslate('At Noon — If you\'re first player, create my Signature token: Oddball 2/2/2 in your Reserve. (It\'s a Robot Companion with Reserve Cost {2} and "I cost {2} less if you played a Construction this Day.")'),
       'reserveSlots' => 2,
-      'landmarkSlots' => 2,
+      'landmarkSlots' => 3,
       'effectPassive' => [
         'Noon' => [
           'listeningConditions' => ['isMe'],
@@ -25,7 +25,7 @@ class AX_Common_WayfinderSierra extends \ALT\Models\Card
           'output' => [
             'action' => INVOKE_TOKEN,
             'automatic' => true,
-            'args' => ['tokenType' => 'AX/AX_Common_SignatureOddball', 'targetLocation' => [RESERVE]],
+            'args' => ['tokenType' => 'AX_Common_Oddball', 'targetLocation' => [RESERVE]],
           ],
         ],
       ],

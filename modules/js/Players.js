@@ -168,9 +168,6 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           <div id='board-stormRight_scout-${pId}' class='player-board-storm storm-right scout '>
             <i class="fa6 fa-regular fa-binoculars scout-marker"></i>
           </div>
-          <div id='board-landmark_temple-${pId}' class='player-board-landmark-temple temple'>
-            <span class='temple-marker'>${_('Temple')}</span>
-          </div>
           <div id='board-stormLeft_ascend-${pId}' class='player-board-storm storm-left ascend '>
           </div>
           <div id='board-stormRight_ascend-${pId}' class='player-board-storm storm-right ascend '>

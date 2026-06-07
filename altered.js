@@ -1585,36 +1585,40 @@ define([
     },
 
     /*
-     * (Init) and enable draggable for given cards
-     * param : cards
-     *    cardId1 : zones
-     *    cardId2 : zones
-     *    ...
-     */
+      * (Init) and enable draggable for given cards
+      * param : cards
+      *    cardId1 : zones
+      *    cardId2 : zones
+      *    ...
+      */
     makeCardsDraggable(cards, callback) {
       this.draggableCallback = callback;
       this.draggableCards = [];
       this.draggables = {};
-      let allLocations = [];
+      let dropzones = [];
       Object.entries(cards).forEach(([cardId, locations]) => {
         // No available zones
         if (locations.length == 0) return;
 
         let zones = {};
         locations.forEach((location) => {
-          if (!allLocations.includes(location)) {
-            allLocations.push(location);
+          zones[location] = {
+            el: $(`board-${location}-${this.player_id}`),
+            playLocation: location,
+          };
+        });
+        Object.values(zones).forEach((zone) => {
+          if (!dropzones.some((z) => z.el == zone.el)) {
+            dropzones.push(zone);
           }
-
-          zones[location] = $(`board-${location}-${this.player_id}`);
         });
         this.draggableCards[cardId] = zones;
         if (!this.draggables[cardId]) this.initDraggableCard(cardId);
       });
 
       // Attach event to dropzones
-      allLocations.forEach((location) => {
-        let dropzone = $(`board-${location}-${this.player_id}`);
+      dropzones.forEach((zone) => {
+        let dropzone = zone.el;
 
         // ENTER/OVER
         this.connect(dropzone, 'dragenter', (event) => {
@@ -1642,7 +1646,7 @@ define([
         this.connect(dropzone, 'drop', (event) => {
           if (!dropzone.classList.contains('droppable')) return;
 
-          this.onDropCard(location, event);
+          this.onDropCard(dropzone, event);
         });
       });
     },
@@ -1672,8 +1676,8 @@ define([
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.dropEffect = 'move';
 
-      Object.entries(this.draggableCards[cardId]).forEach(([zoneId, o]) => {
-        o.classList.add('droppable');
+      Object.values(this.draggableCards[cardId]).forEach((zone) => {
+        zone.el.classList.add('droppable');
       });
     },
 
@@ -1686,19 +1690,30 @@ define([
       const selectedItem = event.target;
       selectedItem.classList.remove('drag-active');
 
-      Object.entries(this.draggableCards[cardId]).forEach(([zoneId, o]) => {
-        o.classList.remove('droppable');
+      Object.values(this.draggableCards[cardId]).forEach((zone) => {
+        zone.el.classList.remove('droppable');
+        zone.el.classList.remove('dragged-over');
       });
     },
 
-    onDropCard(location, event) {
+    onDropCard(dropzone, event) {
       event.preventDefault();
       event.stopPropagation();
 
       const cardId = event.dataTransfer.getData('text/plain');
-      debug('DragDrop', location, cardId);
-      this.draggableCallback(cardId, location);
+      let playLocation = null;
+      Object.values(this.draggableCards[cardId] || {}).forEach((zone) => {
+        if (zone.el == dropzone) {
+          playLocation = zone.playLocation;
+        }
+      });
+      if (playLocation == null) return;
+
+      dropzone.classList.remove('dragged-over');
+      debug('DragDrop', playLocation, cardId);
+      this.draggableCallback(cardId, playLocation);
     },
+ 
 
     ///////////////////////////////////////
     //     _        _   _
@@ -1706,6 +1721,29 @@ define([
     //   / _ \ / __| __| |/ _ \| '_ \/ __|
     //  / ___ \ (__| |_| | (_) | | | \__ \
     // /_/   \_\___|\__|_|\___/|_| |_|___/
+    ///////////////////////////////////////
+    isTempleLandmarkPlay(cardId) {
+      const card = this.getCardInfos(parseInt(cardId));
+      return (
+        card?.properties?.costTemple > 0 &&
+        !(card.properties?.subtypes || []).includes('landmark')
+      );
+    },
+
+    getPlayLocationLabel(cardId, location, defaultLabel) {
+      if (location == 'landmark' && this.isTempleLandmarkPlay(cardId)) {
+        return _('Temple (Landmark)');
+      }
+      return defaultLabel;
+    },
+
+    clearLandmarkTempleHighlight() {
+      const landmark = $(`board-landmark-${this.player_id}`);
+      if (landmark) {
+        landmark.classList.remove('selectable', 'droppable', 'dragged-over');
+      }
+    },
+
     ///////////////////////////////////////
     unselectIfNeeded() {
       let oCard = $(`hand-${this.player_id}`).querySelector('.selected');
@@ -1715,6 +1753,7 @@ define([
       if (!oCard) {
         oCard = $(`board-limbo-${this.player_id}`).querySelector('.selected');
       }
+      this.clearLandmarkTempleHighlight();
       if (!oCard) return;
 
       oCard.style.transform = oCard.backup.transform;
@@ -1882,7 +1921,8 @@ define([
 
       if (args.play[cardId] != undefined) {
         args.play[cardId].forEach((location, i) => {
-          this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
+          const label = this.getPlayLocationLabel(cardId, location, names[location] ?? location);
+          this.addPrimaryActionButton('btnLocation' + i, label, onChooseLocation(location));
           this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
 
           if (location == 'limbo') {

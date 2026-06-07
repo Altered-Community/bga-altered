@@ -334,43 +334,45 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     if ($this->canBePlayed($player, false, false, true)) {
-      return ['landmark_temple'];
+      return ['LANDMARK'];
     }
 
     return [];
   }
 
-  public function applyTemplePlay()
+  // Class-file properties are reloaded each request; only DYNAMIC_PROPERTIES persist from DB.
+  // Re-apply temple runtime state whenever a temple-played card is loaded.
+  public function restoreTemplePlayState($updateDB = true)
   {
-    $extra = $this->getExtraDatas();
-    if ($this->isPlayedAsTemple()) {
+    if (!$this->isPlayedAsTemple()) {
       return;
     }
 
-    $extra['playedAsTemple'] = true;
-    $extra['templeOriginal'] = [
-      'type' => $this->getType(),
-      'subtypes' => $this->getSubtypes(),
-      'typeline' => $this->getTypeline(),
-      'effectPassive' => $this->getEffectPassive(),
-      'effectPlayed' => $this->getEffectPlayed(),
-      'effectHand' => $this->getEffectHand(),
-      'effectReserve' => $this->getEffectReserve(),
-    ];
-    $this->setExtraDatas($extra);
+    $this->setProperty('type', PERMANENT, $updateDB);
+    $this->setProperty('subtypes', [CONSTRUCTION, LANDMARK], $updateDB);
+    $this->setProperty('typeline', clienttranslate('Landmark Permanent - Construction'), $updateDB);
+    $this->setProperty('effectPlayed', [], $updateDB);
+    $this->setProperty('effectHand', [], $updateDB);
+    $this->setProperty('effectReserve', [], $updateDB);
+  }
 
-    $this->setType(PERMANENT);
-    $this->setSubtypes([CONSTRUCTION, LANDMARK]);
-    $this->setTypeline(clienttranslate('Landmark Permanent - Construction'));
-    $this->setEffectPlayed([]);
-    $this->setEffectHand([]);
-    $this->setEffectReserve([]);
-    $this->setEffectPassive([
-      'Noon' => [
-        'condition' => 'isMe',
-        'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => RESERVE], ['optional' => true]),
-      ],
-    ]);
+  public function applyTemplePlay()
+  {
+    $extra = $this->getExtraDatas();
+    if (!$this->isPlayedAsTemple()) {
+      $extra['playedAsTemple'] = true;
+      $extra['templeOriginal'] = [
+        'type' => $this->getType(),
+        'subtypes' => $this->getSubtypes(),
+        'typeline' => $this->getTypeline(),
+        'effectPlayed' => $this->getEffectPlayed(),
+        'effectHand' => $this->getEffectHand(),
+        'effectReserve' => $this->getEffectReserve(),
+      ];
+      $this->setExtraDatas($extra);
+    }
+
+    $this->restoreTemplePlayState(true);
     Notifications::refreshCard($this);
   }
 
@@ -386,7 +388,6 @@ class Card extends \ALT\Helpers\DB_Model
       $this->setType($original['type']);
       $this->setSubtypes($original['subtypes']);
       $this->setTypeline($original['typeline']);
-      $this->setEffectPassive($original['effectPassive'] ?? []);
       $this->setEffectPlayed($original['effectPlayed'] ?? []);
       $this->setEffectHand($original['effectHand'] ?? []);
       $this->setEffectReserve($original['effectReserve'] ?? []);

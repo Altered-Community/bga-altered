@@ -27,7 +27,17 @@ class AX_Exalted_FaneofHelios extends \ALT\Models\Card
           'conditions' => ['isMe'],
           'output' => FT::SEQ(
             FT::ACTION(DRAW, ['n' => 2, 'players' => ME]),
-            FT::ACTION(TARGET, ['targetLocation' => [MANA], 'effect' => FT::ACTION(READY, ['cardId' => MANA])])
+            FT::ACTION(TARGET, [
+              'targetLocation' => [HAND],
+              'targetType' => [CHARACTER, PERMANENT, SPELL],
+              'targetPlayer' => ME,
+              'upTo' => true,
+              'effect' => FT::ACTION(DISCARD, [
+                'destination' => MANA,
+                'tapped' => false,
+                'force' => true,
+              ]),
+            ])
           )
         ],
       ]

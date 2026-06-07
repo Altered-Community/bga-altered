@@ -50,40 +50,57 @@ class Cards extends \ALT\Helpers\CachedPieces
 
   public static function getCardInstance($id, $data = null)
   {
-    $rarities = [
-      RARITY_COMMON => 'Common',
-      RARITY_RARE => 'Rare',
-      RARITY_UNIQUE => 'Unique',
-      RARITY_EXALTED => 'Exalted',
-    ];
-    $p = json_decode($data['properties'], true);
-    $faction = $p['faction'];
-    $rarity = $rarities[$p['rarity']] ?? 'Common';
-
-    $slug = slugify($p['name']);
-    $className = '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . $rarity . '_' . $slug;
+    $p = is_array($data['properties']) ? $data['properties'] : json_decode($data['properties'], true);
 
     $isUnique = $p['rarity'] == RARITY_UNIQUE;
     // Unique => all infos are stored into DB
     if ($isUnique) {
       return new Card($data); // information from DB
     }
-    // Non-unique => take non-dynamic properties from files
-    else {
-      if (class_exists($className)) {
-        $card = new $className($data); // no DB call
 
-        $prop = json_decode($data['properties'], true);
-        // Update dynamic properties
-        foreach (DYNAMIC_PROPERTIES as $p) {
-          $v = $prop[$p] ?? null;
-          if (!is_null($v)) {
-            $card->setProperty($p, $v, false);
-          }
+    $className = self::resolveCardClassName($p);
+    if (class_exists($className)) {
+      $card = new $className($data); // no DB call
+
+      // Update dynamic properties
+      foreach (DYNAMIC_PROPERTIES as $propName) {
+        $v = $p[$propName] ?? null;
+        if (!is_null($v)) {
+          $card->setProperty($propName, $v, false);
         }
-        return $card;
+      }
+      if ($card->isPlayedAsTemple()) {
+        $card->restoreTemplePlayState(false);
+      }
+      return $card;
+    }
+  }
+
+  private static function resolveCardClassName($properties)
+  {
+    if (!empty($properties['uid'])) {
+      require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+      $uid = $properties['uid'];
+      if (isset(UID_MAPPING[$uid])) {
+        $uid = UID_MAPPING[$uid];
+      }
+      if (isset(MAP_REFS_CLASSES[$uid])) {
+        $cInfo = explode('/', MAP_REFS_CLASSES[$uid]);
+        return "\\ALT\\Cards\\$cInfo[0]\\$cInfo[1]";
       }
     }
+
+    $rarities = [
+      RARITY_COMMON => 'Common',
+      RARITY_RARE => 'Rare',
+      RARITY_UNIQUE => 'Unique',
+      RARITY_EXALTED => 'Exalted',
+    ];
+    $faction = $properties['faction'];
+    $rarity = $rarities[$properties['rarity']] ?? 'Common';
+    $slug = slugify($properties['name']);
+
+    return '\\ALT\\Cards\\' . $faction . '\\' . $faction . '_' . $rarity . '_' . $slug;
   }
 
   public static function isKS($uid)
