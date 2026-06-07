@@ -14,7 +14,7 @@ class AX_Common_ShipwrightAutomaton extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Shipwright Automaton'),
       'typeline' => clienttranslate('Character - Robot, Construction'),
-      'type' => PERMANENT,
+      'type' => CHARACTER,
       'flavorText'  => clienttranslate('"I\'ve reprogrammed all my Automata to assign them to the construction of the Homer." - Sierra'),
       'artist' => "Ba Vo",
       'extension' => 'NEJ',

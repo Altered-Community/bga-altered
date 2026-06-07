@@ -18,16 +18,16 @@ class AX_Common_Arges extends \ALT\Models\Card
       'artist' => 'Anh Tung',
       'extension' => 'NEJ',
       'subtypes' => [ENGINEER, TITAN],
-      'effectDesc' => clienttranslate('Gigantic. (I am considered present in each of your Expeditions.) If there are two or more cards in your Landmarks, I gain 1 boost.'),
-      'forest' => 6,
-      'mountain' => 6,
+      'effectDesc' => clienttranslate('$<GIGANTIC>. (I am considered present in each of your Expeditions.)  If there are two or more cards in your Landmarks, I gain 1 boost.'),
+      'forest' => 3,
+      'mountain' => 3,
       'ocean' => 3,
-      'costHand' => 3,
-      'costReserve' => 3,
+      'costHand' => 6,
+      'costReserve' => 6,
       'gigantic' => true,
       'effectPlayed' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'hasControl:landmark:2', 
-        'output' => FT::GAIN(ME, BOOST)
+        'effect' => FT::GAIN(ME, BOOST)
       ]),
     ];
   }
