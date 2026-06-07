@@ -114,6 +114,11 @@ trait SetupTrait
         $args['_private'][$pId]['API'] = $gContent[$pId] ?? null;
       }
       
+      if ($args['_private'][$pId]['selection'] == 'random') {
+        $gContent = Globals::getDeckContent();
+        $args['_private'][$pId]['randomDeck'] = $gContent[$pId] ?? null;
+      }
+      
       $selectionVal = $args['_private'][$pId]['selection'];
       if ($selectionVal !== null && $selectionVal !== 'API' && $selectionVal !== 'random') {
         $args['_private'][$pId]['starterDeck'] = $this->getStarterDeckPreview($pId, $selectionVal);
@@ -326,13 +331,12 @@ trait SetupTrait
         }
         $faction = Cards::createDeck($player, $deckContent);
       } elseif ($selection[$pId] == 'random') {
-        // $deckContent = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
-        // if ($deckContent['success'] != 1) {
-        //   throw new \Bga\GameFramework\VisibleSystemException($deckContent['message']);
-        // }
-        // $faction = Cards::generateRandomDeck($deckContent['content'], $player);
-        $faction = Cards::generateRandomDeck([], $player);
-
+        $stored = Globals::getDeckContent()[$pId] ?? null;
+        if (!empty($stored['cards'])) {
+          $faction = Cards::createDeck($player, $stored['cards']);
+        } else {
+          $faction = Cards::generateRandomDeck([], $player);
+        }
         $selection[$pId] = 'API';
       } else {
         $deckNumber = $selection[$pId];

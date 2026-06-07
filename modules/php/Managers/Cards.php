@@ -258,39 +258,25 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->whereType('type', $type, $additionalType);
   }
 
-  public static function generateRandomDeck($deck, $player)
+  public static function generateRandomDeck($deck, $player, $faction = null)
   {
-    // For production
-    // $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO])->jsonSerialize(), 'n' => 1];
-    // foreach ($deck['cards'] as $cardRef => $card) {
-    //   if (isset($card['content'])) {
-    //     //it's a unique!
-    //     if (is_null(Cards::generateUnique($card['content']))) {
-    //       throw new \Bga\GameFramework\VisibleSystemException(
-    //         'This unique has an unimplemented power' . $card['content']['reference']
-    //       );
-    //     }
-    //     $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
-    //   } else {
-    //     $deckContent[] = ['card' => Cards::getCardClass($cardRef)->jsonSerialize(), 'n' => $card['quantity']];
-    //   }
-    // }
+    $deckContent = self::buildRandomDeckContent($faction);
+    return self::createDeck($player, $deckContent);
+  }
 
-    // return self::createDeck($player, $deckContent);
-
+  public static function buildRandomDeckContent($faction = null)
+  {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
-    require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
-
-    // // $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
-    // // $BGAToken = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-    // //   'game' => 'alter' . 'ed',
-    // //   'mode' => 'BGALogin',
-    // // ])['token'];
-
-    // $result = Game::get()->getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
-
-    $faction = FACTIONS[array_rand(FACTIONS)];
+    if (is_null($faction) || $faction === '' || $faction === 'ALL') {
+      $faction = FACTIONS[array_rand(FACTIONS)];
+    }
+    if ($faction === 'OR') {
+      $faction = FACTION_OD;
+    }
+    if (!in_array($faction, FACTIONS, true)) {
+      throw new \BgaUserException(clienttranslate('Invalid faction for random deck'));
+    }
     $deckContent = [];
 
     $deckContent[HERO] = [
@@ -300,80 +286,58 @@ class Cards extends \ALT\Helpers\CachedPieces
     // random cards of the faction
     $i = 0;
     $totalCards = 45;
-    $repartition = ['' => 7, 'TBF' => 7, 'WFTM' => 7, 'SO' => 7, 'SDU' => 20];
-    $allocation = ['' => 0, 'TBF' => 0, 'WFTM' => 0, 'SO' => 0, 'SDU' => 0];
+    $repartition = ['' => 2, 'TBF' => 3, 'WFTM' => 4, 'SO' => 5, 'SDU' => 6, 'ROC' => 30];
+    $allocation = array_fill_keys(array_keys($repartition), 0);
 
+    $attempts = 0;
+    $maxAttempts = 20000;
     do {
-      $c = array_rand(MAP_REFS_CLASSES);
+      if (++$attempts > $maxAttempts) {
+        throw new \feException('Could not generate a random deck: not enough implemented cards available.');
+      }
 
-      // $c = MAP_REFS_CLASSES[$a];
-      // var_dump($c);
-      $objCard = self::getCardClass($c);
-      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
-        if ($allocation[$objCard->getExtension()] < $repartition[$objCard->getExtension()]) {
+      $c = array_rand(MAP_REFS_CLASSES);
+      $cInfo = explode('/', MAP_REFS_CLASSES[$c]);
+      $classFile = dirname(__FILE__) . '/../Cards/' . $cInfo[0] . '/' . $cInfo[1] . '.php';
+      if (!file_exists($classFile)) {
+        continue;
+      }
+
+      try {
+        $objCard = self::getCardClass($c);
+      } catch (\Throwable $e) {
+        continue;
+      }
+
+      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO && !$objCard->isToken()) {
+        $extension = $objCard->getExtension();
+        if (!isset($repartition[$extension])) {
+          continue;
+        }
+        if ($allocation[$extension] < $repartition[$extension]) {
           $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
-          $allocation[$objCard->getExtension()]++;
+          $allocation[$extension]++;
           $i++;
         }
       }
     } while ($i < $totalCards);
 
-    for ($u = 0; $u < 15; $u++) {
-      $effects = [];
-      for ($b = 0; $b < 2; $b++) {
-        $cardId = CEG[array_rand(CEG)];
-        $ceg = explode('_', $cardId);
-        $found = false;
-        foreach ($ceg as $c) {
-          if (in_array($c, testedCEGS)) {
-            $found = true;
-          }
-          if (in_array($c, [519, 520, 521, 522])) { // Man in the Maze exclusion
-            $found = false;
-            break;
-          }
-        }
-        if (!$found) {
-          $b--;
-          continue;
-        }
-        $effects[] = [
-          $ceg[0],
-          $ceg[1],
-          $ceg[2]
-        ];
-      }
+    $uniqueCount = 0; //increase for randomly generated unique. Warning: Most of it will be useless due to no check on trigrams
+    $eoleTrigramCount = (int) ceil($uniqueCount * 0.75);
+    $eoleTrigramFlags = array_merge(
+      array_fill(0, $eoleTrigramCount, true),
+      array_fill(0, $uniqueCount - $eoleTrigramCount, false)
+    );
+    shuffle($eoleTrigramFlags);
 
-      $uniqueCard = [
-        'reference' => 'ALT_ALIZE_B_MU_33_U',
-        'faction' => $faction,
-        'name' => 'Fake unique for testing',
-        'cardType' => 'CHARACTER',
-        'illustrator' => 'TOTO',
-        'costHand' => 2,
-        'costReserve' => 2,
-        'forest' => 2,
-        'mountain' => 2,
-        'ocean' => 2,
-        'uniqueReduced' => [
-          [
-            'effects' => $effects
-          ]
-        ]
-      ];
-      $properties = self::generateUnique($uniqueCard);
-      if (is_null($properties)) {
-        $u--;
-        continue;
-      }
+    for ($u = 0; $u < $uniqueCount; $u++) {
       $deckContent[] = [
-        'card' => ['properties' => $properties],
+        'card' => ['properties' => self::generateRandomUnique($faction, $eoleTrigramFlags[$u])],
         'n' => 1,
       ];
-      $i++;
     }
 
-    return self::createDeck($player, $deckContent);
+    return $deckContent;
   }
 
   public static function generateUnique($unique)

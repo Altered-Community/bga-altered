@@ -913,6 +913,24 @@
       );
      },
 
+     showRandomDeckAssignedContent(args) {
+      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
+      const randomFaction = args._private.randomDeck && args._private.randomDeck.faction;
+      const factionLabel = randomFaction ? factionDisplayNames[randomFaction] || randomFaction : null;
+      const message = factionLabel
+        ? dojo.string.substitute(_('You have been assigned a random ${faction} deck'), { faction: factionLabel })
+        : _('You have been assigned a random deck');
+
+      $('altered-overlay-content').innerHTML = `
+        <h2>${_('Random deck')}</h2>
+        <p>${message}</p>
+      `;
+      this.openOverlay();
+      this.addSecondaryActionButton('btnCancel', _('Cancel'), () =>
+        this.takeAction('actCancelPrecoDeckSelection', {}, false)
+      );
+     },
+
      showAccountNotConfiguredDeckPickerContent() {
        ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
          if ($(id)) $(id).remove();
@@ -1098,9 +1116,9 @@
          return;
        }
        if (deckNumber == 'random') {
-         //this.showRandomDeckAssignedContent(args);
-         return;
-       }
+        this.showRandomDeckAssignedContent(args);
+        return;
+      }
        if (deckNumber != null && args._private.starterDeck) {
          this.showAPIDeckDetails({ _private: { API: args._private.starterDeck } });
          return;
@@ -1201,6 +1219,7 @@
                  ? ''
                 : `<div id='deck-source-toggle'>
               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
+              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
             </div>`
              }
              <div id='overlay-deck-container'></div>
@@ -1218,15 +1237,15 @@
         });
 
         if (!this._beginner) {
-          //  this.onClick('deck-source-random', () => {
-          //    let faction = this._deckWizardState.selectedFaction;
-          //    if (this._isAllFactionsBanner(faction)) {
-          //      const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
-          //      faction = pickable[Math.floor(Math.random() * pickable.length)];
-          //    }
-          //    this.takeAction('actSelectRandomDeck', { faction }, false);
-          //  });
-           this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
+            this.onClick('deck-source-random', () => {
+              let faction = this._deckWizardState.selectedFaction;
+              if (this._isAllFactionsBanner(faction)) {
+                const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
+                faction = pickable[Math.floor(Math.random() * pickable.length)];
+              }
+              this.takeAction('actSelectRandomDeck', { faction }, false);
+            });
+            this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
          filteredDecks.forEach((deck) => {
@@ -2432,43 +2451,59 @@
      },
  
      onEnteringStateInvokeToken(args) {
-       const names = {
-         stormLeft: _('Hero side'),
-         stormRight: _('Companion side'),
-         source: _('source'),
-         initialSource: _('source'),
-         oppositeSource: _('opposite of played card'),
-         landmark: _('Landmark'),
-       };
- 
-       let onChooseLocation = (location) => {
-         return () => this.takeAtomicAction('actInvokeToken', [location]);
-       };
- 
-       if (args.allPlayers == true) {
-         i = 0;
-         this.forEachPlayer((player) => {
-           args.locations.forEach((location, i) => {
-             this.addPrimaryActionButton(
-               'btnLocation' + player.id + i,
-               player.name + ' ' + names[location],
-               onChooseLocation(location + '-' + player.id)
-             );
-             if (location == 'stormLeft' || location == 'stormRight') {
-               this.onClick(`board-${location}-${player.id}`, onChooseLocation(location + '-' + player.id));
-             }
-           });
-         });
-       } else {
-         args.locations.forEach((location, i) => {
-           debug(location);
-           this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
-           if (location == 'stormLeft' || location == 'stormRight') {
-             this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
-           }
-         });
-       }
-     },
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+        source: _('source'),
+        initialSource: _('source'),
+        oppositeSource: _('opposite of played card'),
+        landmark: _('Landmark'),
+      };
+
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actInvokeToken', [location]);
+      };
+
+      const invokePlayerId = args.invokePlayerId ?? this.player_id;
+      const invokePlayer = this.gamedatas.players[invokePlayerId];
+      const invokePlayerPrefix =
+        args.invokeOnOpponent && invokePlayer ? invokePlayer.name + ' — ' : '';
+
+      const bindStormLocation = (location, locationArg, labelSuffix) => {
+        this.addPrimaryActionButton(
+          'btnLocation' + locationArg,
+          invokePlayerPrefix + (names[location] ?? location) + labelSuffix,
+          onChooseLocation(locationArg)
+        );
+        if (location == 'stormLeft' || location == 'stormRight') {
+          this.onClick(`board-${location}-${invokePlayerId}`, onChooseLocation(locationArg));
+        }
+      };
+
+      if (args.allPlayers == true) {
+        i = 0;
+        this.forEachPlayer((player) => {
+          args.locations.forEach((location, i) => {
+            this.addPrimaryActionButton(
+              'btnLocation' + player.id + i,
+              player.name + ' ' + names[location],
+              onChooseLocation(location + '-' + player.id)
+            );
+            if (location == 'stormLeft' || location == 'stormRight') {
+              this.onClick(`board-${location}-${player.id}`, onChooseLocation(location + '-' + player.id));
+            }
+          });
+        });
+      } else {
+        args.locations.forEach((location, i) => {
+          const locationArg =
+            location == 'stormLeft' || location == 'stormRight'
+              ? location + '-' + invokePlayerId
+              : location;
+          bindStormLocation(location, locationArg, '');
+        });
+      }
+    },
  
      onEnteringStateBlockExpedition(args) {
        const names = {

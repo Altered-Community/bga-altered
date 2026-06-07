@@ -424,20 +424,32 @@ abstract class Conditions
 
   public static function myExpeditionIsBehind($card, $event)
   {
-    $winners = Players::getWinningPlayerByStorms();
+    return self::isMyExpeditionAheadOrBehind($card, $event, false);
+  }
 
+  public static function myExpeditionIsAhead($card, $event)
+  {
+    return self::isMyExpeditionAheadOrBehind($card, $event, true);
+  }
+
+  private static function isMyExpeditionAheadOrBehind($card, $event, bool $ahead)
+  {
     if ($card->getPlayer()->hasOverrideBehind($card->getLocation())) {
-      return true;
+      return !$ahead;
     }
 
     if ($card->getId() != ($event['cardId'] ?? -1)) {
-      // passive effect
       $location = $card->getLocation();
     } else {
       $location = in_array(($event['to'] ?? $card->getLocation()), ['limbo', LANDMARK]) ? $card->getLocation() : ($event['to'] ?? $card->getLocation());
     }
-    $win = $winners[$location] ?? null;
-    return !is_null($win) && $win != -1 && $win != $card->getPId() && !Globals::isTieBreakerMode();
+    $win = Players::getWinningPlayerByStorms()[$location] ?? null;
+    if (Globals::isTieBreakerMode() || is_null($win) || $win == -1) {
+      return false;
+    }
+
+    $isAhead = $win == $card->getPId();
+    return $ahead ? $isAhead : !$isAhead;
   }
 
   public static function companionExpeditionIsBehind($card, $event)
@@ -534,7 +546,7 @@ abstract class Conditions
     die('Unknown op for hasXCardsInHand');
   }
 
-  public static function hasXCardsInHandExceptCurrentCard($card, $n, $op = 'GTE')
+  public static function hasXCardsInHandExceptCurrentCard($card, $event, $n, $op = 'GTE')
   {
     $count = $card->getLocation() == RESERVE ? $card
       ->getPlayer()
@@ -553,7 +565,7 @@ abstract class Conditions
     if ($op == 'EQ') {
       return $count == $n;
     }
-    die('Unknown op for hasXCardsInHand');
+    die('Unknown op for hasXCardsInHandExceptCurrentCard');
   }
 
   public static function hasNoTokensInLandmarks($card, $event)
@@ -605,6 +617,11 @@ abstract class Conditions
     }
 
     return false;
+  }
+
+  public static function hasCardInDiscardPileSourceName($card, $event)
+  {
+    return self::hasCardInDiscardPile($card, $event, $card->getName());
   }
 
   /**
@@ -814,6 +831,24 @@ abstract class Conditions
           return false;
         }
         return !empty($c->getEffectSupport());
+      });
+
+    return !$otherCards->empty();
+  }
+
+  public static function hasOtherAnimalInReserveOrExpeditions($card, $event)
+  {
+    $player = $card->getPlayer();
+    $otherCards = $player->getReserveCards()
+      ->merge($player->getPlayedCards())
+      ->filter(function ($c) use ($card) {
+        if ($c->getId() == $card->getId()) {
+          return false;
+        }
+        if ($c->getLocation() == LANDMARK || $c->getType() == HERO) {
+          return false;
+        }
+        return in_array(ANIMAL, $c->getSubtypes());
       });
 
     return !$otherCards->empty();
@@ -1775,6 +1810,11 @@ abstract class Conditions
     return true;
   }
 
+  public static function isDiscardedFromHandOrReserve($card, $event)
+  {
+    return self::isDiscarded($card, $event, HAND) || self::isDiscarded($card, $event, RESERVE);
+  }
+
   public static function isMyselfDiscarded($card, $event, $from = null, $to = null)
   {
     return $event['cardId'] == $card->getId() && self::isDiscarded($card, $event, $from, $to);
@@ -2121,33 +2161,62 @@ abstract class Conditions
     return  $n;
   }
 
-  public static function controlInAllExpeditions($card, $event, $type = null)
+  /**
+   * True when $cards (after optional exclusion) cover both expeditions: one in STORM_LEFT and one in
+   * STORM_RIGHT, or any included card is gigantic.
+   */
+  private static function hasPresenceInBothStorms($cards, $excludeCardId = null)
   {
-    $player = $card->getPlayer();;
-
-    $cards = $player->getPlayedCards($type);
     $left = false;
     $right = false;
 
-    $n = 0;
-    foreach ($cards as $oId => $oCard) {
-      if (!is_null($type) && $card->getType() != $type) {
+    foreach ($cards as $c) {
+      if (!is_null($excludeCardId) && $c->getId() == $excludeCardId) {
         continue;
       }
-      if ($oCard->isGigantic()) {
+      if ($c->isGigantic()) {
         return true;
       }
-      if ($oCard->getLocation() == STORM_LEFT) {
+      if ($c->getLocation() == STORM_LEFT) {
         $left = true;
       }
-      if ($oCard->getLocation() == STORM_RIGHT) {
+      if ($c->getLocation() == STORM_RIGHT) {
         $right = true;
       }
       if ($left && $right) {
         return true;
       }
     }
+
     return false;
+  }
+
+  /**
+   * Another Character (or matching $type) in each expedition — excludes $card unless $includeSelf is true.
+   * Card text "Character" is implemented as CHARACTER + TOKEN (see Corrupted Gargoyle / Jeanne).
+   */
+  public static function controlInAllExpeditions($card, $event, $type = null, $includeSelf = 'false')
+  {
+    if (is_null($type) || $type === '' || $type === 'character') {
+      $type = [CHARACTER, TOKEN];
+    }
+
+    $excludeCardId = $includeSelf === 'true' ? null : $card->getId();
+
+    return self::hasPresenceInBothStorms(
+      $card->getPlayer()->getPlayedCards($type),
+      $excludeCardId
+    );
+  }
+
+  public static function hasOtherCharacterInAllExpeditions($card, $event, $op = 'GTE')
+  {
+    $hasBoth = self::controlInAllExpeditions($card, $event);
+
+    if ($op == 'LTE') {
+      return !$hasBoth;
+    }
+    return $hasBoth;
   }
 
   public static function isOpponentExpeditionNotEmpty($card, $event)
@@ -2221,9 +2290,19 @@ abstract class Conditions
     return $card->getPlayer()->isAscended($srcLoc) || ($card->isGigantic() && ($card->getPlayer()->isAscended($srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
   } 
 
+  public static function isNotCardExpeditionAscended($card, $event)
+  {
+    return !self::isCardExpeditionAscended($card, $event);
+  }
+
   public static function countSourceAscended($card, $event)
   {
     return ($card->getPlayer()->isAscended(STORM_LEFT) == true ? 1 : 0) + ($card->getPlayer()->isAscended(STORM_RIGHT) == true ? 1 : 0);
+  }
+
+  public static function hasNoSourcePlayerAscended($card, $event)
+  {
+    return self::countSourceAscended($card, $event) == 0;
   }
 
   public static function hasSourcePlayerAscended($card, $event)
@@ -2239,6 +2318,28 @@ abstract class Conditions
   public static function isSupportEffect($card, $event)
   {
     return ($event['isSupport'] ?? false) == true;
+  }
+
+  public static function hasNoCardWithSupportInReserve($card, $event)
+  {
+    $noCardWithSupport = true;
+    $reserveCards = $card->getPlayer()->getReserveCards();
+    foreach ($reserveCards as $rCard) {
+      if (!empty($rCard->getEffectSupport())) {
+        $noCardWithSupport = false;
+        break;
+      }
+    }
+    return $noCardWithSupport;
+  }
+
+  public static function isTargetForestLessOrEqualToSource($card, $event)
+  {
+    if (!isset($event['cardId'])) {
+      return false;
+    }
+    $target = Cards::get($event['cardId']);
+    return $target->getForest() <= $card->getForest();
   }
 
   public static function countMonoVisibleRegions($card, $event, $n = 1, $op = 'GTE')
