@@ -65,7 +65,7 @@ class TargetPlayer extends \ALT\Models\Action
     $opponentsOnly = $this->getArg('opponentsOnly');
 
     if ($opponentsOnly == true && $pId == $player->getId()) {
-      throw new \BgaVisibleSystemException('You cannot target yourself. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target yourself. Should not happen');
     }
     $args = $this->getCtxArgs();
 

@@ -85,7 +85,7 @@ class LeafNode extends AbstractNode
     }
 
     var_dump(is_null($this->parent) ? $this->toArray() : $this->parent->toArray());
-    throw new \BgaVisibleSystemException('Unimplemented isDoable function for non-action Leaf');
+    throw new \Bga\GameFramework\VisibleSystemException('Unimplemented isDoable function for non-action Leaf');
   }
 
   /**
@@ -102,7 +102,7 @@ class LeafNode extends AbstractNode
     }
     // throw new \feException(print_r($this->infos));
     // throw new \feException(print_r(\ALT\Core\Engine::$tree->toArray()));
-    throw new \BgaVisibleSystemException('Trying to get state on a leaf without state nor action');
+    throw new \Bga\GameFramework\VisibleSystemException('Trying to get state on a leaf without state nor action');
   }
 
   /**

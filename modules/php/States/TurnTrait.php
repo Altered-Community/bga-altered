@@ -19,7 +19,7 @@ trait TurnTrait
     foreach ($cardIds as $i => $cardId) {
       $card = Cards::getSingle($cardId);
       if (is_null($card) || $card->isPlayed() || $card->getPId() != $player->getId()) {
-        throw new \BgaVisibleSystemException("You can't reorder that card:" . $card->getId());
+        throw new \Bga\GameFramework\VisibleSystemException("You can't reorder that card:" . $card->getId());
       }
 
       Cards::setState($cardId, $i);
@@ -53,9 +53,14 @@ trait TurnTrait
     Globals::setCostReduction([]);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextAnimalBoost(0);
+    Globals::setNextAnimalBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setPlayedForFree(false);
     Globals::setNextCharacterInExpeditionBoost([]);
+    Globals::setAbilityActivatedThisTurn([]);
+    Globals::setAbilityActivatedThisTurnCount([]);
+    Globals::setAbilityActivatedThisTurnTypeCount([]);
 
     Globals::setDayPhase(true);
     // Update cards with extra datas set
@@ -107,9 +112,12 @@ trait TurnTrait
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextAnimalBoost(0);
+    Globals::setNextAnimalBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
     Globals::setNextCharacterBaseCost3Anchored(false);
+    Globals::setNextCharacterAsleep(false);
     Globals::setNextCharacterAnchored(false);
     Globals::setNextCharacterFleeting(false);
     Globals::setNextTokenAnchored(false);
@@ -127,6 +135,16 @@ trait TurnTrait
     Globals::setNextCharacterInExpeditionBoost([]);
 
     self::giveExtraTime($player->getId());
+    // Per-turn ability tracking must reset at the start of each player's assignment turn.
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = [];
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = 0;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = [];
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     Stats::incTurns($player);
     $node = [
@@ -171,8 +189,11 @@ trait TurnTrait
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
     Globals::setNextCharacterBoostOccurence(0);
+    Globals::setNextAnimalBoost(0);
+    Globals::setNextAnimalBoostOccurence(0);
     Globals::setNextReserveCharacterBoost(0);
     Globals::setNextCharacterCost3Anchored(false);
+    Globals::setNextCharacterAsleep(false);
     Globals::setNextCharacterAnchored(false);
     Globals::setNextCharacterFleeting(false);
     Globals::setNextTokenAnchored(false);
@@ -317,6 +338,10 @@ trait TurnTrait
     //   Globals::setTieBreakerMode(true);
     //   Globals::setEnterTieBreakerMode(false);
     // }
+    if (Globals::getInstantWin() === true) {
+      $this->gamestate->jumpToState(ST_PRE_END_OF_GAME);
+      return;
+    }
     Globals::setPhase(4);
     Notifications::newPhase(PHASE_NIGHT);
     Globals::setPlayedForFree(false);
@@ -328,7 +353,7 @@ trait TurnTrait
   function stNightCleanup()
   {
     // $player = Players::getActive();
-
+    Meeples::nightCleanup();
     // Initiate engine in case some cards are reacting
     Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
     // Move cards / remove tokens => possible reaction of cards moving to reserve or being discarded
@@ -347,7 +372,6 @@ trait TurnTrait
 
   function stAfterNightCleanup()
   {
-    Meeples::nightCleanup();
     Globals::setStormMoves([]); // moved to be able to test Expedition cleanup
     $this->checkCardListeners('BeforeNight', 'stPreNight', []);
   }

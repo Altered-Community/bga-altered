@@ -1,0 +1,44 @@
+<?php
+namespace ALT\Cards\MU;
+use ALT\Helpers\FT;
+
+class MU_Rare_GatherthePack extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_EOLE_B_MU_122_R1',
+      'asset'  => 'ALT_EOLE_B_MU_122_R',
+
+      'faction'  => FACTION_MU,
+      'rarity'  => RARITY_RARE,
+      'name'  => clienttranslate("Gather the Pack"),
+      'typeline' => clienttranslate("Landmark_permanent - Feat"),
+      'type'  => PERMANENT,
+      'flavorText'  => clienttranslate('A wolf\'s strength is in its pack.'),
+      'artist' => "Fahmi Fauzi",
+      'extension' => 'ROC',
+      'subtypes'  => [FEAT, LANDMARK],
+      'effectDesc' => clienttranslate('{J} Target Character with Base Cost #{4} or less# gains <ANCHORED>.  When you pass — If three or more Animals in your Expeditions have a different Base Cost, complete me.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: #All Characters# in your Expeditions are <TOUGH_CHA_P_1>.'),
+      'costHand' => 2,
+      'costReserve' => 2,
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER],
+        'maxBaseCost' => 4,
+        'effect' => FT::GAIN(EFFECT, ANCHORED),
+      ]),
+      'effectPassive' => [
+        'EndTurn' => [
+          'conditions' => ['isMe', 'gatherThePackPass:animal', 'isThisFeatIncomplete'],
+          'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
+        ],
+      ],
+      'effectCompleted' => [
+        'dynamicTough' => 'universalCharacter1',
+        'universalToughScope' => 'expedition',
+      ],
+    ];
+  }
+}

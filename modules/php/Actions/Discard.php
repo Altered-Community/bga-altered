@@ -59,6 +59,7 @@ class Discard extends \ALT\Models\Action
   public function getDescription()
   {
     $location = $this->getArg('destination');
+    $cardId = $this->getArg('cardId');
 
     // Msg
     $msgs = [
@@ -71,6 +72,9 @@ class Discard extends \ALT\Models\Action
       $msg = clienttranslate('Sacrifice ${card}');
     } elseif ($this->isSabotage()) {
       $msg = clienttranslate('sabotage');
+    } elseif ($location == RESERVE && $cardId == EFFECT) {
+      // EFFECT placeholders represent the just-discarded event card.
+      $msg = clienttranslate('Send back discarded card to Reserve');
     }
 
     // Card (if any)
@@ -81,6 +85,13 @@ class Discard extends \ALT\Models\Action
         $card = '';
       } else {
         $card = Cards::get($this->getSourceId());
+      }
+    } elseif ($cardId == EFFECT) {
+      $eventCardId = $this->getEvent()['cardId'] ?? null;
+      if (!is_null($eventCardId)) {
+        $card = Cards::get($eventCardId, false);
+      } elseif (!is_null($this->getSourceId())) {
+        $card = Cards::get($this->getSourceId(), false);
       }
     } elseif ($cardId == 'event') {
       $card = Cards::get($this->getEvent()['cardId']);
@@ -120,10 +131,24 @@ class Discard extends \ALT\Models\Action
     // Any card targeted ? (might be several cards)
     if (!is_null($cardId)) {
       $cardIds = is_array($cardId) ? $cardId : [$cardId];
-      // Replace ME by source
-      $cardIds = array_map(fn($cId) => $cId == ME ? $this->getSourceId() : $cId, $cardIds);
-      // Replace event by the card played
-      $cardIds = array_map(fn($cId) => $cId == 'event' ? $this->getEvent()['cardId'] : $cId, $cardIds);
+      // Resolve placeholders.
+      // EFFECT should target the event card when available (eg. "when you discard a card... return it"),
+      // and only fallback to sourceId when there is no event card context.
+      $eventCardId = $this->getEvent()['cardId'] ?? null;
+      $cardIds = array_map(function ($cId) use ($eventCardId) {
+        if ($cId == ME || $cId == 'source') {
+          return $this->getSourceId();
+        }
+        if ($cId == EFFECT) {
+          return is_null($eventCardId) ? $this->getSourceId() : $eventCardId;
+        }
+        if ($cId == 'event') {
+          return $eventCardId;
+        }
+        return $cId;
+      }, $cardIds);
+      // Remove unresolved placeholders (eg. EFFECT without source), avoiding invalid lookups.
+      $cardIds = array_values(array_filter($cardIds, fn($cId) => !is_null($cId)));
     }
     // Any source specified ? From Hand
     elseif ($source == HAND) {
@@ -183,6 +208,9 @@ class Discard extends \ALT\Models\Action
         ->merge($this->getPlayer()->getReserveCards())
         ->getIds();
     }
+    else if ($this->getArg('special') == 'allReserve') {
+      $cardIds = $this->getPlayer()->getReserveCards()->getIds();
+    }
     // Discard myself
     else if ($this->getArg('n') == ME) {
       $cardIds = [$this->getCtx()->getSourceId()];
@@ -238,6 +266,13 @@ class Discard extends \ALT\Models\Action
         $cardsToListen[] = $cId;
       } elseif (!in_array($destination, [DISCARD_PILE, LANDMARK, STORM_LEFT, STORM_RIGHT])) {
         // we add only the cards not going to discard or triggering classical listener
+        $cardsToListen[] = $cId;
+      } elseif (
+        $destination == DISCARD_PILE &&
+        $card->getLocation() == HAND &&
+        !empty($card->getEffectPassive()['Discard'] ?? null)
+      ) {
+        // Hand cards are not in the global listener pool; add discard-reactive cards explicitly.
         $cardsToListen[] = $cId;
       }
     }
@@ -390,6 +425,43 @@ class Discard extends \ALT\Models\Action
         if ($this->getArg('tapped')) {
           $card->setTapped(true);
         }
+      }
+      
+      // LY Smoke Them Out
+      // Only count true discard-ability events: card moves from hand/reserve to discard pile.
+      // Moves like hand -> reserve are not {D} discards and must not increase discard counters.
+      if (in_array($originalLocation, [HAND, RESERVE]) && $destination == DISCARD_PILE) {
+       
+        $abilityFlags = ['discardFromHandOrReserve' => true];
+        if ($originalLocation == HAND) {
+          $abilityFlags['discardFromHand'] = true;
+        }
+        $abilityActivated = Globals::getAbilityActivatedThisTurn();
+        $abilityActivated[$pId] = array_merge(
+          $abilityActivated[$pId] ?? [],
+          $abilityFlags
+        );
+        Globals::setAbilityActivatedThisTurn($abilityActivated);
+        $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+        $abilityActivatedCount[$pId] = ($abilityActivatedCount[$pId] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+        $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+        $abilityActivatedTypeCount[$pId] = $abilityActivatedTypeCount[$pId] ?? [];
+        $abilityActivatedTypeCount[$pId]['discard'] = ($abilityActivatedTypeCount[$pId]['discard'] ?? 0) + 1;
+        Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
+      }
+
+      if (in_array($originalLocation, [HAND, RESERVE])) {
+        $abilityFlags = ['discardFromHandOrReserve' => true];
+        if ($originalLocation == HAND) {
+          $abilityFlags['discardFromHand'] = true;
+        }
+        $abilityActivated = Globals::getAbilityActivatedThisTurn();
+        $abilityActivated[$pId] = array_merge(
+          $abilityActivated[$pId] ?? [],
+          $abilityFlags
+        );
+        Globals::setAbilityActivatedThisTurn($abilityActivated);
       }
 
       // we add the source to the listening cards if it's not in the storms anymore

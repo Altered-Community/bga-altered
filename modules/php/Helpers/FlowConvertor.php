@@ -5698,7 +5698,7 @@ abstract class FlowConvertor
     $trigger = self::getTriggers()[$effect] ?? null;
 
     if (is_null($trigger)) {
-      throw new \BgaVisibleSystemException('Unique trigger not implemented.' . $effect);
+      throw new \Bga\GameFramework\VisibleSystemException('Unique trigger not implemented.' . $effect);
     }
 
     $calculated['type'] = $trigger['type'] ?? 'effectPassive';
@@ -5735,7 +5735,7 @@ abstract class FlowConvertor
     $conditions = self::getConditions()[$effect] ?? null;
 
     if (is_null($conditions)) {
-      throw new \BgaVisibleSystemException('Unique conditions not implemented.' . $effect);
+      throw new \Bga\GameFramework\VisibleSystemException('Unique conditions not implemented.' . $effect);
     }
     if (isset($conditions['description'])) {
       $calculated['conditionDescription'] = $conditions['description'];
@@ -5771,7 +5771,7 @@ abstract class FlowConvertor
     $output = self::getOutput()[$effect] ?? null;
 
     if (is_null($output)) {
-      throw new \BgaVisibleSystemException('Unique conditions not implemented.' . $effect);
+      throw new \Bga\GameFramework\VisibleSystemException('Unique conditions not implemented.' . $effect);
     }
     if (isset($output['description'])) {
       $calculated['outputDescription'] = $output['description'];

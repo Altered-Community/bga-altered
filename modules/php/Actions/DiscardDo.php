@@ -169,17 +169,17 @@ class DiscardDo extends \ALT\Models\Action
     $totalCost = $this->getArg('totalCost');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
-      throw new \BgaVisibleSystemException('You cannot target these cards. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target these cards. Should not happen');
     }
     if (count($cardIds) > $args['n']) {
-      throw new \BgaVisibleSystemException('You selected too many cards. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You selected too many cards. Should not happen');
     }
     if (
       !$args['upTo'] &&
       ((count($args['cardIds']) >= $args['n'] && count($cardIds) < $args['n']) ||
         (count($args['cardIds']) < $args['n'] && count($cardIds) != count($args['cardIds'])))
     ) {
-      throw new \BgaVisibleSystemException('You havent selected enough cards. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You havent selected enough cards. Should not happen');
     }
 
     $isSacrifice = $this->getArg('sacrifice');
