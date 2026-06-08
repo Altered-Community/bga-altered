@@ -23,7 +23,7 @@ class BR_Common_GalvanizetheTroops extends \ALT\Models\Card
       'extension' => 'ROC',
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} <RESUPPLY>. Then, you may have target Character you control gain <FLEETING>.  When you pass — If you control two or more <FLEETING> Characters, complete me.'),
-      'supportDesc' => clienttranslate('<COMPLETED>: At Noon — If you are first player, <RESUPPLY_LOW>.'),
+      'supportDesc' => clienttranslate('<COMPLETED_LOW>: At Noon — If you are first player, <RESUPPLY_LOW>.'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(

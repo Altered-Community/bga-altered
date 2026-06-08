@@ -20,7 +20,7 @@ class OD_Rare_RekaFixer extends \ALT\Models\Card
       'artist' => "Andy Jauffrit",
       'extension' => 'ROC',
       'subtypes'  => [ADVENTURER],
-      'effectDesc' => clienttranslate('{R} If you control a Feat, <RESUPPLY_LOW>. #If it\'s <COMPLETED>, draw a card instead.#'),
+      'effectDesc' => clienttranslate('{R} If you control a Feat, <RESUPPLY_LOW>. #If it\'s <COMPLETED_LOW>, draw a card instead.#'),
       'supportDesc' => clienttranslate('{D} : The next Character you play this turn gains 1 boost.'),
       'supportIcon' => 'discard',
       'forest' => 2,
