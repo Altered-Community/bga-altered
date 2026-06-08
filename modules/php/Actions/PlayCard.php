@@ -51,12 +51,19 @@ class PlayCard extends \ALT\Models\Action
     $cardId = $this->getCtxArg('cardId');
     if ($cardId == ME) {
       $cardId = $this->ctx->getSourceId() ?? null;
+    } elseif ($cardId == EFFECT) {
+      // EFFECT is a placeholder that should stay unresolved until you pick a target. Used in NEJ Ajax family
+      if ($description) {
+        // if no description is provided, return null. Avoid crash during cleanup phase
+        return null;
+      }
+      throw new \BgaVisibleSystemException('no card in args (play card). Should not happen');
     }
 
     if (is_null($cardId) && $description) {
       return null;
     } elseif (is_null($cardId)) {
-      throw new \Bga\GameFramework\VisibleSystemException('no card in args (play card). Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (play card). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -74,6 +81,9 @@ class PlayCard extends \ALT\Models\Action
 
   public function isDoable($player)
   {
+    if ($this->getCtxArg('cardId') == EFFECT) {
+      return false;
+    }
     $card = $this->getCard();
     return !$card->isTapped() && !empty($card->getPlayableLocation($player)) && $card->getMinManaOrbs() <= $player->getTotalMana();
   }
@@ -84,7 +94,7 @@ class PlayCard extends \ALT\Models\Action
     $cId = $card->getId();
     $player = Players::getActive();
     if (!$this->getArg('free') && !$card->canBePlayed($player)) {
-      throw new \Bga\GameFramework\VisibleSystemException('Card cannot be played. Should not happen');
+      throw new \BgaVisibleSystemException('Card cannot be played. Should not happen');
     }
 
     $locations[$cId] = $card->getPlayableLocation($player);
@@ -124,10 +134,10 @@ class PlayCard extends \ALT\Models\Action
     $args = $this->argsPlayCard()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
     }
     if (!in_array($location, $locations)) {
-      throw new \Bga\GameFramework\VisibleSystemException('Invalid location to play a card. Should not happen');
+      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $card = Cards::get($cardId);
     $player = Players::getActive();
