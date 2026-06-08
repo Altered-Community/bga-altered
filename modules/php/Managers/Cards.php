@@ -464,7 +464,20 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $properties;
   }
 
-  public static function generateRandomUnique($faction)
+  public static function parseTrigramTriggerId(string $trigger): int
+  {
+    $zoneTriggers = ['H' => 22, 'R' => 1, 'J' => 24, 'P' => 24];
+    $upper = strtoupper(trim($trigger));
+    if (isset($zoneTriggers[$upper])) {
+      return $zoneTriggers[$upper];
+    }
+    return (int) $trigger;
+  }
+
+  /**
+   * @param array<int, array{trigger: int|string, condition: int|string, output: int|string}> $trigrams
+   */
+  public static function generateUniqueFromTrigrams($faction, array $trigrams)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
 
@@ -478,9 +491,9 @@ class Cards extends \ALT\Helpers\CachedPieces
       if ($cardO->getFaction() != $faction || $cardO->getType() != CHARACTER || $cardO->getRarity() != RARITY_COMMON) {
         continue;
       } else {
-        $found = true;
-      }
-    } while ($found == false);
+       }
+      $found = true;
+    } while (!$found);
     $card = $cardO->jsonSerialize()['properties'];
     $card['rarity'] = RARITY_UNIQUE;
     $card['asset'] = substr($card['asset'], 0, strlen($card['asset']) - 1) . 'U';
@@ -507,15 +520,82 @@ class Cards extends \ALT\Helpers\CachedPieces
         unset($card[$eff]);
       }
     }
-    $nbEffect = rand(1, 1);
-    for ($i = 0; $i < $nbEffect; $i++) {
-      $trinity = [];
-      $trinity['trigger'] = TRIGGER[array_rand(TRIGGER)];
-      $trinity['condition'] = CONDITION[array_rand(CONDITION)];
-      $trinity['output'] = OUTPUT[array_rand(OUTPUT)];
+    
+    $card['uEffects'] = [];
+    foreach ($trigrams as $trigram) {
+      $trinity = [
+        'trigger' => self::parseTrigramTriggerId((string) $trigram['trigger']),
+        'condition' => (int) $trigram['condition'],
+        'output' => (int) $trigram['output'],
+      ];
       FlowConvertor::constructEffect($trinity, $card);
+      $card['uEffects'][] = array_values($trinity);
     }
+
     return $card;
+  }
+
+  public static function generateUniqueFromTrigram($faction, $trigger, $condition, $output)
+  {
+    return self::generateUniqueFromTrigrams($faction, [[
+      'trigger' => $trigger,
+      'condition' => $condition,
+      'output' => $output,
+    ]]);
+  }
+
+  /**
+   * @param bool $requireEoleComponent When true, at least one of trigger / condition / output is from EOLE.
+   */
+  public static function generateRandomUnique($faction, $requireEoleComponent = false)
+  {
+    $trinity = self::pickRandomEffectTrinity($requireEoleComponent);
+    return self::generateUniqueFromTrigram(
+      $faction,
+      $trinity['trigger'],
+      $trinity['condition'],
+      $trinity['output']
+    );
+  }
+
+  /**
+   * Picks a random trigger / condition / output triplet for generated Uniques.
+   *
+   * @param bool $requireEoleComponent At least one slot uses an EOLE effect; other slots may mix EOLE and legacy.
+   */
+  private static function pickRandomEffectTrinity(bool $requireEoleComponent): array
+  {
+    static $legacyTrigger = null;
+    static $legacyCondition = null;
+    static $legacyOutput = null;
+
+    if ($legacyTrigger === null) {
+      $legacyTrigger = array_values(array_diff(TRIGGER, TRIGGER_EOLE));
+      $legacyCondition = array_values(array_diff(CONDITION, CONDITION_EOLE));
+      $legacyOutput = array_values(array_diff(OUTPUT, OUTPUT_EOLE));
+    }
+
+    $slots = ['trigger', 'condition', 'output'];
+    $allPools = ['trigger' => TRIGGER, 'condition' => CONDITION, 'output' => OUTPUT];
+    $eolePools = ['trigger' => TRIGGER_EOLE, 'condition' => CONDITION_EOLE, 'output' => OUTPUT_EOLE];
+    $legacyPools = ['trigger' => $legacyTrigger, 'condition' => $legacyCondition, 'output' => $legacyOutput];
+
+    if (!$requireEoleComponent) {
+      return [
+        'trigger' => $legacyPools['trigger'][array_rand($legacyPools['trigger'])],
+        'condition' => $legacyPools['condition'][array_rand($legacyPools['condition'])],
+        'output' => $legacyPools['output'][array_rand($legacyPools['output'])],
+      ];
+    }
+
+    $eoleSlot = $slots[array_rand($slots)];
+    $trinity = [];
+    foreach ($slots as $slot) {
+      $pool = $slot === $eoleSlot ? $eolePools[$slot] : $allPools[$slot];
+      $trinity[$slot] = $pool[array_rand($pool)];
+    }
+
+    return $trinity;
   }
 
   public static function getUiData($pId, $refresh = false)
