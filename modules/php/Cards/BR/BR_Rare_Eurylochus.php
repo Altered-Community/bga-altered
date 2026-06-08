@@ -35,7 +35,7 @@ class BR_Rare_Eurylochus extends \ALT\Models\Card
             'effect' => FT::SEQ(
               FT::ACTION(DISCARD, []),
               FT::ACTION(CHECK_CONDITION, [
-                'condition' => 'costCheck:1:reserve:LTE',
+                'condition' => 'costCheck:1:LTE:reserve',
                 'effect' => FT::ACTION(RESUPPLY, []),
               ]),
             )
