@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'boostTargetHighestStat':
+        return clienttranslate('Gain boosts equal to target\'s highest statistic');
     }
     return '';
   }
@@ -287,6 +290,7 @@ class SpecialEffect extends \ALT\Models\Action
       case 'boostXExhaustedMax3':
       case 'boostXLandmarkMax3':
       case 'boostXCompletedFeat':
+      case 'boostTargetHighestStat':
       default:
         return false;
     }
@@ -2400,7 +2404,17 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;    
+        // FUGUE
+      case 'boostTargetHighestStat':
+        $maxBoosts = $args['maxBoosts'] ?? 3;
+        $target = $this->getCard();
+        $n = $target->getHighestStatistic(true);
+        $n = min($maxBoosts - $card->countToken(BOOST), $n);
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;
       default:
         break;
     }
