@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'toughCompanion':
+        return clienttranslate('Companions in your Expeditions are Tough');
     }
     return '';
   }
@@ -2400,7 +2403,12 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;        
+        // FUGUE
+      case 'toughCompanion':
+        $card->setProperty('dynamicTough', 'universalCharacter1');
+        $card->setProperty('universalToughScope', 'expeditionCompanion');
+        break;     
       default:
         break;
     }
