@@ -398,6 +398,7 @@ const ASLEEP = 'asleep';
 
 const CONTROLLER = 'controller';
 const OWNER = 'owner';
+const HERO_SIGNATURE = 'heroSignature';
 
 /*********************
  ******* MISC ********

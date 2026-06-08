@@ -40,12 +40,26 @@ class InvokeToken extends \ALT\Models\Action
       ],
     ];
   }
+  
+  public function resolveTokenType()
+  {
+    $tokenType = $this->getCtxArg('tokenType');
+    if ($tokenType == HERO_SIGNATURE) {
+      $hero = $this->getPlayer()->getHero();
+      if (is_null($hero)) {
+        return null;
+      }
+      $signatureToken = $hero->getSignatureToken();
+      return $signatureToken ?: null;
+    }
+    return $tokenType;
+  }
 
   public function argsInvokeToken()
   {
     $player = Players::getActive();
 
-    $tokenType = $this->getCtxArg('tokenType');
+    $tokenType = $this->resolveTokenType();
     $targetLocations = $this->getCtxArg('targetLocation') ?? STORMS;
     if (isset($this->getCtxArgs()['expedition'])) {
       // we come from a target Expedition
@@ -274,7 +288,7 @@ class InvokeToken extends \ALT\Models\Action
         'locationPId' => $invokePId,
         'gigantic' => $card->isGigantic(),
         'token' => true,
-        'invoked' => $this->getCtxArg('tokenType')
+        'invoked' => $this->resolveTokenType()
       ]);
       if (!$this->getArg('moreThan1') && $i == 0) {
         $this->checkAfterListeners($player, [
@@ -287,7 +301,7 @@ class InvokeToken extends \ALT\Models\Action
           'locationPId' => $invokePId,
           'gigantic' => $card->isGigantic(),
           'token' => true,
-          'invoked' => $this->getCtxArg('tokenType')
+          'invoked' => $this->resolveTokenType()
         ], true, 'InvokeTokenOnce');
       }
     }

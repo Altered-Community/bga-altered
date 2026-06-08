@@ -2447,7 +2447,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         TEMPLE: {
           text: _('Temple'),
           reminder: _('You may play me for my Temple cost as a Landmark Permanent - Construction with: "At Noon — You may send me to Reserve."'),
-        }
+        },
+        BLAZING_BOODA: {
+          text: _('Blazing Booda 3/3/3'),
+        },
+        COMPANION: {
+          text: _('Companion'),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;

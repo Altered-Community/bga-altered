@@ -686,6 +686,34 @@ abstract class Conditions
   }
   
   /**
+   * Characters you control whose printed Base Cost is at least minBaseCost
+   * (Reserve Cost if Fleeting, Hand Cost otherwise — same as targeting).
+   */
+  public static function hasControlCharacterWithMinBaseCost($card, $event, $minBaseCost, $n = 1, $op = 'GTE')
+  {
+    $minBaseCost = (int) $minBaseCost;
+    $n = (int) $n;
+    $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) use ($minBaseCost) {
+      if ($c->getType() != CHARACTER && !in_array(CHARACTER, $c->getAdditionalType())) {
+        return false;
+      }
+      $baseCost = $c->hasToken(FLEETING) ? $c->getCostReserve() : $c->getCostHand();
+      return $baseCost >= $minBaseCost;
+    });
+    $m = $cards->count();
+    if ($op == 'GTE') {
+      return $m >= $n;
+    }
+    if ($op == 'LTE') {
+      return $m <= $n;
+    }
+    if ($op == 'EQ') {
+      return $m == $n;
+    }
+    throw new \BgaVisibleSystemException('Unknown op for hasControlCharacterWithMinBaseCost: ' . $op);
+  }
+  
+  /**
    * Feat permanents in play whose min(Hand, Reserve cost) is at most maxBaseCost; same optional segments as hasControlFeat after maxBaseCost.
    */
   public static function hasControlFeatWithMaxBaseCost(
@@ -2446,5 +2474,14 @@ abstract class Conditions
       $gainCard->getType() == CHARACTER &&
       $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
+  }
+
+  public static function hasHeroSignatureToken($card, $event)
+  {
+    $hero = $card->getPlayer()->getHero();
+    if (is_null($hero)) {
+      return false;
+    }
+    return !empty($hero->getSignatureToken());
   }
 }

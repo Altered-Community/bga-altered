@@ -203,6 +203,7 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Fugue
     'costReductionIfConstructionPlayed' => 'int',
+    'signatureToken' => 'str',
   ];
 
   /********* DB ACCESS *********/
