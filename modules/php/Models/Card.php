@@ -1303,7 +1303,11 @@ class Card extends \ALT\Helpers\DB_Model
       return true;
     }
 
-    if (in_array($this->getType(), [TOKEN, CHARACTER])) {
+     if (
+      in_array(COMPANION, $this->getSubtypes())
+      && in_array($this->getLocation(), STORMS)
+      && $this->getPlayer()->countUniversalCompanionGigantic() > 0
+    ) {
 
       $dynamicGigantic = $this->getDynamicGigantic();
       if (!is_array($dynamicGigantic) && $dynamicGigantic != '') {
