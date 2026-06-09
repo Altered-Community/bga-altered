@@ -30,6 +30,7 @@
   },
   "155": {
     "name": "Deck format",
+    "default": 0,
     "level": "major",
     "values": {
       "0": {
@@ -37,15 +38,20 @@
         "tmdisplay": "Standard No Unique",
         "description": "40-60 cards, standard rules without unique."
       },
-      "1": {
-        "name": "Standard All Uniques",
-        "tmdisplay": "Standard All Uniques",
-        "description": "40-60 cards, standard rules, all uniques unlocked. Disclaimer: this is a temporary format. Tournaments using it will switch to another format once it's removed."
-      },
       "2": {
         "name": "Singleton No Unique",
         "tmdisplay": "Singleton No Unique",
         "description": "60-80 cards, Singleton rules without unique. "
+      },
+      "1": {
+        "name": "Standard: Simple Living Legend",
+        "tmdisplay": "Standard: Simple Living Legend",
+        "description": "40-60 cards, standard rules. All uniques legal at launch (except Set 1), then tournament results progressively ban the uniques in winning decks. Disclaimer: This format is in testing phase."
+      },
+      "4": {
+        "name": "Standard: Frontier",
+        "tmdisplay": "Standard: Frontier",
+        "description": "40-60 cards, standard rules. A rotating, shared pool of 5,000 uniques per faction, refreshed every 6–8 weeks. Disclaimer: This format is in testing phase."
       },
       "3": {
         "name": "Sandbox",
