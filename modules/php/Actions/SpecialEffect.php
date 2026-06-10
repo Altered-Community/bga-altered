@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'gainOnRevealedHandCost':
+        return clienttranslate('Gain an effect based on the revealed card\'s hand cost');
     }
     return '';
   }
@@ -2401,6 +2404,18 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;             
+        // FUGUE
+      case 'gainOnRevealedHandCost':
+        $player = $card->getPlayer();
+        $revealed = Cards::getInLocation('reveal-' . $player->getId())->first();
+        if ($revealed !== null) {
+          $branchEffect = Utils::resolveBranchingEffect($revealed->getCostHand(), $args['effect']);
+          if ($branchEffect !== null) {
+            $branchEffect = Utils::tagTree($branchEffect, ['sourceId' => $card->getId()]);
+            $this->insertAsChild($branchEffect);
+          }
+        }
+        break;
       default:
         break;
     }
