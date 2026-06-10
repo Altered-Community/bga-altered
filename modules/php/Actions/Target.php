@@ -67,7 +67,7 @@ class Target extends \ALT\Models\Action
     $upTo = $this->getCtxArg('upTo') ?? false;
     $totalCost = $this->getArg('totalCost');
     $totalMountain = $this->getArg('totalMountain');
-    $baseCost = $this->getArg('maxBaseCost');
+    $baseCost = Utils::resolveMaxBaseCost($this->getArg('maxBaseCost'), $this->getPlayer());
     $minBaseCost = $this->getArg('minBaseCost');
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
@@ -296,7 +296,7 @@ class Target extends \ALT\Models\Action
     $monoBiome = $this->getArg('monoBiome');
 
     // Duster
-    $maxBaseCost = $this->getArg('maxBaseCost');
+    $maxBaseCost = Utils::resolveMaxBaseCost($this->getArg('maxBaseCost'), $player);
     $minBaseCost = $this->getArg('minBaseCost');
 
     // Eole

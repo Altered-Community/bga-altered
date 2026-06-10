@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'gainOnRevealedType':
+        return clienttranslate('Gain an effect if the revealed card matches a type');
     }
     return '';
   }
@@ -2400,7 +2403,20 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;        
+        // FUGUE
+      case 'gainOnRevealedType':
+        $player = $card->getPlayer();
+        $type = $args['type'];
+        $gainType = $args['gainType'] ?? BOOST;
+        $n = $args['n'] ?? 1;
+        $revealed = Cards::getInLocation('reveal-' . $player->getId());
+        foreach ($revealed as $drawn) {
+          if ($type == $drawn->getType() || in_array($type, $drawn->getAdditionalType())) {
+            $this->insertAsChild(FT::GAIN($card, $gainType, $n));
+          }
+        }
+        break;     
       default:
         break;
     }
