@@ -2,12 +2,8 @@
 
 namespace ALT\Actions;
 
-use ALT\Managers\Meeples;
-use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Notifications;
-use ALT\Core\Stats;
-use ALT\Helpers\Utils;
 
 class Exhaust extends \ALT\Models\Action
 {
@@ -29,14 +25,15 @@ class Exhaust extends \ALT\Models\Action
   public function getCard()
   {
     $cardId = $this->getCtxArg('cardId');
-    if ($cardId == ME) {
-      $cardId = $this->ctx->getSourceId() ?? null;
+    if ($cardId == ME || is_null($cardId)) {
+      $cardId = $this->resolveSourceId();
     } elseif ($cardId == EFFECT) {
-      $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
+      $event = $this->getEventRecursive();
+      $cardId = $event['cardId'] ?? null;
     }
 
     if (is_null($cardId)) {
-      throw new \Bga\GameFramework\VisibleSystemException('no card in args (Gain). Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (Exhaust). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -52,7 +49,7 @@ class Exhaust extends \ALT\Models\Action
     }
 
     if ($card->isTapped()) {
-      throw new \Bga\GameFramework\VisibleSystemException('Card is already tapped. Should not happen');
+      throw new \BgaVisibleSystemException('Card is already tapped. Should not happen');
     }
     $card->setTapped(true);
 

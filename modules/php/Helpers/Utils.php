@@ -151,6 +151,14 @@ abstract class Utils extends \APP_DbObject
         return self::tagTree($child, $tags, $replaceOnly);
       }, $t['childs']);
     }
+
+    if (isset($t['args']['effect']) && is_array($t['args']['effect'])) {
+      $t['args']['effect'] = self::tagTree($t['args']['effect'], $tags, $replaceOnly);
+    }
+    if (isset($t['args']['oppositeEffect']) && is_array($t['args']['oppositeEffect'])) {
+      $t['args']['oppositeEffect'] = self::tagTree($t['args']['oppositeEffect'], $tags, $replaceOnly);
+    }
+    
     return $t;
   }
 

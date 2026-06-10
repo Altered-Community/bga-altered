@@ -830,6 +830,19 @@ class Player extends \ALT\Helpers\DB_Model
     $constructionPlayed[$this->id] = true;
     Globals::setConstructionPlayedThisDay($constructionPlayed);
   }
+  
+  public function hasRolledDieThisDay()
+  {
+    $dieRolled = Globals::getDieRolledThisDay();
+    return !empty($dieRolled[$this->id]);
+  }
+
+  public function markDieRolledThisDay()
+  {
+    $dieRolled = Globals::getDieRolledThisDay();
+    $dieRolled[$this->id] = true;
+    Globals::setDieRolledThisDay($dieRolled);
+  }
 
   public function hasGigantic()
   {

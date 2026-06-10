@@ -250,6 +250,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'boostXMonoVisibleRegions':
+        return clienttranslate('Gain 1 boost per visible single-terrain region');
+     
     }
     return '';
   }
@@ -2400,7 +2404,14 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;
+        // FUGUE
+      case 'boostXMonoVisibleRegions':
+        $n = Conditions::getCountMonoVisibleRegions();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;               
       default:
         break;
     }

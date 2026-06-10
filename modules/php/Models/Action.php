@@ -128,12 +128,31 @@ class Action
 
   public function getSourceId()
   {
-    return $this->ctx->getSourceId();
+    return $this->resolveSourceId();
+  }
+
+  public function resolveSourceId($ctx = null)
+  {
+    if (is_null($ctx)) {
+      $ctx = $this->ctx;
+    }
+    if (is_null($ctx)) {
+      return null;
+    }
+    $sourceId = $ctx->getSourceId();
+    if (!is_null($sourceId)) {
+      return $sourceId;
+    }
+    $parent = $ctx->getParent();
+    if (!is_null($parent)) {
+      return $this->resolveSourceId($parent);
+    }
+    return null;
   }
 
   public function getSource()
   {
-    $sourceId = $this->ctx->getSourceId();
+    $sourceId = $this->resolveSourceId();
     return is_null($sourceId) ? null : Cards::get($sourceId);
   }
 
@@ -363,9 +382,9 @@ class Action
    * - Every node gets `sourceId` (card that caused the effect).
    * - `args.cardId` / `cardFrom` / `ownerId` are set from the parameters unless if there's already a
    *   placeholder (`ME`, `mana`) or if forced to use `EFFECT` through $preserveEffectPlaceholder.
-   * - `TARGET` nodes are left open: their `cardId` is not overwritten and `cardId` is not
-   *   propagated into their nested `effect` (avoids wrong labels / target pools on nested targeting,
-   *   e.g. Sabotage after sacrificing a Feat).
+   * - `TARGET` nodes that need a prior pick (`excludePreviousTarget`, `compareTargetBiome`
+   *   with `source` => `cardId`, `maxHandCost` => `discard2`) store it in `args.cardId` for ctx.
+   *   `cardId` is not propagated into their nested `effect` (Guiding Ocelot, Sabotage, …).
    * - `pId` === `'owner'` is replaced with $ownerId (controller of the targeted card).
    * - If the card comes from an expedition, `wasGigantic` is stored on the node when relevant.
    *
@@ -387,10 +406,15 @@ class Action
       $cid === ME ||
       $cid === MANA ||
       ($preserveEffectPlaceholder && $cid === EFFECT);
-    if (!$isTargetAction && (!isset($node['args']['cardId']) || !$keepPlaceholder)) {
-      $node['args']['cardId'] = $cardId;
-      $node['args']['cardFrom'] = $cardFrom;
-      $node['args']['ownerId'] = $ownerId;
+    $needsPriorTargetCtx = $isTargetAction && $this->targetNeedsPriorSelectionCtx($node);
+    if (!$isTargetAction || $needsPriorTargetCtx) {
+      if (!isset($node['args']['cardId']) || !$keepPlaceholder) {
+        if (!$isTargetAction || $cardId !== null) {
+          $node['args']['cardId'] = $cardId;
+          $node['args']['cardFrom'] = $cardFrom;
+          $node['args']['ownerId'] = $ownerId;
+        }
+      }
     }
 
     if (isset($node['pId']) && $node['pId'] == 'owner') {
@@ -432,5 +456,21 @@ class Action
 
 
     return $node;
+  }
+
+  /**
+   * Nested TARGET that must read the previous pick from ctx (`getCtxArg('cardId')`).
+   */
+  private function targetNeedsPriorSelectionCtx(array $node)
+  {
+    $args = $node['args'] ?? [];
+    if (!empty($args['excludePreviousTarget'])) {
+      return true;
+    }
+    if (($args['maxHandCost'] ?? null) === 'discard2') {
+      return true;
+    }
+    $compare = $args['compareTargetBiome'] ?? null;
+    return is_array($compare) && ($compare['source'] ?? null) === 'cardId';
   }
 }

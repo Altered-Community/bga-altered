@@ -21,6 +21,16 @@ class MoveRegionMarker extends \ALT\Models\Action
 
   public function getDescription()
   {
+    $descriptions = [
+      FOREST => clienttranslate('Move a {V} Terrain Marker to my region'),
+      MOUNTAIN => clienttranslate('Move a {M} Terrain Marker to my region'),
+      OCEAN => clienttranslate('Move a {O} Terrain Marker to my region'),
+    ];
+    $markerType = $this->getArg('markerType');
+    if (isset($descriptions[$markerType])) {
+      return ['log' => $descriptions[$markerType], 'args' => []];
+    }
+
     return clienttranslate('Move a region terrain marker');
   }
 
@@ -57,7 +67,7 @@ class MoveRegionMarker extends \ALT\Models\Action
   {
     $args = $this->argsMoveRegionMarker();
     if (!isset($args['markers'][$markerId])) {
-      throw new \Bga\GameFramework\VisibleSystemException('Invalid terrain marker. Should not happen');
+      throw new \BgaVisibleSystemException('Invalid terrain marker. Should not happen');
     }
 
     // move the marker

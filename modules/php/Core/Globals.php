@@ -95,6 +95,7 @@ class Globals extends \ALT\Helpers\DB_Manager
 
     // Fugue
     'constructionPlayedThisDay' => 'obj', // pId => bool
+    'dieRolledThisDay' => 'obj', // pId => bool
   ];
 
   protected static $table = 'global_variables';

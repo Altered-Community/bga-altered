@@ -7,10 +7,6 @@ use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Globals;
 use ALT\Core\Notifications;
-use ALT\Core\Stats;
-use ALT\Helpers\Utils;
-use ALT\Helpers\FT;
-use ALT\Core\Engine;
 
 class MarkRegion extends \ALT\Models\Action
 {
@@ -21,6 +17,18 @@ class MarkRegion extends \ALT\Models\Action
 
   public function getDescription()
   {
+    if ($this->getArg('create') === true) {
+      $descriptions = [
+        FOREST => clienttranslate('Place a {V} Terrain Marker on target visible region.'),
+        MOUNTAIN => clienttranslate('Place a {M} Terrain Marker on target visible region.'),
+        OCEAN => clienttranslate('Place a {O} Terrain Marker on target visible region.'),
+      ];
+      $regionType = $this->getArg('regionType');
+      if (isset($descriptions[$regionType])) {
+        return ['log' => $descriptions[$regionType], 'args' => []];
+      }
+    }
+
     return clienttranslate('Mark a visible region');
   }
 
@@ -31,11 +39,17 @@ class MarkRegion extends \ALT\Models\Action
 
   public function argsMarkRegion()
   {
-
-    return [
+    $args = [
       'regions' => Globals::getVisibleRegions(),
-      'markers' => $this->getMarkers()
+      'markers' => $this->getMarkers(),
     ];
+
+    if ($this->getArg('create') === true) {
+      $args['regionType'] = $this->getArg('regionType');
+      $args['descSuffix'] = 'create';
+    }
+
+    return $args;
   }
 
   public function getMarkers()
@@ -60,7 +74,7 @@ class MarkRegion extends \ALT\Models\Action
   {
     $args = $this->argsMarkRegion();
     if (!isset($args['markers'][$markerId])) {
-      throw new \Bga\GameFramework\VisibleSystemException('Invalid terrain marker. Should not happen');
+      throw new \BgaVisibleSystemException('Invalid terrain marker. Should not happen');
     }
 
     // TODO : manage tiebreaker
