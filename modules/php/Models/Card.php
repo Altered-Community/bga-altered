@@ -151,6 +151,8 @@ class Card extends \ALT\Helpers\DB_Model
     'protectBoostedInExpedition' => 'bool', // Floral tent
     'increaseReserveCost' => 'int', // Ebenezer Scrooge
     'dynamicIncreaseReserveCost' => 'str',
+    'increaseHandCost' => 'int', // Fane of Nausicaa
+    'dynamicIncreaseHandCost' => 'str',
     'reduceReserveCost' => 'int', // Ebenezer Scrooge
     'dynamicReduceReserveCost' => 'str', // Ebenezer Scrooge
     'dynamicMinimumReserveCost' => 'str', // Ebenezer Scrooge Unique
@@ -1038,6 +1040,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     $increaseReserveCost = Players::getIncreaseReserveCost($this->getType());
+    $increaseHandCost = Players::getIncreaseHandCost($this->getType(), $this->getPId());
     $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes(), $this->getPId(), $this->id);
     if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
       $minimumCost = min(1, $minimumCost);
@@ -1059,8 +1062,7 @@ class Card extends \ALT\Helpers\DB_Model
         } else {
           $initialCost = $this->getCostHand();
         }
-        return max($minimumCost, $initialCost - $typeReduction  - (int) $dynamicReduc);
-        break;
+        return max($minimumCost, $initialCost - $typeReduction  - (int) $dynamicReduc + $increaseHandCost);
       case RESERVE:
         if ($reserveFlipCost) {
           return min(
@@ -1069,7 +1071,6 @@ class Card extends \ALT\Helpers\DB_Model
           );
         }
         return max($minimumCost, $this->getCostReserve() - $typeReduction - (int) $dynamicReduc + $increaseReserveCost - $reduceReserveCost);
-        break;
     }
   }
 
@@ -1406,6 +1407,22 @@ class Card extends \ALT\Helpers\DB_Model
         return 0;
       } elseif (!is_null($result)) {
         return $result;
+      }
+    }
+    return 0;
+  }
+  
+  public function getIncreaseHandCost($type = null)
+  {
+    if (($this->properties['increaseHandCost'] ?? 0) > 0) {
+      return $this->properties['increaseHandCost'];
+    }
+
+    $dynamicIncrease = $this->getDynamicIncreaseHandCost();
+    if ($dynamicIncrease != '') {
+      $result = Utils::checkAttributeCondition('cost', $dynamicIncrease, $this->getPlayer(), $this);
+      if (!is_null($result)) {
+        return (int) $result;
       }
     }
     return 0;

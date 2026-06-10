@@ -438,6 +438,18 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     return $cost;
   }
 
+  public static function getIncreaseHandCost($type = null, $playerId = null)
+  {
+    $cost = 0;
+    foreach (Cards::getPlayedCards(null) as $cId => $card) {
+      if ($playerId !== null && $card->getPId() != $playerId) {
+        continue;
+      }
+      $cost += $card->getIncreaseHandCost($type);
+    }
+    return $cost;
+  }
+
   public static function getReduceReserveCost($type, $subtypes, $ownerId, $cardId)
   {
     $cost = 0;
