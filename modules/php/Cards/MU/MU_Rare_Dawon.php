@@ -33,7 +33,7 @@ class MU_Rare_Dawon extends \ALT\Models\Card
         'excludeSelf' => true,
         'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::GAIN(TARGET, ANCHORED),
-      ]),
+      ],['optional' => true]),
     ];
   }
 }
