@@ -32,7 +32,7 @@ class MU_Common_Raksha extends \ALT\Models\Card
         'excludeSelf' => true,
         'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::GAIN(TARGET, BOOST),
-      ]),
+      ],['optional' => true]),
     ];
   }
 }
