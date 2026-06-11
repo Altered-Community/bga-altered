@@ -70,9 +70,16 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getCard()
   {
-    $args = $this->getCtxArgs();
-    $cardId = $args['cardId'] ?? null;
-    if ($cardId === null) {
+    $cardId = $this->getCtxArg('cardId');
+    if ($cardId == ME || is_null($cardId)) {
+      $source = $this->getSource();
+      $cardId = is_null($source) ? null : $source->getId();
+    } elseif ($cardId == EFFECT) {
+      $event = $this->getEventRecursive();
+      $cardId = $event['cardId'] ?? null;
+    }
+
+    if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args (Activate effect). Should not happen');
     }
     return Cards::get($cardId);
