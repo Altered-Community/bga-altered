@@ -21,7 +21,9 @@ class LY_Rare_CorruptedEsmeralda extends \ALT\Models\Card
       'extension' => 'ROC',
       'subtypes'  => [ARTIST, CORRUPTION],
       'effectDesc' => clienttranslate('I #can\'t be played# unless a {D} ability was activated this turn.  #{J}# <RESUPPLY>.'),
-      'supportDesc' => clienttranslate('{D} : Pay {1} less for the next Character you play this turn, down to a minimum of {1}.'),
+      'supportDesc' => clienttranslate(
+        '{D} : The next card you play this turn costs {1} less. (Discard me from Reserve to do this.)'
+      ),
       'supportIcon' => 'discard',
       'forest' => 0,
       'mountain' => 3,
@@ -32,7 +34,7 @@ class LY_Rare_CorruptedEsmeralda extends \ALT\Models\Card
       'effectHand' => FT::ACTION(RESUPPLY, []),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,
-        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1, 'minimum' => 1]],
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
       ],
     ];
   }
