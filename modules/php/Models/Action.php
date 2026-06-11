@@ -365,7 +365,8 @@ class Action
    *   placeholder (`ME`, `mana`) or if forced to use `EFFECT` through $preserveEffectPlaceholder.
    * - `TARGET` nodes that need a prior pick (`excludePreviousTarget`, `compareTargetBiome`
    *   with `source` => `cardId`, `maxHandCost` => `discard2`) store it in `args.cardId` for ctx.
-   *   `cardId` is not propagated into their nested `effect` (Guiding Ocelot, Sabotage, …).
+   *   `cardId` is not propagated into their nested `effect` (TARGET: Guiding Ocelot, Sabotage, …;
+   *   SPEND: nested `GAIN(EFFECT)` must still refer to the trigger event card).
    * - `pId` === `'owner'` is replaced with $ownerId (controller of the targeted card).
    * - If the card comes from an expedition, `wasGigantic` is stored on the node when relevant.
    *
@@ -381,12 +382,14 @@ class Action
   public function updateCardId($node, $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder = false)
   {
     $isTargetAction = (($node['action'] ?? null) === \TARGET);
+    $isSpendAction = (($node['action'] ?? null) === \SPEND);
+    $childPreserveEffect = $preserveEffectPlaceholder || $isSpendAction;
 
     $cid = $node['args']['cardId'] ?? null;
     $keepPlaceholder =
       $cid === ME ||
       $cid === MANA ||
-      ($preserveEffectPlaceholder && $cid === EFFECT);
+      ($childPreserveEffect && $cid === EFFECT);
     $needsPriorTargetCtx = $isTargetAction && $this->targetNeedsPriorSelectionCtx($node);
     if (!$isTargetAction || $needsPriorTargetCtx) {
       if (!isset($node['args']['cardId']) || !$keepPlaceholder) {
@@ -409,10 +412,10 @@ class Action
     }
 
     if (isset($node['1-3'])) {
-      $node['1-3'] = $this->updateCardId($node['1-3'], $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
+      $node['1-3'] = $this->updateCardId($node['1-3'], $cardId, $cardFrom, $sourceId, $ownerId, $childPreserveEffect);
     }
     if (isset($node['4+'])) {
-      $node['4+'] = $this->updateCardId($node['4+'], $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
+      $node['4+'] = $this->updateCardId($node['4+'], $cardId, $cardFrom, $sourceId, $ownerId, $childPreserveEffect);
     }
 
     $node['sourceId'] = $sourceId;
@@ -432,12 +435,12 @@ class Action
         $cardFrom,
         $sourceId,
         $ownerId,
-        $preserveEffectPlaceholder
+        $childPreserveEffect
       );
     }
     if (isset($node['childs'])) {
-      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder) {
-        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
+      $node['childs'] = array_map(function ($child) use ($cardId, $cardFrom, $sourceId, $ownerId, $childPreserveEffect) {
+        return $this->updateCardId($child, $cardId, $cardFrom, $sourceId, $ownerId, $childPreserveEffect);
       }, $node['childs']);
     }
 

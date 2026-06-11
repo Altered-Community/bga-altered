@@ -1172,6 +1172,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!is_null($output) && !empty($output)) {
       $output = Utils::tagTree($output, ['sourceId' => $card->getId()]);
+      $output = Utils::bindOwnEffectActivateCardId($output, $card->getId());
       // if (isset($args['pId'])) {
       //   $output = Utils::tagTree($output, ['pId' => $args['pId']]);
       //   // throw new \feException(print_r($output));

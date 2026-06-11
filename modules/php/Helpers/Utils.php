@@ -154,6 +154,41 @@ abstract class Utils extends \APP_DbObject
     return $t;
   }
 
+  /**
+   * Pin the passive owner's card id on ACTIVATE_EFFECT nodes with ownEffect.
+   * Prevents resolving the wrong card via getSource() when the listener event
+   * references another card (e.g. effect 840 after someone else's {D} activation).
+   */
+  public static function bindOwnEffectActivateCardId($t, $cardId)
+  {
+    if (!is_array($t)) {
+      return $t;
+    }
+
+    // Support + ownEffect (e.g. output 840): activate my {D}. Reserve + ownEffect (Thomas Edison,
+    // output 705) activates another card's {R} and binds the target via Target::updateCardId.
+    if (
+      ($t['action'] ?? '') === ACTIVATE_EFFECT
+      && ($t['args']['ownEffect'] ?? false)
+      && ($t['args']['effectType'] ?? '') === 'Support'
+    ) {
+      $t['args']['cardId'] = $cardId;
+    }
+
+    if (isset($t['childs'])) {
+      $t['childs'] = array_map(function ($child) use ($cardId) {
+        return self::bindOwnEffectActivateCardId($child, $cardId);
+      }, $t['childs']);
+    }
+    foreach (['effect', 'oppositeEffect'] as $key) {
+      if (isset($t['args'][$key]) && is_array($t['args'][$key])) {
+        $t['args'][$key] = self::bindOwnEffectActivateCardId($t['args'][$key], $cardId);
+      }
+    }
+
+    return $t;
+  }
+
   public static function tagPId($t, $pId)
   {
     if (!isset($t['pId'])) {

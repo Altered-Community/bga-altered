@@ -70,6 +70,7 @@ class Target extends \ALT\Models\Action
     $totalMountain = $this->getArg('totalMountain');
     $baseCost = $this->getArg('maxBaseCost');
     $minBaseCost = $this->getArg('minBaseCost');
+    $typeLabel = null;
     $msg = '';
     if (count($targetType) == 1 && $targetType == [CHARACTER]) {
       if ($upTo) {
@@ -88,16 +89,19 @@ class Target extends \ALT\Models\Action
         $msg = clienttranslate('Target ${n} character(s) to ${effect_desc}');
       }
     } elseif (count($targetType) == 1 && $targetType == [PERMANENT]) {
+       $typeLabel = $this->getSubtypeTargetLabel(clienttranslate('permanent'));
       if ($upTo) {
         if ($totalCost != INFTY) {
-          $msg = clienttranslate('Target up to ${n} permanent(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
+          $msg = clienttranslate('Target up to ${n} ${type_label}(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
-          $msg = clienttranslate('Target up to ${n} permanent(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+          $msg = clienttranslate('Target up to ${n} ${type_label}(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
+        } elseif ($totalOcean != INFTY) {
+          $msg = clienttranslate('Target up to ${n} ${type_label}(s) (of max ocean attribute of ${totalOcean}) to ${effect_desc}');
         } else {
-          $msg = clienttranslate('Target up to ${n} permanent(s) to ${effect_desc}');
+          $msg = clienttranslate('Target up to ${n} ${type_label}(s) to ${effect_desc}');
         }
       } else {
-        $msg = clienttranslate('Target ${n} permanent(s) to ${effect_desc}');
+        $msg = clienttranslate('Target ${n} ${type_label}(s) to ${effect_desc}');
       }
     } elseif (count($targetType) == 2 && ($targetType == [SPELL, PERMANENT] || $targetType == [PERMANENT, SPELL])) {
       if ($upTo) {
@@ -153,7 +157,7 @@ class Target extends \ALT\Models\Action
     }
 
     $args = [
-      'n' => $this->getCtxArg('n') ?? 1,
+      'n' => $this->getArg('n'),
       'effect_desc' => Engine::buildTree($this->getCtxArg('effect'))->getDescription(),
       'totalCost' => $totalCost,
       'totalMountain' => $totalMountain,
@@ -161,6 +165,11 @@ class Target extends \ALT\Models\Action
       'minBaseCost' => $minBaseCost,
       'i18n' => $i18n,
     ];
+    if ($typeLabel !== null) {
+      $args['type_label'] = $typeLabel;
+      $i18n[] = 'type_label';
+      $args['i18n'] = $i18n;
+    }
     if ($biomeLabel !== null) {
       $args['biome_label'] = $biomeLabel;
     }
@@ -705,5 +714,40 @@ class Target extends \ALT\Models\Action
       default:
         return (string) $biome;
     }
+  }
+  
+  /**
+   * When subType filters to a single subtype, return it; otherwise null (OR arrays, disabled).
+   */
+  private function resolveSingleSubType()
+  {
+    $subType = $this->getArg('subType');
+    if ($subType === 'disabled' || $subType === null) {
+      return null;
+    }
+    if (is_array($subType)) {
+      return count($subType) === 1 ? $subType[0] : null;
+    }
+    return $subType;
+  }
+
+  /**
+   * Player-facing label for target prompts when subType narrows PERMANENT targets (Feat, Landmark, …).
+   */
+  private function getSubtypeTargetLabel($defaultLabel)
+  {
+    $subType = $this->resolveSingleSubType();
+    if ($subType === null) {
+      return $defaultLabel;
+    }
+    $labels = [
+      FEAT => clienttranslate('feat'),
+      LANDMARK => clienttranslate('landmark'),
+      COMPANION => clienttranslate('companion'),
+      ROBOT => clienttranslate('robot'),
+      ANIMAL => clienttranslate('animal'),
+      CONSTRUCTION => clienttranslate('construction'),
+    ];
+    return $labels[$subType] ?? $defaultLabel;
   }
 }

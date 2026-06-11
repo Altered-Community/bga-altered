@@ -18,7 +18,7 @@ class BR_Rare_FrankensteinsCreature extends \ALT\Models\Card
       'name'  => clienttranslate("Frankenstein's Creature"),
       'typeline' => clienttranslate("Character - Robot"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate('It\'s by shunning differences that true monsters are born.'),
+      'flavorText'  => clienttranslate(''),
       'artist' => "Gamon Studio",
       'extension' => 'ROC',
       'subtypes'  => [ROBOT],
@@ -32,7 +32,7 @@ class BR_Rare_FrankensteinsCreature extends \ALT\Models\Card
       'effectReserve' => FT::ACTION(TARGET, [
         'targetType' => [PERMANENT],
         'targetPlayer' => ME,
-        'targetSubtype' => FEAT,
+        'subType' => FEAT,
         'upTo' => true,
         'maxBaseCost' => 2,
         'hasEffects' => ['Played'],

@@ -16,7 +16,7 @@ class BR_Rare_GuidingOcelot extends \ALT\Models\Card
       'name'  => clienttranslate("Guiding Ocelot"),
       'typeline' => clienttranslate("Character - Animal"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate('Who could be better at playing cat and mouse?'),
+      'flavorText'  => clienttranslate(''),
       'artist' => "Julien Carrasco",
       'extension' => 'ROC',
       'subtypes'  => [ANIMAL],
@@ -41,16 +41,6 @@ class BR_Rare_GuidingOcelot extends \ALT\Models\Card
         ],
         'InvokeToken' => [
           'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
-          'output' => FT::ACTION(TARGET, [
-            'targetPlayer' => ME,
-            'targetType' => [CHARACTER, TOKEN],
-            'targetLocation' => STORMS,
-            'augmentOnly' => true,
-            'effect' => FT::ACTION(SPEND, ['effect' => FT::GAIN(EFFECT, BOOST)]),
-          ], ['optional' => true]),
-        ],
-        'MoveCard' => [
-          'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner', 'isStillSameLocation'],
           'output' => FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER, TOKEN],
