@@ -250,6 +250,11 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'boostExpeditions':
+        return clienttranslate('Each Character in your Expeditions gains 1 boost');
+      case 'scylla':
+        return clienttranslate('Scylla effects');
     }
     return '';
   }
@@ -2400,7 +2405,41 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;
+        // FUGUE
+      case 'boostExpeditions':
+        $player = $card->getPlayer();
+        $n = $args['n'] ?? 1;
+        $nodes = [];
+        foreach ($player->getPlayedCards() as $cId => $pCard) {
+          if ($pCard->getType() != CHARACTER || !in_array($pCard->getLocation(), STORMS)) {
+            continue;
+          }
+          $nodes[] = FT::GAIN($pCard, BOOST, $n);
+        }
+        $this->pushParallelChilds($nodes);
+        break;   
+      case 'scylla':
+        $discardCount = 0;
+        foreach (Players::getAll() as $pId => $player) {
+          $discardCount += $player->getHand()->count();
+        }
+        $nodes = [];
+        foreach (Players::getAll() as $pId => $player) {
+          $nodes[] = FT::ACTION(DISCARD, ['pId' => $pId, 'special' => 'allHand']);
+        }
+        $nodes[] = FT::ACTION(DRAW, ['n' => 3]);
+        if ($discardCount >= 4) {
+          $nodes[] = FT::GAIN($card->getId(), BOOST, 1);
+        }
+        if ($discardCount >= 6) {
+          $nodes[] = FT::SABOTAGE();
+        }
+        if ($discardCount >= 8) {
+          $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['n' => -1]);
+        }
+        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        break;          
       default:
         break;
     }
