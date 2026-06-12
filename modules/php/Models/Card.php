@@ -202,8 +202,10 @@ class Card extends \ALT\Helpers\DB_Model
     'cantGainBoost' => 'str', // Conditions required to not gain boosts
     'boostIfAscended' => 'bool', // Wigwagging Kiwi
 
-     // Fugue
-     'costReductionIfConstructionPlayed' => 'int',
+    // Fugue
+    'costReductionIfConstructionPlayed' => 'int',
+    'sacrificeProtectAnchored' => 'bool', // Fane of Calypso
+    'sacrificeProtectAsleep' => 'bool', // Fane of Calypso (Ordis)
   ];
 
   /********* DB ACCESS *********/
