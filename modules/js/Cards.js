@@ -1455,6 +1455,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       let cardType = card.properties.type;
+      if (this.isPlayedAsTemple(card)) {
+        cardType = CHARACTER;
+      }
       if (cardType == 'token') {
         return renderedType != 'token';
       }
@@ -1496,6 +1499,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       </div>`;
     },
 
+    isPlayedAsTemple(card) {
+      return card?.properties?.extraDatas?.playedAsTemple === true;
+    },
+
     tplCard(card) {
       let type = card.properties.type;
       let miniZones = ['reserve', 'stormLeft', 'stormRight', 'permanent', 'landmark'];
@@ -1507,6 +1514,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       } else if (type == SPELL) {
         return this.tplSpellCard(card, false, mini);
       } else if (type == PERMANENT) {
+        if (this.isPlayedAsTemple(card)) {
+          return this.tplCharacterCard(card, false, mini);
+        }
         return this.tplPermanentCard(card, false, mini);
       } else if (type == TOKEN) {
         return this.tplTokenCard(card, false, mini);
@@ -1526,6 +1536,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       } else if (type == SPELL) {
         return this.tplSpellCardTooltip(card);
       } else if (type == PERMANENT) {
+        if (this.isPlayedAsTemple(card)) {
+          if (card.properties.token) return this.tplTokenCardTooltip(card);
+          return this.tplCharacterCardTooltip(card);
+        }
         return this.tplPermanentCardTooltip(card);
       } else if (type == TOKEN) {
         return this.tplTokenCardTooltip(card);
@@ -1612,8 +1626,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return sizes;
     },
 
+    hasTokenReserveCost(p) {
+      return p.costReserve > 0;
+    },
+
     getTokenCostsHtml(p, changed) {
-      if (!p.hasOwnProperty('costReserve')) return '';
+      if (!this.hasTokenReserveCost(p)) return '';
       return `
         <div class='card-hand-cost card-no-cost'></div>
         <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
@@ -1621,7 +1639,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     getTokenFrameAttrs(p) {
-      return p.hasOwnProperty('costReserve') ? ` data-has-cost='1'` : '';
+      return this.hasTokenReserveCost(p) ? ` data-has-cost='1'` : '';
     },
 
     tplCharacterCard(card, tooltip = false, mini = false) {
@@ -2447,7 +2465,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         TEMPLE: {
           text: _('Temple'),
           reminder: _('You may play me for my Temple cost as a Landmark Permanent - Construction with: "At Noon — You may send me to Reserve."'),
-        }
+        },
+        BLAZING_BOODA: {
+          text: _('Blazing Booda 3/3/3'),
+        },
+        COMPANION: {
+          text: _('Companion'),
+        },
       };
 
       const regexParentheses = /\(([^)]+)\)/;
