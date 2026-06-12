@@ -16,7 +16,7 @@ class OD_Rare_CorruptedBabaYaga extends \ALT\Models\Card
       'name'  => clienttranslate("Corrupted Baba Yaga"),
       'typeline' => clienttranslate("Character - Corruption Mage"),
       'type'  => CHARACTER,
-      'flavorText'  => clienttranslate('\"The Empyrean is flooded with Nightmare. It\'s spilling over.\" - Baba Yaga'),
+      'flavorText'  => clienttranslate('"The Empyrean is flooded with Nightmare. It\'s spilling over." - Baba Yaga'),
       'artist' => "Taras Susak",
       'extension' => 'ROC',
       'subtypes'  => [CORRUPTION, MAGE],
