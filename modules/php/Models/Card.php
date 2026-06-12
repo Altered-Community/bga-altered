@@ -203,6 +203,8 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Fugue
     'costReductionIfConstructionPlayed' => 'int',
+    'sacrificeProtectAnchored' => 'bool', // Fane of Calypso
+    'sacrificeProtectAsleep' => 'bool', // Fane of Calypso (Ordis)
   ];
 
   /********* DB ACCESS *********/
