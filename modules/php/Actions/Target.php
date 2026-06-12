@@ -743,10 +743,6 @@ class Target extends \ALT\Models\Action
     $labels = [
       FEAT => clienttranslate('feat'),
       LANDMARK => clienttranslate('landmark'),
-      COMPANION => clienttranslate('companion'),
-      ROBOT => clienttranslate('robot'),
-      ANIMAL => clienttranslate('animal'),
-      CONSTRUCTION => clienttranslate('construction'),
     ];
     return $labels[$subType] ?? $defaultLabel;
   }

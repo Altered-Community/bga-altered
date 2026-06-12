@@ -38,6 +38,10 @@ class BR_Common_GuidingOcelot extends \ALT\Models\Card
           'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner'],
           'output' => FT::ACTION(SPEND, ['cardId' => ME, 'effect' => FT::GAIN(EFFECT, BOOST)], ['optional' => true]),
         ],
+        'MoveCard' => [
+          'conditions' => ['isCardAddedAnyPlayer:character:::true', 'hasSameOwner', 'isStillSameLocation'],
+          'output' => FT::ACTION(SPEND, ['cardId' => ME, 'effect' => FT::GAIN(EFFECT, BOOST)], ['optional' => true]),
+        ],
       ],
     ];
   }
