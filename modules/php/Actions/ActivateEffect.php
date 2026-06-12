@@ -70,9 +70,30 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getCard()
   {
-    $args = $this->getCtxArgs();
-    $cardId = $args['cardId'] ?? null;
-    if ($cardId === null) {
+    $cardId = $this->getCtxArg('cardId');
+
+    // ownEffect + Support (e.g. output 840): activate my {D}, not the card that triggered
+    // the listener. ownEffect + Reserve (Thomas Edison, output 705) activates another
+    // card's {R} and falls through to target-bound cardId / getSource() below.
+    if ($this->getArg('ownEffect') && $this->getArg('effectType') === 'Support') {
+      if (!is_null($cardId) && $cardId != ME && $cardId != EFFECT) {
+        return Cards::get($cardId);
+      }
+      $ownerId = $this->ctx->getSourceId();
+      if (!is_null($ownerId)) {
+        return Cards::get($ownerId);
+      }
+    }
+
+    if ($cardId == ME || is_null($cardId)) {
+      $source = $this->getSource();
+      $cardId = is_null($source) ? null : $source->getId();
+    } elseif ($cardId == EFFECT) {
+      $event = $this->getEventRecursive();
+      $cardId = $event['cardId'] ?? null;
+    }
+
+    if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args (Activate effect). Should not happen');
     }
     return Cards::get($cardId);
@@ -86,7 +107,6 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function stActivateEffect()
   {
-    $source = $this->getSource();
     $cards = $this->getCard();
     $nodes = [];
 
@@ -120,11 +140,11 @@ class ActivateEffect extends \ALT\Models\Action
             'card' => $card,
           ]);
           $node = $card->$effect();
-          if ($this->getArg('ownEffect')) {
-            $node = Utils::tagTree($node, ['sourceId' => $source->getId()]);
-          } else {
-            $node = Utils::tagTree($node, ['sourceId' => $card->getId()]);
-          }
+          // ownEffect: nested effects run as the source card (Thomas Edison), not the target.
+          $tagSourceId = $this->getArg('ownEffect')
+            ? ($this->ctx->getSourceId() ?? $card->getId())
+            : $card->getId();
+          $node = Utils::tagTree($node, ['sourceId' => $tagSourceId]);
           $node = Utils::tagTree($node, ['pId' => $card->getPId()]);
           // $node['sourceId'] = $card->getId();
           if (!isset($node['action']) && ($node['type'] ?? NODE_PARALLEL) == NODE_PARALLEL) {

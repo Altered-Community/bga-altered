@@ -202,7 +202,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {
       if (!isset(MAP_REFS_CLASSES[$coreUid])) {
-        throw new \Bga\GameFramework\VisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . ' ' . $altUid . 't');
+        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . ' ' . $altUid . 't');
       } elseif ($ks || $alternate) {
         $uid = $coreUid;
       }
@@ -1160,7 +1160,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if ($throwErrorIfNone && !$listened) {
       // throw new \feException(print_r(debug_print_backtrace()));
-      throw new \Bga\GameFramework\VisibleSystemException(
+      throw new \BgaVisibleSystemException(
         'Trying to apply effect of a card without corresponding listener : ' . $methodName . ' ' . $card->getId()
       );
     }
@@ -1172,6 +1172,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!is_null($output) && !empty($output)) {
       $output = Utils::tagTree($output, ['sourceId' => $card->getId()]);
+      $output = Utils::bindOwnEffectActivateCardId($output, $card->getId());
       // if (isset($args['pId'])) {
       //   $output = Utils::tagTree($output, ['pId' => $args['pId']]);
       //   // throw new \feException(print_r($output));

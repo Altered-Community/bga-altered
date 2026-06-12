@@ -710,6 +710,28 @@ class Card extends \ALT\Helpers\DB_Model
   }
 
   /**
+   * actSupport emits Discard; ActivateEffect emits ChooseAssignment. Legacy passives may only
+   * register one of the two for {D} activations (EOLE trigger 797, The Hunger, etc.).
+   */
+  protected function resolvePassiveEventAction($passive, $event)
+  {
+    $action = $event['action'] ?? 'none';
+    if (isset($passive[$action])) {
+      return $action;
+    }
+    if (($event['isSupport'] ?? false) !== true) {
+      return $action;
+    }
+    if ($action === 'Discard' && isset($passive['ChooseAssignment'])) {
+      return 'ChooseAssignment';
+    }
+    if ($action === 'ChooseAssignment' && isset($passive['Discard'])) {
+      return 'Discard';
+    }
+    return $action;
+  }
+
+  /**
    * Event modifiers template
    **/
   public function isListeningTo($event)
@@ -723,9 +745,11 @@ class Card extends \ALT\Helpers\DB_Model
       $passive = $this->getEffectPassive();
     }
 
+    $action = $this->resolvePassiveEventAction($passive, $event);
+
     if (
       !in_array($event['type'] ?? 'none', array_keys($passive)) &&
-      !in_array($event['action'] ?? 'none', array_keys($passive))
+      !in_array($action, array_keys($passive))
     ) {
       return false;
     }
@@ -736,10 +760,10 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
-    if (isset($event['action']) && !empty($passive[$event['action']]['listeningConditions'] ?? [])) {
+    if (isset($event['action']) && !empty($passive[$action]['listeningConditions'] ?? [])) {
       // in some rare cases, check must be done before, (like Icebound taiga)
       // var_dump(debug_print_backtrace());
-      $conditions = $passive[$event['action']]['listeningConditions'];
+      $conditions = $passive[$action]['listeningConditions'];
       foreach ($conditions as $cond) {
         $t = explode(':', $cond);
         $condFct = $t[0];
@@ -776,7 +800,8 @@ class Card extends \ALT\Helpers\DB_Model
       return [null, null];
     }
 
-    if (!isset($passive[$event['type'] ?? 'none']) && !isset($passive[$event['action'] ?? 'none'])) {
+    $action = $this->resolvePassiveEventAction($passive, $event);
+    if (!isset($passive[$event['type'] ?? 'none']) && !isset($passive[$action])) {
       return [null, null];
     }
 
