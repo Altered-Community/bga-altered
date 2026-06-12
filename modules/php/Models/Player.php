@@ -1138,7 +1138,7 @@ class Player extends \ALT\Helpers\DB_Model
   /**
    * Counts permanents/characters whose {@see getDynamicTough()} grants universal +1/+2 Tough to other Characters.
    * When {@see $receiver} is set (typically the card whose {@see Card::getTough()} is being computed), sources with
-   * {@see effectCompleted} <code>universalToughScope</code> only apply to qualifying receivers (Gather the Pack).
+   * {@see universalToughScope} (on the source or in {@see effectCompleted}) only apply to qualifying receivers.
    * Multiple completed Gather the Pack feats still grant at most +1 Tough from that family (Rare + Common do not stack).
    */
   public function countUniversalCharacterTough(?Card $receiver = null)
@@ -1167,15 +1167,25 @@ class Player extends \ALT\Helpers\DB_Model
     return $tier2 * 2 + $standardTier1 + $gatherBonus;
   }
 
-  /** Completed Gather the Pack feats use {@see effectCompleted} <code>universalToughScope</code> (expedition / expeditionAnchored). */
+  /** Completed Gather the Pack feats use {@see universalToughScope} expedition / expeditionAnchored. */
   private function isGatherPackUniversalToughSource(Card $source): bool
   {
-    $completed = $source->getEffectCompleted();
-    if (!is_array($completed)) {
-      return false;
-    }
-    $scope = $completed['universalToughScope'] ?? null;
+    $scope = $this->getUniversalToughScope($source);
     return $scope === 'expedition' || $scope === 'expeditionAnchored';
+  }
+
+  /** {@see universalToughScope} on the source card, or in {@see effectCompleted} for completed Feats. */
+  private function getUniversalToughScope(Card $source): ?string
+  {
+    $scope = $source->getProperty('universalToughScope');
+    if ($scope !== null && $scope !== '') {
+      return $scope;
+    }
+    $completed = $source->getEffectCompleted();
+    if (is_array($completed) && isset($completed['universalToughScope'])) {
+      return $completed['universalToughScope'];
+    }
+    return null;
   }
 
   /**
@@ -1202,35 +1212,112 @@ class Player extends \ALT\Helpers\DB_Model
     if ($receiver === null) {
       return true;
     }
-    $completed = $source->getEffectCompleted();
-    if (!is_array($completed) || !isset($completed['universalToughScope'])) {
+    $scope = $this->getUniversalToughScope($source);
+    if ($scope === null) {
       return true;
     }
-    $scope = $completed['universalToughScope'];
     if ($scope === 'expedition') {
       return in_array($receiver->getLocation(), STORMS);
     }
     if ($scope === 'expeditionAnchored') {
       return in_array($receiver->getLocation(), STORMS) && $receiver->hasToken(ANCHORED);
     }
+    if ($scope === 'expeditionCompanion') {
+      return in_array(COMPANION, $receiver->getSubtypes())
+        && ($receiver->isGigantic() || in_array($receiver->getLocation(), STORMS));
+    }
     return true;
   }
 
   public function countUniversalToughAnchoredAsleep()
   {
+    return $this->countUniversalToughDynamic('anchoredOrAsleep');
+  }
+
+  public function countUniversalToughAnchored()
+  {
+    return $this->countUniversalToughDynamic('anchored');
+  }
+
+  public function countUniversalToughFleeting()
+  {
+    return $this->countUniversalToughDynamic('fleeting');
+  }
+
+  /**
+   * +1 Tough per matching family when the receiver has the right status token
+   * (Embassy anchoredOrAsleep, Silenus anchored/fleeting, etc.).
+   */
+  public function getUniversalStatusToughBonus(Card $receiver): int
+  {
+    $sourceCounts = [
+      'anchoredOrAsleep' => 0,
+      'anchored' => 0,
+      'fleeting' => 0,
+    ];
+
+    foreach ($this->getPlayedCards() as $card) {
+      foreach ($this->getUniversalStatusToughTypesFromSource($card) as $status) {
+        $sourceCounts[$status]++;
+      }
+    }
+
+    $bonus = 0;
+    if (
+      $sourceCounts['anchoredOrAsleep'] > 0
+      && ($receiver->hasToken(ANCHORED) || $receiver->hasToken(ASLEEP))
+    ) {
+      $bonus++;
+    }
+    if ($sourceCounts['anchored'] > 0 && $receiver->hasToken(ANCHORED)) {
+      $bonus++;
+    }
+    if ($sourceCounts['fleeting'] > 0 && $receiver->hasToken(FLEETING)) {
+      $bonus++;
+    }
+
+    return $bonus;
+  }
+
+  /**
+   * Status-based {@see dynamicTough} keys granted by $source (anchoredOrAsleep, anchored, fleeting).
+   *
+   * @return list<string>
+   */
+  private function getUniversalStatusToughTypesFromSource(Card $source): array
+  {
+    $types = [];
+    $dt = $source->getDynamicTough();
+    if (!is_array($dt)) {
+      $dt = [$dt];
+    }
+
+    foreach ($dt as $singleTough) {
+      if ($singleTough === '' || $singleTough === null) {
+        continue;
+      }
+      $match = Utils::checkAttributeCondition('tough', $singleTough, $this, $source);
+      if ($match === 'anchoredOrAsleep' || $match === 'anchored' || $match === 'fleeting') {
+        $types[$match] = true;
+      }
+    }
+
+    return array_keys($types);
+  }
+
+  /**
+   * Whether $source's {@see Card::getDynamicTough()} grants the given status-based universal Tough aura.
+   */
+  private function playedCardGrantsUniversalStatusTough(Card $source, string $status): bool
+  {
+    return in_array($status, $this->getUniversalStatusToughTypesFromSource($source), true);
+  }
+
+  private function countUniversalToughDynamic($type)
+  {
     return count(
-      $this->getPlayedCards()->filter(function ($card) {
-        $dynamicTough = $card->getDynamicTough();
-        if (!is_array($dynamicTough)) {
-          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'anchoredOrAsleep';
-        } else {
-          foreach ($dynamicTough as $singleTough) {
-            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'anchoredOrAsleep') {
-              return true;
-            }
-          }
-          return false;
-        }
+      $this->getPlayedCards()->filter(function ($card) use ($type) {
+        return $this->playedCardGrantsUniversalStatusTough($card, $type);
       })
     );
   }

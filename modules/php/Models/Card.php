@@ -1238,10 +1238,7 @@ class Card extends \ALT\Helpers\DB_Model
         $tough += 1;
       }
 
-      $anchoredAsleep = $this->getPlayer()->countUniversalToughAnchoredAsleep();
-      if ($anchoredAsleep > 0 && ($this->hasToken(ANCHORED) || $this->hasToken(ASLEEP))) {
-        $tough += 1;
-      }
+      $tough += $this->getPlayer()->getUniversalStatusToughBonus($this);
     }
 
     if (in_array($this->getType(), [PERMANENT])) {
