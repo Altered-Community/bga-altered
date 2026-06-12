@@ -2416,7 +2416,7 @@ class SpecialEffect extends \ALT\Models\Action
             $this->insertAsChild(FT::GAIN($card, $gainType, $n));
           }
         }
-        break;     
+        break; 
       default:
         break;
     }

@@ -18,7 +18,7 @@ class BR_Rare_DemodocusWeaverofTales extends \ALT\Models\Card
       'artist' => 'Jamin Amaral Fernandez',
       'extension' => 'NEJ',
       'subtypes' => [ARTIST],
-      'effectDesc' => clienttranslate('{R} #Reveal the top card of your deck#. You may target a Character #with Base Cost less than or equal to the revealed card\'s Hand Cost#. It gains Fleeting.'),
+      'effectDesc' => clienttranslate('{R} #Reveal the top card of your deck#. You may target a Character #with Base Cost less than or equal to the revealed card\'s Hand Cost#. It gains $<FLEETING>.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 3,
