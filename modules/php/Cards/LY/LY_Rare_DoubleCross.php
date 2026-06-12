@@ -20,7 +20,7 @@ class LY_Rare_DoubleCross extends \ALT\Models\Card
       'artist' => 'Ba Vo',
       'extension' => 'NEJ',
       'subtypes' => [MANEUVER],
-      'effectDesc' => clienttranslate('$<FLEETING>.  Draw a card, then each player with more than three cards in their hand discards down to three cards in hand.  Each player with more than two cards in their Reserve discards down to two cards in Reserve.'),
+      'effectDesc' => clienttranslate('$<FLEETING>.  Draw a card, then each player with more than three cards in their hand discards down to three cards in hand.  #Each player with more than two cards in their Reserve discards down to two cards in Reserve.#'),
       'costHand' => 2,
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
