@@ -6413,6 +6413,8 @@ abstract class FlowConvertor
         'conditions' => ['isAfternoon', 'isFromReserve', 'isSupportEffect'],
         'output' => FT::GAIN(ME, BOOST),
       ];
+    } elseif ($trinity['trigger'] == 797 && isset($node['ChooseAssignment']) && !isset($node['Discard'])) {
+      $node['Discard'] = $node['ChooseAssignment'];
     } elseif ($trinity['trigger'] == 446) {
       // We need to add the special effect
       $node['LeaveExpedition']['output'] = FT::ACTION(SPECIAL_EFFECT, [

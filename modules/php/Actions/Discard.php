@@ -426,30 +426,6 @@ class Discard extends \ALT\Models\Action
           $card->setTapped(true);
         }
       }
-      
-      // LY Smoke Them Out
-      // Only count true discard-ability events: card moves from hand/reserve to discard pile.
-      // Moves like hand -> reserve are not {D} discards and must not increase discard counters.
-      if (in_array($originalLocation, [HAND, RESERVE]) && $destination == DISCARD_PILE) {
-       
-        $abilityFlags = ['discardFromHandOrReserve' => true];
-        if ($originalLocation == HAND) {
-          $abilityFlags['discardFromHand'] = true;
-        }
-        $abilityActivated = Globals::getAbilityActivatedThisTurn();
-        $abilityActivated[$pId] = array_merge(
-          $abilityActivated[$pId] ?? [],
-          $abilityFlags
-        );
-        Globals::setAbilityActivatedThisTurn($abilityActivated);
-        $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
-        $abilityActivatedCount[$pId] = ($abilityActivatedCount[$pId] ?? 0) + 1;
-        Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
-        $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
-        $abilityActivatedTypeCount[$pId] = $abilityActivatedTypeCount[$pId] ?? [];
-        $abilityActivatedTypeCount[$pId]['discard'] = ($abilityActivatedTypeCount[$pId]['discard'] ?? 0) + 1;
-        Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
-      }
 
       if (in_array($originalLocation, [HAND, RESERVE])) {
         $abilityFlags = ['discardFromHandOrReserve' => true];

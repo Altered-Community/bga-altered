@@ -1240,12 +1240,19 @@ abstract class Conditions
   
   /**
    * True only when LY Smoke Them Out should react to this event.
-   * - Incomplete feat: react once discard ability count reaches 2 on your turn.
-   * - Completed+armed: react on discard ability activations (support or discard action) on your turn.
+   * - Incomplete feat: react once two {D} abilities were activated on your turn.
+   * - Completed+armed: react on the next {D} ability activation on your turn.
+   * Regular discards (e.g. Stigma of Havoc, Sabotage) are not {D} activations.
    */
   public static function smokeThemOutLyTrigger($card, $event)
   {
     if (!self::isMe($card, $event) || !self::isMyTurn($card, $event)) {
+      return false;
+    }
+
+    $isSupportDiscard = ($event['action'] ?? '') == 'Discard' && self::isSupportEffect($card, $event);
+    $isSupportChooseAssignment = ($event['action'] ?? '') == 'ChooseAssignment' && self::isSupportEffect($card, $event);
+    if (!$isSupportDiscard && !$isSupportChooseAssignment) {
       return false;
     }
 
@@ -1254,12 +1261,6 @@ abstract class Conditions
     }
 
     if (!self::isUsed($card, $event)) {
-      return false;
-    }
-
-    $isDiscardListenerEvent = ($event['action'] ?? '') == 'Discard';
-    $isSupportChooseAssignment = ($event['action'] ?? '') == 'ChooseAssignment' && self::isSupportEffect($card, $event);
-    if (!$isDiscardListenerEvent && !$isSupportChooseAssignment) {
       return false;
     }
 

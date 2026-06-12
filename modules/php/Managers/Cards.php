@@ -202,7 +202,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!isset(MAP_REFS_CLASSES[$uid])) {
       if (!isset(MAP_REFS_CLASSES[$coreUid])) {
-        throw new \Bga\GameFramework\VisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . ' ' . $altUid . 't');
+        throw new \BgaVisibleSystemException('This card is not implemented ' . $uid . ' ' . $coreUid . ' ' . $altUid . 't');
       } elseif ($ks || $alternate) {
         $uid = $coreUid;
       }
@@ -322,7 +322,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       }
     } while ($i < $totalCards);
 
-    $uniqueCount = 0; //increase for randomly generated unique. Warning: Most of it will be useless due to no check on trigrams
+    $uniqueCount = 15; //increase for randomly generated unique. Warning: Most of it will be useless due to no check on trigrams
     $eoleTrigramCount = (int) ceil($uniqueCount * 0.75);
     $eoleTrigramFlags = array_merge(
       array_fill(0, $eoleTrigramCount, true),
@@ -1160,7 +1160,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if ($throwErrorIfNone && !$listened) {
       // throw new \feException(print_r(debug_print_backtrace()));
-      throw new \Bga\GameFramework\VisibleSystemException(
+      throw new \BgaVisibleSystemException(
         'Trying to apply effect of a card without corresponding listener : ' . $methodName . ' ' . $card->getId()
       );
     }
