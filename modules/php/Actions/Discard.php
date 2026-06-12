@@ -78,7 +78,6 @@ class Discard extends \ALT\Models\Action
     }
 
     // Card (if any)
-    $cardId = $this->getArg('cardId');
     $card = '';
     if ($cardId == ME) {
       if ($this->getSourceId() == null) {
@@ -95,15 +94,42 @@ class Discard extends \ALT\Models\Action
       }
     } elseif ($cardId == 'event') {
       $card = Cards::get($this->getEvent()['cardId']);
-    } else if (!is_null($cardId)) {
-      $card = Cards::get($cardId, false);
+          if ($card instanceof Collection && $card->count() == 0) {
+        $card = 'it';
+      }
     }
-
+    if ($location == MANA && !$this->isSacrifice() && !$this->isSabotage()) {
+      if ($card === 'it' || $card === '') {
+        return [
+          'log' => clienttranslate('put it in its owner\'s Mana zone (as an exhausted Mana Orb)'),
+          'args' => [],
+        ];
+      }
+      return [
+        'log' => clienttranslate('put ${card} in its owner\'s Mana zone (as an exhausted Mana Orb)'),
+        'args' => [
+          'card' => $card instanceof Collection ? $card->first()->getName() : $card->getName(),
+          'i18n' => ['card'],
+        ],
+      ];
+    }
+    $cardLabel = '';
+    if ($card === 'it') {
+      $cardLabel = clienttranslate('it');
+    } elseif ($card instanceof Collection) {
+      if ($card->count() > 1) {
+        $cardLabel = clienttranslate('multiple cards');
+      } elseif ($card->count() == 1) {
+        $cardLabel = $card->first()->getName();
+      }
+    } elseif ($card != '') {
+      $cardLabel = $card->getName();
+    }
     return [
       'log' => $msg,
       'args' => [
         'location' => $location,
-        'card' => $card == '' ? '' : ($card instanceof Collection ? clienttranslate(' multiple cards') : $card->getName()),
+        'card' => $cardLabel,
         'i18n' => ['location'],
       ],
     ];
