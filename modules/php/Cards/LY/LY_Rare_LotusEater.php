@@ -18,7 +18,7 @@ class LY_Rare_LotusEater extends \ALT\Models\Card
       'artist' => 'Nestor Papatriantafyllou',
       'extension' => 'NEJ',
       'subtypes' => [CITIZEN, ROGUE],
-      'effectDesc' => clienttranslate('{R} Roll a die, then $<SABOTAGE> a card with Reserve Cost less than or equal to the die\'s result. #On a 6+, you may also Sabotage another card.#'),
+      'effectDesc' => clienttranslate('{H} Roll a die, then $<SABOTAGE> a card with Reserve Cost less than or equal to the die\'s result. #On a 6+, you may also Sabotage another card.#'),
       'forest' => 3,
       'mountain' => 0,
       'ocean' => 3,
@@ -26,19 +26,28 @@ class LY_Rare_LotusEater extends \ALT\Models\Card
       'costReserve' => 2,
       'effectHand' => FT::ACTION(ROLL_DIE, [
         'effect' => [
-          '1+' => FT::ACTION(TARGET, [
+          '1-5' => FT::ACTION(TARGET, [
             'targetType' => [SPELL, CHARACTER, TOKEN, PERMANENT],
             'targetLocation' => [RESERVE],
             'upTo' => true,
             'maxReserveCost' => 'die',
             'effect' => FT::ACTION(DISCARD, []),
           ]),
-          '6+' => FT::ACTION(TARGET, [
-            'targetType' => [SPELL, CHARACTER, TOKEN, PERMANENT],
-            'targetLocation' => [RESERVE],
-            'upTo' => true,
-            'effect' => FT::ACTION(DISCARD, []),
-          ]),
+          '6+' => FT::SEQ(
+            FT::ACTION(TARGET, [
+              'targetType' => [SPELL, CHARACTER, TOKEN, PERMANENT],
+              'targetLocation' => [RESERVE],
+              'upTo' => true,
+              'maxReserveCost' => 'die',
+              'effect' => FT::ACTION(DISCARD, []),
+            ]),
+            FT::ACTION(TARGET, [
+              'targetType' => [SPELL, CHARACTER, TOKEN, PERMANENT],
+              'targetLocation' => [RESERVE],
+              'upTo' => true,
+              'effect' => FT::ACTION(DISCARD, []),
+            ]),
+          ),
         ],
       ]),
     ];
