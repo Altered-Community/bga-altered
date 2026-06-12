@@ -788,6 +788,12 @@ class SpecialEffect extends \ALT\Models\Action
         break;
       case 'AfterRestOrdisRecruit':
         $afterRest = Globals::getAfterRest();
+        $expedition = $this->getCtxArg('expedition');
+        if ($expedition === 'source') {
+            $expedition = [$card->getLocation()];
+        } else {
+            $expedition = STORMS;
+        }
         $pId = $card->getPlayer()->getId();
         if (!isset($afterRest[$pId])) {
           $afterRest[$pId] = [];
@@ -798,7 +804,7 @@ class SpecialEffect extends \ALT\Models\Action
             [
               'pId' => 'source',
               'tokenType' => 'OD_Common_OrdisRecruit',
-              'targetLocation' => STORMS,
+              'targetLocation' => $expedition,
             ],
             ['sourceId' => $card->getId()]
           ),
