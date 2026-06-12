@@ -126,15 +126,6 @@ class CheckCondition extends \ALT\Models\Action
       return;
     }
 
-    $cardId = $this->getCtxArgs()['cardId'] ?? null;
-    if (!is_null($cardId)) {
-      foreach ($node['childs'] ?? [] as &$eChild) {
-        if (!isset($eChild['args']['cardId'])  || $eChild['args']['cardId'] != ME) {
-          $eChild['args']['cardId'] = $cardId;
-        }
-      }
-    }
-
     if (isset($node['childs'])) {
       foreach ($node['childs'] as &$child) {
         $child['sourceId'] = $this->getSourceId();

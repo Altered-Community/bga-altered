@@ -32,7 +32,7 @@ class BR_Rare_FrankensteinsCreature extends \ALT\Models\Card
       'effectReserve' => FT::ACTION(TARGET, [
         'targetType' => [PERMANENT],
         'targetPlayer' => ME,
-        'targetSubtype' => FEAT,
+        'subType' => FEAT,
         'upTo' => true,
         'maxBaseCost' => 2,
         'hasEffects' => ['Played'],
