@@ -70,10 +70,6 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getCard()
   {
-    $args = $this->getCtxArgs();
-    $cardId = $args['cardId'] ?? null;
-    if ($cardId === null) {
-    
     // ownEffect + Support (e.g. output 840): activate my {D}, not the card that triggered
     // the listener. ownEffect + Reserve (Thomas Edison, output 705) activates another
     // card's {R} and falls through to target-bound cardId / getSource() below.
