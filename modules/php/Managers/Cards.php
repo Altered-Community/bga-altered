@@ -534,14 +534,14 @@ class Cards extends \ALT\Helpers\CachedPieces
     static $legacyOutput = null;
 
     if ($legacyTrigger === null) {
-      $legacyTrigger = array_values(array_diff(TRIGGER, TRIGGER_EOLE));
-      $legacyCondition = array_values(array_diff(CONDITION, CONDITION_EOLE));
-      $legacyOutput = array_values(array_diff(OUTPUT, OUTPUT_EOLE));
+      $legacyTrigger = array_values(array_diff(TRIGGER, TRIGGER_LASTSET));
+      $legacyCondition = array_values(array_diff(CONDITION, CONDITION_LASTSET));
+      $legacyOutput = array_values(array_diff(OUTPUT, OUTPUT_LASTSET));
     }
 
     $slots = ['trigger', 'condition', 'output'];
     $allPools = ['trigger' => TRIGGER, 'condition' => CONDITION, 'output' => OUTPUT];
-    $eolePools = ['trigger' => TRIGGER_EOLE, 'condition' => CONDITION_EOLE, 'output' => OUTPUT_EOLE];
+    $eolePools = ['trigger' => TRIGGER_LASTSET, 'condition' => CONDITION_LASTSET, 'output' => OUTPUT_LASTSET];
     $legacyPools = ['trigger' => $legacyTrigger, 'condition' => $legacyCondition, 'output' => $legacyOutput];
 
     if (!$requireEoleComponent) {
