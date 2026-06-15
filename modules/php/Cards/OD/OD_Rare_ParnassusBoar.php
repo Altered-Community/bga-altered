@@ -25,7 +25,7 @@ class OD_Rare_ParnassusBoar extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['ocean'],
-      'effectPlayed' => FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(TARGET, [
         'targetType' => [PERMANENT],
         'targetLocation' => [LANDMARK, STORM_LEFT, STORM_RIGHT],
         'upTo' => true,

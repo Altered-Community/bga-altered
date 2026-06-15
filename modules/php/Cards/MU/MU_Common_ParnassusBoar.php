@@ -24,7 +24,7 @@ class MU_Common_ParnassusBoar extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectPlayed' => FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(TARGET, [
         'targetType' => [PERMANENT],
         'targetLocation' => [LANDMARK, STORM_LEFT, STORM_RIGHT],
         'upTo' => true,
