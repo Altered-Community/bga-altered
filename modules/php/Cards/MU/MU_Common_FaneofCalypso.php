@@ -21,7 +21,7 @@ class MU_Common_FaneofCalypso extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{J} Draw a card.  If an $<ANCHORED> Character would leave your Expeditions during the Afternoon, you may sacrifice me to have it lose Anchored instead.'),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(DRAW, []),
+      'effectPlayed' => FT::ACTION(DRAW, ['players' => ME]),
       'sacrificeProtectAnchored' => true,
     ];
   }
