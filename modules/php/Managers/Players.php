@@ -456,6 +456,12 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     }
     return false;
   }
+  
+  public static function isCardNameBlockedThisDay($pId, $cardName)
+  {
+    $blockedCardNames = Globals::getBlockedCardNamesThisDay();
+    return in_array($cardName, $blockedCardNames[$pId] ?? [], true);
+  }
 
   public static function getBlockedExpeditions()
   {

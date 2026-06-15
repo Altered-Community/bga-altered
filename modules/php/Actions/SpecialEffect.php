@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'blockOpponentsCardNameThisDay':
+        return clienttranslate('Opponents can\'t play cards with that name this Day');
     }
     return '';
   }
@@ -2400,7 +2403,30 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;            
+        // FUGUE
+      case 'blockOpponentsCardNameThisDay':
+        $event = $this->getEventRecursive();
+        $targetCardId = $event['cardId'] ?? null;
+        if (is_array($targetCardId)) {
+          $targetCardId = $targetCardId[0] ?? null;
+        }
+        if (!is_null($targetCardId)) {
+          $targetCard = Cards::get($targetCardId);
+          $cardName = $targetCard->getName();
+          $blocked = Globals::getBlockedCardNamesThisDay();
+          foreach (Players::getAll() as $pId => $opponent) {
+            if ($pId == $card->getPId()) {
+              continue;
+            }
+            $blocked[$pId] = $blocked[$pId] ?? [];
+            if (!in_array($cardName, $blocked[$pId], true)) {
+              $blocked[$pId][] = $cardName;
+            }
+          }
+          Globals::setBlockedCardNamesThisDay($blocked);
+        }
+        break; 
       default:
         break;
     }

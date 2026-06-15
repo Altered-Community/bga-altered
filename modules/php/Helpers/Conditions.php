@@ -975,6 +975,68 @@ abstract class Conditions
   {
     return self::hasControl($card, $event, $type, $n, $excludeMyself, $state, $op, true);
   }
+  
+  public static function hasControlInReserveOrExpeditions($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
+  {
+    $types = [CHARACTER, TOKEN];
+    $subTypes = null;
+    if ($type == TOKEN) {
+      $types = [CHARACTER, PERMANENT];
+    }
+    if ($type == PERMANENT) {
+      $types = [PERMANENT];
+    }
+    if (in_array($type, SUBTYPES)) {
+      $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+    }
+    if (strpos($type, '|') !== false) {
+      $maybeSubtypes = explode('|', $type);
+      $allSubtypes = count(array_intersect($maybeSubtypes, SUBTYPES)) == count($maybeSubtypes);
+      if ($allSubtypes) {
+        $subTypes = $maybeSubtypes;
+        $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+      }
+    }
+
+    $player = $card->getPlayer();
+    $cards = $player->getReserveCards()
+      ->merge($player->getPlayedCards())
+      ->filter(function ($c) use ($types) {
+        return in_array($c->getType(), $types) || count(array_intersect($types, $c->getAdditionalType())) > 0;
+      });
+
+    if ($type == TOKEN) {
+      $cards = $cards->filter(fn($c) => $c->isToken());
+    }
+
+    if (in_array($type, SUBTYPES)) {
+      $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
+    }
+    if (!is_null($subTypes)) {
+      $cards = $cards->filter(fn($c) => count(array_intersect($subTypes, $c->getSubtypes())) > 0);
+    }
+
+    if ($excludeMyself === 'true') {
+      $cards = $cards->filter(fn($c) => $c->getId() != $card->getId());
+    }
+
+    if ($state != 'all') {
+      if ($state == 'boosted') {
+        $cards = $cards->filter(fn($c) => $c->hasToken(BOOST));
+      } elseif ($state == 'fleeting') {
+        $cards = $cards->filter(fn($c) => $c->hasToken(FLEETING));
+      } elseif ($state == 'exhausted') {
+        $cards = $cards->filter(fn($c) => $c->isTapped());
+      }
+    }
+    $m = $cards->count();
+    if ($op == 'GTE') {
+      return $m >= $n;
+    }
+    if ($op == 'LTE') {
+      return $m <= $n;
+    }
+  }
 
   public static function hasControlExhaustedPermanentOrReserve($card, $event)
   {
