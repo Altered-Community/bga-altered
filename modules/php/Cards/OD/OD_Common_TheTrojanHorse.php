@@ -1,0 +1,42 @@
+<?php
+namespace ALT\Cards\OD;
+use ALT\Helpers\FT;
+
+class OD_Common_TheTrojanHorse extends \ALT\Models\Card
+{
+  public function __construct($row)
+  {
+    parent::__construct($row);
+    $this->properties = [
+      'uid' => 'ALT_FUGUE_B_OR_145_C',
+      'asset' => 'ALT_FUGUE_B_OR_145_C',
+      'faction' => FACTION_OD,
+      'rarity' => RARITY_COMMON,
+      'name' => clienttranslate('The Trojan Horse'),
+      'typeline' => clienttranslate('Character - Construction'),
+      'type' => CHARACTER,
+      'artist' => 'Saeed Jalabi',
+      'extension' => 'NEJ',
+      'subtypes' => [CONSTRUCTION],
+      'effectDesc' => clienttranslate('Defender.  {J} I gain Fleeting and I defect. (I join the Expedition facing me.)  When I leave the Expedition zone — My owner creates an Ordis Recruit 1/1/1 Soldier token in each of their Expeditions.'),
+      'forest' => 3,
+      'mountain' => 3,
+      'ocean' => 3,
+      'costHand' => 5,
+      'costReserve' => 5,
+      'defender' => true,
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN(ME, FLEETING),
+        FT::ACTION(SPECIAL_EFFECT,
+          ['effect' => 'defect']
+        ),
+        FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'targetPlayer' => 'owner',
+          'tokenType' => 'OD_Common_OrdisRecruit',
+          'targetLocation' => [STORM_RIGHT, STORM_LEFT],
+        ]),
+      ),
+    ];
+  }
+}
