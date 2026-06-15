@@ -25,7 +25,6 @@ class MU_Common_Silenus extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 1,
       'effectHand' => FT::ACTION(TARGET, [
-        'targetPlayer' => ME,
         'targetType' => [CHARACTER],
         'targetLocation' => [STORM_LEFT, STORM_RIGHT],
         'upTo' => true,
