@@ -335,6 +335,58 @@ abstract class Utils extends \APP_DbObject
         break;
     }
   }
+  
+  public static function countCharactersInExpeditions($player, $subtype = null)
+  {
+    return $player->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) use ($subtype) {
+      return ($c->isGigantic() || in_array($c->getLocation(), STORMS))
+        && ($subtype === null || in_array($subtype, $c->getSubtypes()));
+    })->count();
+  }
+
+
+  public static function resolveMaxStatistic($maxStatistic, $player)
+  {
+    if (is_int($maxStatistic)) {
+      return $maxStatistic;
+    }
+    if ($maxStatistic === 'soldiersInExpeditions') {
+      return self::countCharactersInExpeditions($player, SOLDIER);
+    }
+    elseif ($maxStatistic === 'charactersInExpeditions') {
+      return self::countCharactersInExpeditions($player);
+    }
+    return $maxStatistic;
+  }
+
+  public static function resolveBranchingEffect($value, array $branches)
+  {
+    $effect = null;
+    foreach ($branches as $qty => $gain) {
+      $lower = 0;
+      $upper = null;
+
+      if (\stripos($qty, '-') !== false) {
+        $t = \explode('-', $qty);
+        $lower = (int) $t[0];
+        $upper = (int) $t[1];
+      } elseif (\stripos($qty, '+') !== false) {
+        $t = \explode('+', $qty);
+        $lower = (int) $t[0];
+      } else {
+        $lower = (int) $qty;
+        $upper = (int) $qty;
+      }
+
+      if ($value >= $lower && ($upper === null || $value <= $upper)) {
+        if ($effect != null) {
+          throw new \feException("Duplicate effect found for value : $value");
+        }
+        $effect = $gain;
+      }
+    }
+    return $effect;
+  }
 
   public static function checkAttributeCondition($attribute, $data, $player, $card)
   {

@@ -295,7 +295,7 @@ class Target extends \ALT\Models\Action
     $excludedBiomes = $this->getArg('excludeBiomes') ? Players::excludeBiomes($expeditionAttributes) : null;
     $isTapped = $this->getArg('isTapped');
     $isNotTapped = $this->getArg('isNotTapped');
-    $maxStatistic = $this->getArg('maxStatistic');
+    $maxStatistic = Utils::resolveMaxStatistic($this->getArg('maxStatistic'), $player);
 
     $augmentOnly = $this->getArg('augmentOnly');
     $monoBiome = $this->getArg('monoBiome');
