@@ -409,7 +409,7 @@ class Discard extends \ALT\Models\Action
       }
 
       // Fane of Calypso (Anchored)
-      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->hasToken(ANCHORED)) {
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->hasToken(ANCHORED) && !$this->getArg('force')) {
         $player = $card->getPlayer();
         if (!$player->hasProtectAnchoredInExpedition($originalLocation, $card->isGigantic())) {
           $altNode = FT::ACTION(DISCARD, [
@@ -430,7 +430,7 @@ class Discard extends \ALT\Models\Action
       }
 
       // Fane of Calypso (Ordis)
-      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->hasToken(ASLEEP)) {
+      if (Globals::isDayPhase() && in_array($originalLocation, STORMS) && in_array($card->getType(), [TOKEN, CHARACTER]) && $card->hasToken(ASLEEP) && !$this->getArg('force')) {
         $player = $card->getPlayer();
         $altNode = FT::ACTION(DISCARD, [
           'cardId' => $cId,

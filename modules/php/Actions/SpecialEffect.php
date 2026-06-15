@@ -1793,7 +1793,7 @@ class SpecialEffect extends \ALT\Models\Action
               continue;
             }
           
-            $toAdd = Players::get($dPId)->buildSacrificeProtectAnchoredChoice($dId, FT::ACTION(DISCARD, ['cardId' => $dId]));
+            $toAdd = Players::get($dPId)->buildSacrificeProtectAnchoredChoice($dId, FT::ACTION(DISCARD, ['cardId' => $dId, 'force' => true]));
             if ($toAdd) {
               $nodes[] = $toAdd;
               continue;
@@ -1801,7 +1801,7 @@ class SpecialEffect extends \ALT\Models\Action
           }
 
           if (in_array($dCard->getLocation(), STORMS) && $dCard->hasToken(ASLEEP) && in_array($dCard->getType(), [TOKEN, CHARACTER])) {
-            $toAdd = Players::get($dPId)->buildSacrificeProtectAsleepChoice($dId, FT::ACTION(DISCARD, ['cardId' => $dId]));
+            $toAdd = Players::get($dPId)->buildSacrificeProtectAsleepChoice($dId, FT::ACTION(DISCARD, ['cardId' => $dId, 'force' => true]));
             if ($toAdd) {
               $nodes[] = $toAdd;
               continue;
