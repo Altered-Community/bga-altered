@@ -2436,10 +2436,10 @@ class SpecialEffect extends \ALT\Models\Action
           $nodes[] = FT::SABOTAGE();
         }
         if ($discardCount >= 8) {
-          $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['n' => -1]);
+          $nodes[] = FT::ACTION(MOVE_EXPEDITION, ['n' => -1, 'skipGigantic' => true]);
         }
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
-        break;          
+        break;
       default:
         break;
     }
