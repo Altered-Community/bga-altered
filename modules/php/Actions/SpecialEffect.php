@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'copyInvoke':
+        return clienttranslate('Create another copy of the token in the same place');
     }
     return '';
   }
@@ -2400,7 +2403,25 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;    
+      case 'copyInvoke':
+        $event = $this->getEventRecursive();
+
+        if ($event['action'] == 'InvokeToken') {
+          $invokeArgs = [
+            'pId' => 'source',
+            'tokenType' => $event['invoked'],
+            'targetLocation' => [$event['to']],
+            'forcedLocation' => $event['to'],
+          ];
+          $ctxArgs = ['sourceId' => $card->getId()];
+          if (isset($event['locationPId']) && $event['locationPId'] != $card->getPId()) {
+            $invokeArgs['targetPlayer'] = 'owner';
+            $ctxArgs['ownerId'] = $event['locationPId'];
+          }
+          $this->insertAsChild(FT::ACTION(INVOKE_TOKEN, $invokeArgs, $ctxArgs));
+        }
+        break;         
       default:
         break;
     }
