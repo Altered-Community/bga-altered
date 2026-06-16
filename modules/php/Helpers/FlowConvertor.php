@@ -1398,7 +1398,7 @@ abstract class FlowConvertor
       ],
       941 => [
         'description' => clienttranslate('If there\'s a card with no {D} ability in your Reserve:'),
-        'condition' => 'hasNoCardWithSupportInReserve',
+        'condition' => 'hasAtLeastOneCardWithNoSupportInReserve',
       ],
       942 => [
         'description' => clienttranslate('Roll a die. On a 1-3:'),

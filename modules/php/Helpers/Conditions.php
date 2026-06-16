@@ -2320,14 +2320,14 @@ abstract class Conditions
   {
     return ($event['isSupport'] ?? false) == true;
   }
-
-  public static function hasNoCardWithSupportInReserve($card, $event)
+  
+  public static function hasAtLeastOneCardWithNoSupportInReserve($card, $event)
   {
-    $noCardWithSupport = true;
+    $noCardWithSupport = false;
     $reserveCards = $card->getPlayer()->getReserveCards();
     foreach ($reserveCards as $rCard) {
-      if (!empty($rCard->getEffectSupport())) {
-        $noCardWithSupport = false;
+      if (empty($rCard->getEffectSupport())) {
+        $noCardWithSupport = true;
         break;
       }
     }
