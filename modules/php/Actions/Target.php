@@ -95,8 +95,6 @@ class Target extends \ALT\Models\Action
           $msg = clienttranslate('Target up to ${n} ${type_label}(s) (of max hand cost of ${totalCost}) to ${effect_desc}');
         } elseif ($totalMountain != INFTY) {
           $msg = clienttranslate('Target up to ${n} ${type_label}(s) (of max mountain attribute of ${totalMountain}) to ${effect_desc}');
-        } elseif ($totalOcean != INFTY) {
-          $msg = clienttranslate('Target up to ${n} ${type_label}(s) (of max ocean attribute of ${totalOcean}) to ${effect_desc}');
         } else {
           $msg = clienttranslate('Target up to ${n} ${type_label}(s) to ${effect_desc}');
         }
