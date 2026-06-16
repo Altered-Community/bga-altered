@@ -322,7 +322,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       }
     } while ($i < $totalCards);
 
-    $uniqueCount = 15; //increase for randomly generated unique. Warning: Most of it will be useless due to no check on trigrams
+    $uniqueCount = 0; //increase for randomly generated unique. Warning: Most of it will be useless due to no check on trigrams
     $eoleTrigramCount = (int) ceil($uniqueCount * 0.75);
     $eoleTrigramFlags = array_merge(
       array_fill(0, $eoleTrigramCount, true),
