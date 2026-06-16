@@ -348,6 +348,73 @@ trait SetupTrait
     $this->updateActivePlayersPrecoDeckSelection();
   }
 
+  public function actSelectCustomDeck($deckText)
+  {
+    $this->gamestate->checkPossibleAction('actSelectCustomDeck');
+
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+
+    $lines = explode("\n", $deckText);
+    $deckContent = [];
+    $first = true;
+
+    foreach ($lines as $line) {
+      $line = trim($line);
+      if ($line === '') continue;
+
+      $parts = explode(' ', $line, 2);
+      if (count($parts) < 2) continue;
+
+      $quantity = (int) $parts[0];
+      $uid = trim($parts[1]);
+      if ($quantity < 1) continue;
+
+      $cProp = Cards::getCardClass($uid)->getProperties();
+
+      if ($first) {
+        $deckContent[HERO] = ['card' => ['properties' => $cProp], 'n' => 1];
+        $first = false;
+      } else {
+        $found = false;
+        foreach ($deckContent as $key => $existing) {
+          if (isset($existing['card']['properties']['uid']) && $existing['card']['properties']['uid'] === $uid) {
+            $deckContent[$key]['n'] += $quantity;
+            $found = true;
+            break;
+          }
+        }
+        if (!$found) {
+          $deckContent[] = ['card' => ['properties' => $cProp], 'n' => $quantity];
+        }
+      }
+    }
+
+    if (!isset($deckContent[HERO])) {
+      throw new \BgaUserException(clienttranslate('Invalid deck: no hero card found'));
+    }
+
+    $heroCard = Cards::getCardClass($deckContent[HERO]['card']['properties']['uid']);
+    $faction = $heroCard->getFaction();
+    $heroName = $heroCard->getName() ?? '';
+
+    $player = Players::getCurrent();
+    $pId = $player->getId();
+
+    $gContent = Globals::getDeckContent();
+    $gContent[$pId] = [
+      'cards' => $deckContent,
+      'faction' => $faction,
+      'deckName' => 'Custom test list' . ($heroName ? ': ' . $heroName : ''),
+    ];
+    Globals::setDeckContent($gContent);
+
+    $selection = Globals::getDeckSelection();
+    $selection[$pId] = 'API';
+    Globals::setDeckSelection($selection);
+    Notifications::updateInitialPrecoDeckSelection($player, $this->argsPrecoDeckSelection());
+
+    $this->updateActivePlayersPrecoDeckSelection();
+  }
 
   /////////////////////////////////////////////////////////
   //  ____       _                     _           _

@@ -1217,10 +1217,15 @@
              ${
                this._beginner
                  ? ''
-                : `<div id='deck-source-toggle'>
-              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
-              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
-            </div>`
+                 : `<div id='deck-source-toggle'>
+               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
+               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
+               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-upload'>${_('Upload List')}</button>
+               <div id='deck-upload-area' style='display:none;margin-top:8px'>
+                 <textarea id='deck-card-input' rows='5' style='width:100%;box-sizing:border-box' placeholder='${_('quantity card_code (one per line)')}'></textarea>
+                 <button class='bgabutton bgabutton_blue' id='deck-upload-submit' style='margin-top:4px'>${_('Submit')}</button>
+               </div>
+             </div>`
              }
              <div id='overlay-deck-container'></div>
              <div id='overlay-deck-details'></div>

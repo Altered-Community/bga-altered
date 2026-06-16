@@ -106,6 +106,14 @@ class action_altered extends APP_GameAction
     self::ajaxResponse();
   }
 
+  public function actSelectCustomDeck()
+  {
+    self::setAjaxMode();
+    $deckText = self::getArg('deckText', AT_json, true);
+    $this->game->actSelectCustomDeck($deckText);
+    self::ajaxResponse();
+  }
+
   public function actCancelPrecoDeckSelection()
   {
     self::setAjaxMode();
