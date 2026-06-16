@@ -273,7 +273,7 @@ abstract class Conditions
           return false;
         }
         $move = $stormMoves[$card->getPId()][$storm];
-        if (!$card->getPlayer()->isAscended($storm) || $move['hasMovedFromAscension']) {
+        if (!$card->getPlayer()->isAscended($storm) || !$move['hasMovedFromAscension']) {
           return false;
         }
     }
