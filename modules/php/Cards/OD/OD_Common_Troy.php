@@ -23,6 +23,7 @@ class OD_Common_Troy extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPassive' => [
         'InvokeToken' => [
+          'listeningConditions' => ['isNotSource'],
           'conditions' => ['isMe', 'notTapped'],
           'output' => FT::SEQ_OPTIONAL(
             FT::ACTION(TAP, ['cardId' => ME]),

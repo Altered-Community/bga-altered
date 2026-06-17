@@ -19,7 +19,7 @@ class OD_Common_HelenofTroy extends \ALT\Models\Card
       'artist' => 'Nathan Maneval',
       'extension' => 'NEJ',
       'subtypes' => [CITIZEN, NOBLE],
-      'effectDesc' => clienttranslate('{J} Create an Ordis Recruit 1/1/1 Soldier token in each of your Expeditions.'),
+      'effectDesc' => clienttranslate('{J} Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'),
       'forest' => 1,
       'mountain' => 0,
       'ocean' => 1,
