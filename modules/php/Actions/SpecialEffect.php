@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'eachPlayerKeepOneReserve':
+        return clienttranslate('Choose one card in each player\'s Reserve. Discard all other cards in Reserve.');
     }
     return '';
   }
@@ -2400,7 +2403,33 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;    
+        // FUGUE
+      case 'eachPlayerKeepOneReserve':
+        $nodes = [];
+        $turnOrder = Players::getTurnOrder(Players::getActiveId());
+        foreach ($turnOrder as $pId) {
+          $reserveIds = Players::get($pId)->getReserveCards()->getIds();
+          if (count($reserveIds) <= 1) {
+            continue;
+          }
+          $nodes[] = FT::ACTION(
+            TARGET,
+            [
+              'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+              'targetLocation' => [RESERVE],
+              'cards' => $reserveIds,
+              'n' => 1,
+              'discardRemaining' => true,
+            ],
+            ['sourceId' => $this->getSourceId()]
+          );
+        }
+
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;         
       default:
         break;
     }

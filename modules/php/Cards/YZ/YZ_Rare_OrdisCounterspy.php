@@ -18,7 +18,7 @@ class YZ_Rare_OrdisCounterspy extends \ALT\Models\Card
       'artist' => 'DOBA',
       'extension' => 'NEJ',
       'subtypes' => [BUREAUCRAT, SOLDIER],
-      'effectDesc' => clienttranslate('{R} #Choose one card in each player\'s Reserve. Discard all other cards in Reserve.# {R} Create an Ordis Recruit 1/1/1 Soldier token in my Expedition.'),
+      'effectDesc' => clienttranslate('{H} #Choose one card in each player\'s Reserve. Discard all other cards in Reserve.#  {R} Create an Ordis Recruit 1/1/1 Soldier token in my Expedition.'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
