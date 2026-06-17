@@ -250,8 +250,6 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Next Animal gains <BOOST>');
       case 'playAnotherTurn':
         return clienttranslate('Play another turn');
-      case 'tapAndAddToCurrentRolls':
-        return clienttranslate('{T} Exhaust me to add 1 to the die result');
       case 'boostXAnimalsInExpeditions':
         return clienttranslate('1 Boost per other Animal in expeditions');
       case 'discardTopDeck':
@@ -2306,45 +2304,6 @@ class SpecialEffect extends \ALT\Models\Action
         }
         break;
       case 'addToCurrentRolls':
-        $rolls = Globals::getDiceRolls();
-        $n = (int) ($args['n'] ?? 1);
-        if (!empty($rolls) && $n > 0) {
-          $newRolls = $rolls;
-          foreach ($rolls as $roll) {
-            $newRolls[] = $roll + $n;
-          }
-          sort($newRolls, SORT_NUMERIC);
-          Globals::setDiceRolls(array_values(array_unique($newRolls, SORT_NUMERIC)));
-        }
-        break;
-      case 'tapAndAddToCurrentRolls':
-        $player = $card->getPlayer();
-        if ($card->isTapped()) {
-          throw new \Bga\GameFramework\VisibleSystemException('Card is already tapped. Should not happen');
-        }
-
-        $card->setTapped(true);
-        Notifications::tapEffect($player, $card, 0);
-        $abilityActivated = Globals::getAbilityActivatedThisTurn();
-        $abilityActivated[$player->getId()] = array_merge(
-          $abilityActivated[$player->getId()] ?? [],
-          ['tap' => true]
-        );
-        Globals::setAbilityActivatedThisTurn($abilityActivated);
-        $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
-        $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
-        Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
-        $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
-        $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
-        $abilityActivatedTypeCount[$player->getId()]['tap'] = ($abilityActivatedTypeCount[$player->getId()]['tap'] ?? 0) + 1;
-        Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
-        $this->checkAfterListeners($player, [
-          'cardId' => $card->getId(),
-          'cardLocation' => $card->getLocation(),
-          'sourceId' => $card->getId(),
-          'token' => $card->isToken(),
-        ], true, 'Exhaust');
-
         $rolls = Globals::getDiceRolls();
         $n = (int) ($args['n'] ?? 1);
         if (!empty($rolls) && $n > 0) {
