@@ -250,6 +250,9 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Play another turn');
       case 'tapAndAddToCurrentRolls':
         return clienttranslate('{T} Exhaust me to add 1 to the die result');
+        // FUGUE
+      case 'sacrificeAllCharacters':
+        return clienttranslate('Sacrifice all Characters in target Expedition');
     }
     return '';
   }
@@ -2400,7 +2403,26 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;      
+        // FUGUE
+      case 'sacrificeAllCharacters':
+        $expedition = $this->getCtxArg('expedition');
+        $pId = $this->getCtxArg('player');
+        $nodes = [];
+        $ownerId = $card->getPId();
+
+        foreach (Players::get($pId)->getPlayedCards() as $cId => $character) {
+          if ($character->getType() != CHARACTER) {
+            continue;
+          }
+          if ($character->getLocation() == $expedition || (in_array($expedition, STORMS) && $character->isGigantic())) {
+            $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'desc' => 'sacrifice'], ['sourceId' => $this->getSourceId(), 'pId' => $ownerId]);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
+        break;       
       default:
         break;
     }

@@ -203,6 +203,8 @@ class Card extends \ALT\Helpers\DB_Model
 
     // Fugue
     'costReductionIfConstructionPlayed' => 'int',
+    'costReductionSacrificeCharacter' => 'int', // Maw's Molting (Yzmir)
+    'costReductionSpendBoost' => 'obj', // Maw's Molting (Muna)
   ];
 
   /********* DB ACCESS *********/
@@ -398,6 +400,24 @@ class Card extends \ALT\Helpers\DB_Model
     Notifications::refreshCard($this);
   }
 
+  public static function countExpeditionCharacterBoosts($player)
+  {
+    $total = 0;
+    foreach ($player->getPlayedCards() as $c) {
+      if (!in_array($c->getLocation(), STORMS)) {
+        continue;
+      }
+      if (
+        !in_array($c->getType(), [CHARACTER, TOKEN])
+        && count(array_intersect([CHARACTER, TOKEN], $c->getAdditionalType())) == 0
+      ) {
+        continue;
+      }
+      $total += $c->countToken(BOOST);
+    }
+    return $total;
+  }
+
   // $scout = can be played at scout cost
   // $temple = can be played at temple cost as a Landmark Construction
   public function canBePlayed($player, $scout = false, $reserveFlipCost = false, $temple = false)
@@ -473,6 +493,21 @@ class Card extends \ALT\Helpers\DB_Model
       if ($permanent > 0) {
         $cost -= $this->getCostReductionSacrificePermanent();
       }
+    }
+
+     if ($this->getCostReductionSacrificeCharacter() > 0) {
+      $characters = $this->getPlayer()->getPlayedCards()->filter(function ($c) {
+        return in_array($c->getType(), [CHARACTER, TOKEN])
+          || count(array_intersect([CHARACTER, TOKEN], $c->getAdditionalType())) > 0;
+      })->count();
+      if ($characters > 0) {
+        $cost -= $this->getCostReductionSacrificeCharacter();
+      }
+    }
+
+    $spendBoostReduction = $this->getCostReductionSpendBoost();
+    if (!empty($spendBoostReduction) && self::countExpeditionCharacterBoosts($this->getPlayer()) >= ($spendBoostReduction['boostCost'] ?? 2)) {
+      $cost -= $spendBoostReduction['reduction'] ?? 1;
     }
 
     if ($this->getCostReductionLimitation() > 0) {
