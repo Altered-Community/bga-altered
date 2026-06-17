@@ -18,24 +18,31 @@ class OD_Rare_TheTrojanHorse extends \ALT\Models\Card
       'artist' => 'Saeed Jalabi',
       'extension' => 'NEJ',
       'subtypes' => [CONSTRUCTION],
-      'effectDesc' => clienttranslate('Defender.  {J} I #defect#.  When I leave the Expedition zone — My owner creates an Ordis Recruit 1/1/1 Soldier token in each of their Expeditions.'),
+      'effectDesc' => clienttranslate('<DEFENDER_FS>.  {J} I #defect#.  When I leave the Expedition zone — My owner creates an <ORDIS_RECRUIT> Soldier token in each of their Expeditions.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
       'costHand' => 5,
       'costReserve' => 5,
       'defender' => true,
-      'effectPlayed' => FT::SEQ(
-        FT::ACTION(SPECIAL_EFFECT,
-          ['effect' => 'defect']
-        ),
-        FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
-          'targetPlayer' => 'owner',
-          'tokenType' => 'OD_Common_OrdisRecruit',
-          'targetLocation' => [STORM_RIGHT, STORM_LEFT],
-        ]),
-      ),
+      'effectPlayed' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'defect', 'cardId' => ME]),
+      'effectPassive' => [
+        'LeaveExpedition' => [
+          'output' => FT::SEQ(
+            FT::ACTION(INVOKE_TOKEN, [
+              'targetPlayer' => 'owner',
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_RIGHT],
+            ]),
+            FT::ACTION(INVOKE_TOKEN, [
+              'targetPlayer' => 'owner',
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetLocation' => [STORM_LEFT],
+              'moreThan1' => true,
+            ]),
+          ),
+        ],
+      ],
     ];
   }
 }

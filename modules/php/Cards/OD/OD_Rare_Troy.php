@@ -24,6 +24,7 @@ class OD_Rare_Troy extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPassive' => [
         'InvokeToken' => [
+          'listeningConditions' => ['isNotSource'],
           'conditions' => ['isMe'],
           'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'copyInvoke'])
         ],

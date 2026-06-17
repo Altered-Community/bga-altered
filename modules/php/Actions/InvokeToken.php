@@ -264,7 +264,7 @@ class InvokeToken extends \ALT\Models\Action
       }
 
 
-      $this->checkAfterListeners($player, [
+       $listenerArgs = [
         'playCard' => true,
         'cardId' => $card->getId(),
         'cardType' => $card->getType(),
@@ -275,20 +275,14 @@ class InvokeToken extends \ALT\Models\Action
         'gigantic' => $card->isGigantic(),
         'token' => true,
         'invoked' => $this->getCtxArg('tokenType')
-      ]);
+      ];
+      $sourceId = $this->getSourceId();
+      if (!is_null($sourceId)) {
+        $listenerArgs['sourceId'] = $sourceId;
+      }
+      $this->checkAfterListeners($player, $listenerArgs);
       if (!$this->getArg('moreThan1') && $i == 0) {
-        $this->checkAfterListeners($player, [
-          'playCard' => true,
-          'cardId' => $card->getId(),
-          'cardType' => $card->getType(),
-          'additionalType' => $card->getAdditionalType(),
-          'from' => 'invoke',
-          'to' => $location,
-          'locationPId' => $invokePId,
-          'gigantic' => $card->isGigantic(),
-          'token' => true,
-          'invoked' => $this->getCtxArg('tokenType')
-        ], true, 'InvokeTokenOnce');
+        $this->checkAfterListeners($player, $listenerArgs, true, 'InvokeTokenOnce');
       }
     }
     if ($this->getN() <= 0) {
