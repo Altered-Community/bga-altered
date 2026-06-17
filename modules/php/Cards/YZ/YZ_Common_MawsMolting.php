@@ -25,10 +25,13 @@ class YZ_Common_MawsMolting extends \ALT\Models\Card
       'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
         FT::ACTION(DRAW, ['players' => ME, 'n' => 1]),
-        FT::ACTION(INVOKE_TOKEN, [
-          'pId' => 'source',
-          'tokenType' => HERO_SIGNATURE, 
-          'targetLocation' => [RESERVE]
+        FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'hasHeroSignatureToken',
+          'effect' => FT::ACTION(INVOKE_TOKEN, [
+              'pId' => 'source',
+              'tokenType' => HERO_SIGNATURE,
+              'targetLocation' => [RESERVE],
+            ]),
         ]),
       ),
     ];

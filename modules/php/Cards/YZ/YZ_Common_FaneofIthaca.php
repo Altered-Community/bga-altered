@@ -27,12 +27,12 @@ class YZ_Common_FaneofIthaca extends \ALT\Models\Card
       ],
       'effectPassive' => [
         'Noon' => [
-          'conditions' => ['isMe', 'hasCounterOnCard', 'hasManaOrbs:6:GTE'],
+          'conditions' => ['isMe', 'hasCounterOnCard', 'hasXMana:6'],
           'output' => [
             'type' => NODE_SEQ,
             'optional' => true,
             'childs' => [
-              FT::ACTION(USE_COUNTER, ['pay' => 1, 'consume' => 1]),
+              FT::ACTION(USE_COUNTER, ['consume' => 1]),
               FT::ACTION(DRAW, ['players' => ME]),
             ],
           ],

@@ -28,12 +28,12 @@ class YZ_Rare_FaneofIthaca extends \ALT\Models\Card
       ],
       'effectPassive' => [
         'Noon' => [
-          'conditions' => ['isMe', 'hasCounterOnCard', 'hasManaOrbs:5:GTE'],
+          'conditions' => ['isMe', 'hasCounterOnCard', 'hasXMana:5'],
           'output' => [
             'type' => NODE_SEQ,
             'optional' => true,
             'childs' => [
-              FT::ACTION(USE_COUNTER, ['pay' => 1, 'consume' => 1]),
+              FT::ACTION(USE_COUNTER, ['consume' => 1]),
               FT::ACTION(DRAW, ['players' => ME]),
             ],
           ],

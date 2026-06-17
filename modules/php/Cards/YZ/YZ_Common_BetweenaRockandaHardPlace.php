@@ -18,7 +18,7 @@ class YZ_Common_BetweenaRockandaHardPlace extends \ALT\Models\Card
       'artist' => 'Gamon Studio',
       'extension' => 'NEJ',
       'subtypes' => [MANEUVER],
-      'effectDesc' => clienttranslate('$<FLEETING>. Target player chooses their Hero or Companion Expedition, then sacrifices all Characters in it.'),
+      'effectDesc' => clienttranslate('$<FLEETING>.  Target player chooses their Hero or Companion Expedition, then sacrifices all Characters in it.'),
       'costHand' => 4,
       'costReserve' => 4,
       'effectPlayed' => FT::SEQ(

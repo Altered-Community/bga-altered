@@ -16,18 +16,21 @@ class LY_Rare_BetweenaRockandaHardPlace extends \ALT\Models\Card
       'typeline' => clienttranslate('Spell - Maneuver'),
       'type' => SPELL,
       'subtypes' => [MANEUVER],
-      'effectDesc' => clienttranslate('Fleeting. Target player chooses their Hero or Companion Expedition, then sacrifices all Characters in it.'),
+      'effectDesc' => clienttranslate('$<FLEETING>.  Target player chooses their Hero or Companion Expedition, then sacrifices all Characters in it.'),
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
       'fleeting' => true,
-      'effectPlayed' => FT::ACTION(TARGET_PLAYER, [
-        'opponentsOnly' => false,
-        'effect' => FT::ACTION(TARGET_EXPEDITION, [
-          'players' => ME,
-          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sacrificeAllCharacters']),
+      'effectPlayed' => FT::SEQ(
+        FT::GAIN(ME, FLEETING),
+        FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => false,
+          'effect' => FT::ACTION(TARGET_EXPEDITION, [
+            'players' => ME,
+            'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'sacrificeAllCharacters']),
+          ]),
         ]),
-      ]),
+      ),
     ];
   }
 }

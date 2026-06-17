@@ -28,12 +28,18 @@ class YZ_Rare_OfferingtotheGods extends \ALT\Models\Card
           FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER, TOKEN],
-            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
-          ]),
-          FT::ACTION(TARGET, [
-            'targetPlayer' => OPPONENT,
-            'targetType' => [CHARACTER, TOKEN],
-            'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+            'effect' => FT::SEQ(
+              FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+              FT::ACTION(TARGET_PLAYER, [
+                'opponentsOnly' => true,
+                'effect' => FT::ACTION(TARGET, [
+                  'targetPlayer' => ME,
+                  'targetType' => [CHARACTER, TOKEN],
+                  'targetLocation' => ['source'],
+                  'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+                ]),
+              ]),
+            ),
           ]),
         )
       ),
