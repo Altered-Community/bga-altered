@@ -25,8 +25,9 @@ class OD_Common_Echo extends \ALT\Models\Card
       'costReserve' => 1,
       'token' => true,
       'effectReserve' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'hasControl:soldier:2:false',
-        'effect' => FT::GAIN(ME, BOOST, 1),
+        'condition' => 'hasControl:soldier:1:true:all:LTE',
+        'effect' => null,
+        'oppositeEffect' => FT::GAIN(ME, BOOST, 1),
       ]),
     ];
   }
