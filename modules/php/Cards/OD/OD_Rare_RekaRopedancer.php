@@ -27,8 +27,8 @@ class OD_Rare_RekaRopedancer extends \ALT\Models\Card
       'mountain' => 4,
       'ocean' => 2,
       'costHand' => 3,
-      'costReserve' => 2,
-      'changedStats' => ['ocean'],
+      'costReserve' => 3,
+      'changedStats' => ['ocean', 'costReserve'],
       'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1BoostAndAsleep']),
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER],
