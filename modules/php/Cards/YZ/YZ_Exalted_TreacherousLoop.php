@@ -23,7 +23,16 @@ class YZ_Exalted_TreacherousLoop extends \ALT\Models\Card
       'costReserve' => 7,
       'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
-        FT::ACTION(READY, ['upTo' => 8]),
+        FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [MANA],
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'isTapped' => true,
+          'upTo' => true,
+          'n' => 8,
+          'allIds' => true,
+          'effect' => FT::ACTION(READY, ['cardId' => EFFECT]),
+        ]),
       ),
     ];
   }
