@@ -19,7 +19,7 @@ class YZ_Rare_TriremeQuartermaster extends \ALT\Models\Card
       'artist' => 'Saeed Jalabi',
       'extension' => 'NEJ',
       'subtypes' => [SOLDIER, TRAINER],
-      'effectDesc' => clienttranslate('#Your Companions have : "{R} Create an Ordis Recruit 1/1/1 Soldier token in my Expedition."#'),
+      'effectDesc' => clienttranslate('#Your Companions have : "{R} Create an <ORDIS_RECRUIT> Soldier token in my Expedition."#'),
       'forest' => 0,
       'mountain' => 2,
       'ocean' => 2,
@@ -32,7 +32,7 @@ class YZ_Rare_TriremeQuartermaster extends \ALT\Models\Card
           'output' => FT::ACTION(INVOKE_TOKEN, [
             'pId' => 'source',
             'tokenType' => 'OD_Common_OrdisRecruit',
-            'targetLocation' => ['source'],
+            'targetLocation' => ['eventTo'],
           ]),
         ],
       ],

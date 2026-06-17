@@ -2406,8 +2406,7 @@ class SpecialEffect extends \ALT\Models\Action
         break;            
         // FUGUE
       case 'blockOpponentsCardNameThisDay':
-        $event = $this->getEventRecursive();
-        $targetCardId = $event['cardId'] ?? null;
+        $targetCardId = $this->getCtxArg('cardId');
         if (is_array($targetCardId)) {
           $targetCardId = $targetCardId[0] ?? null;
         }
