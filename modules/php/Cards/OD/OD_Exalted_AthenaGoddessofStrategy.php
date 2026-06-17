@@ -28,18 +28,20 @@ class OD_Exalted_AthenaGoddessofStrategy extends \ALT\Models\Card
       'effectPassive' => [
         'Noon' => [
           'childs' => [
-          'conditions' => ['isMe', 'isTemple'],
-          'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => RESERVE], ['optional' => true]),
+            [
+              'conditions' => ['isMe', 'isTemple'],
+              'output' => FT::ACTION(DISCARD, ['cardId' => ME, 'destination' => RESERVE], ['optional' => true]),
+            ],
+            [
+              'conditions' => ['isMe'],
+              'output' => FT::ACTION(INVOKE_TOKEN, [
+                'targetType' => [CHARACTER],
+                'tokenType' => 'OD_Common_OrdisRecruit',
+                'targetLocation' => [STORM_RIGHT],
+              ]),
+            ],
           ],
-          'Noon' => [
-            'conditions' => ['isMe', 'isNotTemple'],
-            'output' => FT::ACTION(INVOKE_TOKEN, [
-              'targetType' => [CHARACTER],
-              'tokenType' => 'OD_Common_OrdisRecruit',
-              'targetLocation' => [STORM_RIGHT],
-            ]),
-          ],
-        ]
+        ],
       ],
     ];
   }

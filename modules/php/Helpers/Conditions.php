@@ -73,6 +73,18 @@ abstract class Conditions
     return ($event['to'] ?? null) == RESERVE;
   }
 
+  public static function isAddedToMyExpedition($card, $event)
+  {
+    if (!isset($event['cardId'])) {
+      return false;
+    }
+    $locationPId = $event['locationPId'] ?? -1;
+    if ($card->getPId() != $locationPId) {
+      return false;
+    }
+    return Cards::get($event['cardId'])->getPId() == $locationPId;
+  }
+
   public static function isToDiscard($card, $event)
   {
     return ($event['to'] ?? null) == DISCARD_PILE;

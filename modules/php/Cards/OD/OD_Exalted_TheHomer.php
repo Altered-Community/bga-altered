@@ -35,15 +35,15 @@ class OD_Exalted_TheHomer extends \ALT\Models\Card
       ),
       'effectPassive' => [
         'ChooseAssignment' => [
-          'conditions' => ['isCardAddedAnyPlayer:character', 'isStillSameLocation'],
+          'conditions' => ['isCardAddedAnyPlayer:character', 'isStillSameLocation', 'isToStorm', 'isAddedToMyExpedition'],
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
         'InvokeToken' => [
-          'conditions' => ['isCardAddedAnyPlayer:character', 'isStillSameLocation'],
+          'conditions' => ['isCardAddedAnyPlayer:character', 'isStillSameLocation', 'isToStorm', 'isAddedToMyExpedition'],
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
         'MoveCard' => [
-          'conditions' => ['isCardAddedAnyPlayer:character', 'hasSameOwner', 'isStillSameLocation'],
+          'conditions' => ['isCardAddedAnyPlayer:character', 'hasSameOwner', 'isStillSameLocation', 'isToStorm', 'isAddedToMyExpedition'],
           'output' => FT::GAIN(EFFECT, BOOST),
         ],
       ],
