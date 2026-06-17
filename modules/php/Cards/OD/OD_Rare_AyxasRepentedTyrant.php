@@ -26,7 +26,7 @@ class OD_Rare_AyxasRepentedTyrant extends \ALT\Models\Card
       'costHand' => 2, 
       'costReserve' => 2, 
       'changedStats' => ['forest','mountain','ocean','costHand','costReserve'], 
-      'effectHand' => FT::SEQ(
+      'effectHand' => FT::SEQ_OPTIONAL(
         FT::ACTION(TARGET_EXPEDITION, [
           'players' => OPPONENT,
           'effect' =>

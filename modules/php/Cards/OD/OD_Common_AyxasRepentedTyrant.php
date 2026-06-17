@@ -25,7 +25,7 @@ class OD_Common_AyxasRepentedTyrant extends \ALT\Models\Card
       'ocean' => 3, 
       'costHand' => 3, 
       'costReserve' => 3, 
-      'effectHand' => FT::SEQ(
+      'effectHand' => FT::SEQ_OPTIONAL(
         FT::ACTION(TARGET_EXPEDITION, [
           'players' => OPPONENT,
           'effect' =>
