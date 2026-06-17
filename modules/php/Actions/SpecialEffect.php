@@ -2439,7 +2439,7 @@ class SpecialEffect extends \ALT\Models\Action
           );
         }
         $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
-        break;           
+        break;
       default:
         break;
     }

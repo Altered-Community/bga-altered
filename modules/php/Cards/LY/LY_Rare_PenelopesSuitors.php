@@ -19,14 +19,14 @@ class LY_Rare_PenelopesSuitors extends \ALT\Models\Card
       'extension' => 'NEJ',
       'type' => CHARACTER,
       'subtypes' => [NOBLE, ROGUE],
-      'effectDesc' => clienttranslate('{R} #You may discard a card from your Reserve# to Sabotage a card with Reserve Cost {2} or less.'),
+      'effectDesc' => clienttranslate('{H} #You may discard a card from your Reserve# to Sabotage a card with Reserve Cost {2} or less.'),
       'forest' => 0,
       'mountain' => 1,
       'ocean' => 1,
       'costHand' => 1,
       'costReserve' => 1,
       'changedStats' => ['costHand'],
-      'effectReserve' => FT::SEQ(
+      'effectHand' => FT::SEQ_OPTIONAL(
         FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],

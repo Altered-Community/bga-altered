@@ -26,7 +26,7 @@ class LY_Rare_QorganIntelligencer extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 1,
       'changedStats' => ['mountain'],
-      'effectReserve' => FT::GAIN(ME, BOOST, 2),
+      'effectHand' => FT::GAIN(ME, BOOST, 2),
     ];
   }
 }

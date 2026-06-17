@@ -25,7 +25,7 @@ class YZ_Common_QorganIntelligencer extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 1,
-      'effetHand' => FT::GAIN(ME, BOOST, 1),
+      'effectHand' => FT::GAIN(ME, BOOST, 1),
     ];
   }
 }

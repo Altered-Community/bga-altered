@@ -30,8 +30,8 @@ class YZ_Common_Circe extends \ALT\Models\Card
         'effect' => FT::SEQ(
           FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
           FT::ACTION(INVOKE_TOKEN, [
-            'tokenType' => 'YZ_Common_Woollyback',
-            'targetLocation' => ['initialSource'],
+            'tokenType' => 'MU_Common_Woollyback',
+            'targetLocation' => ['discardedSource'],
           ]),
         ),
       ])
