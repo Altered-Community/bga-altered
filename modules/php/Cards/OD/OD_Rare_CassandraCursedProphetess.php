@@ -16,17 +16,16 @@ class OD_Rare_CassandraCursedProphetess extends \ALT\Models\Card
       'typeline' => clienttranslate('Character - Mage'),
       'type' => CHARACTER,
       'subtypes' => [MAGE],
-      'effectDesc' => clienttranslate('{R} You may reveal a #Permanent# with Hand Cost {4} or more from your hand. If you don\'t, I gain Fleeting. #If the Hand Cost is {6} or more, draw a card.#'),
+      'effectDesc' => clienttranslate('{H} You may reveal a #Permanent# with Hand Cost {4} or more from your hand. If you don\'t, I gain Fleeting. #If the Hand Cost is {6} or more, draw a card.#'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectReserve' => FT::XOR(
+      'effectHand' => FT::XOR(
         FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetLocation' => [HAND],
-          'upTo' => true,
           'targetType' => [PERMANENT],
           'minHandCost' => 4,
           'effect' => FT::SEQ(

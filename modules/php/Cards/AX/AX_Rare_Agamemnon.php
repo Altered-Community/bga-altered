@@ -19,21 +19,22 @@ class AX_Rare_Agamemnon extends \ALT\Models\Card
       'artist' => 'Taras Susak',
       'extension' => 'NEJ',
       'subtypes' => [NOBLE, SOLDIER],
-      'effectDesc' => clienttranslate('#{J}# Sacrifice a Character.  #When you sacrifice another Character — I gain 2 boosts.#'),
+      'effectDesc' => clienttranslate('#{J}# Sacrifice a #Permanent#.  #When you sacrifice a Permanent — I gain 2 boosts.#'),
       'forest' => 2,
       'mountain' => 2,
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['forest', 'mountain', 'ocean'],
-      'effectReserve' => FT::ACTION(TARGET, [
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
         'targetType' => [PERMANENT],
         'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK],
         'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
       ]),
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isSacrifice:permanent', 'excludeSelf'],
+          'conditions' => ['isMe', 'isSacrifice:permanent'],
           'output' => FT::GAIN(ME, BOOST, 2),
         ],
       ],

@@ -28,7 +28,7 @@ class YZ_Rare_Iphigenia extends \ALT\Models\Card
       'changedStats' => ['costHand'],
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isMe', 'isInStorms'],
+          'condition' => 'isSacrificed',
           'output' => FT::ACTION(DISCARD, [
             'cardId' => ME, 
             'destination' => MANA, 

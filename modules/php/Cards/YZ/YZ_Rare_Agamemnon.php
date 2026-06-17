@@ -26,7 +26,8 @@ class YZ_Rare_Agamemnon extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['forest', 'mountain', 'ocean'],
-      'effectReserve' => FT::ACTION(TARGET, [
+      'effectPlayed' => FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
         'targetType' => [CHARACTER, TOKEN],
         'targetLocation' => [STORM_LEFT, STORM_RIGHT],
         'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),

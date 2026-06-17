@@ -25,9 +25,10 @@ class YZ_Common_Agamemnon extends \ALT\Models\Card
       'ocean' => 4,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectReserve' => FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(TARGET, [
+        'targetPlayer' => ME,
         'targetType' => [CHARACTER, TOKEN],
-        'targetLocation' => [RESERVE],
+        'targetLocation' => [STORM_RIGHT, STORM_LEFT],
         'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
       ]),
     ];

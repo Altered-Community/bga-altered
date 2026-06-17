@@ -29,7 +29,6 @@ class YZ_Common_CassandraCursedProphetess extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'targetPlayer' => ME,
           'targetLocation' => [HAND],
-          'upTo' => true,
           'targetType' => [SPELL],
           'minHandCost' => 4,
           'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'reveal']),

@@ -28,7 +28,7 @@ class AX_Rare_Iphigenia extends \ALT\Models\Card
       'changedStats' => ['costHand'],
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isMe', 'isSacrifice:permanent', 'isInStorms'],
+          'conditions' => ['isMe', 'isSacrifice:permanent'],
           'output' => FT::ACTION(DISCARD, [
             'cardId' => ME, 
             'destination' => MANA, 
