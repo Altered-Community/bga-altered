@@ -39,6 +39,7 @@ class AX_Exalted_DeploytheShields extends \ALT\Models\Card
           'conditions' => ['isMe', 'isSacrifice:permanent','isThisFeatCompleted'],
           'output' => FT::ACTION(TARGET, [
             'targetLocation' => [RESERVE],
+            'targetPlayer' => ME,
             'noBoostIfBoosted' => true,
             'effect' => FT::ACTION(GAIN, ['type' => BOOST]),
           ]),
