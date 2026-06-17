@@ -1,6 +1,5 @@
 <?php
 namespace ALT\Cards\YZ;
-use ALT\Helpers\FT;
 
 class YZ_Rare_Polyxena extends \ALT\Models\Card
 {
@@ -19,7 +18,7 @@ class YZ_Rare_Polyxena extends \ALT\Models\Card
       'artist' => 'Khoa Viet',
       'extension' => 'NEJ',
       'subtypes' => [MAGE],
-      'effectDesc' => clienttranslate('If I\'m sacrificed while I wasn\'t Fleeting, send me to Reserve instead of the discard pile.'),
+      'effectDesc' => clienttranslate('If I\'m sacrificed while I wasn\'t $<FLEETING>, send me to Reserve instead of the discard pile.'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
