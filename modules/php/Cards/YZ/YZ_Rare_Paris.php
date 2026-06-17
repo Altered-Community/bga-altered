@@ -18,7 +18,7 @@ class YZ_Rare_Paris extends \ALT\Models\Card
       'artist' => 'Justice Wong',
       'extension' => 'NEJ',
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{R} Create an Ordis Recruit 1/1/1 Soldier token in my Expedition.'),
+      'effectDesc' => clienttranslate('{R} Create an <ORDIS_RECRUIT> Soldier token in my Expedition.'),
       'forest' => 2,
       'mountain' => 1,
       'ocean' => 1,

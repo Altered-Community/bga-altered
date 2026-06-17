@@ -26,11 +26,9 @@ class OD_Common_Eyota extends \ALT\Models\Card
           'listeningConditions' => ['isMe'],
           'condition' => 'isFirstPlayer',
           'output' => [
-            FT::ACTION(INVOKE_TOKEN, [
-              'pId' => 'source',
-              'tokenType' => 'OD_Common_Echo',
-              'targetLocation' => [RESERVE],
-            ]),
+            'action' => INVOKE_TOKEN,
+            'automatic' => true,
+            'args' => ['tokenType' => 'OD_Common_Echo', 'targetLocation' => [RESERVE]],
           ],
         ],
       ],
