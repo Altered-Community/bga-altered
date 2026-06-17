@@ -222,7 +222,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout, false, $temple);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false, $temple = false)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false, $temple = false, $limited = false)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -566,7 +566,27 @@ class ChooseAssignment extends \ALT\Models\Action
       }
 
       // insert effect flow
-      if ($this->getArg('limited') === true) {
+       $isLimitedPlay = $limited || $this->getArg('limited');
+      if (
+        !$isLimitedPlay
+        && $card->getCostReductionLimitation() > 0
+        && $free
+        && $newCost > 0
+      ) {
+        $fullCost = $card->getCost($scout, $this->getArg('reserveFlipCost'), $temple);
+        if ($card->getPlayLimitation() == '-2Contact' && $player->isInContact($location)) {
+          $fullCost -= 2;
+        } elseif ($card->getPlayLimitation() == '-2Multi') {
+          $opponent = Players::getNext($player);
+          if ($opponent->countCardsInLocation(STORM_LEFT, CHARACTER) || $opponent->countCardsInLocation(STORM_RIGHT, CHARACTER)) {
+            $fullCost -= 2;
+          }
+        }
+        if ($newCost <= $fullCost - $card->getCostReductionLimitation()) {
+          $isLimitedPlay = true;
+        }
+      }
+      if ($isLimitedPlay) {
         $effect = $card->getEffectPlayedLimited();
       } else {
         $effect = $card->getEffectPlayed();

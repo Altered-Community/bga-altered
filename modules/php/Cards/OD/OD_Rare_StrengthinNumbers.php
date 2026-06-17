@@ -31,7 +31,7 @@ class OD_Rare_StrengthinNumbers extends \ALT\Models\Card
           'targetType' => [CHARACTER],
           'maxStatistic' => 'soldiersInExpeditions',
           'targetLocation' => ['opponentSource'],
-          'effect' => FT::ACTION(DISCARD_TO_RESERVE, []),
+          'effect' => FT::DISCARD_TO_RESERVE(),
         ]),
       ),
     ];

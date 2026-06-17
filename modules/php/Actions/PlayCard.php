@@ -69,7 +69,8 @@ class PlayCard extends \ALT\Models\Action
     'cost' => 0,
     'costReduction' => 0,
     'reallyPlayed' => true,
-    'stealOwnership' => false,
+    'stealOwnership' => false,    
+    'limited' => false,
   ];
 
   public function isDoable($player)
@@ -154,7 +155,8 @@ class PlayCard extends \ALT\Models\Action
       $this->getArg('reallyPlayed'),
       false,
       $this->getArg('stealOwnership'),
-      $temple
+      $temple,
+      $this->getArg('limited')
     );
   }
 }
