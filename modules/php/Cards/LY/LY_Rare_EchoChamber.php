@@ -26,14 +26,11 @@ class LY_Rare_EchoChamber extends \ALT\Models\Card
         FT::GAIN(ME, FLEETING),
         FT::ACTION(CHECK_CONDITION, [
           'condition' => 'hasHeroSignatureToken',
-          'effect' => FT::SEQ_OPTIONAL(
-            FT::ACTION(TAP, []),
-            FT::ACTION(INVOKE_TOKEN, [
+          'effect' => FT::ACTION(INVOKE_TOKEN, [
               'pId' => 'source',
               'tokenType' => HERO_SIGNATURE,
               'targetLocation' => [RESERVE],
             ]),
-          ),
         ]),
         FT::ACTION(RESUPPLY, []),
       ),

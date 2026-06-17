@@ -72,6 +72,7 @@ class PlayCard extends \ALT\Models\Action
     'stealOwnership' => false,
     // null = infer in playCard (free + cost 0 => not a turn play); true for cost-reduction paths
     'countsAsTurnPlay' => null,
+    'limited' => false,
   ];
 
   public function isDoable($player)
@@ -159,7 +160,8 @@ class PlayCard extends \ALT\Models\Action
       false,
       $this->getArg('stealOwnership'),
       $this->getArg('countsAsTurnPlay'),
-      $temple
+      $temple,
+      $this->getArg('limited')
     );
   }
 }

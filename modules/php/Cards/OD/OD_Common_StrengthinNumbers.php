@@ -26,7 +26,7 @@ class OD_Common_StrengthinNumbers extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER],
           'maxStatistic' => 'soldiersInExpeditions',
-          'effect' => FT::ACTION(DISCARD_TO_RESERVE, []),
+          'effect' => FT::DISCARD_TO_RESERVE(),
         ]),
       ),
     ];
