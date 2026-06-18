@@ -120,14 +120,22 @@ class Spend extends \ALT\Models\Action
     ];
   }
 
-  public function isDoable($player)
+  /**
+   * Whether $card has enough spendable resources for amount $n.
+   * Boost tokens are checked first; numeric counters are used only when there are no boosts.
+   */
+  public static function hasEnoughToSpend($card, $n)
   {
-    $card = $this->getCard();
-    $n = $this->getArg('n');
     if ($card->countToken(BOOST) > 0) {
       return $card->countToken(BOOST) >= $n;
     }
-    return true;
+    return ($card->getExtraDatas()['counter'] ?? 0) >= $n;
+  }
+
+  public function isDoable($player)
+  {
+    $card = $this->getCard();
+    return self::hasEnoughToSpend($card, $this->getArg('n'));
   }
 
   public function stSpend()
@@ -143,6 +151,7 @@ class Spend extends \ALT\Models\Action
     $source = $this->getSource();
     $card = $this->getCard();
     $amount = $n;
+    // Boost tokens take priority over numeric counters when both are present.
     if ($card->countToken(BOOST) > 0) {
       $deleted = new Collection();
       $meeples = $card->getOfType(BOOST);
