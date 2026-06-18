@@ -32,11 +32,13 @@ class LY_Exalted_GiveFateaTwist extends \ALT\Models\Card
       'effectPassive' => [
         'ImmediateRollDie' => [
           'conditions' => ['isMe', 'isThisFeatCompleted', 'notTapped'],
-          'output' => FT::ACTION(
-            SPECIAL_EFFECT,
-            ['effect' => 'tapAndAddToCurrentRolls', 'args' => ['n' => 1]],
-            ['optional' => true]
-          ),
+          'output' => FT::SEQ_OPTIONAL_MANUAL(
+            FT::ACTION(TAP, []),
+            FT::ACTION(
+              SPECIAL_EFFECT,
+              ['effect' => 'addToCurrentRolls', 'args' => ['n' => 1]]
+            ),
+          )
         ],
         'RollDie' => [
           'conditions' => ['isMe', 'isThisFeatIncomplete', 'selectedRoll:6:GTE'],
