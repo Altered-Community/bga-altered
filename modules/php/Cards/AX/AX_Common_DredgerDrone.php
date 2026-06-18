@@ -31,7 +31,7 @@ class AX_Common_DredgerDrone extends \ALT\Models\Card
             'costHand' => 2,
             'costReserve' => 3,
             'effectReserve' => FT::SEQ_OPTIONAL(
-                FT::ACTION(SPEND, ['cardId' => ME, 'effect' => FT::ACTION(RESUPPLY, [])])
+                FT::ACTION(SPEND, ['effect' => FT::ACTION(RESUPPLY, [])])
             ),
             'effectInfinity' => [
                 'effectPassive' => [

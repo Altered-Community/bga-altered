@@ -386,10 +386,12 @@ class Action
     $childPreserveEffect = $preserveEffectPlaceholder || $isSpendAction;
 
     $cid = $node['args']['cardId'] ?? null;
+    // Only preserve EFFECT when explicitly requested (e.g. nested GAIN(EFFECT) after Spend).
+    // Do not keep EFFECT on Spend's own cardId when Target binds the picked card.
     $keepPlaceholder =
       $cid === ME ||
       $cid === MANA ||
-      ($childPreserveEffect && $cid === EFFECT);
+      ($preserveEffectPlaceholder && $cid === EFFECT);
     $needsPriorTargetCtx = $isTargetAction && $this->targetNeedsPriorSelectionCtx($node);
     if (!$isTargetAction || $needsPriorTargetCtx) {
       if (!isset($node['args']['cardId']) || !$keepPlaceholder) {

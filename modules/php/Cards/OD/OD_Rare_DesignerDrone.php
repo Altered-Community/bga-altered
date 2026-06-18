@@ -39,7 +39,7 @@ class OD_Rare_DesignerDrone extends \ALT\Models\Card
                     'augmentOnly' => true,
                     'targetType' => TYPES,
                     'upTo' => true,
-                    'effect' => FT::ACTION(SPEND, ['cardId' => EFFECT, 'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 2, 'permanent' => true]])])
+                    'effect' => FT::ACTION(SPEND, ['effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 2, 'permanent' => true]])])
                 ]
             ),
             'effectInfinity' => [

@@ -38,7 +38,7 @@ class AX_Rare_DredgerDrone extends \ALT\Models\Card
                     'augmentOnly' => true,
                     'targetType' => TYPES,
                     'upTo' => true,
-                    'effect' => FT::ACTION(SPEND, ['cardId' => EFFECT, 'effect' => FT::ACTION(RESUPPLY, [])])
+                    'effect' => FT::ACTION(SPEND, ['effect' => FT::ACTION(RESUPPLY, [])])
                 ]
             ),
             'effectInfinity' => [
