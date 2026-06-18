@@ -24,11 +24,14 @@ class MU_Exalted_SoundtheHowl extends \ALT\Models\Card
       'supportDesc' => clienttranslate('<COMPLETED_LOW>: {T} : The next Animal you play this turn gains 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(INVOKE_TOKEN, [
-        'pId' => 'source',
-        'tokenType' => 'MU_Common_Woollyback',
-        'targetLocation' => STORMS,
-      ]),
+      'effectPlayed' => FT::SEQ(
+        FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextTokenAnchored']),
+        FT::ACTION(INVOKE_TOKEN, [
+          'pId' => 'source',
+          'tokenType' => 'MU_Common_Woollyback',
+          'targetLocation' => STORMS,
+        ]),
+      ),
       'effectPassive' => [
         'EndTurn' => [
           'conditions' => ['isMe', 'soundTheHowlPass', 'isThisFeatIncomplete'],

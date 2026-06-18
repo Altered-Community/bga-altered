@@ -26,6 +26,7 @@ class LY_Rare_GalvanizetheTroops extends \ALT\Models\Card
       'supportDesc' => clienttranslate('<COMPLETED_LOW>: At Noon — If you are first player, <RESUPPLY_LOW>. #Otherwise, target Character in your Reserve gains 1 boost.#'),
       'costHand' => 2,
       'costReserve' => 2,
+      'blockAutomaticAction' => [CHECK_CONDITION => ['isFirstPlayer']],
       'effectPlayed' => FT::SEQ(
         FT::ACTION(RESUPPLY, []),
         FT::ACTION(TARGET, [
