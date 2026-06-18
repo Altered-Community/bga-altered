@@ -22,7 +22,6 @@ class AX_Rare_PushBacktheNight extends \ALT\Models\Card
       'subtypes'  => [FEAT, LANDMARK],
       'effectDesc' => clienttranslate('{J} Draw a card, #then put a card from your hand in Reserve.#  At Noon — If six or more cards are in your discard pile, complete me.'),
       'supportDesc' => clienttranslate('<COMPLETED_LOW>: When #a card goes directly from your hand to Reserve# — You may exhaust me ({T}) to create a #<BRASSBUG> Robot# token in target Expedition.'),
-      'supportIcon' => 'discard',
       'costHand' => 2,
       'costReserve' => 2,
       'changedStats' => ['costHand', 'costReserve'],
