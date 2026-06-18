@@ -36,7 +36,7 @@ class YZ_Common_SamSpook extends \ALT\Models\Card
 			]),
 			'effectPassive' => [
 				'Discard' => [
-					'conditions' => ['isMe', 'isDiscarded:hand:discard', 'hasDiscardPileCards:6'],
+					'conditions' => ['isMe', 'isDiscarded:hand:discard', 'hasDiscardPileCards:7'],
 					'output' => FT::ACTION(DISCARD, ['cardId' => EFFECT, 'destination' => RESERVE]),
 				],
 			],
