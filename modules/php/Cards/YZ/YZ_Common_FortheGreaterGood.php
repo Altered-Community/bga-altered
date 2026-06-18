@@ -25,11 +25,18 @@ class YZ_Common_FortheGreaterGood extends \ALT\Models\Card
       'costReserve' => 2,
       'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
-        FT::ACTION(DISCARD, ['source' => HAND]),
         FT::ACTION(TARGET, [
-          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
-          'maxBaseCost' => 3,
-          'effect' => FT::ACTION(DISCARD, []),
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(TARGET, [
+              'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+              'maxBaseCost' => 3,
+              'effect' => FT::ACTION(DISCARD, []),
+            ]),
+          ),
         ]),
       ),
     ];
