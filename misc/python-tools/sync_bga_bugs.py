@@ -14,7 +14,7 @@ Required:
 """
 
 import os
-import json
+import re
 import sys
 import time
 import logging
@@ -23,7 +23,6 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
 from github import Github, GithubException
 
-# ── Logging ───────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -31,61 +30,49 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# ── Constants ─────────────────────────────────────────────────────────────────
 BGA_BUGS_URL = (
     "https://boardgamearena.com/bugs?game={game_id}"
     "&statuses=confirmed"
 )
 BGA_BUG_URL = "https://boardgamearena.com/bug?id={bug_id}"
 
-LABEL_BGA   = "bga-bug"
-DEDUPE_FILE = ".bga_synced_bugs.json"
+LABEL_BGA = "bga-bug"
 
-# JS file is next to this script
 EXTRACT_JS_PATH = Path(__file__).parent / "extract_bugs.js"
 
-# Map BGA status text (lowercased substring) → (label_name, color, description)
 BGA_STATUS_LABELS = {
-    "open":           ("bga-open",         "e4e669", "BGA status: Open"),
-    "infoneeded":     ("bga-info-needed",   "FCC94F", "BGA status: Info Needed"),
-    "infos requises": ("bga-info-needed",   "FCC94F", "BGA status: Info Needed"),
-    "confirmed":      ("bga-confirmed",     "0075ca", "BGA status: Confirmed"),
-    "confirme":       ("bga-confirmed",     "0075ca", "BGA status: Confirmed"),
-    "awaiting":       ("bga-awaiting",      "cfd3d7", "BGA status: Awaiting"),
-    "en attente":     ("bga-awaiting",      "cfd3d7", "BGA status: Awaiting"),
-    "inforequest":    ("bga-info-request",  "d93f0b", "BGA status: Info Request"),
-    "acknowledged":   ("bga-acknowledged",  "1d76db", "BGA status: Acknowledged"),
-    "implemented":    ("bga-implemented",   "0e8a16", "BGA status: Implemented"),
-    "implemente":     ("bga-implemented",   "0e8a16", "BGA status: Implemented"),
-    "rejected":       ("bga-rejected",      "b60205", "BGA status: Rejected"),
-    "rejete":         ("bga-rejected",      "b60205", "BGA status: Rejected"),
+    "open": ("bga-open", "e4e669", "BGA status: Open"),
+    "infoneeded": ("bga-info-needed", "FCC94F", "BGA status: Info Needed"),
+    "infos requises": ("bga-info-needed", "FCC94F", "BGA status: Info Needed"),
+    "confirmed": ("bga-confirmed", "0075ca", "BGA status: Confirmed"),
+    "confirme": ("bga-confirmed", "0075ca", "BGA status: Confirmed"),
+    "awaiting": ("bga-awaiting", "cfd3d7", "BGA status: Awaiting"),
+    "en attente": ("bga-awaiting", "cfd3d7", "BGA status: Awaiting"),
+    "inforequest": ("bga-info-request", "d93f0b", "BGA status: Info Request"),
+    "acknowledged": ("bga-acknowledged", "1d76db", "BGA status: Acknowledged"),
+    "implemented": ("bga-implemented", "0e8a16", "BGA status: Implemented"),
+    "implemente": ("bga-implemented", "0e8a16", "BGA status: Implemented"),
+    "rejected": ("bga-rejected", "b60205", "BGA status: Rejected"),
+    "rejete": ("bga-rejected", "b60205", "BGA status: Rejected"),
 }
 
 ALL_STATUS_LABEL_NAMES = {v[0] for v in BGA_STATUS_LABELS.values()}
 
-
-# ── Status helpers ────────────────────────────────────────────────────────────
 def normalise_str(s):
-    """Lowercase + strip accents for robust matching."""
     replacements = {"é": "e", "è": "e", "ê": "e", "à": "a", "î": "i", "ô": "o", "û": "u"}
     s = s.lower()
     for src, dst in replacements.items():
         s = s.replace(src, dst)
     return s
 
-
 def resolve_status_label(status_text: str) -> tuple:
-    """Return (label_name, color, description) for a BGA status string."""
     normalised = normalise_str(status_text)
     for key, value in BGA_STATUS_LABELS.items():
         if key in normalised:
             return value
-    # Unknown status — create a generic label
     slug = normalised.replace(" ", "-")
     return (f"bga-{slug}", "ededed", f"BGA status: {status_text}")
 
-
-# ── BGA scraper (Playwright) ──────────────────────────────────────────────────
 def fetch_bugs(game_id: str) -> list:
     url = BGA_BUGS_URL.format(game_id=game_id)
     log.info("Opening %s with headless Chromium...", url)
@@ -95,187 +82,164 @@ def fetch_bugs(game_id: str) -> list:
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (X11; Linux x86_64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0 Safari/537.36"
-            ),
-            locale="en-US",
-        )
+        context = browser.new_context(locale="en-US")
         page = context.new_page()
-        page.goto(url, wait_until="networkidle", timeout=60_000)
+
+        page.goto(url, wait_until="networkidle", timeout=60000)
 
         try:
-            page.wait_for_selector("tr.cursor-pointer", timeout=30_000)
+            page.wait_for_selector("tr.cursor-pointer", timeout=30000)
         except PlaywrightTimeout:
-            log.warning("Timed out waiting for bug rows — page structure may have changed.")
-            log.debug(page.content()[:5000])
             browser.close()
             return bugs
-
-        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        time.sleep(2)
 
         seen_ids = set()
 
         def normalise_rows(items):
             result = []
             for item in items:
-                bid = item.get("bugId") or "hash_{}".format(abs(hash(item.get("title", ""))))
+                bid = item.get("bugId") or f"hash_{abs(hash(item.get('title', '')))}"
                 if not item.get("title") or bid in seen_ids:
                     continue
+
                 seen_ids.add(bid)
+
                 result.append({
-                    "id":          bid,
-                    "title":       item.get("title", ""),
+                    "id": bid,
+                    "title": item.get("title", ""),
                     "status_text": item.get("statusText", "open"),
-                    "votes":       item.get("votes", ""),
-                    "game":        item.get("game", ""),
-                    "category":    item.get("category", ""),
-                    "date":        item.get("date", ""),
-                    "detail_url":  BGA_BUG_URL.format(bug_id=bid),
+                    "votes": item.get("votes", ""),
+                    "game": item.get("game", ""),
+                    "category": item.get("category", ""),
+                    "date": item.get("date", ""),
+                    "detail_url": BGA_BUG_URL.format(bug_id=bid),
                 })
+
             return result
 
         bugs.extend(normalise_rows(page.evaluate(extract_js)))
-        log.info("Page 1: %d bug(s) found", len(bugs))
-
-        page_num = 2
-        while True:
-            next_btn = page.query_selector(
-                "a[rel='next'], "
-                "button[aria-label='Next'], "
-                ".pagination .next:not(.disabled), "
-                "a[aria-label='Next page']"
-            )
-            if not next_btn:
-                break
-            log.info("Loading page %d...", page_num)
-            next_btn.click()
-            try:
-                page.wait_for_load_state("networkidle", timeout=15_000)
-                page.wait_for_selector("tr.cursor-pointer", timeout=10_000)
-            except PlaywrightTimeout:
-                break
-            new_items = normalise_rows(page.evaluate(extract_js))
-            if not new_items:
-                break
-            bugs.extend(new_items)
-            log.info("Page %d: +%d bug(s)", page_num, len(new_items))
-            page_num += 1
-
         browser.close()
 
-    log.info("Total bugs fetched: %d", len(bugs))
     return bugs
 
-
-# ── GitHub helpers ────────────────────────────────────────────────────────────
 def ensure_labels(repo, status_texts):
     required = {LABEL_BGA: ("B60205", "Bug imported from Board Game Arena")}
+
     for status_text in status_texts:
         name, color, desc = resolve_status_label(status_text)
         required[name] = (color, desc)
 
     existing = {lbl.name for lbl in repo.get_labels()}
+
     for name, (color, desc) in required.items():
         if name not in existing:
             repo.create_label(name=name, color=color, description=desc)
-            log.info("Created label: %s", name)
 
+def load_existing_bga_issues(repo, game_id):
+    existing = {}
 
-def load_synced(path):
-    if os.path.exists(path):
-        with open(path) as f:
-            return json.load(f)
-    return {}
+    bug_id_pattern = re.compile(r"\*\*BGA Bug ID:\*\*\s*`([^`]+)`")
 
+    for issue in repo.get_issues(state="all"):
+        labels = {label.name for label in issue.labels}
 
-def save_synced(path, data):
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2)
+        if LABEL_BGA not in labels:
+            continue
 
+        match = bug_id_pattern.search(issue.body or "")
+        if not match:
+            continue
+
+        bug_id = match.group(1)
+        existing[f"bga_{game_id}_{bug_id}"] = issue
+
+    log.info("Loaded %d previously synced BGA issue(s)", len(existing))
+    return existing
 
 def build_issue_body(bug):
-    lines = [
-        "**BGA Bug ID:** `{}`".format(bug["id"]),
-        "**Game:** {}".format(bug["game"] or "unknown"),
-        "**Category:** {}".format(bug["category"] or "unknown"),
-        "**Status on BGA:** {}".format(bug["status_text"]),
-        "**Votes:** {}".format(bug["votes"] or "0"),
-        "**Reported:** {}".format(bug["date"] or "unknown"),
+    return "\n".join([
+        f"**BGA Bug ID:** `{bug['id']}`",
+        f"**Game:** {bug['game'] or 'unknown'}",
+        f"**Category:** {bug['category'] or 'unknown'}",
+        f"**Status on BGA:** {bug['status_text']}",
+        f"**Votes:** {bug['votes'] or '0'}",
+        f"**Reported:** {bug['date'] or 'unknown'}",
         "",
-        "**Link:** {}".format(bug["detail_url"]),
+        f"**Link:** {bug['detail_url']}",
         "",
         "---",
         "_This issue was automatically imported by the BGA Bug Sync GitHub Action._",
-    ]
-    return "\n".join(lines)
+    ])
 
-
-# ── Main ──────────────────────────────────────────────────────────────────────
 def main():
-    game_id  = os.environ.get("BGA_GAME_ID", "1909")
+    game_id = os.environ.get("BGA_GAME_ID", "1909")
     gh_token = os.environ.get("GITHUB_TOKEN", "")
-    gh_repo  = os.environ.get("GITHUB_REPO", "")
+    gh_repo = os.environ.get("GITHUB_REPO", "")
 
-    missing = [k for k, v in {"GITHUB_TOKEN": gh_token, "GITHUB_REPO": gh_repo}.items() if not v]
-    if missing:
-        log.error("Missing required environment variables: %s", ", ".join(missing))
+    if not gh_token or not gh_repo:
         sys.exit(1)
 
     bugs = fetch_bugs(game_id)
-    if not bugs:
-        log.info("No bugs found — nothing to sync.")
-        return
 
-    gh   = Github(gh_token)
+    gh = Github(gh_token)
     repo = gh.get_repo(gh_repo)
 
-    all_statuses = {bug["status_text"] for bug in bugs}
-    ensure_labels(repo, all_statuses)
+    ensure_labels(repo, {bug["status_text"] for bug in bugs})
 
-    synced = load_synced(DEDUPE_FILE)
+    existing_issues = load_existing_bga_issues(repo, game_id)
+
     created = updated = skipped = 0
 
     for bug in bugs:
-        bug_key           = "bga_{}_{}".format(game_id, bug["id"])
+        bug_key = f"bga_{game_id}_{bug['id']}"
         status_label_name = resolve_status_label(bug["status_text"])[0]
 
-        if bug_key in synced:
+        if bug_key in existing_issues:
+            issue = existing_issues[bug_key]
+
             try:
-                issue          = repo.get_issue(synced[bug_key])
                 current_labels = {lbl.name for lbl in issue.labels}
                 current_status = current_labels & ALL_STATUS_LABEL_NAMES
 
                 if current_status != {status_label_name}:
-                    new_labels = (current_labels - ALL_STATUS_LABEL_NAMES) | {status_label_name}
+                    new_labels = (
+                        current_labels - ALL_STATUS_LABEL_NAMES
+                    ) | {status_label_name}
+
                     issue.edit(labels=list(new_labels))
-                    log.info("Updated label on issue #%d -> %s", issue.number, status_label_name)
                     updated += 1
                 else:
                     skipped += 1
+
             except GithubException as exc:
-                log.warning("Could not update %s: %s", bug_key, exc)
+                log.warning("Could not update issue #%d: %s", issue.number, exc)
+
             continue
 
-        title  = "[BGA #{}] {}".format(bug["id"], bug["title"])
-        body   = build_issue_body(bug)
+        title = f"[BGA #{bug['id']}] {bug['title']}"
+        body = build_issue_body(bug)
         labels = [LABEL_BGA, status_label_name]
 
         try:
-            issue           = repo.create_issue(title=title, body=body, labels=labels)
-            synced[bug_key] = issue.number
-            log.info("Created issue #%d: %s", issue.number, title[:70])
+            issue = repo.create_issue(
+                title=title,
+                body=body,
+                labels=labels,
+            )
+
+            existing_issues[bug_key] = issue
             created += 1
             time.sleep(0.5)
+
         except GithubException as exc:
             log.error("Failed to create issue for %s: %s", bug_key, exc)
 
-    save_synced(DEDUPE_FILE, synced)
-    log.info("Done — created: %d, updated: %d, skipped: %d.", created, updated, skipped)
-
+    log.info(
+        "Done — created: %d, updated: %d, skipped: %d.",
+        created,
+        updated,
+        skipped,
+    )
 
 if __name__ == "__main__":
     main()
