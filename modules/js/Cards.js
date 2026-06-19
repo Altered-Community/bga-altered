@@ -1802,6 +1802,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let supportIcon = this.getSupportIcon(p);
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
       let isLandmark = card.properties.subtypes.includes('landmark');
+      let isFeat = card.properties.subtypes.includes('feat');
       let fullArt = card.properties.hasOwnProperty('fullArt') ? card.properties.fullArt : false;
       let permDescription = isLandmark
         ? _('(Play me in your Landmark zone. I don’t gain Fleeting.)')
@@ -1824,7 +1825,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
       if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
         tplData += `<div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
-              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='${
+              data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-isfeat='${isFeat ? 1 : 0}' data-type='${
                 isLandmark ? (p.hasOwnProperty('token') ? 'permanent' : 'permanent') : 'gear'
               }'></div>
           `;

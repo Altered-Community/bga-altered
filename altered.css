@@ -9726,22 +9726,22 @@ html {
 .altered-card .altered-card-wrapper .card-frame[data-type=gear][data-rarity="1"][data-support="1"][data-size="2"] {
   background-position: 100% 71.4286%;
 }
-.altered-card .altered-card-wrapper .card-frame[data-type=feat][data-rarity="0"][data-support="1"][data-size="1"] {
+.altered-card .altered-card-wrapper .card-frame[data-isfeat="1"][data-type=permanent][data-rarity="0"][data-support="1"][data-size="1"]{
   background-position: 0% 100%;
 }
-.altered-card .altered-card-wrapper .card-frame[data-type=feat][data-rarity="0"][data-support="1"][data-size="2"] {
+.altered-card .altered-card-wrapper .card-frame[data-isfeat="1"][data-type=permanent][data-rarity="0"][data-support="1"][data-size="2"]{
   background-position: 20% 100%;
 }
-.altered-card .altered-card-wrapper .card-frame[data-type=feat][data-rarity="1"][data-support="1"][data-size="1"] {
+.altered-card .altered-card-wrapper .card-frame[data-isfeat="1"][data-type=permanent][data-rarity="1"][data-support="1"][data-size="1"]{
   background-position: 40% 100%;
 }
-.altered-card .altered-card-wrapper .card-frame[data-type=feat][data-rarity="1"][data-support="1"][data-size="2"] {
+.altered-card .altered-card-wrapper .card-frame[data-isfeat="1"][data-type=permanent][data-rarity="1"][data-support="1"][data-size="2"]{
   background-position: 60% 100%;
 }
-.altered-card .altered-card-wrapper .card-frame[data-type=feat][data-rarity="3"][data-support="1"][data-size="1"] {
+.altered-card .altered-card-wrapper .card-frame[data-isfeat="1"][data-type=permanent][data-rarity="3"][data-support="1"][data-size="1"]{
   background-position: 80% 100%;
 }
-.altered-card .altered-card-wrapper .card-frame[data-type=feat][data-rarity="3"][data-support="1"][data-size="2"] {
+.altered-card .altered-card-wrapper .card-frame[data-isfeat="1"][data-type=permanent][data-rarity="3"][data-support="1"][data-size="2"]{
   background-position: 100% 100%;
 }
 .altered-card .altered-card-wrapper .rarity-gem {
@@ -9967,12 +9967,13 @@ html {
 .altered-card .altered-card-wrapper .card-support .keyword {
   font-weight: bold;
 }
-.altered-card .altered-card-wrapper .card-text .keyword.FLEETING_CHAR, .altered-card .altered-card-wrapper .card-text .keyword.FLEETING, .altered-card .altered-card-wrapper .card-text .keyword.ANCHORED, .altered-card .altered-card-wrapper .card-text .keyword.ASLEEP, .altered-card .altered-card-wrapper .card-text .keyword.BOOSTED,
+.altered-card .altered-card-wrapper .card-text .keyword.FLEETING_CHAR, .altered-card .altered-card-wrapper .card-text .keyword.FLEETING, .altered-card .altered-card-wrapper .card-text .keyword.ANCHORED, .altered-card .altered-card-wrapper .card-text .keyword.ASLEEP, .altered-card .altered-card-wrapper .card-text .keyword.BOOSTED, .altered-card .altered-card-wrapper .card-text .keyword.COMPLETED_LOW,
 .altered-card .altered-card-wrapper .card-support .keyword.FLEETING_CHAR,
 .altered-card .altered-card-wrapper .card-support .keyword.FLEETING,
 .altered-card .altered-card-wrapper .card-support .keyword.ANCHORED,
 .altered-card .altered-card-wrapper .card-support .keyword.ASLEEP,
-.altered-card .altered-card-wrapper .card-support .keyword.BOOSTED {
+.altered-card .altered-card-wrapper .card-support .keyword.BOOSTED,
+.altered-card .altered-card-wrapper .card-support .keyword.COMPLETED_LOW {
   text-decoration: underline;
 }
 .altered-card .altered-card-wrapper .card-text .parenthesis,
