@@ -369,12 +369,19 @@ trait SetupTrait
       $uid = trim($parts[1]);
       if ($quantity < 1) continue;
 
-      $cProp = Cards::getCardClass($uid)->getProperties();
-
       if ($first) {
+        $cProp = Cards::getCardClass($uid)->getProperties();
         $deckContent[HERO] = ['card' => ['properties' => $cProp], 'n' => 1];
         $first = false;
+      } elseif (str_contains($uid, '_U_')) {
+        $uniqueData = self::fetchUniqueFromApi($uid);
+        $properties = Cards::generateUnique($uniqueData);
+        if (is_null($properties)) {
+          throw new \BgaUserException(clienttranslate('This unique has an unimplemented power'));
+        }
+        $deckContent[] = ['card' => ['properties' => $properties], 'n' => 1];
       } else {
+        $cProp = Cards::getCardClass($uid)->getProperties();
         $found = false;
         foreach ($deckContent as $key => $existing) {
           if (isset($existing['card']['properties']['uid']) && $existing['card']['properties']['uid'] === $uid) {
@@ -414,6 +421,81 @@ trait SetupTrait
     Notifications::updateInitialPrecoDeckSelection($player, $this->argsPrecoDeckSelection());
 
     $this->updateActivePlayersPrecoDeckSelection();
+  }
+
+  private static function fetchUniqueFromApi(string $uid): array
+  {
+    $curl = curl_init();
+    $url = 'https://cards.alteredcore.org/api/cards/reference/' . urlencode($uid) . '?locale=fr';
+    curl_setopt_array($curl, [
+      CURLOPT_URL => $url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 10,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    ]);
+    $response = curl_exec($curl);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+
+    if ($httpCode !== 200 || $response === false) {
+      throw new \BgaUserException(clienttranslate('Failed to fetch unique card data'));
+    }
+
+    $apiData = json_decode($response, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+      throw new \BgaUserException(clienttranslate('Invalid response for unique card'));
+    }
+
+    $subTypes = [];
+    $subTypeNames = [];
+    foreach (is_array($apiData['cardSubTypes'] ?? null) ? $apiData['cardSubTypes'] : [] as $st) {
+      $subTypes[] = $st['reference'];
+      $subTypeNames[] = $st['name'];
+    }
+
+    $typeline = $apiData['cardType']['name'];
+    if (!empty($subTypes)) {
+      $typeline .= ' — ' . implode(', ', $subTypeNames);
+    }
+
+    $uniqueReduced = [];
+    foreach (['effect1', 'effect2'] as $key) {
+      if (isset($apiData[$key]['abilityKey'])) {
+        $parts = explode('_', $apiData[$key]['abilityKey']);
+        if (count($parts) === 3) {
+          $uniqueReduced[] = ['effects' => [(int) $parts[0], (int) $parts[1], (int) $parts[2]]];
+        }
+      }
+    }
+    foreach (is_array($apiData['echoEffect'] ?? null) ? $apiData['echoEffect'] : [] as $echo) {
+      if (isset($echo['abilityKey'])) {
+        $parts = explode('_', $echo['abilityKey']);
+        if (count($parts) === 3) {
+          $uniqueReduced[] = ['effects' => [(int) $parts[0], (int) $parts[1], (int) $parts[2]]];
+        }
+      }
+    }
+
+    return [
+      'reference' => $apiData['reference'],
+      'mainFaction' => ['reference' => $apiData['faction']['code']],
+      'name' => $apiData['name'],
+      'cardType' => $apiData['cardType'],
+      'subTypes' => $subTypes,
+      'typeline' => $typeline,
+      'illustrator' => $apiData['artists'][0]['name'] ?? '',
+      'elements' => [
+        'MAIN_COST' => $apiData['mainCost'],
+        'RECALL_COST' => $apiData['recallCost'],
+        'FOREST_POWER' => $apiData['forestPower'],
+        'MOUNTAIN_POWER' => $apiData['mountainPower'],
+        'OCEAN_POWER' => $apiData['oceanPower'],
+      ],
+      'uniqueReduced' => $uniqueReduced,
+    ];
   }
 
   /////////////////////////////////////////////////////////
