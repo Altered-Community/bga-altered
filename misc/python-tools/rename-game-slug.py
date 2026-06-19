@@ -148,7 +148,7 @@ def _transform_core_game_php(content: str, source: str, target: str) -> str:
 _ENV_GAMEOPTIONS_MAP: dict[str, str] = {
     # Map target slug → environment-specific filename stem.
     # Multiple targets can share a single gameoptions.{stem}.json file.
-    "alteredtest": "altered",
+    "alteredpreprod": "altered",
 }
 
 
@@ -160,7 +160,7 @@ def _patch_gameoptions(repo: Path, target: str, dry_run: bool) -> None:
     environment-specific copy so it does not leak to the deployment.
 
     Convention:
-        gameoptions.altered.json      → production (altered) and test (alteredtest)
+        gameoptions.altered.json      → production (altered) and alteredpreprod (alteredpreprod)
         gameoptions.json               → everything else (preprod, branches, …)
     """
     stem = _ENV_GAMEOPTIONS_MAP.get(target, target)
