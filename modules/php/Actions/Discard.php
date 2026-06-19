@@ -9,6 +9,7 @@ use ALT\Core\Notifications;
 use ALT\Managers\ActionCards;
 use ALT\Core\Engine;
 use ALT\Core\Globals;
+use ALT\Core\Game;
 use ALT\Core\Stats;
 use ALT\Helpers\Collection;
 use ALT\Helpers\Utils;
@@ -43,7 +44,24 @@ class Discard extends \ALT\Models\Action
 
   public function isOptional($player)
   {
-    return $this->getArg('canPass');
+    return $this->getArg('canPass') || $this->cannotFulfillDiscard($player);
+  }
+
+  private function cannotFulfillDiscard($player)
+  {
+    if (!is_null($this->getArg('special'))) {
+      return false;
+    }
+
+    $args = $this->argsDiscard();
+    $available = $args['_private']['active']['cards'] ?? [];
+    $n = $args['n'] + ($args['nLandmarks'] ?? 0);
+
+    if ($this->getArg('upTo')) {
+      return count($available) == 0;
+    }
+
+    return count($available) < $n;
   }
 
   public function isSacrifice()
@@ -183,6 +201,11 @@ class Discard extends \ALT\Models\Action
     // Nothing automatic if player can pass
     // if ($this->getArg('canPass') && !$force) {
     if ($this->getArg('canPass')) {
+      return;
+    }
+
+    if ($this->cannotFulfillDiscard($this->getPlayer())) {
+      Game::get()->actPassOptionalAction(true);
       return;
     }
 
