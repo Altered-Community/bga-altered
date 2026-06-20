@@ -508,6 +508,45 @@
                         background-position: 100% 100%;
                     }
                 }
+
+                &[data-isfeat="1"] {
+
+                    // BASE
+                    &[data-rarity="0"] {
+
+                        &[data-support="1"][data-size="1"] {
+                            background-position: 0% 100%;
+                        }
+
+                        &[data-support="1"][data-size="2"] {
+                            background-position: 20% 100%;
+                        }
+                    }
+
+                    // RARE
+                    &[data-rarity="1"] {
+
+                        &[data-support="1"][data-size="1"] {
+                            background-position: 40% 100%;
+                        }
+
+                        &[data-support="1"][data-size="2"] {
+                            background-position: 60% 100%;
+                        }
+                    }
+
+                    // EXALTED
+                    &[data-rarity="3"] {
+
+                        &[data-support="1"][data-size="1"] {
+                            background-position: 80% 100%;
+                        }
+
+                        &[data-support="1"][data-size="2"] {
+                            background-position: 100% 100%;
+                        }
+                    }
+                }
             }
 
             &[data-type="gear"] {
