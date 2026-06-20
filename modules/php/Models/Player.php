@@ -602,7 +602,7 @@ class Player extends \ALT\Helpers\DB_Model
     }
 
     if ($notify) {
-      Notifications::moveStormToken($this, $biomes, $tokenMeeple, $stormIndex, $revealed, $source);
+      Notifications::moveStormToken($this, $biomes, $tokenMeeple, $stormIndex, $revealed, $source, $hasMovedFromAscension);
     }
     return true;
   }
