@@ -32,13 +32,13 @@ class BR_Rare_LakshmisOwl extends \ALT\Models\Card
             'supportIcon' => 'discard',
             'effectPassive' => [
                 'Gain' => [ 
-                    'conditions' => ['isGain:boost', 'isControlledCharacterGain', 'isMe', 'hasBoost:0:LTE', 'isInStorms'],
+                    'conditions' => ['isGain:boost', 'hasBoost:0:LTE', 'isInStorms'],
                     'output' => FT::GAIN(ME, BOOST),
                 ],
             ],
             'effectSupport' => [
               'action' => SPECIAL_EFFECT,
-              'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
+              'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1,'minimum' => 1]],
             ],
         ];
     }
