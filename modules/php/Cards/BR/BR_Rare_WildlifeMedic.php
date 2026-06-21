@@ -27,7 +27,7 @@ class BR_Rare_WildlifeMedic extends \ALT\Models\Card
       'ocean' => 2,
       'costHand' => 3,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(RESUPPLY, ['boostIfMatchCondition' => '1:isType:character']),
+      'effectHand' => FT::ACTION(RESUPPLY, ['boostIfMatchCondition' => '1:isType:character']),
     ];
   }
 }
