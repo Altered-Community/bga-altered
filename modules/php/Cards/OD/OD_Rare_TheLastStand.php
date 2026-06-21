@@ -21,7 +21,6 @@ class OD_Rare_TheLastStand extends \ALT\Models\Card
       'subtypes'  => [FEAT,LANDMARK],
       'effectDesc' => clienttranslate('{J} Send to Reserve target Character with Base Cost #{2} or less.#  When you pass — If you control another Feat, complete me.'),
       'supportDesc' => clienttranslate('<COMPLETED_LOW>: Your Landmarks limit is four.'),
-      'supportIcon' => 'discard',
       'costHand' => 2, 
       'costReserve' => 2, 
       'changedStats' => ['costHand','costReserve'], 
