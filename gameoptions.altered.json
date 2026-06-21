@@ -51,11 +51,6 @@
         "name": "Sandbox",
         "tmdisplay": "Sandbox",
         "description": "4-100 cards, all cards available, no faction or rarity restrictions."
-      },
-      "4": {
-        "name": "Test",
-        "tmdisplay": "Test",
-        "description": "40-60 cards, standard rules without unique with set in testing enabled and uniques"
       }
     }
   }
