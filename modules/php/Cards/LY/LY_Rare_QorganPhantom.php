@@ -28,7 +28,12 @@ class LY_Rare_QorganPhantom extends \ALT\Models\Card
       'costReserve' => 2, 
       'effectSupport' => FT::SEQ(
         FT::ACTION(DRAW, ['players' => ME, 'n' => 1]),
-        FT::DISCARD_TO_RESERVE()
+        FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'effect' => FT::DISCARD_TO_RESERVE(),
+        ])
       ),
     ];
   }
