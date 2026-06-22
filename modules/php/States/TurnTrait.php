@@ -353,7 +353,6 @@ trait TurnTrait
   function stNightCleanup()
   {
     // $player = Players::getActive();
-    Meeples::nightCleanup();
     // Initiate engine in case some cards are reacting
     Engine::setup(['type' => NODE_SEQ, 'childs' => []], ['order' => 'nightCleanup']);
     // Move cards / remove tokens => possible reaction of cards moving to reserve or being discarded
@@ -428,7 +427,7 @@ trait TurnTrait
   function stEndOfNight()
   {
     // throw new \feException(print_r(Globals::getAfterNightCleanup()));
-
+    Meeples::nightCleanup();
     $this->checkCardListeners('EndOfNight', ST_NEW_DAY);
   }
 }
