@@ -930,7 +930,8 @@
                 &.FLEETING,
                 &.ANCHORED,
                 &.ASLEEP,
-                &.BOOSTED {
+                &.BOOSTED,
+                &.COMPLETED_LOW {
                     text-decoration: underline;
                 }
             }
