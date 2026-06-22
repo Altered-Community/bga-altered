@@ -386,10 +386,13 @@ class Action
     $childPreserveEffect = $preserveEffectPlaceholder || $isSpendAction;
 
     $cid = $node['args']['cardId'] ?? null;
+    // Only preserve EFFECT when explicitly requested (e.g. nested GAIN(EFFECT) after Spend).
+    // Do not keep EFFECT on Spend's own cardId when Target binds the picked card.
+    // This caused bugs where Spend's nested effects couldn't tell which card was spent, and where TARGET: Guiding Ocelot's nested effect couldn't tell which card was picked.
     $keepPlaceholder =
       $cid === ME ||
       $cid === MANA ||
-      ($childPreserveEffect && $cid === EFFECT);
+      ($preserveEffectPlaceholder && $cid === EFFECT);
     $needsPriorTargetCtx = $isTargetAction && $this->targetNeedsPriorSelectionCtx($node);
     if (!$isTargetAction || $needsPriorTargetCtx) {
       if (!isset($node['args']['cardId']) || !$keepPlaceholder) {
@@ -426,7 +429,9 @@ class Action
       $childCardFrom = isset($node['args']['effect']['args']['targetLocation']) 
         ? $node['args']['effect']['args']['targetLocation'] 
         : $cardFrom;
-      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $effectPropagateId, $childCardFrom, $sourceId, $ownerId, $preserveEffectPlaceholder);
+          // Under SPEND, keep nested GAIN(EFFECT) on the listener event card (Guiding Ocelot).
+      $effectPreserveEffect = $isSpendAction ? $childPreserveEffect : $preserveEffectPlaceholder;
+      $node['args']['effect'] = $this->updateCardId($node['args']['effect'], $effectPropagateId, $childCardFrom, $sourceId, $ownerId, $effectPreserveEffect);
     }
     if (isset($node['args']['oppositeEffect']) && is_array($node['args']['oppositeEffect'])) {
       $node['args']['oppositeEffect'] = $this->updateCardId(

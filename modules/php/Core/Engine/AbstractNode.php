@@ -466,8 +466,15 @@ class AbstractNode
     $this->infos['choice'] = $childIndex;
     $this->infos['countChoices'] = ($this->infos['countChoices'] ?? 0) + 1;
     $child = $this->childs[$this->infos['choice']];
-    if (!$auto && !($child instanceof \ALT\Core\Engine\LeafNode)) {
-      $child->enforceMandatory();
+    if (!($child instanceof \ALT\Core\Engine\LeafNode)) {
+      // Optional SEQ nodes (e.g. effectReserve "you may spend…") must be entered here when
+      // chosen from a PARALLEL/OR parent; enforceMandatory alone leaves optional=true and
+      // prompts the same description a second time.
+      if ($child instanceof \ALT\Core\Engine\SeqNode && $child->getOptional()) {
+        $child->choose(0, $auto);
+      } elseif (!$auto) {
+        $child->enforceMandatory();
+      }
     }
   }
 
