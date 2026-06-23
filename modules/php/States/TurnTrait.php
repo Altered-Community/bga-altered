@@ -360,6 +360,7 @@ trait TurnTrait
     foreach ($turnOrder as $pId) {
       Players::get($pId)->nightCleanup();
     }
+    Meeples::nightCleanup();
     // foreach (Players::getAll() as $pId => $player) {
     //   $player->nightCleanup();
     // }
@@ -427,7 +428,6 @@ trait TurnTrait
   function stEndOfNight()
   {
     // throw new \feException(print_r(Globals::getAfterNightCleanup()));
-    Meeples::nightCleanup();
     $this->checkCardListeners('EndOfNight', ST_NEW_DAY);
   }
 }
