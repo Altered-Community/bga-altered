@@ -23,7 +23,7 @@ class BR_Rare_LakshmisOwl extends \ALT\Models\Card
             'extension' => 'ROC',
             'subtypes'  => [ANIMAL, SPIRIT],
             'effectDesc' => clienttranslate('When #a Character gains one or more boosts# — If I have no boosts, #I gain 1 boost#. $<BB>'), 
-            'supportDesc' => clienttranslate('{D} : Pay {1} less for the next Character you play this turn, down to a minimum of {1}. (Discard me from Reserve to do this.)'),
+            'supportDesc' => clienttranslate('#{D} : Pay {1} less for the next Character you play this turn, down to a minimum of {1}. (Discard me from Reserve to do this.)#'),
             'forest' => 0,
             'mountain' => 1,
             'ocean' => 0,
