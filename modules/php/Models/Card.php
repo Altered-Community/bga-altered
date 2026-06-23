@@ -916,6 +916,9 @@ class Card extends \ALT\Helpers\DB_Model
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
     foreach ($costReduction as $reducType => $reduction) {
+      if (!is_array($reduction)) {
+        continue;
+      }
       if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType()) || $reducType == ALL) {
         $typeReduction += $reduction['reduction'];
         $minimumCost = max($minimumCost, ($reduction['minimum'] ?? 0));
@@ -923,7 +926,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
     
     foreach ($this->getSubtypes() as $subtype) {
-      if (!isset($costReduction[$subtype])) {
+      if (!isset($costReduction[$subtype]) || !is_array($costReduction[$subtype])) {
         continue;
       }
       $typeReduction += $costReduction[$subtype]['reduction'];

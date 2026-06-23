@@ -103,11 +103,17 @@ trait TurnTrait
     $reductionsAll = Globals::getCostReduction();
     foreach ($reductionsAll as $pId => &$reductions) {
       foreach ($reductions as $type => &$reduction) {
+        if (!is_array($reduction)) {
+          continue;
+        }
         if (!isset($reduction['permanent']) || $reduction['permanent'] == false) {
           $reduction['reduction'] = 0;
+          unset($reduction['minimum']);
         }
       }
+      unset($reduction);
     }
+    unset($reductions);
 
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);
@@ -180,11 +186,17 @@ trait TurnTrait
     $reductionsAll = Globals::getCostReduction();
     foreach ($reductionsAll as $pId => &$reductions) {
       foreach ($reductions as $type => &$reduction) {
+        if (!is_array($reduction)) {
+          continue;
+        }
         if (!isset($reduction['permanent']) || $reduction['permanent'] == false) {
           $reduction['reduction'] = 0;
+          unset($reduction['minimum']);
         }
       }
+      unset($reduction);
     }
+    unset($reductions);
 
     Globals::setCostReduction($reductionsAll);
     Globals::setNextCharacterBoost(0);

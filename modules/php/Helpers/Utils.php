@@ -350,6 +350,61 @@ abstract class Utils extends \APP_DbObject
       return  null;
     }
   }
+
+  
+  public static function costReductionBucketsOverlap($typeA, $typeB)
+  {
+    if ($typeA == ALL || $typeB == ALL) {
+      return true;
+    }
+    if ($typeA == $typeB) {
+      return true;
+    }
+
+    foreach (self::costReductionOverlapProbeCards() as $cardTypes) {
+      if (
+        self::costReductionBucketAppliesToCard($typeA, $cardTypes)
+        && self::costReductionBucketAppliesToCard($typeB, $cardTypes)
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private static function costReductionBucketAppliesToCard($bucketType, $card)
+  {
+    if ($bucketType == ALL) {
+      return true;
+    }
+    if ($bucketType == $card['type']) {
+      return true;
+    }
+    if (in_array($bucketType, $card['additionalTypes'] ?? [], true)) {
+      return true;
+    }
+    if (in_array($bucketType, $card['subtypes'] ?? [], true)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private static function costReductionOverlapProbeCards()
+  {
+    return [
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [ARTIST]],
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [ANIMAL, SPIRIT]],
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [BUREAUCRAT]],
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [APPRENTICE, MAGE]],
+      ['type' => SPELL, 'additionalTypes' => [], 'subtypes' => [SONG]],
+      ['type' => PERMANENT, 'additionalTypes' => [], 'subtypes' => [PLANT]],
+      ['type' => PERMANENT, 'additionalTypes' => [], 'subtypes' => [ROBOT]],
+      ['type' => TOKEN, 'additionalTypes' => [], 'subtypes' => []],
+      ['type' => CHARACTER, 'additionalTypes' => [FEAT], 'subtypes' => []],
+    ];
+  }
 }
 
 function array_uunique($array, $comparator)
