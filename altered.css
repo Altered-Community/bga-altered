@@ -10477,6 +10477,9 @@ html {
 .altered-card .altered-card-wrapper .card-frame[data-rarity="3"] ~ .card-text .svgicon-mana-1 .path2:before {
   color: black;
 }
+.altered-card .altered-card-wrapper .card-frame[data-rarity="3"] ~ .card-text .svgicon-mana-3 .path2:before {
+  color: black;
+}
 .altered-card .altered-card-wrapper .card-frame[data-rarity="3"] ~ .card-text .svgicon-mana-7 .path2:before {
   color: black;
 }
