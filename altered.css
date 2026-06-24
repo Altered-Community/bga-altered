@@ -10413,6 +10413,7 @@ html {
   right: 84px;
   font-family: "Jali Greek Variable";
   font-size: 13px;
+  line-height: 1.1em;
   color: white;
 }
 .altered-card .altered-card-wrapper .card-support .svgicon-discard .path2:before {
