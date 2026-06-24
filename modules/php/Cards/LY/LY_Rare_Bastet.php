@@ -29,7 +29,7 @@ class LY_Rare_Bastet extends \ALT\Models\Card
             'costHand' => 3, 
             'costReserve' => 3,
             'changedStats' => ['mountain', 'ocean'],
-            'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored']),
+            'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterBaseCost3Anchored']),
         ];
     }
 }

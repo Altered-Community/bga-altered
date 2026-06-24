@@ -28,7 +28,7 @@ class LY_Common_Bastet extends \ALT\Models\Card
         'ocean' => 3, 
         'costHand' => 3, 
         'costReserve' => 3, 
-        'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterCost3Anchored']),
+        'effectSupport' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterBaseCost3Anchored']),
     ];
   }
 }
