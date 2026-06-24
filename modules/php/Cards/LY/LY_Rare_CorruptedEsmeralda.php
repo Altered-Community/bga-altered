@@ -29,7 +29,7 @@ class LY_Rare_CorruptedEsmeralda extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'playCondition' => 'checkAbilityActivatedThisTurn:discard',
-      'effectHand' => FT::ACTION(RESUPPLY, []),
+      'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,
         'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
