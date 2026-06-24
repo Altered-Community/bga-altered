@@ -32,7 +32,7 @@ class MU_Common_TheBeastofGevaudan extends \ALT\Models\Card
         'excludeSelf' => true,
         'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
         'effect' => FT::ACTION(MOVE_CARD, []),
-      ]),
+      ],['optional' => true]),
     ];
   }
 }
