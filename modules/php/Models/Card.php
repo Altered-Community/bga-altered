@@ -435,8 +435,9 @@ class Card extends \ALT\Helpers\DB_Model
             }
           }
           return $locations;
-        } elseif ($this->getPlayLimitation() == 'singleCardHand') {
-          if ($player->getHand()->count() > 1) {
+        } elseif ($this->getPlayLimitation() == 'noOtherCardInHand') {
+          // From hand: no other card in hand. From reserve: hand must be empty.
+          if (!Conditions::hasXCardsInHandExceptCurrentCard($this, null, 0, 'LTE')) {
             return [];
           }
           if (!is_null($forcedLocation)) {
