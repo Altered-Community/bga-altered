@@ -43,6 +43,7 @@ class Player extends \ALT\Helpers\DB_Model
     $data = parent::getUiData();
     $current = $this->id == $currentPlayerId;
     $data['deckCount'] = $this->getDeckCount();
+    $data['discardCount'] = $this->getDiscardCount();
     $data['mana'] = $this->getMana();
     $data['totalMana'] = $this->getTotalMana();
     $data['handCount'] = $this->getHand()->count();
@@ -56,6 +57,11 @@ class Player extends \ALT\Helpers\DB_Model
   public function getDeckCount()
   {
     return Cards::countInLocation("deck-$this->id") + Cards::countInLocation("reveal-$this->id");
+  }
+  
+  public function getDiscardCount()
+  {
+    return Cards::getFiltered($this->id, DISCARD_PILE)->count();
   }
 
   public function getHero()

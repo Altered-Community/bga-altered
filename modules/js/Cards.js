@@ -14,7 +14,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
   const TOKEN = 'token';
   let CARDS_DATA = {};
 
-  return declare('altered.cards', null, {
+  return declare('nylaltered.cards', null, {
     getCardInfos(cardId) {
       let card = { id: cardId };
       this.loadSaveCard(card);
@@ -73,7 +73,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         return card.id;
       });
-      document.querySelectorAll('.altered-card').forEach((oCard) => {
+      document.querySelectorAll('.nylaltered-card').forEach((oCard) => {
         if (
           !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
           !oCard.classList.contains('card-back') &&
@@ -123,6 +123,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           this.autofitCardFrame(o);
         }
       }
+      if (card.location == 'discard') {
+        this.bringDiscardCounterToFront(card.pId);
+      }
     },
 
     addFakeCard(container) {
@@ -149,8 +152,39 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return $('test-cards');
     },
 
+    isCardInDiscardPile(pId, cardId) {
+      let oCard = $(`card-${cardId}`);
+      let discard = $(`board-discard-${pId}`);
+      return !!(oCard && discard && discard.contains(oCard));
+    },
+
+    incDiscardCount(pId, delta) {
+      if (!this._playerCounters[pId]?.discardCount) return;
+      this._playerCounters[pId].discardCount.incValue(delta);
+    },
+
+    bringDiscardCounterToFront(pId) {
+      let zone = $(`board-discard-zone-${pId}`);
+      let holder = zone?.querySelector('.discard-counter-holder');
+      if (zone && holder) {
+        zone.appendChild(holder);
+      }
+    },
+
+    updateDiscardCountFromCards(cards) {
+      cards.forEach((card) => {
+        if (card.location == 'hand') return;
+        let wasInDiscard = this.isCardInDiscardPile(card.pId, card.id);
+        if (card.location == 'discard') {
+          this.incDiscardCount(card.pId, 1);
+        } else if (wasInDiscard) {
+          this.incDiscardCount(card.pId, -1);
+        }
+      });
+    },
+
     adjustHand(container, pos = 'bottom') {
-      // let items = [...container.querySelectorAll('.altered-card'), ...container.querySelectorAll('.flip-container')];
+      // let items = [...container.querySelectorAll('.nylaltered-card'), ...container.querySelectorAll('.flip-container')];
       let items = [...container.childNodes].filter((t) => !t.classList.contains('draggable-mirror'));
       console.log(items);
       let n = items.length;
@@ -203,7 +237,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     clearHandTransform(container) {
-      let items = [...container.querySelectorAll('.altered-card')];
+      let items = [...container.querySelectorAll('.nylaltered-card')];
       items.forEach((item, i) => {
         item.style.transform = `rotate(0rad) translateY(0px)`;
         item.style.left = '0px';
@@ -215,7 +249,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     setupDiscardModal(player) {
       let pId = player.id;
       this._discardModals[pId] = new customgame.modal('discardDisplay' + pId, {
-        class: 'altered_discard_popin',
+        class: 'nylaltered_discard_popin',
         autoShow: false,
         closeIcon: null,
         closeAction: 'hide',
@@ -233,12 +267,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         onStartHide: () => {
           this.closeCurrentTooltip(false);
-          $(`player-board-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+          $(`board-discard-zone-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
           $(`board-discard-${pId}`).classList.remove('no-tooltip');
         },
         onShow: () => this.closeCurrentTooltip(false),
       });
-      $(`board-discard-${pId}`).addEventListener('click', () => {
+      $(`board-discard-zone-${pId}`).addEventListener('click', () => {
         this.closeCurrentTooltip(false);
         if (this._discardModals[pId].isDisplayed()) this._discardModals[pId].hide();
         else this._discardModals[pId].show();
@@ -252,7 +286,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     setupManaModal(player) {
       let pId = player.id;
       this._manaModal = new customgame.modal('manaDisplay', {
-        class: 'altered_mana_popin',
+        class: 'nylaltered_mana_popin',
         autoShow: false,
         closeAction: 'hide',
         title: _('Your mana cards'),
@@ -275,7 +309,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     openAllCardsModal() {
       let modal = new customgame.modal('showAllCards', {
-        class: 'altered_popin',
+        class: 'nylaltered_popin',
         autoShow: true,
         closeIcon: null,
         contentsTpl: `<div id='all-cards-wrapper'></div>`,
@@ -317,7 +351,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         this._manaModal.show();
       } else if (location == 'choice') {
         this._cardsChoiceModal = new customgame.modal('chooseCards', {
-          class: 'altered_popin',
+          class: 'nylaltered_popin',
           autoShow: true,
           closeIcon: 'fa-times',
           closeAction: 'hide',
@@ -468,7 +502,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if ($('btnConfirm')) $('btnConfirm').remove();
       };
 
-      this.onClick('altered-board-me', () => {
+      this.onClick('nylaltered-board-me', () => {
         unselectIfNeeded();
       });
 
@@ -634,6 +668,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (card.location.indexOf('reveal') == 0) {
             this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
           }
+          if (card.location == 'discard') {
+            this.incDiscardCount(n.args.player_id, 1);
+          }
         });
         this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
@@ -656,6 +693,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             }
             if (card.location.indexOf('reveal') == 0) {
               this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
+            }
+            if (card.location == 'discard') {
+              this.incDiscardCount(n.args.player_id, 1);
             }
             return this.slide(`card-${card.id}`, container, {
               from: source,
@@ -723,7 +763,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               let fakeCardId = this._fakeIndex--;
               let fakeCard = this.tplFakeCard({ id: fakeCardId });
               $(`board-deck-${this.player_id}`).insertAdjacentHTML('beforeend', fakeCard);
-              return this.slide(`card-${fakeCardId}`, target, { destroy: true, container: 'altered-board-resizable' });
+              return this.slide(`card-${fakeCardId}`, target, { destroy: true, container: 'nylaltered-board-resizable' });
             } else {
               let oCard = $(`card-${card.id}`);
               oCard.classList.remove('selectedToMana');
@@ -791,7 +831,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       if (n.args.hasOwnProperty('alreadyDiscarded')) {
         alreadyDiscarded = n.args.alreadyDiscarded;
       }
-      let oCards = [...$(`hand-${n.args.player_id}`).querySelectorAll('.altered-card')];
+      let oCards = [...$(`hand-${n.args.player_id}`).querySelectorAll('.nylaltered-card')];
       // FROM DECK
       if (n.args.fromLocation && n.args.fromLocation.startsWith('deck')) {
         oCards = [];
@@ -825,7 +865,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
                 duration: 1000,
                 destroy: true,
                 phantom: false,
-                container: 'altered-board-resizable',
+                container: 'nylaltered-board-resizable',
               }
             );
             oCards[i].style.transform = '';
@@ -846,7 +886,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_publicDiscard(n) {
       debug('Public discard', n);
       let pId = n.args.player_id;
-      let oCards = [...$(`hand-${pId}`).querySelectorAll('.altered-card')];
+      this.updateDiscardCountFromCards(n.args.cards);
+      let oCards = [...$(`hand-${pId}`).querySelectorAll('.nylaltered-card')];
       let indexCardReplacement = 0;
 
       if (this.isFastMode()) {
@@ -877,6 +918,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               $(id).remove();
             }
           }
+        });
+        n.args.cards.forEach((card) => {
+          if (card.location == 'discard') this.bringDiscardCounterToFront(card.pId);
         });
         this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
         this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
@@ -921,6 +965,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               } else {
                 return this.slide(id, `board-${card.location}-${card.pId}`, {
                   clearTransform: true,
+                }).then(() => {
+                  if (card.location == 'discard') this.bringDiscardCounterToFront(card.pId);
                 });
               }
             };
@@ -1086,7 +1132,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       $(id).style.transform = '';
       $(id).style.transformOrigin = 'initial';
 
+      this.incDiscardCount(card.pId, 1);
       this.slide(id, container).then(() => {
+        this.bringDiscardCounterToFront(card.pId);
         this.notifqueue.setSynchronousDuration(100);
       });
     },
@@ -1156,7 +1204,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         }
       }
       let container = this.getCardContainer(card);
+      if (card.location == 'discard') {
+        this.incDiscardCount(card.pId, 1);
+      }
       this.slide(id, container).then(() => {
+        if (card.location == 'discard') {
+          this.bringDiscardCounterToFront(card.pId);
+        }
         if (!this.isFastMode()) {
           this.notifqueue.setSynchronousDuration(100);
         }
@@ -1213,6 +1267,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: cleaning up played cards', n);
       let pId = n.args.player_id;
       n.args.cards.forEach((card) => (card.discard = true));
+      this.incDiscardCount(pId, n.args.cards.length);
 
       n.args.meeples.forEach((meepleId) => {
         $(`meeple-${meepleId}`).remove();
@@ -1225,6 +1280,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           container.insertAdjacentElement('beforeend', $(`card-${card.id}`));
           if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
         });
+        this.bringDiscardCounterToFront(pId);
 
         [...n.args.cards3].map((card, i) => {
           return $(`card-${card.id}`).remove();
@@ -1238,7 +1294,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             this.updateCardStatuses(card.id);
             return this.slide(`card-${card.id}`, card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`).then(
               () => {
-                if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+                if (card.discard) {
+                  $(`card-${card.id}`).classList.remove('mini-card');
+                  this.bringDiscardCounterToFront(card.pId);
+                }
                 debug(card);
                 if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == false)
                   $(`card-${card.id}`).classList.remove('tapped');
@@ -1293,6 +1352,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_moveToHand(n) {
       debug('Moving cards to hand', n);
       let playerInc = {};
+      let discardDec = {};
+      n.args.cards.forEach((card) => {
+        if (card.location != 'destroy' && this.isCardInDiscardPile(card.pId, card.id)) {
+          discardDec[card.pId] = (discardDec[card.pId] || 0) + 1;
+        }
+      });
+      Object.keys(discardDec).forEach((player) => this.incDiscardCount(player, -discardDec[player]));
+
       Promise.all(
         [...n.args.cards].map((card) => {
           this.updateCardStatuses(card.id);
@@ -1331,6 +1398,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: put back on deck', n);
 
       let playerInc = {};
+      let discardDec = {};
+      n.args.cards.forEach((card) => {
+        if (card.location != 'destroy' && this.isCardInDiscardPile(card.pId, card.id)) {
+          discardDec[card.pId] = (discardDec[card.pId] || 0) + 1;
+        }
+      });
+      Object.keys(discardDec).forEach((player) => this.incDiscardCount(player, -discardDec[player]));
+
       Promise.all(
         [...n.args.cards].map((card) => {
           let oCard = $(`card-${card.id}`);
@@ -1427,8 +1502,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     tplFakeCard(card) {
       let uid = 'card-' + card.id;
-      return `<div id="${uid}" class='altered-card fake-card card-back'>
-        <div class='altered-card-wrapper' data-asset='back'>
+      return `<div id="${uid}" class='nylaltered-card fake-card card-back'>
+        <div class='nylaltered-card-wrapper' data-asset='back'>
         </div>
       </div>`;
     },
@@ -1496,8 +1571,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let fullArt = card.properties.hasOwnProperty('fullArt') ? card.properties.fullArt : false;
 
       tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-          class='altered-card card-hero ${mini ? 'mini-card' : ''} '>
-        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>`;
+          class='nylaltered-card card-hero ${mini ? 'mini-card' : ''} '>
+        <div class='nylaltered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>`;
 
       if (fullArt == false) {
         tplData += `
@@ -1507,7 +1582,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.nylaltered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1522,7 +1597,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       return tplData;
     },
     tplHeroCardTooltip(card) {
-      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+      return `<div id="card-${card.id}-tooltip" class='nylaltered-card-tooltip'>
         <div class='card-tooltip-frame'>
           ${this.tplHeroCard(card, true, false)}
         </div>
@@ -1570,12 +1645,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         p.mainAsset = p.asset;
       }
 
-      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
+      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' nylaltered' : '');
       tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-character ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
+        class='nylaltered-card card-character ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
           mini ? 'mini-card' : ''
         }' data-boost='${i.boost}' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
+        <div class='nylaltered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
 
       if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
         tplData += `<div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
@@ -1627,7 +1702,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         tplData += `
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.nylaltered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1646,7 +1721,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       tplData += `
         </div>
 
-        <div class='altered-card-statuses'></div>
+        <div class='nylaltered-card-statuses'></div>
       </div>`;
       return tplData;
     },
@@ -1667,7 +1742,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         }
       }
 
-      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+      return `<div id="card-${card.id}-tooltip" class='nylaltered-card-tooltip'>
         <div class='card-tooltip-frame'>
           ${this.tplCharacterCard(card, true, false)}
           ${rareExtraDetails}
@@ -1684,8 +1759,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let flavor = this.getFlavorTextIfFitting(effect, p);
 
       return `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${i.boost}'>
-        <div class='altered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
+        class='nylaltered-card card-token ${mini ? 'mini-card' : ''}' data-boost='${i.boost}'>
+        <div class='nylaltered-card-wrapper' data-asset='${p.asset.replace('_R1', '_R')}'>
           <div class='card-frame' data-faction='${p.faction}' data-type='token'></div>
           <div class='card-name' style="font-size:${i.nameFontSize}">${_(p.name)}</div>
           <div class='card-typeline'>${_(p.typeline)}</div>
@@ -1700,7 +1775,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.nylaltered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1713,11 +1788,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           }'></div>${this.formatSvgIcon('artist')} ${p.artist}</div>
         </div>
 
-        <div class='altered-card-statuses'></div>
+        <div class='nylaltered-card-statuses'></div>
       </div>`;
     },
     tplTokenCardTooltip(card) {
-      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+      return `<div id="card-${card.id}-tooltip" class='nylaltered-card-tooltip'>
         <div class='card-tooltip-frame'>
           ${this.tplTokenCard(card, true, false)}
         </div>
@@ -1740,11 +1815,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         counter = ` data-counter='${p.extraDatas.counter}'`;
       }
 
-      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
+      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' nylaltered' : '');
 
       tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-spell ${mini ? 'mini-card' : ''}' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
+        class='nylaltered-card card-spell ${mini ? 'mini-card' : ''}' ${counter}>
+        <div class='nylaltered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
 
       if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
         tplData += `
@@ -1760,7 +1835,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.nylaltered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1778,14 +1853,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         </div>`;
       }
       tplData += `
-        <div class='altered-card-statuses'></div>
+        <div class='nylaltered-card-statuses'></div>
       </div>`;
       return tplData;
     },
 
     tplSpellCardTooltip(card) {
       let p = card.properties;
-      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+      return `<div id="card-${card.id}-tooltip" class='nylaltered-card-tooltip'>
         <div class='card-tooltip-frame'>
           ${this.tplSpellCard(card, true, false)}
         </div>
@@ -1798,7 +1873,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let i = this.getCardFrontInfos(card, tooltip);
       let effect = this.replaceKeyWordsAndGetReminders(_(p.effectDesc) || '');
       let flavor = this.getFlavorTextIfFitting(effect, p);
-      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' altered' : '');
+      let changed = (name) => (p.changedStats && p.changedStats.includes(name) ? ' nylaltered' : '');
       let supportIcon = this.getSupportIcon(p);
       let support = this.replaceKeyWordsAndGetReminders(_(p.supportDesc) || '');
       let isLandmark = card.properties.subtypes.includes('landmark');
@@ -1818,10 +1893,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       tplData = `<div id="card-${card.id}${tooltip ? 'tooltip' : ''}" data-id="${card.id}" 
-        class='altered-card card-permanent ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
+        class='nylaltered-card card-permanent ${p.hasOwnProperty('token') ? 'card-token' : ''} ${
           mini ? 'mini-card' : ''
         }' ${counter}>
-        <div class='altered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
+        <div class='nylaltered-card-wrapper' data-asset='${(mini || (this.settings.displayFullArt == '0' && fullArt)) && p.hasOwnProperty('mainAsset') ? p.mainAsset.replace('_R1', '_R') : p.asset.replace('_R1', '_R')}'>`;
 
       if (this.settings.displayFullArt == '0' || fullArt == false || mini) {
         tplData += `<div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
@@ -1842,7 +1917,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-subpermanent'>${permDescription}</div>
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://www.nylaltered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1860,14 +1935,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           `;
       }
       tplData += `
-        <div class='altered-card-statuses'></div>
+        <div class='nylaltered-card-statuses'></div>
       </div>`;
       return tplData;
     },
 
     tplPermanentCardTooltip(card) {
       let p = card.properties;
-      return `<div id="card-${card.id}-tooltip" class='altered-card-tooltip'>
+      return `<div id="card-${card.id}-tooltip" class='nylaltered-card-tooltip'>
         <div class='card-tooltip-frame'>
           ${this.tplPermanentCard(card, true, false)}
         </div>
@@ -1983,15 +2058,15 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
     getMeeplesOnCard(cardId) {
       if (!$(`card-${cardId}`)) return [];
-      return [...$(`card-${cardId}`).querySelectorAll('.altered-meeple:not(.phantom)')];
+      return [...$(`card-${cardId}`).querySelectorAll('.nylaltered-meeple:not(.phantom)')];
     },
 
     updateStatusIfCard(elt) {
-      if ($(elt).classList.contains('altered-card')) this.updateCardStatuses($(elt).dataset.id);
+      if ($(elt).classList.contains('nylaltered-card')) this.updateCardStatuses($(elt).dataset.id);
     },
 
     updateCardStatuses(cardId) {
-      let container = $(`card-${cardId}`).querySelector('.altered-card-statuses');
+      let container = $(`card-${cardId}`).querySelector('.nylaltered-card-statuses');
       if (!container) return;
       container.innerHTML = '';
 
