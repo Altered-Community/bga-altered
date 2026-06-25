@@ -29,7 +29,7 @@ class MU_Rare_BraveCub extends \ALT\Models\Card
       'ocean' => 1,
       'costHand' => 2,
       'costReserve' => 2,
-      'effectPlayed' => FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(TARGET, [
         'onlyToken' => true,
         'upTo' => true,
         'targetType' => [CHARACTER, PERMANENT],
