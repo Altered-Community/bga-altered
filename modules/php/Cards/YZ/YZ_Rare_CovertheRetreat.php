@@ -38,7 +38,7 @@ class YZ_Rare_CovertheRetreat extends \ALT\Models\Card
         ])
       ),
       'effectPassive' => [
-        'EndTurn' => [
+        'Noon' => [
           'conditions' => ['isMe', 'hasDiscardPileCards:6:GTE', 'isThisFeatIncomplete'],
           'output' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
         ],
