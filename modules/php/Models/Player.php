@@ -57,6 +57,11 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return Cards::countInLocation("deck-$this->id") + Cards::countInLocation("reveal-$this->id");
   }
+  
+  public function hasDeckCards()
+  {
+    return $this->getDeckCount() > 0;
+  }
 
   public function getHero()
   {
@@ -1116,7 +1121,12 @@ class Player extends \ALT\Helpers\DB_Model
     // call the API to get the various cards/decks
 
     // Add the preconstructed decks last
-    $decks = array_merge($decks, Cards::setupPrecoDeck($this, $i, $decks));
+    // if deck format is DEMO, setup the demo decks
+    if (Globals::getDeckFormat() == 'DEMO') {
+      $decks = array_merge($decks, Cards::setupDemoDeck($this, $i, $decks));
+    } else {
+      $decks = array_merge($decks, Cards::setupPrecoDeck($this, $i, $decks));
+    }
     $allDecks = Globals::getPlayerDecks();
     $allDecks[$this->id] = $decks;
     Globals::setPlayerDecks($allDecks);
