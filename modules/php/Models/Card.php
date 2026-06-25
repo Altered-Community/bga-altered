@@ -628,6 +628,9 @@ class Card extends \ALT\Helpers\DB_Model
       'method' => $type,
       'cardId' => $this->id,
       'from' => $this->getLocation(),
+      'sourceAscended' => in_array($this->getLocation(), STORMS)
+        ? $this->getPlayer()->isAscended($this->getLocation()) || ($this->isGigantic() && $this->getPlayer()->isAscended($this->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT))
+        : false,
       'to' => $target,
       'pId' => $this->getPId(),
       'owner' => $this->getOwner(),
