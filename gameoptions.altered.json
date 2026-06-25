@@ -51,6 +51,11 @@
         "name": "Sandbox",
         "tmdisplay": "Sandbox",
         "description": "4-100 cards, all cards available, no faction or rarity restrictions."
+      },
+      "5": {
+        "name": "Roots of Corruption Demo Decks",
+        "tmdisplay": "ROC Demo",
+        "description": "Play with demo decks from the set Roots of Corruption."
       }
     }
   }

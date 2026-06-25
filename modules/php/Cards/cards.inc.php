@@ -33,6 +33,46 @@ require_once (dirname(__FILE__)) . '/StarterDecks/yz_2_lindiwe.inc.php';
 require_once (dirname(__FILE__)) . '/StarterDecks/yz_3_afanas.inc.php';
 require_once (dirname(__FILE__)) . '/StarterDecks/yz_65_moyo.inc.php';
 
+require_once (dirname(__FILE__)) . '/DemoDecks/isaree.roc.php';
+require_once (dirname(__FILE__)) . '/DemoDecks/gretel.roc.php';
+require_once (dirname(__FILE__)) . '/DemoDecks/yeonggi.roc.php';
+require_once (dirname(__FILE__)) . '/DemoDecks/kauri.roc.php';
+require_once (dirname(__FILE__)) . '/DemoDecks/zhen.roc.php';
+require_once (dirname(__FILE__)) . '/DemoDecks/sam.roc.php';
+
+const DEMO_ROC_DECKS = array(
+  array(
+    'faction' => FACTION_AX,
+    'deckId' => 'isaree.roc',
+    'contents' => DEMO_ROC_ISAREE,
+  ),
+  array(
+    'faction' => FACTION_BR,
+    'deckId' => 'gretel.roc',
+    'contents' => DEMO_ROC_GRETEL,
+  ),
+  array(
+    'faction' => FACTION_LY,
+    'deckId' => 'yeonggi.roc',
+    'contents' => DEMO_ROC_YEONGGI,
+  ),
+  array(
+    'faction' => FACTION_MU,
+    'deckId' => 'kauri.roc',
+    'contents' => DEMO_ROC_KAURI,
+  ),
+  array(
+    'faction' => FACTION_OD,
+    'deckId' => 'zhen.roc',
+    'contents' => DEMO_ROC_ZHEN,
+  ),
+  array(
+    'faction' => FACTION_YZ,
+    'deckId' => 'sam.roc',
+    'contents' => DEMO_ROC_SAM,
+  ),
+);  
+
 const STARTER_DECKS = array(
   // AXIOM
   array(
@@ -82,6 +122,11 @@ const STARTER_DECKS = array(
     'deckId' => 'br_65_sol',
     'contents' => STARTER_SOL,
   ),
+  array(
+    'faction' => FACTION_BR,
+    'deckId' => 'gretel.roc',
+    'contents' => DEMO_ROC_GRETEL,
+  ),
 
   // LYRA
   array(
@@ -103,6 +148,11 @@ const STARTER_DECKS = array(
     'faction' => FACTION_LY,
     'deckId' => 'ly_65_nadir',
     'contents' => STARTER_NADIR,
+  ),
+  array(
+    'faction' => FACTION_LY,
+    'deckId' => 'yeonggi.roc',
+    'contents' => DEMO_ROC_YEONGGI,
   ),
 
   // MUNA
@@ -179,6 +229,11 @@ const STARTER_DECKS = array(
     'faction' => FACTION_YZ,
     'deckId' => 'yz_65_moyo',
     'contents' => STARTER_MOYO,
+  ),
+  array(
+    'faction' => FACTION_YZ,
+    'deckId' => 'sam.roc',
+    'contents' => DEMO_ROC_SAM,
   ),
 );
 

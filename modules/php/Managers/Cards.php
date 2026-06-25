@@ -641,6 +641,50 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $deckList;
   }
 
+  public static function setupDemoDeck($player, $deckNumber, $deckList)
+  {
+    // Load list of cards
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+
+    $toCreate = [];
+    $pId = $player->getId();
+
+    foreach (DEMO_ROC_DECKS as $deck) {
+      $faction = $deck['faction'];
+      $deckId = $deck['deckId'];
+
+      foreach ($deck['contents'] as $cardId => $n) {
+        $factionSub = substr($cardId, 0, 2);
+        $className = "\\ALT\\Cards\\$factionSub\\$cardId";
+        $card = new $className(null);
+        $location = "deck-" . $deckNumber;
+        if ($card->getType() == HERO) {
+          $deckList[$deckNumber] = ['deckNumber' => $deckNumber, 'deckId' => $deckId, 'faction' => $faction];
+        }
+
+        // we do not create token as they will be created on the fly
+        if ($card->isToken()) {
+          continue;
+        }
+
+        $toCreate[] = [
+          'player_id' => $pId,
+          'location' => $location,
+          'nbr' => $n,
+          'properties' => [
+            'rarity' => $card->getRarity(),
+            'name' => $card->getName(),
+            'faction' => $card->getFaction(),
+          ],
+        ];
+      }
+      $deckNumber++;
+    }
+
+    self::create($toCreate, null);
+    return $deckList;
+  }
+
   public static function createDeck($player, $deckContent)
   {
     // Load list of cards
