@@ -1634,7 +1634,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${flavor}
             </div>
           </div>
-          <div class='card-support'>
+          <div class='card-support'${i.supportFontSize ? ` style="font-size:${i.supportFontSize}"` : ''}>
             ${this.formatString(support, true)}
           </div>
 
@@ -1767,7 +1767,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${flavor}
             </div>
           </div>
-          <div class='card-support'>
+          <div class='card-support'${i.supportFontSize ? ` style="font-size:${i.supportFontSize}"` : ''}>
             ${this.formatString(support, true)}
           </div>
 
@@ -1849,7 +1849,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               ${flavor}
             </div>
           </div>
-          <div class='card-support'>
+          <div class='card-support'${i.supportFontSize ? ` style="font-size:${i.supportFontSize}"` : ''}>
             ${this.formatString(support, true)}
           </div>
           ${supportIcon}
@@ -1881,10 +1881,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         (!card.properties.hasOwnProperty('fullArt') || (this.settings.displayFullArt == '0' && card.properties.type != 'hero'))
       ) {
         let oCard = $(`card-${card.id}`);
+        let oSupport = oCard.querySelector('.card-support');
         return {
           frameSize: oCard.querySelector('.card-frame').dataset.size,
           textFontSize: oCard.querySelector('.card-text').style.fontSize,
           nameFontSize: oCard.querySelector('.card-name').style.fontSize,
+          supportFontSize: oSupport ? oSupport.style.fontSize : '',
           boost: oCard.dataset.boost,
           textPaddingTop: oCard.querySelector('.card-effect').style.paddingTop,
         };
@@ -1922,12 +1924,30 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       let card = this.getCardInfos(oCard.dataset.id);
       let i = this.getCardFrontInfos(card);
 
+      let oSupport = oCard.querySelector('.card-support');
       if (eraseExisting) {
         oCard.querySelector('.card-name').style.fontSize = i.nameFontSize;
         oCard.querySelector('.card-text').style.fontSize = i.textFontSize;
         oCard.querySelector('.card-effect').style.paddingTop = i.textPaddingTop;
+        if (oSupport) {
+          oSupport.style.fontSize = '';
+          oSupport.style.lineHeight = '';
+        }
       }
       oCard.offsetHeight;
+
+      // Fit support (completed / rare ability box)
+      if (oSupport && oSupport.textContent.trim() && oSupport.clientHeight > 0) {
+        const minSupportSize = 9;
+        const isSupportSizeOk = () => oSupport.scrollHeight <= oSupport.clientHeight;
+        for (let size = 13; size >= minSupportSize && !isSupportSizeOk(); size--) {
+          oSupport.style.fontSize = `${size}px`;
+        }
+        if (!isSupportSizeOk()) {
+          oSupport.style.lineHeight = '1.0';
+        }
+        oCard.offsetHeight;
+      }
 
       // Fit effect
       let isEffectSizeOk = () => {
