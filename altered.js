@@ -912,27 +912,23 @@
         this.takeAction('actCancelPrecoDeckSelection', {}, false)
       );
      },
-
-     showAccountNotConfiguredDeckPickerContent() {
-       ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
-         if ($(id)) $(id).remove();
-       });
-       $('altered-overlay-content').innerHTML = `
-         <h2>${_('There\'s a lot of things ongoing !')}</h2>
-         <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
-           <div id='account-not-configured-desc'>
+    showAccountNotConfiguredDeckPickerContent() {
+      ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
+        if ($(id)) $(id).remove();
+      });
+      const formatMap = { 'NO_UNIQUE': 'nuc', 'STANDARD': 'standard', 'SINGLETON_NUC': 'singleton_nuc', 'SANDBOX': 'sandbox' };
+      const decksUrl = `https://altered.re/pages/decks?tab=my&format=${formatMap[this._deckFormat] || 'standard'}`;
+      $('altered-overlay-content').innerHTML = `
+        <h2>${_('There\'s a lot of things ongoing !')}</h2>
+        <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
+          <div id='account-not-configured-desc'>
             <p>${_(`To retrieve your decks, you'll now need an account on one of the officially recognized platforms of altered Re:Union`)}.</p>
-            <p>
-             <a class="account-not-configured-link" href="https://altered.re/pages/login" target="_blank" rel="noopener noreferrer">
-                ${_('Create an account')}
-              </a>
-              ${_(' to build or import your decks on any acknowledged deckbuilder.')}
-            </p>
+            <p>${_('You can create an account, build or import your decks on any ')} <a class="account-not-configured-link" href="https://altered.re/index.php/deckbuilders/" target="_blank" rel="noopener noreferrer">acknowledged deckbuilders</a></p>
             <p>${_('Don\'t forget to connect your account on BGA afterward. You can do so here :')} <a class="account-not-configured-link" href="https://boardgamearena.com/preferences?section=account" target="_blank" rel="noopener noreferrer">BGA Accounts</a></p>
-            <p>${_('If you think you are correctly connected to BGA with your altered Re:Union account, then you might not have any valid decks for the format you have selected.')}</p>
-           </div>
-         </div>
-       `;
+            <p>${_('If you think you are correctly connected to BGA with your altered Re:Union account, then you might not have any ')}<a class="account-not-configured-link" href="${decksUrl}" target="_blank" rel="noopener noreferrer">${_('valid decks')}</a>${_(' for the format you have selected.')}</p>
+          </div>
+        </div>
+      `;
       this.openOverlay();
       if (!this.isSingletonDeckFormat()) {
         this.addSecondaryActionButton('btnBackFromCustom', _('Back'), () => {
