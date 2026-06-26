@@ -32,11 +32,11 @@ class YZ_Rare_Janus extends \ALT\Models\Card
         'Discard' => [
           'childs' => [
             [
-              'conditions' => ['hasSameOwner', 'isDiscarded:hand:discard'],
+              'conditions' => ['isDiscardByOwner', 'isDiscarded:hand:discard'],
               'output' => FT::GAIN(ME, BOOST),
             ],
             [
-              'conditions' => ['hasSameOwner', 'isDiscarded:reserve:discard'],
+              'conditions' => ['isDiscardByOwner', 'isDiscarded:reserve:discard'],
               'output' => FT::GAIN(ME, BOOST),
             ],
           ],

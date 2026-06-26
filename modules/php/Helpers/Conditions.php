@@ -140,6 +140,27 @@ abstract class Conditions
     return Cards::get($cardId)->getPId() == $card->getPId() || $card->getPId() == ($event['controller'] ?? -1);
   }
 
+  /** True when the passive card's owner voluntarily discards one of their own cards. */
+  public static function isDiscardByOwner($card, $event)
+  {
+    if ($event['sabotage'] ?? false) {
+      return false;
+    }
+
+    $cardId = $event['cardId'] ?? null;
+    if (is_null($cardId)) {
+      return false;
+    }
+
+    $discarded = Cards::getSingle($cardId, false);
+    if (is_null($discarded) || $discarded->getPId() != $card->getPId()) {
+      return false;
+    }
+
+    $controller = $event['controller'] ?? $event['pId'] ?? null;
+    return $controller == $card->getPId();
+  }
+
   public static function excludeSelf($card, $event)
   {
     return $card->getId() != ($event['cardId'] ?? ($event['sourceId'] ?? -1));
@@ -1814,11 +1835,6 @@ abstract class Conditions
     }
 
     return true;
-  }
-
-  public static function isDiscardedFromHandOrReserve($card, $event)
-  {
-    return self::isDiscarded($card, $event, HAND) || self::isDiscarded($card, $event, RESERVE);
   }
 
   public static function isMyselfDiscarded($card, $event, $from = null, $to = null)

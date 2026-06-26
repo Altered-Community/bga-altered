@@ -5440,8 +5440,16 @@ abstract class FlowConvertor
         'attributes' => ['dynamicGigantic' => '1'],
         'passive' => [
           'Discard' => [
-            'conditions' => ['isMe', 'isDiscardedFromHandOrReserve'],
-            'output' => FT::GAIN(ME, BOOST),
+            'childs' => [
+              [
+                'conditions' => ['isDiscardByOwner', 'isDiscarded:hand:discard'],
+                'output' => FT::GAIN(ME, BOOST),
+              ],
+              [
+                'conditions' => ['isDiscardByOwner', 'isDiscarded:reserve:discard'],
+                'output' => FT::GAIN(ME, BOOST),
+              ],
+            ],
           ],
         ],
       ],

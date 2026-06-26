@@ -957,6 +957,7 @@ class ChooseAssignment extends \ALT\Models\Action
       'isSupport' => true,
       'token' => $card->isToken(),
       'sourceId' => $cardId,
+      'controller' => $player->getId(),
       'pId' => $player->getId(),
     ], true, 'Discard');
   }
