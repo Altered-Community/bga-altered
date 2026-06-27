@@ -17,7 +17,7 @@ class LY_Common_YeongGiEmber extends \ALT\Models\Card
       'rarity' => RARITY_COMMON,
       'name' => clienttranslate('Yeong-Gi & Ember'),
       'type' => HERO,
-      'thumbnail' => 0,
+      'thumbnail' => 4,
       'statData' => 28,
       'typeline' => clienttranslate('Lyra Hero'),
       'effectDesc' => clienttranslate(

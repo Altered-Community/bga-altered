@@ -1376,6 +1376,11 @@ abstract class Conditions
     return ($event['action'] ?? null) == GAIN && $event['location'] == RESERVE && $card->getPId() == Cards::get($event['gain']['cardId'])->getPId();
   }
 
+  public static function isGainInStorms($card, $event)
+  {
+    return ($event['action'] ?? null) == GAIN && in_array($event['location'] ?? '', STORMS);
+  }
+
   public static function isGainCardType($card, $event, $type)
   {
     return self::typeCheck($type, $event['cardType'], $event['token']);
@@ -2103,7 +2108,7 @@ abstract class Conditions
     $inExpeditions = $inExpeditions->filter(fn($c) => in_array(ANIMAL, $c->getSubtypes()));
     $distinct = [];
     foreach ($inExpeditions as $c) {
-      $distinct[$c->getForest()] = true;
+      $distinct[$c->getForest() + $c->countToken(BOOST)] = true;
     }
     return count($distinct) >= 3;
   }

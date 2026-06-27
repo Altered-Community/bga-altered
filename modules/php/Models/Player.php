@@ -63,6 +63,11 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return Cards::getFiltered($this->id, DISCARD_PILE)->count();
   }
+  
+  public function hasDeckCards()
+  {
+    return $this->getDeckCount() > 0;
+  }
 
   public function getHero()
   {

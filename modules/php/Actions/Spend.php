@@ -50,7 +50,17 @@ class Spend extends \ALT\Models\Action
   ];
 
   public function getSource()
-  { 
+  {
+    $source = $this->ctx->getSource() ?? null;
+    $sourceId = $this->ctx->getSourceId() ?? null;
+    if (is_null($source) && !is_null($sourceId)) {
+      $source = Cards::getSingle($sourceId);
+    }
+    return $source;
+  }
+
+  public function getCard()
+  {
     $cardId = $this->resolveSpendCardId();
 
     if (is_null($cardId)) {
@@ -63,16 +73,6 @@ class Spend extends \ALT\Models\Action
    * Card to spend boosts/counters from: explicit args, event (EFFECT), or parent Target pick.
    */
   private function resolveSpendCardId()
-  {
-    $source = $this->ctx->getSource() ?? null;
-    $sourceId = $this->ctx->getSourceId() ?? null;
-    if (is_null($source) && !is_null($sourceId)) {
-      $source = Cards::getSingle($sourceId);
-    }
-    return $source;
-  }
-
-  public function getCard()
   {
     $cardId = $this->getCtxArg('cardId');
     if ($cardId == ME) {
