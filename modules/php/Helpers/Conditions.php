@@ -143,10 +143,6 @@ abstract class Conditions
   /** True when the passive card's owner voluntarily discards one of their own cards. */
   public static function isDiscardByOwner($card, $event)
   {
-    if ($event['sabotage'] ?? false) {
-      return false;
-    }
-
     $cardId = $event['cardId'] ?? null;
     if (is_null($cardId)) {
       return false;
@@ -158,7 +154,15 @@ abstract class Conditions
     }
 
     $controller = $event['controller'] ?? $event['pId'] ?? null;
-    return $controller == $card->getPId();
+    if ($controller != $card->getPId()) {
+      return false;
+    }
+
+    if ($event['sabotage'] ?? false) {
+      return ($event['from'] ?? null) == RESERVE;
+    }
+
+    return true;
   }
 
   public static function excludeSelf($card, $event)
