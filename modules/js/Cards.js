@@ -123,6 +123,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           this.autofitCardFrame(o);
         }
       }
+      if (card.location == 'discard') {
+        this.bringDiscardCounterToFront(card.pId);
+      }
     },
 
     addFakeCard(container) {
@@ -147,6 +150,37 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       return $('test-cards');
+    },
+
+    isCardInDiscardPile(pId, cardId) {
+      let oCard = $(`card-${cardId}`);
+      let discard = $(`board-discard-${pId}`);
+      return !!(oCard && discard && discard.contains(oCard));
+    },
+
+    incDiscardCount(pId, delta) {
+      if (!this._playerCounters[pId]?.discardCount) return;
+      this._playerCounters[pId].discardCount.incValue(delta);
+    },
+
+    bringDiscardCounterToFront(pId) {
+      let zone = $(`board-discard-zone-${pId}`);
+      let holder = zone?.querySelector('.discard-counter-holder');
+      if (zone && holder) {
+        zone.appendChild(holder);
+      }
+    },
+
+    updateDiscardCountFromCards(cards) {
+      cards.forEach((card) => {
+        if (card.location == 'hand') return;
+        let wasInDiscard = this.isCardInDiscardPile(card.pId, card.id);
+        if (card.location == 'discard') {
+          this.incDiscardCount(card.pId, 1);
+        } else if (wasInDiscard) {
+          this.incDiscardCount(card.pId, -1);
+        }
+      });
     },
 
     adjustHand(container, pos = 'bottom') {
@@ -233,12 +267,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         },
         onStartHide: () => {
           this.closeCurrentTooltip(false);
-          $(`player-board-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
+          $(`board-discard-zone-${pId}`).insertAdjacentElement('beforeend', $(`board-discard-${pId}`));
           $(`board-discard-${pId}`).classList.remove('no-tooltip');
         },
         onShow: () => this.closeCurrentTooltip(false),
       });
-      $(`board-discard-${pId}`).addEventListener('click', () => {
+      $(`board-discard-zone-${pId}`).addEventListener('click', () => {
         this.closeCurrentTooltip(false);
         if (this._discardModals[pId].isDisplayed()) this._discardModals[pId].hide();
         else this._discardModals[pId].show();
@@ -634,6 +668,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           if (card.location.indexOf('reveal') == 0) {
             this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
           }
+          if (card.location == 'discard') {
+            this.incDiscardCount(n.args.player_id, 1);
+          }
         });
         this._playerCounters[n.args.player_id][counter].incValue(nInHand);
         if (n.args.stealing) this._playerCounters[n.args.stealing][counter].incValue(-n.args.cards.length);
@@ -656,6 +693,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             }
             if (card.location.indexOf('reveal') == 0) {
               this._playerCounters[n.args.player_id]['deckCount'].incValue(1);
+            }
+            if (card.location == 'discard') {
+              this.incDiscardCount(n.args.player_id, 1);
             }
             return this.slide(`card-${card.id}`, container, {
               from: source,
@@ -846,6 +886,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_publicDiscard(n) {
       debug('Public discard', n);
       let pId = n.args.player_id;
+      this.updateDiscardCountFromCards(n.args.cards);
       let oCards = [...$(`hand-${pId}`).querySelectorAll('.altered-card')];
       let indexCardReplacement = 0;
 
@@ -877,6 +918,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               $(id).remove();
             }
           }
+        });
+        n.args.cards.forEach((card) => {
+          if (card.location == 'discard') this.bringDiscardCounterToFront(card.pId);
         });
         this._playerCounters[n.args.player_id]['totalMana'].toValue(n.args.totalMana);
         this._playerCounters[n.args.player_id]['mana'].toValue(n.args.mana);
@@ -921,6 +965,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               } else {
                 return this.slide(id, `board-${card.location}-${card.pId}`, {
                   clearTransform: true,
+                }).then(() => {
+                  if (card.location == 'discard') this.bringDiscardCounterToFront(card.pId);
                 });
               }
             };
@@ -1086,7 +1132,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       $(id).style.transform = '';
       $(id).style.transformOrigin = 'initial';
 
+      this.incDiscardCount(card.pId, 1);
       this.slide(id, container).then(() => {
+        this.bringDiscardCounterToFront(card.pId);
         this.notifqueue.setSynchronousDuration(100);
       });
     },
@@ -1156,7 +1204,13 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         }
       }
       let container = this.getCardContainer(card);
+      if (card.location == 'discard') {
+        this.incDiscardCount(card.pId, 1);
+      }
       this.slide(id, container).then(() => {
+        if (card.location == 'discard') {
+          this.bringDiscardCounterToFront(card.pId);
+        }
         if (!this.isFastMode()) {
           this.notifqueue.setSynchronousDuration(100);
         }
@@ -1213,6 +1267,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: cleaning up played cards', n);
       let pId = n.args.player_id;
       n.args.cards.forEach((card) => (card.discard = true));
+      this.incDiscardCount(pId, n.args.cards.length);
 
       n.args.meeples.forEach((meepleId) => {
         $(`meeple-${meepleId}`).remove();
@@ -1225,6 +1280,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           container.insertAdjacentElement('beforeend', $(`card-${card.id}`));
           if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
         });
+        this.bringDiscardCounterToFront(pId);
 
         [...n.args.cards3].map((card, i) => {
           return $(`card-${card.id}`).remove();
@@ -1238,7 +1294,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
             this.updateCardStatuses(card.id);
             return this.slide(`card-${card.id}`, card.discard ? `board-discard-${card.pId}` : `board-reserve-${card.pId}`).then(
               () => {
-                if (card.discard) $(`card-${card.id}`).classList.remove('mini-card');
+                if (card.discard) {
+                  $(`card-${card.id}`).classList.remove('mini-card');
+                  this.bringDiscardCounterToFront(card.pId);
+                }
                 debug(card);
                 if (card.properties.hasOwnProperty('tapped') && card.properties.tapped == false)
                   $(`card-${card.id}`).classList.remove('tapped');
@@ -1293,6 +1352,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_moveToHand(n) {
       debug('Moving cards to hand', n);
       let playerInc = {};
+      let discardDec = {};
+      n.args.cards.forEach((card) => {
+        if (card.location != 'destroy' && this.isCardInDiscardPile(card.pId, card.id)) {
+          discardDec[card.pId] = (discardDec[card.pId] || 0) + 1;
+        }
+      });
+      Object.keys(discardDec).forEach((player) => this.incDiscardCount(player, -discardDec[player]));
+
       Promise.all(
         [...n.args.cards].map((card) => {
           this.updateCardStatuses(card.id);
@@ -1331,6 +1398,14 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: put back on deck', n);
 
       let playerInc = {};
+      let discardDec = {};
+      n.args.cards.forEach((card) => {
+        if (card.location != 'destroy' && this.isCardInDiscardPile(card.pId, card.id)) {
+          discardDec[card.pId] = (discardDec[card.pId] || 0) + 1;
+        }
+      });
+      Object.keys(discardDec).forEach((player) => this.incDiscardCount(player, -discardDec[player]));
+
       Promise.all(
         [...n.args.cards].map((card) => {
           let oCard = $(`card-${card.id}`);
