@@ -57,6 +57,11 @@ class Player extends \ALT\Helpers\DB_Model
   {
     return Cards::countInLocation("deck-$this->id") + Cards::countInLocation("reveal-$this->id");
   }
+  
+  public function hasDeckCards()
+  {
+    return $this->getDeckCount() > 0;
+  }
 
   public function getHero()
   {
