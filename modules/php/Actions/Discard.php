@@ -39,7 +39,8 @@ class Discard extends \ALT\Models\Action
     'position' => null,
     'readyIfCostLower' => false, // X Marks the spot
     'from' => null, // Scout management
-    'seasoned' => false
+    'seasoned' => false,
+    'desc' => '',
   ];
 
   public function isOptional($player)
@@ -66,12 +67,22 @@ class Discard extends \ALT\Models\Action
 
   public function isSacrifice()
   {
-    return ($this->getCtxArg('desc') ?? '') == 'sacrifice';
+    return $this->getArg('desc') == 'sacrifice';
   }
 
   public function isSabotage()
   {
-    return ($this->getCtxArg('desc') ?? '') == 'sabotage';
+    return $this->getArg('desc') == 'sabotage';
+  }
+
+  private function getDiscardControllerId()
+  {
+    $source = $this->getSource();
+    if (!is_null($source)) {
+      return $source->getPId();
+    }
+
+    return Players::getActiveId();
   }
 
   public function getDescription()
@@ -478,6 +489,8 @@ class Discard extends \ALT\Models\Action
         'to' => $destination,
         'gigantic' => in_array($originalLocation, STORMS) && $card->isGigantic(),
         'sacrifice' => $this->isSacrifice(),
+        'sabotage' => $this->isSabotage() || ($this->getDiscardControllerId() != $pId && in_array($originalLocation, [HAND, RESERVE])),
+        'controller' => $this->getDiscardControllerId(),
         'sourceId' => $this->getSourceId(),
         'pId' => $pId
       ]);
