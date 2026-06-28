@@ -197,7 +197,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false,  $limited = false)
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -230,6 +230,9 @@ class ChooseAssignment extends \ALT\Models\Action
       }
       $costReduction = Globals::getCostReduction();
       foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
+        if (!is_array($reductionCost)) {
+          continue;
+        }
         if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType()) || $costType == ALL) {
           unset($costReduction[$player->getId()][$costType]);
         }

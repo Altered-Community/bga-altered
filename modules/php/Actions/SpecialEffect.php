@@ -346,12 +346,23 @@ class SpecialEffect extends \ALT\Models\Action
 
       case 'costReduction':
         $reduction = Globals::getCostReduction();
-        $reduction[$card->getPId()][$args['type']]['reduction'] =
-          ($reduction[$card->getPId()][$args['type']]['reduction'] ?? 0) + $args['reduction'];
-        $reduction[$card->getPId()][$args['type']]['permanent'] =
-          ($reduction[$card->getPId()][$args['type']]['permanent'] ?? false) || ($args['permanent'] ?? false);
+        $pId = $card->getPId();
+        if (!isset($args['minimum'])) {
+          foreach (array_keys($reduction[$pId] ?? []) as $costType) {
+            if (!is_array($reduction[$pId][$costType] ?? null)) {
+              continue;
+            }
+            if (Utils::costReductionBucketsOverlap($args['type'], $costType)) {
+              unset($reduction[$pId][$costType]['minimum']);
+            }
+          }
+        }
+        $reduction[$pId][$args['type']]['reduction'] =
+          ($reduction[$pId][$args['type']]['reduction'] ?? 0) + $args['reduction'];
+        $reduction[$pId][$args['type']]['permanent'] =
+          ($reduction[$pId][$args['type']]['permanent'] ?? false) || ($args['permanent'] ?? false);
         if (isset($args['minimum'])) {
-          $reduction[$card->getPId()][$args['type']]['minimum'] = $args['minimum'];
+          $reduction[$pId][$args['type']]['minimum'] = $args['minimum'];
         }
         Globals::setCostReduction($reduction);
         break;
