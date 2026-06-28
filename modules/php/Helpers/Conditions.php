@@ -2289,11 +2289,7 @@ abstract class Conditions
   
   public static function wasCardExpeditionAscended($card, $event)
   {
-    $srcLoc = $event["from"];
-    if (!in_array($srcLoc, STORMS)) {
-      return false;
-    }
-    return $card->getPlayer()->isAscended($srcLoc) || ($card->isGigantic() && ($card->getPlayer()->isAscended($srcLoc == STORM_LEFT ? STORM_RIGHT : STORM_LEFT)));
+    return $event['sourceAscended'] ?? false;
   } 
 
   public static function isNotCardExpeditionAscended($card, $event)
