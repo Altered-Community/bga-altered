@@ -624,7 +624,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
     $blockedExpeditions = self::getBlockedExpeditions();
     $actionInsteadAdvance = self::getActionInsteadOfAdvance();
     $toMove = [];
-    $hasMovedFromAscension = false;
+    $expeditionAscensionMoves = [];
     // For each player, check whether hero and/or companion move forward
     foreach ([HERO, COMPANION] as $side) {
       foreach ($players as $pId => $player) {
@@ -660,7 +660,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
 
           if ($isEqual && $isAscended){
             $move = true;
-            $hasMovedFromAscension = true;
+            $expeditionAscensionMoves[$pId][$expedition] = true;
           } elseif ($pIdWinner == $pId)  {
               $move = true;
               $winningBiomes[] = $biome;
@@ -678,6 +678,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
       $duskEngineSteps = [];
       $isAscended = $player->isAscended($expedition);
       foreach ($playerMoves as $expedition => $winningBiomes) {
+        $hasMovedFromAscension = $expeditionAscensionMoves[$pId][$expedition] ?? false;
         $isAscended = $player->isAscended($expedition);
         $side = $expedition == STORM_LEFT ? HERO : COMPANION;
         $n = 1;
