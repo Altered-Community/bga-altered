@@ -5771,10 +5771,7 @@ abstract class FlowConvertor
       ],
       856 => [
         'description' => clienttranslate('You play Permanents for {1} less, down to a minimum of {1}.'),
-        'output' => FT::ACTION(SPECIAL_EFFECT, [
-          'effect' => 'costReduction',
-          'args' => ['type' => PERMANENT, 'reduction' => 1, 'minimum' => 1, 'permanent' => false],
-        ]),
+        'attributes' => ['reduceCostType' => [PERMANENT => ['minBaseCost' => 0, 'reduction' => 1, 'minimum' => 1]]],
       ],
       857 => [
         'description' => clienttranslate('Pay {1} less for the next Permanent you play this Afternoon, down to a minimum of {1}.'),
@@ -5959,12 +5956,13 @@ abstract class FlowConvertor
       ],
       881 => [
         'description' => clienttranslate('You may target a Feat you control, it activates its {j} abilities.'),
-        'output' => FT::ACTION(TARGET, [
-          'targetPlayer' => ME,
+        'output' =>  FT::ACTION(TARGET, [
           'targetType' => [PERMANENT],
+          'targetPlayer' => ME,
           'subType' => FEAT,
           'upTo' => true,
-          'effect' => FT::ACTION(ACTIVATE_EFFECT, ['cardId' => EFFECT]),
+          'hasEffects' => ['Played'],
+          'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
         ]),
       ],
       916 => [
