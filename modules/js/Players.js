@@ -134,7 +134,7 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     tplPlayerBoard(player) {
       let pId = player.id;
-      return `<div class='nylaltered-player-board' id='player-board-${pId}' data-faction='${player.faction}'>
+      return `<div class='altered-player-board' id='player-board-${pId}' data-faction='${player.faction}'>
           <div class='player-board-discard-zone' id='board-discard-zone-${player.id}'>
             <div class='player-board-discard' id='board-discard-${player.id}'></div>
             <div class='discard-counter-holder'>
