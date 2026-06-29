@@ -5934,7 +5934,7 @@ abstract class FlowConvertor
           'targetType' => [CHARACTER, TOKEN],
           'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
           'upTo' => true,
-          'hasEffects' => 'support',
+          'hasEffects' => ['Support'],
           'effect' => FT::GAIN(EFFECT, BOOST, 2),
         ]),
       ],
