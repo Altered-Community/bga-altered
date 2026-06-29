@@ -34,7 +34,6 @@ class BR_Rare_FrankensteinsCreature extends \ALT\Models\Card
         'targetPlayer' => ME,
         'subType' => FEAT,
         'upTo' => true,
-        'maxBaseCost' => 2,
         'hasEffects' => ['Played'],
         'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
       ]),
