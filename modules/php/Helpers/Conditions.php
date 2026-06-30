@@ -137,7 +137,12 @@ abstract class Conditions
       return true;
     }
 
-    return Cards::get($cardId)->getPId() == $card->getPId() || $card->getPId() == ($event['controller'] ?? -1);
+    // Controller is snapshotted at leave time (before borrow/steal ownership is restored in
+    // discardTo). Needed for The Mess when a borrowed Character leaves your Expedition
+    // (e.g. Romantic Encounter). Do not apply on sabotage — that would false-trigger
+    // "your Reserve" effects like The Refinery when you sabotage an opponent's card.
+    return Cards::get($cardId)->getPId() == $card->getPId()
+      || (!($event['sabotage'] ?? false) && $card->getPId() == ($event['controller'] ?? -1));
   }
 
   /** True when the passive card's owner voluntarily discards one of their own cards. */
