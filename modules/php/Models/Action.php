@@ -297,9 +297,20 @@ class Action
     );
 
     $reaction = Cards::getReaction($event, true, false);
-    // var_dump($reaction);
     if ($reaction  !== null) {
-      Engine::insertAtRoot(['type' => NODE_SEQ, 'childs' => $reaction], false);
+      // 227852 - Give Fate a Twist + Wayfarer interaction: 
+      // Wayfarer’s ImmediateRollDie triggers a RevealTop effect, which triggers a RevealTop listener on the same card. 
+      // To allow player to choose to use the Fate roll +1, it needs to be offered as parallel actions with Wayfarer, not in a sequence.
+      if (count($reaction) > 1) {
+        Engine::insertAtRoot([
+          'type' => NODE_PARALLEL,
+          'pId' => $event['pId'],
+          'noIndependent' => true,
+          'childs' => $reaction,
+        ], false);
+      } else {
+        Engine::insertAtRoot(['type' => NODE_SEQ, 'childs' => $reaction], false);
+      }
     }
   }
 
