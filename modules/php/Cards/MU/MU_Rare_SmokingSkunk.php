@@ -24,6 +24,7 @@ class MU_Rare_SmokingSkunk extends \ALT\Models\Card
       'subtypes'  => [ANIMAL],
       'effectDesc' => clienttranslate('#Other characters in your Expeditions are <TOUGH_CHA_P_1>#'),
       'supportDesc' => clienttranslate('{D} : Pay {1} less for the next Character you play this turn, down to a minimum of {1}.'),
+      'supportIcon' => 'discard',
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 0,
