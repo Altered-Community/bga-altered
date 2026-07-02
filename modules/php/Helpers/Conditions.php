@@ -632,6 +632,28 @@ abstract class Conditions
     }
     die('Unknown op for hasDiscardPileCards');
   }
+
+  public static function hasEverReachXDiscardedCards($card, $event, $n, $op = 'GTE')
+  {
+    $pId = $card->getPId();
+    $tracker = Globals::getSamSpookEverDiscarded();
+
+    if (isset($tracker[$pId]) && $tracker[$pId]) {
+      return true;
+    }
+
+    $count = Cards::getFiltered($pId, DISCARD_PILE)->count();
+    $met = ($op == 'GTE' && $count >= $n) ||
+           ($op == 'LTE' && $count <= $n) ||
+           ($op == 'EQ' && $count == $n);
+
+    if ($met) {
+      $tracker[$pId] = true;
+      Globals::setSamSpookEverDiscarded($tracker);
+    }
+
+    return $met;
+  }
   
   public static function hasCardInDiscardPile($card, $event, $name)
   {

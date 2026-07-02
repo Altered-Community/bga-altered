@@ -86,6 +86,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nextAnimalBoostOccurence' => 'int',
     'abilityActivatedThisTurnCount' => 'obj',
     'abilityActivatedThisTurnTypeCount' => 'obj',
+    'samSpookEverDiscarded' => 'obj',
 
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
