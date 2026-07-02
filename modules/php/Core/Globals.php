@@ -86,7 +86,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'nextAnimalBoostOccurence' => 'int',
     'abilityActivatedThisTurnCount' => 'obj',
     'abilityActivatedThisTurnTypeCount' => 'obj',
-
+    'smokeThemOutArmed' => 'obj', // pId => cardId (completed support armed this assignment turn)
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',

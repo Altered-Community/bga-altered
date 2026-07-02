@@ -7,6 +7,7 @@ use ALT\Core\Notifications;
 use ALT\Core\Engine;
 use ALT\Core\Stats;
 use ALT\Helpers\Log;
+use ALT\Helpers\Conditions;
 use ALT\Managers\Players;
 use ALT\Managers\Meeples;
 use ALT\Managers\Cards;
@@ -61,6 +62,7 @@ trait TurnTrait
     Globals::setAbilityActivatedThisTurn([]);
     Globals::setAbilityActivatedThisTurnCount([]);
     Globals::setAbilityActivatedThisTurnTypeCount([]);
+    Globals::setSmokeThemOutArmed([]);
 
     Globals::setDayPhase(true);
     // Update cards with extra datas set
@@ -130,6 +132,7 @@ trait TurnTrait
     Globals::setNextTokenAsleep(false);
     Globals::setAdditionalEffect([]);
     Globals::setActivePId($player->getId());
+    Conditions::disarmSmokeThemOut($player->getId());
     Globals::setNextSpellIsFree(false);
     Globals::setRemoveFleetingIfSpellPlayedHand(false);
     Globals::setRemoveFleetingSpellPlayed(false);

@@ -343,6 +343,16 @@ class SpecialEffect extends \ALT\Models\Action
         $data['userPower'] = false;
         $card->setExtraDatas($data);
         break;
+      case 'armSmokeThemOut':
+        $armed = Globals::getSmokeThemOutArmed();
+        $armed[$card->getPId()] = $card->getId();
+        Globals::setSmokeThemOutArmed($armed);
+        break;
+      case 'disarmSmokeThemOut':
+        $armed = Globals::getSmokeThemOutArmed();
+        unset($armed[$card->getPId()]);
+        Globals::setSmokeThemOutArmed($armed);
+        break;
 
       case 'costReduction':
         $reduction = Globals::getCostReduction();
