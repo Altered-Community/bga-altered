@@ -31,7 +31,7 @@ class AX_Rare_SmokeThemOut extends \ALT\Models\Card
       // Arm the completed support: the next {T} ability this turn grants +1 boost.
       'effectTap' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'isThisFeatCompleted',
-        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'useCard']),
+        'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'armSmokeThemOut']),
       ]),
       'effectPassive' => [
         'Exhaust' => [
@@ -43,14 +43,14 @@ class AX_Rare_SmokeThemOut extends \ALT\Models\Card
               'effect' => FT::ACTION(COMPLETE_FEAT, ['cardId' => 'source']),
             ]),
             'oppositeEffect' => FT::ACTION(CHECK_CONDITION, [
-              'condition' => 'isUsed',
+              'condition' => 'isSmokeThemOutArmed',
               'effect' => FT::SEQ(
                 FT::ACTION(TARGET, [
                   'targetType' => [CHARACTER],
                   'targetLocation' => [RESERVE, STORM_LEFT, STORM_RIGHT],
                   'effect' => FT::GAIN(EFFECT, BOOST),
                 ]),
-                FT::ACTION(SPECIAL_EFFECT, ['effect' => 'unuseCard'])
+                FT::ACTION(SPECIAL_EFFECT, ['effect' => 'disarmSmokeThemOut'])
               ),
             ]),
           ]),
