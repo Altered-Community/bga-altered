@@ -2226,6 +2226,7 @@ class SpecialEffect extends \ALT\Models\Action
                 'effect' => FT::ACTION(PLAY_CARD, [
                   'free' => true,
                   'effectHand' => $effectHand,
+                  'reallyPlayed' => true,
                   // Reset the Target arguments for the PlayCard action, in case it has effects that target
                   // This is weird, but it seemed to fix issues where:
                   // - Fair Fox resupplied 5 cards
