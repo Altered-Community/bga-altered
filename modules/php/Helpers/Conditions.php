@@ -1498,9 +1498,8 @@ abstract class Conditions
       return false;
     }
 
-    // putAndNotPlayed tracks {h} hand abilities; reallyPlayed tracks whether the card counts as played.
-    // e.g. The Wayfarer: played for free without {h}, but still counts as a play for passives.
-    if ($playedOnly && ($event['reallyPlayed'] ?? true) == false) {
+    // Distinguish play and put
+    if ($playedOnly && ($event['putAndNotPlayed'] ?? false)) {
       return false;
     }
 
@@ -1588,7 +1587,7 @@ abstract class Conditions
 
   public static function isCardAdded($card, $event, $type = null, $cost = null, $op = 'GTE', $excludeMyself = '', $playedOnly = false)
   {
-    if (!self::isAddedCardEvent($card, $event, $playedOnly)) {
+    if (!self::isAddedCardEvent($card, $event)) {
       return false;
     }
     $playedCard = Cards::get($event['cardId']);
