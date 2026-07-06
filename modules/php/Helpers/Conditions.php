@@ -1290,6 +1290,19 @@ abstract class Conditions
     return ($card->getExtraDatas()['userPower'] ?? false) == true;
   }
   
+  public static function isSmokeThemOutArmed($card, $event)
+  {
+    return (Globals::getSmokeThemOutArmed()[$card->getPId()] ?? null) == $card->getId();
+  }
+
+  public static function disarmSmokeThemOut($pId)
+  {
+    $armed = Globals::getSmokeThemOutArmed();
+    unset($armed[$pId]);
+    Globals::setSmokeThemOutArmed($armed);
+  }
+  
+  
   /**
    * True only when LY Smoke Them Out should react to this event.
    * - Incomplete feat: react once two {D} abilities were activated on your turn.
@@ -1312,7 +1325,7 @@ abstract class Conditions
       return self::checkAbilityActivatedThisTurnTypeCount($card, $event, 'discard', 2);
     }
 
-    if (!self::isUsed($card, $event)) {
+    if (!self::isSmokeThemOutArmed($card, $event)) {
       return false;
     }
 
@@ -1334,7 +1347,7 @@ abstract class Conditions
       return self::checkAbilityActivatedThisTurnTypeCount($card, $event, 'tap', 3);
     }
 
-    if (!self::isUsed($card, $event)) {
+    if (!self::isSmokeThemOutArmed($card, $event)) {
       return false;
     }
 
@@ -1613,11 +1626,6 @@ abstract class Conditions
       return false;
     }
     $playedCard = Cards::get($event['cardId']);
-
-    // TO SEEE
-    // if ($playedOnly && ($event['reallyPlayed'] ?? false) == false) {
-    //   return false;
-    // }
 
     // Exclude myself
     if ($excludeMyself == 'true' && $card->getId() == $event['cardId']) {
