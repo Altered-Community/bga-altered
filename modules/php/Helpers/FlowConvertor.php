@@ -5558,12 +5558,14 @@ abstract class FlowConvertor
       ],
       821 => [
         'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target Expedition, it gains <ANCHORED>.'),
-        'output' => FT::ACTION(INVOKE_TOKEN, [
-          'pId' => CONTROLLER,
-          'tokenType' => 'MU_Common_Woollyback',
-          'targetLocation' => STORMS,
-          'effect' => FT::GAIN(EFFECT, ANCHORED),
-        ]),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextTokenAnchored']),
+          FT::ACTION(INVOKE_TOKEN, [
+            'targetPlayer' => OPPONENT,
+            'targetLocation' => ['source'],
+            'tokenType' => 'MU_Common_Woollyback',
+          ]),
+        ),
       ],
       822 => [
         'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in the Expedition facing me.'),

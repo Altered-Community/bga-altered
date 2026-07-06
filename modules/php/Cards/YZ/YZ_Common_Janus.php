@@ -29,7 +29,7 @@ class YZ_Common_Janus extends \ALT\Models\Card
       'gigantic' => true,
       'effectPassive' => [
         'Discard' => [
-          'conditions' => ['isDiscarded::discard', 'isNotToken'],
+          'conditions' => ['isDiscardByOwner', 'isDiscarded:hand:discard', 'isNotToken'],
           'output' => FT::GAIN(ME, BOOST)
         ],
       ],
