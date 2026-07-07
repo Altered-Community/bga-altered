@@ -51,6 +51,11 @@
         "name": "Sandbox",
         "tmdisplay": "Sandbox",
         "description": "4-100 cards, all cards available, no faction or rarity restrictions."
+      },
+      "4": {
+        "name": "Frontier",
+        "tmdisplay": "Frontier",
+        "description": "40-60 cards, standard rules with a limited pool of 30k uniques that will change next season."
       }
     }
   }

@@ -243,6 +243,9 @@ class Globals extends \ALT\Helpers\DB_Manager
       case 3:
         self::setDeckFormat('SANDBOX');
         break;
+      case 4:
+        self::setDeckFormat('FRONTIER');
+        break;
     }
     self::setDeckOptions(OPTION_DECKS_STARTER);
     self::setBeginner($options[OPTION_BEGINNER] ?? 1);
