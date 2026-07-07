@@ -1290,18 +1290,53 @@ abstract class Conditions
     return ($card->getExtraDatas()['userPower'] ?? false) == true;
   }
   
-  public static function isSmokeThemOutArmed($card, $event)
+  public static function getSmokeThemOutCharges($pId, $cardId = null)
   {
-    return (Globals::getSmokeThemOutArmed()[$card->getPId()] ?? null) == $card->getId();
+    $val = Globals::getSmokeThemOutArmed()[$pId] ?? 0;
+    if (is_int($val) || (is_string($val) && ctype_digit($val))) {
+      return (int) $val;
+    }
+    if ($val) {
+      // Legacy saves stored cardId instead of a charge count.
+      return ($cardId === null || $val == $cardId) ? 1 : 0;
+    }
+    return 0;
   }
 
+  public static function isSmokeThemOutArmed($card, $event)
+  {
+    return self::getSmokeThemOutCharges($card->getPId(), $card->getId()) > 0;
+  }
+
+  public static function armSmokeThemOut($pId)
+  {
+    $armed = Globals::getSmokeThemOutArmed();
+    $armed[$pId] = self::getSmokeThemOutCharges($pId) + 1;
+    Globals::setSmokeThemOutArmed($armed);
+  }
+
+  public static function consumeSmokeThemOutCharge($pId, $cardId = null)
+  {
+    $charges = self::getSmokeThemOutCharges($pId, $cardId);
+    if ($charges <= 0) {
+      return;
+    }
+    $armed = Globals::getSmokeThemOutArmed();
+    $remaining = $charges - 1;
+    if ($remaining <= 0) {
+      unset($armed[$pId]);
+    } else {
+      $armed[$pId] = $remaining;
+    }
+    Globals::setSmokeThemOutArmed($armed);
+  }
+  
   public static function disarmSmokeThemOut($pId)
   {
     $armed = Globals::getSmokeThemOutArmed();
     unset($armed[$pId]);
     Globals::setSmokeThemOutArmed($armed);
   }
-  
   
   /**
    * True only when LY Smoke Them Out should react to this event.
