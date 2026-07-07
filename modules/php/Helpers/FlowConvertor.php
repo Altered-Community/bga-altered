@@ -1218,6 +1218,10 @@ abstract class FlowConvertor
       882 => [
         'description' => clienttranslate('Do this once for each card with my name in your discard pile:'),
         'condition' => 'hasCardInDiscardPileSourceName',
+        'effect' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'doEachCardInDiscardPileSourceName',
+          'args' => ['effect' => 'OUTPUT'],
+        ]),
       ],
       883 => [
         'description' => clienttranslate('If my Expedition is ahead:'),
