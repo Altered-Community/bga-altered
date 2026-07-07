@@ -23,7 +23,7 @@ class BR_Rare_ManaSeamstress extends \ALT\Models\Card
       'effectDesc' => clienttranslate('#{H} If six or more cards are in your discard pile, discard target Character with Base Cost {1} or less.#'),
       'forest' => 2,
       'mountain' => 3,
-      'ocean' => 2,
+      'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(CHECK_CONDITION, [

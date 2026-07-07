@@ -22,7 +22,7 @@ class YZ_Common_ManaSeamstress extends \ALT\Models\Card
       'subtypes'  => [ARTIST, MAGE],
       'forest' => 2,
       'mountain' => 3,
-      'ocean' => 2,
+      'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 2,
     ];
