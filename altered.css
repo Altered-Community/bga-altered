@@ -9650,9 +9650,9 @@ html {
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_B_YZ_106_R] {
   background-image: url("img/illustrations/YZ/ALT_EOLE_B_YZ_106_R.jpg");
 }
-.altered-card .altered-card-wrapper[data-asset=ALT_FUGUE_B_YZ_131_U],
-.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_FUGUE_B_YZ_131_U] {
-  background-image: url("img/illustrations/YZ/ALT_FUGUE_B_YZ_131_U.jpg");
+.altered-card .altered-card-wrapper[data-asset=ALT_EOLE_B_YZ_106_U],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_B_YZ_106_U] {
+  background-image: url("img/illustrations/YZ/ALT_EOLE_B_YZ_106_U.jpg");
 }
 .altered-card .altered-card-wrapper[data-asset=ALT_EOLE_B_YZ_107_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_B_YZ_107_C] {
