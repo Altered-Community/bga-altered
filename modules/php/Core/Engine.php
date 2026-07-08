@@ -112,6 +112,8 @@ class Engine
       // throw new \feException(print_r(Globals::getEngine()));
       // throw new \feException(print_r(debug_print_backtrace()));
       $skipped = Globals::getSkippedPlayers();
+      // Effect-driven free plays (e.g. Wayfarer) never bump playedCards; only the Afternoon
+      // assignment play / pass ends the turn. See ChooseAssignment::playCard.
       // if card was played or action passed, we are done
       if (
         (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array(Globals::getActivePId(), $skipped))) ||
@@ -126,7 +128,8 @@ class Engine
         return;
       }
 
-      // otherwise, insert again a choose assignment
+      // otherwise, insert again a choose assignment (e.g. after hero tap + Wayfarer free play)
+      Globals::setPlayedForFree(false);
       self::insertAtRoot(
         $node = [
           'childs' => [
@@ -294,7 +297,7 @@ class Engine
     $node = self::$tree->getNextUnresolved();
     $args = $node->getChoices($player);
     if (!isset($args[$nodeId])) {
-      throw new \Bga\GameFramework\VisibleSystemException('This choice is not possible');
+      throw new \BgaVisibleSystemException('This choice is not possible');
     }
 
     if (!$auto) {
@@ -342,7 +345,7 @@ class Engine
     $canReuse = $node->getArgs()['canReuse'] ?? false;
 
     if ($node->getChilds()[$nodeId]->isResolved() && !$canReuse) {
-      throw new \Bga\GameFramework\VisibleSystemException('Node is already resolved');
+      throw new \BgaVisibleSystemException('Node is already resolved');
     }
     if ($canReuse) {
       $node->getChilds()[$nodeId]->unresolveAction();
