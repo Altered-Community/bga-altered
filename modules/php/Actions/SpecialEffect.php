@@ -2430,7 +2430,21 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-        break;             
+        break;        
+        // EOLE
+      case 'doEachCardInDiscardPileSourceName':
+        $count = Conditions::countCardsInDiscardPileSourceName($card, $this->getEvent());
+        $nodes = [];
+        $effect = $args['effect'];
+        $effect['pId'] = $card->getPlayer()->getId();
+        for ($i = 0; $i < $count; $i++) {
+          $nodes[] = $effect;
+        }
+        $nodes = Utils::tagTree(['childs' => $nodes], ['sourceId' => $card->getId()]);
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
+        }
+        break;     
       default:
         break;
     }

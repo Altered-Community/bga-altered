@@ -673,7 +673,42 @@ abstract class Conditions
 
   public static function hasCardInDiscardPileSourceName($card, $event)
   {
-    return self::hasCardInDiscardPile($card, $event, $card->getName());
+    return self::countCardsInDiscardPileSourceName($card, $event) > 0;
+  }
+
+  public static function countCardsInDiscardPileSourceName($card, $event)
+  {
+    $name = self::getCardSearchName($card);
+    if ($name === '') {
+      return 0;
+    }
+
+    $count = 0;
+    $discardedCards = Cards::getFiltered($card->getPId(), DISCARD_PILE);
+    foreach ($discardedCards as $discardedCard) {
+      if (self::isCardMatchingSearch($discardedCard, $name)) {
+        $count++;
+      }
+    }
+
+    return $count;
+  }
+
+  /**
+   * Card identity segment used to match same-name printings (e.g. YZ_115 from ALT_EOLE_B_YZ_115_C).
+   */
+  public static function getCardSearchName($card)
+  {
+    $uid = (string) $card->getUid();
+    if ($uid === '') {
+      return '';
+    }
+
+    if (preg_match('/^ALT_[^_]+_[^_]+_([A-Z]{2}_\d+)/', $uid, $matches) === 1) {
+      return $matches[1];
+    }
+
+    return '';
   }
 
   /**

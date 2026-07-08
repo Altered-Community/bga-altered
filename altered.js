@@ -2215,11 +2215,12 @@
        let cardId = args.cardId;
        oCard = $(`card-${cardId}`);
        oCard.classList.add('selected');
-       if (args.supportPossible) {
-         this.onClick(oCard.querySelector('.card-support-icon'), () => {
-           this.takeAtomicAction('actSupport', [cardId]);
-         });
-       }
+      let supportIcon = oCard.querySelector('.card-support-icon');
+      if (args.supportPossible && supportIcon) {
+        this.onClick(supportIcon, () => {
+          this.takeAtomicAction('actSupport', [cardId]);
+        });
+      }
        // Backup previous pos and transform
        oCard.backup = {
          transform: oCard.style.transform,
@@ -2283,12 +2284,12 @@
          });
        }
  
-       if (args.supportPossible == true) {
-         this.addPrimaryActionButton(
-           'btnSupportAbility',
-           _('Support ability') + oCard.querySelector('.card-support-icon').innerHTML,
-           () => this.takeAtomicAction('actSupport', [cardId])
-         );
+       if (args.supportPossible == true && supportIcon) {
+        this.addPrimaryActionButton(
+          'btnSupportAbility',
+          _('Support ability') + supportIcon.innerHTML,
+          () => this.takeAtomicAction('actSupport', [cardId])
+        );
        }
      },
  

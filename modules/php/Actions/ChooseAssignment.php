@@ -105,9 +105,9 @@ class ChooseAssignment extends \ALT\Models\Action
     if (in_array('support', $authorizedActions)) {
       $actions['support'] = $reserveCards
         ->filter(function ($card) use ($player) {
-          return !empty($card->getEffectSupport()) && (
-            !$card->isTapped()
-          );
+          return !empty($card->getEffectSupport()) &&
+            !empty($card->getSupportDesc()) &&
+            !$card->isTapped();
         })
         ->getIds();
     }
