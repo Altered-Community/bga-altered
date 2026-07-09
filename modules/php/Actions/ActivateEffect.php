@@ -20,7 +20,9 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getDescription()
   {
-    if (is_null($this->getCtxArgs()['cardId'] ?? null)) {
+    $ctxCardId = $this->getCtxArgs()['cardId'] ?? null;
+    // cardId EFFECT is unresolved until a parent Target picks (e.g. output 880 under 910).
+    if (is_null($ctxCardId) || $ctxCardId === EFFECT) {
       if ($this->getArg('effectType') == 'Played') {
         return clienttranslate('activate {J} effect');
       } elseif ($this->getArg('effectType') == 'Reserve') {
@@ -85,18 +87,72 @@ class ActivateEffect extends \ALT\Models\Action
       }
     }
 
-    if ($cardId == ME || is_null($cardId)) {
-      $source = $this->getSource();
-      $cardId = is_null($source) ? null : $source->getId();
-    } elseif ($cardId == EFFECT) {
-      $event = $this->getEventRecursive();
-      $cardId = $event['cardId'] ?? null;
-    }
+    $cardId = $this->resolveActivateCardId($cardId);
 
     if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args (Activate effect). Should not happen');
     }
     return Cards::get($cardId);
+  }
+
+  /**
+   * Resolve which card's ability to activate: explicit id, listener event (EFFECT),
+   * parent Target pick (output 880), or source card when args omit cardId.
+   */
+  private function resolveActivateCardId($cardId)
+  {
+    if ($cardId == ME) {
+      $source = $this->getSource();
+      return is_null($source) ? null : $source->getId();
+    }
+
+    if (!is_null($cardId) && $cardId != EFFECT) {
+      return $cardId;
+    }
+
+    if ($cardId == EFFECT) {
+      $event = $this->getEventRecursive();
+      if (!is_null($event)) {
+        $resolved = $event['cardId'] ?? null;
+        if (!is_null($resolved)) {
+          return $resolved;
+        }
+      }
+    }
+
+    $fromTarget = $this->resolveTargetPickCardId();
+    if (!is_null($fromTarget)) {
+      return $fromTarget;
+    }
+
+    if (is_null($cardId)) {
+      $source = $this->getSource();
+      return is_null($source) ? null : $source->getId();
+    }
+    return null;
+  }
+
+  /**
+   * Closest resolved parent Target (same pattern as Spend::resolveSpendCardId).
+   */
+  private function resolveTargetPickCardId()
+  {
+    $ctx = $this->ctx->getParent();
+    while (!is_null($ctx)) {
+      if ($ctx->getAction() === \TARGET && $ctx->isActionResolved()) {
+        $resolved = $ctx->getActionResolutionArgs();
+        if (is_array($resolved) && !empty($resolved)) {
+          $pick = $resolved[0];
+          $cardId = is_array($pick) ? ($pick[0] ?? null) : $pick;
+          if (!is_null($cardId)) {
+            return $cardId;
+          }
+        }
+      }
+      $ctx = $ctx->getParent();
+    }
+
+    return null;
   }
 
   protected $args = [
