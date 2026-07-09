@@ -45,12 +45,17 @@ class Discard extends \ALT\Models\Action
 
   public function isOptional($player)
   {
-    return $this->getArg('canPass') || $this->cannotFulfillDiscard($player);
+    return $this->getArg('canPass');
+  }
+
+  public function canPassAction($player)
+  {
+    return $this->isOptional($player) || $this->cannotFulfillDiscard($player);
   }
 
   private function cannotFulfillDiscard($player)
   {
-    if (!is_null($this->getArg('special'))) {
+    if ($this->getArg('special') != '') {
       return false;
     }
 

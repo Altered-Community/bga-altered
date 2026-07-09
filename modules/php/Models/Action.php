@@ -34,6 +34,11 @@ class Action
     return false;
   }
 
+  public function canPassAction($player)
+  {
+    return $this->isOptional($player);
+  }
+
   public function isIndependent($player = null)
   {
     return false;
