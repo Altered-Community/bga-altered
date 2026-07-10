@@ -56,7 +56,7 @@ class PlayCard extends \ALT\Models\Action
     if (is_null($cardId) && $description) {
       return null;
     } elseif (is_null($cardId)) {
-      throw new \Bga\GameFramework\VisibleSystemException('no card in args (play card). Should not happen');
+      throw new \BgaVisibleSystemException('no card in args (play card). Should not happen');
     }
     return Cards::getSingle($cardId);
   }
@@ -70,6 +70,8 @@ class PlayCard extends \ALT\Models\Action
     'costReduction' => 0,
     'reallyPlayed' => true,
     'stealOwnership' => false,
+    // null = infer in playCard (free + cost 0 => not a turn play); true for cost-reduction paths
+    'countsAsTurnPlay' => null,
   ];
 
   public function isDoable($player)
@@ -84,7 +86,7 @@ class PlayCard extends \ALT\Models\Action
     $cId = $card->getId();
     $player = Players::getActive();
     if (!$this->getArg('free') && !$card->canBePlayed($player)) {
-      throw new \Bga\GameFramework\VisibleSystemException('Card cannot be played. Should not happen');
+      throw new \BgaVisibleSystemException('Card cannot be played. Should not happen');
     }
 
     $locations[$cId] = $card->getPlayableLocation($player);
@@ -121,10 +123,10 @@ class PlayCard extends \ALT\Models\Action
     $args = $this->argsPlayCard()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
     }
     if (!in_array($location, $locations)) {
-      throw new \Bga\GameFramework\VisibleSystemException('Invalid location to play a card. Should not happen');
+      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $card = Cards::get($cardId);
     if ($this->getArg('stealOwnership') && $card->getPId() != Players::getActiveId()) {
@@ -145,7 +147,8 @@ class PlayCard extends \ALT\Models\Action
       $this->getArg('cost'),
       $this->getArg('reallyPlayed'),
       false,
-      $this->getArg('stealOwnership')
+      $this->getArg('stealOwnership'),
+      $this->getArg('countsAsTurnPlay')
     );
   }
 }

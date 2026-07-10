@@ -184,10 +184,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $args = $this->argsChooseAssignment()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This card cannot be played. Should not happen');
+      throw new \BgaVisibleSystemException('This card cannot be played. Should not happen');
     }
     if (!in_array($location, $locations)) {
-      throw new \Bga\GameFramework\VisibleSystemException('Invalid location to play a card. Should not happen');
+      throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $locExploded = explode('_', $location);
     if ($locExploded[1] ?? '' == 'scout') {
@@ -197,14 +197,14 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false,  $limited = false)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false, $countsAsTurnPlay = null) 
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
     $location = explode('_', $location)[0];
 
     if ($card->getPId() != $player->getId()) {
-      throw new \Bga\GameFramework\VisibleSystemException('You do not own this card. Should not happen');
+      throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
     }
 
     if ($free == false) {
@@ -257,7 +257,8 @@ class ChooseAssignment extends \ALT\Models\Action
         ) {
           $this->insertAsChild(
             FT::XOR(
-              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              // next card played needs to be considered as a turn play, even if played for free
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
               FT::SEQ(
                 FT::ACTION(
                   TARGET,
@@ -275,6 +276,7 @@ class ChooseAssignment extends \ALT\Models\Action
                   'free' => true,
                   'cost' => $cost - $card->getCostReductionDiscard(),
                   'location' => $location,
+                  'countsAsTurnPlay' => true,
                 ])
               )
             )
@@ -290,7 +292,8 @@ class ChooseAssignment extends \ALT\Models\Action
         if ($nbPermanents > 0) {
           $this->insertAsChild(
             FT::XOR(
-              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              // next card played needs to be considered as a turn play, even if played for free
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
               FT::SEQ(
                 FT::ACTION(
                   TARGET,
@@ -306,6 +309,7 @@ class ChooseAssignment extends \ALT\Models\Action
                   'free' => true,
                   'cost' => $cost - $card->getCostReductionSacrificePermanent(),
                   'location' => $location,
+                  'countsAsTurnPlay' => true,
                 ])
               )
             )
@@ -316,8 +320,9 @@ class ChooseAssignment extends \ALT\Models\Action
       } elseif ($card->getCostReductionLimitation() > 0) {
         $this->insertAsChild(
           FT::XOR(
-            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
-            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost - $card->getCostReductionLimitation(), 'limited' => true]),
+            // next card played needs to be considered as a turn play, even if played for free
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost - $card->getCostReductionLimitation(), 'limited' => true, 'countsAsTurnPlay' => true]),
           )
         );
         $this->resolveAction(['CostReduction']);
@@ -333,7 +338,8 @@ class ChooseAssignment extends \ALT\Models\Action
         ) {
           $this->insertAsChild(
             FT::XOR(
-              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              // next card played needs to be considered as a turn play, even if played for free
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
               FT::SEQ(
                 FT::ACTION(
                   TARGET,
@@ -347,11 +353,13 @@ class ChooseAssignment extends \ALT\Models\Action
                   ],
                   ['sourceId' => $cardId]
                 ),
+                // next card played needs to be considered as a turn play, even if played for free
                 FT::ACTION(PLAY_CARD, [
                   'cardId' => $cardId,
                   'free' => true,
                   'cost' => $cost - $card->getCostReductionTap(),
                   'location' => $location,
+                  'countsAsTurnPlay' => true,
                 ])
               )
             )
@@ -374,9 +382,16 @@ class ChooseAssignment extends \ALT\Models\Action
     } else {
       $cost = 0;
     }
-    Globals::incPlayedCards();
+    // Effect free plays (Wayfarer, Coppelia, …) use free=true with cost 0 and must not
+    // end the Afternoon turn. Cost-reduction PLAY_CARD nodes pass countsAsTurnPlay=true.
+    if ($countsAsTurnPlay === null) {
+      $countsAsTurnPlay = !($free == true && $cost == 0);
+    }
+    if ($countsAsTurnPlay) {
+      Globals::incPlayedCards();
+    }
 
-    if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
+    if (((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || $free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
     }
     // Move card
