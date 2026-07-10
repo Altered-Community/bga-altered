@@ -469,6 +469,9 @@ class SpecialEffect extends \ALT\Models\Action
         Globals::incNextCharacterBoostOccurence(1);
         Globals::setNextCharacterAsleep(true);
         break;
+      case 'nextCharacterAsleep':
+        Globals::setNextCharacterAsleep($this->getArg('optional') ?? false ? ['value' => true, 'optional' => true] : true);
+        break;
       case 'nextAnimalGains1Boost':
         Globals::incNextAnimalBoost(1);
         Globals::incNextAnimalBoostOccurence(1);

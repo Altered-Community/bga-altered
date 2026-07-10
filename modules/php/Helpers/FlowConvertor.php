@@ -5830,7 +5830,10 @@ abstract class FlowConvertor
       ],
       866 => [
         'description' => clienttranslate('The next Character you play this turn gains 1 boost and you may have it gain [ASLEEP].'),
-        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1BoostAndAsleep']),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterAsleep', 'optional' => true]),
+        ),
       ],
       867 => [
         'description' => clienttranslate('We both gain 1 boost.'),

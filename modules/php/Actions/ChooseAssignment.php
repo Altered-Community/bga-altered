@@ -496,8 +496,18 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextCharacterCost3Anchored(false);
     }
     
-    if (Globals::getNextCharacterAsleep() == true) {
-      $this->pushParallelChild(FT::GAIN($card, ASLEEP));
+    $asleepData = Globals::getNextCharacterAsleep();
+    if ($asleepData !== false && $asleepData !== 0 && $asleepData !== null) {
+      $asleepValue = is_array($asleepData) ? ($asleepData['value'] ?? true) : $asleepData;
+      $isOptional = is_array($asleepData) ? ($asleepData['optional'] ?? false) : false;
+      if ($asleepValue) {
+        $gainNode = FT::GAIN($card, ASLEEP);
+        if ($isOptional) {
+          $this->pushParallelChild(['type' => NODE_SEQ, 'optional' => true, 'childs' => [$gainNode]]);
+        } else {
+          $this->pushParallelChild($gainNode);
+        }
+      }
       Globals::setNextCharacterAsleep(false);
     }
 
