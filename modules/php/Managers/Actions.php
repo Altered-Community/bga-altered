@@ -178,8 +178,8 @@ class Actions
   {
     $player = Players::getActive();
     $action = self::get($actionId, $ctx);
-    if (!$ctx->isOptional($player) && !$action->isOptional($player)) {
-      throw new \Bga\GameFramework\VisibleSystemException('This action is not optional');
+    if (!$ctx->isOptional($player) && !$action->canPassAction($player)) {
+      throw new \BgaVisibleSystemException('This action is not optional');
     }
 
     $methodName = 'actPass' . $action->getClassName();

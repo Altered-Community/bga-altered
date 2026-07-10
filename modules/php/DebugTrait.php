@@ -649,7 +649,43 @@ trait DebugTrait
   //   // $this->addCard('YZ_Common_FeastofThoughts', 'reserve');
   //   // $this->addCard('YZ_Common_MagicalTraining', 'hand');
   // }
+  
+  // Function used to forcibly clean up an entire location (deck, hand, reserve or both).
+  // Sends all cards in given location to discard pile, and refreshes UI. Useful for testing specific scenarios.
+  // function debug_emptyTargetLocation(string $location = HAND)
+  // {
+  //   $player = Players::getCurrent();
+  //   $pId = $player->getId();
+  //   $deckLocation = "deck-$pId";
+  //   $revealLocation = "reveal-$pId";
 
+  //   switch (strtoupper($location)) {
+  //     case 'HAND':
+  //       $locations = [HAND];
+  //       break;
+  //     case 'RESERVE':
+  //       $locations = [RESERVE];
+  //       break;
+  //     case 'DECK':
+  //       $locations = [$deckLocation, $revealLocation];
+  //       break;
+  //     case 'ALL':
+  //       $locations = [HAND, RESERVE, $deckLocation, $revealLocation];
+  //       break;
+  //     default:
+  //       throw new \feException("Invalid location '$location' (expected HAND, RESERVE, DECK or ALL)");
+  //   }
+
+  //   foreach ($locations as $loc) {
+  //     foreach (Cards::getFiltered($pId, $loc) as $card) {
+  //       $card->discard();
+  //     }
+  //   }
+
+  //   Notifications::refreshUI($this::get()->localGetAllDatas(true));
+  //   Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+  //   Engine::proceed();
+  // }
 
   /**
    * Load a unique card with one or more effect trigrams.
