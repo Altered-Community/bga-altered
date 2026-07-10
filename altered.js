@@ -141,6 +141,7 @@
        this._diceIndex = 1;
        this._undoPossible = true;
        this._beginner = false;
+       this._demoDeck = false;
        this._deckFormat = 'STANDARD';
  
        this.draggables = [];
@@ -392,6 +393,7 @@
        this._undoPossible = gamedatas.undo;
        this._beginner = gamedatas.beginner;
        this._deckFormat = gamedatas.deckFormat || 'STANDARD';
+       this._demoDeck = this._deckFormat === 'DEMO';
  
        this.inherited(arguments);
        this._tryCacheAccountConfiguredFromGamestateArgs();
@@ -851,6 +853,14 @@
      isSingletonDeckFormat() {
        return this._deckFormat.indexOf('SINGLETON') !== -1;
      },
+
+     isDemoDeckFormat() {
+       return this._deckFormat === 'DEMO';
+     },
+
+     allowCustomDeckFormat() {
+       return !this._beginner && !this.isDemoDeckFormat();
+     },
  
      /**
       * Deck picker / fetchDecks: whether this player's BGA account is linked / ready for custom API decks.
@@ -1107,6 +1117,9 @@
          $('btnBackToSources').remove();
        }
        this._lastSelectPrecoDeckArgs = args;
+       if (typeof args.demoDeck !== 'undefined') {
+         this._demoDeck = !!args.demoDeck;
+       }
        if (args._private && typeof args._private.accountConfigured !== 'undefined') {
          this._cachedAccountConfiguredForApiDecks = !!args._private.accountConfigured;
        }
@@ -1215,7 +1228,7 @@
              <div id='deck-selected-faction-title'></div>
              <div id='deck-faction-banners'></div>
              ${
-               this._beginner
+               !this.allowCustomDeckFormat()
                  ? ''
                 : `<div id='deck-source-toggle'>
               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
@@ -1236,7 +1249,7 @@
           renderStep2Preconfigured();
         });
 
-        if (!this._beginner) {
+        if (this.allowCustomDeckFormat()) {
             this.onClick('deck-source-random', () => {
               this.takeAction('actSelectRandomDeck', { faction: 'ALL' }, false);
             });

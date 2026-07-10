@@ -45,7 +45,7 @@
       "2": {
         "name": "Singleton No Unique",
         "tmdisplay": "Singleton No Unique",
-        "description": "60-80 cards, Singleton rules without unique. "
+        "description": "60-80 cards, Singleton rules without unique."
       },
       "3": {
         "name": "Sandbox",
@@ -56,6 +56,11 @@
         "name": "Test",
         "tmdisplay": "Test",
         "description": "40-60 cards, standard rules without unique with set in testing enabled and uniques"
+      },
+      "5": {
+        "name": "Roots of Corruption Demo Decks",
+        "tmdisplay": "Demo",
+        "description": "Play with demo decks from the set Roots of Corruption."
       }
     }
   }
