@@ -240,6 +240,8 @@ class SpecialEffect extends \ALT\Models\Action
       case 'sacrificeHighestCharacterPermanent':
         return clienttranslate('Sacrifice highest opponent character or permanent');
         // EOLE
+      case 'nextCharacterAsleep':
+        return clienttranslate('Next character gains <ASLEEP>');
       case 'nextCharacterGains1BoostAndAsleep':
         return clienttranslate('Next character gains <BOOST> and <ASLEEP>');
       case 'boostXCompletedFeat':
@@ -468,6 +470,9 @@ class SpecialEffect extends \ALT\Models\Action
         Globals::incNextCharacterBoost(1);
         Globals::incNextCharacterBoostOccurence(1);
         Globals::setNextCharacterAsleep(true);
+        break;
+      case 'nextCharacterAsleep':
+        Globals::setNextCharacterAsleep($this->getArg('optional') ?? false ? ['value' => true, 'optional' => true] : true);
         break;
       case 'nextAnimalGains1Boost':
         Globals::incNextAnimalBoost(1);
