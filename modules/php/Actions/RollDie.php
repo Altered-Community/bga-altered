@@ -37,7 +37,7 @@ class RollDie extends \ALT\Models\Action
   {
     $n = $this->getCtxArg('n') ?? 1;
 
-    $player = $player ?? Players::getActive();
+    $player = $player ?? $this->getPlayer() ?? Players::getActive();
 
     // Lyra Bastion management
     $extraRolls = $player->getAddDice();
@@ -164,8 +164,8 @@ class RollDie extends \ALT\Models\Action
 
   public function stPreRollDie()
   {
-    $player = Players::getActive();
-    list($nTotal, $extraRolls) = $this->getN();
+    $player = $this->getPlayer() ?? Players::getActive();
+    list($nTotal, $extraRolls) = $this->getN($player);
     $rolls = [];
 
     $source = $this->getSource();
@@ -187,7 +187,7 @@ class RollDie extends \ALT\Models\Action
       $rolls[] = $roll;
     }
 
-    // TODO: add power to increment die result
+    // Martengale / Fragrant Meerkat: offer +1 (per card) after seeing the result
     $newRolls = [];
     $addRoll = $player->getAddRoll();
     foreach ($rolls as $roll) {
@@ -206,13 +206,14 @@ class RollDie extends \ALT\Models\Action
 
   public function argsRollDie()
   {
+    $player = $this->getPlayer() ?? Players::getActive();
     $source = $this->getSource();
     $sourceCounterValue = $this->getSourceCounterValue();
     $rawRolls = Globals::getDiceRolls();
     $rolls = $this->getSelectableRolls($rawRolls, $sourceCounterValue);
     $canDiscard =
       $this->getArg('canDiscard') &&
-      Players::getActive()
+      $player
       ->getReserveCards()
       ->count() > 0;
 
@@ -223,7 +224,7 @@ class RollDie extends \ALT\Models\Action
       'source' => is_null($source) ? '' : $source,
       'counterValue' => $sourceCounterValue,
       'allowCounterIncrease' => $this->getArg('allowCounterIncrease'),
-      'cardIds' => Players::getActive()
+      'cardIds' => $player
         ->getReserveCards()
         ->getIds(),
       'descSuffix' => $canDiscard ? 'bastion' : '',
@@ -244,7 +245,7 @@ class RollDie extends \ALT\Models\Action
   public function actRollDie($dieValue)
   {
     $dieValue = (int) $dieValue;
-    $player = Players::getActive();
+    $player = $this->getPlayer() ?? Players::getActive();
     $source = $this->getSource();
     $args = $this->argsRollDie();
     $effects = [];
@@ -297,7 +298,7 @@ class RollDie extends \ALT\Models\Action
 
   public function actDiscardAdd($cardId)
   {
-    $player = Players::getActive();
+    $player = $this->getPlayer() ?? Players::getActive();
     $source = $this->getSource();
     $args = $this->argsRollDie();
 

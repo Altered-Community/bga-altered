@@ -719,7 +719,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
                     '1-3' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]),
                     '4+' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n + 1]), ['pId' => $pId])
                   ]
-                ], ['sourceId' => $cId]);
+                ], ['sourceId' => $cId, 'pId' => $pId]);
               } else {
                 $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
               }
@@ -730,7 +730,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
                     '2-3' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]),
                     '4+' => FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n + 1]), ['pId' => $pId])
                   ]
-                ], ['sourceId' => $cId]);
+                ], ['sourceId' => $cId, 'pId' => $pId]);
               } else {
                 $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
               }
