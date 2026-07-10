@@ -1,0 +1,332 @@
+name: Release Pipeline
+
+on:
+    workflow_dispatch:
+
+# Permissions nécessaires pour le workflow
+permissions:
+  contents: write       # Créer des releases et tags
+  issues: write         # Ouvrir des issues de rebase
+  pull-requests: write  # Optionnel : ouvrir des PRs de rebase
+  # Note : pour GitHub Projects v2 (org), un PAT avec scope "project" est nécessaire
+  # Stocke-le dans secrets.PROJECT_PAT
+
+jobs:
+  # ─────────────────────────────────────────────
+  # JOB 1 — Collecte des issues "To be deployed"
+  # ─────────────────────────────────────────────
+  collect-issues:
+    name: Collect issues
+    runs-on: ubuntu-latest
+    outputs:
+      release_body: ${{ steps.issues.outputs.release_body }}
+      issue_ids: ${{ steps.issues.outputs.issue_ids }}
+      issue_numbers: ${{ steps.issues.outputs.issue_numbers }}
+
+    steps:
+      - name: Fetch issues labeled "To be deployed"
+        id: issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'To be deployed',
+              state: 'open',
+              per_page: 100
+            });
+
+            if (issues.length === 0) {
+              core.setOutput('release_body', '_Aucun ticket tagué "To be deployed"._');
+              core.setOutput('issue_ids', '[]');
+              core.setOutput('issue_numbers', '[]');
+              return;
+            }
+
+            // Corps de la release note (format Markdown)
+            const lines = issues.map(i => `- #${i.number} — ${i.title}`);
+            const body = `## 🚀 Changements déployés\n\n${lines.join('\n')}`;
+
+            core.setOutput('release_body', body);
+            core.setOutput('issue_numbers', JSON.stringify(issues.map(i => i.number)));
+
+            // Pour Projects v2, on a besoin des node_id (global IDs GraphQL)
+            core.setOutput('issue_ids', JSON.stringify(issues.map(i => i.node_id)));
+
+            core.info(`${issues.length} issue(s) collectée(s)`);
+
+  # ─────────────────────────────────────────────
+  # JOB 2 — Création de la draft release
+  # ─────────────────────────────────────────────
+  create-release:
+    name: Create draft release
+    runs-on: ubuntu-latest
+    needs: collect-issues
+    outputs:
+      release_url: ${{ steps.release.outputs.release_url }}
+      release_name: ${{ steps.release.outputs.release_name }}
+
+    steps:
+      - name: Generate tag name
+        id: tag
+        run: |
+          DATE=$(date +'%Y.%m.%d')
+          # Suffixe pour éviter les doublons si plusieurs releases le même jour
+          echo "tag=v${DATE}-$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+          echo "name=Release ${DATE}" >> $GITHUB_OUTPUT
+
+      - name: Create draft release
+        id: release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: release } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: '${{ steps.tag.outputs.tag }}',
+              name: '${{ steps.tag.outputs.name }}',
+              body: `${{ needs.collect-issues.outputs.release_body }}`,
+              draft: true,       // ← éditable dans l'UI GitHub avant publication
+              prerelease: false,
+              generate_release_notes: false
+            });
+
+            core.setOutput('release_url', release.html_url);
+            core.setOutput('release_name', release.name);
+            core.info(`Draft release créée : ${release.html_url}`);
+
+  # ─────────────────────────────────────────────
+  # JOB 3 — Changement de statut des issues → Done
+  # ─────────────────────────────────────────────
+  close-issues:
+    name: Mark issues as Done
+    runs-on: ubuntu-latest
+    needs: [collect-issues, create-release]
+
+    steps:
+      - name: Update issues status via GitHub Projects v2
+        uses: actions/github-script@v7
+        env:
+          # Utilise un PAT avec scope "project" pour les projets d'organisation
+          # Pour les projets perso, GITHUB_TOKEN peut suffire
+          GH_TOKEN: ${{ secrets.PROJECT_PAT || secrets.GITHUB_TOKEN }}
+        with:
+          github-token: ${{ secrets.PROJECT_PAT || secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNodeIds = JSON.parse('${{ needs.collect-issues.outputs.issue_ids }}');
+            const issueNumbers = JSON.parse('${{ needs.collect-issues.outputs.issue_numbers }}');
+
+            if (issueNodeIds.length === 0) {
+              core.info('Aucune issue à mettre à jour');
+              return;
+            }
+
+            // ── CONFIGURATION À REMPLIR ──────────────────────────────────────
+            // Récupère ces valeurs avec :
+            //   gh project list --owner <org_ou_user>
+            //   gh project field-list <PROJECT_NUMBER> --owner <org_ou_user>
+            const PROJECT_ID = process.env.PROJECT_ID || '${{ vars.PROJECT_ID }}';
+            const STATUS_FIELD_ID = process.env.STATUS_FIELD_ID || '${{ vars.STATUS_FIELD_ID }}';
+            const DONE_OPTION_ID = process.env.DONE_OPTION_ID || '${{ vars.DONE_OPTION_ID }}';
+            // ─────────────────────────────────────────────────────────────────
+
+            for (const issueNodeId of issueNodeIds) {
+              // 1. Récupère l'item ID dans le projet pour cette issue
+              const { projectV2: project } = await github.graphql(`
+                query($projectId: ID!, $issueId: ID!) {
+                  projectV2: node(id: $projectId) {
+                    ... on ProjectV2 {
+                      items(first: 1, filters: {contentId: $issueId}) {
+                        nodes { id }
+                      }
+                    }
+                  }
+                }
+              `, { projectId: PROJECT_ID, issueId: issueNodeId });
+
+              const itemId = project?.items?.nodes?.[0]?.id;
+              if (!itemId) {
+                core.warning(`Issue ${issueNodeId} non trouvée dans le projet`);
+                continue;
+              }
+
+              // 2. Met à jour le champ Status → Done
+              await github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                  updateProjectV2ItemFieldValue(input: {
+                    projectId: $projectId,
+                    itemId: $itemId,
+                    fieldId: $fieldId,
+                    value: { singleSelectOptionId: $optionId }
+                  }) {
+                    projectV2Item { id }
+                  }
+                }
+              `, {
+                projectId: PROJECT_ID,
+                itemId: itemId,
+                fieldId: STATUS_FIELD_ID,
+                optionId: DONE_OPTION_ID
+              });
+
+              core.info(`✅ Issue ${issueNodeId} → Done`);
+            }
+
+            // Ferme aussi les issues (optionnel — supprime si tu préfères les garder ouvertes)
+            for (const number of issueNumbers) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: number,
+                state: 'closed'
+              });
+            }
+
+  # ─────────────────────────────────────────────
+  # JOB 4 — Notifications (Discord + Site officiel)
+  # ─────────────────────────────────────────────
+  notify:
+    name: Send notifications
+    runs-on: ubuntu-latest
+    needs: [collect-issues, create-release]
+
+    steps:
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          RELEASE_NAME="${{ needs.create-release.outputs.release_name }}"
+          RELEASE_URL="${{ needs.create-release.outputs.release_url }}"
+          BODY=$(cat << 'EOF'
+          ${{ needs.collect-issues.outputs.release_body }}
+          EOF
+          )
+
+          # Payload Discord (Embed pour un rendu soigné)
+          PAYLOAD=$(cat << EOF
+          {
+            "embeds": [{
+              "title": "🚀 ${RELEASE_NAME}",
+              "url": "${RELEASE_URL}",
+              "color": 3066993,
+              "description": "${BODY}\n\n[Voir la release sur GitHub](${RELEASE_URL})",
+              "footer": {
+                "text": "Déployé depuis ${{ github.repository }}"
+              },
+              "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            }]
+          }
+          EOF
+          )
+
+          curl -s -X POST "$DISCORD_WEBHOOK" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD"
+
+      # ── Option A : site avec une API REST ─────────────────────────
+      - name: Publish to official site (REST API)
+        if: ${{ vars.SITE_API_URL != '' }}
+        run: |
+          curl -s -X POST "${{ vars.SITE_API_URL }}/releases" \
+            -H "Authorization: Bearer ${{ secrets.SITE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "title": "${{ needs.create-release.outputs.release_name }}",
+              "body": ${{ toJSON(needs.collect-issues.outputs.release_body) }},
+              "url": "${{ needs.create-release.outputs.release_url }}"
+            }'
+
+      # ── Option B : commit d'un fichier CHANGELOG dans un repo de contenu ──
+      # - name: Update CHANGELOG on content repo
+      #   uses: actions/github-script@v7
+      #   with:
+      #     github-token: ${{ secrets.CONTENT_REPO_PAT }}
+      #     script: |
+      #       // Fetch current CHANGELOG, prepend new entry, push commit
+      #       // Adapté si ton site est un SSG (Hugo, Astro, Next.js...)
+
+  # ─────────────────────────────────────────────
+  # JOB 5 — Suggestion de rebase sur branches actives
+  # ─────────────────────────────────────────────
+  suggest-rebase:
+    name: Suggest rebase
+    runs-on: ubuntu-latest
+    needs: create-release
+
+    steps:
+      - name: Open rebase issues for active branches
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Branches à ignorer
+            const PROTECTED = ['master', 'main', 'preprod', 'develop', 'staging'];
+
+            const { data: branches } = await github.rest.repos.listBranches({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+
+            const active = branches.filter(b => !PROTECTED.includes(b.name));
+
+            if (active.length === 0) {
+              core.info('Aucune branche active à rebaser');
+              return;
+            }
+
+            const releaseUrl = '${{ needs.create-release.outputs.release_url }}';
+            const releaseName = '${{ needs.create-release.outputs.release_name }}';
+
+            for (const branch of active) {
+              // Vérifie si une issue de rebase existe déjà pour cette branche
+              const { data: existing } = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: 'rebase-needed',
+                state: 'open'
+              });
+
+              const alreadyOpen = existing.some(i => i.title.includes(branch.name));
+              if (alreadyOpen) {
+                core.info(`Issue rebase déjà ouverte pour ${branch.name}`);
+                continue;
+              }
+
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `🔀 Rebase needed: \`${branch.name}\``,
+                body: [
+                  `La branche \`${branch.name}\` doit être rebasée sur \`master\` suite à la [${releaseName}](${releaseUrl}).`,
+                  '',
+                  '**Commandes à exécuter :**',
+                  '```bash',
+                  `git checkout ${branch.name}`,
+                  'git fetch origin',
+                  'git rebase origin/master',
+                  '# Résoudre les conflits si nécessaire',
+                  'git push --force-with-lease',
+                  '```',
+                  '',
+                  '_Cette issue a été créée automatiquement par le pipeline de release._'
+                ].join('\n'),
+                labels: ['rebase-needed']
+              });
+
+              core.info(`📌 Issue rebase créée pour ${branch.name}`);
+            }
+
+            // ── Alternative : envoyer un message Discord à la place d'ouvrir des issues ──
+            // Décommente si tu préfères un message groupé plutôt que des issues individuelles
+            //
+            // const branchList = active.map(b => `\`${b.name}\``).join(', ');
+            // await fetch(process.env.DISCORD_WEBHOOK, {
+            //   method: 'POST',
+            //   headers: { 'Content-Type': 'application/json' },
+            //   body: JSON.stringify({
+            //     content: `🔀 **Rebase recommandé** suite à la ${releaseName} :\n${branchList}`
+            //   })
+            // });
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}

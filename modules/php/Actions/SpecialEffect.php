@@ -240,6 +240,8 @@ class SpecialEffect extends \ALT\Models\Action
       case 'sacrificeHighestCharacterPermanent':
         return clienttranslate('Sacrifice highest opponent character or permanent');
         // EOLE
+      case 'nextCharacterAsleep':
+        return clienttranslate('Next character gains <ASLEEP>');
       case 'nextCharacterGains1BoostAndAsleep':
         return clienttranslate('Next character gains <BOOST> and <ASLEEP>');
       case 'boostXCompletedFeat':
