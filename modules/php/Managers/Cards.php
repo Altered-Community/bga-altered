@@ -43,6 +43,14 @@ class Cards extends \ALT\Helpers\CachedPieces
   protected static $autoreshuffleListener = ['obj' => 'ALT\Managers\Cards', 'method' => 'shuffleDeck'];
   protected static $datas = null;
 
+  /** @var int|null Landmark id to treat as completed while building Tough UI data */
+  protected static $forceCompletedFeatCardId = null;
+
+  public static function setForceCompletedFeatCardId($cardId)
+  {
+    self::$forceCompletedFeatCardId = $cardId === null ? null : (int) $cardId;
+  }
+
   protected static function cast($card)
   {
     return self::getCardInstance($card['card_id'], $card);
@@ -585,6 +593,43 @@ class Cards extends \ALT\Helpers\CachedPieces
     );
 
     return $cards->orderBy('state')->toArray();
+  }
+
+  /**
+   * Current tough values for cards that can show a Tough icon
+   * (storm / landmark / reserve), keyed by card id.
+   * Used by the UI tough icon listener.
+   *
+   * @param int|null $forceCompletedFeatCardId Landmark just completed — include its reserve Tough immediately.
+   */
+  public static function getCardToughMap($forceCompletedFeatCardId = null)
+  {
+    $forceId = $forceCompletedFeatCardId ?? self::$forceCompletedFeatCardId;
+    $result = [];
+    foreach (self::getAll()->where('location', IN_PLAY) as $card) {
+      $tough = $card->getTough();
+      if ($tough > 0) {
+        $result[$card->getId()] = $tough;
+      }
+    }
+
+    // Reserve Character Tough from completed Feats (Protect the Assets, etc.)
+    foreach (Players::getAll() as $player) {
+      $reserveTough = $player->getCompletedFeatReserveCharacterTough($forceId);
+      if ($reserveTough <= 0) {
+        continue;
+      }
+      foreach (self::getFiltered($player->getId(), RESERVE) as $card) {
+        if (
+          $card->getType() == CHARACTER ||
+          in_array(CHARACTER, (array) $card->getAdditionalType(), true)
+        ) {
+          $result[$card->getId()] = $reserveTough;
+        }
+      }
+    }
+
+    return $result;
   }
 
   ///////////////////////////////////

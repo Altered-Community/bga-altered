@@ -112,6 +112,7 @@ class altered extends Table
       'blockedExpeditions' => Players::getBlockedExpeditions(),
       'powersBlockedExpeditions' => Players::getPowersBlockedExpeditions(),
       'defenders' => Players::getDefenders(),
+      'cardTough' => Cards::getCardToughMap(),
       'reserveSlots' => Players::getReserveSlots(),
       'landmarkSlots' => Players::getLandmarkSlots()
     ];

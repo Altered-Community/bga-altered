@@ -75,6 +75,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       if (type == 'featCompleted') {
         return [_('This Feat has been completed.')];
       }
+      if (type == 'tough') {
+        return [_('Tough: To target this card, the opponent must pay an additional cost corresponding to the toughness of the card.')];
+      }
       return null;
     },
 
@@ -188,6 +191,25 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
     notif_addMeeples(n) {
       debug('Notif: adding & sliding meeples', n);
+      this.slideResources(n.args.meeples, {
+        from: this.getVisibleTitleContainer(),
+      });
+    },
+
+    notif_featCompleted(n) {
+      debug('Notif: feat completed', n);
+      if (n.args.cardTough !== undefined) {
+        this.gamedatas.cardTough = this.normalizeCardToughMap(n.args.cardTough);
+        this.updateToughIcons();
+        // Also refresh every reserve card in case icons were never present before.
+        this.forEachPlayer((player) => {
+          let reserve = $(`board-reserve-${player.id}`);
+          if (!reserve) return;
+          reserve.querySelectorAll('.altered-card[data-id]').forEach((oCard) => {
+            this.updateCardStatuses(oCard.dataset.id);
+          });
+        });
+      }
       this.slideResources(n.args.meeples, {
         from: this.getVisibleTitleContainer(),
       });

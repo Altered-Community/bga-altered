@@ -3,8 +3,7 @@
 namespace ALT\Core;
 
 use ALT\Managers\Players;
-use ALT\Helpers\Utils;
-use ALT\Helpers\Collection;
+use ALT\Managers\Cards;
 use ALT\Core\Globals;
 
 class Notifications
@@ -31,6 +30,10 @@ class Notifications
       'method' => ['ALT\Managers\Players', 'getDefenders'],
     ],
     [
+      'name' => 'cardTough',
+      'method' => ['ALT\Managers\Cards', 'getCardToughMap'],
+    ],
+    [
       'name' => 'reserveSlots',
       'method' => ['ALT\Managers\Players', 'getReserveSlots']
     ],
@@ -43,6 +46,7 @@ class Notifications
   protected static $cachedValues = [];
   public static function resetCache()
   {
+    Cards::setForceCompletedFeatCardId(null);
     foreach (self::$listeners as $listener) {
       $method = $listener['method'];
       self::$cachedValues[$listener['name']] = call_user_func($method);
@@ -658,12 +662,23 @@ class Notifications
   
   public static function featCompleted($player, $card, $meeple)
   {
-    self::notifyAll('addMeeples', clienttranslate('${player_name} completes ${card_name} (Feat)'), [
+    // Completing a Feat can grant Tough (e.g. Protect the Assets → reserve Characters).
+    // Keep force flag until next resetCache() so later updateIfNeeded calls in this
+    // engine step still include the new reserve Tough.
+    Cards::setForceCompletedFeatCardId($card->getId());
+    unset(self::$cachedValues['cardTough']);
+    $cardTough = [];
+    foreach (Cards::getCardToughMap() as $cardId => $tough) {
+      $cardTough[] = ['id' => (int) $cardId, 'tough' => (int) $tough];
+    }
+
+    self::notifyAll('featCompleted', clienttranslate('${player_name} completes ${card_name} (Feat)'), [
       'player' => $player,
       'card' => $card,
       'meeples' => [$meeple],
+      'cardTough' => $cardTough,
       'i18n' => [],
-      'preserve' => [],
+      'preserve' => ['cardTough'],
     ]);
   }
 

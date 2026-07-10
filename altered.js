@@ -85,6 +85,7 @@
          ['passTurn', 800],
  
          ['addMeeples', null],
+         ['featCompleted', null],
          ['slideMeeples', null],
          ['looseMeeples', null],
          ['setTerrainMarker', null],
@@ -323,7 +324,11 @@
          this.gamedatas.landmarkSlots = n.args.landmarkSlots;
          this.updateLandmarkSlots();
        }
-     },
+       if (n.args.cardTough !== undefined) {
+         this.gamedatas.cardTough = this.normalizeCardToughMap(n.args.cardTough);
+         this.updateToughIcons();
+       }
+    },
  
      /**
       * Setup:
@@ -389,8 +394,9 @@
        this.updateMovements();
        this.updateBlockedExpeditions();
        this.updatePowersBlockedExpeditions();
-       this.updateDefenders();
-       this._undoPossible = gamedatas.undo;
+      this.updateDefenders();
+      this.updateToughIcons();
+      this._undoPossible = gamedatas.undo;
        this._beginner = gamedatas.beginner;
        this._deckFormat = gamedatas.deckFormat || 'STANDARD';
        this._demoDeck = this._deckFormat === 'DEMO';

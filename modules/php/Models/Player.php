@@ -313,25 +313,29 @@ class Player extends \ALT\Helpers\DB_Model
 
   /**
    * Sum of reserve-character Tough granted by completed Feat effects.
+   * 
+   * @param int|null $forceCompletedCardId Treat this landmark as completed (used right after CompleteFeat,
+   *                                       before meeple visibility is reliable for Tough UI updates).
    */
-  public function getCompletedFeatReserveCharacterTough()
+  public function getCompletedFeatReserveCharacterTough($forceCompletedCardId = null)
   {
     $n = 0;
-    foreach ($this->getLandmarks() as $card) {
-      $completed = $card->getEffectCompleted();
-      if (!is_array($completed)) {
+        foreach (Cards::getFiltered($this->id, LANDMARK) as $card) {
+      $completed = $card->getProperty('effectCompleted');
+      if (!is_array($completed) || !isset($completed['reserveCharacterTough'])) {
         continue;
       }
-      if (
-        !in_array(FEAT, $card->getSubtypes())
-        && !array_key_exists('reserveCharacterTough', $completed)
-      ) {
+      $cardId = (int) $card->getId();
+      $featDone =
+        ($forceCompletedCardId !== null && $cardId === (int) $forceCompletedCardId) ||
+        Meeples::getInLocation('card-' . $cardId)
+          ->filter(fn($m) => $m->getType() == FEAT_COMPLETED)
+          ->count() >= 1 ||
+        Meeples::countMeeples('card-' . $cardId, FEAT_COMPLETED) >= 1;
+      if (!$featDone) {
         continue;
       }
-      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
-        continue;
-      }
-      $n += (int) ($completed['reserveCharacterTough'] ?? 0);
+      $n += (int) $completed['reserveCharacterTough'];
     }
     return max(0, $n);
   }

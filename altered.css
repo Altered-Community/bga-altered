@@ -9932,6 +9932,9 @@ html {
   border-radius: 50%;
   box-shadow: 0px 0px 5px white;
 }
+.altered-card .altered-card-statuses .icon-container .altered-icon.icon-tough {
+  box-shadow: none;
+}
 .altered-card .altered-card-wrapper {
   width: 324px;
   height: 450px;
@@ -11191,6 +11194,23 @@ html {
   background-size: 100% 100%;
   width: 1.4em;
   height: 1.4em;
+}
+.altered-icon.icon-tough {
+  background-image: url("img/icons/tough.png");
+  background-size: 100% 100%;
+  width: 1.4em;
+  height: 1.4em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.altered-icon.icon-tough span {
+  color: white;
+  font-family: "Haptic Pro";
+  font-size: 0.7em;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 0 2px black, 0 0 2px black;
 }
 .altered-icon.icon-morning {
   background-image: url("img/icons/dawn.png");

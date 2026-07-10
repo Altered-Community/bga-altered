@@ -26,6 +26,24 @@
     width: 1.4em;
     height: 1.4em;
   }
+  &.icon-tough {
+    background-image: url("img/icons/tough.png");
+    background-size: 100% 100%;
+    width: 1.4em;
+    height: 1.4em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      color: white;
+      font-family: "Haptic Pro";
+      font-size: 0.7em;
+      font-weight: bold;
+      line-height: 1;
+      text-shadow: 0 0 2px black, 0 0 2px black;
+    }
+  }
 
   &.icon-morning {
     background-image: url("img/icons/dawn.png");

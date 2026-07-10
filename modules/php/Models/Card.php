@@ -286,6 +286,14 @@ class Card extends \ALT\Helpers\DB_Model
     return '';
   }
 
+  public function jsonSerialize()
+  {
+    $data = parent::jsonSerialize();
+    $data['currentTough'] = $this->getTough();
+
+    return $data;
+  }
+
   public function getUiData()
   {
     // TODO: update
@@ -1103,8 +1111,18 @@ class Card extends \ALT\Helpers\DB_Model
   }
   public function getTough()
   {
+    $location = $this->getLocation();
+
+    // Reserve: only completed-feat reserve Character Tough (Protect the Assets, etc.)
+    if ($location == RESERVE) {
+      if ($this->getType() == CHARACTER || in_array(CHARACTER, (array) $this->getAdditionalType(), true)) {
+        return $this->getPlayer()->getCompletedFeatReserveCharacterTough();
+      }
+      return 0;
+    }
+
     // Tough impacts only a card in Storms or landmark
-    if (!in_array($this->getLocation(), STORMS) && $this->getLocation() != LANDMARK) {
+    if (!in_array($location, STORMS) && $location != LANDMARK) {
       return 0;
     }
 
@@ -1113,6 +1131,7 @@ class Card extends \ALT\Helpers\DB_Model
     if (!is_array($dynamicTough) && $dynamicTough != '') {
       $dynamicTough = [$dynamicTough];
     }
+    $singleTough = '';
     if ($dynamicTough != '') {
       foreach ($dynamicTough as $singleTough) {
         $dynSplit = explode(':', $singleTough);

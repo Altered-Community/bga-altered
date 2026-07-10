@@ -73,6 +73,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
         return card.id;
       });
+      this.gamedatas.cardTough = this.normalizeCardToughMap(this.gamedatas.cardTough);
+      this.gamedatas.cards.forEach((card) => {
+        CARDS_DATA[card.id] = card;
+        this.syncCardToughData(card);
+      });
+      this.updateToughIcons();
       document.querySelectorAll('.altered-card').forEach((oCard) => {
         if (
           !cardIds.includes(parseInt(oCard.getAttribute('data-id'))) &&
@@ -108,6 +114,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       }
 
       CARDS_DATA[card.id] = card;
+      this.syncCardToughData(card);
       // this.loadSaveCard(card);
       if (container === null) {
         container = this.getCardContainer(card);
@@ -122,6 +129,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         if (this._loadingComplete) {
           this.autofitCardFrame(o);
         }
+        this.updateToughIcons();
       }
       if (card.location == 'discard') {
         this.bringDiscardCounterToFront(card.pId);
@@ -555,6 +563,68 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     /**
+     * Update tough icons on in-play cards.
+     */
+    normalizeCardToughMap(map) {
+      // PHP json_encode([]) becomes a JS array; keep a plain object for id lookups.
+      // Also accepts list form: [{ id, tough }, ...] from featCompleted.
+      if (!map || (Array.isArray(map) && map.length === 0)) {
+        return {};
+      }
+      if (Array.isArray(map)) {
+        let result = {};
+        map.forEach((entry, cardId) => {
+          if (entry && typeof entry === 'object' && entry.id != null) {
+            if (entry.tough > 0) result[entry.id] = entry.tough;
+          } else if (entry > 0) {
+            result[cardId] = entry;
+          }
+        });
+        return result;
+      }
+      return map;
+    },
+
+    syncCardToughData(card) {
+      if (!card || card.id == null) return;
+      if (!this.gamedatas.cardTough || Array.isArray(this.gamedatas.cardTough)) {
+        this.gamedatas.cardTough = this.normalizeCardToughMap(this.gamedatas.cardTough);
+      }
+      if (card.currentTough > 0) {
+        this.gamedatas.cardTough[card.id] = card.currentTough;
+      } else if (card.currentTough !== undefined) {
+        delete this.gamedatas.cardTough[card.id];
+      }
+    },
+
+    /**
+     * Sync tough values from notification card payloads without replacing CARDS_DATA.
+     */
+    applyCardsToughData(cards) {
+      let list = Array.isArray(cards) ? cards : cards ? [cards] : [];
+      list.forEach((card) => {
+        if (!card || card.id == null || card.currentTough === undefined) return;
+        if (CARDS_DATA[card.id]) {
+          CARDS_DATA[card.id].currentTough = card.currentTough;
+        }
+        this.syncCardToughData(card);
+      });
+      this.updateToughIcons();
+    },
+
+    updateToughIcons() {
+      this.gamedatas.cardTough = this.normalizeCardToughMap(this.gamedatas.cardTough);
+      let previous = new Set(
+        [...document.querySelectorAll('.altered-card-statuses .icon-tough, .card-tough-icon')]
+          .map((el) => el.closest('.altered-card')?.dataset?.id)
+          .filter(Boolean)
+      );
+      document.querySelectorAll('.card-tough-icon').forEach((icon) => icon.remove());
+      let current = new Set(Object.keys(this.gamedatas.cardTough || {}));
+      new Set([...previous, ...current]).forEach((cardId) => this.updateCardStatuses(cardId));
+    },
+
+    /**
      * Update defenders
      */
     updateDefenders() {
@@ -889,6 +959,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       this.updateDiscardCountFromCards(n.args.cards);
       let oCards = [...$(`hand-${pId}`).querySelectorAll('.altered-card')];
       let indexCardReplacement = 0;
+      this.applyCardsToughData(n.args.cards);
 
       if (this.isFastMode()) {
         [...n.args.cards].map((card, i) => {
@@ -1062,6 +1133,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // Slide the card
       let card = n.args.card;
       let id = `card-${card.id}`;
+      this.applyCardsToughData(card);
 
       if (this.isFastMode()) {
         if (!$(id)) {
@@ -1187,6 +1259,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       // Slide the card
       let card = n.args.card;
       this.updateCardStatuses(card.id);
+      this.applyCardsToughData(card);
       let id = `card-${card.id}`;
       if (!$(id)) {
         this.addCard(card, 'page-title');
@@ -1221,6 +1294,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       debug('Notif: invoke token', n);
       // Slide the card
       let card = n.args.card;
+      this.applyCardsToughData(card);
       let id = `card-${card.id}`;
 
       if (this.isFastMode()) {
@@ -1252,7 +1326,8 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_moveCard(n) {
       debug('Notif: moving card');
       // Slide the card
-      let card = n.args.card;
+      let card = n.args.card;      
+      this.applyCardsToughData(card);
       let id = `card-${card.id}`;
       // we slide it from the card triggering the effect
       let container = this.getCardContainer(card);
@@ -1272,6 +1347,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
       n.args.meeples.forEach((meepleId) => {
         $(`meeple-${meepleId}`).remove();
       });
+
+      // Cards in the payload already have post-move currentTough (0 outside play).
+      this.applyCardsToughData([...(n.args.cards || []), ...(n.args.cards2 || [])]);
 
       if (this.isFastMode()) {
         [...n.args.cards, ...n.args.cards2].map((card, i) => {
@@ -1474,8 +1552,10 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     notif_refreshCard(n) {
       debug('refreshing one card', n);
       let card = n.args.card;
-      let id = `card-${card.id}`;
-      CARDS_DATA[card.id] = card;
+      if (card) {
+        CARDS_DATA[card.id] = card;
+        this.applyCardsToughData(card);
+      }
     },
 
     notif_endReveal(n) {
@@ -2086,9 +2166,16 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     updateCardStatuses(cardId) {
-      let container = $(`card-${cardId}`).querySelector('.altered-card-statuses');
+      let oCard = $(`card-${cardId}`);
+      if (!oCard) return;
+      let container = oCard.querySelector('.altered-card-statuses');
       if (!container) return;
       container.innerHTML = '';
+
+      let tough = (this.gamedatas.cardTough || {})[cardId];
+      if (tough) {
+        container.insertAdjacentHTML('beforeend', this.formatIcon('tough', tough));
+      }
 
       const ICONS = ['fleeting', 'anchored', 'asleep', 'boost'];
       let boost = 0;
@@ -2125,7 +2212,9 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
     },
 
     updateCardTooltip(cardId) {
-      this.tooltips[`card-${cardId}`].setContent(this.tplCardTooltip(this.getCardInfos(cardId)));
+      let tooltip = this.tooltips[`card-${cardId}`];
+      if (!tooltip) return;
+      tooltip.setContent(this.tplCardTooltip(this.getCardInfos(cardId)));
     },
 
     tempGroupBy(meeples) {
@@ -2161,6 +2250,21 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           </div>`;
         }
       }
+      let tough = (this.gamedatas.cardTough || {})[card.id];
+      if (tough) {
+        let tooltipDesc = this.getMeepleTooltip({ type: 'tough' });
+        if (tooltipDesc != null) {
+          explanation += `<div class='explanation'>
+            <div class='explanation-icon'>
+              ${this.formatIcon('tough', tough)}
+            </div>
+            <p>
+              ${tooltipDesc.map((t) => this.formatString(t)).join('<br/>')}
+            </p>
+          </div>`;
+        }
+      }
+
       let meeplesByTypes = this.tempGroupBy(this.getMeeplesOnCard(card.id));
       Object.keys(meeplesByTypes).forEach((type) => {
         let tooltipDesc = this.getMeepleTooltip({ type });

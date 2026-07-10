@@ -251,6 +251,10 @@
                 background-position: center center;
                 border-radius: 50%;
                 box-shadow: 0px 0px 5px white;
+
+                &.icon-tough {
+                    box-shadow: none;
+                }
             }
         }
 
