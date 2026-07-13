@@ -5900,7 +5900,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may return target Character facing me with Base Cost {2} or less to its owner\'s hand.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
-          'targetLocation' => ['oppositeSource'],
+          'targetLocation' => ['opponentSource'],
           'upTo' => true,
           'maxBaseCost' => 2,
           'effect' => FT::RETURN_TO_HAND(),
@@ -5910,7 +5910,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('You may return target Character facing me with Base Cost {3} or less to its owner\'s hand.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
-          'targetLocation' => ['oppositeSource'],
+          'targetLocation' => ['opponentSource'],
           'upTo' => true,
           'maxBaseCost' => 3,
           'effect' => FT::RETURN_TO_HAND(),
