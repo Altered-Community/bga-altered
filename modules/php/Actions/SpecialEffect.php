@@ -198,6 +198,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Gain 1 boost per card in reserve');
       case 'revealTopAndDraw':
         return clienttranslate('Reveal the top card. If cost = die, draw it');
+      case 'revealTop':
+        return clienttranslate('Reveal the top card.');  
       case 'exhaustPlayFree':
         return clienttranslate('Exhaust Wayfarer and play card for free');
       case 'manInTheMazeUnique':
