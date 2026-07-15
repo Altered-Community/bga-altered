@@ -1582,7 +1582,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://altered.re/pages/card?ref=${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1702,7 +1702,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         tplData += `
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://altered.re/pages/card?ref=${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1775,7 +1775,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://altered.re/pages/card?ref=${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1835,7 +1835,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
 
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://altered.re/pages/card?ref=${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
@@ -1917,7 +1917,7 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           <div class='card-subpermanent'>${permDescription}</div>
           <div class='card-text' style="font-size:${i.textFontSize}">
             <div class='card-qrcode-container'>
-              <a href="https://www.altered.gg/cards/${p.uid}" target="_blank" class='card-qrcode'></a>
+              <a href="https://altered.re/pages/card?ref=${p.uid}" target="_blank" class='card-qrcode'></a>
             </div>
             <div class='card-effect' style="padding-top:${i.textPaddingTop}">
               ${this.formatString(effect, true)}
