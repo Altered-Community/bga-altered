@@ -49,6 +49,10 @@ class SpellCleanup extends \ALT\Models\Action
     $card = $this->getCard();
 
     if ($card->getLocation() != LIMBO) {
+      $event = $this->getCtxArgs()['event'];
+      $event['token'] = false;
+      $this->checkImmediateListeners($player, $event, true, 'ChooseAssignment');
+      $this->checkAfterListeners($player, $event, true, 'ChooseAssignment');
       $this->resolveAction();
       return;
     }
