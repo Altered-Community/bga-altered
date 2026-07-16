@@ -1,5 +1,8 @@
 define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
   function isVisible(elem) {
+    if (!elem || typeof elem.getClientRects !== 'function') {
+      return false;
+    }
     return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
   }
 
