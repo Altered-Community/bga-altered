@@ -3927,10 +3927,12 @@ abstract class FlowConvertor
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXBoostedChar']),
       ],
       537 => [
+        // 206754: resupply the opponent directly (same as outputs 724/726) rather than
+        // wrapping in TARGET_PLAYER. TARGET_PLAYER > RESUPPLY breaks on leave-style triggers
+        // (11/12) where the source card is the event card, because Resupply::getPlayer()'s
+        // event-pId fallback then overrides the target and the controller resupplies instead.
         'description' => clienttranslate('Target opponent <RESUPPLIES>.'),
-        'output' => FT::ACTION(TARGET_PLAYER, [
-          'effect' => FT::ACTION(RESUPPLY, []),
-        ]),
+        'output' => FT::ACTION(RESUPPLY, ['player' => 'nextPlayer']),
       ],
       539 => [
         'description' => clienttranslate('I gain 1 boost per Character target opponent controls.'),
