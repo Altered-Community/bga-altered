@@ -5483,9 +5483,9 @@ abstract class FlowConvertor
         'description' => clienttranslate('<SABOTAGE> a Character with {V} less than or equal to mine.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
-          'targetLocation' => STORMS,
-          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
+          'targetLocation' => [RESERVE],
           'upTo' => true,
+          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
           'effect' => FT::ACTION(DISCARD, []),
         ]),
       ],
@@ -5493,7 +5493,7 @@ abstract class FlowConvertor
         'description' => clienttranslate('<SABOTAGE> a Character with {V} less than or equal to mine.'),
         'output' => FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
-          'targetLocation' => STORMS,
+          'targetLocation' => [RESERVE],
           'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
           'upTo' => true,
           'effect' => FT::ACTION(DISCARD, []),
