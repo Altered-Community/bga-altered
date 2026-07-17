@@ -938,7 +938,13 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function hasBlockMoveExpedition($expedition)
   {
-    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+    // A Gigantic character faces both Expeditions, so it must block movement on
+    // either side regardless of the Expedition slot it is physically located in
+    // (mirrors the dusk logic in Players::biomesModifier).
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->getLocation() != $expedition && !$card->isGigantic()) {
+        continue;
+      }
       if ($card->isBlockMoveExpedition()) {
         return true;
       }

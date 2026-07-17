@@ -186,6 +186,14 @@ trait DebugTrait
     // throw new \feException(print_r(Cards::getCardClass(trim($a))->jsonSerialize()));
   }
 
+  /**
+   * Force the game into the arena (tie-breaker) mode.
+   *
+   * Mirrors the real entry performed when both players cross their tokens on the same
+   * phase (see Players::checkVictory): both tokens are moved onto the final regions,
+   * every region marker is removed and tie-breaker mode is enabled. Useful to reproduce
+   * arena-only behaviours such as Will-o'-the-Wisp on a gigantic character.
+   */
   function tiebreak()
   {
     Globals::setTieBreakerMode(true);
@@ -205,6 +213,7 @@ trait DebugTrait
     // notif startTiebreak
     Notifications::startTiebreak($meeples->toArray());
     Notifications::silentKill($markers->getIds());
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
   function resolveDebug()
