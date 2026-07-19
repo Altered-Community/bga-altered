@@ -232,7 +232,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
     switch ($options[OPTION_DECK_FORMAT]) {
       case 0:
-        self::setDeckFormat('NO_UNIQUE');
+        self::setDeckFormat('FRONTIER');
         break;
       case 1:
         self::setDeckFormat('STANDARD');
@@ -244,7 +244,7 @@ class Globals extends \ALT\Helpers\DB_Manager
         self::setDeckFormat('SANDBOX');
         break;
       case 4:
-        self::setDeckFormat('FRONTIER');
+        self::setDeckFormat('NO_UNIQUE');
         break;
     }
     self::setDeckOptions(OPTION_DECKS_STARTER);
