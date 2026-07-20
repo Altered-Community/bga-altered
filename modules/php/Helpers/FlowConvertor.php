@@ -4851,7 +4851,10 @@ abstract class FlowConvertor
       ],
       726 => [
         'description' => clienttranslate('Target player <EXHAUSTED_RESUPPLIES>.'),
-        'output' => FT::ACTION(RESUPPLY, ['player' => 'nextPlayer', 'exhausted' => true])
+        'output' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => false,
+          'effect' => FT::ACTION(RESUPPLY, ['exhausted' => true]),
+        ]),
       ],
       728 => [
         'description' => clienttranslate('Pay {1} less for the next card you play this turn, down to a minimum of {1}.'),
