@@ -747,7 +747,10 @@
  
        if (!this._inactiveStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
  
-       if (args.args && args.args.optionalAction && !args.args.automaticAction) {
+        if (
+        args.args &&
+        (args.args.optionalAction || args.args.canPassWithoutSelection) && !args.args.automaticAction
+      ) {
          this.addSecondaryActionButton(
            'btnPassAction',
            _('Pass'),
@@ -2340,8 +2343,11 @@
      },
  
      onEnteringStateExchange(args) {
-       handIds = args.handIds;
-       reserveIds = args.reserveIds;
+       handIds = args.handIds ?? [];
+       reserveIds = args.reserveIds ?? [];
+       const canPassWithoutSelection = args.canPassWithoutSelection === true;
+       const canSelectHand = reserveIds.length > 0;
+       const canSelectReserve = handIds.length > 0;
        let selectedHand = [];
        let selectedReserve = [];
  
@@ -2366,19 +2372,37 @@
  
          handIds.forEach((id) => {
            let elt = $('card-' + id);
+           if (!elt) return;
            let selected = selectedHand.includes(id);
            elt.classList.toggle('selected', selected);
-           elt.classList.toggle('selectable', selected || selectedHand.length < 1);
+           elt.classList.toggle(
+             'selectable',
+             canSelectHand && (selected || selectedHand.length < 1)
+           );
          });
  
          reserveIds.forEach((id) => {
            let elt = $('card-' + id);
+           if (!elt) return;
            let selected = selectedReserve.includes(id);
            elt.classList.toggle('selected', selected);
-           elt.classList.toggle('selectable', selected || selectedReserve.length < 1);
+           elt.classList.toggle(
+             'selectable',
+             canSelectHand && (selected || selectedHand.length < 1)
+           );
          });
        };
  
+      if (canPassWithoutSelection && !$('btnPassAction')) {
+        this.addSecondaryActionButton(
+          'btnPassAction',
+          _('Pass'),
+          () => this.takeAction('actPassOptionalAction'),
+          'restartAction'
+        );
+      }
+
+      if (canSelectHand) {
        handIds.forEach((id) => {
          let elt = 'card-' + id;
  
@@ -2394,7 +2418,9 @@
            updateStatus();
          });
        });
- 
+      }
+
+      if (canSelectReserve) {
        reserveIds.forEach((id) => {
          let elt = 'card-' + id;
  
@@ -2410,13 +2436,9 @@
            updateStatus();
          });
        });
+      }
  
-       // handIds.forEach((id) => {
-       //   let elt = 'card-' + id;
-       //   let selected = selectedElements.includes(id);
-       //   elt.classList.toggle('selected', selected);
-       //   elt.classList.toggle('selectable', selected || selectedElements.length < 1);
-       // });
+      updateStatus();
      },
  
      onEnteringStateDiscardDo(args) {
