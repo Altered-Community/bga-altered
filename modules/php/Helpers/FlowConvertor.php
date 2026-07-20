@@ -6538,10 +6538,13 @@ abstract class FlowConvertor
           if (($properties[$key]['type'] ?? '') == NODE_PARALLEL) {
             $properties[$key]['childs'][] = $node;
           } else {
-            // we add the PAR node
+            // Merge as PARALLEL — type must be set so consumers flatten instead of nesting another PAR
             $oldNode = $properties[$key];
             unset($properties[$key]);
-            $properties[$key]['childs'] = [$oldNode, $node];
+            $properties[$key] = [
+              'type' => NODE_PARALLEL,
+              'childs' => [$oldNode, $node],
+            ];
           }
         } elseif ($key == 'effectInfinity') {
           // We need to merge everything depending on triggers or not.

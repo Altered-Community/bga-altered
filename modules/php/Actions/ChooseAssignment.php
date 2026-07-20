@@ -561,16 +561,18 @@ class ChooseAssignment extends \ALT\Models\Action
         $effect = $card->getEffectPlayed();
       }
       if (!empty($effect)) {
+        // Ticket 210043 
+        // Multi-{J} effects arrive as a Parallel of siblings. Push each sibling separately so
+        // an impossible one (e.g. exhaust with no target) does not block the others, 
+        // but can still be selected to voluntarily bypass it. 
+        // Also tag untyped merges as PARALLEL for consistency with FlowConvertor.
+        if (isset($effect['childs']) && !isset($effect['type'])) {
+          $effect['type'] = NODE_PARALLEL;
+        }
         if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
           foreach ($effect['childs'] as $t => $child) {
             $effects[] = $child;
           }
-        } elseif (isset($effect['childs']) && !isset($effect['type'])) {
-          $effect['type'] = NODE_PARALLEL;
-          if ($card->getRarity() == RARITY_UNIQUE) {
-            $effect['noIndependent'] = true;
-          }
-          $effects[] = $effect;
         } else {
           $effects[] = $effect;
         }
@@ -579,16 +581,13 @@ class ChooseAssignment extends \ALT\Models\Action
       if ($effectHand && in_array($fromLocation, [HAND, LIMBO])) {
         $effect = $card->getEffectHand();
         if (!empty($effect)) {
+          if (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+          }
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
-          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
-            $effect['type'] = NODE_PARALLEL;
-            if ($card->getRarity() == RARITY_UNIQUE) {
-              $effect['noIndependent'] = true;
-            }
-            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }
@@ -598,16 +597,13 @@ class ChooseAssignment extends \ALT\Models\Action
       if ($fromLocation == RESERVE) {
         $effect = $card->getEffectReserve();
         if (!empty($effect)) {
+          if (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+          }
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
-          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
-            $effect['type'] = NODE_PARALLEL;
-            if ($card->getRarity() == RARITY_UNIQUE) {
-              $effect['noIndependent'] = true;
-            }
-            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }
