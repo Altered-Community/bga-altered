@@ -31,8 +31,14 @@
   "155": {
     "name": "Deck format",
     "level": "major",
+    "default": 0,
     "values": {
       "0": {
+        "name": "Frontier",
+        "tmdisplay": "Frontier",
+        "description": "40-60 cards, standard rules with a limited pool of 30k uniques that will change next season."
+      },
+      "4": {
         "name": "Standard No Unique",
         "tmdisplay": "Standard No Unique",
         "description": "40-60 cards, standard rules without unique."
