@@ -317,7 +317,7 @@ class Card extends \ALT\Helpers\DB_Model
   // $scout = can be played at scout cost
   public function canBePlayed($player, $scout = false, $reserveFlipCost = false)
   {
-    if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
+    if ($this->isExhaustedReservePlayBlocked($player)) {
       return false;
     }
     
@@ -397,12 +397,24 @@ class Card extends \ALT\Helpers\DB_Model
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
+  /**
+   * Exhausted reserve cards are unplayable unless Vaike / Kelonic Heater / etc. allow it.
+   * Used by both paid (canBePlayed) and free (ChooseAssignment) play eligibility.
+   */
+  public function isExhaustedReservePlayBlocked($player)
+  {
+    return $this->getLocation() == RESERVE
+      && $this->isTapped()
+      && !$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType());
+  }
+
   public function getPlayableLocation($player, $forcedLocation = null, $free = false)
   {
     if (in_array(LANDMARK, $this->getSubtypes())) {
-      return [LANDMARK];
+      // Exhausted landmarks still need Vaike (or similar) to leave Reserve.
+      return $this->isExhaustedReservePlayBlocked($player) ? [] : [LANDMARK];
     } elseif ($this->getType() == SPELL) {
-      return [LIMBO];
+      return $this->isExhaustedReservePlayBlocked($player) ? [] : [LIMBO];
     } else {
       $locations = [];
       if ($this->getLocation() == RESERVE && $this->isTapped()) {

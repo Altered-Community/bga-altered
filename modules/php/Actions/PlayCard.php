@@ -77,7 +77,9 @@ class PlayCard extends \ALT\Models\Action
   public function isDoable($player)
   {
     $card = $this->getCard();
-    return !$card->isTapped() && !empty($card->getPlayableLocation($player)) && $card->getMinManaOrbs() <= $player->getTotalMana();
+    return !$card->isExhaustedReservePlayBlocked($player)
+      && !empty($card->getPlayableLocation($player, null, $this->getArg('free')))
+      && $card->getMinManaOrbs() <= $player->getTotalMana();
   }
 
   public function argsPlayCard()
@@ -89,7 +91,7 @@ class PlayCard extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Card cannot be played. Should not happen');
     }
 
-    $locations[$cId] = $card->getPlayableLocation($player);
+    $locations[$cId] = $card->getPlayableLocation($player, null, $this->getArg('free'));
     // $type = $card->getType();
     // $subTypes = $card->getSubtypes();
     // if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
