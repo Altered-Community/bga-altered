@@ -875,7 +875,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
       }
       $event['sourceLocation'] = self::get($cardId)->getLocation();
-      $childs[] = [
+      $child = [
         'action' => ACTIVATE_CARD,
         // 'pId' => $event['pId'],
         'pId' => $ownerPId == true ? self::get($cardId)->getPId() : $event['pId'],
@@ -885,6 +885,10 @@ class Cards extends \ALT\Helpers\CachedPieces
         ],
         'sourceId' => $cardId
       ];
+      if ($listenCard->isImmediateReaction($event)) {
+        $child['immediate'] = true;
+      }
+      $childs[] = $child;
     }
     if (empty($childs) && $returnNullIfEmpty) {
       return null;

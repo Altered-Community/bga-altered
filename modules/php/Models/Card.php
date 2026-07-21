@@ -796,6 +796,34 @@ class Card extends \ALT\Helpers\DB_Model
     return true;
   }
 
+  /**
+   * Whether the passive reaction to $event should resolve inline (within the current
+   * action's branch) instead of being deferred to the after-finishing node.
+   *
+   * Opt-in per passive entry via `'immediate' => true`. Used e.g. by Brassbug Hive so a
+   * Robot's "gains 1 boost" lands before a later same-phase effect (Sap Extractor) reads it.
+   */
+  public function isImmediateReaction($event)
+  {
+    if (
+      !in_array($this->id, $event['cardsToListen'] ?? []) &&
+      ($this->getLocation() == RESERVE ||
+        in_array($this->id, $event['reserveToListen'] ?? []))
+    ) {
+      $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
+    } else {
+      $passive = $this->getEffectPassive();
+    }
+    if (empty($passive)) {
+      return false;
+    }
+    $power = $passive[$event['action'] ?? $event['type'] ?? 'none'] ?? null;
+    if (is_null($power)) {
+      return false;
+    }
+    return ($power['immediate'] ?? false) === true;
+  }
+
   public function getReactions($event)
   {
     if (
