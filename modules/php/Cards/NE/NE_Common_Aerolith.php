@@ -27,7 +27,7 @@ class NE_Common_Aerolith extends \ALT\Models\Card
       // 'sacrificeResupply' => true,
       'effectPassive' => [
         'Discard' => [
-          'condition' => 'isSacrificed',
+          'conditions' => ['isSacrificed', 'hasDeckCards'],
           'output' => FT::ACTION(RESUPPLY, []),
         ],
       ],

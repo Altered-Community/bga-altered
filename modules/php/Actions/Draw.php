@@ -46,7 +46,7 @@ class Draw extends \ALT\Models\Action
           'n' => $n,
         ],
       ];
-    } elseif ($players == 'owner') {
+    } elseif ($players == OWNER) {
       return [
         'log' => clienttranslate('The owner of the card draws ${n} card(s)'),
         'args' => [
@@ -75,6 +75,40 @@ class Draw extends \ALT\Models\Action
     return true;
   }
 
+   protected function getDrawTargetPlayers()
+  {
+    $who = $this->getCtxArg('players') ?? ME;
+
+    if ($who == ME) {
+      return [Players::getActive()];
+    }
+    if ($who == ALL) {
+      return Players::getAll();
+    }
+    if ($who == OWNER) {
+      if (is_null($this->getArg('ownerId'))) {
+        throw new \BgaVisibleSystemException('No owner of card. Should not happen');
+      }
+      return [Players::get($this->getArg('ownerId'))];
+    }
+    if ($who == OPPONENT) {
+      return [Players::getNext(Players::getActive())];
+    }
+
+    return [Players::getActive()];
+  }
+
+  public function isDoable($player)
+  {
+    foreach ($this->getDrawTargetPlayers() as $target) {
+      if ($target->hasDeckCards()) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   protected $args = [
     'n' => 1,
     'players' => ALL,
@@ -86,7 +120,6 @@ class Draw extends \ALT\Models\Action
   public function stDraw()
   {
     $n = $this->getCtxArg('n') ?? 1;
-    $who = $this->getCtxArg('players') ?? ALL;
 
     $source = $this->ctx->getSource() ?? null;
     $sourceId = $this->ctx->getSourceId() ?? null;
@@ -94,20 +127,13 @@ class Draw extends \ALT\Models\Action
       $source = Cards::getSingle($sourceId);
     }
 
-    if ($who == ME) {
-      $players = [Players::getActive()];
-    } elseif ($who == ALL) {
-      $players = Players::getAll();
-    } elseif ($who == 'owner') {
-      if (is_null($this->getArg('ownerId'))) {
-        throw new \Bga\GameFramework\VisibleSystemException('No owner of card. Should not happen');
-      }
-      $players = [Players::get($this->getArg('ownerId'))];
-    } else {
-      $players = [Players::getNext(Players::getActive())];
-    }
+    $players = $this->getDrawTargetPlayers();
 
     foreach ($players as $player) {
+      if (!$player->hasDeckCards()) {
+        continue;
+      }
+
       if ($this->getArg('location') == MANA) {
         $cards = $player->draw(
           1,

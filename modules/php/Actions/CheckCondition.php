@@ -87,6 +87,56 @@ class CheckCondition extends \ALT\Models\Action
     return $this->checkCondition($player) || (!is_null($this->getArg('oppositeEffect')) && $this->getArg('oppositeEffect') != 'OPPOSITE');
   }
 
+  protected function effectRequiresDeck($effect)
+  {
+    if (!is_array($effect)) {
+      return false;
+    }
+
+    if (in_array($effect['action'] ?? null, [DRAW, RESUPPLY, DRAW_MANA], true)) {
+      return true;
+    }
+
+    if (($effect['action'] ?? null) === SPECIAL_EFFECT) {
+      $specialEffect = $effect['args']['effect'] ?? null;
+      if (is_string($specialEffect)) {
+        return in_array($specialEffect, [
+          'revealTop',
+          'drawReveal',
+          'MindApotheosis',
+          'RunesTestamentLook4',
+          'boostedRevealBaseStat',
+          'boostedRevealArtistSong',
+          'boostedRevealRobotPermanent',
+          'RomanticEncounter',
+          'AuraqKibble',
+        ], true);
+      }
+    }
+
+    foreach ($effect['childs'] ?? [] as $child) {
+      if ($this->effectRequiresDeck($child)) {
+        return true;
+      }
+    }
+
+    if (isset($effect['args']['effect']) && is_array($effect['args']['effect'])) {
+      return $this->effectRequiresDeck($effect['args']['effect']);
+    }
+
+    return false;
+  }
+
+  protected function getDeckPlayer($player)
+  {
+    $source = $this->getSource();
+    if (!is_null($source)) {
+      return $source->getPlayer();
+    }
+
+    return $player;
+  }
+
   public function checkCondition($player)
   {
     $source = $this->getSource();
@@ -102,7 +152,16 @@ class CheckCondition extends \ALT\Models\Action
      if (isset($ctxArgs['wasGigantic'])) {
       $event['wasGigantic'] = $ctxArgs['wasGigantic'];
     }
-    return Conditions::check($ctxArgs, $card, $event);
+     if (!Conditions::check($ctxArgs, $card, $event)) {
+      return false;
+    }
+
+    $effect = $this->getArg('effect');
+    if ($this->effectRequiresDeck($effect) && !$this->getDeckPlayer($player)->hasDeckCards()) {
+      return false;
+    }
+
+    return true;
   }
 
   public function stCheckCondition()

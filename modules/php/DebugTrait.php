@@ -221,6 +221,73 @@ trait DebugTrait
     Engine::resolveAction([]);
     Engine::proceed();
   }
+  
+  /**
+   * Studio helpers for empty / partial deck testing.
+   * Chat examples: debug_emptyDeck(), debug_emptyDeck('opponent'), debug_setDeckCount(3), debug_deckInfo()
+   */
+  private function getPlayers(string $who = 'me')
+  {
+    if ($who === 'both') {
+      return Players::getAll();
+    }
+    $player =
+      $who === 'opponent' || $who === 'opp'
+        ? Players::getNext(Players::getCurrent())
+        : Players::getCurrent();
+
+    return new Collection([$player->getId() => $player]);
+  }
+
+  // add "debug_" before to see the function in debug tools
+  function emptyDeck(string $who = 'me')
+  {
+    foreach ($this->getPlayers($who) as $pId => $player) {
+      Cards::moveAllInLocation("deck-$pId", DISCARD_PILE);
+      Cards::moveAllInLocation("reveal-$pId", DISCARD_PILE);
+    }
+    $this->updateDeckInfo(true);
+  }
+
+  // add "debug_" before to see the function in debug tools
+  function setDeckCount(int $n, string $who = 'me')
+  {
+    $n = max(0, $n);
+    foreach ($this->getPlayers($who) as $pId => $player) {
+      Cards::moveAllInLocation("reveal-$pId", DISCARD_PILE);
+      $deckLoc = "deck-$pId";
+      $count = Cards::countInLocation($deckLoc);
+      if ($count > $n) {
+        Cards::pickForLocation($count - $n, $deckLoc, DISCARD_PILE);
+      } elseif ($count < $n) {
+        $missing = $n - $count;
+        $inDiscard = Cards::getFiltered($pId, DISCARD_PILE)->orderBy('state', 'DESC')->limit($missing);
+        foreach ($inDiscard as $cId => $card) {
+          Cards::insertOnTop($cId, $deckLoc);
+        }
+      }
+    }
+    $this->updateDeckInfo();
+  }
+
+  private function updateDeckInfo(bool $refreshUi = false)
+  {
+    $lines = [];
+    foreach (Players::getAll() as $pId => $player) {
+      $deck = Cards::countInLocation("deck-$pId");
+      $reveal = Cards::countInLocation("reveal-$pId");
+      $discard = Cards::getFiltered($pId, DISCARD_PILE)->count();
+      $lines[] =
+        $player->name .
+        " (#$pId): deck=$deck reveal=$reveal discard=$discard hasDeck=" .
+        ($player->hasDeckCards() ? 'yes' : 'no');
+    }
+    self::notifyAllPlayers('message', implode(' — ', $lines), []);
+    if ($refreshUi) {
+      Notifications::refreshUI($this::get()->localGetAllDatas(true));
+      Engine::proceed();
+    }
+  }
 
   function tapAllMana()
   {

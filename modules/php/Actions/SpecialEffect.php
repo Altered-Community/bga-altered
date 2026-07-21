@@ -696,6 +696,9 @@ class SpecialEffect extends \ALT\Models\Action
         // draw 4 cards
         $player = $card->getPlayer();
         $drawn = $player->draw(4, null, null, $card);
+        if (!$player->hasDeckCards()) {
+          break;
+        }
         // Target only Characters drawn
         $this->insertAsChild(
           FT::ACTION(
@@ -717,8 +720,13 @@ class SpecialEffect extends \ALT\Models\Action
         Engine::checkpoint();
 
         $player = $card->getPlayer();
-        $pId = $player->getId();
+         if (!$player->hasDeckCards()) {
+          break;
+        }
         $drawn = $player->draw(1, null, 'reveal-' . $player->getId(), $this->getSource(), clienttranslate('${player_name} reveals ${card_names} from its deck (${card_name2}\'s effect)'), clienttranslate('${you} reveals ${card_names} from its deck (${card_name2}\'s effect)'))->first();
+        if (is_null($drawn)) {
+          break;
+        }
 
         $this->insertAsChild(FT::XOR(
           FT::ACTION(
@@ -953,13 +961,18 @@ class SpecialEffect extends \ALT\Models\Action
       case 'eachPlayerResupply':
         $nodes = [];
         foreach (Players::getAll() as $pId => $player) {
+          if (!$player->hasDeckCards()) {
+            continue;
+          }
           $nodes[] = [
             'type' => NODE_SEQ,
             'pId' => $pId,
             'childs' => [FT::ACTION(RESUPPLY, [], ['pId' => $pId, 'sourceId' => $this->getSourceId()])],
           ];
         }
-        $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       case 'fleetingAllCharacters':
         $player = Players::getActive();
@@ -1260,7 +1273,13 @@ class SpecialEffect extends \ALT\Models\Action
         if ($card->countToken(BOOST) > 0 || $bypass) {
           Engine::checkpoint();
           $player = $card->getPlayer();
+          if (!$player->hasDeckCards()) {
+            break;
+          }
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
+          if (is_null($drawn)) {
+            break;
+          }
 
           $baseStat = false;
           foreach ($drawn->getBiomes() as $biome => $value) {
@@ -1288,7 +1307,13 @@ class SpecialEffect extends \ALT\Models\Action
         if ($card->countToken(BOOST) > 0 || $bypass) {
           Engine::checkpoint();
           $player = $card->getPlayer();
+          if (!$player->hasDeckCards()) {
+            break;
+          }
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
+          if (is_null($drawn)) {
+            break;
+          }
 
           $baseStat = false;
           if (in_array(ARTIST, $drawn->getSubtypes()) || in_array(SONG, $drawn->getSubtypes())) {
@@ -1311,7 +1336,13 @@ class SpecialEffect extends \ALT\Models\Action
         if ($card->countToken(BOOST) > 0 || $bypass) {
           Engine::checkpoint();
           $player = $card->getPlayer();
+          if (!$player->hasDeckCards()) {
+            break;
+          }
           $drawn = $player->draw(1, null, LIMBO, $card)->first();
+          if (is_null($drawn)) {
+            break;
+          }
 
           $baseStat = false;
           if (in_array(ROBOT, $drawn->getSubtypes()) || $drawn->getType() == PERMANENT || in_array(PERMANENT, $drawn->getAdditionalType())) {
@@ -1531,6 +1562,9 @@ class SpecialEffect extends \ALT\Models\Action
         Engine::checkpoint();
         // draw 4 cards
         $player = $card->getPlayer();
+        if (!$player->hasDeckCards()) {
+          break;
+        }
         $drawn = $player->draw(4, null, null, $card);
         // Target only Characters drawn
         $this->insertAsChild(
@@ -1642,17 +1676,18 @@ class SpecialEffect extends \ALT\Models\Action
         Engine::checkpoint();
         $player = $card->getPlayer();
         $pId = $player->getId();
-        if (Cards::countInLocation("reveal-$pId") == 0) {
-          $draw = $player->draw(1, null, 'reveal-' . $player->getId(), $this->getSource(), clienttranslate('${player_name} reveals ${card_names} from its deck (${card_name2}\'s effect)'), clienttranslate('${you} reveals ${card_names} from its deck (${card_name2}\'s effect)'));
+        if (Cards::countInLocation("reveal-$pId") == 0 && $player->hasDeckCards()) {
+          $player->draw(1, null, 'reveal-' . $player->getId(), $this->getSource(), clienttranslate('${player_name} reveals ${card_names} from its deck (${card_name2}\'s effect)'), clienttranslate('${you} reveals ${card_names} from its deck (${card_name2}\'s effect)'));
         }
-
         break;
       case 'drawReveal':
         $player = $card->getPlayer();
         $pId = $player->getId();
-        $done = false;
 
         $draw = Cards::getInLocation("reveal-$pId");
+        if ($draw->count() == 0) {
+          break;
+        }
         foreach ($draw as $dId => $drawn) {
           $drawn->setLocation('hand');
         }
@@ -2145,6 +2180,9 @@ class SpecialEffect extends \ALT\Models\Action
           $opponent = $player;
         } else {
           $opponent = Players::getNext($player);
+        }
+        if (!$opponent->hasDeckCards()) {
+          break;
         }
         $drawn = $opponent->draw(4, null, LIMBO, $card);
 
