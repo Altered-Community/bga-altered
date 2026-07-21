@@ -148,6 +148,8 @@ const ZOMBIE = 98;
 const PASS = 99;
 
 const AFTER_FINISHING_ACTION = 'afterFinishing';
+const AFTER_FINISHING_ACTIVE = 'afterFinishingActive';
+const AFTER_FINISHING_OPPONENT = 'afterFinishingOpponent';
 const PRE_ACTION_DONE = 'preActionDone';
 
 /*
