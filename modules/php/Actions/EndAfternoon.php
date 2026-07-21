@@ -2,13 +2,9 @@
 
 namespace ALT\Actions;
 
-use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Notifications;
-use ALT\Core\Stats;
-use ALT\Helpers\Utils;
-use ALT\Managers\Actions;
 use ALT\Core\Globals;
 
 class EndAfternoon extends \ALT\Models\Action
@@ -38,8 +34,31 @@ class EndAfternoon extends \ALT\Models\Action
 
   public function stEndAfternoon()
   {
-    // throw new \feException(print_r(Globals::getEngine()));
-    Actions::get(CHOOSE_ASSIGNMENT)->actPass();
-    $this->resolveAction();
+    $player = Players::getActive();
+    $skipped = Globals::getSkippedPlayers();
+    if (empty($skipped)) {
+      Globals::setFirstPass($player->getId());
+    }
+    $skipped[] = $player->getId();
+    Globals::setSkippedPlayers($skipped);
+    Notifications::pass($player);
+
+    // Insert EndTurn reactions as children of this Pass (not root AFTER_FINISHING),
+    // so they resolve before remaining parallel siblings (e.g. unique TARGET after 775).
+    $reaction = Cards::getReaction(array_merge(
+      [
+        'pId' => $player->getId(),
+        'type' => 'action',
+        'action' => 'EndTurn',
+        'method' => 'EndTurn',
+      ],
+      ['pass']
+    ));
+    if ($reaction !== null) {
+      $this->insertAsChild([
+        'type' => NODE_SEQ,
+        'childs' => $reaction,
+      ]);
+    }
   }
 }
