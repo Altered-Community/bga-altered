@@ -100,6 +100,7 @@ class Discard extends \ALT\Models\Action
       DISCARD_PILE => clienttranslate('Discard ${card}'),
       TOP_OF_DECK => clienttranslate('put ${card} on top of it\'s owner deck'),
       HAND => clienttranslate('Return to hand ${card}'),
+      RESERVE => clienttranslate('put it in reserve'),
     ];
     $msg = $msgs[$location] ?? clienttranslate('discard to ${location} ${card}');
     if ($this->isSacrifice()) {
