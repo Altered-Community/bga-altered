@@ -11,7 +11,7 @@ class OD_Common_CorruptedJeanne extends \ALT\Models\Card
       'asset'  => 'ALT_EOLE_B_OR_114_C',
 
     	'faction'  => FACTION_OD,
-    	'rarity'  => RARITY_RARE,
+    	'rarity'  => RARITY_COMMON,
     	'name'  => clienttranslate("Corrupted Jeanne"),
       'typeline' => clienttranslate("Character - Corruption Soldier"),
     	'type'  => CHARACTER,
