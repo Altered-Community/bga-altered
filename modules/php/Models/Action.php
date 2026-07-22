@@ -248,8 +248,28 @@ class Action
 
     $reaction = Cards::getReaction($event);
     // throw new \feException(print_r($reaction));
-    // $this->pushParallelChilds($reaction);
-    $this->pushAfterFinishingChilds($reaction);
+    if (empty($reaction)) {
+      return;
+    }
+
+    // Split reactions flagged as immediate (resolved inline within the current action's
+    // branch) from the default deferred ones (resolved on the after-finishing node once
+    // the whole current phase/action has finished).
+    $immediate = [];
+    $deferred = [];
+    foreach ($reaction as $child) {
+      if (($child['immediate'] ?? false) === true) {
+        unset($child['immediate']);
+        $immediate[] = $child;
+      } else {
+        $deferred[] = $child;
+      }
+    }
+
+    if (!empty($immediate)) {
+      $this->pushParallelChilds($immediate);
+    }
+    $this->pushAfterFinishingChilds($deferred);
   }
 
   protected function logReactions($method, $player, $args = [], $overrideMethod = null)
