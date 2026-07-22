@@ -331,6 +331,24 @@ trait DebugTrait
     Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
+  /**
+   * Force the counter count on the player hero (if any) to a specified value.
+   *
+   * Used to debug triggers on Sol (Halua summon), Treyst or Atsadi
+   */
+  function setHeroCounters(int $n = 5)
+  {
+    $hero = Players::getCurrent()->getHero();
+    if (is_null($hero)) {
+      throw new \feException('No hero found');
+    }
+    $data = $hero->getExtraDatas();
+    $data['counter'] = $n;
+    $data['counterName'] = $data['counterName'] ?? clienttranslate('Quest counters');
+    $hero->setExtraDatas($data);
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
+  }
+
   function allVisible()
   {
     $sql = "UPDATE `cards` set `card_state` = 1 where `card_location` like 'turn%'";
