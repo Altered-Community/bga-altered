@@ -32,7 +32,7 @@ class AX_Rare_CorruptedEsmeralda extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(RESUPPLY, []),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,
-        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1]],
+        'args' => ['effect' => 'costReduction', 'args' => ['type' => CHARACTER, 'reduction' => 1, 'minimum' => 1]],
       ],
     ];
   }
