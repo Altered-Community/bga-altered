@@ -310,7 +310,6 @@ trait SetupTrait
       'tableId' => $tableId,
       'tournamentId' => $tournamentInfo['id'] ?? null,
       'tournamentName' => $tournamentInfo['name'] ?? null,
-      'tournamentSeed' => $tournamentSeeds['tournament_seed'] ?? null,
       'ratingMode' => $ratingMode,
       'game' => $this->getGameName(),
     ]));

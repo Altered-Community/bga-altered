@@ -42,9 +42,10 @@ trait EndGameTrait
       foreach ($played as $uid => $n) {
         $playedStr .= "{$n} {$uid}\n";
       }
+      $faction = $player->getFaction();
       $players[] = [
         'id' => $pId,
-        'faction' => $player->getFaction() == FACTION_OD ? 'OR' : $player->getFaction(),
+        'faction' => $faction == FACTION_OD ? 'OR' : $faction,
         'deck' => $deck,
         'playedCards' => $playedStr,
       ];
