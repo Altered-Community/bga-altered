@@ -9,7 +9,6 @@ class OD_Common_CorruptedJeanne extends \ALT\Models\Card
     $this->properties = [
       'uid' => 'ALT_EOLE_B_OR_114_C',
       'asset'  => 'ALT_EOLE_B_OR_114_C',
-
     	'faction'  => FACTION_OD,
     	'rarity'  => RARITY_COMMON,
     	'name'  => clienttranslate("Corrupted Jeanne"),
@@ -19,15 +18,14 @@ class OD_Common_CorruptedJeanne extends \ALT\Models\Card
       'artist' => "Tristan Bideau",
 			'extension'=>'ROC',
       'subtypes'  => [CORRUPTION,SOLDIER],
-      'effectDesc' => clienttranslate('#I can\'t be played# unless there\'s another Character in each of your Expeditions.  When I leave the Expedition zone — Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'),
+      'effectDesc' => clienttranslate('{H} I gain <FLEETING> unless there\'s another Character in each of your Expeditions.  When I leave the Expedition zone — Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'),
       'supportDesc' => clienttranslate('#{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition.#'),
       'supportIcon' => 'discard',
-      'forest' => 2, 
-      'mountain' => 2, 
-      'ocean' => 2, 
+      'forest' => 1, 
+      'mountain' => 1, 
+      'ocean' => 1, 
       'costHand' => 3, 
       'costReserve' => 3, 
-      'changedStats' => ['forest','mountain','ocean'],
       'effectHand' => FT::ACTION(CHECK_CONDITION, [
         'condition' => 'controlInAllExpeditions',
         'effect' => null,
