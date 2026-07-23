@@ -10,8 +10,8 @@ class NE_Common_Aerolith extends \ALT\Models\Card
   {
     parent::__construct($row);
     $this->properties = [
-      'uid' => 'ALT_CYCLONE_B_NE_03_C',
-      'asset'  => 'ALT_CYCLONE_B_NE_03_C',
+      'uid' => 'ALT_EOLE_B_NE_03_C',
+      'asset'  => 'ALT_EOLE_B_NE_03_C',
 
       'faction'  => FACTION_NE,
       'rarity'  => RARITY_COMMON,
