@@ -201,7 +201,25 @@ trait SetupTrait
     $request['factions'] = $request['factions'] ?? ['AX', 'BR', 'MU', 'LY', 'OR', 'YZ'];
     // $request['factions'] = ['AX'];
     $request['hero'] = $request['hero'] ?? '';
-    $request['eventFormat'] = Globals::getDeckFormat();
+
+    $tableId = (string) $this->table_id;
+    $tournamentInfo = [];
+    $tournamentSeeds = [];
+    if ($this->bga->tournament->isTournament()) {
+      $tournamentInfo = $this->bga->tournament->getInfo();
+      $tournamentSeeds = $this->bga->tournament->getSeedInfo();
+    }
+    $ratingMode = $this->tableOptions->get(201);
+    $request['eventFormat'] = base64_encode(json_encode([
+      'format' => Globals::getDeckFormat(),
+      'tableId' => $tableId,
+      'tournamentId' => $tournamentInfo['id'] ?? null,
+      'tournamentName' => $tournamentInfo['name'] ?? null,
+      'tournamentSeed' => $tournamentSeeds['tournament_seed'] ?? null,
+      'ratingMode' => $ratingMode,
+      'game' => $this->getGameName(),
+    ]));
+
     // STANDARD, NO_UNIQUE, SINGLETON
     // throw new \feException(print_r($request));
     // Fetch them from MS

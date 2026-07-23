@@ -362,6 +362,13 @@ class ChooseAssignment extends \ALT\Models\Action
     }
     Globals::incPlayedCards();
 
+    $uid = $card->getUid();
+    if ($uid !== null) {
+      $playedHistory = Globals::getPlayedCardsHistory();
+      $playedHistory[$player->getId()][$uid] = ($playedHistory[$player->getId()][$uid] ?? 0) + 1;
+      Globals::setPlayedCardsHistory($playedHistory);
+    }
+
     if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
     }

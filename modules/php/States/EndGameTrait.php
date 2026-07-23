@@ -10,6 +10,7 @@ use ALT\Helpers\Log;
 use ALT\Managers\Players;
 use ALT\Managers\Meeples;
 use ALT\Managers\Cards;
+use ALT\Models\Card;
 
 trait EndGameTrait
 {
@@ -17,19 +18,52 @@ trait EndGameTrait
   {
     // TODO: API call
     $request = [];
+
+    $tableId = (string) $this->table_id;
+    $tournamentInfo = [];
+    $tournamentSeeds = [];
+    if ($this->bga->tournament->isTournament()) {
+      $tournamentInfo = $this->bga->tournament->getInfo();
+      $tournamentSeeds = $this->bga->tournament->getSeedInfo();
+    }
+    $players = [];
+    $winningId = null;
     foreach (Players::getAll() as $pId => $player) {
-      if (Stats::getWinner($player) == 0) {
-        $request['loser'] = [
-          'id' => $pId,
-          'faction' => $player->getFaction() == FACTION_OD ? 'OR' : $player->getFaction()
-        ];
-      } else {
-        $request['winner'] = [
-          'id' => $pId,
-          'faction' => $player->getFaction() == FACTION_OD ? 'OR' : $player->getFaction()
-        ];
+      $deck = '';
+      foreach (Globals::getDeckContent()[$pId]['cards'] ?? [] as $entry) {
+        $card = $entry['card'] ?? null;
+        $uid = $card instanceof Card ? $card->getUid() : ($card['properties']['uid'] ?? null);
+        if ($uid !== null) {
+          $deck .= "{$entry['n']} {$uid}\n";
+        }
+      }
+      $played = Globals::getPlayedCardsHistory()[$pId] ?? [];
+      $playedStr = '';
+      foreach ($played as $uid => $n) {
+        $playedStr .= "{$n} {$uid}\n";
+      }
+      $players[] = [
+        'id' => $pId,
+        'faction' => $player->getFaction() == FACTION_OD ? 'OR' : $player->getFaction(),
+        'deck' => $deck,
+        'playedCards' => $playedStr,
+      ];
+      if (Stats::getWinner($player) > 0) {
+        $winningId = $pId;
       }
     }
+
+    $request['endGameInfo'] = base64_encode(json_encode([
+      'format' => Globals::getDeckFormat(),
+      'tableId' => $tableId,
+      'tournamentId' => $tournamentInfo['id'] ?? null,
+      'tournamentName' => $tournamentInfo['name'] ?? null,
+      'tournamentSeed' => $tournamentSeeds['tournament_seed'] ?? null,
+      'game' => $this->getGameName(),
+      'players' => $players,
+      'winningId' => $winningId,
+    ]));
+
     if (!Globals::getZombie() || Globals::getDay() >= 4) {
       //$valid = self::getGenericGameInfos('push_adventure_pass', $request);
 
@@ -65,8 +99,9 @@ trait EndGameTrait
     // [loser_adventure_pass_point] => 
     // [loser_bga_adventure_pass_progress] => 
     if ($this->getBgaEnvironment() == 'studio') {
-      // throw new \feException(print_r(debug_print_backtrace()));
-      throw new \feException('winner');
+      Notifications::message(clienttranslate('${request}'), [
+            'request' => json_encode($request, JSON_PRETTY_PRINT),
+      ]);
     }
     if (!$concede) {
       $this->gamestate->nextState('');
