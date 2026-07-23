@@ -1348,6 +1348,7 @@
        this._awaitingAPIReturn = true;
  
        const requestPayload = Object.assign({}, args);
+       console.log(requestPayload);
        delete requestPayload.accountConfigured;
  
        const onFetchDecksFailedOrEmpty = () => {
