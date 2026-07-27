@@ -26,7 +26,6 @@ class BR_Common_TheLastStand extends \ALT\Models\Card
       'costReserve' => 3,
       'effectPlayed' => FT::ACTION(TARGET, [
         'maxBaseCost' => 3,
-        'upTo' => true,
         'effect' => FT::DISCARD_TO_RESERVE(),
       ]),
       'effectPassive' => [
