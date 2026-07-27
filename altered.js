@@ -1774,7 +1774,7 @@
          );
          $('altered-overlay-content').insertAdjacentHTML(
            'beforeend',
-           `<a href="#" class="action-button bgabutton bgabutton_gray" id="btnCancelManaSelection">${_('Cancel')}</a>`
+           `<a href="#" class="action-button bgabutton bgabutton_blue" id="btnCancelManaSelection">${_('Cancel')}</a>`
          );
          this.onClick('btnCancelManaSelection', () => {
            this.takeAction('actCancelFirstDayManaSelection', {}, false);
