@@ -60,5 +60,7 @@ class EndAfternoon extends \ALT\Models\Action
         'childs' => $reaction,
       ]);
     }
+    
+    $this->resolveAction();
   }
 }
