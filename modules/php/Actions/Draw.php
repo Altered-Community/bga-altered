@@ -77,7 +77,7 @@ class Draw extends \ALT\Models\Action
 
    protected function getDrawTargetPlayers()
   {
-    $who = $this->getCtxArg('players') ?? ME;
+    $who = $this->getCtxArg('players') ?? ALL;
 
     if ($who == ME) {
       return [Players::getActive()];
