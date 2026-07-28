@@ -27,7 +27,6 @@ class BR_Rare_TheLastStand extends \ALT\Models\Card
       'changedStats' => ['costHand', 'costReserve'],
       'effectPlayed' => FT::ACTION(TARGET, [
         'maxBaseCost' => 2,
-        'upTo' => true,
         'effect' => FT::DISCARD_TO_RESERVE(),
       ]),
       'effectPassive' => [
