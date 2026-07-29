@@ -78,7 +78,16 @@ class Globals extends \ALT\Helpers\DB_Manager
     'turnCards' => 'obj',
     'nextCharacterInExpeditionBoost' => 'obj',
     'nextCharacterBaseCost3Anchored' => 'bool',
-
+    
+    // Eole
+    'nextCharacterAsleep' => 'obj',
+    'abilityActivatedThisTurn' => 'obj',
+    'nextAnimalBoost' => 'int',
+    'nextAnimalBoostOccurence' => 'int',
+    'abilityActivatedThisTurnCount' => 'obj',
+    'abilityActivatedThisTurnTypeCount' => 'obj',
+    'smokeThemOutArmed' => 'obj', // pId => int (completed support tap charges this assignment turn)
+    'samSpookEverDiscarded' => 'obj',
 
     'newDayManaSelection' => 'obj', // to avoid warning for legacy games
     'testingOption' => 'bool',
@@ -231,21 +240,26 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setDayPhase(false);
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
     switch ($options[OPTION_DECK_FORMAT]) {
-      case 0:
+      case OPTION_DF_FRONTIER:
         self::setDeckFormat('FRONTIER');
         break;
-      case 1:
+      case OPTION_DF_STANDARD:
         self::setDeckFormat('STANDARD');
         break;
-      case 2:
+      case OPTION_DF_SINGLETON:
         self::setDeckFormat('SINGLETON_NUC');
         break;
-      case 3:
+      case OPTION_DF_SANDBOX:
         self::setDeckFormat('SANDBOX');
         break;
-      case 4:
+      case OPTION_DF_NOUNIQUE:
         self::setDeckFormat('NO_UNIQUE');
+        break;  
+      case OPTION_DF_TEST:
+        self::setDeckFormat('TEST');
         break;
+      case OPTION_DF_DEMO:
+        self::setDeckFormat('DEMO');
     }
     self::setDeckOptions(OPTION_DECKS_STARTER);
     self::setBeginner($options[OPTION_BEGINNER] ?? 1);

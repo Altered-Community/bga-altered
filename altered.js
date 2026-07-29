@@ -141,6 +141,7 @@
        this._diceIndex = 1;
        this._undoPossible = true;
        this._beginner = false;
+       this._demoDeck = false;
        this._deckFormat = 'STANDARD';
  
        this.draggables = [];
@@ -392,6 +393,7 @@
        this._undoPossible = gamedatas.undo;
        this._beginner = gamedatas.beginner;
        this._deckFormat = gamedatas.deckFormat || 'STANDARD';
+       this._demoDeck = this._deckFormat === 'DEMO';
  
        this.inherited(arguments);
        this._tryCacheAccountConfiguredFromGamestateArgs();
@@ -745,7 +747,10 @@
  
        if (!this._inactiveStates.includes(stateName) && !this.isCurrentPlayerActive()) return;
  
-       if (args.args && args.args.optionalAction && !args.args.automaticAction) {
+        if (
+        args.args &&
+        (args.args.optionalAction || args.args.canPassWithoutSelection) && !args.args.automaticAction
+      ) {
          this.addSecondaryActionButton(
            'btnPassAction',
            _('Pass'),
@@ -851,6 +856,14 @@
      isSingletonDeckFormat() {
        return this._deckFormat.indexOf('SINGLETON') !== -1;
      },
+
+     isDemoDeckFormat() {
+       return this._deckFormat === 'DEMO';
+     },
+
+     allowCustomDeckFormat() {
+       return !this._beginner && !this.isDemoDeckFormat();
+     },
  
      /**
       * Deck picker / fetchDecks: whether this player's BGA account is linked / ready for custom API decks.
@@ -895,6 +908,24 @@
       * Replaces overlay content when game account is not linked (same structure as "Choose your deck").
       * Adjust title/description strings here when finalizing copy.
       */
+     showRandomDeckAssignedContent(args) {
+      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
+      const randomFaction = args._private.randomDeck && args._private.randomDeck.faction;
+      const factionLabel = randomFaction ? factionDisplayNames[randomFaction] || randomFaction : null;
+      const message = factionLabel
+        ? dojo.string.substitute(_('You have been assigned a random ${faction} deck'), { faction: factionLabel })
+        : _('You have been assigned a random deck');
+
+      $('altered-overlay-content').innerHTML = `
+        <h2>${_('Random deck')}</h2>
+        <p>${message}</p>
+      `;
+      this.openOverlay();
+      this.addSecondaryActionButton('btnCancel', _('Cancel'), () =>
+        this.takeAction('actCancelPrecoDeckSelection', {}, false)
+      );
+     },
+
      showRandomDeckAssignedContent(args) {
       const { factionDisplayNames } = this._getDeckFactionBannerConfig();
       const randomFaction = args._private.randomDeck && args._private.randomDeck.faction;
@@ -1094,6 +1125,9 @@
          $('btnBackToSources').remove();
        }
        this._lastSelectPrecoDeckArgs = args;
+       if (typeof args.demoDeck !== 'undefined') {
+         this._demoDeck = !!args.demoDeck;
+       }
        if (args._private && typeof args._private.accountConfigured !== 'undefined') {
          this._cachedAccountConfiguredForApiDecks = !!args._private.accountConfigured;
        }
@@ -1103,9 +1137,9 @@
          return;
        }
        if (deckNumber == 'random') {
-         //this.showRandomDeckAssignedContent(args);
-         return;
-       }
+        this.showRandomDeckAssignedContent(args);
+        return;
+      }
        if (deckNumber != null && args._private.starterDeck) {
          this.showAPIDeckDetails({ _private: { API: args._private.starterDeck } });
          return;
@@ -1202,10 +1236,11 @@
              <div id='deck-selected-faction-title'></div>
              <div id='deck-faction-banners'></div>
              ${
-               this._beginner
+               !this.allowCustomDeckFormat()
                  ? ''
                 : `<div id='deck-source-toggle'>
               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
+              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
             </div>`
              }
              <div id='overlay-deck-container'></div>
@@ -1222,16 +1257,11 @@
           renderStep2Preconfigured();
         });
 
-        if (!this._beginner) {
-          //  this.onClick('deck-source-random', () => {
-          //    let faction = this._deckWizardState.selectedFaction;
-          //    if (this._isAllFactionsBanner(faction)) {
-          //      const pickable = factions.filter((f) => !this._isAllFactionsBanner(f));
-          //      faction = pickable[Math.floor(Math.random() * pickable.length)];
-          //    }
-          //    this.takeAction('actSelectRandomDeck', { faction }, false);
-          //  });
-           this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
+        if (this.allowCustomDeckFormat()) {
+            this.onClick('deck-source-random', () => {
+              this.takeAction('actSelectRandomDeck', { faction: 'ALL' }, false);
+            });
+            this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
          filteredDecks.forEach((deck) => {
@@ -1749,7 +1779,7 @@
          );
          $('altered-overlay-content').insertAdjacentHTML(
            'beforeend',
-           `<a href="#" class="action-button bgabutton bgabutton_gray" id="btnCancelManaSelection">${_('Cancel')}</a>`
+           `<a href="#" class="action-button bgabutton bgabutton_blue" id="btnCancelManaSelection">${_('Cancel')}</a>`
          );
          this.onClick('btnCancelManaSelection', () => {
            this.takeAction('actCancelFirstDayManaSelection', {}, false);
@@ -2206,11 +2236,12 @@
        let cardId = args.cardId;
        oCard = $(`card-${cardId}`);
        oCard.classList.add('selected');
-       if (args.supportPossible) {
-         this.onClick(oCard.querySelector('.card-support-icon'), () => {
-           this.takeAtomicAction('actSupport', [cardId]);
-         });
-       }
+      let supportIcon = oCard.querySelector('.card-support-icon');
+      if (args.supportPossible && supportIcon) {
+        this.onClick(supportIcon, () => {
+          this.takeAtomicAction('actSupport', [cardId]);
+        });
+      }
        // Backup previous pos and transform
        oCard.backup = {
          transform: oCard.style.transform,
@@ -2274,12 +2305,12 @@
          });
        }
  
-       if (args.supportPossible == true) {
-         this.addPrimaryActionButton(
-           'btnSupportAbility',
-           _('Support ability') + oCard.querySelector('.card-support-icon').innerHTML,
-           () => this.takeAtomicAction('actSupport', [cardId])
-         );
+       if (args.supportPossible == true && supportIcon) {
+        this.addPrimaryActionButton(
+          'btnSupportAbility',
+          _('Support ability') + supportIcon.innerHTML,
+          () => this.takeAtomicAction('actSupport', [cardId])
+        );
        }
      },
  
@@ -2317,8 +2348,11 @@
      },
  
      onEnteringStateExchange(args) {
-       handIds = args.handIds;
-       reserveIds = args.reserveIds;
+       handIds = args.handIds ?? [];
+       reserveIds = args.reserveIds ?? [];
+       const canPassWithoutSelection = args.canPassWithoutSelection === true;
+       const canSelectHand = reserveIds.length > 0;
+       const canSelectReserve = handIds.length > 0;
        let selectedHand = [];
        let selectedReserve = [];
  
@@ -2343,19 +2377,37 @@
  
          handIds.forEach((id) => {
            let elt = $('card-' + id);
+           if (!elt) return;
            let selected = selectedHand.includes(id);
            elt.classList.toggle('selected', selected);
-           elt.classList.toggle('selectable', selected || selectedHand.length < 1);
+           elt.classList.toggle(
+             'selectable',
+             canSelectHand && (selected || selectedHand.length < 1)
+           );
          });
  
          reserveIds.forEach((id) => {
            let elt = $('card-' + id);
+           if (!elt) return;
            let selected = selectedReserve.includes(id);
            elt.classList.toggle('selected', selected);
-           elt.classList.toggle('selectable', selected || selectedReserve.length < 1);
+           elt.classList.toggle(
+             'selectable',
+             canSelectHand && (selected || selectedHand.length < 1)
+           );
          });
        };
  
+      if (canPassWithoutSelection && !$('btnPassAction')) {
+        this.addSecondaryActionButton(
+          'btnPassAction',
+          _('Pass'),
+          () => this.takeAction('actPassOptionalAction'),
+          'restartAction'
+        );
+      }
+
+      if (canSelectHand) {
        handIds.forEach((id) => {
          let elt = 'card-' + id;
  
@@ -2371,7 +2423,9 @@
            updateStatus();
          });
        });
- 
+      }
+
+      if (canSelectReserve) {
        reserveIds.forEach((id) => {
          let elt = 'card-' + id;
  
@@ -2387,13 +2441,9 @@
            updateStatus();
          });
        });
+      }
  
-       // handIds.forEach((id) => {
-       //   let elt = 'card-' + id;
-       //   let selected = selectedElements.includes(id);
-       //   elt.classList.toggle('selected', selected);
-       //   elt.classList.toggle('selectable', selected || selectedElements.length < 1);
-       // });
+      updateStatus();
      },
  
      onEnteringStateDiscardDo(args) {
@@ -2437,43 +2487,59 @@
      },
  
      onEnteringStateInvokeToken(args) {
-       const names = {
-         stormLeft: _('Hero side'),
-         stormRight: _('Companion side'),
-         source: _('source'),
-         initialSource: _('source'),
-         oppositeSource: _('opposite of played card'),
-         landmark: _('Landmark'),
-       };
- 
-       let onChooseLocation = (location) => {
-         return () => this.takeAtomicAction('actInvokeToken', [location]);
-       };
- 
-       if (args.allPlayers == true) {
-         i = 0;
-         this.forEachPlayer((player) => {
-           args.locations.forEach((location, i) => {
-             this.addPrimaryActionButton(
-               'btnLocation' + player.id + i,
-               player.name + ' ' + names[location],
-               onChooseLocation(location + '-' + player.id)
-             );
-             if (location == 'stormLeft' || location == 'stormRight') {
-               this.onClick(`board-${location}-${player.id}`, onChooseLocation(location + '-' + player.id));
-             }
-           });
-         });
-       } else {
-         args.locations.forEach((location, i) => {
-           debug(location);
-           this.addPrimaryActionButton('btnLocation' + i, names[location], onChooseLocation(location));
-           if (location == 'stormLeft' || location == 'stormRight') {
-             this.onClick(`board-${location}-${this.player_id}`, onChooseLocation(location));
-           }
-         });
-       }
-     },
+      const names = {
+        stormLeft: _('Hero side'),
+        stormRight: _('Companion side'),
+        source: _('source'),
+        initialSource: _('source'),
+        oppositeSource: _('opposite of played card'),
+        landmark: _('Landmark'),
+      };
+
+      let onChooseLocation = (location) => {
+        return () => this.takeAtomicAction('actInvokeToken', [location]);
+      };
+
+      const invokePlayerId = args.invokePlayerId ?? this.player_id;
+      const invokePlayer = this.gamedatas.players[invokePlayerId];
+      const invokePlayerPrefix =
+        args.invokeOnOpponent && invokePlayer ? invokePlayer.name + ' — ' : '';
+
+      const bindStormLocation = (location, locationArg, labelSuffix) => {
+        this.addPrimaryActionButton(
+          'btnLocation' + locationArg,
+          invokePlayerPrefix + (names[location] ?? location) + labelSuffix,
+          onChooseLocation(locationArg)
+        );
+        if (location == 'stormLeft' || location == 'stormRight') {
+          this.onClick(`board-${location}-${invokePlayerId}`, onChooseLocation(locationArg));
+        }
+      };
+
+      if (args.allPlayers == true) {
+        i = 0;
+        this.forEachPlayer((player) => {
+          args.locations.forEach((location, i) => {
+            this.addPrimaryActionButton(
+              'btnLocation' + player.id + i,
+              player.name + ' ' + names[location],
+              onChooseLocation(location + '-' + player.id)
+            );
+            if (location == 'stormLeft' || location == 'stormRight') {
+              this.onClick(`board-${location}-${player.id}`, onChooseLocation(location + '-' + player.id));
+            }
+          });
+        });
+      } else {
+        args.locations.forEach((location, i) => {
+          const locationArg =
+            location == 'stormLeft' || location == 'stormRight'
+              ? location + '-' + invokePlayerId
+              : location;
+          bindStormLocation(location, locationArg, '');
+        });
+      }
+    },
  
      onEnteringStateBlockExpedition(args) {
        const names = {
@@ -2527,15 +2593,18 @@
        // });
      },
  
-     onEnteringStateTargetPlayer(args) {
-       let targetPlayer = (player) => {
-         return () => this.takeAtomicAction('actTargetPlayer', [player]);
-       };
- 
-       this.forEachPlayer((player) => {
-         this.addPrimaryActionButton('btnTargetr' + player.id, player.name, targetPlayer(player.id));
-       });
-     },
+         onEnteringStateTargetPlayer(args) {
+      let targetPlayer = (player) => {
+        return () => this.takeAtomicAction('actTargetPlayer', [player]);
+      };
+
+      this.forEachPlayer((player) => {
+        if (args.opponentsOnly && player.id == this.player_id) {
+          return;
+        }
+        this.addPrimaryActionButton('btnTargetr' + player.id, player.name, targetPlayer(player.id));
+      });
+    },
  
      onEnteringStateRollDie(args) {
        let chooseRollDie = (roll) => {

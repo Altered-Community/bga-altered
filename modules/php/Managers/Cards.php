@@ -258,39 +258,25 @@ class Cards extends \ALT\Helpers\CachedPieces
       ->whereType('type', $type, $additionalType);
   }
 
-  public static function generateRandomDeck($deck, $player)
+  public static function generateRandomDeck($deck, $player, $faction = null)
   {
-    // For production
-    // $deckContent[HERO] = ['card' => Cards::getCardClass($deck[HERO])->jsonSerialize(), 'n' => 1];
-    // foreach ($deck['cards'] as $cardRef => $card) {
-    //   if (isset($card['content'])) {
-    //     //it's a unique!
-    //     if (is_null(Cards::generateUnique($card['content']))) {
-    //       throw new \BgaVisibleSystemException(
-    //         'This unique has an unimplemented power' . $card['content']['reference']
-    //       );
-    //     }
-    //     $deckContent[] = ['card' => ['properties' => Cards::generateUnique($card['content'])], 'n' => 1];
-    //   } else {
-    //     $deckContent[] = ['card' => Cards::getCardClass($cardRef)->jsonSerialize(), 'n' => $card['quantity']];
-    //   }
-    // }
+    $deckContent = self::buildRandomDeckContent($faction);
+    return self::createDeck($player, $deckContent);
+  }
 
-    // return self::createDeck($player, $deckContent);
-
+  public static function buildRandomDeckContent($faction = null)
+  {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
-    require_once dirname(__FILE__) . '/../Cards/uniques.list.inc.php';
 
-
-    // // $BGAToken = Game::get()->equinoxAPIConnect(['mode' => 'BGALogin'])['token'];
-    // // $BGAToken = Game::get()->masterNodeRequest('getGameSpecificMetaInfos', [
-    // //   'game' => 'alter' . 'ed',
-    // //   'mode' => 'BGALogin',
-    // // ])['token'];
-
-    // $result = Game::get()->getGenericGameInfos('get_player_deck_content', ['deck_id' => '#BGA_RANDOM_42']);
-
-    $faction = FACTIONS[array_rand(FACTIONS)];
+    if (is_null($faction) || $faction === '' || $faction === 'ALL') {
+      $faction = FACTIONS[array_rand(FACTIONS)];
+    }
+    if ($faction === 'OR') {
+      $faction = FACTION_OD;
+    }
+    if (!in_array($faction, FACTIONS, true)) {
+      throw new \BgaUserException(clienttranslate('Invalid faction for random deck'));
+    }
     $deckContent = [];
 
     $deckContent[HERO] = [
@@ -300,80 +286,58 @@ class Cards extends \ALT\Helpers\CachedPieces
     // random cards of the faction
     $i = 0;
     $totalCards = 45;
-    $repartition = ['' => 7, 'TBF' => 7, 'WFTM' => 7, 'SO' => 7, 'SDU' => 20];
-    $allocation = ['' => 0, 'TBF' => 0, 'WFTM' => 0, 'SO' => 0, 'SDU' => 0];
+    $repartition = ['' => 2, 'TBF' => 3, 'WFTM' => 4, 'SO' => 5, 'SDU' => 6, 'ROC' => 30];
+    $allocation = array_fill_keys(array_keys($repartition), 0);
 
+    $attempts = 0;
+    $maxAttempts = 20000;
     do {
-      $c = array_rand(MAP_REFS_CLASSES);
+      if (++$attempts > $maxAttempts) {
+        throw new \feException('Could not generate a random deck: not enough implemented cards available.');
+      }
 
-      // $c = MAP_REFS_CLASSES[$a];
-      // var_dump($c);
-      $objCard = self::getCardClass($c);
-      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO) {
-        if ($allocation[$objCard->getExtension()] < $repartition[$objCard->getExtension()]) {
+      $c = array_rand(MAP_REFS_CLASSES);
+      $cInfo = explode('/', MAP_REFS_CLASSES[$c]);
+      $classFile = dirname(__FILE__) . '/../Cards/' . $cInfo[0] . '/' . $cInfo[1] . '.php';
+      if (!file_exists($classFile)) {
+        continue;
+      }
+
+      try {
+        $objCard = self::getCardClass($c);
+      } catch (\Throwable $e) {
+        continue;
+      }
+
+      if ($objCard->getFaction() == $faction && $objCard->getType() != HERO && !$objCard->isToken()) {
+        $extension = $objCard->getExtension();
+        if (!isset($repartition[$extension])) {
+          continue;
+        }
+        if ($allocation[$extension] < $repartition[$extension]) {
           $deckContent[] = ['card' => $objCard->jsonSerialize(), 'n' => 1];
-          $allocation[$objCard->getExtension()]++;
+          $allocation[$extension]++;
           $i++;
         }
       }
     } while ($i < $totalCards);
 
-    for ($u = 0; $u < 15; $u++) {
-      $effects = [];
-      for ($b = 0; $b < 2; $b++) {
-        $cardId = CEG[array_rand(CEG)];
-        $ceg = explode('_', $cardId);
-        $found = false;
-        foreach ($ceg as $c) {
-          if (in_array($c, testedCEGS)) {
-            $found = true;
-          }
-          if (in_array($c, [519, 520, 521, 522])) { // Man in the Maze exclusion
-            $found = false;
-            break;
-          }
-        }
-        if (!$found) {
-          $b--;
-          continue;
-        }
-        $effects[] = [
-          $ceg[0],
-          $ceg[1],
-          $ceg[2]
-        ];
-      }
+    $uniqueCount = 0; //increase for randomly generated unique. Warning: Most of it will be useless due to no check on trigrams
+    $eoleTrigramCount = (int) ceil($uniqueCount * 0.75);
+    $eoleTrigramFlags = array_merge(
+      array_fill(0, $eoleTrigramCount, true),
+      array_fill(0, $uniqueCount - $eoleTrigramCount, false)
+    );
+    shuffle($eoleTrigramFlags);
 
-      $uniqueCard = [
-        'reference' => 'ALT_ALIZE_B_MU_33_U',
-        'faction' => $faction,
-        'name' => 'Fake unique for testing',
-        'cardType' => 'CHARACTER',
-        'illustrator' => 'TOTO',
-        'costHand' => 2,
-        'costReserve' => 2,
-        'forest' => 2,
-        'mountain' => 2,
-        'ocean' => 2,
-        'uniqueReduced' => [
-          [
-            'effects' => $effects
-          ]
-        ]
-      ];
-      $properties = self::generateUnique($uniqueCard);
-      if (is_null($properties)) {
-        $u--;
-        continue;
-      }
+    for ($u = 0; $u < $uniqueCount; $u++) {
       $deckContent[] = [
-        'card' => ['properties' => $properties],
+        'card' => ['properties' => self::generateRandomUnique($faction, $eoleTrigramFlags[$u])],
         'n' => 1,
       ];
-      $i++;
     }
 
-    return self::createDeck($player, $deckContent);
+    return $deckContent;
   }
 
   public static function generateUnique($unique)
@@ -464,7 +428,20 @@ class Cards extends \ALT\Helpers\CachedPieces
     return $properties;
   }
 
-  public static function generateRandomUnique($faction)
+  public static function parseTrigramTriggerId(string $trigger): int
+  {
+    $zoneTriggers = ['H' => 22, 'R' => 1, 'J' => 24, 'P' => 24];
+    $upper = strtoupper(trim($trigger));
+    if (isset($zoneTriggers[$upper])) {
+      return $zoneTriggers[$upper];
+    }
+    return (int) $trigger;
+  }
+
+  /**
+   * @param array<int, array{trigger: int|string, condition: int|string, output: int|string}> $trigrams
+   */
+  public static function generateUniqueFromTrigrams($faction, array $trigrams)
   {
     require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
 
@@ -478,9 +455,9 @@ class Cards extends \ALT\Helpers\CachedPieces
       if ($cardO->getFaction() != $faction || $cardO->getType() != CHARACTER || $cardO->getRarity() != RARITY_COMMON) {
         continue;
       } else {
-        $found = true;
-      }
-    } while ($found == false);
+       }
+      $found = true;
+    } while (!$found);
     $card = $cardO->jsonSerialize()['properties'];
     $card['rarity'] = RARITY_UNIQUE;
     $card['asset'] = substr($card['asset'], 0, strlen($card['asset']) - 1) . 'U';
@@ -507,15 +484,82 @@ class Cards extends \ALT\Helpers\CachedPieces
         unset($card[$eff]);
       }
     }
-    $nbEffect = rand(1, 1);
-    for ($i = 0; $i < $nbEffect; $i++) {
-      $trinity = [];
-      $trinity['trigger'] = TRIGGER[array_rand(TRIGGER)];
-      $trinity['condition'] = CONDITION[array_rand(CONDITION)];
-      $trinity['output'] = OUTPUT[array_rand(OUTPUT)];
+    
+    $card['uEffects'] = [];
+    foreach ($trigrams as $trigram) {
+      $trinity = [
+        'trigger' => self::parseTrigramTriggerId((string) $trigram['trigger']),
+        'condition' => (int) $trigram['condition'],
+        'output' => (int) $trigram['output'],
+      ];
       FlowConvertor::constructEffect($trinity, $card);
+      $card['uEffects'][] = array_values($trinity);
     }
+
     return $card;
+  }
+
+  public static function generateUniqueFromTrigram($faction, $trigger, $condition, $output)
+  {
+    return self::generateUniqueFromTrigrams($faction, [[
+      'trigger' => $trigger,
+      'condition' => $condition,
+      'output' => $output,
+    ]]);
+  }
+
+  /**
+   * @param bool $requireEoleComponent When true, at least one of trigger / condition / output is from EOLE.
+   */
+  public static function generateRandomUnique($faction, $requireEoleComponent = false)
+  {
+    $trinity = self::pickRandomEffectTrinity($requireEoleComponent);
+    return self::generateUniqueFromTrigram(
+      $faction,
+      $trinity['trigger'],
+      $trinity['condition'],
+      $trinity['output']
+    );
+  }
+
+  /**
+   * Picks a random trigger / condition / output triplet for generated Uniques.
+   *
+   * @param bool $requireEoleComponent At least one slot uses an EOLE effect; other slots may mix EOLE and legacy.
+   */
+  private static function pickRandomEffectTrinity(bool $requireEoleComponent): array
+  {
+    static $legacyTrigger = null;
+    static $legacyCondition = null;
+    static $legacyOutput = null;
+
+    if ($legacyTrigger === null) {
+      $legacyTrigger = array_values(array_diff(TRIGGER, TRIGGER_LASTSET));
+      $legacyCondition = array_values(array_diff(CONDITION, CONDITION_LASTSET));
+      $legacyOutput = array_values(array_diff(OUTPUT, OUTPUT_LASTSET));
+    }
+
+    $slots = ['trigger', 'condition', 'output'];
+    $allPools = ['trigger' => TRIGGER, 'condition' => CONDITION, 'output' => OUTPUT];
+    $eolePools = ['trigger' => TRIGGER_LASTSET, 'condition' => CONDITION_LASTSET, 'output' => OUTPUT_LASTSET];
+    $legacyPools = ['trigger' => $legacyTrigger, 'condition' => $legacyCondition, 'output' => $legacyOutput];
+
+    if (!$requireEoleComponent) {
+      return [
+        'trigger' => $legacyPools['trigger'][array_rand($legacyPools['trigger'])],
+        'condition' => $legacyPools['condition'][array_rand($legacyPools['condition'])],
+        'output' => $legacyPools['output'][array_rand($legacyPools['output'])],
+      ];
+    }
+
+    $eoleSlot = $slots[array_rand($slots)];
+    $trinity = [];
+    foreach ($slots as $slot) {
+      $pool = $slot === $eoleSlot ? $eolePools[$slot] : $allPools[$slot];
+      $trinity[$slot] = $pool[array_rand($pool)];
+    }
+
+    return $trinity;
   }
 
   public static function getUiData($pId, $refresh = false)
@@ -562,6 +606,50 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     foreach (STARTER_DECKS as $deck) {
       
+      $faction = $deck['faction'];
+      $deckId = $deck['deckId'];
+
+      foreach ($deck['contents'] as $cardId => $n) {
+        $factionSub = substr($cardId, 0, 2);
+        $className = "\\ALT\\Cards\\$factionSub\\$cardId";
+        $card = new $className(null);
+        $location = "deck-" . $deckNumber;
+        if ($card->getType() == HERO) {
+          $deckList[$deckNumber] = ['deckNumber' => $deckNumber, 'deckId' => $deckId, 'faction' => $faction];
+        }
+
+        // we do not create token as they will be created on the fly
+        if ($card->isToken()) {
+          continue;
+        }
+
+        $toCreate[] = [
+          'player_id' => $pId,
+          'location' => $location,
+          'nbr' => $n,
+          'properties' => [
+            'rarity' => $card->getRarity(),
+            'name' => $card->getName(),
+            'faction' => $card->getFaction(),
+          ],
+        ];
+      }
+      $deckNumber++;
+    }
+
+    self::create($toCreate, null);
+    return $deckList;
+  }
+
+  public static function setupDemoDeck($player, $deckNumber, $deckList)
+  {
+    // Load list of cards
+    require_once dirname(__FILE__) . '/../Cards/cards.inc.php';
+
+    $toCreate = [];
+    $pId = $player->getId();
+
+    foreach (DEMO_ROC_DECKS as $deck) {
       $faction = $deck['faction'];
       $deckId = $deck['deckId'];
 
@@ -787,7 +875,7 @@ class Cards extends \ALT\Helpers\CachedPieces
         $event['cardsToListen'] = array_merge($event['cardsToListen'] ?? [], [$cardId]);
       }
       $event['sourceLocation'] = self::get($cardId)->getLocation();
-      $childs[] = [
+      $child = [
         'action' => ACTIVATE_CARD,
         // 'pId' => $event['pId'],
         'pId' => $ownerPId == true ? self::get($cardId)->getPId() : $event['pId'],
@@ -797,6 +885,10 @@ class Cards extends \ALT\Helpers\CachedPieces
         ],
         'sourceId' => $cardId
       ];
+      if ($listenCard->isImmediateReaction($event)) {
+        $child['immediate'] = true;
+      }
+      $childs[] = $child;
     }
     if (empty($childs) && $returnNullIfEmpty) {
       return null;
@@ -1128,6 +1220,7 @@ class Cards extends \ALT\Helpers\CachedPieces
 
     if (!is_null($output) && !empty($output)) {
       $output = Utils::tagTree($output, ['sourceId' => $card->getId()]);
+      $output = Utils::bindOwnEffectActivateCardId($output, $card->getId());
       // if (isset($args['pId'])) {
       //   $output = Utils::tagTree($output, ['pId' => $args['pId']]);
       //   // throw new \feException(print_r($output));

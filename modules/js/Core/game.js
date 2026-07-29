@@ -412,14 +412,14 @@ define([
     },
 
     /*
-     * Add a blue/grey button if it doesn't already exists
+     * Add a blue button if it doesn't already exists
      */
     addPrimaryActionButton(id, text, callback, zone = 'customActions') {
       if (!$(id)) this.addActionButton(id, text, callback, zone, false, 'blue');
     },
 
     addSecondaryActionButton(id, text, callback, zone = 'customActions') {
-      if (!$(id)) this.addActionButton(id, text, callback, zone, false, 'gray');
+      if (!$(id)) this.addActionButton(id, text, callback, zone, false, 'blue');
     },
 
     addDangerActionButton(id, text, callback, zone = 'customActions') {

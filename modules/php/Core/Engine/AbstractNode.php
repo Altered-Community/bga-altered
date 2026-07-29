@@ -52,14 +52,14 @@ class AbstractNode
         return $i;
       }
     }
-    throw new \BgaVisibleSystemException("Can't find index of a child");
+    throw new \Bga\GameFramework\VisibleSystemException("Can't find index of a child");
   }
 
   public function replace($newNode)
   {
     $index = $this->getIndex();
     if (is_null($index)) {
-      throw new \BgaVisibleSystemException('Trying to replace the root');
+      throw new \Bga\GameFramework\VisibleSystemException('Trying to replace the root');
     }
     return $this->parent->replaceAtPos($newNode, $index);
   }
@@ -74,7 +74,7 @@ class AbstractNode
   {
     $index = $this->getIndex();
     if (is_null($index)) {
-      throw new \BgaVisibleSystemException('Trying to insert a brother of the root');
+      throw new \Bga\GameFramework\VisibleSystemException('Trying to insert a brother of the root');
     }
     // Ensure parent is a seq node
     if (!$this->parent instanceof \ALT\Core\Engine\SeqNode) {
@@ -229,6 +229,12 @@ class AbstractNode
       return Players::getNext(Players::getActive())->getId();
     } elseif ($pIdTest == 'active') {
       return Players::getActiveId();
+    } elseif ($pIdTest == 'source') {
+      $sid = $this->getSourceId();
+      if ($sid === null) {
+        return null;
+      }
+      return Cards::get($sid)->getPId();
     } else {
       return $pIdTest;
     }
@@ -460,8 +466,15 @@ class AbstractNode
     $this->infos['choice'] = $childIndex;
     $this->infos['countChoices'] = ($this->infos['countChoices'] ?? 0) + 1;
     $child = $this->childs[$this->infos['choice']];
-    if (!$auto && !($child instanceof \ALT\Core\Engine\LeafNode)) {
-      $child->enforceMandatory();
+    if (!($child instanceof \ALT\Core\Engine\LeafNode)) {
+      // Optional SEQ nodes (e.g. effectReserve "you may spend…") must be entered here when
+      // chosen from a PARALLEL/OR parent; enforceMandatory alone leaves optional=true and
+      // prompts the same description a second time.
+      if ($child instanceof \ALT\Core\Engine\SeqNode && $child->getOptional()) {
+        $child->choose(0, $auto);
+      } elseif (!$auto) {
+        $child->enforceMandatory();
+      }
     }
   }
 

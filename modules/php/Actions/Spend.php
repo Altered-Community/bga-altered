@@ -61,17 +61,52 @@ class Spend extends \ALT\Models\Action
 
   public function getCard()
   {
-    $cardId = $this->getCtxArg('cardId');
-    if ($cardId == ME) {
-      $cardId = $this->ctx->getSourceId() ?? null;
-    } elseif ($cardId == EFFECT) {
-      $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
-    }
+    $cardId = $this->resolveSpendCardId();
 
     if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args (Spend). Should not happen');
     }
     return Cards::getSingle($cardId);
+  }
+
+  /**
+   * Card to spend boosts/counters from: explicit args, event (EFFECT), or parent Target pick.
+   */
+  private function resolveSpendCardId()
+  {
+    $cardId = $this->getCtxArg('cardId');
+    if ($cardId == ME) {
+      $cardId = $this->ctx->getSourceId() ?? null;
+    } elseif ($cardId == EFFECT) {
+      $event = $this->getEventRecursive();
+      if (!is_null($event)) {
+        $cardId = $event['cardId'] ?? null;
+        if (is_null($cardId)) {
+          $cardId = $event['gain']['cardId'] ?? null;
+        }
+      }
+    }
+
+    if (!is_null($cardId)) {
+      return $cardId;
+    }
+
+    $ctx = $this->ctx->getParent();
+    while (!is_null($ctx)) {
+      if ($ctx->getAction() === \TARGET && $ctx->isActionResolved()) {
+        $resolved = $ctx->getActionResolutionArgs();
+        if (is_array($resolved) && !empty($resolved)) {
+          $pick = $resolved[0];
+          $cardId = is_array($pick) ? ($pick[0] ?? null) : $pick;
+          if (!is_null($cardId)) {
+            return $cardId;
+          }
+        }
+      }
+      $ctx = $ctx->getParent();
+    }
+
+    return null;
   }
 
 
@@ -85,14 +120,22 @@ class Spend extends \ALT\Models\Action
     ];
   }
 
-  public function isDoable($player)
+  /**
+   * Whether $card has enough spendable resources for amount $n.
+   * Boost tokens are checked first; numeric counters are used only when there are no boosts.
+   */
+  public static function hasEnoughToSpend($card, $n)
   {
-    $card = $this->getCard();
-    $n = $this->getArg('n');
     if ($card->countToken(BOOST) > 0) {
       return $card->countToken(BOOST) >= $n;
     }
-    return true;
+    return ($card->getExtraDatas()['counter'] ?? 0) >= $n;
+  }
+
+  public function isDoable($player)
+  {
+    $card = $this->getCard();
+    return self::hasEnoughToSpend($card, $this->getArg('n'));
   }
 
   public function stSpend()
@@ -108,6 +151,7 @@ class Spend extends \ALT\Models\Action
     $source = $this->getSource();
     $card = $this->getCard();
     $amount = $n;
+    // Boost tokens take priority over numeric counters when both are present.
     if ($card->countToken(BOOST) > 0) {
       $deleted = new Collection();
       $meeples = $card->getOfType(BOOST);
@@ -145,7 +189,8 @@ class Spend extends \ALT\Models\Action
 
     $effect = $this->getArg('effect');
     if ($effect !== null) {
-      $effect = $this->updateCardId($effect, $card->getId(), $card->getLocation(), $this->getSourceId(), $card->getPlayer()->getId());
+      // Keep GAIN(EFFECT)/etc. referring to the trigger event card, not the card boosts were spent from.
+      $effect = $this->updateCardId($effect, $card->getId(), $card->getLocation(), $this->getSourceId(), $card->getPlayer()->getId(), true);
       if ($this->getArg('updateN') == true) {
         $effect['args']['n'] = $amount;
       }

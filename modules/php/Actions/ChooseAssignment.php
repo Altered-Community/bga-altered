@@ -35,14 +35,54 @@ class ChooseAssignment extends \ALT\Models\Action
     'types' => [PERMANENT, SPELL, CHARACTER],
     'actions' => ['play', 'support', 'tap'],
     'maxHandCost' => INFTY,
+    'minHandCost' => 0,
     'free' => false,
     'maxBaseCost' => INFTY,
     'minBaseCost' => 0,
     'limited' => false,
     'forcedLocation' => null,
     'mandatory' => false,
-    'reserveFlipCost' => false
+    'reserveFlipCost' => false,
+    'subType' => 'disabled', // Either a string or an array, array uses OR logic
   ];
+
+  /**
+   * Free-play cost limits explicitly set on this engine node (not class defaults).
+   * Each CHOOSE_ASSIGNMENT in the stack only applies its own limits, so e.g. Santa (≤3 hand)
+   * and Daikokuten (≥4 base) or a future ≥4 hand gift do not bleed into one another.
+   */
+  private function getExplicitFreeCostLimits()
+  {
+    $ctxArgs = $this->getCtxArgs();
+    $keys = ['maxHandCost', 'minHandCost', 'maxBaseCost', 'minBaseCost'];
+    $limits = [];
+    foreach ($keys as $key) {
+      if (array_key_exists($key, $ctxArgs)) {
+        $limits[$key] = $ctxArgs[$key];
+      }
+    }
+    return $limits;
+  }
+
+  private function cardMeetsExplicitFreeCostLimits($card, array $limits)
+  {
+    $handCost = $card->getCostHand();
+    $baseCost = $card->getLocation() == RESERVE ? $card->getCostReserve() : $card->getCostHand();
+    if (isset($limits['minHandCost']) && $handCost < $limits['minHandCost']) {
+      return false;
+    }
+    if (isset($limits['maxHandCost']) && $handCost > $limits['maxHandCost']) {
+      return false;
+    }
+    if (isset($limits['minBaseCost']) && $baseCost < $limits['minBaseCost']) {
+      return false;
+    }
+    if (isset($limits['maxBaseCost']) && $baseCost > $limits['maxBaseCost']) {
+      return false;
+    }
+    return true;
+  }
+
 
   public function argsChooseAssignment()
   {
@@ -52,33 +92,56 @@ class ChooseAssignment extends \ALT\Models\Action
     $actions = ['play' => [], 'support' => [], 'tap' => []];
     $authorizedTypes = $this->getArg('types');
     $authorizedActions = $this->getArg('actions');
-    $maxHandCost = $this->getArg('maxHandCost');
-    $maxBaseCost = $this->getArg('maxBaseCost');
-    $minBaseCost = $this->getArg('minBaseCost');
+    $freeCostLimits = $this->getExplicitFreeCostLimits();
     $reserveFlipCost = $this->getArg('reserveFlipCost');
     $free = $this->getArg('free');
     $forcedLocation = $this->getArg('forcedLocation');
+    $subType = $this->getArg('subType');
+    $matchesSubType = function ($card) use ($subType) {
+      if ($subType === 'disabled') {
+        return true;
+      }
+      if (!is_array($subType) && in_array($subType, $card->getSubtypes())) {
+        return true;
+      }
+      return is_array($subType) && count(array_intersect($subType, $card->getSubtypes())) > 0;
+    };
 
     // 1. Play cards
     if (in_array('play', $authorizedActions)) {
       $actions['play'] = $handCards
         ->merge($reserveCards)
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free, $maxBaseCost, $minBaseCost, $reserveFlipCost) {
-          return (in_array($card->getType(), $authorizedTypes) || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0) &&
-            ((!$free && $card->canBePlayed($player, false, $reserveFlipCost)) || ($free && $card->getCostHand() <= $maxHandCost  && $card->getMinManaOrbs() <= $player->getTotalMana() && !$card->isTapped() &&
-              (($card->getLocation() == HAND && $card->getCostHand() <= $maxBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() <= $maxBaseCost)) &&
-              (($card->getLocation() == HAND && $card->getCostHand() >= $minBaseCost) || ($card->getLocation() == RESERVE && $card->getCostReserve() >= $minBaseCost))
-            ));;
+                ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits, $reserveFlipCost, $matchesSubType) {
+          $typeOk = in_array($card->getType(), $authorizedTypes)
+            || count(array_intersect($authorizedTypes, $card->getAdditionalType())) > 0;
+          if (!$typeOk || !$matchesSubType($card)) {
+            return false;
+          }
+          if (!$free) {
+            return $card->canBePlayed($player, false, $reserveFlipCost);
+          }
+          // Free gifts skip mana cost but keep the same exhausted-reserve rules as canBePlayed /
+          // getPlayableLocation (Vaike, Kelonic Heater, …). Empty destinations are dropped below.
+          return $card->getMinManaOrbs() <= $player->getTotalMana()
+            && !$card->isExhaustedReservePlayBlocked($player)
+            && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
         })
         ->map(function ($card) use ($player, $forcedLocation, $free) {
           return $card->getPlayableLocation($player, $forcedLocation, $free);
+        })
+        // Cards with no legal zone (e.g. exhausted without Vaike) must not appear as selectable.
+        ->filter(function ($locations) {
+          return !empty($locations);
         });
-
       // Scout is only for hand cards
-      $scouts =  $handCards
-        ->filter(function ($card) use ($player, $authorizedTypes, $maxHandCost, $free) {
-          return $card->getScout() > 0 && in_array($card->getType(), $authorizedTypes) &&
-            ((!$free && $card->canBePlayed($player, true)) || ($free && $card->getCostHand() <= $maxHandCost && !$card->isTapped()));
+      $scouts = $handCards
+        ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits, $matchesSubType) {
+          $meetsFreeScoutCost = $free
+            && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
+          return $card->getScout() > 0
+            && in_array($card->getType(), $authorizedTypes)
+            && $matchesSubType($card)
+            && ((!$free && $card->canBePlayed($player, true)) || $meetsFreeScoutCost);
         })
         ->map(function ($card) use ($player, $forcedLocation) {
           return $card->getScoutableLocations($player, $forcedLocation);
@@ -94,9 +157,9 @@ class ChooseAssignment extends \ALT\Models\Action
     if (in_array('support', $authorizedActions)) {
       $actions['support'] = $reserveCards
         ->filter(function ($card) use ($player) {
-          return !empty($card->getEffectSupport()) && (
-            !$card->isTapped()
-          );
+          return !empty($card->getEffectSupport()) &&
+            !empty($card->getSupportDesc()) &&
+            !$card->isTapped();
         })
         ->getIds();
     }
@@ -186,7 +249,7 @@ class ChooseAssignment extends \ALT\Models\Action
     $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false)
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false, $countsAsTurnPlay = null) 
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -219,6 +282,9 @@ class ChooseAssignment extends \ALT\Models\Action
       }
       $costReduction = Globals::getCostReduction();
       foreach (($costReduction[$player->getId()] ?? []) as $costType => $reductionCost) {
+        if (!is_array($reductionCost)) {
+          continue;
+        }
         if ($card->getType() == $costType || in_array($costType, $card->getAdditionalType()) || $costType == ALL) {
           unset($costReduction[$player->getId()][$costType]);
         }
@@ -243,7 +309,8 @@ class ChooseAssignment extends \ALT\Models\Action
         ) {
           $this->insertAsChild(
             FT::XOR(
-              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              // next card played needs to be considered as a turn play, even if played for free
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
               FT::SEQ(
                 FT::ACTION(
                   TARGET,
@@ -261,6 +328,7 @@ class ChooseAssignment extends \ALT\Models\Action
                   'free' => true,
                   'cost' => $cost - $card->getCostReductionDiscard(),
                   'location' => $location,
+                  'countsAsTurnPlay' => true,
                 ])
               )
             )
@@ -276,7 +344,8 @@ class ChooseAssignment extends \ALT\Models\Action
         if ($nbPermanents > 0) {
           $this->insertAsChild(
             FT::XOR(
-              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              // next card played needs to be considered as a turn play, even if played for free
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
               FT::SEQ(
                 FT::ACTION(
                   TARGET,
@@ -292,6 +361,7 @@ class ChooseAssignment extends \ALT\Models\Action
                   'free' => true,
                   'cost' => $cost - $card->getCostReductionSacrificePermanent(),
                   'location' => $location,
+                  'countsAsTurnPlay' => true,
                 ])
               )
             )
@@ -302,8 +372,9 @@ class ChooseAssignment extends \ALT\Models\Action
       } elseif ($card->getCostReductionLimitation() > 0) {
         $this->insertAsChild(
           FT::XOR(
-            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
-            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost - $card->getCostReductionLimitation(), 'limited' => true]),
+            // next card played needs to be considered as a turn play, even if played for free
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
+            FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost - $card->getCostReductionLimitation(), 'limited' => true, 'countsAsTurnPlay' => true]),
           )
         );
         $this->resolveAction(['CostReduction']);
@@ -319,7 +390,8 @@ class ChooseAssignment extends \ALT\Models\Action
         ) {
           $this->insertAsChild(
             FT::XOR(
-              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost]),
+              // next card played needs to be considered as a turn play, even if played for free
+              FT::ACTION(PLAY_CARD, ['cardId' => $cardId, 'free' => true, 'location' => $location, 'cost' => $cost, 'countsAsTurnPlay' => true]),
               FT::SEQ(
                 FT::ACTION(
                   TARGET,
@@ -333,11 +405,13 @@ class ChooseAssignment extends \ALT\Models\Action
                   ],
                   ['sourceId' => $cardId]
                 ),
+                // next card played needs to be considered as a turn play, even if played for free
                 FT::ACTION(PLAY_CARD, [
                   'cardId' => $cardId,
                   'free' => true,
                   'cost' => $cost - $card->getCostReductionTap(),
                   'location' => $location,
+                  'countsAsTurnPlay' => true,
                 ])
               )
             )
@@ -360,9 +434,16 @@ class ChooseAssignment extends \ALT\Models\Action
     } else {
       $cost = 0;
     }
-    Globals::incPlayedCards();
+    // Effect free plays (Wayfarer, Coppelia, …) use free=true with cost 0 and must not
+    // end the Afternoon turn. Cost-reduction PLAY_CARD nodes pass countsAsTurnPlay=true.
+    if ($countsAsTurnPlay === null) {
+      $countsAsTurnPlay = !($free == true && $cost == 0);
+    }
+    if ($countsAsTurnPlay) {
+      Globals::incPlayedCards();
+    }
 
-    if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
+    if (((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || $free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
     }
     // Move card
@@ -427,6 +508,26 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextCharacterBoostOccurence(0);
     }
 
+    // Sound the Howl
+    if (
+      in_array($card->getType(), [CHARACTER, TOKEN]) &&
+      in_array(ANIMAL, $card->getSubtypes()) &&
+      Globals::getNextAnimalBoost() > 0
+    ) {
+      $toBoost = Globals::getNextAnimalBoost();
+      $occur = Globals::getNextAnimalBoostOccurence();
+
+      for ($v = 0; $v < $occur - 1; $v++) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, 1));
+        $toBoost--;
+      }
+      if ($toBoost > 0) {
+        $this->pushParallelChild(FT::GAIN($card, BOOST, $toBoost));
+      }
+      Globals::setNextAnimalBoost(0);
+      Globals::setNextAnimalBoostOccurence(0);
+    }
+
     if ($fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);
@@ -461,6 +562,21 @@ class ChooseAssignment extends \ALT\Models\Action
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
       Globals::setNextCharacterCost3Anchored(false);
     }
+    
+    $asleepData = Globals::getNextCharacterAsleep();
+    if ($asleepData !== false && $asleepData !== 0 && $asleepData !== null) {
+      $asleepValue = is_array($asleepData) ? ($asleepData['value'] ?? true) : $asleepData;
+      $isOptional = is_array($asleepData) ? ($asleepData['optional'] ?? false) : false;
+      if ($asleepValue) {
+        $gainNode = FT::GAIN($card, ASLEEP);
+        if ($isOptional) {
+          $this->pushParallelChild(['type' => NODE_SEQ, 'optional' => true, 'childs' => [$gainNode]]);
+        } else {
+          $this->pushParallelChild($gainNode);
+        }
+      }
+      Globals::setNextCharacterAsleep(false);
+    }
 
     if (
       Globals::getNextCharacterAnchored() == true &&
@@ -472,7 +588,7 @@ class ChooseAssignment extends \ALT\Models\Action
    if (
       Globals::getNextCharacterBaseCost3Anchored() == true &&
       in_array($card->getType(), [CHARACTER, TOKEN]) &&
-       (($card->getCostHand() <= 3 && in_array($fromLocation, [HAND, LIMBO])) // LIMBO is used for Romantic Encounter / Phoibos, where hand cost shall be used for comparison
+      (($card->getCostHand() <= 3 && in_array($fromLocation, [HAND, LIMBO])) // LIMBO is used for Romantic Encounter / Phoibos, where hand cost shall be used for comparison
        || ($fromLocation == RESERVE && $card->getCostReserve() <= 3)) 
     ) {
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
@@ -497,34 +613,33 @@ class ChooseAssignment extends \ALT\Models\Action
         $effect = $card->getEffectPlayed();
       }
       if (!empty($effect)) {
+        // Ticket 210043 
+        // Multi-{J} effects arrive as a Parallel of siblings. Push each sibling separately so
+        // an impossible one (e.g. exhaust with no target) does not block the others, 
+        // but can still be selected to voluntarily bypass it. 
+        // Also tag untyped merges as PARALLEL for consistency with FlowConvertor.
+        if (isset($effect['childs']) && !isset($effect['type'])) {
+          $effect['type'] = NODE_PARALLEL;
+        }
         if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
           foreach ($effect['childs'] as $t => $child) {
             $effects[] = $child;
           }
-        } elseif (isset($effect['childs']) && !isset($effect['type'])) {
-          $effect['type'] = NODE_PARALLEL;
-          if ($card->getRarity() == RARITY_UNIQUE) {
-            $effect['noIndependent'] = true;
-          }
-          $effects[] = $effect;
         } else {
           $effects[] = $effect;
         }
       }
 
-      if (($fromLocation == HAND && $effectHand) || ($fromLocation == LIMBO && $effectHand && $stealOwnership == true)) {
+      if ($effectHand && in_array($fromLocation, [HAND, LIMBO])) {
         $effect = $card->getEffectHand();
         if (!empty($effect)) {
+          if (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+          }
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
-          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
-            $effect['type'] = NODE_PARALLEL;
-            if ($card->getRarity() == RARITY_UNIQUE) {
-              $effect['noIndependent'] = true;
-            }
-            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }
@@ -534,16 +649,13 @@ class ChooseAssignment extends \ALT\Models\Action
       if ($fromLocation == RESERVE) {
         $effect = $card->getEffectReserve();
         if (!empty($effect)) {
+          if (isset($effect['childs']) && !isset($effect['type'])) {
+            $effect['type'] = NODE_PARALLEL;
+          }
           if (isset($effect['type']) && $effect['type'] == NODE_PARALLEL) {
             foreach ($effect['childs'] as $t => $child) {
               $effects[] = $child;
             }
-          } elseif (isset($effect['childs']) && !isset($effect['type'])) {
-            $effect['type'] = NODE_PARALLEL;
-            if ($card->getRarity() == RARITY_UNIQUE) {
-              $effect['noIndependent'] = true;
-            }
-            $effects[] = $effect;
           } else {
             $effects[] = $effect;
           }
@@ -890,6 +1002,19 @@ class ChooseAssignment extends \ALT\Models\Action
     Cards::discard($cardId, 'discard');
     Notifications::supportEffect($player, $card);
     self::statPlay($cardId);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = array_merge(
+      $abilityActivated[$player->getId()] ?? [],
+      ['discard' => true, 'discardFromHandOrReserve' => true]
+    );
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+    $abilityActivatedTypeCount[$player->getId()]['discard'] = ($abilityActivatedTypeCount[$player->getId()]['discard'] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     $effect = $card->getEffectSupport();
     if (!empty($effect)) {
@@ -900,13 +1025,18 @@ class ChooseAssignment extends \ALT\Models\Action
 
     $this->checkAfterListeners($player, [
       'cardId' => $cardId,
+      'discardCard' => true,
       'playCard' => false,
       'cardType' => $card->getType(),
       'additionalType' => $card->getAdditionalType(),
       'from' => RESERVE,
+      'to' => DISCARD_PILE,
       'isSupport' => true,
       'token' => $card->isToken(),
-    ]);
+      'sourceId' => $cardId,
+      'controller' => $player->getId(),
+      'pId' => $player->getId(),
+    ], true, 'Discard');
   }
 
   ////////////////////////
@@ -928,6 +1058,19 @@ class ChooseAssignment extends \ALT\Models\Action
     $card = Cards::get($cardId);
     $card->setTapped(true);
     Notifications::tapEffect($player, $card);
+    $abilityActivated = Globals::getAbilityActivatedThisTurn();
+    $abilityActivated[$player->getId()] = array_merge(
+      $abilityActivated[$player->getId()] ?? [],
+      ['tap' => true]
+    );
+    Globals::setAbilityActivatedThisTurn($abilityActivated);
+    $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+    $abilityActivatedCount[$player->getId()] = ($abilityActivatedCount[$player->getId()] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+    $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+    $abilityActivatedTypeCount[$player->getId()] = $abilityActivatedTypeCount[$player->getId()] ?? [];
+    $abilityActivatedTypeCount[$player->getId()]['tap'] = ($abilityActivatedTypeCount[$player->getId()]['tap'] ?? 0) + 1;
+    Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
 
     $effect = $card->getEffectTap();
     if (!empty($effect)) {

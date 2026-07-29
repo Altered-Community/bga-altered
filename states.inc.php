@@ -47,7 +47,7 @@ $machinestates = [
     'descriptionmyturn' => clienttranslate('${you} must select the faction you want to play with'),
     'type' => 'multipleactiveplayer',
     'args' => 'argsPrecoDeckSelection',
-    'possibleactions' => ['actSelectPrecoDeck', 'actConfirmAPIDeck', 'actLoadAPIDecks', 'actCancelPrecoDeckSelection'],
+    'possibleactions' => ['actSelectPrecoDeck', 'actSelectRandomDeck', 'actConfirmAPIDeck', 'actLoadAPIDecks', 'actCancelPrecoDeckSelection'],
     'transitions' => ['done' => ST_SETUP, 'zombiePass' => ST_SETUP],
   ],
 
@@ -557,6 +557,23 @@ $machinestates = [
 
   ST_SHUFFLE => [
     'name' => 'shuffle',
+    'type' => 'game',
+    'description' => '',
+    'action' => 'stAtomicAction',
+  ],
+  
+  ST_COMPLETE_FEAT => [
+    'name' => 'completeFeat',
+    'description' => '',
+    'type' => 'game',
+    'action' => 'stAtomicAction',
+    'transitions' => [],
+    'possibleactions' => ['actPassOptionalAction'],
+  ],
+
+  // Eole
+  ST_DISCARD_FROM_DECK => [
+    'name' => 'discardFromDeck',
     'type' => 'game',
     'description' => '',
     'action' => 'stAtomicAction',

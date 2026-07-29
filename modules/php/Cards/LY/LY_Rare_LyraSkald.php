@@ -1,7 +1,5 @@
 <?php
-
 namespace ALT\Cards\LY;
-
 use ALT\Helpers\FT;
 
 class LY_Rare_LyraSkald extends \ALT\Models\Card
@@ -31,14 +29,15 @@ class LY_Rare_LyraSkald extends \ALT\Models\Card
       'costHand' => 2,
       'costReserve' => 2,
       'supportIcon' => 'discard',
-      'effectHand' => FT::SEQ_OPTIONAL(
-        FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(
+        TARGET,
+        [
           'targetType' => [CHARACTER, TOKEN, PERMANENT, SPELL],
-          'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
-          'effect' => FT::ACTION(DISCARD, []),
-        ]),
-        FT::ACTION(RESUPPLY, [])
+          'targetPlayer' => ME,
+          'effect' => FT::SEQ(FT::ACTION(DISCARD, []), FT::ACTION(RESUPPLY, [])),
+        ],
+        ['optional' => true]
       ),
       'effectSupport' => [
         'action' => SPECIAL_EFFECT,

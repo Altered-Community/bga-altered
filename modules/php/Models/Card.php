@@ -81,6 +81,8 @@ class Card extends \ALT\Helpers\DB_Model
     'effectReserve' => 'obj', // played from reserve
     'effectSupport' => 'obj',
     'effectPassive' => 'obj', // [[listener type => action]]: listener type to distinguish
+    // Passive-style modifiers that apply while the Feat is completed (FEAT_COMPLETED meeple on card).
+    'effectCompleted' => 'obj',
     'effectTap' => 'obj',
     'effectInfinity' => 'obj',
 
@@ -194,6 +196,10 @@ class Card extends \ALT\Helpers\DB_Model
     'defenderIgnoreContact' => 'bool', // Ignore defender attribute when in contact
     'costReductionTap' => 'int', // to manage possibilites to discard a card, to reduce cost to pay
 
+    // Eole
+    'playCondition' => 'str', // Conditions required to play the card
+    'cantGainBoost' => 'str', // Conditions required to not gain boosts
+    'boostIfAscended' => 'bool', // Wigwagging Kiwi
   ];
 
   /********* DB ACCESS *********/
@@ -311,8 +317,22 @@ class Card extends \ALT\Helpers\DB_Model
   // $scout = can be played at scout cost
   public function canBePlayed($player, $scout = false, $reserveFlipCost = false)
   {
-    if (!$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType()) && $this->getLocation() == RESERVE && $this->isTapped()) {
+    if ($this->isExhaustedReservePlayBlocked($player)) {
       return false;
+    }
+    
+    $playCondition = $this->getPlayCondition();
+    if ($playCondition != null) {
+      if (!Conditions::check(['condition' => $playCondition], $this, null)) {
+        return false;
+      }
+    }
+
+    $playCondition = $this->getPlayCondition();
+    if ($playCondition != null) {
+      if (!Conditions::check(['condition' => $playCondition], $this, null)) {
+        return false;
+      }
     }
 
     $cost = $this->getCost($scout, $reserveFlipCost);
@@ -377,12 +397,24 @@ class Card extends \ALT\Helpers\DB_Model
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
   }
 
+  /**
+   * Exhausted reserve cards are unplayable unless Vaike / Kelonic Heater / etc. allow it.
+   * Used by both paid (canBePlayed) and free (ChooseAssignment) play eligibility.
+   */
+  public function isExhaustedReservePlayBlocked($player)
+  {
+    return $this->getLocation() == RESERVE
+      && $this->isTapped()
+      && !$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType());
+  }
+
   public function getPlayableLocation($player, $forcedLocation = null, $free = false)
   {
     if (in_array(LANDMARK, $this->getSubtypes())) {
-      return [LANDMARK];
+      // Exhausted landmarks still need Vaike (or similar) to leave Reserve.
+      return $this->isExhaustedReservePlayBlocked($player) ? [] : [LANDMARK];
     } elseif ($this->getType() == SPELL) {
-      return [LIMBO];
+      return $this->isExhaustedReservePlayBlocked($player) ? [] : [LIMBO];
     } else {
       $locations = [];
       if ($this->getLocation() == RESERVE && $this->isTapped()) {
@@ -415,6 +447,23 @@ class Card extends \ALT\Helpers\DB_Model
             }
           }
           return $locations;
+        } elseif ($this->getPlayLimitation() == 'noOtherCardInHand') {
+          // From hand: no other card in hand. From reserve: hand must be empty.
+          if (!Conditions::hasXCardsInHandExceptCurrentCard($this, null, 0, 'LTE')) {
+            return [];
+          }
+          if (!is_null($forcedLocation)) {
+            return [$forcedLocation];
+          }
+          return STORMS;
+        } elseif ($this->getPlayLimitation() == 'controlFeat') {
+          if (!$player->getPlayedCards()->filter(fn($c) => in_array(FEAT, $c->getSubtypes()))->count()) {
+            return [];
+          }
+          if (!is_null($forcedLocation)) {
+            return [$forcedLocation];
+          }
+          return STORMS;
         } elseif ($this->getPlayLimitation() == 'nonStartingRegion') {
           $locations = [];
           if ($player->getHeroToken()->getLocation() != 'storm-0') {
@@ -543,7 +592,7 @@ class Card extends \ALT\Helpers\DB_Model
     // Remove meeples
     $meeples = Meeples::getInLocation('card-' . $this->id);
     if ($location == RESERVE && ($isSeasoned || in_array($this->id, $seasoned))) {
-      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep their boost
+      $meeples = $meeples->filter(fn($m) => $m->getType() != BOOST); // Seasoned card keep boost
     }
     $meepleIds = $meeples->getIds();
     if (!empty($meepleIds)) {
@@ -592,6 +641,9 @@ class Card extends \ALT\Helpers\DB_Model
       'method' => $type,
       'cardId' => $this->id,
       'from' => $this->getLocation(),
+      'sourceAscended' => in_array($this->getLocation(), STORMS)
+        ? $this->getPlayer()->isAscended($this->getLocation()) || ($this->isGigantic() && $this->getPlayer()->isAscended($this->getLocation() == STORM_LEFT ? STORM_RIGHT : STORM_LEFT))
+        : false,
       'to' => $target,
       'pId' => $this->getPId(),
       'owner' => $this->getOwner(),
@@ -674,6 +726,28 @@ class Card extends \ALT\Helpers\DB_Model
   }
 
   /**
+   * actSupport emits Discard; ActivateEffect emits ChooseAssignment. Legacy passives may only
+   * register one of the two for {D} activations (EOLE trigger 797, The Hunger, etc.).
+   */
+  protected function resolvePassiveEventAction($passive, $event)
+  {
+    $action = $event['action'] ?? 'none';
+    if (isset($passive[$action])) {
+      return $action;
+    }
+    if (($event['isSupport'] ?? false) !== true) {
+      return $action;
+    }
+    if ($action === 'Discard' && isset($passive['ChooseAssignment'])) {
+      return 'ChooseAssignment';
+    }
+    if ($action === 'ChooseAssignment' && isset($passive['Discard'])) {
+      return 'Discard';
+    }
+    return $action;
+  }
+
+  /**
    * Event modifiers template
    **/
   public function isListeningTo($event)
@@ -687,9 +761,11 @@ class Card extends \ALT\Helpers\DB_Model
       $passive = $this->getEffectPassive();
     }
 
+    $action = $this->resolvePassiveEventAction($passive, $event);
+
     if (
       !in_array($event['type'] ?? 'none', array_keys($passive)) &&
-      !in_array($event['action'] ?? 'none', array_keys($passive))
+      !in_array($action, array_keys($passive))
     ) {
       return false;
     }
@@ -700,10 +776,10 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
 
-    if (isset($event['action']) && !empty($passive[$event['action']]['listeningConditions'] ?? [])) {
+    if (isset($event['action']) && !empty($passive[$action]['listeningConditions'] ?? [])) {
       // in some rare cases, check must be done before, (like Icebound taiga)
       // var_dump(debug_print_backtrace());
-      $conditions = $passive[$event['action']]['listeningConditions'];
+      $conditions = $passive[$action]['listeningConditions'];
       foreach ($conditions as $cond) {
         $t = explode(':', $cond);
         $condFct = $t[0];
@@ -718,6 +794,34 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     return true;
+  }
+
+  /**
+   * Whether the passive reaction to $event should resolve inline (within the current
+   * action's branch) instead of being deferred to the after-finishing node.
+   *
+   * Opt-in per passive entry via `'immediate' => true`. Used e.g. by Brassbug Hive so a
+   * Robot's "gains 1 boost" lands before a later same-phase effect (Sap Extractor) reads it.
+   */
+  public function isImmediateReaction($event)
+  {
+    if (
+      !in_array($this->id, $event['cardsToListen'] ?? []) &&
+      ($this->getLocation() == RESERVE ||
+        in_array($this->id, $event['reserveToListen'] ?? []))
+    ) {
+      $passive = $this->getEffectInfinity()['effectPassive'] ?? null;
+    } else {
+      $passive = $this->getEffectPassive();
+    }
+    if (empty($passive)) {
+      return false;
+    }
+    $power = $passive[$event['action'] ?? $event['type'] ?? 'none'] ?? null;
+    if (is_null($power)) {
+      return false;
+    }
+    return ($power['immediate'] ?? false) === true;
   }
 
   public function getReactions($event)
@@ -740,7 +844,8 @@ class Card extends \ALT\Helpers\DB_Model
       return [null, null];
     }
 
-    if (!isset($passive[$event['type'] ?? 'none']) && !isset($passive[$event['action'] ?? 'none'])) {
+    $action = $this->resolvePassiveEventAction($passive, $event);
+    if (!isset($passive[$event['type'] ?? 'none']) && !isset($passive[$action])) {
       return [null, null];
     }
 
@@ -850,18 +955,26 @@ class Card extends \ALT\Helpers\DB_Model
     }
     $minimumCost = Players::getOpponentMinimumCost($this->getPlayer(), $this->getType());
 
-    $minimumCost = min($minimumCost, Players::getMinimumReserveCost());
+    $minimumCost = max($minimumCost, Players::getMinimumReserveCost());
 
     $costReduction = Globals::getCostReduction()[$this->getPId()] ?? [];
     $typeReduction = 0;
     foreach ($costReduction as $reducType => $reduction) {
+      if (!is_array($reduction)) {
+        continue;
+      }
       if ($reducType == $this->getType() || in_array($reducType, $this->getAdditionalType()) || $reducType == ALL) {
         $typeReduction += $reduction['reduction'];
-        $minimumCost = min($minimumCost, ($reduction['minimum'] ?? 0));
+        $minimumCost = max($minimumCost, ($reduction['minimum'] ?? 0));
       }
     }
+    
     foreach ($this->getSubtypes() as $subtype) {
-      $typeReduction += isset($costReduction[$subtype]) ? $costReduction[$subtype]['reduction'] : 0;
+      if (!isset($costReduction[$subtype]) || !is_array($costReduction[$subtype])) {
+        continue;
+      }
+      $typeReduction += $costReduction[$subtype]['reduction'];
+      $minimumCost = max($minimumCost, ($costReduction[$subtype]['minimum'] ?? 0));
     }
 
     // TODO: to update in multiplayer
@@ -907,13 +1020,14 @@ class Card extends \ALT\Helpers\DB_Model
     $increaseReserveCost = Players::getIncreaseReserveCost($this->getType());
     $reduceReserveCost = Players::getReduceReserveCost($this->getType(), $this->getSubtypes(), $this->getPId(), $this->id);
     if ($reduceReserveCost > 0 && $this->getLocation() == RESERVE) {
-      $minimumCost = min(1, $minimumCost);
+      $minimumCost = max(1, $minimumCost);
     }
 
-    // Scholar's Vault
-    $reduceCostType = $this->getPlayer()->getReduceCostType($this);
-    $dynamicReduc = (int) $dynamicReduc + $reduceCostType;
-
+    // Scholar's Vault, Reka Welder (reduceCostType minimum floor)
+    $reduceCostTypeData = $this->getPlayer()->getReduceCostType($this);
+    $minimumCost = max($minimumCost, $reduceCostTypeData['minimum'] ?? 0);
+    $dynamicReduc = (int) $dynamicReduc + $reduceCostTypeData['reduction'];
+    
     switch ($this->getLocation()) {
       case HAND:
         if ($scout && $this->getScout() > 0) {
@@ -968,6 +1082,65 @@ class Card extends \ALT\Helpers\DB_Model
     return $biomes;
   }
 
+  /**
+   * Completed-feat {@see effectCompleted} <code>dynamicTough</code> is defined on Gather the Pack (Rare), Delay the Collapse, etc.
+   * Stored {@see subtypes} can omit {@see FEAT} (it is in {@see DYNAMIC_PROPERTIES} and may be overwritten by DB rows); still treat
+   * a Landmark with a non-empty completed <code>dynamicTough</code> as eligible so expedition Tough auras keep working.
+   */
+  public function mayMergeCompletedFeatDynamicTough(): bool
+  {
+    if (in_array(FEAT, $this->getSubtypes())) {
+      return true;
+    }
+    if (!in_array(LANDMARK, $this->getSubtypes())) {
+      return false;
+    }
+    $completed = $this->properties['effectCompleted'] ?? [];
+    if (!is_array($completed)) {
+      return false;
+    }
+    $extra = $completed['dynamicTough'] ?? null;
+    return $extra !== null && $extra !== '';
+  }
+
+  /**
+   * Merges {@see effectCompleted} <code>dynamicTough</code> while the Feat is completed (same idea as landmark-only completed auras).
+   */
+  public function getDynamicTough()
+  {
+    $base = $this->properties['dynamicTough'] ?? '';
+
+    if (!$this->mayMergeCompletedFeatDynamicTough()) {
+      return $base;
+    }
+    if (Meeples::countMeeples('card-' . $this->getId(), FEAT_COMPLETED) < 1) {
+      return $base;
+    }
+    $completed = $this->properties['effectCompleted'] ?? [];
+    if (!is_array($completed)) {
+      return $base;
+    }
+    $extra = $completed['dynamicTough'] ?? null;
+    if ($extra === null || $extra === '') {
+      return $base;
+    }
+
+    $toList = function ($v) {
+      if ($v === '' || $v === null) {
+        return [];
+      }
+      return is_array($v) ? $v : [$v];
+    };
+
+    $merged = array_merge($toList($base), $toList($extra));
+    if (count($merged) === 0) {
+      return '';
+    }
+    if (count($merged) === 1) {
+      return $merged[0];
+    }
+    return $merged;
+  }
   public function getTough()
   {
     // Tough impacts only a card in Storms or landmark
@@ -1027,9 +1200,7 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     if (in_array($this->getType(), [CHARACTER, TOKEN])) {
-      $universal = $this->getPlayer()->countUniversalCharacterTough();
-      // $dynTough = $this->getDynamicTough();
-      // $tt = explode(':', $dynTough);
+      $universal = $this->getPlayer()->countUniversalCharacterTough($this);
       if ($this->getExcludeUniversalTough() && $singleTough == 'universalCharacter2') {
         $universal = $universal - 2;
       }
@@ -1051,6 +1222,26 @@ class Card extends \ALT\Helpers\DB_Model
       if ($anchoredAsleep > 0 && ($this->hasToken(ANCHORED) || $this->hasToken(ASLEEP))) {
         $tough += 1;
       }
+    }
+
+    if (in_array($this->getType(), [PERMANENT])) {
+      $universal = $this->getPlayer()->countUniversalLandmarksToughFromCompletedFeat();
+      if ($this->getExcludeUniversalTough()) {
+        $completed = $this->getEffectCompleted();
+        if (
+          !empty($completed) &&
+          isset($completed['dynamicTough']) &&
+          str_starts_with($completed['dynamicTough'], 'universalLandmarks')
+        ) {
+          $value = (int) str_replace(
+            'universalLandmarks',
+            '',
+            $completed['dynamicTough']
+          );
+          $universal -= $value;
+        } 
+      }
+      $tough += $universal;
     }
 
     // Global Tough
@@ -1076,9 +1267,45 @@ class Card extends \ALT\Helpers\DB_Model
       if ($this->getPlayer()->hasExpeditionSeasoned($this->getLocation())) {
         return true;
       } elseif ($this->isGigantic() && $this->getPlayer()->hasExpeditionSeasoned()) {
+      } elseif ($this->isSeasonedFromOppositeSourceCharacter()) {
         return true;
       }
     }
+    return false;
+  }
+
+  /**
+   * Characters facing an opponent with dynamicSeasoned "oppositeSourceCharacter" are seasoned.
+   */
+  public function isSeasonedFromOppositeSourceCharacter()
+  {
+    if (!in_array($this->getLocation(), STORMS)) {
+      return false;
+    }
+
+    $opponent = Players::getNext($this->getPlayer());
+    foreach ($opponent->getPlayedCards([CHARACTER, TOKEN]) as $sourceCard) {
+      if (!in_array($sourceCard->getLocation(), STORMS)) {
+        continue;
+      }
+
+      $dynamicSeasoned = $sourceCard->getDynamicSeasoned();
+      if (!is_array($dynamicSeasoned) && $dynamicSeasoned != '') {
+        $dynamicSeasoned = [$dynamicSeasoned];
+      } elseif ($dynamicSeasoned == '') {
+        continue;
+      }
+
+      foreach ($dynamicSeasoned as $singleSeasoned) {
+        if (Utils::checkAttributeCondition('dynamicSeasoned', $singleSeasoned, $sourceCard->getPlayer(), $sourceCard) !== 'oppositeSourceCharacter') {
+          continue;
+        }
+        if (Conditions::isFacingSource($this, ['cardId' => $sourceCard->getId()])) {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
@@ -1341,6 +1568,24 @@ class Card extends \ALT\Helpers\DB_Model
       return !is_null(Utils::checkAttributeCondition('defender', $dynamicDefender, $this->getPlayer(), $this));
     }
 
+    // Aura: "Characters in your other Expedition are Defender."
+    if (in_array($this->getType(), [CHARACTER, TOKEN]) && in_array($this->getLocation(), STORMS)) {
+      foreach ($this->getPlayer()->getPlayedCards()->where('location', STORMS) as $auraCard) {
+        if ($auraCard->getId() == $this->getId()) {
+          continue;
+        }
+        if ($auraCard->getDynamicDefender() != 'otherExpeditionCharacter') {
+          continue;
+        }
+        // Gigantic cards have no "other expedition" to grant.
+        if ($auraCard->isGigantic()) {
+          continue;
+        }
+        if ($auraCard->getLocation() != $this->getLocation()) {
+          return true;
+        }
+      }
+    }
 
     // OD_Common_GulrangTocsin
     if (

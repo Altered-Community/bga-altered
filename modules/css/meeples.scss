@@ -126,6 +126,13 @@
         width: 62px;
         height: 62px;
     }
+    &[data-type="featCompleted"] {
+        background-image: url("img/icons/completed.png");
+        background-size: 100% 100%;
+        width: 44px;
+        height: 44px;
+    }
+
 
     &[data-type="ocean"],
     &[data-type="forest"],

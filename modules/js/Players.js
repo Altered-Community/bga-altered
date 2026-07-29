@@ -1,5 +1,5 @@
 define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
-  const PLAYER_COUNTERS = ['mana', 'totalMana', 'handCount', 'deckCount'];
+   const PLAYER_COUNTERS = ['mana', 'totalMana', 'handCount', 'deckCount', 'discardCount'];
 
   return declare('altered.players', null, {
     getPlayers() {
@@ -62,6 +62,14 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           this.displayWarningSizeLimitIfNeeded(player, 'reserve', reserveContainer);
         });
         reserveLandmark.observe(reserveContainer, { childList: true });
+
+        // Keep discard counter above cards (compositor layer issue with translateZ)
+        let discardContainer = $(`board-discard-${player.id}`);
+        let discardObserver = new MutationObserver(() => {
+          this.bringDiscardCounterToFront(player.id);
+        });
+        discardObserver.observe(discardContainer, { childList: true });
+        this.bringDiscardCounterToFront(player.id);
 
         // Panels
         this.place('tplPlayerPanel', player, `overall_player_board_${player.id}`);
@@ -127,7 +135,12 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
     tplPlayerBoard(player) {
       let pId = player.id;
       return `<div class='altered-player-board' id='player-board-${pId}' data-faction='${player.faction}'>
-          <div class='player-board-discard' id='board-discard-${player.id}'></div>
+          <div class='player-board-discard-zone' id='board-discard-zone-${player.id}'>
+            <div class='player-board-discard' id='board-discard-${player.id}'></div>
+            <div class='discard-counter-holder'>
+              <div class='deck-counter' id="counter-${player.id}-discardCount">0</div>
+            </div>
+          </div>
           <div class='player-board-deck' id='board-deck-${player.id}'>
             <div class='deck-counter-holder'  id='reveal-${player.id}'>
               <div class='deck-counter' id="counter-${player.id}-deckCount"></div>
@@ -332,6 +345,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
 
         // DECK COUNT
         c.deckCount = this.createCounter([`counter-${pId}-deckCount`], player.deckCount);
+
+        // DISCARD COUNT
+        c.discardCount = this.createCounter([`counter-${pId}-discardCount`], player.discardCount ?? 0);
 
         this._playerCounters[pId] = c;
       });
