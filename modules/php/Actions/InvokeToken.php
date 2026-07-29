@@ -41,6 +41,34 @@ class InvokeToken extends \ALT\Models\Action
     ];
   }
 
+  public function getInvokePlayerId()
+  {
+    if (isset($this->getCtxArgs()['expedition'])) {
+      return $this->getCtxArgs()['player'] ?? $this->getPlayer()->getId();
+    }
+
+    $player = $this->getPlayer();
+    $invokePId = $player->getId();
+    $targetPlayer = $this->getCtxArg('targetPlayer');
+    if (is_null($targetPlayer)) {
+      return $invokePId;
+    }
+
+    if ($targetPlayer == OPPONENT) {
+      return Players::getNextId($player);
+    }
+    if ($targetPlayer == 'owner') {
+      $invokePId = $this->getCtxArgs()['ownerId'] ?? -1;
+      if ($invokePId == -1) {
+        $effectId = $this->getCtxArg('cardId');
+        $invokePId = Cards::get($effectId)->getPId();
+      }
+      return $invokePId;
+    }
+
+    return $invokePId;
+  }
+
   public function argsInvokeToken()
   {
     $player = Players::getActive();
@@ -214,7 +242,7 @@ class InvokeToken extends \ALT\Models\Action
     }
 
     if (!in_array($explodedLocation[0], $args['locations']) && count($explodedLocation) == 1) {
-      throw new \BgaVisibleSystemException('You cannot invoke in this location. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot invoke in this location. Should not happen');
     }
 
     list($realLocation, $strLocation) = $this->getLocationInfos($explodedLocation[0]);
@@ -252,14 +280,18 @@ class InvokeToken extends \ALT\Models\Action
       }
 
       $expeditionsBoosts = Globals::getNextCharacterInExpeditionBoost();
+      $boostExpedition = $location;
+      $oppositeExpedition = $location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
       if (
-        $card->getType() == CHARACTER && (
-          isset($expeditionsBoosts[$player->getId()][$location]) ||
-          ($card->isGigantic() && isset($expeditionsBoosts[$player->getId()][$location == STORM_LEFT ? STORM_RIGHT : STORM_LEFT]))
-        )
+        !isset($expeditionsBoosts[$player->getId()][$location]) &&
+        $card->isGigantic() &&
+        isset($expeditionsBoosts[$player->getId()][$oppositeExpedition])
       ) {
-        $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$location]));
-        unset($expeditionsBoosts[$player->getId()][$location]);
+        $boostExpedition = $oppositeExpedition;
+      }
+      if ($card->getType() == CHARACTER && isset($expeditionsBoosts[$player->getId()][$boostExpedition])) {
+        $this->insertAsChild(FT::GAIN($card->getId(), BOOST, $expeditionsBoosts[$player->getId()][$boostExpedition]));
+        unset($expeditionsBoosts[$player->getId()][$boostExpedition]);
         Globals::setNextCharacterInExpeditionBoost($expeditionsBoosts);
       }
 

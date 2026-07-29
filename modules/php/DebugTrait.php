@@ -186,6 +186,14 @@ trait DebugTrait
     // throw new \feException(print_r(Cards::getCardClass(trim($a))->jsonSerialize()));
   }
 
+  /**
+   * Force the game into the arena (tie-breaker) mode.
+   *
+   * Mirrors the real entry performed when both players cross their tokens on the same
+   * phase (see Players::checkVictory): both tokens are moved onto the final regions,
+   * every region marker is removed and tie-breaker mode is enabled. Useful to reproduce
+   * arena-only behaviours such as Will-o'-the-Wisp on a gigantic character.
+   */
   function tiebreak()
   {
     Globals::setTieBreakerMode(true);
@@ -205,12 +213,80 @@ trait DebugTrait
     // notif startTiebreak
     Notifications::startTiebreak($meeples->toArray());
     Notifications::silentKill($markers->getIds());
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
   function resolveDebug()
   {
     Engine::resolveAction([]);
     Engine::proceed();
+  }
+  
+  /**
+   * Studio helpers for empty / partial deck testing.
+   * Chat examples: debug_emptyDeck(), debug_emptyDeck('opponent'), debug_setDeckCount(3), debug_deckInfo()
+   */
+  private function getPlayers(string $who = 'me')
+  {
+    if ($who === 'both') {
+      return Players::getAll();
+    }
+    $player =
+      $who === 'opponent' || $who === 'opp'
+        ? Players::getNext(Players::getCurrent())
+        : Players::getCurrent();
+
+    return new Collection([$player->getId() => $player]);
+  }
+
+  // add "debug_" before to see the function in debug tools
+  function emptyDeck(string $who = 'me')
+  {
+    foreach ($this->getPlayers($who) as $pId => $player) {
+      Cards::moveAllInLocation("deck-$pId", DISCARD_PILE);
+      Cards::moveAllInLocation("reveal-$pId", DISCARD_PILE);
+    }
+    $this->updateDeckInfo(true);
+  }
+
+  // add "debug_" before to see the function in debug tools
+  function setDeckCount(int $n, string $who = 'me')
+  {
+    $n = max(0, $n);
+    foreach ($this->getPlayers($who) as $pId => $player) {
+      Cards::moveAllInLocation("reveal-$pId", DISCARD_PILE);
+      $deckLoc = "deck-$pId";
+      $count = Cards::countInLocation($deckLoc);
+      if ($count > $n) {
+        Cards::pickForLocation($count - $n, $deckLoc, DISCARD_PILE);
+      } elseif ($count < $n) {
+        $missing = $n - $count;
+        $inDiscard = Cards::getFiltered($pId, DISCARD_PILE)->orderBy('state', 'DESC')->limit($missing);
+        foreach ($inDiscard as $cId => $card) {
+          Cards::insertOnTop($cId, $deckLoc);
+        }
+      }
+    }
+    $this->updateDeckInfo();
+  }
+
+  private function updateDeckInfo(bool $refreshUi = false)
+  {
+    $lines = [];
+    foreach (Players::getAll() as $pId => $player) {
+      $deck = Cards::countInLocation("deck-$pId");
+      $reveal = Cards::countInLocation("reveal-$pId");
+      $discard = Cards::getFiltered($pId, DISCARD_PILE)->count();
+      $lines[] =
+        $player->name .
+        " (#$pId): deck=$deck reveal=$reveal discard=$discard hasDeck=" .
+        ($player->hasDeckCards() ? 'yes' : 'no');
+    }
+    self::notifyAllPlayers('message', implode(' — ', $lines), []);
+    if ($refreshUi) {
+      Notifications::refreshUI($this::get()->localGetAllDatas(true));
+      Engine::proceed();
+    }
   }
 
   function tapAllMana()
@@ -252,6 +328,24 @@ trait DebugTrait
     foreach ($player->getManaCards() as $cId => $card) {
       $card->setTapped(true);
     }
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
+  }
+
+  /**
+   * Force the counter count on the player hero (if any) to a specified value.
+   *
+   * Used to debug triggers on Sol (Halua summon), Treyst or Atsadi
+   */
+  function setHeroCounters(int $n = 5)
+  {
+    $hero = Players::getCurrent()->getHero();
+    if (is_null($hero)) {
+      throw new \feException('No hero found');
+    }
+    $data = $hero->getExtraDatas();
+    $data['counter'] = $n;
+    $data['counterName'] = $data['counterName'] ?? clienttranslate('Quest counters');
+    $hero->setExtraDatas($data);
     Notifications::refreshUI($this::get()->localGetAllDatas(true));
   }
 
@@ -629,26 +723,100 @@ trait DebugTrait
   // like adding specific cards on the board or in hand
   // function debug_setup()
   // {
-  //   //#210538 - setup for 2 fablab in expeditions, and 1 fisherman in hand
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'stormLeft');
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'stormLeft');
-  //   // $this->addCard('BR_Rare_TheFoundryAxiomBastion', 'landmark');
-  //   // $this->addCard('BR_Common_Kedarm', 'reserve');
-  //   // $this->addCard('BR_Rare_RekaFisherman', 'hand');
-
-  //   //#210538 - setup for 2 fablab in mana, and 1 fisherman in reserve to ensure normal activation is not touched
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'mana');
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'mana');
-  //   // $this->addCard('BR_Rare_RekaFisherman', 'reserve');
-
-  //   //#210538 - setup for 3 Tag in mana, 1 feast of thoughts in reserve, and 1 training in hand 
-  //   // allow testing the feast of thoughts from reserve with or without counters
-  //   // $this->addCard('YZ_Common_Tag', 'mana');
-  //   // $this->addCard('YZ_Common_Tag', 'mana');
-  //   // $this->addCard('YZ_Common_Tag', 'mana');
-  //   // $this->addCard('YZ_Common_FeastofThoughts', 'reserve');
-  //   // $this->addCard('YZ_Common_MagicalTraining', 'hand');
+  //   $this->addCard('LY_Rare_TheEmbassy', 'landmark');
+  //   $this->addCard('LY_Common_RomanticEncounter', 'hand');
   // }
+  
+  // Function used to forcibly clean up an entire location (deck, hand, reserve or both).
+  // Sends all cards in given location to discard pile, and refreshes UI. Useful for testing specific scenarios.
+  // function debug_emptyTargetLocation(string $location = HAND)
+  // {
+  //   $player = Players::getCurrent();
+  //   $pId = $player->getId();
+  //   $deckLocation = "deck-$pId";
+  //   $revealLocation = "reveal-$pId";
+
+  //   switch (strtoupper($location)) {
+  //     case 'HAND':
+  //       $locations = [HAND];
+  //       break;
+  //     case 'RESERVE':
+  //       $locations = [RESERVE];
+  //       break;
+  //     case 'DECK':
+  //       $locations = [$deckLocation, $revealLocation];
+  //       break;
+  //     case 'ALL':
+  //       $locations = [HAND, RESERVE, $deckLocation, $revealLocation];
+  //       break;
+  //     default:
+  //       throw new \feException("Invalid location '$location' (expected HAND, RESERVE, DECK or ALL)");
+  //   }
+
+  //   foreach ($locations as $loc) {
+  //     foreach (Cards::getFiltered($pId, $loc) as $card) {
+  //       $card->discard();
+  //     }
+  //   }
+
+  //   Notifications::refreshUI($this::get()->localGetAllDatas(true));
+  //   Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+  //   Engine::proceed();
+  // }
+
+  /**
+   * Load a unique card with one or more effect trigrams.
+   *
+   * Spec format: "trigger/condition/output" groups separated by ";".
+   * For on-play effects, use zone letters as trigger: H (hand), R (reserve), J or P (played).
+   * For passive effects, use the numeric trigger id (e.g. 17 for At Dusk).
+   *
+   * Examples:
+   *   H/166/29;R/167/30;J/168/31
+   *   22/166/29;1/167/30;24/168/31
+   *   17/166/29;H/882/833
+   */
+  function debug_loadUniqueTrigrams(string $spec, string $location = HAND)
+  {
+    $this->loadUniqueFromTrigrams($spec, $location);
+  }
+
+  private function loadUniqueFromTrigrams(string $spec, string $location = HAND)
+  {
+    $trigrams = [];
+    foreach (explode(';', $spec) as $part) {
+      $part = trim($part);
+      if ($part === '') {
+        continue;
+      }
+      $pieces = preg_split('#/+#', $part);
+      if (count($pieces) !== 3) {
+        throw new \feException("Invalid trigram '$part' (expected trigger/condition/output, groups separated by ';')");
+      }
+      $trigrams[] = [
+        'trigger' => $pieces[0],
+        'condition' => $pieces[1],
+        'output' => $pieces[2],
+      ];
+    }
+    if (empty($trigrams)) {
+      throw new \feException('No trigrams provided');
+    }
+
+    $player = Players::getCurrent();
+    $faction = $player->getFaction() ?: FACTION_BR;
+    $properties = Cards::generateUniqueFromTrigrams($faction, $trigrams);
+
+    Cards::singleCreate([
+      'player_id' => $player->getId(),
+      'location' => $location,
+      'nbr' => 1,
+      'properties' => $properties,
+    ]);
+    Notifications::refreshUI($this::get()->localGetAllDatas(true));
+    Notifications::refreshHand($player, $player->getHand()->ui(), $player->getManaCards()->ui());
+    Engine::proceed();
+  }
 
   function debug_loadUnique(string $v, string $location = HAND)
   {

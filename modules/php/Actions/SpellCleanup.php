@@ -38,7 +38,7 @@ class SpellCleanup extends \ALT\Models\Action
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
     if ($cardId === null) {
-      throw new \BgaVisibleSystemException('no card in args (spell clenaup). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (spell clenaup). Should not happen');
     }
     return Cards::get($cardId);
   }
@@ -49,6 +49,10 @@ class SpellCleanup extends \ALT\Models\Action
     $card = $this->getCard();
 
     if ($card->getLocation() != LIMBO) {
+      $event = $this->getCtxArgs()['event'];
+      $event['token'] = false;
+      $this->checkImmediateListeners($player, $event, true, 'ChooseAssignment');
+      $this->checkAfterListeners($player, $event, true, 'ChooseAssignment');
       $this->resolveAction();
       return;
     }

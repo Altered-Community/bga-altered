@@ -109,7 +109,7 @@ abstract class Utils extends \APP_DbObject
 
   public static function die($args = null)
   {
-    throw new \BgaVisibleSystemException(json_encode($args));
+    throw new \Bga\GameFramework\VisibleSystemException(json_encode($args));
   }
 
   /**
@@ -151,6 +151,47 @@ abstract class Utils extends \APP_DbObject
         return self::tagTree($child, $tags, $replaceOnly);
       }, $t['childs']);
     }
+    if (isset($t['args']['effect']) && is_array($t['args']['effect'])) {
+      $t['args']['effect'] = self::tagTree($t['args']['effect'], $tags, $replaceOnly);
+    }
+    if (isset($t['args']['oppositeEffect']) && is_array($t['args']['oppositeEffect'])) {
+      $t['args']['oppositeEffect'] = self::tagTree($t['args']['oppositeEffect'], $tags, $replaceOnly);
+    }
+    return $t;
+  }
+
+  /**
+   * Pin the passive owner's card id on ACTIVATE_EFFECT nodes with ownEffect.
+   * Prevents resolving the wrong card via getSource() when the listener event
+   * references another card (e.g. effect 840 after someone else's {D} activation).
+   */
+  public static function bindOwnEffectActivateCardId($t, $cardId)
+  {
+    if (!is_array($t)) {
+      return $t;
+    }
+
+    // Support + ownEffect (e.g. output 840): activate my {D}. Reserve + ownEffect (Thomas Edison,
+    // output 705) activates another card's {R} and binds the target via Target::updateCardId.
+    if (
+      ($t['action'] ?? '') === ACTIVATE_EFFECT
+      && ($t['args']['ownEffect'] ?? false)
+      && ($t['args']['effectType'] ?? '') === 'Support'
+    ) {
+      $t['args']['cardId'] = $cardId;
+    }
+
+    if (isset($t['childs'])) {
+      $t['childs'] = array_map(function ($child) use ($cardId) {
+        return self::bindOwnEffectActivateCardId($child, $cardId);
+      }, $t['childs']);
+    }
+    foreach (['effect', 'oppositeEffect'] as $key) {
+      if (isset($t['args'][$key]) && is_array($t['args'][$key])) {
+        $t['args'][$key] = self::bindOwnEffectActivateCardId($t['args'][$key], $cardId);
+      }
+    }
+
     return $t;
   }
 
@@ -308,6 +349,61 @@ abstract class Utils extends \APP_DbObject
       }
       return  null;
     }
+  }
+
+  
+  public static function costReductionBucketsOverlap($typeA, $typeB)
+  {
+    if ($typeA == ALL || $typeB == ALL) {
+      return true;
+    }
+    if ($typeA == $typeB) {
+      return true;
+    }
+
+    foreach (self::costReductionOverlapProbeCards() as $cardTypes) {
+      if (
+        self::costReductionBucketAppliesToCard($typeA, $cardTypes)
+        && self::costReductionBucketAppliesToCard($typeB, $cardTypes)
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private static function costReductionBucketAppliesToCard($bucketType, $card)
+  {
+    if ($bucketType == ALL) {
+      return true;
+    }
+    if ($bucketType == $card['type']) {
+      return true;
+    }
+    if (in_array($bucketType, $card['additionalTypes'] ?? [], true)) {
+      return true;
+    }
+    if (in_array($bucketType, $card['subtypes'] ?? [], true)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private static function costReductionOverlapProbeCards()
+  {
+    return [
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [ARTIST]],
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [ANIMAL, SPIRIT]],
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [BUREAUCRAT]],
+      ['type' => CHARACTER, 'additionalTypes' => [], 'subtypes' => [APPRENTICE, MAGE]],
+      ['type' => SPELL, 'additionalTypes' => [], 'subtypes' => [SONG]],
+      ['type' => PERMANENT, 'additionalTypes' => [], 'subtypes' => [PLANT]],
+      ['type' => PERMANENT, 'additionalTypes' => [], 'subtypes' => [ROBOT]],
+      ['type' => TOKEN, 'additionalTypes' => [], 'subtypes' => []],
+      ['type' => CHARACTER, 'additionalTypes' => [FEAT], 'subtypes' => []],
+    ];
   }
 }
 

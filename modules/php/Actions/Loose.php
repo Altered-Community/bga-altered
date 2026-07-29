@@ -77,7 +77,7 @@ class Loose extends \ALT\Models\Action
     }
 
     if (is_null($cardId)) {
-      throw new \BgaVisibleSystemException('no card in args (Loose). Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('no card in args (Loose). Should not happen');
     }
     return Cards::getSingle($cardId);
   }

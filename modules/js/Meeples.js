@@ -72,6 +72,9 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
       if (type == 'boost') {
         return [_('A boost is a +1/+1/+1 counter. Remove it when it leaves the Expedition zone.')];
       }
+      if (type == 'featCompleted') {
+        return [_('This Feat has been completed.')];
+      }
       return null;
     },
 

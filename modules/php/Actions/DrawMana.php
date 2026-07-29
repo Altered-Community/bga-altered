@@ -36,6 +36,11 @@ class DrawMana extends \ALT\Models\Action
   {
     return true;
   }
+  
+  public function isDoable($player)
+  {
+    return $this->getPlayer()->hasDeckCards();
+  }
 
   public function getPlayer()
   {
