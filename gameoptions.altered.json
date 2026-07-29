@@ -31,8 +31,14 @@
   "155": {
     "name": "Deck format",
     "level": "major",
+    "default": 0,
     "values": {
       "0": {
+        "name": "Frontier",
+        "tmdisplay": "Frontier",
+        "description": "40-60 cards, standard rules with a limited pool of 30k uniques that will change next season."
+      },
+      "4": {
         "name": "Standard No Unique",
         "tmdisplay": "Standard No Unique",
         "description": "40-60 cards, standard rules without unique."
@@ -45,7 +51,7 @@
       "2": {
         "name": "Singleton No Unique",
         "tmdisplay": "Singleton No Unique",
-        "description": "60-80 cards, Singleton rules without unique. "
+        "description": "60-80 cards, Singleton rules without unique."
       },
       "3": {
         "name": "Sandbox",
@@ -54,7 +60,7 @@
       },
       "5": {
         "name": "Roots of Corruption Demo Decks",
-        "tmdisplay": "ROC Demo",
+        "tmdisplay": "Demo",
         "description": "Play with demo decks from the set Roots of Corruption."
       }
     }
