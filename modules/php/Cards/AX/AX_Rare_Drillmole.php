@@ -40,7 +40,6 @@ class AX_Rare_Drillmole extends \ALT\Models\Card
                     'targetType' => TYPES,
                     'upTo' => true,
                     'effect' => FT::ACTION(SPEND, [
-                        'cardId' => EFFECT,
                         'effect' => FT::ACTION(TARGET, [
                             'targetType' => [CHARACTER, SPELL, PERMANENT],
                             'targetLocation' => [RESERVE],

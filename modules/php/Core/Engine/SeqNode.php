@@ -93,7 +93,7 @@ class SeqNode extends AbstractNode
   public function choose($childIndex, $auto = false)
   {
     if ($childIndex != 0) {
-      throw new \BgaVisibleSystemException('SEQ Choice shouldnt happen with $childIndex different from 0');
+      throw new \Bga\GameFramework\VisibleSystemException('SEQ Choice shouldnt happen with $childIndex different from 0');
     }
     $this->infos['optional'] = false; // Mark the node as mandatory
   }

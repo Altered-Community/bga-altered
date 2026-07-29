@@ -419,18 +419,69 @@
         }
     }
 
-    .player-board-discard {
+    .player-board-discard-zone {
         width: $cardWidth + 2 * $boardMargin;
+        height: $cardHeight;
         position: absolute;
         left: 150px;
         cursor: zoom-in;
+        isolation: isolate;
 
-        .altered-card {
+        .player-board-discard {
             position: absolute;
-            filter: grayscale(80%);
-            -webkit-transform: translateZ(0);
-            -webkit-perspective: 1000;
-            -webkit-backface-visibility: hidden;
+            left: $boardMargin;
+            top: 0;
+            width: $cardWidth;
+            height: $cardHeight;
+            z-index: 1;
+
+            .altered-card,
+            .altered-card {
+                position: absolute;
+                z-index: 1;
+                filter: grayscale(80%);
+                -webkit-transform: translateZ(0);
+                -webkit-perspective: 1000;
+                -webkit-backface-visibility: hidden;
+            }
+        }
+
+        .discard-counter-holder {
+            position: absolute;
+            left: $boardMargin;
+            top: 0;
+            width: $cardWidth;
+            height: $cardHeight;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            pointer-events: none;
+            transform: translateZ(2px);
+            -webkit-transform: translateZ(2px);
+
+            .deck-counter {
+                position: relative;
+                z-index: 50;
+                flex: 0 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                font-family: "Haptic Pro";
+                color: black;
+                background: #ffffffa0;
+                font-size: 26px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                box-shadow: 0px 0px 13px white;
+                text-align: center;
+                line-height: 1;
+                text-shadow: 0px 0px 3px white;
+                user-select: none;
+            }
         }
     }
 
@@ -807,7 +858,7 @@
     .player-board-deck {
         top: 136px;
     }
-    .player-board-discard {
+    .player-board-discard-zone {
         top: 131px;
     }
 
@@ -897,7 +948,7 @@
     .player-board-deck {
         top: 211px;
     }
-    .player-board-discard {
+    .player-board-discard-zone {
         top: 216px;
     }
 

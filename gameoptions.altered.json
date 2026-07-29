@@ -1,0 +1,68 @@
+{
+  "150": {
+    "name": "Game mode",
+    "default": 0,
+    "values": {
+      "1": {
+        "name": "Beginner - Starter Decks",
+        "tmdisplay": "Beginner mode",
+        "description": "Game can be played only with starter decks"
+      },
+      "0": {
+        "name": "Normal - Custom Decks & Starter Decks",
+        "description": "Custom & starter decks can be used"
+      }
+    }
+  },
+  "151": {
+    "name": "Allow undo",
+    "values": {
+      "0": {
+        "name": "Disabled",
+        "tmdisplay": "no undo",
+        "description": "Undo is disabled for everyone"
+      },
+      "1": {
+        "name": "Enabled",
+        "description": "Undo can be disabled as a player preference"
+      }
+    }
+  },
+  "155": {
+    "name": "Deck format",
+    "level": "major",
+    "default": 0,
+    "values": {
+      "0": {
+        "name": "Frontier",
+        "tmdisplay": "Frontier",
+        "description": "40-60 cards, standard rules with a limited pool of 30k uniques that will change next season."
+      },
+      "4": {
+        "name": "Standard No Unique",
+        "tmdisplay": "Standard No Unique",
+        "description": "40-60 cards, standard rules without unique."
+      },
+      "1": {
+        "name": "Standard All Uniques",
+        "tmdisplay": "Standard All Uniques",
+        "description": "40-60 cards, standard rules, all uniques unlocked. Disclaimer: this is a temporary format. Tournaments using it will switch to another format once it's removed."
+      },
+      "2": {
+        "name": "Singleton No Unique",
+        "tmdisplay": "Singleton No Unique",
+        "description": "60-80 cards, Singleton rules without unique."
+      },
+      "3": {
+        "name": "Sandbox",
+        "tmdisplay": "Sandbox",
+        "description": "4-100 cards, all cards available, no faction or rarity restrictions."
+      },
+      "5": {
+        "name": "Roots of Corruption Demo Decks",
+        "tmdisplay": "Demo",
+        "description": "Play with demo decks from the set Roots of Corruption."
+      }
+    }
+  }
+}

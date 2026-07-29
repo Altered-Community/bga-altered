@@ -57,7 +57,7 @@ class MoveRegionMarker extends \ALT\Models\Action
   {
     $args = $this->argsMoveRegionMarker();
     if (!isset($args['markers'][$markerId])) {
-      throw new \BgaVisibleSystemException('Invalid terrain marker. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('Invalid terrain marker. Should not happen');
     }
 
     // move the marker

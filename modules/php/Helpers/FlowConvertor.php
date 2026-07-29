@@ -364,7 +364,7 @@ abstract class FlowConvertor
         'condition' => ['isCardPlayed:permanent', 'cardPlayedCostCheck:4'],
       ],
       781 => [
-        'description' => clienttranslate('When you <RESUPPLY_YOU> —'),
+        'description' => clienttranslate('When you <RESUPPLY_LOW> —'),
         'trigger' => 'Resupply',
         'condition' => ['isMe'],
       ],
@@ -373,6 +373,44 @@ abstract class FlowConvertor
         'trigger' => 'EndTurn',
         'condition' => ['isMe'],
       ],
+      // EOLE triggers
+      797 => [
+        'description' => clienttranslate('When a {D} ability is activated on your turn —'),
+        'trigger' => 'ChooseAssignment',
+        'condition' => ['isMe', 'isMyTurn', 'isSupportEffect'],
+      ],
+      798 => [
+        'description' => clienttranslate('When you discard a card from your hand —'),
+        'trigger' => 'Discard',
+        'condition' => ['isMe', 'isDiscarded:hand:discard', 'excludeSelf'],
+      ],
+      801 => [
+        'description' => clienttranslate('When an Animal other than me joins your Expeditions —'),
+        'trigger' => ['ChooseAssignment', 'InvokeToken', 'MoveCard'],
+        'condition' => ['isCardAddedAnyPlayer:animal:::true', 'isStillSameLocation', 'hasSameOwner', 'excludeSelf'],
+      ],
+      804 => [
+        'description' => clienttranslate('When you put a card from your hand in Reserve —'),
+        'trigger' => 'Discard',
+        'condition' => ['isMe', 'isDiscarded:hand:reserve'],
+      ],
+      805 => [
+        'description' => clienttranslate('When I leave an <ASCENDED_S> Expedition —'),
+        'trigger' => 'LeaveExpedition',
+        'condition' => ['isCardExpeditionAscended'],
+        'pId' => CONTROLLER,
+      ],
+      808 => [
+        'description' => clienttranslate('When my Expedition moves forward <DUE_TO_ASCENSION> —'),
+        'trigger' => ['AfterDusk', 'MoveExpedition'],
+        'condition' => ['movesStormDueToAscension'],
+      ],
+      810 => [
+        'description' => clienttranslate('When one or more of your <ASCENDED_P> Expeditions moves forward —'),
+        'trigger' => ['AfterDusk', 'MoveExpedition'],
+        'condition' => ['movesAscendedAnyExpeditions'],
+      ],
+      937 => ['description' => clienttranslate('{R}'), 'trigger' => '', 'type' => 'effectReserve'],
     ];
   }
 
@@ -855,7 +893,7 @@ abstract class FlowConvertor
       665 => ['description' => clienttranslate('If you are not first player:'), 'condition' => 'isNotFirstPlayer'],
       664 => [
         'description' => clienttranslate('If you control a Character in each of your Expeditions:'),
-        'condition' => 'controlInAllExpeditions:character',
+        'condition' => 'controlInAllExpeditions:character:true',
       ],
       662 => [
         'description' => clienttranslate('If you have less cards in hand than target opponent:'),
@@ -1176,7 +1214,209 @@ abstract class FlowConvertor
           ),
         )
       ],
-
+// EOLE conditions
+      882 => [
+        'description' => clienttranslate('Do this once for each card with my name in your discard pile:'),
+        'condition' => 'hasCardInDiscardPileSourceName',
+        'effect' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'doEachCardInDiscardPileSourceName',
+          'args' => ['effect' => 'OUTPUT'],
+        ]),
+      ],
+      883 => [
+        'description' => clienttranslate('If my Expedition is ahead:'),
+        'condition' => 'myExpeditionIsAhead',
+      ],
+      884 => [
+        'description' => clienttranslate('If there are six or more cards in your discard pile:'),
+        'condition' => 'hasDiscardPileCards:6',
+      ],
+      885 => [
+        'description' => clienttranslate('If a card other than me in your Expeditions or your Reserve has a {D} ability:'),
+        'condition' => 'hasOtherSupportCardInReserveOrExpeditions',
+      ],
+      887 => [
+        'description' => clienttranslate('If there\'s an Animal other than me in your Expeditions or your Reserve:'),
+        'condition' => 'hasOtherAnimalInReserveOrExpeditions',
+      ],
+      888 => [
+        'description' => clienttranslate('If you control a <COMPLETED_LOW> Feat:'),
+        'condition' => 'hasCompletedFeat',
+      ],
+      889 => [
+        'description' => clienttranslate('If you control a Feat:'),
+        'condition' => 'hasControlFeat:1',
+      ],
+      890 => [
+        'description' => clienttranslate('If a {D} ability was activated this turn:'),
+        'condition' => 'checkAbilityActivatedThisTurn:discard',
+      ],
+      891 => [
+        'description' => clienttranslate('If a {T} ability was activated this turn:'),
+        'condition' => 'checkAbilityActivatedThisTurn:tap',
+      ],
+      892 => [
+        'description' => clienttranslate('If there\'s at most one card in your hand:'),
+        'condition' => 'hasXCardsInHand:1:LTE',
+      ],
+      893 => [
+        'description' => clienttranslate('If no {D} abilities were activated this turn:'),
+        'condition' => 'checkAbilityActivatedThisTurnTypeCount:discard:0:LTE',
+      ],
+      894 => [
+        'description' => clienttranslate('Unless an opponent controls an Animal:'),
+        'condition' => 'hasOpponentControl:animal:0:false:all:LTE',
+      ],
+      895 => [
+        'description' => clienttranslate('Unless there\'s a Character other than me in each of your Expeditions:'),
+        'condition' => 'hasOtherCharacterInAllExpeditions:LTE',
+      ],
+      896 => [
+        'description' => clienttranslate('Unless I\'m in {V}:'),
+        'condition' => 'isNotInBiome:forest',
+      ],
+      897 => [
+        'description' => clienttranslate('Unless I\'m in an <ASCENDED_S> Expedition:'),
+        'condition' => 'isNotCardExpeditionAscended',
+      ],
+      898 => [
+        'description' => clienttranslate('If none of your Expeditions are <ASCENDED_S>:'),
+        'condition' => 'hasNoSourcePlayerAscended',
+      ],
+      899 => [
+        'description' => clienttranslate('If there are two or more cards in your hand:'),
+        'condition' => 'hasXCardsInHand:2:GTE',
+      ],
+      901 => [
+        'description' => clienttranslate('If you control no Permanents:'),
+        'condition' => 'hasControl:permanent:0:false:all:LTE',
+      ],
+      902 => [
+        'description' => clienttranslate('If you control no Feats:'),
+        'condition' => 'hasControlFeat:0:false:all:LTE',
+      ],
+      903 => [
+        'description' => clienttranslate('Unless you discarded a card from your hand or your Reserve this turn:'),
+        'condition' => 'checkAbilityActivatedThisTurnTypeCount:discard:0:LTE',
+      ],
+      904 => [
+        'description' => clienttranslate('Unless you discarded a card from your hand this turn:'),
+        'condition' => 'checkAbilityActivatedThisTurnTypeCount:discard:0:LTE',
+      ],
+      905 => [
+        'description' => clienttranslate('If there are at most five cards in your discard pile:'),
+        'condition' => 'hasDiscardPileCards:5:LTE',
+      ],
+      906 => [
+        'description' => clienttranslate('If there are one or more cards in your hand:'),
+        'condition' => 'hasCardsInHand',
+      ],
+      907 => [
+        'description' => clienttranslate('You may discard a card from your hand or sacrifice a Character. If you do:'),
+        'effect' => FT::XOR_OPTIONAL(
+          FT::ACTION(TARGET, [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT'),
+          ]),
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetType' => [CHARACTER, TOKEN],
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, ['desc' => 'sacrifice']), 'OUTPUT'),
+          ])
+        ),
+        'ifYouDo' => true,
+      ],
+      908 => [
+        'description' => clienttranslate('You may discard a card from your hand. If you do:'),
+        'effect' => FT::ACTION(
+          TARGET,
+          [
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'upTo' => true,
+            'effect' => FT::SEQ(FT::ACTION(DISCARD, []), 'OUTPUT'),
+          ],
+          ['optional' => true]
+        ),
+        'ifYouDo' => true,
+      ],
+      910 => [
+        'description' => clienttranslate('You may spend 1 boost from a Character you control. If you do:'),
+        'effect' => FT::ACTION(TARGET, [
+          'targetLocation' => CONTROLLED_RESERVE,
+          'targetPlayer' => ME,
+          'targetType' => [CHARACTER, TOKEN],
+          'augmentOnly' => true,
+          'upTo' => true,
+          'effect' => FT::ACTION(SPEND, ['effect' => 'OUTPUT']),
+        ]),
+        'ifYouDo' => true,
+      ],
+      911 => [
+        'description' => clienttranslate('You may target a Character other than me with {V} less than or equal to mine. If you do:'),
+        'effect' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => STORMS,
+          'excludeSelf' => true,
+          'upTo' => true,
+          'effect' => FT::ACTION(CHECK_CONDITION, [
+            'condition' => 'isTargetForestLessOrEqualToSource',
+            'effect' => 'OUTPUT',
+            'oppositeEffect' => 'OPPOSITE',
+          ]),
+        ]),
+        'ifYouDo' => true,
+      ],
+      912 => [
+        'description' => clienttranslate('You may target a Character other than me with {V} less than or equal to mine. If you do:'),
+        'effect' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => STORMS,
+          'excludeSelf' => true,
+          'upTo' => true,
+          'effect' => FT::ACTION(CHECK_CONDITION, [
+            'condition' => 'isTargetForestLessOrEqualToSource',
+            'effect' => 'OUTPUT',
+            'oppositeEffect' => 'OPPOSITE',
+          ]),
+        ]),
+        'ifYouDo' => true,
+      ],
+      913 => [
+        'description' => clienttranslate('You may target a Character other than me with {V} less than or equal to mine. If you do:'),
+        'effect' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => STORMS,
+          'excludeSelf' => true,
+          'upTo' => true,
+          'effect' => FT::ACTION(CHECK_CONDITION, [
+            'condition' => 'isTargetForestLessOrEqualToSource',
+            'effect' => 'OUTPUT',
+            'oppositeEffect' => 'OPPOSITE',
+          ]),
+        ]),
+        'ifYouDo' => true,
+      ],
+      941 => [
+        'description' => clienttranslate('If there\'s a card with no {D} ability in your Reserve:'),
+        'condition' => 'hasAtLeastOneCardWithNoSupportInReserve',
+      ],
+      942 => [
+        'description' => clienttranslate('Roll a die. On a 1-3:'),
+        'effect' => FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1-3' => 'OUTPUT',
+            '4+' => 'OPPOSITE',
+          ],
+        ]),
+      ],
+      943 => [
+        'description' => clienttranslate('Unless you control a [BOOSTED] Character other than me:'),
+        'condition' => 'hasControl:character:0:true:boosted:LTE',
+      ],  
     ];
   }
 
@@ -1576,7 +1816,7 @@ abstract class FlowConvertor
         ]),
       ],
       100 => [
-        'description' => clienttranslate('Target Character gains [ANCHORED].'),
+        'description' => clienttranslate('Target Character gains <ANCHORED>.'),
         'output' => FT::ACTION(TARGET, ['effect' => FT::GAIN(EFFECT, ANCHORED)]),
       ],
       101 => [
@@ -3687,10 +3927,12 @@ abstract class FlowConvertor
         'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXBoostedChar']),
       ],
       537 => [
+        // 206754: resupply the opponent directly (same as outputs 724/726) rather than
+        // wrapping in TARGET_PLAYER. TARGET_PLAYER > RESUPPLY breaks on leave-style triggers
+        // (11/12) where the source card is the event card, because Resupply::getPlayer()'s
+        // event-pId fallback then overrides the target and the controller resupplies instead.
         'description' => clienttranslate('Target opponent <RESUPPLIES>.'),
-        'output' => FT::ACTION(TARGET_PLAYER, [
-          'effect' => FT::ACTION(RESUPPLY, []),
-        ]),
+        'output' => FT::ACTION(RESUPPLY, ['player' => 'nextPlayer']),
       ],
       539 => [
         'description' => clienttranslate('I gain 1 boost per Character target opponent controls.'),
@@ -4609,7 +4851,10 @@ abstract class FlowConvertor
       ],
       726 => [
         'description' => clienttranslate('Target player <EXHAUSTED_RESUPPLIES>.'),
-        'output' => FT::ACTION(RESUPPLY, ['player' => 'nextPlayer', 'exhausted' => true])
+        'output' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => false,
+          'effect' => FT::ACTION(RESUPPLY, ['exhausted' => true]),
+        ]),
       ],
       728 => [
         'description' => clienttranslate('Pay {1} less for the next card you play this turn, down to a minimum of {1}.'),
@@ -5185,7 +5430,730 @@ abstract class FlowConvertor
       103 => [
         'description' => clienttranslate('You may discard any number of cards from your Reserve to draw that many cards.'),
         'output' => FT::ACTION(DISCARD_DO, ['effect' => FT::ACTION(DRAW, ['players' => ME, 'n' => 'X'])])
-      ]
+      ],
+       // EOLE outputs
+       796 => [
+        'description' => clienttranslate('<SABOTAGE> any number of Characters with total {V} less than or equal to my {V} stat.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => STORMS,
+          'n' => INFTY,
+          'upTo' => true,
+          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      799 => [
+        'description' => clienttranslate('I am <GIGANTIC>.  When you discard a card from your hand or your Reserve — I gain 1 boost.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicGigantic' => '1'],
+        'passive' => [
+          'Discard' => [
+            'childs' => [
+              [
+                'conditions' => ['isDiscardByOwner', 'isDiscarded:hand:discard'],
+                'output' => FT::GAIN(ME, BOOST),
+              ],
+              [
+                'conditions' => ['isDiscardByOwner', 'isDiscarded:reserve:discard'],
+                'output' => FT::GAIN(ME, BOOST),
+              ],
+            ],
+          ],
+        ],
+      ],
+      811 => [
+        'description' => clienttranslate('<RESUPPLY>. If you put a Character in Reserve this way, it gains 1 boost.'),
+        'output' => FT::ACTION(RESUPPLY, ['boostIfMatchCondition' => '1:isType:character']),
+      ],
+      812 => [
+        'description' => clienttranslate('Reveal the top card of your deck. If it\'s a Character, draw it; if not, <RESUPPLY_LOW> it.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'revealTop']),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'drawRevealed', 'args' => ['type' => CHARACTER, 'reserveIfNotType' => true]])
+        ),
+      ],
+      813 => [
+        'description' => clienttranslate('<SABOTAGE_LOW>, otherwise <SABOTAGE_LOW> a card with Reserve Cost {2} or less.'),
+        'output' => FT::SABOTAGE(),
+        'oppositeOutput' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'maxReserveCost' => 2,
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      814 => [
+        'description' => clienttranslate('<SABOTAGE> a Character with {V} less than or equal to mine.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      815 => [
+        'description' => clienttranslate('<SABOTAGE> a Character with {V} less than or equal to mine.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => [RESERVE],
+          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      816 => [
+        'description' => clienttranslate('<SABOTAGE>. If you discarded a card this way, create an <ORDIS_RECRUIT> Soldier token in target Expedition controlled by an opponent.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => CONTROLLER,
+              'tokenType' => 'OD_Common_OrdisRecruit',
+              'targetPlayer' => OPPONENT,
+              'targetLocation' => STORMS,
+            ])
+          ),
+        ]),
+      ],
+      817 => [
+        'description' => clienttranslate('<SABOTAGE>. If you discarded a card this way, create a <WOOLLYBACK> Animal token in target Expedition controlled by an opponent.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, [
+              'pId' => CONTROLLER,
+              'tokenType' => 'MU_Common_Woollyback',
+              'targetPlayer' => OPPONENT,
+              'targetLocation' => STORMS,
+            ])
+          ),
+        ]),
+      ],
+      818 => [
+        'description' => clienttranslate('I am <TOUGH_1>.  When any player passes — You may play a card.'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicTough' => '1'],
+        'passive' => [
+          'EndTurn' => [
+            'output' => FT::ACTION(CHOOSE_ASSIGNMENT, ['actions' => ['play']], ['optional' => true]),
+          ],
+        ],
+      ],
+      819 => [
+        'description' => clienttranslate('Create a <MANA_MOTH> Illusion token in target Expedition, otherwise I gain 1 boost.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => CONTROLLER,
+          'tokenType' => 'YZ_Common_ManaMoth',
+          'targetLocation' => STORMS,
+        ]),
+        'oppositeOutput' => FT::GAIN(ME, BOOST),
+      ],
+      820 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in my Expedition.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => CONTROLLER,
+          'tokenType' => 'MU_Common_Woollyback',
+          'targetLocation' => ['source'],
+        ]),
+      ],
+      821 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target Expedition, it gains <ANCHORED>.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextTokenAnchored']),
+          FT::ACTION(INVOKE_TOKEN, [
+            'targetPlayer' => OPPONENT,
+            'targetLocation' => ['source'],
+            'tokenType' => 'MU_Common_Woollyback',
+          ]),
+        ),
+      ],
+      822 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in the Expedition facing me.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'targetPlayer' => OPPONENT,
+          'targetLocation' => ['source'],
+          'tokenType' => 'MU_Common_Woollyback',
+        ]),
+      ],
+      823 => [
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in each of your <ASCENDED_P> Expeditions.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'invokeRecruitOnAscendedExpeditions']),
+      ],
+      824 => [
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in my Expedition.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => CONTROLLER,
+          'tokenType' => 'OD_Common_OrdisRecruit',
+          'targetLocation' => ['source'],
+        ]),
+      ],
+      825 => [
+        'description' => clienttranslate('Create an <ORDIS_RECRUIT> Soldier token in target Expedition I\'m not in.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => CONTROLLER,
+          'tokenType' => 'OD_Common_OrdisRecruit',
+          'targetLocation' => ['oppositeSource'],
+        ]),
+      ],
+      826 => [
+        'description' => clienttranslate('Discard a card from your hand.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      827 => [
+        'description' => clienttranslate('Discard it.'),
+        'output' => FT::ACTION(DISCARD, ['cardId' => EFFECT]),
+      ],
+      828 => [
+        'description' => clienttranslate('Discard two cards from your hand.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'n' => 2,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      830 => [
+        'description' => clienttranslate('Draw one card per <COMPLETED_LOW> Feat you control.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'drawXCompletedFeat']),
+      ],
+      831 => [
+        'description' => clienttranslate('Draw a card, otherwise create an <AEROLITH> token in your Landmarks.'),
+        'output' => FT::ACTION(DRAW, ['players' => ME]),
+        'oppositeOutput' => [
+          'action' => INVOKE_TOKEN,
+          'automatic' => true,
+          'args' => ['tokenType' => 'NE_Common_Aerolith', 'targetLocation' => [LANDMARK]],
+        ],
+      ],
+      832 => [
+        'description' => clienttranslate('Draw a card, then discard a card from your hand.'),
+        'output' => FT::SEQ(
+          FT::ACTION(DRAW, ['players' => ME]),
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'effect' => FT::ACTION(DISCARD, []),
+          ])
+        ),
+      ],
+      833 => [
+        'description' => clienttranslate('Draw three cards, then discard a card from your hand.'),
+        'output' => FT::SEQ(
+          FT::ACTION(DRAW, ['players' => ME, 'n' => 3]),
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'effect' => FT::ACTION(DISCARD, []),
+          ])
+        ),
+      ],
+      835 => [
+        'description' => clienttranslate('Draw two cards, then discard a card from your hand.'),
+        'output' => FT::SEQ(
+          FT::ACTION(DRAW, ['players' => ME, 'n' => 2]),
+          FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetLocation' => [HAND],
+            'targetType' => [CHARACTER, SPELL, PERMANENT],
+            'effect' => FT::ACTION(DISCARD, []),
+          ])
+        ),
+      ],
+      836 => [
+        'description' => clienttranslate('Draw two cards.'),
+        'output' => FT::ACTION(DRAW, ['players' => ME, 'n' => 2]),
+      ],
+      837 => [
+        'description' => clienttranslate('Each of your Expeditions <ASCENDS>.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => STORM_LEFT]),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => STORM_RIGHT])
+        ),
+      ],
+      838 => [
+        'description' => clienttranslate('Each player discards their Reserve, then <RESUPPLIES>.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardAllReserve']),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'eachPlayerResupply'])
+        ),
+      ],
+      839 => [
+        'description' => clienttranslate('Exchange its boosts with target Character in play or in Reserve.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
+          'excludeSelf' => true,
+          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'swapBoostsWithSource']),
+        ]),
+      ],
+      840 => [
+        'description' => clienttranslate('You may have me activate my {D} ability.'),
+        'output' => FT::ACTION(ACTIVATE_EFFECT, ['effectType' => 'Support', 'ownEffect' => true], ['optional' => true]),
+      ],
+      841 => [
+        'description' => clienttranslate('Each of your Expeditions <ASCENDS>, otherwise my Expedition <ASCENDS>.'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => STORM_LEFT]),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => STORM_RIGHT])
+        ),
+        'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'source']),
+      ],
+      843 => [
+        'description' => clienttranslate('I gain 1 boost per <ASCENDED_S> Expedition you control.'),
+        'output' => FT::ACTION(CHECK_CONDITION, [
+          'condition' => 'hasSourcePlayerAllAscended',
+          'effect' => FT::GAIN(ME, BOOST, 2),
+          'oppositeEffect' => FT::ACTION(CHECK_CONDITION, [
+            'condition' => 'hasSourcePlayerAscended',
+            'effect' => FT::GAIN(ME, BOOST),
+          ]),
+        ]),
+      ],
+      844 => [
+        'description' => clienttranslate('I gain 1 boost per Animal other than me in your Expeditions.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXAnimalsInExpeditions']),
+      ],
+      845 => [
+        'description' => clienttranslate('I gain 1 boost per Feat in your Landmarks.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXLandmark']),
+      ],
+      846 => [
+        'description' => clienttranslate('I gain 1 boost, otherwise discard the top card of your deck.'),
+        'output' => FT::GAIN(ME, BOOST),
+        'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardTopDeck', 'args' => ['n' => 1]]),
+      ],
+      847 => [
+        'description' => clienttranslate('I gain 1 boost, otherwise discard the top two cards of your deck.'),
+        'output' => FT::GAIN(ME, BOOST),
+        'oppositeOutput' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'discardTopDeck', 'args' => ['n' => 2]]),
+      ],
+      848 => [
+        'description' => clienttranslate('I gain 1 boost.'),
+        'output' => FT::GAIN(ME, BOOST),
+      ],
+      849 => [
+        'description' => clienttranslate('It activates one of its {j} abilities.'),
+        'output' => FT::ACTION(ACTIVATE_EFFECT, ['cardId' => EFFECT, 'n' => 1]),
+      ],
+      850 => [
+        'description' => clienttranslate('It gains <ANCHORED>.'),
+        'output' => FT::GAIN(EFFECT, ANCHORED),
+      ],
+      851 => [
+        'description' => clienttranslate('It gains [ASLEEP].'),
+        'output' => FT::GAIN(EFFECT, ASLEEP),
+      ],
+      852 => [
+        'description' => clienttranslate('It gains [FLEETING], <ANCHORED> or [ASLEEP].'),
+        'output' => FT::XOR(
+          FT::GAIN(EFFECT, FLEETING),
+          FT::GAIN(EFFECT, ANCHORED),
+          FT::GAIN(EFFECT, ASLEEP)
+        ),
+      ],
+      853 => [
+        'description' => clienttranslate('It gains 2 boosts.'),
+        'output' => FT::GAIN(EFFECT, BOOST, 2),
+      ],
+      854 => [
+        'description' => clienttranslate('It gains 1 boost and loses [FLEETING].'),
+        'output' => FT::SEQ(FT::GAIN(EFFECT, BOOST), FT::LOOSE(EFFECT, FLEETING)),
+      ],
+      855 => [
+        'description' => clienttranslate('It switches Expeditions.'),
+        'output' => FT::ACTION(MOVE_CARD, ['cardId' => EFFECT]),
+      ],
+      856 => [
+        'description' => clienttranslate('You play Permanents for {1} less, down to a minimum of {1}.'),
+        'attributes' => ['reduceCostType' => [PERMANENT => ['minBaseCost' => 0, 'reduction' => 1, 'minimum' => 1]]],
+      ],
+      857 => [
+        'description' => clienttranslate('Pay {1} less for the next Permanent you play this Afternoon, down to a minimum of {1}.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'costReduction',
+          'args' => ['type' => PERMANENT, 'reduction' => 1, 'minimum' => 1, 'permanent' => true],
+        ]),
+      ],
+      858 => [
+        'description' => clienttranslate('Pay {1} less for the next Feat you play this turn, down to a minimum of {1}.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'costReduction',
+          'args' => ['type' => FEAT, 'reduction' => 1, 'minimum' => 1, 'permanent' => false],
+        ]),
+      ],
+      859 => [
+        'description' => clienttranslate('Put it into its owner\'s Mana zone (as an exhausted Mana Orb).'),
+        'output' => FT::ACTION(DISCARD, ['cardId' => EFFECT, 'destination' => MANA, 'tapped' => true, 'force' => true]),
+      ],
+      860 => [
+        'description' => clienttranslate('Ready a Mana Orb.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [MANA],
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'isTapped' => true,
+          'effect' => FT::ACTION(READY, ['cardId' => EFFECT]),
+        ]),
+      ],
+      862 => [
+        'description' => clienttranslate('Roll a die. Then, you may send to Reserve target Character with Base Cost {X} or less, where X is the result.'),
+        'output' => FT::ACTION(ROLL_DIE, [
+          'effect' => [
+            '1' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'maxBaseCost' => 1, 'effect' => FT::DISCARD_TO_RESERVE()]),
+            '2' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'maxBaseCost' => 2, 'effect' => FT::DISCARD_TO_RESERVE()]),
+            '3' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'maxBaseCost' => 3, 'effect' => FT::DISCARD_TO_RESERVE()]),
+            '4' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'maxBaseCost' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),
+            '5' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'maxBaseCost' => 5, 'effect' => FT::DISCARD_TO_RESERVE()]),
+            '6' => FT::ACTION(TARGET, ['targetType' => [CHARACTER, TOKEN], 'upTo' => true, 'maxBaseCost' => 6, 'effect' => FT::DISCARD_TO_RESERVE()]),
+          ],
+        ]),
+      ],
+      863 => [
+        'description' => clienttranslate('Send it to Reserve.'),
+        'output' => FT::DISCARD_TO_RESERVE(),
+      ],
+      865 => [
+        'description' => clienttranslate('The next Character you play this turn gains <ANCHORED>.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterAnchored']),
+      ],
+      866 => [
+        'description' => clienttranslate('The next Character you play this turn gains 1 boost and you may have it gain [ASLEEP].'),
+        'output' => FT::SEQ(
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterGains1Boost']),
+          FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextCharacterAsleep', 'optional' => true]),
+        ),
+      ],
+      867 => [
+        'description' => clienttranslate('We both gain 1 boost.'),
+        'output' => FT::SEQ(FT::GAIN(ME, BOOST), FT::GAIN(EFFECT, BOOST)),
+      ],
+      868 => [
+        'description' => clienttranslate('You may discard a card from your hand to discard target card in play with equal or lower Hand Cost.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'upTo' => true,
+          'effect' => FT::ACTION(TARGET, [
+            'targetLocation' => STORMS,
+            'effect' => FT::ACTION(DISCARD, []),
+          ]),
+        ]),
+      ],
+      869 => [
+        'description' => clienttranslate('You may discard target Character with Base Cost {1} or less.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'maxBaseCost' => 1,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      870 => [
+        'description' => clienttranslate('You may discard target Character with Base Cost {2} or less. If you do, create an <ORDIS_RECRUIT> Soldier token in its Expedition.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'maxBaseCost' => 2,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, ['pId' => CONTROLLER, 'tokenType' => 'OD_Common_OrdisRecruit', 'targetLocation' => ['discardedSource']])
+          ),
+        ]),
+      ],
+      871 => [
+        'description' => clienttranslate('You may discard target Character with Base Cost {2} or less. If you do, create a <WOOLLYBACK> Animal token in its Expedition.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'maxBaseCost' => 2,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(INVOKE_TOKEN, ['pId' => CONTROLLER, 'tokenType' => 'MU_Common_Woollyback', 'targetLocation' => ['discardedSource']])
+          ),
+        ]),
+      ],
+      872 => [
+        'description' => clienttranslate('You may discard target non-Companion token.'),
+        'output' => FT::ACTION(TARGET, [
+          'onlyToken' => true,
+          'targetType' => [CHARACTER, PERMANENT],
+          'targetLocation' => [STORM_LEFT, STORM_RIGHT, LANDMARK],
+          'notSubTypes' => [COMPANION],
+          'upTo' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      873 => [
+        'description' => clienttranslate('You may return target Character facing me with Base Cost {2} or less to its owner\'s hand.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => ['opponentSource'],
+          'upTo' => true,
+          'maxBaseCost' => 2,
+          'effect' => FT::RETURN_TO_HAND(),
+        ]),
+      ],
+      874 => [
+        'description' => clienttranslate('You may return target Character facing me with Base Cost {3} or less to its owner\'s hand.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => ['opponentSource'],
+          'upTo' => true,
+          'maxBaseCost' => 3,
+          'effect' => FT::RETURN_TO_HAND(),
+        ]),
+      ],
+      875 => [
+        'description' => clienttranslate('You may send to Reserve target Character with Base Cost {1} or less.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'maxBaseCost' => 1,
+          'effect' => FT::DISCARD_TO_RESERVE(),
+        ]),
+      ],
+      876 => [
+        'description' => clienttranslate('You may send to Reserve target Character with Base Cost {2} or less.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'upTo' => true,
+          'maxBaseCost' => 2,
+          'effect' => FT::DISCARD_TO_RESERVE(),
+        ]),
+      ],
+      877 => [
+        'description' => clienttranslate('You may target a Character in play or in Reserve with a {D} ability, it gains 2 boosts.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
+          'upTo' => true,
+          'hasEffects' => ['Support'],
+          'effect' => FT::GAIN(EFFECT, BOOST, 2),
+        ]),
+      ],
+      878 => [
+        'description' => clienttranslate('You may target a Character in Reserve, it gains 2 boosts.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => [RESERVE],
+          'upTo' => true,
+          'effect' => FT::GAIN(EFFECT, BOOST, 2),
+        ]),
+      ],
+      880 => [
+        'description' => clienttranslate('You may target a Character with Base Cost {3} or less other than me, it activates one of its {j} abilities.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'excludeSelf' => true,
+          'upTo' => true,
+          'maxBaseCost' => 3,
+          'effect' => FT::ACTION(ACTIVATE_EFFECT, ['cardId' => EFFECT, 'n' => 1]),
+        ]),
+      ],
+      881 => [
+        'description' => clienttranslate('You may target a Feat you control, it activates its {j} abilities.'),
+        'output' =>  FT::ACTION(TARGET, [
+          'targetType' => [PERMANENT],
+          'targetPlayer' => ME,
+          'subType' => FEAT,
+          'upTo' => true,
+          'hasEffects' => ['Played'],
+          'effect' => FT::ACTION(ACTIVATE_EFFECT, []),
+        ]),
+      ],
+      916 => [
+        'description' => clienttranslate('Characters facing me are [SEASONED_CHA_P].'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicSeasoned' => 'oppositeSourceCharacter'],
+      ],
+      918 => [
+        'description' => clienttranslate('Characters you control lose their boosts.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetType' => [CHARACTER, TOKEN],
+          'n' => INFTY,
+          'effect' => FT::ACTION(SPEND, ['n' => INFTY]),
+        ]),
+      ],
+      919 => [
+        'description' => clienttranslate('Characters you control other than me can\'t gain boosts.'),
+        'noTrigger' => true,
+        'attributes' => ['cantGainBoost' => 'character:excludeSelf'],
+      ],
+      920 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in each of your Expeditions.'),
+        'output' => FT::SEQ(
+          FT::ACTION(INVOKE_TOKEN, ['pId' => CONTROLLER, 'tokenType' => 'MU_Common_Woollyback', 'targetLocation' => [STORM_LEFT]]),
+          FT::ACTION(INVOKE_TOKEN, ['pId' => CONTROLLER, 'tokenType' => 'MU_Common_Woollyback', 'targetLocation' => [STORM_RIGHT]])
+        ),
+      ],
+      921 => [
+        'description' => clienttranslate('Discard a card from your Reserve.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [RESERVE],
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      922 => [
+        'description' => clienttranslate('Discard all cards from your Reserve other than me.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [RESERVE],
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'n' => INFTY,
+          'excludeSelf' => true,
+          'effect' => FT::ACTION(DISCARD, []),
+        ]),
+      ],
+      923 => [
+        'description' => clienttranslate('Each Character you control gains [FLEETING].'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetType' => [CHARACTER, TOKEN],
+          'n' => INFTY,
+          'effect' => FT::GAIN(EFFECT, FLEETING),
+        ]),
+      ],
+      924 => [
+        'description' => clienttranslate('Exhaust one of your Mana Orbs.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [MANA],
+          'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+          'isNotTapped' => true,
+          'effect' => FT::ACTION(EXHAUST, ['cardId' => EFFECT]),
+        ]),
+      ],
+      925 => [
+        'description' => clienttranslate('Put a card from your hand in Reserve.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'effect' => FT::DISCARD_TO_RESERVE(),
+        ]),
+      ],
+      926 => [
+        'description' => clienttranslate('Put a card from your hand on top of your deck.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetLocation' => [HAND],
+          'targetType' => [CHARACTER, SPELL, PERMANENT],
+          'effect' => FT::ACTION(DISCARD, ['destination' => TOP_OF_DECK]),
+        ]),
+      ],
+      927 => [
+        'description' => clienttranslate('Target Character facing me gains <ANCHORED>.'),
+        'output' => FT::ACTION(TARGET, [
+          'targetType' => [CHARACTER, TOKEN],
+          'targetLocation' => ['oppositeSource'],
+          'effect' => FT::GAIN(EFFECT, ANCHORED),
+        ]),
+      ],
+      928 => [
+        'description' => clienttranslate('Target Character you control other than me gains [ASLEEP].'),
+        'output' => FT::ACTION(TARGET, [
+          'targetPlayer' => ME,
+          'targetType' => [CHARACTER, TOKEN],
+          'excludeSelf' => true,
+          'effect' => FT::GAIN(EFFECT, ASLEEP),
+        ]),
+      ],
+      929 => [
+        'description' => clienttranslate('Target opponent may have me switch Expeditions.'),
+        'output' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => true,
+          'effect' => FT::ACTION(MOVE_CARD, ['cardId' => ME], ['optional' => true, 'pId' => 'active']),
+        ]),
+      ],
+      930 => [
+        'description' => clienttranslate('Target opponent may put a card from their Reserve in their Mana zone (as an exhausted Mana Orb).'),
+        'output' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => true,
+          'effect' => FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetLocation' => [RESERVE],
+            'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+            'upTo' => true,
+            'effect' => FT::ACTION(DISCARD, ['destination' => MANA, 'tapped' => true]),
+          ], ['pId' => 'active']),
+        ]),
+      ],
+      931 => [
+        'description' => clienttranslate('Target opponent may ready a Mana Orb.'),
+        'output' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => true,
+          'effect' => FT::SEQ_OPTIONAL(FT::ACTION(READY, ['cardId' => MANA], ['pId' => 'active'])),
+        ]),
+      ],
+      932 => [
+        'description' => clienttranslate('Target opponent may return a card from their Reserve to their hand.'),
+        'output' => FT::ACTION(TARGET_PLAYER, [
+          'opponentsOnly' => true,
+          'effect' => FT::ACTION(TARGET, [
+            'targetPlayer' => ME,
+            'targetLocation' => [RESERVE],
+            'targetType' => [CHARACTER, SPELL, TOKEN, PERMANENT],
+            'upTo' => true,
+            'effect' => FT::RETURN_TO_HAND(),
+          ], ['pId' => 'active']),
+        ]),
+      ],
+      933 => [
+        'description' => clienttranslate('The Expedition facing me <ASCENDS>.'),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'ascend', 'expedition' => 'oppositeSource']),
+      ],
+      934 => [
+        'description' => clienttranslate('Characters in your other Expedition (the one I\'m not in) are [DEFENDER_CHA_P].'),
+        'noTrigger' => true,
+        'attributes' => ['dynamicDefender' => 'otherExpeditionCharacter'],
+      ],
+      936 => [
+        'description' => clienttranslate('Create an <AEROLITH> token in target opponent\'s Landmarks.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => CONTROLLER,
+          'tokenType' => 'NE_Common_Aerolith',
+          'targetPlayer' => OPPONENT,
+          'targetLocation' => [LANDMARK],
+        ]),
+      ],
+      938 => [
+        'description' => clienttranslate('Create a <WOOLLYBACK> Animal token in target Expedition.'),
+        'output' => FT::ACTION(INVOKE_TOKEN, [
+          'pId' => CONTROLLER,
+          'tokenType' => 'MU_Common_Woollyback',
+          'targetLocation' => STORMS,
+        ]),
+      ],
+      939 => [
+        'description' => clienttranslate('If my Expedition would move forward <DUE_TO_ASCENSION>, it moves forward one more region instead.'),
+        'noTrigger' => true,
+        'attributes' => ['actionInsteadAdvance' => 'PegasusCommon'],
+      ],
+      940 => [
+        'description' => clienttranslate('I gain 2 boosts.'),
+        'output' => FT::GAIN(ME, BOOST, 2),
+      ],
     ];
   }
 
@@ -5215,6 +6183,11 @@ abstract class FlowConvertor
     if (isset($calculated['noTrigger']) && $calculated['noTrigger'] === true) {
       // DynamicAttributes wll be used
       // if it exists, condition must be added at the end of the dynamic attribute
+      $unlessConditions = $calculated['conditionConditions'] ?? [];
+      $dynamicAttributeConditions = self::getDynamicAttributeConditionList($trinity, $calculated, $unlessConditions);
+      $dynamicAttributeConditionStr = !empty($dynamicAttributeConditions)
+        ? ':' . implode('|', $dynamicAttributeConditions)
+        : '';
 
       // if the no trigger is linked to infinite reserve effect
       // throw new \feException(print_r($calculated));
@@ -5244,14 +6217,14 @@ abstract class FlowConvertor
           }
           if (!isset($properties[$keyAttribute])) {
             if (is_string($attribute) || is_bool($attribute)) {
-              $properties[$keyAttribute] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
+              $properties[$keyAttribute] = $attribute . $dynamicAttributeConditionStr;
             }
           } else {
             if (!is_array($properties[$keyAttribute])) {
               $tmp = [$properties[$keyAttribute]];
             }
             if (is_string($attribute) || is_bool($attribute)) {
-              $tmp[] = $attribute . ':' . implode(':', $calculated['triggerConditions']);
+              $tmp[] = $attribute . $dynamicAttributeConditionStr;
             }
             $properties[$keyAttribute] = $tmp;
           }
@@ -5358,7 +6331,7 @@ abstract class FlowConvertor
     // throw new \feException(print_r($node));
     // output
 
-    if (in_array($trinity['condition'], [642, 643])) {
+    if (in_array($trinity['condition'] ?? null, [642, 643]) && isset($calculated['output'])) {
       $calculated['output'] = Utils::tagTree($calculated['output'], ['pId' => 'owner']);
     }
 
@@ -5460,6 +6433,8 @@ abstract class FlowConvertor
         'conditions' => ['isAfternoon', 'isFromReserve', 'isSupportEffect'],
         'output' => FT::GAIN(ME, BOOST),
       ];
+    } elseif ($trinity['trigger'] == 797 && isset($node['ChooseAssignment']) && !isset($node['Discard'])) {
+      $node['Discard'] = $node['ChooseAssignment'];
     } elseif ($trinity['trigger'] == 446) {
       // We need to add the special effect
       $node['LeaveExpedition']['output'] = FT::ACTION(SPECIAL_EFFECT, [
@@ -5473,8 +6448,11 @@ abstract class FlowConvertor
     } elseif (in_array($trinity['trigger'], [419, 253])) {
       // #170850: "Amarok and hooked token "
       // needs to manage movecard with Amarok
-      $node['MoveCard']['conditions'] = ['isCharacterFromTarget', 'isPlayedInSameLocation', 'excludeSelf'];
-      $node['MoveCard']['output'] = $node['InvokeToken']['output'];
+      $moveCardOutput = $node['InvokeToken']['output'] ?? $node['ChooseAssignment']['output'] ?? null;
+      if ($moveCardOutput !== null) {
+        $node['MoveCard']['conditions'] = ['isCharacterFromTarget', 'isPlayedInSameLocation', 'excludeSelf'];
+        $node['MoveCard']['output'] = $moveCardOutput;
+      }
     } elseif ($trinity['output'] == 568) {
       // Zaratan uniques
       $properties['gigantic'] = true;
@@ -5563,10 +6541,13 @@ abstract class FlowConvertor
           if (($properties[$key]['type'] ?? '') == NODE_PARALLEL) {
             $properties[$key]['childs'][] = $node;
           } else {
-            // we add the PAR node
+            // Merge as PARALLEL — type must be set so consumers flatten instead of nesting another PAR
             $oldNode = $properties[$key];
             unset($properties[$key]);
-            $properties[$key]['childs'] = [$oldNode, $node];
+            $properties[$key] = [
+              'type' => NODE_PARALLEL,
+              'childs' => [$oldNode, $node],
+            ];
           }
         } elseif ($key == 'effectInfinity') {
           // We need to merge everything depending on triggers or not.
@@ -5698,7 +6679,7 @@ abstract class FlowConvertor
     $trigger = self::getTriggers()[$effect] ?? null;
 
     if (is_null($trigger)) {
-      throw new \BgaVisibleSystemException('Unique trigger not implemented.' . $effect);
+      throw new \Bga\GameFramework\VisibleSystemException('Unique trigger not implemented.' . $effect);
     }
 
     $calculated['type'] = $trigger['type'] ?? 'effectPassive';
@@ -5735,7 +6716,7 @@ abstract class FlowConvertor
     $conditions = self::getConditions()[$effect] ?? null;
 
     if (is_null($conditions)) {
-      throw new \BgaVisibleSystemException('Unique conditions not implemented.' . $effect);
+      throw new \Bga\GameFramework\VisibleSystemException('Unique conditions not implemented.' . $effect);
     }
     if (isset($conditions['description'])) {
       $calculated['conditionDescription'] = $conditions['description'];
@@ -5771,7 +6752,7 @@ abstract class FlowConvertor
     $output = self::getOutput()[$effect] ?? null;
 
     if (is_null($output)) {
-      throw new \BgaVisibleSystemException('Unique conditions not implemented.' . $effect);
+      throw new \Bga\GameFramework\VisibleSystemException('Unique conditions not implemented.' . $effect);
     }
     if (isset($output['description'])) {
       $calculated['outputDescription'] = $output['description'];
@@ -5843,6 +6824,34 @@ abstract class FlowConvertor
     } else {
       $node = Utils::updateTree($node, 'OUTPUT', $effect);
     }
+  }
+
+  /**
+   * Dynamic attributes (noTrigger outputs) are checked at runtime via checkAttributeCondition,
+   * without an event context. Event-based trigger conditions must be mapped to state checks.
+   */
+  private static function getDynamicAttributeConditionList($trinity, $calculated, $unlessConditions)
+  {
+    $triggerId = $trinity['trigger'] ?? null;
+    $stateTriggerConditions = self::getStateTriggerConditionsForDynamicAttribute($triggerId);
+    if ($stateTriggerConditions !== null) {
+      return array_merge($stateTriggerConditions, $unlessConditions);
+    }
+
+    return array_merge($calculated['triggerConditions'] ?? [], $unlessConditions);
+  }
+
+  /**
+   * State-based equivalents for triggers that normally rely on ChooseAssignment event data.
+   */
+  private static function getStateTriggerConditionsForDynamicAttribute($triggerId)
+  {
+    // Another Character joined my Expedition — at least two Characters in this Expedition.
+    if (in_array($triggerId, [21, 253, 419, 517])) {
+      return ['XCharacterInExpedition:2:LTE'];
+    }
+
+    return null;
   }
 
   // public static function getTrigger($effect){

@@ -70,12 +70,16 @@ class PlayCard extends \ALT\Models\Action
     'costReduction' => 0,
     'reallyPlayed' => true,
     'stealOwnership' => false,
+    // null = infer in playCard (free + cost 0 => not a turn play); true for cost-reduction paths
+    'countsAsTurnPlay' => null,
   ];
 
   public function isDoable($player)
   {
     $card = $this->getCard();
-    return !$card->isTapped() && !empty($card->getPlayableLocation($player)) && $card->getMinManaOrbs() <= $player->getTotalMana();
+    return !$card->isExhaustedReservePlayBlocked($player)
+      && !empty($card->getPlayableLocation($player, null, $this->getArg('free')))
+      && $card->getMinManaOrbs() <= $player->getTotalMana();
   }
 
   public function argsPlayCard()
@@ -87,7 +91,7 @@ class PlayCard extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Card cannot be played. Should not happen');
     }
 
-    $locations[$cId] = $card->getPlayableLocation($player);
+    $locations[$cId] = $card->getPlayableLocation($player, null, $this->getArg('free'));
     // $type = $card->getType();
     // $subTypes = $card->getSubtypes();
     // if ($type == PERMANENT && !in_array(LANDMARK, $subTypes)) {
@@ -145,7 +149,8 @@ class PlayCard extends \ALT\Models\Action
       $this->getArg('cost'),
       $this->getArg('reallyPlayed'),
       false,
-      $this->getArg('stealOwnership')
+      $this->getArg('stealOwnership'),
+      $this->getArg('countsAsTurnPlay')
     );
   }
 }

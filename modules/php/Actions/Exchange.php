@@ -63,12 +63,27 @@ class Exchange extends \ALT\Models\Action
     ];
   }
 
+  public function isOptional($player)
+  {
+    if ($this->getCtx()->getOptional() === true) {
+      return true;
+    }
+
+    list($reserve, $hand) = $this->getTargetableCards($player);
+    return count($reserve) == 0 || count($hand) == 0;
+  }
+
   public function isDoable($player)
   {
     list($reserve, $hand) = $this->getTargetableCards($player);
-    return $this->getArg('upTo') || (count($reserve) > 0 && count($hand) > 0);
-  }
+     if ($this->getArg('upTo') || (count($reserve) > 0 && count($hand) > 0)) {
+      return true;
+    }
 
+    // Voluntary bypass: may activate exchange with no valid pair (Pass / no-op).
+    return $this->isOptional($player);
+  }
+  
   public function getTargetableCards($player, $checkTough = false)
   {
     // Who is the target ?
@@ -109,10 +124,10 @@ class Exchange extends \ALT\Models\Action
     $args = $this->argsExchange();
 
     if (!in_array($reserveId, $args['reserveIds'])) {
-      throw new \BgaVisibleSystemException('You cannot target this card. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target this card. Should not happen');
     }
     if (!in_array($handId, $args['handIds'])) {
-      throw new \BgaVisibleSystemException('You cannot target this card. Should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target this card. Should not happen');
     }
     $hand = Cards::get($handId);
     $reserve = Cards::get($reserveId);
