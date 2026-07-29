@@ -240,7 +240,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setDayPhase(false);
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
     switch ($options[OPTION_DECK_FORMAT]) {
-      case FRONTIER:
+      case OPTION_DF_FRONTIER:
         self::setDeckFormat('FRONTIER');
         break;
       case OPTION_DF_STANDARD:
