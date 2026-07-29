@@ -240,8 +240,8 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setDayPhase(false);
     // self::setDeckOptions($options[OPTION_DECKS] ?? 0);
     switch ($options[OPTION_DECK_FORMAT]) {
-      case OPTION_DF_NOUNIQUE:
-        self::setDeckFormat('NO_UNIQUE');
+      case FRONTIER:
+        self::setDeckFormat('FRONTIER');
         break;
       case OPTION_DF_STANDARD:
         self::setDeckFormat('STANDARD');
@@ -252,12 +252,14 @@ class Globals extends \ALT\Helpers\DB_Manager
       case OPTION_DF_SANDBOX:
         self::setDeckFormat('SANDBOX');
         break;
+      case OPTION_DF_NOUNIQUE:
+        self::setDeckFormat('NO_UNIQUE');
+        break;  
       case OPTION_DF_TEST:
         self::setDeckFormat('TEST');
         break;
       case OPTION_DF_DEMO:
         self::setDeckFormat('DEMO');
-        break;
     }
     self::setDeckOptions(OPTION_DECKS_STARTER);
     self::setBeginner($options[OPTION_BEGINNER] ?? 1);

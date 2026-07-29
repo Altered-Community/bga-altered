@@ -723,25 +723,8 @@ trait DebugTrait
   // like adding specific cards on the board or in hand
   // function debug_setup()
   // {
-  //   //#210538 - setup for 2 fablab in expeditions, and 1 fisherman in hand
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'stormLeft');
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'stormLeft');
-  //   // $this->addCard('BR_Rare_TheFoundryAxiomBastion', 'landmark');
-  //   // $this->addCard('BR_Common_Kedarm', 'reserve');
-  //   // $this->addCard('BR_Rare_RekaFisherman', 'hand');
-
-  //   //#210538 - setup for 2 fablab in mana, and 1 fisherman in reserve to ensure normal activation is not touched
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'mana');
-  //   // $this->addCard('BR_Rare_FabLabUnit', 'mana');
-  //   // $this->addCard('BR_Rare_RekaFisherman', 'reserve');
-
-  //   //#210538 - setup for 3 Tag in mana, 1 feast of thoughts in reserve, and 1 training in hand 
-  //   // allow testing the feast of thoughts from reserve with or without counters
-  //   // $this->addCard('YZ_Common_Tag', 'mana');
-  //   // $this->addCard('YZ_Common_Tag', 'mana');
-  //   // $this->addCard('YZ_Common_Tag', 'mana');
-  //   // $this->addCard('YZ_Common_FeastofThoughts', 'reserve');
-  //   // $this->addCard('YZ_Common_MagicalTraining', 'hand');
+  //   $this->addCard('LY_Rare_TheEmbassy', 'landmark');
+  //   $this->addCard('LY_Common_RomanticEncounter', 'hand');
   // }
   
   // Function used to forcibly clean up an entire location (deck, hand, reserve or both).

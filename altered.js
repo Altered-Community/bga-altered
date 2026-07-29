@@ -952,10 +952,15 @@
          <h2>${_('There\'s a lot of things ongoing !')}</h2>
          <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
            <div id='account-not-configured-desc'>
-             <p>${_(`To retrieve your decks, you'll now need an account on one of the officially recognized platforms of altered Re:Union`)}.</p>
-             <p>${_('You can create an account, build or import your decks on any ')} <a class="account-not-configured-link" href="https://altered.re/index.php/deckbuilders/" target="_blank" rel="noopener noreferrer">acknowledged deckbuilders</a></p>
-             <p>${_('Don\'t forget to connect your account on BGA afterward. You can do so here :')} <a class="account-not-configured-link" href="https://boardgamearena.com/preferences?section=account" target="_blank" rel="noopener noreferrer">BGA Accounts</a></p>
-             <p>${_('If you think you are correctly connected to BGA with your altered Re:Union account, then you might not have any valid decks for the format you have selected.')}</p>
+            <p>${_(`To retrieve your decks, you'll now need an account on one of the officially recognized platforms of altered Re:Union`)}.</p>
+            <p>
+             <a class="account-not-configured-link" href="https://altered.re/pages/login" target="_blank" rel="noopener noreferrer">
+                ${_('Create an account')}
+              </a>
+              ${_(' to build or import your decks on any acknowledged deckbuilder.')}
+            </p>
+            <p>${_('Don\'t forget to connect your account on BGA afterward. You can do so here :')} <a class="account-not-configured-link" href="https://boardgamearena.com/preferences?section=account" target="_blank" rel="noopener noreferrer">BGA Accounts</a></p>
+            <p>${_('If you think you are correctly connected to BGA with your altered Re:Union account, then you might not have any valid decks for the format you have selected.')}</p>
            </div>
          </div>
        `;
