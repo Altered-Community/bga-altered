@@ -111,7 +111,7 @@ class Engine
     if ($node == null) {
       // throw new \feException(print_r(Globals::getEngine()));
       // throw new \feException(print_r(debug_print_backtrace()));
-      $skipped = Globals::getSkippedPlayers();
+      $skipped = Globals::getSkippedPlayers(); 
       // Effect-driven free plays (e.g. Wayfarer) never bump playedCards; only the Afternoon
       // assignment play / pass ends the turn. See ChooseAssignment::playCard.
       // if card was played or action passed, we are done
@@ -454,42 +454,11 @@ class Engine
       }
     }
 
-    // Active player effects run in parallel first, then opponent effects in parallel.
     return self::insertAtRoot([
-      'type' => NODE_SEQ,
+      'type' => NODE_PARALLEL,
       'flag' => \AFTER_FINISHING_ACTION,
-      'activePId' => Players::getActiveId(),
-       'childs' => [
-        ['type' => NODE_PARALLEL, 'flag' => \AFTER_FINISHING_ACTIVE, 'childs' => []],
-        ['type' => NODE_PARALLEL, 'flag' => \AFTER_FINISHING_OPPONENT, 'childs' => []],
-      ],
+      'childs' => [],
     ]);
-  }
-
-  /**
-   * Pick the parallel bucket (active or opponent) for an afterFinishing child.
-   */
-  protected static function getAfterFinishingParallelBucket($afterFinishingNode, $child)
-  {
-    $activePId = $afterFinishingNode->getInfos()['activePId'] ?? Players::getActiveId();
-    
-    $childPId = $child['pId'] ?? null;
-    if (is_null($childPId) || $childPId === 'active') {
-      $childPId = $activePId;
-    }
-    if ($childPId === 'source' && isset($child['sourceId'])) {
-      $childPId = Cards::get($child['sourceId'])->getPId();
-    }
-    
-    $targetFlag = $childPId != $activePId ? \AFTER_FINISHING_OPPONENT : \AFTER_FINISHING_ACTIVE;
-
-    foreach ($afterFinishingNode->getChilds() as $parallelNode) {
-       if ($parallelNode->getFlag() == $targetFlag) {
-        return $parallelNode;
-      }
-    }
-
-    throw new \BgaVisibleSystemException('AfterFinishing parallel bucket not found. Should not happen');
   }
 
   /**
@@ -503,8 +472,7 @@ class Engine
 
     $node = self::getAfterFinishingNode();
     foreach ($childs as $child) {
-      $bucket = self::getAfterFinishingParallelBucket($node, $child);
-      $bucket->pushChild(self::buildTree($child));
+      $node->pushChild(self::buildTree($child));
     }
     Engine::save();
   }
@@ -619,12 +587,9 @@ class Engine
       return;
     }
 
-    $afterFinishingNode = self::getAfterFinishingNode();
-    $nodes = array_merge([$afterFinishingNode], $afterFinishingNode->getChilds());
+    $node = self::getAfterFinishingNode();
     foreach ($attributes as $attribute => $value) {
-      foreach ($nodes as $node) {
-        $node->setInfo($attribute, $value);
-      }
+      $node->setInfo($attribute, $value);
     }
     Engine::save();
   }
