@@ -563,17 +563,16 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextCharacterCost3Anchored(false);
     }
     
+    // This global is declared as 'obj', so games started before it existed default to [],
+    // which must not be interpreted as "the next character is asleep".
     $asleepData = Globals::getNextCharacterAsleep();
-    if ($asleepData !== false && $asleepData !== 0 && $asleepData !== null) {
-      $asleepValue = is_array($asleepData) ? ($asleepData['value'] ?? true) : $asleepData;
-      $isOptional = is_array($asleepData) ? ($asleepData['optional'] ?? false) : false;
-      if ($asleepValue) {
-        $gainNode = FT::GAIN($card, ASLEEP);
-        if ($isOptional) {
-          $this->pushParallelChild(['type' => NODE_SEQ, 'optional' => true, 'childs' => [$gainNode]]);
-        } else {
-          $this->pushParallelChild($gainNode);
-        }
+    $asleepValue = is_array($asleepData) ? ($asleepData['value'] ?? false) : (bool) $asleepData;
+    if ($asleepValue && in_array($card->getType(), [CHARACTER, TOKEN])) {
+      $gainNode = FT::GAIN($card, ASLEEP);
+      if (is_array($asleepData) && ($asleepData['optional'] ?? false)) {
+        $this->pushParallelChild(['type' => NODE_SEQ, 'optional' => true, 'childs' => [$gainNode]]);
+      } else {
+        $this->pushParallelChild($gainNode);
       }
       Globals::setNextCharacterAsleep(false);
     }
