@@ -1257,9 +1257,9 @@
         });
 
         if (this.allowCustomDeckFormat()) {
-            this.onClick('deck-source-random', () => {
-              this.takeAction('actSelectRandomDeck', { faction: 'ALL' }, false);
-            });
+            // this.onClick('deck-source-random', () => {
+            //   this.takeAction('actSelectRandomDeck', { faction: 'ALL' }, false);
+            // });
             this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
