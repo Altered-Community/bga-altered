@@ -445,6 +445,11 @@ class Engine
     $childs = self::$tree->getChilds();
     for ($i = 0; $i < count($childs); $i++) {
       if ($childs[$i]->getFlag() == AFTER_FINISHING_ACTION && !$childs[$i]->isResolved()) {
+        $infos = $childs[$i]->getInfos();
+        if (!isset($infos['activePId'])) {
+          $childs[$i]->setInfo('activePId', Players::getActiveId());
+          self::save();
+        }
         return $childs[$i];
       }
     }
@@ -453,6 +458,7 @@ class Engine
     return self::insertAtRoot([
       'type' => NODE_SEQ,
       'flag' => \AFTER_FINISHING_ACTION,
+      'activePId' => Players::getActiveId(),
        'childs' => [
         ['type' => NODE_PARALLEL, 'flag' => \AFTER_FINISHING_ACTIVE, 'childs' => []],
         ['type' => NODE_PARALLEL, 'flag' => \AFTER_FINISHING_OPPONENT, 'childs' => []],
