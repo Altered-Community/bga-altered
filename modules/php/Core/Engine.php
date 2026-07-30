@@ -457,15 +457,7 @@ class Engine
     return self::insertAtRoot([
       'type' => NODE_PARALLEL,
       'flag' => \AFTER_FINISHING_ACTION,
-<<<<<<< Updated upstream
-      'activePId' => Players::getActiveId(),
-       'childs' => [
-        ['type' => NODE_PARALLEL, 'flag' => \AFTER_FINISHING_ACTIVE, 'childs' => []],
-        ['type' => NODE_PARALLEL, 'flag' => \AFTER_FINISHING_OPPONENT, 'childs' => []],
-      ],
-=======
       'childs' => [],
->>>>>>> Stashed changes
     ]);
   }
 
