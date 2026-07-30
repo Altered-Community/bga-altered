@@ -1224,6 +1224,12 @@
                     background-image: url("img/icons/so.png");
                     width: 22px;
                 }
+
+                &[data-asset="roc"] {
+                    background-image: url("img/icons/roc.png");
+                    width: 17px;
+                    height: 10px;
+                }
             }
         }
     }
