@@ -19,8 +19,6 @@ class OD_Common_CorruptedJeanne extends \ALT\Models\Card
 			'extension'=>'ROC',
       'subtypes'  => [CORRUPTION,SOLDIER],
       'effectDesc' => clienttranslate('{H} I gain <FLEETING> unless there\'s another Character in each of your Expeditions.  When I leave the Expedition zone — Create an <ORDIS_RECRUIT> Soldier token in each of your Expeditions.'),
-      'supportDesc' => clienttranslate('#{D} : Create an <ORDIS_RECRUIT> Soldier token in target Expedition.#'),
-      'supportIcon' => 'discard',
       'forest' => 1, 
       'mountain' => 1, 
       'ocean' => 1, 
