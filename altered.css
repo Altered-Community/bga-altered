@@ -10601,6 +10601,11 @@ html {
   background-image: url("img/icons/so.png");
   width: 22px;
 }
+.altered-card .altered-card-wrapper .card-footer .setIcon[data-asset=roc] {
+  background-image: url("img/icons/roc.png");
+  width: 17px;
+  height: 10px;
+}
 .altered-card.card-hero .card-name {
   top: 24px;
   font-size: 22px;

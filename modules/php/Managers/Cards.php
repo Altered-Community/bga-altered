@@ -173,6 +173,8 @@ class Cards extends \ALT\Helpers\CachedPieces
         return 'so';
       case 'DUSTER':
         return 'sdu';
+      case 'EOLE':
+        return 'roc';  
       default:
         return null;
     }
