@@ -1240,7 +1240,6 @@
                  ? ''
                 : `<div id='deck-source-toggle'>
               <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-custom'>${_('Custom')}</button>
-              <button class='deck-source-toggle-button bgabutton bgabutton_blue' id='deck-source-random'>${_('Random')}</button>
             </div>`
              }
              <div id='overlay-deck-container'></div>
@@ -1258,9 +1257,9 @@
         });
 
         if (this.allowCustomDeckFormat()) {
-            this.onClick('deck-source-random', () => {
-              this.takeAction('actSelectRandomDeck', { faction: 'ALL' }, false);
-            });
+            // this.onClick('deck-source-random', () => {
+            //   this.takeAction('actSelectRandomDeck', { faction: 'ALL' }, false);
+            // });
             this.onClick('deck-source-custom', () => this.requestFetchDecksOrAccountConfigurationMessage());
          }
  
