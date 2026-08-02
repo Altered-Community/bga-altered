@@ -257,6 +257,10 @@ class Gain extends \ALT\Models\Action
       // a card cannot have more than one fleeting/anchored token
       return;
     }
+    if ($amount <= 0) {
+      return;
+    }
+
     $initialBoost = 0;
     if ($resource == BOOST) {
       $initialBoost = $card->countToken(BOOST);

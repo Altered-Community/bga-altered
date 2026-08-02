@@ -585,6 +585,10 @@ class Pieces extends DB_Manager
         $values[] = $data;
       }
     }
+    
+    if (empty($values)) {
+      return [];
+    }
 
     $p = static::$prefix;
     $fields = static::$autoIncrement ? [$p . 'location', $p . 'state'] : [$p . 'id', $p . 'location', $p . 'state'];

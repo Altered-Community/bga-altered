@@ -557,6 +557,10 @@ class CachedPieces extends DB_Manager
       }
     }
 
+    if (empty($values)) {
+      return new Collection([]);
+    }
+
     $p = static::$prefix;
     $fields = static::$autoIncrement ? [$p . 'location', $p . 'state'] : [$p . 'id', $p . 'location', $p . 'state'];
     foreach (static::$customFields as $field) {
