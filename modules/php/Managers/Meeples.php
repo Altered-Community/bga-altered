@@ -115,6 +115,9 @@ class Meeples extends \ALT\Helpers\CachedPieces
 
   public static function createOnCard($type, $cardId, $pId, $nbr = 1)
   {
+    if ($nbr <= 0) {
+      return [];
+    }
     if ($nbr == 1) {
       return [self::singleCreate(['type' => $type, 'location' => 'card-' . $cardId, 'player_id' => $pId])];
     } else {
