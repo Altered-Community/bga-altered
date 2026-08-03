@@ -100,13 +100,10 @@ class Draw extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    foreach ($this->getDrawTargetPlayers() as $target) {
-      if ($target->hasDeckCards()) {
-        return true;
-      }
-    }
-
-    return false;
+    // Always doable: an empty deck is a no-op in stDraw, not an impossible action.
+    // Returning false forced an auto-pass through ST_DRAW (no possibleactions) and
+    // blocked later steps in SEQ flows (e.g. Hooked rare: target then draw).
+    return true;
   }
 
   protected $args = [
