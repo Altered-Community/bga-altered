@@ -1815,6 +1815,11 @@ class SpecialEffect extends \ALT\Models\Action
         if ($expedition == 'source') {
           $expedition = $card->getLocation();
         }
+        
+        // Source may have left play mid-sequence (e.g. returned to hand); do not create an invalid ascend meeple
+        if (!in_array($expedition, STORMS)) {
+          break;
+        }
 
         $side = $expedition == STORM_LEFT ? HERO : COMPANION;
         $isAscended = $oPlayer->isAscended($expedition);
