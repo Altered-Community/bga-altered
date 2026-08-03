@@ -2941,38 +2941,34 @@ abstract class FlowConvertor
           'effect' => FT::GAIN(EFFECT, ASLEEP),
         ]),
       ],
-      325 => [
+       325 => [
+        // #206754: same leave-trigger issue as 537 — insert via SpecialEffect at runtime
+        // instead of TARGET_PLAYER > SEQ_OPTIONAL > RESUPPLY.
         'description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF> twice.'),
-        'output' => FT::ACTION(TARGET_PLAYER, [
-          'opponentsOnly' => true,
-          'effect' => FT::SEQ_OPTIONAL(
-            FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active']),
-            FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active'])
-          ),
+        'output' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'targetOpponentOptionalExhaustedResupply',
+          'args' => ['n' => 2],
         ]),
       ],
       396 => [
         'description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF> twice.'),
-        'output' => FT::ACTION(TARGET_PLAYER, [
-          'opponentsOnly' => true,
-          'effect' => FT::SEQ_OPTIONAL(
-            FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active']),
-            FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active'])
-          ),
+        'output' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'targetOpponentOptionalExhaustedResupply',
+          'args' => ['n' => 2],
         ]),
       ],
       326 => [
         'description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF>.'),
-        'output' => FT::ACTION(TARGET_PLAYER, [
-          'opponentsOnly' => true,
-          'effect' => FT::SEQ_OPTIONAL(FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active'])),
+        'output' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'targetOpponentOptionalExhaustedResupply',
+          'args' => ['n' => 1],
         ]),
       ],
       397 => [
         'description' => clienttranslate('Target opponent may <EXHAUSTED_RESUPPLY_INF>.'),
-        'output' => FT::ACTION(TARGET_PLAYER, [
-          'opponentsOnly' => true,
-          'effect' => FT::SEQ_OPTIONAL(FT::ACTION(RESUPPLY, ['exhausted' => true], ['pId' => 'active'])),
+        'output' => FT::ACTION(SPECIAL_EFFECT, [
+          'effect' => 'targetOpponentOptionalExhaustedResupply',
+          'args' => ['n' => 1],
         ]),
       ],
       327 => [

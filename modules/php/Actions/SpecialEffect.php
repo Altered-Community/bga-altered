@@ -260,6 +260,10 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Discard top card(s) of your deck');
       case 'swapBoostsWithSource':
         return clienttranslate('Exchange boosts with source character');
+      case 'targetOpponentOptionalExhaustedResupply':
+        return ($this->getArg('args')['n'] ?? 1) > 1
+          ? clienttranslate('Target opponent may exhausted-resupply twice')
+          : clienttranslate('Target opponent may exhausted-resupply');
     }
     return '';
   }
@@ -2486,6 +2490,26 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
         }
         break;     
+      // #206754: insert at runtime with opponent pId so LeaveExpedition tagTree cannot
+      // stamp the controller onto nested RESUPPLY (TARGET_PLAYER > SEQ_OPTIONAL breaks there).
+      case 'targetOpponentOptionalExhaustedResupply':
+        $n = $args['n'] ?? 1;
+        $opponentId = Players::getNextId(Players::getActive());
+        $childs = [];
+        for ($i = 0; $i < $n; $i++) {
+          $childs[] = FT::ACTION(
+            RESUPPLY,
+            ['exhausted' => true],
+            ['pId' => $opponentId, 'sourceId' => $this->getSourceId()]
+          );
+        }
+        $this->insertAsChild([
+          'type' => NODE_SEQ,
+          'optional' => true,
+          'pId' => $opponentId,
+          'childs' => $childs,
+        ]);
+        break;
       default:
         break;
     }
