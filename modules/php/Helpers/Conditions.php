@@ -2678,6 +2678,7 @@ abstract class Conditions
     $gainCard = Cards::get($event['gain']['cardId']);
     return !$card->isTapped() &&
       $event['gain']['type'] == BOOST &&
+      in_array($gainCard->getLocation(), STORMS) &&
       $gainCard->getType() == CHARACTER &&
       $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
