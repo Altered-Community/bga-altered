@@ -788,7 +788,9 @@ class ChooseAssignment extends \ALT\Models\Action
               }));
           
               if (($addEffect['limit'] ?? INFTY) == 1) {
-                if (!isset($newEffect['type']) && isset($newEffect['childs'])) {
+                // Unique cards merge multiple {R} trigrams as NODE_PARALLEL (with type set).
+                // Flatten those childs so limit=1 wraps them in XOR (choose one), not run all.
+                if (isset($newEffect['childs']) && (!isset($newEffect['type']) || $newEffect['type'] == NODE_PARALLEL)) {
                   $newEffect = $newEffect['childs'];
                 } else {
                   $newEffect = [$newEffect];
