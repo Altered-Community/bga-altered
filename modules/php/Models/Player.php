@@ -1143,12 +1143,12 @@ class Player extends \ALT\Helpers\DB_Model
     $allDecks[$this->id] = $decks;
     Globals::setPlayerDecks($allDecks);
   }
-
+ 
   /**
    * Counts permanents/characters whose {@see getDynamicTough()} grants universal +1/+2 Tough to other Characters.
    * When {@see $receiver} is set (typically the card whose {@see Card::getTough()} is being computed), sources with
-   * {@see effectCompleted} <code>universalToughScope</code> only apply to qualifying receivers (Gather the Pack).
-   * Multiple completed Gather the Pack feats still grant at most +1 Tough from that family (Rare + Common do not stack).
+   * {@see effectCompleted} <code>universalToughScope</code> only apply to qualifying receivers (e.g. Gather the Pack).
+   * Each qualifying source stacks (two completed Gather the Pack → Tough 2 on expedition characters).
    */
   public function countUniversalCharacterTough(?Card $receiver = null)
   {
@@ -1158,22 +1158,13 @@ class Player extends \ALT\Helpers\DB_Model
       })
     );
 
-    $gatherTier1 = 0;
-    $standardTier1 = 0;
-    foreach ($this->getPlayedCards() as $card) {
-      if (!$this->playedCardGrantsUniversalCharacterTough($card, 1, $receiver)) {
-        continue;
-      }
-      if ($this->isGatherPackUniversalToughSource($card)) {
-        $gatherTier1++;
-      } else {
-        $standardTier1++;
-      }
-    }
+    $tier1 = count(
+      $this->getPlayedCards()->filter(function ($card) use ($receiver) {
+        return $this->playedCardGrantsUniversalCharacterTough($card, 1, $receiver);
+      })
+    );
 
-    $gatherBonus = $receiver !== null ? min(1, $gatherTier1) : $gatherTier1;
-
-    return $tier2 * 2 + $standardTier1 + $gatherBonus;
+    return $tier2 * 2 + $tier1;
   }
 
   /** Completed Gather the Pack feats use {@see effectCompleted} <code>universalToughScope</code> (expedition / expeditionAnchored). */
