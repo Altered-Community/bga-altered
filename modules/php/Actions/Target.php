@@ -181,19 +181,16 @@ class Target extends \ALT\Models\Action
   public function isDoable($player)
   {
     $targetCards = $this->getTargetableCards($player);
-    if ($this->getArg('allIds')) {
-      // check if we have cards to pay and not enough mana
+    // Multi-pick: only require Tough mana for targets we must pay for.
+    // Own / 0-Tough cards are free; minimum cost is the cheapest way to reach n.
+    // upTo can always pick only free cards (or none), so skip this check.
+    if ($this->getArg('allIds') && !$this->getArg('upTo')) {
       $targetCosts = $this->getTargetCosts($player);
-      $totalCost = 0;
-
-      if ((count($targetCards) - count($targetCosts)) <= 2) {
-        $costs = array_values($targetCosts);
-        asort($costs);
-        $valuesToGet = count($targetCards) - count($targetCosts) - 1;
-        for ($i = 0; $i < $valuesToGet; $i++) {
-          $totalCost += ($costs[$i] ?? 0);
-        }
-      }
+      $free = count($targetCards) - count($targetCosts);
+      $neededPaid = max(0, $this->getArg('n') - $free);
+      $costs = array_values($targetCosts);
+      sort($costs, SORT_NUMERIC);
+      $totalCost = array_sum(array_slice($costs, 0, $neededPaid));
       if ($totalCost > $player->getMana()) {
         return false;
       }
