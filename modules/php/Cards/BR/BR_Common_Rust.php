@@ -16,9 +16,8 @@ class BR_Common_Rust extends \ALT\Models\Card
       'name' => clienttranslate('Rust'),
       'type' => CHARACTER,
       'subtypes' => [COMPANION],
-      'effectDesc' => clienttranslate('(If I leave the Expedition zone, remove me from the game. 
-      {j} I gain 1 boost per Completed Feat in your Landmarks.)'),
-      			'flavorText'  => clienttranslate('"I\'m not as rusty as that."'),
+      'effectDesc' => clienttranslate('  {j} I gain 1 boost per Completed Feat in your Landmarks.'),
+      'flavorText'  => clienttranslate('"I\'m not as rusty as that."'),
 			'artist' => 'Tristan Bideau',
 
       'forest' => 0,
