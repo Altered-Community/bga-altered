@@ -1,5 +1,8 @@
 define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
   function isVisible(elem) {
+    if (!elem || typeof elem.getClientRects !== 'function') {
+      return false;
+    }
     return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
   }
 
@@ -104,7 +107,10 @@ define(['dojo', 'dojo/_base/declare'], (dojo, declare) => {
           return $(`storm-${t[1]}-${position}`);
         }
       } else if (meeple.type == 'ascend') {
-        return $(`board-${meeple.location}_ascend-${meeple.pId}`);
+        let ascendContainer = $(`board-${meeple.location}_ascend-${meeple.pId}`);
+        if (ascendContainer) {
+          return ascendContainer;
+        }
       } else if ($(meeple.location)) {
         return $(meeple.location);
       }
