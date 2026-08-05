@@ -241,16 +241,30 @@ class MoveExpedition extends \ALT\Models\Action
 
       $this->checkAfterListeners($player, ['moveExpedition' => $n, 'ascended' => $ascended, 'expedition' => $expedition]);
       if ($this->getArg('moveOtherExpedition') === true) {
-        // only done through a spell
+        // Cable Car / Western Wind: move the other expedition the opposite way.
+        // Forward moves must go through MOVE_EXPEDITION so actionInsteadAdvance
+        // (Rune's Testament, Eris, Pegasus, …) can offer a replacement.
         $otherExpedition = $expedition == STORM_LEFT ? STORM_RIGHT : STORM_LEFT;
-        if ((($n * -1) > 0 && !Players::hasOpponentBlockMoveExpedition($player, $otherExpedition)) || ($n * -1) < 0) {
-          $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $n * -1, false, true, $source);
+        $otherN = $n * -1;
+        if ($otherN > 0 && !Players::hasOpponentBlockMoveExpedition($player, $otherExpedition)) {
+          $ctx = ['pId' => $pId];
+          if (!is_null($source)) {
+            $ctx['sourceId'] = $source->getId();
+          }
+          $this->insertAsChild(FT::ACTION(MOVE_EXPEDITION, [
+            'n' => $otherN,
+            'pId' => $pId,
+            'force' => false,
+            'forceExpedition' => [$pId, $otherExpedition],
+            'winningBiomes' => $winningBiomes,
+          ], $ctx));
+        } elseif ($otherN < 0) {
+          $moved = $player->advanceStorm($token == HERO ? COMPANION : HERO, $winningBiomes, $otherN, false, true, $source);
           $expeditionMoves = Globals::getExpeditionMoves();
-          $expeditionMoves[$player->getId()][$otherExpedition] = ($expeditionMoves[$player->getId()][$otherExpedition] ?? 0) + ($n * -1);
+          $expeditionMoves[$player->getId()][$otherExpedition] = ($expeditionMoves[$player->getId()][$otherExpedition] ?? 0) + $otherN;
           Globals::setExpeditionMoves($expeditionMoves);
-          $this->checkAfterListeners($player, ['moveExpedition' => $n * -1, 'ascended' => $player->isAscended($otherExpedition), 'expedition' => $otherExpedition]);
+          $this->checkAfterListeners($player, ['moveExpedition' => $otherN, 'ascended' => $player->isAscended($otherExpedition), 'expedition' => $otherExpedition]);
         }
-      }
     }
 
     if ($gigantic) {
