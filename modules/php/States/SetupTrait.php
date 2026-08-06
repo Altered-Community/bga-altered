@@ -299,19 +299,19 @@ trait SetupTrait
 
     $tableId = (string) $this->table_id;
     $tournamentInfo = [];
-    $tournamentSeeds = [];
     if ($this->bga->tournament->isTournament()) {
       $tournamentInfo = $this->bga->tournament->getInfo();
-      $tournamentSeeds = $this->bga->tournament->getSeedInfo();
     }
     $ratingMode = $this->tableOptions->get(201);
     $request['eventFormat'] = base64_encode(json_encode([
-      'format' => Globals::getDeckFormat(),
-      'tableId' => $tableId,
-      'tournamentId' => $tournamentInfo['id'] ?? null,
-      'tournamentName' => $tournamentInfo['name'] ?? null,
-      'ratingMode' => $ratingMode,
+      'v' => 1,
       'env' => $this->getGameName(),
+      'mode' => $ratingMode,
+      'payload' => [
+        'format' => Globals::getDeckFormat(),
+        'tableId' => $tableId,
+        'tournamentName' => $tournamentInfo['name'] ?? null,
+      ],
     ]));
 
     // STANDARD, NO_UNIQUE, SINGLETON
@@ -338,7 +338,25 @@ trait SetupTrait
 
   public function actGetDeckInfos($deckNumber)
   {
-    $response = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $deckNumber]);
+    $tableId = (string) $this->table_id;
+    $tournamentInfo = [];
+    if ($this->bga->tournament->isTournament()) {
+      $tournamentInfo = $this->bga->tournament->getInfo();
+    }
+    $ratingMode = $this->tableOptions->get(201);
+    $request = base64_encode(json_encode([
+      'v' => 1,
+      'env' => $this->getGameName(),
+      'mode' => $ratingMode,
+      'payload' => [
+        'deckId' => $deckNumber,
+        'format' => Globals::getDeckFormat(),
+        'tableId' => $tableId,
+        'tournamentName' => $tournamentInfo['name'] ?? null,
+      ],
+    ]));
+
+    $response = self::getGenericGameInfos('get_player_deck_content', ['deck_id' => $request]);
     if ($response['success'] != 1) {
       throw new \Bga\GameFramework\VisibleSystemException("API ERROR###" . $response['message'] . "###");
     }
