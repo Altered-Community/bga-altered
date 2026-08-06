@@ -443,7 +443,14 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::incPlayedCards();
     }
 
-    if (((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || $free == true && $cost == 0)) {
+    $uid = $card->getUid();
+    if ($uid !== null) {
+      $playedHistory = Globals::getPlayedCardsHistory();
+      $playedHistory[$player->getId()][$uid] = ($playedHistory[$player->getId()][$uid] ?? 0) + 1;
+      Globals::setPlayedCardsHistory($playedHistory);
+    }
+
+    if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
     }
     // Move card
@@ -587,7 +594,7 @@ class ChooseAssignment extends \ALT\Models\Action
    if (
       Globals::getNextCharacterBaseCost3Anchored() == true &&
       in_array($card->getType(), [CHARACTER, TOKEN]) &&
-      (($card->getCostHand() <= 3 && in_array($fromLocation, [HAND, LIMBO])) // LIMBO is used for Romantic Encounter / Phoibos, where hand cost shall be used for comparison
+       (($card->getCostHand() <= 3 && in_array($fromLocation, [HAND, LIMBO])) // LIMBO is used for Romantic Encounter / Phoibos, where hand cost shall be used for comparison
        || ($fromLocation == RESERVE && $card->getCostReserve() <= 3)) 
     ) {
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
