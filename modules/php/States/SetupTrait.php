@@ -311,7 +311,7 @@ trait SetupTrait
       'tournamentId' => $tournamentInfo['id'] ?? null,
       'tournamentName' => $tournamentInfo['name'] ?? null,
       'ratingMode' => $ratingMode,
-      'game' => $this->getGameName(),
+      'env' => $this->getGameName(),
     ]));
 
     // STANDARD, NO_UNIQUE, SINGLETON
