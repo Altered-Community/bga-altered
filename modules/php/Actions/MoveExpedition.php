@@ -285,3 +285,4 @@ class MoveExpedition extends \ALT\Models\Action
     }
   }
 }
+}
