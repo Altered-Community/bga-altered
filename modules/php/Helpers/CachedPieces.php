@@ -123,7 +123,7 @@ class CachedPieces extends DB_Manager
   final static function checkLocation(&$location, $like = false)
   {
     if (is_null($location)) {
-      throw new \BgaVisibleSystemException('Class Pieces: location cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: location cannot be null');
     }
 
     if (is_array($location)) {
@@ -132,7 +132,7 @@ class CachedPieces extends DB_Manager
 
     $extra = $like ? '%' : '';
     if (preg_match("/^[A-Za-z0-9${extra}-][A-Za-z_0-9${extra}-]*$/", $location) == 0) {
-      throw new \BgaVisibleSystemException("Class Pieces: location must be alphanum and underscore non empty string '$location'");
+      throw new \Bga\GameFramework\VisibleSystemException("Class Pieces: location must be alphanum and underscore non empty string '$location'");
     }
   }
 
@@ -142,23 +142,23 @@ class CachedPieces extends DB_Manager
   final static function checkId(&$id, $like = false)
   {
     if (is_null($id)) {
-      throw new \BgaVisibleSystemException('Class Pieces: id cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: id cannot be null');
     }
 
     $extra = $like ? '%' : '';
     if (preg_match("/^[A-Za-z_0-9${extra}]+$/", $id) == 0) {
-      throw new \BgaVisibleSystemException("Class Pieces: id must be alphanum and underscore non empty string '$id'");
+      throw new \Bga\GameFramework\VisibleSystemException("Class Pieces: id must be alphanum and underscore non empty string '$id'");
     }
   }
 
   final static function checkIdArray($arr)
   {
     if (is_null($arr)) {
-      throw new \BgaVisibleSystemException('Class Pieces: tokens cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: tokens cannot be null');
     }
 
     if (!is_array($arr)) {
-      throw new \BgaVisibleSystemException('Class Pieces: tokens must be an array');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: tokens must be an array');
       foreach ($arr as $id) {
         self::checkId($id);
       }
@@ -171,11 +171,11 @@ class CachedPieces extends DB_Manager
   final static function checkState($state, $canBeNull = false)
   {
     if (is_null($state) && !$canBeNull) {
-      throw new \BgaVisibleSystemException('Class Pieces: state cannot be null');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: state cannot be null');
     }
 
     if (!is_null($state) && preg_match('/^-*[0-9]+$/', $state) == 0) {
-      throw new \BgaVisibleSystemException('Class Pieces: state must be integer number');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: state must be integer number');
     }
   }
 
@@ -185,7 +185,7 @@ class CachedPieces extends DB_Manager
   final static function checkPosInt($n)
   {
     if ($n && preg_match('/^[0-9]+$/', $n) == 0) {
-      throw new \BgaVisibleSystemException('Class Pieces: number of pieces must be integer number');
+      throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: number of pieces must be integer number');
     }
   }
 
@@ -210,6 +210,10 @@ class CachedPieces extends DB_Manager
       $ids = [$ids];
     }
 
+    // A caller can pass duplicated ids when several effects chain in one atomic
+    // resolution. We only need to fetch each piece once from cache.
+    $ids = array_values(array_unique(array_map(fn($id) => (string) $id, $ids)));
+
     self::checkIdArray($ids);
     static::fetchIfNeeded();
     $result = new Collection([]);
@@ -220,8 +224,8 @@ class CachedPieces extends DB_Manager
     }
 
     if (count($result) != count($ids) && $raiseExceptionIfNotEnough) {
-      throw new \feException(print_r(\debug_print_backtrace()));
-      throw new \feException('Class Pieces: getMany, some pieces have not been found !' . json_encode($ids));
+      $missingIds = array_values(array_diff($ids, array_keys($result->toArray())));
+      throw new \feException('Class Pieces: getMany, some pieces have not been found ! missing=' . json_encode($missingIds) . ' asked=' . json_encode($ids));
     }
 
     return $result;
@@ -402,7 +406,7 @@ class CachedPieces extends DB_Manager
     $locationShuffle = $genericFromLocation[0];
     self::checkLocation($fromLocation);
     if (!array_key_exists($locationShuffle, static::$autoreshuffleCustom)) {
-      throw new \BgaVisibleSystemException("Class Pieces:reformDeckFromDiscard: Unknown discard location for $locationShuffle !");
+      throw new \Bga\GameFramework\VisibleSystemException("Class Pieces:reformDeckFromDiscard: Unknown discard location for $locationShuffle !");
     }
 
     $discard = static::$autoreshuffleCustom[$locationShuffle];
@@ -520,11 +524,11 @@ class CachedPieces extends DB_Manager
 
       // SANITY
       if (is_null($id) && !static::$autoIncrement) {
-        throw new \BgaVisibleSystemException('Class Pieces: create: id cannot be null if not autoincrement');
+        throw new \Bga\GameFramework\VisibleSystemException('Class Pieces: create: id cannot be null if not autoincrement');
       }
 
       if (is_null($location)) {
-        throw new \BgaVisibleSystemException(
+        throw new \Bga\GameFramework\VisibleSystemException(
           'Class Pieces : create location cannot be null (set per token location or location_global'
         );
       }
@@ -551,6 +555,10 @@ class CachedPieces extends DB_Manager
 
         $values[] = $data;
       }
+    }
+
+    if (empty($values)) {
+      return new Collection([]);
     }
 
     $p = static::$prefix;

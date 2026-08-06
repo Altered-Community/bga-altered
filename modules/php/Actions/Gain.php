@@ -8,6 +8,7 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Helpers\Conditions;
 
 class Gain extends \ALT\Models\Action
 {
@@ -163,9 +164,13 @@ class Gain extends \ALT\Models\Action
     if ($cardId == ME) {
       $cardId = $this->ctx->getSourceId() ?? null;
     } elseif ($cardId == EFFECT) {
-      $cardId = $this->getCtx()->toArray()['event']['cardId'] ?? null;
-      if (is_null($cardId)) {
-        $cardId = $this->getCtx()->toArray()['event']['gain']['cardId'] ?? null;
+      $event = $this->getEventRecursive();
+      $cardId = null;
+      if (!is_null($event)) {
+        $cardId = $event['cardId'] ?? null;
+        if (is_null($cardId)) {
+          $cardId = $event['gain']['cardId'] ?? null;
+        }
       }
     }
 
@@ -252,6 +257,10 @@ class Gain extends \ALT\Models\Action
       // a card cannot have more than one fleeting/anchored token
       return;
     }
+    if ($amount <= 0) {
+      return;
+    }
+
     $initialBoost = 0;
     if ($resource == BOOST) {
       $initialBoost = $card->countToken(BOOST);
@@ -261,6 +270,57 @@ class Gain extends \ALT\Models\Action
     Notifications::gainMeeple($resource, $card, $tokens, $source, false);
 
     $this->checkAfterListeners($player, ['gain' => $args, 'cardId' => $card->getId(), 'location' => $card->getLocation(), 'initialBoost' => $initialBoost, 'cardType' => $card->getType(), 'additionalType' => $card->getAdditionalType(), 'sourceId' =>  $sourceId, 'token' => $card->isToken(),]);
+  }
+
+  protected function isCantGainBoostRuleActive($sourceCard, $rule)
+  {
+    if (!is_string($rule) || !str_starts_with($rule, 'character:excludeSelf')) {
+      return false;
+    }
+
+    $conditionsStr = substr($rule, strlen('character:excludeSelf'));
+    if ($conditionsStr === '' || $conditionsStr === false) {
+      return true;
+    }
+    if ($conditionsStr[0] === ':') {
+      $conditionsStr = substr($conditionsStr, 1);
+    }
+    if ($conditionsStr === '') {
+      return true;
+    }
+
+    $conditions = str_contains($conditionsStr, '|')
+      ? explode('|', $conditionsStr)
+      : [$conditionsStr];
+
+    return Conditions::check(['conditions' => $conditions], $sourceCard, []);
+  }
+
+  protected function isBoostGainBlockedByPassive($card, $resource)
+  {
+    if ($resource != BOOST || !in_array($card->getType(), [CHARACTER, TOKEN])) {
+      return false;
+    }
+
+    foreach ($card->getPlayer()->getPlayedCards() as $sourceCard) {
+      if ($sourceCard->getId() == $card->getId()) {
+        continue;
+      }
+
+      $cantGainBoost = $sourceCard->getProperty('cantGainBoost');
+      if (is_null($cantGainBoost)) {
+        continue;
+      }
+
+      $rules = is_array($cantGainBoost) ? $cantGainBoost : [$cantGainBoost];
+      foreach ($rules as $rule) {
+        if ($this->isCantGainBoostRuleActive($sourceCard, $rule)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   public function stGain()
@@ -308,6 +368,12 @@ class Gain extends \ALT\Models\Action
 
     if ($resource == BOOST && in_array($card->getLocation(), [STORM_LEFT, STORM_RIGHT, LANDMARK, RESERVE]) && $card->hasCounters() && Players::hasBlockGainNewCounters()) {
       Notifications::message(clienttranslate('No new boost can be added to cards'), []);
+      $this->resolveAction([]);
+      return;
+    }
+
+    if ($this->isBoostGainBlockedByPassive($card, $resource)) {
+      Notifications::message(clienttranslate('This Character can\'t gain boosts'), ['card' => $card]);
       $this->resolveAction([]);
       return;
     }

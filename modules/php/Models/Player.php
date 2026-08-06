@@ -43,6 +43,7 @@ class Player extends \ALT\Helpers\DB_Model
     $data = parent::getUiData();
     $current = $this->id == $currentPlayerId;
     $data['deckCount'] = $this->getDeckCount();
+    $data['discardCount'] = $this->getDiscardCount();
     $data['mana'] = $this->getMana();
     $data['totalMana'] = $this->getTotalMana();
     $data['handCount'] = $this->getHand()->count();
@@ -56,6 +57,16 @@ class Player extends \ALT\Helpers\DB_Model
   public function getDeckCount()
   {
     return Cards::countInLocation("deck-$this->id") + Cards::countInLocation("reveal-$this->id");
+  }
+  
+  public function getDiscardCount()
+  {
+    return Cards::getFiltered($this->id, DISCARD_PILE)->count();
+  }
+  
+  public function hasDeckCards()
+  {
+    return $this->getDeckCount() > 0;
   }
 
   public function getHero()
@@ -187,7 +198,7 @@ class Player extends \ALT\Helpers\DB_Model
       return is_null($type) || $card->getType() == $type || in_array($type, $card->getAdditionalType());
     });
   }
-
+  
   // public function getManaChoice()
   // {
   //   return Cards::getManaChoice($this->id);
@@ -256,7 +267,26 @@ class Player extends \ALT\Helpers\DB_Model
     if (is_null($this->getHero())) {
       return 0;
     }
-    return $this->getHero()->getLandmarkSlots();
+    $n = (int) $this->getHero()->getLandmarkSlots();
+    foreach ($this->getLandmarks() as $card) {
+      $completed = $card->getEffectCompleted();
+      if (!is_array($completed)) {
+        continue;
+      }
+      if (
+        !in_array(FEAT, $card->getSubtypes())
+        && !array_key_exists('landmarkSlots', $completed)
+      ) {
+        continue;
+      }
+      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      if (isset($completed['landmarkSlots'])) {
+        $n = (int) $completed['landmarkSlots'];
+      }
+    }
+    return $n;
   }
 
   public function getPermanents()
@@ -267,6 +297,43 @@ class Player extends \ALT\Helpers\DB_Model
   public function getLandmarks()
   {
     return Cards::getPlayedCards($this->id, PERMANENT)->where('subtypes', LANDMARK);
+  }
+  
+  /**
+   * Number of completed Feats among this player's Landmark permanents (see FEAT_COMPLETED meeple).
+   */
+  public function getCompletedFeat()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      $n += Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED);
+    }
+    return $n;
+  }
+
+  /**
+   * Sum of reserve-character Tough granted by completed Feat effects.
+   */
+  public function getCompletedFeatReserveCharacterTough()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      $completed = $card->getEffectCompleted();
+      if (!is_array($completed)) {
+        continue;
+      }
+      if (
+        !in_array(FEAT, $card->getSubtypes())
+        && !array_key_exists('reserveCharacterTough', $completed)
+      ) {
+        continue;
+      }
+      if (Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      $n += (int) ($completed['reserveCharacterTough'] ?? 0);
+    }
+    return max(0, $n);
   }
 
   public function getManaCards($tapped = null)
@@ -361,6 +428,7 @@ class Player extends \ALT\Helpers\DB_Model
   public function getReduceCostType($playedCard)
   {
     $reduction = 0;
+    $minimumFloor = 0;
     foreach ($this->getPlayedCards()->merge($this->getInfinityCards()) as $cId => $card) {
       if (!empty($card->getReduceCostType())) {
         $type = $card->getReduceCostType();
@@ -368,22 +436,34 @@ class Player extends \ALT\Helpers\DB_Model
           if ($playedType == $playedCard->getType() || in_array($playedType, $playedCard->getAdditionalType())) {
             if (isset($info['maxHandCost']) && $playedCard->getCostHand() <= $info['maxHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minHandCost']) && $playedCard->getCostHand() >= $info['minHandCost']) {
               $reduction += $info['reduction'];
+              if (isset($info['minimum'])) {
+                $minimumFloor = max($minimumFloor, $info['minimum']);
+              }
             } elseif (isset($info['minBaseCost'])) {
               $baseCost = $info['minBaseCost'];
               // Studious Acolyte
               if ($playedCard->getLocation() == RESERVE && $playedCard->getCostReserve() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               } elseif ($playedCard->getLocation() == HAND && $playedCard->getCostHand() >= $baseCost) {
                 $reduction += $info['reduction'];
+                if (isset($info['minimum'])) {
+                  $minimumFloor = max($minimumFloor, $info['minimum']);
+                }
               }
             }
           }
         }
       }
     }
-    return $reduction;
+    return ['reduction' => $reduction, 'minimum' => $minimumFloor];
   }
 
   public function getExhaustedReserveSlots()
@@ -490,7 +570,7 @@ class Player extends \ALT\Helpers\DB_Model
     return $newBiomes;
   }
 
-  public function advanceStorm($token, $biomes, $n = 1, $notify = true, $source = null)
+  public function advanceStorm($token, $biomes, $n = 1, $hasMovedFromAscension = false, $notify = true, $source = null)
   {
     $getToken = 'get' . ucfirst($token) . 'Token';
     $tokenMeeple = $this->$getToken();
@@ -517,7 +597,8 @@ class Player extends \ALT\Helpers\DB_Model
     $moves[$this->id][$expedition] = [
       'biomes' => is_array($biomes) ? $biomes : [],
       'moves' => $n,
-      'ascended' => $isAscended
+      'ascended' => $isAscended,
+      'hasMovedFromAscension' => $hasMovedFromAscension
     ];
     Globals::setStormMoves($moves);
 
@@ -532,7 +613,7 @@ class Player extends \ALT\Helpers\DB_Model
     }
 
     if ($notify) {
-      Notifications::moveStormToken($this, $biomes, $tokenMeeple, $stormIndex, $revealed, $source);
+      Notifications::moveStormToken($this, $biomes, $tokenMeeple, $stormIndex, $revealed, $source, $hasMovedFromAscension);
     }
     return true;
   }
@@ -835,6 +916,16 @@ class Player extends \ALT\Helpers\DB_Model
     return false;
   }
 
+  public function hasBoostIfAscended()
+  {
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->isBoostIfAscended()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function hasOppositeDefender($expedition)
   {
     foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
@@ -847,7 +938,13 @@ class Player extends \ALT\Helpers\DB_Model
 
   public function hasBlockMoveExpedition($expedition)
   {
-    foreach ($this->getPlayedCards()->where('location', $expedition) as $cId => $card) {
+    // A Gigantic character faces both Expeditions, so it must block movement on
+    // either side regardless of the Expedition slot it is physically located in
+    // (mirrors the dusk logic in Players::biomesModifier).
+    foreach ($this->getPlayedCards() as $cId => $card) {
+      if ($card->getLocation() != $expedition && !$card->isGigantic()) {
+        continue;
+      }
       if ($card->isBlockMoveExpedition()) {
         return true;
       }
@@ -1036,44 +1133,87 @@ class Player extends \ALT\Helpers\DB_Model
     // call the API to get the various cards/decks
 
     // Add the preconstructed decks last
-    $decks = array_merge($decks, Cards::setupPrecoDeck($this, $i, $decks));
+    // if deck format is DEMO, setup the demo decks
+    if (Globals::getDeckFormat() == 'DEMO') {
+      $decks = array_merge($decks, Cards::setupDemoDeck($this, $i, $decks));
+    } else {
+      $decks = array_merge($decks, Cards::setupPrecoDeck($this, $i, $decks));
+    }
     $allDecks = Globals::getPlayerDecks();
     $allDecks[$this->id] = $decks;
     Globals::setPlayerDecks($allDecks);
   }
-
-
-  public function countUniversalCharacterTough()
+ 
+  /**
+   * Counts permanents/characters whose {@see getDynamicTough()} grants universal +1/+2 Tough to other Characters.
+   * When {@see $receiver} is set (typically the card whose {@see Card::getTough()} is being computed), sources with
+   * {@see effectCompleted} <code>universalToughScope</code> only apply to qualifying receivers (e.g. Gather the Pack).
+   * Each qualifying source stacks (two completed Gather the Pack → Tough 2 on expedition characters).
+   */
+  public function countUniversalCharacterTough(?Card $receiver = null)
   {
-    return count(
-      $this->getPlayedCards()->filter(function ($card) {
-        $dynamicTough = $card->getDynamicTough();
-        if (!is_array($dynamicTough)) {
-          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter2';
-        } else {
-          foreach ($dynamicTough as $singleTough) {
-            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'universalCharacter2') {
-              return true;
-            }
-          }
-          return false;
-        }
-      })
-    ) * 2 + count(
-      $this->getPlayedCards()->filter(function ($card) {
-        $dynamicTough = $card->getDynamicTough();
-        if (!is_array($dynamicTough)) {
-          return Utils::checkAttributeCondition('tough', $card->getDynamicTough(), $this, $card) == 'universalCharacter1';
-        } else {
-          foreach ($dynamicTough as $singleTough) {
-            if (Utils::checkAttributeCondition('tough', $singleTough, $this, $card) == 'universalCharacter1') {
-              return true;
-            }
-          }
-          return false;
-        }
+    $tier2 = count(
+      $this->getPlayedCards()->filter(function ($card) use ($receiver) {
+        return $this->playedCardGrantsUniversalCharacterTough($card, 2, $receiver);
       })
     );
+
+    $tier1 = count(
+      $this->getPlayedCards()->filter(function ($card) use ($receiver) {
+        return $this->playedCardGrantsUniversalCharacterTough($card, 1, $receiver);
+      })
+    );
+
+    return $tier2 * 2 + $tier1;
+  }
+
+  /** Completed Gather the Pack feats use {@see effectCompleted} <code>universalToughScope</code> (expedition / expeditionAnchored). */
+  private function isGatherPackUniversalToughSource(Card $source): bool
+  {
+    $completed = $source->getEffectCompleted();
+    if (!is_array($completed)) {
+      return false;
+    }
+    $scope = $completed['universalToughScope'] ?? null;
+    return $scope === 'expedition' || $scope === 'expeditionAnchored';
+  }
+
+  /**
+   * Whether $source counts as a universalCharacter1/2 tough source for $receiver (see {@see countUniversalCharacterTough}).
+   */
+  private function playedCardGrantsUniversalCharacterTough(Card $source, int $tier, ?Card $receiver): bool
+  {
+    $want = $tier === 2 ? 'universalCharacter2' : 'universalCharacter1';
+    $dt = $source->getDynamicTough();
+    $matches = false;
+    if (!is_array($dt)) {
+      $matches = Utils::checkAttributeCondition('tough', $dt, $this, $source) == $want;
+    } else {
+      foreach ($dt as $singleTough) {
+        if (Utils::checkAttributeCondition('tough', $singleTough, $this, $source) == $want) {
+          $matches = true;
+          break;
+        }
+      }
+    }
+    if (!$matches) {
+      return false;
+    }
+    if ($receiver === null) {
+      return true;
+    }
+    $completed = $source->getEffectCompleted();
+    if (!is_array($completed) || !isset($completed['universalToughScope'])) {
+      return true;
+    }
+    $scope = $completed['universalToughScope'];
+    if ($scope === 'expedition') {
+      return in_array($receiver->getLocation(), STORMS);
+    }
+    if ($scope === 'expeditionAnchored') {
+      return in_array($receiver->getLocation(), STORMS) && $receiver->hasToken(ANCHORED);
+    }
+    return true;
   }
 
   public function countUniversalToughAnchoredAsleep()
@@ -1093,6 +1233,33 @@ class Player extends \ALT\Helpers\DB_Model
         }
       })
     );
+  }
+
+  /**
+   * Highest universal Tough value from completed Feat landmarks (same key does not stack additively).
+   */
+  public function countUniversalLandmarksToughFromCompletedFeat()
+  {
+    $n = 0;
+    foreach ($this->getLandmarks() as $card) {
+      if (!$card->mayMergeCompletedFeatDynamicTough() || Meeples::countMeeples('card-' . $card->getId(), FEAT_COMPLETED) < 1) {
+        continue;
+      }
+      $completed = $card->getEffectCompleted();
+      if (empty($completed) || !is_array($completed)) {
+        continue;
+      }
+      if (isset($completed['dynamicTough'])) {
+        $dt = $completed['dynamicTough'];
+        if (is_string($dt) && str_starts_with($dt, 'universalLandmarks')) {
+          $suffix = substr($dt, strlen('universalLandmarks'));
+          if ($suffix !== '') {
+            $n = max($n, (int) $suffix);
+          }
+        }
+      }
+    }
+    return $n;
   }
 
   public function countUniversalTokenGigantic()

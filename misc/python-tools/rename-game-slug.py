@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Rename the BGA-style game slug (root PHP/JS/CSS/TPL entrypoints + Core/Game.php).
+Rename the BGA-style game slug (root PHP/JS/CSS/TPL entrypoints + Core/Game.php)
+and optionally swap ``gameoptions.json`` for an environment-specific version.
 
 Mirrors the file renames and in-file edits from commit e4c4d654c9a506954892ed20a77be9e959c2fc57
 ("rename altered -> alteredpreprod")
@@ -8,6 +9,9 @@ Mirrors the file renames and in-file edits from commit e4c4d654c9a506954892ed20a
 Options:
   --target TARGET
     New game slug (e.g. alteredpreprod). Must be a valid PHP identifier.
+    When ``gameoptions.{TARGET}.json`` (or a mapped stem from
+    ``_ENV_GAMEOPTIONS_MAP``) exists, it replaces ``gameoptions.json``
+    so per-environment options (e.g. deck formats) are deployed.
   --dry-run
     Print actions without modifying files.
   --source SOURCE
@@ -139,6 +143,40 @@ def _transform_core_game_php(content: str, source: str, target: str) -> str:
     content = content.replace(f"use {source};", f"use {target};")
     content = content.replace(f"return {source}::get();", f"return {target}::get();")
     return content
+
+
+_ENV_GAMEOPTIONS_MAP: dict[str, str] = {
+    # Map target slug → environment-specific filename stem.
+    # Multiple targets can share a single gameoptions.{stem}.json file.
+    "alteredpreprod": "altered",
+}
+
+
+def _patch_gameoptions(repo: Path, target: str, dry_run: bool) -> None:
+    """
+    If a file ``gameoptions.{stem}.json`` (where *stem* is resolved via
+    ``_ENV_GAMEOPTIONS_MAP`` or defaults to *target*) exists next to the
+    base ``gameoptions.json``, copy it over the base file and remove the
+    environment-specific copy so it does not leak to the deployment.
+
+    Convention:
+        gameoptions.altered.json      → production (altered) and alteredpreprod (alteredpreprod)
+        gameoptions.json               → everything else (preprod, branches, …)
+    """
+    stem = _ENV_GAMEOPTIONS_MAP.get(target, target)
+    env_path = repo / f"gameoptions.{stem}.json"
+    target_path = repo / "gameoptions.json"
+    if not env_path.is_file():
+        return
+    if not target_path.is_file():
+        print(f"error: expected base {target_path} not found", file=sys.stderr)
+        return
+    if dry_run:
+        print(f"copy {env_path.name} -> {target_path.name}")
+        print(f"delete {env_path.name}")
+    else:
+        shutil.copy(env_path, target_path)
+        env_path.unlink()
 
 
 def _read_text(path: Path) -> str:
@@ -277,6 +315,8 @@ def main() -> int:
         log(f"patch {core_game} (use + ::get() for {source!r} -> {target!r})")
     else:
         _write_text(core_game, cg_new)
+
+    _patch_gameoptions(repo, target, args.dry_run)
 
     log("done.")
     return 0

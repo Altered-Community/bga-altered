@@ -37,7 +37,7 @@ class RollDie extends \ALT\Models\Action
   {
     $n = $this->getCtxArg('n') ?? 1;
 
-    $player = $player ?? Players::getActive();
+    $player = $player ?? $this->getPlayer() ?? Players::getActive();
 
     // Lyra Bastion management
     $extraRolls = $player->getAddDice();
@@ -59,6 +59,7 @@ class RollDie extends \ALT\Models\Action
     'n' => 1,
     'effect' => [],
     'canDiscard' => false,
+    'allowCounterIncrease' => false,
     'hasRolled' => false,
   ];
 
@@ -110,10 +111,61 @@ class RollDie extends \ALT\Models\Action
     return $effect;
   }
 
+  private function getSourceCounterValue()
+  {
+    if (!$this->getArg('allowCounterIncrease')) {
+      return 0;
+    }
+
+    $source = $this->getSource();
+    if (is_null($source)) {
+      return 0;
+    }
+
+    return (int) ($source->getExtraDatas()['counter'] ?? 0);
+  }
+
+  private function getSelectableRolls($rolls, $counterValue)
+  {
+    $selectableRolls = [];
+    foreach ($rolls as $roll) {
+      $selectableRolls[] = $roll;
+      for ($i = 1; $i <= $counterValue; $i++) {
+        $selectableRolls[] = $roll + $i;
+      }
+    }
+    sort($selectableRolls, SORT_NUMERIC);
+    return array_values(array_unique($selectableRolls, SORT_NUMERIC));
+  }
+
+  private function getCounterSpendForRoll($selectedRoll, $rawRolls, $counterValue)
+  {
+    if ($counterValue <= 0 || !$this->getArg('allowCounterIncrease')) {
+      return 0;
+    }
+
+    $minSpend = null;
+    foreach ($rawRolls as $roll) {
+      if ($selectedRoll < $roll) {
+        continue;
+      }
+      $needed = $selectedRoll - $roll;
+      if ($needed <= $counterValue && (is_null($minSpend) || $needed < $minSpend)) {
+        $minSpend = $needed;
+      }
+    }
+
+    if (is_null($minSpend)) {
+      throw new \BgaVisibleSystemException('Selected die value cannot be reached with available Luck counters.');
+    }
+
+    return $minSpend;
+  }
+
   public function stPreRollDie()
   {
-    $player = Players::getActive();
-    list($nTotal, $extraRolls) = $this->getN();
+    $player = $this->getPlayer() ?? Players::getActive();
+    list($nTotal, $extraRolls) = $this->getN($player);
     $rolls = [];
 
     $source = $this->getSource();
@@ -135,7 +187,7 @@ class RollDie extends \ALT\Models\Action
       $rolls[] = $roll;
     }
 
-    // TODO: add power to increment die result
+    // Martengale / Fragrant Meerkat: offer +1 (per card) after seeing the result
     $newRolls = [];
     $addRoll = $player->getAddRoll();
     foreach ($rolls as $roll) {
@@ -154,17 +206,25 @@ class RollDie extends \ALT\Models\Action
 
   public function argsRollDie()
   {
+    $player = $this->getPlayer() ?? Players::getActive();
+    $source = $this->getSource();
+    $sourceCounterValue = $this->getSourceCounterValue();
+    $rawRolls = Globals::getDiceRolls();
+    $rolls = $this->getSelectableRolls($rawRolls, $sourceCounterValue);
     $canDiscard =
       $this->getArg('canDiscard') &&
-      Players::getActive()
+      $player
       ->getReserveCards()
       ->count() > 0;
 
     return [
-      'rolls' => array_values(array_unique(Globals::getDiceRolls(), SORT_NUMERIC)),
+      'rolls' => $rolls,
+      'rawRolls' => $rawRolls,
       'canDiscard' => $canDiscard,
-      'source' => '',
-      'cardIds' => Players::getActive()
+      'source' => is_null($source) ? '' : $source,
+      'counterValue' => $sourceCounterValue,
+      'allowCounterIncrease' => $this->getArg('allowCounterIncrease'),
+      'cardIds' => $player
         ->getReserveCards()
         ->getIds(),
       'descSuffix' => $canDiscard ? 'bastion' : '',
@@ -184,11 +244,24 @@ class RollDie extends \ALT\Models\Action
 
   public function actRollDie($dieValue)
   {
-
-    $player = Players::getActive();
+    $dieValue = (int) $dieValue;
+    $player = $this->getPlayer() ?? Players::getActive();
     $source = $this->getSource();
     $args = $this->argsRollDie();
     $effects = [];
+
+    if (!in_array($dieValue, $args['rolls'], true)) {
+      throw new \BgaVisibleSystemException('You cannot select this die value. Should not happen');
+    }
+
+    $counterSpend = $this->getCounterSpendForRoll($dieValue, $args['rawRolls'], $args['counterValue']);
+
+    if ($counterSpend > 0) {
+      $data = $source->getExtraDatas();
+      $data['counter'] = max(0, ($data['counter'] ?? 0) - $counterSpend);
+      $source->setExtraDatas($data);
+      Notifications::spendCounter($player, $source, $counterSpend, $source);
+    }
 
     if (count($args['rolls']) > 1) {
       Notifications::message(clienttranslate('Die ${dieValue} is selected'), ['dieValue' => $dieValue]);
@@ -225,12 +298,12 @@ class RollDie extends \ALT\Models\Action
 
   public function actDiscardAdd($cardId)
   {
-    $player = Players::getActive();
+    $player = $this->getPlayer() ?? Players::getActive();
     $source = $this->getSource();
     $args = $this->argsRollDie();
 
     if (count(array_diff($cardId, $args['cardIds'])) != 0) {
-      throw new \BgaVisibleSystemException('You cannot target this card. should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('You cannot target this card. should not happen');
     }
     $this->duplicateAction(['canDiscard' => false, 'hasRolled' => true]);
     $this->insertAsChild(FT::ACTION(DISCARD, ['cardId' => $cardId]));

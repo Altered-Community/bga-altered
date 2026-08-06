@@ -46,7 +46,7 @@ class BoostExchange extends \ALT\Models\Action
     $player = $this->getPlayer();
     $allIds = $this->getArg('cardId');
     if (is_null($allIds) || count($allIds) != 2) {
-      throw new \BgaVisibleSystemException('No Ids to switch in boostExchange, should not happen');
+      throw new \Bga\GameFramework\VisibleSystemException('No Ids to switch in boostExchange, should not happen');
     }
 
     $source = $this->ctx->getSource() ?? null;

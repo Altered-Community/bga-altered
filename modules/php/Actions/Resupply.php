@@ -8,6 +8,7 @@ use ALT\Managers\Cards;
 use ALT\Core\Notifications;
 use ALT\Core\Stats;
 use ALT\Helpers\Utils;
+use ALT\Helpers\Conditions;
 use ALT\Core\Engine;
 use ALT\Helpers\FT;
 use ALT\Models\Player;
@@ -62,11 +63,17 @@ class Resupply extends \ALT\Models\Action
     return true;
   }
 
+  public function isDoable($player)
+  {
+    return $this->getPlayer()->hasDeckCards();
+  }
+
   protected $args = [
     'n' => 1,
     'exhausted' => false,
     'character2Less' => false,
     'characterHand' => false,
+    'boostIfMatchCondition' => null, // format: N:condition e.g. 1:isType:character or 1:isSubtype:animal
     'ownerId' => null,
     'player' => null
   ];
@@ -84,9 +91,15 @@ class Resupply extends \ALT\Models\Action
     } elseif ($this->getArg('player') == 'nextPlayer') {
       $pId = Players::getNextId(Players::getActive());
     } elseif (is_null($pId)) {
-      $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
-    } elseif (isset($this->getEventRecursive()['pId']) && ($this->getEventRecursive()['cardId'] ?? -1) == $this->getSourceId()) {
-      $pId = $this->getEventRecursive()['pId'];
+      // Prefer leave-event controller only when no node pId was set. Do not apply this
+      // when TARGET_PLAYER already retargeted the node (#206754: otherwise the controller
+      // resupplies instead of the targeted opponent on LeaveExpedition-style triggers).
+      $event = $this->getEventRecursive();
+      if (isset($event['pId']) && ($event['cardId'] ?? -1) == $this->getSourceId()) {
+        $pId = $event['pId'];
+      } else {
+        $pId = ($this->getSource() == null ? Players::getActiveId() : $this->getSource()->getPId());
+      }
     }
 
     return Players::get($pId);
@@ -240,7 +253,18 @@ class Resupply extends \ALT\Models\Action
           }
         }
       }
+      if ($this->getArg('boostIfMatchCondition') != null) {
+        // Extract number of boost and condition
+        list ($boostN, $condition) = explode(':', $this->getArg('boostIfMatchCondition'), 2);
+        foreach ($cards as $cId => $card) {
+          $match = Conditions::check(['condition' => $condition], $card, null);
+          if ($match) {
+            $node[] = FT::GAIN($card, BOOST, $boostN);
+          }
+        }
+      }
     }
+
     // Machine in the ice effect
     foreach ($cards as $cId => $card) {
       if ($card->isResupplyExhaust()) {

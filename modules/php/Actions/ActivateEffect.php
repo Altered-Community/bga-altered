@@ -20,11 +20,15 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getDescription()
   {
-    if (is_null($this->getCtxArgs()['cardId'] ?? null)) {
+    $ctxCardId = $this->getCtxArgs()['cardId'] ?? null;
+    // cardId EFFECT is unresolved until a parent Target picks (e.g. output 880 under 910).
+    if (is_null($ctxCardId) || $ctxCardId === EFFECT) {
       if ($this->getArg('effectType') == 'Played') {
         return clienttranslate('activate {J} effect');
       } elseif ($this->getArg('effectType') == 'Reserve') {
         return clienttranslate('activate {R} effect');
+      } elseif ($this->getArg('effectType') == 'Support') {
+        return clienttranslate('activate {D} effect');
       }
     } else {
       $card = $this->getCard();
@@ -33,6 +37,8 @@ class ActivateEffect extends \ALT\Models\Action
           return clienttranslate('activate {J} effect');
         } elseif ($this->getArg('effectType') == 'Reserve') {
           return clienttranslate('activate {R} effect');
+        } elseif ($this->getArg('effectType') == 'Support') {
+          return clienttranslate('activate {D} effect');
         }
       }
       if ($this->getArg('effectType') == 'Played') {
@@ -43,6 +49,11 @@ class ActivateEffect extends \ALT\Models\Action
       } elseif ($this->getArg('effectType') == 'Reserve') {
         return [
           'log' => clienttranslate('activate {R} effect of ${card_name}'),
+          'args' => ['card_name' => $this->getCard()->getName(), 'i18n' => ['card_name']],
+        ];
+      } elseif ($this->getArg('effectType') == 'Support') {
+        return [
+          'log' => clienttranslate('activate {D} effect of ${card_name}'),
           'args' => ['card_name' => $this->getCard()->getName(), 'i18n' => ['card_name']],
         ];
       }
@@ -61,12 +72,87 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function getCard()
   {
+    // ownEffect + Support (e.g. output 840): activate my {D}, not the card that triggered
+    // the listener. ownEffect + Reserve (Thomas Edison, output 705) activates another
+    // card's {R} and falls through to target-bound cardId / getSource() below.
     $args = $this->getCtxArgs();
     $cardId = $args['cardId'] ?? null;
-    if ($cardId === null) {
+    if ($this->getArg('ownEffect') && $this->getArg('effectType') === 'Support') {
+      if (!is_null($cardId) && $cardId != ME && $cardId != EFFECT) {
+        return Cards::get($cardId);
+      }
+      $ownerId = $this->ctx->getSourceId();
+      if (!is_null($ownerId)) {
+        return Cards::get($ownerId);
+      }
+    }
+
+    $cardId = $this->resolveActivateCardId($cardId);
+
+    if (is_null($cardId)) {
       throw new \BgaVisibleSystemException('no card in args (Activate effect). Should not happen');
     }
     return Cards::get($cardId);
+  }
+
+  /**
+   * Resolve which card's ability to activate: explicit id, listener event (EFFECT),
+   * parent Target pick (output 880), or source card when args omit cardId.
+   */
+  private function resolveActivateCardId($cardId)
+  {
+    if ($cardId == ME) {
+      $source = $this->getSource();
+      return is_null($source) ? null : $source->getId();
+    }
+
+    if (!is_null($cardId) && $cardId != EFFECT) {
+      return $cardId;
+    }
+
+    if ($cardId == EFFECT) {
+      $event = $this->getEventRecursive();
+      if (!is_null($event)) {
+        $resolved = $event['cardId'] ?? null;
+        if (!is_null($resolved)) {
+          return $resolved;
+        }
+      }
+    }
+
+    $fromTarget = $this->resolveTargetPickCardId();
+    if (!is_null($fromTarget)) {
+      return $fromTarget;
+    }
+
+    if (is_null($cardId)) {
+      $source = $this->getSource();
+      return is_null($source) ? null : $source->getId();
+    }
+    return null;
+  }
+
+  /**
+   * Closest resolved parent Target (same pattern as Spend::resolveSpendCardId).
+   */
+  private function resolveTargetPickCardId()
+  {
+    $ctx = $this->ctx->getParent();
+    while (!is_null($ctx)) {
+      if ($ctx->getAction() === \TARGET && $ctx->isActionResolved()) {
+        $resolved = $ctx->getActionResolutionArgs();
+        if (is_array($resolved) && !empty($resolved)) {
+          $pick = $resolved[0];
+          $cardId = is_array($pick) ? ($pick[0] ?? null) : $pick;
+          if (!is_null($cardId)) {
+            return $cardId;
+          }
+        }
+      }
+      $ctx = $ctx->getParent();
+    }
+
+    return null;
   }
 
   protected $args = [
@@ -77,7 +163,6 @@ class ActivateEffect extends \ALT\Models\Action
 
   public function stActivateEffect()
   {
-    $source = $this->getSource();
     $cards = $this->getCard();
     $nodes = [];
 
@@ -98,6 +183,11 @@ class ActivateEffect extends \ALT\Models\Action
           case 'Reserve':
             $msg = clienttranslate('${player_name} activates ${card_name} {R} effect');
             break;
+          case 'Support':
+            $msg = clienttranslate('${player_name} activates ${card_name} {D} effect');
+            break;
+          default:
+            throw new \BgaVisibleSystemException('Unknown effectType in ActivateEffect: ' . $this->getArg('effectType'));
         }
 
         if (!empty($card->$effect())) {
@@ -106,11 +196,11 @@ class ActivateEffect extends \ALT\Models\Action
             'card' => $card,
           ]);
           $node = $card->$effect();
-          if ($this->getArg('ownEffect')) {
-            $node = Utils::tagTree($node, ['sourceId' => $source->getId()]);
-          } else {
-            $node = Utils::tagTree($node, ['sourceId' => $card->getId()]);
-          }
+          // ownEffect: nested effects run as the source card (Thomas Edison), not the target.
+          $tagSourceId = $this->getArg('ownEffect')
+            ? ($this->ctx->getSourceId() ?? $card->getId())
+            : $card->getId();
+          $node = Utils::tagTree($node, ['sourceId' => $tagSourceId]);
           $node = Utils::tagTree($node, ['pId' => $card->getPId()]);
           // $node['sourceId'] = $card->getId();
           if (!isset($node['action']) && ($node['type'] ?? NODE_PARALLEL) == NODE_PARALLEL) {
@@ -119,6 +209,36 @@ class ActivateEffect extends \ALT\Models\Action
             }
           } else {
             $nodes[] = $node;
+          }
+
+          // Some cards (e.g. Yeong-Gi & Ember) activate a {D} ability without going through
+          // ChooseAssignment::actSupport. Mirror the same "discard ability activated" accounting
+          // and listener event so cards tracking {D} activations can react.
+          if ($this->getArg('effectType') == 'Support') {
+            $activePlayer = Players::getActive();
+            $abilityActivated = Globals::getAbilityActivatedThisTurn();
+            $abilityActivated[$activePlayer->getId()] = array_merge(
+              $abilityActivated[$activePlayer->getId()] ?? [],
+              ['discard' => true]
+            );
+            Globals::setAbilityActivatedThisTurn($abilityActivated);
+
+            $abilityActivatedCount = Globals::getAbilityActivatedThisTurnCount();
+            $abilityActivatedCount[$activePlayer->getId()] = ($abilityActivatedCount[$activePlayer->getId()] ?? 0) + 1;
+            Globals::setAbilityActivatedThisTurnCount($abilityActivatedCount);
+
+            $abilityActivatedTypeCount = Globals::getAbilityActivatedThisTurnTypeCount();
+            $abilityActivatedTypeCount[$activePlayer->getId()] = $abilityActivatedTypeCount[$activePlayer->getId()] ?? [];
+            $abilityActivatedTypeCount[$activePlayer->getId()]['discard'] = ($abilityActivatedTypeCount[$activePlayer->getId()]['discard'] ?? 0) + 1;
+            Globals::setAbilityActivatedThisTurnTypeCount($abilityActivatedTypeCount);
+
+            $this->checkAfterListeners($activePlayer, [
+              'cardId' => $cardId,
+              'playCard' => false,
+              'isSupport' => true,
+              'sourceId' => $cardId,
+              'pId' => $activePlayer->getId(),
+            ], true, 'ChooseAssignment');
           }
         }
       } else {

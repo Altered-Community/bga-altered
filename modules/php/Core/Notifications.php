@@ -260,11 +260,14 @@ class Notifications
     self::notifyAll('endDusk', '', []);
   }
 
-  public static function moveStormToken($player, $biomes, $tokenMeeple, $stormIndex, $revealed, $source)
+  public static function moveStormToken($player, $biomes, $tokenMeeple, $stormIndex, $revealed, $source, $hasMovedFromAscension = false)
   {
-    $msg = clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biomes_desc}');
-    if (!is_null($source)) {
+    if ($hasMovedFromAscension) {
+      $msg = clienttranslate('${player_name} advances in ${expedition} expedition due to ascension in ${biomes_desc}');
+    } else if (!is_null($source)) {
       $msg = clienttranslate('${player_name} moves in ${expedition} due to ${card_name}\'s effect');
+    } else {
+      $msg = clienttranslate('${player_name} advances in ${expedition} expedition by winning in ${biomes_desc}');
     }
 
     self::notifyAll('moveStormToken', $msg, [
@@ -650,6 +653,17 @@ class Notifications
       'player' => $player,
       'meeples' => [$meeple],
       'card2' => $source,
+    ]);
+  }
+  
+  public static function featCompleted($player, $card, $meeple)
+  {
+    self::notifyAll('addMeeples', clienttranslate('${player_name} completes ${card_name} (Feat)'), [
+      'player' => $player,
+      'card' => $card,
+      'meeples' => [$meeple],
+      'i18n' => [],
+      'preserve' => [],
     ]);
   }
 

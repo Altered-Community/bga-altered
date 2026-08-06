@@ -111,7 +111,9 @@ class Engine
     if ($node == null) {
       // throw new \feException(print_r(Globals::getEngine()));
       // throw new \feException(print_r(debug_print_backtrace()));
-      $skipped = Globals::getSkippedPlayers();
+      $skipped = Globals::getSkippedPlayers(); 
+      // Effect-driven free plays (e.g. Wayfarer) never bump playedCards; only the Afternoon
+      // assignment play / pass ends the turn. See ChooseAssignment::playCard.
       // if card was played or action passed, we are done
       if (
         (Globals::getDayPhase() === true && (Globals::getPlayedCards() != 0 || in_array(Globals::getActivePId(), $skipped))) ||
@@ -126,7 +128,8 @@ class Engine
         return;
       }
 
-      // otherwise, insert again a choose assignment
+      // otherwise, insert again a choose assignment (e.g. after hero tap + Wayfarer free play)
+      Globals::setPlayedForFree(false);
       self::insertAtRoot(
         $node = [
           'childs' => [
@@ -442,6 +445,11 @@ class Engine
     $childs = self::$tree->getChilds();
     for ($i = 0; $i < count($childs); $i++) {
       if ($childs[$i]->getFlag() == AFTER_FINISHING_ACTION && !$childs[$i]->isResolved()) {
+        $infos = $childs[$i]->getInfos();
+        if (!isset($infos['activePId'])) {
+          $childs[$i]->setInfo('activePId', Players::getActiveId());
+          self::save();
+        }
         return $childs[$i];
       }
     }

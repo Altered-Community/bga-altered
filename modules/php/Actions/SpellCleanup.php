@@ -2,12 +2,8 @@
 
 namespace ALT\Actions;
 
-use ALT\Managers\Meeples;
-use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Notifications;
-use ALT\Core\Stats;
-use ALT\Helpers\Utils;
 use ALT\Core\Engine;
 use ALT\Helpers\FT;
 
@@ -49,6 +45,10 @@ class SpellCleanup extends \ALT\Models\Action
     $card = $this->getCard();
 
     if ($card->getLocation() != LIMBO) {
+      $event = $this->getCtxArgs()['event'];
+      $event['token'] = false;
+      $this->checkImmediateListeners($player, $event, true, 'ChooseAssignment');
+      $this->checkAfterListeners($player, $event, true, 'ChooseAssignment');
       $this->resolveAction();
       return;
     }
@@ -67,9 +67,10 @@ class SpellCleanup extends \ALT\Models\Action
       // moved to reserve
       $deleted = $card->moveToReserve();
       if ($card->isCooldown()) {
-        // If the card should be cooldown, we need to trigger the exhaust effect
-        Engine::insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $card->getId()], ['pId' => $player->getId(), 'sourceId' => $card->getId()]));
-        // $card->setTapped(true);
+        // Must use $this->insertAsChild so Action::$ctx is updated by reference.
+        // Engine::insertAsChild() alone replaces this leaf with a SEQ and orphans $this->ctx;
+        // later pushParallelChilds/replace then throws "Can't find index of a child".
+        $this->insertAsChild(FT::ACTION(EXHAUST, ['cardId' => $card->getId()], ['pId' => $player->getId(), 'sourceId' => $card->getId()]));
       }
     }
 
