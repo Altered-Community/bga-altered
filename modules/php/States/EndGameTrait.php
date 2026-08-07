@@ -45,6 +45,7 @@ trait EndGameTrait
       $faction = $player->getFaction();
       $players[] = [
         'id' => $pId,
+        'name' => $player->getName(),
         'faction' => $faction == FACTION_OD ? 'OR' : $faction,
         'deck' => $deck,
         'playedCards' => $playedStr,
@@ -54,17 +55,6 @@ trait EndGameTrait
       }
     }
 
-    $request['endGameInfo'] = base64_encode(json_encode([
-      'format' => Globals::getDeckFormat(),
-      'tableId' => $tableId,
-      'tournamentId' => $tournamentInfo['id'] ?? null,
-      'tournamentName' => $tournamentInfo['name'] ?? null,
-      'tournamentSeed' => $tournamentSeeds['tournament_seed'] ?? null,
-      'env' => $this->getGameName(),
-      'players' => $players,
-      'winningId' => $winningId,
-    ]));
-
     if (!Globals::getZombie() || Globals::getDay() >= 4) {
       //$valid = self::getGenericGameInfos('push_adventure_pass', $request);
 
@@ -72,6 +62,20 @@ trait EndGameTrait
         clienttranslate('The game has ended.'),
         []
       );
+      $result = $this->getGenericGameInfos('register_game', [
+        'player1id' => $players[0]['id'],
+        'player2id' => $players[1]['id'],
+        'payload' => [
+            'format' => Globals::getDeckFormat(),
+            'tableId' => $tableId,
+            'tournamentId' => $tournamentInfo['id'] ?? null,
+            'tournamentName' => $tournamentInfo['name'] ?? null,
+            'tournamentSeed' => $tournamentSeeds['tournament_seed'] ?? null,
+            'env' => $this->getGameName(),
+            'players' => $players,
+            'winningId' => $winningId,
+        ],
+      ]);
       // if ($valid['success'] == 1 && isset($valid['winner_bga_adventure_pass_progress']) && !is_null($valid['winner_bga_adventure_pass_progress'])) {
       //   Notifications::message(
       //     clienttranslate('${player_name} increased the BGA Adventure pass to ${pass}'),
