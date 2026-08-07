@@ -349,6 +349,7 @@ trait SetupTrait
       'env' => $this->getGameName(),
       'mode' => $ratingMode,
       'payload' => [
+        'playerId' => Players::getCurrentId(),
         'deckId' => $deckNumber,
         'format' => Globals::getDeckFormat(),
         'tableId' => $tableId,
