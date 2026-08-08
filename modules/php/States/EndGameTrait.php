@@ -63,8 +63,8 @@ trait EndGameTrait
         []
       );
       $result = $this->getGenericGameInfos('register_game', [
-        'player1id' => $players[0]['id'],
-        'player2id' => $players[1]['id'],
+        'player1Id' => $players[0]['id'],
+        'player2Id' => $players[1]['id'],
         'payload' => [
             'format' => Globals::getDeckFormat(),
             'tableId' => $tableId,

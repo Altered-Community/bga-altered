@@ -350,6 +350,7 @@ trait SetupTrait
       'mode' => $ratingMode,
       'payload' => [
         'playerId' => Players::getCurrentId(),
+        'playerName' => Players::getCurrent()->getName(),
         'deckId' => $deckNumber,
         'format' => Globals::getDeckFormat(),
         'tableId' => $tableId,
