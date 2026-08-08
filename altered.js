@@ -861,6 +861,10 @@
        return this._deckFormat === 'DEMO';
      },
 
+     isSealedDeckFormat() {
+       return this._deckFormat === 'SEALED';
+     },
+
      allowCustomDeckFormat() {
        return !this._beginner && !this.isDemoDeckFormat();
      },
@@ -948,6 +952,24 @@
        ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
          if ($(id)) $(id).remove();
        });
+
+       if (this.isSealedDeckFormat()) {
+         // Sealed decks aren't built here: they come from the player's official sealed
+         // pool for the current altered-draft event, so an empty list here doesn't mean
+         // a misconfigured account — it means no deck has been built yet on that site.
+         $('altered-overlay-content').innerHTML = `
+           <h2>${_('No Sealed deck found')}</h2>
+           <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
+             <div id='account-not-configured-desc'>
+              <p>⚠️ ${_('Your Sealed deck must be built on')} <a class="account-not-configured-link" href="https://altered-draft.altered.re" target="_blank" rel="noopener noreferrer">altered-draft.altered.re</a>. ${_('Once it is built there, come back here and try again.')}</p>
+             </div>
+           </div>
+         `;
+         this.openOverlay();
+         this.addToggleOverlayButton();
+         return;
+       }
+
        $('altered-overlay-content').innerHTML = `
          <h2>${_('There\'s a lot of things ongoing !')}</h2>
          <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
@@ -1145,7 +1167,7 @@
          return;
        }
  
-      if (this.isSingletonDeckFormat()) {
+      if (this.isSingletonDeckFormat() || this.isSealedDeckFormat()) {
         const gsName = this.gamedatas.gamestate && this.gamedatas.gamestate.name;
         if (gsName === 'fetchDecks' || gsName === 'chooseFetchedDeck') {
           return;
