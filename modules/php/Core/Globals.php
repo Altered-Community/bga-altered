@@ -38,7 +38,6 @@ class Globals extends \ALT\Helpers\DB_Manager
     'phase' => 'int',
     'heroes' => 'obj',
     'playedCards' => 'int',
-    'playedCardsHistory' => 'obj', // pId => uid => count, cards played during the game
     'stormMoves' => 'obj',
     'expeditionMoves' => 'obj',
     'blockedExpeditions' => 'obj', // pId => StormLet/Right
@@ -79,6 +78,9 @@ class Globals extends \ALT\Helpers\DB_Manager
     'turnCards' => 'obj',
     'nextCharacterInExpeditionBoost' => 'obj',
     'nextCharacterBaseCost3Anchored' => 'bool',
+
+    // Fugue
+    'constructionPlayedThisDay' => 'obj', // pId => bool
     
     // Eole
     'nextCharacterAsleep' => 'obj',

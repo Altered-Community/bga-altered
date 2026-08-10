@@ -11,7 +11,7 @@ use ALT\Core\Engine;
 use ALT\Managers\Players;
 use ALT\Models\Card;
 
-/* Class to manage all the cards for Altered */
+/* Class to manage all the cards for altered */
 
 function slugify($text)
 {
@@ -81,6 +81,7 @@ class Cards extends \ALT\Helpers\CachedPieces
             $card->setProperty($p, $v, false);
           }
         }
+        $card->restoreTemplePlayState(false);
         return $card;
       }
     }
@@ -175,6 +176,8 @@ class Cards extends \ALT\Helpers\CachedPieces
         return 'sdu';
       case 'EOLE':
         return 'roc';  
+      case 'FUGUE':
+        return 'nej';  
       default:
         return null;
     }

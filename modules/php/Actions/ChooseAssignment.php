@@ -149,6 +149,25 @@ class ChooseAssignment extends \ALT\Models\Action
       foreach ($scouts as $key => $locs) {
         $actions['play'][$key] = array_merge($actions['play'][$key] ?? [], $locs);
       }
+
+      $templePlays = $handCards
+        ->merge($reserveCards)
+        ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits, $matchesSubType) {
+          $meetsFreeTempleCost = $free
+            && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
+          return $card->hasTemple()
+            && in_array($card->getType(), $authorizedTypes)
+            && $matchesSubType($card)
+            && !$card->isTapped()
+            && ((!$free && $card->canBePlayed($player, false, false, true)) || $meetsFreeTempleCost);
+        })
+        ->map(function ($card) use ($player) {
+          return $card->getTemplePlayableLocations($player);
+        });
+      foreach ($templePlays as $key => $locs) {
+        $actions['play'][$key] = array_merge($actions['play'][$key] ?? [], $locs);
+      }
+
       // $actions['play'] = $actions['play']; //->merge($scouts);
       $actions['toto'] = $scouts;
     }
@@ -233,6 +252,7 @@ class ChooseAssignment extends \ALT\Models\Action
   public function actPlay($cardId, $location)
   {
     $scout = false;
+    $temple = false;
     $args = $this->argsChooseAssignment()['_private']['active']['play'];
     $locations = $args[$cardId] ?? null;
     if (is_null($locations)) {
@@ -242,14 +262,24 @@ class ChooseAssignment extends \ALT\Models\Action
       throw new \BgaVisibleSystemException('Invalid location to play a card. Should not happen');
     }
     $locExploded = explode('_', $location);
-    if ($locExploded[1] ?? '' == 'scout') {
+    if (($locExploded[1] ?? '') == 'scout') {
       $scout = true;
     }
+    if (!$temple && ($locExploded[0] ?? $location) == LANDMARK) {
+      $card = Cards::get($cardId);
+      if ($card->hasTemple() && !in_array(LANDMARK, $card->getPlayableLocation(
+        Players::getActive(),
+        $this->getArg('forcedLocation'),
+        $this->getArg('free')
+      ))) {
+        $temple = true;
+      }
+    }
 
-    $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout);
+    $this->playCard($cardId, $location, $this->getArg('free'), true, 0, true, $scout, false, null, $temple);
   }
 
-  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false, $countsAsTurnPlay = null) 
+  public function playCard($cardId, $location, $free = false, $effectHand = true, $newCost = 0, $reallyPlayed = true, $scout = false, $stealOwnership = false, $countsAsTurnPlay = null, $temple = false) 
   {
     $player = Players::getActive();
     $card = Cards::get($cardId);
@@ -261,7 +291,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     if ($free == false) {
       // Calculate cost
-      $cost = $card->getCost($scout, $this->getArg('reserveFlipCost'));
+      $cost = $card->getCost($scout, $this->getArg('reserveFlipCost'), $temple);
       // Diocles Chariot racer Rare
       if ($card->getPlayLimitation() == '+3StartingRegion') {
         if ($location == STORM_LEFT && $player->getHeroToken()->getLocation() == 'storm-0') {
@@ -425,6 +455,10 @@ class ChooseAssignment extends \ALT\Models\Action
         $cost -= $card->getCostReductionIfEmpty();
       }
 
+      if ($card->getCostReductionIfConstructionPlayed() > 0 && $player->hasPlayedConstructionThisDay()) {
+        $cost -= $card->getCostReductionIfConstructionPlayed();
+      }
+
       // Pay cost
       $player->payMana($cost);
     } elseif ($newCost > 0) {
@@ -443,18 +477,14 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::incPlayedCards();
     }
 
-    $uid = $card->getUid();
-    if ($uid !== null) {
-      $playedHistory = Globals::getPlayedCardsHistory();
-      $playedHistory[$player->getId()][$uid] = ($playedHistory[$player->getId()][$uid] ?? 0) + 1;
-      Globals::setPlayedCardsHistory($playedHistory);
-    }
-
-    if ((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || ($free == true && $cost == 0)) {
+    if (((($card->getType() == SPELL || in_array(SPELL, $card->getAdditionalType())) && Globals::isNextSpellIsFree()) || $free == true && $cost == 0)) {
       Globals::setPlayedForFree(true);
     }
     // Move card
     $fromLocation = $card->getLocation();
+    if ($temple) {
+      $card->applyTemplePlay();
+    } 
     $card->setLocation($location);
     $card->setTapped(false);
     $card->setRevealed(false);
@@ -462,6 +492,10 @@ class ChooseAssignment extends \ALT\Models\Action
     $turnCards = Globals::getTurnCards();
     $turnCards[$player->getId()] = ($turnCards[$player->getId()] ?? 0) + 1;
     Globals::setTurnCards($turnCards);
+
+    if ($reallyPlayed && in_array(CONSTRUCTION, $card->getSubtypes())) {
+      $player->markConstructionPlayedThisDay();
+    }
 
     // if card has boosts (from incorrect passive effect), we remove them
 
@@ -487,8 +521,9 @@ class ChooseAssignment extends \ALT\Models\Action
       $deleted = $card->discard();
       Notifications::silentKill($deleted);
     }
-    // if played from reserve, it gains fleeting
-    elseif ($fromLocation == RESERVE && !in_array(LANDMARK, $card->getSubtypes())) {
+    // if played from reserve, it gains fleeting (except native Landmarks).
+    // Temple plays become Landmark after applyTemplePlay, so allow them explicitly.
+    elseif ($fromLocation == RESERVE && ($temple || !in_array(LANDMARK, $card->getSubtypes()))) {
       Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
     } elseif ($player->getHero()->isAllSpell1Fleeting() && $card->getType() == SPELL && $card->getCostHand() <= 1) {
       Actions::get(GAIN)->gain($player, $card, FLEETING, 1, null, ['type' => FLEETING]);
@@ -500,7 +535,7 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     // should we boost the card
-    if (in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getNextCharacterBoost() > 0) {
+    if (!$temple && in_array($card->getType(), [CHARACTER, TOKEN]) && Globals::getNextCharacterBoost() > 0) {
       $toBoost = Globals::getNextCharacterBoost();
       $occur = Globals::getNextCharacterBoostOccurence();
 
@@ -517,6 +552,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // Sound the Howl
     if (
+      !$temple &&
       in_array($card->getType(), [CHARACTER, TOKEN]) &&
       in_array(ANIMAL, $card->getSubtypes()) &&
       Globals::getNextAnimalBoost() > 0
@@ -535,13 +571,14 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextAnimalBoostOccurence(0);
     }
 
-    if ($fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
+    if (!$temple && $fromLocation == RESERVE && $card->getType() == CHARACTER && Globals::getNextReserveCharacterBoost()) {
       $this->pushParallelChild(FT::GAIN($card, BOOST, Globals::getNextReserveCharacterBoost()));
       Globals::setNextReserveCharacterBoost(0);
     }
     // The undergrowth
     $otherLocation = $location == STORM_LEFT ? STORM_RIGHT : ($location == STORM_RIGHT ? STORM_LEFT : 'none');
     if (
+      !$temple &&
       Globals::getNextCharacterBoostV() > 0
       && $card->getType() == CHARACTER &&
       ($player->isInBiome($location, FOREST, true) || ($card->isGigantic() && $player->isInBiome($otherLocation, FOREST, true)))
@@ -562,6 +599,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     // should we anchor the character?
     if (
+      !$temple &&
       Globals::getNextCharacterCost3Anchored() == true &&
       in_array($card->getType(), [CHARACTER, TOKEN]) &&
       $card->getCostHand() <= 3
@@ -585,6 +623,7 @@ class ChooseAssignment extends \ALT\Models\Action
     }
 
     if (
+      !$temple &&
       Globals::getNextCharacterAnchored() == true &&
       in_array($card->getType(), [CHARACTER, TOKEN])
     ) {
@@ -592,9 +631,10 @@ class ChooseAssignment extends \ALT\Models\Action
       Globals::setNextCharacterAnchored(false);
     }
    if (
+      !$temple &&
       Globals::getNextCharacterBaseCost3Anchored() == true &&
       in_array($card->getType(), [CHARACTER, TOKEN]) &&
-       (($card->getCostHand() <= 3 && in_array($fromLocation, [HAND, LIMBO])) // LIMBO is used for Romantic Encounter / Phoibos, where hand cost shall be used for comparison
+      (($card->getCostHand() <= 3 && in_array($fromLocation, [HAND, LIMBO])) // LIMBO is used for Romantic Encounter / Phoibos, where hand cost shall be used for comparison
        || ($fromLocation == RESERVE && $card->getCostReserve() <= 3)) 
     ) {
       $this->pushParallelChild(FT::GAIN($card, ANCHORED));
@@ -795,9 +835,7 @@ class ChooseAssignment extends \ALT\Models\Action
               }));
           
               if (($addEffect['limit'] ?? INFTY) == 1) {
-                // Unique cards merge multiple {R} trigrams as NODE_PARALLEL (with type set).
-                // Flatten those childs so limit=1 wraps them in XOR (choose one), not run all.
-                if (isset($newEffect['childs']) && (!isset($newEffect['type']) || $newEffect['type'] == NODE_PARALLEL)) {
+                if (!isset($newEffect['type']) && isset($newEffect['childs'])) {
                   $newEffect = $newEffect['childs'];
                 } else {
                   $newEffect = [$newEffect];
@@ -895,8 +933,6 @@ class ChooseAssignment extends \ALT\Models\Action
         }
         $effects = Utils::tagTree(['childs' => $effects], ['sourceId' => $card->getId()]);
         $effects = Utils::updateTree($effects, [0 => 'dioclesLocation'], $card->getLocation(), ['expedition']);
-        // Snapshot expedition so delayed ASCEND still works if the source leaves play (e.g. Tengu rush + bounce)
-        $effects = Utils::updateTree($effects, 'source', $card->getLocation(), ['expedition']);
         // $effects = Utils::tagTree($effects, ['pId' => $player->getId()]);
         $this->pushAfterFinishingChilds($effects['childs']);
         if ($card->getRarity() == RARITY_UNIQUE) {

@@ -198,6 +198,16 @@ abstract class Conditions
   {
     return ($event['pId'] ?? null) == $card->getPId();
   }
+
+  public static function isTemple($card, $event)
+  {
+    return $card->isPlayedAsTemple();
+  }
+
+  public static function isNotTemple($card, $event)
+  {
+    return !$card->isPlayedAsTemple();
+  }
   
   /** True when this card is the one that entered play (playCard + cardId on the event). Used for InvokeToken with onPlay effects. */
   public static function isSelfPlayCardEvent($card, $event)
@@ -237,6 +247,11 @@ abstract class Conditions
   public static function isAfternoon($card, $event)
   {
     return Globals::isDayPhase();
+  }
+
+  public static function isNoon($card, $event)
+  {
+    return Globals::getPhase() == 1;
   }
 
   public static function isNotFirstTurn($card, $event)
@@ -2678,7 +2693,6 @@ abstract class Conditions
     $gainCard = Cards::get($event['gain']['cardId']);
     return !$card->isTapped() &&
       $event['gain']['type'] == BOOST &&
-      in_array($gainCard->getLocation(), STORMS) &&
       $gainCard->getType() == CHARACTER &&
       $gainCard->isToken() == false &&
       $gainCard->getPId() == $card->getPId();
