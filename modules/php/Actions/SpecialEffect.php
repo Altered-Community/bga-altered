@@ -264,8 +264,6 @@ class SpecialEffect extends \ALT\Models\Action
         return ($this->getArg('args')['n'] ?? 1) > 1
           ? clienttranslate('Target opponent may exhausted-resupply twice')
           : clienttranslate('Target opponent may exhausted-resupply');
-      case 'tapAndAddToCurrentRolls':
-        return clienttranslate('{T} Exhaust me to add 1 to the die result');
         // FUGUE
       case 'blockOpponentsCardNameThisDay':
         return clienttranslate('Opponents can\'t play cards with that name this Day');
@@ -2485,7 +2483,6 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-<<<<<<< HEAD
         break;        
         // EOLE
       case 'doEachCardInDiscardPileSourceName':
@@ -2520,9 +2517,7 @@ class SpecialEffect extends \ALT\Models\Action
           'pId' => $opponentId,
           'childs' => $childs,
         ]);
-        break;
-=======
-        break;            
+        break;     
         // FUGUE
       case 'blockOpponentsCardNameThisDay':
         $targetCardId = $this->getCtxArg('cardId');
@@ -2545,7 +2540,6 @@ class SpecialEffect extends \ALT\Models\Action
           Globals::setBlockedCardNamesThisDay($blocked);
         }
         break; 
->>>>>>> 025aa6ec (Added NEJ OD card families)
       default:
         break;
     }
