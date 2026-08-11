@@ -1155,14 +1155,20 @@
        }
        let deckNumber = args._private.selection;
        if (deckNumber == 'API') {
+         // Clear any stale fetchDecks/chooseFetchedDeck client state so a later
+         // Cancel (which re-checks gamedatas.gamestate.name) isn't fooled into
+         // thinking we're still mid-fetch and silently no-ops.
+         this.clearClientState();
          this.showAPIDeckDetails(args);
          return;
        }
        if (deckNumber == 'random') {
+        this.clearClientState();
         this.showRandomDeckAssignedContent(args);
         return;
       }
        if (deckNumber != null && args._private.starterDeck) {
+         this.clearClientState();
          this.showAPIDeckDetails({ _private: { API: args._private.starterDeck } });
          return;
        }
@@ -1464,10 +1470,6 @@
 
     selectCustomDeckFaction(faction) {
       this._customDeckSelectedFaction = faction;
-      this._deckContentAPI = null;
-      if ($('btnConfirmDeck')) {
-        $('btnConfirmDeck').classList.add('disabled');
-      }
       this.reloadFetchedDecks({
         factions: this._apiFactionsFromBannerFaction(faction),
         page: 1,
@@ -1482,6 +1484,9 @@
        this.addCancelStateBtn();
        this._awaitingAPIReturn = false;
       this._apiRequest = args.request;
+      // Cached so the "Back" button from the deck preview can rebuild this list
+      // without another round trip to the deck-list API.
+      this._chooseFetchedDeckArgs = args;
 
       const bannerFactions = this._getCustomDeckBannerFactions();
       let selectedFaction =
@@ -1598,17 +1603,6 @@
  
        this.onClick('api-error', () => ($('api-error').innerHTML = ''));
  
-       // Confirm button
-       this._deckContentAPI = null;
-       this.addPrimaryActionButton(
-         'btnConfirmDeck',
-         _('Confirm'),
-         () => {
-           this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(this._deckContentAPI) }, false);
-         },
-         'overlay-deck-selection'
-       );
-       $('btnConfirmDeck').classList.add('disabled');
        this.openOverlay();
  
        // Thumbnails
@@ -1616,26 +1610,17 @@
       const factionNames = Object.assign({ OR: _('Ordis') }, factionDisplayNames);
        let hand = _('hand');
 
-       let selected = null;
        const selectFetchedDeck = (deck) => {
          if (this._awaitingAPIReturn) return;
 
-         if (selected) {
-           $(`deck-${selected}`).classList.remove('selected');
-         }
-         selected = deck.apiId;
-         $(`deck-${selected}`).classList.add('fetching');
-         $('btnConfirmDeck').classList.add('disabled');
+         $(`deck-${deck.apiId}`).classList.add('fetching');
 
          this._awaitingAPIReturn = true;
          $('api-error').innerHTML = '';
          this.takeAction('actGetDeckInfos', { deckNumber: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
-           let deckContent = response.data;
-           this._deckContentAPI = deckContent;
            this._awaitingAPIReturn = false;
-           $(`deck-${selected}`).classList.remove('fetching');
-           $(`deck-${selected}`).classList.add('selected');
-           $('btnConfirmDeck').classList.remove('disabled');
+           let deckContent = response.data;
+           this.showFetchedDeckPreview(deckContent, args);
          });
        };
 
@@ -1689,8 +1674,11 @@
        return html;
      },
 
-     showAPIDeckDetails(args) {
-       let deck = args._private.API;
+     /**
+      * Renders the hero + card list for a deck (already-confirmed API deck, or a
+      * not-yet-confirmed preview) into the overlay. Caller adds its own action buttons.
+      */
+     _renderDeckCardsOverlay(deck, noticesHtml) {
        $('altered-overlay-content').innerHTML = '';
        $('altered-overlay-content').insertAdjacentHTML(
          'beforeend',
@@ -1700,23 +1688,48 @@
            <div id="deck-hero"></div>
            <div id="deck-cards"></div>
          </div>
-         ${this._getSealedDeckNoticesHtml(args, deck)}
+         ${noticesHtml}
        `
        );
        this.openOverlay();
- 
+
        this.addCard({ id: '-hero', properties: deck.cards.hero.card.properties }, 'deck-hero');
        $(`card--hero`).insertAdjacentHTML('beforeend', `<div class='faction-banner' data-faction='${deck.faction}'></div>`);
- 
+
        Object.entries(deck.cards).forEach(([i, card]) => {
          if (i == 'hero') return;
- 
+
          let id = 'preview-' + i;
          this.addCard({ id, properties: card.card.properties }, 'deck-cards');
          $(`card-${id}`).querySelector('.card-frame').dataset.copies = card.n;
        });
- 
+     },
+
+     showAPIDeckDetails(args) {
+       let deck = args._private.API;
+       this._renderDeckCardsOverlay(deck, this._getSealedDeckNoticesHtml(args, deck));
        this.addSecondaryActionButton('btnCancel', _('Cancel'), () => this.takeAction('actCancelPrecoDeckSelection', {}, false));
+     },
+
+     /**
+      * Preview of a fetched deck (2nd API call result) before it is confirmed:
+      * shows the full card list and requires an explicit Confirm to actually lock
+      * it in via actConfirmAPIDeck. "Back" (when more than one deck was available)
+      * returns to the deck list without any server round trip.
+      */
+     showFetchedDeckPreview(deckContent, listArgs) {
+       this._renderDeckCardsOverlay(deckContent, this._getSealedDeckNoticesHtml(this._lastSelectPrecoDeckArgs || {}, deckContent));
+
+       this.addPrimaryActionButton('btnConfirmFetchedDeck', _('Confirm'), () => {
+         this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(deckContent) }, false);
+       });
+
+       const canGoBack = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
+       if (canGoBack) {
+         this.addSecondaryActionButton('btnBackToDeckList', _('Back'), () => {
+           this.onEnteringStateChooseFetchedDeck(listArgs);
+         });
+       }
      },
  
      //////////////////////////////
