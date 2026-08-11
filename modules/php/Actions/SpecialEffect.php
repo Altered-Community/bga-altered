@@ -264,8 +264,6 @@ class SpecialEffect extends \ALT\Models\Action
         return ($this->getArg('args')['n'] ?? 1) > 1
           ? clienttranslate('Target opponent may exhausted-resupply twice')
           : clienttranslate('Target opponent may exhausted-resupply');
-      case 'tapAndAddToCurrentRolls':
-        return clienttranslate('{T} Exhaust me to add 1 to the die result');
         // FUGUE
       case 'copyInvoke':
         return clienttranslate('Create another copy of the token in the same place');
@@ -2485,7 +2483,6 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-<<<<<<< HEAD
         break;        
         // EOLE
       case 'doEachCardInDiscardPileSourceName':
@@ -2521,8 +2518,6 @@ class SpecialEffect extends \ALT\Models\Action
           'childs' => $childs,
         ]);
         break;
-=======
-        break;    
       case 'copyInvoke':
         $event = $this->getEventRecursive();
 
@@ -2541,7 +2536,6 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::ACTION(INVOKE_TOKEN, $invokeArgs, $ctxArgs));
         }
         break;         
->>>>>>> 6c19b43e (Added Troy family card)
       default:
         break;
     }
