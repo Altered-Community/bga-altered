@@ -264,8 +264,6 @@ class SpecialEffect extends \ALT\Models\Action
         return ($this->getArg('args')['n'] ?? 1) > 1
           ? clienttranslate('Target opponent may exhausted-resupply twice')
           : clienttranslate('Target opponent may exhausted-resupply');
-      case 'tapAndAddToCurrentRolls':
-        return clienttranslate('{T} Exhaust me to add 1 to the die result');
         // FUGUE
       case 'eachPlayerKeepOneReserve':
         return clienttranslate('Choose one card in each player\'s Reserve. Discard all other cards in Reserve.');
@@ -2485,7 +2483,6 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
-<<<<<<< HEAD
         break;        
         // EOLE
       case 'doEachCardInDiscardPileSourceName':
@@ -2520,9 +2517,7 @@ class SpecialEffect extends \ALT\Models\Action
           'pId' => $opponentId,
           'childs' => $childs,
         ]);
-        break;
-=======
-        break;    
+        break;  
         // FUGUE
       case 'eachPlayerKeepOneReserve':
         $nodes = [];
@@ -2549,7 +2544,6 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;         
->>>>>>> a5508735 (Updated effect after testing)
       default:
         break;
     }
