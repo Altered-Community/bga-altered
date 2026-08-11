@@ -1617,6 +1617,28 @@
        let hand = _('hand');
 
        let selected = null;
+       const selectFetchedDeck = (deck) => {
+         if (this._awaitingAPIReturn) return;
+
+         if (selected) {
+           $(`deck-${selected}`).classList.remove('selected');
+         }
+         selected = deck.apiId;
+         $(`deck-${selected}`).classList.add('fetching');
+         $('btnConfirmDeck').classList.add('disabled');
+
+         this._awaitingAPIReturn = true;
+         $('api-error').innerHTML = '';
+         this.takeAction('actGetDeckInfos', { deckNumber: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
+           let deckContent = response.data;
+           this._deckContentAPI = deckContent;
+           this._awaitingAPIReturn = false;
+           $(`deck-${selected}`).classList.remove('fetching');
+           $(`deck-${selected}`).classList.add('selected');
+           $('btnConfirmDeck').classList.remove('disabled');
+         });
+       };
+
        $(`deck-list`).innerHTML = '';
        args.decks.forEach((deck) => {
          let factionName = factionNames[deck.faction];
@@ -1635,31 +1657,38 @@
              </div>
            </div>`
          );
- 
-         this.onClick(`deck-${deck.apiId}`, () => {
-           if (this._awaitingAPIReturn) return;
- 
-           if (selected) {
-             $(`deck-${selected}`).classList.remove('selected');
-           }
-           selected = deck.apiId;
-           $(`deck-${selected}`).classList.add('fetching');
-           $('btnConfirmDeck').classList.add('disabled');
- 
-           this._awaitingAPIReturn = true;
-           $('api-error').innerHTML = '';
-           this.takeAction('actGetDeckInfos', { deckNumber: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
-             let deckContent = response.data;
-             this._deckContentAPI = deckContent;
-             this._awaitingAPIReturn = false;
-             $(`deck-${selected}`).classList.remove('fetching');
-             $(`deck-${selected}`).classList.add('selected');
-             $('btnConfirmDeck').classList.remove('disabled');
-           });
-         });
+
+         this.onClick(`deck-${deck.apiId}`, () => selectFetchedDeck(deck));
        });
+
+       // Sealed format: the first API call never returns more than one deck, so
+       // select it right away instead of waiting for the player to click on it,
+       // chaining straight into the second API call (actGetDeckInfos).
+       if (this.isSealedDeckFormat() && args.decks.length === 1) {
+         selectFetchedDeck(args.decks[0]);
+       }
      },
  
+     /**
+      * Sealed deck notices shown below the deck details: a warning when the deck was
+      * auto-generated (name starts with "random"), and a reminder of where to rebuild
+      * the deck between games (link depends on tournament vs normal play).
+      */
+     _getSealedDeckNoticesHtml(args, deck) {
+       if (!this.isSealedDeckFormat()) return '';
+
+       let html = '';
+       if (deck.deckName && deck.deckName.toLowerCase().indexOf('random') === 0) {
+         html += `<p class='api-deck-random-warning'>⚠️ ${_(
+           "You didn't build your deck before the matches started. A random deck was generated using your pool."
+         )}</p>`;
+       }
+
+       const deckChangeLink = (args && args.deckChangeLink) || 'https://altered-draft.altered.re/';
+       html += `<p class='api-deck-change-notice'>${_('You can change your deck between games via')} <a href="${deckChangeLink}" target="_blank" rel="noopener noreferrer">altered-draft.altered.re</a>.</p>`;
+       return html;
+     },
+
      showAPIDeckDetails(args) {
        let deck = args._private.API;
        $('altered-overlay-content').innerHTML = '';
@@ -1671,6 +1700,7 @@
            <div id="deck-hero"></div>
            <div id="deck-cards"></div>
          </div>
+         ${this._getSealedDeckNoticesHtml(args, deck)}
        `
        );
        this.openOverlay();
