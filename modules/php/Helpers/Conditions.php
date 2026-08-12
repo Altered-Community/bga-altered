@@ -71,6 +71,11 @@ abstract class Conditions
   {
     return ($event['from'] ?? null) == HAND;
   }
+  
+  public static function isToStorm($card, $event)
+  {
+    return in_array($event['to'] ?? null, STORMS);
+  }
 
   public static function isToReserve($card, $event)
   {
