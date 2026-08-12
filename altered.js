@@ -1613,6 +1613,13 @@
        const selectFetchedDeck = (deck) => {
          if (this._awaitingAPIReturn) return;
 
+         // Invalid decks are flagged by name (no legal content to fetch): skip the
+         // 2nd API call entirely and point the player to fix it on the website.
+         if (deck.deckName && deck.deckName.toLowerCase().indexOf('invalid') === 0) {
+           this.showInvalidFetchedDeckMessage(deck, args);
+           return;
+         }
+
          $(`deck-${deck.apiId}`).classList.add('fetching');
 
          this._awaitingAPIReturn = true;
@@ -1620,6 +1627,7 @@
          this.takeAction('actGetDeckInfos', { deckNumber: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
            this._awaitingAPIReturn = false;
            let deckContent = response.data;
+           deckContent.apiId = deck.apiId;
            this.showFetchedDeckPreview(deckContent, args);
          });
        };
@@ -1655,11 +1663,17 @@
      },
  
      /**
-      * Sealed deck notices shown below the deck details: a warning when the deck was
-      * auto-generated (name starts with "random"), and a reminder of where to rebuild
-      * the deck between games (link depends on tournament vs normal play).
+      * Deck edit page for a given sealed deck on the Re:Union draft platform.
       */
-     _getSealedDeckNoticesHtml(args, deck) {
+     _getDeckEditLink(deckId) {
+       return `https://altered-draft.altered.re/edit/deck/${deckId}`;
+     },
+
+     /**
+      * Sealed deck notices shown below the deck details: a warning when the deck was
+      * auto-generated (name starts with "random"), and a reminder of where to edit it.
+      */
+     _getSealedDeckNoticesHtml(deck) {
        if (!this.isSealedDeckFormat()) return '';
 
        let html = '';
@@ -1669,8 +1683,7 @@
          )}</p>`;
        }
 
-       const deckChangeLink = (args && args.deckChangeLink) || 'https://altered-draft.altered.re/';
-       html += `<p class='api-deck-change-notice'>${_('You can change your deck between games via')} <a href="${deckChangeLink}" target="_blank" rel="noopener noreferrer">altered-draft.altered.re</a>.</p>`;
+       html += `<p class='api-deck-change-notice'>${_('You can change your deck between games via')} <a href="${this._getDeckEditLink(deck.apiId)}" target="_blank" rel="noopener noreferrer">altered-draft.altered.re</a>.</p>`;
        return html;
      },
 
@@ -1707,7 +1720,7 @@
 
      showAPIDeckDetails(args) {
        let deck = args._private.API;
-       this._renderDeckCardsOverlay(deck, this._getSealedDeckNoticesHtml(args, deck));
+       this._renderDeckCardsOverlay(deck, this._getSealedDeckNoticesHtml(deck));
        this.addSecondaryActionButton('btnCancel', _('Cancel'), () => this.takeAction('actCancelPrecoDeckSelection', {}, false));
      },
 
@@ -1718,11 +1731,36 @@
       * returns to the deck list without any server round trip.
       */
      showFetchedDeckPreview(deckContent, listArgs) {
-       this._renderDeckCardsOverlay(deckContent, this._getSealedDeckNoticesHtml(this._lastSelectPrecoDeckArgs || {}, deckContent));
+       this._renderDeckCardsOverlay(deckContent, this._getSealedDeckNoticesHtml(deckContent));
 
        this.addPrimaryActionButton('btnConfirmFetchedDeck', _('Confirm'), () => {
          this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(deckContent) }, false);
        });
+
+       const canGoBack = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
+       if (canGoBack) {
+         this.addSecondaryActionButton('btnBackToDeckList', _('Back'), () => {
+           this.onEnteringStateChooseFetchedDeck(listArgs);
+         });
+       }
+     },
+
+     /**
+      * Shown instead of fetching a deck's full content when its name flags it as
+      * invalid: points the player to fix it on the Re:Union draft platform.
+      */
+     showInvalidFetchedDeckMessage(deck, listArgs) {
+       $('altered-overlay-content').innerHTML = '';
+       $('altered-overlay-content').insertAdjacentHTML(
+         'beforeend',
+         `
+         <h2>${_('Invalid deck')}</h2>
+         <div id='invalid-fetched-deck'>
+           <p>⚠️ ${_('This deck is invalid.')} <a href="${this._getDeckEditLink(deck.apiId)}" target="_blank" rel="noopener noreferrer">${_('Fix it on altered-draft.altered.re')}</a>.</p>
+         </div>
+       `
+       );
+       this.openOverlay();
 
        const canGoBack = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
        if (canGoBack) {

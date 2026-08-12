@@ -181,11 +181,9 @@ trait SetupTrait
   function argsPrecoDeckSelection()
   {
     $isDemoDeckFormat = Globals::getDeckFormat() == 'DEMO';
-    $isTournament = $this->bga->tournament->isTournament();
     $args = [
       '_private' => [],
       'demoDeck' => $isDemoDeckFormat,
-      'deckChangeLink' => $isTournament ? 'https://altered-draft.altered.re/' : 'https://altered-draft.altered.re/tournament/normal',
     ];
     $allDecks = Globals::getPlayerDecks();
     $selection = Globals::getDeckSelection();
