@@ -861,6 +861,10 @@
        return this._deckFormat === 'DEMO';
      },
 
+     isSealedDeckFormat() {
+       return this._deckFormat === 'SEALED';
+     },
+
      allowCustomDeckFormat() {
        return !this._beginner && !this.isDemoDeckFormat();
      },
@@ -948,6 +952,24 @@
        ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
          if ($(id)) $(id).remove();
        });
+
+       if (this.isSealedDeckFormat()) {
+         // Sealed decks aren't built here: they come from the player's official sealed
+         // pool for the current altered-draft event, so an empty list here doesn't mean
+         // a misconfigured account — it means no deck has been built yet on that site.
+         $('altered-overlay-content').innerHTML = `
+           <h2>${_('No Sealed deck found')}</h2>
+           <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
+             <div id='account-not-configured-desc'>
+              <p>⚠️ ${_('Your Sealed deck must be built on')} <a class="account-not-configured-link" href="https://altered-draft.altered.re" target="_blank" rel="noopener noreferrer">altered-draft.altered.re</a>. ${_('Once it is built there, come back here and try again.')}</p>
+             </div>
+           </div>
+         `;
+         this.openOverlay();
+         this.addToggleOverlayButton();
+         return;
+       }
+
        $('altered-overlay-content').innerHTML = `
          <h2>${_('There\'s a lot of things ongoing !')}</h2>
          <div id='deck-wizard' class='deck-wizard-step-2 account-not-configured-screen'>
@@ -1133,19 +1155,25 @@
        }
        let deckNumber = args._private.selection;
        if (deckNumber == 'API') {
+         // Clear any stale fetchDecks/chooseFetchedDeck client state so a later
+         // Cancel (which re-checks gamedatas.gamestate.name) isn't fooled into
+         // thinking we're still mid-fetch and silently no-ops.
+         this.clearClientState();
          this.showAPIDeckDetails(args);
          return;
        }
        if (deckNumber == 'random') {
+        this.clearClientState();
         this.showRandomDeckAssignedContent(args);
         return;
       }
        if (deckNumber != null && args._private.starterDeck) {
+         this.clearClientState();
          this.showAPIDeckDetails({ _private: { API: args._private.starterDeck } });
          return;
        }
  
-      if (this.isSingletonDeckFormat()) {
+      if (this.isSingletonDeckFormat() || this.isSealedDeckFormat()) {
         const gsName = this.gamedatas.gamestate && this.gamedatas.gamestate.name;
         if (gsName === 'fetchDecks' || gsName === 'chooseFetchedDeck') {
           return;
@@ -1442,10 +1470,6 @@
 
     selectCustomDeckFaction(faction) {
       this._customDeckSelectedFaction = faction;
-      this._deckContentAPI = null;
-      if ($('btnConfirmDeck')) {
-        $('btnConfirmDeck').classList.add('disabled');
-      }
       this.reloadFetchedDecks({
         factions: this._apiFactionsFromBannerFaction(faction),
         page: 1,
@@ -1460,6 +1484,9 @@
        this.addCancelStateBtn();
        this._awaitingAPIReturn = false;
       this._apiRequest = args.request;
+      // Cached so the "Back" button from the deck preview can rebuild this list
+      // without another round trip to the deck-list API.
+      this._chooseFetchedDeckArgs = args;
 
       const bannerFactions = this._getCustomDeckBannerFactions();
       let selectedFaction =
@@ -1576,17 +1603,6 @@
  
        this.onClick('api-error', () => ($('api-error').innerHTML = ''));
  
-       // Confirm button
-       this._deckContentAPI = null;
-       this.addPrimaryActionButton(
-         'btnConfirmDeck',
-         _('Confirm'),
-         () => {
-           this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(this._deckContentAPI) }, false);
-         },
-         'overlay-deck-selection'
-       );
-       $('btnConfirmDeck').classList.add('disabled');
        this.openOverlay();
  
        // Thumbnails
@@ -1594,7 +1610,28 @@
       const factionNames = Object.assign({ OR: _('Ordis') }, factionDisplayNames);
        let hand = _('hand');
 
-       let selected = null;
+       const selectFetchedDeck = (deck) => {
+         if (this._awaitingAPIReturn) return;
+
+         // Invalid decks are flagged by name (no legal content to fetch): skip the
+         // 2nd API call entirely and point the player to fix it on the website.
+         if (deck.deckName && deck.deckName.toLowerCase().indexOf('invalid') === 0) {
+           this.showInvalidFetchedDeckMessage(deck, args);
+           return;
+         }
+
+         $(`deck-${deck.apiId}`).classList.add('fetching');
+
+         this._awaitingAPIReturn = true;
+         $('api-error').innerHTML = '';
+         this.takeAction('actGetDeckInfos', { deckNumber: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
+           this._awaitingAPIReturn = false;
+           let deckContent = response.data;
+           deckContent.apiId = deck.apiId;
+           this.showFetchedDeckPreview(deckContent, args);
+         });
+       };
+
        $(`deck-list`).innerHTML = '';
        args.decks.forEach((deck) => {
          let factionName = factionNames[deck.faction];
@@ -1613,33 +1650,48 @@
              </div>
            </div>`
          );
- 
-         this.onClick(`deck-${deck.apiId}`, () => {
-           if (this._awaitingAPIReturn) return;
- 
-           if (selected) {
-             $(`deck-${selected}`).classList.remove('selected');
-           }
-           selected = deck.apiId;
-           $(`deck-${selected}`).classList.add('fetching');
-           $('btnConfirmDeck').classList.add('disabled');
- 
-           this._awaitingAPIReturn = true;
-           $('api-error').innerHTML = '';
-           this.takeAction('actGetDeckInfos', { deckNumber: JSON.stringify(deck.apiId), lock: false }, false).then((response) => {
-             let deckContent = response.data;
-             this._deckContentAPI = deckContent;
-             this._awaitingAPIReturn = false;
-             $(`deck-${selected}`).classList.remove('fetching');
-             $(`deck-${selected}`).classList.add('selected');
-             $('btnConfirmDeck').classList.remove('disabled');
-           });
-         });
+
+         this.onClick(`deck-${deck.apiId}`, () => selectFetchedDeck(deck));
        });
+
+       // Sealed format: the first API call never returns more than one deck, so
+       // select it right away instead of waiting for the player to click on it,
+       // chaining straight into the second API call (actGetDeckInfos).
+       if (this.isSealedDeckFormat() && args.decks.length === 1) {
+         selectFetchedDeck(args.decks[0]);
+       }
      },
  
-     showAPIDeckDetails(args) {
-       let deck = args._private.API;
+     /**
+      * Deck edit page for a given sealed deck on the Re:Union draft platform.
+      */
+     _getDeckEditLink(deckId) {
+       return `https://altered-draft.altered.re/edit/deck/${deckId}`;
+     },
+
+     /**
+      * Sealed deck notices shown below the deck details: a warning when the deck was
+      * auto-generated (name starts with "random"), and a reminder of where to edit it.
+      */
+     _getSealedDeckNoticesHtml(deck) {
+       if (!this.isSealedDeckFormat()) return '';
+
+       let html = '';
+       if (deck.deckName && deck.deckName.toLowerCase().indexOf('random') === 0) {
+         html += `<p class='api-deck-random-warning'>⚠️ ${_(
+           "You didn't build your deck before the matches started. A random deck was generated using your pool."
+         )}</p>`;
+       }
+
+       html += `<p class='api-deck-change-notice'>${_('You can change your deck between games via')} <a href="${this._getDeckEditLink(deck.apiId)}" target="_blank" rel="noopener noreferrer">altered-draft.altered.re</a>.</p>`;
+       return html;
+     },
+
+     /**
+      * Renders the hero + card list for a deck (already-confirmed API deck, or a
+      * not-yet-confirmed preview) into the overlay. Caller adds its own action buttons.
+      */
+     _renderDeckCardsOverlay(deck, noticesHtml) {
        $('altered-overlay-content').innerHTML = '';
        $('altered-overlay-content').insertAdjacentHTML(
          'beforeend',
@@ -1649,22 +1701,73 @@
            <div id="deck-hero"></div>
            <div id="deck-cards"></div>
          </div>
+         ${noticesHtml}
        `
        );
        this.openOverlay();
- 
+
        this.addCard({ id: '-hero', properties: deck.cards.hero.card.properties }, 'deck-hero');
        $(`card--hero`).insertAdjacentHTML('beforeend', `<div class='faction-banner' data-faction='${deck.faction}'></div>`);
- 
+
        Object.entries(deck.cards).forEach(([i, card]) => {
          if (i == 'hero') return;
- 
+
          let id = 'preview-' + i;
          this.addCard({ id, properties: card.card.properties }, 'deck-cards');
          $(`card-${id}`).querySelector('.card-frame').dataset.copies = card.n;
        });
- 
+     },
+
+     showAPIDeckDetails(args) {
+       let deck = args._private.API;
+       this._renderDeckCardsOverlay(deck, this._getSealedDeckNoticesHtml(deck));
        this.addSecondaryActionButton('btnCancel', _('Cancel'), () => this.takeAction('actCancelPrecoDeckSelection', {}, false));
+     },
+
+     /**
+      * Preview of a fetched deck (2nd API call result) before it is confirmed:
+      * shows the full card list and requires an explicit Confirm to actually lock
+      * it in via actConfirmAPIDeck. "Back" (when more than one deck was available)
+      * returns to the deck list without any server round trip.
+      */
+     showFetchedDeckPreview(deckContent, listArgs) {
+       this._renderDeckCardsOverlay(deckContent, this._getSealedDeckNoticesHtml(deckContent));
+
+       this.addPrimaryActionButton('btnConfirmFetchedDeck', _('Confirm'), () => {
+         this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(deckContent) }, false);
+       });
+
+       const canGoBack = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
+       if (canGoBack) {
+         this.addSecondaryActionButton('btnBackToDeckList', _('Back'), () => {
+           this.onEnteringStateChooseFetchedDeck(listArgs);
+         });
+       }
+     },
+
+     /**
+      * Shown instead of fetching a deck's full content when its name flags it as
+      * invalid: points the player to fix it on the Re:Union draft platform.
+      */
+     showInvalidFetchedDeckMessage(deck, listArgs) {
+       $('altered-overlay-content').innerHTML = '';
+       $('altered-overlay-content').insertAdjacentHTML(
+         'beforeend',
+         `
+         <h2>${_('Invalid deck')}</h2>
+         <div id='invalid-fetched-deck'>
+           <p>⚠️ ${_('This deck is invalid.')} <a href="${this._getDeckEditLink(deck.apiId)}" target="_blank" rel="noopener noreferrer">${_('Fix it on altered-draft.altered.re')}</a>.</p>
+         </div>
+       `
+       );
+       this.openOverlay();
+
+       const canGoBack = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
+       if (canGoBack) {
+         this.addSecondaryActionButton('btnBackToDeckList', _('Back'), () => {
+           this.onEnteringStateChooseFetchedDeck(listArgs);
+         });
+       }
      },
  
      //////////////////////////////

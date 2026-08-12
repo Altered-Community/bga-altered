@@ -62,6 +62,11 @@
         "name": "Roots of Corruption Demo Decks",
         "tmdisplay": "Demo",
         "description": "Play with demo decks from the set Roots of Corruption."
+      },
+      "7": {
+        "name": "Sealed",
+        "tmdisplay": "Sealed",
+        "description": "⚠️ Deck built from your official sealed pool. Decks for this format must be built on altered-draft.altered.re — it cannot be created or edited here."
       }
     }
   }
