@@ -356,6 +356,7 @@ class InvokeToken extends \ALT\Models\Action
         'locationPId' => $invokePId,
         'gigantic' => $card->isGigantic(),
         'token' => true,
+        'invoked' => $this->resolveTokenType(),
       ];
       $sourceId = $this->getSourceId();
       if (!is_null($sourceId)) {
