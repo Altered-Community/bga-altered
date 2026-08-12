@@ -15202,6 +15202,23 @@ body.focus-board .altered-player-board .player-board-infos {
 #altered-board-overlay #altered-overlay-content #overlay-deck-container .altered-card.mini-card.selectable:hover {
   transform: none;
 }
+#altered-board-overlay #altered-overlay-content #overlay-deck-preview,
+#altered-board-overlay #altered-overlay-content #invalid-fetched-deck {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  position: relative;
+}
+#altered-board-overlay #altered-overlay-content #deck-preview-actions {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+#altered-board-overlay #altered-overlay-content #deck-preview-actions .action-button {
+  margin: 0;
+}
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details {
   --cardScale: 1;
 }

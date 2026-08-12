@@ -239,9 +239,12 @@ trait SetupTrait
     $selection = Globals::getDeckSelection();
     unset($selection[$player->getId()]);
     Globals::setDeckSelection($selection);
-    Notifications::updateInitialPrecoDeckSelection($player, $this->argsPrecoDeckSelection());
 
+    // Re-mark this player as multiactive BEFORE notifying them: otherwise the client
+    // processes the notification (and tries to re-enter the fetchDecks flow) while BGA
+    // still thinks this player is inactive, and silently skips onEnteringState for it.
     $this->updateActivePlayersPrecoDeckSelection();
+    Notifications::updateInitialPrecoDeckSelection($player, $this->argsPrecoDeckSelection());
   }
 
   public function updateActivePlayersPrecoDeckSelection()
