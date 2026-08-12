@@ -223,6 +223,19 @@ class Player extends \ALT\Helpers\DB_Model
     })->count();
   }
 
+  public function hasPlayedConstructionThisDay()
+  {
+    $played = Globals::getConstructionPlayedThisDay();
+    return ($played[$this->id] ?? false) === true;
+  }
+
+  public function markConstructionPlayedThisDay()
+  {
+    $played = Globals::getConstructionPlayedThisDay();
+    $played[$this->id] = true;
+    Globals::setConstructionPlayedThisDay($played);
+  }
+
   public function hasPlayedCard($id)
   {
     return Cards::hasPlayedCard($this->id, $id);

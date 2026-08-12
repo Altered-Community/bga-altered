@@ -1,6 +1,5 @@
 <?php
 namespace ALT\Cards\OD;
-use ALT\Helpers\FT;
 
 class OD_Common_Eyota extends \ALT\Models\Card
 {
@@ -15,6 +14,8 @@ class OD_Common_Eyota extends \ALT\Models\Card
       'name' => clienttranslate('Eyota'),
       'typeline' => clienttranslate('Ordis Hero'),
       'type' => HERO,
+      'thumbnail' => 5,
+      'statData' => 35,
       'artist' => 'Tristan Bideau',
       'extension' => 'NEJ',
       'effectDesc' => clienttranslate('At Noon — If you\'re first player, create my Signature token: Echo 1/1/1 in your Reserve. (It\'s a Soldier <COMPANION> with Reserve Cost {1} and "{R} If you control two or more other Soldiers, I gain 1 boost.")'),

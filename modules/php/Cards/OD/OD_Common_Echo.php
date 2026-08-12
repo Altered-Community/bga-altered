@@ -18,7 +18,7 @@ class OD_Common_Echo extends \ALT\Models\Card
       'artist' => 'Tristan Bideau',
       'extension' => 'NEJ',
       'subtypes' => [SOLDIER, COMPANION],
-      'effectDesc' => clienttranslate('{R} If there\'s two or more other Soldiers in your Expeditions, I gain 1 boost. (I\'m created in Reserve. You can play me in an Expedition. Remove me from the game if I would go anywhere else.)'),
+      'effectDesc' => clienttranslate('{R} If there are two or more other Soldiers in your Expeditions, I gain 1 boost. (I\'m created in Reserve. You can play me in an Expedition. Remove me from the game if I would go anywhere else.)'),
       'forest' => 1,
       'mountain' => 1,
       'ocean' => 1,
