@@ -930,24 +930,6 @@
       );
      },
 
-     showRandomDeckAssignedContent(args) {
-      const { factionDisplayNames } = this._getDeckFactionBannerConfig();
-      const randomFaction = args._private.randomDeck && args._private.randomDeck.faction;
-      const factionLabel = randomFaction ? factionDisplayNames[randomFaction] || randomFaction : null;
-      const message = factionLabel
-        ? dojo.string.substitute(_('You have been assigned a random ${faction} deck'), { faction: factionLabel })
-        : _('You have been assigned a random deck');
-
-      $('altered-overlay-content').innerHTML = `
-        <h2>${_('Random deck')}</h2>
-        <p>${message}</p>
-      `;
-      this.openOverlay();
-      this.addSecondaryActionButton('btnCancel', _('Cancel'), () =>
-        this.takeAction('actCancelPrecoDeckSelection', {}, false)
-      );
-     },
-
      showAccountNotConfiguredDeckPickerContent() {
        ['btnConfirm', 'btnConfirmFooter', 'btnCancel', 'btnCancelFooter', 'btnBackFromCustom', 'btnToggleOverlay'].forEach((id) => {
          if ($(id)) $(id).remove();
@@ -998,12 +980,81 @@
     },
  
      /**
+      * clearClientState() synchronously re-enters onEnteringStateSelectPrecoDeck (still
+      * showing selection=null), which would otherwise schedule an actLoadAPIDecks retry
+      * via requestFetchDecksOrAccountConfigurationMessage() — wrong whenever the caller is
+      * about to show something else itself (an error/empty message, or a just-confirmed
+      * deck) right after.
+      */
+    _clearClientStateWithoutFetchRetry() {
+      this._suppressFetchDecksRetry = true;
+      this.clearClientState();
+      this._suppressFetchDecksRetry = false;
+    },
+
+    /**
       * Starts the deck list fetch from RE:Union. Account binding is validated by the fetch result
       * (see onEnteringStateFetchDecks): failure or empty deck list shows the account / linking message.
       */
     requestFetchDecksOrAccountConfigurationMessage() {
+      if (this._suppressFetchDecksRetry) return;
       this._customDeckSelectedFaction = null;
       this.clientState('fetchDecks', _('Connecting to RE:Union to fetch your decks'), {});
+    },
+
+    /**
+     * What "Cancel" should do once there's no cached deck list to go back to. Sealed and
+     * singleton formats always route straight into this fetch flow (there's nothing else
+     * to fall back to), so just restart it. Other formats only reach it via the optional
+     * "Custom" button on the preconstructed-deck wizard, so cancelling should return there
+     * instead of looping back into the same custom fetch.
+     */
+    _backOutOfFetchDecksFlow() {
+      if (this.isSingletonDeckFormat() || this.isSealedDeckFormat()) {
+        this.requestFetchDecksOrAccountConfigurationMessage();
+      } else {
+        this.onEnteringStateSelectPrecoDeck(this._lastSelectPrecoDeckArgs);
+      }
+    },
+
+    /**
+     * "Cancel" button used on the fetchDecks/chooseFetchedDeck screens: nothing has been
+     * selected/confirmed yet at that point, so no server call is needed — and no reliance
+     * on BGA's own stock Cancel/Undo button (addCancelStateBtn), whose clearClientState()-
+     * based restore doesn't play well with this custom multi-screen flow.
+     */
+    _addRestartFetchDecksButton(containerId) {
+      this.addSecondaryActionButton(
+        'btnCancelFetchDecks',
+        _('Cancel'),
+        () => {
+          this._awaitingAPIReturn = false;
+          this._backOutOfFetchDecksFlow();
+        },
+        containerId
+      );
+    },
+
+    /**
+     * "Cancel" button used on the deck-preview/invalid-deck screens: back to the cached
+     * list when there was more than one deck to choose from, otherwise see
+     * _backOutOfFetchDecksFlow() (no server call either way — nothing was confirmed).
+     */
+    _addBackToDeckListButton(listArgs, containerId) {
+      const hasMultipleDecks = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
+      this.addSecondaryActionButton(
+        'btnBackToDeckList',
+        _('Cancel'),
+        () => {
+          this._awaitingAPIReturn = false;
+          if (hasMultipleDecks) {
+            this.onEnteringStateChooseFetchedDeck(listArgs);
+          } else {
+            this._backOutOfFetchDecksFlow();
+          }
+        },
+        containerId
+      );
     },
 
     _getAllApiFactions() {
@@ -1155,29 +1206,19 @@
        }
        let deckNumber = args._private.selection;
        if (deckNumber == 'API') {
-         // Clear any stale fetchDecks/chooseFetchedDeck client state so a later
-         // Cancel (which re-checks gamedatas.gamestate.name) isn't fooled into
-         // thinking we're still mid-fetch and silently no-ops.
-         this.clearClientState();
          this.showAPIDeckDetails(args);
          return;
        }
        if (deckNumber == 'random') {
-        this.clearClientState();
         this.showRandomDeckAssignedContent(args);
         return;
       }
        if (deckNumber != null && args._private.starterDeck) {
-         this.clearClientState();
          this.showAPIDeckDetails({ _private: { API: args._private.starterDeck } });
          return;
        }
- 
+
       if (this.isSingletonDeckFormat() || this.isSealedDeckFormat()) {
-        const gsName = this.gamedatas.gamestate && this.gamedatas.gamestate.name;
-        if (gsName === 'fetchDecks' || gsName === 'chooseFetchedDeck') {
-          return;
-        }
         if ($('overlay-deck-selection') || $('api-fetch-decks')) {
           return;
         }
@@ -1387,48 +1428,38 @@
        this.closeOverlay();
        $('altered-overlay-content').innerHTML = '';
      },
- 
+
      notif_updateInitialPrecoDeckSelection(n) {
        debug('Notif: update initial preco deck selection', n);
        this.clearPossible();
        this.updatePageTitle();
        this.onEnteringStateSelectPrecoDeck(n.args.args);
      },
- 
+
      ////////////////////////
      // FETCHING DECKS
      ////////////////////////
      onEnteringStateFetchDecks(args) {
        args = args || {};
        this._customDeckSelectedFaction = null;
-       this.addCancelStateBtn();
        this._awaitingAPIReturn = true;
- 
+       this._fetchDecksTakeActionRetries = 0;
+
        const requestPayload = Object.assign({}, args);
        delete requestPayload.accountConfigured;
- 
+
        const onFetchDecksFailedOrEmpty = () => {
          if (!this._awaitingAPIReturn) return;
          this._awaitingAPIReturn = false;
-         this.clearClientState();
+         this._clearClientStateWithoutFetchRetry();
          this.showAccountNotConfiguredDeckPickerContent();
        };
 
-       this.takeAction('actLoadAPIDecks', { request: JSON.stringify(requestPayload), lock: false }, false)
-         .then((response) => {
-           if (!this._awaitingAPIReturn) return;
-           const data = response && response.data;
-           const decks = data && data.decks;
-           if (!data || !Array.isArray(decks) || decks.length === 0) {
-             onFetchDecksFailedOrEmpty();
-             return;
-           }
-           this.clientState('chooseFetchedDeck', _('Choose one of your deck'), data);
-         })
-         .catch(() => {
-           onFetchDecksFailedOrEmpty();
-         });
- 
+       // Open the overlay/spinner right away, independently of whether takeAction()
+       // below succeeds immediately — this used to be built only after chaining
+       // .then()/.catch() onto takeAction(), so when that call threw synchronously
+       // (see startFetch below) the overlay never opened, leaving only BGA's own
+       // generic "Connecting..." state-description banner visible.
        $('altered-overlay-content').innerHTML = '';
        $('altered-overlay-content').insertAdjacentHTML(
          'beforeend',
@@ -1440,6 +1471,47 @@
          </div>`
        );
        this.openOverlay();
+       this._addRestartFetchDecksButton('api-fetch-decks');
+
+       const startFetch = () => {
+         if (!this._awaitingAPIReturn) return;
+
+         // takeAction() can still return undefined (instead of a promise) for a while
+         // after a clearClientState()/notification-driven transition. Retry with a short
+         // backoff instead of crashing on ".then is not a function".
+         const attempt = this.takeAction(
+           'actLoadAPIDecks',
+           { request: JSON.stringify(requestPayload), lock: false },
+           false
+         );
+         if (!attempt || typeof attempt.then !== 'function') {
+           this._fetchDecksTakeActionRetries += 1;
+           if (this._fetchDecksTakeActionRetries > 15) {
+             if ($('api-error')) {
+               $('api-error').innerHTML = _('Something went wrong, please try again.');
+             }
+             return;
+           }
+           setTimeout(startFetch, 150);
+           return;
+         }
+
+         attempt
+           .then((response) => {
+             if (!this._awaitingAPIReturn) return;
+             const data = response && response.data;
+             const decks = data && data.decks;
+             if (!data || !Array.isArray(decks) || decks.length === 0) {
+               onFetchDecksFailedOrEmpty();
+               return;
+             }
+             this.clientState('chooseFetchedDeck', _('Choose one of your deck'), data);
+           })
+           .catch(() => {
+             onFetchDecksFailedOrEmpty();
+           });
+       };
+       startFetch();
      },
  
     ////////////////////////
@@ -1481,7 +1553,6 @@
     },
  
      onEnteringStateChooseFetchedDeck(args) {
-       this.addCancelStateBtn();
        this._awaitingAPIReturn = false;
       this._apiRequest = args.request;
       // Cached so the "Back" button from the deck preview can rebuild this list
@@ -1602,9 +1673,10 @@
        }
  
        this.onClick('api-error', () => ($('api-error').innerHTML = ''));
- 
+
        this.openOverlay();
- 
+       this._addRestartFetchDecksButton('overlay-deck-selection');
+
        // Thumbnails
       const { factionDisplayNames } = this._getDeckFactionBannerConfig();
       const factionNames = Object.assign({ OR: _('Ordis') }, factionDisplayNames);
@@ -1696,12 +1768,15 @@
        $('altered-overlay-content').insertAdjacentHTML(
          'beforeend',
          `
-         <h2>${_('Your deck:')} ${deck.deckName}</h2>
-         <div id='overlay-APIdeck-details'>
-           <div id="deck-hero"></div>
-           <div id="deck-cards"></div>
+         <div id='overlay-deck-preview'>
+           <h2>${_('Your deck:')} ${deck.deckName}</h2>
+           <div id='overlay-APIdeck-details'>
+             <div id="deck-hero"></div>
+             <div id="deck-cards"></div>
+           </div>
+           ${noticesHtml}
+           <div id='deck-preview-actions'></div>
          </div>
-         ${noticesHtml}
        `
        );
        this.openOverlay();
@@ -1721,7 +1796,16 @@
      showAPIDeckDetails(args) {
        let deck = args._private.API;
        this._renderDeckCardsOverlay(deck, this._getSealedDeckNoticesHtml(deck));
-       this.addSecondaryActionButton('btnCancel', _('Cancel'), () => this.takeAction('actCancelPrecoDeckSelection', {}, false));
+       // The resulting notification's onEnteringStateSelectPrecoDeck already knows how to
+       // route this (back to the fetch flow for sealed/singleton, back to the wizard
+       // otherwise) — triggering that ourselves here risked doing it with stale
+       // (pre-cancel) args if the notification hadn't landed yet.
+       this.addSecondaryActionButton(
+         'btnCancel',
+         _('Cancel'),
+         () => this.takeAction('actCancelPrecoDeckSelection', {}, false),
+         'deck-preview-actions'
+       );
      },
 
      /**
@@ -1733,16 +1817,22 @@
      showFetchedDeckPreview(deckContent, listArgs) {
        this._renderDeckCardsOverlay(deckContent, this._getSealedDeckNoticesHtml(deckContent));
 
-       this.addPrimaryActionButton('btnConfirmFetchedDeck', _('Confirm'), () => {
-         this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(deckContent) }, false);
-       });
+       this.addPrimaryActionButton(
+         'btnConfirmFetchedDeck',
+         _('Confirm'),
+         () => {
+           // Pop the fetchDecks/chooseFetchedDeck client state here, from a fresh
+           // (non re-entrant) click-handler call stack — matches the safe pattern used
+           // in onEnteringStateChooseAssignmentLocation's Cancel button.
+           this._clearClientStateWithoutFetchRetry();
+           this.takeAction('actConfirmAPIDeck', { method: 'post', deckContent: JSON.stringify(deckContent) }, false);
+         },
+         'deck-preview-actions'
+       );
 
-       const canGoBack = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
-       if (canGoBack) {
-         this.addSecondaryActionButton('btnBackToDeckList', _('Back'), () => {
-           this.onEnteringStateChooseFetchedDeck(listArgs);
-         });
-       }
+       // Always offer a way out: back to the list when there was more than one deck to
+       // choose from, otherwise restart the fetch (no server call — nothing was confirmed).
+       this._addBackToDeckListButton(listArgs, 'deck-preview-actions');
      },
 
      /**
@@ -1761,15 +1851,9 @@
        `
        );
        this.openOverlay();
-
-       const canGoBack = listArgs && Array.isArray(listArgs.decks) && listArgs.decks.length > 1;
-       if (canGoBack) {
-         this.addSecondaryActionButton('btnBackToDeckList', _('Back'), () => {
-           this.onEnteringStateChooseFetchedDeck(listArgs);
-         });
-       }
+       this._addBackToDeckListButton(listArgs, 'invalid-fetched-deck');
      },
- 
+
      //////////////////////////////
      // HANDLING API ERRORS
      showMessage() {
@@ -1789,7 +1873,7 @@
  
        // Initial deck list fetch: same UX as empty list (account / linking guidance)
        if (this.gamedatas.gamestate.name == 'fetchDecks') {
-         this.clearClientState();
+         this._clearClientStateWithoutFetchRetry();
          this.showAccountNotConfiguredDeckPickerContent();
          return;
        }
