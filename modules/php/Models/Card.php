@@ -415,6 +415,10 @@ class Card extends \ALT\Helpers\DB_Model
       return false;
     }
 
+    if ($this->isNameBlockedThisDay($player)) {
+      return false;
+    }
+
     $playCondition = $this->getPlayCondition();
     if ($playCondition != null) {
       if (!Conditions::check(['condition' => $playCondition], $this, null)) {
@@ -494,6 +498,14 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
+  }
+
+  /**
+   * Ship Security Officer (and similar): opponents can't play cards with that name this Day.
+   */
+  public function isNameBlockedThisDay($player)
+  {
+    return Players::isCardNameBlockedThisDay($player->getId(), $this->getName());
   }
 
   /**
