@@ -26,11 +26,13 @@ class MU_Common_TiedtotheMast extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER],
           'maxBaseCost' => 2,
-          'effect' => FT::GAIN(EFFECT, ANCHORED),
-        ]),
-        FT::ACTION(CHECK_CONDITION, [
-          'condition' => 'isSubtype:companion',
-          'effect' => FT::GAIN(EFFECT, BOOST, 1),
+          'effect' => FT::SEQ(
+            FT::GAIN(EFFECT, ANCHORED),
+            FT::ACTION(CHECK_CONDITION, [
+              'condition' => 'isTargetSubtype:' . COMPANION,
+              'effect' => FT::GAIN(EFFECT, BOOST, 1),
+            ]),
+          ),
         ]),
       ),
     ];
