@@ -29,12 +29,12 @@ class OD_Common_HelenofTroy extends \ALT\Models\Card
           FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
-          'targetLocation' => [STORM_LEFT],
+          'targetLocation' => [STORM_RIGHT],
         ]),
         FT::ACTION(INVOKE_TOKEN, [
           'pId' => 'source',
           'tokenType' => 'OD_Common_OrdisRecruit',
-          'targetLocation' => [STORM_RIGHT],
+          'targetLocation' => [STORM_LEFT],
           'moreThan1' => true,
         ]),
       ),
