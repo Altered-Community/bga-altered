@@ -1297,11 +1297,11 @@ abstract class FlowConvertor
       ],
       903 => [
         'description' => clienttranslate('Unless you discarded a card from your hand or your Reserve this turn:'),
-        'condition' => 'checkAbilityActivatedThisTurnTypeCount:discard:0:LTE',
+        'condition' => 'checkAbilityNotActivatedThisTurn:discardFromHandOrReserve',
       ],
       904 => [
         'description' => clienttranslate('Unless you discarded a card from your hand this turn:'),
-        'condition' => 'checkAbilityActivatedThisTurnTypeCount:discard:0:LTE',
+        'condition' => 'checkAbilityNotActivatedThisTurn:discardFromHand',
       ],
       905 => [
         'description' => clienttranslate('If there are at most five cards in your discard pile:'),

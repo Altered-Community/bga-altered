@@ -964,6 +964,11 @@ abstract class Conditions
     }
     return !empty($playerAbilities[$type]);
   }
+
+  public static function checkAbilityNotActivatedThisTurn($card, $event, $type = 'any')
+  {
+    return !self::checkAbilityActivatedThisTurn($card, $event, $type);
+  }
   
   public static function checkAbilityActivatedThisTurnTypeCount($card, $event, $type, $n = 1, $op = 'GTE')
   {
