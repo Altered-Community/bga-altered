@@ -159,6 +159,24 @@ class InvokeToken extends \ALT\Models\Action
       }
     }
 
+    if ($location == 'eventTo') {
+      $event = $this->getEventRecursive();
+      $realLocation = null;
+      if (!is_null($event) && isset($event['to']) && in_array($event['to'], STORMS)) {
+        $realLocation = $event['to'];
+      } elseif (!is_null($event) && isset($event['cardId'])) {
+        $playedCard = Cards::get($event['cardId']);
+        if (in_array($playedCard->getLocation(), STORMS)) {
+          $realLocation = $playedCard->getLocation();
+        }
+      }
+      if (is_null($realLocation)) {
+        $realLocation = $this->getSource()->getLocation();
+      }
+      $strLocation = $realLocation == STORM_LEFT ? clienttranslate('Hero\'s expedition') : clienttranslate('Companion\'s expedition');
+      return [$realLocation, $strLocation];
+    }
+
     if ($location == 'discardedSource') {
       return [STORM_LEFT, 'discarded card source'];
     }
