@@ -15,7 +15,7 @@ class OD_Rare_TriremeQuartermaster extends \ALT\Models\Card
       'name' => clienttranslate('Trireme Quartermaster'),
       'typeline' => clienttranslate('Character - Soldier, Trainer'),
       'type' => CHARACTER,
-      'flavorText' => clienttranslate('The trireme is a symbol of power and strength.'),
+      'flavorText' => clienttranslate('Look sharp, scallywags! I see our next adventure on the horizon!'),
       'artist' => 'Saeed Jalabi',
       'extension' => 'NEJ',
       'subtypes' => [SOLDIER, TRAINER],
