@@ -30,7 +30,7 @@ class OD_Rare_FaneofLotusEaters extends \ALT\Models\Card
       ]),
       'effectPassive' => [
         'Noon' => [
-          'conditions' => ['isMe', 'isFirstPlayer'],
+          'conditions' => ['isFirstPlayer'],
           'output' => FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER],

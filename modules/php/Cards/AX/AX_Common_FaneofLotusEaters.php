@@ -29,7 +29,6 @@ class AX_Common_FaneofLotusEaters extends \ALT\Models\Card
       ]),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'isMe',
           'output' => FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER],
