@@ -77,6 +77,11 @@ abstract class Conditions
     return ($event['to'] ?? null) == RESERVE;
   }
 
+  public static function hasHeroSignatureToken($card, $event)
+  {
+    return !is_null($card->getPlayer()->getHeroSignatureTokenType());
+  }
+
   public static function isToDiscard($card, $event)
   {
     return ($event['to'] ?? null) == DISCARD_PILE;
