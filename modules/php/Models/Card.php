@@ -408,6 +408,22 @@ class Card extends \ALT\Helpers\DB_Model
       && !$player->canPlayTappedCards($this->getType(), null, $this->getAdditionalType());
   }
 
+  /**
+   * True when this card's cost is reduced by playing it into an Expedition
+   * that's In Contact (dynamicCostReduction ...:hasOneContact). In that case
+   * the reduction depends on the selected location.
+   */
+  public function hasContactCostReduction()
+  {
+    $reductions = (array) $this->getDynamicCostReduction();
+    foreach ($reductions as $reduction) {
+      if (strpos($reduction, 'hasOneContact') !== false) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function getPlayableLocation($player, $forcedLocation = null, $free = false)
   {
     if (in_array(LANDMARK, $this->getSubtypes())) {
@@ -496,7 +512,17 @@ class Card extends \ALT\Helpers\DB_Model
             return [$forcedLocation];
           }
 
-          return STORMS;
+          if ($free || !$this->hasContactCostReduction()) {
+            return STORMS;
+          }
+
+          $locations = [];
+          foreach (STORMS as $storm) {
+            if ($this->getCost(false, false, $storm) <= $player->getMana()) {
+              $locations[] = $storm;
+            }
+          }
+          return empty($locations) ? STORMS : $locations;
         }
       }
     }
@@ -948,7 +974,7 @@ class Card extends \ALT\Helpers\DB_Model
     return [$power['payment'] ?? [], $power['output']];
   }
 
-  public function getCost($scout = false, $reserveFlipCost = false)
+  public function getCost($scout = false, $reserveFlipCost = false, $location = null)
   {
     if (($this->getType() == SPELL || in_array(SPELL, $this->getAdditionalType())) && Globals::isNextSpellIsFree()) {
       return 0;
