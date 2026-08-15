@@ -21,15 +21,14 @@ class AX_Common_PenelopeEternalWeaver extends \ALT\Models\Card
       'effectDesc' => clienttranslate('{H} Pay {1} less for the next Permanent you play this Afternoon, down to a minimum of {1}.  At Dusk — Sacrifice a Permanent with Base Cost {2} or less.'),
       'forest' => 3,
       'mountain' => 2,
-      'ocean' => 3,
-      'costHand' => 2,
+      'ocean' => 2,
+      'costHand' => 3,
       'costReserve' => 2,
       'effectHand' => FT::ACTION(SPECIAL_EFFECT, 
         ['effect' => 'costReduction', 'args' => ['type' => PERMANENT, 'reduction' => 1, 'minimum' => 1, 'permanent' => true]]
       ),
       'effectPassive' => [
         'Dusk' => [
-          'condition' => 'isMe',
           'output' => FT::ACTION(
             TARGET,
             [
