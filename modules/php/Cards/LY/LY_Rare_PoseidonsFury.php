@@ -20,7 +20,6 @@ class LY_Rare_PoseidonsFury extends \ALT\Models\Card
       'effectDesc' => clienttranslate('$<FLEETING>.  #Choose one#:  • Send to Reserve #any number of target Characters# with #total# {O} 4 or less.  • #Discard target Permanent.#'),
       'costHand' => 3,
       'costReserve' => 3,
-      'fleeting' => true,
       'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING),
         FT::XOR(
           FT::ACTION(TARGET, ['upTo' => true, 'n' => INFTY, 'totalOcean' => 4, 'effect' => FT::DISCARD_TO_RESERVE()]),

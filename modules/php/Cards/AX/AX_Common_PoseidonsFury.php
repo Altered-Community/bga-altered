@@ -20,7 +20,6 @@ class AX_Common_PoseidonsFury extends \ALT\Models\Card
       'effectDesc' => clienttranslate('$<FLEETING>.  Send target Character with a statistic of 4 or less {O} to Reserve.'),
       'costHand' => 3,
       'costReserve' => 3,
-      'fleeting' => true,
       'effectPlayed' => FT::SEQ(FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER],
