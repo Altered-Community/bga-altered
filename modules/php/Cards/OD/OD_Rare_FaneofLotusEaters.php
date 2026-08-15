@@ -13,11 +13,11 @@ class OD_Rare_FaneofLotusEaters extends \ALT\Models\Card
       'faction' => FACTION_OD,
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Fane of Lotus-Eaters'),
-      'typeline' => clienttranslate('Landmark Permanent - Site'),
+      'typeline' => clienttranslate('Landmark Permanent - Construction'),
       'type' => PERMANENT,
       'artist' => 'DOBA',
       'extension' => 'NEJ',
-      'subtypes' => [SITE, LANDMARK],
+      'subtypes' => [CONSTRUCTION, LANDMARK],
       'effectDesc' => clienttranslate('{J} Sabotage.  At Noon — #If you\'re first player#, target Character in your Reserve gains 1 boost.'),
       'costHand' => 2,
       'costReserve' => 2,
@@ -30,7 +30,7 @@ class OD_Rare_FaneofLotusEaters extends \ALT\Models\Card
       ]),
       'effectPassive' => [
         'Noon' => [
-          'condition' => 'isNoon',
+          'conditions' => ['isMe', 'isFirstPlayer'],
           'output' => FT::ACTION(TARGET, [
             'targetPlayer' => ME,
             'targetType' => [CHARACTER],
