@@ -27,7 +27,7 @@ class OD_Common_OrdisGeneral extends \ALT\Models\Card
       'effectPlayed' => FT::ACTION(TARGET, [
         'targetType' => [CHARACTER, TOKEN],
         'subType' => SOLDIER,
-        'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
+        'targetLocation' => [...STORMS, RESERVE],
         'effect' => FT::GAIN(TARGET, BOOST, 1),
       ]),
     ];
