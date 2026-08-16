@@ -24,6 +24,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     'deckOptions' => 'str',
     'deckContent' => 'obj',
     'undo' => 'bool',
+    'deckLockTournament' => 'bool',
     'statMapping' => 'obj',
     'deckFormat' => 'str',
 
@@ -268,6 +269,7 @@ class Globals extends \ALT\Helpers\DB_Manager
     self::setDeckOptions(OPTION_DECKS_STARTER);
     self::setBeginner($options[OPTION_BEGINNER] ?? 1);
     self::setUndo($options[OPTION_UNDO] ?? 0);
+    self::setDeckLockTournament($options[OPTION_DECK_LOCK_TOURNAMENT] ?? 0);
   }
 
   public static function getStorm($ui = false)
