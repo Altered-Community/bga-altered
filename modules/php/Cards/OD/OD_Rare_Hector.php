@@ -30,19 +30,19 @@ class OD_Rare_Hector extends \ALT\Models\Card
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
           'subType' => SOLDIER,
-          'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
+          'targetLocation' => [...STORMS, RESERVE],
           'effect' => FT::GAIN(TARGET, BOOST, 1),
         ]),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
           'subType' => SOLDIER,
-          'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
+          'targetLocation' => [...STORMS, RESERVE],
           'effect' => FT::GAIN(TARGET, BOOST, 1),
         ]),
         FT::ACTION(TARGET, [
           'targetType' => [CHARACTER, TOKEN],
           'subType' => SOLDIER,
-          'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
+          'targetLocation' => [...STORMS, RESERVE],
           'effect' => FT::GAIN(TARGET, BOOST, 1),
         ]),
       ),

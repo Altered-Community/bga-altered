@@ -31,7 +31,7 @@ class OD_Common_Hector extends \ALT\Models\Card
         'upTo' => true,
         'n' => 2,
         'excludeSelf' => true,
-        'targetLocation' => [STORM_LEFT, STORM_RIGHT],
+        'targetLocation' => [STORMS],
         'effect' => FT::GAIN(TARGET, BOOST, 1),
       ]),
     ];
