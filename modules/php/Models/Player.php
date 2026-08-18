@@ -1241,7 +1241,7 @@ class Player extends \ALT\Helpers\DB_Model
   /**
    * Whether $source counts as a universalCharacter1/2 tough source for $receiver (see {@see countUniversalCharacterTough}).
    */
-  private function playedCardGrantsUniversalCharacterTough(Card $source, int $tier, ?Card $receiver): bool
+   private function playedCardGrantsUniversalCharacterTough(Card $source, int $tier, ?Card $receiver): bool
   {
     $want = $tier === 2 ? 'universalCharacter2' : 'universalCharacter1';
     $dt = $source->getDynamicTough();
@@ -1262,16 +1262,23 @@ class Player extends \ALT\Helpers\DB_Model
     if ($receiver === null) {
       return true;
     }
-    $completed = $source->getEffectCompleted();
-    if (!is_array($completed) || !isset($completed['universalToughScope'])) {
+    $scope = $source->getUniversalToughScope();
+    if ($scope === '') {
+      $completed = $source->getEffectCompleted();
+      $scope = is_array($completed) ? $completed['universalToughScope'] ?? '' : '';
+    }
+    if ($scope === '') {
       return true;
     }
-    $scope = $completed['universalToughScope'];
     if ($scope === 'expedition') {
       return in_array($receiver->getLocation(), STORMS);
     }
     if ($scope === 'expeditionAnchored') {
       return in_array($receiver->getLocation(), STORMS) && $receiver->hasToken(ANCHORED);
+    }
+    if ($scope === 'expeditionCompanion') {
+      return in_array(COMPANION, $receiver->getSubtypes())
+        && ($receiver->isGigantic() || in_array($receiver->getLocation(), STORMS));
     }
     return true;
   }
