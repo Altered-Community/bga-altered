@@ -1214,16 +1214,20 @@ abstract class Conditions
     return $cards->count() == 0;
   }
 
-  public static function costCheck($card, $event, $cost, $op = 'GTE')
+  public static function costCheck($card, $event, $cost, $op = 'GTE', $type = 'hand')
   {
+    if (!isset($event['cardId'])) {
+      return false;
+    }
+
     $discardedCard = Cards::get($event['cardId']);
-    $costHand = $discardedCard->getCostHand();
+    $compare = $type == 'reserve' ? $discardedCard->getCostReserve() : $discardedCard->getCostHand();
 
     if ($op == 'GTE') {
-      return $cost <= $costHand;
+      return $compare >= $cost;
     }
     if ($op == 'LTE') {
-      return $cost >= $costHand;
+      return $compare <= $cost;
     }
   }
 
