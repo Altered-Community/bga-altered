@@ -334,7 +334,7 @@ abstract class Conditions
         $card->getPId() != $event['pId'] ||
         !isset($stormMoves[$card->getPId()][$storm])
       ) {
-        return false;
+        continue;
       }
 
       // $side = $storm == STORM_LEFT ? HERO : COMPANION;
