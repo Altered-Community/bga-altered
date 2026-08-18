@@ -29,7 +29,7 @@ class BR_Common_HearthJinn extends \ALT\Models\Card
         'cardId' => ME, 
         'destination' => MANA, 
         'tapped' => true
-      ]),
+      ], ['optional' => true]),
     ];
   }
 }
