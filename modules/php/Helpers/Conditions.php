@@ -1268,6 +1268,10 @@ abstract class Conditions
 
   public static function hasOneContact($card, $event)
   {
+    $location = $event['location'] ?? null;
+    if ($location == STORM_LEFT || $location == STORM_RIGHT) {
+      return $card->getPlayer()->isInContact($location);
+    }
     return $card->getPlayer()->isInContact(STORM_LEFT) || $card->getPlayer()->isInContact(STORM_RIGHT);
   }
 

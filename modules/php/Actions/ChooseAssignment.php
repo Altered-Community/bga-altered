@@ -261,7 +261,7 @@ class ChooseAssignment extends \ALT\Models\Action
 
     if ($free == false) {
       // Calculate cost
-      $cost = $card->getCost($scout, $this->getArg('reserveFlipCost'));
+      $cost = $card->getCost($scout, $this->getArg('reserveFlipCost'), $location);
       // Diocles Chariot racer Rare
       if ($card->getPlayLimitation() == '+3StartingRegion') {
         if ($location == STORM_LEFT && $player->getHeroToken()->getLocation() == 'storm-0') {
