@@ -658,12 +658,12 @@ class Players extends \ALT\Helpers\CachedDB_Manager
           $win = $pIdWinner == $pId || ($isEqual && $isAscended);
           $movements[$pId][$side][$biome] = $win ? 2 : 1;
 
-          if ($isEqual && $isAscended){
+          if ($win) {
             $move = true;
+            $winningBiomes[] = $biome;
+          }
+          if ($isEqual && $isAscended) {
             $expeditionAscensionMoves[$pId][$expedition] = true;
-          } elseif ($pIdWinner == $pId)  {
-              $move = true;
-              $winningBiomes[] = $biome;
           }
         }
 
