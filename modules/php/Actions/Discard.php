@@ -146,35 +146,7 @@ class Discard extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    if (!is_null($this->getArg('from'))) {
-      $cardId = $this->getArg('cardId');
-      if (is_null($cardId)) {
-        return false;
-      }
-      $cards = is_array($cardId) ? $cardId : [$cardId];
-      foreach ($cards as $cId) {
-        $card = Cards::get($cId, false);
-        if (is_null($card) || $card->getLocation() != $this->getArg('from')) {
-          return false;
-        }
-      }
-      return true;
-    }
-
-    // Check if source has available cards when no specific card is targeted
-    $source = $this->getArg('source');
-    $cardId = $this->getArg('cardId');
-    if (!is_null($source) && is_null($cardId) && !$this->getArg('special')) {
-      $args = $this->argsDiscard();
-      $available = $args['_private']['active']['cards'] ?? [];
-      $n = $this->getArg('n') + ($this->getArg('nLandmarks') ?? 0);
-      if ($this->getArg('upTo')) {
-        return count($available) > 0;
-      }
-      return count($available) >= $n;
-    }
-
-    return true;
+    return is_null($this->getArg('from')) || Cards::get($this->getArg('cardId'))->getLocation() == $this->getArg('from');
   }
 
   public function getPlayer()
