@@ -776,6 +776,30 @@ abstract class Conditions
     $c = Cards::get($cardId);
     return Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) >= 1;
   }
+  
+  public static function hasControlCharacterWithMinBaseCost($card, $event, $minBaseCost, $n = 1, $op = 'GTE')
+  {
+    $minBaseCost = (int) $minBaseCost;
+    $n = (int) $n;
+    $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) use ($minBaseCost) {
+      if ($c->getType() != CHARACTER && !in_array(CHARACTER, $c->getAdditionalType())) {
+        return false;
+      }
+      $baseCost = $c->hasToken(FLEETING) ? $c->getCostReserve() : $c->getCostHand();
+      return $baseCost >= $minBaseCost;
+    });
+    $m = $cards->count();
+    if ($op == 'GTE') {
+      return $m >= $n;
+    }
+    if ($op == 'LTE') {
+      return $m <= $n;
+    }
+    if ($op == 'EQ') {
+      return $m == $n;
+    }
+    throw new \BgaVisibleSystemException('Unknown op for hasControlCharacterWithMinBaseCost: ' . $op);
+  }
 
   /**
    * Counts Feat permanents you control in play (same zones / filters as hasControl for subtype feat).
