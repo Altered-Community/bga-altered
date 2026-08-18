@@ -1224,10 +1224,10 @@ abstract class Conditions
     $compare = $type == 'reserve' ? $discardedCard->getCostReserve() : $discardedCard->getCostHand();
 
     if ($op == 'GTE') {
-      return $compare >= $cost;
+      return $cost <= $compare;
     }
     if ($op == 'LTE') {
-      return $compare <= $cost;
+      return $cost >= $compare;
     }
   }
 

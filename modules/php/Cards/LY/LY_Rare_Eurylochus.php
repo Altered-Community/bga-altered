@@ -25,24 +25,19 @@ class LY_Rare_Eurylochus extends \ALT\Models\Card
       'ocean' => 3,
       'costHand' => 2,
       'costReserve' => 3,
-      'changedStats' => ['costHand'],
-      'effectReserve' => FT::ACTION(CHECK_CONDITION, [
-        'condition' => 'canSabotage',
-        'effect' => FT::XOR(
-          FT::ACTION(TARGET, [
-            'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-            'targetLocation' => [RESERVE],
-            'upTo' => true,
-            'effect' => FT::SEQ(
-              FT::ACTION(DISCARD, []),
-              FT::ACTION(CHECK_CONDITION, [
-                'condition' => 'costCheck:1:LTE:reserve',
-                'effect' => FT::ACTION(RESUPPLY, []),
-              ]),
-            )
+      'changedStats' => ['forest'],
+      'effectReserve' => FT::ACTION(TARGET, [
+        'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
+        'targetLocation' => [RESERVE],
+        'upTo' => true,
+        'effect' => FT::SEQ(
+          FT::ACTION(DISCARD, []),
+          FT::ACTION(CHECK_CONDITION, [
+            'condition' => 'costCheck:1:LTE:reserve',
+            'effect' => FT::ACTION(RESUPPLY, []),
           ]),
         ),
-      ])
+      ]),
     ];
   }
 }
