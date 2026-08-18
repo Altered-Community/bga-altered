@@ -397,7 +397,7 @@ abstract class FlowConvertor
       805 => [
         'description' => clienttranslate('When I leave an <ASCENDED_S> Expedition —'),
         'trigger' => 'LeaveExpedition',
-        'condition' => ['isCardExpeditionAscended'],
+        'condition' => ['wasCardExpeditionAscended'],
         'pId' => CONTROLLER,
       ],
       808 => [
