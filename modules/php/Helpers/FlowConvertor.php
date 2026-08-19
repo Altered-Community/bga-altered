@@ -5566,8 +5566,7 @@ abstract class FlowConvertor
         'output' => FT::SEQ(
           FT::ACTION(SPECIAL_EFFECT, ['effect' => 'nextTokenAnchored']),
           FT::ACTION(INVOKE_TOKEN, [
-            'targetPlayer' => OPPONENT,
-            'targetLocation' => ['source'],
+            'pId' => 'source',
             'tokenType' => 'MU_Common_Woollyback',
           ]),
         ),
