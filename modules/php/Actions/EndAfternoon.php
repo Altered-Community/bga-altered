@@ -56,7 +56,7 @@ class EndAfternoon extends \ALT\Models\Action
     ));
     if ($reaction !== null) {
       $this->insertAsChild([
-        'type' => NODE_SEQ,
+        'type' => NODE_PARALLEL,
         'childs' => $reaction,
       ]);
     }
