@@ -2629,6 +2629,15 @@ abstract class Conditions
     return count(array_intersect($card->getSubtypes(), $subTypes)) > 0;
   }
 
+  public static function isTargetSubtype($card, $event, $subType)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if ($cardId === null) {
+      return false;
+    }
+    return self::isSubtype(Cards::get($cardId), $event, $subType);
+  }
+
   /**********************************
    **********************************
    ************* HELPERS ************
