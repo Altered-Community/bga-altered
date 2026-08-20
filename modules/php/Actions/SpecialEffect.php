@@ -2494,7 +2494,17 @@ class SpecialEffect extends \ALT\Models\Action
         if (!empty($nodes)) {
           $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes['childs']]);
         }
-        break;     
+        break;   
+      // #238924: Uniques with effect Sap Duende on target
+      case 'swapBoostsWithSource':
+        $pickedId = $this->getCtxArg('cardId');
+        if ($pickedId === ME || $pickedId === EFFECT) {
+          $pickedId = null;
+        }
+        if (!is_null($pickedId)) {
+          $this->insertAsChild(FT::ACTION(BOOST_EXCHANGE, ['cardId' => $pickedId], ['sourceId' => $this->getSourceId()]));
+        }
+        break;  
       // #206754: insert at runtime with opponent pId so LeaveExpedition tagTree cannot
       // stamp the controller onto nested RESUPPLY (TARGET_PLAYER > SEQ_OPTIONAL breaks there).
       case 'targetOpponentOptionalExhaustedResupply':
