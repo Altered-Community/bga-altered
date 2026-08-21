@@ -2475,7 +2475,9 @@ abstract class Conditions
       return false;
     }
     $target = Cards::get($event['cardId']);
-    return $target->getForest() <= $card->getForest();
+    $targetForest = (int) ($target->getBiomes(true)[FOREST] ?? 0);
+    $sourceForest = (int) ($card->getBiomes(true)[FOREST] ?? 0);
+    return $targetForest <= $sourceForest;
   }
 
   public static function countMonoVisibleRegions($card, $event, $n = 1, $op = 'GTE')

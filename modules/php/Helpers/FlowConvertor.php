@@ -1362,6 +1362,7 @@ abstract class FlowConvertor
           'targetLocation' => STORMS,
           'excludeSelf' => true,
           'upTo' => true,
+          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
           'effect' => FT::ACTION(CHECK_CONDITION, [
             'condition' => 'isTargetForestLessOrEqualToSource',
             'effect' => 'OUTPUT',
@@ -1377,6 +1378,7 @@ abstract class FlowConvertor
           'targetLocation' => STORMS,
           'excludeSelf' => true,
           'upTo' => true,
+          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
           'effect' => FT::ACTION(CHECK_CONDITION, [
             'condition' => 'isTargetForestLessOrEqualToSource',
             'effect' => 'OUTPUT',
@@ -1392,6 +1394,7 @@ abstract class FlowConvertor
           'targetLocation' => STORMS,
           'excludeSelf' => true,
           'upTo' => true,
+          'compareTargetBiome' => ['biome' => FOREST, 'op' => 'lte', 'source' => 'source'],
           'effect' => FT::ACTION(CHECK_CONDITION, [
             'condition' => 'isTargetForestLessOrEqualToSource',
             'effect' => 'OUTPUT',
@@ -5695,7 +5698,8 @@ abstract class FlowConvertor
           'targetType' => [CHARACTER, TOKEN],
           'targetLocation' => [STORM_LEFT, STORM_RIGHT, RESERVE],
           'excludeSelf' => true,
-          'effect' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'swapBoostsWithSource']),
+          'excludePreviousTarget' => true,
+          'effect' => FT::ACTION(BOOST_EXCHANGE, []),
         ]),
       ],
       840 => [
