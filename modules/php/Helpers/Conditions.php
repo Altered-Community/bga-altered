@@ -973,6 +973,21 @@ abstract class Conditions
     return !$otherCards->empty();
   }
 
+  public static function hasCompanionsInExpeditions($card, $event)
+  {
+    $inExpeditions = $card->getPlayer()->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) {
+      return $c->isGigantic() || in_array($c->getLocation(), STORMS);
+    });
+
+    foreach ($inExpeditions as $c) {
+      if (in_array(COMPANION, $c->getSubtypes())) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
   {
     $count = $card
