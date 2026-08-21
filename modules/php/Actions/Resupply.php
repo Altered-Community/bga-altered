@@ -65,7 +65,7 @@ class Resupply extends \ALT\Models\Action
 
   public function isDoable($player)
   {
-    return $this->getPlayer()->hasDeckCards();
+    return true;
   }
 
   protected $args = [
