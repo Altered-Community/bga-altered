@@ -19,6 +19,7 @@ class BR_Common_ClashofCombatants extends \ALT\Models\Card
       'extension' => 'NEJ',
       'subtypes' => [DISRUPTION],
       'effectDesc' => clienttranslate('$<FLEETING>.  Send to Reserve target Character with Base Cost {5} or less.'),
+      'flavorText' => clienttranslate('When will the cycle of hatred end ?'),
       'costHand' => 3,
       'costReserve' => 3,
       'effectPlayed' => FT::SEQ(
