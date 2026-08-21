@@ -75,6 +75,16 @@ class Player extends \ALT\Helpers\DB_Model
     return Cards::getInLocation("board-hero-$pId")->first();
   }
 
+  public function getHeroSignatureTokenType()
+  {
+    $hero = $this->getHero();
+    if (is_null($hero)) {
+      return null;
+    }
+    $tokenType = $hero->getSignatureToken();
+    return $tokenType !== '' ? $tokenType : null;
+  }
+
   public function getHeroCollection()
   {
     $pId = $this->id;
