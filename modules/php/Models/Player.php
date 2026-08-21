@@ -233,6 +233,19 @@ class Player extends \ALT\Helpers\DB_Model
     })->count();
   }
 
+  public function hasPlayedConstructionThisDay()
+  {
+    $played = Globals::getConstructionPlayedThisDay();
+    return ($played[$this->id] ?? false) === true;
+  }
+
+  public function markConstructionPlayedThisDay()
+  {
+    $played = Globals::getConstructionPlayedThisDay();
+    $played[$this->id] = true;
+    Globals::setConstructionPlayedThisDay($played);
+  }
+
   public function hasPlayedCard($id)
   {
     return Cards::hasPlayedCard($this->id, $id);
@@ -980,6 +993,66 @@ class Player extends \ALT\Helpers\DB_Model
       }
     }
     return false;
+  }
+
+   public function getSacrificeProtectAnchoredLandmarks()
+  {
+    return $this->getLandmarks()->filter(function ($card) {
+      return $card->isSacrificeProtectAnchored();
+    });
+  }
+
+  public function getSacrificeProtectAsleepLandmarks()
+  {
+    return $this->getLandmarks()->filter(function ($card) {
+      return $card->isSacrificeProtectAsleep();
+    });
+  }
+
+  public function buildSacrificeProtectAnchoredChoice($characterCardId, $alternativeNode)
+  {
+    return $this->buildSacrificeProtectLandmarkChoice(
+      $characterCardId,
+      $alternativeNode,
+      $this->getSacrificeProtectAnchoredLandmarks(),
+      FT::LOOSE($characterCardId, ANCHORED)
+    );
+  }
+
+  public function buildSacrificeProtectAsleepChoice($characterCardId, $alternativeNode)
+  {
+    return $this->buildSacrificeProtectLandmarkChoice(
+      $characterCardId,
+      $alternativeNode,
+      $this->getSacrificeProtectAsleepLandmarks()
+    );
+  }
+
+  private function buildSacrificeProtectLandmarkChoice($characterCardId, $alternativeNode, $fanes, $afterSacrificeEffect = null)
+  {
+    if ($fanes->empty()) {
+      return null;
+    }
+
+    if (count($fanes->getIds()) == 1) {
+      $sacrificeNode = FT::ACTION(DISCARD, [
+        'cardId' => $fanes->first()->getId(),
+        'desc' => 'sacrifice',
+      ], ['pId' => $this->getId()]);
+    } else {
+      $sacrificeNode = FT::ACTION(TARGET, [
+        'targetType' => [PERMANENT],
+        'targetLocation' => [LANDMARK],
+        'targetPlayer' => ME,
+        'cards' => $fanes->getIds(),
+        'effect' => FT::ACTION(DISCARD, ['desc' => 'sacrifice']),
+      ], ['pId' => $this->getId()]);
+    }
+
+    $protectPath = is_null($afterSacrificeEffect) ? $sacrificeNode : FT::SEQ($sacrificeNode, $afterSacrificeEffect);
+    $toAdd = FT::XOR($protectPath, $alternativeNode);
+    $toAdd['pId'] = $this->getId();
+    return $toAdd;
   }
 
   public function hasProtectAnchoredInExpedition($expedition, $gigantic = false)
