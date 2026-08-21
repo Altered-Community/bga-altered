@@ -18,6 +18,7 @@ class MU_Rare_AltrunLinebacker extends \ALT\Models\Card
       'extension' => 'NEJ',
       'subtypes' => [ADVENTURER],
       'effectDesc' => clienttranslate('{H} I gain $<FLEETING> unless there\'s a <COMPANION> in your Expeditions.'),
+      'flavorText'  => clienttranslate('"Uju stopped Altrun, and so did I, when I became Atasdi\'s Squire." - Kojo'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
