@@ -18,24 +18,29 @@ class BR_Common_HerostratusBurnerofTemples extends \ALT\Models\Card
       'artist' => 'Gamon Studio',
       'extension' => 'NEJ',
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{R} You may discard one of your Mana Orbs to discard target Permanent with Base Cost {3} or less.'),
+      'effectDesc' => clienttranslate('{H} You may discard one of your Mana Orbs to discard target Permanent with Base Cost {3} or less.'),
       'forest' => 3,
       'mountain' => 1,
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
-      'effectReserve' =>  FT::SEQ_OPTIONAL(
-        FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(
+        TARGET,
+        [
           'targetPlayer' => ME,
           'targetLocation' => [MANA],
           'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-          'effect' => FT::ACTION(DISCARD, []),
-        ]),
-        FT::ACTION(TARGET, [
-          'targetType' => [PERMANENT],
-          'maxHandCost' => 3,
-          'effect' => FT::ACTION(DISCARD, []),
-        ])
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(TARGET, [
+              'targetType' => [PERMANENT],
+              'maxBaseCost' => 3,
+              'effect' => FT::ACTION(DISCARD, []),
+            ])
+          ),
+        ],
+        ['optional' => true]
       ),
     ];
   }

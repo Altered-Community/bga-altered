@@ -18,24 +18,29 @@ class AX_Rare_HerostratusBurnerofTemples extends \ALT\Models\Card
       'artist' => 'Gamon Studio',
       'extension' => 'NEJ',
       'subtypes' => [SOLDIER],
-      'effectDesc' => clienttranslate('{R} You may discard #a card from your Reserve# to discard #target Permanent#.'),
+      'effectDesc' => clienttranslate('{H} You may discard #a card from your Reserve# to discard #target Permanent#.'),
       'forest' => 3,
       'mountain' => 2,
       'ocean' => 3,
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['mountain'],
-      'effectReserve' =>  FT::SEQ_OPTIONAL(
-        FT::ACTION(TARGET, [
+      'effectHand' => FT::ACTION(
+        TARGET,
+        [
           'targetPlayer' => ME,
           'targetLocation' => [RESERVE],
           'targetType' => [CHARACTER, TOKEN, SPELL, PERMANENT],
-          'effect' => FT::ACTION(DISCARD, []),
-        ]),
-        FT::ACTION(TARGET, [
-          'targetType' => [PERMANENT],
-          'effect' => FT::ACTION(DISCARD, []),
-        ])
+          'upTo' => true,
+          'effect' => FT::SEQ(
+            FT::ACTION(DISCARD, []),
+            FT::ACTION(TARGET, [
+              'targetType' => [PERMANENT],
+              'effect' => FT::ACTION(DISCARD, []),
+            ])
+          ),
+        ],
+        ['optional' => true]
       ),
     ];
   }
