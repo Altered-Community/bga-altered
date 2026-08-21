@@ -18,7 +18,7 @@ class AX_Rare_Polyphemus extends \ALT\Models\Card
       'artist' => 'Saeed Jalabi',
       'extension' => 'NEJ',
       'subtypes' => [TITAN, ROGUE],
-      'effectDesc' => clienttranslate('Gigantic#, Tough 1#.  {J} You may discard a Character from your Reserve to give me #3 boosts#.'),
+      'effectDesc' => clienttranslate('Gigantic,# Tough 1#.  {J} You may discard a Character from your Reserve to give me #3 boosts#.'),
       'forest' => 3,
       'mountain' => 3,
       'ocean' => 3,
