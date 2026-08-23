@@ -207,6 +207,8 @@ class Resupply extends \ALT\Models\Action
         );
         $cards = $drawn;
         $checkpoint = false;
+      } else {
+        $cards = $drawn;
       }
     } else {
       $cards = $player->draw(
