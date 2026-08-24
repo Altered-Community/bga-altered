@@ -2185,6 +2185,12 @@ abstract class Conditions
   {
     return self::isNotMe($card, $event) && ($event['location'] ?? null) != MANA;
   }
+  
+  // Trireme Trickster (Yzmir)
+  public static function isMyDraw($card, $event)
+  {
+    return self::isMe($card, $event) && ($event['location'] ?? null) != MANA;
+  }
 
   public static function realResupply($card, $event)
   {
