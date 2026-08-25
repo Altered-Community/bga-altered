@@ -267,6 +267,8 @@ class SpecialEffect extends \ALT\Models\Action
       // Fugue
       case 'blockOpponentsCardNameThisDay':
         return clienttranslate('Opponents can\'t play cards with that name this Day');
+      case 'boostXMonoVisibleRegions':
+        return clienttranslate('Gain 1 boost per visible single-terrain region');
     }
     return '';
   }
@@ -2555,6 +2557,12 @@ class SpecialEffect extends \ALT\Models\Action
           Globals::setBlockedCardNamesThisDay($blocked);
         }
         break; 
+      case 'boostXMonoVisibleRegions':
+        $n = Conditions::getCountMonoVisibleRegions();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;   
       default:
         break;
     }
