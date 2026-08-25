@@ -173,6 +173,15 @@ class MoveExpedition extends \ALT\Models\Action
           'winningBiomes' => $winningBiomes,
           'ascended' => $ascended,
         ];
+
+        // Pegasus is cumulative: all copies apply to a single move instead of being alternatives
+        $pegasusCards = [];
+        foreach ($actionInsteadAdvance[$pId][$expedition] as $cId => $action) {
+          if ($action == 'PegasusCommon') {
+            $pegasusCards[] = $cId;
+          }
+        }
+
         if (!in_array('ErisCommon', $actionInsteadAdvance[$pId][$expedition]) && !in_array('ErisRare', $actionInsteadAdvance[$pId][$expedition]) && !in_array('PegasusCommon', $actionInsteadAdvance[$pId][$expedition])) {
           $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
         }
@@ -211,10 +220,11 @@ class MoveExpedition extends \ALT\Models\Action
             } else {
               $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $n]), ['pId' => $pId]);
             }
-          } elseif ($action == 'PegasusCommon') {
-            $pegasusN = (empty($winningBiomes) && $ascended) ? $n + 1 : $n;
-            $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $pegasusN]), ['pId' => $pId, 'sourceId' => $cId]);
           }
+        }
+        if (!empty($pegasusCards)) {
+          $pegasusN = (empty($winningBiomes) && $ascended) ? $n + count($pegasusCards) : $n;
+          $nodes[] = FT::ACTION(MOVE_EXPEDITION, array_merge($forcedMoveArgs, ['n' => $pegasusN]), ['pId' => $pId, 'sourceId' => $pegasusCards[0]]);
         }
         if (!empty($nodes)) {
           $this->insertAsChild(
