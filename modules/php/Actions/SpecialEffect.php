@@ -267,6 +267,8 @@ class SpecialEffect extends \ALT\Models\Action
       // Fugue
       case 'blockOpponentsCardNameThisDay':
         return clienttranslate('Opponents can\'t play cards with that name this Day');
+      case 'gainOnRevealedType':
+        return clienttranslate('Gain an effect if the revealed card matches a type');
     }
     return '';
   }
@@ -2553,6 +2555,22 @@ class SpecialEffect extends \ALT\Models\Action
             }
           }
           Globals::setBlockedCardNamesThisDay($blocked);
+        }
+        break; 
+      case 'gainOnRevealedType':
+        $player = $card->getPlayer();
+        $type = $args['type'];
+        $gainType = $args['gainType'] ?? BOOST;
+        $n = $args['n'] ?? 1;
+        $revealed = Utils::getRevealedCard($player);
+        if ($revealed === null) {
+          break;
+        }
+        $matches = in_array($type, SUBTYPES)
+          ? Conditions::subTypeCheck($type, $revealed->getSubtypes())
+          : Conditions::typeCheck($type, $revealed->getType(), $revealed->isToken(), $revealed->getAdditionalType());
+        if ($matches) {
+          $this->insertAsChild(FT::GAIN($card, $gainType, $n));
         }
         break; 
       default:

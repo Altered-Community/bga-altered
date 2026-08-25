@@ -109,7 +109,7 @@ abstract class Utils extends \APP_DbObject
 
   public static function die($args = null)
   {
-    throw new \Bga\GameFramework\VisibleSystemException(json_encode($args));
+    throw new \BgaVisibleSystemException(json_encode($args));
   }
 
   /**
@@ -404,6 +404,15 @@ abstract class Utils extends \APP_DbObject
       ['type' => TOKEN, 'additionalTypes' => [], 'subtypes' => []],
       ['type' => CHARACTER, 'additionalTypes' => [FEAT], 'subtypes' => []],
     ];
+  }
+
+  public static function getRevealedCard($player)
+  {
+    $revealed = \ALT\Managers\Cards::getInLocation('reveal-' . $player->getId())->first();
+    if ($revealed === null) {
+      $revealed = \ALT\Managers\Cards::getInLocation('reveal-%')->first();
+    }
+    return $revealed;
   }
 }
 
