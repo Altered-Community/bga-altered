@@ -1334,17 +1334,21 @@ abstract class Conditions
     return ($card->getExtraDatas()['userPower'] ?? false) == true;
   }
   
+  /**
+   * Charges are stored per copy (pId => [cardId => charges]): with two completed copies,
+   * arming one must not make the other one think it is armed.
+   * Legacy saves stored a single player-wide charge count instead.
+   */
   public static function getSmokeThemOutCharges($pId, $cardId = null)
   {
     $val = Globals::getSmokeThemOutArmed()[$pId] ?? 0;
-    if (is_int($val) || (is_string($val) && ctype_digit($val))) {
-      return (int) $val;
+    if (is_array($val)) {
+      if ($cardId === null) {
+        return (int) array_sum($val);
+      }
+      return (int) ($val[$cardId] ?? 0);
     }
-    if ($val) {
-      // Legacy saves stored cardId instead of a charge count.
-      return ($cardId === null || $val == $cardId) ? 1 : 0;
-    }
-    return 0;
+    return (int) $val;
   }
 
   public static function isSmokeThemOutArmed($card, $event)
@@ -1352,25 +1356,46 @@ abstract class Conditions
     return self::getSmokeThemOutCharges($card->getPId(), $card->getId()) > 0;
   }
 
-  public static function armSmokeThemOut($pId)
+  public static function armSmokeThemOut($pId, $cardId)
   {
     $armed = Globals::getSmokeThemOutArmed();
-    $armed[$pId] = self::getSmokeThemOutCharges($pId) + 1;
+    $charges = is_array($armed[$pId] ?? null) ? $armed[$pId] : [];
+    $charges[$cardId] = ($charges[$cardId] ?? 0) + 1;
+    $armed[$pId] = $charges;
     Globals::setSmokeThemOutArmed($armed);
   }
 
   public static function consumeSmokeThemOutCharge($pId, $cardId = null)
   {
-    $charges = self::getSmokeThemOutCharges($pId, $cardId);
-    if ($charges <= 0) {
+    $armed = Globals::getSmokeThemOutArmed();
+    $charges = $armed[$pId] ?? null;
+
+    if (!is_array($charges)) {
+      $remaining = self::getSmokeThemOutCharges($pId, $cardId) - 1;
+      if ($remaining < 0) {
+        return;
+      }
+      if ($remaining == 0) {
+        unset($armed[$pId]);
+      } else {
+        $armed[$pId] = $remaining;
+      }
+      Globals::setSmokeThemOutArmed($armed);
       return;
     }
-    $armed = Globals::getSmokeThemOutArmed();
-    $remaining = $charges - 1;
-    if ($remaining <= 0) {
+
+    if ($cardId === null || ($charges[$cardId] ?? 0) <= 0) {
+      return;
+    }
+
+    $charges[$cardId]--;
+    if ($charges[$cardId] <= 0) {
+      unset($charges[$cardId]);
+    }
+    if (empty($charges)) {
       unset($armed[$pId]);
     } else {
-      $armed[$pId] = $remaining;
+      $armed[$pId] = $charges;
     }
     Globals::setSmokeThemOutArmed($armed);
   }

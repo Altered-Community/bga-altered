@@ -352,7 +352,7 @@ class SpecialEffect extends \ALT\Models\Action
         $card->setExtraDatas($data);
         break;
       case 'armSmokeThemOut':
-        Conditions::armSmokeThemOut($card->getPId());
+        Conditions::armSmokeThemOut($card->getPId(), $card->getId());
         break;
       case 'disarmSmokeThemOut':
         Conditions::consumeSmokeThemOutCharge($card->getPId(), $card->getId());
