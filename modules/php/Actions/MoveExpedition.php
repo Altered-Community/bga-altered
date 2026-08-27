@@ -2,15 +2,11 @@
 
 namespace ALT\Actions;
 
-use ALT\Managers\Meeples;
 use ALT\Managers\Players;
 use ALT\Managers\Cards;
 use ALT\Core\Globals;
 use ALT\Core\Notifications;
-use ALT\Core\Stats;
-use ALT\Helpers\Utils;
 use ALT\Helpers\FT;
-use ALT\Core\Engine;
 
 class MoveExpedition extends \ALT\Models\Action
 {
@@ -33,6 +29,7 @@ class MoveExpedition extends \ALT\Models\Action
     'winningBiomes' => [],
     'moveOtherExpedition' => false,
     'ascended' => false,
+    'hasMovedFromAscension' => false,
   ];
 
   public function getSides()
@@ -133,7 +130,7 @@ class MoveExpedition extends \ALT\Models\Action
     $args = $this->argsMoveExpedition();
     $gigantic = false;
     if (!in_array($expe, $args['expeditions'])) {
-      throw new \Bga\GameFramework\VisibleSystemException('Invalid expedition all. Should not happen');
+      throw new \BgaVisibleSystemException('Invalid expedition all. Should not happen');
     }
 
     if (!is_null($this->getSource()) && $this->getSource()->isGigantic()) {
@@ -159,6 +156,7 @@ class MoveExpedition extends \ALT\Models\Action
     $player = Players::get($pId);
     $winningBiomes = $this->getArg('winningBiomes');
     $ascended = $player->isAscended($expedition);
+    $hasMovedFromAscension = $this->getArg('hasMovedFromAscension') === true;
 
     // Rune's testament / Pegasus / Eris (non-dusk forced moves from spells and effects)
     if ($this->getArg('force') === false) {
@@ -172,6 +170,7 @@ class MoveExpedition extends \ALT\Models\Action
           'forceExpedition' => [$pId, $expedition],
           'winningBiomes' => $winningBiomes,
           'ascended' => $ascended,
+          'hasMovedFromAscension' => $hasMovedFromAscension,
         ];
 
         // Pegasus is cumulative: all copies apply to a single move instead of being alternatives
@@ -240,7 +239,7 @@ class MoveExpedition extends \ALT\Models\Action
     }
     $winningBiomes = $this->getArg('winningBiomes');
     if (($n > 0 && !Players::hasOpponentBlockMoveExpedition($player, $expedition)) || $n < 0) {
-      $moved = $player->advanceStorm($token, $winningBiomes, $n, false, true, $source);
+      $moved = $player->advanceStorm($token, $winningBiomes, $n, $hasMovedFromAscension, true, $source);
     } else {
       $moved = false;
     }
