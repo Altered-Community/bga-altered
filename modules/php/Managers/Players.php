@@ -5,7 +5,6 @@ namespace ALT\Managers;
 use ALT\Core\Game;
 use ALT\Core\Globals;
 use ALT\Core\Stats;
-use ALT\Helpers\Utils;
 use ALT\Helpers\Collection;
 use ALT\Managers\Meeples;
 use ALT\Core\Notifications;
@@ -694,6 +693,7 @@ class Players extends \ALT\Helpers\CachedDB_Manager
             'forceExpedition' => [$pId, $expedition],
             'winningBiomes' => $winningBiomes,
             'ascended' => $isAscended,
+            'hasMovedFromAscension' => $hasMovedFromAscension,
           ];
 
           // Pegasus is cumulative: all copies apply to a single move instead of being alternatives
