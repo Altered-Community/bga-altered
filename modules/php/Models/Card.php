@@ -1085,18 +1085,7 @@ class Card extends \ALT\Helpers\DB_Model
       foreach ($biomes as $type => &$value) {
         $value += $boost;
       }
-
-      $dynamicIncrease = $this->getDynamicIncreaseBiomeHighestSelf();
-      $dynSplit = explode(':', $dynamicIncrease);
-
-      if (count($dynSplit) > 1) {
-        // we need to test if ok, add change dynamic tough to the value of 0
-        if (!is_null(Utils::checkAttributeCondition('cost', $dynamicIncrease, $this->getPlayer(), $this))) {
-          $dynamicIncreaseSelf = (int) $dynSplit[0];
-        } else {
-          $dynamicIncreaseSelf = 0;
-        }
-      }
+      $dynamicIncreaseSelf = $this->hasBiomesEqualToHighestSelf() ? 1 : 0;
     }
     if ($increaseBiomesToHighest == true || $dynamicIncreaseSelf == 1) {
       $max = 0;
@@ -1106,6 +1095,37 @@ class Card extends \ALT\Helpers\DB_Model
       $biomes = [OCEAN => $max, MOUNTAIN => $max, FOREST => $max];
     }
     return $biomes;
+  }
+
+  /**
+   * 240692 - Interaction between Big Bad Wolf and Lyra Aerialist
+   * <code>dynamicIncreaseBiomeHighestSelf</code> (Lyra Aerialist, Urbex Specialist, unique power 573) is a printed
+   * passive, so it only shapes the statistics while the Character is in an Expedition: a copy waiting in a Reserve
+   * keeps its printed statistics, e.g. when Sabotage compares them. Reserve-scoped grants coming from
+   * {@see effectInfinity} are the exception and stay active there.
+   */
+  public function hasBiomesEqualToHighestSelf(): bool
+  {
+    $dynamicIncrease = $this->getDynamicIncreaseBiomeHighestSelf();
+    if (!is_array($dynamicIncrease)) {
+      $dynamicIncrease = $dynamicIncrease === '' ? [] : [$dynamicIncrease];
+    }
+    if (count($dynamicIncrease) == 0) {
+      return false;
+    }
+
+    $printed = isset($this->properties['dynamicIncreaseBiomeHighestSelf']);
+    if ($printed && !in_array($this->getLocation(), STORMS)) {
+      return false;
+    }
+
+    foreach ($dynamicIncrease as $singleIncrease) {
+      if ((int) Utils::checkAttributeCondition('cost', $singleIncrease, $this->getPlayer(), $this) == 1) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
