@@ -12,6 +12,7 @@ use ALT\Core\Globals;
 use ALT\Core\Stats;
 use ALT\Helpers\FlowConvertor;
 use ALT\Helpers\Utils;
+use ALT\Models\Card;
 use ALT\Models\Player;
 use ALT\Helpers\FT;
 
