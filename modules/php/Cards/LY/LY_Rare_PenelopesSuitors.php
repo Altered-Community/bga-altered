@@ -14,7 +14,6 @@ class LY_Rare_PenelopesSuitors extends \ALT\Models\Card
       'rarity' => RARITY_RARE,
       'name' => clienttranslate('Penelope\'s Suitors'),
       'typeline' => clienttranslate('Character - Noble, Rogue'),
-      'flavorText' => clienttranslate('The suitors of Penelope are a diverse bunch.'),
       'artist' => 'Zaeliven',
       'extension' => 'NEJ',
       'type' => CHARACTER,
