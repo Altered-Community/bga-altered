@@ -269,6 +269,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Opponents can\'t play cards with that name this Day');
       case 'boostTargetHighestStat':
         return clienttranslate('Gain boosts equal to target\'s highest statistic');
+      case 'sacrificeAllCharacters':
+        return clienttranslate('Sacrifice all Characters in target Expedition');
     }
     return '';
   }
@@ -2565,6 +2567,22 @@ class SpecialEffect extends \ALT\Models\Action
         $n = min($maxBoosts - $card->countToken(BOOST), $n);
         if ($n > 0) {
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+      case 'sacrificeAllCharacters':
+        $expedition = $this->getCtxArg('expedition');
+        $pId = $this->getCtxArg('player');
+        $nodes = [];
+        $ownerId = $card->getPId();
+  
+        foreach (Players::get($pId)->getPlayedCards() as $cId => $character) {
+          if ($character->getType() != CHARACTER) {
+            continue;
+          }
+          if ($character->getLocation() == $expedition || (in_array($expedition, STORMS) && $character->isGigantic())) {
+            $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'desc' => 'sacrifice'], ['sourceId' => $this->getSourceId(), 'pId' => $ownerId]);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
         }
         break;
       default:
