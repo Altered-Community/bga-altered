@@ -20,7 +20,6 @@ class LY_Rare_BetweenaRockandaHardPlace extends \ALT\Models\Card
       'costHand' => 3,
       'costReserve' => 3,
       'changedStats' => ['costHand', 'costReserve'],
-      'fleeting' => true,
       'effectPlayed' => FT::SEQ(
         FT::GAIN(ME, FLEETING),
         FT::ACTION(TARGET_PLAYER, [
