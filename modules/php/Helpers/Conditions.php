@@ -71,10 +71,32 @@ abstract class Conditions
   {
     return ($event['from'] ?? null) == HAND;
   }
+  
+  public static function isToStorm($card, $event)
+  {
+    return in_array($event['to'] ?? null, STORMS);
+  }
 
   public static function isToReserve($card, $event)
   {
     return ($event['to'] ?? null) == RESERVE;
+  }
+
+  public static function hasHeroSignatureToken($card, $event)
+  {
+    return !is_null($card->getPlayer()->getHeroSignatureTokenType());
+  }
+
+  public static function isAddedToMyExpedition($card, $event)
+  {
+    if (!isset($event['cardId'])) {
+      return false;
+    }
+    $locationPId = $event['locationPId'] ?? -1;
+    if ($card->getPId() != $locationPId) {
+      return false;
+    }
+    return Cards::get($event['cardId'])->getPId() == $locationPId;
   }
 
   public static function isToDiscard($card, $event)
@@ -776,6 +798,30 @@ abstract class Conditions
     $c = Cards::get($cardId);
     return Meeples::countMeeples('card-' . $c->getId(), FEAT_COMPLETED) >= 1;
   }
+  
+  public static function hasControlCharacterWithMinBaseCost($card, $event, $minBaseCost, $n = 1, $op = 'GTE')
+  {
+    $minBaseCost = (int) $minBaseCost;
+    $n = (int) $n;
+    $cards = $card->getPlayer()->getPlayedCards()->filter(function ($c) use ($minBaseCost) {
+      if ($c->getType() != CHARACTER && !in_array(CHARACTER, $c->getAdditionalType())) {
+        return false;
+      }
+      $baseCost = $c->hasToken(FLEETING) ? $c->getCostReserve() : $c->getCostHand();
+      return $baseCost >= $minBaseCost;
+    });
+    $m = $cards->count();
+    if ($op == 'GTE') {
+      return $m >= $n;
+    }
+    if ($op == 'LTE') {
+      return $m <= $n;
+    }
+    if ($op == 'EQ') {
+      return $m == $n;
+    }
+    throw new \BgaVisibleSystemException('Unknown op for hasControlCharacterWithMinBaseCost: ' . $op);
+  }
 
   /**
    * Counts Feat permanents you control in play (same zones / filters as hasControl for subtype feat).
@@ -956,6 +1002,21 @@ abstract class Conditions
     return !$otherCards->empty();
   }
 
+  public static function hasCompanionsInExpeditions($card, $event)
+  {
+    $inExpeditions = $card->getPlayer()->getPlayedCards([CHARACTER, TOKEN])->filter(function ($c) {
+      return $c->isGigantic() || in_array($c->getLocation(), STORMS);
+    });
+
+    foreach ($inExpeditions as $c) {
+      if (in_array(COMPANION, $c->getSubtypes())) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public static function checkReserveCards($card, $event, $n, $op = 'GTE')
   {
     $count = $card
@@ -1100,6 +1161,68 @@ abstract class Conditions
   public static function hasOpponentControl($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
   {
     return self::hasControl($card, $event, $type, $n, $excludeMyself, $state, $op, true);
+  }
+
+  public static function hasControlInReserveOrExpeditions($card, $event, $type, $n, $excludeMyself = 'false', $state = 'all', $op = 'GTE')
+  {
+    $types = [CHARACTER, TOKEN];
+    $subTypes = null;
+    if ($type == TOKEN) {
+      $types = [CHARACTER, PERMANENT];
+    }
+    if ($type == PERMANENT) {
+      $types = [PERMANENT];
+    }
+    if (in_array($type, SUBTYPES)) {
+      $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+    }
+    if (strpos($type, '|') !== false) {
+      $maybeSubtypes = explode('|', $type);
+      $allSubtypes = count(array_intersect($maybeSubtypes, SUBTYPES)) == count($maybeSubtypes);
+      if ($allSubtypes) {
+        $subTypes = $maybeSubtypes;
+        $types = [CHARACTER, TOKEN, PERMANENT, SPELL];
+      }
+    }
+
+    $player = $card->getPlayer();
+    $cards = $player->getReserveCards()
+      ->merge($player->getPlayedCards())
+      ->filter(function ($c) use ($types) {
+        return in_array($c->getType(), $types) || count(array_intersect($types, $c->getAdditionalType())) > 0;
+      });
+
+    if ($type == TOKEN) {
+      $cards = $cards->filter(fn($c) => $c->isToken());
+    }
+
+    if (in_array($type, SUBTYPES)) {
+      $cards = $cards->filter(fn($c) => in_array($type, $c->getSubtypes()));
+    }
+    if (!is_null($subTypes)) {
+      $cards = $cards->filter(fn($c) => count(array_intersect($subTypes, $c->getSubtypes())) > 0);
+    }
+
+    if ($excludeMyself === 'true') {
+      $cards = $cards->filter(fn($c) => $c->getId() != $card->getId());
+    }
+
+    if ($state != 'all') {
+      if ($state == 'boosted') {
+        $cards = $cards->filter(fn($c) => $c->hasToken(BOOST));
+      } elseif ($state == 'fleeting') {
+        $cards = $cards->filter(fn($c) => $c->hasToken(FLEETING));
+      } elseif ($state == 'exhausted') {
+        $cards = $cards->filter(fn($c) => $c->isTapped());
+      }
+    }
+    $m = $cards->count();
+    if ($op == 'GTE') {
+      return $m >= $n;
+    }
+    if ($op == 'LTE') {
+      return $m <= $n;
+    }
   }
 
   public static function hasControlExhaustedPermanentOrReserve($card, $event)
@@ -2062,6 +2185,12 @@ abstract class Conditions
   {
     return self::isNotMe($card, $event) && ($event['location'] ?? null) != MANA;
   }
+  
+  // Trireme Trickster (Yzmir)
+  public static function isMyDraw($card, $event)
+  {
+    return self::isMe($card, $event) && ($event['location'] ?? null) != MANA;
+  }
 
   public static function realResupply($card, $event)
   {
@@ -2548,6 +2677,15 @@ abstract class Conditions
   {
     $subTypes = explode('|', $subType);
     return count(array_intersect($card->getSubtypes(), $subTypes)) > 0;
+  }
+
+  public static function isTargetSubtype($card, $event, $subType)
+  {
+    $cardId = $event['cardId'] ?? null;
+    if ($cardId === null) {
+      return false;
+    }
+    return self::isSubtype(Cards::get($cardId), $event, $subType);
   }
 
   /**********************************
