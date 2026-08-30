@@ -122,7 +122,8 @@ class ChooseAssignment extends \ALT\Models\Action
           }
           // Free gifts skip mana cost but keep the same exhausted-reserve rules as canBePlayed /
           // getPlayableLocation (Vaike, Kelonic Heater, …). Empty destinations are dropped below.
-          return $card->getMinManaOrbs() <= $player->getTotalMana()
+          return !$card->isNameBlockedThisDay($player)
+            && $card->getMinManaOrbs() <= $player->getTotalMana()
             && !$card->isExhaustedReservePlayBlocked($player)
             && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
         })
@@ -137,6 +138,7 @@ class ChooseAssignment extends \ALT\Models\Action
       $scouts = $handCards
         ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits, $matchesSubType) {
           $meetsFreeScoutCost = $free
+            && !$card->isNameBlockedThisDay($player)
             && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
           return $card->getScout() > 0
             && in_array($card->getType(), $authorizedTypes)
@@ -154,6 +156,7 @@ class ChooseAssignment extends \ALT\Models\Action
         ->merge($reserveCards)
         ->filter(function ($card) use ($player, $authorizedTypes, $free, $freeCostLimits, $matchesSubType) {
           $meetsFreeTempleCost = $free
+            && !$card->isNameBlockedThisDay($player)
             && $this->cardMeetsExplicitFreeCostLimits($card, $freeCostLimits);
           return $card->hasTemple()
             && in_array($card->getType(), $authorizedTypes)
@@ -287,6 +290,10 @@ class ChooseAssignment extends \ALT\Models\Action
 
     if ($card->getPId() != $player->getId()) {
       throw new \BgaVisibleSystemException('You do not own this card. Should not happen');
+    }
+    
+    if ($card->isNameBlockedThisDay($player)) {
+      throw new \BgaUserException(clienttranslate('You cannot play cards with that name this Day'));
     }
 
     if ($free == false) {

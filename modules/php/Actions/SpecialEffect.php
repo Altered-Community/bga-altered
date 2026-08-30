@@ -264,6 +264,11 @@ class SpecialEffect extends \ALT\Models\Action
         return ($this->getArg('args')['n'] ?? 1) > 1
           ? clienttranslate('Target opponent may exhausted-resupply twice')
           : clienttranslate('Target opponent may exhausted-resupply');
+      // Fugue
+      case 'blockOpponentsCardNameThisDay':
+        return clienttranslate('Opponents can\'t play cards with that name this Day');
+      case 'sacrificeAllCharacters':
+        return clienttranslate('Sacrifice all Characters in target Expedition');
     }
     return '';
   }
@@ -1792,7 +1797,22 @@ class SpecialEffect extends \ALT\Models\Action
               $nodes[] = ['action' => LOOSE, 'args' => ['cardId' => $dId, 'type' => ANCHORED]];
               continue;
             }
+          
+            $toAdd = Players::get($dPId)->buildSacrificeProtectAnchoredChoice($dId, FT::ACTION(DISCARD, ['cardId' => $dId, 'force' => true]));
+            if ($toAdd) {
+              $nodes[] = $toAdd;
+              continue;
+            }
           }
+
+          if (in_array($dCard->getLocation(), STORMS) && $dCard->hasToken(ASLEEP) && in_array($dCard->getType(), [TOKEN, CHARACTER])) {
+            $toAdd = Players::get($dPId)->buildSacrificeProtectAsleepChoice($dId, FT::ACTION(DISCARD, ['cardId' => $dId, 'force' => true]));
+            if ($toAdd) {
+              $nodes[] = $toAdd;
+              continue;
+            }
+          }
+          
           $nodes[] = FT::ACTION(DISCARD, ['cardId' => $dId]);
         }
         if (!empty($nodes)) {
@@ -2514,6 +2534,46 @@ class SpecialEffect extends \ALT\Models\Action
           'pId' => $opponentId,
           'childs' => $childs,
         ]);
+        break;
+      // FUGUE
+      case 'blockOpponentsCardNameThisDay':
+        $targetCardId = $this->getCtxArg('cardId');
+        if (is_array($targetCardId)) {
+          $targetCardId = $targetCardId[0] ?? null;
+        }
+        if (!is_null($targetCardId)) {
+          $targetCard = Cards::get($targetCardId);
+          $cardName = $targetCard->getName();
+          $blocked = Globals::getBlockedCardNamesThisDay();
+          foreach (Players::getAll() as $pId => $opponent) {
+            if ($pId == $card->getPId()) {
+              continue;
+            }
+            $blocked[$pId] = $blocked[$pId] ?? [];
+            if (!in_array($cardName, $blocked[$pId], true)) {
+              $blocked[$pId][] = $cardName;
+            }
+          }
+          Globals::setBlockedCardNamesThisDay($blocked);
+        }
+        break; 
+      case 'sacrificeAllCharacters':
+        $expedition = $this->getCtxArg('expedition');
+        $pId = $this->getCtxArg('player');
+        $nodes = [];
+        $ownerId = $card->getPId();
+  
+        foreach (Players::get($pId)->getPlayedCards() as $cId => $character) {
+          if ($character->getType() != CHARACTER) {
+            continue;
+          }
+          if ($character->getLocation() == $expedition || (in_array($expedition, STORMS) && $character->isGigantic())) {
+            $nodes[] = FT::ACTION(DISCARD, ['cardId' => $cId, 'desc' => 'sacrifice'], ['sourceId' => $this->getSourceId(), 'pId' => $ownerId]);
+          }
+        }
+        if (!empty($nodes)) {
+          $this->insertAsChild(['type' => NODE_SEQ, 'childs' => $nodes]);
+        }
         break;
       default:
         break;

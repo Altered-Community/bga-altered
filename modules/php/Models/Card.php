@@ -202,8 +202,11 @@ class Card extends \ALT\Helpers\DB_Model
     'cantGainBoost' => 'str', // Conditions required to not gain boosts
     'boostIfAscended' => 'bool', // Wigwagging Kiwi
 
-     // Fugue
-     'costReductionIfConstructionPlayed' => 'int',
+    // Fugue
+    'costReductionIfConstructionPlayed' => 'int',
+    'sacrificeProtectAnchored' => 'bool', // Fane of Calypso
+    'sacrificeProtectAsleep' => 'bool', // Fane of Calypso (Ordis)
+    'universalToughScope' => 'str', // Restricts a universalCharacter Tough aura, e.g. Trireme Captain
   ];
 
   /********* DB ACCESS *********/
@@ -415,6 +418,10 @@ class Card extends \ALT\Helpers\DB_Model
       return false;
     }
 
+    if ($this->isNameBlockedThisDay($player)) {
+      return false;
+    }
+
     $playCondition = $this->getPlayCondition();
     if ($playCondition != null) {
       if (!Conditions::check(['condition' => $playCondition], $this, null)) {
@@ -494,6 +501,14 @@ class Card extends \ALT\Helpers\DB_Model
       }
     }
     return $cost <= $mana && $this->getMinManaOrbs() <= $totalMana;
+  }
+
+  /**
+   * Ship Security Officer (and similar): opponents can't play cards with that name this Day.
+   */
+  public function isNameBlockedThisDay($player)
+  {
+    return Players::isCardNameBlockedThisDay($player->getId(), $this->getName());
   }
 
   /**
@@ -1422,6 +1437,14 @@ class Card extends \ALT\Helpers\DB_Model
     }
 
     if ($this->isToken() && $this->getPlayer()->countUniversalTokenGigantic() > 0) {
+      return true;
+    }
+
+    if (
+      in_array(COMPANION, $this->getSubtypes())
+      && in_array($this->getLocation(), STORMS)
+      && $this->getPlayer()->countUniversalCompanionGigantic() > 0
+    ) {
       return true;
     }
 

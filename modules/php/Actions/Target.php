@@ -62,6 +62,7 @@ class Target extends \ALT\Models\Action
     'isNotTapped' => false,
     'compareTargetBiome' => null, // e.g. ['biome' => FOREST, 'op' => 'lte', 'source' => 'source' or 'cardId']
     'noBoostIfBoosted' => false, // Eole: e.g. Deploy the Shields; omit from card defs unless true
+    'giganticOnly' => false, // Fugue: Rare Blinding Blow
   ];
 
   public function getDescription()
@@ -297,6 +298,7 @@ class Target extends \ALT\Models\Action
     $excludeTokens = $this->getArg('excludeToken');
     $onlyTokens = $this->getArg('onlyToken');
     $ascendedOnly = $this->getArg('ascendedOnly');
+    $giganticOnly = $this->getArg('giganticOnly');
 
     if (!empty($this->getArg('cards'))) {
       $cards = Cards::getMany($this->getArg('cards'))->filter(function ($c) use ($targetLocation, $targetType) {
@@ -343,7 +345,7 @@ class Target extends \ALT\Models\Action
     $compareFilter = $this->resolveCompareTargetBiomeFilter();
 
     // Which criteria ?
-    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $maxStatisticBiome, $augmentOnly, $ascendedOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter,$noBoostIfBoosted) {
+    $cards = $cards->filter(function ($c) use ($excludeSelf, $excludePreviousTarget, $previousTargetId, $sourceId, $maxHandCost, $subType, $notSubTypes, $player, $checkTough, $filteredBiomes, $excludedBiomes, $isTapped, $maxStatistic, $maxStatisticBiome,  $augmentOnly, $ascendedOnly, $giganticOnly, $monoBiome, $maxBaseCost, $minBaseCost, $isNotTapped, $compareFilter, $noBoostIfBoosted) {
       if ($excludeSelf && $c->getId() == $sourceId) {
         return false;
       }
@@ -383,6 +385,10 @@ class Target extends \ALT\Models\Action
       }
 
       if($noBoostIfBoosted && $c->countToken(BOOST) > 0){
+        return false;
+      }
+            
+      if ($giganticOnly && !$c->isGigantic()) {
         return false;
       }
 
@@ -541,17 +547,17 @@ class Target extends \ALT\Models\Action
     $totalOcean = $this->getArg('totalOcean');
 
     if (!empty(array_diff($cardIds, $args['cardIds']))) {
-      throw new \Bga\GameFramework\VisibleSystemException('You cannot target these cards. Should not happen');
+      throw new \BgaVisibleSystemException('You cannot target these cards. Should not happen');
     }
     if (count($cardIds) > $args['n']) {
-      throw new \Bga\GameFramework\VisibleSystemException('You selected too many cards. Should not happen');
+      throw new \BgaVisibleSystemException('You selected too many cards. Should not happen');
     }
     if (
       !$args['upTo'] &&
       ((count($args['cardIds']) >= $args['n'] && count($cardIds) < $args['n']) ||
         (count($args['cardIds']) < $args['n'] && count($cardIds) != count($args['cardIds'])))
     ) {
-      throw new \Bga\GameFramework\VisibleSystemException('You havent selected enough cards. Should not happen');
+      throw new \BgaVisibleSystemException('You havent selected enough cards. Should not happen');
     }
 
     // Tough
