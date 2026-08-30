@@ -5731,7 +5731,7 @@ abstract class FlowConvertor
       ],
       845 => [
         'description' => clienttranslate('I gain 1 boost per Feat in your Landmarks.'),
-        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXLandmark']),
+        'output' => FT::ACTION(SPECIAL_EFFECT, ['effect' => 'boostXFeat']),
       ],
       846 => [
         'description' => clienttranslate('I gain 1 boost, otherwise discard the top card of your deck.'),
