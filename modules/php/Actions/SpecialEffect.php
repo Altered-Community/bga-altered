@@ -82,6 +82,8 @@ class SpecialEffect extends \ALT\Models\Action
         return clienttranslate('Boost number of cards in reserve');
       case 'boostXLandmark':
         return clienttranslate('Boost number of landmarks');
+      case 'boostXFeat':
+        return clienttranslate('Boost number of feats');  
       case 'boostXReserveAll':
         return clienttranslate('Boost number of all cards in reserve');
       case 'boost3Stat0':
@@ -601,6 +603,15 @@ class SpecialEffect extends \ALT\Models\Action
           $this->insertAsChild(FT::GAIN($card, BOOST, $n));
         }
         break;
+      case 'boostXFeat':
+        $n = $card
+          ->getPlayer()
+          ->getFeats()
+          ->count();
+        if ($n > 0) {
+          $this->insertAsChild(FT::GAIN($card, BOOST, $n));
+        }
+        break;  
       case 'boostXFleetingChar';
         $n = $card
           ->getPlayer()
