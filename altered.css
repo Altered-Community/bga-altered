@@ -3538,6 +3538,10 @@ html {
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_B_BR_116_E] {
   background-image: url("img/illustrations/BR/ALT_EOLE_B_BR_116_E.jpg");
 }
+.altered-card .altered-card-wrapper[data-asset=ALT_EOLE_A_BR_116_E],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_A_BR_116_E] {
+  background-image: url("img/illustrations/BR/ALT_EOLE_A_BR_116_E.jpg");
+}
 .altered-card .altered-card-wrapper[data-asset=ALT_EOLE_B_BR_117_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_B_BR_117_C] {
   background-image: url("img/illustrations/BR/ALT_EOLE_B_BR_117_C.jpg");
