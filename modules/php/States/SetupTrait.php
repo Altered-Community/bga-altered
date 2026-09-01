@@ -375,14 +375,14 @@ trait SetupTrait
     /////////////////////////////////////////
     // Changing all alt-art into basic art
     /////////////////////////////////////////
-    $deck[HERO] = $this->transformingAltArtToBasicArt($deck[HERO]);
-    $cards = $deck['cards'];
-    $sanitizeAltArtCards = [];
-    foreach ($cards as $ref => $quantity) {
-      $sanitizeAltArtCards[$this->transformingAltArtToBasicArt($ref)] = $quantity;
-      unset($cards[$ref]);
-    }
-    $deck['cards'] = $sanitizeAltArtCards;
+    // $deck[HERO] = $this->transformingAltArtToBasicArt($deck[HERO]);
+    // $cards = $deck['cards'];
+    // $sanitizeAltArtCards = [];
+    // foreach ($cards as $ref => $quantity) {
+    //   $sanitizeAltArtCards[$this->transformingAltArtToBasicArt($ref)] = $quantity;
+    //   unset($cards[$ref]);
+    // }
+    // $deck['cards'] = $sanitizeAltArtCards;
     /////////////////////////////////////////
     // Changing all alt-art into basic art
     /////////////////////////////////////////
@@ -583,9 +583,9 @@ trait SetupTrait
       }
     } else {
       // Normal handling, just replacing the Alt or Promo tag by the Basic tag
-      if (in_array($cardExploded[2], ['A', 'P'])) {
-        $cardExploded[2] = 'B';
-      }
+      // if (in_array($cardExploded[2], ['A', 'P'])) {
+      //   $cardExploded[2] = 'B';
+      // }
 
       // Replacing PromoSet by corresponding Basic set (when corresponding to only one set)
       $promoSetsToReplace = [
