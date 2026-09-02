@@ -224,6 +224,7 @@ class Cards extends \ALT\Helpers\CachedPieces
       if (isset(self::getAltArt()[$altUid])) {
         $altArt = self::getAltArt()[$altUid];
         $cardO->setFlavorText($altArt['flavorText']);
+        $unsuffixedAltUid = $altUid;
         if ($cardO->getRarity() == RARITY_RARE) {
           $cardO->setAsset($altUid . '_R');
           $altUid .= '_R';
@@ -238,8 +239,8 @@ class Cards extends \ALT\Helpers\CachedPieces
           $altUid .= '_U';
         }
 
-        if (isset(self::getAltArt()[$altUid]['mainAsset'])) {
-          $cardO->setMainAsset(self::getAltArt()[$altUid]['mainAsset']);
+        if (isset(self::getAltArt()[$unsuffixedAltUid]['mainAsset'])) {
+          $cardO->setMainAsset(self::getAltArt()[$unsuffixedAltUid]['mainAsset']);
         } else {
           $cardO->setMainAsset($altUid);
         }
@@ -961,12 +962,6 @@ class Cards extends \ALT\Helpers\CachedPieces
       'ALT_BISE_A_MU_62' => ['flavorText' => ''],
       'ALT_BISE_A_OR_63' => ['flavorText' => ''],
       'ALT_BISE_A_YZ_62' => ['flavorText' => ''],
-      'ALT_ALIZE_A_AX_35' => ['flavorText' => ''],
-      'ALT_ALIZE_A_BR_37' => ['flavorText' => ''],
-      'ALT_ALIZE_A_LY_34' => ['flavorText' => ''],
-      'ALT_ALIZE_A_MU_35' => ['flavorText' => ''],
-      'ALT_ALIZE_A_OR_38' => ['flavorText' => ''],
-      'ALT_ALIZE_A_YZ_36' => ['flavorText' => ''],
       'ALT_BISE_A_AX_56' => ['flavorText' => ''],
       'ALT_BISE_A_BR_58' => ['flavorText' => ''],
       'ALT_BISE_A_LY_53' => ['flavorText' => ''],
@@ -1101,8 +1096,6 @@ class Cards extends \ALT\Helpers\CachedPieces
       'ALT_CORE_P_YZ_01' => ['flavorText' => '', 'fullArt' => true],
       'ALT_CORE_P_YZ_02' => ['flavorText' => '', 'fullArt' => true],
       'ALT_CORE_P_YZ_03' => ['flavorText' => '', 'fullArt' => true],
-      'ALT_DUSTEROP_P_AX_93' => ['flavorText' => ''],
-      'ALT_DUSTEROP_P_AX_97' => ['flavorText' => ''],
       'ALT_DUSTEROP_P_BR_94' => ['flavorText' => ''],
       'ALT_DUSTEROP_P_BR_95' => ['flavorText' => ''],
       'ALT_DUSTEROP_P_LY_87' => ['flavorText' => ''],
