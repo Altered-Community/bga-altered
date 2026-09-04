@@ -1119,6 +1119,12 @@ class Cards extends \ALT\Helpers\CachedPieces
       'ALT_WCQ25_P_MU_16' => ['flavorText' => ''],
       'ALT_WCQ25_P_OR_05' => ['flavorText' => ''],
       'ALT_WCQ25_P_YZ_05' => ['flavorText' => ''],
+      'ALT_WCS26_P_AX_95_E' => ['flavorText' => ''],
+      'ALT_WCS26_P_BR_98_E' => ['flavorText' => ''],
+      'ALT_WCS26_P_LY_98_E' => ['flavorText' => ''],
+      'ALT_WCS26_P_MU_96_E' => ['flavorText' => ''],
+      'ALT_WCS26_P_OR_97_E' => ['flavorText' => ''],
+      'ALT_WCS26_P_YZ_94_E' => ['flavorText' => ''],
     ];
   }
 

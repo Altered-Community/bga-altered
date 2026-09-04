@@ -3606,6 +3606,10 @@ html {
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_P_BR_105_C] {
   background-image: url("img/illustrations/BR/ALT_EOLE_P_BR_105_C.jpg");
 }
+.altered-card .altered-card-wrapper[data-asset=ALT_WCS26_P_BR_98_E],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_WCS26_P_BR_98_E] {
+  background-image: url("img/illustrations/BR/ALT_WCS26_P_BR_98_E.jpg");
+}
 .altered-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_LY_34_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_LY_34_C] {
   background-image: url("img/illustrations/LY/ALT_ALIZE_A_LY_34_C.jpg");
@@ -5129,6 +5133,10 @@ html {
 .altered-card .altered-card-wrapper[data-asset=ALT_EOLE_P_LY_105_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_P_LY_105_C] {
   background-image: url("img/illustrations/LY/ALT_EOLE_P_LY_105_C.jpg");
+}
+.altered-card .altered-card-wrapper[data-asset=ALT_WCS26_P_LY_98_E],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_WCS26_P_LY_98_E] {
+  background-image: url("img/illustrations/LY/ALT_WCS26_P_LY_98_E.jpg");
 }
 .altered-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_MU_35_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_MU_35_C] {
@@ -6697,6 +6705,10 @@ html {
 .altered-card .altered-card-wrapper[data-asset=ALT_EOLE_P_MU_65_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_P_MU_65_C] {
   background-image: url("img/illustrations/MU/ALT_EOLE_P_MU_65_C.jpg");
+}
+.altered-card .altered-card-wrapper[data-asset=ALT_WCS26_P_MU_96_E],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_WCS26_P_MU_96_E] {
+  background-image: url("img/illustrations/MU/ALT_WCS26_P_MU_96_E.jpg");
 }
 .altered-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_OR_38_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_ALIZE_A_OR_38_C] {
@@ -8274,6 +8286,10 @@ html {
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_P_OR_65_C] {
   background-image: url("img/illustrations/OD/ALT_EOLE_P_OR_65_C.jpg");
 }
+.altered-card .altered-card-wrapper[data-asset=ALT_WCS26_P_OR_97_E],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_WCS26_P_OR_97_E] {
+  background-image: url("img/illustrations/OD/ALT_WCS26_P_OR_97_E.jpg");
+}
 .altered-card .altered-card-wrapper[data-asset=ALT_ALIZE_B_NE_02_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_ALIZE_B_NE_02_C] {
   background-image: url("img/illustrations/NE/ALT_ALIZE_B_NE_02_C.jpg");
@@ -9841,6 +9857,10 @@ html {
 .altered-card .altered-card-wrapper[data-asset=ALT_EOLE_P_YZ_105_C],
 .altered-card.mini-card .altered-card-wrapper[data-asset=ALT_EOLE_P_YZ_105_C] {
   background-image: url("img/illustrations/YZ/ALT_EOLE_P_YZ_105_C.jpg");
+}
+.altered-card .altered-card-wrapper[data-asset=ALT_WCS26_P_YZ_94_E],
+.altered-card.mini-card .altered-card-wrapper[data-asset=ALT_WCS26_P_YZ_94_E] {
+  background-image: url("img/illustrations/YZ/ALT_WCS26_P_YZ_94_E.jpg");
 }
 .altered-card .altered-card-wrapper[data-asset=back],
 .altered-card.mini-card .altered-card-wrapper[data-asset=back] {
