@@ -809,12 +809,14 @@ class ChooseAssignment extends \ALT\Models\Action
                   $newEffect[] = FT::GAIN($card->getId(), BOOST);
                 }
           
+                // Boost from Fab Lab Unit rare (etc.) must run after the chosen {R}, not as an XOR option
+                $afterEffects = [];
                 if (($addEffect['boost'] ?? 0) > 0) {
-                  $newEffect[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
+                  $afterEffects[] = FT::GAIN($card->getId(), BOOST, $addEffect['boost']);
                 }
           
                 if ($matchCount > 1) {
-                  $effects[] = [
+                  $choice = [
                     'type' => NODE_OR,
                     'args' => ['n' => $matchCount],
                     'pId' => $player->getId(),
@@ -822,8 +824,10 @@ class ChooseAssignment extends \ALT\Models\Action
                     'childs' => $newEffect
                   ];
                 } else {
-                  $effects[] = FT::XOR(...$newEffect);
+                  $choice = FT::XOR(...$newEffect);
                 }
+
+                $effects[] = empty($afterEffects) ? $choice : FT::SEQ($choice, ...$afterEffects);
               } else {
                 if (!empty($newEffect)) {
                   $newEffect = [$newEffect];
