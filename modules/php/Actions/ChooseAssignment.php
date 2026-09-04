@@ -903,7 +903,10 @@ class ChooseAssignment extends \ALT\Models\Action
           $this->updateAfterFinishingChilds(['noIndependent' => true]);
         }
       }
+      // Track if the played card has its own effects that were pushed
+      $hasCardEffects = !empty($effects);
     } else {
+      $hasCardEffects = false;
       Notifications::message(clienttranslate('Effects are not triggered, due to an effect in the opponent\'s expedition'), []);
     }
 
@@ -923,6 +926,10 @@ class ChooseAssignment extends \ALT\Models\Action
         'stealOwnership' => $stealOwnership,
       ]);
 
+      // Count children before adding passives
+      $afterFinishingNode = Engine::getAfterFinishingNode();
+      $childCountBefore = count($afterFinishingNode->getChilds());
+
       $this->checkAfterListeners($player, [
         'playCard' => true,
         'cardId' => $cardId,
@@ -939,6 +946,13 @@ class ChooseAssignment extends \ALT\Models\Action
         'token' => $card->isToken(),
         'stealOwnership' => $stealOwnership,
       ]);
+
+      // If the card has its own effects AND passives from other cards were added,
+      // force manual choice for effect ordering (per game rules: player chooses order of simultaneous effects)
+      $childCountAfter = count($afterFinishingNode->getChilds());
+      if ($hasCardEffects && $childCountAfter > $childCountBefore) {
+        $this->updateAfterFinishingChilds(['noIndependent' => true]);
+      }
 
       if (in_array($card->getUid(), ['ALT_ALIZE_B_BR_45_C', 'ALT_ALIZE_B_BR_45_R1', 'ALT_ALIZE_B_BR_45_R2'])) {
         $this->checkAfterListeners($player, [
