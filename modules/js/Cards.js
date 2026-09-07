@@ -1665,12 +1665,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
           `;
 
         if (!p.hasOwnProperty('token')) {
-          tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-costs-bg' data-faction='${p.faction}'></div>`;
+          tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>`;
         }
       }
       if (showContent && !p.hasOwnProperty('token')) {
         tplData += `
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>`;
       }
@@ -1835,11 +1835,11 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
         tplData += `
           <div class='card-frame' data-size='${i.frameSize}' data-faction='${p.faction}' 
               data-rarity='${p.rarity}' data-support='${p.supportDesc ? 1 : 0}' data-type='spell'></div>
-          <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-costs-bg' data-faction='${p.faction}'></div>`;
+          <div class='rarity-gem' data-rarity='${p.rarity}'></div>`;
       }
       if (showContent) {
         tplData += `
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>
           <div class='card-name'style="font-size:${i.nameFontSize}">${_(p.name)}</div>
@@ -1920,12 +1920,12 @@ define(['dojo', 'dojo/_base/declare', g_gamethemeurl + 'modules/js/cardsData.js'
               }'></div>
           `;
         if (!p.hasOwnProperty('token')) {
-          tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>
-          <div class='card-costs-bg' data-faction='${p.faction}'></div>`;
+          tplData += ` <div class='rarity-gem' data-rarity='${p.rarity}'></div>`;
         }
       }
       if (showContent && !p.hasOwnProperty('token')) {
         tplData += `
+          <div class='card-costs-bg' data-faction='${p.faction}'></div>
           <div class='card-hand-cost ${changed('costHand')}'>${p.costHand}</div>
           <div class='card-reserve-cost ${changed('costReserve')}'>${p.costReserve}</div>`;
       }
