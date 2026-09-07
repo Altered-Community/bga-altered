@@ -1788,8 +1788,17 @@
          if (i == 'hero') return;
 
           let id = 'preview-' + i;
-          this.addCard({ id, properties: card.card.properties }, 'deck-cards');
-          let frame = $(`card-${id}`).querySelector('.card-frame');
+          let props = card.card.properties;
+          this.addCard({ id, properties: props }, 'deck-cards');
+          let cardEl = $(`card-${id}`);
+          let frame = cardEl.querySelector('.card-frame');
+          if (!frame && props.fullArt) {
+            cardEl.querySelector('.altered-card-wrapper').insertAdjacentHTML(
+              'afterbegin',
+              `<div class='card-frame' data-fullart='1' data-faction='${props.faction}' data-rarity='${props.rarity}'></div>`
+            );
+            frame = cardEl.querySelector('.card-frame');
+          }
           if (frame) frame.dataset.copies = card.n;
        });
      },
