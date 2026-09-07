@@ -1787,9 +1787,10 @@
        Object.entries(deck.cards).forEach(([i, card]) => {
          if (i == 'hero') return;
 
-         let id = 'preview-' + i;
-         this.addCard({ id, properties: card.card.properties }, 'deck-cards');
-         $(`card-${id}`).querySelector('.card-frame').dataset.copies = card.n;
+          let id = 'preview-' + i;
+          this.addCard({ id, properties: card.card.properties }, 'deck-cards');
+          let frame = $(`card-${id}`).querySelector('.card-frame');
+          if (frame) frame.dataset.copies = card.n;
        });
      },
 
