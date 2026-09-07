@@ -1788,7 +1788,7 @@
          if (i == 'hero') return;
 
           let id = 'preview-' + i;
-          this.addCard({ id, properties: card.card.properties }, 'deck-cards');
+          this.addCard({ id, properties: { ...card.card.properties, fullArt: false } }, 'deck-cards');
           let frame = $(`card-${id}`).querySelector('.card-frame');
           if (frame) frame.dataset.copies = card.n;
        });
