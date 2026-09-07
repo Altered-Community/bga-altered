@@ -15344,12 +15344,6 @@ body.focus-board .altered-player-board .player-board-infos {
   background: rgba(212, 175, 55, 0.9058823529);
   content: attr(data-copies) " / 1";
 }
-#altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-frame[data-fullart="1"] {
-  border: none;
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-}
 #altered-board-overlay #altered-overlay-content #overlay-APIdeck-details .altered-card .altered-card-wrapper .card-name {
   top: 4px;
   left: 66px;
